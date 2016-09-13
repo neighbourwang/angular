@@ -1,0 +1,23 @@
+{
+  "name": "foxCloud",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "dependencies": {
+  },
+  "devDependencies": {
+
+  },
+  "scripts": {
+    "start": "http-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.hpe.com/FoxCloud/frontend.git"
+  },
+  "author": "",
+  "homepage": "https://github.hpe.com/FoxCloud/frontend.git",
+  "engines" : {
+    "node" : "0.12.x"
+  }
+}
