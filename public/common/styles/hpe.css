@@ -18,22 +18,23 @@
 }
 /* globally */
 * {
-	font-family: 'MetricWeb', arial;
+	font-family: "微软雅黑";
 	font-size: 14px;
 	margin: 0;
 	padding: 0;
 	border: none;
 	outline: none;
 }
-body {
-	font-family: 'MetricWeb', arial;
+body , html{
+	font-family: "微软雅黑";
 	width: 100%;
 	margin: 0;
 	padding: 0;
 	background-color: #fff;
+	height:100%;
 }
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'MetricWeb', arial;
+	font-family: "微软雅黑";
 	font-weight: normal;
 }
 a {

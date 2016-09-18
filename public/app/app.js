@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Header from '../components/header';
 import LeftNavMenu from '../components/leftNavMenu';
-import CloudHostingInstanceList from '../components/cloudHostingInstanceList';
+//import CloudHostingPurchase from '../components/CloudHostingPurchase';
+import FoxCloudHostOrder from '../components/foxCloudHostOrder';
 import Footer from '../components/footer';
 import projectConstants from '../core/projectConstants';
 
@@ -12,14 +13,12 @@ const FoxCloud = React.createClass({
         return(
           <div>
                 <Header />
-                <LeftNavMenu  leftNavMenuLists = {leftNavMenuLists} />
-                <CloudHostingInstanceList  />
-                <Footer />
+                <LeftNavMenu leftNavMenuLists = {leftNavMenuLists} />
+                <FoxCloudHostOrder url="http://localhost:8000/testData.json" />
             </div>
-        );
+        )
     }
-});
-
+})
 
 ReactDOM.render(
     <FoxCloud />,

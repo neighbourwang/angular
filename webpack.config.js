@@ -12,7 +12,7 @@ module.exports = {
     ],
     output: {
         path: path.join(__dirname, 'static'),
-        filename: 'forCloud.app.js',
+        filename: 'foxCloud.app.js',
         publicPath:'/static/'
     },
     plugins:[

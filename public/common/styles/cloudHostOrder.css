@@ -1,0 +1,213 @@
+    .fc-container {
+        float:left;
+        width:80%;
+    }
+
+    .fc-row {
+        line-height: 40px;
+        height:40px;
+        clear: both;
+        padding: 10px 0px;
+    }
+
+    .fc-row-title {
+        width: 200px;
+        text-align: right;
+        float: left;
+        font-size: 22px;
+    }
+
+    .fc-row-title label {
+        vertical-align: middle;
+    }
+
+    .fc-row-content {
+        vertical-align: middle;
+        display: block;
+        font-size: 18px;
+    }
+
+    .fc-radio {
+        display: none;
+    }
+    .fc-radio + label {
+        border: solid 1px rgb(224, 225, 227);
+        padding: 2px 30px;
+        text-align: center;
+        line-height:40px;
+        cursor: pointer;
+        float: left;
+        font-size: 18px;
+    }
+    .fc-radio + label:hover {
+        border: solid 1px rgb(52, 185, 154);
+    }
+    .fc-radio:checked + label{
+        background-color:rgb(52, 185, 154);
+        color: rgb(255, 255, 255);
+    }
+    .fc-label{
+        border: solid 1px rgb(224, 225, 227);
+        background-color:rgb(52, 185, 154);
+        color: rgb(255, 255, 255);
+        padding: 2px 30px;
+        font-size: 18px;
+        text-align: center;
+        line-height:40px;
+        float: left;
+    }
+
+    .fc-header {
+        margin-top:40px;
+        margin-left:50px;
+        padding-bottom:15px;
+        border-bottom: solid 2px rgb(52, 185, 154);
+        margin-bottom: 30px;
+    }
+
+    .fc-header .fc-title {
+        font-size: 24px;
+        padding-left: 35px;
+        padding-bottom:15px;
+    }
+
+    .fc-header .fc-icon {
+    }
+
+    .crease {
+        border: solid 1px rgb(224, 225, 227);
+        float: left;
+        width: 40px;
+        line-height:40px;
+        text-align: center;
+        cursor: pointer;
+        color: rgb(153, 153, 153);
+    }
+
+    .counter-decrease {
+    }
+
+    .counter {
+        border: solid 1px rgb(224, 225, 227);
+        width: 80px;
+        text-align: center;
+        line-height:40px;
+        color: rgb(0, 169, 128);
+        float: left;
+        font-size: 18px;
+    }
+
+    .counter-increase {
+        
+    }
+
+    .fc-button {
+        border: solid 2px rgb(224, 225, 227);
+        cursor: pointer;
+    }
+
+    .fc-button:hover {
+        border: solid 2px rgb(52, 185, 154);
+    }
+
+    .fc-icon-instance {
+        background: url("../images/purchasing.png") no-repeat 5px 3px;
+    }
+    .fc-icon-reset {
+        background: url("../images/reset.png") no-repeat 10px center;
+    }
+    .fc-icon-reset:hover {
+         color: rgb(52, 185, 154);
+        background: url("../images/reset-on.png") no-repeat 10px center;
+    }
+    .fc-estimation {
+        width: 78%;
+        position:fixed;
+        right:30px;
+        bottom: 120px;
+        height:80px;
+        line-height: 80px;
+        background-color: rgb(239, 244, 248);
+        opacity: 0.8;
+    }
+    .fc-estimation .title {
+        position: absolute;
+        left: 30%;
+        font-size: 24px;
+    }
+    .fc-estimation .money-symbol {
+        position: absolute;
+        left: 40%;
+        font-size: 24px;
+        color: rgb(0, 169, 128);
+    }
+    .fc-estimation .money {
+        position: absolute;
+        left: 42%;
+        font-size: 24px;
+        color: rgb(0, 169, 128);
+    }
+    .fc-estimation .fc-button-reset {
+        left: 70%;
+        top:18px;
+        height:40px;
+        line-height: 40px;
+        font-size:18px;
+        position: absolute;
+        padding-left:40px;
+        padding-right:20px;
+    }
+    .fc-estimation .fc-button-addto-cart {
+        position: absolute;
+        left: 78%;
+        top:18px;
+        height:40px;
+        line-height: 40px;
+        padding-left:20px;
+        padding-right:40px;
+        font-size:18px;
+        background: url("../images/addCart.png") no-repeat 120px center;
+    }
+    .fc-estimation .fc-button-addto-cart:hover {
+        color: rgb(52, 185, 154);
+        background: url("../images/addCartOn.png") no-repeat 120px center;
+    }
+    .fc-cart-price {
+        background-color: rgb(239, 244, 248);
+        position: fixed;
+        right: 2%;
+        top: 120px;
+        padding: 5px;
+    }
+
+    .fc-cart-price .cart {
+        border-bottom: solid 1px rgb(224, 225, 227);
+        cursor: pointer;
+    }
+    .fc-cart-price .cart .fc-icon-cart {
+        background: url("../images/cart.png") no-repeat 7px 3px;
+        height: 40px;
+    }
+    .fc-cart-price .cart:hover .fc-icon-cart {
+        background: url("../images/cart-on.png") no-repeat 7px 3px;
+    }
+    .fc-cart-price .cart:hover .title {
+        color: rgb(52, 185, 154);
+    }
+    .fc-cart-price .price {
+        margin-top: 5px;
+        cursor: pointer;
+    }
+    .fc-cart-price .price .fc-icon-price {
+        background: url("../images/priceTable.png") no-repeat 9px 3px;
+        height: 40px;
+    }
+    .fc-cart-price .price:hover .fc-icon-price {
+        background: url("../images/priceTableOn.png") no-repeat 9px 3px;
+    }
+    .fc-cart-price .price:hover .title {
+        color: rgb(52, 185, 154);
+    }
+    .fc-cart-price .title {
+        color: rgb(224, 225, 227);
+    }
