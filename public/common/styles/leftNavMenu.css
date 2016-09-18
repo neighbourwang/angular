@@ -1,0 +1,24 @@
+.leftNavMenu{
+    float:left;
+    width:20%;
+    max-width:320px;
+    background-color:#425563;
+    color:#fff;
+    font-size:22px;
+    font-weight: bold;
+}
+.leftNavMenu ul li{
+    line-height:50px;
+    border-bottom: 1px solid #5e6e7a;
+    padding-left:20px;
+    list-style: none;
+}
+.leftNavMenu ul li ul li{
+    padding-left:20px;
+     border-bottom: none;
+}
+.leftNavMenu ul li ul li ul li{
+    background-color:#556673;
+    color:#b8c0c4;
+}
+

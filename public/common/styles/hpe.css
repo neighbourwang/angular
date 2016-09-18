@@ -1,0 +1,58 @@
+/*REGULAR*/
+@font-face {
+	font-family: 'MetricWeb';
+	font-weight: normal;
+	font-style: normal;
+	src: url(../fonts/MetricWeb-Regular.eot); /* IE9 compat */
+	src: url(../fonts/MetricWeb-Regular.eot?#iefix) format('embedded-opentype'), /* IE6-IE8 */
+		 url('../fonts/MetricWeb-Regular.woff') format('woff') /* non-IE *//*IE9 and some modern browsers*/;
+}
+/*BOLD*/
+@font-face {
+	font-family: 'MetricWeb';
+	font-weight: bold;
+	font-style: normal;
+	src: url(../fonts/MetricWeb-Bold.eot); /* IE9 compat */
+	src: url(../fonts/MetricWeb-Bold.eot?#iefix) format('embedded-opentype'), /* IE6-IE8 */    
+		 url('../fonts/MetricWeb-Bold.woff') format('woff') /* non-IE *//*IE9 and some modern browsers*/;
+}
+/* globally */
+* {
+	font-family: 'MetricWeb', arial;
+	font-size: 14px;
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: none;
+}
+body {
+	font-family: 'MetricWeb', arial;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'MetricWeb', arial;
+	font-weight: normal;
+}
+a {
+	cursor: pointer;
+	text-decoration: none;
+	color: #01a982;
+}
+a:hover, a:focus {
+	text-decoration: none;
+	color: #01a982;
+}
+.error {
+	font-size: 14px;
+	color: #f00;
+}
+.notice{
+	font-size: 14px;
+	color: #01a982;	
+}
+.clearBoth{
+	clear:both;	
+}
