@@ -1,0 +1,16 @@
+.spinner {
+  width: 100%;
+  height: 100%;
+
+  position: fixed;
+  background-color: rgba(140, 135, 135, 0.7);
+  z-index: 1000;
+}
+
+.spinner-icon {
+  background: url("common_components/spinner/image/spinner.gif") no-repeat 15px 25px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-position: 50%;
+}

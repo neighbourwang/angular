@@ -1,0 +1,195 @@
+	<div class="page-content-header icon-purchasing">订购</div>
+	<div class="page-content">
+		<div class="row no-padding">
+			<div class="col-md-2 text-right radio-group-title">订购 ：</div>
+			<div class="col-md-10 radio-group">
+				<input type="radio" name="" value="1" checked /><label for="">云主机</label>
+			</div>
+		</div>
+		<div class="row no-padding">
+			<div class="col-md-2 text-right radio-group-title">{{services.region_org_data.attrDisplayName}} ：</div>
+			<div class="col-md-10 radio-group">
+				<div *ngFor="let item of services.region_options" (click)="changeOpt('region', item);" >
+					<input type="radio" name="region" value="{{item}}" />
+					<label [ngClass]="{checked: (order && order.region && item.id== order.region.id)}">{{item.label}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row no-padding">
+			<div class="col-md-2 text-right radio-group-title">{{services.zone_org_data.attrDisplayName}} ：</div>
+			<div class="col-md-10 radio-group">
+				<div *ngFor="let item of services.zone_options" (click)="changeOpt('zone', item);">
+					<input type="radio" name="zone" value="{{item}}" />
+					<label [ngClass]="{checked: (order && order.zone && item.id== order.zone.id)}">{{item.label}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row no-padding">
+			<div class="col-md-2 text-right radio-group-title">网络类型 ：</div>
+			<div class="col-md-10 radio-group">
+				<input type="radio" name="network" value="1" checked /><label for="network">经典网络</label>
+			</div>
+		</div>
+		<div class="row no-padding">
+			<div class="col-md-2 text-right radio-group-title">{{services.cpu_org_data.attrDisplayName}} ：</div>
+			<div class="col-md-10 radio-group">
+				<div *ngFor="let item of services.cpu_options" (click)="changeOpt('cpu', item);">
+					<input type="radio" name="cpu" value="{{item}}" [(ngModel)]="order.cpu" />
+					<label [ngClass]="{checked: (order && order.cpu && item.id== order.cpu.id)}">{{item.label}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row no-padding">
+			<div class="col-md-2 text-right radio-group-title">{{services.mem_org_data.attrDisplayName}} ：</div>
+			<div class="col-md-10 radio-group">
+				<div *ngFor="let item of services.mem_options_disp" (click)="changeOpt('mem', item);">
+					<input type="radio" name="mem" value="{{item}}" [(ngModel)]="order.mem" />
+					<label [ngClass]="{checked: (order && order.mem && item.id== order.mem.id)}">{{item.label}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row no-padding">
+			<div class="col-md-2 text-right radio-group-title">{{services.imagetype_org_data.attrDisplayName}} ：</div>
+			<div class="col-md-10 radio-group">
+				<div *ngFor="let item of services.imagetype_options" (click)="changeOpt('imagetype', item);">
+					<input type="radio" name="imagetype" value="{{item}}" [(ngModel)]="order.imagetype" />
+					<label [ngClass]="{checked: (order && order.imagetype && item.id== order.imagetype.id)}">{{item.label}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row no-padding">
+			<div class="col-md-2 text-right radio-group-title">{{services.ostype_org_data.attrDisplayName}} ：</div>
+			<div class="col-md-10 radio-group">
+				<div *ngFor="let item of services.ostype_options" (click)="changeOpt('ostype', item);">
+					<input type="radio" name="ostype" value="{{item}}" [(ngModel)]="order.ostype" />
+					<label [ngClass]="{checked: (order && order.ostype && item.id== order.ostype.id)}">{{item.label}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row no-padding">
+			<div class="col-md-2 text-right radio-group-title">{{services.osversion_org_data.attrDisplayName}} ：</div>
+			<div class="col-md-10 radio-group">
+				<div *ngFor="let item of services.osversion_options_disp" (click)="changeOpt('osversion', item);">
+					<input type="radio" name="osversion" value="{{item}}" [(ngModel)]="order.osversion" />
+					<label [ngClass]="{checked: (order && order.osversion && item.id== order.osversion.id)}">{{item.label}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row no-padding">
+			<div class="col-md-2 text-right radio-group-title">{{services.storage_org_data.attrDisplayName}} ：</div>
+			<div class="col-md-10 radio-group">
+				<div class="input-group fox-cloud-input-group" style="width: 120px;">
+					<select class="form-control" [(ngModel)]="storageId" (ngModelChange)="changeOpt('storage', item);">
+						<option *ngFor="let item of services.storage_options" value="{{item.id}}">{{item.label}}</option>
+					</select>
+					<!--<div class="input-group-addon">&nbsp;G</div>-->
+				</div>
+			</div>
+		</div>
+		<div class="row no-padding">
+			<div class="col-md-2 text-right radio-group-title">{{services.timeline_org_data.attrDisplayName}} ：</div>
+			<div class="col-md-10 radio-group">
+				<div class="input-group fox-cloud-input-group" style="width: 120px;">
+					<select class="form-control" [(ngModel)]="timelineId" (ngModelChange)="changeOpt('timeline', item);">
+						<option *ngFor="let item of services.timeline_options" value="{{item.id}}">{{item.label}}</option>
+					</select>
+					<!--<div class="input-group-addon">月</div>-->
+				</div>
+			</div>
+		</div>
+		<div class="row no-padding">
+			<div class="col-md-2 text-right radio-group-title">购买数量 ：</div>
+			<div class="col-md-10 radio-group">
+				<div class="purching-adjust" id="s" (click)="purching_adjust(-1)">-</div>
+				<div id="purching-adjust" value="1" class="purching-count"><span>{{order.count}}</span>台</div>
+				<div class="purching-adjust" id="a" (click)="purching_adjust(1)">+</div>
+			</div>
+		</div>
+		<div class="row purching-estimation">
+			<div class="col-md-3 text-right purching-estimation-label">预购价：</div>
+			<div class="col-md-4 purching-estimation-value">￥{{order.totalPrice}}</div>
+			<div class="col-md-5 text-right purching-estimation-button-group">
+				<button class="fox-cloud-button fox-cloud-button-grey" (click)="reset()">
+					<span class="glyphicon glyphicon-refresh"></span>
+					<span class="icon-button-label icon-left-button-label">重置</span>
+				</button>
+				<button class="fox-cloud-button fox-cloud-button-grey" (click)="save()">
+					<span class="icon-button-label">加入购物车&gt;</span>
+				</button>
+			</div>
+		</div>
+	</div>
+	<div class="cart-price">
+		<div class="item-cart">
+			<div class="icon-cart"></div>
+			<div class="title">购物车</div>
+		</div>
+		<div class="item-price">
+			<div class="icon-price"></div>
+			<div class="title">价格表</div>
+		</div>
+	</div>
+	<div class="cart" style="display:none;">
+		<div class="title">购物车</div>
+		<div class="item">
+			<div class="cart-container">
+				<div class="name"><input type="checkbox" /><label>云主机名1</label></div>
+				<div>1年 * 1台</div>
+				<div>地域：上海</div>
+				<div>配置： 标准机型， 4核6G，数据盘200G</div>
+				<div class="price">
+					<label class="estimation">￥4350</label>
+					<label class="edit"></label>
+					<label class="review"></label>
+					<label class="delete"></label>
+				</div>
+			</div>
+		</div>
+		<div class="item">
+			<div class="cart-container">
+				<div class="name"><input type="checkbox" /><label>云主机名2</label></div>
+				<div>1年 * 1台</div>
+				<div>地域： 北京</div>
+				<div>配置： 标准机型， 1核2G，数据盘100G</div>
+				<div class="price">
+					<label class="estimation">￥3000</label>
+					<label class="edit"></label>
+					<label class="review"></label>
+					<label class="delete"></label>
+				</div>
+			</div>
+		</div>
+		<div>
+			<input type="checkbox" />全选
+		</div>
+		<div>
+			<label class="estimation">总价：￥1035000</label>
+			<button class="fox-cloud-button fox-cloud-button-grey">
+				<span class="icon-button-label">去结算&gt;</span>
+			</button>
+		</div>
+	</div>
+
+	<script>
+		function purching_adjust(op) {
+			var purching_adjust = $("#purching-adjust");
+
+			var purching_value = parseInt(purching_adjust.attr("value"), 10);
+
+			var op = event.target.id;
+
+			if (op == "s")
+			{
+				if (purching_value > 0)
+				{
+					purching_value --;
+				}
+			} else {
+				purching_value ++;
+			}
+
+			purching_adjust.attr("value", purching_value);
+
+			$(".purching-count").find("span").text(purching_value);
+		}
+	</script>

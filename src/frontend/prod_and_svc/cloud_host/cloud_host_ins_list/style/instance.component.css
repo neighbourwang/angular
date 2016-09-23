@@ -1,0 +1,85 @@
+/********云主机订购*********/
+.radio-group-title {
+	font-size: 22px;
+}
+.radio-group {
+	padding: 3px 0px 0px 0px;
+}
+.radio-group input[type="radio"] {
+	display: none;
+}
+.radio-group label {
+	border: solid 1px rgb(224, 225, 227);
+	padding: 0px 30px;
+	line-height: 35px;
+	text-align: center;
+	cursor: pointer;
+	float: left;
+	font-size: 18px;
+}
+.radio-group label:hover {
+	background-color:rgb(52, 185, 154);
+	color: rgb(255, 255, 255);
+}
+.radio-group input[type="radio"]:checked + label,
+.radio-group label.checked{
+	background-color:rgb(52, 185, 154);
+	color: rgb(255, 255, 255);
+}
+
+.purching-adjust {
+	border: solid 1px rgb(224, 225, 227);
+	float: left;
+	width: 40px;
+	line-height:35px;
+	text-align: center;
+	cursor: pointer;
+	color: rgb(153, 153, 153);
+    }
+
+.purching-count {
+	border: solid 1px rgb(224, 225, 227);
+	width: 80px;
+	text-align: center;
+	line-height:35px;
+	color: rgb(0, 169, 128);
+	float: left;
+	font-size: 18px;
+}
+
+.purching-estimation {
+	background-color: rgb(239, 244, 248);
+	line-height: 60px;
+	margin: auto;
+	margin-top: 30px;
+	width: 90%;
+}
+
+.purching-estimation-label {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.purching-estimation-value {
+	font-size: 20px;
+	font-weight: bold;
+	color: rgb(0, 169, 128);
+}
+
+.purching-estimation-button-group .button-fox-cloud:hover .icon-button-label {
+	color: #00a982;
+	font-weight: bold;
+}
+
+.pagination {
+	float: right;
+}
+
+.pagination li {
+	cursor: pointer;
+}
+
+.pagination li a.selected {
+	background-color: #00a982;
+	color: white;
+}
