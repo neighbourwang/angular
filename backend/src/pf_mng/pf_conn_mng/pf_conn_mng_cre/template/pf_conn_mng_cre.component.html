@@ -1,0 +1,140 @@
+<div class="page-content-header icon-content-header-platform-manage">平台接入管理</div>
+<div class="page-content">
+    <div style="padding-bottom: 10px;">
+        <button class="fox-cloud-button fox-cloud-button-green" onclick="creation();">
+            <span class="glyphicon glyphicon-edit"></span>
+            <span class="icon-button-label icon-left-button-label">创建</span>
+        </button>
+    </div>
+    <div class="table-container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="fristTh"><input type="checkbox"> 全选</th>
+                    <th>名称</th>
+                    <th>地址</th>
+                    <th>版本</th>
+                    <th>状态</th>
+                    <th>描述</th>
+                    <th class="fristTh"><a href="#" class="color-primary">收起<i class="glyphicon glyphicon-chevron-down"></i></a></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>WH-HOS3.0连接器1</td>
+                    <td>https://10.252.30.5:6000</td>
+                    <td>3.0</td>
+                    <td><span class="bg-success status"></span></td>
+                    <td>WUHAN环境测试</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>WH-HOS3.0连接器1</td>
+                    <td>https://10.252.30.5:6000</td>
+                    <td>3.0</td>
+                    <td><span class="bg-success status"></span></td>
+                    <td>WUHAN环境测试</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>WH-HOS3.0连接器1</td>
+                    <td>https://10.252.30.5:6000</td>
+                    <td>3.0</td>
+                    <td><span class="bg-success status"></span></td>
+                    <td>WUHAN环境测试</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="height: 50px;padding: 10px 0px 10px 0px;">
+        <div class="dropdown pull-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                更多操作
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">修改</a></li>
+                <li><a href="#">删除</a></li>
+                <li><a href="#">启用</a></li>
+                <li><a href="#">禁用</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="fristTh"><input type="checkbox"> 全选</th>
+                    <th>区域名称</th>
+                    <th>类型/厂商</th>
+                    <th>访问地址</th>
+                    <th>连接器</th>
+                    <th>状态</th>
+                    <th>状态说明</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>WH-HOS3.0连接器1</td>
+                    <td>https://10.252.30.5:6000</td>
+                    <td>3.0</td>
+                    <td>
+                        <p>SH-HOS3.0连接器1 <span class="bg-success status"></span></p>
+                        <p>SH-HOS3.0连接器1 <span class="bg-success status"></span></p>
+                        <p>SH-HOS3.0连接器1 <span class="bg-success status"></span></p>
+                    </td>
+                    <td>初始化</td>
+                    <td>同步失败</td>
+                    <td>
+                        <button class="fox-cloud-button-sm fox-cloud-button-white">
+                            <span class="icon-button-label icon-left-button-label">重试</span>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>WH-HOS3.0连接器1</td>
+                    <td>https://10.252.30.5:6000</td>
+                    <td>3.0</td>
+                    <td>
+                        <p>SH-HOS3.0连接器1 <span class="bg-success status"></span></p>
+                        <p>SH-HOS3.0连接器1 <span class="bg-success status"></span></p>
+                        <p>SH-HOS3.0连接器1 <span class="bg-success status"></span></p>
+                    </td>
+                    <td>初始化</td>
+                    <td>可用区名称配置失败</td>
+                    <td>
+                        <button class="fox-cloud-button-sm fox-cloud-button-white">
+                            <span class="icon-button-label icon-left-button-label">重试</span>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>WH-HOS3.0连接器1</td>
+                    <td>https://10.252.30.5:6000</td>
+                    <td>3.0</td>
+                    <td>
+                        <p>SH-HOS3.0连接器1 <span class="bg-success status"></span></p>
+                        <p>SH-HOS3.0连接器1 <span class="bg-danger status"></span></p>
+                        <p>SH-HOS3.0连接器1 <span class="bg-success status"></span></p>
+                    </td>
+                    <td>已启用</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+				function creation() {
+					_load_content("platform_creation_step_01");
+				}
+</script>
