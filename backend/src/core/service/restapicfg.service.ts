@@ -25,12 +25,13 @@ export class RestApiCfg {
                          .catch(this.handleError);
     }
     
-    getRestApiUrl(apiId: string, port?: string): string {
+    getRestApiUrl(apiId: string, ip?: string, port?: string): string {
         let url = '';
         port = port || this.basePort;
+        ip = ip || this.baseIp;
         for (let restItem of this.restApiList) {
             if (restItem.id.toLowerCase() === apiId.toLowerCase()) {
-                url = `http://${this.baseIp}:${port}/${restItem.url}`;
+                url = `http://${ip}:${port}/${restItem.url}`;
                 break;
             }
         }

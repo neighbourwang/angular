@@ -6,32 +6,25 @@ import { Directory } from '../model/directory';
     pure: false
 })
 export class DirectoryDispPipe implements PipeTransform {
-    transform(directories: Directory[], filter: string) {
+    transform(directories: Directory[], filter: number) {
         if (directories) {
             return directories.filter(directory => {
                 let found = false;
-                if (!filter || filter == '') {
+                if (directory.id && directory.id == filter) {
                     found = true;
-                } else {
-                    found = found || this.compString(directory.instanceName, filter);
-                    found = found || this.compString(directory.osInfo, filter);
-                    found = found || this.compString(directory.specification, filter);
-                    found = found || this.compString(directory.networkType, filter);
-                    found = found || this.compString(directory.paymentType, filter);
-                    found = found || this.compString(directory.ipAddress, filter)
                 }
-
+                
                 return found;
             });
         }
     }
 
-    compString(str1: string, str2: string): boolean {
+    compNumber(val1: number, val2: number): boolean {
         let ret: boolean = false;
 
-        if (!str2 || str2 == '') {
+        if (!val2 || val2 == 0) {
             ret = true;
-        } else if (str1 != null && str1.toLocaleLowerCase().indexOf(str2.toLocaleLowerCase()) >= 0){
+        } else if (val1 != null && val1 == val2){
             ret = true;
         }
 

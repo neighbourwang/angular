@@ -1,17 +1,55 @@
 [
     {
-        "id": "hosts.services.get",
-        "url": "marketplace/authsec/shopping/servicelist/vm"
+        "DESC": "获取全部服务目录列标",
+        "id": "pf_mng.svc_dir_mng.services.get",
+        "url": "svm/platforms/{platformid}/services"
     },
     {
-        "id": "hosts.order.add",
-        "url": "/marketplace/authsec/shopping/cart/vm"
+        "DESC": "获取全部地区列标",
+        "id": "pf_mng.svc_dir_mng.regions.get",
+        "url": "svm/regions"
+    },
+    {
+        "DESC": "更新服务目录信息",
+        "id": "pf_mng.svc_dir_mng.services.update",
+        "url": "svm/platforms/{platformid}/services/{id}"
+    },
+    {
+        "DESC": "删除单个服务目录",
+        "id": "pf_mng.svc_dir_mng.services.remove",
+        "url": "svm/platforms/{platformid}/services/{id}"
+    },
+    {
+        "DESC": "更新服务目录状态.1:发布, 0:取消发布",
+        "id": "pf_mng.svc_dir_mng.services.publish",
+        "url": "svm/platforms/{platformid}/services/{id}/status/{status}"
     },
 
-    
+
     {
-        "id": "hosts.instance.get",
-        "url": "marketplace/authsec/subinstance/itemlist/vm/page/{page}/size/{size}"
+        "DESC": "获取全部服务模板列表",
+        "id": "pf_mng.svc_dir_mng.servicetemplates.get",
+        "url": "svm/servicetemplates"
+    },
+    {
+        "DESC": "获取全部主机配置列表",
+        "id": "pf_mng.svc_dir_mng.flavors.get",
+        "url": "svm/platforms/{platformid}/flavors/"
+    },
+    {
+        "DESC": "获取全部可用区列表",
+        "id": "pf_mng.svc_dir_mng.zones.get",
+        "url": "svm/platforms/{platformid}/zones"
+    },
+    {
+        "DESC": "获取全部启动盘参数列表",
+        "id": "pf_mng.svc_dir_mng.storages.get",
+        "url": "svm/platforms/{platformid}/storages"
+    },
+    {
+        "DESC": "创建服务目录",
+        "id": "pf_mng.svc_dir_mng.services.create",
+        "url": "/svm/platforms/{platformid}/services"
     }
 
 ]

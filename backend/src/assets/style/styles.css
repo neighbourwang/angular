@@ -673,3 +673,17 @@ tr:nth-child(even) {
    padding: 0 !important;
    margin: 0 !important;
 }
+
+/****************分页*******************/
+.pagination {
+	float: right;
+}
+
+.pagination li {
+	cursor: pointer;
+}
+
+.pagination li a.selected {
+	background-color: #00a982;
+	color: white;
+}
