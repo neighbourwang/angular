@@ -54,11 +54,11 @@ const menu: Array<Object> = [
                 "top3_menu": [
                     {
                         "label": "概览",
-                        "routing": ""
+                        "routing": "pf_mng/svc_dir_mng/svc_dir_mng"
                     },
                     {
                         "label": "创建",
-                        "routing": ""
+                        "routing": "pf_mng/svc_dir_mng/svc_dir_cre_step_01"
                     }
                 ]
             }

@@ -1,0 +1,87 @@
+<div class="page-content-header icon-content-header-purchasing">服务目录管理</div>
+<div class="page-content">
+	<div style="padding-bottom: 10px;">
+		<div class="dropdown pull-right">
+			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			选择操作
+			<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+				<li><a href="#">修改</a></li>
+				<li><a href="#">删除</a></li>
+			</ul>
+		</div>
+		<div class="dropdown pull-right">
+			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			选择地区
+			<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+				<li><a href="#">上海A区</a></li>
+				<li><a href="#">上海B区</a></li>
+			</ul>
+		</div>
+		<button class="fox-cloud-button fox-cloud-button-green" onclick="creation();">
+			<span class="glyphicon glyphicon-edit"></span>
+			<span class="icon-button-label icon-left-button-label">创建目录</span>
+		</button>
+	</div>
+	<div class="table-container">
+		<table class="table table-hover"> 
+			<thead>
+				<tr>
+					<th class="fristTh"><input type="checkbox"> 全选</th>
+					<th>服务目录</th>
+					<th>服务模板</th>
+					<th>描述</th>
+					<th>状态</th>
+					<th>创建者</th> 
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><input type="checkbox"></td>
+					<td>标准云硬盘_SAS</td>
+					<td>云硬盘服务</td>
+					<td>10G，SAS储存方式</td>
+					<td><span class="bg-success status"></span></td>
+					<td>张三</td> 
+					<td><a href="#" class="btn btn-xs btn-default">挂起</a> <a href="#" class="btn btn-xs btn-default">恢复</a></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox"></td>
+					<td>标准云硬盘_SAS</td>
+					<td>云硬盘服务</td>
+					<td>10G，SAS储存方式</td>
+					<td><span class="bg-success status"></span></td>
+					<td>张三</td> 
+					<td><a href="#" class="btn btn-xs btn-default">挂起</a> <a href="#" class="btn btn-xs btn-default">恢复</a></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox"></td>
+					<td>标准云硬盘_SAS</td>
+					<td>云硬盘服务</td>
+					<td>10G，SAS储存方式</td>
+					<td><span class="bg-success status"></span></td>
+					<td>张三</td> 
+					<td><a href="#" class="btn btn-xs btn-default">挂起</a> <a href="#" class="btn btn-xs btn-default">恢复</a></td>
+				</tr> 
+				<tr>
+					<td><input type="checkbox"></td>
+					<td>标准云硬盘_SAS</td>
+					<td>云硬盘服务</td>
+					<td>10G，SAS储存方式</td>
+					<td><span class="bg-danger status"></span></td>
+					<td>张三</td> 
+					<td><a href="#" class="btn btn-xs btn-default">挂起</a> <a href="#" class="btn btn-xs btn-default">恢复</a></td>
+				</tr>  
+			</tbody>
+		</table>
+	</div>
+</div>
+<script>
+	function creation() {
+		_load_content("svc_dir_cre_step_01");
+	}
+</script>
