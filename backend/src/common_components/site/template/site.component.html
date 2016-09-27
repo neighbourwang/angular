@@ -1,61 +1,31 @@
 <fc-spinner [isRunning]="layoutService.showLoading"></fc-spinner>
 
 <div class="container-fluid fox-cloud-container">
-  <!--Header-->
-  <div *ngIf="layoutService.showHeader">
-    <div class="row header">
-      <div class="col-md-2 logo"></div>
-      <div class="col-md-7 console">控制台</div>
-      <div class="col-md-3">
-        <div class="row header-group">
-          <div class="col-md-4 help">帮助</div>
-          <div class="col-md-4 alert"><span class="fox-cloud-badge">3</span>提醒</div>
-          <div class="col-md-4 account">账户</div>
+    <!--Header-->
+    <div *ngIf="layoutService.showHeader" class="row header">
+        <div class="col-md-2 logo"></div>
+        <div class="col-md-7 console">控制台</div>
+        <div class="col-md-3">
+            <div class="row header-group">
+                <div class="col-md-4 help">帮助</div>
+                <div class="col-md-4 alert"><span class="fox-cloud-badge">3</span>提醒</div>
+                <div class="col-md-4 account">账户<span class="account-operation"></span></div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <div class="row content">
-    <!--Left Menu-->
-    <div *ngIf="layoutService.showHeader">
-      <div class="col-md-2 no-padding left-content">
-          <fc-menu></fc-menu>
-      </div>
-
-      <!-- Modal -->
-      <div class="modal fade" id="no_content_nitice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="fox-cloud-modal-header">
-          <div>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <div class="modal-title fox-cloud-modal-title" id="myModalLabel">错误提示</div>
-          </div>
-          </div>
-          <div class="fox-cloud-modal-body">
-          您选择的画面不存在，请联系系统管理员<br/>电话: 1234567
-          </div>
-          <div class="fox-cloud-modal-footer">
-          <button class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal">
-            <span class="icon-button-label">取消</span>
-          </button>
-          <button class="fox-cloud-button-lg fox-cloud-button-white">
-            <span class="icon-button-label">确认1234</span>
-          </button>
-          </div>
+    <div class="row content">
+        <!--Left Menu-->
+        <div *ngIf="layoutService.showHeader" class="col-md-2 no-padding left-content">
+            <fc-menu></fc-menu>
         </div>
-        </div>
-      </div>
-		</div>
 
-    <!--Body-->
-    <div class="col-md-10 right-content">
-      <router-outlet></router-outlet>
+        <!--Body-->
+        <div class="col-md-10 right-content">
+            <router-outlet></router-outlet>
+        </div>
     </div>
-  </div>
 
-  <!--Footer-->
-  <div class="row footer"><b>Hewlett Packard Enterprise</b></div>
+    <!--Footer-->
+    <div class="row footer"><b>Hewlett Packard Enterprise</b></div>
 </div>
-

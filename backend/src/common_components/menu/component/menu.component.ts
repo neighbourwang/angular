@@ -40,7 +40,7 @@ const menu: Array<Object> = [
             {
                 "label": "平台接入管理",
                 "isOpen": false,
-                "routing": ""
+                "routing": "pf-mng/pf-conn-mng/pf-conn-mng-cre"
             },
             {
                 "label": "平台系统",
@@ -54,11 +54,11 @@ const menu: Array<Object> = [
                 "top3_menu": [
                     {
                         "label": "概览",
-                        "routing": "pf_mng/svc_dir_mng/svc_dir_mng"
+                        "routing": ""
                     },
                     {
                         "label": "创建",
-                        "routing": "pf_mng/svc_dir_mng/svc_dir_cre_step_01"
+                        "routing": ""
                     }
                 ]
             }

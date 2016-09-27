@@ -6,7 +6,7 @@ import { HostOrderComponent } from './component/order.component';
 
 export const CloudHostOrderRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'prod_and_svc/cloud_host/cloud_host_order'
+        path: 'prod_and_svc/cloud_host/cloud_host_order',
         component: HostOrderComponent
     }
 ]);

@@ -30,6 +30,7 @@ export class MenuComponent implements OnInit {
 
 }
 
+// Backend Menu Definition
 const menu: Array<any> = [
     {
         "label": "产品与服务",
