@@ -3,9 +3,11 @@ import { NgModule } from '@angular/core';
 // Common Componets
 import { CommonComponentModule } from '../../common_components/common.module';
 
+import { PaginationComponent } from '../../common_components/pagination/component/pagination.component';
+
 // pf-conn-mng-cre
-import { PfConnMngCreComponent } from './component/pf-conn-mng-cre.component';
-import { PfConnMngCreService } from './service/pf-conn-mng-cre.service';
+import { PfConnMngComponent } from './component/pf-conn-mng.component';
+import { PfConnMngService } from './service/pf-conn-mng.service';
 
 import { PfCreStep01Component } from './component/pf-cre-step-01.component';
 import { PfCreStep01Service } from './service/pf-cre-step-01.service';
@@ -34,7 +36,8 @@ import { PfConnMngRouting } from './pf-conn-mng.routing';
         PfConnMngRouting
     ],
     declarations: [
-        PfConnMngCreComponent,
+        PaginationComponent,
+        PfConnMngComponent,
         PfCreStep01Component,
         PfCreStep02Component,
         PfCreStep03Component,
@@ -52,7 +55,7 @@ import { PfConnMngRouting } from './pf-conn-mng.routing';
         PfCreStep06Component,
     ],
     providers: [
-        PfConnMngCreService,
+        PfConnMngService,
         PfCreStep01Service,
         PfCreStep02Service,
         PfCreStep03Service,

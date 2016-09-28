@@ -57,4 +57,15 @@
         "url": "/noauth/svm/platforms/{platformid}/services/"
     }
 
+    {
+        "desc": "获取全部已创建平台信息",
+        "id": "pf.conn.mng.platforms.get",
+        "url": "adminui/authsec/platform"
+   },
+   {
+        "desc": "创建平台",
+        "id": "pf.cre.step.01.paltform.post",
+        "url": "adminui/authsec/platform"
+   }
+
 ]

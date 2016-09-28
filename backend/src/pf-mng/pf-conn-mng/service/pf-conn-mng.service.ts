@@ -5,8 +5,6 @@ import { RestApi } from '../../../core/service/restapi.service';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Platform } from '../model/platform.model';
-
 @Injectable()
 export class PfConnMngCreService {
     constructor(
@@ -20,8 +18,8 @@ export class PfConnMngCreService {
     }
 
     getPlatforms() {
-        let url = this.restApiCfg.getRestApiUrl("pf.conn.mng.cre.platforms.get");
+        let url = this.restApiCfg.getRestApiUrl("pf.conn.mng.platforms.get");
 
-        return this.restApi.get(url, undefined, undefined, undefined);
+        return this.restApi.get(url, undefined, undefined);
     }
 }

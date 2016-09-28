@@ -1,14 +1,24 @@
 ﻿export class Platform {
-    id: String;
     name: String;
-    platformType: number;
     platformTypeName: String;
     uri: String;
     userName: String;
     passwd: String;
-    description: String;
     version: String;
+    description: String;
+    status: number = 0;
 
     constructor() {
+    }
+
+    toString() {
+        return this.name + "\n" +
+            this.platformTypeName + "\n" +
+            this.description + "\n" +
+            this.uri + "\n" +
+            this.userName + "\n" +
+            this.passwd + "\n" +
+            this.version + "\n" +
+            this.status;
     }
 }

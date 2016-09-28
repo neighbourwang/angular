@@ -7,7 +7,7 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#">修改</a></li>
+                <!--<li><a href="#">修改</a></li>-->
                 <li><a href="#">删除</a></li>
                 <li><a href="#">启用</a></li>
                 <li><a href="#">禁用</a></li>
@@ -22,7 +22,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th class="check-box-col"><input type="checkbox">全选</th>
+                    <th class="check-box-col"><input type="checkbox" (click)="switchSelectAll();">全选</th>
                     <th>区域名称</th>
                     <th>类型/厂商</th>
                     <th>访问地址</th>
@@ -32,9 +32,9 @@
             </thead>
             <tbody>
                 <tr *ngFor="let item of platforms">
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" [(ngModel)]="item.isSelected" /></td>
                     <td>{{item.name}}</td>
-                    <td>{{item.platformTypeName}}</td>
+                    <td>{{item.platformType}}</td>
                     <td>{{item.uri}}</td>
                     <td>初始化</td>
                     <td>同步失败</td>
@@ -43,3 +43,4 @@
         </table>
     </div>
 </div>
+<fc-pagination tp={{tp}} pp={{pp}} (pf)="pf($event)"></fc-pagination>

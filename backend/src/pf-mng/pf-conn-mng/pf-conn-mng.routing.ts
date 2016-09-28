@@ -1,7 +1,7 @@
 import { ModuleWithProviders } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { PfConnMngCreComponent } from './component/pf-conn-mng-cre.component';
+import { PfConnMngComponent } from './component/pf-conn-mng.component';
 import { PfCreStep01Component } from './component/pf-cre-step-01.component';
 import { PfCreStep02Component } from './component/pf-cre-step-02.component';
 import { PfCreStep03Component } from './component/pf-cre-step-03.component';
@@ -11,11 +11,11 @@ import { PfCreStep06Component } from './component/pf-cre-step-06.component';
 
 export const PfConnMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'pf-mng/pf-conn-mng/pf-conn-mng-cre',
-        component: PfConnMngCreComponent
+        path: 'pf-mng/pf-conn-mng/pf-conn-mng',
+        component: PfConnMngComponent
     },
     {
-        path: 'pf-mng/pf-conn-mng/pf-cre-step-01',
+        path: 'pf-mng/pf-conn-mng/pf-cre-step-01/:platform-id',
         component: PfCreStep01Component
     },
     {
