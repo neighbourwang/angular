@@ -287,9 +287,9 @@ export class DirectoryComponent implements OnInit {
     let link = ['pf-mng/svc-dir-mng/svc-dir-cre-step-01'];
 
     let navigatiionExtras: NavigationExtras = {
-      queryParams: {
-        'userCachedData': false
-      }
+      // queryParams: {
+      //   'userCachedData': false
+      // }
     };
 
     this.router.navigate(link, navigatiionExtras)

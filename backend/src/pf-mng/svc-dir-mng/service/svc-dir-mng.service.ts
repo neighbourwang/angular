@@ -22,7 +22,7 @@ export class DirectoryService {
     }
 
     getRegions(): Promise<any> {
-        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.regions.get', apiIp, apiPort);
+        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.regions.get', apiIp, apiPort);
 
 
         let queryParams = [
@@ -36,7 +36,7 @@ export class DirectoryService {
     }
 
     getTemplates(): Promise<any> {
-        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.servicetemplates.get', apiIp, apiPort);
+        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.servicetemplates.get', apiIp, apiPort);
 
 
         let queryParams = [
@@ -50,7 +50,7 @@ export class DirectoryService {
     }
 
     getDirectories(platformId: number, status: string,  page: number, size: number): Promise<any> {
-        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.services.get', apiIp, apiPort);
+        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.services.get', apiIp, apiPort);
 
         let pathParams = [
             {
@@ -78,7 +78,7 @@ export class DirectoryService {
     }
 
     publish(platformId: number, id: number, status: string) {
-        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.services.publish', apiIp, apiPort);
+        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.services.publish', apiIp, apiPort);
 
         let pathParams = [
             {
@@ -99,7 +99,7 @@ export class DirectoryService {
     }
 
     modify(platformId: number, directory: any) {
-        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.services.update', apiIp, apiPort);
+        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.services.update', apiIp, apiPort);
 
         let pathParams = [
             {
@@ -116,7 +116,7 @@ export class DirectoryService {
     }
 
     removeAll(platformId: number, ids: number[]) {
-        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.services.removeAll', apiIp, apiPort);
+        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.services.removeAll', apiIp, apiPort);
 
         let pathParams = [
             {

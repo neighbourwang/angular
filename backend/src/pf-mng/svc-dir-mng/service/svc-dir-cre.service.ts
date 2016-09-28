@@ -66,7 +66,7 @@ export class DirectoryCreateService {
     }
 
     getFlavors(platformId: number): Promise<any> {
-        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.flavors.get', apiIp, apiPort);
+        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.flavors.get', apiIp, apiPort);
 
         let pathParams = [
             {
@@ -79,7 +79,7 @@ export class DirectoryCreateService {
     }
     
     getZones(platformId: number): Promise<any> {
-        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.zones.get', apiIp, apiPort);
+        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.zones.get', apiIp, apiPort);
 
         let pathParams = [
             {
@@ -92,7 +92,7 @@ export class DirectoryCreateService {
     }
 
     getStorages(platformId: number): Promise<any> {
-        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.storages.get', apiIp, apiPort);
+        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.storages.get', apiIp, apiPort);
 
         let pathParams = [
             {
@@ -105,7 +105,7 @@ export class DirectoryCreateService {
     }
 
     createServiceDirectory(platformId: string, serviceDetail: ServiceDetail) {
-        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.services.create', apiIp, apiPort);
+        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.services.create', apiIp, apiPort);
 
         let pathParams = [
             {

@@ -93,12 +93,12 @@ const menu: Array<Object> = [
                 "top3_menu": [
                     {
                         "label": "概览",
-                        "routing": "pf_mng/svc_dir_mng/svc_dir_mng",
+                        "routing": "pf-mng/svc-dir-mng/svc-dir-mng",
                         "isActive": false
                     },
                     {
                         "label": "创建",
-                        "routing": "pf_mng/svc_dir_mng/svc_dir_cre_step_01",
+                        "routing": "pf-mng/svc-dir-mng/svc-dir-cre-step-01",
                         "isActive": false
                     }
                 ]
