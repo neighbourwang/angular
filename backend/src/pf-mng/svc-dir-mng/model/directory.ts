@@ -1,55 +1,55 @@
 export class Directory {
-    id: number = 0;
+    id: number = -1;
     code: string = '';
     createDate: string = '';
-    creatorId:  number = 0;
+    creatorId:  number = -1;
     creatorName: string = '';
     description: string = '';
     name: string = '';
-    platformId: number = 0;
-    regionId: number = 0;
-    serviceTemplateId: number = 0;
+    platformId: number = -1;
+    regionId: number = -1;
+    serviceTemplateId: number = -1;
     serviceTemplateName: string = '';
-    status: number = 0;
-    flavorId: number = 0;
-    updateDate: number = 0;
+    status: number = -1;
+    flavorId: number = -1;
+    updateDate: number = -1;
     adsServiceOptionCategories: AdsServiceOptionCategory[];
 
     checked: boolean = false;
 }
 
-export class AdsServiceOptionCategory {
-    id: number = 0;
+class AdsServiceOptionCategory {
+    id: number = -1;
     code: string = '';
-    createDate: number = 0;
+    createDate: number = -1;
     name: string = '';
-    status: number = 0;
-    updateDate: number = 0;
+    status: number = -1;
+    updateDate: number = -1;
     adsServiceOptions: AdsServiceOption[];
 }
 
-export class AdsServiceOption {
-    id: number = 0;
+class AdsServiceOption {
+    id: number = -1;
     code: string = '';
-    createDate: number = 0;
+    createDate: number = -1;
     name: string = '';
-    resoucePoolId: number = 0;
-    status: number = 0;
-    type: number = 0;
-    skuType: number = 0;
+    resoucePoolId: number = -1;
+    status: number = -1;
+    type: number = -1;
+    skuType: number = -1;
     unit: string = '';
-    updateDate: number = 0;
+    updateDate: number = -1;
     adsServiceOptionValues: AdsServiceOptionValue[];
     childServiceOptions: AdsServiceOption[];
 }
 
-export class AdsServiceOptionValue {
-    id: number = 0;
+class AdsServiceOptionValue {
+    id: number = -1;
     code: string = '';
-    createDate: number = 0;
-    type: number = 0;
+    createDate: number = -1;
+    type: number = -1;
     unit: string = '';
-    updateDate: number = 0;
+    updateDate: number = -1;
     value: string = '';
     displayName: string = '';
     valueId: string = '';
@@ -57,6 +57,6 @@ export class AdsServiceOptionValue {
     childServiceOptionValues: ChildServiceOptionValue[];
 }
 
-export class ChildServiceOptionValue {
+class ChildServiceOptionValue {
     // TODO
 }

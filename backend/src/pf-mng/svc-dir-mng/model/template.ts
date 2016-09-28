@@ -1,11 +1,11 @@
 export class Template {
-    id: number = 0;
+    id: number = -1;
     code: string = '';
     createDate: string = '';
     creatorId: string = '';
     description: string = '';
     name: string = '';
-    status: number = 0;
-    updateDate: number = 0;
+    status: number = -1;
+    updateDate: number = -1;
     adsStoptionCategories: any;
 }

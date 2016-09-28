@@ -25,6 +25,14 @@ export class SvcDirCreStep4Component implements OnInit {
     
   }
 
+  //
+  // Page Navigation
+  //
+  goBack() {
+    let link = ['/pf-mng/svc-dir-mng/svc-dir-mng'];
+    this.router.navigate(link);
+  }
+
   preStep() {
     this.location.back();
   }

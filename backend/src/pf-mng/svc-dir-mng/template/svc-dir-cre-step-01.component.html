@@ -19,7 +19,7 @@
 				<div class="form-group">
 					<label for="firstname" class="col-sm-4 control-label">服务器名称：</label>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" placeholder="标准云主机_普通存储">
+						<input type="text" class="form-control" placeholder="标准云主机_普通存储" [(ngModel)]="serviceDetail.name">
 					</div>
 					<div class="clear"></div>
 				</div>
@@ -28,13 +28,10 @@
 				<div class="form-group">
 					<label for="firstname" class="col-sm-4 control-label">服务模板：</label>
 					<div class="col-sm-4">
-						<select class="form-control">
-							<option>云硬盘服务</option>
-							<option selected>云主机服务</option>
-							<option>公网IP服务</option>
-							<option>防火墙服务</option>
-							<option>VPN服务</option>
-							<option>负载均衡服务</option>
+						<select class="form-control" [(ngModel)]="serviceDetail.templateId">
+							<option *ngFor="let item of templates" value="{{item.id}}">
+								{{item.name}}
+							</option>
 						</select>
 					</div>
 				</div>
@@ -43,9 +40,10 @@
 				<div class="form-group">
 					<label for="firstname" class="col-sm-4 control-label">区域：</label>
 					<div class="col-sm-4">
-						<select class="form-control">
-							<option selected>上海A区</option>
-							<option>上海B区</option>
+						<select class="form-control" [(ngModel)]="serviceDetail.regionId">
+							<option *ngFor="let item of regions" value="{{item.id}}">
+								{{item.displayName}}
+							</option>
 						</select>
 					</div>
 				</div>
@@ -54,7 +52,7 @@
 				<div class="form-group">
 					<label for="firstname" class="col-sm-4 control-label">描述：</label>
 					<div class="col-sm-4">
-						<textarea class="form-control" rows="8" placeholder="标准配置，SAS存储"></textarea> 
+						<textarea class="form-control" rows="8" placeholder="标准配置，SAS存储" [(ngModel)]="serviceDetail.desc"></textarea> 
 					</div>
 				</div>
 			</div>
@@ -62,24 +60,13 @@
 	</div>
 </div>
 <div class="text-center">
-	<button class="fox-cloud-button-lg fox-cloud-button-white" onclick="cancel();">
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="goBack();">
 		<span class="icon-button-label">返回</span>
 	</button>
-	<button class="fox-cloud-button-lg fox-cloud-button-white" onclick="previous();">
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="preStep();">
 		<span class="icon-button-label">上一步</span>
 	</button>
-	<button class="fox-cloud-button-lg fox-cloud-button-white" onclick="next();">
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="nextStep();">
 		<span class="icon-button-label">下一步</span>
 	</button>
 </div>
-<script>
-	function cancel() {
-		_load_content("svc_dir_mng");
-	}
-	function previous() {
-		_load_content("svc_dir_mng");
-	}
-	function next() {
-		_load_content("svc-dir-cre-step-02");
-	}
-</script>

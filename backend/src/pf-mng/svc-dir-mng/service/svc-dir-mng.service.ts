@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Directory } from '../model/directory';
-import { Region } from '../model/region';
+import { Directory, Region } from '../model';
 import { RestApiCfg } from '../../../core/service/restapicfg.service';
 import { RestApi } from '../../../core/service/restapi.service';
 
 import 'rxjs/add/operator/toPromise';
 
+const apiIp: string = '15.114.100.54';
+const apiPort: string = '9105';
+
 @Injectable()
 export class DirectoryService {
-    API_IP: string = '15.114.100.54';
-    API_PORT: string = '9105';
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
@@ -22,7 +22,7 @@ export class DirectoryService {
     }
 
     getRegions(): Promise<any> {
-        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.regions.get', this.API_IP, this.API_PORT);
+        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.regions.get', apiIp, apiPort);
 
 
         let queryParams = [
@@ -36,7 +36,7 @@ export class DirectoryService {
     }
 
     getTemplates(): Promise<any> {
-        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.servicetemplates.get', this.API_IP, this.API_PORT);
+        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.servicetemplates.get', apiIp, apiPort);
 
 
         let queryParams = [
@@ -50,7 +50,7 @@ export class DirectoryService {
     }
 
     getDirectories(platformId: number, status: string,  page: number, size: number): Promise<any> {
-        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.services.get', this.API_IP, this.API_PORT);
+        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.services.get', apiIp, apiPort);
 
         let pathParams = [
             {
@@ -78,7 +78,7 @@ export class DirectoryService {
     }
 
     publish(platformId: number, id: number, status: string) {
-        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.services.publish', this.API_IP, this.API_PORT);
+        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.services.publish', apiIp, apiPort);
 
         let pathParams = [
             {
@@ -99,7 +99,7 @@ export class DirectoryService {
     }
 
     modify(platformId: number, directory: any) {
-        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.services.update', this.API_IP, this.API_PORT);
+        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.services.update', apiIp, apiPort);
 
         let pathParams = [
             {
@@ -116,7 +116,7 @@ export class DirectoryService {
     }
 
     removeAll(platformId: number, ids: number[]) {
-        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.services.removeAll', this.API_IP, this.API_PORT);
+        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.services.removeAll', apiIp, apiPort);
 
         let pathParams = [
             {

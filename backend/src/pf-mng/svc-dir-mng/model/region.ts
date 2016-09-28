@@ -1,12 +1,12 @@
 export class Region {
-    id: string = '';
-    createDate: number = 0;
+    id: number = -1;
+    createDate: number = -1;
     description: string = '';
     displayName: string = '';
     name: string = '';
-    parentId: number = 0;
-    platformId: number = 0;
-    status: number = 0;
-    type: number = 0;
-    updateDate: number = 0;
+    parentId: number = -1;
+    platformId: number = -1;
+    status: number = -1;
+    type: number = -1;
+    updateDate: number = -1;
 }

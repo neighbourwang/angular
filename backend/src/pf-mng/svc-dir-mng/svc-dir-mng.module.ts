@@ -12,7 +12,7 @@ import {
     SvcDirCreStep3Component,
     SvcDirCreStep4Component
 } from './component';
-import { DirectoryService } from './service/svc-dir-mng.service';
+import { DirectoryService, DirectoryCreateService } from './service';
 import { DirectoryDispPipe } from './pipe/svc-dir-mng.pipe';
 
 // Routing
@@ -35,7 +35,8 @@ import { SvcDirMngRouting } from './svc-dir-mng.routing';
     exports: [
     ],
     providers: [
-        DirectoryService
+        DirectoryService,
+        DirectoryCreateService
     ]
 
 })

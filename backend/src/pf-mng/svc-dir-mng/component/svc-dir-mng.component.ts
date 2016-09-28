@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 
 import { Directory, Region, Template } from '../model';
 import { DirectoryService } from '../service/svc-dir-mng.service';
 
 import { LayoutService } from '../../../core/service/layout.service';
+
+const PlatformId: number = 6;
+const Status: string = '1';
 
 @Component({
   // moduleId: module.id,
@@ -16,9 +19,6 @@ import { LayoutService } from '../../../core/service/layout.service';
   providers: []
 })
 export class DirectoryComponent implements OnInit {
-
-  PLATFORM_ID: number = 6;
-  STATUS: string = '1';
   
   pageSize: number;
   totalPages: number;
@@ -29,7 +29,7 @@ export class DirectoryComponent implements OnInit {
   regions: Region[];
   templates: Template[];
   directories: Directory[];
-  filterRegId: string = '';
+  filterRegId: number = -1;
 
   allChecked: boolean = false;
 
@@ -38,7 +38,7 @@ export class DirectoryComponent implements OnInit {
   constructor(
     private directoryService: DirectoryService,
     private layoutService: LayoutService,
-    private router: Router
+    private router: Router 
   ) {}
 
   ngOnInit() {
@@ -51,7 +51,7 @@ export class DirectoryComponent implements OnInit {
 
     this.regions = [];
     this.templates = [];
-    this.filterRegId = "";
+    this.filterRegId = -1;
 
     this.currDirectory = undefined;
 
@@ -118,7 +118,7 @@ export class DirectoryComponent implements OnInit {
     this.layoutService.setLoading(true);
 
     this.directoryService
-        .getDirectories(this.PLATFORM_ID, this.STATUS, page-1, size)
+        .getDirectories(PlatformId, Status, page-1, size)
         .then(ret => {
             if (!ret) {
                 this.showError('', '服务目录数据获取失败。');
@@ -170,7 +170,7 @@ export class DirectoryComponent implements OnInit {
     this.layoutService.setLoading(true);
 
     this.directoryService
-        .publish(this.PLATFORM_ID, directory.id, status)
+        .publish(PlatformId, directory.id, status)
         .then(ret => {
             if (!ret) {
                 this.showError('', '服务目录操作失败。');
@@ -192,7 +192,7 @@ export class DirectoryComponent implements OnInit {
     // this.layoutService.setLoading(true);
 
     // this.directoryService
-    //     .modify(this.PLATFORM_ID, data)
+    //     .modify(PlatformId, data)
     //     .then(ret => {
     //         if (!ret) {
     //             this.showError('', '服务目录更新失败。');
@@ -256,7 +256,7 @@ export class DirectoryComponent implements OnInit {
     // this.layoutService.setLoading(true);
 
     // this.directoryService
-    //     .removeAll(this.PLATFORM_ID, ids)
+    //     .removeAll(PlatformId, ids)
     //     .then(ret => {
     //         if (!ret) {
     //             this.showError('', '服务目录删除失败。');
@@ -285,7 +285,14 @@ export class DirectoryComponent implements OnInit {
 
   create() {
     let link = ['pf-mng/svc-dir-mng/svc-dir-cre-step-01'];
-    this.router.navigate(link)
+
+    let navigatiionExtras: NavigationExtras = {
+      queryParams: {
+        'userCachedData': false
+      }
+    };
+
+    this.router.navigate(link, navigatiionExtras)
   }
 
   resetPaging() {
