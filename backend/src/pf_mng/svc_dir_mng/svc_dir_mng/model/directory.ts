@@ -2,11 +2,14 @@ export class Directory {
     id: number = 0;
     code: string = '';
     createDate: string = '';
-    creatorId: string = '';
+    creatorId:  number = 0;
+    creatorName: string = '';
     description: string = '';
+    name: string = '';
     platformId: number = 0;
     regionId: number = 0;
     serviceTemplateId: number = 0;
+    serviceTemplateName: string = '';
     status: number = 0;
     flavorId: number = 0;
     updateDate: number = 0;
@@ -37,6 +40,7 @@ export class AdsServiceOption {
     unit: string = '';
     updateDate: number = 0;
     adsServiceOptionValues: AdsServiceOptionValue[];
+    childServiceOptions: AdsServiceOption[];
 }
 
 export class AdsServiceOptionValue {

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { Directory } from '../model/directory';
 import { Region } from '../model/region';
+import { Template } from '../model/template';
 import { DirectoryService } from '../service/directory.service';
 
 import { LayoutService } from '../../../../core/service/layout.service';
@@ -28,10 +29,14 @@ export class DirectoryComponent implements OnInit {
   dispPagingCount: number = 7;
 
   regions: Region[];
+  templates: Template[];
   directories: Directory[];
   filterRegId: string = '';
 
   allChecked: boolean = false;
+
+  currDirectory: Directory;
+
   constructor(
     private directoryService: DirectoryService,
     private layoutService: LayoutService,
@@ -42,10 +47,16 @@ export class DirectoryComponent implements OnInit {
     this.pageSize = 10;
     this.totalPages = 0;
     this.currPage = 1;
-    this.filterRegId = "";
     this.pages = new Array<any>();
 
     this.allChecked = false;
+
+    this.regions = [];
+    this.templates = [];
+    this.filterRegId = "";
+
+    this.currDirectory = undefined;
+
     this.layoutService.setLoading(false);
 
     this.directories = new Array<Directory>();
@@ -54,7 +65,7 @@ export class DirectoryComponent implements OnInit {
                       .then(res => 
                       {
                           this.getRegios();
-                          this.getDirectorys(this.currPage, this.pageSize);
+                          this.getTemplates();
                       });
   }
 
@@ -78,6 +89,29 @@ export class DirectoryComponent implements OnInit {
         })
         .catch(error => {
             this.showError('', '地区数据获取失败。');
+            this.layoutService.setLoading(false);
+        });
+  }
+
+  getTemplates() {
+    this.layoutService.setLoading(true);
+  
+    this.directoryService
+        .getTemplates()
+        .then(ret => {
+            if (!ret) {
+                this.showError('', '服务模板数据获取失败。');
+            } else {
+                if (ret && ret.resultContent) {
+                  this.templates = ret.resultContent;
+
+                  this.getDirectorys(this.currPage, this.pageSize);
+                }
+            }
+            this.layoutService.setLoading(false);
+        })
+        .catch(error => {
+            this.showError('', '服务模板数据获取失败。');
             this.layoutService.setLoading(false);
         });
   }
@@ -108,12 +142,24 @@ export class DirectoryComponent implements OnInit {
 
       this.directories.forEach((element, index) => {
         this.directories[index].checked = false;
+        this.directories[index].serviceTemplateName = this.getTemplateName(element.serviceTemplateId);
       });
       this.resetPaging();
     }
   }
+  getTemplateName(serviceTemplateId: number) {
+    let templateName = '';
+    
+    this.templates.forEach(element => {
+      if (element.id == serviceTemplateId) {
+        templateName = element.name;
+      }
+    });
 
-  publis(directory: Directory) {
+    return templateName;
+  }
+
+  publish(directory: Directory) {
     this.publishDirectory(directory, '1');
   }
 
@@ -126,7 +172,7 @@ export class DirectoryComponent implements OnInit {
     this.layoutService.setLoading(true);
 
     this.directoryService
-        .getPublish(this.PLATFORM_ID, directory.id, status)
+        .publish(this.PLATFORM_ID, directory.id, status)
         .then(ret => {
             if (!ret) {
                 this.showError('', '服务目录操作失败。');
@@ -141,16 +187,112 @@ export class DirectoryComponent implements OnInit {
         });
   }
 
-  remove() {
+  modify(directory: Directory) {
+    let data = this.createUpdateData(directory);
 
+    
+    // this.layoutService.setLoading(true);
+
+    // this.directoryService
+    //     .modify(this.PLATFORM_ID, data)
+    //     .then(ret => {
+    //         if (!ret) {
+    //             this.showError('', '服务目录更新失败。');
+    //         } else {
+    //             this.refreshData(ret);
+    //         }
+    //         this.layoutService.setLoading(false);
+    //     })
+    //     .catch(error => {
+    //         this.showError('', '服务目录更新失败。');
+    //         this.layoutService.setLoading(false);
+    //     });
+  }
+  
+  createUpdateData(directory: Directory): any {
+    return  {
+      "desc": directory.description,
+      "flavorId": directory.flavorId,
+      "id": directory.id,
+      "name": directory.name,
+      "options": [
+        // {
+        //   "code": '',
+        //   "value": ''
+        // }
+      ],
+      "regionId": directory.regionId,
+      "templateId": directory.serviceTemplateId,
+      "zones": [
+        // {
+        //   "serviceZoneId": 0,
+        //   "size": 0,
+        //   "storageId": 0,
+        //   "zoneId": 0
+        // }
+      ]
+    };
+  }
+
+  private refreshData(ret: any) {
+    if (ret && ret.resultContent) {
+      let newData = ret.resultContent.content;
+
+      this.directories.forEach((element, index) => {
+        if (element.id = newData.id) {
+          this.directories[index] = newData;
+        }
+      });
+
+    }
+  }
+
+  remove() {
+    let ids = this.getAllSelectedData();
+
+    if (ids.length == 0) {
+      this.showError('', '请选择至少一个服务目录');
+      return;
+    }
+    
+    // this.layoutService.setLoading(true);
+
+    // this.directoryService
+    //     .removeAll(this.PLATFORM_ID, ids)
+    //     .then(ret => {
+    //         if (!ret) {
+    //             this.showError('', '服务目录删除失败。');
+    //         } else {
+    //             this.allChecked = false;
+    //         }
+    //         this.layoutService.setLoading(false);
+    //     })
+    //     .catch(error => {
+    //         this.showError('', '服务目录删除失败。');
+    //         this.layoutService.setLoading(false);
+    //     });
+  }
+
+  getAllSelectedData(): number[] {
+    let ids = [];
+
+    this.directories.forEach((element, index) => {
+      if (element.checked == true) {
+        ids.push(element.id);
+      }
+    });
+
+    return ids;
   }
 
   resetPaging() {
     
-    let start = this.currPage - Math.floor(this.dispPagingCount/2);
+    let dispCount = Math.min(this.dispPagingCount, this.totalPages);
+
+    let start = this.currPage - Math.floor(dispCount/2);
     start = start <1 ? 1: start;
-    start = (start + (this.dispPagingCount-1)) > this.totalPages ? (this.totalPages-(this.dispPagingCount-1)) : start;
-    let end = start + (this.dispPagingCount-1);
+    start = (start + (dispCount-1)) > this.totalPages ? (this.totalPages-(dispCount-1)) : start;
+    let end = start + (dispCount-1);
     end = end > this.totalPages ? this.totalPages : end;
 
 

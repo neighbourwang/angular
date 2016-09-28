@@ -32,11 +32,25 @@ export class DirectoryService {
             }
         ];
 
-        return this.restApi.get(url, undefined, undefined, undefined);
+        return this.restApi.get(url, undefined, queryParams, undefined);
+    }
+
+    getTemplates(): Promise<any> {
+        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.servicetemplates.get', this.API_IP, this.API_PORT);
+
+
+        let queryParams = [
+            {
+                key: 'status',
+                value: 1
+            }
+        ];
+
+        return this.restApi.get(url, undefined, queryParams, undefined);
     }
 
     getDirectories(platformId: number, status: string,  page: number, size: number): Promise<any> {
-        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.svc_dir_mng.services.get', this.API_IP, this.API_PORT);
+        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.services.get', this.API_IP, this.API_PORT);
 
         let pathParams = [
             {
@@ -46,10 +60,10 @@ export class DirectoryService {
         ];
 
         let queryParams = [
-            {
-                key: 'status',
-                value: status
-            },
+            // {
+            //     key: 'status',
+            //     value: status
+            // },
             {
                 key: 'page',
                 value: page
@@ -63,7 +77,7 @@ export class DirectoryService {
         return this.restApi.get(url, pathParams, queryParams, undefined);
     }
 
-    getPublish(platformId: number, id: number, status: string) {
+    publish(platformId: number, id: number, status: string) {
         let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.services.publish', this.API_IP, this.API_PORT);
 
         let pathParams = [
@@ -81,7 +95,37 @@ export class DirectoryService {
             }
         ];
 
-        return this.restApi.get(url, pathParams, undefined, undefined);
+        return this.restApi.put(url, pathParams, undefined, undefined);
+    }
+
+    modify(platformId: number, directory: any) {
+        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.services.update', this.API_IP, this.API_PORT);
+
+        let pathParams = [
+            {
+                key: 'platformid',
+                value: platformId
+            },
+            {
+                key: 'id',
+                value: directory.id
+            }
+        ];
+
+        return this.restApi.put(url, pathParams, undefined, directory);
+    }
+
+    removeAll(platformId: number, ids: number[]) {
+        let url = this.restApiCfg.getRestApiUrl('pf_mng.svc_dir_mng.services.removeAll', this.API_IP, this.API_PORT);
+
+        let pathParams = [
+            {
+                key: 'platformid',
+                value: platformId
+            }
+        ];
+
+        return this.restApi.delete(url, pathParams, undefined, ids);
     }
 
 }

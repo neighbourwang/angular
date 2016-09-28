@@ -2,12 +2,12 @@
     {
         "DESC": "获取全部服务目录列标",
         "id": "pf_mng.svc_dir_mng.services.get",
-        "url": "svm/platforms/{platformid}/services"
+        "url": "svm/platforms/{platformid}/services/"
     },
     {
         "DESC": "获取全部地区列标",
         "id": "pf_mng.svc_dir_mng.regions.get",
-        "url": "svm/regions"
+        "url": "svm/platforms/regions/"
     },
     {
         "DESC": "更新服务目录信息",
@@ -20,6 +20,11 @@
         "url": "svm/platforms/{platformid}/services/{id}"
     },
     {
+        "DESC": "删除多个服务目录",
+        "id": "pf_mng.svc_dir_mng.services.removeAll",
+        "url": "/svm/platforms/{platformid}/services/batch"
+    },
+    {
         "DESC": "更新服务目录状态.1:发布, 0:取消发布",
         "id": "pf_mng.svc_dir_mng.services.publish",
         "url": "svm/platforms/{platformid}/services/{id}/status/{status}"
@@ -29,7 +34,7 @@
     {
         "DESC": "获取全部服务模板列表",
         "id": "pf_mng.svc_dir_mng.servicetemplates.get",
-        "url": "svm/servicetemplates"
+        "url": "svm/servicetemplates/"
     },
     {
         "DESC": "获取全部主机配置列表",
@@ -39,17 +44,17 @@
     {
         "DESC": "获取全部可用区列表",
         "id": "pf_mng.svc_dir_mng.zones.get",
-        "url": "svm/platforms/{platformid}/zones"
+        "url": "svm/platforms/{platformid}/zones/"
     },
     {
         "DESC": "获取全部启动盘参数列表",
         "id": "pf_mng.svc_dir_mng.storages.get",
-        "url": "svm/platforms/{platformid}/storages"
+        "url": "svm/platforms/{platformid}/storages/"
     },
     {
         "DESC": "创建服务目录",
         "id": "pf_mng.svc_dir_mng.services.create",
-        "url": "/svm/platforms/{platformid}/services"
+        "url": "/svm/platforms/{platformid}/services/"
     }
 
 ]

@@ -10,7 +10,7 @@ export class DirectoryDispPipe implements PipeTransform {
         if (directories) {
             return directories.filter(directory => {
                 let found = false;
-                if (directory.id && directory.id == filter) {
+                if (directory.regionId && directory.regionId == filter) {
                     found = true;
                 }
                 

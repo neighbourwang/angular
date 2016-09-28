@@ -50,13 +50,13 @@
 			<tbody>
 				<tr *ngFor="let item of (directories | directoryDispPipe: filterRegId)">
 					<td><input type="checkbox" [(ngModel)]="item.checked" [checked]="item.checked"></td>
-					<td>{{item.dirName}}</td>
-					<td>{{item.template}}</td>
+					<td>{{item.name}}</td>
+					<td>{{item.serviceTemplateName}}</td>
 					<td>{{item.description}}</td>
-					<td><i class="status" [ngClass]="{'bg-success': item.status == 0, 'bg-danger': item.status == 1}"></i></td>
-					<td>{{item.creater}}</td> 
+					<td><i class="status" [ngClass]="{'bg-success': item.status == 1, 'bg-danger': item.status == 0}"></i></td>
+					<td>{{item.creatorName}}</td> 
 					<td>
-						<a class="btn btn-xs btn-default" [ngClass]="{'disabled': item.status == 1}" (click)="public(item)">发布</a>
+						<a class="btn btn-xs btn-default" [ngClass]="{'disabled': item.status == 1}" (click)="publish(item)">发布</a>
 						<a class="btn btn-xs btn-default" [ngClass]="{'disabled': item.status == 0}" (click)="cancelPublish(item)">取消发布</a>
 					</td>
 				</tr>
