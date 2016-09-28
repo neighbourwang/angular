@@ -18,18 +18,29 @@ body {
 }
 
 .row-line-height {
-    padding: 10px 0px 10px 0px;
+	padding: 10px 0px 10px 0px;
 }
 
 .shrink {
 	text-align: right;
+	color: #00a982;
+	cursor: pointer;
 }
 
 .check-box-col {
     width: 90px;
 }
-/********Button Start*************/
 
+.progress-title {
+	padding: 10px 0px 10px 0px;
+}
+
+.progress-prompt {
+	position: absolute;
+	left: 50%;
+	color: #fff;
+}
+/********Button Start*************/
 .fox-cloud-button, .fox-cloud-button-sm .fox-cloud-button-lg {
 	cursor: pointer;
     text-align: center;
@@ -190,12 +201,6 @@ tr:nth-child(even) {
 	background: #ccc;
 	position: relative;
 }
-.navigator-progress .progress .prompt {
-	position: absolute;
-	top: 0px;
-	left: 40%;
-	color: #fff;
-}
 
 .fox-cloud-progress-rectangle {
   height: 20px;
@@ -308,6 +313,13 @@ tr:nth-child(even) {
 .section-title {
 	font-weight: bold;
 }
+
+.form-control-title {
+	font-weight: bold;
+	line-height: 34px;
+	text-align: right;
+}
+
 /********Global Section End*********/
 
 /********Header Section Start*********/
