@@ -49,7 +49,7 @@ export class PaginationComponent implements OnInit {
             bf = Math.floor(this.pp / 2)
             af = bf;
         } else {
-            bf = this.pp / 2 + 1;
+            bf = this.pp / 2;
             af = this.pp / 2 - 1;
         }
 

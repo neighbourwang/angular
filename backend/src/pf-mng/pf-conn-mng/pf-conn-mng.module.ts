@@ -46,7 +46,7 @@ import { PfConnMngRouting } from './pf-conn-mng.routing';
         PfCreStep06Component,
     ],
     exports: [
-        PfConnMngCreComponent,
+        PfConnMngComponent,
         PfCreStep01Component,
         PfCreStep02Component,
         PfCreStep03Component,
