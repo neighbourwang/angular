@@ -1,12 +1,13 @@
 import { ModuleWithProviders } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { DirectoryComponent } from './svc_dir_mng/component/directory.component';
-
-import { SvcDirCreStep1Component } from './svc_dir_cre_step/component/step1.component';
-import { SvcDirCreStep2Component } from './svc_dir_cre_step/component/step2.component';
-import { SvcDirCreStep3Component } from './svc_dir_cre_step/component/step3.component';
-import { SvcDirCreStep4Component } from './svc_dir_cre_step/component/step4.component';
+import { 
+    DirectoryComponent,
+    SvcDirCreStep1Component,
+    SvcDirCreStep2Component,
+    SvcDirCreStep3Component,
+    SvcDirCreStep4Component
+} from './component';
 
 export const SvcDirMngRouting: ModuleWithProviders = RouterModule.forChild([
     {

@@ -27,7 +27,7 @@
 				<li><a href="#">上海B区</a></li>
 			</ul>-->
 		</div>
-		<button class="fox-cloud-button fox-cloud-button-green" onclick="creation();">
+		<button class="fox-cloud-button fox-cloud-button-green" (click)="create();">
 			<span class="glyphicon glyphicon-edit"></span>
 			<span class="icon-button-label icon-left-button-label">创建目录</span>
 		</button>
@@ -83,8 +83,3 @@
 		</ul>
 	</nav>
 </div>
-<script>
-	function creation() {
-		_load_content("svc_dir_cre_step_01");
-	}
-</script>

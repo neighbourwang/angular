@@ -9,8 +9,8 @@ export class RestApi {
     public defaultHeaders : Headers;
 
     constructor(
-        private http: Http,
-        private jsonp: Jsonp
+        private http: Http
+        // private jsonp: Jsonp
     ) {}
 
     get(url: string, pathParams: Array<any>, queryParams: any, jwt: string = undefined): Promise<any> {

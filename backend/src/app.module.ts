@@ -7,7 +7,7 @@ import { MenuComponent } from './common_components/menu/component/menu.component
 import { SiteComponent } from './common_components/site/component/site.component';
 
 // pf_mng
-import { PfMngModule } from './pf_mng/pf_mng.module';
+import { PfMngModule } from './pf-mng/pf-mng.module';
 
 import { routing } from './app.routing';
 

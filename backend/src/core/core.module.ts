@@ -18,7 +18,7 @@ import { RestApi } from './service/restapi.service';
         HttpModule
     ],
     providers: [
-        ConnectionBackend,
+        // ConnectionBackend,
         Jsonp,
         UserService,
         LayoutService,

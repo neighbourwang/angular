@@ -22,6 +22,6 @@ export class PfConnMngCreService {
     getPlatforms() {
         let url = this.restApiCfg.getRestApiUrl("pf.conn.mng.cre.platforms.get");
 
-        return this.restApi.get(url);
+        return this.restApi.get(url, undefined, undefined, undefined);
     }
 }

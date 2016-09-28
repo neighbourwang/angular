@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Directory } from '../model/directory';
-import { Region } from '../model/region';
-import { Template } from '../model/template';
-import { DirectoryService } from '../service/directory.service';
+import { Directory, Region, Template } from '../model';
+import { DirectoryService } from '../service/svc-dir-mng.service';
 
-import { LayoutService } from '../../../../core/service/layout.service';
+import { LayoutService } from '../../../core/service/layout.service';
 
 @Component({
   // moduleId: module.id,
   selector: 'fc-svc_dir_mng',
-  templateUrl: '../template/directory.component.html',
+  templateUrl: '../template/svc-dir-mng.component.html',
   styleUrls: [
-    '../style/directory.component.css'
+    '../style/svc-dir-mng.component.css'
   ],
   providers: []
 })
@@ -283,6 +281,11 @@ export class DirectoryComponent implements OnInit {
     });
 
     return ids;
+  }
+
+  create() {
+    let link = ['pf_mng/svc_dir_mng/svc_dir_cre_step_01'];
+    this.router.navigate(link)
   }
 
   resetPaging() {
