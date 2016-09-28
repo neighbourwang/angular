@@ -11,23 +11,23 @@ import {
 
 export const SvcDirMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'pf_mng/svc_dir_mng/svc_dir_mng',
+        path: 'pf-mng/svc-dir-mng/svc-dir-mng',
         component: DirectoryComponent
     },
     {
-        path: 'pf_mng/svc_dir_mng/svc_dir_cre_step_01',
+        path: 'pf-mng/svc-dir-mng/svc-dir-cre-step-01',
         component: SvcDirCreStep1Component
     },
     {
-        path: 'pf_mng/svc_dir_mng/svc_dir_cre_step_02',
+        path: 'pf-mng/svc-dir-mng/svc-dir-cre-step-02',
         component: SvcDirCreStep2Component
     },
     {
-        path: 'pf_mng/svc_dir_mng/svc_dir_cre_step_03',
+        path: 'pf-mng/svc-dir-mng/svc-dir-cre-step-03',
         component: SvcDirCreStep3Component
     },
     {
-        path: 'pf_mng/svc_dir_mng/svc_dir_cre_step_04',
+        path: 'pf-mng/svc-dir-mng/svc-dir-cre-step-04',
         component: SvcDirCreStep4Component
     }
 ]);

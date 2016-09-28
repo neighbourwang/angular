@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 
 import { LayoutService } from '../../../core/service/layout.service';
@@ -16,11 +17,16 @@ import { LayoutService } from '../../../core/service/layout.service';
 export class SvcDirCreStep4Component implements OnInit {
 
   constructor(
-    
+    private router: Router,
+    private location: Location
   ) {}
 
   ngOnInit() {
     
+  }
+
+  preStep() {
+    this.location.back();
   }
   
 }

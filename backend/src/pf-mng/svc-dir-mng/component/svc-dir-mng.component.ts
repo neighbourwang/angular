@@ -284,7 +284,7 @@ export class DirectoryComponent implements OnInit {
   }
 
   create() {
-    let link = ['pf_mng/svc_dir_mng/svc_dir_cre_step_01'];
+    let link = ['pf-mng/svc-dir-mng/svc-dir-cre-step-01'];
     this.router.navigate(link)
   }
 

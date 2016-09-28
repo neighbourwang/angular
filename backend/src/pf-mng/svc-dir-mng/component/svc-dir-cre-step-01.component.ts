@@ -15,11 +15,16 @@ import { LayoutService } from '../../../core/service/layout.service';
 export class SvcDirCreStep1Component implements OnInit {
 
   constructor(
-    
+    private router: Router
   ) {}
 
   ngOnInit() {
     
+  }
+
+  nextStep() {
+    let link = ['/pf-mng/svc-dir-mng/svc-dir-cre-step-02'];
+    this.router.navigate(link);
   }
   
 }
