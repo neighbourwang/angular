@@ -63,23 +63,5 @@
 			</tbody>
 		</table>
 	</div>
-	<nav aria-label="Page navigation">
-		<ul class="pagination">
-			<li (click)="changePage(currPage-1)">
-				<a aria-label="Previous">
-					<span aria-hidden="true">&laquo;</span>
-				</a>
-			</li>
-
-			<li *ngFor="let page of pages" (click)="changePage(page)">
-				<a [ngClass]="{selected: page == currPage}">{{page}}</a>
-			</li>
-
-			<li (click)="changePage(currPage+1)">
-				<a aria-label="Next">
-					<span aria-hidden="true">&raquo;</span>
-				</a>
-			</li>
-		</ul>
-	</nav>
+	<fc-pagination tp={{totalPages}} (pf)="changePage($event)"></fc-pagination>
 </div>

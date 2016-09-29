@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { SpinnerComponent } from './spinner/component/spinner.component';
+import { PaginationComponent } from './pagination/component/pagination.component';
 
 
 @NgModule({
@@ -10,12 +11,14 @@ import { SpinnerComponent } from './spinner/component/spinner.component';
         CommonModule
     ],
     declarations: [
-        SpinnerComponent
+        SpinnerComponent,
+        PaginationComponent
     ],
     exports: [
         CommonModule,
         FormsModule,
-        SpinnerComponent
+        SpinnerComponent,
+        PaginationComponent
     ]
 })
 export class CommonComponentModule { }

@@ -23,8 +23,6 @@ export class DirectoryComponent implements OnInit {
   pageSize: number;
   totalPages: number;
   currPage: number;
-  pages: any[];
-  dispPagingCount: number = 7;
 
   regions: Region[];
   templates: Template[];
@@ -45,7 +43,6 @@ export class DirectoryComponent implements OnInit {
     this.pageSize = 10;
     this.totalPages = 0;
     this.currPage = 1;
-    this.pages = new Array<any>();
 
     this.allChecked = false;
 
@@ -142,7 +139,7 @@ export class DirectoryComponent implements OnInit {
         this.directories[index].checked = false;
         this.directories[index].serviceTemplateName = this.getTemplateName(element.serviceTemplateId);
       });
-      this.resetPaging();
+      // this.resetPaging();
     }
   }
   getTemplateName(serviceTemplateId: number) {
@@ -253,22 +250,35 @@ export class DirectoryComponent implements OnInit {
       return;
     }
     
-    // this.layoutService.setLoading(true);
+    this.layoutService.setLoading(true);
 
-    // this.directoryService
-    //     .removeAll(PlatformId, ids)
-    //     .then(ret => {
-    //         if (!ret) {
-    //             this.showError('', '服务目录删除失败。');
-    //         } else {
-    //             this.allChecked = false;
-    //         }
-    //         this.layoutService.setLoading(false);
-    //     })
-    //     .catch(error => {
-    //         this.showError('', '服务目录删除失败。');
-    //         this.layoutService.setLoading(false);
-    //     });
+    this.directoryService
+        .removeAll(PlatformId, ids)
+        .then(ret => {
+            if (!ret) {
+                this.showError('', '服务目录删除失败。');
+            } else {
+                this.allChecked = false;
+                this.removeDirectoiesById(ids);
+            }
+            this.layoutService.setLoading(false);
+        })
+        .catch(error => {
+            this.showError('', '服务目录删除失败。');
+            this.layoutService.setLoading(false);
+        });
+  }
+
+  removeDirectoiesById(ids: number[]) {
+    let newDirectories: Directory[] = [];
+    
+    for (let directory of this.directories) {
+      if (ids.indexOf(directory.id) < 0) {
+        newDirectories.push(directory);
+      }
+    }
+
+    this.directories = newDirectories;
   }
 
   getAllSelectedData(): number[] {
@@ -295,22 +305,22 @@ export class DirectoryComponent implements OnInit {
     this.router.navigate(link, navigatiionExtras)
   }
 
-  resetPaging() {
+  // resetPaging() {
     
-    let dispCount = Math.min(this.dispPagingCount, this.totalPages);
+  //   let dispCount = Math.min(this.dispPagingCount, this.totalPages);
 
-    let start = this.currPage - Math.floor(dispCount/2);
-    start = start <1 ? 1: start;
-    start = (start + (dispCount-1)) > this.totalPages ? (this.totalPages-(dispCount-1)) : start;
-    let end = start + (dispCount-1);
-    end = end > this.totalPages ? this.totalPages : end;
+  //   let start = this.currPage - Math.floor(dispCount/2);
+  //   start = start <1 ? 1: start;
+  //   start = (start + (dispCount-1)) > this.totalPages ? (this.totalPages-(dispCount-1)) : start;
+  //   let end = start + (dispCount-1);
+  //   end = end > this.totalPages ? this.totalPages : end;
 
 
-    this.pages.length = 0;
-    for (let i=start; i<=end; i++) {
-      this.pages.push(i);
-    }
-  }
+  //   this.pages.length = 0;
+  //   for (let i=start; i<=end; i++) {
+  //     this.pages.push(i);
+  //   }
+  // }
 
   changePage(page: number) {
 
