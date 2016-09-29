@@ -1,4 +1,4 @@
-﻿import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+﻿import { Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
     selector: 'fc-pagination',
@@ -6,7 +6,7 @@
     inputs: ["tp", "pp"]
 })
 
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements OnInit, OnChanges {
     tp: number;
     cp: number = 1;
     pp: number = 10;
@@ -19,9 +19,11 @@ export class PaginationComponent implements OnInit {
     @Output() pf = new EventEmitter<any>();
 
     ngOnInit() {
-        this.tp = parseInt(this.tp.toString(), 10);
-        this.pp = parseInt(this.pp.toString(), 10);
+        
+    }
 
+    // 分页信息变化后，重新计算分页信息
+    ngOnChanges(changes: SimpleChanges) {
         this.reCalculatePage();
     }
 
