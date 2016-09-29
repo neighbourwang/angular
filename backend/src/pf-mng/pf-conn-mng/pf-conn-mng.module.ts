@@ -4,7 +4,7 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 // Common Componets
 import { CommonComponentModule } from '../../common_components/common.module';
 
-import { PaginationComponent } from '../../common_components/pagination/component/pagination.component';
+// import { PaginationComponent } from '../../common_components/pagination/component/pagination.component';
 
 // pf-conn-mng-cre
 import { PfConnMngComponent } from './component/pf-conn-mng.component';
@@ -38,7 +38,7 @@ import { PfConnMngRouting } from './pf-conn-mng.routing';
         PfConnMngRouting
     ],
     declarations: [
-        PaginationComponent,
+        // PaginationComponent,
         PfConnMngComponent,
         PfConnCreStep01Component,
         PfConnCreStep02Component,
