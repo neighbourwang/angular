@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: 'pf_mng/pf_conn_mng/pf_conn_mng_cre',
+        redirectTo: 'pf-mng/svc-dir-mng/svc-dir-mng',
         pathMatch: 'full'
     }
 ];
