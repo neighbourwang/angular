@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 // Common Componets
 import { CommonComponentModule } from '../../common_components/common.module';
@@ -32,6 +33,7 @@ import { PfConnMngRouting } from './pf-conn-mng.routing';
 
 @NgModule({
     imports: [
+        Ng2Bs3ModalModule,
         CommonComponentModule,
         PfConnMngRouting
     ],

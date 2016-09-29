@@ -19,23 +19,23 @@ export const PfConnMngRouting: ModuleWithProviders = RouterModule.forChild([
         component: PfConnCreStep01Component
     },
     {
-        path: 'pf-mng/pf-conn-mng/pf-conn-cre-step-02',
+        path: 'pf-mng/pf-conn-mng/pf-conn-cre-step-02/:platform-id',
         component: PfConnCreStep02Component
     },
     {
-        path: 'pf-mng/pf-conn-mng/pf-conn-cre-step-03',
+        path: 'pf-mng/pf-conn-mng/pf-conn-cre-step-03/:platform-id',
         component: PfConnCreStep03Component
     },
     {
-        path: 'pf-mng/pf-conn-mng/pf-conn-cre-step-04',
+        path: 'pf-mng/pf-conn-mng/pf-conn-cre-step-04/:platform-id',
         component: PfConnCreStep04Component
     },
     {
-        path: 'pf-mng/pf-conn-mng/pf-conn-cre-step-05',
+        path: 'pf-mng/pf-conn-mng/pf-conn-cre-step-05/:platform-id',
         component: PfConnCreStep05Component
     },
     {
-        path: 'pf-mng/pf-conn-mng/pf-conn-cre-step-06',
+        path: 'pf-mng/pf-conn-mng/pf-conn-cre-step-06/:platform-id',
         component: PfConnCreStep06Component
     }
 ]);

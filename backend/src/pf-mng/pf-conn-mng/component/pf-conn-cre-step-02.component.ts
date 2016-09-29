@@ -1,9 +1,11 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { LayoutService } from '../../../core/service/layout.service';
 
 import { PfConnCreStep02Service } from '../service/pf-conn-cre-step-02.service';
 
-import { LayoutService } from '../../../core/service/layout.service';
+import { ResSync } from '../model/res-sync.model';
 
 @Component({
   // moduleId: module.id,
@@ -14,18 +16,42 @@ import { LayoutService } from '../../../core/service/layout.service';
 })
 
 export class PfConnCreStep02Component implements OnInit {
-  constructor(
-      private service: PfConnCreStep02Service,
-    private layoutService: LayoutService,
-    private router: Router
-  ) {}
+    platFormId: String = "";
 
-  ngOnInit() {
-  }
+    resSync: ResSync = new ResSync("可用区", 0);
 
-  showError(title: string, msg: string) {
-    alert(msg);
-  }
+    constructor(
+        private service: PfConnCreStep02Service,
+        private layoutService: LayoutService,
+        private router: Router,
+        private activatedRouter: ActivatedRoute
+    ) {
+        if (activatedRouter.snapshot.params["platform-id"]) {
+            this.platFormId = activatedRouter.snapshot.params["platform-id"];
+        }
+    }
+
+    ngOnInit() {
+        this.service.resSyncCount(this.platFormId).then(
+            response => {
+                if (response && 100 == response["resultCode"]) {
+                    let resultContent = response["resultContent"];
+
+                    this.resSync.zonesCount = resultContent["zonesCount"];
+                    this.resSync.storagesCount = resultContent["storagesCount"];
+                    this.resSync.flavorsCount = resultContent["flavorsCount"];
+                    this.resSync.regionsCount = resultContent["regionsCount"];
+                    this.resSync.imagesCount = resultContent["imagesCount"];
+                } else {
+                    alert("Res sync error");
+                }
+            }
+        ).catch(this.onRejected);
+    }
+
+    showError(title: string, msg: string) {
+        alert(msg);
+    }
 
   /**
   * 取消按钮事件处理
@@ -35,10 +61,14 @@ export class PfConnCreStep02Component implements OnInit {
   }
 
   previous() {
-      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-01/1");
+      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-01/" + this.platFormId);
   }
 
   next() {
-      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-03");
+      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-03/" + this.platFormId);
+  }
+
+  onRejected(reason: any) {
+      alert(reason);
   }
 }

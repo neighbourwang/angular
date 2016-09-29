@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg } from '../../../core/service/restapicfg.service';
 import { RestApi } from '../../../core/service/restapi.service';
@@ -13,7 +13,14 @@ export class PfConnCreStep02Service {
         private restApi: RestApi
     ) { }
 
-    init(): Promise<any> {
+    /*init(): Promise<any> {
         return this.restApiCfg.loadCfgData();
+    }*/
+
+    // 各资源项目需要同步数量取得
+    resSyncCount(platFormId: String) {
+        let url = this.restApiCfg.getRestApiUrl("pf.cre.step.02.res.sync.count.get");
+
+        return this.restApi.get(url, [{ "pf-id": platFormId }], undefined);
     }
 }
