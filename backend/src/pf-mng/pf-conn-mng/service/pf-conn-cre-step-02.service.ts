@@ -6,7 +6,7 @@ import { RestApi } from '../../../core/service/restapi.service';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class PfCreStep05Service {
+export class PfConnCreStep02Service {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,

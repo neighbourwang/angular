@@ -27,9 +27,9 @@ export class PaginationComponent implements OnInit {
 
     // 当前显示页切换，更新分页信息，同时调用画面组件指定的分页展示方法
     paging(page: number) {
+        this.pf.emit(page);
         this.cp = page;
         this.reCalculatePage();
-        this.pf.emit(page);
     }
 
     // 计算显示页数的半值
@@ -41,6 +41,7 @@ export class PaginationComponent implements OnInit {
         }
     }
 
+    // 重新计算分页信息
     reCalculatePage() {
         let bf: number = 0;
         let af: number = 0;
@@ -49,7 +50,7 @@ export class PaginationComponent implements OnInit {
             bf = Math.floor(this.pp / 2)
             af = bf;
         } else {
-            bf = this.pp / 2 + 1;
+            bf = this.pp / 2;
             af = this.pp / 2 - 1;
         }
 
@@ -74,6 +75,8 @@ export class PaginationComponent implements OnInit {
             }
         }
 
+        sp = sp > 1 ? sp : 1;
+
         this.prev = this.cp == 1 ? 1 : this.cp - 1;
         this.next = this.cp > this.tp ? this.cp : this.cp + 1;
 
@@ -85,11 +88,18 @@ export class PaginationComponent implements OnInit {
 
         this.pages = pages;
     }
+    
+    // 是否输出组件判断
+    isRender() {
+        return this.tp > 1;
+    }
 
+    // 是否有前一页判断
     hasPrev() {
         return this.cp > 1;
     }
 
+    // 是否有后一页判断
     hasNext() {
         return this.cp < this.tp;
     }

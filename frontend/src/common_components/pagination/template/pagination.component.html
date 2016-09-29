@@ -1,4 +1,4 @@
-﻿<div class="fox-cloud-pagination-container">
+﻿<div *ngIf="isRender()" class="fox-cloud-pagination-container">
     <ul class="fox-cloud-pagination">
         <span [ngClass]="{'pagination-disabled': !hasPrev()}" (click)="paging(prev)">上一页</span>
         <li *ngFor="let item of pages;" [ngClass]="{'active': cp == item}" (click)="paging(item)">{{item}}</li>

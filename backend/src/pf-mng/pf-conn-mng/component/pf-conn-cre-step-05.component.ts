@@ -1,21 +1,21 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { PfCreStep02Service } from '../service/pf-cre-step-02.service';
+import { PfConnCreStep05Service } from '../service/pf-conn-cre-step-05.service';
 
 import { LayoutService } from '../../../core/service/layout.service';
 
 @Component({
   // moduleId: module.id,
   selector: 'fc-pf-conn-mng-cre',
-  templateUrl: '../template/pf_cre_step_02.component.html',
+  templateUrl: '../template/pf-conn-cre-step-05.component.html',
   styleUrls: [],
   providers: []
 })
 
-export class PfCreStep02Component implements OnInit {
+export class PfConnCreStep05Component implements OnInit {
   constructor(
-      private service: PfCreStep02Service,
+      private service: PfConnCreStep05Service,
     private layoutService: LayoutService,
     private router: Router
   ) {}
@@ -28,17 +28,17 @@ export class PfCreStep02Component implements OnInit {
   }
 
   /**
-  * 取消按钮事件处理
-  */
+* 取消按钮事件处理
+*/
   cancel() {
-      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-mng-cre");
+      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-mng");
   }
 
   previous() {
-      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-cre-step-01");
+      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-04");
   }
 
   next() {
-      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-cre-step-03");
+      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-06");
   }
 }

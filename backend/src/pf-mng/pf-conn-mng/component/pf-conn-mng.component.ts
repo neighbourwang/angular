@@ -82,7 +82,7 @@ export class PfConnMngComponent implements OnInit {
     创建平台 - 填写基本信息页面迁移
   */
   creation() {
-      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-cre-step-01/", { skipLocationChange: true });
+      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-01/", { skipLocationChange: true });
   }
 
   /*
@@ -96,7 +96,6 @@ export class PfConnMngComponent implements OnInit {
   }
 
   paging(page) {
-      alert(page);
   }
   
 }
