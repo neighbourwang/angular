@@ -43,4 +43,8 @@
         </table>
     </div>
 </div>
-<fc-pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
+<button (click)="confirm.open()">confirm</button>
+
+<fc-confirm #confirm title="{{title}}" msg="well确认取消confir" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>
+
+<fc-notice #notice title="{{title}}" msg="wellconfir" ot="确认" (of)="nof()"></fc-notice>

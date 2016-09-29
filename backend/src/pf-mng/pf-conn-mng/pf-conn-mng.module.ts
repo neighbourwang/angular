@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 
-// Common Componets
+// Common Components
 import { CommonComponentModule } from '../../common_components/common.module';
 
-// import { PaginationComponent } from '../../common_components/pagination/component/pagination.component';
-
-// pf-conn-mng-cre
+// pf-conn-mng
 import { PfConnMngComponent } from './component/pf-conn-mng.component';
 import { PfConnMngService } from './service/pf-conn-mng.service';
 
@@ -38,7 +36,6 @@ import { PfConnMngRouting } from './pf-conn-mng.routing';
         PfConnMngRouting
     ],
     declarations: [
-        // PaginationComponent,
         PfConnMngComponent,
         PfConnCreStep01Component,
         PfConnCreStep02Component,
@@ -67,4 +64,4 @@ import { PfConnMngRouting } from './pf-conn-mng.routing';
     ]
 
 })
-export class PfConnMngCreModule { }
+export class PfConnMngModule { }

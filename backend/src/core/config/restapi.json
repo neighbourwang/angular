@@ -60,7 +60,7 @@
     {
         "desc": "获取全部已创建平台信息",
         "id": "pf.conn.mng.platforms.get",
-        "url": "adminui/authsec/platform"
+        "url": "adminui/authsec/platform/page/{page}/size/{size}"
    },
    {
         "desc": "创建平台",

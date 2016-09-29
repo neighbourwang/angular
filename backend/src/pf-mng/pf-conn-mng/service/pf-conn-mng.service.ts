@@ -17,9 +17,9 @@ export class PfConnMngService {
         return this.restApiCfg.loadCfgData();
     }
 
-    getPlatforms() {
+    getPlatforms(page: number, size: number) {
         let url = this.restApiCfg.getRestApiUrl("pf.conn.mng.platforms.get");
 
-        return this.restApi.get(url, undefined, undefined);
+        return this.restApi.get(url, [{key: "page", value: page}, {key: "size", value: size}], undefined);
     }
 }

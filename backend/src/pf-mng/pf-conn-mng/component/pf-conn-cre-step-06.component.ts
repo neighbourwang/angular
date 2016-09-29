@@ -6,8 +6,7 @@ import { PfConnCreStep06Service } from '../service/pf-conn-cre-step-06.service';
 import { LayoutService } from '../../../core/service/layout.service';
 
 @Component({
-  // moduleId: module.id,
-  selector: 'fc-pf-conn-mng-cre',
+  selector: 'pf-conn-cre-step-06',
   templateUrl: '../template/pf-conn-cre-step-06.component.html',
   styleUrls: [],
   providers: []
