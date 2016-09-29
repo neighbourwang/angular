@@ -1,0 +1,101 @@
+<div class="page-content-header icon-content-header-purchasing">企业开通管理</div>
+<div class="page-content">
+	<div style="padding-bottom: 10px;">
+		<div class="dropdown pull-right">
+			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			选择操作
+			<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+				<li><a href="#">删除</a></li>
+				<li><a href="#">开通</a></li>
+				<li><a href="#">取消开通</a></li>
+			</ul>
+		</div>
+		<button class="fox-cloud-button fox-cloud-button-green" (click)="create()">
+			<span class="glyphicon glyphicon-edit"></span>
+			<span class="icon-button-label icon-left-button-label">创建与开通</span>
+		</button>
+	</div>
+	<div class="table-container">
+		<table class="table table-hover"> 
+			<thead>
+				<tr>
+					<th class="fristTh"><input type="checkbox"> 全选</th>
+					<th>企业名称</th>
+					<th>区域数</th>
+					<th>云主机数量额度</th>
+					<th>存储(GB)</th>
+					<th>网络数</th>
+					<th>产品数</th>
+					<th>状态</th>
+					<th>状态说明</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><input type="checkbox"></td>
+					<td>上海慧与有限公司</td>
+					<td>2</td>
+					<td>300</td>
+					<td>2000</td>
+					<td>5</td>
+					<td>2</td>
+					<td style="color: red;">初始化</td>
+					<td>资源配额未完成</td>
+					<td>
+						<button class="fox-cloud-button-sm fox-cloud-button-white">
+							<span class="icon-button-label icon-left-button-label">重新配置</span>
+						</button>
+					</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox"></td>
+					<td>慧与（北京）有限公司</td>
+					<td>3</td>
+					<td>300</td>
+					<td>10000</td>
+					<td>6</td>
+					<td>3</td>
+					<td style="color: red;">初始化</td>
+					<td>资源配额失败</td>
+					<td>
+						<button class="fox-cloud-button-sm fox-cloud-button-white">
+							<span class="icon-button-label icon-left-button-label">重新配置</span>
+						</button>
+					</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox"></td>
+					<td>苏州慧与有限公司</td>
+					<td>2</td>
+					<td>300</td>
+					<td>2000</td>
+					<td>5</td>
+					<td>2</td>
+					<td style="color: red;">初始化</td>
+					<td>资源配额失败</td>
+					<td>
+						<button class="fox-cloud-button-sm fox-cloud-button-white">
+							<span class="icon-button-label icon-left-button-label">重新配置</span>
+						</button>
+					</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox"></td>
+					<td>武汉慧与有限公司</td>
+					<td>3</td>
+					<td>300</td>
+					<td>10000</td>
+					<td>6</td>
+					<td>3</td>
+					<td>已开通</td>
+					<td></td>
+					<td>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -54,11 +54,11 @@ const menu: Array<Object> = [
                 "top3_menu": [
                     {
                         "label": "概览",
-                        "routing": "pf_mng/svc_dir_mng/svc_dir_mng"
+                        "routing": "pf-mng/svc-dir-mng/svc-dir-mng"
                     },
                     {
                         "label": "创建",
-                        "routing": "pf_mng/svc_dir_mng/svc_dir_cre_step_01"
+                        "routing": "pf-mng/svc-dir-mng/svc-dir-cre-step-01"
                     }
                 ]
             }
@@ -72,7 +72,7 @@ const menu: Array<Object> = [
             {
                 "label": "企业开通管理",
                 "isOpen": false,
-                "routing": ""
+                "routing": "pf-mng/ent-est-mng/ent-est-mng"
             },
             {
                 "label": "资源配额管理",

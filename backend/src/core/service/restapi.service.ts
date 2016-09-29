@@ -9,8 +9,8 @@ export class RestApi {
     public defaultHeaders : Headers;
 
     constructor(
-        private http: Http,
-        private jsonp: Jsonp
+        private http: Http
+        // private jsonp: Jsonp
     ) {}
 
     get(url: string, pathParams: Array<any>, queryParams: any, jwt: string = undefined): Promise<any> {
@@ -26,11 +26,11 @@ export class RestApi {
         return this.httpRequest('PUT', url, jwt, pathParams, queryParams, body);
     }
 
-    delete(url: string, pathParams: Array<any>, queryParams: any, jwt: string = undefined): Promise<any> {
+    delete(url: string, pathParams: Array<any>, queryParams: any, body: any, jwt: string = undefined): Promise<any> {
         return this.httpRequest('DELETE', url, jwt, pathParams, queryParams, undefined);
     }
 
-    private httpRequest(type: string, url: string, jwt: string, pathParams: Array<any>, queryParams: any, body: any): Promise<any> {
+    private httpRequest(type: string, url: string, jwt: string, pathParams: Array<any>, queryParams: Array<any>, body: any): Promise<any> {
         console.debug(`START ${type} ${new Date().toLocaleString()}: ${url}`);
 
         const path = pathParams ? this.createPath(url, pathParams) : url;
@@ -38,9 +38,9 @@ export class RestApi {
         console.debug(`START ${type} ${new Date().toLocaleString()}: ${path}`);
 
         
-        let queryParameters = new URLSearchParams();
+        let queryParameters = this.createQueryParams(queryParams);
         let headerParams = new Headers();
-        
+
         if (jwt) {
             headerParams.append('Authorization', jwt);
         }
@@ -87,6 +87,18 @@ export class RestApi {
         });
 
         return url;
+    }
+
+    private createQueryParams(params: Array<any>) {
+        let queryParameters = new URLSearchParams();
+
+        if (params) {
+            params.forEach(element => {
+                queryParameters.set(element.key, element.value);
+            });
+        }
+
+        return queryParameters;
     }
 
     private extractData(res: Response) {
