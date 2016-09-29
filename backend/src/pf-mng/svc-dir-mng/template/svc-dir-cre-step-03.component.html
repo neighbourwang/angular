@@ -36,21 +36,9 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>高性能区4</td>
-											<td>高配置的CPU、内存和磁盘区</td>
-										</tr>
-										<tr>
-											<td>高性能区5</td>
-											<td>高配置的CPU、内存和磁盘区</td>
-										</tr>
-										<tr>
-											<td>普通区5</td>
-											<td>普通配置的CPU、内存和磁盘区</td>
-										</tr>
-										<tr>
-											<td>高性能区6</td>
-											<td>普通配置的CPU、内存和磁盘区</td>
+										<tr *ngFor="let item of getOrgZones()" [ngClass]="{'selected': item.selected, 'clickable': true}" (click)="selectZone(item, $index)">
+											<td>{{item.displayName || item.id}}</td>
+											<td>{{item.description || item.id}}</td>
 										</tr>
 									</tbody>
 								</table>
@@ -63,13 +51,13 @@
 		</div>
 		<div class="col-md-2">
 				<div class="col-md-12 text-center" style="padding: 0px 0px 20px 0px;">
-					<button class="fox-cloud-button fox-cloud-button-white">
+					<button class="fox-cloud-button fox-cloud-button-white" (click)="addZone()">
 						<span class="glyphicon glyphicon-arrow-right"></span>
 						<span class="icon-button-label icon-left-button-label">加入</span>
 					</button>
 				</div>
 				<div class="col-md-12 text-center">
-					<button class="fox-cloud-button fox-cloud-button-white">
+					<button class="fox-cloud-button fox-cloud-button-white" (click)="removeZone()">
 						<span class="glyphicon glyphicon-arrow-left"></span>
 						<span class="icon-button-label icon-left-button-label">移除</span>
 					</button>
@@ -96,21 +84,9 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>高性能区1</td>
-											<td>高配置的CPU、内存和磁盘区</td>
-										</tr>
-										<tr>
-											<td>高性能区2</td>
-											<td>高配置的CPU、内存和磁盘区</td>
-										</tr>
-										<tr>
-											<td>普通区3</td>
-											<td>普通配置的CPU、内存和磁盘区</td>
-										</tr>
-										<tr>
-											<td>高性能区7</td>
-											<td>普通配置的CPU、内存和磁盘区</td>
+										<tr *ngFor="let item of getAddedZones()" [ngClass]="{'selected': item.selected, 'clickable': true}" (click)="selectZone(item, $index)">
+											<td>{{item.displayName || item.id}}</td>
+											<td>{{item.description || item.id}}</td>
 										</tr>
 									</tbody>
 								</table>

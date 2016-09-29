@@ -72,7 +72,7 @@ export class RestApi {
                                 .catch(
                                     error => {
                                         console.debug(`FAILURE ${type} ${new Date().toLocaleString()}: ${path}`);
-                                        this.handleError(error);
+                                        return this.handleError(error);
                                     }
                                 );
 

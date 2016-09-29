@@ -5,7 +5,7 @@ import { Location } from '@angular/common';
 import { LayoutService } from '../../../core/service/layout.service';
 
 import { DirectoryCreateService } from '../service';
-import { ServiceDetail, Zone } from '../model';
+import { ServiceDetail, Zone, ZoneInfo } from '../model';
 
 const PlatformId: number = 6;
 
@@ -42,6 +42,7 @@ export class SvcDirCreStep3Component implements OnInit {
         {
             if (this.directoryCreateService.cachedZones && this.directoryCreateService.cachedZones.length > 0) {
               this.zones = this.directoryCreateService.cachedZones;
+              this.resetSelectStatus();
             } else {
               this.getZones();
             }
@@ -60,6 +61,7 @@ export class SvcDirCreStep3Component implements OnInit {
                 if (ret && ret.resultContent) {
                     this.zones = ret.resultContent;
                     this.directoryCreateService.cachedZones = ret.resultContent;
+                    this.resetSelectStatus();
                 }
             }
             this.layoutService.setLoading(false);
@@ -68,6 +70,92 @@ export class SvcDirCreStep3Component implements OnInit {
             this.showError('', '可用区数据获取失败。');
             this.layoutService.setLoading(false);
         });
+  }
+
+  resetSelectStatus() {
+    this.zones.forEach((orgZone, index) => {
+      this.zones[index].added = false;
+
+      for (let zoneInfo of this.serviceDetail.zones) {
+        if (orgZone.id == zoneInfo.zoneId) {
+          this.zones[index].added = true;
+          break;
+        }
+      }
+    });
+  }
+
+  getOrgZones(): Zone[] {
+    return this.getZonesByType(false);
+  }
+
+  getAddedZones(): Zone[] {
+    return this.getZonesByType(true);
+  }
+
+  getZonesByType(addFlg: boolean): Zone[] {
+    let list = [];
+
+    for (let zone of this.zones) {
+      if (zone.added == addFlg) {
+        list.push(zone);
+      }
+    }
+
+    return list;
+  }
+
+  selectZone(zone: Zone, index: number) {
+    for (let item of this.zones) {
+      if (zone.id == item.id) {
+        item.selected = true;
+      } else {
+        item.selected = false;
+      }
+    }
+  }
+
+  getSelectedZone(): Zone {
+    for (let zone of this.zones) {
+      if (zone.selected == true) {
+        return zone;
+      }
+    }
+  }
+
+  addZone() {
+    let zone = this.getSelectedZone();
+    if (!zone) {
+      return;
+    }
+    zone.added = true;
+    zone.selected = false;
+
+    let zoneInfo = new ZoneInfo();
+    zoneInfo.zoneId = zone.id;
+    zoneInfo.displayName = zone.displayName;
+    zoneInfo.description = zone.description;
+    zoneInfo.serviceZoneId = zone.id;
+
+    this.serviceDetail.zones.push(zoneInfo);
+  }
+
+  removeZone() {
+    let zone = this.getSelectedZone();
+    if (!zone) {
+      return;
+    }
+    zone.added = false;
+    zone.selected = false;
+
+    for (let j=0; j<this.serviceDetail.zones.length; j++){
+      let zoneInfo = this.serviceDetail.zones[j];
+
+      if (zoneInfo.zoneId == zone.id) {
+        this.serviceDetail.zones.splice(j);
+        break;
+      }
+    }
   }
 
   //

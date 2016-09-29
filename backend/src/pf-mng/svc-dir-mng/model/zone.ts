@@ -10,4 +10,7 @@ export class Zone {
     memNum: number = -1;
     createDate: string = '';
     updateDate: string = '';
+
+    added: boolean = false;        // Added status for service zones
+    selected: boolean = false;     // Selected status for UI display
 }

@@ -59,3 +59,12 @@
 	background: #00a982;
 	color: #fff;
 }
+
+.clickable {
+	cursor: pointer;
+}
+
+.selected {
+	color: #fff !important;
+	background-color: #00a982 !important;
+}

@@ -104,7 +104,7 @@ export class DirectoryCreateService {
         return this.restApi.get(url, pathParams, undefined, undefined);
     }
 
-    createServiceDirectory(platformId: string, serviceDetail: ServiceDetail) {
+    createServiceDirectory(platformId: number, serviceDetail: ServiceDetail) {
         let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.services.create', apiIp, apiPort);
 
         let pathParams = [

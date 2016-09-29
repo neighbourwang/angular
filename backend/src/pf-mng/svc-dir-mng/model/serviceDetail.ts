@@ -24,8 +24,10 @@ class Option {
     value: string = '';
 }
 
-class ZoneInfo {
+export class ZoneInfo {
     zoneId: number = -1;
+    displayName: string = '';
+    description: string = '';
     storageId: number = -1;
     size: number = -1;
     serviceZoneId: number = -1;
