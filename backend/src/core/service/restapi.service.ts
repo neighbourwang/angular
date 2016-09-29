@@ -27,7 +27,7 @@ export class RestApi {
     }
 
     delete(url: string, pathParams: Array<any>, queryParams: any, body: any, jwt: string = undefined): Promise<any> {
-        return this.httpRequest('DELETE', url, jwt, pathParams, queryParams, undefined);
+        return this.httpRequest('DELETE', url, jwt, pathParams, queryParams, body);
     }
 
     private httpRequest(type: string, url: string, jwt: string, pathParams: Array<any>, queryParams: Array<any>, body: any): Promise<any> {
@@ -61,11 +61,11 @@ export class RestApi {
                                .then(
                                     res => {
                                         console.debug(`SUCCESS ${type} ${new Date().toLocaleString()}: ${path}`);
-                                        if (type == 'DELETE') {
-                                            return Promise.resolve(0);
-                                        } else {
+                                        // if (type == 'DELETE') {
+                                        //     return Promise.resolve(0);
+                                        // } else {
                                             return this.extractData(res);
-                                        }
+                                        // }
                                         
                                     }
                                 )

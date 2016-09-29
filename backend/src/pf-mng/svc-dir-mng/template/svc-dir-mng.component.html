@@ -15,17 +15,6 @@
             <select class="form-control" [(ngModel)]="filterRegId" (ngModelChange)="regChange($event)">
                 <option *ngFor="let item of regions" value="{{item.id}}">{{item.displayName}}</option>
             </select>
-
-			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-			选择地区
-			<span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-				<li *ngFor="let item of regions">
-					<a ()>上海A区</a>
-				</li>
-				<li><a href="#">上海B区</a></li>
-			</ul>-->
 		</div>
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="create();">
 			<span class="glyphicon glyphicon-edit"></span>
@@ -53,33 +42,15 @@
 					<td>{{item.name}}</td>
 					<td>{{item.serviceTemplateName}}</td>
 					<td>{{item.description}}</td>
-					<td><i class="status" [ngClass]="{'bg-success': item.status == 1, 'bg-danger': item.status == 0}"></i></td>
+					<td><i class="status" [ngClass]="{'bg-success': item.status == 1, 'bg-danger': item.status != 1}"></i></td>
 					<td>{{item.creatorName}}</td> 
 					<td>
 						<a class="btn btn-xs btn-default" [ngClass]="{'disabled': item.status == 1}" (click)="publish(item)">发布</a>
-						<a class="btn btn-xs btn-default" [ngClass]="{'disabled': item.status == 0}" (click)="cancelPublish(item)">取消发布</a>
+						<a class="btn btn-xs btn-default" [ngClass]="{'disabled': item.status != 1}" (click)="cancelPublish(item)">取消发布</a>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-	<nav aria-label="Page navigation">
-		<ul class="pagination">
-			<li (click)="changePage(currPage-1)">
-				<a aria-label="Previous">
-					<span aria-hidden="true">&laquo;</span>
-				</a>
-			</li>
-
-			<li *ngFor="let page of pages" (click)="changePage(page)">
-				<a [ngClass]="{selected: page == currPage}">{{page}}</a>
-			</li>
-
-			<li (click)="changePage(currPage+1)">
-				<a aria-label="Next">
-					<span aria-hidden="true">&raquo;</span>
-				</a>
-			</li>
-		</ul>
-	</nav>
+	<fc-pagination tp={{totalPages}} (pf)="changePage($event)"></fc-pagination>
 </div>

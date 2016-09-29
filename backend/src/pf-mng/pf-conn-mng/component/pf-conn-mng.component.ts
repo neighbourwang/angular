@@ -1,39 +1,53 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { PfConnMngService } from '../service/pf-conn-mng.service';
 
 import { LayoutService } from '../../../core/service/layout.service';
 
+import { NoticeComponent } from '../../../common_components/dialog/component/notice.component';
+import { ConfirmComponent } from '../../../common_components/dialog/component/confirm.component';
+
+import { PfConnMngService } from '../service/pf-conn-mng.service';
 import { PfConnMngPlatform } from '../model/pf-conn-mng-platform.model';
 
 @Component({
-  // moduleId: module.id,
-  selector: 'fc-pf-conn-mng-cre',
+  selector: 'fc-pf-conn-mng',
   templateUrl: '../template/pf-conn-mng.component.html',
   styleUrls: [],
   providers: []
 })
 
 export class PfConnMngComponent implements OnInit {
+    @ViewChild('notice')
+    notice: NoticeComponent;
+
+    @ViewChild('confirm')
+    confirm: ConfirmComponent;
+
+    title: String = "";
+    msg: String = "";
+
     // 选择全部平台标识
     isSelectedAll: boolean = false
     platforms: Array<PfConnMngPlatform> = new Array<PfConnMngPlatform>();
     tp: number = 20;
     pp: number = 11;
-  constructor(
-      private service: PfConnMngService,
-    private layoutService: LayoutService,
-    private router: Router
-  ) {
-  }
+
+    constructor(
+        private service: PfConnMngService,
+        private layoutService: LayoutService,
+        private router: Router
+  ) {}
 
   ngOnInit() {
-      this.service.init().then(promise => {
-          this.service.getPlatforms().then(
+      this.backend(1, 10);
+  }
+
+  backend(page: number, size: number) {
+      this.service.init().then(
+          promise => this.service.getPlatforms(page, size).then(
               response => {
                   if (!response) {
-                      //this.showError("Error", "API call failed");
+                      this.showError("数据取得错误", "异常响应");
                       return;
                   }
 
@@ -43,10 +57,12 @@ export class PfConnMngComponent implements OnInit {
                       let resultContent = response.resultContent;
 
                       if (!resultContent) {
-                          this.showError("Error", "API call failed()");
+                          this.showError("数据取得错误", "没有取得平台数据");
 
                           return;
                       }
+
+                      let backend = new Array<PfConnMngPlatform>();
 
                       for (let content of resultContent) {
                           let platform = new PfConnMngPlatform();
@@ -61,20 +77,22 @@ export class PfConnMngComponent implements OnInit {
                           platform.description = content.description;
                           platform.version = content.version;
 
-                          this.platforms.push(platform);
+                          backend.push(platform);
                       }
+
+                      this.platforms = backend;
                   }
               }
-          ).catch(this.onRejected);
-      });
-  }
-    
-  showError(title: string, msg: string) {
-    alert(msg);
+          ).catch(
+              reason => this.showError("数据取得错误", reason)
+              ));
   }
 
-  onRejected(reason: any) {
-      alert(reason);
+  showError(title: string, msg: string) {
+      this.title = title;
+      this.msg = msg;
+
+      this.notice.open();
   }
 
   /*
@@ -96,6 +114,15 @@ export class PfConnMngComponent implements OnInit {
   }
 
   paging(page) {
+      this.backend(page, 10);
+  }
+
+  okf() {
+      alert("okf");
+  }
+
+  cancelf() {
+      alert("cancelf");
   }
   
 }

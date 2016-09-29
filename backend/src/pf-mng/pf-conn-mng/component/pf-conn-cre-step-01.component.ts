@@ -8,7 +8,7 @@ import { PfConnCreStep01Service } from '../service/pf-conn-cre-step-01.service';
 import { Platform } from '../model/platform.model';
 
 @Component({
-  selector: 'fc-pf-conn-mng-cre',
+  selector: 'pf-conn-cre-step-01',
   templateUrl: '../template/pf-conn-cre-step-01.component.html',
   styleUrls: [],
   providers: []

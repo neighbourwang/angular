@@ -42,6 +42,7 @@ export class SvcDirCreStep4Component implements OnInit {
         {
             if (this.directoryCreateService.cachedStorages && this.directoryCreateService.cachedStorages.length > 0) {
               this.storages = this.directoryCreateService.cachedStorages;
+              this.initStorageId();
             } else {
               this.getStorages();
             }
@@ -60,6 +61,7 @@ export class SvcDirCreStep4Component implements OnInit {
                 if (ret && ret.resultContent) {
                     this.storages = ret.resultContent;
                     this.directoryCreateService.cachedStorages = ret.resultContent;
+                    this.initStorageId();
                 }
             }
             this.layoutService.setLoading(false);
@@ -68,6 +70,19 @@ export class SvcDirCreStep4Component implements OnInit {
             this.showError('', '启动盘数据获取失败。');
             this.layoutService.setLoading(false);
         });
+  }
+
+  initStorageId() {
+      if (this.storages && this.storages.length > 0) {
+          for (let zone of this.serviceDetail.zones) {
+              if (zone.storageId == -1) {
+                  zone.storageId = this.storages[0] ? this.storages[0].id : -1;
+              }
+              if (zone.size == -1) {
+                  zone.size = 0;
+              }
+          }
+      }
   }
 
   createServiceDirectory() {

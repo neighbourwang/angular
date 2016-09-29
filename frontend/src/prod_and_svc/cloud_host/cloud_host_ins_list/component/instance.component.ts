@@ -20,8 +20,6 @@ export class InstanceListComponent implements OnInit {
   pageSize: number;
   totalPages: number;
   currPage: number;
-  pages: any[];
-  dispPagingCount: number = 7;
 
   instances: Instance[];
   allChecked: boolean = false;
@@ -36,7 +34,6 @@ export class InstanceListComponent implements OnInit {
     this.pageSize = 10;
     this.totalPages = 0;
     this.currPage = 1;
-    this.pages = new Array<any>();
 
     this.allChecked = false;
     this.layoutService.setLoading(false);
@@ -76,24 +73,24 @@ export class InstanceListComponent implements OnInit {
       this.instances.forEach((element, index) => {
         this.instances[index].checked = false;
       });
-      this.resetPaging();
+      // this.resetPaging();
     }
   }
 
-  resetPaging() {
+  // resetPaging() {
     
-    let start = this.currPage - Math.floor(this.dispPagingCount/2);
-    start = start <1 ? 1: start;
-    start = (start + (this.dispPagingCount-1)) > this.totalPages ? (this.totalPages-(this.dispPagingCount-1)) : start;
-    let end = start + (this.dispPagingCount-1);
-    end = end > this.totalPages ? this.totalPages : end;
+  //   let start = this.currPage - Math.floor(this.dispPagingCount/2);
+  //   start = start <1 ? 1: start;
+  //   start = (start + (this.dispPagingCount-1)) > this.totalPages ? (this.totalPages-(this.dispPagingCount-1)) : start;
+  //   let end = start + (this.dispPagingCount-1);
+  //   end = end > this.totalPages ? this.totalPages : end;
 
 
-    this.pages.length = 0;
-    for (let i=start; i<=end; i++) {
-      this.pages.push(i);
-    }
-  }
+  //   this.pages.length = 0;
+  //   for (let i=start; i<=end; i++) {
+  //     this.pages.push(i);
+  //   }
+  // }
 
   changePage(page: number) {
 

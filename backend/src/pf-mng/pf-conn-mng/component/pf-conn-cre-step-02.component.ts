@@ -8,8 +8,7 @@ import { PfConnCreStep02Service } from '../service/pf-conn-cre-step-02.service';
 import { ResSync } from '../model/res-sync.model';
 
 @Component({
-  // moduleId: module.id,
-  selector: 'fc-pf-conn-mng-cre',
+  selector: 'pf-conn-cre-step-02',
   templateUrl: '../template/pf-conn-cre-step-02.component.html',
   styleUrls: [],
   providers: []

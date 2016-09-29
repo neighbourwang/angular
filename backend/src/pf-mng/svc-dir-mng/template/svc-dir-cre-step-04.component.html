@@ -27,76 +27,24 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>高性能区1</td>
-							<td>高配置的CPU、内存和磁盘区</td>
+						<tr *ngFor="let zone of serviceDetail.zones">
+							<td>{{zone.displayName || zone.zoneId}}</td>
+							<td>{{zone.description || zone.zoneId}}</td>
 							<td>
 								<div class="row">
 									<span class="col-sm-5">
-										<select class="form-control"><option selected>高速I/O</option></select>
+										<select class="form-control" [(ngModel)]="zone.storageId">
+											<option *ngFor="let option of storages" value={{option.id}}>
+												{{option.displayName || option.id}}
+											</option>
+										</select>
 									</span>
 									<span class="col-sm-5">
-										<input class="form-control" type="number" value="20" />
+										<input class="form-control" type="number" min="0" [(ngModel)]="zone.size" />
 									</span>
 									<span>G</span>
 								</div>
 							</td>
-						</tr>
-						<tr>
-							<td>高性能区2</td>
-							<td>高配置的CPU、内存和磁盘区</td>
-							<td>
-								<div class="row">
-									<span class="col-sm-5">
-										<select class="form-control"><option selected>高速I/O</option></select>
-									</span>
-									<span class="col-sm-5">
-										<input class="form-control" type="number" value="20" />
-									</span>
-									<span>G</span>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>普通区3</td>
-							<td>普通配置的CPU、内存和磁盘区</td>
-							<td>
-								<div class="row">
-									<span class="col-sm-5">
-										<select class="form-control"><option selected>高速I/O</option></select>
-									</span>
-									<span class="col-sm-5">
-										<input class="form-control" type="number" value="20" />
-									</span>
-									<span>G</span>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>普通区7</td>
-							<td>普通配置的CPU、内存和磁盘区</td>
-							<td>
-								<div class="row">
-									<span class="col-sm-5">
-										<select class="form-control"><option selected>高速I/O</option></select>
-									</span>
-									<span class="col-sm-5">
-										<input class="form-control" type="number" value="20" />
-									</span>
-									<span>G</span>
-								</div>
-
-							</td>
-						</tr>
-						<tr>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-						</tr>
-						<tr>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
 						</tr>
 					</tbody>
 				</table>
@@ -111,7 +59,7 @@
 	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="preStep();">
 		<span class="icon-button-label">上一步</span>
 	</button>
-	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="nextStep();">
-		<span class="icon-button-label">下一步</span>
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="createServiceDirectory();">
+		<span class="icon-button-label">创建服务目录</span>
 	</button>
 </div>

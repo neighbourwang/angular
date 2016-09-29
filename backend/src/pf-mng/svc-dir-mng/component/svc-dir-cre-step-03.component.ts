@@ -136,6 +136,7 @@ export class SvcDirCreStep3Component implements OnInit {
     zoneInfo.displayName = zone.displayName;
     zoneInfo.description = zone.description;
     zoneInfo.serviceZoneId = zone.id;
+    zoneInfo.size = 0;
 
     this.serviceDetail.zones.push(zoneInfo);
   }
@@ -152,7 +153,7 @@ export class SvcDirCreStep3Component implements OnInit {
       let zoneInfo = this.serviceDetail.zones[j];
 
       if (zoneInfo.zoneId == zone.id) {
-        this.serviceDetail.zones.splice(j);
+        this.serviceDetail.zones.splice(j, 1);
         break;
       }
     }
