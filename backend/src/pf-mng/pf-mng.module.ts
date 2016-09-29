@@ -5,6 +5,8 @@ import { PfConnMngModule } from './pf-conn-mng/pf-conn-mng.module';
 
 import { SvcDirMngModule } from './svc-dir-mng/svc-dir-mng.module';
 
+import { EntEstMngModule } from './ent-est-mng/ent-est-mng.module'
+
 @NgModule({
     imports: [
         PfConnMngModule,
@@ -13,7 +15,8 @@ import { SvcDirMngModule } from './svc-dir-mng/svc-dir-mng.module';
     declarations: [],
     exports: [
         PfConnMngModule,
-        SvcDirMngModule
+        SvcDirMngModule,
+        EntEstMngModule
     ],
     providers: []
 })

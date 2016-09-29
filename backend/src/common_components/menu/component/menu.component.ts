@@ -114,7 +114,7 @@ const menu: Array<Object> = [
                 "label": "企业开通管理",
                 "isOpen": false,
                 "isActive": false,
-                "routing": ""
+                "routing": "pf-mng/ent-est-mng/ent-est-mng"
             },
             {
                 "label": "资源配额管理",

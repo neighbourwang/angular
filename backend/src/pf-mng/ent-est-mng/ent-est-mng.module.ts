@@ -25,7 +25,7 @@ import { EntEstMngRouting } from './ent-est-mng.routing';
         ,EntEstCreStep03Component
         ,EntEstCreStep04Component
     ],
-    exports: [],
+    exports: [EntEstMngComponent],
     providers: []
 
 })
