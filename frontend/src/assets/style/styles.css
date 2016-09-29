@@ -18,18 +18,29 @@ body {
 }
 
 .row-line-height {
-    padding: 10px 0px 10px 0px;
+	padding: 10px 0px 10px 0px;
 }
 
 .shrink {
 	text-align: right;
+	color: #00a982;
+	cursor: pointer;
 }
 
 .check-box-col {
     width: 90px;
 }
-/********Button Start*************/
 
+.progress-title {
+	padding: 10px 0px 10px 0px;
+}
+
+.progress-prompt {
+	position: absolute;
+	left: 50%;
+	color: #fff;
+}
+/********Button Start*************/
 .fox-cloud-button, .fox-cloud-button-sm .fox-cloud-button-lg {
 	cursor: pointer;
     text-align: center;
@@ -190,12 +201,6 @@ tr:nth-child(even) {
 	background: #ccc;
 	position: relative;
 }
-.navigator-progress .progress .prompt {
-	position: absolute;
-	top: 0px;
-	left: 40%;
-	color: #fff;
-}
 
 .fox-cloud-progress-rectangle {
   height: 20px;
@@ -250,13 +255,17 @@ tr:nth-child(even) {
   margin-left: -1px;
   line-height: 1.42857143;
   cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select:none;
+  user-select:none;
 }
 .fox-cloud-pagination > span:first-child {
   background: url("../images/previousOn.png") no-repeat 0px 8px;
   width: 100px;
   display: block;
 }
-.fox-cloud-pagination > span.disable:first-child {
+.fox-cloud-pagination > span.pagination-disabled:first-child {
   background: url("../images/previous.png") no-repeat 0px 8px;
   width: 100px;
   display: block;
@@ -268,7 +277,7 @@ tr:nth-child(even) {
   text-align: left;
   display: block;
 }
-.fox-cloud-pagination > span.disable:last-child {
+.fox-cloud-pagination > span.pagination-disabled:last-child {
   background: url("../images/next.png") no-repeat 100% 8px;
   width: 100px;
   text-align: left;
@@ -277,27 +286,15 @@ tr:nth-child(even) {
 }
 .fox-cloud-pagination > li:hover {
   z-index: 2;
-  color: #23527c;
+  color: #00a982;
   border: solid 1px #00a982;
 }
-.fox-cloud-pagination > .active > a,
-.fox-cloud-pagination > .active > span,
-.fox-cloud-pagination > .active > a:hover,
-.fox-cloud-pagination > .active > span:hover,
-.fox-cloud-pagination > .active > a:focus,
-.fox-cloud-pagination > .active > span:focus {
-  z-index: 3;
-  color: #fff;
-  cursor: default;
-  background-color: #337ab7;
-  border-color: #337ab7;
+.fox-cloud-pagination > li.active {
+  z-index: 2;
+  color: #00a982;
+  border: solid 1px #00a982;
 }
-.fox-cloud-pagination > .disabled > span,
-.fox-cloud-pagination > .disabled > span:hover,
-.fox-cloud-pagination > .disabled > span:focus,
-.fox-cloud-pagination > .disabled > a,
-.fox-cloud-pagination > .disabled > a:hover,
-.fox-cloud-pagination > .disabled > a:focus {
+.fox-cloud-pagination > span.pagination-disabled {
   color: #777;
   cursor: not-allowed;
   background-color: #fff;
@@ -308,6 +305,13 @@ tr:nth-child(even) {
 .section-title {
 	font-weight: bold;
 }
+
+.form-control-title {
+	font-weight: bold;
+	line-height: 34px;
+	text-align: right;
+}
+
 /********Global Section End*********/
 
 /********Header Section Start*********/

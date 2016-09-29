@@ -1,3 +1,4 @@
+<div class="page-content-header icon-content-header-purchasing">创建服务目录</div>
 <div class="page-content fix-page-content">
 	<div class="row navigator-progress">
 		<div class="col-md-3 active"><span class="mark">1</span>填写服务目录信息</div>
@@ -18,12 +19,13 @@
 				<div class="form-group">
 					<label class="col-sm-4 control-label">主机配置：</label>
 					<div class="col-sm-4">
-						<select class="form-control">
-							<option selected>标准配置-中</option>
-							<option>标准配置-高</option>
+						<select class="form-control" [(ngModel)]="serviceDetail.flavorId" (ngModelChange)="flavorChange()">
+							<option *ngFor="let item of flavors" value="{{item.id}}">
+								{{item.displayName}}
+							</option>
 						</select>
-						<div class="commentLine">
-						(配置说明：vCPU：2 内存：2G 硬盘：40G)
+						<div class="commentLine" *ngIf="currFlavor">
+						(配置说明：vCPU：{{currFlavor.cpu}} 内存：{{currFlavor.memDisplay}} 硬盘：{{currFlavor.disk}}G)
 						</div>
 					</div>
 					<div class="clear"></div>
@@ -33,9 +35,9 @@
 				<div class="form-group">
 					<label class="col-sm-4 control-label">镜像：</label>
 					<div class="col-sm-4">
-						<select class="form-control">
-							<option selected>自动</option>
-							<option>手动</option>
+						<select class="form-control" [(ngModel)]="serviceDetail.imageType">
+							<option value=0>自动</option>
+							<option value=1>手动</option>
 						</select>
 					</div>
 					<div class="clear"></div>
@@ -45,7 +47,10 @@
 				<div class="form-group">
 					<label class="col-sm-4 control-label">网络：</label>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" placeholder="自动">
+						<select class="form-control" [(ngModel)]="serviceDetail.networkType">
+							<option value=0>自动</option>
+							<option value=1>手动</option>
+						</select>
 					</div>
 					<div class="clear"></div>
 				</div>
@@ -54,24 +59,13 @@
 	</div>
 </div>
 <div class="text-center">
-	<button class="fox-cloud-button-lg fox-cloud-button-white" onclick="cancel();">
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="goBack();">
 		<span class="icon-button-label">返回</span>
 	</button>
-	<button class="fox-cloud-button-lg fox-cloud-button-white" onclick="previous();">
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="preStep();">
 		<span class="icon-button-label">上一步</span>
 	</button>
-	<button class="fox-cloud-button-lg fox-cloud-button-white" onclick="next();">
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="nextStep();">
 		<span class="icon-button-label">下一步</span>
 	</button>
 </div>
-<script>
-	function cancel() {
-		_load_content("svc_dir_mng");
-	}
-	function previous() {
-		_load_content("svc-dir-cre-step-01");
-	}
-	function next() {
-		_load_content("svc-dir-cre-step-03");
-	}
-</script>

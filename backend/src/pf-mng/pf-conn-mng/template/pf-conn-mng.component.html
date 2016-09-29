@@ -1,0 +1,46 @@
+<div class="page-content-header icon-content-header-platform-manage">平台接入管理</div>
+<div class="page-content">
+    <div style="padding-bottom: 10px;">
+        <div class="dropdown pull-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                更多操作
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <!--<li><a href="#">修改</a></li>-->
+                <li><a href="#">删除</a></li>
+                <li><a href="#">启用</a></li>
+                <li><a href="#">禁用</a></li>
+            </ul>
+        </div>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
+            <span class="glyphicon glyphicon-edit"></span>
+            <span class="icon-button-label icon-left-button-label">创建平台</span>
+        </button>
+    </div>
+    <div class="table-container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="check-box-col"><input type="checkbox" (click)="switchSelectAll();">全选</th>
+                    <th>区域名称</th>
+                    <th>类型/厂商</th>
+                    <th>访问地址</th>
+                    <th>状态</th>
+                    <th>状态说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of platforms">
+                    <td><input type="checkbox" [(ngModel)]="item.isSelected" /></td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.platformType}}</td>
+                    <td>{{item.uri}}</td>
+                    <td>初始化</td>
+                    <td>同步失败</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<fc-pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>

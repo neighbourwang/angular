@@ -6,7 +6,7 @@ import { RestApi } from '../../../core/service/restapi.service';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class PfCreStep01Service {
+export class PfConnMngService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
@@ -15,5 +15,11 @@ export class PfCreStep01Service {
 
     init(): Promise<any> {
         return this.restApiCfg.loadCfgData();
+    }
+
+    getPlatforms() {
+        let url = this.restApiCfg.getRestApiUrl("pf.conn.mng.platforms.get");
+
+        return this.restApi.get(url, undefined, undefined);
     }
 }

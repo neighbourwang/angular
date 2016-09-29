@@ -3,27 +3,29 @@ import { NgModule } from '@angular/core';
 // Common Componets
 import { CommonComponentModule } from '../../common_components/common.module';
 
+import { PaginationComponent } from '../../common_components/pagination/component/pagination.component';
+
 // pf-conn-mng-cre
-import { PfConnMngCreComponent } from './component/pf-conn-mng-cre.component';
-import { PfConnMngCreService } from './service/pf-conn-mng-cre.service';
+import { PfConnMngComponent } from './component/pf-conn-mng.component';
+import { PfConnMngService } from './service/pf-conn-mng.service';
 
-import { PfCreStep01Component } from './component/pf-cre-step-01.component';
-import { PfCreStep01Service } from './service/pf-cre-step-01.service';
+import { PfConnCreStep01Component } from './component/pf-conn-cre-step-01.component';
+import { PfConnCreStep01Service } from './service/pf-conn-cre-step-01.service';
 
-import { PfCreStep02Component } from './component/pf-cre-step-02.component';
-import { PfCreStep02Service } from './service/pf-cre-step-02.service';
+import { PfConnCreStep02Component } from './component/pf-conn-cre-step-02.component';
+import { PfConnCreStep02Service } from './service/pf-conn-cre-step-02.service';
 
-import { PfCreStep03Component } from './component/pf-cre-step-03.component';
-import { PfCreStep03Service } from './service/pf-cre-step-03.service';
+import { PfConnCreStep03Component } from './component/pf-conn-cre-step-03.component';
+import { PfConnCreStep03Service } from './service/pf-conn-cre-step-03.service';
 
-import { PfCreStep04Component } from './component/pf-cre-step-04.component';
-import { PfCreStep04Service } from './service/pf-cre-step-04.service';
+import { PfConnCreStep04Component } from './component/pf-conn-cre-step-04.component';
+import { PfConnCreStep04Service } from './service/pf-conn-cre-step-04.service';
 
-import { PfCreStep05Component } from './component/pf-cre-step-05.component';
-import { PfCreStep05Service } from './service/pf-cre-step-05.service';
+import { PfConnCreStep05Component } from './component/pf-conn-cre-step-05.component';
+import { PfConnCreStep05Service } from './service/pf-conn-cre-step-05.service';
 
-import { PfCreStep06Component } from './component/pf-cre-step-06.component';
-import { PfCreStep06Service } from './service/pf-cre-step-06.service';
+import { PfConnCreStep06Component } from './component/pf-conn-cre-step-06.component';
+import { PfConnCreStep06Service } from './service/pf-conn-cre-step-06.service';
 
 // Routing
 import { PfConnMngRouting } from './pf-conn-mng.routing';
@@ -34,31 +36,32 @@ import { PfConnMngRouting } from './pf-conn-mng.routing';
         PfConnMngRouting
     ],
     declarations: [
-        PfConnMngCreComponent,
-        PfCreStep01Component,
-        PfCreStep02Component,
-        PfCreStep03Component,
-        PfCreStep04Component,
-        PfCreStep05Component,
-        PfCreStep06Component,
+        PaginationComponent,
+        PfConnMngComponent,
+        PfConnCreStep01Component,
+        PfConnCreStep02Component,
+        PfConnCreStep03Component,
+        PfConnCreStep04Component,
+        PfConnCreStep05Component,
+        PfConnCreStep06Component
     ],
     exports: [
-        PfConnMngCreComponent,
-        PfCreStep01Component,
-        PfCreStep02Component,
-        PfCreStep03Component,
-        PfCreStep04Component,
-        PfCreStep05Component,
-        PfCreStep06Component,
+        PfConnMngComponent,
+        PfConnCreStep01Component,
+        PfConnCreStep02Component,
+        PfConnCreStep03Component,
+        PfConnCreStep04Component,
+        PfConnCreStep05Component,
+        PfConnCreStep06Component
     ],
     providers: [
-        PfConnMngCreService,
-        PfCreStep01Service,
-        PfCreStep02Service,
-        PfCreStep03Service,
-        PfCreStep04Service,
-        PfCreStep05Service,
-        PfCreStep06Service
+        PfConnMngService,
+        PfConnCreStep01Service,
+        PfConnCreStep02Service,
+        PfConnCreStep03Service,
+        PfConnCreStep04Service,
+        PfConnCreStep05Service,
+        PfConnCreStep06Service
     ]
 
 })

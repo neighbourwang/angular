@@ -16,13 +16,17 @@ export class RestApiCfg {
     }
 
     loadCfgData(): Promise<any> {
-        return this.http.get('core/config/restapi.json')
-                         .toPromise()
-                         .then(res => 
-                         {
-                             this.restApiList = res.json()
-                         })
-                         .catch(this.handleError);
+        if (this.restApiList && this.restApiList.length > 0) {
+            return Promise.resolve(0);
+        } else {
+            return this.http.get('core/config/restapi.json')
+                                     .toPromise()
+                                     .then(res => 
+                                     {
+                                         this.restApiList = res.json()
+                                     })
+                                     .catch(this.handleError);
+        }
     }
     
     getRestApiUrl(apiId: string, ip?: string, port?: string): string {

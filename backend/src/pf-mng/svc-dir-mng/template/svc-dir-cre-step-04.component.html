@@ -105,24 +105,13 @@
 	</div>
 </div>
 <div class="text-center">
-	<button class="fox-cloud-button-lg fox-cloud-button-white" onclick="cancel();">
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="goBack();">
 		<span class="icon-button-label">返回</span>
 	</button>
-	<button class="fox-cloud-button-lg fox-cloud-button-white" onclick="previous();">
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="preStep();">
 		<span class="icon-button-label">上一步</span>
 	</button>
-	<button class="fox-cloud-button-lg fox-cloud-button-white" onclick="next();">
-		<span class="icon-button-label">创建服务目录</span>
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="nextStep();">
+		<span class="icon-button-label">下一步</span>
 	</button>
 </div>
-<script>
-	function cancel() {
-		_load_content("svc_dir_mng");
-	}
-	function previous() {
-		_load_content("svc-dir-cre-step-03");
-	}
-	function next() {
-		alert("");
-	}
-</script>

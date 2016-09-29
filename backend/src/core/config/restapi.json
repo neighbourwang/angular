@@ -1,60 +1,71 @@
 [
     {
         "desc": "获取全部服务目录列标",
-        "id": "pf_mng.svc_dir_mng.services.get",
+        "id": "pf-mng.svc-dir-mng.services.get",
         "url": "noauth/svm/platforms/{platformid}/services/"
     },
     {
         "desc": "获取全部地区列标",
-        "id": "pf_mng.svc_dir_mng.regions.get",
+        "id": "pf-mng.svc-dir-mng.regions.get",
         "url": "noauth/svm/platforms/regions/"
     },
     {
         "desc": "更新服务目录信息",
-        "id": "pf_mng.svc_dir_mng.services.update",
+        "id": "pf-mng.svc-dir-mng.services.update",
         "url": "noauth/svm/platforms/{platformid}/services/{id}"
     },
     {
         "desc": "删除单个服务目录",
-        "id": "pf_mng.svc_dir_mng.services.remove",
+        "id": "pf-mng.svc-dir-mng.services.remove",
         "url": "noauth/svm/platforms/{platformid}/services/{id}"
     },
     {
         "desc": "删除多个服务目录",
-        "id": "pf_mng.svc_dir_mng.services.removeAll",
+        "id": "pf-mng.svc-dir-mng.services.removeAll",
         "url": "/noauth/svm/platforms/{platformid}/services/batch"
     },
     {
         "desc": "更新服务目录状态.1:发布, 0:取消发布",
-        "id": "pf_mng.svc_dir_mng.services.publish",
+        "id": "pf-mng.svc-dir-mng.services.publish",
         "url": "noauth/svm/platforms/{platformid}/services/{id}/status/{status}"
     },
 
 
     {
         "desc": "获取全部服务模板列表",
-        "id": "pf_mng.svc_dir_mng.servicetemplates.get",
+        "id": "pf-mng.svc-dir-mng.servicetemplates.get",
         "url": "noauth/svm/servicetemplates/"
     },
     {
         "desc": "获取全部主机配置列表",
-        "id": "pf_mng.svc_dir_mng.flavors.get",
+        "id": "pf-mng.svc-dir-mng.flavors.get",
         "url": "noauth/svm/platforms/{platformid}/flavors/"
     },
     {
         "desc": "获取全部可用区列表",
-        "id": "pf_mng.svc_dir_mng.zones.get",
+        "id": "pf-mng.svc-dir-mng.zones.get",
         "url": "noauth/svm/platforms/{platformid}/zones/"
     },
     {
         "desc": "获取全部启动盘参数列表",
-        "id": "pf_mng.svc_dir_mng.storages.get",
+        "id": "pf-mng.svc-dir-mng.storages.get",
         "url": "noauth/svm/platforms/{platformid}/storages/"
     },
     {
         "desc": "创建服务目录",
-        "id": "pf_mng.svc_dir_mng.services.create",
+        "id": "pf-mng.svc-dir-mng.services.create",
         "url": "/noauth/svm/platforms/{platformid}/services/"
-    }
+    },
+
+    {
+        "desc": "获取全部已创建平台信息",
+        "id": "pf.conn.mng.platforms.get",
+        "url": "adminui/authsec/platform"
+   },
+   {
+        "desc": "创建平台",
+        "id": "pf.cre.step.01.paltform.post",
+        "url": "adminui/authsec/platform"
+   }
 
 ]
