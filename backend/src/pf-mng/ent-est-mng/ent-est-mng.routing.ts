@@ -5,6 +5,7 @@ import { EntEstMngComponent } from './component/ent-est-mng.component';
 import { EntEstCreStep01Component } from './component/ent-est-cre-step-01.component';
 import { EntEstCreStep02Component } from './component/ent-est-cre-step-02.component';
 import { EntEstCreStep03Component } from './component/ent-est-cre-step-03.component';
+import { EntEstCreStep04Component } from './component/ent-est-cre-step-04.component';
 
 export const EntEstMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
@@ -20,7 +21,11 @@ export const EntEstMngRouting: ModuleWithProviders = RouterModule.forChild([
     	,component: EntEstCreStep02Component
     }
     ,{
-    	path: 'pf-mng/ent-est-mng/ent-est-cre-step-03'
-    	,component: EntEstCreStep03Component
+        path: 'pf-mng/ent-est-mng/ent-est-cre-step-03'
+        ,component: EntEstCreStep03Component
+    }
+    ,{
+    	path: 'pf-mng/ent-est-mng/ent-est-cre-step-04'
+    	,component: EntEstCreStep04Component
     }
 ]);
