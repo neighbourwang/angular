@@ -1,0 +1,105 @@
+			<div class="page-content-header icon-content-header-enterprise-manage">企业管理员</div>
+			<div class="page-content">
+				<div style="padding-bottom: 10px;">
+					<div class="dropdown pull-right">
+						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						更多操作
+						<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+							<li><a href="#">修改</a></li>
+							<li><a href="#">删除</a></li>
+							<li role="separator" class="divider">激活</li>
+							<li><a href="#">取消</a></li>
+						</ul>
+					</div>
+					<div class="dropdown pull-right">
+						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						更多企业
+						<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+							<li><a href="#">上海慧与有限公司</a></li>
+							<li><a href="#">中国惠普有限公司</a></li>
+						</ul>
+					</div>
+					<button class="fox-cloud-button fox-cloud-button-green" onclick="creation();">
+						<span class="glyphicon glyphicon-edit"></span>
+						<span class="icon-button-label icon-left-button-label">创建管理员</span>
+					</button>
+				</div>
+				<div class="table-container">
+					<table class="table table-hover"> 
+						<thead>
+							<tr>
+								<th class="fristTh"><input type="checkbox"> 选则</th>
+								<th>企业名称</th>
+								<th>管理员</th>
+								<th>联系电话</th>
+								<th>邮箱地址</th>
+								<th>账户名</th> 
+								<th>账户状态</th>
+								<th>描述</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><input type="checkbox"></td>
+								<td>上海慧与有限公司</td>
+								<td>张三</td>
+								<td>18618826666</td>
+								<td>zhangshan@hpe.com</td>
+								<td>zhangshan@hpe.com</td>
+								<td style="color: #00a982">未激活</td>
+								<td></td> 
+							</tr>
+							<tr>
+								<td><input type="checkbox"></td>
+								<td>上海慧与有限公司</td>
+								<td>张汉</td>
+								<td>18618826666</td>
+								<td>zhanghan@hpe.com</td>
+								<td>zhanghan@hpe.com</td>
+								<td style="color: #ff0000">已激活</td>
+								<td></td> 
+							</tr>
+							<tr>
+								<td><input type="checkbox"></td>
+								<td>中国惠普有限公司</td>
+								<td>李四</td>
+								<td>18618826666</td>
+								<td>lisi@hpe.com</td>
+								<td>lisi@hpe.com</td>
+								<td style="color: #ff0000">已激活</td>
+								<td></td> 
+							</tr>
+							<tr>
+								<td><input type="checkbox"></td>
+								<td>中国惠普有限公司</td>
+								<td>王军</td>
+								<td>18618826666</td>
+								<td>wangjun@hpe.com</td>
+								<td>wangjun@hpe.com</td>
+								<td style="color: #ff0000">已激活</td>
+								<td></td> 
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="fox-cloud-pagination-container">
+				<ul class="fox-cloud-pagination">
+					<span class="disable">上一页</span>
+					<li>1</li>
+					<li>2</li>
+					<li>3</li>
+					<li>4</li>
+					<li>5</li>
+					<span>下一页</span>
+				</ul>
+			</div>
+			<script>
+				function creation() {
+					_load_content("ent_admin_cre");
+				}
+			</script>

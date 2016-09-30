@@ -132,7 +132,7 @@ const menu: Array<Object> = [
                 "label": "企业管理员",
                 "isOpen": false,
                 "isActive": false,
-                "routing": ""
+                "routing": "ent-mng/ent-admin-mng/ent-admin-mng"
             }
         ]
     },
