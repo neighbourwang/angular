@@ -1,4 +1,4 @@
-﻿export class PfConnMngPlatform {
+﻿export class EntResQuota {
     isSelected: boolean = false;
     id: String;
     name: String;

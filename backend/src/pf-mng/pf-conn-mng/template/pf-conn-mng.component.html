@@ -34,17 +34,17 @@
                 <tr *ngFor="let item of platforms">
                     <td><input type="checkbox" [(ngModel)]="item.isSelected" /></td>
                     <td>{{item.name}}</td>
-                    <td>{{item.platformType}}</td>
+                    <td>{{item.platformTypeName}}</td>
                     <td>{{item.uri}}</td>
-                    <td>初始化</td>
-                    <td>同步失败</td>
+                    <td>{{item.status}}</td>
+                    <td>{{item.description}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
-<button (click)="confirm.open()">confirm</button>
+<fc-pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
 
-<fc-confirm #confirm title="{{title}}" msg="well确认取消confir" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
 
-<fc-notice #notice title="{{title}}" msg="wellconfir" ot="确认" (of)="nof()"></fc-notice>
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>

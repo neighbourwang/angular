@@ -6,8 +6,11 @@ import { CommonComponentModule } from './common_components/common.module';
 import { MenuComponent } from './common_components/menu/component/menu.component';
 import { SiteComponent } from './common_components/site/component/site.component';
 
-// pf_mng
+// pf-mng
 import { PfMngModule } from './pf-mng/pf-mng.module';
+
+// ent-mng
+import { EntMngModule } from './ent-mng/ent-mng.module';
 
 import { routing } from './app.routing';
 
@@ -17,6 +20,7 @@ import { routing } from './app.routing';
     CoreModule,
     CommonComponentModule,
     PfMngModule,
+    EntMngModule,
     routing
   ],
   declarations: [ MenuComponent, SiteComponent ],

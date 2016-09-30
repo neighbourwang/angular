@@ -1,0 +1,57 @@
+<div class="page-content-header icon-content-header-purchasing">资源配额管理</div>
+<div class="page-content">
+    <div style="padding-bottom: 10px;">
+        <div class="dropdown pull-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                选择操作
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">修改</a></li>
+                <li><a href="#">删除</a></li>
+                <li><a href="#">激活</a></li>
+                <li><a href="#">取消激活</a></li>
+            </ul>
+        </div>
+        <div class="dropdown pull-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                选择公司
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">上海慧与有限公司</a></li>
+                <li><a href="#">中国惠普有限公司</a></li>
+            </ul>
+        </div>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
+            <span class="glyphicon glyphicon-edit"></span>
+            <span class="icon-button-label icon-left-button-label">创建配额</span>
+        </button>
+    </div>
+    <div class="table-container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="fristTh"><input type="checkbox"> 全选</th>
+                    <th>企业名称</th>
+                    <th>区域</th>
+                    <th>云主机数量</th>
+                    <th>存储(GB)</th>
+                    <th>网络数</th>
+                    <th>描述</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>上海慧与有限公司</td>
+                    <td>上海A区</td>
+                    <td>500</td>
+                    <td>100</td>
+                    <td>100</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

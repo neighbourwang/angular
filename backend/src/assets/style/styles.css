@@ -11,6 +11,14 @@ body {
 /*****************/
 
 /********Global Section Start*********/
+select option::hover {
+    background-color: #ffffff;
+}
+
+select:active {
+    background-color: #00a982;
+}
+
 .asterisk {
 	color: #ff0000;
 	font-weight: bold;

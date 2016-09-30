@@ -117,10 +117,10 @@ const menu: Array<Object> = [
                 "routing": "pf-mng/ent-est-mng/ent-est-mng"
             },
             {
-                "label": "资源配额管理",
+                "label": "企业资源配额管理",
                 "isOpen": false,
                 "isActive": false,
-                "routing": ""
+                "routing": "ent-mng/ent-res-quota-mng/ent-res-quota-mng"
             },
             {
                 "label": "企业产品管理",

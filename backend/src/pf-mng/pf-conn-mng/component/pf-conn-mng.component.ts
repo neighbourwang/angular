@@ -23,14 +23,19 @@ export class PfConnMngComponent implements OnInit {
     @ViewChild('confirm')
     confirm: ConfirmComponent;
 
+    // 确认Box/通知Box的标题
     title: String = "";
+    // 确认Box/通知Box的内容
     msg: String = "";
 
     // 选择全部平台标识
     isSelectedAll: boolean = false
     platforms: Array<PfConnMngPlatform> = new Array<PfConnMngPlatform>();
-    tp: number = 20;
-    pp: number = 11;
+
+    // 平台数据总页数
+    tp: number = 0;
+    // 每页显示的数据条数
+    pp: number = 5;
 
     constructor(
         private service: PfConnMngService,
@@ -39,19 +44,21 @@ export class PfConnMngComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-      this.backend(1, 10);
+      this.backend(1, 5);
   }
 
   backend(page: number, size: number) {
+      this.tp = 0;
+
       this.service.init().then(
-          promise => this.service.getPlatforms(page, size).then(
+          promise => this.service.getPlatforms(page, this.pp).then(
               response => {
                   if (!response) {
                       this.showError("数据取得错误", "异常响应");
                       return;
                   }
 
-                  let resultCode = response["resultCode"];
+                  let resultCode = response.resultCode;
 
                   if (100 == resultCode) {
                       let resultContent = response.resultContent;
@@ -76,15 +83,20 @@ export class PfConnMngComponent implements OnInit {
                           platform.passwd = content.passwd;
                           platform.description = content.description;
                           platform.version = content.version;
+                          platform.status = content.status;
 
                           backend.push(platform);
                       }
+
+                      let pageInfo = response.pageInfo;
+
+                      this.tp = pageInfo.totalPage;
 
                       this.platforms = backend;
                   }
               }
           ).catch(
-              reason => this.showError("数据取得错误", reason)
+              reason => this.showError("数据取得错误", reason.statusText)
               ));
   }
 
@@ -117,12 +129,16 @@ export class PfConnMngComponent implements OnInit {
       this.backend(page, 10);
   }
 
-  okf() {
-      alert("okf");
+  nof() {
+      ("nof");
   }
 
-  cancelf() {
-      alert("cancelf");
+  cof() {
+      alert("cof");
+  }
+
+  ccf() {
+      alert("ccf");
   }
   
 }
