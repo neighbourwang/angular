@@ -25,7 +25,7 @@ export class NoticeComponent implements OnInit {
         this.dialog.open();
     }
 
-    clase() {
+    close() {
         this.dialog.close();
     }
 }

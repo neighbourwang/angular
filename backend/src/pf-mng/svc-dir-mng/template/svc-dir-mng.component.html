@@ -1,3 +1,6 @@
+<fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
+
 <div class="page-content-header icon-content-header-purchasing">服务目录管理</div>
 <div class="page-content">
 	<div style="padding-bottom: 10px;">
@@ -8,7 +11,7 @@
 			</button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 				<li><a (click)="modify()">修改</a></li>
-				<li><a (click)="remove()">删除</a></li>
+				<li><a (click)="confirmRemove()">删除</a></li>
 			</ul>
 		</div>
 		<div class="dropdown pull-right">
@@ -45,8 +48,8 @@
 					<td><i class="status" [ngClass]="{'bg-success': item.status == 1, 'bg-danger': item.status != 1}"></i></td>
 					<td>{{item.creatorName}}</td> 
 					<td>
-						<a class="btn btn-xs btn-default" [ngClass]="{'disabled': item.status == 1}" (click)="publish(item)">发布</a>
-						<a class="btn btn-xs btn-default" [ngClass]="{'disabled': item.status != 1}" (click)="cancelPublish(item)">取消发布</a>
+						<a class="btn btn-xs btn-default" [ngClass]="{'disabled': item.status == 1}" (click)="confirmPublish(item)">发布</a>
+						<a class="btn btn-xs btn-default" [ngClass]="{'disabled': item.status != 1}" (click)="confirmCancelPublish(item)">取消发布</a>
 					</td>
 				</tr>
 			</tbody>

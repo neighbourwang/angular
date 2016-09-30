@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { NoticeComponent } from '../../../common_components/dialog/component/notice.component';
 
 import { LayoutService } from '../../../core/service/layout.service';
 
@@ -17,9 +19,18 @@ import { ServiceDetail, Template, Region } from '../model';
 })
 export class SvcDirCreStep1Component implements OnInit {
 
+  @ViewChild('notice')
+  private noticeDialog: NoticeComponent;
+
   serviceDetail: ServiceDetail;
   templates: Template[];
   regions: Region[];
+
+  modalCategory: string = '';
+  modalTitle: string = '';
+  modalMessage: string = '';
+  modalOKTitle: string = '';
+  modalCancelTitle: string = '';
 
   constructor(
     private directoryService: DirectoryService,
@@ -66,7 +77,7 @@ export class SvcDirCreStep1Component implements OnInit {
         .getRegions()
         .then(ret => {
             if (!ret) {
-                this.showError('', '地区数据获取失败。');
+                this.showNotice('数据获取失败', '地区数据获取失败。');
             } else {
                 if (ret && ret.resultContent) {
                   this.regions = ret.resultContent;
@@ -79,7 +90,7 @@ export class SvcDirCreStep1Component implements OnInit {
             this.layoutService.setLoading(false);
         })
         .catch(error => {
-            this.showError('', '地区数据获取失败。');
+            this.showNotice('数据获取失败', '地区数据获取失败。');
             this.layoutService.setLoading(false);
         });
   }
@@ -91,7 +102,7 @@ export class SvcDirCreStep1Component implements OnInit {
         .getTemplates()
         .then(ret => {
             if (!ret) {
-                this.showError('', '服务模板数据获取失败。');
+                this.showNotice('数据获取失败', '服务模板数据获取失败。');
             } else {
                 if (ret && ret.resultContent) {
                   this.templates = ret.resultContent;
@@ -104,7 +115,7 @@ export class SvcDirCreStep1Component implements OnInit {
             this.layoutService.setLoading(false);
         })
         .catch(error => {
-            this.showError('', '服务模板数据获取失败。');
+            this.showNotice('数据获取失败', '服务模板数据获取失败。');
             this.layoutService.setLoading(false);
         });
   }
@@ -122,8 +133,21 @@ export class SvcDirCreStep1Component implements OnInit {
     this.router.navigate(link);
   }
   
-  showError(title: string, msg: string) {
-    alert(msg);
+
+  showNotice(title: string, msg: string) {
+    this.modalTitle = title;
+    this.modalMessage = msg;
+    this.modalOKTitle = 'OK';
+
+    this.noticeDialog.open();
   }
 
+  modalAction(btnType: number) {
+    if (btnType == 0) {
+      this.noticeDialog.close();
+      return;
+    }
+
+    this.noticeDialog.close();
+  }
 }

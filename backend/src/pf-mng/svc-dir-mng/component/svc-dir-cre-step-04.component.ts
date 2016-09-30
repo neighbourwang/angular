@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+
+import { NoticeComponent } from '../../../common_components/dialog/component/notice.component';
 
 import { LayoutService } from '../../../core/service/layout.service';
 
@@ -20,8 +22,17 @@ const PlatformId: number = 6;
 })
 export class SvcDirCreStep4Component implements OnInit {
 
+  @ViewChild('notice')
+  private noticeDialog: NoticeComponent;
+
   serviceDetail: ServiceDetail;
   storages: Storage[];
+
+  modalCategory: string = '';
+  modalTitle: string = '';
+  modalMessage: string = '';
+  modalOKTitle: string = '';
+  modalCancelTitle: string = '';
 
   constructor(
     private directoryCreateService: DirectoryCreateService,
@@ -56,7 +67,7 @@ export class SvcDirCreStep4Component implements OnInit {
         .getStorages(PlatformId)
         .then(ret => {
             if (!ret) {
-                this.showError('', '启动盘数据获取失败。');
+                this.showNotice('数据获取失败', '启动盘数据获取失败。');
             } else {
                 if (ret && ret.resultContent) {
                     this.storages = ret.resultContent;
@@ -67,7 +78,7 @@ export class SvcDirCreStep4Component implements OnInit {
             this.layoutService.setLoading(false);
         })
         .catch(error => {
-            this.showError('', '启动盘数据获取失败。');
+            this.showNotice('数据获取失败', '启动盘数据获取失败。');
             this.layoutService.setLoading(false);
         });
   }
@@ -92,14 +103,14 @@ export class SvcDirCreStep4Component implements OnInit {
         .createServiceDirectory(PlatformId, this.serviceDetail)
         .then(ret => {
             if (!ret) {
-                this.showError('', '服务目录创建失败。');
+                this.showNotice('创建失败', '服务目录创建失败。');
             } else {
                 this.goBack();
             }
             this.layoutService.setLoading(false);
         })
         .catch(error => {
-            this.showError('', '服务目录创建失败。');
+            this.showNotice('创建失败', '服务目录创建失败。');
             this.layoutService.setLoading(false);
         });
   }
@@ -116,8 +127,21 @@ export class SvcDirCreStep4Component implements OnInit {
     this.location.back();
   }
   
-  showError(title: string, msg: string) {
-    alert(msg);
+
+  showNotice(title: string, msg: string) {
+    this.modalTitle = title;
+    this.modalMessage = msg;
+    this.modalOKTitle = 'OK';
+
+    this.noticeDialog.open();
   }
-  
+
+  modalAction(btnType: number) {
+    if (btnType == 0) {
+      this.noticeDialog.close();
+      return;
+    }
+
+    this.noticeDialog.close();
+  }
 }

@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
+
+import { ConfirmComponent } from '../../../common_components/dialog/component/confirm.component';
+import { NoticeComponent } from '../../../common_components/dialog/component/notice.component';
 
 import { Directory, Region, Template } from '../model';
 import { DirectoryService } from '../service/svc-dir-mng.service';
@@ -20,6 +23,12 @@ const Status: string = '1';
 })
 export class DirectoryComponent implements OnInit {
   
+  @ViewChild('confirm')
+  private confirmDialog: ConfirmComponent;
+
+  @ViewChild('notice')
+  private noticeDialog: NoticeComponent;
+
   pageSize: number;
   totalPages: number;
   currPage: number;
@@ -32,6 +41,12 @@ export class DirectoryComponent implements OnInit {
   allChecked: boolean = false;
 
   currDirectory: Directory;
+
+  modalCategory: string = '';
+  modalTitle: string = '';
+  modalMessage: string = '';
+  modalOKTitle: string = '';
+  modalCancelTitle: string = '';
 
   constructor(
     private directoryService: DirectoryService,
@@ -71,7 +86,7 @@ export class DirectoryComponent implements OnInit {
         .getRegions()
         .then(ret => {
             if (!ret) {
-                this.showError('', '地区数据获取失败。');
+                this.showNotice('数据获取失败', '地区数据获取失败。');
             } else {
                 if (ret && ret.resultContent) {
                   this.regions = ret.resultContent;
@@ -83,7 +98,7 @@ export class DirectoryComponent implements OnInit {
             this.layoutService.setLoading(false);
         })
         .catch(error => {
-            this.showError('', '地区数据获取失败。');
+            this.showNotice('数据获取失败', '地区数据获取失败。');
             this.layoutService.setLoading(false);
         });
   }
@@ -95,7 +110,7 @@ export class DirectoryComponent implements OnInit {
         .getTemplates()
         .then(ret => {
             if (!ret) {
-                this.showError('', '服务模板数据获取失败。');
+                this.showNotice('数据获取失败', '服务模板数据获取失败。');
             } else {
                 if (ret && ret.resultContent) {
                   this.templates = ret.resultContent;
@@ -106,7 +121,7 @@ export class DirectoryComponent implements OnInit {
             this.layoutService.setLoading(false);
         })
         .catch(error => {
-            this.showError('', '服务模板数据获取失败。');
+            this.showNotice('数据获取失败', '服务模板数据获取失败。');
             this.layoutService.setLoading(false);
         });
   }
@@ -118,14 +133,14 @@ export class DirectoryComponent implements OnInit {
         .getDirectories(PlatformId, Status, page-1, size)
         .then(ret => {
             if (!ret) {
-                this.showError('', '服务目录数据获取失败。');
+                this.showNotice('数据获取失败', '服务目录数据获取失败。');
             } else {
                 this.fmtDirectorysData(ret);
             }
             this.layoutService.setLoading(false);
         })
         .catch(error => {
-            this.showError('', '服务目录数据获取失败。');
+            this.showNotice('数据获取失败', '服务目录数据获取失败。');
             this.layoutService.setLoading(false);
         });
   }
@@ -154,12 +169,33 @@ export class DirectoryComponent implements OnInit {
     return templateName;
   }
 
-  publish(directory: Directory) {
-    this.publishDirectory(directory, '1');
+  confirmPublish(directory: Directory) {
+    this.currDirectory = directory;
+
+    this.modalCategory = 'publish';
+    this.modalTitle = '发布';
+    this.modalMessage = `您选择发布'${directory.name}'服务目录，请确认。`;
+    this.modalOKTitle = '确认';
+    this.modalCancelTitle = '取消';
+    this.confirmDialog.open();
   }
 
-  cancelPublish(directory: Directory) {
-    this.publishDirectory(directory, '0');
+  publish() {
+    this.publishDirectory(this.currDirectory, '1');
+  }
+
+  confirmCancelPublish(directory: Directory) {
+    this.currDirectory = directory;
+
+    this.modalCategory = 'cancel_publish';
+    this.modalTitle = '取消发布';
+    this.modalMessage = `您选择取消发布'${directory.name}'服务目录，请确认；如果确认取消发布，此服务目录将下线。`;
+    this.modalOKTitle = '确认';
+    this.modalCancelTitle = '取消';
+    this.confirmDialog.open();
+  }
+  cancelPublish() {
+    this.publishDirectory(this.currDirectory, '0');
   }
 
   publishDirectory(directory: Directory, status: string) {
@@ -170,14 +206,14 @@ export class DirectoryComponent implements OnInit {
         .publish(PlatformId, directory.id, status)
         .then(ret => {
             if (!ret) {
-                this.showError('', '服务目录操作失败。');
+                this.showNotice('操作失败', '服务目录操作失败。');
             } else {
                 directory.status = parseInt(status);
             }
             this.layoutService.setLoading(false);
         })
         .catch(error => {
-            this.showError('', '服务目录操作失败。');
+            this.showNotice('操作失败', '服务目录操作失败。');
             this.layoutService.setLoading(false);
         });
   }
@@ -192,14 +228,14 @@ export class DirectoryComponent implements OnInit {
     //     .modify(PlatformId, data)
     //     .then(ret => {
     //         if (!ret) {
-    //             this.showError('', '服务目录更新失败。');
+    //             this.showNotice('更新失败', '服务目录更新失败。');
     //         } else {
     //             this.refreshData(ret);
     //         }
     //         this.layoutService.setLoading(false);
     //     })
     //     .catch(error => {
-    //         this.showError('', '服务目录更新失败。');
+    //         this.showNotice('更新失败', '服务目录更新失败。');
     //         this.layoutService.setLoading(false);
     //     });
   }
@@ -242,13 +278,26 @@ export class DirectoryComponent implements OnInit {
     }
   }
 
-  remove() {
+
+  confirmRemove() {
+    
     let ids = this.getAllSelectedData();
 
     if (ids.length == 0) {
-      this.showError('', '请选择至少一个服务目录');
+      this.showNotice('警告', '请选择至少一个服务目录');
       return;
     }
+
+    this.modalCategory = 'remove';
+    this.modalTitle = '取消删除';
+    this.modalMessage = `您选择删除选中的全部服务目录，请确认；如果确认删除，这些服务目录数据见更不能恢复。`;
+    this.modalOKTitle = '删除';
+    this.modalCancelTitle = '取消';
+    this.confirmDialog.open();
+  }
+
+  remove() {
+    let ids = this.getAllSelectedData();
     
     this.layoutService.setLoading(true);
 
@@ -256,7 +305,7 @@ export class DirectoryComponent implements OnInit {
         .removeAll(PlatformId, ids)
         .then(ret => {
             if (!ret) {
-                this.showError('', '服务目录删除失败。');
+                this.showNotice('删除失败', '服务目录删除失败。');
             } else {
                 this.allChecked = false;
                 this.removeDirectoiesById(ids);
@@ -264,7 +313,7 @@ export class DirectoryComponent implements OnInit {
             this.layoutService.setLoading(false);
         })
         .catch(error => {
-            this.showError('', '服务目录删除失败。');
+            this.showNotice('删除失败', '服务目录删除失败。');
             this.layoutService.setLoading(false);
         });
   }
@@ -335,14 +384,46 @@ export class DirectoryComponent implements OnInit {
     this.getDirectorys(this.currPage, this.pageSize);
   }
 
-  showError(title: string, msg: string) {
-    alert(msg);
-  }
-
   checkAll() {
     this.allChecked = !this.allChecked;
     this.directories.forEach((element, index) => {
       this.directories[index].checked = this.allChecked;
     });
+  }
+
+  showNotice(title: string, msg: string) {
+    this.modalTitle = title;
+    this.modalMessage = msg;
+    this.modalOKTitle = 'OK';
+
+    this.noticeDialog.open();
+  }
+
+  modalAction(btnType: number) {
+    if (btnType == 0) {
+      this.noticeDialog.close();
+      this.confirmDialog.close();
+      return;
+    }
+    
+    switch (this.modalCategory) {
+      case 'publish':
+        this.publish();
+        break;
+
+      case 'cancel_publish':
+        this.cancelPublish();
+        break;
+
+      case 'remove':
+        this.remove();
+        break;
+    
+      default:
+        break;
+    }
+
+    this.noticeDialog.close()
+    this.confirmDialog.close();
   }
 }

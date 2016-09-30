@@ -30,7 +30,7 @@ export class ConfirmComponent implements OnInit {
         this.dialog.open();
     }
 
-    clase() {
+    close() {
         this.dialog.close();
     }
 }
