@@ -20,8 +20,8 @@ export class EntAdminCreService {
         private restApi: RestApi
     ) { }
 
-    init(): Promise<any> {
-        return this.restApiCfg.loadCfgData();
+    init():void {
+         this.restApiCfg.loadCfgData();
     }
 
      getAdminById(id: String): Promise<any> {

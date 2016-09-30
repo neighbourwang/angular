@@ -18,9 +18,10 @@ export class EntAdminMngService {
         private restApi: RestApi
     ) { }
 
-    init(): Promise<any> {
-        return this.restApiCfg.loadCfgData();
+    init():void {
+         this.restApiCfg.loadCfgData();
     }
+
 
      getAdminByKey(key: String): Promise<any> {
         let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.storages.get', apiIp, apiPort);
