@@ -55,20 +55,15 @@ export class SvcDirCreStep2Component implements OnInit {
       this.serviceDetail.networkType = 0;
     }
 
-    this.directoryCreateService
-        .init()
-        .then(res => 
-        {
-            if (this.directoryCreateService.cachedFlavors && this.directoryCreateService.cachedFlavors.length > 0) {
-              this.flavors = this.directoryCreateService.cachedFlavors;
-              if (this.serviceDetail.flavorId == -1) {
-                  this.serviceDetail.flavorId= this.flavors[0] ? this.flavors[0].id : -1;
-              }
-              this.flavorChange();
-            } else {
-              this.getFlavors();
-            }
-        });
+    if (this.directoryCreateService.cachedFlavors && this.directoryCreateService.cachedFlavors.length > 0) {
+      this.flavors = this.directoryCreateService.cachedFlavors;
+      if (this.serviceDetail.flavorId == '') {
+          this.serviceDetail.flavorId= this.flavors[0] ? this.flavors[0].id : '';
+      }
+      this.flavorChange();
+    } else {
+      this.getFlavors();
+    }
   }
 
   getFlavors() {
@@ -87,8 +82,8 @@ export class SvcDirCreStep2Component implements OnInit {
                     });
                     this.flavors = ret.resultContent;
                     this.directoryCreateService.cachedFlavors = ret.resultContent;
-                  if (this.serviceDetail.flavorId == -1) {
-                      this.serviceDetail.flavorId= this.flavors[0] ? this.flavors[0].id : -1;
+                  if (this.serviceDetail.flavorId == '') {
+                      this.serviceDetail.flavorId= this.flavors[0] ? this.flavors[0].id : '';
                   }
                   this.flavorChange();
                 }
@@ -105,7 +100,7 @@ export class SvcDirCreStep2Component implements OnInit {
     this.currFlavor = this.fetchFlavorById(this.serviceDetail.flavorId);
   }
 
-  fetchFlavorById(id: number): Flavor {
+  fetchFlavorById(id: string): Flavor {
     let flavor: Flavor;
     this.flavors.forEach(element => {
       if (element.id == id) {

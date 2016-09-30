@@ -6,7 +6,7 @@ export class Flavor {
     disk: number = -1;
     displayName: string = '';
     ephemeral: number = -1;
-    id: number = -1;
+    id: string = '';
     mem: number = -1;
     memDisplay: string = '';
     name: string = '';

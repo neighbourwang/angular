@@ -46,28 +46,23 @@ export class SvcDirCreStep1Component implements OnInit {
 
     this.serviceDetail = this.directoryCreateService.getServiceDetail();
 
-    this.directoryService
-        .init()
-        .then(res => 
-        {
-            if (this.directoryCreateService.cachedRegions && this.directoryCreateService.cachedRegions.length > 0) {
-              this.regions = this.directoryCreateService.cachedRegions;
-              if (this.serviceDetail.regionId == -1) {
-                  this.serviceDetail.regionId = this.regions[0] ? this.regions[0].id : -1;
-              }
-            } else {
-              this.getRegions();
-            }
+    if (this.directoryCreateService.cachedRegions && this.directoryCreateService.cachedRegions.length > 0) {
+      this.regions = this.directoryCreateService.cachedRegions;
+      if (this.serviceDetail.regionId == '') {
+          this.serviceDetail.regionId = this.regions[0] ? this.regions[0].id : '';
+      }
+    } else {
+      this.getRegions();
+    }
 
-            if (this.directoryCreateService.cachedTemplates && this.directoryCreateService.cachedTemplates.length > 0) {
-              this.templates = this.directoryCreateService.cachedTemplates;
-              if (this.serviceDetail.templateId == -1) {
-                  this.serviceDetail.templateId = this.templates[0] ? this.templates[0].id : -1;
-              }
-            } else {
-              this.getTemplates();
-            }
-        });
+    if (this.directoryCreateService.cachedTemplates && this.directoryCreateService.cachedTemplates.length > 0) {
+      this.templates = this.directoryCreateService.cachedTemplates;
+      if (this.serviceDetail.templateId == '') {
+          this.serviceDetail.templateId = this.templates[0] ? this.templates[0].id : '';
+      }
+    } else {
+      this.getTemplates();
+    }
   }
 
   getRegions() {
@@ -82,8 +77,8 @@ export class SvcDirCreStep1Component implements OnInit {
                 if (ret && ret.resultContent) {
                   this.regions = ret.resultContent;
                   this.directoryCreateService.cachedRegions = ret.resultContent;
-                  if (this.serviceDetail.regionId == -1) {
-                      this.serviceDetail.regionId = this.regions[0] ? this.regions[0].id : -1;
+                  if (this.serviceDetail.regionId == '') {
+                      this.serviceDetail.regionId = this.regions[0] ? this.regions[0].id : '';
                   }
                 }
             }
@@ -107,8 +102,8 @@ export class SvcDirCreStep1Component implements OnInit {
                 if (ret && ret.resultContent) {
                   this.templates = ret.resultContent;
                   this.directoryCreateService.cachedTemplates = ret.resultContent;
-                  if (this.serviceDetail.templateId == -1) {
-                      this.serviceDetail.templateId = this.templates[0] ? this.templates[0].id : -1;
+                  if (this.serviceDetail.templateId == '') {
+                      this.serviceDetail.templateId = this.templates[0] ? this.templates[0].id : '';
                   }
                 }
             }

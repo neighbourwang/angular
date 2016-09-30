@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { RestApiModel } from '../model/rest';
+import { RestApis } from '../config/restapi';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -15,18 +16,8 @@ export class RestApiCfg {
         this.loadCfgData();
     }
 
-    loadCfgData(): Promise<any> {
-        if (this.restApiList && this.restApiList.length > 0) {
-            return Promise.resolve(0);
-        } else {
-            return this.http.get('core/config/restapi.json')
-                                     .toPromise()
-                                     .then(res => 
-                                     {
-                                         this.restApiList = res.json()
-                                     })
-                                     .catch(this.handleError);
-        }
+    loadCfgData() {
+        this.restApiList = RestApis;
     }
     
     getRestApiUrl(apiId: string, ip?: string, port?: string): string {

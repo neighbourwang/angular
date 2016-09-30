@@ -15,10 +15,6 @@ export class PfConnCreStep01Service {
         private restApi: RestApi
     ) { }
 
-    init(): Promise<any> {
-        return this.restApiCfg.loadCfgData();
-    }
-
     postPlatform(paltform: Platform) {
         let url = this.restApiCfg.getRestApiUrl("pf.cre.step.01.paltform.post");
 

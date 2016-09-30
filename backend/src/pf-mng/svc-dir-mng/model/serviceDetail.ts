@@ -1,13 +1,13 @@
 export class ServiceDetail {
     // Step1 Data
-    id: number = -1;
+    id: string = '';
     name: string = '';
     desc: string = '';
-    regionId: number = -1;
-    templateId: number = -1;
+    regionId: string = '';
+    templateId: string = '';
 
     // Step2 Data
-    flavorId: number = -1;
+    flavorId: string = '';
     imageType: number = -1;
     networkType: number = -1;
 
@@ -25,10 +25,10 @@ class Option {
 }
 
 export class ZoneInfo {
-    zoneId: number = -1;
+    zoneId: string = '';
     displayName: string = '';
     description: string = '';
-    storageId: number = -1;
+    storageId: string = '';
     size: number = -1;
-    serviceZoneId: number = -1;
+    serviceZoneId: string = '';
 }

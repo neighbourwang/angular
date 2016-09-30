@@ -9,7 +9,7 @@ import { LayoutService } from '../../../core/service/layout.service';
 import { DirectoryCreateService } from '../service';
 import { ServiceDetail, Storage, ZoneInfo } from '../model';
 
-const PlatformId: number = 6;
+const PlatformId: string = '6';
 
 @Component({
   // moduleId: module.id,
@@ -47,17 +47,12 @@ export class SvcDirCreStep4Component implements OnInit {
 
     this.serviceDetail = this.directoryCreateService.getCachedServiceDetail();
 
-    this.directoryCreateService
-        .init()
-        .then(res => 
-        {
-            if (this.directoryCreateService.cachedStorages && this.directoryCreateService.cachedStorages.length > 0) {
-              this.storages = this.directoryCreateService.cachedStorages;
-              this.initStorageId();
-            } else {
-              this.getStorages();
-            }
-        });
+    if (this.directoryCreateService.cachedStorages && this.directoryCreateService.cachedStorages.length > 0) {
+        this.storages = this.directoryCreateService.cachedStorages;
+        this.initStorageId();
+    } else {
+        this.getStorages();
+    }
   }
 
   getStorages() {
@@ -86,8 +81,8 @@ export class SvcDirCreStep4Component implements OnInit {
   initStorageId() {
       if (this.storages && this.storages.length > 0) {
           for (let zone of this.serviceDetail.zones) {
-              if (zone.storageId == -1) {
-                  zone.storageId = this.storages[0] ? this.storages[0].id : -1;
+              if (zone.storageId == '') {
+                  zone.storageId = this.storages[0] ? this.storages[0].id : '';
               }
               if (zone.size == -1) {
                   zone.size = 0;

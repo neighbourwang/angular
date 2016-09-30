@@ -13,8 +13,4 @@ export class EntResQuotaMngService {
         private restApi: RestApi
     ) { }
 
-    init(): Promise<any> {
-        return this.restApiCfg.loadCfgData();
-    }
-
 }

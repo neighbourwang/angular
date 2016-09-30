@@ -13,9 +13,6 @@ export class PfConnMngService {
         private restApi: RestApi
     ) { }
 
-    init(): Promise<any> {
-        return this.restApiCfg.loadCfgData();
-    }
 
     getPlatforms(page: number, size: number) {
         let url = this.restApiCfg.getRestApiUrl("pf.conn.mng.platforms.get");

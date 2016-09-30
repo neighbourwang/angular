@@ -29,10 +29,6 @@ export class DirectoryCreateService {
         private restApi: RestApi
     ) { }
 
-    init(): Promise<any> {
-        return this.restApiCfg.loadCfgData();
-    }
-
     useCached(useFlg: boolean) {
         this.useLocalCachedData = useFlg;
     }
@@ -78,7 +74,7 @@ export class DirectoryCreateService {
         return this.restApi.get(url, pathParams, undefined, undefined);
     }
     
-    getZones(platformId: number): Promise<any> {
+    getZones(platformId: string): Promise<any> {
         let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.zones.get', apiIp, apiPort);
 
         let pathParams = [
@@ -91,7 +87,7 @@ export class DirectoryCreateService {
         return this.restApi.get(url, pathParams, undefined, undefined);
     }
 
-    getStorages(platformId: number): Promise<any> {
+    getStorages(platformId: string): Promise<any> {
         let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.storages.get', apiIp, apiPort);
 
         let pathParams = [
@@ -104,7 +100,7 @@ export class DirectoryCreateService {
         return this.restApi.get(url, pathParams, undefined, undefined);
     }
 
-    createServiceDirectory(platformId: number, serviceDetail: ServiceDetail) {
+    createServiceDirectory(platformId: string, serviceDetail: ServiceDetail) {
         let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.services.create', apiIp, apiPort);
 
         let pathParams = [
