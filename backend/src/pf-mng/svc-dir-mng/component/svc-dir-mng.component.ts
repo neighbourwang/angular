@@ -9,7 +9,7 @@ import { DirectoryService } from '../service/svc-dir-mng.service';
 
 import { LayoutService } from '../../../core/service/layout.service';
 
-const PlatformId: number = 6;
+const PlatformId: string = '6';
 const Status: string = '1';
 
 @Component({
@@ -36,7 +36,7 @@ export class DirectoryComponent implements OnInit {
   regions: Region[];
   templates: Template[];
   directories: Directory[];
-  filterRegId: number = -1;
+  filterRegId: string = '';
 
   allChecked: boolean = false;
 
@@ -63,7 +63,7 @@ export class DirectoryComponent implements OnInit {
 
     this.regions = [];
     this.templates = [];
-    this.filterRegId = -1;
+    this.filterRegId = '';
 
     this.currDirectory = undefined;
 
@@ -71,12 +71,8 @@ export class DirectoryComponent implements OnInit {
 
     this.directories = new Array<Directory>();
 
-    this.directoryService.init()
-                      .then(res => 
-                      {
-                          this.getRegios();
-                          this.getTemplates();
-                      });
+    this.getRegios();
+    this.getTemplates();
   }
 
   getRegios() {
@@ -157,7 +153,7 @@ export class DirectoryComponent implements OnInit {
       // this.resetPaging();
     }
   }
-  getTemplateName(serviceTemplateId: number) {
+  getTemplateName(serviceTemplateId: string) {
     let templateName = '';
     
     this.templates.forEach(element => {
@@ -318,7 +314,7 @@ export class DirectoryComponent implements OnInit {
         });
   }
 
-  removeDirectoiesById(ids: number[]) {
+  removeDirectoiesById(ids: string[]) {
     let newDirectories: Directory[] = [];
     
     for (let directory of this.directories) {
@@ -330,7 +326,7 @@ export class DirectoryComponent implements OnInit {
     this.directories = newDirectories;
   }
 
-  getAllSelectedData(): number[] {
+  getAllSelectedData(): string[] {
     let ids = [];
 
     this.directories.forEach((element, index) => {

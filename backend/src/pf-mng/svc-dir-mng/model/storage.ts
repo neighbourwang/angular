@@ -3,9 +3,9 @@ export class Storage {
     code: string = '';
     createDate: string = '';
     displayName: string = '';
-    id: number = -1;
+    id: string = '';
     name: string = '';
-    platformId: number = -1;
+    platformId: string = '';
     status: string = '';
     unit: string = '';
     updateDate: string = '';

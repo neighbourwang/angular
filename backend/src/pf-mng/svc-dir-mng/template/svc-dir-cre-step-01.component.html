@@ -32,7 +32,7 @@
 					<div class="col-sm-4">
 						<select class="form-control" [(ngModel)]="serviceDetail.templateId">
 							<option *ngFor="let item of templates" value="{{item.id}}">
-								{{item.name}}
+								{{item.name || item.id}}
 							</option>
 						</select>
 					</div>
@@ -44,7 +44,7 @@
 					<div class="col-sm-4">
 						<select class="form-control" [(ngModel)]="serviceDetail.regionId">
 							<option *ngFor="let item of regions" value="{{item.id}}">
-								{{item.displayName}}
+								{{item.displayName || item.id}}
 							</option>
 						</select>
 					</div>

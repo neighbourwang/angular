@@ -1,5 +1,5 @@
 export class Template {
-    id: number = -1;
+    id: string = '';
     code: string = '';
     createDate: string = '';
     creatorId: string = '';

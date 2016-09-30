@@ -10,13 +10,13 @@
 			<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-				<li><a (click)="modify()">修改</a></li>
+				<!--<li><a (click)="modify()">修改</a></li>-->
 				<li><a (click)="confirmRemove()">删除</a></li>
 			</ul>
 		</div>
 		<div class="dropdown pull-right">
             <select class="form-control" [(ngModel)]="filterRegId" (ngModelChange)="regChange($event)">
-                <option *ngFor="let item of regions" value="{{item.id}}">{{item.displayName}}</option>
+                <option *ngFor="let item of regions" value="{{item.id}}">{{item.displayName || item.id}}</option>
             </select>
 		</div>
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="create();">

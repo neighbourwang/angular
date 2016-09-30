@@ -1,5 +1,5 @@
 export class Directory {
-    id: number = -1;
+    id: string = '';
     code: string = '';
     createDate: string = '';
     creatorId:  number = -1;
@@ -8,7 +8,7 @@ export class Directory {
     name: string = '';
     platformId: number = -1;
     regionId: number = -1;
-    serviceTemplateId: number = -1;
+    serviceTemplateId: string = '';
     serviceTemplateName: string = '';
     status: number = -1;
     flavorId: number = -1;
@@ -19,7 +19,7 @@ export class Directory {
 }
 
 class AdsServiceOptionCategory {
-    id: number = -1;
+    id: string = '';
     code: string = '';
     createDate: number = -1;
     name: string = '';
@@ -29,7 +29,7 @@ class AdsServiceOptionCategory {
 }
 
 class AdsServiceOption {
-    id: number = -1;
+    id: string = '';
     code: string = '';
     createDate: number = -1;
     name: string = '';
@@ -44,7 +44,7 @@ class AdsServiceOption {
 }
 
 class AdsServiceOptionValue {
-    id: number = -1;
+    id: string = '';
     code: string = '';
     createDate: number = -1;
     type: number = -1;

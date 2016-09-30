@@ -50,8 +50,9 @@ export class PfConnMngComponent implements OnInit {
   backend(page: number, size: number) {
       this.tp = 0;
 
-      this.service.init().then(
-          promise => this.service.getPlatforms(page, this.pp).then(
+    //   this.service.init().then(
+    //       promise =>
+           this.service.getPlatforms(page, this.pp).then(
               response => {
                   if (!response) {
                       this.showError("数据取得错误", "异常响应");
@@ -97,7 +98,8 @@ export class PfConnMngComponent implements OnInit {
               }
           ).catch(
               reason => this.showError("数据取得错误", reason.statusText)
-              ));
+              )
+            //   );
   }
 
   showError(title: string, msg: string) {

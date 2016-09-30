@@ -12,8 +12,4 @@ export class PfConnCreStep03Service {
         private restApiCfg: RestApiCfg,
         private restApi: RestApi
     ) { }
-
-    init(): Promise<any> {
-        return this.restApiCfg.loadCfgData();
-    }
 }

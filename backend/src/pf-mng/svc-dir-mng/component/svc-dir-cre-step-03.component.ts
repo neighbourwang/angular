@@ -9,7 +9,7 @@ import { LayoutService } from '../../../core/service/layout.service';
 import { DirectoryCreateService } from '../service';
 import { ServiceDetail, Zone, ZoneInfo } from '../model';
 
-const PlatformId: number = 6;
+const PlatformId: string = '6';
 
 @Component({
   // moduleId: module.id,
@@ -47,17 +47,12 @@ export class SvcDirCreStep3Component implements OnInit {
 
     this.serviceDetail = this.directoryCreateService.getCachedServiceDetail();
 
-    this.directoryCreateService
-        .init()
-        .then(res => 
-        {
-            if (this.directoryCreateService.cachedZones && this.directoryCreateService.cachedZones.length > 0) {
-              this.zones = this.directoryCreateService.cachedZones;
-              this.resetSelectStatus();
-            } else {
-              this.getZones();
-            }
-        });
+    if (this.directoryCreateService.cachedZones && this.directoryCreateService.cachedZones.length > 0) {
+      this.zones = this.directoryCreateService.cachedZones;
+      this.resetSelectStatus();
+    } else {
+      this.getZones();
+    }
   }
 
   getZones() {

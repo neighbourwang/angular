@@ -16,11 +16,7 @@ export class DirectoryService {
         private restApiCfg: RestApiCfg,
         private restApi: RestApi
     ) { }
-
-    init(): Promise<any> {
-        return this.restApiCfg.loadCfgData();
-    }
-
+    
     getRegions(): Promise<any> {
         let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.regions.get', apiIp, apiPort);
 
@@ -49,7 +45,7 @@ export class DirectoryService {
         return this.restApi.get(url, undefined, queryParams, undefined);
     }
 
-    getDirectories(platformId: number, status: string,  page: number, size: number): Promise<any> {
+    getDirectories(platformId: string, status: string,  page: number, size: number): Promise<any> {
         let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.services.get', apiIp, apiPort);
 
         let pathParams = [
@@ -77,7 +73,7 @@ export class DirectoryService {
         return this.restApi.get(url, pathParams, queryParams, undefined);
     }
 
-    publish(platformId: number, id: number, status: string) {
+    publish(platformId: string, id: string, status: string) {
         let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.services.publish', apiIp, apiPort);
 
         let pathParams = [
@@ -98,7 +94,7 @@ export class DirectoryService {
         return this.restApi.put(url, pathParams, undefined, undefined);
     }
 
-    modify(platformId: number, directory: any) {
+    modify(platformId: string, directory: any) {
         let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.services.update', apiIp, apiPort);
 
         let pathParams = [
@@ -115,7 +111,7 @@ export class DirectoryService {
         return this.restApi.put(url, pathParams, undefined, directory);
     }
 
-    removeAll(platformId: number, ids: number[]) {
+    removeAll(platformId: string, ids: string[]) {
         let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.services.removeAll', apiIp, apiPort);
 
         let pathParams = [

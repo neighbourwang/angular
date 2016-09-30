@@ -1,5 +1,5 @@
 export class Region {
-    id: number = -1;
+    id: string = '';
     createDate: number = -1;
     description: string = '';
     displayName: string = '';

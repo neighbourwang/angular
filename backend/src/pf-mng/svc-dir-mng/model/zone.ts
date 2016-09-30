@@ -1,6 +1,6 @@
 export class Zone {
-    id: number = -1;
-    platformId: number = -1;
+    id: string = '';
+    platformId: string = '';
     name: string = '';
     displayName: string = '';
     description: string = '';
