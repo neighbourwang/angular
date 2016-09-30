@@ -13,4 +13,13 @@ export class EntResQuotaMngService {
         private restApi: RestApi
     ) { }
 
+    init(): Promise<any> {
+        return this.restApiCfg.loadCfgData();
+    }
+
+    getEntResQuota(page: number, size: number) {
+        let url = this.restApiCfg.getRestApiUrl("ent.res.quota.get");
+
+        return this.restApi.get(url, [{ key: "page", value: page }, { key: "size", value: size }], undefined);
+    }
 }

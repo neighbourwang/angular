@@ -34,7 +34,7 @@ export class PfConnCreStep06Component implements OnInit {
   }
 
   previous() {
-      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-05");
+      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-05/");
   }
 
   next() {

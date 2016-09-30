@@ -34,10 +34,10 @@ export class PfConnCreStep05Component implements OnInit {
   }
 
   previous() {
-      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-04");
+      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-04/");
   }
 
   next() {
-      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-06");
+      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-06/");
   }
 }

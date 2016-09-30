@@ -55,3 +55,8 @@
         </table>
     </div>
 </div>
+<fc-pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
+
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
+
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>

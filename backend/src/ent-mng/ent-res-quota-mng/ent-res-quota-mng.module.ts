@@ -22,7 +22,7 @@ import { EntResQuotaMngRouting } from './ent-res-quota-mng.routing';
     ],
     declarations: [
         EntResQuotaMngComponent,
-        EntResQuotaCreComponent,
+        EntResQuotaCreComponent
     ],
     exports: [
         EntResQuotaMngComponent,
@@ -30,7 +30,7 @@ import { EntResQuotaMngRouting } from './ent-res-quota-mng.routing';
     ],
     providers: [
         EntResQuotaMngService,
-        EntResQuotaCreService,
+        EntResQuotaCreService
     ]
 
 })
