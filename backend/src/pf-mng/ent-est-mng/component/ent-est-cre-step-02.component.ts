@@ -19,4 +19,9 @@ export class EntEstCreStep02Component implements OnInit{
 	prev(){
       	this.router.navigateByUrl("pf-mng/ent-est-mng/ent-est-cre-step-01");
     }
+
+	cancel(){
+		this.router.navigateByUrl('pf-mng/ent-est-mng/ent-est-mng');
+	}
+
 }
