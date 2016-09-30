@@ -1,8 +1,6 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-// import { CloudHostRouting } from './frontend/prod_and_svc/cloud_host/cloud_host.routing';
-
 export const routes: Routes = [
     {
         path: '',
