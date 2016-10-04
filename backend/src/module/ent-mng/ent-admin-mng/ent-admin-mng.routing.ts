@@ -10,6 +10,10 @@ export const EntAdminMngRouting: ModuleWithProviders = RouterModule.forChild([
         component: EntAdminMngComponent
     },
     {
+        path: 'ent-mng/ent-admin-mng/ent-admin-cre/:mng-id',
+        component: EntAdminCreComponent
+    },
+    {
         path: 'ent-mng/ent-admin-mng/ent-admin-cre',
         component: EntAdminCreComponent
     }

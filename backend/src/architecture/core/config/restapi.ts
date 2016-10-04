@@ -93,6 +93,36 @@ export let RestApis: RestApiModel[] = [
        "id": "ent-mng.admin.cre.post",
        "method": "POST",
        "url": "/adminui/authsec/enterprise/{enterpriseId}/admin"
+   },
+   {
+       "desc": "更新企业管理员",
+       "id": "ent-mng.admin.update.put",
+       "method": "PUT",
+       "url": "/adminui/authsec/enterprise/admin/{id}"
+   },
+   {
+       "desc": "更新企业管理员激活状态",
+       "id": "ent-mng.admin.updateStatus.put",
+       "method": "PUT",
+       "url": "/adminui/authsec/enterprise/admin/{id}/status/{status}"
+   },
+   {
+       "desc": "删除企业管理员",
+       "id": "ent-mng.admin.del.delete",
+       "method": "DELETE",
+       "url": "/adminui/authsec/enterprise/admin/{id}"
+   },
+   {
+       "desc": "获取全部企业管理员",
+       "id": "ent-mng.admin.all.get",
+       "method": "GET",
+       "url": "/adminui/authsec/enterprise/admin"
+   },
+   {
+       "desc": "获取某企业管理员",
+       "id": "ent-mng.enterprise.admin.get",
+       "method": "GET",
+       "url": "/adminui/authsec/enterprise/{enterpriseId}/admin"
    }
 
 ]

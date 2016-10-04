@@ -22,16 +22,18 @@ export class EntAdminMngService {
     }
 
 
-     getAdminByKey(key: String): Promise<any> {
-        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.storages.get', apiIp, apiPort);
+     getAdmins(key: String): Promise<any> {
+        //let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.storages.get', apiIp, apiPort);
 
-        let pathParams = [
-            {
-                key: 'key',
-                value: key
-            }
-        ];
+        //let pathParams = [
+        //    {
+        //        key: 'key',
+        //        value: key
+        //    }
+        //];
 
-        return this.restApi.get(url, pathParams, undefined, undefined);
+        //return this.restApi.get(url, pathParams, undefined, undefined);
+
+
     }
 }

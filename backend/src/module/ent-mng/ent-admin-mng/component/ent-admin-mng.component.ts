@@ -3,12 +3,16 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { LayoutService } from '../../../../architecture';
 
-import { EntAdminMngService} from '../service/ent-admin-mng.service';
+import { Admin } from '../model/admin.model';
+
+import { EntAdminMngService } from '../service/ent-admin-mng.service';
+
+
 
 
 @Component({
     selector: 'ent-admin-cre',
-    templateUrl: '../template/ent-admin-cre.html',
+    templateUrl: '../template/ent-admin-mng.html',
     styleUrls: [],
     providers: []
 })
@@ -24,6 +28,8 @@ export class EntAdminMngComponent implements OnInit {
         private router: Router,
         private activatedRouter: ActivatedRoute
     ){}
+
+    admins:Admin[];
 
     ngOnInit() {
         
@@ -43,6 +49,10 @@ export class EntAdminMngComponent implements OnInit {
                 }
             }
         ).catch(this.onRejected);
+    }
+
+    gotoCreatePage(): void {
+        this.router.navigateByUrl("ent-mng/ent-admin-mng/ent-admin-cre");
     }
 
     showError(title: string, msg: string) {
