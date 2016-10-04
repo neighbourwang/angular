@@ -81,6 +81,18 @@ export let RestApis: RestApiModel[] = [
         "id": "pf.cre.step.01.paltform.post",
         "method": "POST",
         "url": "adminui/authsec/platform"
+    },
+   {
+       "desc": "获取企业列表",
+       "id": "ent-mng.admin.cre.enterprise.get",
+       "method": "POST",
+       "url": "/adminui/authsec/enterprise"
+   },
+   {
+       "desc": "创建企业管理员",
+       "id": "ent-mng.admin.cre.post",
+       "method": "POST",
+       "url": "/adminui/authsec/enterprise/{enterpriseId}/admin"
    }
 
 ]
