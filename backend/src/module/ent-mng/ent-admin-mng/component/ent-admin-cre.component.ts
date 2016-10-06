@@ -1,7 +1,7 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ViewChild} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { LayoutService } from '../../../../architecture';
+import { LayoutService, NoticeComponent } from '../../../../architecture';
 
 import { EntAdminCreService } from '../service/ent-admin-cre.service';
 
@@ -20,7 +20,13 @@ import { Admin } from '../model/admin.model';
 export class EntAdminCreComponent implements OnInit {
 
     mngId: string = "";
-    actionName: string = "创建管理员";
+    isEdit:boolean = false;
+    noticeTitle: string = "";
+    noticeMsg:string="";
+
+    @ViewChild('notice')
+    notice: NoticeComponent;
+
     constructor(
         private service: EntAdminCreService,
         private layoutService: LayoutService,
@@ -29,14 +35,15 @@ export class EntAdminCreComponent implements OnInit {
     ) {
         if (activatedRouter.snapshot.params["mng-id"]) {
             this.mngId = activatedRouter.snapshot.params["mng-id"] || "";
-            this.actionName = "更新管理员";
-        } else {
-            this.actionName = "创建管理员";
-        }
+            this.isEdit = true;
+        }  
     }
 
     enterprises: Enterprise[];
     admin: Admin = new Admin();
+
+     
+
     ngOnInit() {
         this.layoutService.setLoading(true);
         this.service.getEnterprise().then(
@@ -58,11 +65,22 @@ export class EntAdminCreComponent implements OnInit {
     }
 
 
-    create(): void {
+    createAndUpdate(): void {
         if (this.admin.contactorName === "") {
             this.showAlert("请输入管理员姓名");
             return;
         }
+
+        if (this.admin.account === "") {
+            this.showAlert("请输入管理员账户");
+            return;
+        }
+
+        if (this.admin.password === "") {
+            this.showAlert("请输入管理员密码");
+            return;
+        }
+
         if (this.admin.contactorPhone === "") {
             this.showAlert("请输入电话");
             return;
@@ -86,17 +104,32 @@ export class EntAdminCreComponent implements OnInit {
             return;
         }
         this.layoutService.setLoading(true);
-        this.service.createAdmin(this.admin).then(
-            response => {
-                this.layoutService.setLoading(false);
-                if (response && 100 == response["resultCode"]) {
-                    this.showAlert("创建成功");
-                    this.router.navigateByUrl("ent-mng/ent-admin-mng/ent-admin-mng");
-                } else {
-                    this.showAlert("Res sync error");
+
+        if (this.mngId == "") {
+            this.service.createAdmin(this.admin).then(
+                response => {
+                    this.layoutService.setLoading(false);
+                    if (response && 100 == response["resultCode"]) {
+                        this.showAlert("创建成功");
+                        this.router.navigateByUrl("ent-mng/ent-admin-mng/ent-admin-mng");
+                    } else {
+                        this.showAlert("Res sync error");
+                    }
                 }
-            }
-        ).catch(this.onRejected);
+            ).catch(this.onRejected);
+        } else {
+            this.service.updateAdmin(this.admin).then(
+                response => {
+                    this.layoutService.setLoading(false);
+                    if (response && 100 == response["resultCode"]) {
+                        this.showAlert("更新成功");
+                        this.router.navigateByUrl("ent-mng/ent-admin-mng/ent-admin-mng");
+                    } else {
+                        this.showAlert("Res sync error");
+                    }
+                }
+            ).catch(this.onRejected);
+        }
     }
 
     cancel(): void {
@@ -108,6 +141,8 @@ export class EntAdminCreComponent implements OnInit {
     }
 
     showAlert(msg: string): void {
-        alert(msg);
+        this.noticeTitle = "提示";
+        this.noticeMsg = msg;
+        this.notice.open();
     }
 }

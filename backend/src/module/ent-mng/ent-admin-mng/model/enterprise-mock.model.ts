@@ -31,7 +31,7 @@ export const createAdminRes = {
     },
     resultCode: "100",
     resultContent: {
-        "contactPhone": "13720119493",
+        "contactorPhone": "13720119493",
         "contactorName": "Moses",
         "description": "description",
         "email": "dark@hpe.com",
@@ -55,3 +55,56 @@ export const updateAdminRes = {
         "processResult": "string"
     }
 }
+
+
+export const adminList = {
+    detailDescription: "获取管理员列表",
+    pageInfo: {
+        currentPage: 0,
+        pageSize: 0,
+        totalPage: 0,
+        totalRecords: 0
+    },
+    resultCode: "100",
+    resultContent: [{
+        "contactorPhone": "13720119493",
+        "contactorName": "Moses",
+        "description": "description",
+        "email": "dark@hpe.com",
+        "account": "dark@hpe.com",
+        "password":"password",
+        "enterpriseId": "002",
+        "enterpriseName": "企业02",
+        "id": "1",
+        "status": 0
+    },
+        {
+            "contactorPhone": "13720189493",
+            "contactorName": "李四",
+            "description": "description",
+            "email": "dark@hpe.com",
+            "account": "dark@hpe.com",
+            "password": "password",
+            "enterpriseId": "001",
+            "enterpriseName": "企业01",
+            "id": "1",
+            "status": 1
+        },
+        {
+            "contactorPhone": "13720119445",
+            "contactorName": "王五",
+            "description": "description",
+            "email": "dark@hpe.com",
+            "account": "dark@hpe.com",
+            "password": "password",
+            "enterpriseId": "001",
+            "enterpriseName": "企业01",
+            "id": "1",
+            "status": 0
+        }
+    ]
+}
+
+
+
+

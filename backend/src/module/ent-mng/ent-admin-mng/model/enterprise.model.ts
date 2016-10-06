@@ -1,7 +1,7 @@
 export class Enterprise {
-    id:String;
-    name: String;
-    code:String;
+    id:string;
+    name: string;
+    code: string;
     constructor() {
     }
 }
