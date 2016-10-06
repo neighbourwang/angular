@@ -1,13 +1,15 @@
 export class Admin {
-    id?:String;
+    id?:string;
     contactorName: string="";
     contactorPhone: string="";
     email: string="";
-    description: string="";
+    description: string = "";
+    account: string = "";
+    password:string="";
     enterpriseId: string="002";
     enterpriseName: string;
-    status:number;
-
+    status: number;
+    isSelect?:boolean=false;
     constructor() {
     }
 }
