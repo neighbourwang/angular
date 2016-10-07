@@ -84,7 +84,7 @@ export class EntAdminMngComponent implements OnInit {
 
         }
         this.confirm.cof = () => {
-            this.service.deleteAdmin(ids).then(response => {
+            this.service.deleteAdmin(selectAdmin).then(response => {
                 this.layoutService.setLoading(false);
                 if (response && 100 == response["resultCode"]) {
                     //删除成功
@@ -117,7 +117,7 @@ export class EntAdminMngComponent implements OnInit {
         this.confirm.ccf = () => {
         }
         this.confirm.cof = () => {
-            this.service.updateAdminStatus(ids, status).then(response => {
+            this.service.updateAdminStatus(selectAdmin, status).then(response => {
                 this.layoutService.setLoading(false);
                 if (response && 100 == response["resultCode"]) {
                     this.getData();
