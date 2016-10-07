@@ -3,8 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 
-import { PageInfo } from '../model/pageInfo.model';
-
 import { Admin } from '../model/admin.model';
 
 import { Enterprise } from '../model/enterprise.model';
