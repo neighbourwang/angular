@@ -31,6 +31,6 @@ export class EntEstMngComponent implements OnInit {
   }
 
   create() {
-      this.router.navigateByUrl("pf-mng/ent-est-mng/ent-est-cre-step-01");
+      this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-cre-step-01");
   }
 }

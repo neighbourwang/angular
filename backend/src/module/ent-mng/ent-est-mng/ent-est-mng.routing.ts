@@ -9,23 +9,23 @@ import { EntEstCreStep04Component } from './component/ent-est-cre-step-04.compon
 
 export const EntEstMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'pf-mng/ent-est-mng/ent-est-mng',
+        path: 'ent-mng/ent-est-mng/ent-est-mng',
         component: EntEstMngComponent
     }
     ,{
-    	path: 'pf-mng/ent-est-mng/ent-est-cre-step-01',
+    	path: 'ent-mng/ent-est-mng/ent-est-cre-step-01',
     	component: EntEstCreStep01Component
     }
     ,{
-    	path: 'pf-mng/ent-est-mng/ent-est-cre-step-02'
+    	path: 'ent-mng/ent-est-mng/ent-est-cre-step-02'
     	,component: EntEstCreStep02Component
     }
     ,{
-        path: 'pf-mng/ent-est-mng/ent-est-cre-step-03'
+        path: 'ent-mng/ent-est-mng/ent-est-cre-step-03'
         ,component: EntEstCreStep03Component
     }
     ,{
-    	path: 'pf-mng/ent-est-mng/ent-est-cre-step-04'
+    	path: 'ent-mng/ent-est-mng/ent-est-cre-step-04'
     	,component: EntEstCreStep04Component
     }
 ]);

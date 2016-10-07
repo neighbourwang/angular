@@ -27,11 +27,11 @@ export class EntEstCreStep01Component implements OnInit{
 	}
 
 	next(){
-      	this.router.navigateByUrl("pf-mng/ent-est-mng/ent-est-cre-step-02");
+      	this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-cre-step-02");
 	}
 
 	cancel(){
-		this.router.navigateByUrl('pf-mng/ent-est-mng/ent-est-mng');
+		this.router.navigateByUrl('ent-mng/ent-est-mng/ent-est-mng');
 	}
 
 	showNotice(title, desc){

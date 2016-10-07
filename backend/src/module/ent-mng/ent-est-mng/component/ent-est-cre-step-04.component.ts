@@ -13,11 +13,11 @@ export class EntEstCreStep04Component implements OnInit{
 	ngOnInit(){}
 
 	prev(){
-      	this.router.navigateByUrl("pf-mng/ent-est-mng/ent-est-cre-step-03");
+      	this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-cre-step-03");
     }
 
 	cancel(){
-		this.router.navigateByUrl('pf-mng/ent-est-mng/ent-est-mng');
+		this.router.navigateByUrl('ent-mng/ent-est-mng/ent-est-mng');
 	}
 
 }

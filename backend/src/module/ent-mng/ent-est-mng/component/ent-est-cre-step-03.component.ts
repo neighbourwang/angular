@@ -13,15 +13,15 @@ export class EntEstCreStep03Component implements OnInit{
 	ngOnInit(){}
 
 	next(){
-      	this.router.navigateByUrl("pf-mng/ent-est-mng/ent-est-cre-step-04");
+      	this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-cre-step-04");
 	}
 
 	prev(){
-      	this.router.navigateByUrl("pf-mng/ent-est-mng/ent-est-cre-step-02");
+      	this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-cre-step-02");
     }
 
 	cancel(){
-		this.router.navigateByUrl('pf-mng/ent-est-mng/ent-est-mng');
+		this.router.navigateByUrl('ent-mng/ent-est-mng/ent-est-mng');
 	}
 
 }
