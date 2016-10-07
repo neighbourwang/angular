@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'fc-menu',
@@ -126,7 +126,7 @@ const menu: Array<Object> = [
                 "label": "企业产品管理",
                 "isOpen": false,
                 "isActive": false,
-                "routing": ""
+                "routing": "ent-mng/ent-prod-mng/ent-prod-mng"
             },
             {
                 "label": "企业管理员",

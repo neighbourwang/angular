@@ -1,0 +1,105 @@
+<div class="page-content-header icon-content-header-purchasing">企业产品管理</div>
+<div class="page-content">
+    <div style="padding-bottom: 10px;">
+        <div class="dropdown pull-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                选择操作
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">删除</a></li>
+                <li><a href="#">发布产品</a></li>
+                <li><a href="#">取消发布</a></li>
+            </ul>
+        </div>
+        <div class="dropdown pull-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                选择地区
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">上海A区</a></li>
+                <li><a href="#">上海B区</a></li>
+                <li><a href="#">苏州A区</a></li>
+                <li><a href="#">北京</a></li>
+            </ul>
+        </div>
+        <div class="dropdown pull-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                选择公司
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">上海慧与有限公司</a></li>
+                <li><a href="#">中国惠普有限公司</a></li>
+            </ul>
+        </div>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
+            <span class="glyphicon glyphicon-edit"></span>
+            <span class="icon-button-label icon-left-button-label">创建产品</span>
+        </button>
+    </div>
+    <div class="table-container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th><input type="checkbox">选择</th>
+                    <th>企业名称</th>
+                    <th>区域</th>
+                    <th>产品名称</th>
+                    <th>服务目录</th>
+                    <th>计价方式</th>
+                    <th>状态</th>
+                    <th>描述</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>上海慧于有限公司</td>
+                    <td>上海A区</td>
+                    <td>标准小型云主机</td>
+                    <td>标准云主机_普通存储</td>
+                    <td>包月</td>
+                    <td>未发布</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>上海慧于有限公司</td>
+                    <td>上海B区</td>
+                    <td>公网IP_10M</td>
+                    <td>公网IP_10M</td>
+                    <td>包月</td>
+                    <td><span style="color:red">已发布</span></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>中国惠普有限公司</td>
+                    <td>北京</td>
+                    <td>标准小型云主机_高性能</td>
+                    <td>标准云主机_高速存储</td>
+                    <td>包年</td>
+                    <td><span style="color:red">已发布</span></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>中国惠普有限公司</td>
+                    <td class="text">苏州A区</td>
+                    <td class="text">标准云硬盘_SSD</td>
+                    <td class="text">标准云硬盘_SSD</td>
+                    <td>包年</td>
+                    <td><span style="color:red">已发布</span></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+			function creation() {
+				_load_content("ent-prod-cre-01");
+			}
+</script>
