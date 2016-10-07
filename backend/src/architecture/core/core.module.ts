@@ -22,7 +22,7 @@ import { RestApi } from './service/restapi.service';
         UserService,
         LayoutService,
         RestApiCfg,
-        RestApi
+        RestApi,
     ]
 })
 export class CoreModule {

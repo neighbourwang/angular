@@ -85,7 +85,7 @@ export let RestApis: RestApiModel[] = [
    {
        "desc": "获取企业列表",
        "id": "ent-mng.admin.cre.enterprise.get",
-       "method": "POST",
+       "method": "GET",
        "url": "/adminui/authsec/enterprise"
    },
    {
@@ -110,19 +110,19 @@ export let RestApis: RestApiModel[] = [
        "desc": "删除企业管理员",
        "id": "ent-mng.admin.del.delete",
        "method": "DELETE",
-       "url": "/adminui/authsec/enterprise/admin/{id}"
+       "url": "/adminui/authsec/enterprise/admins"
    },
    {
        "desc": "获取全部企业管理员",
        "id": "ent-mng.admin.all.get",
        "method": "GET",
-       "url": "/adminui/authsec/enterprise/admin"
+       "url": "/adminui/authsec/enterprise/admin/page/{page}/size/{size}"
    },
    {
        "desc": "获取某企业管理员",
        "id": "ent-mng.enterprise.admin.get",
        "method": "GET",
-       "url": "/adminui/authsec/enterprise/{enterpriseId}/admin"
+       "url": "/adminui/authsec/enterprise/{enterpriseId}/admin/page/{page}/size/{size}"
    }
 
 ]

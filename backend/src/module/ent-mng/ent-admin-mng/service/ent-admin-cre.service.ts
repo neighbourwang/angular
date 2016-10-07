@@ -48,10 +48,32 @@ export class EntAdminCreService {
      }
 
      createAdmin(admin: Admin): Promise<any>  {
+
+         let pathParams = [
+             {
+                 key: 'enterprise',
+                 value: admin.enterpriseId
+             }
+         ];
+
+           //let url = this.restApiCfg.getRestApiUrl('ent-mng.admin.cre.post');
+
+         //return this.restApi.get(url, pathParams, undefined, admin);
+
          return new Promise(resovle => setTimeout(resovle, 2000.)).then(() => createAdminRes);
      }
 
      updateAdmin(admin: Admin): Promise<any> {
+         let pathParams = [
+             {
+                 key: 'id',
+                 value: admin.id
+             }
+         ];
+
+           //let url = this.restApiCfg.getRestApiUrl('ent-mng.admin.update.put');
+
+         //return this.restApi.get(url, pathParams, undefined, admin);
          return new Promise(resovle => setTimeout(resovle, 2000.)).then(() => updateAdminRes);
      }
 }
