@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LayoutService } from '../../../../architecture';
 import { EntEstCreService } from "../service/ent-est-cre.service";
 import { ResourceQuota } from "../model/resourcequota";
+import { EntEstResourceQuota } from "../model/ent-est-resourcequota";
 
 @Component({
 	selector:'ent-est-cre-step-02'
@@ -12,6 +13,8 @@ import { ResourceQuota } from "../model/resourcequota";
 })
 export class EntEstCreStep02Component implements OnInit{
 	private resourceQuotas: ResourceQuota[] = [];
+	private entEstResourceQuotas : EntEstResourceQuota[] = [];
+	
 	constructor(private router: Router,
 		private service: EntEstCreService){}
 	ngOnInit(){

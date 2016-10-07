@@ -37,23 +37,11 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>上海B区</td>
-											<td>777</td>
-											<td>20000</td>
-											<td>上海某区高科技资源区域</td>
-										</tr>
-										<tr>
-											<td>北京一区</td>
-											<td>999</td>
-											<td>30000</td>
-											<td>上海某区高科技资源区域</td>
-										</tr>
-										<tr>
-											<td>苏州B区</td>
-											<td>777</td>
-											<td>20000</td>
-											<td>上海某区高科技资源区域</td>
+										<tr *ngFor="let resourceQuota of resourceQuotas">
+											<td>{{resourceQuota.regionName}}</td>
+											<td>{{resourceQuota.vmQuota}}</td>
+											<td>{{resourceQuota.storageQuota}}</td>
+											<td>{{resourceQuota.description}}</td>
 										</tr>
 									</tbody>
 								</table>
@@ -103,13 +91,13 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>上海B区</td>
-											<td>777</td>
-											<td><input class="form-control" type="number" value="700" /></td>
-											<td>20000</td>
-											<td><input class="form-control" type="number" value="700" /></td>
-											<td><input class="form-control" type="number" value="700" /></td>
+										<tr *ngFor="let entEstResurceQuota of entEstResourceQuotas">
+											<td>{{entEstResurceQuota.regionName}}</td>
+											<td>{{entEstResurceQuota.vmQuota}}</td>
+											<td><input class="form-control" type="number" [ngModel]="entEstResurceQuota.platformVMQuota"/></td>
+											<td>{{entEstResurceQuota.platformStorageQuota}}</td>
+											<td><input class="form-control" type="number" [ngModel]="entEstResurceQuota.storageQuota"/></td>
+											<td><input class="form-control" type="number" [ngModel]="entEstResurceQuota.networkQuota"/></td>
 										</tr>
 									</tbody>
 								</table>
