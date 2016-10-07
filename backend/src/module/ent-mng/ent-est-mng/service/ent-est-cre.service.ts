@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 // import { Http, Response } from '@angular/http';
 import { EntEstBasicInfo } from '../model/ent-est-basic-info';
 import { ResourceQuota } from '../model/resourcequota';
+import { EntEstResourceQuota } from "../model/ent-est-resourcequota";
+import { EntEst } from '../model/ent-est';
 // import { RestApiCfg, RestApi } from '../../../../architecture';
 import { CurrencyType } from "../model/currency";
 import { RestApiCfg, RestApi } from '../../../../architecture';
@@ -12,6 +14,7 @@ const apiPort: string = '9105';
 @Injectable()
 export class EntEstCreService{
 	private cachedEntEstBasicInfo: EntEstBasicInfo;
+	private entEst : EntEst = new EntEst();
 	private cachedCurrencyTypes : CurrencyType[];
 	private cachedResourceQuotas : ResourceQuota[];
 
@@ -24,9 +27,8 @@ export class EntEstCreService{
 		this.cachedEntEstBasicInfo = new EntEstBasicInfo();
 	}
 
-	loadEntEstBasicInfo(entEstBasicInfo: EntEstBasicInfo)
-	{
-		entEstBasicInfo.name = "hello";
+	getEntEst(){
+		return this.entEst;
 	}
 
 	loadCurrencyTypes(currencyTypes : CurrencyType[], errorHandler : Function)

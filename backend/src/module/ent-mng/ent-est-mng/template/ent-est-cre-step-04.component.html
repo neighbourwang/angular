@@ -18,9 +18,9 @@
 		</div>
 	</div>
 	<div class="row" style="padding: 0px 0px 10px 0px;">
-		<div class="col-md-4">名称<span class="asterisk">*</span>：上海慧与有限公司</div>
-		<div class="col-md-4">联系人<span class="asterisk">*</span>：张三</div>
-		<div class="col-md-4">邮件地址<span class="asterisk">*</span>：zhangsan@hpe.com</div>
+		<div class="col-md-4">名称<span class="asterisk">*</span>：{{entEstBasicInfo.name}}</div>
+		<div class="col-md-4">联系人<span class="asterisk">*</span>：{{entEstBasicInfo.contactorName}}</div>
+		<div class="col-md-4">邮件地址<span class="asterisk">*</span>：{{entEstBasicInfo.email}}</div>
 	</div>
 	<div style="padding-bottom: 10px;">
 		<div class="section-title h4">
@@ -40,28 +40,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
+				<tr *ngFor="let resourceQuota of entEstResourceQuotas">
 					<td>1</td>
-					<td>上海A区</td>
-					<td>10</td>
-					<td>1000</td>
-					<td>10</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>上海B区</td>
-					<td>10</td>
-					<td>1000</td>
-					<td>10</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>苏州区</td>
-					<td>10</td>
-					<td>1000</td>
-					<td>10</td>
+					<td>{{resourceQuota.regionName}}</td>
+					<td>{{resourceQuota.vmQuota}}</td>
+					<td>{{resourceQuota.platformStorageQuota}}</td>
+					<td>{{resourceQuota.networkQuota}}</td>
 					<td></td>
 				</tr>
 			</tbody>

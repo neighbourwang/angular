@@ -12,7 +12,7 @@ import { CurrencyType } from "../model/currency";
 	,providers:[EntEstCreService]
 })
 export class EntEstCreStep01Component implements OnInit{
-	private entEstBasicInfo:EntEstBasicInfo = new EntEstBasicInfo();
+	private entEstBasicInfo:EntEstBasicInfo;
 	private currencyTypes : CurrencyType[] = [];
 	constructor(
 		private router: Router,
@@ -21,9 +21,10 @@ export class EntEstCreStep01Component implements OnInit{
 
 	}
 	ngOnInit(){
+		this.entEstBasicInfo = this.service.getEntEst().BasicInfo;
+
 		this.service.loadCurrencyTypes(this.currencyTypes, this.showNotice);
 		this.entEstBasicInfo.currencyType = "1";
-		this.service.loadEntEstBasicInfo(this.entEstBasicInfo);
 	}
 
 	next(){

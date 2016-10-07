@@ -13,12 +13,13 @@ import { EntEstResourceQuota } from "../model/ent-est-resourcequota";
 })
 export class EntEstCreStep02Component implements OnInit{
 	private resourceQuotas: ResourceQuota[] = [];
-	private entEstResourceQuotas : EntEstResourceQuota[] = [];
+	private entEstResourceQuotas : EntEstResourceQuota[];
 	
 	constructor(private router: Router,
 		private service: EntEstCreService){}
 	ngOnInit(){
 		this.service.loadResourceQuotas(this.resourceQuotas, null);
+		this.entEstResourceQuotas = this.service.getEntEst().ResourceQuotas;
 	}
 
 	next(){
