@@ -145,6 +145,7 @@ export class EntAdminMngComponent implements OnInit {
     }
 
     filterAdminByEnterprise(enterprise: Enterprise): void {
+        this.layoutService.setLoading(true);
         if (enterprise) {
             this.service.getEnterpriseAdmins(enterprise.id).then(
                 response => {
