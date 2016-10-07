@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LayoutService } from '../../../../architecture';
-import { CurrencyType } from "../model/currency";
 import { EntEstCreService } from "../service/ent-est-cre.service";
 
 @Component({
@@ -11,11 +10,10 @@ import { EntEstCreService } from "../service/ent-est-cre.service";
 	,providers:[EntEstCreService]
 })
 export class EntEstCreStep02Component implements OnInit{
-	currencyTypes : CurrencyType[] = [];
+	
 	constructor(private router: Router,
 		private service: EntEstCreService){}
 	ngOnInit(){
-		this.service.loadCurrencyTypes(this.currencyTypes);
 	}
 
 	next(){

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LayoutService } from '../../../../architecture';
 import { EntEstBasicInfo } from '../model/ent-est-basic-info'
 import { EntEstCreService } from '../service/ent-est-cre.service'
+import { CurrencyType } from "../model/currency";
 
 @Component({
 	selector:'ent-est-cre-step-01'
@@ -12,14 +13,17 @@ import { EntEstCreService } from '../service/ent-est-cre.service'
 })
 export class EntEstCreStep01Component implements OnInit{
 	private entEstBasicInfo:EntEstBasicInfo = new EntEstBasicInfo();
+	private currencyTypes : CurrencyType[] = [];
 	constructor(
 		private router: Router,
-		private entEstCreService: EntEstCreService
+		private service: EntEstCreService
 		){
 
 	}
 	ngOnInit(){
-		this.entEstCreService.loadEntEstBasicInfo(this.entEstBasicInfo);
+		this.service.loadCurrencyTypes(this.currencyTypes, this.showNotice);
+		this.entEstBasicInfo.currencyType = "1";
+		this.service.loadEntEstBasicInfo(this.entEstBasicInfo);
 	}
 
 	next(){
@@ -28,5 +32,9 @@ export class EntEstCreStep01Component implements OnInit{
 
 	cancel(){
 		this.router.navigateByUrl('pf-mng/ent-est-mng/ent-est-mng');
+	}
+
+	showNotice(title, desc){
+
 	}
 }
