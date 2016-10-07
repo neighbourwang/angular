@@ -17,6 +17,10 @@ export class EntProdCre01Component implements OnInit{
 	}
 	ngOnInit(){}
 
+    cancel() {
+        this.router.navigateByUrl("ent-mng/ent-prod-mng/ent-prod-mng");
+    }
+
 	next(){
       	this.router.navigateByUrl("ent-mng/ent-prod-mng/ent-prod-cre-02");
 	}

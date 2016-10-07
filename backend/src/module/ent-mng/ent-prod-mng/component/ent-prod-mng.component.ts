@@ -17,5 +17,8 @@ export class EntProdMngComponent implements OnInit{
 	}
 	ngOnInit(){}
        //页面上的操作
-	
+
+    creation() {
+        this.router.navigateByUrl("ent-mng/ent-prod-mng/ent-prod-cre-01");
+    }
 }

@@ -8,8 +8,9 @@
 
 export class PaginationComponent implements OnInit, OnChanges {
     tp: number;
-    cp: number = 1;
     pp: number = 10;
+
+    cp: number = 1;
 
     prev: number;
     next: number;
@@ -43,6 +44,12 @@ export class PaginationComponent implements OnInit, OnChanges {
         }
     }
 
+    // 描画组件
+    render(cp: number) {
+        this.cp = cp < this.tp ? (cp < 1 ? 1 : cp) : this.tp;
+
+        this.reCalculatePage();
+    }
     // 重新计算分页信息
     reCalculatePage() {
         let bf: number = 0;
