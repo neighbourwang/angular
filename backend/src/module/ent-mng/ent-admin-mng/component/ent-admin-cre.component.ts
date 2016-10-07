@@ -71,7 +71,7 @@ export class EntAdminCreComponent implements OnInit {
             return;
         }
 
-        if (this.admin.account === "") {
+        if (this.admin.userName === "") {
             this.showAlert("请输入管理员账户");
             return;
         }

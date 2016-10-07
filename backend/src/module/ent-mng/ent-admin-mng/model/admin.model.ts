@@ -4,7 +4,7 @@ export class Admin {
     contactorPhone: string="";
     email: string="";
     description: string = "";
-    account: string = "";
+    userName: string = "";
     password:string="";
     enterpriseId: string="002";
     enterpriseName: string;

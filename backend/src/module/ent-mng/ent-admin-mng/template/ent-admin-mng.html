@@ -19,10 +19,10 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li (click)="selectEnterprise=null;filterAdminByEnterprise();">
+                <li (click)="changEnterpriseFilter();">
                     <a href="javascript:void(0);"> 根据企业筛选</a>
                 </li>
-                <li *ngFor="let enterprise of enterprises" (click)="selectEnterprise=enterprise;filterAdminByEnterprise(enterprise);">
+                <li *ngFor="let enterprise of enterprises" (click)="changEnterpriseFilter(enterprise);">
                     <a href="javascript:void(0);">{{enterprise.name}}</a>
                 </li>
             </ul>
@@ -55,7 +55,7 @@
                     <td>{{admin.contactorName}}</td>
                     <td>{{admin.contactorPhone}}</td>
                     <td>{{admin.email}}</td>
-                    <td>{{admin.account}}</td>
+                    <td>{{admin.userName}}</td>
                     <td style="color: #00a982" [style.color]="admin.status==0?'#00a982':'#ff0000'">{{admin.status==0?"未激活":"已激活"}}</td>
                     <td><a href="javacscirpt:void()" (click)="eidtAdmin(admin)">编辑</a></td>
                 </tr>
@@ -63,7 +63,7 @@
         </table>
     </div>
 </div>
-<div class="fox-cloud-pagination-container">
+<!--<div class="fox-cloud-pagination-container">
     <ul class="fox-cloud-pagination">
         <span class="disable">上一页</span>
         <li>1</li>
@@ -73,8 +73,8 @@
         <li>5</li>
         <span>下一页</span>
     </ul>
-</div>
-<fc-pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
+</div>-->
+<fc-pagination tp={{tp}} (pf)="getData($event)"></fc-pagination>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" (of)="nof()"></fc-notice>
 
 <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>

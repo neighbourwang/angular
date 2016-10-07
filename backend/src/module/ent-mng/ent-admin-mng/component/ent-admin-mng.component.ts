@@ -20,9 +20,9 @@ import { EntAdminCreService } from '../service/ent-admin-cre.service';
     providers: []
 })
 export class EntAdminMngComponent implements OnInit {
-
-    pageIndex: Number = 0;
-    pageSize: Number = 20;
+    pageIndex:number=0;
+    tp: number = 1;
+    pageSize: number = 20;
     noticeTitle: string = "";
     noticeMsg: string = "";
 
@@ -42,13 +42,13 @@ export class EntAdminMngComponent implements OnInit {
 
     admins: Admin[];
     enterprises: Enterprise[];
-    selectEnterprise:Enterprise;
+    selectEnterprise: Enterprise;
     ngOnInit() {
 
         this.layoutService.setLoading(true);
         this.creService.getEnterprise().then(
             response => {
-            
+
                 if (response && 100 == response["resultCode"]) {
 
                     this.enterprises = response["resultContent"];
@@ -59,19 +59,10 @@ export class EntAdminMngComponent implements OnInit {
             }
         ).catch(this.onRejected);
 
-        this.service.getAdmins().then(
-            response => {
-                this.layoutService.setLoading(false);
-                if (response && 100 == response["resultCode"]) {
-                    this.admins = response.resultContent;
-                } else {
-                    alert("Res sync error");
-                }
-            }
-        ).catch(this.onRejected);
+        this.getData();
     }
 
-
+   
     deleteAdmins() {
         let selectAdmin: Admin[] = this.admins.filter((admin) => { return admin.isSelect; });
         if (selectAdmin.length == 0) {
@@ -80,7 +71,7 @@ export class EntAdminMngComponent implements OnInit {
         }
 
         this.noticeTitle = "警告";
-        let names:string[] = [];
+        let names: string[] = [];
         let ids: string[] = [];
         selectAdmin.forEach(admin => {
             names.push(admin.contactorName);
@@ -88,15 +79,14 @@ export class EntAdminMngComponent implements OnInit {
         });
         this.noticeMsg = "确认删除'" + names.join("','") + "' ?";
         this.confirm.ccf = () => {
-         
+
         }
         this.confirm.cof = () => {
-            this.service.deleteAdmin(ids).then(response => {
+            this.service.deleteAdmin(selectAdmin).then(response => {
                 this.layoutService.setLoading(false);
                 if (response && 100 == response["resultCode"]) {
-                  //删除成功
-
-
+                    //删除成功
+                    this.getData();
                 } else {
                     alert("Res sync error");
                 }
@@ -121,16 +111,14 @@ export class EntAdminMngComponent implements OnInit {
             names.push(admin.contactorName);
             ids.push(admin.id);
         });
-        this.noticeMsg = "确认"+ (status == 0 ? "取消激活" : "激活") +"'" + names.join("','") + "' ?";
+        this.noticeMsg = "确认" + (status == 0 ? "取消激活" : "激活") + "'" + names.join("','") + "' ?";
         this.confirm.ccf = () => {
         }
         this.confirm.cof = () => {
-            this.service.updateAdminStatus(ids,status).then(response => {
+            this.service.updateAdminStatus(selectAdmin, status).then(response => {
                 this.layoutService.setLoading(false);
                 if (response && 100 == response["resultCode"]) {
-                    //激活反激活成功
-
-
+                    this.getData();
                 } else {
                     alert("Res sync error");
                 }
@@ -140,28 +128,32 @@ export class EntAdminMngComponent implements OnInit {
         this.confirm.open();
     }
 
-    eidtAdmin(admin: Admin) {
-        this.router.navigateByUrl("ent-mng/ent-admin-mng/ent-admin-cre/" + admin.id);
+    changEnterpriseFilter(enterprise: Enterprise) {
+        this.selectEnterprise = enterprise;
+        this.pageIndex = 0;
+        this.getData();
     }
 
-    filterAdminByEnterprise(enterprise: Enterprise): void {
-        if (enterprise) {
-            this.service.getEnterpriseAdmins(enterprise.id).then(
+    getData(pageIndex?:number): void {
+        this.pageIndex = pageIndex || this.pageIndex;
+        this.layoutService.setLoading(true);
+        if (this.selectEnterprise) {
+            this.service.getEnterpriseAdmins(this.selectEnterprise.id, this.pageIndex , this.pageSize).then(
                 response => {
                     this.layoutService.setLoading(false);
                     if (response && 100 == response["resultCode"]) {
-                        this.admins = response.resultContent;
+                        this.setData(response);
                     } else {
                         alert("Res sync error");
                     }
                 }
             ).catch(this.onRejected);
         } else {
-            this.service.getAdmins().then(
+            this.service.getAdmins(this.pageIndex, this.pageSize).then(
                 response => {
                     this.layoutService.setLoading(false);
                     if (response && 100 == response["resultCode"]) {
-                        this.admins = response.resultContent;
+                        this.setData(response);
                     } else {
                         alert("Res sync error");
                     }
@@ -170,10 +162,20 @@ export class EntAdminMngComponent implements OnInit {
         }
     }
 
+
+    setData(ret) {
+        this.admins = ret.resultContent;
+        this.tp = ret.pageInfo.totalPage;
+    }
+
+
     gotoCreatePage(): void {
         this.router.navigateByUrl("ent-mng/ent-admin-mng/ent-admin-cre");
     }
 
+    eidtAdmin(admin: Admin) {
+        this.router.navigateByUrl("ent-mng/ent-admin-mng/ent-admin-cre/" + admin.id);
+    }
     selectAll($event: any): void {
         console.log($event);
         let checked = $event.target.checked;
@@ -202,5 +204,5 @@ export class EntAdminMngComponent implements OnInit {
 
     cof() { }
 
-    ccf() {}
+    ccf() { }
 }
