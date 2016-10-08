@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { PfConnCreStep04Service } from '../service/pf-conn-cre-step-04.service';
+import { PfConnCreStep04Service, StateService } from '../service';
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 
@@ -16,7 +16,8 @@ export class PfConnCreStep04Component implements OnInit {
   constructor(
       private service: PfConnCreStep04Service,
     private layoutService: LayoutService,
-    private router: Router
+    private router: Router,
+    private stateService: StateService
   ) {}
 
   ngOnInit() {
@@ -34,10 +35,10 @@ export class PfConnCreStep04Component implements OnInit {
   }
 
   previous() {
-      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-03/");
+      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-03");
   }
 
   next() {
-      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-05/");
+      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-05");
   }
 }

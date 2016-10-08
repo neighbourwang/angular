@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 
-import { PfConnMngService } from '../service/pf-conn-mng.service';
+import { PfConnMngService, StateService } from '../service';
 import { PfConnMngPlatform } from '../model/pf-conn-mng-platform.model';
 
 @Component({
@@ -26,28 +26,31 @@ export class PfConnMngComponent implements OnInit {
     msg: String = "";
 
     // 选择全部平台标识
-    isSelectedAll: boolean = false
+    isSelectedAll: boolean = false;
     platforms: Array<PfConnMngPlatform> = new Array<PfConnMngPlatform>();
 
     // 平台数据总页数
     tp: number = 0;
     // 每页显示的数据条数
-    pp: number = 5;
+    pp: number = 10;
 
     constructor(
         private service: PfConnMngService,
         private layoutService: LayoutService,
-        private router: Router
-  ) {}
+        private router: Router,
+        private stateService: StateService
+    ) {
+        stateService.clear();
+    }
 
   ngOnInit() {
-      this.backend(1, 5);
-  }
+      this.backend(1, this.pp);
+    }
 
   backend(page: number, size: number) {
       this.tp = 0;
 
-      this.service.getPlatforms(page, this.pp).then(
+      this.service.getPlatforms(page, size).then(
               response => {
                   if (!response) {
                       this.showError("数据取得错误", "异常响应");
@@ -106,7 +109,7 @@ export class PfConnMngComponent implements OnInit {
     创建平台 - 填写基本信息页面迁移
   */
   creation() {
-      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-01/", { skipLocationChange: true });
+      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-01");
   }
 
   /*
@@ -116,8 +119,45 @@ export class PfConnMngComponent implements OnInit {
   switchSelectAll() {
       this.isSelectedAll = !this.isSelectedAll;
 
-      this.platforms.forEach(item => item.isSelected = this.isSelectedAll);
+      this.switchSelect(this.isSelectedAll);
   }
+
+  /*
+    选择平台checkbox事件处理
+    选择/选择取消切换
+  */
+  switchSelectIndividual(idx: number) {
+      let isAllSelected: boolean = this.isAllSelected();
+
+      if (isAllSelected) {
+          this.isSelectedAll = isAllSelected;
+
+          this.switchSelect(isAllSelected);
+      } else {
+          this.isSelectedAll = false;
+      }
+  }
+
+  private switchSelect(selected: boolean) {
+      this.platforms.forEach(item => item.isSelected = selected);
+  }
+
+  /*
+    全部Checkbox处于选择状态判断
+  */
+  private isAllSelected() {
+      let isAllSelected: boolean = true;
+
+      this.platforms.forEach(
+          item => {
+              if (!item.isSelected) {
+                  isAllSelected = false;
+              }
+          });
+
+      return isAllSelected;
+  }
+
 
   paging(page) {
       this.backend(page, 10);

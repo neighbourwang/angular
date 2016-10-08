@@ -11,6 +11,9 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 export class NoticeComponent implements OnInit {
     @Output() of = new EventEmitter<any>();
 
+    title: String;
+    msg: String;
+
     @ViewChild('dialog')
     dialog: ModalComponent;
 
@@ -21,7 +24,10 @@ export class NoticeComponent implements OnInit {
         this.of.emit();
     }
 
-    open() {
+    open(title?: String, msg?: String) {
+        title && (this.title = title);
+        msg && (this.msg = msg);
+
         this.dialog.open();
     }
 
