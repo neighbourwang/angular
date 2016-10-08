@@ -7,6 +7,7 @@ import { EntEst } from '../model/ent-est';
 // import { RestApiCfg, RestApi } from '../../../../architecture';
 import { CurrencyType } from "../model/currency";
 import { RestApiCfg, RestApi } from '../../../../architecture';
+import { EntEstItem } from '../model/ent-est-item';
 
 const apiIp: string = '15.114.100.54';
 const apiPort: string = '9105';
@@ -117,5 +118,38 @@ export class EntEstCreService{
 				errorHandler({"title":"资源配额", "desc":"服务器上资源配额数据获取失败"})
 			}
 		});
+	}
+
+	loadEntEstItems(entEstItems: EntEstItem[], errorHandler: Function)
+	{
+		let url = "http://15.114.100.58:9000/adminui/authsec/platform/page/1/size/10";
+
+		this.restApi.get(url, [], undefined, undefined)
+		.then(ret=>{
+			if(!ret)
+			{
+				if(errorHandler)
+				{
+					errorHandler({"title":"企业开通信息", "desc":"企业开通信息数据获取失败"});
+				}
+			}
+			else{
+				if(ret.resultContent)
+				{
+					this.setArray(ret.resultContent, entEstItems);
+				}
+			}
+		})
+		.catch(err=>{
+			console.log('企业开通信息加载错误', err);
+			if(errorHandler)
+			{
+				errorHandler({"title":"企业开通信息", "desc":"服务器上企业开通信息数据获取失败"})
+			}
+		});
+
+
+
+
 	}
 }
