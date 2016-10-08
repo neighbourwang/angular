@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LayoutService } from '../../../../architecture';
-
+import { EntEstItem } from '../model/ent-est-item';
 
 
 @Component({
@@ -12,7 +12,7 @@ import { LayoutService } from '../../../../architecture';
   providers: []
 }) 
 export class EntEstMngComponent implements OnInit {
-    
+  private entEstItems: EntEstItem[] = [];    
   constructor(
     private layoutService: LayoutService,
     private router: Router
