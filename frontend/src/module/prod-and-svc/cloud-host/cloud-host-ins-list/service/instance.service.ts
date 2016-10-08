@@ -14,7 +14,7 @@ export class InstanceListService {
     ) { }
 
     getInstances(page: number, size: number): Promise<any> {
-        let url = this.restApiCfg.getRestApiUrl('hosts.instance.get');
+        let api = this.restApiCfg.getRestApi('hosts.instance.get');
 
         let pathParams = [
             {
@@ -27,7 +27,7 @@ export class InstanceListService {
             }
         ];
 
-        return this.restApi.get(url, pathParams, undefined, undefined);
+        return this.restApi.request(api.method, api.url, pathParams, undefined, undefined);
     }
 
 }

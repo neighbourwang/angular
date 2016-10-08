@@ -16,14 +16,14 @@ export class OrderService {
     ) { }
 
     getServices(): Promise<any> {
-        let url = this.restApiCfg.getRestApiUrl('hosts.services.get');
-        return this.restApi.get(url, undefined, undefined, undefined);
+        let api = this.restApiCfg.getRestApi('hosts.services.get');
+        return this.restApi.request(api.method, api.url, undefined, undefined, undefined);
     }
 
     saveOrder(payload: Payload): Promise<Payload> {
 
-        let url = this.restApiCfg.getRestApiUrl('hosts.order.add');
-        return this.restApi.post(url, undefined, undefined, payload)
+        let api = this.restApiCfg.getRestApi('hosts.order.add');
+        return this.restApi.request(api.method, api.url, undefined, undefined, payload)
                             .then(ret => {
                                 return ret;
                             });

@@ -14,7 +14,6 @@ export class RestApi {
     ) {}
 
     get(url: string, pathParams: Array<any>, queryParams: any, jwt: string = undefined): Promise<any> {
-
         return this.httpRequest('GET', url, jwt, pathParams, queryParams, undefined);
     }
 
@@ -26,11 +25,15 @@ export class RestApi {
         return this.httpRequest('PUT', url, jwt, pathParams, queryParams, body);
     }
 
-    delete(url: string, pathParams: Array<any>, queryParams: any, jwt: string = undefined): Promise<any> {
-        return this.httpRequest('DELETE', url, jwt, pathParams, queryParams, undefined);
+    delete(url: string, pathParams: Array<any>, queryParams: any, body: any, jwt: string = undefined): Promise<any> {
+        return this.httpRequest('DELETE', url, jwt, pathParams, queryParams, body);
+    }
+    
+    request(type: string, url: string, pathParams: Array<any>, queryParams: Array<any>, body: any = undefined): Promise<any> {
+        return this.httpRequest(type, url, undefined, pathParams, queryParams, body);
     }
 
-    private httpRequest(type: string, url: string, jwt: string, pathParams: Array<any>, queryParams: any, body: any): Promise<any> {
+    private httpRequest(type: string, url: string, jwt: string, pathParams: Array<any>, queryParams: Array<any>, body: any): Promise<any> {
         console.debug(`START ${type} ${new Date().toLocaleString()}: ${url}`);
 
         const path = pathParams ? this.createPath(url, pathParams) : url;
@@ -38,9 +41,9 @@ export class RestApi {
         console.debug(`START ${type} ${new Date().toLocaleString()}: ${path}`);
 
         
-        let queryParameters = new URLSearchParams();
+        let queryParameters = this.createQueryParams(queryParams);
         let headerParams = new Headers();
-        
+
         if (jwt) {
             headerParams.append('Authorization', jwt);
         }
@@ -61,18 +64,18 @@ export class RestApi {
                                .then(
                                     res => {
                                         console.debug(`SUCCESS ${type} ${new Date().toLocaleString()}: ${path}`);
-                                        if (type == 'DELETE') {
-                                            return Promise.resolve(0);
-                                        } else {
+                                        // if (type == 'DELETE') {
+                                        //     return Promise.resolve(0);
+                                        // } else {
                                             return this.extractData(res);
-                                        }
+                                        // }
                                         
                                     }
                                 )
                                 .catch(
                                     error => {
                                         console.debug(`FAILURE ${type} ${new Date().toLocaleString()}: ${path}`);
-                                        this.handleError(error);
+                                        return this.handleError(error);
                                     }
                                 );
 
@@ -89,6 +92,18 @@ export class RestApi {
         return url;
     }
 
+    private createQueryParams(params: Array<any>) {
+        let queryParameters = new URLSearchParams();
+
+        if (params) {
+            params.forEach(element => {
+                queryParameters.set(element.key, element.value);
+            });
+        }
+
+        return queryParameters;
+    }
+
     private extractData(res: Response) {
         let body:any;
         if(res.text() != '') {
@@ -97,12 +112,11 @@ export class RestApi {
             body = {};
         }
         
-        if (body) {
-        //   body.forEach(function (element: any) {
-        //   });
+        if (body.resultCode && body.resultCode != 100) {
+            return Promise.reject(undefined);
+        } else {
+            return Promise.resolve(body);
         }
-
-      return Promise.resolve(body);
     }
 
     private handleError(error: any) {
