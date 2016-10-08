@@ -1,4 +1,4 @@
-export interface RestApiModel {
+export class RestApiModel {
     id: string;
     method: string;
     url: string;
