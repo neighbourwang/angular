@@ -30,7 +30,6 @@
 								<table class="table table-hover">
 									<thead>
 										<tr>
-											<th></th>
 											<th>区域</th>
 											<th>可用云主机<br />数量</th>
 											<th>可用存储<br />(GB)</th>
@@ -38,8 +37,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr *ngFor="let resourceQuota of resourceQuotas">
-											<td><input type="checkbox" [(ngModel)]="resourceQuota.checked"/></td>
+										<tr *ngFor="let resourceQuota of getNotSelectedResourceQuota()" [ngClass]="{'selected': resourceQuota.checked, 'clickable': true}" (click)="selectResourceQuota(resourceQuota)">
 											<td>{{resourceQuota.regionName}}</td>
 											<td>{{resourceQuota.vmQuota}}</td>
 											<td>{{resourceQuota.storageQuota}}</td>
@@ -84,7 +82,6 @@
 								<table class="table table-hover">
 									<thead>
 										<tr>
-											<th></th>
 											<th>区域</th>
 											<th>可用云主机<br />数量</th>
 											<th>可用云主机<br />配额</th>
@@ -94,8 +91,8 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr *ngFor="let entEstResurceQuota of entEstResourceQuotas">
-											<td><input type="checkbox" [(ngModel)]="entEstResurceQuota.checked"/></td>
+										<tr *ngFor="let entEstResurceQuota of entEstResourceQuotas" 
+										[ngClass]="{'selected': entEstResurceQuota.checked, 'clickable': true}" (click)="selectEntEstResourceQuota(entEstResurceQuota)">
 											<td>{{entEstResurceQuota.regionName}}</td>
 											<td>{{entEstResurceQuota.vmQuota}}</td>
 											<td><input class="form-control" type="number" [(ngModel)]="entEstResurceQuota.platformVMQuota"/></td>

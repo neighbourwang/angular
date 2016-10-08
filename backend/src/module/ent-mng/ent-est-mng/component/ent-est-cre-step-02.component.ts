@@ -8,7 +8,7 @@ import { EntEstResourceQuota } from "../model/ent-est-resourcequota";
 @Component({
 	selector:'ent-est-cre-step-02'
 	,templateUrl:'../template/ent-est-cre-step-02.component.html'
-	,styleUrls:[]
+	,styleUrls:['../style/ent-est-mng.component.css']
 	,providers:[EntEstCreService]
 })
 export class EntEstCreStep02Component implements OnInit{
@@ -40,12 +40,16 @@ export class EntEstCreStep02Component implements OnInit{
 		{
 			for(let item of selected)
 			{
+				item.added = true;
+				item.checked = false;
+
 				let entEstResourceQuota = new EntEstResourceQuota();
 				entEstResourceQuota.regionId = item.regionId;
 				entEstResourceQuota.regionName = item.regionName;
 				entEstResourceQuota.storageQuota = item.storageQuota;
 				entEstResourceQuota.vmQuota = item.vmQuota;
 				entEstResourceQuota.platformId = item.platformId;
+				entEstResourceQuota.referredResourceQuota = item;
 
 				this.entEstResourceQuotas.push(entEstResourceQuota);
 			}
@@ -58,9 +62,28 @@ export class EntEstCreStep02Component implements OnInit{
 		{
 			for(let item of selected)
 			{
+				item.referredResourceQuota.added = false;
+				item.referredResourceQuota.checked = false;
+				item.referredResourceQuota = null;
 				this.entEstResourceQuotas.splice(this.entEstResourceQuotas.indexOf(item), 1);
 			}
 		}
+	}
+
+	selectResourceQuota(resourceQuota: ResourceQuota)
+	{
+		this.resourceQuotas.map(n=>{n.checked = false;});
+		resourceQuota.checked = true;
+	}
+
+	selectEntEstResourceQuota(entEstResourceQuota: EntEstResourceQuota)
+	{
+		this.entEstResourceQuotas.map(n=>{n.checked = false;});
+		entEstResourceQuota.checked = true;
+	}
+
+	getNotSelectedResourceQuota(){
+		return this.resourceQuotas.filter(n=>n.added == false);
 	}
 
 }

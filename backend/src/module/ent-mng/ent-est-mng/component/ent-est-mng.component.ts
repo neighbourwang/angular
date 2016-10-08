@@ -33,6 +33,6 @@ export class EntEstMngComponent implements OnInit {
 
   create() {
     this.service.clearCache();
-      this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-cre-step-01");
+    this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-cre-step-01");
   }
 }
