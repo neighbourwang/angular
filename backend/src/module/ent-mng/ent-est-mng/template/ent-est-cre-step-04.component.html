@@ -41,7 +41,7 @@
 			</thead>
 			<tbody>
 				<tr *ngFor="let resourceQuota of entEstResourceQuotas">
-					<td>1</td>
+					<td>{{$index}}</td>
 					<td>{{resourceQuota.regionName}}</td>
 					<td>{{resourceQuota.vmQuota}}</td>
 					<td>{{resourceQuota.platformStorageQuota}}</td>

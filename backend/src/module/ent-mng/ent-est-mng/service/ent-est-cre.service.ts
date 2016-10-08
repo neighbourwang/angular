@@ -24,6 +24,7 @@ export class EntEstCreService{
 		){}
 
 	clearCache(){
+		EntEstCreService.entEst = new EntEst();
 	}
 
 	getEntEst(){
