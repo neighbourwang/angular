@@ -54,45 +54,15 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>上海慧于有限公司</td>
-                    <td>上海A区</td>
-                    <td>标准小型云主机</td>
-                    <td>标准云主机_普通存储</td>
-                    <td>包月</td>
-                    <td>未发布</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>上海慧于有限公司</td>
-                    <td>上海B区</td>
-                    <td>公网IP_10M</td>
-                    <td>公网IP_10M</td>
-                    <td>包月</td>
-                    <td><span style="color:red">已发布</span></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>中国惠普有限公司</td>
-                    <td>北京</td>
-                    <td>标准小型云主机_高性能</td>
-                    <td>标准云主机_高速存储</td>
-                    <td>包年</td>
-                    <td><span style="color:red">已发布</span></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>中国惠普有限公司</td>
-                    <td class="text">苏州A区</td>
-                    <td class="text">标准云硬盘_SSD</td>
-                    <td class="text">标准云硬盘_SSD</td>
-                    <td>包年</td>
-                    <td><span style="color:red">已发布</span></td>
-                    <td></td>
+                <tr *ngFor="let item of datas">
+                    <td><input type="checkbox" [(ngModel)]="item.isSelected" /></td>
+                    <td>{{item.industryName}}</td>
+                    <td>{{item.zone}}</td>
+                    <td>{{item.prodName}}</td>
+                    <td>{{item.serviceDirectory}}</td>
+                    <td>{{item.pricingMethod}}</td>
+                    <td>{{item.status}}</td>
+                    <td>{{item.description}}</td>
                 </tr>
             </tbody>
         </table>

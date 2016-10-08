@@ -133,5 +133,10 @@ export let RestApis: RestApiModel[] = [
        "id": "pf-mng.ent-est-mng.currencytypes.get",
        "method": "GET",
        "url": "/adminui/authsec/sysdic/ACCOUNT/CURRENCY"
+   },{
+       "desc": "获取产品",
+       "id": "ent-mng.ent-prod-mng.all.get",
+       "method": "GET",
+       "url": "/adminui/authsec/enterprise/product"
    }
 ]
