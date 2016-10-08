@@ -17,7 +17,7 @@ export class DirectoryService {
     ) { }
     
     getRegions(): Promise<any> {
-        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.regions.get', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.regions.get', apiIp, apiPort);
 
 
         let queryParams = [
@@ -27,11 +27,11 @@ export class DirectoryService {
             }
         ];
 
-        return this.restApi.get(url, undefined, queryParams, undefined);
+        return this.restApi.request(api.method, api.url, undefined, queryParams, undefined);
     }
 
     getTemplates(): Promise<any> {
-        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.servicetemplates.get', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.servicetemplates.get', apiIp, apiPort);
 
 
         let queryParams = [
@@ -41,11 +41,11 @@ export class DirectoryService {
             }
         ];
 
-        return this.restApi.get(url, undefined, queryParams, undefined);
+        return this.restApi.request(api.method, api.url, undefined, queryParams, undefined);
     }
 
     getDirectories(platformId: string, status: string,  page: number, size: number): Promise<any> {
-        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.services.get', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.services.get', apiIp, apiPort);
 
         let pathParams = [
             {
@@ -69,11 +69,11 @@ export class DirectoryService {
             }
         ];
 
-        return this.restApi.get(url, pathParams, queryParams, undefined);
+        return this.restApi.request(api.method, api.url, pathParams, queryParams, undefined);
     }
 
     publish(platformId: string, id: string, status: string) {
-        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.services.publish', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.services.publish', apiIp, apiPort);
 
         let pathParams = [
             {
@@ -90,11 +90,11 @@ export class DirectoryService {
             }
         ];
 
-        return this.restApi.put(url, pathParams, undefined, undefined);
+        return this.restApi.request(api.method, api.url, pathParams, undefined, undefined);
     }
 
     modify(platformId: string, directory: any) {
-        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.services.update', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.services.update', apiIp, apiPort);
 
         let pathParams = [
             {
@@ -107,11 +107,11 @@ export class DirectoryService {
             }
         ];
 
-        return this.restApi.put(url, pathParams, undefined, directory);
+        return this.restApi.request(api.method, api.url, pathParams, undefined, directory);
     }
 
     removeAll(platformId: string, ids: string[]) {
-        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.services.removeAll', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.services.removeAll', apiIp, apiPort);
 
         let pathParams = [
             {
@@ -120,7 +120,7 @@ export class DirectoryService {
             }
         ];
 
-        return this.restApi.delete(url, pathParams, undefined, ids);
+        return this.restApi.request(api.method, api.url, pathParams, undefined, ids);
     }
 
 }

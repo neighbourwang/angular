@@ -14,7 +14,6 @@ export class RestApi {
     ) {}
 
     get(url: string, pathParams: Array<any>, queryParams: any, jwt: string = undefined): Promise<any> {
-
         return this.httpRequest('GET', url, jwt, pathParams, queryParams, undefined);
     }
 
@@ -28,6 +27,10 @@ export class RestApi {
 
     delete(url: string, pathParams: Array<any>, queryParams: any, body: any, jwt: string = undefined): Promise<any> {
         return this.httpRequest('DELETE', url, jwt, pathParams, queryParams, body);
+    }
+    
+    request(type: string, url: string, pathParams: Array<any>, queryParams: Array<any>, body: any = undefined): Promise<any> {
+        return this.httpRequest(type, url, undefined, pathParams, queryParams, body);
     }
 
     private httpRequest(type: string, url: string, jwt: string, pathParams: Array<any>, queryParams: Array<any>, body: any): Promise<any> {

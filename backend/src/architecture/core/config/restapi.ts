@@ -1,6 +1,10 @@
 import { RestApiModel } from '../model/rest';
 
 export let RestApis: RestApiModel[] = [
+
+    /*
+     * 服务目录管理
+     */
     {
         "desc": "获取全部服务目录列标",
         "method": "GET",

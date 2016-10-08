@@ -32,6 +32,22 @@ export class RestApiCfg {
         }
         return url;
     }
+    
+    getRestApi(apiId: string, ip?: string, port?: string): RestApiModel {
+        let restApi:RestApiModel = new RestApiModel();
+        port = port || this.basePort;
+        ip = ip || this.baseIp;
+        for (let restItem of this.restApiList) {
+            if (restItem.id.toLowerCase() === apiId.toLowerCase()) {
+                restApi.url = `http://${ip}:${port}/${restItem.url}`;
+                restApi.method = restItem.method;
+                restApi.desc = restItem.desc;
+                restApi.id = restItem.id;
+                break;
+            }
+        }
+        return restApi;
+    }
 
     private handleError(error: any) {
         console.error('An error occurred', error);

@@ -61,7 +61,7 @@ export class DirectoryCreateService {
     }
 
     getFlavors(platformId: number): Promise<any> {
-        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.flavors.get', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.flavors.get', apiIp, apiPort);
 
         let pathParams = [
             {
@@ -70,11 +70,11 @@ export class DirectoryCreateService {
             }
         ];
 
-        return this.restApi.get(url, pathParams, undefined, undefined);
+        return this.restApi.request(api.method, api.url, pathParams, undefined, undefined);
     }
     
     getZones(platformId: string): Promise<any> {
-        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.zones.get', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.zones.get', apiIp, apiPort);
 
         let pathParams = [
             {
@@ -83,11 +83,11 @@ export class DirectoryCreateService {
             }
         ];
 
-        return this.restApi.get(url, pathParams, undefined, undefined);
+        return this.restApi.request(api.method, api.url, pathParams, undefined, undefined);
     }
 
     getStorages(platformId: string): Promise<any> {
-        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.storages.get', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.storages.get', apiIp, apiPort);
 
         let pathParams = [
             {
@@ -96,11 +96,11 @@ export class DirectoryCreateService {
             }
         ];
 
-        return this.restApi.get(url, pathParams, undefined, undefined);
+        return this.restApi.request(api.method, api.url, pathParams, undefined, undefined);
     }
 
     createServiceDirectory(platformId: string, serviceDetail: ServiceDetail) {
-        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.services.create', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.services.create', apiIp, apiPort);
 
         let pathParams = [
             {
@@ -109,6 +109,6 @@ export class DirectoryCreateService {
             }
         ];
 
-        return this.restApi.post(url, pathParams, undefined, serviceDetail);
+        return this.restApi.request(api.method, api.url, pathParams, undefined, serviceDetail);
     }
 }
