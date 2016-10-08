@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 
 import { PfConnMngService, StateService } from '../service';
-import { PfConnMngPlatform } from '../model/pf-conn-mng-platform.model';
+import { PfConnMngPlatform } from '../model';
 
 @Component({
   selector: 'fc-pf-conn-mng',
