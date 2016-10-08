@@ -44,7 +44,7 @@ export class EntEstCreService{
 		let url = "http://15.114.100.58:9000/marketplace/authsec/sysdic/ACCOUNT/CURRENCY";
 		// let url = this.restApiCfg.getRestApiUrl('pf-mng.ent-est-mng.currencytypes.get', apiIp, apiPort);
 
-		this.restApi.get(url, [], undefined, undefined)
+		this.restApi.request('get', url, [], undefined, undefined)
 		.then(ret=>{
 			if(!ret)
 			{
@@ -94,7 +94,7 @@ export class EntEstCreService{
 		let url = "http://15.114.100.58:9000/adminui/authsec/platform/page/1/size/10";
 		// let url = this.restApiCfg.getRestApiUrl('pf-mng.ent-est-mng.currencytypes.get', apiIp, apiPort);
 
-		this.restApi.get(url, [], undefined, undefined)
+		this.restApi.request('get', url, [], undefined, undefined)
 		.then(ret=>{
 			if(!ret)
 			{
@@ -124,7 +124,7 @@ export class EntEstCreService{
 	{
 		let url = "http://15.114.100.58:9000/adminui/authsec/platform/page/1/size/10";
 
-		this.restApi.get(url, [], undefined, undefined)
+		this.restApi.request('get', url, [], undefined, undefined)
 		.then(ret=>{
 			if(!ret)
 			{
