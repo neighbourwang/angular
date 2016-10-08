@@ -94,10 +94,10 @@
 										<tr *ngFor="let entEstResurceQuota of entEstResourceQuotas">
 											<td>{{entEstResurceQuota.regionName}}</td>
 											<td>{{entEstResurceQuota.vmQuota}}</td>
-											<td><input class="form-control" type="number" [ngModel]="entEstResurceQuota.platformVMQuota"/></td>
+											<td><input class="form-control" type="number" [(ngModel)]="entEstResurceQuota.platformVMQuota"/></td>
 											<td>{{entEstResurceQuota.platformStorageQuota}}</td>
-											<td><input class="form-control" type="number" [ngModel]="entEstResurceQuota.storageQuota"/></td>
-											<td><input class="form-control" type="number" [ngModel]="entEstResurceQuota.networkQuota"/></td>
+											<td><input class="form-control" type="number" [(ngModel)]="entEstResurceQuota.storageQuota"/></td>
+											<td><input class="form-control" type="number" [(ngModel)]="entEstResurceQuota.networkQuota"/></td>
 										</tr>
 									</tbody>
 								</table>

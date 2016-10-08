@@ -14,8 +14,7 @@ const apiPort: string = '9105';
 
 @Injectable()
 export class EntEstCreService{
-	private cachedEntEstBasicInfo: EntEstBasicInfo;
-	private entEst : EntEst = new EntEst();
+	private static entEst : EntEst;
 	private cachedCurrencyTypes : CurrencyType[];
 	private cachedResourceQuotas : ResourceQuota[];
 
@@ -25,11 +24,11 @@ export class EntEstCreService{
 		){}
 
 	clearCache(){
-		this.cachedEntEstBasicInfo = new EntEstBasicInfo();
 	}
 
 	getEntEst(){
-		return this.entEst;
+		EntEstCreService.entEst = EntEstCreService.entEst || new EntEst();
+		return EntEstCreService.entEst;
 	}
 
 	loadCurrencyTypes(currencyTypes : CurrencyType[], errorHandler : Function)
