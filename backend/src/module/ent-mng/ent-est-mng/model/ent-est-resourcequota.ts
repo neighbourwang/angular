@@ -8,4 +8,5 @@ export class EntEstResourceQuota {
     regionName: string = null;
     storageQuota: number = 0;
     vmQuota: number = 0;
+    checked: boolean = false;
 }

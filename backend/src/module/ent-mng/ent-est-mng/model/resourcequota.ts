@@ -6,4 +6,5 @@ export class ResourceQuota{
 	regionName: string = "";
 	storageQuota: number = 0;
 	vmQuota: number = 0;
+	checked: boolean = false;
 }

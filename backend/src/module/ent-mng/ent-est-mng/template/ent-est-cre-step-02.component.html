@@ -30,6 +30,7 @@
 								<table class="table table-hover">
 									<thead>
 										<tr>
+											<th></th>
 											<th>区域</th>
 											<th>可用云主机<br />数量</th>
 											<th>可用存储<br />(GB)</th>
@@ -38,6 +39,7 @@
 									</thead>
 									<tbody>
 										<tr *ngFor="let resourceQuota of resourceQuotas">
+											<td><input type="checkbox" [(ngModel)]="resourceQuota.checked"/></td>
 											<td>{{resourceQuota.regionName}}</td>
 											<td>{{resourceQuota.vmQuota}}</td>
 											<td>{{resourceQuota.storageQuota}}</td>
@@ -54,13 +56,13 @@
 		</div>
 		<div class="col-md-2">
 				<div class="col-md-12 text-center" style="padding: 0px 0px 20px 0px;">
-					<button class="fox-cloud-button fox-cloud-button-white">
+					<button class="fox-cloud-button fox-cloud-button-white" (click)="add()">
 						<span class="glyphicon glyphicon-arrow-right"></span>
 						<span class="icon-button-label icon-left-button-label">加入</span>
 					</button>
 				</div>
 				<div class="col-md-12 text-center">
-					<button class="fox-cloud-button fox-cloud-button-white">
+					<button class="fox-cloud-button fox-cloud-button-white" (click)="remove()">
 						<span class="glyphicon glyphicon-arrow-left"></span>
 						<span class="icon-button-label icon-left-button-label">移除</span>
 					</button>
@@ -82,6 +84,7 @@
 								<table class="table table-hover">
 									<thead>
 										<tr>
+											<th></th>
 											<th>区域</th>
 											<th>可用云主机<br />数量</th>
 											<th>可用云主机<br />配额</th>
@@ -92,6 +95,7 @@
 									</thead>
 									<tbody>
 										<tr *ngFor="let entEstResurceQuota of entEstResourceQuotas">
+											<td><input type="checkbox" [(ngModel)]="entEstResurceQuota.checked"/></td>
 											<td>{{entEstResurceQuota.regionName}}</td>
 											<td>{{entEstResurceQuota.vmQuota}}</td>
 											<td><input class="form-control" type="number" [(ngModel)]="entEstResurceQuota.platformVMQuota"/></td>

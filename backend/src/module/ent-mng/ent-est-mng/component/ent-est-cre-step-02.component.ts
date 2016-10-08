@@ -34,4 +34,33 @@ export class EntEstCreStep02Component implements OnInit{
 		this.router.navigateByUrl('ent-mng/ent-est-mng/ent-est-mng');
 	}
 
+	add(){
+		let selected = this.resourceQuotas.filter(n=>n.checked);
+		if(selected.length > 0)
+		{
+			for(let item of selected)
+			{
+				let entEstResourceQuota = new EntEstResourceQuota();
+				entEstResourceQuota.regionId = item.regionId;
+				entEstResourceQuota.regionName = item.regionName;
+				entEstResourceQuota.storageQuota = item.storageQuota;
+				entEstResourceQuota.vmQuota = item.vmQuota;
+				entEstResourceQuota.platformId = item.platformId;
+
+				this.entEstResourceQuotas.push(entEstResourceQuota);
+			}
+		}
+	}
+
+	remove(){
+		let selected = this.entEstResourceQuotas.filter(n=>n.checked);
+		if(selected.length > 0)
+		{
+			for(let item of selected)
+			{
+				this.entEstResourceQuotas.splice(this.entEstResourceQuotas.indexOf(item), 1);
+			}
+		}
+	}
+
 }
