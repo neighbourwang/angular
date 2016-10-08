@@ -9,6 +9,11 @@ import { EntProdCre01Component } from './component/ent-prod-cre-01.component';
 import { EntProdCre02Component } from './component/ent-prod-cre-02.component';
 import { EntProdCre03Component } from './component/ent-prod-cre-03.component';
 
+//service
+
+import { EntProdMngService } from './service/ent-prod-mng.service';
+
+
 // Routing
 import { EntProdMngRouting } from './ent-prod-mng.routing';
 
@@ -24,7 +29,9 @@ import { EntProdMngRouting } from './ent-prod-mng.routing';
         ,EntProdCre03Component
     ],
     exports: [],
-    providers: []
+    providers: [
+        EntProdMngService
+    ]
 
 })
 export class EntProdMngModule { }
