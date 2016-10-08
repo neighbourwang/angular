@@ -14,7 +14,7 @@ export class PfConnCreStep02Service {
 
     // 各资源项目需要同步数量取得
     resSyncCount(platFormId: String) {
-        let url = this.restApiCfg.getRestApiUrl("pf.cre.step.02.res.sync.count.get");
+        let url = this.restApiCfg.getRestApiUrl("pf.cre.step.01.synchronize.count.get");
 
         return this.restApi.get(url, [{ "pf-id": platFormId }], undefined);
     }

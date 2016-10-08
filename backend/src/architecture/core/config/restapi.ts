@@ -1,7 +1,38 @@
 import { RestApiModel } from '../model/rest';
 
 export let RestApis: RestApiModel[] = [
-
+    // 平台接入管理
+    {
+        "desc": "获取全部已创建平台信息",
+        "id": "pf.conn.mng.platforms.get",
+        "method": "GET",
+        "url": "adminui/authsec/platform/page/{page}/size/{size}"
+    },
+    {
+        "desc": "创建平台",
+        "id": "pf.cre.step.01.paltform.post",
+        "method": "POST",
+        "url": "adminui/authsec/platform"
+    },
+    {
+        "desc": "取得特定平台信息",
+        "id": "pf.cre.paltform.get",
+        "method": "GET",
+        "url": "adminui/authsec/platform/{pf-id}"
+    },
+    {
+        "desc": "删除特定平台信息",
+        "id": "pf.cre.paltform.delete",
+        "method": "DELETE",
+        "url": "adminui/authsec/platform/{pf-id}"
+    },
+    {
+        "desc": "取得资源同步数量信息",
+        "id": "pf.cre.step.01.synchronize.count.get",
+        "method": "GET",
+        "url": "adminui/authsec/platform/{pf-id}/synchronizeCounts"
+    },
+   // 平台接入管理
     /*
      * 服务目录管理
      */

@@ -12,6 +12,9 @@ export class ConfirmComponent implements OnInit {
     @Output() of = new EventEmitter<any>();
     @Output() cf = new EventEmitter<any>();
 
+    title: String;
+    msg: String;
+
     @ViewChild('dialog')
     dialog: ModalComponent;
 
@@ -26,11 +29,14 @@ export class ConfirmComponent implements OnInit {
         this.cf.emit();
     }
 
-    open() {
+    open(title?: String, msg?: String) {
+        title && (this.title = title);
+        msg && (this.msg = msg);
+
         this.dialog.open();
     }
 
-    clase() {
+    close() {
         this.dialog.close();
     }
 }
