@@ -1,18 +1,25 @@
 export class ServiceDetail {
     // Step1 Data
     id: string = '';
-    name: string = '';
+    prodName: string = '';
+
+        //企业
+    industryId : string = '';
+    industryName : string = '';
+
+    
+        //区域
+    regionId : string = '';
+    regionName : string = ''; 
+
+       //服务目录
+    directoryId : string = '';
+    directoryName : string = '';　
     desc: string = '';
-    regionId: string = '';
-    templateId: string = '';
 
-    // Step2 Data
-    flavorId: string = '';
-    imageType: number = -1;
-    networkType: number = -1;
-
+    // Step2 Data 
     // Step3 Data
-
+    storages : Storage [];
 
     // Other Data
     options: Option[] = [];

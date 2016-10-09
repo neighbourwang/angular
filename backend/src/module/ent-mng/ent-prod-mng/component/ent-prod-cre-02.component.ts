@@ -27,4 +27,27 @@ export class EntProdCre02Component implements OnInit{
 	prev(){
       	this.router.navigateByUrl("ent-mng/ent-prod-mng/ent-prod-cre-01");
     }
+
+     getZones() {
+    this.layoutService.setLoading(true);
+  
+    this.directoryCreateService
+        .getZones(PlatformId)
+        .then(ret => {
+            if (!ret) {
+                this.showNotice('数据获取失败', '可用区数据获取失败。');
+            } else {
+                if (ret && ret.resultContent) {
+                    this.zones = ret.resultContent;
+                    this.directoryCreateService.cachedZones = ret.resultContent;
+                    this.resetSelectStatus();
+                }
+            }
+            this.layoutService.setLoading(false);
+        })
+        .catch(error => {
+            this.showNotice('数据获取失败', '可用区数据获取失败。');
+            this.layoutService.setLoading(false);
+        });
+  }
 }
