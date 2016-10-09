@@ -7,20 +7,26 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="javascript:void(0);" (click)="deleteAdmins();">删除</a></li>
+                <li>
+                    <a href="javascript:void(0);" (click)="deleteAdmins();">删除</a>
+                </li>
                 <li role="separator" class="divider"></li>
-                <li><a href="javascript:void(0);" (click)="change2Status(1);">激活 </a></li>
-                <li><a href="javascript:void(0);" (click)="change2Status(0);">取消激活</a></li>
+                <li>
+                    <a href="javascript:void(0);" (click)="change2Status(1);">激活 </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" (click)="change2Status(0);">取消激活</a>
+                </li>
             </ul>
         </div>
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{selectEnterprise?selectEnterprise.name:"根据企业筛选"}}
+                {{selectEnterprise?selectEnterprise.name:"全部企业"}}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <li (click)="changEnterpriseFilter();">
-                    <a href="javascript:void(0);"> 根据企业筛选</a>
+                    <a href="javascript:void(0);"> 全部企业</a>
                 </li>
                 <li *ngFor="let enterprise of enterprises" (click)="changEnterpriseFilter(enterprise);">
                     <a href="javascript:void(0);">{{enterprise.name}}</a>
@@ -35,30 +41,34 @@
     <div class="table-container">
         <table class="table table-hover">
             <thead>
-                <tr>
-                    <th class="fristTh">
-                        <input type="checkbox" (click)="selectAll($event);"/>选择
-                    </th>
-                    <th>企业名称</th>
-                    <th>管理员</th>
-                    <th>联系电话</th>
-                    <th>邮箱地址</th>
-                    <th>账户名</th>
-                    <th>账户状态</th>
-                    <th>编辑</th>
-                </tr>
+            <tr>
+                <th class="fristTh">
+                    <input type="checkbox" (click)="selectAll($event);"/>选择
+                </th>
+                <th>企业名称</th>
+                <th>管理员</th>
+                <th>联系电话</th>
+                <th>邮箱地址</th>
+                <th>账户名</th>
+                <th>账户状态</th>
+                <th>编辑</th>
+            </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let admin of admins;">
-                    <td><input type="checkbox" [(ngModel)]="admin.isSelect"></td>
-                    <td>{{admin.enterpriseName}}</td>
-                    <td>{{admin.contactorName}}</td>
-                    <td>{{admin.contactorPhone}}</td>
-                    <td>{{admin.email}}</td>
-                    <td>{{admin.userName}}</td>
-                    <td style="color: #00a982" [style.color]="admin.status==0?'#00a982':'#ff0000'">{{admin.status==0?"未激活":"已激活"}}</td>
-                    <td><a href="javacscirpt:void()" (click)="eidtAdmin(admin)">编辑</a></td>
-                </tr>
+            <tr *ngFor="let admin of admins;">
+                <td>
+                    <input type="checkbox" [(ngModel)]="admin.isSelect">
+                </td>
+                <td>{{admin.enterpriseName}}</td>
+                <td>{{admin.contactorName}}</td>
+                <td>{{admin.contactorPhone}}</td>
+                <td>{{admin.email}}</td>
+                <td>{{admin.userName}}</td>
+                <td style="color: #00a982" [style.color]="admin.status==0?'#00a982':'#ff0000'">{{admin.status==0?"未激活":"已激活"}}</td>
+                <td>
+                    <a href="javacscirpt:void()" (click)="eidtAdmin(admin)">编辑</a>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -74,7 +84,7 @@
         <span>下一页</span>
     </ul>
 </div>-->
-<fc-pagination tp={{tp}} (pf)="getData($event)"></fc-pagination>
+<fc-pagination #pager tp={{tp}} (pf)="getData($event)"></fc-pagination>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" (of)="nof()"></fc-notice>
 
 <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>
