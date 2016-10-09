@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { LayoutService, ValidationService, NoticeComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent } from '../../../../architecture';
 import { EntEstBasicInfo } from '../model/ent-est-basic-info'
 import { EntEstCreService } from '../service/ent-est-cre.service'
 import { CurrencyType } from "../model/currency";
@@ -11,7 +11,6 @@ import { CurrencyType } from "../model/currency";
 	,styleUrls:[]
 	,providers:[
 		EntEstCreService
-		,ValidationService
 		]
 })
 export class EntEstCreStep01Component implements OnInit{
@@ -22,8 +21,7 @@ export class EntEstCreStep01Component implements OnInit{
 	private currencyTypes : CurrencyType[] = [];
 	constructor(
 		private router: Router,
-		private service: EntEstCreService,
-		private validation : ValidationService
+		private service: EntEstCreService
 		){
 
 	}
@@ -45,38 +43,17 @@ export class EntEstCreStep01Component implements OnInit{
 	}
 
 	validate():boolean{
-
-		let funcMap :any = {
-			"*":{
-				"func":this.validation.isBlank
-				,"msg":"不能为空"
-			}
-			,"email":{ 
-				"func": this.validation.isEmail
-				,"msg": "邮箱地址无效"
-			}
-		};
-
-		let func = function(name:string, val:any, op:string){
-			if(funcMap[op].func(val))
-			{
-				return name + funcMap[op].msg;
-			}
-			else
-				return "";
-		}
-
-		let notValids = [
+		
+		let notValid = [
 		{
 			"name":"名称"
 			,'value':this.entEstBasicInfo.name
 			,"op":"*"
-		}].filter(n=>func(n.name, n.value, n.op) != "")
+		}].find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
 
-		if(notValids.length > 0)
+		if(notValid !== void 0)
 		{
-			let notValid = notValids.shift();
-			this.showMsg(func(notValid.name, notValid.value, notValid.op));
+			this.showMsg(this.service.validate(notValid.name, notValid.value, notValid.op));
 			return false;
 		}
 

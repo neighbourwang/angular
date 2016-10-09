@@ -8,6 +8,7 @@ import { EntEst } from '../model/ent-est';
 import { CurrencyType } from "../model/currency";
 import { RestApiCfg, RestApi } from '../../../../architecture';
 import { EntEstItem } from '../model/ent-est-item';
+import { ValidationService } from '../../../../architecture';
 
 const apiIp: string = '15.114.100.54';
 const apiPort: string = '9105';
@@ -20,7 +21,8 @@ export class EntEstCreService{
 
 	constructor(
 		private restApiCfg:RestApiCfg,
-		private restApi:RestApi
+		private restApi:RestApi,
+		private validation: ValidationService
 		){}
 
 	clearCache(){
@@ -157,9 +159,26 @@ export class EntEstCreService{
 				errorHandler({"title":"企业开通信息", "desc":"服务器上企业开通信息数据获取失败"})
 			}
 		});
+	}
 
+	validate(name:string, val:any, op:string)
+	{
+		let map:any = {
+			"*":{
+					"func":this.validation.isBlank
+					,"msg":"不能为空"
+				}
+			,"email":{ 
+				"func": this.validation.isEmail
+				,"msg": "邮箱地址无效"
+			}
+		}
 
-
-
+		if(map[op].func(val))
+		{
+			return name + map[op].msg;
+		}
+		else
+			return undefined;
 	}
 }
