@@ -33,4 +33,25 @@ export class PfConnMngService {
 
         return this.restApi.delete(url, [{ key: "pf-id", value: pid }], undefined, undefined);
     }
+
+    // 取得可用区资源配置信息
+    zoneQuota(platFormId: String) {
+        let api = this.restApiCfg.getRestApi("pf.cre.zone.get");
+
+        return this.restApi.request(api.method, api.url, [{ key: "pf-id", value: platFormId }], undefined);
+    }
+
+    // 取得存储资源配置信息
+    storageQuota(platFormId: String) {
+        let api = this.restApiCfg.getRestApi("pf.cre.storage.get");
+
+        return this.restApi.request(api.method, api.url, [{ key: "pf-id", value: platFormId }], undefined);
+    }
+
+    // 取得云主机类型配置信息
+    flavorQuota(platFormId: String) {
+        let api = this.restApiCfg.getRestApi("pf.cre.flavor.get");
+
+        return this.restApi.request(api.method, api.url, [{ key: "pf-id", value: platFormId }], undefined);
+    }
 }

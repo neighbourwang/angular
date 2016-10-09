@@ -33,40 +33,40 @@
                         <tr>
                             <td>可用区</td>
                             <td>{{resSync.zonesCount}}</td>
-                            <td><span [ngClass]="{'status': true, 'bg-danger': true, 'bg-success': false}"></span></td>
+                            <td><span [ngClass]="{'icon-failed': !resSync.synchronizedZones, 'icon-successful': resSync.synchronizedZones}"></span></td>
                         </tr>
                         <tr>
                             <td>存储</td>
                             <td>{{resSync.storagesCount}}</td>
-                            <td><span [ngClass]="{'status': true, 'bg-danger': true, 'bg-success': false}"></span></td>
+                            <td><span [ngClass]="{'icon-failed': !resSync.synchronizedStorages, 'icon-successful': resSync.synchronizedStorages}"></span></td>
                         </tr>
                         <tr>
                             <td>云主机类型</td>
                             <td>{{resSync.flavorsCount}}</td>
-                            <td><span [ngClass]="{'status': true, 'bg-danger': true, 'bg-success': false}"></span></td>
+                            <td><span [ngClass]="{'icon-failed': !resSync.synchronizedFlavors, 'icon-successful': resSync.synchronizedFlavors}"></span></td>
                         </tr>
                         <tr>
                             <td>可用域</td>
                             <td>{{resSync.regionsCount}}</td>
-                            <td><span [ngClass]="{'status': true, 'bg-danger': true, 'bg-success': false}"></span></td>
+                            <td><span [ngClass]="{'icon-failed': !resSync.synchronizedRegions, 'icon-successful': resSync.synchronizedRegions}"></span></td>
                         </tr>
                         <tr>
                             <td>镜像</td>
                             <td>{{resSync.imagesCount}}</td>
-                            <td><span [ngClass]="{'status': true, 'bg-danger': true, 'bg-success': true}"></span></td>
+                            <td><span [ngClass]="{'icon-failed': !resSync.synchronizedImages, 'icon-successful': resSync.synchronizedImages}"></span></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="progress-title">
-                可用区资源同步完成，正在同步{{resSync.syncRes}}....
+                {{resSync.syncRes}}
             </div>
             <div class="fox-cloud-progress-rounded-angle">
                 <div class="progress-bar fox-cloud-progress-bar-rounded-angle" role="progressbar"
                      aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                     style="width: {{resSync.syncProgress}}%;">
+                     [ngStyle]="{'width': resSync.syncProgress + '%'}">
                 </div>
-                <span class="progress-prompt">正在同步 {{resSync.syncProgress}}%</span>
+                <span class="progress-prompt">{{resSync.syncProgress}}%</span>
             </div>
         </div>
         <div class="col-md-3"></div>
@@ -79,7 +79,7 @@
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="previous();">
         <span class="icon-button-label">上一步</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="next();">
+    <button *ngIf="resSync.syncCompleted" class="fox-cloud-button-lg fox-cloud-button-white" (click)="next();">
         <span class="icon-button-label">下一步</span>
     </button>
 </div>

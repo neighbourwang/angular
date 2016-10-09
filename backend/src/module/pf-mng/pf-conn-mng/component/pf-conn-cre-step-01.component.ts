@@ -5,7 +5,7 @@ import { LayoutService, NoticeComponent, ConfirmComponent, ValidationService } f
 
 import { PfConnMngService, PfConnCreStep01Service, StateService } from '../service';
 
-import { Platform } from '../model/platform.model';
+import { Platform } from '../model';
 
 @Component({
   selector: 'pf-conn-cre-step-01',
@@ -45,14 +45,16 @@ export class PfConnCreStep01Component implements OnInit {
 
           this.pfConnMngService.getPlatform(platformId).then(
               response => {
-                  this.platform.name = response["name"];
-                  this.platform.platformTypeName = response["platformTypeName"];
-                  this.platform.uri = response["uri"];
-                  this.platform.userName = response["userName"];
-                  this.platform.passwd = response["passwd"];
-                  this.platform.version = response["version"];
-                  this.platform.description = response["description"];
-                  this.platform.status = response["status"];
+                  let content = response.resultContent;
+
+                  this.platform.name = content["name"];
+                  this.platform.platformTypeName = content["platformTypeName"];
+                  this.platform.uri = content["uri"];
+                  this.platform.userName = content["userName"];
+                  this.platform.passwd = content["passwd"];
+                  this.platform.version = content["version"];
+                  this.platform.description = content["description"];
+                  this.platform.status = content["status"];
               }
           ).catch(
               reason => {

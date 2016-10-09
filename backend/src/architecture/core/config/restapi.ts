@@ -32,6 +32,72 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminui/authsec/platform/{pf-id}/synchronizeCounts"
     },
+    {
+        "desc": "可用区同步",
+        "id": "pf.cre.step.02.zones.synchronize.get",
+        "method": "GET",
+        "url": "adminui/authsec/platform/{pf-id}/zones/synchronize"
+    },
+    {
+        "desc": "存储同步",
+        "id": "pf.cre.step.02.storages.synchronize.get",
+        "method": "GET",
+        "url": "adminui/authsec/platform/{pf-id}/storages/synchronize"
+    },
+    {
+        "desc": "云主机类型同步",
+        "id": "pf.cre.step.02.flavors.synchronize.get",
+        "method": "GET",
+        "url": "adminui/authsec/platform/{pf-id}/flavors/synchronize"
+    },
+    {
+        "desc": "可用域同步",
+        "id": "pf.cre.step.02.regions.synchronize.get",
+        "method": "GET",
+        "url": "adminui/authsec/platform/{pf-id}/regions/synchronize"
+    },
+    {
+        "desc": "镜像同步",
+        "id": "pf.cre.step.02.images.synchronize.get",
+        "method": "GET",
+        "url": "adminui/authsec/platform/{pf-id}/images/synchronize"
+    },
+    {
+        "desc": "取得可用区资源",
+        "id": "pf.cre.zone.get",
+        "method": "GET",
+        "url": "adminui/authsec/platform/{pf-id}/zone/quota"
+    },
+    {
+        "desc": "更新可用区资源",
+        "id": "pf.cre.step.03.zone.put",
+        "method": "PUT",
+        "url": "adminui/authsec/platform/{pf-id}/zone/quota"
+    },
+    {
+        "desc": "取得存储资源",
+        "id": "pf.cre.storage.get",
+        "method": "GET",
+        "url": "adminui/authsec/platform/{pf-id}/flavor"
+    },
+    {
+        "desc": "更新存储资源",
+        "id": "pf.cre.step.04.storage.put",
+        "method": "PUT",
+        "url": "adminui/authsec/platform/{pf-id}/flavor"
+    },
+    {
+        "desc": "取得云主机类型",
+        "id": "pf.cre.flavor.get",
+        "method": "GET",
+        "url": "adminui/authsec/platform/{pf-id}/storage/quota"
+    },
+    {
+        "desc": "更新云主机类型",
+        "id": "pf.cre.step.05.flavor.put",
+        "method": "PUT",
+        "url": "adminui/authsec/platform/{pf-id}/storage/quota"
+    },
    // 平台接入管理
     /*
      * 服务目录管理

@@ -10,7 +10,7 @@
     vmQuota: number;
     description: String;
 
-    toString() {
+    /*toString() {
         return this.uuid + "\n" +
             this.id + "\n" +
             this.code + "\n" +
@@ -20,6 +20,6 @@
             this.vcpunum + "\n" +
             this.memSize + "\n" +
             this.vmQuota + "\n" +
-            this.description;
+            this.description;*/
     }
 }

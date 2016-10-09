@@ -19,4 +19,5 @@ export class EntProdMngService {
 
         return this.restApi.get(url, undefined, undefined, undefined);
     }
+
 }
