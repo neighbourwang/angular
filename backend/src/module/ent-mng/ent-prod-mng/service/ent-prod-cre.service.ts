@@ -13,7 +13,7 @@ export class EntProdCreService {
 
     private cachedServiceDetail: ServiceDetail;
    
-    cashedIndustry : Industry[];
+    cashedEnterprise : Industry[];
     cachedRegions: Region[];
     cachedStorages: Storage[];
     cashedDirectory : Directory[];
@@ -34,61 +34,72 @@ export class EntProdCreService {
         this.cachedServiceDetail = this.cachedServiceDetail || new ServiceDetail();
         return this.cachedServiceDetail;
     }
+        
+    //获取企业    
+    getEnterprises(page:number,size:number): Promise<any> {
+        let api = this.restApiCfg.getRestApi('ent-mng.ent-prod-cre.enterprises.get');
+
+           let pathParams = [
+            {
+                key: 'page',
+                value: page
+            },{
+                key: 'size',
+                value: size
+            }
+        ];
+
+
+        return this.restApi.request(api.method, api.url, pathParams, undefined, undefined);
+    }
     
-    getRegions(platformId: string  ): Promise<any> {
-        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.zones.get');
+    //获取区域
+    getRegions(): Promise<any> {
+        let api = this.restApiCfg.getRestApi('ent-mng.ent-prod-cre.regions.get');
+
+        return this.restApi.request(api.method, api.url, undefined, undefined, undefined);
+    }
+
+    
+    //获取服务目录
+    getDirectories(regionId: string): Promise<any> {
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.directories.get');
 
         let pathParams = [
             {
-                key: 'platformid',
-                value: platformId
+                key: 'region_id',
+                value: regionId
             }
         ];
 
         return this.restApi.request(api.method, api.url, pathParams, undefined, undefined);
     }
 
-    getStorages(platformId: string): Promise<any> {
-        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.storages.get');
-
+    //获取所有可用区
+    getStorages(platformId : string): Promise<any> {
+        let api = this.restApiCfg.getRestApi('ent-mng.ent-prod-cre.storages.get');
+        
         let pathParams = [
             {
-                key: 'platformid',
+                key: 'pf_id',
                 value: platformId
             }
         ];
 
         return this.restApi.request(api.method, api.url, pathParams, undefined, undefined);
     }
-
-    getIndustries(platformId: string): Promise<any> {
-        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.storages.get');
-
-        let pathParams = [
-            {
-                key: 'platformid',
-                value: platformId
-            }
-        ];
-
-        return this.restApi.request(api.method, api.url, pathParams, undefined, undefined);
-    }
-
-    getDirectories(platformId: string): Promise<any> {
-        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.storages.get');
+    
+    createProd(enterpriseId : string,serviceDetail: ServiceDetail){
+        let api = this.restApiCfg.getRestApi('ent-mng.ent-prod-cre.creation');
 
         let pathParams = [
             {
-                key: 'platformid',
-                value: platformId
+                key: 'enterpriseId',
+                value: enterpriseId
             }
         ];
 
-        return this.restApi.request(api.method, api.url, pathParams, undefined, undefined);
-    }
-
-    createProd(){
-
+        return this.restApi.request(api.method, api.url, pathParams, undefined, serviceDetail);
     }
 
 }

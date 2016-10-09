@@ -1,11 +1,13 @@
 export class ServiceDetail {
     // Step1 Data
     id: string = '';
-    prodName: string = '';
+    platformId : string ='';
+
+    name: string = '';
 
         //企业
-    industryId : string = '';
-    industryName : string = '';
+    enterpriseId : string = '';
+    enterpriseName : string = '';
 
     
         //区域

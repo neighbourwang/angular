@@ -234,6 +234,31 @@ export let RestApis: RestApiModel[] = [
        "desc": "获取产品",
        "id": "ent-mng.ent-prod-mng.all.get",
        "method": "GET",
-       "url": "/adminui/authsec/enterprise/product"
+       "url": "/adminui/authsec/enterprises/products/page/{page}/size/{size} "
+   },{
+       "desc": "企业产品管理获取企业",
+       "id": "ent-mng.ent-prod-cre.enterprises.get",
+       "method": "GET",
+       "url": "/adminui/authsec/enterprises/simple/page/{page}/size/{size} "
+   },{
+       "desc": "企业产品管理获取区域",
+       "id": "ent-mng.ent-prod-cre.regions.get",
+       "method": "GET",
+       "url": "/adminui/authsec/regions/virtual"
+   },{
+       "desc": "企业产品管理获取服务目录",
+       "id": "ent-mng.ent-prod-cre.directories.get",
+       "method": "GET",
+       "url": "/adminui/authsec/region/{region_id}/serviceitem"
+   },{
+       "desc": "企业产品管理获取所有可用区",
+       "id": "ent-mng.ent-prod-cre.storages.get",
+       "method": "GET",
+       "url": "/adminui/authsec/platform/{pf_id}/flavor"
+   },{
+       "desc": "创建产品",
+       "id": "ent-mng.ent-prod-cre.creation",
+       "method": "POST",
+       "url": "/adminui/authsec/enterprise/{enterpriseId}/product "
    }
 ]
