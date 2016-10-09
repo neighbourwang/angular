@@ -1,79 +1,75 @@
-import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi } from '../../../../architecture';
+import { Injectable } from "@angular/core";
+import { Http, Response } from "@angular/http";
+import { RestApiCfg, RestApi } from "../../../../architecture";
 
-import { Admin } from '../model/admin.model';
+import { Admin } from "../model/admin.model";
 
-import { enterprises,createAdminRes,updateAdminRes } from '../model/enterprise-mock.model';
+import { enterprises, createAdminRes, updateAdminRes ,getAdminByIdRes} from "../model/enterprise-mock.model";
 
-import 'rxjs/add/operator/toPromise';
-
-const apiIp: string = '15.114.100.54';
-const apiPort: string = '9105';
+import "rxjs/add/operator/toPromise";
 
 @Injectable()
 export class EntAdminCreService {
-    admin:Admin;
-    
+    admin: Admin;
+
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
         private restApi: RestApi
-    ) { }
-
-    init():void {
-         this.restApiCfg.loadCfgData();
+    ) {
     }
 
-     getAdminById(id: String): Promise<any> {
-        let url = this.restApiCfg.getRestApiUrl('pf-mng.svc-dir-mng.storages.get', apiIp, apiPort);
+    init(): void {
+        this.restApiCfg.loadCfgData();
+    }
 
-        let pathParams = [
+    getAdminById(id: String): Promise<any> {
+      
+        const pathParams = [
             {
-                key: 'platformid',
+                key: "id",
                 value: id
             }
         ];
-
-        return this.restApi.get(url, pathParams, undefined, undefined);
+          //const api = this.restApiCfg.getRestApi("ent-mng.admin.cre.enterprise.get");
+          //return this.restApi.request(api.method, api.url, null, null, null);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => getAdminByIdRes);
     }
 
-     getEnterprise(): Promise<any> {
-         //let url = this.restApiCfg.getRestApiUrl('ent-mng.admin.cre.enterprise.get');
+    getEnterprise(): Promise<any> {
+        //const api = this.restApiCfg.getRestApi("ent-mng.admin.cre.enterprise.get");
+        //return this.restApi.request(api.method, api.url,null,null,null);
 
-         //return this.restApi.get(url, null, undefined, undefined);
 
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => enterprises);
+    }
 
-         return new Promise(resovle => setTimeout(resovle, 2000.)).then(() => enterprises);
-     }
+    createAdmin(admin: Admin): Promise<any> {
 
-     createAdmin(admin: Admin): Promise<any>  {
+        const pathParams = [
+            {
+                key: "enterprise",
+                value: admin.enterpriseId
+            }
+        ];
 
-         let pathParams = [
-             {
-                 key: 'enterprise',
-                 value: admin.enterpriseId
-             }
-         ];
+        const api = this.restApiCfg.getRestApi("ent-mng.admin.cre.post");
+        return this.restApi.request(api.method, api.url,pathParams,null,admin);
+   
 
-           //let url = this.restApiCfg.getRestApiUrl('ent-mng.admin.cre.post');
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => createAdminRes);
+    }
 
-         //return this.restApi.get(url, pathParams, undefined, admin);
-
-         return new Promise(resovle => setTimeout(resovle, 2000.)).then(() => createAdminRes);
-     }
-
-     updateAdmin(admin: Admin): Promise<any> {
-         let pathParams = [
-             {
-                 key: 'id',
-                 value: admin.id
-             }
-         ];
-
-           //let url = this.restApiCfg.getRestApiUrl('ent-mng.admin.update.put');
-
-         //return this.restApi.get(url, pathParams, undefined, admin);
-         return new Promise(resovle => setTimeout(resovle, 2000.)).then(() => updateAdminRes);
-     }
+    updateAdmin(admin: Admin): Promise<any> {
+        const pathParams = [
+            {
+                key: "id",
+                value: admin.id
+            }
+        ];
+                  //const api = this.restApiCfg.getRestApi("ent-mng.admin.update.put");
+        //return this.restApi.request(api.method, api.url,pathParams,null,admin);
+     
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => updateAdminRes);
+    }
 }
