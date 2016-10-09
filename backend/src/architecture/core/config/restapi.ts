@@ -193,7 +193,7 @@ export let RestApis: RestApiModel[] = [
        "desc": "创建企业管理员",
        "id": "ent-mng.admin.cre.post",
        "method": "POST",
-       "url": "/adminui/authsec/enterprise/{enterpriseId}/admin"
+       "url": "/adminui/authsec/enterprise/admin"
    },
    {
        "desc": "更新企业管理员",
