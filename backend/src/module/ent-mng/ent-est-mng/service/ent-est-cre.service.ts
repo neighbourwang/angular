@@ -8,7 +8,7 @@ import { EntEst } from '../model/ent-est';
 import { CurrencyType } from "../model/currency";
 import { RestApiCfg, RestApi } from '../../../../architecture';
 import { EntEstItem } from '../model/ent-est-item';
-import { ValidationService } from '../../../../architecture';
+import { LayoutService, ValidationService } from '../../../../architecture';
 
 const apiIp: string = '15.114.100.54';
 const apiPort: string = '9105';
@@ -22,7 +22,8 @@ export class EntEstCreService{
 	constructor(
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi,
-		private validation: ValidationService
+		private validation: ValidationService,
+		private layoutService : LayoutService
 		){}
 
 	clearCache(){
@@ -47,9 +48,11 @@ export class EntEstCreService{
 
 		let url = "http://15.114.100.58:9000/marketplace/authsec/sysdic/ACCOUNT/CURRENCY_TYPE";
 		// let url = this.restApiCfg.getRestApiUrl('pf-mng.ent-est-mng.currencytypes.get', apiIp, apiPort);
-
+		this.layoutService.setLoading(true);
 		this.restApi.request('get', url, [], undefined, undefined)
 		.then(ret=>{
+			this.layoutService.setLoading(false);
+
 			if(!ret)
 			{
 				if(errorHandler)
@@ -66,6 +69,7 @@ export class EntEstCreService{
 			}
 		})
 		.catch(err=>{
+			this.layoutService.setLoading(false);
 			console.log('货币类型加载错误', err);
 			if(errorHandler)
 			{
@@ -97,8 +101,10 @@ export class EntEstCreService{
 		let url = "http://15.114.100.58:9000/adminui/authsec/platforms/resoucequotas/page/1/size/10";
 		// let url = this.restApiCfg.getRestApiUrl('pf-mng.ent-est-mng.currencytypes.get', apiIp, apiPort);
 
+		this.layoutService.setLoading(true);
 		this.restApi.request('get', url, [], undefined, undefined)
 		.then(ret=>{
+			this.layoutService.setLoading(false);
 			if(!ret)
 			{
 				if(errorHandler)
@@ -119,6 +125,8 @@ export class EntEstCreService{
 			}
 		})
 		.catch(err=>{
+			this.layoutService.setLoading(false);
+
 			console.log('资源配额加载错误', err);
 			if(errorHandler)
 			{
@@ -129,10 +137,14 @@ export class EntEstCreService{
 
 	loadEntEstItems(entEstItems: EntEstItem[], errorHandler: Function)
 	{
-		let url = "http://15.114.100.58:9000/adminui/authsec/platform/page/1/size/10";
+		let url = "http://15.114.100.58:9000/adminui/authsec/enterprises/opening/page/1/size/10";
+
+		this.layoutService.setLoading(true);
 
 		this.restApi.request('get', url, [], undefined, undefined)
 		.then(ret=>{
+			this.layoutService.setLoading(false);
+
 			if(!ret)
 			{
 				if(errorHandler)
@@ -148,6 +160,8 @@ export class EntEstCreService{
 			}
 		})
 		.catch(err=>{
+			this.layoutService.setLoading(false);
+			
 			console.log('企业开通信息加载错误', err);
 			if(errorHandler)
 			{
