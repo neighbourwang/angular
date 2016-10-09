@@ -50,7 +50,9 @@ export class EntProdCre01Component implements OnInit{
 	}
 
 	
-  	/*getRegions() {
+  	/*
+      区域
+      getRegions() {
     	this.layoutService.setLoading(true);
   
     	this.entProdCreService
@@ -75,6 +77,7 @@ export class EntProdCre01Component implements OnInit{
         });
   }
 
+    企业
     getIndustry(){
 		this.layoutService.setLoading(true);
   
@@ -100,6 +103,7 @@ export class EntProdCre01Component implements OnInit{
         });
     }
 
+   服务目录
     getDirectory(){
 
     }*/

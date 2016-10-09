@@ -28,7 +28,10 @@ export class EntProdCre02Component implements OnInit{
       	this.router.navigateByUrl("ent-mng/ent-prod-mng/ent-prod-cre-01");
     }
 
-   /*  getZones() {
+    
+   /* 
+    所有可用区
+    getZones() {
     this.layoutService.setLoading(true);
   
     this.directoryCreateService
