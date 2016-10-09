@@ -6,3 +6,5 @@ export * from './components/common.module';
 export * from './core/service/layout.service';
 export * from './core/service/restapicfg.service';
 export * from './core/service/restapi.service';
+export * from './core/model/rest';
+export * from './core/service/validation.service';

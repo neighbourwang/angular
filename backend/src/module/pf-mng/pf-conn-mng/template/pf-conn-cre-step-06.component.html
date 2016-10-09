@@ -21,35 +21,25 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th class="fristTh">#</th>
+                    <th>#</th>
                     <th>名称</th>
                     <th>显示名称</th>
                     <th>主机数量</th>
                     <th>可用vCPU总数</th>
                     <th>可用内存总数(GB)</th>
                     <th>可用数量配额</th>
-                    <th class=""><a href="#" class="color-primary">收起<i class="glyphicon glyphicon-chevron-down"></i></a></th>
+                    <th style="text-align: right;"><a href="#" (click)="switchExpandZone();" class="color-primary">收起<i class="glyphicon glyphicon-chevron-down"></i></a></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>AZ1</td>
-                    <td>高性能区1</td>
-                    <td>3</td>
-                    <td>1200</td>
-                    <td>12800</td>
-                    <td>800</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>AZ1</td>
-                    <td>高性能区1</td>
-                    <td>3</td>
-                    <td>1200</td>
-                    <td>12800</td>
-                    <td>800</td>
+                <tr *ngFor="let item of flavors; let idx = index;" [ngIf]="expandZone">
+                    <td>{{idx + 1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.displayName}}</td>
+                    <td>{{item.hostNum}}</td>
+                    <td>{{item.vcpunum}}</td>
+                    <td>{{item.memSize}}</td>
+                    <td>{{item.vmQuota}}</td>
                     <td></td>
                 </tr>
             </tbody>
@@ -62,32 +52,23 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th class="fristTh">#</th>
+                    <th>#</th>
                     <th>名称</th>
                     <th>显示名称</th>
                     <th>配额(GB)</th>
                     <th>最大空间(GB)</th>
                     <th>说明</th>
-                    <th class="fristTh"><a href="#" class="color-primary">收起<i class="glyphicon glyphicon-chevron-down"></i></a></th>
+                    <th style="text-align: right;"><a href="#" (click)="switchExpandStorage();" class="color-primary">收起<i class="glyphicon glyphicon-chevron-down"></i></a></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>cinder1</td>
-                    <td>高速I/O-1</td>
-                    <td>12800</td>
-                    <td>12800</td>
-                    <td>高速I/O存储后端</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>cinder1</td>
-                    <td>高速I/O-1</td>
-                    <td>12800</td>
-                    <td>12800</td>
-                    <td>高速I/O存储后端</td>
+                <tr *ngFor="let item of flavors; let idx = index;" [ngIf]="expandStorage">
+                    <td>{{idx + 1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.displayName}}</td>
+                    <td>{{item.quota}}</td>
+                    <td>{{item.maximum}}</td>
+                    <td>{{item.description}}</td>
                     <td></td>
                 </tr>
             </tbody>
@@ -100,35 +81,25 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th class="fristTh">#</th>
+                    <th>#</th>
                     <th>名称</th>
                     <th>显示名称</th>
                     <th>vCPU</th>
                     <th>内存(MB)</th>
                     <th>磁盘大小(GB)</th>
                     <th>是否公有</th>
-                    <th class="fristTh"><a href="#" class="color-primary">收起<i class="glyphicon glyphicon-chevron-down"></i></a></th>
+                    <th style="text-align: right;"><a href="#" (click)="switchExpandFlavor" class="color-primary">收起<i class="glyphicon glyphicon-chevron-down"></i></a></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>m2.tiny</td>
-                    <td>标准配置-小</td>
-                    <td>1</td>
-                    <td>512</td>
-                    <td>40</td>
-                    <td>是</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>m2.tiny</td>
-                    <td>标准配置-小</td>
-                    <td>1</td>
-                    <td>512</td>
-                    <td>40</td>
-                    <td>是</td>
+                <tr *ngFor="let item of flavors; let idx = index;" [ngIf]="expandFlavor">
+                    <td>{{idx + 1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.displayName}}</td>
+                    <td>{{item.vcpu}}</td>
+                    <td>{{item.memSize}}</td>
+                    <td>{{item.diskSize}}</td>
+                    <td>{{item.publicFlag}}</td>
                     <td></td>
                 </tr>
             </tbody>

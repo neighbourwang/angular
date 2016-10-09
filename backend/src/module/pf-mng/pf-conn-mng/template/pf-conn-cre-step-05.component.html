@@ -15,50 +15,34 @@
         </div>
     </div>
     <div class="row">
-        <div class="table-container">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 table-container no-padding">
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>名称</th>
                         <th>显示名称</th>
-                        <th>CPU</th>
+                        <th>vCPU</th>
                         <th>内存(MB)</th>
                         <th>磁盘大小(GB)</th>
                         <th>是否公有</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>m2.tiny</td>
-                        <td><input type="text" class="form-control" value="标准配置-中"></td>
-                        <td>1</td>
-                        <td>512</td>
-                        <td>40</td>
-                        <td>是</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>m2.tiny</td>
-                        <td><input type="text" class="form-control" value="标准配置-中"></td>
-                        <td>1</td>
-                        <td>512</td>
-                        <td>40</td>
-                        <td>是</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>m2.tiny</td>
-                        <td><input type="text" class="form-control" value="标准配置-中"></td>
-                        <td>1</td>
-                        <td>512</td>
-                        <td>40</td>
-                        <td>是</td>
+                    <tr *ngFor="let item of flavors; let idx = index;">
+                        <td>{{idx + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td><input type="text" class="form-control" [(ngModel)]="item.quota"></td>
+                        <td>{{item.vcpu}}</td>
+                        <td>{{item.memSize}}</td>
+                        <td>{{item.diskSize}}</td>
+                        <td>{{item.publicFlag}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        <div class="col-md-1"></div>
     </div>
 </div>
 <div class="text-center">

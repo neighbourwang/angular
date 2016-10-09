@@ -5,6 +5,7 @@ import { UserService } from './service/user.service';
 import { LayoutService } from './service/layout.service';
 import { RestApiCfg } from './service/restapicfg.service';
 import { RestApi } from './service/restapi.service';
+import { ValidationService } from './service/validation.service';
 
 @NgModule({
     imports:[
@@ -23,6 +24,7 @@ import { RestApi } from './service/restapi.service';
         LayoutService,
         RestApiCfg,
         RestApi,
+        ValidationService
     ]
 })
 export class CoreModule {

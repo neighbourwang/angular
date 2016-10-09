@@ -15,10 +15,12 @@ import { EntResQuota } from '../model/ent-res-quota.model';
 })
 
 export class EntResQuotaMngComponent implements OnInit {
+    entResQuotas: Array<EntResQuota> = new Array<EntResQuota>();
+
     // 平台数据总页数
     tp: number = 0;
     // 每页显示的数据条数
-    pp: number = 5;
+    pp: number = 10;
 
   constructor(
       private service: EntResQuotaMngService,
@@ -27,6 +29,7 @@ export class EntResQuotaMngComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+      this.backend(1, this.pp);
   }
 
   showError(title: string, msg: string) {
@@ -70,8 +73,10 @@ export class EntResQuotaMngComponent implements OnInit {
                       let backend = new Array<EntResQuota>();
 
                       for (let content of resultContent) {
+                          let entResQuota: EntResQuota = new EntResQuota();
 
                          // backend.push(platform);
+                          this.entResQuotas.push(entResQuota);
                       }
                   }
               }

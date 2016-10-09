@@ -127,8 +127,7 @@ body {
 
 /********Table Start*************/
 .table-container {
-	border-top: 2px solid #d0dae6;
-	border-bottom: 2px solid #d0dae6;
+	border: 2px solid #d0dae6;
 }
 .table > thead:first-child > tr:first-child > th {
 	background: #eff4f8;
@@ -159,10 +158,10 @@ tr:nth-child(even) {
 	background: #00a982;
 }
 
-.table>tbody>tr>td .bg-danger {
+.table > tbody > tr > td .bg-danger {
 	background: #f34b00;
 }
-.table>tbody>tr>td .status {
+.table > tbody > tr > td .status {
 	padding: 0px 9px; 
 	border-radius: 10px;
 }
@@ -172,7 +171,9 @@ tr:nth-child(even) {
 	cursor: pointer;
 }
 
-/******************************/
+/********Table End*************/
+
+/*************Navigator Start*****************/
 .navigator-progress {
 	padding: 15px 0px 25px 0px;
 	font-size: 18px;
@@ -228,11 +229,9 @@ tr:nth-child(even) {
 .fox-cloud-progress-bar-rounded-angle {
 	background-color: #00a982;
 }
-/******************************/
+/*************Navigator End*****************/
 
-/********Table End*************/
-
-/**********Paging********************/
+/**********Paging Start********************/
 .fox-cloud-pagination-container {
 	width: 100%;
 	text-align: right;
@@ -255,10 +254,6 @@ tr:nth-child(even) {
   margin-left: -1px;
   line-height: 1.42857143;
   cursor: pointer;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select:none;
-  user-select:none;
 }
 .fox-cloud-pagination > span:first-child {
   background: url("../images/previousOn.png") no-repeat 0px 8px;
@@ -288,11 +283,13 @@ tr:nth-child(even) {
   z-index: 2;
   color: #00a982;
   border: solid 1px #00a982;
+  font-weight: bold;
 }
 .fox-cloud-pagination > li.active {
   z-index: 2;
   color: #00a982;
   border: solid 1px #00a982;
+  font-weight: bold;
 }
 .fox-cloud-pagination > span.pagination-disabled {
   color: #777;
@@ -300,7 +297,7 @@ tr:nth-child(even) {
   background-color: #fff;
   border-color: #ddd;
 }
-/**********Paging********************/
+/**********Paging End********************/
 
 .section-title {
 	font-weight: bold;
@@ -312,6 +309,29 @@ tr:nth-child(even) {
 	text-align: right;
 }
 
+/**********Doughnut End********************/
+.doughnut {
+	border: 10px solid #2bd2c8;
+	padding: 1px 25%;
+	border-radius: 50%;
+	height: 110px;
+	width: 110px;
+	margin: 0px auto;
+	padding: 35px 0px 0px 0px;
+}
+/**********Doughnut End********************/
+
+.icon-successful {
+	background: url("../images/successful.png") no-repeat 0px 0px;
+	background-size: 90%;
+	padding: 5px 16px;
+}
+
+.icon-failed {
+	background: url("../images/failed.png") no-repeat 0px 0px;
+	background-size: 90%;
+	padding: 5px 16px;
+}
 /********Global Section End*********/
 
 /********Header Section Start*********/

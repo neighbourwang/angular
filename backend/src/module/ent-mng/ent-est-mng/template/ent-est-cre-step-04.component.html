@@ -40,8 +40,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr *ngFor="let resourceQuota of entEstResourceQuotas">
-					<td>1</td>
+				<tr *ngFor="let resourceQuota of entEstResourceQuotas;let i = index">
+					<td>{{i + 1}}</td>
 					<td>{{resourceQuota.regionName}}</td>
 					<td>{{resourceQuota.vmQuota}}</td>
 					<td>{{resourceQuota.platformStorageQuota}}</td>
