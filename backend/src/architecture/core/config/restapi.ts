@@ -130,7 +130,33 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "url": "adminui/authsec/platform/{pf-id}/flavor"
     },
-   // 平台接入管理
+    // 平台接入管理
+    // 企业资源配额管理
+    {
+        "desc": "取得所有企业的资源配额信息",
+        "id": "ent.res.quota.mng.resouces.quotas.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/resouces/quotas/page/{page}/size/{size}"
+    },
+    {
+        "desc": "取得所有企业信息",
+        "id": "ent.res.quota.cre.enterprises.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/simple/page/{page}/size/{size}"
+    },
+    {
+        "desc": "取得所有区域信息",
+        "id": "ent.res.quota.cre.regions.virtual.get",
+        "method": "GET",
+        "url": "adminui/authsec/regions/virtual"
+    },
+    {
+        "desc": "创建企业资源配额信息",
+        "id": "ent.res.quota.cre.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/{_enterpriseId}/resouce/quota"
+    },
+    // 企业资源配额管理
     /*
      * 服务目录管理
      */

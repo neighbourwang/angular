@@ -93,10 +93,12 @@ export class PfConnCreStep01Component implements OnInit {
     cancel() {
         this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-mng", { skipLocationChange: true });
     }
+
     // 上一步按钮事件处理
     previous() {
         this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-mng", { skipLocationChange: true });
     }
+
     // 下一步按钮事件处理
     next() {
         if (!this.validate()) {
@@ -121,7 +123,7 @@ export class PfConnCreStep01Component implements OnInit {
         }
 
         if (msg.length > 0) {
-            this.notice.open("系统提示", msg.join("\n"));
+            this.notice.open("系统提示", msg.join("<br />"));
 
             return false;
         }
