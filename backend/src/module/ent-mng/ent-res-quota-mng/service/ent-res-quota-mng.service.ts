@@ -1,8 +1,6 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi } from '../../../../architecture';
-
-import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class EntResQuotaMngService {
@@ -12,9 +10,10 @@ export class EntResQuotaMngService {
         private restApi: RestApi
     ) { }
 
+    // 取得企业配额信息
     getEntResQuota(page: number, size: number) {
-        let url = this.restApiCfg.getRestApiUrl("ent.res.quota.get");
+        let api = this.restApiCfg.getRestApi("ent.res.quota.mng.resouces.quotas.get");
 
-        return this.restApi.get(url, [{ key: "page", value: page }, { key: "size", value: size }], undefined);
+        return this.restApi.request(api.method, api.url, [{ key: "page", value: page }, { key: "size", value: size }], undefined);
     }
 }

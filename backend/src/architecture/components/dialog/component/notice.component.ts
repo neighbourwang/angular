@@ -15,7 +15,7 @@ export class NoticeComponent implements OnInit {
     msg: String;
 
     @ViewChild('dialog')
-    dialog: ModalComponent;
+    private dialog: ModalComponent;
 
     ngOnInit() {
     }

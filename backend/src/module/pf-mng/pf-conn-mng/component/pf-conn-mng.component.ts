@@ -279,6 +279,7 @@ export class PfConnMngComponent implements OnInit {
         }
     }
 
+    // 全部平台选择/选择取消切换
     private switchSelect(selected: boolean) {
         this.platforms.forEach(item => item.isSelected = selected);
     }

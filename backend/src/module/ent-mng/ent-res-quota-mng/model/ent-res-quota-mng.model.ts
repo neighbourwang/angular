@@ -1,9 +1,9 @@
-﻿export class EntResQuota {
+﻿export class EntResQuotaMng {
+    isSelected: boolean = false;
     id: String;
-    enterpriseId: String;
     platformId: String;
-    platformStorageQuota: number;
-    platformVMQuota: number;
+    enterpriseId: String;
+    enterpriseName: String;
     regionId: String;
     regionName: String;
     vmQuota: number;
@@ -15,10 +15,9 @@
 
     toString(): String {
         return this.id + "\r\n" +
-            this.enterpriseId + "\r\n" +
             this.platformId + "\r\n" +
-            this.platformStorageQuota + "\r\n" +
-            this.platformVMQuota + "\r\n" +
+            this.enterpriseId + "\r\n" +
+            this.enterpriseName + "\r\n" +
             this.regionId + "\r\n" +
             this.regionName + "\r\n" +
             this.vmQuota + "\r\n" +
