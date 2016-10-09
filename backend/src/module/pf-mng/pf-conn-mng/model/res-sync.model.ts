@@ -41,7 +41,7 @@
     // 计算同步百分比
     synchronized(count: number, syncRes: String) {
         this.syncCount += count;
-        console.error("count:" + this.syncCount + " this.syncSuspending():" + this.syncSuspending() + "/" + this.syncCount / this.syncSuspending() * 100 + "/" + Math.ceil(count / this.syncSuspending()) + "/" + Math.ceil(this.syncCount / this.syncSuspending() * 100));
+
         this.syncProgress = Math.ceil(this.syncCount / this.syncSuspending() * 100);
         this.syncRes = syncRes;
     }

@@ -1,12 +1,38 @@
 import { RestApiModel } from '../model/rest';
 
 export let RestApis: RestApiModel[] = [
+    // 数据字典
+    {
+        "desc": "全部数据字典信息",
+        "id": "sysdic",
+        "method": "GET",
+        "url": "adminui/authsec/sysdic"
+    },
+    {
+        "desc": "数据字典信息（OWNER）",
+        "id": "sysdic.owner",
+        "method": "GET",
+        "url": "adminui/authsec/sysdic/{_owner}"
+    },
+    {
+        "desc": "数据字典信息（OWNER/FIELD）",
+        "id": "sysdic.owner.field",
+        "method": "GET",
+        "url": "adminui/authsec/sysdic/{_owner}/{_field}"
+    },
+    {
+        "desc": "数据字典信息（OWNER/FIELD/CODE）",
+        "id": "sysdic.owner.field.code",
+        "method": "GET",
+        "url": "adminui/authsec/sysdic/{_owner}/{_field}/{_code}"
+    },
+    // 数据字典
     // 平台接入管理
     {
         "desc": "获取全部已创建平台信息",
         "id": "pf.conn.mng.platforms.get",
         "method": "GET",
-        "url": "adminui/authsec/platform/page/{page}/size/{size}"
+        "url": "adminui/authsec/platforms/page/{page}/size/{size}"
     },
     {
         "desc": "创建平台",
@@ -19,6 +45,12 @@ export let RestApis: RestApiModel[] = [
         "id": "pf.cre.paltform.get",
         "method": "GET",
         "url": "adminui/authsec/platform/{pf-id}"
+    },
+    {
+        "desc": "启用特定平台",
+        "id": "pf.cre.paltform.active.get",
+        "method": "GET",
+        "url": "adminui/authsec/platform/{pf-id}/active"
     },
     {
         "desc": "删除特定平台信息",
@@ -78,25 +110,25 @@ export let RestApis: RestApiModel[] = [
         "desc": "取得存储资源",
         "id": "pf.cre.storage.get",
         "method": "GET",
-        "url": "adminui/authsec/platform/{pf-id}/flavor"
+        "url": "adminui/authsec/platform/{pf-id}/storage/quota"
     },
     {
         "desc": "更新存储资源",
         "id": "pf.cre.step.04.storage.put",
         "method": "PUT",
-        "url": "adminui/authsec/platform/{pf-id}/flavor"
+        "url": "adminui/authsec/platform/{pf-id}/storage/quota"
     },
     {
         "desc": "取得云主机类型",
         "id": "pf.cre.flavor.get",
         "method": "GET",
-        "url": "adminui/authsec/platform/{pf-id}/storage/quota"
+        "url": "adminui/authsec/platform/{pf-id}/flavor"
     },
     {
         "desc": "更新云主机类型",
         "id": "pf.cre.step.05.flavor.put",
         "method": "PUT",
-        "url": "adminui/authsec/platform/{pf-id}/storage/quota"
+        "url": "adminui/authsec/platform/{pf-id}/flavor"
     },
    // 平台接入管理
     /*
@@ -246,6 +278,31 @@ export let RestApis: RestApiModel[] = [
        "desc": "获取产品",
        "id": "ent-mng.ent-prod-mng.all.get",
        "method": "GET",
-       "url": "/adminui/authsec/enterprise/product"
+       "url": "/adminui/authsec/enterprises/products/page/{page}/size/{size} "
+   },{
+       "desc": "企业产品管理获取企业",
+       "id": "ent-mng.ent-prod-cre.enterprises.get",
+       "method": "GET",
+       "url": "/adminui/authsec/enterprises/simple/page/{page}/size/{size} "
+   },{
+       "desc": "企业产品管理获取区域",
+       "id": "ent-mng.ent-prod-cre.regions.get",
+       "method": "GET",
+       "url": "/adminui/authsec/regions/virtual"
+   },{
+       "desc": "企业产品管理获取服务目录",
+       "id": "ent-mng.ent-prod-cre.directories.get",
+       "method": "GET",
+       "url": "/adminui/authsec/region/{region_id}/serviceitem"
+   },{
+       "desc": "企业产品管理获取所有可用区",
+       "id": "ent-mng.ent-prod-cre.storages.get",
+       "method": "GET",
+       "url": "/adminui/authsec/platform/{pf_id}/flavor"
+   },{
+       "desc": "创建产品",
+       "id": "ent-mng.ent-prod-cre.creation",
+       "method": "POST",
+       "url": "/adminui/authsec/enterprise/{enterpriseId}/product "
    }
 ]

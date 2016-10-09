@@ -49,7 +49,7 @@ export class EntProdMngComponent implements OnInit{
     	this.layoutService.setLoading(true);
   
     	this.entProdMngService
-        .getDatas()
+        .getDatas(1,5)
         .then(ret => {
             if (!ret) {
                 this.showNotice('数据获取失败', '服务模板数据获取失败。');

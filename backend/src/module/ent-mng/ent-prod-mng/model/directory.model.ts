@@ -1,5 +1,11 @@
 export class Directory {
-    id: string = '';
-    name : string = '';
-    desc : any;
+      createrName: string;
+      creatorId: string;
+      description: string;
+      regionId: string;
+      regionName: string;
+      serviceId: string;
+      serviceName: string;
+      serviceTemplateName: string;
+      status: string;
 }

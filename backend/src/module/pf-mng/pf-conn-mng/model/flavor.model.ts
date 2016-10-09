@@ -7,6 +7,7 @@
     memSize: number;
     diskSize: number;
     publicFlag: boolean;
+    publicFlagText: String;
     description: String;
 
     toString() {
@@ -18,6 +19,7 @@
             this.memSize + "\n" +
             this.diskSize + "\n" +
             this.publicFlag + "\n" +
+            this.publicFlagText + "\n" +
             this.description;
     }
 }

@@ -14,10 +14,18 @@ export class EntProdMngService {
     ) { }
     
 
-    getDatas(): Promise<any> {
+    getDatas(page : number , size : number): Promise<any> {
         let url = this.restApiCfg.getRestApiUrl('ent-mng.ent-prod-mng.all.get');
-
-        return this.restApi.get(url, undefined, undefined, undefined);
+        let pathParams = [
+            {
+                key: 'page',
+                value: page
+            },{
+                key: 'size',
+                value: size
+            }
+        ];
+        return this.restApi.get(url, pathParams, undefined, undefined);
     }
 
 }

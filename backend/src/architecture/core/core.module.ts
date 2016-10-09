@@ -5,6 +5,7 @@ import { UserService } from './service/user.service';
 import { LayoutService } from './service/layout.service';
 import { RestApiCfg } from './service/restapicfg.service';
 import { RestApi } from './service/restapi.service';
+import { SystemDictionaryService } from './service/system.dictionary.service';
 import { ValidationService } from './service/validation.service';
 
 @NgModule({
@@ -24,6 +25,7 @@ import { ValidationService } from './service/validation.service';
         LayoutService,
         RestApiCfg,
         RestApi,
+        SystemDictionaryService,
         ValidationService
     ]
 })

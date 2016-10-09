@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi } from '../../../../architecture';
 
@@ -14,9 +14,10 @@ export class PfConnCreStep01Service {
         private restApi: RestApi
     ) { }
 
+    // 创建平台
     postPlatform(paltform: Platform) {
-        let url = this.restApiCfg.getRestApiUrl("pf.cre.step.01.paltform.post");
+        let api = this.restApiCfg.getRestApi("pf.cre.step.01.paltform.post");
 
-        return this.restApi.post(url, undefined, undefined, paltform);
+        return this.restApi.request(api.method, api.url, undefined, undefined, paltform);
     }
 }
