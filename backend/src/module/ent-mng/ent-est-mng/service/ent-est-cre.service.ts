@@ -169,7 +169,7 @@ export class EntEstCreService{
 					,"msg":"不能为空"
 				}
 			,"email":{ 
-				"func": this.validation.isEmail
+				"func": val=>!this.validation.isEmail(val)
 				,"msg": "邮箱地址无效"
 			}
 		}

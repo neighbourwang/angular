@@ -19,6 +19,7 @@ export class EntEstCreStep01Component implements OnInit{
 
 	private entEstBasicInfo:EntEstBasicInfo;
 	private currencyTypes : CurrencyType[] = [];
+
 	constructor(
 		private router: Router,
 		private service: EntEstCreService
@@ -43,12 +44,27 @@ export class EntEstCreStep01Component implements OnInit{
 	}
 
 	validate():boolean{
-		
+
 		let notValid = [
 		{
 			"name":"名称"
 			,'value':this.entEstBasicInfo.name
 			,"op":"*"
+		},
+		{
+			"name":"管理员"
+			,"value":this.entEstBasicInfo.contactorName
+			,"op":"*"
+		}
+		,{
+			"name":"联系电话"
+			,"value":this.entEstBasicInfo.contactorPhone
+			,"op":"*"
+		},
+		{
+			"name":"邮件地址"
+			,"value":this.entEstBasicInfo.email
+			,"op":"email"
 		}].find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
 
 		if(notValid !== void 0)
