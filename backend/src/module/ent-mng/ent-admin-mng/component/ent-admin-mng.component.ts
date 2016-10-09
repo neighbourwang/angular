@@ -21,7 +21,7 @@ import { EntAdminCreService } from "../service/ent-admin-cre.service";
 export class EntAdminMngComponent implements OnInit {
     pageIndex=0;
     tp = 1;
-    pageSize = 20;
+    pageSize = 10;
     noticeTitle = "";
     noticeMsg = "";
     reset=true;
@@ -80,7 +80,7 @@ export class EntAdminMngComponent implements OnInit {
         const names: string[] = [];
         const ids: string[] = [];
         selectAdmin.forEach(admin => {
-            names.push(admin.contactName);
+            names.push(admin.contactorName);
             ids.push(admin.id);
         });
         this.noticeMsg = `确认删除'${names.join("','")}' ?`;
@@ -89,8 +89,9 @@ export class EntAdminMngComponent implements OnInit {
         };
         this.confirm.cof = () => {
             this.layoutService.show();
-            this.service.deleteAdmin(selectAdmin)
-                .then(response => {
+            if (selectAdmin.length == 1) {
+                this.service.deleteAdmin(selectAdmin[0].id)
+                    .then(response => {
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
                             //删除成功
@@ -99,8 +100,22 @@ export class EntAdminMngComponent implements OnInit {
                             alert("Res sync error");
                         }
                     }
-                )
-                .catch((e) => this.onRejected(e));
+                    )
+                    .catch((e) => this.onRejected(e));
+            } else {
+                this.service.deleteAdmins(selectAdmin)
+                    .then(response => {
+                            this.layoutService.hide();
+                            if (response && 100 == response["resultCode"]) {
+                                //删除成功
+                                this.getData();
+                            } else {
+                                alert("Res sync error");
+                            }
+                        }
+                    )
+                    .catch((e) => this.onRejected(e));
+            }
         };
         this.confirm.open();
     }
@@ -117,7 +132,7 @@ export class EntAdminMngComponent implements OnInit {
         const names = [];
         const ids: string[] = [];
         selectAdmin.forEach(admin => {
-            names.push(admin.contactName);
+            names.push(admin.contactorName);
             ids.push(admin.id);
         });
         this.noticeMsg = `确认${status == 0 ? "取消激活" : "激活"}'${names.join("','")}' ?`;

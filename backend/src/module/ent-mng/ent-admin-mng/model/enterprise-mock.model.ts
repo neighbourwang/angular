@@ -31,8 +31,8 @@ export const createAdminRes = {
     },
     resultCode: "100",
     resultContent: {
-        "contactorPhone": "13720119493",
-        "contactName": "Moses",
+        "contactPhone": "13720119493",
+        "contactorName": "Moses",
         "description": "description",
         "email": "dark@hpe.com",
         "userName": "dark@hpe.com",
@@ -53,8 +53,8 @@ export const getAdminByIdRes = {
     },
     resultCode: "100",
     resultContent: {
-        "contactorPhone": "13720119493",
-        "contactName": "Moses",
+        "contactPhone": "13720119493",
+        "contactorName": "Moses",
         "description": "description",
         "email": "dark@hpe.com",
         "userName": "dark@hpe.com",
@@ -90,8 +90,8 @@ export const adminList = {
     },
     resultCode: "100",
     resultContent: [{
-        "contactorPhone": "13720119493",
-        "contactName": "Moses",
+        "contactPhone": "13720119493",
+        "contactorName": "Moses",
         "description": "description",
         "email": "dark@hpe.com",
         "userName": "dark@hpe.com",
@@ -102,8 +102,8 @@ export const adminList = {
         "status": 0
     },
         {
-            "contactorPhone": "13720189493",
-            "contactName": "李四",
+            "contactPhone": "13720189493",
+            "contactorName": "李四",
             "description": "description",
             "email": "dark@hpe.com",
             "userName": "dark@hpe.com",
@@ -114,8 +114,8 @@ export const adminList = {
             "status": 1
         },
         {
-            "contactorPhone": "13720119445",
-            "contactName": "王五",
+            "contactPhone": "13720119445",
+            "contactorName": "王五",
             "description": "description",
             "email": "dark@hpe.com",
             "userName": "dark@hpe.com",

@@ -196,6 +196,12 @@ export let RestApis: RestApiModel[] = [
        "url": "/adminui/authsec/enterprise/admin"
    },
    {
+       "desc": "根据id获取企业管理员",
+       "id": "ent-mng.admin.get",
+       "method": "GET",
+       "url": "/adminui/authsec/enterprise/admin/{id}"
+   },
+   {
        "desc": "更新企业管理员",
        "id": "ent-mng.admin.update.put",
        "method": "PUT",
@@ -205,25 +211,31 @@ export let RestApis: RestApiModel[] = [
        "desc": "更新企业管理员激活状态",
        "id": "ent-mng.admin.updateStatus.put",
        "method": "PUT",
-       "url": "/adminui/authsec/enterprise/admin/{id}/status/{status}"
+       "url": "/adminui/authsec/enterprise/admins/status/{status}"
    },
    {
-       "desc": "删除企业管理员",
+       "desc": "删除企业管理员批量",
        "id": "ent-mng.admin.del.delete",
        "method": "DELETE",
-       "url": "/adminui/authsec/enterprise/admins"
+       "url": "/adminui/authsec/enterprises/admins"
+   },
+   {
+       "desc": "删除單個企业管理员",
+       "id": "ent-mng.admin.delOne.delete",
+       "method": "DELETE",
+       "url": "/adminui/authsec/enterprise/admin/{id}"
    },
    {
        "desc": "获取全部企业管理员",
        "id": "ent-mng.admin.all.get",
        "method": "GET",
-       "url": "/adminui/authsec/enterprise/admin/page/{page}/size/{size}"
+       "url": "/adminui/authsec/enterprises/admins/page/{page}/size/{size}"
    },
    {
        "desc": "获取某企业管理员",
        "id": "ent-mng.enterprise.admin.get",
        "method": "GET",
-       "url": "/adminui/authsec/enterprise/{enterpriseId}/admin/page/{page}/size/{size}"
+       "url": "/adminui/authsec/enterprise/{enterpriseId}/admins/page/{page}/size/{size}"
    }
    ,{
        "desc": "获取货币",

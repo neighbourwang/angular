@@ -78,7 +78,7 @@ export class EntAdminMngService {
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => adminList);
     }
 
-    deleteAdmin(admins: Admin[]): Promise<any> {
+    deleteAdmins(admins: Admin[]): Promise<any> {
 
 
         const api = this.restApiCfg.getRestApi("ent-mng.admin.del.delete");
@@ -86,4 +86,19 @@ export class EntAdminMngService {
 
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => adminList);
     }
+
+    deleteAdmin(id:string): Promise<any> {
+        const pathParams = [
+            {
+                key: "id",
+                value: id
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("ent-mng.admin.delOne.delete");
+        return this.restApi.request(api.method, api.url, pathParams,null,null);
+
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => adminList);
+    }
+
+   
 }

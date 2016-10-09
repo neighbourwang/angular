@@ -81,7 +81,7 @@ export class EntAdminCreComponent implements OnInit {
     }
 
     createAndUpdate(): void {
-        if (this.admin.contactName === "") {
+        if (this.admin.contactorName === "") {
             this.showAlert("请输入管理员姓名");
             return;
         }
@@ -96,7 +96,7 @@ export class EntAdminCreComponent implements OnInit {
             return;
         }
 
-        if (this.admin.contactorPhone === "") {
+        if (this.admin.contactPhone === "") {
             this.showAlert("请输入电话");
             return;
         }
@@ -114,7 +114,7 @@ export class EntAdminCreComponent implements OnInit {
             return;
         }
 
-        if (!regMobilePhone.test(this.admin.contactorPhone) && !regTelPhone.test(this.admin.contactorPhone)) {
+        if (!regMobilePhone.test(this.admin.contactPhone) && !regTelPhone.test(this.admin.contactPhone)) {
             this.showAlert("请输入合法的联系电话;");
             return;
         }
