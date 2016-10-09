@@ -51,7 +51,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">默认货币：</div>
 					<div class="col-sm-4">
-						<select class="form-control" [ngModel]="entEstBasicInfo.currencyType">
+						<select class="form-control" [(ngModel)]="entEstBasicInfo.currencyType" name="currencyType" id="currencyType">
 							<option *ngFor="let curr of currencyTypes" [value]="curr.code">{{curr.displayValue}}</option>
 						</select>
 					</div>
@@ -61,7 +61,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">描述：</div>
 					<div class="col-sm-4">
-						<textarea class="form-control" rows="4" placeholder="" [ngModel]="entEstBasicInfo.description"></textarea> 
+						<textarea class="form-control" rows="4" placeholder="" [(ngModel)]="entEstBasicInfo.description"></textarea> 
 					</div>
 				</div>
 			</div>

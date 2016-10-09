@@ -22,12 +22,12 @@ export class EntEstCreStep01Component implements OnInit{
 	}
 	ngOnInit(){
 		this.entEstBasicInfo = this.service.getEntEst().BasicInfo;
-
+		console.log('this.entEstBasicInfo load:', this.entEstBasicInfo);
 		this.service.loadCurrencyTypes(this.currencyTypes, this.showNotice);
-		this.entEstBasicInfo.currencyType = "1";
 	}
 
 	next(){
+		console.log('this.entEstBasicInfo save:', this.entEstBasicInfo);
       	this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-cre-step-02");
 	}
 
