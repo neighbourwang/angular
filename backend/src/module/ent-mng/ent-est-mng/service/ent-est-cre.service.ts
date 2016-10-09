@@ -16,8 +16,8 @@ const apiPort: string = '9105';
 @Injectable()
 export class EntEstCreService{
 	private static entEst : EntEst;
-	private cachedCurrencyTypes : CurrencyType[];
-	private cachedResourceQuotas : ResourceQuota[];
+	private static cachedCurrencyTypes : CurrencyType[];
+	private static cachedResourceQuotas : ResourceQuota[];
 
 	constructor(
 		private restApiCfg:RestApiCfg,
@@ -27,6 +27,8 @@ export class EntEstCreService{
 
 	clearCache(){
 		EntEstCreService.entEst = new EntEst();
+		EntEstCreService.cachedCurrencyTypes = null;
+		EntEstCreService.cachedResourceQuotas = null;
 	}
 
 	getEntEst(){
@@ -36,9 +38,9 @@ export class EntEstCreService{
 
 	loadCurrencyTypes(currencyTypes : CurrencyType[], errorHandler : Function)
 	{
-		if(this.cachedCurrencyTypes)
+		if(EntEstCreService.cachedCurrencyTypes)
 		{
-			this.setArray(this.cachedCurrencyTypes, currencyTypes);
+			this.setArray(EntEstCreService.cachedCurrencyTypes, currencyTypes);
 			return;
 		}
 
@@ -58,8 +60,8 @@ export class EntEstCreService{
 			else{
 				if(ret.resultContent)
 				{
-					this.cachedCurrencyTypes = ret.resultContent;
-					this.setArray(this.cachedCurrencyTypes, currencyTypes);
+					EntEstCreService.cachedCurrencyTypes = ret.resultContent;
+					this.setArray(EntEstCreService.cachedCurrencyTypes, currencyTypes);
 				}
 			}
 		})
@@ -87,49 +89,42 @@ export class EntEstCreService{
 
 	loadResourceQuotas(resourceQuotas: ResourceQuota[], errorHandler: Function)
 	{
-		if(this.cachedResourceQuotas)
+		if(EntEstCreService.cachedResourceQuotas)
 		{
-			this.setArray(this.cachedResourceQuotas, resourceQuotas);
+			this.setArray(EntEstCreService.cachedResourceQuotas, resourceQuotas);
 			return;
 		}
-
-		let quota = new ResourceQuota();
-		quota.description = "测试数据";
-		quota.id = "1";
-		quota.regionName = "重庆";
-
-		resourceQuotas.splice(0, resourceQuotas.length);
-		resourceQuotas.push(quota);
-
-		return;
-
-		// let url = "http://15.114.100.58:9000/adminui/authsec/platform/page/1/size/10";
+		let url = "http://15.114.100.58:9000/adminui/authsec/platforms/resoucequotas/page/1/size/10";
 		// let url = this.restApiCfg.getRestApiUrl('pf-mng.ent-est-mng.currencytypes.get', apiIp, apiPort);
 
-		// this.restApi.request('get', url, [], undefined, undefined)
-		// .then(ret=>{
-		// 	if(!ret)
-		// 	{
-		// 		if(errorHandler)
-		// 		{
-		// 			errorHandler({"title":"资源配额", "desc":"资源配额数据获取失败"});
-		// 		}
-		// 	}
-		// 	else{
-		// 		if(ret.resultContent)
-		// 		{
-		// 			this.cachedResourceQuotas = ret.resultContent;
-		// 			this.setArray(this.cachedResourceQuotas, resourceQuotas);
-		// 		}
-		// 	}
-		// })
-		// .catch(err=>{
-		// 	console.log('资源配额加载错误', err);
-		// 	if(errorHandler)
-		// 	{
-		// 		errorHandler({"title":"资源配额", "desc":"服务器上资源配额数据获取失败"})
-		// 	}
-		// });
+		this.restApi.request('get', url, [], undefined, undefined)
+		.then(ret=>{
+			if(!ret)
+			{
+				if(errorHandler)
+				{
+					errorHandler({"title":"资源配额", "desc":"资源配额数据获取失败"});
+				}
+			}
+			else{
+				if(ret.resultContent)
+				{
+					EntEstCreService.cachedResourceQuotas = ret.resultContent;
+					EntEstCreService.cachedResourceQuotas.map(n=>{
+						n.added = false;
+						n.checked = false;
+					});
+					this.setArray(EntEstCreService.cachedResourceQuotas, resourceQuotas);
+				}
+			}
+		})
+		.catch(err=>{
+			console.log('资源配额加载错误', err);
+			if(errorHandler)
+			{
+				errorHandler({"title":"资源配额", "desc":"服务器上资源配额数据获取失败"})
+			}
+		});
 	}
 
 	loadEntEstItems(entEstItems: EntEstItem[], errorHandler: Function)
