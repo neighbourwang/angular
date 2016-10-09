@@ -11,7 +11,8 @@ import { EntProdCre03Component } from './component/ent-prod-cre-03.component';
 
 //service
 
-import { EntProdMngService,EntProdCreService} from './service/ent-prod-mng.service';
+import { EntProdMngService} from './service/ent-prod-mng.service';
+import { EntProdCreService} from './service/ent-prod-cre.service';
 
 // Routing
 import { EntProdMngRouting } from './ent-prod-mng.routing';

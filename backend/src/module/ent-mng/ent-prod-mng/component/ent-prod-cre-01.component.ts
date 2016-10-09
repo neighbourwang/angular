@@ -1,11 +1,15 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { LayoutService, NoticeComponent } from '../../../../architecture';
-import { EntProdCreService } from '../service';
+import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
+import { EntProdCreService } from '../service/ent-prod-cre.service';
 
-import {ServiceDetail,Region,Industry,Storage,Directory} from '../model';
-
+//import {ServiceDetail,Region,Industry,Storage,Directory} from '../model';
+import { ServiceDetail } from '../model/ServiceDetail.model';
+import {Industry} from '../model/industry.model';
+import {Region} from '../model/region.model';
+import {Storage} from '../model/storage.model';
+import {Directory} from '../model/directory.model';
 
 @Component({
 	selector:'ent-prod-cre-01'
@@ -29,7 +33,7 @@ export class EntProdCre01Component implements OnInit{
   modalCancelTitle: string = '';
 
 	constructor(
-	    private EntProdCreService: entProdCreService,
+	    private entProdCreService: EntProdCreService,
         private layoutService: LayoutService,
 		private router: Router
 		){
@@ -46,18 +50,18 @@ export class EntProdCre01Component implements OnInit{
 	}
 
 	
-  	getRegions() {
+  	/*getRegions() {
     	this.layoutService.setLoading(true);
   
-    	this.directoryService
-        .getRegions()
+    	this.entProdCreService
+        .getRegions("a")
         .then(ret => {
             if (!ret) {
                 this.showNotice('数据获取失败', '地区数据获取失败。');
             } else {
                 if (ret && ret.resultContent) {
                   this.regions = ret.resultContent;
-                  this.directoryCreateService.cachedRegions = ret.resultContent;
+                  this.entProdCreService.cachedRegions = ret.resultContent;
                   if (this.serviceDetail.regionId == '') {
                       this.serviceDetail.regionId = this.regions[0] ? this.regions[0].id : '';
                   }
@@ -74,7 +78,7 @@ export class EntProdCre01Component implements OnInit{
     getIndustry(){
 		this.layoutService.setLoading(true);
   
-    	this.directoryService
+    	this.entProdCreService
         .getRegions()
         .then(ret => {
             if (!ret) {
@@ -82,7 +86,7 @@ export class EntProdCre01Component implements OnInit{
             } else {
                 if (ret && ret.resultContent) {
                   this.regions = ret.resultContent;
-                  this.directoryCreateService.cachedRegions = ret.resultContent;
+                  this.entProdCreService.cachedRegions = ret.resultContent;
                   if (this.serviceDetail.regionId == '') {
                       this.serviceDetail.regionId = this.regions[0] ? this.regions[0].id : '';
                   }
@@ -98,6 +102,12 @@ export class EntProdCre01Component implements OnInit{
 
     getDirectory(){
 
-    }
+    }*/
+        showNotice(title: string, msg: string) {
+    	this.modalTitle = title;
+    	this.modalMessage = msg;
+    	this.modalOKTitle = 'OK';
+    	this.noticeDialog.open();
+  }
 
 }

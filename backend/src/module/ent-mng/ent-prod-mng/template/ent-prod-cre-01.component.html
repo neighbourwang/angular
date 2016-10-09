@@ -17,7 +17,7 @@
                 <div class="form-group">
                     <div for="firstname" class="col-sm-4 form-control-title">产品名称：</div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" placeholder="标准小型云主机" style="width:350px">
+                        <input type="text" class="form-control" placeholder="标准小型云主机" style="width:350px" [(ngModel)]="serviceDetail.prodName">
                     </div>
                 </div>
             </div>
@@ -25,9 +25,9 @@
                 <div class="form-group">
                     <div for="firstname" class="col-sm-4 form-control-title">企业：</div>
                     <div class="col-sm-4">
-                        <select class="form-control" [(ngModel)]="serviceDetail.templateId" style="width:350px;color:#909090">
-                           <option *ngFor="let item of templates" value="{{item.id}}">
-                                {{item.name || item.id}}
+                        <select class="form-control" [(ngModel)]="serviceDetail.industryId" style="width:350px;color:#909090">
+                           <option *ngFor="let item of templates" value="{{item.industryId}}">
+                                {{item.industryName || item.industryId}}
                             </option>
                         </select>
                     </div>
@@ -37,11 +37,10 @@
                 <div class="form-group">
                     <div for="firstname" class="col-sm-4 form-control-title">区域：</div>
                     <div class="col-sm-4">
-                        <select class="form-control" style="width:350px;color:#909090">
-                            <option>上海A区</option>
-                            <option>上海B区</option>
-                            <option>苏州A区</option>
-                            <option>北京</option>
+                        <select class="form-control" style="width:350px;color:#909090" [(ngModel)]="serviceDetail.regionId">
+                            <option *ngFor="let item of templates" value="{{item.regionId}}"  >
+                                {{item.regionName || item.regionId}}
+                            </option> 
                         </select>
                     </div>
                 </div>
@@ -50,9 +49,10 @@
                 <div class="form-group">
                     <div for="firstname" class="col-sm-4 form-control-title">服务目录：</div>
                     <div class="col-sm-4">
-                        <select class="form-control" style="width:350px;color:#909090">
-                            <option>标准云主机-高速存储</option>
-                            <option>标准云主机-普通存储</option>
+                        <select class="form-control" style="width:350px;color:#909090" [(ngModel)]="serviceDetail.directoryId" >
+                             <option *ngFor="let item of templates" value="{{item.directoryId}}" [(ngModel)]="serviceDetail.directoryId" >
+                                {{item.directoryName || item.directoryId}}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                 <div class="form-group">
                     <div for="firstname" class="col-sm-4 form-control-title">描述：</div>
                     <div class="col-sm-4">
-                        <textarea class="form-control" rows="5" style="width:350px"></textarea>
+                        <textarea class="form-control" rows="5" style="width:350px"  [(ngModel)]="serviceDetail.desc"></textarea>
                     </div>
                 </div>
             </div>

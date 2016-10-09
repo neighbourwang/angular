@@ -40,36 +40,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>高性能区4</td>
-                        <td>高配置的CPU、内存和磁盘区</td>
-                        <td><input type="text" class="form-control" id="name" placeholder="1台"></td>
+                    <tr *ngFor="let item of serviceDetail.zones">
+                        	<td>{{item.name || item.id}}</td>
+							<td>{{item.des}}</td>
+                        <td><input type="text" class="form-control" id="name" placeholder="1台" [(ngModel)]="item.unit"></td>
                         <td>
-                            <input type="text" class="form-control inputstyle" id="name" placeholder="50">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>高性能区5</td>
-                        <td>高配置的CPU、内存和磁盘区</td>
-                        <td><input type="text" class="form-control" id="name" placeholder="1台"></td>
-                        <td>
-                            <input type="text" class="form-control inputstyle" id="name" placeholder="50">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>普通区5</td>
-                        <td>普通配置的CPU、内存和磁盘区</td>
-                        <td><input type="text" class="form-control" id="name" placeholder="1台"></td>
-                        <td>
-                            <input type="text" class="form-control inputstyle" id="name" placeholder="50">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>普通区6</td>
-                        <td>普通配置的CPU、内存和磁盘区</td>
-                        <td><input type="text" class="form-control" id="name" placeholder="1台"></td>
-                        <td>
-                            <input type="text" class="form-control inputstyle" id="name" placeholder="50">
+                            <input type="text" class="form-control inputstyle" id="name" placeholder="50" [(ngModel)]="item.price">
                         </td>
                     </tr>
                 </tbody>
