@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { LayoutService } from '../../../../architecture';
+import { LayoutService, NoticeComponent } from '../../../../architecture';
 import { EntEstItem } from '../model/ent-est-item';
 import { EntEstCreService } from '../service/ent-est-cre.service';
 
@@ -12,6 +12,9 @@ import { EntEstCreService } from '../service/ent-est-cre.service';
   providers: [EntEstCreService]
 }) 
 export class EntEstMngComponent implements OnInit {
+  @ViewChild("notice")
+  notice: NoticeComponent;
+
   private entEstItems: EntEstItem[] = [];    
   constructor(
     private layoutService: LayoutService,
@@ -20,11 +23,11 @@ export class EntEstMngComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.service.loadEntEstItems(this.entEstItems, null);      
+    this.service.loadEntEstItems(this.entEstItems, this.showError, this);      
   }
 
-  showError(title: string, msg: string) {
-    alert(msg);
+  showError(msg:any) {
+    this.notice.open(msg.title, msg.desc);
   }
 
   onRejected(reason: any) {

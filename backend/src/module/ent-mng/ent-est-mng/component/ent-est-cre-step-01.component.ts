@@ -28,7 +28,12 @@ export class EntEstCreStep01Component implements OnInit{
 	}
 	ngOnInit(){
 		this.entEstBasicInfo = this.service.getEntEst().BasicInfo;
-		this.service.loadCurrencyTypes(this.currencyTypes, null);
+		this.service.loadCurrencyTypes(this.currencyTypes, this.showError, this);
+	}
+
+	showError(msg:any)
+	{
+		this.notice.open(msg.title, msg.desc);
 	}
 
 	next(){

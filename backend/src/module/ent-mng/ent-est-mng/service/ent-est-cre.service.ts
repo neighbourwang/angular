@@ -37,7 +37,7 @@ export class EntEstCreService{
 		return EntEstCreService.entEst;
 	}
 
-	loadCurrencyTypes(currencyTypes : CurrencyType[], errorHandler : Function)
+	loadCurrencyTypes(currencyTypes : CurrencyType[], errorHandler : Function, comp:any)
 	{
 		if(EntEstCreService.cachedCurrencyTypes)
 		{
@@ -57,7 +57,7 @@ export class EntEstCreService{
 			{
 				if(errorHandler)
 				{
-					errorHandler({"title":"货币类型", "desc":"货币类型数据获取失败"});
+					errorHandler.call(comp, {"title":"货币类型", "desc":"货币类型数据获取失败"});
 				}
 			}
 			else{
@@ -73,7 +73,7 @@ export class EntEstCreService{
 			console.log('货币类型加载错误', err);
 			if(errorHandler)
 			{
-				errorHandler({"title":"货币类型", "desc":"服务器上货币类型数据获取失败"})
+				errorHandler.call(comp, {"title":"货币类型", "desc":"服务器上货币类型数据获取失败"})
 			}
 		});
 	}
@@ -91,7 +91,7 @@ export class EntEstCreService{
 		}
 	}
 
-	loadResourceQuotas(resourceQuotas: ResourceQuota[], errorHandler: Function)
+	loadResourceQuotas(resourceQuotas: ResourceQuota[], errorHandler: Function, comp:any)
 	{
 		if(EntEstCreService.cachedResourceQuotas)
 		{
@@ -109,7 +109,7 @@ export class EntEstCreService{
 			{
 				if(errorHandler)
 				{
-					errorHandler({"title":"资源配额", "desc":"资源配额数据获取失败"});
+					errorHandler.call(comp, {"title":"资源配额", "desc":"资源配额数据获取失败"});
 				}
 			}
 			else{
@@ -130,12 +130,12 @@ export class EntEstCreService{
 			console.log('资源配额加载错误', err);
 			if(errorHandler)
 			{
-				errorHandler({"title":"资源配额", "desc":"服务器上资源配额数据获取失败"})
+				errorHandler.call(comp, {"title":"资源配额", "desc":"服务器上资源配额数据获取失败"})
 			}
 		});
 	}
 
-	loadEntEstItems(entEstItems: EntEstItem[], errorHandler: Function)
+	loadEntEstItems(entEstItems: EntEstItem[], errorHandler: Function, comp:any)
 	{
 		let url = "http://15.114.100.58:9000/adminui/authsec/enterprises/opening/page/1/size/10";
 
@@ -149,7 +149,7 @@ export class EntEstCreService{
 			{
 				if(errorHandler)
 				{
-					errorHandler({"title":"企业开通信息", "desc":"企业开通信息数据获取失败"});
+					errorHandler.call(comp, {"title":"企业开通信息", "desc":"企业开通信息数据获取失败"});
 				}
 			}
 			else{
@@ -161,11 +161,11 @@ export class EntEstCreService{
 		})
 		.catch(err=>{
 			this.layoutService.setLoading(false);
-			
+
 			console.log('企业开通信息加载错误', err);
 			if(errorHandler)
 			{
-				errorHandler({"title":"企业开通信息", "desc":"服务器上企业开通信息数据获取失败"})
+				errorHandler.call(comp, {"title":"企业开通信息", "desc":"服务器上企业开通信息数据获取失败"});
 			}
 		});
 	}

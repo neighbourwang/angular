@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { LayoutService } from '../../../../architecture';
+import { LayoutService, NoticeComponent } from '../../../../architecture';
 import { EntEstCreService } from "../service/ent-est-cre.service";
 import { ResourceQuota } from "../model/resourcequota";
 import { EntEstResourceQuota } from "../model/ent-est-resourcequota";
@@ -12,14 +12,22 @@ import { EntEstResourceQuota } from "../model/ent-est-resourcequota";
 	,providers:[EntEstCreService]
 })
 export class EntEstCreStep02Component implements OnInit{
+
+	@ViewChild("notice")
+	notice: NoticeComponent;
+
 	private resourceQuotas: ResourceQuota[] = [];
 	private entEstResourceQuotas : EntEstResourceQuota[];
 	
 	constructor(private router: Router,
 		private service: EntEstCreService){}
 	ngOnInit(){
-		this.service.loadResourceQuotas(this.resourceQuotas, null);
+		this.service.loadResourceQuotas(this.resourceQuotas, this.showError, this);
 		this.entEstResourceQuotas = this.service.getEntEst().ResourceQuotas;
+	}
+
+	showError(msg:any) {
+	    this.notice.open(msg.title, msg.desc);
 	}
 
 	next(){
