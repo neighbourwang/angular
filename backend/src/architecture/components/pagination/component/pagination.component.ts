@@ -50,8 +50,9 @@ export class PaginationComponent implements OnInit, OnChanges {
 
         this.reCalculatePage();
     }
+
     // 重新计算分页信息
-    reCalculatePage() {
+    private reCalculatePage() {
         let bf: number = 0;
         let af: number = 0;
 
@@ -99,7 +100,7 @@ export class PaginationComponent implements OnInit, OnChanges {
     }
     
     // 是否输出组件判断
-    isRender() {
+    private isRender() {
         return this.tp > 1;
     }
 

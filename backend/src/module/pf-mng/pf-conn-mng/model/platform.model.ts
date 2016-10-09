@@ -1,6 +1,6 @@
 ﻿export class Platform {
     name: String;
-    platformTypeName: String;
+    platformType: String;
     uri: String = "http://192.168.0.11:5000/v3";
     userName: String = "admin";
     passwd: String = "G0L90l1qh";
@@ -13,7 +13,7 @@
 
     toString() {
         return this.name + "\n" +
-            this.platformTypeName + "\n" +
+            this.platformType + "\n" +
             this.description + "\n" +
             this.uri + "\n" +
             this.userName + "\n" +

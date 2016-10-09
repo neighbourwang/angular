@@ -28,11 +28,14 @@
                     <th>可用vCPU总数</th>
                     <th>可用内存总数(GB)</th>
                     <th>可用数量配额</th>
-                    <th style="text-align: right;"><a href="#" (click)="switchExpandZone();" class="color-primary">收起<i class="glyphicon glyphicon-chevron-down"></i></a></th>
+                    <th style="text-align: right;">
+                        <a *ngIf="expandZone" (click)="switchExpandZone();" class="color-primary">收起<i class="glyphicon glyphicon-chevron-down"></i></a>
+                        <a *ngIf="!expandZone" (click)="switchExpandZone();" class="color-primary">展开<i class="glyphicon glyphicon-chevron-up"></i></a>
+                    </th>
                 </tr>
             </thead>
-            <tbody>
-                <tr *ngFor="let item of flavors; let idx = index;" [ngIf]="expandZone">
+            <tbody *ngIf="expandZone">
+                <tr *ngFor="let item of zones; let idx = index;">
                     <td>{{idx + 1}}</td>
                     <td>{{item.name}}</td>
                     <td>{{item.displayName}}</td>
@@ -58,11 +61,14 @@
                     <th>配额(GB)</th>
                     <th>最大空间(GB)</th>
                     <th>说明</th>
-                    <th style="text-align: right;"><a href="#" (click)="switchExpandStorage();" class="color-primary">收起<i class="glyphicon glyphicon-chevron-down"></i></a></th>
+                    <th style="text-align: right;">
+                        <a *ngIf="expandStorage" (click)="switchExpandStorage();" class="color-primary">收起<i class="glyphicon glyphicon-chevron-down"></i></a>
+                        <a *ngIf="!expandStorage" (click)="switchExpandStorage();" class="color-primary">展开<i class="glyphicon glyphicon-chevron-up"></i></a>
+                    </th>
                 </tr>
             </thead>
-            <tbody>
-                <tr *ngFor="let item of flavors; let idx = index;" [ngIf]="expandStorage">
+            <tbody *ngIf="expandStorage">
+                <tr *ngFor="let item of storages; let idx = index;">
                     <td>{{idx + 1}}</td>
                     <td>{{item.name}}</td>
                     <td>{{item.displayName}}</td>
@@ -88,18 +94,21 @@
                     <th>内存(MB)</th>
                     <th>磁盘大小(GB)</th>
                     <th>是否公有</th>
-                    <th style="text-align: right;"><a href="#" (click)="switchExpandFlavor" class="color-primary">收起<i class="glyphicon glyphicon-chevron-down"></i></a></th>
+                    <th style="text-align: right;">
+                        <a *ngIf="expandFlavor" (click)="switchExpandFlavor()" class="color-primary">收起<i class="glyphicon glyphicon-chevron-down"></i></a>
+                        <a *ngIf="!expandFlavor" (click)="switchExpandFlavor()" class="color-primary">展开<i class="glyphicon glyphicon-chevron-up"></i></a>
+                    </th>
                 </tr>
             </thead>
-            <tbody>
-                <tr *ngFor="let item of flavors; let idx = index;" [ngIf]="expandFlavor">
+            <tbody *ngIf="expandFlavor">
+                <tr *ngFor="let item of flavors; let idx = index;">
                     <td>{{idx + 1}}</td>
                     <td>{{item.name}}</td>
                     <td>{{item.displayName}}</td>
                     <td>{{item.vcpu}}</td>
                     <td>{{item.memSize}}</td>
                     <td>{{item.diskSize}}</td>
-                    <td>{{item.publicFlag}}</td>
+                    <td>{{item.publicFlagText}}</td>
                     <td></td>
                 </tr>
             </tbody>
@@ -117,3 +126,7 @@
         </button>
     </div>
 </div>
+
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
+
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>

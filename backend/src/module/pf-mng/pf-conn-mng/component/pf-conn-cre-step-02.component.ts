@@ -8,10 +8,10 @@ import { PfConnCreStep02Service, StateService } from '../service';
 import { ResSync } from '../model';
 
 @Component({
-  selector: 'pf-conn-cre-step-02',
-  templateUrl: '../template/pf-conn-cre-step-02.component.html',
-  styleUrls: [],
-  providers: []
+    selector: 'pf-conn-cre-step-02',
+    templateUrl: '../template/pf-conn-cre-step-02.component.html',
+    styleUrls: [],
+    providers: []
 })
 
 export class PfConnCreStep02Component implements OnInit {
@@ -21,9 +21,9 @@ export class PfConnCreStep02Component implements OnInit {
     @ViewChild('confirm')
     confirm: ConfirmComponent;
 
-    // 确认Box/通知Box的标题
+    // 确认/通知Box的标题
     title: String = "";
-    // 确认Box/通知Box的内容
+    // 确认/通知Box的内容
     msg: String = "";
 
     resSync: ResSync = new ResSync("资源信息取得中....", 0);
@@ -36,6 +36,8 @@ export class PfConnCreStep02Component implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.layoutService.show();
+
         let platFormId: String = this.stateService.getPlatformId();
 
         this.service.resSyncCount(platFormId).then(
@@ -48,6 +50,8 @@ export class PfConnCreStep02Component implements OnInit {
                     this.resSync.flavorsCount = resultContent["flavorsCount"];
                     this.resSync.regionsCount = resultContent["regionsCount"];
                     this.resSync.imagesCount = resultContent["imagesCount"];
+
+                    this.layoutService.hide();
 
                     this.resSync.syncRes = "正在同步可用区....";
 
@@ -76,7 +80,7 @@ export class PfConnCreStep02Component implements OnInit {
                 if (syncStatus) {
                     this.resSync.synchronizedZones = true;
                 }
-                console.error("可用区同步:" + syncCount);
+
                 this.resSync.synchronized(syncCount, "正在同步存储....");
 
                 this.syncStorages();
@@ -103,7 +107,7 @@ export class PfConnCreStep02Component implements OnInit {
                     if (syncStatus) {
                         this.resSync.synchronizedStorages = true;
                     }
-                    console.error("存储同步:" + syncCount);
+
                     this.resSync.synchronized(syncCount, "正在同步云主机类型....");
 
                     this.syncFlavors();
@@ -130,7 +134,7 @@ export class PfConnCreStep02Component implements OnInit {
                     if (syncStatus) {
                         this.resSync.synchronizedFlavors = true;
                     }
-                    console.error("云主机类型同步:" + syncCount);
+
                     this.resSync.synchronized(syncCount, "正在同步可用域....");
 
                     this.syncRegions();
@@ -157,7 +161,7 @@ export class PfConnCreStep02Component implements OnInit {
                     if (syncStatus) {
                         this.resSync.synchronizedRegions = true;
                     }
-                    console.error("可用域同步:" + syncCount);
+
                     this.resSync.synchronized(syncCount, "正在同步镜像....");
 
                     this.syncImages();
@@ -184,7 +188,7 @@ export class PfConnCreStep02Component implements OnInit {
                     if (syncStatus) {
                         this.resSync.synchronizedImages = true;
                     }
-                    console.error("镜像同步:" + syncCount);
+
                     this.resSync.synchronized(syncCount, "同步完成");
                     this.resSync.syncCompleted = true;
                 } else {
@@ -196,24 +200,26 @@ export class PfConnCreStep02Component implements OnInit {
     }
 
     showError(title: string, msg: string) {
+        this.layoutService.hide();
+
         this.title = title;
         this.msg = msg;
 
         this.notice.open();
     }
 
-  /**
-  * 取消按钮事件处理
-  */
-  cancel() {
-      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-mng");
-  }
+    // 取消
+    cancel() {
+        this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-mng", { skipLocationChange: true });
+    }
 
-  previous() {
-      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-01");
-  }
+    // 返回上一步
+    previous() {
+        this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-01", { skipLocationChange: true });
+    }
 
-  next() {
-      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-03");
-  }
+    // 迁移至可用区资源配置画面
+    next() {
+        this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-03", { skipLocationChange: true });
+    }
 }
