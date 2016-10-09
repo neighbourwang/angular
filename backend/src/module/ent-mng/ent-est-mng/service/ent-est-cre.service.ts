@@ -26,8 +26,10 @@ export class EntEstCreService{
 		private layoutService : LayoutService
 		){}
 
-	clearCache(){
+	initCache(enterpriseId: string){
 		EntEstCreService.entEst = new EntEst();
+		EntEstCreService.entEst.BasicInfo.id = enterpriseId;
+		
 		EntEstCreService.cachedCurrencyTypes = null;
 		EntEstCreService.cachedResourceQuotas = null;
 	}
@@ -156,6 +158,7 @@ export class EntEstCreService{
 				if(ret.resultContent)
 				{
 					this.setArray(ret.resultContent, entEstItems);
+					entEstItems.map(n=>{n.checked = false;});
 				}
 			}
 		})
