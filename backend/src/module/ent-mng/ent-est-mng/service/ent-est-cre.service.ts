@@ -41,7 +41,7 @@ export class EntEstCreService{
 		}
 
 
-		let url = "http://15.114.100.58:9000/marketplace/authsec/sysdic/ACCOUNT/CURRENCY";
+		let url = "http://15.114.100.58:9000/marketplace/authsec/sysdic/ACCOUNT/CURRENCY_TYPE";
 		// let url = this.restApiCfg.getRestApiUrl('pf-mng.ent-est-mng.currencytypes.get', apiIp, apiPort);
 
 		this.restApi.request('get', url, [], undefined, undefined)
