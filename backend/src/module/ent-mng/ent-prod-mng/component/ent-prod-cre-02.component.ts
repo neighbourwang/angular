@@ -28,7 +28,7 @@ export class EntProdCre02Component implements OnInit{
       	this.router.navigateByUrl("ent-mng/ent-prod-mng/ent-prod-cre-01");
     }
 
-     getZones() {
+   /*  getZones() {
     this.layoutService.setLoading(true);
   
     this.directoryCreateService
@@ -49,5 +49,5 @@ export class EntProdCre02Component implements OnInit{
             this.showNotice('数据获取失败', '可用区数据获取失败。');
             this.layoutService.setLoading(false);
         });
-  }
+  }*/
 }

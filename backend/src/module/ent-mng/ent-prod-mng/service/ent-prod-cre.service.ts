@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { ServiceDetail } from '../model/ent-prod-mng.model';
 import { RestApiCfg, RestApi } from '../../../../architecture';
-
+import { ServiceDetail } from '../model/ServiceDetail.model';
+import {Industry} from '../model/industry.model';
+import {Region} from '../model/region.model';
+import {Storage} from '../model/storage.model';
+import {Directory} from '../model/directory.model';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -32,7 +35,7 @@ export class EntProdCreService {
         return this.cachedServiceDetail;
     }
     
-    getRegions(platformId: string): Promise<any> {
+    getRegions(platformId: string  ): Promise<any> {
         let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.zones.get');
 
         let pathParams = [
@@ -46,7 +49,7 @@ export class EntProdCreService {
     }
 
     getStorages(platformId: string): Promise<any> {
-        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.storages.get', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.storages.get');
 
         let pathParams = [
             {
@@ -59,7 +62,7 @@ export class EntProdCreService {
     }
 
     getIndustries(platformId: string): Promise<any> {
-        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.storages.get', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.storages.get');
 
         let pathParams = [
             {
@@ -72,7 +75,7 @@ export class EntProdCreService {
     }
 
     getDirectories(platformId: string): Promise<any> {
-        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.storages.get', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.storages.get');
 
         let pathParams = [
             {
