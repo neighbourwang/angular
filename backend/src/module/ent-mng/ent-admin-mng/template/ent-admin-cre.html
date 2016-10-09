@@ -7,9 +7,9 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">企业<span class="asterisk">*</span>：</div>
                     <div class="col-sm-4">
-                        <select class="form-control">
-                            <option *ngFor="let enterprise of enterprises" value="{{enterprise.id}}" [selected]="enterprise.id==admin.enterpriseId">
-                                {{enterprise.name}}
+                        <select class="form-control" [(ngModel)]="admin.enterpriseId">
+                            <option *ngFor="let enterprise of enterprises;let i=index;" value="{{enterprise.id}}" >
+                                {{enterprise.name}}  
                             </option>
                         </select>
                     </div>
@@ -21,7 +21,7 @@
                     <div class="col-sm-4 form-control-title">管理员<span class="asterisk">*</span>：
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="admin.contactorName" placeholder="">
+                        <input type="text" class="form-control" [(ngModel)]="admin.contactName" placeholder="">
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, ViewChild} from "@angular/core";
+﻿import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 
 import { LayoutService, NoticeComponent } from "../../../../architecture";
@@ -21,7 +21,7 @@ export class EntAdminCreComponent implements OnInit {
     mngId = "";
     isEdit = false;
     noticeTitle = "";
-    noticeMsg="";
+    noticeMsg = "";
 
     @ViewChild("notice")
     notice: NoticeComponent;
@@ -35,6 +35,7 @@ export class EntAdminCreComponent implements OnInit {
         if (activatedRouter.snapshot.params["mng-id"]) {
             this.mngId = activatedRouter.snapshot.params["mng-id"] || "";
             this.isEdit = true;
+            this.getAdminById(this.mngId);
         }
     }
 
@@ -46,27 +47,41 @@ export class EntAdminCreComponent implements OnInit {
         this.layoutService.show();
         this.service.getEnterprise()
             .then(
-                response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.enterprises = response["resultContent"];
 
-                        this.enterprises = response["resultContent"];
-
-                    } else {
-                        this.showAlert("Res sync error");
+                    if (this.enterprises.length > 0 && !(this.admin.enterpriseId === "")) {
+                        this.admin.enterpriseId = this.enterprises[0].id;
                     }
+
+                } else {
+                    this.showAlert("Res sync error");
                 }
+            }
             )
-            .catch(this.onRejected);
+            .catch((e) => this.onRejected(e));
     }
 
-    showError(title: string, msg: string) {
-        this.showAlert(msg);
+    getAdminById(id: string) {
+        this.layoutService.show();
+        this.service.getAdminById(id)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.admin = response["resultContent"];
+                } else {
+                    this.showAlert("Res sync error");
+                }
+            }
+            )
+            .catch(() => (e) => this.onRejected(e));
     }
-
 
     createAndUpdate(): void {
-        if (this.admin.contactorName === "") {
+        if (this.admin.contactName === "") {
             this.showAlert("请输入管理员姓名");
             return;
         }
@@ -103,36 +118,39 @@ export class EntAdminCreComponent implements OnInit {
             this.showAlert("请输入合法的联系电话;");
             return;
         }
+
+        this.admin.enterpriseName = this.enterprises.filter((e) => { return e.id == this.admin.enterpriseId })[0].name;
+
         this.layoutService.show();
 
         if (this.mngId == "") {
             this.service.createAdmin(this.admin)
                 .then(
-                    response => {
-                        this.layoutService.hide();
-                        if (response && 100 == response["resultCode"]) {
-                            this.showAlert("创建成功");
-                            this.router.navigateByUrl("ent-mng/ent-admin-mng/ent-admin-mng");
-                        } else {
-                            this.showAlert("Res sync error");
-                        }
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.showAlert("创建成功");
+                        this.router.navigateByUrl("ent-mng/ent-admin-mng/ent-admin-mng");
+                    } else {
+                        this.showAlert("Res sync error");
                     }
+                }
                 )
-                .catch(this.onRejected);
+                .catch((e) => this.onRejected(e));
         } else {
             this.service.updateAdmin(this.admin)
                 .then(
-                    response => {
-                        this.layoutService.hide();
-                        if (response && 100 == response["resultCode"]) {
-                            this.showAlert("更新成功");
-                            this.router.navigateByUrl("ent-mng/ent-admin-mng/ent-admin-mng");
-                        } else {
-                            this.showAlert("Res sync error");
-                        }
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.showAlert("更新成功");
+                        this.router.navigateByUrl("ent-mng/ent-admin-mng/ent-admin-mng");
+                    } else {
+                        this.showAlert("Res sync error");
                     }
+                }
                 )
-                .catch(this.onRejected);
+                .catch((e) => this.onRejected(e));
         }
     }
 

@@ -6,13 +6,13 @@
                 更多操作
                 <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1"  style="margin-left: 10px;">
                 <li>
                     <a href="javascript:void(0);" (click)="deleteAdmins();">删除</a>
                 </li>
                 <li role="separator" class="divider"></li>
                 <li>
-                    <a href="javascript:void(0);" (click)="change2Status(1);">激活 </a>
+                    <a href="javascript:void(0);" (click)="change2Status(1);">激活</a>
                 </li>
                 <li>
                     <a href="javascript:void(0);" (click)="change2Status(0);">取消激活</a>
@@ -60,11 +60,11 @@
                     <input type="checkbox" [(ngModel)]="admin.isSelect">
                 </td>
                 <td>{{admin.enterpriseName}}</td>
-                <td>{{admin.contactorName}}</td>
+                <td>{{admin.contactName}}</td>
                 <td>{{admin.contactorPhone}}</td>
                 <td>{{admin.email}}</td>
                 <td>{{admin.userName}}</td>
-                <td style="color: #00a982" [style.color]="admin.status==0?'#00a982':'#ff0000'">{{admin.status==0?"未激活":"已激活"}}</td>
+                <td  [style.color]="admin.status==0?'#00a982':'#ff0000'">{{admin.status==0?"未激活":"已激活"}}</td>
                 <td>
                     <a href="javacscirpt:void()" (click)="eidtAdmin(admin)">编辑</a>
                 </td>
@@ -73,18 +73,6 @@
         </table>
     </div>
 </div>
-<!--<div class="fox-cloud-pagination-container">
-    <ul class="fox-cloud-pagination">
-        <span class="disable">上一页</span>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-        <span>下一页</span>
-    </ul>
-</div>-->
 <fc-pagination #pager tp={{tp}} (pf)="getData($event)"></fc-pagination>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" (of)="nof()"></fc-notice>
-
 <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>

@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { LayoutService, NoticeComponent, ConfirmComponent ,PaginationComponent } from "../../../../architecture";
+import { LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent } from "../../../../architecture";
 
 import { Admin } from "../model/admin.model";
 
@@ -63,7 +63,7 @@ export class EntAdminMngComponent implements OnInit {
                     }
                 }
             )
-            .catch(this.onRejected);
+            .catch((e) => this.onRejected(e));
 
         this.getData();
     }
@@ -80,7 +80,7 @@ export class EntAdminMngComponent implements OnInit {
         const names: string[] = [];
         const ids: string[] = [];
         selectAdmin.forEach(admin => {
-            names.push(admin.contactorName);
+            names.push(admin.contactName);
             ids.push(admin.id);
         });
         this.noticeMsg = `确认删除'${names.join("','")}' ?`;
@@ -100,7 +100,7 @@ export class EntAdminMngComponent implements OnInit {
                         }
                     }
                 )
-                .catch(this.onRejected);
+                .catch((e) => this.onRejected(e));
         };
         this.confirm.open();
     }
@@ -117,7 +117,7 @@ export class EntAdminMngComponent implements OnInit {
         const names = [];
         const ids: string[] = [];
         selectAdmin.forEach(admin => {
-            names.push(admin.contactorName);
+            names.push(admin.contactName);
             ids.push(admin.id);
         });
         this.noticeMsg = `确认${status == 0 ? "取消激活" : "激活"}'${names.join("','")}' ?`;
@@ -135,7 +135,7 @@ export class EntAdminMngComponent implements OnInit {
                         }
                     }
                 )
-                .catch(this.onRejected);
+                .catch((e) => this.onRejected(e));
         };
         this.confirm.open();
     }
@@ -162,7 +162,7 @@ export class EntAdminMngComponent implements OnInit {
                         }
                     }
                 )
-                .catch(this.onRejected);
+                .catch((e) => this.onRejected(e));
         } else {
             this.layoutService.show();
             this.service.getAdmins(this.pageIndex, this.pageSize)
@@ -176,7 +176,7 @@ export class EntAdminMngComponent implements OnInit {
                         }
                     }
                 )
-                .catch(this.onRejected);
+                .catch((e) => this.onRejected(e));
         }
     }
 

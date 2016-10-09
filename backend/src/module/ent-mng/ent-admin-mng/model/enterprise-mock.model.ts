@@ -9,14 +9,14 @@
     resultCode: "100",
     resultContent: [
         {
-            id: "001",
+            id: "1",
             name: "企业1",
-            code: "00001" 
+            code: "001" 
         },
         {
-            id: "002",
+            id: "2",
             name: "企业2",
-            code: "00002" 
+            code: "002" 
         }
     ]
 }
@@ -32,12 +32,12 @@ export const createAdminRes = {
     resultCode: "100",
     resultContent: {
         "contactorPhone": "13720119493",
-        "contactorName": "Moses",
+        "contactName": "Moses",
         "description": "description",
         "email": "dark@hpe.com",
         "userName": "dark@hpe.com",
         "password": "password",
-        "enterpriseId": "002",
+        "enterpriseId": "2",
         "enterpriseName": "企业02",
         "id": "1"
     }
@@ -54,12 +54,12 @@ export const getAdminByIdRes = {
     resultCode: "100",
     resultContent: {
         "contactorPhone": "13720119493",
-        "contactorName": "Moses",
+        "contactName": "Moses",
         "description": "description",
         "email": "dark@hpe.com",
         "userName": "dark@hpe.com",
         "password": "password",
-        "enterpriseId": "002",
+        "enterpriseId": "2",
         "enterpriseName": "企业02",
         "id": "1"
     }
@@ -91,36 +91,36 @@ export const adminList = {
     resultCode: "100",
     resultContent: [{
         "contactorPhone": "13720119493",
-        "contactorName": "Moses",
+        "contactName": "Moses",
         "description": "description",
         "email": "dark@hpe.com",
         "userName": "dark@hpe.com",
         "password":"password",
-        "enterpriseId": "002",
+        "enterpriseId": "2",
         "enterpriseName": "企业02",
         "id": "1",
         "status": 0
     },
         {
             "contactorPhone": "13720189493",
-            "contactorName": "李四",
+            "contactName": "李四",
             "description": "description",
             "email": "dark@hpe.com",
             "userName": "dark@hpe.com",
             "password": "password",
-            "enterpriseId": "001",
-            "enterpriseName": "企业01",
+            "enterpriseId": "1",
+            "enterpriseName": "企业",
             "id": "1",
             "status": 1
         },
         {
             "contactorPhone": "13720119445",
-            "contactorName": "王五",
+            "contactName": "王五",
             "description": "description",
             "email": "dark@hpe.com",
             "userName": "dark@hpe.com",
             "password": "password",
-            "enterpriseId": "001",
+            "enterpriseId": "1",
             "enterpriseName": "企业01",
             "id": "1",
             "status": 0
