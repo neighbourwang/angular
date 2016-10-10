@@ -1,13 +1,6 @@
 import { Injectable } from '@angular/core';
-import { EntEstBasicInfo } from '../model/ent-est-basic-info';
-import { ResourceQuota } from '../model/resourcequota';
-import { EntEstResourceQuota } from "../model/ent-est-resourcequota";
-import { EntEst } from '../model/ent-est';
-import { CurrencyType } from "../model/currency";
 import { RestApiCfg, RestApi } from '../../../../architecture';
-import { EntEstItem } from '../model/ent-est-item';
-import { EntEstMng } from '../model/ent-est-mng';
-import { ResourceQuotaPaging } from '../model/resourcequota-paging';
+import { ResourceQuotaPaging, EntEstItem, EntEstMng, CurrencyType, EntEst, EntEstResourceQuota, ResourceQuota, EntEstBasicInfo } from '../model';
 import { LayoutService, ValidationService } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
@@ -35,47 +28,6 @@ export class EntEstCreService{
 	getEntEst(){
 		EntEstCreService.entEst = EntEstCreService.entEst || new EntEst();
 		return EntEstCreService.entEst;
-	}
-
-	loadCurrencyTypes(currencyTypes : CurrencyType[], errorHandler : Function, comp:any)
-	{
-		if(EntEstCreService.cachedCurrencyTypes)
-		{
-			this.setArray(EntEstCreService.cachedCurrencyTypes, currencyTypes);
-			return;
-		}
-
-
-		let url = "http://15.114.100.58:9000/marketplace/authsec/sysdic/ACCOUNT/CURRENCY_TYPE";
-		// let url = this.restApiCfg.getRestApiUrl('pf-mng.ent-est-mng.currencytypes.get', apiIp, apiPort);
-		this.layoutService.show();
-		this.restApi.request('get', url, [], undefined, undefined)
-		.then(ret=>{
-			this.layoutService.hide();
-
-			if(!ret)
-			{
-				if(errorHandler)
-				{
-					errorHandler.call(comp, {"title":"货币类型", "desc":"货币类型数据获取失败"});
-				}
-			}
-			else{
-				if(ret.resultContent)
-				{
-					EntEstCreService.cachedCurrencyTypes = ret.resultContent;
-					this.setArray(EntEstCreService.cachedCurrencyTypes, currencyTypes);
-				}
-			}
-		})
-		.catch(err=>{
-			this.layoutService.hide();
-			console.log('货币类型加载错误', err);
-			if(errorHandler)
-			{
-				errorHandler.call(comp, {"title":"货币类型", "desc":"服务器上货币类型数据获取失败"})
-			}
-		});
 	}
 
 	setArray<T>(source:T[], target: T[])
