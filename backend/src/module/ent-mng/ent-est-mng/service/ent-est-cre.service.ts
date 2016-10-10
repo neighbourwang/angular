@@ -126,6 +126,8 @@ export class EntEstCreService{
 						n.checked = false;
 					});
 
+					console.log("资源配额分页信息", ret.pageInfo);
+
 					resourceQuotaPaging.totalPages = ret.pageInfo.totalPage;
 
 				}
@@ -175,7 +177,9 @@ export class EntEstCreService{
 					console.log('ret.resultContent is', ret.resultContent, 'ret is', ret);
 					this.setArray(ret.resultContent, entEstMng.items);
 					entEstMng.items.map(n=>{n.checked = false;});
+
 					entEstMng.totalPages = ret.pageInfo.totalPage;
+					console.log('企业开通信息概览分页数据', ret.pageInfo);
 				}
 			}
 		})
