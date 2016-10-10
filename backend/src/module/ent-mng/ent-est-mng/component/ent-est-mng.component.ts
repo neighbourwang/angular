@@ -35,7 +35,16 @@ export class EntEstMngComponent implements OnInit {
   }
 
   create() {
-    this.service.clearCache();
-    this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-cre-step-01");
+    let selected = this.entEstItems.find(n=>n.checked);
+    if(selected)
+    {
+      this.service.initCache(selected.id);
+      this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-cre-step-01");
+    }
+    else{
+      this.notice.open("系统提示", "请选择开通企业信息");
+    }
   }
+
+
 }

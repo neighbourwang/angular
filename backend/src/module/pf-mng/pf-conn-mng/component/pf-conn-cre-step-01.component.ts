@@ -1,17 +1,17 @@
 ﻿import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent, ValidationService } from '../../../../architecture';
+import { LayoutService, SystemDictionaryService, SystemDictionary, ValidationService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 
 import { PfConnMngService, PfConnCreStep01Service, StateService } from '../service';
 
 import { Platform } from '../model';
 
 @Component({
-  selector: 'pf-conn-cre-step-01',
-  templateUrl: '../template/pf-conn-cre-step-01.component.html',
-  styleUrls: [],
-  providers: []
+    selector: 'pf-conn-cre-step-01',
+    templateUrl: '../template/pf-conn-cre-step-01.component.html',
+    styleUrls: [],
+    providers: []
 })
 
 export class PfConnCreStep01Component implements OnInit {
@@ -21,99 +21,133 @@ export class PfConnCreStep01Component implements OnInit {
     @ViewChild('confirm')
     confirm: ConfirmComponent;
 
-    // 确认Box/通知Box的标题
+    // 确认/通知Box的标题
     title: String = "";
-    // 确认Box/通知Box的内容
+    // 确认/通知Box的内容
     msg: String = "";
 
-  platform = new Platform();
+    vmPlatforms: Array<SystemDictionary> = new Array<SystemDictionary>();
 
-  constructor(
-      private service: PfConnCreStep01Service,
-      private pfConnMngService: PfConnMngService,
-    private layoutService: LayoutService,
-    private router: Router,
-    private stateService: StateService,
-    private validationService: ValidationService
-  ) {}
+    platform = new Platform();
 
-  ngOnInit() {
-      let contains = this.stateService.contains();
+    constructor(
+        private service: PfConnCreStep01Service,
+        private pfConnMngService: PfConnMngService,
+        private layoutService: LayoutService,
+        private router: Router,
+        private stateService: StateService,
+        private sysDicService: SystemDictionaryService,
+        private validationService: ValidationService
+    ) {}
 
-      if (contains) {
-          let platformId = this.stateService.getPlatformId();
+    ngOnInit() {
+        let contains = this.stateService.contains();
 
-          this.pfConnMngService.getPlatform(platformId).then(
-              response => {
-                  let content = response.resultContent;
+        if (contains) {
+            this.layoutService.show();
 
-                  this.platform.name = content["name"];
-                  this.platform.platformTypeName = content["platformTypeName"];
-                  this.platform.uri = content["uri"];
-                  this.platform.userName = content["userName"];
-                  this.platform.passwd = content["passwd"];
-                  this.platform.version = content["version"];
-                  this.platform.description = content["description"];
-                  this.platform.status = content["status"];
-              }
-          ).catch(
-              reason => {
-                  this.showError("系统错误", reason.statusText)
-              });
-      }
-  }
+            let platformId = this.stateService.getPlatformId();
 
-  showError(title: string, msg: string) {
-      this.title = title;
-      this.msg = msg;
+            this.pfConnMngService.getPlatform(platformId).then(
+                response => {
+                    let content = response.resultContent;
 
-      this.notice.open();
-  }
+                    this.platform.name = content["name"];
+                    this.platform.platformType = content["platformType"];
+                    this.platform.uri = content["uri"];
+                    this.platform.userName = content["userName"];
+                    this.platform.passwd = content["passwd"];
+                    this.platform.version = content["version"];
+                    this.platform.description = content["description"];
+                    this.platform.status = content["status"];
 
-  // 取消按钮事件处理
-  cancel() {
-      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-mng");
-  }
-  // 上一步按钮事件处理
-  previous() {
-      this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-mng");
-  }
-  // 下一步按钮事件处理
-  next() {
-      if (!this.validate()) {
-          return;
-      }
+                    this.layoutService.hide();
+                }
+            ).catch(
+                reason => {
+                    this.showError("系统错误", reason.statusText)
+                }
+            );
+        }
 
-      this.confirm.open("系统提示", "创建平台？");
-  }
+        this.sysDicService.sysDicOF(this, this.sysDicCallback, "PLATFORM", "TYPE");
+    }
 
-  // 画面输入值校验
-  validate() {
-      // 平台名称必须输入
-      if (this.validationService.isBlank(this.platform.name)) {
-          this.notice.open("系统提示", "平台名称必须输入");
+    // 类型数据取得
+    sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
+        if (sf) {
+            this.vmPlatforms = systemDictionarys;
+        }
+    }
 
-          return false;
-      }
+    // 显示错误信息
+    showError(title: string, msg: string) {
+        this.layoutService.hide();
+        this.title = title;
+        this.msg = msg;
 
-      return true;
-  }
+        this.notice.open();
+    }
 
-  cof() {
-      this.service.postPlatform(this.platform).then(
-          response => {
-              if (response && 100 == response.resultCode) {
-                  this.stateService.setPlatformId(response.resultContent.platformId);
-                  this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-02");
-              } else {
-                  this.showError("系统错误", "平台创建错误");
-              }
-          }
-      ).catch(
-          reason => {
-              this.showError("系统错误", reason.statusText)
-          });
-  }
+    // 取消按钮事件处理
+    cancel() {
+        this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-mng", { skipLocationChange: true });
+    }
 
-  ccf() { }
+    // 上一步按钮事件处理
+    previous() {
+        this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-mng", { skipLocationChange: true });
+    }
+
+    // 下一步按钮事件处理
+    next() {
+        if (!this.validate()) {
+            return;
+        }
+
+        this.confirm.open("系统提示", "创建平台？");
+    }
+
+    // 画面输入值校验
+    validate() {
+        let msg: Array<String> = new Array<String>();
+
+        // 平台名称必须输入
+        if (this.validationService.isBlank(this.platform.name)) {
+             msg.push("平台名称必须输入");
+        }
+
+        // 平台名称必须输入
+        if (this.validationService.isBlank(this.platform.platformType)) {
+            msg.push("类型必须输入");
+        }
+
+        if (msg.length > 0) {
+            this.notice.open("系统提示", msg.join("<br />"));
+
+            return false;
+        }
+
+        return true;
+    }
+
+    // 平台创建
+    cof() {
+        this.service.postPlatform(this.platform).then(
+            response => {
+                if (response && 100 == response.resultCode) {
+                    this.stateService.setPlatformId(response.resultContent.platformId);
+                    this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-02", { skipLocationChange: true });
+                } else {
+                    this.showError("系统错误", "平台创建错误");
+                }
+            }
+        ).catch(
+            reason => {
+                this.showError("系统错误", reason.statusText)
+            }
+        );
+    }
+
+    ccf() { }
 }

@@ -1,7 +1,7 @@
 export class Admin {
     id:string;
     contactorName: string;
-    contactorPhone: string;
+    contactPhone: string;
     email: string;
     description: string;
     userName: string ;

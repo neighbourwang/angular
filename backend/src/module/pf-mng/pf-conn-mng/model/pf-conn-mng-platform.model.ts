@@ -10,6 +10,7 @@
     description: String;
     version: String;
     status: number;
+    statusText: String;
 
     constructor() {
     }

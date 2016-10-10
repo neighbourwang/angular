@@ -649,11 +649,11 @@ tr:nth-child(even) {
 }
 
 .fox-cloud-modal-body .modal-body {
-	padding: 10px 5px 10px 5px;
+	padding: 20px 30px 20px 30px;
 	font-size: 20px;
-    word-wrap: break-word;      /* IE 5.5-7 */
-    white-space: -moz-pre-wrap; /* Firefox 1.0-2.0 */
-    white-space: pre-wrap;      /* current browsers */
+    /*word-wrap: break-word;*/      /* IE 5.5-7 */
+    /*white-space: -moz-pre-wrap;*/  /* Firefox 1.0-2.0 */
+    /*white-space: pre-wrap;*/       /* current browsers */
 }
 .fox-cloud-modal-footer .modal-footer {
   padding: 15px;

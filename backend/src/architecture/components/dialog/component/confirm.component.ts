@@ -16,7 +16,7 @@ export class ConfirmComponent implements OnInit {
     msg: String;
 
     @ViewChild('dialog')
-    dialog: ModalComponent;
+    private dialog: ModalComponent;
 
     ngOnInit() {
     }

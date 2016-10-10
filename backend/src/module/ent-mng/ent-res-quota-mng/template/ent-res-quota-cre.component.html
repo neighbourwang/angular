@@ -6,9 +6,8 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">企业名称：</div>
                     <div class="col-sm-4">
-                        <select class="form-control">
-                            <option>上海慧与有限公司</option>
-                            <option selected>中国慧与有限公司</option>
+                        <select class="form-control" [(ngModel)]="entResQuota.enterpriseId">
+                            <option *ngFor="let item of enterprises;" [value]="item.id">{{item.name}}</option>
                         </select>
                     </div>
                 </div>
@@ -17,14 +16,8 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">区域：</div>
                     <div class="col-sm-4">
-                        <select class="form-control">
-                            <option>上海A区</option>
-                            <option selected>上海B区</option>
-                            <option>上海C区</option>
-                            <option>上海D区</option>
-                            <option>苏州A区</option>
-                            <option>苏州B区</option>
-                            <option>北京</option>
+                        <select class="form-control" [(ngModel)]="entResQuota.regionId">
+                            <option *ngFor="let item of regions;" [value]="item.id">{{item.name}}</option>
                         </select>
                     </div>
                 </div>
@@ -33,7 +26,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">云主机数量：</div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" placeholder="">
+                        <input type="text" class="form-control" [(ngModel)]="entResQuota.vmQuota" placeholder="云主机数量">
                     </div>
                 </div>
             </div>
@@ -41,7 +34,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">存储(GB)：</div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" placeholder="">
+                        <input type="text" class="form-control" [(ngModel)]="entResQuota.storageQuota" placeholder="存储">
                     </div>
                 </div>
             </div>
@@ -49,7 +42,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">网络数：</div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" placeholder="">
+                        <input type="text" class="form-control" [(ngModel)]="entResQuota.networkQuota" placeholder="网络数">
                     </div>
                 </div>
             </div>
@@ -57,7 +50,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">描述：</div>
                     <div class="col-sm-4">
-                        <textarea class="form-control" rows="4" placeholder=""></textarea>
+                        <textarea class="form-control" rows="4" placeholder="描述"></textarea>
                     </div>
                 </div>
             </div>
@@ -72,3 +65,7 @@
         <span class="icon-button-label">创建资源配额</span>
     </button>
 </div>
+
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
+
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>

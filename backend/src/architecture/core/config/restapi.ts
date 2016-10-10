@@ -1,12 +1,38 @@
 import { RestApiModel } from '../model/rest';
 
 export let RestApis: RestApiModel[] = [
+    // 数据字典
+    {
+        "desc": "全部数据字典信息",
+        "id": "sysdic",
+        "method": "GET",
+        "url": "adminui/authsec/sysdic"
+    },
+    {
+        "desc": "数据字典信息（OWNER）",
+        "id": "sysdic.owner",
+        "method": "GET",
+        "url": "adminui/authsec/sysdic/{_owner}"
+    },
+    {
+        "desc": "数据字典信息（OWNER/FIELD）",
+        "id": "sysdic.owner.field",
+        "method": "GET",
+        "url": "adminui/authsec/sysdic/{_owner}/{_field}"
+    },
+    {
+        "desc": "数据字典信息（OWNER/FIELD/CODE）",
+        "id": "sysdic.owner.field.code",
+        "method": "GET",
+        "url": "adminui/authsec/sysdic/{_owner}/{_field}/{_code}"
+    },
+    // 数据字典
     // 平台接入管理
     {
         "desc": "获取全部已创建平台信息",
         "id": "pf.conn.mng.platforms.get",
         "method": "GET",
-        "url": "adminui/authsec/platform/page/{page}/size/{size}"
+        "url": "adminui/authsec/platforms/page/{page}/size/{size}"
     },
     {
         "desc": "创建平台",
@@ -19,6 +45,12 @@ export let RestApis: RestApiModel[] = [
         "id": "pf.cre.paltform.get",
         "method": "GET",
         "url": "adminui/authsec/platform/{pf-id}"
+    },
+    {
+        "desc": "启用特定平台",
+        "id": "pf.cre.paltform.active.get",
+        "method": "GET",
+        "url": "adminui/authsec/platform/{pf-id}/active"
     },
     {
         "desc": "删除特定平台信息",
@@ -78,27 +110,53 @@ export let RestApis: RestApiModel[] = [
         "desc": "取得存储资源",
         "id": "pf.cre.storage.get",
         "method": "GET",
-        "url": "adminui/authsec/platform/{pf-id}/flavor"
+        "url": "adminui/authsec/platform/{pf-id}/storage/quota"
     },
     {
         "desc": "更新存储资源",
         "id": "pf.cre.step.04.storage.put",
         "method": "PUT",
-        "url": "adminui/authsec/platform/{pf-id}/flavor"
+        "url": "adminui/authsec/platform/{pf-id}/storage/quota"
     },
     {
         "desc": "取得云主机类型",
         "id": "pf.cre.flavor.get",
         "method": "GET",
-        "url": "adminui/authsec/platform/{pf-id}/storage/quota"
+        "url": "adminui/authsec/platform/{pf-id}/flavor"
     },
     {
         "desc": "更新云主机类型",
         "id": "pf.cre.step.05.flavor.put",
         "method": "PUT",
-        "url": "adminui/authsec/platform/{pf-id}/storage/quota"
+        "url": "adminui/authsec/platform/{pf-id}/flavor"
     },
-   // 平台接入管理
+    // 平台接入管理
+    // 企业资源配额管理
+    {
+        "desc": "取得所有企业的资源配额信息",
+        "id": "ent.res.quota.mng.resouces.quotas.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/resouces/quotas/page/{page}/size/{size}"
+    },
+    {
+        "desc": "取得所有企业信息",
+        "id": "ent.res.quota.cre.enterprises.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/simple/page/{page}/size/{size}"
+    },
+    {
+        "desc": "取得所有区域信息",
+        "id": "ent.res.quota.cre.regions.virtual.get",
+        "method": "GET",
+        "url": "adminui/authsec/regions/virtual"
+    },
+    {
+        "desc": "创建企业资源配额信息",
+        "id": "ent.res.quota.cre.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/{_enterpriseId}/resouce/quota"
+    },
+    // 企业资源配额管理
     /*
      * 服务目录管理
      */
@@ -196,6 +254,12 @@ export let RestApis: RestApiModel[] = [
        "url": "/adminui/authsec/enterprise/admin"
    },
    {
+       "desc": "根据id获取企业管理员",
+       "id": "ent-mng.admin.get",
+       "method": "GET",
+       "url": "/adminui/authsec/enterprise/admin/{id}"
+   },
+   {
        "desc": "更新企业管理员",
        "id": "ent-mng.admin.update.put",
        "method": "PUT",
@@ -205,25 +269,31 @@ export let RestApis: RestApiModel[] = [
        "desc": "更新企业管理员激活状态",
        "id": "ent-mng.admin.updateStatus.put",
        "method": "PUT",
-       "url": "/adminui/authsec/enterprise/admin/{id}/status/{status}"
+       "url": "/adminui/authsec/enterprise/admins/status/{status}"
    },
    {
-       "desc": "删除企业管理员",
+       "desc": "删除企业管理员批量",
        "id": "ent-mng.admin.del.delete",
        "method": "DELETE",
-       "url": "/adminui/authsec/enterprise/admins"
+       "url": "/adminui/authsec/enterprises/admins"
+   },
+   {
+       "desc": "删除單個企业管理员",
+       "id": "ent-mng.admin.delOne.delete",
+       "method": "DELETE",
+       "url": "/adminui/authsec/enterprise/admin/{id}"
    },
    {
        "desc": "获取全部企业管理员",
        "id": "ent-mng.admin.all.get",
        "method": "GET",
-       "url": "/adminui/authsec/enterprise/admin/page/{page}/size/{size}"
+       "url": "/adminui/authsec/enterprises/admins/page/{page}/size/{size}"
    },
    {
        "desc": "获取某企业管理员",
        "id": "ent-mng.enterprise.admin.get",
        "method": "GET",
-       "url": "/adminui/authsec/enterprise/{enterpriseId}/admin/page/{page}/size/{size}"
+       "url": "/adminui/authsec/enterprise/{enterpriseId}/admins/page/{page}/size/{size}"
    }
    ,{
        "desc": "获取货币",

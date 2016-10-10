@@ -9,4 +9,7 @@ export class EntEstItem{
 	productNum : number = null;
 	status : number = null;
 	description : string = "";
+
+	//ui operation
+	checked: boolean = false;
 }

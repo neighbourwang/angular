@@ -32,7 +32,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th class="fristTh"><input type="checkbox"> 全选</th>
+                    <th class="fristTh"><input type="checkbox" [(ngModel)]="isSelectedAll" (click)="switchSelectAll();" /> 全选</th>
                     <th>企业名称</th>
                     <th>区域</th>
                     <th>云主机数量</th>
@@ -42,13 +42,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>上海慧与有限公司</td>
-                    <td>上海A区</td>
-                    <td>500</td>
-                    <td>100</td>
-                    <td>100</td>
+                <tr *ngFor="let item of entResQuotas; let idx = index;">
+                    <td><input type="checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)" /></td>
+                    <td>{{item.enterpriseName}}</td>
+                    <td>{{item.regionName}}</td>
+                    <td>{{item.vmQuota}}</td>
+                    <td>{{item.storageQuota}}</td>
+                    <td>{{item.networkQuota}}</td>
                     <td></td>
                 </tr>
             </tbody>

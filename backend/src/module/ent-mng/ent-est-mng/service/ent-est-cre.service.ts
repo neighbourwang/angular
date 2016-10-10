@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-// import { Http, Response } from '@angular/http';
 import { EntEstBasicInfo } from '../model/ent-est-basic-info';
 import { ResourceQuota } from '../model/resourcequota';
 import { EntEstResourceQuota } from "../model/ent-est-resourcequota";
 import { EntEst } from '../model/ent-est';
-// import { RestApiCfg, RestApi } from '../../../../architecture';
 import { CurrencyType } from "../model/currency";
 import { RestApiCfg, RestApi } from '../../../../architecture';
 import { EntEstItem } from '../model/ent-est-item';
+import { EntEstMng } from '../model/ent-est-mng';
 import { LayoutService, ValidationService } from '../../../../architecture';
+import 'rxjs/add/operator/toPromise';
 
 const apiIp: string = '15.114.100.54';
 const apiPort: string = '9105';
@@ -26,8 +26,10 @@ export class EntEstCreService{
 		private layoutService : LayoutService
 		){}
 
-	clearCache(){
+	initCache(enterpriseId: string){
 		EntEstCreService.entEst = new EntEst();
+		EntEstCreService.entEst.BasicInfo.id = enterpriseId;
+		
 		EntEstCreService.cachedCurrencyTypes = null;
 		EntEstCreService.cachedResourceQuotas = null;
 	}
@@ -48,10 +50,10 @@ export class EntEstCreService{
 
 		let url = "http://15.114.100.58:9000/marketplace/authsec/sysdic/ACCOUNT/CURRENCY_TYPE";
 		// let url = this.restApiCfg.getRestApiUrl('pf-mng.ent-est-mng.currencytypes.get', apiIp, apiPort);
-		this.layoutService.setLoading(true);
+		this.layoutService.show();
 		this.restApi.request('get', url, [], undefined, undefined)
 		.then(ret=>{
-			this.layoutService.setLoading(false);
+			this.layoutService.hide();
 
 			if(!ret)
 			{
@@ -69,7 +71,7 @@ export class EntEstCreService{
 			}
 		})
 		.catch(err=>{
-			this.layoutService.setLoading(false);
+			this.layoutService.hide();
 			console.log('货币类型加载错误', err);
 			if(errorHandler)
 			{
@@ -101,10 +103,10 @@ export class EntEstCreService{
 		let url = "http://15.114.100.58:9000/adminui/authsec/platforms/resoucequotas/page/1/size/10";
 		// let url = this.restApiCfg.getRestApiUrl('pf-mng.ent-est-mng.currencytypes.get', apiIp, apiPort);
 
-		this.layoutService.setLoading(true);
+		this.layoutService.show();
 		this.restApi.request('get', url, [], undefined, undefined)
 		.then(ret=>{
-			this.layoutService.setLoading(false);
+			this.layoutService.hide();
 			if(!ret)
 			{
 				if(errorHandler)
@@ -125,7 +127,7 @@ export class EntEstCreService{
 			}
 		})
 		.catch(err=>{
-			this.layoutService.setLoading(false);
+			this.layoutService.hide();
 
 			console.log('资源配额加载错误', err);
 			if(errorHandler)
@@ -139,11 +141,11 @@ export class EntEstCreService{
 	{
 		let url = "http://15.114.100.58:9000/adminui/authsec/enterprises/opening/page/1/size/10";
 
-		this.layoutService.setLoading(true);
+		this.layoutService.show();
 
 		this.restApi.request('get', url, [], undefined, undefined)
 		.then(ret=>{
-			this.layoutService.setLoading(false);
+			this.layoutService.hide();
 
 			if(!ret)
 			{
@@ -155,12 +157,14 @@ export class EntEstCreService{
 			else{
 				if(ret.resultContent)
 				{
+					console.log('ret.resultContent is', ret.resultContent, 'ret is', ret);
 					this.setArray(ret.resultContent, entEstItems);
+					entEstItems.map(n=>{n.checked = false;});
 				}
 			}
 		})
 		.catch(err=>{
-			this.layoutService.setLoading(false);
+			this.layoutService.hide();
 
 			console.log('企业开通信息加载错误', err);
 			if(errorHandler)
@@ -189,5 +193,13 @@ export class EntEstCreService{
 		}
 		else
 			return undefined;
+	}
+
+	enterpriseOpen():Promise<any>{
+		let url = "http://15.114.100.58:9000/adminui/authsec/enterprises/status/1";
+
+		let body:any = [EntEstCreService.entEst.BasicInfo];
+		console.log('body is ', body);
+		return this.restApi.request('put', url, [], [], body);
 	}
 }
