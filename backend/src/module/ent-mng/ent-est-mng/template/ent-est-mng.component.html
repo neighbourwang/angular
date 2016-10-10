@@ -21,7 +21,7 @@
 		<table class="table table-hover"> 
 			<thead>
 				<tr>
-					<th class="fristTh"><input type="checkbox"> 全选</th>
+					<th class="fristTh"><input type="checkbox" [(ngModel)]="selectAllField" (ngModelChange)="selectAll(selectAllField)"/> 全选</th>
 					<th>企业名称</th>
 					<th>区域数</th>
 					<th>云主机数量额度</th>

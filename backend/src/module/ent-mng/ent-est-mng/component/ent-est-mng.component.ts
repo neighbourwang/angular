@@ -19,6 +19,7 @@ export class EntEstMngComponent implements OnInit {
   private totalPages: number = 0;
   private currentPage: number = 0;
   private entEstMng: EntEstMng = new EntEstMng();
+  private selectAllField: boolean = false;
 
   constructor(
     private layoutService: LayoutService,
@@ -54,5 +55,9 @@ export class EntEstMngComponent implements OnInit {
 
     this.entEstMng.currentPage = page;
     this.service.loadEntEstItems(this.entEstMng, this.showError, this); 
+  }
+
+  selectAll(selectAllField:boolean){
+    this.entEstMng.items.map(n=>{n.checked = selectAllField;});
   }
 }
