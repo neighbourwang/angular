@@ -35,13 +35,27 @@ export class EntEstCreStep04Component implements OnInit{
 	}
 
 	create(){
-		this.service.enterpriseOpen().then(ret=>{
-			console.log('create success', ret);
-			this.router.navigateByUrl('ent-mng/ent-est-mng/ent-est-mng');
+		this.service.createEnterpise().then(ret=>{
+			console.log('企业创建成功', ret);
 
-		}).catch(err=>{
-			console.log('create failure', err);
-			this.notice.open("企业开通", "企业开通失败");
+			this.service.createEntResourceQuota(ret.resultContent.id).then(ret1=>{
+				console.log('企业配额创建成功');
+				this.service.enterpriseOpen(ret.resultContent.id).then(ret2=>{
+					console.log('企业开通成功');
+				})
+				.catch(err2=>{
+					console.log('企业开通 failure', err2);
+					this.notice.open("企业开通", "企业开通失败");
+				});
+			})
+			.catch(err1=>{
+				console.log('企业配额 failure', err1);
+				this.notice.open("企业配额", "企业配额创建失败");
+			});
+		})
+		.catch(err=>{
+			console.log('企业创建 failure', err);
+			this.notice.open("企业创建", "企业创建失败");
 		});
 	}
 

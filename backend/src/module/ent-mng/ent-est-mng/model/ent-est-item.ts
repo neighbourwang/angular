@@ -7,7 +7,7 @@ export class EntEstItem{
 	storageQuota : number = null;
 	networkQuota : number = null;
 	productNum : number = null;
-	status : number = null;
+	status : string = null;
 	description : string = "";
 
 	//ui operation

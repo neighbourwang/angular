@@ -33,7 +33,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr *ngFor="let item of entEstItems">
+				<tr *ngFor="let item of entEstMng.items">
 					<td><input type="checkbox" [(ngModel)]="item.checked"></td>
 					<td>{{item.name}}</td>
 					<td>{{item.regionNum}}</td>
@@ -41,12 +41,12 @@
 					<td>{{item.storageQuota}}</td>
 					<td>{{item.networkQuota}}</td>
 					<td>{{item.productNum}}</td>
-					<td style="color: red;">初始化</td>
+					<td style="color: red;">{{item.status}}</td>
 					<td>{{item.description}}</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-	<!-- <fc-pagination tp={{totalPages}} (pf)="changePage($event)"></fc-pagination> -->
+	<fc-pagination tp={{entEstMng.totalPages}} (pf)="changePage($event)"></fc-pagination>
 </div>
 <fc-notice #notice ot="确认"></fc-notice>

@@ -26,9 +26,8 @@ export class EntEstCreService{
 		private layoutService : LayoutService
 		){}
 
-	initCache(enterpriseId: string){
+	initCache(){
 		EntEstCreService.entEst = new EntEst();
-		EntEstCreService.entEst.BasicInfo.id = enterpriseId;
 		
 		EntEstCreService.cachedCurrencyTypes = null;
 		EntEstCreService.cachedResourceQuotas = null;
@@ -137,13 +136,23 @@ export class EntEstCreService{
 		});
 	}
 
-	loadEntEstItems(entEstItems: EntEstItem[], errorHandler: Function, comp:any)
+	loadEntEstItems(entEstMng: EntEstMng, errorHandler: Function, comp:any)
 	{
-		let url = "http://15.114.100.58:9000/adminui/authsec/enterprises/opening/page/1/size/10";
+		let url = "http://15.114.100.58:9000/adminui/authsec/enterprises/opening/page/{_page}/size/{_size}";
 
+		let params = [
+			{
+				key:"_page"
+				,value: entEstMng.currentPage == 0 ? 1 : entEstMng.currentPage
+			}
+			,{
+				key:"_size"
+				,value:10
+			}
+		];
 		this.layoutService.show();
 
-		this.restApi.request('get', url, [], undefined, undefined)
+		this.restApi.request('get', url, params, undefined, undefined)
 		.then(ret=>{
 			this.layoutService.hide();
 
@@ -158,8 +167,9 @@ export class EntEstCreService{
 				if(ret.resultContent)
 				{
 					console.log('ret.resultContent is', ret.resultContent, 'ret is', ret);
-					this.setArray(ret.resultContent, entEstItems);
-					entEstItems.map(n=>{n.checked = false;});
+					this.setArray(ret.resultContent, entEstMng.items);
+					entEstMng.items.map(n=>{n.checked = false;});
+					entEstMng.totalPages = ret.pageInfo.totalPage;
 				}
 			}
 		})
@@ -195,11 +205,46 @@ export class EntEstCreService{
 			return undefined;
 	}
 
-	enterpriseOpen():Promise<any>{
-		let url = "http://15.114.100.58:9000/adminui/authsec/enterprises/status/1";
+	//企业开通
+	enterpriseOpen(enterpriseId: string):Promise<any>{
+		let url = "http://15.114.100.58:9000/adminui//authsec/enterprise/{_enterpriseId}/status/{_status}";
 
-		let body:any = [EntEstCreService.entEst.BasicInfo];
-		console.log('body is ', body);
-		return this.restApi.request('put', url, [], [], body);
+		let params = [
+			{
+				key:"_enterpriseId"
+				,value:enterpriseId
+			}
+			,{
+				key:"_status"
+				,value:"1"
+			}
+		];
+
+		return this.restApi.request('put', url, params, undefined, undefined);
 	}
+
+	//创建企业基本信息
+	createEnterpise():Promise<any>{
+		let url = "http://15.114.100.58:9000/adminui/authsec/enterprise";
+
+		return this.restApi.request('post', url, [], [], EntEstCreService.entEst.BasicInfo);
+	}
+
+	//提交企业配额信息
+	createEntResourceQuota(enterpriseId: string):Promise<any>{
+		let url = "http://15.114.100.58:9000/adminui/authsec/enterprise/{_enterpriseId}/resouce/quota";
+
+		let params = [
+			{
+				key:"_enterpriseId"
+				,value:enterpriseId
+			}
+		];
+
+		EntEstCreService.entEst.ResourceQuotas.map(n=>{n.enterpriseId = enterpriseId;});
+
+		return this.restApi.request('post', url, params, undefined, EntEstCreService.entEst.ResourceQuotas);
+	}
+
+
 }
