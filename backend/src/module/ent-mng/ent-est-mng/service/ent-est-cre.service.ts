@@ -4,8 +4,9 @@ import { ResourceQuotaPaging, EntEstItem, EntEstMng, CurrencyType, EntEst, EntEs
 import { LayoutService, ValidationService } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
-const apiIp: string = '15.114.100.54';
-const apiPort: string = '9105';
+const apiIp: string = '15.114.100.58';
+const apiPort: string = '9000';
+// const apiPort: string = '9105';
 
 @Injectable()
 export class EntEstCreService{

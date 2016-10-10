@@ -42,6 +42,8 @@ export class EntEstCreStep04Component implements OnInit{
 				console.log('企业配额创建成功');
 				this.service.enterpriseOpen(ret.resultContent.id).then(ret2=>{
 					console.log('企业开通成功');
+					
+					this.router.navigateByUrl('ent-mng/ent-est-mng/ent-est-mng');
 				})
 				.catch(err2=>{
 					console.log('企业开通 failure', err2);
