@@ -37,10 +37,23 @@ export class EntAdminCreService {
     }
 
     getEnterprise(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("ent-mng.admin.cre.enterprise.get");
-        //return this.restApi.request(api.method, api.url,null,null,null);
 
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => enterprises);
+        const pathParams = [
+            {
+                key: "page",
+                value: 1
+            },
+            {
+                key: "size",
+                value: 999
+            }
+
+        ];
+
+        const api = this.restApiCfg.getRestApi("ent-mng.admin.cre.enterprise.get");
+        return this.restApi.request(api.method, api.url, pathParams,null,null);
+
+       // return new Promise(resovle => setTimeout(resovle, 200)).then(() => enterprises);
     }
 
     createAdmin(admin: Admin): Promise<any> {

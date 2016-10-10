@@ -245,7 +245,7 @@ export let RestApis: RestApiModel[] = [
        "desc": "获取企业列表",
        "id": "ent-mng.admin.cre.enterprise.get",
        "method": "GET",
-       "url": "/adminui/authsec/enterprise"
+       "url": "/adminui/authsec/enterprises/simple/page/{page}/size/{size} "
    },
    {
        "desc": "创建企业管理员",
