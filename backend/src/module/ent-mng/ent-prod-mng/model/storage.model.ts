@@ -8,5 +8,10 @@ export class Storage {
     description : string;
     memSize : number = 0;
     diskSize : number = 0;
+    unit :string = '';
     price : string = '';
+
+
+     added: boolean = false;      
+     selected: boolean = false;    
 }

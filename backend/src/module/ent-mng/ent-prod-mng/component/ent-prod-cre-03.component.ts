@@ -11,6 +11,8 @@ import {Region} from '../model/region.model';
 import {Storage} from '../model/storage.model';
 import {Directory} from '../model/directory.model';
 
+
+
 @Component({
 	selector:'ent-prod-cre-03'
 	,templateUrl:'../template/ent-prod-cre-03.component.html'
@@ -41,7 +43,11 @@ export class EntProdCre03Component implements OnInit{
 		){
 
 	}
-	ngOnInit(){}
+	ngOnInit(){
+
+     
+
+    }
 
     cancel() {
         this.router.navigateByUrl("ent-mng/ent-prod-mng/ent-prod-mng");
@@ -63,16 +69,17 @@ export class EntProdCre03Component implements OnInit{
         .createProd(this.platformId, this.serviceDetail)
         .then(ret => {
             if (!ret) {
-                this.showNotice('创建失败', '服务目录创建失败。');
+                this.showNotice('创建失败', '产品创建失败。');
             } else {
                // this.goBack();
             }
             this.layoutService.setLoading(false);
         })
         .catch(error => {
-            this.showNotice('创建失败', '服务目录创建失败。');
+            this.showNotice('创建失败', '产品创建失败。');
             this.layoutService.setLoading(false);
         });
+        
   }
    showNotice(title: string, msg: string) {
     	this.modalTitle = title;

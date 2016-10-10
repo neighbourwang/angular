@@ -385,3 +385,13 @@ background-color: #fff;
 	top: -10px;
 	position: relative;
 }
+
+
+.clickable {
+	cursor: pointer;
+}
+
+.selected {
+	color: red !important;
+	background-color: #00a982 !important;
+}
