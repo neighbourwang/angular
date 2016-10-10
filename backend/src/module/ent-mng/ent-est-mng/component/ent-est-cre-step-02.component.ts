@@ -4,6 +4,7 @@ import { LayoutService, NoticeComponent } from '../../../../architecture';
 import { EntEstCreService } from "../service/ent-est-cre.service";
 import { ResourceQuota } from "../model/resourcequota";
 import { EntEstResourceQuota } from "../model/ent-est-resourcequota";
+import { ResourceQuotaPaging } from "../model/resourcequota-paging";
 
 @Component({
 	selector:'ent-est-cre-step-02'
@@ -16,13 +17,13 @@ export class EntEstCreStep02Component implements OnInit{
 	@ViewChild("notice")
 	notice: NoticeComponent;
 
-	private resourceQuotas: ResourceQuota[] = [];
 	private entEstResourceQuotas : EntEstResourceQuota[];
+	private resourceQuotaPaging: ResourceQuotaPaging = new ResourceQuotaPaging();
 	
 	constructor(private router: Router,
 		private service: EntEstCreService){}
 	ngOnInit(){
-		this.service.loadResourceQuotas(this.resourceQuotas, this.showError, this);
+		this.service.loadResourceQuotas(this.resourceQuotaPaging, this.showError, this);
 		this.entEstResourceQuotas = this.service.getEntEst().ResourceQuotas;
 	}
 
@@ -43,24 +44,21 @@ export class EntEstCreStep02Component implements OnInit{
 	}
 
 	add(){
-		let selected = this.resourceQuotas.filter(n=>n.checked);
-		if(selected.length > 0)
+		let selected = this.resourceQuotaPaging.items.find(n=>n.checked);
+		if(selected)
 		{
-			for(let item of selected)
-			{
-				item.added = true;
-				item.checked = false;
+			selected.added = true;
+			selected.checked = false;
 
-				let entEstResourceQuota = new EntEstResourceQuota();
-				entEstResourceQuota.regionId = item.regionId;
-				entEstResourceQuota.regionName = item.regionName;
-				entEstResourceQuota.storageQuota = item.storageQuota;
-				entEstResourceQuota.vmQuota = item.vmQuota;
-				entEstResourceQuota.platformId = item.platformId;
-				entEstResourceQuota.referredResourceQuota = item;
+			let entEstResourceQuota = new EntEstResourceQuota();
+			entEstResourceQuota.regionId = selected.regionId;
+			entEstResourceQuota.regionName = selected.regionName;
+			entEstResourceQuota.storageQuota = selected.storageQuota;
+			entEstResourceQuota.vmQuota = selected.vmQuota;
+			entEstResourceQuota.platformId = selected.platformId;
+			entEstResourceQuota.referredResourceQuota = selected;
 
-				this.entEstResourceQuotas.push(entEstResourceQuota);
-			}
+			this.entEstResourceQuotas.push(entEstResourceQuota);
 		}
 	}
 
@@ -80,7 +78,7 @@ export class EntEstCreStep02Component implements OnInit{
 
 	selectResourceQuota(resourceQuota: ResourceQuota)
 	{
-		this.resourceQuotas.map(n=>{n.checked = false;});
+		this.resourceQuotaPaging.items.map(n=>{n.checked = false;});
 		resourceQuota.checked = true;
 	}
 
@@ -91,7 +89,19 @@ export class EntEstCreStep02Component implements OnInit{
 	}
 
 	getNotSelectedResourceQuota(){
-		return this.resourceQuotas.filter(n=>n.added == false);
+		return this.resourceQuotaPaging.items.filter(n=>n.added == false);
+	}
+
+	changePage(page: number) {
+		page = page < 1 ? 1 : page;
+		page = page > this.resourceQuotaPaging.totalPages ? this.resourceQuotaPaging.totalPages : page;
+
+		if (this.resourceQuotaPaging.currentPage == page) {
+		  return;
+		}
+
+		this.resourceQuotaPaging.currentPage = page;
+		this.service.loadResourceQuotas(this.resourceQuotaPaging, this.showError, this); 
 	}
 
 }

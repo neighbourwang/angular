@@ -7,6 +7,7 @@ import { CurrencyType } from "../model/currency";
 import { RestApiCfg, RestApi } from '../../../../architecture';
 import { EntEstItem } from '../model/ent-est-item';
 import { EntEstMng } from '../model/ent-est-mng';
+import { ResourceQuotaPaging } from '../model/resourcequota-paging';
 import { LayoutService, ValidationService } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
@@ -17,7 +18,6 @@ const apiPort: string = '9105';
 export class EntEstCreService{
 	private static entEst : EntEst;
 	private static cachedCurrencyTypes : CurrencyType[];
-	private static cachedResourceQuotas : ResourceQuota[];
 
 	constructor(
 		private restApiCfg:RestApiCfg,
@@ -30,7 +30,6 @@ export class EntEstCreService{
 		EntEstCreService.entEst = new EntEst();
 		
 		EntEstCreService.cachedCurrencyTypes = null;
-		EntEstCreService.cachedResourceQuotas = null;
 	}
 
 	getEntEst(){
@@ -92,18 +91,23 @@ export class EntEstCreService{
 		}
 	}
 
-	loadResourceQuotas(resourceQuotas: ResourceQuota[], errorHandler: Function, comp:any)
+	loadResourceQuotas(resourceQuotaPaging: ResourceQuotaPaging, errorHandler: Function, comp:any)
 	{
-		if(EntEstCreService.cachedResourceQuotas)
-		{
-			this.setArray(EntEstCreService.cachedResourceQuotas, resourceQuotas);
-			return;
-		}
-		let url = "http://15.114.100.58:9000/adminui/authsec/platforms/resoucequotas/page/1/size/10";
+		let url = "http://15.114.100.58:9000/adminui/authsec/platforms/resoucequotas/page/{_page}/size/{_size}";
 		// let url = this.restApiCfg.getRestApiUrl('pf-mng.ent-est-mng.currencytypes.get', apiIp, apiPort);
 
+		let params = [
+			{
+				key:"_page"
+				,value: resourceQuotaPaging.currentPage == 0 ? 1 : resourceQuotaPaging.currentPage
+			}
+			,{
+				key:"_size"
+				,value:10
+			}
+		];
 		this.layoutService.show();
-		this.restApi.request('get', url, [], undefined, undefined)
+		this.restApi.request('get', url, params, undefined, undefined)
 		.then(ret=>{
 			this.layoutService.hide();
 			if(!ret)
@@ -116,12 +120,14 @@ export class EntEstCreService{
 			else{
 				if(ret.resultContent)
 				{
-					EntEstCreService.cachedResourceQuotas = ret.resultContent;
-					EntEstCreService.cachedResourceQuotas.map(n=>{
+					this.setArray(ret.resultContent, resourceQuotaPaging.items);
+					resourceQuotaPaging.items.map(n=>{
 						n.added = false;
 						n.checked = false;
 					});
-					this.setArray(EntEstCreService.cachedResourceQuotas, resourceQuotas);
+
+					resourceQuotaPaging.totalPages = ret.pageInfo.totalPage;
+
 				}
 			}
 		})
