@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { LayoutService, NoticeComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { EntEstBasicInfo } from '../model/ent-est-basic-info'
 import { EntEstCreService } from '../service/ent-est-cre.service'
 import { CurrencyType } from "../model/currency";
@@ -18,18 +18,26 @@ export class EntEstCreStep01Component implements OnInit{
     notice: NoticeComponent;
 
 	private entEstBasicInfo:EntEstBasicInfo;
-	private currencyTypes : CurrencyType[] = [];
+	private currencyTypes : Array<SystemDictionary> = null;
 
 	constructor(
 		private router: Router,
-		private service: EntEstCreService
+		private service: EntEstCreService,
+		private sysDicService: SystemDictionaryService
 		){
 
 	}
 	ngOnInit(){
 		this.entEstBasicInfo = this.service.getEntEst().BasicInfo;
-		this.service.loadCurrencyTypes(this.currencyTypes, this.showError, this);
+		this.sysDicService.sysDicOF(this, this.sysDicCallback, "ACCOUNT", "CURRENCY_TYPE");
 	}
+
+	sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
+		if (sf) {                                                                 
+			this.currencyTypes = systemDictionarys;                                  
+		}                                                                         
+	}         
+
 
 	showError(msg:any)
 	{
