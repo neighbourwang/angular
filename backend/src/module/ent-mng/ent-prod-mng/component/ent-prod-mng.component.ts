@@ -64,27 +64,29 @@ export class EntProdMngComponent implements OnInit{
        //页面上的操作
 
     creation() {
-        this.router.navigateByUrl("ent-mng/ent-prod-mng/ent-prod-cre-01");
+       // this.router.navigateByUrl("ent-mng/ent-prod-mng/ent-prod-cre-01");
+         let link = ['/ent-mng/ent-prod-mng/ent-prod-cre-01'];
+         this.router.navigate(link);
     }
 
    getDatas() {
     	this.layoutService.setLoading(true);
-  
+        /*this.datas = testData;
+        this.layoutService.setLoading(false);*/
     	this.entProdMngService
         .getDatas(1,5)
         .then(ret => {
             if (!ret) {
-                this.showNotice('数据获取失败', '服务模板数据获取失败。');
+                this.showNotice('数据获取失败', '产品数据获取失败。');
             } else {
                 if (ret && ret.resultContent) {
-                  //this.datas = ret.resultContent;
-                  this.datas = testData;
+                  this.datas = ret.resultContent;             
                 }
             }
             this.layoutService.setLoading(false);
         })
         .catch(error => {
-            this.showNotice('数据获取失败', '服务模板数据获取失败。');
+            this.showNotice('数据获取失败', '产品数据获取失败。');
             this.layoutService.setLoading(false);
         });
     }

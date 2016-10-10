@@ -12,17 +12,14 @@ export const EntProdMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
         path: 'ent-mng/ent-prod-mng/ent-prod-mng',
         component: EntProdMngComponent
-    }
-    ,{
+    },{
     	path: 'ent-mng/ent-prod-mng/ent-prod-cre-01',
-    	component: EntProdCre01Component
-    }
-    ,{
-    	path: 'ent-mng/ent-prod-mng/ent-prod-cre-02'
-    	,component: EntProdCre02Component
-    }
-    ,{
-    	path: 'ent-mng/ent-prod-mng/ent-prod-cre-03'
-    	,component: EntProdCre03Component
+        component: EntProdCre01Component
+    },{
+    	path: 'ent-mng/ent-prod-mng/ent-prod-cre-02',
+        component: EntProdCre02Component
+    },{
+    	path: 'ent-mng/ent-prod-mng/ent-prod-cre-03',
+        component: EntProdCre03Component
     }
 ]);

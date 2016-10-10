@@ -1,3 +1,6 @@
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
+
+
 <div class="page-content-header icon-content-header-purchasing">企业产品管理</div>
 <div class="page-content">
     <div style="padding-bottom: 10px;">
@@ -59,7 +62,7 @@
                     <td>{{item.enterpriseName}}</td>
                     <td>{{item.regionName}}</td>
                     <td>{{item.name}}</td>
-                    <td>{{item.serviceNames}}</td>
+                    <td>{{item.serviceName}}</td>
                     <td>{{item.billingCycleDisplay}}</td>
                     <td>{{item.statusDisplay}}</td>
                     <td>{{item.description}}</td>
@@ -68,8 +71,3 @@
         </table>
     </div>
 </div>
-<script>
-			function creation() {
-				_load_content("ent-prod-cre-01");
-			}
-</script>
