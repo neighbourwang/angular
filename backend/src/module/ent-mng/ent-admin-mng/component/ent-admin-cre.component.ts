@@ -160,7 +160,8 @@ export class EntAdminCreComponent implements OnInit {
 
     onRejected(reason: any) {
         this.layoutService.hide();
-        this.showAlert(reason);
+        console.log(reason);
+        this.showAlert("获取数据失败！");
     }
 
     showAlert(msg: string): void {
