@@ -6,6 +6,26 @@ import { EntProdMngService } from '../service/ent-prod-mng.service';
 
 import { EntProdMngTemplate } from '../model/ent-prod-mng.model';
 
+const testData: any = [
+    {"isSelected":false,
+    "name":"标准小型云主机",
+    "enterpriseName":"上海慧于有限公司",
+    "regionName":"上海A区",
+    "serviceName":"标准云主机_普通存储",
+    "billingCycleDisplay":"包年",
+    "statusDisplay":"未发布",
+    "description":""},
+    {"isSelected":false,
+    "name":"标准小型云主机",
+    "enterpriseName":"上海慧于有限公司",
+    "regionName":"上海A区",
+    "serviceName":"标准云主机_普通存储",
+    "billingCycleDisplay":"包年",
+    "statusDisplay":"未发布",
+    "description":""}
+   ];
+
+
 @Component({
 	selector:'ent-prod-mng'
 	,templateUrl:'../template/ent-prod-mng.component.html'
@@ -21,6 +41,8 @@ export class EntProdMngComponent implements OnInit{
   private noticeDialog: NoticeComponent;
 
 	datas: EntProdMngTemplate[];
+
+
 
 	modalCategory: string = '';
     modalTitle: string = '';
@@ -55,7 +77,8 @@ export class EntProdMngComponent implements OnInit{
                 this.showNotice('数据获取失败', '服务模板数据获取失败。');
             } else {
                 if (ret && ret.resultContent) {
-                  this.datas = ret.resultContent;
+                  //this.datas = ret.resultContent;
+                  this.datas = testData;
                 }
             }
             this.layoutService.setLoading(false);

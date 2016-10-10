@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi } from '../../../../architecture';
 import { ServiceDetail } from '../model/ServiceDetail.model';
-import {Industry} from '../model/industry.model';
+import {Enterprise} from '../model/enterprise.model';
 import {Region} from '../model/region.model';
 import {Storage} from '../model/storage.model';
 import {Directory} from '../model/directory.model';
@@ -13,7 +13,7 @@ export class EntProdCreService {
 
     private cachedServiceDetail: ServiceDetail;
    
-    cashedEnterprise : Industry[];
+    cashedEnterprise : Enterprise[];
     cachedRegions: Region[];
     cachedStorages: Storage[];
     cashedDirectory : Directory[];
