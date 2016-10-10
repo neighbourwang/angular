@@ -93,8 +93,7 @@ export class EntEstCreService{
 
 	loadResourceQuotas(resourceQuotaPaging: ResourceQuotaPaging, errorHandler: Function, comp:any)
 	{
-		let url = "http://15.114.100.58:9000/adminui/authsec/platforms/resoucequotas/page/{_page}/size/{_size}";
-		// let url = this.restApiCfg.getRestApiUrl('pf-mng.ent-est-mng.currencytypes.get', apiIp, apiPort);
+		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.resourcequota.get", apiIp, apiPort);
 
 		let params = [
 			{
@@ -106,8 +105,10 @@ export class EntEstCreService{
 				,value:10
 			}
 		];
+
 		this.layoutService.show();
-		this.restApi.request('get', url, params, undefined, undefined)
+
+		this.restApi.request(api.method, api.url, params, undefined, undefined)
 		.then(ret=>{
 			this.layoutService.hide();
 			if(!ret)
@@ -146,7 +147,8 @@ export class EntEstCreService{
 
 	loadEntEstItems(entEstMng: EntEstMng, errorHandler: Function, comp:any)
 	{
-		let url = "http://15.114.100.58:9000/adminui/authsec/enterprises/opening/page/{_page}/size/{_size}";
+		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.get", apiIp, apiPort);
+
 
 		let params = [
 			{
@@ -158,9 +160,10 @@ export class EntEstCreService{
 				,value:10
 			}
 		];
+		
 		this.layoutService.show();
 
-		this.restApi.request('get', url, params, undefined, undefined)
+		this.restApi.request(api.method, api.url, params, undefined, undefined)
 		.then(ret=>{
 			this.layoutService.hide();
 
@@ -217,7 +220,7 @@ export class EntEstCreService{
 
 	//企业开通
 	enterpriseOpen(enterpriseId: string):Promise<any>{
-		let url = "http://15.114.100.58:9000/adminui//authsec/enterprise/{_enterpriseId}/status/{_status}";
+		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.open", apiIp, apiPort);
 
 		let params = [
 			{
@@ -230,19 +233,19 @@ export class EntEstCreService{
 			}
 		];
 
-		return this.restApi.request('put', url, params, undefined, undefined);
+		return this.restApi.request(api.method, api.url, params, undefined, undefined);
 	}
 
 	//创建企业基本信息
 	createEnterpise():Promise<any>{
-		let url = "http://15.114.100.58:9000/adminui/authsec/enterprise";
+		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.create", apiIp, apiPort);
 
-		return this.restApi.request('post', url, [], [], EntEstCreService.entEst.BasicInfo);
+		return this.restApi.request(api.method, api.url, [], [], EntEstCreService.entEst.BasicInfo);
 	}
 
 	//提交企业配额信息
 	createEntResourceQuota(enterpriseId: string):Promise<any>{
-		let url = "http://15.114.100.58:9000/adminui/authsec/enterprise/{_enterpriseId}/resouce/quota";
+		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.resourcequota.create", apiIp, apiPort);
 
 		let params = [
 			{
@@ -253,7 +256,7 @@ export class EntEstCreService{
 
 		EntEstCreService.entEst.ResourceQuotas.map(n=>{n.enterpriseId = enterpriseId;});
 
-		return this.restApi.request('post', url, params, undefined, EntEstCreService.entEst.ResourceQuotas);
+		return this.restApi.request(api.method, api.url, params, undefined, EntEstCreService.entEst.ResourceQuotas);
 	}
 
 

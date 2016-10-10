@@ -296,11 +296,6 @@ export let RestApis: RestApiModel[] = [
        "url": "/adminui/authsec/enterprise/{enterpriseId}/admins/page/{page}/size/{size}"
    }
    ,{
-       "desc": "获取货币",
-       "id": "pf-mng.ent-est-mng.currencytypes.get",
-       "method": "GET",
-       "url": "/adminui/authsec/sysdic/ACCOUNT/CURRENCY"
-   },{
        "desc": "获取产品",
        "id": "ent-mng.ent-prod-mng.all.get",
        "method": "GET",
@@ -330,5 +325,35 @@ export let RestApis: RestApiModel[] = [
        "id": "ent-mng.ent-prod-cre.creation",
        "method": "POST",
        "url": "/adminui/authsec/enterprise/{enterpriseId}/product "
+   }
+   ,{
+       "desc": "获取企业开通配额",
+       "id": "ent-mng.ent-est-mng.resourcequota.get",
+       "method": "GET",
+       "url": "/adminui/authsec/platforms/resoucequotas/page/{_page}/size/{_size}"
+   }
+   ,{
+       "desc": "企业开通信息概览",
+       "id": "ent-mng.ent-est-mng.enterprise.get",
+       "method": "GET",
+       "url": "/adminui/authsec/enterprises/opening/page/{_page}/size/{_size}"
+   }
+   ,{
+       "desc": "企业基础信息创建",
+       "id": "ent-mng.ent-est-mng.enterprise.create",
+       "method": "POST",
+       "url": "/adminui/authsec/enterprise"
+   }
+   ,{
+       "desc": "企业配额信息提交",
+       "id": "ent-mng.ent-est-mng.resourcequota.create",
+       "method": "POST",
+       "url": "/adminui/authsec/enterprise/{_enterpriseId}/resouce/quota"
+   }
+   ,{
+       "desc": "企业开通",
+       "id": "ent-mng.ent-est-mng.enterprise.open",
+       "method": "PUT",
+       "url": "/adminui/authsec/enterprise/{_enterpriseId}/status/{_status}"
    }
 ]
