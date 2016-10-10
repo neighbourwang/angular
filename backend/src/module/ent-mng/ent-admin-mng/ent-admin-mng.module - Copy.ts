@@ -13,9 +13,9 @@ import { EntAdminMngService} from './service/ent-admin-mng.service';
 
 // Routing
 import { EntAdminMngRouting } from './ent-admin-mng.routing';
-
+ttetrewr
 @NgModule({
-    imports: [
+    imports: [rewr
         Ng2Bs3ModalModule,
         CommonComponentModule,
         EntAdminMngRouting
