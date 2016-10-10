@@ -46,9 +46,9 @@ export class EntProdCre01Component implements OnInit{
 
 	}
 	ngOnInit(){
-        this.getEnterprises(this.page,this.size);
-        this.getRegions();
-        this.getDirectories(this.regionId);
+      //  this.getEnterprises(this.page,this.size);
+      //  this.getRegions();
+       // this.getDirectories(this.regionId);
 
     }
 
