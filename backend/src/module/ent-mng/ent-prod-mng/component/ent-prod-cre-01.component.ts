@@ -101,16 +101,16 @@ export class EntProdCre01Component implements OnInit{
           this.regionId = this.serviceDetail.regionId;
        }
       
-        this.layoutService.setLoading(true);
+       // this.layoutService.setLoading(true);
 
     
-        this.enterprises = testEnterprise;
-        this.regions = testRegion;
-        this.serviceItems = testService;
+        //this.enterprises = testEnterprise;
+        //this.regions = testRegion;
+        //this.serviceItems = testService;
         
-        this.layoutService.setLoading(false);
-        //this.getEnterprises(this.page,this.size);
-        //this.getRegions();
+        //this.layoutService.setLoading(false);
+        this.getEnterprises(this.page,this.size);
+        this.getRegions();
         //this.getDirectories(this.regionId);
 
     }
@@ -125,6 +125,7 @@ export class EntProdCre01Component implements OnInit{
          alert(this.serviceDetail.platformId); 
           alert(this.serviceDetail.serviceId);     
         alert(this.serviceDetail.description); */ 
+       alert("企业Id"+this.serviceDetail.enterpriseId);
       	this.router.navigateByUrl("ent-mng/ent-prod-mng/ent-prod-cre-02");
 	}
 
@@ -143,6 +144,7 @@ export class EntProdCre01Component implements OnInit{
                 this.showNotice('数据获取失败', '企业数据获取失败。');
             } else {
                 if (ret && ret.resultContent) {
+                 
                   this.enterprises = ret.resultContent;
                   this.serviceDetail = ret.resultContent;
                   //this.entProdCreService.cashedEnterprise = ret.resultContent;

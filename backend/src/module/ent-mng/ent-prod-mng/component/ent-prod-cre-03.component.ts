@@ -24,11 +24,14 @@ export class EntProdCre03Component implements OnInit{
 @ViewChild('notice')
   private noticeDialog: NoticeComponent;
 
-  serviceDetail: ServiceDetail;
+
   regions: Region[];
+  storage:Storage[];
+  serviceDetailInfo :ServiceDetail;
+
   page : number = 1;
   size : number = 300;
-  platformId : string ;
+  enterpriseId : string ;
 
   modalCategory: string = '';
   modalTitle: string = '';
@@ -39,22 +42,25 @@ export class EntProdCre03Component implements OnInit{
 	constructor(
 		private entProdCreService: EntProdCreService,
         private layoutService: LayoutService,
+        private  serviceDetail: ServiceDetail,
 		private router: Router
 		){
 
 	}
 	ngOnInit(){
-
-     
-
+    
+     this.enterpriseId = this.serviceDetail.enterpriseId;
+     this.serviceDetailInfo = this.serviceDetail;
     }
 
     cancel() {
         this.router.navigateByUrl("ent-mng/ent-prod-mng/ent-prod-mng");
     }
 
-    next() {
-        alert("创建产品");
+    creation() {
+          alert("企业Id"+this.serviceDetail.enterpriseId);
+        this.createProd();
+       // alert("创建产品");
     }
 
     prev() {
@@ -66,12 +72,13 @@ export class EntProdCre03Component implements OnInit{
     this.layoutService.setLoading(true);
   
     this.entProdCreService
-        .createProd(this.platformId, this.serviceDetail)
+        .createProd(this.enterpriseId, this.serviceDetailInfo)
         .then(ret => {
             if (!ret) {
                 this.showNotice('创建失败', '产品创建失败。');
             } else {
-               // this.goBack();
+                this.goBack();
+               //this.showNotice('创建成功', '产品创建成功。');
             }
             this.layoutService.setLoading(false);
         })
@@ -86,5 +93,10 @@ export class EntProdCre03Component implements OnInit{
     	this.modalMessage = msg;
     	this.modalOKTitle = 'OK';
     	this.noticeDialog.open();
+  }
+
+    goBack() {
+    let link = ['/ent-mng/ent-prod-mng/ent-prod-mng'];
+    this.router.navigate(link);
   }
 }

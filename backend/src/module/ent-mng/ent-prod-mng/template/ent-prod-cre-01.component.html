@@ -40,7 +40,7 @@
                 <div class="form-group">
                     <div for="firstname" class="col-sm-4 form-control-title">区域：</div>
                     <div class="col-sm-4">
-                        <select class="form-control" style="width:350px;color:#909090" [(ngModel)]="serviceDetail.platformId">
+                        <select class="form-control" style="width:350px;color:#909090" [(ngModel)]="serviceDetail.regionId">
                             <option *ngFor="let item of regions" value="{{item.id}}"  >
                                 {{item.name || item.id}}
                             </option> 

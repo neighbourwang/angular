@@ -21,7 +21,7 @@ export class ServiceDetail {
 
     // Step2 Data 
     // Step3 Data
-    storages : StorageInfo [];
+    storages : StorageInfo [] = []; 
 
     // Other Data
     options: Option[] = [];

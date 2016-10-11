@@ -44,37 +44,6 @@ const testStorages: any = [
     "added":false
     }];
 
-
-const testStorages2: any = [
-    {
-    "name":"标准小型云主机2",
-    "id":"1",
-    "description":"上海A区",
-    "disk":"标准云主机_普通存储",
-    "selected":false,
-    "added":false
-    },{
-    "name":"标准小型云主机2",
-    "id":"2",
-    "description":"上海A区",
-    "disk":"标准云主机_普通存储",
-     "selected":false,
-    "added":false
-    },{
-    "name":"标准小型云主机2",
-    "id":"3",
-    "description":"上海A区",
-    "disk":"标准云主机_普通存储",
-     "selected":false,
-    "added":false
-    },{
-    "name":"标准小型云主机2",
-    "id":"4",
-    "description":"上海A区",
-    "disk":"标准云主机_普通存储",
-     "selected":false,
-    "added":false
-    }];
 @Component({
 	selector:'ent-prod-cre-02'
 	,templateUrl:'../template/ent-prod-cre-02.component.html'
@@ -124,7 +93,8 @@ export class EntProdCre02Component implements OnInit{
         alert(this.serviceDetail.enterpriseId); 
          alert(this.serviceDetail.platformId); 
           alert(this.serviceDetail.serviceId); 
-           alert(this.serviceDetail.description); */ 
+           alert(this.serviceDetail.description); */
+             alert("企业Id"+this.serviceDetail.enterpriseId);
       	this.router.navigateByUrl("ent-mng/ent-prod-mng/ent-prod-cre-03");
 	}
 
@@ -134,7 +104,10 @@ export class EntProdCre02Component implements OnInit{
 
     
    getStorages(platformId:string) {
-    	this.layoutService.setLoading(true);
+     this.storages = testStorages;
+     //this.serviceDetail.storages = testStorages;
+   
+    	/*this.layoutService.setLoading(true);
   
     	this.entProdCreService
         .getStorages(platformId)
@@ -157,7 +130,7 @@ export class EntProdCre02Component implements OnInit{
         .catch(error => {
             this.showNotice('数据获取失败', '所有可用区数据获取失败。');
             this.layoutService.setLoading(false);
-        });
+        });*/
   }
 
   
@@ -171,14 +144,14 @@ export class EntProdCre02Component implements OnInit{
 
    getOrgStorages(): Storage[] {
      //alert("getOrgStorages");
-       //return testStorages;
+    //  return testStorages;
     return this.getStoragesByType(false);
   }
 
   getAddedStorages(): Storage[] {
      //a//lert("getAddedStorages");
-     //return testStorages2;
-      return this.getStoragesByType(true);
+     //return testStorages;
+       return this.getStoragesByType(true);
   }
 
   getStoragesByType(addFlg: boolean): Storage[] {
@@ -194,49 +167,48 @@ export class EntProdCre02Component implements OnInit{
   }
 
   selectStorage(storage: Storage, index: number) {
-    testStorages.map(n=>{n.selected = false;});
-    testStorages2.map(n=>{n.selected = false;});//数据源设置选中设置为false
+    this.storages.map(n=>{n.selected = false;});
+   // testStorages2.map(n=>{n.selected = false;});//数据源设置选中设置为false
     storage.selected = true;
   }
 
-  getSelectedStorage(): Storage {
-    for (let storage of testStorages) {
-      if (storage.selected == true) {
-        return storage;
-      }
-    }
-  }
 
   addStorage() {
-      //alert("addStorage");
-    let storage = this.getSelectedStorage();
-    if (!storage) {
-      return;
+    alert("addStorage");
+    let storage2 ;
+     for (let storage of this.storages) {
+      if (storage.selected == true) {
+            storage.added = true;
+            storage.selected = false;
+            storage2 = storage;
+      }
     }
-    storage.added = true;
-    storage.selected = false;
+
 
     let storageInfo = new StorageInfo();
-    storageInfo.storageId = storage.id;
-    storageInfo.name = storage.name;
-    storageInfo.description = storage.description;
+    storageInfo.storageId = storage2.id;
+    storageInfo.name = storage2.name;
+    storageInfo.description = storage2.description;
 
     this.serviceDetail.storages.push(storageInfo);
   }
 
   removeStorage() {
      // alert("removeStorage");
-    let storage = this.getSelectedStorage();
-    if (!storage) {
-      return;
+    let storage2 ;
+     for (let storage of this.storages) {
+      if (storage.selected == true) {
+            storage.added = false;
+            storage.selected = false;
+            storage2 = storage;
+      }
     }
-    storage.added = false;
-    storage.selected = false;
+
 
     for (let j=0; j<this.serviceDetail.storages.length; j++){
       let storageInfo = this.serviceDetail.storages[j];
 
-      if (storageInfo.storageId == storage.id) {
+      if (storageInfo.storageId == storage2.id) {
         this.serviceDetail.storages.splice(j, 1);
         break;
       }
