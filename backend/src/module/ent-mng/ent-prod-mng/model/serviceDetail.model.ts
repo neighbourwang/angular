@@ -15,13 +15,13 @@ export class ServiceDetail {
     regionName : string = ''; 
 
        //服务目录
-    directoryId : string = '';
-    directoryName : string = '';　
-    desc: string = '';
+    serviceId : string = '';
+    serviceName : string = '';　
+    description: string = '';
 
     // Step2 Data 
     // Step3 Data
-    storages : Storage [];
+    storages : StorageInfo [];
 
     // Other Data
     options: Option[] = [];
@@ -31,4 +31,11 @@ export class ServiceDetail {
 class Option {
     code: string = '';
     value: string = '';
+}
+
+export class StorageInfo {
+    storageId: string = '';
+    name: string = '';
+    description: string = '';
+    disk : string = '';
 }

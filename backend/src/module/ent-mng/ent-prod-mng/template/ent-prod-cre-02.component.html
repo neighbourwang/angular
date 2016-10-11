@@ -38,9 +38,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let item of storages" [ngClass]="{'selected': item.selected, 'clickable': true}" (click)="selectZone(item, $index)">
+                                        <tr *ngFor="let item of  getOrgStorages()"  [ngClass]="{'selected': item.selected, 'clickable': true}"  (click)="selectStorage(item, $index)">
 											<td>{{item.name || item.id}}</td>
-											<td>{{item.des}}</td>
+											<td>{{item.description}}</td>
                                             <td>{{item.disk}}</td>
 										</tr>
                                     </tbody>
@@ -55,14 +55,14 @@
         <div class="col-md-2">
             <div class="col-md-12 text-center" style="padding: 0px 0px 20px 0px;">
                 <button class="fox-cloud-button fox-cloud-button-white">
-                    <span class="icon-button-label icon-left-button-label"  (click)="addZone()">加入</span>
+                    <span class="icon-button-label icon-left-button-label"  (click)="addStorage()">加入</span>
                     <span class="glyphicon glyphicon-arrow-right"></span>
                 </button>
             </div>
             <div class="col-md-12 text-center">
                 <button class="fox-cloud-button fox-cloud-button-white">
                     <span class="glyphicon glyphicon-arrow-left"></span>
-                    <span class="icon-button-label icon-left-button-label"  (click)="removeZone()">移除</span>
+                    <span class="icon-button-label icon-left-button-label"  (click)="removeStorage()">移除</span>
                 </button>
             </div>
         </div>
@@ -88,9 +88,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <tr *ngFor="let item of getAddedStorages()" [ngClass]="{'selected': item.selected, 'clickable': true}" (click)="selectstorage(item, $index)">
+                                    <tr *ngFor="let item of getAddedStorages()" [ngClass]="{'selected': item.selected, 'clickable': true}"  (click)="selectStorage(item, $index)">
 											<td>{{item.name || item.id}}</td>
-											<td>{{item.des}}</td>
+											<td>{{item.description}}</td>
                                             <td>{{item.disk}}</td>
 									</tr>
                                     </tbody>
@@ -107,7 +107,7 @@
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
         <span class="icon-button-label">取消</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="previous();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="prev();">
         <span class="icon-button-label">上一步</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="next();">

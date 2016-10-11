@@ -42,9 +42,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of serviceDetail.zones">
+                    <tr *ngFor="let item of serviceDetail.storages">
                         	<td>{{item.name || item.id}}</td>
-							<td>{{item.des}}</td>
+							<td>{{item.description}}</td>
                         <td><input type="text" class="form-control" id="name" placeholder="1台" [(ngModel)]="item.unit"></td>
                         <td>
                             <input type="text" class="form-control inputstyle" id="name" placeholder="50" [(ngModel)]="item.price">
@@ -58,9 +58,9 @@
         <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
             <span class="icon-button-label">取消</span>
         </button>
-        <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="previous();">
-            <span class="icon-button-label">上一步</span>
-        </button>
+        <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="prev();">
+        <span class="icon-button-label">上一步</span>
+    </button>
         <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="next();">
             <span class="icon-button-label">创建产品</span>
         </button>
