@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RestApiCfg, RestApi } from '../../../../architecture';
 import { ResourceQuotaPaging, EntEstItem, EntEstMng, CurrencyType, EntEst, EntEstResourceQuota, ResourceQuota, EntEstBasicInfo } from '../model';
-import { LayoutService, ValidationService } from '../../../../architecture';
+import { LayoutService, ValidationService, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
 const apiIp: string = '15.114.100.58';
@@ -11,13 +11,15 @@ const apiPort: string = '9000';
 @Injectable()
 export class EntEstCreService{
 	private static entEst : EntEst;
-	private static cachedCurrencyTypes : CurrencyType[];
+	private static statusCache : SystemDictionary[];
+	private static cachedCurrencyTypes : CurrencyType[] = null;
 
 	constructor(
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi,
 		private validation: ValidationService,
-		private layoutService : LayoutService
+		private layoutService : LayoutService,
+		private dicService : SystemDictionaryService
 		){}
 
 	initCache(){
@@ -132,6 +134,8 @@ export class EntEstCreService{
 				{
 					console.log('ret.resultContent is', ret.resultContent, 'ret is', ret);
 					this.setArray(ret.resultContent, entEstMng.items);
+					this.setEnterpriseOpenStatus(entEstMng.items);
+					
 					entEstMng.items.map(n=>{n.checked = false;});
 
 					entEstMng.totalPages = ret.pageInfo.totalPage;
@@ -212,5 +216,37 @@ export class EntEstCreService{
 		return this.restApi.request(api.method, api.url, params, undefined, EntEstCreService.entEst.ResourceQuotas);
 	}
 
-
+	//加载企业开通的状态字典
+	setEnterpriseOpenStatus(entEstItems: EntEstItem[])
+	{
+		let setStatus = function(dic:Array<SystemDictionary>)
+		{
+			entEstItems.map(n=>{
+				let item = dic.find(m=>m.value == n.status);
+				console.log('setEnterpriseOpenStatus item',item
+					,"dic", dic);
+				if(item)
+				{
+					n.status = item.displayValue as string;
+				}
+			});
+			
+		}
+		if(EntEstCreService.statusCache)
+		{
+			setStatus(EntEstCreService.statusCache);
+		}
+		else
+		{
+			let dicCallback = function(sf:boolean, sysDic: Array<SystemDictionary>)
+			{
+				if(sf)
+				{
+					EntEstCreService.statusCache = sysDic;
+					setStatus(EntEstCreService.statusCache);
+				}
+			}
+			this.dicService.sysDicOF(this, dicCallback, "GLOBAL", "STATUS");
+		}
+	}
 }
