@@ -5,7 +5,7 @@ import { LayoutService, PaginationComponent, NoticeComponent, ConfirmComponent }
 
 import { EntResQuotaMngService } from '../service/ent-res-quota-mng.service';
 
-import { EntResQuotaMng } from '../model';
+import { EntResQuotaMng, Enterprise } from '../model';
 
 @Component({
     selector: 'fc-ent-res-quota-mng',
@@ -31,7 +31,9 @@ export class EntResQuotaMngComponent implements OnInit {
 
     // 选择全部企业资源配额标识
     isSelectedAll: boolean = false;
+    enterprises: Array<Enterprise> = new Array<Enterprise>();
     entResQuotas: Array<EntResQuotaMng> = new Array<EntResQuotaMng>();
+    endId: any;
 
     // 平台数据总页数
     tp: number = 0;
@@ -45,6 +47,42 @@ export class EntResQuotaMngComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.service.enterprises().then(
+            response => {
+                if (response && 100 == response.resultCode) {
+                    let resultContent = response.resultContent;
+
+                    if (!resultContent) {
+                        this.showError("企业信息取得错误", "没有取得企业信息");
+
+                        return;
+                    }
+
+                    let backend = new Array<Enterprise>();
+
+                    for (let content of resultContent) {
+                        let enterprise: Enterprise = new Enterprise();
+
+                        enterprise.id = content.id;
+                        enterprise.code = content.code;
+                        enterprise.name = content.name;
+                        enterprise.description = content.description;
+                        enterprise.status = content.status;
+
+                        backend.push(enterprise);
+                    }
+
+                    this.enterprises = backend;
+
+                    this.layoutService.hide();
+                } else {
+                    this.showError("企业信息取得错误", "异常响应");
+                }
+            }
+        ).catch(
+            reason => this.showError("系统错误", reason.statusText)
+        );
+
         this.backend(1, this.pp);
     }
 
@@ -62,12 +100,13 @@ export class EntResQuotaMngComponent implements OnInit {
         this.router.navigateByUrl("ent-mng/ent-res-quota-mng/ent-res-quota-cre", { skipLocationChange: true });
     }
 
+    // 企业资源配额数据取得
     backend(page: number, size: number) {
         this.layoutService.show();
 
         this.tp = 0;
 
-        this.service.getEntResQuota(page, this.pp).then(
+        this.service.getEntResQuota(page, this.pp, this.endId).then(
             response => {
                 let resultCode = response.resultCode;
 
@@ -98,9 +137,9 @@ export class EntResQuotaMngComponent implements OnInit {
                         backend.push(entResQuotaMng);
                     }
 
-                    let pageInfo = response.pageInfo;
+                    /*let pageInfo = response.pageInfo;
 
-                    this.tp = pageInfo.totalPage;
+                    this.tp = pageInfo.totalPage;*/
 
                     this.entResQuotas = backend;
 
@@ -157,6 +196,47 @@ export class EntResQuotaMngComponent implements OnInit {
             });
 
         return isAllSelected;
+    }
+
+    // 取得选择的平台
+    private selectedPlatform(): Array<EntResQuotaMng> {
+        let eEntResQuotaMng: Array<EntResQuotaMng> = new Array<EntResQuotaMng>();
+
+        this.entResQuotas.forEach(
+            item => {
+                if (item.isSelected) {
+                    eEntResQuotaMng.push(item);
+                }
+            });
+
+        return eEntResQuotaMng;
+    }
+
+    // 修改企业资源配额信息
+    modifyEntResQuota() {
+        this.showError("待处理", "修改企业资源配额信息");
+    }
+
+    // 删除企业资源配额信息
+    deleteEntResQuota() {
+        this.showError("待处理", "删除企业资源配额信息");
+    }
+
+    // 激活企业资源配额信息
+    activeEntResQuota() {
+        this.showError("待处理", "激活企业资源配额信息");
+    }
+
+    // 取消激活企业资源配额信息
+    deactiveEntResQuota() {
+        this.showError("待处理", "取消激活企业资源配额信息");
+    }
+
+    // 切换企业
+    switchEnt(endId: any) {
+        this.endId = endId;
+        this.backend(1, this.pp);
+        this.pagination.render(1);
     }
 
     // 分页检索

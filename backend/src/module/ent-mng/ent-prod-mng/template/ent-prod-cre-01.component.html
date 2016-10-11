@@ -1,4 +1,4 @@
-<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="确认" (of)="modalAction(0)"></fc-notice>
 
 
 <div class="page-content-header icon-content-header-purchasing">创建产品</div>
@@ -20,7 +20,7 @@
                 <div class="form-group">
                     <div for="firstname" class="col-sm-4 form-control-title">产品名称：</div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" placeholder="标准小型云主机" style="width:350px" [(ngModel)]="serviceDetail.name" >
+                        <input type="text" class="form-control" placeholder="标准小型云主机" style="width:350px" [(ngModel)]="serviceDetail.entProdName" >
                     </div>
                 </div>
             </div>
@@ -29,8 +29,8 @@
                     <div for="firstname" class="col-sm-4 form-control-title">企业：</div>
                     <div class="col-sm-4">
                         <select class="form-control" [(ngModel)]="serviceDetail.enterpriseId" style="width:350px;color:#909090">
-                           <option *ngFor="let item of enterprises" value="{{item.id}}">
-                                {{item.name || item.id}}
+                           <option *ngFor="let item of enterprises" [value]="item.id">
+                                {{item.name}}
                             </option>
                         </select>
                     </div>
@@ -40,9 +40,9 @@
                 <div class="form-group">
                     <div for="firstname" class="col-sm-4 form-control-title">区域：</div>
                     <div class="col-sm-4">
-                        <select class="form-control" style="width:350px;color:#909090" [(ngModel)]="serviceDetail.regionId">
-                            <option *ngFor="let item of regions" value="{{item.id}}"  >
-                                {{item.name || item.id}}
+                        <select class="form-control" style="width:350px;color:#909090" [(ngModel)]="serviceDetail.regionIdx" (ngModelChange)="regionChange($event);">
+                            <option *ngFor="let item of regions; let idx = index" [value]="idx">
+                                {{item.name}}
                             </option> 
                         </select>
                     </div>
@@ -53,8 +53,8 @@
                     <div for="firstname" class="col-sm-4 form-control-title">服务目录：</div>
                     <div class="col-sm-4">
                         <select class="form-control" style="width:350px;color:#909090" [(ngModel)]="serviceDetail.serviceId" >
-                             <option *ngFor="let item of serviceItems" value="{{item.id}}">
-                                {{item.name || item.id}}
+                             <option *ngFor="let item of serviceItems" [value]="item.serviceId">
+                                {{item.serviceName}}
                             </option>
                         </select>
                     </div>

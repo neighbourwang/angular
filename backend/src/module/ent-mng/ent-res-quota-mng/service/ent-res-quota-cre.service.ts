@@ -12,13 +12,6 @@ export class EntResQuotaCreService {
         private restApi: RestApi
     ) { }
 
-    // 取得所有企业信息
-    enterprises() {
-        let api = this.restApiCfg.getRestApi("ent.res.quota.cre.enterprises.get");
-
-        return this.restApi.request(api.method, api.url, [{ key: "page", value: 1 }, { key: "size", value: 1000 }], undefined);
-    }
-
     // 取得所有区域信息
     virtualRegions() {
         let api = this.restApiCfg.getRestApi("ent.res.quota.cre.regions.virtual.get");

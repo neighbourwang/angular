@@ -11,10 +11,11 @@ import { EntProdCre03Component } from './component/ent-prod-cre-03.component';
 
 
 //service
-
 import { EntProdMngService} from './service/ent-prod-mng.service';
 import { EntProdCreService} from './service/ent-prod-cre.service';
-import { ServiceDetail } from './model/ServiceDetail.model';
+import { EntProdMngServiceDetail } from './model';
+import { DirectPipe } from './pipe/direct.pipe';
+
 // Routing
 import { EntProdMngRouting } from './ent-prod-mng.routing';
 
@@ -24,16 +25,17 @@ import { EntProdMngRouting } from './ent-prod-mng.routing';
         EntProdMngRouting
     ],
     declarations: [
-        EntProdMngComponent
-        ,EntProdCre01Component
-        ,EntProdCre02Component
-        ,EntProdCre03Component
+        EntProdMngComponent,
+        EntProdCre01Component,
+        EntProdCre02Component,
+        EntProdCre03Component,
+        DirectPipe
     ],
     exports: [],
     providers: [
         EntProdMngService,
         EntProdCreService,
-        ServiceDetail
+        EntProdMngServiceDetail
     ]
 
 })

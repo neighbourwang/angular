@@ -1,14 +1,14 @@
 ﻿export class EntResQuota {
-    id: String;
-    enterpriseId: String;
-    platformId: String;
-    platformStorageQuota: number;
-    platformVMQuota: number;
-    regionId: String;
-    regionName: String;
-    vmQuota: number;
-    storageQuota: number;
-    networkQuota: number;
+    id: String = null;
+    enterpriseId: String = null;
+    platformId: String = null;
+    platformStorageQuota: number = 0;
+    platformVMQuota: number = 0;
+    regionId: String = null;
+    regionName: String = null;
+    vmQuota: number = 0;
+    storageQuota: number = 0;
+    networkQuota: number = 0;
 
     constructor() {
     }

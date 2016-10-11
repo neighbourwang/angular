@@ -1,59 +1,36 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi } from '../../../../architecture';
-import { ServiceDetail } from '../model/ServiceDetail.model';
-import {Enterprise} from '../model/enterprise.model';
-import {Region} from '../model/region.model';
-import {Storage} from '../model/storage.model';
-import {Directory} from '../model/directory.model';
+import { EntProdMngServiceDetail, Enterprise, Region, Directory } from '../model';
+
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class EntProdCreService {
-
-    private cachedServiceDetail: ServiceDetail;
-   
-    cashedEnterprise : Enterprise[];
-    cachedRegions: Region[];
-    cachedStorages: Storage[];
-    cashedDirectory : Directory[];
-
-
-   constructor(
+export class EntProdCreService {    
+    constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
         private restApi: RestApi
     ) { }
-    
-
-    getCachedServiceDetail(): ServiceDetail {
-        return this.getCachedData();
-    }
-
-    private getCachedData(): ServiceDetail {
-        this.cachedServiceDetail = this.cachedServiceDetail || new ServiceDetail();
-        return this.cachedServiceDetail;
-    }
         
-    //获取企业    
-    getEnterprises(page:number,size:number): Promise<any> {
+    // 获取企业    
+    getEnterprises(): Promise<any> {
         let api = this.restApiCfg.getRestApi('ent-mng.ent-prod-cre.enterprises.get');
 
            let pathParams = [
             {
                 key: 'page',
-                value: page
+                value: 1
             },{
                 key: 'size',
-                value: size
+                value: 1000
             }
         ];
-
-
+        
         return this.restApi.request(api.method, api.url, pathParams, undefined, undefined);
     }
     
-    //获取区域
+    // 获取区域
     getRegions(): Promise<any> {
         let api = this.restApiCfg.getRestApi('ent-mng.ent-prod-cre.regions.get');
 
@@ -61,9 +38,9 @@ export class EntProdCreService {
     }
 
     
-    //获取服务目录
-    getDirectories(regionId: string): Promise<any> {
-        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.directories.get');
+    // 获取服务目录
+    getDirectories(regionId: String): Promise<any> {
+        let api = this.restApiCfg.getRestApi('ent-mng.ent-prod-cre.directories.get');
 
         let pathParams = [
             {
@@ -75,8 +52,8 @@ export class EntProdCreService {
         return this.restApi.request(api.method, api.url, pathParams, undefined, undefined);
     }
 
-    //获取所有可用区
-    getStorages(platformId : string): Promise<any> {
+    // 获取所有可用区
+    getFlavors(platformId : String): Promise<any> {
         let api = this.restApiCfg.getRestApi('ent-mng.ent-prod-cre.storages.get');
         
         let pathParams = [
@@ -89,7 +66,9 @@ export class EntProdCreService {
         return this.restApi.request(api.method, api.url, pathParams, undefined, undefined);
     }
     
-    createProd(enterpriseId : string,serviceDetail: ServiceDetail){
+    createProd(serviceDetail: EntProdMngServiceDetail) {
+        let enterpriseId: String = serviceDetail.enterpriseId;
+
         let api = this.restApiCfg.getRestApi('ent-mng.ent-prod-cre.creation');
 
         let pathParams = [
@@ -99,7 +78,28 @@ export class EntProdCreService {
             }
         ];
 
-        return this.restApi.request(api.method, api.url, pathParams, undefined, serviceDetail);
-    }
+        let payload = {
+            "desc": serviceDetail.description,
+            "enterpriseId": enterpriseId,
+            "id": null,
+            "name": serviceDetail.entProdName,
+            "platformId": serviceDetail.platformId,
+            "regionId": serviceDetail.regionId,
+            "serviceId": serviceDetail.serviceId,
+            "skus": []
+        }
 
+        serviceDetail.flavors.forEach(
+            item => {
+                let sku = {
+                    "periodType": serviceDetail.periodType,
+                    "price": item.price,
+                    "quantity": item.quantity,
+                    "skuId": item.uuid
+                };
+            }
+        );
+
+        return this.restApi.request(api.method, api.url, pathParams, undefined, payload);
+    }
 }

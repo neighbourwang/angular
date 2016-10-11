@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { LayoutService, ValidationService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 
-import { EntResQuotaCreService } from '../service/ent-res-quota-cre.service';
+import { EntResQuotaMngService, EntResQuotaCreService } from '../service';
 
 import { EntResQuota, Enterprise, Region } from '../model';
 
@@ -32,6 +32,7 @@ export class EntResQuotaCreComponent implements OnInit {
 
     constructor(
         private service: EntResQuotaCreService,
+        private entResQuotaMngService: EntResQuotaMngService,
         private layoutService: LayoutService,
         private router: Router,
         private validationService: ValidationService
@@ -40,7 +41,7 @@ export class EntResQuotaCreComponent implements OnInit {
     ngOnInit() {
         this.layoutService.show();
 
-        this.service.enterprises().then(
+        this.entResQuotaMngService.enterprises().then(
             response => {
                 if (response && 100 == response.resultCode) {
                     let resultContent = response.resultContent;

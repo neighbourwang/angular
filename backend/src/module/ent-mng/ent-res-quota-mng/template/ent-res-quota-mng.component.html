@@ -7,10 +7,10 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#">修改</a></li>
-                <li><a href="#">删除</a></li>
-                <li><a href="#">激活</a></li>
-                <li><a href="#">取消激活</a></li>
+                <li><a (click)="modifyEntResQuota();">修改</a></li>
+                <li><a (click)="deleteEntResQuota();">删除</a></li>
+                <li><a (click)="activeEntResQuota();">激活</a></li>
+                <li><a (click)="deactiveEntResQuota();">取消激活</a></li>
             </ul>
         </div>
         <div class="dropdown pull-right">
@@ -19,8 +19,8 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#">上海慧与有限公司</a></li>
-                <li><a href="#">中国惠普有限公司</a></li>
+                <li><a (click)="switchEnt(null);">全部企业</a></li>
+                <li *ngFor="let item of enterprises;"><a (click)="switchEnt(item.id);">{{item.name}}</a></li>
             </ul>
         </div>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
@@ -55,7 +55,7 @@
         </table>
     </div>
 </div>
-<fc-pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
+<fc-pagination #pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
 
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
 

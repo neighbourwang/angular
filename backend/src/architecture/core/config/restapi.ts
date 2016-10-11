@@ -139,8 +139,14 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/enterprises/resouces/quotas/page/{page}/size/{size}"
     },
     {
+        "desc": "取得特定企业的资源配额信息",
+        "id": "ent.res.quota.mng.resouces.ent.quotas.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprise/{ent-id}/resouces/quotas/page/{page}/size/{size}"
+    },
+    {
         "desc": "取得所有企业信息",
-        "id": "ent.res.quota.cre.enterprises.get",
+        "id": "ent.res.quota.mng.enterprises.get",
         "method": "GET",
         "url": "adminui/authsec/enterprises/simple/page/{page}/size/{size}"
     },
@@ -294,39 +300,71 @@ export let RestApis: RestApiModel[] = [
        "id": "ent-mng.enterprise.admin.get",
        "method": "GET",
        "url": "/adminui/authsec/enterprise/{enterpriseId}/admins/page/{page}/size/{size}"
-   }
-   ,{
+   },
+   // 企业产品管理
+   {
        "desc": "获取产品",
        "id": "ent-mng.ent-prod-mng.all.get",
        "method": "GET",
-       "url": "/adminui/authsec/enterprises/products/page/{page}/size/{size} "
-   },{
+       "url": "/adminui/authsec/enterprises/products/page/{_page}/size/{_size}"
+   },
+   {
+       "desc": "获取产品(企业)",
+       "id": "ent-mng.ent-prod-mng.ent.all.get",
+       "method": "GET",
+       "url": "/adminui/authsec/enterprise/{_enterpriseId}/products/page/{_page}/size/{_size}"
+       
+   },
+   {
+       "desc": "获取产品(区域)",
+       "id": "ent-mng.ent-prod-mng.region.all.get",
+       "method": "GET",
+       "url": "/adminui/authsec/enterprises/region/{_regionId}/products/page/{_page}/size/{_size}"
+   },
+   {
+       "desc": "获取产品(企业/区域)",
+       "id": "ent-mng.ent-prod-mng.ent.region.all.get",
+       "method": "GET",
+       "url": "/adminui/authsec/enterprise/{_enterpriseId}/region/{_regionId}/product/page/{_page}/size/{_size}"
+   },
+   {
+       "desc": "更改产品状态",
+       "id": "ent-mng.ent-prod-mng.prod.status.put",
+       "method": "PUT",
+       "url": "/adminui/authsec/enterprise/products/status/{_status}"
+   },
+   {
        "desc": "企业产品管理获取企业",
        "id": "ent-mng.ent-prod-cre.enterprises.get",
        "method": "GET",
        "url": "/adminui/authsec/enterprises/simple/page/{page}/size/{size} "
-   },{
+   },
+   {
        "desc": "企业产品管理获取区域",
        "id": "ent-mng.ent-prod-cre.regions.get",
        "method": "GET",
        "url": "/adminui/authsec/regions/virtual"
-   },{
+   },
+   {
        "desc": "企业产品管理获取服务目录",
        "id": "ent-mng.ent-prod-cre.directories.get",
        "method": "GET",
        "url": "/adminui/authsec/region/{region_id}/serviceitem"
-   },{
+   },
+   {
        "desc": "企业产品管理获取所有可用区",
        "id": "ent-mng.ent-prod-cre.storages.get",
        "method": "GET",
        "url": "/adminui/authsec/platform/{pf_id}/flavor"
-   },{
+   },
+   {
        "desc": "创建产品",
        "id": "ent-mng.ent-prod-cre.creation",
        "method": "POST",
        "url": "/adminui/authsec/enterprise/{enterpriseId}/product "
-   }
-   ,{
+   },
+   // 企业产品管理
+   {
        "desc": "获取企业开通配额",
        "id": "ent-mng.ent-est-mng.resourcequota.get",
        "method": "GET",

@@ -1,7 +1,7 @@
 export class Region {
-    // 可用区
-    id: string = '';
-    name : string = '';
-    platformId : string ='';
+    idx: Number;
+    id: String = '';
+    name: String = '';
+    platformId: String ='';
     desc : any;
 }
