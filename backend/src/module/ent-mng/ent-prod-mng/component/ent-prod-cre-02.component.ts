@@ -18,24 +18,63 @@ const testStorages: any = [
     "name":"标准小型云主机",
     "id":"1",
     "description":"上海A区",
-    "disk":"标准云主机_普通存储"
+    "disk":"标准云主机_普通存储",
+    "selected":false,
+    "added":false
     },{
     "name":"标准小型云主机",
     "id":"2",
     "description":"上海A区",
-    "disk":"标准云主机_普通存储"
+    "disk":"标准云主机_普通存储",
+     "selected":false,
+    "added":false
     },{
     "name":"标准小型云主机",
     "id":"3",
     "description":"上海A区",
-    "disk":"标准云主机_普通存储"
+    "disk":"标准云主机_普通存储",
+     "selected":false,
+    "added":false
     },{
     "name":"标准小型云主机",
     "id":"4",
     "description":"上海A区",
-    "disk":"标准云主机_普通存储"
+    "disk":"标准云主机_普通存储",
+     "selected":false,
+    "added":false
     }];
 
+
+const testStorages2: any = [
+    {
+    "name":"标准小型云主机2",
+    "id":"1",
+    "description":"上海A区",
+    "disk":"标准云主机_普通存储",
+    "selected":false,
+    "added":false
+    },{
+    "name":"标准小型云主机2",
+    "id":"2",
+    "description":"上海A区",
+    "disk":"标准云主机_普通存储",
+     "selected":false,
+    "added":false
+    },{
+    "name":"标准小型云主机2",
+    "id":"3",
+    "description":"上海A区",
+    "disk":"标准云主机_普通存储",
+     "selected":false,
+    "added":false
+    },{
+    "name":"标准小型云主机2",
+    "id":"4",
+    "description":"上海A区",
+    "disk":"标准云主机_普通存储",
+     "selected":false,
+    "added":false
+    }];
 @Component({
 	selector:'ent-prod-cre-02'
 	,templateUrl:'../template/ent-prod-cre-02.component.html'
@@ -58,7 +97,7 @@ export class EntProdCre02Component implements OnInit{
   modalCancelTitle: string = '';
 
 	constructor(
-		private entProdCreService: EntProdCreService,
+		    private entProdCreService: EntProdCreService,
         private layoutService: LayoutService,
         private serviceDetail: ServiceDetail,
 		private router: Router
@@ -68,13 +107,12 @@ export class EntProdCre02Component implements OnInit{
 	ngOnInit(){
           this.storages = [];
           this.platformId = this.serviceDetail.platformId;
-        //this.getStorages(this.platformId);
+         //this.getStorages(this.platformId);
 
         if (this.entProdCreService.cachedStorages && this.entProdCreService.cachedStorages.length > 0) {
             this.storages = this.entProdCreService.cachedStorages;
-            this.resetSelectStatus();
     } else {
-           //this.getStorages(this.platformId);
+          this.getStorages(this.platformId);
     }
     }
     cancel() {
@@ -106,6 +144,10 @@ export class EntProdCre02Component implements OnInit{
             } else {
                 if (ret && ret.resultContent) {
                   this.storages = ret.resultContent;
+                  this.storages.map(n=>
+                  {n.selected = false;
+                    n.added = false;
+                    });
                   this.serviceDetail = ret.resultContent;
                   //this.entProdCreService.cachedStorages = ret.resultContent;
                 }
@@ -118,18 +160,7 @@ export class EntProdCre02Component implements OnInit{
         });
   }
 
-  resetSelectStatus() {
-    this.storages.forEach((orgStorage, index) => {
-      this.storages[index].added = false;
-
-      for (let storageInfo of this.serviceDetail.storages) {
-        if (orgStorage.id == storageInfo.storageId) {
-          this.storages[index].added = true;
-          break;
-        }
-      }
-    });
-  }
+  
   
    showNotice(title: string, msg: string) {
     	this.modalTitle = title;
@@ -140,14 +171,14 @@ export class EntProdCre02Component implements OnInit{
 
    getOrgStorages(): Storage[] {
      //alert("getOrgStorages");
-       return testStorages;
-   // return this.getStoragesByType(false);
+       //return testStorages;
+    return this.getStoragesByType(false);
   }
 
   getAddedStorages(): Storage[] {
-     //alert("getAddedStorages");
-      return testStorages;
-    //return this.getStoragesByType(true);
+     //a//lert("getAddedStorages");
+     //return testStorages2;
+      return this.getStoragesByType(true);
   }
 
   getStoragesByType(addFlg: boolean): Storage[] {
@@ -163,17 +194,13 @@ export class EntProdCre02Component implements OnInit{
   }
 
   selectStorage(storage: Storage, index: number) {
-    for (let item of this.storages) {
-      if (storage.id == item.id) {
-        item.selected = true;
-      } else {
-        item.selected = false;
-      }
-    }
+    testStorages.map(n=>{n.selected = false;});
+    testStorages2.map(n=>{n.selected = false;});//数据源设置选中设置为false
+    storage.selected = true;
   }
 
   getSelectedStorage(): Storage {
-    for (let storage of this.storages) {
+    for (let storage of testStorages) {
       if (storage.selected == true) {
         return storage;
       }
