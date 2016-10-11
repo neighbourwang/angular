@@ -44,7 +44,7 @@
 					<div class="col-sm-4">
 						<select class="form-control" [(ngModel)]="serviceDetail.regionId">
 							<option *ngFor="let item of regions" value="{{item.id}}">
-								{{item.displayName || item.id}}
+								{{item.displayName || item.name || item.id}}
 							</option>
 						</select>
 					</div>

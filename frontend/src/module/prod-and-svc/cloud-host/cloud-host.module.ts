@@ -1,21 +1,41 @@
-﻿import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 
-// cloud_host_order
-import { CloudHostOrderModule } from './cloud-host-order/cloud-host-order.module';
+// Common Componets
+import { CommonComponentModule } from '../../../architecture';
+
 // cloud_host_ins_list
-import { CloudHostInsListModule } from './cloud-host-ins-list/cloud-host-ins-list.module';
+import {
+    GeneralViewComponent, 
+    HostOrderComponent,
+    InstanceListComponent,
+    InstantceDetailComponent
+} from './component';
+import { InstanceListService, OrderService } from './service';
+import { InstanceDispPipe } from './pipe/instance.pipe';
+
+// Routing
+import { CloudHostRouting } from './cloud-host.routing';
 
 @NgModule({
     imports: [
-        CloudHostInsListModule,
-        CloudHostOrderModule,
+        CommonComponentModule,
+        CloudHostRouting
     ],
-    declarations: [],
+    declarations: [
+        GeneralViewComponent,
+        HostOrderComponent,
+        InstanceListComponent,
+        InstantceDetailComponent,
+        InstanceDispPipe
+    ],
     exports: [
-        CloudHostInsListModule,
-        CloudHostOrderModule
+        InstanceListComponent,
+        HostOrderComponent
     ],
-    providers: []
-})
+    providers: [
+        InstanceListService,
+        OrderService
+    ]
 
+})
 export class CloudHostModule { }

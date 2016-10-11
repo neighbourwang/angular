@@ -80,7 +80,7 @@ const menu: Array<any> = [
                 "top3_menu": [
                     {
                         "label": "概览",
-                        "routing": ""
+                        "routing": "prod-and-svc/cloud-host/cloud-host-general-view"
                     },
                     {
                         "label": "订购",

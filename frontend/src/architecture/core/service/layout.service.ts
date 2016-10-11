@@ -19,4 +19,12 @@ export class LayoutService {
         this.isLoading = value;
     }
 
+    show() {
+        this.isLoading = true;
+    }
+
+    hide() {
+        this.isLoading = false;
+    }
+
 }

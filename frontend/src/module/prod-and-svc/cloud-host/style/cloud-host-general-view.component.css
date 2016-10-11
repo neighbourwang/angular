@@ -1,0 +1,470 @@
+.mainCon {
+	padding: 20px 20px 100px 20px;
+	overflow: auto;
+}
+.menuGroup {
+	border-bottom: 1px solid #5e6f79;
+}
+.mainMenu {
+	position: relative;
+	height: 44px;
+	line-height: 50px;
+	color: #fff;
+	padding: 0 15px 0 40px;
+	font-size: 18px;
+}
+.mainMenu i {
+	position: absolute;
+	top: 16px;
+	left: 12px;
+	-webkit-transition: all 0.4s ease;
+	-o-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+}
+.mainMenu i.glyphicon-chevron-down {
+	right: 15px;
+	left: auto;
+	font-size: 14px;
+}
+.mainMenu.open i.glyphicon-chevron-down {
+	-webkit-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+.submenu {
+	font-size: 16px;
+}
+.submenu li {
+	height: 40px;
+}
+.submenu a {
+	display: block;
+	text-decoration: none;
+	color: #d9d9d9;
+	line-height: 40px;
+	padding-left: 60px;
+}
+.submenu a:hover {
+	background: #00a982;
+	color: #fff;
+}
+.submenu a.thirdmenu {
+	background: #556572;
+	padding-left: 80px;
+}
+.submenu a.active {
+	background: #00a982 url(../../../architecture/assets/images/img_active_bg.png) right no-repeat;
+	color: #fff;
+}
+.submenu a.thirdmenu:hover {
+	background: #00a982;
+	color: #fff;
+}
+.submenu a.active:hover {
+	background: #00a982 url(../../../architecture/assets/images/img_active_bg.png) right no-repeat;
+	color: #fff;
+}
+.spaceCon {
+	height: 30px;
+}
+.operateCon {
+	padding: 10px 0;
+}
+.operateCon .btn-primary {
+	border-radius: 0px;
+	background: #00a982;
+	font-size: 18px;
+	border: none;
+	position: relative;
+	padding-left: 35px;
+}
+.operateCon .btn-primary:hover, .operateCon .btn-primary:active {
+	background: #00a982;
+}
+.mainCon .form-control {
+	border-radius: 0px;
+}
+.mainCon .page-header {
+	margin: 0px;
+	position: relative;
+	padding: 0 10px 10px 30px;
+	border-bottom: 2px solid #00a982;
+}
+.maskLayer .dialog .page-header {
+	margin: 0px;
+	position: relative;
+	padding: 0 0px 10px 0px;
+	border-bottom: 2px solid #00a982;
+}
+.mainCon h3, .mainCon h4, .maskLayer .dialog h3, .maskLayer .dialog h4 {
+	margin: 0px;
+}
+.mainCon .page-header i {
+	position: absolute;
+	left: 0px;
+	top: 5px;
+}
+.operateCon .btn-primary i {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+}
+.tableCon .table {
+	border-bottom: 2px solid #d0dae6;
+	margin-bottom: 0px;
+}
+.tableCon .table>thead:first-child>tr:first-child>th {
+	border-top: 2px solid #d0dae6;
+	border-bottom: 0px;
+	background: #eff4f8;
+	text-align: center;
+}
+.tableCon .table .fristTh {
+	width: 80px;
+}
+.tableCon .table>tbody>tr>td {
+	border-top: 0px;
+	text-align: center;
+	vertical-align: middle;
+}
+.tableCon tr:nth-child(even) {
+	background: #fcfdff;
+}
+.tableCon .table-hover>tbody>tr:hover {
+	background: f7f7f7;
+}
+.tableCon .table input[type="checkbox"] {
+	width: 14px;
+	height: 14px;
+	margin: 0px;
+	vertical-align: middle;
+}
+.tableCon .table>tbody>tr>td .btn-default {
+	background: #fff;
+	border: 2px solid #bcc1c4;
+	border-radius: 0px;
+	padding: 0 10px;
+	color: #333;
+}
+.tableCon .table>tbody>tr>td .btn-default:hover {
+	background: #fff;
+	border: 2px solid #00a982;
+	border-radius: 0px;
+	padding: 0 10px;
+	color: #333;
+}
+.tableCon .table>tbody>tr>td .bg-success {
+	background: #00a982;
+}
+.tableCon .table>tbody>tr>td .bg-danger {
+	background: #f34b00;
+}
+.tableCon .table>tbody>tr>td .status {
+	padding: 0px 9px;
+	border-radius: 10px;
+}
+.tableCon .table th a {
+	text-decoration: none;
+}
+.tableCon .table th a.color-primary {
+	color: #00a982;
+	cursor: pointer;
+}
+.mainCon .stepCon {
+	margin-top: 20px;
+	font-size: 20px;
+	text-align: center;
+}
+.mainCon .stepCon .cir {
+	padding: 7px 15px;
+	font-size: 20px;
+	background: #ccc;
+	color: #fff;
+	border-radius: 100%;
+}
+.mainCon .stepCon .active {
+	color: #5bc0de;
+}
+.mainCon .stepCon .active .cir {
+	background: #5bc0de;
+}
+.mainCon .progress {
+	border-radius: 0px;
+	background: #ccc;
+	position: relative;
+}
+.mainCon .progress .prompt {
+	position: absolute;
+	top: 0px;
+	left: 40%;
+	color: #fff;
+}
+.mainCon .control-label {
+	line-height: 34px;
+	text-align: right;
+}
+.btmBtnCon {
+	text-align: center;
+	padding: 20px 0 20px 250px;
+}
+.btmBtnCon .btn {
+	border-radius: 0px;
+	margin: 0 10px;
+	width: 120px;
+}
+.btmBtnCon .btn-default {
+	border: 3px solid #00a982;
+}
+.btmBtnCon .btn-default:hover {
+	background: #00a982;
+	color: #fff;
+}
+.btmBtnCon .btn-primary {
+	border: 3px solid #00a982;
+	background: #00a982;
+}
+.btmBtnCon .btn-primary:active {
+	background: #009573;
+	border: 3px solid #00a982;
+}
+.topBtnCon .btn {
+	border-radius: 0px;
+}
+.topBtnCon .btn-default {
+	border: 2px solid #bcc1c4;
+	background: #fff;
+	color: #333;
+	margin-left: 20px;
+}
+.topBtnCon .btn-default:hover {
+	border: 2px solid #00a982;
+	background: #fff; 
+	color: #00a982;
+}
+.topBtnCon .btn-default:active {
+	border: 2px solid #00a982;
+	background: #fff; 
+	color: #00a982;
+}
+.maskLayer {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	background: rgba(0,0,0,0);
+	width: 100%;
+	height: 100%;
+}
+.maskLayer .dialog {
+	width: 500px;
+	padding: 15px;
+	margin: 100px auto;
+	background: #fff;
+	box-shadow: 0px 2px 2px 3px rgba(0,0,0,0.2);
+}
+.maskLayer .dialog .text {
+	padding: 15px;
+	font-size: 16px;
+	line-height: 32px;
+}
+.maskLayer .dialog .btmBtnCon {
+	text-align: center;
+	padding: 20px 0;
+}
+.instanceInfoCon {
+	background: #f2f6fb;
+	margin-top: 10px;
+	padding: 10px;
+}
+.instanceInfoCon .thisTitle {
+	font-size: 16px;
+	line-height: 34px;
+	font-weight: bold;
+}
+.instanceInfoCon .marginTop {
+	margin-top: 20px;
+} 
+.instanceInfoCon .thisTitle .pull-right {
+	font-weight: normal;
+	color: #666;
+}
+.instanceInfoCon .thisTitle i {
+	color: #00a982;
+}
+.instanceInfoCon .thisTitle .dropdown-toggle {
+	border: 1px solid #ddd;
+	display: inline-block;
+	padding: 0 10px;
+	background: #fff;
+	margin-left: 5px;
+	color: #333;
+	text-decoration: none;
+}
+.instanceInfoCon .thisTitle .dropdown-menu {
+	border-radius: 0px;
+}
+.instanceInfoCon .instanceInfoBox {
+	background: #fff;
+	box-shadow: 0px 1px 5px rgba(0,0,0,0.3);
+	margin-top: 10px;
+	padding: 10px;
+}
+.instanceInfoCon .instanceInfoBox table {
+	border-collapse: collapse;
+	width: 100%;
+}
+.instanceInfoCon .instanceInfoBox table th {
+	text-align: right;
+	width: 120px;
+	padding: 5px;
+}
+.instanceBorderCon {
+	border: 2px solid #f2f6fb;
+	padding: 10px 20px 10px 10px;
+	margin-top: 10px;
+}
+.instanceBorderCon .yTable {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 30px;
+}
+.instanceBorderCon .yTable th {
+	padding: 5px;
+	width: 80px;
+	text-align: right;
+}
+.instanceBorderCon .bg-success {
+	background: #00a982;
+}
+.instanceBorderCon .bg-danger {
+	background: #f34b00;
+}
+.instanceBorderCon .statusCir {
+	padding: 0px 9px;
+	border-radius: 10px;
+	margin: 0 5px 0 0;
+}
+.instanceBorderCon .networkInfo {
+	position: relative;
+}
+.instanceBorderCon .networkInfo .dotLine {
+	position: absolute;
+	width: 100%;
+	top: 60px;
+	left: 0px;
+	border-bottom: 1px dotted #ddd;
+	height: 1px;
+	overflow: hidden;
+}
+.instanceBorderCon .infoItems {
+	border-left: 1px dotted #ddd;
+	border-bottom: 1px dotted #ddd;
+	background: #fff;
+}
+.instanceBorderCon .infoItems li {
+	border-top: 1px dotted #ddd;
+	height: 40px;
+	padding: 5px 0px 5px 5px;
+}
+.instanceBorderCon .infoItems li span {
+	display: block;
+	line-height: 30px;
+	background: #f2f6fb;
+	padding: 0 10px;
+}
+.instanceBorderCon .infoItems li span b {
+	color: #00a982;
+}
+.lineChartsCon {
+	margin-top: 10px;
+}
+.color-success {
+	color: #00a982;
+}
+.color-danger {
+	color: #f34b00;
+} 
+.myResourceCon .panel {
+	border-radius: 0px;
+	margin-top: 20px;
+}
+.myResourceCon .panel-default {
+	border: 2px solid #cfd6e6;
+}
+.myResourceCon .panel-default .panel-heading {
+	background: #eff4f8;
+	border-bottom: none;
+	font-size: 18px;
+}
+.myResourceCon .panel-default .panel-heading i {
+	color: #00a982;
+	margin: -3px 0 0 0;
+}
+.myResourceCon .panel-body {
+	height: 200px;
+}
+.myResourceCon .nav-tabs {
+	border-bottom: none;
+}
+.myResourceCon .nav-tabs li {
+	float: none;
+	position: relative;
+	z-index: 10;
+}
+.myResourceCon .nav-tabs li .linkLine {
+	position: absolute;
+	border-bottom: 1px solid #00a982;
+	top: 20px; 
+	right: -100px;
+	width: 100px;
+	display: none;
+}
+.myResourceCon .nav-tabs>li.active .linkLine {
+	display: block;
+}
+.myResourceCon .nav-tabs>li>a {
+	border-radius: 0px;
+	border: 1px solid #ddd;
+	padding: 8px 15px;
+	margin: 0 0 5px 0;
+}
+.myResourceCon .nav-tabs>li.active>a {
+	border: 1px solid #00a982;
+	border-radius: 0px;
+	background: #f2f6fb;
+}
+.myResourceCon .nav-tabs>li.active>a:hover {
+	border: 1px solid #00a982;
+	border-radius: 0px;
+	background: #f2f6fb;
+}
+.myResourceCon .nav-tabs>li>a:hover {
+	border: 1px solid #ddd;
+	background: none;
+}
+.myResourceCon .tab-pane {
+	border: 1px solid #00a982;
+	padding: 0 10px 10px 10px;
+	background: #f2f6fb;
+	position: relative;
+	z-index: 11;
+}
+.myResourceCon .tab-pane li {
+	border: 1px solid #00a982;
+	margin-top: 10px;
+	padding: 3px 5px;
+	background: #fff;
+	position: relative;
+}
+.myResourceCon .tab-pane li .linkLine {
+	border-bottom: 1px solid #00a982;
+    position: absolute;
+    top: 12px;
+    left: -12px;
+    width: 12px;
+}
+.myResourceCon .badge {
+	background: #ccc;
+}

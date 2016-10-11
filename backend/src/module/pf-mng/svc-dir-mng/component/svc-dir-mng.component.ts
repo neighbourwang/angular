@@ -6,7 +6,6 @@ import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../ar
 import { Directory, Region, Template } from '../model';
 import { DirectoryService } from '../service/svc-dir-mng.service';
 
-const PlatformId: string = '6';
 const Status: string = '1';
 
 @Component({
@@ -34,6 +33,7 @@ export class DirectoryComponent implements OnInit {
   templates: Template[];
   directories: Directory[];
   filterRegId: string = '';
+  platformId: number;
 
   allChecked: boolean = false;
 
@@ -64,16 +64,38 @@ export class DirectoryComponent implements OnInit {
 
     this.currDirectory = undefined;
 
-    this.layoutService.setLoading(false);
+    this.layoutService.hide();
 
     this.directories = new Array<Directory>();
 
-    this.getRegios();
     this.getTemplates();
+  }
+  getTemplates() {
+    this.layoutService.show();
+  
+    this.directoryService
+        .getTemplates()
+        .then(ret => {
+            if (!ret) {
+                this.showNotice('数据获取失败', '服务模板数据获取失败。');
+            } else {
+                if (ret && ret.resultContent) {
+                  this.templates = ret.resultContent;
+
+                  this.getRegios();
+                  
+                }
+            }
+            this.layoutService.hide();
+        })
+        .catch(error => {
+            this.showNotice('数据获取失败', '服务模板数据获取失败。');
+            this.layoutService.hide();
+        });
   }
 
   getRegios() {
-    this.layoutService.setLoading(true);
+    this.layoutService.show();
   
     this.directoryService
         .getRegions()
@@ -86,55 +108,43 @@ export class DirectoryComponent implements OnInit {
                   if (this.regions.length > 0) {
                       this.filterRegId = this.regions[0].id;
                   }
+                  this.regChange(undefined);
                 }
             }
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         })
         .catch(error => {
             this.showNotice('数据获取失败', '地区数据获取失败。');
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         });
   }
 
-  getTemplates() {
-    this.layoutService.setLoading(true);
-  
-    this.directoryService
-        .getTemplates()
-        .then(ret => {
-            if (!ret) {
-                this.showNotice('数据获取失败', '服务模板数据获取失败。');
-            } else {
-                if (ret && ret.resultContent) {
-                  this.templates = ret.resultContent;
+  regChange(event: any) {
 
-                  this.getDirectorys(this.currPage, this.pageSize);
-                }
-            }
-            this.layoutService.setLoading(false);
-        })
-        .catch(error => {
-            this.showNotice('数据获取失败', '服务模板数据获取失败。');
-            this.layoutService.setLoading(false);
-        });
+    this.regions.forEach(element => {
+      if (element.id == this.filterRegId) {
+        this.platformId = element.platformId;
+      }
+    });
+    this.getDirectorys(this.currPage, this.pageSize);
   }
 
   getDirectorys(page: number, size: number) {
-    this.layoutService.setLoading(true);
+    this.layoutService.show();
 
     this.directoryService
-        .getDirectories(PlatformId, Status, page-1, size)
+        .getDirectories(this.platformId+'', Status, page-1, size)
         .then(ret => {
             if (!ret) {
                 this.showNotice('数据获取失败', '服务目录数据获取失败。');
             } else {
                 this.fmtDirectorysData(ret);
             }
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         })
         .catch(error => {
             this.showNotice('数据获取失败', '服务目录数据获取失败。');
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         });
   }
 
@@ -193,21 +203,21 @@ export class DirectoryComponent implements OnInit {
 
   publishDirectory(directory: Directory, status: string) {
 
-    this.layoutService.setLoading(true);
+    this.layoutService.show();
 
     this.directoryService
-        .publish(PlatformId, directory.id, status)
+        .publish(this.platformId+'', directory.id, status)
         .then(ret => {
             if (!ret) {
                 this.showNotice('操作失败', '服务目录操作失败。');
             } else {
                 directory.status = parseInt(status);
             }
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         })
         .catch(error => {
             this.showNotice('操作失败', '服务目录操作失败。');
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         });
   }
 
@@ -215,7 +225,7 @@ export class DirectoryComponent implements OnInit {
     let data = this.createUpdateData(directory);
 
     
-    // this.layoutService.setLoading(true);
+    // this.layoutService.show();
 
     // this.directoryService
     //     .modify(PlatformId, data)
@@ -225,11 +235,11 @@ export class DirectoryComponent implements OnInit {
     //         } else {
     //             this.refreshData(ret);
     //         }
-    //         this.layoutService.setLoading(false);
+    //         this.layoutService.hide();
     //     })
     //     .catch(error => {
     //         this.showNotice('更新失败', '服务目录更新失败。');
-    //         this.layoutService.setLoading(false);
+    //         this.layoutService.hide();
     //     });
   }
   
@@ -292,10 +302,10 @@ export class DirectoryComponent implements OnInit {
   remove() {
     let ids = this.getAllSelectedData();
     
-    this.layoutService.setLoading(true);
+    this.layoutService.show();
 
     this.directoryService
-        .removeAll(PlatformId, ids)
+        .removeAll(this.platformId+'', ids)
         .then(ret => {
             if (!ret) {
                 this.showNotice('删除失败', '服务目录删除失败。');
@@ -303,11 +313,11 @@ export class DirectoryComponent implements OnInit {
                 this.allChecked = false;
                 this.removeDirectoiesById(ids);
             }
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         })
         .catch(error => {
             this.showNotice('删除失败', '服务目录删除失败。');
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         });
   }
 

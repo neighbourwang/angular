@@ -1,0 +1,91 @@
+<fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
+	<div class="page-content-header icon-instance">实例列表</div>
+	<div class="page-content">
+		<div style="padding-bottom: 10px;">
+			<div class="btn-group pull-right">
+				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+				更多操作
+				<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+					<li><a href="#">查看详情</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="#">查看控制台</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="#">编辑云主机</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="#">删除云主机</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="#">创建快照</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a class="clickable" (click)="updateInstanceStatus(item, 'softReboot', $event);">软重启</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a class="clickable" (click)="updateInstanceStatus(item, 'hardReboot', $event);">硬重启</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a class="clickable" (click)="updateInstanceStatus(item, 'softShutdown', $event);">软关机</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a class="clickable" (click)="updateInstanceStatus(item, 'hardShutdown', $event);">硬关机</a></li>
+				</ul>
+			</div>
+			<div class="pull-right" style="position: relative;">
+				<span class="glyphicon glyphicon-search form-control-feedback"></span>
+				<input type="text" class="form-control" placeholder="搜索" [(ngModel)]="filterText">
+			</div>
+			<div class="btn-group">
+				<button class="fox-cloud-button fox-cloud-button-white" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					<span class="glyphicon glyphicon-edit"></span>
+					<span class="icon-button-label icon-left-button-label">更多创建</span>
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+					<li><a href="#">从镜像创建</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="#">从快照创建</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="#">从卷创建</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="#">从卷模板创建</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="table-container">
+		<table class="table table-hover"> 
+			<thead>
+				<tr>
+					<th class="fristTh"><input type="checkbox" (click)="checkAll()"> 全选</th>
+					<th>实例名称</th>
+					<th>镜像</th>
+					<th>规格</th>
+					<th>网络类型</th>
+					<th>付费方式</th>
+					<th>IP地址</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let item of (instances | instanceDispPipe: filterText)" class="clickable" (click)="showDetail(item)">
+					<td><input type="checkbox" [(ngModel)]="item.checked" [checked]="item.checked" (click)="check($event)"></td>
+					<td>{{item.instanceName}}</td>
+					<td>{{item.osInfo}}</td>
+					<td>{{item.specification}}</td>
+					<td>{{item.networkType}}</td>
+					<td>{{item.paymentType}}</td>
+					<td>{{item.ipAddress}}</td>
+					<td>
+						<button class="fox-cloud-button-sm fox-cloud-button-white" (click)="updateInstanceStatus(item, 'pause', $event);">
+							<span class="icon-button-label">暂停</span>
+						</button>
+						<button class="fox-cloud-button-sm fox-cloud-button-white" (click)="updateInstanceStatus(item, 'suspend', $event);">
+							<span class="icon-button-label">挂起</span>
+						</button>
+						<button class="fox-cloud-button-sm fox-cloud-button-grey" (click)="updateInstanceStatus(item, 'resume', $event)">
+							<span class="icon-button-label">恢复</span>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<fc-pagination tp={{totalPages}} (pf)="changePage($event)"></fc-pagination>
+	</div>

@@ -1,0 +1,162 @@
+<div class="mainCon">
+    <div class="row" style="background: #f2f6fb; padding: 10px; margin: 0 0 20px 0;">
+        <div class="col-md-8" style="font-size: 18px; line-height: 34px;">您目前共有<span class="color-success">3</span>个实例，其中<span class="color-success">3</span>个正在运行，<span class="color-danger">0</span>个即将过期。</div>
+        <div class="col-md-4 pull-right topBtnCon text-right">
+            <button class="btn btn-default"><i class="glyphicon glyphicon-cog"></i> 设置</button>
+            <button class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> 刷新</button>
+            <button class="btn btn-default"><i class="glyphicon glyphicon-th-list"></i> 续费管理</button>
+        </div>
+    </div>
+
+    <div class="page-content-header icon-content-header-instance">我的资源</div>
+    <div class="row myResourceCon">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"> <i class="glyphicon glyphicon-shopping-cart pull-right"></i>
+                    <h3 class="panel-title">上海A区</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <fc-donut-chart [percent]=100></fc-donut-chart>
+                            <div style="margin-top: 20px;">云主机</div>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <fc-donut-chart [percent]=75></fc-donut-chart>
+                            <div style="margin-top: 20px;">云硬盘</div>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <fc-donut-chart [percent]=28></fc-donut-chart>
+                            <div style="margin-top: 20px;">快照</div>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <fc-donut-chart [percent]=97></fc-donut-chart>
+                            <div style="margin-top: 20px;">镜像</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading"> <i class="glyphicon glyphicon-shopping-cart pull-right"></i>
+                    <h3 class="panel-title">上海B区</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <fc-donut-chart [percent]=100></fc-donut-chart>
+                            <div style="margin-top: 20px;">云主机</div>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <fc-donut-chart [percent]=75></fc-donut-chart>
+                            <div style="margin-top: 20px;">云硬盘</div>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <fc-donut-chart [percent]=28></fc-donut-chart>
+                            <div style="margin-top: 20px;">快照</div>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <fc-donut-chart [percent]=97></fc-donut-chart>
+                            <div style="margin-top: 20px;">镜像</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"> <i class="glyphicon glyphicon-shopping-cart pull-right"></i>
+                    <h3 class="panel-title">上海A区</h3>
+                </div>
+                <div class="panel-body">
+                    <ul id="myTab" class="nav nav-tabs col-md-6">
+                        <li class="active"> <a href="#tabCon1" data-toggle="tab">云服务器 <span class="badge">1</span></a><div class="linkLine"></div></li>
+                        <li><a href="#tabCon2" data-toggle="tab">全部磁盘 <span class="badge">1</span></a><div class="linkLine"></div></li>
+                        <li><a href="#tabCon3" data-toggle="tab">全部快照 <span class="badge">1</span></a><div class="linkLine"></div></li>
+                        <li><a href="#tabCon4" data-toggle="tab">全部镜像 <span class="badge">1</span></a><div class="linkLine"></div></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content col-md-6">
+                        <div class="tab-pane in active" id="tabCon1">
+                            <ul>
+                                <li class="color-success">运行中 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li class="color-danger">即将过期 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li class="color-danger">已过期 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li class="color-success">近期创建 <span class="badge">1</span><div class="linkLine"></div></li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane" id="tabCon2">
+                            <ul>
+                                <li>运行中 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li>即将过期 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li>已过期 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li>近期创建 <span class="badge">1</span><div class="linkLine"></div></li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane" id="tabCon3">
+                            <ul>
+                                <li>运行中 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li>即将过期 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li>已过期 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li>近期创建 <span class="badge">1</span><div class="linkLine"></div></li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane" id="tabCon4">
+                            <ul>
+                                <li>运行中 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li>即将过期 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li>已过期 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li>近期创建 <span class="badge">1</span><div class="linkLine"></div></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading"> <i class="glyphicon glyphicon-shopping-cart pull-right"></i>
+                    <h3 class="panel-title">上海B区</h3>
+                </div>
+                <div class="panel-body">
+                    <ul id="myTab" class="nav nav-tabs col-md-6">
+                        <li class="active"> <a href="#tabCon5" data-toggle="tab">云服务器 <span class="badge">1</span></a><div class="linkLine"></div></li>
+                        <li><a href="#tabCon6" data-toggle="tab">全部磁盘 <span class="badge">1</span></a><div class="linkLine"></div></li>
+                        <li><a href="#tabCon7" data-toggle="tab">全部快照 <span class="badge">1</span></a><div class="linkLine"></div></li>
+                        <li><a href="#tabCon8" data-toggle="tab">全部镜像 <span class="badge">1</span></a><div class="linkLine"></div></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content col-md-6">
+                        <div class="tab-pane in active" id="tabCon5">
+                            <ul>
+                                <li class="color-success">运行中 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li class="color-danger">即将过期 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li class="color-danger">已过期 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li class="color-success">近期创建 <span class="badge">1</span><div class="linkLine"></div></li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane" id="tabCon6">
+                            <ul>
+                                <li>运行中 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li>即将过期 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li>已过期 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li>近期创建 <span class="badge">1</span><div class="linkLine"></div></li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane" id="tabCon7">
+                            <ul>
+                                <li>运行中 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li>即将过期 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li>已过期 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li>近期创建 <span class="badge">1</span><div class="linkLine"></div></li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane" id="tabCon8">
+                            <ul>
+                                <li>运行中 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li>即将过期 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li>已过期 <span class="badge">1</span><div class="linkLine"></div></li>
+                                <li>近期创建 <span class="badge">1</span><div class="linkLine"></div></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
