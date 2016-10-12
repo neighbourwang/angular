@@ -30,5 +30,11 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "id": "hosts.instance.action",
         "url": "marketplace/authsec/subinstance/itemlist/vm/action"
+    },
+    {
+        "desc": "获取云主机详细信息",
+        "method": "GET",
+        "id": "hosts.instance.detail",
+        "url": "marketplace/authsec/subinstance/itemlist/vm/{uuid}"
     }
 ]

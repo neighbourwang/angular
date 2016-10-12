@@ -36,4 +36,15 @@ export class InstanceListService {
         return this.restApi.request(api.method, api.url, undefined, undefined, action);
     }
 
+    getInstanceDetail(uuid: string): Promise<any> {
+        let api = this.restApiCfg.getRestApi('hosts.instance.detail');
+
+        let pathParams = [{
+            key: 'uuid',
+            value: uuid
+        }];
+
+        return this.restApi.request(api.method, api.url, pathParams, undefined, undefined);
+    }
+
 }
