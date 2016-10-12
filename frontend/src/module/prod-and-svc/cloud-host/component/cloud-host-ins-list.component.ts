@@ -207,7 +207,11 @@ export class InstanceListComponent implements OnInit {
   }
 
   showDetail(instance: Instance) {
-    let link = ['/prod-and-svc/cloud-host/cloud-host-ins-detail'];
-    this.router.navigate(link);
+    // let params = {
+    //    uuid: instance.uuid
+    // };
+    let link = ['/prod-and-svc/cloud-host/cloud-host-ins-detail', instance.uuid];
+
+    this.router.navigate(link)
   }
 }

@@ -1,3 +1,5 @@
+<fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
 <div class="page-content-header icon-instance">实例明细</div>
 <div class="page-content">
     <div class="row">
@@ -17,39 +19,39 @@
                     <table>
                         <tr>
                             <th>ID：</th>
-                            <td>ddc-112-cloud1</td>
+                            <td>{{instanceDetail.id}}</td>
                         </tr>
                         <tr>
                             <th>所有可用区：</th>
-                            <td>上海1 可用区1</td>
+                            <td>{{instanceDetail.availabilityZone}}</td>
                         </tr>
                         <tr>
                             <th>名称：</th>
-                            <td>vm-ddc-test</td>
+                            <td>{{instanceDetail.displayName}}</td>
                         </tr>
                         <tr>
                             <th>描述：</th>
-                            <td>the vm for test</td>
+                            <td>{{instanceDetail.description}}</td>
                         </tr>
                         <tr>
                             <th>区域：</th>
-                            <td>上海1</td>
+                            <td>TBD</td>
                         </tr>
                         <tr>
                             <th>实例规格：</th>
-                            <td>esc.t1.small</td>
+                            <td>{{instanceDetail.flavorId}}TBD</td>
                         </tr>
                         <tr>
                             <th>实例规格族：</th>
-                            <td>简约型t1</td>
+                            <td>{{instanceDetail.flavorId}}TBD</td>
                         </tr>
                         <tr>
                             <th>镜像ID：</th>
-                            <td>centos70U_64_20G_20160819</td>
+                            <td>{{instanceDetail.imageRef}}TBD</td>
                         </tr>
                         <tr>
                             <th>标签：</th>
-                            <td></td>
+                            <td>TBD</td>
                         </tr>
                     </table>
                 </div>
@@ -67,31 +69,31 @@
                     <table>
                         <tr>
                             <th>CPU：</th>
-                            <td>1核</td>
+                            <td>{{instanceDetail.vcpus}}核</td>
                         </tr>
                         <tr>
                             <th>内存：</th>
-                            <td>1024MB</td>
+                            <td>{{instanceDetail.memoryMbDisplay}}</td>
                         </tr>
                         <tr>
                             <th>系统：</th>
-                            <td>CentOS7.0 64位</td>
+                            <td>{{instanceDetail.osType}}</td>
                         </tr>
                         <tr>
                             <th>公网IP：</th>
-                            <td>121.21.23.11</td>
+                            <td>{{instanceDetail.accessIpV4}}TBD</td>
                         </tr>
                         <tr>
                             <th>私网IP：</th>
-                            <td>16.17.18.210</td>
+                            <td>{{instanceDetail.accessIpV4}}TBD</td>
                         </tr>
                         <tr>
                             <th>宽带计费方式：</th>
-                            <td>按宽带</td>
+                            <td>按宽带TBD</td>
                         </tr>
                         <tr>
                             <th>当前使用带宽：</th>
-                            <td>1Mbps</td>
+                            <td>1MbpsTBD</td>
                         </tr>
                     </table>
                 </div>
@@ -104,11 +106,18 @@
                         <table class="yTable">
                             <tr>
                                 <th style="width: 80px;">网络类型：</th>
-                                <td>经典网络</td>
+                                <td>经典网络TBD</td>
                             </tr>
                             <tr>
                                 <th>状态：</th>
-                                <td><span class="statusCir bg-success"></span>运行中</td>
+                                <td>
+                                    <div *ngIf="instanceDetail && instanceDetail.powerState == 1">
+                                        <span class="statusCir bg-success"></span>运行中
+                                    </div>
+                                    <div *ngIf="instanceDetail && instanceDetail.powerState == 0">
+                                        <span class="statusCir bg-danger"></span>关机
+                                    </div>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -126,9 +135,9 @@
                                 <div class="col-md-6">
                                     <div class="infoItems">
                                         <ul>
-                                            <li><span>磁盘：<b>1</b></span></li>
-                                            <li><span>快照：<b>1</b></span></li>
-                                            <li><span>镜像：<b>CentOS 7.0 64位</b></span></li>
+                                            <li><span>磁盘：<b>1TBD</b></span></li>
+                                            <li><span>快照：<b>1TBD</b></span></li>
+                                            <li><span>镜像：<b>CentOS 7.0 64位TBD</b></span></li>
                                         </ul>
                                     </div>
                                 </div>

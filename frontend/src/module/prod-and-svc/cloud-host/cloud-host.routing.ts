@@ -21,7 +21,7 @@ export const CloudHostRouting: ModuleWithProviders = RouterModule.forChild([
         path: 'prod-and-svc/cloud-host/cloud-host-ins-list',
         component: InstanceListComponent
     },{
-        path: 'prod-and-svc/cloud-host/cloud-host-ins-detail',
+        path: 'prod-and-svc/cloud-host/cloud-host-ins-detail/:uuid',
         component: InstantceDetailComponent
     }
 ]);
