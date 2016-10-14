@@ -147,8 +147,16 @@
                 </div>
             </div>
             <div class="lineChartsCon">
-                <div style="border: 1px solid #ddd; height: 480px;">
-                    <fc-line-chart>曲线图</fc-line-chart>
+                <div class="thisTitle">
+                    <i class="glyphicon glyphicon-pause"></i> 监控信息
+                    <div class="pull-right">
+                        设置报警规则
+                        <label>2016-08-23 09:13 - 2016-08-23 10:13</label>
+                    </div>
+                </div>
+                <div>
+                    <fc-line-chart title="CPU" [data]="cpuData" >CPU</fc-line-chart>
+                    <fc-line-chart title="网络" [data]="networkData" >网络</fc-line-chart>
                 </div>
             </div>
         </div>

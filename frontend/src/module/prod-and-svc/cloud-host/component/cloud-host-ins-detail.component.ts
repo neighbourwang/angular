@@ -28,6 +28,9 @@ export class InstantceDetailComponent implements OnInit {
   modalMessage: string = '';
   modalOKTitle: string = '';
 
+  cpuData: Object;
+  networkData: Object;
+
   constructor(
     private layoutService: LayoutService,
     private instanceService: InstanceListService,
@@ -44,6 +47,66 @@ export class InstantceDetailComponent implements OnInit {
       }
     });
     
+    this.cpuData = [
+      {
+        xValue: '09:15:00',
+        yValue: 2.8
+      },
+      {
+        xValue: '09:20:00',
+        yValue: 0.2
+      },
+      {
+        xValue: '09:25:00',
+        yValue: 1.2
+      },
+      {
+        xValue: '09:30:00',
+        yValue: 4
+      },
+      {
+        xValue: '09:35:00',
+        yValue: 1.2
+      },
+      {
+        xValue: '09:40:00',
+        yValue: 0.7
+      },
+      {
+        xValue: '09:45:00',
+        yValue: 2.6
+      }
+    ]
+    this.networkData = [
+      {
+        xValue: '09:15:00',
+        yValue: 1000
+      },
+      {
+        xValue: '09:20:00',
+        yValue: 1900
+      },
+      {
+        xValue: '09:25:00',
+        yValue: 3800
+      },
+      {
+        xValue: '09:30:00',
+        yValue: 2700
+      },
+      {
+        xValue: '09:35:00',
+        yValue: 3200
+      },
+      {
+        xValue: '09:40:00',
+        yValue: 1000
+      },
+      {
+        xValue: '09:45:00',
+        yValue: 2200
+      }
+    ]
   }
 
   getInstanceDetail(uuid: string) {
