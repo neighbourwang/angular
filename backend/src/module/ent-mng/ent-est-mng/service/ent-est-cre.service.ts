@@ -4,10 +4,6 @@ import { ResourceQuotaPaging, EntEstItem, EntEstMng, CurrencyType, EntEst, EntEs
 import { LayoutService, ValidationService, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
-const apiIp: string = '15.114.100.58';
-const apiPort: string = '9000';
-// const apiPort: string = '9105';
-
 @Injectable()
 export class EntEstCreService{
 	private static entEst : EntEst;
@@ -48,7 +44,7 @@ export class EntEstCreService{
 
 	loadResourceQuotas(resourceQuotaPaging: ResourceQuotaPaging, errorHandler: Function, comp:any)
 	{
-		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.resourcequota.get", apiIp, apiPort);
+		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.resourcequota.get");
 
 		let params = [
 			{
@@ -102,7 +98,7 @@ export class EntEstCreService{
 
 	loadEntEstItems(entEstMng: EntEstMng, errorHandler: Function, comp:any)
 	{
-		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.get", apiIp, apiPort);
+		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.get");
 
 
 		let params = [
@@ -177,7 +173,7 @@ export class EntEstCreService{
 
 	//企业开通
 	enterpriseOpen(enterpriseId: string):Promise<any>{
-		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.open", apiIp, apiPort);
+		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.open");
 
 		let params = [
 			{
@@ -195,14 +191,14 @@ export class EntEstCreService{
 
 	//创建企业基本信息
 	createEnterpise():Promise<any>{
-		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.create", apiIp, apiPort);
+		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.create");
 
 		return this.restApi.request(api.method, api.url, [], [], EntEstCreService.entEst.BasicInfo);
 	}
 
 	//提交企业配额信息
 	createEntResourceQuota(enterpriseId: string):Promise<any>{
-		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.resourcequota.create", apiIp, apiPort);
+		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.resourcequota.create");
 
 		let params = [
 			{

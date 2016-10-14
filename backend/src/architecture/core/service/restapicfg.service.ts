@@ -8,8 +8,8 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class RestApiCfg {
-    protected baseIp = '15.114.100.58';
-    protected basePort = '9000';
+    protected baseIp = '15.114.100.52';
+    protected basePort = '31072';
     protected restApiList: RestApiModel[];
 
     constructor(private http: Http) {
@@ -20,26 +20,13 @@ export class RestApiCfg {
         this.restApiList = RestApis;
     }
     
-    getRestApiUrl(apiId: string, ip?: string, port?: string): string {
-        let url = '';
-        port = port || this.basePort;
-        ip = ip || this.baseIp;
-        for (let restItem of this.restApiList) {
-            if (restItem.id.toLowerCase() === apiId.toLowerCase()) {
-                url = `http://${ip}:${port}/${restItem.url}`;
-                break;
-            }
-        }
-        return url;
-    }
-    
     getRestApi(apiId: string, ip?: string, port?: string): RestApiModel {
         let restApi:RestApiModel = new RestApiModel();
         port = port || this.basePort;
         ip = ip || this.baseIp;
         for (let restItem of this.restApiList) {
             if (restItem.id.toLowerCase() === apiId.toLowerCase()) {
-                restApi.url = `http://${ip}:${port}/${restItem.url}`;
+                restApi.url = `http://${ip}:${port}/adminui${restItem.url}`;
                 restApi.method = restItem.method;
                 restApi.desc = restItem.desc;
                 restApi.id = restItem.id;

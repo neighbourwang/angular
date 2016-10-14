@@ -34,10 +34,10 @@ export class DonutChart implements OnChanges{
 
   ngOnChanges() {
     if (this.chartRef) {
-      this.chart = jQuery(this.chartRef.nativeElement);
+      /*this.chart = jQuery(this.chartRef.nativeElement);
       this.setChartSize();
       this.loadPieCharts();
-      this.updatePieCharts();
+      this.updatePieCharts();*/
     }
   }
 
