@@ -151,7 +151,7 @@ export class DirectoryComponent implements OnInit {
   fmtDirectorysData(ret: any) {
     if (ret && ret.resultContent) {
       this.totalPages = ret.resultContent.totalPages;
-      this.directories = ret.resultContent.content;
+      this.directories = ret.resultContent;
 
       this.directories.forEach((element, index) => {
         this.directories[index].checked = false;
@@ -395,6 +395,8 @@ export class DirectoryComponent implements OnInit {
   }
 
   showNotice(title: string, msg: string) {
+    this.layoutService.hide();
+
     this.modalTitle = title;
     this.modalMessage = msg;
     this.modalOKTitle = 'OK';

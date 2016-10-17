@@ -36,7 +36,8 @@ export class LayoutService {
 
     hide() {
         this.count--;
-        if (this.count === 0) {
+        if (this.count <= 0) {
+            this.count = 0;
             this.isLoading = false;
         }
     }

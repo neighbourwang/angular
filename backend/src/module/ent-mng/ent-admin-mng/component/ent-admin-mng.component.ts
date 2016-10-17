@@ -58,6 +58,7 @@ export class EntAdminMngComponent implements OnInit {
 
                         this.enterprises = response["resultContent"];
 
+                        this.layoutService.hide();
                     } else {
                         this.showAlert("Res sync error");
                     }
@@ -171,6 +172,7 @@ export class EntAdminMngComponent implements OnInit {
                     response => {
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
+                            this.layoutService.hide();
                             this.setData(response);
                         } else {
                             alert("Res sync error");
@@ -185,6 +187,7 @@ export class EntAdminMngComponent implements OnInit {
                     response => {
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
+                            this.layoutService.hide();
                             this.setData(response);
                         } else {
                             alert("Res sync error");
@@ -219,6 +222,8 @@ export class EntAdminMngComponent implements OnInit {
     }
 
     showAlert(msg: string): void {
+        this.layoutService.hide();
+
         this.noticeTitle = "提示";
         this.noticeMsg = msg;
         this.notice.open();
