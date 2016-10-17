@@ -36,9 +36,11 @@ export class LayoutService {
 
     hide() {
         this.count--;
-        if (this.count === 0) {
-            this.isLoading = false;
-        }
+        // if (this.count === 0) {
+        //     this.isLoading = false;
+        // }
+
+        this.isLoading = false;
     }
 
 }
