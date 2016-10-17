@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RestApiCfg, RestApi } from '../../../../architecture';
-import { ResourceQuotaPaging, EntEstItem, EntEstMng, CurrencyType, EntEst, EntEstResourceQuota, ResourceQuota, EntEstBasicInfo } from '../model';
+import { RestApiModel } from '../../../../architecture/core/model/rest';
+import { ResourceQuotaPaging, EntEstItem, CurrencyType, EntEst, EntEstResourceQuota, ResourceQuota, EntEstBasicInfo } from '../model';
 import { LayoutService, ValidationService, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
@@ -96,7 +97,9 @@ export class EntEstCreService{
 		});
 	}
 
-	loadEntEstItems(entEstMng: EntEstMng, errorHandler: Function, comp:any)
+	loadEntEstItems(entEstMng: Paging<EntEstItem>
+		, errorHandler: Function
+		, comp:any)
 	{
 		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.get");
 
@@ -111,44 +114,18 @@ export class EntEstCreService{
 				,value:10
 			}
 		];
-		
-		this.layoutService.show();
 
-		this.restApi.request(api.method, api.url, params, undefined, undefined)
-		.then(ret=>{
-			this.layoutService.hide();
-
-			if(!ret)
-			{
-				if(errorHandler)
-				{
-					errorHandler.call(comp, {"title":"企业开通信息", "desc":"企业开通信息数据获取失败"});
-				}
-			}
-			else{
-				if(ret.resultContent)
-				{
-					console.log('ret.resultContent is', ret.resultContent, 'ret is', ret);
-					this.setArray(ret.resultContent, entEstMng.items);
-					this.setEnterpriseOpenStatus(entEstMng.items);
-					
-					entEstMng.items.map(n=>{n.checked = false;});
-
-					entEstMng.totalPages = ret.pageInfo.totalPage;
-					console.log('企业开通信息概览分页数据', ret.pageInfo);
-				}
-			}
-		})
-		.catch(err=>{
-			this.layoutService.hide();
-
-			console.log('企业开通信息加载错误', err);
-			if(errorHandler)
-			{
-				errorHandler.call(comp, {"title":"企业开通信息", "desc":"服务器上企业开通信息数据获取失败"});
-			}
+		this.loadItems(entEstMng
+			, errorHandler
+			, comp
+			, api
+			, params
+			, "企业管理"
+			, (items:EntEstItem[])=>{
+			items.map(n=>{n.checked = false;});
 		});
 	}
+	
 
 	validate(name:string, val:any, op:string)
 	{
@@ -212,37 +189,67 @@ export class EntEstCreService{
 		return this.restApi.request(api.method, api.url, params, undefined, EntEstCreService.entEst.ResourceQuotas);
 	}
 
-	//加载企业开通的状态字典
-	setEnterpriseOpenStatus(entEstItems: EntEstItem[])
+
+	
+
+	loadItems<T>(items: Paging<T>
+		,errorHandler: Function
+		,caller:any
+		,api:RestApiModel
+		,params:Array<any>
+		,errorTitle:string
+		,trait: Function)
 	{
-		let setStatus = function(dic:Array<SystemDictionary>)
-		{
-			entEstItems.map(n=>{
-				let item = dic.find(m=>m.value == n.status);
-				console.log('setEnterpriseOpenStatus item',item
-					,"dic", dic);
-				if(item)
-				{
-					n.status = item.displayValue as string;
-				}
-			});
-			
-		}
-		if(EntEstCreService.statusCache)
-		{
-			setStatus(EntEstCreService.statusCache);
-		}
-		else
-		{
-			let dicCallback = function(sf:boolean, sysDic: Array<SystemDictionary>)
+		
+
+		this.layoutService.show();
+
+		this.restApi.request(api.method, api.url, params, undefined, undefined)
+		.then(ret=>{
+			this.layoutService.hide();
+			if(!ret)
 			{
-				if(sf)
+				if(errorHandler)
 				{
-					EntEstCreService.statusCache = sysDic;
-					setStatus(EntEstCreService.statusCache);
+					errorHandler.call(caller, {"title":errorTitle, "desc":errorTitle + "数据获取失败"});
 				}
 			}
-			this.dicService.sysDicOF(this, dicCallback, "GLOBAL", "STATUS");
-		}
+			else{
+				if(ret.resultContent)
+				{
+					//设置数据
+					this.setArray(ret.resultContent, items.items);
+
+					if(trait && typeof trait === 'function')
+					{
+						trait(items.items);
+					}
+
+					console.log(errorTitle + "分页信息", ret.pageInfo);
+
+					items.totalPages = ret.pageInfo.totalPage;
+
+				}
+			}
+		})
+		.catch(err=>{
+			this.layoutService.hide();
+
+			console.log('资源配额加载错误', err);
+			if(errorHandler)
+			{
+				errorHandler.call(caller, {"title":errorTitle, "desc":"服务器上" + errorTitle + "数据获取失败"});
+			}
+		});
+	}
+}
+
+export class Paging<T>{
+	private pagingItems: T[] = []
+	currentPage: number = 0;
+	totalPages: number = 0;
+
+	get items():T[]{
+		return this.pagingItems;
 	}
 }
