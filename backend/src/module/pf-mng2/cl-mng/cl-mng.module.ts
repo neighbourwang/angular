@@ -7,11 +7,13 @@ import { NgModule } from '@angular/core';
 import { CommonComponentModule } from '../../../architecture';
 
 //Components
-
 import { ClMngListComponent } from './component/cl-mng-list.component';
 
 // Routing
 import { ClMngRouting } from './cl-mng.routing';
+
+//Service
+import { ClMngListService } from './service/cl-mgn-list.service';
 
 @NgModule({
     imports: [
@@ -24,6 +26,7 @@ import { ClMngRouting } from './cl-mng.routing';
     exports: [
     ],
     providers: [
+        ClMngListService
     ]
 
 })
