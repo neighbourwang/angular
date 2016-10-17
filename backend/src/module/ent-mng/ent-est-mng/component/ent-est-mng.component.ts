@@ -2,9 +2,8 @@ import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent } from '../../../../architecture';
 import { EntEstItem } from '../model/ent-est-item';
-import { EntEstMng } from '../model/ent-est-mng';
 
-import { EntEstCreService } from '../service/ent-est-cre.service';
+import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
 
 @Component({
   // moduleId: module.id,
@@ -18,7 +17,7 @@ export class EntEstMngComponent implements OnInit {
   notice: NoticeComponent;
   private totalPages: number = 0;
   private currentPage: number = 0;
-  private entEstMng: EntEstMng = new EntEstMng();
+  private entEstMng: Paging<EntEstItem> = new Paging<EntEstItem>();
   private selectAllField: boolean = false;
 
   constructor(
