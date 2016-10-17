@@ -68,6 +68,19 @@ export class MenuComponent implements OnInit {
 
 // Backend Menu Definition
 const menu: Array<Object> = [
+  {
+    "label" : "平台管理",
+    "isOpen" : true,
+    "icon": "icon-platform-manage",
+    "top2_menu" : [
+      {
+          "label": "云平台",
+          "isOpen": false,
+          "isActive": false,
+          "routing": "pf-mng2/cl-mng/cl-mng"
+      },
+    ]
+  },
     {
         "label": "平台管理中心",
         "isOpen": true,
