@@ -61,7 +61,6 @@ export class ClMngListComponent implements OnInit{
                 console.log(response);
                 this.layoutService.hide();
             }
-        ).catch(
         );
 
     }
