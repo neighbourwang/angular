@@ -165,10 +165,10 @@ export let RestApis: RestApiModel[] = [
     // 企业资源配额管理
     // 服务目录管理
     {
-        "desc": "获取全部服务目录列标",
+        "desc": "获取全部服务目录",
         "method": "GET",
         "id": "pf-mng.svc-dir-mng.services.get",
-        "url": "/noauth/svm/platforms/{platformid}/services/"
+        "url": "/authsec/services"
     },
     {
         "desc": "获取全部地区列标",
