@@ -5,9 +5,6 @@ import { RestApiCfg, RestApi } from '../../../../architecture';
 
 import 'rxjs/add/operator/toPromise';
 
-const apiIp: string = '15.114.100.54';
-const apiPort: string = '9105';
-
 @Injectable()
 export class DirectoryService {
     constructor(
@@ -17,7 +14,7 @@ export class DirectoryService {
     ) { }
     
     getRegions(): Promise<any> {
-        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.regions.get', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.regions.get');
 
 
         let queryParams = [
@@ -31,7 +28,7 @@ export class DirectoryService {
     }
 
     getTemplates(): Promise<any> {
-        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.servicetemplates.get', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.servicetemplates.get');
 
 
         let queryParams = [
@@ -45,7 +42,7 @@ export class DirectoryService {
     }
 
     getDirectories(platformId: string, status: string,  page: number, size: number): Promise<any> {
-        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.services.get', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.services.get');
 
         let pathParams = [
             {
@@ -73,7 +70,7 @@ export class DirectoryService {
     }
 
     publish(platformId: string, id: string, status: string) {
-        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.services.publish', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.services.publish');
 
         let pathParams = [
             {
@@ -94,7 +91,7 @@ export class DirectoryService {
     }
 
     modify(platformId: string, directory: any) {
-        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.services.update', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.services.update');
 
         let pathParams = [
             {
@@ -111,7 +108,7 @@ export class DirectoryService {
     }
 
     removeAll(platformId: string, ids: string[]) {
-        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.services.removeAll', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.services.removeAll');
 
         let pathParams = [
             {

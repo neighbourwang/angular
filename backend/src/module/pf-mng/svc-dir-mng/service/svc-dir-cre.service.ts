@@ -5,10 +5,6 @@ import { RestApiCfg, RestApi } from '../../../../architecture';
 
 import 'rxjs/add/operator/toPromise';
 
-
-const apiIp: string = '15.114.100.54';
-const apiPort: string = '9105';
-
 @Injectable()
 export class DirectoryCreateService {
 
@@ -61,7 +57,7 @@ export class DirectoryCreateService {
     }
 
     getFlavors(platformId: number): Promise<any> {
-        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.flavors.get', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.flavors.get');
 
         let pathParams = [
             {
@@ -74,7 +70,7 @@ export class DirectoryCreateService {
     }
     
     getZones(platformId: string): Promise<any> {
-        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.zones.get', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.zones.get');
 
         let pathParams = [
             {
@@ -87,7 +83,7 @@ export class DirectoryCreateService {
     }
 
     getStorages(platformId: string): Promise<any> {
-        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.storages.get', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.storages.get');
 
         let pathParams = [
             {
@@ -100,7 +96,7 @@ export class DirectoryCreateService {
     }
 
     createServiceDirectory(platformId: string, serviceDetail: ServiceDetail) {
-        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.services.create', apiIp, apiPort);
+        let api = this.restApiCfg.getRestApi('pf-mng.svc-dir-mng.services.create');
 
         let pathParams = [
             {

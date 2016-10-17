@@ -1,16 +1,21 @@
-<!--<div class="row">-->
-  <div class="line-chart">
-    <div style="display: block;">
-        <canvas baseChart 
-                [datasets]="lineChartData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [colors]="lineChartColors"
-                [legend]="lineChartLegend"
-                [chartType]="lineChartType"
-                (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)">
-        </canvas>
+<div class="fc-line-chart">
+  <div style="display: block;">
+    <div class="title">
+      {{title}}
     </div>
+    <div class="overlayer">
+      
+    </div>
+
+      <canvas baseChart  width="4" height="1"
+              [datasets]="lineChartData"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="lineChartLegend"
+              [chartType]="lineChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)">
+      </canvas>
   </div>
-<!--</div>-->
+</div>
