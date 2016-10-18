@@ -99,14 +99,11 @@ export class EntEstCreService{
 
 	loadEntEstItems(entEstMng: Paging<EntEstItem>
 		, errorHandler: Function
-		, caller:any)
+		, caller:any
+		, criteria: string = "")
 	{
 
-		this.loadItems(entEstMng
-			, errorHandler
-			, caller
-			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.get")
-			, [
+		let localParams:Array<any> = [
 				{
 					key:"_page"
 					,value: entEstMng.currentPage == 0 ? 1 : entEstMng.currentPage
@@ -115,7 +112,21 @@ export class EntEstCreService{
 					key:"_size"
 					,value:10
 				}
-			]
+			];
+
+		if(criteria.length > 0)
+		{
+			localParams.push({
+				key:"name"
+				,value:criteria
+			});
+		}
+
+		this.loadItems(entEstMng
+			, errorHandler
+			, caller
+			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.get")
+			, localParams
 			, "企业管理"
 			, (items:EntEstItem[])=>{
 				let item = new EntEstItem();
@@ -204,6 +215,7 @@ export class EntEstCreService{
 		,map:Function
 		,trait: Function)
 	{
+		items.items.splice(0, items.items.length);
 
 		if(fakeData && typeof fakeData === 'function')		
 		{
