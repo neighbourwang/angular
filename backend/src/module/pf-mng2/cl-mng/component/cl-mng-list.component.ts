@@ -5,6 +5,9 @@ import { LayoutService, NoticeComponent  } from '../../../../architecture';
 
 import { ClMngListService } from '../service/cl-mgn-list.service';
 
+//model
+import { Platform } from '../model/platform.model';
+
 @Component({
   selector: 'cl-mng-list',
   templateUrl: '../template/cl-mng-list.component.html',
@@ -19,6 +22,9 @@ export class ClMngListComponent implements OnInit{
         private layoutService: LayoutService,
         private service : ClMngListService
     ) {}
+
+    // 平台数组
+    platforms: Array<Platform> = new Array<Platform>();
 
     // 平台数据总页数
     tp: number = 0;
@@ -58,10 +64,39 @@ export class ClMngListComponent implements OnInit{
         this.tp = 0;
         this.service.getPlatforms(page, size).then(
             response => {
-                console.log(response);
+                if (response && 100 == response.resultCode){
+                    let resultContent = response.resultContent;
+                    let backend = new Array<Platform>();
+                    for (let content of resultContent) {
+                        let platform = new Platform();
+
+                        platform.id = content.id;
+                        platform.name = content.name;
+                        platform.platformType = content.platformType;
+                        platform.platformTypeName = content.platformTypeName;
+                        platform.uri = content.uri;
+                        platform.userName = content.userName;
+                        platform.passwd = content.passwd;
+                        platform.description = content.description;
+                        platform.version = content.version;
+                        platform.status = content.status;
+
+                        backend.push(platform);
+                    }
+                    let pageInfo = response.pageInfo;
+
+                    this.tp = pageInfo.totalPage;
+
+                    this.platforms = backend;
+
+                }else{
+
+                }
                 this.layoutService.hide();
             }
-        ).catch(
+        ).catch(function(){
+
+        }
         );
 
     }
