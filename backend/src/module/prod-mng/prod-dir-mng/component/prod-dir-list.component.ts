@@ -54,7 +54,7 @@ export class ProdDirListComponent implements OnInit{
         //跳转
 
         console.log('create');
-        // this.router.navigateByUrl("prod-", {skipLocationChange: true});
+        // this.router.navigateByUrl("prod-mng/prod-dir-mng/prod-dir-cre", {skipLocationChange: true});
     }
 
 

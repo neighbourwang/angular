@@ -3,7 +3,7 @@
  */
 import { NgModule } from '@angular/core';
 
-// Common Components
+// Common Components ../../../architecture
 import { CommonComponentModule } from '../../../architecture';
 
 //Components
