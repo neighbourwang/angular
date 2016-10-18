@@ -36,7 +36,8 @@
             </thead>
             <tbody>
             <tr *ngFor="let item of platforms; let idx = index;">
-                <td><input type="radio" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)" /></td>
+                <!--<td><input type="radio" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)" /></td>-->
+                <td>123</td>
                 <td>{{item.name}}</td>
                 <td>{{item.platformTypeName}}</td>
                 <td>{{item.uri}}</td>
