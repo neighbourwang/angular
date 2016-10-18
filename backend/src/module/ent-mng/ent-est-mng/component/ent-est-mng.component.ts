@@ -61,6 +61,22 @@ export class EntEstMngComponent implements OnInit {
     this.service.loadEntEstItems(this.entEstMng, this.showError, this, this.criteria);      
   }
 
+  getSelected(){
+    let item = this.entEstMng.items.find(n=>n.checked) as EntEstItem;
+    if(item)
+      return item;
+    else
+    {
+      this.notice.open("企业列表", "请选择企业");
+      return null;
+    }
+  }
+
+  composeUrlWithId(url:string, entId:string)
+  {
+    return [url, "?", "entId=", entId].join();
+  }
+
   //创建企业
   create() {
     this.service.initCache();
@@ -69,41 +85,66 @@ export class EntEstMngComponent implements OnInit {
 
   //编辑
   edit(){
+    if(this.getSelected())
+    {
+
+    }
 
   }
 
   //修改配额
   modifyQuota(){
-
+    if(this.getSelected())
+    {
+      
+    }
   }
 
   //设置认证
   setupCertInfo(){
-
+    if(this.getSelected())
+    {
+      
+    }
   }
 
   //设置产品
   setupProduct(){
-
+    if(this.getSelected())
+    {
+      
+    }
   }
 
   //设置管理员
   setupAdmin(){
-
+    if(this.getSelected())
+    {
+      this.router.navigateByUrl(this.composeUrlWithId("ent-mng/ent-admin-mng/ent-admin-mng", this.getSelected().id));
+    }
   }
 
   //启用
   enable(){
-
+    if(this.getSelected())
+    {
+      
+    }
   }
 
   //禁用
   disable(){
-
+    if(this.getSelected())
+    {
+      
+    }
   }
 
   //删除
   delete(){
-
+    if(this.getSelected())
+    {
+      
+    }
   }
 }

@@ -100,5 +100,8 @@ export class EntAdminMngService {
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => adminList);
     }
 
-   
+    getEnterpriseById(id:string) :void {
+        
+    }
+
 }
