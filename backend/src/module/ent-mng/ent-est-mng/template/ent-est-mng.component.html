@@ -8,7 +8,7 @@
 			<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-				<li><a href="#" (click)="edit()">编辑</a></li>
+				<li (click)="edit()">编辑</li>
 				<li><a href="#" (click)="modifyQuota()">修改配额</a></li>
 				<li><a href="#" (click)="setupCertInfo()">设置认证</a></li>
 				<li><a href="#" (click)="setupProduct()">设置产品</a></li>
@@ -50,7 +50,7 @@
 			<tbody>
 				<tr *ngFor="let item of entEstMng.items">
 					<td>
-						<input type="radio" id="radio_" class="radio_">
+						<input type="radio" id="radio_" class="radio_" [(ngModel)]="item.checked">
                         <label for="radio_"></label>
 					</td>
 					<td>{{item.enterpriseName}}</td>
@@ -71,3 +71,21 @@
 	<fc-pagination tp={{entEstMng.totalPages}} (pf)="changePage($event)"></fc-pagination>
 </div>
 <fc-notice #notice ot="确认"></fc-notice>
+<fc-popup #editEnt ot="确认" ct="取消" title="编辑企业" (of)="acceptEntModify()" (cf)="cancelEntModify()">
+	<div class="row row-line-height">
+		<div class="form-group">
+			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>名称：</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" placeholder="名称" [(ngModel)]="entEst.BasicInfo.name">
+			</div>
+		</div>
+	</div>
+	<div class="row row-line-height">
+		<div class="form-group">
+			<div class="col-sm-4 form-control-title">描述：</div>
+			<div class="col-sm-4">
+				<textarea class="form-control" placeholder="描述" rows="4" [(ngModel)]="entEst.BasicInfo.description"></textarea>
+			</div>
+		</div>
+	</div>
+</fc-popup>
