@@ -6,7 +6,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>名称：</div>
 					<div class="col-sm-4">
-					    <input type="text" class="form-control" placeholder="上海慧于有限公司">
+					    <input type="text" class="form-control" placeholder="上海慧于有限公司" [(ngModel)]="entEst.BasicInfo.name">
 					</div>
 				</div>
 			</div>
@@ -27,7 +27,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>URL地址：</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" placeholder="ldap://xxxx.com">
+						<input type="text" class="form-control" placeholder="ldap://xxxx.com" [(ngModel)]="entEst.BasicInfo.certUrl">
 					</div>
 				</div>
 			</div>
@@ -35,7 +35,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>用户名：</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" placeholder="abc@xxxx.com">
+						<input type="text" class="form-control" placeholder="abc@xxxx.com" [(ngModel)]="entEst.BasicInfo.contactorName">
 					</div>
 				</div>
 			</div>
@@ -43,7 +43,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>密码：</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" placeholder="******">
+						<input type="text" class="form-control" placeholder="******" [(ngModel)]="entEst.BasicInfo.password">
 					</div>
 				</div>
 			</div>
@@ -51,7 +51,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>描述：</div>
 					<div class="col-sm-4">
-						<textarea class="form-control" rows="4"></textarea> 
+						<textarea class="form-control" rows="4" [(ngModel)]="entEst.BasicInfo.description"></textarea> 
 					</div>
 				</div>
 			</div>
@@ -78,7 +78,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建云主机数量：</div>
 					<div class="col-sm-4">
-					    <input type="text" class="form-control" placeholder="500">
+					    <input type="text" class="form-control" placeholder="500" [(ngModel)]="entEst.ResourceQuota.platformVMQuota">
 					</div>
 				</div>
 			</div>
@@ -86,7 +86,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建物理机数量：</div>
 					<div class="col-sm-4">
-					<input type="text" class="form-control" placeholder="20">
+					<input type="text" class="form-control" placeholder="20" [(ngModel)]="entEst.ResourceQuota.physicalMachineQuota">
 					</div>
 				</div>
 			</div>
@@ -94,7 +94,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可使用存储额度：</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" placeholder="500">
+						<input type="text" class="form-control" placeholder="500" [(ngModel)]="entEst.ResourceQuota.storageQuota">
 					</div>
 				</div>
 			</div>
@@ -102,7 +102,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建快照数量：</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" placeholder="200">
+						<input type="text" class="form-control" placeholder="200" [(ngModel)]="entEst.ResourceQuota.snapQuota">
 					</div>
 				</div>
 			</div>
@@ -110,7 +110,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建镜像数量：</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" placeholder="50">
+						<input type="text" class="form-control" placeholder="50" [(ngModel)]="entEst.ResourceQuota.imageQuota">
 					</div>
 				</div>
 			</div>
@@ -126,20 +126,10 @@
    			    </tr>
    			</thead>
    			<tbody>
-   				<tr>
-   				  <td>上海A区</td>
-   				  <td>777</td>
-   				  <td>20000</td>
-				</tr>
-				<tr>
-   				  <td>上海A区</td>
-   				  <td>777</td>
-   				  <td>20000</td>
-				</tr>
-				<tr>
-   				  <td>上海A区</td>
-   				  <td>777</td>
-   				  <td>20000</td>
+   				<tr *ngFor="let item of resourceQuotas.items">
+					<td>{{item.regionName}}</td>
+					<td>{{item.platformVMQuota}}</td>
+					<td>{{item.storageQuota}}</td>
 				</tr>
    			</tbody>
    		</table>

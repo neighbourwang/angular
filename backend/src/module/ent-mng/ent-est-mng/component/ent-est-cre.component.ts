@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
-import { EntEst } from '../model'
-import { EntEstCreService } from '../service/ent-est-cre.service'
+import { EntEst, ResourceQuota } from '../model'
+import { EntEstCreService, Paging } from '../service/ent-est-cre.service'
 
 @Component({
 	selector:'ent-est-cre'
@@ -18,6 +18,7 @@ export class EntEstCreComponent implements OnInit{
 
 	private entEst: EntEst = null;
 	private currencyTypes : Array<SystemDictionary> = null;
+	private resourceQuotas: Paging<ResourceQuota> = new Paging<ResourceQuota>();
 
 	constructor(
 		private router: Router,
@@ -35,7 +36,15 @@ export class EntEstCreComponent implements OnInit{
 			this.entEst = new EntEst();
 
 		});
+
+		this.service.loadResourceQuotas(this.resourceQuotas
+			,this.showError
+			,this);
+
+
 	}
 
-
+	showError(msg:any) {
+	    this.notice.open(msg.title, msg.desc);
+	}
 }

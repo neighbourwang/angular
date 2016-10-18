@@ -61,7 +61,12 @@ export class EntEstCreService{
 			,comp
 			,api
 			,params
-			,"资源列表");
+			,"资源列表"
+			,(items:ResourceQuota[])=>{
+				let item = new ResourceQuota();
+				item.regionName = "测试区域";
+				items.push(item);
+			});
 
 	
 	}
@@ -154,23 +159,6 @@ export class EntEstCreService{
 
 		return this.restApi.request(api.method, api.url, [], [], EntEstCreService.entEst.BasicInfo);
 	}
-
-	//提交企业配额信息
-	createEntResourceQuota(enterpriseId: string):Promise<any>{
-		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.resourcequota.create");
-
-		let params = [
-			{
-				key:"_enterpriseId"
-				,value:enterpriseId
-			}
-		];
-
-		EntEstCreService.entEst.ResourceQuotas.map(n=>{n.enterpriseId = enterpriseId;});
-
-		return this.restApi.request(api.method, api.url, params, undefined, EntEstCreService.entEst.ResourceQuotas);
-	}
-
 
 	
 
