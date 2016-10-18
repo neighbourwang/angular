@@ -9,6 +9,7 @@
     description : string;
     version : string;
     status : number;
+    isSelected : boolean;
 
     constructor() {
     }

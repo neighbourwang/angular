@@ -36,8 +36,8 @@
             </thead>
             <tbody>
             <tr *ngFor="let item of platforms; let idx = index;">
-                <!--<td><input type="radio" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)" /></td>-->
-                <td>123</td>
+                <td><input type="radio" name="isSelected" check="item.isSelected" (click)="switchSelectIndividual(idx)"/></td>
+                <!--<td>123</td>-->
                 <td>{{item.name}}</td>
                 <td>{{item.platformTypeName}}</td>
                 <td>{{item.uri}}</td>
@@ -52,6 +52,6 @@
 
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
 
-<fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="deleteCof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-confirm #activeConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="activeCof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-confirm #removeConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="removeCof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-confirm #enableConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="enableCof()" ct="取消" (cf)="ccf()"></fc-confirm>
 <fc-confirm #disableConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="disableCof()" ct="取消" (cf)="ccf()"></fc-confirm>

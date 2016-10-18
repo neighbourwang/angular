@@ -1,4 +1,6 @@
 export class EntEstItem{
+	// id
+	id:string = "";
 	// 企业（租户）名称
 	enterpriseName:string = "";
 
