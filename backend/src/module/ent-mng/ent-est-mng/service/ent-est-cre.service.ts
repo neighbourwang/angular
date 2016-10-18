@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RestApiCfg, RestApi } from '../../../../architecture';
 import { RestApiModel } from '../../../../architecture/core/model/rest';
-import { ResourceQuotaPaging, EntEstItem, CurrencyType, EntEst, EntEstResourceQuota, ResourceQuota, EntEstBasicInfo } from '../model';
+import { EntEstItem, EntEst, EntEstResourceQuota, ResourceQuota, EntEstBasicInfo } from '../model';
 import { LayoutService, ValidationService, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
@@ -9,7 +9,6 @@ import 'rxjs/add/operator/toPromise';
 export class EntEstCreService{
 	private static entEst : EntEst;
 	private static statusCache : SystemDictionary[];
-	private static cachedCurrencyTypes : CurrencyType[] = null;
 
 	constructor(
 		private restApiCfg:RestApiCfg,
@@ -21,8 +20,6 @@ export class EntEstCreService{
 
 	initCache(){
 		EntEstCreService.entEst = new EntEst();
-		
-		EntEstCreService.cachedCurrencyTypes = null;
 	}
 
 	getEntEst(){
@@ -43,7 +40,7 @@ export class EntEstCreService{
 		}
 	}
 
-	loadResourceQuotas(resourceQuotaPaging: ResourceQuotaPaging, errorHandler: Function, comp:any)
+	loadResourceQuotas(resourceQuotaPaging: Paging<ResourceQuota>, errorHandler: Function, comp:any)
 	{
 		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.resourcequota.get");
 
@@ -58,43 +55,15 @@ export class EntEstCreService{
 			}
 		];
 
-		this.layoutService.show();
+		this.loadItems(
+			resourceQuotaPaging
+			,errorHandler
+			,comp
+			,api
+			,params
+			,"资源列表");
 
-		this.restApi.request(api.method, api.url, params, undefined, undefined)
-		.then(ret=>{
-			this.layoutService.hide();
-			if(!ret)
-			{
-				if(errorHandler)
-				{
-					errorHandler.call(comp, {"title":"资源配额", "desc":"资源配额数据获取失败"});
-				}
-			}
-			else{
-				if(ret.resultContent)
-				{
-					this.setArray(ret.resultContent, resourceQuotaPaging.items);
-					resourceQuotaPaging.items.map(n=>{
-						n.added = false;
-						n.checked = false;
-					});
-
-					console.log("资源配额分页信息", ret.pageInfo);
-
-					resourceQuotaPaging.totalPages = ret.pageInfo.totalPage;
-
-				}
-			}
-		})
-		.catch(err=>{
-			this.layoutService.hide();
-
-			console.log('资源配额加载错误', err);
-			if(errorHandler)
-			{
-				errorHandler.call(comp, {"title":"资源配额", "desc":"服务器上资源配额数据获取失败"})
-			}
-		});
+	
 	}
 
 	loadEntEstItems(entEstMng: Paging<EntEstItem>
@@ -210,10 +179,10 @@ export class EntEstCreService{
 		,caller:any
 		,api:RestApiModel
 		,params:Array<any>
-		,errorTitle:string
-		,fakeData: Function
-		,map:Function
-		,trait: Function)
+		,errorTitle:string = ""
+		,fakeData?: Function
+		,map?:Function
+		,trait?: Function)
 	{
 		items.items.splice(0, items.items.length);
 
