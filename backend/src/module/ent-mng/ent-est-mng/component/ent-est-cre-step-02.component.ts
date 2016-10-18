@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent } from '../../../../architecture';
-import { EntEstCreService } from "../service/ent-est-cre.service";
+import { EntEstCreService, Paging } from "../service/ent-est-cre.service";
 import { ResourceQuota } from "../model/resourcequota";
 import { EntEstResourceQuota } from "../model/ent-est-resourcequota";
-import { ResourceQuotaPaging } from "../model/resourcequota-paging";
 
 @Component({
 	selector:'ent-est-cre-step-02'
@@ -18,7 +17,7 @@ export class EntEstCreStep02Component implements OnInit{
 	notice: NoticeComponent;
 
 	private entEstResourceQuotas : EntEstResourceQuota[];
-	private resourceQuotaPaging: ResourceQuotaPaging = new ResourceQuotaPaging();
+	private resourceQuotaPaging: Paging<ResourceQuota> = new Paging<ResourceQuota>();
 	
 	constructor(private router: Router,
 		private service: EntEstCreService){}
@@ -44,7 +43,7 @@ export class EntEstCreStep02Component implements OnInit{
 	}
 
 	add(){
-		let selected = this.resourceQuotaPaging.items.find(n=>n.checked);
+		let selected = this.resourceQuotaPaging.items.find(n=>n.checked) as ResourceQuota;
 		if(selected)
 		{
 			selected.added = true;

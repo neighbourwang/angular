@@ -1,11 +1,7 @@
 export class ResourceQuota{
-	description: string = "";
-	id: string = "";
-	platformId: string = "";
-	regionId: string = "";
-	regionName: string = "";
-	storageQuota: number = 0;
-	vmQuota: number = 0;
+	regionName: string = ""; //区域
+    platformVMQuota: number = 0;//可分配云主机数量
+    storageQuota: number = 0; //可用存储
 
 	//for ui operation
 	checked: boolean = false;
