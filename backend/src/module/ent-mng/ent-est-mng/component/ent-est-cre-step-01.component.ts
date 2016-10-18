@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { EntEstBasicInfo } from '../model/ent-est-basic-info'
 import { EntEstCreService } from '../service/ent-est-cre.service'
-import { CurrencyType } from "../model/currency";
 
 @Component({
 	selector:'ent-est-cre-step-01'

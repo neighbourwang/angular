@@ -1,12 +1,12 @@
 <div class="page-content-header icon-content-header-purchasing">基本信息</div>
-<div class="page-content fix-page-content">
-	<div class="row" style="padding-top: 30px;">
-		<div class="col-md-12">
+
+<div class="basePanel">
+	<div class="infoContent left">
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>认证方式：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>名称：</div>
 					<div class="col-sm-4">
-					    <input type="text" class="form-control" placeholder="上海慧于有限公司">
+					    <input type="text" class="form-control" placeholder="上海慧于有限公司" [(ngModel)]="entEst.BasicInfo.name">
 					</div>
 				</div>
 			</div>
@@ -14,10 +14,10 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>认证方式：</div>
 					<div class="col-sm-4">
-						<button class="fox-cloud-button-lg fox-cloud-button-white">
+						<button class="fox-cloud-button-sm fox-cloud-button-gray">
 		                  本地
 	                    </button>
-                        <button class="fox-cloud-button-lg fox-cloud-button-white">
+                        <button class="fox-cloud-button-sm fox-cloud-button-green">
 		                  AD
 	                    </button>
 					</div>
@@ -27,7 +27,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>URL地址：</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" placeholder="ldap://xxxx.com">
+						<input type="text" class="form-control" placeholder="ldap://xxxx.com" [(ngModel)]="entEst.BasicInfo.certUrl">
 					</div>
 				</div>
 			</div>
@@ -35,7 +35,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>用户名：</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" placeholder="abc@xxxx.com">
+						<input type="text" class="form-control" placeholder="abc@xxxx.com" [(ngModel)]="entEst.BasicInfo.contactorName">
 					</div>
 				</div>
 			</div>
@@ -43,7 +43,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>密码：</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" placeholder="******">
+						<input type="text" class="form-control" placeholder="******" [(ngModel)]="entEst.BasicInfo.password">
 					</div>
 				</div>
 			</div>
@@ -51,24 +51,89 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>描述：</div>
 					<div class="col-sm-4">
-						<textarea class="form-control" rows="4"></textarea> 
+						<textarea class="form-control" rows="4" [(ngModel)]="entEst.BasicInfo.description"></textarea> 
 					</div>
 				</div>
 			</div>
-		</div>
+	</div>
+
+	<div class="uploadImg left">
+	     <span>仅支持JPG/GIF/PNG的图片格式，且文件小于2M</span>
+   		<div class="imgPanel"></div>
+		<button class="gray-larger-bg">上传LOGO</button>
 	</div>
 </div>
 
-<input type="file">
-
-<div>
- 
-</div>
-<div>
-    <button class=".fox-cloud-button-lg fox-cloud-button-green" (click)="test()">
+<div class="buttonPanel">
+    <button class="fox-cloud-button-lg fox-cloud-button-green" (click)="test()">
 		<span class="icon-button-label">测试</span>
 	</button><span>AD认证测试通过</span>
+</div>
 
+<div class="page-content-header icon-content-header-purchasing">配额设置</div>
+
+<div class="basePanel">
+	<div class="infoContent left">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建云主机数量：</div>
+					<div class="col-sm-4">
+					    <input type="text" class="form-control" placeholder="500" [(ngModel)]="entEst.ResourceQuota.platformVMQuota">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建物理机数量：</div>
+					<div class="col-sm-4">
+					<input type="text" class="form-control" placeholder="20" [(ngModel)]="entEst.ResourceQuota.physicalMachineQuota">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可使用存储额度：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" placeholder="500" [(ngModel)]="entEst.ResourceQuota.storageQuota">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建快照数量：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" placeholder="200" [(ngModel)]="entEst.ResourceQuota.snapQuota">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建镜像数量：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" placeholder="50" [(ngModel)]="entEst.ResourceQuota.imageQuota">
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="uploadImg left">
+   		<span>所有平台配额参考</span>
+   		<table class="table table-hover" style="width: 500px;">
+   			<thead>
+   				<tr>
+   					<th>区域</th>
+					<th>可分配云主机数量</th>
+					<th>可用存储（GB）</th>
+   			    </tr>
+   			</thead>
+   			<tbody>
+   				<tr *ngFor="let item of resourceQuotas.items">
+					<td>{{item.regionName}}</td>
+					<td>{{item.platformVMQuota}}</td>
+					<td>{{item.storageQuota}}</td>
+				</tr>
+   			</tbody>
+   		</table>
+	</div>
 </div>
 <div class="text-center">
 	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel()">

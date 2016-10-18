@@ -1,14 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
-import { EntEstBasicInfo } from '../model/ent-est-basic-info'
-import { EntEstCreService } from '../service/ent-est-cre.service'
-import { CurrencyType } from "../model/currency";
+import { EntEst, ResourceQuota } from '../model'
+import { EntEstCreService, Paging } from '../service/ent-est-cre.service'
 
 @Component({
 	selector:'ent-est-cre'
 	,templateUrl:'../template/ent-est-cre.component.html'
-	,styleUrls:[]
+	,styleUrls:['../style/ent-est-mng.component.css']
 	,providers:[
 		EntEstCreService
 		]
@@ -17,8 +16,9 @@ export class EntEstCreComponent implements OnInit{
 	@ViewChild('notice')
     notice: NoticeComponent;
 
-	private entEstBasicInfo:EntEstBasicInfo;
+	private entEst: EntEst = null;
 	private currencyTypes : Array<SystemDictionary> = null;
+	private resourceQuotas: Paging<ResourceQuota> = new Paging<ResourceQuota>();
 
 	constructor(
 		private router: Router,
@@ -28,8 +28,23 @@ export class EntEstCreComponent implements OnInit{
 
 	}
 	ngOnInit(){
-	
+		this.router
+		.routerState
+		.root
+		.queryParams
+		.subscribe(data=>{
+			this.entEst = new EntEst();
+
+		});
+
+		this.service.loadResourceQuotas(this.resourceQuotas
+			,this.showError
+			,this);
+
+
 	}
 
-
+	showError(msg:any) {
+	    this.notice.open(msg.title, msg.desc);
+	}
 }

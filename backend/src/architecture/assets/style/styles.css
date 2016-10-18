@@ -706,19 +706,17 @@ tr:nth-child(even) {
    margin: 0 !important;
 }
 
-
-.right {
-    float: right;
-}
-
-.left {
-    float: left;
-}
-
 .font-weight-normal{
     font-weight: normal;
 }
 
 .font-weight-bold{
     font-weight: bold;
+}
+.green {
+    color: #00a982;
+}
+
+.orange {
+    color: orange;
 }
