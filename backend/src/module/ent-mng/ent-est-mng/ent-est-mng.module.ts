@@ -9,7 +9,7 @@ import { EntEstCreStep01Component } from './component/ent-est-cre-step-01.compon
 import { EntEstCreStep02Component } from './component/ent-est-cre-step-02.component';
 import { EntEstCreStep03Component } from './component/ent-est-cre-step-03.component';
 import { EntEstCreStep04Component } from './component/ent-est-cre-step-04.component';
-
+import { EntEstCreComponent } from './component/ent-est-cre.component';
 // Routing
 import { EntEstMngRouting } from './ent-est-mng.routing';
 
@@ -24,6 +24,7 @@ import { EntEstMngRouting } from './ent-est-mng.routing';
         ,EntEstCreStep02Component
         ,EntEstCreStep03Component
         ,EntEstCreStep04Component
+        ,EntEstCreComponent
     ],
     exports: [EntEstMngComponent],
     providers: []

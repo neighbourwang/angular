@@ -8,7 +8,6 @@
 }
 
 
-
 .radio_:checked + label::after {
   content: '\2714';
   position: absolute;
