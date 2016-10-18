@@ -99,28 +99,41 @@ export class EntEstCreService{
 
 	loadEntEstItems(entEstMng: Paging<EntEstItem>
 		, errorHandler: Function
-		, comp:any)
+		, caller:any
+		, criteria: string = "")
 	{
-		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.get");
 
+		let localParams:Array<any> = [
+				{
+					key:"_page"
+					,value: entEstMng.currentPage == 0 ? 1 : entEstMng.currentPage
+				}
+				,{
+					key:"_size"
+					,value:10
+				}
+			];
 
-		let params = [
-			{
-				key:"_page"
-				,value: entEstMng.currentPage == 0 ? 1 : entEstMng.currentPage
-			}
-			,{
-				key:"_size"
-				,value:10
-			}
-		];
+		if(criteria.length > 0)
+		{
+			localParams.push({
+				key:"name"
+				,value:criteria
+			});
+		}
 
 		this.loadItems(entEstMng
 			, errorHandler
-			, comp
-			, api
-			, params
+			, caller
+			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.get")
+			, localParams
 			, "企业管理"
+			, (items:EntEstItem[])=>{
+				let item = new EntEstItem();
+				item.enterpriseName = "测试企业";
+				items.push(item);
+			}
+			, null
 			, (items:EntEstItem[])=>{
 			items.map(n=>{n.checked = false;});
 		});
@@ -198,9 +211,17 @@ export class EntEstCreService{
 		,api:RestApiModel
 		,params:Array<any>
 		,errorTitle:string
+		,fakeData: Function
+		,map:Function
 		,trait: Function)
 	{
-		
+		items.items.splice(0, items.items.length);
+
+		if(fakeData && typeof fakeData === 'function')		
+		{
+			fakeData(items.items);
+			return;
+		}
 
 		this.layoutService.show();
 
@@ -218,7 +239,14 @@ export class EntEstCreService{
 				if(ret.resultContent)
 				{
 					//设置数据
-					this.setArray(ret.resultContent, items.items);
+					if(map && typeof map === 'function')
+					{
+						map(ret.resultContent, items.items);
+					}
+					else
+					{
+						this.setArray(ret.resultContent, items.items);
+					}
 
 					if(trait && typeof trait === 'function')
 					{

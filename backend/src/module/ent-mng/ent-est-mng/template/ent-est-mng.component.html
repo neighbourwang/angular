@@ -1,47 +1,70 @@
-<div class="page-content-header icon-content-header-purchasing">企业开通管理</div>
+/*企业管理列表*/
+
+<div class="page-content-header icon-content-header-purchasing">企业管理</div>
 <div class="page-content">
 	<div style="padding-bottom: 10px;">
-		<div class="dropdown pull-right">
+	
+		<div class="dropdown pull-right">			
 			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-			选择操作
+			更多操作
 			<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-				<li><a href="#">删除</a></li>
-				<li><a href="#">开通</a></li>
-				<li><a href="#">取消开通</a></li>
+				<li><a href="#" (click)="edit()">编辑</a></li>
+				<li><a href="#" (click)="modifyQuota()">修改配额</a></li>
+				<li><a href="#" (click)="setupCertInfo()">设置认证</a></li>
+				<li><a href="#" (click)="setupProduct()">设置产品</a></li>
+				<li><a href="#" (click)="setupAdmin()">设置管理员</a></li>
+				<li><a href="#" (click)="enable()">启用</a></li>
+				<li><a href="#" (click)="disable()">禁用</a></li>
+				<li><a href="#" (click)="delete()">删除</a></li>
 			</ul>
+		</div>
+
+				
+		<div class="seach_input pull-right">
+			<input type="text" class="form-control" style="width: 170px;height:35px;display: inline;" placeholder="搜索" [(ngModel)]="criteria" (click)="search()" />
+			<span class="serch-tglyphicon glyphicon-search"></span>
 		</div>
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="create()">
 			<span class="glyphicon glyphicon-edit"></span>
-			<span class="icon-button-label icon-left-button-label">创建与开通</span>
+			<span class="icon-button-label icon-left-button-label">创建企业</span>
 		</button>
 	</div>
 	<div class="table-container">
 		<table class="table table-hover"> 
 			<thead>
 				<tr>
-					<th class="fristTh"><input type="checkbox" [(ngModel)]="selectAllField" (ngModelChange)="selectAll(selectAllField)"/> 全选</th>
-					<th>企业名称</th>
-					<th>区域数</th>
-					<th>云主机数量额度</th>
-					<th>存储(GB)</th>
-					<th>网络数</th>
-					<th>产品数</th>
+					<th class="fristTh">选择</th>
+					<th>企业（租户）名称</th>
+					<th>主机数量</th>
+					<th>云主机配额（个）</th>
+					<th>云主机配额使用率</th>
+					<th>存储配额（GB）</th>
+					<th>存储配额使用率</th>
+					<th>快照配额（个）</th>
+					<th>产品数量</th>
+					<th>订单数量</th>
 					<th>状态</th>
-					<th>状态说明</th>
+					<th>描述</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr *ngFor="let item of entEstMng.items">
-					<td><input type="checkbox" [(ngModel)]="item.checked"></td>
-					<td>{{item.name}}</td>
-					<td>{{item.regionNum}}</td>
-					<td>{{item.vmQuota}}</td>
-					<td>{{item.storageQuota}}</td>
-					<td>{{item.networkQuota}}</td>
-					<td>{{item.productNum}}</td>
-					<td style="color: red;">{{item.status}}</td>
+					<td>
+						<input type="radio" id="radio_" class="radio_" [(ngModel)]="item.checked" >
+                        <label for="radio_"></label>
+					</td>
+					<td>{{item.enterpriseName}}</td>
+					<td>{{item.vmNum }}</td>
+					<td>{{item.vmQuota }}</td>
+					<td>{{item.vmQuotaUsageRate }}</td>
+					<td>{{item.storageQuota }}</td>
+					<td>{{item.storageQuotaUsageRate  }}</td>
+					<td>{{item.snapQuota }}</td>
+					<td>{{item.productNum  }}</td>
+					<td>{{item.orderNum  }}</td>
+					<td>{{item.status}}</td>
 					<td>{{item.description}}</td>
 				</tr>
 			</tbody>

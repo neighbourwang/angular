@@ -1,0 +1,81 @@
+<div class="page-content-header icon-content-header-purchasing">基本信息</div>
+<div class="page-content fix-page-content">
+	<div class="row" style="padding-top: 30px;">
+		<div class="col-md-12">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>认证方式：</div>
+					<div class="col-sm-4">
+					    <input type="text" class="form-control" placeholder="上海慧于有限公司">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>认证方式：</div>
+					<div class="col-sm-4">
+						<button class="fox-cloud-button-lg fox-cloud-button-white">
+		                  本地
+	                    </button>
+                        <button class="fox-cloud-button-lg fox-cloud-button-white">
+		                  AD
+	                    </button>
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>URL地址：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" placeholder="ldap://xxxx.com">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>用户名：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" placeholder="abc@xxxx.com">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>密码：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" placeholder="******">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>描述：</div>
+					<div class="col-sm-4">
+						<textarea class="form-control" rows="4"></textarea> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<input type="file">
+
+<div>
+ 
+</div>
+<div>
+    <button class=".fox-cloud-button-lg fox-cloud-button-green" (click)="test()">
+		<span class="icon-button-label">测试</span>
+	</button><span>AD认证测试通过</span>
+
+</div>
+<div class="text-center">
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel()">
+		<span class="icon-button-label">取消</span>
+	</button>
+	<button class="fox-cloud-button-lg  fox-cloud-button-green" (click)="next()">
+		<span class="icon-button-label">创建企业</span>
+	</button>
+</div>
+<fc-notice #notice ot="确认"></fc-notice>

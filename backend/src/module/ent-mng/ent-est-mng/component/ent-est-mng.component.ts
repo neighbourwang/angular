@@ -9,7 +9,7 @@ import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
   // moduleId: module.id,
   selector: 'ent-est-mng',
   templateUrl: '../template/ent-est-mng.component.html',
-  styleUrls: [],
+  styleUrls: ['../style/ent-est-mng.component.css'],
   providers: [EntEstCreService]
 }) 
 export class EntEstMngComponent implements OnInit {
@@ -19,6 +19,7 @@ export class EntEstMngComponent implements OnInit {
   private currentPage: number = 0;
   private entEstMng: Paging<EntEstItem> = new Paging<EntEstItem>();
   private selectAllField: boolean = false;
+  private criteria: string = "";
 
   constructor(
     private layoutService: LayoutService,
@@ -27,7 +28,7 @@ export class EntEstMngComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.service.loadEntEstItems(this.entEstMng, this.showError, this);      
+    this.search();
   }
 
   showError(msg:any) {
@@ -38,10 +39,6 @@ export class EntEstMngComponent implements OnInit {
       alert(reason);
   }
 
-  create() {
-    this.service.initCache();
-    this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-cre-step-01");
-  }
 
   changePage(page: number) {
 
@@ -58,5 +55,55 @@ export class EntEstMngComponent implements OnInit {
 
   selectAll(selectAllField:boolean){
     this.entEstMng.items.map(n=>{n.checked = selectAllField;});
+  }
+
+  search(){
+    this.service.loadEntEstItems(this.entEstMng, this.showError, this, this.criteria);      
+  }
+
+  //创建企业
+  create() {
+    this.service.initCache();
+    this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-cre");
+  }
+
+  //编辑
+  edit(){
+
+  }
+
+  //修改配额
+  modifyQuota(){
+
+  }
+
+  //设置认证
+  setupCertInfo(){
+
+  }
+
+  //设置产品
+  setupProduct(){
+
+  }
+
+  //设置管理员
+  setupAdmin(){
+
+  }
+
+  //启用
+  enable(){
+
+  }
+
+  //禁用
+  disable(){
+
+  }
+
+  //删除
+  delete(){
+
   }
 }
