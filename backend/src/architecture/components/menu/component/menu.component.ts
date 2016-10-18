@@ -143,7 +143,7 @@ const menu: Array<Object> = [
         "icon": "icon-enterprise-manage",
         "top2_menu": [
             {
-                "label": "企业开通管理",
+                "label": "企业管理",
                 "isOpen": false,
                 "isActive": false,
                 "routing": "ent-mng/ent-est-mng/ent-est-mng"

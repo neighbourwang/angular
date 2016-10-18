@@ -1,4 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
+
 import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../architecture';
@@ -20,7 +21,8 @@ export class ClMngListComponent implements OnInit{
 
     constructor(
         private layoutService: LayoutService,
-        private service : ClMngListService
+        private service : ClMngListService,
+        private router : Router
     ) {}
 
     // 平台数组
@@ -92,6 +94,7 @@ export class ClMngListComponent implements OnInit{
     create (){
         //跳转
         console.log('create');
+        this.router.navigateByUrl('pf-mng2/cl-mng/cre-step1');
     }
     // 选择云平台
     switchSelectIndividual(id : number){
