@@ -1,5 +1,3 @@
-/*企业管理列表*/
-
 <div class="page-content-header icon-content-header-purchasing">企业管理</div>
 <div class="page-content">
 	<div style="padding-bottom: 10px;">
@@ -52,7 +50,7 @@
 			<tbody>
 				<tr *ngFor="let item of entEstMng.items">
 					<td>
-						<input type="radio" id="radio_" class="radio_" [(ngModel)]="item.checked" >
+						<input type="radio" id="radio_" class="radio_">
                         <label for="radio_"></label>
 					</td>
 					<td>{{item.enterpriseName}}</td>

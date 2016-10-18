@@ -1,3 +1,11 @@
+/*创建企业*/
+
+.left{
+  float: left;
+}
+.right{
+  float: right;
+}
 .clickable {
 	cursor: pointer;
 }
@@ -7,7 +15,7 @@
 	background-color: #00a982 !important;
 }
 
-
+/*--------------radio单选框----------------*/
 .radio_:checked + label::after {
   content: '\2714';
   position: absolute;
@@ -40,4 +48,28 @@
 }
 .radio_ {
   display: none;
+}
+/*--------------radio单选框end----------------*/
+
+.basePanel{
+  width: 1200px;
+  height: 400px;
+}
+.infoContent{
+  width:700px;
+}
+.uploadImg{
+  margin-top: 30px;
+}
+.imgPanel{
+	width:412px;
+    height: 300px;
+     border:1px solid #000;
+}
+.buttonPanel{
+	width: 1200px;
+	text-align: center;
+}
+.gray-larger-bg{
+	padding:  25px 170px ;
 }
