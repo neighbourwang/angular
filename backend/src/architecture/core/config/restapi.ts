@@ -296,7 +296,7 @@ export let RestApis: RestApiModel[] = [
        "id": "ent-mng.ent-prod-mng.ent.all.get",
        "method": "GET",
        "url": "/authsec/enterprise/{_enterpriseId}/products/page/{_page}/size/{_size}"
-       
+
    },
    {
        "desc": "获取产品(区域)",
