@@ -39,10 +39,6 @@ export class EntEstMngComponent implements OnInit {
       alert(reason);
   }
 
-  create() {
-    this.service.initCache();
-    this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-cre");
-  }
 
   changePage(page: number) {
 
@@ -64,4 +60,12 @@ export class EntEstMngComponent implements OnInit {
   search(){
     this.service.loadEntEstItems(this.entEstMng, this.showError, this, this.criteria);      
   }
+
+  //创建企业
+  create() {
+    this.service.initCache();
+    this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-cre");
+  }
+
+  
 }
