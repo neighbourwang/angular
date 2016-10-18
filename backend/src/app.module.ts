@@ -1,40 +1,44 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { CoreModule } from './architecture/core/core.module';
-import { CommonComponentModule } from './architecture/components/common.module';
-import { MenuComponent } from './architecture/components/menu/component/menu.component';
-import { SiteComponent } from './architecture/components/site/component/site.component';
+import {CoreModule} from './architecture/core/core.module';
+import {CommonComponentModule} from './architecture/components/common.module';
+import {MenuComponent} from './architecture/components/menu/component/menu.component';
+import {SiteComponent} from './architecture/components/site/component/site.component';
 
 
 // pf-mng
-import { PfMngModule } from './module/pf-mng/pf-mng.module';
+import {PfMngModule} from './module/pf-mng/pf-mng.module';
 
 // ent-mng
-import { EntMngModule } from './module/ent-mng/ent-mng.module';
+import {EntMngModule} from './module/ent-mng/ent-mng.module';
 
 //pf-mng2
 
-import { PfMngModule2 } from './module/pf-mng2/pf-mng2.module';
+import {PfMngModule2} from './module/pf-mng2/pf-mng2.module';
+//prod-mng
+import {MainProdMngModule} from './module/prod-mng/main-prod-mng.module';
 
-import { EntProdMngModule } from './module/ent-mng/ent-prod-mng/ent-prod-mng.module';
+import {EntProdMngModule} from './module/ent-mng/ent-prod-mng/ent-prod-mng.module';
 
-import { routing } from './app.routing';
+import {routing} from './app.routing';
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    CoreModule,
-    CommonComponentModule,
-    PfMngModule,
-    EntMngModule,
-    PfMngModule2,
-    EntProdMngModule,
-    routing
-  ],
-  declarations: [ MenuComponent, SiteComponent ],
-  providers: [],
-  bootstrap: [ SiteComponent ]
+    imports: [
+        BrowserModule,
+        CoreModule,
+        CommonComponentModule,
+        PfMngModule,
+        EntMngModule,
+        PfMngModule2,
+        MainProdMngModule,
+        EntProdMngModule,
+        routing
+    ],
+    declarations: [MenuComponent, SiteComponent],
+    providers: [],
+    bootstrap: [SiteComponent]
 })
 
-export class AppModule { }
+export class AppModule {
+}

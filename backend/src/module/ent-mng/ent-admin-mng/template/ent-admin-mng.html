@@ -1,4 +1,11 @@
-<div class="page-content-header icon-content-header-enterprise-manage">企业管理员</div>
+<div class="page-content-header icon-content-header-enterprise-manage">
+    <span>
+        企业管理员设置：<!--{{enterprise.name}}-->
+    </span>
+    <button class="fox-cloud-button-sm fox-cloud-button-gray right font-weight-normal" (click)="gotoEnterpriseList()">
+        <span class="icon-button-label">返回企业管理列表</span>
+    </button>
+</div>
 <div class="page-content">
     <div style="padding-bottom: 10px;">
         <div class="dropdown pull-right">
@@ -6,7 +13,7 @@
                 更多操作
                 <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1"  style="margin-left: 10px;">
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="margin-left: 10px;">
                 <li>
                     <a href="javascript:void(0);" (click)="deleteAdmins();">删除</a>
                 </li>
@@ -19,20 +26,6 @@
                 </li>
             </ul>
         </div>
-        <div class="dropdown pull-right">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{selectEnterprise?selectEnterprise.name:"全部企业"}}
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li (click)="changEnterpriseFilter();">
-                    <a href="javascript:void(0);"> 全部企业</a>
-                </li>
-                <li *ngFor="let enterprise of enterprises" (click)="changEnterpriseFilter(enterprise);">
-                    <a href="javascript:void(0);">{{enterprise.name}}</a>
-                </li>
-            </ul>
-        </div>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoCreatePage()">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">创建管理员</span>
@@ -41,34 +34,34 @@
     <div class="table-container">
         <table class="table table-hover">
             <thead>
-            <tr>
-                <th class="fristTh">
-                    <input type="checkbox" (click)="selectAll($event);"/>选择
-                </th>
-                <th>企业名称</th>
-                <th>管理员</th>
-                <th>联系电话</th>
-                <th>邮箱地址</th>
-                <th>账户名</th>
-                <th>账户状态</th>
-                <th>编辑</th>
-            </tr>
+                <tr>
+                    <th class="fristTh">
+                        <input type="checkbox" (click)="selectAll($event);" />选择
+                    </th>
+                    <th>企业名称</th>
+                    <th>管理员</th>
+                    <th>联系电话</th>
+                    <th>邮箱地址</th>
+                    <th>账户名</th>
+                    <th>账户状态</th>
+                    <th>编辑</th>
+                </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let admin of admins;">
-                <td>
-                    <input type="checkbox" [(ngModel)]="admin.isSelect">
-                </td>
-                <td>{{admin.enterpriseName}}</td>
-                <td>{{admin.contactorName}}</td>
-                <td>{{admin.contactPhone}}</td>
-                <td>{{admin.email}}</td>
-                <td>{{admin.userName}}</td>
-                <td  [style.color]="admin.status==0?'#00a982':'#ff0000'">{{admin.status==0?"未激活":"已激活"}}</td>
-                <td>
-                    <a href="javacscirpt:void()" (click)="eidtAdmin(admin)">编辑</a>
-                </td>
-            </tr>
+                <tr *ngFor="let admin of admins;">
+                    <td>
+                        <input type="checkbox" [(ngModel)]="admin.isSelect">
+                    </td>
+                    <td>{{admin.enterpriseName}}</td>
+                    <td>{{admin.contactorName}}</td>
+                    <td>{{admin.contactPhone}}</td>
+                    <td>{{admin.email}}</td>
+                    <td>{{admin.userName}}</td>
+                    <td [style.color]="admin.status==0?'#00a982':'#ff0000'">{{admin.status==0?"未激活":"已激活"}}</td>
+                    <td>
+                        <a href="javacscirpt:void()" (click)="eidtAdmin(admin)">编辑</a>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
