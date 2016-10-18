@@ -1,10 +1,10 @@
 <div class="page-content-header icon-content-header-purchasing">基本信息</div>
-<div class="page-content fix-page-content">
-	<div class="row" style="padding-top: 30px;">
-		<div class="col-md-12">
+
+<div class="basePanel">
+	<div class="infoContent left">
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>认证方式：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>名称：</div>
 					<div class="col-sm-4">
 					    <input type="text" class="form-control" placeholder="上海慧于有限公司">
 					</div>
@@ -14,10 +14,10 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>认证方式：</div>
 					<div class="col-sm-4">
-						<button class="fox-cloud-button-lg fox-cloud-button-white">
+						<button class="fox-cloud-button-sm fox-cloud-button-gray">
 		                  本地
 	                    </button>
-                        <button class="fox-cloud-button-lg fox-cloud-button-white">
+                        <button class="fox-cloud-button-sm fox-cloud-button-green">
 		                  AD
 	                    </button>
 					</div>
@@ -55,20 +55,95 @@
 					</div>
 				</div>
 			</div>
-		</div>
+	</div>
+
+	<div class="uploadImg left">
+	     <span>仅支持JPG/GIF/PNG的图片格式，且文件小于2M</span>
+   		<div class="imgPanel"></div>
+		<button class="gray-larger-bg">上传LOGO</button>
 	</div>
 </div>
 
-<input type="file">
-
-<div>
- 
-</div>
-<div>
-    <button class=".fox-cloud-button-lg fox-cloud-button-green" (click)="test()">
+<div class="buttonPanel">
+    <button class="fox-cloud-button-lg fox-cloud-button-green" (click)="test()">
 		<span class="icon-button-label">测试</span>
 	</button><span>AD认证测试通过</span>
+</div>
 
+<div class="page-content-header icon-content-header-purchasing">配额设置</div>
+
+<div class="basePanel">
+	<div class="infoContent left">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建云主机数量：</div>
+					<div class="col-sm-4">
+					    <input type="text" class="form-control" placeholder="500">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建物理机数量：</div>
+					<div class="col-sm-4">
+					<input type="text" class="form-control" placeholder="20">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可使用存储额度：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" placeholder="500">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建快照数量：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" placeholder="200">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建镜像数量：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" placeholder="50">
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="uploadImg left">
+   		<span>所有平台配额参考</span>
+   		<table class="table table-hover" style="width: 500px;">
+   			<thead>
+   				<tr>
+   					<th>区域</th>
+					<th>可分配云主机数量</th>
+					<th>可用存储（GB）</th>
+   			    </tr>
+   			</thead>
+   			<tbody>
+   				<tr>
+   				  <td>上海A区</td>
+   				  <td>777</td>
+   				  <td>20000</td>
+				</tr>
+				<tr>
+   				  <td>上海A区</td>
+   				  <td>777</td>
+   				  <td>20000</td>
+				</tr>
+				<tr>
+   				  <td>上海A区</td>
+   				  <td>777</td>
+   				  <td>20000</td>
+				</tr>
+   			</tbody>
+   		</table>
+	</div>
 </div>
 <div class="text-center">
 	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel()">

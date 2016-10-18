@@ -7,7 +7,7 @@ import { EntEstCreService } from '../service/ent-est-cre.service'
 @Component({
 	selector:'ent-est-cre'
 	,templateUrl:'../template/ent-est-cre.component.html'
-	,styleUrls:[]
+	,styleUrls:['../style/ent-est-mng.component.css']
 	,providers:[
 		EntEstCreService
 		]
