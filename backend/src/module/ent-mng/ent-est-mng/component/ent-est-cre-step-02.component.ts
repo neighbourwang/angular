@@ -50,11 +50,7 @@ export class EntEstCreStep02Component implements OnInit{
 			selected.checked = false;
 
 			let entEstResourceQuota = new EntEstResourceQuota();
-			entEstResourceQuota.regionId = selected.regionId;
-			entEstResourceQuota.regionName = selected.regionName;
 			entEstResourceQuota.storageQuota = selected.storageQuota;
-			entEstResourceQuota.vmQuota = selected.vmQuota;
-			entEstResourceQuota.platformId = selected.platformId;
 			entEstResourceQuota.referredResourceQuota = selected;
 
 			this.entEstResourceQuotas.push(entEstResourceQuota);

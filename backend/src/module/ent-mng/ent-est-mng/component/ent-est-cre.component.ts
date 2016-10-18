@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { EntEst } from '../model'
 import { EntEstCreService } from '../service/ent-est-cre.service'
-import { CurrencyType } from "../model/currency";
 
 @Component({
 	selector:'ent-est-cre'
@@ -34,7 +33,7 @@ export class EntEstCreComponent implements OnInit{
 		.queryParams
 		.subscribe(data=>{
 			this.entEst = new EntEst();
-			
+
 		});
 	}
 
