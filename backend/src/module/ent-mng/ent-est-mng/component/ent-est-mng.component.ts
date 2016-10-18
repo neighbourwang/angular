@@ -9,7 +9,7 @@ import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
   // moduleId: module.id,
   selector: 'ent-est-mng',
   templateUrl: '../template/ent-est-mng.component.html',
-  styleUrls: [],
+  styleUrls: ['../style/ent-est-mng.component.css'],
   providers: [EntEstCreService]
 }) 
 export class EntEstMngComponent implements OnInit {
@@ -67,5 +67,43 @@ export class EntEstMngComponent implements OnInit {
     this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-cre");
   }
 
-  
+  //编辑
+  edit(){
+
+  }
+
+  //修改配额
+  modifyQuota(){
+
+  }
+
+  //设置认证
+  setupCertInfo(){
+
+  }
+
+  //设置产品
+  setupProduct(){
+
+  }
+
+  //设置管理员
+  setupAdmin(){
+
+  }
+
+  //启用
+  enable(){
+
+  }
+
+  //禁用
+  disable(){
+
+  }
+
+  //删除
+  delete(){
+
+  }
 }
