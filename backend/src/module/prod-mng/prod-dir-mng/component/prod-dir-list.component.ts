@@ -52,7 +52,9 @@ export class ProdDirListComponent implements OnInit{
     //创建按钮
     create (){
         //跳转
+
         console.log('create');
+        // this.router.navigateByUrl("prod-mng/prod-dir-mng/prod-dir-cre", {skipLocationChange: true});
     }
 
 
