@@ -144,7 +144,7 @@ tr:nth-child(even) {
 }
 
 .table-hover > tbody > tr:hover {
-	background: f7f7f7;
+	background: #f7f7f7;
 }
 
 .table input[type="checkbox"] {
@@ -701,4 +701,21 @@ tr:nth-child(even) {
 .no-padding {
    padding: 0 !important;
    margin: 0 !important;
+}
+
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+.font-weight-normal{
+    font-weight: normal;
+}
+
+.font-weight-bold{
+    font-weight: bold;
 }
