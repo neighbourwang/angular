@@ -30,6 +30,10 @@ import { ClMngListService } from './service/cl-mgn-list.service';
 
 import { ClMngCreStep1Service } from './service/cl-mng-cre-step-1.service';
 
+import { ClMngIdService } from './service/cl-mng-id.service';
+
+import { ClMngCreStep2Service } from './service/cl-mng-cre-step-2.service';
+
 @NgModule({
     imports: [
         CommonComponentModule,
@@ -48,7 +52,9 @@ import { ClMngCreStep1Service } from './service/cl-mng-cre-step-1.service';
     ],
     providers: [
         ClMngListService,
-        ClMngCreStep1Service
+        ClMngCreStep1Service,
+        ClMngIdService,
+        ClMngCreStep2Service
     ]
 
 })

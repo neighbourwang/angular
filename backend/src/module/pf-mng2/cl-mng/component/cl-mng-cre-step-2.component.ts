@@ -5,6 +5,10 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
+import { ClMngIdService } from '../service/cl-mng-id.service';
+
+import { ClMngCreStep2Service } from '../service/cl-mng-cre-step-2.service';
+
 @Component({
     selector: 'cl-mng-cre-step-2',
     templateUrl: '../template/cl-mng-cre-step-02.component.html',
@@ -16,12 +20,23 @@ import { Router } from '@angular/router';
 export class ClMngCreStep2Component implements OnInit{
 
     constructor(
-        private router : Router
+        private router : Router,
+        private idService : ClMngIdService,
+        private service : ClMngCreStep2Service
     ) {}
 
 
     ngOnInit (){
+        let platFormId : String = this.idService.getPlatformId();
         console.log('init');
+        //可用区同步
+        this.service.synchronize(platFormId).then(
+            res => {
+                console.log(res);
+            }
+        ).catch(function(){
+            
+        })
     }
 
 
