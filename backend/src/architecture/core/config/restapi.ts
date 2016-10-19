@@ -38,7 +38,7 @@ export let RestApis: RestApiModel[] = [
         "desc" : "获取地域",
         "id" : "pf.cre.step.01.paltform.get",
         "method" : "GET",
-        "url" : "GET /authsec/regions/admin"
+        "url" : "/authsec/regions/admin"
     },
     {
         "desc": "创建平台",
