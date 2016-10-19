@@ -26,41 +26,47 @@
                     <tr>
                         <th>平台资源</th>
                         <th>同步状态</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
                         <td>可用区</td>
-                        <td>loading</td>
+                        <td>{{creStep2Model.zones}}</td>
+                        <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.zonesStatus"></span></td>
                     </tr>
                     <tr>
                         <td>存储</td>
-                        <td>ok</td>
+                        <td>{{creStep2Model.storages}}</td>
+                        <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.storagesStatus"></span></td>
                     </tr>
                     <tr>
-                        <td>云主机类型</td>
-                        <td>ok</td>
-                    </tr>
-                    <tr>
-                        <td>可用域</td>
-                        <td>ok</td>
+                        <td>云主机规格</td>
+                        <td>{{creStep2Model.flavors}}</td>
+                        <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.flavorsStatus"></span></td>
                     </tr>
                     <tr>
                         <td>镜像</td>
-                        <td>ok</td>
+                        <td>{{creStep2Model.images}}</td>
+                        <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.imagesStatus"></span></td>
+                    </tr>
+                    <tr>
+                        <td>宿主机</td>
+                        <td>{{creStep2Model.hosts}}</td>
+                        <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.hostsStatus"></span></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
             <div class="progress-title">
-                0
+                {{creStep2Model.message}}
             </div>
             <div class="fox-cloud-progress-rounded-angle">
                 <div class="progress-bar fox-cloud-progress-bar-rounded-angle" role="progressbar"
                      aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                     [ngStyle]="{'width': 0 + '%'}">
+                     [ngStyle]="{'width': creStep2Model.percentage + '%'}">
                 </div>
-                <span class="progress-prompt">0%</span>
+                <span class="progress-prompt">{{creStep2Model.percentage}}%</span>
             </div>
         </div>
         <div class="col-md-3"></div>

@@ -51,7 +51,7 @@
 						<input type="radio" id="radio_" class="radio_" [(ngModel)]="item.checked" value="false">
                         <label for="radio_"></label>
 					</td>
-					<td>{{item.enterpriseName}}</td>
+					<td (click)="checkEnterpriseInfo();">{{item.enterpriseName}}</td>
 					<td>{{item.vmNum }}</td>
 					<td>{{item.vmQuota }}</td>
 					<td>{{item.vmQuotaUsageRate }}</td>

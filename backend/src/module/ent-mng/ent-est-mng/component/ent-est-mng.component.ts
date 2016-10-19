@@ -228,6 +228,9 @@ export class EntEstMngComponent implements OnInit {
     }
   }
 
+checkEnterpriseInfo(){
+  this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-check");
+}
   //修改配额
   acceptQuotaModify(){
     if(this.validateQuotaModify())
