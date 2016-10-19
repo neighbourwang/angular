@@ -402,6 +402,12 @@ export let RestApis: RestApiModel[] = [
        "desc": "企业信息列表",
        "id": "ent-mng.ent-est-mng.enterprise.get",
        "method": "GET",
+       "url": "/authsec/enterprises/opening/page/{_page}/size/{_size}"
+   }
+   ,{
+       "desc": "加载企业配额数据",
+       "id": "ent-mng.ent-est-mng.enterprise.resourcequota.get",
+       "method": "GET",
        "url": "/authsec/enterprise/{_enterpriseId}/resouces/quotas/page/{_page}/size/{_size}"
    }
    ,{

@@ -1,0 +1,130 @@
+﻿<div class="page-content-header icon-content-header-enterprise-manage">创建管理员</div>
+<div class="page-content">
+    <div class="row" style="padding-top: 30px;">
+        <div class="col-md-12">
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>企业：
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" disabled="disabled" class="form-control" [value]="enterprise.name" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>账号：
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="admin.loginName" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>管理员姓名：
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="admin.userName" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>联系电话：
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="admin.contactPhone" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">描述：</div>
+                    <div class="col-sm-4">
+                        <textarea class="form-control" rows="8" [(ngModel)]="admin.description" placeholder=""></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>   
+    </div>
+    
+    <div class="row">
+        <div class="form-group">
+            <div class="col-sm-2 form-control-title" style="width:130px;">查询AD客户：</div>
+            <div class="col-sm-2 input-group">
+                <input type="text" class="form-control" placeholder="">
+                <span class="input-group-addon btn btn-primary">
+                    <span class="glyphicon glyphicon-search"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+   
+
+    <div class="table-container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>选择</th>
+                    <th>用户名</th>
+                    <th>类型</th>
+                    <th>姓名</th>
+                    <th>邮箱地址</th>
+                    <th>联系电话</th>
+                    <th>描述</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>admintes</td>
+                    <td>用户</td>
+                    <td>张三</td>
+                    <td>admintest@hpe.com</td>
+                    <td>+8602164223399</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>admintes</td>
+                    <td>用户</td>
+                    <td>张三</td>
+                    <td>admintest@hpe.com</td>
+                    <td>+8602164223399</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>admintes</td>
+                    <td>用户</td>
+                    <td>张三</td>
+                    <td>admintest@hpe.com</td>
+                    <td>+8602164223399</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>admintes</td>
+                    <td>用户</td>
+                    <td>张三</td>
+                    <td>admintest@hpe.com</td>
+                    <td>+8602164223399</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="text-center" style="margin-top:10px;">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" onclick="cancel();">
+        <span class="icon-button-label">取消</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white" onclick="next();">
+        <span class="icon-button-label">创建管理员</span>
+    </button>
+</div>

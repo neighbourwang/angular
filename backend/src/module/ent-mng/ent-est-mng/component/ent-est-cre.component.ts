@@ -143,4 +143,12 @@ export class EntEstCreComponent implements OnInit{
 		}
 	}
 
+	cancel(){
+		this.returnToList();
+	}
+
+	returnToList(){
+    	this.router.navigateByUrl('ent-mng/ent-est-mng/ent-est-mng');
+	}
+
 }

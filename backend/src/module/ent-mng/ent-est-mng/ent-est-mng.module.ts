@@ -8,6 +8,7 @@ import { EntEstCreStep04Component, EntEstMngComponent,  EntEstCreComponent, EntE
 // Routing
 import { EntEstMngRouting } from './ent-est-mng.routing';
 import { EntEstSetProdComponent } from './component/ent-est-setProd.component';
+import { EntEstCheckComponent } from './component/ent-est-check.component';
 @NgModule({
     imports: [
         CommonComponentModule,
@@ -18,7 +19,8 @@ import { EntEstSetProdComponent } from './component/ent-est-setProd.component';
         ,EntEstCreStep01Component
         ,EntEstCreStep04Component
         ,EntEstCreComponent,
-        EntEstSetProdComponent 
+        EntEstSetProdComponent,
+        EntEstCheckComponent
     ],
     exports: [EntEstMngComponent],
     providers: []
