@@ -302,6 +302,12 @@ export let RestApis: RestApiModel[] = [
        "method": "GET",
        "url": "/authsec/enterprise/{enterpriseId}/admins/page/{page}/size/{size}"
    },
+   {
+       "desc": "获取某企业管AD员工",
+       "id": "ent-mng.enterprise.adadmin.get",
+       "method": "GET",
+       "url": "/authsec/enterprise/{enterpriseId}/adadmins/page/{page}/size/{size}"
+   }, 
    // 企业产品管理
    {
        "desc": "获取产品",

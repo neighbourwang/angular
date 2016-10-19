@@ -145,3 +145,61 @@ export const adminList = {
         }
     ]
 };
+
+
+export const adadminList = {
+    detailDescription: "获取管理员列表",
+    pageInfo: {
+        currentPage: 0,
+        pageSize: 10,
+        totalPage: 5,
+        totalRecords: 45
+    },
+    resultCode: "100",
+    resultContent: [
+        {
+            id: "1",
+            "userName": "王五",
+            phone: "13720119493",
+            email: "dark@hpe.com",
+            description: "description",
+            loginName: "dark@hpe.com",
+            enterpriseId: "1",
+            type: "",
+            bindStatus: "",
+        },
+        {
+            id: "1",
+            "userName": "王五",
+            phone: "13720119493",
+            email: "dark@hpe.com",
+            description: "description",
+            loginName: "dark@hpe.com",
+            enterpriseId: "1",
+            type: "",
+            bindStatus: "",
+        },
+        {
+            id: "1",
+            "userName": "王五",
+            phone: "13720119493",
+            email: "dark@hpe.com",
+            description: "description",
+            loginName: "dark@hpe.com",
+            enterpriseId: "1",
+            type: "",
+            bindStatus: "",
+        },
+        {
+            id: "1",
+            "userName": "王五",
+            phone: "13720119493",
+            email: "dark@hpe.com",
+            description: "description",
+            loginName: "dark@hpe.com",
+            enterpriseId: "1",
+            type: "",
+            bindStatus: "",
+        }
+    ]
+};
