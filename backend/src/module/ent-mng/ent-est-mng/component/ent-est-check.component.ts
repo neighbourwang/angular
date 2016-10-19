@@ -16,14 +16,6 @@ export class EntEstCheckComponent implements OnInit {
   @ViewChild("notice")
   notice: NoticeComponent;
 
-  @ViewChild("editEnt")
-  editEnt: PopupComponent;
-
-  @ViewChild("editQuota")
-  editQuota: PopupComponent;
-
-  @ViewChild("setupCert")
-  setupCert: PopupComponent;
 
 
 
@@ -37,6 +29,9 @@ export class EntEstCheckComponent implements OnInit {
    
   }
 
+  return(){
+    this.router.navigateByUrl('ent-mng/ent-est-mng/ent-est-mng');
+  }
   
 
 }

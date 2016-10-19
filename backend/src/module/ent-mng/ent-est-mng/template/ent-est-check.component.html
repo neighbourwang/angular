@@ -1,5 +1,5 @@
 <div class="page-content-header icon-content-header-purchasing">查看企业
-	<button class="pull-right fox-cloud-button fox-cloud-button-white"><span>返回企业列表</span></button>
+	<button class="pull-right fox-cloud-button fox-cloud-button-white" (click)="return()"><span>返回企业列表</span></button>
 </div>
 <div class="info-title">基本信息：</div>
 
@@ -169,6 +169,5 @@
 					</tr>
 				</tbody>
 			</table>
-			<fc-pagination tp={{entEstMng.totalPages}} (pf)="changePage($event)"></fc-pagination>
 </div>
 <fc-notice #notice ot="确认"></fc-notice>
