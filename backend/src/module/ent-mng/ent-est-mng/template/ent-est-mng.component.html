@@ -18,11 +18,9 @@
 				<li><a (click)="delete()">删除</a></li>
 			</ul>
 		</div>
-
-				
-		<div class="seach_input pull-right">
-			<input type="text" class="form-control" style="width: 170px;height:35px;display: inline;" placeholder="搜索" [(ngModel)]="criteria" (click)="search()" />
-			<span class="serch-tglyphicon glyphicon-search"></span>
+		<div class="pull-right">
+			<input type="text" class="form-control searchbox" placeholder="搜索" [(ngModel)]="criteria" (click)="search()" />
+			<span class="glyphicon glyphicon-search searchbox-incon"></span>
 		</div>
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="create()">
 			<span class="glyphicon glyphicon-edit"></span>
