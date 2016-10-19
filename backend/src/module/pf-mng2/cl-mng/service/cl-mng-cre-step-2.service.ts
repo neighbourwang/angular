@@ -25,8 +25,37 @@ export class ClMngCreStep2Service {
 
     // 可用区同步
     // pf.cre.step.02.zones.synchronize.get
-    synchronize (id : String){
+    zones (id : String){
         let api = this.restApiCfg.getRestApi("pf.cre.step.02.zones.synchronize.get");
         return this.restApi.request(api.method , api.url , [{key : "pf-id" , value : id}],undefined);
     }
+
+    //存储 同步
+    storages(id : String) {
+        let api = this.restApiCfg.getRestApi("pf.cre.step.02.storages.synchronize.get");
+
+        return this.restApi.request(api.method, api.url, [{ key: "pf-id", value: id }], undefined);
+    }
+
+    //云主机规格 同步 pf.cre.step.02.flavors.synchronize.get
+    flavors(id : String ){
+        let api = this.restApiCfg.getRestApi("pf.cre.step.02.flavors.synchronize.get");
+
+        return this.restApi.request(api.method , api.url , [{key : 'pf-id' , value : id}] , undefined);
+    }
+
+    //镜像 同步 pf.cre.step.02.images.synchronize.get"
+    images(id : String){
+        let api = this.restApiCfg.getRestApi("pf.cre.step.02.images.synchronize.get");
+
+        return this.restApi.request(api.method, api.url , [{key : 'pf-id' , value : id}],undefined);
+    }
+
+    //宿主机 pf.cre.step.02.hosts.synchronize.get
+    hosts( id : String){
+        let api = this.restApiCfg.getRestApi("pf.cre.step.02.hosts.synchronize.get");
+
+        return this.restApi.request(api.method , api.url , [{key : 'pf-id' , value : id}],undefined);
+    }
+
 }
