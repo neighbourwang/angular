@@ -138,6 +138,7 @@ export class EntEstMngComponent implements OnInit {
     {
       
     }
+      this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-setProd"); 
   }
 
   //设置管理员

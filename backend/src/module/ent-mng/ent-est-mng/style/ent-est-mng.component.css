@@ -1,3 +1,6 @@
+
+
+
 /*创建企业*/
 
 .left{
@@ -51,15 +54,49 @@
 }
 /*--------------radio单选框end----------------*/
 
+/*--------搜索框----------*/
+
+.searchbox{
+    width: 170px;
+    height:35px;
+    display: inline; 
+}
+.gray-searchbox{
+	background-color: #EFF4F8;
+}
+
+.searchbox-incon{
+    position: relative;
+    top:3px;
+    left: -30px;
+}
+
+
+.chevron-down-bt{
+	display: inline-block;
+	margin-top:3px; 
+	color: #00a982;
+}
+.chevron-down-bt-second{
+    position: relative;
+    top: 10px;
+    left: -24px;
+}
+
 .basePanel{
   width: 1200px;
   height: 400px;
 }
 .infoContent{
   width:700px;
+  margin-top: 30px; 
 }
 .uploadImg{
   margin-top: 30px;
+}
+.uploadImg span{
+	color:  #C1CACA;
+	font-size: 18px;
 }
 .imgPanel{
 	width:412px;
@@ -72,4 +109,56 @@
 }
 .gray-larger-bg{
 	padding:  25px 170px ;
+
+}
+.smaller-bt{
+	padding:  2px 20px ;
+}
+.green-delete-bt{
+	padding: 10px 3px;
+	background-color: #00a982;
+	border-color: #00a982;
+}
+.green-delete-bt i{
+	border: 1px solid #fff;
+	width: 20px;
+	display: block;
+}
+.gray-smaller-bt{
+	background-color: #C1CACA;
+	color: #fff;
+}
+.green-smaller-bt{
+	background-color:#00a982; 
+	color: #fff;
+}
+.validateInfo{
+	color: #00a982;
+	font-family: "微软雅黑";
+	margin-left: 20px; 
+}
+.setProdPanel{
+	height: 400px;
+}
+.titlePanel{
+	width: 100%;
+	height: 50px;
+	background-color:#EFF4F8;
+	padding-top: 10px;
+    padding-left: 20px;
+}
+.titlePanel span{
+	font-size: 20px;
+}
+.green-border{
+	border: 1px solid #CFD8E7;
+}
+.contentPanel{
+    margin: 20px;
+} 
+.center-table{
+   text-align: center;
+}
+.table-thead{
+	background-color: #EFEFEF;
 }
