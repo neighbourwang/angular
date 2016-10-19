@@ -164,7 +164,7 @@ const menu: Array<Object> = [
                 "label": "企业管理员",
                 "isOpen": false,
                 "isActive": false,
-                "routing": "ent-mng/ent-admin-mng/ent-admin-mng"
+                "routing": "ent-mng/ent-admin-mng/ent-admin-mng/ac25dfeb-d727-40a3-842f-dca8ab0409c0"
             }
         ]
     },

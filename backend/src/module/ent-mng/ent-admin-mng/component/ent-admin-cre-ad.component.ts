@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { LayoutService, NoticeComponent, ValidationService } from "../../../../architecture";
+import { LayoutService, NoticeComponent , ValidationService} from "../../../../architecture";
 
 import { EntAdminCreService } from "../service/ent-admin-cre.service";
 
@@ -9,16 +9,16 @@ import { EntAdminMngService } from "../service/ent-admin-mng.service";
 
 import { Enterprise } from "../model/enterprise.model";
 
-import { Admin } from "../model/admin.model";
-
+import { Admin } from "../model/admin.model"; 
+import { AdminAD } from "../model/admin-ad.model"; 
 
 @Component({
     selector: "ent-admin-cre",
-    templateUrl: "../template/ent-admin-cre.html",
+    templateUrl: "../template/ent-admin-cre-ad.html",
     styleUrls: [],
     providers: []
 })
-export class EntAdminCreComponent implements OnInit {
+export class EntAdminCreADComponent implements OnInit {
 
     eid = "";//企业id
     aid = ""; //管理员id
@@ -29,11 +29,13 @@ export class EntAdminCreComponent implements OnInit {
     @ViewChild("notice")
     notice: NoticeComponent;
     enterprise = new Enterprise();
+    adminAds: Array<AdminAD>;
+
     constructor(
         private service: EntAdminCreService,
         private mngService: EntAdminMngService,
-        private layoutService: LayoutService,
         private validationService: ValidationService,
+        private layoutService: LayoutService,
         private router: Router,
         private activatedRouter: ActivatedRoute
     ) {
@@ -83,6 +85,10 @@ export class EntAdminCreComponent implements OnInit {
             .catch(() => (e) => this.onRejected(e));
     }
 
+    getADEnterpriseUser(id: string) {
+        
+    }
+
     createAndUpdate(): void {
         if (this.validationService.isBlank(this.admin.userName)) {
             this.showAlert("请输入管理员姓名");
@@ -110,7 +116,7 @@ export class EntAdminCreComponent implements OnInit {
             return;
         }
         this.layoutService.show();
-        this.admin.enterpriseId = this.eid;
+
         if (this.aid == "") {
             this.service.createAdmin(this.admin)
                 .then(
@@ -157,10 +163,4 @@ export class EntAdminCreComponent implements OnInit {
         this.noticeMsg = msg;
         this.notice.open();
     }
-
-    nof() { }
-
-    cof() { }
-
-    ccf() { }
 }

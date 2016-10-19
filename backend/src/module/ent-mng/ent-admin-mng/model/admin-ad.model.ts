@@ -1,16 +1,17 @@
-export class Admin {
+export class AdminAD {
     id:string;
     userName: string;
-    contactPhone: string;
+    phone: string;
     email: string;
     description: string;
     loginName: string ;
-    password:string;
     enterpriseId: string;
-    enterpriseName: string;
-    status: number;
+    type: string;
+    bindStatus:string;
     isSelect?: boolean = false;
-    authMode:string;
     constructor() {
     }
 }
+
+
+  
