@@ -98,7 +98,12 @@ export class EntEstMngComponent implements OnInit {
   edit(){
     if(this.getSelected())
     {
-      this.entEst.BasicInfo.name = "xxx";
+      let item = this.getSelected();
+
+      this.entEst.BasicInfo.reset();
+      this.entEst.BasicInfo.name = item.enterpriseName;
+      this.entEst.BasicInfo.description = item.description;
+
       this.editEnt.open();
     }
 
@@ -107,17 +112,27 @@ export class EntEstMngComponent implements OnInit {
   //保存编辑
   acceptEntModify(){
     console.log('保存编辑');
+
+    // todo: 保存编辑
+    // todo: 刷新列表
   }
 
   //取消编辑
   cancelEntModify(){
     console.log('取消编辑');
+    this.entEst.BasicInfo.reset();
   }
 
   //修改配额
   modifyQuota(){
     if(this.getSelected())
     {
+      let item = this.getSelected();
+      this.entEst.ResourceQuota.reset();
+
+      // todo: 需要加载配额数据
+      // todo: 需要保存配额数据
+      // todo: 刷新列表
       this.entEst.ResourceQuota.physicalMachineQuota = 30;//加载数据
       this.editQuota.open();
     }
@@ -127,6 +142,14 @@ export class EntEstMngComponent implements OnInit {
   setupCertInfo(){
     if(this.getSelected())
     {
+      let item = this.getSelected();
+      this.entEst.BasicInfo.reset();
+
+      // todo: 加载认证数据
+      // todo: 保存认证数据
+      // todo: 刷新列表
+
+
       this.entEst.BasicInfo.certUrl = "ldap:xxxx1234";
       this.setupCert.open();
     }
