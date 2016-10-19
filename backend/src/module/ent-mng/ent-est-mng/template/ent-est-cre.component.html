@@ -14,10 +14,10 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>认证方式：</div>
 					<div class="col-sm-4">
-						<button class="fox-cloud-button-sm fox-cloud-button-gray">
+						<button [ngClass]="{'fox-cloud-button-sm':true, 'fox-cloud-button-gray':!isLocal, 'fox-cloud-button-green':isLocal }" (click)="selectLocal()">
 		                  本地
 	                    </button>
-                        <button class="fox-cloud-button-sm fox-cloud-button-green">
+                        <button [ngClass]="{'fox-cloud-button-sm':true, 'fox-cloud-button-gray':isLocal, 'fox-cloud-button-green':!isLocal }" (click)="selectAD()">
 		                  AD
 	                    </button>
 					</div>
