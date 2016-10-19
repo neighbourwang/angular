@@ -13,8 +13,8 @@ export const ProdDirMngRouting: ModuleWithProviders = RouterModule.forChild([
         path: 'prod-mng/prod-dir-mng/prod-dir-mng',
         component: ProdDirListComponent
     },
-    // {
-    //     path: 'prod-mng/prod-dir-mng/prod-dir-cre',
-    //     // component: ProDirCreComponent
-    // },
+    {
+        path: 'prod-mng/prod-dir-mng/prod-dir-cre',
+        component: ProdDirCreComponent
+    },
 ]);

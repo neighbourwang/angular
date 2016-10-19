@@ -19,6 +19,7 @@ export class EntEstCreComponent implements OnInit{
 	private entEst: EntEst = null;
 	private currencyTypes : Array<SystemDictionary> = null;
 	private resourceQuotas: Paging<ResourceQuota> = new Paging<ResourceQuota>();
+	private isLocal:boolean = true;
 
 	constructor(
 		private router: Router,
@@ -46,5 +47,15 @@ export class EntEstCreComponent implements OnInit{
 
 	showError(msg:any) {
 	    this.notice.open(msg.title, msg.desc);
+	}
+
+	selectLocal(){
+		this.isLocal = true;
+		this.entEst.BasicInfo.certMethod = "local";
+	}
+
+	selectAD(){
+		this.isLocal = false;
+		this.entEst.BasicInfo.certMethod = "ad";
 	}
 }

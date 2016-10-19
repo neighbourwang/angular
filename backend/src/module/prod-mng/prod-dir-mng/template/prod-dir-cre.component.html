@@ -1,1 +1,50 @@
-<div>step1</div>
+<div class="page-content-header icon-content-header-platform-manage">创建产品目录:</div>
+<div class="page-content fix-page-content">
+       <div class="row" style="padding-top: 30px;">
+        <div class="col-md-12">
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">产品目录名称:<span class="asterisk">*</span>：</div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="platform.name" placeholder="产品目录名称(必须)">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">产品规格:<span class="asterisk">*</span>：</div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="platform.name" placeholder="产品规格(必须)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div for="firstname" class="col-sm-4 form-control-title">描述:</div>
+                    <div class="col-sm-4">
+                        <textarea class="form-control" rows="4" [(ngModel)]="platform.description" placeholder="描述"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div for="firstname" class="col-sm-4 form-control-title">选择可用平台:</div>
+                    <div class="col-sm-4">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                表
+            </div>
+        </div>
+    </div>
+</div>
+<div class="text-center">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+        <span class="icon-button-label">取消</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="next();">
+        <span class="icon-button-label">创建</span>
+    </button>
+</div>

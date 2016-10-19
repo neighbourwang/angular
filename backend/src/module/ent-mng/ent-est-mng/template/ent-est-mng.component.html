@@ -18,11 +18,9 @@
 				<li><a (click)="delete()">删除</a></li>
 			</ul>
 		</div>
-
-				
-		<div class="seach_input pull-right">
-			<input type="text" class="form-control" style="width: 170px;height:35px;display: inline;" placeholder="搜索" [(ngModel)]="criteria" (click)="search()" />
-			<span class="serch-tglyphicon glyphicon-search"></span>
+		<div class="pull-right">
+			<input type="text" class="form-control searchbox" placeholder="搜索" [(ngModel)]="criteria" (click)="search()" />
+			<span class="glyphicon glyphicon-search searchbox-incon"></span>
 		</div>
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="create()">
 			<span class="glyphicon glyphicon-edit"></span>
@@ -71,6 +69,7 @@
 	<fc-pagination tp={{entEstMng.totalPages}} (pf)="changePage($event)"></fc-pagination>
 </div>
 <fc-notice #notice ot="确认"></fc-notice>
+<!-- 编辑企业 -->
 <fc-popup #editEnt ot="确认" ct="取消" title="编辑企业" (of)="acceptEntModify()" (cf)="cancelEntModify()">
 	<div class="row row-line-height">
 		<div class="form-group">
@@ -85,6 +84,76 @@
 			<div class="col-sm-4 form-control-title">描述：</div>
 			<div class="col-sm-4">
 				<textarea class="form-control" placeholder="描述" rows="4" [(ngModel)]="entEst.BasicInfo.description"></textarea>
+			</div>
+		</div>
+	</div>
+</fc-popup>
+<!-- 修改配额 -->
+<fc-popup #editQuota ot="确认" ct="取消" title="修改配额" (of)="acceptQuotaModify()" (cf)="cancelQuotaModify()">
+	<div class="row row-line-height">
+		<div class="form-group">
+			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建云主机数量：</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" placeholder="可创建云主机数量" [(ngModel)]="entEst.ResourceQuota.platformVMQuota">
+			</div>
+		</div>
+	</div>
+	<div class="row row-line-height">
+		<div class="form-group">
+			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建物理机数量：</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" placeholder="可创建物理机数量" [(ngModel)]="entEst.ResourceQuota.physicalMachineQuota">
+			</div>
+		</div>
+	</div>
+	<div class="row row-line-height">
+		<div class="form-group">
+			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可使用存储额度：</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" placeholder="可使用存储额度" [(ngModel)]="entEst.ResourceQuota.storageQuota">
+			</div>
+		</div>
+	</div>
+	<div class="row row-line-height">
+		<div class="form-group">
+			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建快照数量：</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" placeholder="可创建快照数量" [(ngModel)]="entEst.ResourceQuota.snapQuota">
+			</div>
+		</div>
+	</div>
+	<div class="row row-line-height">
+		<div class="form-group">
+			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建镜像数量：</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" placeholder="可创建镜像数量" [(ngModel)]="entEst.ResourceQuota.imageQuota">
+			</div>
+		</div>
+	</div>
+</fc-popup>
+<!-- 设置认证 -->
+<fc-popup #setupCert ot="确认" ct="取消" title="设置认证"  (of)="acceptCertModify()" (cf)="cancelCertModify()">
+	<div class="row row-line-height">
+		<div class="form-group">
+			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>URL地址：</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" placeholder="URL地址" [(ngModel)]="entEst.BasicInfo.certUrl">
+			</div>
+		</div>
+	</div>
+	<div class="row row-line-height">
+		<div class="form-group">
+			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>用户名：</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" placeholder="用户名" [(ngModel)]="entEst.ResourceQuota.contactorName">
+			</div>
+		</div>
+	</div>
+	<div class="row row-line-height">
+		<div class="form-group">
+			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>密码：</div>
+			<div class="col-sm-4">
+				<input type="password" class="form-control" placeholder="密码" [(ngModel)]="entEst.ResourceQuota.password">
 			</div>
 		</div>
 	</div>
