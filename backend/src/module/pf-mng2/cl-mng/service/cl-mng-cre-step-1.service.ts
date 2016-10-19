@@ -34,6 +34,6 @@ export class ClMngCreStep1Service {
             }, {
                 key: "_field",
                 value: "TYPE"
-            }])
+            }],undefined)
     }
 }

@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../architecture';
 
+//model 
+import { CreStep1Model } from '../model/Cre-step1.model';
 
 import { ClMngCreStep1Service } from '../service/cl-mng-cre-step-1.service'
 
@@ -20,6 +22,7 @@ import { ClMngCreStep1Service } from '../service/cl-mng-cre-step-1.service'
 
 export class ClMngCreStep1Component implements OnInit{
 
+    creStep1Model : CreStep1Model;
 
     constructor(
         private router : Router,
@@ -30,6 +33,10 @@ export class ClMngCreStep1Component implements OnInit{
     ngOnInit (){
         console.log('init');
         //this.layoutService.show();
+
+        //获取地域
+
+        //获取云平台类型
         this.service.getPlatFormType().then(
             response => {
                 if (response && 100 == response.resultCode) {

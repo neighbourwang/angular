@@ -35,6 +35,12 @@ export let RestApis: RestApiModel[] = [
         "url": "/authsec/platforms/page/{page}/size/{size}"
     },
     {
+        "desc" : "获取地域",
+        "id" : "pf.cre.step.01.paltform.get",
+        "method" : "GET",
+        "url" : "GET /authsec/regions/admin"
+    },
+    {
         "desc": "创建平台",
         "id": "pf.cre.step.01.paltform.post",
         "method": "POST",
