@@ -136,6 +136,33 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "url": "/authsec/platform/{pf-id}/storage/quota"
     },
+
+    {
+        "desc": "取得云主机类型",
+        "id": "pf.cre.flavors.get",
+        "method": "GET",
+        "url": "/authsec/platform/{pf-id}/flavors"
+    },
+    {
+        "desc": "更新云主机类型",
+        "id": "pf.cre.step.05.flavors.put",
+        "method": "PUT",
+        "url": "/authsec/platform/{pf-id}/flavors"
+    },
+
+    {
+        "desc": "取得镜像",
+        "id": "pf.cre.images.get",
+        "method": "GET",
+        "url": "/authsec/platform/{pf-id}/images"
+    },
+    {
+        "desc": "更新镜像",
+        "id": "pf.cre.step.06.images.put",
+        "method": "PUT",
+        "url": "/authsec/platform/{pf-id}/images"
+    },
+
     {
         "desc": "取得云主机类型",
         "id": "pf.cre.flavor.get",

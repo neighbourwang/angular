@@ -5,6 +5,14 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
+// import { CreStep5Model }  from '../model/cre-step5.model';
+
+import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../architecture';
+
+import { ClMngCreStep6Service } from '../service/cl-mng-cre-step-6.service'; 
+
+import { ClMngIdService } from '../service/cl-mng-id.service';
+
 @Component({
     selector: 'cl-mng-cre-step-6',
     templateUrl: '../template/cl-mng-cre-step-06.component.html',
@@ -17,10 +25,13 @@ export class ClMngCreStep6Component implements OnInit{
 
 
     constructor(
-        private router : Router
+        private router : Router,
+        private service : ClMngCreStep6Service,
+        private idService : ClMngIdService
     ) {}
 
 
+    
     ngOnInit (){
         console.log('init');
     }
