@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { LayoutService, NoticeComponent, PopupComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, PopupComponent, ConfirmComponent } from '../../../../architecture';
 import { EntEstItem, EntEst} from '../model';
 
 import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
@@ -24,6 +24,9 @@ export class EntEstMngComponent implements OnInit {
 
   @ViewChild("setupCert")
   setupCert: PopupComponent;
+
+  @ViewChild("confirm")
+  confirm: ConfirmComponent;
 
   private totalPages: number = 0;
   private currentPage: number = 0;
@@ -205,7 +208,7 @@ export class EntEstMngComponent implements OnInit {
   enable(){
     if(this.getSelected())
     {
-      
+      this.confirm.open("启用企业", ["选择启用\"", this.getSelected().enterpriseName, "\"企业，请确认"].join());
     }
   }
 
@@ -213,7 +216,7 @@ export class EntEstMngComponent implements OnInit {
   disable(){
     if(this.getSelected())
     {
-      
+      this.confirm.open("禁用企业", ["您选择禁用\"", this.getSelected().enterpriseName, "\"企业，请确认；如果确认，企业用户将不能进入云管理平台自助服务门户。"].join());
     }
   }
 
@@ -221,7 +224,7 @@ export class EntEstMngComponent implements OnInit {
   delete(){
     if(this.getSelected())
     {
-      
+      this.confirm.open("删除企业", ["您选择删除\"", this.getSelected().enterpriseName, "\"企业，请确认；如果确认，此企业数据将不能恢复。"].join());
     }
   }
 
