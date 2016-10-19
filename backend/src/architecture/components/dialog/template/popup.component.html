@@ -1,0 +1,14 @@
+<modal #dialog backdrop="false">
+    <modal-header show-close="true" class="fox-cloud-modal-header">{{title}}</modal-header>
+    <modal-body class="fox-cloud-modal-body">
+        <ng-content></ng-content>
+    </modal-body>
+    <modal-footer class="fox-cloud-modal-footer">
+        <button class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal" (click)="ccf()">
+            <span class="icon-button-label">{{ct}}</span><!-- 取消 -->
+        </button>
+        <button class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal" (click)="cof()">
+            <span class="icon-button-label">{{ot}}</span><!-- 确认 -->
+        </button>
+    </modal-footer>
+</modal>

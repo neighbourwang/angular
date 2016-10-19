@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { LayoutService, NoticeComponent } from '../../../../architecture';
-import { EntEstItem } from '../model/ent-est-item';
+import { LayoutService, NoticeComponent, PopupComponent } from '../../../../architecture';
+import { EntEstItem, EntEst} from '../model';
 
 import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
 
@@ -15,11 +15,16 @@ import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
 export class EntEstMngComponent implements OnInit {
   @ViewChild("notice")
   notice: NoticeComponent;
+
+  @ViewChild("editEnt")
+  editEnt: PopupComponent;
+
   private totalPages: number = 0;
   private currentPage: number = 0;
   private entEstMng: Paging<EntEstItem> = new Paging<EntEstItem>();
   private selectAllField: boolean = false;
   private criteria: string = "";
+  private entEst: EntEst = new EntEst();
 
   constructor(
     private layoutService: LayoutService,
@@ -87,9 +92,20 @@ export class EntEstMngComponent implements OnInit {
   edit(){
     if(this.getSelected())
     {
-
+      this.entEst.BasicInfo.name = "xxx";
+      this.editEnt.open();
     }
 
+  }
+
+  //保存编辑
+  acceptEntModify(){
+    console.log('保存编辑');
+  }
+
+  //取消编辑
+  cancelEntModify(){
+    console.log('取消编辑');
   }
 
   //修改配额
