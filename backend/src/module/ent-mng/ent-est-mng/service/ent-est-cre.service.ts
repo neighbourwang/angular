@@ -71,6 +71,7 @@ export class EntEstCreService{
 	
 	}
 
+	//企业信息列表
 	loadEntEstItems(entEstMng: Paging<EntEstItem>
 		, errorHandler: Function
 		, caller:any
