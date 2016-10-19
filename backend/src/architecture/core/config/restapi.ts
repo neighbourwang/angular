@@ -376,5 +376,18 @@ export let RestApis: RestApiModel[] = [
        "id": "ent-mng.ent-est-mng.enterprise.open",
        "method": "PUT",
        "url": "/authsec/enterprise/{_enterpriseId}/status/{_status}"
-   }
+   },
+    //产品管理
+    // {
+    //     "desc": "获取所有产品目录",
+    //     "id": "prod-mng.prod-dir-mng.lists.get",
+    //     "method": "GET",
+    //     "url": "/authsec/services"
+    // },
+    {
+        "desc": "分页获取所有产品目录",
+        "id": "prod-mng.prod-dir-mng.list.get",
+        "method": "GET",
+        "url": "/authsec/services/page/{page}/size/{size}"
+    },
 ]
