@@ -85,7 +85,13 @@ export class EntEstMngComponent implements OnInit {
 
   composeUrlWithId(url:string, entId:string)
   {
-    return [url, "?", "entId=", entId].join();
+    if(entId)
+      return [url, "?", "entId=", entId].join();
+    else
+    {
+      console.log('composeUrlWithId:entId is empty');
+      return url;
+    }
   }
 
   //创建企业
@@ -175,7 +181,6 @@ export class EntEstMngComponent implements OnInit {
       // todo: 刷新列表
 
 
-      this.entEst.BasicInfo.certUrl = "ldap:xxxx1234";
       this.setupCert.open();
     }
   }
@@ -184,9 +189,9 @@ export class EntEstMngComponent implements OnInit {
   setupProduct(){
     if(this.getSelected())
     {
+      this.router.navigateByUrl(this.composeUrlWithId("ent-mng/ent-est-mng/ent-est-setProd", this.getSelected().id));
       
     }
-      this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-setProd"); 
   }
 
   //设置管理员

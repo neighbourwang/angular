@@ -1,5 +1,5 @@
 <div class="page-content-header icon-content-header-purchasing">企业产品设置：上海慧于有限公司企业
-<button class="pull-right fox-cloud-button fox-cloud-button-white"><span>返回企业列表</span></button>
+<button class="pull-right fox-cloud-button fox-cloud-button-white" (click)="return()"><span>返回企业列表</span></button>
 </div> 
 
 <div class="page-content">
@@ -33,53 +33,20 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>标准小型云主机(高性价比)</td>
-						<td>小型云主机(高性能)</td>
-						<td>云主机服务</td>
-						<td>2CPU,4G内存,40G启动盘</td>
-						<td>月</td>
-						<td>100</td>
-						<td>100</td>
-						<td class="validateInfo">未发布</td>
-						<td><button class="green-delete-bt"><i></i></button></td>
-					</tr>
-					<tr>
-						<td>标准小型云主机(高性价比)</td>
-						<td>小型云主机(高性能)</td>
-						<td>云主机服务</td>
-						<td>2CPU,4G内存,40G启动盘</td>
-						<td>月</td>
-						<td>100</td>
-						<td>100</td>
-						<td class="validateInfo">未发布</td>
-						<td><button class="green-delete-bt"><i></i></button></td>
-					</tr>
-					<tr>
-						<td>标准小型云主机(高性价比)</td>
-						<td>小型云主机(高性能)</td>
-						<td>云主机服务</td>
-						<td>2CPU,4G内存,40G启动盘</td>
-						<td>月</td>
-						<td>100</td>
-						<td>100</td>
-						<td class="warnInfo">已发布</td>
-						<td><button class="green-delete-bt"><i></i></button></td>
-					</tr>
-					<tr>
-						<td>标准小型云主机(高性价比)</td>
-						<td>小型云主机(高性能)</td>
-						<td>云主机服务</td>
-						<td>2CPU,4G内存,40G启动盘</td>
-						<td>月</td>
-						<td>100</td>
-						<td>100</td>
-						<td class="warnInfo">已发布</td>
-						<td><button class="green-delete-bt"><i></i></button></td>
+					<tr *ngFor="let item of entProdItems.items">
+						<td>{{item.name}}</td>
+						<td>{{item.category}}</td>
+						<td>{{item.type}}</td>
+						<td>{{item.spec}}</td>
+						<td>{{item.countCycle}}</td>
+						<td>{{item.cyclePrice}}</td>
+						<td>{{item.oneTimePrice}}</td>
+						<td class="validateInfo">{{item.status}}</td>
+						<td><button class="green-delete-bt" (click)="removeItem(item)"><i></i></button></td>
 					</tr>
 				</tbody>
 			</table>
-			<fc-pagination tp={{entEstMng.totalPages}} (pf)="changePage($event)"></fc-pagination>
+			<fc-pagination tp={{entProdItems.totalPages}} (pf)="changePage($event)"></fc-pagination>
 		</div>
 	</div>
 	<div class="setProdPanel green-border">
@@ -112,53 +79,20 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>标准小型云主机(高性价比)</td>
-						<td>小型云主机(高性能)</td>
-						<td>云主机服务</td>
-						<td>2CPU,4G内存,40G启动盘</td>
-						<td>月</td>
-						<td>100</td>
-						<td>100</td>
-						<td class="validateInfo">未发布</td>
-						<td><button class="green-add-bt"><i></i><i></i></button></td>
-					</tr>
-					<tr>
-						<td>标准小型云主机(高性价比)</td>
-						<td>小型云主机(高性能)</td>
-						<td>云主机服务</td>
-						<td>2CPU,4G内存,40G启动盘</td>
-						<td>月</td>
-						<td>100</td>
-						<td>100</td>
-						<td class="validateInfo">未发布</td>
-						<td><button class="green-add-bt"><i></i><i></i></button></td>
-					</tr>
-					<tr>
-						<td>标准小型云主机(高性价比)</td>
-						<td>小型云主机(高性能)</td>
-						<td>云主机服务</td>
-						<td>2CPU,4G内存,40G启动盘</td>
-						<td>月</td>
-						<td>100</td>
-						<td>100</td>
-						<td class="warnInfo">已发布</td>
-						<td><button class="green-add-bt"><i></i><i></i></button></td>
-					</tr>
-					<tr>
-						<td>标准小型云主机(高性价比)</td>
-						<td>小型云主机(高性能)</td>
-						<td>云主机服务</td>
-						<td>2CPU,4G内存,40G启动盘</td>
-						<td>月</td>
-						<td>100</td>
-						<td>100</td>
-						<td class="warnInfo">已发布</td>
-						<td><button class="green-add-bt"><i></i><i></i></button></td>
+					<tr *ngFor="let item of prodItems.items">
+						<td>{{item.name}}</td>
+						<td>{{item.category}}</td>
+						<td>{{item.type}}</td>
+						<td>{{item.spec}}</td>
+						<td>{{item.countCycle}}</td>
+						<td>{{item.cyclePrice}}</td>
+						<td>{{item.oneTimePrice}}</td>
+						<td class="validateInfo">{{item.status}}</td>
+						<td><button class="green-add-bt" (click)="addItem(item)"><i></i></button></td>
 					</tr>
 				</tbody>
 			</table>
-			<fc-pagination tp={{entEstMng.totalPages}} (pf)="changePage($event)"></fc-pagination>
+			<fc-pagination tp={{prodItems.totalPages}} (pf)="changePage($event)"></fc-pagination>
 		</div>
 	</div>
 </div>
