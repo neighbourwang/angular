@@ -182,7 +182,7 @@ export class EntEstMngComponent implements OnInit {
       // todo: 需要加载配额数据
       // todo: 需要保存配额数据
       // todo: 刷新列表
-      this.entEst.ResourceQuota.physicalMachineQuota = 30;//加载数据
+      // this.entEst.ResourceQuota.physicalMachineQuota = 30;//加载数据
       this.editQuota.open();
     }
   }

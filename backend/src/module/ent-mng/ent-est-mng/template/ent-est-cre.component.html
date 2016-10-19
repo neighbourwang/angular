@@ -6,7 +6,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>名称：</div>
 					<div class="col-sm-4">
-					    <input type="text" class="form-control" placeholder="上海慧于有限公司" [(ngModel)]="entEst.BasicInfo.name">
+					    <input type="text" class="form-control" placeholder="名称" [(ngModel)]="entEst.BasicInfo.name">
 					</div>
 				</div>
 			</div>
@@ -27,7 +27,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>URL地址：</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" placeholder="ldap://xxxx.com" [(ngModel)]="entEst.BasicInfo.certUrl">
+						<input type="text" class="form-control" placeholder="URL地址" [(ngModel)]="entEst.BasicInfo.certUrl">
 					</div>
 				</div>
 			</div>
@@ -35,7 +35,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>用户名：</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" placeholder="abc@xxxx.com" [(ngModel)]="entEst.BasicInfo.contactorName">
+						<input type="text" class="form-control" placeholder="用户名" [(ngModel)]="entEst.BasicInfo.contactorName">
 					</div>
 				</div>
 			</div>
@@ -51,7 +51,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>描述：</div>
 					<div class="col-sm-4">
-						<textarea class="form-control" rows="4" [(ngModel)]="entEst.BasicInfo.description"></textarea> 
+						<textarea class="form-control" rows="4" placeholder="描述" [(ngModel)]="entEst.BasicInfo.description"></textarea> 
 					</div>
 				</div>
 			</div>
@@ -78,7 +78,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建云主机数量：</div>
 					<div class="col-sm-4">
-					    <input type="text" class="form-control" placeholder="500" [(ngModel)]="entEst.ResourceQuota.platformVMQuota">
+					    <input type="number" class="form-control" placeholder="可创建云主机数量" [(ngModel)]="entEst.ResourceQuota.platformVMQuota">
 					</div>
 				</div>
 			</div>
@@ -86,7 +86,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建物理机数量：</div>
 					<div class="col-sm-4">
-					<input type="text" class="form-control" placeholder="20" [(ngModel)]="entEst.ResourceQuota.physicalMachineQuota">
+					<input type="number" class="form-control" placeholder="可创建物理机数量" [(ngModel)]="entEst.ResourceQuota.physicalMachineQuota">
 					</div>
 				</div>
 			</div>
@@ -94,7 +94,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可使用存储额度：</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" placeholder="500" [(ngModel)]="entEst.ResourceQuota.storageQuota">
+						<input type="number" class="form-control" placeholder="可使用存储额度" [(ngModel)]="entEst.ResourceQuota.storageQuota">
 					</div>
 				</div>
 			</div>
@@ -102,7 +102,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建快照数量：</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" placeholder="200" [(ngModel)]="entEst.ResourceQuota.snapQuota">
+						<input type="number" class="form-control" placeholder="可创建快照数量" [(ngModel)]="entEst.ResourceQuota.snapQuota">
 					</div>
 				</div>
 			</div>
@@ -110,7 +110,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建镜像数量：</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" placeholder="50" [(ngModel)]="entEst.ResourceQuota.imageQuota">
+						<input type="number" class="form-control" placeholder="可创建镜像数量" [(ngModel)]="entEst.ResourceQuota.imageQuota">
 					</div>
 				</div>
 			</div>
