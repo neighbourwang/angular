@@ -9,7 +9,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class RestApiCfg {
     protected baseIp = '15.114.100.52';
-    protected basePort = '31072';
+    protected basePort = '30072';
     protected restApiList: RestApiModel[];
 
     constructor(private http: Http) {
@@ -19,7 +19,7 @@ export class RestApiCfg {
     loadCfgData() {
         this.restApiList = RestApis;
     }
-    
+
     getRestApi(apiId: string, ip?: string, port?: string): RestApiModel {
         let restApi:RestApiModel = new RestApiModel();
         port = port || this.basePort;

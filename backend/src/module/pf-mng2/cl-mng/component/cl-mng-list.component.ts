@@ -107,15 +107,51 @@ export class ClMngListComponent implements OnInit{
     // 删除弹出框确认按钮
     removeCof (){
         //调用接口
+        this.layoutService.show();
+        let platForm : Platform = this.getPlatForm();
+
+        //调用接口
+        this.service.deletePlatform(platForm.id).then(
+            response => {
+                if (response && 100 == response.resultCode){
+                    this.notice.open('确认',"删除成功");
+                    this.deleteAryByIndex(this.platforms , platForm.id)
+                }
+                this.layoutService.hide();
+            }
+
+        );
+
 
     }
     // 启用弹出框确认按钮
     enableCof (){
         //调用接口
+        this.layoutService.show();
+        let platForm : Platform =  this.getPlatForm();
+        this.service.activePlatform(platForm.id).then(
+            response => {
+                if (response && 100 == response.resultCode){
+                    this.notice.open('确认',"启用成功");
+                    //todo 手动修改状态
+                }
+                this.layoutService.hide();
+            }
+        )
     }
     // 禁用弹出框确认按钮
     disableCof (){
-        //调用接口
+        this.layoutService.show();
+        let platForm : Platform =  this.getPlatForm();
+        this.service.deletePlatform(platForm.id).then(
+            response => {
+                if (response && 100 == response.resultCode){
+                    this.notice.open('确认',"禁用成功");
+                    //todo 手动修改状态
+                }
+                this.layoutService.hide();
+            }
+        )
     }
 
     ccf (){
@@ -178,8 +214,19 @@ export class ClMngListComponent implements OnInit{
 
         }
         );
-
     }
+
+
+    deleteAryByIndex (items : Array<Platform> , index : number){
+        let newAr : Array<Platform> = new Array<Platform>();
+        for(let i = 0 ; i < items.length ; i ++){
+            if(items[i].id != index){
+                newAr.push(items[i]);
+            }
+        }
+        return newAr;
+    }
+
 
 
 }
