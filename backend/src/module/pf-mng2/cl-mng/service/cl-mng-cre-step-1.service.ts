@@ -36,4 +36,16 @@ export class ClMngCreStep1Service {
                 value: "TYPE"
             }],undefined)
     }
+    //获取地域
+    getRegion (){
+        let api = this.restApiCfg.getRestApi("pf.cre.step.01.paltform.get");
+
+        return this.restApi.request(api.method , api.url ,undefined , undefined);
+    }
+
+    //根据平台类型获得版本
+    getPlatFormVersion (owner : string){
+        let api = this.restApiCfg.getRestApi("sysdic.owner.field");
+        return this.restApi.request(api.method,api.url,[{key : "_owner",value : owner},{key : "_field", value : "VERSION"}],undefined);
+    }
 }
