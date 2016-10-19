@@ -4,9 +4,11 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent  } from '../../../../architecture';
+import { LayoutService, NoticeComponent , ConfirmComponent ,PopupComponent } from '../../../../architecture';
 
 // import { ClMngListService } from '../service/cl-mgn-list.service';
+//model
+import{Product} from '../model/product.model'
 
 @Component({
     selector: 'prod-mng',
@@ -23,10 +25,27 @@ export class ProdMngComponent implements OnInit{
         // private service : ClMngListService
     ) {}
 
-    // 平台数据总页数
+
+    // 产品目录数组
+    prodList: Array<Product> = new Array<Product>();
+
+    // 产品目录总页数
     tp: number = 0;
     // 每页显示的数据条数
     pp: number = 10;
+
+
+    @ViewChild('publishConfirm')
+    publishConfirm: ConfirmComponent;
+
+    @ViewChild('ccPublishConfirm')
+    ccPublishConfirm: ConfirmComponent;
+
+    @ViewChild('deleteConfirm')
+    deleteConfirm: ConfirmComponent;
+
+    @ViewChild('notice')
+    notice : ConfirmComponent;
 
 
 

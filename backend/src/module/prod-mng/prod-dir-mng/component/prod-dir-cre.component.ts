@@ -21,13 +21,7 @@ export class ProdDirCreComponent implements OnInit {
     ngOnInit (){
         console.log('init');
     }
-
-    next (){
-        this.router.navigateByUrl("pf-mng2/cl-mng/cre-step2");
-    }
-
-    cancel (){
-        this.router.navigateByUrl("pf-mng2/cl-mng/cl-mng");
-    }
+    
+   
 
 }
