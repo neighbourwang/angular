@@ -62,35 +62,20 @@ export class ProdDirListComponent implements OnInit{
         this.backend(1, this.pp);
     }
 
-    //删除按钮
-    remove (){
-        console.log('remove');
-        let proddir : Proddir = this.getProddir();
-        if(!proddir){
-            this.notice.open('操作错误','请选择产品目录');
-        }else{
-            this.deleteConfirm.open('删除产品目录','您选择删除 '+proddir.serviceName+'产品,请确认；如果确认，此产品目录的数据将不能恢复。')
+    // 选择产品目录（多选）
+    switchSelectIndividual(id:number) {
+        this.prodDirList[id].isSelected = !this.prodDirList[id].isSelected;
+    }
+
+    switchSelectAll(){
+        for(let dir of this.prodDirList){
+            dir.isSelected=true;
         }
-    }
-    //启用按钮
-    enable (){
-        console.log('enable');
-    }
-    //禁用按钮
-    disable (){
-        console.log('disable');
-    }
-
-    //创建按钮
-    creation (){
-        //跳转
-
-        console.log('create');
-        this.router.navigateByUrl("prod-mng/prod-dir-mng/prod-dir-cre", {skipLocationChange: true});
     }
 
     // 获得当前选中的产品目录
     getProddir (){
+        //radiio
         let proddir : Proddir ;
         for(let i = 0 ; i < this.prodDirList.length ; i ++){
             if(this.prodDirList[i].isSelected == true){
@@ -98,7 +83,50 @@ export class ProdDirListComponent implements OnInit{
             }
         }
         return proddir;
+        //checkbox
+        // let selectedProdDirList: Array<Proddir> = new Array<Proddir>();
+        // for(let dir of this.prodDirList){
+        //     if(dir.isSelected == true){
+        //         selectedProdDirList.push(dir) ;
+        //     }
+        // }
+        // return selectedProdDirList;
 
+    }
+
+    //删除按钮
+    delete (){
+        console.log('remove');
+        let proddir : Proddir = this.getProddir();
+        console.log(proddir);
+        if(!proddir){
+            this.notice.open('操作错误','请选择产品目录');
+        }else{
+            this.deleteConfirm.open('删除产品目录','您选择删除 '+proddir.serviceName+'产品,请确认；如果确认，此产品目录的数据将不能恢复。')
+        }
+    };
+    //发布按钮
+    publish (){
+        console.log('publish');
+    };
+    //取消发布按钮
+    ccPublish (){
+        console.log('ccPublish');
+    };
+    //编辑按钮
+    edit (){
+        console.log('edit');
+    }
+
+    //创建按钮
+    creation (){
+        //跳转
+        console.log('create');
+        this.createProdDir.open('创建产品目录')
+
+    }
+    otcreate(){
+        this.router.navigateByUrl("prod-mng/prod-dir-mng/prod-dir-cre", {skipLocationChange: true});
     }
 
 
@@ -154,6 +182,13 @@ export class ProdDirListComponent implements OnInit{
         proddir.isSelected = false;
 
         this.prodDirList .push(proddir);
+
+    }
+    ccf() {
+
+    }
+
+    nof() {
 
     }
 
