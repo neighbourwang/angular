@@ -1,16 +1,16 @@
 ﻿import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { LayoutService, NoticeComponent , ValidationService} from "../../../../architecture";
+import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PaginationComponent } from "../../../../architecture";
 
-import { EntAdminCreService } from "../service/ent-admin-cre.service";
+import { EntAdminCreADService } from "../service/ent-admin-cre-ad.service";
 
 import { EntAdminMngService } from "../service/ent-admin-mng.service";
 
 import { Enterprise } from "../model/enterprise.model";
 
-import { Admin } from "../model/admin.model"; 
-import { AdminAD } from "../model/admin-ad.model"; 
+import { Admin } from "../model/admin.model";
+import { AdminAD } from "../model/admin-ad.model";
 
 @Component({
     selector: "ent-admin-cre",
@@ -26,13 +26,23 @@ export class EntAdminCreADComponent implements OnInit {
     noticeTitle = "";
     noticeMsg = "";
     admin = new Admin();
-    @ViewChild("notice")
-    notice: NoticeComponent;
+
     enterprise = new Enterprise();
     adminAds: Array<AdminAD>;
+    pageIndex = 0;
+    tp = 1; //totalPage
+    pageSize = 10;
 
+    @ViewChild("notice")
+    notice: NoticeComponent;
+
+    @ViewChild("confirm")
+    confirm: ConfirmComponent;
+
+    @ViewChild("pager")
+    pager: PaginationComponent;
     constructor(
-        private service: EntAdminCreService,
+        private service: EntAdminCreADService,
         private mngService: EntAdminMngService,
         private validationService: ValidationService,
         private layoutService: LayoutService,
@@ -42,11 +52,14 @@ export class EntAdminCreADComponent implements OnInit {
         if (activatedRouter.snapshot.params["eid"]) {
             this.eid = activatedRouter.snapshot.params["eid"] || "";
             this.aid = activatedRouter.snapshot.params["aid"] || "";
-            if (this.aid != "") {
-                this.isEdit = true;
-                this.getAdminById(this.aid);
-            }
+            this.getADEnterpriseUser().then(() => {
+                if (this.aid != "") {
+                    this.isEdit = true;
+                    this.getAdminById(this.aid);
+                }
+            });
             this.getEnterpriseById(this.eid);
+
         }
     }
 
@@ -77,6 +90,13 @@ export class EntAdminCreADComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.admin = response["resultContent"];
+
+                    //如果编辑则让列表中相应的选项选中，如果有的话，因为存在分页的情况
+                    this.adminAds.forEach((adminad) => {
+                        if (adminad.loginName ===this. admin.loginName) {
+                            adminad.isSelect = true;
+                        }
+                    })
                 } else {
                     this.showAlert("Res sync error");
                 }
@@ -85,8 +105,24 @@ export class EntAdminCreADComponent implements OnInit {
             .catch(() => (e) => this.onRejected(e));
     }
 
-    getADEnterpriseUser(id: string) {
-        
+    //获取管理员数据
+    getADEnterpriseUser(pageIndex?: number): Promise<any> {
+        this.pageIndex = pageIndex || this.pageIndex;
+        this.layoutService.show();
+        return this.service.getEnterpriseADAdmins(this.eid, this.pageIndex, this.pageSize)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.layoutService.hide();
+                    this.adminAds = response.resultContent;
+                    this.tp = response.pageInfo.totalPage;
+                } else {
+                    alert("Res sync error");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
     }
 
     createAndUpdate(): void {
@@ -150,6 +186,19 @@ export class EntAdminCreADComponent implements OnInit {
 
     cancel(): void {
         this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-mng/${this.eid}`);
+    }
+
+
+    selectAdminAd(adminad: AdminAD) {
+        this.admin.loginName = adminad.loginName;
+        this.admin.userName = adminad.userName;
+        this.admin.contactPhone = adminad.phone;
+        this.admin.description = adminad.description;
+        this.adminAds.forEach((e) => {
+            e.isSelect = false;
+        });
+        adminad.isSelect = true;
+
     }
 
     onRejected(reason: any) {

@@ -85,7 +85,7 @@ export class EntAdminCreADService {
         // return new Promise(resovle => setTimeout(resovle, 200)).then(() => updateAdminRes);
     }
 
-    getEnterpriseAdmins(enterpriseId: string, pageIndex: number, pageSize: number): Promise<any> {
+    getEnterpriseADAdmins(enterpriseId: string, pageIndex: number, pageSize: number): Promise<any> {
         const pathParams = [
             {
                 key: "enterpriseId",

@@ -35,7 +35,7 @@ export const enterpriseOne = {
             id: "1",
             name: "企业1",
             code: "001",
-            authMode:"0"
+            authMode:"1"
         }
 };
 export const createAdminRes = {
