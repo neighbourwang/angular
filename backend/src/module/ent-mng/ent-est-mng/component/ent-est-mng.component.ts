@@ -19,6 +19,12 @@ export class EntEstMngComponent implements OnInit {
   @ViewChild("editEnt")
   editEnt: PopupComponent;
 
+  @ViewChild("editQuota")
+  editQuota: PopupComponent;
+
+  @ViewChild("setupCert")
+  setupCert: PopupComponent;
+
   private totalPages: number = 0;
   private currentPage: number = 0;
   private entEstMng: Paging<EntEstItem> = new Paging<EntEstItem>();
@@ -112,7 +118,8 @@ export class EntEstMngComponent implements OnInit {
   modifyQuota(){
     if(this.getSelected())
     {
-      
+      this.entEst.ResourceQuota.physicalMachineQuota = 30;//加载数据
+      this.editQuota.open();
     }
   }
 
@@ -120,7 +127,8 @@ export class EntEstMngComponent implements OnInit {
   setupCertInfo(){
     if(this.getSelected())
     {
-      
+      this.entEst.BasicInfo.certUrl = "ldap:xxxx1234";
+      this.setupCert.open();
     }
   }
 
@@ -163,4 +171,25 @@ export class EntEstMngComponent implements OnInit {
       
     }
   }
+
+  //修改配额
+  acceptQuotaModify(){
+
+  }
+
+  //取消配额
+  cancelQuotaModify(){
+
+  }
+
+  //设置认证
+  acceptCertModify(){
+
+  }
+
+  //取消认证
+  cancelCertModify(){
+    
+  }
+
 }
