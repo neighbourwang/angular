@@ -107,6 +107,12 @@ export let RestApis: RestApiModel[] = [
         "url": "/authsec/platform/{pf-id}/images/synchronize"
     },
     {
+        "desc": "宿主机同步",
+        "id": "pf.cre.step.02.hosts.synchronize.get",
+        "method": "GET",
+        "url": "/authsec/platform/{pf-id}/hosts/synchronize"
+    },
+    {
         "desc": "取得可用区资源",
         "id": "pf.cre.zone.get",
         "method": "GET",
