@@ -11,4 +11,20 @@ export class EntEstBasicInfo{
 	password: string = null;//密码
 	description: string = null;//描述
 	logo: string = null;//logo
+
+	reset(){
+		this.code = null;
+		this.contactorPhone = null;
+		this.currencyType = null;
+		this.email = null;
+		this.id = null;
+		this.name = null;
+		this.certMethod = null;
+		this.certUrl = null;
+		this.contactorName = null;
+		this.password = null;
+		this.description = null;
+		this.logo = null;
+
+	}
 }

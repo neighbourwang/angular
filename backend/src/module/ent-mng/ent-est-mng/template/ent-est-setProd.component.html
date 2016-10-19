@@ -1,4 +1,7 @@
-<div class="page-content-header icon-content-header-purchasing">企业产品设置：上海慧于有限公司企业</div>
+<div class="page-content-header icon-content-header-purchasing">企业产品设置：上海慧于有限公司企业
+<button class="pull-right fox-cloud-button fox-cloud-button-white" (click)="return()"><span>返回企业列表</span></button>
+</div> 
+
 <div class="page-content">
 	<div class="setProdPanel green-border">
 		<div class="titlePanel">
@@ -30,55 +33,67 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>标准小型云主机(高性价比)</td>
-						<td>小型云主机(高性能)</td>
-						<td>云主机服务</td>
-						<td>2CPU,4G内存,40G启动盘</td>
-						<td>月</td>
-						<td>100</td>
-						<td>100</td>
-						<td>未发布</td>
-						<td><button class="green-delete-bt"><i></i></button></td>
-					</tr>
-					<tr>
-						<td>标准小型云主机(高性价比)</td>
-						<td>小型云主机(高性能)</td>
-						<td>云主机服务</td>
-						<td>2CPU,4G内存,40G启动盘</td>
-						<td>月</td>
-						<td>100</td>
-						<td>100</td>
-						<td>未发布</td>
-						<td><button class="green-delete-bt"><i></i></button></td>
-					</tr>
-					<tr>
-						<td>标准小型云主机(高性价比)</td>
-						<td>小型云主机(高性能)</td>
-						<td>云主机服务</td>
-						<td>2CPU,4G内存,40G启动盘</td>
-						<td>月</td>
-						<td>100</td>
-						<td>100</td>
-						<td>未发布</td>
-						<td><button class="green-delete-bt"><i></i></button></td>
-					</tr>
-					<tr>
-						<td>标准小型云主机(高性价比)</td>
-						<td>小型云主机(高性能)</td>
-						<td>云主机服务</td>
-						<td>2CPU,4G内存,40G启动盘</td>
-						<td>月</td>
-						<td>100</td>
-						<td>100</td>
-						<td>未发布</td>
-						<td><button class="green-delete-bt"><i></i></button></td>
+					<tr *ngFor="let item of entProdItems.items">
+						<td>{{item.name}}</td>
+						<td>{{item.category}}</td>
+						<td>{{item.type}}</td>
+						<td>{{item.spec}}</td>
+						<td>{{item.countCycle}}</td>
+						<td>{{item.cyclePrice}}</td>
+						<td>{{item.oneTimePrice}}</td>
+						<td class="validateInfo">{{item.status}}</td>
+						<td><button class="green-delete-bt" (click)="removeItem(item)"><i></i></button></td>
 					</tr>
 				</tbody>
 			</table>
-			<fc-pagination tp={{entEstMng.totalPages}} (pf)="changePage($event)"></fc-pagination>
+			<fc-pagination tp={{entProdItems.totalPages}} (pf)="changePage($event)"></fc-pagination>
 		</div>
 	</div>
-
+	<div class="setProdPanel green-border">
+		<div class="titlePanel">
+			<span>所有产品列表</span>
+			<div class="pull-right chevron-down-bt">
+				<span class="glyphicon glyphicon-chevron-down"></span>
+				<span class="glyphicon glyphicon-chevron-down chevron-down-bt-second"></span>
+			</div>
+			<div class="pull-right">
+				<input type="text" class="form-control searchbox gray-searchbox" placeholder="搜索" [(ngModel)]="criteria" 
+					(click)="search()" />
+				<span class="glyphicon glyphicon-search searchbox-incon"></span>
+			</div>
+				
+		</div>
+		<div class="contentPanel green-border">
+			<table class="table table-hover center-table">
+				<thead class="table-thead">
+					<tr>
+						<td>产品名称</td>
+						<td>产品目录</td>
+						<td>产品类别</td>
+						<td>产品规格</td>                     
+						<td>计费周期</td>
+						<td>周期价格</td>
+						<td>一次性价格</td>
+						<td>状态</td>
+						<td>操作</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let item of prodItems.items">
+						<td>{{item.name}}</td>
+						<td>{{item.category}}</td>
+						<td>{{item.type}}</td>
+						<td>{{item.spec}}</td>
+						<td>{{item.countCycle}}</td>
+						<td>{{item.cyclePrice}}</td>
+						<td>{{item.oneTimePrice}}</td>
+						<td class="validateInfo">{{item.status}}</td>
+						<td><button class="green-add-bt" (click)="addItem(item)"><i></i></button></td>
+					</tr>
+				</tbody>
+			</table>
+			<fc-pagination tp={{prodItems.totalPages}} (pf)="changePage($event)"></fc-pagination>
+		</div>
+	</div>
 </div>
 <fc-notice #notice ot="确认"></fc-notice>
