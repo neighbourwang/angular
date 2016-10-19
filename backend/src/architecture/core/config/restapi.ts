@@ -366,16 +366,40 @@ export let RestApis: RestApiModel[] = [
        "url": "/authsec/platforms/resoucequotas/page/{_page}/size/{_size}"
    }
    ,{
-       "desc": "企业开通信息概览",
+       "desc": "企业信息列表",
        "id": "ent-mng.ent-est-mng.enterprise.get",
        "method": "GET",
-       "url": "/authsec/enterprises/opening/page/{_page}/size/{_size}"
+       "url": "/authsec/enterprise/{_enterpriseId}/resouces/quotas/page/{_page}/size/{_size}"
    }
    ,{
-       "desc": "企业基础信息创建",
+       "desc": "创建企业",
        "id": "ent-mng.ent-est-mng.enterprise.create",
        "method": "POST",
        "url": "/authsec/enterprise"
+   }
+   ,{
+       "desc": "更新企业名称",
+       "id": "ent-mng.ent-est-mng.enterprise.updatename",
+       "method": "PUT",
+       "url": "/authsec/enterprise/{_enterpriseId}/basic"
+   }
+   ,{
+       "desc": "更新企业配额数据",
+       "id": "ent-mng.ent-est-mng.enterprise.updatequota",
+       "method": "PUT",
+       "url": "/authsec/enterprise/{_enterpriseId}/resouces/quotas"
+   }
+   ,{
+       "desc": "更新企业认证信息数据",
+       "id": "ent-mng.ent-est-mng.enterprise.updateauth",
+       "method": "PUT",
+       "url": "/authsec/enterprise/{_enterpriseId}/auth"
+   }
+   ,{
+       "desc": "更新企业企业状态",
+       "id": "ent-mng.ent-est-mng.enterprise.updatestatus",
+       "method": "PUT",
+       "url": "/authsec/enterprise/{_enterpriseId}/status/{_status}"
    }
    ,{
        "desc": "企业配额信息提交",

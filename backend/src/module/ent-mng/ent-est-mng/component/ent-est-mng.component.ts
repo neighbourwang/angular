@@ -190,7 +190,6 @@ export class EntEstMngComponent implements OnInit {
     if(this.getSelected())
     {
       this.router.navigateByUrl(this.composeUrlWithId("ent-mng/ent-est-mng/ent-est-setProd", this.getSelected().id));
-      
     }
   }
 
