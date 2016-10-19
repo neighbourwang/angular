@@ -2,17 +2,47 @@
 <div class="page-content">
     <div style="padding-bottom: 10px;">
         <div class="dropdown pull-right">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 更多操作
                 <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <!--<li><a href="#">修改</a></li>-->
+                <li><a (click)="edit();">编辑</a></li>
+                <li><a (click)="publish();">发布</a></li>
+                <li><a (click)="ccPublish();">取消发布</a></li>
+                <li><a (click)="delete();">删除</a></li>
+            </ul>
+        </div>
+        <button class="pull-right fox-cloud-button-md fox-cloud-button-white">查询</button>
+
+        <div class="dropdown pull-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                所有平台
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <!--<li><a href="#">修改</a></li>-->
                 <li><a (click)="deletePlatform();">删除</a></li>
                 <li><a (click)="activePlatform();">启用</a></li>
                 <li><a (click)="disablePlatform();">禁用</a></li>
             </ul>
         </div>
+        <span class="pull-right">平台：</span>
+
+        <div class="dropdown pull-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                更多操作
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu3">
+                <!--<li><a href="#">修改</a></li>-->
+                <li><a (click)="deletePlatform();">删除</a></li>
+                <li><a (click)="activePlatform();">启用</a></li>
+                <li><a (click)="disablePlatform();">禁用</a></li>
+            </ul>
+        </div>
+        <span class="pull-right">产品目录类别：</span>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">创建产品目录</span>
@@ -32,12 +62,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let item of platforms; let idx = index;">
+            <tr *ngFor="let item of prodDirList; let idx = index;">
                 <td><input type="checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)" /></td>
-                <td>{{item.name}}</td>
-                <td>{{item.platformTypeName}}</td>
-                <td>{{item.uri}}</td>
-                <td>{{item.statusText}}</td>
+                <td>{{item.serviceName}}</td>
+                <td>{{item.serviceTemplateName}}</td>
+                <td>{{item.specification}}</td>
+                <td>{{item.productNum}}</td>
+                <td>{{item.status}}</td>
                 <td>{{item.description}}</td>
             </tr>
             </tbody>
@@ -45,9 +76,20 @@
     </div>
 </div>
 <fc-pagination #pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
-
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
 
 <fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="deleteCof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-confirm #activeConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="activeCof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-confirm #disableConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="disableCof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-confirm #publishConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="activeCof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-confirm #ccPublishConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="disableCof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-popup #createProdDir title="{{title}}" ot="创建" (of)="otcreate()" ct="取消" (cf)="ccf()">
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-6 form-control-title"><span class="asterisk">*</span>产品目录类别：</div>
+            <div class="col-sm-6">
+                <select name="" id="">
+                    <option value="">云主机服务</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</fc-popup>

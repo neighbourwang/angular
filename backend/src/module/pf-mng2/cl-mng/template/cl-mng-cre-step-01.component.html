@@ -1,0 +1,152 @@
+<div class="page-content-header icon-content-header-platform-manage">创建平台</div>
+<div class="page-content fix-page-content">
+    <div class="row navigator-progress">
+        <div class="col-md-2 active"><span class="mark">1</span><span>基本信息</span></div>
+        <div class="col-md-2"><span class="mark">2</span><span>资源同步</span></div>
+        <div class="col-md-2"><span class="mark">3</span><span>可用区配置</span></div>
+        <div class="col-md-2"><span class="mark">4</span><span>存储区配置</span></div>
+        <div class="col-md-2"><span class="mark">5</span><span>云主机规格</span></div>
+        <div class="col-md-2"><span class="mark">6</span><span>镜像配置</span></div>
+    </div>
+    <div class="step-progress">
+        <div class="fox-cloud-progress-rectangle progress-striped">
+            <div class="progress-bar fox-cloud-progress-bar-rectangle" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 16.66%;">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 30px;">
+        <div class="col-md-12">
+
+
+            <div class="row row-line-height">
+                <div class="form-group">
+
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        云平台名称：
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.name"  placeholder="请输入云平台名称">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        所属数据中心：
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.dataCenter"  placeholder="请输入所属数据中心">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        所属地域：
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" [(ngModel)]="creStep1Model.regionId">
+                            <!--<option *ngFor="let item of vmPlatforms;" [value]="item.value">{{item.displayValue}}</option>-->
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        云平台类型：
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" *ngFor="let item of platformTypes" (click)="choosePlatFormType(item)">{{item.displayValue}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="section-title h4" style="margin-left: 180px">
+                请输入云平台访问信息：
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        地址：
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.uri"  placeholder="请输入地址">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        版本：
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" [(ngModel)]="creStep1Model.version">
+                            <option *ngFor="let item of platformVersion;" [value]="item.value">{{item.displayValue}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        用户名：
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.userName" placeholder="请输入用户名">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        密码：
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="password" class="form-control" [(ngModel)]="creStep1Model.passwd" placeholder="请输入密码">
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<div class="text-center">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+        <span class="icon-button-label">取消</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="next();">
+        <span class="icon-button-label">下一步</span>
+    </button>
+</div>
+
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认"></fc-notice>
+
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>

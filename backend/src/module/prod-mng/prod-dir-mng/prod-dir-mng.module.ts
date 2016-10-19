@@ -8,12 +8,13 @@ import { CommonComponentModule } from '../../../architecture';
 
 //Components
 import { ProdDirListComponent } from './component/prod-dir-list.component';
-
+import {ProdDirCreComponent} from "./component/prod-dir-cre.component";
 // Routing
 import { ProdDirMngRouting } from './prod-dir-mng.routing';
 
+
 //Service
-// import { ClMngListService } from './service/cl-mgn-list.service';
+import { ProdDirListService } from './service/prod-dir-list.service';
 
 @NgModule({
     imports: [
@@ -21,12 +22,15 @@ import { ProdDirMngRouting } from './prod-dir-mng.routing';
         ProdDirMngRouting
     ],
     declarations: [
-        ProdDirListComponent
+        ProdDirListComponent,
+        ProdDirCreComponent
     ],
     exports: [
+        ProdDirListComponent,
+        ProdDirCreComponent
     ],
     providers: [
-        // ClMngListService
+        ProdDirListService
     ]
 
 })

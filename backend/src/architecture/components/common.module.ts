@@ -8,6 +8,7 @@ import { SpinnerComponent } from './spinner/component/spinner.component';
 import { PaginationComponent } from './pagination/component/pagination.component';
 import { NoticeComponent } from './dialog/component/notice.component';
 import { ConfirmComponent } from './dialog/component/confirm.component';
+import { PopupComponent } from './dialog/component/popup.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { ConfirmComponent } from './dialog/component/confirm.component';
         SpinnerComponent,
         PaginationComponent,
         NoticeComponent,
-        ConfirmComponent
+        ConfirmComponent,
+        PopupComponent
     ],
     exports: [
         CommonModule,
@@ -27,7 +29,8 @@ import { ConfirmComponent } from './dialog/component/confirm.component';
         SpinnerComponent,
         PaginationComponent,
         NoticeComponent,
-        ConfirmComponent
+        ConfirmComponent,
+        PopupComponent
     ]
 })
 export class CommonComponentModule { }

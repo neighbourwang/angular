@@ -8,14 +8,42 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
                 <!--<li><a href="#">修改</a></li>-->
-                <li><a (click)="deletePlatform();">删除</a></li>
-                <li><a (click)="activePlatform();">启用</a></li>
-                <li><a (click)="disablePlatform();">禁用</a></li>
+                <li><a (click)="editProd();">编辑</a></li>
+                <li><a (click)="deleteProd();">删除</a></li>
+                <li><a (click)="publishProd();">发布</a></li>
+                <li><a (click)="ccPublishProd();">取消发布</a></li>
             </ul>
         </div>
+        <button class="pull-right fox-cloud-button-md fox-cloud-button-white ">查询</button>
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                更多操作
+                所有平台
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+                <!--<li><a href="#">修改</a></li>-->
+                <li><a (click)="deletePlatform();">上海A</a></li>
+                <li><a (click)="activePlatform();">上海B</a></li>
+                <li><a (click)="disablePlatform();">上海C</a></li>
+            </ul>
+        </div>
+        <span class="pull-right">平台</span>
+        <div class="dropdown pull-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                所有企业
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+                <!--<li><a href="#">修改</a></li>-->
+                <li><a (click)="deletePlatform();">企业A</a></li>
+                <li><a (click)="activePlatform();">企业B</a></li>
+                <li><a (click)="disablePlatform();">企业C</a></li>
+            </ul>
+        </div>
+        <span class="pull-right">企业</span>
+        <div class="dropdown pull-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                所有产品目录
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
@@ -25,19 +53,7 @@
                 <li><a (click)="disablePlatform();">禁用</a></li>
             </ul>
         </div>
-        <button class="pull-right btn">查询</button>
-        <div class="dropdown pull-right">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                更多操作
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                <!--<li><a href="#">修改</a></li>-->
-                <li><a (click)="deletePlatform();">删除</a></li>
-                <li><a (click)="activePlatform();">启用</a></li>
-                <li><a (click)="disablePlatform();">禁用</a></li>
-            </ul>
-        </div>
+        <span class="pull-right">产品目录</span>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">创建产品</span>

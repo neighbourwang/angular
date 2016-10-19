@@ -3,10 +3,10 @@ import { EntEstResourceQuota } from "./ent-est-resourcequota";
 
 export class EntEst{
 	BasicInfo : EntEstBasicInfo;
-	ResourceQuotas : EntEstResourceQuota[];
+	ResourceQuota : EntEstResourceQuota;
 
 	constructor(){
 		this.BasicInfo = new EntEstBasicInfo();
-		this.ResourceQuotas = [];
+		this.ResourceQuota = new EntEstResourceQuota();
 	}
 }

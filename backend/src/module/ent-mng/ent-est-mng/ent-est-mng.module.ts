@@ -4,10 +4,11 @@ import { NgModule } from '@angular/core';
 import { CommonComponentModule } from '../../../architecture';
 
 // ent-est-mng
-import { EntEstCreStep04Component, EntEstMngComponent, EntEstCreStep02Component, EntEstCreStep03Component, EntEstCreComponent, EntEstCreStep01Component } from './component';
+import { EntEstCreStep04Component, EntEstMngComponent,  EntEstCreComponent, EntEstCreStep01Component } from './component';
 // Routing
 import { EntEstMngRouting } from './ent-est-mng.routing';
-
+import { EntEstSetProdComponent } from './component/ent-est-setProd.component';
+import { EntEstCheckComponent } from './component/ent-est-check.component';
 @NgModule({
     imports: [
         CommonComponentModule,
@@ -16,10 +17,10 @@ import { EntEstMngRouting } from './ent-est-mng.routing';
     declarations: [
         EntEstMngComponent
         ,EntEstCreStep01Component
-        ,EntEstCreStep02Component
-        ,EntEstCreStep03Component
         ,EntEstCreStep04Component
-        ,EntEstCreComponent
+        ,EntEstCreComponent,
+        EntEstSetProdComponent,
+        EntEstCheckComponent
     ],
     exports: [EntEstMngComponent],
     providers: []

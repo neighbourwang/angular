@@ -1,0 +1,106 @@
+@import "./constant.less";
+
+//component
+@import "./components/siteComponent.less";
+@import "./components/menuComponent.less";
+@import "./components/pagination.less";
+
+//base
+@import "./_layout.less";
+@import "./_icons.less";
+@import "./_button.less";
+@import "./_title.less";
+@import "./_bootstrap.less";
+@import "./_progress.less";
+@import "./_table.less";
+
+
+body {
+	font-family: "微软雅黑";
+	/*overflow: hidden;*/
+	border: none;
+	outline: none;
+}
+.no-padding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 0px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(52, 185, 154,0.8); 
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(52, 185, 154,0.4); 
+}
+
+
+
+/********Global Section Start*********/
+.asterisk {
+	color: #ff0000;
+	font-weight: bold;
+	padding: 0px 5px 0px 7px;
+}
+
+.row-line-height {
+	padding: 10px 0px 10px 0px;
+}
+
+.shrink {
+	text-align: right;
+	color: #00a982;
+	cursor: pointer;
+}
+
+.check-box-col {
+    width: 90px;
+}
+
+.progress-title {
+	padding: 10px 0px 10px 0px;
+}
+
+.progress-prompt {
+	position: absolute;
+	left: 50%;
+	color: #fff;
+}
+
+
+.section-title {
+	font-weight: bold;
+}
+
+.form-control-title {
+	font-weight: bold;
+	line-height: 34px;
+	text-align: right;
+}
+
+/**********Doughnut End********************/
+.doughnut {
+	border: 10px solid #2bd2c8;
+	padding: 1px 25%;
+	border-radius: 50%;
+	height: 110px;
+	width: 110px;
+	margin: 0px auto;
+	padding: 35px 0px 0px 0px;
+}
+/**********Doughnut End********************/
