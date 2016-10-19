@@ -11,6 +11,7 @@ export class RestApiCfg {
     protected baseIp = '15.114.100.52';
     // protected basePort = '31072';//测试
     protected basePort = '30072';//开发
+
     protected restApiList: RestApiModel[];
 
     constructor(private http: Http) {

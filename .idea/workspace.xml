@@ -2,11 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b23898d3-9aed-4e6c-8662-6f904047ae4a" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backend/src/module/ent-mng/ent-est-mng/component/ent-est-setProd.component.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backend/src/module/ent-mng/ent-est-mng/template/ent-est-setProd.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/src/architecture/core/config/restapi.ts" afterPath="$PROJECT_DIR$/backend/src/architecture/core/config/restapi.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/src/architecture/core/service/restapicfg.service.ts" afterPath="$PROJECT_DIR$/backend/src/architecture/core/service/restapicfg.service.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/src/module/pf-mng2/cl-mng/template/cl-mng-list.component.html" afterPath="$PROJECT_DIR$/backend/src/module/pf-mng2/cl-mng/template/cl-mng-list.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/src/module/prod-mng/prod-dir-mng/component/prod-dir-list.component.ts" afterPath="$PROJECT_DIR$/backend/src/module/prod-mng/prod-dir-mng/component/prod-dir-list.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/src/module/prod-mng/prod-dir-mng/model/proddir.model.ts" afterPath="$PROJECT_DIR$/backend/src/module/prod-mng/prod-dir-mng/model/proddir.model.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/src/module/prod-mng/prod-dir-mng/template/prod-dir-list.component.html" afterPath="$PROJECT_DIR$/backend/src/module/prod-mng/prod-dir-mng/template/prod-dir-list.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/src/module/ent-mng/ent-est-mng/component/ent-est-cre.component.ts" afterPath="$PROJECT_DIR$/backend/src/module/ent-mng/ent-est-mng/component/ent-est-cre.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/src/module/ent-mng/ent-est-mng/component/ent-est-mng.component.ts" afterPath="$PROJECT_DIR$/backend/src/module/ent-mng/ent-est-mng/component/ent-est-mng.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/src/module/ent-mng/ent-est-mng/ent-est-mng.module.ts" afterPath="$PROJECT_DIR$/backend/src/module/ent-mng/ent-est-mng/ent-est-mng.module.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/src/module/ent-mng/ent-est-mng/ent-est-mng.routing.ts" afterPath="$PROJECT_DIR$/backend/src/module/ent-mng/ent-est-mng/ent-est-mng.routing.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/src/module/ent-mng/ent-est-mng/model/ent-est-item.ts" afterPath="$PROJECT_DIR$/backend/src/module/ent-mng/ent-est-mng/model/ent-est-item.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/src/module/ent-mng/ent-est-mng/style/ent-est-mng.component.css" afterPath="$PROJECT_DIR$/backend/src/module/ent-mng/ent-est-mng/style/ent-est-mng.component.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/src/module/ent-mng/ent-est-mng/template/ent-est-cre.component.html" afterPath="$PROJECT_DIR$/backend/src/module/ent-mng/ent-est-mng/template/ent-est-cre.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/src/module/ent-mng/ent-est-mng/template/ent-est-mng.component.html" afterPath="$PROJECT_DIR$/backend/src/module/ent-mng/ent-est-mng/template/ent-est-mng.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/src/module/pf-mng2/cl-mng/component/cl-mng-list.component.ts" afterPath="$PROJECT_DIR$/backend/src/module/pf-mng2/cl-mng/component/cl-mng-list.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/src/module/pf-mng2/cl-mng/service/cl-mgn-list.service.ts" afterPath="$PROJECT_DIR$/backend/src/module/pf-mng2/cl-mng/service/cl-mgn-list.service.ts" />
     </list>
     <ignored path="frontend.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,10 +39,11 @@
       <file leaf-file-name="cl-mng-list.component.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/src/module/pf-mng2/cl-mng/component/cl-mng-list.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="174" column="42" selection-start-line="174" selection-start-column="42" selection-end-line="174" selection-end-column="42" />
+            <state relative-caret-position="1831">
+              <caret line="220" column="42" selection-start-line="220" selection-start-column="42" selection-end-line="220" selection-end-column="42" />
               <folding>
                 <element signature="e#0#61#0" expanded="true" />
+                <marker date="1476851977039" expanded="true" signature="2630:2647" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -130,11 +140,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="restapicfg.service.ts" pinned="false" current-in-tab="false">
+      <file leaf-file-name="restapicfg.service.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend/src/architecture/core/service/restapicfg.service.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="11" column="40" selection-start-line="11" selection-start-column="40" selection-end-line="11" selection-end-column="40" />
+            <state relative-caret-position="217">
+              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -219,10 +229,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="prod-dir-list.component.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="prod-dir-list.component.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/src/module/prod-mng/prod-dir-mng/template/prod-dir-list.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
+            <state relative-caret-position="75">
               <caret line="66" column="46" selection-start-line="66" selection-start-column="46" selection-end-line="66" selection-end-column="46" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#1;n#!!top" expanded="true" />
@@ -235,7 +245,7 @@
         <entry file="file://$PROJECT_DIR$/backend/src/architecture/core/config/restapi.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="11873">
-              <caret line="383" column="27" selection-start-line="383" selection-start-column="27" selection-end-line="383" selection-end-column="27" />
+              <caret line="390" column="27" selection-start-line="390" selection-start-column="27" selection-end-line="390" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -298,11 +308,11 @@
         <option value="$PROJECT_DIR$/backend/src/module/pf-mng2/cl-mng/service/cl-mgn-list.service.ts" />
         <option value="$PROJECT_DIR$/backend/src/architecture/core/config/restapi.ts" />
         <option value="$PROJECT_DIR$/backend/src/module/prod-mng/prod-dir-mng/template/prod-dir-cre.component.html" />
-        <option value="$PROJECT_DIR$/backend/src/architecture/core/service/restapicfg.service.ts" />
         <option value="$PROJECT_DIR$/backend/src/module/pf-mng2/cl-mng/template/cl-mng-list.component.html" />
         <option value="$PROJECT_DIR$/backend/src/module/prod-mng/prod-dir-mng/model/proddir.model.ts" />
         <option value="$PROJECT_DIR$/backend/src/module/prod-mng/prod-dir-mng/component/prod-dir-list.component.ts" />
         <option value="$PROJECT_DIR$/backend/src/module/prod-mng/prod-dir-mng/template/prod-dir-list.component.html" />
+        <option value="$PROJECT_DIR$/backend/src/architecture/core/service/restapicfg.service.ts" />
       </list>
     </option>
   </component>
@@ -743,7 +753,157 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="architecture" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="architecture" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="architecture" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="architecture" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dialog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="template" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="architecture" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dialog" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -845,12 +1005,12 @@
       <workItem from="1476670704713" duration="694000" />
       <workItem from="1476671480142" duration="12147000" />
       <workItem from="1476752587644" duration="28842000" />
-      <workItem from="1476839963110" duration="7460000" />
+      <workItem from="1476839963110" duration="7676000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49143000" />
+    <option name="totallyTimeSpent" value="49359000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
@@ -1238,7 +1398,7 @@
     <entry file="file://$PROJECT_DIR$/backend/src/architecture/core/config/restapi.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="11873">
-          <caret line="383" column="27" selection-start-line="383" selection-start-column="27" selection-end-line="383" selection-end-column="27" />
+          <caret line="390" column="27" selection-start-line="390" selection-start-column="27" selection-end-line="390" selection-end-column="27" />
           <folding />
         </state>
       </provider>
@@ -1258,14 +1418,6 @@
           <folding>
             <element signature="e#0#53#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/src/architecture/core/service/restapicfg.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="11" column="40" selection-start-line="11" selection-start-column="40" selection-end-line="11" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1297,10 +1449,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/src/module/pf-mng2/cl-mng/component/cl-mng-list.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="174" column="42" selection-start-line="174" selection-start-column="42" selection-end-line="174" selection-end-column="42" />
+        <state relative-caret-position="1831">
+          <caret line="220" column="42" selection-start-line="220" selection-start-column="42" selection-end-line="220" selection-end-column="42" />
           <folding>
             <element signature="e#0#61#0" expanded="true" />
+            <marker date="1476851977039" expanded="true" signature="2630:2647" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1328,11 +1481,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/src/module/prod-mng/prod-dir-mng/template/prod-dir-list.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
+        <state relative-caret-position="75">
           <caret line="66" column="46" selection-start-line="66" selection-start-column="46" selection-end-line="66" selection-end-column="46" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#1;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/src/architecture/core/service/restapicfg.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

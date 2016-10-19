@@ -53,6 +53,12 @@ export let RestApis: RestApiModel[] = [
         "url": "/authsec/platform/{pf-id}/active"
     },
     {
+        "desc" : "禁用平台",
+        "id" : "pf.cre.platform.disable.put",
+        "method" : "PUT",
+        "url" : "/authsec/platform/{_id}/suspend"
+    },
+    {
         "desc": "删除特定平台信息",
         "id": "pf.cre.paltform.delete",
         "method": "DELETE",
