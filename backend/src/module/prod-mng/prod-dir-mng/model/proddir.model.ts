@@ -1,14 +1,13 @@
-﻿export class proddir {
-    id : string;
-    name: string;
-    platformType: number;
-    platformTypeName : string;
-    uri : string;
-    userName : string;
-    passwd : string;
-    description : string;
-    version : string;
-    status : number;
+﻿export class Proddir {
+    createrName: string;
+    creatorId: string;
+    description: string;
+    productNum: number;
+    serviceId: string;
+    serviceName: string;
+    serviceTemplateName: string;
+    specification:string;
+    status: string;
     isSelected : boolean;
 
     constructor() {

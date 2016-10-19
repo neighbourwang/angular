@@ -10,7 +10,7 @@ import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../
 import { ProdDirListService } from '../service/prod-dir-list.service';
 
 //model
-import { proddir } from '../model/proddir.model';
+import { Proddir } from '../model/proddir.model';
 // import {ProdDirModule} from '../prod-dir-mng.routing'
 @Component({
     selector: 'prod-dir-list',
@@ -28,7 +28,7 @@ export class ProdDirListComponent implements OnInit{
     ) {}
 
     // 产品目录数组
-    prodDirList: Array<proddir> = new Array<proddir>();
+    prodDirList: Array<Proddir> = new Array<Proddir>();
 
     // 产品目录总页数
     tp: number = 0;
@@ -83,14 +83,56 @@ export class ProdDirListComponent implements OnInit{
 
     backend(page: number, size: number){
         // this.layoutService.show();
-        this.tp = 0;
-        this.service.getProdDirList(page, size).then(
-            response => {
-                console.log(response);
-                // this.layoutService.hide();
-            }
-        ).catch(
-        );
+        // this.tp = 0;
+        // this.service.getProdDirList(page, size).then(
+        //     response => {
+        //         if (response && 100 == response.resultCode){
+        //             let resultContent = response.resultContent;
+        //             let backend = new Array<Proddir>();
+        //             for (let content of resultContent) {
+        //                 let proddir = new Proddir();
+        //
+        //                 proddir.serviceId = content.serviceId;
+        //                 proddir.serviceName = content.serviceName;
+        //                 proddir.productNum = content.productNum;
+        //                 proddir.serviceTemplateName = content.serviceTemplateName;
+        //                 proddir.createrName = content.createrName;
+        //                 proddir.creatorId = content.creatorId;
+        //                 proddir.description = content.description;
+        //                 proddir.specification = content.specification;
+        //                 proddir.status = content.status;
+        //                 proddir.isSelected = false;
+        //
+        //                 backend.push(proddir);
+        //             }
+        //             let pageInfo = response.pageInfo;
+        //
+        //             this.tp = pageInfo.totalPage;
+        //
+        //             this.prodDirList = backend;
+        //
+        //         }else{
+        //
+        //         }
+        //         this.layoutService.hide();
+        //     }
+        // ).catch(
+        // );
+        //mockup
+        let proddir = new Proddir();
+
+        proddir.serviceId = '5';
+        proddir.serviceName = 'serviceName';
+        proddir.productNum = 10;
+        proddir.serviceTemplateName = 'serviceTemplateName';
+        proddir.createrName = 'createrName';
+        proddir.creatorId = 'creatorId';
+        proddir.description = 'description';
+        proddir.specification = 'specification';
+        proddir.status = 'status';
+        proddir.isSelected = false;
+
+        this.prodDirList .push(proddir);
 
     }
 

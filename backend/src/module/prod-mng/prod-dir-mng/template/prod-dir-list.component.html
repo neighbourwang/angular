@@ -61,12 +61,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let item of platforms; let idx = index;">
+            <tr *ngFor="let item of prodDirList; let idx = index;">
                 <td><input type="checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)" /></td>
-                <td>{{item.name}}</td>
-                <td>{{item.platformTypeName}}</td>
-                <td>{{item.uri}}</td>
-                <td>{{item.statusText}}</td>
+                <td>{{item.serviceName}}</td>
+                <td>{{item.serviceTemplateName}}</td>
+                <td>{{item.specification}}</td>
+                <td>{{item.productNum}}</td>
+                <td>{{item.status}}</td>
                 <td>{{item.description}}</td>
             </tr>
             </tbody>
