@@ -11,4 +11,13 @@ export class EntEstResourceQuota {
     //ui operation
     checked: boolean = false;
     referredResourceQuota : ResourceQuota = null;
+
+    reset(){
+    	this.enterpriseId = null;
+    	this.platformVMQuota = null;
+    	this.physicalMachineQuota = null;
+    	this.storageQuota = null;
+    	this.snapQuota = null;
+    	this.imageQuota = null;
+    }
 }
