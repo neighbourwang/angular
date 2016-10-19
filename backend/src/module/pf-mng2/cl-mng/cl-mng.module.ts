@@ -28,6 +28,8 @@ import { ClMngRouting } from './cl-mng.routing';
 //Service
 import { ClMngListService } from './service/cl-mgn-list.service';
 
+import { ClMngCreStep1Service } from './service/cl-mng-cre-step-1.service';
+
 @NgModule({
     imports: [
         CommonComponentModule,
@@ -45,7 +47,8 @@ import { ClMngListService } from './service/cl-mgn-list.service';
     exports: [
     ],
     providers: [
-        ClMngListService
+        ClMngListService,
+        ClMngCreStep1Service
     ]
 
 })

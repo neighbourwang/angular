@@ -35,6 +35,12 @@ export let RestApis: RestApiModel[] = [
         "url": "/authsec/platforms/page/{page}/size/{size}"
     },
     {
+        "desc" : "获取地域",
+        "id" : "pf.cre.step.01.paltform.get",
+        "method" : "GET",
+        "url" : "GET /authsec/regions/admin"
+    },
+    {
         "desc": "创建平台",
         "id": "pf.cre.step.01.paltform.post",
         "method": "POST",
@@ -382,5 +388,18 @@ export let RestApis: RestApiModel[] = [
        "id": "ent-mng.ent-est-mng.enterprise.open",
        "method": "PUT",
        "url": "/authsec/enterprise/{_enterpriseId}/status/{_status}"
-   }
+   },
+    //产品管理
+    // {
+    //     "desc": "获取所有产品目录",
+    //     "id": "prod-mng.prod-dir-mng.lists.get",
+    //     "method": "GET",
+    //     "url": "/authsec/services"
+    // },
+    {
+        "desc": "分页获取所有产品目录",
+        "id": "prod-mng.prod-dir-mng.list.get",
+        "method": "GET",
+        "url": "/authsec/services/page/{page}/size/{size}"
+    },
 ]
