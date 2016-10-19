@@ -109,12 +109,37 @@ export class EntEstMngComponent implements OnInit {
 
   }
 
+  showMsg(msg: string)
+  {
+    this.notice.open("系统提示", msg);
+  }
+
   //保存编辑
   acceptEntModify(){
     console.log('保存编辑');
+    if(this.validateEntModify())
+    {
+      // todo: 保存编辑
+      // todo: 刷新列表
+    }
+  }
 
-    // todo: 保存编辑
-    // todo: 刷新列表
+  //验证编辑
+  validateEntModify():boolean{
+    let notValid = [
+    {
+      "name":"名称"
+      ,'value':this.entEst.BasicInfo.name
+      ,"op":"*"
+    }].find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
+
+    if(notValid !== void 0)
+    {
+      this.showMsg(this.service.validate(notValid.name, notValid.value, notValid.op));
+      return false;
+    }
+
+    return true;
   }
 
   //取消编辑
@@ -198,22 +223,94 @@ export class EntEstMngComponent implements OnInit {
 
   //修改配额
   acceptQuotaModify(){
+    if(this.validateQuotaModify())
+    {
+      // todo: 修改配额api
+      // todo: 刷新列表
+    }
+  }
 
+  //验证修改配额
+  validateQuotaModify():boolean{
+    let notValid = [
+    {
+      "name":"可创建云主机数量"
+      ,"value":this.entEst.ResourceQuota.platformVMQuota
+      ,"op":"*"
+    },
+    {
+      "name":"可创建物理机数量"
+      ,"value":this.entEst.ResourceQuota.physicalMachineQuota
+      ,"op":"*"
+    },
+    {
+      "name":"可用存储额度"
+      ,"value":this.entEst.ResourceQuota.storageQuota
+      ,"op":"*"
+    },
+    {
+      "name":"可创建快照数量"
+      ,"value":this.entEst.ResourceQuota.snapQuota
+      ,"op":"*"
+    },
+    {
+      "name":"可创建镜像数量"
+      ,"value":this.entEst.ResourceQuota.imageQuota
+      ,"op":"*"
+    }].find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
+
+    if(notValid !== void 0)
+    {
+      this.showMsg(this.service.validate(notValid.name, notValid.value, notValid.op));
+      return false;
+    }
+
+    return true;
   }
 
   //取消配额
   cancelQuotaModify(){
-
+    this.entEst.ResourceQuota.reset();
   }
 
   //设置认证
   acceptCertModify(){
+    if(this.validateCertModify())
+    {
+      // todo: 修改认证api
+      // todo: 刷新列表
+    }
+  }
 
+  //验证设置认证
+  validateCertModify():boolean{
+    let notValid = [
+    {
+      "name":"URL地址"
+      ,'value':this.entEst.BasicInfo.certUrl
+      ,"op":"*"
+    },
+    {
+      "name":"用户名"
+      ,'value':this.entEst.BasicInfo.contactorName
+      ,"op":"*"
+    },
+    {
+      "name":"密码"
+      ,'value':this.entEst.BasicInfo.password
+      ,"op":"*"
+    }].find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
+
+    if(notValid !== void 0)
+    {
+      this.showMsg(this.service.validate(notValid.name, notValid.value, notValid.op));
+      return false;
+    }
   }
 
   //取消认证
   cancelCertModify(){
-    
+    this.entEst.BasicInfo.reset();
   }
 
 }
