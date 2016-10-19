@@ -5,7 +5,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../architecture';
+import { LayoutService, NoticeComponent , ConfirmComponent ,PopupComponent } from '../../../../architecture';
 
 import { ProdDirListService } from '../service/prod-dir-list.service';
 
@@ -36,17 +36,20 @@ export class ProdDirListComponent implements OnInit{
     pp: number = 10;
 
 
-    @ViewChild('removeConfirm')
-    removeConfirm: ConfirmComponent;
+    @ViewChild('publishConfirm')
+    publishConfirm: ConfirmComponent;
 
-    @ViewChild('enableConfirm')
-    enableConfirm: ConfirmComponent;
+    @ViewChild('ccPublishConfirm')
+    ccPublishConfirm: ConfirmComponent;
 
-    @ViewChild('disableConfirm')
-    disableConfirm: ConfirmComponent;
+    @ViewChild('deleteConfirm')
+    deleteConfirm: ConfirmComponent;
 
     @ViewChild('notice')
     notice : ConfirmComponent;
+
+    @ViewChild('createProdDir')
+    createProdDir:PopupComponent;
 
     // 确认Box/通知Box的标题
     title: String = "";
@@ -62,6 +65,12 @@ export class ProdDirListComponent implements OnInit{
     //删除按钮
     remove (){
         console.log('remove');
+        let proddir : Proddir = this.getProddir();
+        if(!proddir){
+            this.notice.open('操作错误','请选择产品目录');
+        }else{
+            this.deleteConfirm.open('删除产品目录','您选择删除 '+proddir.serviceName+'产品,请确认；如果确认，此产品目录的数据将不能恢复。')
+        }
     }
     //启用按钮
     enable (){
@@ -78,6 +87,18 @@ export class ProdDirListComponent implements OnInit{
 
         console.log('create');
         this.router.navigateByUrl("prod-mng/prod-dir-mng/prod-dir-cre", {skipLocationChange: true});
+    }
+
+    // 获得当前选中的产品目录
+    getProddir (){
+        let proddir : Proddir ;
+        for(let i = 0 ; i < this.prodDirList.length ; i ++){
+            if(this.prodDirList[i].isSelected == true){
+                proddir = this.prodDirList[i];
+            }
+        }
+        return proddir;
+
     }
 
 

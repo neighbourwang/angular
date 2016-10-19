@@ -79,5 +79,10 @@
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
 
 <fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="deleteCof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-confirm #activeConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="activeCof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-confirm #disableConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="disableCof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-confirm #publishConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="activeCof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-confirm #ccPublishConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="disableCof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-popup #createProDirCate title="{{title}}" ot="确认" (of)="disableCof()" ct="取消" (cf)="ccf()">
+    <select name="" id="">
+        <option value="">上海</option>
+    </select>
+</fc-popup>
