@@ -1,0 +1,60 @@
+.btn,.form-control,.dropdown-menu {
+    border-radius: 0!important;
+}
+
+
+/***************调整模态窗口位置********************/
+.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) { 
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.fox-cloud-modal-header {}
+.fox-cloud-modal-header .modal-header {
+  font-size: 24px;
+  padding: 20px 20px 20px 20px;
+  border-bottom: 3px solid #01a982;
+}
+.fox-cloud-modal-header .modal-header .close {
+  margin-top: 5px;
+}
+
+.fox-cloud-modal-header .modal-header > span {
+  color: #000000;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.fox-cloud-modal-body .modal-body {
+	padding: 20px 30px 20px 30px;
+	font-size: 20px;
+    /*word-wrap: break-word;*/      /* IE 5.5-7 */
+    /*white-space: -moz-pre-wrap;*/  /* Firefox 1.0-2.0 */
+    /*white-space: pre-wrap;*/       /* current browsers */
+}
+.fox-cloud-modal-footer .modal-footer {
+  padding: 15px;
+  text-align: center;
+  border: none;
+}
+.fox-cloud-input-group {
+	line-height: 35px;
+}
+.fox-cloud-input-group input[type="text"] {
+	font-size: 20px;
+}
+/****************调整模态窗口位置*******************/
