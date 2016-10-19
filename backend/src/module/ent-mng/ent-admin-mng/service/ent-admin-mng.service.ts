@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
 import { RestApiCfg, RestApi } from "../../../../architecture";
 
-import { adminList } from "../model/enterprise-mock.model";
+import { adminList, enterpriseOne } from "../model/enterprise-mock.model";
 
 import { Admin } from "../model/admin.model";
 
@@ -57,9 +57,9 @@ export class EntAdminMngService {
                 value: pageSize
             }
         ];
-        const api = this.restApiCfg.getRestApi("ent-mng.enterprise.admin.get");
-        return this.restApi.request(api.method, api.url,pathParams,null,null);
-        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => adminList);
+        //const api = this.restApiCfg.getRestApi("ent-mng.enterprise.admin.get");
+        //return this.restApi.request(api.method, api.url,pathParams,null,null);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => adminList);
     }
 
     updateAdminStatus(admins: Admin[], status: number): Promise<any> {
@@ -100,8 +100,15 @@ export class EntAdminMngService {
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => adminList);
     }
 
-    getEnterpriseById(id:string) :void {
-        
+    getEnterpriseById(id: string): Promise<any> {
+        const pathParams = [
+            {
+                key: "id",
+                value: id
+            }
+        ];
+
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => enterpriseOne);
     }
 
 }
