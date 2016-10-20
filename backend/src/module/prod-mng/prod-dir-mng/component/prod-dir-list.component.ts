@@ -64,55 +64,78 @@ export class ProdDirListComponent implements OnInit{
 
     // 选择产品目录（多选）
     switchSelectIndividual(id:number) {
-        this.prodDirList[id].isSelected = !this.prodDirList[id].isSelected;
+        this.prodDirList[id].isSelected =
+            this.prodDirList[id].isSelected==true?true:false;
     }
-
+    //全选
+    isSelectedAll:boolean=false;
     switchSelectAll(){
+        this.isSelectedAll=!this.isSelectedAll;
         for(let dir of this.prodDirList){
-            dir.isSelected=true;
+            dir.isSelected=this.isSelectedAll;
         }
     }
 
     // 获得当前选中的产品目录
     getProddir (){
         //radiio
-        let proddir : Proddir ;
-        for(let i = 0 ; i < this.prodDirList.length ; i ++){
-            if(this.prodDirList[i].isSelected == true){
-                proddir = this.prodDirList[i];
-            }
-        }
-        return proddir;
-        //checkbox
-        // let selectedProdDirList: Array<Proddir> = new Array<Proddir>();
-        // for(let dir of this.prodDirList){
-        //     if(dir.isSelected == true){
-        //         selectedProdDirList.push(dir) ;
+        // let proddir : Proddir ;
+        // for(let i = 0 ; i < this.prodDirList.length ; i ++){
+        //     if(this.prodDirList[i].isSelected == true){
+        //         proddir = this.prodDirList[i];
         //     }
         // }
-        // return selectedProdDirList;
+        // return proddir;
+        //checkbox
+        let selectedProdDirList: Array<Proddir> = new Array<Proddir>();
+        for(let dir of this.prodDirList){
+            if(dir.isSelected == true){
+                selectedProdDirList.push(dir) ;
+            }
+        }
+        return selectedProdDirList;
 
     }
 
     //删除按钮
-    delete (){
-        console.log('remove');
-        let proddir : Proddir = this.getProddir();
-        console.log(proddir);
-        if(!proddir){
+    action (order){
+        let prodDirList :  Array<Proddir> = this.getProddir();
+        if(prodDirList.length<1){
             this.notice.open('操作错误','请选择产品目录');
         }else{
-            this.deleteConfirm.open('删除产品目录','您选择删除 '+proddir.serviceName+'产品,请确认；如果确认，此产品目录的数据将不能恢复。')
+            let message:string='';
+            for(let dir of prodDirList){
+                message+=dir.serviceName+",";
+            }
+            console.log(message);
+            message=message.substring(0,message.length-1);
+            switch (order){
+                case 'delete':this.deleteConfirm.open('删除产品目录','您选择删除 '+"'"+message+"'"+'产品,请确认；如果确认，此产品目录的数据将不能恢复。')
+                break;
+                case 'publish':this.publishConfirm.open('发布产品目录','您选择发布 '+"'"+message+"'"+'产品,请确认。')
+                break;
+                case 'ccPublish':this.ccPublishConfirm.open('取消发布产品目录','您选择取消发布'+"'"+message+"'"+'产品,请确认。如果确认，此产品目录将不能用来创建产品。')
+                break;
+            }
+
         }
     };
+    deleteCof(){
+
+    }
     //发布按钮
-    publish (){
-        console.log('publish');
-    };
-    //取消发布按钮
-    ccPublish (){
-        console.log('ccPublish');
-    };
+
+    publishCof(){
+
+    }
+
+    ccPublishCof(){
+
+    }
+
+
+
+
     //编辑按钮
     edit (){
         console.log('edit');
@@ -171,7 +194,7 @@ export class ProdDirListComponent implements OnInit{
         let proddir = new Proddir();
 
         proddir.serviceId = '5';
-        proddir.serviceName = 'serviceName';
+        proddir.serviceName = 'serviceName1';
         proddir.productNum = 10;
         proddir.serviceTemplateName = 'serviceTemplateName';
         proddir.createrName = 'createrName';
@@ -181,7 +204,22 @@ export class ProdDirListComponent implements OnInit{
         proddir.status = 'status';
         proddir.isSelected = false;
 
+
+        let proddir2 = new Proddir();
+
+        proddir2.serviceId = '5';
+        proddir2.serviceName = 'serviceName2';
+        proddir2.productNum = 10;
+        proddir2.serviceTemplateName = 'serviceTemplateName';
+        proddir2.createrName = 'createrName';
+        proddir2.creatorId = 'creatorId';
+        proddir2.description = 'description';
+        proddir2.specification = 'specification';
+        proddir2.status = 'status';
+        proddir2.isSelected = true;
+
         this.prodDirList .push(proddir);
+        this.prodDirList .push(proddir2);
 
     }
     ccf() {
