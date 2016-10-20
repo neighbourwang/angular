@@ -58,7 +58,7 @@ export class EntProdCre03Component implements OnInit{
 
     // 创建产品
     createProd() {
-        this.layoutService.setLoading(true);
+        this.layoutService.show();
   
         this.entProdCreService.createProd(this.serviceDetail).then(ret => {
             if (!ret) {
@@ -67,10 +67,10 @@ export class EntProdCre03Component implements OnInit{
                 this.router.navigateByUrl("ent-mng/ent-prod-mng/ent-prod-mng");
             }
 
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         }).catch(error => {
             this.showNotice('创建失败', '产品创建失败。');
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         });
         
     }

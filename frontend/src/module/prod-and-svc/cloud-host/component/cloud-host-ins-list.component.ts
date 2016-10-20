@@ -47,14 +47,14 @@ export class InstanceListComponent implements OnInit {
     this.currPage = 1;
 
     this.allChecked = false;
-    this.layoutService.setLoading(false);
+    this.layoutService.hide();
 
     this.instances = new Array<Instance>();
 
     this.getInstances(this.currPage, this.pageSize);
   }
   getInstances(page: number, size: number) {
-      this.layoutService.setLoading(true);
+      this.layoutService.show();
 
       this.instanceService
           .getInstances(page, size)
@@ -64,11 +64,11 @@ export class InstanceListComponent implements OnInit {
               } else {
                   this.fmtInstancesData(ret);
               }
-              this.layoutService.setLoading(false);
+              this.layoutService.hide();
           })
           .catch(error => {
               this.showNotice('数据获取失败', '实例数据获取失败。');
-              this.layoutService.setLoading(false);
+              this.layoutService.hide();
           });
   }
 
@@ -168,7 +168,7 @@ export class InstanceListComponent implements OnInit {
     instanceAction.id = instance.itemId;
     instanceAction.uid = instance.uuid;
     
-    this.layoutService.setLoading(true);
+    this.layoutService.show();
 
     this.instanceService
         .updateInstanceStatus(instanceAction)
@@ -178,11 +178,11 @@ export class InstanceListComponent implements OnInit {
             } else {
                 this.getInstances(this.currPage, this.pageSize);
             }
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         })
         .catch(error => {
             this.showNotice('更新失败', '实例状态更新失败');
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         });
     
   }

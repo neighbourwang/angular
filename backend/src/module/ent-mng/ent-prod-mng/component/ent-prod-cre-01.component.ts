@@ -34,7 +34,7 @@ export class EntProdCre01Component implements OnInit{
     ) { }
 
     ngOnInit(){      
-        this.layoutService.setLoading(true);
+        this.layoutService.show();
 
         this.getEnterprises();
 
@@ -44,7 +44,7 @@ export class EntProdCre01Component implements OnInit{
             this.getDirectories();
         }
         
-        this.layoutService.setLoading(false);
+        this.layoutService.hide();
     }
 
     cancel() {
@@ -94,7 +94,7 @@ export class EntProdCre01Component implements OnInit{
 
     // 企业
     getEnterprises(){
-		this.layoutService.setLoading(true);
+		this.layoutService.show();
   
     	this.entProdCreService.getEnterprises().then(ret => {
             if (!ret) {
@@ -104,16 +104,16 @@ export class EntProdCre01Component implements OnInit{
                   this.enterprises = ret.resultContent;
                 }
             }
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         }).catch(error => {
             this.showNotice('数据获取失败', '企业数据获取失败。');
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         });
     }
 
     // 区域
     getRegions() {
-    	this.layoutService.setLoading(true);
+    	this.layoutService.show();
   
     	this.entProdCreService.getRegions().then(ret => {
             if (!ret) {
@@ -137,10 +137,10 @@ export class EntProdCre01Component implements OnInit{
                 }
             }
 
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         }).catch(error => {
             this.showNotice('数据获取失败', '区域数据获取失败。');
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         });
     }
 
@@ -154,7 +154,7 @@ export class EntProdCre01Component implements OnInit{
 
     // 服务目录
     getDirectories() {
-    	this.layoutService.setLoading(true);
+    	this.layoutService.show();
 
         this.entProdCreService.getDirectories(this.serviceDetail.regionId).then(ret => {
             if (!ret) {
@@ -165,10 +165,10 @@ export class EntProdCre01Component implements OnInit{
                 }
             }
 
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         }).catch(error => {
             this.showNotice('数据获取失败', '服务目录数据获取失败。');
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         });
     }
 

@@ -64,7 +64,7 @@ export class SvcDirCreStep1Component implements OnInit {
   }
 
   getRegions() {
-    this.layoutService.setLoading(true);
+    this.layoutService.show();
   
     this.directoryService
         .getRegions()
@@ -80,16 +80,16 @@ export class SvcDirCreStep1Component implements OnInit {
                   }
                 }
             }
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         })
         .catch(error => {
             this.showNotice('数据获取失败', '地区数据获取失败。');
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         });
   }
 
   getTemplates() {
-    this.layoutService.setLoading(true);
+    this.layoutService.show();
   
     this.directoryService
         .getTemplates()
@@ -105,11 +105,11 @@ export class SvcDirCreStep1Component implements OnInit {
                   }
                 }
             }
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         })
         .catch(error => {
             this.showNotice('数据获取失败', '服务模板数据获取失败。');
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         });
   }
 

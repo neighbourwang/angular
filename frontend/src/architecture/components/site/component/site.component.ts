@@ -15,6 +15,6 @@ export class SiteComponent implements OnInit{
   ) { }
   
   ngOnInit() {
-    this.layoutService.setLoading(false);
+    this.layoutService.hide();
   }
 }

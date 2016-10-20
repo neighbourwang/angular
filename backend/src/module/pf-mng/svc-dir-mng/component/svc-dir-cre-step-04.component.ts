@@ -54,7 +54,7 @@ export class SvcDirCreStep4Component implements OnInit {
   }
 
   getStorages() {
-    this.layoutService.setLoading(true);
+    this.layoutService.show();
   
     this.directoryCreateService
         .getStorages(PlatformId)
@@ -68,11 +68,11 @@ export class SvcDirCreStep4Component implements OnInit {
                     this.initStorageId();
                 }
             }
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         })
         .catch(error => {
             this.showNotice('数据获取失败', '启动盘数据获取失败。');
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         });
   }
 
@@ -90,7 +90,7 @@ export class SvcDirCreStep4Component implements OnInit {
   }
 
   createServiceDirectory() {
-    this.layoutService.setLoading(true);
+    this.layoutService.show();
   
     this.directoryCreateService
         .createServiceDirectory(PlatformId, this.serviceDetail)
@@ -100,11 +100,11 @@ export class SvcDirCreStep4Component implements OnInit {
             } else {
                 this.goBack();
             }
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         })
         .catch(error => {
             this.showNotice('创建失败', '服务目录创建失败。');
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         });
   }
 

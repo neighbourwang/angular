@@ -130,7 +130,7 @@ export class EntProdMngComponent implements OnInit{
 
     // 取得全部产品信息
     getEntProds(page: number) {
-        this.layoutService.setLoading(true);
+        this.layoutService.show();
 
         this.entProdMngService.getEntProds(this.enterpriseId, this.regionId, page, 10).then(ret => {
             if (!ret) {
@@ -145,11 +145,11 @@ export class EntProdMngComponent implements OnInit{
                 }
             }
 
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         })
         .catch(error => {
             this.showNotice('数据获取失败', '产品数据获取失败。');
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         });
     }
 

@@ -38,13 +38,13 @@ export class HostOrderComponent implements OnInit {
   ngOnInit() {
     this.services = new Services();
     this.order = new Order();
-    this.layoutService.setLoading(false);
+    this.layoutService.hide();
 
     this.getServices();
   }
 
   getServices() {
-      this.layoutService.setLoading(true);
+      this.layoutService.show();
 
       this.orderService
           .getServices()
@@ -55,11 +55,11 @@ export class HostOrderComponent implements OnInit {
                 this.services = this.fmtServicesData(ret);
                 this.fmtDefaultOrder();
               }
-              this.layoutService.setLoading(false);
+              this.layoutService.hide();
           })
           .catch(error => {
               this.showError('', '可订购列表数据获取失败。');
-              this.layoutService.setLoading(false);
+              this.layoutService.hide();
           });
   }
 
@@ -421,7 +421,7 @@ export class HostOrderComponent implements OnInit {
   save() {
     this.fmtOrderData();
 
-    this.layoutService.setLoading(true);
+    this.layoutService.show();
     this.orderService
         .saveOrder(this.payload)
         .then(ret => {
@@ -431,11 +431,11 @@ export class HostOrderComponent implements OnInit {
               this.fmtDefaultOrder();
               this.showError('', '配置申请提交成功，请等待。');
             }
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         })
         .catch(error => {
             this.showError('', '配置申请提交失败，请重新尝试或者联络管理员。');
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         });
   }
 
