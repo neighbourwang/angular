@@ -44,7 +44,7 @@ export class EntProdCre02Component implements OnInit {
     }
     
     getFlavors(platformId: String) {
-    	this.layoutService.setLoading(true);
+    	this.layoutService.show();
   
         this.entProdCreService.getFlavors(platformId).then(ret => {
             if (!ret) {
@@ -73,10 +73,10 @@ export class EntProdCre02Component implements OnInit {
                 }
             }
 
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         }).catch(error => {
             this.showNotice('数据获取失败', '所有可用区数据获取失败。');
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         });
     }
 

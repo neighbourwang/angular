@@ -118,11 +118,11 @@ export class InstantceDetailComponent implements OnInit {
             } else {
                 this.fmtInstanceData(ret);
             }
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         })
         .catch(error => {
             this.showNotice('数据获取失败', '实例详细信息获取失败。');
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         });
   }
 
