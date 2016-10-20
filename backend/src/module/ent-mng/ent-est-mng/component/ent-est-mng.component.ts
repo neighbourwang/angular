@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { LayoutService, NoticeComponent, PopupComponent, ConfirmComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { EntEstItem, EntEst} from '../model';
 
 import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
@@ -10,7 +10,7 @@ import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
   selector: 'ent-est-mng',
   templateUrl: '../template/ent-est-mng.component.html',
   styleUrls: ['../style/ent-est-mng.component.css'],
-  providers: [EntEstCreService]
+  providers: [EntEstCreService, SystemDictionaryService]
 }) 
 export class EntEstMngComponent implements OnInit {
   @ViewChild("notice")
@@ -34,16 +34,39 @@ export class EntEstMngComponent implements OnInit {
   private selectAllField: boolean = false;
   private criteria: string = "";
   private entEst: EntEst = new EntEst();
+  private dic:SystemDictionary[];
 
   constructor(
     private layoutService: LayoutService,
     private router: Router,
-    private service: EntEstCreService
+    private service: EntEstCreService,
+    private sysDicService: SystemDictionaryService
   ) {}
 
   ngOnInit() {
     this.search();
+    this.sysDicService.sysDicOF(this, this.sysDicCallback, "GLOBAL", "STATUS")
   }
+
+  sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) { 
+    if (sf) {                                                                 
+      this.dic = systemDictionarys;
+      console.log('dic', this.dic);
+      this.updateWithDic();   
+    }                                                                         
+  }
+
+  updateWithDic(){
+    let getName =(id:string):string=>{
+      let obj = this.dic.find(n=>n.code ==id) as SystemDictionary;
+      if(obj)
+        return obj.displayValue as string;
+      else
+        return id;
+    };
+    this.entEstMng.items.map(n=>{n.statusName = getName(n.status);});
+  }
+
 
   showError(msg:any) {
     this.notice.open(msg.title, msg.desc);
@@ -64,7 +87,7 @@ export class EntEstMngComponent implements OnInit {
     }
 
     this.entEstMng.currentPage = page;
-    this.service.loadEntEstItems(this.entEstMng, this.showError, this); 
+    this.search();
   }
 
   selectAll(selectAllField:boolean){
@@ -72,7 +95,9 @@ export class EntEstMngComponent implements OnInit {
   }
 
   search(){
-    this.service.loadEntEstItems(this.entEstMng, this.showError, this, this.criteria);      
+    this.service.loadEntEstItems(this.entEstMng, this.showError, this, this.criteria, ()=>{
+      this.updateWithDic();
+    });      
   }
 
   getSelected(){
@@ -89,7 +114,7 @@ export class EntEstMngComponent implements OnInit {
   composeUrlWithId(url:string, entId:string)
   {
     if(entId)
-      return [url, '?', 'entId=', entId].join();
+      return [url, '?', 'entId=', entId].join('');
     else
     {
       console.log('composeUrlWithId:entId is empty');
@@ -236,11 +261,12 @@ export class EntEstMngComponent implements OnInit {
     }
   }
 
+
   //设置管理员
   setupAdmin(){
     if(this.getSelected())
     {
-      this.router.navigateByUrl(this.composeUrlWithId("ent-mng/ent-admin-mng/ent-admin-mng", this.getSelected().id));
+      this.router.navigateByUrl("ent-mng/ent-admin-mng/ent-admin-mng/" + this.getSelected().id);
     }
   }
 

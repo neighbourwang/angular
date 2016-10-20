@@ -82,7 +82,8 @@ export class EntEstCreService{
 	loadEntEstItems(entEstMng: Paging<EntEstItem>
 		, errorHandler: Function
 		, caller:any
-		, criteria: string = "")
+		, criteria: string = ""
+		, successHanlder: Function)
 	{
 
 		let localParams:Array<any> = [
@@ -134,7 +135,8 @@ export class EntEstCreService{
 			}
 			, (items:EntEstItem[])=>{
 			items.map(n=>{n.checked = false;});
-		});
+		},
+		successHanlder);
 	}
 
 	//加载企业配额信息
