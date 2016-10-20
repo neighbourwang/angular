@@ -191,7 +191,11 @@ export class EntEstMngComponent implements OnInit {
       let item = this.getSelected();
       this.entEst.ResourceQuota.reset();
 
-      // todo: 需要加载配额数据
+      this.service.loadEntResourceQuota(this.entEst.ResourceQuota
+        , this.showError
+        , this
+        , this.getSelected().id
+        )
       // todo: 需要保存配额数据
       // todo: 刷新列表
       // this.entEst.ResourceQuota.physicalMachineQuota = 30;//加载数据
@@ -354,6 +358,13 @@ checkEnterpriseInfo(){
   //取消认证
   cancelCertModify(){
     this.entEst.BasicInfo.reset();
+  }
+
+  //选择行
+  selectItem(index:number):void
+  {
+    this.entEstMng.items.map(n=>{n.checked = false;});
+    this.entEstMng.items[index].checked = true;
   }
 
 }

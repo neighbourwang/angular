@@ -397,7 +397,7 @@ export let RestApis: RestApiModel[] = [
        "method": "POST",
        "url": "/authsec/enterprise/{enterpriseId}/product "
    },
-   // 企业产品管理
+   // <-- 企业管理
    {
        "desc": "获取企业开通配额",
        "id": "ent-mng.ent-est-mng.resourcequota.get",
@@ -408,7 +408,7 @@ export let RestApis: RestApiModel[] = [
        "desc": "企业信息列表",
        "id": "ent-mng.ent-est-mng.enterprise.get",
        "method": "GET",
-       "url": "/authsec/enterprises/opening/page/{_page}/size/{_size}"
+       "url": "/authsec/enterprises/resouces/quotas/page/{_page}/size/{_size}"
    }
    ,{
        "desc": "加载企业配额数据",
@@ -457,7 +457,8 @@ export let RestApis: RestApiModel[] = [
        "id": "ent-mng.ent-est-mng.enterprise.open",
        "method": "PUT",
        "url": "/authsec/enterprise/{_enterpriseId}/status/{_status}"
-   },
+   },// 企业管理 -->
+   // 
     //产品管理
     // {
     //     "desc": "获取所有产品目录",

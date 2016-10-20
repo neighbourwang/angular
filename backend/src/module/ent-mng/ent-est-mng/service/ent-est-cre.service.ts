@@ -103,15 +103,94 @@ export class EntEstCreService{
 			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.get")
 			, localParams
 			, "企业管理"
-			, (items:EntEstItem[])=>{
-				let item = new EntEstItem();
-				item.enterpriseName = "测试企业";
-				items.push(item);
-			}
 			, null
+			, (source, target:EntEstItem[])=>{
+				for(let item of source)
+				{
+					let obj = new EntEstItem();
+					target.push(obj);
+
+					obj.id = item.enterpriseId as string; 
+					obj.enterpriseName = item.enterpriseName as string; 
+					obj.vmNum = 0; //api 未提供
+					obj.vmQuota = 0; //api 未提供
+					obj.vmQuotaUsageRate = 0; //api 未提供
+					obj.storageQuota = item.storageQuota as number; 
+					obj.storageQuotaUsageRate = item.storageQuota != 0 ? item.usedStorageNumber/item.storageQuota:0;
+					obj.snapQuota = item.snapshotQuota as number; 
+					obj.productNum = item.productNumber as number; 
+					obj.orderNum = item.orderNumber as number; 
+					obj.status = item.status as string; 
+					obj.description = ""; //api 未提供
+
+				}
+			}
 			, (items:EntEstItem[])=>{
 			items.map(n=>{n.checked = false;});
 		});
+	}
+
+	//加载企业配额信息
+	loadEntResourceQuota(
+		entResourceQuota: EntEstResourceQuota
+		, errorHandler: Function
+		, caller: any
+		, entId:string){
+
+		let localParams:Array<any> = [
+		{
+			key:"_enterpriseId"
+			,value:entId
+		},
+		{
+			key:"_page"
+			,value:1
+		}
+		,{
+			key:"_size"
+			,value:10
+		}
+		];
+
+		//ent-mng.ent-est-mng.enterprise.resourcequota.get
+
+		let entResourceQuotas: Paging<EntEstResourceQuota> = new Paging<EntEstResourceQuota>();
+
+
+
+		this.loadItems(entResourceQuotas
+			, errorHandler
+			, caller
+			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.resourcequota.get")
+			, localParams
+			, "加载企业配额数据"
+			, null
+			, (source, target:EntEstResourceQuota[])=>{
+				for(let item of source)
+				{
+					let obj = new EntEstResourceQuota();
+					target.push(obj);
+
+					obj.enterpriseId = item.enterpriseId as string;
+					obj.platformVMQuota = 0; //api上面暂时无数据
+					obj.physicalMachineQuota = 0; //api上面暂时无数据
+					obj.storageQuota = item.storageQuota as number;
+					obj.snapQuota = item.snapshotQuota as number;
+					obj.imageQuota = item.vmQuota as number;
+				}
+			}
+			, (items:EntEstResourceQuota[])=>{
+				let item = items[0];
+				if(item)
+				{
+					entResourceQuota.enterpriseId = item.enterpriseId;
+					entResourceQuota.platformVMQuota = item.platformVMQuota;
+					entResourceQuota.physicalMachineQuota = item.physicalMachineQuota;
+					entResourceQuota.storageQuota = item.storageQuota;
+					entResourceQuota.snapQuota = item.snapQuota;
+					entResourceQuota.imageQuota = item.imageQuota;
+				}
+			});
 	}
 	
 
@@ -213,15 +292,21 @@ export class EntEstCreService{
 
 					console.log(errorTitle + "分页信息", ret.pageInfo);
 
-					items.totalPages = ret.pageInfo.totalPage;
-
+					if(ret.pageInfo)
+					{
+						items.totalPages = ret.pageInfo.totalPage;
+					}
+					else
+					{
+						items.totalPages = 1;
+					}
 				}
 			}
 		})
 		.catch(err=>{
 			this.layoutService.hide();
 
-			console.log('资源配额加载错误', err);
+			console.log(errorTitle + '加载错误', err);
 			if(errorHandler)
 			{
 				errorHandler.call(caller, {"title":errorTitle, "desc":"服务器上" + errorTitle + "数据获取失败"});
