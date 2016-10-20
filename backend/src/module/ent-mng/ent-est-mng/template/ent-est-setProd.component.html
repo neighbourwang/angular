@@ -1,4 +1,4 @@
-<div class="page-content-header icon-content-header-purchasing">企业产品设置：{{entName}}
+<div class="page-content-header icon-content-header-enterprise-manage">企业产品设置：{{entName}}
 <button class="pull-right fox-cloud-button fox-cloud-button-white" (click)="return()"><span>返回企业列表</span></button>
 </div> 
 
@@ -46,7 +46,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<fc-pagination tp={{entProdItems.totalPages}} (pf)="changePage($event)"></fc-pagination>
+			<fc-pagination tp={{entProdItems.totalPages}} (pf)="changePage_EntProdItems($event)"></fc-pagination>
 		</div>
 	</div>
 	<div class="setProdPanel green-border">
@@ -92,7 +92,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<fc-pagination tp={{prodItems.totalPages}} (pf)="changePage($event)"></fc-pagination>
+			<fc-pagination tp={{prodItems.totalPages}} (pf)="changePage_ProdItems($event)"></fc-pagination>
 		</div>
 	</div>
 </div>

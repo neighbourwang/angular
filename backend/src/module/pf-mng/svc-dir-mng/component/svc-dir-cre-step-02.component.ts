@@ -65,7 +65,7 @@ export class SvcDirCreStep2Component implements OnInit {
   }
 
   getFlavors() {
-    this.layoutService.setLoading(true);
+    this.layoutService.show();
   
     this.directoryCreateService
         .getFlavors(PlatformId)
@@ -86,11 +86,11 @@ export class SvcDirCreStep2Component implements OnInit {
                   this.flavorChange();
                 }
             }
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         })
         .catch(error => {
             this.showNotice('数据获取失败', '主机配置数据获取失败。');
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         });
   }
 

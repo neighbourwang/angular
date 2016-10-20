@@ -70,10 +70,10 @@ export const getAdminByIdRes = {
     resultCode: "100",
     resultContent: {
         "contactPhone": "13720119493",
-        "contactorName": "Moses",
+        "loginName": "dark@hpe.com",
         "description": "description",
         "email": "dark@hpe.com",
-        "userName": "dark@hpe.com",
+        "userName": "Moses",
         "password": "password",
         "enterpriseId": "2",
         "enterpriseName": "企业02",
@@ -104,6 +104,8 @@ export const adminList = {
     resultCode: "100",
     resultContent: [
         {
+
+            "aduserId": "1",
             "authMode":"0",
             "contactPhone": "13720119493",
             "userName": "Moses",
@@ -169,7 +171,7 @@ export const adadminList = {
             bindStatus: "",
         },
         {
-            id: "1",
+            id: "2",
             "userName": "王五",
             phone: "13720119493",
             email: "dark@hpe.com",
@@ -180,7 +182,7 @@ export const adadminList = {
             bindStatus: "",
         },
         {
-            id: "1",
+            id: "3",
             "userName": "王五",
             phone: "13720119493",
             email: "dark@hpe.com",
@@ -191,7 +193,7 @@ export const adadminList = {
             bindStatus: "",
         },
         {
-            id: "1",
+            id: "4",
             "userName": "王五",
             phone: "13720119493",
             email: "dark@hpe.com",

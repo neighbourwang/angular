@@ -54,7 +54,7 @@ export class SvcDirCreStep3Component implements OnInit {
   }
 
   getZones() {
-    this.layoutService.setLoading(true);
+    this.layoutService.show();
   
     this.directoryCreateService
         .getZones(PlatformId)
@@ -68,11 +68,11 @@ export class SvcDirCreStep3Component implements OnInit {
                     this.resetSelectStatus();
                 }
             }
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         })
         .catch(error => {
             this.showNotice('数据获取失败', '可用区数据获取失败。');
-            this.layoutService.setLoading(false);
+            this.layoutService.hide();
         });
   }
 

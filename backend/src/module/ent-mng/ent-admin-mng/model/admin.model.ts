@@ -10,7 +10,10 @@ export class Admin {
     enterpriseName: string;
     status: number;
     isSelect?: boolean = false;
-    authMode:string;
+    adUserId: string;
+    authMode:string;  
     constructor() {
     }
 }
+
+ 

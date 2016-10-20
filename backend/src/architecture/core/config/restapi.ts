@@ -280,12 +280,18 @@ export let RestApis: RestApiModel[] = [
        "id": "ent-mng.admin.cre.enterprise.get",
        "method": "GET",
        "url": "/authsec/enterprises/simple/page/{page}/size/{size} "
+    },
+   {
+       "desc": "根据id获取简单企业信息",
+       "id": "ent-mng.admin.enterprise.simple.get",
+       "method": "POST",
+       "url": "/authsec/enterprise/{enterpriseId}/simple"
    },
    {
        "desc": "创建企业管理员",
        "id": "ent-mng.admin.cre.post",
        "method": "POST",
-       "url": "/authsec/enterprise/admin"
+       "url": "/authsec/enterprise/{enterpriseId}/admin"
    },
    {
        "desc": "根据id获取企业管理员",
@@ -300,10 +306,16 @@ export let RestApis: RestApiModel[] = [
        "url": "/authsec/enterprise/admin/{id}"
    },
    {
-       "desc": "更新企业管理员激活状态",
+       "desc": "批量更新企业管理员状态",
        "id": "ent-mng.admin.updateStatus.put",
        "method": "PUT",
        "url": "/authsec/enterprise/admins/status/{status}"
+   },
+   {
+       "desc": "更新企业管理员状态",
+       "id": "ent-mng.admin.updateStatusOne.put",
+       "method": "PUT",
+       "url": "PUT /authsec/enterprise/admin/{id}/status/{status}"
    },
    {
        "desc": "删除企业管理员批量",
@@ -316,6 +328,12 @@ export let RestApis: RestApiModel[] = [
        "id": "ent-mng.admin.delOne.delete",
        "method": "DELETE",
        "url": "/authsec/enterprise/admin/{id}"
+   },
+   {
+       "desc": "重置管理员密码",
+       "id": "ent-mng.admin.resetPassword.put",
+       "method": "PUT",
+       "url": "/authsec/enterprise/admin/{adminId}/credential"
    },
    {
        "desc": "获取全部企业管理员",
@@ -397,7 +415,7 @@ export let RestApis: RestApiModel[] = [
        "method": "POST",
        "url": "/authsec/enterprise/{enterpriseId}/product "
    },
-   // 企业产品管理
+   // <-- 企业管理
    {
        "desc": "获取企业开通配额",
        "id": "ent-mng.ent-est-mng.resourcequota.get",
@@ -408,13 +426,18 @@ export let RestApis: RestApiModel[] = [
        "desc": "企业信息列表",
        "id": "ent-mng.ent-est-mng.enterprise.get",
        "method": "GET",
-       "url": "/authsec/enterprises/opening/page/{_page}/size/{_size}"
+       "url": "/authsec/enterprises/resouces/quotas/page/{_page}/size/{_size}"
    }
    ,{
        "desc": "加载企业配额数据",
        "id": "ent-mng.ent-est-mng.enterprise.resourcequota.get",
        "method": "GET",
        "url": "/authsec/enterprise/{_enterpriseId}/resouces/quotas/page/{_page}/size/{_size}"
+   },{
+       "desc": "获取企业基本信息",
+       "id": "ent-mng.ent-est-mng.enterprise.simple.get",
+       "method": "GET",
+       "url": "/authsec/enterprise/{_enterpriseId}/simple"
    }
    ,{
        "desc": "创建企业",
@@ -457,7 +480,8 @@ export let RestApis: RestApiModel[] = [
        "id": "ent-mng.ent-est-mng.enterprise.open",
        "method": "PUT",
        "url": "/authsec/enterprise/{_enterpriseId}/status/{_status}"
-   },
+   },// 企业管理 -->
+   // 
     //产品管理
     // {
     //     "desc": "获取所有产品目录",

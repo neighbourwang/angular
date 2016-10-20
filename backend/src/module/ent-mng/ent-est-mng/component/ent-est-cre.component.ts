@@ -137,9 +137,13 @@ export class EntEstCreComponent implements OnInit{
 	create(){
 		if(this.validate())
 		{
-			// todo: 创建企业
-
-			// todo: 刷新list
+			this.service.createEnterpise(this.entEst).then(ret=>{
+				this.returnToList();
+			})
+			.catch(err=>{
+				console.log('创建企业失败', err);
+				this.notice.open("创建企业", "创建企业失败");
+			})
 		}
 	}
 

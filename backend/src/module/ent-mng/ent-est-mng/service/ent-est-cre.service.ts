@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RestApiCfg, RestApi } from '../../../../architecture';
 import { RestApiModel } from '../../../../architecture/core/model/rest';
-import { EntEstItem, EntEst, EntEstResourceQuota, ResourceQuota, EntEstBasicInfo } from '../model';
+import { EntEstItem, EntProdItem, EntEst, EntEstResourceQuota, ResourceQuota, EntEstBasicInfo } from '../model';
 import { LayoutService, ValidationService, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
@@ -27,15 +27,22 @@ export class EntEstCreService{
 		return EntEstCreService.entEst;
 	}
 
-	setArray<T>(source:T[], target: T[])
+	setArray<T>(source:any, target: T[])
 	{
 		if(target && source)
 		{
 			target.splice(0, target.length);
 
-			for(let item of source)
+			if(typeof source === 'array')
 			{
-				target.push(item);
+				for(let item of source)
+				{
+					target.push(item);
+				}
+			}
+			else
+			{
+				target.push(source);
 			}
 		}
 	}
@@ -75,7 +82,8 @@ export class EntEstCreService{
 	loadEntEstItems(entEstMng: Paging<EntEstItem>
 		, errorHandler: Function
 		, caller:any
-		, criteria: string = "")
+		, criteria: string = ""
+		, successHanlder: Function)
 	{
 
 		let localParams:Array<any> = [
@@ -103,15 +111,145 @@ export class EntEstCreService{
 			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.get")
 			, localParams
 			, "企业管理"
-			, (items:EntEstItem[])=>{
-				let item = new EntEstItem();
-				item.enterpriseName = "测试企业";
-				items.push(item);
-			}
 			, null
+			, (source, target:EntEstItem[])=>{
+				for(let item of source)
+				{
+					let obj = new EntEstItem();
+					target.push(obj);
+
+					obj.id = item.enterpriseId as string; 
+					obj.enterpriseName = item.enterpriseName as string; 
+					obj.vmNum = 0; //api 未提供
+					obj.vmQuota = 0; //api 未提供
+					obj.vmQuotaUsageRate = 0; //api 未提供
+					obj.storageQuota = item.storageQuota as number; 
+					obj.storageQuotaUsageRate = item.storageQuota != 0 ? item.usedStorageNumber/item.storageQuota:0;
+					obj.snapQuota = item.snapshotQuota as number; 
+					obj.productNum = item.productNumber as number; 
+					obj.orderNum = item.orderNumber as number; 
+					obj.status = item.status as string; 
+					obj.description = ""; //api 未提供
+
+				}
+			}
 			, (items:EntEstItem[])=>{
 			items.map(n=>{n.checked = false;});
-		});
+		},
+		successHanlder);
+	}
+
+	//加载企业配额信息
+	loadEntResourceQuota(
+		entResourceQuota: EntEstResourceQuota
+		, errorHandler: Function
+		, successHandler: Function
+		, caller: any
+		, entId:string){
+
+		let localParams:Array<any> = [
+		{
+			key:"_enterpriseId"
+			,value:entId
+		},
+		{
+			key:"_page"
+			,value:1
+		}
+		,{
+			key:"_size"
+			,value:10
+		}
+		];
+
+		let entResourceQuotas: Paging<EntEstResourceQuota> = new Paging<EntEstResourceQuota>();
+
+		this.loadItems(entResourceQuotas
+			, errorHandler
+			, caller
+			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.resourcequota.get")
+			, localParams
+			, "加载企业配额数据"
+			, null
+			, (source, target:EntEstResourceQuota[])=>{
+				for(let item of source)
+				{
+					let obj = new EntEstResourceQuota();
+					target.push(obj);
+
+					obj.id = item.id as string;
+					obj.enterpriseId = item.enterpriseId as string;
+					obj.platformVMQuota = 0; //api上面暂时无数据
+					obj.physicalMachineQuota = 0; //api上面暂时无数据
+					obj.storageQuota = item.storageQuota as number;
+					obj.snapQuota = item.snapshotQuota as number;
+					obj.imageQuota = item.vmQuota as number;
+				}
+			}
+			, (items:EntEstResourceQuota[])=>{
+				let item = items[0];
+				if(item)
+				{
+					entResourceQuota.enterpriseId = item.enterpriseId;
+					entResourceQuota.platformVMQuota = item.platformVMQuota;
+					entResourceQuota.physicalMachineQuota = item.physicalMachineQuota;
+					entResourceQuota.storageQuota = item.storageQuota;
+					entResourceQuota.snapQuota = item.snapQuota;
+					entResourceQuota.imageQuota = item.imageQuota;
+				}
+			},
+			successHandler);
+
+	}
+
+	//获取企业基本信息
+	loadEntInfo(entInfo:EntEstBasicInfo
+		,errorHandler:Function
+		,successHandler:Function
+		,caller: any
+		,entId:string)
+	{
+		let pageItem:Paging<EntEstBasicInfo> = new Paging<EntEstBasicInfo>();
+
+		this.loadItems(pageItem
+			, errorHandler
+			, caller
+			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.simple.get")
+			, [{
+				key:"_enterpriseId"
+				,value:entId
+			}]
+			, "企业基本信息"
+			, null
+			, (source, target:EntEstBasicInfo[])=>{
+				let obj = new EntEstBasicInfo();
+				target.push(obj);
+
+				obj.code = source.code;
+				obj.id = source.id;
+				obj.name = source.name;
+				obj.description = source.description;
+			}
+			, null,
+			successHandler);
+		
+	}
+
+	//加载企业产品信息
+	loadEntProdItems(entProdItems: Paging<EntProdItem>
+		,errorHandler:Function
+		,caller: any
+		,entId: string):void
+	{
+
+	}
+
+	//加载可用产品信息
+	loadAvailProdItems(prodItems: Paging<EntProdItem>
+		,errorHandler: Function
+		,caller: any):void
+	{
+
 	}
 	
 
@@ -154,13 +292,125 @@ export class EntEstCreService{
 		return this.restApi.request(api.method, api.url, params, undefined, undefined);
 	}
 
-	//创建企业基本信息
-	createEnterpise():Promise<any>{
+	//创建企业
+	createEnterpise(entEst: EntEst):Promise<any>{
 		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.create");
 
-		return this.restApi.request(api.method, api.url, [], [], EntEstCreService.entEst.BasicInfo);
+	let target:any = {
+		"profile": {
+			"authenticationMode": entEst.BasicInfo.certMethod,
+			"code": "", //没有这个数据
+			"description": entEst.BasicInfo.description,
+			"id": null,
+			"imageId": null,//图片功能放到sprint3处理
+			"name": entEst.BasicInfo.name,
+			"password": entEst.BasicInfo.password,
+			"url": entEst.BasicInfo.certUrl,
+			"userName": entEst.BasicInfo.contactorName,
+		},
+		"quotaList": {
+			"enterpriseId": null,
+			"id": null,
+			"imageQuota": entEst.ResourceQuota.imageQuota,
+			"networkQuota": 0, //界面没有提供这个数据
+			"physicalQuota": entEst.ResourceQuota.physicalMachineQuota,
+			"snapShotQuota": entEst.ResourceQuota.snapQuota,
+			"storageQuota": entEst.ResourceQuota.storageQuota,
+			"vmQuota": entEst.ResourceQuota.platformVMQuota
+		}
+	};
+
+		return this.restApi.request(api.method, api.url, [], [], target);
 	}
 
+	//修改企业配额
+	updateEntQuota(entQuota:EntEstResourceQuota)
+	{
+		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.updatequota");
+
+		let localParams = [
+		{
+			key:"_enterpriseId"
+			,value:entQuota.enterpriseId
+		}
+		]
+		let target:any = {
+			enterpriseId: entQuota.enterpriseId,
+			id: entQuota.id,
+			imageQuota: entQuota.imageQuota,
+			networkQuota: 0, //界面上没有提供这个数据
+			physicalQuota: entQuota.physicalMachineQuota,
+			snapShotQuota: entQuota.snapQuota,
+			storageQuota: entQuota.storageQuota,
+			vmQuota: entQuota.platformVMQuota
+		};
+
+		return this.restApi.request(api.method, api.url, localParams, [], target);
+	}
+
+
+	//更新企业信息
+	updateEntInfo(entBasicInfo:EntEstBasicInfo)
+	{
+		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.updatename");
+
+		let localParams = [
+		{
+			key:"_enterpriseId"
+			,value:entBasicInfo.id
+		}
+		]
+		let target:any = {
+			description: entBasicInfo.description,
+			name: entBasicInfo.name
+		};
+
+		return this.restApi.request(api.method, api.url, localParams, [], target);
+	}
+
+	//更新企业认证信息
+	updateEntCert(entBasicInfo:EntEstBasicInfo){
+		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.updateauth");
+
+		let localParams = [
+		{
+			key:"_enterpriseId"
+			,value:entBasicInfo.id
+		}
+		]
+		let target:any = {
+			"authMode": null,//前台未提供
+			"id": entBasicInfo.id,
+			"password": entBasicInfo.password,
+			"url": entBasicInfo.certUrl,
+			"userName": entBasicInfo.contactorName
+		};
+
+		return this.restApi.request(api.method, api.url, localParams, [], target);
+
+	}
+
+	//更新企业状态：启用，禁用，删除
+	//0: Initial; 1: Active; 2: Suspend; 3: Cancelled, 4: Deleted.
+
+	updateEntStatus(entId:string, status:number){
+		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.updatestatus");
+
+		let localParams = [
+		{
+			key:"_enterpriseId"
+			,value:entId
+		}
+		,{
+			key:"_status"
+			,value:status
+		}
+		]
+		
+
+		return this.restApi.request(api.method, api.url, localParams, [], null);
+
+	}
 	
 
 	loadItems<T>(items: Paging<T>
@@ -171,7 +421,8 @@ export class EntEstCreService{
 		,errorTitle:string = ""
 		,fakeData?: Function
 		,map?:Function
-		,trait?: Function)
+		,trait?: Function
+		,successHandler?:Function)
 	{
 		items.items.splice(0, items.items.length);
 
@@ -213,19 +464,31 @@ export class EntEstCreService{
 
 					console.log(errorTitle + "分页信息", ret.pageInfo);
 
-					items.totalPages = ret.pageInfo.totalPage;
+					if(ret.pageInfo)
+					{
+						items.totalPages = ret.pageInfo.totalPage;
+					}
+					else
+					{
+						items.totalPages = 1;
+					}
 
+					if(successHandler)
+					{
+						successHandler.call(caller);
+					}
 				}
 			}
 		})
 		.catch(err=>{
 			this.layoutService.hide();
 
-			console.log('资源配额加载错误', err);
+			console.log(errorTitle + '加载错误', err);
 			if(errorHandler)
 			{
 				errorHandler.call(caller, {"title":errorTitle, "desc":"服务器上" + errorTitle + "数据获取失败"});
 			}
+
 		});
 	}
 }

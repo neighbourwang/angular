@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { LayoutService, NoticeComponent, PopupComponent, ConfirmComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { EntEstItem, EntEst} from '../model';
 
 import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
@@ -10,7 +10,7 @@ import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
   selector: 'ent-est-mng',
   templateUrl: '../template/ent-est-mng.component.html',
   styleUrls: ['../style/ent-est-mng.component.css'],
-  providers: [EntEstCreService]
+  providers: [EntEstCreService, SystemDictionaryService]
 }) 
 export class EntEstMngComponent implements OnInit {
   @ViewChild("notice")
@@ -34,16 +34,39 @@ export class EntEstMngComponent implements OnInit {
   private selectAllField: boolean = false;
   private criteria: string = "";
   private entEst: EntEst = new EntEst();
+  private dic:SystemDictionary[];
 
   constructor(
     private layoutService: LayoutService,
     private router: Router,
-    private service: EntEstCreService
+    private service: EntEstCreService,
+    private sysDicService: SystemDictionaryService
   ) {}
 
   ngOnInit() {
     this.search();
+    this.sysDicService.sysDicOF(this, this.sysDicCallback, "GLOBAL", "STATUS")
   }
+
+  sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) { 
+    if (sf) {                                                                 
+      this.dic = systemDictionarys;
+      console.log('dic', this.dic);
+      this.updateWithDic();   
+    }                                                                         
+  }
+
+  updateWithDic(){
+    let getName =(id:string):string=>{
+      let obj = this.dic.find(n=>n.code ==id) as SystemDictionary;
+      if(obj)
+        return obj.displayValue as string;
+      else
+        return id;
+    };
+    this.entEstMng.items.map(n=>{n.statusName = getName(n.status);});
+  }
+
 
   showError(msg:any) {
     this.notice.open(msg.title, msg.desc);
@@ -64,7 +87,7 @@ export class EntEstMngComponent implements OnInit {
     }
 
     this.entEstMng.currentPage = page;
-    this.service.loadEntEstItems(this.entEstMng, this.showError, this); 
+    this.search();
   }
 
   selectAll(selectAllField:boolean){
@@ -72,7 +95,9 @@ export class EntEstMngComponent implements OnInit {
   }
 
   search(){
-    this.service.loadEntEstItems(this.entEstMng, this.showError, this, this.criteria);      
+    this.service.loadEntEstItems(this.entEstMng, this.showError, this, this.criteria, ()=>{
+      this.updateWithDic();
+    });      
   }
 
   getSelected(){
@@ -81,7 +106,7 @@ export class EntEstMngComponent implements OnInit {
       return item;
     else
     {
-      this.notice.open("企业列表", "请选择企业");
+      this.showMsg("请选择企业");
       return null;
     }
   }
@@ -89,7 +114,7 @@ export class EntEstMngComponent implements OnInit {
   composeUrlWithId(url:string, entId:string)
   {
     if(entId)
-      return [url, '?', 'entId=', entId].join();
+      return [url, '?', 'entId=', entId].join('');
     else
     {
       console.log('composeUrlWithId:entId is empty');
@@ -122,10 +147,12 @@ export class EntEstMngComponent implements OnInit {
       let item = this.getSelected();
 
       this.entEst.BasicInfo.reset();
-      this.entEst.BasicInfo.name = item.enterpriseName;
-      this.entEst.BasicInfo.description = item.description;
 
-      this.editEnt.open();
+      this.service.loadEntInfo(this.entEst.BasicInfo
+        , this.showError
+        , ()=>{this.editEnt.open()}
+        , this
+        , this.getSelected().id);
     }
 
   }
@@ -152,8 +179,15 @@ export class EntEstMngComponent implements OnInit {
     console.log('保存编辑');
     if(this.validateEntModify())
     {
-      // todo: 保存编辑
-      // todo: 刷新列表
+      this.service.updateEntInfo(this.entEst.BasicInfo)
+      .then(ret=>{
+        this.search();
+      })
+      .catch(err=>{
+        console.log('保存企业基本信息出错', err);
+        this.showMsg("保存企业基本信息出错");
+        this.okCallback = ()=>{this.editEnt.open();};
+      })
     }
   }
 
@@ -191,11 +225,15 @@ export class EntEstMngComponent implements OnInit {
       let item = this.getSelected();
       this.entEst.ResourceQuota.reset();
 
-      // todo: 需要加载配额数据
-      // todo: 需要保存配额数据
-      // todo: 刷新列表
-      // this.entEst.ResourceQuota.physicalMachineQuota = 30;//加载数据
       this.editQuota.open();
+      this.service.loadEntResourceQuota(this.entEst.ResourceQuota
+        , this.showError
+        , ()=>{
+          this.editQuota.open();
+        }
+        , this
+        , this.getSelected().id
+        );
     }
   }
 
@@ -223,11 +261,12 @@ export class EntEstMngComponent implements OnInit {
     }
   }
 
+
   //设置管理员
   setupAdmin(){
     if(this.getSelected())
     {
-      this.router.navigateByUrl(this.composeUrlWithId("ent-mng/ent-admin-mng/ent-admin-mng", this.getSelected().id));
+      this.router.navigateByUrl("ent-mng/ent-admin-mng/ent-admin-mng/" + this.getSelected().id);
     }
   }
 
@@ -235,6 +274,16 @@ export class EntEstMngComponent implements OnInit {
   enable(){
     if(this.getSelected())
     {
+      this.confirmedHandler = ()=>{
+        this.service.updateEntStatus(this.getSelected().id, 1)
+        .then(ret=>{
+          this.search();
+        })
+        .catch(err=>{
+          console.log("企业启用失败", err);
+          this.showMsg("企业启用失败");
+        })
+      };
       this.confirm.open("启用企业", ['选择启用"', this.getSelected().enterpriseName, '企业，请确认'].join());
     }
   }
@@ -243,6 +292,16 @@ export class EntEstMngComponent implements OnInit {
   disable(){
     if(this.getSelected())
     {
+      this.confirmedHandler = ()=>{
+        this.service.updateEntStatus(this.getSelected().id, 2)
+        .then(ret=>{
+          this.search();
+        })
+        .catch(err=>{
+          console.log("企业禁用失败", err);
+          this.showMsg("企业禁用失败");
+        })
+      };
       this.confirm.open("禁用企业", ['您选择禁用"', this.getSelected().enterpriseName, '"企业，请确认；如果确认，企业用户将不能进入云管理平台自助服务门户。'].join());
     }
   }
@@ -251,19 +310,36 @@ export class EntEstMngComponent implements OnInit {
   delete(){
     if(this.getSelected())
     {
+      this.confirmedHandler = ()=>{
+        this.service.updateEntStatus(this.getSelected().id, 4)
+        .then(ret=>{
+          this.search();
+        })
+        .catch(err=>{
+          console.log("企业删除失败", err);
+          this.showMsg("企业删除失败");
+        })
+      };
       this.confirm.open("删除企业", ['您选择删除"', this.getSelected().enterpriseName, '"企业，请确认；如果确认，此企业数据将不能恢复。'].join());
     }
   }
 
-checkEnterpriseInfo(){
-  this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-check");
-}
+  checkEnterpriseInfo(){
+    this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-check");
+  }
   //修改配额
   acceptQuotaModify(){
     if(this.validateQuotaModify())
     {
-      // todo: 修改配额api
-      // todo: 刷新列表
+      this.service.updateEntQuota(this.entEst.ResourceQuota)
+      .then(ret=>{
+        this.search();//刷新
+      })
+      .catch(err=>{
+        console.log("修改配额失败", err);
+        this.showMsg("修改配额失败");
+        this.okCallback = ()=>{this.editQuota.open();};
+      });
     }
   }
 
@@ -317,8 +393,15 @@ checkEnterpriseInfo(){
   acceptCertModify(){
     if(this.validateCertModify())
     {
-      // todo: 修改认证api
-      // todo: 刷新列表
+      this.service.updateEntCert(this.entEst.BasicInfo)
+      .then(ret=>{
+        this.search();
+      })
+      .catch(err=>{
+        console.log('认证信息更新失败', err);
+        this.showMsg("认证信息更新失败");
+        this.okCallback = ()=>{this.setupCert.open();};
+      })
     }
   }
 
@@ -356,4 +439,20 @@ checkEnterpriseInfo(){
     this.entEst.BasicInfo.reset();
   }
 
+  //选择行
+  selectItem(index:number):void
+  {
+    this.entEstMng.items.map(n=>{n.checked = false;});
+    this.entEstMng.items[index].checked = true;
+  }
+
+  private confirmedHandler:Function = null;
+  //启用，禁用，删除的处理
+  onConfirmed(){
+    if(this.confirmedHandler)
+    {
+      this.confirmedHandler();
+      this.confirmedHandler = null;
+    }
+  }
 }

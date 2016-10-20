@@ -35,7 +35,7 @@ export class EntEstCreStep04Component implements OnInit{
 	}
 
 	create(){
-		this.service.createEnterpise().then(ret=>{
+		this.service.createEnterpise(null).then(ret=>{
 			console.log('企业创建成功', ret);
 
 	
