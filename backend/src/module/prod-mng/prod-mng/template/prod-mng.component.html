@@ -1,7 +1,7 @@
 <div class="page-content-header icon-content-header-platform-manage">产品管理</div>
 <div class="page-content">
     <div style="padding-bottom: 10px;">
-        <div class="dropdown pull-right">
+        <div class="dropdown pull-right" style="margin-left: 20px;">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 更多操作
                 <span class="caret"></span>
@@ -14,8 +14,8 @@
                 <li><a (click)="action('delete');">删除</a></li>
             </ul>
         </div>
-        <button class="pull-right fox-cloud-button-md fox-cloud-button-white ">查询</button>
-        <div class="dropdown pull-right">
+        <button class="pull-right fox-cloud-button-md fox-cloud-button-white " style="line-height:28px ;width:60px; margin-left: 20px">查询</button>
+        <div class="dropdown pull-right" style="margin-left: 20px;">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 所有平台
                 <span class="caret"></span>
@@ -27,8 +27,8 @@
                 <li><a (click)="disablePlatform();">上海C</a></li>
             </ul>
         </div>
-        <span class="pull-right">平台</span>
-        <div class="dropdown pull-right">
+        <span class="pull-right" style="margin-left: 20px; line-height: 34px">平台：</span>
+        <div class="dropdown pull-right" style="margin-left: 10px;">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 所有企业
                 <span class="caret"></span>
@@ -40,8 +40,8 @@
                 <li><a (click)="disablePlatform();">企业C</a></li>
             </ul>
         </div>
-        <span class="pull-right">企业</span>
-        <div class="dropdown pull-right">
+        <span class="pull-right" style="margin-left: 20px;line-height: 34px">企业：</span>
+        <div class="dropdown pull-right" style="margin-left: 10px;">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 所有产品目录
                 <span class="caret"></span>
@@ -53,7 +53,7 @@
                 <li><a (click)="disablePlatform();">禁用</a></li>
             </ul>
         </div>
-        <span class="pull-right">产品目录</span>
+        <span class="pull-right" style="line-height: 34px">产品目录：</span>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">创建产品</span>

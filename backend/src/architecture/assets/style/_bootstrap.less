@@ -2,49 +2,43 @@
     border-radius: 0!important;
 }
 
-.dialog {
-	.modal{
-		top:120px;
-		left:150px;
-		.modal-dialog {
-			.modal-content{
-				padding-left:25px;
-				padding-right:25px;	
-				box-shadow: 0px 2px 2px 3px rgba(0,0,0,0.2);
-				border-radius: 0px;
-				font-size: 18px;
-				.modal-body{
-					padding:0;
-					margin-top: 20px;
-				}
-				.modal-header{
-					border-bottom: 2px solid #00a892;
-					padding: 15px 0 0 3px;
-				}
-				.table-container{	
-					margin-top:15px;
-					font-size:18px;	
-				}
-				.modal-footer {
-					border-top:none;
-					margin-top: 30px;	
-					margin-right: 10px;
-				}
-				.modal-footer .btn {
-				      border-radius: 0px;
-					  border: 2px solid #00a892;
-					  padding: 3px 20px;
-					  font-size:18px;
-					  &:hover {      
-						  background:  #00a892;
-						  color:white;
-					};
-				}
-			}
-		}
-	}
+.modal-content {
+	border-radius: 0;
 }
 
+.fox-cloud-modal-header .modal-header {
+  font-size: 18px;
+  padding: 20px 20px 20px 20px;
+  border-bottom: 3px solid #01a982;
+}
+.fox-cloud-modal-header .modal-header .close {
+  margin-top: 5px;
+}
+
+.fox-cloud-modal-header .modal-header > span {
+  color: #000000;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.fox-cloud-modal-body .modal-body {
+	padding: 20px 30px 20px 30px;
+	font-size: 16px;
+    /*word-wrap: break-word;*/      /* IE 5.5-7 */
+    /*white-space: -moz-pre-wrap;*/  /* Firefox 1.0-2.0 */
+    /*white-space: pre-wrap;*/       /* current browsers */
+}
+.fox-cloud-modal-footer .modal-footer {
+  padding: 15px;
+  text-align: center;
+  border: none;
+}
+.fox-cloud-input-group {
+	line-height: 35px;
+}
+.fox-cloud-input-group input[type="text"] {
+	font-size: 20px;
+}
 
 /***************调整模态窗口位置********************/
 
