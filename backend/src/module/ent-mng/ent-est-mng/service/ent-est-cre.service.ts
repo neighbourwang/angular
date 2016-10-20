@@ -248,11 +248,35 @@ export class EntEstCreService{
 		return this.restApi.request(api.method, api.url, params, undefined, undefined);
 	}
 
-	//创建企业基本信息
-	createEnterpise():Promise<any>{
+	//创建企业
+	createEnterpise(entEst: EntEst):Promise<any>{
 		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.create");
 
-		return this.restApi.request(api.method, api.url, [], [], EntEstCreService.entEst.BasicInfo);
+	let target:any = {
+		"profile": {
+			"authenticationMode": entEst.BasicInfo.certMethod,
+			"code": "", //没有这个数据
+			"description": entEst.BasicInfo.description,
+			"id": null,
+			"imageId": null,//图片功能放到sprint3处理
+			"name": entEst.BasicInfo.name,
+			"password": entEst.BasicInfo.password,
+			"url": entEst.BasicInfo.certUrl,
+			"userName": entEst.BasicInfo.contactorName,
+		},
+		"quotaList": {
+			"enterpriseId": null,
+			"id": null,
+			"imageQuota": entEst.ResourceQuota.imageQuota,
+			"networkQuota": 0, //界面没有提供这个数据
+			"physicalQuota": entEst.ResourceQuota.physicalMachineQuota,
+			"snapShotQuota": entEst.ResourceQuota.snapQuota,
+			"storageQuota": entEst.ResourceQuota.storageQuota,
+			"vmQuota": entEst.ResourceQuota.platformVMQuota
+		}
+	};
+
+		return this.restApi.request(api.method, api.url, [], [], target);
 	}
 
 	
