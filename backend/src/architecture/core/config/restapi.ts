@@ -107,6 +107,12 @@ export let RestApis: RestApiModel[] = [
         "url": "/authsec/platform/{pf-id}/images/synchronize"
     },
     {
+        "desc": "宿主机同步",
+        "id": "pf.cre.step.02.hosts.synchronize.get",
+        "method": "GET",
+        "url": "/authsec/platform/{pf-id}/hosts/synchronize"
+    },
+    {
         "desc": "取得可用区资源",
         "id": "pf.cre.zone.get",
         "method": "GET",
@@ -130,6 +136,33 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "url": "/authsec/platform/{pf-id}/storage/quota"
     },
+
+    {
+        "desc": "取得云主机类型",
+        "id": "pf.cre.flavors.get",
+        "method": "GET",
+        "url": "/authsec/platform/{pf-id}/flavors"
+    },
+    {
+        "desc": "更新云主机类型",
+        "id": "pf.cre.step.05.flavors.put",
+        "method": "PUT",
+        "url": "/authsec/platform/{pf-id}/flavors"
+    },
+
+    {
+        "desc": "取得镜像",
+        "id": "pf.cre.images.get",
+        "method": "GET",
+        "url": "/authsec/platform/{pf-id}/images"
+    },
+    {
+        "desc": "更新镜像",
+        "id": "pf.cre.step.06.images.put",
+        "method": "PUT",
+        "url": "/authsec/platform/{pf-id}/images"
+    },
+
     {
         "desc": "取得云主机类型",
         "id": "pf.cre.flavor.get",
@@ -296,6 +329,12 @@ export let RestApis: RestApiModel[] = [
        "method": "GET",
        "url": "/authsec/enterprise/{enterpriseId}/admins/page/{page}/size/{size}"
    },
+   {
+       "desc": "获取某企业管AD员工",
+       "id": "ent-mng.enterprise.adadmin.get",
+       "method": "GET",
+       "url": "/authsec/enterprise/{enterpriseId}/adadmins/page/{page}/size/{size}"
+   }, 
    // 企业产品管理
    {
        "desc": "获取产品",
@@ -366,16 +405,46 @@ export let RestApis: RestApiModel[] = [
        "url": "/authsec/platforms/resoucequotas/page/{_page}/size/{_size}"
    }
    ,{
-       "desc": "企业开通信息概览",
+       "desc": "企业信息列表",
        "id": "ent-mng.ent-est-mng.enterprise.get",
        "method": "GET",
        "url": "/authsec/enterprises/opening/page/{_page}/size/{_size}"
    }
    ,{
-       "desc": "企业基础信息创建",
+       "desc": "加载企业配额数据",
+       "id": "ent-mng.ent-est-mng.enterprise.resourcequota.get",
+       "method": "GET",
+       "url": "/authsec/enterprise/{_enterpriseId}/resouces/quotas/page/{_page}/size/{_size}"
+   }
+   ,{
+       "desc": "创建企业",
        "id": "ent-mng.ent-est-mng.enterprise.create",
        "method": "POST",
        "url": "/authsec/enterprise"
+   }
+   ,{
+       "desc": "更新企业名称",
+       "id": "ent-mng.ent-est-mng.enterprise.updatename",
+       "method": "PUT",
+       "url": "/authsec/enterprise/{_enterpriseId}/basic"
+   }
+   ,{
+       "desc": "更新企业配额数据",
+       "id": "ent-mng.ent-est-mng.enterprise.updatequota",
+       "method": "PUT",
+       "url": "/authsec/enterprise/{_enterpriseId}/resouces/quotas"
+   }
+   ,{
+       "desc": "更新企业认证信息数据",
+       "id": "ent-mng.ent-est-mng.enterprise.updateauth",
+       "method": "PUT",
+       "url": "/authsec/enterprise/{_enterpriseId}/auth"
+   }
+   ,{
+       "desc": "更新企业企业状态",
+       "id": "ent-mng.ent-est-mng.enterprise.updatestatus",
+       "method": "PUT",
+       "url": "/authsec/enterprise/{_enterpriseId}/status/{_status}"
    }
    ,{
        "desc": "企业配额信息提交",

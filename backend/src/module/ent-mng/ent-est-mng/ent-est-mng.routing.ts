@@ -6,6 +6,7 @@ import { EntEstCreStep01Component } from './component/ent-est-cre-step-01.compon
 import { EntEstCreStep04Component } from './component/ent-est-cre-step-04.component';
 import { EntEstCreComponent } from './component/ent-est-cre.component';
 import { EntEstSetProdComponent } from './component/ent-est-setProd.component';
+import { EntEstCheckComponent } from './component/ent-est-check.component';
 export const EntEstMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
         path: 'ent-mng/ent-est-mng/ent-est-mng',
@@ -24,5 +25,8 @@ export const EntEstMngRouting: ModuleWithProviders = RouterModule.forChild([
     },{
     	path: 'ent-mng/ent-est-mng/ent-est-setProd'
     	,component: EntEstSetProdComponent
+    },{
+    	path: 'ent-mng/ent-est-mng/ent-est-check'
+    	,component: EntEstCheckComponent
     }
 ]);

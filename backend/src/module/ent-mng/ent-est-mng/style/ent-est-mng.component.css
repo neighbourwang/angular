@@ -1,4 +1,8 @@
 
+
+
+
+
 /*创建企业*/
 
 .left{
@@ -149,6 +153,13 @@
 	background-color:#00a982; 
 	color: #fff;
 }
+.disabled-smaller-bt{
+	background-color:#fff; 
+	color: #000;
+}
+.disabled-smaller-bt:hover{
+    cursor: auto;
+}
 .validateInfo{
 	color: #00a982;
 	font-family: "微软雅黑";
@@ -160,6 +171,13 @@
 .setProdPanel{
 	height: 400px;
 	margin-bottom:50px; 
+}
+.checkProdPanel{
+	height: 300px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    margin-left: 50px;
+    margin-right: 90px;
 }
 .titlePanel{
 	width: 100%;
@@ -182,4 +200,24 @@
 }
 .table-thead{
 	background-color: #EFEFEF;
+}
+.info-title{
+	font-size: 18px;
+	border-bottom: 2px solid #CFD8E7;
+	padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+.sm-container{
+	width: 350px;
+    height: 150px;
+    background-color: #CFD8E7;
+    margin-left: 40px;
+    margin-top: 10px;
+}
+.sm-container:first-child{
+	margin-left:0;
+}
+.baseContainer{
+
 }

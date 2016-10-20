@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { LayoutService, NoticeComponent, PopupComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, PopupComponent, ConfirmComponent } from '../../../../architecture';
 import { EntEstItem, EntEst} from '../model';
 
 import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
@@ -24,6 +24,9 @@ export class EntEstMngComponent implements OnInit {
 
   @ViewChild("setupCert")
   setupCert: PopupComponent;
+
+  @ViewChild("confirm")
+  confirm: ConfirmComponent;
 
   private totalPages: number = 0;
   private currentPage: number = 0;
@@ -86,12 +89,24 @@ export class EntEstMngComponent implements OnInit {
   composeUrlWithId(url:string, entId:string)
   {
     if(entId)
-      return [url, "?", "entId=", entId].join();
+      return [url, '?', 'entId=', entId].join();
     else
     {
       console.log('composeUrlWithId:entId is empty');
       return url;
     }
+  }
+
+  appendUrlWithEntName(url:string, entName:string):string{
+    if(entName && entName.length >0)
+    {
+      if(url.indexOf("?") > 0)
+        return [url, '&entName=', entName].join('');
+      else
+        return [url, '?entName=', entName].join('');
+    }
+    else
+      return url;
   }
 
   //创建企业
@@ -120,6 +135,18 @@ export class EntEstMngComponent implements OnInit {
     this.notice.open("系统提示", msg);
   }
 
+  private okCallback:Function = null;
+
+  okClicked(){
+    console.log('okClicked');
+    if(this.okCallback)
+    {
+      console.log('okCallback()');
+      this.okCallback();
+      this.okCallback = null;
+    }
+  }
+
   //保存编辑
   acceptEntModify(){
     console.log('保存编辑');
@@ -141,6 +168,9 @@ export class EntEstMngComponent implements OnInit {
 
     if(notValid !== void 0)
     {
+      this.okCallback = ()=>{
+        this.editEnt.open();
+      };
       this.showMsg(this.service.validate(notValid.name, notValid.value, notValid.op));
       return false;
     }
@@ -164,7 +194,7 @@ export class EntEstMngComponent implements OnInit {
       // todo: 需要加载配额数据
       // todo: 需要保存配额数据
       // todo: 刷新列表
-      this.entEst.ResourceQuota.physicalMachineQuota = 30;//加载数据
+      // this.entEst.ResourceQuota.physicalMachineQuota = 30;//加载数据
       this.editQuota.open();
     }
   }
@@ -189,8 +219,7 @@ export class EntEstMngComponent implements OnInit {
   setupProduct(){
     if(this.getSelected())
     {
-      this.router.navigateByUrl(this.composeUrlWithId("ent-mng/ent-est-mng/ent-est-setProd", this.getSelected().id));
-      
+      this.router.navigateByUrl(this.appendUrlWithEntName(this.composeUrlWithId("ent-mng/ent-est-mng/ent-est-setProd", this.getSelected().id), this.getSelected().enterpriseName));
     }
   }
 
@@ -206,7 +235,7 @@ export class EntEstMngComponent implements OnInit {
   enable(){
     if(this.getSelected())
     {
-      
+      this.confirm.open("启用企业", ['选择启用"', this.getSelected().enterpriseName, '企业，请确认'].join());
     }
   }
 
@@ -214,7 +243,7 @@ export class EntEstMngComponent implements OnInit {
   disable(){
     if(this.getSelected())
     {
-      
+      this.confirm.open("禁用企业", ['您选择禁用"', this.getSelected().enterpriseName, '"企业，请确认；如果确认，企业用户将不能进入云管理平台自助服务门户。'].join());
     }
   }
 
@@ -222,10 +251,13 @@ export class EntEstMngComponent implements OnInit {
   delete(){
     if(this.getSelected())
     {
-      
+      this.confirm.open("删除企业", ['您选择删除"', this.getSelected().enterpriseName, '"企业，请确认；如果确认，此企业数据将不能恢复。'].join());
     }
   }
 
+checkEnterpriseInfo(){
+  this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-check");
+}
   //修改配额
   acceptQuotaModify(){
     if(this.validateQuotaModify())
@@ -266,6 +298,9 @@ export class EntEstMngComponent implements OnInit {
 
     if(notValid !== void 0)
     {
+      this.okCallback = ()=>{
+        this.editQuota.open();
+      }
       this.showMsg(this.service.validate(notValid.name, notValid.value, notValid.op));
       return false;
     }
@@ -308,6 +343,9 @@ export class EntEstMngComponent implements OnInit {
 
     if(notValid !== void 0)
     {
+      this.okCallback = ()=>{
+        this.setupCert.open();
+      };
       this.showMsg(this.service.validate(notValid.name, notValid.value, notValid.op));
       return false;
     }
