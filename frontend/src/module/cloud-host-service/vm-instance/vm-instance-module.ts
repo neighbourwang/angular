@@ -12,6 +12,10 @@ import { CrCloudHostComponent } from './component/cr-cloud-host.component';
 
 import { IndexCloudHostComponent } from './component/index-cloud-host.component';
 
+//service
+import { IndexCloudHostService } from './service/index-cloud-host.service'; 
+
+
 @NgModule({
     imports: [
         VmInstanceRouting,
@@ -24,6 +28,7 @@ import { IndexCloudHostComponent } from './component/index-cloud-host.component'
     exports: [
     ],
     providers: [
+        IndexCloudHostService
     ]
 
 })
