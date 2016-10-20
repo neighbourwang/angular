@@ -284,7 +284,7 @@ export let RestApis: RestApiModel[] = [
    {
        "desc": "根据id获取简单企业信息",
        "id": "ent-mng.admin.enterprise.simple.get",
-       "method": "POST",
+       "method": "GET",
        "url": "/authsec/enterprise/{enterpriseId}/simple"
    },
    {
@@ -315,7 +315,7 @@ export let RestApis: RestApiModel[] = [
        "desc": "更新企业管理员状态",
        "id": "ent-mng.admin.updateStatusOne.put",
        "method": "PUT",
-       "url": "PUT /authsec/enterprise/admin/{id}/status/{status}"
+       "url": "/authsec/enterprise/admin/{id}/status/{status}"
    },
    {
        "desc": "删除企业管理员批量",
