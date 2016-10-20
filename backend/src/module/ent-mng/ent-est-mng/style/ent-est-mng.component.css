@@ -1,8 +1,5 @@
 
 
-
-
-
 /*创建企业*/
 
 .left{
@@ -93,6 +90,13 @@
   width:700px;
   margin-top: 30px; 
 }
+.infoContent button{
+	margin-right: -15px; 
+}
+.infoContent button.active{
+	background-color: #00a982;
+	color: #fff;
+}
 .uploadImg{
   margin-top: 30px;
 }
@@ -105,12 +109,41 @@
     height: 300px;
      border:1px solid #000;
 }
+
+.uploadImg span:first-child{
+	color:  #C1CACA;
+	font-size: 18px;
+	position: relative;
+    top: 150px;
+    left: 0px;
+}
+.uploadImg .title span{
+	font-size: 16px;
+    color: #000;
+}
+
+.uploadImg .title .cheron-icon{
+    position: relative;
+    top: 0px;
+    font-size: 14px;
+}
+.uploadImg span{
+	position: relative;
+    left: -280px;
+    font-size: 25px;
+    top: 7px;
+    color: #CACACA;
+}
+.uploadImg button{
+	color: #CACACA;
+	font-size: 18px;
+}
 .buttonPanel{
 	width: 1200px;
 	text-align: center;
 }
 .gray-larger-bg{
-	padding:  25px 170px ;
+	padding:  25px 160px ;
 
 }
 .smaller-bt{
@@ -220,4 +253,16 @@
 }
 .baseContainer{
 
+}
+.input-control{
+    width: 350px;
+    display: inline-block;
+    margin-right: 10px;
+}
+.enterprise-content-header{
+	height: 40px;
+	padding: 10px;
+	font-size: 18px;
+	font-weight: bold;
+	border-bottom: solid 1px #C1CACA;
 }
