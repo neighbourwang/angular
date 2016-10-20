@@ -69,6 +69,18 @@ export class MenuComponent implements OnInit {
 // Frontend Menu Definition
 const menu: Array<any> = [
     {
+        "label": "云主机服务",
+        "isOpen": true,
+        "icon": "icon-product-and-service",
+        "top2_menu": [
+            {
+                "label": "虚拟机实例",
+                "isOpen": true,
+                "routing": "cloud-host-service/vm-instance/index-cloud-host"
+            }
+        ]
+    },
+    {
         "label": "产品与服务",
         "isOpen": true,
         "icon": "icon-product-and-service",

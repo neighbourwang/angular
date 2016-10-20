@@ -1,6 +1,7 @@
 import { ResourceQuota } from './resourcequota';
 
 export class EntEstResourceQuota {
+    id: string = null;
     enterpriseId: string = null; //企业id
     platformVMQuota: number = null;//可创建云主机数量
     physicalMachineQuota: number = null;//可创建物理机数量
@@ -13,6 +14,7 @@ export class EntEstResourceQuota {
     referredResourceQuota : ResourceQuota = null;
 
     reset(){
+        this.id = null;
     	this.enterpriseId = null;
     	this.platformVMQuota = null;
     	this.physicalMachineQuota = null;

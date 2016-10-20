@@ -433,6 +433,11 @@ export let RestApis: RestApiModel[] = [
        "id": "ent-mng.ent-est-mng.enterprise.resourcequota.get",
        "method": "GET",
        "url": "/authsec/enterprise/{_enterpriseId}/resouces/quotas/page/{_page}/size/{_size}"
+   },{
+       "desc": "获取企业基本信息",
+       "id": "ent-mng.ent-est-mng.enterprise.simple.get",
+       "method": "GET",
+       "url": "/authsec/enterprise/{_enterpriseId}/simple"
    }
    ,{
        "desc": "创建企业",
