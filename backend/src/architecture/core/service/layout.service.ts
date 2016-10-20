@@ -20,18 +20,18 @@ export class LayoutService {
         return this.isLoading;
     }
 
-    setLoading(value: boolean) {
-        if (value) {
-            this.count++;
-            this.isLoading = value;
-        } else {
-            this.count--;
-            if (this.count <= 0) {
-                this.count = 0;
-                this.isLoading = value;
-            }
-        }
-    }
+    //setLoading(value: boolean) {
+    //    if (value) {
+    //        this.count++;
+    //        this.isLoading = value;
+    //    } else {
+    //        this.count--;
+    //        if (this.count <= 0) {
+    //            this.count = 0;
+    //            this.isLoading = value;
+    //        }
+    //    }
+    //}
 
     show() {
         this.count++;
