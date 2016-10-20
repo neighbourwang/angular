@@ -8,6 +8,10 @@ import { SiteComponent } from './architecture/components/site/component/site.com
 // prod_and_svc
 import { ProdAndSvcModule } from './module/prod-and-svc/prod-and-svc.module';
 
+//vm-instance
+import { CloudHostService } from'./module/cloud-host-service/cloud-host-service.module';
+
+
 import { routing } from './app.routing';
 
 @NgModule({
@@ -16,6 +20,7 @@ import { routing } from './app.routing';
     CoreModule,
     CommonComponentModule,
     ProdAndSvcModule,
+    CloudHostService,
     routing
   ],
   declarations: [ MenuComponent, SiteComponent ],
