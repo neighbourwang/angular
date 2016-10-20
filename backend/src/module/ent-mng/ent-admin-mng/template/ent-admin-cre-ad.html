@@ -79,7 +79,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let adminAd of adminAds;" (click)="selectAdminAd(adminAd)">
-                <td><input type="radio" name="group-adminad"  [checked]="adminAd.isSelect" (change)="adminAd.isSelect = $event.target.checked"/></td>
+                <td><input type="radio" name="group-adminad"   class="fox-cloud-radio"  [checked]="adminAd.isSelect" (change)="adminAd.isSelect = $event.target.checked"/></td>
                 <td>{{adminAd.loginName}}</td>
                 <td>{{adminAd.userName}}</td>
                 <td>{{adminAd.type}}</td>
