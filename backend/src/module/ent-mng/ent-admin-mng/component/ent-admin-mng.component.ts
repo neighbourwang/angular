@@ -265,7 +265,7 @@ export class EntAdminMngComponent implements OnInit {
 
     //返回企业列表
     gotoEnterpriseList(admin: Admin) {
-        //  this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-cre/enterprise/${this.enterprise.id}/id/${selectAdmin[0].id}`);
+        this.router.navigateByUrl(`ent-mng/ent-est-mng/ent-est-mng`);
     }
 
     //选中当前管理员
