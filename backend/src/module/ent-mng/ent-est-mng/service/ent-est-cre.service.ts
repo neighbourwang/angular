@@ -230,7 +230,15 @@ export class EntEstCreService{
 				obj.name = source.name;
 				obj.description = source.description;
 			}
-			, null,
+			, (items:EntEstBasicInfo[])=>{
+				let item = items[0];
+				if(item)
+				{
+					entInfo.name = item.name;
+					entInfo.description = item.description;
+					entInfo.id = item.id;
+				}
+			},
 			successHandler);
 		
 	}
