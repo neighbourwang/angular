@@ -46,9 +46,9 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr *ngFor="let item of entEstMng.items">
+				<tr *ngFor="let item of entEstMng.items; let i=index;">
 					<td>
-						<input type="radio" id="radio_" class="radio_" [(ngModel)]="item.checked" value="false">
+						<input type="radio" id="radio_" class="radio_" (change)="selectItem(i)" value="{{i}}" name="entItems">
                         <label for="radio_"></label>
 					</td>
 					<td (click)="checkEnterpriseInfo();">{{item.enterpriseName}}</td>
