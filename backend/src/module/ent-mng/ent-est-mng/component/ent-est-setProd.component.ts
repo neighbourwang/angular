@@ -18,7 +18,8 @@ export class EntEstSetProdComponent implements OnInit {
 
   private entProdItems: Paging<EntProdItem> = new Paging<EntProdItem>();
   private prodItems: Paging<EntProdItem> = new Paging<EntProdItem>();
-
+  private entName:string = "";
+  private entId: string = "";
   constructor(
     private layoutService: LayoutService,
     private router: Router,
@@ -26,6 +27,10 @@ export class EntEstSetProdComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.router.routerState.root.queryParams.subscribe(data=>{
+      this.entName = data["entName"];
+      this.entId = data["entId"];
+    });
    // todo: 加载企业产品
    // todo: 加载产品
   }

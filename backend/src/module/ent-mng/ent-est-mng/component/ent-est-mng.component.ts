@@ -89,12 +89,24 @@ export class EntEstMngComponent implements OnInit {
   composeUrlWithId(url:string, entId:string)
   {
     if(entId)
-      return [url, "?", "entId=", entId].join();
+      return [url, '?', 'entId=', entId].join();
     else
     {
       console.log('composeUrlWithId:entId is empty');
       return url;
     }
+  }
+
+  appendUrlWithEntName(url:string, entName:string):string{
+    if(entName && entName.length >0)
+    {
+      if(url.indexOf("?") > 0)
+        return [url, '&entName=', entName].join('');
+      else
+        return [url, '?entName=', entName].join('');
+    }
+    else
+      return url;
   }
 
   //创建企业
@@ -207,7 +219,7 @@ export class EntEstMngComponent implements OnInit {
   setupProduct(){
     if(this.getSelected())
     {
-      this.router.navigateByUrl(this.composeUrlWithId("ent-mng/ent-est-mng/ent-est-setProd", this.getSelected().id));
+      this.router.navigateByUrl(this.appendUrlWithEntName(this.composeUrlWithId("ent-mng/ent-est-mng/ent-est-setProd", this.getSelected().id), this.getSelected().enterpriseName));
     }
   }
 
