@@ -46,10 +46,10 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr *ngFor="let item of entEstMng.items; let i=index;">
+				<tr *ngFor="let item of entEstMng.items; let i=index">
 					<td>
-						<input type="radio" id="radio_" class="radio_" (change)="selectItem(i)" value="{{i}}" name="entItems">
-                        <label for="radio_"></label>
+						<input type="radio"  [id]="'radio_' + i" class="radio_" name="entItems" (change)="selectItem(i)" value="{{i}}">
+						<label [attr.for]="'radio_' + i"></label>
 					</td>
 					<td (click)="checkEnterpriseInfo();">{{item.enterpriseName}}</td>
 					<td>{{item.vmNum }}</td>
