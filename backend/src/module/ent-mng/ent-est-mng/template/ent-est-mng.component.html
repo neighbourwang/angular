@@ -69,7 +69,7 @@
 	<fc-pagination tp={{entEstMng.totalPages}} (pf)="changePage($event)"></fc-pagination>
 </div>
 <fc-notice #notice ot="确认" (of)="okClicked()"></fc-notice>
-<fc-notice #confirm ot="确认" ct="取消"></fc-notice>
+<fc-confirm #confirm ot="确认" ct="取消" (of)="onConfirmed()"></fc-confirm>
 <!-- 编辑企业 -->
 <fc-popup #editEnt ot="确认" ct="取消" title="编辑企业" (of)="acceptEntModify()" (cf)="cancelEntModify()">
 	<div class="row row-line-height">

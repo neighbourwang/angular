@@ -81,7 +81,7 @@ export class EntEstMngComponent implements OnInit {
       return item;
     else
     {
-      this.notice.open("企业列表", "请选择企业");
+      this.showMsg("请选择企业");
       return null;
     }
   }
@@ -122,10 +122,12 @@ export class EntEstMngComponent implements OnInit {
       let item = this.getSelected();
 
       this.entEst.BasicInfo.reset();
-      this.entEst.BasicInfo.name = item.enterpriseName;
-      this.entEst.BasicInfo.description = item.description;
 
-      this.editEnt.open();
+      this.service.loadEntInfo(this.entEst.BasicInfo
+        , this.showError
+        , ()=>{this.editEnt.open()}
+        , this
+        , this.getSelected().id);
     }
 
   }
@@ -152,8 +154,15 @@ export class EntEstMngComponent implements OnInit {
     console.log('保存编辑');
     if(this.validateEntModify())
     {
-      // todo: 保存编辑
-      // todo: 刷新列表
+      this.service.updateEntInfo(this.entEst.BasicInfo)
+      .then(ret=>{
+        this.search();
+      })
+      .catch(err=>{
+        console.log('保存企业基本信息出错', err);
+        this.showMsg("保存企业基本信息出错");
+        this.okCallback = ()=>{this.editEnt.open();};
+      })
     }
   }
 
@@ -191,15 +200,15 @@ export class EntEstMngComponent implements OnInit {
       let item = this.getSelected();
       this.entEst.ResourceQuota.reset();
 
+      this.editQuota.open();
       this.service.loadEntResourceQuota(this.entEst.ResourceQuota
         , this.showError
+        , ()=>{
+          this.editQuota.open();
+        }
         , this
         , this.getSelected().id
-        )
-      // todo: 需要保存配额数据
-      // todo: 刷新列表
-      // this.entEst.ResourceQuota.physicalMachineQuota = 30;//加载数据
-      this.editQuota.open();
+        );
     }
   }
 
@@ -239,6 +248,16 @@ export class EntEstMngComponent implements OnInit {
   enable(){
     if(this.getSelected())
     {
+      this.confirmedHandler = ()=>{
+        this.service.updateEntStatus(this.getSelected().id, 1)
+        .then(ret=>{
+          this.search();
+        })
+        .catch(err=>{
+          console.log("企业启用失败", err);
+          this.showMsg("企业启用失败");
+        })
+      };
       this.confirm.open("启用企业", ['选择启用"', this.getSelected().enterpriseName, '企业，请确认'].join());
     }
   }
@@ -247,6 +266,16 @@ export class EntEstMngComponent implements OnInit {
   disable(){
     if(this.getSelected())
     {
+      this.confirmedHandler = ()=>{
+        this.service.updateEntStatus(this.getSelected().id, 2)
+        .then(ret=>{
+          this.search();
+        })
+        .catch(err=>{
+          console.log("企业禁用失败", err);
+          this.showMsg("企业禁用失败");
+        })
+      };
       this.confirm.open("禁用企业", ['您选择禁用"', this.getSelected().enterpriseName, '"企业，请确认；如果确认，企业用户将不能进入云管理平台自助服务门户。'].join());
     }
   }
@@ -255,19 +284,36 @@ export class EntEstMngComponent implements OnInit {
   delete(){
     if(this.getSelected())
     {
+      this.confirmedHandler = ()=>{
+        this.service.updateEntStatus(this.getSelected().id, 4)
+        .then(ret=>{
+          this.search();
+        })
+        .catch(err=>{
+          console.log("企业删除失败", err);
+          this.showMsg("企业删除失败");
+        })
+      };
       this.confirm.open("删除企业", ['您选择删除"', this.getSelected().enterpriseName, '"企业，请确认；如果确认，此企业数据将不能恢复。'].join());
     }
   }
 
-checkEnterpriseInfo(){
-  this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-check");
-}
+  checkEnterpriseInfo(){
+    this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-check");
+  }
   //修改配额
   acceptQuotaModify(){
     if(this.validateQuotaModify())
     {
-      // todo: 修改配额api
-      // todo: 刷新列表
+      this.service.updateEntQuota(this.entEst.ResourceQuota)
+      .then(ret=>{
+        this.search();//刷新
+      })
+      .catch(err=>{
+        console.log("修改配额失败", err);
+        this.showMsg("修改配额失败");
+        this.okCallback = ()=>{this.editQuota.open();};
+      });
     }
   }
 
@@ -321,8 +367,15 @@ checkEnterpriseInfo(){
   acceptCertModify(){
     if(this.validateCertModify())
     {
-      // todo: 修改认证api
-      // todo: 刷新列表
+      this.service.updateEntCert(this.entEst.BasicInfo)
+      .then(ret=>{
+        this.search();
+      })
+      .catch(err=>{
+        console.log('认证信息更新失败', err);
+        this.showMsg("认证信息更新失败");
+        this.okCallback = ()=>{this.setupCert.open();};
+      })
     }
   }
 
@@ -367,4 +420,13 @@ checkEnterpriseInfo(){
     this.entEstMng.items[index].checked = true;
   }
 
+  private confirmedHandler:Function = null;
+  //启用，禁用，删除的处理
+  onConfirmed(){
+    if(this.confirmedHandler)
+    {
+      this.confirmedHandler();
+      this.confirmedHandler = null;
+    }
+  }
 }
