@@ -249,7 +249,50 @@ export class EntEstCreService{
 		,caller: any
 		,entId: string):void
 	{
+		let localParams:Array<any> = [
+		{
+			key:"_enterpriseId"
+			,value:entId
+		},
+		{
+			key:"_page"
+			,value:entProdItems.currentPage == 0? 1:entProdItems.currentPage
+		}
+		,{
+			key:"_size"
+			,value:10
+		}
+		];
 
+		this.loadItems(entProdItems
+			, errorHandler
+			, caller
+			, this.restApiCfg.getRestApi("ent-mng.ent-prod-mng.all.get")//这个地址可能需要同罗杰进一步沟通
+			, localParams
+			, "加载企业产品数据"
+			, null
+			, (source, target:EntProdItem[])=>{
+				for(let item of source)
+				{
+					let obj = new EntProdItem();
+					target.push(obj);
+
+					//这里要做转换
+					//界面上绑定的是EntProdItem模型，对应obj
+					//从服务器上获取的数据是item
+					//将item上的值映射到obj上面
+					obj.name = item.name;
+					obj.category = item.category;
+					obj.type = item.type;
+					obj.spec = item.spec;
+					obj.countCycle = item.countCycle;
+					obj.cyclePrice = item.cyclePrice;
+					obj.oneTimePrice = item.oneTimePrice;
+					obj.status = item.status;
+					obj.description = item.description;
+				}
+			}
+			);
 	}
 
 	//加载可用产品信息
@@ -257,6 +300,59 @@ export class EntEstCreService{
 		,errorHandler: Function
 		,caller: any):void
 	{
+		let localParams:Array<any> = [
+		{
+			key:"_page"
+			,value:prodItems.currentPage == 0? 1:prodItems.currentPage
+		}
+		,{
+			key:"_size"
+			,value:10
+		}
+		];
+
+		this.loadItems(prodItems
+			, errorHandler
+			, caller
+			, this.restApiCfg.getRestApi("ent-mng.ent-prod-mng.all.get")//这个地址可能需要同罗杰进一步沟通
+			, localParams
+			, "加载产品数据"
+			, null
+			, (source, target:EntProdItem[])=>{
+				for(let item of source)
+				{
+					let obj = new EntProdItem();
+					target.push(obj);
+
+					//这里要做转换
+					//界面上绑定的是EntProdItem模型，对应obj
+					//从服务器上获取的数据是item
+					//将item上的值映射到obj上面
+					obj.name = item.name;
+					obj.category = item.category;
+					obj.type = item.type;
+					obj.spec = item.spec;
+					obj.countCycle = item.countCycle;
+					obj.cyclePrice = item.cyclePrice;
+					obj.oneTimePrice = item.oneTimePrice;
+					obj.status = item.status;
+					obj.description = item.description;
+				}
+			}
+			);
+	}
+
+	//保存企业产品信息变更
+	updateEntProducts(entProdItems: EntProdItem[])
+	{
+		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.products.put");//这个api要找罗杰要
+
+		let localParams = [];
+		let target:any = {
+			
+		};
+
+		return this.restApi.request(api.method, api.url, localParams, [], target);
 
 	}
 	
