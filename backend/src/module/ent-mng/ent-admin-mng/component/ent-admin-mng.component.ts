@@ -178,8 +178,8 @@ export class EntAdminMngComponent implements OnInit {
 
     //更改用户状态
     change2Status(status: number): void {
-        const selectAdmin = this.admins.filter((admin) => { return admin.isSelect  });
-        if (selectAdmin.length == 0) {
+        const selectAdmin = this.admins.find((admin) => { return admin.isSelect  });
+        if (selectAdmin) {
             this.showAlert(`请先选择需要${status == 1 ? "启用" : "禁用"}的管理员！`);
             return;
         }
@@ -187,12 +187,8 @@ export class EntAdminMngComponent implements OnInit {
         this.noticeTitle = "警告";
         const names = [];
         const ids: string[] = [];
-        selectAdmin.forEach(admin => {
-            names.push(admin.userName);
-            ids.push(admin.id);
-        });
-
-        if (selectAdmin[0].status == status) {
+ 
+        if (selectAdmin.status == status) {
             this.showAlert(`该管理员已经是${this.getDicText(status.toString(), this.statusDic)}状态！`);
             return;
         }
@@ -253,17 +249,17 @@ export class EntAdminMngComponent implements OnInit {
 
     //编辑管理员
     editAdmin() {
-        const selectAdmin = this.admins.filter((admin) => { return admin.isSelect; });
-        if (selectAdmin.length == 0) {
+        const selectAdmin = this.admins.find((admin) => { return admin.isSelect; });
+        if (selectAdmin) {
             this.showAlert("请先选择需要编辑的管理员！");
             return;
         }
         if (this.enterprise.authMode == "0") {
             this.router
-                .navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-cre/enterprise/${this.eid}/id/${selectAdmin[0].id}`);
+                .navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-cre/enterprise/${this.eid}/id/${selectAdmin.id}`);
         } else {
             this.router
-                .navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-cre-ad/enterprise/${this.eid}/id/${selectAdmin[0].id}`);
+                .navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-cre-ad/enterprise/${this.eid}/id/${selectAdmin.id}`);
         }
     }
 
@@ -276,6 +272,28 @@ export class EntAdminMngComponent implements OnInit {
     selectAdmin(admin: Admin) {
         this.admins.forEach(e => { e.isSelect = false; });
         admin.isSelect = true;
+    }
+
+    resetPassword() {
+        this.layoutService.show();
+        const selectAdmin = this.admins.find((admin) => { return admin.isSelect; });
+        if (selectAdmin) {
+            this.showAlert("请先选择需要编辑的管理员！");
+            return;
+        }
+        this.service.resetPassword(selectAdmin)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && "100" == response["resultCode"]) {
+                    this.layoutService.hide();
+                    this.showAlert("密码重置成功");
+                } else {
+                    alert("Res sync error");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
     }
 
     showAlert(msg: string): void {

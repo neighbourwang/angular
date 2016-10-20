@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PaginationComponent } from "../../../../architecture";
 
-import { EntAdminCreADService } from "../service/ent-admin-cre-ad.service";
+import { EntAdminCreService } from "../service/ent-admin-cre.service";
 
 import { EntAdminMngService } from "../service/ent-admin-mng.service";
 
@@ -42,7 +42,7 @@ export class EntAdminCreADComponent implements OnInit {
     @ViewChild("pager")
     pager: PaginationComponent;
     constructor(
-        private service: EntAdminCreADService,
+        private service: EntAdminCreService,
         private mngService: EntAdminMngService,
         private validationService: ValidationService,
         private layoutService: LayoutService,
@@ -65,7 +65,7 @@ export class EntAdminCreADComponent implements OnInit {
 
     ngOnInit() {
     }
-
+    //根据企业id获取企业的基本信息
     getEnterpriseById(id: string) {
         this.layoutService.show();
         this.mngService.getEnterpriseById(id)
@@ -124,7 +124,7 @@ export class EntAdminCreADComponent implements OnInit {
             )
             .catch((e) => this.onRejected(e));
     }
-
+    //创建或者更新管理员信息
     createAndUpdate(): void {
         if (this.validationService.isBlank(this.admin.userName)) {
             this.showAlert("请输入管理员姓名");
@@ -183,17 +183,18 @@ export class EntAdminCreADComponent implements OnInit {
                 .catch((e) => this.onRejected(e));
         }
     }
-
+    //取消返回到管理员列表
     cancel(): void {
         this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-mng/${this.eid}`);
     }
 
-
+    //相应页面点击选中企业管理员，并且把数据绑定到管理员界面上
     selectAdminAd(adminad: AdminAD) {
         this.admin.loginName = adminad.loginName;
         this.admin.userName = adminad.userName;
         this.admin.contactPhone = adminad.phone;
         this.admin.description = adminad.description;
+        this.admin.adUserId = adminad.id;
         this.adminAds.forEach((e) => {
             e.isSelect = false;
         });
