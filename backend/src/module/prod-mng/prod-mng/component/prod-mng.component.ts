@@ -21,8 +21,9 @@ export class ProdMngComponent implements OnInit{
 
 
     constructor(
-        // private layoutService: LayoutService,
+        private layoutService: LayoutService,
         // private service : ClMngListService
+        private router : Router
     ) {}
 
 
@@ -138,11 +139,8 @@ export class ProdMngComponent implements OnInit{
     creation (){
         //跳转
         console.log('create');
-        // this.createProdDir.open('创建产品目录')
+        this.router.navigateByUrl("prod-mng/prod-mng/prod-cre", {skipLocationChange: true});
 
-    }
-    otcreate(){
-        // this.router.navigateByUrl("prod-mng/prod-dir-mng/prod-dir-cre", {skipLocationChange: true});
     }
 
 

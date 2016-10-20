@@ -7,7 +7,8 @@ import { NgModule } from '@angular/core';
 import { CommonComponentModule } from '../../../architecture';
 
 //Components
-import { ProdMngComponent } from './component/prod-mng.component.ts';
+import { ProdMngComponent } from './component/prod-mng.component';
+import { ProdCreComponent } from './component/prod-cre.component';
 
 // Routing
 import { ProdMngRouting } from './prod-mng.routing.ts';
@@ -21,7 +22,8 @@ import { ProdMngRouting } from './prod-mng.routing.ts';
         ProdMngRouting
     ],
     declarations: [
-        ProdMngComponent
+        ProdMngComponent,
+        ProdCreComponent
     ],
     exports: [
     ],

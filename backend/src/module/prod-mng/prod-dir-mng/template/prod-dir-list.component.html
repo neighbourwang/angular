@@ -1,7 +1,7 @@
 <div class="page-content-header icon-content-header-platform-manage">产品目录管理</div>
 <div class="page-content">
     <div style="padding-bottom: 10px;">
-        <div class="dropdown pull-right">
+        <div class="dropdown pull-right" style="margin-left: 20px">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 更多操作
                 <span class="caret"></span>
@@ -14,23 +14,23 @@
                 <li><a (click)="action('delete');">删除</a></li>
             </ul>
         </div>
-        <button class="pull-right fox-cloud-button-md fox-cloud-button-white">查询</button>
+        <button class="pull-right fox-cloud-button-md fox-cloud-button-white" style="line-height:28px ;width:60px; margin-left: 20px">查询</button>
 
-        <div class="dropdown pull-right">
+        <div class="dropdown pull-right" style="margin-left: 10px">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 所有平台
                 <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="margin-left: 20px">
                 <!--<li><a href="#">修改</a></li>-->
                 <li><a >删除</a></li>
                 <li><a >启用</a></li>
                 <li><a >禁用</a></li>
             </ul>
         </div>
-        <span class="pull-right">平台：</span>
+        <span class="pull-right" style="line-height: 34px;margin-left: 20px">平台：</span>
 
-        <div class="dropdown pull-right">
+        <div class="dropdown pull-right" style="margin-left: 10px">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 更多操作
                 <span class="caret"></span>
@@ -42,7 +42,7 @@
                 <li><a >禁用</a></li>
             </ul>
         </div>
-        <span class="pull-right">产品目录类别：</span>
+        <span class="pull-right" style="line-height: 34px">产品目录类别：</span>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">创建产品目录</span>
@@ -84,10 +84,10 @@
 <fc-popup #createProdDir title="{{title}}" ot="创建" (of)="otcreate()" ct="取消" (cf)="ccf()">
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-6 form-control-title"><span class="asterisk">*</span>产品目录类别：</div>
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>产品目录类别：</div>
             <div class="col-sm-6">
-                <select name="" id="">
-                    <option value="">云主机服务</option>
+                <select class="form-control" [(ngModel)]="entResQuota">
+                    <option *ngFor="let item of regions;" [value]="item.id">云主机服务</option>
                 </select>
             </div>
         </div>
