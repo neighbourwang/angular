@@ -64,7 +64,7 @@ export class EntAdminCreComponent implements OnInit {
                 }
             }
             )
-            .catch(() => (e) => this.onRejected(e));
+            .catch( (e) => this.onRejected(e));
     }
 
     getAdminById(id: string) {
@@ -80,7 +80,7 @@ export class EntAdminCreComponent implements OnInit {
                 }
             }
             )
-            .catch(() => (e) => this.onRejected(e));
+            .catch((e) => this.onRejected(e));
     }
 
     createAndUpdate(): void {

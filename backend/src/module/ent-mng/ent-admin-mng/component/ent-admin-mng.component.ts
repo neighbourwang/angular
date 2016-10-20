@@ -246,7 +246,7 @@ export class EntAdminMngComponent implements OnInit {
         if (this.enterprise.authMode == "0") {
             this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-cre/enterprise/${this.eid}`);
         } else {
-            this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-cre-AD/enterprise/${this.eid}`);
+            this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-cre-ad/enterprise/${this.eid}`);
         }
 
     }
@@ -263,7 +263,7 @@ export class EntAdminMngComponent implements OnInit {
                 .navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-cre/enterprise/${this.eid}/id/${selectAdmin[0].id}`);
         } else {
             this.router
-                .navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-cre-AD/enterprise/${this.eid}/id/${selectAdmin[0].id}`);
+                .navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-cre-ad/enterprise/${this.eid}/id/${selectAdmin[0].id}`);
         }
     }
 

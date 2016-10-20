@@ -19,11 +19,11 @@ export const EntAdminMngRouting: ModuleWithProviders = RouterModule.forChild([
         component: EntAdminCreComponent
     },
     {
-        path: 'ent-mng/ent-admin-mng/ent-admin-cre-AD/enterprise/:eid/id/:aid',
+        path: 'ent-mng/ent-admin-mng/ent-admin-cre-ad/enterprise/:eid/id/:aid',
         component: EntAdminCreADComponent
     },
     {
-        path: 'ent-mng/ent-admin-mng/ent-admin-cre-AD/enterprise/:eid',
+        path: 'ent-mng/ent-admin-mng/ent-admin-cre-ad/enterprise/:eid',
         component: EntAdminCreADComponent
     }
 ]);
