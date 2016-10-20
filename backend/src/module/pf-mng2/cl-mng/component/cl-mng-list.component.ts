@@ -215,9 +215,14 @@ export class ClMngListComponent implements OnInit {
                 }
                 this.layoutService.hide();
             }
-        ).catch(function () {
-                // this.notice.open('错误','获取信息错误');
-                console.error('error');
+        ).catch(
+            // function () {
+            //     // this.notice.open('错误','获取信息错误');
+            //     console.error('error');
+            // }
+            err => {
+                this.layoutService.hide();
+                this.notice.open('错误','获取信息错误');
             }
         );
     }
