@@ -30,6 +30,8 @@ export class EntEstSetProdComponent implements OnInit {
     this.router.routerState.root.queryParams.subscribe(data=>{
       this.entName = data["entName"];
       this.entId = data["entId"];
+
+      this.refreshData();
     });
    // todo: 加载企业产品
    // todo: 加载产品
@@ -54,6 +56,42 @@ export class EntEstSetProdComponent implements OnInit {
   //返回企业列表
   return(){
     this.router.navigateByUrl('ent-mng/ent-est-mng/ent-est-mng');
+  }
+
+  showError(msg:any) {
+    this.notice.open(msg.title, msg.desc);
+  }
+
+  changePage_ProdItems(page: number) {
+
+    page = page < 1 ? 1 : page;
+    page = page > this.prodItems.totalPages ? this.prodItems.totalPages : page;
+
+    if (this.prodItems.currentPage == page) {
+      return;
+    }
+
+    this.prodItems.currentPage = page;
+    this.service.loadAvailProdItems(this.prodItems, this.showError, this); 
+  }
+
+  changePage_EntProdItems(page: number) {
+
+    page = page < 1 ? 1 : page;
+    page = page > this.entProdItems.totalPages ? this.entProdItems.totalPages : page;
+
+    if (this.entProdItems.currentPage == page) {
+      return;
+    }
+
+    this.entProdItems.currentPage = page;
+    this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId); 
+  }
+
+  refreshData(){
+    this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId); 
+    this.service.loadAvailProdItems(this.prodItems, this.showError, this); 
+
   }
 
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RestApiCfg, RestApi } from '../../../../architecture';
 import { RestApiModel } from '../../../../architecture/core/model/rest';
-import { EntEstItem, EntEst, EntEstResourceQuota, ResourceQuota, EntEstBasicInfo } from '../model';
+import { EntEstItem, EntProdItem, EntEst, EntEstResourceQuota, ResourceQuota, EntEstBasicInfo } from '../model';
 import { LayoutService, ValidationService, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
@@ -152,8 +152,6 @@ export class EntEstCreService{
 		}
 		];
 
-		//ent-mng.ent-est-mng.enterprise.resourcequota.get
-
 		let entResourceQuotas: Paging<EntEstResourceQuota> = new Paging<EntEstResourceQuota>();
 
 
@@ -191,6 +189,23 @@ export class EntEstCreService{
 					entResourceQuota.imageQuota = item.imageQuota;
 				}
 			});
+	}
+
+	//加载企业产品信息
+	loadEntProdItems(entProdItems: Paging<EntProdItem>
+		,errorHandler:Function
+		,caller: any
+		,entId: string):void
+	{
+
+	}
+
+	//加载可用产品信息
+	loadAvailProdItems(prodItems: Paging<EntProdItem>
+		,errorHandler: Function
+		,caller: any):void
+	{
+
 	}
 	
 
