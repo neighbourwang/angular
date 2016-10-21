@@ -266,3 +266,13 @@
 	font-weight: bold;
 	border-bottom: solid 1px #C1CACA;
 }
+.dialogContent{
+    width: 500px;
+    position: relative;
+    left: -30px;
+}
+.testPanel{
+     width: 600px;
+    text-align: center;
+    padding-top: 30px;
+}
