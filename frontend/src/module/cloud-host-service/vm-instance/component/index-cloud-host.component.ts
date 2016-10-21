@@ -9,7 +9,7 @@ import { Vm } from '../model/vm';
 @Component({
   selector: 'index-cloud-host',
   templateUrl: '../template/index-cloud-host.component.html',
-  styleUrls: [],
+  styleUrls: ['../style/index-cloud-host.less'],
 })
 export class IndexCloudHostComponent implements OnInit {
 
