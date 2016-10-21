@@ -42,7 +42,7 @@ export class EntEstSetProdComponent implements OnInit {
   {
     this.entProdItems.items.splice(this.entProdItems.items.indexOf(entProdItem), 1);
     this.prodItems.items.push(entProdItem);
-    // todo: 更新企业产品到服务器api
+    this.saveChanges();
   }
 
   //添加产品
@@ -50,7 +50,20 @@ export class EntEstSetProdComponent implements OnInit {
   {
     this.entProdItems.items.push(prodItem);
     this.prodItems.items.splice(this.prodItems.items.indexOf(prodItem), 1);
-    // todo: 更新企业产品到服务器api
+    this.saveChanges();
+  }
+
+  //保存企业产品的变更
+  saveChanges()
+  {
+    this.service.updateEntProducts(this.entProdItems.items)
+    .then(ret=>{
+
+    })
+    .catch(err=>{
+      console.log("保存企业产品变更失败", err);
+      this.showMsg("保存企业产品变更失败");
+    })
   }
   
   //返回企业列表
@@ -60,6 +73,11 @@ export class EntEstSetProdComponent implements OnInit {
 
   showError(msg:any) {
     this.notice.open(msg.title, msg.desc);
+  }
+
+  showMsg(msg: string)
+  {
+    this.notice.open("系统提示", msg);
   }
 
   changePage_ProdItems(page: number) {
