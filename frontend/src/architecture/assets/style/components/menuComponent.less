@@ -12,47 +12,40 @@
     }
     .top1-menu {
         background-position: 85%;
-        padding: 0px 0px 0px 0px;
+        padding: 10px 0;
         font-size: 16px;
         /*color: @white-color;*/
         border-bottom: 1px solid @ddd-color;
         position: relative;
         span {
-            padding: 5px 0px 5px 46px;
+            padding: 5px 0px 5px 26px;
             font-size: 16px;
             /*color: @white-color;*/
             height: 46px;
             line-height: 46px;
         }
-        span.glyphicon-chevron-down, span.glyphicon-chevron-right {
-            position: absolute;
-            top: 0px;
-            right: 15px;
-            font-size: 14px;
-        }
         .top-menu-open .top3-menu {
             display: block;
+        }
+        .menu-icon {
+            width: 26px;
+            height: 26px;
+            display: inline-block;
+            vertical-align: middle;
+            padding: 0;
+            margin: 0 10px 0 0;
         }
     }
     .top1-menu-trigger, .top1-menu-trigger span{
         cursor: pointer;
     }
-    .top1-menu-trigger span {
-        background-size: 20px auto
-    }
     .top2-menu {
         position: relative;
         display: block;
         display: none;
-        span.glyphicon-chevron-down, span.glyphicon-chevron-right {
-            position: absolute;
-            top: 0px;
-            right: 30px;
-            font-size: 14px;
-        }
     }
     .top2-menu-trigger {
-        padding: 0px 0px 0px 15px;
+        padding: 0 0 0 35px;
         font-size: 20px;
         /*color: @white-color;*/
         cursor: pointer;
@@ -64,7 +57,12 @@
         }
         &:hover {
             background-color: @mainColor;
+            color: @white-color;
         }
+    }
+    .top2-menu-trigger.active {
+         background-color: @mainColor;
+         color: @white-color;
     }
     .top3-menu {
         padding: 0px 0px 0px 90px;
@@ -78,7 +76,7 @@
         display: none;
         &:hover {
             background-color: @mainColor;
-            /*color: @white-color;*/
+            color: @white-color;
         }
     }
     .top-menu-active {

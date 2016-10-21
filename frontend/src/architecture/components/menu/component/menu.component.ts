@@ -71,50 +71,24 @@ const menu: Array<any> = [
     {
         "label": "云主机服务",
         "isOpen": true,
-        "icon": "icon-product-and-service",
+        "icon": "icon-cloudhost",
         "top2_menu": [
             {
-                "label": "虚拟机实例",
+                "label": "创建云主机",
                 "isOpen": true,
                 "routing": "cloud-host-service/vm-instance/index-cloud-host"
-            }
-        ]
-    },
-    {
-        "label": "产品与服务",
-        "isOpen": true,
-        "icon": "icon-product-and-service",
-        "top2_menu": [
-            {
-                "label": "云主机",
-                "isOpen": true,
-                "routing": "",
-                "top3_menu": [
-                    {
-                        "label": "概览",
-                        "routing": "prod-and-svc/cloud-host/cloud-host-general-view"
-                    },
-                    {
-                        "label": "订购",
-                        "routing": "prod-and-svc/cloud-host/cloud-host-order"
-                    },
-                    {
-                        "label": "实例列表",
-                        "routing": "prod-and-svc/cloud-host/cloud-host-ins-list"
-                    },
-                ]
             },
             {
-                "label": "云硬盘",
-                "isOpen": false,
-                "routing": ""
+                "label": "云主机列表",
+                "isOpen": true,
+                "routing": "prod-and-svc/cloud-host/cloud-host-ins-list"
             }
         ]
     },
     {
-        "label": "用户中心",
+        "label": "物理机服务",
         "isOpen": true,
-        "icon": "icon-user-center",
+        "icon": "icon-machine",
         "top2_menu": [
             {
                 "label": "账号管理",
@@ -129,9 +103,9 @@ const menu: Array<any> = [
         ]
     },
     {
-        "label": "管理员中心",
+        "label": "负载均衡服务器",
         "isOpen": true,
-        "icon": "icon-administrator-center",
+        "icon": "icon-loadbalance",
         "top2_menu": [
             {
                 "label": "账户管理",
@@ -164,5 +138,87 @@ const menu: Array<any> = [
                 "routing": ""
             }
         ]
+    },
+    {
+        "label": "审批中心",
+        "isOpen": true,
+        "icon": "icon-check",
+        "top2_menu": [
+            {
+                "label": "账号管理",
+                "isOpen": false,
+                "routing": ""
+            },
+            {
+                "label": "费用中心",
+                "isOpen": false,
+                "routing": ""
+            }
+        ]
+    },
+    {
+        "label": "费用中心",
+        "isOpen": true,
+        "icon": "icon-cost",
+        "top2_menu": [
+            {
+                "label": "账号管理",
+                "isOpen": false,
+                "routing": ""
+            },
+            {
+                "label": "费用中心",
+                "isOpen": false,
+                "routing": ""
+            }
+        ]
+    },
+    {
+        "label": "用户中心",
+        "isOpen": true,
+        "icon": "icon-user",
+        "top2_menu": [
+            {
+                "label": "账号管理",
+                "isOpen": false,
+                "routing": ""
+            },
+            {
+                "label": "费用中心",
+                "isOpen": false,
+                "routing": ""
+            }
+        ]
     }
+    // {
+    //     "label": "产品与服务",
+    //     "isOpen": true,
+    //     "icon": "icon-product-and-service",
+    //     "top2_menu": [
+    //         {
+    //             "label": "云主机",
+    //             "isOpen": true,
+    //             "routing": "",
+    //             "top3_menu": [
+    //                 {
+    //                     "label": "概览",
+    //                     "routing": "prod-and-svc/cloud-host/cloud-host-general-view"
+    //                 },
+    //                 {
+    //                     "label": "订购",
+    //                     "routing": "prod-and-svc/cloud-host/cloud-host-order"
+    //                 },
+    //                 {
+    //                     "label": "实例列表",
+    //                     "routing": "prod-and-svc/cloud-host/cloud-host-ins-list"
+    //                 },
+    //             ]
+    //         },
+    //         {
+    //             "label": "云硬盘",
+    //             "isOpen": false,
+    //             "routing": ""
+    //         }
+    //     ]
+    // },
 ];
