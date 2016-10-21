@@ -155,7 +155,6 @@ export class ProdDirListComponent implements OnInit{
     //去编辑详情
     goDetail(item){
         console.log(item);
-        this.router.navigateByUrl("prod-mng/prod-dir-mng/prod-dir-cre", {skipLocationChange: true});
     }
 
 

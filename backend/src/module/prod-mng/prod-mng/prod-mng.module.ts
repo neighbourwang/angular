@@ -2,7 +2,6 @@
  * Created by wangyao on 2016/10/18.
  */
 import { NgModule } from '@angular/core';
-
 // Common Components ../../../architecture
 import { CommonComponentModule } from '../../../architecture';
 

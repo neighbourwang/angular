@@ -9,7 +9,7 @@ import { PaginationComponent } from './pagination/component/pagination.component
 import { NoticeComponent } from './dialog/component/notice.component';
 import { ConfirmComponent } from './dialog/component/confirm.component';
 import { PopupComponent } from './dialog/component/popup.component';
-
+import { CountBarComponent} from './countBar/component/count-bar.component'
 
 @NgModule({
     imports: [
@@ -21,7 +21,8 @@ import { PopupComponent } from './dialog/component/popup.component';
         PaginationComponent,
         NoticeComponent,
         ConfirmComponent,
-        PopupComponent
+        PopupComponent,
+        CountBarComponent
     ],
     exports: [
         CommonModule,
@@ -30,7 +31,8 @@ import { PopupComponent } from './dialog/component/popup.component';
         PaginationComponent,
         NoticeComponent,
         ConfirmComponent,
-        PopupComponent
+        PopupComponent,
+        CountBarComponent
     ]
 })
 export class CommonComponentModule { }

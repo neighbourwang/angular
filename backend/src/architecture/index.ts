@@ -3,6 +3,7 @@ export * from './components/dialog/component/confirm.component';
 export * from './components/dialog/component/popup.component'
 export * from './components/pagination/component/pagination.component';
 export * from './components/spinner/component/spinner.component';
+export * from './components/countBar/component/count-bar.component';
 export * from './components/common.module';
 export * from './core/service/layout.service';
 export * from './core/service/restapicfg.service';

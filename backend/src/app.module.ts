@@ -1,5 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import {CoreModule} from './architecture/core/core.module';
 import {CommonComponentModule} from './architecture/components/common.module';
@@ -33,6 +34,7 @@ import {routing} from './app.routing';
         PfMngModule2,
         MainProdMngModule,
         EntProdMngModule,
+        FormsModule,
         routing
     ],
     declarations: [MenuComponent, SiteComponent],
