@@ -51,12 +51,12 @@ export class EntEstCreComponent implements OnInit{
 
 	selectLocal(){
 		this.isLocal = true;
-		this.entEst.BasicInfo.certMethod = "local";
+		this.entEst.BasicInfo.certMethod = "0";
 	}
 
 	selectAD(){
 		this.isLocal = false;
-		this.entEst.BasicInfo.certMethod = "ad";
+		this.entEst.BasicInfo.certMethod = "1";
 	}
 
 	//数据验证

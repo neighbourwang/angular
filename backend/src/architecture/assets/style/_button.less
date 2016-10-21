@@ -1,12 +1,12 @@
 /********Button Start*************/
 .fox-cloud-button, .fox-cloud-button-sm .fox-cloud-button-lg {
-	cursor: pointer;
+    cursor: pointer;
     text-align: center;
 }
 
 .fox-cloud-button-sm {
-	line-height: 20px;
-	padding: 0px 15px;
+    line-height: 20px;
+    padding: 0px 15px;
 }
 
 .fox-cloud-button-sm span {
@@ -14,8 +14,8 @@
 }
 
 .fox-cloud-button {
-	line-height: 30px;
-	padding: 0px 15px;
+    line-height: 30px;
+    padding: 0px 15px;
 }
 
 .fox-cloud-button span {
@@ -23,8 +23,8 @@
 }
 
 .fox-cloud-button-lg {
-	line-height: 45px;
-	padding: 0px 30px;
+    line-height: 45px;
+    padding: 0px 30px;
 }
 
 .fox-cloud-button-lg span {
@@ -32,53 +32,97 @@
 }
 
 .fox-cloud-button-grey {
-	background-color: #eff4f8;
-	border: solid 1px #c1c2c3;
+    background-color: #eff4f8;
+    border: solid 1px #c1c2c3;
 }
 
 .fox-cloud-button-grey:hover {
-	color: #00a982;
-	border: solid 1px #00a982;
+    color: #00a982;
+    border: solid 1px #00a982;
 }
 
 .fox-cloud-button-green {
-	background-color: #00a982;
-	border: solid 1px #00a982;
-	color: #ffffff;
+    background-color: #00a982;
+    border: solid 1px #00a982;
+    color: #ffffff;
 }
 
 .fox-cloud-button-green:hover {
-	background-color: #ffffff;
+    background-color: #ffffff;
 }
 
 .fox-cloud-button-white {
-	background-color: #ffffff;
-	border: solid 2px #00a982;
+    background-color: #ffffff;
+    border: solid 2px #00a982;
 }
 
 .fox-cloud-button-white:hover {
-	background-color: #00a982;
-	color: #ffffff;
+    background-color: #00a982;
+    color: #ffffff;
 }
 
 .fox-cloud-button:hover {
-	color: #00a982;
-	border: solid 1px #00a982;
+    color: #00a982;
+    border: solid 1px #00a982;
 }
 
 .fox-cloud-button-bg:hover {
-	color: #00a982;
-	background-color: #ffffff;
-	border: solid 1px #00a982;
+    color: #00a982;
+    background-color: #ffffff;
+    border: solid 1px #00a982;
 }
 
 .icon-button-label {
-	font-size: 20px;
+    font-size: 20px;
 }
+
 .icon-left-button-label {
-	padding: 0px 0px 0px 5px;
+    padding: 0px 0px 0px 5px;
 }
+
 .icon-right-button-label {
-	padding: 0px 30px 0px 0px;
+    padding: 0px 30px 0px 0px;
 }
 /********Button End*************/
+
+
+/**********radio start*********/
+.fox-cloud-radio {
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.fox-cloud-radio:after {
+    content: " ";
+    background-color: #00a982;
+    border: 1px solid #C1CACA;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    top: -4px;
+    left: -4px;
+}
+
+
+.fox-cloud-radio:checked:after {
+    content: '\2714';
+    font-weight:bold;
+    color: white;
+    line-height: 18px;
+    background-color: #00a982;
+    border: 1px solid #C1CACA;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    top: -4px;
+    left: -4px;
+    text-align:center;
+}
+/**********radio end*********/

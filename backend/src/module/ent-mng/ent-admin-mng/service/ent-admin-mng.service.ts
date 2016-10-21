@@ -36,7 +36,7 @@ export class EntAdminMngService {
 
 
         const api = this.restApiCfg.getRestApi("ent-mng.admin.all.get");
-        return this.restApi.request(api.method, api.url,pathParams,null,null);
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
 
 
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => adminList);
@@ -57,9 +57,9 @@ export class EntAdminMngService {
                 value: pageSize
             }
         ];
-        //const api = this.restApiCfg.getRestApi("ent-mng.enterprise.admin.get");
-        //return this.restApi.request(api.method, api.url,pathParams,null,null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => adminList);
+        const api = this.restApiCfg.getRestApi("ent-mng.enterprise.admin.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => adminList);
     }
 
     updateAdminsStatus(admins: Admin[], status: number): Promise<any> {
@@ -72,13 +72,13 @@ export class EntAdminMngService {
         ];
 
         const api = this.restApiCfg.getRestApi("ent-mng.admin.updateStatus.put");
-        return this.restApi.request(api.method, api.url,pathParams,null,admins);
+        return this.restApi.request(api.method, api.url, pathParams, null, admins);
 
 
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => adminList);
     }
 
-    updateAdminStatus(admin:Admin, status: number): Promise<any> {
+    updateAdminStatus(admin: Admin, status: number): Promise<any> {
 
         const pathParams = [
             {
@@ -102,12 +102,12 @@ export class EntAdminMngService {
 
 
         const api = this.restApiCfg.getRestApi("ent-mng.admin.del.delete");
-        return this.restApi.request(api.method, api.url,null,null,admins);
+        return this.restApi.request(api.method, api.url, null, null, admins);
 
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => adminList);
     }
 
-    deleteAdmin(id:string): Promise<any> {
+    deleteAdmin(id: string): Promise<any> {
         const pathParams = [
             {
                 key: "id",
@@ -115,7 +115,7 @@ export class EntAdminMngService {
             }
         ];
         const api = this.restApiCfg.getRestApi("ent-mng.admin.delOne.delete");
-        return this.restApi.request(api.method, api.url, pathParams,null,null);
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
 
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => adminList);
     }
@@ -127,9 +127,9 @@ export class EntAdminMngService {
                 value: id
             }
         ];
-     //const api = this.restApiCfg.getRestApi("ent-mng.admin.enterprise.simple.get");
-     //   return this.restApi.request(api.method, api.url, pathParams,null,null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => enterpriseOne);
+        const api = this.restApiCfg.getRestApi("ent-mng.admin.enterprise.simple.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        // return new Promise(resovle => setTimeout(resovle, 200)).then(() => enterpriseOne);
     }
 
     resetPassword(admin: Admin) {
@@ -139,9 +139,9 @@ export class EntAdminMngService {
                 value: admin.id
             }
         ];
-        //const api = this.restApiCfg.getRestApi("ent-mng.admin.resetPassword.put");
-        //return this.restApi.request(api.method, api.url, pathParams,null,null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => enterpriseOne);
+        const api = this.restApiCfg.getRestApi("ent-mng.admin.resetPassword.put");
+        return this.restApi.request(api.method, api.url, pathParams,null,null);
+       // return new Promise(resovle => setTimeout(resovle, 200)).then(() => enterpriseOne);
     }
 
 }

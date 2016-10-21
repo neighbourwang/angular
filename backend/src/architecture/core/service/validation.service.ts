@@ -33,8 +33,7 @@ export class ValidationService {
 
     //是否固话
     isTel(val: any): boolean {
-        const reg = /^(\(\d{3,4}\)-)|(\d{3,4}-)?\d{7,8}$/;
-
+        const reg = /^(0[0-9]{2,3}-)?([2-9][0-9]{6,7})+(-[0-9]{1,4})?$/;
         return reg.test(val);
     }
 }

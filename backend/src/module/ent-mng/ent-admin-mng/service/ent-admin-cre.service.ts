@@ -31,9 +31,9 @@ export class EntAdminCreService {
                 value: id
             }
         ];
-        //const api = this.restApiCfg.getRestApi("ent-mng.admin.get");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => getAdminByIdRes);
+        const api = this.restApiCfg.getRestApi("ent-mng.admin.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => getAdminByIdRes);
     }
 
     getEnterprise(): Promise<any> {
@@ -65,11 +65,11 @@ export class EntAdminCreService {
             }
         ];
 
-        //const api = this.restApiCfg.getRestApi("ent-mng.admin.cre.post");
-        //return this.restApi.request(api.method, api.url, pathParams, null, admin);
+        const api = this.restApiCfg.getRestApi("ent-mng.admin.cre.post");
+        return this.restApi.request(api.method, api.url, pathParams, null, admin);
 
 
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => createAdminRes);
+       // return new Promise(resovle => setTimeout(resovle, 200)).then(() => createAdminRes);
     }
 
     updateAdmin(admin: Admin): Promise<any> {
@@ -79,10 +79,10 @@ export class EntAdminCreService {
                 value: admin.id
             }
         ];
-        //const api = this.restApiCfg.getRestApi("ent-mng.admin.update.put");
-        //return this.restApi.request(api.method, api.url, pathParams, null, admin);
+        const api = this.restApiCfg.getRestApi("ent-mng.admin.update.put");
+        return this.restApi.request(api.method, api.url, pathParams, null, admin);
 
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => updateAdminRes);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => updateAdminRes);
     }
 
     getEnterpriseADAdmins(enterpriseId: string, pageIndex: number, pageSize: number): Promise<any> {
@@ -100,9 +100,9 @@ export class EntAdminCreService {
                 value: pageSize
             }
         ];
-        //const api = this.restApiCfg.getRestApi("ent-mng.enterprise.admin.get");
-        //return this.restApi.request(api.method, api.url,pathParams,null,null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => adadminList);
+        const api = this.restApiCfg.getRestApi("ent-mng.enterprise.adadmin.get");
+        return this.restApi.request(api.method, api.url,pathParams,null,null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => adadminList);
     }
 
 }
