@@ -44,7 +44,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th><input type="checkbox">选择</th>
+                    <th><input type="checkbox" class="fox-cloud-checkbox">选择</th>
                     <th>企业名称</th>
                     <th>区域</th>
                     <th>产品名称</th>
@@ -56,7 +56,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let item of datas">
-                    <td><input type="checkbox" [(ngModel)]="item.isSelected" /></td>
+                    <td><input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="item.isSelected" /></td>
                     <td>{{item.enterpriseName}}</td>
                     <td>{{item.regionName}}</td>
                     <td>{{item.name}}</td>

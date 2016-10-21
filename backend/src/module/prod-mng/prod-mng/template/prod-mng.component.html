@@ -77,7 +77,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let item of prodList; let idx = index;">
-                <td><input type="checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)" /></td>
+                <td><input  class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)" /></td>
                 <td>{{item.serviceName}}</td>
                 <td>{{item.serviceName}}</td>
                 <td>{{item.serviceName}}</td>
