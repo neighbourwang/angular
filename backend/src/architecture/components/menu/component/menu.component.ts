@@ -100,45 +100,45 @@ const menu: Array<Object> = [
       },
     ]
   },
+    // {
+    //     "label": "平台管理中心",
+    //     "isOpen": true,
+    //     "icon": "icon-platform-manage",
+    //     "top2_menu": [
+    //         {
+    //             "label": "平台接入管理",
+    //             "isOpen": false,
+    //             "isActive": false,
+    //             "routing": "pf-mng/pf-conn-mng/pf-conn-mng"
+    //         },
+    //         {
+    //             "label": "平台系统",
+    //             "isOpen": false,
+    //             "isActive": false,
+    //             "routing": ""
+    //         },
+    //         {
+    //             "label": "服务目录管理",
+    //             "isOpen": true,
+    //             "isActive": false,
+    //             "routing": "",
+    //             "top3_menu": [
+    //                 {
+    //                     "label": "概览",
+    //                     "routing": "pf-mng/svc-dir-mng/svc-dir-mng",
+    //                     "isActive": false
+    //                 },
+    //                 {
+    //                     "label": "创建",
+    //                     "routing": "pf-mng/svc-dir-mng/svc-dir-cre-step-01",
+    //                     "isActive": false
+    //                 }
+    //             ]
+    //         }
+    //     ]
+    // },
     {
-        "label": "平台管理中心",
-        "isOpen": true,
-        "icon": "icon-platform-manage",
-        "top2_menu": [
-            {
-                "label": "平台接入管理",
-                "isOpen": false,
-                "isActive": false,
-                "routing": "pf-mng/pf-conn-mng/pf-conn-mng"
-            },
-            {
-                "label": "平台系统",
-                "isOpen": false,
-                "isActive": false,
-                "routing": ""
-            },
-            {
-                "label": "服务目录管理",
-                "isOpen": true,
-                "isActive": false,
-                "routing": "",
-                "top3_menu": [
-                    {
-                        "label": "概览",
-                        "routing": "pf-mng/svc-dir-mng/svc-dir-mng",
-                        "isActive": false
-                    },
-                    {
-                        "label": "创建",
-                        "routing": "pf-mng/svc-dir-mng/svc-dir-cre-step-01",
-                        "isActive": false
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "label": "企业管理中心",
+        "label": "企业管理",
         "isOpen": true,
         "icon": "icon-enterprise-manage",
         "top2_menu": [
@@ -147,44 +147,44 @@ const menu: Array<Object> = [
                 "isOpen": false,
                 "isActive": false,
                 "routing": "ent-mng/ent-est-mng/ent-est-mng"
-            },
-            {
-                "label": "企业资源配额管理",
-                "isOpen": false,
-                "isActive": false,
-                "routing": "ent-mng/ent-res-quota-mng/ent-res-quota-mng"
-            },
-            {
-                "label": "企业产品管理",
-                "isOpen": false,
-                "isActive": false,
-                "routing": "ent-mng/ent-prod-mng/ent-prod-mng"
-            },
-            {
-                "label": "企业管理员",
-                "isOpen": false,
-                "isActive": false,
-                "routing": "ent-mng/ent-admin-mng/ent-admin-mng/ac25dfeb-d727-40a3-842f-dca8ab0409c0"
             }
-        ]
-    },
-    {
-        "label": "订单管理中心",
-        "isOpen": true,
-        "icon": "icon-order-manage",
-        "top2_menu": [
-            {
-                "label": "订单管理",
-                "isOpen": false,
-                "isActive": false,
-                "routing": ""
-            },
-            {
-                "label": "账单与报表",
-                "isOpen": false,
-                "isActive": false,
-                "routing": ""
-            }
+            // {
+            //     "label": "企业资源配额管理",
+            //     "isOpen": false,
+            //     "isActive": false,
+            //     "routing": "ent-mng/ent-res-quota-mng/ent-res-quota-mng"
+            // },
+            // {
+            //     "label": "企业产品管理",
+            //     "isOpen": false,
+            //     "isActive": false,
+            //     "routing": "ent-mng/ent-prod-mng/ent-prod-mng"
+            // },
+            // {
+            //     "label": "企业管理员",
+            //     "isOpen": false,
+            //     "isActive": false,
+            //     "routing": "ent-mng/ent-admin-mng/ent-admin-mng/ac25dfeb-d727-40a3-842f-dca8ab0409c0"
+            // }
         ]
     }
+    // {
+    //     "label": "订单管理中心",
+    //     "isOpen": true,
+    //     "icon": "icon-order-manage",
+    //     "top2_menu": [
+    //         {
+    //             "label": "订单管理",
+    //             "isOpen": false,
+    //             "isActive": false,
+    //             "routing": ""
+    //         },
+    //         {
+    //             "label": "账单与报表",
+    //             "isOpen": false,
+    //             "isActive": false,
+    //             "routing": ""
+    //         }
+    //     ]
+    // }
 ];
