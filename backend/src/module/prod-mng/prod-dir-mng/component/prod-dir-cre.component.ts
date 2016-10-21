@@ -21,7 +21,15 @@ export class ProdDirCreComponent implements OnInit {
     ngOnInit (){
         console.log('init');
     }
-    
-   
+
+
+    cancel() {
+    this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng',{skipLocationChange: true})
+}
+
+    onSubmit() {
+        this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng',{skipLocationChange: true})
+    }
+
 
 }

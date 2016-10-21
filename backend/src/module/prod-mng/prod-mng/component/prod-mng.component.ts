@@ -142,7 +142,11 @@ export class ProdMngComponent implements OnInit{
         this.router.navigateByUrl("prod-mng/prod-mng/prod-cre", {skipLocationChange: true});
 
     }
-
+    //去编辑详情页面
+    goDetail(item){
+        console.log(item);
+        this.router.navigateByUrl("prod-mng/prod-mng/prod-cre", {skipLocationChange: true});
+    }
 
     backend(page: number, size: number){
     //     this.layoutService.show();

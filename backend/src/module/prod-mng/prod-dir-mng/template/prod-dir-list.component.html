@@ -64,7 +64,7 @@
             <tbody>
             <tr *ngFor="let item of prodDirList; let idx = index;">
                 <td><input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)" /></td>
-                <td>{{item.serviceName}}</td>
+                <td (click)="goDetail(item)" style="cursor: pointer">{{item.serviceName}}</td>
                 <td>{{item.serviceTemplateName}}</td>
                 <td>{{item.specification}}</td>
                 <td>{{item.productNum}}</td>

@@ -26,4 +26,12 @@ export class ProdCreComponent implements OnInit {
         console.log('init');
     }
 
+    cancel() {
+        this.router.navigateByUrl('prod-mng/prod-mng/prod-mng',{skipLocationChange: true})
+    }
+
+    onSubmit() {
+        this.router.navigateByUrl('prod-mng/prod-mng/prod-mng',{skipLocationChange: true})
+    }
+
 }

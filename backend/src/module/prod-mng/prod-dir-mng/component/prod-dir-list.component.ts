@@ -152,6 +152,12 @@ export class ProdDirListComponent implements OnInit{
         this.router.navigateByUrl("prod-mng/prod-dir-mng/prod-dir-cre", {skipLocationChange: true});
     }
 
+    //去编辑详情
+    goDetail(item){
+        console.log(item);
+        this.router.navigateByUrl("prod-mng/prod-dir-mng/prod-dir-cre", {skipLocationChange: true});
+    }
+
 
     backend(page: number, size: number){
         // this.layoutService.show();
