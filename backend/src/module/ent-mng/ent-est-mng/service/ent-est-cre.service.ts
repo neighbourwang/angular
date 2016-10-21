@@ -267,7 +267,7 @@ export class EntEstCreService{
 		this.loadItems(entProdItems
 			, errorHandler
 			, caller
-			, this.restApiCfg.getRestApi("ent-mng.ent-prod-mng.all.get")//这个地址可能需要同罗杰进一步沟通
+			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.products.get")
 			, localParams
 			, "加载企业产品数据"
 			, null
@@ -281,16 +281,24 @@ export class EntEstCreService{
 					//界面上绑定的是EntProdItem模型，对应obj
 					//从服务器上获取的数据是item
 					//将item上的值映射到obj上面
-					obj.name = item.name;
-					obj.category = item.category;
-					obj.type = item.type;
-					obj.spec = item.spec;
-					obj.countCycle = item.countCycle;
-					obj.cyclePrice = item.cyclePrice;
-					obj.oneTimePrice = item.oneTimePrice;
+					obj.entId = item.enterpriseId as string;
+					obj.name = item.name as string;
+					obj.category = item.serviceName as string;
+					obj.type = item.serviceType as string;
+					obj.spec = item.serviceSpedification;
+					obj.countCycle = item.billingCycle as string;
+					obj.cyclePrice = item.recurringPrice as number;
+					obj.oneTimePrice = item.basicPrice as number;
 					obj.status = item.status;
 					obj.description = item.description;
 				}
+			}
+			,null
+			,null
+			,{
+				"enterpriseId": entId,
+				"platformId": null,
+				"serviceId": null
 			}
 			);
 	}
@@ -526,7 +534,8 @@ export class EntEstCreService{
 		,fakeData?: Function
 		,map?:Function
 		,trait?: Function
-		,successHandler?:Function)
+		,successHandler?:Function
+		,postParams?:any)
 	{
 		items.items.splice(0, items.items.length);
 
@@ -538,7 +547,7 @@ export class EntEstCreService{
 
 		this.layoutService.show();
 
-		this.restApi.request(api.method, api.url, params, undefined, undefined)
+		this.restApi.request(api.method, api.url, params, undefined, postParams)
 		.then(ret=>{
 			this.layoutService.hide();
 			if(!ret)
