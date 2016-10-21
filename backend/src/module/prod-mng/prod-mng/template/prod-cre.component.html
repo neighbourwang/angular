@@ -1,0 +1,207 @@
+<div class="page-content-header icon-content-header-purchasing">创建产品</div>
+<div class="page-content fix-page-content">
+    <div class="row" style="padding-top: 30px;">
+        <div class="col-md-12">
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品名称：</div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="entResQuota" placeholder="产品名称">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品目录：</div>
+                    <div class="col-sm-4">
+                        <select class="form-control" [(ngModel)]="entResQuota">
+                            <option *ngFor="let item of regions;" [value]="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title"></div>
+                    <div class="col-sm-4 row-line-child font-gray">
+                        <div class="">CPU</div>
+                        <div class="mid-line-child border-gray">2</div>
+                        <div class="last-line-child" >核（vCPU）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title"></div>
+                    <div class="col-sm-4 row-line-child font-gray">
+                        <div class="">内存</div>
+                        <div class="mid-line-child border-gray">4</div>
+                        <div class="last-line-child" >兆（MB）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title"></div>
+                    <div class="col-sm-4 row-line-child font-gray">
+                        <div class="">启动盘大小</div>
+                        <div class="mid-line-child border-gray">40</div>
+                        <div class="last-line-child" >GB</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">描述：</div>
+                    <div class="col-sm-4">
+                        <textarea class="form-control" rows="4" placeholder="描述"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>计费模式：</div>
+                    <div class="col-sm-4 row-inline-radio">
+                        <label class="radio-inline row-inline-radio2">
+                            <input type="radio" name="inlineRadioOptions" value="option1"> 包年包月
+                        </label>
+                        <label class="radio-inline row-inline-radio2">
+                            <input type="radio" name="inlineRadioOptions" value="option2"> 按量
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>计费周期：</div>
+                    <div class="col-sm-4 row-inline-radio">
+                        <label class="radio-inline row-inline-radio4">
+                            <input type="radio" name="inlineRadioOption" value="option1"> 包年
+                        </label>
+                        <label class="radio-inline row-inline-radio4">
+                            <input type="radio" name="inlineRadioOption" value="option2"> 包月
+                        </label>
+                        <label class="radio-inline row-inline-radio4">
+                            <input type="radio" name="inlineRadioOption" value="option1"> 按天
+                        </label>
+                        <label class="radio-inline row-inline-radio4">
+                            <input type="radio" name="inlineRadioOption" value="option2"> 按小时
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div for="firstname" class="col-sm-4 form-control-title">基础周期价格:</div>
+
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div for="firstname" class="col-sm-4 form-control-title">增量周期价格:</div>
+
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div for="firstname" class="col-sm-4 form-control-title">选择可用平台:</div>
+
+                </div>
+            </div>
+            <div class="row row-line-height">
+                表
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>选择企业：</div>
+
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="row" style=" vertical-align: middle;">
+                    <div class="col-md-5">
+                        <div class="row">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-10">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="tableCon tableBorder">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th>所有企业</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of list"
+                                                    [ngClass]="{'selected': item.selected, 'clickable': true}"
+                                                    (click)="selectZone(item, $index)">
+                                                    <td>{{item.displayName || item.id}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="col-md-12 text-center" style="padding: 0px 0px 20px 0px;">
+                            <button class="fox-cloud-button fox-cloud-button-white" (click)="addZone()">
+                                <span class="glyphicon glyphicon-arrow-right"></span>
+                                <span class="icon-button-label icon-left-button-label">加入</span>
+                            </button>
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <button class="fox-cloud-button fox-cloud-button-white" (click)="removeZone()">
+                                <span class="glyphicon glyphicon-arrow-left"></span>
+                                <span class="icon-button-label icon-left-button-label">移除</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-5 pull-right">
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="tableCon tableBorder">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th>选中的企业</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of list2"
+                                                    [ngClass]="{'selected': item.selected, 'clickable': true}"
+                                                    (click)="selectZone(item, $index)">
+                                                    <td>{{item.displayName || item.id}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="text-center">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+        <span class="icon-button-label">取消</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="next();">
+        <span class="icon-button-label">创建产品</span>
+    </button>
+</div>
+
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认"></fc-notice>
+
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消"></fc-confirm>
