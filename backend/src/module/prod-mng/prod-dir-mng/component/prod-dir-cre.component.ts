@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'prod-dir-cre',
     templateUrl: '../template/prod-dir-cre.component.html',
-    styleUrls: [],
+    styleUrls: ['../../prod-mng/style/prod-cre.less'],
     providers: []
 })
 
