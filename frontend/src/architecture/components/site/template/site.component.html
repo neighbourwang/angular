@@ -3,14 +3,15 @@
 <div class="container-fluid fox-cloud-container">
     <!--Header-->
     <div *ngIf="layoutService.showHeader" class="row cm-header">
-        <div class="col-md-2 logo"></div>
-        <div class="col-md-7 console">控制台</div>
-        <div class="col-md-3">
-            <div class="row header-group">
-                <div class="col-md-4 help">帮助</div>
-                <div class="col-md-4 prompt"><span class="fox-cloud-badge">3</span>提醒</div>
-                <div class="col-md-4 account">账户<span class="account-operation"></span></div>
-            </div>
+        <a href="/" class="col-md-2 header-logo"></a>
+        <ul class="col-md-7 header-menu no-padding">
+            <li>管理控制台</li>
+            <li>产品与服务</li>
+        </ul>
+        <div class="col-md-3 header-right">
+            <span class="header-right-line"><span class="tip-number">8</span><span class="icon-notice"></span></span>
+            <!-- <span class="header-right-line"><span class="icon-user2"></span></span> -->
+            <span class="header-right-line"><span class="icon-user2"></span> <span class="user-name">qing-ren.zi@hpe.com</span><span class="glyphicon glyphicon-chevron-down"></span></span>
         </div>
     </div>
 

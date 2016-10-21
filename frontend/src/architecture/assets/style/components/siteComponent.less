@@ -1,62 +1,65 @@
+
+@header-height : 80px;
+
 .cm-header {
-	border-bottom: solid 5px @mainColor;
-    .logo,.console,.header-group {
-        height: 75px;
-    }
-    .logo {
-        // background: url("../../images/logo.png") no-repeat 30px 15px;
-        background-size: 40%;
-        border-right: solid 1px @green-color;
+    height: @header-height;
+    overflow: hidden;
+    background-color: @header-bg-color;
+    .header-logo {
+        height: @header-height;
+        background: url("../../images/logo.png") no-repeat 50px center;
+        border-right: solid 1px @header-bd-color;
         background-size: 116px auto;
     }
-    .console {
-        // background: url("../../images/ctrlPanelIcon.png") no-repeat 30px 25px;
-        font-size: 24px;
-        font-weight: bold;
-        padding-left: 80px;
-        padding-top: 20px;
-        background-size: 26px auto;
-    }
-    .header-group {
-        .help,.prompt,.account {
-            border-left: solid 1px @green-color;
-            font-size: 17px;
-            padding-left: 45px;
-            padding-top: 17px;
-            background-size: 18px auto!important;
+    .header-menu {
+        li {
+            border-right: solid 1px @header-bd-color;
+            height: @header-height;
+            line-height: @header-height;
+            color: @white-color;
+            font-size: 18px;
+            padding: 0 30px ;
             cursor: pointer;
-            height: 55px;
-            margin-top: 10px;
-        }
-        .help {
-            // background: url("../../images/help.png") no-repeat 15px 19px;
-            &:hover {
-                // background: url("../../images/helpOn.png") no-repeat 15px 19px;
-                color: @mainColor;
+            float: left;
+            &:hover{
+                background-color: @header-bd-color;
             }
         }
-        .prompt {
-            // background: url("../../images/alert.png") no-repeat 15px 19px;
-            &:hover {
-                // background: url("../../images/alertOn.png") no-repeat 15px 19px;
-                color: @mainColor;
-            }
+    } 
+    .header-right {
+        text-align: right;
+        height: @header-height;
+        color: @white-color;
+        line-height: @header-height;
+        .header-right-line {
+            display: inline-block;
+            padding-left: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            position: relative;
         }
-        .account {
-            // background: url("../../images/account.png") no-repeat 15px 19px;
-            &:hover {
-                // background: url("../../images/accountOn.png") no-repeat 15px 19px;
-                color: @mainColor;
-            }
+        .icon-notice,.icon-user2 {
+            width: 26px;
+            height: 26px;
+            display: inline-block;
+            vertical-align: middle;
         }
-        .account-operation {
-            // background: url("../../images/accountDownArrow.png") no-repeat 0px 0px;
-            width: 20px;
-            height: 20px;
-            display: block;
+        .tip-number {
             position: absolute;
-            top: 22px;
-            left: 95px;
+            background: @orange-color;
+            color: @white-color;
+            width: 16px;
+            height: 16px;
+            top: 26px;
+            right: -3px;
+            line-height: 18px;
+            overflow: hidden;
+            font-size: 12px;
+            text-align: center;
+        }
+        .user-name {
+            display: inline-block;
+            padding: 0 10px;
         }
     }
 }
