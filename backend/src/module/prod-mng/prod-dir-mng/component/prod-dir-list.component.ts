@@ -58,7 +58,7 @@ export class ProdDirListComponent implements OnInit{
 
     //初始化
     ngOnInit(){
-        console.log('init');
+        console.log(this.pp);
         this.backend(1, this.pp);
     }
 
@@ -155,6 +155,7 @@ export class ProdDirListComponent implements OnInit{
     //去编辑详情
     goDetail(item){
         console.log(item);
+        this.router.navigateByUrl("prod-mng/prod-dir-mng/prod-dir-cre", {skipLocationChange: true});
     }
 
 
@@ -198,7 +199,7 @@ export class ProdDirListComponent implements OnInit{
         //mockup
         let proddir = new Proddir();
 
-        proddir.serviceId = '5';
+        proddir.serviceId = '10a9a9c2-ee01-47e9-906e-b1e01ac435a4';
         proddir.serviceName = 'serviceName1';
         proddir.productNum = 10;
         proddir.serviceTemplateName = 'serviceTemplateName';

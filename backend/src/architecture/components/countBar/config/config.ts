@@ -7,5 +7,5 @@ export class Config{
     min:number;
     max:number;
     disabled:boolean;
-    value:number;
+    name:string
 }

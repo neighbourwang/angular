@@ -4,14 +4,14 @@ import { Router } from '@angular/router';
 import { LayoutService } from '../../../../architecture';
 import { IndexCloudHostService } from '../service/index-cloud-host.service'
 
-import { Vm } from '../model/vm';
+import { Vm } from '../model/vm.model';
 
 @Component({
-  selector: 'index-cloud-host',
-  templateUrl: '../template/index-cloud-host.component.html',
-  styleUrls: ['../style/index-cloud-host.less'],
+  selector: 'cloud-host-order',
+  templateUrl: '../template/cloud-host-order.component.html',
+  styleUrls: ['../style/cloud-host-order.less'],
 })
-export class IndexCloudHostComponent implements OnInit {
+export class cloudHostComponentOrder implements OnInit {
 
   constructor(
     private layoutService: LayoutService,

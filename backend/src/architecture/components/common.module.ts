@@ -14,7 +14,8 @@ import { CountBarComponent} from './countBar/component/count-bar.component'
 @NgModule({
     imports: [
         CommonModule,
-        Ng2Bs3ModalModule
+        Ng2Bs3ModalModule,
+        FormsModule
     ],
     declarations: [
         SpinnerComponent,
