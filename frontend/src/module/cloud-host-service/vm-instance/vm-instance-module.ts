@@ -13,7 +13,7 @@ import { CrCloudHostComponent } from './component/cr-cloud-host.component';
 import { cloudHostComponentOrder } from './component/cloud-host-order.component';
 
 //service
-import { IndexCloudHostService } from './service/index-cloud-host.service'; 
+import { cloudHostServiceOrder } from './service/cloud-host-order.service'; 
 
 
 @NgModule({
@@ -28,7 +28,7 @@ import { IndexCloudHostService } from './service/index-cloud-host.service';
     exports: [
     ],
     providers: [
-        IndexCloudHostService
+        cloudHostServiceOrder
     ]
 
 })
