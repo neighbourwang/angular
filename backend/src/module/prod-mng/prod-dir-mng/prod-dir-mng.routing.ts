@@ -14,7 +14,7 @@ export const ProdDirMngRouting: ModuleWithProviders = RouterModule.forChild([
         component: ProdDirListComponent
     },
     {
-        path: 'prod-mng/prod-dir-mng/prod-dir-cre',
+        path: 'prod-mng/prod-dir-mng/prod-dir-cre:id',
         component: ProdDirCreComponent
     },
 ]);

@@ -1,7 +1,7 @@
 /**
  * Created by wangyao on 2016/10/20.
  */
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit ,OnChanges, SimpleChange } from '@angular/core';
 import { Router } from '@angular/router';
 // import { Config} from '../model/config';
 import { Config} from '../../../../architecture/components/countBar/config/config';
@@ -19,7 +19,7 @@ import { LayoutService, ValidationService, NoticeComponent, ConfirmComponent ,Co
     providers: []
 })
 
-export class ProdCreComponent implements OnInit {
+export class ProdCreComponent implements OnInit , OnChanges{
     constructor(
         private router : Router
     ) {}
@@ -36,13 +36,22 @@ export class ProdCreComponent implements OnInit {
         this.router.navigateByUrl('prod-mng/prod-mng/prod-mng',{skipLocationChange: true})
     }
 
+    ngOnChanges(changes : {[propKey : string] : SimpleChange }){
+        for(let key in changes){
+            let item = changes[key];
+            console.log(item);
+        }
+    }
+
     countBar:Config={
         default:100,
         step:50,
         min:0,
         max:1000,
         disabled:true,
-        value:20
+        name:'prodCre01'
     }
-
+    outputValue(e){
+        console.log(e);
+    }
 }

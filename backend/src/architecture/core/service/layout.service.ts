@@ -13,7 +13,7 @@ export class LayoutService {
 
     showTimer: any;
     hideTimer: any;
-    delay = 100;
+    delay = 300;
     count = 0;
 
     get showLoading(): boolean {

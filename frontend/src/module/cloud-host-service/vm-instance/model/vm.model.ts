@@ -1,6 +1,4 @@
-export class Vm {
-
-
+class Vm {
     instanceName : string; //云主机名称
     specification : string; //配置
     //镜像缺少
@@ -17,4 +15,8 @@ export class Vm {
     //服务级别缺少
     constructor() {
     }
+}
+
+export {
+    Vm
 }

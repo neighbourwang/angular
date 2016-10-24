@@ -276,3 +276,6 @@
     text-align: center;
     padding-top: 30px;
 }
+.hands:hover{
+    cursor: pointer;
+}
