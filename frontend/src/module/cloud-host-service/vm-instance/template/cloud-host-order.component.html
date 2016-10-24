@@ -9,34 +9,16 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">区域</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label class="btn btn-default active">
-							<input type="radio" name="location" autocomplete="off" checked> 上海
-						</label>
-						<label class="btn btn-default">
-							<input type="radio" name="location" autocomplete="off"> 上海2
-						</label>
-						<label class="btn btn-default">
-							<input type="radio" name="location" autocomplete="off"> 北京
-						</label>
-						<label class="btn btn-default">
-							<input type="radio" name="location" autocomplete="off"> 华北
-						</label>
-						<label class="btn btn-default">
-							<input type="radio" name="location" autocomplete="off"> 贵州
-						</label>
-						<label class="btn btn-default">
-							<input type="radio" name="location" autocomplete="off"> 香港
+						<label *ngFor="let value of configs.region.valueList;" (click)="sendModule.region = value" class="btn btn-default" [ngClass]="{'active': sendModule.region.id === value.id}">
+							<input type="radio" name="location" autocomplete="off"> {{ value.displayName }}
 						</label>
 					</div>
 					<div class="col-md-2"></div>
 					<div class="col-md-10 text-tip">不同区域之间的产品内网不互通；订购后不支持更换区域，请谨慎选择！</div>
 					<div class="col-md-2 content-title">可用区</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label class="btn btn-default active">
-							<input type="radio" name="zone" autocomplete="off" checked> 可用1区
-						</label>
-						<label class="btn btn-default">
-							<input type="radio" name="zone" autocomplete="off"> 可用2区
+						<label *ngFor="let value of configs.zone.valueList;" (click)="sendModule.zone = value" class="btn btn-default" [ngClass]="{'active': sendModule.zone.id === value.id}">
+							<input type="radio" name="zone" autocomplete="off"> {{ value.displayName }}
 						</label>
 					</div>
 				</div>
@@ -54,7 +36,7 @@
 					</div>
 					<div class="col-md-2"></div>
 					<div class="col-md-10 text-tip">请选择您需要的子网网段</div>
-					<div class="col-md-2 content-title">网络类型</div>
+					<div class="col-md-2 content-title">安全组</div>
 					<div class="col-md-10">
 						<select class="form-control">
 							<option value="">默认</option>
@@ -71,39 +53,16 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">CPU</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label class="btn btn-default active">
-							<input type="radio" name="cpu" autocomplete="off" checked> 1核
-						</label>
-						<label class="btn btn-default">
-							<input type="radio" name="cpu" autocomplete="off"> 2核
-						</label>
-						<label class="btn btn-default">
-							<input type="radio" name="cpu" autocomplete="off"> 4核
-						</label>
-						<label class="btn btn-default">
-							<input type="radio" name="cpu" autocomplete="off"> 8核
-						</label>
-						<label class="btn btn-default">
-							<input type="radio" name="cpu" autocomplete="off"> 16核
+						<label *ngFor="let value of configs.cpu.valueList;" (click)="sendModule.cpu = value; setMemConfig(value)" class="btn btn-default" [ngClass]="{'active': sendModule.cpu.id === value.id}">
+							<input type="radio" name="cpu" autocomplete="off"> {{ value.displayName }}
 						</label>
 					</div>
 					<div class="col-md-2 content-title">内存</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label class="btn btn-default active">
-							<input type="radio" name="mem" autocomplete="off" checked> 2G
+						<label *ngFor="let value of configs.mem.valueList;" (click)="sendModule.mem = value;" class="btn btn-default" [ngClass]="{'active': sendModule.mem.id === value.id}">
+							<input type="radio" name="mem" autocomplete="off"> {{ value.displayName }}
 						</label>
-						<label class="btn btn-default">
-							<input type="radio" name="mem" autocomplete="off"> 4G
-						</label>
-						<label class="btn btn-default">
-							<input type="radio" name="mem" autocomplete="off"> 8G
-						</label>
-						<label class="btn btn-default">
-							<input type="radio" name="mem" autocomplete="off"> 16G
-						</label>
-						<label class="btn btn-default">
-							<input type="radio" name="mem" autocomplete="off"> 32G
-						</label>
+						<label class="btn btn-default" *ngIf="!configs.mem.valueList">暂无该核心的内存选择</label>
 					</div>
 				</div>
 			</li>
@@ -114,8 +73,10 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">启动源</div>
 					<div class="col-md-10">
-						<select class="form-control">
-							<option value="">镜像</option>
+						<select [ngModel]="sendModule.boottype" (ngModelChange)="sendModule.boottype = value" class="form-control">
+							<option
+							 *ngFor="let value of configs.boottype.valueList;"
+							 [ngValue]="value" >{{ value.displayName }}</option>
 						</select>
 					</div>
 					<div class="col-md-2"></div>
