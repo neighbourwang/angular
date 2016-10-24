@@ -139,6 +139,59 @@ export class EntEstCreService{
 		successHanlder);
 	}
 
+//加载企业认证信息
+   	loadEntCertInfo(entCertInfo:EntEstBasicInfo
+	   ,errorHandler:Function
+	   ,successHandler:Function
+	   ,caller:any
+	   ,entId:string){
+           let localParams:Array<any> = [
+		{
+			key:"_enterpriseId"
+			,value:entId
+		},
+		{
+			key:"_page"
+			,value:1
+		}
+		,{
+			key:"_size"
+			,value:10
+		}
+		];
+
+		let entCertInfos: Paging<EntEstBasicInfo> = new Paging<EntEstBasicInfo>();
+
+		this.loadItems(entCertInfos
+			, errorHandler
+			, caller
+			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.resourcequota.get")
+			, localParams
+			, "加载企业认证数据"
+			, null
+			, (source, target:EntEstBasicInfo[])=>{
+				for(let item of source)
+				{
+					let obj = new EntEstBasicInfo();
+					target.push(obj);
+
+					obj.id = item.id as string;
+					obj.contactorName = item.contactorName;
+					obj.certUrl = item.certUrl;
+					obj.password = item.password;
+				}
+			}
+			, (items:EntEstBasicInfo[])=>{
+				let item = items[0];
+				if(item)
+				{
+					entCertInfo.contactorName = item.contactorName;
+					entCertInfo.certUrl = item.certUrl;
+					entCertInfo.password = item.password;
+				}
+			},
+			successHandler);
+	   }
 	//加载企业配额信息
 	loadEntResourceQuota(
 		entResourceQuota: EntEstResourceQuota
@@ -322,7 +375,7 @@ export class EntEstCreService{
 		this.loadItems(prodItems
 			, errorHandler
 			, caller
-			, this.restApiCfg.getRestApi("ent-mng.ent-prod-mng.all.get")//这个地址可能需要同罗杰进一步沟通
+			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.products.get")//这个地址可能需要同罗杰进一步沟通
 			, localParams
 			, "加载产品数据"
 			, null
@@ -335,20 +388,25 @@ export class EntEstCreService{
 					//这里要做转换
 					//界面上绑定的是EntProdItem模型，对应obj
 					//从服务器上获取的数据是item
-					//将item上的值映射到obj上面
-					obj.name = item.name;
-					obj.category = item.category;
-					obj.type = item.type;
-					obj.spec = item.spec;
-					obj.countCycle = item.countCycle;
-					obj.cyclePrice = item.cyclePrice;
-					obj.oneTimePrice = item.oneTimePrice;
+					//将item上的值映射到obj上面				
+					obj.entId = item.enterpriseId as string;
+					obj.name = item.name as string;
+					obj.category = item.serviceName as string;
+					obj.type = item.serviceType as string;
+					obj.spec = item.serviceSpedification;
+					obj.countCycle = item.billingCycle as string;
+					obj.cyclePrice = item.recurringPrice as number;
+					obj.oneTimePrice = item.basicPrice as number;
 					obj.status = item.status;
 					obj.description = item.description;
 				}
 			}
 			);
 	}
+
+
+
+
 
 	//保存企业产品信息变更
 	updateEntProducts(entProdItems: EntProdItem[])
@@ -480,6 +538,8 @@ export class EntEstCreService{
 		return this.restApi.request(api.method, api.url, localParams, [], target);
 	}
 
+
+   
 	//更新企业认证信息
 	updateEntCert(entBasicInfo:EntEstBasicInfo){
 		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.updateauth");

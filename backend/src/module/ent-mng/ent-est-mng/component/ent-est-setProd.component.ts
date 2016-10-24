@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { LayoutService, NoticeComponent, PopupComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, PopupComponent, SystemDictionaryService, SystemDictionary  } from '../../../../architecture';
 import { EntProdItem, EntEst} from '../model';
 
 import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
@@ -20,10 +20,12 @@ export class EntEstSetProdComponent implements OnInit {
   private prodItems: Paging<EntProdItem> = new Paging<EntProdItem>();
   private entName:string = "";
   private entId: string = "";
+  private dic:SystemDictionary[];
   constructor(
     private layoutService: LayoutService,
     private router: Router,
-    private service: EntEstCreService
+    private service: EntEstCreService,
+    private sysDicService: SystemDictionaryService
   ) {}
 
   ngOnInit() {
@@ -32,9 +34,30 @@ export class EntEstSetProdComponent implements OnInit {
       this.entId = data["entId"];
 
       this.refreshData();
+       this.sysDicService.sysDicOF(this, this.sysDicCallback, "GLOBAL", "STATUS")
     });
    // todo: 加载企业产品
    // todo: 加载产品
+  }
+
+
+sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) { 
+    if (sf) {                                                                 
+      this.dic = systemDictionarys;
+      console.log('dic', this.dic);
+      this.updateWithDic();   
+    }                                                                         
+  }
+
+  updateWithDic(){
+    let getName =(id:string):string=>{
+      let obj = this.dic.find(n=>n.code ==id) as SystemDictionary;
+      if(obj)
+        return obj.displayValue as string;
+      else
+        return id;
+    };
+    this.entProdItems.items.map(n=>{n.status= getName(n.status);});
   }
 
   //移除产品

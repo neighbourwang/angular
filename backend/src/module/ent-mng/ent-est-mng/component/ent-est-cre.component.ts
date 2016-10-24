@@ -72,7 +72,7 @@ export class EntEstCreComponent implements OnInit{
 	//清空基本信息数据
 	clearEntEst(){	
 		if(this.entEst && this.entEst!= null){
- 				this.entEst.BasicInfo.name="";
+ 			  this.entEst.BasicInfo.name="";
 			  this.entEst.BasicInfo.contactorName="";
 			  this.entEst.BasicInfo.certUrl = "";
 			  this.entEst.BasicInfo.password = "";
