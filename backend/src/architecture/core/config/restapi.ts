@@ -501,15 +501,27 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/services/page/{page}/size/{size}"
     },
     {
+        "desc": "获取所有已激活云平台, 为下拉框准备",
+        "id": "platforms.activation.get",
+        "method": "GET",
+        "url": "adminui/authsec/platforms/status/activation"
+    },
+    {
+        "desc": "获取所有产品目录，为下拉框准备",
+        "id": "services.simple.get",
+        "method": "GET",
+        "url": "adminui/authsec/services/simple"
+    },
+    {
         "desc": "分页获取所有产品列表",
         "id": "prod-mng.prod-mng.list.get",
         "method": "POST",
-        "url": "/authsec/enterprises/products/search/page/{page}/size/{size}"
+        "url": "adminui/authsec/enterprises/products/search/page/{page}/size/{size}"
     },
     {
         "desc": "新建产品",
         "id": "prod-mng.prod-mng.prod-cre.post",
         "method": "POST",
-        "url": "/authsec/services/product"
+        "url": "adminui/authsec/services/product"
     }
 ]

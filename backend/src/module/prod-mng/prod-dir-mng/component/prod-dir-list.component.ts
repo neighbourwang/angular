@@ -156,7 +156,8 @@ export class ProdDirListComponent implements OnInit{
     //去编辑详情
     goDetail(item){
         console.log(item);
-        this.router.navigateByUrl("prod-mng/prod-dir-mng/prod-dir-cre", {skipLocationChange: true});
+        let id=item.serviceId;
+        this.router.navigateByUrl("prod-mng/prod-dir-mng/prod-dir-cre");
     }
 
 
@@ -165,7 +166,7 @@ export class ProdDirListComponent implements OnInit{
         this.tp = 0;
         this.service.getProdDirList(page, size).then(
             response => {
-                console.log(response);
+                // console.log(response);
                 if (response && 100 == response.resultCode){
                     let resultContent = response.resultContent;
                     let backend = new Array<Proddir>();
