@@ -9,7 +9,6 @@
     specification:string;
     status: string;
     isSelected : boolean;
-
     constructor() {
     }
 }

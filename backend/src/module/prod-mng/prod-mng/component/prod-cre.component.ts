@@ -10,7 +10,7 @@ import { LayoutService, ValidationService, NoticeComponent, ConfirmComponent ,Co
 
 // import {  } from '../service';
 
-// import {  } from '../model';
+import { Product } from '../model/product.model';
 
 @Component({
     selector: 'prod-cre',
@@ -47,11 +47,14 @@ export class ProdCreComponent implements OnInit , OnChanges{
         default:100,
         step:50,
         min:0,
-        max:1000,
+        max:1024,
         disabled:true,
         name:'prodCre01'
     }
-    outputValue(e){
+    outputValue(e,number){
         console.log(e);
+        console.log(number);
+        
     }
+
 }

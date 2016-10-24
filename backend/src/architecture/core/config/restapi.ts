@@ -500,4 +500,16 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "/authsec/services/page/{page}/size/{size}"
     },
+    {
+        "desc": "分页获取所有产品列表",
+        "id": "prod-mng.prod-mng.list.get",
+        "method": "POST",
+        "url": "/authsec/enterprises/products/search/page/{page}/size/{size}"
+    },
+    {
+        "desc": "新建产品",
+        "id": "prod-mng.prod-mng.prod-cre.post",
+        "method": "POST",
+        "url": "/authsec/services/product"
+    }
 ]

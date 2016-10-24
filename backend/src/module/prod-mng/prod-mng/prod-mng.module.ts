@@ -13,7 +13,7 @@ import { ProdCreComponent } from './component/prod-cre.component';
 import { ProdMngRouting } from './prod-mng.routing';
 
 //Service
-// import { ClMngListService } from './service/cl-mgn-list.service';
+import { ProdListService } from './service/prodList.service';
 
 @NgModule({
     imports: [
@@ -27,7 +27,7 @@ import { ProdMngRouting } from './prod-mng.routing';
     exports: [
     ],
     providers: [
-        // ClMngListService
+        ProdListService
     ]
 
 })

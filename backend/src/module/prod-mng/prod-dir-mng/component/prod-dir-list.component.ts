@@ -139,6 +139,7 @@ export class ProdDirListComponent implements OnInit{
     //编辑按钮
     edit (){
         console.log('edit');
+        this.router.navigateByUrl("prod-mng/prod-dir-mng/prod-dir-cre", {skipLocationChange: true});
     }
 
     //创建按钮
@@ -160,72 +161,76 @@ export class ProdDirListComponent implements OnInit{
 
 
     backend(page: number, size: number){
-        // this.layoutService.show();
-        // this.tp = 0;
-        // this.service.getProdDirList(page, size).then(
-        //     response => {
-        //         if (response && 100 == response.resultCode){
-        //             let resultContent = response.resultContent;
-        //             let backend = new Array<Proddir>();
-        //             for (let content of resultContent) {
-        //                 let proddir = new Proddir();
-        //
-        //                 proddir.serviceId = content.serviceId;
-        //                 proddir.serviceName = content.serviceName;
-        //                 proddir.productNum = content.productNum;
-        //                 proddir.serviceTemplateName = content.serviceTemplateName;
-        //                 proddir.createrName = content.createrName;
-        //                 proddir.creatorId = content.creatorId;
-        //                 proddir.description = content.description;
-        //                 proddir.specification = content.specification;
-        //                 proddir.status = content.status;
-        //                 proddir.isSelected = false;
-        //
-        //                 backend.push(proddir);
-        //             }
-        //             let pageInfo = response.pageInfo;
-        //
-        //             this.tp = pageInfo.totalPage;
-        //
-        //             this.prodDirList = backend;
-        //
-        //         }else{
-        //
-        //         }
-        //         this.layoutService.hide();
-        //     }
-        // ).catch(
-        // );
+        this.layoutService.show();
+        this.tp = 0;
+        this.service.getProdDirList(page, size).then(
+            response => {
+                console.log(response);
+                if (response && 100 == response.resultCode){
+                    let resultContent = response.resultContent;
+                    let backend = new Array<Proddir>();
+                    for (let content of resultContent) {
+                        let proddir = new Proddir();
+        
+                        proddir.serviceId = content.serviceId;
+                        proddir.serviceName = content.serviceName;
+                        proddir.productNum = content.productNum;
+                        proddir.serviceTemplateName = content.serviceTemplateName;
+                        proddir.createrName = content.createrName;
+                        proddir.creatorId = content.creatorId;
+                        proddir.description = content.description;
+                        proddir.specification = content.specification;
+                        proddir.status = content.status;
+                        proddir.isSelected = false;
+        
+                        backend.push(proddir);
+                    }
+                    let pageInfo = response.pageInfo;
+        
+                    this.tp = pageInfo.totalPage;
+        
+                    this.prodDirList = backend;
+        
+                }else{
+        
+                }
+                this.layoutService.hide();
+            }
+        ).catch(
+            err => {
+                console.error('err');
+            }
+        );
         //mockup
         let proddir = new Proddir();
 
-        proddir.serviceId = '10a9a9c2-ee01-47e9-906e-b1e01ac435a4';
-        proddir.serviceName = 'serviceName1';
-        proddir.productNum = 10;
-        proddir.serviceTemplateName = 'serviceTemplateName';
-        proddir.createrName = 'createrName';
-        proddir.creatorId = 'creatorId';
-        proddir.description = 'description';
-        proddir.specification = 'specification';
-        proddir.status = 'status';
-        proddir.isSelected = false;
+        // proddir.serviceId = '10a9a9c2-ee01-47e9-906e-b1e01ac435a4';
+        // proddir.serviceName = 'serviceName1';
+        // proddir.productNum = 10;
+        // proddir.serviceTemplateName = 'serviceTemplateName';
+        // proddir.createrName = 'createrName';
+        // proddir.creatorId = 'creatorId';
+        // proddir.description = 'description';
+        // proddir.specification = 'specification';
+        // proddir.status = 'status';
+        // proddir.isSelected = false;
 
 
-        let proddir2 = new Proddir();
+        // let proddir2 = new Proddir();
 
-        proddir2.serviceId = '5';
-        proddir2.serviceName = 'serviceName2';
-        proddir2.productNum = 10;
-        proddir2.serviceTemplateName = 'serviceTemplateName';
-        proddir2.createrName = 'createrName';
-        proddir2.creatorId = 'creatorId';
-        proddir2.description = 'description';
-        proddir2.specification = 'specification';
-        proddir2.status = 'status';
-        proddir2.isSelected = true;
+        // proddir2.serviceId = '5';
+        // proddir2.serviceName = 'serviceName2';
+        // proddir2.productNum = 10;
+        // proddir2.serviceTemplateName = 'serviceTemplateName';
+        // proddir2.createrName = 'createrName';
+        // proddir2.creatorId = 'creatorId';
+        // proddir2.description = 'description';
+        // proddir2.specification = 'specification';
+        // proddir2.status = 'status';
+        // proddir2.isSelected = true;
 
-        this.prodDirList .push(proddir);
-        this.prodDirList .push(proddir2);
+        // this.prodDirList .push(proddir);
+        // this.prodDirList .push(proddir2);
 
     }
     ccf() {
