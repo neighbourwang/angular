@@ -6,6 +6,8 @@ import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../
 
 import { ClMngListService } from '../service/cl-mgn-list.service';
 
+import { ClMngCreStep1Service } from '../service/cl-mng-cre-step-1.service'
+
 //model
 import { Platform } from '../model/platform.model';
 
@@ -20,7 +22,9 @@ export class ClMngListComponent implements OnInit {
 
     constructor(private layoutService:LayoutService,
                 private service:ClMngListService,
-                private router:Router) {
+                private router:Router,
+                private platFormTypeService : ClMngCreStep1Service
+                ) {
     }
 
     // 平台数组
@@ -48,12 +52,24 @@ export class ClMngListComponent implements OnInit {
     title:String = "";
     // 确认Box/通知Box的内容
     msg:String = "";
+    // 云平台类型
+    platFormType : Array<any> = new Array<any>();
 
 
     //初始化
     ngOnInit() {
         console.log('init');
-        this.backend(1, this.pp);
+        this.platFormTypeService.getPlatFormType().then(
+            res => {
+                this.platFormType = res.resultContent;
+                this.backend(1, this.pp);
+            }
+        ).catch(
+            err => {
+                console.error(err);
+            }
+        )
+        
     }
 
     //删除按钮
@@ -177,6 +193,11 @@ export class ClMngListComponent implements OnInit {
 
     }
 
+    //获取云平台类型
+    getPlatFormsType(){
+
+    }
+
     // 获得云平台list
     backend(page:number, size:number) {
         this.layoutService.show();
@@ -186,19 +207,26 @@ export class ClMngListComponent implements OnInit {
                 if (response && 100 == response.resultCode) {
                     let resultContent = response.resultContent;
                     let backend = new Array<Platform>();
+                    let platFormTypes = this.platFormType;
                     for (let content of resultContent) {
                         let platform = new Platform();
 
                         platform.id = content.id;
+                        // platform. = content.
                         platform.name = content.name;
-                        platform.platformType = content.platformType;
-                        platform.platformTypeName = content.platformTypeName;
+                        // platform.platformType = content.platformType;
+                        for(let item of platFormTypes){
+                            if(content.platformType == item.value){
+                                platform.platformType = item.displayValue
+                            }
+                        }
                         platform.uri = content.uri;
                         platform.userName = content.userName;
                         platform.passwd = content.passwd;
                         platform.description = content.description;
                         platform.version = content.version;
-                        platform.status = content.status;
+                        platform.regionId = content.regionId;
+                        platform.dataCenter = content.dataCenter;
                         platform.isSelected = false;
 
                         backend.push(platform);
@@ -225,6 +253,10 @@ export class ClMngListComponent implements OnInit {
                 this.notice.open('错误','获取信息错误');
             }
         );
+    }
+
+    paging(page) {
+        this.backend(page, 10);
     }
 
 

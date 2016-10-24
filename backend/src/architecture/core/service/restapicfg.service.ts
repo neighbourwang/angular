@@ -28,7 +28,23 @@ export class RestApiCfg {
         ip = ip || this.baseIp;
         for (let restItem of this.restApiList) {
             if (restItem.id.toLowerCase() === apiId.toLowerCase()) {
-                restApi.url = `http://${ip}:${port}/adminui${restItem.url}`;
+                restApi.url = `http://${ip}:${port}/${restItem.url}`;
+                restApi.method = restItem.method;
+                restApi.desc = restItem.desc;
+                restApi.id = restItem.id;
+                break;
+            }
+        }
+        return restApi;
+    }
+
+    getDataRestApi(apiId : string , ip?:string ,port?:string) : RestApiModel{
+        let restApi:RestApiModel = new RestApiModel();
+        port = port || this.basePort;
+        ip = ip || this.baseIp;
+        for (let restItem of this.restApiList) {
+            if (restItem.id.toLowerCase() === apiId.toLowerCase()) {
+                restApi.url = `http://${ip}:${port}/basis${restItem.url}`;
                 restApi.method = restItem.method;
                 restApi.desc = restItem.desc;
                 restApi.id = restItem.id;

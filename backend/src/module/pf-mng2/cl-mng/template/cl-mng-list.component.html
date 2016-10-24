@@ -38,11 +38,15 @@
             <tr *ngFor="let item of platforms; let idx = index;">
                 <td><input class="fox-cloud-radio" type="radio" name="isSelected" check="item.isSelected" (click)="switchSelectIndividual(idx)"/></td>
                 <!--<td>123</td>-->
+                <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
-                <td>{{item.platformTypeName}}</td>
+                <td>{{item.dataCenter}}</td>
+                <td>{{item.regionId}}</td>
+                <td>{{item.platformType}}</td>
                 <td>{{item.uri}}</td>
-                <td>{{item.statusText}}</td>
-                <td>{{item.description}}</td>
+                <td>{{item.version}}</td>
+                <td>无</td>
+                <td>无</td>
             </tr>
             </tbody>
         </table>
