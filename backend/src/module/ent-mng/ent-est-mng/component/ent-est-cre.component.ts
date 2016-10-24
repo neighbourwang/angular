@@ -52,11 +52,31 @@ export class EntEstCreComponent implements OnInit{
 	selectLocal(){
 		this.isLocal = true;
 		this.entEst.BasicInfo.certMethod = "0";
+		this.isADSelected();
 	}
 
 	selectAD(){
 		this.isLocal = false;
 		this.entEst.BasicInfo.certMethod = "1";
+		this.isADSelected();
+	}
+
+	isADSelected(){
+		  this.clearEntEst();
+          if(this.isLocal == false){	  
+			  return true;
+		  }
+		  return false;
+	}
+	//清空基本信息数据
+	clearEntEst(){
+		if(this.entEst!=null){
+			  this.entEst.BasicInfo.name="";
+			  this.entEst.BasicInfo.contactorName="";
+			  this.entEst.BasicInfo.certUrl = "";
+			  this.entEst.BasicInfo.password = "";
+			  this.entEst.BasicInfo.description="";
+		}
 	}
 
 	//数据验证

@@ -25,7 +25,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row row-line-height">
+			<div class="row row-line-height" *ngIf="isADSelected();">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>URL地址：</div>
 					<div class="col-sm-4">
@@ -33,15 +33,15 @@
 					</div>
 				</div>
 			</div>
-			<div class="row row-line-height">
+			<div class="row row-line-height" *ngIf="isADSelected();">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>用户名：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk" >*</span>用户名：</div>
 					<div class="col-sm-4">
 						<input type="text" class="form-control input-control" placeholder="用户名" [(ngModel)]="entEst.BasicInfo.contactorName">
 					</div>
 				</div>
 			</div>
-			<div class="row row-line-height">
+			<div class="row row-line-height" *ngIf="isADSelected();">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>密码：</div>
 					<div class="col-sm-4">
