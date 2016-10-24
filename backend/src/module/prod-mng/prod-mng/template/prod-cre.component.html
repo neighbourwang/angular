@@ -92,8 +92,14 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div for="firstname" class="col-sm-4 form-control-title">基础周期价格：</div>
-
+                    <div  class="col-sm-4 form-control-title">基础周期价格：</div>
+                    <div  class="col-sm-1 form-control-title">
+                        <count-bar [config]="countBar" (output)="outputValue($event)"></count-bar>
+                    </div>
+                    <div  class="col-sm-2 form-control-title">单位价格：</div>
+                    <div  class="col-sm-1 form-control-title">
+                        <count-bar [config]="countBar"></count-bar>
+                    </div>
                 </div>
             </div>
             <div class="row row-line-height">
