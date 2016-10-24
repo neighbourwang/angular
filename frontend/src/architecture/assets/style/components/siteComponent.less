@@ -5,11 +5,17 @@
     height: @header-height;
     overflow: hidden;
     background-color: @header-bg-color;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
     .header-logo {
         height: @header-height;
         background: url("../../images/logo.png") no-repeat 50px center;
         border-right: solid 1px @header-bd-color;
         background-size: 116px auto;
+        width: 250px;
     }
     .header-menu {
         li {

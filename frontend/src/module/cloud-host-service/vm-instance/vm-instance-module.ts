@@ -10,7 +10,7 @@ import { VmInstanceRouting } from './vm-instance-routing';
 //component
 import { CrCloudHostComponent } from './component/cr-cloud-host.component';
 
-import { IndexCloudHostComponent } from './component/index-cloud-host.component';
+import { cloudHostComponentOrder } from './component/cloud-host-order.component';
 
 //service
 import { IndexCloudHostService } from './service/index-cloud-host.service'; 
@@ -23,7 +23,7 @@ import { IndexCloudHostService } from './service/index-cloud-host.service';
     ],
     declarations: [
         CrCloudHostComponent,
-        IndexCloudHostComponent
+        cloudHostComponentOrder
     ],
     exports: [
     ],

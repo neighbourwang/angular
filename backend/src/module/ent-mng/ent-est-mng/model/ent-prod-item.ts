@@ -1,5 +1,6 @@
 //产品信息
 export class EntProdItem{
+	entId: string = "";// 企业id
 	name: string = "";//产品名称
 	category: string = "";//产品目录
 	type: string = ""; //产品类别

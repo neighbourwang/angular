@@ -76,7 +76,7 @@ const menu: Array<any> = [
             {
                 "label": "创建云主机",
                 "isOpen": true,
-                "routing": "cloud-host-service/vm-instance/index-cloud-host"
+                "routing": "cloud-host-service/cloud-host-order"
             },
             {
                 "label": "云主机列表",
