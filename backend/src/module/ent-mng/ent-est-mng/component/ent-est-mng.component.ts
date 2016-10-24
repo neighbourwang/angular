@@ -58,7 +58,7 @@ export class EntEstMngComponent implements OnInit {
 
   updateWithDic(){
     let getName =(id:string):string=>{
-      let obj = this.dic.find(n=>n.code ==id) as SystemDictionary;
+      let obj = this.dic.find(n=>n.value ==id) as SystemDictionary;
       if(obj)
         return obj.displayValue as string;
       else

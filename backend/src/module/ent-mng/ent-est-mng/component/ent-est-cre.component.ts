@@ -176,4 +176,13 @@ export class EntEstCreComponent implements OnInit{
     	this.router.navigateByUrl('ent-mng/ent-est-mng/ent-est-mng');
 	}
 
+	//上传文件
+	fileSelected(event:any){
+		console.log('fileSelected');
+
+		let files = event.srcElement.files;
+
+		console.log('files', files);//上传的文件
+	}
+
 }
