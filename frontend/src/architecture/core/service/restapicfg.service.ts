@@ -8,8 +8,8 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class RestApiCfg {
-    protected baseIp = '15.114.100.58';
-    protected basePort = '9000';
+    protected baseIp = '15.114.100.55';
+    protected basePort = '30072';
     protected restApiList: RestApiModel[];
 
     constructor(private http: Http) {

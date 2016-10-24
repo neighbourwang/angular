@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 //component
 import { CrCloudHostComponent } from './component/cr-cloud-host.component';
 
-import { IndexCloudHostComponent } from './component/index-cloud-host.component';
+import { cloudHostComponentOrder } from './component/cloud-host-order.component';
 
 
 export const VmInstanceRouting: ModuleWithProviders = RouterModule.forChild([
@@ -13,7 +13,7 @@ export const VmInstanceRouting: ModuleWithProviders = RouterModule.forChild([
         component: CrCloudHostComponent
     },
     {
-        path: 'cloud-host-service/vm-instance/index-cloud-host',
-        component: IndexCloudHostComponent
+        path: 'cloud-host-service/cloud-host-order',
+        component: cloudHostComponentOrder
     },
 ]);
