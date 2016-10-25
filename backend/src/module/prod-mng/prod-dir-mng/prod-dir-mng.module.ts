@@ -20,6 +20,7 @@ import { PlatformsActiveService } from './service/platform.service';
 import { ProdDirPublishService } from './service/prod-dir-publish.service';
 import { CcProdDirPublishService } from './service/prod-dir-ccPublish.service';
 import { ProdDirDeleteService } from './service/prod-dir-delete.service';
+import { ProdDirDetailService } from './service/prod-dir-detail.service';
 
 @NgModule({
     imports: [
@@ -40,8 +41,8 @@ import { ProdDirDeleteService } from './service/prod-dir-delete.service';
         PlatformsActiveService,
         ProdDirPublishService,
         CcProdDirPublishService,
-        ProdDirDeleteService
-
+        ProdDirDeleteService,
+        ProdDirDetailService
     ]
 
 })

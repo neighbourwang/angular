@@ -15,7 +15,7 @@ import { CcProdDirPublishService } from '../service/prod-dir-ccPublish.service';
 import { ProdDirDeleteService } from '../service/prod-dir-delete.service';
 
 //model
-import { Proddir } from '../model/proddir.model';
+import { Proddir } from '../model/prodDirList.model';
 // import {ProdDirModule} from '../prod-dir-mng.routing'
 @Component({
     selector: 'prod-dir-list',
@@ -187,29 +187,22 @@ export class ProdDirListComponent implements OnInit {
         })
     }
 
-
-
-
     //编辑按钮
     edit() {
         console.log('edit');
         this.router.navigateByUrl("prod-mng/prod-dir-mng/prod-dir-cre", { skipLocationChange: true });
     }
-
     //创建按钮
     creation() {
         //跳转
         console.log('create');
-        this.createProdDir.open('创建产品目录')
-
-
+        this.createProdDir.open('创建产品目录');
     }
     otcreate() {
         let id = this.prodDirTypeList[0].id;
         let type ="new"
         this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre",id,type]);
     }
-
     //去编辑详情
     goDetail(item) {
         console.log(item);
@@ -224,7 +217,7 @@ export class ProdDirListComponent implements OnInit {
         this.tp = 0;
         this.service.getProdDirList(page, size).then(
             response => {
-                // console.log(response);
+                console.log(response);
                 if (response && 100 == response.resultCode) {
                     let resultContent = response.resultContent;
                     let backend = new Array<Proddir>();
