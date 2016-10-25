@@ -37,11 +37,7 @@ export class EntEstCreComponent implements OnInit{
 			this.entEst = new EntEst();
 		});
 
-		this.service.loadResourceQuotas(this.resourceQuotas
-			,this.showError
-			,this);
-
-
+		this.loadResourceQuotas();
 	}
 
 	showError(msg:any) {
@@ -191,5 +187,28 @@ export class EntEstCreComponent implements OnInit{
 
 		console.log('files', files);//上传的文件
 	}
+
+	changePage(page: number) {
+
+		page = page < 1 ? 1 : page;
+		page = page > this.resourceQuotas.totalPages ? this.resourceQuotas.totalPages : page;
+
+		if (this.resourceQuotas.currentPage == page) {
+		  return;
+		}
+
+		this.resourceQuotas.currentPage = page;
+		this.loadResourceQuotas();
+	}
+
+	loadResourceQuotas(){
+		this.service.loadResourceQuotas(this.resourceQuotas
+			,this.showError
+			,this);
+
+	}
+
+
+
 
 }

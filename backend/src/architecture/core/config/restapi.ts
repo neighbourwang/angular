@@ -491,6 +491,16 @@ export let RestApis: RestApiModel[] = [
        "id": "ent-mng.ent-est-mng.enterprise.products.get",
        "method": "POST",
        "url": "adminui/authsec/enterprises/products/search/page/{_page}/size/{_size}"
+   },{
+       "desc": "获取可用产品",
+       "id": "ent-mng.ent-est-mng.enterprise.avail.products.get",
+       "method": "POST",
+       "url": "adminui/authsec/enterprises/{enterpriseId}/products/search/paging"
+   },{
+       "desc": "所有平台配额参考",
+       "id": "ent-mng.ent-est-mng.platforms.quotas.get",
+       "method": "GET",
+       "url": "adminui/authsec/platforms/resouces/quotas/page/{_page}/size/{_size}"
    },// 企业管理 -->
    // 
     //产品管理
@@ -507,15 +517,55 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/services/page/{page}/size/{size}"
     },
     {
+        "desc": "获取所有已激活云平台, 为下拉框准备",
+        "id": "platforms.activation.get",
+        "method": "GET",
+        "url": "adminui/authsec/platforms/status/activation"
+    },
+    {
+        "desc": "获取所有产品目录类别，为下拉框准备",
+        "id": "services.simple.get",
+        "method": "GET",
+        "url": "adminui/authsec/servicetemplate"
+    },
+    {
+        "desc": "发布产品目录",
+        "id": "prod-dir-publish",
+        "method": "PUT",
+        "url": "adminui/authsec/service/{id}/status/activation"
+    },
+    {
+        "desc": "取消发布产品目录",
+        "id": "prod-dir-ccPublish",
+        "method": "PUT",
+        "url": "adminui/authsec/service/{id}/status/cancelled"
+    },
+    {
+        "desc": "删除产品目录",
+        "id": "prod-dir-delete",
+        "method": "DELETE",
+        "url": "adminui/authsec/service/{id}"
+    },
+    {
+        "desc": "创建VM产品目录",
+        "id": "prod-dir-vmCreate",
+        "method": "POST",
+        "url": "adminui/authsec/services/type/vm"
+    },
+    
+
+
+    //产品
+    {
         "desc": "分页获取所有产品列表",
         "id": "prod-mng.prod-mng.list.get",
         "method": "POST",
-        "url": "/authsec/enterprises/products/search/page/{page}/size/{size}"
+        "url": "adminui/authsec/enterprises/products/search/page/{page}/size/{size}"
     },
     {
         "desc": "新建产品",
         "id": "prod-mng.prod-mng.prod-cre.post",
         "method": "POST",
-        "url": "/authsec/services/product"
+        "url": "adminui/authsec/services/product"
     }
 ]

@@ -149,7 +149,7 @@ export class ProdMngComponent implements OnInit{
     }
 
     backend(page: number, size: number){
-        this.layoutService.show();
+        // this.layoutService.show();
         this.tp = 0;
         console.log(page);
         console.log(size);

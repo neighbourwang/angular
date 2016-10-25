@@ -14,7 +14,14 @@ export class CountBarComponent implements OnInit{
 
     }
     value:number;
-
+//     Config:{
+//     default:number;
+//     step:number;
+//     min:number;
+//     max:number;
+//     disabled:boolean;
+//     name:string
+// }
 
     @Input()
     config:Config;

@@ -47,9 +47,10 @@ export class EntEstCreService{
 		}
 	}
 
+	//获取所有平台配额参考
 	loadResourceQuotas(resourceQuotaPaging: Paging<ResourceQuota>, errorHandler: Function, comp:any)
 	{
-		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.resourcequota.get");
+		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.platforms.quotas.get");
 
 		let params = [
 			{
@@ -69,11 +70,20 @@ export class EntEstCreService{
 			,api
 			,params
 			,"资源列表"
-			,(items:ResourceQuota[])=>{
-				let item = new ResourceQuota();
-				item.regionName = "测试区域";
-				items.push(item);
+			, null
+			, (source, target:ResourceQuota[])=>{
+				for(let item of source)
+				{
+					let obj = new ResourceQuota();
+					target.push(obj);
+
+					obj.regionName = item.regionName;
+					obj.platformVMQuota = item.vmQuota;
+					obj.storageQuota = item.storageQuota;
+
+				}
 			});
+
 
 	
 	}
@@ -119,6 +129,7 @@ export class EntEstCreService{
 					target.push(obj);
 
 					obj.id = item.enterpriseId as string; 
+					obj.authMode = parseInt(item.authMode);//认证方式
 					obj.enterpriseName = item.enterpriseName as string; 
 					obj.vmNum = 0; //api 未提供
 					obj.vmQuota = 0; //api 未提供
@@ -169,7 +180,7 @@ export class EntEstCreService{
 			, caller
 			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.resourcequota.get")
 			, localParams
-			, "加载企业认证数据"
+			, "加载企业认证"
 			, null
 			, (source, target:EntEstBasicInfo[])=>{
 				for(let item of source)
@@ -224,7 +235,7 @@ export class EntEstCreService{
 			, caller
 			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.resourcequota.get")
 			, localParams
-			, "加载企业配额数据"
+			, "加载企业配额"
 			, null
 			, (source, target:EntEstResourceQuota[])=>{
 				for(let item of source)
@@ -283,7 +294,9 @@ export class EntEstCreService{
 				obj.code = source.code;
 				obj.id = source.id;
 				obj.name = source.name;
+				obj.contactorName = source.loginName;
 				obj.description = source.description;
+				obj.certMethod = parseInt(source.authMode);
 			}
 			, (items:EntEstBasicInfo[])=>{
 				let item = items[0];
@@ -324,7 +337,7 @@ export class EntEstCreService{
 			, caller
 			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.products.get")
 			, localParams
-			, "加载企业产品数据"
+			, "加载企业产品"
 			, null
 			, (source, target:EntProdItem[])=>{
 				for(let item of source)
@@ -361,25 +374,28 @@ export class EntEstCreService{
 	//加载可用产品信息
 	loadAvailProdItems(prodItems: Paging<EntProdItem>
 		,errorHandler: Function
-		,caller: any):void
+		,caller: any
+		,entId: string):void
 	{
-		let localParams:Array<any> = [
-		{
-			key:"_page"
-			,value:prodItems.currentPage == 0? 1:prodItems.currentPage
-		}
-		,{
-			key:"_size"
-			,value:10
-		}
-		];
+		let localParams:Array<any> = [{
+			key:"enterpriseId"
+			,value: entId
+		}];
+
+		let pageParameter = {
+		  "currentPage": prodItems.currentPage == 0? 1: prodItems.currentPage,
+		  "offset": 0,
+		  "size": 10,
+		  "sort": {},
+		  "totalPage": 0
+		};
 
 		this.loadItems(prodItems
 			, errorHandler
 			, caller
-			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.products.get")//这个地址可能需要同罗杰进一步沟通
+			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.avail.products.get")
 			, localParams
-			, "加载产品数据"
+			, "加载产品"
 			, null
 			, (source, target:EntProdItem[])=>{
 				for(let item of source)
@@ -391,7 +407,6 @@ export class EntEstCreService{
 					//界面上绑定的是EntProdItem模型，对应obj
 					//从服务器上获取的数据是item
 					//将item上的值映射到obj上面				
-					obj.entId = item.enterpriseId as string;
 					obj.name = item.name as string;
 					obj.category = item.serviceName as string;
 					obj.type = item.serviceType as string;
@@ -403,6 +418,9 @@ export class EntEstCreService{
 					obj.description = item.description;
 				}
 			}
+			,null
+			,null
+			,pageParameter
 			);
 	}
 
@@ -641,7 +659,7 @@ export class EntEstCreService{
 
 					if(ret.pageInfo)
 					{
-						items.totalPages = ret.pageInfo.totalPage;
+						items.totalPages = ret.pageInfo.totalPage || 100;
 					}
 					else
 					{

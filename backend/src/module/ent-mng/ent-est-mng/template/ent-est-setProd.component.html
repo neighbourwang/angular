@@ -1,11 +1,11 @@
 <div class="page-content-header icon-content-header-enterprise-manage">企业产品设置：{{entName}}
-<button class="pull-right fox-cloud-button fox-cloud-button-white" (click)="return()"><span>返回企业列表</span></button>
+<button class="pull-right fox-cloud-button fox-cloud-button-white" (click)="return()" style="margin-top: -10px;"><span>返回企业列表</span></button>
 </div> 
 
 <div class="page-content">
 	<div class="setProdPanel green-border">
 		<div class="titlePanel">
-			<span>已选中的产品</span>
+			<span class="form-control-title">已选中的产品</span>
 			<div class="pull-right chevron-down-bt" (click)="showEntProdList=!showEntProdList">
 				<span class="glyphicon glyphicon-chevron-down"></span>
 				<span class="glyphicon glyphicon-chevron-down chevron-down-bt-second"></span>
@@ -40,7 +40,7 @@
 						<td>{{item.countCycle}}</td>
 						<td>{{item.cyclePrice}}</td>
 						<td>{{item.oneTimePrice}}</td>
-						<td  [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.status}}</td>
+						<td [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.statusName}}</td>
 						<td><button class="green-delete-bt" (click)="removeItem(item)"><i></i></button></td>
 					</tr>
 				</tbody>
@@ -50,7 +50,7 @@
 	</div>
 	<div class="setProdPanel green-border">
 		<div class="titlePanel">
-			<span>所有产品列表</span>
+			<span class="form-control-title">所有产品列表</span>
 			<div class="pull-right chevron-down-bt" (click)="showProdList=!showProdList">
 				<span class="glyphicon glyphicon-chevron-down"></span>
 				<span class="glyphicon glyphicon-chevron-down chevron-down-bt-second"></span>
@@ -85,7 +85,7 @@
 						<td>{{item.countCycle}}</td>
 						<td>{{item.cyclePrice}}</td>
 						<td>{{item.oneTimePrice}}</td>
-						<td  [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.status}}</td>
+						<td [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.statusName}}</td>
 						<td><button class="green-add-bt" (click)="addItem(item)"><i></i><i></i></button></td>
 					</tr>
 				</tbody>
