@@ -170,7 +170,7 @@ export class EntEstCreService{
 			, caller
 			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.resourcequota.get")
 			, localParams
-			, "加载企业认证数据"
+			, "加载企业认证"
 			, null
 			, (source, target:EntEstBasicInfo[])=>{
 				for(let item of source)
@@ -225,7 +225,7 @@ export class EntEstCreService{
 			, caller
 			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.resourcequota.get")
 			, localParams
-			, "加载企业配额数据"
+			, "加载企业配额"
 			, null
 			, (source, target:EntEstResourceQuota[])=>{
 				for(let item of source)
@@ -327,7 +327,7 @@ export class EntEstCreService{
 			, caller
 			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.products.get")
 			, localParams
-			, "加载企业产品数据"
+			, "加载企业产品"
 			, null
 			, (source, target:EntProdItem[])=>{
 				for(let item of source)
@@ -385,7 +385,7 @@ export class EntEstCreService{
 			, caller
 			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.avail.products.get")
 			, localParams
-			, "加载产品数据"
+			, "加载产品"
 			, null
 			, (source, target:EntProdItem[])=>{
 				for(let item of source)
