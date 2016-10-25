@@ -19,8 +19,8 @@
 			</ul>
 		</div>
 		<div class="pull-right">
-			<input type="text" class="form-control searchbox" placeholder="搜索" [(ngModel)]="criteria" (click)="search()" />
-			<span class="glyphicon glyphicon-search searchbox-incon"></span>
+			<input type="text" class="form-control searchbox" placeholder="搜索" [(ngModel)]="criteria" />
+			<span class="glyphicon glyphicon-search searchbox-incon" (click)="search()"></span>
 		</div>
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="create()">
 			<span class="glyphicon glyphicon-edit"></span>
@@ -59,7 +59,7 @@
 					<td>{{item.snapQuota }}</td>
 					<td>{{item.productNum  }}</td>
 					<td>{{item.orderNum  }}</td>
-					<td>{{item.statusName}}</td>
+					<td [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.statusName}}</td>
 					<td>{{item.description}}</td>
 				</tr>
 			</tbody>

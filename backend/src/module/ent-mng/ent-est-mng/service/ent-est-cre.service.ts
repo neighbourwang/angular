@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RestApiCfg, RestApi } from '../../../../architecture';
 import { RestApiModel } from '../../../../architecture/core/model/rest';
-import { EntEstItem, EntProdItem, EntEst, EntEstResourceQuota, ResourceQuota, EntEstBasicInfo } from '../model';
+import { Status, EntEstItem, EntProdItem, EntEst, EntEstResourceQuota, ResourceQuota, EntEstBasicInfo } from '../model';
 import { LayoutService, ValidationService, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
@@ -134,7 +134,11 @@ export class EntEstCreService{
 				}
 			}
 			, (items:EntEstItem[])=>{
-			items.map(n=>{n.checked = false;});
+			items.map(n=>{
+				n.checked = false;
+				n.statusEnum = parseInt(n.status);
+				
+			});
 		},
 		successHanlder);
 	}
@@ -565,7 +569,7 @@ export class EntEstCreService{
 	//更新企业状态：启用，禁用，删除
 	//0: Initial; 1: Active; 2: Suspend; 3: Cancelled, 4: Deleted.
 
-	updateEntStatus(entId:string, status:number){
+	updateEntStatus(entId:string, status:Status){
 		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.updatestatus");
 
 		let localParams = [
@@ -575,7 +579,7 @@ export class EntEstCreService{
 		}
 		,{
 			key:"_status"
-			,value:status
+			,value:status as number
 		}
 		]
 		

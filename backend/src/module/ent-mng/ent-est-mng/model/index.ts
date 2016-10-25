@@ -4,6 +4,7 @@ export * from './ent-est-resourcequota';
 export * from './ent-est';
 export * from './ent-prod-item';
 export * from './resourcequota';
+export * from './status';
 export * from './summary-account';
 export * from './summary-prod-order';
 export * from './summary-work-order';

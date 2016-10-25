@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
-import { EntEstItem, EntEst} from '../model';
+import { Status, EntEstItem, EntEst} from '../model';
 
 import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
 
@@ -288,7 +288,7 @@ export class EntEstMngComponent implements OnInit {
     if(this.getSelected())
     {
       this.confirmedHandler = ()=>{
-        this.service.updateEntStatus(this.getSelected().id, 1)
+        this.service.updateEntStatus(this.getSelected().id, Status.Active)
         .then(ret=>{
           this.search();
         })
@@ -306,7 +306,7 @@ export class EntEstMngComponent implements OnInit {
     if(this.getSelected())
     {
       this.confirmedHandler = ()=>{
-        this.service.updateEntStatus(this.getSelected().id, 2)
+        this.service.updateEntStatus(this.getSelected().id, Status.Suspend)
         .then(ret=>{
           this.search();
         })
@@ -324,7 +324,7 @@ export class EntEstMngComponent implements OnInit {
     if(this.getSelected())
     {
       this.confirmedHandler = ()=>{
-        this.service.updateEntStatus(this.getSelected().id, 4)
+        this.service.updateEntStatus(this.getSelected().id, Status.Deleted)
         .then(ret=>{
           this.search();
         })
