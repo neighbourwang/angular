@@ -11,6 +11,8 @@ import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../
 
 import { ClMngCreStep6Service } from '../service/cl-mng-cre-step-6.service'; 
 
+import { CreStep6Model } from '../model/cre-step6.model'; 
+
 import { ClMngIdService } from '../service/cl-mng-id.service';
 
 @Component({
@@ -27,19 +29,48 @@ export class ClMngCreStep6Component implements OnInit{
     constructor(
         private router : Router,
         private service : ClMngCreStep6Service,
-        private idService : ClMngIdService
+        private idService : ClMngIdService,
     ) {}
 
 
-    
+    creStep6Model : Array<CreStep6Model> = new Array<CreStep6Model>();
+
+
     ngOnInit (){
         console.log('init');
+        let id : String = this.idService.getPlatformId();
+        // id = "4f565fe7-09fc-4b8b-8227-a0b5b8b1eb6c";
+        this.service.getImages(id).then(
+            res => {
+                console.log(res);
+                this.creStep6Model = res.resultContent;
+            }
+        ).catch(
+            err => {
+                console.error('error');
+            }
+        )
     }
-
     previous (){
         this.router.navigateByUrl('pf-mng2/cl-mng/cre-step5');
     }
     cancel (){
         this.router.navigateByUrl("pf-mng2/cl-mng/cl-mng");
+    }
+    next(){
+        console.log('next');
+        let id : String = this.idService.getPlatformId();
+        // id = "4f565fe7-09fc-4b8b-8227-a0b5b8b1eb6c";
+
+        this.service.putImages(id , this.creStep6Model).then(
+            res => {
+                // console.log(res);
+                this.router.navigateByUrl('pf-mng2/cl-mng/cl-mng');
+            }
+        ).catch(
+            err => {
+                console.error('err');
+            }
+        )
     }
 }

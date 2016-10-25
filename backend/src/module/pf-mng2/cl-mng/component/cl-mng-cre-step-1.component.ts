@@ -10,7 +10,10 @@ import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../
 //model 
 import { CreStep1Model } from '../model/Cre-step1.model';
 
-import { ClMngCreStep1Service } from '../service/cl-mng-cre-step-1.service'
+import { ClMngCreStep1Service } from '../service/cl-mng-cre-step-1.service';
+
+import { ClMngIdService } from '../service/cl-mng-id.service';
+
 
 @Component({
     selector: 'cl-mng-cre-step-1',
@@ -27,11 +30,13 @@ export class ClMngCreStep1Component implements OnInit{
     msg : String;
     platformTypes : Array<any> = new Array<any>();
     platformVersion : Array<any> = new Array<any>();
+    regions : Array<any> = new Array<any>();
 
     constructor(
         private router : Router,
         private service : ClMngCreStep1Service,
-        private layoutService : LayoutService
+        private layoutService : LayoutService,
+        private idService : ClMngIdService
     ) {}
 
 
@@ -60,6 +65,8 @@ export class ClMngCreStep1Component implements OnInit{
             res => {
                 if(res && 100 == res.resultCode){
                     console.log('地域',res);
+                    this.regions = res.resultContent;
+                    // this.creStep1Model.regionId = this.regions[0].value;
                 }
             }
         ).catch(function(){
@@ -70,13 +77,21 @@ export class ClMngCreStep1Component implements OnInit{
     // 下一步
     next (){
         let message : String= this.checkValue();
-        // if(this.checkValue()){
-        //     this.notice.open('错误',message);
-        // }else{
-        //     this.router.navigateByUrl("pf-mng2/cl-mng/cre-step2");
-        // }
-        // todo 调用接口
-        this.router.navigateByUrl("pf-mng2/cl-mng/cre-step2");
+        if(this.checkValue()){
+            this.notice.open('错误',message);
+        }else{
+            // this.router.navigateByUrl("pf-mng2/cl-mng/cre-step2");
+            this.service.crPlatForm(this.creStep1Model).then(
+                res => {
+                    this.idService.setPlatformId(res.resultContent);
+                    this.router.navigateByUrl("pf-mng2/cl-mng/cre-step2");
+                }
+            ).catch(
+                err => {
+                    console.error('error');
+                }
+            )
+        }
         
     }
     //取消

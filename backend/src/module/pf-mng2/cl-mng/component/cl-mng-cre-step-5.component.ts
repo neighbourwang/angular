@@ -37,10 +37,12 @@ export class ClMngCreStep5Component implements OnInit{
         console.log('init');
 
         let platFormId : String = this.idService.getPlatformId();
-        
+        // platFormId = "4f565fe7-09fc-4b8b-8227-a0b5b8b1eb6c";
         this.service.getFlavors(platFormId).then(
             res => {
-                console.log(res);
+                // console.log(res);
+                this.creStep5Model = res.resultContent;
+
             }
         ).catch(
             error => {
@@ -52,10 +54,13 @@ export class ClMngCreStep5Component implements OnInit{
     next (){
 
         let platFormId : String = this.idService.getPlatformId();
+        // platFormId = "4f565fe7-09fc-4b8b-8227-a0b5b8b1eb6c";
+        
+        // console.log(this.creStep5Model);
 
         this.service.putFlavors(platFormId ,this.creStep5Model).then(
             res => {
-                console.log(res);
+                // console.log(res);
                 this.router.navigateByUrl("pf-mng2/cl-mng/cre-step6");
             }
         ).catch(
