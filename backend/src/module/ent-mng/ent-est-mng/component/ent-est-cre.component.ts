@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
-import { EntEst, ResourceQuota } from '../model'
+import { EntEst, ResourceQuota, CertMethod } from '../model'
 import { EntEstCreService, Paging } from '../service/ent-est-cre.service'
 
 @Component({
@@ -35,7 +35,6 @@ export class EntEstCreComponent implements OnInit{
 		.queryParams
 		.subscribe(data=>{
 			this.entEst = new EntEst();
-
 		});
 
 		this.service.loadResourceQuotas(this.resourceQuotas
@@ -52,14 +51,14 @@ export class EntEstCreComponent implements OnInit{
 	selectLocal(){
 		this.isLocal = true;
 		this.clearEntEst();
-		this.entEst.BasicInfo.certMethod = "0";	    
+		this.entEst.BasicInfo.certMethod = CertMethod.Local;	    
 		this.isADSelected();
 	}
 
 	selectAD(){
 		this.isLocal = false;
 		this.clearEntEst();
-		this.entEst.BasicInfo.certMethod = "1";
+		this.entEst.BasicInfo.certMethod = CertMethod.AD;
 		this.isADSelected();
 	}
 
@@ -82,7 +81,7 @@ export class EntEstCreComponent implements OnInit{
 
 	//数据验证
 	validate(){
-		let notValid = [
+		let checkList:Array<any> = [
 		{
 			"name":"名称"
 			,'value':this.entEst.BasicInfo.name
@@ -92,23 +91,30 @@ export class EntEstCreComponent implements OnInit{
 			"name":"认证方式"
 			,"value":this.entEst.BasicInfo.certMethod
 			,"op":"*"
+		}];
+
+		if(this.isADSelected())
+		{
+			checkList = checkList.concat([
+				{
+					"name":"URL地址"
+					,"value":this.entEst.BasicInfo.certUrl
+					,"op":"*"
+				},
+				{
+					"name":"用户名"
+					,"value":this.entEst.BasicInfo.contactorName
+					,"op":"*"
+				},
+				{
+					"name":"密码"
+					,"value":this.entEst.BasicInfo.password
+					,"op":"*"
+				}]
+				);
 		}
-		,{
-			"name":"URL地址"
-			,"value":this.entEst.BasicInfo.certUrl
-			,"op":"*"
-		},
-		{
-			"name":"用户名"
-			,"value":this.entEst.BasicInfo.contactorName
-			,"op":"*"
-		},
-		{
-			"name":"密码"
-			,"value":this.entEst.BasicInfo.password
-			,"op":"*"
-		},
-		{
+
+		checkList = checkList.concat([{
 			"name":"描述"
 			,"value":this.entEst.BasicInfo.description
 			,"op":"*"
@@ -137,8 +143,9 @@ export class EntEstCreComponent implements OnInit{
 			"name":"可创建镜像数量"
 			,"value":this.entEst.ResourceQuota.imageQuota
 			,"op":"*"
-		}
-		].find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
+		}]);
+
+		let notValid = checkList.find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
 
 		if(notValid !== void 0)
 		{

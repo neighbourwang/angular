@@ -5,7 +5,7 @@ export class EntEstBasicInfo{
 	email: string = null;
 	id: string = null;//id:
 	name: string = null;//企业名称:
-	certMethod: string = null;//认证方式
+	certMethod: number = 0;//认证方式
 	certUrl: string = null;//url地址
 	contactorName: string = null;//用户名
 	password: string = null;//密码

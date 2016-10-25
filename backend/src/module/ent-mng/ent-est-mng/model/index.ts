@@ -1,3 +1,4 @@
+export * from './certmethod';
 export * from './ent-est-basic-info';
 export * from './ent-est-item';
 export * from './ent-est-resourcequota';
