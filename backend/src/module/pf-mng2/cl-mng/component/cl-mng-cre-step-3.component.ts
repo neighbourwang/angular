@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
 import { CreStep3Model }  from '../model/cre-step3.model';
 
 
+import { Config } from '../../../../architecture/components/countBar/config/config';
+
+
 import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../architecture';
 
 import { ClMngCreStep3Service } from '../service/cl-mng-cre-step-3.service'; 
@@ -33,6 +36,15 @@ export class ClMngCreStep3Component implements OnInit{
         private idService : ClMngIdService
     ) {}
 
+    countBar:Config={
+        default:100,
+        step:50,
+        min:0,
+        max:1024,
+        disabled:true,
+        name:''
+    }
+
     ngOnInit (){
         console.log('init');
 
@@ -41,6 +53,7 @@ export class ClMngCreStep3Component implements OnInit{
         this.service.getZone(platFormId).then(
             res => {
                 console.log(res);
+                this.creStep3Model = res.resultContent;
             }
         ).catch(
             error => {
@@ -53,7 +66,7 @@ export class ClMngCreStep3Component implements OnInit{
 
         let platFormId : String = this.idService.getPlatformId();
 
-        this.router.navigateByUrl("pf-mng2/cl-mng/cre-step4");
+        // this.router.navigateByUrl("pf-mng2/cl-mng/cre-step4");
 
         //等待接口
         this.service.putZone( platFormId , this.creStep3Model).then(
@@ -75,5 +88,9 @@ export class ClMngCreStep3Component implements OnInit{
     }
     cancel (){
         this.router.navigateByUrl("pf-mng2/cl-mng/cl-mng");
+    }
+
+    outputValue(event , index){
+        this.creStep3Model[index].usageQuota = event;
     }
 }

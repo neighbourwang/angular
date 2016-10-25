@@ -29,11 +29,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let item of storages; let idx = index;">
+                <tr *ngFor="let item of creStep4Model; let idx = index;">
                     <td>{{idx + 1}}</td>
                     <td>{{item.name}}</td>
                     <td><input type="text" class="form-control" [(ngModel)]="item.displayName"></td>
-                    <td><input type="number" class="form-control" [(ngModel)]="item.quota" style="width: 100px; display: inline;"></td>
+                    <td>
+                        <!--<input type="number" class="form-control" [(ngModel)]="item.quota" style="width: 100px; display: inline;">-->
+                        <count-bar [config]="countBar" (output)="outputValue($event,idx)"></count-bar>
+                        </td>
                     <td>12800</td>
                     <td><input type="text" class="form-control" [(ngModel)]="item.description"></td>
                 </tr>

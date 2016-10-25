@@ -13,6 +13,10 @@ import { ClMngCreStep4Service } from '../service/cl-mng-cre-step-4.service';
 
 import { ClMngIdService } from '../service/cl-mng-id.service';
 
+
+import { Config } from '../../../../architecture/components/countBar/config/config';
+
+
 @Component({
     selector: 'cl-mng-cre-step-4',
     templateUrl: '../template/cl-mng-cre-step-04.component.html',
@@ -31,6 +35,15 @@ export class ClMngCreStep4Component implements OnInit{
 
     creStep4Model : Array<CreStep4Model> = new Array<CreStep4Model>();
 
+    countBar:Config={
+        default:100,
+        step:50,
+        min:0,
+        max:1024,
+        disabled:true,
+        name:''
+    }
+
     ngOnInit (){
         console.log('init');
 
@@ -38,7 +51,7 @@ export class ClMngCreStep4Component implements OnInit{
         
         this.service.getStorage(platFormId).then(
             res => {
-                console.log(res);
+                this.creStep4Model = res.resultContent;
             }
         ).catch(
             error => {
@@ -63,7 +76,7 @@ export class ClMngCreStep4Component implements OnInit{
                 console.error('error');
             }
         )
-        this.router.navigateByUrl("pf-mng2/cl-mng/cre-step5");
+        // this.router.navigateByUrl("pf-mng2/cl-mng/cre-step5");
     }
 
     previous (){
@@ -71,5 +84,9 @@ export class ClMngCreStep4Component implements OnInit{
     }
     cancel (){
         this.router.navigateByUrl("pf-mng2/cl-mng/cl-mng");
+    }
+
+    outputValue(e , index){
+        this.creStep4Model[index].quota = e;
     }
 }
