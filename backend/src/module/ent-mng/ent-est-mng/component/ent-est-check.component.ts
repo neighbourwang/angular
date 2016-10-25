@@ -17,7 +17,7 @@ export class EntEstCheckComponent implements OnInit {
 
   private entEst: EntEst = new EntEst();
   private entProdItems: Paging<EntProdItem> = new Paging<EntProdItem>();
-
+  private entId:string = "";
 
 
   constructor(
@@ -28,17 +28,17 @@ export class EntEstCheckComponent implements OnInit {
 
   ngOnInit() {
     this.router.routerState.root.queryParams.subscribe(data=>{
-      let entId:string = data["entId"] as string;
-      console.log('Check entId', entId);
+      this.entId = data["entId"] as string;
+      console.log('Check entId', this.entId);
       //加载基本信息
       this.service.loadEntInfo(this.entEst.BasicInfo
           , this.showError
           , null
           , this
-          , entId);
+          , this.entId);
 
       //加载产品信息
-      this.service.loadEntProdItems(this.entProdItems, this.showError, this, entId); 
+      this.loadEntProdItems();
     });
 
   }
@@ -63,5 +63,23 @@ export class EntEstCheckComponent implements OnInit {
     this.router.navigateByUrl('ent-mng/ent-est-mng/ent-est-mng');
   }
   
+  changePage(page: number) {
+
+    page = page < 1 ? 1 : page;
+    page = page > this.entProdItems.totalPages ? this.entProdItems.totalPages : page;
+
+    if (this.entProdItems.currentPage == page) {
+      return;
+    }
+
+    this.entProdItems.currentPage = page;
+    this.loadEntProdItems();
+  }
+
+  loadEntProdItems(){
+    this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId); 
+  }
+
+
 
 }
