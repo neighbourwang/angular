@@ -496,6 +496,11 @@ export let RestApis: RestApiModel[] = [
        "id": "ent-mng.ent-est-mng.enterprise.avail.products.get",
        "method": "POST",
        "url": "adminui/authsec/enterprises/{enterpriseId}/products/search/paging"
+   },{
+       "desc": "所有平台配额参考",
+       "id": "ent-mng.ent-est-mng.platforms.quotas.get",
+       "method": "GET",
+       "url": "adminui/authsec/platforms/resouces/quotas/page/{_page}/size/{_size}"
    },// 企业管理 -->
    // 
     //产品管理

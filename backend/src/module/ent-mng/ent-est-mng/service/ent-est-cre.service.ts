@@ -47,9 +47,10 @@ export class EntEstCreService{
 		}
 	}
 
+	//获取所有平台配额参考
 	loadResourceQuotas(resourceQuotaPaging: Paging<ResourceQuota>, errorHandler: Function, comp:any)
 	{
-		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.resourcequota.get");
+		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.platforms.quotas.get");
 
 		let params = [
 			{
@@ -69,11 +70,20 @@ export class EntEstCreService{
 			,api
 			,params
 			,"资源列表"
-			,(items:ResourceQuota[])=>{
-				let item = new ResourceQuota();
-				item.regionName = "测试区域";
-				items.push(item);
+			, null
+			, (source, target:ResourceQuota[])=>{
+				for(let item of source)
+				{
+					let obj = new ResourceQuota();
+					target.push(obj);
+
+					obj.regionName = item.regionName;
+					obj.platformVMQuota = item.vmQuota;
+					obj.storageQuota = item.storageQuota;
+
+				}
 			});
+
 
 	
 	}
