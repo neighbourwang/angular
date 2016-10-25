@@ -21,6 +21,8 @@ export class EntEstSetProdComponent implements OnInit {
   private entName:string = "";
   private entId: string = "";
   private dic:SystemDictionary[];
+  private showEntProdList: boolean = true;
+  private showProdList:boolean = true;
   constructor(
     private layoutService: LayoutService,
     private router: Router,

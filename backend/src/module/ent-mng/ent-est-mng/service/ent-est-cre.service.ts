@@ -136,11 +136,9 @@ export class EntEstCreService{
 			, (items:EntEstItem[])=>{
 			items.map(n=>{
 				n.checked = false;
-				n.statusEnum = parseInt(n.status);
-				
 			});
-		},
-		successHanlder);
+			},
+			successHanlder);
 	}
 
 //加载企业认证信息

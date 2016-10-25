@@ -6,14 +6,13 @@
 	<div class="setProdPanel green-border">
 		<div class="titlePanel">
 			<span>已选中的产品</span>
-			<div class="pull-right chevron-down-bt">
+			<div class="pull-right chevron-down-bt" (click)="showEntProdList=!showEntProdList">
 				<span class="glyphicon glyphicon-chevron-down"></span>
 				<span class="glyphicon glyphicon-chevron-down chevron-down-bt-second"></span>
 			</div>
 			<div class="pull-right">
-				<input type="text" class="form-control searchbox gray-searchbox" placeholder="搜索" [(ngModel)]="criteria" 
-					(click)="search()" />
-				<span class="glyphicon glyphicon-search searchbox-incon"></span>
+				<input type="text" class="form-control searchbox gray-searchbox" placeholder="搜索" [(ngModel)]="criteria" />
+				<span class="glyphicon glyphicon-search searchbox-incon" (click)="search()"></span>
 			</div>
 				
 		</div>
@@ -32,7 +31,7 @@
 						<td>操作</td>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody *ngIf="showEntProdList">
 					<tr *ngFor="let item of entProdItems.items">
 						<td>{{item.name}}</td>
 						<td>{{item.category}}</td>
@@ -41,7 +40,7 @@
 						<td>{{item.countCycle}}</td>
 						<td>{{item.cyclePrice}}</td>
 						<td>{{item.oneTimePrice}}</td>
-						<td class="validateInfo">{{item.status}}</td>
+						<td  [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.status}}</td>
 						<td><button class="green-delete-bt" (click)="removeItem(item)"><i></i></button></td>
 					</tr>
 				</tbody>
@@ -52,14 +51,13 @@
 	<div class="setProdPanel green-border">
 		<div class="titlePanel">
 			<span>所有产品列表</span>
-			<div class="pull-right chevron-down-bt">
+			<div class="pull-right chevron-down-bt" (click)="showProdList=!showProdList">
 				<span class="glyphicon glyphicon-chevron-down"></span>
 				<span class="glyphicon glyphicon-chevron-down chevron-down-bt-second"></span>
 			</div>
 			<div class="pull-right">
-				<input type="text" class="form-control searchbox gray-searchbox" placeholder="搜索" [(ngModel)]="criteria" 
-					(click)="search()" />
-				<span class="glyphicon glyphicon-search searchbox-incon"></span>
+				<input type="text" class="form-control searchbox gray-searchbox" placeholder="搜索" [(ngModel)]="criteria" />
+				<span class="glyphicon glyphicon-search searchbox-incon" (click)="search()" ></span>
 			</div>
 				
 		</div>
@@ -78,7 +76,7 @@
 						<td>操作</td>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody *ngIf="showProdList">
 					<tr *ngFor="let item of prodItems.items">
 						<td>{{item.name}}</td>
 						<td>{{item.category}}</td>
@@ -87,7 +85,7 @@
 						<td>{{item.countCycle}}</td>
 						<td>{{item.cyclePrice}}</td>
 						<td>{{item.oneTimePrice}}</td>
-						<td class="validateInfo">{{item.status}}</td>
+						<td  [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.status}}</td>
 						<td><button class="green-add-bt" (click)="addItem(item)"><i></i><i></i></button></td>
 					</tr>
 				</tbody>
