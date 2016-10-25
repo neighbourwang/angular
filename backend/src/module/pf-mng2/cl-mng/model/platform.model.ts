@@ -10,6 +10,8 @@
     version : string; //版本
     regionId : string; //地域
     dataCenter : string; //所属数据中心
+    healthFlag : string; //健康状况
+    status : string; //状态
     // status : number;
     // supportChange : boolean;
     isSelected : boolean;

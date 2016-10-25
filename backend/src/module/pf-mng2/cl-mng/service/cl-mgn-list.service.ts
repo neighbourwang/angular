@@ -33,15 +33,28 @@ export class ClMngListService {
 
     // 启用特定平台
     activePlatform(pid: String) {
-        let api = this.restApiCfg.getRestApi("pf.cre.paltform.active.get");
+        let api = this.restApiCfg.getRestApi("pf.cre.paltform.active.put");
 
         return this.restApi.request(api.method, api.url, [{ key: "pf-id", value: pid }], undefined);
     }
 
     //禁用平台
-    disable(pid:String){
+    disablePlatform(pid:String){
         let api = this.restApiCfg.getRestApi("pf.cre.platform.disable.put");
 
         return this.restApi.request(api.method , api.url , [{key : "_id",value : pid}],undefined)
+    }
+    //获取平台状态
+    getPlatFormStatus(){
+        let api = this.restApiCfg.getDataRestApi("sysdic.owner.field");
+
+        return this.restApi.request(api.method, api.url, [
+            {
+                key: "_owner",
+                value: 'GLOBAL'
+            }, {
+                key: "_field",
+                value: "STATUS"
+            }],undefined);
     }
 }

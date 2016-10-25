@@ -19,8 +19,8 @@
 			</ul>
 		</div>
 		<div class="pull-right">
-			<input type="text" class="form-control searchbox" placeholder="搜索" [(ngModel)]="criteria" (click)="search()" />
-			<span class="glyphicon glyphicon-search searchbox-incon"></span>
+			<input type="text" class="form-control searchbox" placeholder="搜索" [(ngModel)]="criteria" />
+			<span class="glyphicon glyphicon-search searchbox-incon" (click)="search()"></span>
 		</div>
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="create()">
 			<span class="glyphicon glyphicon-edit"></span>
@@ -50,7 +50,7 @@
 					<td>
 						<input type="radio" class="fox-cloud-radio"   name="entItems" (change)="selectItem(i)" value="{{i}}">
 					</td>
-					<td (click)="checkEnterpriseInfo();" class="hands">{{item.enterpriseName}}</td>
+					<td (click)="checkEnterpriseInfo(item.id);" class="hands">{{item.enterpriseName}}</td>
 					<td>{{item.vmNum }}</td>
 					<td>{{item.vmQuota }}</td>
 					<td>{{item.vmQuotaUsageRate }}</td>
@@ -59,7 +59,7 @@
 					<td>{{item.snapQuota }}</td>
 					<td>{{item.productNum  }}</td>
 					<td>{{item.orderNum  }}</td>
-					<td>{{item.statusName}}</td>
+					<td [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.statusName}}</td>
 					<td>{{item.description}}</td>
 				</tr>
 			</tbody>
@@ -96,7 +96,7 @@
 	<div class="dialogContent">
 		<div class="row row-line-height">
 			<div class="form-group">
-				<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>可创建云主机数量：</div>
+				<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>可创建云主机数量：</div>
 				<div class="col-sm-4">
 					<input type="number" class="form-control input-control" placeholder="可创建云主机数量" [(ngModel)]="entEst.ResourceQuota.platformVMQuota">
 				</div>
@@ -104,7 +104,7 @@
 		</div>
 		<div class="row row-line-height">
 			<div class="form-group">
-				<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>可创建物理机数量：</div>
+				<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>可创建物理机数量：</div>
 				<div class="col-sm-4">
 					<input type="number" class="form-control input-control" placeholder="可创建物理机数量" [(ngModel)]="entEst.ResourceQuota.physicalMachineQuota">
 				</div>
@@ -112,7 +112,7 @@
 		</div>
 		<div class="row row-line-height">
 			<div class="form-group">
-				<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>可使用存储额度：</div>
+				<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>可使用存储额度：</div>
 				<div class="col-sm-4">
 					<input type="number" class="form-control input-control" placeholder="可使用存储额度" [(ngModel)]="entEst.ResourceQuota.storageQuota">
 				</div>
@@ -120,7 +120,7 @@
 		</div>
 		<div class="row row-line-height">
 			<div class="form-group">
-				<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>可创建快照数量：</div>
+				<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>可创建快照数量：</div>
 				<div class="col-sm-4">
 					<input type="number" class="form-control input-control" placeholder="可创建快照数量" [(ngModel)]="entEst.ResourceQuota.snapQuota">
 				</div>
@@ -128,7 +128,7 @@
 		</div>
 		<div class="row row-line-height">
 			<div class="form-group">
-				<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>可创建镜像数量：</div>
+				<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>可创建镜像数量：</div>
 				<div class="col-sm-4">
 					<input type="number" class="form-control input-control" placeholder="可创建镜像数量" [(ngModel)]="entEst.ResourceQuota.imageQuota">
 				</div>

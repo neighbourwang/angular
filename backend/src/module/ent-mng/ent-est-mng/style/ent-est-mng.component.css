@@ -78,13 +78,13 @@
 }
 .chevron-down-bt-second{
     position: relative;
-    top: 10px;
-    left: -24px;
+    top: 8px;
+    left: -19px;
 }
 
 .basePanel{
   width: 1200px;
-  height: 400px;
+  height: 450px;
 }
 .infoContent{
   width:700px;
@@ -103,11 +103,12 @@
 .uploadImg span{
 	color:  #C1CACA;
 	font-size: 18px;
+  
 }
 .imgPanel{
 	width:412px;
     height: 300px;
-     border:1px solid #000;
+    border:1px solid #000;
 }
 
 .uploadImg span:first-child{
@@ -141,6 +142,7 @@
 .buttonPanel{
 	width: 1200px;
 	text-align: center;
+    margin-top:20px; 
 }
 .gray-larger-bg{
 	padding:  25px 160px ;
@@ -220,7 +222,7 @@
     padding-left: 20px;
 }
 .titlePanel span{
-	font-size: 20px;
+	font-size: 15px;
 }
 .green-border{
 	border: 1px solid #CFD8E7;
@@ -255,17 +257,17 @@
 
 }
 .input-control{
-    width: 350px;
+    width: 300px;
     display: inline-block;
     margin-right: 10px;
 }
-.enterprise-content-header{
+/*.enterprise-content-header{
 	height: 40px;
 	padding: 10px;
 	font-size: 18px;
 	font-weight: bold;
 	border-bottom: solid 1px #C1CACA;
-}
+}*/
 .dialogContent{
     width: 500px;
     position: relative;

@@ -21,6 +21,8 @@ export class EntEstSetProdComponent implements OnInit {
   private entName:string = "";
   private entId: string = "";
   private dic:SystemDictionary[];
+  private showEntProdList: boolean = true;
+  private showProdList:boolean = true;
   constructor(
     private layoutService: LayoutService,
     private router: Router,
@@ -58,7 +60,7 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
         return id;
     };
     this.entProdItems.items.map(n=>{n.status= getName(n.status);});
-  }
+  } 
 
   //移除产品
   removeItem(entProdItem: EntProdItem)
@@ -113,7 +115,7 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
     }
 
     this.prodItems.currentPage = page;
-    this.service.loadAvailProdItems(this.prodItems, this.showError, this); 
+    this.service.loadAvailProdItems(this.prodItems, this.showError, this, this.entId); 
   }
 
   changePage_EntProdItems(page: number) {
@@ -131,7 +133,7 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
 
   refreshData(){
     this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId); 
-    this.service.loadAvailProdItems(this.prodItems, this.showError, this); 
+    this.service.loadAvailProdItems(this.prodItems, this.showError, this, this.entId); 
 
   }
 

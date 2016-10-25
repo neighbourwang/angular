@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RestApiCfg, RestApi } from '../../../../architecture';
 import { RestApiModel } from '../../../../architecture/core/model/rest';
-import { EntEstItem, EntProdItem, EntEst, EntEstResourceQuota, ResourceQuota, EntEstBasicInfo } from '../model';
+import { Status, EntEstItem, EntProdItem, EntEst, EntEstResourceQuota, ResourceQuota, EntEstBasicInfo } from '../model';
 import { LayoutService, ValidationService, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
@@ -119,6 +119,7 @@ export class EntEstCreService{
 					target.push(obj);
 
 					obj.id = item.enterpriseId as string; 
+					obj.authMode = parseInt(item.authMode);//认证方式
 					obj.enterpriseName = item.enterpriseName as string; 
 					obj.vmNum = 0; //api 未提供
 					obj.vmQuota = 0; //api 未提供
@@ -134,9 +135,11 @@ export class EntEstCreService{
 				}
 			}
 			, (items:EntEstItem[])=>{
-			items.map(n=>{n.checked = false;});
-		},
-		successHanlder);
+			items.map(n=>{
+				n.checked = false;
+			});
+			},
+			successHanlder);
 	}
 
 //加载企业认证信息
@@ -281,7 +284,9 @@ export class EntEstCreService{
 				obj.code = source.code;
 				obj.id = source.id;
 				obj.name = source.name;
+				obj.contactorName = source.loginName;
 				obj.description = source.description;
+				obj.certMethod = parseInt(source.authMode);
 			}
 			, (items:EntEstBasicInfo[])=>{
 				let item = items[0];
@@ -359,23 +364,26 @@ export class EntEstCreService{
 	//加载可用产品信息
 	loadAvailProdItems(prodItems: Paging<EntProdItem>
 		,errorHandler: Function
-		,caller: any):void
+		,caller: any
+		,entId: string):void
 	{
-		let localParams:Array<any> = [
-		{
-			key:"_page"
-			,value:prodItems.currentPage == 0? 1:prodItems.currentPage
-		}
-		,{
-			key:"_size"
-			,value:10
-		}
-		];
+		let localParams:Array<any> = [{
+			key:"enterpriseId"
+			,value: entId
+		}];
+
+		let pageParameter = {
+		  "currentPage": prodItems.currentPage == 0? 1: prodItems.currentPage,
+		  "offset": 0,
+		  "size": 10,
+		  "sort": {},
+		  "totalPage": 0
+		};
 
 		this.loadItems(prodItems
 			, errorHandler
 			, caller
-			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.products.get")//这个地址可能需要同罗杰进一步沟通
+			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.avail.products.get")
 			, localParams
 			, "加载产品数据"
 			, null
@@ -389,7 +397,6 @@ export class EntEstCreService{
 					//界面上绑定的是EntProdItem模型，对应obj
 					//从服务器上获取的数据是item
 					//将item上的值映射到obj上面				
-					obj.entId = item.enterpriseId as string;
 					obj.name = item.name as string;
 					obj.category = item.serviceName as string;
 					obj.type = item.serviceType as string;
@@ -401,6 +408,9 @@ export class EntEstCreService{
 					obj.description = item.description;
 				}
 			}
+			,null
+			,null
+			,pageParameter
 			);
 	}
 
@@ -565,7 +575,7 @@ export class EntEstCreService{
 	//更新企业状态：启用，禁用，删除
 	//0: Initial; 1: Active; 2: Suspend; 3: Cancelled, 4: Deleted.
 
-	updateEntStatus(entId:string, status:number){
+	updateEntStatus(entId:string, status:Status){
 		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.updatestatus");
 
 		let localParams = [
@@ -575,7 +585,7 @@ export class EntEstCreService{
 		}
 		,{
 			key:"_status"
-			,value:status
+			,value:status as number
 		}
 		]
 		
@@ -639,7 +649,7 @@ export class EntEstCreService{
 
 					if(ret.pageInfo)
 					{
-						items.totalPages = ret.pageInfo.totalPage;
+						items.totalPages = ret.pageInfo.totalPage || 100;
 					}
 					else
 					{

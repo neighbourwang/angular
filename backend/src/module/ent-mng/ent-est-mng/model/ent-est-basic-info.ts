@@ -1,3 +1,5 @@
+import {CertMethod } from './';
+
 export class EntEstBasicInfo{
 	code: string = null;
 	contactorPhone: string = null;
@@ -5,7 +7,7 @@ export class EntEstBasicInfo{
 	email: string = null;
 	id: string = null;//id:
 	name: string = null;//企业名称:
-	certMethod: string = null;//认证方式
+	certMethod: CertMethod = CertMethod.Local;//认证方式
 	certUrl: string = null;//url地址
 	contactorName: string = null;//用户名
 	password: string = null;//密码
@@ -19,7 +21,7 @@ export class EntEstBasicInfo{
 		this.email = null;
 		this.id = null;
 		this.name = null;
-		this.certMethod = null;
+		this.certMethod = CertMethod.Local;
 		this.certUrl = null;
 		this.contactorName = null;
 		this.password = null;

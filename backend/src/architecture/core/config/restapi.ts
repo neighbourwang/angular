@@ -59,6 +59,12 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/platform/{pf-id}/active"
     },
     {
+        "desc": "启用特定平台",
+        "id": "pf.cre.paltform.active.put",
+        "method": "PUT",
+        "url": "adminui/authsec/platform/{pf-id}/activation"
+    },
+    {
         "desc" : "禁用平台",
         "id" : "pf.cre.platform.disable.put",
         "method" : "PUT",
@@ -485,6 +491,11 @@ export let RestApis: RestApiModel[] = [
        "id": "ent-mng.ent-est-mng.enterprise.products.get",
        "method": "POST",
        "url": "adminui/authsec/enterprises/products/search/page/{_page}/size/{_size}"
+   },{
+       "desc": "获取可用产品",
+       "id": "ent-mng.ent-est-mng.enterprise.avail.products.get",
+       "method": "POST",
+       "url": "adminui/authsec/enterprises/{enterpriseId}/products/search/paging"
    },// 企业管理 -->
    // 
     //产品管理
