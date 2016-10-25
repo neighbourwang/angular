@@ -89,7 +89,7 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
   //保存企业产品的变更
   saveChanges()
   {
-    this.service.updateEntProducts(this.entProdItems.items)
+    this.service.updateEntProducts(this.entProdItems.items, this.entId)
     .then(ret=>{
 
     })
