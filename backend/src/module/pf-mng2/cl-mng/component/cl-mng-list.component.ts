@@ -54,15 +54,24 @@ export class ClMngListComponent implements OnInit {
     msg:String = "";
     // 云平台类型
     platFormType : Array<any> = new Array<any>();
+    // 云平台状态
+    platFormStatus : Array<any> = new Array<any>();
 
 
     //初始化
     ngOnInit() {
         console.log('init');
+        //获取平台类型
         this.platFormTypeService.getPlatFormType().then(
             res => {
                 this.platFormType = res.resultContent;
-                this.backend(1, this.pp);
+                this.service.getPlatFormStatus().then(
+                    res => {
+                        this.platFormStatus = res.resultContent;
+                        this.backend(1, this.pp);
+                    }
+                )
+                
             }
         ).catch(
             err => {
@@ -90,7 +99,7 @@ export class ClMngListComponent implements OnInit {
         if (!platForm) {
             this.notice.open('操作错误', '请选择云平台');
         } else {
-            this.removeConfirm.open('启用云平台', '您选择启用 ' + platForm.name + '云平台,请确认；如果确认，用户将能够订购此云平台的资源。')
+            this.enableConfirm.open('启用云平台', '您选择启用 ' + platForm.name + '云平台,请确认；如果确认，用户将能够订购此云平台的资源。')
         }
     }
 
@@ -101,7 +110,7 @@ export class ClMngListComponent implements OnInit {
         if (!platForm) {
             this.notice.open('操作错误', '请选择云平台');
         } else {
-            this.removeConfirm.open('禁用云平台', '您选择禁用 ' + platForm.name + '云平台,请确认；如果确认，用户将不能够订购此云平台的资源。。')
+            this.disableConfirm.open('禁用云平台', '您选择禁用 ' + platForm.name + '云平台,请确认；如果确认，用户将不能够订购此云平台的资源。。')
         }
     }
 
@@ -151,7 +160,7 @@ export class ClMngListComponent implements OnInit {
             response => {
                 if (response && 100 == response.resultCode) {
                     this.notice.open('确认', "启用成功");
-                    //todo 手动修改状态
+                    this.backend(1, 10);
                 }
                 this.layoutService.hide();
             }
@@ -162,11 +171,11 @@ export class ClMngListComponent implements OnInit {
     disableCof() {
         this.layoutService.show();
         let platForm:Platform = this.getPlatForm();
-        this.service.deletePlatform(platForm.id).then(
+        this.service.disablePlatform(platForm.id).then(
             response => {
                 if (response && 100 == response.resultCode) {
                     this.notice.open('确认', "禁用成功");
-                    //todo 手动修改状态
+                    this.backend(1, 10);
                 }
                 this.layoutService.hide();
             }
@@ -208,6 +217,7 @@ export class ClMngListComponent implements OnInit {
                     let resultContent = response.resultContent;
                     let backend = new Array<Platform>();
                     let platFormTypes = this.platFormType;
+                    let platFormStatus = this.platFormStatus;
                     for (let content of resultContent) {
                         let platform = new Platform();
 
@@ -227,6 +237,12 @@ export class ClMngListComponent implements OnInit {
                         platform.version = content.version;
                         platform.regionId = content.regionId;
                         platform.dataCenter = content.dataCenter;
+                        for(let item of platFormStatus){
+                            if(content.status == item.value){
+                                platform.status = item.displayValue
+                            }
+                        }
+                        platform.healthFlag = content.healthFlag;
                         platform.isSelected = false;
 
                         backend.push(platform);

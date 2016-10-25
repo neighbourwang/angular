@@ -59,7 +59,7 @@ export class ClMngCreStep1Component implements OnInit{
         this.service.getRegion().then(
             res => {
                 if(res && 100 == res.resultCode){
-                    console.log(res);
+                    console.log('地域',res);
                 }
             }
         ).catch(function(){

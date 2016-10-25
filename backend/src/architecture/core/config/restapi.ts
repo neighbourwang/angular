@@ -59,6 +59,12 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/platform/{pf-id}/active"
     },
     {
+        "desc": "启用特定平台",
+        "id": "pf.cre.paltform.active.put",
+        "method": "PUT",
+        "url": "adminui/authsec/platform/{pf-id}/activation"
+    },
+    {
         "desc" : "禁用平台",
         "id" : "pf.cre.platform.disable.put",
         "method" : "PUT",
