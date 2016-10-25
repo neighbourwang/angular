@@ -491,6 +491,11 @@ export let RestApis: RestApiModel[] = [
        "id": "ent-mng.ent-est-mng.enterprise.products.get",
        "method": "POST",
        "url": "adminui/authsec/enterprises/products/search/page/{_page}/size/{_size}"
+   },{
+       "desc": "获取可用产品",
+       "id": "ent-mng.ent-est-mng.enterprise.avail.products.get",
+       "method": "POST",
+       "url": "adminui/authsec/enterprises/{enterpriseId}/products/search/paging"
    },// 企业管理 -->
    // 
     //产品管理

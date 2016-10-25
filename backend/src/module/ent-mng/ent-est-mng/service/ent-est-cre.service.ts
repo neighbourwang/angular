@@ -364,23 +364,26 @@ export class EntEstCreService{
 	//加载可用产品信息
 	loadAvailProdItems(prodItems: Paging<EntProdItem>
 		,errorHandler: Function
-		,caller: any):void
+		,caller: any
+		,entId: string):void
 	{
-		let localParams:Array<any> = [
-		{
-			key:"_page"
-			,value:prodItems.currentPage == 0? 1:prodItems.currentPage
-		}
-		,{
-			key:"_size"
-			,value:10
-		}
-		];
+		let localParams:Array<any> = [{
+			key:"enterpriseId"
+			,value: entId
+		}];
+
+		let pageParameter = {
+		  "currentPage": prodItems.currentPage == 0? 1: prodItems.currentPage,
+		  "offset": 0,
+		  "size": 10,
+		  "sort": {},
+		  "totalPage": 0
+		};
 
 		this.loadItems(prodItems
 			, errorHandler
 			, caller
-			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.products.get")//这个地址可能需要同罗杰进一步沟通
+			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.avail.products.get")
 			, localParams
 			, "加载产品数据"
 			, null
@@ -394,7 +397,6 @@ export class EntEstCreService{
 					//界面上绑定的是EntProdItem模型，对应obj
 					//从服务器上获取的数据是item
 					//将item上的值映射到obj上面				
-					obj.entId = item.enterpriseId as string;
 					obj.name = item.name as string;
 					obj.category = item.serviceName as string;
 					obj.type = item.serviceType as string;
@@ -406,6 +408,9 @@ export class EntEstCreService{
 					obj.description = item.description;
 				}
 			}
+			,null
+			,null
+			,pageParameter
 			);
 	}
 

@@ -107,36 +107,36 @@
 
 <div class="info-title"><span  class="form-control-title">产品信息：</span></div>
 <div class="contentPanel green-border">
-			<table class="table table-hover center-table">
-				<thead class="table-thead">
-					<tr>
-					    <td>编号</td>
-						<td>产品名称</td>
-						<td>产品目录</td>
-						<td>产品类别</td>
-						<td>产品规格</td>                     
-						<td>计费周期</td>
-						<td>周期价格</td>
-						<td>一次性价格</td>
-						<td>状态</td>
-						<td>描述</td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr *ngFor="let item of entProdItems.items;let i=index;">
- 						<td>{{i + 1}}</td>
-						<td>{{item.name}}</td>
-						<td>{{item.category}}</td>
-						<td>{{item.type}}</td>
-						<td>{{item.spec}}</td>
-						<td>{{item.countCycle}}</td>
-						<td>{{item.cyclePrice}}</td>
-						<td>{{item.oneTimePrice}}</td>
-						<td  [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.status}}</td>
-						<td>{{item.description}}</td>
- 					</tr>
-				</tbody>
-			</table>
+	<table class="table table-hover center-table">
+		<thead class="table-thead">
+			<tr>
+			    <td>编号</td>
+				<td>产品名称</td>
+				<td>产品目录</td>
+				<td>产品类别</td>
+				<td>产品规格</td>                     
+				<td>计费周期</td>
+				<td>周期价格</td>
+				<td>一次性价格</td>
+				<td>状态</td>
+				<td>描述</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let item of entProdItems.items;let i=index;">
+					<td>{{i + 1}}</td>
+				<td>{{item.name}}</td>
+				<td>{{item.category}}</td>
+				<td>{{item.type}}</td>
+				<td>{{item.spec}}</td>
+				<td>{{item.countCycle}}</td>
+				<td>{{item.cyclePrice}}</td>
+				<td>{{item.oneTimePrice}}</td>
+				<td  [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.status}}</td>
+				<td>{{item.description}}</td>
+				</tr>
+		</tbody>
+	</table>
 </div>
 <fc-pagination tp={{entProdItems.totalPages}} (pf)="changePage($event)"></fc-pagination>
 
