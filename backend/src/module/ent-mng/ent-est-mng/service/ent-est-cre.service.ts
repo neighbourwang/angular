@@ -644,7 +644,7 @@ export class EntEstCreService{
 
 					if(ret.pageInfo)
 					{
-						items.totalPages = ret.pageInfo.totalPage;
+						items.totalPages = ret.pageInfo.totalPage || 100;
 					}
 					else
 					{
