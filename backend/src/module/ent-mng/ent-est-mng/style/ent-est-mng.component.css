@@ -235,13 +235,13 @@
 .table-thead{
 	background-color: #EFEFEF;
 }
-/*.info-title{
+.info-title{
 	font-size: 18px;
 	border-bottom: 2px solid #CFD8E7;
 	padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 10px;
-}*/
+}
 .sm-container{
 	width: 350px;
     height: 150px;
@@ -256,7 +256,7 @@
 
 }
 .input-control{
-    width: 350px;
+    width: 300px;
     display: inline-block;
     margin-right: 10px;
 }
