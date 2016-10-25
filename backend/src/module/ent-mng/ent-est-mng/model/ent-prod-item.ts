@@ -9,5 +9,6 @@ export class EntProdItem{
 	cyclePrice: number = null; //周期价格
 	oneTimePrice: number = null; //一次性价格
 	status: string = ""; //状态
+	statusName: string = ""; //显示状态
 	description: string = "";//描述
 }

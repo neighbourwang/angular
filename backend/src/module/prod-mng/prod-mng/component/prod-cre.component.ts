@@ -57,4 +57,7 @@ export class ProdCreComponent implements OnInit , OnChanges{
         
     }
 
+    postProd(){
+        
+    }
 }

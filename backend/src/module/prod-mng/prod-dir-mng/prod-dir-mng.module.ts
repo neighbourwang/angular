@@ -15,6 +15,11 @@ import { ProdDirMngRouting } from './prod-dir-mng.routing';
 
 //Service
 import { ProdDirListService } from './service/prod-dir-list.service';
+import { ProdSeriesService } from './service/prod.series.service';
+import { PlatformsActiveService } from './service/platform.service';
+import { ProdDirPublishService } from './service/prod-dir-publish.service';
+import { CcProdDirPublishService } from './service/prod-dir-ccPublish.service';
+import { ProdDirDeleteService } from './service/prod-dir-delete.service';
 
 @NgModule({
     imports: [
@@ -30,7 +35,13 @@ import { ProdDirListService } from './service/prod-dir-list.service';
         ProdDirCreComponent
     ],
     providers: [
-        ProdDirListService
+        ProdDirListService,
+        ProdSeriesService,
+        PlatformsActiveService,
+        ProdDirPublishService,
+        CcProdDirPublishService,
+        ProdDirDeleteService
+
     ]
 
 })

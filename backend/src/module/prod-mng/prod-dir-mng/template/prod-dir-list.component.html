@@ -31,15 +31,13 @@
         <span class="pull-right" style="line-height: 34px;margin-left: 20px">平台：</span>
 
         <div class="dropdown pull-right" style="margin-left: 10px">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 选择产品目录类别
                 <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu3">
-                <!--<li><a href="#">修改</a></li>-->
-                <li><a >云主机服务</a></li>
-                <li><a >云硬盘服务</a></li>
-            </ul>
+            </button>-->
+            <select class="form-control" [(ngModel)]="queryProDirTypeId">
+                        <option *ngFor="let item of prodDirTypeList;" [value]="item.id">{{item.name}}</option>
+            </select>
         </div>
         <span class="pull-right" style="line-height: 34px">产品目录类别：</span>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
@@ -85,8 +83,11 @@
         <div class="form-group">
             <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>产品目录类别：</div>
             <div class="col-sm-6">
-                <select class="form-control" [(ngModel)]="entResQuota">
+                <!--<select class="form-control" [(ngModel)]="entResQuota">
                     <option *ngFor="let item of regions;" [value]="item.id">云主机服务</option>
+                </select>-->
+                <select class="form-control" [(ngModel)]="prodDirTypeId">
+                        <option *ngFor="let item of prodDirTypeList;" [value]="item.id">{{item.name}}</option>
                 </select>
             </div>
         </div>

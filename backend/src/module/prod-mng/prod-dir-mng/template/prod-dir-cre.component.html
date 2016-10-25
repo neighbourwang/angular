@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">产品目录名称:<span class="asterisk">*</span>：</div>
+                    <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品目录名称:</div>
                     <div class="col-sm-4">
                         <input type="text" class="form-control" [(ngModel)]="platform" placeholder="产品目录名称(必须)">
                     </div>
@@ -12,12 +12,53 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">产品规格:<span class="asterisk">*</span>：</div>
+                    <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品规格:</div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="platform" placeholder="产品规格(必须)">
+                        <div class="row row-line-height">
+                            <div class="col-sm-3">cpu</div>
+                            <div class="col-sm-3">
+                                <count-bar [config]="countBar" (output)="outputValue($event,'countBar1')"></count-bar>
+                            </div>
+                            <div class="col-sm-3">
+                                核(vCPU)
+                            </div>                                                        
+                        </div>
                     </div>
                 </div>
             </div>
+             <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title"></div>
+                    <div class="col-sm-4">
+                        <div class="row row-line-height">
+                            <div class="col-sm-3">内存</div>
+                            <div class="col-sm-3">
+                                <count-bar [config]="countBar" (output)="outputValue($event,'countBar1')"></count-bar>
+                            </div>
+                            <div class="col-sm-3">
+                                兆(MB)
+                            </div>                                                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title"></div>
+                    <div class="col-sm-4">
+                        <div class="row ">
+                            <div class="col-sm-3">启动盘大小</div>
+                            <div class="col-sm-3">
+                                <count-bar [config]="countBar" (output)="outputValue($event,'countBar1')"></count-bar>
+                            </div>
+                            <div class="col-sm-3">
+                                GB
+                            </div>                                                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <div class="row row-line-height">
                 <div class="form-group">
