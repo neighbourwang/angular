@@ -84,7 +84,7 @@
 
 .basePanel{
   width: 1200px;
-  height: 400px;
+  height: 450px;
 }
 .infoContent{
   width:700px;
@@ -142,6 +142,7 @@
 .buttonPanel{
 	width: 1200px;
 	text-align: center;
+    margin-top:20px; 
 }
 .gray-larger-bg{
 	padding:  25px 160px ;
