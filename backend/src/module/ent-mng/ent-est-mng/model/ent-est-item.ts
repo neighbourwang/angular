@@ -1,3 +1,5 @@
+import {Status} from './'
+
 export class EntEstItem{
 	id:string = "";	// id
 	enterpriseName:string = "";	// 企业（租户）名称
@@ -10,6 +12,7 @@ export class EntEstItem{
 	productNum : number = null;	// 产品数量
 	orderNum : number = null;	// 订单数量
 	status: string = "";	// 状态
+
 	description: string = "";	// 描述// 描述
 	checked: boolean = false;//ui operation
 	statusName: string = ""; //ui operation

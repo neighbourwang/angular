@@ -103,11 +103,13 @@
 .uploadImg span{
 	color:  #C1CACA;
 	font-size: 18px;
+  
 }
 .imgPanel{
 	width:412px;
     height: 300px;
-     border:1px solid #000;
+    border:1px solid #000;
+    background: url("../images/creProd.png") no-repeat 220px 225px;
 }
 
 .uploadImg span:first-child{
@@ -259,13 +261,13 @@
     display: inline-block;
     margin-right: 10px;
 }
-.enterprise-content-header{
+/*.enterprise-content-header{
 	height: 40px;
 	padding: 10px;
 	font-size: 18px;
 	font-weight: bold;
 	border-bottom: solid 1px #C1CACA;
-}
+}*/
 .dialogContent{
     width: 500px;
     position: relative;
