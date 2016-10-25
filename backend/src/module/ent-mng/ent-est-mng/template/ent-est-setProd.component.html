@@ -40,7 +40,7 @@
 						<td>{{item.countCycle}}</td>
 						<td>{{item.cyclePrice}}</td>
 						<td>{{item.oneTimePrice}}</td>
-						<td  [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.status}}</td>
+						<td [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.statusName}}</td>
 						<td><button class="green-delete-bt" (click)="removeItem(item)"><i></i></button></td>
 					</tr>
 				</tbody>
@@ -85,7 +85,7 @@
 						<td>{{item.countCycle}}</td>
 						<td>{{item.cyclePrice}}</td>
 						<td>{{item.oneTimePrice}}</td>
-						<td  [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.status}}</td>
+						<td [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.statusName}}</td>
 						<td><button class="green-add-bt" (click)="addItem(item)"><i></i><i></i></button></td>
 					</tr>
 				</tbody>

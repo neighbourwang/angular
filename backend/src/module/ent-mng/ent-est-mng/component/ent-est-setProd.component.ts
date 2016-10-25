@@ -51,15 +51,23 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
     }                                                                         
   }
 
-  updateWithDic(){
+ updateWithDic(){
+
     let getName =(id:string):string=>{
-      let obj = this.dic.find(n=>n.code ==id) as SystemDictionary;
+      let obj = this.dic.find(n=>n.value == id) as SystemDictionary;
+      
       if(obj)
-        return obj.displayValue as string;
+        return obj.displayValue as string;     
       else
         return id;
     };
-    this.entProdItems.items.map(n=>{n.status= getName(n.status);});
+    this.entProdItems.items.map(n=>{
+      n.statusName = getName(n.status);
+    });
+    
+     this.prodItems.items.map(n=>{
+      n.statusName = getName(n.status);
+    });
   } 
 
   //移除产品

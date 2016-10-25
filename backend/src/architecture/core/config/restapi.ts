@@ -38,7 +38,7 @@ export let RestApis: RestApiModel[] = [
         "desc" : "获取地域",
         "id" : "pf.cre.step.01.paltform.get",
         "method" : "GET",
-        "url" : "adminui/authsec/regions/admin"
+        "url" : "basis/authsec/regions"
     },
     {
         "desc": "创建平台",
@@ -164,7 +164,7 @@ export let RestApis: RestApiModel[] = [
     },
     {
         "desc": "更新镜像",
-        "id": "pf.cre.step.06.images.put",
+        "id": "pf.cre.images.put",
         "method": "PUT",
         "url": "adminui/authsec/platform/{pf-id}/images"
     },
@@ -496,6 +496,11 @@ export let RestApis: RestApiModel[] = [
        "id": "ent-mng.ent-est-mng.enterprise.avail.products.get",
        "method": "POST",
        "url": "adminui/authsec/enterprises/{enterpriseId}/products/search/paging"
+   },{
+       "desc": "所有平台配额参考",
+       "id": "ent-mng.ent-est-mng.platforms.quotas.get",
+       "method": "GET",
+       "url": "adminui/authsec/platforms/resouces/quotas/page/{_page}/size/{_size}"
    },// 企业管理 -->
    // 
     //产品管理

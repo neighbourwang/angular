@@ -140,6 +140,8 @@
    			</tbody>
    		</table>
 	</div>
+	<fc-pagination tp={{resourceQuotas.totalPages}} (pf)="changePage($event)"></fc-pagination>
+	
 </div>
 <div class="text-center">
 	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel()" style="margin-right: 30px;">
