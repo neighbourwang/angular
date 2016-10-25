@@ -507,11 +507,39 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/platforms/status/activation"
     },
     {
-        "desc": "获取所有产品目录，为下拉框准备",
+        "desc": "获取所有产品目录类别，为下拉框准备",
         "id": "services.simple.get",
         "method": "GET",
-        "url": "adminui/authsec/services/simple"
+        "url": "adminui/authsec/servicetemplate"
     },
+    {
+        "desc": "发布产品目录",
+        "id": "prod-dir-publish",
+        "method": "PUT",
+        "url": "adminui/authsec/service/{id}/status/activation"
+    },
+    {
+        "desc": "取消发布产品目录",
+        "id": "prod-dir-ccPublish",
+        "method": "PUT",
+        "url": "adminui/authsec/service/{id}/status/cancelled"
+    },
+    {
+        "desc": "删除产品目录",
+        "id": "prod-dir-delete",
+        "method": "DELETE",
+        "url": "adminui/authsec/service/{id}"
+    },
+    {
+        "desc": "创建VM产品目录",
+        "id": "prod-dir-vmCreate",
+        "method": "POST",
+        "url": "adminui/authsec/services/type/vm"
+    },
+    
+
+
+    //产品
     {
         "desc": "分页获取所有产品列表",
         "id": "prod-mng.prod-mng.list.get",

@@ -30,5 +30,4 @@ export class Product {
     "serviceId": "string";
     "unitPrice": 0;
     isSelected:boolean;
-
 }
