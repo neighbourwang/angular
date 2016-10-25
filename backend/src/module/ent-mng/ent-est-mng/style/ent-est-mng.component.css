@@ -78,13 +78,13 @@
 }
 .chevron-down-bt-second{
     position: relative;
-    top: 10px;
-    left: -24px;
+    top: 8px;
+    left: -19px;
 }
 
 .basePanel{
   width: 1200px;
-  height: 400px;
+  height: 450px;
 }
 .infoContent{
   width:700px;
@@ -142,6 +142,7 @@
 .buttonPanel{
 	width: 1200px;
 	text-align: center;
+    margin-top:20px; 
 }
 .gray-larger-bg{
 	padding:  25px 160px ;
@@ -221,7 +222,7 @@
     padding-left: 20px;
 }
 .titlePanel span{
-	font-size: 20px;
+	font-size: 15px;
 }
 .green-border{
 	border: 1px solid #CFD8E7;
@@ -256,7 +257,7 @@
 
 }
 .input-control{
-    width: 350px;
+    width: 300px;
     display: inline-block;
     margin-right: 10px;
 }

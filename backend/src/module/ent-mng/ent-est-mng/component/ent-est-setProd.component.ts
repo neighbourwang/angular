@@ -60,7 +60,7 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
         return id;
     };
     this.entProdItems.items.map(n=>{n.status= getName(n.status);});
-  }
+  } 
 
   //移除产品
   removeItem(entProdItem: EntProdItem)
