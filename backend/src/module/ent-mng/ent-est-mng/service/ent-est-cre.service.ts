@@ -119,6 +119,7 @@ export class EntEstCreService{
 					target.push(obj);
 
 					obj.id = item.enterpriseId as string; 
+					obj.authMode = parseInt(item.authMode);//认证方式
 					obj.enterpriseName = item.enterpriseName as string; 
 					obj.vmNum = 0; //api 未提供
 					obj.vmQuota = 0; //api 未提供
