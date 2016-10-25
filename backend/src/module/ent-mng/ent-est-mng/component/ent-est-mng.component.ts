@@ -341,8 +341,10 @@ export class EntEstMngComponent implements OnInit {
     }
   }
 
-  checkEnterpriseInfo(){
-    this.router.navigateByUrl("ent-mng/ent-est-mng/ent-est-check");
+  //查看企业
+  checkEnterpriseInfo(entId: string){
+    console.log('checkEnterpriseInfo entId', entId);
+    this.router.navigateByUrl(`ent-mng/ent-est-mng/ent-est-check?entId=${entId}`);
   }
   //修改配额
   acceptQuotaModify(){

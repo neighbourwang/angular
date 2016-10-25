@@ -284,7 +284,9 @@ export class EntEstCreService{
 				obj.code = source.code;
 				obj.id = source.id;
 				obj.name = source.name;
+				obj.contactorName = source.loginName;
 				obj.description = source.description;
+				obj.certMethod = parseInt(source.authMode);
 			}
 			, (items:EntEstBasicInfo[])=>{
 				let item = items[0];

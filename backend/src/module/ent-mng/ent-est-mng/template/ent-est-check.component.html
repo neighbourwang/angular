@@ -10,7 +10,7 @@
 				<div class="form-group">
 					<div class="col-sm-3 form-control-title "><span class="asterisk">*</span>名称：</div>
 					<div class="col-sm-6">
-					    <input type="text" class="form-control" placeholder="上海慧于有限公司">
+					    <input type="text" class="form-control" placeholder="名称" [(ngModel)]="entEst.BasicInfo.name">
 					</div>
 				</div>
 			</div>
@@ -19,32 +19,32 @@
 					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>认证方式：</div>
 					<div class="col-sm-6">				
                         <button class="smaller-bt disabled-smaller-bt" style="margin: -5px;">
-		                  AD
+		                  {{getCertMethod()}}
 	                    </button>
 					</div>
 				</div>
 			</div>
-			<div class="row row-line-height">
+			<div class="row row-line-height" *ngIf="isAdCert()">
 				<div class="form-group">
 					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>URL地址：</div>
 					<div class="col-sm-6">
-						<input type="text" class="form-control" placeholder="ldap://xxxx.com">
+						<input type="text" class="form-control" readonly [ngModel]="entEst.BasicInfo.certUrl">
 					</div>
 				</div>
 			</div>
-			<div class="row row-line-height">
+			<div class="row row-line-height" *ngIf="isAdCert()">
 				<div class="form-group">
 					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>用户名：</div>
 					<div class="col-sm-6">
-						<input type="text" class="form-control" placeholder="abc@xxxx.com">
+						<input type="text" class="form-control" readonly [ngModel]="entEst.BasicInfo.contractorName">
 					</div>
 				</div>
 			</div>
-			<div class="row row-line-height">
+			<div class="row row-line-height" *ngIf="isAdCert()">
 				<div class="form-group">
 					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>密码：</div>
 					<div class="col-sm-6">
-						<input type="text" class="form-control" placeholder="******">
+						<input type="password" class="form-control" readonly [ngModel]="entEst.BasicInfo.password">
 					</div>
 				</div>
 			</div>
@@ -52,7 +52,7 @@
 				<div class="form-group">
 					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>描述：</div>
 					<div class="col-sm-6">
-						<textarea class="form-control" rows="4">描述信息内容在这里显示</textarea> 
+						<textarea class="form-control" rows="4" readonly [ngModel]="entEst.BasicInfo.description"></textarea> 
 					</div>
 				</div>
 			</div>
@@ -123,50 +123,18 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr><td>1</td>
-						<td>标准小型云主机(高性价比)</td>
-						<td>小型云主机(高性能)</td>
-						<td>云主机服务</td>
-						<td>2CPU,4G内存,40G启动盘</td>
-						<td>月</td>
-						<td>100</td>
-						<td>100</td>
-						<td class="validateInfo">未发布</td>
-						<td></td>
-					</tr>
-					<tr><td>2</td>
-						<td>标准小型云主机(高性价比)</td>
-						<td>小型云主机(高性能)</td>
-						<td>云主机服务</td>
-						<td>2CPU,4G内存,40G启动盘</td>
-						<td>月</td>
-						<td>100</td>
-						<td>100</td>
-						<td class="validateInfo">未发布</td>
-						<td></td>
-					</tr>
-					<tr><td>3</td>
-						<td>标准小型云主机(高性价比)</td>
-						<td>小型云主机(高性能)</td>
-						<td>云主机服务</td>
-						<td>2CPU,4G内存,40G启动盘</td>
-						<td>月</td>
-						<td>100</td>
-						<td>100</td>
-						<td class="warnInfo">已发布</td>
-						<td></td>
-					</tr>
-					<tr><td>4</td>
-						<td>标准小型云主机(高性价比)</td>
-						<td>小型云主机(高性能)</td>
-						<td>云主机服务</td>
-						<td>2CPU,4G内存,40G启动盘</td>
-						<td>月</td>
-						<td>100</td>
-						<td>100</td>
-						<td class="warnInfo">已发布</td>
-						<td></td>
-					</tr>
+					<tr *ngFor="let item of entProdItems.items;let i=index;">
+ 						<td>{{i + 1}}</td>
+						<td>{{item.name}}</td>
+						<td>{{item.category}}</td>
+						<td>{{item.type}}</td>
+						<td>{{item.spec}}</td>
+						<td>{{item.countCycle}}</td>
+						<td>{{item.cyclePrice}}</td>
+						<td>{{item.oneTimePrice}}</td>
+						<td  [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.status}}</td>
+						<td>{{item.description}}</td>
+ 					</tr>
 				</tbody>
 			</table>
 </div>
