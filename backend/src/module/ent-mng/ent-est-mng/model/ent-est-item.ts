@@ -1,7 +1,8 @@
-import {Status} from './'
+import {Status, CertMethod} from './'
 
 export class EntEstItem{
 	id:string = "";	// id
+	authMode:CertMethod = CertMethod.Local; //认证方式
 	enterpriseName:string = "";	// 企业（租户）名称
 	vmNum: number = null;	// 云主机数量
 	vmQuota: number = null;	// 云主机配额（个）

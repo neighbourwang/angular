@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
-import { Status, EntEstItem, EntEst} from '../model';
+import { CertMethod, Status, EntEstItem, EntEst} from '../model';
 
 import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
 
@@ -242,15 +242,19 @@ export class EntEstMngComponent implements OnInit {
     if(this.getSelected())
     {
       let item = this.getSelected();
+      console.log('setupCertInfo:', item);
+      if(item.authMode == CertMethod.Local)
+      {
+        this.showMsg("本地认证企业不能设置认证");
+        return;
+      }
+
       this.entEst.BasicInfo.reset();
-
-
-      
       // todo: 加载认证数据
       // todo: 保存认证数据
       // todo: 刷新列表
 
-      this.loadEntCertInfo(item.id);
+      // this.loadEntCertInfo(item.id);
       this.setupCert.open();
     }
   }
