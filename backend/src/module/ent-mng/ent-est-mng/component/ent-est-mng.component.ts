@@ -244,15 +244,28 @@ export class EntEstMngComponent implements OnInit {
       let item = this.getSelected();
       this.entEst.BasicInfo.reset();
 
+
+      
       // todo: 加载认证数据
       // todo: 保存认证数据
       // todo: 刷新列表
 
-
+      this.loadEntCertInfo(item.id);
       this.setupCert.open();
     }
   }
+  //加载认证数据
+ loadEntCertInfo(id){
+          this.service.loadEntCertInfo(this.entEst.BasicInfo
+          ,this.showError
+          ,()=>{
+            this.setupCert.open();
+          }
+          ,this
+          ,id);
+ }
 
+ 
   //设置产品
   setupProduct(){
     if(this.getSelected())

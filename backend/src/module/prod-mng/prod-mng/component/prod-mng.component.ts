@@ -6,9 +6,9 @@ import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent , ConfirmComponent ,PopupComponent } from '../../../../architecture';
 
-// import { ClMngListService } from '../service/cl-mgn-list.service';
+import { ProdListService } from '../service/prodList.service';
 //model
-import{Product} from '../model/product.model'
+import{ ProdList } from '../model/prodList.model'
 
 @Component({
     selector: 'prod-mng',
@@ -22,18 +22,18 @@ export class ProdMngComponent implements OnInit{
 
     constructor(
         private layoutService: LayoutService,
-        // private service : ClMngListService
+        private service : ProdListService,
         private router : Router
     ) {}
 
 
     // 产品目录数组
-    prodList: Array<Product> = new Array<Product>();
+    prodList: Array<ProdList> = new Array<ProdList>();
 
     // 产品目录总页数
     tp: number = 0;
     // 每页显示的数据条数
-    pp: number = 10;
+    pp: number = 8;
 
 
     @ViewChild('publishConfirm')
@@ -81,7 +81,7 @@ export class ProdMngComponent implements OnInit{
         // }
         // return proddir;
         //checkbox
-        let selectedProdList: Array<Product> = new Array<Product>();
+        let selectedProdList: Array<ProdList> = new Array<ProdList>();
         for(let dir of this.prodList){
             if(dir.isSelected == true){
                 selectedProdList.push(dir) ;
@@ -93,13 +93,13 @@ export class ProdMngComponent implements OnInit{
 
     //删除按钮
     action (order){
-        let prodList :  Array<Product> = this.getProduct();
+        let prodList :  Array<ProdList> = this.getProduct();
         if(prodList.length<1){
             this.notice.open('操作错误','请选择产品目录');
         }else{
             let message:string='';
             for(let dir of prodList){
-                message+=dir.serviceName+",";
+                message+=dir.name+",";
             }
             console.log(message);
             message=message.substring(0,message.length-1);
@@ -149,29 +149,35 @@ export class ProdMngComponent implements OnInit{
     }
 
     backend(page: number, size: number){
-    //     this.layoutService.show();
-    //     this.tp = 0;
-    //     this.service.getPlatforms(page, size).then(
-    //         response => {
-    //             console.log(response);
-    //             this.layoutService.hide();
-    //         }
-    //     ).catch(
-    //     );
+        this.layoutService.show();
+        this.tp = 0;
+        console.log(page);
+        console.log(size);
+        
+        this.service.getProdList(page, size).then(
+            response => {
+                console.log(response);
+                this.layoutService.hide();
+            }
+        ).catch(
+            err=>{
+                console.log(err);
+            }
+        );
     //mockup
-    let product = new Product();
+    // let product = new ProdList();
 
-    product.serviceName = 'serviceName1';
+    // product.serviceName = 'serviceName1';
 
 
-    let product2 = new Product();
+    // let product2 = new ProdList();
 
-    product2.serviceName = 'serviceName2';
+    // product2.serviceName = 'serviceName2';
 
-    this.prodList .push(product);
-    this.prodList .push(product2);
+    // this.prodList .push(product);
+    // this.prodList .push(product2);
 
-        console.log(this.prodList);
+    //     console.log(this.prodList);
     }
     ccf() {
 

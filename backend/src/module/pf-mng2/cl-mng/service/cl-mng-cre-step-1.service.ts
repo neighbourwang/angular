@@ -25,7 +25,7 @@ export class ClMngCreStep1Service {
 
     // 获取云平台类型的数据字典
     getPlatFormType() {
-        let api = this.restApiCfg.getRestApi("sysdic.owner.field");
+        let api = this.restApiCfg.getDataRestApi("sysdic.owner.field");
 
         return this.restApi.request(api.method, api.url, [
             {
@@ -38,14 +38,14 @@ export class ClMngCreStep1Service {
     }
     //获取地域
     getRegion (){
-        let api = this.restApiCfg.getRestApi("pf.cre.step.01.paltform.get");
+        let api = this.restApiCfg.getDataRestApi("pf.cre.step.01.paltform.get");
 
         return this.restApi.request(api.method , api.url ,undefined , undefined);
     }
 
     //根据平台类型获得版本
     getPlatFormVersion (owner : string){
-        let api = this.restApiCfg.getRestApi("sysdic.owner.field");
+        let api = this.restApiCfg.getDataRestApi("sysdic.owner.field");
         return this.restApi.request(api.method,api.url,[{key : "_owner",value : owner},{key : "_field", value : "VERSION"}],undefined);
     }
 }

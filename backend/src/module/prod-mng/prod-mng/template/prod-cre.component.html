@@ -94,26 +94,29 @@
                 <div class="form-group">
                     <div  class="col-sm-4 form-control-title">基础周期价格：</div>
                     <div  class="col-sm-1 form-control-title">
-                        <count-bar [config]="countBar" (output)="outputValue($event)"></count-bar>
+                        <count-bar [config]="countBar" (output)="outputValue($event,'countBar1')"></count-bar>
                     </div>
                     <div  class="col-sm-2 form-control-title">单位价格：</div>
                     <div  class="col-sm-1 form-control-title">
-                        <count-bar [config]="countBar"></count-bar>
+                        <count-bar [config]="countBar" (output)="outputValue($event,'countBar2')"></count-bar>
                     </div>
                 </div>
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div for="firstname" class="col-sm-4 form-control-title">增量周期价格：</div>
-                    <div class="col-sm-3">
-                        <count-bar [config]="countBar"></count-bar>
+                    <div  class="col-sm-4 form-control-title">增量周期价格：</div>
+                    <div class="col-sm-1">
+                        <count-bar [config]="countBar" (output)="outputValue($event,'countBar3')"></count-bar>
+                    </div>
+                    <div  class="col-sm-2 form-control-title">一次性价格：</div>
+                    <div class="col-sm-1">
+                        <count-bar [config]="countBar" (output)="outputValue($event,'countBar4')"></count-bar>
                     </div>
                 </div>
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div for="firstname" class="col-sm-4 form-control-title">选择可用平台：</div>
-
+                    <div  class="col-sm-4 form-control-title">选择可用平台：</div>                    
                 </div>
             </div>
             <div class="row row-line-height">
