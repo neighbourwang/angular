@@ -121,7 +121,8 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
     }
 
     this.prodItems.currentPage = page;
-    this.service.loadAvailProdItems(this.prodItems, this.showError, this, this.entId); 
+    this.service.loadAvailProdItems(this.prodItems, this.showError, this, this.entId
+      ,()=>{this.updateWithDic();}); 
   }
 
   changePage_EntProdItems(page: number) {
@@ -134,12 +135,15 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
     }
 
     this.entProdItems.currentPage = page;
-    this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId); 
+    this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId
+      ,()=>{this.updateWithDic();}); 
   }
 
   refreshData(){
-    this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId); 
-    this.service.loadAvailProdItems(this.prodItems, this.showError, this, this.entId); 
+    this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId
+      ,()=>{this.updateWithDic();}); 
+    this.service.loadAvailProdItems(this.prodItems, this.showError, this, this.entId
+      ,()=>{this.updateWithDic();}); 
 
   }
 

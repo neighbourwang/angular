@@ -105,7 +105,10 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
   }
 
   loadEntProdItems(){
-    this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId); 
+    this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId
+      ,()=>{
+        this.updateWithDic();
+      }); 
   }
 
 
