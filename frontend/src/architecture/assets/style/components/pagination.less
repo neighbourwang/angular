@@ -1,3 +1,5 @@
+@page-height : 40px;
+
 /**********Paging Start********************/
 .fox-cloud-pagination-container {
 	width: 100%;
@@ -17,33 +19,24 @@
 .fox-cloud-pagination > span {
   position: relative;
   float: left;
-  padding: 6px 12px;
+  padding: 0 20px;
+  height: @page-height;
   margin-left: -1px;
-  line-height: 1.42857143;
+  line-height: @page-height;
+  background: @color-fc;
   cursor: pointer;
+  border: 1px solid @color-e5;
 }
 .fox-cloud-pagination > span:first-child {
-  // background: url("../../images/previousOn.png") no-repeat 0px 8px;
-  width: 100px;
-  display: block;
+  padding: 0 15px;
 }
 .fox-cloud-pagination > span.pagination-disabled:first-child {
-  // background: url("../../images/previous.png") no-repeat 0px 8px;
-  width: 100px;
-  display: block;
   color: #cccccc;
 }
 .fox-cloud-pagination > span:last-child {
-  // background: url("../../images/nextOn.png") no-repeat 100% 8px;
-  width: 100px;
-  text-align: left;
-  display: block;
+  padding: 0 15px;
 }
 .fox-cloud-pagination > span.pagination-disabled:last-child {
-  // background: url("../../images/next.png") no-repeat 100% 8px;
-  width: 100px;
-  text-align: left;
-  display: block;
   color: #cccccc;
 }
 .fox-cloud-pagination > li:hover {

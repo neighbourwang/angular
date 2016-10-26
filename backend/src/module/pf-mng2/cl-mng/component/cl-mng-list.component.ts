@@ -76,6 +76,7 @@ export class ClMngListComponent implements OnInit {
         ).catch(
             err => {
                 console.error(err);
+                this.notice.open('错误提示','获取云平台列表错误');
             }
         )
         
@@ -146,6 +147,11 @@ export class ClMngListComponent implements OnInit {
                 }
 
             }
+        ).catch(
+            err => {
+                console.error('error');
+                this.notice.open('错误提示','删除云平台异常，请稍后再试');
+            }
         );
 
 
@@ -164,6 +170,11 @@ export class ClMngListComponent implements OnInit {
                 }
                 this.layoutService.hide();
             }
+        ).catch(
+            err => {
+                console.error('error');
+                this.notice.open('错误提示','启用云平台异常，请稍候再试');
+            }
         )
     }
 
@@ -178,6 +189,10 @@ export class ClMngListComponent implements OnInit {
                     this.backend(1, 10);
                 }
                 this.layoutService.hide();
+            }
+        ).catch(
+            err => {
+                this.notice.open('错误提示','禁用云平台异常，请稍候再试');
             }
         )
     }
@@ -202,10 +217,6 @@ export class ClMngListComponent implements OnInit {
 
     }
 
-    //获取云平台类型
-    getPlatFormsType(){
-
-    }
 
     // 获得云平台list
     backend(page:number, size:number) {
@@ -266,7 +277,7 @@ export class ClMngListComponent implements OnInit {
             // }
             err => {
                 this.layoutService.hide();
-                this.notice.open('错误','获取信息错误');
+                this.notice.open('错误','获取云平台错误');
             }
         );
     }

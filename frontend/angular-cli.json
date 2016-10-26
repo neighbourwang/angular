@@ -20,9 +20,7 @@
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
-        "../node_modules/easy-pie-chart/dist/jquery.easypiechart.js",
-        "../node_modules/chart.js/dist/Chart.js"
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js"
       ],
       "environments": {
         "source": ".architecture/environments/environment.ts",

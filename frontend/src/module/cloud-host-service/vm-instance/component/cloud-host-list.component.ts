@@ -1,10 +1,11 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService } from '../../../../architecture';
 import { cloudHostServiceList } from '../service/cloud-host-list.service'
 
-import { VmList,HandleVm } from '../model/vm-list.model';
+import { VmList, HandleVm } from '../model/vm-list.model';
 
 
 @Component({
@@ -19,14 +20,14 @@ export class cloudHostListComponent implements OnInit {
 	currPage: number = 1;
 
 	areaConfig = [];   //区域
-	superSearch : boolean = false;   //高级搜索开关
-	vmList : VmList[] = [];   //主机
-	handleData : HandleVm;   //发送操纵云主机的数据
+	superSearch: boolean = false;   //高级搜索开关
+	vmList: VmList[] = [];   //主机
+	handleData: HandleVm;   //发送操纵云主机的数据
 
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
-		private service : cloudHostServiceList
+		private service: cloudHostServiceList
 	) {
 		this.handleData = new HandleVm();
 	}
@@ -34,28 +35,29 @@ export class cloudHostListComponent implements OnInit {
 	ngOnInit() {
 		this.setArea();
 		this.setHostList();
-  	}
-	
-	setArea() : void{
-		this.service.getHostConfigList().then( configList => {
-			this.areaConfig = configList.filter( config => config.attrCode === "REGION")[0].valueList;
+	}
+
+	setArea(): void {
+		this.service.getHostConfigList().then(configList => {
+			this.areaConfig = configList.filter(config => config.attrCode === "REGION")[0].valueList;
 		});
 	}
 
-	setHostList() : void{
+	setHostList(): void {
 		this.layoutService.show();
-		this.service.getHostList(this.currPage, this.pageSize) .then(res => {
-			if(res.resultCode !== "100"){
+		this.service.getHostList(this.currPage, this.pageSize).then(res => {
+			if (res.resultCode !== "100") {
 				throw "";
 			}
 			this.layoutService.hide();
 			this.totalPages = res.pageInfo.totalPage;
 			return res.resultContent;
-		}).then( list => {
+		}).then(list => {
 			this.vmList = list;
 		}).catch(error => {
 			this.layoutService.hide();
-		})
+		});
+
 	}
 
 	changePage(page: number) {
@@ -72,7 +74,7 @@ export class cloudHostListComponent implements OnInit {
 	}
 
 	//云主机的操作相关
-	handleVm(key : string, vm:VmList) {
+	handleVm(key: string, vm: VmList) {
 		this.layoutService.show();
 
 		this.handleData.uid = vm.uuid;
@@ -81,11 +83,14 @@ export class cloudHostListComponent implements OnInit {
 
 		this.service.handleVm(this.handleData).then(res => {
 			this.layoutService.hide();
-			console.log(res);
 		}).catch(error => {
 			this.layoutService.hide();
 		})
 
 		console.log(this.handleData)
+	}
+
+	goTo(url : string) {
+		this.router.navigateByUrl(url);
 	}
 }

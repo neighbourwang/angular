@@ -79,7 +79,7 @@
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="previous();">
         <span class="icon-button-label">上一步</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="next();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="next();" *ngIf="creStep2Model.isNext">
         <span class="icon-button-label">下一步</span>
     </button>
 </div>
