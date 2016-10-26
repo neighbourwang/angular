@@ -93,7 +93,7 @@ export class EntEstCreService{
 		, errorHandler: Function
 		, caller:any
 		, criteria: string = ""
-		, successHanlder: Function)
+		, successHanlder: ()=>void)
 	{
 
 		let localParams:Array<any> = [
@@ -155,7 +155,7 @@ export class EntEstCreService{
 //加载企业认证信息
    	loadEntCertInfo(entCertInfo:EntEstBasicInfo
 	   ,errorHandler:Function
-	   ,successHandler:Function
+	   ,successHandler:()=>void
 	   ,caller:any
 	   ,entId:string){
            let localParams:Array<any> = [
@@ -209,7 +209,7 @@ export class EntEstCreService{
 	loadEntResourceQuota(
 		entResourceQuota: EntEstResourceQuota
 		, errorHandler: Function
-		, successHandler: Function
+		, successHandler: ()=>void
 		, caller: any
 		, entId:string){
 
@@ -271,7 +271,7 @@ export class EntEstCreService{
 	//获取企业基本信息
 	loadEntInfo(entInfo:EntEstBasicInfo
 		,errorHandler:Function
-		,successHandler:Function
+		,successHandler:()=>void
 		,caller: any
 		,entId:string)
 	{
@@ -316,7 +316,8 @@ export class EntEstCreService{
 	loadEntProdItems(entProdItems: Paging<EntProdItem>
 		,errorHandler:Function
 		,caller: any
-		,entId: string):void
+		,entId: string
+		,successHandler:()=>void):void
 	{
 		let localParams:Array<any> = [
 		{
@@ -364,7 +365,7 @@ export class EntEstCreService{
 				}
 			}
 			,null
-			,null
+			,successHandler
 			,{
 				"enterpriseId": entId,
 				"platformId": null,
@@ -377,7 +378,8 @@ export class EntEstCreService{
 	loadAvailProdItems(prodItems: Paging<EntProdItem>
 		,errorHandler: Function
 		,caller: any
-		,entId: string):void
+		,entId: string
+		,successHandler:()=>void):void
 	{
 		let localParams:Array<any> = [{
 			key:"enterpriseId"
@@ -422,7 +424,7 @@ export class EntEstCreService{
 				}
 			}
 			,null
-			,null
+			,successHandler
 			,pageParameter
 			);
 	}
@@ -618,7 +620,7 @@ export class EntEstCreService{
 		,fakeData?: Function
 		,map?:Function
 		,trait?: Function
-		,successHandler?:Function
+		,successHandler?:()=>void
 		,postParams?:any)
 	{
 		items.items.splice(0, items.items.length);

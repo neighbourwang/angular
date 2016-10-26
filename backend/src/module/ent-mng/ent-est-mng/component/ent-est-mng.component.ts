@@ -276,7 +276,7 @@ export class EntEstMngComponent implements OnInit {
   setupProduct(){
     if(this.getSelected())
     {
-      this.router.navigateByUrl(this.appendUrlWithEntName(this.composeUrlWithId("ent-mng/ent-est-mng/ent-est-setProd", this.getSelected().id), this.getSelected().enterpriseName));
+      this.router.navigateByUrl(`ent-mng/ent-est-mng/ent-est-setProd/${this.getSelected().id}/${this.getSelected().enterpriseName}`);
     }
   }
 
@@ -285,7 +285,7 @@ export class EntEstMngComponent implements OnInit {
   setupAdmin(){
     if(this.getSelected())
     {
-      this.router.navigateByUrl("ent-mng/ent-admin-mng/ent-admin-mng/" + this.getSelected().id);
+      this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-mng/${this.getSelected().id}`);
     }
   }
 
@@ -303,7 +303,7 @@ export class EntEstMngComponent implements OnInit {
           this.showMsg("企业启用失败");
         })
       };
-      this.confirm.open("启用企业", ['选择启用"', this.getSelected().enterpriseName, '企业，请确认'].join());
+      this.confirm.open("启用企业", `选择启用"${this.getSelected().enterpriseName}"企业，请确认`);
     }
   }
 
@@ -321,7 +321,7 @@ export class EntEstMngComponent implements OnInit {
           this.showMsg("企业禁用失败");
         })
       };
-      this.confirm.open("禁用企业", ['您选择禁用"', this.getSelected().enterpriseName, '"企业，请确认；如果确认，企业用户将不能进入云管理平台自助服务门户。'].join());
+      this.confirm.open("禁用企业", `您选择禁用"${this.getSelected().enterpriseName}"企业，请确认；如果确认，企业用户将不能进入云管理平台自助服务门户。`);
     }
   }
 
@@ -339,14 +339,14 @@ export class EntEstMngComponent implements OnInit {
           this.showMsg("企业删除失败");
         })
       };
-      this.confirm.open("删除企业", ['您选择删除"', this.getSelected().enterpriseName, '"企业，请确认；如果确认，此企业数据将不能恢复。'].join());
+      this.confirm.open("删除企业", `您选择删除"${this.getSelected().enterpriseName}"企业，请确认；如果确认，此企业数据将不能恢复。`);
     }
   }
 
   //查看企业
   checkEnterpriseInfo(entId: string){
     console.log('checkEnterpriseInfo entId', entId);
-    this.router.navigateByUrl(`ent-mng/ent-est-mng/ent-est-check?entId=${entId}`);
+    this.router.navigateByUrl(`ent-mng/ent-est-mng/ent-est-check/${entId}`);
   }
   //修改配额
   acceptQuotaModify(){
