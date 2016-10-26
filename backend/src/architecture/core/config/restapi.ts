@@ -501,6 +501,11 @@ export let RestApis: RestApiModel[] = [
        "id": "ent-mng.ent-est-mng.platforms.quotas.get",
        "method": "GET",
        "url": "adminui/authsec/platforms/resouces/quotas/page/{_page}/size/{_size}"
+   },{
+       "desc": "更新企业产品信息",
+       "id": "ent-mng.ent-est-mng.enterprise.products.update",
+       "method": "POST",
+       "url": "adminui/authsec/enterprises/{enterpriseId}/products/bind"
    },// 企业管理 -->
    // 
     //产品管理
