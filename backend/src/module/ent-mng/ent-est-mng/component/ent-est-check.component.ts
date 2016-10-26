@@ -25,7 +25,7 @@ export class EntEstCheckComponent implements OnInit {
     private layoutService: LayoutService,
     private router: Router,
     private service: EntEstCreService,
-    private sysDicService: SystemDictionaryService
+    private sysDicService: SystemDictionaryService,
     private activatedRouter: ActivatedRoute
   ) {}
 
