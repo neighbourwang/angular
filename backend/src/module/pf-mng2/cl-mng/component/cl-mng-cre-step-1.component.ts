@@ -19,6 +19,7 @@ import { ClMngIdService } from '../service/cl-mng-id.service';
     selector: 'cl-mng-cre-step-1',
     templateUrl: '../template/cl-mng-cre-step-01.component.html',
     styleUrls: [
+        '../style/cl-mng.less'
     ],
     providers: []
 })
@@ -53,11 +54,18 @@ export class ClMngCreStep1Component implements OnInit{
                 if (res && 100 == res.resultCode) {
                     console.log(res);
                     this.platformTypes = res.resultContent;
+                    for(let i = 0 ; i < this.platformTypes.length ; i ++){
+                        this.platformTypes[i].isSelected = false;
+                    }
                 }
                 
             }
-        ).catch(function () {
+        ).catch(
                 //this.notice.open('错误','获取信息错误');
+            err => {
+                err => {
+                    this.notice.open('错误','获取信息错误');
+                }
             }
         );
         //获取地域
@@ -66,12 +74,14 @@ export class ClMngCreStep1Component implements OnInit{
                 if(res && 100 == res.resultCode){
                     console.log('地域',res);
                     this.regions = res.resultContent;
-                    // this.creStep1Model.regionId = this.regions[0].value;
+                    this.creStep1Model.regionId = this.regions[0].id;
                 }
             }
-        ).catch(function(){
-
-        })
+        ).catch(
+            err => {
+                this.notice.open('错误','区域信息错误');
+            }
+        )
         // this.layoutService.hide();
     }
     // 下一步
@@ -89,6 +99,7 @@ export class ClMngCreStep1Component implements OnInit{
             ).catch(
                 err => {
                     console.error('error');
+                    this.notice.open('错误','创建云平台错误');
                 }
             )
         }
@@ -99,15 +110,22 @@ export class ClMngCreStep1Component implements OnInit{
         this.router.navigateByUrl("pf-mng2/cl-mng/cl-mng");
     }
     // 选择平台类型
-    choosePlatFormType (item){
+    choosePlatFormType (item , index){
+        for(let i = 0 ; i < this.platformTypes.length ; i ++){
+            this.platformTypes[i].isSelected = false;
+        }
+        this.platformTypes[index].isSelected = true;
         this.creStep1Model.platformType = item.value;
         this.service.getPlatFormVersion(item.code).then(
             res => {
                 this.platformVersion = res.resultContent;
+                this.creStep1Model.version = this.platformVersion[0].value;
             }
-        ).catch(function(){
-            console.error('error');
-        })
+        ).catch(
+            err => {
+                this.notice.open('错误','获取版本错误');
+            }
+        )
     }
     
     // 验证字段
