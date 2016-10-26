@@ -1,0 +1,190 @@
+<div class="page-content cloud_host_list">
+	<h1 class="page-content-header">云主机列表</h1>
+    <table class="cm-table-left top-table mgb20">
+        <tr>
+            <th class="col-md-1 col-xs-3 text-center">区域列表</th>
+            <td>
+                <div class="col-md-10 btn-group" data-toggle="buttons">
+                    <label *ngFor="let value of areaConfig;let i = index;" class="btn btn-default" [ngClass]="{'active': i === 0}">
+                        <input type="radio" name="area" autocomplete="off"> {{ value.displayName }}
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="area" autocomplete="off"> 所有
+                    </label>
+                </div>
+                <div class="col-md-10 btn-group areaAble" data-toggle="buttons">
+                    <label class="btn btn-default active">
+                        <input type="radio" name="application" autocomplete="off"> 可用区A
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="application" autocomplete="off"> 可用区B
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="application" autocomplete="off"> 所有
+                    </label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th class="col-md-1 col-xs-3 text-center">实例归属</th>
+            <td>
+                <div class="col-md-10 btn-group" data-toggle="buttons">
+                    <label class="btn btn-default active">
+                        <input type="radio" name="application" autocomplete="off"> 我的资源
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="application" autocomplete="off"> 部门资源
+                    </label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th class="col-md-1 col-xs-3 text-center">标　　签</th>
+            <td>
+                <div class="col-md-10 btn-group" data-toggle="buttons">
+                    <label class="btn btn-default active">
+                        <input type="radio" name="application" autocomplete="off"> 应用A
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="application" autocomplete="off"> 应用B
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="application" autocomplete="off"> 应用C
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="application" autocomplete="off"> 应用D
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="application" autocomplete="off"> 更多 >>
+                    </label>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="col-md-12 no-padding mgb20">
+        <div class="dropdown float-left mgr10">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            云主机名称
+            <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="javascript:">云主机上海</a></li>
+                <li><a href="javascript:">云主机北京</a></li>
+                <li><a href="javascript:">云主机杭州</a></li>
+            </ul>
+        </div>
+         <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
+            <select class="form-control">
+                <option value="1">状态</option>
+                <option value="1">使用中</option>
+                <option value="1">未分配</option>
+                <option value="1">创建中</option>
+                <option value="1">挂载中</option>
+                <option value="1">卸载中</option>
+                <option value="1">删除中</option>
+                <option value="1">扩容中</option>
+            </select>
+         </div>
+         <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
+            <select class="form-control">
+                <option value="1">来源</option>
+                <option value="1">订购</option>
+                <option value="1">导入</option>
+            </select>
+         </div>
+         <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
+            <select class="form-control">
+                <option value="1">属性</option>
+                <option value="1">启动盘</option>
+                <option value="1">数据盘</option>
+            </select>
+         </div>
+         <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
+            <select class="form-control">
+                <option value="1">可卸载</option>
+                <option value="1">支持</option>
+                <option value="1">不支持</option>
+            </select>
+         </div>
+        <div class="input-group col-md-2 float-left mgr10">
+            <input class="form-control" type="email" placeholder="输入云主机信息搜索">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+        </div>
+        <div class="input-group float-left">
+            <label class="btn btn-default button-gray-gradient" (click)="superSearch = superSearch ? false : true" [ngClass]="{'active': superSearch}">
+                高级搜索
+            </label>
+        </div>
+    </div>
+    <div class="col-md-12 no-padding mgb20">
+        <button class="btn float-left mgr5 btn-primary"><i class="glyphicon glyphicon-plus"></i> 创建云主机</button>
+        <button class="btn float-left mgr5 btn-success"><i class="glyphicon glyphicon-edit"></i> 编辑云主机</button>
+        <button class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> 删除云主机</button>
+
+        <div class="dropdown float-left  mgr5">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            更多操作
+            <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <li><a href="javascript:">挂载</a></li>
+                <li><a href="javascript:">卸载</a></li>
+                <li><a href="javascript:">备份</a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table table-hover">
+        <tr>
+            <th class="text-center"><input type="checkbox"></th>
+            <th class="text-center">云主机名称</th>
+            <th class="text-center">配置</th>
+            <th class="text-center">镜像</th>
+            <th class="text-center">内部IP</th> 
+            <th class="text-center">外部IP</th>
+            <th class="text-center">所在区域及可用区</th>
+            <th class="text-center">状态</th>
+            <th class="text-center">到期时间</th>
+            <th class="text-center">云硬盘数</th> 
+            <th class="text-center">快照数</th>
+            <th class="text-center">附加服务</th>
+            <th class="text-center">类型</th>
+            <th class="text-center">服务类别</th>
+            <th class="text-center">操作</th> 
+        </tr>
+        <tr *ngFor="let vm of vmList;">
+            <td class="text-center"><input type="checkbox"></td>
+            <td class="text-center active">{{vm.instanceName}}</td>
+            <td class="text-center">{{vm.specification}}</td>
+            <td class="text-center">{{vm.osInfo}}</td>
+            <td class="text-center">{{vm.privateIp}}</td> 
+            <td class="text-center">{{vm.publicIP}}</td>
+            <td class="text-center">{{vm.regionZone}}</td>
+            <td class="text-center">{{vm.vmState}}</td>
+            <td class="text-center">{{vm.expiryDate}}</td>
+            <td class="text-center">{{vm.diskCount}}</td> 
+            <td class="text-center">{{vm.snapshotCount}}</td>
+            <td class="text-center">无</td>
+            <td class="text-center">生产</td>
+            <td class="text-center">关键</td>
+            <td class="text-center">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" [attr.id]="'dropdownMenu'+(index+3)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    更多操作
+                    <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" [attr.aria-labelledby]="'dropdownMenu'+(index+3)">
+                        <li><a (click)="handleVm('start', vm)" href="javascript:">启动</a></li>
+                        <li><a (click)="handleVm('stop', vm)" href="javascript:">停止</a></li>
+                        <li><a (click)="handleVm('pause', vm)" href="javascript:">暂停</a></li>
+                        <li><a (click)="handleVm('unpause', vm)" href="javascript:">开始</a></li>
+                        <li><a (click)="handleVm('resume', vm)" href="javascript:">恢复</a></li>
+                        <li><a (click)="handleVm('hardReboot', vm)" href="javascript:">硬重启</a></li>
+                        <li><a (click)="handleVm('softReboot', vm)" href="javascript:">软重启</a></li>
+                        <li><a (click)="handleVm('suspend', vm)" href="javascript:">挂起</a></li>
+                    </ul>
+                </div>
+            </td> 
+        </tr>
+    </table>
+    <fc-pagination tp={{totalPages}} (pf)="changePage($event)"></fc-pagination>
+</div>

@@ -73,7 +73,7 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">启动源</div>
 					<div class="col-md-10">
-						<select [ngModel]="sendModule.boottype" (ngModelChange)="sendModule.boottype = value" class="form-control">
+						<select [(ngModel)]="sendModule.boottype" (change)="sendModule.boottype = value" class="form-control">
 							<option
 							 *ngFor="let value of configs.boottype.valueList;"
 							 [ngValue]="value" >{{ value.displayName }}</option>
@@ -83,17 +83,16 @@
 					<div class="col-md-10 text-tip">公共镜像即基础操作系统，自定义镜像为企业根据基础操作系统做过额外配置或优化后的操作系统</div>
 					<div class="col-md-2 content-title">镜像类型</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label class="btn btn-default active">
-							<input type="radio" name="mirror" autocomplete="off" checked> 标准镜像
-						</label>
-						<label class="btn btn-default">
-							<input type="radio" name="mirror" autocomplete="off"> 私有镜像
+						<label *ngFor="let value of configs.imagetype.valueList;" (click)="sendModule.imagetype = value;" class="btn btn-default" [ngClass]="{'active': sendModule.imagetype.id === value.id}">
+							<input type="radio" name="imagetype" autocomplete="off"> {{ value.displayName }}
 						</label>
 					</div>
 					<div class="col-md-2 content-title">镜像列表</div>
 					<div class="col-md-10">
-						<select class="form-control">
-							<option value="">windows server 2016 64位</option>
+						<select [(ngModel)]="sendModule.os" (change)="sendModule.os = value" class="form-control">
+							<option
+							 *ngFor="let value of configs.os.valueList;"
+							 [ngValue]="value" >{{ value.displayName }}</option>
 						</select>
 					</div>
 				</div>
@@ -107,14 +106,18 @@
 						<div class="col-md-2 content-title">启动盘</div>
 						<div class="col-md-10 no-padding">
 							<div class="col-md-3 no-padding">
-								<select class="form-control">
-									<option value="">高速I/O</option>
+								<select [(ngModel)]="sendModule.bootstorage" (change)="sendModule.bootstorage = value" class="form-control">
+									<option
+									*ngFor="let value of configs.bootstorage.valueList;"
+									[ngValue]="value" >{{ value.displayName }}</option>
 								</select>
 							</div>
 							<div class="col-md-1 content-title2">容量</div>
 							<div class="col-md-2 no-padding">
-								<select class="form-control">
-									<option value="">60GB</option>
+								<select [(ngModel)]="sendModule.bootsize" (change)="sendModule.bootsize = value" class="form-control">
+									<option
+									*ngFor="let value of configs.bootsize.valueList;"
+									[ngValue]="value" >{{ value.displayName }}</option>
 								</select>
 							</div>
 							<div class="col-md-6 content-title2">GB</div>
@@ -125,21 +128,28 @@
 						<div class="col-md-10 no-padding data-disk">
 							<div class="col-md-12 no-padding mb10">
 								<div class="col-md-3 no-padding">
-									<select class="form-control">
-										<option value="">高速I/O</option>
+									<select [(ngModel)]="sendModule.storagetype" (change)="sendModule.storagetype = value" class="form-control">
+										<option
+										*ngFor="let value of configs.storagetype.valueList;"
+										[ngValue]="value" >{{ value.displayName }}</option>
 									</select>
 								</div>
 								<div class="col-md-1 content-title2">容量</div>
 								<div class="col-md-2 no-padding">
-									<div class="btn-group input-step-compontent">
+									<select [(ngModel)]="sendModule.storage" (change)="sendModule.storage = value" class="form-control">
+										<option
+										*ngFor="let value of configs.storage.valueList;"
+										[ngValue]="value" >{{ value.displayName }}</option>
+									</select>
+									<!--<div class="btn-group input-step-compontent">
 										<button type="button" class="btn btn-default col-md-3"><span class="glyphicon glyphicon-minus"></span></button>
 										<input type="text" class="form-control" value="20">
 										<button type="button" class="btn btn-default clickable"><span class="glyphicon glyphicon-plus"></span></button>
-									</div>
+									</div>-->
 								</div>
 								<div class="col-md-1 content-title2">GB</div>
 								<div class="col-md-3 text-right">
-									<button class="btn button-gray-gradient"><span class="glyphicon glyphicon-remove"></span> 删除</button>
+									<!--<button class="btn button-gray-gradient"><span class="glyphicon glyphicon-remove"></span> 删除</button>-->
 								</div>
 							</div>
 						</div>
@@ -161,10 +171,10 @@
 					<div class="col-md-12 no-padding mb15">
 						<div class="col-md-2 content-title">设置方式</div>
 						<div class="col-md-4 no-padding btn-group" data-toggle="buttons">
-							<label class="btn btn-default active">
+							<label class="btn btn-default active" (click)="setPassword = true">
 								<input type="radio" name="mirror" autocomplete="off" checked> 立即设置
 							</label>
-							<label class="btn btn-default">
+							<label class="btn btn-default" (click)="setPassword = false">
 								<input type="radio" name="mirror" autocomplete="off"> 模板自带密码
 							</label>
 						</div>
@@ -176,18 +186,18 @@
 						<div class="col-md-10 user-root">root</div>
 					</div>
 
-					<div class="col-md-12 no-padding mb20">
+					<div class="col-md-12 no-padding mb20" *ngIf="setPassword">
 						<div class="col-md-2 content-title">登录密码</div>
 						<div class="col-md-4 no-padding">
-							<input type="text" class="form-control" placeholder="请输入主机密码">
+							<input type="password" class="form-control" placeholder="请输入主机密码">
 						</div>
-						<div class="col-md-5 no-padding text-tip">建议复杂度：8-30个字符，且同时包括三项（大写字母，小写字谜，数字和特殊符号）</div>
+						<div class="col-md-5 no-padding text-tip">建议复杂度：8-30个字符，且同时包括三项（大写字母，小写字母，数字和特殊符号）</div>
 					</div>
 
-					<div class="col-md-12 no-padding mb20">
+					<div class="col-md-12 no-padding mb20" *ngIf="setPassword">
 						<div class="col-md-2 content-title">确认密码</div>
 						<div class="col-md-4 no-padding">
-							<input type="text" class="form-control" placeholder="请再次输入主机密码">
+							<input type="password" class="form-control" placeholder="请再次输入主机密码">
 						</div>
 					</div>
 
@@ -208,28 +218,39 @@
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">购买时长</div>
 						<div class="col-md-2 no-padding mr10">
-							<select class="form-control">
-								<option value="">高速I/O</option>
+							<select [disabled]="timeForever" [(ngModel)]="sendModule.timeline" (change)="sendModule.timeline = value" class="form-control">
+								<option
+								*ngFor="let value of configs.timeline.valueList;"
+								[ngValue]="value" >{{ value.displayName }}</option>
 							</select>
 						</div>
 						<div class="col-md-2 no-padding mr10">
-							<input type="text" class="form-control">
+							<input [disabled]="timeForever" type="text" class="form-control">
 						</div>
 						<div class="col-md-2 no-padding">
-							<button class="btn button-gray-gradient">永久</button>
+							<label class="btn btn-default" (click)="timeForever = timeForever ? false : true" [ngClass]="{'active': timeForever}">
+								永久
+							</label>
 						</div>
 					</div>
 
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">购买量</div>
 						<div class="col-md-2 no-padding mr10">
-							<div class="btn-group input-step-compontent">
+							<select [(ngModel)]="payLoad.quality" (change)="payLoad.quality = value" class="form-control">
+								<option [ngValue]="1">1台</option>
+								<option [ngValue]="2">2台</option>
+								<option [ngValue]="3">3台</option>
+								<option [ngValue]="4">4台</option>
+								<option [ngValue]="5">5台</option>
+							</select>
+							<!--<div class="btn-group input-step-compontent">
 								<button type="button" class="btn btn-default col-md-3"><span class="glyphicon glyphicon-minus"></span></button>
 								<input type="text" class="form-control" value="20">
 								<button type="button" class="btn btn-default clickable"><span class="glyphicon glyphicon-plus"></span></button>
-							</div>
+							</div>-->
 						</div>
-						<div class="col-md-2 no-padding lh32">台</div>
+						<!--<div class="col-md-2 no-padding lh32">台</div>-->
 					</div>
 				</div>
 			</li>
@@ -242,23 +263,29 @@
 		</div>
 		<div class="col-md-12 content-box">
 			<h3 class="boder-gray-bottom-title">当前配置</h3>
-			<h4 class="cloud-title font-green">云主机</h4>
-			<p class="cloud-p">规格: CPU 2核 / 内存 4GB</p>
-			<p class="cloud-p">启动盘: 2核 / 内存 4GB</p>
-			<p class="cloud-p">数量: CPU 2核 / 内存 4GB</p>
-			<h4 class="cloud-title font-green">云硬盘</h4>
-			<p class="cloud-p">高I/O: 4GB*1块</p>
-			<p class="cloud-p">普通I/O: 4GB*1块</p>
+			<h4 class="cloud-title font-green">区域</h4>
+			<p class="cloud-p">区域: {{ sendModule.region ? sendModule.region.displayName : "" }}</p>
+			<p class="cloud-p">可用区: {{ sendModule.zone ? sendModule.zone.displayName : "" }}</p>
+			<h4 class="cloud-title font-green">网络</h4>
+			<p class="cloud-p">网络类型: {{ sendModule.region ? sendModule.region.displayName : "" }}</p>
+			<p class="cloud-p">安全组: {{ sendModule.zone ? sendModule.zone.displayName : "" }}</p>
+			<h4 class="cloud-title font-green">实例规格</h4>
+			<p class="cloud-p">CPU: {{ sendModule.cpu ? sendModule.cpu.displayName : "" }}</p>
+			<p class="cloud-p">内存: {{ sendModule.mem ? sendModule.mem.displayName : "" }}</p>
+			<h4 class="cloud-title font-green">云主机源</h4>
+			<p class="cloud-p">启动源: {{ sendModule.boottype ? sendModule.boottype.displayName : "" }}</p>
+			<p class="cloud-p">镜像类型: {{ sendModule.imagetype ? sendModule.imagetype.displayName : "" }}</p>
+			<p class="cloud-p">镜像名称: {{ sendModule.os ? sendModule.os.displayName : "" }}</p>
+			<h4 class="cloud-title font-green">储存</h4>
+			<p class="cloud-p">启动盘: {{ sendModule.bootstorage ? sendModule.bootstorage.displayName : "" }} / {{ sendModule.bootsize ? sendModule.bootsize.displayName : "" }}</p>
+			<p class="cloud-p">数据盘: {{ sendModule.storagetype ? sendModule.storagetype.displayName : "" }} / {{ sendModule.storage ? sendModule.storage.displayName : "" }}</p>
+			<h4 class="cloud-title font-green">购买量</h4>
+			<p class="cloud-p">购买时长: {{ sendModule.timeline ? sendModule.timeline.displayName : ""}}台</p>
+			<p class="cloud-p">购买量: {{payLoad.quality}}台</p>
 			<div class="cloud-line"></div>
-			<h4 class="cloud-title">云主机</h4>
-			<p class="cloud-p">一次性费用: ¥100</p>
-			<p class="cloud-p">费用: ¥100/月</p>
-			<h4 class="cloud-title">云硬盘</h4>
-			<p class="cloud-p">一次性费用: ¥100</p>
-			<p class="cloud-p">费用: ¥100/月</p>
-			<h4 class="cloud-title">费用总计：<font class="font-orange">¥200</font></h4>
+			<h4 class="cloud-title">费用总计：<font class="font-orange">¥{{ this.sendModule.timeline ? this.parseInt((this.parseInt(this.sendModule.cpu.displayName)*20 + ((this.parseInt(this.sendModule.mem.displayName) < 50) ? this.parseInt(this.sendModule.mem.displayName)*10 : this.parseInt(this.sendModule.mem.displayName)*0.1 ) + this.parseInt(this.sendModule.bootsize.displayName) +this.parseInt(this.sendModule.timeline.displayName) +  this.parseInt(this.sendModule.storage.displayName))*this.parseInt(this.payLoad.quality)*100)/100 : 0 }}</font></h4>
 			<div class="col-md-12 colud-order-button">
-				<div class="col-md-6"><button class="btn button-orange-deep">立即购买</button></div>
+				<div class="col-md-6"><button (click)="buyNow()" class="btn button-orange-deep">立即购买</button></div>
 				<div class="col-md-6"><button class="btn button-orange-light">加入购物车</button></div>
 			</div>
 		</div>
