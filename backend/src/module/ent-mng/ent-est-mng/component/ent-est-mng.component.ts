@@ -276,7 +276,7 @@ export class EntEstMngComponent implements OnInit {
   setupProduct(){
     if(this.getSelected())
     {
-      this.router.navigateByUrl(this.appendUrlWithEntName(this.composeUrlWithId("ent-mng/ent-est-mng/ent-est-setProd", this.getSelected().id), this.getSelected().enterpriseName));
+      this.router.navigateByUrl(`ent-mng/ent-est-mng/ent-est-setProd/${this.getSelected().id}/${this.getSelected().enterpriseName}`);
     }
   }
 
@@ -285,7 +285,7 @@ export class EntEstMngComponent implements OnInit {
   setupAdmin(){
     if(this.getSelected())
     {
-      this.router.navigateByUrl("ent-mng/ent-admin-mng/ent-admin-mng/" + this.getSelected().id);
+      this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-mng/${this.getSelected().id}`);
     }
   }
 
@@ -346,7 +346,7 @@ export class EntEstMngComponent implements OnInit {
   //查看企业
   checkEnterpriseInfo(entId: string){
     console.log('checkEnterpriseInfo entId', entId);
-    this.router.navigateByUrl(`ent-mng/ent-est-mng/ent-est-check?entId=${entId}`);
+    this.router.navigateByUrl(`ent-mng/ent-est-mng/ent-est-check/${entId}`);
   }
   //修改配额
   acceptQuotaModify(){

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LayoutService, NoticeComponent, PopupComponent } from '../../../../architecture';
 import { CertMethod, EntProdItem, EntEstItem, EntEst} from '../model';
 import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
@@ -23,26 +23,22 @@ export class EntEstCheckComponent implements OnInit {
   constructor(
     private layoutService: LayoutService,
     private router: Router,
+    private activatedRouter: ActivatedRoute,
     private service: EntEstCreService
   ) {}
 
   ngOnInit() {
-    this.router.routerState.root.queryParams.subscribe(data=>{
-      this.entId = data["entId"] as string;
-      if(this.entId)
-      {
-        console.log('Check entId', this.entId);
-        //加载基本信息
-        this.service.loadEntInfo(this.entEst.BasicInfo
-            , this.showError
-            , null
-            , this
-            , this.entId);
+    this.entId = this.activatedRouter.snapshot.params["entId"] as string;
+    console.log('Check entId', this.entId);
+    //加载基本信息
+    this.service.loadEntInfo(this.entEst.BasicInfo
+        , this.showError
+        , null
+        , this
+        , this.entId);
 
-        //加载产品信息
-        this.loadEntProdItems();
-      }
-    });
+    //加载产品信息
+    this.loadEntProdItems();
 
   }
 
