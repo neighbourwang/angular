@@ -143,6 +143,7 @@ export class EntEstMngComponent implements OnInit {
 
   //编辑
   edit(){
+    console.log('ent-est-mng/edit');
     if(this.getSelected())
     {
       let item = this.getSelected();

@@ -35,11 +35,13 @@ export class EntEstSetProdComponent implements OnInit {
       this.entName = data["entName"];
       this.entId = data["entId"];
 
-      this.refreshData();
-       this.sysDicService.sysDicOF(this, this.sysDicCallback, "GLOBAL", "STATUS")
+      if(this.entId)
+      {
+        this.refreshData();
+        this.sysDicService.sysDicOF(this, this.sysDicCallback, "GLOBAL", "STATUS")
+      }
+
     });
-   // todo: 加载企业产品
-   // todo: 加载产品
   }
 
 
@@ -89,7 +91,7 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
   //保存企业产品的变更
   saveChanges()
   {
-    this.service.updateEntProducts(this.entProdItems.items)
+    this.service.updateEntProducts(this.entProdItems.items, this.entId)
     .then(ret=>{
 
     })

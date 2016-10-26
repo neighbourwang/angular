@@ -68,7 +68,7 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default" *ngFor="let item of platformTypes" (click)="choosePlatFormType(item)">{{item.displayValue}}</button>
+                            <button type="button" class="btn btn-default" *ngFor="let item of platformTypes;let idx = index" (click)="choosePlatFormType(item,idx)" [ngClass]="{'btn-active': item.isSelected}">{{item.displayValue}}</button>
                         </div>
                     </div>
                 </div>

@@ -29,14 +29,7 @@ export class EntEstCreComponent implements OnInit{
 
 	}
 	ngOnInit(){
-		this.router
-		.routerState
-		.root
-		.queryParams
-		.subscribe(data=>{
-			this.entEst = new EntEst();
-		});
-
+		this.entEst = new EntEst();
 		this.loadResourceQuotas();
 	}
 

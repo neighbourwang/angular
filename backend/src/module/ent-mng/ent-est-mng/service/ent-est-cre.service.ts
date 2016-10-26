@@ -275,6 +275,7 @@ export class EntEstCreService{
 		,caller: any
 		,entId:string)
 	{
+		console.log('loadEntInfo');
 		let pageItem:Paging<EntEstBasicInfo> = new Paging<EntEstBasicInfo>();
 
 		this.loadItems(pageItem
@@ -349,6 +350,7 @@ export class EntEstCreService{
 					//界面上绑定的是EntProdItem模型，对应obj
 					//从服务器上获取的数据是item
 					//将item上的值映射到obj上面
+					obj.id = item.id as string;
 					obj.entId = item.enterpriseId as string;
 					obj.name = item.name as string;
 					obj.category = item.serviceName as string;
@@ -406,14 +408,15 @@ export class EntEstCreService{
 					//这里要做转换
 					//界面上绑定的是EntProdItem模型，对应obj
 					//从服务器上获取的数据是item
-					//将item上的值映射到obj上面				
+					//将item上的值映射到obj上面		
+					obj.id = item.id;		
 					obj.name = item.name as string;
 					obj.category = item.serviceName as string;
 					obj.type = item.serviceType as string;
 					obj.spec = item.serviceSpedification;
 					obj.countCycle = item.billingCycle as string;
 					obj.cyclePrice = item.recurringPrice as number;
-					obj.oneTimePrice = item.basicPrice as number;
+					obj.oneTimePrice = item.onetimePrice as number;
 					obj.status = item.status;
 					obj.description = item.description;
 				}
@@ -429,14 +432,15 @@ export class EntEstCreService{
 
 
 	//保存企业产品信息变更
-	updateEntProducts(entProdItems: EntProdItem[])
+	updateEntProducts(entProdItems: EntProdItem[], entId:string)
 	{
-		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.products.put");//这个api要找罗杰要
+		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.products.update");
 
-		let localParams = [];
-		let target:any = {
-			
-		};
+		let localParams = [{
+			key:"enterpriseId"
+			,value:entId
+		}];
+		let target:any = entProdItems.map(n=>n.id);
 
 		return this.restApi.request(api.method, api.url, localParams, [], target);
 
