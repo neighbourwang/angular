@@ -46,25 +46,31 @@ export class ProdDirListComponent implements OnInit {
     // 每页显示的数据条数
     pp: number = 10;
 
-    prodDirTypeList=new Array();
-    prodDirTypeId:string ;
-    queryProdDirTypeId :string;
-    
+    prodDirTypeList = new Array();
+    platformsList = new Array();
+    platformId: string;
+    prodDirTypeId: string;;
+    queryProdDirTypeId: string;
+
     ngOnInit() {
         console.log(this.pp);
         //获得激活云平台数据
         this.PlatformsActiveService.getPlatformsActive().then(response => {
             console.log('激活云平台数据', response);
+            if (response && 100 == response.resultCode) {
+                this.platformsList = response.resultContent;
+            } else {
+
+            }
         }).catch(err => {
             console.error(err)
         })
         //获取产品目录类别
-        this.ProdSeriesService.getProdSeries().then(response => {           
+        this.ProdSeriesService.getProdSeries().then(response => {
             if (response && 100 == response.resultCode) {
                 this.prodDirTypeList = response.resultContent;
-                this.prodDirTypeId =this.prodDirTypeList[0].id
-                this.queryProdDirTypeId =this.prodDirTypeList[0].id
-                
+                this.prodDirTypeId = this.prodDirTypeList[0].id
+                // this.queryProdDirTypeId =this.prodDirTypeList[0].id                
                 console.log('产品目录', this.prodDirTypeList)
             } else {
 
@@ -73,9 +79,17 @@ export class ProdDirListComponent implements OnInit {
             console.error(err);
         })
 
-        this.backend(1, this.pp);
+        this.backend(1, this.pp,null,null);
     }
-
+    onQuery() {
+        console.log(this.platformId);
+        console.log(this.queryProdDirTypeId);
+        let data = {
+            "categoryId": this.queryProdDirTypeId,
+            "platformId": this.platformId
+        }
+        this.backend(1, this.pp,this.queryProdDirTypeId,this.platformId);
+    }
     @ViewChild('publishConfirm')
     publishConfirm: ConfirmComponent;
 
@@ -157,11 +171,15 @@ export class ProdDirListComponent implements OnInit {
         }
     };
     deleteCof() {
-        // this.ProdDirDeleteService.deleteProdDir(id).then(response=>{
-        //     console.log(response)
-        // }).catch(err=>{
-        //     console.error(err);
-        // })
+         let selectedList: Array<Proddir> = this.getProddir();
+        console.log(selectedList[0]['serviceId']);
+        let id = selectedList[0]['serviceId'];
+        this.ProdDirDeleteService.deleteProdDir(id).then(response=>{
+            console.log(response);
+            this.backend(1, this.pp,this.queryProdDirTypeId,this.platformId);
+        }).catch(err=>{
+            console.error(err);
+        })
     }
     //发布按钮
 
@@ -170,7 +188,8 @@ export class ProdDirListComponent implements OnInit {
         console.log(selectedList[0]['serviceId']);
         let id = selectedList[0]['serviceId'];
         this.ProdDirPublishService.publishProdDir(id).then(response => {
-            console.log(response)
+            console.log(response);
+            this.backend(1, this.pp,this.queryProdDirTypeId,this.platformId);
         }).catch(err => {
             console.error(err);
         })
@@ -181,7 +200,8 @@ export class ProdDirListComponent implements OnInit {
         console.log(selectedList[0]['serviceId']);
         let id = selectedList[0]['serviceId'];
         this.CcProdDirPublishService.ccPublishProdDir(id).then(response => {
-            console.log(response)
+            console.log(response);
+            this.backend(1, this.pp,this.queryProdDirTypeId,this.platformId);
         }).catch(err => {
             console.error(err);
         })
@@ -200,22 +220,22 @@ export class ProdDirListComponent implements OnInit {
     }
     otcreate() {
         let id = this.prodDirTypeList[0].id;
-        let type ="new"
-        this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre",id,type]);
+        let type = "new"
+        this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre", id, type]);
     }
     //去编辑详情
     goDetail(item) {
         console.log(item);
-        let id = item.serviceId;
-        let type ="detail"
-        this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre", id,type]);
+        // let id = item.serviceId;
+        // let type ="detail"
+        // this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre", id,type]);
     }
 
     //获取列表数据
-    backend(page: number, size: number) {
+    backend(page: number, size: number,cateId:string,platId:string) {
         // this.layoutService.show();
         this.tp = 0;
-        this.service.getProdDirList(page, size).then(
+        this.service.getProdDirList(page, size,cateId,platId).then(
             response => {
                 console.log(response);
                 if (response && 100 == response.resultCode) {
@@ -253,37 +273,6 @@ export class ProdDirListComponent implements OnInit {
                 console.error('err');
             }
             );
-        //mockup
-        // let proddir = new Proddir();
-
-        // proddir.serviceId = '10a9a9c2-ee01-47e9-906e-b1e01ac435a4';
-        // proddir.serviceName = 'serviceName1';
-        // proddir.productNum = 10;
-        // proddir.serviceTemplateName = 'serviceTemplateName';
-        // proddir.createrName = 'createrName';
-        // proddir.creatorId = 'creatorId';
-        // proddir.description = 'description';
-        // proddir.specification = 'specification';
-        // proddir.status = 'status';
-        // proddir.isSelected = false;
-
-
-        // let proddir2 = new Proddir();
-
-        // proddir2.serviceId = '5';
-        // proddir2.serviceName = 'serviceName2';
-        // proddir2.productNum = 10;
-        // proddir2.serviceTemplateName = 'serviceTemplateName';
-        // proddir2.createrName = 'createrName';
-        // proddir2.creatorId = 'creatorId';
-        // proddir2.description = 'description';
-        // proddir2.specification = 'specification';
-        // proddir2.status = 'status';
-        // proddir2.isSelected = true;
-
-        // this.prodDirList .push(proddir);
-        // this.prodDirList .push(proddir2);
-
     }
     //获取所有激活云平台
     getPlatformsActive() {
