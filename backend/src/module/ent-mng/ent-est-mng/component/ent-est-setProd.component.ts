@@ -35,11 +35,13 @@ export class EntEstSetProdComponent implements OnInit {
       this.entName = data["entName"];
       this.entId = data["entId"];
 
-      this.refreshData();
-       this.sysDicService.sysDicOF(this, this.sysDicCallback, "GLOBAL", "STATUS")
+      if(this.entId)
+      {
+        this.refreshData();
+        this.sysDicService.sysDicOF(this, this.sysDicCallback, "GLOBAL", "STATUS")
+      }
+
     });
-   // todo: 加载企业产品
-   // todo: 加载产品
   }
 
 

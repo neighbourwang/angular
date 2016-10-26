@@ -29,16 +29,19 @@ export class EntEstCheckComponent implements OnInit {
   ngOnInit() {
     this.router.routerState.root.queryParams.subscribe(data=>{
       this.entId = data["entId"] as string;
-      console.log('Check entId', this.entId);
-      //加载基本信息
-      this.service.loadEntInfo(this.entEst.BasicInfo
-          , this.showError
-          , null
-          , this
-          , this.entId);
+      if(this.entId)
+      {
+        console.log('Check entId', this.entId);
+        //加载基本信息
+        this.service.loadEntInfo(this.entEst.BasicInfo
+            , this.showError
+            , null
+            , this
+            , this.entId);
 
-      //加载产品信息
-      this.loadEntProdItems();
+        //加载产品信息
+        this.loadEntProdItems();
+      }
     });
 
   }

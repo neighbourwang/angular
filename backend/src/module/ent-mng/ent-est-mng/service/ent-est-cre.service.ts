@@ -275,6 +275,7 @@ export class EntEstCreService{
 		,caller: any
 		,entId:string)
 	{
+		console.log('loadEntInfo');
 		let pageItem:Paging<EntEstBasicInfo> = new Paging<EntEstBasicInfo>();
 
 		this.loadItems(pageItem
