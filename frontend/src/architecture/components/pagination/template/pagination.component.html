@@ -1,7 +1,7 @@
 ﻿<div *ngIf="isRender()" class="fox-cloud-pagination-container">
     <ul class="fox-cloud-pagination">
-        <span [ngClass]="{'pagination-disabled': !hasPrev()}" (click)="paging(prev)">上一页</span>
+        <span [ngClass]="{'pagination-disabled': !hasPrev()}" (click)="paging(prev)"><<</span>
         <li *ngFor="let item of pages;" [ngClass]="{'active': cp == item}" (click)="paging(item)">{{item}}</li>
-        <span [ngClass]="{'pagination-disabled': !hasNext()}" (click)="paging(next)">下一页</span>
+        <span [ngClass]="{'pagination-disabled': !hasNext()}" (click)="paging(next)">>></span>
     </ul>
 </div>
