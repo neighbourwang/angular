@@ -11,6 +11,8 @@ import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../
 
 import { ClMngCreStep6Service } from '../service/cl-mng-cre-step-6.service'; 
 
+import { ClMngListService } from '../service/cl-mgn-list.service';
+
 import { CreStep6Model } from '../model/cre-step6.model'; 
 
 import { ClMngIdService } from '../service/cl-mng-id.service';
@@ -30,6 +32,7 @@ export class ClMngCreStep6Component implements OnInit{
         private router : Router,
         private service : ClMngCreStep6Service,
         private idService : ClMngIdService,
+        private operationService : ClMngListService
     ) {}
 
 
@@ -64,7 +67,20 @@ export class ClMngCreStep6Component implements OnInit{
 
         this.service.putImages(id , this.creStep6Model).then(
             res => {
-                // console.log(res);
+                this.activePlatform();
+            }
+        ).catch(
+            err => {
+                console.error('err');
+            }
+        )
+    }
+    // 启用云平台
+    private activePlatform (){
+        let id : String = this.idService.getPlatformId();
+        
+        this.operationService.activePlatform(id).then(
+            res => {
                 this.router.navigateByUrl('pf-mng2/cl-mng/cl-mng');
             }
         ).catch(
