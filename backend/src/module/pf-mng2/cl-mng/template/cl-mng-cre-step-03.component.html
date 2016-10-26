@@ -31,14 +31,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of zones; let idx = index;">
+                    <tr *ngFor="let item of creStep3Model; let idx = index;">
                         <td>{{idx + 1}}</td>
                         <td>{{item.name}}</td>
                         <td><input type="text" class="form-control" [(ngModel)]="item.displayName"></td>
-                        <td>{{item.hostNum}}</td>
+                        <td>{{item.hostnum}}</td>
                         <td>{{item.vcpunum}}</td>
                         <td>{{item.memSize}}</td>
-                        <td><input type="number" class="form-control" [(ngModel)]="item.vmQuota" style="width: 100px; display: inline;"></td>
+                        <td>
+                            <count-bar [config]="countBar" (output)="outputValue($event,idx)"></count-bar>
+                            <!--<input type="number" class="form-control" [(ngModel)]="item.vmQuota" style="width: 100px; display: inline;">-->
+                            </td>
                         <td><input type="text" class="form-control" [(ngModel)]="item.description"></td>
                     </tr>
                 </tbody>

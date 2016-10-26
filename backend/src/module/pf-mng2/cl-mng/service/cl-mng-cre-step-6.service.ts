@@ -5,7 +5,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
-// import { CreStep5Model } from '../model/cre-step5.model';
+import { CreStep6Model } from '../model/cre-step6.model';
 
 
 import 'rxjs/add/operator/toPromise';
@@ -26,11 +26,17 @@ export class ClMngCreStep6Service {
     //}
 
     //获取镜像 pf.cre.images.get
-    getFlavors(id : String){
+    getImages(id : String){
         let api = this.restApiCfg.getRestApi("pf.cre.images.get");
 
         return this.restApi.request(api.method , api.url , [{key : 'pf-id' , value : id}],undefined);
     }
 
+    //更新镜像 pf.cre.images.put
+    putImages(id : String , creStep6Model : Array<CreStep6Model>){
+        let api = this.restApiCfg.getRestApi("pf.cre.images.put");
+
+        return this.restApi.request(api.method , api.url , [{key : 'pf-id' , value : id}],undefined,creStep6Model);
+    }
 
 }

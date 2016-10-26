@@ -105,6 +105,7 @@ export class ClMngCreStep2Component implements OnInit{
                  this.creStep2Model.imagesStatus = true;
                  this.creStep2Model.message = '同步镜像成功，正在同步宿主机';
                  this.creStep2Model.percentage = 80;
+                 this.hosts();
              }
          ).catch(
              error => {
