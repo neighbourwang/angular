@@ -130,16 +130,16 @@ export class EntEstCreService{
 
 					obj.id = item.enterpriseId as string; 
 					obj.authMode = parseInt(item.authMode);//认证方式
-					obj.enterpriseName = item.enterpriseName as string; 
-					obj.vmNum = 0; //api 未提供
-					obj.vmQuota = 0; //api 未提供
-					obj.vmQuotaUsageRate = 0; //api 未提供
-					obj.storageQuota = item.storageQuota as number; 
-					obj.storageQuotaUsageRate = item.storageQuota != 0 ? item.usedStorageNumber/item.storageQuota:0;
-					obj.snapQuota = item.snapshotQuota as number; 
-					obj.productNum = item.productNumber as number; 
-					obj.orderNum = item.orderNumber as number; 
-					obj.status = item.status as string; 
+					obj.enterpriseName = item.enterpriseName as string; // 企业（租户）名称
+					obj.vmNum = 0; //云主机数量 api?
+					obj.vmQuota = item.vmQuota as number; //云主机配额（个）
+					obj.vmQuotaUsageRate = 0; //云主机配额使用率 api 未提供
+					obj.storageQuota = item.storageQuota as number; //存储配额（GB）
+					obj.storageQuotaUsageRate = item.storageQuota != 0 ? item.usedStorageNumber/item.storageQuota:0; //存储配额使用率
+					obj.snapQuota = item.snapshotQuota as number; //快照配额（个）
+					obj.productNum = item.productNumber as number; //产品数量
+					obj.orderNum = item.orderNumber as number; //订单数量
+					obj.status = item.status as string; //状态
 					obj.description = ""; //api 未提供
 
 				}
@@ -245,11 +245,11 @@ export class EntEstCreService{
 
 					obj.id = item.id as string;
 					obj.enterpriseId = item.enterpriseId as string;
-					obj.platformVMQuota = 0; //api上面暂时无数据
-					obj.physicalMachineQuota = 0; //api上面暂时无数据
-					obj.storageQuota = item.storageQuota as number;
-					obj.snapQuota = item.snapshotQuota as number;
-					obj.imageQuota = item.vmQuota as number;
+					obj.platformVMQuota = item.vmQuota; ////可创建云主机数量
+					obj.physicalMachineQuota = 0; //可创建物理机数量,api暂不提供
+					obj.storageQuota = item.storageQuota as number;//可用存储额度
+					obj.snapQuota = item.snapshotQuota as number;//可创建快照数量
+					obj.imageQuota = 0;//可创建镜像数量，api暂不提供
 				}
 			}
 			, (items:EntEstResourceQuota[])=>{
@@ -533,12 +533,12 @@ export class EntEstCreService{
 		let target:any = {
 			enterpriseId: entQuota.enterpriseId,
 			id: entQuota.id,
-			imageQuota: entQuota.imageQuota,
+			imageQuota: entQuota.imageQuota,//可创建镜像数量
 			networkQuota: 0, //界面上没有提供这个数据
-			physicalQuota: entQuota.physicalMachineQuota,
-			snapShotQuota: entQuota.snapQuota,
-			storageQuota: entQuota.storageQuota,
-			vmQuota: entQuota.platformVMQuota
+			physicalQuota: entQuota.physicalMachineQuota,//可创建物理机数量
+			snapShotQuota: entQuota.snapQuota,//可创建快照数量
+			storageQuota: entQuota.storageQuota,//可用存储额度
+			vmQuota: entQuota.platformVMQuota//可创建云主机数量
 		};
 
 		return this.restApi.request(api.method, api.url, localParams, [], target);
