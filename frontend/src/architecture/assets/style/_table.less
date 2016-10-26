@@ -1,0 +1,40 @@
+.cm-table-left {
+	border-collapse: collapse;
+	width: 100%;
+    th {
+        border: 1px solid @ddd-color;
+        background: @color-f7;
+        padding: 15px;
+    }
+    td {
+        border: 1px solid @ddd-color;
+        background: @white-color;
+        padding: 15px;
+    }
+}
+
+.table {
+	border: 1px solid @ddd-color;
+	border-bottom: none;
+	margin-bottom: 0px;
+    th {
+        border: 1px solid @ddd-color;
+        background: @color-f7;
+        font-weight: normal;
+    }
+    td {
+        border-bottom: 1px solid @ddd-color;
+    }
+    input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+    }
+    td.active {
+        background-color : inherit !important;
+        color: @mainColor;
+    }
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 15px 8px;
+}
