@@ -36,7 +36,10 @@
     "zone.js": "^0.6.23"
   },
   "devDependencies": {
+    "@types/echarts": "0.0.5",
     "@types/jasmine": "^2.2.30",
+    "@types/jquery": "^2.0.33",
+    "@types/node": "^6.0.45",
     "angular-cli": "1.0.0-beta.15",
     "codelyzer": "~0.0.26",
     "jasmine-core": "2.4.1",

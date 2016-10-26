@@ -93,7 +93,7 @@ export class EntEstCreService{
 		, errorHandler: Function
 		, caller:any
 		, criteria: string = ""
-		, successHanlder: Function)
+		, successHanlder: ()=>void)
 	{
 
 		let localParams:Array<any> = [
@@ -130,16 +130,16 @@ export class EntEstCreService{
 
 					obj.id = item.enterpriseId as string; 
 					obj.authMode = parseInt(item.authMode);//认证方式
-					obj.enterpriseName = item.enterpriseName as string; 
-					obj.vmNum = 0; //api 未提供
-					obj.vmQuota = 0; //api 未提供
-					obj.vmQuotaUsageRate = 0; //api 未提供
-					obj.storageQuota = item.storageQuota as number; 
-					obj.storageQuotaUsageRate = item.storageQuota != 0 ? item.usedStorageNumber/item.storageQuota:0;
-					obj.snapQuota = item.snapshotQuota as number; 
-					obj.productNum = item.productNumber as number; 
-					obj.orderNum = item.orderNumber as number; 
-					obj.status = item.status as string; 
+					obj.enterpriseName = item.enterpriseName as string; // 企业（租户）名称
+					obj.vmNum = 0; //云主机数量 api?
+					obj.vmQuota = item.vmQuota as number; //云主机配额（个）
+					obj.vmQuotaUsageRate = 0; //云主机配额使用率 api 未提供
+					obj.storageQuota = item.storageQuota as number; //存储配额（GB）
+					obj.storageQuotaUsageRate = item.storageQuota != 0 ? item.usedStorageNumber/item.storageQuota:0; //存储配额使用率
+					obj.snapQuota = item.snapshotQuota as number; //快照配额（个）
+					obj.productNum = item.productNumber as number; //产品数量
+					obj.orderNum = item.orderNumber as number; //订单数量
+					obj.status = item.status as string; //状态
 					obj.description = ""; //api 未提供
 
 				}
@@ -155,7 +155,7 @@ export class EntEstCreService{
 //加载企业认证信息
    	loadEntCertInfo(entCertInfo:EntEstBasicInfo
 	   ,errorHandler:Function
-	   ,successHandler:Function
+	   ,successHandler:()=>void
 	   ,caller:any
 	   ,entId:string){
            let localParams:Array<any> = [
@@ -209,7 +209,7 @@ export class EntEstCreService{
 	loadEntResourceQuota(
 		entResourceQuota: EntEstResourceQuota
 		, errorHandler: Function
-		, successHandler: Function
+		, successHandler: ()=>void
 		, caller: any
 		, entId:string){
 
@@ -245,11 +245,11 @@ export class EntEstCreService{
 
 					obj.id = item.id as string;
 					obj.enterpriseId = item.enterpriseId as string;
-					obj.platformVMQuota = 0; //api上面暂时无数据
-					obj.physicalMachineQuota = 0; //api上面暂时无数据
-					obj.storageQuota = item.storageQuota as number;
-					obj.snapQuota = item.snapshotQuota as number;
-					obj.imageQuota = item.vmQuota as number;
+					obj.platformVMQuota = item.vmQuota; ////可创建云主机数量
+					obj.physicalMachineQuota = 0; //可创建物理机数量,api暂不提供
+					obj.storageQuota = item.storageQuota as number;//可用存储额度
+					obj.snapQuota = item.snapshotQuota as number;//可创建快照数量
+					obj.imageQuota = 0;//可创建镜像数量，api暂不提供
 				}
 			}
 			, (items:EntEstResourceQuota[])=>{
@@ -271,10 +271,11 @@ export class EntEstCreService{
 	//获取企业基本信息
 	loadEntInfo(entInfo:EntEstBasicInfo
 		,errorHandler:Function
-		,successHandler:Function
+		,successHandler:()=>void
 		,caller: any
 		,entId:string)
 	{
+		console.log('loadEntInfo');
 		let pageItem:Paging<EntEstBasicInfo> = new Paging<EntEstBasicInfo>();
 
 		this.loadItems(pageItem
@@ -315,7 +316,8 @@ export class EntEstCreService{
 	loadEntProdItems(entProdItems: Paging<EntProdItem>
 		,errorHandler:Function
 		,caller: any
-		,entId: string):void
+		,entId: string
+		,successHandler:()=>void):void
 	{
 		let localParams:Array<any> = [
 		{
@@ -349,6 +351,7 @@ export class EntEstCreService{
 					//界面上绑定的是EntProdItem模型，对应obj
 					//从服务器上获取的数据是item
 					//将item上的值映射到obj上面
+					obj.id = item.id as string;
 					obj.entId = item.enterpriseId as string;
 					obj.name = item.name as string;
 					obj.category = item.serviceName as string;
@@ -362,7 +365,7 @@ export class EntEstCreService{
 				}
 			}
 			,null
-			,null
+			,successHandler
 			,{
 				"enterpriseId": entId,
 				"platformId": null,
@@ -375,7 +378,8 @@ export class EntEstCreService{
 	loadAvailProdItems(prodItems: Paging<EntProdItem>
 		,errorHandler: Function
 		,caller: any
-		,entId: string):void
+		,entId: string
+		,successHandler:()=>void):void
 	{
 		let localParams:Array<any> = [{
 			key:"enterpriseId"
@@ -406,20 +410,21 @@ export class EntEstCreService{
 					//这里要做转换
 					//界面上绑定的是EntProdItem模型，对应obj
 					//从服务器上获取的数据是item
-					//将item上的值映射到obj上面				
+					//将item上的值映射到obj上面		
+					obj.id = item.id;		
 					obj.name = item.name as string;
 					obj.category = item.serviceName as string;
 					obj.type = item.serviceType as string;
 					obj.spec = item.serviceSpedification;
 					obj.countCycle = item.billingCycle as string;
 					obj.cyclePrice = item.recurringPrice as number;
-					obj.oneTimePrice = item.basicPrice as number;
+					obj.oneTimePrice = item.onetimePrice as number;
 					obj.status = item.status;
 					obj.description = item.description;
 				}
 			}
 			,null
-			,null
+			,successHandler
 			,pageParameter
 			);
 	}
@@ -429,14 +434,15 @@ export class EntEstCreService{
 
 
 	//保存企业产品信息变更
-	updateEntProducts(entProdItems: EntProdItem[])
+	updateEntProducts(entProdItems: EntProdItem[], entId:string)
 	{
-		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.products.put");//这个api要找罗杰要
+		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.products.update");
 
-		let localParams = [];
-		let target:any = {
-			
-		};
+		let localParams = [{
+			key:"enterpriseId"
+			,value:entId
+		}];
+		let target:any = entProdItems.map(n=>n.id);
 
 		return this.restApi.request(api.method, api.url, localParams, [], target);
 
@@ -527,12 +533,12 @@ export class EntEstCreService{
 		let target:any = {
 			enterpriseId: entQuota.enterpriseId,
 			id: entQuota.id,
-			imageQuota: entQuota.imageQuota,
+			imageQuota: entQuota.imageQuota,//可创建镜像数量
 			networkQuota: 0, //界面上没有提供这个数据
-			physicalQuota: entQuota.physicalMachineQuota,
-			snapShotQuota: entQuota.snapQuota,
-			storageQuota: entQuota.storageQuota,
-			vmQuota: entQuota.platformVMQuota
+			physicalQuota: entQuota.physicalMachineQuota,//可创建物理机数量
+			snapShotQuota: entQuota.snapQuota,//可创建快照数量
+			storageQuota: entQuota.storageQuota,//可用存储额度
+			vmQuota: entQuota.platformVMQuota//可创建云主机数量
 		};
 
 		return this.restApi.request(api.method, api.url, localParams, [], target);
@@ -614,7 +620,7 @@ export class EntEstCreService{
 		,fakeData?: Function
 		,map?:Function
 		,trait?: Function
-		,successHandler?:Function
+		,successHandler?:()=>void
 		,postParams?:any)
 	{
 		items.items.splice(0, items.items.length);

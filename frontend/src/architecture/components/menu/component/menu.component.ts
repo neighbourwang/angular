@@ -81,13 +81,13 @@ const menu: Array<any> = [
             {
                 "label": "云主机列表",
                 "isOpen": true,
-                "routing": "prod-and-svc/cloud-host/cloud-host-ins-list"
+                "routing": "cloud-host-service/cloud-host-list"
             }
         ]
     },
     {
         "label": "物理机服务",
-        "isOpen": true,
+        "isOpen": false,
         "icon": "icon-machine",
         "top2_menu": [
             {
@@ -104,7 +104,7 @@ const menu: Array<any> = [
     },
     {
         "label": "负载均衡服务器",
-        "isOpen": true,
+        "isOpen": false,
         "icon": "icon-loadbalance",
         "top2_menu": [
             {
@@ -141,7 +141,7 @@ const menu: Array<any> = [
     },
     {
         "label": "审批中心",
-        "isOpen": true,
+        "isOpen": false,
         "icon": "icon-check",
         "top2_menu": [
             {
@@ -158,7 +158,7 @@ const menu: Array<any> = [
     },
     {
         "label": "费用中心",
-        "isOpen": true,
+        "isOpen": false,
         "icon": "icon-cost",
         "top2_menu": [
             {
@@ -175,7 +175,7 @@ const menu: Array<any> = [
     },
     {
         "label": "用户中心",
-        "isOpen": true,
+        "isOpen": false,
         "icon": "icon-user",
         "top2_menu": [
             {

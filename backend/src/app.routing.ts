@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: 'pf-mng/svc-dir-mng/svc-dir-mng',
+        redirectTo: 'pf-mng2/cl-mng/cl-mng',
         pathMatch: 'full'
     }
 ];

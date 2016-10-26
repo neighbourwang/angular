@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LayoutService, NoticeComponent, PopupComponent, SystemDictionaryService, SystemDictionary  } from '../../../../architecture';
 import { EntProdItem, EntEst} from '../model';
 
@@ -26,20 +26,18 @@ export class EntEstSetProdComponent implements OnInit {
   constructor(
     private layoutService: LayoutService,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private service: EntEstCreService,
     private sysDicService: SystemDictionaryService
   ) {}
 
   ngOnInit() {
-    this.router.routerState.root.queryParams.subscribe(data=>{
-      this.entName = data["entName"];
-      this.entId = data["entId"];
+    this.entId = this.activatedRoute.snapshot.params["entId"] as string;
+    this.entName = this.activatedRoute.snapshot.params["entName"] as string;
+    
+    this.refreshData();
+    this.sysDicService.sysDicOF(this, this.sysDicCallback, "GLOBAL", "STATUS")
 
-      this.refreshData();
-       this.sysDicService.sysDicOF(this, this.sysDicCallback, "GLOBAL", "STATUS")
-    });
-   // todo: 加载企业产品
-   // todo: 加载产品
   }
 
 
@@ -89,7 +87,7 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
   //保存企业产品的变更
   saveChanges()
   {
-    this.service.updateEntProducts(this.entProdItems.items)
+    this.service.updateEntProducts(this.entProdItems.items, this.entId)
     .then(ret=>{
 
     })
@@ -123,7 +121,8 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
     }
 
     this.prodItems.currentPage = page;
-    this.service.loadAvailProdItems(this.prodItems, this.showError, this, this.entId); 
+    this.service.loadAvailProdItems(this.prodItems, this.showError, this, this.entId
+      ,()=>{this.updateWithDic();}); 
   }
 
   changePage_EntProdItems(page: number) {
@@ -136,12 +135,15 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
     }
 
     this.entProdItems.currentPage = page;
-    this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId); 
+    this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId
+      ,()=>{this.updateWithDic();}); 
   }
 
   refreshData(){
-    this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId); 
-    this.service.loadAvailProdItems(this.prodItems, this.showError, this, this.entId); 
+    this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId
+      ,()=>{this.updateWithDic();}); 
+    this.service.loadAvailProdItems(this.prodItems, this.showError, this, this.entId
+      ,()=>{this.updateWithDic();}); 
 
   }
 

@@ -13,20 +13,13 @@ export const EntEstMngRouting: ModuleWithProviders = RouterModule.forChild([
         component: EntEstMngComponent
     }
     ,{
-    	path: 'ent-mng/ent-est-mng/ent-est-cre-step-01',
-    	component: EntEstCreStep01Component
-    }
-    ,{
-    	path: 'ent-mng/ent-est-mng/ent-est-cre-step-04'
-    	,component: EntEstCreStep04Component
-    },{
     	path: 'ent-mng/ent-est-mng/ent-est-cre'
     	,component: EntEstCreComponent
     },{
-    	path: 'ent-mng/ent-est-mng/ent-est-setProd'
+    	path: 'ent-mng/ent-est-mng/ent-est-setProd/:entId/:entName'
     	,component: EntEstSetProdComponent
     },{
-    	path: 'ent-mng/ent-est-mng/ent-est-check'
+    	path: 'ent-mng/ent-est-mng/ent-est-check/:entId'
     	,component: EntEstCheckComponent
     }
 ]);

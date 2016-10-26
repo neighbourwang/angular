@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
-import { Router } from '@angular/router';
-import { LayoutService, NoticeComponent, PopupComponent } from '../../../../architecture';
+import { Router, ActivatedRoute } from '@angular/router';
+import { LayoutService, NoticeComponent, PopupComponent,SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { CertMethod, EntProdItem, EntEstItem, EntEst} from '../model';
 import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
 
@@ -18,30 +18,58 @@ export class EntEstCheckComponent implements OnInit {
   private entEst: EntEst = new EntEst();
   private entProdItems: Paging<EntProdItem> = new Paging<EntProdItem>();
   private entId:string = "";
+  private dic:SystemDictionary[];
 
 
   constructor(
     private layoutService: LayoutService,
     private router: Router,
-    private service: EntEstCreService
+    private service: EntEstCreService,
+    private sysDicService: SystemDictionaryService,
+    private activatedRouter: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.router.routerState.root.queryParams.subscribe(data=>{
-      this.entId = data["entId"] as string;
-      console.log('Check entId', this.entId);
-      //加载基本信息
-      this.service.loadEntInfo(this.entEst.BasicInfo
-          , this.showError
-          , null
-          , this
-          , this.entId);
+    this.entId = this.activatedRouter.snapshot.params["entId"] as string;
+    console.log('Check entId', this.entId);
+    //加载基本信息
+    this.service.loadEntInfo(this.entEst.BasicInfo
+        , this.showError
+        , null
+        , this
+        , this.entId);
 
-      //加载产品信息
-      this.loadEntProdItems();
-    });
-
+    //加载产品信息
+    this.loadEntProdItems();
+    this.sysDicService.sysDicOF(this, this.sysDicCallback, "GLOBAL", "STATUS");
+     
   }
+
+sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) { 
+    if (sf) {                                                                 
+      this.dic = systemDictionarys;
+      console.log('dic', this.dic);
+      this.updateWithDic();   
+    }                                                                         
+  }
+
+ updateWithDic(){
+  
+    let getName =(id:string):string=>{
+      let obj = this.dic.find(n=>n.value == id) as SystemDictionary;
+      
+      if(obj)
+        return obj.displayValue as string;     
+      else
+        return id;
+    };
+    this.entProdItems.items.map(n=>{
+         console.log('status', n.status);
+      n.statusName = getName(n.status);
+       console.log('statusName', n.statusName);
+    });
+  } 
+
 
   getCertMethod(){
     return {
@@ -77,7 +105,10 @@ export class EntEstCheckComponent implements OnInit {
   }
 
   loadEntProdItems(){
-    this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId); 
+    this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId
+      ,()=>{
+        this.updateWithDic();
+      }); 
   }
 
 

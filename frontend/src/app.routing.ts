@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: 'prod-and-svc/cloud-host/cloud-host-ins-list',
+        redirectTo: 'cloud-host-service/cloud-host-list',
         pathMatch: 'full'
     }
 ];

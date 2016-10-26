@@ -17,17 +17,53 @@ export class cloudHostComponentOrder implements OnInit {
 	configs : OrderList;
 	payLoad : PayLoad;
 	sendModule : any = {};
+	setPassword : boolean = true;
+	timeForever : boolean = false;
 
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
 		private service : cloudHostServiceOrder
-	) {}
-
-	ngOnInit() {
+	) {
 		this.configs = new OrderList();
 		this.payLoad = new PayLoad();
+
+		// this.payLoad.totalPrice = 
+	};
+
+	ngOnInit() {
 		this.setConfigList();
+	}
+
+	//把payLoad转换成提交的post对象
+	private payLoadFormat() : PayLoad {
+		for(let v in this.sendModule){
+			this.payLoad.attrList.push({
+				attrId	     : this.configs[v].attrId,   	//服务属性ID
+				attrCode	 : this.configs[v].attrCode,  	//服务属性CODE
+				attrName	 : this.configs[v].attrDisplayName, 	//服务属性Name
+				attrValueId  : this.sendModule[v].id,     	//服务属性值ID
+				attrValue	 : this.sendModule[v].value 	//服务属性值
+			});
+			//临时添加
+			if(this.configs[v].attrCode === "REGION"){
+				this.payLoad.attrList[this.payLoad.attrList.length-1].attrValue = this.configs[v].attrDisplayName;
+			}
+			if(this.configs[v].attrCode === "ZONE"){
+				this.payLoad.attrList[this.payLoad.attrList.length-1].attrValue = "nova";
+			}
+			if(this.configs[v].attrCode === "CPU"){
+				this.payLoad.attrList[this.payLoad.attrList.length-1].attrValue = "1";
+			}
+			if(this.configs[v].attrCode === "MEM"){
+				this.payLoad.attrList[this.payLoad.attrList.length-1].attrValue = "512";
+			}
+		};
+
+		//临时添加
+		this.payLoad.quality = 1;  
+
+		return this.payLoad;
 	}
 
 	setConfigList() : void {
@@ -42,7 +78,6 @@ export class cloudHostComponentOrder implements OnInit {
 			})
 			
 		});
-		console.log(this.sendModule)
 	}
 
 	setSenModule(config: OrderService) : void {
@@ -51,9 +86,9 @@ export class cloudHostComponentOrder implements OnInit {
 		const attrName = config.attrCode.toLowerCase();
 
 		//设置创建云主机的属性列表
-		this.sendModule[attrName] = isValueLength ? config.valueList[1] : null;
+		this.sendModule[attrName] = isValueLength ? config.valueList[0] : {};
 
-		if(attrName === "cpu") this.setMemConfig();
+		if(attrName === "cpu") this.setMemConfig();   //选取内存的参数
 	}
 
 	setMemConfig(cpu : VlueList = this.configs.cpu.valueList[0]) : void {
@@ -62,6 +97,20 @@ export class cloudHostComponentOrder implements OnInit {
 
 	con(value) {
 		console.log(value)
+	}
+	parseInt (value) {
+		return parseInt(value);
+	}
+
+	buyNow(){
+   		this.layoutService.show();
+		let payLoad = this.payLoadFormat();   //获取最新的的payload的对象
+		this.service.saveOrder(payLoad).then( res => {
+   			this.layoutService.hide();
+			this.router.navigateByUrl("cloud-host-service/cloud-host-list");
+		}).catch(res => {
+   			this.layoutService.hide();
+		})
 	}
 }
 
