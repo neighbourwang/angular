@@ -132,7 +132,7 @@
 				<td>{{item.countCycle}}</td>
 				<td>{{item.cyclePrice}}</td>
 				<td>{{item.oneTimePrice}}</td>
-				<td  [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.status}}</td>
+				<td  [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.statusName}}</td>
 				<td>{{item.description}}</td>
 				</tr>
 		</tbody>
