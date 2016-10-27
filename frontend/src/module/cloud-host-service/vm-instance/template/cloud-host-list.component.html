@@ -1,5 +1,6 @@
 <div class="page-content cloud_host_list">
 	<h1 class="page-content-header">云主机列表</h1>
+
     <table class="cm-table-left top-table mgb20">
         <tr>
             <th class="col-md-1 col-xs-3 text-center">区域列表</th>
@@ -151,7 +152,7 @@
             <th class="text-center">服务类别</th>
             <th class="text-center">操作</th> 
         </tr>
-        <tr *ngFor="let vm of vmList;">
+        <tr *ngFor="let vm of vmList;trackBy:vm?.expiryDate;">
             <td class="text-center"><input type="checkbox"></td>
             <td class="text-center active">{{vm.instanceName}}</td>
             <td class="text-center">{{vm.specification}}</td>

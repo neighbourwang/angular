@@ -7,12 +7,12 @@ import { cloudHostServiceList } from '../service/cloud-host-list.service'
 
 import { VmList, HandleVm } from '../model/vm-list.model';
 
-
 @Component({
 	selector: 'cloud-host-list',
 	templateUrl: '../template/cloud-host-list.component.html',
 	styleUrls: ['../style/cloud-host-list.less'],
 })
+
 export class cloudHostListComponent implements OnInit {
 
 	@ViewChild('confirm')
@@ -41,7 +41,6 @@ export class cloudHostListComponent implements OnInit {
 	) {
 		this.handleData = new HandleVm();
 	}
-
 	ngOnInit() {
 		this.setArea();
 		this.setHostList();
@@ -92,7 +91,7 @@ export class cloudHostListComponent implements OnInit {
 	}
 
 	forMatData(number : number) : string {
-		var d = new Date(new Date().getTime());
+		var d = new Date(number);
  		return (d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds());
 	}
 
@@ -107,6 +106,7 @@ export class cloudHostListComponent implements OnInit {
 		this.service.handleVm(this.handleData).then(res => {
 			this.layoutService.hide();
 			alert(msg+"成功！");
+			this.setHostList();
 		}).catch(error => {
 			this.layoutService.hide();
 		})
