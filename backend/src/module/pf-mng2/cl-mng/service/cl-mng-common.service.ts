@@ -7,7 +7,7 @@ import { CreStep1Model } from '../model/cre-step1.model'
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class ClMngCreStep1Service {
+export class ClMngCommonService {
     constructor(private http:Http,
                 private restApiCfg:RestApiCfg,
                 private restApi:RestApi) {
@@ -19,6 +19,8 @@ export class ClMngCreStep1Service {
     private regions : Array<any> = new Array<any>();
     // 平台版本
     private version : Array<any> = new Array<any>();
+    // 平台状态
+    private status : Array<any> = new Array<any>();
 
     // 获取云平台类型的数据字典
     private platFormType() {
@@ -46,42 +48,84 @@ export class ClMngCreStep1Service {
         return this.restApi.request(api.method,api.url,[{key : "_owner",value : owner},{key : "_field", value : "VERSION"}],undefined);
     }
 
-    getPlatFormTypes() : Array<any>{
+    //获取平台状态
+    private platFormStatus(){
+        let api = this.restApiCfg.getDataRestApi("sysdic.owner.field");
+
+        return this.restApi.request(api.method, api.url, [
+            {
+                key: "_owner",
+                value: 'GLOBAL'
+            }, {
+                key: "_field",
+                value: "STATUS"
+            }],undefined);
+    }
+
+    getPlatFormStatus() : Promise<Array<any>>{
+        if(this.status == new Array<any>()){
+            this.platFormStatus().then(
+                res => {
+                    this.status = res.resultContent;
+                    return Promise.resolve(this.status);
+                }
+            ).catch(
+                err => {
+                    return Promise.reject('error');
+                }
+            )
+        }else{
+            return Promise.resolve(this.status);
+        }
+    }
+
+
+    getPlatFormTypes() : Promise<Array<any>>{
         if(this.platFormTypes == new Array<any>()){
             this.platFormType().then(
                 res => {
                     this.platFormTypes = res.resultContent;
-                    return this.platFormTypes;
+                    return Promise.resolve(this.platFormTypes);
+                }
+            ).catch(
+                err => {
+                    return Promise.reject('error');
                 }
             )
         }else{
-            return this.platFormTypes;
+            return Promise.resolve(this.platFormTypes);
         }
     }
 
-    getRegion () : Array<any>{
+    getRegion () : Promise<Array<any>>{
         if(this.regions == new Array<any>()){
             this.region().then(
                 res =>{
                     this.regions = res.resultContent;
-                    return this.regions;
+                    return Promise.resolve(this.regions);
+                }
+            ).catch(
+                err => {
+                    return Promise.reject('error');
                 }
             )
         }else{
-            return this.regions;
+            return Promise.resolve(this.regions);;
         }
     }
 
-    getVersion(id : string) : Array<any>{
+    getVersion(id : string) : Promise<Array<any>>{
         if(this.version == new Array<any>()){
             this.platFormVersion(id).then(
                 res => {
                     this.version = res.resultContent;
-                    return this.version;
+                    return Promise.resolve(this.version);
                 }
+            ).catch(
+                err => Promise.reject('err')
             )
         }else{
-            return this.version;
+            return Promise.resolve(this.version);
         }
     }
 

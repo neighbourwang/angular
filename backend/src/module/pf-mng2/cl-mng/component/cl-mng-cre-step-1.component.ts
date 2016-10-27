@@ -12,6 +12,8 @@ import { CreStep1Model } from '../model/Cre-step1.model';
 
 import { ClMngCreStep1Service } from '../service/cl-mng-cre-step-1.service';
 
+import { ClMngCommonService } from '../service/cl-mng-common.service';
+
 import { ClMngIdService } from '../service/cl-mng-id.service';
 
 
@@ -37,7 +39,8 @@ export class ClMngCreStep1Component implements OnInit{
         private router : Router,
         private service : ClMngCreStep1Service,
         private layoutService : LayoutService,
-        private idService : ClMngIdService
+        private idService : ClMngIdService,
+        private commonService : ClMngCommonService
     ) {}
 
 
@@ -49,39 +52,25 @@ export class ClMngCreStep1Component implements OnInit{
         //this.layoutService.show();
 
         //获取云平台类型
-        this.service.getPlatFormType().then(
-            res => {
-                if (res && 100 == res.resultCode) {
-                    console.log(res);
-                    this.platformTypes = res.resultContent;
-                    for(let i = 0 ; i < this.platformTypes.length ; i ++){
-                        this.platformTypes[i].isSelected = false;
-                    }
-                }
-                
-            }
-        ).catch(
-                //this.notice.open('错误','获取信息错误');
-            err => {
+        this.commonService.getPlatFormTypes()
+            .then(
+                res => this.platformTypes = res
+            )
+            .catch(
                 err => {
+                    console.error('err');
                     this.notice.open('错误','获取信息错误');
                 }
-            }
-        );
-        //获取地域
-        this.service.getRegion().then(
-            res => {
-                if(res && 100 == res.resultCode){
-                    console.log('地域',res);
-                    this.regions = res.resultContent;
-                    this.creStep1Model.regionId = this.regions[0].id;
+            )
+        this.commonService.getRegion()
+            .then(
+                res => this.regions = res
+            ).catch(
+                err => {
+                    console.error('err');
+                    this.notice.open('错误','获取信息错误');
                 }
-            }
-        ).catch(
-            err => {
-                this.notice.open('错误','区域信息错误');
-            }
-        )
+            )
         // this.layoutService.hide();
     }
     // 下一步
@@ -116,13 +105,15 @@ export class ClMngCreStep1Component implements OnInit{
         }
         this.platformTypes[index].isSelected = true;
         this.creStep1Model.platformType = item.value;
-        this.service.getPlatFormVersion(item.code).then(
+
+        this.commonService.getVersion(item.code).then(
             res => {
-                this.platformVersion = res.resultContent;
+                this.platformVersion = res
                 this.creStep1Model.version = this.platformVersion[0].value;
             }
         ).catch(
             err => {
+                console.error('err');
                 this.notice.open('错误','获取版本错误');
             }
         )
