@@ -17,9 +17,18 @@ export class ProdDirListService {
     ) { }
 
     // 取得所有产品目录
-    getProdDirList(page: number, size: number) {
+    getProdDirList(page: number, size: number, cateId: string, platId: string) {
+        let data;
+        let categoryId: string;
+        let platformId: string;
+        (!cateId) && (categoryId = null);
+        (!platId) && (platformId = null);
+        data = {
+            'categoryId': categoryId,
+            'platformId': platformId,
+        }
         let api = this.restApiCfg.getRestApi("prod-mng.prod-dir-mng.list.get");
-
-        return this.restApi.request(api.method, api.url, [{ key: "page", value: page }, { key: "size", value: size }], undefined);
+        return this.restApi.request(api.method, api.url, [{ key: "page", value: page }, { key: "size", value: size }
+        ], undefined, data);
     }
 }

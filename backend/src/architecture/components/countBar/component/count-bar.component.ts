@@ -47,5 +47,10 @@ export class CountBarComponent implements OnInit{
         this.value>this.config.min&&(this.value -= this.config.step);
         this.output.emit(this.value);
     }
+
+    inputValue(value){
+        console.log(value);
+        (value>this.config.min && value<this.config.max)&&(this.output.emit(value))        
+    }
     
 }
