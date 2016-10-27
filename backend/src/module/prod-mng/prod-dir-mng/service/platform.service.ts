@@ -14,7 +14,7 @@ export class PlatformsActiveService {
         private restApi: RestApi
     ) { }
 
-    // 取得所有产品目录
+    // 取得所有产品平台
     getPlatformsActive() {
         let api = this.restApiCfg.getRestApi("platforms.activation.get");
 
