@@ -110,7 +110,7 @@ const menu: Array<Object> = [
           "isOpen": false,
           "isActive": false,
           // "routing": "pf-mng2/cl-mng/cl-mng"
-          "routing": "prod-mng/prod-dir-mng/prod-dir-mng"
+          "routing": "user-center/account-mng/account-mng-list"
       },
       {
           "label": "组织管理",

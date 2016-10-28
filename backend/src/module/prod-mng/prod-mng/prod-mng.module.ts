@@ -14,6 +14,7 @@ import { ProdMngRouting } from './prod-mng.routing';
 
 //Service
 import { ProdListService } from './service/prodList.service';
+import { ProdDirListService } from "./service/prodDirList.service";
 
 @NgModule({
     imports: [
@@ -27,7 +28,8 @@ import { ProdListService } from './service/prodList.service';
     exports: [
     ],
     providers: [
-        ProdListService
+        ProdListService,
+        ProdDirListService
     ]
 
 })
