@@ -592,7 +592,7 @@ export let RestApis: RestApiModel[] = [
     },
     {
         "desc": "更新产品状态",
-        "id": "prod-mng.prod-mng.prod-cre.post",
+        "id": "prod-mng.prod-mng.updateStatus",
         "method": "PUT",
         "url": "adminui/authsec/enterprises/products/status"
     },

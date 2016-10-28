@@ -57,7 +57,7 @@ export class ProdMngComponent implements OnInit{
     //企业
     enterpriseList=new Array();
     enterpriseId :string;
-    //目录类别
+    //产品目录列表
     prodDirList =new Array();
     prodDirId : string;
     //初始化
