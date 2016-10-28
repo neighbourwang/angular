@@ -46,7 +46,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr *ngFor="let item of entEstMng.items; let i=index">
+				<tr *ngFor="let item of entEstMng.Items; let i=index">
 					<td>
 						<input type="radio" class="fox-cloud-radio"   name="entItems" (change)="selectItem(i)" value="{{i}}">
 					</td>
@@ -65,7 +65,7 @@
 			</tbody>
 		</table>
 	</div>
-	<fc-pagination tp={{entEstMng.totalPages}} (pf)="changePage($event)"></fc-pagination>
+	<fc-pagination tp={{entEstMng.TotalPages}} (pf)="changePage($event)"></fc-pagination>
 </div>
 <fc-notice #notice ot="确认" (of)="okClicked()"></fc-notice>
 <fc-confirm #confirm ot="确认" ct="取消" (of)="onConfirmed()"></fc-confirm>

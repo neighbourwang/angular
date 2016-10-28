@@ -67,13 +67,10 @@ export class EntEstMngComponent implements OnInit {
           obj.orderNum = item.orderNumber as number; //订单数量
           obj.status = item.status as string; //状态
           obj.description = ""; //api 未提供
+          obj.checked = false;
         }
       };
-      this.entEstMng.Trait = (items:EntEstItem[])=>{
-        items.map(n=>{
-          n.checked = false;
-        });
-      };
+     
   }
 
   ngOnInit() {
@@ -120,11 +117,14 @@ export class EntEstMngComponent implements OnInit {
   }
 
   search(page:number){
+    this.layoutService.show();
     this.entEstMng.Go(page)
     .then(success=>{
       this.updateWithDic();
+      this.layoutService.hide();
     }, err=>{
       this.showMsg(err);
+      this.layoutService.hide();
     })
   }
 
