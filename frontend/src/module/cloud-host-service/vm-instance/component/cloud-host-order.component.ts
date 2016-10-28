@@ -20,6 +20,8 @@ export class cloudHostComponentOrder implements OnInit {
 	setPassword : boolean = true;
 	timeForever : boolean = false;
 
+	// rightFixed : boolean = false;   //让右侧配置起飞
+
 	passwordShadow : string;
 
 	constructor(
@@ -33,8 +35,8 @@ export class cloudHostComponentOrder implements OnInit {
 	};
 
 	ngOnInit() {
+		this.layoutService.show();
 		this.setConfigList();
-		this.setTimeLineType();
 	}
 
 	//把payLoad转换成提交的post对象
@@ -42,8 +44,9 @@ export class cloudHostComponentOrder implements OnInit {
 		//特殊处理
 		this.sendModule.timeline.value = parseInt(this.sendModule.timeline.value);
 
-		//临时处理
-		this.sendModule.storagesize.value = "20G";
+		//临时处理 演示用
+		this.sendModule.storagesize.value = "20";
+		this.sendModule.bootsize.value = "20";
 
 		for(let v in this.sendModule){
 			this.payLoad.attrList.push({
@@ -68,7 +71,10 @@ export class cloudHostComponentOrder implements OnInit {
 				this.setSenModule(config);
 			});
 			this.sendModule.username.value = "root";
-		});
+		}).then( res => {
+			this.setTimeLineType();
+			this.layoutService.hide();
+		})
 	}
 
 	setSenModule(config: OrderService) : void {
@@ -89,7 +95,7 @@ export class cloudHostComponentOrder implements OnInit {
 				})
 			});
 		});
-		this.setSenModule(this.configs.timeline);  //设置默认选择
+		this.setSenModule(this.configs.timelineunit);  //设置默认选择
 	}
 
 	con(value) {
@@ -100,19 +106,19 @@ export class cloudHostComponentOrder implements OnInit {
 	}
 
 	checkInput() {
-		
+
 	}
 
 	buyNow(){
-   		// this.layoutService.show();
+   		this.layoutService.show();
    		this.checkInput();
 		let payLoad = this.payLoadFormat();   //获取最新的的payload的对象
-		console.log(JSON.stringify(payLoad))
-		// this.service.saveOrder(payLoad).then( res => {
-  //  			this.layoutService.hide();
-		// 	this.router.navigateByUrl("cloud-host-service/cloud-host-list");
-		// }).catch(res => {
-  //  			this.layoutService.hide();
-		// })
+		// console.log(JSON.stringify(payLoad))
+		this.service.saveOrder(payLoad).then( res => {
+   			this.layoutService.hide();
+			this.router.navigateByUrl("cloud-host-service/cloud-host-list");
+		}).catch(res => {
+   			this.layoutService.hide();
+		})
 	}
 }
