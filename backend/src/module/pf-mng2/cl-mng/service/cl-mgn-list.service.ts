@@ -44,17 +44,17 @@ export class ClMngListService {
 
         return this.restApi.request(api.method , api.url , [{key : "_id",value : pid}],undefined)
     }
-    //获取平台状态
-    getPlatFormStatus(){
-        let api = this.restApiCfg.getDataRestApi("sysdic.owner.field");
+    // //获取平台状态
+    // getPlatFormStatus(){
+    //     let api = this.restApiCfg.getDataRestApi("sysdic.owner.field");
 
-        return this.restApi.request(api.method, api.url, [
-            {
-                key: "_owner",
-                value: 'GLOBAL'
-            }, {
-                key: "_field",
-                value: "STATUS"
-            }],undefined);
-    }
+    //     return this.restApi.request(api.method, api.url, [
+    //         {
+    //             key: "_owner",
+    //             value: 'GLOBAL'
+    //         }, {
+    //             key: "_field",
+    //             value: "STATUS"
+    //         }],undefined);
+    // }
 }
