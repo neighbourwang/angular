@@ -1,12 +1,12 @@
 /**
  * Created by wangyao on 2016/10/20.
  */
-import { Component, ViewChild, OnInit ,OnChanges, SimpleChange } from '@angular/core';
+import { Component, ViewChild, OnInit, OnChanges, SimpleChange } from '@angular/core';
 import { Router } from '@angular/router';
 // import { Config} from '../model/config';
-import { Config} from '../../../../architecture/components/countBar/config/config';
+import { Config } from '../../../../architecture/components/countBar/config/config';
 
-import { LayoutService, ValidationService, NoticeComponent, ConfirmComponent ,CountBarComponent} from '../../../../architecture';
+import { LayoutService, ValidationService, NoticeComponent, ConfirmComponent, CountBarComponent } from '../../../../architecture';
 
 // import {  } from '../service';
 import { ProdDirDetailService } from '../../prod-dir-mng/service/prod-dir-detail.service';
@@ -24,24 +24,38 @@ import { ProductDir } from '../model/prodDir.model';
     providers: []
 })
 
-export class ProdCreComponent implements OnInit , OnChanges{
+export class ProdCreComponent implements OnInit, OnChanges {
     constructor(
-        private router : Router,
-        private ProdDirDetailService : ProdDirDetailService,
+        private router: Router,
+        private ProdDirDetailService: ProdDirDetailService,
         // private ProdListService : ProdListService,
-        private ProdDirListService : ProdDirListService
-    ) {}
+        private ProdDirListService: ProdDirListService
+    ) { }
 
     enterpriseList = new Array();
-    prodDirList = new Array ();
+    prodDirList = new Array();
     prodDir = new ProductDir();
-    ngOnInit (){
+    prodDirId:string;
+    product=new Product();
+    ngOnInit() {
         console.log('init');
-         //获取企业列表
+        //获取企业列表
         this.ProdDirListService.getEnterpriseList().then(response => {
             console.log('企业', response);
             // if (response && 100 == response.resultCode) {
-                this.enterpriseList = response.resultContent;
+            this.enterpriseList = response.resultContent;
+            // } else {
+
+            // }
+        }).catch(err => {
+            console.error(err)
+        })
+        //获取产品目录下拉列表
+        
+        this.ProdDirListService.getProdDirList().then(response => {
+            console.log('目录', response);
+            // if (response && 100 == response.resultCode) {
+            this.prodDirList = response.resultContent;
             // } else {
 
             // }
@@ -49,11 +63,10 @@ export class ProdCreComponent implements OnInit , OnChanges{
             console.error(err)
         })
 
-
-         this.getProdDirDetail();
+        this.getProdDirDetail();
     }
 
-    getProdDirDetail(){
+    getProdDirDetail() {
         this.ProdDirDetailService.getVmProdDirDetail('6b138c29-0ff8-4cb9-bb9f-3dbbcebb6f90').then(response => {
             console.log('产品目录详情', response);
             if (response && 100 == response.resultCode) {
@@ -65,38 +78,46 @@ export class ProdCreComponent implements OnInit , OnChanges{
             console.error(err)
         })
     }
-    
-
+    //选择产品目录
+    selectProdDir(id){
+        console.log(id);
+    }
 
     //选择企业
-    selectEnterprise(ent,index){
+    selectEnterprise(ent, index) {
         console.log(ent);
-        console.log(index);        
+        console.log(index);
     }
     cancel() {
-        this.router.navigateByUrl('prod-mng/prod-mng/prod-mng',{skipLocationChange: true})
+        this.router.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
     }
 
     onSubmit() {
-        this.router.navigateByUrl('prod-mng/prod-mng/prod-mng',{skipLocationChange: true})
+        this.router.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
     }
 
-    
-    countBar:Config={
-        default:100,
-        step:50,
-        min:0,
-        max:1024,
-        disabled:true,
-        name:'prodCre01'
+    ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+        for (let key in changes) {
+            let item = changes[key];
+            console.log(item);
+        }
     }
-    outputValue(e,number){
+
+    countBar: Config = {
+        default: 100,
+        step: 50,
+        min: 0,
+        max: 1024,
+        disabled: true,
+        name: 'prodCre01'
+    }
+    outputValue(e, number) {
         console.log(e);
         console.log(number);
-        
+
     }
 
-    postProd(){
-        
+    postProd() {
+
     }
 }
