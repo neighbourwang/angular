@@ -137,14 +137,14 @@ export class ProdDirCreComponent implements OnInit {
             console.error(err);
         });
     }
-    //选择全部可用去
+    //选择全部可用区
     selectAllZone: boolean = false;
     selectAllZones() {
         this.selectAllZone = !this.selectAllZone;
         console.log(this.selectAllZone);       
          for (let plate of this._platformlist) {
                 for (let zone of plate.zoneList) {
-                    zone.selected = true;
+                    zone.selected = this.selectAllZone;
                     // console.log(zone.storageList);
                 }   
         }

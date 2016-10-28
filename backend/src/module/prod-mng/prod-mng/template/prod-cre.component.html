@@ -219,10 +219,10 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr *ngFor="let item of list"
+                                                <tr *ngFor="let item of enterpriseList"
                                                     [ngClass]="{'selected': item.selected, 'clickable': true}"
-                                                    (click)="selectZone(item, $index)">
-                                                    <td>{{item.displayName || item.id}}</td>
+                                                    (click)="selectEnterprise(item, $index)">
+                                                    <td>{{item.name || item.id}}</td>
                                                 </tr>
                                                 </tbody>
                                             </table>

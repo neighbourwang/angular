@@ -17,16 +17,17 @@ export class ProdDirListService {
     ) { }
 
     // 取得所有产品目录
-    getProdDirList(page: number, size: number, cateId: string, platId: string) {
-        let data;
+    getProdDirList(page: number, size: number,data) {
+        // let data;
         let categoryId: string;
         let platformId: string;
-        (!cateId) && (categoryId = null);
-        (!platId) && (platformId = null);
-        data = {
-            'categoryId': categoryId,
-            'platformId': platformId,
-        }
+        // (!cateId) && (categoryId = null);
+        // (!platId) && (platformId = null);
+        // let data = {
+        //     'categoryId': categoryId,
+        //     'platformId': platformId,
+        // }
+        console.log('123123323131',data);
         let api = this.restApiCfg.getRestApi("prod-mng.prod-dir-mng.list.get");
         return this.restApi.request(api.method, api.url, [{ key: "page", value: page }, { key: "size", value: size }
         ], undefined, data);

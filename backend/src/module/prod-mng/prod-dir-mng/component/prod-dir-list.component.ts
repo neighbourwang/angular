@@ -50,7 +50,7 @@ export class ProdDirListComponent implements OnInit {
     platformsList = new Array();
     platformId: string;
     prodDirTypeId: string;;
-    queryProdDirTypeId: string;
+    queryProDirTypeId: string;
 
     ngOnInit() {
         console.log(this.pp);
@@ -79,16 +79,17 @@ export class ProdDirListComponent implements OnInit {
             console.error(err);
         })
 
-        this.backend(1, this.pp,null,null);
+        this.backend(1, this.pp,{});
     }
+    data : any = {};
     onQuery() {
         console.log(this.platformId);
-        console.log(this.queryProdDirTypeId);
-        let data = {
-            "categoryId": this.queryProdDirTypeId,
+        console.log(this.queryProDirTypeId);
+        this.data = {
+            "categoryId": this.queryProDirTypeId,
             "platformId": this.platformId
         }
-        this.backend(1, this.pp,this.queryProdDirTypeId,this.platformId);
+        this.backend(1, this.pp,this.data);
     }
     @ViewChild('publishConfirm')
     publishConfirm: ConfirmComponent;
@@ -176,7 +177,7 @@ export class ProdDirListComponent implements OnInit {
         let id = selectedList[0]['serviceId'];
         this.ProdDirDeleteService.deleteProdDir(id).then(response=>{
             console.log(response);
-            this.backend(1, this.pp,this.queryProdDirTypeId,this.platformId);
+            this.backend(1, this.pp,this.data);
         }).catch(err=>{
             console.error(err);
         })
@@ -189,7 +190,7 @@ export class ProdDirListComponent implements OnInit {
         let id = selectedList[0]['serviceId'];
         this.ProdDirPublishService.publishProdDir(id).then(response => {
             console.log(response);
-            this.backend(1, this.pp,this.queryProdDirTypeId,this.platformId);
+            this.backend(1, this.pp,this.data);
         }).catch(err => {
             console.error(err);
         })
@@ -201,7 +202,7 @@ export class ProdDirListComponent implements OnInit {
         let id = selectedList[0]['serviceId'];
         this.CcProdDirPublishService.ccPublishProdDir(id).then(response => {
             console.log(response);
-            this.backend(1, this.pp,this.queryProdDirTypeId,this.platformId);
+            this.backend(1, this.pp,this.data);
         }).catch(err => {
             console.error(err);
         })
@@ -232,10 +233,10 @@ export class ProdDirListComponent implements OnInit {
     }
 
     //获取列表数据
-    backend(page: number, size: number,cateId:string,platId:string) {
+    backend(page: number, size: number,data) {
         // this.layoutService.show();
         this.tp = 0;
-        this.service.getProdDirList(page, size,cateId,platId).then(
+        this.service.getProdDirList(page, size,data).then(
             response => {
                 console.log(response);
                 if (response && 100 == response.resultCode) {

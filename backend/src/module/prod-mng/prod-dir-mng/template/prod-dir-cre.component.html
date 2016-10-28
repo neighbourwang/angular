@@ -1,4 +1,4 @@
-<div class="page-content-header icon-content-header-platform-manage">创建产品目录:</div>
+<div class="page-content-header icon-content-header-platform-manage">创建产品目录: 云主机服务</div>
 <div class="page-content fix-page-content">
 	<div class="row" style="padding-top: 30px;">
 		<div class="col-md-12">
@@ -101,7 +101,7 @@
 						</div>
 						<div class="col-sm-2 thirdChild" *ngFor='let zone of plateform.zoneList;  let idxx=index;' >
 							<div class="row row-line-height inputLeft">
-								<div class="col-sm-12"><input type="checkbox" class="fox-cloud-checkbox" selected=zone.selected  (click)=selectZone(idx,idxx)></div>
+								<div class="col-sm-12"><input type="checkbox" class="fox-cloud-checkbox" selected=zone.selected  [(ngModel)]="zone.selected" name="zoneSelected" (click)=selectZone(idx,idxx)></div>
 							</div>
 						</div>
 						<div class="col-sm-4">

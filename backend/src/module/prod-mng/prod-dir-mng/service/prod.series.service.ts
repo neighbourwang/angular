@@ -14,7 +14,7 @@ export class ProdSeriesService {
         private restApi: RestApi
     ) { }
 
-    // 取得所有产品目录
+    // 取得所有产品目录类别
     getProdSeries() {
         let api = this.restApiCfg.getRestApi("services.simple.get");
 
