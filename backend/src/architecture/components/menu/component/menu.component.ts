@@ -100,6 +100,44 @@ const menu: Array<Object> = [
       },
     ]
   },
+  {
+    "label" : "用户中心",
+    "isOpen" : true,
+    "icon": "icon-platform-manage",
+    "top2_menu" : [
+      {
+          "label": "账号管理",
+          "isOpen": false,
+          "isActive": false,
+          // "routing": "pf-mng2/cl-mng/cl-mng"
+          "routing": "prod-mng/prod-dir-mng/prod-dir-mng"
+      },
+      {
+          "label": "组织管理",
+          "isOpen": false,
+          "isActive": false,
+          "routing": "prod-mng/prod-mng/prod-mng"
+      },
+      {
+          "label": "角色管理",
+          "isOpen": false,
+          "isActive": false,
+          "routing": "prod-mng/prod-mng/prod-mng"
+      },
+      {
+          "label": "认证管理",
+          "isOpen": false,
+          "isActive": false,
+          "routing": "prod-mng/prod-mng/prod-mng"
+      },
+      {
+          "label": "个人账户管理",
+          "isOpen": false,
+          "isActive": false,
+          "routing": "prod-mng/prod-mng/prod-mng"
+      },
+    ]
+  },
     // {
     //     "label": "平台管理中心",
     //     "isOpen": true,
