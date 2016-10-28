@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { LayoutService, NoticeComponent, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
+import { RestApi, RestApiCfg, LayoutService, NoticeComponent, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { CertMethod, Status, EntEstItem, EntEst} from '../model';
 
-import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
+import { EntEstCreService, Paging, LoadItem } from '../service/ent-est-cre.service';
 
 @Component({
   // moduleId: module.id,
@@ -30,21 +30,54 @@ export class EntEstMngComponent implements OnInit {
 
   private totalPages: number = 0;
   private currentPage: number = 0;
-  private entEstMng: Paging<EntEstItem> = new Paging<EntEstItem>();
   private selectAllField: boolean = false;
   private criteria: string = "";
   private entEst: EntEst = new EntEst();
   private dic:SystemDictionary[];
+  private entEstMng:LoadItem<EntEstItem> = null;
 
   constructor(
     private layoutService: LayoutService,
     private router: Router,
     private service: EntEstCreService,
-    private sysDicService: SystemDictionaryService
-  ) {}
+    private sysDicService: SystemDictionaryService,
+    private restApiCfg:RestApiCfg,
+    private restApi:RestApi
+  ) {
+    this.entEstMng = new LoadItem<EntEstItem>(true, "企业管理列表", restApiCfg, restApi);
+
+    //配置企业列表查询
+    this.entEstMng.Api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.get");
+    this.entEstMng.MapFunc = (source:Array<any>, target:EntEstItem[])=>{
+        for(let item of source)
+        {
+          let obj = new EntEstItem();
+          target.push(obj);
+
+          obj.id = item.enterpriseId as string; 
+          obj.authMode = parseInt(item.authMode);//认证方式
+          obj.enterpriseName = item.enterpriseName as string; // 企业（租户）名称
+          obj.vmNum = 0; //云主机数量 api?
+          obj.vmQuota = item.vmQuota as number; //云主机配额（个）
+          obj.vmQuotaUsageRate = 0; //云主机配额使用率 api 未提供
+          obj.storageQuota = item.storageQuota as number; //存储配额（GB）
+          obj.storageQuotaUsageRate = item.storageQuota != 0 ? item.usedStorageNumber/item.storageQuota:0; //存储配额使用率
+          obj.snapQuota = item.snapshotQuota as number; //快照配额（个）
+          obj.productNum = item.productNumber as number; //产品数量
+          obj.orderNum = item.orderNumber as number; //订单数量
+          obj.status = item.status as string; //状态
+          obj.description = ""; //api 未提供
+        }
+      };
+      this.entEstMng.Trait = (items:EntEstItem[])=>{
+        items.map(n=>{
+          n.checked = false;
+        });
+      };
+  }
 
   ngOnInit() {
-    this.search();
+    this.search(1);
     this.sysDicService.sysDicOF(this, this.sysDicCallback, "GLOBAL", "STATUS")
   }
 
@@ -65,7 +98,7 @@ export class EntEstMngComponent implements OnInit {
       else
         return id;
     };
-    this.entEstMng.items.map(n=>{n.statusName = getName(n.status);});
+    this.entEstMng.Items.map(n=>{n.statusName = getName(n.status);});
   }
 
 
@@ -79,30 +112,24 @@ export class EntEstMngComponent implements OnInit {
 
 
   changePage(page: number) {
-
-    page = page < 1 ? 1 : page;
-    page = page > this.entEstMng.totalPages ? this.entEstMng.totalPages : page;
-
-    if (this.entEstMng.currentPage == page) {
-      return;
-    }
-
-    this.entEstMng.currentPage = page;
-    this.search();
+    this.search(page);
   }
 
   selectAll(selectAllField:boolean){
-    this.entEstMng.items.map(n=>{n.checked = selectAllField;});
+    this.entEstMng.Items.map(n=>{n.checked = selectAllField;});
   }
 
-  search(){
-    this.service.loadEntEstItems(this.entEstMng, this.showError, this, this.criteria, ()=>{
+  search(page:number){
+    this.entEstMng.Go(page)
+    .then(success=>{
       this.updateWithDic();
-    });      
+    }, err=>{
+      this.showMsg(err);
+    })
   }
 
   getSelected(){
-    let item = this.entEstMng.items.find(n=>n.checked) as EntEstItem;
+    let item = this.entEstMng.Items.find(n=>n.checked) as EntEstItem;
     if(item)
       return item;
     else
@@ -183,7 +210,7 @@ export class EntEstMngComponent implements OnInit {
     {
       this.service.updateEntInfo(this.entEst.BasicInfo)
       .then(ret=>{
-        this.search();
+        this.search(null);
       })
       .catch(err=>{
         console.log('保存企业基本信息出错', err);
@@ -296,7 +323,7 @@ export class EntEstMngComponent implements OnInit {
       this.confirmedHandler = ()=>{
         this.service.updateEntStatus(this.getSelected().id, Status.Active)
         .then(ret=>{
-          this.search();
+          this.search(null);
         })
         .catch(err=>{
           console.log("企业启用失败", err);
@@ -314,7 +341,7 @@ export class EntEstMngComponent implements OnInit {
       this.confirmedHandler = ()=>{
         this.service.updateEntStatus(this.getSelected().id, Status.Suspend)
         .then(ret=>{
-          this.search();
+          this.search(null);
         })
         .catch(err=>{
           console.log("企业禁用失败", err);
@@ -332,7 +359,7 @@ export class EntEstMngComponent implements OnInit {
       this.confirmedHandler = ()=>{
         this.service.updateEntStatus(this.getSelected().id, Status.Deleted)
         .then(ret=>{
-          this.search();
+          this.search(null);
         })
         .catch(err=>{
           console.log("企业删除失败", err);
@@ -354,7 +381,7 @@ export class EntEstMngComponent implements OnInit {
     {
       this.service.updateEntQuota(this.entEst.ResourceQuota)
       .then(ret=>{
-        this.search();//刷新
+        this.search(null);//刷新
       })
       .catch(err=>{
         console.log("修改配额失败", err);
@@ -416,7 +443,7 @@ export class EntEstMngComponent implements OnInit {
     {
       this.service.updateEntCert(this.entEst.BasicInfo)
       .then(ret=>{
-        this.search();
+        this.search(null);
       })
       .catch(err=>{
         console.log('认证信息更新失败', err);
@@ -463,8 +490,8 @@ export class EntEstMngComponent implements OnInit {
   //选择行
   selectItem(index:number):void
   {
-    this.entEstMng.items.map(n=>{n.checked = false;});
-    this.entEstMng.items[index].checked = true;
+    this.entEstMng.Items.map(n=>{n.checked = false;});
+    this.entEstMng.Items[index].checked = true;
   }
 
   private confirmedHandler:Function = null;
