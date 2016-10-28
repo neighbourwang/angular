@@ -88,70 +88,6 @@ export class EntEstCreService{
 	
 	}
 
-	//企业信息列表
-	loadEntEstItems(entEstMng: Paging<EntEstItem>
-		, errorHandler: Function
-		, caller:any
-		, criteria: string = ""
-		, successHanlder: ()=>void)
-	{
-
-		let localParams:Array<any> = [
-				{
-					key:"_page"
-					,value: entEstMng.currentPage == 0 ? 1 : entEstMng.currentPage
-				}
-				,{
-					key:"_size"
-					,value:10
-				}
-			];
-
-		if(criteria.length > 0)
-		{
-			localParams.push({
-				key:"name"
-				,value:criteria
-			});
-		}
-
-		this.loadItems(entEstMng
-			, errorHandler
-			, caller
-			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.get")
-			, localParams
-			, "企业管理"
-			, null
-			, (source, target:EntEstItem[])=>{
-				for(let item of source)
-				{
-					let obj = new EntEstItem();
-					target.push(obj);
-
-					obj.id = item.enterpriseId as string; 
-					obj.authMode = parseInt(item.authMode);//认证方式
-					obj.enterpriseName = item.enterpriseName as string; // 企业（租户）名称
-					obj.vmNum = 0; //云主机数量 api?
-					obj.vmQuota = item.vmQuota as number; //云主机配额（个）
-					obj.vmQuotaUsageRate = 0; //云主机配额使用率 api 未提供
-					obj.storageQuota = item.storageQuota as number; //存储配额（GB）
-					obj.storageQuotaUsageRate = item.storageQuota != 0 ? item.usedStorageNumber/item.storageQuota:0; //存储配额使用率
-					obj.snapQuota = item.snapshotQuota as number; //快照配额（个）
-					obj.productNum = item.productNumber as number; //产品数量
-					obj.orderNum = item.orderNumber as number; //订单数量
-					obj.status = item.status as string; //状态
-					obj.description = ""; //api 未提供
-
-				}
-			}
-			, (items:EntEstItem[])=>{
-			items.map(n=>{
-				n.checked = false;
-			});
-			},
-			successHanlder);
-	}
-
 //加载企业认证信息
    	loadEntCertInfo(entCertInfo:EntEstBasicInfo
 	   ,errorHandler:Function
@@ -699,5 +635,210 @@ export class Paging<T>{
 
 	get items():T[]{
 		return this.pagingItems;
+	}
+}
+
+@Injectable()
+export class LoadItem<T>{
+	private _name:string = "";//对象名称
+	PageSize:number = 10;//每一页的数量
+	private _items:Array<T> = [];
+	TotalPages: number = 1;
+	Api:RestApiModel = null;
+	QureryParams:Array<any> = null;//query parameter
+	PostParam:any = null;//传入PostParameter
+	FakeDataFunc:(target:Array<T>)=>void;//传入假数据
+	MapFunc:(source:Array<T>, target:Array<T>)=>void;//对服务器上的数据进行转换
+	Trait:(target:Array<T>)=>void;//对组装好的数据进行处理
+	private _pageName:string = "_page";
+	private _sizeName:string = "_size";
+	private _hasPaging:boolean = false;
+
+	constructor(hasPaging:boolean
+				,name:string
+				,private restApiCfg:RestApiCfg
+				,private restApi:RestApi)
+	{
+		this._hasPaging = hasPaging;
+		this._name = name;
+	}
+	get Items():Array<T>{
+
+		return this._items;
+	}
+
+	get FirstItem():T{
+		return this._items[0];
+	}
+
+	loadArray<T>(source:any, target: T[])
+	{
+		if(target && source)
+		{
+			target.splice(0, target.length);
+
+			if(typeof source === 'array')
+			{
+				for(let item of source)
+				{
+					target.push(item);
+				}
+			}
+			else
+			{
+				target.push(source);
+			}
+		}
+	}
+
+	Go(pageNumber?:number, queryParams?:Array<any>, postParam?:any):Promise<any>{
+		return new Promise((resolve, reject)=>{
+			if(this.FakeDataFunc)
+			{
+				this.FakeDataFunc(this._items);
+				resolve('FakeDataFunc');
+				return;
+			}
+
+
+			this.setPageNumber(pageNumber);
+			this.setQueryParams(queryParams);
+			this.PostParam = postParam;
+
+			this.restApi.request(this.Api.method, this.Api.url, this.QureryParams, undefined, this.PostParam)
+			.then(ret=>{
+				if(!ret)
+				{
+					reject("数据获取失败");
+				}
+				else{
+					if(ret.resultContent)
+					{
+						//设置数据
+						if(this.MapFunc)
+						{
+							if(typeof ret.resultContent === 'object')
+							{
+								this.MapFunc([ret.resultContent], this._items);
+							}
+							else if( typeof ret.resultContent === 'array')
+							{
+								this.MapFunc(ret.resultConent, this._items);
+							}
+						}
+						else
+						{
+							this.loadArray(ret.resultContent, this._items);
+						}
+
+						if(this.Trait)
+						{
+							this.Trait(this._items);
+						}
+
+						console.log(`${this._name}:分页信息`, ret.pageInfo);
+
+						if(ret.pageInfo)
+						{
+							this.TotalPages = ret.pageInfo.totalPage || 100;
+						}
+						else
+						{
+							this.TotalPages = 1;
+						}
+
+						resolve(this._items);
+					}
+				}
+			})
+			.catch(err=>{
+
+				console.log(`${this._name}加载错误:${this.Api.url}`, err);
+				reject(`${this._name}数据加载错误`);
+			});
+
+
+		});
+	}
+
+	setQueryParams(queryParams: Array<any>):void
+	{
+		let update:(obj:any)=>boolean=function(obj:any){
+			let target:any = this.QureryParams.find(n=>n.key === obj.key);
+
+			if(target)
+			{
+				target.value = obj.value;
+				return true;
+			}
+			else{
+				return false;
+			}
+		};
+
+		if(queryParams)
+		{
+			this.QureryParams = this.QureryParams || [];
+			if(typeof queryParams === 'array')
+			{
+				for(let i = 0; i < queryParams.length; i++)
+				{
+					if(!update(queryParams[i]))
+					{
+						this.QureryParams.push(queryParams[i]);
+					}
+				}
+			}
+			else if(typeof queryParams === 'object')
+			{
+				update(queryParams);
+			}
+		}
+	}
+
+	setPageNumber(pageNumber:number):void
+	{
+
+		let localPageNumber: number = pageNumber;
+		if(this._hasPaging)
+		{
+			localPageNumber = localPageNumber || 1;
+		}
+		if(localPageNumber)
+		{
+			if(localPageNumber > this.TotalPages)
+			{
+				localPageNumber = this.TotalPages;
+			}
+			this.QureryParams = this.QureryParams || [];
+			
+			//设置当前页
+			let page = this.QureryParams.find(n=>n.key === this._pageName);
+			if(page)
+			{
+				page.value = localPageNumber;
+			}
+			else{
+				this.QureryParams.push({
+					key:this._pageName
+					,value:pageNumber
+				});
+			}
+
+			//设置pageSize
+			let pageSize = this.QureryParams.find(n=>n.key === this._sizeName);
+			if(pageSize)
+			{
+				pageSize.value = this.PageSize;
+			}
+			else
+			{
+				this.QureryParams.push({
+					key:this._sizeName
+					,value:this.PageSize
+				});
+			}
+			
+		}
 	}
 }

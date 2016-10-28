@@ -48,7 +48,7 @@ export class cloudHostListComponent implements OnInit {
 
 	setArea(): void {
 		this.service.getHostConfigList().then(configList => {
-			this.areaConfig = configList.filter(config => config.attrCode === "REGION")[0].valueList;
+			this.areaConfig = configList.filter(config => config.attrCode === "PLATFORM")[0].valueList;
 		});
 	}
 
@@ -106,12 +106,13 @@ export class cloudHostListComponent implements OnInit {
 		this.service.handleVm(this.handleData).then(res => {
 			this.layoutService.hide();
 			alert(msg+"成功！");
-			this.setHostList();
+
+			setTimeout(() => {   //延迟4秒执行 因为后端4秒同步一次状态
+				this.setHostList();
+			},4000)
 		}).catch(error => {
 			this.layoutService.hide();
 		})
-
-		console.log(this.handleData)
 	}
 
 	goTo(url : string) {
