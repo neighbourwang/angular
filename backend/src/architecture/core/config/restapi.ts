@@ -518,7 +518,7 @@ export let RestApis: RestApiModel[] = [
     {
         "desc": "分页获取所有产品目录",
         "id": "prod-mng.prod-dir-mng.list.get",
-        "method": "GET",
+        "method": "POST",
         "url": "adminui/authsec/services/page/{page}/size/{size}"
     },
     {
@@ -558,6 +558,12 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/services/type/vm"
     },
     {
+        "desc": "根据cpu和mmr获取平台VM产品平台列表",
+        "id": "prod-dir-vmPlate",
+        "method": "POST",
+        "url": "adminui/authsec/services/platforms/vm/detailinfo"
+    },    
+    {
         "desc": "获取某个VM产品目录详细信息",
         "id": "prod-mng.prod-dir-mng.detail",
         "method": "GET",
@@ -567,7 +573,7 @@ export let RestApis: RestApiModel[] = [
 
     //产品
     {
-        "desc": "分页获取所有产品列表",
+        "desc": "条件查询所有产品列表",
         "id": "prod-mng.prod-mng.list.get",
         "method": "POST",
         "url": "adminui/authsec/enterprises/products/search/page/{page}/size/{size}"
@@ -577,5 +583,17 @@ export let RestApis: RestApiModel[] = [
         "id": "prod-mng.prod-mng.prod-cre.post",
         "method": "POST",
         "url": "adminui/authsec/services/product"
-    }
+    },
+    {
+        "desc": "获取企业列表",
+        "id": "prod-mng.prod-enterprise.list",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/simple "
+    },
+    {
+        "desc": "更新产品状态",
+        "id": "prod-mng.prod-mng.prod-cre.post",
+        "method": "PUT",
+        "url": "adminui/authsec/enterprises/products/status"
+    },
 ]

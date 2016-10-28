@@ -1,4 +1,7 @@
-﻿import { Component, ViewChild, OnInit } from '@angular/core';
+﻿////// <reference path="" />
+
+
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService, SystemDictionaryService, SystemDictionary, ValidationService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
@@ -25,11 +28,13 @@ export class PfConnCreStep01Component implements OnInit {
     title: String = "";
     // 确认/通知Box的内容
     msg: String = "";
+    
 
     vmPlatforms: Array<SystemDictionary> = new Array<SystemDictionary>();
 
     platform = new Platform();
 
+    
     constructor(
         private service: PfConnCreStep01Service,
         private pfConnMngService: PfConnMngService,

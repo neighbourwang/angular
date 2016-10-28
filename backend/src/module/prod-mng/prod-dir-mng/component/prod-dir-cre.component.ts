@@ -9,8 +9,9 @@ import { LayoutService, ValidationService, NoticeComponent, ConfirmComponent, Co
 
 //service
 import { ProdDirDetailService } from '../service/prod-dir-detail.service';
+import { CreateProdDirService } from '../service/prod-dir-new.service';
 //model
-import { ProdDir } from '../model/prodDir.model';
+import { ProdDir, platform } from '../model/prodDir.model';
 
 @Component({
     selector: 'prod-dir-cre',
@@ -20,23 +21,55 @@ import { ProdDir } from '../model/prodDir.model';
 })
 
 export class ProdDirCreComponent implements OnInit {
-
     constructor(
         private route: ActivatedRoute,
         private router: Router,
         private ProdDirDetailService: ProdDirDetailService,
-        
+        private CreateProdDirService: CreateProdDirService,
         private LayoutService: LayoutService
     ) { }
     countBar: Config = {
-        default: 100,
+        default: 0,
         step: 50,
         min: 0,
-        max: 1024,
+        max: 2046,
         disabled: true,
         name: 'prodCre01'
     }
-    prodDir: ProdDir;
+    prodDir = new ProdDir();
+    _platformlist: Array<platform> = new Array<platform>();
+    // prodDir = {
+    //     "description": "string",
+    //     "platformList": [
+    //         {
+    //             "flavorId": "string",
+    //             "platformId": "string",
+    //             "zoneList": [
+    //                 {
+    //                     "zoneId": "0d7595ae-996e-4656-826f-6515873b5938",
+    //                     "zoneName": "nova",
+    //                     "displayName": null,
+    //                     "selected": null,
+    //                     "storageList": [
+    //                         {
+    //                             "storageId": "1baa9ebc-be3d-4d55-9c6d-02c15f02c390",
+    //                             "storageName": "LVM2_iSCSI",
+    //                             "displayName": null,
+    //                             "selected": null
+    //                         }
+    //                     ]
+
+    //                 }
+    //             ]
+    //         }
+    //     ],
+    //     "serviceName": "string",
+    //     "specification": {
+    //         "mem": 0,
+    //         "startupDisk": '',
+    //         "vcpu": 0
+    //     }
+    // };
     ngOnInit() {
         let prodDirId: string;
         let prodDirType: string;
@@ -50,16 +83,16 @@ export class ProdDirCreComponent implements OnInit {
         if (prodDirType == 'new') {
 
         } else {
-            this.getProdDirDetail(prodDirId);
+            // this.getProdDirDetail(prodDirId);
         }
     }
-
     getProdDirDetail(id) {
         this.ProdDirDetailService.getVmProdDirDetail(id).then(
             response => {
                 console.log(response);
                 if (response && 100 == response.resultCode) {
                     let resultContent = response.resultContent;
+                    this.prodDir = response.resultContent;
                 } else {
 
                 }
@@ -68,19 +101,79 @@ export class ProdDirCreComponent implements OnInit {
         ).catch(err => {
             console.error(err);
         })
-
+        console.log(this.prodDir);
+    }
+    //同步countBar数据
+    outputValue(e, arg) {
+        console.log(arg);
+        this.prodDir.specification[arg] = e;
+        // arg=e;
+        console.log(e);
+        console.log(this.prodDir.specification.mem);
+        // console.log(this.prodDir.specification.vcpu);              
 
     }
+    //点击选择可用平台
+    selectPlateForm() {
+        console.log(this.prodDir.specification.vcpu);
+        console.log(this.prodDir.specification.mem);
+        this.CreateProdDirService.postCpuMmr(this.prodDir.specification.vcpu, this.prodDir.specification.mem).then(response => {
+            // console.log(response);
+            if (response && 100 == response.resultCode) {
+                let resultContent = response.resultContent;
+                this._platformlist = response.resultContent;
+                console.log(this._platformlist);
+                for (let plate of this._platformlist) {
+                    for (let zone of plate.zoneList) {
+                        zone.storageId = zone.storageList[0].storageId;
+                        // console.log(zone.storageList);
+                    }
+                }
+            } else {
 
-    outputValue(arg, e) {
-        console.log('参数' + arg, e);
+            }
+            this.LayoutService.hide();
+        }).catch(err => {
+            console.error(err);
+        });
     }
+    //选择全部可用区
+    selectAllZone: boolean = false;
+    selectAllZones() {
+        this.selectAllZone = !this.selectAllZone;
+        console.log(this.selectAllZone);       
+         for (let plate of this._platformlist) {
+                for (let zone of plate.zoneList) {
+                    zone.selected = this.selectAllZone;
+                    // console.log(zone.storageList);
+                }   
+        }
+    }
+    //选择平台可用区
+    selectZone(idx, idxx) {
+        this._platformlist[idx].zoneList[idxx].selected = !this._platformlist[idx].zoneList[idxx].selected;
+        console.log(this._platformlist[idx]);
+        this.prodDir.platformList = this._platformlist.filter(function (ele) {
+            for (let zone of ele.zoneList) {
+                if (zone.selected == true) {
+                    return ele;
+                }
+            }
+        })
+    }
+
     cancel() {
         this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
     }
 
     onSubmit() {
-        this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
+        console.log(this.prodDir);
+        this.CreateProdDirService.postVmProdDir(this.prodDir).then(response => {
+            console.log(response)
+            this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
+        }).catch(err => {
+            console.error(err);
+        })
     }
 
 

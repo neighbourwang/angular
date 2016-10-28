@@ -1,17 +1,18 @@
 export class ProdList {
 
-    "basicPrice": 0;
-    "billingCycle": "string";
-    "code": "string";
-    "description": "string";
-    "id": "string";
-    "name": "string";
-    "recurringPrice": 0;
-    "serviceId": "string";
-    "serviceName": "string";
-    "serviceSpecification": "string";
-    "serviceType": "string";
-    "status": "string";
-    isSelected : boolean;
+    "id": string;
+      "code": number;
+      "name": string;
+      "serviceId": string;
+      "serviceName": string;
+      "serviceType": string;
+      "serviceSpecification": string;
+      "billingCycle": number;
+      "recurringPrice": number;
+      "basicPrice": number;
+      "onetimePrice": number;
+      "status": number;
+      "description": string;
+      "isSelected" : boolean
 
 }

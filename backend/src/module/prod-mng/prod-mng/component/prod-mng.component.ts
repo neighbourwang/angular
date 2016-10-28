@@ -9,6 +9,8 @@ import { LayoutService, NoticeComponent , ConfirmComponent ,PopupComponent } fro
 import { ProdListService } from '../service/prodList.service';
 //model
 import{ ProdList } from '../model/prodList.model'
+import { PlatformsActiveService } from '../../prod-dir-mng/service/platform.service';
+
 
 @Component({
     selector: 'prod-mng',
@@ -22,15 +24,16 @@ export class ProdMngComponent implements OnInit{
 
     constructor(
         private layoutService: LayoutService,
-        private service : ProdListService,
-        private router : Router
+        private router : Router,
+        private PlatformsActiveService : PlatformsActiveService,
+        private ProdListService : ProdListService
     ) {}
 
 
-    // 产品目录数组
-    prodList: Array<ProdList> = new Array<ProdList>();
+    // 产品数组
+    productList: Array<ProdList> = new Array<ProdList>();
 
-    // 产品目录总页数
+    // 产品总页数
     tp: number = 0;
     // 每页显示的数据条数
     pp: number = 8;
@@ -48,24 +51,55 @@ export class ProdMngComponent implements OnInit{
     @ViewChild('notice')
     notice : ConfirmComponent;
 
-
-
+    //平台
+    platformsList = new Array();
+    platformId:string;
+    //企业
+    enterpriseList=new Array();
+    enterpriseId :string;
+    //目录类别
+    prodDirList =new Array();
+    prodDirId : string;
     //初始化
     ngOnInit(){
         console.log('init');
-        this.backend(1, this.pp);
+        //获得激活云平台数据
+        this.PlatformsActiveService.getPlatformsActive().then(response => {
+            console.log('激活云平台数据', response);
+            if (response && 100 == response.resultCode) {
+                this.platformsList = response.resultContent;
+            } else {
+
+            }
+        }).catch(err => {
+            console.error(err)
+        })
+        //获取企业列表
+        this.ProdListService.getEnterpriseList().then(response => {
+            console.log('企业', response);
+            // if (response && 100 == response.resultCode) {
+                this.enterpriseList = response.resultContent;
+                console.log(this.enterpriseList);
+            // } else {
+
+            // }
+        }).catch(err => {
+            console.error(err)
+        })
+
+        this.backend(1, this.pp,{});
     }
 
     // 选择产品目录（多选）
     switchSelectIndividual(id:number) {
-        this.prodList[id].isSelected =
-            this.prodList[id].isSelected==true?true:false;
+        this.productList[id].isSelected =
+            this.productList[id].isSelected==true?true:false;
     }
     //全选
     isSelectedAll:boolean=false;
     switchSelectAll(){
         this.isSelectedAll=!this.isSelectedAll;
-        for(let dir of this.prodList){
+        for(let dir of this.productList){
             dir.isSelected=this.isSelectedAll;
         }
     }
@@ -82,7 +116,7 @@ export class ProdMngComponent implements OnInit{
         // return proddir;
         //checkbox
         let selectedProdList: Array<ProdList> = new Array<ProdList>();
-        for(let dir of this.prodList){
+        for(let dir of this.productList){
             if(dir.isSelected == true){
                 selectedProdList.push(dir) ;
             }
@@ -92,13 +126,14 @@ export class ProdMngComponent implements OnInit{
     }
 
     //删除按钮
+    prodList:Array<ProdList>;
     action (order){
-        let prodList :  Array<ProdList> = this.getProduct();
-        if(prodList.length<1){
+        this.prodList = this.getProduct();
+        if(this.prodList.length<1){
             this.notice.open('操作错误','请选择产品目录');
         }else{
             let message:string='';
-            for(let dir of prodList){
+            for(let dir of this.prodList){
                 message+=dir.name+",";
             }
             console.log(message);
@@ -115,7 +150,8 @@ export class ProdMngComponent implements OnInit{
         }
     };
     deleteCof(){
-
+        console.log(this.prodList)
+        // this.ProdListService.changProdstatus()
     }
     //发布按钮
 
@@ -148,15 +184,17 @@ export class ProdMngComponent implements OnInit{
         this.router.navigateByUrl("prod-mng/prod-mng/prod-cre", {skipLocationChange: true});
     }
 
-    backend(page: number, size: number){
+    backend(page: number, size: number,data:any){
         // this.layoutService.show();
         this.tp = 0;
-        console.log(page);
-        console.log(size);
-        
-        this.service.getProdList(page, size).then(
+        // console.log(page);
+        // console.log(size);        
+        this.ProdListService.getProdList(page, size,data).then(
             response => {
                 console.log(response);
+                if(response&&100==response.resultCode){
+                    this.productList=response.resultContent;
+                }
                 this.layoutService.hide();
             }
         ).catch(

@@ -6,7 +6,9 @@ import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../
 
 import { ClMngListService } from '../service/cl-mgn-list.service';
 
-import { ClMngCreStep1Service } from '../service/cl-mng-cre-step-1.service'
+import { ClMngCreStep1Service } from '../service/cl-mng-cre-step-1.service';
+
+import { ClMngCommonService } from '../service/cl-mng-common.service';
 
 //model
 import { Platform } from '../model/platform.model';
@@ -23,7 +25,8 @@ export class ClMngListComponent implements OnInit {
     constructor(private layoutService:LayoutService,
                 private service:ClMngListService,
                 private router:Router,
-                private platFormTypeService : ClMngCreStep1Service
+                private platFormTypeService : ClMngCreStep1Service,
+                private commonService : ClMngCommonService
                 ) {
     }
 
@@ -62,16 +65,38 @@ export class ClMngListComponent implements OnInit {
     ngOnInit() {
         console.log('init');
         //获取平台类型
-        this.platFormTypeService.getPlatFormType().then(
+        // this.platFormTypeService.getPlatFormType().then(
+        //     res => {
+        //         this.platFormType = res.resultContent;
+        //         this.service.getPlatFormStatus().then(
+        //             res => {
+        //                 this.platFormStatus = res.resultContent;
+        //                 this.backend(1, this.pp);
+        //             }
+        //         )
+                
+        //     }
+        // ).catch(
+        //     err => {
+        //         console.error(err);
+        //         this.notice.open('错误提示','获取云平台列表错误');
+        //     }
+        // )
+
+        this.commonService.getPlatFormTypes().then(
             res => {
-                this.platFormType = res.resultContent;
-                this.service.getPlatFormStatus().then(
+                this.platFormType = res;
+                this.commonService.getPlatFormStatus().then(
                     res => {
-                        this.platFormStatus = res.resultContent;
+                        this.platFormStatus = res;
                         this.backend(1, this.pp);
                     }
+                ).catch(
+                    err => {
+                        console.error(err);
+                        this.notice.open('错误提示','获取云平台列表错误');
+                    }
                 )
-                
             }
         ).catch(
             err => {

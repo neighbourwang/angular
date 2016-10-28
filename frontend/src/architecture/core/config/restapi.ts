@@ -4,6 +4,32 @@ export let RestApis: RestApiModel[] = [
     /*
      * Cloud-Host Order
      */
+    // 数据字典
+    {
+        "desc": "全部数据字典信息",
+        "id": "sysdic",
+        "method": "GET",
+        "url": "basis/authsec/sysdic"
+    },
+    {
+        "desc": "数据字典信息（OWNER）",
+        "id": "sysdic.owner",
+        "method": "GET",
+        "url": "basis/authsec/sysdic/{_owner}"
+    },
+    {
+        "desc": "数据字典信息（OWNER/FIELD）",
+        "id": "sysdic.owner.field",
+        "method": "GET",
+        "url": "basis/authsec/sysdic/{_owner}/{_field}"
+    },
+    {
+        "desc": "数据字典信息（OWNER/FIELD/CODE）",
+        "id": "sysdic.owner.field.code",
+        "method": "GET",
+        "url": "basis/authsec/sysdic/{_owner}/{_field}/{_code}"
+    },
+    // 数据字典
     {
         "desc": "获取可订购云主机配置数据",
         "method": "GET",

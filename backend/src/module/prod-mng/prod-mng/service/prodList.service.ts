@@ -13,10 +13,23 @@ export class ProdListService {
         private restApi: RestApi
     ) { }
 
-    // 取得所有产品列表
-    getProdList(page: number, size: number) {
+    // 条件查询所有产品列表
+    getProdList(page: number, size: number,data:any) {
         let api = this.restApiCfg.getRestApi("prod-mng.prod-mng.list.get");
 
-        return this.restApi.request(api.method, api.url, [{ key: "page", value: page }, { key: "size", value: size }], undefined);
+        return this.restApi.request(api.method, api.url, [{ key: "page", value: page }, { key: "size", value: size }], undefined,data);
+    }
+    
+    //获得企业列表
+     getEnterpriseList() {
+        let api = this.restApiCfg.getRestApi("prod-mng.prod-enterprise.list");
+
+        return this.restApi.request(api.method, api.url,[], undefined);
+    }
+    //更新产品状态
+    changProdstatus(data:any){
+        let api = this.restApiCfg.getRestApi("prod-mng.prod-mng.updateStatus");
+
+        return this.restApi.request(api.method, api.url,[], undefined,data);
     }
 }
