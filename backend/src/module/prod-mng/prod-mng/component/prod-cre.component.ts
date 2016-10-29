@@ -15,7 +15,8 @@ import { ProdDirListService } from '../service/prodDirList.service';
 //model
 import { Product } from '../model/product.model';
 import { ProductDir } from '../model/prodDir.model';
-
+//mockup
+// import {}
 
 @Component({
     selector: 'prod-cre',
@@ -56,18 +57,19 @@ export class ProdCreComponent implements OnInit, OnChanges {
             console.log('目录', response);
             // if (response && 100 == response.resultCode) {
             this.prodDirList = response.resultContent;
+            this.prodDirId=response.resultContent[0].id;
             // } else {
-
+            this.getProdDirDetail(this.prodDirId);    
             // }
         }).catch(err => {
             console.error(err)
         })
 
-        this.getProdDirDetail();
+        
     }
 
-    getProdDirDetail() {
-        this.ProdDirDetailService.getVmProdDirDetail('6b138c29-0ff8-4cb9-bb9f-3dbbcebb6f90').then(response => {
+    getProdDirDetail(id) {
+        this.ProdDirDetailService.getVmProdDirDetail(id).then(response => {
             console.log('产品目录详情', response);
             if (response && 100 == response.resultCode) {
                 this.prodDir = response.resultContent;
@@ -81,13 +83,74 @@ export class ProdCreComponent implements OnInit, OnChanges {
     //选择产品目录
     selectProdDir(id){
         console.log(id);
+        this.getProdDirDetail(id);
     }
-
+    //选择计费模式
+    changeBillingStyle(type){
+        console.log(type);
+    }
     //选择企业
     selectEnterprise(ent, index) {
         console.log(ent);
         console.log(index);
     }
+
+     //选择全部可用区
+    selectAllZone: boolean = false;
+    selectAllZones() {
+        this.selectAllZone = !this.selectAllZone;
+        console.log(this.selectAllZone);       
+         for (let plate of this.prodDir.platformInfo) {
+                for (let zone of plate.zoneList) {
+                    zone.selected = this.selectAllZone;
+                    // console.log(zone.storageList);
+                }   
+        }
+        // this.prodDir.platformList = this._platformlist.filter(function (ele) {
+        //     for (let zone of ele.zoneList) {
+        //         if (zone.selected == true) {
+        //             return ele;
+        //         }
+        //     }
+        // })
+    }
+    //选择平台可用区
+    selectZone(idx, idxx) {
+        console.log(idx,idxx);
+        console.log(this.prodDir.platformInfo);
+        this.prodDir.platformInfo[idx].zoneList[idxx].selected = !this.prodDir.platformInfo[idx].zoneList[idxx].selected;        
+        // this.product.productPlatformReqs= 
+        //  let list=this.prodDir.platformInfo.filter(function (ele) {
+        //     for (let zone of ele.zoneList) {                
+        //         if (zone.selected == true) {
+        //             let returnPlatform:{
+        //                 id:string,
+        //                 name:string,
+        //                 zones:[
+        //                     {
+        //                         skuId:string,
+        //                         name:string
+        //                     }
+        //                 ]
+        //             };
+        //             // returnPlatform.zones=[];
+        //             returnPlatform.id= ele.platformId,
+        //             returnPlatform.name= ele.platformName,
+        //             returnPlatform.zones.push({
+        //                 skuId:zone.skuId,
+        //                 name:zone.zoneName
+        //             })
+        //             return returnPlatform;
+        //         }
+        //     }
+        // })
+        // console.log(list);
+    }
+
+
+
+
+
     cancel() {
         this.router.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
     }

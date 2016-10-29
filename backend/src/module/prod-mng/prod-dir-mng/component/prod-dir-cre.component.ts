@@ -38,38 +38,6 @@ export class ProdDirCreComponent implements OnInit {
     }
     prodDir = new ProdDir();
     _platformlist: Array<platform> = new Array<platform>();
-    // prodDir = {
-    //     "description": "string",
-    //     "platformList": [
-    //         {
-    //             "flavorId": "string",
-    //             "platformId": "string",
-    //             "zoneList": [
-    //                 {
-    //                     "zoneId": "0d7595ae-996e-4656-826f-6515873b5938",
-    //                     "zoneName": "nova",
-    //                     "displayName": null,
-    //                     "selected": null,
-    //                     "storageList": [
-    //                         {
-    //                             "storageId": "1baa9ebc-be3d-4d55-9c6d-02c15f02c390",
-    //                             "storageName": "LVM2_iSCSI",
-    //                             "displayName": null,
-    //                             "selected": null
-    //                         }
-    //                     ]
-
-    //                 }
-    //             ]
-    //         }
-    //     ],
-    //     "serviceName": "string",
-    //     "specification": {
-    //         "mem": 0,
-    //         "startupDisk": '',
-    //         "vcpu": 0
-    //     }
-    // };
     ngOnInit() {
         let prodDirId: string;
         let prodDirType: string;
@@ -148,6 +116,13 @@ export class ProdDirCreComponent implements OnInit {
                     // console.log(zone.storageList);
                 }   
         }
+        this.prodDir.platformList = this._platformlist.filter(function (ele) {
+            for (let zone of ele.zoneList) {
+                if (zone.selected == true) {
+                    return ele;
+                }
+            }
+        })
     }
     //选择平台可用区
     selectZone(idx, idxx) {
