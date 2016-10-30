@@ -33,7 +33,7 @@ export class ProdDirCreComponent implements OnInit {
         step: 50,
         min: 0,
         max: 2046,
-        disabled: true,
+        disabled: false,
         name: 'prodCre01'
     }
     prodDir = new ProdDir();

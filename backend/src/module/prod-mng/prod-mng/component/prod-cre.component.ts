@@ -38,6 +38,98 @@ export class ProdCreComponent implements OnInit, OnChanges {
     prodDir = new ProductDir();
     prodDirId:string;
     product=new Product();
+    basicCyclePriceBar=new Config();
+    oneTimePriceBar=new Config();
+    extendCyclePriceBar=new Config();
+    unitPriceBar=new Config();
+    setValue=0;
+
+    mokupenterList=[
+    {
+      "id": "1",
+      "code": "WEIDONG",
+      "name": "伟东教育3",
+      "selected":false
+    },
+    {
+      "id": "191af465-b5dc-4992-a5c9-459e339dc719",
+      "code": "",
+      "name": "测试企业1",
+      "selected":false
+    },
+    {
+      "id": "1cd26b26-da89-46f2-b774-b19d23bdf96f",
+      "code": "",
+      "name": "测试平台2323",
+      "selected":false
+    },
+     {
+      "id": "1",
+      "code": "WEIDONG",
+      "name": "伟东教育3",
+      "selected":false
+    },
+    {
+      "id": "191af465-b5dc-4992-a5c9-459e339dc719",
+      "code": "",
+      "name": "测试企业1",
+      "selected":false
+    },
+    {
+      "id": "1cd26b26-da89-46f2-b774-b19d23bdf96f",
+      "code": "",
+      "name": "测试平台2323",
+      "selected":false
+    },
+     {
+      "id": "1",
+      "code": "WEIDONG",
+      "name": "伟东教育3",
+      "selected":false
+    },
+    {
+      "id": "191af465-b5dc-4992-a5c9-459e339dc719",
+      "code": "",
+      "name": "测试企业1",
+      "selected":false
+    },
+    {
+      "id": "1cd26b26-da89-46f2-b774-b19d23bdf96f",
+      "code": "",
+      "name": "测试平台2323",
+      "selected":false
+    },
+    {
+      "id": "1cd26b26-da89-46f2-b774-b19d23bdf96f",
+      "code": "",
+      "name": "测试平台2323",
+      "selected":false
+    },
+     {
+      "id": "1cd26b26-da89-46f2-b774-b19d23bdf96f",
+      "code": "",
+      "name": "测试平台2323",
+      "selected":false
+    },
+    {
+      "id": "1cd26b26-da89-46f2-b774-b19d23bdf96f",
+      "code": "",
+      "name": "测试平台2323",
+      "selected":false
+    }
+  
+  ]
+    //  "basicCyclePrice": 0;
+    // "billingCycle": string;
+    // "billingType": string;
+    // "extendCyclePrice": 0;
+    // "name": "string";
+    // "oneTimePrice": 0;
+    // "productEnterpiseReqs": Array<enterprise>;
+    // "productPlatformReqs": Array<plateform>;
+    // "serviceId": "string";
+    // "unitPrice": 0;
+
     ngOnInit() {
         console.log('init');
         //获取企业列表
@@ -65,6 +157,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
             console.error(err)
         })
 
+        this.product.billingType="1";
         
     }
 
@@ -86,13 +179,34 @@ export class ProdCreComponent implements OnInit, OnChanges {
         this.getProdDirDetail(id);
     }
     //选择计费模式
-    changeBillingStyle(type){
-        console.log(type);
+    changeBillingStyle(type){        
+        this.product.billingType=type;
+        if(this.product.billingType=="1")
+        {
+            this.unitPriceBar.disabled=false;
+            this.oneTimePriceBar.disabled=false;
+            this.extendCyclePriceBar.disabled=true;
+            this.extendCyclePriceBar.default=0;            
+            this.basicCyclePriceBar.disabled=true;
+            this.basicCyclePriceBar.default=0;
+            
+        }else{
+            this.extendCyclePriceBar.disabled=false;
+            this.basicCyclePriceBar.disabled=false;
+            this.oneTimePriceBar.disabled=false;
+            this.unitPriceBar.disabled=true;
+            this.unitPriceBar.default=0;            
+        }
     }
     //选择企业
     selectEnterprise(ent, index) {
-        console.log(ent);
-        console.log(index);
+        ent.selected=!ent.selected;
+       this.product.productEnterpiseReqs= this.mokupenterList.filter((ele)=>{
+            if(ele.selected==true){
+                return ele;
+            }
+        })
+        console.log(this.product.productEnterpiseReqs)
     }
 
      //选择全部可用区
@@ -166,18 +280,10 @@ export class ProdCreComponent implements OnInit, OnChanges {
         }
     }
 
-    countBar: Config = {
-        default: 100,
-        step: 50,
-        min: 0,
-        max: 1024,
-        disabled: true,
-        name: 'prodCre01'
-    }
-    outputValue(e, number) {
+    
+    outputValue(e, num) {
         console.log(e);
-        console.log(number);
-
+        console.log(num);
     }
 
     postProd() {
