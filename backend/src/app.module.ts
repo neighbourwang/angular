@@ -24,6 +24,9 @@ import {EntProdMngModule} from './module/ent-mng/ent-prod-mng/ent-prod-mng.modul
 //user-center
 import {UserCenterModule } from './module/user-center/user-center.module';
 
+//op-center
+import {OrderMngModule } from './module/op-center/order-mng/order-mng.module';
+
 import {routing} from './app.routing';
 
 @NgModule({
@@ -38,6 +41,7 @@ import {routing} from './app.routing';
         UserCenterModule,
         EntProdMngModule,
         FormsModule,
+        OrderMngModule,
         routing
     ],
     declarations: [MenuComponent, SiteComponent],

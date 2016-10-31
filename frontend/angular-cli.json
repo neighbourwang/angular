@@ -23,9 +23,9 @@
         "../node_modules/bootstrap/dist/js/bootstrap.min.js"
       ],
       "environments": {
-        "source": ".architecture/environments/environment.ts",
-        "dev": ".architecture/environments/environment.ts",
-        "prod": ".architecture/environments/environment.prod.ts"
+        "source": "./architecture/environments/environment.ts",
+        "dev": "./architecture/environments/environment.ts",
+        "prod": "./architecture/environments/environment.prod.ts"
       }
     }
   ],
