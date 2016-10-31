@@ -8,6 +8,8 @@ import { CommonComponentModule } from '../../../architecture';
 //Components
 import { ProdMngComponent } from './component/prod-mng.component';
 import { ProdCreComponent } from './component/prod-cre.component';
+import { ProdDetailComponent } from './component/prod-detail.component';
+
 
 // Routing
 import { ProdMngRouting } from './prod-mng.routing';
@@ -16,6 +18,7 @@ import { ProdMngRouting } from './prod-mng.routing';
 import { ProdListService } from './service/prodList.service';
 import { ProdDirListService } from "./service/prodDirList.service";
 import { PostProduct } from './service/postProd.service';
+import { GetProduct } from './service/getProduct.service';
 
 @NgModule({
     imports: [
@@ -24,14 +27,16 @@ import { PostProduct } from './service/postProd.service';
     ],
     declarations: [
         ProdMngComponent,
-        ProdCreComponent
+        ProdCreComponent,
+        ProdDetailComponent
     ],
     exports: [
     ],
     providers: [
         ProdListService,
         ProdDirListService,
-        PostProduct
+        PostProduct,
+        GetProduct
     ]
 
 })
