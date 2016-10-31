@@ -35,3 +35,5 @@ Thumbs.db
 # mac
 .DS_Store
 *.bak
+
+yarn.lock

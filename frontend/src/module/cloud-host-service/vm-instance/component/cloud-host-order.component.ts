@@ -37,6 +37,7 @@ export class cloudHostComponentOrder implements OnInit {
 	ngOnInit() {
 		this.layoutService.show();
 		this.setConfigList();
+		$("[data-toggle=popover]").popover();
 	}
 
 	//把payLoad转换成提交的post对象
