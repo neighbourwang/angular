@@ -40,4 +40,7 @@ export class OrderMngDetailComponent implements OnInit {
   ) {
     
   }
+
+   ngOnInit() {
+   }
 }
