@@ -43,21 +43,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
     basicCyclePriceBar=new Config();
     oneTimePriceBar=new Config();
     extendCyclePriceBar=new Config();
-    unitPriceBar=new Config();
-    setValue=0;
-
-   
-    //  "basicCyclePrice": 0;
-    // "billingCycle": string;
-    // "billingType": string;
-    // "extendCyclePrice": 0;
-    // "name": "string";
-    // "oneTimePrice": 0;
-    // "productEnterpiseReqs": Array<enterprise>;
-    // "productPlatformReqs": Array<plateform>;
-    // "serviceId": "string";
-    // "unitPrice": 0;
-
+    unitPriceBar=new Config();   
     ngOnInit() {
         console.log('init');
         //获取企业列表
@@ -109,26 +95,6 @@ export class ProdCreComponent implements OnInit, OnChanges {
             this.getProdDirDetail(this.prodDirId);
         },100);
         
-    }
-    //选择计费模式
-    changeBillingStyle(type){        
-        this.product.billingType=type;
-        if(this.product.billingType=="1")
-        {
-            this.unitPriceBar.disabled=false;
-            this.oneTimePriceBar.disabled=false;
-            this.extendCyclePriceBar.disabled=true;
-            this.extendCyclePriceBar.default=0;            
-            this.basicCyclePriceBar.disabled=true;
-            this.basicCyclePriceBar.default=0;
-            
-        }else{
-            this.extendCyclePriceBar.disabled=false;
-            this.basicCyclePriceBar.disabled=false;
-            this.oneTimePriceBar.disabled=false;
-            this.unitPriceBar.disabled=true;
-            this.unitPriceBar.default=0;            
-        }
     }
     //选择企业
     selectEnterprise(ent, index) {
