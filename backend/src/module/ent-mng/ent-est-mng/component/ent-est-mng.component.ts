@@ -72,6 +72,7 @@ export class EntEstMngComponent implements OnInit {
         }
       };
 
+
       //字典配置
       this.statusDic = new Dic<EntEstItem>(restApiCfg, restApi, "GLOBAL", "STATUS");
       this.statusDic.SourceName = "status";
