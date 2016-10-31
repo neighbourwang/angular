@@ -602,4 +602,10 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "url": "adminui/authsec/enterprises/products/status"
     },
+    {
+        "desc": "获取产品详细信息",
+        "id": "prod-mng.prod-mng.detail",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/product/{id} "
+    },
 ]
