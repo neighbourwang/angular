@@ -1,19 +1,23 @@
 /**
  * Created by wangyao on 2016/10/20.
  */
-import { Component, ViewChild, OnInit ,OnChanges, SimpleChange } from '@angular/core';
+import { Component, ViewChild, OnInit, OnChanges, SimpleChange } from '@angular/core';
 import { Router } from '@angular/router';
 // import { Config} from '../model/config';
-import { Config} from '../../../../architecture/components/countBar/config/config';
+import { Config } from '../../../../architecture/components/countBar/config/config';
 
-import { LayoutService, ValidationService, NoticeComponent, ConfirmComponent ,CountBarComponent} from '../../../../architecture';
+import { LayoutService, ValidationService, NoticeComponent, ConfirmComponent, CountBarComponent } from '../../../../architecture';
 
 // import {  } from '../service';
 import { ProdDirDetailService } from '../../prod-dir-mng/service/prod-dir-detail.service';
-import { ProdListService } from '../service/prodList.service';
-
-
+// import { ProdListService } from '../service/prodList.service';
+import { ProdDirListService } from '../service/prodDirList.service';
+import { PostProduct } from '../service/postProd.service';
+//model
 import { Product } from '../model/product.model';
+import { ProductDir } from '../model/prodDir.model';
+//mockup
+// import {}
 
 @Component({
     selector: 'prod-cre',
@@ -22,81 +26,209 @@ import { Product } from '../model/product.model';
     providers: []
 })
 
-export class ProdCreComponent implements OnInit , OnChanges{
+export class ProdCreComponent implements OnInit, OnChanges {
     constructor(
-        private router : Router,
-        private ProdDirDetailService : ProdDirDetailService,
-        private ProdListService : ProdListService
-    ) {}
+        private router: Router,
+        private ProdDirDetailService: ProdDirDetailService,
+        // private ProdListService : ProdListService,
+        private ProdDirListService: ProdDirListService,
+        private PostProduct:PostProduct
+    ) { }
 
     enterpriseList = new Array();
-    
-    ngOnInit (){
+    prodDirList = new Array();
+    prodDir = new ProductDir();
+    prodDirId:string;
+    product=new Product();
+    basicCyclePriceBar=new Config();
+    oneTimePriceBar=new Config();
+    extendCyclePriceBar=new Config();
+    unitPriceBar=new Config();
+    setValue=0;
+
+   
+    //  "basicCyclePrice": 0;
+    // "billingCycle": string;
+    // "billingType": string;
+    // "extendCyclePrice": 0;
+    // "name": "string";
+    // "oneTimePrice": 0;
+    // "productEnterpiseReqs": Array<enterprise>;
+    // "productPlatformReqs": Array<plateform>;
+    // "serviceId": "string";
+    // "unitPrice": 0;
+
+    ngOnInit() {
         console.log('init');
-         //获取企业列表
-        this.ProdListService.getEnterpriseList().then(response => {
+        //获取企业列表
+        this.ProdDirListService.getEnterpriseList().then(response => {
             console.log('企业', response);
             // if (response && 100 == response.resultCode) {
-                this.enterpriseList = response.resultContent;
-                console.log(this.enterpriseList);
+            this.enterpriseList = response.resultContent;
             // } else {
 
             // }
         }).catch(err => {
             console.error(err)
         })
+        //获取产品目录下拉列表
+        
+        this.ProdDirListService.getProdDirList().then(response => {
+            console.log('目录', response);
+            // if (response && 100 == response.resultCode) {
+            this.prodDirList = response.resultContent;
+            this.prodDirId=response.resultContent[0].id;
+            // } else {
+            this.getProdDirDetail(this.prodDirId);    
+            // }
+        }).catch(err => {
+            console.error(err)
+        })
+
+        this.product.billingType="1";
+        
     }
 
-    getProdDirDetail(id){
+    getProdDirDetail(id) {
         this.ProdDirDetailService.getVmProdDirDetail(id).then(response => {
-            console.log('企业', response);
-            // if (response && 100 == response.resultCode) {
-                this.enterpriseList = response.resultContent;
-                console.log(this.enterpriseList);
-            // } else {
+            console.log('产品目录详情', response);
+            if (response && 100 == response.resultCode) {
+                this.prodDir = response.resultContent;
+            } else {
 
-            // }
+            }
         }).catch(err => {
             console.error(err)
         })
     }
-
-
-    //选择企业
-    selectEnterprise(ent,index){
-        console.log(ent);
-        console.log(index);        
+    //选择产品目录
+    selectProdDir(){
+        console.log(this.prodDirId);
+        setTimeout(()=>{
+            console.log(this.prodDirId);
+            this.getProdDirDetail(this.prodDirId);
+        },100);
+        
     }
+    //选择计费模式
+    changeBillingStyle(type){        
+        this.product.billingType=type;
+        if(this.product.billingType=="1")
+        {
+            this.unitPriceBar.disabled=false;
+            this.oneTimePriceBar.disabled=false;
+            this.extendCyclePriceBar.disabled=true;
+            this.extendCyclePriceBar.default=0;            
+            this.basicCyclePriceBar.disabled=true;
+            this.basicCyclePriceBar.default=0;
+            
+        }else{
+            this.extendCyclePriceBar.disabled=false;
+            this.basicCyclePriceBar.disabled=false;
+            this.oneTimePriceBar.disabled=false;
+            this.unitPriceBar.disabled=true;
+            this.unitPriceBar.default=0;            
+        }
+    }
+    //选择企业
+    selectEnterprise(ent, index) {
+        ent.selected=!ent.selected;
+       this.product.productEnterpiseReqs= this.enterpriseList.filter((ele)=>{
+            if(ele.selected==true){
+                return ele;
+            }
+        })
+        console.log(this.product.productEnterpiseReqs)
+    }
+
+     //选择全部可用区
+    selectAllZone: boolean = false;
+    selectAllZones() {
+        this.selectAllZone = !this.selectAllZone;
+        console.log(this.selectAllZone);       
+         for (let plate of this.prodDir.platformInfo) {
+                for (let zone of plate.zoneList) {
+                    zone.selected = this.selectAllZone;
+                    // console.log(zone.storageList);
+                }   
+        }
+        // this.prodDir.platformList = this._platformlist.filter(function (ele) {
+        //     for (let zone of ele.zoneList) {
+        //         if (zone.selected == true) {
+        //             return ele;
+        //         }
+        //     }
+        // })
+    }
+    //选择平台可用区
+    selectZone(idx, idxx) {
+        console.log(idx,idxx);
+        console.log(this.prodDir.platformInfo);
+        this.prodDir.platformInfo[idx].zoneList[idxx].selected = !this.prodDir.platformInfo[idx].zoneList[idxx].selected;        
+        // this.product.productPlatformReqs= 
+        //  let list=this.prodDir.platformInfo.filter(function (ele) {
+        //     for (let zone of ele.zoneList) {                
+        //         if (zone.selected == true) {
+        //             let returnPlatform:{
+        //                 id:string,
+        //                 name:string,
+        //                 zones:[
+        //                     {
+        //                         skuId:string,
+        //                         name:string
+        //                     }
+        //                 ]
+        //             };
+        //             // returnPlatform.zones=[];
+        //             returnPlatform.id= ele.platformId,
+        //             returnPlatform.name= ele.platformName,
+        //             returnPlatform.zones.push({
+        //                 skuId:zone.skuId,
+        //                 name:zone.zoneName
+        //             })
+        //             return returnPlatform;
+        //         }
+        //     }
+        // })
+        // console.log(list);
+    }
+
+
+
+
+
     cancel() {
-        this.router.navigateByUrl('prod-mng/prod-mng/prod-mng',{skipLocationChange: true})
+        this.router.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
     }
 
     onSubmit() {
-        this.router.navigateByUrl('prod-mng/prod-mng/prod-mng',{skipLocationChange: true})
-    }
+        console.log(this.product);
+        this.PostProduct.postProduct(this.product).then(response => {
+            console.log('产品', response);
+            if (response && 100 == response.resultCode) {
+                this.router.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
+            } else {
 
-    ngOnChanges(changes : {[propKey : string] : SimpleChange }){
-        for(let key in changes){
+            }
+        }).catch(err => {
+            console.error(err)
+        })
+    }
+    ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+        for (let key in changes) {
             let item = changes[key];
             console.log(item);
         }
     }
 
-    countBar:Config={
-        default:100,
-        step:50,
-        min:0,
-        max:1024,
-        disabled:true,
-        name:'prodCre01'
-    }
-    outputValue(e,number){
+    
+    outputValue(e, num) {
         console.log(e);
-        console.log(number);
-        
+        console.log(num);
+        this.product[num]=e;
     }
 
-    postProd(){
-        
+    postProd() {
+
     }
 }

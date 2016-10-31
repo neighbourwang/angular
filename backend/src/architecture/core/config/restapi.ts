@@ -582,13 +582,19 @@ export let RestApis: RestApiModel[] = [
         "desc": "新建产品",
         "id": "prod-mng.prod-mng.prod-cre.post",
         "method": "POST",
-        "url": "adminui/authsec/services/product"
+        "url": "adminui/authsec/enterprises/product"
     },
     {
         "desc": "获取企业列表",
         "id": "prod-mng.prod-enterprise.list",
         "method": "GET",
         "url": "adminui/authsec/enterprises/simple "
+    },
+    {
+        "desc": "获取产品目录列表",
+        "id": "prod-mng.prod-dir.list",
+        "method": "GET",
+        "url": "adminui/authsec/services/simple "
     },
     {
         "desc": "更新产品状态",
