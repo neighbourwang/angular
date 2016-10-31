@@ -24,7 +24,7 @@ export class CountBarComponent implements OnInit{
 // }
 
     @Input()
-    config:Config;
+    config:Config;  
 
 
     @Output()
@@ -63,7 +63,13 @@ export class CountBarComponent implements OnInit{
             this.output.emit(this.value);
         }
     }
-
+    unEdit(){
+        this.value=0;
+        this.config.disabled=true;
+    }
+    editable(){
+        this.config.disabled=false;
+    }
     inputValue(value){
         console.log(value);
         (value>this.config.min && value<this.config.max)&&(this.output.emit(value))        

@@ -12,6 +12,7 @@ import { LayoutService, ValidationService, NoticeComponent, ConfirmComponent, Co
 import { ProdDirDetailService } from '../../prod-dir-mng/service/prod-dir-detail.service';
 // import { ProdListService } from '../service/prodList.service';
 import { ProdDirListService } from '../service/prodDirList.service';
+import { PostProduct } from '../service/postProd.service';
 //model
 import { Product } from '../model/product.model';
 import { ProductDir } from '../model/prodDir.model';
@@ -30,7 +31,8 @@ export class ProdCreComponent implements OnInit, OnChanges {
         private router: Router,
         private ProdDirDetailService: ProdDirDetailService,
         // private ProdListService : ProdListService,
-        private ProdDirListService: ProdDirListService
+        private ProdDirListService: ProdDirListService,
+        private PostProduct:PostProduct
     ) { }
 
     enterpriseList = new Array();
@@ -44,81 +46,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
     unitPriceBar=new Config();
     setValue=0;
 
-    mokupenterList=[
-    {
-      "id": "1",
-      "code": "WEIDONG",
-      "name": "伟东教育3",
-      "selected":false
-    },
-    {
-      "id": "191af465-b5dc-4992-a5c9-459e339dc719",
-      "code": "",
-      "name": "测试企业1",
-      "selected":false
-    },
-    {
-      "id": "1cd26b26-da89-46f2-b774-b19d23bdf96f",
-      "code": "",
-      "name": "测试平台2323",
-      "selected":false
-    },
-     {
-      "id": "1",
-      "code": "WEIDONG",
-      "name": "伟东教育3",
-      "selected":false
-    },
-    {
-      "id": "191af465-b5dc-4992-a5c9-459e339dc719",
-      "code": "",
-      "name": "测试企业1",
-      "selected":false
-    },
-    {
-      "id": "1cd26b26-da89-46f2-b774-b19d23bdf96f",
-      "code": "",
-      "name": "测试平台2323",
-      "selected":false
-    },
-     {
-      "id": "1",
-      "code": "WEIDONG",
-      "name": "伟东教育3",
-      "selected":false
-    },
-    {
-      "id": "191af465-b5dc-4992-a5c9-459e339dc719",
-      "code": "",
-      "name": "测试企业1",
-      "selected":false
-    },
-    {
-      "id": "1cd26b26-da89-46f2-b774-b19d23bdf96f",
-      "code": "",
-      "name": "测试平台2323",
-      "selected":false
-    },
-    {
-      "id": "1cd26b26-da89-46f2-b774-b19d23bdf96f",
-      "code": "",
-      "name": "测试平台2323",
-      "selected":false
-    },
-     {
-      "id": "1cd26b26-da89-46f2-b774-b19d23bdf96f",
-      "code": "",
-      "name": "测试平台2323",
-      "selected":false
-    },
-    {
-      "id": "1cd26b26-da89-46f2-b774-b19d23bdf96f",
-      "code": "",
-      "name": "测试平台2323",
-      "selected":false
-    }
-  
-  ]
+   
     //  "basicCyclePrice": 0;
     // "billingCycle": string;
     // "billingType": string;
@@ -174,9 +102,13 @@ export class ProdCreComponent implements OnInit, OnChanges {
         })
     }
     //选择产品目录
-    selectProdDir(id){
-        console.log(id);
-        this.getProdDirDetail(id);
+    selectProdDir(){
+        console.log(this.prodDirId);
+        setTimeout(()=>{
+            console.log(this.prodDirId);
+            this.getProdDirDetail(this.prodDirId);
+        },100);
+        
     }
     //选择计费模式
     changeBillingStyle(type){        
@@ -201,7 +133,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
     //选择企业
     selectEnterprise(ent, index) {
         ent.selected=!ent.selected;
-       this.product.productEnterpiseReqs= this.mokupenterList.filter((ele)=>{
+       this.product.productEnterpiseReqs= this.enterpriseList.filter((ele)=>{
             if(ele.selected==true){
                 return ele;
             }
@@ -270,9 +202,18 @@ export class ProdCreComponent implements OnInit, OnChanges {
     }
 
     onSubmit() {
-        this.router.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
-    }
+        console.log(this.product);
+        this.PostProduct.postProduct(this.product).then(response => {
+            console.log('产品', response);
+            if (response && 100 == response.resultCode) {
+                this.router.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
+            } else {
 
+            }
+        }).catch(err => {
+            console.error(err)
+        })
+    }
     ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
         for (let key in changes) {
             let item = changes[key];
@@ -284,6 +225,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
     outputValue(e, num) {
         console.log(e);
         console.log(num);
+        this.product[num]=e;
     }
 
     postProd() {

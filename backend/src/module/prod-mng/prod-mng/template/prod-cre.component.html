@@ -14,8 +14,8 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品目录：</div>
 					<div class="col-sm-4">
-						<select class="form-control" [(ngModel)]="prodDirId" (change)="selectProdDir(prodDirId)">
-                            <option *ngFor="let prodDir of prodDirList;" [value]="prodDir.id">{{prodDir.name}}</option>
+						<select class="form-control" [(ngModel)]="prodDirId" (change)="prodDirId=prodDir.id; selectProdDir()">
+                            <option *ngFor="let prodDir of prodDirList;" [ngValue]="prodDir.id">{{prodDir.name}}</option>
                         </select>
 					</div>
 				</div>
@@ -54,26 +54,26 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">描述：</div>
 					<div class="col-sm-4">
-						<textarea class="form-control" rows="4" placeholder="描述"></textarea>
+						<textarea class="form-control" rows="4" placeholder="描述" [(ngModel)]="product.description"></textarea>
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>计费模式：</div>
+					<div class="col-sm-4 form-control-title">计费模式：</div>
 					<div class="col-sm-4 row-inline-radio">
 						<label class="radio-inline row-inline-radio2 ">
-                            <input type="radio" name="billingTypeRadios"  class="fox-cloud-radio" (click)="changeBillingStyle('0')"> 包年包月
+                            <input type="radio" name="billingTypeRadios"  class="fox-cloud-radio" (click)="product.billingType='0';unitPrice.unEdit();basicCyclePrice.editable();extendCyclePrice.editable(); oneTimePrice.editable()"> 包年包月
                         </label>
 						<label class="radio-inline row-inline-radio2">
-                            <input type="radio" name="billingTypeRadios"  class="fox-cloud-radio" (click)="changeBillingStyle('1')"> 按量
+                            <input type="radio" name="billingTypeRadios"  class="fox-cloud-radio" (click)="product.billingType='1';basicCyclePrice.unEdit();extendCyclePrice.unEdit();oneTimePrice.editable();unitPrice.editable()"> 按量
                         </label>
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>计费周期：</div>
+					<div class="col-sm-4 form-control-title">计费周期：</div>
 					<div class="col-sm-4 row-inline-radio">
 						<label class="radio-inline row-inline-radio4">
                             <input type="radio" name="inlineRadioOption"  value="5" class="fox-cloud-radio" [(ngModel)]="product.billingCycle"> 包年
@@ -94,11 +94,11 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">基础周期价格：</div>
 					<div class="col-sm-2 form-control-title">
-						<count-bar [config]="basicCyclePriceBar" (output)="outputValue($event,'basicCyclePrice')"></count-bar>
+						<count-bar [config]="basicCyclePriceBar"  #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
 					</div>
 					<div class="col-sm-2 form-control-title">单位价格：</div>
 					<div class="col-sm-1 form-control-title">
-						<count-bar [config]="unitPriceBar" (output)="outputValue($event,'unitPrice')"></count-bar>
+						<count-bar [config]="unitPriceBar" #unitPrice (output)="outputValue($event,'unitPrice')"></count-bar>
 					</div>
 				</div>
 			</div>
@@ -106,11 +106,11 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">增量周期价格：</div>
 					<div class="col-sm-2">
-						<count-bar [config]="extendCyclePriceBar" (output)="outputValue($event,'extendCyclePrice')"></count-bar>
+						<count-bar [config]="extendCyclePriceBar" #extendCyclePrice (output)="outputValue($event,'extendCyclePrice')"></count-bar>
 					</div>
 					<div class="col-sm-2 form-control-title">一次性价格：</div>
 					<div class="col-sm-1">
-						<count-bar [config]="oneTimePriceBar" (output)="outputValue($event,'oneTimePrice')"></count-bar>
+						<count-bar [config]="oneTimePriceBar" #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
 					</div>
 				</div>
 			</div>
@@ -157,7 +157,7 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>选择企业：</div>
+					<div class="col-sm-4 form-control-title">选择企业：</div>
 
 				</div>
 			</div>
@@ -175,14 +175,14 @@
 					</div>
                     <div class="row row-line-height entdown">
 						<div class="col-sm-5 entBody" >
-                            <div *ngFor="let ent1 of mokupenterList; let i=index" >
+                            <div *ngFor="let ent1 of enterpriseList; let i=index" >
                                 <span class="span1">{{ent1.name}}</span>
                                  <input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="ent1.selected" (click)="selectEnterprise(ent1,i)">          
                             </div>							
 						</div>
 						<div class="col-sm-2"></div>
 						<div class="col-sm-5 entBody" >
-							<div *ngFor="let ent2 of product.productEnterpiseReqs">
+							<div *ngFor="let ent2 of product.productEnterpiseReqs;let ii=index">
                                 <span class="span2">{{ent2.name}}</span>
                             </div>
 						</div>

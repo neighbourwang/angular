@@ -6,17 +6,17 @@ import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class PostProd {
+export class PostProduct {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
         private restApi: RestApi
     ) { }
 
-    // 取得所有产品目录
-    postProdduct(data) {
-        let api = this.restApiCfg.getRestApi("prod-mng.prod-dir-mng.list.get");
+    // 新建产品
+    postProduct(data) {
+        let api = this.restApiCfg.getRestApi("prod-mng.prod-mng.prod-cre.post");
 
-        return this.restApi.request(api.method, api.url, [{ key: "page", value: page }, { key: "size", value: size }], undefined);
+        return this.restApi.request(api.method, api.url, [], undefined,data);
     }
 }
