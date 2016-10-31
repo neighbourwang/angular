@@ -25,7 +25,11 @@ export class CountBarComponent implements OnInit{
 
     @Input()
     config:Config;  
+    // set config(config: string) {
+    // this.value = (config && parseInt(config) || 0);
 
+    // get() { return this._name; }
+//   }
 
     @Output()
     output=new EventEmitter();
@@ -43,12 +47,12 @@ export class CountBarComponent implements OnInit{
 
     ngOnInit (){
         console.log('init');
-
         this.value=this.config.default;
         // this.config.disabled=true;
     }
     add() {
         // console.log(this.config);
+        this.value=Number(this.value); 
         if(!this.config.disabled){
             console.log(this.config)
             this.value<this.config.max&&(this.value += this.config.step);
@@ -56,7 +60,8 @@ export class CountBarComponent implements OnInit{
         }        
     }
 
-    subtract() {        
+    subtract() {
+        this.value=Number(this.value);        
         if(!this.config.disabled){
             console.log(this.config)
             this.value>this.config.min&&(this.value -= this.config.step);

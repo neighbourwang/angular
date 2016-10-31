@@ -6,14 +6,14 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品名称：</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" [(ngModel)]="product.name" placeholder="产品名称">
+						<input type="text" class="form-control font-gray" [(ngModel)]="product.name" placeholder="产品名称">
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品目录：</div>
-					<div class="col-sm-4">
+					<div class="col-sm-4 font-gray">
 						<select class="form-control" [(ngModel)]="prodDirId" (change)="prodDirId=prodDir.id; selectProdDir()">
                             <option *ngFor="let prodDir of prodDirList;" [ngValue]="prodDir.id">{{prodDir.name}}</option>
                         </select>
@@ -24,9 +24,9 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"></div>
 					<div class="col-sm-4 row-line-child font-gray">
-						<div class="">CPU</div>
-						<div class="mid-line-child border-gray">{{prodDir.specification.vcpu}}</div>
-						<div class="last-line-child">核（vCPU）</div>
+						<div class="font-gray">CPU</div>
+						<div class="mid-line-child border-gray font-gray">{{prodDir.specification.vcpu}}</div>
+						<div class="last-line-child font-gray">核（vCPU）</div>
 					</div>
 				</div>
 			</div>
@@ -34,9 +34,9 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"></div>
 					<div class="col-sm-4 row-line-child font-gray">
-						<div class="">内存</div>
-						<div class="mid-line-child border-gray">{{prodDir.specification.mem}}</div>
-						<div class="last-line-child">兆（MB）</div>
+						<div class="font-gray">内存</div>
+						<div class="mid-line-child border-gray font-gray">{{prodDir.specification.mem}}</div>
+						<div class="last-line-child font-gray">兆（MB）</div>
 					</div>
 				</div>
 			</div>
@@ -44,9 +44,9 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"></div>
 					<div class="col-sm-4 row-line-child font-gray">
-						<div class="">启动盘大小</div>
-						<div class="mid-line-child border-gray">{{prodDir.specification.startupDisk}}</div>
-						<div class="last-line-child">GB</div>
+						<div class="font-gray">启动盘大小</div>
+						<div class="mid-line-child border-gray font-gray">{{prodDir.specification.startupDisk}}</div>
+						<div class="last-line-child font-gray">GB</div>
 					</div>
 				</div>
 			</div>
@@ -54,7 +54,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">描述：</div>
 					<div class="col-sm-4">
-						<textarea class="form-control" rows="4" placeholder="描述" [(ngModel)]="product.description"></textarea>
+						<textarea class="form-control font-gray" rows="4" placeholder="描述" [(ngModel)]="product.description"></textarea>
 					</div>
 				</div>
 			</div>
@@ -62,10 +62,10 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">计费模式：</div>
 					<div class="col-sm-4 row-inline-radio">
-						<label class="radio-inline row-inline-radio2 ">
+						<label class="radio-inline row-inline-radio2 font-gray">
                             <input type="radio" name="billingTypeRadios"  class="fox-cloud-radio" (click)="product.billingType='0';unitPrice.unEdit();basicCyclePrice.editable();extendCyclePrice.editable(); oneTimePrice.editable()"> 包年包月
                         </label>
-						<label class="radio-inline row-inline-radio2">
+						<label class="radio-inline row-inline-radio2 font-gray">
                             <input type="radio" name="billingTypeRadios"  class="fox-cloud-radio" (click)="product.billingType='1';basicCyclePrice.unEdit();extendCyclePrice.unEdit();oneTimePrice.editable();unitPrice.editable()"> 按量
                         </label>
 					</div>
@@ -75,16 +75,16 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">计费周期：</div>
 					<div class="col-sm-4 row-inline-radio">
-						<label class="radio-inline row-inline-radio4">
+						<label class="radio-inline row-inline-radio4 font-gray">
                             <input type="radio" name="inlineRadioOption"  value="5" class="fox-cloud-radio" [(ngModel)]="product.billingCycle"> 包年
                         </label>
-						<label class="radio-inline row-inline-radio4">
+						<label class="radio-inline row-inline-radio4 font-gray">
                             <input type="radio" name="inlineRadioOption"  value="3" class="fox-cloud-radio" [(ngModel)]="product.billingCycle"> 包月
                         </label>
-						<label class="radio-inline row-inline-radio4">
+						<label class="radio-inline row-inline-radio4 font-gray">
                             <input type="radio" name="inlineRadioOption"  value="1" class="fox-cloud-radio" [(ngModel)]="product.billingCycle"> 按天
                         </label>
-						<label class="radio-inline row-inline-radio4">
+						<label class="radio-inline row-inline-radio4 font-gray">
                             <input type="radio" name="inlineRadioOption"  value="0" class="fox-cloud-radio" [(ngModel)]="product.billingCycle"> 按小时
                         </label>
 					</div>
@@ -93,11 +93,11 @@
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">基础周期价格：</div>
-					<div class="col-sm-2 form-control-title">
+					<div class="col-sm-2 ">
 						<count-bar [config]="basicCyclePriceBar"  #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
 					</div>
 					<div class="col-sm-2 form-control-title">单位价格：</div>
-					<div class="col-sm-1 form-control-title">
+					<div class="col-sm-1 ">
 						<count-bar [config]="unitPriceBar" #unitPrice (output)="outputValue($event,'unitPrice')"></count-bar>
 					</div>
 				</div>
@@ -133,7 +133,7 @@
 					</div>
 					<div class="row tabBody" *ngFor="let plateform of this.prodDir.platformInfo; let idx=index">
 						<div class="col-sm-4 oneChild">
-							<p>{{plateform.platformName}}<br>（openStack）</p>
+							<p>{{plateform.platformName}}</p>
 						</div>
 						<div class="col-sm-4 secondChild wyLine-height">
 							<div class="row" *ngFor="let zone of plateform.zoneList">

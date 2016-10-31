@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <div class="countBar">
-    <span [ngClass]="{gray:config.disabled}" (click)="subtract()">-</span>
-    <input type="text"  [(ngModel)]="value" name="editValue" #box (blur)="inputValue(box.value)" [disabled]="config.disabled">
-    <span (click)="add()" [ngClass]="{gray:config.disabled}">+</span>
+    <span class="glyphicon glyphicon-minus font-gray" [ngClass]="{gray:config.disabled}" (click)="subtract()"></span>
+    <input type="text" class="font-gray" [(ngModel)]="value" name="editValue" #box (blur)="inputValue(box.value)" [disabled]="config.disabled">
+    <span class="glyphicon glyphicon-plus font-gray" (click)="add()" [ngClass]="{gray:config.disabled}"></span>
 </div>
