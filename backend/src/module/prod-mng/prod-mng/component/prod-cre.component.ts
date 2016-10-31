@@ -4,7 +4,7 @@
 import { Component, ViewChild, OnInit, OnChanges, SimpleChange } from '@angular/core';
 import { Router } from '@angular/router';
 // import { Config} from '../model/config';
-import { Config } from '../../../../architecture/components/countBar/config/config';
+// import { Config } from '../../../../architecture/components/countBar/config/config';
 
 import { LayoutService, ValidationService, NoticeComponent, ConfirmComponent, CountBarComponent } from '../../../../architecture';
 
@@ -40,10 +40,10 @@ export class ProdCreComponent implements OnInit, OnChanges {
     prodDir = new ProductDir();
     prodDirId:string;
     product=new Product();
-    basicCyclePriceBar=new Config();
-    oneTimePriceBar=new Config();
-    extendCyclePriceBar=new Config();
-    unitPriceBar=new Config();   
+    // basicCyclePriceBar=new Config();
+    // oneTimePriceBar=new Config();
+    // extendCyclePriceBar=new Config();
+    // unitPriceBar=new Config();   
     ngOnInit() {
         console.log('init');
         //获取企业列表

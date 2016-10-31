@@ -7,7 +7,7 @@ export class Config{
     min:number;
     max:number;
     disabled:boolean;
-    name:string
+    name:string;
     constructor(){
         this.default=0;
         // this.disabled=true;

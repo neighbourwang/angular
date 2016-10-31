@@ -61,7 +61,7 @@ export class RestApi {
         
 
         let resData = this.http.request(path, requestOptions)
-                               .timeout(60000, new Error('接口请求超时！'))
+                               .timeout(6000, new Error('接口请求超时！'))
                                .toPromise()
                                .then(
                                     res => {
