@@ -5,7 +5,7 @@ import { RestApi, RestApiCfg, LayoutService, NoticeComponent, PopupComponent, Co
 
 @Component({
   // moduleId: module.id,
-  selector: 'ent-est-mng',
+  selector: 'order-mng-detail',
   templateUrl: '../template/order-mng-detail.component.html',
   styleUrls: ['../style/order-mng-detail.less'],
   providers: []
