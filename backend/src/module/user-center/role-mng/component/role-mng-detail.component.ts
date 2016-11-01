@@ -17,7 +17,7 @@ export class RoleMngDetailComponent implements OnInit{
     ngOnInit(){
         this.route.params.forEach((params: Params) => {
             console.log(params['id']);
-      });
+        });
     }
 
     options = { isExpandedField: 'false' }

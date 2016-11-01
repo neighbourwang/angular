@@ -1,8 +1,9 @@
 /**
  * Created by wangyao on 2016/10/21.
  */
+//use
+//<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0></count-bar>
 import {Component, Input, Output,EventEmitter,OnChanges,SimpleChange,OnInit} from '@angular/core';
-
 @Component({
     selector: 'count-bar',
     template: `<div class="countBar">
@@ -75,6 +76,7 @@ export class CountBarComponent implements OnInit{
     }
     unEdit(){
         this.value=0;
+        this.output.emit(this.value)
         this.disabled=true;
     }
     editable(){

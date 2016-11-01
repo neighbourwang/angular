@@ -1,5 +1,29 @@
-.btn,.form-control,.dropdown-menu,.input-group-addon {
+.btn,.form-control,.dropdown-menu,.input-group-addon, .modal-content,.nav-tabs>li>a {
     border-radius: 0!important;
+}
+
+/*tab样式*/
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+	border-top: 4px solid @mainColor;
+	color: @mainColor;
+}
+.nav>li>a:focus, .nav>li>a:hover {
+	background-color: @white-color;
+	border: 1px solid  @white-color;
+}
+.nav>li>a {
+	padding: 10px 30px;
+	color: inherit;
+}
+/*tab样式*/
+
+
+.modal-header {
+	background-color: @fa-color;
+}
+
+.modal-dialog {
+	width: 760px!important;
 }
 
 .btn-default.active {

@@ -6,6 +6,9 @@ import { RouterModule } from '@angular/router';
 
 import { ProdDirListComponent } from './component/prod-dir-list.component';
 import { ProdDirCreComponent } from './component/prod-dir-cre.component';
+import { ProdDirDiskCreComponent } from './component/prod-dirDisk-cre.component';
+
+
 
 export const ProdDirMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
@@ -14,7 +17,11 @@ export const ProdDirMngRouting: ModuleWithProviders = RouterModule.forChild([
         component: ProdDirListComponent
     },
     {
-        path: 'prod-mng/prod-dir-mng/prod-dir-cre/:id/:type',
+        path: 'prod-mng/prod-dir-mng/prod-dir-cre',
         component: ProdDirCreComponent
+    },
+    {
+        path: 'prod-mng/prod-dir-mng/prod-dirDisk-cre',
+        component: ProdDirDiskCreComponent
     },
 ]);
