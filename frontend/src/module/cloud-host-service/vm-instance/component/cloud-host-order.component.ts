@@ -18,7 +18,7 @@ export class cloudHostComponentOrder implements OnInit {
 	payLoad : PayLoad;
 	sendModule : SendModule;
 	setPassword : boolean = true;
-	timeForever : boolean = false;
+	// timeForever : boolean = false;
 
 	// rightFixed : boolean = false;   //让右侧配置起飞
 
@@ -37,7 +37,7 @@ export class cloudHostComponentOrder implements OnInit {
 	ngOnInit() {
 		this.layoutService.show();
 		this.setConfigList();
-		$("[data-toggle=popover]").popover();
+		// $("[data-toggle=popover]").popover();
 	}
 
 	//把payLoad转换成提交的post对象
