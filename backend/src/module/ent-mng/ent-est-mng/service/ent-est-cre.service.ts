@@ -714,6 +714,7 @@ export class ItemLoader<T>{
 				else{
 					if(ret.resultContent)
 					{
+						this._items.splice(0, this._items.length);//清空数据
 						//设置数据
 						if(this.MapFunc)
 						{
