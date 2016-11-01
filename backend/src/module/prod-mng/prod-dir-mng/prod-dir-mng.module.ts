@@ -9,6 +9,8 @@ import { CommonComponentModule } from '../../../architecture';
 //Components
 import { ProdDirListComponent } from './component/prod-dir-list.component';
 import {ProdDirCreComponent} from "./component/prod-dir-cre.component";
+import {ProdDirDiskCreComponent} from "./component/prod-dirDisk-cre.component";
+
 // Routing
 import { ProdDirMngRouting } from './prod-dir-mng.routing';
 
@@ -30,11 +32,13 @@ import { CreateProdDirService } from './service/prod-dir-new.service';
     ],
     declarations: [
         ProdDirListComponent,
-        ProdDirCreComponent
+        ProdDirCreComponent,
+        ProdDirDiskCreComponent
     ],
     exports: [
         ProdDirListComponent,
-        ProdDirCreComponent
+        ProdDirCreComponent,
+        ProdDirDiskCreComponent
     ],
     providers: [
         ProdDirListService,
