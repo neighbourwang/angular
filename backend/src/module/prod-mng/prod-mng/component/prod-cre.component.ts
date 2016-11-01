@@ -13,7 +13,6 @@ import { PostProduct } from '../service/postProd.service';
 //model
 import { Product } from '../model/product.model';
 import { ProductDir } from '../model/prodDir.model';
-// import { Config } from '../../../../architecture/components/countBar/config/config';
 
 @Component({
     selector: 'prod-cre',
@@ -35,11 +34,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
     prodDirList = new Array();
     prodDir = new ProductDir();
     prodDirId:string;
-    product=new Product();
-    // basicCyclePriceBar=new Config();
-    // oneTimePriceBar=new Config();
-    // extendCyclePriceBar=new Config();
-    // unitPriceBar=new Config();   
+    product=new Product();   
     ngOnInit() {
         console.log('init');
         //获取企业列表

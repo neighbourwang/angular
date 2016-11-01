@@ -14,7 +14,6 @@ import { ClMngCreStep4Service } from '../service/cl-mng-cre-step-4.service';
 import { ClMngIdService } from '../service/cl-mng-id.service';
 
 
-import { Config } from '../../../../architecture/components/countBar/config/config';
 
 
 @Component({
@@ -33,16 +32,7 @@ export class ClMngCreStep4Component implements OnInit{
         private service : ClMngCreStep4Service
     ) {}
 
-    creStep4Model : Array<CreStep4Model> = new Array<CreStep4Model>();
-
-    countBar:Config={
-        default:100,
-        step:50,
-        min:0,
-        max:1024,
-        disabled:true,
-        name:''
-    }
+    creStep4Model : Array<CreStep4Model> = new Array<CreStep4Model>();  
 
     ngOnInit (){
         console.log('init');

@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 import { CreStep3Model }  from '../model/cre-step3.model';
 
 
-import { Config } from '../../../../architecture/components/countBar/config/config';
 
 
 import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../architecture';
@@ -35,16 +34,6 @@ export class ClMngCreStep3Component implements OnInit{
         private layoutService : LayoutService,
         private idService : ClMngIdService
     ) {}
-
-    countBar:Config={
-        default:100,
-        step:50,
-        min:0,
-        max:1024,
-        disabled:true,
-        name:''
-    }
-
     ngOnInit (){
         console.log('init');
 

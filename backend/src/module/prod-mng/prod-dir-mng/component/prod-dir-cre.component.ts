@@ -4,7 +4,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Config } from '../../../../architecture/components/countBar/config/config';
 import { LayoutService, ValidationService, NoticeComponent, ConfirmComponent, CountBarComponent } from '../../../../architecture';
 
 //service
@@ -28,14 +27,7 @@ export class ProdDirCreComponent implements OnInit {
         private CreateProdDirService: CreateProdDirService,
         private LayoutService: LayoutService
     ) { }
-    countBar: Config = {
-        default: 0,
-        step: 50,
-        min: 0,
-        max: 2046,
-        disabled: false,
-        name: 'prodCre01'
-    }
+   
     prodDir = new ProdDir();
     _platformlist: Array<platform> = new Array<platform>();
     ngOnInit() {
