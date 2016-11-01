@@ -16,6 +16,7 @@ export class OrderItem{
   quantity:string = null; //订购数量 ,
   relatedOrder:Array<OrderItem> = null; // 关联订单号 ,
   status:string = null; //订单状态  
+  statusName:string = null; //订单状态字面量
 }
 /*
 "GeneralPagingResultOfListOfOrderItem {

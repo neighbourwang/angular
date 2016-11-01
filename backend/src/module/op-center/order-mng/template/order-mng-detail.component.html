@@ -1,5 +1,5 @@
 <div class="OrderDetail">
-	<div class="page-content-header icon-order-manage">订单编号：2370537538484773</div>
+	<div class="page-content-header icon-order-manage">订单编号：{{_orderDetail.orderItem.id}}</div>
 	<div class="page-content">
 		<div class="page-second-title">订单信息：</div>
 		<div class="table-container _margin">
@@ -8,28 +8,28 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td class="form-control-title righAlign">订单号:</td><td class="leftAlign">22370537538484773</td>
-						<td class="form-control-title righAlign">状态：</td><td class="leftAlign">成功</td>
-						<td class="form-control-title righAlign">部门审批人：</td><td class="leftAlign" >李四/自动通过</td>		
+						<td class="form-control-title righAlign">订单号:</td><td class="leftAlign">{{_orderDetail.orderItem.id}}</td>
+						<td class="form-control-title righAlign">状态：</td><td class="leftAlign">{{_orderDetail.orderItem.statusName}}</td>
+						<td class="form-control-title righAlign">部门审批人：</td><td class="leftAlign" >{{_orderDetail.orderItem.orgApprover}}</td>		
 					</tr>
 					<tr>
-						<td class="form-control-title righAlign">购买周期:</td><td class="leftAlign">1个月</td>
-						<td class="form-control-title righAlign">订购数量：</td><td class="leftAlign">1</td>
-						<td class="form-control-title righAlign">后台审批人：</td><td class="leftAlign">李五/自动通过</td>		
+						<td class="form-control-title righAlign">购买周期:</td><td class="leftAlign">{{_orderDetail.orderItem.billingCycle}}</td>
+						<td class="form-control-title righAlign">订购数量：</td><td class="leftAlign">{{_orderDetail.orderItem.quantity}}</td>
+						<td class="form-control-title righAlign">后台审批人：</td><td class="leftAlign">{{_orderDetail.orderItem.backendApprover}}</td>		
 					</tr>
 					<tr>
-						<td class="form-control-title righAlign">计费模式:</td><td class="leftAlign">包年包月</td>
-						<td class="form-control-title righAlign">订购人:</td><td class="leftAlign">张三</td>
+						<td class="form-control-title righAlign">计费模式:</td><td class="leftAlign">包年包月???</td>
+						<td class="form-control-title righAlign">订购人:</td><td class="leftAlign">{{_orderDetail.orderItem.billingPerson}}</td>
 						<td></td><td></td>	
 					</tr>
 					<tr>
-						<td class="form-control-title righAlign">创建时间:</td><td class="leftAlign">2016-10-01 11:00</td>
-						<td class="form-control-title righAlign">部门:</td><td class="leftAlign">***</td>
+						<td class="form-control-title righAlign">创建时间:</td><td class="leftAlign">{{_orderDetail.orderItem.createDate}}</td>
+						<td class="form-control-title righAlign">部门:</td><td class="leftAlign">{{_orderDetail.orderItem.organization}}</td>
 						<td></td><td></td>	
 					</tr>
 					<tr>
-						<td class="form-control-title righAlign">到期时间:</td><td class="leftAlign">2016-11-01 11:00</td>
-						<td class="form-control-title righAlign">企业:</td><td class="leftAlign">BBBB</td>
+						<td class="form-control-title righAlign">到期时间:</td><td class="leftAlign">{{_orderDetail.orderItem.exireDate}}</td>
+						<td class="form-control-title righAlign">企业:</td><td class="leftAlign">{{_orderDetail.orderItem.enterpirse}}</td>
 						<td></td><td></td>	
 					</tr>
 				</tbody>
@@ -49,14 +49,14 @@
 						<td style="width: 50%;">云主机</td>
 						<td class="leftAlign">
 							<ul>
-							  <li>区域：华北1</li>
-							   <li>可用区：可用区B</li>
-							    <li>实例规格：CPU 2核/内存4GB/启动盘/70G</li>
-							     <li>IP地址：10.1.1.1（内部）<br>
-							         192.168.1.1（外部）</li>
-							      <li>操作系统：******</li>
-							       <li>密码：已设置</li>
-							        <li>实例名称：abcabc</li>
+								<li>区域：华北1</li>
+								<li>可用区：可用区B</li>
+								<li>实例规格：CPU 2核/内存4GB/启动盘/70G</li>
+								<li>IP地址：10.1.1.1（内部）<br>
+								192.168.1.1（外部）</li>
+								<li>操作系统：******</li>
+								<li>密码：已设置</li>
+								<li>实例名称：abcabc</li>
 							</ul>
 						</td>
 					</tr>
