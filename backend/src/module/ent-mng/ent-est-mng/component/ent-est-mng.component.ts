@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { RestApi, RestApiCfg, LayoutService, NoticeComponent, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
+import { DicLoader, ItemLoader, RestApi, RestApiCfg, LayoutService, NoticeComponent, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { CertMethod, Status, EntEstItem, EntEst} from '../model';
 
-import { EntEstCreService, Paging, ItemLoader, Dic } from '../service/ent-est-cre.service';
+import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
 
 @Component({
   // moduleId: module.id,
@@ -35,7 +35,7 @@ export class EntEstMngComponent implements OnInit {
   private entEst: EntEst = new EntEst();
   private dic:SystemDictionary[];
   private entEstMng:ItemLoader<EntEstItem> = null;
-  private statusDic:Dic<EntEstItem> = null;
+  private statusDic:DicLoader<EntEstItem> = null;
 
   constructor(
     private layoutService: LayoutService,
@@ -74,7 +74,7 @@ export class EntEstMngComponent implements OnInit {
 
 
       //字典配置
-      this.statusDic = new Dic<EntEstItem>(restApiCfg, restApi, "GLOBAL", "STATUS");
+      this.statusDic = new DicLoader<EntEstItem>(restApiCfg, restApi, "GLOBAL", "STATUS");
       this.statusDic.SourceName = "status";
       this.statusDic.TargetName = "statusName";
   }

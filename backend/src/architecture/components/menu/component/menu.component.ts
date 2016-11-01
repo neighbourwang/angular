@@ -215,7 +215,7 @@ const menu: Array<Object> = [
               "label": "订单管理",
                  "isOpen": false,
                  "isActive": false,
-                 "routing": "op-center/order-mng/order-mng-detail"
+                 "routing": "op-center/order-mng/order-mng"
              }
          ]
      }
