@@ -16,13 +16,16 @@ import { cloudHostComponentOrder } from './component/cloud-host-order.component'
 import { cloudHostServiceOrder } from './service/cloud-host-order.service'; 
 import { cloudHostServiceList } from './service/cloud-host-list.service'; 
 
-import { TreeModule } from 'angular2-tree-component';
+// import { TabsModule } from 'ng2-bootstrap/ng2-bootstrap';
+
+// import { TreeModule } from 'angular2-tree-component';
 
 @NgModule({
     imports: [
         VmInstanceRouting,
         CommonComponentModule,
-        TreeModule
+        // TabsModule
+        // TreeModule
     ],
     declarations: [
         cloudHostListComponent,

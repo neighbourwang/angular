@@ -54,7 +54,7 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
   }
 
  updateWithDic(){
-  
+
     let getName =(id:string):string=>{
       let obj = this.dic.find(n=>n.value == id) as SystemDictionary;
       

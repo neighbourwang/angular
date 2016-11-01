@@ -2,6 +2,7 @@ import { Injectable, Optional } from '@angular/core';
 import { Http, Headers, RequestOptionsArgs, Response, Jsonp, URLSearchParams } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/timeout';
 
 @Injectable()
 export class RestApi {
@@ -60,6 +61,7 @@ export class RestApi {
         
 
         let resData = this.http.request(path, requestOptions)
+                               .timeout(6000, new Error('接口请求超时！'))
                                .toPromise()
                                .then(
                                     res => {

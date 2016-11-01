@@ -7,5 +7,12 @@ export class Config{
     min:number;
     max:number;
     disabled:boolean;
-    name:string
+    name:string;
+    constructor(){
+        this.default=0;
+        // this.disabled=true;
+        this.step=100;
+        this.min=0;
+        this.max=1025;
+    }
 }
