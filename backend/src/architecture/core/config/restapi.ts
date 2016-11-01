@@ -507,6 +507,14 @@ export let RestApis: RestApiModel[] = [
        "method": "POST",
        "url": "adminui/authsec/enterprises/{enterpriseId}/products/bind"
    },// 企业管理 -->
+   //<!--后台-运营中心-订单管理
+    {
+       "desc": "获取订单详情",
+       "id": "op-center.order-mng.order-detail.get",
+       "method": "GET",
+       "url": "adminui/authsec/backend/order/{orderId}"
+   },
+   //<!--后台-运营中心-订单管理-->
    // 
     //产品管理
     // {
@@ -582,7 +590,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "新建产品",
         "id": "prod-mng.prod-mng.prod-cre.post",
         "method": "POST",
-        "url": "adminui/authsec/services/product"
+        "url": "adminui/authsec/enterprises/product"
     },
     {
         "desc": "获取企业列表",
@@ -591,9 +599,21 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/enterprises/simple "
     },
     {
+        "desc": "获取产品目录列表",
+        "id": "prod-mng.prod-dir.list",
+        "method": "GET",
+        "url": "adminui/authsec/services/simple "
+    },
+    {
         "desc": "更新产品状态",
         "id": "prod-mng.prod-mng.updateStatus",
         "method": "PUT",
         "url": "adminui/authsec/enterprises/products/status"
+    },
+    {
+        "desc": "获取产品详细信息",
+        "id": "prod-mng.prod-mng.detail",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/product/{id} "
     },
 ]

@@ -8,6 +8,8 @@ export * from './components/common.module';
 export * from './core/service/layout.service';
 export * from './core/service/restapicfg.service';
 export * from './core/service/restapi.service';
+export * from './core/service/item-loader';
+export * from './core/service/dic-loader';
 export * from './core/model/rest';
 export * from './core/service/validation.service';
 export * from './core/service/system.dictionary.service';

@@ -110,7 +110,7 @@ const menu: Array<Object> = [
           "isOpen": false,
           "isActive": false,
           // "routing": "pf-mng2/cl-mng/cl-mng"
-          "routing": "prod-mng/prod-dir-mng/prod-dir-mng"
+          "routing": "user-center/account-mng/account-mng-list"
       },
       {
           "label": "组织管理",
@@ -122,7 +122,7 @@ const menu: Array<Object> = [
           "label": "角色管理",
           "isOpen": false,
           "isActive": false,
-          "routing": "prod-mng/prod-mng/prod-mng"
+          "routing": "user-center/role-mng/role-mng-list"
       },
       {
           "label": "认证管理",
@@ -205,24 +205,31 @@ const menu: Array<Object> = [
             //     "routing": "ent-mng/ent-admin-mng/ent-admin-mng/ac25dfeb-d727-40a3-842f-dca8ab0409c0"
             // }
         ]
-    }
-    // {
-    //     "label": "订单管理中心",
-    //     "isOpen": true,
-    //     "icon": "icon-order-manage",
-    //     "top2_menu": [
-    //         {
-    //             "label": "订单管理",
-    //             "isOpen": false,
-    //             "isActive": false,
-    //             "routing": ""
-    //         },
-    //         {
-    //             "label": "账单与报表",
-    //             "isOpen": false,
-    //             "isActive": false,
-    //             "routing": ""
-    //         }
-    //     ]
-    // }
+    },
+     {
+         "label": "运营中心",
+         "isOpen": true,
+         "icon": "icon-order-manage",
+         "top2_menu": [
+          {
+              "label": "订单管理",
+                 "isOpen": false,
+                 "isActive": false,
+                 "routing": "op-center/order-mng/order-mng"
+             }
+         ]
+     },
+     {
+         "label": "审批中心",
+         "isOpen": true,
+         "icon": "icon-order-manage",
+         "top2_menu": [
+          {
+              "label": "待审批",
+                 "isOpen": false,
+                 "isActive": false,
+                 "routing": "check-center/check-mng-list"
+             }
+         ]
+     }
 ];

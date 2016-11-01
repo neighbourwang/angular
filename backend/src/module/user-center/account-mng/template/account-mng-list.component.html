@@ -1,0 +1,108 @@
+<div class="page-content-header icon-content-header-platform-manage">账号管理</div>
+<div class="page-content">
+    <div style="padding-bottom: 10px;">
+		
+        <div class="dropdown pull-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                更多操作
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+                <li><a>编辑</a></li>
+				<li><a>重置密码</a></li>
+                <li><a>启用</a></li>
+                <li><a>禁用</a></li>
+				<li><a>删除</a></li>
+            </ul>
+        </div>
+
+		<div class="dropdown pull-right" style="padding-right : 20px">
+			<input type="text" placeholder="输入帐号信息快速搜索" style="height : 35px ; padding : 5px"/>
+		</div>
+
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="openCrAccountPop()">
+            <span class="glyphicon glyphicon-edit"></span>
+            <span class="icon-button-label icon-left-button-label">创建帐号</span>
+        </button>
+    </div>
+
+	<div class="table-container">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="check-box-col">选择</th>
+                <th>姓名</th>
+                <th>帐号</th>
+                <th>联系电话</th>
+                <th>所属机构</th>
+                <th>角色</th>
+                <th>认证源</th>
+                <th>状态</th>
+                <th>描述</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input class="fox-cloud-radio" type="radio" name="isSelected"/></td>
+                <td>俊杰</td>
+				<td>jun-jie.zhang@hpe.com</td>
+				<td>136718xxxxx</td>
+				<td>平台管理</td>
+				<td>一级管理员</td>
+				<td>本地</td>
+				<td>启用</td>
+				<td></td>
+            </tr>
+
+			<tr>
+                <td><input class="fox-cloud-radio" type="radio" name="isSelected"/></td>
+                <td>俊杰</td>
+				<td>jun-jie.zhang@hpe.com</td>
+				<td>136718xxxxx</td>
+				<td>平台管理</td>
+				<td>一级管理员</td>
+				<td>本地</td>
+				<td>启用</td>
+				<td></td>
+            </tr>
+
+			<tr>
+                <td><input class="fox-cloud-radio" type="radio" name="isSelected"/></td>
+                <td>俊杰</td>
+				<td>jun-jie.zhang@hpe.com</td>
+				<td>136718xxxxx</td>
+				<td>平台管理</td>
+				<td>一级管理员</td>
+				<td>本地</td>
+				<td>启用</td>
+				<td></td>
+            </tr>
+
+			<tr>
+                <td><input class="fox-cloud-radio" type="radio" name="isSelected"/></td>
+                <td>俊杰</td>
+				<td>jun-jie.zhang@hpe.com</td>
+				<td>136718xxxxx</td>
+				<td>平台管理</td>
+				<td>一级管理员</td>
+				<td>本地</td>
+				<td>启用</td>
+				<td></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<fc-popup #crAccountModel title="认证源选择" ot="创建" ct="取消" (of)="crAccount()">
+	<div class="row row-line-height">
+		<div class="form-group">
+			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>认证源：</div>
+			<div class="col-sm-6">
+				<select class="form-control" [(ngModel)]="authenticationSource">
+                        <option *ngFor="let item of authenticationSourceList;" [value]="item.id">{{item.name}}</option>
+                </select>
+			</div>
+		</div>
+	</div>
+</fc-popup>

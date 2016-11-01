@@ -21,6 +21,14 @@ import {PfMngModule2} from './module/pf-mng2/pf-mng2.module';
 import {MainProdMngModule} from './module/prod-mng/main-prod-mng.module';
 
 import {EntProdMngModule} from './module/ent-mng/ent-prod-mng/ent-prod-mng.module';
+//user-center
+import {UserCenterModule } from './module/user-center/user-center.module';
+
+//op-center
+import {OrderMngModule } from './module/op-center/order-mng/order-mng.module';
+
+//check center
+import {CheckCenterModule } from './module/check-center/check-center.module';
 
 import {routing} from './app.routing';
 
@@ -33,8 +41,11 @@ import {routing} from './app.routing';
         EntMngModule,
         PfMngModule2,
         MainProdMngModule,
+        UserCenterModule,
         EntProdMngModule,
         FormsModule,
+        OrderMngModule,
+        CheckCenterModule,
         routing
     ],
     declarations: [MenuComponent, SiteComponent],

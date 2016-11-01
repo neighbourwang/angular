@@ -6,7 +6,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品目录名称:</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" [(ngModel)]="prodDir.serviceName" placeholder="产品目录名称(必须)">
+						<input type="text" class="form-control font-gray" [(ngModel)]="prodDir.serviceName" placeholder="产品目录名称(必须)">
 					</div>
 				</div>
 			</div>
@@ -15,11 +15,11 @@
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品规格:</div>
 					<div class="col-sm-4">
 						<div class="row row-line-height">
-							<div class="col-sm-3">cpu</div>
+							<div class="col-sm-3 font-gray">cpu</div>
 							<div class="col-sm-4">
-								<count-bar [config]="countBar" (output)="outputValue($event,'vcpu')"></count-bar>
+								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
 							</div>
-							<div class="col-sm-3">
+							<div class="col-sm-3 font-gray">
 								核(vCPU)
 							</div>
 						</div>
@@ -31,11 +31,11 @@
 					<div class="col-sm-4 form-control-title"></div>
 					<div class="col-sm-4">
 						<div class="row row-line-height">
-							<div class="col-sm-3">内存</div>
+							<div class="col-sm-3 font-gray">内存</div>
 							<div class="col-sm-4">
-								<count-bar [config]="countBar" (output)="outputValue($event,'mem')"></count-bar>
+								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'mem')"></count-bar>
 							</div>
-							<div class="col-sm-3">
+							<div class="col-sm-3 font-gray">
 								兆(MB)
 							</div>
 						</div>
@@ -47,11 +47,11 @@
 					<div class="col-sm-4 form-control-title"></div>
 					<div class="col-sm-4">
 						<div class="row ">
-							<div class="col-sm-3">启动盘大小</div>
+							<div class="col-sm-3 font-gray">启动盘大小</div>
 							<div class="col-sm-4">
-								<count-bar [config]="countBar" (output)="outputValue($event,'startupDisk')"></count-bar>
+								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'startupDisk')"></count-bar>
 							</div>
-							<div class="col-sm-3">
+							<div class="col-sm-3 font-gray">
 								GB
 							</div>
 						</div>
@@ -64,7 +64,7 @@
 				<div class="form-group">
 					<div for="firstname" class="col-sm-4 form-control-title">描述：</div>
 					<div class="col-sm-4">
-						<textarea class="form-control" rows="4" [(ngModel)]="prodDir.description" placeholder="描述"></textarea>
+						<textarea class="form-control font-gray" rows="4" [(ngModel)]="prodDir.description" placeholder="描述"></textarea>
 					</div>
 				</div>
 			</div>

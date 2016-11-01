@@ -5,11 +5,13 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent , ConfirmComponent ,PopupComponent } from '../../../../architecture';
-
+//service
 import { ProdListService } from '../service/prodList.service';
+import { ProdDirListService } from '../service/prodDirList.service';
+import { PlatformsActiveService } from '../../prod-dir-mng/service/platform.service';
 //model
 import{ ProdList } from '../model/prodList.model'
-import { PlatformsActiveService } from '../../prod-dir-mng/service/platform.service';
+
 
 
 @Component({
@@ -26,7 +28,8 @@ export class ProdMngComponent implements OnInit{
         private layoutService: LayoutService,
         private router : Router,
         private PlatformsActiveService : PlatformsActiveService,
-        private ProdListService : ProdListService
+        private ProdListService : ProdListService,
+        private ProdDirListService : ProdDirListService
     ) {}
 
 
@@ -75,10 +78,21 @@ export class ProdMngComponent implements OnInit{
             console.error(err)
         })
         //获取企业列表
-        this.ProdListService.getEnterpriseList().then(response => {
+        this.ProdDirListService.getEnterpriseList().then(response => {
             console.log('企业', response);
             // if (response && 100 == response.resultCode) {
                 this.enterpriseList = response.resultContent;
+                console.log(this.enterpriseList);
+            // } else {
+
+            // }
+        }).catch(err => {
+            console.error(err)
+        })
+        this.ProdDirListService.getProdDirList().then(response => {
+            console.log('产品目录列表', response);
+            // if (response && 100 == response.resultCode) {
+                this.prodDirList = response.resultContent;
                 console.log(this.enterpriseList);
             // } else {
 
@@ -124,9 +138,18 @@ export class ProdMngComponent implements OnInit{
         return selectedProdList;
 
     }
-
-    //删除按钮
+    query(){
+        let data={
+        "enterpriseId": this.enterpriseId,
+        "platformId": this.platformId,
+        "serviceId": this.prodDirId
+        }
+        console.log(data);
+        this.backend(1, this.pp,data);
+    }
+    //更多操作
     prodList:Array<ProdList>;
+    changStatusIdList=new Array();
     action (order){
         this.prodList = this.getProduct();
         if(this.prodList.length<1){
@@ -135,6 +158,7 @@ export class ProdMngComponent implements OnInit{
             let message:string='';
             for(let dir of this.prodList){
                 message+=dir.name+",";
+                this.changStatusIdList.push(dir.id);
             }
             console.log(message);
             message=message.substring(0,message.length-1);
@@ -149,22 +173,34 @@ export class ProdMngComponent implements OnInit{
 
         }
     };
+    //删除产品
     deleteCof(){
-        console.log(this.prodList)
-        // this.ProdListService.changProdstatus()
+        console.log(this.changStatusIdList);
+        this.ProdListService.changProdstatus({
+            "pids":this.changStatusIdList,
+            "status":"4"
+        })
+        this.query()        
     }
     //发布按钮
 
     publishCof(){
-
+        console.log(this.changStatusIdList);
+        this.ProdListService.changProdstatus({
+            "pids":this.changStatusIdList,
+            "status":"1"
+        }) 
+        this.query() 
     }
-
+    //取消发布
     ccPublishCof(){
-
+        console.log(this.changStatusIdList);
+        this.ProdListService.changProdstatus({
+            "pids":this.changStatusIdList,
+            "status":"3"
+        }) 
+        this.query() 
     }
-
-
-
 
     //编辑按钮
     edit (){
@@ -180,8 +216,8 @@ export class ProdMngComponent implements OnInit{
     }
     //去编辑详情页面
     goDetail(item){
-        console.log(item);
-        this.router.navigateByUrl("prod-mng/prod-mng/prod-cre", {skipLocationChange: true});
+        // console.log(item);
+        this.router.navigate(["prod-mng/prod-mng/prod-detail", item.id]);
     }
 
     backend(page: number, size: number,data:any){

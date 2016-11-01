@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { RestApi, RestApiCfg, LayoutService, NoticeComponent, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
+import { DicLoader, ItemLoader, RestApi, RestApiCfg, LayoutService, NoticeComponent, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { CertMethod, Status, EntEstItem, EntEst} from '../model';
 
-import { EntEstCreService, Paging, LoadItem } from '../service/ent-est-cre.service';
+import { EntEstCreService, Paging } from './../service/ent-est-cre.service';
 
 @Component({
   // moduleId: module.id,
@@ -34,17 +34,17 @@ export class EntEstMngComponent implements OnInit {
   private criteria: string = "";
   private entEst: EntEst = new EntEst();
   private dic:SystemDictionary[];
-  private entEstMng:LoadItem<EntEstItem> = null;
+  private entEstMng:ItemLoader<EntEstItem> = null;
+  private statusDic:DicLoader<EntEstItem> = null;
 
   constructor(
     private layoutService: LayoutService,
     private router: Router,
     private service: EntEstCreService,
-    private sysDicService: SystemDictionaryService,
     private restApiCfg:RestApiCfg,
     private restApi:RestApi
   ) {
-    this.entEstMng = new LoadItem<EntEstItem>(true, "企业管理列表", restApiCfg, restApi);
+    this.entEstMng = new ItemLoader<EntEstItem>(true, "企业管理列表", restApiCfg, restApi);
 
     //配置企业列表查询
     this.entEstMng.Api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.get");
@@ -70,34 +70,22 @@ export class EntEstMngComponent implements OnInit {
           obj.checked = false;
         }
       };
-     
+
+
+      //字典配置
+      this.statusDic = new DicLoader<EntEstItem>(restApiCfg, restApi, "GLOBAL", "STATUS");
+      this.statusDic.SourceName = "status";
+      this.statusDic.TargetName = "statusName";
   }
 
   ngOnInit() {
-    this.search(1);
-    this.sysDicService.sysDicOF(this, this.sysDicCallback, "GLOBAL", "STATUS")
+    this.statusDic.Go()
+    .then(success=>{
+      this.search(1);
+    },err=>{
+      this.showMsg(err);
+    })
   }
-
-  sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) { 
-    if (sf) {                                                                 
-      this.dic = systemDictionarys;
-      console.log('dic', this.dic);
-      this.updateWithDic();   
-    }                                                                         
-  }
-
-  updateWithDic(){
-    let getName =(id:string):string=>{
-      let obj = this.dic.find(n=>n.value ==id) as SystemDictionary;
-     
-      if(obj)
-        return obj.displayValue as string;
-      else
-        return id;
-    };
-    this.entEstMng.Items.map(n=>{n.statusName = getName(n.status);});
-  }
-
 
   showError(msg:any) {
     this.notice.open(msg.title, msg.desc);
@@ -120,7 +108,7 @@ export class EntEstMngComponent implements OnInit {
     this.layoutService.show();
     this.entEstMng.Go(page)
     .then(success=>{
-      this.updateWithDic();
+      this.statusDic.UpdateWithDic(success);
       this.layoutService.hide();
     }, err=>{
       this.showMsg(err);

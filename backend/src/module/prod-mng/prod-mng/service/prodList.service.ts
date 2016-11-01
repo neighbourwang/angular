@@ -19,13 +19,7 @@ export class ProdListService {
 
         return this.restApi.request(api.method, api.url, [{ key: "page", value: page }, { key: "size", value: size }], undefined,data);
     }
-    
-    //获得企业列表
-     getEnterpriseList() {
-        let api = this.restApiCfg.getRestApi("prod-mng.prod-enterprise.list");
-
-        return this.restApi.request(api.method, api.url,[], undefined);
-    }
+  
     //更新产品状态
     changProdstatus(data:any){
         let api = this.restApiCfg.getRestApi("prod-mng.prod-mng.updateStatus");
