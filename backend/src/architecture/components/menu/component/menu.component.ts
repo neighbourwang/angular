@@ -122,7 +122,7 @@ const menu: Array<Object> = [
           "label": "角色管理",
           "isOpen": false,
           "isActive": false,
-          "routing": "prod-mng/prod-mng/prod-mng"
+          "routing": "user-center/role-mng/role-mng-list"
       },
       {
           "label": "认证管理",
