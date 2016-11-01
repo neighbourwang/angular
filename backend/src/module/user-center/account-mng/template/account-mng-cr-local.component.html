@@ -1,0 +1,168 @@
+<div class="page-content-header icon-content-header-platform-manage">创建帐号</div>
+<div class="row" style="padding-top: 30px;">
+        <div class="col-md-12">
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        姓名
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control"  placeholder="请输入姓名">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        帐号
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control"  placeholder="请输入帐号" [disabled]="!isCreate">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        联系电话
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control"  placeholder="请输入联系电话">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        描述
+                    </div>
+                    <div class="col-sm-4">
+                        <textarea type="text" class="form-control"  placeholder="请输入联系描述" rows="3">
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                    </div>
+                    <div class="col-sm-4 checkbox">
+                        <label>
+                            <input type="checkbox"> 是否部门负责人？
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        绑定角色
+                    </div>
+                    <div class="col-sm-6">
+
+                        <div class="btn-group">
+                            <div class="btn-group float-left" data-toggle="buttons">
+                                <label class="btn btn-default active">
+                                    <input type="radio" name="mirror" autocomplete="off" checked=""> 一级管理员
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="mirror" autocomplete="off"> 二级管理员
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="mirror" autocomplete="off"> 一级操作员
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="mirror" autocomplete="off"> 二级操作员
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="mirror" autocomplete="off"> 审批员
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="mirror" autocomplete="off"> 观察员
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        绑定结构
+                    </div>
+                    <div class="col-sm-6">
+
+                        <div class="btn-group">
+                            <div class="btn-group float-left" data-toggle="buttons">
+                                <label class="btn btn-default active">
+                                    <input type="radio" name="mirror" autocomplete="off" checked=""> 平台管理
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="mirror" autocomplete="off"> 销售部
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="mirror" autocomplete="off"> 研发部
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="mirror" autocomplete="off"> 运维部
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="mirror" autocomplete="off"> 后勤部门
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="btn-group">
+                            <div class="btn-group float-left" data-toggle="buttons">
+                                <label class="btn btn-default active">
+                                    <input type="radio" name="mirror" autocomplete="off" checked=""> 部门1
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="mirror" autocomplete="off"> 部门2
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="mirror" autocomplete="off"> 部门3
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="mirror" autocomplete="off"> 部门4
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="mirror" autocomplete="off"> 部门5
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-ms-1">
+                        <button class="fox-cloud-button-md fox-cloud-button-white" style="margin-top:5px">更多>>></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button class="fox-cloud-button-lg fox-cloud-button-white" >
+                    <span class="icon-button-label">取消</span>
+                </button>
+                <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px">
+                    <span class="icon-button-label">创建</span>
+                </button>
+            </div>
+        </div>
+</div>

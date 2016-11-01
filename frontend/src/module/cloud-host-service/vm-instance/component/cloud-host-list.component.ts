@@ -107,9 +107,9 @@ export class cloudHostListComponent implements OnInit {
 			this.layoutService.hide();
 			alert(msg+"成功！");
 
-			setTimeout(() => {   //延迟4秒执行 因为后端4秒同步一次状态
-				this.setHostList();
-			},4000)
+			// setTimeout(() => {   //延迟4秒执行 因为后端4秒同步一次状态
+			// 	this.setHostList();
+			// },4000)
 		}).catch(error => {
 			this.layoutService.hide();
 		})

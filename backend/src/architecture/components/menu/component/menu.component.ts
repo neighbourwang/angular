@@ -122,7 +122,7 @@ const menu: Array<Object> = [
           "label": "角色管理",
           "isOpen": false,
           "isActive": false,
-          "routing": "prod-mng/prod-mng/prod-mng"
+          "routing": "user-center/role-mng/role-mng-list"
       },
       {
           "label": "认证管理",
@@ -215,7 +215,20 @@ const menu: Array<Object> = [
               "label": "订单管理",
                  "isOpen": false,
                  "isActive": false,
-                 "routing": "op-center/order-mng/order-mng-detail"
+                 "routing": "op-center/order-mng/order-mng"
+             }
+         ]
+     },
+     {
+         "label": "审批中心",
+         "isOpen": true,
+         "icon": "icon-order-manage",
+         "top2_menu": [
+          {
+              "label": "待审批",
+                 "isOpen": false,
+                 "isActive": false,
+                 "routing": "check-center/check-mng-list"
              }
          ]
      }

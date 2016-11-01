@@ -1,79 +1,106 @@
 <div class="page-content-header icon-content-header-platform-manage">账号管理</div>
 <div class="page-content">
-	<div style="padding-bottom: 10px;">
-		<div class="dropdown pull-right" style="margin-left: 20px">
-			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="true">
+    <div style="padding-bottom: 10px;">
+		
+        <div class="dropdown pull-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 更多操作
                 <span class="caret"></span>
             </button>
-			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-				<!--<li><a href="#">修改</a></li>-->
-				<!--<li><a (click)="edit();">编辑</a></li>-->
-				<li><a (click)="action('publish');">编辑</a></li>
-				<li><a (click)="action('publish');">重置密码</a></li>
-				<li><a (click)="action('publish');">启用</a></li>                
-				<li><a (click)="action('ccPublish');">禁用</a></li>
-				<li><a (click)="action('delete');">删除</a></li>
-			</ul>
-		</div>
-		<button class="pull-right fox-cloud-button-md fox-cloud-button-white" style="line-height:28px ;width:60px; margin-left: 20px"
-			(click)='onQuery()'>查询</button>
-		<button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
-            <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建账号</span>
-        </button>
-	</div>
-	<div class="table-container">
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th class="check-box-col"><input class="fox-cloud-checkbox" type="radio" class="fox-cloud-checkbox" (click)="switchSelectAll();" />全选</th>
-					<th>产品目录名称</th>
-					<th>产品目录类别</th>
-					<th>产品规格</th>
-					<th>产品数量</th>
-					<th>状态</th>
-					<th>描述</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr *ngFor="let item of prodDirList; let idx = index;">
-					<td><input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)"
-						/></td>
-					<td (click)="goDetail(item)" style="cursor: pointer">{{item.serviceName}}</td>
-					<td>{{item.serviceTemplateName}}</td>
-					<td>{{item.specification}}</td>
-					<td>{{item.productNum}}</td>
-					<td>
-						<span [ngSwitch]="item.status">
-                            <template [ngSwitchCase]="1">已发布</template>
-                            <template [ngSwitchCase]="3">未发布</template>
-                            <template ngSwitchDefault>Unknown</template>
-                        </span>
-					</td>
-					<td>{{item.description}}</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-</div>
-<fc-pagination #pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
-<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+                <li><a>编辑</a></li>
+				<li><a>重置密码</a></li>
+                <li><a>启用</a></li>
+                <li><a>禁用</a></li>
+				<li><a>删除</a></li>
+            </ul>
+        </div>
 
-<fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="deleteCof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-confirm #publishConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="publishCof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-confirm #ccPublishConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="ccPublishCof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-popup #createProdDir title="{{title}}" ot="创建" (of)="otcreate()" ct="取消" (cf)="ccf()">
+		<div class="dropdown pull-right" style="padding-right : 20px">
+			<input type="text" placeholder="输入帐号信息快速搜索" style="height : 35px ; padding : 5px"/>
+		</div>
+
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="openCrAccountPop()">
+            <span class="glyphicon glyphicon-edit"></span>
+            <span class="icon-button-label icon-left-button-label">创建帐号</span>
+        </button>
+    </div>
+
+	<div class="table-container">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="check-box-col">选择</th>
+                <th>姓名</th>
+                <th>帐号</th>
+                <th>联系电话</th>
+                <th>所属机构</th>
+                <th>角色</th>
+                <th>认证源</th>
+                <th>状态</th>
+                <th>描述</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input class="fox-cloud-radio" type="radio" name="isSelected"/></td>
+                <td>俊杰</td>
+				<td>jun-jie.zhang@hpe.com</td>
+				<td>136718xxxxx</td>
+				<td>平台管理</td>
+				<td>一级管理员</td>
+				<td>本地</td>
+				<td>启用</td>
+				<td></td>
+            </tr>
+
+			<tr>
+                <td><input class="fox-cloud-radio" type="radio" name="isSelected"/></td>
+                <td>俊杰</td>
+				<td>jun-jie.zhang@hpe.com</td>
+				<td>136718xxxxx</td>
+				<td>平台管理</td>
+				<td>一级管理员</td>
+				<td>本地</td>
+				<td>启用</td>
+				<td></td>
+            </tr>
+
+			<tr>
+                <td><input class="fox-cloud-radio" type="radio" name="isSelected"/></td>
+                <td>俊杰</td>
+				<td>jun-jie.zhang@hpe.com</td>
+				<td>136718xxxxx</td>
+				<td>平台管理</td>
+				<td>一级管理员</td>
+				<td>本地</td>
+				<td>启用</td>
+				<td></td>
+            </tr>
+
+			<tr>
+                <td><input class="fox-cloud-radio" type="radio" name="isSelected"/></td>
+                <td>俊杰</td>
+				<td>jun-jie.zhang@hpe.com</td>
+				<td>136718xxxxx</td>
+				<td>平台管理</td>
+				<td>一级管理员</td>
+				<td>本地</td>
+				<td>启用</td>
+				<td></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<fc-popup #crAccountModel title="认证源选择" ot="创建" ct="取消" (of)="crAccount()">
 	<div class="row row-line-height">
 		<div class="form-group">
-			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>产品目录类别：</div>
+			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>认证源：</div>
 			<div class="col-sm-6">
-				<!--<select class="form-control" [(ngModel)]="entResQuota">
-                    <option *ngFor="let item of regions;" [value]="item.id">云主机服务</option>
-                </select>-->
-				<select class="form-control" [(ngModel)]="prodDirTypeId">
-                        <option *ngFor="let item of prodDirTypeList;" [value]="item.id">{{item.name}}</option>
+				<select class="form-control" [(ngModel)]="authenticationSource">
+                        <option *ngFor="let item of authenticationSourceList;" [value]="item.id">{{item.name}}</option>
                 </select>
 			</div>
 		</div>

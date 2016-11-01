@@ -13,7 +13,7 @@ import { EntAdminCreService } from "../service/ent-admin-cre.service";
 
 
 @Component({
-    selector: "ent-admin-cre",
+    selector: "ent-admin-mng",
     templateUrl: "../template/ent-admin-mng.html",
     styleUrls: [],
     providers: []
@@ -46,7 +46,7 @@ export class EntAdminMngComponent implements OnInit {
         private layoutService: LayoutService,
         private router: Router,
         private activatedRouter: ActivatedRoute,
-        private sysDicService: SystemDictionaryService
+        private sysDicService: SystemDictionaryService,
     ) {
         if (activatedRouter.snapshot.params["id"]) {
             this.eid = activatedRouter.snapshot.params["id"] || "";
