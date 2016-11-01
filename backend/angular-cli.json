@@ -25,7 +25,8 @@
       "environments": {
         "source": "./architecture/environments/environment.ts",
         "dev": "./architecture/environments/environment.ts",
-        "prod": "./architecture/environments/environment.prod.ts"
+        "prod": "./architecture/environments/environment.prod.ts",
+        "test": "./architecture/environments/environment.test.ts"
       }
     }
   ],

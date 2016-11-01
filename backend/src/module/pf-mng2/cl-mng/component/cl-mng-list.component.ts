@@ -86,15 +86,13 @@ export class ClMngListComponent implements OnInit {
         this.commonService.getPlatFormTypes().then(
             res => {
                 this.platFormType = res;
-                this.commonService.getPlatFormStatus().then(
+            }
+        ).then(
+            res => {
+            this.commonService.getPlatFormStatus().then(
                     res => {
                         this.platFormStatus = res;
                         this.backend(1, this.pp);
-                    }
-                ).catch(
-                    err => {
-                        console.error(err);
-                        this.notice.open('错误提示','获取云平台列表错误');
                     }
                 )
             }

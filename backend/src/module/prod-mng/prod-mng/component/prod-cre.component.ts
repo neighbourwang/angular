@@ -3,21 +3,17 @@
  */
 import { Component, ViewChild, OnInit, OnChanges, SimpleChange } from '@angular/core';
 import { Router } from '@angular/router';
-// import { Config} from '../model/config';
-import { Config } from '../../../../architecture/components/countBar/config/config';
 
 import { LayoutService, ValidationService, NoticeComponent, ConfirmComponent, CountBarComponent } from '../../../../architecture';
 
-// import {  } from '../service';
+// service;
 import { ProdDirDetailService } from '../../prod-dir-mng/service/prod-dir-detail.service';
-// import { ProdListService } from '../service/prodList.service';
 import { ProdDirListService } from '../service/prodDirList.service';
 import { PostProduct } from '../service/postProd.service';
 //model
 import { Product } from '../model/product.model';
 import { ProductDir } from '../model/prodDir.model';
-//mockup
-// import {}
+// import { Config } from '../../../../architecture/components/countBar/config/config';
 
 @Component({
     selector: 'prod-cre',
@@ -40,10 +36,10 @@ export class ProdCreComponent implements OnInit, OnChanges {
     prodDir = new ProductDir();
     prodDirId:string;
     product=new Product();
-    basicCyclePriceBar=new Config();
-    oneTimePriceBar=new Config();
-    extendCyclePriceBar=new Config();
-    unitPriceBar=new Config();   
+    // basicCyclePriceBar=new Config();
+    // oneTimePriceBar=new Config();
+    // extendCyclePriceBar=new Config();
+    // unitPriceBar=new Config();   
     ngOnInit() {
         console.log('init');
         //获取企业列表
@@ -57,8 +53,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
         }).catch(err => {
             console.error(err)
         })
-        //获取产品目录下拉列表
-        
+        //获取产品目录下拉列表        
         this.ProdDirListService.getProdDirList().then(response => {
             console.log('目录', response);
             // if (response && 100 == response.resultCode) {
@@ -74,7 +69,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
         this.product.billingType="1";
         
     }
-
+    //获取产品目录详情
     getProdDirDetail(id) {
         this.ProdDirDetailService.getVmProdDirDetail(id).then(response => {
             console.log('产品目录详情', response);
