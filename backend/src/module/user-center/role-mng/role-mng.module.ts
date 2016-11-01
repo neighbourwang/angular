@@ -4,15 +4,20 @@ import { RoleMngRouting } from './role-mng.routing';
 
 //component
 import { RoleMngListComponent } from './component/role-mng-list.component';
+import { RoleMngDetailComponent } from './component/role-mng-detail.component';
+
+import { TreeModule } from 'angular2-tree-component';
 
 
 @NgModule({
     imports: [
         CommonComponentModule,
-        RoleMngRouting
+        RoleMngRouting,
+        TreeModule
     ],
     declarations: [
-        RoleMngListComponent
+        RoleMngListComponent,
+        RoleMngDetailComponent
     ],
     exports: [
     ],
