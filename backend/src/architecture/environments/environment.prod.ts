@@ -2,6 +2,6 @@
 
 export const environment = {
 	production: true ,
-	baseIp : '15.114.100.57',
-	basePort : '30072',
+	baseIp : '15.114.100.70',
+	basePort : '32072',
 };
