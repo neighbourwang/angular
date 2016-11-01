@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, RestApi, RestApiCfg, LayoutService, NoticeComponent, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { CertMethod, Status, EntEstItem, EntEst} from '../model';
 
-import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
+import { EntEstCreService, Paging } from './../service/ent-est-cre.service';
 
 @Component({
   // moduleId: module.id,
@@ -41,7 +41,6 @@ export class EntEstMngComponent implements OnInit {
     private layoutService: LayoutService,
     private router: Router,
     private service: EntEstCreService,
-    private sysDicService: SystemDictionaryService,
     private restApiCfg:RestApiCfg,
     private restApi:RestApi
   ) {

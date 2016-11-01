@@ -507,6 +507,14 @@ export let RestApis: RestApiModel[] = [
        "method": "POST",
        "url": "adminui/authsec/enterprises/{enterpriseId}/products/bind"
    },// 企业管理 -->
+   //<!--后台-运营中心-订单管理
+    {
+       "desc": "获取订单详情",
+       "id": "op-center.order-mng.order-detail.get",
+       "method": "GET",
+       "url": "adminui/authsec/backend/order/{orderId}"
+   },
+   //<!--后台-运营中心-订单管理-->
    // 
     //产品管理
     // {
