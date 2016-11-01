@@ -7,7 +7,6 @@ import { GetProduct } from '../service/getProduct.service';
 import { ProdDirDetailService } from '../../prod-dir-mng/service/prod-dir-detail.service';
 //model
 import{ Product } from '../model/product.model';
-import { Config } from '../../../../architecture/components/countBar/config/config';
 import { ProductDir } from '../model/prodDir.model';
 @Component({
     selector: 'prod-detail',
@@ -28,14 +27,6 @@ export class ProdDetailComponent implements OnInit{
     ){}
     product=new Product();
     prodDir=new ProductDir();
-    prodDetailCountBar:Config={
-        default: 0,
-        step: 50,
-        min: 0,
-        max: 2046,
-        disabled: true,
-        name: 'basicCyclePriceBa'
-    }
     ngOnInit(){
         // console.log(this.router.params);
         let id:string;
