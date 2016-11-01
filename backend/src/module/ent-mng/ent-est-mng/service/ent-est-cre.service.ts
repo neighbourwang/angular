@@ -677,7 +677,7 @@ export class ItemLoader<T>{
 		{
 			target.splice(0, target.length);
 
-			if(typeof source === 'array')
+			if(typeof source === 'object' && typeof source.length === 'number')
 			{
 				for(let item of source)
 				{
@@ -717,13 +717,13 @@ export class ItemLoader<T>{
 						//设置数据
 						if(this.MapFunc)
 						{
-							if(typeof ret.resultContent === 'object')
+							if( (typeof ret.resultContent === 'object') && (typeof ret.resultContent.length === 'number'))
+							{
+								this.MapFunc(ret.resultContent, this._items);
+							}
+							else if(typeof ret.resultContent === 'object')
 							{
 								this.MapFunc([ret.resultContent], this._items);
-							}
-							else if( typeof ret.resultContent === 'array')
-							{
-								this.MapFunc(ret.resultConent, this._items);
 							}
 						}
 						else
