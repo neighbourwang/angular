@@ -1,7 +1,8 @@
 import { Injectable, Optional } from '@angular/core';
 import { Http, Headers, RequestOptionsArgs, Response, Jsonp, URLSearchParams } from '@angular/http';
 
-import 'rxjs/add/operator/toPromise';
+import 'rxjs/Rx';
+// import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class RestApi {
@@ -60,6 +61,7 @@ export class RestApi {
         
 
         let resData = this.http.request(path, requestOptions)
+                               .timeout(3000)
                                .toPromise()
                                .then(
                                     res => {
