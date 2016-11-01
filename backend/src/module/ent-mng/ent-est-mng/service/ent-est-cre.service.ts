@@ -763,8 +763,9 @@ export class ItemLoader<T>{
 
 	setQueryParams(queryParams: Array<any>):void
 	{
+		let self = this;
 		let update:(obj:any)=>boolean=function(obj:any){
-			let target:any = this.QureryParams.find(n=>n.key === obj.key);
+			let target:any = self.QureryParams.find(n=>n.key === obj.key);
 
 			if(target)
 			{
@@ -779,7 +780,7 @@ export class ItemLoader<T>{
 		if(queryParams)
 		{
 			this.QureryParams = this.QureryParams || [];
-			if(typeof queryParams === 'array')
+			if(typeof queryParams === 'object' && typeof queryParams.length === 'number')
 			{
 				for(let i = 0; i < queryParams.length; i++)
 				{
@@ -854,7 +855,7 @@ export class Dic<T>{
 		,private _field:string
 		){
 		this._items = new ItemLoader<SystemDictionary>(false, "数据字典", restApiCfg, restApi);
-		this._items.Api = this.restApiCfg.getRestApi("sysdic");
+		this._items.Api = this.restApiCfg.getRestApi("sysdic.owner.field");
 	}
 
 	get Items():Array<SystemDictionary>{
@@ -863,7 +864,7 @@ export class Dic<T>{
 
 	Go():Promise<any>{
 		return new Promise((resolve, reject)=>{
-			this._items.Go()
+			this._items.Go(null, [{ key: "_owner", value: this._owner }, { key: "_field", value: this._field }])
 			.then(success=>{
 				resolve(success);
 			},err=>{
