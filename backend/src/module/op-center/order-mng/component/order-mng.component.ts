@@ -13,4 +13,9 @@ export class OrderMngComponent implements OnInit{
 	ngOnInit(){
 
 	}
+
+	showDetail(orderId:string)
+	{
+		
+	}
 }
