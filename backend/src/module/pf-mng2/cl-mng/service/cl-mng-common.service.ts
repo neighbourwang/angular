@@ -63,15 +63,11 @@ export class ClMngCommonService {
     }
 
     getPlatFormStatus() : Promise<Array<any>>{
-        if(this.status == new Array<any>()){
-            this.platFormStatus().then(
+        if(this.status.length == 0){
+            return this.platFormStatus().then(
                 res => {
                     this.status = res.resultContent;
                     return Promise.resolve(this.status);
-                }
-            ).catch(
-                err => {
-                    return Promise.reject('error');
                 }
             )
         }else{
@@ -81,15 +77,11 @@ export class ClMngCommonService {
 
 
     getPlatFormTypes() : Promise<Array<any>>{
-        if(this.platFormTypes == new Array<any>()){
-            this.platFormType().then(
+        if(this.platFormTypes.length == 0){
+            return this.platFormType().then(
                 res => {
                     this.platFormTypes = res.resultContent;
-                    return Promise.resolve(this.platFormTypes);
-                }
-            ).catch(
-                err => {
-                    return Promise.reject('error');
+                    return this.platFormTypes;
                 }
             )
         }else{
@@ -98,15 +90,11 @@ export class ClMngCommonService {
     }
 
     getRegion () : Promise<Array<any>>{
-        if(this.regions == new Array<any>()){
-            this.region().then(
+        if(this.regions.length == 0){
+            return this.region().then(
                 res =>{
                     this.regions = res.resultContent;
-                    return Promise.resolve(this.regions);
-                }
-            ).catch(
-                err => {
-                    return Promise.reject('error');
+                    return this.regions;
                 }
             )
         }else{
@@ -115,14 +103,12 @@ export class ClMngCommonService {
     }
 
     getVersion(id : string) : Promise<Array<any>>{
-        if(this.version == new Array<any>()){
-            this.platFormVersion(id).then(
+        if(this.version.length == 0){
+            return this.platFormVersion(id).then(
                 res => {
                     this.version = res.resultContent;
-                    return Promise.resolve(this.version);
+                    return this.version;
                 }
-            ).catch(
-                err => Promise.reject('err')
             )
         }else{
             return Promise.resolve(this.version);

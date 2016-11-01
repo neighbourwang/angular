@@ -4,13 +4,15 @@ import { Http } from '@angular/http';
 import { RestApiModel } from '../model/rest';
 import { RestApis } from '../config/restapi';
 
+import { environment } from '../../environments/environment';
+
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class RestApiCfg {
-    protected baseIp = '15.114.100.55';
+    protected baseIp = environment.baseIp || '15.114.100.55';
     // protected basePort = '31072';//测试
-    protected basePort = '30072';//开发
+    protected basePort = environment.basePort || '30072';//开发
 
     protected restApiList: RestApiModel[];
 
