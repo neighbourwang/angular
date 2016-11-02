@@ -106,9 +106,9 @@ export class OrderMngComponent implements OnInit{
 	loadSubregion(){
 		this._subregionLoader.Go(null, [{key:'_id', value:this._param.region}])
 		.then(success=>{
-			this._param.region = "0";
+			this._param.zoneId = "0";
 		},err=>{
-			this._param.region = "0";
+			this._param.zoneId = "0";
 		});
 	}
 
@@ -120,5 +120,13 @@ export class OrderMngComponent implements OnInit{
 	showDetail(){
 		let orderId:string = "1";
 		this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderId}`);
+	}
+
+	resetParam(){
+		this._param.createTime = null;
+		this._param.enterpriseId = "0";
+		this._param.expireTime = null;
+		this._param.organization = "0";
+		this._param.region = "0";
 	}
 }
