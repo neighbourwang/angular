@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RestApiCfg, RestApi, RestApiModel, ItemLoader, SystemDictionary } from './../../../architecture';
 
-export class DicLoader<T>{
+export class DicLoader{
 	private _items: ItemLoader<SystemDictionary> = null;
 	SourceName:string = "";
 	TargetName:string = "";
@@ -29,7 +29,7 @@ export class DicLoader<T>{
 		});
 	}
 
-	UpdateWithDic(items:Array<T>)
+	UpdateWithDic(items:Array<any>, targetName?:string, sourceName?:string)
 	{
 		let getName =(id:string):string=>{
 			let obj = this._items.Items.find(n=>n.value ==id) as SystemDictionary;
@@ -39,6 +39,11 @@ export class DicLoader<T>{
 			else
 				return id;
 		};
+
+		if(targetName)
+			this.TargetName = targetName;
+		if(sourceName)
+			this.SourceName = sourceName;
 		items.map(n=>{n[this.TargetName] = getName(n[this.SourceName]);});
 	}
 }

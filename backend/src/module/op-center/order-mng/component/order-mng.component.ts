@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
+import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 
 
@@ -19,6 +19,8 @@ export class OrderMngComponent implements OnInit{
 	private _productTypeLoader:ItemLoader<ProductType> = null;
 	private _platformLoader:ItemLoader<Platform> = null;
 	private _subregionLoader:ItemLoader<SubRegion> = null;
+	private _orderStatus:DicLoader = null;
+
 	private _param:OrderMngParam = new OrderMngParam();
 
 	constructor(
@@ -42,8 +44,12 @@ export class OrderMngComponent implements OnInit{
 		//配置可用区加载
 		this._subregionLoader = new ItemLoader<SubRegion>(false, '可用区', "op-center.order-mng.avail-region-list.get", this.restApiCfg, this.restApi);
 
+		//配置订单状态
+		this._orderStatus = new DicLoader(this.restApiCfg, this.restApi, "ORDER", "STATUS");
+
 	}
 	ngOnInit(){
+		this._orderStatus.Go();
 		this.loadAdmin()
 		.then(success=>{
 			this.loadDepartment();
@@ -63,7 +69,7 @@ export class OrderMngComponent implements OnInit{
 
 	loadAdmin():Promise<any>{
 		return new Promise((resolve, reject)=>{
-			this._adminLoader.Go(null, [{key:"userId", value:"1"}])
+			this._adminLoader.Go(null, [{key:"userId", value:"37d3dfca-064c-4077-879c-75ecf9c6725c "}])
 			.then(success=>{
 				resolve(success);
 			},err=>{
@@ -73,7 +79,12 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	loadDepartment(){
-		this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._param.enterpriseId}]);
+		this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._param.enterpriseId}])
+		.then(success=>{
+			this._param.organization = "0";
+		}, err=>{
+			this._param.organization = "0";
+		});
 	}
 
 	loadProductType(){
@@ -93,7 +104,12 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	loadSubregion(){
-		this._subregionLoader.Go(null, [{key:'_id', value:this._param.userId}]);
+		this._subregionLoader.Go(null, [{key:'_id', value:this._param.region}])
+		.then(success=>{
+			this._param.region = "0";
+		},err=>{
+			this._param.region = "0";
+		});
 	}
 
 	showMsg(msg: string)
