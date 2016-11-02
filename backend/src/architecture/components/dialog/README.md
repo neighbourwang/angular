@@ -1,31 +1,104 @@
-# FoxcloudPortal
+# 确认框组件
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.15.
+共有六个属性：
 
-## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+of(可选) ：点击确定的事件
 
-## Code scaffolding
+cf(可选) ：点击取消的事件
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class`.
+title(可选) ：确认框的标题  默认为：提示
 
-## Build
+msg(**必选**) ：确认框的内容 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+ct(可选) ：确认按钮的名称  默认为：确定
 
-## Running unit tests
+ot(可选) ：取消按钮的名称  默认为：取消 
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/). 
-Before running the tests make sure you are serving the app via `ng serve`.
+### 例子
 
-## Deploying to Github Pages
+html：
 
-Run `ng github-pages:deploy` to deploy to Github Pages.
+```html
+<fc-confirm #confirm 
+            title="{{modalTitle}}" 
+            msg="{{modalMessage}}" 
+            ot="{{modalOKTitle}}" 
+            (of)="confirm(1)" 
+            ct="{{modalCancelTitle}}" 
+            (cf)="cancel(0)"></fc-confirm>
+```
 
-## Further help
+javascript：
 
-To get more help on the `angular-cli` use `ng --help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```javascript
+import { ConfirmComponent } from '../../../../architecture';
+
+export class testComponent implements OnInit {
+	@ViewChild('confirm');
+	private confirmDialog: ConfirmComponent;
+     
+     
+    ...
+    show() {
+       this.modalTitle = "标题";
+       this.modalMessage = "内容";
+       this.modalOKTitle = "确定按钮";
+       this.modalCancelTitle = "取消按钮";
+       this.confirmDialog.open();
+    }
+}
+```
+
+
+
+# 警告框组件
+
+共有六个属性：
+
+of(可选) ：点击确定的事件
+
+cf(可选) ：点击取消的事件
+
+title(可选) ：确认框的标题  默认为：提示
+
+msg(**必选**) ：确认框的内容 
+
+ct(可选) ：确认按钮的名称  默认为：确定
+
+ot(可选) ：取消按钮的名称  默认为：取消 
+
+
+
+### 例子
+
+html：
+
+```html
+<fc-notice #notice 
+           title="{{modalTitle}}" 
+           msg="{{modalMessage}}" 
+           ot="{{modalOKTitle}}" 
+           (of)="cancel(0)"></fc-notice>
+```
+
+javascript：
+
+```javascript
+import { NoticeComponent } from '../../../../architecture';
+
+export class testComponent implements OnInit {
+	@ViewChild('notice')
+	private noticeDialog: NoticeComponent;
+     
+    ...
+    show() {
+       this.modalTitle = "标题";
+       this.modalMessage = "内容";
+       this.modalOKTitle = "确定按钮";
+       this.NoticeComponent.open();
+    }
+}
+```
+
