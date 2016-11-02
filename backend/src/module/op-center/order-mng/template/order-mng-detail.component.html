@@ -1,7 +1,7 @@
 <fc-notice #notice ot="确认" (of)="okClicked()"></fc-notice>
 
 <div class="OrderDetail">
-	<div class="page-content-header icon-order-manage">订单编号：{{_orderDetail.FirstItem.orderItem.id}}</div>
+	<div class="page-content-header icon-order-manage">订单编号：{{_orderDetail.FirstItem.orderItem.orderCode}}</div>
 	<div class="page-content">
 		<div class="page-second-title">订单信息：</div>
 		<div class="table-container _margin">
@@ -10,7 +10,7 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td class="form-control-title righAlign">订单号:</td><td class="leftAlign">{{_orderDetail.FirstItem.orderItem.id}}</td>
+						<td class="form-control-title righAlign">订单号:</td><td class="leftAlign">{{_orderDetail.FirstItem.orderItem.orderCode}}</td>
 						<td class="form-control-title righAlign">状态：</td><td class="leftAlign">{{_orderDetail.FirstItem.orderItem.statusName}}</td>
 						<td class="form-control-title righAlign">部门审批人：</td><td class="leftAlign" >{{_orderDetail.FirstItem.orderItem.orgApprover}}</td>		
 					</tr>
@@ -86,7 +86,7 @@
 			</table>
 		</div>
 <!-- 		关联订单 -->
-		<div class="page-second-title" *ngFor="let orderItem of __orderDetail.FirstItem.relatedOrder">关联订单：订单编号：{{orderItem.id}}</div>
+		<div class="page-second-title" *ngFor="let orderItem of __orderDetail.FirstItem.relatedOrder">关联订单：订单编号：{{orderItem.orderCode}}</div>
 			<div class="table-container ">
 			<table class="table">
 				<thead>	
@@ -104,17 +104,17 @@
 					</tr>			
 				</thead>
 				<tbody>
-					<tr *ngFor="let prodItem of orderItem.products">
-						<td>{{prodItem.name}}</td>
-						<td>??</td>
-						<td>{{prodItem.billingCycle}}</td>
-						<td>??</td>
-						<td>{{prodItem.onetimePrice}}</td>
-						<td>{{prodItem.recurringPrice}}</td>
-						<td>{{prodItem.serviceType}}</td>
-						<td class="validateInfo">{{prodItem.status}}</td>
-						<td>??</td>
-						<td>??</td>
+					<tr *ngFor="let prodItem of orderItem.productDetail">
+						<td>{{prodItem.productItem.name}}</td>
+						<td>{{prodItem.productItem.billingType}}</td>
+						<td>{{prodItem.productItem.billingCycle}}</td>
+						<td>{{prodItem.number}}</td>
+						<td>{{prodItem.productItem.onetimePrice}}</td>
+						<td>{{prodItem.productItem.recurringPrice}}</td>
+						<td>{{prodItem.productItem.serviceType}}</td>
+						<td class="validateInfo">{{prodItem.productItem.status}}</td>
+						<td>{{orderItem.createDate}}</td>
+						<td>{{orderItem.exireDate}}</td>
 					</tr>
 				</tbody>
 			</table>

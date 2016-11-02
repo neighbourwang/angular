@@ -18,7 +18,7 @@ export class CountBarComponent implements OnInit{
 
     }
     @Input()
-    default:boolean;
+    default:number;
     @Input()
     min:number;
     @Input()
