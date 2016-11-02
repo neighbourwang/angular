@@ -1,8 +1,8 @@
-.validateInfo{ color: green; } /*验证信息显示绿色*/
+.validateInfo{ color: #00a982; } /*验证信息显示绿色*/
 .warnInf{ color: red; }  /*验证信息显示红色*/
 .left{float: left;}     /*左浮动*/
-.leftAlign{text-align: left!important;display: inline-block;}/*表格td居左*/
-.righAlign{text-align: right!important;display: inline-block;}/*表格td居右*/
+.leftAlign{text-align: left!important;}/*表格td居左*/
+.rightAlign{text-align: right!important;}/*表格td居右*/
 ._margin{margin-bottom: 30px;}/*间隔30px*/
 .tdVAlign{vertical-align: middle;}
 ul li{ list-style: none; }
@@ -25,6 +25,7 @@ ul li{ list-style: none; }
 			    position: relative;
 			    top:13px;
 			    left: -170px;
+				color:#00a982;
 			}
 			ul{
 			   	li{
@@ -41,7 +42,7 @@ ul li{ list-style: none; }
 				   
 					td{
 						width:75px;
-						text-align:left;
+						text-align:center;
 						font-size:15px;
 					}
 				}
@@ -49,7 +50,7 @@ ul li{ list-style: none; }
 			table{
 
 				margin-bottom:20px!important;
-				margin-top: 40px;	
+				margin-top: 10px;	
 				tr:nth-child(even){
 					background-color:#fff;
 				}
@@ -57,16 +58,18 @@ ul li{ list-style: none; }
 					tr{
 						th{
 							width:110px;
+							height:60px;
+							background-color: #D1ECE7!important;
 						}
 					}
 				}
 				tr{
 					th.order-title{
-						width: 350px;
+						width: 250px;
 					}
 					td.order-title{
 				   		width: 250px;
-    					text-align: center;
+				   		text-align:left;
     					font-size:16px;
 				   }
 					td{
