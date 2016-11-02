@@ -2,8 +2,6 @@ import { ModuleWithProviders } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { EntEstMngComponent } from './component/ent-est-mng.component';
-import { EntEstCreStep01Component } from './component/ent-est-cre-step-01.component';
-import { EntEstCreStep04Component } from './component/ent-est-cre-step-04.component';
 import { EntEstCreComponent } from './component/ent-est-cre.component';
 import { EntEstSetProdComponent } from './component/ent-est-setProd.component';
 import { EntEstCheckComponent } from './component/ent-est-check.component';
