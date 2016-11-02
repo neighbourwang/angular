@@ -17,7 +17,6 @@ html:
 javascript：
 
 ```javascript
-pageSize: number = 5;
 totalPages: number = 0;   //默认设置为0 不显示
 currPage: number = 1;
 
