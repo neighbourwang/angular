@@ -134,7 +134,7 @@ const menu: Array<Object> = [
           "label": "个人账户管理",
           "isOpen": false,
           "isActive": false,
-          "routing": "prod-mng/prod-mng/prod-mng"
+          "routing": "user-center/person-acc-mng/person-acc-mng"
       },
     ]
   },
