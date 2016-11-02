@@ -25,7 +25,7 @@ html：
 javascript：
 
 ```javascript
-//获取获取获取count-bar值
+//获取count-bar值
 outputValue(e）{
     console.log(e);
 }
