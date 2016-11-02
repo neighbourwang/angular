@@ -14,7 +14,6 @@ export class OrderItem{
   orgApprover:string = null; //部门审批人 ,
   organization:string = null; //部门 ,
   productDetail:Array<OrderProductItem> = null; // 产品记录 ,
-  products:Array<ProductItem> = null; // 订单关联的产品 ,
   quantity:string = null; //订购数量 ,
   relatedOrder:Array<OrderItem> = null; // 关联订单号 ,
   status:string = null; //订单状态  
