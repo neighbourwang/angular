@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonComponentModule } from '../../../architecture';
-import { OrganizationMngRouting } from './organization-mng.routing';
+import { OrgMngRouting } from './org-mng.routing';
 //component
 
 @NgModule({
     imports: [
         CommonComponentModule,
-        OrganizationMngRouting
+        OrgMngRouting
     ],
     declarations: [
     ],
@@ -16,4 +16,4 @@ import { OrganizationMngRouting } from './organization-mng.routing';
     ]
 
 })
-export class OrganizationMngModule { }
+export class OrgMngModule { }
