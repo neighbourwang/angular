@@ -15,7 +15,6 @@ html：
 
 ```html
 <count-bar 
-            [default]=0 
             [step]=100 
             [max]=1025 
             [min]=0 
