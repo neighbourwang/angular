@@ -1,31 +1,41 @@
-# FoxcloudPortal
+共有两个属性：
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.15.
+**tp**：总共的页数，如果为0的时候隐藏分页
 
-## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+**pf**：当改变页数的时候的事件 参数为：(page[当前分页]: number) 
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class`.
 
-## Build
+html:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+```html
+<fc-pagination tp={{totalPages}} (pf)="changePage(page)"></fc-pagination>
+```
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+javascript：
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/). 
-Before running the tests make sure you are serving the app via `ng serve`.
+```javascript
+pageSize: number = 5;
+totalPages: number = 0;   //默认设置为0 不显示
+currPage: number = 1;
 
-## Deploying to Github Pages
+...
 
-Run `ng github-pages:deploy` to deploy to Github Pages.
+getList() {   //获取分页列表的方法
+	this.server.getList().then(res => {
+       //获取远程数据中的分页总数信息 赋值给 totalPages 这样才显示分页
+       this.totalPages = res.pageInfo.totalPage;
+	})
+}
 
-## Further help
+//分页
+changePage(page: number) {
+	page = page < 1 ? 1 : page > this.totalPages ? this.totalPages : page;   //判断分页是否非法
 
-To get more help on the `angular-cli` use `ng --help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+	if (this.currPage == page)  return;   //如果点击的是当前的page 则不再执行
+
+	this.currPage = page;
+}
+```
