@@ -116,7 +116,7 @@ const menu: Array<Object> = [
           "label": "组织管理",
           "isOpen": false,
           "isActive": false,
-          "routing": "prod-mng/prod-mng/prod-mng"
+          "routing": "user-center/org-mng/org-mng-list"
       },
       {
           "label": "角色管理",
