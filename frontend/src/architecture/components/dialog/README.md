@@ -36,8 +36,8 @@ javascript：
 import { ConfirmComponent } from '../../../../architecture';
 
 export class testComponent implements OnInit {
-	@ViewChild('confirm');
-	private confirmDialog: ConfirmComponent;
+  @ViewChild('confirm');
+  private confirmDialog: ConfirmComponent;
      
      
     ...
@@ -65,9 +65,7 @@ title(可选) ：确认框的标题  默认为：提示
 
 msg(**必选**) ：确认框的内容 
 
-ct(可选) ：确认按钮的名称  默认为：确定
-
-ot(可选) ：取消按钮的名称  默认为：取消 
+ot(可选) ：取消按钮的名称  默认为：确定 
 
 
 
@@ -89,8 +87,8 @@ javascript：
 import { NoticeComponent } from '../../../../architecture';
 
 export class testComponent implements OnInit {
-	@ViewChild('notice')
-	private noticeDialog: NoticeComponent;
+  @ViewChild('notice')
+  private noticeDialog: NoticeComponent;
      
     ...
     show() {
