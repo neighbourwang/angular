@@ -1,3 +1,4 @@
+//产品
 export class ProductItem{
 	basicPrice: number = null;// 基础价格 ,
 	billingCycle: string = null;// 计费周期，类型是数字，不要传入string 类型 ,

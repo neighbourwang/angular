@@ -1,5 +1,6 @@
 import {ProductItem, OrderProductItem } from './'
 
+//订单
 export class OrderItem{
   backendApprover:string = null; //后台审批人 ,
   billingCycle:string = null; //购买时长 ,

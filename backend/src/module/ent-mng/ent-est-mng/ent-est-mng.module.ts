@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonComponentModule } from '../../../architecture';
 
 // ent-est-mng
-import { EntEstCreStep04Component, EntEstMngComponent,  EntEstCreComponent, EntEstCreStep01Component } from './component';
+import { EntEstMngComponent,  EntEstCreComponent} from './component';
 // Routing
 import { EntEstMngRouting } from './ent-est-mng.routing';
 import { EntEstSetProdComponent } from './component/ent-est-setProd.component';
@@ -16,8 +16,6 @@ import { EntEstCheckComponent } from './component/ent-est-check.component';
     ],
     declarations: [
         EntEstMngComponent
-        ,EntEstCreStep01Component
-        ,EntEstCreStep04Component
         ,EntEstCreComponent,
         EntEstSetProdComponent,
         EntEstCheckComponent
