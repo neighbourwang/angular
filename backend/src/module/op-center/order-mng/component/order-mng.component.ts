@@ -44,19 +44,7 @@ export class OrderMngComponent implements OnInit{
 
 	}
 	ngOnInit(){
-		this.loadAdmin()
-		.then(success=>{
-			this.loadDepartment();
-		}, err=>{
-			this.showMsg(err);
-		})
-		this.loadProductType();
-		this.loadPlatform()
-		.then(success=>{
-			this.loadSubregion();
-		}, err=>{
-			this.showMsg(err);
-		});
+	
 	}
 
 	loadAdmin():Promise<any>{
