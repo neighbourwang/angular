@@ -83,39 +83,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="page-second-title">关联订单：订单编号：*********</div>
-		<div class="table-container _margin">
-			<table class="table">
-				<thead>	
-					<tr class="form-control-title">
-						<th>产品名称</th>
-						<th>计费模式</th>
-						<th>购买周期</th>
-						<th>数量</th>
-						<th>一次性费用</th>
-						<th>周期费用</th>
-						<th>产品类型</th>
-						<th>状态</th>
-						<th>创建时间</th>
-						<th>到期时间</th>
-					</tr>			
-				</thead>
-				<tbody>
-					<tr>
-						<td>OS管理服务</td>
-						<td>包年包月</td>
-						<td>99年</td>
-						<td>1台</td>
-						<td>0元</td>
-						<td>￥5</td>
-						<td>OS服务</td>
-						<td class="validateInfo">成功</td>
-						<td>2016.10.1 10:23</td>
-						<td>2009.10.1 10:23</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+<!-- 		关联订单 -->
 		<div class="page-second-title" *ngFor="let orderItem of __orderDetail.FirstItem.relatedOrder">关联订单：订单编号：{{orderItem.id}}</div>
 			<div class="table-container ">
 			<table class="table">
