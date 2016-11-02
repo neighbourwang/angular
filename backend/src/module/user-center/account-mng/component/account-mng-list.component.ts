@@ -45,6 +45,8 @@ export class AccountMngComponent implements OnInit{
         console.log(this.authenticationSource);
         if(this.authenticationSource == 1){
             this.router.navigate(['/user-center/account-mng/account-mng-cr-local/']);
+        }else{
+            this.router.navigate(['/user-center/account-mng/account-mng-cr-ad'])
         }
         
     }

@@ -3,13 +3,15 @@
  */
 //新建产品model
 class zone{
-    "name": string;
-    "skuId": string
+    "skuId": string;
+    "storageId": string;
+    "storageName": string;
+    "zoneName": string
 }
 class plateform {
-    "id": string;
-    "name": string;
-    "zones": Array<zone>;
+     "platformId": string;
+      "platformName": string;
+      "zoneList": Array<zone>
 }
 class enterprise {
     "id": string;
@@ -17,7 +19,6 @@ class enterprise {
     "selected" : boolean;
     "code" :string;
 }
-
 export class Product {
     "basicCyclePrice": 0;
     "billingCycle": string;
@@ -29,7 +30,8 @@ export class Product {
     "productPlatformReqs": Array<plateform>;
     "serviceId": "string";
     "unitPrice": 0;
-    isSelected: boolean;
+    "isSelected": boolean;
+    "desc":string;
     constructor() {
         this.productEnterpiseReqs = Array<enterprise>();
         this.productPlatformReqs=Array<plateform>();

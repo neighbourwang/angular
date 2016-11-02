@@ -4,7 +4,7 @@
 import { Component, ViewChild, OnInit, OnChanges, SimpleChange } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, ValidationService, NoticeComponent, ConfirmComponent, CountBarComponent } from '../../../../architecture';
+import { LayoutService, ValidationService, NoticeComponent, CountBarComponent } from '../../../../architecture';
 
 // service;
 import { ProdDirDetailService } from '../../prod-dir-mng/service/prod-dir-detail.service';
@@ -30,6 +30,9 @@ export class ProdCreComponent implements OnInit, OnChanges {
         private PostProduct:PostProduct
     ) { }
 
+    @ViewChild('notice')
+    notice: NoticeComponent;
+
     enterpriseList = new Array();
     prodDirList = new Array();
     prodDir = new ProductDir();
@@ -54,15 +57,13 @@ export class ProdCreComponent implements OnInit, OnChanges {
             // if (response && 100 == response.resultCode) {
             this.prodDirList = response.resultContent;
             this.prodDirId=response.resultContent[0].id;
+            this.product.serviceId=response.resultContent[0].id;
             // } else {
             this.getProdDirDetail(this.prodDirId);    
             // }
         }).catch(err => {
             console.error(err)
-        })
-
-        this.product.billingType="1";
-        
+        })       
     }
     //获取产品目录详情
     getProdDirDetail(id) {
@@ -82,6 +83,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
         console.log(this.prodDirId);
         setTimeout(()=>{
             console.log(this.prodDirId);
+            this.product.serviceId==this.prodDirId;
             this.getProdDirDetail(this.prodDirId);
         },100);
         
@@ -108,45 +110,28 @@ export class ProdCreComponent implements OnInit, OnChanges {
                     // console.log(zone.storageList);
                 }   
         }
-        // this.prodDir.platformList = this._platformlist.filter(function (ele) {
-        //     for (let zone of ele.zoneList) {
-        //         if (zone.selected == true) {
-        //             return ele;
-        //         }
-        //     }
-        // })
+        this.product.productPlatformReqs = this.prodDir.platformInfo.filter(function (ele) {
+            for (let zone of ele.zoneList) {
+                if (zone.selected == true) {
+                    return ele;
+                }
+            }
+        })
+        console.log(this.product.productPlatformReqs);
     }
     //选择平台可用区
     selectZone(idx, idxx) {
         console.log(idx,idxx);
         console.log(this.prodDir.platformInfo);
         this.prodDir.platformInfo[idx].zoneList[idxx].selected = !this.prodDir.platformInfo[idx].zoneList[idxx].selected;        
-        // this.product.productPlatformReqs= 
-        //  let list=this.prodDir.platformInfo.filter(function (ele) {
-        //     for (let zone of ele.zoneList) {                
-        //         if (zone.selected == true) {
-        //             let returnPlatform:{
-        //                 id:string,
-        //                 name:string,
-        //                 zones:[
-        //                     {
-        //                         skuId:string,
-        //                         name:string
-        //                     }
-        //                 ]
-        //             };
-        //             // returnPlatform.zones=[];
-        //             returnPlatform.id= ele.platformId,
-        //             returnPlatform.name= ele.platformName,
-        //             returnPlatform.zones.push({
-        //                 skuId:zone.skuId,
-        //                 name:zone.zoneName
-        //             })
-        //             return returnPlatform;
-        //         }
-        //     }
-        // })
-        // console.log(list);
+        this.product.productPlatformReqs = this.prodDir.platformInfo.filter(function (ele) {
+            for (let zone of ele.zoneList) {
+                if (zone.selected == true) {
+                    return ele;
+                }
+            }
+        })
+        console.log(this.product.productPlatformReqs);
     }
 
 
@@ -157,18 +142,42 @@ export class ProdCreComponent implements OnInit, OnChanges {
         this.router.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
     }
 
-    onSubmit() {
-        console.log(this.product);
-        this.PostProduct.postProduct(this.product).then(response => {
-            console.log('产品', response);
-            if (response && 100 == response.resultCode) {
-                this.router.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
-            } else {
+    valid(){
+        
 
-            }
-        }).catch(err => {
-            console.error(err)
-        })
+    }
+
+
+    onSubmit() {
+        console.log(this.product);        
+        if(!this.product.name||this.product.name.trim()==""){
+            this.notice.open('操作错误', '请输入产品名称');
+            return;
+        }
+        if (!this.product.billingType) {
+            this.notice.open('操作错误', '请选择计费模式');
+            return;
+        }
+        if (!this.product.billingCycle) {
+            this.notice.open('操作错误', '请选择计费周期');
+            return;
+        }
+        if (this.product.productPlatformReqs.length < 1) {
+            this.notice.open('操作错误', '请选择可用平台');
+            return;
+        }
+
+        console.log("dd");
+        // this.PostProduct.postProduct(this.product).then(response => {
+        //     console.log('产品', response);
+        //     if (response && 100 == response.resultCode) {
+        //         this.router.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
+        //     } else {
+
+        //     }
+        // }).catch(err => {
+        //     console.error(err)
+        // })
     }
     ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
         for (let key in changes) {
@@ -183,8 +192,5 @@ export class ProdCreComponent implements OnInit, OnChanges {
         console.log(num);
         this.product[num]=e;
     }
-
-    postProd() {
-
-    }
+    
 }

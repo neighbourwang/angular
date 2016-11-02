@@ -1,4 +1,4 @@
-<div class="page-content-header icon-content-header-platform-manage">创建产品目录: 云主机服务</div>
+<div class="page-content-header icon-content-header-platform-manage">创建产品目录: 云硬盘服务</div>
 <div class="page-content fix-page-content">
 	<div class="row" style="padding-top: 30px;">
 		<div class="col-md-12">
@@ -12,54 +12,29 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品规格:</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>初始大小:</div>
 					<div class="col-sm-4">
-						<div class="row row-line-height">
-							<div class="col-sm-3 font-gray">cpu</div>
-							<div class="col-sm-4">
-								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
-							</div>
-							<div class="col-sm-3 font-gray">
-								核(vCPU)
-							</div>
-						</div>
+						<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
+                        <span style="float:left">GB</span>
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"></div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>步长:</div>
 					<div class="col-sm-4">
-						<div class="row row-line-height">
-							<div class="col-sm-3 font-gray">内存</div>
-							<div class="col-sm-4">
-								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'mem')"></count-bar>
-							</div>
-							<div class="col-sm-3 font-gray">
-								兆(MB)
-							</div>
-						</div>
+						<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>GB
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"></div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>最大</div>
 					<div class="col-sm-4">
-						<div class="row ">
-							<div class="col-sm-3 font-gray">启动盘大小</div>
-							<div class="col-sm-4">
-								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'startupDisk')"></count-bar>
-							</div>
-							<div class="col-sm-3 font-gray">
-								GB
-							</div>
-						</div>
+						<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
 					</div>
 				</div>
 			</div>
-
-
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div for="firstname" class="col-sm-4 form-control-title">描述：</div>
@@ -70,7 +45,7 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div for="firstname" class="col-sm-4 form-control-title" (click)='selectPlateForm()' style="cursor:pointer;">点击选择可用平台:</div>
+					<div for="firstname" class="col-sm-4 form-control-title" (click)='selectPlateForm()' style="cursor:pointer;">选择可用平台:</div>
 					<div class="col-sm-4">
 					</div>
 				</div>

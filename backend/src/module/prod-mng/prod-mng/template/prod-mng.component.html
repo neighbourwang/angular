@@ -58,7 +58,7 @@
 				<tr>
 					<th class="check-box-col"><input type="checkbox" (click)="switchSelectAll();" class="fox-cloud-checkbox" />全选</th>
 					<th>产品名称</th>
-					<th>产品目录类别</th>
+					<th>产品目录</th>
 					<th>产品类别</th>
 					<th>产品规格</th>
 					<th>计费周期</th>
@@ -72,12 +72,12 @@
 				<tr *ngFor="let item of productList; let idx = index;">
 					<td><input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)"
 						/></td>
-					<td (click)="goDetail(item)" style="cursor: pointer">{{item.serviceName}}</td>
-					<td>{{item.name}}</td>
+					<td (click)="goDetail(item)" style="cursor: pointer">{{item.name}}</td>
 					<td>{{item.serviceName}}</td>
-					<td>{{item.serviceType}}</td>
-					<td>{{item.serviceSpecification}}</td>
+					<td>{{item.serviceType}}</td>					
+					<td>{{item.serviceSpecification}}</td>					
 					<td>{{item.billingCycle}}</td>
+					<td>{{item.recurringPrice}}</td>
 					<td>{{item.onetimePrice}}</td>
 					<td>
 						<span [ngSwitch]="item.status">

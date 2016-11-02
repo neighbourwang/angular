@@ -1,2 +1,172 @@
-<!--订单详情打开操作-->
-<button (click)="showDetail()">显示详情</button>
+<div class="OrderManage">	
+		<div class="page-content-header icon-order-manage" style="border-bottom: 3px solid  #01a982;margin: 10px 0px;padding: 0;">订单管理</div>
+	<div class="page-content">
+		<div class="table-container">
+			<div class="search-container">
+				<input type="text" class="form-control searchbox gray-searchbox" placeholder=""/>
+				<span class="glyphicon glyphicon-search searchbox-incon"></span>
+						
+				<button class=" form-control-title fox-cloud-button  fox-cloud-button-green left">重&nbsp;&nbsp;&nbsp;&nbsp;置</button>
+			</div>
+			<table class="table">
+				<tbody>
+					<tr>				
+						<td >
+						    <div class="left form-control-title">企&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业：</div>
+							<div class="dropdown left" >			
+								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								所有企业
+								<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+									<li class="hands"><a>HPE</a></li>
+									<li class="hands"><a>雀巢集团</a></li>
+									<li class="hands"><a>百盛集团</a></li>
+								</ul>
+							</div>
+						</td>
+						<td colspan="3"><div class="left form-control-title" >部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门:</div>
+							<div class="dropdown left">			
+								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								所有部门
+								<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+									<li class="hands"><a>商务部</a></li>
+									<li class="hands"><a>部门2</a></li>
+									<li class="hands"><a>部门3</a></li>
+								</ul>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td ><div class="left form-control-title">创建时间：</div>
+							<div class="dropdown left">			
+								<button class="btn btn-default" type="button">
+								2016-08-01						
+								</button>
+								
+							</div>
+						</td>
+						<td colspan="3"><div class="left form-control-title">到期时间：</div>
+								<div class="dropdown left">			
+								<button class="btn btn-default" type="button">
+								2016-08-30						
+								</button>
+								
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><div class="left form-control-title">订单状态：</div>
+							<div class="dropdown left">			
+								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								成功
+								<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+									<li class="hands"><a>HPE</a></li>
+								</ul>
+							</div>
+						</td>
+						<td ><div class="left form-control-title">产品类型：</div>
+							<div class="dropdown left">			
+								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								所有类型
+								<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+									<li class="hands"><a>HPE</a></li>
+								</ul>
+							</div>
+						</td>
+						<td ><div class="left form-control-title">区域：</div>
+							<div class="dropdown left">			
+								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								所有
+								<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+									<li class="hands"><a>HPE</a></li>
+								</ul>
+							</div>
+						</td>
+						<td ><div class="left form-control-title">可用区：</div>
+							<div class="dropdown left">			
+								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								所有
+								<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+									<li class="hands"><a>HPE</a></li>
+								</ul>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>	
+		</div>
+		<div class="page-second-title">当查询到29个订单需要审批，查询列表如下：</div>
+			<div class="table-container _margin">
+			<table class="table">
+				<thead style="background-color: #1CDEBC;">	
+					<tr class="form-control-title" >
+						<th class="order-title"> 产品名称</th>
+						<th>计费模式</th>
+						<th>购买周期</th>
+						<th>数量</th>
+						<th style="width: 150px;">一次性费用</th>
+						<th>周期费用</th>
+						<th>产品类型</th>
+						<th>状态</th>
+						<th>创建时间</th>
+						<th>到期时间</th>
+					</tr>			
+				</thead>
+			</table>
+
+			<table class="table _table">
+				<tr>
+					<td class="order-title">2016-10-05 订单号：23705375384884773</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><button class="fox-cloud-button  fox-cloud-button-green pull-right">续&nbsp;&nbsp;&nbsp;订</button></td>
+					<td><button class="fox-cloud-button  fox-cloud-button-green  pull-right"  (click)="showDetail()">详&nbsp;&nbsp;&nbsp;情</button></td>
+				</tr>
+				<tr>
+					<td >
+						<ul>
+							<li>区域：华北1</li>
+							<li>可用区：可用区B</li>
+							<li>实例规格：CPU 2核/内存4GB/启动盘/70G</li>
+							<li>IP地址：10.1.1.1（内部）<br>
+								192.168.1.1（外部）</li>
+							<li>操作系统：******</li>
+							<li>密码：已设置</li>
+							<li>实例名称：abcabc</li>
+						</ul>
+					</td>
+					<td>包年包月</td>
+					<td>99年</td>
+					<td>1台</td>
+					<td>0元</td>
+					<td>￥50/月</td>
+					<td>云主机</td>
+					<td>成功</td>
+					<td>2016.10.1<br>
+						10:23
+					</td>
+					<td>2099.10.1<br>
+				 		10:23
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+</div>	
