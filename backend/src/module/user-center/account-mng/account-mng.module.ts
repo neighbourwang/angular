@@ -5,6 +5,7 @@ import { CommonComponentModule } from '../../../architecture';
 //Components
 import { AccountMngComponent } from './component/account-mng-list.component';
 import { AccountMngCrLocal } from './component/account-mng-cr-local.component';
+import { AccountMngCrAd } from './component/account-mng-cr-ad.component';
 
 // Routing
 import { AccountMngRouting } from './account-mng.routing';
@@ -19,7 +20,8 @@ import { AccountMngService } from './service/account-mng-list.service';
     ],
     declarations: [
         AccountMngComponent,
-        AccountMngCrLocal
+        AccountMngCrLocal,
+        AccountMngCrAd
     ],
     exports: [
     ],
