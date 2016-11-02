@@ -1,4 +1,4 @@
-.btn,.form-control,.dropdown-menu,.input-group-addon, .modal-content,.nav-tabs>li>a {
+.btn,.form-control,.dropdown-menu,.input-group-addon, .modal-content,.nav-tabs>li>a, .popover {
     border-radius: 0!important;
 }
 
@@ -16,14 +16,32 @@
 	color: inherit;
 }
 /*tab样式*/
-
+ .popover {
+    max-width: 700px;
+}
 
 .modal-header {
 	background-color: @fa-color;
 }
 
 .modal-dialog {
-	width: 760px!important;
+	width: 760px;
+}
+
+.modal-notice {
+	.modal-footer {
+		border-top: none;
+		text-align: center;
+		padding-bottom: 40px;
+	}
+	.modal-dialog {
+		width: 600px;
+	}
+	.modal-body {
+	    padding: 50px 20px 40px;
+	    font-size: 16px;
+	    text-align: center;
+	}
 }
 
 .btn-default.active {
