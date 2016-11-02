@@ -7,7 +7,7 @@ import { ItemLoader, RestApi, RestApiCfg, LayoutService, PopupComponent, Confirm
 @Component({
 	selector: 'order-mng',
 	templateUrl: '../template/order-mng.component.html',
-	styleUrls: [],
+	styleUrls: ['../style/order-mng-list.less'],
 	providers: []}
 	)
 export class OrderMngComponent implements OnInit{
