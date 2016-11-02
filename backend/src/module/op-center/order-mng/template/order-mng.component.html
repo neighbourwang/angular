@@ -15,29 +15,24 @@
 					<tr>				
 						<td >
 						    <div class="left form-control-title">企&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业：</div>
-							<div class="dropdown left" >			
-								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-								所有企业
-								<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-									<li class="hands"><a>HPE</a></li>
-									<li class="hands"><a>雀巢集团</a></li>
-									<li class="hands"><a>百盛集团</a></li>
-								</ul>
+							
+							<div class="dropdown left">
+								<select class="form-control" [(ngModel)]="platformId">
+									<option class="hands">所有企业</option>
+									<option class="hands">HPE</option>
+									<option class="hands">雀巢集团</option>
+									<option class="hands">百盛集团</option>
+								</select>
 							</div>
 						</td>
 						<td colspan="3"><div class="left form-control-title" >部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门:</div>
-							<div class="dropdown left">			
-								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-								所有部门
-								<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-									<li class="hands"><a>商务部</a></li>
-									<li class="hands"><a>部门2</a></li>
-									<li class="hands"><a>部门3</a></li>
-								</ul>
+							<div class="dropdown left">
+								<select class="form-control" [(ngModel)]="platformId">
+									<option class="hands">所有部门</option>
+									<option class="hands">商务部</option>
+									<option class="hands">部门1</option>
+									<option class="hands">部门2</option>
+								</select>
 							</div>
 						</td>
 					</tr>
@@ -61,47 +56,35 @@
 					</tr>
 					<tr>
 						<td><div class="left form-control-title">订单状态：</div>
-							<div class="dropdown left">			
-								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-								成功
-								<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-									<li class="hands"><a>HPE</a></li>
-								</ul>
+							<div class="dropdown left">
+								<select class="form-control" [(ngModel)]="platformId">
+									<option class="hands">成功</option>
+									<option class="hands">失败</option>
+								</select>
 							</div>
 						</td>
 						<td ><div class="left form-control-title">产品类型：</div>
-							<div class="dropdown left">			
-								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-								所有类型
-								<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-									<li class="hands"><a>HPE</a></li>
-								</ul>
+							<div class="dropdown left">
+								<select class="form-control" [(ngModel)]="platformId">
+									<option class="hands">所有类型</option>
+									<option class="hands">HPE</option>
+									<option class="hands">雀巢集团</option>
+									<option class="hands">百盛集团</option>
+								</select>
 							</div>
 						</td>
 						<td ><div class="left form-control-title">区域：</div>
-							<div class="dropdown left">			
-								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-								所有
-								<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-									<li class="hands"><a>HPE</a></li>
-								</ul>
+							<div class="dropdown left">
+								<select class="form-control" [(ngModel)]="platformId">
+									<option class="hands">所有</option>
+								</select>
 							</div>
 						</td>
 						<td ><div class="left form-control-title">可用区：</div>
-							<div class="dropdown left">			
-								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-								所有
-								<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-									<li class="hands"><a>HPE</a></li>
-								</ul>
+							<div class="dropdown left">
+								<select class="form-control" [(ngModel)]="platformId">
+									<option class="hands">所有</option>
+								</select>
 							</div>
 						</td>
 					</tr>
