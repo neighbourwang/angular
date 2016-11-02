@@ -8,4 +8,5 @@
 
 # 公共组件
 
-1. ​
+1. ![img](https://github.hpe.com/FoxCloud/html-css/blob/feature_less/lib/readme-img/page-component.png?raw=true)
+

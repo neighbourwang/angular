@@ -22,8 +22,7 @@ export class OrderMngDetailComponent implements OnInit {
     private restApi:RestApi
   ) {
     //配置订单详情加载信息
-    this._orderDetail = new ItemLoader<OrderDetail>(false, "订单详情", this.restApiCfg, this.restApi);
-    this._orderDetail.Api = this.restApiCfg.getRestApi("op-center.order-mng.order-detail.get");
+    this._orderDetail = new ItemLoader<OrderDetail>(false, "订单详情", "op-center.order-mng.order-detail.get", this.restApiCfg, this.restApi);
     this._orderDetail.MapFunc = (source:Array<any>, target:Array<OrderDetail>):void=>{
 
     };
@@ -36,7 +35,7 @@ export class OrderMngDetailComponent implements OnInit {
     }
   }
 
-   showMsg(msg: string)
+  showMsg(msg: string)
   {
     this._notice.open("系统提示", msg);
   }

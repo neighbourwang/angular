@@ -11,8 +11,7 @@ export class DicLoader<T>{
 		,private _owner:string
 		,private _field:string
 		){
-		this._items = new ItemLoader<SystemDictionary>(false, "数据字典", restApiCfg, restApi);
-		this._items.Api = this.restApiCfg.getRestApi("sysdic.owner.field");
+		this._items = new ItemLoader<SystemDictionary>(false, "数据字典", "sysdic.owner.field", restApiCfg, restApi);
 	}
 
 	get Items():Array<SystemDictionary>{

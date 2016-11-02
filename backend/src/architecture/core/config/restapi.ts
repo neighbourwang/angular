@@ -514,6 +514,34 @@ export let RestApis: RestApiModel[] = [
        "method": "GET",
        "url": "adminui/authsec/backend/order/{orderId}"
    },
+   {
+       "desc": "企业列表",
+       "id": "op-center.order-mng.ent-list.get",
+       "method": "GET",
+       "url": "adminui/authsec/enterprise/user/{userId}"
+   },
+   {
+       "desc": "部门列表",
+       "id": "op-center.order-mng.department-list.get",
+       "method": "GET",
+       "url": "adminui/authsec/enterprise/{enterpriseId}/department"
+   },{
+       "desc": "产品类型",
+       "id": "op-center.order-mng.product-type-list.get",
+       "method": "GET",
+       "url": "adminui/authsec/services/page/{_page}/size/{_size}"
+   },{
+       "desc": "区域列表",
+       "id": "op-center.order-mng.region-list.get",
+       "method": "GET",
+       "url": "adminui/authsec/platforms/status/activation"
+   },{
+       "desc": "可用区列表",
+       "id": "op-center.order-mng.avail-region-list.get",
+       "method": "GET",
+       "url": "adminui/authsec/platform/{_id}/zone"
+   },
+
    //<!--后台-运营中心-订单管理-->
    // 
     //产品管理

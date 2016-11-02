@@ -1,5 +1,6 @@
 import {OrderItem, OrderProductItem} from './'
 
+//订单详情
 export class OrderDetail{
 	orderItem:OrderItem = new OrderItem();
 	productDetail:Array<OrderProductItem> = [];
