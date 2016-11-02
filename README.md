@@ -29,7 +29,7 @@
 |    警告框组件    |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/backend/src/architecture/components/dialog#警告框组件) |
 | 整屏loading组件 |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/blob/master/backend/src/architecture/components/spinner/README.md) |
 |   上传文件组件    | cao.zong-ying | 准备开发 |                    暂无                    |
-|  加减控制数字组件   | wang.yao-yao  |  完成  |                    暂无                    |
+|  加减控制数字组件   | wang.yao-yao  | 正在转移 |                    暂无                    |
 |   日期选择组件    |  zi.qing-ren  | 准备开发 |                    暂无                    |
 
 ### 

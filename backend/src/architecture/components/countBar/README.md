@@ -2,11 +2,11 @@
 
 共有六个属性：
 
-step : number   步长
-max : number    最大值
-min : number    最小值
-disabled : boolean  是否禁止
-value : number   输入的值
+step : number   步长  
+max : number    最大值  
+min : number    最小值    
+disabled : boolean  是否禁止  
+value : number   输入的值  
 
 
 ### 例子
