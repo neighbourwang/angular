@@ -1,31 +1,30 @@
-# FoxcloudPortal
+# 加减控制数字组件
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.15.
+共有六个属性：
 
-## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+step : number   步长
+max : number    最大值
+min : number    最小值
+disabled : boolean  是否禁止
+value : number   输入的值
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class`.
+### 例子
 
-## Build
+html：
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+```html
+<count-bar 
+            [default]=0 
+            [step]=100 
+            [max]=1025 
+            [min]=0 
+            [disabled]=false 
+            [value]=0></count-bar>
+```
 
-## Running unit tests
+javascript：
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```javascript
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/). 
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Deploying to Github Pages
-
-Run `ng github-pages:deploy` to deploy to Github Pages.
-
-## Further help
-
-To get more help on the `angular-cli` use `ng --help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```
