@@ -1,5 +1,5 @@
-﻿import { Injectable } from '@angular/core';
-import { RestApiCfg, RestApi, SystemDictionary, LayoutService } from '../../';
+﻿import { Injectable } from "@angular/core";
+import { RestApiCfg, RestApi, SystemDictionary, LayoutService } from "../../";
 
 @Injectable()
 export class SystemDictionaryService {
@@ -7,27 +7,37 @@ export class SystemDictionaryService {
         private restApiCfg: RestApiCfg,
         private restApi: RestApi,
         private layoutService: LayoutService
-    ) { }
+    ) {
+    }
 
     sysDic(caller: Object, callback: Function, showLoading: boolean = true) {
+        const key = `dic_all`;
+        let systemDictionarys: Array<SystemDictionary>;
+        const systemDictionarysStr = window.sessionStorage.getItem(key);
+        if (systemDictionarysStr) {
+            systemDictionarys = JSON.parse(systemDictionarysStr);
+            new Promise(resovle => setTimeout(resovle, 10)).then(() => {
+                callback.call(caller, true, systemDictionarys);
+            });
+        }
         if (showLoading) {
             this.layoutService.show();
         }
-        let api = this.restApiCfg.getRestApi("sysdic");
+        const api = this.restApiCfg.getRestApi("sysdic");
 
-        let promise = this.restApi.request(api.method, api.url, undefined, undefined, undefined);
+        const promise = this.restApi.request(api.method, api.url, undefined, undefined, undefined);
 
         promise.then(
             response => {
                 if (showLoading) {
                     this.layoutService.hide();
                 }
-                let systemDictionarys: Array<SystemDictionary> = new Array<SystemDictionary>();
+                const systemDictionarys = new Array<SystemDictionary>();
 
                 if (response.resultCode && 100 == response.resultCode && response.resultContent) {
 
                     for (let content of response.resultContent) {
-                        let systemDictionary: SystemDictionary = new SystemDictionary();
+                        const systemDictionary = new SystemDictionary();
 
                         systemDictionary.owner = content.owner;
                         systemDictionary.field = content.field;
@@ -40,10 +50,13 @@ export class SystemDictionaryService {
 
 
                 }
-
+                if (systemDictionarys.length > 0) {
+                    window.sessionStorage.setItem(key, JSON.stringify(systemDictionarys));
+                }
                 callback.call(caller, true, systemDictionarys);
             }
-        ).catch(
+        )
+            .catch(
             reason => {
                 if (showLoading) {
                     this.layoutService.hide();
@@ -54,23 +67,38 @@ export class SystemDictionaryService {
     }
 
     sysDicO(caller: Object, callback: Function, owner: String, showLoading: boolean = true) {
+
+        const key = `dic_o_${owner}`;
+        let systemDictionarys: Array<SystemDictionary>;
+        const systemDictionarysStr = window.sessionStorage.getItem(key);
+        if (systemDictionarysStr) {
+            systemDictionarys = JSON.parse(systemDictionarysStr);
+            new Promise(resovle => setTimeout(resovle, 10)).then(() => {
+                callback.call(caller, true, systemDictionarys);
+            });
+        }
         if (showLoading) {
             this.layoutService.show();
         }
-        let api = this.restApiCfg.getRestApi("sysdic.owner");
 
-        let promise = this.restApi.request(api.method, api.url, [{ key: "_owner", value: owner }], undefined, undefined);
+        const api = this.restApiCfg.getRestApi("sysdic.owner");
+
+        const promise = this.restApi.request(api.method,
+            api.url,
+            [{ key: "_owner", value: owner }],
+            undefined,
+            undefined);
 
         promise.then(
             response => {
-                let systemDictionarys: Array<SystemDictionary> = new Array<SystemDictionary>();
+                systemDictionarys = new Array<SystemDictionary>();
                 if (showLoading) {
                     this.layoutService.hide();
                 }
                 if (response.resultCode && 100 == response.resultCode && response.resultContent) {
 
                     for (let content of response.resultContent) {
-                        let systemDictionary: SystemDictionary = new SystemDictionary();
+                        const systemDictionary = new SystemDictionary();
 
                         systemDictionary.owner = content.owner;
                         systemDictionary.field = content.field;
@@ -83,10 +111,13 @@ export class SystemDictionaryService {
 
 
                 }
-
+                if (systemDictionarys.length > 0) {
+                    window.sessionStorage.setItem(key, JSON.stringify(systemDictionarys));
+                }
                 callback.call(caller, true, systemDictionarys);
             }
-        ).catch(
+        )
+            .catch(
             reason => {
                 if (showLoading) {
                     this.layoutService.hide();
@@ -97,24 +128,38 @@ export class SystemDictionaryService {
     }
 
     sysDicOF(caller: Object, callback: Function, owner: String, field: String, showLoading: boolean = true) {
+
+        const key = `dic_o_${owner}_f_${field}`;
+        let systemDictionarys: Array<SystemDictionary>;
+        const systemDictionarysStr = window.sessionStorage.getItem(key);
+        if (systemDictionarysStr) {
+            systemDictionarys = JSON.parse(systemDictionarysStr);
+            new Promise(resovle => setTimeout(resovle, 10)).then(() => {
+                callback.call(caller, true, systemDictionarys);
+            });
+        }
         if (showLoading) {
             this.layoutService.show();
         }
-        let api = this.restApiCfg.getRestApi("sysdic.owner.field");
+        const api = this.restApiCfg.getRestApi("sysdic.owner.field");
 
-        let promise = this.restApi.request(api.method, api.url, [{ key: "_owner", value: owner }, { key: "_field", value: field }], undefined, undefined);
+        const promise = this.restApi.request(api.method,
+            api.url,
+            [{ key: "_owner", value: owner }, { key: "_field", value: field }],
+            undefined,
+            undefined);
 
         promise.then(
             response => {
                 if (showLoading) {
                     this.layoutService.hide();
                 }
-                let systemDictionarys: Array<SystemDictionary> = new Array<SystemDictionary>();
+                systemDictionarys = new Array<SystemDictionary>();
 
                 if (response.resultCode && 100 == response.resultCode && response.resultContent) {
 
                     for (let content of response.resultContent) {
-                        let systemDictionary: SystemDictionary = new SystemDictionary();
+                        const systemDictionary = new SystemDictionary();
 
                         systemDictionary.owner = content.owner;
                         systemDictionary.field = content.field;
@@ -127,10 +172,13 @@ export class SystemDictionaryService {
 
 
                 }
-
+                if (systemDictionarys.length > 0) {
+                    window.sessionStorage.setItem(key, JSON.stringify(systemDictionarys));
+                }
                 callback.call(caller, true, systemDictionarys);
             }
-        ).catch(
+        )
+            .catch(
             reason => {
                 if (showLoading) {
                     this.layoutService.hide();
@@ -141,24 +189,34 @@ export class SystemDictionaryService {
     }
 
     sysDicOFC(caller: Object, callback: Function, owner: String, field: String, code: String, showLoading: boolean = true) {
+        const key = `dic_o_${owner}_f_${field}_code${code}`;
+        let systemDictionarys: Array<SystemDictionary>;
+        const systemDictionarysStr = window.sessionStorage.getItem(key);
+        if (systemDictionarysStr) {
+            systemDictionarys = JSON.parse(systemDictionarysStr);
+            new Promise(resovle => setTimeout(resovle, 10)).then(() => {
+                callback.call(caller, true, systemDictionarys);
+            });
+        }
         if (showLoading) {
             this.layoutService.show();
         }
-        let api = this.restApiCfg.getRestApi("sysdic.owner.field.code");
+        const api = this.restApiCfg.getRestApi("sysdic.owner.field.code");
 
-        let promise = this.restApi.request(api.method, api.url, [{ key: "_owner", value: owner }, { key: "_field", value: field }, { key: "_code", value: code }], undefined, undefined);
+        const promise = this.restApi.request(api.method,
+            api.url,
+            [{ key: "_owner", value: owner }, { key: "_field", value: field }, { key: "_code", value: code }],
+            undefined,
+            undefined);
 
         promise.then(
             response => {
                 if (showLoading) {
                     this.layoutService.hide();
                 }
-                let systemDictionarys: Array<SystemDictionary> = new Array<SystemDictionary>();
-
                 if (response.resultCode && 100 == response.resultCode && response.resultContent) {
-                    let content = response.resultContent
-
-                    let systemDictionary: SystemDictionary = new SystemDictionary();
+                    const content = response.resultContent;
+                    const systemDictionary = new SystemDictionary();
 
                     systemDictionary.owner = content.owner;
                     systemDictionary.field = content.field;
@@ -170,10 +228,13 @@ export class SystemDictionaryService {
 
 
                 }
-
+                if (systemDictionarys.length > 0) {
+                    window.sessionStorage.setItem(key, JSON.stringify(systemDictionarys));
+                }
                 callback.call(caller, true, systemDictionarys);
             }
-        ).catch(
+        )
+            .catch(
             reason => {
                 if (showLoading) {
                     this.layoutService.hide();
