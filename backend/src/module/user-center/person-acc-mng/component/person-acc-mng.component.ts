@@ -19,7 +19,7 @@ export class PersonAccMngComponent implements OnInit {
         // private PostProduct:PostProduct
     ) { }
     @ViewChild('editPassWord')
-    editPassWord: PopupComponent;
+    // editPassWord: PopupComponent;
     // @ViewChild('notice')
     // notice: NoticeComponent;
 

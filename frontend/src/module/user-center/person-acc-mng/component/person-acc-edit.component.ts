@@ -1,7 +1,7 @@
-import { Component, ViewChild, OnInit, SimpleChange } from '@angular/core';
+import { Component, ViewChild, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, ValidationService, NoticeComponent, CountBarComponent } from '../../../../architecture';
+import { LayoutService, ValidationService } from '../../../../architecture';
 
 @Component({
     selector: 'person-acc-edit',
@@ -27,7 +27,7 @@ export class PersonAccEditComponent implements OnInit {
     // prodDir = new ProductDir();
     // prodDirId:string;
     // product=new Product();   
-    ngOnInit() {}
+    ngOnInit(){}
     cancel(){
         this.router.navigate(['user-center/person-acc-mng/person-acc-mng']);
     }
