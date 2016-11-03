@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
-import { AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import { OrderItem, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 
 
 @Component({
@@ -20,6 +20,7 @@ export class OrderMngComponent implements OnInit{
 	private _platformLoader:ItemLoader<Platform> = null;
 	private _subregionLoader:ItemLoader<SubRegion> = null;
 	private _orderStatus:DicLoader = null;
+	private _orderLoader:ItemLoader<OrderItem> = null;
 
 	private _param:OrderMngParam = new OrderMngParam();
 
@@ -47,6 +48,11 @@ export class OrderMngComponent implements OnInit{
 		//配置订单状态
 		this._orderStatus = new DicLoader(this.restApiCfg, this.restApi, "ORDER", "STATUS");
 
+		//配置订单加载
+		this._orderLoader = new ItemLoader<OrderItem>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
+		this._orderLoader.MapFunc = (soure:Array<any>, target:Array<OrderItem>):void=>{
+			console.log('orderloader source:', soure);
+		};
 	}
 	ngOnInit(){
 		this._orderStatus.Go();
@@ -117,16 +123,11 @@ export class OrderMngComponent implements OnInit{
 		this._notice.open("系统提示", msg);
 	}
 
-	showDetail(){
-		let orderId:string = "1";
-		this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderId}`);
+	showDetail(orderItemId:string){
+		this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderItemId}`);
 	}
+	
+	renew(orderId:string){
 
-	resetParam(){
-		this._param.createTime = null;
-		this._param.enterpriseId = "0";
-		this._param.expireTime = null;
-		this._param.organization = "0";
-		this._param.region = "0";
 	}
 }

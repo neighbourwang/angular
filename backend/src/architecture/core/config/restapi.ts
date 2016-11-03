@@ -513,6 +513,11 @@ export let RestApis: RestApiModel[] = [
        "id": "op-center.order-mng.order-detail.get",
        "method": "GET",
        "url": "adminui/authsec/backend/order/{orderId}"
+   },{
+       "desc": "获取订单列表",
+       "id": "op-center.order-mng.order-list.post",
+       "method": "POST",
+       "url": "adminui/authsec/backend/order/search/paging"
    },
    {
        "desc": "企业列表",
