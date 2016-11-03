@@ -5,7 +5,7 @@
         <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
     </div>
 
-    <button class="btn button-confirm float-right">创建帐号</button>
+    <button class="btn button-confirm float-right" data-toggle="modal" data-target="#crModel">创建帐号</button>
 </div>
 
 <table class="table table-hover mgb20">
@@ -36,3 +36,23 @@
         </td>
 	</tr>
 </tbody></table>
+
+
+<div class="modal fade" id="crModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title" id="myModalLabel">创建帐号</h4>
+	  </div>
+	  <div class="modal-body"> 
+          <!--<account-mng-cr-local></account-mng-cr-local>-->
+          <account-mng-cr-ad #crAd></account-mng-cr-ad>
+      </div>
+	  <div class="modal-footer">
+		<button type="button" class="btn button-confirm button-size-big" (click)="save()">确定</button>
+		<button type="button" class="btn btn-default button-size-big" data-dismiss="modal">取消</button>
+	  </div>
+	</div>
+  </div>
+</div>

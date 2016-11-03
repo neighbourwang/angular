@@ -8,6 +8,8 @@ import { AccountMngRouting } from './account-mng.routing';
 
 //component 
 import { AccountMngListComponent } from './component/account-mng-list.component'; 
+import { AccountMngCrLocalComponent } from './component/account-mng-cr-local.component';
+import { AccountMngCrAdComponent } from './component/account-mng-cr-ad.component';
 
 //service
 import { AccountMngService } from './service/account-mng.service';
@@ -19,7 +21,9 @@ import { AccountMngService } from './service/account-mng.service';
         AccountMngRouting
     ],
     declarations: [
-        AccountMngListComponent
+        AccountMngListComponent,
+        AccountMngCrLocalComponent,
+        AccountMngCrAdComponent
     ],
     exports: [
     ],
