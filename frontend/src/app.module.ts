@@ -7,7 +7,10 @@ import { SiteComponent } from './architecture/components/site/component/site.com
 
 //vm-instance
 import { CloudHostService } from'./module/cloud-host-service/cloud-host-service.module';
-
+//用户中心
+import { UserCenterModule } from'./module/user-center/user-center.module';
+//费用中心
+import { OrderMngModule } from './module/op-center/order-mng/order-mng.module';
 
 import { routing } from './app.routing';
 
@@ -17,6 +20,8 @@ import { routing } from './app.routing';
     CoreModule,
     CommonComponentModule,
     CloudHostService,
+    UserCenterModule,
+    OrderMngModule,
     routing
   ],
   declarations: [ MenuComponent, SiteComponent ],
