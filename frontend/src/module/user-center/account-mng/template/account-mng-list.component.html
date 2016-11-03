@@ -1,0 +1,58 @@
+<h1 class="page-content-header mgb20">帐号管理</h1>
+<div class="mgb20" style="overflow : hidden">
+    <div class="input-group col-md-2 float-left">
+        <input class="form-control" placeholder="输入帐号信息快速搜索" type="text">
+        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+    </div>
+
+    <button class="btn button-confirm float-right" data-toggle="modal" data-target="#crModel">创建帐号</button>
+</div>
+
+<table class="table table-hover mgb20">
+	<tbody><tr>
+		<th class="text-center" style="width : 5%">选择</th>
+		<th class="text-center" style="width : 5%">姓名</th>
+		<th class="text-center" style="width : 15%">帐号</th>
+		<th class="text-center" style="width : 10%">联系电话</th>
+		<th class="text-center" style="width : 10%">所属部门</th> 
+		<th class="text-center" style="width : 10%">角色</th>
+		<th class="text-center" style="width : 10%">状态</th>
+		<th class="text-center" style="width : 25%">操作</th>
+	</tr>
+	<tr>
+		<td class="text-center"><input name="host-list" type="radio"></td>
+		<td class="text-center active">官话</td>
+		<td class="text-center">jun-jie.zhang@hpe.com</td>
+		<td class="text-center">13671xxxxxx</td>
+		<td class="text-center">销售</td> 
+		<td class="text-center">部门负责人</td>
+		<td class="text-center">启用</td>
+		<td class="text-center">
+            <span class="glyphicon glyphicon-edit font-green" style="margin-right : 10px "></span>
+            <span class="glyphicon glyphicon-lock font-green" style="margin-right : 10px"></span>
+            <span class="glyphicon glyphicon-ok-circle font-green" style="margin-right : 10px"></span>
+            <span class="glyphicon glyphicon-ban-circle font-green" style="margin-right : 10px"></span>
+            <span class="glyphicon glyphicon-trash font-green"></span>
+        </td>
+	</tr>
+</tbody></table>
+
+
+<div class="modal fade" id="crModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title" id="myModalLabel">创建帐号</h4>
+	  </div>
+	  <div class="modal-body"> 
+          <!--<account-mng-cr-local></account-mng-cr-local>-->
+          <account-mng-cr-ad #crAd></account-mng-cr-ad>
+      </div>
+	  <div class="modal-footer">
+		<button type="button" class="btn button-confirm button-size-big" (click)="save()">确定</button>
+		<button type="button" class="btn btn-default button-size-big" data-dismiss="modal">取消</button>
+	  </div>
+	</div>
+  </div>
+</div>
