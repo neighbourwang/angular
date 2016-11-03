@@ -5,6 +5,7 @@ import { CommonComponentModule } from '../../../architecture';
 
 // component 
 import { OrgMngListComponent } from './component/org-mng-list.component';
+import { OrgMngCrComponent } from './component/org-mng-cr.component'; 
 
 //service 
 import { OrgMngService } from './service/org-mng.service';
@@ -20,7 +21,8 @@ import { OrgMngRouting } from './org-mng.routing';
         OrgMngRouting
     ],
     declarations: [
-        OrgMngListComponent
+        OrgMngListComponent,
+        OrgMngCrComponent
     ],
     exports: [
     ],

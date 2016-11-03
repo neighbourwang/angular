@@ -12,6 +12,15 @@ export class OrderMngParam{
 	status: string = null;//, optional): 订单状态，注意是数字，不是字符,4已删除的订单，1正常的订单 ,
 	userId: string = null;//, optional): 用户ID,在审批查询订单时使用 ,
 	zoneId: string = "0";//, optional): 可用区ID
+
+  reset(){
+    this.createTime = null;
+    this.enterpriseId = "0";
+    this.expireTime = null;
+    this.organization = "0";
+    this.region = "0";
+
+  }
 }
 /*
 OrderSearchCondtion {

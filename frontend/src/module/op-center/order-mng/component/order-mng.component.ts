@@ -26,6 +26,8 @@ export class OrderMngComponent implements OnInit{
 	ngOnInit(){
 	
 	}
-
+	showDetail(){
+		this.router.navigateByUrl('op-center/order-mng/order-mng-detail');
+	}
 	
 }
