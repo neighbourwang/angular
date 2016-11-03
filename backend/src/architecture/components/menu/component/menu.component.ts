@@ -109,14 +109,13 @@ const menu: Array<Object> = [
           "label": "账号管理",
           "isOpen": false,
           "isActive": false,
-          // "routing": "pf-mng2/cl-mng/cl-mng"
           "routing": "user-center/account-mng/account-mng-list"
       },
       {
           "label": "组织管理",
           "isOpen": false,
           "isActive": false,
-          "routing": "prod-mng/prod-mng/prod-mng"
+          "routing": "user-center/org-mng/org-mng-list"
       },
       {
           "label": "角色管理",
@@ -128,13 +127,13 @@ const menu: Array<Object> = [
           "label": "认证管理",
           "isOpen": false,
           "isActive": false,
-          "routing": "prod-mng/prod-mng/prod-mng"
+          "routing": "user-center/attest-mng/attest-mng"
       },
       {
           "label": "个人账户管理",
           "isOpen": false,
           "isActive": false,
-          "routing": "prod-mng/prod-mng/prod-mng"
+          "routing": "user-center/person-acc-mng/person-acc-mng"
       },
     ]
   },

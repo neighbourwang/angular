@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RestApiCfg, RestApi, RestApiModel, ItemLoader, SystemDictionary } from './../../../architecture';
 
-export class DicLoader<T>{
+export class DicLoader{
 	private _items: ItemLoader<SystemDictionary> = null;
 	SourceName:string = "";
 	TargetName:string = "";
@@ -11,8 +11,7 @@ export class DicLoader<T>{
 		,private _owner:string
 		,private _field:string
 		){
-		this._items = new ItemLoader<SystemDictionary>(false, "数据字典", restApiCfg, restApi);
-		this._items.Api = this.restApiCfg.getRestApi("sysdic.owner.field");
+		this._items = new ItemLoader<SystemDictionary>(false, "数据字典", "sysdic.owner.field", restApiCfg, restApi);
 	}
 
 	get Items():Array<SystemDictionary>{
@@ -30,7 +29,7 @@ export class DicLoader<T>{
 		});
 	}
 
-	UpdateWithDic(items:Array<T>)
+	UpdateWithDic(items:Array<any>, targetName?:string, sourceName?:string)
 	{
 		let getName =(id:string):string=>{
 			let obj = this._items.Items.find(n=>n.value ==id) as SystemDictionary;
@@ -40,6 +39,11 @@ export class DicLoader<T>{
 			else
 				return id;
 		};
+
+		if(targetName)
+			this.TargetName = targetName;
+		if(sourceName)
+			this.SourceName = sourceName;
 		items.map(n=>{n[this.TargetName] = getName(n[this.SourceName]);});
 	}
 }

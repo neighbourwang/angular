@@ -14,15 +14,22 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品规格:</div>
 					<div class="col-sm-4">
-						<div class="row row-line-height">
-							<div class="col-sm-3 font-gray">cpu</div>
+						<div class="prodSpecific">
+							<span class="form-line-height font-gray" >cpu</span>
+							<span >
+								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
+							</span>
+							<span class="form-line-height font-gray">核(vCPU)</span>
+						</div>
+						<!--<div class="row">
+							<div class="col-sm-3 font-gray"><span class="form-line-height">cpu</span></div>
 							<div class="col-sm-4">
 								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
 							</div>
 							<div class="col-sm-3 font-gray">
-								核(vCPU)
+								<span class="form-line-height">核(vCPU)</span>
 							</div>
-						</div>
+						</div>-->
 					</div>
 				</div>
 			</div>
@@ -30,15 +37,22 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"></div>
 					<div class="col-sm-4">
-						<div class="row row-line-height">
-							<div class="col-sm-3 font-gray">内存</div>
+						<div class="prodSpecific">
+							<span class="form-line-height font-gray" >内存</span>
+							<span >
+								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'mem')"></count-bar>
+							</span>
+							<span class="form-line-height font-gray">兆(MB)</span>
+						</div>
+						<!--<div class="row">
+							<div class="col-sm-3 font-gray"><span class="form-line-height">内存</span></div>
 							<div class="col-sm-4">
 								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'mem')"></count-bar>
 							</div>
 							<div class="col-sm-3 font-gray">
-								兆(MB)
+								<span class="form-line-height">兆(MB)</span>
 							</div>
-						</div>
+						</div>-->
 					</div>
 				</div>
 			</div>
@@ -46,20 +60,25 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"></div>
 					<div class="col-sm-4">
-						<div class="row ">
-							<div class="col-sm-3 font-gray">启动盘大小</div>
+						<div class="prodSpecific">
+							<span class="form-line-height font-gray" >启动盘大小</span>
+							<span >
+								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'startupDisk')"></count-bar>
+							</span>
+							<span class="form-line-height font-gray">GB</span>
+						</div>
+						<!--<div class="row">
+							<div class="col-sm-3 font-gray"><span class="form-line-height">启动盘大小</span></div>
 							<div class="col-sm-4">
 								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'startupDisk')"></count-bar>
 							</div>
 							<div class="col-sm-3 font-gray">
-								GB
+								<span class="form-line-height">GB</span>
 							</div>
-						</div>
+						</div>-->
 					</div>
 				</div>
 			</div>
-
-
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div for="firstname" class="col-sm-4 form-control-title">描述：</div>
@@ -126,3 +145,4 @@
         <span class="icon-button-label">创建</span>
     </button>
 </div>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认"></fc-notice>

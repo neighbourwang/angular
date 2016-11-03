@@ -7,7 +7,6 @@ export class ItemLoader<T>{
 	PageSize:number = 10;//每一页的数量
 	private _items:Array<T> = [];
 	TotalPages: number = 1;
-	Api:RestApiModel = null;
 	QureryParams:Array<any> = null;//query parameter
 	PostParam:any = null;//传入PostParameter
 	FakeDataFunc:(target:Array<T>)=>void;//传入假数据
@@ -19,6 +18,7 @@ export class ItemLoader<T>{
 
 	constructor(hasPaging:boolean
 				,name:string
+				,private _apiId:string
 				,private restApiCfg:RestApiCfg
 				,private restApi:RestApi)
 	{
@@ -68,7 +68,9 @@ export class ItemLoader<T>{
 			this.setQueryParams(queryParams);
 			this.PostParam = postParam;
 
-			this.restApi.request(this.Api.method, this.Api.url, this.QureryParams, undefined, this.PostParam)
+			let apiModel = this.restApiCfg.getRestApi(this._apiId);
+
+			this.restApi.request(apiModel.method, apiModel.url, this.QureryParams, undefined, this.PostParam)
 			.then(ret=>{
 				if(!ret)
 				{
@@ -117,7 +119,7 @@ export class ItemLoader<T>{
 			})
 			.catch(err=>{
 
-				console.log(`${this._name}加载错误:${this.Api.url}`, err);
+				console.log(`${this._name}加载错误:${this.restApiCfg.getRestApi(this._apiId).url}`, err);
 				reject(`${this._name}数据加载错误`);
 			});
 

@@ -4,7 +4,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { LayoutService, ValidationService, NoticeComponent, ConfirmComponent, CountBarComponent } from '../../../../architecture';
+import { LayoutService, ValidationService, NoticeComponent, CountBarComponent } from '../../../../architecture';
 
 //service
 import { ProdDirDetailService } from '../service/prod-dir-detail.service';
@@ -28,6 +28,10 @@ export class ProdDirCreComponent implements OnInit {
         private LayoutService: LayoutService
     ) { }
    
+    @ViewChild('notice')
+    notice: NoticeComponent;
+
+
     prodDir = new ProdDir();
     _platformlist: Array<platform> = new Array<platform>();
     ngOnInit() {
@@ -135,6 +139,18 @@ export class ProdDirCreComponent implements OnInit {
 
     onSubmit() {
         console.log(this.prodDir);
+        if (!this.prodDir.serviceName) {
+            this.notice.open('操作错误', '请输入产品目录名称');
+            return;
+        }
+        if(this.prodDir.specification.vcpu==0||this.prodDir.specification.mem==0){
+            this.notice.open('操作错误', '产品规格数据设置错误');
+            return;
+        }
+        if(this.prodDir.platformList.length==0){
+            this.notice.open('操作错误','请选择可用平台');
+            return;
+        }
         this.CreateProdDirService.postVmProdDir(this.prodDir).then(response => {
             console.log(response)
             this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })

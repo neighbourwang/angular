@@ -1,15 +1,17 @@
 /**
  * Created by wangyao on 2016/10/21.
  */
+//use
+//<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event)></count-bar>
 import {Component, Input, Output,EventEmitter,OnChanges,SimpleChange,OnInit} from '@angular/core';
-
 @Component({
     selector: 'count-bar',
     template: `<div class="countBar">
                <span class="glyphicon glyphicon-minus font-gray" [ngClass]="{gray:disabled}" (click)="subtract()"></span>
                <input type="text" class="font-gray" [(ngModel)]="value" name="editValue" #box (blur)="inputValue(box.value)" [disabled]="disabled">
                <span class="glyphicon glyphicon-plus font-gray" (click)="add()" [ngClass]="{gray:disabled}"></span>
-               </div>`,
+               </div>
+               `,
     // inputs: ["title", "msg", "ot", "ct"]
 })
 export class CountBarComponent implements OnInit{
@@ -17,7 +19,7 @@ export class CountBarComponent implements OnInit{
 
     }
     @Input()
-    default:boolean;
+    default:number;
     @Input()
     min:number;
     @Input()
@@ -28,30 +30,10 @@ export class CountBarComponent implements OnInit{
     disabled:boolean;
     @Input()
     value:number;
-
-
-    // set config(config: string) {
-    // this.value = (config && parseInt(config) || 0);
-
-    // get() { return this._name; }
-//   }
-
     @Output()
     output=new EventEmitter();
-//     changeLog:string[]=[];
-//      ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-//     let log: string[] = [];
-//     for (let propName in changes) {
-//       let changedProp = changes[propName];
-//       let from = JSON.stringify(changedProp.previousValue);
-//       let to =   JSON.stringify(changedProp.currentValue);
-//       log.push( `${propName} changed from ${from} to ${to}`);
-//     }
-//     this.changeLog.push(log.join(', '));
-//   }
-
     ngOnInit (){
-        console.log('init');
+        // console.log('init');
         // this.value=this.config.default;
         // this.config.disabled=true;
     }
@@ -64,7 +46,6 @@ export class CountBarComponent implements OnInit{
             this.output.emit(this.value);
         }        
     }
-
     subtract() {
         this.value=Number(this.value);        
         if(!this.disabled){
@@ -75,6 +56,7 @@ export class CountBarComponent implements OnInit{
     }
     unEdit(){
         this.value=0;
+        this.output.emit(this.value)
         this.disabled=true;
     }
     editable(){

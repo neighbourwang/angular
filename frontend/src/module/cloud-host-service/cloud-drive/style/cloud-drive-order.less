@@ -1,0 +1,151 @@
+@import "../../../../architecture/assets/style/constant.less";
+
+.cloud_host_order {
+	>.col-md-9 {
+		padding-left: 0;
+	}
+	.left-box {
+		border: 1px solid @gray-color;
+		margin-top: 20px;
+		padding-left: 0;
+		li {
+			overflow: hidden;
+			position: relative;
+			padding-left: 12%;
+			min-height: 90px;
+			border-bottom: 1px solid @gray-color;
+			&:last-child {
+				border-bottom:0;
+			}
+		}
+		.li-title {
+			background: @fa-color;
+			text-align: center;
+			padding: 15px 0;
+			position: absolute;
+			left: 0;
+			height: 100%;
+			width: 12%;
+			border-right: 1px solid @gray-color;
+			p {
+				height: 56px;
+				position: absolute;
+				top:50%;
+				right: 0;
+				left: 0;
+				margin-top: -28px;
+    			display: inline-block;
+    			line-height: 20px;
+    			span {
+    				height: 30px;
+				    width: 30px;
+				    display: inline-block;
+    			}
+			}
+		}
+		.li-content {
+			padding: 35px 0 25px;
+			.btn-default {
+				padding: 5px 30px;
+			}
+			.text-tip {
+				color: @text-tip-color;
+				padding: 0px 15px 20px 15px;
+			}
+			>.col-md-10 {
+				padding-left: 0;padding-bottom: 15px;
+				.form-control {
+					width: 300px;
+				}
+			}
+			.content-title {
+				padding:7px 0 0 30px;
+			}
+			.content-title2 {
+				padding:7px 0 0 15px;
+			}
+			.data-disk {
+				/*background-color: @fa-color;*/
+				.glyphicon-remove {
+					line-height: 30px;
+					color: @color-999;
+				}
+			}
+			.disk-tip {
+				line-height: 34px;
+				opacity: .6;
+			}
+			.add-disk-box {
+				padding:10px 0 ;
+			}
+			.user-root {
+				padding: 7px 0 0 0;
+			}
+		}
+		.li-password {
+			.form-control {
+				width: 90%;
+			}
+		}
+	}
+	.right-box {
+		.title-box {
+			button {
+				width: 100%;
+				span {
+					width: 20px;
+					height: 22px;
+					display: inline-block;
+					margin-right: 8px;
+					vertical-align: text-bottom;
+				}
+			}
+			.col-md-6:first-child {
+				padding:0 10px 0 0;
+			}
+			.col-md-6:last-child {
+				padding:0 0 0 10px;
+			}
+		}
+		.content-box {
+			background: @color-f7;
+			border: 1px solid @gray-color;
+			margin-top: 14px!important;
+		}
+		.boder-gray-bottom-title {
+			margin-top: 10px;
+		}
+		.cloud-line {
+			border-bottom: 1px dotted @gray-color;
+		    padding-top: 20px;
+		}
+		.cloud-title {
+			font-weight: 100;
+		    padding-top: 20px;
+		    font-size: 16px;
+		    .font-orange {
+		    	font-size: 22px;
+		    }
+		}
+		.colud-order-button {
+			padding: 20px 0 30px;
+			button {
+				width: 100%;
+			}
+			.col-md-6:first-child {
+				padding:0 10px 0 0;
+			}
+			.col-md-6:last-child {
+				padding:0 0 0 10px;
+			}
+		}
+	}
+	.right-flex {
+		position: fixed;
+	}
+	.mb20 {margin-bottom: 20px!important;}
+	.mb15 {margin-bottom: 15px!important;}
+	.mb10 {margin-bottom: 10px!important;}
+	.mr10 {margin-right: 10px!important;}
+	.lh32 {line-height: 32px!important;}
+}

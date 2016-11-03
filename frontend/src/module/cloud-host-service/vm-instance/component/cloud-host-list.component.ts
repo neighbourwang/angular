@@ -52,42 +52,21 @@ export class cloudHostListComponent implements OnInit {
 		});
 	}
 
-	showNotice(title: string, msg: string) {
-	    this.modalTitle = title;
-	    this.modalMessage = msg;
-	    this.modalOKTitle = 'OK';
-
-	    this.noticeDialog.open();
-	}
-
 	setHostList(): void {
-		this.layoutService.show();
+		// this.layoutService.show();
 		this.service.getHostList(this.currPage, this.pageSize).then(res => {
 			if (res.resultCode !== "100") {
 				throw "";
 			}
-			this.layoutService.hide();
+			// this.layoutService.hide();
 			this.totalPages = res.pageInfo.totalPage;
 			return res.resultContent;
 		}).then(list => {
 			this.vmList = list;
 		}).catch(error => {
-			this.layoutService.hide();
+			// this.layoutService.hide();
 		});
 
-	}
-
-	changePage(page: number) {
-
-		page = page < 1 ? 1 : page;
-		page = page > this.totalPages ? this.totalPages : page;
-
-		if (this.currPage == page) {
-			return;
-		}
-
-		this.currPage = page;
-		this.setHostList();
 	}
 
 	forMatData(number : number) : string {
@@ -105,11 +84,12 @@ export class cloudHostListComponent implements OnInit {
 
 		this.service.handleVm(this.handleData).then(res => {
 			this.layoutService.hide();
-			alert(msg+"成功！");
+			// alert(msg+"成功！");
+			this.showNotice("云主机操作" ,msg+"成功！");
 
-			// setTimeout(() => {   //延迟4秒执行 因为后端4秒同步一次状态
-			// 	this.setHostList();
-			// },4000)
+			setTimeout(() => {   //延迟4秒执行 因为后端4秒同步一次状态
+				this.setHostList();
+			},4000)
 		}).catch(error => {
 			this.layoutService.hide();
 		})
@@ -117,5 +97,39 @@ export class cloudHostListComponent implements OnInit {
 
 	goTo(url : string) {
 		this.router.navigateByUrl(url);
+	}
+
+
+	// 警告框相关
+	showNotice(title: string, msg: string) {
+	    this.modalTitle = title;
+	    this.modalMessage = msg;
+
+	    this.noticeDialog.open();
+	}
+
+	modalAction(btnType: number) {
+	    if (btnType == 0) {
+	      this.noticeDialog.close();
+	      return;
+	    }
+	    
+	    this.noticeDialog.close()
+	    this.confirmDialog.close();
+	}
+	// 警告框相关结束
+
+	//分页
+	changePage(page: number) {
+
+		page = page < 1 ? 1 : page;
+		page = page > this.totalPages ? this.totalPages : page;
+
+		if (this.currPage == page) {
+			return;
+		}
+
+		this.currPage = page;
+		this.setHostList();
 	}
 }

@@ -44,13 +44,17 @@ export class ProdDirListComponent implements OnInit {
     // 产品目录总页数
     tp: number = 0;
     // 每页显示的数据条数
-    pp: number = 10;
+    pp: number = 2;
 
     prodDirTypeList = new Array();
     platformsList = new Array();
     platformId: string;
     prodDirTypeId: string;;
     queryProDirTypeId: string;
+
+    //mokup
+    
+
 
     ngOnInit() {
         console.log(this.pp);
@@ -66,18 +70,31 @@ export class ProdDirListComponent implements OnInit {
             console.error(err)
         })
         //获取产品目录类别
-        this.ProdSeriesService.getProdSeries().then(response => {
-            if (response && 100 == response.resultCode) {
-                this.prodDirTypeList = response.resultContent;
-                this.prodDirTypeId = this.prodDirTypeList[0].id
-                // this.queryProdDirTypeId =this.prodDirTypeList[0].id                
-                console.log('产品目录', this.prodDirTypeList)
-            } else {
+        // this.ProdSeriesService.getProdSeries().then(response => {
+        //     if (response && 100 == response.resultCode) {
+        //         this.prodDirTypeList = response.resultContent;
+        //         this.prodDirTypeId = this.prodDirTypeList[0].id
+        //         // this.queryProdDirTypeId =this.prodDirTypeList[0].id                
+        //         console.log('产品目录', this.prodDirTypeList)
+        //     } else {
 
-            }
-        }).catch(err => {
-            console.error(err);
-        })
+        //     }
+        // }).catch(err => {
+        //     console.error(err);
+        // })
+        
+        this.prodDirTypeList=[
+            {
+                "id": "1",
+                "code": "VITRUALMACHINE_SERVICE",
+                "name": "云主机服务"
+            },
+            {
+                "id": "2",
+                "code": "VITRUALMACHINE_SERVICE",
+                "name": "云硬盘服务"
+            },
+        ]
 
         this.backend(1, this.pp,{});
     }
@@ -101,7 +118,7 @@ export class ProdDirListComponent implements OnInit {
     deleteConfirm: ConfirmComponent;
 
     @ViewChild('notice')
-    notice: ConfirmComponent;
+    notice: NoticeComponent;
 
     @ViewChild('createProdDir')
     createProdDir: PopupComponent;
@@ -220,9 +237,15 @@ export class ProdDirListComponent implements OnInit {
         this.createProdDir.open('创建产品目录');
     }
     otcreate() {
-        let id = this.prodDirTypeList[0].id;
-        let type = "new"
-        this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre", id, type]);
+        let id = this.prodDirTypeId;
+        console.log(id);
+        if(this.prodDirTypeId=='1'){
+            this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre"]);
+        }else{
+            this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre"]);
+        }
+        // let type = "new"
+        // 
     }
     //去编辑详情
     goDetail(item) {
@@ -244,7 +267,6 @@ export class ProdDirListComponent implements OnInit {
                     let backend = new Array<Proddir>();
                     for (let content of resultContent) {
                         let proddir = new Proddir();
-
                         proddir.serviceId = content.serviceId;
                         proddir.serviceName = content.serviceName;
                         proddir.productNum = content.productNum;
@@ -288,5 +310,7 @@ export class ProdDirListComponent implements OnInit {
 
     }
 
-
+    paging(page){
+        this.backend(page, this.pp,{});
+    }
 }

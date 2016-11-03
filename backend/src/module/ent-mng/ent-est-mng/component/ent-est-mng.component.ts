@@ -35,7 +35,7 @@ export class EntEstMngComponent implements OnInit {
   private entEst: EntEst = new EntEst();
   private dic:SystemDictionary[];
   private entEstMng:ItemLoader<EntEstItem> = null;
-  private statusDic:DicLoader<EntEstItem> = null;
+  private statusDic:DicLoader = null;
 
   constructor(
     private layoutService: LayoutService,
@@ -44,10 +44,9 @@ export class EntEstMngComponent implements OnInit {
     private restApiCfg:RestApiCfg,
     private restApi:RestApi
   ) {
-    this.entEstMng = new ItemLoader<EntEstItem>(true, "企业管理列表", restApiCfg, restApi);
+    this.entEstMng = new ItemLoader<EntEstItem>(true, "企业管理列表", "ent-mng.ent-est-mng.enterprise.get", restApiCfg, restApi);
 
     //配置企业列表查询
-    this.entEstMng.Api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.get");
     this.entEstMng.MapFunc = (source:Array<any>, target:EntEstItem[])=>{
         for(let item of source)
         {
@@ -73,7 +72,7 @@ export class EntEstMngComponent implements OnInit {
 
 
       //字典配置
-      this.statusDic = new DicLoader<EntEstItem>(restApiCfg, restApi, "GLOBAL", "STATUS");
+      this.statusDic = new DicLoader(restApiCfg, restApi, "GLOBAL", "STATUS");
       this.statusDic.SourceName = "status";
       this.statusDic.TargetName = "statusName";
   }

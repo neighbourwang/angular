@@ -1,2 +1,285 @@
-<!--订单详情打开操作-->
 <button (click)="showDetail()">显示详情</button>
+<fc-notice #notice ot="确认" (of)="okClicked()"></fc-notice>
+<div class="OrderManage">	
+		<div class="page-content-header icon-order-manage" style="border-bottom: 3px solid  #01a982;margin: 10px 0px;padding: 0;">订单管理</div>
+	<div class="page-content">
+		<div class="table-container">
+			<div class="search-container">
+				<input type="text" class="form-control searchbox gray-searchbox" placeholder=""/>
+				<span class="glyphicon glyphicon-search searchbox-incon"></span>
+						
+				<button class=" form-control-title fox-cloud-button  fox-cloud-button-green left">重&nbsp;&nbsp;&nbsp;&nbsp;置</button>
+			</div>
+			<table class="table">
+				<tbody>
+					<tr>				
+						<td >
+						    <div class="left form-control-title">企&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业：</div>
+							
+							<div class="dropdown left">
+								<select class="form-control" [(ngModel)]="_param.enterpriseId" (ngModelChange)="loadDepartment()">
+									<option class="hands" [value]="0" >所有企业</option>
+									<option *ngFor="let item of _adminLoader.Items" class="hands" [value]="item.id">{{item.name}}</option>
+								</select>
+							</div>
+						</td>
+						<td colspan="3"><div class="left form-control-title" >部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门:</div>
+							<div class="dropdown left">
+								<select class="form-control" [(ngModel)]="_param.organization">
+									<option class="hands" [value]="0">所有部门</option>
+									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
+								</select>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td ><div class="left form-control-title">创建时间：</div>
+							<div class="dropdown left">	
+								<input type="text" [(ngModel)]='_param.createTime'/>
+							</div>
+						</td>
+						<td colspan="3"><div class="left form-control-title">到期时间：</div>
+							<div class="dropdown left">			
+								<input type="text" [(ngModel)]='_param.expireTime'/>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><div class="left form-control-title">订单状态：</div>
+							<div class="dropdown left">
+								<select class="form-control" [(ngModel)]="_param.status">
+									<option class="hands" [value]="null">所有</option>
+									<option class="hands" *ngFor="let item of _orderStatus.Items" [value]="item.value">{{item.displayValue}}</option>
+								</select>
+							</div>
+						</td>
+						<td ><div class="left form-control-title">产品类型：</div>
+							<div class="dropdown left">
+								<select class="form-control" [(ngModel)]="_param.serviceId">
+									<option class="hands" [value]="0">所有类型</option>
+									<option class="hands" *ngFor="let item of _productTypeLoader.Items" [value]="item.serviceId">{{item.serviceName}}</option>
+								</select>
+							</div>
+						</td>
+						<td ><div class="left form-control-title">区域：</div>
+							<div class="dropdown left">
+								<select class="form-control" [(ngModel)]="_param.region" (ngModelChange)="loadSubregion()">
+									<option class="hands" [value]="0">所有</option>
+									<option class="hands" *ngFor="let item of _platformLoader.Items" [value]="item.id">{{item.name}}</option>
+								</select>
+							</div>
+						</td>
+						<td ><div class="left form-control-title">可用区：</div>
+							<div class="dropdown left">
+								<select class="form-control" [(ngModel)]="_param.zoneId">
+									<option class="hands" [value]="0">所有</option>
+									<option class="hands" *ngFor="let item of _subregionLoader.Items" [value]="item.zoneId">{{item.zoneName}}</option>
+								</select>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>	
+		</div>
+		<div class="page-second-title" style="border:none;">当查询到29个订单需要审批，查询列表如下：</div>
+			<div class="table-container">
+			<table class="table">
+				<thead>	
+					<tr class="form-control-title" >
+						<th class="order-title"> 产品名称</th>
+						<th>计费模式</th>
+						<th>购买周期</th>
+						<th>数量</th>
+						<th style="width: 150px;">一次性费用</th>
+						<th>周期费用</th>
+						<th>产品类型</th>
+						<th>状态</th>
+						<th>创建时间</th>
+						<th>到期时间</th>
+					</tr>			
+				</thead>
+			</table>
+
+			<table class="table _table">
+				<tr>
+					<td class="order-title" colspan="8">2016-10-05 订单号：23705375384884773</td>
+					
+					<td><button class="fox-cloud-button  fox-cloud-button-green pull-right">续&nbsp;&nbsp;&nbsp;订</button></td>
+					<td><button class="fox-cloud-button  fox-cloud-button-green  pull-right"  (click)="showDetail()">详&nbsp;&nbsp;&nbsp;情</button></td>
+				</tr>
+				<tr>
+					<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
+						<ul>
+							<li>区域：&nbsp;&nbsp;华北1</li>
+							<li>可用区：&nbsp;&nbsp;可用区B</li>
+							<li>实例规格：&nbsp;&nbsp;CPU 2核/内存4GB/启动盘/70G</li>
+							<li>IP地址：&nbsp;&nbsp;10.1.1.1（内部）<br>
+								192.168.1.1（外部）</li>
+							<li>操作系统：&nbsp;&nbsp;******</li>
+							<li>密码：&nbsp;&nbsp;已设置</li>
+							<li>实例名称：&nbsp;&nbsp;abcabc</li>
+						</ul>
+					</td>
+					<td >包年包月</td>
+					<td>99年</td>
+					<td>1台</td>
+					<td class="rightAlign">0元</td>
+					<td class="rightAlign">￥50/月</td>
+					<td class="rightAlign">云主机</td>
+					<td class="rightAlign validateInfo">成功</td>
+					<td class="rightAlign">2016.10.1<br>
+						10:23
+					</td>
+					<td>2099.10.1<br>
+				 		10:23
+					</td>
+				</tr>
+			</table>
+			<table class="table _table">
+				<tr>
+					<td class="order-title" colspan="8">2016-10-05 订单号：23705375384884773</td>
+					
+					<td><button class="fox-cloud-button  fox-cloud-button-green pull-right">续&nbsp;&nbsp;&nbsp;订</button></td>
+					<td><button class="fox-cloud-button  fox-cloud-button-green  pull-right"  (click)="showDetail()">详&nbsp;&nbsp;&nbsp;情</button></td>
+				</tr>
+				<tr>
+					<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
+						<ul>
+							<li>区域：&nbsp;&nbsp;华北1</li>
+							<li>可用区：&nbsp;&nbsp;可用区B</li>
+							<li>实例规格：&nbsp;&nbsp;CPU 2核/内存4GB/启动盘/70G</li>
+							<li>IP地址：&nbsp;&nbsp;10.1.1.1（内部）<br>
+								192.168.1.1（外部）</li>
+							<li>操作系统：&nbsp;&nbsp;******</li>
+							<li>密码：&nbsp;&nbsp;已设置</li>
+							<li>实例名称：&nbsp;&nbsp;abcabc</li>
+						</ul>
+					</td>
+					<td >包年包月</td>
+					<td>99年</td>
+					<td>1台</td>
+					<td class="rightAlign">0元</td>
+					<td class="rightAlign">￥50/月</td>
+					<td class="rightAlign">云主机</td>
+					<td class="rightAlign validateInfo">成功</td>
+					<td class="rightAlign">2016.10.1<br>
+						10:23
+					</td>
+					<td>2099.10.1<br>
+				 		10:23
+					</td>
+				</tr>
+			</table>
+			<table class="table _table">
+				<tr>
+					<td class="order-title" colspan="8">2016-10-05 订单号：23705375384884773</td>
+					
+					
+					<td><button class="fox-cloud-button  fox-cloud-button-green  pull-right"  (click)="showDetail()">详&nbsp;&nbsp;&nbsp;情</button></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
+						<ul>
+							<li>区域：&nbsp;&nbsp;华北1</li>
+							<li>可用区：&nbsp;&nbsp;可用区B</li>
+							<li>云硬盘类型：&nbsp;&nbsp;高性能I/O</li>
+							<li>云硬盘容量：&nbsp;&nbsp;100GB</li>
+						</ul>
+					</td>
+					<td >按量</td>
+					<td>无</td>
+					<td>1块</td>
+					<td class="rightAlign">0元</td>
+					<td class="rightAlign">￥5/G/小时</td>
+					<td class="rightAlign">云硬盘</td>
+					<td class="rightAlign validateInfo">成功</td>
+					<td class="rightAlign">2016.10.1<br>
+						10:23
+					</td>
+					<td>无
+					</td>
+				</tr>
+			</table>
+			<table class="table _table">
+				<tr>
+					<td class="order-title" colspan="8">2016-10-05 订单号：23705375384884773</td>
+					
+					<td><button class="fox-cloud-button  fox-cloud-button-green pull-right">续&nbsp;&nbsp;&nbsp;订</button></td>
+					<td><button class="fox-cloud-button  fox-cloud-button-green  pull-right"  (click)="showDetail()">详&nbsp;&nbsp;&nbsp;情</button></td>
+				</tr>
+				<tr>
+					<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
+						<ul>
+							<li>区域：&nbsp;&nbsp;华北1</li>
+							<li>可用区：&nbsp;&nbsp;可用区B</li>
+							<li>实例规格：&nbsp;&nbsp;CPU 2核/内存4GB/启动盘/70G</li>
+							<li>IP地址：&nbsp;&nbsp;10.1.1.1（内部）<br>
+								192.168.1.1（外部）</li>
+							<li>操作系统：&nbsp;&nbsp;******</li>
+							<li>密码：&nbsp;&nbsp;已设置</li>
+							<li>实例名称：&nbsp;&nbsp;abcabc</li>
+						</ul>
+					</td>
+					<td >包年包月</td>
+					<td>99年</td>
+					<td>1台</td>
+					<td class="rightAlign">0元</td>
+					<td class="rightAlign">￥50/月</td>
+					<td class="rightAlign">云主机</td>
+					<td class="rightAlign validateInfo">成功</td>
+					<td class="rightAlign">2016.10.1<br>
+						10:23
+					</td>
+					<td>2099.10.1<br>
+				 		10:23
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
+						<ul>
+							<li>区域：&nbsp;&nbsp;华北1</li>
+							<li>可用区：&nbsp;&nbsp;可用区B</li>
+							<li>云硬盘类型：&nbsp;&nbsp;高性能I/O</li>
+							<li>云硬盘容量：&nbsp;&nbsp;100GB</li>
+						</ul>
+					</td>
+					<td >包年包月</td>
+					<td>99年</td>
+					<td>1块</td>
+					<td class="rightAlign">0元</td>
+					<td class="rightAlign">￥5/月</td>
+					<td class="rightAlign">云硬盘</td>
+					<td class="rightAlign validateInfo">成功</td>
+					<td class="rightAlign">2016.10.1<br>
+						10:23
+					</td>
+					<td>2099.10.1<br>
+						10:23
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
+						<ul>
+							<li>数据库类型：&nbsp;&nbsp;Oracal</li>
+							<li>数据库版本：&nbsp;&nbsp;11g</li>
+						</ul>
+					</td>
+					<td >包年包月</td>
+					<td>99年</td>
+					<td>1块</td>
+					<td class="rightAlign">0元</td>
+					<td class="rightAlign">￥5/月</td>
+					<td class="rightAlign">数据库</td>
+					<td class="rightAlign validateInfo">成功</td>
+					<td class="rightAlign">2016.10.1<br>
+						10:23
+					</td>
+					<td>2099.10.1<br>
+						10:23
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>	
+</div>	

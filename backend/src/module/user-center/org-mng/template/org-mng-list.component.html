@@ -1,0 +1,47 @@
+<div class="page-content-header icon-content-header-platform-manage">组织管理</div>
+<div style="margin-top: 20px;">
+		
+        <div class="dropdown pull-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                更多操作
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+                <li><a>编辑</a></li>
+                <li><a>启用</a></li>
+                <li><a>禁用</a></li>
+				<li><a>删除</a></li>
+            </ul>
+        </div>
+
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="create()">
+            <span class="glyphicon glyphicon-edit"></span>
+            <span class="icon-button-label icon-left-button-label">创建帐号</span>
+        </button>
+</div>
+<div class="table-container" style="margin-top : 10px">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="check-box-col">选择</th>
+                <th>编号</th>
+                <th>机构名称</th>
+                <th>机构人员数量</th>
+                <th>机构负责人</th>
+                <th>状态</th>
+                <th>描述</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input class="fox-cloud-radio" type="radio" name="isSelected"/></td>
+                <td>1</td>
+                <td>云平台</td>
+                <td>5</td>
+                <td>赵6</td>
+                <td>启用</td>
+                <td>默认机构</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
