@@ -187,7 +187,13 @@ const menu: Array<any> = [
                 "label": "费用中心",
                 "isOpen": false,
                 "routing": ""
+            },
+            {
+                "label": "个人账户管理",
+                "isOpen": false,
+                "routing": "user-center/person-acc-mng/person-acc-mng"
             }
+            
         ]
     }
     // {

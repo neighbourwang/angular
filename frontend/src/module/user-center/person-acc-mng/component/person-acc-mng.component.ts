@@ -1,16 +1,16 @@
-import { Component, ViewChild, OnInit, SimpleChange } from '@angular/core';
+import { Component, ViewChild, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, ValidationService } from '../../../../architecture';
+import { LayoutService, ValidationService,  PopupComponent } from '../../../../architecture';
 
 @Component({
-    selector: 'person-acc-edit',
-    templateUrl: '../template/person-acc-edit.component.html',
+    selector: 'person-acc-mng',
+    templateUrl: '../template/person-acc-mng.component.html',
     styleUrls: [],
     providers: []
 })
 
-export class PersonAccEditComponent implements OnInit {
+export class PersonAccMngComponent implements OnInit {
     constructor(
         private router: Router,
         // private ProdDirDetailService: ProdDirDetailService,
@@ -18,7 +18,8 @@ export class PersonAccEditComponent implements OnInit {
         // private ProdDirListService: ProdDirListService,
         // private PostProduct:PostProduct
     ) { }
-
+    @ViewChild('editPassWord')
+    editPassWord: PopupComponent;
     // @ViewChild('notice')
     // notice: NoticeComponent;
 
@@ -28,10 +29,18 @@ export class PersonAccEditComponent implements OnInit {
     // prodDirId:string;
     // product=new Product();   
     ngOnInit() {}
-    cancel(){
-        this.router.navigate(['user-center/person-acc-mng/person-acc-mng']);
+    //编辑账号
+    onEdit(){
+        this.router.navigate(['user-center/person-acc-mng/person-acc-edit'])
     }
-    onSubmit(){
-        
+    //编辑密码
+    onEditPwd(){
+        this.editPassWord.open('修改密码')
+    }
+    otEditPwd(){
+
+    }
+    ccf(){
+
     }
 }

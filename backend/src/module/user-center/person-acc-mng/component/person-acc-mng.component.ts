@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, ValidationService,  PopupComponent } from '../../../../architecture';
+import { LayoutService, ValidationService } from '../../../../architecture';
 
 @Component({
     selector: 'person-acc-mng',
