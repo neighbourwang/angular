@@ -44,7 +44,7 @@ export class ProdDirListComponent implements OnInit {
     // 产品目录总页数
     tp: number = 0;
     // 每页显示的数据条数
-    pp: number = 10;
+    pp: number = 2;
 
     prodDirTypeList = new Array();
     platformsList = new Array();
@@ -267,7 +267,6 @@ export class ProdDirListComponent implements OnInit {
                     let backend = new Array<Proddir>();
                     for (let content of resultContent) {
                         let proddir = new Proddir();
-
                         proddir.serviceId = content.serviceId;
                         proddir.serviceName = content.serviceName;
                         proddir.productNum = content.productNum;
@@ -311,5 +310,7 @@ export class ProdDirListComponent implements OnInit {
 
     }
 
-
+    paging(page){
+        this.backend(page, this.pp,{});
+    }
 }
