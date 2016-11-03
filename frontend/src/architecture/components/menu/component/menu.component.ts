@@ -181,7 +181,7 @@ const menu: Array<any> = [
             {
                 "label": "账号管理",
                 "isOpen": false,
-                "routing": ""
+                "routing": "user-center/account-mng/account-mng-list"
             },
             {
                 "label": "费用中心",
