@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 
 import { AccountMngModule } from './account-mng/account-mng.module';
-
+import { PersonAccMngModule } from './person-acc-mng/person-acc-mng.module';
 @NgModule({
     imports: [
-        AccountMngModule
+        AccountMngModule,
+        PersonAccMngModule
     ],
     declarations: [],
     exports: [
-        AccountMngModule
+        AccountMngModule,
+        PersonAccMngModule
     ],
     providers: []
 })

@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit, SimpleChange } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, ValidationService, NoticeComponent, CountBarComponent } from '../../../../architecture';
+import { LayoutService, ValidationService } from '../../../../architecture';
 
 @Component({
     selector: 'person-acc-edit',

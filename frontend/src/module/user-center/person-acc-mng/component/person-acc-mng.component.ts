@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, ValidationService } from '../../../../architecture';
+import { LayoutService, ValidationService} from '../../../../architecture';
 
 @Component({
     selector: 'person-acc-mng',
@@ -18,7 +18,7 @@ export class PersonAccMngComponent implements OnInit {
         // private ProdDirListService: ProdDirListService,
         // private PostProduct:PostProduct
     ) { }
-    @ViewChild('editPassWord')
+    // @ViewChild('editPassWord')
     // editPassWord: PopupComponent;
     // @ViewChild('notice')
     // notice: NoticeComponent;
@@ -28,14 +28,14 @@ export class PersonAccMngComponent implements OnInit {
     // prodDir = new ProductDir();
     // prodDirId:string;
     // product=new Product();   
-    ngOnInit() {}
+    ngOnInit(){}
     //编辑账号
     onEdit(){
         this.router.navigate(['user-center/person-acc-mng/person-acc-edit'])
     }
     //编辑密码
     onEditPwd(){
-        this.editPassWord.open('修改密码')
+        // this.editPassWord.open('修改密码')
     }
     otEditPwd(){
 
