@@ -82,6 +82,16 @@ const menu: Array<any> = [
                 "label": "云主机列表",
                 "isOpen": true,
                 "routing": "cloud-host-service/cloud-host-list"
+            },
+            {
+                "label": "创建云硬盘",
+                "isOpen": true,
+                "routing": "cloud-host-service/cloud-drive-order"
+            },
+            {
+                "label": "云硬盘列表",
+                "isOpen": true,
+                "routing": "cloud-host-service/cloud-drive-list"
             }
         ]
     },
@@ -167,9 +177,9 @@ const menu: Array<any> = [
                 "routing": ""
             },
             {
-                "label": "费用中心",
+                "label": "订单管理",
                 "isOpen": false,
-                "routing": ""
+                "routing": "op-center/order-mng/order-mng"
             }
         ]
     },
@@ -181,7 +191,7 @@ const menu: Array<any> = [
             {
                 "label": "账号管理",
                 "isOpen": false,
-                "routing": ""
+                "routing": "user-center/account-mng/account-mng-list"
             },
             {
                 "label": "费用中心",
