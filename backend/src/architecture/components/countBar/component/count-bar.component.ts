@@ -10,7 +10,8 @@ import {Component, Input, Output,EventEmitter,OnChanges,SimpleChange,OnInit} fro
                <span class="glyphicon glyphicon-minus font-gray" [ngClass]="{gray:disabled}" (click)="subtract()"></span>
                <input type="text" class="font-gray" [(ngModel)]="value" name="editValue" #box (blur)="inputValue(box.value)" [disabled]="disabled">
                <span class="glyphicon glyphicon-plus font-gray" (click)="add()" [ngClass]="{gray:disabled}"></span>
-               </div>`,
+               </div>
+               `,
     // inputs: ["title", "msg", "ot", "ct"]
 })
 export class CountBarComponent implements OnInit{
