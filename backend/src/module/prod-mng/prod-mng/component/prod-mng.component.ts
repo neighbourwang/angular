@@ -39,7 +39,7 @@ export class ProdMngComponent implements OnInit{
     // 产品总页数
     tp: number = 0;
     // 每页显示的数据条数
-    pp: number = 8;
+    pp: number = 2;
 
 
     @ViewChild('publishConfirm')
@@ -230,6 +230,7 @@ export class ProdMngComponent implements OnInit{
                 console.log(response);
                 if(response&&100==response.resultCode){
                     this.productList=response.resultContent;
+                    this.tp=response.pageInfo.totalPage;
                 }
                 this.layoutService.hide();
             }
@@ -238,20 +239,6 @@ export class ProdMngComponent implements OnInit{
                 console.log(err);
             }
         );
-    //mockup
-    // let product = new ProdList();
-
-    // product.serviceName = 'serviceName1';
-
-
-    // let product2 = new ProdList();
-
-    // product2.serviceName = 'serviceName2';
-
-    // this.prodList .push(product);
-    // this.prodList .push(product2);
-
-    //     console.log(this.prodList);
     }
     ccf() {
 
@@ -260,5 +247,8 @@ export class ProdMngComponent implements OnInit{
     nof() {
 
     }
-
+    pageInfo(page){
+        console.log(page);
+        this.backend(page, this.pp,{});
+    }
 }
