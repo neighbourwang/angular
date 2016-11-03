@@ -1,7 +1,15 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { ItemLoader, RestApi, RestApiCfg, LayoutService, NoticeComponent, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
-import { OrderDetail} from '../model';
+import { ItemLoader
+  , RestApi
+  , RestApiCfg
+  , LayoutService
+  , NoticeComponent
+  , PopupComponent
+  , ConfirmComponent
+  , SystemDictionaryService
+  , SystemDictionary } from '../../../../architecture';
+import { OrderDetailItem} from '../model';
 
 @Component({
   // moduleId: module.id,
@@ -11,7 +19,7 @@ import { OrderDetail} from '../model';
   providers: []
 }) 
 export class OrderMngDetailComponent implements OnInit {
-  private _orderDetail:ItemLoader<OrderDetail> = null;
+  private _orderDetail:ItemLoader<OrderDetailItem> = null;
   @ViewChild("notice")
   private _notice: NoticeComponent;
 
@@ -22,8 +30,8 @@ export class OrderMngDetailComponent implements OnInit {
     private restApi:RestApi
   ) {
     //配置订单详情加载信息
-    this._orderDetail = new ItemLoader<OrderDetail>(false, "订单详情", "op-center.order-mng.order-detail.get", this.restApiCfg, this.restApi);
-    this._orderDetail.MapFunc = (source:Array<any>, target:Array<OrderDetail>):void=>{
+    this._orderDetail = new ItemLoader<OrderDetailItem>(false, "订单详情", "op-center.order-mng.order-detail.get", this.restApiCfg, this.restApi);
+    this._orderDetail.MapFunc = (source:Array<any>, target:Array<OrderDetailItem>):void=>{
 
     };
   }

@@ -1,96 +1,189 @@
-import {OrderItem, OrderProductItem} from './'
+import {OrderItem, OrderInstanceItem} from './'
 
 //订单详情
-export class OrderDetail{
-	orderItem:OrderItem = new OrderItem();
-	productDetail:Array<OrderProductItem> = [];
-	relatedOrder:Array<OrderItem> = [];
+export class OrderDetailItem {
+  backendApprover: string = null;//, optional): 后台审批人 ,
+  backendApproverId: string = null;//, optional): 后台审批人ID ,
+  billingMode: string = null;//, optional): 计费模式 ,
+  billingPerson: string = null;//, optional): 订购人 ,
+  billingPersonId: string = null;//, optional): 订购人ID ,
+  createDate: string = null;//, optional): 创建时间 ,
+  department: string = null;//, optional): 部门 ,
+  departmentApprover: string = null;//, optional): 部门审批人 ,
+  departmentApproverId: string = null;//, optional): 部门审批人ID ,
+  departmentId: string = null;//, optional): 部门ID ,
+  enterpirse: string = null;//, optional): 企业 ,
+  enterpirseId: string = null;//, optional): 企业ID ,
+  exireDate: string = null;//, optional): 过期时间 ,
+  id: string = null;//, optional): 订单ID ,
+  orderCode: string = null;//, optional): 订单编号 ,
+  orderInstanceItems: Array<OrderInstanceItem> = null;//[OrderInstanceItem], optional): 订单中的产品信息 ,
+  relatedOrders: Array<OrderItem> = null;//[OrderItem], optional): 关联订单 ,
+  status: string = null;//, optional): 订单状态 ,
+  subscriptTime: number = null;//, optional): 购买周期
+
+  get amount():number{
+    return this.orderInstanceItems ? this.orderInstanceItems.length: 0;
+  }
+  statusName: string = null;//status的翻译字段
 }
 
 /*
 
-GeneralContentResultOfOrderItem {
+GeneralContentResultOfOrderDetailItem {
 detailDescription (string, optional),
 resultCode (string, optional),
-resultContent (OrderItem, optional)
+resultContent (OrderDetailItem, optional)
 }
-OrderItem {
+OrderDetailItem {
 backendApprover (string, optional): 后台审批人 ,
-billingCycle (string, optional): 购买时长 ,
+backendApproverId (string, optional): 后台审批人ID ,
+billingMode (string, optional): 计费模式 ,
 billingPerson (string, optional): 订购人 ,
+billingPersonId (string, optional): 订购人ID ,
 createDate (string, optional): 创建时间 ,
+department (string, optional): 部门 ,
+departmentApprover (string, optional): 部门审批人 ,
+departmentApproverId (string, optional): 部门审批人ID ,
+departmentId (string, optional): 部门ID ,
 enterpirse (string, optional): 企业 ,
+enterpirseId (string, optional): 企业ID ,
 exireDate (string, optional): 过期时间 ,
 id (string, optional): 订单ID ,
 orderCode (string, optional): 订单编号 ,
-orgApprover (string, optional): 部门审批人 ,
-organization (string, optional): 部门 ,
-productDetail (Array[OrderProductItem], optional): 产品记录 ,
+orderInstanceItems (Array[OrderInstanceItem], optional): 订单中的产品信息 ,
+relatedOrders (Array[OrderItem], optional): 关联订单 ,
+status (string, optional): 订单状态 ,
+subscriptTime (integer, optional): 购买周期
+}
+OrderInstanceItem {
+billingCycle (string, optional): 购买时长 ,
+billingMode (string, optional): 计费模式 ,
+createDate (string, optional): 创建时间 ,
+exireDate (string, optional): 过期时间 ,
+extIp (string, optional): 外部ip ,
+instanceName (string, optional): 实例名称 ,
+ip (string, optional): 内部ip ,
+isSetPassword (string, optional): 密码设置与否，0 未设置，1 已设置 ,
+oneTimePrice (integer, optional): 一次性费用 ,
+operationSystem (string, optional): 操作系统 ,
+platformId (string, optional): 平台ID ,
+platformName (string, optional): 平台名称 ,
+price (integer, optional): 费用 ,
+productType (string, optional): 产品类型 ,
 quantity (string, optional): 订购数量 ,
-relatedOrder (Array[OrderItem], optional): 关联订单号 ,
-status (string, optional): 订单状态
+specificationItem (SpecificationItem, optional): 产品规格 ,
+status (string, optional): 订单状态 ,
+subscriptTime (integer, optional): 购买周期 ,
+zoneId (string, optional): 可用区ID ,
+zoneName (string, optional): 可用区名称
 }
-OrderProductItem {
-number (integer, optional): 产品个数 ,
-productItem (ProductItem, optional): 产品详情
+OrderItem {
+id (string, optional): 订单ID ,
+orderCode (string, optional): 订单编号 ,
+orderInstanceItems (Array[OrderInstanceItem], optional): 订单中的产品信息 ,
+relatedOrder (Array[OrderItem], optional): 关联订单
 }
-ProductItem {
-basicPrice (number, optional): 基础价格 ,
-billingCycle (string, optional): 计费周期，类型是数字，不要传入string 类型 ,
-billingType (string, optional): 计费模式，类型是数字，不要传入string 类型 ,
-code (string, optional),
-description (string, optional),
-id (string, optional),
-name (string, optional),
-onetimePrice (number, optional): 一次性价格 ,
-recurringPrice (number, optional): 周期价格 ,
-serviceId (string, optional): 产品目录ID ,
-serviceName (string, optional): 产品目录名称 ,//界面：产品类型
-serviceSpecification (string, optional),
-serviceType (string, optional): 产品目录类型 ,
-status (string, optional): 类型是数字，不要传入string 类型
+SpecificationItem {
+bootDisk (integer, optional): 启动盘容量 ,
+cpu (integer, optional): CPU核数 ,
+diskSize (integer, optional): 硬盘大小 ,
+diskType (integer, optional): 硬盘类型 ,
+memory (integer, optional): 内存大小
 }
 
+
 {
+  
   "detailDescription": "string",
   "resultCode": "string",
   "resultContent": {
     "backendApprover": "string",
-    "billingCycle": "string",
+    "backendApproverId": "string",
+    "billingMode": "string",
     "billingPerson": "string",
-    "createDate": "2016-11-02T04:00:12.517Z",
+    "billingPersonId": "string",
+    "createDate": "2016-11-03T04:33:01.907Z",
+    "department": "string",
+    "departmentApprover": "string",
+    "departmentApproverId": "string",
+    "departmentId": "string",
     "enterpirse": "string",
-    "exireDate": "2016-11-02T04:00:12.517Z",
+    "enterpirseId": "string",
+    "exireDate": "2016-11-03T04:33:01.908Z",
     "id": "string",
     "orderCode": "string",
-    "orgApprover": "string",
-    "organization": "string",
-    "productDetail": [
+    "orderInstanceItems": [
       {
-        "number": 0,
-        "productItem": {
-          "basicPrice": 0,
-          "billingCycle": "string",
-          "billingType": "string",
-          "code": "string",
-          "description": "string",
-          "id": "string",
-          "name": "string",
-          "onetimePrice": 0,
-          "recurringPrice": 0,
-          "serviceId": "string",
-          "serviceName": "string",
-          "serviceSpecification": "string",
-          "serviceType": "string",
-          "status": "string"
-        }
+        "billingCycle": "string",
+        "billingMode": "string",
+        "createDate": "2016-11-03T04:33:01.908Z",
+        "exireDate": "2016-11-03T04:33:01.908Z",
+        "extIp": "string",
+        "instanceName": "string",
+        "ip": "string",
+        "isSetPassword": "string",
+        "oneTimePrice": 0,
+        "operationSystem": "string",
+        "platformId": "string",
+        "platformName": "string",
+        "price": 0,
+        "productType": "string",
+        "quantity": "string",
+        "specificationItem": {
+          "bootDisk": 0,
+          "cpu": 0,
+          "diskSize": 0,
+          "diskType": 0,
+          "memory": 0
+        },
+        "status": "string",
+        "subscriptTime": 0,
+        "zoneId": "string",
+        "zoneName": "string"
       }
     ],
-    "quantity": "string",
-    "relatedOrder": [
-      {}
+    "relatedOrders": [
+      {
+        "id": "string",
+        "orderCode": "string",
+        "orderInstanceItems": [
+          {
+            "billingCycle": "string",
+            "billingMode": "string",
+            "createDate": "2016-11-03T04:33:01.911Z",
+            "exireDate": "2016-11-03T04:33:01.911Z",
+            "extIp": "string",
+            "instanceName": "string",
+            "ip": "string",
+            "isSetPassword": "string",
+            "oneTimePrice": 0,
+            "operationSystem": "string",
+            "platformId": "string",
+            "platformName": "string",
+            "price": 0,
+            "productType": "string",
+            "quantity": "string",
+            "specificationItem": {
+              "bootDisk": 0,
+              "cpu": 0,
+              "diskSize": 0,
+              "diskType": 0,
+              "memory": 0
+            },
+            "status": "string",
+            "subscriptTime": 0,
+            "zoneId": "string",
+            "zoneName": "string"
+          }
+        ],
+        "relatedOrder": [
+          {}
+        ]
+      }
     ],
-    "status": "string"
+    "status": "string",
+    "subscriptTime": 0
   }
 }
 */

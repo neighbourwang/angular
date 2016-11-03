@@ -1,7 +1,7 @@
 <fc-notice #notice ot="确认" (of)="okClicked()"></fc-notice>
 
 <div class="OrderDetail">
-	<div class="page-content-header icon-order-manage">订单编号：{{_orderDetail.FirstItem.orderItem.orderCode}}</div>
+	<div class="page-content-header icon-order-manage">订单编号：{{_orderDetail.FirstItem.orderCode}}</div>
 	<div class="page-content">
 		<div class="page-second-title">订单信息：</div>
 		<div class="table-container _margin">
@@ -10,28 +10,28 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td class="form-control-title righAlign">订单号:</td><td class="leftAlign">{{_orderDetail.FirstItem.orderItem.orderCode}}</td>
-						<td class="form-control-title righAlign">状态：</td><td class="leftAlign">{{_orderDetail.FirstItem.orderItem.statusName}}</td>
-						<td class="form-control-title righAlign">部门审批人：</td><td class="leftAlign" >{{_orderDetail.FirstItem.orderItem.orgApprover}}</td>		
+						<td class="form-control-title righAlign">订单号:</td><td class="leftAlign">{{_orderDetail.FirstItem.orderCode}}</td>
+						<td class="form-control-title righAlign">状态：</td><td class="leftAlign">{{_orderDetail.FirstItem.statusName}}</td>
+						<td class="form-control-title righAlign">部门审批人：</td><td class="leftAlign" >{{_orderDetail.FirstItem.departmentApprover}}</td>		
 					</tr>
 					<tr>
-						<td class="form-control-title righAlign">购买周期:</td><td class="leftAlign">{{_orderDetail.FirstItem.orderItem.billingCycle}}</td>
-						<td class="form-control-title righAlign">订购数量：</td><td class="leftAlign">{{_orderDetail.FirstItem.orderItem.quantity}}</td>
-						<td class="form-control-title righAlign">后台审批人：</td><td class="leftAlign">{{_orderDetail.FirstItem.orderItem.backendApprover}}</td>		
+						<td class="form-control-title righAlign">购买周期:</td><td class="leftAlign">{{_orderDetail.FirstItem.subscriptTime}}</td>
+						<td class="form-control-title righAlign">订购数量：</td><td class="leftAlign">{{_orderDetail.FirstItem.amount}}</td>
+						<td class="form-control-title righAlign">后台审批人：</td><td class="leftAlign">{{_orderDetail.FirstItem.backendApprover}}</td>		
 					</tr>
 					<tr>
-						<td class="form-control-title righAlign">计费模式:</td><td class="leftAlign">包年包月???</td>
-						<td class="form-control-title righAlign">订购人:</td><td class="leftAlign">{{_orderDetail.FirstItem.orderItem.billingPerson}}</td>
+						<td class="form-control-title righAlign">计费模式:</td><td class="leftAlign">{{_orderDetail.FirstItem.billingMode}}</td>
+						<td class="form-control-title righAlign">订购人:</td><td class="leftAlign">{{_orderDetail.FirstItem.billingPerson}}</td>
 						<td></td><td></td>	
 					</tr>
 					<tr>
-						<td class="form-control-title righAlign">创建时间:</td><td class="leftAlign">{{_orderDetail.FirstItem.orderItem.createDate}}</td>
-						<td class="form-control-title righAlign">部门:</td><td class="leftAlign">{{_orderDetail.FirstItem.orderItem.organization}}</td>
+						<td class="form-control-title righAlign">创建时间:</td><td class="leftAlign">{{_orderDetail.FirstItem.createDate}}</td>
+						<td class="form-control-title righAlign">部门:</td><td class="leftAlign">{{_orderDetail.FirstItem.organization}}</td>
 						<td></td><td></td>	
 					</tr>
 					<tr>
-						<td class="form-control-title righAlign">到期时间:</td><td class="leftAlign">{{_orderDetail.FirstItem.orderItem.exireDate}}</td>
-						<td class="form-control-title righAlign">企业:</td><td class="leftAlign">{{_orderDetail.FirstItem.orderItem.enterpirse}}</td>
+						<td class="form-control-title righAlign">到期时间:</td><td class="leftAlign">{{_orderDetail.FirstItem.exireDate}}</td>
+						<td class="form-control-title righAlign">企业:</td><td class="leftAlign">{{_orderDetail.FirstItem.enterpirse}}</td>
 						<td></td><td></td>	
 					</tr>
 				</tbody>
@@ -47,38 +47,11 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr >
-						<td style="width: 50%;">云主机</td>
+					<tr *ngFor="let prodItem of _orderDetail.FirstItem.orderInstanceItems">
+						<td style="width: 50%;">{{prodItem.productType}}</td>
 						<td class="leftAlign">
 							<ul>
-								<li>区域：华北1</li>
-								<li>可用区：可用区B</li>
-								<li>实例规格：CPU 2核/内存4GB/启动盘/70G</li>
-								<li>IP地址：10.1.1.1（内部）<br>
-								192.168.1.1（外部）</li>
-								<li>操作系统：******</li>
-								<li>密码：已设置</li>
-								<li>实例名称：abcabc</li>
-							</ul>
-						</td>
-					</tr>
-					<tr>
-						<td style="width: 50%;">云硬盘</td>
-						<td class="leftAlign">
-							<ul>
-							  <li>区域：华北1</li>
-							   <li>可用区：可用区B</li>
-							    <li>云硬盘类型：高性能I/O</li>
-							     <li>云盘容量：100GB</li>
-							</ul>
-						</td>
-					</tr>
-					<tr>
-						<td style="width: 50%;">数据库</td>
-						<td class="leftAlign">
-							<ul>
-							  <li>数据库类型：Oracle</li>
-							   <li>数据库版本：11g</li>
+								<li *ngFor="let detailItem of prodItem.prodDetailItems">{{detailItem.name}}:{{detailItem.value}}</li>
 							</ul>
 						</td>
 					</tr>
@@ -86,7 +59,7 @@
 			</table>
 		</div>
 <!-- 		关联订单 -->
-		<div class="page-second-title" *ngFor="let orderItem of __orderDetail.FirstItem.relatedOrder">关联订单：订单编号：{{orderItem.orderCode}}</div>
+		<div class="page-second-title" *ngFor="let orderItem of __orderDetail.FirstItem.relatedOrders">关联订单：订单编号：{{orderItem.orderCode}}</div>
 			<div class="table-container ">
 			<table class="table">
 				<thead>	
@@ -104,17 +77,17 @@
 					</tr>			
 				</thead>
 				<tbody>
-					<tr *ngFor="let prodItem of orderItem.productDetail">
-						<td>{{prodItem.productItem.name}}</td>
-						<td>{{prodItem.productItem.billingType}}</td>
-						<td>{{prodItem.productItem.billingCycle}}</td>
-						<td>{{prodItem.number}}</td>
-						<td>{{prodItem.productItem.onetimePrice}}</td>
-						<td>{{prodItem.productItem.recurringPrice}}</td>
-						<td>{{prodItem.productItem.serviceType}}</td>
-						<td class="validateInfo">{{prodItem.productItem.status}}</td>
-						<td>{{orderItem.createDate}}</td>
-						<td>{{orderItem.exireDate}}</td>
+					<tr *ngFor="let prodItem of orderItem.orderInstanceItems">
+						<td>{{prodItem.instanceName}}</td>
+						<td>{{prodItem.billingMode}}</td>
+						<td>{{prodItem.subscriptTime}}</td>
+						<td>{{prodItem.quantity}}</td>
+						<td>{{prodItem.oneTimePrice}}</td>
+						<td>{{prodItem.price}}</td>
+						<td>{{prodItem.productType}}</td>
+						<td class="validateInfo">{{prodItem.statusName}}</td>
+						<td>{{prodItem.createDate}}</td>
+						<td>{{prodItem.exireDate}}</td>
 					</tr>
 				</tbody>
 			</table>
