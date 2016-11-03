@@ -194,9 +194,9 @@ const menu: Array<any> = [
                 "routing": "user-center/account-mng/account-mng-list"
             },
             {
-                "label": "费用中心",
+                "label": "组织管理",
                 "isOpen": false,
-                "routing": ""
+                "routing": "user-center/org-mng/org-mng-list"
             },
             {
                 "label": "个人账户管理",
