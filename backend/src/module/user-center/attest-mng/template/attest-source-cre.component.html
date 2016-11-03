@@ -1,1 +1,66 @@
-<div> 创建认证源</div>
+<div class="page-content-header icon-content-header-platform-manage">创建认证源</div>
+<div class="page-content fix-page-content">
+	<div class="row" style="padding-top: 30px;">
+		<div class="col-md-12">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>认证源：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control font-gray" [(ngModel)]="product">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>URL地址：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control font-gray" [(ngModel)]="product">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>用户名：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control font-gray" [(ngModel)]="product">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>密码：</div>
+					<div class="col-sm-4">
+						<div class="row row-line-height">
+							<div class="form-group">
+								<div class="col-sm-9">
+									<input type="password" class="form-control">
+								</div>
+								<div class="col-sm-3">
+									<button class="fox-cloud-button-md fox-cloud-button-white mgr20" (click)="cancel();" style="width:100%">
+                                    <span class="icon-button-label">编 辑</span>
+                                    </button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">描述：</div>
+					<div class="col-sm-4">
+						<textarea class="form-control font-gray" rows="4" placeholder="描述" [(ngModel)]="product"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="text-center">
+	<button class="fox-cloud-button-lg fox-cloud-button-white mgr20" (click)="cancel();">
+            <span class="icon-button-label">取消 </span>
+        </button>
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();">
+            <span class="icon-button-label">创建</span>
+        </button>
+</div>

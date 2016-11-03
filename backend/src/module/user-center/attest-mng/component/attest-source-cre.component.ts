@@ -18,8 +18,8 @@ export class AttestSourceCreComponent implements OnInit {
         // private ProdDirListService: ProdDirListService,
         // private PostProduct:PostProduct
     ) { }
-    @ViewChild('editPassWord')
-    editPassWord: PopupComponent;
+    // @ViewChild('editPassWord')
+    // editPassWord: PopupComponent;
     // @ViewChild('notice')
     // notice: NoticeComponent;
 
@@ -31,11 +31,14 @@ export class AttestSourceCreComponent implements OnInit {
     ngOnInit() {}
     //编辑账号
     onEdit(){
-        this.router.navigate(['user-center/person-acc-mng/person-acc-edit'])
+        // this.router.navigate(['user-center/person-acc-mng/person-acc-edit'])
     }
     //编辑密码
     onEditPwd(){
-        this.editPassWord.open('修改密码')
+        // this.editPassWord.open('修改密码')
+    }
+    cancel(){
+        this.router.navigate(['user-center/attest-mng/attest-mng'])
     }
     otEditPwd(){
 

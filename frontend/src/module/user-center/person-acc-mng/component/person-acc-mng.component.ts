@@ -1,12 +1,12 @@
 import { Component, ViewChild, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, ValidationService} from '../../../../architecture';
+import { LayoutService, ValidationService,PopupComponent} from '../../../../architecture';
 
 @Component({
     selector: 'person-acc-mng',
     templateUrl: '../template/person-acc-mng.component.html',
-    styleUrls: [],
+    styleUrls: ['../style/person-acc-mng.less'],
     providers: []
 })
 
@@ -18,8 +18,8 @@ export class PersonAccMngComponent implements OnInit {
         // private ProdDirListService: ProdDirListService,
         // private PostProduct:PostProduct
     ) { }
-    // @ViewChild('editPassWord')
-    // editPassWord: PopupComponent;
+    @ViewChild('editPassWord')
+    editPassWord: PopupComponent;
     // @ViewChild('notice')
     // notice: NoticeComponent;
 

@@ -70,31 +70,31 @@ export class ProdDirListComponent implements OnInit {
             console.error(err)
         })
         //获取产品目录类别
-        // this.ProdSeriesService.getProdSeries().then(response => {
-        //     if (response && 100 == response.resultCode) {
-        //         this.prodDirTypeList = response.resultContent;
-        //         this.prodDirTypeId = this.prodDirTypeList[0].id
-        //         // this.queryProdDirTypeId =this.prodDirTypeList[0].id                
-        //         console.log('产品目录', this.prodDirTypeList)
-        //     } else {
+        this.ProdSeriesService.getProdSeries().then(response => {
+            if (response && 100 == response.resultCode) {
+                this.prodDirTypeList = response.resultContent;
+                this.prodDirTypeId = this.prodDirTypeList[0].id
+                // this.queryProdDirTypeId =this.prodDirTypeList[0].id                
+                console.log('产品目录', this.prodDirTypeList)
+            } else {
 
-        //     }
-        // }).catch(err => {
-        //     console.error(err);
-        // })
+            }
+        }).catch(err => {
+            console.error(err);
+        })
         
-        this.prodDirTypeList=[
-            {
-                "id": "1",
-                "code": "VITRUALMACHINE_SERVICE",
-                "name": "云主机服务"
-            },
-            {
-                "id": "2",
-                "code": "VITRUALMACHINE_SERVICE",
-                "name": "云硬盘服务"
-            },
-        ]
+        // this.prodDirTypeList=[
+        //     {
+        //         "id": "1",
+        //         "code": "VITRUALMACHINE_SERVICE",
+        //         "name": "云主机服务"
+        //     },
+        //     {
+        //         "id": "2",
+        //         "code": "VITRUALMACHINE_SERVICE",
+        //         "name": "云硬盘服务"
+        //     },
+        // ]
 
         this.backend(1, this.pp,{});
     }
@@ -239,11 +239,11 @@ export class ProdDirListComponent implements OnInit {
     otcreate() {
         let id = this.prodDirTypeId;
         console.log(id);
-        if(this.prodDirTypeId=='1'){
-            this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre"]);
-        }else{
-            this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre"]);
-        }
+        // if(this.prodDirTypeId=='1'){
+        //     this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre"]);
+        // }else{
+        //     this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre"]);
+        // }
         // let type = "new"
         // 
     }
