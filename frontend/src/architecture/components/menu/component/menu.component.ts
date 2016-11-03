@@ -82,6 +82,16 @@ const menu: Array<any> = [
                 "label": "云主机列表",
                 "isOpen": true,
                 "routing": "cloud-host-service/cloud-host-list"
+            },
+            {
+                "label": "创建云硬盘",
+                "isOpen": true,
+                "routing": "cloud-host-service/cloud-drive-order"
+            },
+            {
+                "label": "云硬盘列表",
+                "isOpen": true,
+                "routing": "cloud-host-service/cloud-drive-list"
             }
         ]
     },
