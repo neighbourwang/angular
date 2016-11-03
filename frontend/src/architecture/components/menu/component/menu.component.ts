@@ -167,9 +167,9 @@ const menu: Array<any> = [
                 "routing": ""
             },
             {
-                "label": "费用中心",
+                "label": "订单管理",
                 "isOpen": false,
-                "routing": ""
+                "routing": "op-center/order-mng/order-mng"
             }
         ]
     },
