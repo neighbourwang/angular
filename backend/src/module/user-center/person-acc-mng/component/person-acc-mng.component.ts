@@ -18,7 +18,7 @@ export class PersonAccMngComponent implements OnInit {
         // private ProdDirListService: ProdDirListService,
         // private PostProduct:PostProduct
     ) { }
-    @ViewChild('editPassWord')
+    // @ViewChild('editPassWord')
     // editPassWord: PopupComponent;
     // @ViewChild('notice')
     // notice: NoticeComponent;
