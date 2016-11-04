@@ -9,7 +9,8 @@
             </button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 				<!--<li><a href="#">修改</a></li>-->
-				<li><a (click)="edit();">编辑</a></li>
+				<li><a (click)="onEdit();">编辑</a></li>
+				<li><a (click)="onEditAcc();">修改认证账户</a></li>				
 				<li><a (click)="action('publish');">启用</a></li>                
 				<li><a (click)="action('ccPublish');">禁用</a></li>
 				<li><a (click)="action('delete');">删除</a></li>
@@ -25,7 +26,7 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th class="check-box-col"><input class="fox-cloud-checkbox" type="checkbox" class="fox-cloud-checkbox" (click)="switchSelectAll();" />编号</th>
+					<th >选择</th>
 					<th>认证源名称</th>
 					<th>URL地址</th>
 					<th>认证类型</th>
@@ -33,7 +34,33 @@
 					<th>描述</th>
 				</tr>
 			</thead>
-			<tbody>
+			 <tbody>
+            <tr>
+                <td><input class="fox-cloud-radio" type="radio" name="isSelected"/></td>
+                <td>东区</td>
+				<td>idap://xxxxx.com</td>
+				<td>AD</td>
+				<td>启用</td>
+				<td>一级管理员</td>
+            </tr>
+			<tr>
+                <td><input class="fox-cloud-radio" type="radio" name="isSelected"/></td>
+                <td>西区</td>
+				<td>idap://xxxxx.com</td>
+				<td>AD</td>
+				<td>启用</td>
+				<td>一级管理员</td>
+            </tr>
+			<tr>
+                <td><input class="fox-cloud-radio" type="radio" name="isSelected"/></td>
+                <td>南区</td>
+				<td>idap://xxxxx.com</td>
+				<td>AD</td>
+				<td>启用</td>
+				<td>一级管理员</td>
+            </tr>
+			 </tbody>
+			<!--<tbody>
 				<tr *ngFor="let item of prodDirList; let idx = index;">
 					<td><input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)"
 						/></td>
@@ -49,7 +76,7 @@
 					</td>
 					<td>{{item.description}}</td>
 				</tr>
-			</tbody>
+			</tbody>-->
 		</table>
 	</div>
 </div>

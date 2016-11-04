@@ -5,12 +5,12 @@ import { AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderM
 
 
 @Component({
-	selector: 'order-mng',
-	templateUrl: '../template/order-mng.component.html',
-	styleUrls: ['../style/order-mng-list.less'],
+	selector: 'order-mng-renew',
+	templateUrl: '../template/order-mng-renew.component.html',
+	styleUrls: ['../style/order-mng-renew.less'],
 	providers: []}
 	)
-export class OrderMngComponent implements OnInit{
+export class OrderMngRenewComponent implements OnInit{
 
 	private _param:OrderMngParam = new OrderMngParam();
 
@@ -26,10 +26,5 @@ export class OrderMngComponent implements OnInit{
 	ngOnInit(){
 	
 	}
-	showDetail(){
-		this.router.navigateByUrl('op-center/order-mng/order-mng-detail');
-	}
-	renewOrder(){
-		this.router.navigateByUrl('op-center/order-mng/order-mng-renew');
-	}
+	
 }

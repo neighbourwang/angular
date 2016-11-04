@@ -1,6 +1,6 @@
 ﻿import { ModuleWithProviders } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { OrderMngDetailComponent, OrderMngComponent } from './component';
+import { OrderMngDetailComponent, OrderMngComponent, OrderMngRenewComponent} from './component';
 
 export const OrderMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
@@ -10,6 +10,9 @@ export const OrderMngRouting: ModuleWithProviders = RouterModule.forChild([
     ,{
         path: 'op-center/order-mng/order-mng-detail',
         component: OrderMngDetailComponent
+    },{
+        path: 'op-center/order-mng/order-mng-renew',
+        component: OrderMngRenewComponent
     }
     
 ]);
