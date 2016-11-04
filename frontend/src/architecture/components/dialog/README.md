@@ -2,9 +2,9 @@
 
 共有六个属性：
 
-of(可选) ：点击确定的事件
+of(可选) ：点击取消的事件
 
-cf(可选) ：点击取消的事件
+cf(可选) ：点击确定的事件
 
 title(可选) ：确认框的标题  默认为：提示
 
@@ -25,9 +25,9 @@ html：
             title="{{modalTitle}}" 
             msg="{{modalMessage}}" 
             ot="{{modalOKTitle}}" 
-            (of)="confirm(1)" 
+            (of)="cancel(1)" 
             ct="{{modalCancelTitle}}" 
-            (cf)="cancel(0)"></fc-confirm>
+            (cf)="confirm(0)"></fc-confirm>
 ```
 
 javascript：
