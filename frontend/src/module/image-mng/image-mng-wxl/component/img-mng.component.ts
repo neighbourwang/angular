@@ -57,7 +57,9 @@ export class ImgMngComponent_wxl implements OnInit {
         }).catch(error => {
             this.layoutService.hide();
             });
-        this.layoutService.show();
+        //this.layoutService.show();
+
+        
         //this.service.getImages(this.currPage, this.pageSize)
         //    .then(response => {
         //        this.layoutService.hide();
@@ -74,7 +76,7 @@ export class ImgMngComponent_wxl implements OnInit {
     ngOnInit() {
         this.getImagesList();
     }
-
+/*
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
@@ -89,4 +91,5 @@ export class ImgMngComponent_wxl implements OnInit {
         this.noticeMsg = msg;
         this.notice.open();
     }
+*/
 }
