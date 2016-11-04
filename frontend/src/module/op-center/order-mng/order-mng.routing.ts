@@ -8,7 +8,7 @@ export const OrderMngRouting: ModuleWithProviders = RouterModule.forChild([
         component: OrderMngComponent
     }
     ,{
-        path: 'op-center/order-mng/order-mng-detail/:orderId',
+        path: 'op-center/order-mng/order-mng-detail',
         component: OrderMngDetailComponent
     }
     

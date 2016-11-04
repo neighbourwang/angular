@@ -1,6 +1,6 @@
 <div class="page-content cloud_host_order">
 	<div class="col-md-9">
-		<h1 class="page-content-header">创建云主机</h1>
+		<h1 class="page-content-header">创建云硬盘</h1>
 		<!-- <my-date-picker [options]="myDatePickerOptions" -->
                <!-- (dateChanged)="onDateChanged($event)"></my-date-picker> -->
 		<ul class="left-box">
@@ -15,8 +15,6 @@
 							<input type="radio" name="location" autocomplete="off"> {{ value.displayName }}
 						</label>
 					</div>
-					<div class="col-md-2"></div>
-					<div class="col-md-10 text-tip">不同区域之间的产品内网不互通；订购后不支持更换区域，请谨慎选择！</div>
 					<div class="col-md-2 content-title">可用区</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label 
@@ -26,211 +24,34 @@
 							<input type="radio" name="zone" autocomplete="off"> {{ value.displayName }}
 						</label>
 					</div>
-				</div>
-			</li>
-			<li>
-				<div class="col-md-1 li-title">
-					<p><span class="icon-network"></span><br>网络</p>
-				</div>
-				<div class="col-md-12 li-content">
-					<div class="col-md-2 content-title">网络类型</div>
-					<div class="col-md-10">
-						<select [(ngModel)]="sendModule.networktype" (change)="sendModule.networktype = value" class="form-control">
-							<option
-							 *ngFor="let value of configs.networktype.valueList;"
-							 [ngValue]="value" >{{ value.displayName }}</option>
-						</select>
-					</div>
 					<div class="col-md-2"></div>
-					<div class="col-md-10 text-tip">请选择您需要的子网网段</div>
-					<div class="col-md-2 content-title">安全组</div>
-					<div class="col-md-10">
-						<select [(ngModel)]="sendModule.securitygroup" (change)="sendModule.securitygroup = value" class="form-control">
-							<option
-							 *ngFor="let value of configs.securitygroup.valueList;"
-							 [ngValue]="value" >{{ value.displayName }}</option>
-						</select>
-					</div>
-					<div class="col-md-2"></div>
-					<div class="col-md-10 text-tip">如果您不知道如何选择，请咨询管理员</div>
+					<div class="col-md-10 text-tip">云硬盘只能挂载到同一可用区下的云主机实例，订购成功后不支持更换云硬盘的区域和可用区；请谨慎选择</div>
 				</div>
 			</li>
+			
 			<li>
 				<div class="col-md-1 li-title">
-					<p><span class="icon-specifications"></span><br>实例规格</p>
+					<p><span class="icon-password"></span><br>配置选项</p>
 				</div>
 				<div class="col-md-12 li-content">
-					<div class="col-md-2 content-title">CPU</div>
-					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label *ngFor="let value of configs.cpu.valueList;" (click)="sendModule.cpu = value;" class="btn btn-default" [ngClass]="{'active': sendModule.cpu.id === value.id}">
-							<input type="radio" name="cpu" autocomplete="off"> {{ value.displayName }}
+					<div class="col-md-2 content-title" click-outside (clickOutside)="onClickOutside($event)">云硬盘</div>
+					<div class="col-md-10 btn-group" id="cloud-desk" data-toggle="buttons">
+						<label class="btn btn-default active">
+							<input type="radio" name="mirror" autocomplete="off" checked=""> 空白盘
 						</label>
-					</div>
-					<div class="col-md-2 content-title">内存</div>
-					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label *ngFor="let value of configs.mem.valueList;" (click)="sendModule.mem = value;" class="btn btn-default" [ngClass]="{'active': sendModule.mem.id === value.id}">
-							<input type="radio" name="mem" autocomplete="off"> {{ value.displayName }}
+						<label class="btn btn-default" id="popover_never" rel="popover" data-placement="bottom" data-content="">
+							<input type="radio" name="mirror" autocomplete="off"> 从未挂载盘
 						</label>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="col-md-1 li-title">
-					<p><span class="icon-host"></span><br>云主机源</p>
-				</div>
-				<div class="col-md-12 li-content">
-					<div class="col-md-2 content-title">启动源</div>
-					<div class="col-md-10">
-						<select [(ngModel)]="sendModule.startupsource" (change)="sendModule.startupsource = value" class="form-control">
-							<option
-							 *ngFor="let value of configs.startupsource.valueList;"
-							 [ngValue]="value" >{{ value.displayName }}</option>
-						</select>
-					</div>
-					<div class="col-md-2"></div>
-					<div class="col-md-10 text-tip">公共镜像即基础操作系统，自定义镜像为企业根据基础操作系统做过额外配置或优化后的操作系统</div>
-					<div class="col-md-2 content-title">镜像类型</div>
-					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label *ngFor="let value of configs.imagetype.valueList;" (click)="sendModule.imagetype = value;" class="btn btn-default" [ngClass]="{'active': sendModule.imagetype.id === value.id}">
-							<input type="radio" name="imagetype" autocomplete="off"> {{ value.displayName }}
+						<label class="btn btn-default" id="popover_backup" rel="popover" data-placement="bottom" data-content="">
+							<input type="radio" name="mirror" autocomplete="off"> 从备份恢复
 						</label>
-					</div>
-					<div class="col-md-2 content-title">镜像列表</div>
-					<div class="col-md-10">
-						<select [(ngModel)]="sendModule.os" (change)="sendModule.os = value" class="form-control">
-							<option
-							 *ngFor="let value of configs.os.valueList;"
-							 [ngValue]="value" >{{ value.displayName }}</option>
-						</select>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="col-md-1 li-title">
-					<p><span class="icon-disk"></span><br>储存</p>
-				</div>
-				<div class="col-md-12 li-content">
-					<div class="col-md-12 no-padding mb20">
-						<div class="col-md-2 content-title">启动盘</div>
-						<div class="col-md-10 no-padding">
-							<div class="col-md-3 no-padding">
-								<label class="btn btn-default" *ngIf="!sendModule.zone.id">请先选择可用区</label>
-								<select 
-									*ngIf="sendModule.zone.id" 
-									[(ngModel)]="sendModule.bootstorage" 
-									(change)="sendModule.bootstorage = value" class="form-control">
-										<option
-										*ngFor="let value of configs.bootstorage.mapValueList[sendModule.zone.id];" 
-										[ngValue]="value" >{{ value.displayName }}</option>
-								</select>
-							</div>
-							<div class="col-md-1 content-title2">容量</div>
-							<div class="col-md-2 no-padding">
-								<select class="form-control">
-									<option selected>20</option>>
-								</select>
-								<!-- <select [(ngModel)]="sendModule.bootsize" (change)="sendModule.bootsize = value" class="form-control">
-									<option
-									*ngFor="let value of configs.bootsize.valueList;"
-									[ngValue]="value" >{{ value.displayName }}</option>
-								</select> -->
-							</div>
-							<div class="col-md-6 content-title2">GB</div>
+						<div id="popover_never_content" style="display: none">
+						  <div class="modal-body"> <h4>Text in a modal</h4> <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p> <h4>Popover in a modal</h4> <p>This  should have tooltips on hover.</p> <hr> <h4>Overflowing text to show scroll behavior</h4> <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p> <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p> <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p> <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p> </div>
 						</div>
-					</div>
-					<div class="col-md-12 no-padding">
-						<div class="col-md-2 content-title">数据盘</div>
-						<div class="col-md-10 no-padding data-disk">
-							<div class="col-md-12 no-padding mb10">
-								<div class="col-md-3 no-padding">
-									<!-- <select [(ngModel)]="sendModule.storage" (change)="sendModule.storage = value" class="form-control">
-										<option
-										*ngFor="let value of configs.storage.valueList;"
-										[ngValue]="value" >{{ value.displayName }}</option>
-									</select> -->
-									<select class="form-control">
-										<option selected>高速I/O</option>>
-									</select>
-								</div>
-								<div class="col-md-1 content-title2">容量</div>
-								<div class="col-md-2 no-padding">
-									<select class="form-control">
-										<option selected>20</option>>
-									</select>
-									<!-- <select [(ngModel)]="sendModule.storagesize" (change)="sendModule.storagesize = value" class="form-control">
-										<option
-										*ngFor="let value of configs.storagesize.valueList;"
-										[ngValue]="value" >{{ value.displayName }}</option>
-									</select> -->
-									<!--<div class="btn-group input-step-compontent">
-										<button type="button" class="btn btn-default col-md-3"><span class="glyphicon glyphicon-minus"></span></button>
-										<input type="text" class="form-control" value="20">
-										<button type="button" class="btn btn-default clickable"><span class="glyphicon glyphicon-plus"></span></button>
-									</div>-->
-								</div>
-								<div class="col-md-1 content-title2">GB</div>
-								<div class="col-md-3 text-right">
-									<!--<button class="btn button-gray-gradient"><span class="glyphicon glyphicon-remove"></span> 删除</button>-->
-								</div>
-							</div>
+						<div id="popover_backup_content" style="display: none">
+						  <div class="modal-body"> <h4>Text in a modal</h4> <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p> <h4>Popover in a modal</h4> <p>This  should have tooltips on hover.</p> <hr> <h4>Overflowing text to show scroll behavior</h4> <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p> <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p> <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p> <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p> </div>
 						</div>
-						<div class="col-md-2 content-title"></div>
-						<div class="col-md-10 add-disk-box">
-							<div class="col-md-3 content-title2 no-padding">
-								<button class="btn button-gray-gradient button-icon"><span class="glyphicon glyphicon-plus"></span> 增加数据盘</button>
-							</div>
-							<div class="col-md-7 no-padding disk-tip">一共可以增加<span class="font-green">3</span>块，还可以增加<span class="font-orange">2</span>块</div>
-						</div>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="col-md-1 li-title">
-					<p><span class="icon-password"></span><br>密码设置</p>
-				</div>
-				<div class="col-md-12 li-content li-password">
-					<div class="col-md-12 no-padding mb15">
-						<div class="col-md-2 content-title">设置方式</div>
-						<div class="col-md-4 no-padding btn-group" data-toggle="buttons">
-							<label class="btn btn-default active" (click)="setPassword = true">
-								<input type="radio" name="mirror" autocomplete="off" checked> 立即设置
-							</label>
-							<label class="btn btn-default" (click)="setPassword = false">
-								<input type="radio" name="mirror" autocomplete="off"> 模板自带密码
-							</label>
-						</div>
-						<div class="col-md-5 no-padding text-tip">请牢记您所设置的密码，如遗忘可登录ESC控制台重置密码。</div>
-					</div>
-
-					<div class="col-md-12 no-padding mb20">
-						<div class="col-md-2 content-title">用户名</div>
-						<div class="col-md-10 user-root">root</div>
-					</div>
-
-					<div class="col-md-12 no-padding mb20" *ngIf="setPassword">
-						<div class="col-md-2 content-title">登录密码</div>
-						<div class="col-md-4 no-padding">
-							<input type="password" [(ngModel)]="sendModule.password.value" class="form-control" placeholder="请输入主机密码">
-						</div>
-						<div class="col-md-5 no-padding text-tip">建议复杂度：8-30个字符，且同时包括三项（大写字母，小写字母，数字和特殊符号）</div>
-					</div>
-
-					<div class="col-md-12 no-padding mb20" *ngIf="setPassword">
-						<div class="col-md-2 content-title">确认密码</div>
-						<div class="col-md-4 no-padding" 
-							[ngClass]="{'has-error': passwordShadow !== sendModule.password.value}">
-
-							<input type="password" class="form-control"  [(ngModel)]="passwordShadow"  placeholder="请再次输入主机密码">
-						</div>
-					</div>
-
-					<div class="col-md-12 no-padding mb20">
-						<div class="col-md-2 content-title">实例名称</div>
-						<div class="col-md-4 no-padding">
-							<input type="text" [(ngModel)]="sendModule.instancename.value" class="form-control" placeholder="如不填写，则系统自动生成">
-						</div>
-						<div class="col-md-5 no-padding text-tip">2-68个字符，以大小写字母或者中文开头，可包含数字，“.”, "-", "_"</div>
-					</div>
+					</div>				
 				</div>
 			</li>
 			<li>

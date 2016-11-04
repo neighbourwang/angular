@@ -30,5 +30,4 @@ outputValue(e）{
     console.log(e);
 }
 //声明本地变量方式调用组件方法，控制是for可编辑;
-this.varName.unEdit();
-this.varName.editable();
+this.varName.unEdit();/this.varName.editable();

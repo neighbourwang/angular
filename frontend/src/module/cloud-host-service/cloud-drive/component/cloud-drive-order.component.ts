@@ -10,7 +10,7 @@ import { OrderList, OrderService, SendModule,TimeLineData, VlueList } from '../m
 @Component({
 	selector: 'cloud-drive-order',
 	templateUrl: '../template/cloud-drive-order.component.html',
-	styleUrls: ['../style/cloud-drive-order.less'],
+	styleUrls: ['../style/cloud-drive-order.less']
 })
 export class cloudDriveComponentOrder implements OnInit {
 
@@ -18,25 +18,8 @@ export class cloudDriveComponentOrder implements OnInit {
 	payLoad : PayLoad;
 	sendModule : SendModule;
 	setPassword : boolean = true;
-	// timeForever : boolean = false;
-
-	// rightFixed : boolean = false;   //让右侧配置起飞
 
 	passwordShadow : string;
-
-	// myDatePickerOptions = {
- //        todayBtnTxt: '今天',
- //        dateFormat: 'yyyy-mm-dd',
- //        firstDayOfWeek: 'mo',
- //        sunHighlight: true,
- //        height: '34px',
- //        width: '260px',
- //        inline: false,
- //        disableUntil: {year: 2016, month: 8, day: 10},
- //        selectionTxtFontSize: '16px',
- //        monthLabels : { 1: '一月', 2: '二月', 3: '三月', 4: '四月', 5: '五月', 6: '六月', 7: '七月', 8: '八月', 9: '九月', 10: '十月', 11: '十一月', 12: '十二月' },
- //        dayLabels : {su: '日', mo: '一', tu: '二', we: '三', th: '四', fr: '五', sa: '六'}
- //    };
 
 	constructor(
 		private layoutService: LayoutService,
@@ -51,12 +34,8 @@ export class cloudDriveComponentOrder implements OnInit {
 	ngOnInit() {
 		this.layoutService.show();
 		this.setConfigList();
-		// $("[data-toggle=popover]").popover();
+		this.initPopover();
 	}
-
-	// onDateChanged(event:any) {
- //        console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
- //    }
 
 	//把payLoad转换成提交的post对象
 	private payLoadFormat() : PayLoad {
@@ -126,6 +105,21 @@ export class cloudDriveComponentOrder implements OnInit {
 
 	checkInput() {
 
+	}
+
+	initPopover(){   //初始化popover
+		$('#popover_never').popover({ 
+	      html : true, 
+	      content: function() {
+	        return $('#popover_never_content').html();
+	      }
+	    });
+		$('#popover_backup').popover({ 
+	      html : true, 
+	      content: function() {
+	        return $('#popover_backup_content').html();
+	      }
+	    });
 	}
 
 	buyNow(){

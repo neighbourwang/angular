@@ -9,6 +9,9 @@ import { SpinnerComponent } from './spinner/component/spinner.component';
 import { PaginationComponent } from './pagination/component/pagination.component';
 import { NoticeComponent } from './dialog/component/notice.component';
 import { ConfirmComponent } from './dialog/component/confirm.component';
+import { PopupComponent } from './dialog/component/popup.component';
+import { CountBarComponent } from './countBar/component/count-bar.component';
+
 // import { DonutChart } from './donutChart/component/chart.component';
 // import { LineChart } from './lineChart/component/chart.component';
 
@@ -17,6 +20,7 @@ import { ConfirmComponent } from './dialog/component/confirm.component';
     imports: [
         CommonModule,
         Ng2Bs3ModalModule,
+        FormsModule
         // ChartsModule
     ],
     declarations: [
@@ -24,6 +28,8 @@ import { ConfirmComponent } from './dialog/component/confirm.component';
         PaginationComponent,
         NoticeComponent,
         ConfirmComponent,
+        PopupComponent,
+        CountBarComponent
         // DonutChart,
         // LineChart
     ],
@@ -34,6 +40,9 @@ import { ConfirmComponent } from './dialog/component/confirm.component';
         PaginationComponent,
         NoticeComponent,
         ConfirmComponent,
+        PopupComponent,
+        CountBarComponent,
+        FormsModule
         // DonutChart,
         // LineChart
     ]

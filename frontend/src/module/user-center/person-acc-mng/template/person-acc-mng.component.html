@@ -1,48 +1,15 @@
-<div>
+<div class="personAccMng">
 	<div class="page-content-header icon-content-header-platform-manage">个人账户管理</div>
 	<div class="page-content fix-page-content">
 		<div class="row" style="padding-top: 30px;">
-			<div class="col-md-12">
-				<div class="row row-line-height">
-					<div class="form-group">
-						<div class="col-sm-4 form-control-title">姓名：</div>
-						<div class="col-sm-4">
-							<input type="text" class="form-control font-gray" disabled [(ngModel)]="product">
-						</div>
-					</div>
+			<div class="col-md-2 touxiang">
+				<div class="img">
+					<img src="" alt="">
 				</div>
-				<div class="row row-line-height">
-					<div class="form-group">
-						<div class="col-sm-4 form-control-title">账号：</div>
-						<div class="col-sm-4">
-							<input type="text" class="form-control font-gray" disabled [(ngModel)]="product">
-						</div>
-					</div>
-				</div>
-				<div class="row row-line-height">
-					<div class="form-group">
-						<div class="col-sm-4 form-control-title">联系电话：</div>
-						<div class="col-sm-4">
-							<input type="text" class="form-control font-gray" disabled [(ngModel)]="product">
-						</div>
-					</div>
-				</div>
-				<div class="row row-line-height">
-					<div class="form-group">
-						<div class="col-sm-4 form-control-title">类型：</div>
-						<div class="col-sm-4">
-							<span style="line-height:34px;">本地</span>
-						</div>
-					</div>
-				</div>
-				<div class="row row-line-height">
-					<div class="form-group">
-						<div class="col-sm-4 form-control-title">描述：</div>
-						<div class="col-sm-4">
-							<textarea class="form-control font-gray" rows="4" placeholder="描述" disabled [(ngModel)]="product"></textarea>
-						</div>
-					</div>
-				</div>
+				<p class="title">修改头像</p>
+			</div>
+			<div class="col-md-10 detail">
+				<div ></div>
 			</div>
 		</div>
 	</div>
@@ -54,7 +21,7 @@
             <span class="icon-button-label">修改密码</span>
         </button>
 	</div>-->
-	<!--<fc-popup #editPassWord title="{{title}}" ot="保存" (of)="otEditPwd()" ct="取消" (cf)="ccf()">
+	<fc-popup #editPassWord title="{{title}}" ot="保存" (of)="otEditPwd()" ct="取消" (cf)="ccf()">
 		<div class="page-content">
 			<div class="row" style="padding-top: 10px;">
 				<div class="col-md-12">
@@ -85,5 +52,5 @@
 				</div>
 			</div>
 		</div>
-	</fc-popup>-->
+	</fc-popup>
 </div>
