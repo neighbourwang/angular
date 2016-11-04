@@ -72,6 +72,8 @@ export class cloudDriveComponentOrder implements OnInit {
 		}).then( res => {
 			this.setTimeLineType();
 			this.layoutService.hide();
+		}).catch(e => {
+			this.layoutService.hide();
 		})
 	}
 
@@ -118,6 +120,12 @@ export class cloudDriveComponentOrder implements OnInit {
 	      html : true, 
 	      content: function() {
 	        return $('#popover_backup_content').html();
+	      }
+	    });
+		$('#popover_host').popover({ 
+	      html : true, 
+	      content: function() {
+	        return $('#popover_host_content').html();
 	      }
 	    });
 	}

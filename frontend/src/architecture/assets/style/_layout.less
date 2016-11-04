@@ -52,3 +52,12 @@
 .float-right {
 	float: right !important;
 }
+
+.clear-float {
+	&::after{
+		content : "";
+		display: block;
+		height: 0;
+		clear: both;
+	}
+}
