@@ -27,7 +27,7 @@ import { ImgMngService_wxl } from './image-mng-wxl/service/img-mng.service';
         ImgMngComponent_fhd,
         ImgMngComponent_gcy,
         ImgMngComponent_my,
-        ImgMngComponent_wxl,
+        ImgMngComponent_wxl
         
     ],
     exports: [

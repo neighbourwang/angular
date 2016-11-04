@@ -92,6 +92,11 @@ const menu: Array<any> = [
                 "label": "云硬盘列表",
                 "isOpen": true,
                 "routing": "cloud-host-service/cloud-drive-list"
+            },
+            {
+                "label": "镜像",
+                "isOpen": true,
+                "routing": "image-mng/image-mng-wxl"
             }
         ]
     },
