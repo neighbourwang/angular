@@ -131,7 +131,7 @@
 </div>
 
 <div class="mgb20" style="overflow : hidden">
-    <button class="btn button-confirm float-right" data-toggle="modal" data-target="#crModel">创建帐号</button>
+    <button class="btn button-confirm float-right" (click)="openCreate()">创建帐号</button>
 </div>
 
 <table class="table table-hover mgb20">
@@ -152,11 +152,11 @@
 		<td class="text-center">启用</td> 
 		<td class="text-center">描述</td>
 		<td class="text-center">
-            <span class="glyphicon glyphicon-edit font-green" style="margin-right : 10px "></span>
-            <span class="glyphicon glyphicon-lock font-green" style="margin-right : 10px"></span>
-            <span class="glyphicon glyphicon-ok-circle font-green" style="margin-right : 10px"></span>
-            <span class="glyphicon glyphicon-ban-circle font-orange" style="margin-right : 10px"></span>
-            <span class="glyphicon glyphicon-trash font-orange"></span>
+            <span class="glyphicon glyphicon-edit font-green" (click)="openEdit()" style="margin-right : 10px "></span><!-- 编辑 -->
+            <!--<span class="glyphicon glyphicon-lock font-green" style="margin-right : 10px"></span>-->
+            <span class="glyphicon glyphicon-ok-circle font-green" (click)="enable()" style="margin-right : 10px"></span> <!-- 启用 -->
+            <span class="glyphicon glyphicon-ban-circle font-orange" (click)="disable()" style="margin-right : 10px"></span> <!-- 禁用 -->
+            <span class="glyphicon glyphicon-trash font-orange" (click)="delete()"></span> <!-- 删除 -->
         </td>
 	</tr>
 </tbody></table>
@@ -169,14 +169,19 @@
 		<h4 class="modal-title" id="myModalLabel">创建帐号</h4>
 	  </div>
 	  <div class="modal-body"> 
-          <org-mng-cr></org-mng-cr>
+          <org-mng-cr #crModel (idEdit)="isEdit"></org-mng-cr>
       </div>
 	  <div class="modal-footer">
-		<button type="button" class="btn button-confirm button-size-big">确定</button>
+		<button type="button" class="btn button-confirm button-size-big" (click)="updata()">确定</button>
 		<button type="button" class="btn btn-default button-size-big" data-dismiss="modal">取消</button>
 	  </div>
 	</div>
   </div>
 </div>
+
+<fc-confirm #confirm 
+            title="{{confirmTitle}}" 
+            msg="{{confirmMessage}}" 
+            (cf)="confirmOk()"></fc-confirm>
 
 
