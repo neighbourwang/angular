@@ -76,4 +76,36 @@ export let RestApis: RestApiModel[] = [
         "id": "image.mng.update",
         "url": "/marketplace/authsec/image/{image_id}"
     }
+    //<--费用中心-订单管理
+    ,{
+        "desc": "部门列表获取",
+        "method": "GET",
+        "id": "op-center.order-mng.department-list.get",
+        "url": "NONE"        
+    }
+    ,{
+        "desc": "产品类型获取",
+        "method": "GET",
+        "id": "op-center.order-mng.product-type.get",
+        "url": "NONE"        
+    }
+    ,{
+        "desc": "区域获取",
+        "method": "GET",
+        "id": "op-center.order-mng.platform-list.get",
+        "url": "NONE"        
+    }
+    ,{
+        "desc": "可用区获取",
+        "method": "GET",
+        "id": "op-center.order-mng.region-list.get",
+        "url": "NONE"        
+    }
+    ,{
+        "desc": "订单查询",
+        "method": "GET",
+        "id": "op-center.order-mng.order-list.get",
+        "url": "NONE"        
+    }
+    //费用中心-订单管理-->
 ]
