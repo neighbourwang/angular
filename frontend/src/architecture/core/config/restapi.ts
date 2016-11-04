@@ -63,5 +63,17 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "id": "hosts.instance.detail",
         "url": "marketplace/authsec/subinstance/itemlist/vm/{uuid}"
+    },
+    {
+        "desc": "获取镜像列表",
+        "method": "POST",
+        "id": "image.mng.list",
+        "url": "marketplace/authsec/images/page/{page}/size/{size}"
+    },
+    {
+        "desc": "更新镜像信息",
+        "method": "PUT",
+        "id": "image.mng.update",
+        "url": "/marketplace/authsec/image/{image_id}"
     }
 ]
