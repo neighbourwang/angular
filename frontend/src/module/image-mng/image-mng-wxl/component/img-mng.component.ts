@@ -3,24 +3,23 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import { LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent } from "../../../../architecture";
 
-import { ImageListModule } from "../model/img-mng.model";
+import { Image_wxl } from "../model/img-mng.model";
 
 import { ImgMngService_wxl } from "../service/img-mng.service";
-
 
 @Component({
     selector: "img-mng",
     templateUrl: "../template/img-mng.html",
     styleUrls: ["../style/img-mng.less"],
-    providers: [ ImgMngService_wxl ]
+    providers: []
 })
 export class ImgMngComponent_wxl implements OnInit {
     pageIndex = 0;
     tp = 1; //totalPage
     pageSize = 10;
 
-    totalPages: number = 0;
-    currPage: number = 1;
+    totalPages = 0;
+    currPage = 1;
 
     noticeTitle = "";
     noticeMsg = "";
@@ -34,7 +33,7 @@ export class ImgMngComponent_wxl implements OnInit {
     @ViewChild("pager")
     pager: PaginationComponent;
 
-    images: ImgMngService_wxl[] = []; //当前的镜像
+    images: Array<Image_wxl>; //当前的镜像
 
     constructor(
         private service: ImgMngService_wxl,
@@ -43,8 +42,9 @@ export class ImgMngComponent_wxl implements OnInit {
         private activatedRouter: ActivatedRoute
     ) {
     }
-    
+
     getImagesList(): void {
+
         this.service.getImages(this.currPage, this.pageSize).then(res => {
             if (res.resultCode !== "100") {
                 throw "";
@@ -55,14 +55,38 @@ export class ImgMngComponent_wxl implements OnInit {
             console.log(images,1111)
             this.images = images;
         }).catch(error => {
-            // this.layoutService.hide();
-        });
+            this.layoutService.hide();
+            });
+        this.layoutService.show();
+        //this.service.getImages(this.currPage, this.pageSize)
+        //    .then(response => {
+        //        this.layoutService.hide();
+        //        if (response && 100 == response["resultCode"]) {
+        //            //删除成功
+        //            this.images = response["resultContent"];
+        //        } else {
+        //            alert("Res sync error");
+        //        }
+        //    })
+        //    .catch((e) => this.onRejected(e));
     }
 
     ngOnInit() {
-        //this.layoutService.show();
         this.getImagesList();
-        
     }
-     
+
+    onRejected(reason: any) {
+        this.layoutService.hide();
+        console.log(reason);
+        this.showAlert("获取数据失败！");
+    }
+
+
+    showAlert(msg: string): void {
+        this.layoutService.hide();
+
+        this.noticeTitle = "提示";
+        this.noticeMsg = msg;
+        this.notice.open();
+    }
 }

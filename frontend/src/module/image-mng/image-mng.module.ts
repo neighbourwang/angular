@@ -1,6 +1,9 @@
 ﻿import { NgModule } from '@angular/core';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 
+// Common Components
+import { CommonComponentModule } from '../../architecture';
+
 //routing
 import { ImgMngRouting } from './image-mng.routing';
 //Components
@@ -20,6 +23,7 @@ import { ImgMngService_wxl } from './image-mng-wxl/service/img-mng.service';
 @NgModule({
     imports: [
         Ng2Bs3ModalModule,
+        CommonComponentModule,
         ImgMngRouting
     ],
     declarations: [

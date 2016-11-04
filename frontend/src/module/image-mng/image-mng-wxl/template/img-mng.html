@@ -83,7 +83,7 @@
         </div>
 
         <table class="table table-hover mgb20">
-            <tbody>
+            <thead>
                 <tr>
                     <th class="text-center">选择</th>
                     <th class="text-center">镜像名称</th>
@@ -97,8 +97,9 @@
                     <th class="text-center">描述</th>
                     <th class="text-center">操作</th>
                 </tr>
-<!--
-                <tr *ngFor="let image of images">
+            </thead>
+            <tbody>
+                <tr *ngFor="let image of images;">
                     <td class="text-center"><input type="radio"></td>
                     <td class="text-center active"><u>{{image.imageName}}</u></td>
                     <td class="text-center">{{image.imageType}}</td>
@@ -116,7 +117,6 @@
                         </div>
                     </td>
                 </tr>
--->
             </tbody>
         </table>
     </div>

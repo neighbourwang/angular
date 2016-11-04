@@ -1,4 +1,4 @@
-export const Images = {
+export const Images_wxl = {
     detailDescription: "镜像列表",
     pageInfo: {
         currentPage: 0,

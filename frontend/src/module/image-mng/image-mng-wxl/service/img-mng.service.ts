@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
 import { RestApiCfg, RestApi } from "../../../../architecture";
 
-import { Images } from "../model/img-mng.mock.model";
-import { ImageListModule } from "../model/img-mng.model";
+import { Images_wxl } from "../model/img-mng.mock.model";
+import { Image_wxl } from "../model/img-mng.model";
 
  
 import "rxjs/add/operator/toPromise";
@@ -37,7 +37,7 @@ export class ImgMngService_wxl {
         //const api = this.restApiCfg.getRestApi("image.mng.list");
         //return this.restApi.request(api.method, api.url, pathParams, null, null);
 
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => {return Images});
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Images_wxl});
     }
     
 }
