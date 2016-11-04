@@ -18,11 +18,11 @@ export const ImgMngRouting = RouterModule.forChild([
     },
         {
         path: "image-mng/image-mng-gcy",
-        component: ImgMngComponent_dlm
+        component: ImgMngComponent_gcy
     },
         {
             path: "image-mng/image-mng-my",
-            component: ImgMngComponent_dlm
+            component: ImgMngComponent_my
         },
         {
             path: "image-mng/image-mng-wxl",
