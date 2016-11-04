@@ -31,18 +31,15 @@ export class AttestMngComponent implements OnInit {
     ngOnInit() {}
     //编辑账号
     onEdit(){
-        
+        this.router.navigate(['user-center/attest-mng/attest-source-cre',2,'edit'])
     }
-    //编辑密码
-    onEditPwd(){
-        // this.editPassWord.open('修改密码')
+    //编辑认证源账户
+    onEditAcc(){
+        this.router.navigate(['user-center/attest-mng/attest-source-cre',3,'editAcc'])
     }
     creation(){
-        this.router.navigate(['user-center/attest-mng/attest-source-cre'])
-    }
-    otEditPwd(){
-
-    }
+        this.router.navigate(['user-center/attest-mng/attest-source-cre',1,'new'])
+    }    
     ccf(){
 
     }
