@@ -83,7 +83,7 @@
         </div>
 
         <table class="table table-hover mgb20">
-            <thead>
+            <tbody>
                 <tr>
                     <th class="text-center">选择</th>
                     <th class="text-center">镜像名称</th>
@@ -97,23 +97,86 @@
                     <th class="text-center">描述</th>
                     <th class="text-center">操作</th>
                 </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let image of images;">
-                    <td class="text-center"><input type="radio"></td>
-                    <td class="text-center active"><u>{{image.imageName}}</u></td>
-                    <td class="text-center">{{image.imageType}}</td>
-                    <td class="text-center">{{image.osName}}</td>
-                    <td class="text-center">{{image.osDigits}}</td>
-                    <td class="text-center">{{image.createdDate}}</td>
-                    <td class="text-center font-green">{{image.status}}</td>
-                    <td class="text-center">{{image.progress}}</td>
-                    <td class="text-center">{{image.location}}</td>
-                    <td class="text-center">{{image.description}}</td>
+
+                <tr>
+                    <td class="text-center">
+                        <input name="host-list" type="radio">
+                    </td>
+                    <td class="text-center active"><u>MyCentOS-VM-001</u></td>
+                    <td class="text-center">自定义镜像</td>
+                    <td class="text-center">Windows 2012</td>
+                    <td class="text-center">64</td>
+                    <td class="text-center">2016/11/1 10:23</td>
+                    <td class="text-center font-green">可用</td>
+                    <td class="text-center">100%</td>
+                    <td class="text-center">上海A区</td>
+                    <td class="text-center">描述文字信息内容在这里显示</td>
                     <td class="text-center">
                         <div class="test-div">
                             <span class="icon-edit2"></span>
                             <span class="icon-delete3"></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        <input name="host-list" class="" type="radio">
+                    </td>
+                    <td class="text-center mytd">
+                        <u style="color:#01a982;">name</u><span class="tdspan">编辑</span>
+                        <div class="popover fade bottom in" role="tooltip" id="popover316538" style="top: 35px; left: 8.5px; width:420px;max-width:1000px; display: block;">
+                            <div class="arrow" style="left: 20%;"></div>
+                            <div class="popover-content">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label pull-left">镜像描述:</label>
+                                        <div class="col-sm-9 float-left">
+                                            <textarea class="form-control" rows="3"></textarea>
+                                            <div style="color: #b1b6bc;">长度为2-256个字符，不能以http://或https://开头</div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="pull-right" style="margin-bottom:10px;">
+                                    <button class="btn btn-default" style="background:#ff8d72;color:#fff;">保存</button>
+                                    <button class="btn btn-default">取消</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </td>
+                    <td class="text-center">公共镜像</td>
+                    <td class="text-center">CentOS 6.5</td>
+                    <td class="text-center">64</td>
+                    <td class="text-center">2016/11/1 10:23</td>
+                    <td class="text-center font-green">可用</td>
+                    <td class="text-center">100%</td>
+                    <td class="text-center">上海A区</td>
+                    <td class="text-center mytd">
+                        描述文字信息内容在这里显示
+                        <span class="tdspan">编辑</span>
+                        <div class="popover fade bottom in" role="tooltip" id="popover472540" style="top: 35px; left: 8.5px; width:436px;max-width: 1000px; display: block;">
+                            <div class="arrow" style="left: 30%;"></div>
+                            <div class="popover-content">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">镜像描述:</label>
+                                        <div class="col-sm-9 float-left">
+                                            <textarea class="form-control" rows="3"></textarea>
+                                            <div style="color: #b1b6bc;">长度为2-256个字符，不能以http://或https://开头</div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="pull-right" style="margin-bottom:10px;">
+                                    <button class="btn btn-default" style="background:#ff8d72;color:#fff;">保存</button>
+                                    <button class="btn btn-default">取消</button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <div class="test-div">
+                            <span class="icon-edit2"></span>
+                            <span class="icon-delete"></span>
                         </div>
                     </td>
                 </tr>

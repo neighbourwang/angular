@@ -8,7 +8,6 @@ import { CommonComponentModule } from '../../../architecture';
 
 //Components
 import { PersonAccMngComponent } from './component/person-acc-mng.component';
-import { PersonAccEditComponent } from './component/person-acc-edit.component';
 
 // Routing
 import { PersonAccMngRouting } from './person-acc-mng.routing';
@@ -23,11 +22,9 @@ import { PersonAccMngRouting } from './person-acc-mng.routing';
     ],
     declarations: [
         PersonAccMngComponent,
-        PersonAccEditComponent
     ],
     exports: [
         PersonAccMngComponent,
-        PersonAccEditComponent
     ],
     providers: [
        

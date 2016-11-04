@@ -23,11 +23,9 @@
 						<td>
 							<span class="">部门:</span>
 							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="platformId">
-									<option class="hands">所有部门</option>
-									<option class="hands">商务部</option>
-									<option class="hands">部门1</option>
-									<option class="hands">部门2</option>
+								<select class="form-control" [(ngModel)]="_param.organization">
+									<option class="hands" [value]="0">所有部门</option>
+									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
@@ -53,9 +51,8 @@
 							<span class="" >
 							订单状态:</span>
 							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="platformId">
-									<option class="hands">成功</option>
-									<option class="hands">失败</option>
+								<select class="form-control" [(ngModel)]="_param.status">
+									<option class="hands" *ngFor="let item of _orderStatusDic.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
@@ -63,8 +60,9 @@
 							<span class="" >
 							产品类型:</span>
 							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="platformId">
-									<option class="hands">所有</option>
+								<select class="form-control" [(ngModel)]="_param.serviceId">
+									<option class="hands" [value]="0">所有</option>
+									<option class="hands" *ngFor="let item of _productTypeLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
@@ -72,8 +70,9 @@
 							<span class="" >
 							区域:</span>
 							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="platformId">
-									<option class="hands">所有</option>
+								<select class="form-control" [(ngModel)]="_param.region">
+									<option class="hands" [value]="0">所有</option>
+									<option class="hands" *ngFor="let item of _platformLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
@@ -81,8 +80,9 @@
 							<span class="" >
 							可用区:</span>
 							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="platformId">
-									<option class="hands">所有</option>
+								<select class="form-control" [(ngModel)]="_param.zoneId">
+									<option class="hands" [value]="0">所有</option>
+									<option class="hands" *ngFor="let item of _regionLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
@@ -114,8 +114,8 @@
 					<td class="order-title font-green" colspan="7">2016-10-05 订单号：23705375384884773&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间：2016-10-08</td>
 					<td colspan="2">
 						<button class="mgr10 pull-right"  (click)="renewOrder();">续&nbsp;&nbsp;&nbsp;订</button>
-						<button class="mgr10 pull-right"  (click)="showDetail()">退&nbsp;&nbsp;&nbsp;订</button>
-						<button class="mgr10 pull-right"  (click)="showDetail()">详&nbsp;&nbsp;&nbsp;情</button>
+						<button class="mgr10 pull-right"  (click)="cancelOrder();">退&nbsp;&nbsp;&nbsp;订</button>
+						<button class="mgr10 pull-right"  (click)="showDetail();">详&nbsp;&nbsp;&nbsp;情</button>
 					</td>	
 				</tr>
 				<tr>

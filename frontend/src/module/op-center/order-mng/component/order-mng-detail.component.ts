@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
-import { OrderDetail} from '../model';
+import { OrderDetailItem } from '../model';
 
 @Component({
   // moduleId: module.id,
