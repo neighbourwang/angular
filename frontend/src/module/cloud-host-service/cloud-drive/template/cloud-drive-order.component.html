@@ -1,4 +1,4 @@
-<div class="page-content cloud_host_order">
+<div class="page-content cloud_host_order cloud_drive_order">
 	<div class="col-md-9">
 		<h1 class="page-content-header">创建云硬盘</h1>
 		<!-- <my-date-picker [options]="myDatePickerOptions" -->
@@ -31,10 +31,10 @@
 			
 			<li>
 				<div class="col-md-1 li-title">
-					<p><span class="icon-password"></span><br>配置选项</p>
+					<p><span class="icon-configure"></span><br>配置选项</p>
 				</div>
 				<div class="col-md-12 li-content">
-					<div class="col-md-2 content-title" click-outside (clickOutside)="onClickOutside($event)">云硬盘</div>
+					<div class="col-md-2 content-title">云硬盘</div>
 					<div class="col-md-10 btn-group" id="cloud-desk" data-toggle="buttons">
 						<label class="btn btn-default active">
 							<input type="radio" name="mirror" autocomplete="off" checked=""> 空白盘
@@ -46,12 +46,135 @@
 							<input type="radio" name="mirror" autocomplete="off"> 从备份恢复
 						</label>
 						<div id="popover_never_content" style="display: none">
-						  <div class="modal-body"> <h4>Text in a modal</h4> <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p> <h4>Popover in a modal</h4> <p>This  should have tooltips on hover.</p> <hr> <h4>Overflowing text to show scroll behavior</h4> <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p> <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p> <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p> <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p> </div>
+							<div class="col-md-12 mgb15 no-padding">
+								<select class="form-control float-left drive-select">
+									<option value="1">云硬盘名称</option>
+									<option value="1">支持</option>
+									<option value="1">不支持</option>
+								</select>
+								<div class="input-group float-left drive-search">
+									<input class="form-control " placeholder="输入云主机硬盘搜索">
+									<div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+								</div>
+							</div>
+							<table class="table table-hover">
+								<tr>
+									<th class="text-center">云硬盘名称</th>
+									<th class="text-center">储存类型</th>
+									<th class="text-center">容量(GB)</th>
+									<th class="text-center">属性</th>
+								</tr>
+								<tr *ngFor="let i of [1,2,3,4,5]">
+									<td class="text-center">cirros-0.3.4</td>
+									<td class="text-center">SSD盘</td> 
+									<td class="text-center">40</td>
+									<td class="text-center">启动盘</td>
+								</tr>
+							</table>
 						</div>
 						<div id="popover_backup_content" style="display: none">
-						  <div class="modal-body"> <h4>Text in a modal</h4> <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p> <h4>Popover in a modal</h4> <p>This  should have tooltips on hover.</p> <hr> <h4>Overflowing text to show scroll behavior</h4> <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p> <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p> <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p> <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p> </div>
+							<div class="col-md-12 mgb15 no-padding">
+								<select class="form-control float-left drive-select">
+									<option value="1">云硬盘名称</option>
+									<option value="1">支持</option>
+									<option value="1">不支持</option>
+								</select>
+								<div class="input-group float-left drive-search">
+									<input class="form-control " placeholder="输入云主机硬盘搜索">
+									<div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+								</div>
+							</div>
+							<table class="table table-hover">
+								<tr>
+									<th class="text-center">备份名称</th>
+									<th class="text-center">源硬盘名称</th>
+									<th class="text-center">源主机名称</th>
+									<th class="text-center">容量(GB)</th>
+									<th class="text-center">属性</th>
+								</tr>
+								<tr *ngFor="let i of [1,2,3,4,5]">
+									<td class="text-center">cirros-0.3.4</td>
+									<td class="text-center">SSD盘</td> 
+									<td class="text-center">cirros</td>
+									<td class="text-center">40</td>
+									<td class="text-center">启动盘</td>
+								</tr>
+							</table>
 						</div>
-					</div>				
+					</div>	
+					<div class="col-md-2 content-title">云硬盘类型</div>	
+					<div class="col-md-10 btn-group" data-toggle="buttons">
+						<label class="btn btn-default active">
+							<input type="radio" name="mirror" autocomplete="off" checked=""> 高速I/O
+						</label>
+						<label class="btn btn-default" rel="popover" data-placement="bottom" data-content="">
+							<input type="radio" name="mirror" autocomplete="off"> 高速I/O-2
+						</label>
+						<label class="btn btn-default" rel="popover" data-placement="bottom" data-content="">
+							<input type="radio" name="mirror" autocomplete="off"> 高速I/O-3
+						</label>
+						<label class="btn btn-default" rel="popover" data-placement="bottom" data-content="">
+							<input type="radio" name="mirror" autocomplete="off"> SSD盘
+						</label>
+						<label class="btn btn-default" rel="popover" data-placement="bottom" data-content="">
+							<input type="radio" name="mirror" autocomplete="off"> 普通盘
+						</label>
+					</div>	
+					<div class="col-md-12 no-padding mgb20">
+						<div class="col-md-2 content-title">容量(GB)</div>	
+						<div class="btn-group input-step-compontent col-md-2 no-padding">  
+							<button type="button" class="btn btn-default col-md-3"><span class="glyphicon glyphicon-minus"></span></button>
+							<input type="text" class="form-control" value="20">
+							<button type="button" class="btn btn-default clickable"><span class="glyphicon glyphicon-plus"></span></button>
+						</div>	
+						<div class="col-md-7 disk-tip">可以购买容量 40~500GB的云硬盘。40GB起，增加按照每10GB一档。</div>
+					</div>
+					<div class="col-md-12 no-padding mgb15">
+						<div class="col-md-2 content-title">云硬盘实例名称</div>
+						<div class="col-md-4 no-padding mgr15">
+							<input type="text" [(ngModel)]="sendModule.instancename.value" class="form-control" placeholder="如不填写，则系统自动生成">
+						</div>
+						<div class="col-md-5 disk-tip no-padding">2-68个字符，以大小写字母或者中文开头，可包含数字，“.”, "-", "_"</div>
+					</div>	
+					<div class="col-md-12 content-title btn-group">
+						<span class="float-left mgr20 lh34"><input type="radio" name=""> 是否挂载到云主机 </span>
+						<div class="input-group float-left" id="popover_host" rel="popover" data-placement="bottom" data-content="">
+				            <label class="btn btn-default button-gray-gradient" (click)="superSearch = superSearch ? false : true" [ngClass]="{'active': superSearch}">
+				                云主机实例列表
+				            </label>
+				        </div>
+						
+						<div id="popover_host_content" style="display: none">
+						<div class="col-md-12 mgb15 no-padding"><input type="radio" name=""> 是否随云主机一起删除？</div>
+							<div class="col-md-12 mgb15 no-padding">
+								<select class="form-control float-left drive-select">
+									<option value="1">云硬盘名称</option>
+									<option value="1">支持</option>
+									<option value="1">不支持</option>
+								</select>
+								<div class="input-group float-left drive-search">
+									<input class="form-control " placeholder="输入云主机硬盘搜索">
+									<div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+								</div>
+							</div>
+							<table class="table table-hover">
+								<tr>
+									<th class="text-center">备份名称</th>
+									<th class="text-center">源硬盘名称</th>
+									<th class="text-center">源主机名称</th>
+									<th class="text-center">容量(GB)</th>
+									<th class="text-center">属性</th>
+								</tr>
+								<tr *ngFor="let i of [1,2,3,4,5]">
+									<td class="text-center">cirros-0.3.4</td>
+									<td class="text-center">SSD盘</td> 
+									<td class="text-center">cirros</td>
+									<td class="text-center">40</td>
+									<td class="text-center">启动盘</td>
+								</tr>
+							</table>
+						</div>
+					</div>
 				</div>
 			</li>
 			<li>
@@ -59,25 +182,7 @@
 					<p><span class="icon-amount"></span><br>购买量</p>
 				</div>
 				<div class="col-md-12 li-content">
-					<div class="col-md-12 no-padding mb20">
-						<div class="col-md-2 content-title">购买时长</div>
-						<div class="col-md-2 no-padding mr10">
-							<select [disabled]="timeForever" [(ngModel)]="sendModule.timelineunit" (change)="sendModule.timelineunit = value" class="form-control">
-								<option
-								*ngFor="let value of configs.timelineunit.valueList;"
-								[ngValue]="value" >{{ value.displayName }}</option>
-							</select>
-						</div>
-						<div class="col-md-2 no-padding mr10">
-							<input [disabled]="timeForever" [(ngModel)]="sendModule.timeline.value" type="text" class="form-control">
-						</div>
-						<div class="col-md-2 no-padding">
-							<!-- <label class="btn btn-default" (click)="timeForever = timeForever ? false : true" [ngClass]="{'active': timeForever}">
-								永久
-							</label> -->
-						</div>
-					</div>
-
+					
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">购买量</div>
 						<div class="col-md-2 no-padding mr10">

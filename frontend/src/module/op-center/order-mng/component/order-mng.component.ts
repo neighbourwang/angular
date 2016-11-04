@@ -73,4 +73,7 @@ export class OrderMngComponent implements OnInit{
 	renewOrder(){
 		this.router.navigateByUrl('op-center/order-mng/order-mng-renew');
 	}
+	cancelOrder(){
+		this.router.navigateByUrl('op-center/order-mng/order-mng-cancel');
+	}
 }
