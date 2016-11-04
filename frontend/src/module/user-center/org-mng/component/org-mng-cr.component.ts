@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent} from '../../../../architecture';
@@ -18,8 +18,19 @@ export class OrgMngCrComponent implements OnInit {
     private router: Router
   ) {}
 
+  @Input() isEdit: boolean;
+
   ngOnInit() {
-    
+    if(this.isEdit){
+      console.log('edit 读取接口')
+    }else{
+      console.log('创建');
+    }
+  }
+
+  //保存 给父组件调用
+  save (){
+    console.log('save');
   }
   
 }
