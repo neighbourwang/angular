@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent} from '../../../../architecture';
@@ -15,6 +15,9 @@ export class AccountMngCrLocalComponent implements OnInit {
     private layoutService: LayoutService,
     private router: Router
   ) {}
+
+  @Input()
+  isEdit : boolean;
 
   ngOnInit() {
     

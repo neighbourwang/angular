@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent} from '../../../../architecture';
@@ -20,8 +20,20 @@ export class AccountMngCrAdComponent implements OnInit {
     
   }
 
-  save (){
-    console.log('test');
+  @Input()
+  isEdit : boolean;
+
+  save () : Promise<any>{
+    console.log(this.isEdit);
+    if(this.isEdit){
+      console.log('edit');
+      return Promise.resolve('edit');
+    }else{
+      console.log('create')
+      return Promise.resolve('create');
+    }
   }
+
+
   
 }
