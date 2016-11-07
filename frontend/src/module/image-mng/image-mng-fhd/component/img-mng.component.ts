@@ -21,7 +21,7 @@ export class ImgMngComponent_fhd implements OnInit {
 
 
     ngOnInit() {
-        //this.layoutService.show();
+        this.layoutService.show();
 
     }
      

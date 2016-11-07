@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: 'image-mng/image-mng-fhd',
+        redirectTo: 'cloud-host-service/cloud-host-list',
         pathMatch: 'full'
     }
 ];
