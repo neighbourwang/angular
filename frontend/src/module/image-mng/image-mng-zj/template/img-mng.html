@@ -78,171 +78,87 @@
             <button class="btn button-gray-gradient"><span class="glyphicon glyphicon-search"></span> 简单搜索</button>
             <button class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span> 重置选项</button>
             <button class="btn button-gray-gradient pull-right" style="margin-right:15px;">
-                    <span class="icon icon-link"></span> 相关实例
+                <span class="icon icon-link"></span> 相关实例
             </button>
-</div>
-    <table class="table table-hover mgb20">
-        <tbody>
-            <tr>
-                <th class="text-center">选择</th>
-                <th class="text-center">镜像名称</th>
-                <th class="text-center">镜像类型</th>
-                <th class="text-center">操作系统</th>
-                <th class="text-center">系统位数</th>
-                <th class="text-center">创建时间</th>
-                <th class="text-center">状态</th>
-                <th class="text-center">进度</th>
-                <th class="text-center">所在区域</th>
-                <th class="text-center">描述</th>
-                <th class="text-center">操作</th>
-            </tr>
-
-            <tr>
-                <td class="text-center">
-                    <input name="host-list" type="radio" class="fox-cloud-radio">
-                </td>
-                <td class="text-center active"><u>MyCentOS-VM-001</u></td>
-                <td class="text-center">自定义镜像</td>
-                <td class="text-center">Windows 2012</td>
-                <td class="text-center">64</td>
-                <td class="text-center">2016/11/1 10:23</td>
-                <td class="text-center font-green">可用</td>
-                <td class="text-center">100%</td>
-                <td class="text-center">上海A区</td>
-                <td class="text-center">描述文字信息内容在这里显示</td>
-                <td class="text-center">
-                    <div class="test-div">
-                        <div class="icon">
-                            <span class="icon-copy"></span>
-                            <span class="icon-delete3"></span>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="text-center">
-                    <input name="host-list" type="radio" class="fox-cloud-radio">
-                </td>
-                <td class="text-center td_mirror">
-                    <u class="font-green">MyCentOS-VM-002</u><span class="tdspan">编辑</span>
-                    <div class="popover fade bottom in" role="tooltip" style="top: 35px; left: 8.5px; width:420px;max-width:1000px; display: block;">
-                        <div class="arrow" style="left: 20%;"></div>
-                        <div class="popover-content">
-                        <form class="form-horizontal" role="form">
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label pull-left">镜像描述:</label>
-                                <div class="col-sm-9 float-left">
-                                    <textarea class="form-control" rows="3"></textarea>
-                                    <div class="text-tip-color">长度为2-256个字符，不能以http://或https://开头</div>
+        </div>
+        <table class="table table-hover mgb20">
+            <thead>
+                <tr>
+                    <th class="text-center">选择</th>
+                    <th class="text-center">镜像名称</th>
+                    <th class="text-center">镜像类型</th>
+                    <th class="text-center">操作系统</th>
+                    <th class="text-center">系统位数</th>
+                    <th class="text-center">创建时间</th>
+                    <th class="text-center">状态</th>
+                    <th class="text-center">进度</th>
+                    <th class="text-center">所在区域</th>
+                    <th class="text-center">描述</th>
+                    <th class="text-center">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let image of images">
+                    <td class="text-center">
+                        <input name="host-list" type="radio" class="fox-cloud-radio" (ngMode)="image.selectd">
+                    </td>
+                    <td class="text-center td_mirror">
+                        <u class="font-green">{{image.imageName}}</u><span class="tdspan" (click)="image.nameEditing=true;">编辑</span>
+                        <div *ngIf="image.nameEditing" class="popover fade bottom in" role="tooltip" style="z-index:99;top: 35px; left: 8.5px; width:420px;max-width:1000px; display: block;">
+                            <div class="arrow" style="left: 20%;"></div>
+                            <div class="popover-content">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label pull-left">镜像描述:</label>
+                                        <div class="col-sm-9 float-left">
+                                            <textarea class="form-control" [(ngModel)]="image.imageName" rows="3"  name="imageName"></textarea>
+                                            <div class="text-tip-color">长度为2-256个字符，不能以http://或https://开头</div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="pull-right" style="margin-bottom:10px;">
+                                    <button class="btn btn-default btn-save" (click)="updateImage(image)">保存</button>
+                                    <button class="btn btn-default" (click)="image.nameEditing=false;">取消</button>
                                 </div>
                             </div>
-                        </form>
-                        <div class="pull-right" style="margin-bottom:10px;">
-                            <button class="btn btn-default btn-save">保存</button>
-                            <button class="btn btn-default">取消</button>
                         </div>
-                    </div>
-                    </div>
-                </td>
+                    </td>
 
-                <td class="text-center">公共镜像</td>
-                <td class="text-center">CentOS 6.5</td>
-                <td class="text-center">64</td>
-                <td class="text-center">2016/11/1 10:23</td>
-                <td class="text-center font-green">可用</td>
-                <td class="text-center">100%</td>
-                <td class="text-center">上海A区</td>
-                <td class="text-center td_mirror">
-                    描述文字信息内容在这里显示
-                    <span class="tdspan">编辑</span>
-                    <div class="popover fade bottom in" role="tooltip" style="top: 35px; left: 8.5px; width:310px;max-width: 1000px; display: block;">
-                        <div class="arrow" style="left: 30%;"></div>
-                        <div class="popover-content">
-                        <form class="form-horizontal" role="form">
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label">镜像描述:</label>
-                                <div class="col-sm-8 float-left">
-                                    <textarea class="form-control" rows="3"></textarea>
-                                    <div class="text-tip-color">长度为2-256个字符，不能以http://或https://开头</div>
+                    <td class="text-center">{{getDicText(image.imageType,this.typeDic)}}</td>
+                    <td class="text-center">{{image.osName}}</td>
+                    <td class="text-center">{{image.osDigits}}</td>
+                    <td class="text-center">{{image.createdDate}}</td>
+                    <td class="text-center" [ngClass]="image.status==1?'font-green':'font-orange'">{{getDicText(image.status,this.statusDic)}}</td>
+                    <td class="text-center">{{image.progress}}%</td>
+                    <td class="text-center">{{image.location}}</td>
+                    <td class="text-center td_mirror">
+                        {{image.description}}
+                        <span class="tdspan" (click)="image.desEditing=true;">编辑</span>
+                        <div *ngIf="image.desEditing" class="popover fade bottom in" role="tooltip" style="z-index:99; top: 35px; left: 8.5px; width:310px;max-width: 1000px; display: block;">
+                            <div class="arrow" style="left: 30%;"></div>
+                            <div class="popover-content">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">镜像描述:</label>
+                                        <div class="col-sm-8 float-left">
+                                            <textarea class="form-control" rows="3" [(ngModel)]="image.description" name="description"></textarea>
+                                            <div class="text-tip-color">长度为2-256个字符，不能以http://或https://开头</div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="pull-right" style="margin-bottom:10px;">
+                                    <button class="btn btn-default btn-save" (click)="updateImage(image);">保存</button>
+                                    <button class="btn btn-default" (click)="image.desEditing=false;">取消</button>
                                 </div>
                             </div>
-                        </form>
-                        <div class="pull-right" style="margin-bottom:10px;">
-                            <button class="btn btn-default btn-save">保存</button>
-                            <button class="btn btn-default">取消</button>
                         </div>
-                    </div></div>
-                </td>
-                <td class="text-center">
-                    <div class="icon">
-                        <span class="icon-copy"></span>
-                        <span class="icon-delete3"></span>
-                    </div>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="text-center">
-                    <input name="host-list" type="radio" class="fox-cloud-radio">
-                </td>
-                <td class="text-center active"><u>MyCentOS-VM-003</u></td>
-                <td class="text-center">自定义镜像</td>
-                <td class="text-center">CentOS 6.5</td>
-                <td class="text-center">64</td>
-                <td class="text-center">2016/11/1 10:23</td>
-                <td class="text-center font-green">可用</td>
-                <td class="text-center">100%</td>
-                <td class="text-center">上海A区</td>
-                <td class="text-center">描述文字信息内容在这里显示</td>
-                <td class="text-center">
-                        <i class="glyphicon glyphicon-trash"></i>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="text-center">
-                    <input name="host-list" type="radio" class="fox-cloud-radio">
-                </td>
-                <td class="text-center active"><u>MyCentOS-VM-004</u></td>
-                <td class="text-center">自定义镜像</td>
-                <td class="text-center">Windows 2012</td>
-                <td class="text-center">32</td>
-                <td class="text-center">2016/11/1 10:23</td>
-                <td class="text-center font-orange">不可用</td>
-                <td class="text-center">100%</td>
-                <td class="text-center">上海A区</td>
-                <td class="text-center">描述文字信息内容在这里显示</td>
-                <td class="text-center">
-                    <div class="icon">
-                        <span class="icon-copy"></span>
-                        <span class="icon-delete3"></span>
-                    </div>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="text-center">
-                    <input name="host-list" type="radio" class="fox-cloud-radio">
-                </td>
-                <td class="text-center active"><u>MyCentOS-VM-005</u></td>
-                <td class="text-center">自定义镜像</td>
-                <td class="text-center">Windows 2008</td>
-                <td class="text-center">32</td>
-                <td class="text-center">2016/11/1 10:23</td>
-                <td class="text-center font-orange">不可用</td>
-                <td class="text-center">100%</td>
-                <td class="text-center">上海A区</td>
-                <td class="text-center">描述文字信息内容在这里显示</td>
-                <td class="text-center">
-                    <div class="icon">
-                        <span class="icon-copy"></span>
-                        <span class="icon-delete3"></span>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                    </td>
+                    <td class="text-center">
+                            <i *ngIf="image.imageType !=0" class="glyphicon glyphicon-trash" (click)="deletImage(image)" ></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
         <div class="fox-cloud-pagination-container">
             <ul class="fox-cloud-pagination">

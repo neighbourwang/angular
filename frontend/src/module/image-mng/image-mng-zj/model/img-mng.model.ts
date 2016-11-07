@@ -1,4 +1,5 @@
 export class Image {
+    id:string;
     imageName: string;
     imageType: string;
     osName: string;
@@ -9,6 +10,8 @@ export class Image {
     location: string;
     description: string;
     selected: boolean = false;
+    nameEditing: boolean;
+    desEditing:boolean;
     constructor() {
     }
 }

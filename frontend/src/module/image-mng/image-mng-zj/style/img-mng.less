@@ -2,9 +2,9 @@
 @import "../../../../architecture/assets/style/constant.less";
 @import "../../../../architecture/assets/style/_color.less";
 .cloud_mirror {
+    z-index:0;
     .td_mirror {
         position: relative;
-        z-index: 0;
     }
     .tdspan {
         position: absolute;
@@ -14,6 +14,7 @@
         color: @white-color;
         font-size: 12px;
         display: none;
+        cursor:pointer;
     }
     .td_mirror:hover .tdspan {
         display: block;
