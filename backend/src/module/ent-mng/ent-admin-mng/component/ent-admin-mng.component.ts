@@ -58,11 +58,23 @@ export class EntAdminMngComponent implements OnInit {
 
     ngOnInit() {
         this.layoutService.show();
-        this.getStatusDic().
-            then(() => {
-                return this.getAuthDic();
-            })
-            .then(() => {
+        //this.getStatusDic().
+        //    then(() => {
+        //        return this.getAuthDic();
+        //    })
+        //    .then(() => {
+        //        this.getData();
+        //        this.getEnterpriseById(this.eid);
+        //    });
+        this.sysDicService.getItems("USER", "STATUS")
+            .then(
+                (systemDictionarys) => {
+                    this.statusDic = systemDictionarys;
+                    return this.sysDicService.getItems("AUTHENTICATION", "MODE");
+                }
+            )
+            .then((systemDictionarys) => {
+                this.authDic = systemDictionarys;
                 this.getData();
                 this.getEnterpriseById(this.eid);
             });

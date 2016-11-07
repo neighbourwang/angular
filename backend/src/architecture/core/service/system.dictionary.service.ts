@@ -243,4 +243,63 @@ export class SystemDictionaryService {
             }
             );
     }
+
+    getItems(owner: String, field: String, showLoading: boolean = true): Promise<any> {
+
+        const key = `dic_o_${owner}_f_${field}`;
+        let systemDictionarys: Array<SystemDictionary>;
+        const systemDictionarysStr = window.sessionStorage.getItem(key);
+        if (systemDictionarysStr) {
+            systemDictionarys = JSON.parse(systemDictionarysStr);
+            return new Promise(resovle => setTimeout(resovle(systemDictionarys), 10));
+        }
+        if (showLoading) {
+            this.layoutService.show();
+        }
+        const api = this.restApiCfg.getRestApi("sysdic.owner.field");
+
+        const promise = this.restApi.request(api.method,
+            api.url,
+            [{ key: "_owner", value: owner }, { key: "_field", value: field }],
+            undefined,
+            undefined);
+
+        promise.then(
+            response => {
+                if (showLoading) {
+                    this.layoutService.hide();
+                }
+                systemDictionarys = new Array<SystemDictionary>();
+
+                if (response.resultCode && 100 == response.resultCode && response.resultContent) {
+
+                    for (let content of response.resultContent) {
+                        const systemDictionary = new SystemDictionary();
+
+                        systemDictionary.owner = content.owner;
+                        systemDictionary.field = content.field;
+                        systemDictionary.code = content.code;
+                        systemDictionary.value = content.value;
+                        systemDictionary.displayValue = content.displayValue;
+
+                        systemDictionarys.push(systemDictionary);
+                    }
+
+
+                }
+                if (systemDictionarys.length > 0) {
+                    window.sessionStorage.setItem(key, JSON.stringify(systemDictionarys));
+                }
+                return new Promise(resovle => resovle(systemDictionarys));
+            }
+        )
+            .catch(
+            reason => {
+                if (showLoading) {
+                    this.layoutService.hide();
+                }
+                return new Promise(resovle => resovle(reason.statusText));
+            }
+            );
+    }
 }
