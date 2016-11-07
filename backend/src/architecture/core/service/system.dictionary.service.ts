@@ -288,7 +288,7 @@ export class SystemDictionaryService {
 
                 }
                 if (systemDictionarys.length > 0) {
-                 //   window.sessionStorage.setItem(key, JSON.stringify(systemDictionarys));
+                    window.sessionStorage.setItem(key, JSON.stringify(systemDictionarys));
                 }
                 return new Promise(resovle => resovle(systemDictionarys));
             }
