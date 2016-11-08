@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { RestApiCfg, RestApi } from '../../../../architecture';
 import { RestApiModel } from '../../../../architecture/core/model/rest';
 import { Status, EntEstItem, EntProdItem, EntEst
@@ -144,70 +144,6 @@ export class EntEstCreService{
 			},
 			successHandler);
 	   }
-	//加载企业配额信息
-	loadEntResourceQuota(
-		entResourceQuota: EntEstCreResourceQuota
-		, errorHandler: Function
-		, successHandler: ()=>void
-		, caller: any
-		, entId:string){
-
-		let localParams:Array<any> = [
-		{
-			key:"_enterpriseId"
-			,value:entId
-		},
-		{
-			key:"_page"
-			,value:1
-		}
-		,{
-			key:"_size"
-			,value:10
-		}
-		];
-
-		let entResourceQuotas: Paging<EntEstCreResourceQuota> = new Paging<EntEstCreResourceQuota>();
-
-		this.loadItems(entResourceQuotas
-			, errorHandler
-			, caller
-			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.resourcequota.get")
-			, localParams
-			, "加载企业配额"
-			, null
-			, (source, target:EntEstCreResourceQuota[])=>{
-				for(let item of source)
-				{
-					let obj = new EntEstCreResourceQuota();
-					target.push(obj);
-
-					//todo: fix mapping issue
-					obj.id = item.id as string;
-					obj.enterpriseId = item.enterpriseId as string;
-					// obj.platformVMQuota = item.vmQuota; ////可创建云主机数量
-					// obj.physicalMachineQuota = 0; //可创建物理机数量,api暂不提供
-					// obj.storageQuota = item.storageQuota as number;//可用存储额度
-					// obj.snapQuota = item.snapshotQuota as number;//可创建快照数量
-					obj.imageQuota = 0;//可创建镜像数量，api暂不提供
-				}
-			}
-			, (items:EntEstCreResourceQuota[])=>{
-				let item = items[0];
-				if(item)
-				{
-					//todo: fix mapping issue
-					entResourceQuota.enterpriseId = item.enterpriseId;
-					// entResourceQuota.platformVMQuota = item.platformVMQuota;
-					// entResourceQuota.physicalMachineQuota = item.physicalMachineQuota;
-					// entResourceQuota.storageQuota = item.storageQuota;
-					// entResourceQuota.snapQuota = item.snapQuota;
-					entResourceQuota.imageQuota = item.imageQuota;
-				}
-			},
-			successHandler);
-
-	}
 
 	//获取企业基本信息
 	loadEntInfo(entInfo:EntEstBasicInfo

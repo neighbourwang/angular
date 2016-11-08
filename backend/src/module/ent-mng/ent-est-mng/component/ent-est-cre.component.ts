@@ -80,11 +80,6 @@ export class EntEstCreComponent implements OnInit{
 			"name":"认证方式"
 			,"value":this.entEst.BasicInfo.certMethod
 			,"op":"*"
-		},
-		{
-			"name":"登录账户属性名称"
-			,"value":this.entEst.BasicInfo.accountAttribute
-			,"op":"*"
 		}
 		];
 
@@ -104,6 +99,12 @@ export class EntEstCreComponent implements OnInit{
 				{
 					"name":"密码"
 					,"value":this.entEst.BasicInfo.password
+					,"op":"*"
+				}
+				,
+				{
+					"name":"登录账户属性名称"
+					,"value":this.entEst.BasicInfo.accountAttribute
 					,"op":"*"
 				}]
 				);
