@@ -19,7 +19,9 @@
 .textLeft{
     text-align: left!important;
 }
-
+.mgl100{
+  margin-left:100px;
+}
 /*--------------radio单选框----------------*/
 .radio_:checked + label::after {
   content: '\2714';
