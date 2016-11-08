@@ -19,7 +19,7 @@ html：
             [max]=1025 
             [min]=0 
             [disabled]=false 
-            [value]=0 #varName   (output)="outputValue($event)></count-bar>
+            [value]=0 #varName   (output)="outputValue($event)"></count-bar>
 ```
 
 javascript：
