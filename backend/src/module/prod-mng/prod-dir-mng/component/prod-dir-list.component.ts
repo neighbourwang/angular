@@ -76,11 +76,11 @@ export class ProdDirListComponent implements OnInit {
                 this.prodDirTypeId = this.prodDirTypeList[0].id
                 // this.queryProdDirTypeId =this.prodDirTypeList[0].id                
                 console.log('产品目录类别', this.prodDirTypeList)
-                this.prodDirTypeList.push({
-                    code: "VITRUALDISK_SERVICE",
-                    id: "2",
-                    name: "云硬盘服务"
-                })
+                // this.prodDirTypeList.push({
+                //     code: "VITRUALDISK_SERVICE",
+                //     id: "2",
+                //     name: "云硬盘服务"
+                // })
             } else {
 
             }
@@ -185,9 +185,19 @@ export class ProdDirListComponent implements OnInit {
             switch (order) {
                 case 'delete': this.deleteConfirm.open('删除产品目录', '您选择删除 ' + "'" + message + "'" + '产品,请确认；如果确认，此产品目录的数据将不能恢复。')
                     break;
-                case 'publish': this.publishConfirm.open('发布产品目录', '您选择发布 ' + "'" + message + "'" + '产品,请确认。')
+                case 'publish':
+                    if (prodDirList[0].status == '1') {
+                        this.notice.open('操作错误', '不可以再次发布已发布状态的产品目录')
+                    } else {
+                        this.publishConfirm.open('发布产品目录', '您选择发布 ' + "'" + message + "'" + '产品,请确认。')
+                    }
                     break;
-                case 'ccPublish': this.ccPublishConfirm.open('取消发布产品目录', '您选择取消发布' + "'" + message + "'" + '产品,请确认。如果确认，此产品目录将不能用来创建产品。')
+                case 'ccPublish':
+                    if (prodDirList[0].status == '3') {
+                        this.notice.open('操作错误', '不可以再次取消发布未发布状态的产品目录')
+                    } else {
+                        this.ccPublishConfirm.open('取消发布产品目录', '您选择取消发布' + "'" + message + "'" + '产品,请确认。如果确认，此产品目录将不能用来创建产品。')
+                    }
                     break;
             }
 
@@ -208,7 +218,7 @@ export class ProdDirListComponent implements OnInit {
 
     publishCof() {
         let selectedList: Array<Proddir> = this.getProddir();
-        console.log(selectedList[0]['serviceId']);
+        console.log(selectedList[0]);
         let id = selectedList[0]['serviceId'];
         this.ProdDirPublishService.publishProdDir(id).then(response => {
             console.log(response);
@@ -244,7 +254,7 @@ export class ProdDirListComponent implements OnInit {
     otcreate() {
         let id = this.prodDirTypeId;
         console.log(id);
-        if (this.prodDirTypeId == '1') {
+        if (this.prodDirTypeId == '33f23ade-a0f8-11e6-a18b-0050568a49fd') {
             this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre"]);
         } else {
             this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre"]);
@@ -282,7 +292,6 @@ export class ProdDirListComponent implements OnInit {
                         proddir.specification = content.specification;
                         proddir.status = content.status;
                         proddir.isSelected = false;
-
                         backend.push(proddir);
                     }
                     let pageInfo = response.pageInfo;
