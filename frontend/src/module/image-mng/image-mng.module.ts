@@ -40,8 +40,10 @@ import { OrderByPipe } from './image-mng-zj/pipe/orderby';
         ImgMngComponent_fhd,
         ImgMngComponent_gcy,
         ImgMngComponent_my,
+        ImgMngComponent_wxl,
         ImgMngComponent,
-        OrderByPipe
+        OrderByPipe,
+        ImgMngDescriptionComponent
         
     ],
     exports: [

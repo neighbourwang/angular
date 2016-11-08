@@ -8,13 +8,13 @@ import { CriteriaQuery } from '../model/criteria-query.model';
 
 import { ImgMngService } from '../service/img-mng.service';
 
-import { OrderByPipe } from '../pipe/orderby';
+
 
 @Component({
     selector: "img-mng",
     templateUrl: "../template/img-mng.html",
     styleUrls: ["../style/img-mng.less"],
-    providers: [OrderByPipe]
+    providers: []
 })
 export class ImgMngComponent implements OnInit {
     constructor(

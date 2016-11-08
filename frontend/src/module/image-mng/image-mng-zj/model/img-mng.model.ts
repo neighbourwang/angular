@@ -14,6 +14,4 @@ export class Image {
     desEditing:boolean;
     constructor() {
     }
-
- 
 }
