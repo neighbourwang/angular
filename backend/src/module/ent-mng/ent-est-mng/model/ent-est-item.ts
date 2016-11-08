@@ -19,3 +19,79 @@ export class EntEstItem{
 	statusName: string = ""; //ui operation
 
 }
+
+
+/*
+GET /authsec/enterprises/resouces/quotas/page/{_page}/size/{_size}
+
+GeneralPagingResultOfListOfEnterpriseQuotaItem {
+detailDescription (string, optional),
+pageInfo (PageInfo, optional),
+resultCode (string, optional),
+resultContent (Array[EnterpriseQuotaItem], optional)
+}
+PageInfo {
+currentPage (integer, optional),
+pageSize (integer, optional),
+totalPage (integer, optional),
+totalRecords (integer, optional)
+}
+EnterpriseQuotaItem {
+	authMode (string, optional): 类型是数字，不要传入string 类型 ,
+	enterpriseId (string, optional),
+	enterpriseName (string, optional),
+	id (string, optional),
+	imageQuota (integer, optional),
+	networkQuota (integer, optional),
+	orderNumber (integer, optional),
+	physicalMachineQuota (integer, optional),
+	platformId (string, optional),
+	productNumber (integer, optional),
+	regionId (string, optional),
+	regionName (string, optional),
+	snapshotQuota (integer, optional),
+	status (string, optional): 类型是数字，不要传入string 类型 ,
+	storageQuota (integer, optional),
+	usedStorageNumber (integer, optional),
+	usedStorageRate (integer, optional),
+	usedVMNumber (integer, optional),
+	usedVMRate (integer, optional),
+	vmQuota (integer, optional)
+}
+
+{ 
+"detailDescription": "string",
+  "pageInfo": {
+    "currentPage": 0,
+    "pageSize": 0,
+    "totalPage": 0,
+    "totalRecords": 0
+  },
+  "resultCode": "string",
+  "resultContent": [
+    {
+      "authMode": "string",
+      "enterpriseId": "string",
+      "enterpriseName": "string",
+      "id": "string",
+      "imageQuota": 0,
+      "networkQuota": 0,
+      "orderNumber": 0,
+      "physicalMachineQuota": 0,
+      "platformId": "string",
+      "productNumber": 0,
+      "regionId": "string",
+      "regionName": "string",
+      "snapshotQuota": 0,
+      "status": "string",
+      "storageQuota": 0,
+      "usedStorageNumber": 0,
+      "usedStorageRate": 0,
+      "usedVMNumber": 0,
+      "usedVMRate": 0,
+      "vmQuota": 0
+    }
+  ]
+}
+
+*/

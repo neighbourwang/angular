@@ -30,3 +30,44 @@ export class EntEstBasicInfo{
 
 	}
 }
+
+
+/*
+GET /authsec/enterprise/{_enterpriseId}/simple
+
+GeneralContentResultOfEnterpriseGeneralItem {
+detailDescription (string, optional),
+resultCode (string, optional),
+resultContent (EnterpriseGeneralItem, optional)
+}
+EnterpriseGeneralItem {
+	adUserName (string, optional): 企业认证模式为AD 时输入 ,
+	authMode (string, optional),
+	code (string, optional),
+	description (string, optional),
+	id (string, optional),
+	loginName (string, optional),
+	name (string, optional),
+	passWord (string, optional): 企业认证模式为AD 时输入 ,
+	status (string, optional): 类型是数字，不要传入string 类型 ,
+	url (string, optional)
+}
+
+{
+	
+	"detailDescription": "string",
+  "resultCode": "string",
+  "resultContent": {
+    "adUserName": "string",
+    "authMode": "string",
+    "code": "string",
+    "description": "string",
+    "id": "string",
+    "loginName": "string",
+    "name": "string",
+    "passWord": "string",
+    "status": "string",
+    "url": "string"
+  }
+}
+*/
