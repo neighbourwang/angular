@@ -13,6 +13,8 @@ export class EntEstBasicInfo{
 	password: string = null;//密码
 	description: string = null;//描述
 	logo: string = null;//logo
+	isSSL: boolean = null;// 是否进行ssl加密
+	accountAttribute:string = null;//登录账户名属性
 
 	reset(){
 		this.code = null;
@@ -27,7 +29,8 @@ export class EntEstBasicInfo{
 		this.password = null;
 		this.description = null;
 		this.logo = null;
-
+		this.isSSL = null;
+		this.accountAttribute = null;
 	}
 }
 

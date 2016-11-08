@@ -49,19 +49,20 @@
 					</div>
 				</div>
 			</div>
-			<div class="row row-line-height" *ngIf="isADSelected();">
+			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk" >*</span>登录账户属性名称：</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control input-control" placeholder="用户名" [(ngModel)]="entEst.BasicInfo.contactorName">
+						<input type="text" class="form-control input-control" placeholder="用户名" [(ngModel)]="entEst.BasicInfo.accountAttribute">
 					</div>
 				</div>
 			</div>
-			<div class="row row-line-height" *ngIf="isADSelected();">
+			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">是否进行SSL加密？：</div>
 					<div class="col-sm-4">
-						<input type="checkbox" class="form-control" >
+						<input type="checkbox" class="form-control" 
+						[(ngModel)]="entEst.BasicInfo.isSSL">
 					</div>
 				</div>
 			</div>
