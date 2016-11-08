@@ -51,13 +51,13 @@
 						<input type="radio" class="fox-cloud-radio"   name="entItems" (change)="selectItem(i)" value="{{i}}">
 					</td>
 					<td (click)="checkEnterpriseInfo(item.id);" class="hands">{{item.enterpriseName}}</td>
-					<td>{{item.networkQuota }}</td>
+					<td>{{item.usedVMNumber }}</td>
 					<td>{{item.snapshotQuota }}</td>
 					<td>{{item.imageQuota }}</td>
 					<td>{{item.productNumber }}</td>
 					<td>{{item.orderNumber}}</td>
-					<td>{{item.usedVMRate }}</td>
-					<td>{{item.storageQuota}}</td>
+					<td>{{item.usedVCpuRate }}</td>
+					<td>{{item.usedMemRate}}</td>
 					<td>{{item.usedStorageRate}}</td>
 					<td [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.statusName}}</td>
 					<td>{{item.description}}</td>

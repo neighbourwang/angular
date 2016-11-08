@@ -16,3 +16,5 @@ export * from './core/service/item-loader';
 export * from './core/service/dic-loader';
 export * from './core/model/rest';
 export * from './core/model/system.dictionary.model';
+//export * from './pipe/orderby';
+//export * from './pipe/pipe.module';
