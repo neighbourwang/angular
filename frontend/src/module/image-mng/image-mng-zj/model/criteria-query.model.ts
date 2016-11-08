@@ -7,4 +7,8 @@ export class CriteriaQuery {
     imageType: string;
     constructor() {
     }
+
+    toString() {
+        return JSON.stringify(this);
+    }
 }

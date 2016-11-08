@@ -1,6 +1,5 @@
 ﻿import { NgModule } from '@angular/core';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
-
 // Common Components
 import { CommonComponentModule } from '../../architecture';
 import { PipeModule } from '../../architecture';
@@ -33,7 +32,7 @@ import { ImgMngService } from './image-mng-zj/service/img-mng.service';
         Ng2Bs3ModalModule,
         CommonComponentModule,
         ImgMngRouting,
-        PipeModule
+        PipeModule,
     ],
     declarations: [
         ImgMngComponent,
