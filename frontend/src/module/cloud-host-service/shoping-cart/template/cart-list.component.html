@@ -1,6 +1,9 @@
 <div class="page-content cart_list">
 	<h1 class="page-content-header mgb20">购物车</h1>
 
+                <date-picker [options]="myDatePickerOptions"
+                             [initDate]= "'2017-06-21'" 
+                             (dateChanged)="onDateChanged($event)"></date-picker>
     <table class="table table-all-boder mgb20">
         <tr class="table-title">
             <td class="text-center">产品信息</td>
@@ -15,8 +18,6 @@
         <tr>
             <td colspan="7" class="table-line-head">
                 <font class="font-green">购买产品1</font>
-                <my-date-picker [options]="myDatePickerOptions"
-                                (dateChanged)="onDateChanged($event)"></my-date-picker>
                 <button class="btn button-gray-gradient float-right delete-cart"><span class="icon-delete"></span>从购物车中移除</button>
             </td>
         </tr>

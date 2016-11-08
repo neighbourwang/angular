@@ -27,7 +27,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
         private ProdDirDetailService: ProdDirDetailService,
         // private ProdListService : ProdListService,
         private ProdDirListService: ProdDirListService,
-        private PostProduct:PostProduct
+        private PostProduct: PostProduct
     ) { }
 
     @ViewChild('notice')
@@ -36,8 +36,8 @@ export class ProdCreComponent implements OnInit, OnChanges {
     enterpriseList = new Array();
     prodDirList = new Array();
     prodDir = new ProductDir();
-    prodDirId:string;
-    product=new Product();   
+    prodDirId: string;
+    product = new Product();
     ngOnInit() {
         console.log('init');
         //获取企业列表
@@ -56,14 +56,14 @@ export class ProdCreComponent implements OnInit, OnChanges {
             console.log('目录', response);
             // if (response && 100 == response.resultCode) {
             this.prodDirList = response.resultContent;
-            this.prodDirId=response.resultContent[0].id;
-            this.product.serviceId=response.resultContent[0].id;
+            this.prodDirId = response.resultContent[0].id;
+            this.product.serviceId = response.resultContent[0].id;
             // } else {
-            this.getProdDirDetail(this.prodDirId);    
+            this.getProdDirDetail(this.prodDirId);
             // }
         }).catch(err => {
             console.error(err)
-        })       
+        })
     }
     //获取产品目录详情
     getProdDirDetail(id) {
@@ -79,36 +79,34 @@ export class ProdCreComponent implements OnInit, OnChanges {
         })
     }
     //选择产品目录
-    selectProdDir(){
+    DiskProduct: boolean;
+    selectProdDir(id) {
+        console.log(id);
         console.log(this.prodDirId);
-        setTimeout(()=>{
-            console.log(this.prodDirId);
-            this.product.serviceId==this.prodDirId;
-            this.getProdDirDetail(this.prodDirId);
-        },100);
-        
+        this.product.serviceId = id;
+        this.getProdDirDetail(id);
     }
     //选择企业
     selectEnterprise(ent, index) {
-        ent.selected=!ent.selected;
-       this.product.productEnterpiseReqs= this.enterpriseList.filter((ele)=>{
-            if(ele.selected==true){
+        ent.selected = !ent.selected;
+        this.product.productEnterpiseReqs = this.enterpriseList.filter((ele) => {
+            if (ele.selected == true) {
                 return ele;
             }
         })
         console.log(this.product.productEnterpiseReqs)
     }
 
-     //选择全部可用区
+    //选择全部可用区
     selectAllZone: boolean = false;
     selectAllZones() {
         this.selectAllZone = !this.selectAllZone;
-        console.log(this.selectAllZone);       
-         for (let plate of this.prodDir.platformInfo) {
-                for (let zone of plate.zoneList) {
-                    zone.selected = this.selectAllZone;
-                    // console.log(zone.storageList);
-                }   
+        console.log(this.selectAllZone);
+        for (let plate of this.prodDir.platformInfo) {
+            for (let zone of plate.zoneList) {
+                zone.selected = this.selectAllZone;
+                // console.log(zone.storageList);
+            }
         }
         this.product.productPlatformReqs = this.prodDir.platformInfo.filter(function (ele) {
             for (let zone of ele.zoneList) {
@@ -121,9 +119,9 @@ export class ProdCreComponent implements OnInit, OnChanges {
     }
     //选择平台可用区
     selectZone(idx, idxx) {
-        console.log(idx,idxx);
+        console.log(idx, idxx);
         console.log(this.prodDir.platformInfo);
-        this.prodDir.platformInfo[idx].zoneList[idxx].selected = !this.prodDir.platformInfo[idx].zoneList[idxx].selected;        
+        this.prodDir.platformInfo[idx].zoneList[idxx].selected = !this.prodDir.platformInfo[idx].zoneList[idxx].selected;
         this.product.productPlatformReqs = this.prodDir.platformInfo.filter(function (ele) {
             for (let zone of ele.zoneList) {
                 if (zone.selected == true) {
@@ -142,15 +140,15 @@ export class ProdCreComponent implements OnInit, OnChanges {
         this.router.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
     }
 
-    valid(){
-        
+    valid() {
+
 
     }
 
 
     onSubmit() {
-        console.log(this.product);        
-        if(!this.product.name||this.product.name.trim()==""){
+        console.log(this.product);
+        if (!this.product.name || this.product.name.trim() == "") {
             this.notice.open('操作错误', '请输入产品名称');
             return;
         }
@@ -186,11 +184,11 @@ export class ProdCreComponent implements OnInit, OnChanges {
         }
     }
 
-    
+
     outputValue(e, num) {
         console.log(e);
         console.log(num);
-        this.product[num]=e;
+        this.product[num] = e;
     }
-    
+
 }

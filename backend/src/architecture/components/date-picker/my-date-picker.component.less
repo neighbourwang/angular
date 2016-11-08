@@ -1,0 +1,347 @@
+.data-picker {
+    min-width: 100px;
+    display: inline-block;
+    position: relative;
+
+    .caltable {
+        table-layout: fixed;
+        width: 100%;
+        background-color: #FFF;
+        font-size: 14px;
+    }
+    .caltable,
+    .caltable th,
+    .caltable td {
+        border-collapse: collapse;
+        /*color: #003366;*/
+        line-height: 1.1;
+    }
+
+    .caltable th,
+    .caltable td {
+        padding: 5px;
+        text-align: center;
+    }
+
+    .caltable th {
+        background-color: #f5f5f5;
+        font-size: 12px;
+        vertical-align: middle;
+    }
+
+    .caltable td {
+        cursor: pointer;
+        font-weight: bold;
+        height: 28px;
+    }
+
+    .caltable td div {
+        background-color: inherit;
+        height:18px;
+        vertical-align: middle;
+    }
+
+    .form-control {
+        border: none;
+    }
+
+    .caltable td div span {
+        vertical-align: middle;
+    }
+    .icon {
+        font-family: 'mydatepicker';
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        padding: 0;
+
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .icon-calendar:before {
+        content: "\e600";
+    }
+
+    .icon-cross:before {
+        content: "\e602";
+    }
+
+    .icon-left:before {
+        content: "\e605";
+        color: #425563;
+    }
+
+    .icon-right:before {
+        content: "\e607";
+        color: #425563;
+    }
+
+    .btnpicker,
+    .btnclear {
+        height: 100%;
+        width: 30px;
+        border: none;
+        border-left: 1px solid #ccc;
+        padding: 0;
+        cursor: pointer;
+        outline: 0;
+        font: inherit;
+        -moz-user-select: none;
+    }
+
+    .selector {
+        margin-top: 2px;
+        margin-left: -1px;
+        position: absolute;
+        width: 262px;
+        padding: 3px;
+        border-radius: 2px;
+        background-color: #f5f5f5;
+        z-index: 100;
+    }
+
+    .alignselectorright {
+        right: -1px;
+    }
+
+    .selectiongroup {
+        position: relative;
+        display: table;
+        border: 1px solid #ccc;
+        background-color: #FFF;
+    }
+
+    .selection {
+        background-color: #FFF;
+        display: table-cell;
+        position: absolute;
+        width: 100%;
+        font-weight: bold;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    .invaliddate,
+    .invalidmonth,
+    .invalidyear {
+        background-color: #f7e5e5;
+    }
+
+    ::-ms-clear {
+        display: none;
+    }
+
+    .selbtngroup {
+        position: relative;
+        vertical-align: middle;
+        white-space: nowrap;
+        width: 1%;
+        display: table-cell;
+        text-align: right;
+        font-size: 0;
+    }
+
+
+
+    .btnpicker,
+    .btnclear,
+    .headertodaybtn {
+        background: #FFF;
+    }
+
+    .header {
+        width: 100%;
+        height: 36px;
+        margin-bottom: 1px;
+        background-color: #FAFAFA;
+    }
+
+    .header td {
+        vertical-align: middle;
+        border: none;
+    }
+
+    .header td:nth-child(1) {
+        font-size: 16px;
+        padding-left: 4px;
+    }
+
+    .header td:nth-child(2) {
+        text-align: center;
+    }
+
+    .header td:nth-child(3) {
+        font-size: 16px;
+        padding-right: 4px;
+    }
+
+    
+
+    .inlinedp {
+        position: relative;
+    }
+
+    .prevmonth {
+        color: #CCC;
+    }
+
+    .nextmonth {
+        color: #CCC;
+    }
+
+    .disabled {
+        cursor: default !important;
+        color: #CCC !important;
+        background: #FFEBE6 !important;
+    }
+
+    .sunday {
+        color: #C30000;
+    }
+
+    .sundayDim {
+        opacity: 0.5;
+    }
+
+    .currmonth {
+        background-color: #F6F6F6;
+        font-weight: bold;
+    }
+
+    .currday div {
+        border: 1px solid #01a982;
+    }
+
+    .selectedday div {
+        border: 1px solid #007d60;
+        background-color: #01a982 !important;
+        border-radius: 0;
+        color: #fff;
+    }
+
+    .selectmenu {
+        height: 24px;
+        width: 60px
+    }
+
+    .headerbtn {
+        background-color: #FAFAFA;
+        cursor: pointer;
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .selector,
+    .header,
+    .headertodaybtn,
+    .monthinput,
+    .yearinput,
+    .caltable tbody {
+        border: 1px solid #ccc;
+    }
+
+    .btnpicker,
+    .btnclear,
+    .headerbtn,
+    .headermonthtxt,
+    .headeryeartxt,
+    .headertodaybtn,
+    .selection {
+        /*color: #000;*/
+    }
+
+    .headertodaybtn {
+        padding: 0 4px;
+        border-radius: 2px;
+        cursor: pointer;
+        font-size: 11px;
+        min-width: 60px;
+        height: 22px;
+    }
+
+    button::-moz-focus-inner {
+        border: 0;
+    }
+
+    .headermonthtxt,
+    .headeryeartxt {
+        min-width: 40px;
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+        font-size: 14px;
+    }
+
+    .headermonthtxt span,
+    .headeryeartxt span {
+        vertical-align: middle;
+    }
+
+    .btnclear:focus,
+    .btnpicker:focus {
+        background: #e4e4e4;
+    }
+
+    .icon-calendar,
+    .icon-cross {
+        font-size: 16px;
+    }
+
+    .icon-left,
+    .icon-right {
+        color: #222;
+        font-size: 16px;
+        vertical-align: middle;
+    }
+
+    table {
+        display: table;
+    }
+
+    table td {
+        padding: 0;
+    }
+
+    .btnpicker:hover,
+    .btnclear:hover,
+    .headertodaybtn:hover,
+    .tablesingleday:hover {
+        background-color: #e4e4e4;
+    }
+
+    .monthlabel,
+    .yearlabel {
+        cursor: pointer;
+    }
+
+    .yearinput,
+    .monthinput {
+        width: 40px;
+        height: 22px;
+        text-align: center;
+        font-weight: bold;
+        outline: none;
+        border-radius: 2px;
+    }
+
+    .headerbtn span:hover {
+        color: #01a982;
+    }
+
+    .monthlabel:hover,
+    .yearlabel:hover {
+        color: #01a982;
+        font-weight: bold;
+    }
+}
+
+@font-face {
+    font-family: 'mydatepicker';
+    src: url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAALAIAAAwAwT1MvMg8SAssAAAC8AAAAYGNtYXDMUczTAAABHAAAAGxnYXNwAAAAEAAAAYgAAAAIZ2x5ZmFQ1q4AAAGQAAABbGhlYWQGZuTFAAAC/AAAADZoaGVhB4IDyQAAAzQAAAAkaG10eBYAAnAAAANYAAAAIGxvY2EBdAE0AAADeAAAABJtYXhwABUAPgAAA4wAAAAgbmFtZQ5R9RkAAAOsAAABnnBvc3QAAwAAAAAFTAAAACAAAwOaAZAABQAAApkCzAAAAI8CmQLMAAAB6wAzAQkAAAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAAAAAAAABAAADmBwPA/8AAQAPAAEAAAAABAAAAAAAAAAAAAAAgAAAAAAADAAAAAwAAABwAAQADAAAAHAADAAEAAAAcAAQAUAAAABAAEAADAAAAAQAg5gDmAuYF5gf//f//AAAAAAAg5gDmAuYF5gf//f//AAH/4xoEGgMaARoAAAMAAQAAAAAAAAAAAAAAAAAAAAAAAQAB//8ADwABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAQAAAAAAAAAAAAIAADc5AQAAAAAMAEAAAAPAA4AABAAJAA4AEwAYAB0AIgAnACwAMQA2ADsAABMRMxEjFyE1IRUDITUhFQERMxEjJRUzNSMTFTM1IzMVMzUjMxUzNSMBFTM1IzMVMzUjMxUzNSMTFTM1I0Bzc0ADAP0AQAOA/IADDXNz/ZOAgCCAgMCAgMCAgP6AgIDAgIDAgIAggIADAP1AAsBzc3P9c3NzAwD9QALAgMDA/sCAgICAgID/AICAgICAgAJAwMAAAAAAAgBwADADkANQAAQACQAANwEnARcDATcBB+kCp3n9WXl5Aqd5/Vl5MAKnef1ZeQKn/Vl5Aqd5AAABAOAAAAMgA4AAAwAAAQMBJQMgA/3DASADgPyAAcPfAAEA4AAAAyADgAADAAA3EwEF4AMCPf7gAAOA/j3fAAAAAQAAAAEAAF0/BsNfDzz1AAsEAAAAAADRxFAkAAAAANHEUCQAAAAAA8ADgAAAAAgAAgAAAAAAAAABAAADwP/AAAAEAAAAAAADwAABAAAAAAAAAAAAAAAAAAAACAQAAAAAAAAAAAAAAAIAAAAEAABABAAAcAQAAOAEAADgAAAAAAAKABQAHgB6AJYApgC2AAAAAQAAAAgAPAAMAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA4ArgABAAAAAAABAAkAAAABAAAAAAACAAcAcgABAAAAAAADAAkAPAABAAAAAAAEAAkAhwABAAAAAAAFAAsAGwABAAAAAAAGAAkAVwABAAAAAAAKABoAogADAAEECQABABIACQADAAEECQACAA4AeQADAAEECQADABIARQADAAEECQAEABIAkAADAAEECQAFABYAJgADAAEECQAGABIAYAADAAEECQAKADQAvHZzZHBpY2tlcgB2AHMAZABwAGkAYwBrAGUAclZlcnNpb24gMS4wAFYAZQByAHMAaQBvAG4AIAAxAC4AMHZzZHBpY2tlcgB2AHMAZABwAGkAYwBrAGUAcnZzZHBpY2tlcgB2AHMAZABwAGkAYwBrAGUAclJlZ3VsYXIAUgBlAGcAdQBsAGEAcnZzZHBpY2tlcgB2AHMAZABwAGkAYwBrAGUAckZvbnQgZ2VuZXJhdGVkIGJ5IEljb01vb24uAEYAbwBuAHQAIABnAGUAbgBlAHIAYQB0AGUAZAAgAGIAeQAgAEkAYwBvAE0AbwBvAG4ALgAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
