@@ -29,7 +29,7 @@ import { routing } from './app.routing';
         OrderMngModule,
         ImgMngModule,
         routing,
-        //PipeModule
+        PipeModule
     ],
     declarations: [MenuComponent, SiteComponent],
     providers: [],
