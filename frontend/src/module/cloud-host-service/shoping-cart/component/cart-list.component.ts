@@ -25,6 +25,18 @@ export class cartListComponent implements OnInit {
 	modalMessage: string = '';
 	modalOKTitle: string = '';
 
+	myDatePickerOptions = {
+        todayBtnTxt: 'Today',
+        dateFormat: 'yyyy-mm-dd',
+        firstDayOfWeek: 'mo',
+        sunHighlight: true,
+        height: '34px',
+        width: '260px',
+        inline: false,
+        disableUntil: {year: 2016, month: 8, day: 10},
+        selectionTxtFontSize: '16px'
+    };
+
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -34,7 +46,10 @@ export class cartListComponent implements OnInit {
 	ngOnInit() {
 		
 	}
-
+	
+    onDateChanged(event:any) {
+        console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
+    }
 
 	goTo(url : string) {
 		this.router.navigateByUrl(url);
