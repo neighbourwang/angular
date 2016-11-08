@@ -86,7 +86,7 @@ export let RestApis: RestApiModel[] = [
     {
         "desc": "获取区域列表",
         "method": "GET",
-        "id": "image.mng.delete",
+        "id": "image.mng.area.list",
         "url": "/adminui/authsec/platforms/status/activation"
     }
     //<--费用中心-订单管理
