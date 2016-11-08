@@ -47,7 +47,7 @@ export class EntEstMngComponent implements OnInit {
     this.entEstMng = new ItemLoader<EntEstItem>(true, "企业管理列表", "ent-mng.ent-est-mng.enterprise.get", restApiCfg, restApi);
 
     //配置企业列表查询
-    this.entEstMng.MapFunc = (source:Array<any>, target:EntEstItem[])=>{
+   /* this.entEstMng.MapFunc = (source:Array<any>, target:EntEstItem[])=>{
         for(let item of source)
         {
           let obj = new EntEstItem();
@@ -68,7 +68,7 @@ export class EntEstMngComponent implements OnInit {
           obj.description = ""; //api 未提供
           obj.checked = false;
         }
-      };
+      };*/
 
 
       //字典配置
