@@ -15,41 +15,77 @@
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品目录：</div>
 					<div class="col-sm-4 font-gray">
 						<select class="form-control" [(ngModel)]="prodDirId" (change)="prodDirId=prodDir.id; selectProdDir()">
+							<!--<option value="000">新建Disk产品</option>-->
                             <option *ngFor="let prodDir of prodDirList;" [ngValue]="prodDir.id">{{prodDir.name}}</option>
                         </select>
 					</div>
 				</div>
 			</div>
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-4 form-control-title"></div>
-					<div class="col-sm-4 row-line-child font-gray">
-						<div class="font-gray">CPU</div>
-						<div class="mid-line-child border-gray font-gray">{{prodDir.specification.vcpu}}</div>
-						<div class="last-line-child font-gray">核（vCPU）</div>
+			<div *ngIf="!DiskProduct">
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4 form-control-title"></div>
+						<div class="col-sm-4 row-line-child font-gray">
+							<div class="font-gray">CPU</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir.specification.vcpu}}</div>
+							<div class="last-line-child font-gray">核（vCPU）</div>
+						</div>
+					</div>
+				</div>
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4 form-control-title"></div>
+						<div class="col-sm-4 row-line-child font-gray">
+							<div class="font-gray">内存</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir.specification.mem}}</div>
+							<div class="last-line-child font-gray">兆（MB）</div>
+						</div>
+					</div>
+				</div>
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4 form-control-title"></div>
+						<div class="col-sm-4 row-line-child font-gray">
+							<div class="font-gray">启动盘大小</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir.specification.startupDisk}}</div>
+							<div class="last-line-child font-gray">GB</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-4 form-control-title"></div>
-					<div class="col-sm-4 row-line-child font-gray">
-						<div class="font-gray">内存</div>
-						<div class="mid-line-child border-gray font-gray">{{prodDir.specification.mem}}</div>
-						<div class="last-line-child font-gray">兆（MB）</div>
+			<!--<div *ngIf="DiskProduct">
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4 form-control-title"></div>
+						<div class="col-sm-4 row-line-child font-gray">
+							<div class="font-gray">初始大小</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir.specification.vcpu}}</div>
+							<div class="last-line-child font-gray">GB</div>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-4 form-control-title"></div>
-					<div class="col-sm-4 row-line-child font-gray">
-						<div class="font-gray">启动盘大小</div>
-						<div class="mid-line-child border-gray font-gray">{{prodDir.specification.startupDisk}}</div>
-						<div class="last-line-child font-gray">GB</div>
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4 form-control-title"></div>
+						<div class="col-sm-4 row-line-child font-gray">
+							<div class="font-gray">步长</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir.specification.mem}}</div>
+							<div class="last-line-child font-gray">GB</div>
+						</div>
 					</div>
 				</div>
-			</div>
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4 form-control-title"></div>
+						<div class="col-sm-4 row-line-child font-gray">
+							<div class="font-gray">最大</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir.specification.startupDisk}}</div>
+							<div class="last-line-child font-gray">GB</div>
+						</div>
+					</div>
+				</div>
+			</div>-->
+
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">描述：</div>
@@ -93,11 +129,11 @@
 										<label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
                            					 <input type="radio" name="inlineRadioOption"  value="3" class="fox-cloud-radio" [(ngModel)]="product.billingCycle"> 包月
                        					</label>
-									</div>							
+									</div>
 								</div>
 							</div>
 							<div class="col-sm-6">
-									<div class="row">
+								<div class="row">
 									<div class="col-sm-6">
 										<label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
                            					  <input type="radio" name="inlineRadioOption"  value="1" class="fox-cloud-radio" [(ngModel)]="product.billingCycle"> 按天
@@ -107,13 +143,13 @@
 										<label class="radio-inline row-inline-radio4 font-gray" style="width:100%">
                            					 <input type="radio" name="inlineRadioOption"  value="0" class="fox-cloud-radio" [(ngModel)]="product.billingCycle"> 按小时
                        					</label>
-									</div>							
+									</div>
 								</div>
 
-							</div>							
+							</div>
 						</div>
-						
-						
+
+
 						<!--<label class="radio-inline row-inline-radio4 font-gray">
                             <input type="radio" name="inlineRadioOption"  value="1" class="fox-cloud-radio" [(ngModel)]="product.billingCycle"> 按天
                         </label>
@@ -126,19 +162,19 @@
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">基础周期价格：</div>
-						<div class="col-sm-8">
-							<div class="row">
-								<div class="col-sm-2">
-									<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
-								</div>
-								<div class="col-sm-2 form-control-title">
-									单位价格：
-								</div>
-								<div class="col-sm-2">
-									<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 #unitPrice (output)="outputValue($event,'unitPrice')"></count-bar>
-								</div>
+					<div class="col-sm-8">
+						<div class="row">
+							<div class="col-sm-2">
+								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
+							</div>
+							<div class="col-sm-2 form-control-title">
+								单位价格：
+							</div>
+							<div class="col-sm-2">
+								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 #unitPrice (output)="outputValue($event,'unitPrice')"></count-bar>
 							</div>
 						</div>
+					</div>
 					<!--<div class="col-sm-2 ">
 						<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
 					</div>
@@ -152,18 +188,18 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">增量周期价格：</div>
 					<div class="col-sm-8">
-							<div class="row">
-								<div class="col-sm-2">
-									<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 #extendCyclePrice (output)="outputValue($event,'extendCyclePrice')"></count-bar>
-								</div>
-								<div class="col-sm-2 form-control-title">
-									一次性价格：
-								</div>
-								<div class="col-sm-2">
-									<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
-								</div>
+						<div class="row">
+							<div class="col-sm-2">
+								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 #extendCyclePrice (output)="outputValue($event,'extendCyclePrice')"></count-bar>
+							</div>
+							<div class="col-sm-2 form-control-title">
+								一次性价格：
+							</div>
+							<div class="col-sm-2">
+								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
 							</div>
 						</div>
+					</div>
 					<!--<div class="col-sm-2">
 						<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 #extendCyclePrice (output)="outputValue($event,'extendCyclePrice')"></count-bar>
 					</div>

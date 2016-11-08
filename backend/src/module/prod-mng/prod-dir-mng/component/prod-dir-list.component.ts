@@ -53,7 +53,7 @@ export class ProdDirListComponent implements OnInit {
     queryProDirTypeId: string;
 
     //mokup
-    
+
 
 
     ngOnInit() {
@@ -75,14 +75,19 @@ export class ProdDirListComponent implements OnInit {
                 this.prodDirTypeList = response.resultContent;
                 this.prodDirTypeId = this.prodDirTypeList[0].id
                 // this.queryProdDirTypeId =this.prodDirTypeList[0].id                
-                console.log('产品目录', this.prodDirTypeList)
+                console.log('产品目录类别', this.prodDirTypeList)
+                this.prodDirTypeList.push({
+                    code: "VITRUALDISK_SERVICE",
+                    id: "2",
+                    name: "云硬盘服务"
+                })
             } else {
 
             }
         }).catch(err => {
             console.error(err);
         })
-        
+
         // this.prodDirTypeList=[
         //     {
         //         "id": "1",
@@ -96,9 +101,9 @@ export class ProdDirListComponent implements OnInit {
         //     },
         // ]
 
-        this.backend(1, this.pp,{});
+        this.backend(1, this.pp, {});
     }
-    data : any = {};
+    data: any = {};
     onQuery() {
         console.log(this.platformId);
         console.log(this.queryProDirTypeId);
@@ -106,7 +111,7 @@ export class ProdDirListComponent implements OnInit {
             "categoryId": this.queryProDirTypeId,
             "platformId": this.platformId
         }
-        this.backend(1, this.pp,this.data);
+        this.backend(1, this.pp, this.data);
     }
     @ViewChild('publishConfirm')
     publishConfirm: ConfirmComponent;
@@ -165,7 +170,7 @@ export class ProdDirListComponent implements OnInit {
         return selectedProdDirList;
     }
 
-    //删除按钮
+    //命令按钮
     action(order) {
         let prodDirList: Array<Proddir> = this.getProddir();
         if (prodDirList.length < 1) {
@@ -189,13 +194,13 @@ export class ProdDirListComponent implements OnInit {
         }
     };
     deleteCof() {
-         let selectedList: Array<Proddir> = this.getProddir();
+        let selectedList: Array<Proddir> = this.getProddir();
         console.log(selectedList[0]['serviceId']);
         let id = selectedList[0]['serviceId'];
-        this.ProdDirDeleteService.deleteProdDir(id).then(response=>{
+        this.ProdDirDeleteService.deleteProdDir(id).then(response => {
             console.log(response);
-            this.backend(1, this.pp,this.data);
-        }).catch(err=>{
+            this.backend(1, this.pp, this.data);
+        }).catch(err => {
             console.error(err);
         })
     }
@@ -207,7 +212,7 @@ export class ProdDirListComponent implements OnInit {
         let id = selectedList[0]['serviceId'];
         this.ProdDirPublishService.publishProdDir(id).then(response => {
             console.log(response);
-            this.backend(1, this.pp,this.data);
+            this.backend(1, this.pp, this.data);
         }).catch(err => {
             console.error(err);
         })
@@ -219,7 +224,7 @@ export class ProdDirListComponent implements OnInit {
         let id = selectedList[0]['serviceId'];
         this.CcProdDirPublishService.ccPublishProdDir(id).then(response => {
             console.log(response);
-            this.backend(1, this.pp,this.data);
+            this.backend(1, this.pp, this.data);
         }).catch(err => {
             console.error(err);
         })
@@ -239,11 +244,11 @@ export class ProdDirListComponent implements OnInit {
     otcreate() {
         let id = this.prodDirTypeId;
         console.log(id);
-        // if(this.prodDirTypeId=='1'){
-        //     this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre"]);
-        // }else{
-        //     this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre"]);
-        // }
+        if (this.prodDirTypeId == '1') {
+            this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre"]);
+        } else {
+            this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre"]);
+        }
         // let type = "new"
         // 
     }
@@ -256,10 +261,10 @@ export class ProdDirListComponent implements OnInit {
     }
 
     //获取列表数据
-    backend(page: number, size: number,data) {
+    backend(page: number, size: number, data) {
         // this.layoutService.show();
         this.tp = 0;
-        this.service.getProdDirList(page, size,data).then(
+        this.service.getProdDirList(page, size, data).then(
             response => {
                 console.log(response);
                 if (response && 100 == response.resultCode) {
@@ -310,7 +315,7 @@ export class ProdDirListComponent implements OnInit {
 
     }
 
-    paging(page){
-        this.backend(page, this.pp,{});
+    paging(page) {
+        this.backend(page, this.pp, {});
     }
 }

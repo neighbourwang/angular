@@ -79,8 +79,13 @@ export class ProdCreComponent implements OnInit, OnChanges {
         })
     }
     //选择产品目录
+    DiskProduct:boolean;
     selectProdDir(){
         console.log(this.prodDirId);
+        // if(this.prodDirId=="000"){
+        //     this.DiskProduct=true;
+        //     return;
+        // }
         setTimeout(()=>{
             console.log(this.prodDirId);
             this.product.serviceId==this.prodDirId;
