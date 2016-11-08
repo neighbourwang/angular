@@ -80,7 +80,13 @@ export class EntEstCreComponent implements OnInit{
 			"name":"认证方式"
 			,"value":this.entEst.BasicInfo.certMethod
 			,"op":"*"
-		}];
+		},
+		{
+			"name":"登录账户属性名称"
+			,"value":this.entEst.BasicInfo.accountAttribute
+			,"op":"*"
+		}
+		];
 
 		if(this.isADSelected())
 		{
@@ -91,7 +97,7 @@ export class EntEstCreComponent implements OnInit{
 					,"op":"*"
 				},
 				{
-					"name":"用户名"
+					"name":"用户名(Full DN)"
 					,"value":this.entEst.BasicInfo.contactorName
 					,"op":"*"
 				},

@@ -444,6 +444,8 @@ export class EntEstCreService{
 			"password": entEst.BasicInfo.password,
 			"url": entEst.BasicInfo.certUrl,
 			"userName": entEst.BasicInfo.contactorName,
+			"isSSL": entEst.BasicInfo.isSSL, //是否进行SSL加密
+			"accountAttribute": entEst.BasicInfo.accountAttribute//登录账户属性名称
 		},
 		"quotaList": entEst.ResourceQuota
 	};
