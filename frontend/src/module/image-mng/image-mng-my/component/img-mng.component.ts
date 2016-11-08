@@ -62,5 +62,12 @@ export class ImgMngComponent_my implements OnInit {
         );
     }
 
-  
+  updateImageName(image):void{
+      //保存
+      image.nameEditing = false;
+  }
+  updateImageDes(image):void{
+      //保存
+      image.desEditing = false;
+  }
 }
