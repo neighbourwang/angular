@@ -49,7 +49,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row row-line-height">
+			<div class="row row-line-height" *ngIf="isADSelected();">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk" >*</span>登录账户属性名称：</div>
 					<div class="col-sm-4">
@@ -57,7 +57,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row row-line-height">
+			<div class="row row-line-height" *ngIf="isADSelected();">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">是否进行SSL加密？：</div>
 					<div class="col-sm-4">
