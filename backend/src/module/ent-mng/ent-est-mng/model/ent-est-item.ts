@@ -1,17 +1,19 @@
 import {Status, CertMethod} from './'
 
-export class EntEstItem{
+export class EntEstItem{ 
 	id:string = "";	// id
 	authMode:CertMethod = CertMethod.Local; //认证方式
 	enterpriseName:string = "";	// 企业（租户）名称
-	vmNum: number = null;	// 云主机数量
-	vmQuota: number = null;	// 云主机配额（个）
-	vmQuotaUsageRate: number = null;	// 云主机配额使用率
-	storageQuota: number = null;	// 存储配额（GB）
-	storageQuotaUsageRate : number = null;	// 存储配额使用率
-	snapQuota: number = null;	// 快照配额（个）
-	productNum : number = null;	// 产品数量
-	orderNum : number = null;	// 订单数量
+	networkQuota: number = null;	// 云主机数量
+	snapshotQuota: number = null;	// 快照数量
+	
+	imageQuota : number = null;	// 镜像数量
+	productNumber : number = null;	// 产品数量
+	orderNumber : number = null;	// 订单数量
+	usedVMRate: number = null;	// vCPU配额使用率%
+	storageQuota : number = null;	// 内存配额使用率%
+	usedStorageRate: number = null;	// 存储配额使用率
+
 	status: string = "";	// 状态
 
 	description: string = "";	// 描述// 描述
