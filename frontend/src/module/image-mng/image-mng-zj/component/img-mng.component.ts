@@ -1,13 +1,13 @@
 ﻿import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-
+//import { RADIO_GROUP_DIRECTIVES } from "ng2-radio-group";
 import { LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, SystemDictionary, SystemDictionaryService } from "../../../../architecture";
 
 import { Image } from '../model/img-mng.model';
+import {  Area } from '../model/area.model';
 import { CriteriaQuery } from '../model/criteria-query.model';
 
 import { ImgMngService } from '../service/img-mng.service';
-
 
 
 @Component({
@@ -48,15 +48,15 @@ export class ImgMngComponent implements OnInit {
     statusDic: Array<SystemDictionary>;
     bitDic: Array<SystemDictionary>;
     queryOpt: CriteriaQuery = new CriteriaQuery();
-    editImage: Image =new Image();
-
+    editImage: Image = new Image();
+    areaList:Array<Area>;
     ngOnInit() {
         this.dicService.getItems("IMAGES", "STATUS")
             .then(
-                (dic) => {
-                    this.statusDic = dic;
-                    return this.dicService.getItems("IMAGES", "TYPE");
-                })
+            (dic) => {
+                this.statusDic = dic;
+                return this.dicService.getItems("IMAGES", "TYPE");
+            })
             .then((dic) => {
                 this.typeDic = dic;
                 return this.dicService.getItems("IMAGES", "BITS");
@@ -68,6 +68,7 @@ export class ImgMngComponent implements OnInit {
             .then((dic) => {
                 this.ownerDic = dic;
                 this.getImageList();
+                this.getAreaList();
             });
     }
 
@@ -76,17 +77,34 @@ export class ImgMngComponent implements OnInit {
         this.layoutService.show();
         this.service.getImages(this.queryOpt, this.pageIndex, this.pageSize)
             .then(
-                response => {
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.layoutService.hide();
-                        this.images = response.resultContent;
-                        this.totalPage = response.pageInfo.totalPage;
-                    } else {
-                        alert("Res sync error");
-                    }
+                    this.images = response.resultContent;
+                    this.totalPage = response.pageInfo.totalPage;
+                } else {
+                    alert("Res sync error");
+                   
                 }
+            }
             )
+            .catch((e) => this.onRejected(e));
+    }
+
+    getAreaList() {
+        this.layoutService.show();
+        this.service.getAreaList().then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.layoutService.hide();
+                    this.areaList = response.resultContent;
+                } else {
+                    alert("Res sync error");
+                }
+            }
+        )
             .catch((e) => this.onRejected(e));
     }
 
@@ -108,27 +126,27 @@ export class ImgMngComponent implements OnInit {
         this.layoutService.show();
         this.service.updateImage(this.editImage)
             .then(
-                response => {
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    let cimage = this.editImage;
+                    image.id = cimage.id;
+                    image.imageName = cimage.imageName;
+                    image.imageType = cimage.imageType;
+                    image.osName = cimage.osName;
+                    image.osDigits = cimage.osDigits;
+                    image.createdDate = cimage.createdDate;
+                    image.status = cimage.status;
+                    image.progress = cimage.progress;
+                    image.location = cimage.location;
+                    image.description = cimage.description;
+                    image.desEditing = false;
+                    image.nameEditing = false;
                     this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        let cimage = this.editImage;
-                        image.id = cimage.id;
-                        image.imageName = cimage.imageName;
-                        image.imageType = cimage.imageType;
-                        image.osName = cimage.osName;
-                        image.osDigits = cimage.osDigits;
-                        image.createdDate = cimage.createdDate;
-                        image.status = cimage.status;
-                        image.progress = cimage.progress;
-                        image.location = cimage.location;
-                        image.description = cimage.description;
-                        image.desEditing = false;
-                        image.nameEditing = false;
-                        this.layoutService.hide();
-                    } else {
-                        alert("Res sync error");
-                    }
+                } else {
+                    alert("Res sync error");
                 }
+            }
             )
             .catch((e) => this.onRejected(e));
     }
@@ -138,14 +156,14 @@ export class ImgMngComponent implements OnInit {
         this.layoutService.show();
         this.service.deleteImage(image)
             .then(
-                response => {
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.layoutService.hide();
-                    } else {
-                        alert("Res sync error");
-                    }
+                } else {
+                    alert("Res sync error");
                 }
+            }
             )
             .catch((e) => this.onRejected(e));
     }
@@ -172,6 +190,17 @@ export class ImgMngComponent implements OnInit {
         cimage.description = image.description;
         this.editImage = cimage;
     }
+
+    setKeyword(type: string, value: string) {
+        if (type === "0") {
+            this.queryOpt.imageName = value;
+            this.queryOpt.os = "";
+        } else {
+            this.queryOpt.imageName = "";
+            this.queryOpt.os = value;
+        }
+    }
+
 
     showAlert(msg: string): void {
         this.layoutService.hide();
