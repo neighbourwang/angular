@@ -51,6 +51,7 @@ export class ImgMngComponent implements OnInit {
     editImage: Image = new Image();
     areaList:Array<Area>;
     ngOnInit() {
+        this.getAreaList();
         this.dicService.getItems("IMAGES", "STATUS")
             .then(
             (dic) => {
@@ -68,7 +69,6 @@ export class ImgMngComponent implements OnInit {
             .then((dic) => {
                 this.ownerDic = dic;
                 this.getImageList();
-                this.getAreaList();
             });
     }
 
