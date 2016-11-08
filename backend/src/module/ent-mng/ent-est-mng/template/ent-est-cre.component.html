@@ -35,7 +35,7 @@
 			</div>
 			<div class="row row-line-height" *ngIf="isADSelected();">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk" >*用户名</span>(Full DN)：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk" >*</span>用户名(Full DN)：</div>
 					<div class="col-sm-4">
 						<input type="text" class="form-control input-control" placeholder="用户名" [(ngModel)]="entEst.BasicInfo.contactorName">
 					</div>
@@ -53,28 +53,28 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk" >*</span>登录账户属性名称：</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control input-control" placeholder="用户名" [(ngModel)]="entEst.BasicInfo.accountAttribute">
+						<input type="text" class="form-control input-control" placeholder="用户名" [(ngModel)]="entEst.BasicInfo.contactorName">
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height" *ngIf="isADSelected();">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">是否进行SSL加密？：</div>
 					<div class="col-sm-4">
-						<input type="checkbox" class="form-control" 
-						[(ngModel)]="entEst.BasicInfo.isSSL">
+						<input type="checkbox" class="fox-cloud-checkbox float-right mgr10">
 					</div>
+					<div class="col-sm-4 form-control-title textLeft">是否进行SSL加密？</div>
+					
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>描述：</div>
+					<div class="col-sm-4 form-control-title">描述：</div>
 					<div class="col-sm-4">
 						<textarea class="form-control input-control" rows="4" placeholder="描述" [(ngModel)]="entEst.BasicInfo.description"></textarea> 
 					</div>
 				</div>
 			</div>
-	</div>
+	</div><!--变更-->
 
 	<form>
 		<div class="uploadImg left">
