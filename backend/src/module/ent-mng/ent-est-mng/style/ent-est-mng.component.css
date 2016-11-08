@@ -16,6 +16,9 @@
 	color: #fff !important;
 	background-color: #00a982 !important;
 }
+.textLeft{
+    text-align: left!important;
+}
 
 /*--------------radio单选框----------------*/
 .radio_:checked + label::after {
@@ -142,7 +145,7 @@
 .buttonPanel{
 	width: 1200px;
 	text-align: center;
-    margin-top:20px; 
+  margin-top:120px; 
 }
 .gray-larger-bg{
 	padding:  25px 160px ;
