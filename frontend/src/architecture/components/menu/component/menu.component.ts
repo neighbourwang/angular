@@ -94,6 +94,16 @@ const menu: Array<any> = [
                 "routing": "cloud-host-service/cloud-drive-list"
             },
             {
+                "label": "购物车列表",
+                "isOpen": true,
+                "routing": "cloud-host-service/cart-list"
+            },
+            {
+                "label": "订单完成",
+                "isOpen": true,
+                "routing": "cloud-host-service/cart-order"
+            },
+            {
                 "label": "镜像",
                 "isOpen": true,
                 "routing": "image-mng/image-mng-wxl"

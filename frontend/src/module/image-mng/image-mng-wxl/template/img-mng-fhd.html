@@ -1,0 +1,277 @@
+<div class="page-content cloud_mirror">
+    <div class="col-md-12">
+        <h1 class="page-content-header">镜像</h1>
+        <ul class="left-box-mirror" style="margin-bottom:20px;">
+            <li>
+                <div class="col-md-2 li-title">
+                    <p><br>区域列表</p>
+                </div>
+                <div class="col-md-12 li-content">
+                    <div class="col-md-12 btn-group" data-toggle="buttons">
+                        <label class="btn btn-default active">
+                            <input type="radio" name="location" autocomplete="off" checked> 所有
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" name="location" autocomplete="off"> 上海A区
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" name="location" autocomplete="off"> 上海B区
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" name="location" autocomplete="off"> 苏州
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" name="location" autocomplete="off"> 北京
+                        </label>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="col-md-2 li-title">
+                    <p><br>镜像归属</p>
+                </div>
+                <div class="col-md-12 li-content">
+                    <div class="col-md-12 btn-group" data-toggle="buttons">
+                        <label class="btn btn-default active">
+                            <input type="radio" name="location" autocomplete="off" checked> 我的资源
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" name="location" autocomplete="off"> 部门资源
+                        </label>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+
+        <div class="pull-left row" style="margin-bottom:20px;">
+            <div class="col-md-1">
+                <select class="form-control">
+                    <option>镜像名称</option>
+                    <option>操作系统</option>
+                </select>
+            </div>
+<!--            <div class="dropdown pull-left float-left">
+                <input type="text" placeholder="输入帐号信息快速搜索" style="height : 35px ; padding : 5px"/>
+            </div>-->
+            <div class="input-group col-md-2 float-left">
+                <input class="form-control" placeholder="输入镜像信息搜索">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-search"></span>
+                </div>
+            </div>
+
+            <span class="float-left" style="margin-left:10px;margin-top:6px;">状态 :</span>
+            <div class="col-md-2 float-left">
+                <select class="form-control">
+                    <option>所有</option>
+                    <option>可用</option>
+                    <option>不可用</option>
+                </select>
+            </div>
+
+            <span class="pull-left mgb10" style="margin-top:6px;">镜像类型 :</span>
+            <div class="col-md-2">
+                <select class="form-control">
+                    <option>自定义镜像</option>
+                    <option>公共镜像</option>
+                </select>
+            </div>
+
+            <button class="btn button-gray-gradient"><span class="glyphicon glyphicon-search"></span> 简单搜索</button>
+            <button class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span> 重置选项</button>
+            <button class="btn button-gray-gradient pull-right" style="margin-right:15px;">
+                <div class="icon">
+                    <span class="icon-link"></span> 相关实例
+                </div>
+            </button>
+</div>
+    <table class="table table-hover mgb20">
+        <tbody>
+            <tr>
+                <th class="text-center">选择</th>
+                <th class="text-center">镜像名称</th>
+                <th class="text-center">镜像类型</th>
+                <th class="text-center">操作系统</th>
+                <th class="text-center">系统位数</th>
+                <th class="text-center">创建时间</th>
+                <th class="text-center">状态</th>
+                <th class="text-center">进度</th>
+                <th class="text-center">所在区域</th>
+                <th class="text-center">描述</th>
+                <th class="text-center">操作</th>
+            </tr>
+
+            <tr>
+                <td class="text-center">
+                    <input name="host-list" type="radio" class="fox-cloud-radio">
+                </td>
+                <td class="text-center active"><u>MyCentOS-VM-001</u></td>
+                <td class="text-center">自定义镜像</td>
+                <td class="text-center">Windows 2012</td>
+                <td class="text-center">64</td>
+                <td class="text-center">2016/11/1 10:23</td>
+                <td class="text-center font-green">可用</td>
+                <td class="text-center">100%</td>
+                <td class="text-center">上海A区</td>
+                <td class="text-center">描述文字信息内容在这里显示</td>
+                <td class="text-center">
+                    <div class="test-div">
+                        <div class="icon">
+                            <span class="icon-copy"></span>
+                            <span class="icon-delete3"></span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="text-center">
+                    <input name="host-list" type="radio" class="fox-cloud-radio">
+                </td>
+                <td class="text-center td_mirror">
+                    <u style="color:#01a982;">MyCentOS-VM-002</u><span class="tdspan">编辑</span>
+                    <div class="popover fade bottom in" role="tooltip" id="popover316538" style="top: 35px; left: 8.5px; width:420px;max-width:1000px; display: block;">
+                        <div class="arrow" style="left: 20%;"></div>
+                        <div class="popover-content">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label pull-left">镜像描述:</label>
+                                <div class="col-sm-9 float-left">
+                                    <textarea class="form-control" rows="3"></textarea>
+                                    <div style="color: #b1b6bc;">长度为2-256个字符，不能以http://或https://开头</div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="pull-right" style="margin-bottom:10px;">
+                            <button class="btn btn-default btn-save">保存</button>
+                            <button class="btn btn-default">取消</button>
+                        </div>
+                    </div>
+                    </div>
+                </td>
+
+                <td class="text-center">公共镜像</td>
+                <td class="text-center">CentOS 6.5</td>
+                <td class="text-center">64</td>
+                <td class="text-center">2016/11/1 10:23</td>
+                <td class="text-center font-green">可用</td>
+                <td class="text-center">100%</td>
+                <td class="text-center">上海A区</td>
+                <td class="text-center td_mirror">
+                    描述文字信息内容在这里显示
+                    <span class="tdspan">编辑</span>
+                    <div class="popover fade bottom in" role="tooltip" id="popover472540" style="top: 35px; left: 8.5px; width:310px;max-width: 1000px; display: block;">
+                        <div class="arrow" style="left: 30%;"></div>
+                        <div class="popover-content">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">镜像描述:</label>
+                                <div class="col-sm-8 float-left">
+                                    <textarea class="form-control" rows="3"></textarea>
+                                    <div style="color: #b1b6bc;">长度为2-256个字符，不能以http://或https://开头</div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="pull-right" style="margin-bottom:10px;">
+                            <button class="btn btn-default btn-save">保存</button>
+                            <button class="btn btn-default">取消</button>
+                        </div>
+                    </div></div>
+                </td>
+                <td class="text-center">
+                    <div class="icon">
+                        <span class="icon-copy"></span>
+                        <span class="icon-delete3"></span>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="text-center">
+                    <input name="host-list" type="radio" class="fox-cloud-radio">
+                </td>
+                <td class="text-center active"><u>MyCentOS-VM-003</u></td>
+                <td class="text-center">自定义镜像</td>
+                <td class="text-center">CentOS 6.5</td>
+                <td class="text-center">64</td>
+                <td class="text-center">2016/11/1 10:23</td>
+                <td class="text-center font-green">可用</td>
+                <td class="text-center">100%</td>
+                <td class="text-center">上海A区</td>
+                <td class="text-center">描述文字信息内容在这里显示</td>
+                <td class="text-center">
+                    <div class="icon">
+                        <span class="icon-copy"></span>
+                        <span class="icon-delete3"></span>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="text-center">
+                    <input name="host-list" type="radio" class="fox-cloud-radio">
+                </td>
+                <td class="text-center active"><u>MyCentOS-VM-004</u></td>
+                <td class="text-center">自定义镜像</td>
+                <td class="text-center">Windows 2012</td>
+                <td class="text-center">32</td>
+                <td class="text-center">2016/11/1 10:23</td>
+                <td class="text-center font-orange">不可用</td>
+                <td class="text-center">100%</td>
+                <td class="text-center">上海A区</td>
+                <td class="text-center">描述文字信息内容在这里显示</td>
+                <td class="text-center">
+                    <div class="icon">
+                        <span class="icon-copy"></span>
+                        <span class="icon-delete3"></span>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="text-center">
+                    <input name="host-list" type="radio" class="fox-cloud-radio">
+                </td>
+                <td class="text-center active"><u>MyCentOS-VM-005</u></td>
+                <td class="text-center">自定义镜像</td>
+                <td class="text-center">Windows 2008</td>
+                <td class="text-center">32</td>
+                <td class="text-center">2016/11/1 10:23</td>
+                <td class="text-center font-orange">不可用</td>
+                <td class="text-center">100%</td>
+                <td class="text-center">上海A区</td>
+                <td class="text-center">描述文字信息内容在这里显示</td>
+                <td class="text-center">
+                    <div class="icon">
+                        <span class="icon-copy"></span>
+                        <span class="icon-delete3"></span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+        <div class="fox-cloud-pagination-container">
+            <ul class="fox-cloud-pagination">
+                <span><<</span>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <span class="pagination-disabled">>></span>
+            </ul>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+<script>
+    $(function () {
+        $("[data-toggle='popover']").popover();
+    });
+</script>

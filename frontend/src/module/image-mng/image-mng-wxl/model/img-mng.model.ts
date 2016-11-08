@@ -1,4 +1,4 @@
-class ImageListModule {
+export class Image_wxl {
     imageName : string;
     imageType : string;
     osName : string;
@@ -11,7 +11,4 @@ class ImageListModule {
     constructor() {
     }
 }
-
-export {
-    ImageListModule
-}
+ 

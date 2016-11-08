@@ -9,7 +9,7 @@ import { ListItem
 @Component({
 	selector: 'order-mng',
 	templateUrl: '../template/order-mng.component.html',
-	styleUrls: ['../style/order-mng-list.less'],
+	styleUrls: ['../style/order-mng-list.less','../style/order-mng-renew.less'],
 	providers: []}
 	)
 export class OrderMngComponent implements OnInit{
@@ -72,5 +72,8 @@ export class OrderMngComponent implements OnInit{
 	}
 	renewOrder(){
 		this.router.navigateByUrl('op-center/order-mng/order-mng-renew');
+	}
+	cancelOrder(){
+		this.router.navigateByUrl('op-center/order-mng/order-mng-cancel');
 	}
 }
