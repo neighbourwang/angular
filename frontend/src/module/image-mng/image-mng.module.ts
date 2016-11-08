@@ -22,6 +22,8 @@ import { ImgMngService_my } from './image-mng-my/service/img-mng.service';
 import { ImgMngService_wxl } from './image-mng-wxl/service/img-mng.service';
 import { ImgMngService } from './image-mng-zj/service/img-mng.service';
 
+import { OrderByPipe } from './image-mng-zj/pipe/orderby';
+
 @NgModule({
     imports: [
         Ng2Bs3ModalModule,
@@ -34,7 +36,8 @@ import { ImgMngService } from './image-mng-zj/service/img-mng.service';
         ImgMngComponent_fhd,
         ImgMngComponent_gcy,
         ImgMngComponent_my,
-        ImgMngComponent_wxl
+        ImgMngComponent_wxl,
+        OrderByPipe
         
     ],
     exports: [
