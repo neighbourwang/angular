@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { EntEst, ResourceQuota, CertMethod } from '../model'
@@ -109,13 +109,28 @@ export class EntEstCreComponent implements OnInit{
 			,"op":"*"
 		},
 		{
-			"name":"可创建云主机数量"
-			,"value":this.entEst.ResourceQuota.platformVMQuota
+			"name":"可创建浮动IP数量"
+			,"value":this.entEst.ResourceQuota.floatIpQuota
+			,"op":"*"
+		},
+		{
+			"name":"可创建镜像数量"
+			,"value":this.entEst.ResourceQuota.imageQuota
+			,"op":"*"
+		},
+		{
+			"name":"可用内存数量"
+			,"value":this.entEst.ResourceQuota.memroyQuota
 			,"op":"*"
 		},
 		{
 			"name":"可创建物理机数量"
-			,"value":this.entEst.ResourceQuota.physicalMachineQuota
+			,"value":this.entEst.ResourceQuota.physicalQuota
+			,"op":"*"
+		},
+		{
+			"name":"可创建快照数量"
+			,"value":this.entEst.ResourceQuota.snapShotQuota
 			,"op":"*"
 		},
 		{
@@ -124,13 +139,8 @@ export class EntEstCreComponent implements OnInit{
 			,"op":"*"
 		},
 		{
-			"name":"可创建快照数量"
-			,"value":this.entEst.ResourceQuota.snapQuota
-			,"op":"*"
-		},
-		{
-			"name":"可创建镜像数量"
-			,"value":this.entEst.ResourceQuota.imageQuota
+			"name":" 可使用vCPU数量"
+			,"value":this.entEst.ResourceQuota.vcpuQuota
 			,"op":"*"
 		}]);
 

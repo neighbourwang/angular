@@ -1,32 +1,51 @@
-import { ResourceQuota } from './resourcequota';
+export class EntEstCreResourceQuota{
+	enterpriseId : string = null;//": "string",
+	floatIpQuota : number = null;//": 0,//可创建浮动IP数量
+	id : string = null;//": "string",
+	imageQuota : number = null;//": 0,//可创建镜像数量
+	memroyQuota : number = null;//": 0,//可用内存数量
+	networkQuota : number = null;//": 0,
+	physicalQuota : number = null;//": 0,//可创建物理机数量
+	snapShotQuota : number = null;//": 0,//可创建快照数量
+	storageQuota : number = null;//": 0,//可使用存储额度
+	vcpuQuota : number = null;//": 0, //可使用vCPU数量
+	vmQuota : number = null;//": 0
 
-export class EntEstResourceQuota {
-    id: string = null;
-    enterpriseId: string = null; //企业id
-    platformVMQuota: number = null;//可创建云主机数量
-    physicalMachineQuota: number = null;//可创建物理机数量
-    storageQuota: number = null; //可用存储额度
-    snapQuota: number = null; //可创建快照数量
-    imageQuota: number = null; //可创建镜像数量
+	reset(){
+		this.enterpriseId = null;
+		this.floatIpQuota = null;
+		this.id = null;
+		this.imageQuota = null;
+		this.memroyQuota = null;
+		this.networkQuota = null;
+		this.physicalQuota = null;
+		this.snapShotQuota = null;
+		this.storageQuota = null;
+		this.vcpuQuota = null;
+		this.vmQuota = null;
 
-    //ui operation
-    checked: boolean = false;
-    referredResourceQuota : ResourceQuota = null;
-
-    reset(){
-        this.id = null;
-    	this.enterpriseId = null;
-    	this.platformVMQuota = null;
-    	this.physicalMachineQuota = null;
-    	this.storageQuota = null;
-    	this.snapQuota = null;
-    	this.imageQuota = null;
-    }
+	}
 }
 
 
 /*
-GET /authsec/enterprise/{_enterpriseId}/resouces/quotas/page/{_page}/size/{_size}
+{
+    "enterpriseId": "string",
+    "floatIpQuota": 0,//可创建浮动IP数量
+    "id": "string",
+    "imageQuota": 0,//可创建镜像数量
+    "memroyQuota": 0,//可用内存数量
+    "networkQuota": 0,
+    "physicalQuota": 0,//可创建物理机数量
+    "snapShotQuota": 0,//可创建快照数量
+    "storageQuota": 0,//可使用存储额度
+    "vcpuQuota": 0, //vcpu数量
+    "vmQuota": 0
+  }
+
+
+
+  GET /authsec/enterprise/{_enterpriseId}/resouces/quotas/page/{_page}/size/{_size}
 
 GeneralPagingResultOfListOfEnterpriseQuotaItem {
 detailDescription (string, optional),
@@ -98,4 +117,5 @@ EnterpriseQuotaItem {
     }
   ]
 }
+
 */
