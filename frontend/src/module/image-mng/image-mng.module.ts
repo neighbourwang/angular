@@ -3,6 +3,7 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 // Common Components
 import { CommonComponentModule } from '../../architecture';
+import { PipeModule } from '../../architecture';
 
 //routing
 import { ImgMngRouting } from './image-mng.routing';
@@ -26,11 +27,13 @@ import { ImgMngService_my } from './image-mng-my/service/img-mng.service';
 import { ImgMngService_wxl } from './image-mng-wxl/service/img-mng.service';
 import { ImgMngService } from './image-mng-zj/service/img-mng.service';
 
+
 @NgModule({
     imports: [
         Ng2Bs3ModalModule,
         CommonComponentModule,
-        ImgMngRouting
+        ImgMngRouting,
+        PipeModule
     ],
     declarations: [
         ImgMngComponent,
@@ -39,6 +42,7 @@ import { ImgMngService } from './image-mng-zj/service/img-mng.service';
         ImgMngComponent_gcy,
         ImgMngComponent_my,
         ImgMngComponent_wxl,
+        ImgMngComponent,
         ImgMngDescriptionComponent
         
     ],
@@ -49,6 +53,7 @@ import { ImgMngService } from './image-mng-zj/service/img-mng.service';
         ImgMngComponent_gcy,
         ImgMngComponent_my,
         ImgMngComponent_wxl,
+        ImgMngComponent,
         ImgMngDescriptionComponent
     ],
     providers: [

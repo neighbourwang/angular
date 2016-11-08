@@ -47,7 +47,7 @@ export class EntEstMngComponent implements OnInit {
     this.entEstMng = new ItemLoader<EntEstItem>(true, "企业管理列表", "ent-mng.ent-est-mng.enterprise.get", restApiCfg, restApi);
 
     //配置企业列表查询
-    this.entEstMng.MapFunc = (source:Array<any>, target:EntEstItem[])=>{
+   /* this.entEstMng.MapFunc = (source:Array<any>, target:EntEstItem[])=>{
         for(let item of source)
         {
           let obj = new EntEstItem();
@@ -68,7 +68,7 @@ export class EntEstMngComponent implements OnInit {
           obj.description = ""; //api 未提供
           obj.checked = false;
         }
-      };
+      };*/
 
 
       //字典配置
@@ -382,13 +382,28 @@ export class EntEstMngComponent implements OnInit {
   validateQuotaModify():boolean{
     let notValid = [
     {
-      "name":"可创建云主机数量"
-      ,"value":this.entEst.ResourceQuota.platformVMQuota
+      "name":"可创建浮动IP数量"
+      ,"value":this.entEst.ResourceQuota.floatIpQuota
+      ,"op":"*"
+    },
+    {
+      "name":"可创建镜像数量"
+      ,"value":this.entEst.ResourceQuota.imageQuota
+      ,"op":"*"
+    },
+    {
+      "name":"可用内存数量"
+      ,"value":this.entEst.ResourceQuota.memroyQuota
       ,"op":"*"
     },
     {
       "name":"可创建物理机数量"
-      ,"value":this.entEst.ResourceQuota.physicalMachineQuota
+      ,"value":this.entEst.ResourceQuota.physicalQuota
+      ,"op":"*"
+    },
+    {
+      "name":"可创建快照数量"
+      ,"value":this.entEst.ResourceQuota.snapShotQuota
       ,"op":"*"
     },
     {
@@ -397,13 +412,8 @@ export class EntEstMngComponent implements OnInit {
       ,"op":"*"
     },
     {
-      "name":"可创建快照数量"
-      ,"value":this.entEst.ResourceQuota.snapQuota
-      ,"op":"*"
-    },
-    {
-      "name":"可创建镜像数量"
-      ,"value":this.entEst.ResourceQuota.imageQuota
+      "name":" 可使用vCPU数量"
+      ,"value":this.entEst.ResourceQuota.vcpuQuota
       ,"op":"*"
     }].find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
 

@@ -64,6 +64,7 @@ export let RestApis: RestApiModel[] = [
         "id": "hosts.instance.detail",
         "url": "marketplace/authsec/subinstance/itemlist/vm/{uuid}"
     },
+    //镜像管理部分
     {
         "desc": "获取镜像列表",
         "method": "POST",
@@ -75,6 +76,18 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "id": "image.mng.update",
         "url": "/marketplace/authsec/image/{image_id}"
+    },
+    {
+        "desc": "删除镜像信息",
+        "method": "DELETE",
+        "id": "image.mng.delete",
+        "url": "/marketplace/authsec/image"
+    },
+    {
+        "desc": "获取区域列表",
+        "method": "GET",
+        "id": "image.mng.area.list",
+        "url": "/adminui/authsec/platforms/status/activation"
     }
     //<--费用中心-订单管理
     ,{

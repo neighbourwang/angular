@@ -60,18 +60,15 @@
 
             <span class="float-left" style="margin-left:10px;margin-top:6px;">状态 :</span>
             <div class="col-md-2 float-left">
-                <select class="form-control">
-                    <option>所有</option>
-                    <option>可用</option>
-                    <option>不可用</option>
+                <select class="form-control"  [(ngModel)] ="queryOpt.status">
+                    <option *ngFor="let stauts of statusDic | orderBy : ['!value'];" [value]="stauts.value">{{stauts.displayValue}}</option>
                 </select>
             </div>
 
             <span class="pull-left mgb10" style="margin-top:6px;">镜像类型 :</span>
             <div class="col-md-2">
-                <select class="form-control">
-                    <option>自定义镜像</option>
-                    <option>公共镜像</option>
+                <select class="form-control" [(ngModel)] ="queryOpt.imageType">
+                   <option *ngFor="let type of typeDic;" [value]="type.value">{{type.displayValue}}</option>
                 </select>
             </div>
 
@@ -103,7 +100,7 @@
                         <input name="host-list" type="radio" class="fox-cloud-radio" (ngMode)="image.selectd">
                     </td>
                     <td class="text-center td_mirror">
-                        <u class="font-green">{{image.imageName}}</u><span class="tdspan" (click)="image.nameEditing=true;">编辑</span>
+                        <u class="font-green">{{image.imageName}}</u><span class="tdspan" (click)="openEidtPanel(image);image.nameEditing=true;">编辑</span>
                         <div *ngIf="image.nameEditing" class="popover fade bottom in" role="tooltip" style="z-index:99;top: 35px; left: 8.5px; width:420px;max-width:1000px; display: block;">
                             <div class="arrow" style="left: 20%;"></div>
                             <div class="popover-content">
@@ -111,7 +108,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label pull-left">镜像描述:</label>
                                         <div class="col-sm-9 float-left">
-                                            <textarea class="form-control" [(ngModel)]="image.imageName" rows="3"  name="imageName"></textarea>
+                                            <textarea class="form-control" [(ngModel)]="editImage.imageName" rows="3" name="imageName"></textarea>
                                             <div class="text-tip-color">长度为2-256个字符，不能以http://或https://开头</div>
                                         </div>
                                     </div>
@@ -126,22 +123,22 @@
 
                     <td class="text-center">{{getDicText(image.imageType,this.typeDic)}}</td>
                     <td class="text-center">{{image.osName}}</td>
-                    <td class="text-center">{{image.osDigits}}</td>
+                    <td class="text-center">{{getDicText(image.osDigits,this.bitDic)}}</td>
                     <td class="text-center">{{image.createdDate}}</td>
                     <td class="text-center" [ngClass]="image.status==1?'font-green':'font-orange'">{{getDicText(image.status,this.statusDic)}}</td>
                     <td class="text-center">{{image.progress}}%</td>
                     <td class="text-center">{{image.location}}</td>
                     <td class="text-center td_mirror">
                         {{image.description}}
-                        <span class="tdspan" (click)="image.desEditing=true;">编辑</span>
-                        <div *ngIf="image.desEditing" class="popover fade bottom in" role="tooltip" style="z-index:99; top: 35px; left: 8.5px; width:310px;max-width: 1000px; display: block;">
-                            <div class="arrow" style="left: 30%;"></div>
+                        <span class="tdspan" (click)="openEidtPanel(image);image.desEditing=true;">编辑</span>
+                        <div *ngIf="image.desEditing" class="popover fade bottom in" role="tooltip" style="z-index:99; top: 35px; left: -200px; width:400px;max-width: 1000px; display: block;">
+                            <div class="arrow" style="left: 75%;"></div>
                             <div class="popover-content">
                                 <form class="form-horizontal" role="form">
                                     <div class="form-group">
                                         <label class="col-sm-4 control-label">镜像描述:</label>
                                         <div class="col-sm-8 float-left">
-                                            <textarea class="form-control" rows="3" [(ngModel)]="image.description" name="description"></textarea>
+                                            <textarea class="form-control" rows="3" [(ngModel)]="editImage.description" name="description"></textarea>
                                             <div class="text-tip-color">长度为2-256个字符，不能以http://或https://开头</div>
                                         </div>
                                     </div>
@@ -154,32 +151,17 @@
                         </div>
                     </td>
                     <td class="text-center">
-                            <i *ngIf="image.imageType !=0" class="glyphicon glyphicon-trash" (click)="deletImage(image)" ></i>
+                        <i *ngIf="image.imageType !=0" class="glyphicon glyphicon-trash pointer" (click)="deletImage(image)"></i>
                     </td>
                 </tr>
             </tbody>
         </table>
-
         <div class="fox-cloud-pagination-container">
-            <ul class="fox-cloud-pagination">
-                <span><<</span>
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
-                <span class="pagination-disabled">>></span>
-            </ul>
+            <fc-pagination #pager tp={{totalPage}} (pf)="getImageList($event)"></fc-pagination>
         </div>
+        <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+        <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
 
     </div>
-
-
-
 </div>
 
-<script>
-    $(function () {
-        $("[data-toggle='popover']").popover();
-    });
-</script>

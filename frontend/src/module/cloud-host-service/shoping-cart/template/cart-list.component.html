@@ -1,5 +1,9 @@
 <div class="page-content cart_list">
 	<h1 class="page-content-header mgb20">购物车</h1>
+
+                <date-picker [options]="myDatePickerOptions"
+                             [initDate]= "'2017-06-21'" 
+                             (dateChanged)="onDateChanged($event)"></date-picker>
     <table class="table table-all-boder mgb20">
         <tr class="table-title">
             <td class="text-center">产品信息</td>

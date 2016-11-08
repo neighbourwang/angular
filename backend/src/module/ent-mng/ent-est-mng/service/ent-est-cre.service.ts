@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { RestApiCfg, RestApi } from '../../../../architecture';
 import { RestApiModel } from '../../../../architecture/core/model/rest';
-import { Status, EntEstItem, EntProdItem, EntEst, EntEstResourceQuota, ResourceQuota, EntEstBasicInfo } from '../model';
+import { Status, EntEstItem, EntProdItem, EntEst
+	, ResourceQuota
+	, EntEstBasicInfo
+	, EntEstCreResourceQuota } from '../model';
 import { LayoutService, ValidationService, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
@@ -143,7 +146,7 @@ export class EntEstCreService{
 	   }
 	//加载企业配额信息
 	loadEntResourceQuota(
-		entResourceQuota: EntEstResourceQuota
+		entResourceQuota: EntEstCreResourceQuota
 		, errorHandler: Function
 		, successHandler: ()=>void
 		, caller: any
@@ -164,7 +167,7 @@ export class EntEstCreService{
 		}
 		];
 
-		let entResourceQuotas: Paging<EntEstResourceQuota> = new Paging<EntEstResourceQuota>();
+		let entResourceQuotas: Paging<EntEstCreResourceQuota> = new Paging<EntEstCreResourceQuota>();
 
 		this.loadItems(entResourceQuotas
 			, errorHandler
@@ -173,30 +176,32 @@ export class EntEstCreService{
 			, localParams
 			, "加载企业配额"
 			, null
-			, (source, target:EntEstResourceQuota[])=>{
+			, (source, target:EntEstCreResourceQuota[])=>{
 				for(let item of source)
 				{
-					let obj = new EntEstResourceQuota();
+					let obj = new EntEstCreResourceQuota();
 					target.push(obj);
 
+					//todo: fix mapping issue
 					obj.id = item.id as string;
 					obj.enterpriseId = item.enterpriseId as string;
-					obj.platformVMQuota = item.vmQuota; ////可创建云主机数量
-					obj.physicalMachineQuota = 0; //可创建物理机数量,api暂不提供
-					obj.storageQuota = item.storageQuota as number;//可用存储额度
-					obj.snapQuota = item.snapshotQuota as number;//可创建快照数量
+					// obj.platformVMQuota = item.vmQuota; ////可创建云主机数量
+					// obj.physicalMachineQuota = 0; //可创建物理机数量,api暂不提供
+					// obj.storageQuota = item.storageQuota as number;//可用存储额度
+					// obj.snapQuota = item.snapshotQuota as number;//可创建快照数量
 					obj.imageQuota = 0;//可创建镜像数量，api暂不提供
 				}
 			}
-			, (items:EntEstResourceQuota[])=>{
+			, (items:EntEstCreResourceQuota[])=>{
 				let item = items[0];
 				if(item)
 				{
+					//todo: fix mapping issue
 					entResourceQuota.enterpriseId = item.enterpriseId;
-					entResourceQuota.platformVMQuota = item.platformVMQuota;
-					entResourceQuota.physicalMachineQuota = item.physicalMachineQuota;
-					entResourceQuota.storageQuota = item.storageQuota;
-					entResourceQuota.snapQuota = item.snapQuota;
+					// entResourceQuota.platformVMQuota = item.platformVMQuota;
+					// entResourceQuota.physicalMachineQuota = item.physicalMachineQuota;
+					// entResourceQuota.storageQuota = item.storageQuota;
+					// entResourceQuota.snapQuota = item.snapQuota;
 					entResourceQuota.imageQuota = item.imageQuota;
 				}
 			},
@@ -439,24 +444,17 @@ export class EntEstCreService{
 			"password": entEst.BasicInfo.password,
 			"url": entEst.BasicInfo.certUrl,
 			"userName": entEst.BasicInfo.contactorName,
+			"isSSL": entEst.BasicInfo.isSSL, //是否进行SSL加密
+			"accountAttribute": entEst.BasicInfo.accountAttribute//登录账户属性名称
 		},
-		"quotaList": {
-			"enterpriseId": null,
-			"id": null,
-			"imageQuota": entEst.ResourceQuota.imageQuota,
-			"networkQuota": 0, //界面没有提供这个数据
-			"physicalQuota": entEst.ResourceQuota.physicalMachineQuota,
-			"snapShotQuota": entEst.ResourceQuota.snapQuota,
-			"storageQuota": entEst.ResourceQuota.storageQuota,
-			"vmQuota": entEst.ResourceQuota.platformVMQuota
-		}
+		"quotaList": entEst.ResourceQuota
 	};
 
 		return this.restApi.request(api.method, api.url, [], [], target);
 	}
 
 	//修改企业配额
-	updateEntQuota(entQuota:EntEstResourceQuota)
+	updateEntQuota(entQuota:EntEstCreResourceQuota)
 	{
 		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.updatequota");
 
@@ -465,19 +463,9 @@ export class EntEstCreService{
 			key:"_enterpriseId"
 			,value:entQuota.enterpriseId
 		}
-		]
-		let target:any = {
-			enterpriseId: entQuota.enterpriseId,
-			id: entQuota.id,
-			imageQuota: entQuota.imageQuota,//可创建镜像数量
-			networkQuota: 0, //界面上没有提供这个数据
-			physicalQuota: entQuota.physicalMachineQuota,//可创建物理机数量
-			snapShotQuota: entQuota.snapQuota,//可创建快照数量
-			storageQuota: entQuota.storageQuota,//可用存储额度
-			vmQuota: entQuota.platformVMQuota//可创建云主机数量
-		};
+		];
 
-		return this.restApi.request(api.method, api.url, localParams, [], target);
+		return this.restApi.request(api.method, api.url, localParams, [], entQuota);
 	}
 
 
