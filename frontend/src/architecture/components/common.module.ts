@@ -16,6 +16,7 @@ import { MyDatePickerModule } from './date-picker/my-date-picker.module';
 // import { DonutChart } from './donutChart/component/chart.component';
 // import { LineChart } from './lineChart/component/chart.component';
 
+// import { OrderByPipe } from '../pipe/orderby';
 
 @NgModule({
     imports: [
@@ -31,7 +32,7 @@ import { MyDatePickerModule } from './date-picker/my-date-picker.module';
         ConfirmComponent,
         PopupComponent,
         CountBarComponent,
-        
+        // OrderByPipe
         // DonutChart,
         // LineChart
     ],
@@ -45,7 +46,8 @@ import { MyDatePickerModule } from './date-picker/my-date-picker.module';
         ConfirmComponent,
         PopupComponent,
         CountBarComponent,
-        FormsModule
+        FormsModule,
+        // OrderByPipe
         // DonutChart,
         // LineChart
     ]
