@@ -9,7 +9,7 @@ import { ListItem
 @Component({
 	selector: 'order-mng',
 	templateUrl: '../template/order-mng.component.html',
-	styleUrls: ['../style/order-mng-list.less'],
+	styleUrls: ['../style/order-mng-list.less','../style/order-mng-renew.less'],
 	providers: []}
 	)
 export class OrderMngComponent implements OnInit{

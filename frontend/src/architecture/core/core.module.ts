@@ -6,7 +6,7 @@ import { LayoutService } from './service/layout.service';
 import { RestApiCfg } from './service/restapicfg.service';
 import { RestApi } from './service/restapi.service';
 import { ValidationService } from './service/validation.service';
-
+import { SystemDictionaryService } from './service/system.dictionary.service';
 @NgModule({
     imports:[
         CommonModule,
@@ -25,7 +25,8 @@ import { ValidationService } from './service/validation.service';
         LayoutService,
         RestApiCfg,
         RestApi,
-        ValidationService
+        ValidationService,
+        SystemDictionaryService
     ]
 })
 export class CoreModule {

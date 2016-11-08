@@ -1,12 +1,11 @@
-import { EntEstBasicInfo } from "./ent-est-basic-info";
-import { EntEstResourceQuota } from "./ent-est-resourcequota";
+import { EntEstBasicInfo, EntEstCreResourceQuota} from "./";
 
 export class EntEst{
 	BasicInfo : EntEstBasicInfo;
-	ResourceQuota : EntEstResourceQuota;
+	ResourceQuota : EntEstCreResourceQuota;
 
 	constructor(){
 		this.BasicInfo = new EntEstBasicInfo();
-		this.ResourceQuota = new EntEstResourceQuota();
+		this.ResourceQuota = new EntEstCreResourceQuota();
 	}
 }

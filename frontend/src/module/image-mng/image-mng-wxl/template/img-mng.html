@@ -85,7 +85,7 @@
                     <span class="icon-link"></span> 相关实例
                 </div>
             </button>
-</div>
+    </div>
     <table class="table table-hover mgb20">
       <thead>
             <tr>
@@ -103,11 +103,36 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let image of images;">
+            <tr *ngFor="let image of images">
                 <td class="text-center">
                     <input name="host-list" type="radio" class="fox-cloud-radio">
                 </td>
-                <td class="text-center active"><u>{{image.imageName}}</u></td>
+                <td class="text-center td_mirror">
+                    <u style="color:#01a982;">{{image.imageName}}</u>
+                    <span class="tdspan">编辑</span>
+<!--
+                    
+                    <div class="popover fade bottom in" role="tooltip" id="popover316538" style="top: 35px; left: 8.5px; width:420px;max-width:1000px; display: block;">
+                        <div class="arrow" style="left: 20%;"></div>
+                        <div class="popover-content">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label pull-left">镜像描述:</label>
+                                <div class="col-sm-9 float-left">
+                                    <textarea class="form-control" rows="3"></textarea>
+                                    <div style="color: #b1b6bc;">长度为2-256个字符，不能以http://或https://开头</div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="pull-right" style="margin-bottom:10px;">
+                            <button class="btn btn-default btn-save">保存</button>
+                            <button class="btn btn-default">取消</button>
+                        </div>
+                        </div>
+                    </div>
+-->
+                </td>
+
                 <td class="text-center">{{image.imageType}}</td>
                 <td class="text-center">{{image.osName}}</td>
                 <td class="text-center">{{image.osDigits}}</td>
@@ -115,7 +140,13 @@
                 <td class="text-center font-green">{{image.status}}</td>
                 <td class="text-center">{{image.progress}}</td>
                 <td class="text-center">{{image.location}}</td>
-                <td class="text-center">{{image.description}}</td>
+                <td class="text-center td_mirror">
+                    {{image.description}}
+                    <span class="tdspan"
+                    [class.selected]="image === selectedimage"
+                    (click)="onSelect(image)">编辑</span>
+
+                </td>
                 <td class="text-center">
                     <div class="test-div">
                         <div class="icon">
@@ -127,6 +158,34 @@
             </tr>
         </tbody>
     </table>
+                    <img-mng-description *ngIf="selectedimage" [image]="selectedimage"></img-mng-description>
+
+
+<!--
+                    <div class="popover fade bottom in" role="tooltip" id="popover472540" style="top: 35px; left: 8.5px; width:310px;max-width: 1000px; display: block;" *ngIf="selectedimage">
+                        <div class="arrow" style="left: 30%;"></div>
+                        <div class="popover-content">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">镜像描述:</label>
+                                <div class="col-sm-8 float-left">
+                                    <textarea class="form-control" rows="3" placeholder="image的描述语句" [image]="selectedimage" >{{selectedimage.description}}</textarea>
+                                    <div style="color: #b1b6bc;">长度为2-256个字符，不能以http://或https://开头</div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="pull-right" style="margin-bottom:10px;">
+                            <button class="btn btn-default btn-save" (click)=onSave()>保存</button>
+                            <button class="btn btn-default" (click)=onCancel()>取消</button>
+                        </div>
+                        </div>
+                    </div>
+-->
+
+    <div class="col-md-12">
+        <p *ngIf="images && images.length > 3">there are too many images!!!</p>
+    </div>
+
 
         <div class="fox-cloud-pagination-container">
             <ul class="fox-cloud-pagination">
@@ -141,7 +200,6 @@
         </div>
 
     </div>
-
 
 
 </div>

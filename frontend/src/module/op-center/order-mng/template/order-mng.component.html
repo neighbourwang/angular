@@ -1,5 +1,5 @@
 <div class="OrderManage">	
-		<div class="page-content-header">订单管理</div>
+	<div class="page-content-header">订单管理</div>
 	<div class="page-content">
 		<div class="mgb20">
 			<ul class="nav nav-tabs">
@@ -23,9 +23,11 @@
 						<td>
 							<span class="">部门:</span>
 							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="_param.organization">
-									<option class="hands" [value]="0">所有部门</option>
-									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
+								<select class="form-control" [(ngModel)]="platformId">
+									<option class="hands">所有部门</option>
+									<option class="hands">商务部</option>
+									<option class="hands">部门1</option>
+									<option class="hands">部门2</option>
 								</select>
 							</div>
 						</td>
@@ -51,8 +53,9 @@
 							<span class="" >
 							订单状态:</span>
 							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="_param.status">
-									<option class="hands" *ngFor="let item of _orderStatusDic.Items" [value]="item.id">{{item.name}}</option>
+								<select class="form-control" [(ngModel)]="platformId">
+									<option class="hands">成功</option>
+									<option class="hands">失败</option>
 								</select>
 							</div>
 						</td>
@@ -60,9 +63,8 @@
 							<span class="" >
 							产品类型:</span>
 							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="_param.serviceId">
-									<option class="hands" [value]="0">所有</option>
-									<option class="hands" *ngFor="let item of _productTypeLoader.Items" [value]="item.id">{{item.name}}</option>
+								<select class="form-control" [(ngModel)]="platformId">
+									<option class="hands">所有</option>
 								</select>
 							</div>
 						</td>
@@ -70,9 +72,8 @@
 							<span class="" >
 							区域:</span>
 							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="_param.region">
-									<option class="hands" [value]="0">所有</option>
-									<option class="hands" *ngFor="let item of _platformLoader.Items" [value]="item.id">{{item.name}}</option>
+								<select class="form-control" [(ngModel)]="platformId">
+									<option class="hands">所有</option>
 								</select>
 							</div>
 						</td>
@@ -80,9 +81,8 @@
 							<span class="" >
 							可用区:</span>
 							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="_param.zoneId">
-									<option class="hands" [value]="0">所有</option>
-									<option class="hands" *ngFor="let item of _regionLoader.Items" [value]="item.id">{{item.name}}</option>
+								<select class="form-control" [(ngModel)]="platformId">
+									<option class="hands">所有</option>
 								</select>
 							</div>
 						</td>
@@ -113,9 +113,9 @@
 				<tr>
 					<td class="order-title font-green" colspan="7">2016-10-05 订单号：23705375384884773&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间：2016-10-08</td>
 					<td colspan="2">
-						<button class="mgr10 pull-right"  (click)="renewOrder();">续&nbsp;&nbsp;&nbsp;订</button>
-						<button class="mgr10 pull-right"  (click)="cancelOrder();">退&nbsp;&nbsp;&nbsp;订</button>
-						<button class="mgr10 pull-right"  (click)="showDetail();">详&nbsp;&nbsp;&nbsp;情</button>
+						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#renewOrder">续订</button>
+						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#cancelOrder">退订</button>
+						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#orderDetail">详情</button>
 					</td>	
 				</tr>
 				<tr>
@@ -171,7 +171,7 @@
 				<tr>
 					<td class="order-title font-green" colspan="7">2016-10-05 订单号：23705375384884773&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间：2016-10-08</td>
 					<td colspan="2">
-						<button class="mgr10 pull-right">续&nbsp;&nbsp;&nbsp;订</button>
+						<button class="mgr10 pull-right" key="frontend/order-mng-renew.html">续&nbsp;&nbsp;&nbsp;订</button>
 						<button class="mgr10 pull-right"  (click)="showDetail()">退&nbsp;&nbsp;&nbsp;订</button>
 						<button class="mgr10 pull-right"  (click)="showDetail()">详&nbsp;&nbsp;&nbsp;情</button>
 					</td>
@@ -241,7 +241,7 @@
 				<tr>
 					<td class="order-title font-green" colspan="7">2016-10-05 订单号：23705375384884773&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间：2016-10-08</td>
 					<td colspan="2">
-						<button class="mgr10 pull-right">续&nbsp;&nbsp;&nbsp;订</button>
+						<button class="mgr10 pull-right" key="frontend/order-mng-renew.html">续&nbsp;&nbsp;&nbsp;订</button>
 						<button class="mgr10 pull-right"  (click)="showDetail()">退&nbsp;&nbsp;&nbsp;订</button>
 						<button class="mgr10 pull-right"  (click)="showDetail()">详&nbsp;&nbsp;&nbsp;情</button>
 					</td>	
@@ -319,7 +319,7 @@
 				<tr>
 					<td class="order-title font-green" colspan="7">2016-10-05 订单号：23705375384884773&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间：2016-10-08</td>
 					<td colspan="2">
-						<button class="mgr10 pull-right" >续&nbsp;&nbsp;&nbsp;订</button>
+						<button class="mgr10 pull-right">续&nbsp;&nbsp;&nbsp;订</button>
 						<button class="mgr10 pull-right"  (click)="showDetail()">退&nbsp;&nbsp;&nbsp;订</button>
 						<button class="mgr10 pull-right"  (click)="showDetail()">详&nbsp;&nbsp;&nbsp;情</button>
 					</td>	
@@ -421,4 +421,189 @@
 		</div>
 	</div>
 	
-</div>	
+
+	<!--详情-->
+	 
+	<div class="modal fade" id="orderDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  	<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				  	<div class="modal-header">
+					 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">订单编号：2370537538484773</h4>
+				  	</div>
+				 	<div class="modal-body"> 
+			          <!--<account-mng-cr-local></account-mng-cr-local>
+			          <order-mng-detail></order-mng-detail>-->
+			         <order-mng-detail></order-mng-detail>
+					</div>
+			      
+				  	<div class="modal-footer">
+				  	</div>
+				
+		  	</div>
+		</div>
+	</div>
+
+
+	<!--续订-->
+	 
+	<div class="modal fade" id="renewOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  	<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				  	<div class="modal-header">
+					 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">订单续订</h4>
+				  	</div>
+				 	<div class="modal-body"> 
+			          <!--<account-mng-cr-local></account-mng-cr-local>
+			          <order-mng-detail></order-mng-detail>-->
+			           <order-mng-renew></order-mng-renew>
+					   <div class="OrderRenew"> 
+							<div class="page-content">
+								<div class="page-second-container mgb20">
+									<div class="float-left">
+										<span class="float-left" style="margin-top: 8px;">购买时长:</span>
+										<div class="dropdown float-left">
+											<select class="form-control" [(ngModel)]="platformId">
+												<option class="hands">按小时</option>
+												<option class="hands">按天</option>
+												<option class="hands">按月</option>
+											</select>
+										</div>
+										<input type="text" name="" value="">
+										<button class="btn button-gray-gradient mgr20">永&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;久</button>
+										续订后到期时间：<span class="warnInfo">3099-10-1&nbsp;&nbsp;&nbsp;10:23</span>
+								    </div>
+									<div class="float-right">
+										<span  class="float-left">（费用合计）</span>
+										<ul  class="float-left">
+											<li>一次性费用：<span class="warnInfo">￥100</span></li>
+											<li class="mgl48">费用： <span class="warnInfo">￥200/月<br>
+																		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;￥100/年
+														</span>
+											</li>
+										</ul>
+									</div>	
+								</div>
+							</div>
+					  	</div>
+					</div>
+			      
+				  	<div class="modal-footer" style="text-align: center;">
+						<button type="button" class="btn button-confirm button-size-big" data-toggle="modal" data-target="#renewOrderOk" >确认续订</button>
+		                <button type="button" class="btn  button-size-big button-white" data-dismiss="modal">取消</button>
+				  	</div>
+				
+		  	</div>
+		</div>
+	</div>
+
+
+	<!--退订-->
+	   
+	<div class="modal fade" id="cancelOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  	<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				  	<div class="modal-header">
+					 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">订单退订</h4>
+				  	</div>
+				 	<div class="modal-body"> 
+			          <!--<account-mng-cr-local></account-mng-cr-local>
+			          <order-mng-detail></order-mng-detail>-->
+ 						<order-mng-cancel></order-mng-cancel>
+						<div class="OrderRenew"> 
+							<div class="page-content">
+								<div class="mgb20">
+									<span class="warnInfo mgb20">你的订单一旦退订，所有相关的资源和数据都会被删除，无法恢复！请谨慎选择退订服务。</span>
+								</div>
+							</div>
+					   	</div>
+
+					</div>
+			      
+				  	<div class="modal-footer" style="text-align: center;">
+						<button type="button" class="btn button-confirm button-size-big" data-toggle="modal" data-target="#cancelOrderOk" >确认退订</button>
+		                <button type="button" class="btn  button-size-big button-white" data-dismiss="modal">取消</button>
+				  	</div>
+				
+		  	</div>
+		</div>
+	</div>
+
+	<!--续订完成-->
+	   
+		<div class="modal fade" id="renewOrderOk" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  	<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				  	<div class="modal-header">
+					 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">续订完成</h4>
+				  	</div>
+				 	<div class="modal-body"> 
+			          <!--<account-mng-cr-local></account-mng-cr-local>
+			           <order-mng-renewOk></order-mng-renewOk>-->
+			         <order-mng-renew></order-mng-renew>
+					 <div class="OrderRenew"> 
+							<div class="page-content">
+								<div class="page-second-container mgb20">
+									<div class="float-left">
+										<span class="warnInfo float-left mgb20">你的订单续订已完成，可以进入管理控制台查看订单状态及使用相关资源<br>如需审批，则需要订单审批通过后，才能正式生效。</span>
+								    </div>
+									<div class="float-right">
+										<span  class="float-left">（费用合计）</span>
+										<ul  class="float-left mgr20">
+											<li>一次性费用：<span class="warnInfo">￥100</span></li>
+											<li class="mgl48">费用： <span class="warnInfo">￥200/月<br>
+																		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;￥100/年
+														</span>
+											</li>
+										</ul>
+										<button class="button-size-big button-confirm pull-right" key="frontend/order-mng-cancelOk.html">管理控制台</button>
+									</div>	
+									<div style="height: 40px;"></div>
+								</div>
+							</div>
+					 	</div>
+					</div>
+			      
+				  	<div class="modal-footer">
+						    
+				  	</div>
+				
+		  	</div>
+		</div>
+	</div>
+
+		<!--退订完成-->
+	   
+		<div class="modal fade" id="cancelOrderOk" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  	<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				  	<div class="modal-header">
+					 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">退订完成</h4>
+				  	</div>
+				 	<div class="modal-body"> 
+			          <!--<account-mng-cr-local></account-mng-cr-local>
+			          <order-mng-cancelOk></order-mng-cancelOk>-->
+						<order-mng-cancel></order-mng-cancel>
+			        	<div class="OrderRenew"> 
+							<div class="page-content">
+								<div class="page-second-container">
+											<span class="warnInfo float-left mgb20">你的订单已申请退订，资源将会被立刻删除！<br>如需审批，则要等待退订审批通过后，系统才会开始删除资源。<br>您可以登陆管理控制台，查看退订状态。</span>
+											<button class="button-size-big button-confirm pull-right">管理控制台</button>
+											<div style="height: 40px;"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+			      
+				  	<div class="modal-footer">
+				  	</div>
+				
+		  	</div>
+		</div>
+	</div>
+
+</div><!--end-->	
