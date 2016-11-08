@@ -33,7 +33,8 @@ export class ImgMngComponent_wxl implements OnInit {
     @ViewChild("pager")
     pager: PaginationComponent;
 
-    images: Array<Image_wxl>; //当前的镜像
+    images: Array<Image_wxl>=[]; //当前的镜像
+    selectedimage: Image_wxl; //当前选中的镜像
 
     constructor(
         private service: ImgMngService_wxl,
@@ -41,6 +42,11 @@ export class ImgMngComponent_wxl implements OnInit {
         private router: Router,
         private activatedRouter: ActivatedRoute
     ) {
+    }
+
+    onSelect(image: Image_wxl): void {
+      this.selectedimage = image;
+      console.log(this.selectedimage);
     }
 
     getImagesList(): void {
@@ -52,7 +58,8 @@ export class ImgMngComponent_wxl implements OnInit {
             this.totalPages = res.pageInfo.totalPage;
             return res.resultContent;
         }).then(images => {
-            console.log(images,1111)
+            console.log(images,1111);
+            console.log(images.length);
             this.images = images;
         }).catch(error => {
             this.layoutService.hide();
