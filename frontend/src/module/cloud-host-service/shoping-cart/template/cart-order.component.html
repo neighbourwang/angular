@@ -1,0 +1,112 @@
+<div class="page-content cart_list">
+	<h1 class="page-content-header mgb20">订单完成</h1>
+    <table class="table table-all-boder mgb20">
+        <tr class="table-title">
+            <td class="text-center">产品信息</td>
+            <td class="text-center">产品类型</td>
+            <td class="text-center">计费模式</td>
+            <td class="text-center">购买周期</td> 
+            <td class="text-center">费用</td>
+            <td class="text-center">状态</td>
+            <td class="text-center">创建时间</td>
+            <td class="text-center">到期时间</td>
+            <td class="text-center">数量</td>
+        </tr>
+        <tr colspan="9" class="table-gap"></tr>
+        <tr>
+            <td colspan="9" class="table-line-head">
+                <font class="font-green">订单号：12323543556 创建时间：2016-11-07 22:00</font>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p class="line">可用区：可用区B </p>
+                <p class="line">实例规格：可用区B </p>
+                <p class="line">可用区：可用区B </p>
+                <p class="line">可用区：可用区B </p>
+                <p class="line">可用区：可用区B </p>
+                <p class="line">可用区：可用区B </p>
+                <p class="line">可用区：可用区B </p>
+            </td>
+            <td class="text-center table-text-middle">nova</td>
+            <td class="text-center table-text-middle">active</td>
+            <td class="text-center table-text-middle">2017-6-11 10:1:2</td>
+            <td class="text-center table-text-middle">无</td> 
+            <td class="text-center table-text-middle"><font class="font-green">审批中</font></td> 
+            <td class="text-center table-text-middle">2017-6-11 10:1:2</td> 
+            <td class="text-center table-text-middle">2017-6-11 10:1:2</td> 
+            <td class="text-center table-text-middle" rowspan="3">
+                1 台
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center">active</td>
+            <td class="text-center">nova</td>
+            <td class="text-center">active</td>
+            <td class="text-center">2017-6-11 10:1:2</td>
+            <td class="text-center">生产</td>
+            <td class="text-center table-text-middle"><font class="font-green">审批中</font></td> 
+            <td class="text-center table-text-middle">2017-6-11 10:1:2</td> 
+            <td class="text-center table-text-middle">2017-6-11 10:1:2</td> 
+        </tr>
+        <tr>
+            <td class="text-center">active</td>
+            <td class="text-center">nova</td>
+            <td class="text-center">active</td>
+            <td class="text-center">2017-6-11 10:1:2</td>
+            <td class="text-center">生产</td>
+            <td class="text-center table-text-middle"><font class="font-green">审批中</font></td> 
+            <td class="text-center table-text-middle">2017-6-11 10:1:2</td> 
+            <td class="text-center table-text-middle">2017-6-11 10:1:2</td> 
+        </tr>
+        <tr>
+            <td colspan="9" class="table-line-head">
+                <font class="font-green">订单号：22323543556 创建时间：2016-11-07 22:00</font>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p class="line">可用区：可用区B </p>
+                <p class="line">实例规格：可用区B </p>
+                <p class="line">可用区：可用区B </p>
+                <p class="line">可用区：可用区B </p>
+                <p class="line">可用区：可用区B </p>
+                <p class="line">可用区：可用区B </p>
+                <p class="line">可用区：可用区B </p>
+            </td>
+            <td class="text-center table-text-middle">nova</td>
+            <td class="text-center table-text-middle">active</td>
+            <td class="text-center table-text-middle">2017-6-11 10:1:2</td>
+            <td class="text-center table-text-middle">无</td> 
+            <td class="text-center table-text-middle"><font class="font-green">审批中</font></td> 
+            <td class="text-center table-text-middle">2017-6-11 10:1:2</td> 
+            <td class="text-center table-text-middle">2017-6-11 10:1:2</td> 
+            <td class="text-center table-text-middle" rowspan="3">
+                1 台
+            </td>
+        </tr>
+    </table>
+    <div class="shoping-bottom clear-float">
+    	<span class="float-left pdt10 text-tip">您的订单已生成，可以进入管理控制台查看订单状态及使用相关资源<br>如需审批，则需要订单审批通过后，才能正式生效。</span>
+        <button class="btn button-confirm button-size-big float-right mgt20">管理控制台</button>
+        <span class="float-right mgr50">
+            <table>
+                <tr>
+                    <td>一次性费用： </td>
+                    <td><font class="font-orange">¥100</font></td>
+                </tr>
+                <tr>
+                    <td>费用： </td>
+                    <td><font class="font-orange">¥100/月</font></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><font class="font-orange">¥100/年</font></td>
+                </tr>
+            </table>
+        </span>
+        <span class="float-right mgr50 pdt20">( 费用合计 )</span>
+    </div>
+</div>
+<fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>

@@ -14,13 +14,17 @@
 }
 
 .table {
-	border: 1px solid @ddd-color;
+	/*border: 1px solid @ddd-color;*/
 	border-bottom: none;
 	margin-bottom: 0px;
     th {
         border: 1px solid @ddd-color;
         background: @color-f7;
         font-weight: normal;
+    }
+    tr {
+        border-left: 1px solid @ddd-color;
+        border-right: 1px solid @ddd-color;
     }
     td {
         border-bottom: 1px solid @ddd-color;
@@ -34,11 +38,39 @@
         color: @mainColor;
     }
 }
+.table-all-boder {
+    td {
+        border-left: 1px solid @ddd-color;
+        border-right: 1px solid @ddd-color;
+    }
+}
 .table-line-head  {
     border: 1px solid @ddd-color;
     background: @color-f7;
     border-bottom: none;
-    padding: 15px 8px;
+    padding: 0 20px !important;
+    height: 50px !important;
+    line-height: 50px !important;
+}
+
+.table-gap {
+    border: none !important;
+    height: 20px!important;
+    tr,td {
+        border: none !important;
+    }
+}
+
+.table-text-middle {
+    vertical-align: middle !important;;
+}
+
+.table-title {
+    background: @color-f7;
+    border: none !important;
+    tr,td {
+        border: none !important;
+    }
 }
 
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
