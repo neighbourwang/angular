@@ -47,7 +47,7 @@ export const Images_wxl = {
     ]
 };
 
-export const AreaList_wxl =
+export const ImageAreas_wxl =
     {
         "resultCode": "100",
         "detailDescription": null,
