@@ -9,53 +9,45 @@ export const Images_mock = {
     resultCode: "100",
     resultContent: [
         {
-            imageName : "MyCentOS-VM-001",
-            imageType : "1",
-            osName : "Windows 2012",
-            osDigits: "2",
-            createdDate: "2016/11/1 10:23",
-            status: "1",
-            progress: "100%",
-            location: "上海A区",
-            description: "描述123"
+            "id": "ef349044-3bfb-4b09-b804-30954b084e0d",
+            "areaId": "2e85cbf6-7b49-44c9-86dd-cccef2ac2bb2",
+            "areaName": "上海A区",
+            "imageOwner": "0",
+            "name": "windows2012dc",
+            "type": "0",
+            "os": "Windows",
+            "bits": "1",
+            "creatorId": "042031e7-da9a-4cca-a2ad-1f6534a933f4",
+            "creatorName": "张三",
+            "orgId": "042031e7-da9a-4cca-a2ad-1f6534a933f4",
+            "orgName": "神秘组织",
+            "createTime": "2016-11-3",
+            "status": "1",
+            "progress": "90%",
+            "description": "ddf"
         },
         {
-            imageName : "CentOS",
-            imageType : "0",
-            osName : "Windows 2012",
-            osDigits: "1",
-            createdDate: "2016/11/1 10:23",
-            status: "2",
-            progress: "100%",
-            location: "上海B区",
-            description: "描述456"
-        },
-        {
-            imageName : "MyCentOS",
-            imageType : "1",
-            osName : "Windows 2012",
-            osDigits: "2",
-            createdDate: "2016/11/1 10:23",
-            status: "1",
-            progress: "100%",
-            location: "北京A区",
-            description: "描述456"
-        },
-        {
-            imageName : "Ubuntu",
-            imageType : "0",
-            osName : "Windows 2012",
-            osDigits: "2",
-            createdDate: "2016/11/1 10:23",
-            status: "1",
-            progress: "100%",
-            location: "上海B区",
-            description: "描述456"
+            "id": "ef349044-3bfb-4b09-b804-30954b084e0c",
+            "areaId": "2e85cbf6-7b49-44c9-86dd-cccef2ac2bb2",
+            "areaName": "上海A区",
+            "imageOwner": "1",
+            "name": "windows2012dc",
+            "type": "1",
+            "os": "Windows",
+            "bits": "2",
+            "creatorId": "042031e7-da9a-4cca-a2ad-1f6534a933f4",
+            "creatorName": "张三",
+            "orgId": "042031e7-da9a-4cca-a2ad-1f6534a933f4",
+            "orgName": "神秘组织",
+            "createTime": "2016-11-3",
+            "status": "2",
+            "progress": "90%",
+            "description": "fsdfas"
         }
     ]
 };
 
-export const AreaList_mock = 
+export const AreaList_mock =
     {
         "resultCode": "100",
         "detailDescription": null,

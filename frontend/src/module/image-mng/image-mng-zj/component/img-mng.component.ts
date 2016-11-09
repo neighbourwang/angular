@@ -130,7 +130,7 @@ export class ImgMngComponent implements OnInit {
     //更新镜像
     updateImage(image: Image) {
         this.layoutService.show();
-        if (this.validationService.isBlank(this.editImage.imageName)) {
+        if (this.validationService.isBlank(this.editImage.name)) {
             this.showAlert("镜像名称不能为空.");
             return;
         }
@@ -141,14 +141,13 @@ export class ImgMngComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {
                     let cimage = this.editImage;
                     image.id = cimage.id;
-                    image.imageName = cimage.imageName;
-                    image.imageType = cimage.imageType;
-                    image.osName = cimage.osName;
-                    image.osDigits = cimage.osDigits;
-                    image.createdDate = cimage.createdDate;
+                    image.name = cimage.name;
+                    image.type = cimage.type;
+                    image.os = cimage.os;
+                    image.bits = cimage.bits;
+                    image.createTime = cimage.createTime;
                     image.status = cimage.status;
                     image.progress = cimage.progress;
-                    image.location = cimage.location;
                     image.description = cimage.description;
                     image.desEditing = false;
                     image.nameEditing = false;
@@ -188,14 +187,14 @@ export class ImgMngComponent implements OnInit {
         this.closeEditPanel();
         let cimage = new Image();
         cimage.id = image.id;
-        cimage.imageName = image.imageName;
-        cimage.imageType = image.imageType;
-        cimage.osName = image.osName;
-        cimage.osDigits = image.osDigits;
-        cimage.createdDate = image.createdDate;
+        cimage.id = image.id;
+        cimage.name = image.name;
+        cimage.type = image.type;
+        cimage.os = image.os;
+        cimage.bits = image.bits;
+        cimage.createTime = image.createTime;
         cimage.status = image.status;
         cimage.progress = image.progress;
-        cimage.location = image.location;
         cimage.description = image.description;
         this.editImage = cimage;
     }
