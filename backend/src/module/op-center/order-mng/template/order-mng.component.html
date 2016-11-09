@@ -1,4 +1,4 @@
-<fc-notice #notice ot="确认" (of)="okClicked()"></fc-notice>
+﻿<fc-notice #notice ot="确认" (of)="okClicked()"></fc-notice>
 <div class="OrderManage">	
 		<div class="page-content-header icon-order-manage" style="border-bottom: 3px solid  #01a982;margin: 10px 0px;padding: 0;">订单管理</div>
 	<div class="page-content">
@@ -89,8 +89,7 @@
 						<th>计费模式</th>
 						<th>购买周期</th>
 						<th>数量</th>
-						<th style="width: 150px;">一次性费用</th>
-						<th>费用</th>
+						<th style="width: 150px;">单价费用</th>
 						<th>产品类型</th>
 						<th>状态</th>
 						<th>创建时间</th>
@@ -109,18 +108,16 @@
 				<tr *ngFor="let prodItem of orderItem.orderInstanceItems">
 					<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
 						<ul>
-							<li *ngFor="let detailItem of prodItem.prodDetailItems">{{detailItem.name}}：&nbsp;&nbsp;{{detailItem.value}}</li>
+							<li *ngFor="let detailItem of prodItem.SpecItems">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}}</li>
 						</ul>
 					</td>
 					<td>{{prodItem.billingMode}}</td>
 					<td>{{prodItem.billingCycle}}</td>
 					<td>{{prodItem.quantity}}</td>
-					<td class="rightAlign">{{prodItem.oneTimePrice}}</td>
-					<td class="rightAlign">{{prodItem.price}}</td>
+					<td class="rightAlign">{{prodItem.oneTimePriceAndPrice}}</td>
 					<td class="rightAlign">{{prodItem.productType}}</td>
 					<td class="rightAlign validateInfo">{{prodItem.statusName}}</td>
-					<td class="rightAlign">{{prodItem.createDate}}
-					</td>
+					<td class="rightAlign">{{prodItem.createDate}}</td>
 					<td>{{prodItem.exireDate}}
 					</td>
 				</tr>

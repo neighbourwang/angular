@@ -117,6 +117,8 @@ export class ItemLoader<T>{
 							this.TotalPages = 1;
 						}
 
+						console.log(`${this._name} is:`, this._items);
+
 						resolve(this._items);
 					}
 				}
