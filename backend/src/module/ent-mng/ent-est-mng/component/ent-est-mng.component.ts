@@ -363,7 +363,7 @@ export class EntEstMngComponent implements OnInit {
   acceptQuotaModify(){
     if(this.validateQuotaModify())
     {
-      this.service.updateEntQuota(this.entEst.ResourceQuota)
+      this.service.updateEntQuota(this.entEstResource.FirstItem)
       .then(ret=>{
         this.search(null);//刷新
       })
@@ -380,37 +380,37 @@ export class EntEstMngComponent implements OnInit {
     let notValid = [
     {
       "name":"可创建浮动IP数量"
-      ,"value":this.entEst.ResourceQuota.floatIpQuota
+      ,"value":this.entEstResource.FirstItem.floatIpQuota
       ,"op":"*"
     },
     {
       "name":"可创建镜像数量"
-      ,"value":this.entEst.ResourceQuota.imageQuota
+      ,"value":this.entEstResource.FirstItem.imageQuota
       ,"op":"*"
     },
     {
       "name":"可用内存数量"
-      ,"value":this.entEst.ResourceQuota.memroyQuota
+      ,"value":this.entEstResource.FirstItem.memroyQuota
       ,"op":"*"
     },
     {
       "name":"可创建物理机数量"
-      ,"value":this.entEst.ResourceQuota.physicalQuota
+      ,"value":this.entEstResource.FirstItem.physicalQuota
       ,"op":"*"
     },
     {
       "name":"可创建快照数量"
-      ,"value":this.entEst.ResourceQuota.snapShotQuota
+      ,"value":this.entEstResource.FirstItem.snapShotQuota
       ,"op":"*"
     },
     {
       "name":"可用存储额度"
-      ,"value":this.entEst.ResourceQuota.storageQuota
+      ,"value":this.entEstResource.FirstItem.storageQuota
       ,"op":"*"
     },
     {
       "name":" 可使用vCPU数量"
-      ,"value":this.entEst.ResourceQuota.vcpuQuota
+      ,"value":this.entEstResource.FirstItem.vcpuQuota
       ,"op":"*"
     }].find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
 
