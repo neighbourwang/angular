@@ -52,7 +52,7 @@ export class OrderMngComponent implements OnInit{
 		this._orderLoader = new ItemLoader<OrderItem>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
 	}
 	ngOnInit(){
-		// this._orderStatus.Go();
+		this._orderStatus.Go();
 		// this.loadAdmin()
 		// .then(success=>{
 		// 	this.loadDepartment();
