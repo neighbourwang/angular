@@ -60,7 +60,7 @@
                 </select>
             </div>
 
-            <button class="btn button-gray-gradient"><span class="glyphicon glyphicon-search"></span> 简单搜索</button>
+            <button class="btn button-gray-gradient" (click)="search()"><span class="glyphicon glyphicon-search"></span> 简单搜索</button>
             <button class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span> 重置选项</button>
             <button class="btn button-gray-gradient pull-right" style="margin-right:15px;">
                 <span class="icon icon-link"></span> 相关实例
@@ -113,7 +113,7 @@
                     <td class="text-center">{{image.osName}}</td>
                     <td class="text-center">{{getDicText(image.osDigits,this.bitDic)}}</td>
                     <td class="text-center">{{image.createdDate}}</td>
-                    <td class="text-center" [ngClass]="image.status==1?'font-green':'font-orange'">{{getDicText(image.status,this.statusDic)}}</td>
+                    <td class="text-center" [ngClass]="{'font-green':image.status==1,'font-orange':image.status!=1}">{{getDicText(image.status,this.statusDic)}}</td>
                     <td class="text-center">{{image.progress}}%</td>
                     <td class="text-center">{{image.location}}</td>
                     <td class="text-center td_mirror">
@@ -139,7 +139,7 @@
                         </div>
                     </td>
                     <td class="text-center">
-                        <i *ngIf="image.imageType !=0" class="glyphicon glyphicon-trash pointer" (click)="deletImage(image)"></i>
+                        <i *ngIf="image.imageType !=0" class="glyphicon glyphicon-trash pointer" (click)="deleteImage(image)"></i>
                     </td>
                 </tr>
             </tbody>

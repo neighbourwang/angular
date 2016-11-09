@@ -2,8 +2,9 @@ import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
 import { RestApiCfg, RestApi } from "../../../../architecture";
 
-import {ImageAttr_gcy} from "../model/img-mng.img"
-import {ImageData_gcy} from "../model/img-mng.mock-img";
+import { ImageAttr_gcy } from "../model/img-mng"
+
+import { ImageData_gcy } from "../model/img-mng.mock";
  
 import "rxjs/add/operator/toPromise";
 

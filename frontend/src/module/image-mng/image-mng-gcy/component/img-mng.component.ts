@@ -3,9 +3,9 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import { LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent } from "../../../../architecture";
 
-import {ImageAttr_gcy} from "../model/img-mng.img"
+import {ImageAttr_gcy} from "../model/img-mng"
 
-import {ImageData_gcy} from "../model/img-mng.mock-img";
+import {ImageData_gcy} from "../model/img-mng.mock";
 
 import {ImgMngService_gcy } from "../service/img-mng.service";
 
