@@ -11,16 +11,18 @@ import { NoticeComponent } from './dialog/component/notice.component';
 import { ConfirmComponent } from './dialog/component/confirm.component';
 import { PopupComponent } from './dialog/component/popup.component';
 import { CountBarComponent } from './countBar/component/count-bar.component';
+import { MyDatePickerModule } from './date-picker/my-date-picker.module';
 
 // import { DonutChart } from './donutChart/component/chart.component';
 // import { LineChart } from './lineChart/component/chart.component';
 
+// import { OrderByPipe } from '../pipe/orderby';
 
 @NgModule({
     imports: [
         CommonModule,
         Ng2Bs3ModalModule,
-        FormsModule
+        FormsModule,
         // ChartsModule
     ],
     declarations: [
@@ -29,12 +31,14 @@ import { CountBarComponent } from './countBar/component/count-bar.component';
         NoticeComponent,
         ConfirmComponent,
         PopupComponent,
-        CountBarComponent
+        CountBarComponent,
+        // OrderByPipe
         // DonutChart,
         // LineChart
     ],
     exports: [
         CommonModule,
+        MyDatePickerModule,
         FormsModule,
         SpinnerComponent,
         PaginationComponent,
@@ -42,7 +46,8 @@ import { CountBarComponent } from './countBar/component/count-bar.component';
         ConfirmComponent,
         PopupComponent,
         CountBarComponent,
-        FormsModule
+        FormsModule,
+        // OrderByPipe
         // DonutChart,
         // LineChart
     ]

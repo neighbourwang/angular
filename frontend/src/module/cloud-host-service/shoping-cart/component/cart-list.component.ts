@@ -25,6 +25,8 @@ export class cartListComponent implements OnInit {
 	modalMessage: string = '';
 	modalOKTitle: string = '';
 
+	
+
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -34,7 +36,10 @@ export class cartListComponent implements OnInit {
 	ngOnInit() {
 		
 	}
-
+	
+    onDateChanged(event:any) {
+        console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
+    }
 
 	goTo(url : string) {
 		this.router.navigateByUrl(url);

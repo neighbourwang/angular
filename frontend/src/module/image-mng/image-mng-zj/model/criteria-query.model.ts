@@ -3,8 +3,12 @@ export class CriteriaQuery {
     imageOwner: string;
     imageName: string;
     os: string;
-    status: string;
+    status: string ="99";
     imageType: string;
     constructor() {
+    }
+
+    toString() {
+        return JSON.stringify(this);
     }
 }

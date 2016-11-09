@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { EntEst, ResourceQuota, CertMethod } from '../model'
@@ -80,7 +80,8 @@ export class EntEstCreComponent implements OnInit{
 			"name":"认证方式"
 			,"value":this.entEst.BasicInfo.certMethod
 			,"op":"*"
-		}];
+		}
+		];
 
 		if(this.isADSelected())
 		{
@@ -91,13 +92,19 @@ export class EntEstCreComponent implements OnInit{
 					,"op":"*"
 				},
 				{
-					"name":"用户名"
+					"name":"用户名(Full DN)"
 					,"value":this.entEst.BasicInfo.contactorName
 					,"op":"*"
 				},
 				{
 					"name":"密码"
 					,"value":this.entEst.BasicInfo.password
+					,"op":"*"
+				}
+				,
+				{
+					"name":"登录账户属性名称"
+					,"value":this.entEst.BasicInfo.accountAttribute
 					,"op":"*"
 				}]
 				);
@@ -109,13 +116,28 @@ export class EntEstCreComponent implements OnInit{
 			,"op":"*"
 		},
 		{
-			"name":"可创建云主机数量"
-			,"value":this.entEst.ResourceQuota.platformVMQuota
+			"name":"可创建浮动IP数量"
+			,"value":this.entEst.ResourceQuota.floatIpQuota
+			,"op":"*"
+		},
+		{
+			"name":"可创建镜像数量"
+			,"value":this.entEst.ResourceQuota.imageQuota
+			,"op":"*"
+		},
+		{
+			"name":"可用内存数量"
+			,"value":this.entEst.ResourceQuota.memroyQuota
 			,"op":"*"
 		},
 		{
 			"name":"可创建物理机数量"
-			,"value":this.entEst.ResourceQuota.physicalMachineQuota
+			,"value":this.entEst.ResourceQuota.physicalQuota
+			,"op":"*"
+		},
+		{
+			"name":"可创建快照数量"
+			,"value":this.entEst.ResourceQuota.snapShotQuota
 			,"op":"*"
 		},
 		{
@@ -124,13 +146,8 @@ export class EntEstCreComponent implements OnInit{
 			,"op":"*"
 		},
 		{
-			"name":"可创建快照数量"
-			,"value":this.entEst.ResourceQuota.snapQuota
-			,"op":"*"
-		},
-		{
-			"name":"可创建镜像数量"
-			,"value":this.entEst.ResourceQuota.imageQuota
+			"name":" 可使用vCPU数量"
+			,"value":this.entEst.ResourceQuota.vcpuQuota
 			,"op":"*"
 		}]);
 
