@@ -117,7 +117,7 @@
                     <td class="text-center">{{image.orgName}}</td>
                     <td class="text-center">{{image.createTime}}</td>
                     <td class="text-center" [ngClass]="{'font-green':image.status==1,'font-orange':image.status!=1}">{{getDicText(image.status,this.statusDic)}}</td>
-                    <td class="text-center">{{image.progress}}%</td>
+                    <td class="text-center">{{image.progress}}</td>
                     <td class="text-center td_mirror">
                         {{image.description}}
                         <span class="tdspan" (click)="openEidtPanel(image);image.desEditing=true;">编辑</span>
