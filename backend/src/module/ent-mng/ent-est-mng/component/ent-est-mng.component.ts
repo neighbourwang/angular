@@ -233,14 +233,17 @@ export class EntEstMngComponent implements OnInit {
       let item = this.getSelected();
       let self = this;
 
+      this.layoutService.show();
       this.entEstResource.Go(1, [
       {
         key:"_enterpriseId"
-        ,value:self.getSelected().id
+        ,value:self.getSelected().enterpriseId
       }])
       .then(success=>{
+        this.layoutService.hide();
         this.editQuota.open();
       },err=>{
+        this.layoutService.hide();
         this.showMsg(err);
       });
       

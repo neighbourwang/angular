@@ -50,18 +50,15 @@ export class OrderMngComponent implements OnInit{
 
 		//配置订单加载
 		this._orderLoader = new ItemLoader<OrderItem>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
-		this._orderLoader.MapFunc = (soure:Array<any>, target:Array<OrderItem>):void=>{
-			console.log('orderloader source:', soure);
-		};
 	}
 	ngOnInit(){
 		this._orderStatus.Go();
-		this.loadAdmin()
-		.then(success=>{
-			this.loadDepartment();
-		}, err=>{
-			this.showMsg(err);
-		})
+		// this.loadAdmin()
+		// .then(success=>{
+		// 	this.loadDepartment();
+		// }, err=>{
+		// 	this.showMsg(err);
+		// })
 
 		this.loadProductType();
 		this.loadPlatform()
@@ -70,7 +67,6 @@ export class OrderMngComponent implements OnInit{
 		}, err=>{
 			this.showMsg(err);
 		});
-
 	}
 
 	loadAdmin():Promise<any>{
@@ -129,5 +125,15 @@ export class OrderMngComponent implements OnInit{
 	
 	renew(orderId:string){
 
+	}
+
+	search(){
+		this.layoutService.show();
+		this._orderLoader.Go(1, null, this._param)
+		.then(success=>{
+			this.layoutService.hide();
+		},err=>{
+			this.layoutService.hide();
+		});
 	}
 }
