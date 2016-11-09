@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 //import { RADIO_GROUP_DIRECTIVES } from "ng2-radio-group";
-import { LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, SystemDictionary, SystemDictionaryService } from "../../../../architecture";
+import { LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, ValidationService, SystemDictionary, SystemDictionaryService } from "../../../../architecture";
 
 import { Image } from '../model/img-mng.model';
 import {  Area } from '../model/area.model';
@@ -22,6 +22,7 @@ export class ImgMngComponent implements OnInit {
         private layoutService: LayoutService,
         private router: Router,
         private activatedRouter: ActivatedRoute,
+        private validationService: ValidationService,
         private dicService: SystemDictionaryService
     ) {
 
@@ -70,6 +71,11 @@ export class ImgMngComponent implements OnInit {
                 this.ownerDic = dic;
                 this.getImageList();
             });
+    }
+
+    search() {
+        this.pager.render(1);
+        this.getImageList();
     }
 
     getImageList(pageIndex?): void {
@@ -124,6 +130,10 @@ export class ImgMngComponent implements OnInit {
     //更新镜像
     updateImage(image: Image) {
         this.layoutService.show();
+        if (this.validationService.isBlank(this.editImage.imageName)) {
+            this.showAlert("镜像名称不能为空.");
+            return;
+        }
         this.service.updateImage(this.editImage)
             .then(
             response => {
@@ -142,7 +152,6 @@ export class ImgMngComponent implements OnInit {
                     image.description = cimage.description;
                     image.desEditing = false;
                     image.nameEditing = false;
-                    this.layoutService.hide();
                 } else {
                     alert("Res sync error");
                 }
