@@ -34,12 +34,14 @@
 					<tr>
 						<td ><div class="left form-control-title">创建时间：</div>
 							<div class="dropdown left">	
-								<input type="text" [(ngModel)]='_param.createTime'/>
+								<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
+								<!-- <input type="text" [(ngModel)]='_param.createTime'/> -->
 							</div>
 						</td>
 						<td colspan="3"><div class="left form-control-title">到期时间：</div>
 							<div class="dropdown left">			
-								<input type="text" [(ngModel)]='_param.expireTime'/>
+								<date-picker (dateChanged)="onExpireTimeChange($event)"></date-picker>
+								<!-- <input type="text" [(ngModel)]='_param.expireTime'/> -->
 							</div>
 						</td>
 					</tr>

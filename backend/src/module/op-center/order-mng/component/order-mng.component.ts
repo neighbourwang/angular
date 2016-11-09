@@ -136,4 +136,12 @@ export class OrderMngComponent implements OnInit{
 			this.layoutService.hide();
 		});
 	}
+
+	onCreateTimeChange($event){
+		console.log('onCreateTimeChange event', $event);
+	}
+
+	onExpireTimeChange($event){
+		console.log('onExpireTimeChange event', $event);
+	}
 }
