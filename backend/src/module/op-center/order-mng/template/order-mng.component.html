@@ -108,7 +108,7 @@
 				<tr *ngFor="let prodItem of orderItem.orderInstanceItems">
 					<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
 						<ul>
-							<li *ngFor="let detailItem of prodItem.SpecItems">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}}</li>
+							<li *ngFor="let detailItem of prodItem.SpecItems">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 						</ul>
 					</td>
 					<td>{{prodItem.billingMode}}</td>

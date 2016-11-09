@@ -51,7 +51,7 @@
 						<td style="width: 50%;">{{prodItem.productType}}</td>
 						<td class="leftAlign">
 							<ul>
-								<li *ngFor="let detailItem of prodItem.prodDetailItems">{{detailItem.name}}:{{detailItem.value}}</li>
+								<li *ngFor="let detailItem of prodItem.SpecItems">{{detailItem.attrDisplayName}}:{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 							</ul>
 						</td>
 					</tr>

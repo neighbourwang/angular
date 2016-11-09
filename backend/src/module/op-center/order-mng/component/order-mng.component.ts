@@ -128,6 +128,12 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	search(){
-		this._orderLoader.Go(1, null, this._param);
+		this.layoutService.show();
+		this._orderLoader.Go(1, null, this._param)
+		.then(success=>{
+			this.layoutService.hide();
+		},err=>{
+			this.layoutService.hide();
+		});
 	}
 }
