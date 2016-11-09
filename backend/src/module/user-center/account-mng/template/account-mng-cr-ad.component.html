@@ -1,4 +1,4 @@
-<div class="page-content-header icon-content-header-platform-manage">创建帐号</div>
+<div class="page-content-header icon-content-header-platform-manage">{{title}}</div>
 <div class="row" style="padding-top: 30px;">
         <div class="col-md-12">
             <div class="row row-line-height">
@@ -193,10 +193,10 @@
 
             <div class="text-center">
                 <button class="fox-cloud-button-lg fox-cloud-button-white" >
-                    <span class="icon-button-label">取消</span>
+                    <span class="icon-button-label" (click)="cancel()">取消</span>
                 </button>
                 <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px">
-                    <span class="icon-button-label">创建</span>
+                    <span class="icon-button-label" (click)="create()">{{btnTitle}}</span>
                 </button>
             </div>
         </div>
