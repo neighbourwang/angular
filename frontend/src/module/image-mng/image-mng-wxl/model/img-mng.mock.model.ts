@@ -1,4 +1,4 @@
-export const Images_mock = {
+export const Images_wxl = {
     detailDescription: "镜像列表",
     pageInfo: {
         currentPage: 0,
@@ -47,7 +47,7 @@ export const Images_mock = {
     ]
 };
 
-export const AreaList_mock =
+export const AreaList_wxl =
     {
         "resultCode": "100",
         "detailDescription": null,
