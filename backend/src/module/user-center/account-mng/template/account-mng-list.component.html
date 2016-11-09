@@ -8,16 +8,16 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                <li><a>编辑</a></li>
-				<li><a>重置密码</a></li>
-                <li><a>启用</a></li>
-                <li><a>禁用</a></li>
-				<li><a>删除</a></li>
+                <li (click)="edit()"><a>编辑</a></li>
+				<li (click)="resetPassword()"><a>重置密码</a></li>
+                <li (click)="enable()"><a>启用</a></li>
+                <li (click)="disable()"><a>禁用</a></li>
+				<li (click)="delete()"><a>删除</a></li>
             </ul>
         </div>
 
 		<div class="dropdown pull-right" style="padding-right : 20px">
-			<input type="text" placeholder="输入帐号信息快速搜索" style="height : 35px ; padding : 5px"/>
+			<input type="text" placeholder="输入帐号信息快速搜索" style="height : 35px ; padding : 5px" [(ngModel)]="keyup" (keyup.enter)="search()"/>
 		</div>
 
         <button class="fox-cloud-button fox-cloud-button-green" (click)="openCrAccountPop()">
@@ -106,3 +106,6 @@
 		</div>
 	</div>
 </fc-popup>
+
+
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="ok()" ct="取消"></fc-confirm>
