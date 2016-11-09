@@ -1,9 +1,34 @@
 <div class="page-content cart_list">
 	<h1 class="page-content-header mgb20">购物车</h1>
 
-                <date-picker [options]="myDatePickerOptions"
-                             [initDate]= "'2017-06-21'" 
-                             (dateChanged)="onDateChanged($event)"></date-picker>
+<!-- <form #demoForm="ngForm" (ngSubmit)="onSubmit(demoForm)" novalidate>
+    <div ngModelGroup="passwordGroup" equalTo>
+        <h4>equalTo to password</h4>
+        <input type="password" ngModel name="password" #password="ngModel" required/>
+        <p *ngIf="password?.errors?.required">required error</p>
+        <input type="password" ngModel name="certainPassword"/>
+        <p *ngIf="demoForm.form.controls.passwordGroup?.errors?.equalTo">equalTo error</p>
+    </div>
+</form> -->
+
+<!-- <input type="text" [(ngModel)]="model.field" name="field" #field="ngModel" [rangeLength]="[5, 9]"/> -->
+<!-- <p *ngIf="field.errors?.rangeLength">error message</p> -->
+<!--     <input type="text" [(ngModel)]="field"  name="username" #username="ngModel" [rangeLength]="[5, 9]" />
+    <p *ngIf="username?.errors?.rangeLength">rangeLength error</p>
+
+    <button (click)="onSubmit(username)"></button> -->
+
+<select class="form-control float-left drive-select">
+    <option *ngFor="let i of testArr" value="1">云硬盘名称</option>
+</select>
+
+
+       <count-bar 
+            [step]=100 
+            [max]=1025 
+            [min]=0 
+            [disabled]=false 
+            [value]=0 #varName (output)="outputValue($event)"></count-bar>
     <table class="table table-all-boder mgb20">
         <tr class="table-title">
             <td class="text-center">产品信息</td>
