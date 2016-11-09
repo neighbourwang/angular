@@ -13,6 +13,8 @@ export class EntEstBasicInfo{
 	password: string = null;//密码
 	description: string = null;//描述
 	logo: string = null;//logo
+	isSSL: boolean = null;// 是否进行ssl加密
+	accountAttribute:string = null;//登录账户名属性
 
 	reset(){
 		this.code = null;
@@ -27,6 +29,48 @@ export class EntEstBasicInfo{
 		this.password = null;
 		this.description = null;
 		this.logo = null;
-
+		this.isSSL = null;
+		this.accountAttribute = null;
 	}
 }
+
+
+/*
+GET /authsec/enterprise/{_enterpriseId}/simple
+
+GeneralContentResultOfEnterpriseGeneralItem {
+detailDescription (string, optional),
+resultCode (string, optional),
+resultContent (EnterpriseGeneralItem, optional)
+}
+EnterpriseGeneralItem {
+	adUserName (string, optional): 企业认证模式为AD 时输入 ,
+	authMode (string, optional),
+	code (string, optional),
+	description (string, optional),
+	id (string, optional),
+	loginName (string, optional),
+	name (string, optional),
+	passWord (string, optional): 企业认证模式为AD 时输入 ,
+	status (string, optional): 类型是数字，不要传入string 类型 ,
+	url (string, optional)
+}
+
+{
+	
+	"detailDescription": "string",
+  "resultCode": "string",
+  "resultContent": {
+    "adUserName": "string",
+    "authMode": "string",
+    "code": "string",
+    "description": "string",
+    "id": "string",
+    "loginName": "string",
+    "name": "string",
+    "passWord": "string",
+    "status": "string",
+    "url": "string"
+  }
+}
+*/

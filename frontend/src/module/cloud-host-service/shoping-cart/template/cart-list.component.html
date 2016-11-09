@@ -1,0 +1,114 @@
+<div class="page-content cart_list">
+	<h1 class="page-content-header mgb20">购物车</h1>
+
+                <date-picker [options]="myDatePickerOptions"
+                             [initDate]= "'2017-06-21'" 
+                             (dateChanged)="onDateChanged($event)"></date-picker>
+    <table class="table table-all-boder mgb20">
+        <tr class="table-title">
+            <td class="text-center">产品信息</td>
+            <td class="text-center">产品类型</td>
+            <td class="text-center">计费模式</td>
+            <td class="text-center">购买周期</td> 
+            <td class="text-center">费用明细</td>
+            <td class="text-center">数量</td>
+            <td class="text-center">小记</td>
+        </tr>
+        <tr colspan="7" class="table-gap"></tr>
+        <tr>
+            <td colspan="7" class="table-line-head">
+                <font class="font-green">购买产品1</font>
+                <button class="btn button-gray-gradient float-right delete-cart"><span class="icon-delete"></span>从购物车中移除</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p class="line">可用区：可用区B </p>
+                <p class="line">实例规格：可用区B </p>
+                <p class="line">可用区：可用区B </p>
+                <p class="line">可用区：可用区B </p>
+                <p class="line">可用区：可用区B </p>
+                <p class="line">可用区：可用区B </p>
+                <p class="line">可用区：可用区B </p>
+            </td>
+            <td class="text-center table-text-middle">nova</td>
+            <td class="text-center table-text-middle">active</td>
+            <td class="text-center table-text-middle">2017-6-11 10:1:2</td>
+            <td class="text-center table-text-middle">无</td> 
+            <td class="text-center table-text-middle" rowspan="3" style="width: 15%;">
+                <div class="btn-group input-step-compontent" style="width: 130px;">  
+                    <button type="button" class="btn btn-default col-md-3"><span class="glyphicon glyphicon-minus"></span></button>
+                    <input type="text" class="form-control" value="20">
+                    <button type="button" class="btn btn-default clickable"><span class="glyphicon glyphicon-plus"></span></button>
+                </div> 台
+            </td>
+            <td class="text-center table-text-middle" rowspan="3">asdsdsd</td>
+        </tr>
+        <tr>
+            <td class="text-center">active</td>
+            <td class="text-center">nova</td>
+            <td class="text-center">active</td>
+            <td class="text-center">2017-6-11 10:1:2</td>
+            <td class="text-center">生产</td>
+        </tr>
+        <tr>
+            <td class="text-center">active</td>
+            <td class="text-center">nova</td>
+            <td class="text-center">active</td>
+            <td class="text-center">2017-6-11 10:1:2</td>
+            <td class="text-center">生产</td>
+        </tr>
+        <tr>
+            <td colspan="7" class="table-line-head">
+                <font class="font-green">购买产品2</font>
+                <button class="btn button-gray-gradient float-right delete-cart"><span class="icon-delete"></span>从购物车中移除</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p class="line">可用区：可用区B </p>
+                <p class="line">实例规格：可用区B </p>
+                <p class="line">可用区：可用区B </p>
+                <p class="line">可用区：可用区B </p>
+                <p class="line">可用区：可用区B </p>
+                <p class="line">可用区：可用区B </p>
+                <p class="line">可用区：可用区B </p>
+            </td>
+            <td class="text-center table-text-middle">nova</td>
+            <td class="text-center table-text-middle">active</td>
+            <td class="text-center table-text-middle">2017-6-11 10:1:2</td>
+            <td class="text-center table-text-middle">无</td> 
+            <td class="text-center table-text-middle" rowspan="3" style="width: 15%;">
+                <div class="btn-group input-step-compontent" style="width: 130px;">  
+                    <button type="button" class="btn btn-default col-md-3"><span class="glyphicon glyphicon-minus"></span></button>
+                    <input type="text" class="form-control" value="20">
+                    <button type="button" class="btn btn-default clickable"><span class="glyphicon glyphicon-plus"></span></button>
+                </div> 台
+            </td>
+            <td class="text-center table-text-middle" rowspan="3">asdsdsd</td>
+        </tr>
+    </table>
+    <div class="shoping-bottom clear-float">
+        <a href="javascript:" class="font-orange float-left pdt20">< 返回产品购买</a>
+        <button class="btn button-orange-deep button-size-big float-right mgt20">下单结算</button>
+        <span class="float-right mgr50">
+            <table>
+                <tr>
+                    <td>一次性费用： </td>
+                    <td><font class="font-orange">¥100</font></td>
+                </tr>
+                <tr>
+                    <td>费用： </td>
+                    <td><font class="font-orange">¥100/月</font></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><font class="font-orange">¥100/年</font></td>
+                </tr>
+            </table>
+        </span>
+        <span class="float-right mgr50 pdt20">( 费用合计 )</span>
+    </div>
+</div>
+<fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
