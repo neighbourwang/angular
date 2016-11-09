@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent } from "../../../../architecture";
+import { LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, SystemDictionary,  SystemDictionaryService} from "../../../../architecture";
 
 import { imageList } from "../model/images-mock.model"
 import { Image } from "../model/image.model"
@@ -11,7 +11,7 @@ import { ImgMngService_my } from "../service/img-mng.service"
     selector: "img-mng",
     templateUrl: "../template/img-mng-my.html",
     styleUrls: ["../style/img-mng.less"],
-    providers: [ImgMngService_my]
+    providers: []
 })
 export class ImgMngComponent_my implements OnInit {
 
@@ -35,7 +35,8 @@ export class ImgMngComponent_my implements OnInit {
         private service: ImgMngService_my,
         private layoutService: LayoutService,
         private router: Router,
-        private activatedRouter: ActivatedRoute
+        private activatedRouter: ActivatedRoute,
+        private dicService: SystemDictionaryService
     ) {
 
     }

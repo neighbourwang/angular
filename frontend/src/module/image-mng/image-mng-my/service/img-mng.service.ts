@@ -40,5 +40,18 @@ export class ImgMngService_my {
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => imageList);
     }
     
+
+     updateImage(image: Image): Promise<any> {
+        const pathParams = [
+            {
+                key: "image_id",
+                value: image.id
+            } 
+        ];
+
+        //const api = this.restApiCfg.getRestApi("image.mng.update");
+        //return this.restApi.request(api.method, api.url, pathParams, null, image);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return imageList });
+    }
 }
 
