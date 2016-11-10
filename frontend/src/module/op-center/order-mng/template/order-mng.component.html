@@ -1,3 +1,4 @@
+<fc-notice #notice ot="确认"></fc-notice>
 <div class="OrderManage">	
 	<div class="page-content-header">订单管理</div>
 	<div class="page-content">
@@ -12,7 +13,7 @@
 			<div class="">
 				<div class="input-group col-md-2 float-left mgr20">
    					 <input class="form-control" placeholder="输入云主机信息搜索" type="email">
-    				 <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+    				 <div class="input-group-addon"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div>
 						
 				<button class="button-gray-gradient">重&nbsp;&nbsp;&nbsp;&nbsp;置</button>
@@ -23,7 +24,7 @@
 						<td>
 							<span class="">部门:</span>
 							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="platformId">
+								<select class="form-control" [(ngModel)]="_param.organization">
 									<option class="hands">所有部门</option>
 									<option class="hands">商务部</option>
 									<option class="hands">部门1</option>
@@ -34,28 +35,22 @@
 						<td >
 							<span class="">创建时间：</span>
 							<div class="dropdown left">			
-								<button class="btn btn-default" type="button">
-								2016-08-01						
-								</button>
-								
+								<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
 							</div>
 						</td>
 						<td>
 							<span class="">到期时间：</span>
 							<div class="dropdown left">			
-								<button class="btn btn-default" type="button">
-								2016-08-30						
-								</button>
-								
+								<date-picker (dateChanged)="onExpireTimeChange($event)"></date-picker>
 							</div>
 						</td>
 						<td>
 							<span class="" >
 							订单状态:</span>
 							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="platformId">
-									<option class="hands">成功</option>
-									<option class="hands">失败</option>
+								<select class="form-control" [(ngModel)]="_param.status">
+									<option class="hands" [value]="null">所有</option>
+									<option class="hands" *ngFor="let item of _orderStatusDic.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
 						</td>
@@ -63,8 +58,9 @@
 							<span class="" >
 							产品类型:</span>
 							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="platformId">
-									<option class="hands">所有</option>
+								<select class="form-control" [(ngModel)]="_param.serviceId">
+									<option class="hands" [value]="0">所有</option>
+									<option class="hands" *ngFor="let item of _productTypeLoader.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
 						</td>
@@ -72,8 +68,9 @@
 							<span class="" >
 							区域:</span>
 							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="platformId">
-									<option class="hands">所有</option>
+								<select class="form-control" [(ngModel)]="_param.region" (ngModelChange)="onPlatformChanged()">
+									<option class="hands" [value]="0">所有</option>
+									<option class="hands" *ngFor="let item of _platformLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
@@ -81,8 +78,9 @@
 							<span class="" >
 							可用区:</span>
 							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="platformId">
-									<option class="hands">所有</option>
+								<select class="form-control" [(ngModel)]="_param.zoneId">
+									<option class="hands" [value]="0">所有</option>
+									<option class="hands" *ngFor="let item of _regionLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>

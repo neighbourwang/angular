@@ -656,5 +656,85 @@ export let RestApis: RestApiModel[] = [
         "id" : "user-center.org-mng.list",
         "method" : "GET",
         "url" : "usermgmt/authsec/adm/organizations"
-    }
+    },
+
+    //认证管理
+    {
+        "desc": "获取认证源列表",
+        "id": "user-center.attest-mng.list",
+        "method": "GET",
+        "url": "adminui/authsec/ldaps/page/{page}/size/{size}"
+    },
+    {
+        "desc": "认证源测试",
+        "id": "user-center.attest-mng.ldap.test",
+        "method": "POST",
+        "url": "adminui/authsec/ldap/test"
+    },
+    {
+        "desc": "创建认证源",
+        "id": "user-center.attest-mng.ldap.create",
+        "method": "POST",
+        "url": "adminui/authsec/ldap"
+    },
+    {
+        "desc": "获取认证源详情",
+        "id": "user-center.attest-mng.ldap.get",
+        "method": "GET",
+        "url": "adminui/authsec/ldap/{id}"
+    },
+    {
+        "desc": "编辑认证源",
+        "id": "user-center.attest-mng.ldap.edit",
+        "method": "PUT",
+        "url": "adminui/authsec/ldap/{id}"
+    },
+    {
+        "desc": "修改认证帐户",
+        "id": "user-center.attest-mng.ldap.editacc",
+        "method": "PUT",
+        "url": "adminui/authsec/ldap/{id}/account"
+    },
+    {
+        "desc": "删除认证源",
+        "id": "user-center.attest-mng.ldap.delete",
+        "method": "DELETE",
+        "url": "adminui/authsec/ldap/{id}"
+    },
+    {
+        "desc": "启用/禁用认证源",
+        "id": "user-center.attest-mng.ldap.edit.status",
+        "method": "PUT",
+        "url": "adminui/authsec/ldap/{id}"
+    },
+    {
+        "desc": "查询AD用户",
+        "id": "user-center.attest-mng.ldap.adusers.list",
+        "method": "POST",
+        "url": "adminui/authsec/ldap/{id}/adusers/page/{page}/size/{size}"
+    },
+    {
+        "desc": "认证源简单列表（下拉框）",
+        "id": "user-center.attest-mng.ldap.adusers.list",
+        "method": "POST",
+        "url": "adminui/authsec/ldaps/simple"
+    },
+    {
+        "desc": "创建企业认证源",
+        "id": "ent-mng.enterprise.ldap.create",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/{enterpriseId}/ldap"
+    },
+    {
+        "desc": "获取企业认证源列表",
+        "id": "ent-mng.enterprise.ldap.list",
+        "method": "GET",
+        "url": "/adminui/authsec/enterprise/{enterpriseId}/ldaps/page/{page}/size/{size}"
+    },
+    {
+        "desc": "获取企业认证源列表（下拉框）",
+        "id": "ent-mng.enterprise.ldap.adusers.list",
+        "method": "GET",
+        "url": "/adminui/authsec/enterprise/{enterpriseId}/ldaps/simple"
+    },
 ]

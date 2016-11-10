@@ -36,11 +36,11 @@
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12 btn-group" data-toggle="buttons" >
-                        <label class="btn btn-default active" (click)="imagequery.imagebelong=''">
-                            <input type="radio" name="location" autocomplete="off" checked> 我的资源
+                        <label class="btn btn-default active" [ngClass]="{'active': imagequery.imagebelong==''}" (click)="imagequery.imagebelong=''">
+                            <input type="radio" name="location" autocomplete="off" [checked]="imagequery.imagebelong==''"> 我的资源
                         </label>
-                        <label class="btn btn-default" *ngFor="let belong of belongdicts" (click)="imagequery.imagebelong = belong.value" >
-                            <input type="radio" name="location" autocomplete="off"> {{belong.displayValue}}
+                        <label class="btn btn-default" *ngFor="let belong of belongdicts" [ngClass]="{'active': imagequery.imagebelong==belong.value}" (click)="imagequery.imagebelong = belong.value" >
+                            <input type="radio" name="location" autocomplete="off" [checked]="imagequery.imagebelong==belong.value"> {{belong.displayValue}}
                         </label>
                     </div>
                 </div>
@@ -49,8 +49,8 @@
         </ul>
 
         <div class="pull-left row" style="margin-bottom:20px;">
-            <div class="col-md-1">
-                <select class="form-control" [(ngModel)]="imagequery.nameOros">
+            <div class="col-md-2">
+                <select class="form-control" (change)="setKeyword(type.value,keyword.value)" #type>
                     <option value="0" selected="selected">镜像名称</option>
                     <option value="1">操作系统</option>
                 </select>
@@ -60,7 +60,7 @@
             </div>-->
             <div class="input-group col-md-2 float-left">
                 <!-- <input class="form-control" placeholder="输入镜像信息搜索" [(ngModel)]="imagequery.str" (change)="setKeyword()"> -->
-                <input class="form-control" placeholder="输入镜像信息搜索" [(ngModel)]="imagequery.str" (change)="setKeyword()">
+                <input class="form-control" placeholder="输入镜像信息搜索" [(ngModel)]="imagequery.str" (change)="setKeyword(type.value,keyword.value)" #keyword>
                 <div class="input-group-addon">
                     <span class="glyphicon glyphicon-search"></span>
                 </div>
@@ -82,8 +82,8 @@
                 </select>
             </div>
 
-            <button class="btn button-gray-gradient"><span class="glyphicon glyphicon-search" (click)="imageSearch()"></span> 简单搜索</button>
-            <button class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat" (click)="queryClean()"></span> 重置选项</button>
+            <button class="btn button-gray-gradient"><span class="glyphicon glyphicon-search"></span> 简单搜索</button>
+            <button class="btn button-gray-gradient" (click)="queryClean()"><span class="glyphicon glyphicon-repeat"></span> 重置选项</button>
             <button class="btn button-gray-gradient pull-right" style="margin-right:15px;">
                 <span class="icon icon-link"></span> 相关实例
             </button>
@@ -112,9 +112,7 @@
                 </td>
                 <td class="text-center td_mirror">
                     <u style="color:#01a982;">{{image.name}}</u>
-                    <span class="tdspan" (click)="onSelect(image); image.nameEditing=true">编辑</span>
-
-                    
+                    <span class="tdspan" (click)="image.nameEditing=true; onSelect(image)">编辑</span>                    
                     <div *ngIf="image.nameEditing" class="popover fade bottom in" role="tooltip" id="popover316538" style="top: 35px; left: 8.5px; width:420px;max-width:1000px; display: block;">
                         <div class="arrow" style="left: 20%;"></div>
                         <div class="popover-content">
@@ -122,32 +120,34 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label pull-left">镜像描述:</label>
                                 <div class="col-sm-9 float-left">
-                                    <textarea class="form-control" rows="3" [(ngModel)]="selectedimage.name">{{selectedimage.name}}</textarea>
+                                    <textarea class="form-control" rows="3" name="imageName" [(ngModel)]="selectedimage.name"></textarea>
                                     <div style="color: #b1b6bc;">长度为2-256个字符，不能以http://或https://开头</div>
                                 </div>
                             </div>
                         </form>
                         <div class="pull-right" style="margin-bottom:10px;">
                             <button class="btn btn-default btn-save" (click)="onSave(image)">保存</button>
-                            <button class="btn btn-default" (click)="image.nameEditing=false">取消</button>
+                            <button class="btn btn-default" (click)="image.nameEditing=false;">取消</button>
                         </div>
                         </div>
                     </div>
 
                 </td>
 
-                <td class="text-center">{{image.type}}</td>
+                <td class="text-center">{{getDicText(image.type,this.typedicts)}}</td>
+<!--                <td class="text-center">{{image.type}}</td>   -->
                 <td class="text-center">{{image.os}}</td>
-                <td class="text-center">{{image.bits}}</td>
+                <td class="text-center">{{getDicText(image.bits,this.bitdicts)}}</td>
+<!--                <td class="text-center">{{image.bits}}</td>    -->
                 <td class="text-center">{{image.creatorName}}</td>
                 <td class="text-center font-green">{{image.orgName}}</td>
                 <td class="text-center">{{image.createTime}}</td>
-                <td class="text-center">{{image.status}}</td>
+                <td class="text-center" [ngClass]="{'font-green':image.status == 1, 'font-orange':image.status != 1}">{{getDicText(image.status,this.statusdicts)}}</td>
+<!--                <td class="text-center">{{image.status}}</td>   -->
                 <td class="text-center">{{image.progress}}</td>
                 <td class="text-center td_mirror">
                     {{image.description}}
-                    <span class="tdspan"
-                    (click)="onSelect(image); image.desEditing=true">编辑</span>
+                    <span class="tdspan" (click)="image.desEditing=true;  onSelect(image)">编辑</span>
 
 
                     <div *ngIf="image.desEditing" class="popover fade bottom in" role="tooltip" id="popover472540" style="top: 35px; left: 8.5px; width:310px;max-width: 1000px; display: block;">
@@ -157,14 +157,14 @@
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">镜像描述:</label>
                                 <div class="col-sm-8 float-left">
-                                    <textarea class="form-control" rows="3" placeholder="image的描述语句" [(ngModel)]="selectedimage.description"></textarea>
+                                    <textarea class="form-control" rows="3" placeholder="image的描述语句" [(ngModel)]="selectedimage.description" name="description"></textarea>
                                     <div style="color: #b1b6bc;">长度为2-256个字符，不能以http://或https://开头</div>
                                 </div>
                             </div>
                         </form>
                         <div class="pull-right" style="margin-bottom:10px;">
-                            <button class="btn btn-default btn-save" (click)=onSave(image)>保存</button>
-                            <button class="btn btn-default" (click)="image.desEditing=false">取消</button>
+                            <button class="btn btn-default btn-save" (click)="onSave(image)">保存</button>
+                            <button class="btn btn-default" (click)="image.desEditing=false;">取消</button>
                         </div>
                         </div>
                     </div>

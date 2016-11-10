@@ -12,7 +12,7 @@ export const AttestMngRouting: ModuleWithProviders = RouterModule.forChild([
         component: AttestMngComponent
     },
     {
-        path: 'user-center/attest-mng/attest-source-cre/:id/:type',
+        path: 'user-center/attest-mng/attest-source-cre',
         component: AttestSourceCreComponent
     },
 ]);
