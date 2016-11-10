@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
-import { OrderItem, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import { SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 
 
 @Component({
@@ -20,7 +20,7 @@ export class OrderMngComponent implements OnInit{
 	private _platformLoader:ItemLoader<Platform> = null;
 	private _subregionLoader:ItemLoader<SubRegion> = null;
 	private _orderStatus:DicLoader = null;
-	private _orderLoader:ItemLoader<OrderItem> = null;
+	private _orderLoader:ItemLoader<SubInstanceResp> = null;
 
 	private _param:OrderMngParam = new OrderMngParam();
 
@@ -49,7 +49,7 @@ export class OrderMngComponent implements OnInit{
 		this._orderStatus = new DicLoader(this.restApiCfg, this.restApi, "ORDER", "STATUS");
 
 		//配置订单加载
-		this._orderLoader = new ItemLoader<OrderItem>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
+		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
 	}
 	ngOnInit(){
 		this._orderStatus.Go();
