@@ -1,7 +1,9 @@
-import { Component, ViewChild, OnInit} from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, ValidationService,  NoticeComponent, ConfirmComponent, PopupComponent} from '../../../../architecture';
+import { LayoutService, ValidationService, NoticeComponent, PaginationComponent, ConfirmComponent, SystemDictionary, SystemDictionaryService } from '../../../../architecture';
+
+import { Attest } from '../model/attest.model';
 
 @Component({
     selector: 'attest-mng',
@@ -9,67 +11,76 @@ import { LayoutService, ValidationService,  NoticeComponent, ConfirmComponent, P
     styleUrls: [],
     providers: []
 })
-
 export class AttestMngComponent implements OnInit {
     constructor(
         private router: Router,
-        // private ProdDirDetailService: ProdDirDetailService,
-        // private ProdListService : ProdListService,
-        // private ProdDirListService: ProdDirListService,
-        // private PostProduct:PostProduct
-    ) { }
-    @ViewChild('publishConfirm')
-    publishConfirm: ConfirmComponent;
+        private dicService: SystemDictionaryService,
+        private layoutService: LayoutService,
+    ) {
+    }
 
-    @ViewChild('ccPublishConfirm')
-    ccPublishConfirm: ConfirmComponent;
+    noticeTitle = "";
+    noticeMsg = "";
+    totalPage = 1;
+    pageSize = 20;
+    attests: Attest[];
+    statusDic: Array<SystemDictionary>;
 
-    @ViewChild('deleteConfirm')
-    deleteConfirm: ConfirmComponent;
-
-    @ViewChild('notice')
+    @ViewChild("notice")
     notice: NoticeComponent;
 
-    // enterpriseList = new Array();
-    // prodDirList = new Array();
-    // prodDir = new ProductDir();
-    // prodDirId:string;
-    // product=new Product();   
-    ngOnInit() {}
-    //  action(order) {
-    //     // let prodDirList: Array<Proddir> = this.getProddir();
-    //     if (prodDirList.length < 1) {
-    //         this.notice.open('操作错误', '请选择产品目录');
-    //     } else {
-    //         let message: string = '';
-    //         for (let dir of prodDirList) {
-    //             message += dir.serviceName + ",";
-    //         }
-    //         console.log(message);
-    //         message = message.substring(0, message.length - 1);
-    //         switch (order) {
-    //             case 'delete': this.deleteConfirm.open('删除产品目录', '您选择删除 ' + "'" + message + "'" + '产品,请确认；如果确认，此产品目录的数据将不能恢复。')
-    //                 break;
-    //             case 'publish': this.publishConfirm.open('发布产品目录', '您选择发布 ' + "'" + message + "'" + '产品,请确认。')
-    //                 break;
-    //             case 'ccPublish': this.ccPublishConfirm.open('取消发布产品目录', '您选择取消发布' + "'" + message + "'" + '产品,请确认。如果确认，此产品目录将不能用来创建产品。')
-    //                 break;
-    //         }
+    @ViewChild("confirm")
+    confirm: ConfirmComponent;
 
-    //     }
-    // };
-    //编辑账号
-    onEdit(){
-        this.router.navigate(['user-center/attest-mng/attest-source-cre',2,'edit'])
+    @ViewChild("pager")
+    pager: PaginationComponent;
+
+    ngOnInit() {
+        this.dicService.getItems("USER", "STATUS")
+            .then((dic) => {
+                this.statusDic = dic;
+                this.getAttests();
+            })
     }
-    //编辑认证源账户
-    onEditAcc(){
-        this.router.navigate(['user-center/attest-mng/attest-source-cre',3,'editAcc'])
+
+    getAttests() {
+
     }
-    creation(){
-        this.router.navigate(['user-center/attest-mng/attest-source-cre',1,'new'])
-    }    
-    ccf(){
+
+    onCreate() {
+        this.gotoEditPage("create");
+    }
+
+    onEdit() {
+        this.gotoEditPage("edit");
+    }
+
+    onEditAcc() {
+        this.gotoEditPage("editAcc");
+    }
+
+    gotoEditPage(type) {
+        this.router.navigate(['user-center/attest-mng/attest-source-cre', {"type":type}]);
+    }
+
+    updateStatus(type: string) {
+        
+    }
+
+    //根据value获取字典的txt
+    getDicText(value: string, dic: Array<SystemDictionary>): String {
+        const d = dic.find((e) => {
+            return e.value == value;
+        });
+        if (d) {
+            return d.displayValue;
+        } else {
+            return value;
+        }
+
+    }
+
+    ccf() {
 
     }
 }
