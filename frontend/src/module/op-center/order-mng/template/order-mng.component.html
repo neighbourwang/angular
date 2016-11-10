@@ -91,7 +91,7 @@
 				</tbody>
 			</table>	
 		</div>
-		<div class="mgb20">当查询到<span class="font-green">29</span>个订单需要审批，查询列表如下：</div>
+		<div class="mgb20">当查询到<span class="font-green">{{_orderLoader.Items.length}}</span>个订单需要审批，查询列表如下：</div>
 			<div class="table-container">
 			<table class="table">
 				<thead>	
@@ -109,315 +109,31 @@
 				</thead>
 			</table>
 
-			<table class="table _table">
+			<table class="table _table" *ngFor="let orderItem of _orderLoader.Items">
 				<tr>
-					<td class="order-title font-green" colspan="7">2016-10-05 订单号：23705375384884773&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间：2016-10-08</td>
+					<td class="order-title font-green" colspan="7">{{orderItem.purchaseDate}} 订单号：{{orderItem.orderNo}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间：2016-10-08</td>
 					<td colspan="2">
-						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#renewOrder">续订</button>
-						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#cancelOrder">退订</button>
-						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#orderDetail">详情</button>
+						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#renewOrder" (click)="renew(orderItem.orderId)">续订</button>
+						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#cancelOrder" (click)="cancel(orderItem.orderId)">退订</button>
+						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#orderDetail" (click)="showDetail(orderItem.orderId)">详情</button>
 					</td>	
 				</tr>
-				<tr>
+				<tr *ngFor="let prodItem of orderItem.itemList">
 					<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
 						<ul>
-							<li>区域：&nbsp;&nbsp;华北1</li>
-							<li>可用区：&nbsp;&nbsp;可用区B</li>
-							<li>实例规格：&nbsp;&nbsp;CPU 2核/内存4GB/启动盘/70G</li>
-							<li>IP地址：&nbsp;&nbsp;10.1.1.1（内部）<br>
-								192.168.1.1（外部）</li>
-							<li>操作系统：&nbsp;&nbsp;******</li>
-							<li>密码：&nbsp;&nbsp;已设置</li>
-							<li>实例名称：&nbsp;&nbsp;abcabc</li>
+							<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 						</ul>
 					</td>
-					<td>云主机</td>
-					<td>包年包月</td>
-					<td>99年</td>
-					<td>1台</td>
-					<td style="width: 100px;">一次性费用：￥0<br>费用：￥50/月</td>
-					<td class="validateInfo">成功</td>
-					<td>2016.10.1<br>
-						10:23
-					</td>
-					<td>2099.10.1<br>
-				 		10:23
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
-						<ul>
-							<li>区域：&nbsp;&nbsp;华北1</li>
-							<li>可用区：&nbsp;&nbsp;可用区B</li>
-							<li>云硬盘类型：&nbsp;&nbsp;高性能I/O</li>
-							<li>云硬盘容量：&nbsp;&nbsp;100GB
-						</ul>
-					</td>
-					<td>云硬盘</td>
-					<td>包年包月</td>
-					<td>99年</td>
-					<td>1块</td>
-					<td style="width: 100px;">一次性费用：￥0<br>费用：￥5/月</td>
-					<td class="validateInfo">成功</td>
-					<td>2016.10.1<br>
-						10:23
-					</td>
-					<td>2099.10.1<br>
-				 		10:23
-					</td>
+					<td>{{prodItem.serviceType}}</td>
+					<td>{{prodItem.billingInfo.billingMode}}</td>
+					<td>{{prodItem.period}}</td>
+					<td>{{prodItem.quantity}}</td>
+					<td style="width: 100px;">{{prodItem.billingInfo.oneTimePriceAndPrice}}</td>
+					<td class="validateInfo">{{prodItem.statusName}}</td>
+					<td>{{prodItem.createDate}}</td>
+					<td>{{prodItem.exireDate}}</td>
 				</tr>
 			</table>
-			<table class="table _table">
-				<tr>
-					<td class="order-title font-green" colspan="7">2016-10-05 订单号：23705375384884773&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间：2016-10-08</td>
-					<td colspan="2">
-						<button class="mgr10 pull-right" key="frontend/order-mng-renew.html">续&nbsp;&nbsp;&nbsp;订</button>
-						<button class="mgr10 pull-right"  (click)="showDetail()">退&nbsp;&nbsp;&nbsp;订</button>
-						<button class="mgr10 pull-right"  (click)="showDetail()">详&nbsp;&nbsp;&nbsp;情</button>
-					</td>
-					
-				</tr>
-				<tr>
-					<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
-						<ul>
-							<li>区域：&nbsp;&nbsp;华北1</li>
-							<li>可用区：&nbsp;&nbsp;可用区B</li>
-							<li>实例规格：&nbsp;&nbsp;CPU 2核/内存4GB/启动盘/70G</li>
-							<li>IP地址：&nbsp;&nbsp;10.1.1.1（内部）<br>
-								192.168.1.1（外部）</li>
-							<li>操作系统：&nbsp;&nbsp;******</li>
-							<li>密码：&nbsp;&nbsp;已设置</li>
-							<li>实例名称：&nbsp;&nbsp;abcabc</li>
-						</ul>
-					</td>
-					<td>云主机</td>
-					<td>包年包月</td>
-					<td>99年</td>
-					<td>1台</td>
-					<td style="width: 100px;">一次性费用：￥0<br>费用：￥50/月</td>
-					<td class="validateInfo">成功</td>
-					<td>2016.10.1<br>
-						10:23
-					</td>
-					<td>2099.10.1<br>
-				 		10:23
-					</td>
-				</tr>
-			</table>
-			<table class="table _table">
-				<tr>
-					<td class="order-title font-green" colspan="7">2016-10-05 订单号：23705375384884773&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间：2016-10-08</td>
-					<td colspan="2">
-						<button class="mgr10 pull-right">续&nbsp;&nbsp;&nbsp;订</button>
-						<button class="mgr10 pull-right"  (click)="showDetail()">退&nbsp;&nbsp;&nbsp;订</button>
-						<button class="mgr10 pull-right"  (click)="showDetail()">详&nbsp;&nbsp;&nbsp;情</button>
-					</td>
-					
-				</tr>
-				<tr>
-					<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
-						<ul>
-							<li>区域：&nbsp;&nbsp;华北1</li>
-							<li>可用区：&nbsp;&nbsp;可用区B</li>
-							<li>云硬盘类型：&nbsp;&nbsp;高性能I/O</li>
-							<li>云硬盘容量：&nbsp;&nbsp;100GB
-						</ul>
-					</td>
-					<td>云硬盘</td>
-					<td>包年包月</td>
-					<td>99年</td>
-					<td>1块</td>
-					<td style="width: 100px;">一次性费用：￥0<br>费用：￥5/月</td>
-					<td class="validateInfo">成功</td>
-					<td>2016.10.1<br>
-						10:23
-					</td>
-					<td>2099.10.1<br>
-				 		10:23
-					</td>
-				</tr>
-			</table>
-			<table class="table _table">
-				<tr>
-					<td class="order-title font-green" colspan="7">2016-10-05 订单号：23705375384884773&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间：2016-10-08</td>
-					<td colspan="2">
-						<button class="mgr10 pull-right" key="frontend/order-mng-renew.html">续&nbsp;&nbsp;&nbsp;订</button>
-						<button class="mgr10 pull-right"  (click)="showDetail()">退&nbsp;&nbsp;&nbsp;订</button>
-						<button class="mgr10 pull-right"  (click)="showDetail()">详&nbsp;&nbsp;&nbsp;情</button>
-					</td>	
-				</tr>
-				<tr>
-					<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
-						<ul>
-							<li>区域：&nbsp;&nbsp;华北1</li>
-							<li>可用区：&nbsp;&nbsp;可用区B</li>
-							<li>实例规格：&nbsp;&nbsp;CPU 2核/内存4GB/启动盘/70G</li>
-							<li>IP地址：&nbsp;&nbsp;10.1.1.1（内部）<br>
-								192.168.1.1（外部）</li>
-							<li>操作系统：&nbsp;&nbsp;******</li>
-							<li>密码：&nbsp;&nbsp;已设置</li>
-							<li>实例名称：&nbsp;&nbsp;abcabc</li>
-						</ul>
-					</td>
-					<td>云主机</td>
-					<td>包年包月</td>
-					<td>99年</td>
-					<td>1台</td>
-					<td style="width: 100px;">一次性费用：￥0<br>费用：￥50/月</td>
-					<td class="validateInfo">成功</td>
-					<td>2016.10.1<br>
-						10:23
-					</td>
-					<td>2099.10.1<br>
-				 		10:23
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
-						<ul>
-							<li>区域：&nbsp;&nbsp;华北1</li>
-							<li>可用区：&nbsp;&nbsp;可用区B</li>
-							<li>云硬盘类型：&nbsp;&nbsp;高性能I/O</li>
-							<li>云硬盘容量：&nbsp;&nbsp;100GB
-						</ul>
-					</td>
-					<td>云硬盘</td>
-					<td>包年包月</td>
-					<td>99年</td>
-					<td>1块</td>
-					<td style="width: 100px;">一次性费用：￥0<br>费用：￥5/月</td>
-					<td class="validateInfo">成功</td>
-					<td>2016.10.1<br>
-						10:23
-					</td>
-					<td>2099.10.1<br>
-				 		10:23
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
-						<ul>
-							<li>数据库类型：&nbsp;&nbsp;Oracle</li>
-							<li>数据库版本：&nbsp;&nbsp;11g</li>
-						</ul>
-					</td>
-					<td>数据库</td>
-					<td>包年包月</td>
-					<td>99年</td>
-					<td>1个</td>
-					<td style="width: 100px;">一次性费用：￥0<br>费用：￥5/月</td>
-					<td class="validateInfo">成功</td>
-					<td>2016.10.1<br>
-						10:23
-					</td>
-					<td>2099.10.1<br>
-				 		10:23
-					</td>
-				</tr>
-			</table>
-			<table class="table _table">
-				<tr>
-					<td class="order-title font-green" colspan="7">2016-10-05 订单号：23705375384884773&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间：2016-10-08</td>
-					<td colspan="2">
-						<button class="mgr10 pull-right">续&nbsp;&nbsp;&nbsp;订</button>
-						<button class="mgr10 pull-right"  (click)="showDetail()">退&nbsp;&nbsp;&nbsp;订</button>
-						<button class="mgr10 pull-right"  (click)="showDetail()">详&nbsp;&nbsp;&nbsp;情</button>
-					</td>	
-				</tr>
-				<tr>
-					<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
-						<ul>
-							<li>区域：&nbsp;&nbsp;华北1</li>
-							<li>可用区：&nbsp;&nbsp;可用区B</li>
-							<li>实例规格：&nbsp;&nbsp;CPU 2核/内存4GB/启动盘/70G</li>
-							<li>IP地址：&nbsp;&nbsp;10.1.1.1（内部）<br>
-								192.168.1.1（外部）</li>
-							<li>操作系统：&nbsp;&nbsp;******</li>
-							<li>密码：&nbsp;&nbsp;已设置</li>
-							<li>实例名称：&nbsp;&nbsp;abcabc</li>
-						</ul>
-					</td>
-					<td>云主机</td>
-					<td>包年包月</td>
-					<td>99年</td>
-					<td>1台</td>
-					<td style="width: 100px;">一次性费用：￥0<br>费用：￥50/月</td>
-					<td class="validateInfo">成功</td>
-					<td>2016.10.1<br>
-						10:23
-					</td>
-					<td>2099.10.1<br>
-				 		10:23
-					</td>
-				</tr>
-				<tr>
-					<td colspan="9">
-						<table class="table _table" >
-							<tr>
-								<td class="order-title font-green" colspan="7">2016-10-05 订单号：23705375384884773&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间：2016-10-08</td>
-								
-								<td colspan="2">
-									<button class="mgr10 pull-right">续&nbsp;&nbsp;&nbsp;订</button>
-									<button class="mgr10 pull-right"  (click)="showDetail()">退&nbsp;&nbsp;&nbsp;订</button>
-									<button class="mgr10 pull-right"  (click)="showDetail()">详&nbsp;&nbsp;&nbsp;情</button>
-								</td>	
-							</tr>
-							<tr>
-								<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
-									<ul>
-										<li>OS管理服务</li>
-									</ul>
-								</td>
-								<td>OS服务</td>
-								<td>按量</td>
-								<td>99年</td>
-								<td>1台</td>
-								<td style="width: 100px;">一次性费用：￥0<br>费用：￥50/月</td>
-								<td class="warnInfo">审批拒绝</td>
-								<td>2016.10.1<br>
-									10:23
-								</td>
-								<td>2099.10.1<br>
-							 		10:23
-								</td>
-							</tr>
-							
-						</table>
-					</td>
-				</tr>
-
-			</table>
-			<table class="table _table" >
-							<tr>
-								<td class="order-title font-green" colspan="7">2016-10-05 订单号：23705375384884773&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间：2016-10-08</td>
-								
-								<td colspan="2">
-									<button class="mgr10 pull-right">续&nbsp;&nbsp;&nbsp;订</button>
-									<button class="mgr10 pull-right"  (click)="showDetail()">退&nbsp;&nbsp;&nbsp;订</button>
-									<button class="mgr10 pull-right"  (click)="showDetail()">详&nbsp;&nbsp;&nbsp;情</button>
-								</td>	
-							</tr>
-							<tr>
-								<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
-									<ul>
-										<li>负载均衡</li>
-									</ul>
-								</td>
-								<td>负载均衡</td>
-								<td>按量</td>
-								<td>无</td>
-								<td>1GB</td>
-								<td style="width: 100px;">￥10/GB</td>
-								<td class="warnInfo">失败</td>
-								<td>2016.10.1<br>
-									10:23
-								</td>
-								<td>2099.10.1<br>
-							 		10:23
-								</td>
-							</tr>
-							
-						</table>
 		</div>
 	</div>
 	

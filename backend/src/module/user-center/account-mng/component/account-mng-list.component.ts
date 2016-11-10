@@ -91,4 +91,21 @@ export class AccountMngComponent implements OnInit{
         this.confirmType = 4;
         this.confirm.open('删除帐号',"您选择删除 机构xxx，xxx'xxx@hpe.com'帐号，请确认");
     }
+    //弹出框 确认
+    ok (){
+        switch(this.confirmType){
+            case 1:
+                console.log('重置密码');
+                break;
+            case 2:
+                console.log('启用帐号');
+                break;
+            case 3:
+                console.log('禁用帐号');
+                break;
+            case 4:
+                console.log('删除帐号');
+                break;
+        }
+    }
 } 
