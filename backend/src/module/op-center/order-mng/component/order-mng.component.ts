@@ -16,7 +16,7 @@ export class OrderMngComponent implements OnInit{
 
 	private _adminLoader:ItemLoader<AdminListItem> = null;
 	private _departmentLoader:ItemLoader<DepartmentItem> = null;
-	private _productTypeLoader:ItemLoader<ProductType> = null;
+	private _productTypeLoader: DicLoader = null;
 	private _platformLoader:ItemLoader<Platform> = null;
 	private _subregionLoader:ItemLoader<SubRegion> = null;
 	private _orderStatus:DicLoader = null;
@@ -36,8 +36,8 @@ export class OrderMngComponent implements OnInit{
 		//配置部门列表加载
 		this._departmentLoader = new ItemLoader<DepartmentItem>(false, '部门列表', "op-center.order-mng.department-list.get", this.restApiCfg, this.restApi);
 
-		//配置产品类型加载
-		this._productTypeLoader = new ItemLoader<ProductType>(true, '产品类型', "op-center.order-mng.product-type-list.get", this.restApiCfg, this.restApi);
+		//产品类型配置
+		this._productTypeLoader = new DicLoader(restApiCfg, restApi, "GLOBAL", "SERVICE_TYPE");
 
 		//配置区域加载
 		this._platformLoader = new ItemLoader<Platform>(false, '区域', "op-center.order-mng.region-list.get", this.restApiCfg, this.restApi);
@@ -52,7 +52,16 @@ export class OrderMngComponent implements OnInit{
 		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
 	}
 	ngOnInit(){
-		this._orderStatus.Go();
+		this._orderStatus.Go()
+		.then(success=>{
+			return this._productTypeLoader.Go();
+		})
+		.then(success=>{
+
+		})
+		.catch(err=>{
+			this.showMsg(err);
+		});
 		// this.loadAdmin()
 		// .then(success=>{
 		// 	this.loadDepartment();
@@ -60,7 +69,6 @@ export class OrderMngComponent implements OnInit{
 		// 	this.showMsg(err);
 		// })
 
-		this.loadProductType();
 		this.loadPlatform()
 		.then(success=>{
 			this.loadSubregion();
@@ -87,10 +95,6 @@ export class OrderMngComponent implements OnInit{
 		}, err=>{
 			this._param.organization = "0";
 		});
-	}
-
-	loadProductType(){
-		this._productTypeLoader.Go(1, [{key:"_size", value:1000}]);
 	}
 
 	loadPlatform():Promise<any>{
