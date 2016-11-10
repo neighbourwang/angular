@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
 import { ListItem
 	, OrderMngParam
-	, OrderItem} from '../model'
+	, SubInstanceResp} from '../model'
 
 
 @Component({
@@ -27,7 +27,7 @@ export class OrderMngComponent implements OnInit{
 	//可用区
 	private _regionLoader:ItemLoader<ListItem> = null;
 	//订单查询
-	private _orderLoader:ItemLoader<OrderItem> = null;
+	private _orderLoader:ItemLoader<SubInstanceResp> = null;
 
 	constructor(
 		private layoutService: LayoutService,
@@ -59,10 +59,8 @@ export class OrderMngComponent implements OnInit{
 			
 		};
 		//订单查询配置
-		this._orderLoader = new ItemLoader<OrderItem>(false, "订单", "op-center.order-mng.order-list.get", restApiCfg, restApi);
-		this._orderLoader.MapFunc = (source:Array<any>, target:Array<OrderItem>)=>{
-			
-		};	
+		this._orderLoader = new ItemLoader<SubInstanceResp>(false, "订单", "op-center.order-mng.order-list.get", restApiCfg, restApi);
+		
 	}
 	ngOnInit(){
 	
