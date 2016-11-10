@@ -19,11 +19,25 @@ export class OrgMngListComponent implements OnInit{
         private service : OrgMngService
         ) { }
 
-    org : Array<Org> = new Array<Org>();
+    @ViewChild('confirm')
+    private confirm : ConfirmComponent;
+    
+    // 机构列表
+    orgs : Array<Org> = new Array<Org>();
+    // 被选中的当前机构
+    org : Org = new Org();
     // 平台数据总页数
     tp:number = 0;
     // 每页显示的数据条数
     pp:number = 10;
+   
+    // confirm 的头部 
+    confirmTitle : string;
+    // confirm 的内容
+    confirmMessage : string;
+    // confirm 的类型 判断是 禁用 启用 删除
+    confirmType : number;
+
     ngOnInit() {
         this.getOrg(0 , this.pp);
     }
@@ -37,10 +51,10 @@ export class OrgMngListComponent implements OnInit{
     getOrg(page : number , size : number){
         this.service.getOrg(page,size).then(
             res => {
-                this.org = res.resultContent;
+                this.orgs = res.resultContent;
                 let pageInfo = res.pageInfo;
                 this.tp = pageInfo.totalPage;
-                console.log(this.org);
+                console.log(this.orgs);
             }
         ).catch(
             err => {
@@ -51,6 +65,27 @@ export class OrgMngListComponent implements OnInit{
 
     paging(page){
         this.getOrg(page, 10);
+    }
+
+    chooseItem(index :number){
+        this.org = this.orgs[index];
+    }
+
+    delete(){
+        if(!this.org){
+            this.confirmTitle = "删除机构";
+            this.confirmMessage = "";
+        }else{
+            console.error('没有对象');
+        }
+    }
+
+    of(){
+        
+    }   
+
+    cf(){
+
     }
 
 
