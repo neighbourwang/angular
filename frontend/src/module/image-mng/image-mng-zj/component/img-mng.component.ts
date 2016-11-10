@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 //import { RADIO_GROUP_DIRECTIVES } from "ng2-radio-group";
-import { LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, SystemDictionary, SystemDictionaryService } from "../../../../architecture";
+import { LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, ValidationService, SystemDictionary, SystemDictionaryService } from "../../../../architecture";
 
 import { Image } from '../model/img-mng.model';
 import {  Area } from '../model/area.model';
@@ -22,6 +22,7 @@ export class ImgMngComponent implements OnInit {
         private layoutService: LayoutService,
         private router: Router,
         private activatedRouter: ActivatedRoute,
+        private validationService: ValidationService,
         private dicService: SystemDictionaryService
     ) {
 
@@ -60,7 +61,7 @@ export class ImgMngComponent implements OnInit {
             })
             .then((dic) => {
                 this.typeDic = dic;
-                return this.dicService.getItems("IMAGES", "BITS");
+                return this.dicService.getItems("IMAGES", "BITS_TYPE");
             })
             .then((dic) => {
                 this.bitDic = dic;
@@ -70,6 +71,11 @@ export class ImgMngComponent implements OnInit {
                 this.ownerDic = dic;
                 this.getImageList();
             });
+    }
+
+    search() {
+        this.pager.render(1);
+        this.getImageList();
     }
 
     getImageList(pageIndex?): void {
@@ -124,6 +130,10 @@ export class ImgMngComponent implements OnInit {
     //更新镜像
     updateImage(image: Image) {
         this.layoutService.show();
+        if (this.validationService.isBlank(this.editImage.name)) {
+            this.showAlert("镜像名称不能为空.");
+            return;
+        }
         this.service.updateImage(this.editImage)
             .then(
             response => {
@@ -131,18 +141,16 @@ export class ImgMngComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {
                     let cimage = this.editImage;
                     image.id = cimage.id;
-                    image.imageName = cimage.imageName;
-                    image.imageType = cimage.imageType;
-                    image.osName = cimage.osName;
-                    image.osDigits = cimage.osDigits;
-                    image.createdDate = cimage.createdDate;
+                    image.name = cimage.name;
+                    image.type = cimage.type;
+                    image.os = cimage.os;
+                    image.bits = cimage.bits;
+                    image.createTime = cimage.createTime;
                     image.status = cimage.status;
                     image.progress = cimage.progress;
-                    image.location = cimage.location;
                     image.description = cimage.description;
                     image.desEditing = false;
                     image.nameEditing = false;
-                    this.layoutService.hide();
                 } else {
                     alert("Res sync error");
                 }
@@ -179,14 +187,14 @@ export class ImgMngComponent implements OnInit {
         this.closeEditPanel();
         let cimage = new Image();
         cimage.id = image.id;
-        cimage.imageName = image.imageName;
-        cimage.imageType = image.imageType;
-        cimage.osName = image.osName;
-        cimage.osDigits = image.osDigits;
-        cimage.createdDate = image.createdDate;
+        cimage.id = image.id;
+        cimage.name = image.name;
+        cimage.type = image.type;
+        cimage.os = image.os;
+        cimage.bits = image.bits;
+        cimage.createTime = image.createTime;
         cimage.status = image.status;
         cimage.progress = image.progress;
-        cimage.location = image.location;
         cimage.description = image.description;
         this.editImage = cimage;
     }
@@ -201,6 +209,16 @@ export class ImgMngComponent implements OnInit {
         }
     }
 
+    resetQueryOpt() {
+        //this.queryOpt.areaList = "";
+        //this.queryOpt.imageName = "";
+        //this.queryOpt.imageOwner = "";
+        //this.queryOpt.os = "";
+        //this.queryOpt.status = "";
+        //this.queryOpt.imageType = "";
+        //this.queryOpt.osAndName = "";
+        this.queryOpt = new CriteriaQuery();
+    }
 
     showAlert(msg: string): void {
         this.layoutService.hide();

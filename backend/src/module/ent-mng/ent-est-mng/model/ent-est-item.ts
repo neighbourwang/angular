@@ -2,6 +2,7 @@ import {Status, CertMethod} from './'
 
 export class EntEstItem{ 
 	id:string = "";	// id
+	enterpriseId: string = "";
 	authMode:CertMethod = CertMethod.Local; //认证方式
 	enterpriseName:string = "";	// 企业（租户）名称
 	usedVMNumber: number = null;	// 云主机数量
