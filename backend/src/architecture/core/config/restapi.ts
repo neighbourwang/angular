@@ -649,4 +649,12 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminui/authsec/enterprises/product/{id} "
     },
+
+    //用户中心
+    {
+        "desc" : "获取所有机构",
+        "id" : "user-center.org-mng.list",
+        "method" : "GET",
+        "url" : "usermgmt/authsec/adm/organizations"
+    }
 ]
