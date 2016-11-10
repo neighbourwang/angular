@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { LayoutService, SystemDictionaryService, ValidationService, SystemDictionary, NoticeComponent, ConfirmComponent, PaginationComponent } from "../../../../architecture";
+import { LayoutService, ValidationService, NoticeComponent, ConfirmComponent, PaginationComponent, SystemDictionary, SystemDictionaryService } from "../../../../architecture";
 
 import { Image_wxl } from "../model/img-mng.model";
 import { ImageArea_wxl } from "../model/area.model";
@@ -16,13 +16,20 @@ import { ImgMngService_wxl } from "../service/img-mng.service";
     providers: []
 })
 export class ImgMngComponent_wxl implements OnInit {
-    pageIndex = 0;
-    tp = 1; //totalPage
+
+    constructor(
+        private service: ImgMngService_wxl,
+        private layoutService: LayoutService,
+        private sysdictService: SystemDictionaryService,
+        private validateService: ValidationService,
+        private router: Router,
+        private activatedRouter: ActivatedRoute
+    ) {
+    }
+
+    pageIndex = 1;
     pageSize = 10;
-
-    totalPages = 0;
-    currPage = 1;
-
+    totalPage = 1;
     noticeTitle = "";
     noticeMsg = "";
 
@@ -36,7 +43,6 @@ export class ImgMngComponent_wxl implements OnInit {
     pager: PaginationComponent;
 
     images: Array<Image_wxl>=[]; //当前的镜像
-
     areas: Array<ImageArea_wxl>=[]; //镜像区域
 
     belongdicts: Array<SystemDictionary>=[];
@@ -48,15 +54,7 @@ export class ImgMngComponent_wxl implements OnInit {
 
     selectedimage: Image_wxl = new Image_wxl(); //当前选中的镜像
 
-    constructor(
-        private service: ImgMngService_wxl,
-        private layoutService: LayoutService,
-        private sysdictService: SystemDictionaryService,
-        private validateService: ValidationService,
-        private router: Router,
-        private activatedRouter: ActivatedRoute
-    ) {
-    }
+
 
     //根据value获取字典的txt
     getDicText(value: string, dic: Array<SystemDictionary>): String {
@@ -110,18 +108,19 @@ export class ImgMngComponent_wxl implements OnInit {
         });
     }
 
-    getImagesList(): void {
+    getImagesList(pageIndex?): void {
+        this.pageIndex = pageIndex || this.pageIndex;
         this.layoutService.show();
-        this.service.getImages(this.imagequery, this.currPage, this.pageSize).then(res => {
+        this.service.getImages(this.imagequery, this.pageIndex, this.pageSize).then(res => {
             if (res.resultCode !== "100") {
                 throw "";
             }
-            this.totalPages = res.pageInfo.totalPage;
+            this.totalPage = res.pageInfo.totalPage;
             return res.resultContent;
         }).then( images => {
             this.images = images;
             console.log(images,"Images!!!");
-            console.log(images.length);            
+            console.log(images.length);
             this.layoutService.hide();
         }).catch(error => {
             this.layoutService.hide();
@@ -131,11 +130,11 @@ export class ImgMngComponent_wxl implements OnInit {
 
     setKeyword(type: string, keyword: string): void {
         if(type == "0"){
-            this.imagequery.imageos = keyword;
-            this.imagequery.imagename = "";
-        } else{
             this.imagequery.imageos = "";
             this.imagequery.imagename = keyword;
+        } else{
+            this.imagequery.imageos = keyword;
+            this.imagequery.imagename = "";
         }
 
     }
