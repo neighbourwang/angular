@@ -122,4 +122,12 @@ export class OrderMngComponent implements OnInit{
 			this.showMsg(err);
 		})
 	}
+
+	onCreateTimeChange($event){
+		this._param.createTime = $event.formatted;
+	}
+
+	onExpireTimeChange($event){
+		this._param.expireTime = $event.formatted;
+	}
 }

@@ -35,19 +35,13 @@
 						<td >
 							<span class="">创建时间：</span>
 							<div class="dropdown left">			
-								<button class="btn btn-default" type="button">
-								2016-08-01						
-								</button>
-								
+								<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
 							</div>
 						</td>
 						<td>
 							<span class="">到期时间：</span>
 							<div class="dropdown left">			
-								<button class="btn btn-default" type="button">
-								2016-08-30						
-								</button>
-								
+								<date-picker (dateChanged)="onExpireTimeChange($event)"></date-picker>
 							</div>
 						</td>
 						<td>

@@ -23,6 +23,7 @@ export class OrderMngComponent implements OnInit{
 	private _orderLoader:ItemLoader<SubInstanceResp> = null;
 
 	private _param:OrderMngParam = new OrderMngParam();
+	private initDate:string = null;
 
 	constructor(
 		private layoutService: LayoutService,
@@ -142,10 +143,10 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	onCreateTimeChange($event){
-		console.log('onCreateTimeChange event', $event);
+		this._param.createTime = $event.formatted;
 	}
 
 	onExpireTimeChange($event){
-		console.log('onExpireTimeChange event', $event);
+		this._param.expireTime = $event.formatted;
 	}
 }
