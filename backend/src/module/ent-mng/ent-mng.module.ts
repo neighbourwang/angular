@@ -5,20 +5,23 @@ import { EntResQuotaMngModule } from './ent-res-quota-mng/ent-res-quota-mng.modu
 import { EntAdminMngModule } from './ent-admin-mng/ent-admin-mng.module';
 import { EntEstMngModule } from './ent-est-mng/ent-est-mng.module'
 import { EntProdMngModule } from './ent-prod-mng/ent-prod-mng.module'
+import { EntLdapMngModule } from './ent-ldap-mng/ent-ldap-mng.module'
 
 @NgModule({
     imports: [
         EntResQuotaMngModule,
         EntAdminMngModule,
         EntEstMngModule,
-        EntProdMngModule
+        EntProdMngModule,
+        EntLdapMngModule
     ],
     declarations: [],
     exports: [
         EntResQuotaMngModule,
         EntAdminMngModule,
         EntEstMngModule,
-        EntProdMngModule
+        EntProdMngModule,
+        EntLdapMngModule
     ],
     providers: []
 })
