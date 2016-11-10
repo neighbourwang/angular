@@ -5,7 +5,7 @@ import { RestApiCfg, RestApi } from "../../../../architecture";
  
 import "rxjs/add/operator/toPromise";
 
-import { imageList } from "../model/images-mock.model";
+import { imageList, AreaList_mock } from "../model/images-mock.model";
 import { Image } from "../model/image.model";
 
 @Injectable()
@@ -52,6 +52,13 @@ export class ImgMngService_my {
         //const api = this.restApiCfg.getRestApi("image.mng.update");
         //return this.restApi.request(api.method, api.url, pathParams, null, image);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return imageList });
+    }
+
+    getAreaList(): Promise<any> {
+
+        //const api = this.restApiCfg.getRestApi("image.mng.update");
+        //return this.restApi.request(api.method, api.url, null, null, image);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return AreaList_mock });
     }
 }
 
