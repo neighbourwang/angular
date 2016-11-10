@@ -26,6 +26,8 @@ export class cartListComponent implements OnInit {
 	modalMessage: string = '';
 	modalOKTitle: string = '';
 
+	fieldname:string = '';
+
 	testArr: Array<any>;
 
 	constructor(
@@ -38,10 +40,7 @@ export class cartListComponent implements OnInit {
 
 		setTimeout(() => {
 			console.log(this)
-			this.testArr = [1,2,3,4,5,5,6,6,6,66,4,4];
 		},5000)
-
-		this.testArr = [1,2,3,4,5];
 
 		// var password = new FormControl('', Validators.required);
 	 //    var certainPassword = new FormControl('');
@@ -54,7 +53,9 @@ export class cartListComponent implements OnInit {
 	 //    });
 		
 	}
-	
+	onDateChanged(event:any) {
+        console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
+    }
 
 	goTo(url : string) {
 		this.router.navigateByUrl(url);
@@ -62,10 +63,6 @@ export class cartListComponent implements OnInit {
 
 	outputValue(e){
 	    console.log(e)
-	}
-
-	onSubmit(e){
-console.log(e)
 	}
 
 	// 警告框相关
