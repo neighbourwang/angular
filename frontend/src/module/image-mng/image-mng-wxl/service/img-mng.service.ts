@@ -48,7 +48,11 @@ export class ImgMngService_wxl {
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Images_wxl});
     }
 
-    updateImage(): void {
+    updateImage(image: Image_wxl): Promise<any> {
+        //const api = this.restApiCfg.getRestApi("image.mng.upate");
+        //return this.restApi.request(api.method, api.url, pathParams, null, null);
+
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Images_wxl});
         
     }
     
