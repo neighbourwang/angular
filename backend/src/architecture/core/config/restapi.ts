@@ -705,7 +705,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "启用/禁用认证源",
         "id": "user-center.attest-mng.ldap.edit.status",
         "method": "PUT",
-        "url": "adminui/authsec/ldap/{id}"
+        "url": "/adminui/authsec/ldap/{id}/status/{status}"
     },
     {
         "desc": "查询AD用户",
@@ -715,8 +715,8 @@ export let RestApis: RestApiModel[] = [
     },
     {
         "desc": "认证源简单列表（下拉框）",
-        "id": "user-center.attest-mng.ldap.adusers.list",
-        "method": "POST",
+        "id": "user-center.attest-mng.ldap.attest.simple.list",
+        "method": "GET",
         "url": "adminui/authsec/ldaps/simple"
     },
     {
@@ -733,7 +733,7 @@ export let RestApis: RestApiModel[] = [
     },
     {
         "desc": "获取企业认证源列表（下拉框）",
-        "id": "ent-mng.enterprise.ldap.adusers.list",
+        "id": "ent-mng.enterprise.ldap.simple.list",
         "method": "GET",
         "url": "/adminui/authsec/enterprise/{enterpriseId}/ldaps/simple"
     },

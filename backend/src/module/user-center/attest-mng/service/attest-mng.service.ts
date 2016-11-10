@@ -141,24 +141,11 @@ export class EntLdapMngService {
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => adusers);
     }
 
-    //查询AD用户
-    getAdusers(attest: Attest, page: number, size: number): Promise<any> {
-        const pathParams = [
-            {
-                key: "id",
-                value: attest.id
-            },
-            {
-                key: "page",
-                value: page
-            },
-            {
-                key: "size",
-                value: size
-            }
-        ];
+    //认证源简单列表（下拉框）
+    getSimpleAttestList(attest: Attest, page: number, size: number): Promise<any> {
+
         //const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.adusers.list");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => adusers);
+        //return this.restApi.request(api.method, api.url, null, null, null);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => attests);
     }
 }
