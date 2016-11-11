@@ -56,16 +56,12 @@ export class OrderMngComponent implements OnInit{
 			target.push(obj);
 
 			obj.orderNo = "1234";
+			obj.purchaseDate = "2016-11-11";
 			let subItem = new SubInstanceItemResp();
 			obj.itemList = [];
 			obj.itemList.push(subItem);
 
 			subItem.quantity = 1;
-
-
-			subItem.billingInfo = new ProductBillingItem();
-			subItem.billingInfo.basePrice = 5;
-			subItem.billingInfo.basicPrice = 6;
 
 			subItem.specList = [];
 			let spec = new SubInstanceAttrPair();
@@ -74,6 +70,18 @@ export class OrderMngComponent implements OnInit{
 			spec.attrDisplayValue = "东1区";
 
 
+			subItem.billingInfo = new ProductBillingItem();
+			subItem.billingInfo.basePrice = 5;
+			subItem.billingInfo.basicPrice = 6;
+			
+			subItem.period = 1;
+			subItem.quantity = 1;
+			subItem.serviceType = '云主机';
+			subItem.statusName = '成功';
+			subItem.createDate = '2016-11-11';
+			subItem.expireDate = '2017-11-11';
+
+				
 		};
 	}
 	ngOnInit(){
