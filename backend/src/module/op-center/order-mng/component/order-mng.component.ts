@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
-import { SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import { SubInstanceAttrPair, ProductBillingItem, SubInstanceResp, SubInstanceItemResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 
 
 @Component({
@@ -51,6 +51,30 @@ export class OrderMngComponent implements OnInit{
 
 		//配置订单加载
 		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
+		this._orderLoader.FakeDataFunc = (target:Array<SubInstanceResp>)=>{
+			let obj = new SubInstanceResp();
+			target.push(obj);
+
+			obj.orderNo = "1234";
+			let subItem = new SubInstanceItemResp();
+			obj.itemList = [];
+			obj.itemList.push(subItem);
+
+			subItem.quantity = 1;
+
+
+			subItem.billingInfo = new ProductBillingItem();
+			subItem.billingInfo.basePrice = 5;
+			subItem.billingInfo.basicPrice = 6;
+
+			subItem.specList = [];
+			let spec = new SubInstanceAttrPair();
+			subItem.specList.push(spec);
+			spec.attrDisplayName = "区域";
+			spec.attrDisplayValue = "东1区";
+
+
+		};
 	}
 	ngOnInit(){
 		this._orderStatus.Go()
@@ -70,12 +94,12 @@ export class OrderMngComponent implements OnInit{
 		// 	this.showMsg(err);
 		// })
 
-		this.loadPlatform()
-		.then(success=>{
-			this.loadSubregion();
-		}, err=>{
-			this.showMsg(err);
-		});
+		// this.loadPlatform()
+		// .then(success=>{
+		// 	this.loadSubregion();
+		// }, err=>{
+		// 	this.showMsg(err);
+		// });
 	}
 
 	loadAdmin():Promise<any>{

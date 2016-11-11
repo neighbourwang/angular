@@ -687,6 +687,13 @@ export let RestApis: RestApiModel[] = [
         "method" : "GET",
         "url" : "basis/authsec/adm/roles/page/{page}/size/{size}"
     },
+    //个人账户管理
+    {
+        "desc": "获取当前登录账户信息",
+        "id": "user-center.person-acc.mng",
+        "method": "GET",
+        "url": "basis/authsec/adm/user/current"
+    },
 
     //认证管理
     {

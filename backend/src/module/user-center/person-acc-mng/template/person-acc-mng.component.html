@@ -7,7 +7,7 @@
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title">姓名：</div>
 						<div class="col-sm-4">
-							<input type="text" class="form-control font-gray" disabled [(ngModel)]="product">
+							<input type="text" class="form-control font-gray" [disabled]="!edit" [(ngModel)]="personAcc.userName">
 						</div>
 					</div>
 				</div>
@@ -15,7 +15,7 @@
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title">账号：</div>
 						<div class="col-sm-4">
-							<input type="text" class="form-control font-gray" disabled [(ngModel)]="product">
+							<input type="text" class="form-control font-gray" [disabled]="!edit" [(ngModel)]="personAcc.loginName">
 						</div>
 					</div>
 				</div>
@@ -23,7 +23,7 @@
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title">联系电话：</div>
 						<div class="col-sm-4">
-							<input type="text" class="form-control font-gray" disabled [(ngModel)]="product">
+							<input type="text" class="form-control font-gray" [disabled]="!edit" [(ngModel)]="personAcc.phone">
 						</div>
 					</div>
 				</div>
@@ -39,14 +39,14 @@
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title">描述：</div>
 						<div class="col-sm-4">
-							<textarea class="form-control font-gray" rows="4" placeholder="描述" disabled [(ngModel)]="product"></textarea>
+							<textarea class="form-control font-gray" rows="4" placeholder="描述" [disabled]="!edit" [(ngModel)]="personAcc.description"></textarea>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="text-center">
+	<div class="text-center" *ngIf="!edit">
 		<button class="fox-cloud-button-lg fox-cloud-button-white mgr20" (click)="onEdit();">
             <span class="icon-button-label">编辑</span>
         </button>
@@ -54,6 +54,14 @@
             <span class="icon-button-label">修改密码</span>
         </button>
 	</div>
+	 <div class="text-center" *ngIf="edit">
+	    <button class="fox-cloud-button-lg fox-cloud-button-white mgr20" (click)="cancel();">
+            <span class="icon-button-label">取消 </span>
+        </button>
+    	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();">
+            <span class="icon-button-label">保存</span>
+        </button>
+    </div>
 	<fc-popup #editPassWord title="{{title}}" ot="保存" (of)="otEditPwd()" ct="取消" (cf)="ccf()">
 		<div class="page-content">
 			<div class="row" style="padding-top: 10px;">
