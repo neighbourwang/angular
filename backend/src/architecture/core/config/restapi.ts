@@ -649,4 +649,140 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminui/authsec/enterprises/product/{id} "
     },
+
+    //用户中心
+    {
+        "desc" : "获取所有机构",
+        "id" : "user-center.org-mng.list",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/organizations/page/{page}/size/{size}"
+    },
+    {
+        "desc" : "删除机构",
+        "id" : "user-center.org-mng.delete",
+        "method" : "DELETE",
+        "url" : "basis/authsec/adm/organization/{id}"
+    },
+    {
+        "desc" : "启用机构",
+        "id" : "user-center.org-mng.enable",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/organization/{id}/enable"
+    },
+    {
+        "desc" : "禁用机构",
+        "id" : "user-center.org-mng.disable",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/organization/{id}/disable"
+    },
+    {
+        "desc" : "获取所有账户",
+        "id" : "user-center.account-mng.list",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/users"
+    },
+    {
+        "desc" : "获取所有角色",
+        "id" : "user-center.role-mng.list",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/roles/page/{page}/size/{size}"
+    },
+    //个人账户管理
+    {
+        "desc": "获取当前登录账户信息",
+        "id": "user-center.person-acc.mng",
+        "method": "GET",
+        "url": "basis/authsec/adm/user/current"
+    },
+    {
+        "desc" : "编辑账户本地",
+        "id" : "user-center.account-mng.edit",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/user/{id}"
+    },
+    {
+        "desc" : "更改账户密码",
+        "id" : "user-center.account-mng-pwd.edit",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/user/password/modify"
+    },
+    //认证管理
+    {
+        "desc": "获取认证源列表",
+        "id": "user-center.attest-mng.list",
+        "method": "GET",
+        "url": "adminui/authsec/ldaps/page/{page}/size/{size}"
+    },
+    {
+        "desc": "认证源测试",
+        "id": "user-center.attest-mng.ldap.test",
+        "method": "POST",
+        "url": "adminui/authsec/ldap/test"
+    },
+    {
+        "desc": "创建认证源",
+        "id": "user-center.attest-mng.ldap.create",
+        "method": "POST",
+        "url": "adminui/authsec/ldap"
+    },
+    {
+        "desc": "获取认证源详情",
+        "id": "user-center.attest-mng.ldap.get",
+        "method": "GET",
+        "url": "adminui/authsec/ldap/{id}"
+    },
+    {
+        "desc": "编辑认证源",
+        "id": "user-center.attest-mng.ldap.edit",
+        "method": "PUT",
+        "url": "adminui/authsec/ldap/{id}"
+    },
+    {
+        "desc": "修改认证帐户",
+        "id": "user-center.attest-mng.ldap.editacc",
+        "method": "PUT",
+        "url": "adminui/authsec/ldap/{id}/account"
+    },
+    {
+        "desc": "删除认证源",
+        "id": "user-center.attest-mng.ldap.delete",
+        "method": "DELETE",
+        "url": "adminui/authsec/ldap/{id}"
+    },
+    {
+        "desc": "启用/禁用认证源",
+        "id": "user-center.attest-mng.ldap.edit.status",
+        "method": "PUT",
+        "url": "/adminui/authsec/ldap/{id}/status/{status}"
+    },
+    {
+        "desc": "查询AD用户",
+        "id": "user-center.attest-mng.ldap.adusers.list",
+        "method": "POST",
+        "url": "adminui/authsec/ldap/{id}/adusers/page/{page}/size/{size}"
+    },
+    {
+        "desc": "认证源简单列表（下拉框）",
+        "id": "user-center.attest-mng.ldap.attest.simple.list",
+        "method": "GET",
+        "url": "adminui/authsec/ldaps/simple"
+    },
+    {
+        "desc": "创建企业认证源",
+        "id": "ent-mng.enterprise.ldap.create",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/{enterpriseId}/ldap"
+    },
+    {
+        "desc": "获取企业认证源列表",
+        "id": "ent-mng.enterprise.ldap.list",
+        "method": "GET",
+        "url": "/adminui/authsec/enterprise/{enterpriseId}/ldaps/page/{page}/size/{size}"
+    },
+    {
+        "desc": "获取企业认证源列表（下拉框）",
+        "id": "ent-mng.enterprise.ldap.simple.list",
+        "method": "GET",
+        "url": "/adminui/authsec/enterprise/{enterpriseId}/ldaps/simple"
+    },
 ]

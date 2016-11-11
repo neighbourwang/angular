@@ -97,28 +97,59 @@ export let RestApis: RestApiModel[] = [
         "url": "NONE"        
     }
     ,{
-        "desc": "产品类型获取",
-        "method": "GET",
-        "id": "op-center.order-mng.product-type.get",
-        "url": "NONE"        
-    }
-    ,{
         "desc": "区域获取",
         "method": "GET",
         "id": "op-center.order-mng.platform-list.get",
-        "url": "NONE"        
+        "url": "/marketplace/authsec/platforms/status/activation"        
     }
     ,{
         "desc": "可用区获取",
         "method": "GET",
         "id": "op-center.order-mng.region-list.get",
-        "url": "NONE"        
+        "url": "marketplace/authsec/platform/{_id}/zone"        
     }
     ,{
-        "desc": "订单查询",
-        "method": "GET",
+        "desc": "订单列表查询",
+        "method": "POST",
         "id": "op-center.order-mng.order-list.get",
-        "url": "NONE"        
+        "url": "marketplace/authsec/subscription/instances/search/paging"        
     }
+    ,{
+        "desc": "订单详情查询",
+        "method": "GET",
+        "id": "op-center.order-mng.order-detail.get",
+        "url": "NONE"        
+    },{
+        "desc": "订单退订",
+        "method": "GET",
+        "id": "op-center.order-mng.order-cancel.get",
+        "url": " marketplace/authsec/subscription/instance/{_subId}/cancel"        
+    },{
+        "desc": "订单续订",
+        "method": "GET",
+        "id": "op-center.order-mng.order-renew.get",
+        "url": "marketplace/authsec/subscription/instance/{_subId}/renew"        
+    },
     //费用中心-订单管理-->
+
+    //用户中心
+    //个人账户管理
+    {
+        "desc": "获取当前登录账户信息",
+        "id": "user-center.person-acc.mng",
+        "method": "GET",
+        "url": "basis/authsec/mpp/user/current"
+    },
+    {
+        "desc" : "编辑账户本地",
+        "id" : "user-center.account-mng.edit",
+        "method" : "PUT",
+        "url" : "basis/authsec/mpp/user/{id}"
+    },
+    {
+        "desc" : "更改账户密码",
+        "id" : "user-center.account-mng-pwd.edit",
+        "method" : "PUT",
+        "url" : "basis/authsec/mpp/user/password/modify"
+    },
 ]

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
+import { ItemLoader, RestApi, RestApiCfg, LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 import { OrderDetailItem } from '../model';
 
 @Component({
@@ -11,7 +11,6 @@ import { OrderDetailItem } from '../model';
   providers: []
 }) 
 export class OrderMngDetailComponent implements OnInit {
-  
 
   constructor(
     private layoutService: LayoutService,

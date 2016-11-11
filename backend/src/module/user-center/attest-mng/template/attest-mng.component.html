@@ -8,15 +8,14 @@
                 <span class="caret"></span>
             </button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-				<!--<li><a href="#">修改</a></li>-->
 				<li><a (click)="onEdit();">编辑</a></li>
 				<li><a (click)="onEditAcc();">修改认证账户</a></li>				
-				<li><a (click)="action('publish');">启用</a></li>                
-				<li><a (click)="action('ccPublish');">禁用</a></li>
-				<li><a (click)="action('delete');">删除</a></li>
+				<li><a (click)="updateStatus('1');">启用</a></li>                
+				<li><a (click)="updateStatus('3');">禁用</a></li>
+				<li><a (click)="onDelete('delete');">删除</a></li>
 			</ul>
 		</div>		
-		<button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
+		<button class="fox-cloud-button fox-cloud-button-green" (click)="onCreate();">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">创建认证源</span>
         </button>
@@ -25,7 +24,7 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th >选择</th>
+				    <th >选择</th>
 					<th>认证源名称</th>
 					<th>URL地址</th>
 					<th>认证类型</th>
@@ -34,54 +33,20 @@
 				</tr>
 			</thead>
 			 <tbody>
-            <tr>
-                <td><input class="fox-cloud-radio" type="radio" name="isSelected"/></td>
-                <td>东区</td>
-				<td>idap://xxxxx.com</td>
+            <tr *ngFor="let attest of attests;">
+                <td>
+                    <input type="radio" class="fox-cloud-radio" name="group-admin" [checked]="attest.isSelect" (change)="attest.isSelect = $event.target.checked" />
+                </td>
+                <td>attest.name</td>
+				<td>attest.url</td>
 				<td>AD</td>
-				<td>启用</td>
-				<td>一级管理员</td>
+				<td>{{getDicText(attest.status,statusDic)}}</td>
+				<td>attest.desc</td>
             </tr>
-			<tr>
-                <td><input class="fox-cloud-radio" type="radio" name="isSelected"/></td>
-                <td>西区</td>
-				<td>idap://xxxxx.com</td>
-				<td>AD</td>
-				<td>启用</td>
-				<td>一级管理员</td>
-            </tr>
-			<tr>
-                <td><input class="fox-cloud-radio" type="radio" name="isSelected"/></td>
-                <td>南区</td>
-				<td>idap://xxxxx.com</td>
-				<td>AD</td>
-				<td>启用</td>
-				<td>一级管理员</td>
-            </tr>
-			 </tbody>
-			<!--<tbody>
-				<tr *ngFor="let item of prodDirList; let idx = index;">
-					<td><input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)"
-						/></td>
-					<td (click)="goDetail(item)" style="cursor: pointer">{{item.serviceName}}</td>
-					<td>{{item.serviceTemplateName}}</td>
-					<td>{{item.specification}}</td>
-					<td>
-						<span [ngSwitch]="item.status">
-                            <template [ngSwitchCase]="1">已发布</template>
-                            <template [ngSwitchCase]="3">未发布</template>
-                            <template ngSwitchDefault>Unknown</template>
-                        </span>
-					</td>
-					<td>{{item.description}}</td>
-				</tr>
-			</tbody>-->
 		</table>
 	</div>
 </div>
-<fc-pagination #pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
-<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
-
-<fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="deleteCof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-confirm #publishConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="publishCof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-confirm #ccPublishConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="ccPublishCof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-pagination #pager tp={{totalPage}} (pf)="paging($event)"></fc-pagination>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"  ></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"  ></fc-confirm>
+ 
