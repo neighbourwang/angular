@@ -6,21 +6,21 @@ import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
 
 import 'rxjs/add/operator/toPromise';
 
-//model
-import { PersonAcc } from '../model/person-acc.model';
+// //model
+// import { PersonAcc } from '../model/person-acc.model';
 
 @Injectable()
-export class GetPersonAcc {
+export class GetPersonAccService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
         private restApi: RestApi
     ) { }
 
-    // 查看产品
+    // 获取当前登录账户信息
     getPersonAcc() {
-        let api = this.restApiCfg.getRestApi("prod-mng.prod-mng.detail");
+        let api = this.restApiCfg.getRestApi("user-center.person-acc.mng");
 
-        return this.restApi.request(api.method, api.url, [], undefined);
+        return this.restApi.request(api.method, api.url, undefined, undefined);
     }
 }

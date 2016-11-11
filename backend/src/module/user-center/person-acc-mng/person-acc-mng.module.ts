@@ -15,6 +15,7 @@ import { PersonAccMngRouting } from './person-acc-mng.routing';
 
 
 //Service
+import { GetPersonAccService } from './service/person-acc-get.service';
 
 @NgModule({
     imports: [
@@ -30,7 +31,7 @@ import { PersonAccMngRouting } from './person-acc-mng.routing';
         PersonAccEditComponent
     ],
     providers: [
-       
+        GetPersonAccService
     ]
 
 })
