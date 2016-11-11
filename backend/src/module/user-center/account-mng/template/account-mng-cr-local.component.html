@@ -70,23 +70,8 @@
 
                         <div class="btn-group">
                             <div class="btn-group float-left" data-toggle="buttons">
-                                <label class="btn btn-default active">
-                                    <input type="checkbox" name="mirror" autocomplete="off" checked=""> 一级管理员
-                                </label>
-                                <label class="btn btn-default">
-                                    <input type="checkbox" name="mirror" autocomplete="off"> 二级管理员
-                                </label>
-                                <label class="btn btn-default">
-                                    <input type="checkbox" name="mirror" autocomplete="off"> 一级操作员
-                                </label>
-                                <label class="btn btn-default">
-                                    <input type="checkbox" name="mirror" autocomplete="off"> 二级操作员
-                                </label>
-                                <label class="btn btn-default">
-                                    <input type="checkbox" name="mirror" autocomplete="off"> 审批员
-                                </label>
-                                <label class="btn btn-default">
-                                    <input type="checkbox" name="mirror" autocomplete="off"> 观察员
+                                <label class="btn btn-default" *ngFor="let item of role" style="margin-bottom : 5px ">
+                                    <input type="checkbox" name="mirror" autocomplete="off" checked=""> {{item.name}}
                                 </label>
                             </div>
                         </div>
@@ -99,59 +84,17 @@
                     <div class="col-sm-4 form-control-title">
                         绑定机构
                     </div>
-                    <div class="col-sm-6">
-
-                        <div class="btn-group">
-                            <div class="btn-group float-left" data-toggle="buttons">
-                                <label class="btn btn-default active">
-                                    <input type="radio" name="mirror" autocomplete="off" checked=""> 平台管理
-                                </label>
-                                <label class="btn btn-default">
-                                    <input type="radio" name="mirror" autocomplete="off"> 销售部
-                                </label>
-                                <label class="btn btn-default">
-                                    <input type="radio" name="mirror" autocomplete="off"> 研发部
-                                </label>
-                                <label class="btn btn-default">
-                                    <input type="radio" name="mirror" autocomplete="off"> 运维部
-                                </label>
-                                <label class="btn btn-default">
-                                    <input type="radio" name="mirror" autocomplete="off"> 后勤部门
-                                </label>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="row row-line-height">
-                <div class="form-group">
-                    <div class="col-sm-4 form-control-title">
-                    </div>
                     <div class="col-sm-5">
                         <div class="btn-group">
                             <div class="btn-group float-left" data-toggle="buttons">
-                                <label class="btn btn-default active">
-                                    <input type="radio" name="mirror" autocomplete="off" checked=""> 部门1
-                                </label>
-                                <label class="btn btn-default">
-                                    <input type="radio" name="mirror" autocomplete="off"> 部门2
-                                </label>
-                                <label class="btn btn-default">
-                                    <input type="radio" name="mirror" autocomplete="off"> 部门3
-                                </label>
-                                <label class="btn btn-default">
-                                    <input type="radio" name="mirror" autocomplete="off"> 部门4
-                                </label>
-                                <label class="btn btn-default">
-                                    <input type="radio" name="mirror" autocomplete="off"> 部门5
+                                <label class="btn btn-default" *ngFor="let item of org"  style="margin-bottom : 5px ">
+                                    <input type="radio" name="mirror" autocomplete="off" checked=""> {{item.name}}
                                 </label>
                             </div>
                         </div>
                     </div>
                     <div class="col-ms-1">
-                        <button class="fox-cloud-button-md fox-cloud-button-white" style="margin-top:5px">更多>>></button>
+                        <button class="fox-cloud-button-md fox-cloud-button-white" style="margin-top:5px" (click)="loadModeOrg()">更多>>></button>
                     </div>
                 </div>
             </div>
