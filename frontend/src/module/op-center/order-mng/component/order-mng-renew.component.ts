@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
+import { ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
 import { AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 
 
@@ -11,8 +11,11 @@ import { AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderM
 	providers: []}
 	)
 export class OrderMngRenewComponent implements OnInit{
+	@ViewChild("notice")
+  	private _notice: NoticeComponent;
 
-	private _param:OrderMngParam = new OrderMngParam();
+	private _renew:ItemLoader<any> = null;
+	private _orderId:string = null;
 
 	constructor(
 		private layoutService: LayoutService,
@@ -20,22 +23,28 @@ export class OrderMngRenewComponent implements OnInit{
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
 
-		
+		this._renew = new ItemLoader<any>(false, "续订", "op-center.order-mng.order-renew.get", restApiCfg, restApi);
 
 	}
 	ngOnInit(){
 	
 	}
 
+	showMsg(msg: string)
+	{
+		this._notice.open("系统提示", msg);
+	}
+
 	renew(){
-		/*
-{
-        "desc": "订单续订",
-        "method": "GET",
-        "id": "op-center.order-mng.order-renew.get",
-        "url": "/marketplace/authsec/subscription/instance/{_subId}/renew"        
-    }
-		*/
+		this.layoutService.show();
+		this._renew.Go(null, [{key:"_subId", value:this._orderId}])
+		.then(success=>{
+			this.layoutService.hide();
+		})
+		.catch(err=>{
+			this.layoutService.hide();
+			this.showMsg(err);
+		})
 	}
 	
 }

@@ -82,6 +82,7 @@ export class OrderMngComponent implements OnInit{
 			this.layoutService.hide();
 			this.showMsg(err);
 		});
+
 	}
 	
 	showDetail(){
@@ -113,7 +114,7 @@ export class OrderMngComponent implements OnInit{
 
 	onPlatformChanged(){
 		this.layoutService.show();
-		this._regionLoader.Go(null, [{key:"_id", value:this._param.serviceId}])
+		this._regionLoader.Go(null, [{key:"_id", value:this._param.region}])
 		.then(success=>{
 			this.layoutService.hide();
 		})
