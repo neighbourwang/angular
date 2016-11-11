@@ -8,7 +8,7 @@ import { adusers, attestDetail, attests } from "../model/attest-mock";
 import "rxjs/add/operator/toPromise";
 
 @Injectable()
-export class EntLdapMngService {
+export class AttMngService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,

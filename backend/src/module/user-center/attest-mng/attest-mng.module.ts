@@ -15,6 +15,7 @@ import { AttestMngRouting } from './attest-mng.routing';
 
 
 //Service
+import { AttMngService} from "./service/attest-mng.service";
 
 @NgModule({
     imports: [
@@ -30,7 +31,7 @@ import { AttestMngRouting } from './attest-mng.routing';
         AttestSourceCreComponent
     ],
     providers: [
-       
+        AttMngService
     ]
 
 })
