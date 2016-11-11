@@ -21,9 +21,7 @@ export class EntEstCheckComponent implements OnInit {
   private dic:SystemDictionary[];
    private resourceQuotaSvg : ItemLoader<EntEstCreResourceQuota>;
 
-  //统计图
-  private percentage : string = '80%';
-  private stroke : string;
+
   //[ngStyle]="{'stroke-dashoffset': '75.0401';'stroke-dasharray': 282.783;}"
 
 

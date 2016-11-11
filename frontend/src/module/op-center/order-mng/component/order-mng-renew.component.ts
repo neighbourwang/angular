@@ -26,5 +26,16 @@ export class OrderMngRenewComponent implements OnInit{
 	ngOnInit(){
 	
 	}
+
+	renew(){
+		/*
+{
+        "desc": "订单续订",
+        "method": "GET",
+        "id": "op-center.order-mng.order-renew.get",
+        "url": "/marketplace/authsec/subscription/instance/{_subId}/renew"        
+    }
+		*/
+	}
 	
 }

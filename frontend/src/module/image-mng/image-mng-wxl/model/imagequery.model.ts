@@ -1,7 +1,7 @@
 export class ImageQuery_wxl {
     imagearea: string = ""; //区域列表
     imagebelong: string = ""; //镜像归属
-    nameOros: string = ""; //镜像名称or镜像操作系统
+    //nameOros: string = ""; //镜像名称or镜像操作系统
     str: string = "";
     imagename: string = ""; //镜像名称
     imageos: string = ""; //镜像操作系统

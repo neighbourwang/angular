@@ -184,13 +184,8 @@
         </tbody>
     </table>
 
-    <div class="col-md-12">
-        <p *ngIf="images && images.length > 3">there are too many images!!!</p>
-    </div>
-
-
         <div class="fox-cloud-pagination-container">
-            <fc-pagination #pager tp={{totalPage}} (pf)="getImageList($event)"></fc-pagination>
+            <fc-pagination #pager tp={{totalPage}} (pf)="getImagesList($event)"></fc-pagination>
         </div>
 
             {{ imagequery.toString() }}
@@ -201,12 +196,3 @@
     </div>
 
 </div>
-
-<!--
-            {{ imagequery.toString() }}
-<script>
-    $(function () {
-        $("[data-toggle='popover']").popover();
-    });
-</script>
--->
