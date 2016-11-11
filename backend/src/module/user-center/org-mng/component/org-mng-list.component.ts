@@ -64,7 +64,7 @@ export class OrgMngListComponent implements OnInit{
     }
 
     paging(page){
-        this.getOrg(page-1, 10);
+        this.getOrg(page, 10);
     }
 
     chooseItem(index :number){
@@ -72,20 +72,91 @@ export class OrgMngListComponent implements OnInit{
     }
 
     delete(){
-        if(!this.org){
+        if(this.org){
             this.confirmTitle = "删除机构";
-            this.confirmMessage = "";
+            this.confirmMessage = "您选择删除"+this.org.name+"，请确认。如果确认，机构将被删除且该机构中的用户将被移除";
+            this.confirmType = 3;
+            this.confirm.open(this.confirmTitle , this.confirmMessage);
+
+        }else{
+            console.error('没有对象');
+        }
+    }
+
+    enable(){
+        if(this.org){
+            this.confirmTitle = "启用机构";
+            this.confirmMessage = "您选择启用"+this.org.name+"，请确认";
+            this.confirmType = 1;
+            this.confirm.open(this.confirmTitle , this.confirmMessage);
+
+        }else{
+            console.error('没有对象');
+        }
+    }
+
+    disable(){
+        if(this.org){
+            this.confirmTitle = "禁用机构";
+            this.confirmMessage = "您选择禁用 '"+this.org.name+"'，请确认。如果确认，机构内成员将无法操作相关资源";
+            this.confirmType = 2;
+            this.confirm.open(this.confirmTitle , this.confirmMessage);
         }else{
             console.error('没有对象');
         }
     }
 
     of(){
-
+        switch(this.confirmType){
+            case 3 : 
+                this.deleteOrg();
+                break;
+            case 1 : 
+                this.enableOrg();
+                break;
+            case 2 :
+                this.disableOrg();
+        }
     }   
 
     cf(){
 
+    }
+
+    deleteOrg (){
+        this.service.deleteOrg(this.org.id).then(
+            res => {
+                console.log(res);
+            }
+        ).catch(
+            err => {
+                console.error(err);
+            }
+        )
+    }
+
+    enableOrg (){
+        this.service.enableOrg(this.org.id).then(
+            res => {
+                console.log(res);
+            }
+        ).catch(
+            err => {
+                console.error(err);
+            }
+        )
+    }
+
+    disableOrg(){
+        this.service.disableOrg(this.org.id).then(
+            res => {
+                console.log(res);
+            }
+        ).catch(
+            err => {
+                console.error(err);
+            }
+        )
     }
 
 

@@ -655,7 +655,37 @@ export let RestApis: RestApiModel[] = [
         "desc" : "获取所有机构",
         "id" : "user-center.org-mng.list",
         "method" : "GET",
-        "url" : "usermgmt/authsec/adm/organizations"
+        "url" : "basis/authsec/adm/organizations/page/{page}/size/{size}"
+    },
+    {
+        "desc" : "删除机构",
+        "id" : "user-center.org-mng.delete",
+        "method" : "DELETE",
+        "url" : "basis/authsec/adm/organization/{id}"
+    },
+    {
+        "desc" : "启用机构",
+        "id" : "user-center.org-mng.enable",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/organization/{id}/enable"
+    },
+    {
+        "desc" : "禁用机构",
+        "id" : "user-center.org-mng.disable",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/organization/{id}/disable"
+    },
+    {
+        "desc" : "获取所有账户",
+        "id" : "user-center.account-mng.list",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/users"
+    },
+    {
+        "desc" : "获取所有角色",
+        "id" : "user-center.role-mng.list",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/roles/page/{page}/size/{size}"
     },
 
     //认证管理

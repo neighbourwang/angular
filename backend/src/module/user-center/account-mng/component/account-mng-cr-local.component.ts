@@ -41,6 +41,25 @@ export class AccountMngCrLocal implements OnInit{
                 this.isCreate = true;
                 this.title = '创建帐号';
                 this.btnTitle = '创建';
+
+                this.service.getRole()
+                .then(
+                    res => {
+                        return res;
+                    }
+                )
+                .then(
+                    role => {
+                        return this.service.getOrg().then(org => {
+                            console.log('role',role);
+                            console.log('org',org)
+                        })
+                    }
+                ).catch(
+                    err => {
+                        console.error(err);
+                    }
+                )
             }
         });
     }
