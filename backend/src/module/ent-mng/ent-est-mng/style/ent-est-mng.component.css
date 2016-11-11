@@ -74,7 +74,7 @@
     text-align: left!important;
 }
 .mgl100{
-  margin-left:100px;
+  margin-left:50px;
 }
 /*--------------radio单选框----------------*/
 .radio_:checked + label::after {
@@ -316,7 +316,7 @@
 
 }
 .input-control{
-    width: 300px;
+    width: 250px;
     display: inline-block;
     margin-right: 10px;
 }
