@@ -7,6 +7,7 @@ import { imageList } from "../model/images-mock.model"
 import { Image } from "../model/image.model"
 import { Area } from '../model/area.model';
 import { ImgMngService_my } from "../service/img-mng.service"
+import { CriteriaQuery } from '../model/criteria-query.model';
 
 @Component({
     selector: "img-mng",
@@ -48,6 +49,8 @@ export class ImgMngComponent_my implements OnInit {
     ownerDic: Array<SystemDictionary>;
     statusDic: Array<SystemDictionary>;
     bitDic: Array<SystemDictionary>;
+
+    queryOpt: CriteriaQuery = new CriteriaQuery();
     ngOnInit() {
         this.getAreaList();
         this.getImages();
@@ -60,7 +63,7 @@ export class ImgMngComponent_my implements OnInit {
         .then(
             (dic)=>{
                 this.typeDic = dic;
-                return this.dicService.getItems("IMAGES","BITS");
+                return this.dicService.getItems("IMAGES","BITS_TYPE");
         })
         .then(
             (dic)=>{
