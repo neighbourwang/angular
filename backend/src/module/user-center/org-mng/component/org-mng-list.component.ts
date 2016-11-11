@@ -64,7 +64,7 @@ export class OrgMngListComponent implements OnInit{
     }
 
     paging(page){
-        this.getOrg(page, 10);
+        this.getOrg(page-1, 10);
     }
 
     chooseItem(index :number){
@@ -81,7 +81,7 @@ export class OrgMngListComponent implements OnInit{
     }
 
     of(){
-        
+
     }   
 
     cf(){
