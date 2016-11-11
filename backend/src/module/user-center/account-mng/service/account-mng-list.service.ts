@@ -13,12 +13,12 @@ export class AccountMngService {
 
 
     // 获取组织管理 所有机构
-    // getOrg(page: number, size: number) {
+    getOrg(page: number, size: number) {
 
-    //     let api = this.restApiCfg.getRestApi("user-center.org-mng.list");
+        let api = this.restApiCfg.getRestApi("user-center.org-mng.list");
 
-    //     return this.restApi.request(api.method, api.url,[{ key: "page", value: page }, { key: "size", value: size }], undefined);
-    // }
+        return this.restApi.request(api.method, api.url,[{ key: "page", value: page }, { key: "size", value: size }], undefined);
+    }
 
     // 获取所有账户
     getAccount (page : number , size : number){
@@ -38,17 +38,7 @@ export class AccountMngService {
         )
     }
 
-    //获取 所有机构
-    getOrg() :  Promise<any>{
-        let api = this.restApiCfg.getDataRestApi("user-center.org-mng.list");
-
-        return this.restApi.request(api.method , api.url ,[{key : "page" , value : 0},{key : "size" , value : 999999}],undefined ) .then(
-            res => {
-                return Promise.resolve(res);
-            }
-        )
-
-    }
+    
 
 
 
