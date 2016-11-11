@@ -6,8 +6,11 @@ import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
 
 import 'rxjs/add/operator/toPromise';
 
+// //model
+// import { PersonAcc } from '../model/person-acc.model';
+
 @Injectable()
-export class EditPersonAccPwdService {
+export class GetPersonAccService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
@@ -15,9 +18,9 @@ export class EditPersonAccPwdService {
     ) { }
 
     // 获取当前登录账户信息
-    putPersonAccPwd(data:any) {
-        let api = this.restApiCfg.getRestApi("user-center.account-mng-pwd.edit");
+    getPersonAcc() {
+        let api = this.restApiCfg.getRestApi("user-center.person-acc.mng");
 
-        return this.restApi.request(api.method, api.url, undefined, undefined,data);
+        return this.restApi.request(api.method, api.url, undefined, undefined);
     }
 }

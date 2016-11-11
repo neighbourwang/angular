@@ -129,6 +129,27 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "id": "op-center.order-mng.order-renew.get",
         "url": "marketplace/authsec/subscription/instance/{_subId}/renew"        
-    }
+    },
     //费用中心-订单管理-->
+
+    //用户中心
+    //个人账户管理
+    {
+        "desc": "获取当前登录账户信息",
+        "id": "user-center.person-acc.mng",
+        "method": "GET",
+        "url": "basis/authsec/mpp/user/current"
+    },
+    {
+        "desc" : "编辑账户本地",
+        "id" : "user-center.account-mng.edit",
+        "method" : "PUT",
+        "url" : "basis/authsec/mpp/user/{id}"
+    },
+    {
+        "desc" : "更改账户密码",
+        "id" : "user-center.account-mng-pwd.edit",
+        "method" : "PUT",
+        "url" : "basis/authsec/mpp/user/password/modify"
+    },
 ]

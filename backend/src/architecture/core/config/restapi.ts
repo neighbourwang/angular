@@ -694,7 +694,18 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "basis/authsec/adm/user/current"
     },
-
+    {
+        "desc" : "编辑账户本地",
+        "id" : "user-center.account-mng.edit",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/user/{id}"
+    },
+    {
+        "desc" : "更改账户密码",
+        "id" : "user-center.account-mng-pwd.edit",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/user/password/modify"
+    },
     //认证管理
     {
         "desc": "获取认证源列表",
