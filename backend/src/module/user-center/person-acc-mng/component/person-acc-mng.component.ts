@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 
 import { LayoutService, ValidationService,PopupComponent } from '../../../../architecture';
 
+//model
+import { PersonAcc } from '../model/person-acc.model';
+
 @Component({
     selector: 'person-acc-mng',
     templateUrl: '../template/person-acc-mng.component.html',
@@ -22,16 +25,15 @@ export class PersonAccMngComponent implements OnInit {
     editPassWord: PopupComponent;
     // @ViewChild('notice')
     // notice: NoticeComponent;
-
-    // enterpriseList = new Array();
-    // prodDirList = new Array();
-    // prodDir = new ProductDir();
-    // prodDirId:string;
-    // product=new Product();   
-    ngOnInit() {}
+    personAcc:PersonAcc;
+    edit:boolean;   
+    ngOnInit() {
+        this.edit=false;
+    }
     //编辑账号
     onEdit(){
-        this.router.navigate(['user-center/person-acc-mng/person-acc-edit'])
+        this.edit=true;
+        // this.router.navigate(['user-center/person-acc-mng/person-acc-edit'])
     }
     //编辑密码
     onEditPwd(){
