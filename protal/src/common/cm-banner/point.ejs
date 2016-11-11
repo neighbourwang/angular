@@ -1,0 +1,25 @@
+<% data.forEach(function(data){%>
+<div class="point-area" 
+	style="
+		top: <%= data.top - 45 %>px;
+		left: <%= data.left - 55 %>px;
+		position: absolute;
+		width: <%= data.width %>px;
+		height: <%= data.width %>px;
+		visibility: visible;
+		opacity: 1;">
+
+	<p class="point-name" style="position: absolute; top: 45px; left: 65px;"><%= data.name %></p>
+
+<% if(data.type === "blue"){ %>
+	<div class="point point-dot"></div>
+	<div class="point point-10"></div>
+	<div class="point point-40"></div>
+	<div class="point point-shadow point-80"></div>
+<% } else{%>
+	<div class="point point-white"></div>
+<% } %>
+
+</div>
+
+<%});%>

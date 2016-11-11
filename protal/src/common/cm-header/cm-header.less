@@ -1,0 +1,63 @@
+@import "../const.less";
+
+.cm-header {
+	height: 100px;
+	background: #fff;
+	line-height: 100px;
+	.h-logo {
+		display: inline-block;
+		vertical-align: top;
+		margin: 20px 50px 0 0;
+	}
+	.h-nav {
+		overflow: auto;
+		margin-left: 20px;
+		display: inline-block;
+	}
+	.h-nav-li {
+		display: inline-block;
+		font-size: 18px;
+		padding: 0 25px;
+	}
+	.h-search {
+		display: inline-block;
+		position: relative;
+	}
+	.h-search-button {
+		border: none;
+		width: 26px;
+		height: 26px;
+		position: absolute;
+		left: 10px;
+		top:39px;
+		background: url("@{imgPath}/icon_search2.png") no-repeat;
+		cursor: pointer;
+	}
+	.h-search-input {
+		border: 1px solid #999999;
+		border-radius: 32px;
+		height: 32px;
+		line-height: 32px;
+		width: 150px;
+		vertical-align: top;
+		margin-top: 35px;
+		padding: 0 20px 0 40px;
+	}
+	.h-login-box {
+		.dp-ib {
+			padding: 0 10px;
+		}
+	}
+	.h-console {
+		border: 1px solid #999;
+		height: 28px;
+		line-height: 28px;
+		padding: 0 20px;
+		margin-top: 35px;
+		font-size: 14px;
+		&:hover{
+			background:#999;
+			color: #fff;
+		}
+	}
+}
