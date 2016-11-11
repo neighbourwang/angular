@@ -50,8 +50,12 @@ export class OrderMngDetailComponent implements OnInit {
 
   showDetail(orderId:string)
   {
+    this.layoutService.show();
     this._orderDetail.Go(null, [{key:"orderId", value:orderId}])
-    .then(success=>{}, err=>{
+    .then(success=>{
+      this.layoutService.hide();
+    }, err=>{
+      this.layoutService.hide();
       this.showMsg(err);
     })
   }

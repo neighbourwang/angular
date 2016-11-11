@@ -1,4 +1,4 @@
-<div class="page-content-header icon-content-header-platform-manage">创建帐号</div>
+<div class="page-content-header icon-content-header-platform-manage">{{title}}</div>
 <div class="row" style="padding-top: 30px;">
         <div class="col-md-12">
             <div class="row row-line-height">
@@ -106,22 +106,22 @@
                         <div class="btn-group">
                             <div class="btn-group float-left" data-toggle="buttons">
                                 <label class="btn btn-default active">
-                                    <input type="radio" name="mirror" autocomplete="off" checked=""> 一级管理员
+                                    <input type="checkbox" name="mirror" autocomplete="off" checked=""> 一级管理员
                                 </label>
                                 <label class="btn btn-default">
-                                    <input type="radio" name="mirror" autocomplete="off"> 二级管理员
+                                    <input type="checkbox" name="mirror" autocomplete="off"> 二级管理员
                                 </label>
                                 <label class="btn btn-default">
-                                    <input type="radio" name="mirror" autocomplete="off"> 一级操作员
+                                    <input type="checkbox" name="mirror" autocomplete="off"> 一级操作员
                                 </label>
                                 <label class="btn btn-default">
-                                    <input type="radio" name="mirror" autocomplete="off"> 二级操作员
+                                    <input type="checkbox" name="mirror" autocomplete="off"> 二级操作员
                                 </label>
                                 <label class="btn btn-default">
-                                    <input type="radio" name="mirror" autocomplete="off"> 审批员
+                                    <input type="checkbox" name="mirror" autocomplete="off"> 审批员
                                 </label>
                                 <label class="btn btn-default">
-                                    <input type="radio" name="mirror" autocomplete="off"> 观察员
+                                    <input type="checkbox" name="mirror" autocomplete="off"> 观察员
                                 </label>
                             </div>
                         </div>
@@ -193,10 +193,10 @@
 
             <div class="text-center">
                 <button class="fox-cloud-button-lg fox-cloud-button-white" >
-                    <span class="icon-button-label">取消</span>
+                    <span class="icon-button-label" (click)="cancel()">取消</span>
                 </button>
                 <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px">
-                    <span class="icon-button-label">创建</span>
+                    <span class="icon-button-label" (click)="create()">{{btnTitle}}</span>
                 </button>
             </div>
         </div>

@@ -1,4 +1,58 @@
 
+.circle-graph {
+    color: #4a667a;
+    text-align: left;
+    width: 150px;
+    height: 150px;
+    display: inline-block;
+    float: left;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.chart-circle {
+    display: inline-block;
+    position: relative;
+}
+.chart-circle {
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);/*2d旋转*/
+}
+
+
+.underlay {
+    stroke-width: 8;
+    fill: transparent;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke: #d9d9d9;
+}
+
+
+.underlay2 {
+    stroke: #01a982;
+    stroke-width: 8;
+    fill: transparent;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dashoffset: 75.0401; /*调整进度条*/
+    stroke-dasharray: 282.783;
+}
+
+.circle-percentage {
+          position: relative;
+    font-size: 35px!important;
+    left: 40px;
+    top: -100px;
+    width: 50px;
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);/*转换，平移*/
+}
 
 /*创建企业*/
 
@@ -20,7 +74,7 @@
     text-align: left!important;
 }
 .mgl100{
-  margin-left:100px;
+  margin-left:50px;
 }
 /*--------------radio单选框----------------*/
 .radio_:checked + label::after {
@@ -233,7 +287,7 @@
 	border: 1px solid #CFD8E7;
 }
 .contentPanel{
-    margin: 20px;
+    margin: 10px;
 } 
 .center-table{
    text-align: center;
@@ -262,7 +316,7 @@
 
 }
 .input-control{
-    width: 300px;
+    width: 250px;
     display: inline-block;
     margin-right: 10px;
 }

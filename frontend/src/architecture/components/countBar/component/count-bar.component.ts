@@ -6,11 +6,12 @@
 import {Component, Input, Output,EventEmitter,OnChanges,SimpleChange,OnInit} from '@angular/core';
 @Component({
     selector: 'count-bar',
-    template: `<div class="countBar">
-               <span class="glyphicon glyphicon-minus font-gray" [ngClass]="{gray:disabled}" (click)="subtract()"></span>
-               <input type="text" class="font-gray" [(ngModel)]="value" name="editValue" #box (blur)="inputValue(box.value)" [disabled]="disabled">
-               <span class="glyphicon glyphicon-plus font-gray" (click)="add()" [ngClass]="{gray:disabled}"></span>
-               </div>
+    template: `
+               <div class="btn-group input-step-compontent" style="width: 130px;">  
+                    <button type="button" class="btn btn-default col-md-3" [ngClass]="{'clickable':disabled}" (click)="subtract()" [disabled]="disabled"><span class="glyphicon glyphicon-minus"></span></button>
+                    <input type="text" class="form-control" [(ngModel)]="value" name="editValue" #box (blur)="inputValue(box.value)" [disabled]="disabled">
+                    <button type="button" class="btn btn-default" (click)="add()" [ngClass]="{'clickable':disabled}" [disabled]="disabled"><span class="glyphicon glyphicon-plus"></span></button>
+                </div>
                `,
     // inputs: ["title", "msg", "ot", "ct"]
 })

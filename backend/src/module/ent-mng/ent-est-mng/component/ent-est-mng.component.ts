@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, RestApi, RestApiCfg, LayoutService, NoticeComponent, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
-import { CertMethod, Status, EntEstItem, EntEst} from '../model';
+import { CertMethod, Status, EntEstItem, EntEst
+  , EntEstCreResourceQuota} from '../model';
 
 import { EntEstCreService, Paging } from './../service/ent-est-cre.service';
 
@@ -35,6 +36,7 @@ export class EntEstMngComponent implements OnInit {
   private entEst: EntEst = new EntEst();
   private dic:SystemDictionary[];
   private entEstMng:ItemLoader<EntEstItem> = null;
+  private entEstResource:ItemLoader<EntEstCreResourceQuota> = null;
   private statusDic:DicLoader = null;
 
   constructor(
@@ -45,30 +47,31 @@ export class EntEstMngComponent implements OnInit {
     private restApi:RestApi
   ) {
     this.entEstMng = new ItemLoader<EntEstItem>(true, "企业管理列表", "ent-mng.ent-est-mng.enterprise.get", restApiCfg, restApi);
+    
+    //配置企业配额加载
+    this.entEstResource = new ItemLoader<EntEstCreResourceQuota>(true, "企业配额", "ent-mng.ent-est-mng.enterprise.resourcequota.get", restApiCfg, restApi);
+    this.entEstResource.MapFunc = (source:Array<any>, target:Array<EntEstCreResourceQuota>)=>{
+      for(let item of source)
+      {
+        let obj = new EntEstCreResourceQuota();
+        target.push(obj);
 
-    //配置企业列表查询
-   /* this.entEstMng.MapFunc = (source:Array<any>, target:EntEstItem[])=>{
-        for(let item of source)
-        {
-          let obj = new EntEstItem();
-          target.push(obj);
+        obj.enterpriseId = item.enterpriseId;// : string = null;//": "string",
+        obj.floatIpQuota = item.floatIpQuota;// : number = null;//": 0,//可创建浮动IP数量
+        obj.id = item.id;// : string = null;//": "string",
+        obj.imageQuota = item.imageQuota;// : number = null;//": 0,//可创建镜像数量
+        obj.memroyQuota = item.memQuota;// : number = null;//": 0,//可用内存数量
+        obj.networkQuota = item.networkQuota;// : number = null;//": 0,
+        obj.physicalQuota = item.physicalMachineQuota;// : number = null;//": 0,//可创建物理机数量
+        obj.snapShotQuota = item.snapshotQuota;// : number = null;//": 0,//可创建快照数量
+        obj.storageQuota = item.storageQuota;// : number = null;//": 0,//可使用存储额度
+        obj.vcpuQuota = item.vcpuQuota;// : number = null;//": 0, //可使用vCPU数量
+        obj.vmQuota = item.vmQuota;// : number = null;//": 0
+      }
+    };
 
-          obj.id = item.enterpriseId as string; 
-          obj.authMode = parseInt(item.authMode);//认证方式
-          obj.enterpriseName = item.enterpriseName as string; // 企业（租户）名称
-          obj.vmNum = 0; //云主机数量 api?
-          obj.vmQuota = item.vmQuota as number; //云主机配额（个）
-          obj.vmQuotaUsageRate = 0; //云主机配额使用率 api 未提供
-          obj.storageQuota = item.storageQuota as number; //存储配额（GB）
-          obj.storageQuotaUsageRate = item.storageQuota != 0 ? item.usedStorageNumber/item.storageQuota:0; //存储配额使用率
-          obj.snapQuota = item.snapshotQuota as number; //快照配额（个）
-          obj.productNum = item.productNumber as number; //产品数量
-          obj.orderNum = item.orderNumber as number; //订单数量
-          obj.status = item.status as string; //状态
-          obj.description = ""; //api 未提供
-          obj.checked = false;
-        }
-      };*/
+    this.entEstResource.FirstItem = new EntEstCreResourceQuota();
+
 
 
       //字典配置
@@ -123,17 +126,6 @@ export class EntEstMngComponent implements OnInit {
     {
       this.showMsg("请选择企业");
       return null;
-    }
-  }
-
-  composeUrlWithId(url:string, entId:string)
-  {
-    if(entId)
-      return [url, '?', 'entId=', entId].join('');
-    else
-    {
-      console.log('composeUrlWithId:entId is empty');
-      return url;
     }
   }
 
@@ -239,17 +231,22 @@ export class EntEstMngComponent implements OnInit {
     if(this.getSelected())
     {
       let item = this.getSelected();
-      this.entEst.ResourceQuota.reset();
+      let self = this;
 
-      this.editQuota.open();
-      this.service.loadEntResourceQuota(this.entEst.ResourceQuota
-        , this.showError
-        , ()=>{
-          this.editQuota.open();
-        }
-        , this
-        , this.getSelected().id
-        );
+      this.layoutService.show();
+      this.entEstResource.Go(1, [
+      {
+        key:"_enterpriseId"
+        ,value:self.getSelected().enterpriseId
+      }])
+      .then(success=>{
+        this.layoutService.hide();
+        this.editQuota.open();
+      },err=>{
+        this.layoutService.hide();
+        this.showMsg(err);
+      });
+      
     }
   }
 
@@ -366,7 +363,7 @@ export class EntEstMngComponent implements OnInit {
   acceptQuotaModify(){
     if(this.validateQuotaModify())
     {
-      this.service.updateEntQuota(this.entEst.ResourceQuota)
+      this.service.updateEntQuota(this.entEstResource.FirstItem)
       .then(ret=>{
         this.search(null);//刷新
       })
@@ -383,37 +380,37 @@ export class EntEstMngComponent implements OnInit {
     let notValid = [
     {
       "name":"可创建浮动IP数量"
-      ,"value":this.entEst.ResourceQuota.floatIpQuota
+      ,"value":this.entEstResource.FirstItem.floatIpQuota
       ,"op":"*"
     },
     {
       "name":"可创建镜像数量"
-      ,"value":this.entEst.ResourceQuota.imageQuota
+      ,"value":this.entEstResource.FirstItem.imageQuota
       ,"op":"*"
     },
     {
       "name":"可用内存数量"
-      ,"value":this.entEst.ResourceQuota.memroyQuota
+      ,"value":this.entEstResource.FirstItem.memroyQuota
       ,"op":"*"
     },
     {
       "name":"可创建物理机数量"
-      ,"value":this.entEst.ResourceQuota.physicalQuota
+      ,"value":this.entEstResource.FirstItem.physicalQuota
       ,"op":"*"
     },
     {
       "name":"可创建快照数量"
-      ,"value":this.entEst.ResourceQuota.snapShotQuota
+      ,"value":this.entEstResource.FirstItem.snapShotQuota
       ,"op":"*"
     },
     {
       "name":"可用存储额度"
-      ,"value":this.entEst.ResourceQuota.storageQuota
+      ,"value":this.entEstResource.FirstItem.storageQuota
       ,"op":"*"
     },
     {
       "name":" 可使用vCPU数量"
-      ,"value":this.entEst.ResourceQuota.vcpuQuota
+      ,"value":this.entEstResource.FirstItem.vcpuQuota
       ,"op":"*"
     }].find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
 

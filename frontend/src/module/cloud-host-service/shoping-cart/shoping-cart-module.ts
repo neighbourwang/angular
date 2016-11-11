@@ -16,12 +16,13 @@ import { cartOrderComponent } from './component/cart-order.component';
 import { cartOrderService } from './service/cart-order.service'; 
 import { cartListService } from './service/cart-list.service'; 
 
+
 // import { MyDatePickerModule } from 'mydatepicker';
 
 @NgModule({
     imports: [
         ShopingCartRouting,
-        CommonComponentModule,
+        CommonComponentModule
         // MyDatePickerModule
         // TabsModule
         // TreeModule

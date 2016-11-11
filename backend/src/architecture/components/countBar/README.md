@@ -19,14 +19,14 @@ html：
             [max]=1025 
             [min]=0 
             [disabled]=false 
-            [value]=0 #varName   (output)="outputValue($event)></count-bar>
+            [value]=0 #varName   (output)="outputValue($event)"></count-bar>
 ```
 
 javascript：
 
 ```javascript
 //获取count-bar值
-outputValue(e）{
+outputValue(e){
     console.log(e);
 }
 //声明本地变量方式调用组件方法，控制是for可编辑;

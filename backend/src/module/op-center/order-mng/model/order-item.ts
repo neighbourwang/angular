@@ -1,4 +1,4 @@
-import {ProductItem } from './'
+﻿import {ProductItem } from './'
 
 //订单
 export class OrderItem{
@@ -23,113 +23,91 @@ export class OrderItem{
 }
 
 export class OrderInstanceItem{
-  billingCycle: string = null;//;, optional): 购买时长 ,
-  billingMode: string = null;//;, optional): 计费模式 ,
-  createDate: string = null;//;, optional): 创建时间 ,
-  exireDate: string = null;//;, optional): 过期时间 ,
-  extIp: string = null;//;, optional): 外部ip ,
-  instanceName: string = null;//;, optional): 实例名称 ,
-  ip: string = null;//;, optional): 内部ip ,
-  isSetPassword: string = null;//;, optional): 密码设置与否，0// 未设置，1 已设置 ,
-  oneTimePrice: number = null;//;, optional): 一次性费用 ,
-  operationSystem: string = null;//;, optional): 操作系统 ,
-  platformId: string = null;//;, optional): 平台ID ,
-  platformName: string = null;//;, optional): 平台名称 ,
-  price: number = null;//;, optional): 费用 ,
-  productType: string = null;//;, optional): 产品类型 ,
-  quantity: string = null;//;, optional): 订购数量 ,
-  specificationItem: SpecificationItem = null;//;, optional): 产品规格 ,
-  status: string = null;//;, optional): 订单状态 ,
-  subscriptTime: number = null;//;, optional): 购买周期 ,
-  zoneId: string = null;//;, optional): 可用区ID ,
-  zoneName: string = null;// null;, optional): 可用区名称 
+  billingCycle: string = null;//, optional): 购买时长 ,
+  billingMode: string = null;//, optional): 计费模式 ,
+  createDate: string = null;//, optional): 创建时间 ,
+  exireDate: string = null;//, optional): 过期时间 ,
+  instanceName: string = null;//, optional): 实例名称 ,
+  isSetPassword: string = null;//, optional): 密码设置与否，0 未设置，1 已设置 ,
+  oneTimePrice: number = null;//, optional): 一次性费用 ,
+  price: number = null;//, optional): 费用 ,
+  productType: string = null;//, optional): 产品类型 ,
+  quantity: string = null;//, optional): 订购数量 ,
+  specificationItems: Array<SpecificationItem> = null;// 每个实例为 可用区名称，平台名称（region）,CPU核数,内存大小,硬盘类型,硬盘大小,启动盘容量，操作系统，内部IP，外部IP 中的一项, optional): 产品规格 ,
+  status: string = null;//, optional): 订单状态 ,
+  subscriptTime: number = null;//, optional): 购买周期
 
   statusName: string = null;//状态转换显示
-
-
-
-  private show1 = Symbol("区域");
-  private show2 = Symbol('可用区');
-  private show3 = Symbol('实例规格');
-  private show4 = Symbol('IP地址');
-  private show5 = Symbol('操作系统');
-  private show6 = Symbol('密码');
-  private show7 = Symbol('实例名称');
-  private show8 = Symbol('云硬盘类型');
-  private show9 = Symbol('云硬盘容量');
-  private show10 = Symbol('数据库类型');
-  private show11 = Symbol('数据库版本');
-
-
-  private _outputOrder:Array<any> = [
-  {name:this.show1, value:null}
-  ,{name: this.show2, value:null}
-  ,{name: this.show3, value:null}
-  ,{name: this.show4, value:null}
-  ,{name: this.show5, value:null}
-  ,{name: this.show6, value:null}
-  ,{name: this.show7, value:null}
-  ,{name: this.show8, value:null}
-  ,{name: this.show9, value:null}
-  ,{name: this.show10, value:null}
-  ,{name: this.show11, value:null}
-  ];
-
-  private setOutputOrder(name:symbol, value:string){
-    let obj = this._outputOrder.find(n=>n.name == name);
-    if(obj)
-    {
-      obj.value = value;
-    }
+  get oneTimePriceAndPrice():string{
+    return `一次性费用:${this.oneTimePrice}
+    费用:${this.price}`;
   }
-  get prodDetailItems():Array<any>{
-    this.setOutputOrder(this.show1, this.platformName);
-    this.setOutputOrder(this.show2, this.zoneName);
-    this.setOutputOrder(this.show3, this.specificationItem != null? this.specificationItem.specName: null);
-    this.setOutputOrder(this.show4, (():string=>{
-      let output:Array<string>=[];
-      if(this.ip)
-        output.push(`${this.ip} (内部)`);
 
-      if(this.extIp)
-        output.push(`${this.extIp} (外部)`);
+  get SpecItems():Array<SpecificationItem>{
+    //todo: 可能需要进行转换
+    return this.specificationItems;
+  }
+}
 
-      return output.length > 0? output.join('<br/>') : null;
-    })());
-    this.setOutputOrder(this.show5, this.operationSystem);
-    this.setOutputOrder(this.show6, this.isSetPassword == "1"? "已设置":"未设置");
-    this.setOutputOrder(this.show7, "api未提供");
-    this.setOutputOrder(this.show8, this.specificationItem != null ? this.specificationItem.diskType.toString() : null);
-    this.setOutputOrder(this.show9, this.specificationItem != null ? `${this.specificationItem.diskSize} GB`: null);
-    this.setOutputOrder(this.show10, "api未提供");
-    this.setOutputOrder(this.show11, "api未提供");
+export class SpecificationItem {
+  attrCode: string = null;//, optional): 服务属性Code ,
+  attrDisplayName: string = null;//, optional): 服务属性页面显示的名称 ,
+  attrDisplayValue: string = null;//, optional): 服务属性值显示值 ,
+  attrOrderSeq: number = null;//, optional): 属性显示顺序, 如果为空，则忽略 ,
+  attrValueCode: string = null;//, optional): 服务属性值Code ,
+  description: string = null;//, optional): 其他描述性内容，非不要 ,
+  valueUnit: string = null;//, optional): 服务属性值的单位
+}
 
-    return this._outputOrder.filter(n=>n.value && n.value.length > 0);
+
+
+export class SubInstanceResp {
+  itemList: Array<SubInstanceItemResp> = null;//[SubInstanceItemResp], optional): 对应UI界面订单列表里面的详情 ,
+  orderId: string = null;//, optional): 订单ID，不做显示，操作回传 ,
+  orderNo: string = null;//, optional): 对应UI界面中的订单编号 ,
+  purchaseDate: string = null;//, optional): 对应UI界面中的下单时间, 映射到后端的createDate
+}
+
+export class SubInstanceItemResp {
+  billingInfo: ProductBillingItem = null;//, optional): 产品计费详细信息 ,
+  createDate: string = null;//, optional): 创建时间 ,
+  expireDate: string = null;//, optional): 过期时间 ,
+  instanceName: string = null;//, optional): 实例名称 ,
+  period: number = null;//, optional): 购买周期 ,
+  quantity: number = null;//, optional): 订购数量 ,
+  serviceType: string = null;//, optional): 产品类型 ,
+  specList: Array<SubInstanceAttrPair> = null;//[SubInstanceAttrPair], optional): 产品规格 ,
+  status: string = null;//, optional): UI订单状态，需要查询数据字典
+
+  statusName: string = null;//用于界面显示
+}
+
+
+export class ProductBillingItem {
+  basePrice: number = null;//, optional): 一次性价格 ,
+  basicPrice: number = null;//, optional): 周期计费-基础周期价格 ,
+  billingId: string = null;//, optional): 产品计费ID ,
+  billingMode: string = null;//, optional): 计费类型，需要检索数据字典 ,
+  cyclePrice: number = null;//, optional): 周期计费-增量周期价格 ,
+  unitPrice: number = null;//, optional): 流量计费-流量单价 ,
+  unitType: number = null;//, optional): 流量计费-流量计费类型，需要查询数据字典
+
+  get oneTimePriceAndPrice():string{ //单价费用
+    return `一次性价格:${this.basePrice}
+    价格:${this.basicPrice}`;
   }
 }
 
 
-export class SpecificationItem {
-  bootDisk: number = null;//, optional): 启动盘容量 ,
-  cpu: number = null;//, optional): CPU核数 ,
-  diskSize: number = null;//, optional): 硬盘大小 ,
-  diskType: number = null;//, optional): 硬盘类型 ,
-  memory: number = null;//, optional): 内存大小
 
-  get specName():string{
-    let output:Array<string> = [];
-    if(this.cpu)
-      output.push(`CPU ${this.cpu}核`);
-
-    if(this.memory)
-      output.push(`内存 ${this.memory}GB`);
-
-    if(this.bootDisk)
-      output.push(`启动盘 ${this.bootDisk}GB`);
-
-    return output.length > 0? output.join(''): null;
-  }
-
+export class SubInstanceAttrPair {
+  attrCode: string = null;//, optional): 服务属性Code ,
+  attrDisplayName: string = null;//, optional): 服务属性页面显示的名称 ,
+  attrDisplayValue: string = null;//, optional): 服务属性值显示值 ,
+  attrOrderSeq: number = null;//, optional): 属性显示顺序, 如果为空，则忽略 ,
+  attrValueCode: string = null;//, optional): 服务属性值Code ,
+  description: string = null;//, optional): 其他描述性内容，非不要 ,
+  valueUnit: string = null;//, optional): 服务属性值的单位
 }
 
 /*
@@ -147,42 +125,38 @@ totalPage (integer, optional),
 totalRecords (integer, optional)
 }
 OrderItem {
-id (string, optional): 订单ID ,
-orderCode (string, optional): 订单编号 ,
-orderInstanceItems (Array[OrderInstanceItem], optional): 订单中的产品信息 ,
-relatedOrder (Array[OrderItem], optional): 关联订单
+  id (string, optional): 订单ID ,
+  orderCode (string, optional): 订单编号 ,
+  orderInstanceItems (Array[OrderInstanceItem], optional): 订单中的产品信息 ,
+  relatedOrder (Array[OrderItem], optional): 关联订单
 }
 OrderInstanceItem {
-billingCycle (string, optional): 购买时长 ,
-billingMode (string, optional): 计费模式 ,
-createDate (string, optional): 创建时间 ,
-exireDate (string, optional): 过期时间 ,
-extIp (string, optional): 外部ip ,
-instanceName (string, optional): 实例名称 ,
-ip (string, optional): 内部ip ,
-isSetPassword (string, optional): 密码设置与否，0 未设置，1 已设置 ,
-oneTimePrice (integer, optional): 一次性费用 ,
-operationSystem (string, optional): 操作系统 ,
-platformId (string, optional): 平台ID ,
-platformName (string, optional): 平台名称 ,
-price (integer, optional): 费用 ,
-productType (string, optional): 产品类型 ,
-quantity (string, optional): 订购数量 ,
-specificationItem (SpecificationItem, optional): 产品规格 ,
-status (string, optional): 订单状态 ,
-subscriptTime (integer, optional): 购买周期 ,
-zoneId (string, optional): 可用区ID ,
-zoneName (string, optional): 可用区名称
+  billingCycle (string, optional): 购买时长 ,
+  billingMode (string, optional): 计费模式 ,
+  createDate (string, optional): 创建时间 ,
+  exireDate (string, optional): 过期时间 ,
+  instanceName (string, optional): 实例名称 ,
+  isSetPassword (string, optional): 密码设置与否，0 未设置，1 已设置 ,
+  oneTimePrice (integer, optional): 一次性费用 ,
+  price (integer, optional): 费用 ,
+  productType (string, optional): 产品类型 ,
+  quantity (string, optional): 订购数量 ,
+  specificationItem (SpecificationItem 每个实例为 可用区名称，平台名称（region）,CPU核数,内存大小,硬盘类型,硬盘大小,启动盘容量，操作系统，内部IP，外部IP 中的一项, optional): 产品规格 ,
+  status (string, optional): 订单状态 ,
+  subscriptTime (integer, optional): 购买周期
 }
-SpecificationItem {
-bootDisk (integer, optional): 启动盘容量 ,
-cpu (integer, optional): CPU核数 ,
-diskSize (integer, optional): 硬盘大小 ,
-diskType (integer, optional): 硬盘类型 ,
-memory (integer, optional): 内存大小
+SpecificationItem 每个实例为 可用区名称，平台名称（region）,CPU核数,内存大小,硬盘类型,硬盘大小,启动盘容量，操作系统，内部IP，外部IP 中的一项 {
+  attrCode (string, optional): 服务属性Code ,
+  attrDisplayName (string, optional): 服务属性页面显示的名称 ,
+  attrDisplayValue (string, optional): 服务属性值显示值 ,
+  attrOrderSeq (integer, optional): 属性显示顺序, 如果为空，则忽略 ,
+  attrValueCode (string, optional): 服务属性值Code ,
+  description (string, optional): 其他描述性内容，非不要 ,
+  valueUnit (string, optional): 服务属性值的单位
 }
 
 {
+  
   "detailDescription": "string",
   "pageInfo": {
     "currentPage": 0,
@@ -199,30 +173,25 @@ memory (integer, optional): 内存大小
         {
           "billingCycle": "string",
           "billingMode": "string",
-          "createDate": "2016-11-03T02:57:02.907Z",
-          "exireDate": "2016-11-03T02:57:02.907Z",
-          "extIp": "string",
+          "createDate": "2016-11-09T02:20:04.521Z",
+          "exireDate": "2016-11-09T02:20:04.521Z",
           "instanceName": "string",
-          "ip": "string",
           "isSetPassword": "string",
           "oneTimePrice": 0,
-          "operationSystem": "string",
-          "platformId": "string",
-          "platformName": "string",
           "price": 0,
           "productType": "string",
           "quantity": "string",
           "specificationItem": {
-            "bootDisk": 0,
-            "cpu": 0,
-            "diskSize": 0,
-            "diskType": 0,
-            "memory": 0
+            "attrCode": "string",
+            "attrDisplayName": "string",
+            "attrDisplayValue": "string",
+            "attrOrderSeq": 0,
+            "attrValueCode": "string",
+            "description": "string",
+            "valueUnit": "string"
           },
           "status": "string",
-          "subscriptTime": 0,
-          "zoneId": "string",
-          "zoneName": "string"
+          "subscriptTime": 0
         }
       ],
       "relatedOrder": [
@@ -230,6 +199,130 @@ memory (integer, optional): 内存大小
       ]
     }
   ]
+}
+
+
+------------------------------------------------------------------------------------
+
+
+GeneralPagingResultOfListOfSubInstanceResp {
+detailDescription (string, optional),
+pageInfo (PageInfo, optional),
+resultCode (string, optional),
+resultContent (Array[SubInstanceResp], optional)
+}
+PageInfo {
+currentPage (integer, optional),
+pageSize (integer, optional),
+totalPage (integer, optional),
+totalRecords (integer, optional)
+}
+SubInstanceResp {
+itemList (Array[SubInstanceItemResp], optional): 对应UI界面订单列表里面的详情 ,
+orderId (string, optional): 订单ID，不做显示，操作回传 ,
+orderNo (string, optional): 对应UI界面中的订单编号 ,
+purchaseDate (string, optional): 对应UI界面中的下单时间, 映射到后端的createDate
+}
+SubInstanceItemResp {
+billingInfo (ProductBillingItem, optional): 产品计费详细信息 ,
+createDate (string, optional): 创建时间 ,
+expireDate (string, optional): 过期时间 ,
+instanceName (string, optional): 实例名称 ,
+period (integer, optional): 购买周期 ,
+quantity (integer, optional): 订购数量 ,
+serviceType (string, optional): 产品类型 ,
+specList (Array[SubInstanceAttrPair], optional): 产品规格 ,
+status (string, optional): UI订单状态，需要查询数据字典
+}
+ProductBillingItem {
+basePrice (number, optional): 一次性价格 ,
+basicPrice (number, optional): 周期计费-基础周期价格 ,
+billingId (string, optional): 产品计费ID ,
+billingMode (string, optional): 计费类型，需要检索数据字典 ,
+cyclePrice (number, optional): 周期计费-增量周期价格 ,
+unitPrice (number, optional): 流量计费-流量单价 ,
+unitType (number, optional): 流量计费-流量计费类型，需要查询数据字典
+}
+SubInstanceAttrPair {
+attrCode (string, optional): 服务属性Code ,
+attrDisplayName (string, optional): 服务属性页面显示的名称 ,
+attrDisplayValue (string, optional): 服务属性值显示值 ,
+attrOrderSeq (integer, optional): 属性显示顺序, 如果为空，则忽略 ,
+attrValueCode (string, optional): 服务属性值Code ,
+description (string, optional): 其他描述性内容，非不要 ,
+valueUnit (string, optional): 服务属性值的单位
+}
+
+"detailDescription": "string",
+  "pageInfo": {
+    "currentPage": 0,
+    "pageSize": 0,
+    "totalPage": 0,
+    "totalRecords": 0
+  },
+  "resultCode": "string",
+  "resultContent": [
+    {
+      "itemList": [
+        {
+          "billingInfo": {
+            "basePrice": 0,
+            "basicPrice": 0,
+            "billingId": "string",
+            "billingMode": "string",
+            "cyclePrice": 0,
+            "unitPrice": 0,
+            "unitType": 0
+          },
+          "createDate": "2016-11-10T02:23:02.483Z",
+          "expireDate": "2016-11-10T02:23:02.483Z",
+          "instanceName": "string",
+          "period": 0,
+          "quantity": 0,
+          "serviceType": "string",
+          "specList": [
+            {
+              "attrCode": "string",
+              "attrDisplayName": "string",
+              "attrDisplayValue": "string",
+              "attrOrderSeq": 0,
+              "attrValueCode": "string",
+              "description": "string",
+              "valueUnit": "string"
+            }
+          ],
+          "status": "string"
+        }
+      ],
+      "orderId": "string",
+      "orderNo": "string",
+      "purchaseDate": "string"
+    }
+  ]
+}
+
+查询参数
+{
+  "approvalStatus": "string",
+  "approverId": "string",
+  "createTime": "2016-11-09T02:20:04.387Z",
+  "enterpriseId": "string",
+  "expireTime": "2016-11-09T02:20:04.387Z",
+  "orderId": "string",
+  "orderType": "string",
+  "organization": "string",
+  "pageParameter": {
+    "currentPage": 0,
+    "offset": 0,
+    "size": 0,
+    "sort": {},
+    "totalPage": 0
+  },
+  "region": "string",
+  "serviceId": "string",
+  "status": "string",
+  "userId": "string",
+  "zoneId": "string"
 }
 
 */

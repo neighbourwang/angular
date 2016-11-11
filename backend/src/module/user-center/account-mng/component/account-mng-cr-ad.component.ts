@@ -14,7 +14,7 @@ export class AccountMngCrAd implements OnInit{
         private service: AccountMngService,
         ) { }
     
-
+    
     ngOnInit() {
     }
     

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
-import { OrderItem, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import { SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 
 
 @Component({
@@ -16,13 +16,14 @@ export class OrderMngComponent implements OnInit{
 
 	private _adminLoader:ItemLoader<AdminListItem> = null;
 	private _departmentLoader:ItemLoader<DepartmentItem> = null;
-	private _productTypeLoader:ItemLoader<ProductType> = null;
+	private _productTypeLoader: DicLoader = null;
 	private _platformLoader:ItemLoader<Platform> = null;
 	private _subregionLoader:ItemLoader<SubRegion> = null;
 	private _orderStatus:DicLoader = null;
-	private _orderLoader:ItemLoader<OrderItem> = null;
+	private _orderLoader:ItemLoader<SubInstanceResp> = null;
 
 	private _param:OrderMngParam = new OrderMngParam();
+	private initDate:string = null;
 
 	constructor(
 		private layoutService: LayoutService,
@@ -36,8 +37,8 @@ export class OrderMngComponent implements OnInit{
 		//配置部门列表加载
 		this._departmentLoader = new ItemLoader<DepartmentItem>(false, '部门列表', "op-center.order-mng.department-list.get", this.restApiCfg, this.restApi);
 
-		//配置产品类型加载
-		this._productTypeLoader = new ItemLoader<ProductType>(true, '产品类型', "op-center.order-mng.product-type-list.get", this.restApiCfg, this.restApi);
+		//产品类型配置
+		this._productTypeLoader = new DicLoader(restApiCfg, restApi, "GLOBAL", "SERVICE_TYPE");
 
 		//配置区域加载
 		this._platformLoader = new ItemLoader<Platform>(false, '区域', "op-center.order-mng.region-list.get", this.restApiCfg, this.restApi);
@@ -49,28 +50,32 @@ export class OrderMngComponent implements OnInit{
 		this._orderStatus = new DicLoader(this.restApiCfg, this.restApi, "ORDER", "STATUS");
 
 		//配置订单加载
-		this._orderLoader = new ItemLoader<OrderItem>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
-		this._orderLoader.MapFunc = (soure:Array<any>, target:Array<OrderItem>):void=>{
-			console.log('orderloader source:', soure);
-		};
+		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
 	}
 	ngOnInit(){
-		this._orderStatus.Go();
-		this.loadAdmin()
+		this._orderStatus.Go()
 		.then(success=>{
-			this.loadDepartment();
-		}, err=>{
-			this.showMsg(err);
+			return this._productTypeLoader.Go();
 		})
+		.then(success=>{
 
-		this.loadProductType();
+		})
+		.catch(err=>{
+			this.showMsg(err);
+		});
+		// this.loadAdmin()
+		// .then(success=>{
+		// 	this.loadDepartment();
+		// }, err=>{
+		// 	this.showMsg(err);
+		// })
+
 		this.loadPlatform()
 		.then(success=>{
 			this.loadSubregion();
 		}, err=>{
 			this.showMsg(err);
 		});
-
 	}
 
 	loadAdmin():Promise<any>{
@@ -91,10 +96,6 @@ export class OrderMngComponent implements OnInit{
 		}, err=>{
 			this._param.organization = "0";
 		});
-	}
-
-	loadProductType(){
-		this._productTypeLoader.Go(1, [{key:"_size", value:1000}]);
 	}
 
 	loadPlatform():Promise<any>{
@@ -129,5 +130,23 @@ export class OrderMngComponent implements OnInit{
 	
 	renew(orderId:string){
 
+	}
+
+	search(){
+		this.layoutService.show();
+		this._orderLoader.Go(1, null, this._param)
+		.then(success=>{
+			this.layoutService.hide();
+		},err=>{
+			this.layoutService.hide();
+		});
+	}
+
+	onCreateTimeChange($event){
+		this._param.createTime = $event.formatted;
+	}
+
+	onExpireTimeChange($event){
+		this._param.expireTime = $event.formatted;
 	}
 }

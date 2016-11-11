@@ -1,13 +1,13 @@
 ﻿import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-
-import { LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, SystemDictionary, SystemDictionaryService } from "../../../../architecture";
+//import { RADIO_GROUP_DIRECTIVES } from "ng2-radio-group";
+import { LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, ValidationService, SystemDictionary, SystemDictionaryService } from "../../../../architecture";
 
 import { Image } from '../model/img-mng.model';
+import {  Area } from '../model/area.model';
 import { CriteriaQuery } from '../model/criteria-query.model';
 
 import { ImgMngService } from '../service/img-mng.service';
-
 
 
 @Component({
@@ -22,6 +22,7 @@ export class ImgMngComponent implements OnInit {
         private layoutService: LayoutService,
         private router: Router,
         private activatedRouter: ActivatedRoute,
+        private validationService: ValidationService,
         private dicService: SystemDictionaryService
     ) {
 
@@ -48,18 +49,19 @@ export class ImgMngComponent implements OnInit {
     statusDic: Array<SystemDictionary>;
     bitDic: Array<SystemDictionary>;
     queryOpt: CriteriaQuery = new CriteriaQuery();
-    editImage: Image =new Image();
-
+    editImage: Image = new Image();
+    areaList:Array<Area>;
     ngOnInit() {
+        this.getAreaList();
         this.dicService.getItems("IMAGES", "STATUS")
             .then(
-                (dic) => {
-                    this.statusDic = dic;
-                    return this.dicService.getItems("IMAGES", "TYPE");
-                })
+            (dic) => {
+                this.statusDic = dic;
+                return this.dicService.getItems("IMAGES", "TYPE");
+            })
             .then((dic) => {
                 this.typeDic = dic;
-                return this.dicService.getItems("IMAGES", "BITS");
+                return this.dicService.getItems("IMAGES", "BITS_TYPE");
             })
             .then((dic) => {
                 this.bitDic = dic;
@@ -71,22 +73,44 @@ export class ImgMngComponent implements OnInit {
             });
     }
 
+    search() {
+        this.pager.render(1);
+        this.getImageList();
+    }
+
     getImageList(pageIndex?): void {
         this.pageIndex = pageIndex || this.pageIndex;
         this.layoutService.show();
         this.service.getImages(this.queryOpt, this.pageIndex, this.pageSize)
             .then(
-                response => {
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.layoutService.hide();
-                        this.images = response.resultContent;
-                        this.totalPage = response.pageInfo.totalPage;
-                    } else {
-                        alert("Res sync error");
-                    }
+                    this.images = response.resultContent;
+                    this.totalPage = response.pageInfo.totalPage;
+                } else {
+                    alert("Res sync error");
+                   
                 }
+            }
             )
+            .catch((e) => this.onRejected(e));
+    }
+
+    getAreaList() {
+        this.layoutService.show();
+        this.service.getAreaList().then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.layoutService.hide();
+                    this.areaList = response.resultContent;
+                } else {
+                    alert("Res sync error");
+                }
+            }
+        )
             .catch((e) => this.onRejected(e));
     }
 
@@ -106,29 +130,31 @@ export class ImgMngComponent implements OnInit {
     //更新镜像
     updateImage(image: Image) {
         this.layoutService.show();
+        if (this.validationService.isBlank(this.editImage.name)) {
+            this.showAlert("镜像名称不能为空.");
+            return;
+        }
         this.service.updateImage(this.editImage)
             .then(
-                response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        let cimage = this.editImage;
-                        image.id = cimage.id;
-                        image.imageName = cimage.imageName;
-                        image.imageType = cimage.imageType;
-                        image.osName = cimage.osName;
-                        image.osDigits = cimage.osDigits;
-                        image.createdDate = cimage.createdDate;
-                        image.status = cimage.status;
-                        image.progress = cimage.progress;
-                        image.location = cimage.location;
-                        image.description = cimage.description;
-                        image.desEditing = false;
-                        image.nameEditing = false;
-                        this.layoutService.hide();
-                    } else {
-                        alert("Res sync error");
-                    }
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    let cimage = this.editImage;
+                    image.id = cimage.id;
+                    image.name = cimage.name;
+                    image.type = cimage.type;
+                    image.os = cimage.os;
+                    image.bits = cimage.bits;
+                    image.createTime = cimage.createTime;
+                    image.status = cimage.status;
+                    image.progress = cimage.progress;
+                    image.description = cimage.description;
+                    image.desEditing = false;
+                    image.nameEditing = false;
+                } else {
+                    alert("Res sync error");
                 }
+            }
             )
             .catch((e) => this.onRejected(e));
     }
@@ -138,14 +164,14 @@ export class ImgMngComponent implements OnInit {
         this.layoutService.show();
         this.service.deleteImage(image)
             .then(
-                response => {
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.layoutService.hide();
-                    } else {
-                        alert("Res sync error");
-                    }
+                } else {
+                    alert("Res sync error");
                 }
+            }
             )
             .catch((e) => this.onRejected(e));
     }
@@ -161,16 +187,37 @@ export class ImgMngComponent implements OnInit {
         this.closeEditPanel();
         let cimage = new Image();
         cimage.id = image.id;
-        cimage.imageName = image.imageName;
-        cimage.imageType = image.imageType;
-        cimage.osName = image.osName;
-        cimage.osDigits = image.osDigits;
-        cimage.createdDate = image.createdDate;
+        cimage.id = image.id;
+        cimage.name = image.name;
+        cimage.type = image.type;
+        cimage.os = image.os;
+        cimage.bits = image.bits;
+        cimage.createTime = image.createTime;
         cimage.status = image.status;
         cimage.progress = image.progress;
-        cimage.location = image.location;
         cimage.description = image.description;
         this.editImage = cimage;
+    }
+
+    setKeyword(type: string, value: string) {
+        if (type === "0") {
+            this.queryOpt.imageName = value;
+            this.queryOpt.os = "";
+        } else {
+            this.queryOpt.imageName = "";
+            this.queryOpt.os = value;
+        }
+    }
+
+    resetQueryOpt() {
+        //this.queryOpt.areaList = "";
+        //this.queryOpt.imageName = "";
+        //this.queryOpt.imageOwner = "";
+        //this.queryOpt.os = "";
+        //this.queryOpt.status = "";
+        //this.queryOpt.imageType = "";
+        //this.queryOpt.osAndName = "";
+        this.queryOpt = new CriteriaQuery();
     }
 
     showAlert(msg: string): void {

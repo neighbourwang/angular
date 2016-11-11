@@ -15,6 +15,11 @@ export const AccountMngRouting: ModuleWithProviders = RouterModule.forChild([
         path: 'user-center/account-mng/account-mng-cr-local/:id',
         component: AccountMngCrLocal
     },
+    //编辑ad
+    {
+        path : 'user-center/account-mng/account-mng-cr-ad/:id',
+        component : AccountMngCrAd
+    },
     //创建本地
     {
         path: 'user-center/account-mng/account-mng-cr-local',
@@ -25,6 +30,5 @@ export const AccountMngRouting: ModuleWithProviders = RouterModule.forChild([
         path : 'user-center/account-mng/account-mng-cr-ad',
         component : AccountMngCrAd
     }
-    
 
 ]);

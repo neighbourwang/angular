@@ -100,9 +100,104 @@
    		</div>
 	</div>
 	<div class="checkProdPanel green-border">
-	<div class="titlePanel"><span>企业资源配额使用率统计</span></div>
-	<div class="contentPanel"></div>
-</div>
+		<div class="titlePanel">
+		<span class="form-control-title float-left">企业资源配额使用率统计</span>
+		</div> 
+	<div class="contentPanel" >
+		<div class="float-left" width="150px">
+			<div class="circle-graph mgr10 mgb10">
+				<svg class="chart-circle" viewBox="0 0 100 100">
+					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
+					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
+				</svg>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.vcpuQuota/100}}</span>
+			</div>
+			<div width="150px" style="text-align: center;">
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.vcpuQuota}}台))</span>
+			    <span >VCPU</span>
+			</div>	  	
+		</div>
+	  	<div class="float-left" width="150px">
+			<div class="circle-graph mgr10 mgb10">
+				<svg class="chart-circle" viewBox="0 0 100 100">
+					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
+					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
+				</svg>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.memQuota/100}}</span>
+			</div>
+			<div width="150px" style="text-align: center;">
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.memQuota}}台))</span>
+			    <span >VCPU</span>
+			</div>	  	
+		</div>
+		<div class="float-left" width="150px">
+			<div class="circle-graph mgr10 mgb10">
+				<svg class="chart-circle" viewBox="0 0 100 100">
+					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
+					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
+				</svg>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.storageQuota/100}}</span>
+			</div>
+			<div width="150px" style="text-align: center;">
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.storageQuota}}台))</span>
+			    <span >VCPU</span>
+			</div>	  	
+		</div>
+		<div class="float-left" width="150px">
+			<div class="circle-graph mgr10 mgb10">
+				<svg class="chart-circle" viewBox="0 0 100 100">
+					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
+					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
+				</svg>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.physicalMachineQuota/100}}</span>
+			</div>
+			<div width="150px" style="text-align: center;">
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.physicalMachineQuota}}台))</span>
+			    <span >VCPU</span>
+			</div>	  	
+		</div>
+		<div class="float-left" width="150px">
+			<div class="circle-graph mgr10 mgb10">
+				<svg class="chart-circle" viewBox="0 0 100 100">
+					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
+					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
+				</svg>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.snapshotQuota/100}}</span>
+			</div>
+			<div width="150px" style="text-align: center;">
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.snapshotQuota}}台))</span>
+			    <span >VCPU</span>
+			</div>	  	
+		</div>
+		<div class="float-left" width="150px">
+			<div class="circle-graph mgr10 mgb10">
+				<svg class="chart-circle" viewBox="0 0 100 100">
+					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
+					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
+				</svg>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.imageQuota/100}}</span>
+			</div>
+			<div width="150px" style="text-align: center;">
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.imageQuota}}台))</span>
+			    <span >VCPU</span>
+			</div>	  	
+		</div>
+		<div class="float-left" width="150px">
+			<div class="circle-graph mgr10 mgb10">
+				<svg class="chart-circle" viewBox="0 0 100 100">
+					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
+					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
+				</svg>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.floatIpQuota/100}}</span>
+			</div>
+			<div width="150px" style="text-align: center;">
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.floatIpQuota}}台))</span>
+			    <span >VCPU</span>
+			</div>	  	
+		</div>
+		
+	</div>
+	</div>
 </div>
 
 <div class="info-title"><span  class="form-control-title">产品信息：</span></div>

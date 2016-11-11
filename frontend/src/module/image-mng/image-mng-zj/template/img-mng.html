@@ -8,20 +8,11 @@
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12 btn-group" data-toggle="buttons">
-                        <label class="btn btn-default active">
-                            <input type="radio" name="location" autocomplete="off" checked> 所有
+                        <label class="btn btn-default" [ngClass]="{'active':queryOpt.areaList == ''}" (click)="queryOpt.areaList=''">
+                            <input type="radio" name="location" [checked]="queryOpt.areaList == ''" autocomplete="off"> 所有
                         </label>
-                        <label class="btn btn-default">
-                            <input type="radio" name="location" autocomplete="off"> 上海A区
-                        </label>
-                        <label class="btn btn-default">
-                            <input type="radio" name="location" autocomplete="off"> 上海B区
-                        </label>
-                        <label class="btn btn-default">
-                            <input type="radio" name="location" autocomplete="off"> 苏州
-                        </label>
-                        <label class="btn btn-default">
-                            <input type="radio" name="location" autocomplete="off"> 北京
+                        <label *ngFor="let area of areaList;" class="btn btn-default"  [ngClass]="{'active':queryOpt.areaList == area.id}" (click)="queryOpt.areaList = area.id;">
+                            <input type="radio" name="location" autocomplete="off" [checked]="queryOpt.areaList == area.id">{{area.name}}
                         </label>
                     </div>
                 </div>
@@ -32,11 +23,11 @@
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12 btn-group" data-toggle="buttons">
-                        <label class="btn btn-default active">
-                            <input type="radio" name="location" autocomplete="off" checked> 我的资源
+                        <label class="btn btn-default" [ngClass]="{'active':queryOpt.imageOwner == ''}" (click)="queryOpt.imageOwner=''">
+                            <input type="radio" name="location" checked="checked" autocomplete="off"> 所有
                         </label>
-                        <label class="btn btn-default">
-                            <input type="radio" name="location" autocomplete="off"> 部门资源
+                        <label *ngFor="let o of ownerDic;"  class="btn btn-default" [ngClass]="{'active':queryOpt.imageOwner == o.value}" (click)="queryOpt.imageOwner = o.value">
+                            <input type="radio" name="owner" autocomplete="off" [checked]="queryOpt.imageOwner == o.value" /> {{o.displayValue}}
                         </label>
                     </div>
                 </div>
@@ -46,13 +37,13 @@
 
         <div class="pull-left row" style="margin-bottom:20px;">
             <div class="col-md-1">
-                <select class="form-control">
-                    <option>镜像名称</option>
-                    <option>操作系统</option>
+                <select class="form-control" (change)="setKeyword(type.value,keyword.value)" #type>
+                    <option value="0" selected="selected">镜像名称</option>
+                    <option value="1">操作系统</option>
                 </select>
             </div>
             <div class="input-group col-md-2 float-left">
-                <input class="form-control" placeholder="输入镜像信息搜索">
+                <input class="form-control" placeholder="输入镜像信息搜索" [(ngModel)]="queryOpt.osAndName" (change)="setKeyword(type.value,keyword.value)" #keyword>
                 <div class="input-group-addon">
                     <span class="glyphicon glyphicon-search"></span>
                 </div>
@@ -60,20 +51,22 @@
 
             <span class="float-left" style="margin-left:10px;margin-top:6px;">状态 :</span>
             <div class="col-md-2 float-left">
-                <select class="form-control"  [(ngModel)] ="queryOpt.status">
-                    <option *ngFor="let stauts of statusDic | orderBy : ['!value'];" [value]="stauts.value">{{stauts.displayValue}}</option>
+                <select class="form-control" [(ngModel)]="queryOpt.status">
+                    <option [value]="" value="">所有</option>
+                    <option *ngFor="let stauts of statusDic" [value]="stauts.value">{{stauts.displayValue}}</option>
                 </select>
             </div>
 
             <span class="pull-left mgb10" style="margin-top:6px;">镜像类型 :</span>
             <div class="col-md-2">
-                <select class="form-control" [(ngModel)] ="queryOpt.imageType">
-                   <option *ngFor="let type of typeDic;" [value]="type.value">{{type.displayValue}}</option>
+                <select class="form-control" [(ngModel)]="queryOpt.imageType">
+                    <option [value]="" value="">所有</option>
+                    <option *ngFor="let type of typeDic;" [value]="type.value">{{type.displayValue}}</option>
                 </select>
             </div>
 
-            <button class="btn button-gray-gradient"><span class="glyphicon glyphicon-search"></span> 简单搜索</button>
-            <button class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span> 重置选项</button>
+            <button class="btn button-gray-gradient" (click)="search()"><span class="glyphicon glyphicon-search"></span> 简单搜索</button>
+            <button class="btn button-gray-gradient" (click)="resetQueryOpt()"><span class="glyphicon glyphicon-repeat"></span> 重置选项</button>
             <button class="btn button-gray-gradient pull-right" style="margin-right:15px;">
                 <span class="icon icon-link"></span> 相关实例
             </button>
@@ -86,10 +79,11 @@
                     <th class="text-center">镜像类型</th>
                     <th class="text-center">操作系统</th>
                     <th class="text-center">系统位数</th>
+                    <th class="text-center">创建人</th>
+                    <th class="text-center">创建部门</th>
                     <th class="text-center">创建时间</th>
                     <th class="text-center">状态</th>
                     <th class="text-center">进度</th>
-                    <th class="text-center">所在区域</th>
                     <th class="text-center">描述</th>
                     <th class="text-center">操作</th>
                 </tr>
@@ -97,10 +91,10 @@
             <tbody>
                 <tr *ngFor="let image of images">
                     <td class="text-center">
-                        <input name="host-list" type="radio" class="fox-cloud-radio" (ngMode)="image.selectd">
+                        <input type="radio" class="fox-cloud-radio" name="group-image" [checked]="image.selectd" (change)="image.selectd = $event.target.checked" />
                     </td>
                     <td class="text-center td_mirror">
-                        <u class="font-green">{{image.imageName}}</u><span class="tdspan" (click)="openEidtPanel(image);image.nameEditing=true;">编辑</span>
+                        <u class="font-green">{{image.name}}</u><span class="tdspan" (click)="openEidtPanel(image);image.nameEditing=true;">编辑</span>
                         <div *ngIf="image.nameEditing" class="popover fade bottom in" role="tooltip" style="z-index:99;top: 35px; left: 8.5px; width:420px;max-width:1000px; display: block;">
                             <div class="arrow" style="left: 20%;"></div>
                             <div class="popover-content">
@@ -108,7 +102,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label pull-left">镜像描述:</label>
                                         <div class="col-sm-9 float-left">
-                                            <textarea class="form-control" [(ngModel)]="editImage.imageName" rows="3" name="imageName"></textarea>
+                                            <textarea class="form-control" [(ngModel)]="editImage.name" rows="3" name="imageName"></textarea>
                                             <div class="text-tip-color">长度为2-256个字符，不能以http://或https://开头</div>
                                         </div>
                                     </div>
@@ -121,13 +115,14 @@
                         </div>
                     </td>
 
-                    <td class="text-center">{{getDicText(image.imageType,this.typeDic)}}</td>
-                    <td class="text-center">{{image.osName}}</td>
-                    <td class="text-center">{{getDicText(image.osDigits,this.bitDic)}}</td>
-                    <td class="text-center">{{image.createdDate}}</td>
-                    <td class="text-center" [ngClass]="image.status==1?'font-green':'font-orange'">{{getDicText(image.status,this.statusDic)}}</td>
-                    <td class="text-center">{{image.progress}}%</td>
-                    <td class="text-center">{{image.location}}</td>
+                    <td class="text-center">{{getDicText(image.type,this.typeDic)}}</td>
+                    <td class="text-center">{{image.os}}</td>
+                    <td class="text-center">{{getDicText(image.bits,this.bitDic)}}</td>
+                    <td class="text-center">{{image.creatorName}}</td>
+                    <td class="text-center">{{image.orgName}}</td>
+                    <td class="text-center">{{image.createTime}}</td>
+                    <td class="text-center" [ngClass]="{'font-green':image.status==1,'font-orange':image.status!=1}">{{getDicText(image.status,this.statusDic)}}</td>
+                    <td class="text-center">{{image.progress}}</td>
                     <td class="text-center td_mirror">
                         {{image.description}}
                         <span class="tdspan" (click)="openEidtPanel(image);image.desEditing=true;">编辑</span>
@@ -151,7 +146,7 @@
                         </div>
                     </td>
                     <td class="text-center">
-                        <i *ngIf="image.imageType !=0" class="glyphicon glyphicon-trash pointer" (click)="deletImage(image)"></i>
+                        <i *ngIf="image.type !=0" class="glyphicon glyphicon-trash pointer" (click)="deleteImage(image)"></i>
                     </td>
                 </tr>
             </tbody>
@@ -159,6 +154,7 @@
         <div class="fox-cloud-pagination-container">
             <fc-pagination #pager tp={{totalPage}} (pf)="getImageList($event)"></fc-pagination>
         </div>
+        {{ queryOpt.toString()}}
         <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
         <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
 

@@ -18,8 +18,14 @@ export class AccountMngCrLocal implements OnInit{
         private router : Router,
         private route : ActivatedRoute
         ) { }
-    
+    //判断是否是创建 还是 编辑
     isCreate : boolean = false;
+    // 标题 根据 isCreate 修改
+    title : string = '';
+    // 按钮的名字 根据 isCreate 修改
+    btnTitle : string = '';
+    
+    test : number;
 
     ngOnInit() {
         this.route.params.forEach((params: Params) => {
@@ -27,12 +33,31 @@ export class AccountMngCrLocal implements OnInit{
                 //编辑
                 console.log('1111');
                 this.isCreate = false;
+                this.title = '编辑帐号';
+                this.btnTitle = '编辑';
             }else{
                 //创建
                 console.log('2222');
                 this.isCreate = true;
+                this.title = '创建帐号';
+                this.btnTitle = '创建';
             }
         });
+    }
+    //绑定角色
+    bindRole(){
+        this.initRole();
+        console.log('bindRole');
+    }
+
+    //角色重置
+    initRole(){
+        console.log('initRole');
+    }
+
+    //创建
+    create(){
+        console.log(this.test);
     }
     
 } 

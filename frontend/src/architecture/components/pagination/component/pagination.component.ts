@@ -8,8 +8,9 @@
 
 export class PaginationComponent implements OnInit, OnChanges {
     tp: number;
-    cp: number = 1;
     pp: number = 10;
+
+    cp: number = 1;
 
     prev: number;
     next: number;
@@ -19,7 +20,7 @@ export class PaginationComponent implements OnInit, OnChanges {
     @Output() pf = new EventEmitter<any>();
 
     ngOnInit() {
-        
+
     }
 
     // 分页信息变化后，重新计算分页信息
@@ -43,8 +44,15 @@ export class PaginationComponent implements OnInit, OnChanges {
         }
     }
 
+    // 描画组件
+    render(cp: number) {
+        this.cp = cp < this.tp ? (cp < 1 ? 1 : cp) : this.tp;
+
+        this.reCalculatePage();
+    }
+
     // 重新计算分页信息
-    reCalculatePage() {
+    private reCalculatePage() {
         let bf: number = 0;
         let af: number = 0;
 
@@ -83,16 +91,16 @@ export class PaginationComponent implements OnInit, OnChanges {
         this.next = this.cp > this.tp ? this.cp : this.cp + 1;
 
         let pages = new Array<number>();
-        
+
         for (let i = sp; i <= ep; i++) {
             pages.push(i);
         }
 
         this.pages = pages;
     }
-    
+
     // 是否输出组件判断
-    isRender() {
+    private isRender() {
         return this.tp > 1;
     }
 

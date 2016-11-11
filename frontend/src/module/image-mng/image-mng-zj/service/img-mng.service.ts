@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
 import { RestApiCfg, RestApi } from "../../../../architecture";
 
-import { Images_mock } from "../model/img-mng.mock.model";
+import { Images_mock, AreaList_mock } from "../model/img-mng.mock.model";
 import { Image } from "../model/img-mng.model";
 import { CriteriaQuery } from "../model/criteria-query.model";
 
@@ -65,17 +65,17 @@ export class ImgMngService {
     }
 
     deleteImage(image: Image): Promise<any> {
-        const pathParams = [
-            {
-                key: "image_id",
-                value: image.id
-            }
-        ];
 
         //const api = this.restApiCfg.getRestApi("image.mng.update");
-        //return this.restApi.request(api.method, api.url, pathParams, null, image);
+        //return this.restApi.request(api.method, api.url, null, null, image);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Images_mock });
     }
 
+    getAreaList(): Promise<any> {
+
+        //const api = this.restApiCfg.getRestApi("image.mng.update");
+        //return this.restApi.request(api.method, api.url, null, null, image);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return AreaList_mock });
+    }
 }
 
