@@ -34,7 +34,7 @@ export const imageList = {
             "name": "windows2012dc",
             "type": "1",
             "os": "Windows",
-            "bits": "2",
+            "bits": "0",
             "creatorId": "042031e7-da9a-4cca-a2ad-1f6534a933f4",
             "creatorName": "张三",
             "orgId": "042031e7-da9a-4cca-a2ad-1f6534a933f4",
