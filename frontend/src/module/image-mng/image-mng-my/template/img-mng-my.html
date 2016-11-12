@@ -9,9 +9,11 @@
                 <div class="col-md-12 li-content">
                     <div class="col-md-12 btn-group" data-toggle="buttons">
                         <label class="btn btn-default" [ngClass]="{'active':queryOpt.areaList==''}"(click)="queryOpt.areaList=''">
-                            <input type="radio" name="location" [check]
+                            <input type="radio" name="location" [checked]="queryOpt.areaList == ''" autocomplete="off">所有
                         </label>
-
+                        <label *ngFor="let area of areaList;" class="btn btn-default" [ngClass]="{'active':queryOpt.areaList == area.id}" (click)="qureyOpt.areaList = area.id;">
+                            <input type="radio" name="location" autocomplete="off" [checked]="queryOpt.areaList == area.id">{{area.name}}
+                        </label>
                     </div>
                 </div>
             </li>

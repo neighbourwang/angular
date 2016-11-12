@@ -60,5 +60,7 @@ export class ImgMngService_my {
         //return this.restApi.request(api.method, api.url, null, null, image);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return AreaList_mock });
     }
+
+    
 }
 

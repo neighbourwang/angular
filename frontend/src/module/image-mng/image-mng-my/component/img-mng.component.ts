@@ -106,6 +106,18 @@ export class ImgMngComponent_my implements OnInit {
         );
     }
 
+    setKeyword(type:string, value: string){
+        if(type === "0"){
+            this.queryOpt.imageName = value;
+            this.queryOpt.os = "";
+        }else{
+            this.queryOpt.imageName = "";
+            this.queryOpt.os = value;
+        }
+    }
+    resetQueryOpt() {
+        this.queryOpt = new CriteriaQuery();
+    }
     getAreaList(){
         this.layoutService.show();
         this.service.getAreaList().then(
