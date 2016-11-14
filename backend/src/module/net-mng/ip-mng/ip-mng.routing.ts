@@ -5,7 +5,7 @@ import { IpMngListComponent } from './component/ip-mng-list.component';
 
 export const IpMngRouting:ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'pf-mng2/cl-mng/cl-mng',
+        path: 'net-mng/ip-mng',
         component: IpMngListComponent
     },
     {
