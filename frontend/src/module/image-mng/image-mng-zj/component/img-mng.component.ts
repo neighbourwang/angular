@@ -91,7 +91,7 @@ export class ImgMngComponent implements OnInit {
                     this.totalPage = response.pageInfo.totalPage;
                 } else {
                     alert("Res sync error");
-                   
+
                 }
             }
             )
