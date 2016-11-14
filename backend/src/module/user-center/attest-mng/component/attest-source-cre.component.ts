@@ -24,9 +24,10 @@ export class AttestSourceCreComponent implements OnInit {
     // editPassWord: PopupComponent;
     // @ViewChild('notice')
     // notice: NoticeComponent;
-
+    new:boolean=false;
     edit: boolean = false;
     editAcc: boolean = false;
+    title:string;
     ngOnInit() {
         // console.log(this.router.params);
         this.router.params.forEach((params: Params) => {
@@ -34,8 +35,9 @@ export class AttestSourceCreComponent implements OnInit {
             let type = params['type'];
             console.log(type);
             switch (type) {
-                case 'edit': this.edit = true; break;
-                case 'editAcc': this.editAcc = true; break;
+                case 'new':this.new=true; this.title='创建认证源'; break;
+                case 'edit': this.edit = true;  this.title='编辑认证源' ;break;
+                case 'editAcc': this.editAcc = true; this.title='编辑认证账户';  break;
             }
             // this.heroService.getHero(id)
             //   .then(hero => this.hero = hero);

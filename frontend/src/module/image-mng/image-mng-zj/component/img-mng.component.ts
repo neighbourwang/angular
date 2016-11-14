@@ -61,7 +61,7 @@ export class ImgMngComponent implements OnInit {
             })
             .then((dic) => {
                 this.typeDic = dic;
-                return this.dicService.getItems("IMAGES", "BITS");
+                return this.dicService.getItems("IMAGES", "BITS_TYPE");
             })
             .then((dic) => {
                 this.bitDic = dic;
@@ -209,6 +209,16 @@ export class ImgMngComponent implements OnInit {
         }
     }
 
+    resetQueryOpt() {
+        //this.queryOpt.areaList = "";
+        //this.queryOpt.imageName = "";
+        //this.queryOpt.imageOwner = "";
+        //this.queryOpt.os = "";
+        //this.queryOpt.status = "";
+        //this.queryOpt.imageType = "";
+        //this.queryOpt.osAndName = "";
+        this.queryOpt = new CriteriaQuery();
+    }
 
     showAlert(msg: string): void {
         this.layoutService.hide();

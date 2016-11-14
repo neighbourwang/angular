@@ -27,8 +27,22 @@ export class AccountMngComponent implements OnInit{
     //用来判断 confirm确定执行的方法 1 重置密码 2 启用 3 禁用 4 删除
     confirmType : number;
 
-    ngOnInit() {
+    // 平台数据总页数
+    tp:number = 0;
+    // 每页显示的数据条数
+    pp:number = 10;
 
+
+    ngOnInit() {
+        this.service.getAccount(this.tp , this.pp).then(
+            res => {
+                console.log(res);
+            }
+        ).catch(
+            error => {
+                console.error(error);
+            }
+        )
     }
     
 
@@ -90,5 +104,22 @@ export class AccountMngComponent implements OnInit{
     delete (){
         this.confirmType = 4;
         this.confirm.open('删除帐号',"您选择删除 机构xxx，xxx'xxx@hpe.com'帐号，请确认");
+    }
+    //弹出框 确认
+    ok (){
+        switch(this.confirmType){
+            case 1:
+                console.log('重置密码');
+                break;
+            case 2:
+                console.log('启用帐号');
+                break;
+            case 3:
+                console.log('禁用帐号');
+                break;
+            case 4:
+                console.log('删除帐号');
+                break;
+        }
     }
 } 

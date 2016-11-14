@@ -1,4 +1,4 @@
-<div class="page-content-header icon-content-header-platform-manage">创建认证源</div>
+<div class="page-content-header icon-content-header-platform-manage">{{title}}</div>
 <div class="page-content fix-page-content">
 	<div class="row" style="padding-top: 30px;">
 		<div class="col-md-12">
@@ -84,7 +84,7 @@
 	<button class="fox-cloud-button-lg fox-cloud-button-white mgr20" (click)="cancel();">
             <span class="icon-button-label">取消 </span>
         </button>
-	<button *ngIf="type=='new' "class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();">
+	<button *ngIf="new" class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();">
             <span class="icon-button-label">创建</span>
         </button>
 		<button *ngIf="edit" class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSaveEdit();">

@@ -8,45 +8,49 @@
 				</div>
 				<p class="title font-green">修改头像</p>
 			</div>
-			<div class="col-md-10 detail">
+			<div class="col-md-7 detail">
 				<div class="row mgb15">
 					<div class="col-md-1 pcTitle">姓名：</div>
 					<div class="col-md-3 pcContent">
-						<span *ngIf="name" class="pcDisplay">管华</span>
+						<span *ngIf="name" class="pcDisplay">{{personAcc.userName}}</span>
 						<div class="has-feedback" *ngIf="nameEdit">
-							<input type="text" class="form-control"  value="管华">
+							<input type="text" class="form-control" #userName [(ngModel)]="personAcc.userName">
 							<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+							<span class="cancel" (click)="clear(userName)"></span>
 						</div>
 					</div>
-					<div class="col-md-1 font-green paOrder">
+					<div class="col-md-2 font-green paOrder">
 						<span (click)="editName()" *ngIf="name">修改</span>
 						<span *ngIf="nameEdit" (click)="saveName()">保存</span>
+						<span *ngIf="nameEdit" (click)="cancelName()">取消</span>
 					</div>
 				</div>
 				<div class="row mgb15">
 					<div class="col-md-1 pcTitle">账号：</div>
 					<div class="col-md-3 pcContent">
-						<span  class="pcDisplay">lisi@hpe.com</span>
+						<span  class="pcDisplay dd">{{personAcc.loginName}}</span>
 					</div>					
 				</div>
 				<div class="row mgb15">
 					<div class="col-md-1 pcTitle">电话：</div>
 					<div class="col-md-3 pcContent">
-						<span *ngIf="phone" class="pcDisplay">+8602160096688</span>
+						<span *ngIf="phone" class="pcDisplay">{{personAcc.phone}}</span>
 						<div class="has-feedback" *ngIf="phoneEdit">
-							<input type="text" class="form-control"  value="+8602160096688">
+							<input type="text" class="form-control" #phone [(ngModel)]="personAcc.phone">
 							<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+							<span class="cancel" (click)="clear(phone)"></span>
 						</div>
 					</div>
-					<div class="col-md-1 font-green paOrder">
+					<div class="col-md-2 font-green paOrder">
 						<span (click)="editPhone()" *ngIf="phone">修改</span>
 						<span *ngIf="phoneEdit" (click)="savePhone()">保存</span>
+						<span *ngIf="phoneEdit" (click)="cancelPhone()">取消</span>
 					</div>
 				</div>
 				<div class="row mgb15">
 					<div class="col-md-1 pcTitle">类型：</div>
 					<div class="col-md-3 pcContent">
-						<span  class="pcDisplay">本地</span>
+						<span  class="pcDisplay dd">本地</span>
 					</div>					
 				</div>
 				<div class="row mgb15">
@@ -63,14 +67,59 @@
 					<div class="col-md-3 pcContent">
 						<span *ngIf="desc" class="pcDisplay">描述</span>
 						<div class="has-feedback" *ngIf="descEdit">
-							<textarea class="form-control font-gray" rows="4" [(ngModel)]="prodDir" placeholder="描述"></textarea>
+							<textarea class="form-control font-gray" rows="4" [(ngModel)]="personAcc.description" placeholder="描述"></textarea>
 						</div>
 					</div>
-					<div class="col-md-1 font-green paOrder">
+					<div class="col-md-2 font-green paOrder">
 						<span (click)="editDesc()" *ngIf="desc">修改</span>
 						<span *ngIf="descEdit" (click)="saveDesc()">保存</span>
+						<span *ngIf="descEdit" (click)="cancelDesc()">取消</span>
 					</div>
 				</div>
+				<!--<div class="row">
+					<div class="col-md-12">
+						<div class="row row-line-height">
+							<div class="form-group">
+								<div class="col-sm-2 form-control-title">姓名：</div>
+								<div class="col-sm-4">
+									<input type="text" class="form-control font-gray" [disabled]="!edit" [(ngModel)]="personAcc.userName">
+								</div>
+							</div>
+						</div>
+						<div class="row row-line-height">
+							<div class="form-group">
+								<div class="col-sm-2 form-control-title">账号：</div>
+								<div class="col-sm-4">
+									<input type="text" class="form-control font-gray" [disabled]="!edit" [(ngModel)]="personAcc.loginName">
+								</div>
+							</div>
+						</div>
+						<div class="row row-line-height">
+							<div class="form-group">
+								<div class="col-sm-2 form-control-title">联系电话：</div>
+								<div class="col-sm-4">
+									<input type="text" class="form-control font-gray" [disabled]="!edit" [(ngModel)]="personAcc.phone">
+								</div>
+							</div>
+						</div>
+						<div class="row row-line-height">
+							<div class="form-group">
+								<div class="col-sm-2 form-control-title">类型：</div>
+								<div class="col-sm-4">
+									<span style="line-height:34px;">本地</span>
+								</div>
+							</div>
+						</div>
+						<div class="row row-line-height">
+							<div class="form-group">
+								<div class="col-sm-2 form-control-title">描述：</div>
+								<div class="col-sm-4">
+									<textarea class="form-control font-gray" rows="4" placeholder="描述" [disabled]="!edit" [(ngModel)]="personAcc.description"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>-->
 			</div>
 		</div>
 	</div>

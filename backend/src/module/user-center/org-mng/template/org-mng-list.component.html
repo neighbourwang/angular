@@ -8,9 +8,9 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
                 <li><a>编辑</a></li>
-                <li><a>启用</a></li>
-                <li><a>禁用</a></li>
-				<li><a>删除</a></li>
+                <li (click)="enable()"><a>启用</a></li>
+                <li (click)="disable()"><a>禁用</a></li>
+				<li (click)="delete()"><a>删除</a></li>
             </ul>
         </div>
 
@@ -33,15 +33,19 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td><input class="fox-cloud-radio" type="radio" name="isSelected"/></td>
-                <td>1</td>
-                <td>云平台</td>
-                <td>5</td>
-                <td>赵6</td>
-                <td>启用</td>
-                <td>默认机构</td>
+            <tr *ngFor="let item of orgs;let idx = index">
+                <td><input class="fox-cloud-radio" type="radio" name="isSelected" (click)="chooseItem(idx)"/></td>
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.headCount}}</td>
+                <td>{{item.leaderName}}</td>
+                <td>{{item.status}}</td>
+                <td>{{item.description}}</td>
             </tr>
             </tbody>
         </table>
     </div>
+
+    <fc-pagination #pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
+
+    <fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="of()" ct="取消" (cf)="ccf()"></fc-confirm>

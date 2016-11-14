@@ -9,4 +9,38 @@ export class OrgMngService {
         private restApiCfg: RestApiCfg,
         private restApi: RestApi
     ) { }
+
+
+    // 获取组织管理 所有机构
+    getOrg(page: number, size: number) {
+
+        let api = this.restApiCfg.getRestApi("user-center.org-mng.list");
+
+        return this.restApi.request(api.method, api.url,[{ key: "page", value: page }, { key: "size", value: size }], undefined);
+    }
+
+    //删除 机构
+    deleteOrg (id : string){
+        let api = this.restApiCfg.getRestApi("user-center.org-mng.delete");
+
+        return this.restApi.request(api.method,api.url,[{key : "id" , value : id}],undefined);
+    }
+
+    //启用 机构
+    enableOrg (id : string){
+        let api = this.restApiCfg.getRestApi("user-center.org-mng.enable");
+
+        return this.restApi.request(api.method,api.url,[{key : "id" , value : id}],undefined);
+    }
+
+    //禁用机构
+    disableOrg (id : string){
+        let api = this.restApiCfg.getDataRestApi("user-center.org-mng.disable");
+
+        return this.restApi.request(api.method , api.url , [{ key : "id" , value : id}],undefined);
+    }        
+
+
+
+
 }

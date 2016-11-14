@@ -14,7 +14,7 @@ import { AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderM
 export class OrderMngCancelComponent implements OnInit{
 
 	private _param:OrderMngParam = new OrderMngParam();
-
+	private _orderId:string = null;
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -23,6 +23,17 @@ export class OrderMngCancelComponent implements OnInit{
 	}
 	ngOnInit(){
 	
+	}
+
+	cancel(){
+/*
+{
+        "desc": "订单退订",
+        "method": "GET",
+        "id": "op-center.order-mng.order-cancel.get",
+        "url": " /marketplace/authsec/subscription/instance/{_subId}/cancel"        
+    }
+*/
 	}
 	
 }
