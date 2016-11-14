@@ -91,7 +91,7 @@
             <tbody>
                 <tr *ngFor="let image of images">
                     <td class="text-center">
-                        <input type="radio" class="fox-cloud-radio" name="group-image" [checked]="image.selectd" (change)="image.selectd = $event.target.checked" />
+                        <input type="radio" class="fox-cloud-radio" name="group-image" [checked]="image.selected" (change)="image.selected = $event.target.checked" />
                     </td>
                     <td class="text-center td_mirror">
                         <u class="font-green">{{image.name}}</u><span class="tdspan" (click)="openEidtPanel(image);image.nameEditing=true;">编辑</span>

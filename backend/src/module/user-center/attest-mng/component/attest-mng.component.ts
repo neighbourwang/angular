@@ -1,14 +1,15 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ViewChild, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
-import { LayoutService, ValidationService, NoticeComponent, PaginationComponent, ConfirmComponent, SystemDictionary, SystemDictionaryService } from '../../../../architecture';
+import { LayoutService, ValidationService, NoticeComponent, PaginationComponent, ConfirmComponent, SystemDictionary,
+    SystemDictionaryService } from "../../../../architecture";
 
-import { Attest } from '../model/attest.model';
-import { AttMngService } from '../service/attest-mng.service'
+import { Attest } from "../model/attest.model";
+import { AttMngService } from "../service/attest-mng.service"
 
 @Component({
-    selector: 'attest-mng',
-    templateUrl: '../template/attest-mng.component.html',
+    selector: "attest-mng",
+    templateUrl: "../template/attest-mng.component.html",
     styleUrls: [],
     providers: []
 })
@@ -51,16 +52,16 @@ export class AttestMngComponent implements OnInit {
         this.layoutService.show();
         this.service.getAttests(this.pageIndex, this.pageSize)
             .then(
-            response => {
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
+                response => {
                     this.layoutService.hide();
-                    this.attests = response["resultContent"];
-                    this.totalPage = response.pageInfo.totalPage;
-                } else {
-                    alert("Res sync error");
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                        this.attests = response["resultContent"];
+                        this.totalPage = response.pageInfo.totalPage;
+                    } else {
+                        alert("Res sync error");
+                    }
                 }
-            }
             )
             .catch((e) => this.onRejected(e));
     }
@@ -70,26 +71,26 @@ export class AttestMngComponent implements OnInit {
     }
 
     onEdit() {
-        var attest = this.getSelectAttest();
+        const attest = this.getSelectAttest();
         if (!attest) {
             this.showAlert("请先选择需要编辑的认证源");
             return;
         }
-        this.gotoEditPage("edit",attest);
+        this.gotoEditPage("edit", attest);
     }
 
     onEditAcc() {
-        var attest = this.getSelectAttest();
+        const attest = this.getSelectAttest();
         if (!attest) {
             this.showAlert("请先选择需要编辑的认证源");
             return;
         }
-        this.gotoEditPage("editAcc",attest);
+        this.gotoEditPage("editAcc", attest);
     }
 
-    gotoEditPage(type:string,attest?:Attest) {
+    gotoEditPage(type: string, attest?: Attest) {
         attest = attest || new Attest();
-        this.router.navigate(['user-center/attest-mng/attest-source-cre', { "type": type, id: attest.id}]);
+        this.router.navigate(["user-center/attest-mng/attest-source-cre", { "type": type, id: attest.id }]);
     }
 
     updateStatus(status: string) {
@@ -109,19 +110,19 @@ export class AttestMngComponent implements OnInit {
         };
         this.confirm.cof = () => {
             this.layoutService.show();
-            this.service.upateStatus(attest,status)
+            this.service.upateStatus(attest, status)
                 .then(
                     response => {
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
-                           this.getAttests();
+                            this.getAttests();
                         } else {
                             alert("Res sync error");
                         }
                     }
                 )
                 .catch((e) => this.onRejected(e));
-        }
+        };
         this.confirm.open();
     }
 
@@ -139,13 +140,13 @@ export class AttestMngComponent implements OnInit {
             this.layoutService.show();
             this.service.deleteAttest(attest)
                 .then(response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                       this.getAttests();
-                    } else {
-                        alert("Res sync error");
+                        this.layoutService.hide();
+                        if (response && 100 == response["resultCode"]) {
+                            this.getAttests();
+                        } else {
+                            alert("Res sync error");
+                        }
                     }
-                }
                 )
                 .catch((e) => this.onRejected(e));
         };
@@ -154,7 +155,7 @@ export class AttestMngComponent implements OnInit {
 
     //获取当前选中的认证源
     getSelectAttest(): Attest {
-        var attest = this.attests.find((o) => { return o.isSelect });
+        const attest = this.attests.find((o) => { return o.isSelect });
         return attest;
     }
 
