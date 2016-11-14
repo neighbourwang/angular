@@ -1,5 +1,5 @@
 export class CriteriaQuery {
-    areaList: string;
+    areaList: string; 
     imageOwner: string;
     imageName: string;
     os: string;
