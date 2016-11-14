@@ -162,6 +162,4 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
       this.showError("资源统计率加载出错！");
     })
  }
-
-
 }
