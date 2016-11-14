@@ -400,8 +400,18 @@ export class EntEstCreService{
 			,value:entQuota.enterpriseId
 		}
 		];
+		let params = {
+			physicalMachineQuota:entQuota.physicalQuota,
+			memQuota:entQuota.memroyQuota,
+			floatIpQuota:entQuota.floatIpQuota,
+			imageQuota:entQuota.imageQuota,
+			snapShotQuota:entQuota.snapShotQuota,
+			vcpuQuota:entQuota.vcpuQuota,
+			storageQuota:entQuota.storageQuota
+		}; 
+ 
 
-		return this.restApi.request(api.method, api.url, localParams, [], entQuota);
+		return this.restApi.request(api.method, api.url, localParams, [], params);
 	}
 
 

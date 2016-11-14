@@ -19,6 +19,8 @@ export class OrderMngParam{
     this.expireTime = null;
     this.organization = "0";
     this.region = "0";
+    this.zoneId = "0";
+    this.status = "0";
 
   }
 }
