@@ -11,7 +11,6 @@
             margin-bottom: 10px;
         }
         .title{
-
             text-align: center;
             width: 150px;;
             line-height: 34px;
@@ -33,12 +32,25 @@
                 height:34px;
                 line-height: 34px;
                 padding:6px 14px; 
+            }
+            .cancel{
+                display:inline-block;border:1px solid transparent;
+                width:34px;
+                height:34px;
+                position:absolute;
+                right:0px;top:0px;
+                z-index:100;
+                cursor: pointer;
             }           
         }
         .paOrder{
-            height:34px;
-            line-height: 34px;
-            cursor: pointer;
+            span{
+                height:34px;
+                line-height: 34px;
+                cursor: pointer;
+                display: inline-block;
+                margin-right: 10px;
+            }
         }
     }
 }

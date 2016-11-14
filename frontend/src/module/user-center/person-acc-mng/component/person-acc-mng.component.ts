@@ -55,10 +55,7 @@ export class PersonAccMngComponent implements OnInit {
     //编辑账号
     onEdit(){
         this.router.navigate(['user-center/person-acc-mng/person-acc-edit'])
-    }
-    con(v){
-        console.log(v);
-    }
+    }    
 
     //编辑姓名
     name:boolean=true;
@@ -68,6 +65,10 @@ export class PersonAccMngComponent implements OnInit {
         this.nameEdit=true;
     }
     saveName(){
+        this.name=true;
+        this.nameEdit=false;
+    }
+    cancelName(){
         this.name=true;
         this.nameEdit=false;
     }
@@ -83,6 +84,10 @@ export class PersonAccMngComponent implements OnInit {
         this.phone=true;
         this.phoneEdit=false;
     }
+    cancelPhone(){
+        this.phone=true;
+        this.phoneEdit=false;
+    }
 
     //编辑描述
     desc:boolean=true;
@@ -95,6 +100,10 @@ export class PersonAccMngComponent implements OnInit {
         this.desc=true;
         this.descEdit=false;
     }
+    cancelDesc(){
+        this.desc=true;
+        this.descEdit=false;
+    }
     //编辑密码
     accPwd:PersonAccPwd = new PersonAccPwd();
     samePwd:boolean=false;
@@ -103,7 +112,7 @@ export class PersonAccMngComponent implements OnInit {
             this.samePwd=true;
         }
     }
-    onEditPwd() {
+    editPwd() {
         this.editPassWord.open('修改密码')
     }
     otEditPwd() {
@@ -122,5 +131,16 @@ export class PersonAccMngComponent implements OnInit {
     }
     ccf() {
 
+    }
+    saveEditPerAcc(){
+        this.putPersonAcc.putPersonAcc(this.personAcc.id,this.personAcc).then(response=>{
+            console.log(response);
+        }).catch(err=>{
+            console.error(err);
+        })
+    }
+    clear(obj){
+        console.log(obj);
+        obj.value="";
     }
 }

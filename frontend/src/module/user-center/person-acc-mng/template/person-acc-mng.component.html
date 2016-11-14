@@ -15,12 +15,14 @@
 						<span *ngIf="name" class="pcDisplay">{{personAcc.userName}}</span>
 						<div class="has-feedback" *ngIf="nameEdit">
 							<input type="text" class="form-control" #userName [(ngModel)]="personAcc.userName">
-							<span class="glyphicon glyphicon-remove form-control-feedback dd" style="cursor:pointer" (click)="con(userName)"></span>
+							<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+							<span class="cancel" (click)="clear(userName)"></span>
 						</div>
 					</div>
-					<div class="col-md-1 font-green paOrder">
+					<div class="col-md-2 font-green paOrder">
 						<span (click)="editName()" *ngIf="name">修改</span>
 						<span *ngIf="nameEdit" (click)="saveName()">保存</span>
+						<span *ngIf="nameEdit" (click)="cancelName()">取消</span>
 					</div>
 				</div>
 				<div class="row mgb15">
@@ -34,13 +36,15 @@
 					<div class="col-md-3 pcContent">
 						<span *ngIf="phone" class="pcDisplay">{{personAcc.phone}}</span>
 						<div class="has-feedback" *ngIf="phoneEdit">
-							<input type="text" class="form-control"  [(ngModel)]="personAcc.phone">
+							<input type="text" class="form-control" #phone [(ngModel)]="personAcc.phone">
 							<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+							<span class="cancel" (click)="clear(phone)"></span>
 						</div>
 					</div>
-					<div class="col-md-1 font-green paOrder">
+					<div class="col-md-2 font-green paOrder">
 						<span (click)="editPhone()" *ngIf="phone">修改</span>
 						<span *ngIf="phoneEdit" (click)="savePhone()">保存</span>
+						<span *ngIf="phoneEdit" (click)="cancelPhone()">取消</span>
 					</div>
 				</div>
 				<div class="row mgb15">
@@ -66,9 +70,10 @@
 							<textarea class="form-control font-gray" rows="4" [(ngModel)]="personAcc.description" placeholder="描述"></textarea>
 						</div>
 					</div>
-					<div class="col-md-1 font-green paOrder">
+					<div class="col-md-2 font-green paOrder">
 						<span (click)="editDesc()" *ngIf="desc">修改</span>
 						<span *ngIf="descEdit" (click)="saveDesc()">保存</span>
+						<span *ngIf="descEdit" (click)="cancelDesc()">取消</span>
 					</div>
 				</div>
 				<!--<div class="row">

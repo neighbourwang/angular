@@ -68,11 +68,42 @@ export class OrderMngComponent implements OnInit{
 			subItem.specList.push(spec);
 			spec.attrDisplayName = "区域";
 			spec.attrDisplayValue = "东1区";
+	 
+	        let spec2 = new SubInstanceAttrPair();
+			subItem.specList.push(spec2);
+			spec2.attrDisplayName = '可用区';
+			spec2.attrDisplayValue = '可用区B';
+
+			  let spec3 = new SubInstanceAttrPair();
+			subItem.specList.push(spec3);
+			spec3.attrDisplayName = '实例规格';
+			spec3.attrDisplayValue = 'CPU 2赫/内存 4GB/启动盘 70G';
+
+			 let spec4 = new SubInstanceAttrPair();
+			subItem.specList.push(spec4);
+			spec4.attrDisplayName = 'IP地址';
+			spec4.attrDisplayValue = '10.1.1.1(内部) 192.168.1.1(外部)';
+
+			let spec5 = new SubInstanceAttrPair();
+			subItem.specList.push(spec5);
+			spec5.attrDisplayName = '操作系统';
+			spec5.attrDisplayValue = '******';
+
+			let spec6 = new SubInstanceAttrPair();
+			subItem.specList.push(spec6);
+			spec6.attrDisplayName = '密码';
+			spec6.attrDisplayValue = '已设置';
+
+			let spec7 = new SubInstanceAttrPair();
+			subItem.specList.push(spec7);
+			spec7.attrDisplayName = '实例名称';
+			spec7.attrDisplayValue = 'abcabc';
 
 
 			subItem.billingInfo = new ProductBillingItem();
 			subItem.billingInfo.basePrice = 5;
 			subItem.billingInfo.basicPrice = 6;
+			subItem.billingInfo.billingMode = '包年包月';
 			
 			subItem.period = 1;
 			subItem.quantity = 1;

@@ -22,12 +22,19 @@ export class Image{
     name:string;//镜像名称
     type:string;//镜像类型
     os:string;//操作系统
-    digit:string;//系统位数
+    bits:string;//系统位数
     createTime:string;//创建时间
-    status:number;//状态--字典
+    status:string;//状态--字典
     progress:string;//进度
-    location:string//区域
-    des:string;//描述
-    nameEditing:boolean;//
+    imageOwner:string;
+    areaId:string;
+    areaName: string;
+    description:string;//描述
+    nameEditing:boolean;//    
     desEditing:boolean;//
+    creatorName: string;
+    creatorId: string;
+    orgId: string;
+    orgName:string;
+    selected: boolean = false;
 }
