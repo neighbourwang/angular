@@ -34,7 +34,7 @@
 				<tr>
 					<th class="fristTh">选择</th>
 					<th>企业（租户）名称</th>
-					<th>云主机数量</th>
+					<th>VCPU</th>
 					<th>快照数量</th>
 					<th>镜像数量</th>
 					<th>产品数量</th>
@@ -52,7 +52,7 @@
 						<input type="radio" class="fox-cloud-radio"   name="entItems" (change)="selectItem(i)" value="{{i}}">
 					</td>
 					<td (click)="checkEnterpriseInfo(item.enterpriseId);" class="hands">{{item.enterpriseName}}</td>
-					<td>{{item.usedVMNumber }}</td>
+					<td>{{item.vcpuQuota }}</td>
 					<td>{{item.snapshotQuota }}</td>
 					<td>{{item.imageQuota }}</td>
 					<td>{{item.productNumber }}</td>
