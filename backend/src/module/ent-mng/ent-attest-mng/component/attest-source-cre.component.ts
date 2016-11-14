@@ -18,13 +18,20 @@ export class AttestSourceCreComponent implements OnInit {
         private router: ActivatedRoute,
         private route: Router,
         private service: AttMngCreService,
-        private layoutService: LayoutService
+        private layoutService: LayoutService,
+        private activatedRouter: ActivatedRoute
     ) {
+        if (activatedRouter.snapshot.params["eid"]) {
+            this.eid = activatedRouter.snapshot.params["eid"] || "";
+        } else {
+            this.eid = "1";
+        }
     }
 
+    eid: string;
     noticeTitle = "";
     noticeMsg = "";
-    new:boolean=false;
+
     @ViewChild("notice")
     notice: NoticeComponent;
     attest = new Attest();
@@ -33,7 +40,6 @@ export class AttestSourceCreComponent implements OnInit {
     testResult?: boolean;
     type: string;
 
-    title:string;
     ngOnInit() {
         // console.log(this.router.params);
         this.router.params.forEach((params: Params) => {
@@ -149,7 +155,7 @@ export class AttestSourceCreComponent implements OnInit {
             return false;
         }
         this.layoutService.show();
-        this.service.create(this.attest)
+        this.service.create(this.attest, this.eid)
             .then(
                 response => {
                     this.layoutService.hide();

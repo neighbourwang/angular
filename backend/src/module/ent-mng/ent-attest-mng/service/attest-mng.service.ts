@@ -22,7 +22,7 @@ export class AttMngService {
 
 
     //获取认证源列表
-    getAttests(pageIndex: number, pageSize: number): Promise<any> {
+    getAttests(pageIndex: number, pageSize: number, eid: string): Promise<any> {
         const pathParams = [
             {
                 key: "page",
@@ -31,13 +31,18 @@ export class AttMngService {
             {
                 key: "size",
                 value: pageSize
+            },
+            {
+                key: "enterpriseId",
+                value: eid
             }
         ];
 
-        //const api = this.restApiCfg.getRestApi("user-center.attest-mng.list");
+        //const api = this.restApiCfg.getRestApi("ent-mng.enterprise.ldap.list");
         //return this.restApi.request(api.method, api.url, pathParams, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => attests);
     }
+
     //删除认证源
     deleteAttest(attest: Attest): Promise<any> {
         const pathParams = [

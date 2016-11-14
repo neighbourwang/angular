@@ -1,8 +1,10 @@
 import { Component, ViewChild, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
-import { LayoutService, ValidationService, NoticeComponent, PaginationComponent, ConfirmComponent, SystemDictionary,
-    SystemDictionaryService } from "../../../../architecture";
+import {
+    LayoutService, ValidationService, NoticeComponent, PaginationComponent, ConfirmComponent, SystemDictionary,
+    SystemDictionaryService
+} from "../../../../architecture";
 
 import { Attest } from "../model/attest.model";
 import { AttMngService } from "../service/attest-mng.service"
@@ -18,14 +20,21 @@ export class AttestMngComponent implements OnInit {
         private router: Router,
         private dicService: SystemDictionaryService,
         private layoutService: LayoutService,
-        private service: AttMngService
+        private service: AttMngService,
+        private activatedRouter: ActivatedRoute
     ) {
+        if (activatedRouter.snapshot.params["eid"]) {
+            this.eid = activatedRouter.snapshot.params["eid"] || "";
+        } else {
+            this.eid = "1";
+        }
     }
 
+    eid: string;
     noticeTitle = "";
     noticeMsg = "";
     totalPage = 1;
-    pageIndex =1;
+    pageIndex = 1;
     pageSize = 20;
     attests: Attest[];
     statusDic: Array<SystemDictionary>;
@@ -50,18 +59,18 @@ export class AttestMngComponent implements OnInit {
     getAttests(index?: number) {
         this.pageIndex = index || this.pageIndex;
         this.layoutService.show();
-        this.service.getAttests(this.pageIndex, this.pageSize)
+        this.service.getAttests(this.pageIndex, this.pageSize, this.eid)
             .then(
-                response => {
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.layoutService.hide();
-                        this.attests = response["resultContent"];
-                        this.totalPage = response.pageInfo.totalPage;
-                    } else {
-                        alert("Res sync error");
-                    }
+                    this.attests = response["resultContent"];
+                    this.totalPage = response.pageInfo.totalPage;
+                } else {
+                    alert("Res sync error");
                 }
+            }
             )
             .catch((e) => this.onRejected(e));
     }
@@ -90,7 +99,7 @@ export class AttestMngComponent implements OnInit {
 
     gotoEditPage(type: string, attest?: Attest) {
         attest = attest || new Attest();
-        this.router.navigate(["user-center/attest-mng/attest-source-cre", { "type": type, id: attest.id }]);
+        this.router.navigate([`ent-mng/attest-mng/attest-source-cre/${this.eid}`, { "type": type, id: attest.id }]);
     }
 
     updateStatus(status: string) {
@@ -112,14 +121,14 @@ export class AttestMngComponent implements OnInit {
             this.layoutService.show();
             this.service.upateStatus(attest, status)
                 .then(
-                    response => {
-                        this.layoutService.hide();
-                        if (response && 100 == response["resultCode"]) {
-                            this.getAttests();
-                        } else {
-                            alert("Res sync error");
-                        }
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.getAttests();
+                    } else {
+                        alert("Res sync error");
                     }
+                }
                 )
                 .catch((e) => this.onRejected(e));
         };
@@ -140,13 +149,13 @@ export class AttestMngComponent implements OnInit {
             this.layoutService.show();
             this.service.deleteAttest(attest)
                 .then(response => {
-                        this.layoutService.hide();
-                        if (response && 100 == response["resultCode"]) {
-                            this.getAttests();
-                        } else {
-                            alert("Res sync error");
-                        }
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.getAttests();
+                    } else {
+                        alert("Res sync error");
                     }
+                }
                 )
                 .catch((e) => this.onRejected(e));
         };

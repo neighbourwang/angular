@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, ValidationService, SystemDictionary, SystemDictionaryService } from "../../../../architecture";
 
 import { Image } from '../model/img-mng.model';
-import {  Area } from '../model/area.model';
+import { Area } from '../model/area.model';
 import { CriteriaQuery } from '../model/criteria-query.model';
 
 import { ImgMngService } from '../service/img-mng.service';
@@ -50,7 +50,7 @@ export class ImgMngComponent implements OnInit {
     bitDic: Array<SystemDictionary>;
     queryOpt: CriteriaQuery = new CriteriaQuery();
     editImage: Image = new Image();
-    areaList:Array<Area>;
+    areaList: Array<Area>;
     ngOnInit() {
         this.getAreaList();
         this.dicService.getItems("IMAGES", "STATUS")
@@ -116,6 +116,9 @@ export class ImgMngComponent implements OnInit {
 
     //根据value获取字典的txt
     getDicText(value: string, dic: Array<SystemDictionary>): String {
+        if (!$.isArray(dic)) {
+            return value;
+        }
         const d = dic.find((e) => {
             return e.value == value;
         });
@@ -161,19 +164,30 @@ export class ImgMngComponent implements OnInit {
 
     //删除一个镜像
     deleteImage(image: Image) {
-        this.layoutService.show();
-        this.service.deleteImage(image)
-            .then(
-            response => {
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
+        //var deleteImage = this.images.find((image) => { return image.selected; });
+        //if (!deleteImage) {
+        //    this.showAlert("请先选择需要删除的镜像！");
+        //    return;
+        //}
+
+        this.noticeMsg = `确认删除'${image.name}'?`;
+
+        this.confirm.ccf = () => {
+            this.layoutService.show();
+            this.service.deleteImage(image)
+                .then(
+                response => {
                     this.layoutService.hide();
-                } else {
-                    alert("Res sync error");
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                    } else {
+                        alert("Res sync error");
+                    }
                 }
-            }
-            )
-            .catch((e) => this.onRejected(e));
+                )
+                .catch((e) => this.onRejected(e));
+        };
+        this.confirm.open();
     }
 
     //关闭所有的弹出窗口

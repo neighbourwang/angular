@@ -5,7 +5,7 @@ import { EntResQuotaMngModule } from './ent-res-quota-mng/ent-res-quota-mng.modu
 import { EntAdminMngModule } from './ent-admin-mng/ent-admin-mng.module';
 import { EntEstMngModule } from './ent-est-mng/ent-est-mng.module'
 import { EntProdMngModule } from './ent-prod-mng/ent-prod-mng.module'
-import { EntLdapMngModule } from './ent-ldap-mng/ent-ldap-mng.module'
+import { AttestMngModule } from './ent-attest-mng/attest-mng.module'
 
 @NgModule({
     imports: [
@@ -13,7 +13,7 @@ import { EntLdapMngModule } from './ent-ldap-mng/ent-ldap-mng.module'
         EntAdminMngModule,
         EntEstMngModule,
         EntProdMngModule,
-        EntLdapMngModule
+        AttestMngModule
     ],
     declarations: [],
     exports: [
@@ -21,7 +21,7 @@ import { EntLdapMngModule } from './ent-ldap-mng/ent-ldap-mng.module'
         EntAdminMngModule,
         EntEstMngModule,
         EntProdMngModule,
-        EntLdapMngModule
+        AttestMngModule
     ],
     providers: []
 })
