@@ -50,7 +50,13 @@
 
         <div class="pull-left row" style="margin-bottom:20px;">
             <div class="col-md-2">
+<!-->
                 <select class="form-control" (change)="setKeyword(type.value,keyword.value)" #type>
+                    <option value="0" selected="selected">镜像名称</option>
+                    <option value="1">操作系统</option>
+                </select>
+-->
+                <select class="form-control" value="1" (change)="setKeyword(type.value,keyword.value)" #type>
                     <option value="0" selected="selected">镜像名称</option>
                     <option value="1">操作系统</option>
                 </select>
@@ -60,6 +66,7 @@
             </div>-->
             <div class="input-group col-md-2 float-left">
                 <!-- <input class="form-control" placeholder="输入镜像信息搜索" [(ngModel)]="imagequery.str" (change)="setKeyword()"> -->
+<!--                <input class="form-control" placeholder="输入镜像信息搜索" [(ngModel)]="imagequery.str" (change)="setKeyword(type.value,keyword.value)" #keyword> -->
                 <input class="form-control" placeholder="输入镜像信息搜索" [(ngModel)]="imagequery.str" (change)="setKeyword(type.value,keyword.value)" #keyword>
                 <div class="input-group-addon">
                     <span class="glyphicon glyphicon-search"></span>
