@@ -11,6 +11,16 @@ export class EntEstCreResourceQuota{
 	vcpuQuota : number = null;//": 0, //可使用vCPU数量vcpuQuota 
 	vmQuota : number = null;//": 0
 
+  usedCpuRate :number = null;//CPU配额使用率
+  usedFloatIpRate :number = null;// 浮动IP配额配额
+  usedImageRate :number = null;//镜像配额使用率
+  usedMemRate  :number = null; //内存使用率
+  usedPhysicalMachineRate :number = null;//物理机配额使用率
+  usedSnapshotRate  :number = null; //快照配额使用率
+  usedStorageRate :number = null;//储存使用率
+ 
+
+
 	reset(){
 		this.enterpriseId = null;
 		this.floatIpQuota = null;

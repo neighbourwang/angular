@@ -1,0 +1,80 @@
+﻿<div class="page-content-header icon-cloud-network-mngOn" >
+    同步网络：XXXXX云平台
+</div>
+
+<div class="page-content">
+
+    <div class="dropdown pull-right mgb10" >
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            选择操作
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <li><a href="javascript:">全部添加</a></li>
+            <li><a href="javascript:">全部更新</a></li>
+            <li><a href="javascript:">全部禁用</a></li>
+        </ul>
+    </div>
+   
+    <div class="table-container clear" >
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>网络名</th>
+                    <th>子网名</th>
+                    <th>子网显示名称</th>
+                    <th>网段</th>
+                    <th>所属企业</th>
+                    <th>类型</th>
+                    <th>是否共享</th>
+                    <th>运行状态</th>
+                    <th>同步结果</th>
+                    <th>同步操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>cionetwork2</td>
+                    <td>subinter-network9</td>
+                    <td><input type="text" class="form-control" value="subinter-network9" /></td>
+                    <td>10.10.0.0/24</td>
+                    <td>BOE-CIO总部</td>
+                    <td>外部网络</td>
+                    <td>否</td>
+                    <td>运行中</td>
+                    <td>新增</td>
+                    <td><button class="fox-cloud-button-md fox-cloud-button-white">添加</button></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>cionetwork1</td>
+                    <td>subinter-network2</td>
+                    <td><input type="text" class="form-control" value="CIO-内网1" /></td>
+                    <td>192.168.0.0/24</td>
+                    <td>BOE-CIO总部</td>
+                    <td>内部网络</td>
+                    <td>否</td>
+                    <td>运行中</td>
+                    <td>已存在</td>
+                    <td><button class="fox-cloud-button-md fox-cloud-button-white">更新</button></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>cionetwork1</td>
+                    <td>subinter-network3</td>
+                    <td><input type="text" class="form-control" value="CIO-内网2" /></td>
+                    <td>10.10.2.0/24</td>
+                    <td>BOE-CIO总部</td>
+                    <td>内部网络</td>
+                    <td>否</td>
+                    <td>运行中</td>
+                    <td>不存在</td>
+                    <td><button class="fox-cloud-button-md fox-cloud-button-white">禁用</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+</div>

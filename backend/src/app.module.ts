@@ -29,6 +29,8 @@ import {OrderMngModule } from './module/op-center/order-mng/order-mng.module';
 
 //check center
 import {CheckCenterModule } from './module/check-center/check-center.module';
+//net-mng
+import { NetMngModule } from './module/net-mng/net-mng.module';
 
 import {routing} from './app.routing';
 
@@ -46,6 +48,7 @@ import {routing} from './app.routing';
         FormsModule,
         OrderMngModule,
         CheckCenterModule,
+        NetMngModule,
         routing
     ],
     declarations: [MenuComponent, SiteComponent],

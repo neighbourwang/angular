@@ -38,13 +38,13 @@ module.exports = {
 		    filename: 'protal.html',
 		    chunks: ['common','protal'],
 		    template: 'src/protal/protal.ejs',
-		    hash: true
+		    hash: false
 		}),
 		new HtmlWebpackPlugin({
 		    filename: 'login.html',
 		    chunks: ['common','login'],
 		    template: 'src/login/login.ejs',
-		    hash: true
+		    hash: false
 		}),
 	]
 }

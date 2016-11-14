@@ -12,7 +12,6 @@ import { ConfirmComponent } from './dialog/component/confirm.component';
 import { PopupComponent } from './dialog/component/popup.component';
 import { CountBarComponent } from './countBar/component/count-bar.component';
 import { MyDatePickerModule } from './date-picker/my-date-picker.module';
-import { CustomFormsModule } from './validators/directives';
 
 // import { DonutChart } from './donutChart/component/chart.component';
 // import { LineChart } from './lineChart/component/chart.component';
@@ -40,7 +39,6 @@ import { CustomFormsModule } from './validators/directives';
     exports: [
         CommonModule,
         MyDatePickerModule,
-        CustomFormsModule,
         FormsModule,
         SpinnerComponent,
         PaginationComponent,

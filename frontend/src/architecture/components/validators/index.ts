@@ -1,2 +1,1 @@
-export * from './custom-validators';
-export * from './directives';
+export * from './validation';

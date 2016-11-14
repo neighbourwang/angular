@@ -3,10 +3,8 @@ import { Component,ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 
-import { LayoutService, NoticeComponent, ConfirmComponent, CustomValidators } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, Validation } from '../../../../architecture';
 import { cartListService } from '../service/cart-list.service'
-
-import { VmList, HandleVm } from '../model/vm-list.model';
 
 @Component({
 	selector: 'cart-list',
@@ -28,6 +26,9 @@ export class cartListComponent implements OnInit {
 
 	fieldname:string = '';
 
+	v : Validation;
+	@ViewChild('heroForm') heroForm;
+
 	testArr: Array<any>;
 
 	constructor(
@@ -35,26 +36,19 @@ export class cartListComponent implements OnInit {
 		private router: Router,
 		private service: cartListService
 	) {
+		this.v = new Validation();
+		console.log(this.v)
 	}
 	ngOnInit() {
-
-		setTimeout(() => {
-			console.log(this)
-		},5000)
-
-		// var password = new FormControl('', Validators.required);
-	 //    var certainPassword = new FormControl('');
-
-	 //    this.form = new FormGroup({
-	 //      passwordGroup: new FormGroup({
-	 //        password: password,
-	 //        certainPassword: certainPassword
-	 //      }, CustomValidators.equalTo)
-	 //    });
 		
 	}
+
 	onDateChanged(event:any) {
         console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
+    }
+
+    onValueChanged(data){
+    	console.log(this.heroForm)
     }
 
 	goTo(url : string) {
