@@ -8,13 +8,15 @@ import { CommonComponentModule } from '../../../architecture';
 
 //Components
 import { PersonAccMngComponent } from './component/person-acc-mng.component';
-import { PersonAccEditComponent } from './component/person-acc-edit.component';
 
 // Routing
 import { PersonAccMngRouting } from './person-acc-mng.routing';
 
 
 //Service
+import { GetPersonAccService } from './service/person-acc-get.service';
+import { PutPersonAccService } from './service/person-acc-put.service';
+import { EditPersonAccPwdService } from './service/person-acc-pwd.service';
 
 @NgModule({
     imports: [
@@ -23,14 +25,14 @@ import { PersonAccMngRouting } from './person-acc-mng.routing';
     ],
     declarations: [
         PersonAccMngComponent,
-        PersonAccEditComponent
     ],
     exports: [
         PersonAccMngComponent,
-        PersonAccEditComponent
     ],
     providers: [
-       
+        GetPersonAccService,
+        PutPersonAccService,
+        EditPersonAccPwdService 
     ]
 
 })
