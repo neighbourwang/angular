@@ -2,6 +2,7 @@
     .touxiang{
         height:280px;
         border-right: 1px solid #ddd;
+        padding-top: 10px;
         .img{
             padding: 10px;
             height: 150px;
@@ -10,7 +11,6 @@
             margin-bottom: 10px;
         }
         .title{
-
             text-align: center;
             width: 150px;;
             line-height: 34px;
@@ -19,7 +19,10 @@
     .detail{
         padding-left: 30px;
         line-height:34px;
-        
+/*        
+        .dd{
+          &::before 
+        }*/
         .pcTitle{
             text-align: right;
         }
@@ -30,14 +33,24 @@
                 line-height: 34px;
                 padding:6px 14px; 
             }
-            /*.pcEdit{
-
-            }*/
+            .cancel{
+                display:inline-block;border:1px solid transparent;
+                width:34px;
+                height:34px;
+                position:absolute;
+                right:0px;top:0px;
+                z-index:100;
+                cursor: pointer;
+            }           
         }
         .paOrder{
-            height:34px;
-            line-height: 34px;
-            cursor: pointer;
+            span{
+                height:34px;
+                line-height: 34px;
+                cursor: pointer;
+                display: inline-block;
+                margin-right: 10px;
+            }
         }
     }
 }

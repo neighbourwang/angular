@@ -1,4 +1,4 @@
-﻿<fc-notice #notice ot="确认" (of)="okClicked()"></fc-notice>
+﻿<fc-notice #notice ot="确认"></fc-notice>
 <div class="OrderManage">	
 		<div class="page-content-header icon-order-manage" style="border-bottom: 3px solid  #01a982;margin: 10px 0px;padding: 0;">订单管理</div>
 	<div class="page-content">
@@ -116,11 +116,11 @@
 					<td>{{prodItem.billingInfo.billingMode}}</td>
 					<td>{{prodItem.period}}</td>
 					<td>{{prodItem.quantity}}</td>
-					<td class="rightAlign">{{prodItem.billingInfo.oneTimePriceAndPrice}}</td>??
+					<td class="rightAlign">{{prodItem.billingInfo.oneTimePriceAndPrice}}</td>
 					<td class="rightAlign">{{prodItem.serviceType}}</td>
 					<td class="rightAlign validateInfo">{{prodItem.statusName}}</td>
 					<td class="rightAlign">{{prodItem.createDate}}</td>
-					<td>{{prodItem.exireDate}}
+					<td>{{prodItem.expireDate}}
 					</td>
 				</tr>
 			</table>
