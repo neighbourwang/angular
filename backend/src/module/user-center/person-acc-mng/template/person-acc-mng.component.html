@@ -70,7 +70,7 @@
 						<div class="form-group">
 							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> 当前密码：</div>
 							<div class="col-sm-6">
-								<input type="text" class="form-control font-gray" type="password" [(ngModel)]="accPwd.password">
+								<input type="text" class="form-control font-gray" type="password" [(ngModel)]="accPwd.password" required>
 							</div>
 						</div>
 					</div>
@@ -78,7 +78,7 @@
 						<div class="form-group has-error">
 							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> 新密码：</div>
 							<div class="col-sm-6">
-								<input type="text" class="form-control font-gray" type="password" [(ngModel)]="accPwd.newPassword">
+								<input type="text" class="form-control font-gray" type="password" [(ngModel)]="accPwd.newPassword" required>
 							</div>
 						</div>
 					</div>
@@ -86,7 +86,7 @@
 						<div class="form-group has-error">
 							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> 确认新密码：</div>
 							<div class="col-sm-6">								
-								<input type="text" class="form-control font-gray" type="password" id="inputError1" [(ngModel)]="accPwd.confirmPwd">
+								<input type="text" class="form-control font-gray" type="password" id="inputError1" [(ngModel)]="accPwd.confirmPwd" required>
 								<label class="control-label" for="inputError1">密码输入不一致</label>
 							</div>
 						</div>
