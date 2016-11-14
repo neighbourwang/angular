@@ -82,6 +82,7 @@ export class EntEstCheckComponent implements OnInit {
     this.loadEntProdItems();
     this.sysDicService.sysDicOF(this, this.sysDicCallback, "GLOBAL", "STATUS");
 
+    this.resourceQuotaSvg.FirstItem = new EntEstCreResourceQuota();
      this.loadResourceQuotaSvg();
   }
 
@@ -153,7 +154,7 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
 
 //加载统计图
  loadResourceQuotaSvg(){
-    this.resourceQuotaSvg.Go(1,[{key:"enterpriseId", value:this.entId}])
+    this.resourceQuotaSvg.Go(1,[{key:"_enterpriseId", value:this.entId}])
     .then(success=>{
         this.showError("资源统计率加载成功！");
     }, err=>{

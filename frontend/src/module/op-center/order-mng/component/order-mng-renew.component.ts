@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, } from '@angular/core';
+import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import { AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import { SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 
 
 @Component({
@@ -12,6 +12,8 @@ import { AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderM
 	)
 export class OrderMngRenewComponent implements OnInit{
 	@ViewChild("notice")
+	@Input()
+	private orderItem: SubInstanceResp;
   	private _notice: NoticeComponent;
 
 	private _renew:ItemLoader<any> = null;

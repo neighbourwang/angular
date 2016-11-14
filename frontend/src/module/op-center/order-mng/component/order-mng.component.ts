@@ -16,6 +16,8 @@ export class OrderMngComponent implements OnInit{
 	@ViewChild("notice")
   	private _notice: NoticeComponent;
 
+  	//当前选择的行
+  	private selectedOrderItem: SubInstanceResp = null;
 	//查询参数
 	private _param:OrderMngParam = new OrderMngParam();
 	//部门
@@ -90,6 +92,9 @@ export class OrderMngComponent implements OnInit{
 	}
 	renewOrder(){
 		this.router.navigateByUrl('op-center/order-mng/order-mng-renew');
+	}
+	renew(orderItem:SubInstanceResp){
+		this.selectedOrderItem = orderItem;
 	}
 	cancelOrder(){
 		this.router.navigateByUrl('op-center/order-mng/order-mng-cancel');
