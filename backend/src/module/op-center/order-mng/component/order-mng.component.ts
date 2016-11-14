@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
-import { SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import { SubInstanceAttrPair, ProductBillingItem, SubInstanceResp, SubInstanceItemResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 
 
 @Component({
@@ -51,6 +51,69 @@ export class OrderMngComponent implements OnInit{
 
 		//配置订单加载
 		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
+		this._orderLoader.FakeDataFunc = (target:Array<SubInstanceResp>)=>{
+			let obj = new SubInstanceResp();
+			target.push(obj);
+
+			obj.orderNo = "1234";
+			obj.purchaseDate = "2016-11-11";
+			let subItem = new SubInstanceItemResp();
+			obj.itemList = [];
+			obj.itemList.push(subItem);
+
+			subItem.quantity = 1;
+
+			subItem.specList = [];
+			let spec = new SubInstanceAttrPair();
+			subItem.specList.push(spec);
+			spec.attrDisplayName = "区域";
+			spec.attrDisplayValue = "东1区";
+	 
+	        let spec2 = new SubInstanceAttrPair();
+			subItem.specList.push(spec2);
+			spec2.attrDisplayName = '可用区';
+			spec2.attrDisplayValue = '可用区B';
+
+			  let spec3 = new SubInstanceAttrPair();
+			subItem.specList.push(spec3);
+			spec3.attrDisplayName = '实例规格';
+			spec3.attrDisplayValue = 'CPU 2赫/内存 4GB/启动盘 70G';
+
+			 let spec4 = new SubInstanceAttrPair();
+			subItem.specList.push(spec4);
+			spec4.attrDisplayName = 'IP地址';
+			spec4.attrDisplayValue = '10.1.1.1(内部) 192.168.1.1(外部)';
+
+			let spec5 = new SubInstanceAttrPair();
+			subItem.specList.push(spec5);
+			spec5.attrDisplayName = '操作系统';
+			spec5.attrDisplayValue = '******';
+
+			let spec6 = new SubInstanceAttrPair();
+			subItem.specList.push(spec6);
+			spec6.attrDisplayName = '密码';
+			spec6.attrDisplayValue = '已设置';
+
+			let spec7 = new SubInstanceAttrPair();
+			subItem.specList.push(spec7);
+			spec7.attrDisplayName = '实例名称';
+			spec7.attrDisplayValue = 'abcabc';
+
+
+			subItem.billingInfo = new ProductBillingItem();
+			subItem.billingInfo.basePrice = 5;
+			subItem.billingInfo.basicPrice = 6;
+			subItem.billingInfo.billingMode = '包年包月';
+			
+			subItem.period = 1;
+			subItem.quantity = 1;
+			subItem.serviceType = '云主机';
+			subItem.statusName = '成功';
+			subItem.createDate = '2016-11-11';
+			subItem.expireDate = '2017-11-11';
+
+				
+		};
 	}
 	ngOnInit(){
 		this._orderStatus.Go()
@@ -70,12 +133,12 @@ export class OrderMngComponent implements OnInit{
 		// 	this.showMsg(err);
 		// })
 
-		this.loadPlatform()
-		.then(success=>{
-			this.loadSubregion();
-		}, err=>{
-			this.showMsg(err);
-		});
+		// this.loadPlatform()
+		// .then(success=>{
+		// 	this.loadSubregion();
+		// }, err=>{
+		// 	this.showMsg(err);
+		// });
 	}
 
 	loadAdmin():Promise<any>{

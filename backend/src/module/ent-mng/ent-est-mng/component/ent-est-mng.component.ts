@@ -73,7 +73,6 @@ export class EntEstMngComponent implements OnInit {
     this.entEstResource.FirstItem = new EntEstCreResourceQuota();
 
 
-
       //字典配置
       this.statusDic = new DicLoader(restApiCfg, restApi, "GLOBAL", "STATUS");
       this.statusDic.SourceName = "status";

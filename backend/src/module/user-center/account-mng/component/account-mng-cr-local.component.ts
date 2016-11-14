@@ -25,7 +25,13 @@ export class AccountMngCrLocal implements OnInit{
     // 按钮的名字 根据 isCreate 修改
     btnTitle : string = '';
     
-    test : number;
+    page : number = 0;
+    size : number = 10;
+
+    role : Array<any> = new Array<any>();
+    org : Array<any> = new Array<any>();
+
+    loadMode : boolean = true;
 
     ngOnInit() {
         this.route.params.forEach((params: Params) => {
@@ -41,6 +47,27 @@ export class AccountMngCrLocal implements OnInit{
                 this.isCreate = true;
                 this.title = '创建帐号';
                 this.btnTitle = '创建';
+
+                this.service.getRole()
+                .then(
+                    res => {
+                        return res;
+                    }
+                )
+                .then(
+                    role => {
+                        return this.service.getOrg(this.page,this.size).then(org => {
+                            console.log('role',role);
+                            console.log('org',org)
+                            this.role = role.resultContent;
+                            this.org = org.resultContent;
+                        })
+                    }
+                ).catch(
+                    err => {
+                        console.error(err);
+                    }
+                )
             }
         });
     }
@@ -57,7 +84,26 @@ export class AccountMngCrLocal implements OnInit{
 
     //创建
     create(){
-        console.log(this.test);
+
+    }
+
+    //点击更多
+    loadModeOrg (){
+        if(this.loadMode){
+            this.size += 10;
+            this.service.getOrg(this.page , this.size).then(
+            org => {
+                this.org = org.resultContent;
+                console.log('')
+                if(org.pageInfo.totalRecords <= this.size){
+                    this.loadMode = false;
+                }
+            }
+        )
+        }else{
+            console.error('没有更多');
+        }
+        
     }
     
 } 

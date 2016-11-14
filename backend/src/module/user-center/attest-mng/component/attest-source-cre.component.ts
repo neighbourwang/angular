@@ -24,7 +24,7 @@ export class AttestSourceCreComponent implements OnInit {
 
     noticeTitle = "";
     noticeMsg = "";
-
+    new:boolean=false;
     @ViewChild("notice")
     notice: NoticeComponent;
     attest = new Attest();
@@ -33,6 +33,7 @@ export class AttestSourceCreComponent implements OnInit {
     testResult?: boolean;
     type: string;
 
+    title:string;
     ngOnInit() {
         // console.log(this.router.params);
         this.router.params.forEach((params: Params) => {

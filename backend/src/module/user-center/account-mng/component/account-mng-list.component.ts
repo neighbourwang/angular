@@ -27,8 +27,22 @@ export class AccountMngComponent implements OnInit{
     //用来判断 confirm确定执行的方法 1 重置密码 2 启用 3 禁用 4 删除
     confirmType : number;
 
-    ngOnInit() {
+    // 平台数据总页数
+    tp:number = 0;
+    // 每页显示的数据条数
+    pp:number = 10;
 
+
+    ngOnInit() {
+        this.service.getAccount(this.tp , this.pp).then(
+            res => {
+                console.log(res);
+            }
+        ).catch(
+            error => {
+                console.error(error);
+            }
+        )
     }
     
 

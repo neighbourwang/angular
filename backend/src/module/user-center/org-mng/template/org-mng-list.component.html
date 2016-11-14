@@ -8,8 +8,8 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
                 <li><a>编辑</a></li>
-                <li><a>启用</a></li>
-                <li><a>禁用</a></li>
+                <li (click)="enable()"><a>启用</a></li>
+                <li (click)="disable()"><a>禁用</a></li>
 				<li (click)="delete()"><a>删除</a></li>
             </ul>
         </div>
@@ -34,7 +34,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let item of orgs;let idx = index">
-                <td><input class="fox-cloud-radio" type="radio" name="isSelected" (click)="chooseIten(idx)"/></td>
+                <td><input class="fox-cloud-radio" type="radio" name="isSelected" (click)="chooseItem(idx)"/></td>
                 <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.headCount}}</td>

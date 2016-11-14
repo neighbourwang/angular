@@ -5,7 +5,7 @@ export class EntEstItem{
 	enterpriseId: string = "";
 	authMode:CertMethod = CertMethod.Local; //认证方式
 	enterpriseName:string = "";	// 企业（租户）名称
-	usedVMNumber: number = null;	// 云主机数量
+	vcpuQuota: number = null;	// VCPU
 	snapshotQuota: number = null;	// 快照数量
 	
 	imageQuota : number = null;	// 镜像数量

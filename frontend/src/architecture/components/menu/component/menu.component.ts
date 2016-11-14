@@ -106,7 +106,7 @@ const menu: Array<any> = [
             {
                 "label": "镜像",
                 "isOpen": true,
-                "routing": "image-mng/image-mng-wxl"
+                "routing": "image-mng/image-mng-my"
             }
         ]
     },

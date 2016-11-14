@@ -506,6 +506,11 @@ export let RestApis: RestApiModel[] = [
        "id": "ent-mng.ent-est-mng.enterprise.products.update",
        "method": "POST",
        "url": "adminui/authsec/enterprises/{enterpriseId}/products/bind"
+   },{
+       "desc": "查看企业加载配额资源概率",
+       "id": "ent-mng.ent-est-mng.enterprise.quota.detail",
+       "method": "GET",
+       "url": "/authsec/enterprise/{enterpriseId}resource/quota/detail "
    },// 企业管理 -->
    //<!--后台-运营中心-订单管理
     {
@@ -655,9 +660,57 @@ export let RestApis: RestApiModel[] = [
         "desc" : "获取所有机构",
         "id" : "user-center.org-mng.list",
         "method" : "GET",
-        "url" : "usermgmt/authsec/adm/organizations"
+        "url" : "basis/authsec/adm/organizations/page/{page}/size/{size}"
     },
-
+    {
+        "desc" : "删除机构",
+        "id" : "user-center.org-mng.delete",
+        "method" : "DELETE",
+        "url" : "basis/authsec/adm/organization/{id}"
+    },
+    {
+        "desc" : "启用机构",
+        "id" : "user-center.org-mng.enable",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/organization/{id}/enable"
+    },
+    {
+        "desc" : "禁用机构",
+        "id" : "user-center.org-mng.disable",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/organization/{id}/disable"
+    },
+    {
+        "desc" : "获取所有账户",
+        "id" : "user-center.account-mng.list",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/users"
+    },
+    {
+        "desc" : "获取所有角色",
+        "id" : "user-center.role-mng.list",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/roles/page/{page}/size/{size}"
+    },
+    //个人账户管理
+    {
+        "desc": "获取当前登录账户信息",
+        "id": "user-center.person-acc.mng",
+        "method": "GET",
+        "url": "basis/authsec/adm/user/current"
+    },
+    {
+        "desc" : "编辑账户本地",
+        "id" : "user-center.account-mng.edit",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/user/{id}"
+    },
+    {
+        "desc" : "更改账户密码",
+        "id" : "user-center.account-mng-pwd.edit",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/user/password/modify"
+    },
     //认证管理
     {
         "desc": "获取认证源列表",

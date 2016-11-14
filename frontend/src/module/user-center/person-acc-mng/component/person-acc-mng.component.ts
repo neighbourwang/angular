@@ -3,6 +3,14 @@ import { Router } from '@angular/router';
 
 import { LayoutService, ValidationService,PopupComponent} from '../../../../architecture';
 
+//service
+import { GetPersonAccService } from '../service/person-acc-get.service';
+import { PutPersonAccService } from '../service/person-acc-put.service';
+import { EditPersonAccPwdService } from '../service/person-acc-pwd.service';
+
+//model
+import { PersonAcc, PersonAccPwd} from '../model/person-acc.model';
+
 @Component({
     selector: 'person-acc-mng',
     templateUrl: '../template/person-acc-mng.component.html',
@@ -13,21 +21,42 @@ import { LayoutService, ValidationService,PopupComponent} from '../../../../arch
 export class PersonAccMngComponent implements OnInit {
     constructor(
         private router: Router,
-        // private ProdDirDetailService: ProdDirDetailService,
-        // private ProdListService : ProdListService,
-        // private ProdDirListService: ProdDirListService,
-        // private PostProduct:PostProduct
+        private getPersonAcc: GetPersonAccService,
+        private putPersonAcc: PutPersonAccService,
+        private putPersonAccPwd:EditPersonAccPwdService
     ) { }
-    @ViewChild('editPassWord')
+     @ViewChild('editPassWord')
     editPassWord: PopupComponent;
     // @ViewChild('notice')
     // notice: NoticeComponent;
+    personAcc: PersonAcc = new PersonAcc();
+    temPersonAcc: PersonAcc = new PersonAcc();
 
-    ngOnInit(){}
+    edit: boolean;
+    ngOnInit() {
+        this.edit = false;
+        this.getCurrentAccount();
+    }
+    //获取当前登录信息
+    getCurrentAccount() {
+        this.getPersonAcc.getPersonAcc().then(
+            response => {
+                if (response && 100 == response.resultCode) {
+                    console.log(response);
+                    this.personAcc = Object.assign({}, response.resultContent)
+                    this.temPersonAcc = response.resultContent;
+                } else {
+
+                }
+            }).catch((err) => {
+                console.error(err);
+            });
+    }
     //编辑账号
     onEdit(){
         this.router.navigate(['user-center/person-acc-mng/person-acc-edit'])
-    }
+    }    
+
     //编辑姓名
     name:boolean=true;
     nameEdit:boolean=false;
@@ -36,6 +65,10 @@ export class PersonAccMngComponent implements OnInit {
         this.nameEdit=true;
     }
     saveName(){
+        this.name=true;
+        this.nameEdit=false;
+    }
+    cancelName(){
         this.name=true;
         this.nameEdit=false;
     }
@@ -51,6 +84,10 @@ export class PersonAccMngComponent implements OnInit {
         this.phone=true;
         this.phoneEdit=false;
     }
+    cancelPhone(){
+        this.phone=true;
+        this.phoneEdit=false;
+    }
 
     //编辑描述
     desc:boolean=true;
@@ -63,17 +100,47 @@ export class PersonAccMngComponent implements OnInit {
         this.desc=true;
         this.descEdit=false;
     }
+    cancelDesc(){
+        this.desc=true;
+        this.descEdit=false;
+    }
     //编辑密码
-    editPwd(){
-        this.editPassWord.open('修改密码');
+    accPwd:PersonAccPwd = new PersonAccPwd();
+    samePwd:boolean=false;
+    comparePwd(){
+        if(this.accPwd.newPassword!==this.accPwd.confirmPwd){
+            this.samePwd=true;
+        }
     }
-    onEditPwd(){
-        // this.editPassWord.open('修改密码')
+    editPwd() {
+        this.editPassWord.open('修改密码')
     }
-    otEditPwd(){
+    otEditPwd() {
+        this.accPwd.id=this.personAcc.id;
+        console.log(this.accPwd);
+        this.putPersonAccPwd.putPersonAccPwd(this.accPwd).then(
+            response => {
+                if (response && 100 == response.resultCode) {
+                    console.log(response);
+                } else {
+
+                }
+            }).catch((err) => {
+                console.error(err);
+            });
+    }
+    ccf() {
 
     }
-    ccf(){
-
+    saveEditPerAcc(){
+        this.putPersonAcc.putPersonAcc(this.personAcc.id,this.personAcc).then(response=>{
+            console.log(response);
+        }).catch(err=>{
+            console.error(err);
+        })
+    }
+    clear(obj){
+        console.log(obj);
+        obj.value="";
     }
 }
