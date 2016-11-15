@@ -134,16 +134,13 @@ export class PersonAccMngComponent implements OnInit {
     newPasswordValid: boolean = true;
     sameNewPassword:boolean=false;
     samePassword: boolean = true;
-        
-    // comparePwd() {
-    //     if (this.accPwd.newPassword == this.accPwd.confirmPwd) {
-    //         this.samePwd = true;
-    //     }else{
-
-    //     }
-    // }
-    editPwd() {
+    active:boolean=true;
+    editPwd() {        
         this.accPwd= new PersonAccPwd();
+        this.active=false;
+        setTimeout(()=>{
+            this.active=true;
+        },0)
         this.samePassword=true;
         this.passwordValid= true;
         this.newPasswordValid= true;
