@@ -1,64 +1,62 @@
 <div class="page-content-header icon-cloud-network-mngOn">
-    OpenStack网络管理	  
+    OpenStack网络管理
 </div>
-<div class="page-content"> 
+<div class="page-content">
     <div class="mgb20" style="margin-top:10px">
-        <div class="pull-left mgr20">               
-            <select class="form-control">
-                <option >选择地域</option>
-                <option>地域</option>
-                <option>所有</option>
+        <div class="pull-left mgr20">
+            <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedDc=defaultDc;selectedPfi = defaultPlatform;">
+                <option [ngValue]="defaultRegion">所有地域</option>
+                <option *ngFor="let region of regionList" [ngValue]="region">{{region.name}}</option>
             </select>
-         </div>
-        <div class="pull-left  mgr20">               
-            <select class="form-control">
-                <option>选择数据中心</option>
-                <option>数据中心1</option>
-                <option>数据中心2</option>
+        </div>
+        <div class="pull-left  mgr20">
+            <select class="form-control" [(ngModel)]="selectedDc" (change)="selectedPfi = defaultPlatform;">
+                <option [ngValue]="defaultDc">所有数据中心</option>
+                <option *ngFor="let dc of selectedRegion.dcList" [ngValue]="dc">{{dc.name}}</option>
             </select>
-        </div>   
-        <div class="pull-left mgr20 "  >               
-            <select class="form-control">
-                <option >平台显示名称+连接URL https://192.168.1.1:443</option>
-                <option></option>
+        </div>
+        <div class="pull-left mgr20 ">
+            <select class="form-control" [(ngModel)]="selectedPfi">
+                <option [ngValue]="defaultPlatform">所有平台</option>
+                <option *ngFor="let pf of selectedDc.pflist" [ngValue]="pf">{{pf.name +" "+pf.url}}</option>
             </select>
-        </div> 
-        <button type="button" class="fox-cloud-button fox-cloud-button-white "   style="height:34px"> 确定</button>  
-    </div>  
+        </div>
+        <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" (click)="search()"> 确定</button>
+    </div>
     <div class="mgb20">
         <h4 class="pull-left mgr15 ">所属企业:</h4>
         <div class="pull-left mgr15 col-md-3 " style="position:relative;padding:0">
-            <span class="glyphicon glyphicon-search form-control-feedback" ></span>
-            <input type="text" class="form-control " placeholder="输入企业/租户信息搜索"/>
+            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+            <input type="text" class="form-control " placeholder="输入企业/租户信息搜索" />
         </div>
-        <button type="button" class="fox-cloud-button fox-cloud-button-white"  style="height:34px"> 重置</button>  
+        <button type="button" class="fox-cloud-button fox-cloud-button-white" style="height:34px"> 重置</button>
         <div class="dropdown pull-right" style="margin-left:10px">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 更多操作
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#" key="boe/OpenStack_synchr_net.html">编辑</a></li>                         
-                <li><a href="#">启用</a></li>
-                <li><a href="#" >禁用</a></li>              
+                <li><a href="#" key="boe/OpenStack_synchr_net.html">同步网络</a></li>
+                <li><a href="net-mng/openstack/openstack-synchr-net">启用</a></li>
+                <li><a href="#">禁用</a></li>
             </ul>
-        </div>                 
-    </div>  
+        </div>
+    </div>
     <div class="table-container">
-         <table class="table table-hover "  >
+        <table class="table table-hover ">
             <thead>
                 <tr>
-                    <th>选择</th>                                       
-                    <th>所属企业</th>									
+                    <th>选择</th>
+                    <th>所属企业</th>
                     <th>网络名</th>
                     <th>子网名</th>
                     <th>子网显示名称</th>
                     <th>网段信息</th>
-                    <th>网关信息</th>  
-                    <th>类型</th> 
+                    <th>网关信息</th>
+                    <th>类型</th>
                     <th>是否共享</th>
-                    <th>运行状态</th>                       
-                    <th>状态</th>   
+                    <th>运行状态</th>
+                    <th>状态</th>
                 </tr>
             </thead>
             <tbody>
@@ -72,43 +70,18 @@
                     <td class="text-center">{{network.subnetDisplayName}}</td>
                     <td class="text-center">{{network.segmentCIDR}}</td>
                     <td class="text-center">{{network.gateway}}</td>
-                <td class="text-center">{{getDicText(network.network_type,this.typeDic)}}</td>
-                <td class="text-center">{{getDicText(network.shared,this.sharedDic)}}</td>
-                <td class="text-center">{{getDicText(network.state,this.stateDic)}}</td>
-                <td class="text-center"[ngClass]="{'font-green':network.status==1,'font-orange':network.status==0,'font-gray':network==2}">
-                    {{getDicText(network.status,this.statusDic)}}</td>
-                
+                    <td class="text-center">{{getDicText(network.network_type,this.typeDic)}}</td>
+                    <td class="text-center">{{getDicText(network.shared,this.sharedDic)}}</td>
+                    <td class="text-center">{{getDicText(network.state,this.stateDic)}}</td>
+                    <td class="text-center" [ngClass]="{'font-gray':network.status==1,'font-orange':network.status==3,'font-green':network.status==2}">
+                        {{getDicText(network.status,this.statusDic)}}
+                    </td>
+
                 </tr>
 
-                <tr>
-                    <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                    <td>BOE-CIO总部</td>                                  
-                    <td>cionetwork</td>
-                    <td>subnetwork</td>
-                    <td>CIO-外部网络<span class="pull-right icon-edit2"></span><input type="text" hidden/></td>	
-                    <td>10.10.0.0/24</td>
-                    <td>10.10.0.1</td>
-                    <td>外部网络</td>	
-                    <td>是</td>
-                    <td>运行中</td>
-                    <td class="font-green">已启用</td>							
-                </tr>
-                 <tr>
-                    <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                    <td>BOE-CIO总部</td>                                  
-                    <td>cionetwork</td>
-                    <td>subinter-network</td>
-                    <td>CIO-内网1<span class="icon-edit2 pull-right"></span><input type="text" hidden/></td>	
-                    <td>192.168.0.0/24</td>
-                    <td>192.168.0.0</td>
-                    <td>内部网络</td>	
-                    <td>否</td>
-                    <td>运行中</td>
-                    <td class="font-orange">禁用</td>							
-                </tr>
             </tbody>
         </table>
-    </div> 
+    </div>
     <!--<div class="fox-cloud-pagination-container">
         <ul class="fox-cloud-pagination">
             <span class="disable">上一页</span>
@@ -121,9 +94,8 @@
         </ul>
     </div>    -->
     <div class="fox-cloud-pagination-container">
-            <fc-pagination #pager tp={{totalPage}} (pf)="getImageList($event)"></fc-pagination>
-        </div>
+        <fc-pagination #pager tp={{totalPage}} (pf)="getImageList($event)"></fc-pagination>
+    </div>
 </div>
 
 
-     

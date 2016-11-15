@@ -39,6 +39,9 @@ export class OrderMngComponent implements OnInit{
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
 
+		//初始化单项order数据
+		this.selectedOrderItem = new SubInstanceResp();
+
 		//部门配置
 		this._departmentLoader = new ItemLoader<ListItem>(false, "部门列表", "op-center.order-mng.department-list.get", restApiCfg, restApi);
 		this._departmentLoader.MapFunc = (source:Array<any>, target:Array<ListItem>)=>{
@@ -84,7 +87,7 @@ export class OrderMngComponent implements OnInit{
 			let spec = new SubInstanceAttrPair();
 			subItem.specList.push(spec);
 			spec.attrDisplayName = "区域";
-			spec.attrDisplayValue = "东1区";
+			spec.attrDisplayValue = "东1111区";
 	 
 	        let spec2 = new SubInstanceAttrPair();
 			subItem.specList.push(spec2);

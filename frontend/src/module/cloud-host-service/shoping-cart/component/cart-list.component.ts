@@ -3,10 +3,10 @@ import { Component,ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 
-import { LayoutService, NoticeComponent, ConfirmComponent, CustomValidators } from '../../../../architecture';
-import { cartListService } from '../service/cart-list.service'
+import { LayoutService, NoticeComponent, ConfirmComponent, Validation } from '../../../../architecture';
 
-import { VmList, HandleVm } from '../model/vm-list.model';
+import { cartListService } from '../service/cart-list.service'
+import { CartList } from '../model/cart-list.model';
 
 @Component({
 	selector: 'cart-list',
@@ -26,63 +26,61 @@ export class cartListComponent implements OnInit {
 	modalMessage: string = '';
 	modalOKTitle: string = '';
 
-	fieldname:string = '';
-
-	testArr: Array<any>;
+	cartList: CartList[];
 
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
 		private service: cartListService
-	) {
-	}
+	) {}
+
 	ngOnInit() {
-
-		setTimeout(() => {
-			console.log(this)
-		},5000)
-
-		// var password = new FormControl('', Validators.required);
-	 //    var certainPassword = new FormControl('');
-
-	 //    this.form = new FormGroup({
-	 //      passwordGroup: new FormGroup({
-	 //        password: password,
-	 //        certainPassword: certainPassword
-	 //      }, CustomValidators.equalTo)
-	 //    });
-		
+		this.getCartList();
 	}
-	onDateChanged(event:any) {
-        console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
-    }
+
+	getCartList():void {
+	    this.layoutService.show();
+		this.service.getOrderList().then(cartList => {
+	    	this.layoutService.hide();
+			this.cartList = cartList;
+		}).catch(e => {
+	      this.layoutService.hide()
+	  	})
+	};
+
+	deleteCartList(itemId:string):void {
+		this.modalconfirm = () => {
+			this.service.deleteCartList(itemId).then(res => {
+				this.noticeDialog.open("","删除成功！");
+				this.getCartList();
+			}).catch(e =>{
+				this.noticeDialog.open("删除失败",e);
+			})
+		}
+		this.confirmDialog.open("","你确定要删除吗？");
+	}
+
+	buyNow():void {
+		const list = this.cartList.map(cart => cart.id);   //提取cartID
+		this.layoutService.show();
+		this.service.purchaseCart(list).then(res => {
+			this.layoutService.hide();
+			this.modalconfirm = function(){
+				this.goTo("cloud-host-service/cart-order");
+			}
+			this.noticeDialog.open("","购买成功！");
+		}).catch(e => {
+			this.noticeDialog.open("购买失败",e);
+		})
+	}
+
 
 	goTo(url : string) {
 		this.router.navigateByUrl(url);
 	}
 
-	outputValue(e){
-	    console.log(e)
-	}
-
-	// 警告框相关
-	showNotice(title: string, msg: string) {
-	    this.modalTitle = title;
-	    this.modalMessage = msg;
-
-	    this.noticeDialog.open();
-	}
-
-	modalAction(btnType: number) {
-	    if (btnType == 0) {
-	      this.noticeDialog.close();
-	      return;
-	    }
-	    
-	    this.noticeDialog.close()
-	    this.confirmDialog.close();
-	}
-	// 警告框相关结束
+	modalconfirm = function(){};
+	modalcancle = function(){};
 
 	
 }

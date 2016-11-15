@@ -21,6 +21,7 @@ export class OrderMngComponent implements OnInit{
 	private _subregionLoader:ItemLoader<SubRegion> = null;
 	private _orderStatus:DicLoader = null;
 	private _orderLoader:ItemLoader<SubInstanceResp> = null;
+	private _renewHanlder:ItemLoader<any> = null;
 
 	private _param:OrderMngParam = new OrderMngParam();
 	private initDate:string = null;
@@ -31,6 +32,8 @@ export class OrderMngComponent implements OnInit{
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
 
+		//续订
+		this._renewHanlder = new ItemLoader<any>(false, "订单续订", "op-center.order-mng.order-renew.get", restApiCfg, restApi);
 		//配置企业列表加载
 		this._adminLoader = new ItemLoader<AdminListItem>(false, "企业列表", "op-center.order-mng.ent-list.get", this.restApiCfg, this.restApi);
 
@@ -56,6 +59,7 @@ export class OrderMngComponent implements OnInit{
 			target.push(obj);
 
 			obj.orderNo = "1234";
+			obj.orderId = "123432223";
 			obj.purchaseDate = "2016-11-11";
 			let subItem = new SubInstanceItemResp();
 			obj.itemList = [];
@@ -192,6 +196,16 @@ export class OrderMngComponent implements OnInit{
 	}
 	
 	renew(orderId:string){
+		this.layoutService.show();
+		this._renewHanlder.Go(null, [{key:"orderId", value:orderId}])
+		.then(success=>{
+			this.layoutService.hide();
+			this.search();
+		})
+		.catch(err=>{
+			this.layoutService.hide();
+			this.showMsg(err);
+		});
 
 	}
 

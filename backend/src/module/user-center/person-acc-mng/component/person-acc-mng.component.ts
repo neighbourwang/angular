@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, ValidationService, PopupComponent } from '../../../../architecture';
+import { LayoutService, ValidationService, PopupComponent ,NoticeComponent} from '../../../../architecture';
 
 //service
 import { GetPersonAccService } from '../service/person-acc-get.service';
@@ -29,8 +29,8 @@ export class PersonAccMngComponent implements OnInit {
     ) { }
     @ViewChild('editPassWord')
     editPassWord: PopupComponent;
-    // @ViewChild('notice')
-    // notice: NoticeComponent;
+    @ViewChild('notice')
+    notice: NoticeComponent;
     personAcc: PersonAcc = new PersonAcc();
     temPersonAcc: PersonAcc = new PersonAcc();
 
@@ -60,32 +60,82 @@ export class PersonAccMngComponent implements OnInit {
         // this.router.navigate(['user-center/person-acc-mng/person-acc-edit'])
     }
     //编辑密码
-    accPwd:PersonAccPwd = new PersonAccPwd();
-    samePwd:boolean=false;
-    comparePwd(){
-        if(this.accPwd.newPassword!==this.accPwd.confirmPwd){
-            this.samePwd=true;
-        }
-    }
-    onEditPwd() {
+    accPwd: PersonAccPwd = new PersonAccPwd();
+    passwordValid: boolean = true;
+    newPasswordValid: boolean = true;
+    sameNewPassword:boolean=false;
+    samePassword: boolean = true;
+    active:boolean=true;
+    onEditPwd() {        
+        this.accPwd= new PersonAccPwd();
+        this.active=false;
+        setTimeout(()=>{
+            this.active=true;
+        },0)
+        this.samePassword=true;
+        this.passwordValid= true;
+        this.newPasswordValid= true;
+        this.sameNewPassword=false;
+        this.accPwd.password='';
+        this.accPwd.newPassword='';
+        this.accPwd.confirmPwd='';
         this.editPassWord.open('修改密码')
     }
     otEditPwd() {
-        this.accPwd.id=this.personAcc.id;
         console.log(this.accPwd);
-        this.putPersonAccPwd.putPersonAccPwd(this.accPwd).then(
+        if(this.accPwd.password&&this.accPwd.password.trim()!=''){            
+            this.passwordValid=true;
+        }else{
+            this.passwordValid=false;
+            return;
+        }
+        if(this.accPwd.newPassword&&this.accPwd.newPassword.trim()!=''){
+            this.newPasswordValid=true;            
+        }else{
+            this.newPasswordValid=false; 
+            return;
+        }
+        if(this.accPwd.password==this.accPwd.newPassword){
+            this.sameNewPassword=true; 
+            return;
+        }     
+
+        if(this.accPwd.newPassword == this.accPwd.confirmPwd){
+            this.accPwd.id = this.personAcc.id;
+            console.log(this.accPwd);
+            this.putPersonAccPwd.putPersonAccPwd(this.accPwd).then(
             response => {
                 if (response && 100 == response.resultCode) {
                     console.log(response);
-                } else {
-
-                }
+                    this.editPassWord.close();
+                } 
             }).catch((err) => {
-                console.error(err);
+                this.editPassWord.close();
+                this.notice.open('操作错误','you have input wrong password')
             });
+        }else{
+            this.samePassword=false;
+        }        
     }
+    // otEditPwd() {
+    //     this.accPwd.id=this.personAcc.id;
+    //     console.log(this.accPwd);
+    //     this.putPersonAccPwd.putPersonAccPwd(this.accPwd).then(
+    //         response => {
+    //             if (response && 100 == response.resultCode) {
+    //                 console.log(response);
+    //             } else {
+
+    //             }
+    //         }).catch((err) => {
+    //             console.error(err);
+    //         });
+    // }
     ccf() {
 
+    }
+    nof(){
+        
     }
     //cancel edit
     cancel() {
