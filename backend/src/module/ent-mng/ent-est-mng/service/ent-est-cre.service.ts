@@ -383,7 +383,16 @@ export class EntEstCreService{
 			"isSSL": entEst.BasicInfo.isSSL, //是否进行SSL加密
 			"accountAttribute": entEst.BasicInfo.accountAttribute//登录账户属性名称
 		},
-		"quotaList": entEst.ResourceQuota
+		"quotaList": {
+			"enterpriseId":entEst.ResourceQuota.enterpriseId,
+			"physicalMachineQuota":entEst.ResourceQuota.physicalQuota,
+			"memQuota":entEst.ResourceQuota.memroyQuota,
+			"floatIpQuota":entEst.ResourceQuota.floatIpQuota,
+			"imageQuota":entEst.ResourceQuota.imageQuota,
+			"snapShotQuota":entEst.ResourceQuota.snapShotQuota,
+			"vcpuQuota":entEst.ResourceQuota.vcpuQuota,
+			"storageQuota":entEst.ResourceQuota.storageQuota
+		}
 	};
 
 		return this.restApi.request(api.method, api.url, [], [], target);
