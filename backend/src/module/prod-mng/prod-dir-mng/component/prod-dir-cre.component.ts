@@ -90,6 +90,7 @@ export class ProdDirCreComponent implements OnInit {
                 for (let plate of this._platformlist) {
                     for (let zone of plate.zoneList) {
                         zone.storageId = zone.storageList[0].storageId;
+                        zone.serviceSKUId =zone.storageList[0].serviceSKUId;
                         // console.log(zone.storageList);
                     }
                 }
@@ -119,6 +120,10 @@ export class ProdDirCreComponent implements OnInit {
                 }
             }
         })
+    }
+    //选择平台启动盘
+    selectStorage(id){
+        console.log(id);
     }
     //选择平台可用区
     selectZone(idx, idxx) {

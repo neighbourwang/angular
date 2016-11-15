@@ -602,7 +602,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "根据cpu和mmr获取平台VM产品平台列表",
         "id": "prod-dir-vmPlate",
         "method": "POST",
-        "url": "adminui/authsec/services/platforms/vm/detailinfo"
+        "url": "adminui/authsec/services/platforms/vm/detailinfo"        
     },    
     {
         "desc": "获取某个VM产品目录详细信息",
