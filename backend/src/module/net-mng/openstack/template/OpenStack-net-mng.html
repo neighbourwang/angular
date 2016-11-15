@@ -4,20 +4,20 @@
 <div class="page-content"> 
     <div class="mgb20" style="margin-top:10px">
         <div class="pull-left mgr20">               
-            <select class="form-control" [(ngModel)]="selectedRegion" (change)="setRegion()">
-                <option [value]="">所有地域</option>
-                <option *ngFor="let region of regionList" [value]="region.name" >{{region.name}}</option>
+            <select class="form-control" [(ngModel)]="selectedRegion.id" (change)="setRegion()">
+                <option value="" [value]="">所有地域</option>
+                <option *ngFor="let region of regionList" [value]="region.id" >{{region.name}}</option>
             </select>
          </div>
         <div class="pull-left  mgr20">               
-            <select class="form-control"[(ngModel)]="selectedDc">
-                <option>所有数据中心</option>
+            <select class="form-control" [(ngModel)]="selectedDc.id">
+                <option value="" [value]="">所有数据中心</option>
                 <option *ngFor="let dc of dcList" [value]="dc.id">{{dc.name}}</option>
             </select>
         </div>   
         <div class="pull-left mgr20 "  >               
             <select class="form-control">
-                <option>所有平台</option>
+                <option  [value]="">所有平台</option>
                 <option>平台显示名称+连接URL https://192.168.1.1:443</option>
                 <option></option>
             </select>
