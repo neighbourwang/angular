@@ -1,0 +1,51 @@
+@import "../const.less";
+
+.cm-slide {
+	background-color: #f4f4f4;
+	position: relative;
+	white-space: nowrap;
+	font-size: 0;
+	height: 520px;
+	overflow: hidden;
+	.slide-block {
+		width: 100%;
+		height: 520px;
+		display: inline-block;
+		font-size: 16px;
+	}
+	.slide-box {
+		position: absolute;
+		width: 300%;
+	}
+	.slide1 {
+		background: url("@{imgPath}/banner_pic2.jpg") no-repeat center;
+	}
+	.slide2 {
+		background: url("@{imgPath}/banner_pic1.jpg") no-repeat center;
+	}
+	.slide3 {
+		background: url("@{imgPath}/banner_pic3.jpg") no-repeat center;
+	}
+	.slide-buttion {
+		position: absolute;
+		bottom: 20px;
+		z-index: 100;
+		left: 50%;
+		width: 200px;
+		height: 6px;
+		margin-left: -100px;
+		span {
+			width: 58px;
+			height: 4px;
+			margin-right: 10px;
+			display: inline-block;
+			vertical-align: top;
+			background-color: #9a999e;
+			cursor: pointer;
+			border: 1px solid rgba(45, 45, 45, 0.31);
+		}
+		.slide-active{
+			background-color: #28d2c9;
+		}
+	}
+}

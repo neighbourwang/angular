@@ -1,15 +1,15 @@
 <% data.forEach(function(data){%>
 <div class="point-area" 
 	style="
-		top: <%= data.top - 45 %>px;
-		left: <%= data.left - 55 %>px;
+		top: <%= data.top %>px;
+		left: <%= data.left %>px;
 		position: absolute;
 		width: <%= data.width %>px;
 		height: <%= data.width %>px;
 		visibility: visible;
 		opacity: 1;">
 
-	<p class="point-name" style="position: absolute; top: 45px; left: 65px;"><%= data.name %></p>
+	<p class="point-name" style="position: absolute; top: 45px; <%= data.position %>: 65px;"><%= data.name %></p>
 
 <% if(data.type === "blue"){ %>
 	<div class="point point-dot"></div>
