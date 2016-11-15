@@ -549,7 +549,7 @@ export let RestApis: RestApiModel[] = [
        "desc": "订单列表",
        "id": "op-center.order-mng.order-list.post",
        "method": "POST",
-       "url": "adminui/authsec/backend/order/search/paging"
+       "url": "adminui/authsec/subinstance/subscription/list"
    },
 
    //<!--后台-运营中心-订单管理-->
