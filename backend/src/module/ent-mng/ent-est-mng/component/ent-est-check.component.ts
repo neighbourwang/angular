@@ -77,16 +77,16 @@ export class EntEstCheckComponent implements OnInit {
 
     this.resourceQuotaSvg.FakeDataFunc = (target:Array<EntEstCreResourceQuota>)=>{
       target.splice(0, target.length);
-      
+
       let obj = new EntEstCreResourceQuota();
       target.push(obj);
-        obj.usedCpuRate = 13;//CPU配额使用率
-        obj.usedFloatIpRate= 23;// 浮动IP配额配额
-        obj.usedImageRate = 11;//镜像配额使用率
-        obj.usedMemRate  = 53;//内存使用率
-        obj.usedPhysicalMachineRate = 45;//物理机配额使用率
-        obj.usedSnapshotRate = 23; //快照配额使用率
-        obj.usedStorageRate = 23;//储存使用率
+        obj.usedCpuRate = 0.13;//CPU配额使用率
+        obj.usedFloatIpRate= 0.23;// 浮动IP配额配额
+        obj.usedImageRate = 0.11;//镜像配额使用率
+        obj.usedMemRate  = 0.53;//内存使用率
+        obj.usedPhysicalMachineRate = 0.45;//物理机配额使用率
+        obj.usedSnapshotRate = 0.23; //快照配额使用率
+        obj.usedStorageRate = 0.28;//储存使用率
               
          
           obj.enterpriseId = "2";// : string = null;//": "string",
