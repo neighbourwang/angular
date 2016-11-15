@@ -40,7 +40,13 @@ export class cartListComponent implements OnInit {
 		console.log(this.v)
 	}
 	ngOnInit() {
-		
+		this.getCartList();
+	}
+
+	getCartList() {
+		this.service.getOrderList().then(cartList => {
+			console.log(cartList)
+		});
 	}
 
 	onDateChanged(event:any) {
