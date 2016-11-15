@@ -24,7 +24,7 @@ export class AccountMngService {
     getAccount (page : number , size : number){
         let api = this.restApiCfg.getDataRestApi("user-center.account-mng.list");
 
-        return this.restApi.request(api.method , api.url , undefined , [{key : "page" , value : page},{key : "size" , value : size}])
+        return this.restApi.request(api.method , api.url , [{key : "page" , value : page},{key : "size" , value : size}],undefined)
     }
 
     //获取 所有角色
@@ -36,6 +36,27 @@ export class AccountMngService {
                 return Promise.resolve(res);
             }
         )
+    }
+
+    //创建 帐号
+    createAccount(account){
+        let api = this.restApiCfg.getDataRestApi("user-center.account-mng.local.create");
+
+        return this.restApi.request(api.method,api.url,undefined,undefined,account);
+    }
+
+    //获取单个帐号
+    getAccountById(id : string){
+        let api = this.restApiCfg.getDataRestApi("user-center.account-mng.local.get");
+
+        return this.restApi.request(api.method , api.url,[{key : "id" , value : id}],undefined);
+    }
+
+    //编辑帐号
+    editAccount(id:string , account){
+        let api = this.restApiCfg.getDataRestApi("user-center.account-mng.local.edit");
+
+        return this.restApi.request(api.method,api.url,[{key : "id" , value : id}],undefined, account);
     }
 
     
