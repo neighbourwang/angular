@@ -356,6 +356,7 @@ export class EntEstMngComponent implements OnInit {
   acceptQuotaModify(){
     if(this.validateQuotaModify())
     {
+      this.editQuota.close();
       this.service.updateEntQuota(this.entEstResource.FirstItem)
       .then(ret=>{
         this.search(null);//刷新
