@@ -1,0 +1,96 @@
+<div class="page-content-header icon-content-header-platform-manage">{{title}}</div>
+<div class="page-content fix-page-content">
+	<div class="row" style="padding-top: 30px;">
+		<div class="col-md-12">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>认证源：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control font-gray" [(ngModel)]="product" [disabled]="editAcc">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>URL地址：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control font-gray" [(ngModel)]="product" [disabled]="edit||editAcc" >
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>用户名(Full DN)：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control  font-gray" [(ngModel)]="product" [disabled]="edit">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk" >*</span>密码：</div>
+					<div class="col-sm-4">
+						<div class="row">
+							<div class="form-group">
+								<div class="col-sm-9">
+									<input type="password" class="form-control" [disabled]="edit">
+								</div>
+								<div class="col-sm-3">
+									<button class="fox-cloud-button-md fox-cloud-button-white mgr20" (click)="cancel();" style="width:100%">
+                                    <span class="icon-button-label">测 试</span>
+                                    </button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4"></div>
+					<div class="col-sm-4">
+						<span style="color:blue;">AD认证测试通过</span>
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>登陆账户名属性：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control font-gray" [(ngModel)]="product" [disabled]="edit||editAcc">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><input type="checkbox" class="fox-cloud-checkbox"></div>
+					<div class="col-sm-4">
+						<span style="line-height:38px;">是否进行SSL加密？</span>
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">描述：</div>
+					<div class="col-sm-4">
+						<textarea class="form-control font-gray" rows="4" placeholder="描述" [(ngModel)]="product" [disabled]="editAcc"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="text-center">
+	<button class="fox-cloud-button-lg fox-cloud-button-white mgr20" (click)="cancel();">
+            <span class="icon-button-label">取消 </span>
+        </button>
+	<button *ngIf="new" class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();">
+            <span class="icon-button-label">创建</span>
+        </button>
+		<button *ngIf="edit" class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSaveEdit();">
+            <span class="icon-button-label">保存</span>
+        </button>
+		<button *ngIf="editAcc" class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSaveEditAcc();">
+            <span class="icon-button-label">保存</span>
+        </button>
+</div>
