@@ -289,7 +289,7 @@ export class EntEstMngComponent implements OnInit {
   setupAdmin(){
     if(this.getSelected())
     {
-      this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-mng/${this.getSelected().id}`);
+      this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-mng/${this.getSelected().enterpriseId}`);
     }
   }
 
@@ -356,6 +356,7 @@ export class EntEstMngComponent implements OnInit {
   acceptQuotaModify(){
     if(this.validateQuotaModify())
     {
+      this.editQuota.close();
       this.service.updateEntQuota(this.entEstResource.FirstItem)
       .then(ret=>{
         this.search(null);//刷新
@@ -495,7 +496,7 @@ export class EntEstMngComponent implements OnInit {
   setupCerts(){
     if(this.getSelected())
     {
-      this.router.navigateByUrl(`'ent-mng/attest-mng/attest-mng/${this.getSelected().enterpriseId}`);
+      this.router.navigateByUrl(`ent-mng/attest-mng/attest-mng/${this.getSelected().enterpriseId}`);
     }
   }
 }

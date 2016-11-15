@@ -16,64 +16,20 @@
 											</tr>			
 										</thead>
 										<tbody>
-											<tr>
+											<tr *ngFor="let prodItem of orderItem.itemList">
 												<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
 													<ul>
-														<li>区域：&nbsp;&nbsp;华北1</li>
-														<li>可用区：&nbsp;&nbsp;可用区B</li>
-														<li>实例规格：&nbsp;&nbsp;CPU 2核/内存4GB/启动盘/70G</li>
-														<li>IP地址：&nbsp;&nbsp;10.1.1.1（内部）<br>
-															192.168.1.1（外部）</li>
-														<li>操作系统：&nbsp;&nbsp;******</li>
-														<li>密码：&nbsp;&nbsp;已设置</li>
-														<li>实例名称：&nbsp;&nbsp;abcabc</li>
+														<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 													</ul>
 												</td>
-												<td>云主机</td>
-												<td>包年包月</td>
-												<td>99年</td>
-												<td>1台</td>
-												<td class="wd150">一次性费用：￥0<br>费用：￥50/月</td>
-												<td>￥100/月</td>
-												<td>2099-10-1<br>
-													10:23
-												</td>
-											</tr>
-											<tr>
-												<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
-													<ul>
-														<li>区域：&nbsp;&nbsp;华北1</li>
-														<li>可用区：&nbsp;&nbsp;可用区B</li>
-														<li>云硬盘类型：&nbsp;&nbsp;高性能I/O</li>
-														<li>云硬盘容量：&nbsp;&nbsp;100GB
-													</ul>
-												</td>
-												<td>云硬盘</td>
-												<td>包年包月</td>
-												<td>99年</td>
-												<td>1块</td>
-												<td class="wd150">一次性费用：￥0<br>费用：￥50/月</td>
-												<td>￥100/月</td>
-												<td>2099-10-1<br>
-													10:23
-												</td>
-											</tr>
-											<tr>
-												<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
-													<ul>
-														<li>数据库类型：&nbsp;&nbsp;Oracle</li>
-														<li>数据库版本：&nbsp;&nbsp;11g</li>
-													</ul>
-												</td>
-												<td>数据库</td>
-												<td>包年包月</td>
-												<td>99年</td>
-												<td>1个</td>
-												<td class="wd150">一次性费用：￥0<br>费用：￥50/月</td>
-												<td>￥100/月</td>
-												<td>2099-10-1<br>
-													10:23
-												</td>
+												<td>{{prodItem.serviceType}}</td>
+												<td>{{prodItem.billingInfo.billingMode}}</td>
+												<td>{{prodItem.period}}</td>
+												<td>{{prodItem.quantity}}</td>
+												<td style="width: 100px;">{{prodItem.billingInfo.oneTimePriceAndPrice}}</td>
+												<td class="validateInfo">{{prodItem.statusName}}</td>
+												<td>{{prodItem.createDate}}</td>
+												<td>{{prodItem.expireDate}}</td>
 											</tr>
 										</tbody>
 									</table>

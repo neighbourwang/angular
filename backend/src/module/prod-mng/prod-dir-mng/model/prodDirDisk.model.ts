@@ -1,20 +1,25 @@
 
-// class storage{
-//     "storageId": string;
-//     "storageName": string;
-//     "displayName": string;
-//     "selected": string;
-// }
-// class zone {
-//     "storageId": string;
-//     "zoneId": string;
-//     storageList:Array<storage>;
-//     selected:boolean;
-// }
+class storageItem {
+    "storageId": string;
+    "storageName": string;
+    "displayName": string;
+    "selected": true;
+    "serviceSKUId": string;
+}
+class platformInfo {
+    "storageId": string;
+    "zoneId": string;
+    "storageItem": Array<storageItem>;
+    "selected": boolean;
+    "displayName": string
+}
 class platform {
-    "storageId": [ string ];
-      "zoneId": string;
-      "zoneName": string;
+    "platformId": "string";
+    "platformInfo": Array<platformInfo>;
+    "platformName": "string";
+    "storageId": [string];
+    "zoneId": string;
+    "zoneName": string;
 }
 class specification {
     "initialSize": number = 0;
@@ -25,11 +30,12 @@ class ProdDirDisk {
     "description": string;
     "platformList": Array<platform>;
     "serviceName": string;
-    "specification" ={
-    "initialSize" : 0,
-    "maxSize":  0,
-    "stepSize":  0,
-};
+    "serviceId": string;
+    "specification" = {
+        "initialSize": 0,
+        "maxSize": 0,
+        "stepSize": 0,
+    };
     constructor() {
         this.description = "";
         this.platformList = new Array<platform>();

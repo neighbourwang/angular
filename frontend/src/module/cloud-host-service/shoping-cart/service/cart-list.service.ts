@@ -27,4 +27,31 @@ export class cartListService {
         return request;
     }
 
+    deleteCartList(itemId) : Promise<any>{
+        const api = this.restApiCfg.getRestApi("delete.shopping.cart");
+
+        let pathParams = [
+            {
+                key: 'itemId',
+                value: itemId
+            }
+        ];
+        const request = this.restApi.request(api.method, api.url, pathParams, undefined, undefined)
+                           
+        return request;
+    }
+    
+    purchaseCart(senData:string[]) : Promise<any>{
+        const api = this.restApiCfg.getRestApi("shopping.purchase.cart");
+
+        const request = this.restApi.request(api.method, api.url, undefined, undefined, senData)
+                            .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "";
+                                }
+                                return res.resultContent;
+                            });
+        return request;
+    }
+
 }
