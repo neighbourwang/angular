@@ -6,6 +6,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { Network_mock } from '../model/network.mock.model';
 import { CriteriaQuery } from '../model/criteria-query.model';
+import { OptionInfo_mock } from '../model/optionInfo.mock.model';
 @Injectable()
 export class OpenstackService{
     constructor(
@@ -35,5 +36,9 @@ export class OpenstackService{
         //return this.restApi.request(api.method, api.url, pathParams, null, {"criteriaQuery":criteriaQuery});
 
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Network_mock });
+    }
+
+    getOptionInfo():Promise<any>{
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return OptionInfo_mock });
     }
 }
