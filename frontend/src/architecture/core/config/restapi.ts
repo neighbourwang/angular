@@ -64,6 +64,18 @@ export let RestApis: RestApiModel[] = [
         "id": "hosts.instance.detail",
         "url": "marketplace/authsec/subinstance/itemlist/vm/{uuid}"
     },
+    {
+        "desc": "获取购物车订单列表",
+        "method": "GET",
+        "id" : "shopping.orders.completion",
+        "url" : "ordermgmt/authsec/shopping/orders/completion"
+    },
+    {
+        "desc": "获取购物车列表",
+        "method": "GET",
+        "id" : "shopping.cart.items",
+        "url" : "marketplace/authsec/shopping/cart/items"
+    },
     //镜像管理部分
     {
         "desc": "获取镜像列表",
@@ -111,7 +123,7 @@ export let RestApis: RestApiModel[] = [
     ,{
         "desc": "订单列表查询",
         "method": "POST",
-        "id": "op-center.order-mng.order-list.get",
+        "id": "op-center.order-mng.order-list.post",
         "url": "marketplace/authsec/subscription/instances/search/paging"        
     }
     ,{

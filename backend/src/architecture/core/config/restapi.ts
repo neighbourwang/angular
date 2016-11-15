@@ -506,6 +506,11 @@ export let RestApis: RestApiModel[] = [
        "id": "ent-mng.ent-est-mng.enterprise.products.update",
        "method": "POST",
        "url": "adminui/authsec/enterprises/{enterpriseId}/products/bind"
+   },{
+       "desc": "查看企业加载配额资源概率",
+       "id": "ent-mng.ent-est-mng.enterprise.quota.detail",
+       "method": "GET",
+       "url": "/authsec/enterprise/{enterpriseId}resource/quota/detail "
    },// 企业管理 -->
    //<!--后台-运营中心-订单管理
     {
@@ -544,7 +549,7 @@ export let RestApis: RestApiModel[] = [
        "desc": "订单列表",
        "id": "op-center.order-mng.order-list.post",
        "method": "POST",
-       "url": "adminui/authsec/backend/order/search/paging"
+       "url": "adminui/authsec/subinstance/subscription/list"
    },
 
    //<!--后台-运营中心-订单管理-->

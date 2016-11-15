@@ -1,4 +1,4 @@
-<fc-notice #notice ot="确认"></fc-notice>
+﻿<fc-notice #notice ot="确认"></fc-notice>
 <div class="OrderManage">	
 	<div class="page-content-header">订单管理</div>
 	<div class="page-content">
@@ -16,7 +16,7 @@
     				 <div class="input-group-addon"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div>
 						
-				<button class="button-gray-gradient">重&nbsp;&nbsp;&nbsp;&nbsp;置</button>
+				<button class="button-gray-gradient" (click)="_param.reset()">重&nbsp;&nbsp;&nbsp;&nbsp;置</button>
 			</div>
 			<table class="table mgb20">
 				<tbody>
@@ -111,7 +111,7 @@
 				<tr>
 					<td class="order-title font-green" colspan="7">{{orderItem.purchaseDate}} 订单号：{{orderItem.orderNo}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间：2016-10-08</td>
 					<td colspan="2">
-						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#renewOrder" (click)="renew(orderItem.orderId)">续订</button>
+						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#renewOrder" (click)="renew(orderItem)">续订</button>
 						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#cancelOrder" (click)="cancel(orderItem.orderId)">退订</button>
 						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#orderDetail" (click)="showDetail(orderItem.orderId)">详情</button>
 					</td>	
@@ -171,7 +171,7 @@
 				 	<div class="modal-body"> 
 			          <!--<account-mng-cr-local></account-mng-cr-local>
 			          <order-mng-detail></order-mng-detail>-->
-			           <order-mng-renew></order-mng-renew>
+			           <order-mng-renew order-item="selectedOrderItem"></order-mng-renew>
 					   <div class="OrderRenew"> 
 							<div class="page-content">
 								<div class="page-second-container mgb20">

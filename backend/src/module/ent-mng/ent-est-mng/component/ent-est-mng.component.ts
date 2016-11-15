@@ -5,6 +5,7 @@ import { CertMethod, Status, EntEstItem, EntEst
   , EntEstCreResourceQuota} from '../model';
 
 import { EntEstCreService, Paging } from './../service/ent-est-cre.service';
+import * as _ from 'underscore';
 
 @Component({
   // moduleId: module.id,
@@ -56,22 +57,14 @@ export class EntEstMngComponent implements OnInit {
         let obj = new EntEstCreResourceQuota();
         target.push(obj);
 
-        obj.enterpriseId = item.enterpriseId;// : string = null;//": "string",
-        obj.floatIpQuota = item.floatIpQuota;// : number = null;//": 0,//可创建浮动IP数量
-        obj.id = item.id;// : string = null;//": "string",
-        obj.imageQuota = item.imageQuota;// : number = null;//": 0,//可创建镜像数量
+        _.extendOwn(obj, item);
         obj.memroyQuota = item.memQuota;// : number = null;//": 0,//可用内存数量
-        obj.networkQuota = item.networkQuota;// : number = null;//": 0,
         obj.physicalQuota = item.physicalMachineQuota;// : number = null;//": 0,//可创建物理机数量
         obj.snapShotQuota = item.snapshotQuota;// : number = null;//": 0,//可创建快照数量
-        obj.storageQuota = item.storageQuota;// : number = null;//": 0,//可使用存储额度
-        obj.vcpuQuota = item.vcpuQuota;// : number = null;//": 0, //可使用vCPU数量
-        obj.vmQuota = item.vmQuota;// : number = null;//": 0
       }
     };
 
     this.entEstResource.FirstItem = new EntEstCreResourceQuota();
-
 
 
       //字典配置
@@ -495,6 +488,14 @@ export class EntEstMngComponent implements OnInit {
     {
       this.confirmedHandler();
       this.confirmedHandler = null;
+    }
+  }
+
+  //管理认证源
+  setupCerts(){
+    if(this.getSelected())
+    {
+      this.router.navigateByUrl(`'ent-mng/attest-mng/attest-mng/${this.getSelected().enterpriseId}`);
     }
   }
 }

@@ -5,6 +5,7 @@ class PersonAcc {
     "loginName": string;
     "phone": string;
     "userName": string;
+    
 }
 class PersonAccPwd {
     "id": string;

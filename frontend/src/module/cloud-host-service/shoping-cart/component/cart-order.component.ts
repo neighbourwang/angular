@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { LayoutService } from '../../../../architecture';
 import { cartOrderService } from '../service/cart-order.service'
 
-import { AttrList, PayLoad } from '../model/attr-list.model';
+import { CartOrder } from '../model/cart-order.model';
 
 @Component({
 	selector: 'cart-order',
@@ -21,6 +21,9 @@ export class cartOrderComponent implements OnInit {
 	};
 
 	ngOnInit() {
+		this.service.getOrderList().then(orderList => {
+			console.log(orderList)
+		});
 	}
 
 }
