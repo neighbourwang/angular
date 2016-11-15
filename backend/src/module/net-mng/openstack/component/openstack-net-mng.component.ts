@@ -12,21 +12,21 @@ import { DataCenter } from '../model/dataCenter.model';
 import { PlatformInfo } from '../model/platformInfo.model';
 
 @Component({
-	selector: "openstack-net-mng",
-	templateUrl: "../template/OpenStack-net-mng.html",
-	styleUrls: [],
-	providers: []	
+    selector: "openstack-net-mng",
+    templateUrl: "../template/OpenStack-net-mng.html",
+    styleUrls: [],
+    providers: []
 }
-	)
-export class OpenstackNetMngComponent implements OnInit{
+)
+export class OpenstackNetMngComponent implements OnInit {
 
-	constructor(
-		private dicService: SystemDictionaryService,
-		private service: OpenstackService,
-		private layoutService: LayoutService
-		){
-	}
-	@ViewChild("pager")
+    constructor(
+        private dicService: SystemDictionaryService,
+        private service: OpenstackService,
+        private layoutService: LayoutService
+    ) {
+    }
+    @ViewChild("pager")
     pager: PaginationComponent;
 
     @ViewChild("notice")
@@ -34,21 +34,21 @@ export class OpenstackNetMngComponent implements OnInit{
 
     @ViewChild("confirm")
     confirm: ConfirmComponent;
-	
-	noticeTitle = "";
+
+    noticeTitle = "";
     noticeMsg = "";
 
-	pageIndex = 1;
+    pageIndex = 1;
     pageSize = 10;
     totalPage = 1;
 
-	typeDic: Array<SystemDictionary>;//网络类型
-	sharedDic: Array<SystemDictionary>;//是否共享
-	stateDic: Array<SystemDictionary>;//运行状态
-	statusDic: Array<SystemDictionary>;//状态
-	
-	queryOpt: CriteriaQuery = new CriteriaQuery();
-	networks: Array<Network> ;
+    typeDic: Array<SystemDictionary>;//网络类型
+    sharedDic: Array<SystemDictionary>;//是否共享
+    stateDic: Array<SystemDictionary>;//运行状态
+    statusDic: Array<SystemDictionary>;//状态
+
+    queryOpt: CriteriaQuery = new CriteriaQuery();
+    networks: Array<Network>;
 
     //地域列表
     regionList: Array<Region>;
@@ -57,13 +57,16 @@ export class OpenstackNetMngComponent implements OnInit{
     //平台信息列表
     pfList: Array<PlatformInfo>;
     //当前选中的
-    selectedRegion: Region;
-    selectedDc: DataCenter;
-    selectedPfi: PlatformInfo;
+    defaultRegion = new Region();
+    selectedRegion: Region = this.defaultRegion;
+    defaultDc = new DataCenter();
+    selectedDc: DataCenter = this.defaultDc;
+    defaultPlatform = new PlatformInfo();
+    selectedPfi: PlatformInfo = this.defaultPlatform;
 
 
-	ngOnInit(){
-		this.dicService.getItems("NETWORK", "TYPE")
+    ngOnInit() {
+        this.dicService.getItems("NETWORK", "TYPE")
             .then(
             (dic) => {
                 this.typeDic = dic;
@@ -82,9 +85,9 @@ export class OpenstackNetMngComponent implements OnInit{
                 this.getNetworkList();
                 this.getOptionInfo();
             });
-	}
+    }
 
-	getNetworkList(pageIndex?): void {
+    getNetworkList(pageIndex?): void {
         this.pageIndex = pageIndex || this.pageIndex;
         this.layoutService.show();
         this.service.getNetworks(this.queryOpt, this.pageIndex, this.pageSize)
@@ -97,23 +100,19 @@ export class OpenstackNetMngComponent implements OnInit{
                     this.totalPage = response.pageInfo.totalPage;
                 } else {
                     alert("Res sync error");
-                   
+
                 }
             }
             )
             .catch((e) => this.onRejected(e));
     }
-	search(){
+    search() {
 
     }
-    setRegion(){
-        console.log(this.selectedRegion);
-        this.dcList = this.selectedRegion.dcList;
-
-    }
-	//根据value获取字典的txt
+   
+    //根据value获取字典的txt
     getDicText(value: string, dic: Array<SystemDictionary>): String {
-        if(!$.isArray(dic)){
+        if (!$.isArray(dic)) {
             return value;
         }
         const d = dic.find((e) => {
@@ -127,12 +126,13 @@ export class OpenstackNetMngComponent implements OnInit{
 
     }
 
-	onRejected(reason: any) {
+
+    onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
         this.showAlert("获取数据失败！");
     }
-	showAlert(msg: string): void {
+    showAlert(msg: string): void {
         this.layoutService.hide();
 
         this.noticeTitle = "提示";
@@ -140,19 +140,19 @@ export class OpenstackNetMngComponent implements OnInit{
         this.notice.open();
     }
 
-    getOptionInfo():void{
+    getOptionInfo(): void {
         this.layoutService.show();
         this.service.getOptionInfo()
-        .then(
-            response =>{
+            .then(
+            response => {
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
                     this.regionList = response.resultContent;
                 } else {
                     alert("Res sync error");
-                   
+
                 }
             }
-        )
+            )
     }
 }

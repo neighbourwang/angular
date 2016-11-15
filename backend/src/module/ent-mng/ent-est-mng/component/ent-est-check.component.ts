@@ -38,41 +38,77 @@ export class EntEstCheckComponent implements OnInit {
 
     //加载企业统计图
     this.resourceQuotaSvg = new ItemLoader<EntEstCreResourceQuota>(true, "查看企业统计图", "ent-mng.ent-est-mng.enterprise.quota.detail", restApiCfg, restApi);
-    this.resourceQuotaSvg.MapFunc = (source:Array<any>, target:Array<EntEstCreResourceQuota>)=>{
-      for(let item of source)
-      {
-        let obj = new EntEstCreResourceQuota();
-        target.push(obj);
-        obj.usedCpuRate = item.usedCpuRate;//CPU配额使用率
-        obj.usedFloatIpRate= item.usedFloatIpRate;// 浮动IP配额配额
-        obj.usedImageRate = item.usedImageRate;//镜像配额使用率
-        obj.usedMemRate  = item.usedMemRate;//内存使用率
-        obj.usedPhysicalMachineRate = item.usedPhysicalMachineRate;//物理机配额使用率
-        obj.usedSnapshotRate = item.usedSnapshotRate; //快照配额使用率
-        obj.usedStorageRate = item.usedStorageRate;//储存使用率
+    // this.resourceQuotaSvg.MapFunc = (source:Array<any>, target:Array<EntEstCreResourceQuota>)=>{
+    //   for(let item of source)
+    //   {
+    //     let obj = new EntEstCreResourceQuota();
+    //     target.push(obj);
+    //     obj.usedCpuRate = item.usedCpuRate;//CPU配额使用率
+    //     obj.usedFloatIpRate= item.usedFloatIpRate;// 浮动IP配额配额
+    //     obj.usedImageRate = item.usedImageRate;//镜像配额使用率
+    //     obj.usedMemRate  = item.usedMemRate;//内存使用率
+    //     obj.usedPhysicalMachineRate = item.usedPhysicalMachineRate;//物理机配额使用率
+    //     obj.usedSnapshotRate = item.usedSnapshotRate; //快照配额使用率
+    //     obj.usedStorageRate = item.usedStorageRate;//储存使用率
               
          
-          obj.enterpriseId = item.enterpriseId;// : string = null;//": "string",
+    //       obj.enterpriseId = item.enterpriseId;// : string = null;//": "string",
 
           
-          obj.vcpuQuota = item.vcpuQuota;// : number = null;//": 0, //vCPU数量
+    //       obj.vcpuQuota = item.vcpuQuota;// : number = null;//": 0, //vCPU数量
          
          
-          obj.memroyQuota = item.memQuota; //内存
+    //       obj.memroyQuota = item.memQuota; //内存
 
-          obj.storageQuota = item.storageQuota;//存储
+    //       obj.storageQuota = item.storageQuota;//存储
 
-          obj.physicalQuota = item.physicalMachineQuota;// : number = null;//": 0,//可创建物理机数量
+    //       obj.physicalQuota = item.physicalMachineQuota;// : number = null;//": 0,//可创建物理机数量
 
-         obj.snapShotQuota = item.snapshotQuota;// : number = null;//": 0,//可创建快照数量
+    //      obj.snapShotQuota = item.snapshotQuota;// : number = null;//": 0,//可创建快照数量
 
-         obj.imageQuota = item.imageQuota;// : number = null;//": 0,//可创建镜像数量
+    //      obj.imageQuota = item.imageQuota;// : number = null;//": 0,//可创建镜像数量
 
-         obj.floatIpQuota = item.floatIpQuota;// : number = null;//": 0,//可创建浮动IP数量
+    //      obj.floatIpQuota = item.floatIpQuota;// : number = null;//": 0,//可创建浮动IP数量
 
-         obj.id = item.id;// : string = null;//": "string",
+    //      obj.id = item.id;// : string = null;//": "string",
   
-      }
+    //   }
+    // };
+
+    this.resourceQuotaSvg.FakeDataFunc = (target:Array<EntEstCreResourceQuota>)=>{
+      target.splice(0, target.length);
+
+      let obj = new EntEstCreResourceQuota();
+      target.push(obj);
+        obj.usedCpuRate = 0.13;//CPU配额使用率
+        obj.usedFloatIpRate= 0.23;// 浮动IP配额配额
+        obj.usedImageRate = 0.11;//镜像配额使用率
+        obj.usedMemRate  = 0.53;//内存使用率
+        obj.usedPhysicalMachineRate = 0.45;//物理机配额使用率
+        obj.usedSnapshotRate = 0.23; //快照配额使用率
+        obj.usedStorageRate = 0.28;//储存使用率
+              
+         
+          obj.enterpriseId = "2";// : string = null;//": "string",
+
+          
+          obj.vcpuQuota = 3;// : number = null;//": 0, //vCPU数量
+         
+         
+          obj.memroyQuota = 5; //内存
+
+          obj.storageQuota = 3;//存储
+
+          obj.physicalQuota = 2;// : number = null;//": 0,//可创建物理机数量
+
+         obj.snapShotQuota = 3;// : number = null;//": 0,//可创建快照数量
+
+         obj.imageQuota = 3;// : number = null;//": 0,//可创建镜像数量
+
+         obj.floatIpQuota = 3;// : number = null;//": 0,//可创建浮动IP数量
+
+         obj.id = "323";// : string = null;//": "string",
+
     };
 
 
@@ -164,11 +200,8 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
 
 //加载统计图
  loadResourceQuotaSvg(){
-    this.resourceQuotaSvg.Go(1,[{key:"_enterpriseId", value:this.entId}])
+    this.resourceQuotaSvg.Go(1,[{key:"enterpriseId", value:this.entId}])
     .then(success=>{
-        this.msg.title='资源统计率加载';
-        this.msg.desc='资源统计率加载成功!';
-        this.showError(this.msg);
     }, err=>{
        this.msg.title='资源统计率加载';
         this.msg.desc='资源统计率加载失败!';

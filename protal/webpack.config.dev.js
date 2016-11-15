@@ -21,7 +21,7 @@ module.exports = {
 			{
 				exclude: /(node_modules|bower_components)/,
 				test: /\.js$/,
-				loader: 'babel-loader'
+				loader: 'babel-loader?presets[]=es2015'
 			},
 			{test:/\.less$/, loader:'style-loader!css-loader!less-loader'},
 			{test:/\.css$/, loader:'style-loader!css-loader'},

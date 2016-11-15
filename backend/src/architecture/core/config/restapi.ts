@@ -510,7 +510,7 @@ export let RestApis: RestApiModel[] = [
        "desc": "查看企业加载配额资源概率",
        "id": "ent-mng.ent-est-mng.enterprise.quota.detail",
        "method": "GET",
-       "url": "/authsec/enterprise/{enterpriseId}resource/quota/detail "
+       "url": "authsec/enterprise/{enterpriseId}/resource/quota/detail"
    },// 企业管理 -->
    //<!--后台-运营中心-订单管理
     {
@@ -550,6 +550,11 @@ export let RestApis: RestApiModel[] = [
        "id": "op-center.order-mng.order-list.post",
        "method": "POST",
        "url": "adminui/authsec/subinstance/subscription/list"
+   },{
+       "desc": "订单续订",
+       "id": "op-center.order-mng.order-renew.get",
+       "method": "POST",
+       "url": "adminui/authsec/backend/order/{orderId}/renew"
    },
 
    //<!--后台-运营中心-订单管理-->
@@ -687,16 +692,46 @@ export let RestApis: RestApiModel[] = [
         "url" : "basis/authsec/adm/organization/{id}/disable"
     },
     {
-        "desc" : "获取所有账户",
+        "desc" : "获取所有账户(所有)",
         "id" : "user-center.account-mng.list",
         "method" : "GET",
-        "url" : "basis/authsec/adm/users"
+        "url" : "basis/authsec/adm/users/page/{page}/size/{size}"
     },
     {
         "desc" : "获取所有角色",
         "id" : "user-center.role-mng.list",
         "method" : "GET",
         "url" : "basis/authsec/adm/roles/page/{page}/size/{size}"
+    },
+    {
+        "desc" : "创建帐号（本地）",
+        "id" : "user-center.account-mng.local.create",
+        "method" : "POST",
+        "url" : "basis/authsec/adm/user"
+    },
+    {
+        "desc" : "编辑帐号（本地）",
+        "id" : "user-center.account-mng.local.edit",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/user/{id}"
+    },
+    {
+        "desc" : "查询单个帐号",
+        "id" : "user-center.account-mng.local.get",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/user/{id}"
+    },
+    {
+        "desc" : "获取未管理人员列表",
+        "id" : "user-center.org-mng.nomnguser.list",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/users/nonorganization/page/{page}/size/{size}"
+    },
+    {
+        "desc" : "获取未管理的云平台",
+        "id" : "user-center.org-mng.nomngplatform.list",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/organization/platforms/nonorganization"
     },
     //个人账户管理
     {

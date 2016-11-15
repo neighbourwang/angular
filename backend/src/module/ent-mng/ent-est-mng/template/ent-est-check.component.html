@@ -111,10 +111,10 @@
 					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
 					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
 				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedCpuRate}}</span>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedCpuRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.vcpuQuota}}台))</span>
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.vcpuQuota}}台)</span>
 			    <span >VCPU</span>
 			</div>	  	
 		</div>
@@ -124,10 +124,10 @@
 					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
 					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
 				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedMemRate}}</span>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedMemRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.memroyQuota}}台))</span>
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.memroyQuota}}台)</span>
 			    <span >内存</span>
 			</div>	  	
 		</div>
@@ -137,10 +137,10 @@
 					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
 					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
 				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedStorageRate}}</span>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedStorageRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.storageQuota}}台))</span>
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.storageQuota}}台)</span>
 			    <span >存储</span>
 			</div>	  	
 		</div>
@@ -150,10 +150,10 @@
 					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
 					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
 				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedPhysicalMachineRate/100}}</span>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedPhysicalMachineRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.physicalQuota}}台))</span>
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.physicalQuota}}台)</span>
 			    <span >物理机</span>
 			</div>	  	
 		</div>
@@ -163,10 +163,10 @@
 					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
 					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
 				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedSnapshotRate}}</span>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedSnapshotRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.snapshotQuota}}台))</span>
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.snapshotQuota}}台)</span>
 			    <span >快照</span>
 			</div>	  	
 		</div>
@@ -176,10 +176,10 @@
 					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
 					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
 				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedImageRate}}</span>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedImageRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.imageQuota}}台))</span>
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.imageQuota}}台)</span>
 			    <span >镜像</span>
 			</div>	  	
 		</div>
@@ -189,10 +189,10 @@
 					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
 					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
 				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedFloatIpRate}}</span>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedFloatIpRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.floatIpQuota}}台))</span>
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.floatIpQuota}}台)</span>
 			    <span >浮动IP地址</span>
 			</div>	  	
 		</div>
