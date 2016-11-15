@@ -289,7 +289,7 @@ export class EntEstMngComponent implements OnInit {
   setupAdmin(){
     if(this.getSelected())
     {
-      this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-mng/${this.getSelected().id}`);
+      this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-mng/${this.getSelected().enterpriseId}`);
     }
   }
 
