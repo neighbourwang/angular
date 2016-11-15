@@ -710,6 +710,18 @@ export let RestApis: RestApiModel[] = [
         "method" : "GET",
         "url" : "basis/authsec/adm/user/{id}"
     },
+    {
+        "desc" : "获取未管理人员列表",
+        "id" : "user-center.org-mng.nomnguser.list",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/users/nonorganization/page/{page}/size/{size}"
+    },
+    {
+        "desc" : "获取未管理的云平台",
+        "id" : "user-center.org-mng.nomngplatform.list",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/organization/platforms/nonorganization"
+    },
     //个人账户管理
     {
         "desc": "获取当前登录账户信息",
