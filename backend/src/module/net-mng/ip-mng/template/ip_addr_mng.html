@@ -24,20 +24,20 @@
         </span>
         <div class="pull-left mgl15">
             <select class="form-control">
-                <option>所有</option>
+                <option [value]="">所有</option>
                 <option>DLR1</option>
                 <option>DLR2</option>
                 <option>DLR11</option>
                 <option>DLR22</option>
             </select>
         </div>
-		<button type="button" class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px"> 确定</button>
+		<button type="button" class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="fiterIpMng()"> 确定</button>
     </div>
 
     <div class="mgb10">
         <button class="fox-cloud-button fox-cloud-button-green">设置IP子网</button>
         <button class="fox-cloud-button fox-cloud-button-green">设置IP地址范围</button>
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/mng_ip_addr.html">管理IP地址</button>
+        <button class="fox-cloud-button fox-cloud-button-green" key="boe/mng_ip_addr.html" (click)="ipUsageMngPage()">管理IP地址</button>
     </div>
 
     <div class="table-container">
@@ -58,87 +58,128 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr *ngFor="let ipmng of ipmngs">
                 <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                <td>DC1</td>
-                <td>Cluster1</td>
-                <td>dv pg1</td>
-                <td>未设置</td>
-                <td>100</td>
-                <td>172.16.1.0/24</td>
-                <td>172.16.1.1</td>
-                <td>24</td>
-                <td>50</td>
-                <td>24</td>
-            </tr>
-            <tr>
-                <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                <td>DC1</td>
-                <td>Cluster1</td>
-                <td>dv pg2</td>
-                <td>未设置</td>
-                <td>101</td>
-                <td>未设置</td>
-                <td>未设置</td>
-                <td>未设置</td>
-                <td>未设置</td>
-                <td>未设置</td>
-            </tr>
-            <tr>
-                <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                <td>DC1</td>
-                <td>Cluster1</td>
-                <td>dv pg3</td>
-                <td>未设置</td>
-                <td>102</td>
-                <td>未设置</td>
-                <td>未设置</td>
-                <td>未设置</td>
-                <td>未设置</td>
-                <td>未设置</td>
-            </tr>
-            <tr>
-                <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                <td>DC1</td>
-                <td>Cluster1</td>
-                <td>dv pg21</td>
-                <td>未设置</td>
-                <td>103</td>
-                <td>未设置</td>
-                <td>未设置</td>
-                <td>未设置</td>
-                <td>未设置</td>
-                <td>未设置</td>
-            </tr>
-            <tr>
-                <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                <td>DC1</td>
-                <td>Cluster1</td>
-                <td>dv pg22</td>
-                <td>未设置</td>
-                <td>104</td>
-                <td>未设置</td>
-                <td>未设置</td>
-                <td>未设置</td>
-                <td>未设置</td>
-                <td>未设置</td>
-            </tr>
-            <tr>
-                <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                <td>DC1</td>
-                <td>Cluster1</td>
-                <td>dv pg31</td>
-                <td>未设置</td>
-                <td>105</td>
-                <td>未设置</td>
-                <td>未设置</td>
-                <td>未设置</td>
-                <td>未设置</td>
-                <td>未设置</td>
-            </tr>
+                <td>{{ipmng.dataCenter}}</td>
+                <td>{{ipmng.clusterName}}</td>
+                <td>{{ipmng.portGroup}}</td>
+                <td>{{ipmng.portGroupDisplayName}}</td>
+                <td>{{ipmng.vlanId}}</td>
+                <td>{{ipmng.segmentCIDR}}</td>
+                <td>{{ipmng.gateWay}}</td>
+                <td>{{ipmng.ipCount}}</td>
+                <td>{{ipmng.usedIPCount}}</td>
+                <td>{{ipmng.freeIPCount}}</td>
+			</tr>
             </tbody>
         </table>
+
+	{{query.toString()}}
+
     </div>
-
-
 </div>
+
+
+
+
+<fc-popup #setsubnet ot="确认" ct="取消" title="设置IP子网" (of)="acceptIpSubnetModify()" (cf)="cancelIpSubnetModify()">
+	
+	<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>子网信息：</div>
+					<div class="col-sm-5">
+					    <input type="number" class="form-control input-control" >
+					</div>
+					<div class="col-sm-1">
+					    <span class=" form-control-title mgl100">核</span>
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>子网掩码：</div>
+					<div class="col-sm-5">
+					    <input type="number" class="form-control input-control">
+					</div>
+					<div class="col-sm-1">
+					    <span class=" form-control-title mgl100">GB</span>
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>网关地址：</div>
+					<div class="col-sm-5">
+					<input type="number" class="form-control input-control" placeholder="">
+					</div>
+					<div class="col-sm-1">
+					    <span class=" form-control-title mgl100" >台</span>
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-6 form-control-title">DNS1：</div>
+					<div class="col-sm-5">
+						<input type="number" class="form-control input-control" placeholder="">
+					</div>
+					<div class="col-sm-1">
+					    <span class=" form-control-title mgl100">GB</span>
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-6 form-control-title">DNS2：</div>
+					<div class="col-sm-5">
+						<input type="number" class="form-control input-control" placeholder="">
+					</div>
+					<div class="col-sm-1">
+					    <span class=" form-control-title mgl100">个</span>
+					</div>
+				</div>
+			</div>
+	</div>
+
+</fc-popup>
+
+<fc-popup #setips ot="确认" ct="取消" title="设置IP地址范围" (of)="acceptIPsModify()" (cf)="cancelIPsModify()">
+	
+	<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-6 form-control-title">子网信息：</div>
+					<div class="col-sm-5">
+					    <input type="number" class="form-control input-control" >
+					</div>
+					<div class="col-sm-1">
+					    <span class=" form-control-title mgl100">核</span>
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-6 form-control-title">网关：</div>
+					<div class="col-sm-5">
+					    <input type="number" class="form-control input-control" >
+					</div>
+					<div class="col-sm-1">
+					    <span class=" form-control-title mgl100">GB</span>
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-6 form-control-title">IP地址范围：</div>
+					<div class="col-sm-5">
+					<input type="number" class="form-control input-control" placeholder="">
+					</div>
+					<div class="col-sm-1">
+					    <span class=" form-control-title mgl100" >台</span>
+					</div>
+				</div>
+			</div>
+	</div>
+
+</fc-popup>

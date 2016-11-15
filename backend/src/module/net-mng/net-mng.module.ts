@@ -5,11 +5,13 @@ import { IpMngModule } from './ip-mng/ip-mng.module';
 
 @NgModule({
     imports: [
-        OpenstackModule
+        OpenstackModule,
+        IpMngModule
     ],
     declarations: [],
     exports: [
-        OpenstackModule
+        OpenstackModule,
+        IpMngModule
     ],
     providers: []
 })
