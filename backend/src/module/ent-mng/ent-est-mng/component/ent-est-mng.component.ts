@@ -495,7 +495,7 @@ export class EntEstMngComponent implements OnInit {
   setupCerts(){
     if(this.getSelected())
     {
-      this.router.navigateByUrl(`'ent-mng/attest-mng/attest-mng/${this.getSelected().enterpriseId}`);
+      this.router.navigateByUrl(`ent-mng/attest-mng/attest-mng/${this.getSelected().enterpriseId}`);
     }
   }
 }

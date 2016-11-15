@@ -57,9 +57,12 @@ export class OpenstackNetMngComponent implements OnInit {
     //平台信息列表
     pfList: Array<PlatformInfo>;
     //当前选中的
-    selectedRegion: Region = new Region;
-    selectedDc: DataCenter = new DataCenter();
-    selectedPfi: PlatformInfo = new PlatformInfo();
+    defaultRegion = new Region();
+    selectedRegion: Region = this.defaultRegion;
+    defaultDc = new DataCenter();
+    selectedDc: DataCenter = this.defaultDc;
+    defaultPlatform = new PlatformInfo();
+    selectedPfi: PlatformInfo = this.defaultPlatform;
 
 
     ngOnInit() {
@@ -106,22 +109,7 @@ export class OpenstackNetMngComponent implements OnInit {
     search() {
 
     }
-    setRegion() {
-        window.setTimeout(() => {
-            var selectRegion = this.regionList.find(
-                (region) => { return region.id == this.selectedRegion.id }
-            );
-            if (selectRegion && this.selectedRegion.id != "") {
-                this.selectedRegion = selectRegion;
-                this.dcList = selectRegion.dcList;
-                this.selectedDc.id = "";
-            } else {
-                this.dcList = [];
-                this.selectedDc.id = "";
-            }
-        },
-            10);
-    }
+   
     //根据value获取字典的txt
     getDicText(value: string, dic: Array<SystemDictionary>): String {
         if (!$.isArray(dic)) {
@@ -137,6 +125,7 @@ export class OpenstackNetMngComponent implements OnInit {
         }
 
     }
+
 
     onRejected(reason: any) {
         this.layoutService.hide();

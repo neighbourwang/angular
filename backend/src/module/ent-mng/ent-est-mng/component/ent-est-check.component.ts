@@ -164,7 +164,7 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
 
 //加载统计图
  loadResourceQuotaSvg(){
-    this.resourceQuotaSvg.Go(1,[{key:"_enterpriseId", value:this.entId}])
+    this.resourceQuotaSvg.Go(1,[{key:"enterpriseId", value:this.entId}])
     .then(success=>{
         this.msg.title='资源统计率加载';
         this.msg.desc='资源统计率加载成功!';
