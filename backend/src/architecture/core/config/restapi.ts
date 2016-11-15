@@ -676,16 +676,34 @@ export let RestApis: RestApiModel[] = [
         "url" : "basis/authsec/adm/organization/{id}/disable"
     },
     {
-        "desc" : "获取所有账户",
+        "desc" : "获取所有账户(所有)",
         "id" : "user-center.account-mng.list",
         "method" : "GET",
-        "url" : "basis/authsec/adm/users"
+        "url" : "basis/authsec/adm/users/page/{page}/size/{size}"
     },
     {
         "desc" : "获取所有角色",
         "id" : "user-center.role-mng.list",
         "method" : "GET",
         "url" : "basis/authsec/adm/roles/page/{page}/size/{size}"
+    },
+    {
+        "desc" : "创建帐号（本地）",
+        "id" : "user-center.account-mng.local.create",
+        "method" : "POST",
+        "url" : "basis/authsec/adm/user"
+    },
+    {
+        "desc" : "编辑帐号（本地）",
+        "id" : "user-center.account-mng.local.edit",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/user/{id}"
+    },
+    {
+        "desc" : "查询单个帐号",
+        "id" : "user-center.account-mng.local.get",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/user/{id}"
     },
     //个人账户管理
     {
