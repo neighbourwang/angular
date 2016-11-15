@@ -1,5 +1,5 @@
 export class PlatformInfo {
-    id: string = "";
+    id: string;
     name: string;
     url: string;
 }
