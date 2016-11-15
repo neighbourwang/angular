@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi } from '../../../../architecture';
 
+import { CartList } from '../model/cart-list.model';
+
 
 import 'rxjs/add/operator/toPromise';
 
@@ -12,8 +14,8 @@ export class cartListService {
                 private restApi:RestApi) {
     }
 
-    getHostConfigList() : Promise<any>{
-        const api = this.restApiCfg.getRestApi("hosts.services.get");
+    getOrderList() : Promise<CartList[]>{
+        const api = this.restApiCfg.getRestApi("shopping.cart.items");
 
         const request = this.restApi.request(api.method, api.url, undefined, undefined)
                             .then(res => {
@@ -25,23 +27,4 @@ export class cartListService {
         return request;
     }
 
-    getHostList(page: number, size: number) : Promise<any>{
-        const api = this.restApiCfg.getRestApi("hosts.instance.get");
-
-        let pathParams = [
-            {
-                key: 'page',
-                value: page
-            }, 
-            {
-                key: 'size',
-                value: size
-            }
-        ];
-        const request = this.restApi.request(api.method, api.url, pathParams, undefined, undefined)
-                           
-        return request;
-    }
-
-   
 }

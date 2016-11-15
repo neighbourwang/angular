@@ -7,6 +7,10 @@ import { Network } from '../model/network.model';
 import { Network_mock } from '../model/network.mock.model';
 import { OpenstackService } from '../service/openstack.service';
 import { CriteriaQuery } from '../model/criteria-query.model';
+import { Region } from '../model/region.model';
+import { DataCenter } from '../model/dataCenter.model';
+import { PlatformInfo } from '../model/platformInfo.model';
+
 @Component({
 	selector: "openstack-net-mng",
 	templateUrl: "../template/OpenStack-net-mng.html",
@@ -45,6 +49,19 @@ export class OpenstackNetMngComponent implements OnInit{
 	
 	queryOpt: CriteriaQuery = new CriteriaQuery();
 	networks: Array<Network> ;
+
+    //地域列表
+    regionList: Array<Region>;
+    //数据中心列表
+    dcList: Array<DataCenter>;
+    //平台信息列表
+    pfList: Array<PlatformInfo>;
+    //当前选中的
+    selectedRegion: Region;
+    selectedDc: DataCenter;
+    selectedPfi: PlatformInfo;
+
+
 	ngOnInit(){
 		this.dicService.getItems("NETWORK", "TYPE")
             .then(
@@ -63,6 +80,7 @@ export class OpenstackNetMngComponent implements OnInit{
             .then((dic) => {
                 this.statusDic = dic;
                 this.getNetworkList();
+                this.getOptionInfo();
             });
 	}
 
@@ -85,7 +103,14 @@ export class OpenstackNetMngComponent implements OnInit{
             )
             .catch((e) => this.onRejected(e));
     }
-	
+	search(){
+
+    }
+    setRegion(){
+        console.log(this.selectedRegion);
+        this.dcList = this.selectedRegion.dcList;
+
+    }
 	//根据value获取字典的txt
     getDicText(value: string, dic: Array<SystemDictionary>): String {
         if(!$.isArray(dic)){
@@ -113,5 +138,21 @@ export class OpenstackNetMngComponent implements OnInit{
         this.noticeTitle = "提示";
         this.noticeMsg = msg;
         this.notice.open();
+    }
+
+    getOptionInfo():void{
+        this.layoutService.show();
+        this.service.getOptionInfo()
+        .then(
+            response =>{
+                if (response && 100 == response["resultCode"]) {
+                    this.layoutService.hide();
+                    this.regionList = response.resultContent;
+                } else {
+                    alert("Res sync error");
+                   
+                }
+            }
+        )
     }
 }

@@ -70,6 +70,12 @@ export let RestApis: RestApiModel[] = [
         "id" : "shopping.orders.completion",
         "url" : "ordermgmt/authsec/shopping/orders/completion"
     },
+    {
+        "desc": "获取购物车列表",
+        "method": "GET",
+        "id" : "shopping.cart.items",
+        "url" : "marketplace/authsec/shopping/cart/items"
+    },
     //镜像管理部分
     {
         "desc": "获取镜像列表",
