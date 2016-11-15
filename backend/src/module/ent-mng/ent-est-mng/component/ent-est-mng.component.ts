@@ -490,4 +490,12 @@ export class EntEstMngComponent implements OnInit {
       this.confirmedHandler = null;
     }
   }
+
+  //管理认证源
+  setupCerts(){
+    if(this.getSelected())
+    {
+      this.router.navigateByUrl(`'ent-mng/attest-mng/attest-mng/${this.getSelected().enterpriseId}`);
+    }
+  }
 }
