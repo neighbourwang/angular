@@ -65,16 +65,28 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/subinstance/itemlist/vm/{uuid}"
     },
     {
-        "desc": "获取购物车订单列表",
-        "method": "GET",
-        "id" : "shopping.orders.completion",
-        "url" : "ordermgmt/authsec/shopping/orders/completion"
-    },
-    {
         "desc": "获取购物车列表",
         "method": "GET",
         "id" : "shopping.cart.items",
         "url" : "marketplace/authsec/shopping/cart/items"
+    },
+    {
+        "desc": "删除购物车元素",
+        "method": "DELETE",
+        "id": "delete.shopping.cart",
+        "url": "marketplace/authsec/shopping/cart/{itemId}"
+    },
+    {
+        "desc": "购物车直接购买",
+        "method": "POST",
+        "id": "shopping.purchase.cart",
+        "url": "marketplace/authsec/shopping/purchase/cart"
+    },
+    {
+        "desc": "购物车订单",
+        "method": "GET",
+        "id": "shopping.orders.completion",
+        "url": "marketplace/authsec/shopping/orders/completion"
     },
     //镜像管理部分
     {
