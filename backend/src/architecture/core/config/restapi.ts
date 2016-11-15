@@ -555,12 +555,6 @@ export let RestApis: RestApiModel[] = [
    //<!--后台-运营中心-订单管理-->
    // 
     //产品管理
-    // {
-    //     "desc": "获取所有产品目录",
-    //     "id": "prod-mng.prod-dir-mng.lists.get",
-    //     "method": "GET",
-    //     "url": "adminui/authsec/services"
-    // },
     {
         "desc": "分页获取所有产品目录",
         "id": "prod-mng.prod-dir-mng.list.get",
@@ -597,6 +591,7 @@ export let RestApis: RestApiModel[] = [
         "method": "DELETE",
         "url": "adminui/authsec/service/{id}"
     },
+    //VM产品目录
     {
         "desc": "创建VM产品目录",
         "id": "prod-dir-vmCreate",
@@ -615,8 +610,19 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminui/authsec/service/{id}/type/vm/detail "
     },  
-
-
+    //DISK产品目录
+    {
+        "desc": "获取DISK产品目录平台信息",
+        "id": "prod-mng.prod-disk-dir.plateforms",
+        "method": "GET",
+        "url": "adminui/authsec/services/platforms/disk/detailinfo "
+    },
+    {
+        "desc": "创建DISK产品目录",
+        "id": "prod-mng.prod-disk-dir.create",
+        "method": "POST",
+        "url": "adminui/authsec/services/type/disk "
+    },
     //产品
     {
         "desc": "条件查询所有产品列表",

@@ -49,7 +49,31 @@ export class ProdDirDiskCreComponent implements OnInit {
         // } else {
         //     // this.getProdDirDetail(prodDirId);
         // }
+        this.getPlateForm();
     }
+    getPlateForm(){
+        this.CreateProdDirService.getDiskPlateForms().then(
+            response => {
+                console.log(response);
+                if (response && 100 == response.resultCode) {
+                    // let resultContent = response.resultContent;
+                    // this.prodDir = response.resultContent;
+                } else {
+
+                }
+                this.LayoutService.hide();
+            }
+        ).catch(err => {
+            console.error(err);
+        })
+    }
+
+
+
+
+
+
+
     getProdDirDetail(id) {
         // this.ProdDirDetailService.getVmProdDirDetail(id).then(
         //     response => {
