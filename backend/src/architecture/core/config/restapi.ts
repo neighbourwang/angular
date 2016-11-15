@@ -510,7 +510,7 @@ export let RestApis: RestApiModel[] = [
        "desc": "查看企业加载配额资源概率",
        "id": "ent-mng.ent-est-mng.enterprise.quota.detail",
        "method": "GET",
-       "url": "/authsec/enterprise/{enterpriseId}resource/quota/detail "
+       "url": "authsec/enterprise/{enterpriseId}/resource/quota/detail"
    },// 企业管理 -->
    //<!--后台-运营中心-订单管理
     {
