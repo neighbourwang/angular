@@ -23,14 +23,19 @@ window.Routes = (function() {
 
 	let listenList = [];  //监听的列表
 
-	function listen(route, callbackFn){
-		listenList.push({
-			route : route,
-			callbackFn : callbackFn
-		})
+	function listen(...routes){
+		var callbackFn = routes.pop();
+		console.log(routes)
+		routes.forEach(route => {
+			listenList.push({
+				route : route,
+				callbackFn : callbackFn
+			});
+		});
+		change();
 	};
 
-	window.onhashchange = function(){
+	function change(){
 		let hashArr = location.hash.match( /#([^\?|\/|$]*)\??(.*)/),
 			route = hashArr ? hashArr[1] : "",
 			params = {};
@@ -48,6 +53,7 @@ window.Routes = (function() {
 		})
 	}
 
+	window.onhashchange = change;
 	return listen;
 })();
 
