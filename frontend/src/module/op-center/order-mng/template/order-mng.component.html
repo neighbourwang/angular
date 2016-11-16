@@ -4,8 +4,7 @@
 	<div class="page-content">
 		<div class="mgb20">
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="#">我的订单</a></li>
-				<li><a href="#">部门订单</a></li>
+				<li  class="active"><a href="#">部门订单</a></li>
 				<li><a href="#">所有订单</a></li>
 			</ul>
 		</div>
@@ -184,7 +183,7 @@
 											</select>
 										</div>
 										<input type="text" name="" value="">
-										<button class="btn button-gray-gradient mgr20">永&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;久</button>
+										<button class="btn button-gray-gradient mgr20" ng-class="{'bgGreen':isForerver}" (click)="selectForever();">永&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;久</button>
 										续订后到期时间：<span class="warnInfo">{{_renewSetting.renewDate}}</span>
 								    </div>
 									<div class="float-right">
@@ -202,7 +201,7 @@
 					</div>
 			      
 				  	<div *ngIf="!_renewSetting.completed" class="modal-footer" style="text-align: center;">
-						<button  type="button" class="btn button-confirm button-size-big" data-toggle="modal" data-target="#renewOrderOk" (click)="renew()" >确认续订</button>
+						<button  type="button" class="btn button-confirm button-size-big " data-toggle="modal" data-target="#renewOrderOk" (click)="renew()" >确认续订</button>
 		                <button type="button" class="btn  button-size-big button-white" data-dismiss="modal">取消</button>
 				  	</div>
 
