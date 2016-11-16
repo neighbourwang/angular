@@ -4,10 +4,12 @@ class storage{
     "storageName": string;
     "displayName": string;
     "selected": string;
+    "serviceSKUId":string;
 }
 class zone {
     "storageId": string;
     "zoneId": string;
+    "serviceSKUId":string;
     storageList:Array<storage>;
     selected:boolean;
 }
