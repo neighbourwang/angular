@@ -247,7 +247,7 @@
 						<h4 class="modal-title" id="myModalLabel">订单退订</h4>
 				  	</div>
 				 	<div class="modal-body"> 
- 						<order-mng-cancel></order-mng-cancel>
+ 						<order-mng-cancel  [orderItem]="selectedOrderItem"></order-mng-cancel>
  						<!-- 退订 -->
 						<div *ngIf="!_isCanceled" class="OrderRenew"> 
 							<div class="page-content">
