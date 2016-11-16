@@ -5,6 +5,11 @@ const C    = require("../const.js");          //引入全局配置
 module.exports = {
 	template: html(C),
 	controller : function() {
-		console.log("show header")
+		$(".cm-header .h-nav a").each(function(){
+			let htmlName = location.href.match(/\/\w+?\.html/);
+			if (htmlName && $(this).attr("href").indexOf(htmlName[0]) > -1 ) {
+				$(this).addClass("active");
+			}
+		})
 	}
 }

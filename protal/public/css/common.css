@@ -149,3 +149,405 @@ input[type=text],input[type=password] {
 input[type=text]:focus,input[type=password]:focus {
 	box-shadow: 0 0 3px #01b288;
 }
+
+
+.btn,.form-control,.dropdown-menu,.input-group-addon, .modal-content,.nav-tabs>li>a, .popover {
+    border-radius: 0!important;
+}
+
+/*tab样式*/
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+	border-top: 4px solid #01a982;
+	color: #01a982;
+}
+.nav>li>a:focus, .nav>li>a:hover {
+	background-color: #fff;
+	border: 1px solid  #fff;
+}
+.nav>li>a {
+	padding: 10px 30px;
+	color: inherit;
+}
+/*tab样式*/
+ .popover {
+    max-width: 700px;
+    font-family: "微软雅黑";
+}
+.popover-content {
+	padding: 25px;
+}
+
+.modal-header {
+	background-color: #fafafa;
+}
+
+.btn-default.active {
+ 	background: #e4f7f3!important;
+    box-shadow: none!important;
+    border: 1px solid #25b995!important;
+    color: #25b995!important;
+}
+
+.fox-cloud-modal-header .modal-header {
+    font-size: 18px;
+    padding: 20px 20px 20px 20px;
+    border-bottom: 3px solid #01a982;
+}
+
+.fox-cloud-modal-header .modal-header .close {
+    margin-top: 5px;
+}
+
+.fox-cloud-modal-header .modal-header > span {
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.fox-cloud-modal-body .modal-body {
+    padding: 20px 30px 20px 30px;
+    font-size: 16px;
+    /*word-wrap: break-word;*/ /* IE 5.5-7 */
+    /*white-space: -moz-pre-wrap;*/ /* Firefox 1.0-2.0 */
+    /*white-space: pre-wrap;*/ /* current browsers */
+}
+
+.fox-cloud-modal-footer .modal-footer {
+    padding: 15px;
+    text-align: center;
+    border: none;
+}
+
+
+.cm-table-left {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.cm-table-left th {
+    border: 1px solid #ddd;
+    background: #f7f7f7;
+    padding: 15px;
+}
+.cm-table-left td {
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 15px;
+}
+
+.table {
+	/*border: 1px solid #ddd;*/
+	border-bottom: none;
+	margin-bottom: 0px;
+}
+.table th {
+    border: 1px solid #ddd;
+    background: #f7f7f7;
+    font-weight: normal;
+}
+.table tr {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+.table td {
+    border-bottom: 1px solid #ddd;
+}
+.table input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+}
+.table td.active {
+    background-color : inherit !important;
+    color: #01a982;
+}
+.table-all-border td {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+.table-line-head  {
+    border: 1px solid #ddd;
+    background: #f7f7f7;
+    border-bottom: none;
+    padding: 0 20px !important;
+    height: 50px !important;
+    line-height: 50px !important;
+}
+
+.table-gap {
+    border: none !important;
+    height: 20px!important;
+}
+.table-gap tr,.table-gap td {
+    border: none !important;
+}
+
+.table-text-middle {
+    vertical-align: middle !important;;
+}
+
+.table-title {
+    background: #f7f7f7;
+    border: none !important;
+}
+.table-title tr,.table-title td {
+    border: none !important;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 15px 8px;
+}
+
+.button-gray-gradient {
+	height: 34px;
+	border: 1px solid #e5e5e5;
+	padding-right:16px;
+	padding-left:16px;
+	background: linear-gradient(#fff, #f7f7f7);
+}
+.button-orange-deep {
+	height: 42px;
+	padding: 0 16px;
+	color: #fff;
+	background: #ff8d72;
+	
+}
+.button-orange-deep:hover,.button-orange-deep:focus{
+	color: #fff;
+}
+
+.button-confirm {
+	background-color: #01a982;
+    color: #fff;
+    border: 1px solid #01a982;
+	font-size: 16px;
+}
+.button-confirm:hover,.button-confirm:focus {
+	color: #fff;
+}
+.button-confirm:hover{
+	background-color: #fff;
+    color: #01a982;
+}
+.button-white {
+    background-color: #fff;
+    border: solid 2px #e5e5e5;
+    color:  #01a982;
+	font-size:16px;
+	letter-spacing: 1px;
+}
+
+.button-white:hover {
+    background-color: #01a982;
+    color: #fff;
+}
+
+
+.button-size-big {
+	padding: 8px 40px !important;
+}
+
+.button-orange-light {
+	height: 42px;
+	padding: 0 16px;
+	color: #ff8d72;
+	background: #f9e2dc;
+}
+.button-orange-light:hover,.button-orange-light:focus{
+	color: #ff8d72;
+}
+.button-icon {
+	padding-left: 53px;
+	position: relative;
+}
+.button-icon {
+	border-right: 1px solid #e5e5e5;
+	padding-right: 8px;
+	height: 32px;
+	top: 1px;
+	left: 14px;
+	position: absolute;
+	line-height: 32px;
+}
+.fox-cloud-button, .fox-cloud-button-sm .fox-cloud-button-lg {
+    cursor: pointer;
+    text-align: center;
+}
+
+.fox-cloud-button-sm {
+    line-height: 22px;
+    padding: 0px 15px;
+}
+
+.fox-cloud-button-sm span {
+    font-size: 12px;
+    vertical-align:bottom;
+}
+
+.fox-cloud-button {
+    line-height: 30px;
+    padding: 0px 15px;
+}
+
+.fox-cloud-button span {
+    font-size: 14px;
+}
+
+.fox-cloud-button-lg {
+    line-height: 45px;
+    padding: 0px 30px;
+}
+
+.fox-cloud-button-lg span {
+    font-size: 20px;
+}
+
+.fox-cloud-button-grey {
+    background-color: #eff4f8 ;
+    border: solid 1px #c1c2c3;
+}
+
+.fox-cloud-button-grey:hover {
+    color: #00a982;
+    border: solid 1px #00a982;
+}
+
+.fox-cloud-button-green {
+    background-color: #00a982;
+    border: solid 1px #00a982;
+    color: #fff;
+}
+
+.fox-cloud-button-green:hover {
+    background-color: #fff;
+    color: #00a982;
+}
+
+.fox-cloud-button-white {
+    background-color: #fff;
+    border: solid 2px #00a982;
+    color:  #00a982;
+}
+
+.fox-cloud-button-white:hover {
+    background-color: #00a982;
+    color: #fff;
+}
+
+.fox-cloud-button:hover {
+    border: solid 1px #00a982;
+}
+
+.fox-cloud-button-bg:hover {
+    color: #00a982;
+    background-color: #fff;
+    border: solid 1px #00a982;
+}
+
+.icon-button-label {
+    font-size: 20px;
+}
+
+.icon-left-button-label {
+    padding: 0px 0px 0px 5px;
+}
+
+.icon-right-button-label {
+    padding: 0px 30px 0px 0px;
+}
+ 
+    button .icon{
+        padding: 0 13px;
+        height:26px;
+    }
+
+    .pointer{
+        cursor:pointer;
+    }
+
+/**********radio start*********/
+.fox-cloud-radio {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width: 18px;
+    height: 18px;
+    position: relative;
+    vertical-align: text-bottom;
+}
+
+.fox-cloud-radio:after {
+    content: " ";
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: -1px;
+    left: -1px;
+}
+
+
+.fox-cloud-radio:checked:after {
+    content: '\2714';
+    font-weight: bold;
+    color: #fff;
+    line-height: 18px;
+    background-color: #01a982;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: -1px;
+    left: -1px;
+    text-align: center;
+}
+/**********radio end*********/
+
+/**********checkbox start*********/
+.fox-cloud-checkbox {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width: 18px;
+    height: 18px;
+    vertical-align: text-bottom;
+    position: relative;
+}
+
+.fox-cloud-checkbox:after {
+    content: " ";
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    display: inline-block;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: -1px;
+    left: -1px;
+}
+
+
+.fox-cloud-checkbox:checked:after {
+    content: '\2714';
+    font-weight: bold;
+    color: #fff;
+    line-height: 16px;
+    background-color: #01a982;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    display: inline-block;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: -1px;
+    left: -1px;
+    text-align: center;
+}
+/**********checkbox end*********/

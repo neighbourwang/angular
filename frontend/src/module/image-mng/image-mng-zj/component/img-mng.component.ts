@@ -172,7 +172,7 @@ export class ImgMngComponent implements OnInit {
 
         this.noticeMsg = `确认删除'${image.name}'?`;
 
-        this.confirm.ccf = () => {
+        this.confirm.cof = () => {
             this.layoutService.show();
             this.service.deleteImage(image)
                 .then(
