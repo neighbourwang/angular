@@ -751,6 +751,24 @@ export let RestApis: RestApiModel[] = [
         "method" : "GET",
         "url" : "basis/authsec/adm/users/organization/{id}"
     },
+    {
+        "desc" : "禁用帐号",
+        "id" : "user-center.org-mng.user.disable",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/user/{id}/disable"
+    },
+    {
+        "desc" : "启用帐号",
+        "id" : "user-center.org-mng.user.enable",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/user/{id}/enable"
+    },
+    {
+        "desc" : "获取权限列表",
+        "id" : "user-center.org-mng.role.list",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/roles/page/{page}/size/{size}"
+    },
     //个人账户管理
     {
         "desc": "获取当前登录账户信息",
