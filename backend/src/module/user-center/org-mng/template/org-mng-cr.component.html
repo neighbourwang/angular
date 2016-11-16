@@ -81,7 +81,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of platForm;let idx = index">
-                        <td><input type="checkbox" class="fox-cloud-checkbox"></td>
+                        <td><input type="checkbox" class="fox-cloud-checkbox" (click)="choosePlatForm(item)"></td>
                         <td>{{idx}}</td>
                         <td>{{item.name}}</td>
                         <td>{{item.dataCenter}}</td>
@@ -97,7 +97,7 @@
             <button class="fox-cloud-button-lg fox-cloud-button-white" >
                 <span class="icon-button-label">取消</span>
             </button>
-            <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px">
+            <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px" (click)="create()">
                 <span class="icon-button-label">{{btnName}}</span>
             </button>
         </div>

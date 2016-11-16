@@ -6,6 +6,9 @@ import { LayoutService, NoticeComponent , ConfirmComponent ,PopupComponent } fro
 //service
 import { AccountMngService } from '../service/account-mng-list.service';
 
+//model
+import { Account } from '../model/account';
+
 @Component({
     selector: 'account-mng-list',
     templateUrl: '../template/account-mng-list.component.html',
@@ -32,11 +35,18 @@ export class AccountMngComponent implements OnInit{
     // 每页显示的数据条数
     pp:number = 10;
 
+    accounts : Array<Account> = new Array<Account>();
+
+    chooseAccount : Account = new Account();
 
     ngOnInit() {
         this.service.getAccount(this.tp , this.pp).then(
             res => {
                 console.log(res);
+                this.accounts = res.resultContent;
+                for(let item of this.accounts){
+                    item.selected = false;
+                }
             }
         ).catch(
             error => {
@@ -82,7 +92,7 @@ export class AccountMngComponent implements OnInit{
     //编辑
     edit(){
         //判断当前帐号的type跳转  demo演示 先跳转到本地编辑
-         this.router.navigate(['/user-center/account-mng/account-mng-cr-local/123']);
+         this.router.navigate(['/user-center/account-mng/account-mng-cr-local/'+this.chooseAccount.id]);
     }
 
     //重置密码
@@ -122,4 +132,11 @@ export class AccountMngComponent implements OnInit{
                 break;
         }
     }
+
+    chooseItem(index){
+        this.chooseAccount = this.accounts[index];
+        console.log(this.chooseAccount);
+    }
+
+    
 } 

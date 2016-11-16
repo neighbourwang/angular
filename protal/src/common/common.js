@@ -17,3 +17,37 @@ commonModel.forEach(function(modelName) {
 		});
 })
 
+
+//路由
+window.Routes = (function() {
+
+	let listenList = [];  //监听的列表
+
+	function listen(route, callbackFn){
+		listenList.push({
+			route : route,
+			callbackFn : callbackFn
+		})
+	};
+
+	window.onhashchange = function(){
+		let hashArr = location.hash.match( /#([^\?|\/|$]*)\??(.*)/),
+			route = hashArr ? hashArr[1] : "",
+			params = {};
+
+		if (hashArr && hashArr[2]) {   //处理参数
+			hashArr[2].split("&").forEach(param => {
+				param = param.split("=");
+				params[param[0]] = param[1];
+			})
+		};
+
+		listenList.forEach(listen => {   //派发时间
+			if(listen.route === route )
+				listen.callbackFn && listen.callbackFn.call(window, params)
+		})
+	}
+
+	return listen;
+})();
+

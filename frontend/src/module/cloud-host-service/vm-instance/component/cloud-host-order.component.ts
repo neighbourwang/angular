@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService } from '../../../../architecture';
-import { cloudHostServiceOrder } from '../service/cloud-host-order.service'
+import { cloudHostServiceOrder } from '../service/cloud-host-order.service';
 
 import { AttrList, PayLoad } from '../model/attr-list.model';
 import { OrderList, OrderService, SendModule,TimeLineData, VlueList } from '../model/services.model';
@@ -35,7 +35,6 @@ export class cloudHostComponentOrder implements OnInit {
 	};
 
 	ngOnInit() {
-		this.layoutService.show();
 		this.setConfigList();
 		// $("[data-toggle=popover]").popover();
 	}
@@ -63,6 +62,7 @@ export class cloudHostComponentOrder implements OnInit {
 	}
 
 	setConfigList() : void {
+		this.layoutService.show();
 		this.service.getHostConfigList().then( configList => {
 			configList.forEach(config => {
 				// 设置配置列表
@@ -74,6 +74,8 @@ export class cloudHostComponentOrder implements OnInit {
 			this.sendModule.username.value = "root";
 		}).then( res => {
 			this.setTimeLineType();
+			this.layoutService.hide();
+		}).catch(e => {
 			this.layoutService.hide();
 		})
 	}
@@ -99,6 +101,7 @@ export class cloudHostComponentOrder implements OnInit {
 		this.setSenModule(this.configs.timelineunit);  //设置默认选择
 	}
 
+
 	con(value) {
 		console.log(value)
 	}
@@ -109,7 +112,10 @@ export class cloudHostComponentOrder implements OnInit {
 	checkInput() {
 
 	}
-
+	
+	goTo(url : string) {
+		this.router.navigateByUrl(url);
+	}
 	buyNow(){
    		this.layoutService.show();
    		this.checkInput();

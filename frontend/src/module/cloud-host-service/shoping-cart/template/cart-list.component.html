@@ -50,7 +50,7 @@
         </ng-container>
     </table>
     <div class="shoping-bottom clear-float">
-        <a href="javascript:" class="font-orange float-left pdt20">< 返回产品购买</a>
+        <a href="javascript:" (click)="location.back()" class="font-orange float-left pdt20">< 返回产品购买</a>
         <button (click)="buyNow()" class="btn button-orange-deep button-size-big float-right mgt15">下单结算</button>
         <!--  <span class="float-right mgr50">
             <table>
