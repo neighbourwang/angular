@@ -611,7 +611,7 @@ export let RestApis: RestApiModel[] = [
     },    
     {
         "desc": "获取某个VM产品目录详细信息",
-        "id": "prod-mng.prod-dir-mng.detail",
+        "id": "prod-mng.prod-dir-vm.detail",
         "method": "GET",
         "url": "adminui/authsec/service/{id}/type/vm/detail "
     },  
@@ -627,6 +627,12 @@ export let RestApis: RestApiModel[] = [
         "id": "prod-mng.prod-disk-dir.create",
         "method": "POST",
         "url": "adminui/authsec/services/type/disk "
+    },
+    {
+        "desc": "获取某个DISK产品目录详细信息",
+        "id": "prod-mng.prod-dir-disk.detail",
+        "method": "GET",
+        "url": "adminui/authsec/services/{id}/disk/"
     },
     //产品
     {
