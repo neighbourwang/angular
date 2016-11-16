@@ -268,7 +268,5 @@ export class OrderMngComponent implements OnInit{
 
 selectForever(){
       this.isForerver = !this.isForerver;
-	}
-
-
+}
 }
