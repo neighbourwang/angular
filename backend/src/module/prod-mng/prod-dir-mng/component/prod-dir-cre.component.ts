@@ -156,6 +156,7 @@ export class ProdDirCreComponent implements OnInit {
             this.notice.open('操作错误','请选择可用平台');
             return;
         }
+        this.prodDir.serviceTemplateId='';
         this.CreateProdDirService.postVmProdDir(this.prodDir).then(response => {
             console.log(response)
             this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
