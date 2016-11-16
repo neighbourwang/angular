@@ -1,22 +1,26 @@
 class AttrList {
-    attrId	:string; 	//服务属性ID
-    attrCode	:string; 	//服务属性CODE
-    attrName	:string; 	//服务属性Name
-    attrValueId? :string; 	//服务属性值ID
-    attrValue	:any; 	//服务属性值
-    description?	:string; 	//服务属性描述
+    attrCode: string;
+    attrDisplayName?: string;
+    attrDisplayValue: string;
+    attrId: string;
+    attrValue: string;
+    attrValueCode: string;
+    attrValueId?: string;
+    description?: string;
+    valueType?: string;
+    valueUnit?: string;
 }
 
 class PayLoad {
     attrList : AttrList[] =  [];
-    enterpriseIds = {
-        enterpriseId : "88",
-        platformId : "88"
-    };
-    quality : number = 1;
-    serviceId : string = "6b138c29-0ff8-4cb9-bb9f-3dbbcebb6f90";
-    serviceName : string = "88Service";
-    totalPrice : number = 246.88;
+    itemNo: string = "";
+    productId: string = "";
+    quality: 1;
+    relyItemNo: string = "";
+    relyType: string = "0";
+    serviceType: string = "0";
+    skuId: string = "";
+    totalPrice: 120;
 }
 
 export {

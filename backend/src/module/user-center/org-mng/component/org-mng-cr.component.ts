@@ -33,10 +33,11 @@ export class OrgMngCrComponent implements OnInit{
     account : Array<Account> = new Array<Account>();
     platForm : Array<PlatForm> = new Array<PlatForm>();
 
+    accountByOrg : Array<Account> = new Array<Account>();
+
 
     org : any = {
         description : '',
-        id : '',
         leaderId : '',
         members : [],
         name : '',
@@ -50,6 +51,70 @@ export class OrgMngCrComponent implements OnInit{
                 this.title = '编辑机构';
                 this.btnName = '编辑';
                 this.isCreate = false;
+
+                this.service.getOrgById(params['id']).then(
+                    res => {
+                        console.log('getOrgById',res);
+                        this.org = res.resultContent;
+
+                        this.service.getNoMngUser(0,this.size).then(
+                            res => {
+                                console.log('getNoMngUser',res)
+                                this.account = res.resultContent;
+                                if(res.pageInfo.totalRecords <= this.size){
+                                    this.more = false;
+                                }else{
+                                    this.more = true;
+                                }
+
+                                this.service.getUserByOrg(params['id']).then(
+                                    res => {
+                                        console.log('getUserByOrg',res);
+                                        this.accountByOrg = res.resultContent;
+                                        for(let account of this.accountByOrg){
+                                            account.selected = true;
+                                            this.account.unshift(account);
+                                        }
+                                    }
+                                ).catch(
+                                    err => {
+                                        console.error(err);
+                                    }
+                                )
+                            }
+                        ).catch(
+                            err => {
+                                console.error(err);
+                            }
+                        )
+
+                        
+
+                        this.service.getNoMngPlatForm().then(
+                            res => {
+                                console.log('getNoMngPlatForm',res);
+                                this.platForm = res.resultContent;
+
+                                for(let orgPlatForm of this.org.platforms){
+                                    orgPlatForm.selected = true;
+                                    this.platForm.unshift(orgPlatForm);
+                                }
+                            }
+
+                        ).catch(
+                            err => {
+                                console.error(err);
+                            }
+                        )
+                    }
+                ).catch(
+                    err => {
+                        console.error(err);
+                    }
+                )
+
+                
+
             }else{
                 //创建
                 this.title = '创建机构';
@@ -98,7 +163,12 @@ export class OrgMngCrComponent implements OnInit{
                         }else{
                             this.more = true;
                         }
-                    }
+
+                        for(let account of this.accountByOrg){
+                                    account.selected = true;
+                                    this.account.unshift(account);
+                                }
+                        }
                 ).catch(
                     err => {
                         console.error(err);
@@ -110,12 +180,43 @@ export class OrgMngCrComponent implements OnInit{
     }
 
     chooseAccount (item){
-        if(this.org.members.includes(item)){
-            this.remove(this.org.members , item);
-        }else{
-            this.org.members.push(item);
+        for(let account of this.org.members){
+            if(item.id == account.id){
+                if(!this.isCreate){
+                    this.remove(this.accountByOrg, item);
+                    this.remove(this.org.members , item);
+                }else{
+                    this.remove(this.org.members , item);
+                }
+            }else{
+                if(!this.isCreate){
+                    this.org.members.push(item);
+                    this.accountByOrg.push(item);
+                }else{
+                    this.org.members.push(item);
+                }
+            }
         }
-        console.log(this.org.members);
+        // if(this.org.members.includes(item)){
+            
+            
+        // }else{
+        //     if(!this.isCreate){
+        //         this.org.members.push(item);
+        //         this.accountByOrg.push(item);
+        //     }else{
+        //         this.org.members.push(item);
+        //     }
+        // }
+        
+    }
+
+    choosePlatForm(item){
+        if(this.org.platforms.includes(item)){
+            this.remove(this.org.platforms , item);
+        }else{
+            this.org.platforms.push(item);
+        }
     }
 
     remove(arr ,obj){
@@ -131,6 +232,23 @@ export class OrgMngCrComponent implements OnInit{
             arr.length = arr.length-1;
         }
         }
+    }
+
+    create(){
+        if(this.isCreate){
+            this.service.createOrg(this.org).then(
+                res => {
+                    console.log(res);
+                }
+            ).catch(
+                err => {
+                    console.error(err);
+                }
+            )    
+        }else{
+            console.log(this.org);
+        }
+        
     }
 
 

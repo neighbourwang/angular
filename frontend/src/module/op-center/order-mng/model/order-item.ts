@@ -61,7 +61,7 @@ export class SpecificationItem {
 
 
 export class SubInstanceResp {
-  itemList: Array<SubInstanceItemResp> = null;//[SubInstanceItemResp], optional): 对应UI界面订单列表里面的详情 ,
+  itemList: Array<SubInstanceItemResp> = [];//[SubInstanceItemResp], optional): 对应UI界面订单列表里面的详情 ,
   orderId: string = null;//, optional): 订单ID，不做显示，操作回传 ,
   orderNo: string = null;//, optional): 对应UI界面中的订单编号 ,
   purchaseDate: string = null;//, optional): 对应UI界面中的下单时间, 映射到后端的createDate
@@ -77,6 +77,14 @@ export class SubInstanceItemResp {
   serviceType: string = null;//, optional): 产品类型 ,
   specList: Array<SubInstanceAttrPair> = null;//[SubInstanceAttrPair], optional): 产品规格 ,
   status: string = null;//, optional): UI订单状态，需要查询数据字典
+
+  get billingMode():string{//包装计费模式
+    return this.billingInfo ? this.billingInfo.billingMode : "";
+  }
+
+  get oneTimePriceAndPrice():string{//单价费用
+    return this.billingInfo ? this.billingInfo.oneTimePriceAndPrice : "";
+  }
 
   statusName: string = null;//用于界面显示
 }

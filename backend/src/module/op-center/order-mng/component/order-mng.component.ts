@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { SubInstanceAttrPair, ProductBillingItem, SubInstanceResp, SubInstanceItemResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
-
+import * as _ from 'underscore';
 
 @Component({
 	selector: 'order-mng',
@@ -54,6 +54,7 @@ export class OrderMngComponent implements OnInit{
 
 		//配置订单加载
 		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
+		/*
 		this._orderLoader.FakeDataFunc = (target:Array<SubInstanceResp>)=>{
 			let obj = new SubInstanceResp();
 			target.push(obj);
@@ -118,31 +119,28 @@ export class OrderMngComponent implements OnInit{
 
 				
 		};
+		*/
 	}
 	ngOnInit(){
+		this.layoutService.show();
 		this._orderStatus.Go()
 		.then(success=>{
 			return this._productTypeLoader.Go();
 		})
 		.then(success=>{
-
+			return this.loadPlatform();
+		})
+		.then(success=>{
+			return this.loadAdmin();
+		})
+		.then(success=>{
+			this.layoutService.hide();
 		})
 		.catch(err=>{
+			this.layoutService.hide();
 			this.showMsg(err);
 		});
-		// this.loadAdmin()
-		// .then(success=>{
-		// 	this.loadDepartment();
-		// }, err=>{
-		// 	this.showMsg(err);
-		// })
 
-		// this.loadPlatform()
-		// .then(success=>{
-		// 	this.loadSubregion();
-		// }, err=>{
-		// 	this.showMsg(err);
-		// });
 	}
 
 	loadAdmin():Promise<any>{
@@ -159,9 +157,9 @@ export class OrderMngComponent implements OnInit{
 	loadDepartment(){
 		this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._param.enterpriseId}])
 		.then(success=>{
-			this._param.organization = "0";
+			this._param.organization = null;
 		}, err=>{
-			this._param.organization = "0";
+			this._param.organization = null;
 		});
 	}
 
@@ -180,9 +178,9 @@ export class OrderMngComponent implements OnInit{
 	loadSubregion(){
 		this._subregionLoader.Go(null, [{key:'_id', value:this._param.region}])
 		.then(success=>{
-			this._param.zoneId = "0";
+			this._param.zoneId = null;
 		},err=>{
-			this._param.zoneId = "0";
+			this._param.zoneId = null;
 		});
 	}
 
@@ -209,9 +207,15 @@ export class OrderMngComponent implements OnInit{
 
 	}
 
-	search(){
+	search(pageNumber:number = 1){
 		this.layoutService.show();
-		this._orderLoader.Go(1, null, this._param)
+
+		let param = _.extend({}, this._param);
+		param.pageParameter = {
+			currentPage:pageNumber
+			,size:10
+		};
+		this._orderLoader.Go(pageNumber, null, param)
 		.then(success=>{
 			this.layoutService.hide();
 		},err=>{
@@ -225,5 +229,11 @@ export class OrderMngComponent implements OnInit{
 
 	onExpireTimeChange($event){
 		this._param.expireTime = $event.formatted;
+	}
+
+	//翻页
+	changePage(pageNumber:number)
+	{
+		this.search(pageNumber);
 	}
 }

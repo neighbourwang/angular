@@ -33,22 +33,10 @@ export class ImgMngService {
             }
         ];
 
-        //{
-        //    "criteriaQuery": {
-        //        "areaList": "上海A区",
-        //            "imageOwner": "部门资源",
-        //                "imageName": "windows2012dc",
-        //                    "os": "windows2012dc",
-        //                        "status": "0",
-        //                            "imageType": "0"
-        //    }
-        //}
+        const api = this.restApiCfg.getRestApi("image.mng.list");
+        return this.restApi.request(api.method, api.url, pathParams, null, {"criteriaQuery":criteriaQuery});
 
-
-        //const api = this.restApiCfg.getRestApi("image.mng.list");
-        //return this.restApi.request(api.method, api.url, pathParams, null, {"criteriaQuery":criteriaQuery});
-
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Images_mock });
+       //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Images_mock });
     }
 
     updateImage(image: Image): Promise<any> {
@@ -58,24 +46,24 @@ export class ImgMngService {
                 value: image.id
             } 
         ];
-
-        //const api = this.restApiCfg.getRestApi("image.mng.update");
-        //return this.restApi.request(api.method, api.url, pathParams, null, image);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Images_mock });
+        delete image.createTime;
+        const api = this.restApiCfg.getRestApi("image.mng.update");
+        return this.restApi.request(api.method, api.url, pathParams, null, image);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Images_mock });
     }
 
     deleteImage(image: Image): Promise<any> {
 
-        //const api = this.restApiCfg.getRestApi("image.mng.update");
-        //return this.restApi.request(api.method, api.url, null, null, image);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Images_mock });
+        const api = this.restApiCfg.getRestApi("image.mng.delete");
+        return this.restApi.request(api.method, api.url, null, null, image);
+      //  return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Images_mock });
     }
 
     getAreaList(): Promise<any> {
 
-        //const api = this.restApiCfg.getRestApi("image.mng.update");
-        //return this.restApi.request(api.method, api.url, null, null, image);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return AreaList_mock });
+        const api = this.restApiCfg.getRestApi("image.mng.area.list");
+        return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return AreaList_mock });
     }
 }
 

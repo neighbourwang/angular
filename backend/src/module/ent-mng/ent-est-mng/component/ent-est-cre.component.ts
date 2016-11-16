@@ -110,11 +110,7 @@ export class EntEstCreComponent implements OnInit{
 				);
 		}
 
-		checkList = checkList.concat([{
-			"name":"描述"
-			,"value":this.entEst.BasicInfo.description
-			,"op":"*"
-		},
+		checkList = checkList.concat([
 		{
 			"name":"可创建浮动IP数量"
 			,"value":this.entEst.ResourceQuota.floatIpQuota

@@ -12,6 +12,8 @@ import { cloudHostListComponent } from './component/cloud-host-list.component';
 
 import { cloudHostComponentOrder } from './component/cloud-host-order.component';
 
+import { CartButtonComponent } from '../components/cart-button/cart-button.component';
+
 //service
 import { cloudHostServiceOrder } from './service/cloud-host-order.service'; 
 import { cloudHostServiceList } from './service/cloud-host-list.service'; 
@@ -28,7 +30,8 @@ import { cloudHostServiceList } from './service/cloud-host-list.service';
     ],
     declarations: [
         cloudHostListComponent,
-        cloudHostComponentOrder
+        cloudHostComponentOrder,
+        CartButtonComponent
     ],
     exports: [
     ],

@@ -1,9 +1,9 @@
 
 class VlueList {
-    id?: string = "";
-    code?: string = "";
-    displayName?: string = "";
-    value?: any;
+    attrValueId?: string = "";
+    attrValueCode?: string = "";
+    attrDisplayValue?: string = "";
+    attrValue?: any;
 }
 
 class OrderService {

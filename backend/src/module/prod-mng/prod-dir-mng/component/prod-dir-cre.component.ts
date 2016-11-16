@@ -74,11 +74,11 @@ export class ProdDirCreComponent implements OnInit {
         // arg=e;
         console.log(e);
         console.log(this.prodDir.specification.mem);
-        // console.log(this.prodDir.specification.vcpu);              
+        // console.log(this.prodDir.specification.vcpu);          
 
     }
-    //点击选择可用平台
-    selectPlateForm() {
+    //点击获取可用平台
+    selectPlateForm() {        
         console.log(this.prodDir.specification.vcpu);
         console.log(this.prodDir.specification.mem);
         this.CreateProdDirService.postCpuMmr(this.prodDir.specification.vcpu, this.prodDir.specification.mem).then(response => {
@@ -98,6 +98,7 @@ export class ProdDirCreComponent implements OnInit {
 
             }
             this.LayoutService.hide();
+            this.selectAllZone=false;
         }).catch(err => {
             console.error(err);
         });
@@ -121,7 +122,7 @@ export class ProdDirCreComponent implements OnInit {
             }
         })
     }
-    //选择平台启动盘
+    //选择平台启动盘,this 
     selectStorage(id){
         console.log(id);
     }
@@ -156,6 +157,7 @@ export class ProdDirCreComponent implements OnInit {
             this.notice.open('操作错误','请选择可用平台');
             return;
         }
+        this.prodDir.serviceTemplateId='';
         this.CreateProdDirService.postVmProdDir(this.prodDir).then(response => {
             console.log(response)
             this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })

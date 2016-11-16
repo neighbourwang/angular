@@ -523,13 +523,13 @@ export let RestApis: RestApiModel[] = [
        "desc": "企业列表",
        "id": "op-center.order-mng.ent-list.get",
        "method": "GET",
-       "url": "adminui/authsec/enterprise/user/{userId}"
+       "url": "adminui/authsec/enterprises/simple"
    },
    {
        "desc": "部门列表",
        "id": "op-center.order-mng.department-list.get",
        "method": "GET",
-       "url": "adminui/authsec/enterprise/{enterpriseId}/department"
+       "url": "basis/authsec/adm/organization/enterprise/{enterpriseId}"
    },{
        "desc": "产品类型",
        "id": "op-center.order-mng.product-type-list.get",
@@ -611,7 +611,7 @@ export let RestApis: RestApiModel[] = [
     },    
     {
         "desc": "获取某个VM产品目录详细信息",
-        "id": "prod-mng.prod-dir-mng.detail",
+        "id": "prod-mng.prod-dir-vm.detail",
         "method": "GET",
         "url": "adminui/authsec/service/{id}/type/vm/detail "
     },  
@@ -627,6 +627,12 @@ export let RestApis: RestApiModel[] = [
         "id": "prod-mng.prod-disk-dir.create",
         "method": "POST",
         "url": "adminui/authsec/services/type/disk "
+    },
+    {
+        "desc": "获取某个DISK产品目录详细信息",
+        "id": "prod-mng.prod-dir-disk.detail",
+        "method": "GET",
+        "url": "adminui/authsec/services/{id}/disk/"
     },
     //产品
     {
@@ -733,6 +739,42 @@ export let RestApis: RestApiModel[] = [
         "method" : "GET",
         "url" : "basis/authsec/adm/organization/platforms/nonorganization"
     },
+    {
+        "desc" : "创建机构",
+        "id" : "user-center.org-mng.create",
+        "method" : "POST",
+        "url" : "basis/authsec/adm/organization"
+    },
+    {
+        "desc" : "获得单个机构",
+        "id" : "user-center.org-mng.account.get",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/organization/{id}"
+    },
+    {
+        "desc" : "获得机构下的成员",
+        "id" : "user-center.org-mng.user-by-org.list",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/users/organization/{id}"
+    },
+    {
+        "desc" : "禁用帐号",
+        "id" : "user-center.org-mng.user.disable",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/user/{id}/disable"
+    },
+    {
+        "desc" : "启用帐号",
+        "id" : "user-center.org-mng.user.enable",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/user/{id}/enable"
+    },
+    {
+        "desc" : "获取权限列表",
+        "id" : "user-center.org-mng.role.list",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/roles/page/{page}/size/{size}"
+    },
     //个人账户管理
     {
         "desc": "获取当前登录账户信息",
@@ -831,4 +873,19 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "/adminui/authsec/enterprise/{enterpriseId}/ldaps/simple"
     },
+    //云网络管理
+        //openstack
+    {
+        "desc": "获取Openstack网络列表",
+        "id": "net-mng.openstack.net.list",
+        "method": "POST",
+        "url": "adminboe/authsec/openstack/network/page/{page}/size/{size}"
+    },
+    {
+        "desc": "获取同步网络列表",
+        "id": "net-mng.openstack.net.syn.list",
+        "method": "GET",
+        "url": "/adminboe/authsec/{platform_id}/openstack/networkSync"
+    }
+
 ]

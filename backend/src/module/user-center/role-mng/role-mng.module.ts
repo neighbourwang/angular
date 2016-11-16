@@ -6,6 +6,9 @@ import { RoleMngRouting } from './role-mng.routing';
 import { RoleMngListComponent } from './component/role-mng-list.component';
 import { RoleMngDetailComponent } from './component/role-mng-detail.component';
 
+//service
+import { RoleMngService } from './service/role-mng.service';
+
 import { TreeModule } from 'angular2-tree-component';
 
 
@@ -22,6 +25,7 @@ import { TreeModule } from 'angular2-tree-component';
     exports: [
     ],
     providers: [
+        RoleMngService
     ]
 
 })
