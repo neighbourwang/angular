@@ -106,6 +106,10 @@ export class OrgMngListComponent implements OnInit{
         }
     }
 
+    edit (id){
+        this.router.navigateByUrl("user-center/org-mng/org-mng-cr/"+this.org.id);
+    }
+
     of(){
         switch(this.confirmType){
             case 3 : 

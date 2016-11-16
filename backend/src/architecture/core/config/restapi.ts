@@ -739,6 +739,18 @@ export let RestApis: RestApiModel[] = [
         "method" : "POST",
         "url" : "basis/authsec/adm/organization"
     },
+    {
+        "desc" : "获得单个机构",
+        "id" : "user-center.org-mng.account.get",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/organization/{id}"
+    },
+    {
+        "desc" : "获得机构下的成员",
+        "id" : "user-center.org-mng.user-by-org.list",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/users/organization/{id}"
+    },
     //个人账户管理
     {
         "desc": "获取当前登录账户信息",

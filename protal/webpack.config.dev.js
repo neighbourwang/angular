@@ -8,6 +8,7 @@ module.exports = {
 	entry: {
 		common : [rootPath+"/src/common/common.js"],
 		login  : [rootPath+"/src/login/js/login.js"],
+		products  : [rootPath+"/src/products/js/products.js"],
 		protal  : [rootPath+"/src/protal/js/protal.js"]
 	},
 	output: {
@@ -45,6 +46,13 @@ module.exports = {
 		    filename: 'login.html',
 		    chunks: ['common','login'],
 		    template: 'src/login/login.ejs',
+		    chunksSortMode : 'none',
+		    hash: false
+		}),
+		new HtmlWebpackPlugin({
+		    filename: 'products.html',
+		    chunks: ['common','products'],
+		    template: 'src/products/products.ejs',
 		    chunksSortMode : 'none',
 		    hash: false
 		}),

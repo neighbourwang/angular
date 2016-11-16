@@ -85,7 +85,7 @@
                         绑定机构
                     </div>
                     <div class="col-sm-5">
-                        <div style="height:40px;line-hight:36px;font-size:16px">
+                        <div style="height:40px;line-hight:36px;font-size:16px" *ngIf="account.organizations.length > 0">
                             {{account.organizations[0].name}}
                         </div>
 

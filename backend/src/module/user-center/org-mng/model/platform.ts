@@ -5,5 +5,6 @@ export class PlatForm{
     regionId : string;
     platformType : string;
     status : string;
+    selected : boolean;
 
 }
