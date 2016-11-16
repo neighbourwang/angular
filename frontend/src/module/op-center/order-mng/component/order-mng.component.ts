@@ -21,6 +21,8 @@ export class OrderMngComponent implements OnInit{
 	@ViewChild("notice")
   	private _notice: NoticeComponent;
 
+	  private isForerver:boolean = false;
+
   	//当前选择的行
   	private selectedOrderItem: SubInstanceResp = null;
 	//查询参数
@@ -88,6 +90,7 @@ export class OrderMngComponent implements OnInit{
 
 		//配置订单加载
 		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
+		/*
 		this._orderLoader.FakeDataFunc = (target:Array<SubInstanceResp>)=>{
 			let obj = new SubInstanceResp();
 			target.push(obj);
@@ -149,6 +152,7 @@ export class OrderMngComponent implements OnInit{
 			subItem.createDate = '2016-11-11';
 			subItem.expireDate = '2017-11-11';
 		};
+		*/
 		
 	}
 	ngOnInit(){
@@ -261,4 +265,10 @@ export class OrderMngComponent implements OnInit{
 			this.showMsg(err);
 		})
 	}
+
+selectForever(){
+      this.isForerver = true;
+	}
+
+
 }
