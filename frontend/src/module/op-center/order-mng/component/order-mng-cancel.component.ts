@@ -1,8 +1,8 @@
 	
-import { Component, OnInit, ViewChild, } from '@angular/core';
+import { Input,Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import { AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import { AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam,SubInstanceResp} from '../model'
 
 
 @Component({
@@ -13,8 +13,12 @@ import { AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderM
 	)
 export class OrderMngCancelComponent implements OnInit{
 
+	@Input()
+	private orderItem : SubInstanceResp = new SubInstanceResp();
+
 	private _param:OrderMngParam = new OrderMngParam();
 	private _orderId:string = null;
+	
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,

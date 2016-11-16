@@ -54,6 +54,27 @@ export class OrgMngService {
         return this.restApi.request(api.method , api.url ,undefined,undefined);
     }
 
+    //创建机构
+    createOrg(org){
+        let api = this.restApiCfg.getDataRestApi("user-center.org-mng.create");
+
+        return this.restApi.request(api.method,api.url,undefined,undefined,org);
+    }
+
+    //获得单个机构
+    getOrgById (id : string){
+        let api = this.restApiCfg.getDataRestApi("user-center.org-mng.account.get");
+
+        return this.restApi.request(api.method , api.url ,[{key : "id" , value : id}],undefined);
+    }
+
+    //获得机构下的成员
+    getUserByOrg(id : string){
+        let api = this.restApiCfg.getDataRestApi("user-center.org-mng.user-by-org.list");
+
+        return this.restApi.request(api.method , api.url,[{key : "id" ,value : id}],undefined);
+    }
+
 
 
 

@@ -4,31 +4,33 @@
 <div class="page-content">
     <div class="mgb20" style="margin-top:10px">
         <div class="pull-left mgr20">
-            <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedDc=defaultDc;selectedPfi = defaultPlatform;">
+            <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedDc=defaultDc;selectedPfi = defaultPlatform">
                 <option [ngValue]="defaultRegion">所有地域</option>
                 <option *ngFor="let region of regionList" [ngValue]="region">{{region.name}}</option>
             </select>
         </div>
         <div class="pull-left  mgr20">
-            <select class="form-control" [(ngModel)]="selectedDc" (change)="selectedPfi = defaultPlatform;">
+            <select class="form-control" [(ngModel)]="selectedDc" (change)="selectedPfi = defaultPlatform; queryOpt.dataCenter = selectedDc.id">
                 <option [ngValue]="defaultDc">所有数据中心</option>
                 <option *ngFor="let dc of selectedRegion.dcList" [ngValue]="dc">{{dc.name}}</option>
             </select>
         </div>
-        <div class="pull-left mgr20 ">
-            <select class="form-control" [(ngModel)]="selectedPfi">
+        <div class="pull-left col-md-2 mgr20 ">
+            <select class="form-control" [(ngModel)]="selectedPfi"(change)="queryOpt.url = selectedPfi.url">
                 <option [ngValue]="defaultPlatform">所有平台</option>
                 <option *ngFor="let pf of selectedDc.pflist" [ngValue]="pf">{{pf.name +" "+pf.url}}</option>
             </select>
         </div>
-        <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" (click)="search()"> 确定</button>
+        
     </div>
-    <div class="mgb20">
+    <div class="clear"></div>
+    <div class="mgb20 mgt10">
         <h4 class="pull-left mgr15 ">所属企业:</h4>
         <div class="pull-left mgr15 col-md-3 " style="position:relative;padding:0">
             <span class="glyphicon glyphicon-search form-control-feedback"></span>
             <input type="text" class="form-control " placeholder="输入企业/租户信息搜索" />
         </div>
+        <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" (click)="search()"> 确定</button>
         <button type="button" class="fox-cloud-button fox-cloud-button-white" style="height:34px"> 重置</button>
         <div class="dropdown pull-right" style="margin-left:10px">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -36,9 +38,9 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#" key="boe/OpenStack_synchr_net.html">同步网络</a></li>
-                <li><a href="net-mng/openstack/openstack-synchr-net">启用</a></li>
-                <li><a href="#">禁用</a></li>
+                <li (click)="getSynNetworkPage()"><a>同步网络</a></li>
+                <li (click)="networkStart()"><a>启用</a></li>
+                <li (click)="networkStop()"><a>禁用</a></li>
             </ul>
         </div>
     </div>
@@ -60,10 +62,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let network of networks">
+                <tr *ngFor="let network of networks" (click)="selectNetwork(network)">
                     <td class="text-center">
                         <input type="radio" class="fox-cloud-radio" name="radio" [checked]="network.selectd" (change)="network.selectd = $event.target.checked" />
                     </td>
+                    
                     <td class="text-center">{{network.tenantName}}</td>
                     <td class="text-center">{{network.networkName}}</td>
                     <td class="text-center">{{network.subnetName}}</td>
@@ -76,12 +79,16 @@
                     <td class="text-center" [ngClass]="{'font-gray':network.status==1,'font-orange':network.status==3,'font-green':network.status==2}">
                         {{getDicText(network.status,this.statusDic)}}
                     </td>
+                    <!--<td class="text-center" >{{isSelected(network.selected)}}</td>-->
 
                 </tr>
 
             </tbody>
         </table>
     </div>
+    
+        {{queryOpt.toString()}}
+    
     <!--<div class="fox-cloud-pagination-container">
         <ul class="fox-cloud-pagination">
             <span class="disable">上一页</span>
@@ -94,8 +101,11 @@
         </ul>
     </div>    -->
     <div class="fox-cloud-pagination-container">
-        <fc-pagination #pager tp={{totalPage}} (pf)="getImageList($event)"></fc-pagination>
+        <fc-pagination #pager tp={{totalPage}} (pf)="getNetworkList($event)"></fc-pagination>
     </div>
+    <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+    <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
+
 </div>
 
 

@@ -205,6 +205,19 @@ const menu: Array<Object> = [
             // }
         ]
     },
+    {
+         "label": "云网络管理",
+         "isOpen": true,
+         "icon": "icon-order-manage",
+         "top2_menu": [
+          {
+              "label": "Opensatck网络",
+                 "isOpen": false,
+                 "isActive": false,
+                 "routing": "net-mng/openstack/openstack-net-mng"
+             }
+         ]
+     },
      {
          "label": "运营中心",
          "isOpen": true,

@@ -1,7 +1,7 @@
 export class CriteriaQuery {
     region:string;
     dataCenter:string;
-    url:string;
+    platformId:string;
     tenantName:string;
 
     constructor() {

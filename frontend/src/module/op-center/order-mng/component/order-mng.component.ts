@@ -3,7 +3,12 @@ import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
 import { ListItem
 	, OrderMngParam
-	, SubInstanceResp,SubInstanceItemResp,SubInstanceAttrPair,ProductBillingItem} from '../model'
+	, SubInstanceResp
+	,SubInstanceItemResp
+	,SubInstanceAttrPair
+	,ProductBillingItem
+	, RenewSetting
+	, PurchaseUnit} from '../model'
 
 
 @Component({
@@ -15,6 +20,8 @@ import { ListItem
 export class OrderMngComponent implements OnInit{
 	@ViewChild("notice")
   	private _notice: NoticeComponent;
+
+	  private isForerver:boolean = false;
 
   	//当前选择的行
   	private selectedOrderItem: SubInstanceResp = null;
@@ -33,20 +40,33 @@ export class OrderMngComponent implements OnInit{
 	//订单查询
 	private _orderLoader:ItemLoader<SubInstanceResp> = null;
 
+	//续订数据
+	private _renewSetting:RenewSetting = new RenewSetting();
+	private _renewHandler:ItemLoader<any> = null;
+
+	//退订
+	private _isCanceled:boolean = false;
+	private _cancelHandler:ItemLoader<any> = null;
+
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
 
+		//退订
+		this._cancelHandler = new ItemLoader<any>(false, "退订", "op-center.order-mng.order-cancel.get", restApiCfg, restApi);
+
+		//续订
+		this._renewHandler = new ItemLoader<any>(false, "续订", "op-center.order-mng.order-renew.get", restApiCfg, restApi);
+
 		//初始化单项order数据
 		this.selectedOrderItem = new SubInstanceResp();
 
+
 		//部门配置
 		this._departmentLoader = new ItemLoader<ListItem>(false, "部门列表", "op-center.order-mng.department-list.get", restApiCfg, restApi);
-		this._departmentLoader.MapFunc = (source:Array<any>, target:Array<ListItem>)=>{
-
-		};
+		
 		//订单状态配置
 		this._orderStatusDic = new DicLoader(restApiCfg, restApi, "ORDER", "STATUS");
 
@@ -67,10 +87,10 @@ export class OrderMngComponent implements OnInit{
 				obj.name = item.zoneName;
 			}
 		};
-		//订单查询配置
-	//	this._orderLoader = new ItemLoader<SubInstanceResp>(false, "订单", "op-center.order-mng.order-list.get", restApiCfg, restApi);
-			//配置订单加载
+
+		//配置订单加载
 		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
+		/*
 		this._orderLoader.FakeDataFunc = (target:Array<SubInstanceResp>)=>{
 			let obj = new SubInstanceResp();
 			target.push(obj);
@@ -132,6 +152,7 @@ export class OrderMngComponent implements OnInit{
 			subItem.createDate = '2016-11-11';
 			subItem.expireDate = '2017-11-11';
 		};
+		*/
 		
 	}
 	ngOnInit(){
@@ -146,25 +167,43 @@ export class OrderMngComponent implements OnInit{
 		.then(success=>{
 			this.layoutService.hide();
 		})
+		.then(success=>{
+			return this.loadDepartment();
+		})
 		.catch(err=>{
 			this.layoutService.hide();
 			this.showMsg(err);
 		});
 
 	}
+
+	//加载部门数据，使用的是临时企业id
+	loadDepartment():Promise<any>{
+		//测试企业1
+		return new Promise((resovle, reject)=>{
+			this._departmentLoader.Go(null, [{key:"enterpriseId", value:"191af465-b5dc-4992-a5c9-459e339dc719"}])
+			.then(success=>{
+				resovle(success);
+			},err=>{
+				reject(err);
+			})
+		});
+	}
 	
 	showDetail(){
 		this.router.navigateByUrl('op-center/order-mng/order-mng-detail');
 	}
-	renewOrder(){
-		this.router.navigateByUrl('op-center/order-mng/order-mng-renew');
-	}
-	renew(orderItem:SubInstanceResp){
+	
+	renewSelect(orderItem:SubInstanceResp){
 		this.selectedOrderItem = orderItem;
 	}
-	cancelOrder(){
-		this.router.navigateByUrl('op-center/order-mng/order-mng-cancel');
+
+	cancelSelect(orderItme:SubInstanceResp)
+	{
+		this._isCanceled = false;
+		this.selectedOrderItem = orderItme;
 	}
+	
 
 	showMsg(msg: string)
 	{
@@ -202,4 +241,32 @@ export class OrderMngComponent implements OnInit{
 	onExpireTimeChange($event){
 		this._param.expireTime = $event.formatted;
 	}
+
+	//续订
+	renew(){
+		this._renewHandler.Go(null, [{key:"_subId", value:this.selectedOrderItem.orderId}])
+		.then(success=>{
+			this._renewSetting.completed = true;
+			this.search();
+		})
+		.catch(err=>{
+			this.showMsg(err);
+		});
+	}
+
+	//退订
+	cancel(){
+		this._cancelHandler.Go(null, [{key:"_subId", value:this.selectedOrderItem.orderId}])
+		.then(success=>{
+			this._isCanceled = true;
+			this.search();
+		})
+		.catch(err=>{
+			this.showMsg(err);
+		})
+	}
+
+selectForever(){
+      this.isForerver = !this.isForerver;
+}
 }

@@ -2,6 +2,16 @@
 
 .cm-map {
 	background-color: #f6f6f6;
+	position: relative;
+	padding-top: 70px;
+	.map-title {
+		position: absolute;
+		width: 100%;
+		text-align: center;
+		top:50px;
+		font-size: 30px;
+		font-weight: 100;
+	}
 	.main-center {
 		background: url("@{imgPath}/chinamap.png") no-repeat center;
 		height: 520px;
@@ -17,9 +27,10 @@
 		-moz-transition: opacity 0.5s ease-out;
 		-o-transition: opacity 0.5s ease-out;
 		transition: opacity 0.5s ease-out;
-		  
+
 		.point {
 		  position: absolute;
+		  transform: rotateX(56deg);
 		  top: 0;
 		  left: 0;
 		  right: 0;

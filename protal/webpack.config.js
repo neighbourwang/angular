@@ -8,6 +8,7 @@ module.exports = {
 	entry: {
 		common : [rootPath+"/src/common/common.js","webpack-dev-server/client?http://0.0.0.0:4100/", "webpack/hot/dev-server"],
 		login  : [rootPath+"/src/login/js/login.js"],
+		products  : [rootPath+"/src/products/js/products.js"],
 		protal  : [rootPath+"/src/protal/js/protal.js"]
 	},
 	output: {
@@ -35,17 +36,25 @@ module.exports = {
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new HtmlWebpackPlugin({
-			title: 'Custom template',
 		    filename: 'protal.html',
 		    chunks: ['common','protal'],
 		    template: 'src/protal/protal.ejs',
-		    hash: true
+		    chunksSortMode : 'none',
+		    hash: false
 		}),
 		new HtmlWebpackPlugin({
 		    filename: 'login.html',
 		    chunks: ['common','login'],
 		    template: 'src/login/login.ejs',
-		    hash: true
+		    chunksSortMode : 'none',
+		    hash: false
+		}),
+		new HtmlWebpackPlugin({
+		    filename: 'products.html',
+		    chunks: ['common','products'],
+		    template: 'src/products/products.ejs',
+		    chunksSortMode : 'none',
+		    hash: false
 		}),
 	]
 }
