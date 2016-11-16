@@ -74,10 +74,13 @@ export class EntEstMngComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.layoutService.show();
     this.statusDic.Go()
     .then(success=>{
+      this.layoutService.hide();
       this.search(1);
     },err=>{
+      this.layoutService.hide();
       this.showMsg(err);
     })
   }
@@ -153,7 +156,7 @@ export class EntEstMngComponent implements OnInit {
         , this.showError
         , ()=>{this.editEnt.open()}
         , this
-        , this.getSelected().id);
+        , this.getSelected().enterpriseId);
     }
 
   }
@@ -182,6 +185,7 @@ export class EntEstMngComponent implements OnInit {
     {
       this.service.updateEntInfo(this.entEst.BasicInfo)
       .then(ret=>{
+        this.editEnt.close();
         this.search(null);
       })
       .catch(err=>{
@@ -280,7 +284,7 @@ export class EntEstMngComponent implements OnInit {
   setupProduct(){
     if(this.getSelected())
     {
-      this.router.navigateByUrl(`ent-mng/ent-est-mng/ent-est-setProd/${this.getSelected().id}/${this.getSelected().enterpriseName}`);
+      this.router.navigateByUrl(`ent-mng/ent-est-mng/ent-est-setProd/${this.getSelected().enterpriseId}/${this.getSelected().enterpriseName}`);
     }
   }
 
@@ -298,7 +302,7 @@ export class EntEstMngComponent implements OnInit {
     if(this.getSelected())
     {
       this.confirmedHandler = ()=>{
-        this.service.updateEntStatus(this.getSelected().id, Status.Active)
+        this.service.updateEntStatus(this.getSelected().enterpriseId, Status.Active)
         .then(ret=>{
           this.search(null);
         })
@@ -316,7 +320,7 @@ export class EntEstMngComponent implements OnInit {
     if(this.getSelected())
     {
       this.confirmedHandler = ()=>{
-        this.service.updateEntStatus(this.getSelected().id, Status.Suspend)
+        this.service.updateEntStatus(this.getSelected().enterpriseId, Status.Suspend)
         .then(ret=>{
           this.search(null);
         })
@@ -334,7 +338,7 @@ export class EntEstMngComponent implements OnInit {
     if(this.getSelected())
     {
       this.confirmedHandler = ()=>{
-        this.service.updateEntStatus(this.getSelected().id, Status.Deleted)
+        this.service.updateEntStatus(this.getSelected().enterpriseId, Status.Deleted)
         .then(ret=>{
           this.search(null);
         })

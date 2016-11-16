@@ -78,6 +78,14 @@ export class SubInstanceItemResp {
   specList: Array<SubInstanceAttrPair> = null;//[SubInstanceAttrPair], optional): 产品规格 ,
   status: string = null;//, optional): UI订单状态，需要查询数据字典
 
+  get billingMode():string{//包装计费模式
+    return this.billingInfo ? this.billingInfo.billingMode : "";
+  }
+
+  get oneTimePriceAndPrice():string{//单价费用
+    return this.billingInfo ? this.billingInfo.oneTimePriceAndPrice : "";
+  }
+
   statusName: string = null;//用于界面显示
 }
 
