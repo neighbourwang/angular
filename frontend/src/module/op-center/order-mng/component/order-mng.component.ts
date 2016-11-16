@@ -3,7 +3,12 @@ import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
 import { ListItem
 	, OrderMngParam
-	, SubInstanceResp,SubInstanceItemResp,SubInstanceAttrPair,ProductBillingItem} from '../model'
+	, SubInstanceResp
+	,SubInstanceItemResp
+	,SubInstanceAttrPair
+	,ProductBillingItem
+	, RenewSetting
+	, PurchaseUnit} from '../model'
 
 
 @Component({
@@ -33,14 +38,22 @@ export class OrderMngComponent implements OnInit{
 	//订单查询
 	private _orderLoader:ItemLoader<SubInstanceResp> = null;
 
+	//续订数据
+	private _renewSetting:RenewSetting = new RenewSetting();
+	private _renewHandler:ItemLoader<any> = null;
+
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
 
+		//续订
+		this._renewHandler = new ItemLoader<any>(false, "续订", "op-center.order-mng.order-renew.get", restApiCfg, restApi);
+
 		//初始化单项order数据
 		this.selectedOrderItem = new SubInstanceResp();
+
 
 		//部门配置
 		this._departmentLoader = new ItemLoader<ListItem>(false, "部门列表", "op-center.order-mng.department-list.get", restApiCfg, restApi);
@@ -159,7 +172,7 @@ export class OrderMngComponent implements OnInit{
 	renewOrder(){
 		this.router.navigateByUrl('op-center/order-mng/order-mng-renew');
 	}
-	renew(orderItem:SubInstanceResp){
+	renewSelect(orderItem:SubInstanceResp){
 		this.selectedOrderItem = orderItem;
 	}
 	cancelOrder(){
@@ -201,5 +214,16 @@ export class OrderMngComponent implements OnInit{
 
 	onExpireTimeChange($event){
 		this._param.expireTime = $event.formatted;
+	}
+
+	//续订
+	renew(){
+		this._renewHandler.Go(null, [{key:"_subId", value:this.selectedOrderItem.orderId}])
+		.then(success=>{
+			this._renewSetting.completed = true;
+		})
+		.catch(err=>{
+			this.showMsg(err);
+		});
 	}
 }
