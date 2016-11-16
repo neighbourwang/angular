@@ -79,7 +79,7 @@ export class AccountMngCrLocal implements OnInit{
                         this.service.getAccountById(params['id']).then(
                     res => {
                         this.account = res.resultContent;
-                        
+                        console.log(this.account);
                         
                         for(let role of this.role){
                             for(let account of this.account.roles){
