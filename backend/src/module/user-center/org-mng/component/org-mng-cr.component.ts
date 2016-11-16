@@ -33,10 +33,11 @@ export class OrgMngCrComponent implements OnInit{
     account : Array<Account> = new Array<Account>();
     platForm : Array<PlatForm> = new Array<PlatForm>();
 
+    accountByOrg : Array<Account> = new Array<Account>();
+
 
     org : any = {
         description : '',
-        id : '',
         leaderId : '',
         members : [],
         name : '',
@@ -50,6 +51,62 @@ export class OrgMngCrComponent implements OnInit{
                 this.title = '编辑机构';
                 this.btnName = '编辑';
                 this.isCreate = false;
+
+                this.service.getOrgById(params['id']).then(
+                    res => {
+                        console.log('getOrgById',res);
+                        this.org = res.resultContent;
+
+                        this.service.getNoMngUser(0,this.size).then(
+                            res => {
+                                console.log('getNoMngUser',res)
+                                this.account = res.resultContent;
+                                if(res.pageInfo.totalRecords <= this.size){
+                                    this.more = false;
+                                }else{
+                                    this.more = true;
+                                }
+                            }
+                        ).catch(
+                            err => {
+                                console.error(err);
+                            }
+                        )
+
+                        this.service.getNoMngPlatForm().then(
+                            res => {
+                                console.log('getNoMngPlatForm',res);
+                                this.platForm = res.resultContent;
+
+                                for(let orgPlatForm of this.org.platforms){
+                                    orgPlatForm.selected = true;
+                                    this.platForm.unshift(orgPlatForm);
+                                }
+                            }
+
+                        ).catch(
+                            err => {
+                                console.error(err);
+                            }
+                        )
+                    }
+                ).catch(
+                    err => {
+                        console.error(err);
+                    }
+                )
+
+                this.service.getUserByOrg(params['id']).then(
+                    res => {
+                        console.log('getUserByOrg',res);
+                        this.accountByOrg = res.resultContent;
+                    }
+                ).catch(
+                    err => {
+                        console.error(err);
+                    }
+                )
+
             }else{
                 //创建
                 this.title = '创建机构';
@@ -115,7 +172,6 @@ export class OrgMngCrComponent implements OnInit{
         }else{
             this.org.members.push(item);
         }
-        console.log(this.org.members);
     }
 
     choosePlatForm(item){
@@ -142,15 +198,20 @@ export class OrgMngCrComponent implements OnInit{
     }
 
     create(){
-        this.service.createOrg(this.org).then(
-            res => {
-                console.log(res);
-            }
-        ).catch(
-            err => {
-                console.error(err);
-            }
-        )
+        if(this.isCreate){
+            this.service.createOrg(this.org).then(
+                res => {
+                    console.log(res);
+                }
+            ).catch(
+                err => {
+                    console.error(err);
+                }
+            )    
+        }else{
+            console.log(this.org);
+        }
+        
     }
 
 
