@@ -25,10 +25,8 @@
 							<span class="">部门:</span>
 							<div class="dropdown left">
 								<select class="form-control" [(ngModel)]="_param.organization">
-									<option class="hands">所有部门</option>
-									<option class="hands">商务部</option>
-									<option class="hands">部门1</option>
-									<option class="hands">部门2</option>
+									<option class="hands" [value]="0">所有部门</option>
+									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>

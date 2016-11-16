@@ -118,7 +118,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "部门列表获取",
         "method": "GET",
         "id": "op-center.order-mng.department-list.get",
-        "url": "NONE"        
+        "url": "basis/authsec/adm/organization/enterprise/{enterpriseId}"        
     }
     ,{
         "desc": "区域获取",

@@ -57,9 +57,7 @@ export class OrderMngComponent implements OnInit{
 
 		//部门配置
 		this._departmentLoader = new ItemLoader<ListItem>(false, "部门列表", "op-center.order-mng.department-list.get", restApiCfg, restApi);
-		this._departmentLoader.MapFunc = (source:Array<any>, target:Array<ListItem>)=>{
-
-		};
+		
 		//订单状态配置
 		this._orderStatusDic = new DicLoader(restApiCfg, restApi, "ORDER", "STATUS");
 
@@ -159,11 +157,27 @@ export class OrderMngComponent implements OnInit{
 		.then(success=>{
 			this.layoutService.hide();
 		})
+		.then(success=>{
+			return this.loadDepartment();
+		})
 		.catch(err=>{
 			this.layoutService.hide();
 			this.showMsg(err);
 		});
 
+	}
+
+	//加载部门数据，使用的是临时企业id
+	loadDepartment():Promise<any>{
+		//测试企业1
+		return new Promise((resovle, reject)=>{
+			this._departmentLoader.Go(null, [{key:"enterpriseId", value:"191af465-b5dc-4992-a5c9-459e339dc719"}])
+			.then(success=>{
+				resovle(success);
+			},err=>{
+				reject(err);
+			})
+		});
 	}
 	
 	showDetail(){
