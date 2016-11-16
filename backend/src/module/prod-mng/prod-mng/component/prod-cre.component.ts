@@ -194,44 +194,49 @@ export class ProdCreComponent implements OnInit, OnChanges {
     }
     //获取Post产品平台信息
     getProductPlatformReqs() {
+        let findPlateform: boolean = false;
         for (let plateform of this.prodDir.platformList) {
             let list = [];
             for (let storage of plateform.storages) {
                 if (storage.selected == true) {
+                    findPlateform = true;
                     list.push(storage);
                 }
             }
             console.log(list);
             if (list.length > 0) {
-                if(this.product.productPlatformReqs.length==0){
+                if (this.product.productPlatformReqs.length == 0) {
                     this.product.productPlatformReqs.push({
-                            platformId: plateform.platformId,
-                            platformName: plateform.platformName,
-                            zoneList: list
-                        });
-                }else{
-                   for (let p of this.product.productPlatformReqs) {
-                    if (p.platformId != plateform.platformId) {
-                        console.log('diff');
-                        this.product.productPlatformReqs.push({
-                            platformId: plateform.platformId,
-                            platformName: plateform.platformName,
-                            zoneList: list
-                        });
-                    } else {
-                        console.log('same');
-                        this.product.productPlatformReqs.forEach((p) => {
-                            if (p.platformId == plateform.platformId) {
-                                p.zoneList = list;
-                            }
-                        })
+                        platformId: plateform.platformId,
+                        platformName: plateform.platformName,
+                        zoneList: list
+                    });
+                } else {
+                    for (let p of this.product.productPlatformReqs) {
+                        if (p.platformId != plateform.platformId) {
+                            console.log('diff');
+                            this.product.productPlatformReqs.push({
+                                platformId: plateform.platformId,
+                                platformName: plateform.platformName,
+                                zoneList: list
+                            });
+                        } else {
+                            console.log('same');
+                            this.product.productPlatformReqs.forEach((p) => {
+                                if (p.platformId == plateform.platformId) {
+                                    p.zoneList = list;
+                                }
+                            })
+                        }
                     }
-                } 
                 }
-                
-            }else{
-                this.product.productPlatformReqs=[];
+
             }
+
+        }
+        if (!findPlateform) {
+            this.product.productPlatformReqs = [];
+            this.selectAllStorage=false;
         }
         console.log(this.product.productPlatformReqs);
     }
