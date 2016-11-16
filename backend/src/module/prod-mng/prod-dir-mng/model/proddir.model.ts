@@ -26,6 +26,7 @@ class specification {
 }
 
 class ProdDir {
+    "serviceTemplateId":string;
     "description": string;
     "platformList": Array<platform>;
     "serviceName": string;
