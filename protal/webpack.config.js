@@ -35,16 +35,17 @@ module.exports = {
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new HtmlWebpackPlugin({
-			title: 'Custom template',
 		    filename: 'protal.html',
 		    chunks: ['common','protal'],
 		    template: 'src/protal/protal.ejs',
+		    chunksSortMode : 'none',
 		    hash: true
 		}),
 		new HtmlWebpackPlugin({
 		    filename: 'login.html',
 		    chunks: ['common','login'],
 		    template: 'src/login/login.ejs',
+		    chunksSortMode : 'none',
 		    hash: true
 		}),
 	]

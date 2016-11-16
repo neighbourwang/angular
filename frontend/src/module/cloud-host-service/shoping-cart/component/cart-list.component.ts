@@ -1,5 +1,6 @@
 
 import { Component,ViewChild, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 
@@ -33,7 +34,8 @@ export class cartListComponent implements OnInit {
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
-		private service: cartListService
+		private service: cartListService,
+		private location: Location
 	) {}
 
 	ngOnInit() {
@@ -42,7 +44,7 @@ export class cartListComponent implements OnInit {
 
 	getCartList():void {
 	    this.layoutService.show();
-		this.service.getOrderList().then(cartList => {
+		this.service.getCartList().then(cartList => {
 	    	this.layoutService.hide();
 			this.cartList = cartList;
 

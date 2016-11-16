@@ -1,0 +1,62 @@
+import { Component, OnInit,ViewChild, Input } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
+
+import { cartListService } from '../../shoping-cart/service/cart-list.service'
+import { CartList } from '../../shoping-cart/model/cart-list.model';
+
+@Component({
+	selector: 'cart-button',
+	templateUrl: './cart-button.component.html',
+	styleUrls: ['./cart-button.component.less'],
+	providers: []
+})
+export class CartButtonComponent implements OnInit {
+
+	private cartList: CartList[];
+	private cartLength : number;
+
+	@ViewChild('confirm')
+	private confirmDialog: ConfirmComponent;
+
+	@ViewChild('notice')
+	private noticeDialog: NoticeComponent;
+
+	constructor(
+		private layoutService: LayoutService,
+		private router: Router,
+		private cartService: cartListService
+	) { }
+
+	ngOnInit() {
+		this.setCartList();
+	}
+
+	private goTo(url: string) {
+		this.router.navigateByUrl(url);
+	}
+
+	setCartList(): void {
+		this.cartService.getCartList().then(cartList => {
+			this.cartLength = cartList.length;
+			this.cartList = cartList;
+		})
+	}
+	delectAllCart(): void {
+		this.modalconfirm = () => {
+			const promiseList = this.cartList.map(cart => this.cartService.deleteCartList(cart.id));
+			Promise.all(promiseList).then(arr => {
+				this.setCartList();
+				this.noticeDialog.open("","清空购物车成功！");
+			});
+		}
+		this.confirmDialog.open("","你确定要清空购物车吗？");
+	}
+
+
+
+	private modalconfirm = function(){};
+	private modalcancle = function(){};
+	private modalnotice = function(){};
+}
