@@ -102,7 +102,7 @@
 
 			<table class="table _table" *ngFor="let orderItem of _orderLoader.Items">
 				<tr>
-					<td class="order-title" colspan="8">{{orderItem.purchaseDate}} 订单号：{{orderItem.orderNo}}</td>
+					<td class="order-title" colspan="7">{{orderItem.purchaseDate}} 订单号：{{orderItem.orderNo}}</td>
 					
 					<td><button class="fox-cloud-button  fox-cloud-button-green pull-right" (click)="renew(orderItem.orderId)">续&nbsp;&nbsp;&nbsp;订</button></td>
 					<td><button class="fox-cloud-button  fox-cloud-button-green  pull-right"  (click)="showDetail(orderItem.orderId)">详&nbsp;&nbsp;&nbsp;情</button></td>
