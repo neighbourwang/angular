@@ -88,6 +88,7 @@ export class OrderMngComponent implements OnInit{
 
 		//配置订单加载
 		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
+		/*
 		this._orderLoader.FakeDataFunc = (target:Array<SubInstanceResp>)=>{
 			let obj = new SubInstanceResp();
 			target.push(obj);
@@ -149,6 +150,7 @@ export class OrderMngComponent implements OnInit{
 			subItem.createDate = '2016-11-11';
 			subItem.expireDate = '2017-11-11';
 		};
+		*/
 		
 	}
 	ngOnInit(){
