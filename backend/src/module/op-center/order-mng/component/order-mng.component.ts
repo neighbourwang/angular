@@ -125,24 +125,15 @@ export class OrderMngComponent implements OnInit{
 			return this._productTypeLoader.Go();
 		})
 		.then(success=>{
-
+			return this.loadPlatform();
+		})
+		.then(success=>{
+			return this.loadAdmin();
 		})
 		.catch(err=>{
 			this.showMsg(err);
 		});
-		// this.loadAdmin()
-		// .then(success=>{
-		// 	this.loadDepartment();
-		// }, err=>{
-		// 	this.showMsg(err);
-		// })
 
-		// this.loadPlatform()
-		// .then(success=>{
-		// 	this.loadSubregion();
-		// }, err=>{
-		// 	this.showMsg(err);
-		// });
 	}
 
 	loadAdmin():Promise<any>{

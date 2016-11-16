@@ -523,13 +523,13 @@ export let RestApis: RestApiModel[] = [
        "desc": "企业列表",
        "id": "op-center.order-mng.ent-list.get",
        "method": "GET",
-       "url": "adminui/authsec/enterprise/user/{userId}"
+       "url": "adminui/authsec/enterprises/simple"
    },
    {
        "desc": "部门列表",
        "id": "op-center.order-mng.department-list.get",
        "method": "GET",
-       "url": "adminui/authsec/enterprise/{enterpriseId}/department"
+       "url": "basis/authsec/adm/organization/enterprise/{enterpriseId}"
    },{
        "desc": "产品类型",
        "id": "op-center.order-mng.product-type-list.get",
