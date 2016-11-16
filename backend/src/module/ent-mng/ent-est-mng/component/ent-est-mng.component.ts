@@ -194,6 +194,10 @@ export class EntEstMngComponent implements OnInit {
         this.okCallback = ()=>{this.editEnt.open();};
       })
     }
+    else
+    {
+      this.editEnt.close();
+    }
   }
 
   //验证编辑
@@ -370,6 +374,9 @@ export class EntEstMngComponent implements OnInit {
         this.showMsg("修改配额失败");
         this.okCallback = ()=>{this.editQuota.open();};
       });
+    }
+    else{
+      this.editQuota.close();
     }
   }
 
