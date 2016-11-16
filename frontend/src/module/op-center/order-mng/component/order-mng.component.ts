@@ -42,11 +42,18 @@ export class OrderMngComponent implements OnInit{
 	private _renewSetting:RenewSetting = new RenewSetting();
 	private _renewHandler:ItemLoader<any> = null;
 
+	//退订
+	private _isCanceled:boolean = false;
+	private _cancelHandler:ItemLoader<any> = null;
+
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
+
+		//退订
+		this._cancelHandler = new ItemLoader<any>(false, "退订", "op-center.order-mng.order-cancel.get", restApiCfg, restApi);
 
 		//续订
 		this._renewHandler = new ItemLoader<any>(false, "续订", "op-center.order-mng.order-renew.get", restApiCfg, restApi);
@@ -78,9 +85,8 @@ export class OrderMngComponent implements OnInit{
 				obj.name = item.zoneName;
 			}
 		};
-		//订单查询配置
-	//	this._orderLoader = new ItemLoader<SubInstanceResp>(false, "订单", "op-center.order-mng.order-list.get", restApiCfg, restApi);
-			//配置订单加载
+
+		//配置订单加载
 		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
 		this._orderLoader.FakeDataFunc = (target:Array<SubInstanceResp>)=>{
 			let obj = new SubInstanceResp();
@@ -183,15 +189,17 @@ export class OrderMngComponent implements OnInit{
 	showDetail(){
 		this.router.navigateByUrl('op-center/order-mng/order-mng-detail');
 	}
-	renewOrder(){
-		this.router.navigateByUrl('op-center/order-mng/order-mng-renew');
-	}
+	
 	renewSelect(orderItem:SubInstanceResp){
 		this.selectedOrderItem = orderItem;
 	}
-	cancelOrder(){
-		this.router.navigateByUrl('op-center/order-mng/order-mng-cancel');
+
+	cancelSelect(orderItme:SubInstanceResp)
+	{
+		this._isCanceled = false;
+		this.selectedOrderItem = orderItme;
 	}
+	
 
 	showMsg(msg: string)
 	{
@@ -235,9 +243,22 @@ export class OrderMngComponent implements OnInit{
 		this._renewHandler.Go(null, [{key:"_subId", value:this.selectedOrderItem.orderId}])
 		.then(success=>{
 			this._renewSetting.completed = true;
+			this.search();
 		})
 		.catch(err=>{
 			this.showMsg(err);
 		});
+	}
+
+	//退订
+	cancel(){
+		this._cancelHandler.Go(null, [{key:"_subId", value:this.selectedOrderItem.orderId}])
+		.then(success=>{
+			this._isCanceled = true;
+			this.search();
+		})
+		.catch(err=>{
+			this.showMsg(err);
+		})
 	}
 }
