@@ -75,7 +75,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
     }
     //获取VM产品目录详情
     getVmProdDirDetail(id) {
-        this.prodDir=new ProductDir();
+        this.prodDir = new ProductDir();
         this.ProdDirDetailService.getVmProdDirDetail(id).then(response => {
             console.log('VM产品目录详情', response);
             if (response && 100 == response.resultCode) {
@@ -89,7 +89,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
     }
     //获取DISK产品目录详情
     getDiskProdDirDetail(id) {
-        this.prodDir=new ProductDir();
+        this.prodDir = new ProductDir();
         this.ProdDirDetailService.getDiskProdDirDetail(id).then(response => {
             console.log('DISK产品目录详情', response);
             if (response && 100 == response.resultCode) {
@@ -201,30 +201,36 @@ export class ProdCreComponent implements OnInit, OnChanges {
                     list.push(storage);
                 }
             }
+            console.log(list);
             if (list.length > 0) {
-                this.product.productPlatformReqs.push({
+                if(this.product.productPlatformReqs.length==0){
+                    this.product.productPlatformReqs.push({
                             platformId: plateform.platformId,
                             platformName: plateform.platformName,
                             zoneList: list
                         });
-                // for (let p of this.product.productPlatformReqs) {
-                //     if (p.platformId != plateform.platformId) {
-                //         console.log('diff');
-                //         this.product.productPlatformReqs.push({
-                //             platformId: plateform.platformId,
-                //             platformName: plateform.platformName,
-                //             zoneList: list
-                //         });
-                //     } else {
-                //         console.log('same');
-                //         this.product.productPlatformReqs.forEach((p) => {
-                //             if (p.platformId == plateform.platformId) {
-                //                 p.zoneList = list;
-                //             }
-                //         })
-                //     }
-                // }
-
+                }else{
+                   for (let p of this.product.productPlatformReqs) {
+                    if (p.platformId != plateform.platformId) {
+                        console.log('diff');
+                        this.product.productPlatformReqs.push({
+                            platformId: plateform.platformId,
+                            platformName: plateform.platformName,
+                            zoneList: list
+                        });
+                    } else {
+                        console.log('same');
+                        this.product.productPlatformReqs.forEach((p) => {
+                            if (p.platformId == plateform.platformId) {
+                                p.zoneList = list;
+                            }
+                        })
+                    }
+                } 
+                }
+                
+            }else{
+                this.product.productPlatformReqs=[];
             }
         }
         console.log(this.product.productPlatformReqs);
