@@ -77,7 +77,7 @@ export class ProdDirCreComponent implements OnInit {
         // console.log(this.prodDir.specification.vcpu);          
 
     }
-    //点击选择可用平台
+    //点击获取可用平台
     selectPlateForm() {        
         console.log(this.prodDir.specification.vcpu);
         console.log(this.prodDir.specification.mem);

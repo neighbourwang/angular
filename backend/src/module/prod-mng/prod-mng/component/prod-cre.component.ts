@@ -75,6 +75,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
     }
     //获取VM产品目录详情
     getVmProdDirDetail(id) {
+        this.prodDir=new ProductDir();
         this.ProdDirDetailService.getVmProdDirDetail(id).then(response => {
             console.log('VM产品目录详情', response);
             if (response && 100 == response.resultCode) {
@@ -88,6 +89,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
     }
     //获取DISK产品目录详情
     getDiskProdDirDetail(id) {
+        this.prodDir=new ProductDir();
         this.ProdDirDetailService.getDiskProdDirDetail(id).then(response => {
             console.log('DISK产品目录详情', response);
             if (response && 100 == response.resultCode) {
@@ -116,6 +118,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
     //选择产品目录
     selectProdDir(id) {
         let prodDir: any = this.prodDirList.find((prodDir) => prodDir.id == id)
+        // this.initProduct() ;
         this.product.serviceId = id;
         this.product.productPlatformReqs = [];
         if (prodDir.code == 'VITRUALMACHINE_SERVICE') {
@@ -171,8 +174,8 @@ export class ProdCreComponent implements OnInit, OnChanges {
         console.log(this.product.productPlatformReqs);
     }
     //选择全部存储后端
-    selectAllStorage:boolean=false;
-    selectAllStorages(){
+    selectAllStorage: boolean = false;
+    selectAllStorages() {
         this.selectAllStorage = !this.selectAllStorage;
         for (let plate of this.prodDir.platformList) {
             for (let storage of plate.storages) {
@@ -180,31 +183,52 @@ export class ProdCreComponent implements OnInit, OnChanges {
                 // console.log(zone.storageList);
             }
         }
-        // this.product.productPlatformReqs = this.prodDir.platformList.filter(function (ele) {
-            
-            for(let plateform of this.prodDir.platformList){
-                let list=[];
-                for (let storage of plateform.storages) {
-                    if (storage.selected == true){
-                            list.push(storage);                   
-                    }                
-                }
-               if(list.length>0){
-                  this.product.productPlatformReqs.push({
-                      platformId:plateform.platformId,
-                      platformName:plateform.platformName,
-                      zoneList:list
-                  }); 
-                  
-               }
-            } 
-            console.log(this.product.productPlatformReqs)   ;       
+        this.getProductPlatformReqs();
     }
     //选择存储后端
-    selectStorage(){
-
+    selectStorage(idx, idxx) {
+        console.log(idx, idxx);
+        this.prodDir.platformList[idx].storages[idxx].selected = !this.prodDir.platformList[idx].storages[idxx].selected;
+        console.log(this.prodDir.platformList[idx].storages[idxx].selected);
+        this.getProductPlatformReqs();
     }
+    //获取Post产品平台信息
+    getProductPlatformReqs() {
+        for (let plateform of this.prodDir.platformList) {
+            let list = [];
+            for (let storage of plateform.storages) {
+                if (storage.selected == true) {
+                    list.push(storage);
+                }
+            }
+            if (list.length > 0) {
+                this.product.productPlatformReqs.push({
+                            platformId: plateform.platformId,
+                            platformName: plateform.platformName,
+                            zoneList: list
+                        });
+                // for (let p of this.product.productPlatformReqs) {
+                //     if (p.platformId != plateform.platformId) {
+                //         console.log('diff');
+                //         this.product.productPlatformReqs.push({
+                //             platformId: plateform.platformId,
+                //             platformName: plateform.platformName,
+                //             zoneList: list
+                //         });
+                //     } else {
+                //         console.log('same');
+                //         this.product.productPlatformReqs.forEach((p) => {
+                //             if (p.platformId == plateform.platformId) {
+                //                 p.zoneList = list;
+                //             }
+                //         })
+                //     }
+                // }
 
+            }
+        }
+        console.log(this.product.productPlatformReqs);
+    }
 
 
 
