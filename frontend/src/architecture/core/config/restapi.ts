@@ -35,7 +35,9 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "id": "hosts.services.get",
         // "url": "marketplace/authsec/shopping/servicelist/vm"
-        "url": "marketplace/authsec/shopping/servicelist/88/1/vm"
+        // "url": "marketplace/authsec/shopping/servicelist/88/1/vm",
+        // "url": "marketplace/authsec/shopping/servicelist/88/1/vm",
+        "url": "marketplace/authsec/shopping/servicelist/type/0"
     },
     {
         "desc": "云主机订购",
