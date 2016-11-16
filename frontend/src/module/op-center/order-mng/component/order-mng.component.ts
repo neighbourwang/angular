@@ -21,6 +21,8 @@ export class OrderMngComponent implements OnInit{
 	@ViewChild("notice")
   	private _notice: NoticeComponent;
 
+	  private isForerver:boolean = false;
+
   	//当前选择的行
   	private selectedOrderItem: SubInstanceResp = null;
 	//查询参数
@@ -274,4 +276,10 @@ export class OrderMngComponent implements OnInit{
 			this.showMsg(err);
 		})
 	}
+
+selectForever(){
+      this.isForerver = true;
+	}
+
+
 }
