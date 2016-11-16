@@ -54,6 +54,13 @@ export class OrgMngService {
         return this.restApi.request(api.method , api.url ,undefined,undefined);
     }
 
+    //创建机构
+    createOrg(org){
+        let api = this.restApiCfg.getDataRestApi("user-center.org-mng.create");
+
+        return this.restApi.request(api.method,api.url,undefined,undefined,org);
+    }
+
 
 
 

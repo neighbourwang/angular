@@ -118,6 +118,14 @@ export class OrgMngCrComponent implements OnInit{
         console.log(this.org.members);
     }
 
+    choosePlatForm(item){
+        if(this.org.platforms.includes(item)){
+            this.remove(this.org.platforms , item);
+        }else{
+            this.org.platforms.push(item);
+        }
+    }
+
     remove(arr ,obj){
     for(var i =0;i <arr.length;i++){
         var temp = arr[i];
@@ -131,6 +139,18 @@ export class OrgMngCrComponent implements OnInit{
             arr.length = arr.length-1;
         }
         }
+    }
+
+    create(){
+        this.service.createOrg(this.org).then(
+            res => {
+                console.log(res);
+            }
+        ).catch(
+            err => {
+                console.error(err);
+            }
+        )
     }
 
 

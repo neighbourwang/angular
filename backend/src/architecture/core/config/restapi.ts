@@ -733,6 +733,12 @@ export let RestApis: RestApiModel[] = [
         "method" : "GET",
         "url" : "basis/authsec/adm/organization/platforms/nonorganization"
     },
+    {
+        "desc" : "创建机构",
+        "id" : "user-center.org-mng.create",
+        "method" : "POST",
+        "url" : "basis/authsec/adm/organization"
+    },
     //个人账户管理
     {
         "desc": "获取当前登录账户信息",
