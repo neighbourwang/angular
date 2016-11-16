@@ -7,4 +7,5 @@ export * from './order-mng-param';
 export * from './platform';
 export * from './product-item';
 export * from './product-type';
+export * from './renew-setting';
 export * from './sub-region';

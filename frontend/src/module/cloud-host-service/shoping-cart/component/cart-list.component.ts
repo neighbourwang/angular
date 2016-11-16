@@ -26,6 +26,8 @@ export class cartListComponent implements OnInit {
 	modalMessage: string = '';
 	modalOKTitle: string = '';
 
+	totalPrice : number;
+
 	cartList: CartList[];
 
 	constructor(
@@ -43,6 +45,12 @@ export class cartListComponent implements OnInit {
 		this.service.getOrderList().then(cartList => {
 	    	this.layoutService.hide();
 			this.cartList = cartList;
+
+			let totalPrice:number = 0;
+			cartList.forEach(cart => {
+				totalPrice += +cart.billingPeriod;
+			})
+			this.totalPrice = totalPrice;
 		}).catch(e => {
 	      this.layoutService.hide()
 	  	})

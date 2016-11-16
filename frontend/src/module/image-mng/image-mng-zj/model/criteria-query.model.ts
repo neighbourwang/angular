@@ -1,11 +1,10 @@
 export class CriteriaQuery {
-    areaList: string = "";
-    imageOwner: string = "";
-    imageName: string = "";
-    os: string = "";
-    status: string = "";
-    imageType: string = "";
-    osAndName:string="";
+    areaList: string; 
+    imageOwner: string;
+    imageName: string;
+    os: string;
+    status: string = "99";
+    imageType: string;
     constructor() {
     }
 

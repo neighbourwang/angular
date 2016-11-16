@@ -3,7 +3,7 @@
 </div>
 <div class="info-title"><span  class="form-control-title">基本信息：</span></div>
 
-<div class="basePanel ">
+<div class="basePanel ht300">
 	<div class="infoContent left">
 		<fieldset disabled>
 			<div class="row row-line-height">
@@ -59,7 +59,7 @@
 		</fieldset>
 	</div>
 
-	<div class="uploadImg left"> 
+	<div class="mgt20 left"> 
    		<div class="imgPanel icon-enterpriser-checkbg"></div>
 	</div>
 </div>
@@ -104,14 +104,14 @@
 		<div class="titlePanel">
 		<span class="form-control-title float-left">企业资源配额使用率统计</span>
 		</div> 
-	<div class="contentPanel" >
+	<div class="contentPanel" style="padding-left: 8px;" >
 		<div class="float-left" width="150px">
 			<div class="circle-graph mgr10 mgb10">
 				<svg class="chart-circle" viewBox="0 0 100 100">
 					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
 					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
 				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedCpuRate}}</span>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedCpuRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
 				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.vcpuQuota}}台)</span>
@@ -124,7 +124,7 @@
 					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
 					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
 				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedMemRate}}</span>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedMemRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
 				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.memroyQuota}}台)</span>
@@ -137,7 +137,7 @@
 					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
 					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
 				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedStorageRate}}</span>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedStorageRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
 				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.storageQuota}}台)</span>
@@ -150,7 +150,7 @@
 					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
 					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
 				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedPhysicalMachineRate/100}}</span>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedPhysicalMachineRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
 				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.physicalQuota}}台)</span>
@@ -163,7 +163,7 @@
 					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
 					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
 				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedSnapshotRate}}</span>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedSnapshotRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
 				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.snapshotQuota}}台)</span>
@@ -176,7 +176,7 @@
 					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
 					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
 				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedImageRate}}</span>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedImageRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
 				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.imageQuota}}台)</span>
@@ -189,7 +189,7 @@
 					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
 					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
 				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedFloatIpRate}}</span>
+				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedFloatIpRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
 				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.floatIpQuota}}台)</span>

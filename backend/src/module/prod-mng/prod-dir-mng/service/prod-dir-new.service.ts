@@ -17,19 +17,31 @@ export class CreateProdDirService {
     // 新建VM产品目录
     postVmProdDir(data: any) {
         let api = this.restApiCfg.getRestApi("prod-dir-vmCreate");
-        return this.restApi.request(api.method, api.url, undefined, undefined,data);
+        return this.restApi.request(api.method, api.url, undefined, undefined, data);
     }
     //根据cpu和mmr获取平台列表；
     postCpuMmr(vcpu: number, mmr: number) {
         let body = {
-            "cpuCore": vcpu,
-            "memSize": mmr
+            "serviceTemplateCode": "",
+            "vmServiceSpecQueryCondition": {
+                "cpuCore": vcpu,
+                "memSize": mmr
+            }
         }
         console.log(body);
         let api = this.restApiCfg.getRestApi("prod-dir-vmPlate");
         return this.restApi.request(api.method, api.url, undefined, undefined, body, );
     }
-
-    
+    //
+    //新建Disk产品
+    postDiskProdDir(data: any) {
+        let api = this.restApiCfg.getRestApi("prod-mng.prod-disk-dir.create");
+        return this.restApi.request(api.method, api.url, undefined, undefined, data);
+    }
+    //获取DISK产品平台信息
+    getDiskPlateForms() {
+        let api = this.restApiCfg.getRestApi("prod-mng.prod-disk-dir.plateforms");
+        return this.restApi.request(api.method, api.url, undefined, undefined);
+    }
 
 }

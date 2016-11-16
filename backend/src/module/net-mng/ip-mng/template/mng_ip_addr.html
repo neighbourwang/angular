@@ -10,7 +10,7 @@
                 <th style="text-align:left;">VMware网络管理 -- 管理标准网络 -- IP地址管理 -- 管理IP地址</th>
                 <th style="text-align:right;">
                     <button class=" fox-cloud-button fox-cloud-button-white ">
-                        <span class="icon-button-label" key="boe/ip_addr_mng.html">返回上一级</span>
+                        <span class="icon-button-label" key="boe/ip_addr_mng.html" (click)="ipMngPage()">返回上一级</span>
                     </button>
                 </th>
             </tr>
@@ -47,7 +47,7 @@
     <div class="table-container mgb10">
         <table class="table table-hover">
             <thead>
-                <tr>
+            <tr>
                 <th>选择</th>
                 <th>IP地址</th>
                 <th>主机名称</th>
@@ -57,75 +57,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr *ngFor="let ipusagemng of ipusagemngs">
                 <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                <td>10.20.10.1</td>
-                <td>xxx</td>
-                <td>ABC</td>
-                <td class="font-green">已占用</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                <td>10.20.10.2</td>
-                <td>xxx</td>
-                <td>ABC</td>
-                <td class="font-green">已占用</td>
-                <td></td>
-            <tr>
-                <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                <td>10.20.10.3</td>
-                <td></td>
-                <td></td>
-                <td>空闲</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                <td>10.20.10.4</td>
-                <td></td>
-                <td></td>
-                <td>空闲</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                <td>10.20.10.5</td>
-                <td>xxx</td>
-                <td>ABC</td>
-                <td class="font-green">已占用</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                <td>10.20.10.6</td>
-                <td></td>
-                <td></td>
-                <td>空闲</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                <td>10.20.10.7</td>
-                <td></td>
-                <td></td>
-                <td>空闲</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                <td>10.20.10.8</td>
-                <td></td>
-                <td></td>
-                <td>空闲</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                <td>10.20.10.9</td>
-                <td></td>
-                <td></td>
-                <td>空闲</td>
+                <td>{{ipusagemng.addr}}</td>
+                <td>{{ipusagemng.instanceName}}</td>
+                <td>{{ipusagemng.tenantName}}</td>
+                <td>{{getDicText(ipusagemng.status,this.statusDic)}}</td>
+                <td>{{ipusagemng.description}}</td>
                 <td></td>
             </tr>
             </tbody>
@@ -133,10 +71,12 @@
     </div>
 </div>
 
+<!--
 <div class="text-center">
     <button class="fox-cloud-button-lg fox-cloud-button-white">
         <span class="icon-button-label">关闭</span>
     </button>
 </div>
+-->
 
 

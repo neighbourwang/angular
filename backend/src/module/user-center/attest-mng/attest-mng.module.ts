@@ -1,22 +1,20 @@
 /**
  * Created by wangyao on 2016/10/18.
  */
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 
 // Common Components
-import { CommonComponentModule } from "../../../architecture";
+import { CommonComponentModule } from '../../../architecture';
 
 //Components
-import { AttestMngComponent } from "./component/attest-mng.component";
-import { AttestSourceCreComponent } from "./component/attest-source-cre.component";
+import { AttestMngComponent } from './component/attest-mng.component';
+import { AttestSourceCreComponent } from './component/attest-source-cre.component';
 
 // Routing
-import { AttestMngRouting } from "./attest-mng.routing";
+import { AttestMngRouting } from './attest-mng.routing';
 
 
 //Service
-import { AttMngService} from "./service/attest-mng.service";
-import { AttMngCreService } from "./service/attest-source-cre.service";
 
 @NgModule({
     imports: [
@@ -32,10 +30,8 @@ import { AttMngCreService } from "./service/attest-source-cre.service";
         AttestSourceCreComponent
     ],
     providers: [
-        AttMngService,
-        AttMngCreService
+       
     ]
 
 })
-export class AttestMngModule {
-}
+export class AttestMngModule { }

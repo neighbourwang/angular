@@ -17,6 +17,7 @@
     "babel-cli": "^6.18.0",
     "babel-loader": "^6.2.7",
     "babel-preset-latest": "^6.16.0",
+    "bundle-loader": "^0.5.4",
     "css-loader": "^0.25.0",
     "ejs-loader": "^0.3.0",
     "html-webpack-plugin": "^2.24.1",

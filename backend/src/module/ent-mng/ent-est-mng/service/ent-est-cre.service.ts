@@ -369,7 +369,8 @@ export class EntEstCreService{
 	createEnterpise(entEst: EntEst):Promise<any>{
 		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.create");
 
-	let target:any = {
+
+    	let target:any = {
 		"profile": {
 			"authenticationMode": entEst.BasicInfo.certMethod,
 			"code": "", //没有这个数据
@@ -380,10 +381,19 @@ export class EntEstCreService{
 			"password": entEst.BasicInfo.password,
 			"url": entEst.BasicInfo.certUrl,
 			"userName": entEst.BasicInfo.contactorName,
-			"isSSL": entEst.BasicInfo.isSSL, //是否进行SSL加密
+			//"isSSL": entEst.BasicInfo.isSSL, //是否进行SSL加密
 			"accountAttribute": entEst.BasicInfo.accountAttribute//登录账户属性名称
 		},
-		"quotaList": entEst.ResourceQuota
+		"quotaList": {
+			"enterpriseId":entEst.ResourceQuota.enterpriseId,
+			"physicalMachineQuota":entEst.ResourceQuota.physicalQuota,
+			"memQuota":entEst.ResourceQuota.memroyQuota,
+			"floatIpQuota":entEst.ResourceQuota.floatIpQuota,
+			"imageQuota":entEst.ResourceQuota.imageQuota,
+			"snapShotQuota":entEst.ResourceQuota.snapShotQuota,
+			"vcpuQuota":entEst.ResourceQuota.vcpuQuota,
+			"storageQuota":entEst.ResourceQuota.storageQuota
+		}
 	};
 
 		return this.restApi.request(api.method, api.url, [], [], target);

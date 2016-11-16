@@ -37,16 +37,16 @@
                 <td>
                     <input type="radio" class="fox-cloud-radio" name="group-admin" [checked]="attest.isSelect" (change)="attest.isSelect = $event.target.checked" />
                 </td>
-                <td>{{attest.name}}</td>
-				<td>{{attest.url}}</td>
+                <td>attest.name</td>
+				<td>attest.url</td>
 				<td>AD</td>
 				<td>{{getDicText(attest.status,statusDic)}}</td>
-				<td>{{attest.desc}}</td>
+				<td>attest.desc</td>
             </tr>
 		</table>
 	</div>
 </div>
-<fc-pagination #pager tp={{totalPage}} (pf)="getAttests($event)"></fc-pagination>
+<fc-pagination #pager tp={{totalPage}} (pf)="paging($event)"></fc-pagination>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"  ></fc-notice>
 <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"  ></fc-confirm>
  
