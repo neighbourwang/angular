@@ -59,6 +59,20 @@ export class AccountMngService {
         return this.restApi.request(api.method,api.url,[{key : "id" , value : id}],undefined, account);
     }
 
+    //禁用帐号
+    disableAccount(id : string){
+        let api = this.restApiCfg.getDataRestApi("user-center.org-mng.user.disable");
+
+        return this.restApi.request(api.method , api.url ,[{key : "id" , value : id}],undefined);
+    }
+
+    //启用帐号
+    enableAccount(id : string){
+        let api = this.restApiCfg.getDataRestApi("user-center.org-mng.user.enable");
+
+        return this.restApi.request(api.method , api.url,[{key : "id" , value : id}],undefined);
+    }
+
     
 
 

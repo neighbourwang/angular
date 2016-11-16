@@ -14,23 +14,23 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品目录：</div>
 					<div class="col-sm-4 font-gray">
-						<select class="form-control" [(ngModel)]="prodDirId" (change)="selectProdDir($event.target.value)">
-                            <option *ngFor="let prodDir of prodDirList;" [value]="prodDir.id">{{prodDir.name}}</option>
-                        </select>
+						<!--<select class="form-control" [(ngModel)]="prodDirId" (change)="selectProdDir($event.target.value,idx)">
+                            <option *ngFor="let prodDir of prodDirList let idx=index;" [value]="prodDir.id">{{prodDir.name}}</option>
+                        </select>-->
 						<!--使用下面这种方式也可以-->
-						<!--<select class="form-control" [(ngModel)]="prodDirId" (ngModelChange)="selectProdDir($event)">
-                            <option *ngFor="let prodDir of prodDirList;" [value]="prodDir.id">{{prodDir.name}}</option>
-                        </select>-->						
+						<select class="form-control" [(ngModel)]="prodDirId" (ngModelChange)="selectProdDir($event)">
+                            <option *ngFor="let prodDir of prodDirList;let idx=index;" [value]="prodDir.id">{{prodDir?.name}}</option>
+                        </select>
 					</div>
 				</div>
 			</div>
-			<div *ngIf="!DiskProduct">
+			<div *ngIf="vmProdDir">
 				<div class="row row-line-height">
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"></div>
 						<div class="col-sm-4 row-line-child font-gray">
 							<div class="font-gray">CPU</div>
-							<div class="mid-line-child border-gray font-gray">{{prodDir.specification.vcpu}}</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification.vcpu}}</div>
 							<div class="last-line-child font-gray">核（vCPU）</div>
 						</div>
 					</div>
@@ -40,7 +40,7 @@
 						<div class="col-sm-4 form-control-title"></div>
 						<div class="col-sm-4 row-line-child font-gray">
 							<div class="font-gray">内存</div>
-							<div class="mid-line-child border-gray font-gray">{{prodDir.specification.mem}}</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification.mem}}</div>
 							<div class="last-line-child font-gray">兆（MB）</div>
 						</div>
 					</div>
@@ -50,19 +50,19 @@
 						<div class="col-sm-4 form-control-title"></div>
 						<div class="col-sm-4 row-line-child font-gray">
 							<div class="font-gray">启动盘大小</div>
-							<div class="mid-line-child border-gray font-gray">{{prodDir.specification.startupDisk}}</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification.startupDisk}}</div>
 							<div class="last-line-child font-gray">GB</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!--<div *ngIf="DiskProduct">
+			<div *ngIf="!vmProdDir">
 				<div class="row row-line-height">
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"></div>
 						<div class="col-sm-4 row-line-child font-gray">
 							<div class="font-gray">初始大小</div>
-							<div class="mid-line-child border-gray font-gray">{{prodDir.specification.vcpu}}</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.initialSize}}</div>
 							<div class="last-line-child font-gray">GB</div>
 						</div>
 					</div>
@@ -72,7 +72,7 @@
 						<div class="col-sm-4 form-control-title"></div>
 						<div class="col-sm-4 row-line-child font-gray">
 							<div class="font-gray">步长</div>
-							<div class="mid-line-child border-gray font-gray">{{prodDir.specification.mem}}</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.stepSize}}</div>
 							<div class="last-line-child font-gray">GB</div>
 						</div>
 					</div>
@@ -82,13 +82,12 @@
 						<div class="col-sm-4 form-control-title"></div>
 						<div class="col-sm-4 row-line-child font-gray">
 							<div class="font-gray">最大</div>
-							<div class="mid-line-child border-gray font-gray">{{prodDir.specification.startupDisk}}</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.maxSize}}</div>
 							<div class="last-line-child font-gray">GB</div>
 						</div>
 					</div>
 				</div>
-			</div>-->
-
+			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">描述：</div>
@@ -151,8 +150,6 @@
 
 							</div>
 						</div>
-
-
 						<!--<label class="radio-inline row-inline-radio4 font-gray">
                             <input type="radio" name="inlineRadioOption"  value="1" class="fox-cloud-radio" [(ngModel)]="product.billingCycle"> 按天
                         </label>
@@ -217,7 +214,7 @@
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>选择可用平台：</div>
 				</div>
 			</div>
-			<div class="row row-line-height">
+			<div class="row row-line-height" *ngIf="vmProdDir">
 				<div class="col-sm-3"></div>
 				<div class="col-sm-6 border selectPlateForm">
 					<div class="row  tabHeader row-line-height">
@@ -237,7 +234,6 @@
 							<div class="row" *ngFor="let zone of plateform.zoneList">
 								<div class="col-sm-12">{{zone.zoneName}}</div>
 							</div>
-
 						</div>
 						<div class="col-sm-4 thirdChild">
 							<div class="row row-line-height inputLeft" *ngFor="let zone of plateform.zoneList; let idxx=index">
@@ -246,10 +242,50 @@
 										(click)="selectZone(idx,idxx)">
 								</div>
 							</div>
-
 						</div>
 					</div>
 
+				</div>
+				<div class="col-sm-3"></div>
+			</div>
+			<div class="row row-line-height" *ngIf="!vmProdDir">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-6 border selectPlateForm">
+					<div class="row  tabHeader row-line-height">
+						<div class="col-sm-4">disk平台名称</div>
+						<div class="col-sm-3 ">
+							可用区
+						</div>
+						<div class="col-sm-3 ">
+							存储后端
+						</div>
+						<div class="col-sm-2" style="text-align: left">
+							<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllStorages()">
+						</div>
+					</div>
+					<div class="row tabBody" *ngFor="let plateform of prodDir.platformList; let idx=index">
+						<div class="col-sm-4 oneChild">
+							<p>{{plateform.platformName}}</p>
+						</div>
+						<div class="col-sm-3 secondChild wyLine-height">
+							<div class="row" *ngFor="let zone of plateform.storages">
+								<div class="col-sm-12">所有可用区</div>
+							</div>
+						</div>
+						<div class="col-sm-3 secondChild wyLine-height">
+							<div class="row" *ngFor="let storage of plateform.storages">
+								<div class="col-sm-12">{{storage.storageName}}</div>
+							</div>
+						</div>
+						<div class="col-sm-2 thirdChild">
+							<div class="row row-line-height inputLeft" *ngFor="let storage of plateform.storages; let idxx=index">
+								<div class="col-sm-12">
+									<input type="checkbox" class="fox-cloud-checkbox" selected="storage.selected" [(ngModel)]="storage.selected" name="storageSelected"
+										(click)="selectStorage(idx,idxx)">
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="col-sm-3"></div>
 			</div>

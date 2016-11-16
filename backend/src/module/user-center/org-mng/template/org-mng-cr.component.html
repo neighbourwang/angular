@@ -44,9 +44,8 @@
                 </div>
                 <div class="col-sm-7">
                      <div class="checkbox">
-
                         <label style="margin-right: 5px;margin-bottom: 8px;" *ngFor="let item of account;" (click)="chooseAccount(item)">
-                            <input type="checkbox" class="fox-cloud-checkbox"> 
+                            <input type="checkbox" class="fox-cloud-checkbox" [checked]="item.selected"> 
                             <span style="margin-left : 5px;margin-right : 5px">{{item.userName}}</span>
                             <span>{{item.loginName}}</span>
                         </label>
