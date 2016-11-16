@@ -93,19 +93,19 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取镜像列表",
         "method": "POST",
         "id": "image.mng.list",
-        "url": "marketplace/authsec/images/page/{page}/size/{size}"
+        "url": "marketplaceboe/authsec/images/page/{page}/size/{size}"
     },
     {
         "desc": "更新镜像信息",
         "method": "PUT",
         "id": "image.mng.update",
-        "url": "/marketplace/authsec/image/{image_id}"
+        "url": "/marketplaceboe/authsec/image/{image_id}"
     },
     {
         "desc": "删除镜像信息",
         "method": "DELETE",
         "id": "image.mng.delete",
-        "url": "/marketplace/authsec/image"
+        "url": "/marketplaceboe/authsec/image"
     },
     {
         "desc": "获取区域列表",
