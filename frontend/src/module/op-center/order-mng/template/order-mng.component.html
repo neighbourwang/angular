@@ -25,10 +25,8 @@
 							<span class="">部门:</span>
 							<div class="dropdown left">
 								<select class="form-control" [(ngModel)]="_param.organization">
-									<option class="hands">所有部门</option>
-									<option class="hands">商务部</option>
-									<option class="hands">部门1</option>
-									<option class="hands">部门2</option>
+									<option class="hands" [value]="0">所有部门</option>
+									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
@@ -112,7 +110,7 @@
 					<td class="order-title font-green" colspan="7">{{orderItem.purchaseDate}} 订单号：{{orderItem.orderNo}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间：2016-10-08</td>
 					<td colspan="2">
 						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#renewOrder" (click)="renewSelect(orderItem)">续订</button>
-						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#cancelOrder" (click)="cancel(orderItem.orderId)">退订</button>
+						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#cancelOrder" (click)="cancelSelect(orderItem)">退订</button>
 						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#orderDetail" (click)="showDetail(orderItem.orderId)">详情</button>
 					</td>	
 				</tr>
@@ -249,24 +247,38 @@
 						<h4 class="modal-title" id="myModalLabel">订单退订</h4>
 				  	</div>
 				 	<div class="modal-body"> 
-			          <!--<account-mng-cr-local></account-mng-cr-local>
-			          <order-mng-detail></order-mng-detail>-->
- 						<order-mng-cancel></order-mng-cancel>
-						<div class="OrderRenew"> 
+ 						<order-mng-cancel  [orderItem]="selectedOrderItem"></order-mng-cancel>
+ 						<!-- 退订 -->
+						<div *ngIf="!_isCanceled" class="OrderRenew"> 
 							<div class="page-content">
 								<div class="mgb20">
 									<span class="warnInfo mgb20">你的订单一旦退订，所有相关的资源和数据都会被删除，无法恢复！请谨慎选择退订服务。</span>
 								</div>
 							</div>
 					   	</div>
+					   	<!-- 退订完成 -->
+			        	<div *ngIf="_isCanceled" class="OrderRenew"> 
+							<div class="page-content">
+								<div class="page-second-container">
+											<span class="warnInfo float-left mgb20">你的订单已申请退订，资源将会被立刻删除！<br>如需审批，则要等待退订审批通过后，系统才会开始删除资源。<br>您可以登陆管理控制台，查看退订状态。</span>
+											<button class="button-size-big button-confirm pull-right">管理控制台</button>
+											<div style="height: 40px;"></div>
+								</div>
+							</div>
+						</div>
 
 					</div>
-			      
-				  	<div class="modal-footer" style="text-align: center;">
-						<button type="button" class="btn button-confirm button-size-big" data-toggle="modal" data-target="#cancelOrderOk" >确认退订</button>
+			      	
+			      	<!-- 退订 -->
+				  	<div *ngIf="!_isCanceled" class="modal-footer" style="text-align: center;">
+						<button type="button" class="btn button-confirm button-size-big" data-toggle="modal" data-target="#cancelOrderOk" (click)="cancel()" >确认退订</button>
 		                <button type="button" class="btn  button-size-big button-white" data-dismiss="modal">取消</button>
 				  	</div>
-				
+					
+					<!-- 退订完成 -->
+				  	<div *ngIf="_isCanceled" class="modal-footer">
+				  	</div>
+
 		  	</div>
 		</div>
 	</div>
@@ -284,19 +296,8 @@
 			          <!--<account-mng-cr-local></account-mng-cr-local>
 			          <order-mng-cancelOk></order-mng-cancelOk>-->
 						<order-mng-cancel></order-mng-cancel>
-			        	<div class="OrderRenew"> 
-							<div class="page-content">
-								<div class="page-second-container">
-											<span class="warnInfo float-left mgb20">你的订单已申请退订，资源将会被立刻删除！<br>如需审批，则要等待退订审批通过后，系统才会开始删除资源。<br>您可以登陆管理控制台，查看退订状态。</span>
-											<button class="button-size-big button-confirm pull-right">管理控制台</button>
-											<div style="height: 40px;"></div>
-								</div>
-							</div>
-						</div>
 					</div>
 			      
-				  	<div class="modal-footer">
-				  	</div>
 				
 		  	</div>
 		</div>
