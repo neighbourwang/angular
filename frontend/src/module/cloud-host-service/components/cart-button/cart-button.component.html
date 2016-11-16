@@ -1,0 +1,8 @@
+<div class="col-md-12 no-padding title-box">
+    <div class="col-md-6"><button (click)="goTo('cloud-host-service/cart-list')" class="btn button-gray-gradient"><span class="icon-shopping"></span>查看购物车 {{cartLength}}</button></div>
+    <div class="col-md-6"><button (click)="delectAllCart()" class="btn button-gray-gradient"><span class="icon-delete"></span>清空购物车</button></div>
+</div>
+
+<fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalcancle()" ct="{{modalCancelTitle}}" (cf)="modalconfirm()"></fc-confirm>
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalnotice()"></fc-notice>
+

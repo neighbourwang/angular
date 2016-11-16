@@ -14,7 +14,7 @@ export class cartListService {
                 private restApi:RestApi) {
     }
 
-    getOrderList() : Promise<CartList[]>{
+    getCartList() : Promise<CartList[]>{
         const api = this.restApiCfg.getRestApi("shopping.cart.items");
 
         const request = this.restApi.request(api.method, api.url, undefined, undefined)
