@@ -34,6 +34,20 @@
                 </tr>
             </thead>
             <tbody>
+                <tr *ngFor="let network of synNetworks;let i=index" >
+                    <td class="text-center">{{i+1}}</td>
+                    <td class="text-center">{{network.networkName}}</td>
+                    <td class="text-center">{{network.subnetName}}</td>
+                    <td class="text-center">{{network.subnetDisplayName}}</td>
+                    <td class="text-center">{{network.segmentCIDR}}</td>
+                    <!--<td class="text-center">{{network.gateway}}</td>-->
+                    <td class="text-center">{{network.tenantName}}</td>
+                    <td class="text-center">{{getDicText(network.network_type,this.typeDic)}}</td>
+                    <td class="text-center">{{getDicText(network.shared,this.sharedDic)}}</td>
+                    <td class="text-center">{{getDicText(network.state,this.stateDic)}}</td>
+                    
+
+                </tr>
                 <tr>
                     <td>1</td>
                     <td>cionetwork2</td>

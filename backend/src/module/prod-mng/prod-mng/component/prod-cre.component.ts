@@ -38,8 +38,9 @@ export class ProdCreComponent implements OnInit, OnChanges {
     prodDir = new ProductDir();
     prodDirId: string;
     product = new Product();
+    vmProdDir: boolean;
+    diskProdDir: boolean;
     ngOnInit() {
-        console.log('init');
         //获取企业列表
         this.ProdDirListService.getEnterpriseList().then(response => {
             console.log('企业', response);
@@ -58,17 +59,24 @@ export class ProdCreComponent implements OnInit, OnChanges {
             this.prodDirList = response.resultContent;
             this.prodDirId = response.resultContent[0].id;
             this.product.serviceId = response.resultContent[0].id;
+            if (response.resultContent[0].code == 'VITRUALMACHINE_SERVICE') {
+                this.vmProdDir = true;
+                this.getVmProdDirDetail(this.prodDirId);
+            } else if (response.resultContent[0].code == 'VITRUALDISK_SERVICE') {
+                this.vmProdDir = false;
+                this.getDiskProdDirDetail(this.prodDirId);
+            }
             // } else {
-            this.getProdDirDetail(this.prodDirId);
+
             // }
         }).catch(err => {
             console.error(err)
         })
     }
-    //获取产品目录详情
-    getProdDirDetail(id) {
+    //获取VM产品目录详情
+    getVmProdDirDetail(id) {
         this.ProdDirDetailService.getVmProdDirDetail(id).then(response => {
-            console.log('产品目录详情', response);
+            console.log('VM产品目录详情', response);
             if (response && 100 == response.resultCode) {
                 this.prodDir = response.resultContent;
             } else {
@@ -78,13 +86,45 @@ export class ProdCreComponent implements OnInit, OnChanges {
             console.error(err)
         })
     }
+    //获取DISK产品目录详情
+    getDiskProdDirDetail(id) {
+        this.ProdDirDetailService.getDiskProdDirDetail(id).then(response => {
+            console.log('DISK产品目录详情', response);
+            if (response && 100 == response.resultCode) {
+                this.prodDir = response.resultContent;
+            } else {
+
+            }
+        }).catch(err => {
+            console.error(err)
+        })
+    }
+    //初始化产品信息
+    initProduct() {
+        this.product.basicCyclePrice = 0;
+        this.product.billingCycle = '';
+        this.product.billingType = '';
+        this.product.extendCyclePrice = 0;
+        // this.product.name='';
+        this.product.oneTimePrice = 0;
+        this.product.productEnterpiseReqs = [];
+        this.product.productPlatformReqs = [];
+        // this.product.serviceId='';
+        this.product.unitPrice = 0;
+        this.product.desc = ''
+    }
     //选择产品目录
-    DiskProduct: boolean;
     selectProdDir(id) {
-        console.log(id);
-        console.log(this.prodDirId);
+        let prodDir: any = this.prodDirList.find((prodDir) => prodDir.id == id)
         this.product.serviceId = id;
-        this.getProdDirDetail(id);
+        this.product.productPlatformReqs = [];
+        if (prodDir.code == 'VITRUALMACHINE_SERVICE') {
+            this.vmProdDir = true;
+            this.getVmProdDirDetail(this.prodDirId);
+        } else if (prodDir.code == 'VITRUALDISK_SERVICE') {
+            this.vmProdDir = false;
+            this.getDiskProdDirDetail(this.prodDirId);
+        }
     }
     //选择企业
     selectEnterprise(ent, index) {
@@ -101,7 +141,6 @@ export class ProdCreComponent implements OnInit, OnChanges {
     selectAllZone: boolean = false;
     selectAllZones() {
         this.selectAllZone = !this.selectAllZone;
-        console.log(this.selectAllZone);
         for (let plate of this.prodDir.platformInfo) {
             for (let zone of plate.zoneList) {
                 zone.selected = this.selectAllZone;
@@ -131,7 +170,40 @@ export class ProdCreComponent implements OnInit, OnChanges {
         })
         console.log(this.product.productPlatformReqs);
     }
+    //选择全部存储后端
+    selectAllStorage:boolean=false;
+    selectAllStorages(){
+        this.selectAllStorage = !this.selectAllStorage;
+        for (let plate of this.prodDir.platformList) {
+            for (let storage of plate.storages) {
+                storage.selected = this.selectAllStorage;
+                // console.log(zone.storageList);
+            }
+        }
+        // this.product.productPlatformReqs = this.prodDir.platformList.filter(function (ele) {
+            
+            for(let plateform of this.prodDir.platformList){
+                let list=[];
+                for (let storage of plateform.storages) {
+                    if (storage.selected == true){
+                            list.push(storage);                   
+                    }                
+                }
+               if(list.length>0){
+                  this.product.productPlatformReqs.push({
+                      platformId:plateform.platformId,
+                      platformName:plateform.platformName,
+                      zoneList:list
+                  }); 
+                  
+               }
+            } 
+            console.log(this.product.productPlatformReqs)   ;       
+    }
+    //选择存储后端
+    selectStorage(){
 
+    }
 
 
 
@@ -166,16 +238,16 @@ export class ProdCreComponent implements OnInit, OnChanges {
         }
 
         console.log("dd");
-        // this.PostProduct.postProduct(this.product).then(response => {
-        //     console.log('产品', response);
-        //     if (response && 100 == response.resultCode) {
-        //         this.router.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
-        //     } else {
+        this.PostProduct.postProduct(this.product).then(response => {
+            console.log('产品', response);
+            // if (response && 100 == response.resultCode) {
+            this.router.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
+            // } else {
 
-        //     }
-        // }).catch(err => {
-        //     console.error(err)
-        // })
+            // }
+        }).catch(err => {
+            console.error(err)
+        })
     }
     ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
         for (let key in changes) {
