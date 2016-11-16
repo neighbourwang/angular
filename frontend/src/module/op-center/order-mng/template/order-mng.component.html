@@ -24,7 +24,7 @@
 							<span class="">部门:</span>
 							<div class="dropdown left">
 								<select class="form-control" [(ngModel)]="_param.organization">
-									<option class="hands" [value]="0">所有部门</option>
+									<option class="hands" [value]="null">所有部门</option>
 									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
@@ -55,8 +55,8 @@
 							<span class="" >
 							产品类型:</span>
 							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="_param.serviceId">
-									<option class="hands" [value]="0">所有</option>
+								<select class="form-control" [(ngModel)]="_param.serviceType">
+									<option class="hands" [value]="null">所有</option>
 									<option class="hands" *ngFor="let item of _productTypeLoader.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
@@ -65,8 +65,8 @@
 							<span class="" >
 							区域:</span>
 							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="_param.region" (ngModelChange)="onPlatformChanged()">
-									<option class="hands" [value]="0">所有</option>
+								<select class="form-control" [(ngModel)]="_param.platformId" (ngModelChange)="onPlatformChanged()">
+									<option class="hands" [value]="null">所有</option>
 									<option class="hands" *ngFor="let item of _platformLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
@@ -76,7 +76,7 @@
 							可用区:</span>
 							<div class="dropdown left">
 								<select class="form-control" [(ngModel)]="_param.zoneId">
-									<option class="hands" [value]="0">所有</option>
+									<option class="hands" [value]="null">所有</option>
 									<option class="hands" *ngFor="let item of _regionLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
@@ -120,10 +120,10 @@
 						</ul>
 					</td>
 					<td>{{prodItem.serviceType}}</td>
-					<td>{{prodItem.billingInfo.billingMode}}</td>
+					<td>{{prodItem.billingMode}}</td>
 					<td>{{prodItem.period}}</td>
 					<td>{{prodItem.quantity}}</td>
-					<td style="width: 100px;">{{prodItem.billingInfo.oneTimePriceAndPrice}}</td>
+					<td style="width: 100px;">{{prodItem.oneTimePriceAndPrice}}</td>
 					<td class="validateInfo">{{prodItem.statusName}}</td>
 					<td>{{prodItem.createDate}}</td>
 					<td>{{prodItem.expireDate}}</td>

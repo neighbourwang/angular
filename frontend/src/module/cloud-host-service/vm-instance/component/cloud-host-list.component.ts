@@ -47,9 +47,9 @@ export class cloudHostListComponent implements OnInit {
 	}
 
 	setArea(): void {
-		this.service.getHostConfigList().then(configList => {
-			this.areaConfig = configList.filter(config => config.attrCode === "PLATFORM")[0].valueList;
-		});
+		// this.service.getHostConfigList().then(configList => {
+		// 	this.areaConfig = configList.filter(config => config.attrCode === "PLATFORM")[0].valueList;
+		// });
 	}
 
 	setHostList(): void {

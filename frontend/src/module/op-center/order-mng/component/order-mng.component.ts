@@ -9,7 +9,7 @@ import { ListItem
 	,ProductBillingItem
 	, RenewSetting
 	, PurchaseUnit} from '../model'
-
+import * as _ from 'underscore';
 
 @Component({
 	selector: 'order-mng',
@@ -210,9 +210,15 @@ export class OrderMngComponent implements OnInit{
 		this._notice.open("系统提示", msg);
 	}
 
-	search(){
+	search(pageNumber:number = 1){
+		let param = _.extend({}, this._param);
+		param.pageParameter = {
+			currentPage:pageNumber
+			,size:10
+		};
+
 		this.layoutService.show();
-		this._orderLoader.Go(1, null, this._param)
+		this._orderLoader.Go(null, null, param)
 		.then(success=>{
 			this.layoutService.hide();
 		})
@@ -222,9 +228,14 @@ export class OrderMngComponent implements OnInit{
 		})
 	}
 
+	changePage(pageNumber:number)
+	{
+		this.search(pageNumber);
+	}
+
 	onPlatformChanged(){
 		this.layoutService.show();
-		this._regionLoader.Go(null, [{key:"_id", value:this._param.region}])
+		this._regionLoader.Go(null, [{key:"_id", value:this._param.platformId}])
 		.then(success=>{
 			this.layoutService.hide();
 		})
@@ -235,11 +246,11 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	onCreateTimeChange($event){
-		this._param.createTime = $event.formatted;
+		this._param.createDate = $event.formatted;
 	}
 
 	onExpireTimeChange($event){
-		this._param.expireTime = $event.formatted;
+		this._param.expireDate = $event.formatted;
 	}
 
 	//续订
