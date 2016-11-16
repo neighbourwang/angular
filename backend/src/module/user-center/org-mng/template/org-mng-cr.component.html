@@ -19,7 +19,9 @@
                     机构负责人
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control"  placeholder="请输入机构名称">
+                    <select class="form-control" [(ngModel)]="org.leaderId">
+                            <option *ngFor="let item of accountByOrg;" [value]="item.id">{{item.userName}}  {{item.loginName}}</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -81,7 +83,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of platForm;let idx = index">
-                        <td><input type="checkbox" class="fox-cloud-checkbox"></td>
+                        <td><input type="checkbox" class="fox-cloud-checkbox" (click)="choosePlatForm(item)" [checked]="item.selected"></td>
                         <td>{{idx}}</td>
                         <td>{{item.name}}</td>
                         <td>{{item.dataCenter}}</td>
@@ -97,7 +99,7 @@
             <button class="fox-cloud-button-lg fox-cloud-button-white" >
                 <span class="icon-button-label">取消</span>
             </button>
-            <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px">
+            <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px" (click)="create()">
                 <span class="icon-button-label">{{btnName}}</span>
             </button>
         </div>

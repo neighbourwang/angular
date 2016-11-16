@@ -17,7 +17,7 @@
 							
 							<div class="dropdown left">
 								<select class="form-control" [(ngModel)]="_param.enterpriseId" (ngModelChange)="loadDepartment()">
-									<option class="hands" [value]="0" >所有企业</option>
+									<option class="hands" [value]="null" >所有企业</option>
 									<option *ngFor="let item of _adminLoader.Items" class="hands" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
@@ -25,7 +25,7 @@
 						<td colspan="3"><div class="left form-control-title" >部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门:</div>
 							<div class="dropdown left">
 								<select class="form-control" [(ngModel)]="_param.organization">
-									<option class="hands" [value]="0">所有部门</option>
+									<option class="hands" [value]="null">所有部门</option>
 									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
@@ -57,7 +57,7 @@
 						<td ><div class="left form-control-title">产品类型：</div>
 							<div class="dropdown left">
 								<select class="form-control" [(ngModel)]="_param.serviceId">
-									<option class="hands" [value]="0">所有类型</option>
+									<option class="hands" [value]="null">所有类型</option>
 									<option class="hands" *ngFor="let item of _productTypeLoader.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
@@ -65,7 +65,7 @@
 						<td ><div class="left form-control-title">区域：</div>
 							<div class="dropdown left">
 								<select class="form-control" [(ngModel)]="_param.region" (ngModelChange)="loadSubregion()">
-									<option class="hands" [value]="0">所有</option>
+									<option class="hands" [value]="null">所有</option>
 									<option class="hands" *ngFor="let item of _platformLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
@@ -73,7 +73,7 @@
 						<td ><div class="left form-control-title">可用区：</div>
 							<div class="dropdown left">
 								<select class="form-control" [(ngModel)]="_param.zoneId">
-									<option class="hands" [value]="0">所有</option>
+									<option class="hands" [value]="null">所有</option>
 									<option class="hands" *ngFor="let item of _subregionLoader.Items" [value]="item.zoneId">{{item.zoneName}}</option>
 								</select>
 							</div>
@@ -102,7 +102,7 @@
 
 			<table class="table _table" *ngFor="let orderItem of _orderLoader.Items">
 				<tr>
-					<td class="order-title" colspan="8">{{orderItem.purchaseDate}} 订单号：{{orderItem.orderNo}}</td>
+					<td class="order-title" colspan="7">{{orderItem.purchaseDate}} 订单号：{{orderItem.orderNo}}</td>
 					
 					<td><button class="fox-cloud-button  fox-cloud-button-green pull-right" (click)="renew(orderItem.orderId)">续&nbsp;&nbsp;&nbsp;订</button></td>
 					<td><button class="fox-cloud-button  fox-cloud-button-green  pull-right"  (click)="showDetail(orderItem.orderId)">详&nbsp;&nbsp;&nbsp;情</button></td>
@@ -113,10 +113,10 @@
 							<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 						</ul>
 					</td>
-					<td>{{prodItem.billingInfo.billingMode}}</td>
+					<td>{{prodItem.billingMode}}</td>
 					<td>{{prodItem.period}}</td>
 					<td>{{prodItem.quantity}}</td>
-					<td class="rightAlign">{{prodItem.billingInfo.oneTimePriceAndPrice}}</td>
+					<td class="rightAlign">{{prodItem.oneTimePriceAndPrice}}</td>
 					<td class="rightAlign">{{prodItem.serviceType}}</td>
 					<td class="rightAlign validateInfo">{{prodItem.statusName}}</td>
 					<td class="rightAlign">{{prodItem.createDate}}</td>
@@ -125,5 +125,6 @@
 				</tr>
 			</table>
 		</div>
+		<fc-pagination tp={{_orderLoader.TotalPages}} (pf)="changePage($event)"></fc-pagination>
 	</div>	
 </div>	
