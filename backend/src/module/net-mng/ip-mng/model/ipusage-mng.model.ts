@@ -6,4 +6,10 @@ export class IpUsageMngModel {
     status: string; //状态, 来源于数据字典
     description: string; //说明 
 
+    checked: boolean = false;//ui operation
+
+    toString(){
+        return JSON.stringify(this);
+    }
+
 }
