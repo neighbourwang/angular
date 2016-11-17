@@ -54,6 +54,25 @@ export class IpUsageMngListComponent implements OnInit{
     pg_name: string;
     ipusagequery: string = "all";
 
+    private okCallback: Function = null;
+    okClicked() {
+        console.log('okClicked');
+        if (this.okCallback) {
+            console.log('okCallback()');
+            this.okCallback();
+            this.okCallback = null;
+        }
+    }
+
+    private confirmedHandler: Function = null;
+    //启用，禁用，删除的处理
+    onConfirmed() {
+        if (this.confirmedHandler) {
+            this.confirmedHandler();
+            this.confirmedHandler = null;
+        }
+    }
+
     //根据value获取字典的txt
     getDicText(value: string, dic: Array<SystemDictionary>): String {
         const d = dic.find((e) => {
@@ -100,7 +119,7 @@ export class IpUsageMngListComponent implements OnInit{
     }
 
 	showAlert(msg: string): void {
-        this.layoutService.hide();
+        //this.layoutService.hide();
         this.noticeTitle = "提示";
         this.noticeMsg = msg;
         this.notice.open();
@@ -149,15 +168,20 @@ export class IpUsageMngListComponent implements OnInit{
     {
         this.ipusagemngs.map(n=> {n.checked = false;});
         this.ipusagemngs[index].checked = true;
-        console.log(this.ipusagemngs, "===============");
+        console.log(this.ipusagemngs, "this.ipusagemngs");
+        this.selectedip = this.ipusagemngs[index];
+        console.log(this.selectedip, "this.selectedip");
     }
 
     getSelected() {
         let item = this.ipusagemngs.find((n) => n.checked) as IpUsageMngModel;
-        if (item)
+        if (item){
+            console.log(item, "this.getSelected 1");
             return item;
+        }            
         else {
-            this.showAlert("请选择相应的PortGroup");
+            console.log(item, "this.getSelected 2");
+            this.showMsg("请选择相应的行");
             return null;
         }
     }
@@ -167,8 +191,9 @@ export class IpUsageMngListComponent implements OnInit{
     }
 
     enable(): void{
-        this.selectedip = this.getSelected();
-        if(this.selectedip){
+        let ip = this.getSelected();
+        if(ip){
+            this.selectedip = ip;
             console.log(this.selectedip.id);
             console.log(this.pg_id);
             this.service.enableIP(this.selectedip.id)
@@ -189,8 +214,9 @@ export class IpUsageMngListComponent implements OnInit{
     }
 
     disable(): void {
-        this.selectedip = this.getSelected();
-        if(this.selectedip){
+        let ip = this.getSelected();
+        if(ip){
+            this.selectedip = ip;
             console.log(this.selectedip.id);
             this.service.disableIP(this.selectedip.id)
             .then(res => {
