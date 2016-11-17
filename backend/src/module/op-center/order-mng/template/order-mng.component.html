@@ -113,11 +113,11 @@
 							<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 						</ul>
 					</td>
-					<td>{{prodItem.billingMode}}</td>
+					<td>{{prodItem.billingModeName}}</td>
 					<td>{{prodItem.period}}</td>
 					<td>{{prodItem.quantity}}</td>
 					<td class="rightAlign">{{prodItem.oneTimePriceAndPrice}}</td>
-					<td class="rightAlign">{{prodItem.serviceType}}</td>
+					<td class="rightAlign">{{prodItem.serviceTypeName}}</td>
 					<td class="rightAlign validateInfo">{{prodItem.statusName}}</td>
 					<td class="rightAlign">{{prodItem.createDate}}</td>
 					<td>{{prodItem.expireDate}}

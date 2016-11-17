@@ -218,9 +218,23 @@ export class OrderMngComponent implements OnInit{
 		this._orderLoader.Go(pageNumber, null, param)
 		.then(success=>{
 			this.layoutService.hide();
+
+			//翻译状态
+			this.updateStatusName();
 		},err=>{
 			this.layoutService.hide();
 		});
+	}
+
+	//翻译订单状态
+	updateStatusName(){
+		let list:Array<SubInstanceItemResp> = []
+		this._orderLoader.Items.map(n=>list = list.concat(n.itemList));
+		list.map(n=>{
+			n.statusName = this._orderStatus.Items.find(m=>m.value == n.status).displayValue as string;
+			n.serviceTypeName = this._productTypeLoader.Items.find(m=>m.value == n.serviceType).displayValue as string;
+		});
+
 	}
 
 	onCreateTimeChange($event){
