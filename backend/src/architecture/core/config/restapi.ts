@@ -885,7 +885,25 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取同步网络列表",
         "id": "net-mng.openstack.net.syn.list",
         "method": "GET",
-        "url": "/adminboe/authsec/{platform_id}/openstack/networkSync"
-    }
-
+        "url": "adminboe/authsec/{platform_id}/openstack/networkSync"
+    },
+    //Vmware 端口
+    {
+        "desc": "获取端口组资源分配列表",
+        "id": "net-mng.vmware.port.list",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/{id}/portresource"
+    },
+    {
+        "desc": "获取端口资源企业列表",
+        "id": "net-mng.vmware.port.enterprise.list",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/{id}/set/ent"
+    },
+    {
+        "desc": "获取端口资源设置企业保存",
+        "id": "net-mng.vmware.port.enterprise.save",
+        "method": "POST",
+        "url": "adminboe/authsec/vmware/network/save/ent"
+    },
 ]
