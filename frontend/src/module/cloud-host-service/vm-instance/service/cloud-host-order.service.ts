@@ -505,11 +505,13 @@ return new Promise((next) => {
         // return request;
     }
 
-    saveOrder(payload: PayLoad): Promise<any> {
-
+    saveOrder(payload: PayLoad[]): Promise<any> {
         let api = this.restApiCfg.getRestApi('hosts.order.add');
         return this.restApi.request(api.method, api.url, undefined, undefined, payload);
-        
+    }
+    addCart(payload: PayLoad[]): Promise<any> {
+        let api = this.restApiCfg.getRestApi('shopping.cart.add');
+        return this.restApi.request(api.method, api.url, undefined, undefined, payload);
     }
 
     getTimeLineType() : Promise<TimeLineData[]> {

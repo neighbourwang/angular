@@ -38,28 +38,6 @@
                 </div>
             </td>
         </tr>
-        <tr>
-            <th class="col-md-1 col-xs-3 text-center">标　　签</th>
-            <td>
-                <div class="col-md-10 btn-group" data-toggle="buttons">
-                    <label class="btn btn-default active">
-                        <input type="radio" name="application" autocomplete="off"> 应用A
-                    </label>
-                    <label class="btn btn-default">
-                        <input type="radio" name="application" autocomplete="off"> 应用B
-                    </label>
-                    <label class="btn btn-default">
-                        <input type="radio" name="application" autocomplete="off"> 应用C
-                    </label>
-                    <label class="btn btn-default">
-                        <input type="radio" name="application" autocomplete="off"> 应用D
-                    </label>
-                    <label class="btn btn-default">
-                        <input type="radio" name="application" autocomplete="off"> 更多 >>
-                    </label>
-                </div>
-            </td>
-        </tr>
     </table>
     <div class="col-md-12 no-padding mgb20">
         <div class="dropdown float-left mgr10">
@@ -116,7 +94,7 @@
             </label>
         </div>
         <div class="float-right">
-            <button class="btn float-left mgr5 btn-success" (click)="goTo('cloud-host-service/cloud-driver-order')"><i class="glyphicon glyphicon-plus"></i> 创建云硬盘</button>
+            <button class="btn float-left mgr5 btn-success" (click)="goTo('cloud-host-service/cloud-drive-order')"><i class="glyphicon glyphicon-plus"></i> 创建云硬盘</button>
 
             <div class="dropdown float-left  mgr5">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -134,36 +112,32 @@
     <table class="table table-hover">
         <tr>
             <th class="text-center"></th>
-            <th class="text-center">云主机名称</th>
-            <th class="text-center">配置</th>
-            <th class="text-center">镜像</th>
-            <th class="text-center">内部IP</th> 
-            <th class="text-center">外部IP</th>
-            <th class="text-center">所在区域及可用区</th>
+            <th class="text-center">云硬盘名称</th>
+            <th class="text-center">储存类型</th>
+            <th class="text-center">容量（GB）</th>
+            <th class="text-center">挂载位置（云主机名称）</th> 
             <th class="text-center">状态</th>
             <th class="text-center">到期时间</th>
-            <th class="text-center">云硬盘数</th> 
-            <th class="text-center">快照数</th>
-            <th class="text-center">附加服务</th>
+            <th class="text-center">可卸载</th> 
+            <th class="text-center">所在地区</th>
+            <th class="text-center">可用区</th>
+            <th class="text-center">属性</th>
             <th class="text-center">类型</th>
-            <th class="text-center">服务类别</th>
             <th class="text-center">操作</th> 
         </tr>
-        <tr *ngFor="let vm of vmList;trackBy:vm?.expiryDate;">
+        <tr *ngFor="let dist of distList;trackBy:dist?.expiryDate;">
             <td class="text-center"><input name="host-list" type="radio"></td>
-            <td class="text-center active">{{vm.instanceName}}</td>
-            <td class="text-center">{{vm.specification}}</td>
-            <td class="text-center">{{vm.osInfo}}</td>
-            <td class="text-center">{{vm.privateIp}}</td> 
-            <td class="text-center">{{vm.publicIP}}</td>
-            <td class="text-center">{{vm.regionZone}}</td>
-            <td class="text-center">{{vm.vmState}}</td>
-            <td class="text-center">{{forMatData(vm.expiryDate)}}</td>
-            <td class="text-center">{{vm.diskCount}}</td> 
-            <td class="text-center">{{vm.snapshotCount}}</td>
-            <td class="text-center">无</td>
-            <td class="text-center">生产</td>
-            <td class="text-center">关键</td>
+            <td class="text-center active">{{dist.name}}</td>
+            <td class="text-center">{{dist.type}}</td>
+            <td class="text-center">{{dist.size}}</td>
+            <td class="text-center">{{dist.relyName}}</td> 
+            <td class="text-center">{{dist.status}}</td>
+            <td class="text-center">{{forMatData(dist.expireDate)}}</td>
+            <td class="text-center">{{dist.unloadAble}}</td>
+            <td class="text-center">{{dist.platformName}}</td> 
+            <td class="text-center">{{dist.zoneName}}</td> 
+            <td class="text-center">{{dist.useType}}</td>
+            <td class="text-center">{{dist.sourceType}}</td>
             <td class="text-center">
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" [attr.id]="'dropdownMenu'+(index+3)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -171,13 +145,13 @@
                     <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" [attr.aria-labelledby]="'dropdownMenu'+(index+3)">
-                        <li><a (click)="handleVm('start', vm, '启动')" href="javascript:">启动</a></li>
+                        <!-- <li><a (click)="handleVm('start', vm, '启动')" href="javascript:">启动</a></li> -->
                         <!-- <li><a (click)="handleVm('stop', vm)" href="javascript:">停止</a></li> -->
-                        <li><a (click)="handleVm('pause', vm, '暂停')" href="javascript:">暂停</a></li>
-                        <li><a (click)="handleVm('unpause', vm , '开始')" href="javascript:">开始</a></li>
+                        <!-- <li><a (click)="handleVm('pause', vm, '暂停')" href="javascript:">暂停</a></li> -->
+                        <!-- <li><a (click)="handleVm('unpause', vm , '开始')" href="javascript:">开始</a></li> -->
                         <!-- <li><a (click)="handleVm('resume', vm)" href="javascript:">恢复</a></li> -->
-                        <li><a (click)="handleVm('hardReboot', vm , '硬重启')" href="javascript:">硬重启</a></li>
-                        <li><a (click)="handleVm('softReboot', vm , '软重启')" href="javascript:">软重启</a></li>
+                        <!-- <li><a (click)="handleVm('hardReboot', vm , '硬重启')" href="javascript:">硬重启</a></li> -->
+                        <!-- <li><a (click)="handleVm('softReboot', vm , '软重启')" href="javascript:">软重启</a></li> -->
                         <!-- <li><a (click)="handleVm('suspend', vm)" href="javascript:">挂起</a></li> -->
                     </ul>
                 </div>

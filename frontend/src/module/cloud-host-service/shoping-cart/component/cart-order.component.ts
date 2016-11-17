@@ -13,6 +13,8 @@ import { CartOrder } from '../model/cart-order.model';
 })
 export class cartOrderComponent implements OnInit {
 
+	orderList : CartOrder[];
+
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -23,7 +25,13 @@ export class cartOrderComponent implements OnInit {
 	ngOnInit() {
 		this.service.getOrderList().then(orderList => {
 			console.log(orderList)
+			this.orderList = orderList;
 		});
+	}
+
+	forMatData(number : number) : string {
+		var d = new Date(number);
+ 		return (d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds());
 	}
 
 }

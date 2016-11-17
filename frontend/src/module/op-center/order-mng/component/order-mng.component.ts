@@ -48,6 +48,8 @@ export class OrderMngComponent implements OnInit{
 	private _isCanceled:boolean = false;
 	private _cancelHandler:ItemLoader<any> = null;
 
+	private _entId:string = "191af465-b5dc-4992-a5c9-459e339dc719";
+
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -181,7 +183,7 @@ export class OrderMngComponent implements OnInit{
 	loadDepartment():Promise<any>{
 		//测试企业1
 		return new Promise((resovle, reject)=>{
-			this._departmentLoader.Go(null, [{key:"enterpriseId", value:"191af465-b5dc-4992-a5c9-459e339dc719"}])
+			this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._entId}])
 			.then(success=>{
 				resovle(success);
 			},err=>{
@@ -211,11 +213,13 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	search(pageNumber:number = 1){
+		this._param.enterpriseId = this._entId;
 		let param = _.extend({}, this._param);
 		param.pageParameter = {
 			currentPage:pageNumber
 			,size:10
 		};
+
 
 		this.layoutService.show();
 		this._orderLoader.Go(null, null, param)

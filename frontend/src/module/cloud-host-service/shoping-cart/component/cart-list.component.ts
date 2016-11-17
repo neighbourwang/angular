@@ -50,7 +50,7 @@ export class cartListComponent implements OnInit {
 
 			let totalPrice:number = 0;
 			cartList.forEach(cart => {
-				totalPrice += +cart.billingPeriod;
+				totalPrice += +cart.billingInfo.basicPrice;
 			})
 			this.totalPrice = totalPrice;
 		}).catch(e => {

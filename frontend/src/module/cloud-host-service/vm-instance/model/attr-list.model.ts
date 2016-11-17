@@ -15,12 +15,12 @@ class PayLoad {
     attrList : AttrList[] =  [];
     itemNo: string = "";
     productId: string = "";
-    quality: 1;
+    quality: number = 1;
     relyItemNo: string = "";
     relyType: string = "0";
     serviceType: string = "0";
     skuId: string = "";
-    totalPrice: 120;
+    totalPrice: number = 120;
 }
 
 export {
