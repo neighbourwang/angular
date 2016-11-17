@@ -43,7 +43,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "云主机订购",
         "method": "POST",
         "id": "hosts.order.add",
-        "url": "marketplace/authsec/shopping/cart/vm"
+        "url": "marketplace/authsec/shopping/purchase"
+    },
+    {
+        "desc": "添加到购物车",
+        "method": "POST",
+        "id": "shopping.cart.add",
+        "url": "marketplace/authsec/shopping/cart"
     },
     /*
      * Cloud-Host Instance List
@@ -89,6 +95,12 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "id": "shopping.orders.completion",
         "url": "marketplace/authsec/shopping/orders/completion"
+    },
+    {
+        "desc": "获取云硬盘列表",
+        "method": "POST",
+        "id": "disk.search.page",
+        "url": "marketplace/authsec/subinstance/itemlist/disk/search/page"
     },
     //镜像管理部分
     {
