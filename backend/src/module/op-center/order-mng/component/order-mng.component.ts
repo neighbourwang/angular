@@ -52,7 +52,7 @@ export class OrderMngComponent implements OnInit{
 		this._subregionLoader = new ItemLoader<SubRegion>(false, '可用区', "op-center.order-mng.avail-region-list.get", this.restApiCfg, this.restApi);
 
 		//配置订单状态
-		this._orderStatus = new DicLoader(this.restApiCfg, this.restApi, "ORDER", "STATUS");
+		this._orderStatus = new DicLoader(this.restApiCfg, this.restApi, "SUBINSTANCE", "STATUS");
 
 		//配置订单加载
 		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
@@ -198,17 +198,25 @@ export class OrderMngComponent implements OnInit{
 		this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderItemId}`);
 	}
 	
-	renew(orderId:string){
-		this.layoutService.show();
-		this._renewHanlder.Go(null, [{key:"orderId", value:orderId}])
-		.then(success=>{
-			this.layoutService.hide();
-			this.search();
-		})
-		.catch(err=>{
-			this.layoutService.hide();
-			this.showMsg(err);
-		});
+	renew(orderItem:SubInstanceResp){
+		if(orderItem.itemList.filter(n=>n.status == "2").length == orderItem.itemList.length)
+		{
+			this.layoutService.show();
+			this._renewHanlder.Go(null, [{key:"orderId", value:orderItem.orderId}])
+			.then(success=>{
+				this.layoutService.hide();
+				this.search();
+			})
+			.catch(err=>{
+				this.layoutService.hide();
+				this.showMsg(err);
+			});
+		}
+		else
+		{
+			this.showMsg(`只有"已激活"订单才能续订`);
+		}
+
 
 	}
 

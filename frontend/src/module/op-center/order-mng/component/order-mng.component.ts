@@ -74,7 +74,7 @@ export class OrderMngComponent implements OnInit{
 		this._departmentLoader = new ItemLoader<ListItem>(false, "部门列表", "op-center.order-mng.department-list.get", restApiCfg, restApi);
 		
 		//订单状态配置
-		this._orderStatusDic = new DicLoader(restApiCfg, restApi, "ORDER", "STATUS");
+		this._orderStatusDic = new DicLoader(restApiCfg, restApi, "SUBINSTANCE", "STATUS");
 
 		//产品类型配置
 		this._productTypeLoader = new DicLoader(restApiCfg, restApi, "GLOBAL", "SERVICE_TYPE")
