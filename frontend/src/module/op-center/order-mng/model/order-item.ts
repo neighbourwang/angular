@@ -37,7 +37,10 @@ export class OrderInstanceItem{
   status: string = null;//, optional): 订单状态 ,
   subscriptTime: number = null;//, optional): 购买周期
 
-  statusName: string = null;//状态转换显示
+  statusName: string = null;//用于界面显示
+  serviceTypeName: string = null;//产品类型名称
+  billingModeName: string = null;//计费模式名称
+  
   get oneTimePriceAndPrice():string{
     return `一次性费用:${this.oneTimePrice}
     费用:${this.price}`;
@@ -87,6 +90,8 @@ export class SubInstanceItemResp {
   }
 
   statusName: string = null;//用于界面显示
+  serviceTypeName: string = null;//产品类型名称
+  billingModeName: string = null;//计费模式名称
 }
 
 
