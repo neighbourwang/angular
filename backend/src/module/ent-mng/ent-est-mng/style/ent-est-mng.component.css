@@ -76,9 +76,7 @@
 .textLeft{
     text-align: left!important;
 }
-.mgl100{
-  margin-left:50px;
-}
+
 /*--------------radio单选框----------------*/
 .radio_:checked + label::after {
   content: '\2714';
@@ -322,7 +320,7 @@
     padding-left: 5px!important;
 }
 .input-control{
-    width: 250px;
+    width: 225px;
     display: inline-block;
     margin-right: 10px;
 }
