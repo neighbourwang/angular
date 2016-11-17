@@ -22,6 +22,7 @@ export class OrderMngComponent implements OnInit{
 	private _orderStatus:DicLoader = null;
 	private _orderLoader:ItemLoader<SubInstanceResp> = null;
 	private _renewHanlder:ItemLoader<any> = null;
+	private _billinModeDic:DicLoader = null;
 
 	private _param:OrderMngParam = new OrderMngParam();
 	private initDate:string = null;
@@ -32,6 +33,7 @@ export class OrderMngComponent implements OnInit{
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
 
+		this._billinModeDic = new DicLoader(restApiCfg, restApi, "BILLING_MODE", "TYPE");
 		//续订
 		this._renewHanlder = new ItemLoader<any>(false, "订单续订", "op-center.order-mng.order-renew.get", restApiCfg, restApi);
 		//配置企业列表加载
@@ -126,6 +128,9 @@ export class OrderMngComponent implements OnInit{
 		this._orderStatus.Go()
 		.then(success=>{
 			return this._productTypeLoader.Go();
+		})
+		.then(success=>{
+			return this._billinModeDic.Go();
 		})
 		.then(success=>{
 			return this.loadPlatform();
@@ -231,8 +236,14 @@ export class OrderMngComponent implements OnInit{
 		let list:Array<SubInstanceItemResp> = []
 		this._orderLoader.Items.map(n=>list = list.concat(n.itemList));
 		list.map(n=>{
-			n.statusName = this._orderStatus.Items.find(m=>m.value == n.status).displayValue as string;
-			n.serviceTypeName = this._productTypeLoader.Items.find(m=>m.value == n.serviceType).displayValue as string;
+			let item = this._orderStatus.Items.find(m=>m.value == n.status);
+			if(item) n.statusName = item.displayValue as string;
+
+			item = this._productTypeLoader.Items.find(m=>m.value == n.serviceType);
+			if(item) n.serviceTypeName = item.displayValue as string;
+
+			item = this._billinModeDic.Items.find(m=>m.value == n.billingMode);
+			if(item) n.billingModeName = item.displayValue as string;
 		});
 
 	}
