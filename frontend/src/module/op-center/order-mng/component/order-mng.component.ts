@@ -213,7 +213,7 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	search(pageNumber:number = 1){
-		this._param.enterpriseId = this._entId;
+		// this._param.enterpriseId = this._entId;
 		let param = _.extend({}, this._param);
 		param.pageParameter = {
 			currentPage:pageNumber

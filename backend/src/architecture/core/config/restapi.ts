@@ -553,7 +553,7 @@ export let RestApis: RestApiModel[] = [
    },{
        "desc": "订单续订",
        "id": "op-center.order-mng.order-renew.get",
-       "method": "POST",
+       "method": "GET",
        "url": "adminui/authsec/backend/order/{orderId}/renew"
    },
 

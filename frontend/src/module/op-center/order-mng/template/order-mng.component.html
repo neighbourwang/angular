@@ -4,8 +4,8 @@
 	<div class="page-content">
 		<div class="mgb20">
 			<ul class="nav nav-tabs">
-				<li  class="active"><a href="#">部门订单</a></li>
-				<li><a href="#">所有订单</a></li>
+				<li  [class.active]="_param.scope==0"><a (click)="_param.scope=0;">部门订单</a></li>
+				<li [class.active]="_param.scope==1"><a (click)="_param.scope=1">所有订单</a></li>
 			</ul>
 		</div>
 		<div class="table-container">
