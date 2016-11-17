@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi } from '../../../../architecture';
 
-import { VmList,HandleVm } from '../model/vm-list.model';
+import { QuiryDistList } from '../model/dist-list.model';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -44,17 +44,10 @@ export class cloudDriveServiceList {
         return request;
     }
 
-    handleVm(senData:HandleVm) : Promise<any> { 
-        const api = this.restApiCfg.getRestApi("hosts.instance.action");
-
-        const request = this.restApi.request(api.method, api.url, undefined, undefined, senData)
-                            .then(res => {
-                                if(res.resultCode !== "100"){
-                                    throw "";
-                                }
-                                return res.resultContent;
-                            });
-        return request;
+    getDistList(quiry:QuiryDistList) : Promise<any>{
+        const api = this.restApiCfg.getRestApi("disk.search.page");
+        return this.restApi.request(api.method, api.url, undefined, undefined, quiry);
     }
+
 
 }

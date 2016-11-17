@@ -4,6 +4,7 @@ class VlueList {
     attrValueCode?: string = "";
     attrDisplayValue?: string = "";
     attrValue?: any;
+    value?:string;
 }
 
 class OrderService {
@@ -22,7 +23,7 @@ class OrderList {
     bootsize: OrderService = new OrderService();
     bootstorage: OrderService = new OrderService();
     cpu: OrderService = new OrderService();
-    disk: OrderService = new OrderService();
+    // disk: OrderService = new OrderService();
     imagetype: OrderService = new OrderService();
     instancename: OrderService = new OrderService();
     mem: OrderService = new OrderService();
@@ -46,7 +47,7 @@ class SendModule {
     bootsize: VlueList = new VlueList();
     bootstorage: VlueList = new VlueList();
     cpu: VlueList = new VlueList();
-    disk: VlueList = new VlueList();
+    // disk: VlueList = new VlueList();
     imagetype: VlueList = new VlueList();
     instancename: VlueList = new VlueList();
     mem: VlueList = new VlueList();

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 import { cloudDriveServiceList } from '../service/cloud-drive-list.service'
 
-import { VmList, HandleVm } from '../model/vm-list.model';
+import { QuiryDistList, DistList } from '../model/dist-list.model';
 
 @Component({
 	selector: 'cloud-drive-list',
@@ -21,9 +21,7 @@ export class cloudDriveListComponent implements OnInit {
 	@ViewChild('notice')
 	private noticeDialog: NoticeComponent;
 
-	pageSize: number = 5;
 	totalPages: number = 0;
-	currPage: number = 1;
   
 	modalTitle: string = '';
 	modalMessage: string = '';
@@ -31,18 +29,19 @@ export class cloudDriveListComponent implements OnInit {
 
 	areaConfig = [];   //区域
 	superSearch: boolean = false;   //高级搜索开关
-	vmList: VmList[] = [];   //主机
-	handleData: HandleVm;   //发送操纵云主机的数据
+	quiryDistList : QuiryDistList;
+	distList : DistList[];
 
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
 		private service: cloudDriveServiceList
 	) {
-		this.handleData = new HandleVm();
+		this.quiryDistList = new QuiryDistList();
+		this.quiryDistList.pageParameter.size = 5;  //设置页数
 	}
 	ngOnInit() {
-		this.setArea();
+		// this.setArea();
 		this.setHostList();
 	}
 
@@ -54,7 +53,7 @@ export class cloudDriveListComponent implements OnInit {
 
 	setHostList(): void {
 		// this.layoutService.show();
-		this.service.getHostList(this.currPage, this.pageSize).then(res => {
+		this.service.getDistList(this.quiryDistList).then(res => {
 			if (res.resultCode !== "100") {
 				throw "";
 			}
@@ -62,7 +61,7 @@ export class cloudDriveListComponent implements OnInit {
 			this.totalPages = res.pageInfo.totalPage;
 			return res.resultContent;
 		}).then(list => {
-			this.vmList = list;
+			this.distList = list;
 		}).catch(error => {
 			// this.layoutService.hide();
 		});
@@ -75,24 +74,8 @@ export class cloudDriveListComponent implements OnInit {
 	}
 
 	//云主机的操作相关
-	handleVm(key: string, vm: VmList ,msg) {
-		this.layoutService.show();
-
-		this.handleData.uid = "";
-		this.handleData.id = vm.uuid;
-		this.handleData.actions = key;
-
-		this.service.handleVm(this.handleData).then(res => {
-			this.layoutService.hide();
-			// alert(msg+"成功！");
-			this.showNotice("云主机操作" ,msg+"成功！");
-
-			setTimeout(() => {   //延迟4秒执行 因为后端4秒同步一次状态
-				this.setHostList();
-			},4000)
-		}).catch(error => {
-			this.layoutService.hide();
-		})
+	handleVm() {
+		
 	}
 
 	goTo(url : string) {
@@ -125,11 +108,11 @@ export class cloudDriveListComponent implements OnInit {
 		page = page < 1 ? 1 : page;
 		page = page > this.totalPages ? this.totalPages : page;
 
-		if (this.currPage == page) {
+		if (this.quiryDistList.pageParameter.currentPage == page) {
 			return;
 		}
 
-		this.currPage = page;
+		this.quiryDistList.pageParameter.currentPage = page;
 		this.setHostList();
 	}
 }
