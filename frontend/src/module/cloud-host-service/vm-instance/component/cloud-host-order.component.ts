@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService } from '../../../../architecture';
@@ -16,8 +16,11 @@ export class cloudHostComponentOrder implements OnInit {
 
 	configs: OrderList;
 	payLoad: PayLoad;
+	payLoadArr : PayLoad[];  //最后提交的是个PayLoad数组
 	sendModule: SendModule;
 	setPassword: boolean = true;
+
+	@ViewChild('cartButton') cartButton;
 	// timeForever : boolean = false;
 
 	// rightFixed : boolean = false;   //让右侧配置起飞
@@ -59,10 +62,16 @@ export class cloudHostComponentOrder implements OnInit {
 		};
 	}
 
+	private itemNum:number = 0;
+	private makeItemNum():string {
+		return new Date().getTime() + "" + (this.itemNum++);
+	}
+
 	//把payLoad转换成提交的post对象
-	private payLoadFormat(): PayLoad {
+	private payLoadFormat(): PayLoad[] {
 		//特殊处理
-		this.sendModule.timeline.attrValue = parseInt(this.sendModule.timeline.attrValue);
+		console.log(this.sendModule.timeline)
+		this.sendModule.timeline.attrValue = parseInt(this.sendModule.timeline.value);
 
 		//临时处理 演示用
 		this.sendModule.storagesize.attrValue = "20";
@@ -73,8 +82,8 @@ export class cloudHostComponentOrder implements OnInit {
 			payloadList.push({
 				attrId: this.configs[v].attrId,   	//服务属性ID
 				attrCode: this.configs[v].attrCode,  	//服务属性CODE
-				attrDisplayValue: this.configs[v].attrDisplayValue, 	//服务属性Name
-				attrDisplayName: this.configs[v].attrDisplayValue, 	//服务属性Name
+				attrDisplayValue: this.sendModule[v].attrDisplayValue, 	//服务属性Name
+				attrDisplayName: this.configs[v].attrDisplayName, 	//服务属性Name
 				attrValueId: this.sendModule[v].attrValueId,     	//服务属性值ID
 				attrValue: this.sendModule[v].attrValue, 	//服务属性值
 				attrValueCode: this.sendModule[v].attrValueCode, 	//服务属性值
@@ -86,9 +95,14 @@ export class cloudHostComponentOrder implements OnInit {
 		this.payLoad.skuId = sku.skuId;
 		this.payLoad.productId = sku.productId;
 		this.payLoad.attrList = payloadList;
+		this.payLoad.itemNo = this.makeItemNum();
 
-		return this.payLoad;
+		this.payLoadArr = [];
+		this.payLoadArr.push(this.payLoad);
+
+		return this.payLoadArr;
 	}
+
 
 	setConfigList(): void {
 		this.layoutService.show();
@@ -142,8 +156,18 @@ export class cloudHostComponentOrder implements OnInit {
 	}
 
 	addCart() {   //加入购物车
-		let payLoad = this.payLoadFormat();   //获取最新的的payload的对象
-		console.log(payLoad)
+		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
+		console.log(payLoadArr, JSON.stringify(payLoadArr))
+		// console.log(JSON.stringify(payLoad))
+		this.layoutService.show();
+		this.service.addCart(payLoadArr).then(res => {
+			this.layoutService.hide();
+			alert("加入购物车成功！");
+			this.cartButton.setCartList();
+			// this.router.navigateByUrl("cloud-host-service/cloud-host-list");
+		}).catch(res => {
+			this.layoutService.hide();
+		})
 	}
 
 
@@ -164,11 +188,11 @@ export class cloudHostComponentOrder implements OnInit {
 	buyNow() {
 		this.layoutService.show();
 		this.checkInput();
-		let payLoad = this.payLoadFormat();   //获取最新的的payload的对象
-		// console.log(JSON.stringify(payLoad))
-		this.service.saveOrder(payLoad).then(res => {
+		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
+		console.log(JSON.stringify(payLoadArr))
+		this.service.saveOrder(payLoadArr).then(res => {
 			this.layoutService.hide();
-			this.router.navigateByUrl("cloud-host-service/cloud-host-list");
+			this.router.navigateByUrl("cloud-host-service/cart-order");
 		}).catch(res => {
 			this.layoutService.hide();
 		})

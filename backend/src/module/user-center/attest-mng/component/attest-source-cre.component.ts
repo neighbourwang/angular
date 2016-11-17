@@ -1,63 +1,225 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Component, ViewChild, OnInit } from "@angular/core";
+import { Router, ActivatedRoute, Params } from "@angular/router";
 
-import { LayoutService, ValidationService, PopupComponent } from '../../../../architecture';
+import { LayoutService, ValidationService, NoticeComponent } from "../../../../architecture";
+
+import { AttMngCreService } from "../service/attest-source-cre.service";
+
+import { Attest } from "../model/attest.model";
 
 @Component({
-    selector: 'attest-source-cre',
-    templateUrl: '../template/attest-source-cre.component.html',
+    selector: "attest-source-cre",
+    templateUrl: "../template/attest-source-cre.component.html",
     styleUrls: [],
     providers: []
 })
-
 export class AttestSourceCreComponent implements OnInit {
     constructor(
         private router: ActivatedRoute,
         private route: Router,
+        private service: AttMngCreService,
+        private layoutService: LayoutService
+    ) {
+    }
 
-        // private ProdDirDetailService: ProdDirDetailService,
-        // private ProdListService : ProdListService,
-        // private ProdDirListService: ProdDirListService,
-        // private PostProduct:PostProduct
-    ) { }
-    // @ViewChild('editPassWord')
-    // editPassWord: PopupComponent;
-    // @ViewChild('notice')
-    // notice: NoticeComponent;
+    noticeTitle = "";
+    noticeMsg = "";
     new:boolean=false;
-    edit: boolean = false;
-    editAcc: boolean = false;
+    @ViewChild("notice")
+    notice: NoticeComponent;
+    attest = new Attest();
+    edit = false;
+    editAcc = false;
+    testResult?: boolean;
+    type: string;
+
     title:string;
     ngOnInit() {
         // console.log(this.router.params);
         this.router.params.forEach((params: Params) => {
-            let id = +params['id'];
-            let type = params['type'];
-            console.log(type);
-            switch (type) {
-                case 'new':this.new=true; this.title='创建认证源'; break;
-                case 'edit': this.edit = true;  this.title='编辑认证源' ;break;
-                case 'editAcc': this.editAcc = true; this.title='编辑认证账户';  break;
+            const id = params["id"];
+            this.type = params["type"];
+            console.log(this.type);
+            switch (this.type) {
+            case "edit":
+                this.edit = true;
+                break;
+            case "editAcc":
+                this.editAcc = true;
+                break;
             }
-            // this.heroService.getHero(id)
-            //   .then(hero => this.hero = hero);
+
         });
     }
+
+    getAttestById(id: string) {
+        this.layoutService.show();
+        this.service.getAttest(id)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                        this.attest = response["resultContent"];
+                    } else {
+                        alert("Res sync error");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
     //编辑账号
     onEdit() {
-        // this.router.navigate(['user-center/person-acc-mng/person-acc-edit'])
+        if ($.trim(this.attest.name) === "") {
+            this.showAlert("必须先填写认证源名称！");
+            return false;
+        }
+        this.layoutService.show();
+        this.service.editAttest(this.attest)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                        this.showAlert("保存成功！");
+                    } else {
+                        alert("Res sync error");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
     }
-    //编辑密码
-    onEditPwd() {
-        // this.editPassWord.open('修改密码')
+
+    onEditAcc() {
+        if ($.trim(this.attest.userName) === "") {
+            this.showAlert("必须先填写用户名！");
+            return false;
+        }
+
+        if ($.trim(this.attest.passowrd) === "") {
+            this.showAlert("必须先填写密码！");
+            return false;
+        }
+
+        if ($.trim(this.attest.loginProp) === "") {
+            this.showAlert("必须先填写登录账户名属性！");
+            return false;
+        }
+        this.layoutService.show();
+        this.service.editAcc(this.attest)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                        this.showAlert("保存成功！");
+                        this.gotoList();
+                    } else {
+                        alert("Res sync error");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
     }
+
+    onCreate() {
+        if ($.trim(this.attest.name) === "") {
+            this.showAlert("必须先填写认证源名称！");
+            return false;
+        }
+
+        if ($.trim(this.attest.url) === "") {
+            this.showAlert("必须先填写URL地址！");
+            return false;
+        }
+
+        if ($.trim(this.attest.userName) === "") {
+            this.showAlert("必须先填写用户名！");
+            return false;
+        }
+
+        if ($.trim(this.attest.passowrd) === "") {
+            this.showAlert("必须先填写密码！");
+            return false;
+        }
+
+        if ($.trim(this.attest.loginProp) === "") {
+            this.showAlert("必须先填写登录账户名属性！");
+            return false;
+        }
+        this.layoutService.show();
+        this.service.create(this.attest)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                        this.showAlert("保存成功！");
+                        this.gotoList();
+                    } else {
+                        alert("Res sync error");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    testSource() {
+
+        if ($.trim(this.attest.url) === "") {
+            this.showAlert("必须先填写URL地址！");
+            return false;
+        }
+
+        if ($.trim(this.attest.userName) === "") {
+            this.showAlert("必须先填写用户名！");
+            return false;
+        }
+
+        if ($.trim(this.attest.passowrd) === "") {
+            this.showAlert("必须先填写密码！");
+            return false;
+        }
+
+        this.layoutService.show();
+        this.service.testAttest(this.attest)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.testResult = true;
+                    } else {
+                        this.testResult = false;
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
     cancel() {
-        this.route.navigate(['user-center/attest-mng/attest-mng'])
+        this.gotoList();
     }
-    otEditPwd() {
+
+    gotoList() {
+        this.route.navigate(["user-center/attest-mng/attest-mng"]);
+    }
+
+    showAlert(msg: string): void {
+        this.layoutService.hide();
+
+        this.noticeTitle = "提示";
+        this.noticeMsg = msg;
+        this.notice.open();
+    }
+
+    showConfirm(msg: string): void {
 
     }
-    ccf() {
 
+    onRejected(reason: any) {
+        this.layoutService.hide();
+        console.log(reason);
+        this.showAlert("获取数据失败！");
     }
 }

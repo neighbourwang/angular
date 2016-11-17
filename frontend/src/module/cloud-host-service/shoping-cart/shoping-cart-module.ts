@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 // common
 import { CommonComponentModule } from '../../../architecture';
+import { PipeModule } from '../../../architecture';
 
 //routing
 
@@ -22,7 +23,8 @@ import { cartListService } from './service/cart-list.service';
 @NgModule({
     imports: [
         ShopingCartRouting,
-        CommonComponentModule
+        CommonComponentModule,
+        PipeModule
         // MyDatePickerModule
         // TabsModule
         // TreeModule

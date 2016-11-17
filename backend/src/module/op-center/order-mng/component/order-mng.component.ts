@@ -22,6 +22,7 @@ export class OrderMngComponent implements OnInit{
 	private _orderStatus:DicLoader = null;
 	private _orderLoader:ItemLoader<SubInstanceResp> = null;
 	private _renewHanlder:ItemLoader<any> = null;
+	private _billinModeDic:DicLoader = null;
 
 	private _param:OrderMngParam = new OrderMngParam();
 	private initDate:string = null;
@@ -32,6 +33,7 @@ export class OrderMngComponent implements OnInit{
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
 
+		this._billinModeDic = new DicLoader(restApiCfg, restApi, "BILLING_MODE", "TYPE");
 		//续订
 		this._renewHanlder = new ItemLoader<any>(false, "订单续订", "op-center.order-mng.order-renew.get", restApiCfg, restApi);
 		//配置企业列表加载
@@ -50,7 +52,7 @@ export class OrderMngComponent implements OnInit{
 		this._subregionLoader = new ItemLoader<SubRegion>(false, '可用区', "op-center.order-mng.avail-region-list.get", this.restApiCfg, this.restApi);
 
 		//配置订单状态
-		this._orderStatus = new DicLoader(this.restApiCfg, this.restApi, "ORDER", "STATUS");
+		this._orderStatus = new DicLoader(this.restApiCfg, this.restApi, "SUBINSTANCE", "STATUS");
 
 		//配置订单加载
 		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
@@ -128,6 +130,9 @@ export class OrderMngComponent implements OnInit{
 			return this._productTypeLoader.Go();
 		})
 		.then(success=>{
+			return this._billinModeDic.Go();
+		})
+		.then(success=>{
 			return this.loadPlatform();
 		})
 		.then(success=>{
@@ -176,7 +181,7 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	loadSubregion(){
-		this._subregionLoader.Go(null, [{key:'_id', value:this._param.region}])
+		this._subregionLoader.Go(null, [{key:'_id', value:this._param.platformId}])
 		.then(success=>{
 			this._param.zoneId = null;
 		},err=>{
@@ -193,17 +198,25 @@ export class OrderMngComponent implements OnInit{
 		this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderItemId}`);
 	}
 	
-	renew(orderId:string){
-		this.layoutService.show();
-		this._renewHanlder.Go(null, [{key:"orderId", value:orderId}])
-		.then(success=>{
-			this.layoutService.hide();
-			this.search();
-		})
-		.catch(err=>{
-			this.layoutService.hide();
-			this.showMsg(err);
-		});
+	renew(orderItem:SubInstanceResp){
+		if(orderItem.itemList.filter(n=>n.status == "2").length == orderItem.itemList.length)
+		{
+			this.layoutService.show();
+			this._renewHanlder.Go(null, [{key:"orderId", value:orderItem.orderId}])
+			.then(success=>{
+				this.layoutService.hide();
+				this.search();
+			})
+			.catch(err=>{
+				this.layoutService.hide();
+				this.showMsg(err);
+			});
+		}
+		else
+		{
+			this.showMsg(`只有"已激活"订单才能续订`);
+		}
+
 
 	}
 
@@ -218,17 +231,37 @@ export class OrderMngComponent implements OnInit{
 		this._orderLoader.Go(pageNumber, null, param)
 		.then(success=>{
 			this.layoutService.hide();
+
+			//翻译状态
+			this.updateStatusName();
 		},err=>{
 			this.layoutService.hide();
 		});
 	}
 
+	//翻译订单状态
+	updateStatusName(){
+		let list:Array<SubInstanceItemResp> = []
+		this._orderLoader.Items.map(n=>list = list.concat(n.itemList));
+		list.map(n=>{
+			let item = this._orderStatus.Items.find(m=>m.value == n.status);
+			if(item) n.statusName = item.displayValue as string;
+
+			item = this._productTypeLoader.Items.find(m=>m.value == n.serviceType);
+			if(item) n.serviceTypeName = item.displayValue as string;
+
+			item = this._billinModeDic.Items.find(m=>m.value == n.billingMode);
+			if(item) n.billingModeName = item.displayValue as string;
+		});
+
+	}
+
 	onCreateTimeChange($event){
-		this._param.createTime = $event.formatted;
+		this._param.createDate = $event.formatted;
 	}
 
 	onExpireTimeChange($event){
-		this._param.expireTime = $event.formatted;
+		this._param.expireDate = $event.formatted;
 	}
 
 	//翻页

@@ -553,8 +553,8 @@ export let RestApis: RestApiModel[] = [
    },{
        "desc": "订单续订",
        "id": "op-center.order-mng.order-renew.get",
-       "method": "POST",
-       "url": "adminui/authsec/backend/order/{orderId}/renew"
+       "method": "GET",
+       "url": "adminui/authsec/order/{orderId}/renew"
    },
 
    //<!--后台-运营中心-订单管理-->
@@ -799,61 +799,61 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取认证源列表",
         "id": "user-center.attest-mng.list",
         "method": "GET",
-        "url": "adminui/authsec/ldaps/page/{page}/size/{size}"
+        "url": "adusermgmt/authsec/ldaps/page/{page}/size/{size}"
     },
     {
         "desc": "认证源测试",
         "id": "user-center.attest-mng.ldap.test",
         "method": "POST",
-        "url": "adminui/authsec/ldap/test"
+        "url": "adusermgmt/authsec/ldap/test"
     },
     {
         "desc": "创建认证源",
         "id": "user-center.attest-mng.ldap.create",
         "method": "POST",
-        "url": "adminui/authsec/ldap"
+        "url": "adusermgmt/authsec/ldap"
     },
     {
         "desc": "获取认证源详情",
         "id": "user-center.attest-mng.ldap.get",
         "method": "GET",
-        "url": "adminui/authsec/ldap/{id}"
+        "url": "adusermgmt/authsec/ldap/{id}"
     },
     {
         "desc": "编辑认证源",
         "id": "user-center.attest-mng.ldap.edit",
         "method": "PUT",
-        "url": "adminui/authsec/ldap/{id}"
+        "url": "adusermgmt/authsec/ldap/{id}"
     },
     {
         "desc": "修改认证帐户",
         "id": "user-center.attest-mng.ldap.editacc",
         "method": "PUT",
-        "url": "adminui/authsec/ldap/{id}/account"
+        "url": "adusermgmt/authsec/ldap/{id}/account"
     },
     {
         "desc": "删除认证源",
         "id": "user-center.attest-mng.ldap.delete",
         "method": "DELETE",
-        "url": "adminui/authsec/ldap/{id}"
+        "url": "adusermgmt/authsec/ldap/{id}"
     },
     {
         "desc": "启用/禁用认证源",
         "id": "user-center.attest-mng.ldap.edit.status",
         "method": "PUT",
-        "url": "/adminui/authsec/ldap/{id}/status/{status}"
+        "url": "adusermgmt/authsec/ldap/{id}/status/{status}"
     },
     {
         "desc": "查询AD用户",
         "id": "user-center.attest-mng.ldap.adusers.list",
         "method": "POST",
-        "url": "adminui/authsec/ldap/{id}/adusers/page/{page}/size/{size}"
+        "url": "adusermgmt/authsec/ldap/{id}/adusers/page/{page}/size/{size}"
     },
     {
         "desc": "认证源简单列表（下拉框）",
         "id": "user-center.attest-mng.ldap.attest.simple.list",
         "method": "GET",
-        "url": "adminui/authsec/ldaps/simple"
+        "url": "adusermgmt/authsec/ldaps/simple"
     },
     {
         "desc": "创建企业认证源",

@@ -16,7 +16,7 @@ html：
 ```html
 <count-bar 
             [step]=100 
-            [max]=1025 
+            [max]=2000000 
             [min]=0 
             [disabled]=false 
             [value]=0 #varName   (output)="outputValue($event)"></count-bar>

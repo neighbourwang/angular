@@ -48,11 +48,17 @@ export class OrderMngComponent implements OnInit{
 	private _isCanceled:boolean = false;
 	private _cancelHandler:ItemLoader<any> = null;
 
+	private _entId:string = "191af465-b5dc-4992-a5c9-459e339dc719";
+
+	private _billinModeDic:DicLoader = null;
+
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
+
+		this._billinModeDic = new DicLoader(restApiCfg, restApi, "BILLING_MODE", "TYPE");
 
 		//退订
 		this._cancelHandler = new ItemLoader<any>(false, "退订", "op-center.order-mng.order-cancel.get", restApiCfg, restApi);
@@ -68,7 +74,7 @@ export class OrderMngComponent implements OnInit{
 		this._departmentLoader = new ItemLoader<ListItem>(false, "部门列表", "op-center.order-mng.department-list.get", restApiCfg, restApi);
 		
 		//订单状态配置
-		this._orderStatusDic = new DicLoader(restApiCfg, restApi, "ORDER", "STATUS");
+		this._orderStatusDic = new DicLoader(restApiCfg, restApi, "SUBINSTANCE", "STATUS");
 
 		//产品类型配置
 		this._productTypeLoader = new DicLoader(restApiCfg, restApi, "GLOBAL", "SERVICE_TYPE")
@@ -181,7 +187,7 @@ export class OrderMngComponent implements OnInit{
 	loadDepartment():Promise<any>{
 		//测试企业1
 		return new Promise((resovle, reject)=>{
-			this._departmentLoader.Go(null, [{key:"enterpriseId", value:"191af465-b5dc-4992-a5c9-459e339dc719"}])
+			this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._entId}])
 			.then(success=>{
 				resovle(success);
 			},err=>{
@@ -211,21 +217,41 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	search(pageNumber:number = 1){
+		// this._param.enterpriseId = this._entId;
 		let param = _.extend({}, this._param);
 		param.pageParameter = {
 			currentPage:pageNumber
 			,size:10
 		};
 
+
 		this.layoutService.show();
 		this._orderLoader.Go(null, null, param)
 		.then(success=>{
 			this.layoutService.hide();
+			this.updateStatusName();
 		})
 		.catch(err=>{
 			this.layoutService.hide();
 			this.showMsg(err);
 		})
+	}
+
+	//翻译订单状态
+	updateStatusName(){
+		let list:Array<SubInstanceItemResp> = []
+		this._orderLoader.Items.map(n=>list = list.concat(n.itemList));
+		list.map(n=>{
+			let item = this._orderStatusDic.Items.find(m=>m.value == n.status);
+			if(item) n.statusName = item.displayValue as string;
+
+			item = this._productTypeLoader.Items.find(m=>m.value == n.serviceType);
+			if(item) n.serviceTypeName = item.displayValue as string;
+
+			item = this._billinModeDic.Items.find(m=>m.value == n.billingMode);
+			if(item) n.billingModeName = item.displayValue as string;
+		});
+
 	}
 
 	changePage(pageNumber:number)

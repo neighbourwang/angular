@@ -22,7 +22,7 @@
                 <span class="caret"></span>
             </button>-->
 			<select class="form-control" [(ngModel)]="platformId">
-                 <option *ngFor="let item of platformsList;" [value]="item.id">{{item.name}}</option>
+                 <option *ngFor="let item of platformsList;" [value]="item?.id">{{item?.name}}</option>
             </select>
 		</div>
 		<span class="pull-right" style="margin-left: 20px; line-height: 34px">平台：</span>
@@ -32,7 +32,7 @@
                 <span class="caret"></span>
             </button>-->
 			<select class="form-control" [(ngModel)]="enterpriseId">
-                 <option *ngFor="let item of enterpriseList;" [value]="item.id">{{item.name}}</option>
+                 <option *ngFor="let item of enterpriseList;" [value]="item?.id">{{item?.name}}</option>
             </select>
 		</div>
 		<span class="pull-right" style="margin-left: 20px;line-height: 34px">企业：</span>
@@ -43,7 +43,7 @@
                 <span class="caret"></span>
             </button>-->
 			<select class="form-control" [(ngModel)]="prodDirId">
-                 <option *ngFor="let item of prodDirList;" [value]="item.id">{{item.name}}</option>
+                 <option *ngFor="let item of prodDirList;" [value]="item?.id">{{item?.name}}</option>
             </select>
 		</div>
 		<span class="pull-right" style="line-height: 34px">产品目录：</span>

@@ -7,6 +7,7 @@ import {
 } from "../../../../architecture";
 
 import { Attest } from "../model/attest.model";
+
 import { AttMngService } from "../service/attest-mng.service"
 
 @Component({

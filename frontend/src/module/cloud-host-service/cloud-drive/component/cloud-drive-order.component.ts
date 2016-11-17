@@ -32,8 +32,8 @@ export class cloudDriveComponentOrder implements OnInit {
 	};
 
 	ngOnInit() {
-		this.layoutService.show();
-		this.setConfigList();
+		// this.layoutService.show();
+		// this.setConfigList();
 		this.initPopover();
 	}
 

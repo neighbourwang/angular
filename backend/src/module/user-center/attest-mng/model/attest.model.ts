@@ -1,5 +1,5 @@
 export class Attest {
-    id: string;
+    id: string="";
     name: string;
     desc: string;
     url: string;

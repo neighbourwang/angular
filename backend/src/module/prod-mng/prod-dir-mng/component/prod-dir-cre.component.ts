@@ -158,8 +158,10 @@ export class ProdDirCreComponent implements OnInit {
             return;
         }
         this.prodDir.serviceTemplateId='';
+        this.LayoutService.show();
         this.CreateProdDirService.postVmProdDir(this.prodDir).then(response => {
-            console.log(response)
+            console.log(response);
+            this.LayoutService.hide();
             this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
         }).catch(err => {
             console.error(err);
