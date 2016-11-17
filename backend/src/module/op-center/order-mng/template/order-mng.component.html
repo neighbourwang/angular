@@ -108,7 +108,7 @@
 					<td><button class="fox-cloud-button  fox-cloud-button-green  pull-right"  (click)="showDetail(orderItem.orderId)">详&nbsp;&nbsp;&nbsp;情</button></td>
 				</tr>
 				<tr *ngFor="let prodItem of orderItem.itemList">
-					<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
+					<td style="text-align: left;padding-top: 30px;padding-left: 40px;width:220px!important; ">
 						<ul>
 							<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 						</ul>
@@ -116,10 +116,10 @@
 					<td>{{prodItem.billingModeName}}</td>
 					<td>{{prodItem.period}}</td>
 					<td>{{prodItem.quantity}}</td>
-					<td class="rightAlign">{{prodItem.oneTimePriceAndPrice}}</td>
-					<td class="rightAlign">{{prodItem.serviceTypeName}}</td>
-					<td class="rightAlign validateInfo">{{prodItem.statusName}}</td>
-					<td class="rightAlign">{{prodItem.createDate}}</td>
+					<td style="width: 150px!important;">{{prodItem.oneTimePriceAndPrice}}</td>
+					<td >{{prodItem.serviceTypeName}}</td>
+					<td class="validateInfo">{{prodItem.statusName}}</td>
+					<td >{{prodItem.createDate}}</td>
 					<td>{{prodItem.expireDate}}
 					</td>
 				</tr>
