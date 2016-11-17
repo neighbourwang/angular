@@ -13,20 +13,20 @@
             <td class="text-center">数量</td>
         </tr>
         <tr colspan="9" class="table-gap"></tr>
+        <ng-container *ngFor="let order of orderList;">
         <tr>
             <td colspan="9" class="table-line-head">
-                <font class="font-green">订单号：12323543556 创建时间：2016-11-07 22:00</font>
+                <font class="font-green">订单号：{{order.itemNo}} 创建时间：{{forMatData(order.createDate)}}</font>
             </td>
         </tr>
-        <tr>
-            <td>
-                <p class="line">可用区：可用区B </p>
-                <p class="line">实例规格：可用区B </p>
-                <p class="line">可用区：可用区B </p>
-                <p class="line">可用区：可用区B </p>
-                <p class="line">可用区：可用区B </p>
-                <p class="line">可用区：可用区B </p>
-                <p class="line">可用区：可用区B </p>
+        <tr *ngFor="let items of order.itemList;">
+            <td style="width: 500px">
+                <table class="cart-info">
+                    <tr *ngFor="let attr of items.attrList;">
+                        <td style="width: 150px">{{attr.attrDisplayName}} : </td>
+                        <td>{{attr.attrDisplayValue}}</td>
+                    </tr>
+                </table>
             </td>
             <td class="text-center table-text-middle">nova</td>
             <td class="text-center table-text-middle">active</td>
@@ -35,56 +35,9 @@
             <td class="text-center table-text-middle"><font class="font-green">审批中</font></td> 
             <td class="text-center table-text-middle">2017-6-11 10:1:2</td> 
             <td class="text-center table-text-middle">2017-6-11 10:1:2</td> 
-            <td class="text-center table-text-middle" rowspan="3">
-                1 台
-            </td>
+            <td class="text-center table-text-middle">{{items.quantity}}台</td>
         </tr>
-        <tr>
-            <td class="text-center">active</td>
-            <td class="text-center">nova</td>
-            <td class="text-center">active</td>
-            <td class="text-center">2017-6-11 10:1:2</td>
-            <td class="text-center">生产</td>
-            <td class="text-center table-text-middle"><font class="font-green">审批中</font></td> 
-            <td class="text-center table-text-middle">2017-6-11 10:1:2</td> 
-            <td class="text-center table-text-middle">2017-6-11 10:1:2</td> 
-        </tr>
-        <tr>
-            <td class="text-center">active</td>
-            <td class="text-center">nova</td>
-            <td class="text-center">active</td>
-            <td class="text-center">2017-6-11 10:1:2</td>
-            <td class="text-center">生产</td>
-            <td class="text-center table-text-middle"><font class="font-green">审批中</font></td> 
-            <td class="text-center table-text-middle">2017-6-11 10:1:2</td> 
-            <td class="text-center table-text-middle">2017-6-11 10:1:2</td> 
-        </tr>
-        <tr>
-            <td colspan="9" class="table-line-head">
-                <font class="font-green">订单号：22323543556 创建时间：2016-11-07 22:00</font>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p class="line">可用区：可用区B </p>
-                <p class="line">实例规格：可用区B </p>
-                <p class="line">可用区：可用区B </p>
-                <p class="line">可用区：可用区B </p>
-                <p class="line">可用区：可用区B </p>
-                <p class="line">可用区：可用区B </p>
-                <p class="line">可用区：可用区B </p>
-            </td>
-            <td class="text-center table-text-middle">nova</td>
-            <td class="text-center table-text-middle">active</td>
-            <td class="text-center table-text-middle">2017-6-11 10:1:2</td>
-            <td class="text-center table-text-middle">无</td> 
-            <td class="text-center table-text-middle"><font class="font-green">审批中</font></td> 
-            <td class="text-center table-text-middle">2017-6-11 10:1:2</td> 
-            <td class="text-center table-text-middle">2017-6-11 10:1:2</td> 
-            <td class="text-center table-text-middle" rowspan="3">
-                1 台
-            </td>
-        </tr>
+        </ng-container>
     </table>
     <div class="shoping-bottom clear-float">
     	<span class="float-left pdt10 text-tip">您的订单已生成，可以进入管理控制台查看订单状态及使用相关资源<br>如需审批，则需要订单审批通过后，才能正式生效。</span>

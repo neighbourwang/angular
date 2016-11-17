@@ -55,7 +55,7 @@ export const IpMngModel_mock = {
         "freeIPCount": "" //剩余ip数量      
     },
     {
-        "id": "ef349044-3bfb-4b09-b804-30954b084004", //网络端口组ID
+        "id": "ef349044-3bfb-4b09-b804-30954b084005", //网络端口组ID
         "dataCenter": "DC2", //数据中心,VC中定义的
         "clusterName": "Cluster2", //集群名称
         "portGroup": "dv2 c2 pg1", //标准端口组名称

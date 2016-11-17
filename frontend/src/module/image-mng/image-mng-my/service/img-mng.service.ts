@@ -7,6 +7,7 @@ import "rxjs/add/operator/toPromise";
 
 import { imageList, AreaList_mock } from "../model/images-mock.model";
 import { Image } from "../model/image.model";
+import { CriteriaQuery } from "../model/criteria-query.model";
 
 @Injectable()
 export class ImgMngService_my {
@@ -21,20 +22,23 @@ export class ImgMngService_my {
         this.restApiCfg.loadCfgData();
     }
 
-    getImages():Promise<any>{
+    getImages(criteriaQuery:CriteriaQuery, pageIndex: number, pageSize:number):Promise<any>{
         const pathParams=[
             {
                 key:"page",
-                value:1
+                value:pageIndex
             },
             {
                 key:"size",
-                value:1
+                value:pageSize
             }
         ]
-        const api = this.restApiCfg.getRestApi("image.mng.list");
-        return this.restApi.request(api.method, api.url, pathParams, null, null);
-    }
+        // const api = this.restApiCfg.getRestApi("image.mng.list");
+        // return this.restApi.request(api.method, api.url, pathParams, null, {"criteriaQuery":criteriaQuery});
+        
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => imageList);
+
+}
 
     getImagesByMock():Promise<any>{
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => imageList);

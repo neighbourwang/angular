@@ -9,7 +9,7 @@ import { ListItem
 	,ProductBillingItem
 	, RenewSetting
 	, PurchaseUnit} from '../model'
-
+import * as _ from 'underscore';
 
 @Component({
 	selector: 'order-mng',
@@ -20,6 +20,8 @@ import { ListItem
 export class OrderMngComponent implements OnInit{
 	@ViewChild("notice")
   	private _notice: NoticeComponent;
+
+	  private isForerver:boolean = false;
 
   	//当前选择的行
   	private selectedOrderItem: SubInstanceResp = null;
@@ -45,6 +47,8 @@ export class OrderMngComponent implements OnInit{
 	//退订
 	private _isCanceled:boolean = false;
 	private _cancelHandler:ItemLoader<any> = null;
+
+	private _entId:string = "191af465-b5dc-4992-a5c9-459e339dc719";
 
 	constructor(
 		private layoutService: LayoutService,
@@ -179,7 +183,7 @@ export class OrderMngComponent implements OnInit{
 	loadDepartment():Promise<any>{
 		//测试企业1
 		return new Promise((resovle, reject)=>{
-			this._departmentLoader.Go(null, [{key:"enterpriseId", value:"191af465-b5dc-4992-a5c9-459e339dc719"}])
+			this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._entId}])
 			.then(success=>{
 				resovle(success);
 			},err=>{
@@ -208,9 +212,17 @@ export class OrderMngComponent implements OnInit{
 		this._notice.open("系统提示", msg);
 	}
 
-	search(){
+	search(pageNumber:number = 1){
+		this._param.enterpriseId = this._entId;
+		let param = _.extend({}, this._param);
+		param.pageParameter = {
+			currentPage:pageNumber
+			,size:10
+		};
+
+
 		this.layoutService.show();
-		this._orderLoader.Go(1, null, this._param)
+		this._orderLoader.Go(null, null, param)
 		.then(success=>{
 			this.layoutService.hide();
 		})
@@ -220,9 +232,14 @@ export class OrderMngComponent implements OnInit{
 		})
 	}
 
+	changePage(pageNumber:number)
+	{
+		this.search(pageNumber);
+	}
+
 	onPlatformChanged(){
 		this.layoutService.show();
-		this._regionLoader.Go(null, [{key:"_id", value:this._param.region}])
+		this._regionLoader.Go(null, [{key:"_id", value:this._param.platformId}])
 		.then(success=>{
 			this.layoutService.hide();
 		})
@@ -233,11 +250,11 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	onCreateTimeChange($event){
-		this._param.createTime = $event.formatted;
+		this._param.createDate = $event.formatted;
 	}
 
 	onExpireTimeChange($event){
-		this._param.expireTime = $event.formatted;
+		this._param.expireDate = $event.formatted;
 	}
 
 	//续订
@@ -263,4 +280,8 @@ export class OrderMngComponent implements OnInit{
 			this.showMsg(err);
 		})
 	}
+
+selectForever(){
+      this.isForerver = !this.isForerver;
+}
 }

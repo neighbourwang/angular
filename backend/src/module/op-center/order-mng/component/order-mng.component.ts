@@ -176,7 +176,7 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	loadSubregion(){
-		this._subregionLoader.Go(null, [{key:'_id', value:this._param.region}])
+		this._subregionLoader.Go(null, [{key:'_id', value:this._param.platformId}])
 		.then(success=>{
 			this._param.zoneId = null;
 		},err=>{
@@ -224,11 +224,11 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	onCreateTimeChange($event){
-		this._param.createTime = $event.formatted;
+		this._param.createDate = $event.formatted;
 	}
 
 	onExpireTimeChange($event){
-		this._param.expireTime = $event.formatted;
+		this._param.expireDate = $event.formatted;
 	}
 
 	//翻页

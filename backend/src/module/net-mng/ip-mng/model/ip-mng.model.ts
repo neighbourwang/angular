@@ -11,4 +11,6 @@ export class IpMngModel {
         ipCount: string; //ip总数量
         usedIPCount: string; //已使用ip数量
         freeIPCount: string; //剩余ip数量
+
+	checked: boolean = false;//ui operation
 }

@@ -9,8 +9,8 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">云平台</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label *ngFor="let value of configs.platform.valueList;" (click)="sendModule.platform = value" class="btn btn-default" [ngClass]="{'active': sendModule.platform.id === value.id}">
-							<input type="radio" name="location" autocomplete="off"> {{ value.displayName }}
+						<label *ngFor="let value of configs.platform.valueList;" (click)="sendModule.platform = value" class="btn btn-default" [ngClass]="{'active': sendModule.platform.attrValueId === value.attrValueId}">
+							<input type="radio" name="location" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
 					<div class="col-md-2"></div>
@@ -18,10 +18,10 @@
 					<div class="col-md-2 content-title">可用区</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label 
-							*ngFor="let value of configs.zone.mapValueList[sendModule.platform.id];" 
+							*ngFor="let value of configs.zone.mapValueList[sendModule[getRelyName(configs.zone.relyAttrId)].attrValueId];" 
 							(click)="sendModule.zone = value" 
-							class="btn btn-default" [ngClass]="{'active': sendModule.zone.id === value.id}">
-							<input type="radio" name="zone" autocomplete="off"> {{ value.displayName }}
+							class="btn btn-default" [ngClass]="{'active': sendModule.zone.attrValueId === value.attrValueId}">
+							<input type="radio" name="zone" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
 				</div>
@@ -36,7 +36,7 @@
 						<select [(ngModel)]="sendModule.networktype" (change)="sendModule.networktype = value" class="form-control">
 							<option
 							 *ngFor="let value of configs.networktype.valueList;"
-							 [ngValue]="value" >{{ value.displayName }}</option>
+							 [ngValue]="value" >{{ value.attrDisplayValue }}</option>
 						</select>
 					</div>
 					<div class="col-md-2"></div>
@@ -46,7 +46,7 @@
 						<select [(ngModel)]="sendModule.securitygroup" (change)="sendModule.securitygroup = value" class="form-control">
 							<option
 							 *ngFor="let value of configs.securitygroup.valueList;"
-							 [ngValue]="value" >{{ value.displayName }}</option>
+							 [ngValue]="value" >{{ value.attrDisplayValue }}</option>
 						</select>
 					</div>
 					<div class="col-md-2"></div>
@@ -60,14 +60,23 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">CPU</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label *ngFor="let value of configs.cpu.valueList;" (click)="sendModule.cpu = value;" class="btn btn-default" [ngClass]="{'active': sendModule.cpu.id === value.id}">
-							<input type="radio" name="cpu" autocomplete="off"> {{ value.displayName }}
+
+						<label 
+							*ngFor="let value of configs.cpu.mapValueList[sendModule[getRelyName(configs.cpu.relyAttrId)].attrValueId];" 
+							(click)="sendModule.cpu = value" 
+							class="btn btn-default" [ngClass]="{'active': sendModule.cpu.attrValueId === value.attrValueId}">
+							<input type="radio" name="cpu" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
 					<div class="col-md-2 content-title">内存</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label *ngFor="let value of configs.mem.valueList;" (click)="sendModule.mem = value;" class="btn btn-default" [ngClass]="{'active': sendModule.mem.id === value.id}">
-							<input type="radio" name="mem" autocomplete="off"> {{ value.displayName }}
+						<label class="btn btn-default" *ngIf="!sendModule.cpu.attrValueId">请先选择CPU</label>
+
+						<label 
+							*ngFor="let value of configs.mem.mapValueList[sendModule[getRelyName(configs.mem.relyAttrId)].attrValueId];" 
+							(click)="sendModule.mem = value" 
+							class="btn btn-default" [ngClass]="{'active': sendModule.mem.attrValueId === value.attrValueId}">
+							<input type="radio" name="mem" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
 				</div>
@@ -81,24 +90,27 @@
 					<div class="col-md-10">
 						<select [(ngModel)]="sendModule.startupsource" (change)="sendModule.startupsource = value" class="form-control">
 							<option
-							 *ngFor="let value of configs.startupsource.valueList;"
-							 [ngValue]="value" >{{ value.displayName }}</option>
+							 *ngFor="let value of configs.startupsource.mapValueList[sendModule[getRelyName(configs.startupsource.relyAttrId)].attrValueId];"
+							 [ngValue]="value" >{{ value.attrDisplayValue }}</option>
 						</select>
 					</div>
 					<div class="col-md-2"></div>
 					<div class="col-md-10 text-tip">公共镜像即基础操作系统，自定义镜像为企业根据基础操作系统做过额外配置或优化后的操作系统</div>
 					<div class="col-md-2 content-title">镜像类型</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label *ngFor="let value of configs.imagetype.valueList;" (click)="sendModule.imagetype = value;" class="btn btn-default" [ngClass]="{'active': sendModule.imagetype.id === value.id}">
-							<input type="radio" name="imagetype" autocomplete="off"> {{ value.displayName }}
+						<label class="btn btn-default" *ngIf="!sendModule[getRelyName(configs.imagetype.relyAttrId)].attrValueId">请先选择启动源</label>
+						<label 
+							*ngFor="let value of configs.imagetype.mapValueList[sendModule[getRelyName(configs.imagetype.relyAttrId)].attrValueId];" 
+							(click)="sendModule.imagetype = value;" class="btn btn-default" [ngClass]="{'active': sendModule.imagetype.attrValueId === value.attrValueId}">
+							<input type="radio" name="imagetype" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
 					<div class="col-md-2 content-title">镜像列表</div>
 					<div class="col-md-10">
 						<select [(ngModel)]="sendModule.os" (change)="sendModule.os = value" class="form-control">
 							<option
-							 *ngFor="let value of configs.os.valueList;"
-							 [ngValue]="value" >{{ value.displayName }}</option>
+							 *ngFor="let value of configs.os.mapValueList[sendModule[getRelyName(configs.os.relyAttrId)].attrValueId];"
+							 [ngValue]="value" >{{ value.attrDisplayValue }}</option>
 						</select>
 					</div>
 				</div>
@@ -112,14 +124,14 @@
 						<div class="col-md-2 content-title">启动盘</div>
 						<div class="col-md-10 no-padding">
 							<div class="col-md-3 no-padding">
-								<label class="btn btn-default" *ngIf="!sendModule.zone.id">请先选择可用区</label>
+								<label class="btn btn-default" *ngIf="!sendModule.zone.attrValueId">请先选择可用区</label>
 								<select 
-									*ngIf="sendModule.zone.id" 
+									*ngIf="sendModule.zone.attrValueId" 
 									[(ngModel)]="sendModule.bootstorage" 
 									(change)="sendModule.bootstorage = value" class="form-control">
 										<option
-										*ngFor="let value of configs.bootstorage.mapValueList[sendModule.zone.id];" 
-										[ngValue]="value" >{{ value.displayName }}</option>
+										*ngFor="let value of configs.bootstorage.mapValueList[sendModule.zone.attrValueId];" 
+										[ngValue]="value" >{{ value.attrDisplayValue }}</option>
 								</select>
 							</div>
 							<div class="col-md-1 content-title2">容量</div>
@@ -130,7 +142,7 @@
 								<!-- <select [(ngModel)]="sendModule.bootsize" (change)="sendModule.bootsize = value" class="form-control">
 									<option
 									*ngFor="let value of configs.bootsize.valueList;"
-									[ngValue]="value" >{{ value.displayName }}</option>
+									[ngValue]="value" >{{ value.attrDisplayValue }}</option>
 								</select> -->
 							</div>
 							<div class="col-md-6 content-title2">GB</div>
@@ -144,7 +156,7 @@
 									<!-- <select [(ngModel)]="sendModule.storage" (change)="sendModule.storage = value" class="form-control">
 										<option
 										*ngFor="let value of configs.storage.valueList;"
-										[ngValue]="value" >{{ value.displayName }}</option>
+										[ngValue]="value" >{{ value.attrDisplayValue }}</option>
 									</select> -->
 									<select class="form-control">
 										<option selected>高速I/O</option>>
@@ -158,7 +170,7 @@
 									<!-- <select [(ngModel)]="sendModule.storagesize" (change)="sendModule.storagesize = value" class="form-control">
 										<option
 										*ngFor="let value of configs.storagesize.valueList;"
-										[ngValue]="value" >{{ value.displayName }}</option>
+										[ngValue]="value" >{{ value.attrDisplayValue }}</option>
 									</select> -->
 									<!--<div class="btn-group input-step-compontent">
 										<button type="button" class="btn btn-default col-md-3"><span class="glyphicon glyphicon-minus"></span></button>
@@ -242,7 +254,7 @@
 							<select [disabled]="timeForever" [(ngModel)]="sendModule.timelineunit" (change)="sendModule.timelineunit = value" class="form-control">
 								<option
 								*ngFor="let value of configs.timelineunit.valueList;"
-								[ngValue]="value" >{{ value.displayName }}</option>
+								[ngValue]="value" >{{ value.attrDisplayValue }}</option>
 							</select>
 						</div>
 						<div class="col-md-2 no-padding mr10">
@@ -279,33 +291,33 @@
 	</div>
 	 <!-- [ngClass]="{'right-fixed' : rightFixed}" (window:scroll)="onScroll($event)" -->
 	<div class="col-md-3 no-padding right-box">
-		<cart-button></cart-button>
+		<cart-button #cartButton></cart-button>
 		<div class="col-md-12 content-box">
 			<h3 class="boder-gray-bottom-title">当前配置</h3>
 			<h4 class="cloud-title font-green">区域</h4>
-			<p class="cloud-p">云平台: {{ sendModule.platform ? sendModule.platform.displayName : "" }}</p>
-			<p class="cloud-p">可用区: {{ sendModule.zone ? sendModule.zone.displayName : "" }}</p>
+			<p class="cloud-p">云平台: {{ sendModule.platform ? sendModule.platform.attrDisplayValue : "" }}</p>
+			<p class="cloud-p">可用区: {{ sendModule.zone ? sendModule.zone.attrDisplayValue : "" }}</p>
 			<h4 class="cloud-title font-green">网络</h4>
-			<p class="cloud-p">网络类型: {{ sendModule.networktype ? sendModule.networktype.displayName : "" }}</p>
-			<p class="cloud-p">安全组: {{ sendModule.securitygroup ? sendModule.securitygroup.displayName : "" }}</p>
+			<p class="cloud-p">网络类型: {{ sendModule.networktype ? sendModule.networktype.attrDisplayValue : "" }}</p>
+			<p class="cloud-p">安全组: {{ sendModule.securitygroup ? sendModule.securitygroup.attrDisplayValue : "" }}</p>
 			<h4 class="cloud-title font-green">实例规格</h4>
-			<p class="cloud-p">CPU: {{ sendModule.cpu ? sendModule.cpu.displayName : "" }}</p>
-			<p class="cloud-p">内存: {{ sendModule.mem ? sendModule.mem.displayName : "" }}</p>
+			<p class="cloud-p">CPU: {{ sendModule.cpu ? sendModule.cpu.attrDisplayValue : "" }}</p>
+			<p class="cloud-p">内存: {{ sendModule.mem ? sendModule.mem.attrDisplayValue : "" }}</p>
 			<h4 class="cloud-title font-green">云主机源</h4>
-			<p class="cloud-p">启动源: {{ sendModule.startupsource ? sendModule.startupsource.displayName : "" }}</p>
-			<p class="cloud-p">镜像类型: {{ sendModule.imagetype ? sendModule.imagetype.displayName : "" }}</p>
-			<p class="cloud-p">镜像名称: {{ sendModule.os ? sendModule.os.displayName : "" }}</p>
+			<p class="cloud-p">启动源: {{ sendModule.startupsource ? sendModule.startupsource.attrDisplayValue : "" }}</p>
+			<p class="cloud-p">镜像类型: {{ sendModule.imagetype ? sendModule.imagetype.attrDisplayValue : "" }}</p>
+			<p class="cloud-p">镜像名称: {{ sendModule.os ? sendModule.os.attrDisplayValue : "" }}</p>
 			<h4 class="cloud-title font-green">储存</h4>
-			<p class="cloud-p">启动盘: {{ sendModule.bootstorage ? sendModule.bootstorage.displayName : "" }} / {{ sendModule.bootsize ? sendModule.bootsize.displayName : "" }}</p>
-			<!-- <p class="cloud-p">数据盘: {{ sendModule.stroage ? sendModule.stroage.displayName : "" }} / {{ sendModule.storagesize ? sendModule.storagesize.displayName : "" }}</p> -->
+			<p class="cloud-p">启动盘: {{ sendModule.bootstorage ? sendModule.bootstorage.attrDisplayValue : "" }} / {{ sendModule.bootsize ? sendModule.bootsize.attrDisplayValue : "" }}</p>
+			<!-- <p class="cloud-p">数据盘: {{ sendModule.stroage ? sendModule.stroage.attrDisplayValue : "" }} / {{ sendModule.storagesize ? sendModule.storagesize.attrDisplayValue : "" }}</p> -->
 			<h4 class="cloud-title font-green">购买量</h4>
-			<p class="cloud-p">购买时长: {{ sendModule.timelineunit ? sendModule.timelineunit.displayName : ""}} / {{ sendModule.timeline ? sendModule.timeline.value : ""}}</p>
+			<p class="cloud-p">购买时长: {{ sendModule.timelineunit ? sendModule.timelineunit.attrDisplayValue : ""}} / {{ sendModule.timeline ? sendModule.timeline.value : ""}}</p>
 			<p class="cloud-p">购买量: {{payLoad.quality}}台</p>
 			<div class="cloud-line"></div>
-			<h4 class="cloud-title">费用总计：<font class="font-orange">¥{{ this.sendModule.timeline ? this.parseInt((this.parseInt(this.sendModule.cpu.displayName)*20 + ((this.parseInt(this.sendModule.mem.displayName) < 50) ? this.parseInt(this.sendModule.mem.displayName)*10 : this.parseInt(this.sendModule.mem.displayName)*0.1 ) + 20 +this.parseInt(this.sendModule.timeline.value ? this.sendModule.timeline.value*1.21 : 1 ))*this.parseInt(this.payLoad.quality)*100)/100 : 0 }}</font></h4>
+			<h4 class="cloud-title">费用总计：<font class="font-orange">¥{{ this.sendModule.timeline ? this.parseInt((this.parseInt(this.sendModule.cpu.attrDisplayValue)*20 + ((this.parseInt(this.sendModule.mem.attrDisplayValue) < 50) ? this.parseInt(this.sendModule.mem.attrDisplayValue)*10 : this.parseInt(this.sendModule.mem.attrDisplayValue)*0.1 ) + 20 +this.parseInt(this.sendModule.timeline.value ? this.sendModule.timeline.value*1.21 : 1 ))*this.parseInt(this.payLoad.quality)*100)/100 : 0 }}</font></h4>
 			<div class="col-md-12 colud-order-button">
 				<div class="col-md-6"><button (click)="buyNow()" class="btn button-orange-deep">立即购买</button></div>
-				<div class="col-md-6"><button class="btn button-orange-light">加入购物车</button></div>
+				<div class="col-md-6"><button (click)="addCart()" class="btn button-orange-light">加入购物车</button></div>
 			</div>
 		</div>
 	</div>

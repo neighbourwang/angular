@@ -44,7 +44,7 @@ export class ProdDirListComponent implements OnInit {
     // 产品目录总页数
     tp: number = 0;
     // 每页显示的数据条数
-    pp: number = 2;
+    pp: number = 10;
 
     prodDirTypeList = new Array();
     platformsList = new Array();

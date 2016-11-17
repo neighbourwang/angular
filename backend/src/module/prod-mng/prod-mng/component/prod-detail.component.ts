@@ -50,8 +50,22 @@ export class ProdDetailComponent implements OnInit{
                 console.error(err)
             })
     }
-     //获取产品目录详情
+     //获取vm产品目录详情
     getProdDirDetail(id) {
+        this.ProdDirDetailService.getVmProdDirDetail(id).then(response => {
+            console.log('产品目录详情', response);
+            if (response && 100 == response.resultCode) {
+                this.prodDir = response.resultContent;
+                console.log(this.prodDir);
+            } else {
+
+            }
+        }).catch(err => {
+            console.error(err)
+        })
+    }
+    //获取disk产品目录详情
+    getDiskProdDirDetail(id) {
         this.ProdDirDetailService.getVmProdDirDetail(id).then(response => {
             console.log('产品目录详情', response);
             if (response && 100 == response.resultCode) {

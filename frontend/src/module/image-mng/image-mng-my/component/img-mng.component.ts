@@ -42,6 +42,10 @@ export class ImgMngComponent_my implements OnInit {
 
     }
 
+
+    pageIndex:number = 1;
+    pageSize = 10;
+    totalPage =1;
     images:Image[];
     areaList:Array<Area>;
     editImage:Image = new Image();
@@ -104,6 +108,23 @@ export class ImgMngComponent_my implements OnInit {
         ).catch(
             reason => this.showAlert("错误："+ reason.statusText)
         );
+    }
+
+    getImageList(pageIndex?):void{
+        this.pageIndex = pageIndex || this.pageIndex;
+        this.layoutService.show();
+        this.service.getImages(this.queryOpt, this.pageIndex, this.pageSize)
+        .then(
+            response =>{
+                this.layoutService.hide();
+                if(response && 100 == response["resultCode"]){
+                    this.images = response.resultContent;
+                    this.totalPage = response.pageInfo.totalPage;
+                }else{
+                    alert("Res sync error");
+                }
+            }
+        ).catch((e) =>this.onRejected(e));
     }
 
     setKeyword(type:string, value: string){

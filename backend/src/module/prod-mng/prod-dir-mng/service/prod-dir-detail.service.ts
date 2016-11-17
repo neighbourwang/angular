@@ -15,7 +15,13 @@ export class ProdDirDetailService {
 
     // 取得VM产品目录详情
     getVmProdDirDetail(id:string) {
-        let api = this.restApiCfg.getRestApi("prod-mng.prod-dir-mng.detail");
+        let api = this.restApiCfg.getRestApi("prod-mng.prod-dir-vm.detail");
         return this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined);
     }
+    // 取得Disk产品目录详情
+    getDiskProdDirDetail(id:string) {
+        let api = this.restApiCfg.getRestApi("prod-mng.prod-dir-disk.detail");
+        return this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined);
+    }
+
 }

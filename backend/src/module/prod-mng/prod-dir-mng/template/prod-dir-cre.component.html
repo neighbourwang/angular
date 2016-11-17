@@ -103,7 +103,7 @@
 							可用区
 						</div>
 						<div class="col-sm-2" style="text-align: left">
-							<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllZones()">
+							<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllZones()" [(ngModel)]="selectAllZone">
 						</div>
 						<div class="col-sm-4">
 							启动盘
@@ -141,7 +141,7 @@
 	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
         <span class="icon-button-label">取消</span>
     </button>
-	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();">
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();" style="margin-left:20px">
         <span class="icon-button-label">创建</span>
     </button>
 </div>
