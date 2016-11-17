@@ -8,6 +8,7 @@ export class OrderMngParam{
   serviceType: string = null; // 产品类型"string",
   status: string = null; // 状态"string",
   zoneId: string = null; // 可用区"string"
+  scope:SearchScope = SearchScope.all; //搜索范围
 
   reset(){
     this.createDate = null;
@@ -19,6 +20,11 @@ export class OrderMngParam{
     this.status = null;
     this.zoneId = null;
   }
+}
+
+export enum SearchScope{
+  all = 0,
+  department = 1
 }
 /*
 OrderSearchCondtion {
