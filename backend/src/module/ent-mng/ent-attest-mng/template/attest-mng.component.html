@@ -40,7 +40,7 @@
                 <td>{{attest.name}}</td>
 				<td>{{attest.url}}</td>
 				<td>AD</td>
-				<td>{{getDicText(attest.status,statusDic)}}</td>
+				<td [ngClass]="attest.status==1?'font-green':'font-orange'">{{getDicText(attest.status,statusDic)}}</td>
 				<td>{{attest.desc}}</td>
             </tr>
 		</table>

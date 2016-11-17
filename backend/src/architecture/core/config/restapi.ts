@@ -799,79 +799,79 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取认证源列表",
         "id": "user-center.attest-mng.list",
         "method": "GET",
-        "url": "adusermgmt/authsec/ldaps/page/{page}/size/{size}"
+        "url": "adminboe/authsec/ldaps/page/{page}/size/{size}"
     },
     {
         "desc": "认证源测试",
         "id": "user-center.attest-mng.ldap.test",
         "method": "POST",
-        "url": "adusermgmt/authsec/ldap/test"
+        "url": "adminboe/authsec/ldap/test"
     },
     {
         "desc": "创建认证源",
         "id": "user-center.attest-mng.ldap.create",
         "method": "POST",
-        "url": "adusermgmt/authsec/ldap"
+        "url": "adminboe/authsec/ldap"
     },
     {
         "desc": "获取认证源详情",
         "id": "user-center.attest-mng.ldap.get",
         "method": "GET",
-        "url": "adusermgmt/authsec/ldap/{id}"
+        "url": "adminboe/authsec/ldap/{id}"
     },
     {
         "desc": "编辑认证源",
         "id": "user-center.attest-mng.ldap.edit",
         "method": "PUT",
-        "url": "adusermgmt/authsec/ldap/{id}"
+        "url": "adminboe/authsec/ldap/{id}"
     },
     {
         "desc": "修改认证帐户",
         "id": "user-center.attest-mng.ldap.editacc",
         "method": "PUT",
-        "url": "adusermgmt/authsec/ldap/{id}/account"
+        "url": "adminboe/authsec/ldap/{id}/account"
     },
     {
         "desc": "删除认证源",
         "id": "user-center.attest-mng.ldap.delete",
         "method": "DELETE",
-        "url": "adusermgmt/authsec/ldap/{id}"
+        "url": "adminboe/authsec/ldap/{id}"
     },
     {
         "desc": "启用/禁用认证源",
         "id": "user-center.attest-mng.ldap.edit.status",
         "method": "PUT",
-        "url": "adusermgmt/authsec/ldap/{id}/status/{status}"
+        "url": "adminboe/authsec/ldap/{id}/status/{status}"
     },
     {
         "desc": "查询AD用户",
         "id": "user-center.attest-mng.ldap.adusers.list",
         "method": "POST",
-        "url": "adusermgmt/authsec/ldap/{id}/adusers/page/{page}/size/{size}"
+        "url": "adminboe/authsec/ldap/{id}/adusers/page/{page}/size/{size}"
     },
     {
         "desc": "认证源简单列表（下拉框）",
         "id": "user-center.attest-mng.ldap.attest.simple.list",
         "method": "GET",
-        "url": "adusermgmt/authsec/ldaps/simple"
+        "url": "adminboe/authsec/ldaps/simple"
     },
     {
         "desc": "创建企业认证源",
         "id": "ent-mng.enterprise.ldap.create",
         "method": "POST",
-        "url": "adminui/authsec/enterprise/{enterpriseId}/ldap"
+        "url": "adminboe/authsec/enterprise/{enterpriseId}/ldap"
     },
     {
         "desc": "获取企业认证源列表",
         "id": "ent-mng.enterprise.ldap.list",
         "method": "GET",
-        "url": "/adminui/authsec/enterprise/{enterpriseId}/ldaps/page/{page}/size/{size}"
+        "url": "adminboe/authsec/enterprise/{enterpriseId}/ldaps/page/{page}/size/{size}"
     },
     {
         "desc": "获取企业认证源列表（下拉框）",
         "id": "ent-mng.enterprise.ldap.simple.list",
         "method": "GET",
-        "url": "/adminui/authsec/enterprise/{enterpriseId}/ldaps/simple"
+        "url": "adminboe/authsec/enterprise/{enterpriseId}/ldaps/simple"
     },
     //云网络管理
         //openstack
