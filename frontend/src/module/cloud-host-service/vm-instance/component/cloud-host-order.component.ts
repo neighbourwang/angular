@@ -159,8 +159,10 @@ export class cloudHostComponentOrder implements OnInit {
 		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
 		console.log(payLoadArr, JSON.stringify(payLoadArr))
 		// console.log(JSON.stringify(payLoad))
+		this.layoutService.show();
 		this.service.addCart(payLoadArr).then(res => {
 			this.layoutService.hide();
+			alert("加入购物车成功！");
 			this.cartButton.setCartList();
 			// this.router.navigateByUrl("cloud-host-service/cloud-host-list");
 		}).catch(res => {
@@ -190,7 +192,7 @@ export class cloudHostComponentOrder implements OnInit {
 		console.log(JSON.stringify(payLoadArr))
 		this.service.saveOrder(payLoadArr).then(res => {
 			this.layoutService.hide();
-			this.router.navigateByUrl("cloud-host-service/cloud-host-list");
+			this.router.navigateByUrl("cloud-host-service/cart-order");
 		}).catch(res => {
 			this.layoutService.hide();
 		})

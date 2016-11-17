@@ -100,7 +100,6 @@ export class ProdMngComponent implements OnInit {
         }).catch(err => {
             console.error(err)
         })
-
         this.backend(1, this.pp, {});
     }
 
