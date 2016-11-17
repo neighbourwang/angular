@@ -57,7 +57,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let ipusagemng of ipusagemngs; let i=index;">
-                <td><input type="radio" class="fox-cloud-radio" name="radio" (change)="selectItem(i)" value="{{i}}"></td>
+                <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="ipusagemng.checked" (change)="selectItem(i)" value="{{i}}"></td>
                 <td>{{ipusagemng.addr}}</td>
                 <td>{{displayIt(ipusagemng.instanceName)}}</td>
                 <td>{{displayIt(ipusagemng.tenantName)}}</td>
@@ -67,11 +67,16 @@
             </tr>
             </tbody>
         </table>
+<!--
         {{pg_id}}
         {{pg_name}}
-        {{selectedip.toString()}}
+        ( {{selectedip.id}} , {{selectedip.addr}} )
+-->
     </div>
 </div>
+
+<fc-notice #notice ot="确认" (of)="okClicked()"></fc-notice>
+<fc-confirm #confirm ot="确认" ct="取消" (of)="onConfirmed()"></fc-confirm>
 
 <!--
 <div class="text-center">

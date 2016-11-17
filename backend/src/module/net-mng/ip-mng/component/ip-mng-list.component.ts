@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, ValidationService } from '../../../../architecture';
 
@@ -97,6 +97,14 @@ export class IpMngListComponent implements OnInit{
     ngOnInit (){
         console.log('init');
         this.getDcCluster();
+
+        this.activatedRouter.params.forEach((params: Params) => {
+            if (params["dc_name"] != null) this.ipmngquery.dataCenter = params["dc_name"];
+            if (params["cls_name"] != null) this.ipmngquery.cluster = params["cls_name"];
+            console.log(this.ipmngquery.dataCenter, "this.ipmngquery.dataCenter");
+            console.log(this.ipmngquery.cluster, "this.ipmngquery.cluster");
+        });
+
         this.getIpMngList();
     }
 
@@ -168,8 +176,6 @@ export class IpMngListComponent implements OnInit{
         this.notice.open(msg.title, msg.desc);
     }
 
-
-
     //根据value显示
     displayIt(value: string): String {
         if(this.validationService.isBlank(value)){
@@ -189,10 +195,13 @@ export class IpMngListComponent implements OnInit{
 
     getSelected() {
         let item = this.ipmngs.find((n) => n.checked) as IpMngModel;
-        if (item)
+        if (item){
+            console.log("==========getSelected 1=============");
             return item;
+        }
         else {
-            this.showAlert("请选择相应的PortGroup");
+            console.log("==========getSelected 2=============");
+            this.showMsg("请选择相应的PortGroup");
             return null;
         }
     }
@@ -201,7 +210,7 @@ export class IpMngListComponent implements OnInit{
         console.log('conponent: net-mng/ip-mng-list/subnet');
         //this.layoutService.show();
         let pg = this.getSelected();
-        console.log(pg, "=======================");
+        console.log(pg, "==========setupSubnet=============");
          if (pg) {
              // OR get subenet information from API
             this.subn.portGroup = pg.id;
@@ -218,6 +227,8 @@ export class IpMngListComponent implements OnInit{
             this.layoutService.hide();
             // OR get ippool information from API
             this.ippool.portGroup = pg.id;
+            this.ippool.subnetCIDR = pg.segmentCIDR;
+            this.ippool.gateway = pg.gateWay;
             this.ipsbox.open();
 
         } else {          
@@ -242,9 +253,138 @@ export class IpMngListComponent implements OnInit{
         this.notice.open("系统提示", msg);
     }
 
-    validateIPModify() {
-        return "1";
+    isIP(val: any): boolean {
+        const reg = /^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$/;
+        return reg.test(val);
+    }
 
+    isIPorEmpty(val: any): boolean {
+        if (this.validationService.isBlank(val)) return true;
+        else {
+            const reg = /^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$/;
+            return reg.test(val);
+        }
+    }
+
+    isIPMask(val: any): boolean {
+        const reg = /^(((128|192|224|240|248|252|254)\.0\.0\.0)|(255\.(0|128|192|224|240|248|252|254)\.0\.0)|(255\.255\.(0|128|192|224|240|248|252|254)\.0)|(255\.255\.255\.(0|128|192|224|240|248|252|254)))$/
+        return reg.test(val);
+    }
+
+    isIPpool(val: any): boolean {
+        //console.log(val, "val--------------------1")
+        let flag = 0;
+        const reg = /^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$/;
+        val = val.replace(/\s+/g, "");
+        //console.log(val, "val--------------------2")
+        let arrayips = val.split(';');
+        //console.log(arrayips, "arrayips--------------------3")
+        for (let i = 0; i < arrayips.length; i++) {
+            let lineips = arrayips[i].split(',');
+            //console.log(lineips, "lineips--------------------4")
+            for (let j = 0; j < lineips.length; j++) {
+                if (lineips[j] != "") {
+                    if (reg.test(lineips[j])) {
+                        flag = flag + 0;
+                    }
+                    else {
+                        //console.log(lineips[j], "===============")
+                        flag = flag + 1;
+                    }
+                }
+            }
+        }
+        console.log(flag, "flag--------------------5")
+        if (flag == 0) return true;
+        else return false;
+    }
+
+    validate(name: string, val: any, op: string) {
+        let map: any = {
+            "*": {
+                "func": this.validationService.isBlank,
+                "msg": "不能为空"
+            },
+             "email": {
+                "func": val => !this.validationService.isEmail(val),
+                "msg": "邮箱地址无效"
+            },
+            "ip": {
+                "func": val => !this.isIP(val),
+                "msg": "不符合IP规范"
+            },
+            "ipmask": {
+                "func": val => !this.isIPMask(val),
+                "msg": "不符合IP mask规范"
+            },
+            "iporempty":{
+                "func": val => !this.isIPorEmpty(val),
+                "msg": "不符合IP规范或不为空"
+            },
+            "ippool":{
+                "func": val => !this.isIPpool(val),
+                "msg": "不符合IP规范或不为空"
+            },
+        }
+
+        if (map[op].func(val)) {
+            return name + map[op].msg;
+        }
+        else
+            return undefined;
+    }
+
+    //验证设置IP地址范围内容
+    validateIPModify(): boolean {
+        let notValid = null;
+        notValid = [
+            /*
+            {
+                "name": "子网信息"
+                , 'value': this.ippool.subnetCIDR
+                , "op": "*"
+            },
+            {
+                "name": "子网信息"
+                , 'value': this.ippool.subnetCIDR
+                , "op": "ip"
+            },
+            {
+                "name": "网关地址"
+                , 'value': this.ippool.gateway
+                , "op": "*"
+            },
+            {
+                "name": "网关地址"
+                , 'value': this.ippool.gateway
+                , "op": "ip"
+            },
+            */
+            {
+                "name": "IP地址范围"
+                , 'value': this.ippool.ips
+                , "op": "*"
+            },
+            {
+                "name": "IP地址范围"
+                , 'value': this.ippool.ips
+                , "op": "ippool"
+            }
+            ].find(n => this.validate(n.name, n.value, n.op) !== undefined)
+        
+        console.log(notValid, "notValid!!!")
+
+        if (notValid !== void 0) {
+            this.showMsg(this.validate(notValid.name, notValid.value, notValid.op));
+            this.ipsbox.close();
+            this.okCallback = () => {
+                this.ipsbox.open();                
+            };
+            
+            return false;
+        } else {
+            return true;
+        }
     }
     acceptIPsModify(): void {
         console.log('acceptIPsModify');
@@ -268,16 +408,73 @@ export class IpMngListComponent implements OnInit{
                     this.okCallback = () => { this.ipsbox.open(); };
                 })
         }
-
     }
     cancelIPsModify(): void {
         console.log('cancelIPsModify');
-
+        this.ippool.ips = "";
+        this.ippool.subnetCIDR = "";
+        this.ippool.gateway = "";
     }
 
-    validateSubnetModify() {
-        return "1";
+    //验证设置子网内容
+    validateSubnetModify(): boolean {
+        let notValid = null;
+        notValid = [
+            {
+                "name": "子网信息"
+                , 'value': this.subn.subnetCIDR
+                , "op": "*"
+            },
+            {
+                "name": "子网信息"
+                , 'value': this.subn.subnetCIDR
+                , "op": "ip"
+            },
+            {
+                "name": "子网掩码"
+                , 'value': this.subn.subnetMask
+                , "op": "*"
+            },
+            {
+                "name": "子网掩码"
+                , 'value': this.subn.subnetMask
+                , "op": "ipmask"
+            },
+            {
+                "name": "网关地址"
+                , 'value': this.subn.gateway
+                , "op": "*"
+            },
+            {
+                "name": "网关地址"
+                , 'value': this.subn.gateway
+                , "op": "ip"
+            },
+            {
+                "name": "DNS1"
+                , 'value': this.subn.dnsPre
+                , "op": "iporempty"
+            },
+            {
+                "name": "DNS2"
+                , 'value': this.subn.dnsAlt
+                , "op": "iporempty"
+            }
+            ].find(n => this.validate(n.name, n.value, n.op) !== undefined)
+        
+        console.log(notValid, "notValid!!!")
 
+        if (notValid !== void 0) {
+            this.showMsg(this.validate(notValid.name, notValid.value, notValid.op));
+            this.subnetbox.close();
+            this.okCallback = () => {
+                this.subnetbox.open();                
+            };
+            
+            return false;
+        } else {
+            return true;
+        }
     }
 
     acceptSubnetModify(): void {
@@ -306,7 +503,11 @@ export class IpMngListComponent implements OnInit{
     }
     cancelSubnetModify(): void {
         console.log('cancelSubnetModify');
-        
+        this.subn.dnsAlt = "";
+        this.subn.dnsPre = "";
+        this.subn.gateway = "";
+        this.subn.subnetCIDR = "";
+        this.subn.subnetMask = "";        
     }
 
 }
