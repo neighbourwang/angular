@@ -2,7 +2,7 @@
  * Created by wangyao on 2016/10/21.
  */
 //use
-//<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event)></count-bar>
+//<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event)></count-bar>
 import {Component, Input, Output,EventEmitter,OnChanges,SimpleChange,OnInit} from '@angular/core';
 @Component({
     selector: 'count-bar',
