@@ -27,6 +27,8 @@ export class ProdCreComponent implements OnInit, OnChanges {
         private ProdDirDetailService: ProdDirDetailService,
         // private ProdListService : ProdListService,
         private ProdDirListService: ProdDirListService,
+        private LayoutService: LayoutService,
+        
         private PostProduct: PostProduct
     ) { }
 
@@ -42,8 +44,10 @@ export class ProdCreComponent implements OnInit, OnChanges {
     diskProdDir: boolean;
     ngOnInit() {
         //获取企业列表
+        
         this.ProdDirListService.getEnterpriseList().then(response => {
             console.log('企业', response);
+            
             // if (response && 100 == response.resultCode) {
             this.enterpriseList = response.resultContent;
             // } else {
@@ -52,8 +56,10 @@ export class ProdCreComponent implements OnInit, OnChanges {
         }).catch(err => {
             console.error(err)
         })
-        //获取产品目录下拉列表        
+        //获取产品目录下拉列表 
+        this.LayoutService.show();       
         this.ProdDirListService.getProdDirList().then(response => {
+            
             console.log('目录', response);
             // if (response && 100 == response.resultCode) {
             this.prodDirList = response.resultContent;
@@ -69,6 +75,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
             // } else {
 
             // }
+            this.LayoutService.hide();
         }).catch(err => {
             console.error(err)
         })
@@ -76,10 +83,12 @@ export class ProdCreComponent implements OnInit, OnChanges {
     //获取VM产品目录详情
     getVmProdDirDetail(id) {
         this.prodDir = new ProductDir();
+        this.LayoutService.show();
         this.ProdDirDetailService.getVmProdDirDetail(id).then(response => {
             console.log('VM产品目录详情', response);
             if (response && 100 == response.resultCode) {
                 this.prodDir = response.resultContent;
+                this.LayoutService.hide();
             } else {
 
             }
@@ -90,10 +99,12 @@ export class ProdCreComponent implements OnInit, OnChanges {
     //获取DISK产品目录详情
     getDiskProdDirDetail(id) {
         this.prodDir = new ProductDir();
+        this.LayoutService.show();
         this.ProdDirDetailService.getDiskProdDirDetail(id).then(response => {
             console.log('DISK产品目录详情', response);
             if (response && 100 == response.resultCode) {
                 this.prodDir = response.resultContent;
+                this.LayoutService.hide();
             } else {
 
             }
@@ -275,8 +286,10 @@ export class ProdCreComponent implements OnInit, OnChanges {
         }
 
         console.log("dd");
+        this.LayoutService.show();
         this.PostProduct.postProduct(this.product).then(response => {
             console.log('产品', response);
+            this.LayoutService.hide();
             // if (response && 100 == response.resultCode) {
             this.router.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
             // } else {

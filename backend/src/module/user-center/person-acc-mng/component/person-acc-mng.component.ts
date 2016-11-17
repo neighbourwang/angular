@@ -108,6 +108,7 @@ export class PersonAccMngComponent implements OnInit {
                 if (response && 100 == response.resultCode) {
                     console.log(response);
                     this.editPassWord.close();
+                    this.notice.open('操作成功','新密码已生效');
                 } 
             }).catch((err) => {
                 this.editPassWord.close();
