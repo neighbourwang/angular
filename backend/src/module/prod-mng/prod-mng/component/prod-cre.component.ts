@@ -161,8 +161,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
     }
     //选择平台可用区
     selectZone(idx, idxx) {
-        console.log(idx, idxx);
-        console.log(this.prodDir.platformInfo);
+        console.log(idx, idxx);        
         this.prodDir.platformInfo[idx].zoneList[idxx].selected = !this.prodDir.platformInfo[idx].zoneList[idxx].selected;
         this.product.productPlatformReqs = this.prodDir.platformInfo.filter(function (ele) {
             for (let zone of ele.zoneList) {
@@ -171,6 +170,9 @@ export class ProdCreComponent implements OnInit, OnChanges {
                 }
             }
         })
+        if(this.product.productPlatformReqs.length==0){
+            this.selectAllZone=false;
+        }
         console.log(this.product.productPlatformReqs);
     }
     //选择全部存储后端
