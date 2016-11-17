@@ -887,7 +887,7 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminboe/authsec/{platform_id}/openstack/networkSync"
     },
-    //Vmware 端口
+        //Vmware 端口
     {
         "desc": "获取端口组资源分配列表",
         "id": "net-mng.vmware.port.list",
@@ -906,4 +906,48 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "adminboe/authsec/vmware/network/save/ent"
     },
+        //IP地址管理
+    {
+        "desc": "标准网络列表",
+        "id": "net-mng.vmware.network.list",
+        "method": "GET",
+        "url": "/adminboe/authsec/vmware/network/getlist"
+    },
+    {
+        "desc": "获取IP地址管理列表",
+        "id": "net-mng.vmware.ipmng.list",
+        "method": "POST",
+        "url": "/adminboe/authsec/vmware/network/portGroup"
+    },
+    {
+        "desc": "获取IP使用情况列表",
+        "id": "net-mng.vmware.ipusagemng.list",
+        "method": "GET",
+        "url": "/adminboe/authsec/vmware/network/portGroup/{portGroup_id}/ip"
+    },
+    {
+        "desc": "IP地址占用",
+        "id": "net-mng.vmware.subnetip.occupy",
+        "method": "PUT",
+        "url": "/adminboe/authsec/vmware/network/portGroup/ip/{ip_id}/occupy"
+    },
+    {
+        "desc": "IP地址释放",
+        "id": "net-mng.vmware.subnetip.release",
+        "method": "PUT",
+        "url": "/adminboe/authsec/vmware/network/portGroup/ip/{ip_id}/release"
+    },
+    {
+        "desc": "设置IP子网",
+        "id": "net-mng.vmware.subnet.setup",
+        "method": "PUT",
+        "url": "/adminboe/authsec/vmware/network/portGroup"
+    },
+    {
+        "desc": "设置子网IP范围",
+        "id": "net-mng.vmware.subnetips.setup",
+        "method": "PUT",
+        "url": "/adminboe/authsec/vmware/network/portGroup/{portGroup_id}/subnetRange"
+    }
+
 ]
