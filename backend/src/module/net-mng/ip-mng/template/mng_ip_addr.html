@@ -22,24 +22,23 @@
             端口组显示名称 :
         </span>
         <div class="col-md-2">
-            <input type="text" class="form-control" placeholder="信管中心-B1网络">
+            <span class="pull-left font-gray mgt5 pdl15">{{pg_name}}</span>
+            <!--<input type="text" class="form-control" placeholder="信管中心-B1网络" value="{{pg_name}}"> -->
         </div>
     </div>
 
     <div class="mgb10">
-        <button class="fox-cloud-button fox-cloud-button-green">空闲</button>
-        <button class="fox-cloud-button fox-cloud-button-green">已占有</button>
-        <button class="fox-cloud-button fox-cloud-button-green">所有</button>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="filter('0')">空闲</button>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="filter('1')">已占有</button>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="filter('all')">所有</button>
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 选择操作
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#">编辑</a></li>
-                <li><a href="#">启用</a></li>
-                <li><a href="#">禁用</a></li>
-                <li><a href="#">删除</a></li>
+                <li><a (click)="enable()">占用IP</a></li>
+                <li><a (click)="disable()">释放IP</a></li>
             </ul>
         </div>
     </div>
@@ -57,17 +56,20 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let ipusagemng of ipusagemngs">
-                <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
+            <tr *ngFor="let ipusagemng of ipusagemngs; let i=index;">
+                <td><input type="radio" class="fox-cloud-radio" name="radio" (change)="selectItem(i)" value="{{i}}"></td>
                 <td>{{ipusagemng.addr}}</td>
-                <td>{{ipusagemng.instanceName}}</td>
-                <td>{{ipusagemng.tenantName}}</td>
+                <td>{{displayIt(ipusagemng.instanceName)}}</td>
+                <td>{{displayIt(ipusagemng.tenantName)}}</td>
                 <td>{{getDicText(ipusagemng.status,this.statusDic)}}</td>
-                <td>{{ipusagemng.description}}</td>
+                <td>{{displayIt(ipusagemng.description)}}</td>
                 <td></td>
             </tr>
             </tbody>
         </table>
+        {{pg_id}}
+        {{pg_name}}
+        {{selectedip.toString()}}
     </div>
 </div>
 
