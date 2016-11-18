@@ -873,20 +873,7 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminboe/authsec/enterprise/{enterpriseId}/ldaps/simple"
     },
-    //云网络管理
-        //openstack
-    {
-        "desc": "获取Openstack网络列表",
-        "id": "net-mng.openstack.net.list",
-        "method": "POST",
-        "url": "adminboe/authsec/openstack/network/page/{page}/size/{size}"
-    },
-    {
-        "desc": "获取同步网络列表",
-        "id": "net-mng.openstack.net.syn.list",
-        "method": "GET",
-        "url": "adminboe/authsec/{platform_id}/openstack/networkSync"
-    },
+    
         //Vmware 端口
     {
         "desc": "获取端口组资源分配列表",
@@ -949,6 +936,20 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "url": "/adminboe/authsec/vmware/network/portGroup/{portGroup_id}/subnetRange"
     },
+      //云网络管理
+        //openstack
+    {
+        "desc": "获取Openstack网络列表",
+        "id": "net-mng.openstack.net.list",
+        "method": "POST",
+        "url": "adminboe/authsec/openstack/network/page/{page}/size/{size}"
+    },
+    {
+        "desc": "获取同步网络列表",
+        "id": "net-mng.openstack.net.syn.list",
+        "method": "GET",
+        "url": "/adminboe/authsec/{platform_id}/openstack/networkSync"
+    },
     {
         "desc": "获取地域数据中心数据平台选项",
         "id": "net-mng.openstack.net.region_option",
@@ -976,7 +977,6 @@ export let RestApis: RestApiModel[] = [
         "url": "adminboe/authsec/openstack/network/disable"
     
     },
-    
     {
         "desc": "更改子网显示名称",
         "id": "net-mng.openstack.net.updatename",
