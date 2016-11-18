@@ -19,7 +19,7 @@
                         </select>-->
 						<!--使用下面这种方式也可以-->
 						<select class="form-control" [(ngModel)]="prodDirId" (ngModelChange)="selectProdDir($event)">
-                            <option *ngFor="let prodDir of prodDirList;let idx=index;" [value]="prodDir.id">{{prodDir?.name}}</option>
+                            <option *ngFor="let prodDir of prodDirList;let idx=index;" [value]="prodDir?.id">{{prodDir?.name}}</option>
                         </select>
 					</div>
 				</div>
@@ -50,7 +50,7 @@
 						<div class="col-sm-4 form-control-title"></div>
 						<div class="col-sm-4 row-line-child font-gray">
 							<div class="font-gray">启动盘大小</div>
-							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.startupDisk}}</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.startupDisk||0}}</div>
 							<div class="last-line-child font-gray">GB</div>
 						</div>
 					</div>
@@ -62,7 +62,7 @@
 						<div class="col-sm-4 form-control-title"></div>
 						<div class="col-sm-4 row-line-child font-gray">
 							<div class="font-gray">初始大小</div>
-							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.initialSize}}</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.initialSize||0}}</div>
 							<div class="last-line-child font-gray">GB</div>
 						</div>
 					</div>
@@ -72,7 +72,7 @@
 						<div class="col-sm-4 form-control-title"></div>
 						<div class="col-sm-4 row-line-child font-gray">
 							<div class="font-gray">步长</div>
-							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.stepSize}}</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.stepSize||0}}</div>
 							<div class="last-line-child font-gray">GB</div>
 						</div>
 					</div>
@@ -82,7 +82,7 @@
 						<div class="col-sm-4 form-control-title"></div>
 						<div class="col-sm-4 row-line-child font-gray">
 							<div class="font-gray">最大</div>
-							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.maxSize}}</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.maxSize||0}}</div>
 							<div class="last-line-child font-gray">GB</div>
 						</div>
 					</div>
@@ -165,22 +165,22 @@
 					<div class="col-sm-8">
 						<div class="row">
 							<div class="col-sm-2">
-								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
+								<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
 							</div>
 							<div class="col-sm-2 form-control-title">
 								单位价格：
 							</div>
 							<div class="col-sm-2">
-								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 #unitPrice (output)="outputValue($event,'unitPrice')"></count-bar>
+								<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 #unitPrice (output)="outputValue($event,'unitPrice')"></count-bar>
 							</div>
 						</div>
 					</div>
 					<!--<div class="col-sm-2 ">
-						<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
+						<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
 					</div>
 					<div class="col-sm-2 form-control-title">单位价格：</div>
 					<div class="col-sm-1 ">
-						<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 #unitPrice (output)="outputValue($event,'unitPrice')"></count-bar>
+						<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 #unitPrice (output)="outputValue($event,'unitPrice')"></count-bar>
 					</div>-->
 				</div>
 			</div>
@@ -190,22 +190,22 @@
 					<div class="col-sm-8">
 						<div class="row">
 							<div class="col-sm-2">
-								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 #extendCyclePrice (output)="outputValue($event,'extendCyclePrice')"></count-bar>
+								<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 #extendCyclePrice (output)="outputValue($event,'extendCyclePrice')"></count-bar>
 							</div>
 							<div class="col-sm-2 form-control-title">
 								一次性价格：
 							</div>
 							<div class="col-sm-2">
-								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
+								<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
 							</div>
 						</div>
 					</div>
 					<!--<div class="col-sm-2">
-						<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 #extendCyclePrice (output)="outputValue($event,'extendCyclePrice')"></count-bar>
+						<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 #extendCyclePrice (output)="outputValue($event,'extendCyclePrice')"></count-bar>
 					</div>
 					<div class="col-sm-2 form-control-title">一次性价格：</div>
 					<div class="col-sm-1">
-						<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
+						<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
 					</div>-->
 				</div>
 			</div>
@@ -223,7 +223,7 @@
 							可用区
 						</div>
 						<div class="col-sm-4" style="text-align: left">
-							<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllZones()">
+							<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllZones()" [(ngModel)]="selectAllZone">
 						</div>
 					</div>
 					<div class="row tabBody" *ngFor="let plateform of prodDir.platformInfo; let idx=index">
@@ -244,7 +244,6 @@
 							</div>
 						</div>
 					</div>
-
 				</div>
 				<div class="col-sm-3"></div>
 			</div>
@@ -252,7 +251,7 @@
 				<div class="col-sm-3"></div>
 				<div class="col-sm-6 border selectPlateForm">
 					<div class="row  tabHeader row-line-height">
-						<div class="col-sm-4">disk平台名称</div>
+						<div class="col-sm-4">平台名称</div>
 						<div class="col-sm-3 ">
 							可用区
 						</div>
@@ -260,7 +259,7 @@
 							存储后端
 						</div>
 						<div class="col-sm-2" style="text-align: left">
-							<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllStorages()">
+							<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllStorages()" [(ngModel)]="selectAllStorage">
 						</div>
 					</div>
 					<div class="row tabBody" *ngFor="let plateform of prodDir.platformList; let idx=index">
@@ -336,7 +335,7 @@
 	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
         <span class="icon-button-label">取消</span>
     </button>
-	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();">
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();" style="margin-left:40px">
         <span class="icon-button-label">创建产品</span>
     </button>
 </div>

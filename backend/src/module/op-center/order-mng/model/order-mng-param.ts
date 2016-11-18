@@ -1,27 +1,28 @@
 //订单管理查询参数
 export class OrderMngParam{
-	approverId: string = null;//, optional): 审批人,在审批查询已审批订单时使用 ,
-	createTime: string = null;//, optional): 创建时间 ,
-	enterpriseId: string = null;//, optional): 企业ID ,
-	expireTime: string = null;//, optional): 到期时间 ,
-	orderId: string = null;//, optional): 订单ID ,
-	orderType: string = null;//, optional): 订单类型,在审批查询订单时使用 ,
-	organization: string = null;//, optional): 机构ID ,
-	region: string = null;//, optional): 区域ID ,
-	serviceId: string = null;//, optional): 产品类型ID-后端叫产品目录 ,
-	status: string = null;//, optional): 订单状态，注意是数字，不是字符,4已删除的订单，1正常的订单 ,
-	userId: string = null;//, optional): 用户ID,在审批查询订单时使用 ,
-	zoneId: string = null;//, optional): 可用区ID
+
+  queryParam :string =null;//搜索框条件
+  createDate: string = null; // 创建时间 "2016-11-16T08:31:23.720Z",
+  enterpriseId: string = null; // 企业ID
+  expireDate: string = null; // 到期时间"2016-11-16T08:31:23.720Z",
+  organization: string = null; // 机构ID"string",
+  platformId: string = null; // 区域id"string",
+  serviceType: string = null; // 产品类型"string",
+  status: string = null; // 状态"string",
+  zoneId: string = null; // 可用区"string"
 
   reset(){
-    this.createTime = null;
+    this.createDate = null;
     this.enterpriseId = null;
-    this.expireTime = null;
+    this.expireDate = null;
     this.organization = null;
-    this.region = null;
-
+    this.platformId = null;
+    this.serviceType = null;
+    this.status = null;
+    this.zoneId = null;
   }
 }
+
 /*
 OrderSearchCondtion {
 approverId (string, optional): 审批人,在审批查询已审批订单时使用 ,

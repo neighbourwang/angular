@@ -14,7 +14,7 @@ export class OrderMngRenewComponent implements OnInit{
 	@ViewChild("notice")
   	private _notice: NoticeComponent;
 	@Input()
-	private orderItem: SubInstanceResp;
+	private orderItem: SubInstanceResp = new SubInstanceResp();
 
 	private _param:OrderMngParam = new OrderMngParam();
 

@@ -56,7 +56,7 @@ export class CartButtonComponent implements OnInit {
 
 
 
-	private modalconfirm = function(){};
-	private modalcancle = function(){};
-	private modalnotice = function(){};
+	modalconfirm = function(){};
+	modalcancle = function(){};
+	modalnotice = function(){};
 }

@@ -4,7 +4,7 @@ export class Attest {
     desc: string;
     url: string;
     userName: string;
-    passowrd: string;
+    password: string;
     loginProp: string;
     status:string;
     isSelect?: boolean = false;

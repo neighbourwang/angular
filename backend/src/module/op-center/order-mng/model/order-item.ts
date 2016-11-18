@@ -88,6 +88,8 @@ export class SubInstanceItemResp {
   }
 
   statusName: string = null;//用于界面显示
+  serviceTypeName: string = null;//产品类型名称
+  billingModeName: string = null;//计费模式名称
 }
 
 

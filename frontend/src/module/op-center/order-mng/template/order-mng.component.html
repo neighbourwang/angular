@@ -3,15 +3,16 @@
 	<div class="page-content-header">订单管理</div>
 	<div class="page-content">
 		<div class="mgb20">
-			<ul class="nav nav-tabs">
-				<li  class="active"><a href="#">部门订单</a></li>
-				<li><a href="#">所有订单</a></li>
+			<ul class="nav nav-tabs" id="myTabs" role="tablist">
+				<li  role="presentation" [class.active]="_param.scope==0"><a  id="department-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="false" (click)="_param.scope=0;">部门订单</a></li>
+				<li  role="presentation" [class.active]="_param.scope==1"><a id="all-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="false" (click)="_param.scope=1">所有订单</a></li>
 			</ul>
+			
 		</div>
 		<div class="table-container">
 			<div class="">
 				<div class="input-group col-md-2 float-left mgr20">
-   					 <input class="form-control" placeholder="输入云主机信息搜索" type="email">
+   					 <input class="form-control" placeholder="输入云主机信息搜索" type="email" [(ngModel)]="_param.queryParam">
     				 <div class="input-group-addon"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div>
 						
@@ -119,8 +120,8 @@
 							<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 						</ul>
 					</td>
-					<td>{{prodItem.serviceType}}</td>
-					<td>{{prodItem.billingMode}}</td>
+					<td>{{prodItem.serviceTypeName}}</td>
+					<td>{{prodItem.billingModeName}}</td>
 					<td>{{prodItem.period}}</td>
 					<td>{{prodItem.quantity}}</td>
 					<td style="width: 100px;">{{prodItem.oneTimePriceAndPrice}}</td>
@@ -177,9 +178,9 @@
 										<span class="float-left" style="margin-top: 8px;">购买时长:</span>
 										<div class="dropdown float-left">
 											<select class="form-control" [(ngModel)]="_renewSetting.unit">
-												<option class="hands" [value]="PurchaseUnit.hour">按小时</option>
-												<option class="hands" [value]="PurchaseUnit.day">按天</option>
-												<option class="hands" [value]="PurchaseUnit.month">按月</option>
+												<option class="hands" [value]="0">按小时</option>
+												<option class="hands" [value]="1">按天</option>
+												<option class="hands" [value]="2">按月</option>
 											</select>
 										</div>
 										<input type="text" name="" value="">
@@ -247,7 +248,7 @@
 						<h4 class="modal-title" id="myModalLabel">订单退订</h4>
 				  	</div>
 				 	<div class="modal-body"> 
- 						<order-mng-cancel  [orderItem]="selectedOrderItem"></order-mng-cancel>
+ 						<order-mng-cancel [orderItem]="selectedOrderItem"></order-mng-cancel>
  						<!-- 退订 -->
 						<div *ngIf="!_isCanceled" class="OrderRenew"> 
 							<div class="page-content">

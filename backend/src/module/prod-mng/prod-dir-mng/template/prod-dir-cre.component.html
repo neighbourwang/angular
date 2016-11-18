@@ -17,14 +17,14 @@
 						<div class="prodSpecific">
 							<span class="form-line-height font-gray" >cpu</span>
 							<span >
-								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
+								<count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
 							</span>
 							<span class="form-line-height font-gray">核(vCPU)</span>
 						</div>
 						<!--<div class="row">
 							<div class="col-sm-3 font-gray"><span class="form-line-height">cpu</span></div>
 							<div class="col-sm-4">
-								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
+								<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
 							</div>
 							<div class="col-sm-3 font-gray">
 								<span class="form-line-height">核(vCPU)</span>
@@ -40,14 +40,14 @@
 						<div class="prodSpecific">
 							<span class="form-line-height font-gray" >内存</span>
 							<span >
-								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'mem')"></count-bar>
+								<count-bar [default]=0 [step]=100 [max]=100000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'mem')"></count-bar>
 							</span>
 							<span class="form-line-height font-gray">兆(MB)</span>
 						</div>
 						<!--<div class="row">
 							<div class="col-sm-3 font-gray"><span class="form-line-height">内存</span></div>
 							<div class="col-sm-4">
-								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'mem')"></count-bar>
+								<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'mem')"></count-bar>
 							</div>
 							<div class="col-sm-3 font-gray">
 								<span class="form-line-height">兆(MB)</span>
@@ -63,14 +63,14 @@
 						<div class="prodSpecific">
 							<span class="form-line-height font-gray" >启动盘大小</span>
 							<span >
-								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'startupDisk')"></count-bar>
+								<count-bar [default]=0 [step]=100 [max]=100000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'startupDisk')"></count-bar>
 							</span>
 							<span class="form-line-height font-gray">GB</span>
 						</div>
 						<!--<div class="row">
 							<div class="col-sm-3 font-gray"><span class="form-line-height">启动盘大小</span></div>
 							<div class="col-sm-4">
-								<count-bar [default]=0 [step]=100 [max]=1025 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'startupDisk')"></count-bar>
+								<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'startupDisk')"></count-bar>
 							</div>
 							<div class="col-sm-3 font-gray">
 								<span class="form-line-height">GB</span>
@@ -141,7 +141,7 @@
 	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
         <span class="icon-button-label">取消</span>
     </button>
-	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();">
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();" style="margin-left:20px">
         <span class="icon-button-label">创建</span>
     </button>
 </div>

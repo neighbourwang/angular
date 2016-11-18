@@ -157,8 +157,10 @@ export class ProdDirDiskCreComponent implements OnInit {
             this.notice.open('操作错误', '请选择可用平台');
             return;
         }
+        this.LayoutService.show();
         this.CreateProdDirService.postDiskProdDir(this.prodDir).then(response => {
             console.log(response)
+            this.LayoutService.hide();
             this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
         }).catch(err => {
             console.error(err);
