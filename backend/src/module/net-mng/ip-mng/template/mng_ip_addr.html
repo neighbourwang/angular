@@ -28,7 +28,7 @@
     </div>
 
     <div class="mgb10">
-        <button class="fox-cloud-button fox-cloud-button-green" (click)="filter('0')">空闲</button>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="filter('2')">空闲</button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="filter('1')">已占有</button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="filter('all')">所有</button>
         <div class="dropdown pull-right">
@@ -63,7 +63,6 @@
                 <td>{{displayIt(ipusagemng.tenantName)}}</td>
                 <td>{{getDicText(ipusagemng.status,this.statusDic)}}</td>
                 <td>{{displayIt(ipusagemng.description)}}</td>
-                <td></td>
             </tr>
             </tbody>
         </table>
