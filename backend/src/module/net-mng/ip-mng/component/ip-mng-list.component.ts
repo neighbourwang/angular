@@ -65,7 +65,7 @@ export class IpMngListComponent implements OnInit{
 
     rawipmngs: Array<IpMngModel>;
     ipmngs: Array<IpMngModel>;
-    ipmng: IpMngModel = new IpMngModel();
+    //ipmng: IpMngModel = new IpMngModel();
     ipmngquery: IpMngQuery = new IpMngQuery();
     cluster: Array<string>;
     datacenter: Array<string>;
@@ -116,11 +116,11 @@ export class IpMngListComponent implements OnInit{
             }
             return res.resultContent;
         }).then((resultContent) => {
-            console.log(resultContent, "Areas!!!");
+            //console.log(resultContent, "Areas!!!");
             this.datacenter = resultContent.dcNameList;            
             this.cluster = resultContent.areaNameList;
-            console.log(this.datacenter);
-            console.log(this.cluster);
+            console.log(this.datacenter, "all datacenter!");
+            console.log(this.cluster, "all clusters!");
             this.layoutService.hide();
         }).catch(error => {
             console.log("getDcCluster error!");
@@ -132,8 +132,8 @@ export class IpMngListComponent implements OnInit{
         this.ipmngs = this.rawipmngs.filter((item)=>{
             return (this.ipmngquery.cluster == "" || item.clusterName == this.ipmngquery.cluster) && 
             (this.ipmngquery.dataCenter == "" || item.dataCenter == this.ipmngquery.dataCenter)
-
         })
+        this.UnselectItem();
     }
 
 
@@ -150,14 +150,13 @@ export class IpMngListComponent implements OnInit{
                     this.rawipmngs = response.resultContent;
                     this.filter();
                     console.log(this.ipmngs, "IPmngS 11111111111111111111111");
-
                 } else {
                     alert("Res sync error");
                     this.layoutService.hide();
                 }
             })
             .catch((e) => this.onRejected(e));
-        }
+    }
 
 	onRejected(reason: any) {
         this.layoutService.hide();
@@ -186,31 +185,36 @@ export class IpMngListComponent implements OnInit{
     }
 
     //选择行
-    selectItem(index:number):void
-    {
+    selectItem(index:number): void {
         this.ipmngs.map(n=> {n.checked = false;});
         this.ipmngs[index].checked = true;
-        console.log(this.ipmngs, "===============");
+        console.log(this.ipmngs, "=== Please see which one is selected ===");
+    }
+
+    UnselectItem(): void {
+        this.ipmngs.map(n=> {n.checked = false;});
+        console.log(this.ipmngs, "=== Please see all items are Unselected ===");
     }
 
     getSelected() {
         let item = this.ipmngs.find((n) => n.checked) as IpMngModel;
         if (item){
-            console.log("==========getSelected 1=============");
+            //console.log("==========getSelected 1=============");
             return item;
         }
         else {
-            console.log("==========getSelected 2=============");
+            //console.log("==========getSelected 2=============");
             this.showMsg("请选择相应的PortGroup");
             return null;
         }
     }
 
+    //Menu: 设置IP子网
     setupSubnet(): void {
         console.log('conponent: net-mng/ip-mng-list/subnet');
         //this.layoutService.show();
         let pg = this.getSelected();
-        console.log(pg, "==========setupSubnet=============");
+        console.log(pg, "========== setupSubnet =============");
          if (pg) {
              // OR get subenet information from API
             this.subn.portGroup = pg.id;
@@ -218,10 +222,11 @@ export class IpMngListComponent implements OnInit{
         }
     }
 
+    //Menu: 设置子网IP地址范围
     setupIPs(): void {
         console.log('conponent: net-mng/ip-mng-list/ips');
         let pg = this.getSelected();
-        console.log(pg, "=======================");
+        console.log(pg, "============ setupIPs ===========");
         this.layoutService.show();
         if (pg) {
             this.layoutService.hide();
@@ -239,14 +244,19 @@ export class IpMngListComponent implements OnInit{
 
     }
 
+    //Menu: 管理子网IP使用情况
     ipUsageMngPage() {
         //attest = attest || new Attest();
         //this.router.navigate([`net-mng/ipusage-mng-list/${this.dc}`]);
         let pg = this.getSelected();
         if(pg){
             this.router.navigate([`net-mng/ipusage-mng-list`, { "pg_id": pg.id, "pg_name": pg.clusterName}]);
-        }
-        
+        }        
+    }
+
+    //Menu: 返回上一层, 可以在[返回上一层]调用
+    vmwareNetworkPage() {
+        this.router.navigate([`net-mng/vm-mng`]);     
     }
 
     showMsg(msg: string) {
@@ -387,7 +397,7 @@ export class IpMngListComponent implements OnInit{
         }
     }
     acceptIPsModify(): void {
-        console.log('acceptIPsModify');
+        console.log('clicked acceptIPsModify');
         if (this.validateIPModify()) {
             this.service.updateSubnetIPs(this.ippool)
                 .then(res => {
@@ -409,8 +419,9 @@ export class IpMngListComponent implements OnInit{
                 })
         }
     }
+
     cancelIPsModify(): void {
-        console.log('cancelIPsModify');
+        console.log('clicked cancelIPsModify');
         this.ippool.ips = "";
         this.ippool.subnetCIDR = "";
         this.ippool.gateway = "";
@@ -478,7 +489,7 @@ export class IpMngListComponent implements OnInit{
     }
 
     acceptSubnetModify(): void {
-        console.log('acceptSubnetModify');
+        console.log('clicked acceptSubnetModify');
         if (this.validateSubnetModify()) {
             this.service.updateSubnet(this.subn)
                 .then(res => {
@@ -502,7 +513,7 @@ export class IpMngListComponent implements OnInit{
         
     }
     cancelSubnetModify(): void {
-        console.log('cancelSubnetModify');
+        console.log('clicked cancelSubnetModify');
         this.subn.dnsAlt = "";
         this.subn.dnsPre = "";
         this.subn.gateway = "";

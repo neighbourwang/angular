@@ -98,7 +98,7 @@ export class IpUsageMngListComponent implements OnInit{
         this.dicService.getItems("IP", "STATUS")
         .then((dic) => {
             this.statusDic = dic;
-            //this.getIpUsageMngList();
+            console.log(this.statusDic, "=== this.statusDic ===");
         }).catch((e) => this.onRejected(e));
 
         this.activatedRouter.params.forEach((params: Params) => {
@@ -126,15 +126,16 @@ export class IpUsageMngListComponent implements OnInit{
     }
 
     ipMngPage() {
-        //attest = attest || new Attest();
         this.router.navigate([`net-mng/ip-mng-list`]);
     }
 
     filter(query?): void {
+        console.log("=== filter ===");
         this.ipusagequery = query || this.ipusagequery;
         this.ipusagemngs = this.rawipusagemngs.filter((item)=>{
             return (this.ipusagequery == "all" || item.status == this.ipusagequery) 
-        })
+        });
+        this.UnselectItem();
     }
 
     getIpUsageMngList( id: string, ipusagequery? ): void {
@@ -164,13 +165,18 @@ export class IpUsageMngListComponent implements OnInit{
     }
 
     //选择行
-    selectItem(index:number):void
-    {
+    selectItem(index:number): void {
         this.ipusagemngs.map(n=> {n.checked = false;});
         this.ipusagemngs[index].checked = true;
         console.log(this.ipusagemngs, "this.ipusagemngs");
         this.selectedip = this.ipusagemngs[index];
         console.log(this.selectedip, "this.selectedip");
+    }
+
+    UnselectItem(): void {
+        this.ipusagemngs.map(n=> {n.checked = false;});
+        if(this.selectedip) this.selectedip.checked = false;
+        console.log(this.ipusagemngs, "=== Please see all items are Unselected ===");
     }
 
     getSelected() {
@@ -196,6 +202,10 @@ export class IpUsageMngListComponent implements OnInit{
             this.selectedip = ip;
             console.log(this.selectedip.id);
             console.log(this.pg_id);
+            if(this.selectedip.status == "1"){
+                this.showMsg("IP已被占用");
+                return; 
+            }
             this.service.enableIP(this.selectedip.id)
             .then(res => {
                     if (res && res.resultCode == "100") {
@@ -218,6 +228,10 @@ export class IpUsageMngListComponent implements OnInit{
         if(ip){
             this.selectedip = ip;
             console.log(this.selectedip.id);
+            if (this.selectedip.status == "2") {
+                this.showMsg("IP未被占用，无法释放");
+                return;
+            }
             this.service.disableIP(this.selectedip.id)
             .then(res => {
                     if (res && res.resultCode == "100") {
