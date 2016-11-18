@@ -36,6 +36,32 @@
                     { "com": "HP3", "id": "001" },
                     { "com": "HP1", "id": "001" }
                 ]
+            },
+            {
+                "id": "af349044-3bfb-4b09-b804-30954b084e0x",
+                "dcName": "DC2",
+                "clusterName": "cluster1",
+                "clusterDisplayName": "可用区2",
+                "portDisplayName": "8000",
+                "portGroupName": "mk-group2",
+                "enterpriseList": [
+                    { "com": "HP2", "id": "001" },
+                    { "com": "HP3", "id": "001" },
+                    { "com": "HP1", "id": "001" }
+                ]
+            },
+            {
+                "id": "af349044-3bfb-4b09-b804-30954b084e0x",
+                "dcName": "DC1",
+                "clusterName": "cluster2",
+                "clusterDisplayName": "可用区2",
+                "portDisplayName": "8000",
+                "portGroupName": "mk-group2",
+                "enterpriseList": [
+                    { "com": "HP2", "id": "001" },
+                    { "com": "HP3", "id": "001" },
+                    { "com": "HP1", "id": "001" }
+                ]
             }
         ]
     }
@@ -102,17 +128,17 @@ export const net_dc_list_mock = {
     "detailDescription": null,
     "resultContent": [
         {
-            "dcName": "dc1",
+            "dcName": "DC1",
             "clusterNameList": [
-                "vds1",
-                "vds2"
+                "cluster1",
+                "cluster2"
             ]
         },
         {
-            "dcName": "dc2",
+            "dcName": "DC2",
             "clusterNameList": [
-                "vds4",
-                "vds3"
+                "cluster1",
+                "cluster2"
             ]
         }
     ]
