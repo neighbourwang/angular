@@ -98,6 +98,7 @@ export class IpUsageMngListComponent implements OnInit{
         this.dicService.getItems("IP", "STATUS")
         .then((dic) => {
             this.statusDic = dic;
+            console.log(this.statusDic, "=== this.statusDic ===");
         }).catch((e) => this.onRejected(e));
 
         this.activatedRouter.params.forEach((params: Params) => {
@@ -227,7 +228,7 @@ export class IpUsageMngListComponent implements OnInit{
         if(ip){
             this.selectedip = ip;
             console.log(this.selectedip.id);
-            if (this.selectedip.status == "0") {
+            if (this.selectedip.status == "2") {
                 this.showMsg("IP未被占用，无法释放");
                 return;
             }
