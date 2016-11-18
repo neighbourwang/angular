@@ -40,22 +40,21 @@ export class ImgMngService {
     }
 
     updateImage(image: Image): Promise<any> {
-        const pathParams = [
-            {
-                key: "image_id",
-                value: image.id
-            } 
-        ];
         delete image.createTime;
         const api = this.restApiCfg.getRestApi("image.mng.update");
-        return this.restApi.request(api.method, api.url, pathParams, null, image);
+        return this.restApi.request(api.method, api.url, null, null, image);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Images_mock });
     }
 
     deleteImage(image: Image): Promise<any> {
-
+        const pathParams = [
+            {
+                key: "id",
+                value: image.id
+            }
+        ];
         const api = this.restApiCfg.getRestApi("image.mng.delete");
-        return this.restApi.request(api.method, api.url, null, null, image);
+        return this.restApi.request(api.method, api.url, null, null, null);
       //  return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Images_mock });
     }
 

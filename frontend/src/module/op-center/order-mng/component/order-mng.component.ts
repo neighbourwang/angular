@@ -9,7 +9,7 @@ import { ListItem
 	,ProductBillingItem
 	, RenewSetting
 	, PurchaseUnit} from '../model'
-
+import * as _ from 'underscore';
 
 @Component({
 	selector: 'order-mng',
@@ -48,11 +48,17 @@ export class OrderMngComponent implements OnInit{
 	private _isCanceled:boolean = false;
 	private _cancelHandler:ItemLoader<any> = null;
 
+	private _entId:string = "191af465-b5dc-4992-a5c9-459e339dc719";
+
+	private _billinModeDic:DicLoader = null;
+
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
+
+		this._billinModeDic = new DicLoader(restApiCfg, restApi, "BILLING_MODE", "TYPE");
 
 		//退订
 		this._cancelHandler = new ItemLoader<any>(false, "退订", "op-center.order-mng.order-cancel.get", restApiCfg, restApi);
@@ -68,7 +74,7 @@ export class OrderMngComponent implements OnInit{
 		this._departmentLoader = new ItemLoader<ListItem>(false, "部门列表", "op-center.order-mng.department-list.get", restApiCfg, restApi);
 		
 		//订单状态配置
-		this._orderStatusDic = new DicLoader(restApiCfg, restApi, "ORDER", "STATUS");
+		this._orderStatusDic = new DicLoader(restApiCfg, restApi, "SUBINSTANCE", "STATUS");
 
 		//产品类型配置
 		this._productTypeLoader = new DicLoader(restApiCfg, restApi, "GLOBAL", "SERVICE_TYPE")
@@ -181,7 +187,7 @@ export class OrderMngComponent implements OnInit{
 	loadDepartment():Promise<any>{
 		//测试企业1
 		return new Promise((resovle, reject)=>{
-			this._departmentLoader.Go(null, [{key:"enterpriseId", value:"191af465-b5dc-4992-a5c9-459e339dc719"}])
+			this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._entId}])
 			.then(success=>{
 				resovle(success);
 			},err=>{
@@ -190,18 +196,18 @@ export class OrderMngComponent implements OnInit{
 		});
 	}
 	
-	showDetail(){
-		this.router.navigateByUrl('op-center/order-mng/order-mng-detail');
+	showDetail(orderItem:SubInstanceResp){
+		//this.router.navigateByUrl('op-center/order-mng/order-mng-detail');
 	}
 	
 	renewSelect(orderItem:SubInstanceResp){
 		this.selectedOrderItem = orderItem;
 	}
 
-	cancelSelect(orderItme:SubInstanceResp)
+	cancelSelect(orderItem:SubInstanceResp)
 	{
 		this._isCanceled = false;
-		this.selectedOrderItem = orderItme;
+		this.selectedOrderItem = orderItem;
 	}
 	
 
@@ -210,11 +216,25 @@ export class OrderMngComponent implements OnInit{
 		this._notice.open("系统提示", msg);
 	}
 
-	search(){
+	search(pageNumber:number = 1){
+		//this._param.enterpriseId = this._entId;
+		let param = _.extend({}, this._param);
+
+		//搜索框参数匹配后台API
+
+
+
+		param.pageParameter = {
+			currentPage:pageNumber
+			,size:10
+		};
+
+
 		this.layoutService.show();
-		this._orderLoader.Go(1, null, this._param)
+		this._orderLoader.Go(null, null, param)
 		.then(success=>{
 			this.layoutService.hide();
+			this.updateStatusName();
 		})
 		.catch(err=>{
 			this.layoutService.hide();
@@ -222,9 +242,31 @@ export class OrderMngComponent implements OnInit{
 		})
 	}
 
+	//翻译订单状态
+	updateStatusName(){
+		let list:Array<SubInstanceItemResp> = []
+		this._orderLoader.Items.map(n=>list = list.concat(n.itemList));
+		list.map(n=>{
+			let item = this._orderStatusDic.Items.find(m=>m.value == n.status);
+			if(item) n.statusName = item.displayValue as string;
+
+			item = this._productTypeLoader.Items.find(m=>m.value == n.serviceType);
+			if(item) n.serviceTypeName = item.displayValue as string;
+
+			item = this._billinModeDic.Items.find(m=>m.value == n.billingMode);
+			if(item) n.billingModeName = item.displayValue as string;
+		});
+
+	}
+
+	changePage(pageNumber:number)
+	{
+		this.search(pageNumber);
+	}
+
 	onPlatformChanged(){
 		this.layoutService.show();
-		this._regionLoader.Go(null, [{key:"_id", value:this._param.region}])
+		this._regionLoader.Go(null, [{key:"_id", value:this._param.platformId}])
 		.then(success=>{
 			this.layoutService.hide();
 		})
@@ -235,11 +277,11 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	onCreateTimeChange($event){
-		this._param.createTime = $event.formatted;
+		this._param.createDate = $event.formatted;
 	}
 
 	onExpireTimeChange($event){
-		this._param.expireTime = $event.formatted;
+		this._param.expireDate = $event.formatted;
 	}
 
 	//续订
@@ -267,8 +309,6 @@ export class OrderMngComponent implements OnInit{
 	}
 
 selectForever(){
-      this.isForerver = true;
-	}
-
-
+      this.isForerver = !this.isForerver;
+}
 }

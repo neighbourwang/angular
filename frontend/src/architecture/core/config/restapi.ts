@@ -35,13 +35,21 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "id": "hosts.services.get",
         // "url": "marketplace/authsec/shopping/servicelist/vm"
-        "url": "marketplace/authsec/shopping/servicelist/88/1/vm"
+        // "url": "marketplace/authsec/shopping/servicelist/88/1/vm",
+        // "url": "marketplace/authsec/shopping/servicelist/88/1/vm",
+        "url": "marketplace/authsec/shopping/servicelist/type/0"
     },
     {
         "desc": "云主机订购",
         "method": "POST",
         "id": "hosts.order.add",
-        "url": "marketplace/authsec/shopping/cart/vm"
+        "url": "marketplace/authsec/shopping/purchase"
+    },
+    {
+        "desc": "添加到购物车",
+        "method": "POST",
+        "id": "shopping.cart.add",
+        "url": "marketplace/authsec/shopping/cart"
     },
     /*
      * Cloud-Host Instance List
@@ -88,6 +96,12 @@ export let RestApis: RestApiModel[] = [
         "id": "shopping.orders.completion",
         "url": "marketplace/authsec/shopping/orders/completion"
     },
+    {
+        "desc": "获取云硬盘列表",
+        "method": "POST",
+        "id": "disk.search.page",
+        "url": "marketplace/authsec/subinstance/itemlist/disk/search/page"
+    },
     //镜像管理部分
     {
         "desc": "获取镜像列表",
@@ -99,13 +113,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "更新镜像信息",
         "method": "PUT",
         "id": "image.mng.update",
-        "url": "/marketplaceboe/authsec/image/{image_id}"
+        "url": "/marketplaceboe/authsec/image"
     },
     {
         "desc": "删除镜像信息",
         "method": "DELETE",
         "id": "image.mng.delete",
-        "url": "/marketplaceboe/authsec/image"
+        "url": "/marketplaceboe/authsec/image/{id}"
     },
     {
         "desc": "获取区域列表",

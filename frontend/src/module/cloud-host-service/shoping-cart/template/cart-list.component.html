@@ -39,13 +39,13 @@
             <td class="text-center table-text-middle" style="width: 15%;">
                 <!--  <count-bar 
                     [step]=1 
-                    [max]=1025 
+                    [max]=2000000 
                     [min]=1
                     [disabled]=false 
                     [value]=cart.quantity #varName (output)="outputValue($event)"></count-bar>  -->
                     {{cart.quantity}}台
             </td>
-            <td class="text-center table-text-middle">{{cart.billingPeriod}}元</td>
+            <td class="text-center table-text-middle">{{cart.billingInfo.basicPrice}}元</td>
         </tr>
         </ng-container>
     </table>
@@ -68,12 +68,12 @@
                 </tr>
             </table>
         </span> -->
-        <span class="float-right mgr50 pdt20">费用总计：<font class="font-orange">¥{{totalPrice}}</font></span>
+        <span class="float-right mgr50 pdt20">费用总计：<font class="font-orange">¥{{nub(totalPrice)}}</font></span>
         <span class="float-right mgr50 pdt20">( 费用合计 )</span>
     </div>
 </div>
 <fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalcancle()" ct="{{modalCancelTitle}}" (cf)="modalconfirm()"></fc-confirm>
-<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalconfirm()"></fc-notice>
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="noticeconfirm()"></fc-notice>
 
 
 

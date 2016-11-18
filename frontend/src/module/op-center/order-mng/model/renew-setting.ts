@@ -1,7 +1,7 @@
 export enum PurchaseUnit{
-	hour,
-	day,
-	month
+	hour = 0,
+	day = 1,
+	month = 2
 }
 export class RenewSetting{
 	unit:PurchaseUnit = PurchaseUnit.hour;//单位

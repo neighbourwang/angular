@@ -23,9 +23,9 @@ export class AttMngCreService {
 
     //测试认证源连通性
     testAttest(attest: Attest): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.test");
-        //return this.restApi.request(api.method, api.url, null, null, attest);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => attestDetail);
+        const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.test");
+        return this.restApi.request(api.method, api.url, null, null, attest);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => attestDetail);
     }
 
     //创建认证源
@@ -36,9 +36,9 @@ export class AttMngCreService {
                 value: eid
             }
         ];
-        //const api = this.restApiCfg.getRestApi("ent-mng.enterprise.ldap.create");
-        //return this.restApi.request(api.method, api.url, null, null, attest);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => attestDetail);
+        const api = this.restApiCfg.getRestApi("ent-mng.enterprise.ldap.create");
+        return this.restApi.request(api.method, api.url, pathParams, null, attest);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => attestDetail);
     }
 
     //根据id获取认证源详情
@@ -49,9 +49,9 @@ export class AttMngCreService {
                 value: id
             }
         ];
-        //const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.get");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => attestDetail);
+        const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => attestDetail);
     }
 
     //编辑认证源
@@ -62,9 +62,9 @@ export class AttMngCreService {
                 value: attest.id
             }
         ];
-        //const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.edit");
-        //return this.restApi.request(api.method, api.url, pathParams, null, attest);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => attestDetail);
+        const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.edit");
+        return this.restApi.request(api.method, api.url, pathParams, null, attest);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => attestDetail);
     }
 
     //修改认证帐户
@@ -75,9 +75,9 @@ export class AttMngCreService {
                 value: attest.id
             }
         ];
-        //const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.editacc");
-        //return this.restApi.request(api.method, api.url, pathParams, null, attest);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => attestDetail);
+        const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.editacc");
+        return this.restApi.request(api.method, api.url, pathParams, null, attest);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => attestDetail);
     }
 
     //启用/禁用认证源
@@ -92,9 +92,9 @@ export class AttMngCreService {
                 value: status
             }
         ];
-        //const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.edit.status");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => attestDetail);
+        const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.edit.status");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => attestDetail);
     }
 
     //查询AD用户
@@ -113,16 +113,16 @@ export class AttMngCreService {
                 value: size
             }
         ];
-        //const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.adusers.list");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => adusers);
+        const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.adusers.list");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => adusers);
     }
 
     //认证源简单列表（下拉框）
     getSimpleAttestList(attest: Attest, page: number, size: number): Promise<any> {
 
-        //const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.adusers.list");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => attests);
+        const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.adusers.list");
+        return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => attests);
     }
 }

@@ -123,9 +123,11 @@ export class AccountMngComponent implements OnInit{
                 break;
             case 2:
                 console.log('启用帐号');
+                this.enableAccount();
                 break;
             case 3:
                 console.log('禁用帐号');
+                this.disableAccount();
                 break;
             case 4:
                 console.log('删除帐号');
@@ -136,6 +138,30 @@ export class AccountMngComponent implements OnInit{
     chooseItem(index){
         this.chooseAccount = this.accounts[index];
         console.log(this.chooseAccount);
+    }
+
+    disableAccount(){
+        this.service.disableAccount(this.chooseAccount.id).then(
+            res => {
+                console.log(res);
+            }
+        ).catch(
+            err => {
+                console.error(err);
+            }
+        )
+    }
+
+    enableAccount(){
+        this.service.enableAccount(this.chooseAccount.id).then(
+            res => {
+                console.log(res);
+            }
+        ).catch(
+            err => {
+                console.error(err);
+            }
+        )
     }
 
     

@@ -22,7 +22,7 @@
                 <span class="caret"></span>
             </button>-->
 			<select class="form-control" [(ngModel)]="platformId">
-                 <option *ngFor="let item of platformsList;" [value]="item.id">{{item.name}}</option>
+                 <option *ngFor="let item of platformsList;" [value]="item?.id">{{item?.name}}</option>
             </select>
 		</div>
 		<span class="pull-right" style="margin-left: 20px; line-height: 34px">平台：</span>
@@ -32,7 +32,7 @@
                 <span class="caret"></span>
             </button>-->
 			<select class="form-control" [(ngModel)]="enterpriseId">
-                 <option *ngFor="let item of enterpriseList;" [value]="item.id">{{item.name}}</option>
+                 <option *ngFor="let item of enterpriseList;" [value]="item?.id">{{item?.name}}</option>
             </select>
 		</div>
 		<span class="pull-right" style="margin-left: 20px;line-height: 34px">企业：</span>
@@ -43,7 +43,7 @@
                 <span class="caret"></span>
             </button>-->
 			<select class="form-control" [(ngModel)]="prodDirId">
-                 <option *ngFor="let item of prodDirList;" [value]="item.id">{{item.name}}</option>
+                 <option *ngFor="let item of prodDirList;" [value]="item?.id">{{item?.name}}</option>
             </select>
 		</div>
 		<span class="pull-right" style="line-height: 34px">产品目录：</span>
@@ -74,9 +74,23 @@
 						/></td>
 					<td (click)="goDetail(item)" style="cursor: pointer">{{item.name}}</td>
 					<td>{{item.serviceName}}</td>
-					<td>{{item.serviceType}}</td>					
+					<td>
+						<span [ngSwitch]="item.serviceType"> 
+							<template ngSwitchCase="0">云主机</template>
+							<template ngSwitchCase="1">云硬盘</template>
+							<template ngSwitchDefault>Unknown</template>							
+						</span>
+					</td>
 					<td>{{item.serviceSpecification}}</td>					
-					<td>{{item.billingCycle}}</td>
+					<td>
+						<span [ngSwitch]="item.billingCycle"> 
+							<template [ngSwitchCase]="0">按小时</template>
+							<template [ngSwitchCase]="1">按天</template>
+							<template [ngSwitchCase]="2">按周</template>
+							<template [ngSwitchCase]="3">按月</template>							
+							<template ngSwitchDefault>Unknown</template>							
+						</span>
+					</td>
 					<td>{{item.recurringPrice}}</td>
 					<td>{{item.onetimePrice}}</td>
 					<td>
@@ -84,7 +98,7 @@
                             <template [ngSwitchCase]="1">已发布</template>
                             <template [ngSwitchCase]="3">未发布</template>
                             <template ngSwitchDefault>Unknown</template>
-                    </span>
+                    	</span>
 					</td>
 					<td>{{item.description}}</td>
 				</tr>

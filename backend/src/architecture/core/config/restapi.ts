@@ -553,8 +553,8 @@ export let RestApis: RestApiModel[] = [
    },{
        "desc": "订单续订",
        "id": "op-center.order-mng.order-renew.get",
-       "method": "POST",
-       "url": "adminui/authsec/backend/order/{orderId}/renew"
+       "method": "GET",
+       "url": "adminui/authsec/order/{orderId}/renew"
    },
 
    //<!--后台-运营中心-订单管理-->
@@ -611,7 +611,7 @@ export let RestApis: RestApiModel[] = [
     },    
     {
         "desc": "获取某个VM产品目录详细信息",
-        "id": "prod-mng.prod-dir-mng.detail",
+        "id": "prod-mng.prod-dir-vm.detail",
         "method": "GET",
         "url": "adminui/authsec/service/{id}/type/vm/detail "
     },  
@@ -627,6 +627,12 @@ export let RestApis: RestApiModel[] = [
         "id": "prod-mng.prod-disk-dir.create",
         "method": "POST",
         "url": "adminui/authsec/services/type/disk "
+    },
+    {
+        "desc": "获取某个DISK产品目录详细信息",
+        "id": "prod-mng.prod-dir-disk.detail",
+        "method": "GET",
+        "url": "adminui/authsec/services/{id}/disk/"
     },
     //产品
     {
@@ -751,6 +757,24 @@ export let RestApis: RestApiModel[] = [
         "method" : "GET",
         "url" : "basis/authsec/adm/users/organization/{id}"
     },
+    {
+        "desc" : "禁用帐号",
+        "id" : "user-center.org-mng.user.disable",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/user/{id}/disable"
+    },
+    {
+        "desc" : "启用帐号",
+        "id" : "user-center.org-mng.user.enable",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/user/{id}/enable"
+    },
+    {
+        "desc" : "获取权限列表",
+        "id" : "user-center.org-mng.role.list",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/roles/page/{page}/size/{size}"
+    },
     //个人账户管理
     {
         "desc": "获取当前登录账户信息",
@@ -775,79 +799,79 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取认证源列表",
         "id": "user-center.attest-mng.list",
         "method": "GET",
-        "url": "adminui/authsec/ldaps/page/{page}/size/{size}"
+        "url": "adminboe/authsec/ldaps/page/{page}/size/{size}"
     },
     {
         "desc": "认证源测试",
         "id": "user-center.attest-mng.ldap.test",
         "method": "POST",
-        "url": "adminui/authsec/ldap/test"
+        "url": "adminboe/authsec/ldap/test"
     },
     {
         "desc": "创建认证源",
         "id": "user-center.attest-mng.ldap.create",
         "method": "POST",
-        "url": "adminui/authsec/ldap"
+        "url": "adminboe/authsec/ldap"
     },
     {
         "desc": "获取认证源详情",
         "id": "user-center.attest-mng.ldap.get",
         "method": "GET",
-        "url": "adminui/authsec/ldap/{id}"
+        "url": "adminboe/authsec/ldap/{id}"
     },
     {
         "desc": "编辑认证源",
         "id": "user-center.attest-mng.ldap.edit",
         "method": "PUT",
-        "url": "adminui/authsec/ldap/{id}"
+        "url": "adminboe/authsec/ldap/{id}"
     },
     {
         "desc": "修改认证帐户",
         "id": "user-center.attest-mng.ldap.editacc",
         "method": "PUT",
-        "url": "adminui/authsec/ldap/{id}/account"
+        "url": "adminboe/authsec/ldap/{id}/account"
     },
     {
         "desc": "删除认证源",
         "id": "user-center.attest-mng.ldap.delete",
         "method": "DELETE",
-        "url": "adminui/authsec/ldap/{id}"
+        "url": "adminboe/authsec/ldap/{id}"
     },
     {
         "desc": "启用/禁用认证源",
         "id": "user-center.attest-mng.ldap.edit.status",
         "method": "PUT",
-        "url": "/adminui/authsec/ldap/{id}/status/{status}"
+        "url": "adminboe/authsec/ldap/{id}/status/{status}"
     },
     {
         "desc": "查询AD用户",
         "id": "user-center.attest-mng.ldap.adusers.list",
         "method": "POST",
-        "url": "adminui/authsec/ldap/{id}/adusers/page/{page}/size/{size}"
+        "url": "adminboe/authsec/ldap/{id}/adusers/page/{page}/size/{size}"
     },
     {
         "desc": "认证源简单列表（下拉框）",
         "id": "user-center.attest-mng.ldap.attest.simple.list",
         "method": "GET",
-        "url": "adminui/authsec/ldaps/simple"
+        "url": "adminboe/authsec/ldaps/simple"
     },
     {
         "desc": "创建企业认证源",
         "id": "ent-mng.enterprise.ldap.create",
         "method": "POST",
-        "url": "adminui/authsec/enterprise/{enterpriseId}/ldap"
+        "url": "adminboe/authsec/enterprise/{enterpriseId}/ldap"
     },
     {
         "desc": "获取企业认证源列表",
         "id": "ent-mng.enterprise.ldap.list",
         "method": "GET",
-        "url": "/adminui/authsec/enterprise/{enterpriseId}/ldaps/page/{page}/size/{size}"
+        "url": "adminboe/authsec/enterprise/{enterpriseId}/ldaps/page/{page}/size/{size}"
     },
     {
         "desc": "获取企业认证源列表（下拉框）",
         "id": "ent-mng.enterprise.ldap.simple.list",
         "method": "GET",
-        "url": "/adminui/authsec/enterprise/{enterpriseId}/ldaps/simple"
+        "url": "adminboe/authsec/enterprise/{enterpriseId}/ldaps/simple"
     },
     //云网络管理
         //openstack
@@ -861,7 +885,69 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取同步网络列表",
         "id": "net-mng.openstack.net.syn.list",
         "method": "GET",
-        "url": "/adminboe/authsec/{platform_id}/openstack/networkSync"
+        "url": "adminboe/authsec/{platform_id}/openstack/networkSync"
+    },
+        //Vmware 端口
+    {
+        "desc": "获取端口组资源分配列表",
+        "id": "net-mng.vmware.port.list",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/{id}/portresource"
+    },
+    {
+        "desc": "获取端口资源企业列表",
+        "id": "net-mng.vmware.port.enterprise.list",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/{id}/set/ent"
+    },
+    {
+        "desc": "获取端口资源设置企业保存",
+        "id": "net-mng.vmware.port.enterprise.save",
+        "method": "POST",
+        "url": "adminboe/authsec/vmware/network/save/ent"
+    },
+        //IP地址管理
+    {
+        "desc": "标准网络列表",
+        "id": "net-mng.vmware.network.list",
+        "method": "GET",
+        "url": "/adminboe/authsec/vmware/network/getlist"
+    },
+    {
+        "desc": "获取IP地址管理列表",
+        "id": "net-mng.vmware.ipmng.list",
+        "method": "POST",
+        "url": "/adminboe/authsec/vmware/network/portGroup"
+    },
+    {
+        "desc": "获取IP使用情况列表",
+        "id": "net-mng.vmware.ipusagemng.list",
+        "method": "GET",
+        "url": "/adminboe/authsec/vmware/network/portGroup/{portGroup_id}/ip"
+    },
+    {
+        "desc": "IP地址占用",
+        "id": "net-mng.vmware.subnetip.occupy",
+        "method": "PUT",
+        "url": "/adminboe/authsec/vmware/network/portGroup/ip/{ip_id}/occupy"
+    },
+    {
+        "desc": "IP地址释放",
+        "id": "net-mng.vmware.subnetip.release",
+        "method": "PUT",
+        "url": "/adminboe/authsec/vmware/network/portGroup/ip/{ip_id}/release"
+    },
+    {
+        "desc": "设置IP子网",
+        "id": "net-mng.vmware.subnet.setup",
+        "method": "PUT",
+        "url": "/adminboe/authsec/vmware/network/portGroup"
+    },
+    {
+        "desc": "设置子网IP范围",
+        "id": "net-mng.vmware.subnetips.setup",
+        "method": "PUT",
+        "url": "/adminboe/authsec/vmware/network/portGroup/{portGroup_id}/subnetRange"
     },
     {
         "desc": "获取地域数据中心数据平台选项",
@@ -907,12 +993,6 @@ export let RestApis: RestApiModel[] = [
         "id": "net-mng.openstack.net.networkStop",
         "method": "PUT",
         "url": "/adminboe/authsec/openstack/network/{id}/disable"
-    
-    },{
-        "desc": "同步网络（单个、多个）网络更新",
-        "id": "net-mng.openstack.net.syn.update",
-        "method": "PUT",
-        "url": "/adminboe/authseck/openstack/network/sync"
     
     }
     

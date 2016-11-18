@@ -3,15 +3,16 @@
 	<div class="page-content-header">订单管理</div>
 	<div class="page-content">
 		<div class="mgb20">
-			<ul class="nav nav-tabs">
-				<li  class="active"><a href="#">部门订单</a></li>
-				<li><a href="#">所有订单</a></li>
+			<ul class="nav nav-tabs" id="myTabs" role="tablist">
+				<li  role="presentation" [class.active]="_param.scope==0"><a  id="department-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="false" (click)="_param.scope=0;">部门订单</a></li>
+				<li  role="presentation" [class.active]="_param.scope==1"><a id="all-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="false" (click)="_param.scope=1">所有订单</a></li>
 			</ul>
+			
 		</div>
 		<div class="table-container">
 			<div class="">
 				<div class="input-group col-md-2 float-left mgr20">
-   					 <input class="form-control" placeholder="输入云主机信息搜索" type="email">
+   					 <input class="form-control" placeholder="输入云主机信息搜索" type="email" [(ngModel)]="_param.queryParam">
     				 <div class="input-group-addon"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div>
 						
@@ -24,7 +25,7 @@
 							<span class="">部门:</span>
 							<div class="dropdown left">
 								<select class="form-control" [(ngModel)]="_param.organization">
-									<option class="hands" [value]="0">所有部门</option>
+									<option class="hands" [value]="null">所有部门</option>
 									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
@@ -55,8 +56,8 @@
 							<span class="" >
 							产品类型:</span>
 							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="_param.serviceId">
-									<option class="hands" [value]="0">所有</option>
+								<select class="form-control" [(ngModel)]="_param.serviceType">
+									<option class="hands" [value]="null">所有</option>
 									<option class="hands" *ngFor="let item of _productTypeLoader.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
@@ -65,8 +66,8 @@
 							<span class="" >
 							区域:</span>
 							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="_param.region" (ngModelChange)="onPlatformChanged()">
-									<option class="hands" [value]="0">所有</option>
+								<select class="form-control" [(ngModel)]="_param.platformId" (ngModelChange)="onPlatformChanged()">
+									<option class="hands" [value]="null">所有</option>
 									<option class="hands" *ngFor="let item of _platformLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
@@ -76,7 +77,7 @@
 							可用区:</span>
 							<div class="dropdown left">
 								<select class="form-control" [(ngModel)]="_param.zoneId">
-									<option class="hands" [value]="0">所有</option>
+									<option class="hands" [value]="null">所有</option>
 									<option class="hands" *ngFor="let item of _regionLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
@@ -110,7 +111,7 @@
 					<td colspan="2">
 						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#renewOrder" (click)="renewSelect(orderItem)">续订</button>
 						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#cancelOrder" (click)="cancelSelect(orderItem)">退订</button>
-						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#orderDetail" (click)="showDetail(orderItem.orderId)">详情</button>
+						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#orderDetail" (click)="showDetail(orderItem)">详情</button>
 					</td>	
 				</tr>
 				<tr *ngFor="let prodItem of orderItem.itemList">
@@ -119,11 +120,11 @@
 							<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 						</ul>
 					</td>
-					<td>{{prodItem.serviceType}}</td>
-					<td>{{prodItem.billingInfo.billingMode}}</td>
+					<td>{{prodItem.serviceTypeName}}</td>
+					<td>{{prodItem.billingModeName}}</td>
 					<td>{{prodItem.period}}</td>
 					<td>{{prodItem.quantity}}</td>
-					<td style="width: 100px;">{{prodItem.billingInfo.oneTimePriceAndPrice}}</td>
+					<td style="width: 100px;">{{prodItem.oneTimePriceAndPrice}}</td>
 					<td class="validateInfo">{{prodItem.statusName}}</td>
 					<td>{{prodItem.createDate}}</td>
 					<td>{{prodItem.expireDate}}</td>
@@ -177,13 +178,14 @@
 										<span class="float-left" style="margin-top: 8px;">购买时长:</span>
 										<div class="dropdown float-left">
 											<select class="form-control" [(ngModel)]="_renewSetting.unit">
-												<option class="hands" [value]="PurchaseUnit.hour">按小时</option>
-												<option class="hands" [value]="PurchaseUnit.day">按天</option>
-												<option class="hands" [value]="PurchaseUnit.month">按月</option>
+												<option class="hands" [value]="0">按小时</option>
+												<option class="hands" [value]="1">按天</option>
+												<option class="hands" [value]="2">按月</option>
 											</select>
 										</div>
 										<input type="text" name="" value="">
-										<button class="btn button-gray-gradient mgr20" ng-class="{'bgGreen':isForerver}" (click)="selectForever();">永&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;久</button>
+										
+										<button class="btn button-gray-gradient mgr20" [class.bgGreen]="isForerver" (click)="selectForever();">永&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;久</button>
 										续订后到期时间：<span class="warnInfo">{{_renewSetting.renewDate}}</span>
 								    </div>
 									<div class="float-right">
@@ -239,14 +241,14 @@
 	<!--退订-->
 	   
 	<div class="modal fade" id="cancelOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		  	<div class="modal-dialog" role="document">
+		  	<div class="modal-dialog" role="document" style="width:80%!important;">
 				<div class="modal-content">
 				  	<div class="modal-header">
 					 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<h4 class="modal-title" id="myModalLabel">订单退订</h4>
 				  	</div>
 				 	<div class="modal-body"> 
- 						<order-mng-cancel  [orderItem]="selectedOrderItem"></order-mng-cancel>
+ 						<order-mng-cancel [orderItem]="selectedOrderItem"></order-mng-cancel>
  						<!-- 退订 -->
 						<div *ngIf="!_isCanceled" class="OrderRenew"> 
 							<div class="page-content">
@@ -270,7 +272,7 @@
 			      	
 			      	<!-- 退订 -->
 				  	<div *ngIf="!_isCanceled" class="modal-footer" style="text-align: center;">
-						<button type="button" class="btn button-confirm button-size-big" data-toggle="modal" data-target="#cancelOrderOk" (click)="cancel()" >确认退订</button>
+						<button type="button" class="btn button-confirm button-size-big" (click)="cancel()" >确认退订</button>
 		                <button type="button" class="btn  button-size-big button-white" data-dismiss="modal">取消</button>
 				  	</div>
 					
@@ -281,24 +283,3 @@
 		  	</div>
 		</div>
 	</div>
-
-		<!--退订完成-->
-	   
-		<div class="modal fade" id="cancelOrderOk" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		  	<div class="modal-dialog" role="document">
-				<div class="modal-content">
-				  	<div class="modal-header">
-					 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">退订完成</h4>
-				  	</div>
-				 	<div class="modal-body"> 
-			          <!--<account-mng-cr-local></account-mng-cr-local>
-			          <order-mng-cancelOk></order-mng-cancelOk>-->
-						<order-mng-cancel></order-mng-cancel>
-					</div>
-			      
-				
-		  	</div>
-		</div>
-	</div>
-
