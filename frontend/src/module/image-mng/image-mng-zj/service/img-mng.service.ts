@@ -33,8 +33,14 @@ export class ImgMngService {
             }
         ];
 
+        let opt = $.extend({}, criteriaQuery);
+        for (var o in opt) {
+            if (!opt[o] || opt[o] === "")
+                delete opt[o];
+        }
+
         const api = this.restApiCfg.getRestApi("image.mng.list");
-        return this.restApi.request(api.method, api.url, pathParams, null, {"criteriaQuery":criteriaQuery});
+        return this.restApi.request(api.method, api.url, pathParams, null, opt);
 
        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Images_mock });
     }
