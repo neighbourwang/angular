@@ -50,7 +50,7 @@ export class cartListComponent implements OnInit {
 
 			let totalPrice:number = 0;
 			cartList.forEach(cart => {
-				totalPrice += +cart.billingInfo.basicPrice;
+				totalPrice += cart.billingInfo.basePrice+cart.billingInfo.basicPrice;
 			})
 			this.totalPrice = totalPrice;
 		}).catch(e => {
@@ -60,10 +60,13 @@ export class cartListComponent implements OnInit {
 
 	deleteCartList(itemId:string):void {
 		this.modalconfirm = () => {
+	    	this.layoutService.show();
 			this.service.deleteCartList(itemId).then(res => {
+	    		this.layoutService.hide();
 				this.noticeDialog.open("","删除成功！");
 				this.getCartList();
 			}).catch(e =>{
+	    		this.layoutService.hide();
 				this.noticeDialog.open("删除失败",e);
 			})
 		}
@@ -84,6 +87,9 @@ export class cartListComponent implements OnInit {
 		})
 	}
 
+	nub(nub : string|number) {
+		return parseInt("" + (+nub)*100)/100;
+	}
 
 	goTo(url : string) {
 		this.router.navigateByUrl(url);
@@ -91,6 +97,7 @@ export class cartListComponent implements OnInit {
 
 	modalconfirm = function(){};
 	modalcancle = function(){};
+	noticeconfirm = function(){};
 
 	
 }

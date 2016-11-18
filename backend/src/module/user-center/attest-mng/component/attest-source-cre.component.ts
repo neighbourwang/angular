@@ -18,13 +18,14 @@ export class AttestSourceCreComponent implements OnInit {
         private router: ActivatedRoute,
         private route: Router,
         private service: AttMngCreService,
-        private layoutService: LayoutService
+        private layoutService: LayoutService,
+        private validationService: ValidationService
     ) {
     }
 
     noticeTitle = "";
     noticeMsg = "";
-    new:boolean=false;
+    new: boolean = false;
     @ViewChild("notice")
     notice: NoticeComponent;
     attest = new Attest();
@@ -33,7 +34,7 @@ export class AttestSourceCreComponent implements OnInit {
     testResult?: boolean;
     type: string;
 
-    title:string;
+    title: string;
     ngOnInit() {
         // console.log(this.router.params);
         this.router.params.forEach((params: Params) => {
@@ -41,12 +42,15 @@ export class AttestSourceCreComponent implements OnInit {
             this.type = params["type"];
             console.log(this.type);
             switch (this.type) {
-            case "edit":
-                this.edit = true;
-                break;
-            case "editAcc":
-                this.editAcc = true;
-                break;
+                case "edit":
+                    this.edit = true;
+                    break;
+                case "editAcc":
+                    this.editAcc = true;
+                    break;
+            }
+            if (id) {
+                this.getAttestById(id);
             }
 
         });
@@ -56,15 +60,15 @@ export class AttestSourceCreComponent implements OnInit {
         this.layoutService.show();
         this.service.getAttest(id)
             .then(
-                response => {
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.layoutService.hide();
-                        this.attest = response["resultContent"];
-                    } else {
-                        alert("Res sync error");
-                    }
+                    this.attest = response["resultContent"];
+                } else {
+                    alert("Res sync error");
                 }
+            }
             )
             .catch((e) => this.onRejected(e));
     }
@@ -78,15 +82,16 @@ export class AttestSourceCreComponent implements OnInit {
         this.layoutService.show();
         this.service.editAttest(this.attest)
             .then(
-                response => {
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.layoutService.hide();
-                        this.showAlert("保存成功！");
-                    } else {
-                        alert("Res sync error");
-                    }
+                    this.showAlert("保存成功！");
+                    this.gotoList();
+                } else {
+                    alert("Res sync error");
                 }
+            }
             )
             .catch((e) => this.onRejected(e));
     }
@@ -96,8 +101,11 @@ export class AttestSourceCreComponent implements OnInit {
             this.showAlert("必须先填写用户名！");
             return false;
         }
-
-        if ($.trim(this.attest.passowrd) === "") {
+        if (!this.validationService.isEmail(this.attest.userName)) {
+            this.showAlert("用户名必须是邮箱！");
+            return false;
+        }
+        if ($.trim(this.attest.password) === "") {
             this.showAlert("必须先填写密码！");
             return false;
         }
@@ -109,16 +117,16 @@ export class AttestSourceCreComponent implements OnInit {
         this.layoutService.show();
         this.service.editAcc(this.attest)
             .then(
-                response => {
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.layoutService.hide();
-                        this.showAlert("保存成功！");
-                        this.gotoList();
-                    } else {
-                        alert("Res sync error");
-                    }
+                    this.showAlert("保存成功！");
+                    this.gotoList();
+                } else {
+                    alert("Res sync error");
                 }
+            }
             )
             .catch((e) => this.onRejected(e));
     }
@@ -138,8 +146,11 @@ export class AttestSourceCreComponent implements OnInit {
             this.showAlert("必须先填写用户名！");
             return false;
         }
-
-        if ($.trim(this.attest.passowrd) === "") {
+        if (!this.validationService.isEmail(this.attest.userName)) {
+            this.showAlert("用户名必须是邮箱！");
+            return false;
+        }
+        if ($.trim(this.attest.password) === "") {
             this.showAlert("必须先填写密码！");
             return false;
         }
@@ -151,16 +162,16 @@ export class AttestSourceCreComponent implements OnInit {
         this.layoutService.show();
         this.service.create(this.attest)
             .then(
-                response => {
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.layoutService.hide();
-                        this.showAlert("保存成功！");
-                        this.gotoList();
-                    } else {
-                        alert("Res sync error");
-                    }
+                    this.showAlert("保存成功！");
+                    this.gotoList();
+                } else {
+                    alert("Res sync error");
                 }
+            }
             )
             .catch((e) => this.onRejected(e));
     }
@@ -172,12 +183,18 @@ export class AttestSourceCreComponent implements OnInit {
             return false;
         }
 
+
         if ($.trim(this.attest.userName) === "") {
             this.showAlert("必须先填写用户名！");
             return false;
         }
 
-        if ($.trim(this.attest.passowrd) === "") {
+        if (!this.validationService.isEmail(this.attest.userName)) {
+            this.showAlert("用户名必须是邮箱！");
+            return false;
+        }
+
+        if ($.trim(this.attest.password) === "") {
             this.showAlert("必须先填写密码！");
             return false;
         }
@@ -185,14 +202,14 @@ export class AttestSourceCreComponent implements OnInit {
         this.layoutService.show();
         this.service.testAttest(this.attest)
             .then(
-                response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.testResult = true;
-                    } else {
-                        this.testResult = false;
-                    }
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.testResult = true;
+                } else {
+                    this.testResult = false;
                 }
+            }
             )
             .catch((e) => this.onRejected(e));
     }

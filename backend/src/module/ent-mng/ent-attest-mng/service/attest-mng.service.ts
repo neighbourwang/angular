@@ -38,9 +38,9 @@ export class AttMngService {
             }
         ];
 
-        //const api = this.restApiCfg.getRestApi("ent-mng.enterprise.ldap.list");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => attests);
+        const api = this.restApiCfg.getRestApi("ent-mng.enterprise.ldap.list");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => attests);
     }
 
     //删除认证源
@@ -51,9 +51,9 @@ export class AttMngService {
                 value: attest.id
             }
         ];
-        //const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.delete");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => attestDetail);
+        const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.delete");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => attestDetail);
     }
 
     //启用/禁用认证源
@@ -68,8 +68,8 @@ export class AttMngService {
                 value: status
             }
         ];
-        //const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.edit.status");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => attestDetail);
+        const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.edit.status");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => attestDetail);
     }
 }

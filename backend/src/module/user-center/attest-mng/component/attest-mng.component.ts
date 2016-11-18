@@ -25,7 +25,7 @@ export class AttestMngComponent implements OnInit {
     noticeTitle = "";
     noticeMsg = "";
     totalPage = 1;
-    pageIndex =0;
+    pageIndex =1;
     pageSize = 20;
     attests: Attest[];
     statusDic: Array<SystemDictionary>;

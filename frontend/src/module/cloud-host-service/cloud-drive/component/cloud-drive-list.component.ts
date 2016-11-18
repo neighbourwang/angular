@@ -63,7 +63,7 @@ export class cloudDriveListComponent implements OnInit {
 		}).then(list => {
 			this.distList = list;
 		}).catch(error => {
-			// this.layoutService.hide();
+			this.layoutService.hide();
 		});
 
 	}

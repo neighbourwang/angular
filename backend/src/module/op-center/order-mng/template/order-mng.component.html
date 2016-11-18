@@ -4,7 +4,7 @@
 	<div class="page-content">
 		<div class="table-container">
 			<div class="search-container">
-				<input type="text" class="form-control searchbox gray-searchbox" placeholder=""/>
+				<input type="text" class="form-control searchbox gray-searchbox" placeholder=""  [(ngModel)]="_param.queryParam"/>
 				<span class="glyphicon glyphicon-search searchbox-incon" (click)="search()"></span>
 						
 				<button class=" form-control-title fox-cloud-button  fox-cloud-button-green left" (click)="_param.reset()">重&nbsp;&nbsp;&nbsp;&nbsp;置</button>
@@ -104,22 +104,22 @@
 				<tr>
 					<td class="order-title" colspan="7">{{orderItem.purchaseDate}} 订单号：{{orderItem.orderNo}}</td>
 					
-					<td><button class="fox-cloud-button  fox-cloud-button-green pull-right" (click)="renew(orderItem.orderId)">续&nbsp;&nbsp;&nbsp;订</button></td>
+					<td><button class="fox-cloud-button  fox-cloud-button-green pull-right" (click)="renew(orderItem)">续&nbsp;&nbsp;&nbsp;订</button></td>
 					<td><button class="fox-cloud-button  fox-cloud-button-green  pull-right"  (click)="showDetail(orderItem.orderId)">详&nbsp;&nbsp;&nbsp;情</button></td>
 				</tr>
 				<tr *ngFor="let prodItem of orderItem.itemList">
-					<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
+					<td style="text-align: left;padding-top: 30px;padding-left: 40px;width:220px!important; ">
 						<ul>
 							<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 						</ul>
 					</td>
-					<td>{{prodItem.billingMode}}</td>
+					<td>{{prodItem.billingModeName}}</td>
 					<td>{{prodItem.period}}</td>
 					<td>{{prodItem.quantity}}</td>
-					<td class="rightAlign">{{prodItem.oneTimePriceAndPrice}}</td>
-					<td class="rightAlign">{{prodItem.serviceType}}</td>
-					<td class="rightAlign validateInfo">{{prodItem.statusName}}</td>
-					<td class="rightAlign">{{prodItem.createDate}}</td>
+					<td style="width: 150px!important;">{{prodItem.oneTimePriceAndPrice}}</td>
+					<td >{{prodItem.serviceTypeName}}</td>
+					<td class="validateInfo">{{prodItem.statusName}}</td>
+					<td >{{prodItem.createDate}}</td>
 					<td>{{prodItem.expireDate}}
 					</td>
 				</tr>

@@ -40,5 +40,8 @@ class CartOrder {
 }
 
 export {
-    CartOrder
+    CartOrder,
+    itemList,
+    billingInfo,
+    attrList
 }
