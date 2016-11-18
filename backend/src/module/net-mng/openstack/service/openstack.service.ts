@@ -34,9 +34,16 @@ export class OpenstackService{
                 value: pageSize
             }
         ];
-
+        
         const api = this.restApiCfg.getRestApi("net-mng.openstack.net.list");
-        return this.restApi.request(api.method, api.url, pathParams, null, {"criteriaQuery":criteriaQuery});
+        return this.restApi.request(api.method, api.url, pathParams, null, 
+            {
+                "dataCenter": criteriaQuery.dataCenter,
+                "platformId": criteriaQuery.platformId,
+                "region": criteriaQuery.region,
+                "tenantName": criteriaQuery.tenantName
+            }
+        );
 
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Network_mock });
     }

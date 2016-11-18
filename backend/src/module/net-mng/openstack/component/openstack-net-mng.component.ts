@@ -66,7 +66,7 @@ export class OpenstackNetMngComponent implements OnInit {
     defaultPlatform = new PlatformInfo();
     selectedPfi: PlatformInfo = this.defaultPlatform;
 
-    selectedNetwork:Network;
+    selectedNetwork:Network = new Network();
     editNetwork:Network;
     ngOnInit() {
         this.dicService.getItems("NETWORK", "TYPE")
@@ -262,11 +262,12 @@ export class OpenstackNetMngComponent implements OnInit {
 
     getSynNetworkPage(){
         let platform_id = this.selectedNetwork.platformId;
+        let platformName = this.selectedNetwork.platformName;
         console.log("选中的platform_id：" + platform_id);
         if(!platform_id || platform_id==""){
             this.showAlert("请先选则平台");
         }else{
-            this.router.navigate(['net-mng/openstack/openstack-synchr-net', {"platform_id": platform_id}]);
+            this.router.navigate(['net-mng/openstack/openstack-synchr-net', {"platform_id": platform_id,"platformName":platformName}]);
         }
     }
 

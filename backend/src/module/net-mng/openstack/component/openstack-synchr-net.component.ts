@@ -34,6 +34,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
     noticeMsg = "";
 
 	platform_id:string;
+    platformName:string;
 	synNetworks:Array<Network_Syn>;
 
 	typeDic: Array<SystemDictionary>;//网络类型
@@ -61,7 +62,9 @@ export class OpenstackSynchrNetComponent implements OnInit{
             });
 		this.router.params.forEach((params: Params) => {
 			this.platform_id = params['platform_id'];
+            this.platformName = params['platformName'];
 			console.log("接收的platform_id:" + this.platform_id);
+            console.log("接收的platformName:" + this.platformName);
 			this.getSynList(this.platform_id);
 		});
 		

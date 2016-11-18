@@ -6,19 +6,19 @@
         <div class="pull-left mgr20">
             <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedDc=defaultDc;selectedPfi = defaultPlatform" >
                 <option [ngValue]="defaultRegion">所有地域</option>
-                <option *ngFor="let region of regionList" [ngValue]="region">{{region.name}}</option>
+                <option *ngFor="let region of regionList" [ngValue]="region">{{region.region}}</option>
             </select>
         </div>
         <div class="pull-left  mgr20">
             <select class="form-control" [(ngModel)]="selectedDc" (change)="selectedPfi = defaultPlatform; queryOpt.dataCenter = selectedDc.id">
                 <option [ngValue]="defaultDc">所有数据中心</option>
-                <option *ngFor="let dc of selectedRegion.dcList" [ngValue]="dc">{{dc.name}}</option>
+                <option *ngFor="let dc of selectedRegion.dataCenters" [ngValue]="dc">{{dc.dcName}}</option>
             </select>
         </div>
         <div class="pull-left col-md-2 mgr20 ">
-            <select class="form-control" [(ngModel)]="selectedPfi"(change)="queryOpt.url = selectedPfi.url">
+            <select  [(ngModel)]="selectedPfi"(change)="queryOpt.url = selectedPfi.url" style="line-height:34px;padding:6px 12px">
                 <option [ngValue]="defaultPlatform">所有平台</option>
-                <option *ngFor="let pf of selectedDc.pflist" [ngValue]="pf">{{pf.name +" "+pf.url}}</option>
+                <option *ngFor="let pf of selectedDc.platforms" [ngValue]="pf">{{pf.platformName +" "+pf.url}}</option>
             </select>
         </div>
         
