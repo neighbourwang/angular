@@ -196,18 +196,18 @@ export class OrderMngComponent implements OnInit{
 		});
 	}
 	
-	showDetail(){
-		this.router.navigateByUrl('op-center/order-mng/order-mng-detail');
+	showDetail(orderItem:SubInstanceResp){
+		//this.router.navigateByUrl('op-center/order-mng/order-mng-detail');
 	}
 	
 	renewSelect(orderItem:SubInstanceResp){
 		this.selectedOrderItem = orderItem;
 	}
 
-	cancelSelect(orderItme:SubInstanceResp)
+	cancelSelect(orderItem:SubInstanceResp)
 	{
 		this._isCanceled = false;
-		this.selectedOrderItem = orderItme;
+		this.selectedOrderItem = orderItem;
 	}
 	
 
@@ -217,8 +217,13 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	search(pageNumber:number = 1){
-		// this._param.enterpriseId = this._entId;
+		//this._param.enterpriseId = this._entId;
 		let param = _.extend({}, this._param);
+
+		//搜索框参数匹配后台API
+
+
+
 		param.pageParameter = {
 			currentPage:pageNumber
 			,size:10

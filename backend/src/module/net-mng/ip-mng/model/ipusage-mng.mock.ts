@@ -15,7 +15,7 @@ export const IpUsageMngModel_mock = {
         "addr": "10.20.0.2",
         "instanceName": "",
         "tenantName": "",
-        "status": "0",
+        "status": "2",
         "description": null
     },
     {
@@ -31,7 +31,7 @@ export const IpUsageMngModel_mock = {
         "addr": "10.20.0.4",
         "instanceName": "",
         "tenantName": "",
-        "status": "0",
+        "status": "2",
         "description": null
     },
     {
@@ -39,7 +39,7 @@ export const IpUsageMngModel_mock = {
         "addr": "10.20.0.5",
         "instanceName": "",
         "tenantName": "",
-        "status": "0",
+        "status": "2",
         "description": null
     }
 

@@ -4,6 +4,7 @@ import { RestApi, RestApiCfg, LayoutService, NoticeComponent, PopupComponent, Co
 
 
 import { OpenstackService } from '../service/openstack.service';
+import { Network_Syn } from '../model/network-syn.model';
 import { Network } from '../model/network.model';
 
 @Component({
@@ -33,12 +34,13 @@ export class OpenstackSynchrNetComponent implements OnInit{
     noticeMsg = "";
 
 	platform_id:string;
-	synNetworks:Array<Network>;
+	synNetworks:Array<Network_Syn>;
 
 	typeDic: Array<SystemDictionary>;//网络类型
     sharedDic: Array<SystemDictionary>;//是否共享
     stateDic: Array<SystemDictionary>;//运行状态
     //statusDic: Array<SystemDictionary>;//状态
+    synDic: Array<SystemDictionary>;//同步结果 1-新增，2-已存在，3-不存在
 	ngOnInit(){
 		this.dicService.getItems("NETWORK", "TYPE")
             .then(
@@ -52,6 +54,10 @@ export class OpenstackSynchrNetComponent implements OnInit{
             })
             .then((dic) => {
                 this.stateDic = dic;
+                return this.dicService.getItems("NETWORK","SYNC");
+            })
+            .then((dic) => {
+                this.synDic = dic;
             });
 		this.router.params.forEach((params: Params) => {
 			this.platform_id = params['platform_id'];
@@ -105,5 +111,119 @@ export class OpenstackSynchrNetComponent implements OnInit{
             return value;
         }
 
+    }
+    //添加一个
+    addOne(selected: Network_Syn){
+        this.layoutService.show();
+        let network_syns = new Array<Network_Syn>();
+        network_syns.push(selected);
+           
+        this.service.synNetworkAdd( network_syns ).then(
+            response=>{
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.showAlert("添加成功");
+                }else{
+                     alert("Res sync error");
+                }
+        })
+        .catch((e)=>this.onRejected(e));
+    }
+
+
+
+    //全部添加
+    addAll(){
+        this.layoutService.show();
+        let network_syns = new Array<Network_Syn>();
+        this.synNetworks.forEach((s)=>{ 
+            if(s.syncResult=='1'){
+                network_syns.push(s);
+            }
+        })
+        this.service.synNetworkAdd( network_syns ).then(
+            response=>{
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.showAlert("全部添加成功");
+                }else{
+                     alert("Res sync error");
+                }
+        })
+        .catch((e)=>this.onRejected(e));
+    }
+    //单个更新
+    updateOne(selected: Network_Syn){
+        this.layoutService.show();
+        let network_syns = new Array<Network_Syn>();
+        network_syns.push(selected);
+        
+        this.service.synNetworkUpdate( network_syns ).then(
+            response=>{
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.showAlert("更新成功");
+                }else{
+                    alert("Res sync error");
+                }
+        })
+        .catch((e)=>this.onRejected(e));
+    }
+    //更新所有
+    updateAll(){
+        this.layoutService.show();
+        let network_syns = new Array<Network_Syn>();
+        this.synNetworks.forEach((s)=>{ 
+            if(s.syncResult=='2'){
+                network_syns.push(s);
+            }
+        })
+        this.service.synNetworkUpdate( network_syns ).then(
+            response=>{
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.showAlert("全部更新成功");
+                }else{
+                     alert("Res sync error");
+                }
+        })
+        .catch((e)=>this.onRejected(e));
+    }
+    //单个禁用
+    disableOne(selected: Network_Syn){
+        this.layoutService.show();
+        let network_syns = new Array<Network_Syn>();
+        network_syns.push(selected);
+        
+        this.service.synNetworkDisable( network_syns ).then(
+            response=>{
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.showAlert("禁用成功");
+                }else{
+                    alert("Res sync error");
+                }
+        })
+        .catch((e)=>this.onRejected(e));
+    }
+    //全部禁用
+    disableAll(){
+        this.layoutService.show();
+        let network_syns = new Array<Network_Syn>();
+        this.synNetworks.forEach((s)=>{ 
+            if(s.syncResult=='3'){
+                network_syns.push(s);
+            }
+        })
+        this.service.synNetworkDisable( network_syns ).then(
+            response=>{
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.showAlert("全部禁用成功");
+                }else{
+                     alert("Res sync error");
+                }
+        })
+        .catch((e)=>this.onRejected(e));
     }
 }
