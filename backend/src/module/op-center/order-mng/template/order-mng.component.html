@@ -4,7 +4,7 @@
 	<div class="page-content">
 		<div class="table-container">
 			<div class="search-container">
-				<input type="text" class="form-control searchbox gray-searchbox" placeholder=""/>
+				<input type="text" class="form-control searchbox gray-searchbox" placeholder=""  [(ngModel)]="_param.queryParam"/>
 				<span class="glyphicon glyphicon-search searchbox-incon" (click)="search()"></span>
 						
 				<button class=" form-control-title fox-cloud-button  fox-cloud-button-green left" (click)="_param.reset()">重&nbsp;&nbsp;&nbsp;&nbsp;置</button>

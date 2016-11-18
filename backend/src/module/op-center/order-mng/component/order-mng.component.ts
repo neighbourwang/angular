@@ -224,6 +224,11 @@ export class OrderMngComponent implements OnInit{
 		this.layoutService.show();
 
 		let param = _.extend({}, this._param);
+
+		//匹配后台搜索框参数
+
+
+		
 		param.pageParameter = {
 			currentPage:pageNumber
 			,size:10
