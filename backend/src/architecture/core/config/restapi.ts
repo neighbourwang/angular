@@ -35,10 +35,10 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/platforms/page/{page}/size/{size}"
     },
     {
-        "desc" : "获取地域",
-        "id" : "pf.cre.step.01.paltform.get",
-        "method" : "GET",
-        "url" : "basis/authsec/regions"
+        "desc": "获取地域",
+        "id": "pf.cre.step.01.paltform.get",
+        "method": "GET",
+        "url": "basis/authsec/regions"
     },
     {
         "desc": "创建平台",
@@ -65,10 +65,10 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/platform/{pf-id}/activation"
     },
     {
-        "desc" : "禁用平台",
-        "id" : "pf.cre.platform.disable.put",
-        "method" : "PUT",
-        "url" : "adminui/authsec/platform/{_id}/suspend"
+        "desc": "禁用平台",
+        "id": "pf.cre.platform.disable.put",
+        "method": "PUT",
+        "url": "adminui/authsec/platform/{_id}/suspend"
     },
     {
         "desc": "删除特定平台信息",
@@ -281,284 +281,284 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "adminui/authsec/platform/{_id}/service"
     },// 服务目录管理
-   {
-       "desc": "获取企业列表",
-       "id": "ent-mng.admin.cre.enterprise.get",
-       "method": "GET",
-       "url": "adminui/authsec/enterprises/simple/page/{page}/size/{size} "
-    },
-   {
-       "desc": "根据id获取简单企业信息",
-       "id": "ent-mng.admin.enterprise.simple.get",
-       "method": "GET",
-       "url": "adminui/authsec/enterprise/{enterpriseId}/simple"
-   },
-   {
-       "desc": "创建企业管理员",
-       "id": "ent-mng.admin.cre.post",
-       "method": "POST",
-       "url": "adminui/authsec/enterprise/{enterpriseId}/admin"
-   },
-   {
-       "desc": "根据id获取企业管理员",
-       "id": "ent-mng.admin.get",
-       "method": "GET",
-       "url": "adminui/authsec/enterprise/admin/{id}"
-   },
-   {
-       "desc": "更新企业管理员",
-       "id": "ent-mng.admin.update.put",
-       "method": "PUT",
-       "url": "adminui/authsec/enterprise/admin/{id}"
-   },
-   {
-       "desc": "批量更新企业管理员状态",
-       "id": "ent-mng.admin.updateStatus.put",
-       "method": "PUT",
-       "url": "adminui/authsec/enterprise/admins/status/{status}"
-   },
-   {
-       "desc": "更新企业管理员状态",
-       "id": "ent-mng.admin.updateStatusOne.put",
-       "method": "PUT",
-       "url": "adminui/authsec/enterprise/admin/{id}/status/{status}"
-   },
-   {
-       "desc": "删除企业管理员批量",
-       "id": "ent-mng.admin.del.delete",
-       "method": "DELETE",
-       "url": "adminui/authsec/enterprises/admins"
-   },
-   {
-       "desc": "删除單個企业管理员",
-       "id": "ent-mng.admin.delOne.delete",
-       "method": "DELETE",
-       "url": "adminui/authsec/enterprise/admin/{id}"
-   },
-   {
-       "desc": "重置管理员密码",
-       "id": "ent-mng.admin.resetPassword.put",
-       "method": "PUT",
-       "url": "adminui/authsec/enterprise/admin/{adminId}/credential"
-   },
-   {
-       "desc": "获取全部企业管理员",
-       "id": "ent-mng.admin.all.get",
-       "method": "GET",
-       "url": "adminui/authsec/enterprises/admins/page/{page}/size/{size}"
-   },
-   {
-       "desc": "获取某企业管理员",
-       "id": "ent-mng.enterprise.admin.get",
-       "method": "GET",
-       "url": "adminui/authsec/enterprise/{enterpriseId}/admins/page/{page}/size/{size}"
-   },
-   {
-       "desc": "获取某企业管AD员工",
-       "id": "ent-mng.enterprise.adadmin.get",
-       "method": "GET",
-       "url": "adminui/authsec/enterprise/{enterpriseId}/adadmins/page/{page}/size/{size}"
-   }, 
-   // 企业产品管理
-   {
-       "desc": "获取产品",
-       "id": "ent-mng.ent-prod-mng.all.get",
-       "method": "GET",
-       "url": "adminui/authsec/enterprises/products/page/{_page}/size/{_size}"
-   },
-   {
-       "desc": "获取产品(企业)",
-       "id": "ent-mng.ent-prod-mng.ent.all.get",
-       "method": "GET",
-       "url": "adminui/authsec/enterprise/{_enterpriseId}/products/page/{_page}/size/{_size}"
-
-   },
-   {
-       "desc": "获取产品(区域)",
-       "id": "ent-mng.ent-prod-mng.region.all.get",
-       "method": "GET",
-       "url": "adminui/authsec/enterprises/region/{_regionId}/products/page/{_page}/size/{_size}"
-   },
-   {
-       "desc": "获取产品(企业/区域)",
-       "id": "ent-mng.ent-prod-mng.ent.region.all.get",
-       "method": "GET",
-       "url": "adminui/authsec/enterprise/{_enterpriseId}/region/{_regionId}/product/page/{_page}/size/{_size}"
-   },
-   {
-       "desc": "更改产品状态",
-       "id": "ent-mng.ent-prod-mng.prod.status.put",
-       "method": "PUT",
-       "url": "adminui/authsec/enterprise/products/status/{_status}"
-   },
-   {
-       "desc": "企业产品管理获取企业",
-       "id": "ent-mng.ent-prod-cre.enterprises.get",
-       "method": "GET",
-       "url": "adminui/authsec/enterprises/simple/page/{page}/size/{size} "
-   },
-   {
-       "desc": "企业产品管理获取区域",
-       "id": "ent-mng.ent-prod-cre.regions.get",
-       "method": "GET",
-       "url": "adminui/authsec/regions/virtual"
-   },
-   {
-       "desc": "企业产品管理获取服务目录",
-       "id": "ent-mng.ent-prod-cre.directories.get",
-       "method": "GET",
-       "url": "adminui/authsec/region/{region_id}/serviceitem"
-   },
-   {
-       "desc": "企业产品管理获取所有可用区",
-       "id": "ent-mng.ent-prod-cre.storages.get",
-       "method": "GET",
-       "url": "adminui/authsec/platform/{pf_id}/flavor"
-   },
-   {
-       "desc": "创建产品",
-       "id": "ent-mng.ent-prod-cre.creation",
-       "method": "POST",
-       "url": "adminui/authsec/enterprise/{enterpriseId}/product "
-   },
-   // <-- 企业管理
-   {
-       "desc": "获取企业开通配额",
-       "id": "ent-mng.ent-est-mng.resourcequota.get",
-       "method": "GET",
-       "url": "adminui/authsec/platforms/resoucequotas/page/{_page}/size/{_size}"
-   }
-   ,{
-       "desc": "企业信息列表",
-       "id": "ent-mng.ent-est-mng.enterprise.get",
-       "method": "GET",
-       "url": "adminui/authsec/enterprises/resouces/quotas/page/{_page}/size/{_size}"
-   }
-   ,{
-       "desc": "加载企业配额数据",
-       "id": "ent-mng.ent-est-mng.enterprise.resourcequota.get",
-       "method": "GET",
-       "url": "adminui/authsec/enterprise/{_enterpriseId}/resouces/quotas/page/{_page}/size/{_size}"
-   },{
-       "desc": "获取企业基本信息",
-       "id": "ent-mng.ent-est-mng.enterprise.simple.get",
-       "method": "GET",
-       "url": "adminui/authsec/enterprise/{_enterpriseId}/simple"
-   }
-   ,{
-       "desc": "创建企业",
-       "id": "ent-mng.ent-est-mng.enterprise.create",
-       "method": "POST",
-       "url": "adminui/authsec/enterprise"
-   }
-   ,{
-       "desc": "更新企业名称",
-       "id": "ent-mng.ent-est-mng.enterprise.updatename",
-       "method": "PUT",
-       "url": "adminui/authsec/enterprise/{_enterpriseId}/basic"
-   }
-   ,{
-       "desc": "更新企业配额数据",
-       "id": "ent-mng.ent-est-mng.enterprise.updatequota",
-       "method": "PUT",
-       "url": "adminui/authsec/enterprise/{_enterpriseId}/resouces/quotas"
-   }
-   ,{
-       "desc": "更新企业认证信息数据",
-       "id": "ent-mng.ent-est-mng.enterprise.updateauth",
-       "method": "PUT",
-       "url": "adminui/authsec/enterprise/{_enterpriseId}/auth"
-   }
-   ,{
-       "desc": "更新企业企业状态",
-       "id": "ent-mng.ent-est-mng.enterprise.updatestatus",
-       "method": "PUT",
-       "url": "adminui/authsec/enterprise/{_enterpriseId}/status/{_status}"
-   }
-   ,{
-       "desc": "企业配额信息提交",
-       "id": "ent-mng.ent-est-mng.resourcequota.create",
-       "method": "POST",
-       "url": "adminui/authsec/enterprise/{_enterpriseId}/resouce/quota"
-   }
-   ,{
-       "desc": "企业开通",
-       "id": "ent-mng.ent-est-mng.enterprise.open",
-       "method": "PUT",
-       "url": "adminui/authsec/enterprise/{_enterpriseId}/status/{_status}"
-   },{
-       "desc": "获取企业产品",
-       "id": "ent-mng.ent-est-mng.enterprise.products.get",
-       "method": "POST",
-       "url": "adminui/authsec/enterprises/products/search/page/{_page}/size/{_size}"
-   },{
-       "desc": "获取可用产品",
-       "id": "ent-mng.ent-est-mng.enterprise.avail.products.get",
-       "method": "POST",
-       "url": "adminui/authsec/enterprises/{enterpriseId}/products/search/paging"
-   },{
-       "desc": "所有平台配额参考",
-       "id": "ent-mng.ent-est-mng.platforms.quotas.get",
-       "method": "GET",
-       "url": "adminui/authsec/platforms/resouces/quotas/page/{_page}/size/{_size}"
-   },{
-       "desc": "更新企业产品信息",
-       "id": "ent-mng.ent-est-mng.enterprise.products.update",
-       "method": "POST",
-       "url": "adminui/authsec/enterprises/{enterpriseId}/products/bind"
-   },{
-       "desc": "查看企业加载配额资源概率",
-       "id": "ent-mng.ent-est-mng.enterprise.quota.detail",
-       "method": "GET",
-       "url": "authsec/enterprise/{enterpriseId}/resource/quota/detail"
-   },// 企业管理 -->
-   //<!--后台-运营中心-订单管理
     {
-       "desc": "获取订单详情",
-       "id": "op-center.order-mng.order-detail.get",
-       "method": "GET",
-       "url": "adminui/authsec/backend/order/{orderId}"
-   },
-   {
-       "desc": "企业列表",
-       "id": "op-center.order-mng.ent-list.get",
-       "method": "GET",
-       "url": "adminui/authsec/enterprises/simple"
-   },
-   {
-       "desc": "部门列表",
-       "id": "op-center.order-mng.department-list.get",
-       "method": "GET",
-       "url": "basis/authsec/adm/organization/enterprise/{enterpriseId}"
-   },{
-       "desc": "产品类型",
-       "id": "op-center.order-mng.product-type-list.get",
-       "method": "GET",
-       "url": "adminui/authsec/services/page/{_page}/size/{_size}"
-   },{
-       "desc": "区域列表",
-       "id": "op-center.order-mng.region-list.get",
-       "method": "GET",
-       "url": "adminui/authsec/platforms/status/activation"
-   },{
-       "desc": "可用区列表",
-       "id": "op-center.order-mng.avail-region-list.get",
-       "method": "GET",
-       "url": "adminui/authsec/platform/{_id}/zone"
-   },{
-       "desc": "订单列表",
-       "id": "op-center.order-mng.order-list.post",
-       "method": "POST",
-       "url": "adminui/authsec/subinstance/subscription/list"
-   },{
-       "desc": "订单续订",
-       "id": "op-center.order-mng.order-renew.get",
-       "method": "GET",
-       "url": "adminui/authsec/order/{orderId}/renew"
-   },
+        "desc": "获取企业列表",
+        "id": "ent-mng.admin.cre.enterprise.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/simple/page/{page}/size/{size} "
+    },
+    {
+        "desc": "根据id获取简单企业信息",
+        "id": "ent-mng.admin.enterprise.simple.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprise/{enterpriseId}/simple"
+    },
+    {
+        "desc": "创建企业管理员",
+        "id": "ent-mng.admin.cre.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/{enterpriseId}/admin"
+    },
+    {
+        "desc": "根据id获取企业管理员",
+        "id": "ent-mng.admin.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprise/admin/{id}"
+    },
+    {
+        "desc": "更新企业管理员",
+        "id": "ent-mng.admin.update.put",
+        "method": "PUT",
+        "url": "adminui/authsec/enterprise/admin/{id}"
+    },
+    {
+        "desc": "批量更新企业管理员状态",
+        "id": "ent-mng.admin.updateStatus.put",
+        "method": "PUT",
+        "url": "adminui/authsec/enterprise/admins/status/{status}"
+    },
+    {
+        "desc": "更新企业管理员状态",
+        "id": "ent-mng.admin.updateStatusOne.put",
+        "method": "PUT",
+        "url": "adminui/authsec/enterprise/admin/{id}/status/{status}"
+    },
+    {
+        "desc": "删除企业管理员批量",
+        "id": "ent-mng.admin.del.delete",
+        "method": "DELETE",
+        "url": "adminui/authsec/enterprises/admins"
+    },
+    {
+        "desc": "删除單個企业管理员",
+        "id": "ent-mng.admin.delOne.delete",
+        "method": "DELETE",
+        "url": "adminui/authsec/enterprise/admin/{id}"
+    },
+    {
+        "desc": "重置管理员密码",
+        "id": "ent-mng.admin.resetPassword.put",
+        "method": "PUT",
+        "url": "adminui/authsec/enterprise/admin/{adminId}/credential"
+    },
+    {
+        "desc": "获取全部企业管理员",
+        "id": "ent-mng.admin.all.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/admins/page/{page}/size/{size}"
+    },
+    {
+        "desc": "获取某企业管理员",
+        "id": "ent-mng.enterprise.admin.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprise/{enterpriseId}/admins/page/{page}/size/{size}"
+    },
+    {
+        "desc": "获取某企业管AD员工",
+        "id": "ent-mng.enterprise.adadmin.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprise/{enterpriseId}/adadmins/page/{page}/size/{size}"
+    },
+    // 企业产品管理
+    {
+        "desc": "获取产品",
+        "id": "ent-mng.ent-prod-mng.all.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/products/page/{_page}/size/{_size}"
+    },
+    {
+        "desc": "获取产品(企业)",
+        "id": "ent-mng.ent-prod-mng.ent.all.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprise/{_enterpriseId}/products/page/{_page}/size/{_size}"
 
-   //<!--后台-运营中心-订单管理-->
-   // 
+    },
+    {
+        "desc": "获取产品(区域)",
+        "id": "ent-mng.ent-prod-mng.region.all.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/region/{_regionId}/products/page/{_page}/size/{_size}"
+    },
+    {
+        "desc": "获取产品(企业/区域)",
+        "id": "ent-mng.ent-prod-mng.ent.region.all.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprise/{_enterpriseId}/region/{_regionId}/product/page/{_page}/size/{_size}"
+    },
+    {
+        "desc": "更改产品状态",
+        "id": "ent-mng.ent-prod-mng.prod.status.put",
+        "method": "PUT",
+        "url": "adminui/authsec/enterprise/products/status/{_status}"
+    },
+    {
+        "desc": "企业产品管理获取企业",
+        "id": "ent-mng.ent-prod-cre.enterprises.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/simple/page/{page}/size/{size} "
+    },
+    {
+        "desc": "企业产品管理获取区域",
+        "id": "ent-mng.ent-prod-cre.regions.get",
+        "method": "GET",
+        "url": "adminui/authsec/regions/virtual"
+    },
+    {
+        "desc": "企业产品管理获取服务目录",
+        "id": "ent-mng.ent-prod-cre.directories.get",
+        "method": "GET",
+        "url": "adminui/authsec/region/{region_id}/serviceitem"
+    },
+    {
+        "desc": "企业产品管理获取所有可用区",
+        "id": "ent-mng.ent-prod-cre.storages.get",
+        "method": "GET",
+        "url": "adminui/authsec/platform/{pf_id}/flavor"
+    },
+    {
+        "desc": "创建产品",
+        "id": "ent-mng.ent-prod-cre.creation",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/{enterpriseId}/product "
+    },
+    // <-- 企业管理
+    {
+        "desc": "获取企业开通配额",
+        "id": "ent-mng.ent-est-mng.resourcequota.get",
+        "method": "GET",
+        "url": "adminui/authsec/platforms/resoucequotas/page/{_page}/size/{_size}"
+    }
+    , {
+        "desc": "企业信息列表",
+        "id": "ent-mng.ent-est-mng.enterprise.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/resouces/quotas/page/{_page}/size/{_size}"
+    }
+    , {
+        "desc": "加载企业配额数据",
+        "id": "ent-mng.ent-est-mng.enterprise.resourcequota.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprise/{_enterpriseId}/resouces/quotas/page/{_page}/size/{_size}"
+    }, {
+        "desc": "获取企业基本信息",
+        "id": "ent-mng.ent-est-mng.enterprise.simple.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprise/{_enterpriseId}/simple"
+    }
+    , {
+        "desc": "创建企业",
+        "id": "ent-mng.ent-est-mng.enterprise.create",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise"
+    }
+    , {
+        "desc": "更新企业名称",
+        "id": "ent-mng.ent-est-mng.enterprise.updatename",
+        "method": "PUT",
+        "url": "adminui/authsec/enterprise/{_enterpriseId}/basic"
+    }
+    , {
+        "desc": "更新企业配额数据",
+        "id": "ent-mng.ent-est-mng.enterprise.updatequota",
+        "method": "PUT",
+        "url": "adminui/authsec/enterprise/{_enterpriseId}/resouces/quotas"
+    }
+    , {
+        "desc": "更新企业认证信息数据",
+        "id": "ent-mng.ent-est-mng.enterprise.updateauth",
+        "method": "PUT",
+        "url": "adminui/authsec/enterprise/{_enterpriseId}/auth"
+    }
+    , {
+        "desc": "更新企业企业状态",
+        "id": "ent-mng.ent-est-mng.enterprise.updatestatus",
+        "method": "PUT",
+        "url": "adminui/authsec/enterprise/{_enterpriseId}/status/{_status}"
+    }
+    , {
+        "desc": "企业配额信息提交",
+        "id": "ent-mng.ent-est-mng.resourcequota.create",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/{_enterpriseId}/resouce/quota"
+    }
+    , {
+        "desc": "企业开通",
+        "id": "ent-mng.ent-est-mng.enterprise.open",
+        "method": "PUT",
+        "url": "adminui/authsec/enterprise/{_enterpriseId}/status/{_status}"
+    }, {
+        "desc": "获取企业产品",
+        "id": "ent-mng.ent-est-mng.enterprise.products.get",
+        "method": "POST",
+        "url": "adminui/authsec/enterprises/products/search/page/{_page}/size/{_size}"
+    }, {
+        "desc": "获取可用产品",
+        "id": "ent-mng.ent-est-mng.enterprise.avail.products.get",
+        "method": "POST",
+        "url": "adminui/authsec/enterprises/{enterpriseId}/products/search/paging"
+    }, {
+        "desc": "所有平台配额参考",
+        "id": "ent-mng.ent-est-mng.platforms.quotas.get",
+        "method": "GET",
+        "url": "adminui/authsec/platforms/resouces/quotas/page/{_page}/size/{_size}"
+    }, {
+        "desc": "更新企业产品信息",
+        "id": "ent-mng.ent-est-mng.enterprise.products.update",
+        "method": "POST",
+        "url": "adminui/authsec/enterprises/{enterpriseId}/products/bind"
+    }, {
+        "desc": "查看企业加载配额资源概率",
+        "id": "ent-mng.ent-est-mng.enterprise.quota.detail",
+        "method": "GET",
+        "url": "authsec/enterprise/{enterpriseId}/resource/quota/detail"
+    },// 企业管理 -->
+    //<!--后台-运营中心-订单管理
+    {
+        "desc": "获取订单详情",
+        "id": "op-center.order-mng.order-detail.get",
+        "method": "GET",
+        "url": "adminui/authsec/backend/order/{orderId}"
+    },
+    {
+        "desc": "企业列表",
+        "id": "op-center.order-mng.ent-list.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/simple"
+    },
+    {
+        "desc": "部门列表",
+        "id": "op-center.order-mng.department-list.get",
+        "method": "GET",
+        "url": "basis/authsec/adm/organization/enterprise/{enterpriseId}"
+    }, {
+        "desc": "产品类型",
+        "id": "op-center.order-mng.product-type-list.get",
+        "method": "GET",
+        "url": "adminui/authsec/services/page/{_page}/size/{_size}"
+    }, {
+        "desc": "区域列表",
+        "id": "op-center.order-mng.region-list.get",
+        "method": "GET",
+        "url": "adminui/authsec/platforms/status/activation"
+    }, {
+        "desc": "可用区列表",
+        "id": "op-center.order-mng.avail-region-list.get",
+        "method": "GET",
+        "url": "adminui/authsec/platform/{_id}/zone"
+    }, {
+        "desc": "订单列表",
+        "id": "op-center.order-mng.order-list.post",
+        "method": "POST",
+        "url": "adminui/authsec/subinstance/subscription/list"
+    }, {
+        "desc": "订单续订",
+        "id": "op-center.order-mng.order-renew.get",
+        "method": "GET",
+        "url": "adminui/authsec/order/{orderId}/renew"
+    },
+
+    //<!--后台-运营中心-订单管理-->
+    // 
     //产品管理
     {
         "desc": "分页获取所有产品目录",
@@ -607,14 +607,14 @@ export let RestApis: RestApiModel[] = [
         "desc": "根据cpu和mmr获取平台VM产品平台列表",
         "id": "prod-dir-vmPlate",
         "method": "POST",
-        "url": "adminui/authsec/services/platforms/vm/detailinfo"        
-    },    
+        "url": "adminui/authsec/services/platforms/vm/detailinfo"
+    },
     {
         "desc": "获取某个VM产品目录详细信息",
         "id": "prod-mng.prod-dir-vm.detail",
         "method": "GET",
         "url": "adminui/authsec/service/{id}/type/vm/detail "
-    },  
+    },
     //DISK产品目录
     {
         "desc": "获取DISK产品目录平台信息",
@@ -674,106 +674,106 @@ export let RestApis: RestApiModel[] = [
 
     //用户中心
     {
-        "desc" : "获取所有机构",
-        "id" : "user-center.org-mng.list",
-        "method" : "GET",
-        "url" : "basis/authsec/adm/organizations/page/{page}/size/{size}"
+        "desc": "获取所有机构",
+        "id": "user-center.org-mng.list",
+        "method": "GET",
+        "url": "basis/authsec/adm/organizations/page/{page}/size/{size}"
     },
     {
-        "desc" : "删除机构",
-        "id" : "user-center.org-mng.delete",
-        "method" : "DELETE",
-        "url" : "basis/authsec/adm/organization/{id}"
+        "desc": "删除机构",
+        "id": "user-center.org-mng.delete",
+        "method": "DELETE",
+        "url": "basis/authsec/adm/organization/{id}"
     },
     {
-        "desc" : "启用机构",
-        "id" : "user-center.org-mng.enable",
-        "method" : "PUT",
-        "url" : "basis/authsec/adm/organization/{id}/enable"
+        "desc": "启用机构",
+        "id": "user-center.org-mng.enable",
+        "method": "PUT",
+        "url": "basis/authsec/adm/organization/{id}/enable"
     },
     {
-        "desc" : "禁用机构",
-        "id" : "user-center.org-mng.disable",
-        "method" : "PUT",
-        "url" : "basis/authsec/adm/organization/{id}/disable"
+        "desc": "禁用机构",
+        "id": "user-center.org-mng.disable",
+        "method": "PUT",
+        "url": "basis/authsec/adm/organization/{id}/disable"
     },
     {
-        "desc" : "获取所有账户(所有)",
-        "id" : "user-center.account-mng.list",
-        "method" : "GET",
-        "url" : "basis/authsec/adm/users/page/{page}/size/{size}"
+        "desc": "获取所有账户(所有)",
+        "id": "user-center.account-mng.list",
+        "method": "GET",
+        "url": "basis/authsec/adm/users/page/{page}/size/{size}"
     },
     {
-        "desc" : "获取所有角色",
-        "id" : "user-center.role-mng.list",
-        "method" : "GET",
-        "url" : "basis/authsec/adm/roles/page/{page}/size/{size}"
+        "desc": "获取所有角色",
+        "id": "user-center.role-mng.list",
+        "method": "GET",
+        "url": "basis/authsec/adm/roles/page/{page}/size/{size}"
     },
     {
-        "desc" : "创建帐号（本地）",
-        "id" : "user-center.account-mng.local.create",
-        "method" : "POST",
-        "url" : "basis/authsec/adm/user"
+        "desc": "创建帐号（本地）",
+        "id": "user-center.account-mng.local.create",
+        "method": "POST",
+        "url": "basis/authsec/adm/user"
     },
     {
-        "desc" : "编辑帐号（本地）",
-        "id" : "user-center.account-mng.local.edit",
-        "method" : "PUT",
-        "url" : "basis/authsec/adm/user/{id}"
+        "desc": "编辑帐号（本地）",
+        "id": "user-center.account-mng.local.edit",
+        "method": "PUT",
+        "url": "basis/authsec/adm/user/{id}"
     },
     {
-        "desc" : "查询单个帐号",
-        "id" : "user-center.account-mng.local.get",
-        "method" : "GET",
-        "url" : "basis/authsec/adm/user/{id}"
+        "desc": "查询单个帐号",
+        "id": "user-center.account-mng.local.get",
+        "method": "GET",
+        "url": "basis/authsec/adm/user/{id}"
     },
     {
-        "desc" : "获取未管理人员列表",
-        "id" : "user-center.org-mng.nomnguser.list",
-        "method" : "GET",
-        "url" : "basis/authsec/adm/users/nonorganization/page/{page}/size/{size}"
+        "desc": "获取未管理人员列表",
+        "id": "user-center.org-mng.nomnguser.list",
+        "method": "GET",
+        "url": "basis/authsec/adm/users/nonorganization/page/{page}/size/{size}"
     },
     {
-        "desc" : "获取未管理的云平台",
-        "id" : "user-center.org-mng.nomngplatform.list",
-        "method" : "GET",
-        "url" : "basis/authsec/adm/organization/platforms/nonorganization"
+        "desc": "获取未管理的云平台",
+        "id": "user-center.org-mng.nomngplatform.list",
+        "method": "GET",
+        "url": "basis/authsec/adm/organization/platforms/nonorganization"
     },
     {
-        "desc" : "创建机构",
-        "id" : "user-center.org-mng.create",
-        "method" : "POST",
-        "url" : "basis/authsec/adm/organization"
+        "desc": "创建机构",
+        "id": "user-center.org-mng.create",
+        "method": "POST",
+        "url": "basis/authsec/adm/organization"
     },
     {
-        "desc" : "获得单个机构",
-        "id" : "user-center.org-mng.account.get",
-        "method" : "GET",
-        "url" : "basis/authsec/adm/organization/{id}"
+        "desc": "获得单个机构",
+        "id": "user-center.org-mng.account.get",
+        "method": "GET",
+        "url": "basis/authsec/adm/organization/{id}"
     },
     {
-        "desc" : "获得机构下的成员",
-        "id" : "user-center.org-mng.user-by-org.list",
-        "method" : "GET",
-        "url" : "basis/authsec/adm/users/organization/{id}"
+        "desc": "获得机构下的成员",
+        "id": "user-center.org-mng.user-by-org.list",
+        "method": "GET",
+        "url": "basis/authsec/adm/users/organization/{id}"
     },
     {
-        "desc" : "禁用帐号",
-        "id" : "user-center.org-mng.user.disable",
-        "method" : "PUT",
-        "url" : "basis/authsec/adm/user/{id}/disable"
+        "desc": "禁用帐号",
+        "id": "user-center.org-mng.user.disable",
+        "method": "PUT",
+        "url": "basis/authsec/adm/user/{id}/disable"
     },
     {
-        "desc" : "启用帐号",
-        "id" : "user-center.org-mng.user.enable",
-        "method" : "PUT",
-        "url" : "basis/authsec/adm/user/{id}/enable"
+        "desc": "启用帐号",
+        "id": "user-center.org-mng.user.enable",
+        "method": "PUT",
+        "url": "basis/authsec/adm/user/{id}/enable"
     },
     {
-        "desc" : "获取权限列表",
-        "id" : "user-center.org-mng.role.list",
-        "method" : "GET",
-        "url" : "basis/authsec/adm/roles/page/{page}/size/{size}"
+        "desc": "获取权限列表",
+        "id": "user-center.org-mng.role.list",
+        "method": "GET",
+        "url": "basis/authsec/adm/roles/page/{page}/size/{size}"
     },
     //个人账户管理
     {
@@ -783,16 +783,16 @@ export let RestApis: RestApiModel[] = [
         "url": "basis/authsec/adm/user/current"
     },
     {
-        "desc" : "编辑账户本地",
-        "id" : "user-center.account-mng.edit",
-        "method" : "PUT",
-        "url" : "basis/authsec/adm/user/{id}"
+        "desc": "编辑账户本地",
+        "id": "user-center.account-mng.edit",
+        "method": "PUT",
+        "url": "basis/authsec/adm/user/{id}"
     },
     {
-        "desc" : "更改账户密码",
-        "id" : "user-center.account-mng-pwd.edit",
-        "method" : "PUT",
-        "url" : "basis/authsec/adm/user/password/modify"
+        "desc": "更改账户密码",
+        "id": "user-center.account-mng-pwd.edit",
+        "method": "PUT",
+        "url": "basis/authsec/adm/user/password/modify"
     },
     //认证管理
     {
@@ -874,12 +874,18 @@ export let RestApis: RestApiModel[] = [
         "url": "adminboe/authsec/enterprise/{enterpriseId}/ldaps/simple"
     },
     
-        //Vmware 端口
+    //Vmware 端口
+    {
+        "desc": "获取端口组资源分配列表",
+        "id": "net-mng.vmware.dc.list",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/dclist"
+    },
     {
         "desc": "获取端口组资源分配列表",
         "id": "net-mng.vmware.port.list",
         "method": "GET",
-        "url": "adminboe/authsec/vmware/network/{id}/portresource"
+        "url": "adminboe/authsec/vmware/network/portresource"
     },
     {
         "desc": "获取端口资源企业列表",
@@ -893,7 +899,7 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "adminboe/authsec/vmware/network/save/ent"
     },
-        //IP地址管理
+    //IP地址管理
     {
         "desc": "标准网络列表",
         "id": "net-mng.vmware.network.list",
