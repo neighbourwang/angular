@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { RestApi, RestApiCfg, LayoutService, NoticeComponent, PaginationComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
+import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService, PaginationComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 
 
 import { Network } from '../model/network.model';
@@ -24,7 +24,8 @@ export class OpenstackNetMngComponent implements OnInit {
         private router: Router,
         private dicService: SystemDictionaryService,
         private service: OpenstackService,
-        private layoutService: LayoutService
+        private layoutService: LayoutService,
+        private validationService: ValidationService
     ) {
     }
     @ViewChild("pager")
@@ -65,7 +66,8 @@ export class OpenstackNetMngComponent implements OnInit {
     defaultPlatform = new PlatformInfo();
     selectedPfi: PlatformInfo = this.defaultPlatform;
 
-    selectedNetwork:Network;
+    selectedNetwork:Network = new Network();
+    editNetwork:Network;
     ngOnInit() {
         this.dicService.getItems("NETWORK", "TYPE")
             .then(
@@ -108,13 +110,24 @@ export class OpenstackNetMngComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
     search() {
+        let tenantName = this.queryOpt.tenantName;
         this.queryOpt = new CriteriaQuery();
-        this.queryOpt.region = this.selectedRegion.id;
-        this.queryOpt.dataCenter = this.selectedDc.id;
-        this.queryOpt.platformId = this.selectedPfi.id;
+        this.queryOpt.region = this.selectedRegion.region;
+        this.queryOpt.dataCenter = this.selectedDc.dcName;
+        this.queryOpt.platformId = this.selectedPfi.platformId;
+        this.queryOpt.tenantName = tenantName;
         this.getNetworkList();
         this.pager.render(1);
     }
+
+    resetQueryOpt() {
+        this.selectedRegion = this.defaultRegion;
+        this.selectedDc = this.defaultDc;
+        this.selectedPfi = this.defaultPlatform;
+        this.queryOpt = new CriteriaQuery();
+        }
+
+
     isSelected(flag:boolean):String{
         if(flag){
             return "是";
@@ -127,69 +140,75 @@ export class OpenstackNetMngComponent implements OnInit {
         this.networks.forEach((e)=>{e.selected = false});
         network.selected = true;
         this.selectedNetwork = network;
+        
     }
     //启用网络
     networkStart(){
 
-        this.noticeTitle = "启用网络";
-        this.noticeMsg = `您选择启用 '${this.selectedNetwork.subnetName}?'网络，其网段为${this.selectedNetwork.segmentCIDR}?' ， 
+       
+        if(!this.selectedNetwork){
+            this.showAlert("请先选中一个网络");
+        }else{
+            this.noticeTitle = "启用网络";
+            this.noticeMsg = `您选择启用 '${this.selectedNetwork.subnetName}?'网络，其网段为${this.selectedNetwork.segmentCIDR}?' ， 
                         请确认；如果确认，用户将能够在订购中选择此网络。`
          
-        //  if(!this.selectedNetwork.selected){
-        //     this.showAlert("请先选中一个网络");
-        //  }
-         //如果运行状态不是运行中的，则不能启用此网络
-         //检测是否是运行中
-         //state 1-运行中;2-未知;3-停止
-        if(this.selectedNetwork.state == '1'){
-            this.confirm.ccf = () => {
-            };
-            this.confirm.cof = () => {
-                this.service.networkStart(this.selectedNetwork.id)
-                    .then(
-                        response => {
-                            this.layoutService.hide();
-                            if (response && 100 == response["resultCode"]) {
-                                this.showAlert("启用成功");
-                            } else {
-                                alert("Res sync error");
+            //如果运行状态不是运行中的，则不能启用此网络
+            //检测是否是运行中
+            //state 1-运行中;2-未知;3-停止
+            if(this.selectedNetwork.state == '1'){
+                this.confirm.ccf = () => {
+                };
+                this.confirm.cof = () => {
+                    this.service.networkStart(this.selectedNetwork.id)
+                        .then(
+                            response => {
+                                this.layoutService.hide();
+                                if (response && 100 == response["resultCode"]) {
+                                    this.showAlert("启用成功");
+                                } else {
+                                    alert("Res sync error");
+                                }
                             }
-                        }
-                    )
-                .catch((e) => this.onRejected(e));
+                        )
+                    .catch((e) => this.onRejected(e));
+                }
+                this.confirm.open();
+            }else{
+                this.showAlert("未处于运行状态不能启用");
             }
-            this.confirm.open();
-         }else{
-            this.showAlert("未处于运行状态不能启用");
         }
     }
     //禁用网络
     networkStop(){
-
-        this.noticeTitle = "禁用网络";
-        this.noticeMsg = `您选择禁用 '${this.selectedNetwork.subnetName}?'网络，其网段为${this.selectedNetwork.segmentCIDR}?' ， 
-                        请确认；如果确认，用户将不能够在订购中选择此网络。`
-        if(this.selectedNetwork.status!='3'){
-            this.confirm.ccf = () => {
-            };
-            this.confirm.cof = () =>{
-                this.service.networkStop(this.selectedNetwork.id)
-                    .then(
-                        response => {
-                            this.layoutService.hide();
-                            if (response && 100 == response["resultCode"]) {
-                                this.showAlert("禁用成功");
-                            } else {
-                                alert("Res sync error");
-                            }
-                        }
-                    )
-                .catch((e) => this.onRejected(e));
-            
-            }
-            this.confirm.open();
+        if(!this.selectedNetwork){
+                    this.showAlert("请先选中一个网络");
         }else{
-            this.showAlert("该网络已处于禁用状态");
+            this.noticeTitle = "禁用网络";
+            this.noticeMsg = `您选择禁用 '${this.selectedNetwork.subnetName}?'网络，其网段为${this.selectedNetwork.segmentCIDR}?' ， 
+                            请确认；如果确认，用户将不能够在订购中选择此网络。`
+            if(this.selectedNetwork.status!='3'){
+                this.confirm.ccf = () => {
+                };
+                this.confirm.cof = () =>{
+                    this.service.networkStop(this.selectedNetwork.id)
+                        .then(
+                            response => {
+                                this.layoutService.hide();
+                                if (response && 100 == response["resultCode"]) {
+                                    this.showAlert("禁用成功");
+                                } else {
+                                    alert("Res sync error");
+                                }
+                            }
+                        )
+                    .catch((e) => this.onRejected(e));
+                
+                }
+                this.confirm.open();
+            }else{
+                this.showAlert("该网络已处于禁用状态");
+            }
         }
     }
 
@@ -242,12 +261,75 @@ export class OpenstackNetMngComponent implements OnInit {
 
 
     getSynNetworkPage(){
-        let platform_id = this.selectedPfi.id;
+        let platform_id = this.selectedNetwork.platformId;
+        let platformName = this.selectedNetwork.platformName;
         console.log("选中的platform_id：" + platform_id);
-        if(platform_id==""&&!platform_id){
+        if(!platform_id || platform_id==""){
             this.showAlert("请先选则平台");
         }else{
-            this.router.navigate(['net-mng/openstack/openstack-synchr-net', {"platform_id": platform_id}]);
+            this.router.navigate(['net-mng/openstack/openstack-synchr-net', {"platform_id": platform_id,"platformName":platformName}]);
         }
+    }
+
+    openEidtPanel(network:Network): void {
+        this.closeEditPanel();
+        let cNetwork = new Network();
+        cNetwork.subnetDisplayName = network.subnetDisplayName;
+        cNetwork.selected = network.selected;
+        cNetwork.id = network.id;
+        cNetwork.tenantName = network.tenantName;
+        cNetwork.networkName = network.networkName;
+        cNetwork.subnetName = network.subnetName;
+        cNetwork.segmentCIDR = network.segmentCIDR;
+        cNetwork.gateway  = network.gateway;
+        cNetwork.networkType = network.networkType;
+        cNetwork.shared = network.shared;
+        cNetwork.state = network.state;
+        cNetwork.status = network.status
+        cNetwork.region = network.region;
+        cNetwork.dataCenter = network.dataCenter;
+        cNetwork.platformId = network.platformId;
+        cNetwork.platformName = network.platformName;
+        this.editNetwork = cNetwork;
+    }
+    //关闭所有的弹出窗口
+    closeEditPanel() {
+        this.networks.map((net) => {
+            net.nameEditing = false;
+        });
+    }
+    updateSubnetDisplayName(network:Network){
+        this.layoutService.show();
+        if (this.validationService.isBlank(this.editNetwork.subnetDisplayName)) {
+            this.showAlert("名称不能为空");
+            return;
+        }
+        this.service.updateSubName(this.editNetwork)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    let cNetwork = this.editNetwork;
+                    network.subnetDisplayName = cNetwork.subnetDisplayName;
+                    network.selected = cNetwork.selected;
+                    network.id = cNetwork.id;
+                    network.tenantName = cNetwork.tenantName;
+                    network.networkName = cNetwork.networkName;
+                    network.subnetName = cNetwork.subnetName;
+                    network.segmentCIDR = cNetwork.segmentCIDR;
+                    network.gateway  = cNetwork.gateway;
+                    network.networkType = cNetwork.networkType;
+                    network.shared = cNetwork.shared;
+                    network.state = cNetwork.state;
+                    network.status = cNetwork.status
+                    network.region = cNetwork.region;
+                    network.dataCenter = cNetwork.dataCenter;
+                    network.platformId = cNetwork.platformId;
+                    network.platformName = cNetwork.platformName;
+                    network.nameEditing = false;
+                }else{
+                    alert("Res sync error");
+                }
+            }).catch((e) => this.onRejected(e));
     }
 }

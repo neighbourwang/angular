@@ -7,6 +7,8 @@ import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../..
 //model 
 import { Enterprise } from '../model/enterprise.model';
 import { PortMngModel } from "../model/port.model";
+import { DCModel } from "../model/dc.model";
+
 //service
 import { PortMngService } from '../service/port-mng.service';
 
@@ -32,16 +34,17 @@ export class PortMngComponent implements OnInit {
 
     @ViewChild("notice")
     notice: NoticeComponent;
-
-    selectedDC = ""; //当前选中的DC
+    defaultDc: DCModel = new DCModel();
+    selectedDC: DCModel = this.defaultDc; //当前选中的DC
     selectedVDS = "";//当前选中的可用区
 
-    dcList: Array<string>;
-    vdsList: Array<string>;
+    dcList: Array<DCModel>;
+
     allPorts: Array<PortMngModel>;
     filterPorts: Array<PortMngModel>;
+   
     ngOnInit() {
-        console.log('init');
+        this.getDcList();
         this.getData();
     }
 
@@ -52,8 +55,6 @@ export class PortMngComponent implements OnInit {
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.dcList = response["resultContent"].dcNameList;
-                    this.vdsList = response["resultContent"].clusterNameList;
                     this.allPorts = response["resultContent"].portResList;
                     this.filter();
                 } else {
@@ -64,9 +65,25 @@ export class PortMngComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
+    getDcList() {
+        this.layoutService.show();
+        this.service.getDCList()
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.dcList = response["resultContent"];
+                    } else {
+                        alert("Res sync error");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
     filter() {
         this.filterPorts = this.allPorts.filter((p) => {
-            return (this.selectedDC === "" || this.selectedDC === p.dcName) &&
+            return (!this.selectedDC.dcName || this.selectedDC.dcName === p.dcName) &&
                 (this.selectedVDS === "" || this.selectedVDS === p.clusterName);
         });
     }

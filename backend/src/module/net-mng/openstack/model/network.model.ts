@@ -26,11 +26,15 @@ export class Network {
     subnetDisplayName: string; //子网显示名
     segmentCIDR: string; //网段信息
     gateway: string; //网关信息
-    network_type: string; //网络类型，来源数据字典
+    networkType: string; //网络类型，来源数据字典
     shared: string; //是否共享，来源数据字典
     state: string; //运行状态，来源数据字典
     status: string; //状态，来源数据字典
     region: string; //地域
     dataCenter: string; //数据中心
-    url: string; //连接url
+
+    platformId: string; //
+    platformName: string;
+    nameEditing:boolean;
+
 }

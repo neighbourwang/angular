@@ -4,21 +4,21 @@
 <div class="page-content">
     <div class="mgb20" style="margin-top:10px">
         <div class="pull-left mgr20">
-            <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedDc=defaultDc;selectedPfi = defaultPlatform">
+            <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedDc=defaultDc;selectedPfi = defaultPlatform" >
                 <option [ngValue]="defaultRegion">所有地域</option>
-                <option *ngFor="let region of regionList" [ngValue]="region">{{region.name}}</option>
+                <option *ngFor="let region of regionList" [ngValue]="region">{{region.region}}</option>
             </select>
         </div>
         <div class="pull-left  mgr20">
             <select class="form-control" [(ngModel)]="selectedDc" (change)="selectedPfi = defaultPlatform; queryOpt.dataCenter = selectedDc.id">
                 <option [ngValue]="defaultDc">所有数据中心</option>
-                <option *ngFor="let dc of selectedRegion.dcList" [ngValue]="dc">{{dc.name}}</option>
+                <option *ngFor="let dc of selectedRegion.dataCenters" [ngValue]="dc">{{dc.dcName}}</option>
             </select>
         </div>
         <div class="pull-left col-md-2 mgr20 ">
-            <select class="form-control" [(ngModel)]="selectedPfi"(change)="queryOpt.url = selectedPfi.url">
+            <select  [(ngModel)]="selectedPfi"(change)="queryOpt.url = selectedPfi.url" style="line-height:34px;padding:6px 12px">
                 <option [ngValue]="defaultPlatform">所有平台</option>
-                <option *ngFor="let pf of selectedDc.pflist" [ngValue]="pf">{{pf.name +" "+pf.url}}</option>
+                <option *ngFor="let pf of selectedDc.platforms" [ngValue]="pf">{{pf.platformName +" "+pf.url}}</option>
             </select>
         </div>
         
@@ -28,10 +28,10 @@
         <h4 class="pull-left mgr15 ">所属企业:</h4>
         <div class="pull-left mgr15 col-md-3 " style="position:relative;padding:0">
             <span class="glyphicon glyphicon-search form-control-feedback"></span>
-            <input type="text" class="form-control " placeholder="输入企业/租户信息搜索" />
+            <input type="text" class="form-control " placeholder="输入企业/租户信息搜索" [(ngModel)]="queryOpt.tenantName"/>
         </div>
         <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" (click)="search()"> 确定</button>
-        <button type="button" class="fox-cloud-button fox-cloud-button-white" style="height:34px"> 重置</button>
+        <button type="button" class="fox-cloud-button fox-cloud-button-white" style="height:34px" (click)="resetQueryOpt()"> 重置</button>
         <div class="dropdown pull-right" style="margin-left:10px">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 更多操作
@@ -63,20 +63,39 @@
             </thead>
             <tbody>
                 <tr *ngFor="let network of networks" (click)="selectNetwork(network)">
-                    <td class="text-center">
-                        <input type="radio" class="fox-cloud-radio" name="radio" [checked]="network.selectd" (change)="network.selectd = $event.target.checked" />
+                    <td >
+                        <input type="radio" class="fox-cloud-radio" name="radio" [checked]="network.selected" (change)="network.selected = $event.target.checked" />
                     </td>
                     
-                    <td class="text-center">{{network.tenantName}}</td>
-                    <td class="text-center">{{network.networkName}}</td>
-                    <td class="text-center">{{network.subnetName}}</td>
-                    <td class="text-center">{{network.subnetDisplayName}}</td>
-                    <td class="text-center">{{network.segmentCIDR}}</td>
-                    <td class="text-center">{{network.gateway}}</td>
-                    <td class="text-center">{{getDicText(network.network_type,this.typeDic)}}</td>
-                    <td class="text-center">{{getDicText(network.shared,this.sharedDic)}}</td>
-                    <td class="text-center">{{getDicText(network.state,this.stateDic)}}</td>
-                    <td class="text-center" [ngClass]="{'font-gray':network.status==1,'font-orange':network.status==3,'font-green':network.status==2}">
+                    <td >{{network.tenantName}}</td>
+                    <td >{{network.networkName}}</td>
+                    <td >{{network.subnetName}}</td>
+                    <td style="position:relative">{{network.subnetDisplayName}}
+                        <span class="icon-edit2 pull-right" (click)="openEidtPanel(network);network.nameEditing=true;"></span>                                                                                       
+                            <div *ngIf="network.nameEditing" class="popover fade bottom in" role="tooltip" style="position:absolute;top:30px; left:30px; width:370px; max-width:1100px; display: block;">
+                                <div class="arrow" style="left: 30%;"></div>
+                                <div class="popover-content">
+                                    <form class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">子网显示名称:</label>
+                                            <div class="col-sm-8 float-left">
+                                            <input type="text" rows="1" [(ngModel)]="editNetwork.subnetDisplayName" name="subDisplay"/>
+                                            </div>
+                                        </div>
+                                    </form>
+                                <div class="pull-right" style="margin-bottom:10px;">
+                                    <button class=" fox-cloud-button fox-cloud-button-white" (click)="updateSubnetDisplayName(network)">保存</button>
+                                    <button class="fox-cloud-button fox-cloud-button-white"(click)="network.nameEditing=false">取消</button>
+                                </div>
+                            </div>  
+                             </div>    
+                    </td>
+                    <td >{{network.segmentCIDR}}</td>
+                    <td >{{network.gateway}}</td>
+                    <td >{{getDicText(network.networkType,this.typeDic)}}</td>
+                    <td >{{getDicText(network.shared,this.sharedDic)}}</td>
+                    <td >{{getDicText(network.state,this.stateDic)}}</td>
+                    <td  [ngClass]="{'font-gray':network.status==1,'font-orange':network.status==3,'font-green':network.status==2}">
                         {{getDicText(network.status,this.statusDic)}}
                     </td>
                     <!--<td class="text-center" >{{isSelected(network.selected)}}</td>-->

@@ -1,5 +1,5 @@
 ﻿<div class="page-content-header icon-cloud-network-mngOn" >
-    同步网络：XXXXX云平台
+    同步网络：{{platformName}} 云平台
 </div>
 
 <div class="page-content">
@@ -10,9 +10,9 @@
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <li><a href="javascript:">全部添加</a></li>
-            <li><a href="javascript:">全部更新</a></li>
-            <li><a href="javascript:">全部禁用</a></li>
+            <li (click)="addAll()"><a>全部添加</a></li>
+            <li (click)="updateAll()"><a>全部更新</a></li>
+            <li (click)="disableAll()"><a>全部禁用</a></li>
         </ul>
     </div>
    
@@ -35,60 +35,41 @@
             </thead>
             <tbody>
                 <tr *ngFor="let network of synNetworks;let i=index" >
-                    <td class="text-center">{{i+1}}</td>
-                    <td class="text-center">{{network.networkName}}</td>
-                    <td class="text-center">{{network.subnetName}}</td>
-                    <td class="text-center">{{network.subnetDisplayName}}</td>
-                    <td class="text-center">{{network.segmentCIDR}}</td>
+                    <td>{{i+1}}</td>
+                    <td >{{network.networkName}}</td>
+                    <td >{{network.subnetName}}</td>
+                    <td >
+                        <div *ngIf="network.syncResult==1">
+                            <input type="text" class="form-control" [(ngModel)]="network.subnetDisplayName" />
+                        </div>
+                        <div *ngIf="network.syncResult!=1">
+                            {{network.subnetDisplayName}}
+                        </div>
+                        </td>
+                    <td >{{network.segmentCIDR}}</td>
                     <!--<td class="text-center">{{network.gateway}}</td>-->
-                    <td class="text-center">{{network.tenantName}}</td>
-                    <td class="text-center">{{getDicText(network.network_type,this.typeDic)}}</td>
-                    <td class="text-center">{{getDicText(network.shared,this.sharedDic)}}</td>
-                    <td class="text-center">{{getDicText(network.state,this.stateDic)}}</td>
-                    
-
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>cionetwork2</td>
-                    <td>subinter-network9</td>
-                    <td><input type="text" class="form-control" value="subinter-network9" /></td>
-                    <td>10.10.0.0/24</td>
-                    <td>BOE-CIO总部</td>
-                    <td>外部网络</td>
-                    <td>否</td>
-                    <td>运行中</td>
-                    <td>新增</td>
-                    <td><button class="fox-cloud-button-md fox-cloud-button-white">添加</button></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>cionetwork1</td>
-                    <td>subinter-network2</td>
-                    <td><input type="text" class="form-control" value="CIO-内网1" /></td>
-                    <td>192.168.0.0/24</td>
-                    <td>BOE-CIO总部</td>
-                    <td>内部网络</td>
-                    <td>否</td>
-                    <td>运行中</td>
-                    <td>已存在</td>
-                    <td><button class="fox-cloud-button-md fox-cloud-button-white">更新</button></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>cionetwork1</td>
-                    <td>subinter-network3</td>
-                    <td><input type="text" class="form-control" value="CIO-内网2" /></td>
-                    <td>10.10.2.0/24</td>
-                    <td>BOE-CIO总部</td>
-                    <td>内部网络</td>
-                    <td>否</td>
-                    <td>运行中</td>
-                    <td>不存在</td>
-                    <td><button class="fox-cloud-button-md fox-cloud-button-white">禁用</button></td>
-                </tr>
+                    <td>{{network.tenantName}}</td>
+                    <td>{{getDicText(network.networkType,this.typeDic)}}</td>
+                    <td>{{getDicText(network.shared,this.sharedDic)}}</td>
+                    <td>{{getDicText(network.state,this.stateDic)}}</td>
+                    <td>{{getDicText(network.syncResult,this.synDic)}}</td>
+                    <td ><span [ngSwitch]="network.syncResult">
+                        <span *ngSwitchCase="'1'">
+                            <button class="fox-cloud-button-md fox-cloud-button-white" (click)="addOne(network)">添加</button>
+                        </span>
+                        <span *ngSwitchCase="'2'">
+                            <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateOne(network)">更新</button>
+                        </span>
+                        <span *ngSwitchCase="'3'">
+                            <button class="fox-cloud-button-md fox-cloud-button-white" (click)="disableOne(network)">禁用</button>
+                        </span>
+                    </span>
+                    </td>
+                     </tr>
+                
             </tbody>
         </table>
     </div>
-    
+    <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+    <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
 </div>

@@ -161,7 +161,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "订单退订",
         "method": "GET",
         "id": "op-center.order-mng.order-cancel.get",
-        "url": " marketplace/authsec/subscription/instance/{_subId}/cancel"        
+        "url": "marketplace/authsec/subscription/instance/{_subId}/cancel"        
     },{
         "desc": "订单续订",
         "method": "GET",

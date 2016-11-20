@@ -196,8 +196,8 @@ export class OrderMngComponent implements OnInit{
 		});
 	}
 	
-	showDetail(){
-		this.router.navigateByUrl('op-center/order-mng/order-mng-detail');
+	showDetail(orderItem:SubInstanceResp){
+		//this.router.navigateByUrl('op-center/order-mng/order-mng-detail');
 	}
 	
 	renewSelect(orderItem:SubInstanceResp){
