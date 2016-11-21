@@ -530,12 +530,7 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.department-list.get",
         "method": "GET",
         "url": "basis/authsec/adm/organization/enterprise/{enterpriseId}"
-    }, {
-        "desc": "产品类型",
-        "id": "op-center.order-mng.product-type-list.get",
-        "method": "GET",
-        "url": "adminui/authsec/services/page/{_page}/size/{_size}"
-    }, {
+    },  {
         "desc": "区域列表",
         "id": "op-center.order-mng.region-list.get",
         "method": "GET",
@@ -1001,6 +996,43 @@ export let RestApis: RestApiModel[] = [
         "url": "/adminboe/authsec/openstack/network/{id}/disable"
     
     }
-    
+    // 审批中心
+    ,{
+        "desc": "查询待审批订单",
+        "id": "check-center.not-checked.list",
+        "method": "GET",
+        "url": "none"        
+    }
+    ,{
+        "desc": "查询已审批订单",
+        "id": "check-center.checked.list",
+        "method": "GET",
+        "url": "none"        
+    }
+    ,{
+        "desc": "获取用户列表",
+        "id": "check-center.user.list",
+        "method": "GET",
+        "url": "none"        
+    }
+    ,{
+        "desc": "获取订单详情",
+        "id": "check-center.order.detail",
+        "method": "GET",
+        "url": "none"        
+    }
+    ,{
+        "desc": "获取审批人列表",
+        "id": "check-center.check-person.list",
+        "method": "GET",
+        "url": "none"        
+    }
+    ,{
+        "desc": "获取审批详情",
+        "id": "check-center.check.detail",
+        "method": "GET",
+        "url": "none"        
+    }
+    // 审批中心    
 
 ]
