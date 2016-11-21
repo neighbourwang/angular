@@ -7,7 +7,7 @@
 				<input type="text" class="form-control searchbox gray-searchbox" placeholder="输入订单信息快速查询"/>
 				<span class="glyphicon glyphicon-search searchbox-incon"></span>
 						
-				<button class=" form-control-title fox-cloud-button-sm  fox-cloud-button-white left" (click)="_isAdvSearch = !_isAdvSearch">高级查询</button>
+				<button class=" form-control-title fox-cloud-button-sm  fox-cloud-button-white left" [class.fox-cloud-button-grey]="_isAdvSearch" (click)="_isAdvSearch = !_isAdvSearch">高级查询</button>
 			</div>
 			<table class="table" *ngIf="_isAdvSearch">
 				<tbody>
