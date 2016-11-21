@@ -9,13 +9,14 @@ import { RestApi
 	, SystemDictionaryService
 	, SystemDictionary } from '../../../architecture';
 
+
 @Component({
 	selector: 'check-mng-list',
-	templateUrl: '../template/check-mng-list.component.html',
+	templateUrl: '../template/check-mng-hascheck.component.html',
 	styleUrls: ['../style/check-mng-list.less'],
 	providers: []	
 })
-export class CheckMngListComponent implements OnInit{
+export class CheckMngHascheckComponent implements OnInit{
 	
 	
 	ngOnInit(){
