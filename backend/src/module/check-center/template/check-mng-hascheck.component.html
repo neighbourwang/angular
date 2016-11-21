@@ -45,7 +45,7 @@
 
 						</td>
 					</tr>
-					<tr>
+					<tr class="bgWhite">
 						<td ><div class="left form-control-title  ">订单类型：</div>
 								<div class="left">
 								<select class="form-control" [(ngModel)]="platformId">
@@ -74,13 +74,13 @@
 					</tr>
 					<tr>
 						<td><div class="left form-control-title">开始时间：</div>
-							<div class="dropdown left">			
+							<div class="left">			
 								<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
 							</div>
 
 						</td>
 						<td ><div class="left form-control-title">结束时间：</div>
-							<div class="dropdown left">			
+							<div class="left">			
 								<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
 							</div>
 						</td>
