@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { LayoutService, NoticeComponent , ConfirmComponent, ValidationService, SystemDictionary, SystemDictionaryService, PaginationComponent  } from '../../../../architecture';
+import { LayoutService, NoticeComponent , ConfirmComponent, ValidationService, SystemDictionary, SystemDictionaryService, PaginationComponent  } from '../../../../../architecture';
 
 //model 
 import { IpUsageMngModel } from '../model/ipusage-mng.model';
@@ -126,7 +126,7 @@ export class IpUsageMngListComponent implements OnInit{
     }
 
     ipMngPage() {
-        this.router.navigate([`net-mng/ip-mng-list`]);
+        this.router.navigate([`net-mng/vm-mng/ip-mng-list`]);
     }
 
     filter(query?): void {

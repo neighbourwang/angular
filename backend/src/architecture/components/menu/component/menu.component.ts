@@ -247,6 +247,11 @@ const menu: Array<Object> = [
                  "isOpen": false,
                  "isActive": false,
                  "routing": "check-center/check-mng-list"
+             }, {
+              "label": "已审批",
+                 "isOpen": false,
+                 "isActive": false,
+                 "routing": "check-center/check-mng-hascheck"
              }
          ]
      }

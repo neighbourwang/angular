@@ -19,6 +19,7 @@
     </table>
 
     <div class="mgt10 mgb20" >
+<!-- 
 		<span class="pull-left font-gray mgt5">
             数据中心(DC)名称：
         </span>
@@ -35,6 +36,25 @@
             <select class="form-control" [(ngModel)]="ipmngquery.cluster">
                 <option [value]="" value="">所有</option>
                 <option *ngFor="let cls of cluster" [value]="cls">{{cls}}</option>
+            </select>
+        </div>
+-->
+		<span class="pull-left font-gray mgt5">
+            数据中心(DC)名称：
+        </span>
+        <div class="pull-left mgl15">
+            <select class="form-control" [(ngModel)]="selectedDC" (change)="selectedVDS=''" >
+                <option [ngValue]="defaultDc">所有</option>
+                <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
+            </select>
+        </div>
+        <span class="pull-left font-gray mgt5">
+            可用区（集群）名称 :
+        </span>
+        <div class="pull-left mgl15">
+            <select class="form-control" [(ngModel)]="selectedVDS">
+                <option [value]="" value="">所有</option>
+                <option *ngFor="let vds of selectedDC.clusterNameList" [value]="vds">{{vds}}</option>
             </select>
         </div>
 		<button type="button" class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="filter()"> 确定</button>

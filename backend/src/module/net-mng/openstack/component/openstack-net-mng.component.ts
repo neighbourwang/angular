@@ -125,6 +125,8 @@ export class OpenstackNetMngComponent implements OnInit {
         this.selectedDc = this.defaultDc;
         this.selectedPfi = this.defaultPlatform;
         this.queryOpt = new CriteriaQuery();
+        this.selectedNetwork = new Network();
+        this.getNetworkList();
         }
 
 

@@ -8,17 +8,20 @@ import { CommonComponentModule } from '../../../architecture';
 
 //Components
 import { VMPortMngModule } from './port-mng/port-mng.module';
+import { IpMngModule } from './ip-mng/ip-mng.module';
 
 @NgModule({
     imports: [
         CommonComponentModule,
-        VMPortMngModule
+        VMPortMngModule,
+        IpMngModule
     ],
     declarations: [
       
     ],
     exports: [
-        VMPortMngModule
+        VMPortMngModule,
+        IpMngModule
     ],
     providers: [
 

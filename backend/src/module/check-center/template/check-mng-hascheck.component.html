@@ -1,5 +1,5 @@
 <div class="CheckMngList">
-	<div class="page-content-header icon-order-manage" style="border-bottom: 3px solid  #01a982;margin: 10px 0px;padding: 0;">待审批列表</div>
+	<div class="page-content-header icon-order-manage" style="border-bottom: 3px solid  #01a982;margin: 10px 0px;padding: 0;">已审批列表</div>
 	<div class="page-content">
 		<div class="table-container">
 			<div class="search-container">
@@ -14,7 +14,7 @@
 						<td >
 						    <div class="left form-control-title">订单归属：<span>企业</span></div>
 							<div class="left">
-								<select class="form-control select_" [(ngModel)]="_param.entIdStr">
+								<select class="form-control  select_" [(ngModel)]="platformId">
 									<option class="hands">所有企业</option>
 									<option class="hands">HPE</option>
 									<option class="hands">雀巢集团</option>
@@ -25,7 +25,7 @@
 						<td><div class="left form-control-title mgl40">部门：</div>
 
 							<div class="left">
-								<select class="form-control" [(ngModel)]="_param.departmentIdNum">
+								<select class="form-control" [(ngModel)]="platformId">
 									<option class="hands">所有部门</option>
 									<option class="hands">部门1</option>
 									<option class="hands">部门2</option>
@@ -35,7 +35,7 @@
 						</td>
 						<td ><div class="left form-control-title mgl20">用户：</div>
 							<div class="left">
-								<select class="form-control" [(ngModel)]="_param.userIdStr">
+								<select class="form-control" [(ngModel)]="platformId">
 									<option class="hands">所有用户</option>
 									<option class="hands">关羽</option>
 									<option class="hands">张飞</option>
@@ -47,16 +47,16 @@
 					</tr>
 					<tr>
 						<td ><div class="left form-control-title  ">订单类型：</div>
-								<div class="dropdown left">
-								<select class="form-control " [(ngModel)]="_param.orderTypeNum">
+								<div class="left">
+								<select class="form-control" [(ngModel)]="platformId">
 									<option class="hands">新订单</option>
 									<option class="hands">旧订单</option>
 								</select>
 							</div>
 						</td>
 						<td><div class="left form-control-title">产品类型：</div>
-							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="_param.serviceTypeNum">
+							<div class="left">
+								<select class="form-control" [(ngModel)]="platformId">
 									<option class="hands">所有服务</option>
 									<option class="hands">HPE</option>
 								</select>
@@ -64,7 +64,7 @@
 						</td>
 						<td><div class="left form-control-title">审批人：</div>
 							<div class="dropdown left">
-								<select class="form-control" [(ngModel)]="_param.checkUserIdStr">
+								<select class="form-control" [(ngModel)]="platformId">
 									<option class="hands">所有用户</option>
 									<option class="hands">张飞</option>
 									<option class="hands">关羽</option>
@@ -75,13 +75,13 @@
 					<tr>
 						<td><div class="left form-control-title">开始时间：</div>
 							<div class="dropdown left">			
-								<date-picker (dateChanged)="onStartDateChange($event)"></date-picker>
+								<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
 							</div>
 
 						</td>
 						<td ><div class="left form-control-title">结束时间：</div>
 							<div class="dropdown left">			
-								<date-picker (dateChanged)="onEndDateChange($event)"></date-picker>
+								<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
 							</div>
 						</td>
 						<td>
@@ -108,7 +108,7 @@
 						<th>用户/部门/企业</th>
 						<th>费用</th>
 						<th>创建时间</th>
-						<th>操作</th>
+						<th>审批结果</th>
 					</tr>			
 				</thead>
 				<tbody>
@@ -133,7 +133,7 @@
 						<td>2016-10-01<br>
 							23:10<br>
 							<a>审批信息>>></a></td>
-						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white" style="margin-right: 10px;">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white">拒绝</button></td>
+						<td>同意</td>
 					</tr>
 					<tr>
 						<td>2</td>
@@ -156,12 +156,11 @@
 						<td>2016-10-01<br>
 							23:10<br>
 							<a>审批信息>>></a></td>
-						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white" style="margin-right: 10px;">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white">拒绝</button></td>
+						<td>同意</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		<!-- <fc-pagination tp={{}} (pf)="changePage($event)"></fc-pagination> -->
 	</div>
 
 	<div class="DetailInfo">

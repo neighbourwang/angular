@@ -85,7 +85,7 @@
                                     </form>
                                 <div class="pull-right" style="margin-bottom:10px;">
                                     <button class=" fox-cloud-button fox-cloud-button-white" (click)="updateSubnetDisplayName(network)">保存</button>
-                                    <button class="fox-cloud-button fox-cloud-button-white"(click)="network.nameEditing=false">取消</button>
+                                    <button class=" fox-cloud-button fox-cloud-button-white"(click)="network.nameEditing=false">取消</button>
                                 </div>
                             </div>  
                              </div>    
@@ -98,7 +98,6 @@
                     <td  [ngClass]="{'font-gray':network.status==1,'font-orange':network.status==3,'font-green':network.status==2}">
                         {{getDicText(network.status,this.statusDic)}}
                     </td>
-                    <!--<td class="text-center" >{{isSelected(network.selected)}}</td>-->
 
                 </tr>
 
@@ -108,17 +107,7 @@
     
         {{queryOpt.toString()}}
     
-    <!--<div class="fox-cloud-pagination-container">
-        <ul class="fox-cloud-pagination">
-            <span class="disable">上一页</span>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <span>下一页</span>
-        </ul>
-    </div>    -->
+   
     <div class="fox-cloud-pagination-container">
         <fc-pagination #pager tp={{totalPage}} (pf)="getNetworkList($event)"></fc-pagination>
     </div>

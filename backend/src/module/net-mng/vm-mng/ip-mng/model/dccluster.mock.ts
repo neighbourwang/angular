@@ -36,3 +36,25 @@ export const NetWork_mock = {
         ]
     }
 }
+
+
+export const net_dc_list_mock = {
+    "resultCode": "100",
+    "detailDescription": null,
+    "resultContent": [
+        {
+            "dcName": "DC1",
+            "clusterNameList": [
+                "Cluster11",
+                "Cluster12"
+            ]
+        },
+        {
+            "dcName": "DC2",
+            "clusterNameList": [
+                "Cluster21",
+                "Cluster22"
+            ]
+        }
+    ]
+}

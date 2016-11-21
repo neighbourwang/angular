@@ -5,7 +5,7 @@ export const IpMngModel_mock = {
     {
         "id": "ef349044-3bfb-4b09-b804-30954b084001", //网络端口组ID
         "dataCenter": "DC1", //数据中心,VC中定义的
-        "clusterName": "Cluster1", //集群名称
+        "clusterName": "Cluster11", //集群名称
         "portGroup": "dv1 c1 pg1", //标准端口组名称
         "portGroupDisplayName": "dv pg1", //标准端口组显示名称
         "vlanId": "100", //虚拟局域网ID
@@ -18,7 +18,7 @@ export const IpMngModel_mock = {
     {
         "id": "ef349044-3bfb-4b09-b804-30954b084002", //网络端口组ID
         "dataCenter": "DC1", //数据中心,VC中定义的
-        "clusterName": "Cluster1", //集群名称
+        "clusterName": "Cluster11", //集群名称
         "portGroup": "dv1 c2 pg2", //标准端口组名称
         "portGroupDisplayName": "", //标准端口组显示名称
         "vlanId": "100", //虚拟局域网ID
@@ -31,7 +31,7 @@ export const IpMngModel_mock = {
     {
         "id": "ef349044-3bfb-4b09-b804-30954b084003", //网络端口组ID
         "dataCenter": "DC1", //数据中心,VC中定义的
-        "clusterName": "Cluster2", //集群名称
+        "clusterName": "Cluster12", //集群名称
         "portGroup": "dv1 c2 pg1", //标准端口组名称
         "portGroupDisplayName": "dv pg1", //标准端口组显示名称
         "vlanId": "100", //虚拟局域网ID
@@ -44,7 +44,7 @@ export const IpMngModel_mock = {
     {
         "id": "ef349044-3bfb-4b09-b804-30954b084004", //网络端口组ID
         "dataCenter": "DC2", //数据中心,VC中定义的
-        "clusterName": "Cluster1", //集群名称
+        "clusterName": "Cluster21", //集群名称
         "portGroup": "dv2 c1 pg1", //标准端口组名称
         "portGroupDisplayName": "", //标准端口组显示名称
         "vlanId": "100", //虚拟局域网ID
@@ -57,7 +57,7 @@ export const IpMngModel_mock = {
     {
         "id": "ef349044-3bfb-4b09-b804-30954b084005", //网络端口组ID
         "dataCenter": "DC2", //数据中心,VC中定义的
-        "clusterName": "Cluster2", //集群名称
+        "clusterName": "Cluster22", //集群名称
         "portGroup": "dv2 c2 pg1", //标准端口组名称
         "portGroupDisplayName": "", //标准端口组显示名称
         "vlanId": "100", //虚拟局域网ID
