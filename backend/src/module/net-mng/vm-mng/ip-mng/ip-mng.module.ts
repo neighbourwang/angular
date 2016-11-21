@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 // Common Components
-import { CommonComponentModule } from '../../../architecture';
+import { CommonComponentModule } from '../../../../architecture';
 
 //Components
 import { IpMngListComponent } from './component/ip-mng-list.component';

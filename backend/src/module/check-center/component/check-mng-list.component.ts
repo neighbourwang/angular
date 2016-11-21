@@ -10,7 +10,6 @@ import { RestApi
 	, SystemDictionary
 	, DicLoader
 	, ItemLoader } from '../../../architecture';
-import { CheckCenterParam } from './../model';
 
 @Component({
 	selector: 'check-mng-list',
@@ -19,11 +18,10 @@ import { CheckCenterParam } from './../model';
 	providers: []	
 })
 export class CheckMngListComponent implements OnInit{
-	private _param:CheckCenterParam = new CheckCenterParam();
-	private _entLoader:ItemLoader<{id:string; name:string}> = null; //浼佷笟鍒楄〃
-	private _departmentLoader:ItemLoader<{id:string;name:string}> = null; //閮ㄩ棬鍒楄〃
-	private _serviceTypeDic:DicLoader = null; //浜у搧绫诲瀷鍒楄〃
-	private _isAdvSearch:boolean = false;//楂樼骇鏌ヨ
+	private _entLoader:ItemLoader<{id:string; name:string}> = null; //企业列表
+	private _departmentLoader:ItemLoader<{id:string;name:string}> = null; //部门列表
+	private _serviceTypeDic:DicLoader = null; //产品类型列表
+	private _isAdvSearch:boolean = false;//高级查询
 
 	@ViewChild("notice") private _notice:NoticeComponent;
 
@@ -32,16 +30,17 @@ export class CheckMngListComponent implements OnInit{
 		,private _restApi:RestApi
 		,private _layoutService:LayoutService){
 
-		//浼佷笟鍒楄〃閰嶇疆
-		this._entLoader = new ItemLoader<{id:string;name:string}>(false, "浼佷笟鍒楄〃", "op-center.order-mng.ent-list.get", _restApiCfg, _restApi);
+		//企业列表配置
+		this._entLoader = new ItemLoader<{id:string;name:string}>(false, "企业列表", "op-center.order-mng.ent-list.get", _restApiCfg, _restApi);
 
-		//閮ㄩ棬鍒楄〃閰嶇疆
-		this._departmentLoader = new ItemLoader<{id:string;name:string}>(false, "閮ㄩ棬鍒楄〃", "op-center.order-mng.department-list.get", _restApiCfg, _restApi);
+		//部门列表配置
+		this._departmentLoader = new ItemLoader<{id:string;name:string}>(false, "部门列表", "op-center.order-mng.department-list.get", _restApiCfg, _restApi);
 
-		//浜у搧绫诲瀷
-		this._serviceTypeDic = new DicLoader(_restApiCfg, _restApi, "GLOBAL", "SERVICE_TYPE");//浜у搧绫诲瀷鍒楄〃', "op-center.order-mng.product-type-list.get", _restApiCfg, _restApi);
+		//产品类型
+		this._serviceTypeDic = new DicLoader(_restApiCfg, _restApi, "GLOBAL", "SERVICE_TYPE");//产品类型列表', "op-center.order-mng.product-type-list.get", _restApiCfg, _restApi);
 
 	}
+	
 	ngOnInit(){
 
 		this._layoutService.show();
@@ -60,15 +59,15 @@ export class CheckMngListComponent implements OnInit{
 
 	showMsg(msg:string)
 	{
-		this._notice.open("绯荤粺", msg);
+		this._notice.open("系统", msg);
 	}
 
-	//鏌ヨ
+	//查询
 	search(){
 
 	}
 
-	//浼佷笟閫夋嫨鍙戠敓鍙樺寲
+	//企业选择发生变化
 	entChanged(){
 		this._layoutService.show();
 		this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._param.entIdStr}])

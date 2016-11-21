@@ -53,7 +53,7 @@
                     <td>{{getDicText(network.shared,this.sharedDic)}}</td>
                     <td>{{getDicText(network.state,this.stateDic)}}</td>
                     <td>{{getDicText(network.syncResult,this.synDic)}}</td>
-                    <td ><span [ngSwitch]="network.syncResult">
+                    <td ><span [(ngSwitch)]="network.syncResult">
                         <span *ngSwitchCase="'1'">
                             <button class="fox-cloud-button-md fox-cloud-button-white" (click)="addOne(network)">添加</button>
                         </span>

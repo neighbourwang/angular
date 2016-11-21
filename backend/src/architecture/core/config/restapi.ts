@@ -968,7 +968,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "同步网络（单个、多个）网络更新",
         "id": "net-mng.openstack.net.syn.update",
         "method": "PUT",
-        "url": "adminboe/authseck/openstack/network/sync"
+        "url": "adminboe/authsec/openstack/network/sync"
     
     },
     {
