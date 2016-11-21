@@ -88,6 +88,14 @@ export class PortMngComponent implements OnInit {
         });
     }
 
+    selectPort(port: PortMngModel) {
+        this.filterPorts.forEach((port) => {
+            port.selected = false;
+        });
+        port.selected = true;
+    }
+
+
     gotoSetPage() {
         const port = this.filterPorts.find((p) => { return p.selected; });
         if (!port) {
