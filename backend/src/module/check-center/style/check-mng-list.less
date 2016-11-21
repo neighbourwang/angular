@@ -1,10 +1,10 @@
-.validateInfo{ color: green; } /*验证信息显示绿色*/
+.validateInfo{ color: #00a982; } /*验证信息显示绿色*/
 .warnInf{ color: red; }  /*验证信息显示红色*/
 .left{float: left;}     /*左浮动*/
 .leftAlign{text-align: left!important;}/*表格td居左*/
-.righAlign{text-align: right!important;}/*表格td居右*/
+.rightAlign{text-align: right!important;}/*表格td居右*/
 ._margin{margin-bottom: 30px;}/*间隔30px*/
-
+.tdVAlign{vertical-align: middle;}
 ul li{ list-style: none; }
 
 .searchbox{
@@ -12,13 +12,14 @@ ul li{ list-style: none; }
     height: 40px;
     display: inline;
     margin-right: 50px;
-   float:left;
+    float:left;
 }
 .searchbox-incon{
     position: relative;
     top:13px;
     left: -200px;
 }
+.mgl40{margin-left:40px;}
 
 .CheckMngList{
 	.page-content{
@@ -32,17 +33,19 @@ ul li{ list-style: none; }
     			height: 60px;
     			margin-bottom: 20px;
 			}
-			
-			.dropdown {	
-    			margin-left: 10px;
-    			button{
-    					font-size: 15px;
-    				    padding: 5px 100px;
-    			}
-			}
-
 			table{
 				margin-bottom:20px!important;
+				select{
+				    width: 260px;
+    				letter-spacing: 2px;
+				}
+
+				.select_{
+				    width: 202px;
+				}
+				button{
+					    padding: 3px 15px;
+				}
 				
 				tr{
 					td{
