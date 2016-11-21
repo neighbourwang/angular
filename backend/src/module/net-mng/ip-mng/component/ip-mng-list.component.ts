@@ -6,10 +6,10 @@ import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, Vali
 
 //model 
 import { IpMngModel } from '../model/ip-mng.model';
-import { IpMngQuery } from '../model/ipquery.model';
-//import { IpUsageQuery } from '../model/ipusagequery.model';
+//import { IpMngQuery } from '../model/ipquery.model';
 import { subnetModel } from '../model/subnet.model';
 import { subnetIpModel } from '../model/subnet-ip.model';
+import { DCModel } from '../model/dccluster.model';
 
 
 //service
@@ -63,12 +63,17 @@ export class IpMngListComponent implements OnInit{
 	noticeTitle = "";
     noticeMsg = "";
 
+    defaultDc: DCModel = new DCModel();
+    selectedDC: DCModel = this.defaultDc; //当前选中的DC
+    selectedVDS = "";//当前选中的可用区
+    dcList: Array<DCModel>;
+
     rawipmngs: Array<IpMngModel>;
     ipmngs: Array<IpMngModel>;
-    //ipmng: IpMngModel = new IpMngModel();
-    ipmngquery: IpMngQuery = new IpMngQuery();
-    cluster: Array<string>;
-    datacenter: Array<string>;
+
+    //ipmngquery: IpMngQuery = new IpMngQuery();
+    //cluster: Array<string>;
+    //datacenter: Array<string>;
 
     subn: subnetModel = new subnetModel();
     ippool: subnetIpModel = new subnetIpModel();
@@ -96,49 +101,50 @@ export class IpMngListComponent implements OnInit{
 
     ngOnInit (){
         console.log('init');
-        this.getDcCluster();
+        this.getDcList();
 
         this.activatedRouter.params.forEach((params: Params) => {
-            if (params["dc_name"] != null) this.ipmngquery.dataCenter = params["dc_name"];
-            if (params["cls_name"] != null) this.ipmngquery.cluster = params["cls_name"];
-            console.log(this.ipmngquery.dataCenter, "this.ipmngquery.dataCenter");
-            console.log(this.ipmngquery.cluster, "this.ipmngquery.cluster");
+            if (params["dc_name"] != null) {
+                this.selectedDC.dcName = params["dc_name"];                
+                console.log(this.selectedDC.dcName, "this.selectedDC.dcName");
+            }
+            if (params["cls_name"] != null) {
+                this.selectedVDS = params["cls_name"];
+                console.log(this.selectedVDS, "this.selectedVDS");
+            }
         });
 
         this.getIpMngList();
     }
 
-    getDcCluster(): void {
+    getDcList() {
         this.layoutService.show();
-        this.service.getDcCluster().then(res => {
-            if (res.resultCode !== "100") {
-                throw "";
-            }
-            return res.resultContent;
-        }).then((resultContent) => {
-            //console.log(resultContent, "Areas!!!");
-            this.datacenter = resultContent.dcNameList;            
-            this.cluster = resultContent.areaNameList;
-            console.log(this.datacenter, "all datacenter!");
-            console.log(this.cluster, "all clusters!");
-            this.layoutService.hide();
-        }).catch(error => {
-            console.log("getDcCluster error!");
-            this.layoutService.hide();
-        });
+        this.service.getDCList()
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.dcList = response["resultContent"];
+                        console.log(this.dcList, "this.dcList--------------------");
+                    } else {
+                        alert("Res sync error");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
     }
+
 
     filter(): void {
         this.ipmngs = this.rawipmngs.filter((item)=>{
-            return (this.ipmngquery.cluster == "" || item.clusterName == this.ipmngquery.cluster) && 
-            (this.ipmngquery.dataCenter == "" || item.dataCenter == this.ipmngquery.dataCenter)
+            return ( this.selectedVDS == "" || item.clusterName == this.selectedVDS ) &&
+            ( this.selectedDC.dcName == "" || item.dataCenter == this.selectedDC.dcName )
         })
         this.UnselectItem();
     }
 
 
     getIpMngList(): void {
-        console.log(this.ipmngquery, "Query!!!");
         this.layoutService.show();
         this.service.getIpMngList()
             .then(

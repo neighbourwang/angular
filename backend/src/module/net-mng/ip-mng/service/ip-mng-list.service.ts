@@ -4,10 +4,9 @@ import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
 
 //model 
 import { IpMngModel } from '../model/ip-mng.model';
-import { IpMngQuery } from '../model/ipquery.model';
 import { IpMngModel_mock } from '../model/ip-mng.mock';
 import { Success_mock } from '../model/success.mock';
-import { NetWork_mock } from '../model/dccluster.mock';
+import { NetWork_mock, net_dc_list_mock } from '../model/dccluster.mock';
 import { subnetModel } from '../model/subnet.model';
 import { subnetIpModel } from '../model/subnet-ip.model';
 
@@ -41,27 +40,11 @@ export class IpMngListService {
 		return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
 	}
 
-	//获取设置子网的弹出框
-	loadSetupSubnetBox(
-        errorHandler:Function,
-        successHandler:()=>void,
-		caller: any,
-		ipmngid:string)
-	{
-		console.log('loadSetupSubnetBox');
+    getDCList(): Promise<any> {
+        //const api = this.restApiCfg.getRestApi("net-mng.vmware.dc.list");
+        //return this.restApi.request(api.method, api.url, null, null, null);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => net_dc_list_mock);
+    }
 
-/*
-		this.loadItems(errorHandler
-			, caller
-			, this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.simple.get")
-			, [{
-				key:"_enterpriseId"
-				,value:entId
-			}]
-			, "设置IP子网"
-			, successHandler);
-*/
-		
-	}
 
 }
