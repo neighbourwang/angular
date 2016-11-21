@@ -215,6 +215,12 @@ const menu: Array<Object> = [
                  "isOpen": false,
                  "isActive": false,
                  "routing": "net-mng/openstack/openstack-net-mng"
+             },
+         {
+              "label": "VmWare",
+                 "isOpen": false,
+                 "isActive": false,
+                 "routing": "net-mng/vmware/vmware-std-net"
              }
          ]
      },
