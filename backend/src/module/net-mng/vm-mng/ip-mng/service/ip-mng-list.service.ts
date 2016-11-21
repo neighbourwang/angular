@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
+import { RestApiCfg, RestApi, RestApiModel } from '../../../../../architecture';
 
 //model 
 import { IpMngModel } from '../model/ip-mng.model';
