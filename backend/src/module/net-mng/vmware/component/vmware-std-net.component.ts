@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ConfirmComponent,PaginationComponent, ValidationService,  PopupComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 
 import { StdNet } from '../model/std-net.model';
+import { DCModel } from "../model/dc.model";
 import { StdNet_mock } from '../model/std-net.mock.model';
 import { VmwareService } from '../service/vmware.service';
 
@@ -43,11 +44,12 @@ export class VmwareStdNetComponent implements OnInit {
     noticeTitle = "";
     noticeMsg = "";
 
-    selectedDC = ""; //当前选中的DC
+    defaultDc: DCModel = new DCModel();
+    selectedDC: DCModel = this.defaultDc; //当前选中的DC
     selectedVDS = "";//当前选中的可用区
 
     dcList: Array<string>;
-    vdsList: Array<string>;
+    
     allnets: Array<StdNet>;
     filternets: Array<StdNet>;
 
@@ -73,8 +75,7 @@ export class VmwareStdNetComponent implements OnInit {
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.dcList = response["resultContent"].dcNameList;
-                    this.vdsList = response["resultContent"].clusterNameList;
+                    this.dcList = response["resultContent"].dcNameList;                   
                     this.allnets = response["resultContent"].networks;
                     this.filter();
                 } else {
@@ -87,7 +88,7 @@ export class VmwareStdNetComponent implements OnInit {
 
     filter() {
         this.filternets = this.allnets.filter((p) => {
-            return (this.selectedDC === "" || this.selectedDC === p.dcName) &&
+            return (!this.selectedDC.dcName|| this.selectedDC.dcName === p.dcName) &&
                 (this.selectedVDS === "" || this.selectedVDS === p.clusterName);
         });
     }

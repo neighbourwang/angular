@@ -10,22 +10,22 @@
 
 
     </div>
-    <div class="mgb20">
+    <div class="mgb20 form-inline">
         <label class="pdr10 ">
             数据中心(DC)名称:
         </label>
-        <select class="pdl20 pdr20" [(ngModel)]="selectedDC">
-            <option value="">所有</option>
-            <option *ngFor="let dc of dcList" [value]="dc">{{dc}}</option>           
+        <select class="pdl20 pdr20 form-control" [(ngModel)]="selectedDC" (change)="selectedVDS=''">
+            <option [ngValue]="defaultDc">所有</option>
+            <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
         </select>
         <label class="pdr10 pdl20">
             可用区名称:
         </label>
-        <select class="pdl20 pdr20 mgr20" [(ngModel)]="selectedVDS">
+        <select class="pdl20 pdr20 mgr20 form-control" [(ngModel)]="selectedVDS">
             <option value="">所有</option>
-            <option *ngFor="let vds of vdsList" [value]="vds">{{vds}}</option>            
+            <option *ngFor="let vds of selectedDC.clusterNameList" [value]="vds">{{vds}}</option>            
         </select>
-        <button type="button" class="fox-cloud-button-md fox-cloud-button-white " (click)="filter();"> 确定</button>
+        <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px;" (click)="filter();"> 确定</button>
     </div>
     <div class="mgb20">
         <button class="fox-cloud-button fox-cloud-button-green" (click)="create();">
@@ -116,11 +116,10 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>DC：</div>
             <div class="col-sm-6">
-                <select class="form-control">
-                    <option>DC1</option>
-                    <option>DC2</option>
-                    <option>DC3</option>
-                </select>              
+                <select class="pdl20 pdr20 form-control" [(ngModel)]="selectedDC" (change)="selectedVDS=''">
+                    <option [ngValue]="defaultDc">所有</option>
+                    <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
+                </select>            
             </div>
         </div>
     </div>
@@ -168,9 +167,9 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>DC：</div>
             <div class="col-sm-6">
-                <select class="form-control" [(ngModel)]="tempEditNet.dcName">
-                    <option value="">所有</option>
-                    <option *ngFor="let dc of dcList" [value]="dc">{{dc}}</option>       
+                <select class="form-control" [(ngModel)]="tempEditNet.dcName" (change)="selectedVDS=''">
+                    <option [ngValue]="defaultDc">请选择</option>
+                    <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
                 </select>
             </div>
         </div>
@@ -178,10 +177,10 @@
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可用区名称：</div>
-            <div class="col-sm-6">
+            <div class="col-sm-6">               
                 <select class="form-control" [(ngModel)]="tempEditNet.clusterName">
-                    <option value="">所有</option>
-                    <option *ngFor="let vds of vdsList" [value]="vds">{{vds}}</option>
+                    <option value="">请选择</option>
+                    <option *ngFor="let vds of tempEditNet.dcName.clusterNameList" [value]="vds">{{vds}}</option>
                 </select>
             </div>
         </div>
