@@ -53,7 +53,9 @@ export class OrderMngComponent implements OnInit{
 	//计费模式
 	private _billinModeDic:DicLoader = null;
 	//续费模式
-	private _renwModeDic:DicLoader = null;
+	private _renewModeDic:DicLoader = null;
+	//续订费用
+	private _renewPriceLoader:ItemLoader<ProductBillingItem> = null;
 
 	constructor(
 		private layoutService: LayoutService,
@@ -61,8 +63,11 @@ export class OrderMngComponent implements OnInit{
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
 
+		//续订费用
+		this._renewPriceLoader = new ItemLoader<ProductBillingItem>(false, "续订费用", "op-center.order-mng.order-renew-price.get", restApiCfg, restApi);
+
 		//续费模式
-		this._renwModeDic = new DicLoader(restApiCfg, restApi, "PACKAGE_BILLING", "PERIOD_TYPE");
+		this._renewModeDic = new DicLoader(restApiCfg, restApi, "PACKAGE_BILLING", "PERIOD_TYPE");
 
 		//计费模式
 		this._billinModeDic = new DicLoader(restApiCfg, restApi, "BILLING_MODE", "TYPE");
@@ -187,7 +192,7 @@ export class OrderMngComponent implements OnInit{
 			return this._billinModeDic.Go();
 		})
 		.then(success=>{
-			return this._renwModeDic.Go();
+			return this._renewModeDic.Go();
 		})
 		.then(success=>{
 			this.layoutService.hide();
@@ -215,9 +220,32 @@ export class OrderMngComponent implements OnInit{
 	showDetail(orderItem:SubInstanceResp){
 		//this.router.navigateByUrl('op-center/order-mng/order-mng-detail');
 	}
-	
+
+	//选择续订	
 	renewSelect(orderItem:SubInstanceResp){
 		this.selectedOrderItem = orderItem;
+
+		let self = this;
+		let getRenewPrice:()=>number = function() {
+			let item = self._renewPriceLoader.FirstItem;
+
+			return item.basePrice || item.basicPrice || item.cyclePrice || item.unitPrice;
+		};
+
+
+		this.layoutService.show();
+		this._renewPriceLoader.Go(null, [{key:"_subId", value:orderItem.orderId}])
+		.then(success=>{
+			this.layoutService.hide();
+			
+			orderItem.itemList.map(n=>{
+				n.renewPrice = getRenewPrice();
+			});
+		})
+		.catch(err=>{
+			this.layoutService.hide();
+			this.showMsg(err);
+		})
 	}
 
 	cancelSelect(orderItem:SubInstanceResp)
@@ -302,7 +330,20 @@ export class OrderMngComponent implements OnInit{
 
 	//续订
 	renew(){
-		this._renewHandler.Go(null, [{key:"_subId", value:this.selectedOrderItem.orderId}])
+		let param = [{
+			attrCode: "TIMELINE",
+			attrDisplayName: "购买时长",
+			attrDisplayValue: this._renewSetting.value,//界面上获取的的值
+			attrId: "de227a98-a0f7-11e6-a18b-0050568a49fd",
+			attrValue: this._renewSetting.value,//界面上获取的值
+			attrValueCode: "",//可以为空
+			attrValueId: "",//可以为空
+			description: "",
+			valueType: "",
+			valueUnit: ""//可以为空
+		}];
+
+		this._renewHandler.Go(null, [{key:"_subId", value:this.selectedOrderItem.orderId}], param)
 		.then(success=>{
 			this._renewSetting.completed = true;
 			this.search();
@@ -339,11 +380,6 @@ export class OrderMngComponent implements OnInit{
 
 	//计算到期日期
 	renewValueChange(){
-		//续订时长 this._renewSetting.value;
-		//续订时长单位 this.selectedOrderItem.itemList[0].billingInfo.periodType
-		//续订起始日期 this.selectedOrderItem.itemList[0].expireDate
-		//续订到期日期 this._renewSetting.renewDate
-
 		/*
 		PACKAGE_BILLING PERIOD_TYPE 0 HOURLY 按小时
 		PACKAGE_BILLING PERIOD_TYPE 1 DAILY 按天
@@ -351,53 +387,65 @@ export class OrderMngComponent implements OnInit{
 		PACKAGE_BILLING PERIOD_TYPE 3 MONTHLY 按月
 		PACKAGE_BILLING PERIOD_TYPE 5 YEARLY 按年
 		*/
+		if(this.selectedOrderItem
+			&& this.selectedOrderItem.itemList
+			&& this.selectedOrderItem.itemList[0].billingInfo
+			&& !_.isEmpty([0,1,2,3,5].find(n=>n==this.selectedOrderItem.itemList[0].billingInfo.periodType)))
+		{
+			
+			let toDate:(date:Date)=>string = function(date:Date):string{
+				return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+			};
 
-		let toDate:(date:Date)=>string = function(date:Date):string{
-			return `${date.getFullYear}-${date.getMonth() + 1}-${date.getDate()}`;
-		};
-		
-		let handlerObj = {
-			"0":(len:number)=>{
-				return function(expDate:string){
-					let date1:Date = new Date(expDate);
-					date1.setHours(date1.getHours() + len);
-					return date1;
-				};
-			}
-			,"1":(len:number)=>{
-				return function(expDate:string) {
-					let date:Date = new Date(expDate);
-					date.setDate(date.getDate() + len);
-					return date;
+			let handlerObj = {
+				"0":(len:number)=>{
+					return function(expDate:string){
+						let date1:Date = new Date(expDate);
+						date1.setHours(date1.getHours() + len);
+						return date1;
+					};
+				}
+				,"1":(len:number)=>{
+					return function(expDate:string) {
+						let date:Date = new Date(expDate);
+						date.setDate(date.getDate() + len);
+						return date;
+					}
+				}
+				,"2":(len:number)=>{
+					return function(expDate:string) {
+						let date:Date = new Date(expDate);
+						date.setDate(date.getDate() + len * 7);
+						return date;
+					}
+
+				}
+				,"3":(len:number)=>{
+					return function(expDate:string) {
+						let date:Date = new Date(expDate);
+						date.setMonth(date.getMonth() + len);
+						return date;
+					}
+
+				}
+				,"5":(len:number)=>{
+					return function(expDate:string) {
+						let date:Date = new Date(expDate);
+						date.setFullYear(date.getFullYear() + len);
+						return date;
+					}
+
 				}
 			}
-			,"2":(len:number)=>{
-				return function(expDate:string) {
-					let date:Date = new Date(expDate);
-					date.setDate(date.getDate() + len * 7);
-					return date;
-				}
 
-			}
-			,"3":(len:number)=>{
-				return function(expDate:string) {
-					let date:Date = new Date(expDate);
-					date.setMonth(date.getMonth() + len);
-					return date;
-				}
-
-			}
-			,"5":(len:number)=>{
-				return function(expDate:string) {
-					let date:Date = new Date(expDate);
-					date.setFullYear(date.getFullYear() + len);
-					return date;
-				}
-
-			}
+			this._renewSetting.renewDate = toDate(handlerObj[this.selectedOrderItem.itemList[0].billingInfo.periodType.toString()](this._renewSetting.value)(this.selectedOrderItem.itemList[0].expireDate));
+		}
+		else{
+			console.log("续订计算前提发生错误", this.selectedOrderItem);
 		}
 
-		this._renewSetting.renewDate = toDate(handlerObj[this.selectedOrderItem.itemList[0].billingInfo.periodType.toString()](this._renewSetting.value)(this.selectedOrderItem.itemList[0].expireDate));
 
 	}
+
+
 }
