@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router ,ActivatedRoute, Params} from '@angular/router';
-
+import { Location } from '@angular/common';
+// import { Location }               from '@angular/common';
 import { LayoutService, NoticeComponent , ConfirmComponent ,PopupComponent } from '../../../../architecture';
 //service
 import { GetProduct } from '../service/getProduct.service';
@@ -23,17 +24,24 @@ export class ProdDetailComponent implements OnInit{
         private GetProduct:GetProduct,
         private router:ActivatedRoute,
         private getProduct:GetProduct,
-        private ProdDirDetailService:ProdDirDetailService
+        private ProdDirDetailService:ProdDirDetailService,
+        private location:Location
     ){}
     product=new Product();
     prodDir=new ProductDir();
+    vmProdDir:boolean;
     ngOnInit(){
-        // console.log(this.router.params);
+        console.log(this.router.params);
         let id:string;
+        let type:string;
         this.router.params.forEach((params: Params)=>{
              id=params['id'];
+             type=params['type'];
+             (type=='0')&&(this.vmProdDir=true);
+             (type=='1')&&(this.vmProdDir=false);             
         })
         console.log(id); 
+        console.log(type); 
         this.getProductDetail(id);        
     }
     //请求产品详情
@@ -41,17 +49,20 @@ export class ProdDetailComponent implements OnInit{
         this.getProduct.getProduct(id).then((response)=>{
                 if (response && 100 == response.resultCode) {                    
                     this.product=response.resultContent;
-                    console.log(this.product);
-                    this.getProdDirDetail(this.product.serviceId);
-                }else{
-
-                }                
+                    console.log(this.vmProdDir);
+                    if(this.vmProdDir){
+                        this.getVmProdDirDetail(this.product.serviceId);
+                    }else{
+                        console.log('cc')
+                        this.getDiskProdDirDetail(this.product.serviceId);
+                    }   
+                }               
             }).catch((err)=>{
                 console.error(err)
             })
     }
      //获取vm产品目录详情
-    getProdDirDetail(id) {
+    getVmProdDirDetail(id) {
         this.ProdDirDetailService.getVmProdDirDetail(id).then(response => {
             console.log('产品目录详情', response);
             if (response && 100 == response.resultCode) {
@@ -66,7 +77,7 @@ export class ProdDetailComponent implements OnInit{
     }
     //获取disk产品目录详情
     getDiskProdDirDetail(id) {
-        this.ProdDirDetailService.getVmProdDirDetail(id).then(response => {
+        this.ProdDirDetailService.getDiskProdDirDetail(id).then(response => {
             console.log('产品目录详情', response);
             if (response && 100 == response.resultCode) {
                 this.prodDir = response.resultContent;
@@ -77,6 +88,10 @@ export class ProdDetailComponent implements OnInit{
         }).catch(err => {
             console.error(err)
         })
+    }
+    //返回列表
+    cancel(){
+        this.location.back();
     }
 
 }

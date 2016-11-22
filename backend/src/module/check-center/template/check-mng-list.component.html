@@ -7,7 +7,7 @@
 				<input type="text" class="form-control searchbox gray-searchbox" placeholder="输入订单信息快速查询"/>
 				<span class="glyphicon glyphicon-search searchbox-incon"></span>
 						
-				<button class=" form-control-title fox-cloud-button-sm  fox-cloud-button-white fox-cloud-button-grey left" [class.fox-cloud-button-grey]="_isAdvSearch" (click)="_isAdvSearch = !_isAdvSearch">高级查询</button>
+				<button class=" form-control-title fox-cloud-button-sm    left"  [ngClass]="{'fox-cloud-button-white':_isAdvSearch==1,'fox-cloud-button-grey':_isAdvSearch!=1}" (click)="_isAdvSearch = !_isAdvSearch">高级查询</button>
 			</div>
 			<table class="table" *ngIf="_isAdvSearch">
 				<tbody>
@@ -15,7 +15,7 @@
 						<td >
 						    <div class="left form-control-title">订单归属：<span>企业</span></div>
 							<div class="left">
-								<select class="form-control" [(ngModel)]="_param.entIdStr" (ngModelChange)="entChanged()">
+								<select class="form-control select_" [(ngModel)]="_param.entIdStr" (ngModelChange)="entChanged()">
 									<option class="hands" [value]="null">所有企业</option>
 									<option class="hands" *ngFor="let item of _entLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
@@ -46,8 +46,8 @@
 						<td ><div class="left form-control-title">订单类型：</div>
 								<div class="dropdown left">
 								<select class="form-control " [(ngModel)]="_param.orderTypeNum">
-									<option class="hands">新订单</option>
-									<option class="hands">旧订单</option>
+									<option class="hands" [value]="null">所有订单</option>
+									<option class="hands" *ngFor="let item of _orderTypeDic.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
 						</td>
@@ -84,7 +84,7 @@
 				</tbody>
 			</table>	
 		</div>
-		<div class="page-second-title">当查询到29个订单需要审批，查询结果如下：</div>
+		<div class="form-control-title mgb10 mgt20 left">当查询到29个订单需要审批，查询结果如下：</div>
 			<div class="table-container">
 			<table class="table">
 				<thead>	
@@ -121,9 +121,8 @@
 						 	一次性费用：￥0<br>
 						 	费用：￥100月</td>
 						<td>2016-10-01<br>
-							23:10<br>
-							<a>审批信息>>></a></td>
-						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white" style="margin-right: 10px;">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white">拒绝</button></td>
+							23:10</td>
+						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white" style="margin-right: 10px;">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white" (click)="refuse()">拒绝</button></td>
 					</tr>
 					<tr>
 						<td>2</td>
@@ -143,9 +142,9 @@
 						 	订单周期：1个月<br>
 						 	一次性费用：￥0<br>
 						 	费用：￥100月</td>
-						<td>2016-10-01<br>
+						<td>2016-10-01
 							23:10<br>
-							<a>审批信息>>></a></td>
+						</td>
 						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white" style="margin-right: 10px;">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white">拒绝</button></td>
 					</tr>
 				</tbody>
@@ -198,26 +197,19 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="CheckInfo">
-	   <table class="table table-hover">
-	   		<thead>
-	   			<tr><th colspan="2" class="form-control-title">审批详细</th></tr>
-	   		</thead>
-	   		<tbody>
-	   			<tr>
-	   				<td>审批人:</td>
-	   				<td>李四</td>
-	   			</tr>
-	   				<tr>
-	   				<td>审批时间:</td>
-	   				<td>2016-10-01 10:23</td>
-	   			</tr>
-	   				<tr>
-	   				<td>审批意见:</td>
-	   				<td>同意</td>
-	   			</tr>
-	   		</tbody>
-	   </table>
-
-	</div>
+<!--拒绝-->
+	<fc-popup #refuseDialog ot="提交" ct="取消" title="订单请求被拒绝"  (of)="accept()" (cf)="cancel();">	
+		<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>原因：</div>
+					<div class="col-sm-8">
+						<textarea class="form-control mgb20" rows="7" style="width: 370px;"></textarea>
+						<span>可以输入中文与字符，最大不能超过200个字</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</fc-popup>
+	<!--拒绝end-->
 </div>

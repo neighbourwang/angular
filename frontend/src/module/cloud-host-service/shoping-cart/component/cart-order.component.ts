@@ -36,7 +36,7 @@ export class cartOrderComponent implements OnInit {
 					totalPrice += item.billingInfo.basePrice+item.billingInfo.basicPrice;
 				})
 			})
-			this.totalPrice = totalPrice;
+			this.totalPrice = parseInt("" + totalPrice*100)/100;
 		}).catch(e => {
 			this.layoutService.hide();
 		})

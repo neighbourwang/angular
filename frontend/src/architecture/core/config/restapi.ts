@@ -164,9 +164,14 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/subscription/instance/{_subId}/cancel"        
     },{
         "desc": "订单续订",
-        "method": "GET",
+        "method": "POST",
         "id": "op-center.order-mng.order-renew.get",
         "url": "marketplace/authsec/subscription/instance/{_subId}/renew"        
+    },{
+        "desc": "获取续订费用",
+        "method": "GET",
+        "id": "op-center.order-mng.order-renew-price.get",
+        "url": "marketplace/authsec/subscription/instance/{_subId}/price"        
     },
     //费用中心-订单管理-->
 

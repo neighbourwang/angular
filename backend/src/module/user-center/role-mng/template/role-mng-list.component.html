@@ -10,11 +10,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td><a [routerLink]="['/user-center/role-mng/role-mng-detail','test']">ttt</a></td>
-                <td>tttt</td>
-                <td>ttt</td>
+            <tr *ngFor="let role of roles;let idx = index">
+                <td>{{role.id}}</td>
+                <td><a [routerLink]="['/user-center/role-mng/role-mng-detail',role.id]">{{role.roleName}}</a></td>
+                <td>{{role.status}}</td>
+                <td>{{role.description}}</td>
             </tr>
             </tbody>
         </table>

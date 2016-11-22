@@ -5,38 +5,27 @@
 .rightAlign{text-align: right!important;}/*表格td居右*/
 ._margin{margin-bottom: 30px;}/*间隔30px*/
 .tdVAlign{vertical-align: middle;}
-ul li{ list-style: none; }
 .bgWhite{background-color:white!important;}
-.searchbox{
-    width: 31%;
-    height: 40px;
-    display: inline;
-    margin-right: 50px;
-    float:left;
-}
-.searchbox-incon{
-    position: relative;
-    top:13px;
-    left: -200px;
-}
+ul li{ list-style: none; }
+
 .mgl40{margin-left:40px;}
 
 .CheckMngList{
-	.fox-cloud-button-grey {
-		background-color: white!important;
-		border: solid 2px #c1c2c3!important;
-		color: #c1c2c3!important;
-	}
+    .header-title{
+    	height: 40px;
+    	border-bottom: 3px solid  #01a982;
+    	margin: 10px 0px;
+    	padding-left: 10px;
+    }
 	.page-content{
 	    z-index:5;
 		.table-container{
-			border-bottom: 2px solid #00a982;
+			border-bottom: 2px solid #00a982;/*点击高级查询后显示这条线*/
 			border-top:none;
 			margin-bottom:30px;
 			.search-container{
     			height: 60px;
 			}
-			
 			table{
 				margin-bottom:20px!important;
 				select{
@@ -52,8 +41,14 @@ ul li{ list-style: none; }
 				}
 				
 				tr{
+				    border:none;
+					th{
+						text-align:center;
+					}
 					td{
 						vertical-align: middle;
+						text-align:center;
+						border:none;
 						span{
 						  	 letter-spacing:6px;
 						  	  margin-left: 10px;
@@ -71,7 +66,13 @@ ul li{ list-style: none; }
     	left: 200px;
 		table{
 			width:500px;
-			background-color: #fff
+			background-color: #fff;
+			th{
+				text-align:left;
+			}
+			td{
+				text-align:center;
+			}
 		}
 	}
 	.CheckInfo{
@@ -82,6 +83,9 @@ ul li{ list-style: none; }
 		table{
 			width:250px;
 			background-color: #fff;
+			th{
+				text-align:left;
+			}
 			td{
 				text-align:center;
 			}

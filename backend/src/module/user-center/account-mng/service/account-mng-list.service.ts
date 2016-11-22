@@ -73,6 +73,21 @@ export class AccountMngService {
         return this.restApi.request(api.method , api.url,[{key : "id" , value : id}],undefined);
     }
 
+    //修改密码
+    resetPasswordAccount(id : string){
+        let api = this.restApiCfg.getDataRestApi("user-center.account-mng.resetPassword");
+
+        return this.restApi.request(api.method , api.url ,[{key : "id" , value : id}],undefined);
+    }
+
+    //删除帐号
+
+    deleteAccount (id : string ){
+        let api = this.restApiCfg.getDataRestApi("user-center.account-mng.deleteAccount");
+
+        return this.restApi.request(api.method , api.url , [{key : "id" ,value : id}],undefined);
+    }
+
     
 
 

@@ -24,7 +24,6 @@ export class CheckMngListComponent implements OnInit{
 	private _entLoader:ItemLoader<{id:string; name:string}> = null; //企业列表
 	private _departmentLoader:ItemLoader<{id:string;name:string}> = null; //部门列表
 	private _serviceTypeDic:DicLoader = null; //产品类型
-	private _orderTypeDic:DicLoader = null; //订单类型
 	private _isAdvSearch:boolean = false;//高级查询
 
 	@ViewChild("notice") private _notice:NoticeComponent;
@@ -34,9 +33,6 @@ export class CheckMngListComponent implements OnInit{
 		private _restApiCfg:RestApiCfg
 		,private _restApi:RestApi
 		,private _layoutService:LayoutService){
-
-		//订单类型
-		this._orderTypeDic = new DicLoader(_restApiCfg, _restApi, "ORDER", "TYPE");
 
 		//企业列表配置
 		this._entLoader = new ItemLoader<{id:string;name:string}>(false, "企业列表", "op-center.order-mng.ent-list.get", _restApiCfg, _restApi);
@@ -58,9 +54,6 @@ export class CheckMngListComponent implements OnInit{
 		})
 		.then(success=>{
 			this._layoutService.hide();
-		})
-		.then(success=>{
-			return this._orderTypeDic.Go();
 		})
 		.catch(err=>{
 			this._layoutService.hide();
