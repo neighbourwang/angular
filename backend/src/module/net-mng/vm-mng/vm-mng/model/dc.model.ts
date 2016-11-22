@@ -1,4 +1,7 @@
 ﻿export class DCModel {
     dcName: string;
-    clusterNameList:Array<string>;
+    clusterNameList: {
+        clusterId: string;
+        clusterName: string;
+    };
 }
