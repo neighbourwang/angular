@@ -120,6 +120,7 @@ export class AccountMngComponent implements OnInit{
         switch(this.confirmType){
             case 1:
                 console.log('重置密码');
+                this.ressetPasswordAccount();
                 break;
             case 2:
                 console.log('启用帐号');
@@ -131,6 +132,7 @@ export class AccountMngComponent implements OnInit{
                 break;
             case 4:
                 console.log('删除帐号');
+                this.deleteAccount();
                 break;
         }
     }
@@ -154,6 +156,30 @@ export class AccountMngComponent implements OnInit{
 
     enableAccount(){
         this.service.enableAccount(this.chooseAccount.id).then(
+            res => {
+                console.log(res);
+            }
+        ).catch(
+            err => {
+                console.error(err);
+            }
+        )
+    }
+
+    ressetPasswordAccount(){
+        this.service.resetPasswordAccount(this.chooseAccount.id).then(
+            res => {
+                console.log(res)
+            }
+        ).catch(
+            err => {
+                console.error(err);
+            }
+        )
+    }
+
+    deleteAccount (){
+        this.service.deleteAccount(this.chooseAccount.id).then(
             res => {
                 console.log(res);
             }

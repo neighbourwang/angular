@@ -226,7 +226,7 @@ export class OrderMngComponent implements OnInit{
 		let param = _.extend({}, this._param);
 
 		//匹配后台搜索框参数
-
+        param.searchText = this._param.queryParam;
 
 		
 		param.pageParameter = {
