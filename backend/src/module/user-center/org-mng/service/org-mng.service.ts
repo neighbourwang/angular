@@ -75,6 +75,12 @@ export class OrgMngService {
         return this.restApi.request(api.method , api.url,[{key : "id" ,value : id}],undefined);
     }
 
+    //编辑机构
+    editOrg(id : string , org){
+        let api = this.restApiCfg.getDataRestApi("user-center.org-mng.edit");
+
+        return this.restApi.request(api.method , api.url ,[{ key : "id" , value : id}],undefined,org);
+    }
 
 
 

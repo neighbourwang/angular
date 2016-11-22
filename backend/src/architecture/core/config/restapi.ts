@@ -752,6 +752,7 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "basis/authsec/adm/users/organization/{id}"
     },
+    
     {
         "desc": "禁用帐号",
         "id": "user-center.org-mng.user.disable",
@@ -769,6 +770,30 @@ export let RestApis: RestApiModel[] = [
         "id": "user-center.org-mng.role.list",
         "method": "GET",
         "url": "basis/authsec/adm/roles/page/{page}/size/{size}"
+    },
+    {
+        "desc" : "编辑机构",
+        "id" : "user-center.org-mng.edit",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/organization/{id}"
+    },
+    {
+        "desc" : "用户中心，账户管理修改密码",
+        "id" : "user-center.account-mng.resetPassword",
+        "method" : "PUT",
+        "url" : "basis/authsec/adm/user/{id}/resetPassword"
+    },
+    {
+        "desc" : "用户中心，账户管理删除",
+        "id" : "user-center.account-mng.deleteAccount",
+        "method" : "DELETE",
+        "url" : "basis/authsec/adm/user/{id}"
+    },
+    {
+        "desc" : "用户中心，角色管理，获得角色详情",
+        "id" : "user-center.role-mng.detail",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/menu/tree/{role_id}"
     },
     //个人账户管理
     {
