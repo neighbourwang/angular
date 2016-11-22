@@ -50,7 +50,10 @@ export class OrderMngComponent implements OnInit{
 
 	private _entId:string = "191af465-b5dc-4992-a5c9-459e339dc719";
 
+	//计费模式
 	private _billinModeDic:DicLoader = null;
+	//续费模式
+	private _renwModeDic:DicLoader = null;
 
 	constructor(
 		private layoutService: LayoutService,
@@ -58,6 +61,10 @@ export class OrderMngComponent implements OnInit{
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
 
+		//续费模式
+		this._renwModeDic = new DicLoader(restApiCfg, restApi, "PACKAGE_BILLING", "PERIOD_TYPE");
+
+		//计费模式
 		this._billinModeDic = new DicLoader(restApiCfg, restApi, "BILLING_MODE", "TYPE");
 
 		//退订
@@ -175,6 +182,15 @@ export class OrderMngComponent implements OnInit{
 		})
 		.then(success=>{
 			return this.loadDepartment();
+		})
+		.then(success=>{
+			return this._billinModeDic.Go();
+		})
+		.then(success=>{
+			return this._renwModeDic.Go();
+		})
+		.then(success=>{
+			this.layoutService.hide();
 		})
 		.catch(err=>{
 			this.layoutService.hide();
@@ -324,9 +340,64 @@ export class OrderMngComponent implements OnInit{
 	//计算到期日期
 	renewValueChange(){
 		//续订时长 this._renewSetting.value;
-		//续订时长单位 this.selectedOrderItem.itemList[0].billingInfo.billingMode
+		//续订时长单位 this.selectedOrderItem.itemList[0].billingInfo.periodType
 		//续订起始日期 this.selectedOrderItem.itemList[0].expireDate
 		//续订到期日期 this._renewSetting.renewDate
+
+		/*
+		PACKAGE_BILLING PERIOD_TYPE 0 HOURLY 按小时
+		PACKAGE_BILLING PERIOD_TYPE 1 DAILY 按天
+		PACKAGE_BILLING PERIOD_TYPE 2 WEEKLY 按周
+		PACKAGE_BILLING PERIOD_TYPE 3 MONTHLY 按月
+		PACKAGE_BILLING PERIOD_TYPE 5 YEARLY 按年
+		*/
+
+		let toDate:(date:Date)=>string = function(date:Date):string{
+			return `${date.getFullYear}-${date.getMonth() + 1}-${date.getDate()}`;
+		};
+		
+		let handlerObj = {
+			"0":(len:number)=>{
+				return function(expDate:string){
+					let date1:Date = new Date(expDate);
+					date1.setHours(date1.getHours() + len);
+					return date1;
+				};
+			}
+			,"1":(len:number)=>{
+				return function(expDate:string) {
+					let date:Date = new Date(expDate);
+					date.setDate(date.getDate() + len);
+					return date;
+				}
+			}
+			,"2":(len:number)=>{
+				return function(expDate:string) {
+					let date:Date = new Date(expDate);
+					date.setDate(date.getDate() + len * 7);
+					return date;
+				}
+
+			}
+			,"3":(len:number)=>{
+				return function(expDate:string) {
+					let date:Date = new Date(expDate);
+					date.setMonth(date.getMonth() + len);
+					return date;
+				}
+
+			}
+			,"5":(len:number)=>{
+				return function(expDate:string) {
+					let date:Date = new Date(expDate);
+					date.setFullYear(date.getFullYear() + len);
+					return date;
+				}
+
+			}
+		}
+
+		this._renewSetting.renewDate = toDate(handlerObj[this.selectedOrderItem.itemList[0].billingInfo.periodType.toString()](this._renewSetting.value)(this.selectedOrderItem.itemList[0].expireDate));
 
 	}
 }
