@@ -19,7 +19,7 @@ export const ProdMngRouting: ModuleWithProviders = RouterModule.forChild([
         component: ProdCreComponent
     },
     {
-        path: 'prod-mng/prod-mng/prod-detail/:id',
+        path: 'prod-mng/prod-mng/prod-detail',
         component: ProdDetailComponent
     }
 

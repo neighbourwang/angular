@@ -29,13 +29,19 @@ export class ProdDetailComponent implements OnInit{
     ){}
     product=new Product();
     prodDir=new ProductDir();
+    vmProdDir:boolean;
     ngOnInit(){
-        // console.log(this.router.params);
+        console.log(this.router.params);
         let id:string;
+        let type:string;
         this.router.params.forEach((params: Params)=>{
              id=params['id'];
+             type=params['type'];
+             (type=='0')&&(this.vmProdDir=true);
+             (type=='1')&&(this.vmProdDir=false);             
         })
         console.log(id); 
+        console.log(type); 
         this.getProductDetail(id);        
     }
     //请求产品详情
@@ -43,11 +49,14 @@ export class ProdDetailComponent implements OnInit{
         this.getProduct.getProduct(id).then((response)=>{
                 if (response && 100 == response.resultCode) {                    
                     this.product=response.resultContent;
-                    console.log(this.product);
-                    this.getVmProdDirDetail(this.product.serviceId);
-                }else{
-
-                }                
+                    console.log(this.vmProdDir);
+                    if(this.vmProdDir){
+                        this.getVmProdDirDetail(this.product.serviceId);
+                    }else{
+                        console.log('cc')
+                        this.getDiskProdDirDetail(this.product.serviceId);
+                    }   
+                }               
             }).catch((err)=>{
                 console.error(err)
             })
@@ -68,7 +77,7 @@ export class ProdDetailComponent implements OnInit{
     }
     //获取disk产品目录详情
     getDiskProdDirDetail(id) {
-        this.ProdDirDetailService.getVmProdDirDetail(id).then(response => {
+        this.ProdDirDetailService.getDiskProdDirDetail(id).then(response => {
             console.log('产品目录详情', response);
             if (response && 100 == response.resultCode) {
                 this.prodDir = response.resultContent;
