@@ -18,7 +18,7 @@ import { RestApi
 })
 export class CheckMngHascheckComponent implements OnInit{
 	
-	
+	private _isAdvSearch:boolean = false;//高级查询
 	ngOnInit(){
 
 	}
