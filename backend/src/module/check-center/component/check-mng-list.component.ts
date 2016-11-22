@@ -27,7 +27,8 @@ export class CheckMngListComponent implements OnInit{
 	private _isAdvSearch:boolean = false;//高级查询
 
 	@ViewChild("notice") private _notice:NoticeComponent;
-
+	@ViewChild("refuseDialog")
+		refuseDialog: PopupComponent;
 	constructor(
 		private _restApiCfg:RestApiCfg
 		,private _restApi:RestApi
@@ -83,5 +84,10 @@ export class CheckMngListComponent implements OnInit{
 		});
 		
 	}
+
+	refuse(){
+		this.refuseDialog.open();
+	}
+
 
 }
