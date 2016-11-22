@@ -78,7 +78,7 @@ export class cartListComponent implements OnInit {
 		this.layoutService.show();
 		this.service.purchaseCart(list).then(res => {
 			this.layoutService.hide();
-			this.modalconfirm = function(){
+			this.noticeconfirm = function(){
 				this.goTo("cloud-host-service/cart-order");
 			}
 			this.noticeDialog.open("","购买成功！");

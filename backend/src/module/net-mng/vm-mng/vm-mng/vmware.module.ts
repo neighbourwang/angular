@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonComponentModule } from '../../../architecture';
+import { CommonComponentModule } from '../../../../architecture';
 
 import { VmwareRouting } from './vmware.routing';
 import { VmwareStdNetComponent } from './component/vmware-std-net.component';

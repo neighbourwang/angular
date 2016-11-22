@@ -308,7 +308,25 @@ export class OrderMngComponent implements OnInit{
 		})
 	}
 
-selectForever(){
-      this.isForerver = !this.isForerver;
-}
+	selectForever(){
+	      this.isForerver = !this.isForerver;
+	}
+
+	get selectedBillingModeName():string{
+		if(this.selectedOrderItem 
+			&& this.selectedOrderItem.itemList
+			&& this.selectedOrderItem.itemList[0].billingModeName)
+			return this.selectedOrderItem.itemList[0].billingModeName;
+		else
+			return "None";
+	}
+
+	//计算到期日期
+	renewValueChange(){
+		//续订时长 this._renewSetting.value;
+		//续订时长单位 this.selectedOrderItem.itemList[0].billingInfo.billingMode
+		//续订起始日期 this.selectedOrderItem.itemList[0].expireDate
+		//续订到期日期 this._renewSetting.renewDate
+
+	}
 }

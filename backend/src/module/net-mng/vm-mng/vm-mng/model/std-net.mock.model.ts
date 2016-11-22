@@ -8,21 +8,11 @@ export const StdNet_mock = {
         totalRecords: 2
     },
     resultContent: {
-        "dcNameList": [
-            "DC1",
-            "DC2"
-        ],
-        "clusterNameList": [
-            "VDS1",
-            "VDS2",
-            "VDS3",
-            "VDS4"
-        ],
         "networks": [
             {
                 "id": "1",
                 "dcName": "DC1",
-                "clusterName": "VDS1",
+                "clusterName": "cluster1",
                 "clusterDisplayName": "皇后区",
                 "portDisplayName": "hello",
                 "portGroupName": "mk-group1",
@@ -33,7 +23,7 @@ export const StdNet_mock = {
             {
                 "id": "2",
                 "dcName": "DC1",
-                "clusterName": "VDS1",
+                "clusterName": "cluster2",
                 "clusterDisplayName": "可用区2",
                 "portDisplayName": "hi",
                 "portGroupName": "ch",
@@ -44,7 +34,7 @@ export const StdNet_mock = {
             {
                 "id": "3",
                 "dcName": "DC2",
-                "clusterName": "VDS2",
+                "clusterName": "cluster21",
                 "clusterDisplayName": "洪山区",
                 "portDisplayName": "tom",
                 "portGroupName": "nice",
@@ -55,7 +45,7 @@ export const StdNet_mock = {
             {
                 "id": "4",
                 "dcName": "DC2",
-                "clusterName": "VDS2",
+                "clusterName": "cluster22",
                 "clusterDisplayName": "洪山区",
                 "portDisplayName": "tom",
                 "portGroupName": "nice",
@@ -65,4 +55,27 @@ export const StdNet_mock = {
             }
         ]
     }
+}
+
+
+
+export const net_dc_list_mock = {
+    "resultCode": "100",
+    "detailDescription": null,
+    "resultContent": [
+        {
+            "dcName": "DC1",
+            "clusterNameList": [
+                "cluster1",
+                "cluster2"
+            ]
+        },
+        {
+            "dcName": "DC2",
+            "clusterNameList": [
+                "cluster21",
+                "cluster22"
+            ]
+        }
+    ]
 }

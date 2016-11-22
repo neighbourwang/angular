@@ -2,11 +2,10 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, ValidationService } from '../../../../architecture';
+import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, ValidationService } from '../../../../../architecture';
 
 //model 
 import { IpMngModel } from '../model/ip-mng.model';
-//import { IpMngQuery } from '../model/ipquery.model';
 import { subnetModel } from '../model/subnet.model';
 import { subnetIpModel } from '../model/subnet-ip.model';
 import { DCModel } from '../model/dccluster.model';
@@ -217,7 +216,7 @@ export class IpMngListComponent implements OnInit{
 
     //Menu: 设置IP子网
     setupSubnet(): void {
-        console.log('conponent: net-mng/ip-mng-list/subnet');
+        console.log('conponent: net-mng/vm-mng/ip-mng-list/subnet');
         //this.layoutService.show();
         let pg = this.getSelected();
         console.log(pg, "========== setupSubnet =============");
@@ -230,7 +229,7 @@ export class IpMngListComponent implements OnInit{
 
     //Menu: 设置子网IP地址范围
     setupIPs(): void {
-        console.log('conponent: net-mng/ip-mng-list/ips');
+        console.log('conponent: net-mng/vm-mng/ip-mng-list/ips');
         let pg = this.getSelected();
         console.log(pg, "============ setupIPs ===========");
         this.layoutService.show();
@@ -256,13 +255,13 @@ export class IpMngListComponent implements OnInit{
         //this.router.navigate([`net-mng/ipusage-mng-list/${this.dc}`]);
         let pg = this.getSelected();
         if(pg){
-            this.router.navigate([`net-mng/ipusage-mng-list`, { "pg_id": pg.id, "pg_name": pg.clusterName}]);
+            this.router.navigate([`net-mng/vm-mng/ipusage-mng-list`, { "pg_id": pg.id, "pg_name": pg.clusterName}]);
         }        
     }
 
     //Menu: 返回上一层, 可以在[返回上一层]调用
     vmwareNetworkPage() {
-        this.router.navigate([`net-mng/vm-mng`]);     
+        this.router.navigate([`net-mng/vm-mng/vm-mng`]);     
     }
 
     showMsg(msg: string) {

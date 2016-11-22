@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi } from '../../../../architecture';
+import { RestApiCfg, RestApi } from '../../../../../architecture';
 
 import 'rxjs/add/operator/toPromise';
 
-import { StdNet_mock } from '../model/std-net.mock.model';
+import { StdNet_mock, net_dc_list_mock } from '../model/std-net.mock.model';
 import { StdNet } from '../model/std-net.model';
 
 @Injectable()
@@ -18,6 +18,13 @@ export class VmwareService {
 
     init(): void {
         this.restApiCfg.loadCfgData();
+    }
+
+    //获取初始化列表数据
+    getDCList(): Promise<any> {
+        //const api = this.restApiCfg.getRestApi("net-mng.vmware.dc.list");
+        //return this.restApi.request(api.method, api.url, null, null, null);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => net_dc_list_mock);
     }
 
      getData(): Promise<any> {
