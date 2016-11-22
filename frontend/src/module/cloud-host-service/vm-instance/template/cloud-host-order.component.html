@@ -220,7 +220,7 @@
 					<div class="col-md-12 no-padding mb20" *ngIf="setPassword">
 						<div class="col-md-2 content-title">登录密码</div>
 						<div class="col-md-4 no-padding">
-							<input type="password" [(ngModel)]="sendModule.password.value" class="form-control" placeholder="请输入主机密码">
+							<input type="password" [(ngModel)]="sendModule.password.attrValue" class="form-control" placeholder="请输入主机密码">
 						</div>
 						<div class="col-md-5 no-padding text-tip">建议复杂度：8-30个字符，且同时包括三项（大写字母，小写字母，数字和特殊符号）</div>
 					</div>
@@ -228,7 +228,7 @@
 					<div class="col-md-12 no-padding mb20" *ngIf="setPassword">
 						<div class="col-md-2 content-title">确认密码</div>
 						<div class="col-md-4 no-padding" 
-							[ngClass]="{'has-error': passwordShadow !== sendModule.password.value}">
+							[ngClass]="{'has-error': passwordShadow !== sendModule.password.attrValue}">
 
 							<input type="password" class="form-control"  [(ngModel)]="passwordShadow"  placeholder="请再次输入主机密码">
 						</div>
@@ -237,7 +237,7 @@
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">实例名称</div>
 						<div class="col-md-4 no-padding">
-							<input type="text" [(ngModel)]="sendModule.instancename.value" class="form-control" placeholder="如不填写，则系统自动生成">
+							<input type="text" [(ngModel)]="sendModule.instancename.attrValue" class="form-control" placeholder="如不填写，则系统自动生成">
 						</div>
 						<div class="col-md-5 no-padding text-tip">2-68个字符，以大小写字母或者中文开头，可包含数字，“.”, "-", "_"</div>
 					</div>
