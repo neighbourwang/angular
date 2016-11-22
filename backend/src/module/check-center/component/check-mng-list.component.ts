@@ -27,7 +27,8 @@ export class CheckMngListComponent implements OnInit{
 	private _isAdvSearch:boolean = false;//高级查询
 
 	@ViewChild("notice") private _notice:NoticeComponent;
-
+	@ViewChild("refuseDialog")
+		refuseDialog: PopupComponent;
 	constructor(
 		private _restApiCfg:RestApiCfg
 		,private _restApi:RestApi
@@ -65,12 +66,12 @@ export class CheckMngListComponent implements OnInit{
 		this._notice.open("ÏµÍ³", msg);
 	}
 
-	//²éÑ¯
+	//搜索
 	search(){
 
 	}
 
-	//ÆóÒµÑ¡Ôñ·¢Éú±ä»¯
+	//根据企业加载部门
 	entChanged(){
 		this._layoutService.show();
 		this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._param.entIdStr}])
@@ -83,5 +84,10 @@ export class CheckMngListComponent implements OnInit{
 		});
 		
 	}
+
+	refuse(){
+		this.refuseDialog.open();
+	}
+
 
 }

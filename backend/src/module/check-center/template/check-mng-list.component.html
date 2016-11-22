@@ -7,7 +7,7 @@
 				<input type="text" class="form-control searchbox gray-searchbox" placeholder="输入订单信息快速查询"/>
 				<span class="glyphicon glyphicon-search searchbox-incon"></span>
 						
-				<button class=" form-control-title fox-cloud-button-sm    left"  [ngClass]="{'fox-cloud-button-white':_isAdvSearch==1,'fox-cloud-button-grey':_isAdvSearch!=1}"[class.fox-cloud-button-grey]="_isAdvSearch" (click)="_isAdvSearch = !_isAdvSearch">高级查询</button>
+				<button class=" form-control-title fox-cloud-button-sm    left"  [ngClass]="{'fox-cloud-button-white':_isAdvSearch==1,'fox-cloud-button-grey':_isAdvSearch!=1}" (click)="_isAdvSearch = !_isAdvSearch">高级查询</button>
 			</div>
 			<table class="table" *ngIf="_isAdvSearch">
 				<tbody>
@@ -15,7 +15,7 @@
 						<td >
 						    <div class="left form-control-title">订单归属：<span>企业</span></div>
 							<div class="left">
-								<select class="form-control" [(ngModel)]="_param.entIdStr" (ngModelChange)="entChanged()">
+								<select class="form-control select_" [(ngModel)]="_param.entIdStr" (ngModelChange)="entChanged()">
 									<option class="hands" [value]="null">所有企业</option>
 									<option class="hands" *ngFor="let item of _entLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
@@ -123,7 +123,7 @@
 						<td>2016-10-01<br>
 							23:10<br>
 							<a>审批信息>>></a></td>
-						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white" style="margin-right: 10px;">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white">拒绝</button></td>
+						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white" style="margin-right: 10px;">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white" (click)="refuse()">拒绝</button></td>
 					</tr>
 					<tr>
 						<td>2</td>
@@ -220,4 +220,21 @@
 	   </table>
 
 	</div>
+
+
+<!--拒绝-->
+	<fc-popup #refuseDialog ot="提交" ct="取消" title="订单请求被拒绝"  (of)="accept()" (cf)="cancel();">	
+		<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>原因：</div>
+					<div class="col-sm-8">
+						<textarea class="form-control mgb20" rows="7" style="width: 370px;"></textarea>
+						<span>可以输入中文与字符，最大不能超过200个字</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</fc-popup>
+	<!--拒绝end-->
 </div>

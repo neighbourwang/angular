@@ -35,6 +35,8 @@ export class OrgMngCrComponent implements OnInit{
 
     accountByOrg : Array<Account> = new Array<Account>();
 
+    orgId : string ;
+
 
     org : any = {
         description : '',
@@ -51,6 +53,7 @@ export class OrgMngCrComponent implements OnInit{
                 this.title = '编辑机构';
                 this.btnName = '编辑';
                 this.isCreate = false;
+                this.orgId = params['id'];
 
                 this.service.getOrgById(params['id']).then(
                     res => {
@@ -247,6 +250,15 @@ export class OrgMngCrComponent implements OnInit{
             )    
         }else{
             console.log(this.org);
+            this.service.editOrg(this.orgId,this.org).then(
+                res => {
+                    console.log(res)
+                }
+            ).catch(
+                err => {
+                    console.error(err);
+                }
+            )
         }
         
     }
