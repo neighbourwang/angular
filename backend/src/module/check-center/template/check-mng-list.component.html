@@ -223,18 +223,17 @@
 
 
 <!--拒绝-->
-	<fc-popup #refuseDialog ot="提交" ct="取消" title="订单请求被拒绝"  (of)="accept()" (cf)="cancel();">
-	
- <div class="dialogContent">
-	<div class="row row-line-height">
-		<div class="form-group">
-			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>原因：</div>
-			<div class="col-sm-4">
-				<textarea class="form-control" rows="7" cols="50"></textarea>
-				<span>可以输入中文与字符，最大不能超过200个字</span>
+	<fc-popup #refuseDialog ot="提交" ct="取消" title="订单请求被拒绝"  (of)="accept()" (cf)="cancel();">	
+		<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>原因：</div>
+					<div class="col-sm-8">
+						<textarea class="form-control mgb20" rows="7" style="width: 370px;"></textarea>
+						<span>可以输入中文与字符，最大不能超过200个字</span>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
-</fc-popup>
+	</fc-popup>
 </div>
