@@ -1,5 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { RoleMngService } from "../service/role-mng.service";
 
 @Component({
     selector: 'role-mng-detail',
@@ -11,12 +12,32 @@ export class RoleMngDetailComponent implements OnInit{
 
     constructor(
         private router : Router,
-        private route : ActivatedRoute
+        private route : ActivatedRoute,
+        private service : RoleMngService
     ){}
 
     ngOnInit(){
         this.route.params.forEach((params: Params) => {
             console.log(params['id']);
+            this.service.getRoleTree().then(
+              res => {
+                console.log('getRoleTree',res);
+
+                this.service.getRoleDetail(params['id']).then(
+                  res => {
+                    console.log('getRoleDetail',res);
+                  }
+                ).catch(
+                  err => {
+                    console.error(err);
+                  }
+                )
+              }
+            ).catch(
+              err => {
+                console.error(err);
+              }
+            )
         });
     }
 
