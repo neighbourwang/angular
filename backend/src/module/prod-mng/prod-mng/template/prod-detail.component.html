@@ -14,7 +14,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品目录：</div>
 					<div class="col-sm-4 font-gray">
-						<select class="form-control">
+						<select class="form-control" disabled>
                             <option>{{prodDir.serviceName}}</option>
                         </select>
 						<!--<input type="text" [(ngModel)]="product.serviceId">-->
@@ -26,7 +26,7 @@
 					<div class="col-sm-4 form-control-title"></div>
 					<div class="col-sm-4 row-line-child font-gray">
 						<div class="font-gray">CPU</div>
-						<div class="mid-line-child border-gray font-gray">{{prodDir.specification.vcpu}}</div>
+						<div class="mid-line-child border-gray font-gray">{{prodDir.specification.vcpu||0}}</div>
 						<div class="last-line-child font-gray">核（vCPU）</div>
 					</div>
 				</div>
@@ -36,7 +36,7 @@
 					<div class="col-sm-4 form-control-title"></div>
 					<div class="col-sm-4 row-line-child font-gray">
 						<div class="font-gray">内存</div>
-						<div class="mid-line-child border-gray font-gray">{{prodDir.specification.mem}}</div>
+						<div class="mid-line-child border-gray font-gray">{{prodDir.specification.mem||0}}</div>
 						<div class="last-line-child font-gray">兆（MB）</div>
 					</div>
 				</div>
@@ -46,7 +46,7 @@
 					<div class="col-sm-4 form-control-title"></div>
 					<div class="col-sm-4 row-line-child font-gray">
 						<div class="font-gray">启动盘大小</div>
-						<div class="mid-line-child border-gray font-gray">{{prodDir.specification.startupDisk}}</div>
+						<div class="mid-line-child border-gray font-gray">{{prodDir.specification.startupDisk||0}}</div>
 						<div class="last-line-child font-gray">GB</div>
 					</div>
 				</div>
@@ -64,10 +64,10 @@
 					<div class="col-sm-4 form-control-title">计费模式：</div>
 					<div class="col-sm-4 row-inline-radio">
 						<label class="radio-inline row-inline-radio2 font-gray">
-                            <input type="radio" name="billingTypeRadios"  class="fox-cloud-radio" disabled  [(ngModel)]="product.billingType" value="0"> 包年包月
+                            <input type="radio"   class="fox-cloud-radio" disabled  [checked]="product.billingType=='0'"> 包年包月
                         </label>
 						<label class="radio-inline row-inline-radio2 font-gray">
-                            <input type="radio" name="billingTypeRadios"  class="fox-cloud-radio" disabled  [(ngModel)]="product.billingType" value="1"> 按量
+                            <input type="radio"   class="fox-cloud-radio" disabled  [checked]="product.billingType=='1'"> 按量
                         </label>
 					</div>
 				</div>
@@ -77,16 +77,16 @@
 					<div class="col-sm-4 form-control-title">计费周期：</div>
 					<div class="col-sm-4 row-inline-radio">
 						<label class="radio-inline row-inline-radio4 font-gray">
-                            <input type="radio" name="inlineRadioOption"  value="5"  class="fox-cloud-radio" ng-selected="true " [(ngModel)]="product.billingCycle"> 包年
+                            <input type="radio" value="5"  class="fox-cloud-radio" [checked]="product.billingCycle=='5'"> 包年
                         </label>
 						<label class="radio-inline row-inline-radio4 font-gray">
-                            <input type="radio" name="inlineRadioOption"   disabled=true  class="fox-cloud-radio" selected=true> 包月
+                            <input type="radio"  disabled=true  class="fox-cloud-radio" [checked]="product.billingCycle=='3'"> 包月
                         </label>
 						<label class="radio-inline row-inline-radio4 font-gray">
-                            <input type="radio" name="inlineRadioOption"  value="1" disabled=true  class="fox-cloud-radio" ng-selected=true [(ngModel)]="product.billingCycle"> 按天
+                            <input type="radio" value="1" disabled=true  class="fox-cloud-radio" [checked]="product.billingCycle=='1'"> 按天
                         </label>
 						<label class="radio-inline row-inline-radio4 font-gray">
-                            <input type="radio" name="inlineRadioOption"   disabled=true  class="fox-cloud-radio" ng-selected=true > 按小时
+                            <input type="radio"  disabled=true  class="fox-cloud-radio" [checked]="product.billingCycle=='0'" > 按小时
                         </label>
 					</div>
 				</div>
@@ -95,11 +95,12 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">基础周期价格：</div>
 					<div class="col-sm-2 ">
-						<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=true [value]=0  #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
+						<count-bar [default]="0" [step]=100 [max]=2000000 [min]=0 [disabled]=true [value]="product?.basicCyclePrice||0" #basicCyclePrice
+							(output)="outputValue($event,'basicCyclePrice')"></count-bar>
 					</div>
 					<div class="col-sm-2 form-control-title">单位价格：</div>
 					<div class="col-sm-1 ">
-						<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=true [value]=0 #unitPrice (output)="outputValue($event,'unitPrice')"></count-bar>
+						<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=true [value]="product?.unitPrice||0" #unitPrice (output)="outputValue($event,'unitPrice')"></count-bar>
 					</div>
 				</div>
 			</div>
@@ -107,57 +108,13 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">增量周期价格：</div>
 					<div class="col-sm-2">
-						<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=true [value]=0 #extendCyclePrice (output)="outputValue($event,'extendCyclePrice')"></count-bar>
+						<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=true [value]="product.extendCyclePrice||0" #extendCyclePrice
+							(output)="outputValue($event,'extendCyclePrice')"></count-bar>
 					</div>
 					<div class="col-sm-2 form-control-title">一次性价格：</div>
 					<div class="col-sm-1">
-						<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=true [value]=0 #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
+						<count-bar [step]=100 [max]=2000000 [min]=0 [disabled]=true [value]="product.oneTimePrice||0" #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
 					</div>
-				</div>
-			</div>
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-4 form-control-title">选择可用平台：</div>
-				</div>
-			</div>
-			<div class="row row-line-height">
-				<div class="col-sm-3"></div>
-				<div class="col-sm-6 border selectPlateForm">
-					<div class="row  tabHeader row-line-height">
-						<div class="col-sm-4">平台名称</div>
-						<div class="col-sm-4 ">
-							可用区
-						</div>
-						<div class="col-sm-4" style="text-align: left">
-							<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllZones()">
-						</div>
-					</div>
-					<div class="row tabBody" *ngFor="let plateform of product.productPlatformReqs; let idx=index">
-						<div class="col-sm-4 oneChild">
-							<p>{{plateform.platformName}}</p>
-						</div>
-						<div class="col-sm-4 secondChild wyLine-height">
-							<div class="row" *ngFor="let zone of plateform.zoneList">
-								<div class="col-sm-12">{{zone.zoneName}}</div>
-							</div>
-
-						</div>
-						<div class="col-sm-4 thirdChild">
-							<div class="row row-line-height inputLeft" *ngFor="let zone of plateform.zoneList; let idxx=index">
-								<div class="col-sm-12">
-									<input type="checkbox" class="fox-cloud-checkbox" selected="zone.selected" [(ngModel)]="zone.selected" name="zoneSelected"
-										(click)="selectZone(idx,idxx)">
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</div>
-				<div class="col-sm-3"></div>
-			</div>
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-4 form-control-title">选择企业：</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
@@ -165,25 +122,45 @@
 				<div class="col-sm-6 selectEnt">
 					<div class="row row-line-height entup">
 						<div class="col-sm-5 entHeader">
-                            全部企业
+							<div class="">
+								<div class="col-sm-6">平台名称</div>
+								<div class="col-sm-6">可用区</div>								
+							</div>
 						</div>
 						<div class="col-sm-2"></div>
 						<div class="col-sm-5 entHeader">
-						    选中的企业
+							企业列表
 						</div>
 					</div>
-                    <div class="row row-line-height entdown">
-						<div class="col-sm-5 entBody" >
-                            <div *ngFor="let ent1 of product.productEnterpiseReqs; let i=index" >
-                                <span class="span1">{{ent1.name}}</span>
-                                 <input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="ent1.selected" (click)="selectEnterprise(ent1,i)">          
-                            </div>							
+					<div class="row row-line-height entdown" style="">
+						<div class="col-sm-5 entBody">
+							<div class="tabBody" *ngFor="let plateform of product.productPlatformReqs; let idx=index" style="text-align:center">
+								<div class="col-sm-6 oneChild">
+									{{plateform.platformName}}
+								</div>
+								<div class="col-sm-6 secondChild wyLine-height">
+									<div class="row" *ngFor="let zone of plateform.zoneList">
+										<div class="col-sm-12">
+											{{zone.zoneName}}
+										</div>
+									</div>
+								</div>
+								<!--<div class="col-sm-4 thirdChild">
+							<div class="row row-line-height inputLeft" *ngFor="let zone of plateform.zoneList; let idxx=index">
+								<div class="col-sm-12">
+									<input type="checkbox" class="fox-cloud-checkbox" selected="zone.selected" 
+									checked=true disabled (click)="selectZone(idx,idxx)">
+								</div>
+							</div>
+						</div>-->
+							</div>
 						</div>
+
 						<div class="col-sm-2"></div>
-						<div class="col-sm-5 entBody" >
-							<div *ngFor="let ent2 of product.productEnterpiseReqs;let ii=index">
-                                <span class="span2">{{ent2.name}}</span>
-                            </div>
+						<div class="col-sm-5 entBody">
+							<div *ngFor="let ent of product.productEnterpiseReqs;let ii=index">
+								<span class="span2">{{ent.name}}</span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -192,21 +169,21 @@
 			<div class="row row-line-height">
 				<div class="col-sm-3"></div>
 				<div class="col-sm-6">
-					
+
 				</div>
 				<div class="col-sm-3"></div>
 			</div>
 		</div>
 	</div>
 </div>
-<!--<div class="text-center">
+<div class="text-center">
 	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
-        <span class="icon-button-label">取消</span>
+        <span class="icon-button-label">返回</span>
     </button>
-	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();">
-        <span class="icon-button-label">创建产品</span>
+	<button class="fox-cloud-button-lg fox-cloud-button-white" disabled (click)="onSubmit();" style="margin-left:40px;">
+        <span class="icon-button-label">编辑</span>
     </button>
-</div>-->
+</div>
 
 <!--<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认"></fc-notice>-->
 
