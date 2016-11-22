@@ -31,7 +31,7 @@
                             class = "glyphicon"
                             [ngClass]="{'glyphicon-folder-open' : node.isExpanded==true,'glyphicon-folder-close' : node.isExpanded==false,'glyphicon-folder-close' : !node.isExpanded}">
                             </span>
-                            <input type="checkbox" checked="{{ node.data.checked}}" disabled/>
+                            <input type="checkbox" checked disabled/>
                             <span style="padding-left : 5px">{{ node.data.name }}</span>
                         </template>
                     </Tree>

@@ -231,8 +231,8 @@ export class ProdMngComponent implements OnInit {
     }
     //去编辑详情页面
     goDetail(item) {
-        // console.log(item);
-        // this.router.navigate(["prod-mng/prod-mng/prod-detail", item.id]);
+        console.log(item);
+        this.router.navigate(["prod-mng/prod-mng/prod-detail", item.id]);
     }
 
     backend(page: number, size: number, data: any) {
