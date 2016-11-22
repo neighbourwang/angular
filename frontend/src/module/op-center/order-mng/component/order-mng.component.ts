@@ -237,7 +237,7 @@ export class OrderMngComponent implements OnInit{
 		this._renewPriceLoader.Go(null, [{key:"_subId", value:orderItem.orderId}])
 		.then(success=>{
 			this.layoutService.hide();
-			
+
 			orderItem.itemList.map(n=>{
 				n.renewPrice = getRenewPrice();
 			});
@@ -371,7 +371,7 @@ export class OrderMngComponent implements OnInit{
 
 	get selectedBillingModeName():string{
 		if(this.selectedOrderItem 
-			&& this.selectedOrderItem.itemList
+			&& !_.isEmpty(this.selectedOrderItem.itemList)
 			&& this.selectedOrderItem.itemList[0].billingModeName)
 			return this.selectedOrderItem.itemList[0].billingModeName;
 		else
@@ -438,7 +438,15 @@ export class OrderMngComponent implements OnInit{
 				}
 			}
 
-			this._renewSetting.renewDate = toDate(handlerObj[this.selectedOrderItem.itemList[0].billingInfo.periodType.toString()](this._renewSetting.value)(this.selectedOrderItem.itemList[0].expireDate));
+			let renewLen:number = this._renewSetting.value;
+			let renewMode:string = this.selectedOrderItem.itemList[0].billingInfo.periodType.toString();
+			if(this.isForerver)
+			{
+				renewLen = 100;
+				renewMode = "5";
+			}
+
+			this._renewSetting.renewDate = toDate(handlerObj[renewMode](renewLen)(this.selectedOrderItem.itemList[0].expireDate));
 		}
 		else{
 			console.log("续订计算前提发生错误", this.selectedOrderItem);
