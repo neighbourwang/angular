@@ -15,6 +15,10 @@ import { OrderMngModule } from './module/op-center/order-mng/order-mng.module';
 //镜像管理
 import { ImgMngModule } from './module/image-mng/image-mng.module';
 
+//审批中心
+import { CheckCenterModule } from './module/check-center/check-center.module';
+
+
 import { routing } from './app.routing';
 
 @NgModule({
@@ -25,6 +29,7 @@ import { routing } from './app.routing';
         CloudHostService,
         UserCenterModule,
         OrderMngModule,
+        CheckCenterModule,
         ImgMngModule,
         routing
     ],
