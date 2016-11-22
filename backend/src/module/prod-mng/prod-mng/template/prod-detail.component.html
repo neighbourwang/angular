@@ -21,33 +21,67 @@
 					</div>
 				</div>
 			</div>
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-4 form-control-title"></div>
-					<div class="col-sm-4 row-line-child font-gray">
-						<div class="font-gray">CPU</div>
-						<div class="mid-line-child border-gray font-gray">{{prodDir.specification.vcpu||0}}</div>
-						<div class="last-line-child font-gray">核（vCPU）</div>
+			<div *ngIf="vmProdDir">
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4 form-control-title"></div>
+						<div class="col-sm-4 row-line-child font-gray">
+							<div class="font-gray">CPU</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.vcpu||0}}</div>
+							<div class="last-line-child font-gray">核（vCPU）</div>
+						</div>
+					</div>
+				</div>
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4 form-control-title"></div>
+						<div class="col-sm-4 row-line-child font-gray">
+							<div class="font-gray">内存</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.mem||0}}</div>
+							<div class="last-line-child font-gray">兆（MB）</div>
+						</div>
+					</div>
+				</div>
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4 form-control-title"></div>
+						<div class="col-sm-4 row-line-child font-gray">
+							<div class="font-gray">启动盘大小</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.startupDisk||0}}</div>
+							<div class="last-line-child font-gray">GB</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-4 form-control-title"></div>
-					<div class="col-sm-4 row-line-child font-gray">
-						<div class="font-gray">内存</div>
-						<div class="mid-line-child border-gray font-gray">{{prodDir.specification.mem||0}}</div>
-						<div class="last-line-child font-gray">兆（MB）</div>
+			<div *ngIf="!vmProdDir">
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4 form-control-title"></div>
+						<div class="col-sm-4 row-line-child font-gray">
+							<div class="font-gray">初始大小</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.initialSize||0}}</div>
+							<div class="last-line-child font-gray">GB</div>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-4 form-control-title"></div>
-					<div class="col-sm-4 row-line-child font-gray">
-						<div class="font-gray">启动盘大小</div>
-						<div class="mid-line-child border-gray font-gray">{{prodDir.specification.startupDisk||0}}</div>
-						<div class="last-line-child font-gray">GB</div>
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4 form-control-title"></div>
+						<div class="col-sm-4 row-line-child font-gray">
+							<div class="font-gray">步长</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.stepSize||0}}</div>
+							<div class="last-line-child font-gray">GB</div>
+						</div>
+					</div>
+				</div>
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4 form-control-title"></div>
+						<div class="col-sm-4 row-line-child font-gray">
+							<div class="font-gray">最大</div>
+							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.maxSize||0}}</div>
+							<div class="last-line-child font-gray">GB</div>
+						</div>
 					</div>
 				</div>
 			</div>
