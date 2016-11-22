@@ -793,7 +793,13 @@ export let RestApis: RestApiModel[] = [
         "desc" : "用户中心，角色管理，获得角色详情",
         "id" : "user-center.role-mng.detail",
         "method" : "GET",
-        "url" : "basis/authsec/adm/menu/tree/{role_id}"
+        "url" : "basis/authsec/adm/menu/tree/{id}"
+    },
+    {
+        "desc" : "用户中心，角色管理，权限树",
+        "id" : "user-center.role-mng.roleTree",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/menu/tree"
     },
     //个人账户管理
     {

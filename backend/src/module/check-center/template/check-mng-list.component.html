@@ -84,7 +84,7 @@
 				</tbody>
 			</table>	
 		</div>
-		<div class="page-second-title">当查询到29个订单需要审批，查询结果如下：</div>
+		<div class="form-control-title mgb10 mgt20 left">当查询到29个订单需要审批，查询结果如下：</div>
 			<div class="table-container">
 			<table class="table">
 				<thead>	
@@ -121,8 +121,7 @@
 						 	一次性费用：￥0<br>
 						 	费用：￥100月</td>
 						<td>2016-10-01<br>
-							23:10<br>
-							<a>审批信息>>></a></td>
+							23:10</td>
 						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white" style="margin-right: 10px;">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white" (click)="refuse()">拒绝</button></td>
 					</tr>
 					<tr>
@@ -143,9 +142,9 @@
 						 	订单周期：1个月<br>
 						 	一次性费用：￥0<br>
 						 	费用：￥100月</td>
-						<td>2016-10-01<br>
+						<td>2016-10-01
 							23:10<br>
-							<a>审批信息>>></a></td>
+						</td>
 						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white" style="margin-right: 10px;">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white">拒绝</button></td>
 					</tr>
 				</tbody>
@@ -198,30 +197,6 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="CheckInfo">
-	   <table class="table table-hover">
-	   		<thead>
-	   			<tr><th colspan="2" class="form-control-title">审批详细</th></tr>
-	   		</thead>
-	   		<tbody>
-	   			<tr>
-	   				<td>审批人:</td>
-	   				<td>李四</td>
-	   			</tr>
-	   				<tr>
-	   				<td>审批时间:</td>
-	   				<td>2016-10-01 10:23</td>
-	   			</tr>
-	   				<tr>
-	   				<td>审批意见:</td>
-	   				<td>同意</td>
-	   			</tr>
-	   		</tbody>
-	   </table>
-
-	</div>
-
-
 <!--拒绝-->
 	<fc-popup #refuseDialog ot="提交" ct="取消" title="订单请求被拒绝"  (of)="accept()" (cf)="cancel();">	
 		<div class="dialogContent">
