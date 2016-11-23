@@ -277,7 +277,7 @@ export class OpenstackNetMngComponent implements OnInit {
         this.closeEditPanel();
         let cNetwork = new Network();
         cNetwork.subnetDisplayName = network.subnetDisplayName;
-        cNetwork.selected = network.selected;
+        cNetwork.selected = true;//network.selected;
         cNetwork.id = network.id;
         cNetwork.tenantName = network.tenantName;
         cNetwork.networkName = network.networkName;
@@ -329,6 +329,8 @@ export class OpenstackNetMngComponent implements OnInit {
                     network.platformId = cNetwork.platformId;
                     network.platformName = cNetwork.platformName;
                     network.nameEditing = false;
+
+                    this.selectedNetwork = this.editNetwork;
                 }else{
                     alert("Res sync error");
                 }

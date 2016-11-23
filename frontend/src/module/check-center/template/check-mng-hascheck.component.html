@@ -1,6 +1,5 @@
-<fc-notice #notice ot="确认"></fc-notice>
 <div class="CheckMngList">
-	<div class="page-content-header icon-order-manage" style="border-bottom: 3px solid  #01a982;margin: 10px 0px;padding: 0;">待审批列表</div>
+	<div class="page-content-header icon-order-manage" style="border-bottom: 3px solid  #01a982;margin: 10px 0px;padding: 0;">已审批列表</div>
 	<div class="page-content">
 		<div class="table-container">
 			<div class="search-container">
@@ -8,14 +7,14 @@
 				<span class="glyphicon glyphicon-search searchbox-incon"></span>
 						
 				<button class=" form-control-title fox-cloud-button-sm    left"  [ngClass]="{'fox-cloud-button-white':_isAdvSearch==1,'fox-cloud-button-grey':_isAdvSearch!=1}" (click)="_isAdvSearch = !_isAdvSearch">高级查询</button>
-			</div>
+		</div>
 			<table class="table" *ngIf="_isAdvSearch">
 				<tbody>
 					<tr>				
 						<td >
 						    <div class="left form-control-title">订单归属：<span>企业</span></div>
 							<div class="left">
-								<select class="form-control select_" [(ngModel)]="_param.entIdStr" (ngModelChange)="entChanged()">
+								<select class="form-control  select_" [(ngModel)]="_param.entIdStr" (ngModelChange)="entChanged()">
 									<option class="hands" [value]="null">所有企业</option>
 									<option class="hands" *ngFor="let item of _entLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
@@ -24,7 +23,7 @@
 						<td><div class="left form-control-title mgl40">部门：</div>
 
 							<div class="left">
-								<select class="form-control" [(ngModel)]="_param.departmentIdNum" (ngModelChange)="departmentChanged()">
+								<select class="form-control" [(ngModel)]="_param.departmentIdNum">
 									<option class="hands" [value]="null">所有部门</option>
 									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
@@ -33,56 +32,65 @@
 						<td ><div class="left form-control-title mgl20">用户：</div>
 							<div class="left">
 								<select class="form-control" [(ngModel)]="_param.userIdStr">
-									<option class="hands" [value]="null">所有用户</option>
-									<option class="hands" *ngFor="let item of _userListLoader.Items" [value]="item.id">{{item.name}}</option>
+									<option class="hands">所有用户</option>
+									<option class="hands">关羽</option>
+									<option class="hands">张飞</option>
+									<option class="hands">刘备</option>
 								</select>
 							</div>
 
 						</td>
 					</tr>
-					<tr class=" bgWhite">
-						<td ><div class="left form-control-title">订单类型：</div>
-								<div class="dropdown left">
-								<select class="form-control " [(ngModel)]="_param.orderTypeNum">
-									<option class="hands" [value]="null">所有订单</option>
-									<option class="hands" *ngFor="let item of _orderTypeDic.Items" [value]="item.value">{{item.displayValue}}</option>
+					<tr class="bgWhite">
+						<td ><div class="left form-control-title  ">订单类型：</div>
+								<div class="left">
+								<select class="form-control" [(ngModel)]="_param.orderTypeNum">
+									<option class="hands">新订单</option>
+									<option class="hands">旧订单</option>
 								</select>
 							</div>
 						</td>
 						<td><div class="left form-control-title">产品类型：</div>
-							<div class="dropdown left">
+							<div class="left">
 								<select class="form-control" [(ngModel)]="_param.serviceTypeNum">
 									<option class="hands" [value]="null">所有服务</option>
 									<option class="hands" *ngFor="let item of _serviceTypeDic.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
 						</td>
-						<td>
+						<td><div class="left form-control-title">审批人：</div>
+							<div class="dropdown left">
+								<select class="form-control" [(ngModel)]="_param.checkUserIdStr">
+									<option class="hands">所有用户</option>
+									<option class="hands">张飞</option>
+									<option class="hands">关羽</option>
+								</select>
+							</div>
 						</td>
 					</tr>
 					<tr>
 						<td><div class="left form-control-title">开始时间：</div>
-							<div class="dropdown left">			
+							<div class="left">			
 								<date-picker (dateChanged)="onStartDateChange($event)"></date-picker>
 							</div>
 
 						</td>
 						<td ><div class="left form-control-title">结束时间：</div>
-							<div class="dropdown left">			
+							<div class="left">			
 								<date-picker (dateChanged)="onEndDateChange($event)"></date-picker>
 							</div>
 						</td>
 						<td>
 
 							<div style="margin-left: 115px;text-align:left!important;">
-								<button class="fox-cloud-button-sm  fox-cloud-button-white mgr20"  (click)="_param.reset()">重&nbsp;&nbsp;&nbsp;&nbsp;置</button><button class="fox-cloud-button-sm  fox-cloud-button-white mgl20" (click)="search()">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
+								<button class="fox-cloud-button-sm  fox-cloud-button-white mgr20" (click)="_param.reset()">重&nbsp;&nbsp;&nbsp;&nbsp;置</button><button class="fox-cloud-button-sm  fox-cloud-button-white mgl20" (click)="search()">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
 							</div>
 						</td>
 					</tr>
 				</tbody>
 			</table>	
 		</div>
-		<div class="form-control-title mgb10 mgt20 left">当查询到29个订单需要审批，查询结果如下：</div>
+		<div class="page-second-title">当查询到29个订单需要审批，查询结果如下：</div>
 			<div class="table-container">
 			<table class="table">
 				<thead>	
@@ -96,7 +104,7 @@
 						<th>用户/部门/企业</th>
 						<th>费用</th>
 						<th>创建时间</th>
-						<th>操作</th>
+						<th>审批结果</th>
 					</tr>			
 				</thead>
 				<tbody>
@@ -119,8 +127,9 @@
 						 	一次性费用：￥0<br>
 						 	费用：￥100月</td>
 						<td>2016-10-01<br>
-							23:10</td>
-						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white" style="margin-right: 10px;">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white" (click)="refuse()">拒绝</button></td>
+							23:10<br>
+							<a>审批信息>>></a></td>
+						<td>同意</td>
 					</tr>
 					<tr>
 						<td>2</td>
@@ -140,15 +149,14 @@
 						 	订单周期：1个月<br>
 						 	一次性费用：￥0<br>
 						 	费用：￥100月</td>
-						<td>2016-10-01
+						<td>2016-10-01<br>
 							23:10<br>
-						</td>
-						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white" style="margin-right: 10px;">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white">拒绝</button></td>
+							<a>审批信息>>></a></td>
+						<td>同意</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		<!-- <fc-pagination tp={{}} (pf)="changePage($event)"></fc-pagination> -->
 	</div>
 
 	<div class="DetailInfo">
@@ -195,19 +203,26 @@
 			</tbody>
 		</table>
 	</div>
-<!--拒绝-->
-	<fc-popup #refuseDialog ot="提交" ct="取消" title="订单请求被拒绝"  (of)="accept()" (cf)="cancel();">	
-		<div class="dialogContent">
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>原因：</div>
-					<div class="col-sm-8">
-						<textarea class="form-control mgb20" rows="7" style="width: 370px;"></textarea>
-						<span>可以输入中文与字符，最大不能超过200个字</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</fc-popup>
-	<!--拒绝end-->
+	<div class="CheckInfo">
+	   <table class="table table-hover">
+	   		<thead>
+	   			<tr><th colspan="2" class="form-control-title">审批详细</th></tr>
+	   		</thead>
+	   		<tbody>
+	   			<tr>
+	   				<td>审批人:</td>
+	   				<td>李四</td>
+	   			</tr>
+	   				<tr>
+	   				<td>审批时间:</td>
+	   				<td>2016-10-01 10:23</td>
+	   			</tr>
+	   				<tr>
+	   				<td>审批意见:</td>
+	   				<td>同意</td>
+	   			</tr>
+	   		</tbody>
+	   </table>
+
+	</div>
 </div>

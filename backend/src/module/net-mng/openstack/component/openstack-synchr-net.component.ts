@@ -17,6 +17,7 @@ import { Network } from '../model/network.model';
 export class OpenstackSynchrNetComponent implements OnInit{
 	constructor(
 		private router: ActivatedRoute,
+        private router2: Router,
 		private service: OpenstackService ,
 		private layoutService: LayoutService,
 		private dicService: SystemDictionaryService
@@ -233,5 +234,10 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 }
         })
         .catch((e)=>this.onRejected(e));
+    }
+
+    //返回上一级
+    cancel(){
+        this.router2.navigateByUrl("net-mng/openstack/openstack-net-mng");
     }
 }

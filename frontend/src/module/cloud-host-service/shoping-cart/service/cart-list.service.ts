@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi } from '../../../../architecture';
+import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../architecture';
 
 import { CartList } from '../model/cart-list.model';
 
@@ -11,6 +11,7 @@ import 'rxjs/add/operator/toPromise';
 export class cartListService {
     constructor(private http:Http,
                 private restApiCfg:RestApiCfg,
+                private dict:SystemDictionaryService,
                 private restApi:RestApi) {
     }
 
@@ -54,4 +55,15 @@ export class cartListService {
         return request;
     }
 
+
+    //数据字典所用到的值
+    dictProductType = this.dict.get({  //获取产品type
+        owner : "GLOBAL",
+        field : "SERVICE_TYPE"
+    })
+
+    dictPriceModel = this.dict.get({  //获取产品type
+        owner : "PACKAGE_BILLING",
+        field : "PERIOD_TYPE"
+    })
 }

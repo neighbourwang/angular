@@ -170,14 +170,14 @@ const menu: Array<any> = [
         "icon": "icon-check",
         "top2_menu": [
             {
-                "label": "账号管理",
+                "label": "未审批",
                 "isOpen": false,
-                "routing": ""
+                "routing": "check-center/check-mng-list"
             },
             {
-                "label": "费用中心",
+                "label": "已审批",
                 "isOpen": false,
-                "routing": ""
+                "routing": "check-center/check-mng-hascheck"
             }
         ]
     },

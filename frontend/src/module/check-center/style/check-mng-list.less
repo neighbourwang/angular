@@ -1,0 +1,99 @@
+.validateInfo{ color: #00a982; } /*验证信息显示绿色*/
+.warnInf{ color: red; }  /*验证信息显示红色*/
+.left{float: left;}     /*左浮动*/
+.leftAlign{text-align: left!important;}/*表格td居左*/
+.rightAlign{text-align: right!important;}/*表格td居右*/
+._margin{margin-bottom: 30px;}/*间隔30px*/
+.tdVAlign{vertical-align: middle;}
+.bgWhite{background-color:white!important;}
+ul li{ list-style: none; }
+
+.mgl40{margin-left:40px;}
+
+.CheckMngList{
+    .header-title{
+    	height: 40px;
+    	border-bottom: 3px solid  #01a982;
+    	margin: 10px 0px;
+    	padding-left: 10px;
+    }
+	.page-content{
+	    z-index:5;
+		.table-container{
+			border-bottom: 2px solid #00a982;/*点击高级查询后显示这条线*/
+			border-top:none;
+			margin-bottom:30px;
+			.search-container{
+    			height: 60px;
+				button{
+    				    padding: 4px 40px;
+    					font-size: 17px;
+    			}
+			}
+			table{
+				// margin-bottom:20px!important;
+				select{
+				    width: 260px;
+    				letter-spacing: 2px;
+				}
+
+				.select_{
+				    width: 202px;
+				}
+				button{
+					    padding: 3px 15px;
+				}
+				
+				tr{
+				    border:none;
+					th{
+						text-align:center;
+					}
+					td{
+						vertical-align: middle;
+						text-align:center;
+						border:none;
+						span{
+						  	 letter-spacing:6px;
+						  	  margin-left: 10px;
+						}
+					}
+				}
+			}
+		}
+	    
+	}
+	.DetailInfo{
+	    z-index: 10;
+    	position: relative;
+   		top: -200px;
+    	left: 200px;
+		table{
+			width:500px;
+			background-color: #fff;
+			th{
+				text-align:left;
+			}
+			td{
+				text-align:center;
+			}
+		}
+	}
+	.CheckInfo{
+	  	z-index: 10;
+    	position: relative;
+   		top: -500px;
+    	left: 1000px;
+		table{
+			width:250px;
+			background-color: #fff;
+			th{
+				text-align:left;
+			}
+			td{
+				text-align:center;
+			}
+		}
+	}
+    
+}

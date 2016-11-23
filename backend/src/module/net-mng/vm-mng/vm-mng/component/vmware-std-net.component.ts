@@ -110,20 +110,7 @@ export class VmwareStdNetComponent implements OnInit {
         });
     }
 
-    //弹出编辑标准端口组显示名称
-    openEditPort(stdnet): void {
-        let cstdnet = new StdNet();
-        cstdnet.id = stdnet.id;
-        cstdnet.dcName = stdnet.dcName;
-        cstdnet.clusterName = stdnet.clusterName;
-        cstdnet.clusterDisplayName = stdnet.clusterDisplayName;
-        cstdnet.portDisplayName = stdnet.portDisplayName;
-        cstdnet.portGroupName = stdnet.portGroupName;
-        cstdnet.vlanId = stdnet.vlanId;
-        cstdnet.stateDict = stdnet.stateDict;
-        cstdnet.lastUpdate = stdnet.lastUpdate;
-        this.editPort = cstdnet;
-    }
+    
     //弹出创建框
     create() {
         console.log('create');
@@ -142,11 +129,12 @@ export class VmwareStdNetComponent implements OnInit {
     setSelectedDC4Popup(value) {
         this.selectedDC4Popup = this.dcList.find((dc) => { return dc.dcName == value });
         if (!this.selectedDC4Popup) {
-            this.selectedDC4Popup = this.defaultDc;
+           this.selectedDC4Popup = this.defaultDc;
         }
         this.tempEditNet.clusterName = "";
     }
 
+    //编辑标准网络
     edit() {
         console.log('edit');
         const selectedNet = this.filternets.find((stdnet) => { return stdnet.selected });
@@ -156,15 +144,18 @@ export class VmwareStdNetComponent implements OnInit {
         }
         let cstdnet = new StdNet();
         cstdnet.id = selectedNet.id;
+        cstdnet.dcId = selectedNet.dcId;
         cstdnet.dcName = selectedNet.dcName;
         this.setSelectedDC4Popup(cstdnet.dcName);
+        cstdnet.clusterId = selectedNet.clusterId;
         cstdnet.clusterName = selectedNet.clusterName;
         cstdnet.clusterDisplayName = selectedNet.clusterDisplayName;
         cstdnet.portDisplayName = selectedNet.portDisplayName;
+        cstdnet.portGroupId = selectedNet.portGroupId;
         cstdnet.portGroupName = selectedNet.portGroupName;
 
         cstdnet.vlanId = selectedNet.vlanId;
-        cstdnet.stateDict = selectedNet.stateDict;
+        cstdnet.status = selectedNet.status;
         cstdnet.lastUpdate = selectedNet.lastUpdate;
 
         this.tempEditNet = cstdnet;
@@ -173,6 +164,7 @@ export class VmwareStdNetComponent implements OnInit {
 
     cancelEdit() { }
 
+    //创建/编辑后的数据保存
     saveEditNet(stdnet: StdNet) {
         this.layoutService.show();
         if (this.validationService.isBlank(this.tempEditNet.dcName)) {
@@ -209,30 +201,36 @@ export class VmwareStdNetComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    //更新端口说明
+    //弹出编辑标准端口组显示名称
+    openEditPort(stdnet): void {
+        let cstdnet = new StdNet();
+        cstdnet.id = stdnet.id;
+        cstdnet.dcId = stdnet.dcId;
+        cstdnet.dcName = stdnet.dcName;
+        cstdnet.clusterId = stdnet.clusterId;
+        cstdnet.clusterName = stdnet.clusterName;
+        cstdnet.clusterDisplayName = stdnet.clusterDisplayName;
+        cstdnet.portDisplayName = stdnet.portDisplayName;
+        cstdnet.portGroupId = stdnet.portGroupId;
+        cstdnet.portGroupName = stdnet.portGroupName;
+        cstdnet.vlanId = stdnet.vlanId;
+        cstdnet.status = stdnet.status;
+        cstdnet.lastUpdate = stdnet.lastUpdate;
+        this.editPort = cstdnet;
+    }
+    //更新标准端口组显示名称
     updatePort(stdnet: StdNet) {
         this.layoutService.show();
         if (this.validationService.isBlank(this.editPort.portDisplayName)) {
-            this.showAlert("镜像名称不能为空.");
+            this.showAlert("标准端口组显示名称不能为空.");
             return;
         }
-        this.service.updatePort(this.editPort)
+        this.service.saveEditNet(this.editPort)
             .then(
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    let cstdnet = this.editPort;
-                    stdnet.id = cstdnet.id;
-                    stdnet.dcName = cstdnet.dcName;
-                    stdnet.clusterName = cstdnet.clusterName;
-                    stdnet.clusterDisplayName = cstdnet.clusterDisplayName;
-                    stdnet.portDisplayName = cstdnet.portDisplayName;
-                    stdnet.portGroupName = cstdnet.portGroupName;
-                    stdnet.vlanId = cstdnet.vlanId;
-                    stdnet.stateDict = cstdnet.stateDict;
-                    stdnet.lastUpdate = cstdnet.lastUpdate;
-
-                    stdnet.nameEditing = false;
+                    this.getData();
                 } else {
                     alert("Res sync error");
                 }
@@ -250,7 +248,7 @@ export class VmwareStdNetComponent implements OnInit {
         }
         this.noticeTitle = "启用网络";
 
-        if (selectedNet.stateDict == "1") {
+        if (selectedNet.status == "1") {
             this.showAlert("该网络已处于启用状态");
             return;
         }
@@ -284,7 +282,7 @@ export class VmwareStdNetComponent implements OnInit {
         }
         this.noticeTitle = "禁用网络";
 
-        if (selectedNet.stateDict == "2") {
+        if (selectedNet.status == "2") {
             this.showAlert("该网络已处于禁用状态");
             return;
         }
