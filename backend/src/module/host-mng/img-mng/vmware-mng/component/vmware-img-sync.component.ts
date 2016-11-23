@@ -10,7 +10,7 @@ import { VmwareImgListService } from '../service/vmware-img-list.service';
 
 @Component({
     selector: "vmware-img-sync",
-    templateUrl: "../template/image-mng-vmware-list.html",
+    templateUrl: "../template/image-sync-vmware.html",
     styleUrls: [],
     providers: []
 }
