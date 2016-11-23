@@ -53,7 +53,7 @@ export class OrderMngComponent implements OnInit{
 	//计费模式
 	private _billinModeDic:DicLoader = null;
 	//续费模式
-	private _renewModeDic:DicLoader = null;
+	private _periodTypeDic:DicLoader = null;
 	//续订费用
 	private _renewPriceLoader:ItemLoader<ProductBillingItem> = null;
 
@@ -67,7 +67,7 @@ export class OrderMngComponent implements OnInit{
 		this._renewPriceLoader = new ItemLoader<ProductBillingItem>(false, "续订费用", "op-center.order-mng.order-renew-price.get", restApiCfg, restApi);
 
 		//续费模式
-		this._renewModeDic = new DicLoader(restApiCfg, restApi, "PACKAGE_BILLING", "PERIOD_TYPE");
+		this._periodTypeDic = new DicLoader(restApiCfg, restApi, "PACKAGE_BILLING", "PERIOD_TYPE");
 
 		//计费模式
 		this._billinModeDic = new DicLoader(restApiCfg, restApi, "BILLING_MODE", "TYPE");
@@ -192,7 +192,7 @@ export class OrderMngComponent implements OnInit{
 			return this._billinModeDic.Go();
 		})
 		.then(success=>{
-			return this._renewModeDic.Go();
+			return this._periodTypeDic.Go();
 		})
 		.then(success=>{
 			this.layoutService.hide();
@@ -369,11 +369,16 @@ export class OrderMngComponent implements OnInit{
 	      this.isForerver = !this.isForerver;
 	}
 
-	get selectedBillingModeName():string{
+	get selectedPeriodTypeName():string{
 		if(this.selectedOrderItem 
 			&& !_.isEmpty(this.selectedOrderItem.itemList)
-			&& this.selectedOrderItem.itemList[0].billingModeName)
-			return this.selectedOrderItem.itemList[0].billingModeName;
+			&& this.selectedOrderItem.itemList[0].billingInfo){
+			let item = this._periodTypeDic.Items.find(n=>n.value == this.selectedOrderItem.itemList[0].billingInfo.periodType.toString());
+			if(item)
+				return item.displayValue as string;
+			else
+				return "None";
+		}
 		else
 			return "None";
 	}

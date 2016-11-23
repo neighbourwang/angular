@@ -548,7 +548,7 @@ export let RestApis: RestApiModel[] = [
     }, {
         "desc": "订单续订",
         "id": "op-center.order-mng.order-renew.get",
-        "method": "GET",
+        "method": "POST",
         "url": "adminui/authsec/order/{orderId}/renew"
     },
 
@@ -1029,16 +1029,10 @@ export let RestApis: RestApiModel[] = [
     }
     // 审批中心
     ,{
-        "desc": "查询待审批订单",
+        "desc": "查询待审批/已审批订单",
         "id": "check-center.not-checked.list",
-        "method": "GET",
-        "url": "none"        
-    }
-    ,{
-        "desc": "查询已审批订单",
-        "id": "check-center.checked.list",
-        "method": "GET",
-        "url": "none"        
+        "method": "POST",
+        "url": "adminui/authsec/backend/approval/order/search/paging"        
     }
     ,{
         "desc": "获取订单详情",

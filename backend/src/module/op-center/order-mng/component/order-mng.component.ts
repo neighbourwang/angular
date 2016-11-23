@@ -173,9 +173,9 @@ export class OrderMngComponent implements OnInit{
 			this._platformLoader.Go()
 			.then(success=>{
 				resolve(success);
-			}),err=>{
+			},err=>{
 				reject(err);
-			}
+			});
 
 		});
 	}
@@ -201,8 +201,20 @@ export class OrderMngComponent implements OnInit{
 	renew(orderItem:SubInstanceResp){
 		if(orderItem.itemList.filter(n=>n.status == "2").length == orderItem.itemList.length)
 		{
+			let param = [{
+				attrCode: "",
+				attrDisplayName: "",
+				attrDisplayValue: "",
+				attrId: "",
+				attrValue: "",
+				attrValueCode: "",
+				attrValueId: "",
+				description: "",
+				valueType: "",
+				valueUnit: ""
+			}];
 			this.layoutService.show();
-			this._renewHanlder.Go(null, [{key:"orderId", value:orderItem.orderId}])
+			this._renewHanlder.Go(null, [{key:"orderId", value:orderItem.orderId}], param)
 			.then(success=>{
 				this.layoutService.hide();
 				this.search();
