@@ -308,14 +308,18 @@
 					<div class="row row-line-height entdown">
 						<div class="col-sm-5 entBody">
 							<div *ngFor="let ent1 of enterpriseList; let i=index">
+								<span class="span2" (click)="selectEnterprise(ent1,i)">{{ent1.name}}</span>
+								<!--<input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="ent1.selected" ">-->
+							</div>
+							<!--<div *ngFor="let ent1 of enterpriseList; let i=index">
 								<span class="span1">{{ent1.name}}</span>
 								<input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="ent1.selected" (click)="selectEnterprise(ent1,i)">
-							</div>
+							</div>-->
 						</div>
 						<div class="col-sm-2"></div>
 						<div class="col-sm-5 entBody">
 							<div *ngFor="let ent2 of product.productEnterpiseReqs;let ii=index">
-								<span class="span2">{{ent2.name}}</span>
+								<span class="span2" (click)='unSelected(ent2,ii)'>{{ent2.name}}</span>
 							</div>
 						</div>
 					</div>
