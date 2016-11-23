@@ -1,0 +1,94 @@
+<div class="page-content-header icon-content-header-platform-manage">创建平台</div>
+<div class="page-content fix-page-content">
+    <div class="row navigator-progress">
+        <div class="col-md-2 active"><span class="mark">1</span><span>填写基本信息</span></div>
+        <div class="col-md-2"><span class="mark">2</span><span>平台资源同步</span></div>
+        <div class="col-md-2"><span class="mark">3</span><span>可用区资源配置</span></div>
+        <div class="col-md-2"><span class="mark">4</span><span>存储资源配置</span></div>
+        <div class="col-md-2"><span class="mark">5</span><span>云主机类型配置</span></div>
+        <div class="col-md-2"><span class="mark">6</span><span>总述</span></div>
+    </div>
+    <div class="step-progress">
+        <div class="fox-cloud-progress-rectangle progress-striped">
+            <div class="progress-bar fox-cloud-progress-bar-rectangle" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 16.66%;">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 30px;">
+        <div class="col-md-12">
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">名称<span class="asterisk">*</span>：</div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="platform.name" placeholder="平台名称(必须)">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">类型 ：</div>
+                    <div class="col-sm-4">
+                        <select class="form-control" [(ngModel)]="platform.platformType">
+                            <option *ngFor="let item of vmPlatforms;" [value]="item.value">{{item.displayValue}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">地址 ：</div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="platform.uri" placeholder="访问地址">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">用户名 ：</div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="platform.userName" placeholder="用户名">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">密码 ：</div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="platform.passwd" placeholder="密码">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">版本号 ：</div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="platform.version" placeholder="版本号">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div for="firstname" class="col-sm-4 form-control-title">描述：</div>
+                    <div class="col-sm-4">
+                        <textarea class="form-control" rows="4" [(ngModel)]="platform.description" placeholder="平台描述"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="text-center">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+        <span class="icon-button-label">取消</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="previous();">
+        <span class="icon-button-label">上一步</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="next();">
+        <span class="icon-button-label">下一步</span>
+    </button>
+</div>
+
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认"></fc-notice>
+
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>

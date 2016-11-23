@@ -1,0 +1,83 @@
+.validateInfo{ color: #00a982; } /*验证信息显示绿色*/
+.warnInfo{ color: red; }  /*验证信inline息显示红色*/
+.left{float: left;}     /*左浮动*/
+.leftAlign{text-align: left!important;}/*表格td居左*/
+.rightAlign{text-align: right!important;}/*表格td居右*/
+.tdVAlign{vertical-align: middle;}
+ul li{ list-style: none; }
+.noborder{border : none!important;}
+
+.OrderDetail{
+	letter-spacing:2px;
+	.boder-gray-bottom-title{border:none;}
+	.page-content{
+		padding:0 50px;
+		.table-container{
+			
+			ul{
+			   	li{
+			   		margin-bottom:5px;
+			   	}
+			}
+			._table{
+				
+				border:1px solid #F7F7F7!important;
+				tr{
+					width:50px;
+
+					/*td:nth-child(odd){
+							text-align:right;
+						}
+					td:nth-child(even){
+							text-align:left;
+						}*/
+					td{
+						width:16%;
+						border:none!important;
+					}
+				}
+			}
+			table{
+				border:1px solid #F7F7F7;
+
+				thead{
+					tr{
+						th{
+							
+							text-align: center;
+							width: 335px;
+						}
+					}		
+				}
+				tbody{
+					tr{
+						td.os-td{
+					    	padding: 50px;
+					    	border:1px solid #F7F7F7;
+				    	}
+						td.order-title{
+					   		width: 750px;
+					   		text-align:left;
+	    					font-size:15px;
+                            background-color:#f7f7f7;
+                            padding: 30px;
+				   		}
+				   		td.order-detail{
+				   			font-size: 15px;
+    						padding: 30px;
+				   		}
+						td{
+
+							text-align: center;
+							vertical-align: middle;
+							border:1px solid #F7F7F7;
+							padding: 8px 5px;
+
+						}
+					}
+				}
+			}
+		}
+		
+	}
+}

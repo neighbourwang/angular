@@ -1,0 +1,97 @@
+<div class="page-content-header icon-content-header-platform-manage">创建认证源</div>
+<div class="page-content fix-page-content">
+	<div class="row" style="padding-top: 30px;">
+		<div class="col-md-12">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>认证源：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control font-gray" [(ngModel)]="attest.name" [disabled]="editAcc">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>URL地址：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control font-gray" [(ngModel)]="attest.url" [disabled]="edit||editAcc" >
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>用户名(Full DN)：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control  font-gray" [(ngModel)]="attest.userName" [disabled]="edit">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk" >*</span>密码：</div>
+					<div class="col-sm-4">
+						<div class="row">
+							<div class="form-group">
+								<div class="col-sm-9">
+									<input type="password" class="form-control" [(ngModel)]="attest.password" [disabled]="edit">
+								</div>
+								<div *ngIf="type=='create'||type=='editAcc'" class="col-sm-3">
+									<button class="fox-cloud-button-md fox-cloud-button-white mgr20" (click)="testSource();" style="width:100%">
+                                    <span class="icon-button-label">测 试</span>
+                                    </button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		    <div class="row row-line-height" *ngIf="testResult==true;">
+		        <div class="form-group">
+		            <div class="col-sm-4"></div>
+		            <div class="col-sm-4">
+		                <span class="font-green">AD认证测试通过</span>
+		            </div>
+		        </div>
+		    </div>
+            <div class="row row-line-height" *ngIf="testResult==false">
+                <div class="form-group">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <span class="font-red">AD认证测试未通过</span>
+                    </div>
+                </div>
+            </div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>登录账户名属性：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control font-gray" [(ngModel)]="attest.loginProp" [disabled]="edit||editAcc">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">描述：</div>
+					<div class="col-sm-4">
+						<textarea class="form-control font-gray" rows="4" placeholder="描述" [(ngModel)]="attest.desc" [disabled]="editAcc"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="text-center">
+    <button class="fox-cloud-button-lg fox-cloud-button-white mgr20" (click)="cancel();">
+        <span class="icon-button-label">返回</span>
+    </button>
+    <button *ngIf="type=='create' "class="fox-cloud-button-lg fox-cloud-button-white" (click)="onCreate();">
+        <span class="icon-button-label">创建</span>
+    </button>
+    <button *ngIf="edit" class="fox-cloud-button-lg fox-cloud-button-white" (click)="onEdit();">
+        <span class="icon-button-label">保存</span>
+    </button>
+    <button *ngIf="editAcc" class="fox-cloud-button-lg fox-cloud-button-white" (click)="onEditAcc();">
+        <span class="icon-button-label">保存</span>
+    </button>
+</div>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>

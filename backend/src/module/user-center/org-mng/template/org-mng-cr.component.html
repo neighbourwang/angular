@@ -1,0 +1,105 @@
+<div class="page-content-header icon-content-header-platform-manage">{{title}}</div>
+<div class="row" style="padding-top: 30px;">
+    <div class="col-md-12">
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title">
+                    <span class="asterisk">*</span>
+                    机构名称
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control"  placeholder="请输入机构名称" [(ngModel)]="org.name">
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title">
+                    机构负责人
+                </div>
+                <div class="col-sm-4">
+                    <select class="form-control" [(ngModel)]="org.leaderId">
+                            <option *ngFor="let item of accountByOrg;" [value]="item.id">{{item.userName}}  {{item.loginName}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title">
+                    描述
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control"  placeholder="请输入机构名称" [(ngModel)]="org.description">
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title">
+                    机构成员列表
+                </div>
+                <div class="col-sm-7">
+                     <div class="checkbox">
+                        <label style="margin-right: 5px;margin-bottom: 8px;" *ngFor="let item of account;" (click)="chooseAccount(item)">
+                            <input type="checkbox" class="fox-cloud-checkbox" [checked]="item.selected"> 
+                            <span style="margin-left : 5px;margin-right : 5px">{{item.userName}}</span>
+                            <span>{{item.loginName}}</span>
+                        </label>
+                </div>
+                    <div style="float : right ; margin-right : 20px" (click)="loadMoreAccount()">
+                        <button class="fox-cloud-button-md fox-cloud-button-white">更多>>></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title">
+                    机构可管理平台列表
+                </div>
+                <div class="col-sm-4">
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container" style="width: 70%;margin: auto;max-height : 500px;overflow : auto">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>选择</th>
+                        <th>编号</th>
+                        <th>云平台名称</th>
+                        <th>所属数据中心</th>
+                        <th>所属地域</th>
+                        <th>云平台类型</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of platForm;let idx = index">
+                        <td><input type="checkbox" class="fox-cloud-checkbox" (click)="choosePlatForm(item)" [checked]="item.selected"></td>
+                        <td>{{idx}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.dataCenter}}</td>
+                        <td>{{item.regionId}}</td>
+                        <td>{{item.platformType}}</td>
+                        <td class="font-green">{{item.status}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center" style="margin-top : 30px">
+            <button class="fox-cloud-button-lg fox-cloud-button-white" >
+                <span class="icon-button-label">取消</span>
+            </button>
+            <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px" (click)="create()">
+                <span class="icon-button-label">{{btnName}}</span>
+            </button>
+        </div>
+</div>

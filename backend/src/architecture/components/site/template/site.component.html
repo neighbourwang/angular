@@ -1,0 +1,29 @@
+<fc-spinner [isRunning]="layoutService.showLoading"></fc-spinner>
+
+<div class="container-fluid fox-cloud-container">
+    <!--Header-->
+    <div *ngIf="layoutService.showHeader" class="cm-header">
+        <div class="col-md-2 logo"></div>
+        <div class="col-md-7 console">控制台</div>
+        <div class="col-md-3">
+            <div class="row header-group">
+                <div class="col-md-4 help">帮助</div>
+                <div class="col-md-4 prompt"><span class="fox-cloud-badge">3</span>提醒</div>
+                <div class="col-md-4 account">账户<span class="account-operation"></span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row content">
+        <!--Left Menu-->
+        <div *ngIf="layoutService.showHeader" class="col-md-2 no-padding left-content">
+            <fc-menu></fc-menu>
+        </div>
+
+        <!--Body-->
+        <div class="col-md-10 right-content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+
+</div>

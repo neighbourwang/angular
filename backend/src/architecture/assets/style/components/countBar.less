@@ -1,0 +1,46 @@
+.countBar{
+    height:34px;
+    width:120px;
+    border:1px solid #C1CACA;
+    overflow: hidden; 
+    text-align: center;
+    .left{
+        float: left;
+    }
+    .gray{
+        background-color: #EBEBE4;
+    }
+    span{
+        width: 30%;
+        // border:1px solid #C1CACA;
+        margin-top:-1px;        
+        .left;
+        height:34px;
+        line-height: 34px;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    input{
+        width:40%;
+        .left;
+        height:34px;
+        border-color: #C1CACA;
+        border: none;
+        text-align: center;
+        &:focus{
+           outline: none;
+        }
+    }
+    span:first-child{
+        border-right: 1px solid #C1CACA;
+        
+    }
+    span:last-child{
+        border-left: 1px solid #C1CACA;
+        
+    }
+    &:after{
+        clear: both;
+    }    
+}

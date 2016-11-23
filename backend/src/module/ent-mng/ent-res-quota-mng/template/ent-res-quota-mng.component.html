@@ -1,0 +1,62 @@
+<div class="page-content-header icon-content-header-purchasing">资源配额管理</div>
+<div class="page-content">
+    <div style="padding-bottom: 10px;">
+        <div class="dropdown pull-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                选择操作
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a (click)="modifyEntResQuota();">修改</a></li>
+                <li><a (click)="deleteEntResQuota();">删除</a></li>
+                <li><a (click)="activeEntResQuota();">激活</a></li>
+                <li><a (click)="deactiveEntResQuota();">取消激活</a></li>
+            </ul>
+        </div>
+        <div class="dropdown pull-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                选择公司
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a (click)="switchEnt(null);">全部企业</a></li>
+                <li *ngFor="let item of enterprises;"><a (click)="switchEnt(item.id);">{{item.name}}</a></li>
+            </ul>
+        </div>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
+            <span class="glyphicon glyphicon-edit"></span>
+            <span class="icon-button-label icon-left-button-label">创建配额</span>
+        </button>
+    </div>
+    <div class="table-container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="fristTh"><input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="isSelectedAll" (click)="switchSelectAll();" /> 全选</th>
+                    <th>企业名称</th>
+                    <th>区域</th>
+                    <th>云主机数量</th>
+                    <th>存储(GB)</th>
+                    <th>网络数</th>
+                    <th>描述</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of entResQuotas; let idx = index;">
+                    <td><input  class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)" /></td>
+                    <td>{{item.enterpriseName}}</td>
+                    <td>{{item.regionName}}</td>
+                    <td>{{item.vmQuota}}</td>
+                    <td>{{item.storageQuota}}</td>
+                    <td>{{item.networkQuota}}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<fc-pagination #pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
+
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
+
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>

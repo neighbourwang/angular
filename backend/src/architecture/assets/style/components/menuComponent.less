@@ -1,0 +1,98 @@
+
+/********Left Content Section Start*********/
+.left-content {
+	position: fixed;
+    left: 0;
+    top:80px;
+    height: 100%;
+    width: 250px;
+    z-index: 999;
+	overflow: auto;
+	overflow-x: hidden;
+	background-color: @menuBg;
+    &:hover {
+        overflow: auto;
+        padding-right: 1px;
+    }
+    .top1-menu {
+        background-position: 85%;
+        padding: 0px 0px 0px 0px;
+        font-size: 16px;
+        color: @whiteColor;
+        border-bottom: 1px solid @menuBd;
+        position: relative;
+        span {
+            padding: 5px 0px 5px 46px;
+            font-size: 16px;
+            color: @whiteColor;
+            height: 46px;
+            line-height: 46px;
+        }
+        span.glyphicon-chevron-down, span.glyphicon-chevron-right {
+            position: absolute;
+            top: 0px;
+            right: 15px;
+            font-size: 14px;
+        }
+        .top-menu-open .top3-menu {
+            display: block;
+        }
+    }
+    .top1-menu-trigger, .top1-menu-trigger span{
+        cursor: pointer;
+    }
+    .top1-menu-trigger span {
+        background-size: 20px auto
+    }
+    .top2-menu {
+        position: relative;
+        display: block;
+        display: none;
+        span.glyphicon-chevron-down, span.glyphicon-chevron-right {
+            position: absolute;
+            top: 0px;
+            right: 30px;
+            font-size: 14px;
+        }
+    }
+    .top2-menu-trigger {
+        padding: 0px 0px 0px 15px;
+        font-size: 20px;
+        color: @whiteColor;
+        cursor: pointer;
+        height: 46px;
+        line-height: 46px;
+        cursor: pointer;
+        span {
+            cursor: pointer;
+        }
+        &:hover {
+            background-color: @mainColor;
+        }
+    }
+    .top3-menu {
+        padding: 0px 0px 0px 90px;
+        font-size: 16px;
+        background-color: @menuBg2;
+        color: @grayColor;
+        cursor: pointer;
+        height: 46px;
+        line-height: 46px;
+        display: block;
+        display: none;
+        &:hover {
+            background-color: @mainColor;
+            color: @whiteColor;
+        }
+    }
+    .top-menu-active {
+        background: @mainColor url("../../images/leftMenuWhiteArrow.png") right no-repeat;
+        color: @whiteColor;
+    }
+
+    .top-menu-open .top2-menu {
+        display: block;
+    }
+}
+
+/********Left Content Section End*********/

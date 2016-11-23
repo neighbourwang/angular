@@ -1,0 +1,100 @@
+<div class="page-content-header icon-content-header-platform-manage">产品目录管理</div>
+<div class="page-content">
+	<div style="padding-bottom: 10px;">
+		<div class="dropdown pull-right" style="margin-left: 20px">
+			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="true">
+                更多操作
+                <span class="caret"></span>
+            </button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+				<!--<li><a href="#">修改</a></li>-->
+				<!--<li><a (click)="edit();">编辑</a></li>-->
+				<li><a (click)="action('publish');">发布</a></li>
+				<li><a (click)="action('ccPublish');">取消发布</a></li>
+				<li><a (click)="action('delete');">删除</a></li>
+			</ul>
+		</div>
+		<button class="pull-right fox-cloud-button-md fox-cloud-button-white" style="line-height:28px ;width:60px; margin-left: 20px"
+			(click)='onQuery()'>查询</button>
+		<div class="dropdown pull-right" style="margin-left: 10px">
+			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                所有平台
+                <span class="caret"></span>
+            </button>-->
+			<select class="form-control" [(ngModel)]="platformId">
+                 <option *ngFor="let item of platformsList;" [value]="item.id">{{item.name}}</option>
+            </select>
+		</div>
+		<span class="pull-right" style="line-height: 34px;margin-left: 20px">平台：</span>
+
+		<div class="dropdown pull-right" style="margin-left: 10px">
+			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                选择产品目录类别
+                <span class="caret"></span>
+            </button>-->
+			<select class="form-control" [(ngModel)]="queryProDirTypeId">
+                 <option *ngFor="let item of prodDirTypeList;" [value]="item.id">{{item.name}}</option>
+            </select>
+		</div>
+		<span class="pull-right" style="line-height: 34px">产品目录类别：</span>
+		<button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
+            <span class="glyphicon glyphicon-edit"></span>
+            <span class="icon-button-label icon-left-button-label">创建产品目录</span>
+        </button>
+	</div>
+	<div class="table-container">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th class="check-box-col"><input class="fox-cloud-checkbox" type="checkbox" class="fox-cloud-checkbox" (click)="switchSelectAll();" />全选</th>
+					<th>产品目录名称</th>
+					<th>产品目录类别</th>
+					<th>产品规格</th>
+					<th>产品数量</th>
+					<th>状态</th>
+					<th>描述</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let item of prodDirList; let idx = index;">
+					<td><input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)"
+						/></td>
+					<td (click)="goDetail(item)" style="cursor: pointer">{{item.serviceName}}</td>
+					<td>{{item.serviceTemplateName}}</td>
+					<td>{{item.specification}}</td>
+					<td>{{item.productNum}}</td>
+					<td>
+						<span [ngSwitch]="item.status">
+                            <template [ngSwitchCase]="1">已发布</template>
+                            <template [ngSwitchCase]="3">未发布</template>
+                            <template ngSwitchDefault>Unknown</template>
+                        </span>
+					</td>
+					<td>{{item.description}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<fc-pagination #pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
+
+<fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="deleteCof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-confirm #publishConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="publishCof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-confirm #ccPublishConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="ccPublishCof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-popup #createProdDir title="{{title}}" ot="创建" (of)="otcreate()" ct="取消" (cf)="ccf()">
+	<div class="row row-line-height">
+		<div class="form-group">
+			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>产品目录类别：</div>
+			<div class="col-sm-6">
+				<!--<select class="form-control" [(ngModel)]="entResQuota">
+                    <option *ngFor="let item of regions;" [value]="item.id">云主机服务</option>
+                </select>-->
+				<select class="form-control" [(ngModel)]="prodDirTypeId">
+                    <option *ngFor="let item of prodDirTypeList;" [value]="item.id">{{item.name}}</option>
+                </select>
+			</div>
+		</div>
+	</div>
+</fc-popup>

@@ -1,0 +1,22 @@
+export class Flavor {
+    code: string = '';
+    cpu: number = -1;
+    createDate: string = '';
+    disableFlag: string = '';
+    disk: number = -1;
+    displayName: string = '';
+    ephemeral: number = -1;
+    id: string = '';
+    mem: number = -1;
+    memDisplay: string = '';
+    name: string = '';
+    platformId: number = -1;
+    publicFlag: string = '';
+    ram: number = -1;
+    rxtxCap: number = -1;
+    rxtxFactor: number = -1;
+    rxtxQuota: number = -1;
+    swap: number = -1;
+    updateDate: string = '';
+    uuid: string = '';
+}

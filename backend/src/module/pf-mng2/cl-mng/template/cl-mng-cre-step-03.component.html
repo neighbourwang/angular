@@ -1,0 +1,67 @@
+<div class="page-content-header icon-content-header-platform-manage">创建平台</div>
+<div class="page-content fix-page-content">
+    <div class="row navigator-progress">
+        <div class="col-md-2 active"><span class="mark">1</span><span>基本信息</span><span class="icon-tick"></span></div>
+        <div class="col-md-2 active"><span class="mark">2</span><span>资源同步</span><span class="icon-tick"></span></div>
+        <div class="col-md-2 active"><span class="mark">3</span><span>可用区配置</span></div>
+        <div class="col-md-2"><span class="mark">4</span><span>存储区配置</span></div>
+        <div class="col-md-2"><span class="mark">5</span><span>云主机规格</span></div>
+        <div class="col-md-2"><span class="mark">6</span><span>镜像配置</span></div>
+    </div>
+    <div class="step-progress">
+        <div class="fox-cloud-progress-rectangle progress-striped">
+            <div class="progress-bar fox-cloud-progress-bar-rectangle" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 49.98%;">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 table-container no-padding">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>名称</th>
+                        <th>显示名称</th>
+                        <th>宿主机数量</th>
+                        <th>物理cpu总核数</th>
+                        <th>总内存(GB)</th>
+                        <th>云主机数量配额</th>
+                        <th>说明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of creStep3Model; let idx = index;">
+                        <td>{{idx + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td><input type="text" class="form-control" [(ngModel)]="item.displayName"></td>
+                        <td>{{item.hostnum}}</td>
+                        <td>{{item.vcpunum}}</td>
+                        <td>{{item.memSize}}</td>
+                        <td>
+                            <count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>
+                            <!--<input type="number" class="form-control" [(ngModel)]="item.vmQuota" style="width: 100px; display: inline;">-->
+                            </td>
+                        <td><input type="text" class="form-control" [(ngModel)]="item.description"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+<div class="text-center">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+        <span class="icon-button-label">取消</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="previous();">
+        <span class="icon-button-label">上一步</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="next();">
+        <span class="icon-button-label">下一步</span>
+    </button>
+</div>
+
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认"></fc-notice>
+
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>

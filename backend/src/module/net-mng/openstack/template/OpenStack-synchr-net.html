@@ -1,0 +1,79 @@
+﻿<div class="page-content-header icon-cloud-network-mngOn" >
+    同步网络：{{platformName}} 云平台
+
+    <button class="fox-cloud-button-sm fox-cloud-button-white pull-right " style="font-size:14px;padding:1px 15px"(click)="cancel()">
+            返回上一级
+    </button>
+</div>
+
+<div class="page-content">
+
+    <div class="dropdown pull-right mgb10" >
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            选择操作
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <li (click)="addAll()"><a>全部添加</a></li>
+            <li (click)="updateAll()"><a>全部更新</a></li>
+            <li (click)="disableAll()"><a>全部禁用</a></li>
+        </ul>
+    </div>
+   
+    <div class="table-container clear" >
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>网络名</th>
+                    <th>子网名</th>
+                    <th>子网显示名称</th>
+                    <th>网段</th>
+                    <th>所属企业</th>
+                    <th>类型</th>
+                    <th>是否共享</th>
+                    <th>运行状态</th>
+                    <th>同步结果</th>
+                    <th>同步操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let network of synNetworks;let i=index" >
+                    <td>{{i+1}}</td>
+                    <td >{{network.networkName}}</td>
+                    <td >{{network.subnetName}}</td>
+                    <td >
+                        <div *ngIf="network.syncResult==1">
+                            <input type="text" class="form-control" [(ngModel)]="network.subnetDisplayName" />
+                        </div>
+                        <div *ngIf="network.syncResult!=1">
+                            {{network.subnetDisplayName}}
+                        </div>
+                        </td>
+                    <td >{{network.segmentCIDR}}</td>
+                    <!--<td class="text-center">{{network.gateway}}</td>-->
+                    <td>{{network.tenantName}}</td>
+                    <td>{{getDicText(network.networkType,this.typeDic)}}</td>
+                    <td>{{getDicText(network.shared,this.sharedDic)}}</td>
+                    <td>{{getDicText(network.state,this.stateDic)}}</td>
+                    <td>{{getDicText(network.syncResult,this.synDic)}}</td>
+                    <td ><span [(ngSwitch)]="network.syncResult">
+                        <span *ngSwitchCase="'1'">
+                            <button class="fox-cloud-button-md fox-cloud-button-white" (click)="addOne(network)">添加</button>
+                        </span>
+                        <span *ngSwitchCase="'2'">
+                            <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateOne(network)">更新</button>
+                        </span>
+                        <span *ngSwitchCase="'3'">
+                            <button class="fox-cloud-button-md fox-cloud-button-white" (click)="disableOne(network)">禁用</button>
+                        </span>
+                    </span>
+                    </td>
+                     </tr>
+                
+            </tbody>
+        </table>
+    </div>
+    <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+    <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
+</div>

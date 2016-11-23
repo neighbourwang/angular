@@ -1,0 +1,60 @@
+<fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
+
+<div class="page-content-header icon-content-header-purchasing">服务目录管理</div>
+<div class="page-content">
+	<div style="padding-bottom: 10px;">
+		<div class="dropdown pull-right">
+			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			选择操作
+			<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+				<!--<li><a (click)="modify()">修改</a></li>-->
+				<li><a (click)="confirmRemove()">删除</a></li>
+			</ul>
+		</div>
+		<div class="dropdown pull-right">
+            <select class="form-control" [(ngModel)]="filterRegId" (ngModelChange)="regChange($event)">
+                <option *ngFor="let item of regions" value="{{item.id}}">{{item.displayName || item.name || item.id}}</option>
+            </select>
+		</div>
+		<button class="fox-cloud-button fox-cloud-button-green" (click)="create();">
+			<span class="glyphicon glyphicon-edit"></span>
+			<span class="icon-button-label icon-left-button-label">创建目录</span>
+		</button>
+	</div>
+	<div class="table-container">
+		<table class="table table-hover"> 
+			<thead>
+				<tr>
+					<th class="fristTh">
+						<input class="fox-cloud-checkbox" type="checkbox" (click)="checkAll()"> 全选
+					</th>
+					<th>服务目录</th>
+					<th>服务模板</th>
+					<th>描述</th>
+					<th>状态</th>
+					<th>创建者</th> 
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!--<tr *ngFor="let item of (directories | directoryDispPipe: filterRegId)">-->
+				<tr *ngFor="let item of (directories)">
+					<td><input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="item.checked" [checked]="item.checked"></td>
+					<td>{{item.name}}</td>
+					<td>{{item.serviceTemplateName}}</td>
+					<td>{{item.description}}</td>
+					<td><i class="status" [ngClass]="{'bg-success': item.status == 1, 'bg-danger': item.status != 1}"></i></td>
+					<td>{{item.creatorName}}</td> 
+					<td>
+						<a class="btn btn-xs btn-default" [ngClass]="{'disabled': item.status == 1}" (click)="confirmPublish(item)">发布</a>
+						<a class="btn btn-xs btn-default" [ngClass]="{'disabled': item.status != 1}" (click)="confirmCancelPublish(item)">取消发布</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<fc-pagination tp={{totalPages}} (pf)="changePage($event)"></fc-pagination>
+</div>

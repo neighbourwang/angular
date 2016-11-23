@@ -1,0 +1,74 @@
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
+
+<div class="page-content-header icon-content-header-purchasing">创建服务目录</div>
+<div class="page-content fix-page-content">
+	<div class="row navigator-progress">
+		<div class="col-md-3 active"><span class="mark">1</span>填写服务目录信息</div>
+		<div class="col-md-3"><span class="mark">2</span> 配置服务模板</div>
+		<div class="col-md-3"><span class="mark">3</span> 选择可用区</div>
+		<div class="col-md-3"><span class="mark">4</span> 设置启动盘</div>
+		<div class="clear"></div>
+	</div>
+	<div class="step-progress">
+		<div class="fox-cloud-progress-rectangle progress-striped">
+			<div class="progress-bar fox-cloud-progress-bar-rectangle" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+			</div>
+		</div>
+	</div>
+	<div class="row" style="padding-top: 30px;">
+		<div class="col-md-12">
+			<div class="row line-height">
+				<div class="form-group">
+					<label for="firstname" class="col-sm-4 control-label">服务器名称：</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" placeholder="标准云主机_普通存储" [(ngModel)]="serviceDetail.name">
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="row line-height">
+				<div class="form-group">
+					<label for="firstname" class="col-sm-4 control-label">服务模板：</label>
+					<div class="col-sm-4">
+						<select class="form-control" [(ngModel)]="serviceDetail.templateId">
+							<option *ngFor="let item of templates" value="{{item.id}}">
+								{{item.name || item.id}}
+							</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row line-height">
+				<div class="form-group">
+					<label for="firstname" class="col-sm-4 control-label">区域：</label>
+					<div class="col-sm-4">
+						<select class="form-control" [(ngModel)]="serviceDetail.regionId">
+							<option *ngFor="let item of regions" value="{{item.id}}">
+								{{item.displayName || item.name || item.id}}
+							</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row line-height">
+				<div class="form-group">
+					<label for="firstname" class="col-sm-4 control-label">描述：</label>
+					<div class="col-sm-4">
+						<textarea class="form-control" rows="8" placeholder="标准配置，SAS存储" [(ngModel)]="serviceDetail.desc"></textarea> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="text-center">
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="goBack();">
+		<span class="icon-button-label">返回</span>
+	</button>
+	<button class="fox-cloud-button-lg fox-cloud-button-white">
+		<span class="icon-button-label">上一步</span>
+	</button>
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="nextStep();">
+		<span class="icon-button-label">下一步</span>
+	</button>
+</div>
