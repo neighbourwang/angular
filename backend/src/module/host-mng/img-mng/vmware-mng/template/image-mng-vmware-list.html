@@ -1,0 +1,199 @@
+﻿<div class="page-content-header icon-content-header-purchasing"> 镜像管理----XXXXX(平台名称)
+    <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" key="boe/image-mng.html">
+        返回镜像管理列表
+    </button>
+</div>
+<div class="page-content">
+    <div class="mgt15 ">      
+            <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >镜像类型：</span>
+            <div class="float-left pdr20">
+                <select class="pdl10 form-control">
+                    <option value="">选择镜像</option>
+                    <option *ngFor="let td of typeDict" value="td">{{td}}</option>
+                </select>
+            </div>          
+            <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >所属企业：</span>
+            <div class="float-left">
+                <select class="pdl10 form-control">
+                    <option value="">选择企业</option>
+                    <option *ngFor="let ent of vmwareents" value="ent.id">{{ent.name}}</option>
+                </select>
+            </div>  
+            <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10 "><span class="icon-button-label">确定 </span> </button>                                                             
+    </div>         
+    <div style="clear:both"></div>
+    <div class="mgb20 " style="margin-top:20px">
+        <button class="fox-cloud-button fox-cloud-button-green mgr10" key="boe/image-sync-vmware.html">同步镜像</button>
+        <button class="fox-cloud-button fox-cloud-button-green" key="boe/image-ent-set-vmware.html">设置企业</button>
+        <div class="dropdown pull-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             更多操作
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <li><a href="#myModal" data-toggle="modal">编辑</a></li>
+                <li><a href="javascript:">启用</a></li>
+                <li><a href="javascript:">禁用</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="table table-hover">
+             <thead>
+                <tr>
+                    <th>选择</th>
+                    <th>镜像名</th>
+                    <th>镜像显示名称</th>
+                    <th>操作系统</th>
+                    <th>系统位数</th>
+                    <th>镜像类型</th>
+                    <th>所属企业</th>
+                    <th>状态</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ipmng of ipmngs; let i=index;">
+                    <td><input type="radio" name="image" class="fox-cloud-radio"></td>
+                    <td><a href="#" key="boe/image-mng-openStack-list.html">windows2012dc</a></td>
+                    <td style="position:relative">
+                        windows2012 Datacenter R2 
+                        <span class="pull-right icon-edit2"></span>
+                        <div class="popover fade bottom in" role="tooltip" style="z-index:-3;top:25px; left:150px; width:370px; max-width:1100px; display: block;">
+                                <div class="arrow" style="left: 30%;"></div>
+                                <div class="popover-content">
+                                    <form class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">镜像显示名称:</label>
+                                            <div class="col-sm-8 float-left">
+                                            <input type="text">
+                                            </div>
+                                        </div>
+                                    </form>
+                                <div class="pull-right" style="margin-bottom:10px;">
+                                    <button class=" fox-cloud-button fox-cloud-button-white">保存</button>
+                                    <button class="fox-cloud-button fox-cloud-button-white">取消</button>
+                                </div>
+                            </div>                              
+                    </div>
+                    </td>
+                    <td>windows2012 R2</td>
+                    <td>64</td>
+                    <td>公共镜像</td>
+                    <td>所有</td>
+                    <td class="font-green">已启用</td>                   
+                </tr>
+                <tr>
+                    <td><input type="radio" name="image" class="fox-cloud-radio"></td>
+                    <td><a href="#" key="boe/image-mng-openStack-list.html">windows2012dc</a></td>
+                    <td>windows2012 Datacenter R2 <span class="pull-right icon-edit2"></span></td>
+                    <td>windows2012 R2</td>
+                    <td>64</td>
+                    <td>公共镜像</td>
+                    <td>所有</td>
+                    <td class="font-green">已启用</td>  
+                </tr>
+                <tr>
+                    <td><input type="radio" name="image" class="fox-cloud-radio"></td>
+                    <td><a href="#" key="boe/image-mng-openStack-list.html">windows2012dc</a></td>
+                    <td>windows2012 Datacenter R2 <span class="pull-right icon-edit2"></span></td>
+                    <td>windows2012 R2</td>
+                    <td>64</td>
+                    <td>公共镜像</td>
+                    <td>
+                        <a>详细>></a>
+                        <div class="table-container" style=" border-left: 1px solid #cfd8e7;border-right: 1px solid #cfd8e7">
+                            <table class="table table-hover" >
+                                <thead>
+                                    <th style="background-color:#00a982;color:white">所有企业</th>
+                                </thead>
+                                <tbody>
+                                    <tr><td >BOE-CIO总部</td></tr>
+                                     <tr><td>BOE-信管中心1</td></tr>
+                                     <tr><td>BOE-信管中心2</td></tr>
+                                </tbody>                          
+                            </table>
+                        </div>
+                    </td>
+                    <td class="font-orange">禁用</td>  
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="fox-cloud-pagination-container">
+        <fc-pagination #pager tp={{totalPage}} (pf)="getVmwareImgList($event)"></fc-pagination>
+    </div>
+    <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+    <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
+</div>
+
+
+
+<modal  class="modal fade in" role="dialog" tabindex="-1" data-keyboard="true" data-backdrop="false"  id="myModal" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <modal-header class="fox-cloud-modal-header" show-close="true" ng-reflect-show-close="true">
+                <div class="modal-header">
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+                    编辑镜像
+                </div>
+            </modal-header>
+            <modal-body class="fox-cloud-modal-body">
+                <div class="modal-body">                                       	
+                    <div class="row row-line-height">
+                        <div class="form-group">
+                            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像名:</div>
+                            <div class="col-sm-6"><span style="line-height:34px">windows2012dc</span> </div>
+                        </div>
+                    </div>	
+                    <div class="row row-line-height">
+                        <div class="form-group">
+                            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像显示名称:</div>
+                            <div class="col-sm-6"><input class="form-control" placeholder="windows2012 R2 64位"></div>
+                        </div>
+                    </div>	
+                    <div class="row row-line-height">
+                        <div class="form-group">
+                            <div class="col-sm-4 form-control-title">系统位数:</div>
+                            <div class="col-sm-6">
+                                <select class="form-control" >
+                                    <option>64位</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>	
+                    <div class="row row-line-height">
+                        <div class="form-group">
+                            <div class="col-sm-4 form-control-title">操作系统:</div>
+                            <div class="col-sm-6"><input class="form-control" placeholder="windows2012 R2 "></div>
+                        </div>
+                    </div>	
+                    <div class="row row-line-height">
+                        <div class="form-group">
+                            <div class="col-sm-4 form-control-title">镜像类型:</div>
+                            <div class="col-sm-6"><span style="line-height:34px">企业镜像</span> </div>
+                        </div>
+                    </div>
+                    <div class="row row-line-height">
+                        <div class="form-group">
+                            <div class="col-sm-4 form-control-title">描述:</div>
+                            <div class="col-sm-6"><textarea class="form-control" rows="3"></textarea></div>
+                        </div>
+                    </div>                      
+            </modal-body>
+            <modal-footer class="fox-cloud-modal-footer">
+                <div class="modal-footer">
+                    <button class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal" style="margin-left: 30px">
+                        <span class="icon-button-label">取消</span>
+                    </button>
+                    <button class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal" style="margin-left: 30px">
+                        <span class="icon-button-label">保存</span>
+                    </button>
+                </div>
+            </modal-footer>
+
+        </div>
+    </div>
+</modal>

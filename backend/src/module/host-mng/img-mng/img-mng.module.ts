@@ -2,14 +2,17 @@ import { NgModule } from '@angular/core';
 
 
 import { OpenstackMngModule } from './openstack-mng/openstack-mng.module';
+import { VmareMngModule } from './vmware-mng/vmware-mng.module';
 
 @NgModule({
     imports: [
-        OpenstackMngModule
+        OpenstackMngModule,
+        VmareMngModule
     ],
     declarations: [],
     exports: [
-        OpenstackMngModule
+        OpenstackMngModule,
+        VmareMngModule
     ],
     providers: []
 })
