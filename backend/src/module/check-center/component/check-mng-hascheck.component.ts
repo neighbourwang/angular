@@ -38,9 +38,19 @@ export class CheckMngHascheckComponent implements OnInit{
 
 		//审批人列表
 		this._approverListLoader = new ItemLoader<{id:string;name:string}>(false, "审批人列表", "check-center.approver-list.get", _restApiCfg, _restApi);
+		this._approverListLoader.MapFunc = (source:Array<any>,target:Array<{id:string;name:string}>)=>{
+			target = target.concat(source.map(n=>{
+				return {id:n.key, name:n.value};
+			}));
+		};
+
 		//用户列表
 		this._userListLoader = new ItemLoader<{id:string;name:string}>(false, "用户列表", "check-center.user-list.get", _restApiCfg, _restApi);
-
+		this._userListLoader.MapFunc = (source:Array<any>,target:Array<{id:string;name:string}>)=>{
+			target = target.concat(source.map(n=>{
+				return {id:n.key, name:n.value};
+			}));
+		};
 		//订单类型
 		this._orderTypeDic = new DicLoader(_restApiCfg, _restApi, "ORDER", "TYPE");
 
@@ -63,9 +73,6 @@ export class CheckMngHascheckComponent implements OnInit{
 		})
 		.then(success=>{
 			return this._orderTypeDic.Go();
-		})
-		.then(success=>{
-			return this._approverListLoader.Go();
 		})
 		.then(success=>{
 			this._layoutService.hide();
@@ -103,6 +110,9 @@ export class CheckMngHascheckComponent implements OnInit{
 	departmentChanged(){
 		this._layoutService.show();
 		this._userListLoader.Go(null, [{key:"departmentId", value:this._param.departmentIdNum}])
+		.then(success=>{
+			return this._approverListLoader.Go(null, [{key:"departmentId", value:this._param.departmentIdNum }])
+		})
 		.then(success=>{
 			this._layoutService.hide();
 		})

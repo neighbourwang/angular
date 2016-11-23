@@ -38,6 +38,11 @@ export class CheckMngListComponent implements OnInit{
 
 		//用户列表
 		this._userListLoader = new ItemLoader<{id:string;name:string}>(false, "用户列表", "check-center.user-list.get", _restApiCfg, _restApi);
+		this._userListLoader.MapFunc = (source:Array<any>,target:Array<{id:string;name:string}>)=>{
+			target = target.concat(source.map(n=>{
+				return {id:n.key, name:n.value};
+			}));
+		};
 
 		//订单类型
 		this._orderTypeDic = new DicLoader(_restApiCfg, _restApi, "ORDER", "TYPE");

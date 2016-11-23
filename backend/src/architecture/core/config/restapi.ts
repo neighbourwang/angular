@@ -1062,7 +1062,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取审批人列表",
         "id": "check-center.approver-list.get",
         "method": "GET",
-        "url": "adminui/authsec/approval/approvers"        
+        "url": "adminui/authsec/approval/department/{departmentId}/approvers"        
     }
     // 审批中心    
 
