@@ -14,3 +14,4 @@ export * from './core/model/rest';
 export * from './core/service/validation.service';
 export * from './core/service/system.dictionary.service';
 export * from './core/model/system.dictionary.model';
+export * from './pipe/pipe.module';

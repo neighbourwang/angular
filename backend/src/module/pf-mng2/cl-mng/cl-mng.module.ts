@@ -4,6 +4,7 @@
 import { NgModule } from '@angular/core';
 
 // Common Components
+import { PipeModule } from '../../../architecture';
 import { CommonComponentModule } from '../../../architecture';
 
 //Components
@@ -47,6 +48,7 @@ import { ClMngCommonService } from './service/cl-mng-common.service';
 @NgModule({
     imports: [
         CommonComponentModule,
+        PipeModule,
         ClMngRouting
     ],
     declarations: [
