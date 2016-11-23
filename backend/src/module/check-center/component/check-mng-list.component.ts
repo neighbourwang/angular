@@ -26,6 +26,7 @@ export class CheckMngListComponent implements OnInit{
 	private _serviceTypeDic:DicLoader = null; //产品类型
 	private _orderTypeDic:DicLoader = null; //订单类型
 	private _isAdvSearch:boolean = false;//高级查询
+	private _userListLoader:ItemLoader<{id:string;name:string}> = null;//用户列表
 
 	@ViewChild("notice") private _notice:NoticeComponent;
 	@ViewChild("refuseDialog")
@@ -34,6 +35,9 @@ export class CheckMngListComponent implements OnInit{
 		private _restApiCfg:RestApiCfg
 		,private _restApi:RestApi
 		,private _layoutService:LayoutService){
+
+		//用户列表
+		this._userListLoader = new ItemLoader<{id:string;name:string}>(false, "用户列表", "check-center.user-list.get", _restApiCfg, _restApi);
 
 		//订单类型
 		this._orderTypeDic = new DicLoader(_restApiCfg, _restApi, "ORDER", "TYPE");
@@ -70,7 +74,7 @@ export class CheckMngListComponent implements OnInit{
 
 	showMsg(msg:string)
 	{
-		this._notice.open("ÏµÍ³", msg);
+		this._notice.open("系统", msg);
 	}
 
 	//搜索
@@ -96,5 +100,14 @@ export class CheckMngListComponent implements OnInit{
 		this.refuseDialog.open();
 	}
 
-
+	departmentChanged(){
+		this._layoutService.show();
+		this._userListLoader.Go(null, [{key:"departmentId", value:this._param.departmentIdNum}])
+		.then(success=>{
+			this._layoutService.hide();
+		})
+		.catch(err=>{
+			this._layoutService.hide();
+		});
+	}
 }
