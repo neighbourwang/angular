@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 // Common Componets
+import { PipeModule } from '../../architecture';
 import { CommonComponentModule } from '../../architecture';
 
 // Routing
@@ -13,6 +14,7 @@ import { CheckMngHascheckComponent } from './component/check-mng-hascheck.compon
 @NgModule({
     imports: [
         CommonComponentModule,
+        PipeModule,
         CheckCenterRouting
     ],
     declarations: [

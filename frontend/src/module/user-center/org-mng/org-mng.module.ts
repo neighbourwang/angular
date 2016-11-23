@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 // Common Componets
+import { PipeModule } from '../../../architecture';
 import { CommonComponentModule } from '../../../architecture';
 
 // component 
@@ -18,6 +19,7 @@ import { OrgMngRouting } from './org-mng.routing';
 @NgModule({
     imports: [
         CommonComponentModule,
+        PipeModule,
         OrgMngRouting
     ],
     declarations: [
