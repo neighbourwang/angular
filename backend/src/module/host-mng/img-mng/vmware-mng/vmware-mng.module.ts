@@ -12,6 +12,7 @@ import { VmwareImgSyncComponent } from './component/vmware-img-sync.component';
 
 //Service
 import { VmwareImgListService } from './service/vmware-img-list.service';
+import { VmwareEntListService } from './service/enterprise-list.service';
 
 @NgModule({
     imports: [
@@ -27,7 +28,8 @@ import { VmwareImgListService } from './service/vmware-img-list.service';
         VmwareImgSyncComponent
     ],
     providers: [
-        VmwareImgListService
+        VmwareImgListService,
+        VmwareEntListService
     ]
 
 })
