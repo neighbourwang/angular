@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 // common
+import { PipeModule } from '../../../architecture';
 import { CommonComponentModule } from '../../../architecture';
 
 //routing
@@ -24,6 +25,7 @@ import { cloudHostServiceList } from './service/cloud-host-list.service';
     imports: [
         VmInstanceRouting,
         CommonComponentModule,
+        PipeModule
         // MyDatePickerModule
         // TabsModule
         // TreeModule

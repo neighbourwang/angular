@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent} from '../../../../architecture';
 
+import { AccountMngService } from '../service/account-mng.service';
+
+import { Role } from '../model/role'
+
 @Component({
   selector: 'account-mng-cr-local',
   templateUrl: '../template/account-mng-cr-local.component.html',
@@ -13,14 +17,20 @@ export class AccountMngCrLocalComponent implements OnInit {
   
   constructor(
     private layoutService: LayoutService,
-    private router: Router
+    private router: Router,
+    private service : AccountMngService
   ) {}
 
   @Input()
   isEdit : boolean;
 
   ngOnInit() {
-    
+    this.service.getRoleList().then(
+      res => {
+        console.log(res);
+        
+      }
+    )
   }
   
 }

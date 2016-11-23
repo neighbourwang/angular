@@ -1,4 +1,3 @@
-
 <fc-notice #notice ot="确认"></fc-notice>
 <div class="CheckMngList">
 	<div class="page-content-header icon-order-manage header-title">待审批列表</div>
@@ -8,8 +7,8 @@
 				<div class="input-group col-md-2 float-left mgr20">
 					<input class="form-control" placeholder="输入云主机信息搜索" type="email">
 					<div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
-				</div>
-				<button class="button-white button-size-big float-left mgl20">高级查询</button>
+				</div> 
+				<button class="btn btn-default  float-left mgl20" [ngClass]="{'btn-default':_isAdvSearch!=1,'fox-cloud-button-white':_isAdvSearch==1}"  (click)="_isAdvSearch=!_isAdvSearch">高&nbsp;级&nbsp;查&nbsp;询</button>
 			</div>
 			<table class="table" *ngIf="_isAdvSearch">
 				<tbody>
@@ -53,7 +52,7 @@
 								</select>
 							</div>
 						</td>
-						<td><div class="left form-control-title">产品类型：</div>
+						<td colspan="2"><div class="left form-control-title">产品类型：</div>
 							<div class="dropdown left">
 								<select class="form-control" [(ngModel)]="_param.serviceTypeNum">
 									<option class="hands" [value]="null">所有服务</option>

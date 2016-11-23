@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 // common
+import { PipeModule } from '../../../architecture';
 import { CommonComponentModule } from '../../../architecture';
 
 //routing
@@ -22,6 +23,7 @@ import { cloudDriveServiceList } from './service/cloud-drive-list.service';
     imports: [
         CloudDriveRouting,
         CommonComponentModule,
+        PipeModule,
         // MyDatePickerModule
         // TabsModule
         // TreeModule

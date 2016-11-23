@@ -83,6 +83,9 @@ export class ImgMngComponent_my implements OnInit {
     
     //根据value获取字典的txt
     getDicText(value: string, dic: Array<SystemDictionary>): String {
+        if (!$.isArray(dic)) {
+            return value;
+        }
         const d = dic.find((e) => {
             return e.value == value;
         });

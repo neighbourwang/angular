@@ -211,14 +211,14 @@ const menu: Array<Object> = [
          "icon": "icon-order-manage",
          "top2_menu": [
           {
-               "label": "镜像管理",
-                 "isOpen": false,
-                 "isActive": false,
-                 "routing": "host-mng/img-mng/img-index/img-index"
-             }
+              "label": "镜像管理",
+                "isOpen": false,
+                "isActive": false,
+                "routing": "host-mng/img-mng/img-index"
+            }
          ]
      },
-    {
+     {
          "label": "云网络管理",
          "isOpen": true,
          "icon": "icon-order-manage",

@@ -1041,20 +1041,8 @@ export let RestApis: RestApiModel[] = [
         "url": "none"        
     }
     ,{
-        "desc": "获取用户列表",
-        "id": "check-center.user.list",
-        "method": "GET",
-        "url": "none"        
-    }
-    ,{
         "desc": "获取订单详情",
         "id": "check-center.order.detail",
-        "method": "GET",
-        "url": "none"        
-    }
-    ,{
-        "desc": "获取审批人列表",
-        "id": "check-center.check-person.list",
         "method": "GET",
         "url": "none"        
     }
@@ -1064,6 +1052,20 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "none"        
     }
+    ,{
+        "desc": "获取用户列表",
+        "id": "check-center.user-list.get",
+        "method": "GET",
+        "url": "adminui/authsec/approval/department/{departmentId}/users"        
+    }
+    ,{
+        "desc": "获取审批人列表",
+        "id": "check-center.approver-list.get",
+        "method": "GET",
+        "url": "adminui/authsec/approval/department/{departmentId}/approvers"        
+    }
+    // 审批中心    
+
     // vmware标准网络   
     , {
         "desc": "获取标准网络列表",
@@ -1100,5 +1102,15 @@ export let RestApis: RestApiModel[] = [
         "id": "net-img.vm-mng.network.update",
         "method": "POST",
         "url": "/adminboe/authsec/vmware/network/update"
+    },
+
+
+    ////云主机管理-镜像管理-
+    //openstack镜像管理
+    {
+        "desc": "获取镜像列表-openstack",
+        "id": "host-mng.openstack-mng.image.list",
+        "method": "POST",
+        "url": "/adminui/authsec/images/openstack/{platformId}/page/{page}/size/{size}"
     }
 ]
