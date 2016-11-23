@@ -4,6 +4,6 @@ export class platform {
     dataCenter: string;
     region: string;
     type: string;
-    imagesNum: string;
+    imagesNum: number;
     syncDate: string;
 }

@@ -1,6 +1,6 @@
-export const platforms_mock={
+ï»¿export const platforms_mock={
     resultCode: "100",
-    detailDescription: "±ê×¼ÍøÂç",
+    detailDescription: "æ ‡å‡†ç½‘ç»œ",
     pageInfo: {
         currentPage: 1,
         pageSize: 20,
@@ -10,18 +10,18 @@ export const platforms_mock={
     resultContent: [
          {
             "id": "ef349044-3bfb-4b09-b804-30954b084e0d",
-            "name": "ÉÏº£AÇø",
-            "dataCenter": "Íâ¸ßÇÅÊı¾İÖĞĞÄ",
-            "region": "ÉÏº£",
+            "name": "ä¸Šæµ·AåŒº",
+            "dataCenter": "å¤–é«˜æ¡¥æ•°æ®ä¸­å¿ƒ",
+            "region": "ä¸Šæµ·",
             "type": "0",
             "imagesNum": 5,
             "syncDate": "2016-11-18 16:06:03"
         },
         {
             "id": "ef349044-3bfb-4b09-b804-30954b084e0d",
-            "name": "ÉÏº£AÇø",
-            "dataCenter": "Íâ¸ßÇÅÊı¾İÖĞĞÄ",
-            "region": "ÉÏº£",
+            "name": "ä¸Šæµ·AåŒº",
+            "dataCenter": "å¤–é«˜æ¡¥æ•°æ®ä¸­å¿ƒ",
+            "region": "ä¸Šæµ·",
             "type": "0",
             "imagesNum": "5",
             "syncDate": "2016-11-18 16:06:03"
