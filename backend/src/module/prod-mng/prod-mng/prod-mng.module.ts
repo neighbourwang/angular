@@ -3,6 +3,7 @@
  */
 import { NgModule } from '@angular/core';
 // Common Components ../../../architecture
+import { PipeModule } from '../../../architecture';
 import { CommonComponentModule } from '../../../architecture';
 
 //Components
@@ -23,6 +24,7 @@ import { GetProduct } from './service/getProduct.service';
 @NgModule({
     imports: [
         CommonComponentModule,
+        PipeModule,
         ProdMngRouting
     ],
     declarations: [

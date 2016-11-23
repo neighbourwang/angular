@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 
 // Common Components
+import { PipeModule } from '../../../architecture';
 import { CommonComponentModule } from '../../../architecture';
 
 import { OpenstackRouting } from './Openstack.routing';
@@ -12,7 +13,8 @@ import { OpenstackService } from './service/openstack.service'
 @NgModule({
     imports: [
         OpenstackRouting,
-        CommonComponentModule
+        CommonComponentModule,
+        PipeModule
     ],
     declarations: [
         OpenstackNetMngComponent,

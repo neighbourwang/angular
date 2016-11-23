@@ -4,6 +4,7 @@
 import { NgModule } from "@angular/core";
 
 // Common Components
+import { PipeModule } from '../../../architecture';
 import { CommonComponentModule } from "../../../architecture";
 
 //Components
@@ -21,7 +22,8 @@ import { AttMngCreService } from "./service/attest-source-cre.service";
 @NgModule({
     imports: [
         CommonComponentModule,
-        AttestMngRouting
+        AttestMngRouting,
+        PipeModule
     ],
     declarations: [
         AttestMngComponent,

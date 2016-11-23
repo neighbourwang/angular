@@ -1,8 +1,5 @@
 <div class="page-content cart_list">
 	<h1 class="page-content-header mgb20">购物车</h1>
-
-
-
       
     <table class="table table-all-boder mgb20">
         <tr class="table-title">
@@ -32,8 +29,8 @@
                 </table>
 
             </td>
-            <td class="text-center table-text-middle">{{cart.serviceType}}</td>
-            <td class="text-center table-text-middle">{{cart.billingMode}}</td>
+            <td class="text-center table-text-middle">{{cart.serviceType | dict:service.dictProductType | async}}</td>
+            <td class="text-center table-text-middle">{{cart.billingMode | dict:service.dictPriceModel | async}}</td>
             <td class="text-center table-text-middle">2017-6-11 10:1:2</td>
             <td class="text-center table-text-middle">无</td> 
             <td class="text-center table-text-middle" style="width: 15%;">

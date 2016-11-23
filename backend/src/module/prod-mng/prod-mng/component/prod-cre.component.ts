@@ -142,15 +142,21 @@ export class ProdCreComponent implements OnInit, OnChanges {
     }
     //选择企业
     selectEnterprise(ent, index) {
-        ent.selected = !ent.selected;
-        this.product.productEnterpiseReqs = this.enterpriseList.filter((ele) => {
-            if (ele.selected == true) {
-                return ele;
-            }
-        })
+        // ent.selected = !ent.selected;
+        // this.product.productEnterpiseReqs = this.enterpriseList.filter((ele) => {
+        //     if (ele.selected == true) {
+        //         return ele;
+        //     }
+        // });
+        this.product.productEnterpiseReqs.push(ent);
+        this.enterpriseList.splice(index,1);
         console.log(this.product.productEnterpiseReqs)
     }
-
+    //
+    unSelected(ent,index){
+        this.enterpriseList.push(ent);
+        this.product.productEnterpiseReqs.splice(index,1);
+    }
     //选择全部可用区
     selectAllZone: boolean = false;
     selectAllZones() {

@@ -1096,5 +1096,15 @@ export let RestApis: RestApiModel[] = [
         "id": "net-img.vm-mng.network.update",
         "method": "POST",
         "url": "/adminboe/authsec/vmware/network/update"
+    },
+
+
+    ////云主机管理-镜像管理-
+    //openstack镜像管理
+    {
+        "desc": "获取镜像列表-openstack",
+        "id": "host-mng.openstack-mng.image.list",
+        "method": "POST",
+        "url": "/adminui/authsec/images/openstack/{platformId}/page/{page}/size/{size}"
     }
 ]
