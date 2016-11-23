@@ -1041,20 +1041,8 @@ export let RestApis: RestApiModel[] = [
         "url": "none"        
     }
     ,{
-        "desc": "获取用户列表",
-        "id": "check-center.user.list",
-        "method": "GET",
-        "url": "none"        
-    }
-    ,{
         "desc": "获取订单详情",
         "id": "check-center.order.detail",
-        "method": "GET",
-        "url": "none"        
-    }
-    ,{
-        "desc": "获取审批人列表",
-        "id": "check-center.check-person.list",
         "method": "GET",
         "url": "none"        
     }
@@ -1078,4 +1066,41 @@ export let RestApis: RestApiModel[] = [
     }
     // 审批中心    
 
+    // vmware标准网络   
+    , {
+        "desc": "获取标准网络列表",
+        "id": "net-img.vm-mng.network.list",
+        "method": "GET",
+        "url": "/adminboe/authsec/vmware/network/getlist"
+    }
+    , {
+        "desc": "获取标准网络数据中心列表",
+        "id": "net-img.vm-mng.network.dclist",
+        "method": "GET",
+        "url": "/adminboe/authsec/vmware/network/dclist"
+    }
+    , {
+        "desc": "标准网络启用",
+        "id": "net-img.vm-mng.network.enable",
+        "method": "PUT",
+        "url": "/adminboe/authsec/vmware/network/{id}/enable"
+    }
+    , {
+        "desc": "标准网络禁用",
+        "id": "net-img.vm-mng.network.disable",
+        "method": "PUT",
+        "url": "/adminboe/authsec/vmware/network/{id}/disable"
+    }
+    , {
+        "desc": "标准网络删除",
+        "id": "net-img.vm-mng.network.remove",
+        "method": "PUT",
+        "url": "/adminboe/authsec/vmware/network/{id}/remove"
+    }
+    , {
+        "desc": "创建/编辑标准网络",
+        "id": "net-img.vm-mng.network.update",
+        "method": "POST",
+        "url": "/adminboe/authsec/vmware/network/update"
+    }
 ]
