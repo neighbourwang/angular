@@ -3,6 +3,7 @@ import { CommonComponentModule } from '../../../architecture';
 import { RoleMngRouting } from './role-mng.routing';
 
 //component
+import { PipeModule } from '../../../architecture';
 import { RoleMngListComponent } from './component/role-mng-list.component';
 import { RoleMngDetailComponent } from './component/role-mng-detail.component';
 
@@ -16,6 +17,7 @@ import { TreeModule } from 'angular2-tree-component';
     imports: [
         CommonComponentModule,
         RoleMngRouting,
+        PipeModule,
         TreeModule
     ],
     declarations: [

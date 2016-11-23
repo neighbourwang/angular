@@ -4,6 +4,7 @@
 import { NgModule } from '@angular/core';
 
 // Common Components
+import { PipeModule } from '../../../architecture';
 import { CommonComponentModule } from '../../../architecture';
 
 //Components
@@ -28,7 +29,8 @@ import { CreateProdDirService } from './service/prod-dir-new.service';
 @NgModule({
     imports: [
         CommonComponentModule,
-        ProdDirMngRouting
+        ProdDirMngRouting,
+        PipeModule
     ],
     declarations: [
         ProdDirListComponent,

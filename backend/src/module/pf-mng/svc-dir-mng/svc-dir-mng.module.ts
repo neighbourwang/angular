@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 // import { HttpModule, Jsonp } from '@angular/http';
 
 // Common Componets
+import { PipeModule } from '../../../architecture';
 import { CommonComponentModule } from '../../../architecture';
 
 // Service Directory
@@ -21,6 +22,7 @@ import { SvcDirMngRouting } from './svc-dir-mng.routing';
 @NgModule({
     imports: [
         CommonComponentModule,
+        PipeModule,
         // HttpModule,
         SvcDirMngRouting
     ],

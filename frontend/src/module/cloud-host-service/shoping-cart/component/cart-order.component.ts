@@ -39,7 +39,9 @@ export class cartOrderComponent implements OnInit {
 			this.totalPrice = parseInt("" + totalPrice*100)/100;
 		}).catch(e => {
 			this.layoutService.hide();
-		})
+		});
+
+	
 	}
 
 	forMatData(number : number) : string {
