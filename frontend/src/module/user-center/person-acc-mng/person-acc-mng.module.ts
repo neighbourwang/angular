@@ -4,6 +4,7 @@
 import { NgModule } from '@angular/core';
 
 // Common Components
+import { PipeModule } from '../../../architecture';
 import { CommonComponentModule } from '../../../architecture';
 
 //Components
@@ -21,6 +22,7 @@ import { EditPersonAccPwdService } from './service/person-acc-pwd.service';
 @NgModule({
     imports: [
         CommonComponentModule,
+        PipeModule,
         PersonAccMngRouting
     ],
     declarations: [

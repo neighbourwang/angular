@@ -65,16 +65,38 @@ export const net_dc_list_mock = {
     "resultContent": [
         {
             "dcName": "DC1",
-            "clusterNameList": [
-                "cluster1",
-                "cluster2"
+            "clusters": [
+                {
+                    "clusterId":"1",
+                    "clusterName":"VSD1"
+                 },
+                {
+                    "clusterId":"2",
+                    "clusterName":"VSD2"
+                },
+                {
+                    "clusterId":"3",
+                    "clusterName":"VSD3"
+                }
+
             ]
         },
-        {
+         {
             "dcName": "DC2",
-            "clusterNameList": [
-                "cluster21",
-                "cluster22"
+            "clusters": [
+                {
+                    "clusterId":"4",
+                    "clusterName":"VSD4"
+                 },
+                {
+                    "clusterId":"5",
+                    "clusterName":"VSD5"
+                },
+                {
+                    "clusterId":"6",
+                    "clusterName":"VSD6"
+                }
+
             ]
         }
     ]

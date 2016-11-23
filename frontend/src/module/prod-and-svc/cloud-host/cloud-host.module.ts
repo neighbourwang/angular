@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 // Common Componets
+import { PipeModule } from '../../../architecture';
 import { CommonComponentModule } from '../../../architecture';
 
 // cloud_host_ins_list
@@ -19,7 +20,8 @@ import { CloudHostRouting } from './cloud-host.routing';
 @NgModule({
     imports: [
         CommonComponentModule,
-        CloudHostRouting
+        CloudHostRouting,
+        PipeModule
     ],
     declarations: [
         GeneralViewComponent,

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi } from '../../../../architecture';
+import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../architecture';
 
 import { CartOrder } from '../model/cart-order.model';
 
@@ -11,6 +11,7 @@ import 'rxjs/add/operator/toPromise';
 export class cartOrderService {
     constructor(private http:Http,
                 private restApiCfg:RestApiCfg,
+                private dict:SystemDictionaryService,
                 private restApi:RestApi) {
     }
 
@@ -26,5 +27,4 @@ export class cartOrderService {
                             });
         return request;
     }
-
 }

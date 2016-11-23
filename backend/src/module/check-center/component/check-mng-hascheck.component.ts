@@ -28,12 +28,29 @@ export class CheckMngHascheckComponent implements OnInit{
 	private _serviceTypeDic:DicLoader = null; //产品类型
 	private _orderTypeDic:DicLoader = null; //订单类型
 	private _isAdvSearch:boolean = false;//高级查询
+	private _userListLoader:ItemLoader<{id:string;name:string}> = null;//用户列表
+	private _approverListLoader:ItemLoader<{id:string;name:string}> = null;//审批人列表
 
 	constructor(
 		private _restApiCfg:RestApiCfg
 		,private _restApi:RestApi
 		,private _layoutService:LayoutService){
 
+		//审批人列表
+		this._approverListLoader = new ItemLoader<{id:string;name:string}>(false, "审批人列表", "check-center.approver-list.get", _restApiCfg, _restApi);
+		this._approverListLoader.MapFunc = (source:Array<any>,target:Array<{id:string;name:string}>)=>{
+			target = target.concat(source.map(n=>{
+				return {id:n.key, name:n.value};
+			}));
+		};
+
+		//用户列表
+		this._userListLoader = new ItemLoader<{id:string;name:string}>(false, "用户列表", "check-center.user-list.get", _restApiCfg, _restApi);
+		this._userListLoader.MapFunc = (source:Array<any>,target:Array<{id:string;name:string}>)=>{
+			target = target.concat(source.map(n=>{
+				return {id:n.key, name:n.value};
+			}));
+		};
 		//订单类型
 		this._orderTypeDic = new DicLoader(_restApiCfg, _restApi, "ORDER", "TYPE");
 
@@ -45,6 +62,7 @@ export class CheckMngHascheckComponent implements OnInit{
 
 		//产品类型配置
 		this._serviceTypeDic = new DicLoader(_restApiCfg, _restApi, "GLOBAL", "SERVICE_TYPE");//²úÆ·ÀàÐÍÁÐ±í', "op-center.order-mng.product-type-list.get", _restApiCfg, _restApi);
+
 
 	}
 	ngOnInit(){
@@ -87,6 +105,20 @@ export class CheckMngHascheckComponent implements OnInit{
 			this.showMsg(err);
 		});
 		
+	}
+
+	departmentChanged(){
+		this._layoutService.show();
+		this._userListLoader.Go(null, [{key:"departmentId", value:this._param.departmentIdNum}])
+		.then(success=>{
+			return this._approverListLoader.Go(null, [{key:"departmentId", value:this._param.departmentIdNum }])
+		})
+		.then(success=>{
+			this._layoutService.hide();
+		})
+		.catch(err=>{
+			this._layoutService.hide();
+		});
 	}
 
 }
