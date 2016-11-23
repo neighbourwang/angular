@@ -1,4 +1,4 @@
-import {ProductItem } from './'
+﻿import {ProductItem } from './'
 
 //订单
 export class OrderItem{
@@ -92,6 +92,7 @@ export class SubInstanceItemResp {
   statusName: string = null;//用于界面显示
   serviceTypeName: string = null;//产品类型名称
   billingModeName: string = null;//计费模式名称
+  renewPrice:number = null;//续订费用，每次续订时组装。
 }
 
 
@@ -103,11 +104,13 @@ export class ProductBillingItem {
   cyclePrice: number = null;//, optional): 周期计费-增量周期价格 ,
   unitPrice: number = null;//, optional): 流量计费-流量单价 ,
   unitType: number = null;//, optional): 流量计费-流量计费类型，需要查询数据字典
+  periodType: number = null; //周期计费-周期类型，需要检索数据字典
 
   get oneTimePriceAndPrice():string{ //单价费用
     return `一次性价格:${this.basePrice}
     价格:${this.basicPrice}`;
   }
+
 }
 
 

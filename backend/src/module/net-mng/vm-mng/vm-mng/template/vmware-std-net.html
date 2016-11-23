@@ -23,7 +23,7 @@
         </label>
         <select class="pdl20 pdr20 mgr20 form-control" [(ngModel)]="selectedVDS">
             <option value="">所有</option>
-            <option *ngFor="let vds of selectedDC.clusterNameList" [value]="vds">{{vds}}</option>            
+            <option *ngFor="let vds of selectedDC.clusters" [value]="vds.clusterName">{{vds.clusterName}}</option>            
         </select>
         <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px;" (click)="filter();"> 确定</button>
     </div>
@@ -97,7 +97,7 @@
                     </td>
                     <td>{{stdnet.portGroupName}}</td>
                     <td>{{stdnet.vlanId}}</td>
-                    <td [ngClass]="stdnet.stateDict==1?'font-green':'font-orange'"> {{ getDicText(stdnet.stateDict,this.statusDic)}} </td>
+                    <td [ngClass]="stdnet.status==1?'font-green':'font-orange'"> {{ getDicText(stdnet.status,this.statusDic)}} </td>
                     <td>{{stdnet.lastUpdate}}</td>
                 </tr>
                 
@@ -130,7 +130,7 @@
             <div class="col-sm-6">               
                 <select class="form-control" [(ngModel)]="tempEditNet.clusterName">
                     <option value="">请选择</option>
-                    <option *ngFor="let vds of selectedDC4Popup.clusterNameList" [value]="vds">{{vds}}</option>
+                    <option *ngFor="let vds of selectedDC4Popup.clusters" [value]="vds.clusterName">{{vds.clusterName}}</option>
                 </select>
             </div>
         </div>
