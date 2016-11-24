@@ -5,7 +5,7 @@ import { LayoutService, NoticeComponent, ConfirmComponent} from '../../../../arc
 
 import { AccountMngService } from '../service/account-mng.service';
 
-import { Role } from '../model/role'
+import { Account,Role } from '../model/account.model'
 
 @Component({
   selector: 'account-mng-cr-local',
