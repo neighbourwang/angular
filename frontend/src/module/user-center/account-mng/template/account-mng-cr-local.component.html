@@ -38,12 +38,12 @@
         <tr>
             <th class="col-md-1 col-xs-3 text-center">绑定角色</th>
             <td>
-                <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 
-                    <span>管理员</span>
+                <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px" *ngFor="let role of roles ;let idx=index ">
+                    <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="role.id" [(ngModel)]="account.roles[0].id" (click)="selectRole(idx)"> 
+                    <span>{{role?.name}}</span>
                 </label>
 
-                <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px">
+                <!--<label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px">
                     <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
                     <span>部门负责人</span>
                 </label>
@@ -56,7 +56,7 @@
                 <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px">
                     <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
                     <span>审批员</span>
-                </label>
+                </label>-->
 
             </td>
         </tr>
