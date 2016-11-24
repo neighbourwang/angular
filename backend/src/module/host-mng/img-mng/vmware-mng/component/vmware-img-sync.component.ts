@@ -22,7 +22,7 @@ export class VmwareImgSyncComponent implements OnInit {
     constructor(
         private router: Router,
         private dicService: SystemDictionaryService,
-        private service: VmwareImgSyncService,
+        private syncService: VmwareImgSyncService,
         private layoutService: LayoutService,
         private validationService: ValidationService,
         private activatedRouter : ActivatedRoute
@@ -125,7 +125,7 @@ export class VmwareImgSyncComponent implements OnInit {
 
     getVmwareImgSyncList(): void {
         this.layoutService.show();
-        this.service.getVmwareImgSyncList(this.platformId)
+        this.syncService.getVmwareImgSyncList(this.platformId)
             .then(
             response => {
                 this.layoutService.hide();
@@ -143,8 +143,28 @@ export class VmwareImgSyncComponent implements OnInit {
     }
 
     //Menu: 返回Vmware镜像管理界面
-    VmwareImgListPage() {
+    VmwareImgListPage(): void {
         this.router.navigate([`host-mng/img-mng/vmware-img-list/${this.platformId}`]);
+    }
+
+    VmwareSyncImages(): void {
+        this.layoutService.show();
+        this.syncService.VmwareSyncImages(this.platformId)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.layoutService.hide();
+                    //this.vmwaresyncimgs = response.resultContent;
+                    //console.log(this.vmwaresyncimgs, "vmwaresyncimgs!!!");
+                } else {
+                    alert("Res sync error");
+
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+
     }
 
 }

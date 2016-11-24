@@ -41,5 +41,21 @@ export class VmwareImgSyncService{
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return VmwareImgSyncModel_mock });
     }
 
+    VmwareSyncImages(platformId: string): Promise<any>{
+        const pathParams = [
+            {
+                key: "platformId",
+                value: platformId
+
+            }
+        ];
+        
+        /*
+        const api = this.restApiCfg.getRestApi("host-mng.img-mng.vmware-mng.vmware-img.list");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        */
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });
+    }
+
     
 }
