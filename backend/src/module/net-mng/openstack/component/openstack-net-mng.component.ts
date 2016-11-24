@@ -66,7 +66,7 @@ export class OpenstackNetMngComponent implements OnInit {
     defaultPlatform = new PlatformInfo();
     selectedPfi: PlatformInfo = this.defaultPlatform;
 
-    selectedNetwork:Network = new Network();
+    selectedNetwork:Network;
     editNetwork:Network;
     ngOnInit() {
         this.dicService.getItems("NETWORK", "TYPE")
