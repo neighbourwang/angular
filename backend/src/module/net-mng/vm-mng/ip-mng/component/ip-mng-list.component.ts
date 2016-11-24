@@ -149,7 +149,7 @@ export class IpMngListComponent implements OnInit{
             .then(
             response => {
                 this.layoutService.hide();
-                //console.log(response, "IPmngS!!!");
+                console.log(response, "IPmngS!!!");
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
                     this.rawipmngs = response.resultContent;

@@ -58,7 +58,7 @@ export class VmwareImgListComponent implements OnInit {
     platformId: string = "";
     queryOpt: CriteriaQuery = new CriteriaQuery();
     vmwareimgs: Array<VmwareImgModel>;
-    selectedimage: VmwareImgModel = new VmwareImgModel();
+    selectedimg: VmwareImgModel = new VmwareImgModel();
     vmwareents: Array<VmwareEntModel>;
 
 
@@ -118,7 +118,7 @@ export class VmwareImgListComponent implements OnInit {
     }
 
     displayIt(tenants: Array<TenantModel>): String {
-        console.log(tenants.length, "tenants.length")
+        //console.log(tenants.length, "tenants.length")
         if (tenants.length == 0)
             return "all";
         else if (tenants.length == 1)
@@ -126,6 +126,36 @@ export class VmwareImgListComponent implements OnInit {
         else
             return "some";
 
+    }
+
+    //选择行
+    selectItem(index:number): void {
+        this.vmwareimgs.map(n=> {n.checked = false;});
+        this.vmwareimgs[index].checked = true;
+        console.log(this.vmwareimgs, this.vmwareimgs[index], "=== Please see which one is selected ===");
+    }
+
+    UnselectItem(): void {
+        this.vmwareimgs.map(n=> {n.checked = false;});
+        console.log(this.vmwareimgs, "=== Please see all items are Unselected ===");
+    }
+
+    getSelected() {
+        let item = this.vmwareimgs.find((n) => n.checked) as VmwareImgModel;
+        if (item){
+            //console.log("==========getSelected 1=============");
+            return item;
+        }
+        else {
+            //console.log("==========getSelected 2=============");
+            this.showMsg("请选择相应的PortGroup");
+            return null;
+        }
+    }
+
+    //Menu: 返回镜像管理界面
+    ImgMngPage() {
+        this.router.navigate([`host-mng/img-mng/img-index/img-index`]);
     }
 
     getEntList(): void {
@@ -191,6 +221,58 @@ export class VmwareImgListComponent implements OnInit {
 
     }
 
+    enableImage(): void {
+        let image = this.getSelected();
+        if(image){
+            this.selectedimg = image;
+            console.log(this.selectedimg.id);
+            //console.log(this.pg_id);
+            if(this.selectedimg.status == "1"){
+                this.showMsg("IP已被占用");
+                return; 
+            }
+            this.service.enableImage(this.selectedimg.id, "enable")
+            .then(res => {
+                    if (res && res.resultCode == "100") {
+                        console.log(res, "镜像启用成功")
+                    } else {
+                        this.showMsg("镜像启用失败");
+                        return;
+                    }
+                })
+                .then(()=>{
+                    this.getVmwareImgList();
+                })
+                .catch((e) => this.onRejected(e))
+        }
+    }
+
+    disableImage(): void {
+        let image = this.getSelected();
+        if(image){
+            this.selectedimg = image;
+            console.log(this.selectedimg.id);
+            //console.log(this.pg_id);
+            if(this.selectedimg.status == "0"){
+                this.showMsg("IP还未占用");
+                return; 
+            }
+            this.service.enableImage(this.selectedimg.id, "disable")
+            .then(res => {
+                    if (res && res.resultCode == "100") {
+                        console.log(res, "镜像禁用成功")
+                    } else {
+                        this.showMsg("镜像禁用失败");
+                        return;
+                    }
+                })
+                .then(()=>{
+                    this.getVmwareImgList();
+                })
+                .catch((e) => this.onRejected(e))
+        }
+    }
+
     onSelect(img: VmwareImgModel): void {
         let tmpimage = new VmwareImgModel();
         tmpimage.id = img.id;
@@ -202,14 +284,14 @@ export class VmwareImgListComponent implements OnInit {
         tmpimage.tenants = img.tenants;
         tmpimage.status = img.status;
         tmpimage.description = img.description;
-        this.selectedimage = tmpimage;
-        console.log(this.selectedimage);
+        this.selectedimg = tmpimage;
+        console.log(this.selectedimg);
     }
 
     onSave(img: VmwareImgModel): void {
         this.layoutService.show();
         //this.service.updateImage(image);   //selectedimage.id and selectedimage.name
-        if(this.validationService.isBlank(this.selectedimage.name)){
+        if(this.validationService.isBlank(this.selectedimg.name)){
             this.showAlert("镜像名称不能为空");
             return;
         }

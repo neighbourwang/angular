@@ -33,6 +33,7 @@ export class VmwareImgModel {
     description: string;
 
     nameEditing: boolean;
+    checked: boolean;
 
 }
 
