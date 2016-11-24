@@ -36,21 +36,12 @@ export class cartOrderComponent implements OnInit {
 					totalPrice += item.billingInfo.basePrice+item.billingInfo.basicPrice;
 				})
 			})
-			this.totalPrice = parseInt("" + totalPrice*100)/100;
+			this.totalPrice = totalPrice;
 		}).catch(e => {
 			this.layoutService.hide();
 		});
 
 	
-	}
-
-	forMatData(number : number) : string {
-		var d = new Date(number);
- 		return (d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds());
-	}
-
-	getPrice(items:itemList) {
-		return parseInt("" + (items.billingInfo.basePrice + items.billingInfo.basicPrice)*100)/100;
 	}
 
 	goTo(url : string) {

@@ -1,0 +1,18 @@
+<div class="col-md-10 btn-group" data-toggle="buttons">
+	<label (click)="zoneList=[];setCurrentArea();" class="btn btn-default active">
+		<input type="radio" name="area" autocomplete="off"> 所有
+	</label>
+	<label (click)="setZone(value.id);setCurrentArea(value);" *ngFor="let value of areaList;let i = index;" class="btn btn-default">
+		<input type="radio" name="area" autocomplete="off"> {{ value.name }}
+	</label>
+</div>
+<div class="col-md-10 btn-group areaAble" data-toggle="buttons">
+	<label class="btn btn-default active" (click)="setCurrentZone();">
+		<input type="radio" name="area" autocomplete="off"> 所有
+	</label>
+	<label (click)="setCurrentZone(value);" *ngFor="let value of zoneList;let i = index;" class="btn btn-default">
+		<input type="radio" name="area" autocomplete="off"> {{ value.zoneName }}
+	</label>
+</div>
+
+ <!-- [ngClass]="{'active': i === 0}" -->

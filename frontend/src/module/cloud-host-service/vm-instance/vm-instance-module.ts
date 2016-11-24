@@ -13,11 +13,13 @@ import { cloudHostListComponent } from './component/cloud-host-list.component';
 
 import { cloudHostComponentOrder } from './component/cloud-host-order.component';
 
-import { CartButtonComponent } from '../components/cart-button/cart-button.component';
+import { CloudHostComponents } from '../components/cloud-host-components.module';
+
 
 //service
 import { cloudHostServiceOrder } from './service/cloud-host-order.service'; 
 import { cloudHostServiceList } from './service/cloud-host-list.service'; 
+
 
 // import { MyDatePickerModule } from 'mydatepicker';
 
@@ -25,6 +27,7 @@ import { cloudHostServiceList } from './service/cloud-host-list.service';
     imports: [
         VmInstanceRouting,
         CommonComponentModule,
+        CloudHostComponents,
         PipeModule
         // MyDatePickerModule
         // TabsModule
@@ -32,14 +35,13 @@ import { cloudHostServiceList } from './service/cloud-host-list.service';
     ],
     declarations: [
         cloudHostListComponent,
-        cloudHostComponentOrder,
-        CartButtonComponent
+        cloudHostComponentOrder
     ],
     exports: [
     ],
     providers: [
         cloudHostServiceOrder,
-        cloudHostServiceList
+        cloudHostServiceList,
     ]
 
 })
