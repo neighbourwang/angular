@@ -27,4 +27,15 @@ export class cartOrderService {
                             });
         return request;
     }
+
+    //数据字典所用到的值
+    dictProductType = this.dict.get({  //获取产品type
+        owner : "GLOBAL",
+        field : "SERVICE_TYPE"
+    })
+
+    dictPriceModel = this.dict.get({  //获取产品type
+        owner : "PACKAGE_BILLING",
+        field : "PERIOD_TYPE"
+    })
 }
