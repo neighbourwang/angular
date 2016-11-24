@@ -933,9 +933,23 @@ export let RestApis: RestApiModel[] = [
         "url": "adminboe/authsec/vmware/network/getlist"
     },
     {
+        "desc": "获取DC/Cluster值",
+        "id": "net-mng.vmware.querycondition.get",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/queryCondition"
+
+    },
+    {
+        "desc": "获取IP子网信息或IP范围",
+        "id": "net-mng.vmware.subnetinfo-ips.get",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/portGroup/{portGroup_id}"
+
+    },
+    {
         "desc": "获取IP地址管理列表",
         "id": "net-mng.vmware.ipmng.list",
-        "method": "POST",
+        "method": "GET",
         "url": "adminboe/authsec/vmware/network/portGroup"
     },
     {
@@ -960,7 +974,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "设置IP子网",
         "id": "net-mng.vmware.subnet.setup",
         "method": "PUT",
-        "url": "adminboe/authsec/vmware/network/portGroup"
+        "url": "adminboe/authsec/vmware/network/portGroup/{portGroup_id}/subnet"
     },
     {
         "desc": "设置子网IP范围",

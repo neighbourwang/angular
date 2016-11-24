@@ -129,7 +129,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像名：</div>
 					<div class="col-sm-8">
-					    <input type="string" class="form-control input-control" [(ngModel)]="selectedimg.name">
+					    {{selectedimg.name}}
 					</div>
 				</div>
 			</div>
@@ -152,8 +152,10 @@
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">系统位数：</div>
-					<div class="col-sm-8">
-						<input type="string" class="form-control input-control" [(ngModel)]="selectedimg.bitsType">
+					<div class="col-sm-8">                        
+                        <select [(ngModel)]="selectedimg.bitsType">
+                            <option *ngFor="let bit of this.bitDict" [value]="bit.value">{{bit.displayValue}}</option>
+                        </select>
 					</div>
 				</div>
 			</div>
@@ -170,7 +172,9 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像类型：</div>
 					<div class="col-sm-8">
-					<input type="string" class="form-control input-control" [(ngModel)]="selectedimg.type">
+                        <select [(ngModel)]="selectedimg.type">
+                            <option *ngFor="let type of this.typeDict" [value]="type.value">{{type.displayValue}}</option>
+                        </select>
 					</div>
 				</div>
 			</div>
