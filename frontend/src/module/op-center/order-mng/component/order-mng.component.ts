@@ -21,7 +21,7 @@ export class OrderMngComponent implements OnInit{
 	@ViewChild("notice")
   	private _notice: NoticeComponent;
 
-	  private isForerver:boolean = false;
+	  private isForever:boolean = false;
 
   	//当前选择的行
   	private selectedOrderItem: SubInstanceResp = null;
@@ -366,7 +366,7 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	selectForever(){
-	      this.isForerver = !this.isForerver;
+	      this.isForever = !this.isForever;
 	}
 
 	get selectedPeriodTypeName():string{
@@ -445,7 +445,7 @@ export class OrderMngComponent implements OnInit{
 
 			let renewLen:number = this._renewSetting.value;
 			let renewMode:string = this.selectedOrderItem.itemList[0].billingInfo.periodType.toString();
-			if(this.isForerver)
+			if(this.isForever)
 			{
 				renewLen = 100;
 				renewMode = "5";
