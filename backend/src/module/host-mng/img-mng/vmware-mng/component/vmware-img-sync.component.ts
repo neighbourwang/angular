@@ -54,8 +54,6 @@ export class VmwareImgSyncComponent implements OnInit {
     platformId: string;
     vmwaresyncimgs: Array<VmwareImgSyncModel>;
 
-
-
     ngOnInit() {
         this.dicService.getItems("IMAGES", "TYPE")
             .then(
@@ -146,7 +144,7 @@ export class VmwareImgSyncComponent implements OnInit {
 
     //Menu: 返回Vmware镜像管理界面
     VmwareImgListPage() {
-        this.router.navigate([`host-mng/img-mng/vmware-img-list/:platformId`]);
+        this.router.navigate([`host-mng/img-mng/vmware-img-list/${this.platformId}`]);
     }
 
 }
