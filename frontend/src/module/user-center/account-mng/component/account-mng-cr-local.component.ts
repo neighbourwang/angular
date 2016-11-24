@@ -26,6 +26,7 @@ export class AccountMngCrLocalComponent implements OnInit {
   account = new Account();
   roles: Array<Role>;
   ngOnInit() {
+    //获取所有角色
     this.service.getRoleList().then(
       res => {
         console.log(res);
@@ -34,11 +35,23 @@ export class AccountMngCrLocalComponent implements OnInit {
     ).catch(err => {
       console.error(err);
     })
+    //获取所有机构
+    this.service.getOrgList().then(
+      res => {
+        console.log(res);
+        // this.roles = res.resultContent;
+      }
+    ).catch(err => {
+      console.error(err);
+    })
   }
   //选择角色
   selectRole(idx) {
     console.log(idx);
-    this.roles[idx].selected = !this.roles[idx].selected;
+    this.roles.forEach(ele => {
+      ele.selected = false;
+    });
+    this.roles[idx].selected = true;
     this.account.roles = this.roles.filter(ele => {
       if (ele.selected) {
         return ele;

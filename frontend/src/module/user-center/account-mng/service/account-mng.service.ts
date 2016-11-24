@@ -46,6 +46,10 @@ export class AccountMngService {
 
         return this.restApi.request(api.method , api.url , [{key : "page", value : 0},{key : "size", value : 99999}],undefined);
     }
-    
+    //
+    getOrgList(){
+        let api = this.restApiCfg.getRestApi("user-center.account-mng.create.orgList");
 
+        return this.restApi.request(api.method , api.url , [{key : "page", value : 0},{key : "size", value : 99999}],undefined);
+    }
 }
