@@ -21,8 +21,6 @@ export class OrderMngComponent implements OnInit{
 	@ViewChild("notice")
   	private _notice: NoticeComponent;
 
-	  private isForerver:boolean = false;
-
   	//当前选择的行
   	private selectedOrderItem: SubInstanceResp = null;
 	//查询参数
@@ -372,14 +370,14 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	selectForever(){
-	      this.isForerver = !this.isForerver;
+		this._renewSetting.isForever = !this._renewSetting.isForever;
 
-	      if(this.isForerver)
-	      {
-	      	this._renewSetting.renewDate = this.calRenewDate("5", 999);
-	      	this._renewSetting.value = 999;
-	      	this._renewSetting.unit = 5;
-	      }
+		if(this._renewSetting.isForever)
+		{
+			this._renewSetting.renewDate = this.calRenewDate("5", 999);
+			this._renewSetting.value = 999;
+			this._renewSetting.unit = 5;
+		}
 	}
 
 	get selectedPeriodTypeName():string{

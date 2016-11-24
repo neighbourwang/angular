@@ -23,17 +23,17 @@
     </div>         
     <div style="clear:both"></div>
     <div class="mgb20 " style="margin-top:20px">
-        <button class="fox-cloud-button fox-cloud-button-green mgr10" key="boe/image-sync-vmware.html">同步镜像</button>
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/image-ent-set-vmware.html">设置企业</button>
+        <button class="fox-cloud-button fox-cloud-button-green mgr10" key="boe/image-sync-vmware.html" (click)="VmwareImgSyncPage()">同步镜像</button>
+        <button class="fox-cloud-button fox-cloud-button-green" key="boe/image-ent-set-vmware.html" (click)="VmwareImgEntSetup()">设置企业</button>
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
              更多操作
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><a href="#myModal" data-toggle="modal">编辑</a></li>
-                <li><a href="javascript:" (click)="enableimage()">启用</a></li>
-                <li><a href="javascript:" (click)="disableimage()">禁用</a></li>
+                <li><a href="#myModal" data-toggle="modal" (click)="editImage()">编辑</a></li>
+                <li><a href="javascript:" (click)="enableImage()">启用</a></li>
+                <li><a href="javascript:" (click)="disableImage()">禁用</a></li>
             </ul>
         </div>
     </div>
@@ -46,6 +46,7 @@
                     <th>镜像显示名称</th>
                     <th>操作系统</th>
                     <th>系统位数</th>
+                    <th>镜像容量</th>
                     <th>镜像类型</th>
                     <th>所属企业</th>
                     <th>状态</th>
@@ -65,7 +66,7 @@
                     </td>
                     <td style="position:relative">
                         {{img.displayName}}
-                        <span class="pull-right icon-edit2" (click)="img.nameEditing=true; onSelect(img)"></span>
+                        <span class="pull-right icon-edit2" (click)="img.nameEditing=true; selectItem(img)"></span>
                         <div *ngIf="img.nameEditing" class="popover fade bottom in" role="tooltip" style="z-index:-3;top:25px; left:150px; width:370px; max-width:1100px; display: block;">
                                 <div class="arrow" style="left: 30%;"></div>
                                 <div class="popover-content">
@@ -86,6 +87,7 @@
                     </td>
                     <td>{{img.os}}</td>
                     <td>{{getDicText(img.bitsType, this.bitDict)}}</td>
+                    <td>{{img.size}}</td>
                     <td>{{getDicText(img.type, this.typeDict)}}</td>
                     <td [ngSwitch]="displayIt(img.tenants)">
                         <div *ngSwitchCase="'some'" class="tenants-c">详细>>
@@ -120,4 +122,68 @@
     <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
 </div>
 
+<fc-popup #editimagebox ot="确认" ct="取消" title="编辑镜像" (of)="acceptVmwareImageModify()" (cf)="cancelVmwareImageModify()">
+	
+	<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像名：</div>
+					<div class="col-sm-8">
+					    <input type="string" class="form-control input-control" [(ngModel)]="selectedimg.name">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像显示名称：</div>
+					<div class="col-sm-8">
+					    <input type="string" class="form-control input-control" [(ngModel)]="selectedimg.displayName">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">操作系统：</div>
+					<div class="col-sm-8">
+						<input type="string" class="form-control input-control" [(ngModel)]="selectedimg.os">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">系统位数：</div>
+					<div class="col-sm-8">
+						<input type="string" class="form-control input-control" [(ngModel)]="selectedimg.bitsType">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">镜像容量：</div>
+					<div class="col-sm-8">
+						<!-- <input type="string" class="form-control input-control" [(ngModel)]="selectedimg.dnsAlt"> -->
+                        <span>50G</span>
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像类型：</div>
+					<div class="col-sm-8">
+					<input type="string" class="form-control input-control" [(ngModel)]="selectedimg.type">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">描述：</div>
+					<div class="col-sm-8">
+						<input type="string" class="form-control input-control" [(ngModel)]="selectedimg.description">
+					</div>
+				</div>
+			</div>
+	</div>
+<!--		{{subn.toString()}}   -->
+
+</fc-popup>
 

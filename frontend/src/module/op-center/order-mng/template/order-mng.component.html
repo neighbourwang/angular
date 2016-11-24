@@ -30,21 +30,28 @@
 								</select>
 							</div>
 						</td>
-						<td >
-							<span class="">创建时间：</span>
-							<div class="dropdown left">			
-								<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
+						<td>
+							<span class="">订购人:</span>
+							<div class="dropdown left">
+								<select class="form-control">
+									<option class="hands" [value]="null">所有用户</option>
+									<option class="hands">张三</option>
+								</select>
 							</div>
 						</td>
-						<td>
-							<span class="">到期时间：</span>
+						<td >
+							<span class="mgr10 mgt10">到期时间：</span>
 							<div class="dropdown left">			
-								<date-picker (dateChanged)="onExpireTimeChange($event)"></date-picker>
+								<span class="mgr10 mgt10">从</span><date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
+							</div>
+						
+							<div class="dropdown left">			
+								<span class="mgr10 mgt10">到</span><date-picker (dateChanged)="onExpireTimeChange($event)"></date-picker>
 							</div>
 						</td>
 						<td>
 							<span class="" >
-							订单状态:</span>
+							状态:</span>
 							<div class="dropdown left">
 								<select class="form-control" [(ngModel)]="_param.status">
 									<option class="hands" [value]="null">所有</option>
@@ -178,9 +185,9 @@
 										<span class="float-left mgr20" style="margin-top: 8px;">购买时长:</span>
 										<div class="float-left mgr20">
 											<input class="float-left" type="text" [ngModel]="selectedPeriodTypeName" disabled="true">
-											<input *ngIf="!isForerver" class="float-left" type="number" name="" (change)="renewValueChange()" [(ngModel)]="_renewSetting.value">
+											<input *ngIf="!_renewSetting.isForever" class="float-left" type="number" name="" (change)="renewValueChange()" [(ngModel)]="_renewSetting.value">
 										</div>
-										<button class="btn button-gray-gradient mgr20" [class.bgGreen]="isForerver" (click)="selectForever();">永&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;久</button>
+										<button class="btn button-gray-gradient mgr20" [ngClass]="{'bgGreen':_renewSetting.isForever==1}" (click)="selectForever();">永&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;久</button>
 								    </div>
 									<div class="float-right">
 										续订后到期时间：<span class="warnInfo">{{_renewSetting.renewDate}}</span>

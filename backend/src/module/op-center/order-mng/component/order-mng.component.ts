@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
-import { SubInstanceAttrPair, ProductBillingItem, SubInstanceResp, SubInstanceItemResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import { SubInstanceAttrPair, ProductBillingItem, SubInstanceResp, SubInstanceItemResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam,RenewSetting} from '../model'
 import * as _ from 'underscore';
 
 @Component({
@@ -14,6 +14,10 @@ export class OrderMngComponent implements OnInit{
 	@ViewChild("notice")
   	private _notice: NoticeComponent;
 
+	  
+	 @ViewChild("renewOrder")
+     renewOrder: PopupComponent;
+
 	private _adminLoader:ItemLoader<AdminListItem> = null;
 	private _departmentLoader:ItemLoader<DepartmentItem> = null;
 	private _productTypeLoader: DicLoader = null;
@@ -23,6 +27,17 @@ export class OrderMngComponent implements OnInit{
 	private _orderLoader:ItemLoader<SubInstanceResp> = null;
 	private _renewHanlder:ItemLoader<any> = null;
 	private _billinModeDic:DicLoader = null;
+
+
+
+	//续订数据
+	private _renewSetting:RenewSetting = new RenewSetting();
+	private _renewHandler:ItemLoader<any> = null;
+	//续订费用
+	private _renewPriceLoader:ItemLoader<ProductBillingItem> = null;
+	//当前选择的行
+  	private selectedOrderItem: SubInstanceResp = null;
+
 
 	private _param:OrderMngParam = new OrderMngParam();
 	private initDate:string = null;
@@ -286,4 +301,35 @@ export class OrderMngComponent implements OnInit{
 	{
 		this.search(pageNumber);
 	}
+
+		//选择续订	
+	renewSelect(orderItem:SubInstanceResp){
+		
+		this.renewOrder.open();
+		
+
+		let self = this;
+		let getRenewPrice:()=>number = function() {
+			let item = self._renewPriceLoader.FirstItem;
+
+			return item.basePrice || item.basicPrice || item.cyclePrice || item.unitPrice;
+		};
+
+
+		this.layoutService.show();this.selectedOrderItem = orderItem;
+		this._renewPriceLoader.Go(null, [{key:"_subId", value:orderItem.orderId}])
+		.then(success=>{
+			this.layoutService.hide();
+
+			orderItem.itemList.map(n=>{
+				n.renewPrice = getRenewPrice();
+			});
+		})
+		.catch(err=>{
+			this.layoutService.hide();
+			this.showMsg(err);
+		})
+	}
+
+	
 }

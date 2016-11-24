@@ -14,3 +14,4 @@ export const VmwareMngRouting = RouterModule.forChild([
         component : VmwareImgSyncComponent
     }
 ]);
+
