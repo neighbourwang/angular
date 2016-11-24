@@ -25,8 +25,34 @@ export class IpMngListService {
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return NetWork_mock });
     }
 
-    getIpMngList(): Promise <any> {
-        //API CALL
+    getIpMngList(): Promise<any> {
+        /*
+        const pathParams = [
+            {
+                key: "page",
+                value: pageIndex
+            },
+            {
+                key: "size",
+                value: pageSize
+            }
+        ];
+
+
+        const api = this.restApiCfg.getRestApi("net-mng.openstack.net.list");
+        return this.restApi.request(api.method, api.url, pathParams, null,
+            {
+                "dataCenter": criteriaQuery.dataCenter,
+                "platformId": criteriaQuery.platformId,
+                "region": criteriaQuery.region,
+                "tenantName": criteriaQuery.tenantName
+            }
+        );
+        */
+
+        //const api = this.restApiCfg.getRestApi("net-mng.vmware.ipmng.list");
+        //return this.restApi.request(api.method, api.url, null, null, null);
+
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return IpMngModel_mock });
     }
 
