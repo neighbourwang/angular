@@ -25,7 +25,6 @@ export class OrderMngComponent implements OnInit{
 	private _subregionLoader:ItemLoader<SubRegion> = null;
 	private _orderStatus:DicLoader = null;
 	private _orderLoader:ItemLoader<SubInstanceResp> = null;
-	private _renewHanlder:ItemLoader<any> = null;
 	private _billinModeDic:DicLoader = null;
 
 
@@ -36,7 +35,7 @@ export class OrderMngComponent implements OnInit{
 	//续订费用
 	private _renewPriceLoader:ItemLoader<ProductBillingItem> = null;
 	//当前选择的行
-  	private selectedOrderItem: SubInstanceResp = null;
+  	private selectedOrderItem: SubInstanceResp = new SubInstanceResp();
 
 
 	private _param:OrderMngParam = new OrderMngParam();
@@ -50,7 +49,7 @@ export class OrderMngComponent implements OnInit{
 
 		this._billinModeDic = new DicLoader(restApiCfg, restApi, "BILLING_MODE", "TYPE");
 		//续订
-		this._renewHanlder = new ItemLoader<any>(false, "订单续订", "op-center.order-mng.order-renew.get", restApiCfg, restApi);
+		this._renewHandler = new ItemLoader<any>(false, "订单续订", "op-center.order-mng.order-renew.get", restApiCfg, restApi);
 		//配置企业列表加载
 		this._adminLoader = new ItemLoader<AdminListItem>(false, "企业列表", "op-center.order-mng.ent-list.get", this.restApiCfg, this.restApi);
 
@@ -213,38 +212,33 @@ export class OrderMngComponent implements OnInit{
 		this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderItemId}`);
 	}
 	
-	renew(orderItem:SubInstanceResp){
-		if(orderItem.itemList.filter(n=>n.status == "2").length == orderItem.itemList.length)
-		{
-			let param = [{
-				attrCode: "",
-				attrDisplayName: "",
-				attrDisplayValue: "",
-				attrId: "",
-				attrValue: "",
-				attrValueCode: "",
-				attrValueId: "",
-				description: "",
-				valueType: "",
-				valueUnit: ""
-			}];
-			this.layoutService.show();
-			this._renewHanlder.Go(null, [{key:"orderId", value:orderItem.orderId}], param)
-			.then(success=>{
-				this.layoutService.hide();
-				this.search();
-			})
-			.catch(err=>{
-				this.layoutService.hide();
-				this.showMsg(err);
-			});
-		}
-		else
-		{
-			this.showMsg(`只有"已激活"订单才能续订`);
-		}
+		//续订
+	renew(){
+		console.log('renew start');
+		let param = [{
+			attrCode: "TIMELINE",
+			attrDisplayName: "购买时长",
+			attrDisplayValue: this._renewSetting.value,//界面上获取的的值
+			attrId: "de227a98-a0f7-11e6-a18b-0050568a49fd",
+			attrValue: this._renewSetting.value,//界面上获取的值
+			attrValueCode: "",//可以为空
+			attrValueId: "",//可以为空
+			description: "",
+			valueType: "",
+			valueUnit: this._renewSetting.unit //可以为空
+		}];
 
-
+		this.layoutService.show();
+		this._renewHandler.Go(null, [{key:"orderId", value:this.selectedOrderItem.orderId}], param)
+		.then(success=>{
+			this.layoutService.hide();
+			this._renewSetting.completed = true;
+			console.log('renew completed');
+		})
+		.catch(err=>{
+			this.layoutService.hide();
+			this.showMsg(err);
+		});
 	}
 
 	search(pageNumber:number = 1){
@@ -302,11 +296,12 @@ export class OrderMngComponent implements OnInit{
 		this.search(pageNumber);
 	}
 
-		//选择续订	
+	//选择续订	
 	renewSelect(orderItem:SubInstanceResp){
 		
-		this.renewOrder.open();
+		// this.renewOrder.open();
 		
+		this.selectedOrderItem = orderItem;
 
 		let self = this;
 		let getRenewPrice:()=>number = function() {
@@ -316,20 +311,108 @@ export class OrderMngComponent implements OnInit{
 		};
 
 
-		this.layoutService.show();this.selectedOrderItem = orderItem;
-		this._renewPriceLoader.Go(null, [{key:"_subId", value:orderItem.orderId}])
-		.then(success=>{
-			this.layoutService.hide();
+		// this.layoutService.show();
 
-			orderItem.itemList.map(n=>{
-				n.renewPrice = getRenewPrice();
-			});
-		})
-		.catch(err=>{
-			this.layoutService.hide();
-			this.showMsg(err);
-		})
+		// this._renewPriceLoader.Go(null, [{key:"_subId", value:orderItem.orderId}])
+		// .then(success=>{
+		// 	this.layoutService.hide();
+
+		// 	orderItem.itemList.map(n=>{
+		// 		n.renewPrice = getRenewPrice();
+		// 	});
+		// })
+		// .catch(err=>{
+		// 	this.layoutService.hide();
+		// 	this.showMsg(err);
+		// })
 	}
+
+	selectForever(){
+		this._renewSetting.isForever = !this._renewSetting.isForever;
+
+		if(this._renewSetting.isForever)
+		{
+			this._renewSetting.renewDate = this.calRenewDate("5", 999);
+			this._renewSetting.value = 999;
+			this._renewSetting.unit = 5;
+		}
+	}
+
+	//计算到期日期
+	renewValueChange(){
+		/*
+		PACKAGE_BILLING PERIOD_TYPE 0 HOURLY 按小时
+		PACKAGE_BILLING PERIOD_TYPE 1 DAILY 按天
+		PACKAGE_BILLING PERIOD_TYPE 2 WEEKLY 按周
+		PACKAGE_BILLING PERIOD_TYPE 3 MONTHLY 按月
+		PACKAGE_BILLING PERIOD_TYPE 5 YEARLY 按年
+		*/
+		if(this.selectedOrderItem
+			&& !_.isEmpty(this.selectedOrderItem.itemList)
+			&& this.selectedOrderItem.itemList[0].billingInfo
+			&& _.isNumber([0,1,2,3,5].find(n=>n==this.selectedOrderItem.itemList[0].billingInfo.periodType)))
+		{
+			this._renewSetting.renewDate = this.calRenewDate(this.selectedOrderItem.itemList[0].billingInfo.periodType.toString(), this._renewSetting.value);
+			this._renewSetting.unit = this.selectedOrderItem.itemList[0].billingInfo.periodType;
+		}
+		else{
+			console.log("续订计算前提发生错误", this.selectedOrderItem, this._renewSetting);
+		}
+	}
+
+
+	//计算时长
+	calRenewDate(renewMode:string, renewLen:number):string{
+		let toDate:(date:Date)=>string = function(date:Date):string{
+			return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+		};
+
+		let handlerObj = {
+			"0":(len:number)=>{
+				return function(expDate:string){
+					let date1:Date = new Date(expDate);
+					date1.setHours(date1.getHours() + len);
+					return date1;
+				};
+			}
+			,"1":(len:number)=>{
+				return function(expDate:string) {
+					let date:Date = new Date(expDate);
+					date.setDate(date.getDate() + len);
+					return date;
+				}
+			}
+			,"2":(len:number)=>{
+				return function(expDate:string) {
+					let date:Date = new Date(expDate);
+					date.setDate(date.getDate() + len * 7);
+					return date;
+				}
+
+			}
+			,"3":(len:number)=>{
+				return function(expDate:string) {
+					let date:Date = new Date(expDate);
+					date.setMonth(date.getMonth() + len);
+					return date;
+				}
+
+			}
+			,"5":(len:number)=>{
+				return function(expDate:string) {
+					let date:Date = new Date(expDate);
+					date.setFullYear(date.getFullYear() + len);
+					return date;
+				}
+
+			}
+		}
+
+		
+
+		return toDate(handlerObj[renewMode](renewLen)(this.selectedOrderItem.itemList[0].expireDate));
+	}
+
 
 	
 }
