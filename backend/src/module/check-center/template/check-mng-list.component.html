@@ -100,10 +100,10 @@
 					</tr>			
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>22370537538484773<br>
-						    <a>详细信息>>></a></td>
+					<tr *ngFor="let item of _listLoader.Items;let i=index;">
+						<td>{{index}}</td>
+						<td>{{item.orderCodeStr}}<br>
+						    <a (click)="openDetail(item)">详细信息>>></a></td>
 						<td>云主机<br>
 						     运硬盘<br>
 						     数据库</td>

@@ -1,5 +1,5 @@
 ﻿<div class="page-content-header icon-content-header-purchasing"> 镜像管理----XXXXX(平台名称)
-    <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" key="boe/image-mng.html">
+    <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" key="boe/image-mng.html" (click)="ImgMngPage()">
         返回镜像管理列表
     </button>
 </div>
@@ -7,22 +7,19 @@
     <div class="mgt15 ">      
             <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >镜像类型：</span>
             <div class="float-left pdr20">
-                <select class="pdl10 form-control">
-                    <option value="1">选择镜像</option>
-                    <option value="1">公共镜像</option>
-                    <option value="1">企业镜像</option>
-                    <option value="1">自定义镜像</option>
+                <select class="pdl10 form-control" [(ngModel)]="queryOpt.type">
+                    <option [value]="" value="">选择镜像</option>
+                    <option *ngFor="let td of typeDict" [value]="td.value">{{td.displayValue}}</option>
                 </select>
             </div>          
             <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >所属企业：</span>
             <div class="float-left">
-                <select class="pdl10 form-control">
-                    <option value="1">选择企业</option>
-                    <option value="1">BOE-CIO总部</option>
-                    <option value="1">BOE-信管中心</option>
+                <select class="pdl10 form-control" [(ngModel)]="queryOpt.tenantId">
+                    <option [value]="" value="">选择企业</option>
+                    <option *ngFor="let ent of vmwareents" [value]="ent.id">{{ent.name}}</option>
                 </select>
             </div>  
-            <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10 "><span class="icon-button-label">确定 </span> </button>                                                             
+            <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10" (click)="filter()"><span class="icon-button-label">确定 </span> </button>                                                             
     </div>         
     <div style="clear:both"></div>
     <div class="mgb20 " style="margin-top:20px">
@@ -35,8 +32,8 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <li><a href="#myModal" data-toggle="modal">编辑</a></li>
-                <li><a href="javascript:">启用</a></li>
-                <li><a href="javascript:">禁用</a></li>
+                <li><a href="javascript:" (click)="enableimage()">启用</a></li>
+                <li><a href="javascript:" (click)="disableimage()">禁用</a></li>
             </ul>
         </div>
     </div>
@@ -55,84 +52,72 @@
                 </tr>
             </thead>
             <tbody>
-                <tr >
-                    <td><input type="radio" name="image" class="fox-cloud-radio"></td>
-                    <td><a href="#" key="boe/image-mng-openStack-list.html">windows2012dc</a></td>
+                <tr *ngFor="let img of vmwareimgs; let i=index">
+                    <td><input type="radio" name="image" class="fox-cloud-radio" [checked]="img.checked" (change)="selectItem(i)" value="{{i}}"></td>
+                    <td>
+                        <div class="tenant-description-c">{{img.name}}
+                            <div class="popover-content">
+                                <span>
+                                    {{img.description}}
+                                </span>
+                            </div>
+                        </div>
+                    </td>
                     <td style="position:relative">
-                        windows2012 Datacenter R2 
-                        <span class="pull-right icon-edit2"></span>
-                        <div class="popover fade bottom in" role="tooltip" style="z-index:-3;top:25px; left:150px; width:370px; max-width:1100px; display: block;">
+                        {{img.displayName}}
+                        <span class="pull-right icon-edit2" (click)="img.nameEditing=true; onSelect(img)"></span>
+                        <div *ngIf="img.nameEditing" class="popover fade bottom in" role="tooltip" style="z-index:-3;top:25px; left:150px; width:370px; max-width:1100px; display: block;">
                                 <div class="arrow" style="left: 30%;"></div>
                                 <div class="popover-content">
                                     <form class="form-horizontal" role="form">
                                         <div class="form-group">
                                             <label class="col-sm-4 control-label">镜像显示名称:</label>
                                             <div class="col-sm-8 float-left">
-                                            <input type="text">
+                                            <input type="text" [(ngModel)]="selectedimage.name">
                                             </div>
                                         </div>
                                     </form>
                                 <div class="pull-right" style="margin-bottom:10px;">
-                                    <button class=" fox-cloud-button fox-cloud-button-white">保存</button>
-                                    <button class="fox-cloud-button fox-cloud-button-white">取消</button>
+                                    <button class=" fox-cloud-button fox-cloud-button-white" (click)="onSave(img)">保存</button>
+                                    <button class="fox-cloud-button fox-cloud-button-white" (click)="img.nameEditing=false;">取消</button>
                                 </div>
                             </div>                              
                     </div>
                     </td>
-                    <td>windows2012 R2</td>
-                    <td>64</td>
-                    <td>公共镜像</td>
-                    <td>所有</td>
-                    <td class="font-green">已启用</td>                   
-                </tr>
-                <tr>
-                    <td><input type="radio" name="image" class="fox-cloud-radio"></td>
-                    <td><a href="#" key="boe/image-mng-openStack-list.html">windows2012dc</a></td>
-                    <td>windows2012 Datacenter R2 <span class="pull-right icon-edit2"></span></td>
-                    <td>windows2012 R2</td>
-                    <td>64</td>
-                    <td>公共镜像</td>
-                    <td>所有</td>
-                    <td class="font-green">已启用</td>  
-                </tr>
-                <tr>
-                    <td><input type="radio" name="image" class="fox-cloud-radio"></td>
-                    <td><a href="#" key="boe/image-mng-openStack-list.html">windows2012dc</a></td>
-                    <td>windows2012 Datacenter R2 <span class="pull-right icon-edit2"></span></td>
-                    <td>windows2012 R2</td>
-                    <td>64</td>
-                    <td>公共镜像</td>
-                    <td>
-                        <a>详细>></a>
+                    <td>{{img.os}}</td>
+                    <td>{{getDicText(img.bitsType, this.bitDict)}}</td>
+                    <td>{{getDicText(img.type, this.typeDict)}}</td>
+                    <td [ngSwitch]="displayIt(img.tenants)">
+                        <div *ngSwitchCase="'some'" class="tenants-c">详细>>
                         <div class="table-container" style=" border-left: 1px solid #cfd8e7;border-right: 1px solid #cfd8e7">
                             <table class="table table-hover" >
                                 <thead>
                                     <th style="background-color:#00a982;color:white">所有企业</th>
                                 </thead>
                                 <tbody>
-                                    <tr><td >BOE-CIO总部</td></tr>
-                                     <tr><td>BOE-信管中心1</td></tr>
-                                     <tr><td>BOE-信管中心2</td></tr>
+                                    <tr *ngFor="let tenant of img.tenants">
+                                        <td>{{tenant.name}}</td>
+                                    </tr>
                                 </tbody>                          
                             </table>
                         </div>
+                        </div>
+                        <div *ngSwitchCase="'all'">所有</div>
+                        <div *ngSwitchCase="'special'">{{img.tenants[0].name}}</div>
+                        
                     </td>
-                    <td class="font-orange">禁用</td>  
+                    <td class="font-green">{{getDicText(img.status, this.statusDict)}}</td>                   
                 </tr>
             </tbody>
         </table>
-
+    {{queryOpt.toString()}}
     </div>
+
+    <div class="fox-cloud-pagination-container">
+        <fc-pagination #pager tp={{totalPage}} (pf)="getVmwareImgList($event)"></fc-pagination>
+    </div>
+    <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+    <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
 </div>
-<div class="fox-cloud-pagination-container">
-    <ul class="fox-cloud-pagination">
-        <span class="disable">上一页</span>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-        <span>下一页</span>
-    </ul>
-</div>
+
 

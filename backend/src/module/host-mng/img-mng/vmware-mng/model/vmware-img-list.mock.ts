@@ -16,22 +16,22 @@ export const VmwareImgModel_mock = {
         },
         {
             "id": "ef349044-3bfb-4b09-b804-30954b084eaa",
-            "name": "windows",
-            "displayName": "我的windows",
+            "name": "windows-2016",
+            "displayName": "windows 2016",
             "os": "CentOS",
-            "bitesType": "0",
+            "bitsType": "0",
             "type": "0",
             "tenants": [
             ],
             "status": "0",
-            "description": "xxx"
+            "description": "windows 2016=============="
         },
         {
             "id": "ef349044-3bfb-4b09-b804-30954b084ebb",
-            "name": "windows",
-            "displayName": "我的windows",
+            "name": "windows-boe",
+            "displayName": "windows for BOE",
             "os": "CentOS",
-            "bitesType": "0",
+            "bitsType": "1",
             "type": "1",
             "tenants": [
                 {
@@ -40,14 +40,14 @@ export const VmwareImgModel_mock = {
                 }
             ],
             "status": "1",
-            "description": "xxx"
+            "description": "windows for BOE!!!!!!!!!!!!!!!"
         },
         {
             "id": "ef349044-3bfb-4b09-b804-30954b084ecc",
-            "name": "windows",
+            "name": "windows-customized",
             "displayName": "我的windows",
             "os": "CentOS",
-            "bitesType": "0",
+            "bitsType": "0",
             "type": "2",
             "tenants": [
                 {
@@ -64,7 +64,7 @@ export const VmwareImgModel_mock = {
                 }
             ],
             "status": "2",
-            "description": "xxx"
+            "description": "我的windows#############"
         }
     ],
     "pageInfo": {

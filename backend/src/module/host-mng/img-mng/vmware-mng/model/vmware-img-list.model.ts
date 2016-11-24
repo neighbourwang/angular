@@ -3,7 +3,7 @@
             "name": "windows",
             "displayName": "我的windows",
             "os": "CentOS",
-            "bitesType": "0",
+            "bitsType": "0",
             "type": "0",
             "tenants": [
              {
@@ -26,11 +26,14 @@ export class VmwareImgModel {
     name: string;
     displayName: string;
     os: string;
-    bitesType: string;
+    bitsType: string;
     type: string;
     tenants: Array<TenantModel>;
     status: string;
     description: string;
+
+    nameEditing: boolean;
+    checked: boolean;
 
 }
 
@@ -43,4 +46,13 @@ export class TenantModel {
 export class VmwareEntModel {
     id: string;
     name: string;
+}
+
+export class CriteriaQuery{
+    type: string = "";
+    tenantId: string = "";
+
+    toString(){
+        return JSON.stringify(this);
+    }
 }

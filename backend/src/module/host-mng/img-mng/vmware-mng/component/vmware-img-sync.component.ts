@@ -6,7 +6,8 @@ import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService,
 import { VmwareImgModel } from '../model/vmware-img-list.model';
 
 //service
-import { VmwareImgListService } from '../service/vmware-img-list.service';
+//import { VmwareImgListService } from '../service/vmware-img-list.service';
+//import { VmwareEntListService } from '../service/enterprise-list.service';
 
 @Component({
     selector: "vmware-img-sync",
@@ -20,7 +21,7 @@ export class VmwareImgSyncComponent implements OnInit {
     constructor(
         private router: Router,
         private dicService: SystemDictionaryService,
-        private service: VmwareImgListService,
+        //private service: VmwareImgListService,
         private layoutService: LayoutService,
         private validationService: ValidationService,
         private activatedRouter : ActivatedRoute
@@ -58,21 +59,6 @@ export class VmwareImgSyncComponent implements OnInit {
 
 
     ngOnInit() {
-        this.dicService.getItems("IMAGES", "TYPE")
-            .then(
-            (dic) => {
-                this.typeDict = dic;
-                return this.dicService.getItems("IMAGES", "BITS_TYPE");
-            })
-            .then((dic) => {
-                this.bitDict = dic;
-                return this.dicService.getItems("IMAGES", "STATUS");
-            })
-            .then((dic) => {
-                this.statusDict = dic;
-                //this.getNetworkList();
-                //this.getOptionInfo();
-            });
     }
 
     showMsg(msg: string) {
@@ -92,23 +78,4 @@ export class VmwareImgSyncComponent implements OnInit {
         this.notice.open();
     }
 
-    getVmwareImgList(pageIndex?): void {
-        this.pageIndex = pageIndex || this.pageIndex;
-        this.layoutService.show();
-        this.service.getVmwareImgList(this.platformId, this.pageIndex, this.pageSize)
-            .then(
-            response => {
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
-                    this.layoutService.hide();
-                    this.vmwareimgs = response.resultContent;
-                    this.totalPage = response.pageInfo.totalPage;
-                } else {
-                    alert("Res sync error");
-
-                }
-            }
-            )
-            .catch((e) => this.onRejected(e));
-    }
 }
