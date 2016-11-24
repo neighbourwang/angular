@@ -178,7 +178,7 @@
 										<span class="float-left mgr20" style="margin-top: 8px;">购买时长:</span>
 										<div class="float-left mgr20">
 											<input class="float-left" type="text" [ngModel]="selectedPeriodTypeName" disabled="true">
-											<input class="float-left" type="number" name="" (change)="renewValueChange()" [(ngModel)]="_renewSetting.value">
+											<input *ngIf="!isForerver" class="float-left" type="number" name="" (change)="renewValueChange()" [(ngModel)]="_renewSetting.value">
 										</div>
 										<button class="btn button-gray-gradient mgr20" [class.bgGreen]="isForerver" (click)="selectForever();">永&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;久</button>
 								    </div>
@@ -211,7 +211,7 @@
 														</span>
 											</li>
 										</ul>-->
-										<button class="button-size-big button-confirm pull-right">管理控制台</button>
+										<button class="button-size-big button-confirm pull-right" data-dismiss="modal" (click)="search()">管理控制台</button>
 									</div>	
 									<div style="height: 40px;"></div>
 								</div>
