@@ -3,6 +3,18 @@ export const VmwareImgModel_mock = {
     "detailDescription": null,
     "resultContent": [
         {
+            "id": "ef349044-3bfb-4b09-b804-30954b084e0d",
+            "name": "windows",
+            "displayName": "我的windows",
+            "os": "CentOS",
+            "bitesType": "0",
+            "type": "0",
+            "tenants": [
+            ],
+            "status": "0",
+            "description": "xxx"
+        },
+        {
             "id": "ef349044-3bfb-4b09-b804-30954b084eaa",
             "name": "windows-2016",
             "displayName": "windows 2016",
