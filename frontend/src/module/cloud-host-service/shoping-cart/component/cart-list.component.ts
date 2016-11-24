@@ -87,10 +87,6 @@ export class cartListComponent implements OnInit {
 		})
 	}
 
-	nub(nub : string|number) {
-		return parseInt("" + (+nub)*100)/100;
-	}
-
 	goTo(url : string) {
 		this.router.navigateByUrl(url);
 	}

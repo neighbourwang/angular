@@ -27,12 +27,29 @@ export class VmwareImgModel {
     displayName: string;
     os: string;
     bitsType: string;
+    size: string;
     type: string;
     tenants: Array<TenantModel>;
     status: string;
     description: string;
 
     nameEditing: boolean;
+    checked: boolean;
+
+}
+
+export class VmwareImgSyncModel {
+    id: string;
+    name: string;
+    displayName: string;
+    os: string;
+    bitsType: string;
+    size: string;
+    type: string;
+    syncResult: string;
+
+    nameEditing: boolean;
+    checked: boolean;
 
 }
 

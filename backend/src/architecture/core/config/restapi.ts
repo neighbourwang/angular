@@ -930,43 +930,43 @@ export let RestApis: RestApiModel[] = [
         "desc": "标准网络列表",
         "id": "net-mng.vmware.network.list",
         "method": "GET",
-        "url": "/adminboe/authsec/vmware/network/getlist"
+        "url": "adminboe/authsec/vmware/network/getlist"
     },
     {
         "desc": "获取IP地址管理列表",
         "id": "net-mng.vmware.ipmng.list",
         "method": "POST",
-        "url": "/adminboe/authsec/vmware/network/portGroup"
+        "url": "adminboe/authsec/vmware/network/portGroup"
     },
     {
         "desc": "获取IP使用情况列表",
         "id": "net-mng.vmware.ipusagemng.list",
         "method": "GET",
-        "url": "/adminboe/authsec/vmware/network/portGroup/{portGroup_id}/ip"
+        "url": "adminboe/authsec/vmware/network/portGroup/{portGroup_id}/ip"
     },
     {
         "desc": "IP地址占用",
         "id": "net-mng.vmware.subnetip.occupy",
         "method": "PUT",
-        "url": "/adminboe/authsec/vmware/network/portGroup/ip/{ip_id}/occupy"
+        "url": "adminboe/authsec/vmware/network/portGroup/ip/{ip_id}/occupy"
     },
     {
         "desc": "IP地址释放",
         "id": "net-mng.vmware.subnetip.release",
         "method": "PUT",
-        "url": "/adminboe/authsec/vmware/network/portGroup/ip/{ip_id}/release"
+        "url": "adminboe/authsec/vmware/network/portGroup/ip/{ip_id}/release"
     },
     {
         "desc": "设置IP子网",
         "id": "net-mng.vmware.subnet.setup",
         "method": "PUT",
-        "url": "/adminboe/authsec/vmware/network/portGroup"
+        "url": "adminboe/authsec/vmware/network/portGroup"
     },
     {
         "desc": "设置子网IP范围",
         "id": "net-mng.vmware.subnetips.setup",
         "method": "PUT",
-        "url": "/adminboe/authsec/vmware/network/portGroup/{portGroup_id}/subnetRange"
+        "url": "adminboe/authsec/vmware/network/portGroup/{portGroup_id}/subnetRange"
     },
       //云网络管理
         //openstack
@@ -1096,15 +1096,64 @@ export let RestApis: RestApiModel[] = [
         "id": "net-img.vm-mng.network.update",
         "method": "POST",
         "url": "/adminboe/authsec/vmware/network/update"
-    },
+    }
 
 
     ////云主机管理-镜像管理-
     //openstack镜像管理
-    {
+    , {
         "desc": "获取镜像列表-openstack",
         "id": "host-mng.openstack-mng.image.list",
         "method": "POST",
         "url": "/adminui/authsec/images/openstack/{platformId}/page/{page}/size/{size}"
+    }
+    //vmware镜像管理
+    , {
+        "desc": "获取镜像列表-vmare2.2",
+        "id": "host-mng.vmware-mng.image.list",
+        "method": "POST",
+        "url": "adminui/authsec/images/vmware/{platformId}/page/{page}/size/{size}"
+    }
+    , {
+        "desc": "获取下拉企业列表-vmware2.3",
+        "id": "host-mng.vmware-mng.dropdown-ent.list",
+        "method": "GET",
+        "url": "adminui/authsec/images/{platformId}/tenants/dropdown"
+    }
+    , {
+        "desc": "获取未选择和已选择的企业列表-vmware3.1",
+        "id": "host-mng.vmware-mng.ents.list",
+        "method": "POST",
+        "url": "/adminui/authsec/image/detail/{platformId}/tenants"
+    }
+    , {
+        "desc": "设置企业并保存-vmware3.2",
+        "id": "host-mng.vmware-mng.ent.save",
+        "method": "POST",
+        "url": "/adminui/authsec/image/{imageId}/tenants"
+    }
+    , {
+        "desc": "启用和禁用镜像-vmware4",
+        "id": "host-mng.vmware-mng.image.enable-disable",
+        "method": "PUT",
+        "url": "/adminui/authsec/image/{id}/{status}"
+    }
+    , {
+        "desc": "编辑镜像-vmware5",
+        "id": "host-mng.vmware-mng.image.edit",
+        "method": "PUT",
+        "url": "/adminui/authsec/image/{id}"
+    }
+    , {
+        "desc": "获取待同步的镜像列表-vmware11",
+        "id": "host-mng.vmware-mng.sync-image.list",
+        "method": "GET",
+        "url": "/adminui/authsec/images/vmware/{platformId}"
+    }
+    , {
+        "desc": "同步镜像-vmware12",
+        "id": "host-mng.vmware-mng.sync-image.sync",
+        "method": "POST",
+        "url": "/adminui/authsec/images/vmware/{platformId}/sync"
     }
 ]

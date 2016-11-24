@@ -20,9 +20,19 @@ export class ImgIndexService {
         this.restApiCfg.loadCfgData();
     }
 
-    getPlatforms(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("net-img.vm-mng.network.list");
-        //return this.restApi.request(api.method, api.url, null, null, null);
+    getPlatforms(pageIndex: number, pageSize: number): Promise<any> {
+        const pathParams = [
+            {
+                key: "page",
+                value: pageIndex
+            },
+            {
+                key: "size",
+                value: pageSize
+            }
+        ];
+        //const api = this.restApiCfg.getRestApi("host-mng.img-index.platforms.list");
+        //return this.restApi.request(api.method, api.url, pathParams, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => platforms_mock);
     }
 }

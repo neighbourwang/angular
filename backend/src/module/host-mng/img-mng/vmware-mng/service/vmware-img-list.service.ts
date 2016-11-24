@@ -5,8 +5,11 @@ import { RestApiCfg, RestApi } from '../../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
 //model
-import { VmwareImgModel_mock } from '../model/vmware-img-list.mock';
 import { VmwareImgModel, CriteriaQuery } from '../model/vmware-img-list.model';
+
+//mock
+import { VmwareImgModel_mock } from '../model/vmware-img-list.mock';
+import { success_resp_mock } from '../model/vmware-img-enable-disable.mock';
 
 
 @Injectable()
@@ -39,7 +42,8 @@ export class VmwareImgListService{
             }
         ];
         
-        /*const api = this.restApiCfg.getRestApi("host-mng.img-mng.vmware-mng.vmware-img.list");
+        /*
+        const api = this.restApiCfg.getRestApi("host-mng.img-mng.vmware-mng.vmware-img.list");
         return this.restApi.request(api.method, api.url, pathParams, null, 
             {
                 "type": criteriaQuery.type,
@@ -48,6 +52,41 @@ export class VmwareImgListService{
         );
         */
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return VmwareImgModel_mock });
+    }
+
+    enableImage(img_id: string, status: string): Promise<any> {
+        //const api = this.restApiCfg.getRestApi("host-mng.img-mng.vmware-mng.vmware-img.list");
+        //return this.restApi.request(api.method, api.url, null, null, null);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });
+    }
+
+    disableImage(img_id: string, status: string): Promise<any> {
+        //const api = this.restApiCfg.getRestApi("host-mng.img-mng.vmware-mng.vmware-img.list");
+        //return this.restApi.request(api.method, api.url, null, null, null);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });
+    }
+
+    updateImage(image: VmwareImgModel): Promise<any> {
+        /*
+        const pathParams = [
+            {
+                key: "id",
+                value: image.id
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.image.edit");
+        return this.restApi.request(api.method, api.url, pathParams, null,
+            {
+                "displayName" : image.displayName,
+                "os" : image.os,
+                "bitsType" : image.bitsType,
+                "type" : image.type,
+                "description" : image.description
+            }
+        );
+        */
+
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });
     }
     
 }

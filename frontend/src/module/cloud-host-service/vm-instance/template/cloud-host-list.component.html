@@ -5,25 +5,7 @@
         <tr>
             <th class="col-md-1 col-xs-3 text-center">区域列表</th>
             <td>
-                <div class="col-md-10 btn-group" data-toggle="buttons">
-                    <label *ngFor="let value of areaConfig;let i = index;" class="btn btn-default" [ngClass]="{'active': i === 0}">
-                        <input type="radio" name="area" autocomplete="off"> {{ value.displayName }}
-                    </label>
-                    <label class="btn btn-default">
-                        <input type="radio" name="area" autocomplete="off"> 所有
-                    </label>
-                </div>
-                <div class="col-md-10 btn-group areaAble" data-toggle="buttons">
-                    <label class="btn btn-default active">
-                        <input type="radio" name="application" autocomplete="off"> 可用区A
-                    </label>
-                    <label class="btn btn-default">
-                        <input type="radio" name="application" autocomplete="off"> 可用区B
-                    </label>
-                    <label class="btn btn-default">
-                        <input type="radio" name="application" autocomplete="off"> 所有
-                    </label>
-                </div>
+                <platform-zone (onClick)="platformClick($event)"></platform-zone>
             </td>
         </tr>
         <tr>

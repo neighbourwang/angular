@@ -45,12 +45,6 @@ export class cloudDriveListComponent implements OnInit {
 		this.setHostList();
 	}
 
-	setArea(): void {
-		this.service.getHostConfigList().then(configList => {
-			this.areaConfig = configList.filter(config => config.attrCode === "PLATFORM")[0].valueList;
-		});
-	}
-
 	setHostList(): void {
 		// this.layoutService.show();
 		this.service.getDistList(this.quiryDistList).then(res => {
@@ -68,9 +62,8 @@ export class cloudDriveListComponent implements OnInit {
 
 	}
 
-	forMatData(number : number) : string {
-		var d = new Date(number);
- 		return (d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds());
+	platformClick(data){
+		console.log(data);
 	}
 
 	//云主机的操作相关
