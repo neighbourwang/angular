@@ -1,6 +1,6 @@
 ﻿<fc-notice #notice ot="确认"></fc-notice>
 <div class="OrderManage">	
-	<div class="page-content-header">订单管理</div>
+	<div class="page-content-header">已订购管理</div>
 	<div class="page-content">
 		<div class="mgb20">
 			<ul class="nav nav-tabs" id="myTabs" role="tablist">
@@ -185,10 +185,10 @@
 										<span class="float-left mgr20" style="margin-top: 8px;">购买时长:</span>
 										<div class="float-left mgr20">
 											<input class="float-left" type="text" [ngModel]="selectedPeriodTypeName" disabled="true">
-											<input class="float-left" type="number" name="" (change)="renewValueChange()" [(ngModel)]="_renewSetting.value">
+											<input *ngIf="!_renewSetting.isForever" class="float-left" type="number" name="" (change)="renewValueChange()" [(ngModel)]="_renewSetting.value">
 										</div>
-										<button class="btn button-gray-gradient mgr20" [ngClass]="{'bgGreen':isForever==1}" (click)="selectForever();">永&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;久</button>
-								    </div>
+										<button class="btn  mgr20" [ngClass]="{'button-confirm':!_renewSetting.isForever!=1,'button-gray-gradient':!_renewSetting.isForever==1}" (click)="selectForever();">永&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;久</button>
+									</div>
 									<div class="float-right">
 										续订后到期时间：<span class="warnInfo">{{_renewSetting.renewDate}}</span>
 									</div>	
@@ -218,7 +218,7 @@
 														</span>
 											</li>
 										</ul>-->
-										<button class="button-size-big button-confirm pull-right">管理控制台</button>
+										<button class="button-size-big button-confirm pull-right" data-dismiss="modal" (click)="search()">管理控制台</button>
 									</div>	
 									<div style="height: 40px;"></div>
 								</div>
@@ -259,7 +259,7 @@
 							<div class="page-content">
 								<div class="page-second-container">
 											<span class="warnInfo float-left mgb20">你的订单已申请退订，资源将会被立刻删除！<br>如需审批，则要等待退订审批通过后，系统才会开始删除资源。<br>您可以登陆管理控制台，查看退订状态。</span>
-											<button class="button-size-big button-confirm pull-right">管理控制台</button>
+											<button class="button-size-big button-confirm pull-right" data-dismiss="modal">管理控制台</button>
 											<div style="height: 40px;"></div>
 								</div>
 							</div>

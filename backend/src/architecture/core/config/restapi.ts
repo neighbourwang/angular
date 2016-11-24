@@ -559,7 +559,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "分页获取所有产品目录",
         "id": "prod-mng.prod-dir-mng.list.get",
         "method": "POST",
-        "url": "adminui/authsec/services/page/{page}/size/{size}"
+        "url": "adminui/authsec/services/pagging"
     },
     {
         "desc": "获取所有已激活云平台, 为下拉框准备",

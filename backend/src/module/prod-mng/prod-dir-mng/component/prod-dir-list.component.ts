@@ -101,17 +101,29 @@ export class ProdDirListComponent implements OnInit {
         //     },
         // ]
 
-        this.backend(1, this.pp, {});
+        this.backend({
+            "categoryId": '',
+            "page": 1,
+            "platformId": '',
+            "size": this.pp,
+        });
     }
-    data: any = {};
+    data: any = {
+             "categoryId": "string",
+             "page": 0,
+             "platformId": "string",
+             "size": 0,
+    };
     onQuery() {
-        console.log(this.platformId);
-        console.log(this.queryProDirTypeId);
+        // console.log(this.platformId);
+        // console.log(this.queryProDirTypeId);
         this.data = {
             "categoryId": this.queryProDirTypeId,
-            "platformId": this.platformId
+            "platformId": this.platformId,
+            page:1,
+            size:this.pp
         }
-        this.backend(1, this.pp, this.data);
+        this.backend(this.data);
     }
     @ViewChild('publishConfirm')
     publishConfirm: ConfirmComponent;
@@ -209,7 +221,7 @@ export class ProdDirListComponent implements OnInit {
         let id = selectedList[0]['serviceId'];
         this.ProdDirDeleteService.deleteProdDir(id).then(response => {
             console.log(response);
-            this.backend(1, this.pp, this.data);
+            this.backend(this.data);
         }).catch(err => {
             console.error(err);
         })
@@ -222,7 +234,7 @@ export class ProdDirListComponent implements OnInit {
         let id = selectedList[0]['serviceId'];
         this.ProdDirPublishService.publishProdDir(id).then(response => {
             console.log(response);
-            this.backend(1, this.pp, this.data);
+            this.backend(this.data);
         }).catch(err => {
             console.error(err);
         })
@@ -234,7 +246,7 @@ export class ProdDirListComponent implements OnInit {
         let id = selectedList[0]['serviceId'];
         this.CcProdDirPublishService.ccPublishProdDir(id).then(response => {
             console.log(response);
-            this.backend(1, this.pp, this.data);
+            this.backend(this.data);
         }).catch(err => {
             console.error(err);
         })
@@ -271,10 +283,10 @@ export class ProdDirListComponent implements OnInit {
     }
 
     //获取列表数据
-    backend(page: number, size: number, data) {
+    backend(data) {
         // this.layoutService.show();
         this.tp = 0;
-        this.service.getProdDirList(page, size, data).then(
+        this.service.getProdDirList(data).then(
             response => {
                 console.log(response);
                 if (response && 100 == response.resultCode) {
@@ -325,6 +337,11 @@ export class ProdDirListComponent implements OnInit {
     }
 
     paging(page) {
-        this.backend(page, this.pp, {});
+        this.backend({
+            "categoryId": this.queryProDirTypeId,
+            "platformId": this.platformId,
+            'page':page,
+            size:this.pp
+        });
     }
 }

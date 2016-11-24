@@ -115,6 +115,10 @@ export class ItemLoader<T>{
 
 						resolve(this._items);
 					}
+					else
+					{
+						resolve(null);
+					}
 				}
 			})
 			.catch(err=>{
