@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService, PaginationComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../../architecture';
+import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService, PopupComponent, PaginationComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../../architecture';
 
 //model
 import { VmwareImgModel, VmwareEntModel, CriteriaQuery, TenantModel } from '../model/vmware-img-list.model';
@@ -44,6 +44,9 @@ export class VmwareImgListComponent implements OnInit {
     @ViewChild("confirm")
     confirm: ConfirmComponent;
 
+    @ViewChild("editimagebox")
+    editimagebox: PopupComponent;
+
     noticeTitle = "";
     noticeMsg = "";
 
@@ -61,7 +64,24 @@ export class VmwareImgListComponent implements OnInit {
     selectedimg: VmwareImgModel = new VmwareImgModel();
     vmwareents: Array<VmwareEntModel>;
 
+    private okCallback: Function = null;
+    okClicked() {
+        console.log('okClicked');
+        if (this.okCallback) {
+            console.log('okCallback()');
+            this.okCallback();
+            this.okCallback = null;
+        }
+    }
 
+    private confirmedHandler: Function = null;
+    //启用，禁用，删除的处理
+    onConfirmed() {
+        if (this.confirmedHandler) {
+            this.confirmedHandler();
+            this.confirmedHandler = null;
+        }
+    }
 
     ngOnInit() {
         this.dicService.getItems("IMAGES", "TYPE")
@@ -153,11 +173,6 @@ export class VmwareImgListComponent implements OnInit {
         }
     }
 
-    //Menu: 返回镜像管理界面
-    ImgMngPage() {
-        this.router.navigate([`host-mng/img-mng/img-index/img-index`]);
-    }
-
     getEntList(): void {
         this.layoutService.show();
         this.entService.getEntList(this.platformId)
@@ -221,14 +236,15 @@ export class VmwareImgListComponent implements OnInit {
 
     }
 
+    //Menu: 启用镜像
     enableImage(): void {
         let image = this.getSelected();
         if(image){
             this.selectedimg = image;
             console.log(this.selectedimg.id);
             //console.log(this.pg_id);
-            if(this.selectedimg.status == "1"){
-                this.showMsg("IP已被占用");
+            if(this.selectedimg.status == this.statusDict.find(n => n.code === "AVAILABLE").value){
+                this.showMsg("镜像已被占用");
                 return; 
             }
             this.service.enableImage(this.selectedimg.id, "enable")
@@ -247,14 +263,15 @@ export class VmwareImgListComponent implements OnInit {
         }
     }
 
+    //Menu: 禁用镜像
     disableImage(): void {
         let image = this.getSelected();
         if(image){
             this.selectedimg = image;
             console.log(this.selectedimg.id);
             //console.log(this.pg_id);
-            if(this.selectedimg.status == "0"){
-                this.showMsg("IP还未占用");
+            if(this.selectedimg.status == this.statusDict.find(n => n.code === "UNAVAILABLE").value){
+                this.showMsg("镜像还未占用");
                 return; 
             }
             this.service.enableImage(this.selectedimg.id, "disable")
@@ -272,6 +289,71 @@ export class VmwareImgListComponent implements OnInit {
                 .catch((e) => this.onRejected(e))
         }
     }
+
+    acceptVmwareImageModify(): void {
+        console.log('clicked acceptVmwareImageModify');
+        if(this.selectedimg){
+            console.log(this.selectedimg.id);
+            this.service.updateImage(this.selectedimg)
+            .then(res => {
+                    if (res && res.resultCode == "100") {
+                        console.log(res, "镜像更新成功")
+                    } else {
+                        this.showMsg("镜像更新失败");
+                        return;
+                    }
+                })
+                .then(()=>{
+                    this.getVmwareImgList();
+                    this.editimagebox.close();
+                })
+                .catch(err => {
+                    console.log('镜像更新', err);
+                    this.showMsg("镜像更新");
+                    this.okCallback = () => { this.editimagebox.open(); };
+                })
+        }
+    }
+
+    cancelVmwareImageModify(): void {
+        console.log('clicked cancelVmwareImageModify');
+    }
+
+    //Menu: 编辑镜像
+    editImage(): void {
+        console.log('conponent: editImage');
+        let image = this.getSelected();
+        if (image) {
+            console.log(image, "========== editImage =============");
+            // OR get subenet information from API
+            //this.subn.portGroup = pg.id;
+            this.selectedimg = image;
+            this.editimagebox.open();
+        } else {
+                this.showMsg("请选择镜像");
+                return; 
+        }
+    }
+
+    //Menu: 同步镜像
+    VmwareImgSyncPage() {
+        this.router.navigate([`host-mng/img-mng/vmware-img-sync/${this.platformId}`]);
+    }
+
+    //Menu: 设置企业
+    VmwareImgEntSetup(): void {
+        
+    }
+
+
+
+    //Menu: 返回镜像管理界面
+    ImgMngPage() {
+        this.router.navigate([`host-mng/img-mng/img-index/img-index`]);
+    }
+
+
+/*
 
     onSelect(img: VmwareImgModel): void {
         let tmpimage = new VmwareImgModel();
@@ -295,34 +377,6 @@ export class VmwareImgListComponent implements OnInit {
             this.showAlert("镜像名称不能为空");
             return;
         }
-/*
-        this.service.updateImage(this.selectedimage)
-        .then(
-            response => {
-                if(response && 100 == response["resultCode"])
-                {
-                    this.layoutService.hide();
-                    let cimage = this.selectedimage;
-                    image.id = cimage.id;
-                    image.name = cimage.name;
-                    image.type = cimage.type;
-                    image.os = cimage.os;
-                    image.bits = cimage.bits;
-                    image.createTime = cimage.createTime;
-                    image.status = cimage.status;
-                    image.progress = cimage.progress;
-                    image.description = cimage.description;
-                    image.desEditing = false;
-                    image.nameEditing = false;
-                } else {
-                    this.showAlert("update image failed!");
-                }
-            }
-        ).catch(e=>{
-            this.showAlert(e);
-        })
-*/
-
-
     }
+*/
 }

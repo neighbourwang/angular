@@ -65,5 +65,28 @@ export class VmwareImgListService{
         //return this.restApi.request(api.method, api.url, null, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });
     }
+
+    updateImage(image: VmwareImgModel): Promise<any> {
+        /*
+        const pathParams = [
+            {
+                key: "id",
+                value: image.id
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.image.edit");
+        return this.restApi.request(api.method, api.url, pathParams, null,
+            {
+                "displayName" : image.displayName,
+                "os" : image.os,
+                "bitsType" : image.bitsType,
+                "type" : image.type,
+                "description" : image.description
+            }
+        );
+        */
+
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });
+    }
     
 }
