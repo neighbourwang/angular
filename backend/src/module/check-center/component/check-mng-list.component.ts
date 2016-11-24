@@ -49,12 +49,19 @@ export class CheckMngListComponent implements OnInit{
 			{
 				obj.orderCodeStr = item.orderCode;//订单编号
 				obj.serviceTypeName = _.isEmpty(item.orderInstanceItems) ? "": item.orderInstanceItems.map(n=>n.productType).join("<br/>"); //产品类型
-				// obj.platformStr = ??
-				// obj.zoneStr = ??
-				// obj.orderTypeName = ??
-				
-
-				
+				// obj.platformStr = ?? 区域
+				// obj.zoneStr = ?? 可用区
+				// obj.orderTypeName = ?? 订单类型
+				// obj.userStr = ?? 用户
+				// obj.departmentStr = ?? 部门
+				// obj.entStr = ?? 企业
+				obj.billingModeNum = _.isEmpty(item.orderInstanceItems) ? "" : item.orderInstanceItems[0].billingMode;
+				obj.billingModeName = obj.billingModeNum.toString();
+				// obj.billingDurationStr = ?? 订单周期
+				obj.oneTimePriceNum = _.isEmpty(item.orderInstanceItems) ? 0 : item.orderInstanceItems[0].oneTimePrice;
+				obj.priceNum = _.isEmpty(item.orderInstanceItems) ? 0 : item.orderInstanceItems[0].price;
+				obj.createTimeStr = _.isEmpty(item.orderInstanceItems) ? "" : item.orderInstanceItems[0].createDate;
+				// obj.checkResultId = ?? 审批结果				
 			}
 		};
 
@@ -146,5 +153,11 @@ export class CheckMngListComponent implements OnInit{
 		.catch(err=>{
 			this._layoutService.hide();
 		});
+	}
+
+	//打开订单详情
+	openDetail(item:CheckListItem)
+	{
+
 	}
 }
