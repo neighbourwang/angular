@@ -8,7 +8,7 @@ import { CommonComponentModule } from '../../../architecture';
 import { OrderMngRouting } from './order-mng.routing';
 
 //component
-import {OrderMngDetailComponent, OrderMngComponent } from './component';
+import {OrderMngDetailComponent, OrderMngComponent,OrderMngRenewComponent } from './component';
 
 @NgModule({
     imports: [
@@ -19,6 +19,7 @@ import {OrderMngDetailComponent, OrderMngComponent } from './component';
     declarations: [
         OrderMngDetailComponent
         ,OrderMngComponent
+        ,OrderMngRenewComponent
     ],
     exports: [],
     providers: []
