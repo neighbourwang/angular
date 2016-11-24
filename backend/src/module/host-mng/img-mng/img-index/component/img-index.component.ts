@@ -34,10 +34,15 @@ export class ImgIndexComponent implements OnInit {
     noticeTitle = "";
     noticeMsg = "";
 
+    pageIndex = 1;
+    pageSize = 10;
+    totalPage = 1;
+
     platforms: Array<platform>;
 
     typeDic: Array<SystemDictionary>;
 
+    
     ngOnInit() {
        
         this.dicService.getItems("PLATFORM", "TYPE")
@@ -48,21 +53,54 @@ export class ImgIndexComponent implements OnInit {
             });
     }
 
-    getPlatforms() {
+    getPlatforms(pageIndex?) {
+        this.pageIndex = pageIndex || this.pageIndex;
         this.layoutService.show();
-        this.service.getPlatforms()
+        this.service.getPlatforms(this.pageIndex, this.pageSize)
             .then(
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.platforms = response["resultContent"];
-                    
+                    this.totalPage = response.pageInfo.totalPage;
                 } else {
                     alert("Res sync error");
                 }
             }
             )
             .catch((e) => this.onRejected(e));
+    }
+
+    choosePage(plf:platform) {
+        const openstack = [0, 1];
+        const vmware = [2];
+
+        if (openstack.indexOf(plf.type) >-1) {
+            this.router.navigate([
+                `host-mng/img-mng/openstack-mng`,
+                {
+                    "platformId": plf.id
+                }
+            ]
+            );
+        } else {
+            this.router.navigate([
+                `host-mng/img-mng/vmware-img-list/${plf.id}`]);
+
+        }
+    }
+
+    //根据value获取字典的txt
+    getDicText(value: string, dic: Array<SystemDictionary>): String {
+        const d = dic.find((e) => {
+            return e.value == value;
+        });
+        if (d) {
+            return d.displayValue;
+        } else {
+            return value;
+        }
+
     }
 
     showAlert(msg: string): void {

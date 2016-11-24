@@ -214,7 +214,7 @@ const menu: Array<Object> = [
               "label": "镜像管理",
                 "isOpen": false,
                 "isActive": false,
-                "routing": "host-mng/img-mng/img-index/img-index"
+                "routing": "host-mng/img-mng/img-index"
             }
          ]
      },
