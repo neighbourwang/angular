@@ -1,7 +1,7 @@
 export class CriteriaQuery {
-    type:string;
+    type:string="";
     tenantId:string = "";
-
+    tenantName:string = "";
     constructor() {
     }
 
