@@ -195,4 +195,41 @@ export let RestApis: RestApiModel[] = [
         "method" : "PUT",
         "url" : "basis/authsec/mpp/user/password/modify"
     },
+    {
+        "desc" : "用户中心，帐号管理，帐号列表",
+        "id" : "user-center.account-mng.list",
+        "method" : "GET",
+        "url" : "basis/authsec/mpp/users/page/{page}/size/{size}"
+    },
+    {
+        "desc" : "用户中心，帐号管理，启用帐号",
+        "id" : "user-center.account-mng.enableAcc",
+        "method" : "PUT",
+        "url" : "basis/authsec/mpp/user/{id}/enable"
+    },
+    {
+        "desc" : "用户中心，帐号管理，禁用帐号",
+        "id" : "user-center.account-mng.disableAcc",
+        "method" : "PUT",
+        "url" : "basis/authsec/mpp/user/{id}/disable"
+    },
+    {
+        "desc" : "用户中心，帐号管理，删除帐号",
+        "id" : "user-center.account-mng.deleteAcc",
+        "method" : "DELETE",
+        "url" : "basis/authsec/mpp/user/{id}"
+    },
+    //账号管理
+    {
+        "desc" : "用户中心，帐号管理，帐号创建，获取所有角色",
+        "id" : "user-center.account-mng.create.roleList",
+        "method" : "GET",
+        "url" : "basis/authsec/mpp/roles/page/{page}/size/{size}"
+    },
+    {
+        "desc" : "用户中心，帐号管理，帐号创建，获取所有机构",
+        "id" : "user-center.account-mng.create.orgList",
+        "method" : "GET",
+        "url" : "basis/authsec/mpp/organizations/page/{page}/size/{size}"
+    },
 ]

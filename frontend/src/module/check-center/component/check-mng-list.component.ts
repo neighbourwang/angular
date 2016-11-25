@@ -24,6 +24,7 @@ export class CheckMngListComponent implements OnInit{
 	private _entLoader:ItemLoader<{id:string; name:string}> = null; //企业列表
 	private _departmentLoader:ItemLoader<{id:string;name:string}> = null; //部门列表
 	private _serviceTypeDic:DicLoader = null; //产品类型
+	private _orderTypeDic : DicLoader =null;//订单类型
 	private _isAdvSearch:boolean = false;//高级查询
 
 	@ViewChild("notice") private _notice:NoticeComponent;
@@ -42,7 +43,8 @@ export class CheckMngListComponent implements OnInit{
 
 		//产品类型配置
 		this._serviceTypeDic = new DicLoader(_restApiCfg, _restApi, "GLOBAL", "SERVICE_TYPE");//²úÆ·ÀàÐÍÁÐ±í', "op-center.order-mng.product-type-list.get", _restApiCfg, _restApi);
-
+        
+		this._orderTypeDic = new DicLoader(_restApiCfg, _restApi, "ORDER", "SERVICE_TYPE");
 	}
 	
 	ngOnInit(){
@@ -51,6 +53,9 @@ export class CheckMngListComponent implements OnInit{
 		this._entLoader.Go()
 		.then(success=>{
 			return this._serviceTypeDic.Go();
+		})
+		.then(success =>{
+			return this._orderTypeDic.Go();
 		})
 		.then(success=>{
 			this._layoutService.hide();

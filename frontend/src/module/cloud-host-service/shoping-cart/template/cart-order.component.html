@@ -16,7 +16,7 @@
         <ng-container *ngFor="let order of orderList | orderBy : 'createDate'; ">
         <tr>
             <td colspan="9" class="table-line-head">
-                <font class="font-green">订单号：{{order.itemNo}} 创建时间：{{forMatData(order.createDate)}}</font>
+                <font class="font-green">订单号：{{order.itemNo}} 创建时间：{{order.createDate | formatData}}</font>
             </td>
         </tr>
         <tr *ngFor="let items of order.itemList;">
@@ -28,10 +28,25 @@
                     </tr>
                 </table>
             </td>
-            <td class="text-center table-text-middle">{{items.serviceType}}</td>
-            <td class="text-center table-text-middle">{{items.billingMode}}</td>
+            <td class="text-center table-text-middle">{{items.serviceType | dict:service.dictProductType | async}}</td>
+            <td class="text-center table-text-middle">{{items.billingMode | dict:service.dictPriceModel | async}}</td>
             <td class="text-center table-text-middle">{{items.billingPeriod}}</td>
-            <td class="text-center table-text-middle">{{getPrice(items)}}元</td> 
+            <td class="text-center table-text-middle">
+                <table class="cart-info">
+                    <tr>
+                        <td>一次性费用： </td>
+                        <td><font class="font-orange">¥{{items.billingInfo.basePrice}} 元</font></td>
+                    </tr>
+                    <tr>
+                        <td>费用： </td>
+                        <td>
+                            <font class="font-orange">
+                            ¥{{items.billingInfo.basicPrice}}/{{items.billingInfo.billingMode | dict:service.dictPriceModel | async}}
+                            </font>
+                        </td>
+                    </tr>
+                </table>
+            </td> 
             <td class="text-center table-text-middle"><font class="font-green">审批中</font></td> 
             <td class="text-center table-text-middle">2017-6-11 10:1:2</td> 
             <td class="text-center table-text-middle">2017-6-11 10:1:2</td> 
@@ -42,11 +57,11 @@
     <div class="shoping-bottom clear-float">
     	<span class="float-left pdt10 text-tip">您的订单已生成，可以进入管理控制台查看订单状态及使用相关资源<br>如需审批，则需要订单审批通过后，才能正式生效。</span>
         <button (click)="goTo('cloud-host-service/cloud-host-list')" class="btn button-confirm button-size-big float-right mgt20">管理控制台</button>
-        <!-- <span class="float-right mgr50">
+        <span class="float-right mgr50">
             <table>
                 <tr>
                     <td>一次性费用： </td>
-                    <td><font class="font-orange">¥100</font></td>
+                    <td><font class="font-orange">¥{{totalPrice | decimalPlaces}} 元</font></td>
                 </tr>
                 <tr>
                     <td>费用： </td>
@@ -57,8 +72,7 @@
                     <td><font class="font-orange">¥100/年</font></td>
                 </tr>
             </table>
-        </span> -->
-        <span class="float-right mgr50 pdt20">费用总计：<font class="font-orange">¥{{totalPrice}}</font></span>
+        </span>
         <span class="float-right mgr50 pdt20">( 费用合计 )</span>
     </div>
 </div>

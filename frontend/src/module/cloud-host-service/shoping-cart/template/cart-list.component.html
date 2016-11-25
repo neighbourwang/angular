@@ -1,8 +1,5 @@
 <div class="page-content cart_list">
 	<h1 class="page-content-header mgb20">购物车</h1>
-
-
-
       
     <table class="table table-all-boder mgb20">
         <tr class="table-title">
@@ -32,8 +29,8 @@
                 </table>
 
             </td>
-            <td class="text-center table-text-middle">{{cart.serviceType}}</td>
-            <td class="text-center table-text-middle">{{cart.billingMode}}</td>
+            <td class="text-center table-text-middle">{{cart.serviceType | dict:service.dictProductType | async}}</td>
+            <td class="text-center table-text-middle">{{cart.billingMode | dict:service.dictPriceModel | async}}</td>
             <td class="text-center table-text-middle">2017-6-11 10:1:2</td>
             <td class="text-center table-text-middle">无</td> 
             <td class="text-center table-text-middle" style="width: 15%;">
@@ -52,11 +49,11 @@
     <div class="shoping-bottom clear-float">
         <a href="javascript:" (click)="location.back()" class="font-orange float-left pdt20">< 返回产品购买</a>
         <button (click)="buyNow()" class="btn button-orange-deep button-size-big float-right mgt15">下单结算</button>
-        <!--  <span class="float-right mgr50">
+         <span class="float-right mgr50">
             <table>
                 <tr>
                     <td>一次性费用： </td>
-                    <td><font class="font-orange">¥{{totalPrice}}</font></td>
+                    <td><font class="font-orange">¥{{totalPrice | decimalPlaces}}</font></td>
                 </tr>
                <tr>
                     <td>费用： </td>
@@ -67,8 +64,7 @@
                     <td><font class="font-orange">¥100/年</font></td>
                 </tr>
             </table>
-        </span> -->
-        <span class="float-right mgr50 pdt20">费用总计：<font class="font-orange">¥{{nub(totalPrice)}}</font></span>
+        </span>
         <span class="float-right mgr50 pdt20">( 费用合计 )</span>
     </div>
 </div>

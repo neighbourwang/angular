@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 // Common Components ../../../architecture
+import { PipeModule } from '../../../architecture';
 import { CommonComponentModule } from '../../../architecture';
 
 //Components
@@ -18,7 +19,8 @@ import { AccountMngCreAdService } from './service/account-mng-cr-ad.service';
 @NgModule({
     imports: [
         CommonComponentModule,
-        AccountMngRouting
+        AccountMngRouting,
+        PipeModule
     ],
     declarations: [
         AccountMngComponent,

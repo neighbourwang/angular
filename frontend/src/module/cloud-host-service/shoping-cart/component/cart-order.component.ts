@@ -24,31 +24,28 @@ export class cartOrderComponent implements OnInit {
 	};
 
 	ngOnInit() {
+		this.setList();
 		this.layoutService.show();
+	}
+
+	private setTotalPrice(orderList:any[]) {   //设置价格总价
+		let totalPrice:number = 0;
+		orderList.forEach(order => {
+			order.itemList.forEach(item => {
+				totalPrice += item.billingInfo.basePrice+item.billingInfo.basicPrice;
+			})
+		})
+		this.totalPrice = totalPrice;
+	}
+
+	setList() {   //设置列表
 		this.service.getOrderList().then(orderList => {
 			this.layoutService.hide();
-			console.log(orderList)
 			this.orderList = orderList;
-
-			let totalPrice:number = 0;
-			orderList.forEach(order => {
-				order.itemList.forEach(item => {
-					totalPrice += item.billingInfo.basePrice+item.billingInfo.basicPrice;
-				})
-			})
-			this.totalPrice = parseInt("" + totalPrice*100)/100;
+			this.setTotalPrice(orderList);			
 		}).catch(e => {
 			this.layoutService.hide();
-		})
-	}
-
-	forMatData(number : number) : string {
-		var d = new Date(number);
- 		return (d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds());
-	}
-
-	getPrice(items:itemList) {
-		return parseInt("" + (items.billingInfo.basePrice + items.billingInfo.basicPrice)*100)/100;
+		});
 	}
 
 	goTo(url : string) {

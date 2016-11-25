@@ -4,25 +4,7 @@
         <tr>
             <th class="col-md-1 col-xs-3 text-center">区域列表</th>
             <td>
-                <div class="col-md-10 btn-group" data-toggle="buttons">
-                    <label *ngFor="let value of areaConfig;let i = index;" class="btn btn-default" [ngClass]="{'active': i === 0}">
-                        <input type="radio" name="area" autocomplete="off"> {{ value.displayName }}
-                    </label>
-                    <label class="btn btn-default">
-                        <input type="radio" name="area" autocomplete="off"> 所有
-                    </label>
-                </div>
-                <div class="col-md-10 btn-group areaAble" data-toggle="buttons">
-                    <label class="btn btn-default active">
-                        <input type="radio" name="application" autocomplete="off"> 可用区A
-                    </label>
-                    <label class="btn btn-default">
-                        <input type="radio" name="application" autocomplete="off"> 可用区B
-                    </label>
-                    <label class="btn btn-default">
-                        <input type="radio" name="application" autocomplete="off"> 所有
-                    </label>
-                </div>
+                <platform-zone (onClick)="platformClick($event)"></platform-zone>
             </td>
         </tr>
         <tr>
@@ -131,13 +113,13 @@
             <td class="text-center">{{dist.type}}</td>
             <td class="text-center">{{dist.size}}</td>
             <td class="text-center">{{dist.relyName}}</td> 
-            <td class="text-center">{{dist.status}}</td>
-            <td class="text-center">{{forMatData(dist.expireDate)}}</td>
+            <td class="text-center">{{dist.status | dict:service.dictStatus | async}}</td>
+            <td class="text-center">{{dist.expireDate | formatData}}</td>
             <td class="text-center">{{dist.unloadAble}}</td>
             <td class="text-center">{{dist.platformName}}</td> 
             <td class="text-center">{{dist.zoneName}}</td> 
             <td class="text-center">{{dist.useType}}</td>
-            <td class="text-center">{{dist.sourceType}}</td>
+            <td class="text-center">{{dist.sourceType | dict:service.dictSourceType | async}}</td>
             <td class="text-center">
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" [attr.id]="'dropdownMenu'+(index+3)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

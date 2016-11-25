@@ -7,28 +7,27 @@
                 <div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
                     <div class="col-md-2 content-title" style="text-align : center">姓名</div>
                     <div class="col-md-8 no-padding">
-                        <input class="form-control" placeholder="请输入姓名" type="text">
+                        <input class="form-control" placeholder="请输入姓名" type="text" [(ngModel)]="account.name" name="name">
                     </div>
                 </div>
 
                 <div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
                     <div class="col-md-2 content-title" style="text-align : center">帐号</div>
                     <div class="col-md-8 no-padding">
-                        <input class="form-control" placeholder="请输入帐号" type="text">
+                        <input class="form-control" placeholder="请输入帐号" type="text" [(ngModel)]="account.email" name="email">
                     </div>
                 </div>
 
                 <div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
                     <div class="col-md-2 content-title" style="text-align : center">电话</div>
                     <div class="col-md-8 no-padding">
-                        <input class="form-control" placeholder="请输入电话" type="text">
+                        <input class="form-control" placeholder="请输入电话" type="text" [(ngModel)]="account.phone" name="phone">
                     </div>
                 </div>
-
                 <div class="col-md-12 no-padding mgb15" style="height : 60px ; line-height : 35px">
                     <div class="col-md-2 content-title" style="text-align : center">描述</div>
                     <div class="col-md-8 no-padding">
-                        <textarea class="form-control" rows="3" placeholder="请输入描述"></textarea>
+                        <textarea class="form-control" rows="3" placeholder="请输入描述" [(ngModel)]="account.description" name="description"></textarea>
                     </div>
                 </div>
 
@@ -38,12 +37,12 @@
         <tr>
             <th class="col-md-1 col-xs-3 text-center">绑定角色</th>
             <td>
-                <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 
-                    <span>管理员</span>
+                <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px" *ngFor="let role of roles ;let idx=index ">
+                    <input type="radio" class="fox-cloud-radio"   value="role.id" [checked]="account.roles[0].id==role.id" (click)="selectRole(idx)"> 
+                    <span>{{role?.name}}</span>
                 </label>
 
-                <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px">
+                <!--<label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px">
                     <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
                     <span>部门负责人</span>
                 </label>
@@ -56,7 +55,7 @@
                 <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px">
                     <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
                     <span>审批员</span>
-                </label>
+                </label>-->
 
             </td>
         </tr>

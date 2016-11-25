@@ -17,23 +17,47 @@ export class IpUsageMngListService {
         private restApi: RestApi
     ) { }
 
-    getIpUsageMngList( id: string ): Promise <any> {
+    getIpUsageMngList( pg_id: string ): Promise <any> {
         //API CALL
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return IpUsageMngModel_mock });
+        const pathParams = [
+            {
+                key: "portGroup_id",
+                value: pg_id
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.ipusagemng.list");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);        
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return IpUsageMngModel_mock });
     }
 
     enableIP(ip_id: string): Promise <any>  {
-        console.log("enableIP");        
+        console.log("enableIP");               
         //API CALL
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
+        const pathParams = [
+            {
+                key: "ip_id",
+                value: ip_id
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.subnetip.occupy");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
 
 
     }
 
     disableIP(ip_id: string): Promise <any>  {
-        console.log("disableIP");
+        console.log("disableIP");        
         //API CALL
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
+        const pathParams = [
+            {
+                key: "ip_id",
+                value: ip_id
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.subnetip.release");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
 
     }
 

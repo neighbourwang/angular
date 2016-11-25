@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 // Common Components
+import { PipeModule } from '../../../architecture';
 import { CommonComponentModule } from '../../../architecture';
 
 // pf-conn-mng
@@ -15,6 +16,7 @@ import { PfConnMngRouting } from './pf-conn-mng.routing';
 @NgModule({
     imports: [
         CommonComponentModule,
+        PipeModule,
         PfConnMngRouting
     ],
     declarations: [

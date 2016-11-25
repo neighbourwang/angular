@@ -42,14 +42,7 @@ export class cloudHostListComponent implements OnInit {
 		this.handleData = new HandleVm();
 	}
 	ngOnInit() {
-		this.setArea();
 		this.setHostList();
-	}
-
-	setArea(): void {
-		// this.service.getHostConfigList().then(configList => {
-		// 	this.areaConfig = configList.filter(config => config.attrCode === "PLATFORM")[0].valueList;
-		// });
 	}
 
 	setHostList(): void {
@@ -93,6 +86,10 @@ export class cloudHostListComponent implements OnInit {
 		}).catch(error => {
 			this.layoutService.hide();
 		})
+	}
+
+	platformClick(data) {
+		console.log(data, 332)
 	}
 
 	goTo(url : string) {

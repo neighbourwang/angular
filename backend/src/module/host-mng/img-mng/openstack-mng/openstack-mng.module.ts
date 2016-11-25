@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
+// Common Components
+import { CommonComponentModule } from '../../../../architecture';
 
 import { OpenstackMngComponent } from './component/openstack-mng.component';
+import { OpenstackMngRouting } from './openstack-mng.routing'
+import { OpenstackMngService } from './service/openstack-mng.service'
 @NgModule({
     imports: [
-        OpenstackMngModule
+        OpenstackMngRouting,
+        CommonComponentModule
     ],
-    declarations: [OpenstackMngModule
+    declarations: [OpenstackMngComponent
     ],
     exports: [
-        OpenstackMngModule
+        OpenstackMngComponent
     ],
-    providers: []
+    providers: [OpenstackMngService]
 })
 
 export class OpenstackMngModule{
