@@ -70,7 +70,7 @@ export class MenuComponent implements OnInit {
 const menu: Array<Object> = [
   {
     "label" : "平台管理",
-    "isOpen" : true,
+    "isOpen" : false,
     "icon": "icon-platform-manage",
     "top2_menu" : [
       {
@@ -83,7 +83,7 @@ const menu: Array<Object> = [
   },
     {
     "label" : "产品管理",
-    "isOpen" : true,
+    "isOpen" : false,
     "icon": "icon-platform-manage",
     "top2_menu" : [
       {
@@ -102,7 +102,7 @@ const menu: Array<Object> = [
   },
   {
     "label" : "用户中心",
-    "isOpen" : true,
+    "isOpen" : false,
     "icon": "icon-platform-manage",
     "top2_menu" : [
       {
@@ -253,6 +253,19 @@ const menu: Array<Object> = [
                  "isActive": false,
                  "routing": "check-center/check-mng-hascheck"
              }
+         ]
+     },
+     {
+         "label": "云主机管理",
+         "isOpen": true,
+         "icon": "icon-content-header-purchasingWhite",
+         "top2_menu": [
+             {
+                 "label": "镜像管理",
+                 "isOpen": false,
+                 "isActive": false,
+                 "routing": "host-mng/img-mng/img-index"
+             }, 
          ]
      }
 ];
