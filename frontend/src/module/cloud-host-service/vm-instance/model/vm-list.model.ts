@@ -10,7 +10,7 @@ class QuiryVmList {
   pageParameter: pageParameter = new pageParameter();
   addonType : string = "" //  云主机附加服务类型: 参考数据字典COMPUTE_INSTANCE->ADDON_TYPE ,   ✅
   labelId : string = "" //  UI所选择的标签 ,  
-  ownerType : string = "" //  搜索类型: 0: 个人；1: 部门 ,  ✅
+  ownerType : string = "" //  实例归属 ,  ✅
   platformId : string = "" //  UI所选择的区域ID , ✅
   queryField : string = "0" //  云主机检索的字段列表，取数据字典的code返回 ,GLOBAL_QUERY  COMPUTE_INSTANCE  ✅
   queryFieldValue : string = "" //  云主机检索的字段列表所对应的文本框值 ,    ✅

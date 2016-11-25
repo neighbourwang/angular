@@ -6,6 +6,7 @@ import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../ar
 import { cloudHostServiceList } from '../service/cloud-host-list.service'
 
 import { VmList, HandleVm, QuiryVmList } from '../model/vm-list.model';
+import { VMInstanceLabelItem } from '../model/labe-iItem.model';
 
 @Component({
 	selector: 'cloud-host-list',
@@ -21,8 +22,10 @@ export class cloudHostListComponent implements OnInit {
 	@ViewChild('notice')
 	private noticeDialog: NoticeComponent;
 
+	@ViewChild('platformZone') platformZone;
+
 	list : QuiryVmList = new QuiryVmList();
-	searchName : string = "云主机名";
+	saveList : QuiryVmList = new QuiryVmList();   //储存点，重置搜索时会返回到这个点
 
 	modalTitle: string = '';
 	modalMessage: string = '';
@@ -32,6 +35,7 @@ export class cloudHostListComponent implements OnInit {
 	superSearch: boolean = false;   //高级搜索开关
 	vmList: VmList[] = [];   //主机
 	handleData: HandleVm;   //发送操纵云主机的数据
+	labelItem:VMInstanceLabelItem[] = [];
 
 	constructor(
 		private layoutService: LayoutService,
@@ -42,6 +46,7 @@ export class cloudHostListComponent implements OnInit {
 	}
 	ngOnInit() {
 		this.setHostList();
+		this.getLabels();  //获取标签列表
 	}
 
 	setHostList(): void {
@@ -56,7 +61,29 @@ export class cloudHostListComponent implements OnInit {
 		}).catch(error => {
 			// this.layoutService.hide();
 		});
+	};
 
+	getLabels() {
+		this.service.getLabels().then(res => {
+			this.labelItem = res;
+		})
+	}
+
+	resetSearch(){   //重置搜索
+		this.list = Object.assign({}, this.saveList);
+		this.platformZone.reset();
+	}
+	search() {    //搜索
+		console.log(this.list)
+
+		// this.setHostList();
+	}
+
+	platformClick(data) {   //选择区域列表
+		this.list.platformId = data.area.id;
+		this.list.zoneId = data.zone.zoneId;
+		this.saveList.platformId = data.area.id;
+		this.saveList.zoneId =  data.zone.zoneId;
 	}
 
 	//云主机的操作相关
@@ -78,10 +105,6 @@ export class cloudHostListComponent implements OnInit {
 		}).catch(error => {
 			this.layoutService.hide();
 		})
-	}
-
-	platformClick(data) {
-		console.log(data, 332)
 	}
 
 	goTo(url : string) {

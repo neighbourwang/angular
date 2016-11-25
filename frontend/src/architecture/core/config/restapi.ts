@@ -108,6 +108,12 @@ export let RestApis: RestApiModel[] = [
         "id": "vm.search.page",
         "url": "marketplace/authsec/subinstance/itemlist/vm/search/page"
     },
+    {
+        "desc": "获取云主机标签",
+        "method": "GET",
+        "id": "instance.labels",
+        "url": "marketplace/authsec/instance/labels"
+    },
     //镜像管理部分
     {
         "desc": "获取镜像列表",
