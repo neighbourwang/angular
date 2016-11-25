@@ -79,20 +79,27 @@ export const orgs = {
     "resultCode": 100,
     "detailDescription": null,
     "resultContent":
-    [{
-        id: "0161c10f-ce1a-47f1-af51-23d43e822d89", name: "123"
-    },
+    [
         {
-            id: "03155c0f-33ff-4896-b0e5-11dc31161361", name: "qwe"
+            id: "0161c10f-ce1a-47f1-af51-23d43e822d89",
+            name: "123"
         },
         {
-            id: "1572c0ab-8a30-4e69-9e5a-c0d35ef74b5d", name: "SW Test6"
+            id: "03155c0f-33ff-4896-b0e5-11dc31161361",
+            name: "qwe"
         },
         {
-            id: "1709f79a-ba98-4bbc-a3a5-03018c908fd4", name: "SW_Test_Team_1479467374"
+            id: "1572c0ab-8a30-4e69-9e5a-c0d35ef74b5d",
+            name: "SW Test6"
         },
         {
-            id: "1f130d70-2904-4219-bddc-bc4c0a363666", name: "神秘组织"
-        }],
+            id: "1709f79a-ba98-4bbc-a3a5-03018c908fd4",
+            name: "SW_Test_Team_1479467374"
+        },
+        {
+            id: "1f130d70-2904-4219-bddc-bc4c0a363666",
+            name: "神秘组织"
+        }
+    ],
     "pageInfo": { "currentPage": 0, "totalPage": 1, "pageSize": 9999, "totalRecords": 58 }
-}
+};

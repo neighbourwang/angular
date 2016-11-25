@@ -9,9 +9,11 @@ export class Account {
     selected: boolean;//是否选中
     description: string;//备注
     isLeader: boolean;
-    type:string;//0 本地 ， 1 AD
+    type: string;//0 本地 ， 1 AD
     ldapId: string = "";
-    ldapName:string;
-    roles: Array<Role>=[];
-    organizations: Array<Organization>=[];
+    ldapName: string;
+    roles: Array<Role> = [];
+    organizations: Array<Organization> = [];
+    constructor() {
+    }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
 @Injectable()
 export class UserService {
@@ -26,9 +26,9 @@ export class UserService {
     }
 
     private resetData() {
-        this.userId = '';
-        this.userName = '';
-        this.accessToken = '';
+        this.userId = "";
+        this.userName = "";
+        this.accessToken = "";
         this.loginFlg = false;
     }
 }

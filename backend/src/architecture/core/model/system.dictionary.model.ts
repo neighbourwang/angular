@@ -6,10 +6,14 @@
     displayValue: String;
 
     toString(): String {
-        return this.owner + "\n" +
-            this.field + "\n" +
-            this.code + "\n" +
-            this.value + "\n" +
+        return this.owner +
+            "\n" +
+            this.field +
+            "\n" +
+            this.code +
+            "\n" +
+            this.value +
+            "\n" +
             this.displayValue;
     }
 }
