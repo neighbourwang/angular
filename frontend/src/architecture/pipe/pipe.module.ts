@@ -4,6 +4,7 @@ import { OrderByPipe } from './orderby';
 import { dictPipe } from './dict.pipe';
 import { formatDataPipe } from './formatData.pipe';
 import { decimalPlacesPipe } from './decimalPlaces.pipe';
+import { ObjectToArrPipe } from './objectToArr.pipe';
 
 
 @NgModule({
@@ -14,13 +15,15 @@ import { decimalPlacesPipe } from './decimalPlaces.pipe';
         OrderByPipe,
         dictPipe,
         formatDataPipe,
-        decimalPlacesPipe
+        decimalPlacesPipe,
+        ObjectToArrPipe
     ],
     exports: [
         OrderByPipe,
         dictPipe,
         formatDataPipe,
-        decimalPlacesPipe
+        decimalPlacesPipe,
+        ObjectToArrPipe
     ],
     providers: [],
 })

@@ -5,98 +5,89 @@
         <tr>
             <th class="col-md-1 col-xs-3 text-center">区域列表</th>
             <td>
-                <platform-zone (onClick)="platformClick($event)"></platform-zone>
+                <platform-zone #platformZone (onClick)="platformClick($event)"></platform-zone>
             </td>
         </tr>
         <tr>
             <th class="col-md-1 col-xs-3 text-center">实例归属</th>
             <td>
                 <div class="col-md-10 btn-group" data-toggle="buttons">
-                    <label class="btn btn-default active">
-                        <input type="radio" name="application" autocomplete="off"> 我的资源
-                    </label>
-                    <label class="btn btn-default">
-                        <input type="radio" name="application" autocomplete="off"> 部门资源
-                    </label>
+                    <button (click)="list.ownerType = ''" class="btn btn-default" [ngClass]="{'active':list.ownerType === ''}">所有</button>
+
+                    <button *ngFor="let v of service.ownerType | async;" 
+                            (click)="list.ownerType = v.value" 
+                            [ngClass]="{'active':list.ownerType === v.value}"
+                            class="btn btn-default">{{ v.displayValue }}
+                    </button>
                 </div>
             </td>
         </tr>
         <tr>
             <th class="col-md-1 col-xs-3 text-center">标　　签</th>
             <td>
-                <div class="col-md-10 btn-group" data-toggle="buttons">
-                    <label class="btn btn-default active">
-                        <input type="radio" name="application" autocomplete="off"> 应用A
-                    </label>
-                    <label class="btn btn-default">
-                        <input type="radio" name="application" autocomplete="off"> 应用B
-                    </label>
-                    <label class="btn btn-default">
-                        <input type="radio" name="application" autocomplete="off"> 应用C
-                    </label>
-                    <label class="btn btn-default">
-                        <input type="radio" name="application" autocomplete="off"> 应用D
-                    </label>
-                    <label class="btn btn-default">
-                        <input type="radio" name="application" autocomplete="off"> 更多 >>
-                    </label>
+                <div class="col-md-10 btn-group">
+                    <button (click)="list.labelId = ''" class="btn btn-default" [ngClass]="{'active':list.labelId === ''}">所有</button>
+                    
+                    <button *ngFor="let value of labelItem;" 
+                            (click)="list.labelId = value.labelId" 
+                            [ngClass]="{'active':list.labelId === value.labelId}"
+                            class="btn btn-default">{{ value.labelDisplayName }}
+                    </button>
                 </div>
             </td>
         </tr>
     </table>
     <div class="col-md-12 no-padding mgb20">
         <div class="dropdown float-left mgr10">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            云主机名称
-            <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="javascript:">云主机上海</a></li>
-                <li><a href="javascript:">云主机北京</a></li>
-                <li><a href="javascript:">云主机杭州</a></li>
-            </ul>
+            <select [(ngModel)]="list.queryField" class="form-control">
+                <option
+                 *ngFor="let v of service.queryField | async; let i = index;"
+                 [ngValue]="v.value" >{{ v.displayValue }}</option>
+            </select>
         </div>
          <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
-            <select class="form-control">
-                <option value="1">状态</option>
-                <option value="1">使用中</option>
-                <option value="1">未分配</option>
-                <option value="1">创建中</option>
-                <option value="1">挂载中</option>
-                <option value="1">卸载中</option>
-                <option value="1">删除中</option>
-                <option value="1">扩容中</option>
+            <select class="form-control"  [(ngModel)]="list.status"> 
+                <option disabled selected value class="hideoption">状态</option>
+                <option
+                 *ngFor="let v of service.computeStatus | async; let i = index;"
+                 [ngValue]="v.value" >{{ v.displayValue }}</option>
             </select>
          </div>
          <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
-            <select class="form-control">
-                <option value="1">来源</option>
-                <option value="1">订购</option>
-                <option value="1">导入</option>
+            <select class="form-control"  [(ngModel)]="list.addonType"> 
+                <option disabled selected value class="hideoption">附加服务</option>
+                <option
+                 *ngFor="let v of service.addonType | async; let i = index;"
+                 [ngValue]="v.value" >{{ v.displayValue }}</option>
             </select>
          </div>
          <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
-            <select class="form-control">
-                <option value="1">属性</option>
-                <option value="1">启动盘</option>
-                <option value="1">数据盘</option>
+            <select class="form-control"  [(ngModel)]="list.useType"> 
+                <option disabled selected value class="hideoption">类型</option>
+                <option
+                 *ngFor="let v of service.useType | async; let i = index;"
+                 [ngValue]="v.value" >{{ v.displayValue }}</option>
             </select>
          </div>
          <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
-            <select class="form-control">
-                <option value="1">可卸载</option>
-                <option value="1">支持</option>
-                <option value="1">不支持</option>
+            <select class="form-control"  [(ngModel)]="list.serviceLevel"> 
+                <option disabled selected value class="hideoption">服务级别</option>
+                <option
+                 *ngFor="let v of service.serviceLevel | async; let i = index;"
+                 [ngValue]="v.value" >{{ v.displayValue }}</option>
             </select>
          </div>
         <div class="input-group col-md-2 float-left mgr10">
-            <input class="form-control" type="email" placeholder="输入云主机信息搜索">
-            <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+            <input class="form-control" [(ngModel)]="list.queryFieldValue" type="email" placeholder="输入云主机信息搜索">
+            <div class="input-group-addon"  (click)="search()"><span class="glyphicon glyphicon-search"></span></div>
         </div>
-        <div class="input-group float-left">
-            <label class="btn btn-default button-gray-gradient" (click)="superSearch = superSearch ? false : true" [ngClass]="{'active': superSearch}">
+        <div class="input-group float-left mgr10">
+            <label class="btn btn-default button-gray-gradient" (click)="superSearch = !superSearch" [ngClass]="{'active': superSearch}">
                 高级搜索
             </label>
+        </div>
+        <div class="input-group float-left">
+            <button (click)="resetSearch()" class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span> 重置搜索</button>
         </div>
     </div>
     <div class="col-md-12 no-padding mgb20">

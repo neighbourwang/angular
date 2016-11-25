@@ -8,6 +8,7 @@ import { LayoutService, NoticeComponent, ConfirmComponent, Validation } from '..
 
 import { cartListService } from '../service/cart-list.service'
 import { CartList } from '../model/cart-list.model';
+import { TotalPrice } from '../model/cart-total-price.model';
 
 @Component({
 	selector: 'cart-list',
@@ -27,7 +28,7 @@ export class cartListComponent implements OnInit {
 	modalMessage: string = '';
 	modalOKTitle: string = '';
 
-	totalPrice : number;
+	totalPrice : TotalPrice = new TotalPrice();
 
 	cartList: CartList[];
 
@@ -42,17 +43,29 @@ export class cartListComponent implements OnInit {
 		this.getCartList();
 	}
 
+	private setTotalPrice(orderList:any[]) {   //设置价格总价
+		let billingArr = {},
+			oncePrice:number = 0;
+
+		// orderList.forEach(order => {
+			orderList.forEach(item => {
+				oncePrice += item.billingInfo.basePrice;
+				if(!billingArr[item.billingInfo.billingMode]) {   //计算周期价格
+					billingArr[item.billingInfo.billingMode] = 0;
+				}
+				billingArr[item.billingInfo.billingMode] += item.billingInfo.basicPrice; 
+			})
+		// });
+		this.totalPrice.oncePrice = oncePrice;
+		this.totalPrice.billingArr = billingArr;
+	}
+
 	getCartList():void {
 	    this.layoutService.show();
 		this.service.getCartList().then(cartList => {
 	    	this.layoutService.hide();
 			this.cartList = cartList;
-
-			let totalPrice:number = 0;
-			cartList.forEach(cart => {
-				totalPrice += cart.billingInfo.basePrice+cart.billingInfo.basicPrice;
-			})
-			this.totalPrice = totalPrice;
+			this.setTotalPrice(cartList);
 		}).catch(e => {
 	      this.layoutService.hide()
 	  	})

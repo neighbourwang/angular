@@ -1,8 +1,8 @@
-class totalPrice {
-    oncePrice : string;
-    billingArr : any[];
+class TotalPrice {
+    oncePrice : number;
+    billingArr : {};
 }
 
 export {
-    totalPrice
+    TotalPrice
 }
