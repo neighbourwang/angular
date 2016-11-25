@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent} from '../../../../architecture';
 
-
+//model
+import { Org } from '../model/org-mng.org.model';
 
 @Component({
   selector: 'org-mng-cr',
@@ -20,6 +21,7 @@ export class OrgMngCrComponent implements OnInit {
 
   @Input() isEdit: boolean;
 
+  org:Org;
   ngOnInit() {
     if(this.isEdit){
       console.log('edit 读取接口')
@@ -27,7 +29,8 @@ export class OrgMngCrComponent implements OnInit {
       console.log('创建');
     }
   }
-
+  //获取机构成员
+  
   //保存 给父组件调用
   save (){
     console.log('save');

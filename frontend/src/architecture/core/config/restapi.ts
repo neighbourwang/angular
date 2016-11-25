@@ -250,4 +250,53 @@ export let RestApis: RestApiModel[] = [
         "id": "user-center.account-mng.create.post",
         "url": "marketplace/authsec/mpp/user"        
     },
+    //组织管理
+     {
+        "desc": "获取所有机构",
+        "id": "user-center.org-mng.list",
+        "method": "GET",
+        "url": "basis/authsec/mpp/organizations/page/{page}/size/{size}"
+    },
+    {
+        "desc": "删除机构",
+        "id": "user-center.org-mng.delete",
+        "method": "DELETE",
+        "url": "basis/authsec/mpp/organization/{id}"
+    },
+    {
+        "desc": "启用机构",
+        "id": "user-center.org-mng.enable",
+        "method": "PUT",
+        "url": "basis/authsec/mpp/organization/{id}/enable"
+    },
+    {
+        "desc": "禁用机构",
+        "id": "user-center.org-mng.disable",
+        "method": "PUT",
+        "url": "basis/authsec/mpp/organization/{id}/disable"
+    },
+    {
+        "desc": "创建机构",
+        "id": "user-center.org-mng.create",
+        "method": "POST",
+        "url": "basis/authsec/mpp/organization"
+    },
+    {
+        "desc": "获得单个机构",
+        "id": "user-center.org-mng.account.get",
+        "method": "GET",
+        "url": "basis/authsec/mpp/organization/{id}"
+    },
+    {
+        "desc": "获得机构下的成员",
+        "id": "user-center.org-mng.user-by-org.list",
+        "method": "GET",
+        "url": "basis/authsec/mpp/users/organization/{id}"
+    },
+     {
+        "desc" : "编辑机构",
+        "id" : "user-center.org-mng.edit",
+        "method" : "PUT",
+        "url" : "basis/authsec/mpp/organization/{id}"
+    },
 ]
