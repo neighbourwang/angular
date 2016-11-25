@@ -164,6 +164,7 @@ basicPrice (number, optional): 周期计费-基础周期价格 ,
 billingId (string, optional): 产品计费ID ,
 billingMode (string, optional): 计费类型，需要检索数据字典 ,
 cyclePrice (number, optional): 周期计费-增量周期价格 ,
+periodType (string, optional): 周期计费-周期类型，需要检索数据字典 ,
 unitPrice (number, optional): 流量计费-流量单价 ,
 unitType (number, optional): 流量计费-流量计费类型，需要查询数据字典
 }

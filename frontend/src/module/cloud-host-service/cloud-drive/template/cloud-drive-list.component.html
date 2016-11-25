@@ -4,76 +4,52 @@
         <tr>
             <th class="col-md-1 col-xs-3 text-center">区域列表</th>
             <td>
-                <platform-zone (onClick)="platformClick($event)"></platform-zone>
+                <platform-zone #platformZone (onClick)="platformClick($event)"></platform-zone>
             </td>
         </tr>
         <tr>
             <th class="col-md-1 col-xs-3 text-center">实例归属</th>
             <td>
                 <div class="col-md-10 btn-group" data-toggle="buttons">
-                    <label class="btn btn-default active">
-                        <input type="radio" name="application" autocomplete="off"> 我的资源
-                    </label>
-                    <label class="btn btn-default">
-                        <input type="radio" name="application" autocomplete="off"> 部门资源
-                    </label>
+                    <button (click)="list.ownerType = ''" class="btn btn-default" [ngClass]="{'active':list.ownerType === ''}">所有</button>
+
+                    <button *ngFor="let v of service.ownerType | async;" 
+                            (click)="list.ownerType = v.value" 
+                            [ngClass]="{'active':list.ownerType === v.value}"
+                            class="btn btn-default">{{ v.displayValue }}
+                    </button>
                 </div>
             </td>
         </tr>
     </table>
     <div class="col-md-12 no-padding mgb20">
         <div class="dropdown float-left mgr10">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            云硬盘名称
-            <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="javascript:">云主机上海</a></li>
-                <li><a href="javascript:">云主机北京</a></li>
-                <li><a href="javascript:">云主机杭州</a></li>
-            </ul>
+            <select [(ngModel)]="list.queryField" class="form-control">
+                <option
+                 *ngFor="let v of service.queryField | async; let i = index;"
+                 [ngValue]="v.value" >{{ v.displayValue }}</option>
+            </select>
         </div>
+         
          <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
-            <select class="form-control">
-                <option value="1">状态</option>
-                <option value="1">使用中</option>
-                <option value="1">未分配</option>
-                <option value="1">创建中</option>
-                <option value="1">挂载中</option>
-                <option value="1">卸载中</option>
-                <option value="1">删除中</option>
-                <option value="1">扩容中</option>
-            </select>
-         </div>
-         <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
-            <select class="form-control">
-                <option value="1">来源</option>
-                <option value="1">订购</option>
-                <option value="1">导入</option>
-            </select>
-         </div>
-         <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
-            <select class="form-control">
-                <option value="1">属性</option>
-                <option value="1">启动盘</option>
-                <option value="1">数据盘</option>
-            </select>
-         </div>
-         <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
-            <select class="form-control">
-                <option value="1">可卸载</option>
-                <option value="1">支持</option>
-                <option value="1">不支持</option>
+            <select class="form-control"  [(ngModel)]="list.status"> 
+                <option disabled selected value class="hideoption">状态</option>
+                <option
+                 *ngFor="let v of service.computeStatus | async; let i = index;"
+                 [ngValue]="v.value" >{{ v.displayValue }}</option>
             </select>
          </div>
         <div class="input-group col-md-2 float-left mgr10">
-            <input class="form-control" type="email" placeholder="输入云主机信息搜索">
-            <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+            <input class="form-control" type="email" [(ngModel)]="list.queryFieldValue" placeholder="输入云硬盘信息搜索">
+            <div class="input-group-addon" (click)="search()"><span class="glyphicon glyphicon-search"></span></div>
         </div>
-        <div class="input-group float-left">
-            <label class="btn btn-default button-gray-gradient" (click)="superSearch = superSearch ? false : true" [ngClass]="{'active': superSearch}">
+        <div class="input-group float-left mgr10">
+            <label class="btn btn-default button-gray-gradient" (click)="superSearch = !superSearch" [ngClass]="{'active': superSearch}">
                 高级搜索
             </label>
+        </div>
+        <div class="input-group float-left">
+            <button (click)="resetSearch()" class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span> 重置搜索</button>
         </div>
         <div class="float-right">
             <button class="btn float-left mgr5 btn-success" (click)="goTo('cloud-host-service/cloud-drive-order')"><i class="glyphicon glyphicon-plus"></i> 创建云硬盘</button>
@@ -113,7 +89,7 @@
             <td class="text-center">{{dist.type}}</td>
             <td class="text-center">{{dist.size}}</td>
             <td class="text-center">{{dist.relyName}}</td> 
-            <td class="text-center">{{dist.status | dict:service.dictStatus | async}}</td>
+            <td class="text-center">{{dist.status | dict:service.computeStatus | async}}</td>
             <td class="text-center">{{dist.expireDate | formatData}}</td>
             <td class="text-center">{{dist.unloadAble}}</td>
             <td class="text-center">{{dist.platformName}}</td> 

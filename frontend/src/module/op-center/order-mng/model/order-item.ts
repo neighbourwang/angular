@@ -68,6 +68,7 @@ export class SubInstanceResp {
   orderId: string = null;//, optional): 订单ID，不做显示，操作回传 ,
   orderNo: string = null;//, optional): 对应UI界面中的订单编号 ,
   purchaseDate: string = null;//, optional): 对应UI界面中的下单时间, 映射到后端的createDate
+  canRenew:boolean = true;
 }
 
 export class SubInstanceItemResp {
@@ -77,12 +78,12 @@ export class SubInstanceItemResp {
   instanceName: string = null;//, optional): 实例名称 ,
   period: number = null;//, optional): 购买周期 ,
   quantity: number = null;//, optional): 订购数量 ,
-  serviceType: string = null;//, optional): 产品类型 ,
+  serviceType: number = null;//, optional): 产品类型 ,
   specList: Array<SubInstanceAttrPair> = null;//[SubInstanceAttrPair], optional): 产品规格 ,
   status: string = null;//, optional): UI订单状态，需要查询数据字典
 
-  get billingMode():string{//包装计费模式
-    return this.billingInfo ? this.billingInfo.billingMode : "";
+  get billingMode():number{//包装计费模式
+    return this.billingInfo ? this.billingInfo.billingMode : null;
   }
 
   get oneTimePriceAndPrice():string{//单价费用
@@ -94,6 +95,7 @@ export class SubInstanceItemResp {
   billingModeName: string = null;//计费模式名称
   renewPrice:number = null;//续订费用，每次续订时组装。
   periodTypeName: string = null;//计费时长单位
+
 }
 
 
@@ -101,7 +103,7 @@ export class ProductBillingItem {
   basePrice: number = null;//, optional): 一次性价格 ,
   basicPrice: number = null;//, optional): 周期计费-基础周期价格 ,
   billingId: string = null;//, optional): 产品计费ID ,
-  billingMode: string = null;//, optional): 计费类型，需要检索数据字典 ,
+  billingMode: number = null;//, optional): 计费类型，需要检索数据字典 ,
   cyclePrice: number = null;//, optional): 周期计费-增量周期价格 ,
   unitPrice: number = null;//, optional): 流量计费-流量单价 ,
   unitType: number = null;//, optional): 流量计费-流量计费类型，需要查询数据字典
@@ -164,6 +166,7 @@ basicPrice (number, optional): 周期计费-基础周期价格 ,
 billingId (string, optional): 产品计费ID ,
 billingMode (string, optional): 计费类型，需要检索数据字典 ,
 cyclePrice (number, optional): 周期计费-增量周期价格 ,
+periodType (string, optional): 周期计费-周期类型，需要检索数据字典 ,
 unitPrice (number, optional): 流量计费-流量单价 ,
 unitType (number, optional): 流量计费-流量计费类型，需要查询数据字典
 }

@@ -1,10 +1,10 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Injectable } from "@angular/core";
 
 @Injectable()
 export class ValidationService {
     // 非空验证
     isBlank(val: any): boolean {
-        return val === undefined || val === '' || val === null;
+        return val === undefined || val === "" || val === null;
     }
 
     // 邮件地址验证
@@ -21,7 +21,7 @@ export class ValidationService {
 
     // 数字验证(限定长度)
     isLengthLimitNumber(val: any, length: number): boolean {
-        const reg = new RegExp("\d{0, " + length + "}", 'g');
+        const reg = new RegExp(`\d{0, ${length}}`, "g");
         return reg.test(val);
     }
 

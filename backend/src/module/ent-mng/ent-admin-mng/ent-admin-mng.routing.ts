@@ -4,6 +4,7 @@ import { RouterModule } from "@angular/router";
 import { EntAdminCreComponent } from "./component/ent-admin-cre.component";
 import { EntAdminMngComponent } from "./component/ent-admin-mng.component";
 import { EntAdminCreADComponent } from "./component/ent-admin-cre-ad.component";
+import { EntAdminEditADComponent } from "./component/ent-admin-edit-ad.component";
 
 export const EntAdminMngRouting = RouterModule.forChild([
     {
@@ -20,7 +21,7 @@ export const EntAdminMngRouting = RouterModule.forChild([
     },
     {
         path: "ent-mng/ent-admin-mng/ent-admin-cre-ad/enterprise/:eid/id/:aid",
-        component: EntAdminCreADComponent
+        component: EntAdminEditADComponent
     },
     {
         path: "ent-mng/ent-admin-mng/ent-admin-cre-ad/enterprise/:eid",

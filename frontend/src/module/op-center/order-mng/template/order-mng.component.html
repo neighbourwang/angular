@@ -119,8 +119,8 @@
 				<tr>
 					<td class=" font-green leftAlign pdl20" colspan="9" data-toggle="modal" data-target="#orderDetail" (click)="showDetail(orderItem)">{{orderItem.purchaseDate}} 订单号：{{orderItem.orderNo}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间：2016-10-08</td>
 					<td colspan="2">
-						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#renewOrder" (click)="renewSelect(orderItem)">续订</button>
-						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#cancelOrder" (click)="cancelSelect(orderItem)">退订</button>
+						<button *ngIf="orderItem.canRenew" class="mgr5 pull-right button-gray-gradient" (click)="renewSelect(orderItem)">续订</button>
+						<button class="mgr5 pull-right button-gray-gradient" (click)="cancelSelect(orderItem)">退订</button>
 						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#orderDetail" (click)="showDetail(orderItem)">详情</button>
 					</td>	
 				</tr>
@@ -167,7 +167,7 @@
 		  	</div>
 		</div>
 	</div>
-
+	
 
 	<!--续订-->
 	 
@@ -242,7 +242,7 @@
 
 	<!--退订-->
 	   
-	<div class="modal fade" id="cancelOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div #cancelDialog class="modal fade" id="cancelOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		  	<div class="modal-dialog" role="document" style="width:80%!important;">
 				<div class="modal-content">
 				  	<div class="modal-header">

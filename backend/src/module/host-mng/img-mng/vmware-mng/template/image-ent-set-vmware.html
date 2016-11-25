@@ -6,7 +6,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">镜像名:</div>
                     <div class="col-md-4">
-                        <span style="line-height:34px">windows2012dc </span>
+                        <span style="line-height:34px">{{imageName}}</span>
                     </div>
                 </div>
             </div>
@@ -14,7 +14,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">镜像显示名称:</div>
                     <div class="col-md-4">
-                        <span style="line-height:34px">windows2012 R2 64位 </span>
+                        <span style="line-height:34px">{{imagedisplayName}}</span>
                     </div>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">操作系统:</div>
                     <div class="col-md-4">
-                        <span style="line-height:34px">windows2012 Datecenter R2 </span>
+                        <span style="line-height:34px">{{imageOs}}</span>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,9 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">系统位数:</div>
                     <div class="col-md-4">
-                        <span style="line-height:34px">64位 </span>
+                        <span style="line-height:34px">
+                            {{getDicText(imagebitsTyep, this.bitDict)}}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -45,27 +47,23 @@
                     </tr>
                 </thead>
                 <tbody>                 
-                    <tr>
-                        <td>BOE-CIO总部</td>
-                    </tr>
-                    <tr>
-                        <td>BOE-信管中心1</td>
-                    </tr>
-                     <tr>
-                        <td>BOE-信管中心2</td>
+                    <tr *ngFor="let uslent of unselectedEnts">
+                        <td>
+                            <label><input type="checkbox" name="unselected" [checked]="uslent.selected" (change)="uslent.selected=$event.target.checked;" class="fox-cloud-checkbox" />{{uslent.name}}</label>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="float-left">
             <div class="mgb10 mgt15">
-                <button class="fox-cloud-button fox-cloud-button-white">
+                <button (click)="moveToRight();" class="fox-cloud-button fox-cloud-button-white">
                     <span class="icon-button-label">移入</span>
                     <span class="glyphicon glyphicon-arrow-right"></span>
                 </button>
             </div>
             <div>
-                <button class="fox-cloud-button fox-cloud-button-white">
+                <button (click)="moveToLeft();" class="fox-cloud-button fox-cloud-button-white">
                     <span class="glyphicon glyphicon-arrow-left"></span>
                     <span class="icon-button-label">移出</span>
                 </button>
@@ -79,14 +77,10 @@
                     </tr>
                 </thead>
                 <tbody>                    
-                    <tr>
-                        <td>BOE-信管中心5</td>
-                    </tr>
-                    <tr>
-                        <td>BOE-信管中心6</td>
-                    </tr>
-                    <tr>
-                        <td>BOE-信管中心7</td>
+                    <tr *ngFor="let slent of selectedEnts">
+                        <td>
+                            <label><input type="checkbox" name="selected" [checked]="slent.selected" (change)="slent.selected=$event.target.checked;" class="fox-cloud-checkbox" />{{slent.name}}</label>                        
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -94,10 +88,12 @@
     </div>
 </div>
 <div class="text-center " style="margin-top:40px">
-    <button class="fox-cloud-button-lg fox-cloud-button-white">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="VmwareImgListPage()">
         <span class="icon-button-label">取消</span>
     </button>     
-    <button class="fox-cloud-button-lg fox-cloud-button-white">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSaveVmwareImgEnts()">
         <span class="icon-button-label">保存</span>
     </button>
 </div>
+
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>

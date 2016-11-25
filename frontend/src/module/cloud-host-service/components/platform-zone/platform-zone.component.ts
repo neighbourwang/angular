@@ -13,8 +13,8 @@ export class PlatformZoneComponent implements OnInit {
 
     @Output() onClick = new EventEmitter<any>();
 
-	areaList : Platform[];
-	zoneList : Zone[];
+	areaList : Platform[] = [];
+	zoneList : Zone[] = [];
 
 	currentArea : Platform = new Platform();
 	currentZone : Zone = new Zone();
@@ -44,6 +44,13 @@ export class PlatformZoneComponent implements OnInit {
 
 	setCurrentArea(area:Platform = this.emptyArea) {
 		this.currentArea = area;
+		this.currentZone = this.emptyZone;  //清空zone
+		this.clickEmit();
+	}
+
+	reset() {
+		this.currentArea = this.emptyArea;
+		this.currentZone = this.emptyZone;
 		this.clickEmit();
 	}
 

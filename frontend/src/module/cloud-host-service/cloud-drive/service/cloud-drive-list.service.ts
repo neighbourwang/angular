@@ -56,9 +56,17 @@ export class cloudDriveServiceList {
         field : "SOURCE_TYPE"
     })
 
-    dictStatus = this.dict.get({ 
-        owner : "SUBINSTANCE",
+    queryField = this.dict.get({    //云硬盘检索的字段列表，取数据字典的code返回
+        owner : "GLOBAL_QUERY",
+        field : "DISK_INSTANCE"
+    });
+    ownerType = this.dict.get({    //实例归属
+        owner : "INSTANCE",
+        field : "OWNER_TYPE"
+    });
+    computeStatus = this.dict.get({    //获取状态列表
+        owner : "VOLUME",
         field : "STATUS"
-    })
+    });
 
 }
