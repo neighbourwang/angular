@@ -46,33 +46,26 @@
     </table>
     <div class="col-md-12 no-padding mgb20">
         <div class="dropdown float-left mgr10">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            云主机名称
-            <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="javascript:">云主机上海</a></li>
-                <li><a href="javascript:">云主机北京</a></li>
-                <li><a href="javascript:">云主机杭州</a></li>
-            </ul>
+            <select [(ngModel)]="list.queryField" class="form-control">
+                <option
+                 *ngFor="let v of service.queryField | async; let i = index;"
+                 [ngValue]="v.value" >{{ v.displayValue }}</option>
+            </select>
         </div>
          <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
-            <select class="form-control">
-                <option value="1">状态</option>
-                <option value="1">使用中</option>
-                <option value="1">未分配</option>
-                <option value="1">创建中</option>
-                <option value="1">挂载中</option>
-                <option value="1">卸载中</option>
-                <option value="1">删除中</option>
-                <option value="1">扩容中</option>
+            <select class="form-control"  [(ngModel)]="list.status"> 
+                <option disabled selected value class="hideoption">状态</option>
+                <option
+                 *ngFor="let v of service.computeStatus | async; let i = index;"
+                 [ngValue]="v.value" >{{ v.displayValue }}</option>
             </select>
          </div>
          <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
-            <select class="form-control">
-                <option value="1">来源</option>
-                <option value="1">订购</option>
-                <option value="1">导入</option>
+            <select class="form-control"  [(ngModel)]="list.addonType"> 
+                <option disabled selected value class="hideoption">附加服务</option>
+                <option
+                 *ngFor="let v of service.addonType | async; let i = index;"
+                 [ngValue]="v.value" >{{ v.displayValue }}</option>
             </select>
          </div>
          <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">

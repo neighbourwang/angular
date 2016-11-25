@@ -55,7 +55,7 @@ export let RestApis: RestApiModel[] = [
      * Cloud-Host Instance List
      */
     {
-        "desc": "获取云主机列表",
+        "desc": "获取云主机列表 - 弃用",
         "method": "GET",
         "id": "hosts.instance.get",
         "url": "marketplace/authsec/subinstance/itemlist/vm/page/{page}/size/{size}"
@@ -101,6 +101,12 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "id": "disk.search.page",
         "url": "marketplace/authsec/subinstance/itemlist/disk/search/page"
+    },
+    {
+        "desc": "获取云主机列表",
+        "method": "POST",
+        "id": "vm.search.page",
+        "url": "marketplace/authsec/subinstance/itemlist/vm/search/page"
     },
     //镜像管理部分
     {

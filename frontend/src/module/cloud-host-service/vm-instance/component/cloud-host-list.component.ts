@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 import { cloudHostServiceList } from '../service/cloud-host-list.service'
 
-import { VmList, HandleVm } from '../model/vm-list.model';
+import { VmList, HandleVm, QuiryVmList } from '../model/vm-list.model';
 
 @Component({
 	selector: 'cloud-host-list',
@@ -21,10 +21,9 @@ export class cloudHostListComponent implements OnInit {
 	@ViewChild('notice')
 	private noticeDialog: NoticeComponent;
 
-	pageSize: number = 5;
-	totalPages: number = 0;
-	currPage: number = 1;
-  
+	list : QuiryVmList = new QuiryVmList();
+	searchName : string = "云主机名";
+
 	modalTitle: string = '';
 	modalMessage: string = '';
 	modalOKTitle: string = '';
@@ -46,13 +45,11 @@ export class cloudHostListComponent implements OnInit {
 	}
 
 	setHostList(): void {
-		// this.layoutService.show();
-		this.service.getHostList(this.currPage, this.pageSize).then(res => {
+		this.service.getHostList(this.list).then(res => {
 			if (res.resultCode !== "100") {
 				throw "";
 			}
-			// this.layoutService.hide();
-			this.totalPages = res.pageInfo.totalPage;
+			this.list.pageParameter.totalPage = res.pageInfo.totalPage;
 			return res.resultContent;
 		}).then(list => {
 			this.vmList = list;
@@ -60,11 +57,6 @@ export class cloudHostListComponent implements OnInit {
 			// this.layoutService.hide();
 		});
 
-	}
-
-	forMatData(number : number) : string {
-		var d = new Date(number);
- 		return (d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds());
 	}
 
 	//云主机的操作相关
@@ -120,13 +112,13 @@ export class cloudHostListComponent implements OnInit {
 	changePage(page: number) {
 
 		page = page < 1 ? 1 : page;
-		page = page > this.totalPages ? this.totalPages : page;
+		page = page > this.list.pageParameter.totalPage ? this.list.pageParameter.totalPage : page;
 
-		if (this.currPage == page) {
+		if (this.list.pageParameter.currentPage == page) {
 			return;
 		}
 
-		this.currPage = page;
+		this.list.pageParameter.currentPage = page;
 		this.setHostList();
 	}
 }

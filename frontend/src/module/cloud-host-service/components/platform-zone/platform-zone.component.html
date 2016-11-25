@@ -1,16 +1,16 @@
 <div class="col-md-12 btn-group" data-toggle="buttons">
-	<label (click)="zoneList=[];setCurrentArea();" class="btn btn-default active">
+	<label (click)="zoneList=[];setCurrentArea();" class="btn btn-default active mgb5">
 		<input type="radio" name="area" autocomplete="off"> 所有
 	</label>
-	<label (click)="setZone(value.id);setCurrentArea(value);" *ngFor="let value of areaList;let i = index;" class="btn btn-default">
+	<label (click)="setZone(value.id);setCurrentArea(value);" *ngFor="let value of areaList;let i = index;" class="btn btn-default mgb5">
 		<input type="radio" name="area" autocomplete="off"> {{ value.name }}
 	</label>
 </div>
 <div class="col-md-12 btn-group areaAble" data-toggle="buttons">
-	<label class="btn btn-default active" (click)="setCurrentZone();">
+	<label class="btn btn-default active mgb5" (click)="setCurrentZone();">
 		<input type="radio" name="area" autocomplete="off"> 所有
 	</label>
-	<label (click)="setCurrentZone(value);" *ngFor="let value of zoneList;let i = index;" class="btn btn-default">
+	<label (click)="setCurrentZone(value);" *ngFor="let value of zoneList;let i = index;" class="btn btn-default mgb5">
 		<input type="radio" name="area" autocomplete="off"> {{ value.zoneName }}
 	</label>
 </div>

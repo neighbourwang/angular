@@ -33,7 +33,7 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">网络类型</div>
 					<div class="col-md-10">
-						<select [(ngModel)]="sendModule.networktype" (change)="sendModule.networktype = value" class="form-control">
+						<select [(ngModel)]="sendModule.networktype" class="form-control">
 							<option
 							 *ngFor="let value of configs.networktype.valueList;"
 							 [ngValue]="value" >{{ value.attrDisplayValue }}</option>
@@ -43,7 +43,7 @@
 					<div class="col-md-10 text-tip">请选择您需要的子网网段</div>
 					<div class="col-md-2 content-title">安全组</div>
 					<div class="col-md-10">
-						<select [(ngModel)]="sendModule.securitygroup" (change)="sendModule.securitygroup = value" class="form-control">
+						<select [(ngModel)]="sendModule.securitygroup" class="form-control">
 							<option
 							 *ngFor="let value of configs.securitygroup.valueList;"
 							 [ngValue]="value" >{{ value.attrDisplayValue }}</option>
@@ -88,7 +88,7 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">启动源</div>
 					<div class="col-md-10">
-						<select [(ngModel)]="sendModule.startupsource" (change)="sendModule.startupsource = value" class="form-control">
+						<select [(ngModel)]="sendModule.startupsource" class="form-control">
 							<option
 							 *ngFor="let value of configs.startupsource.mapValueList[sendModule[getRelyName(configs.startupsource.relyAttrId)].attrValueId];"
 							 [ngValue]="value" >{{ value.attrDisplayValue }}</option>
@@ -107,7 +107,7 @@
 					</div>
 					<div class="col-md-2 content-title">镜像列表</div>
 					<div class="col-md-10">
-						<select [(ngModel)]="sendModule.os" (change)="sendModule.os = value" class="form-control">
+						<select [(ngModel)]="sendModule.os"  class="form-control">
 							<option
 							 *ngFor="let value of configs.os.mapValueList[sendModule[getRelyName(configs.os.relyAttrId)].attrValueId];"
 							 [ngValue]="value" >{{ value.attrDisplayValue }}</option>
@@ -127,8 +127,7 @@
 								<label class="btn btn-default" *ngIf="!sendModule.zone.attrValueId">请先选择可用区</label>
 								<select 
 									*ngIf="sendModule.zone.attrValueId" 
-									[(ngModel)]="sendModule.bootstorage" 
-									(change)="sendModule.bootstorage = value" class="form-control">
+									[(ngModel)]="sendModule.bootstorage" class="form-control">
 										<option
 										*ngFor="let value of configs.bootstorage.mapValueList[sendModule.zone.attrValueId];" 
 										[ngValue]="value" >{{ value.attrDisplayValue }}</option>
@@ -251,7 +250,7 @@
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">购买时长</div>
 						<div class="col-md-2 no-padding mr10">
-							<select [disabled]="timeForever" [(ngModel)]="sendModule.timelineunit" (change)="sendModule.timelineunit = value" class="form-control">
+							<select [disabled]="timeForever" [(ngModel)]="sendModule.timelineunit" class="form-control">
 								<option
 								*ngFor="let value of configs.timelineunit.valueList;"
 								[ngValue]="value" >{{ value.attrDisplayValue }}</option>
@@ -270,7 +269,7 @@
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">购买量</div>
 						<div class="col-md-2 no-padding mr10">
-							<select [(ngModel)]="payLoad.quality" (change)="payLoad.quality = value" class="form-control">
+							<select [(ngModel)]="payLoad.quality"  class="form-control">
 								<option [ngValue]="1">1台</option>
 								<option [ngValue]="2">2台</option>
 								<option [ngValue]="3">3台</option>

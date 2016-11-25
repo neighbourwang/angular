@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../architecture';
 
-import { VmList,HandleVm } from '../model/vm-list.model';
+import { VmList,HandleVm, QuiryVmList } from '../model/vm-list.model';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -27,22 +27,9 @@ export class cloudHostServiceList {
         return request;
     }
 
-    getHostList(page: number, size: number) : Promise<any>{
-        const api = this.restApiCfg.getRestApi("hosts.instance.get");
-
-        let pathParams = [
-            {
-                key: 'page',
-                value: page
-            }, 
-            {
-                key: 'size',
-                value: size
-            }
-        ];
-        const request = this.restApi.request(api.method, api.url, pathParams, undefined, undefined)
-                           
-        return request;
+    getHostList(quiry:QuiryVmList) : Promise<any>{
+        const api = this.restApiCfg.getRestApi("vm.search.page");
+        return this.restApi.request(api.method, api.url, undefined, undefined, quiry);
     }
 
     handleVm(senData:HandleVm) : Promise<any> { 
@@ -69,4 +56,24 @@ export class cloudHostServiceList {
         field : "STATUS"
     })
 
+    computeStatus = this.dict.get({    //获取状态列表
+        owner : "COMPUTE",
+        field : "STATUS"
+    });
+    useType = this.dict.get({    //云主机类型
+        owner : "GLOBAL",
+        field : "USE_TYPE"
+    });
+    serviceLevel = this.dict.get({    //云主机服务级别
+        owner : "GLOBAL",
+        field : "SERVICE_LEVEL"
+    });
+    queryField = this.dict.get({    //云主机检索的字段列表，取数据字典的code返回
+        owner : "GLOBAL_QUERY",
+        field : "COMPUTE_INSTANCE"
+    });
+    addonType = this.dict.get({    //云主机附加服务类型
+        owner : "COMPUTE_INSTANCE",
+        field : "ADDON_TYPE"
+    });
 }
