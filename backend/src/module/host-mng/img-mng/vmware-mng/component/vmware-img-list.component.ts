@@ -292,26 +292,83 @@ export class VmwareImgListComponent implements OnInit {
 
     acceptVmwareImageModify(): void {
         console.log('clicked acceptVmwareImageModify');
-        if(this.selectedimg){
-            console.log(this.selectedimg.id);
-            this.service.updateImage(this.selectedimg)
-            .then(res => {
-                    if (res && res.resultCode == "100") {
-                        console.log(res, "镜像更新成功")
-                    } else {
-                        this.showMsg("镜像更新失败");
-                        return;
-                    }
-                })
-                .then(()=>{
-                    this.getVmwareImgList();
-                    this.editimagebox.close();
-                })
-                .catch(err => {
-                    console.log('镜像更新', err);
-                    this.showMsg("镜像更新");
-                    this.okCallback = () => { this.editimagebox.open(); };
-                })
+        if (this.selectedimg) {
+            if (this.validateImgModify()) {
+                console.log(this.selectedimg.id);
+                this.service.updateImage(this.selectedimg)
+                    .then(res => {
+                        if (res && res.resultCode == "100") {
+                            console.log(res, "镜像更新成功")
+                        } else {
+                            this.showMsg("镜像更新失败");
+                            return;
+                        }
+                    })
+                    .then(() => {
+                        this.getVmwareImgList();
+                        this.editimagebox.close();
+                    })
+                    .catch(err => {
+                        console.log('镜像更新', err);
+                        this.showMsg("镜像更新");
+                        this.okCallback = () => { this.editimagebox.open(); };
+                    })
+            }
+        }
+    }
+
+    validate(name: string, val: any, op: string) {
+        let map: any = {
+            "*": {
+                "func": this.validationService.isBlank,
+                "msg": "不能为空"
+            },
+             "email": {
+                "func": val => !this.validationService.isEmail(val),
+                "msg": "邮箱地址无效"
+            }
+        }
+
+        if (map[op].func(val)) {
+            return name + map[op].msg;
+        }
+        else
+            return undefined;
+    }
+
+    //验证设置镜像信息
+    validateImgModify(): boolean {
+        let notValid = null;
+        notValid = [
+            {
+                "name": "镜像名称"
+                , 'value': this.selectedimg.name
+                , "op": "*"
+            },
+            {
+                "name": "镜像显示名称"
+                , 'value': this.selectedimg.displayName
+                , "op": "*"
+            },
+            {
+                "name": "镜像类型"
+                , 'value': this.selectedimg.type
+                , "op": "*"
+            }
+            ].find(n => this.validate(n.name, n.value, n.op) !== undefined)
+        
+        console.log(notValid, "notValid!!!")
+
+        if (notValid !== void 0) {
+            this.showMsg(this.validate(notValid.name, notValid.value, notValid.op));
+            this.editimagebox.close();
+            this.okCallback = () => {
+                this.editimagebox.open();                
+            };
+            
+            return false;
+        } else {
+            return true;
         }
     }
 

@@ -41,7 +41,7 @@ export class VmwareImgSyncService{
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return VmwareImgSyncModel_mock });
     }
 
-    VmwareSyncImages(platformId: string): Promise<any>{
+    VmwareSyncImages(platformId: string, selectedsyncvmimgs: Array<VmwareImgSyncModel>): Promise<any>{
         const pathParams = [
             {
                 key: "platformId",
@@ -49,10 +49,12 @@ export class VmwareImgSyncService{
 
             }
         ];
+        console.log(selectedsyncvmimgs, "((((((((((((((((((selectedsyncvmimgs))))))))))))))))))")
         
         /*
         const api = this.restApiCfg.getRestApi("host-mng.img-mng.vmware-mng.vmware-img.list");
         return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //here we will add some images to a jasn body.
         */
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });
     }

@@ -54,7 +54,7 @@
         <div class="pull-left mgl15">
             <select class="form-control" [(ngModel)]="selectedVDS">
                 <option [value]="" value="">所有</option>
-                <option *ngFor="let vds of selectedDC.clusterNameList" [value]="vds">{{vds}}</option>
+                <option *ngFor="let vds of selectedDC.clusters" [value]="vds.clusterId">{{vds.clusterName}}</option>
             </select>
         </div>
 		<button type="button" class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="filter()"> 确定</button>
@@ -86,7 +86,7 @@
             <tbody>
             <tr *ngFor="let ipmng of ipmngs; let i=index;">
                 <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="ipmng.checked" (change)="selectItem(i)" value="{{i}}"></td>
-                <td>{{ipmng.dataCenter}}</td>
+                <td>{{ipmng.dcName}}</td>
                 <td>{{ipmng.clusterName}}</td>
                 <td>{{ipmng.portGroup}}</td>
                 <td>{{displayIt(ipmng.portGroupDisplayName)}}</td>
@@ -102,9 +102,12 @@
         </table>
 <!--
 	{{ipmngquery.toString()}}
+-->
+    {{selectedDC.dcId}}
+    {{selectedVDS}}
 	{{subn.toString()}}
 	{{ippool.toString()}}
--->
+
 
     </div>
 </div>

@@ -1,0 +1,112 @@
+<div class="page-content-header icon-content-header-platform-manage">编辑AD用户</div>
+<div class="row" style="padding-top: 30px;">
+    <div class="col-md-12">
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title">
+                    <span class="asterisk">*</span>
+                    姓名
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" [(ngModel)]="account.userName" placeholder="请输入姓名">
+                </div>
+            </div>
+        </div>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title">
+                    <span class="asterisk">*</span>
+                    账号
+                </div>
+                <div class="col-sm-4">
+                    {{account.loginName}}
+                </div>
+            </div>
+        </div>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title">
+                    <span class="asterisk">*</span>
+                    认证源
+                </div>
+                <div class="col-sm-4">
+                    {{account.ldapName}}
+                </div>
+            </div>
+        </div>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title">
+                    <span class="asterisk">*</span>
+                    联系电话
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" [(ngModel)]="account.phone" placeholder="请输入联系电话">
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title">
+                    描述
+                </div>
+                <div class="col-sm-4">
+                    <textarea type="text" class="form-control" [(ngModel)]="account.description" placeholder="请输入联系描述" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+        <!--<div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title">
+                </div>
+                <div class="col-sm-4 checkbox">
+                    <label>
+                        <input type="checkbox" [checked]="account.isLeader" (change)="account.isLeader=$event.target.checked"> 是否部门负责人？
+                    </label>
+                </div>
+            </div>
+        </div>-->
+        <div class="row row-line-height" style="margin-top : 20px">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title">
+                    绑定角色
+                </div>
+                <div class="col-sm-6">
+                    <div class="btn-group">
+                        <div class="btn-group float-left">
+                            <button *ngFor="let role of roles;" class="btn btn-default" (click)="role.selected=!role.selected;" [ngClass]="{'active':role.selected}">
+                                 {{role.name}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title">
+                    绑定结构
+                </div>
+                <div class="col-sm-6">
+                    <div class="btn-group" style="max-height: 300px; overflow: auto;">
+                        <div class="btn-group float-left" data-toggle="buttons">
+                            <label *ngFor="let org of organizations;" class="btn btn-default" style="margin: 3px 0;" [ngClass]="{'active':org.selected}" (click)="clearSelectedOrg(org);">
+                                <input type="radio" name="org" autocomplete="off"> {{org.name}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button class="fox-cloud-button-lg fox-cloud-button-white">
+                <span class="icon-button-label" (click)="cancel()">取消</span>
+            </button>
+            <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px">
+                <span class="icon-button-label" (click)="saveAccount()">保存</span>
+            </button>
+        </div>
+    </div>
+</div>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>

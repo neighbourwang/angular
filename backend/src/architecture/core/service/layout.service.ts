@@ -37,8 +37,9 @@ export class LayoutService {
         this.count++;
         this.hideTimer && window.clearTimeout(this.hideTimer);
         this.showTimer = window.setTimeout(() => {
-            this.isLoading = true;
-        }, this.delay);
+                this.isLoading = true;
+            },
+            this.delay);
     }
 
     hide() {
@@ -47,8 +48,9 @@ export class LayoutService {
         if (this.count <= 0) {
             this.count = 0;
             this.hideTimer = window.setTimeout(() => {
-                this.isLoading = false;
-            }, this.delay);
+                    this.isLoading = false;
+                },
+                this.delay);
 
         }
     }

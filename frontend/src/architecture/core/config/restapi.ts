@@ -225,10 +225,17 @@ export let RestApis: RestApiModel[] = [
         "method" : "DELETE",
         "url" : "basis/authsec/mpp/user/{id}"
     },
+    //账号管理
     {
         "desc" : "用户中心，帐号管理，帐号创建，获取所有角色",
         "id" : "user-center.account-mng.create.roleList",
         "method" : "GET",
         "url" : "basis/authsec/mpp/roles/page/{page}/size/{size}"
-    }
+    },
+    {
+        "desc" : "用户中心，帐号管理，帐号创建，获取所有机构",
+        "id" : "user-center.account-mng.create.orgList",
+        "method" : "GET",
+        "url" : "basis/authsec/mpp/organizations/page/{page}/size/{size}"
+    },
 ]

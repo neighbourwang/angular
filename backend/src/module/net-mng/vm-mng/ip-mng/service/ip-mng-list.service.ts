@@ -19,12 +19,12 @@ export class IpMngListService {
         private restApiCfg: RestApiCfg,
         private restApi: RestApi
     ) { }
-
+/*
     getDcCluster(): Promise <any> {
         //API CALL /adminboe/authsec/vmware/network/getlist
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return NetWork_mock });
     }
-
+*/
     getIpMngList(): Promise<any> {
         /*
         const pathParams = [
@@ -37,8 +37,6 @@ export class IpMngListService {
                 value: pageSize
             }
         ];
-
-
         const api = this.restApiCfg.getRestApi("net-mng.openstack.net.list");
         return this.restApi.request(api.method, api.url, pathParams, null,
             {
@@ -50,26 +48,69 @@ export class IpMngListService {
         );
         */
 
-        //const api = this.restApiCfg.getRestApi("net-mng.vmware.ipmng.list");
-        //return this.restApi.request(api.method, api.url, null, null, null);
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.ipmng.list");
+        return this.restApi.request(api.method, api.url, null, null, null);
 
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return IpMngModel_mock });
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return IpMngModel_mock });
     }
 
-	updateSubnetIPs(ippool: subnetIpModel): Promise <any> {
+	updateSubnetIPs(portGroup:string, ippool: subnetIpModel): Promise <any> {
 		//API CALL
-		return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
+        //*
+        const pathParams = [
+            {
+                key: "portGroup_id",
+                value: portGroup
+            }
+        ];
+        console.log('updateSubnetIPs');
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.subnetips.setup");
+        console.log(ippool.ips, "ippool.ips")
+        return this.restApi.request(api.method, api.url, pathParams, null, ippool.ips);
+        //*/
+		//return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
 	}
 
-	updateSubnet(subn: subnetModel): Promise <any> {
-		//API CALL
-		return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
-	}
+    updateSubnet(portGroup: string, subn: subnetModel): Promise<any> {
+        //API CALL
+        //*
+        const pathParams = [
+            {
+                key: "portGroup_id",
+                value: portGroup
+            }
+        ];
+        console.log('updateSubnet');
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.subnet.setup");
+        return this.restApi.request(api.method, api.url, pathParams, null,
+            {
+                "subnetCIDR": subn.subnetCIDR,
+                "subnetMask": subn.subnetMask,
+                "gateway": subn.gateway,
+                "dnsPre": subn.dnsPre,
+                "dnsAlt": subn.dnsAlt
+            }
+        );
+        //*/
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
+    }
 
     getDCList(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("net-mng.vmware.dc.list");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => net_dc_list_mock);
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.querycondition.get");
+        return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => net_dc_list_mock);
+    }
+
+    getSubnetInfoIps(portGroup:string): Promise<any> {
+        const pathParams = [
+            {
+                key: "portGroup_id",
+                value: portGroup
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.subnetinfo-ips.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
     }
 
 
