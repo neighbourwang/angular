@@ -727,8 +727,26 @@ export let RestApis: RestApiModel[] = [
         "url": "basis/authsec/adm/user/{id}"
     },
     {
+        "desc": "用户中心 查询符合条件的AD用户",
+        "id": "user-center.account-mng.aduser.get",
+        "method": "POST",
+        "url": "basis/authsec/ldap/{ldapid}/adusers/page/{page}/size/{size}"
+    },
+    {
         "desc": "查询单个帐号",
         "id": "user-center.account-mng.local.get",
+        "method": "GET",
+        "url": "basis/authsec/adm/user/{id}"
+    },
+    {
+        "desc": "创建帐号（AD）",
+        "id": "user-center.account-mng.ad.create",
+        "method": "POST",
+        "url": "basis/authsec/aduser"
+    },
+    {
+        "desc": "获取AD帐号详情",
+        "id": "user-center.account-mng.ad.get",
         "method": "GET",
         "url": "basis/authsec/adm/user/{id}"
     },
@@ -811,6 +829,7 @@ export let RestApis: RestApiModel[] = [
         "method" : "GET",
         "url" : "basis/authsec/adm/menu/tree"
     },
+    
     //个人账户管理
     {
         "desc": "获取当前登录账户信息",

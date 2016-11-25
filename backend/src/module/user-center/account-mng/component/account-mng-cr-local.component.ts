@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+﻿import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params  } from '@angular/router';
 
 import { LayoutService, NoticeComponent , ConfirmComponent ,PopupComponent } from '../../../../architecture';

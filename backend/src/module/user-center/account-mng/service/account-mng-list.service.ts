@@ -88,6 +88,8 @@ export class AccountMngService {
         return this.restApi.request(api.method , api.url , [{key : "id" ,value : id}],undefined);
     }
 
+
+
     
 
 

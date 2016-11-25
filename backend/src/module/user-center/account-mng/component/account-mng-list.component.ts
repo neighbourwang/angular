@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+﻿import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent , ConfirmComponent ,PopupComponent } from '../../../../architecture';
@@ -31,7 +31,7 @@ export class AccountMngComponent implements OnInit{
     confirmType : number;
 
     // 平台数据总页数
-    tp:number = 0;
+    tp:number = 1;
     // 每页显示的数据条数
     pp:number = 10;
 
@@ -40,11 +40,17 @@ export class AccountMngComponent implements OnInit{
     chooseAccount : Account = new Account();
 
     ngOnInit() {
-        this.service.getAccount(this.tp , this.pp).then(
+      this.getAccount();
+    }
+
+    getAccount(index?) {
+        this.tp = index || this.tp;
+        this.service.getAccount(this.tp, this.pp).then(
             res => {
                 console.log(res);
                 this.accounts = res.resultContent;
-                for(let item of this.accounts){
+                this.tp = res.pageInfo.totalPage;
+                for (let item of this.accounts) {
                     item.selected = false;
                 }
             }
@@ -52,9 +58,8 @@ export class AccountMngComponent implements OnInit{
             error => {
                 console.error(error);
             }
-        )
+            )
     }
-    
 
     //搜索关键字
     keyup : string;
@@ -92,7 +97,11 @@ export class AccountMngComponent implements OnInit{
     //编辑
     edit(){
         //判断当前帐号的type跳转  demo演示 先跳转到本地编辑
-         this.router.navigate(['/user-center/account-mng/account-mng-cr-local/'+this.chooseAccount.id]);
+        if (this.chooseAccount.type == "0") {
+            this.router.navigate(['/user-center/account-mng/account-mng-cr-local/' + this.chooseAccount.id]);
+        } else {
+            this.router.navigate(['/user-center/account-mng/account-mng-edit-ad/' + this.chooseAccount.id]);
+        }
     }
 
     //重置密码
