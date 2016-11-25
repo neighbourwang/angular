@@ -232,4 +232,10 @@ export let RestApis: RestApiModel[] = [
         "method" : "GET",
         "url" : "basis/authsec/mpp/organizations/page/{page}/size/{size}"
     },
+    {
+        "desc": "创建账户",
+        "method": "POST",
+        "id": "user-center.account-mng.create.post",
+        "url": "marketplace/authsec/mpp/user"        
+    },
 ]

@@ -1,7 +1,7 @@
 import { Component,OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent} from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent,PopupComponent} from '../../../../architecture';
 
 import { AccountMngCrAdComponent } from './account-mng-cr-ad.component';
 
@@ -10,7 +10,7 @@ import { AccountMngService } from '../service/account-mng.service';
 import { Account } from '../model/account';
 
 @Component({
-  selector: 'account-mng-list',
+  // selector: 'account-mng-list',
   templateUrl: '../template/account-mng-list.component.html',
   styleUrls: [],
   providers: []
@@ -19,9 +19,12 @@ export class AccountMngListComponent implements OnInit {
   
   @ViewChild('crAd')
   private crAd: AccountMngCrAdComponent;
+  // private crAd:PopupComponent;
 
   @ViewChild('confirm')
   private confirm : ConfirmComponent;
+
+ 
   
   constructor(
     private layoutService: LayoutService,
@@ -30,16 +33,7 @@ export class AccountMngListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.service.getAccountList(this.page , this.size).then(
-      res => {
-        console.log(res);
-        this.accounts = res.resultContent;
-      }
-    ).catch(
-      err => {
-        console.error(err);
-      }
-    )
+    this.getAccountList(1,this.pp);
   }
   //关键字搜索
   keyword : string;
@@ -52,13 +46,23 @@ export class AccountMngListComponent implements OnInit {
   //获取当前得confirm类型 判断操作
   confirmType : number ;
 
-  page : number = 0;
-  size : number = 10;
-
   accounts : Array<Account> = new Array<Account>();
 
   accountId : string;
-
+  //获取账户列表
+  getAccountList(page:number,size:number){
+     this.service.getAccountList(page , size).then(
+      res => {
+        console.log(res);
+        this.accounts = res.resultContent;
+        this.tp=res.pageInfo.totalPage
+      }
+    ).catch(
+      err => {
+        console.error(err);
+      }
+    )
+  }
   //保存
   save (){
     this.crAd.save().then(
@@ -140,6 +144,7 @@ export class AccountMngListComponent implements OnInit {
     this.service.enableAcc(this.accountId).then(
       res => {
         console.log(res);
+        this.getAccountList(1,this.pp);
       }
     ).catch(
       err => {
@@ -151,7 +156,8 @@ export class AccountMngListComponent implements OnInit {
   disableAcc(){
     this.service.disableAcc(this.accountId).then(
       res => {
-        console.log(res)
+        console.log(res);
+        this.getAccountList(1,this.pp);
       }
     ).catch(
       err => {
@@ -164,6 +170,7 @@ export class AccountMngListComponent implements OnInit {
     this.service.deleteAcc(this.accountId).then(
       res => {
         console.log(res);
+        this.getAccountList(1,this.pp);
       }
     ).catch(
       err => {
@@ -171,6 +178,11 @@ export class AccountMngListComponent implements OnInit {
       }
     )
   }
-
-  
+//分页
+  tp:number=0;
+  pp:number=10;
+  paging(page){
+    console.log(page);
+    this.getAccountList(page,this.pp);
+  }
 }

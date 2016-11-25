@@ -40,7 +40,8 @@ class Organization {
   "leaderId": string;
   "members": Array<Member>;
   "name": string;
-  "platforms": Array<Platform>
+  "platforms": Array<Platform>;
+  'selected':boolean
 }
 class Role {
   "description": string;
@@ -64,10 +65,20 @@ class Account {
       "id": '',
       "name": '',
       selected: false
+    }];
+    this.organizations=[{
+      "description": '',
+      "id": '',
+      "leaderId": '',
+      "members": new Array<Member>(),
+      "name": '',
+      "platforms": new Array<Platform>(),
+      selected:false
     }]
   }
 }
 export {
   Account,
-  Role
+  Role,
+  Organization
 }
