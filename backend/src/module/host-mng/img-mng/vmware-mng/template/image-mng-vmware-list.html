@@ -55,39 +55,33 @@
             <tbody>
                 <tr *ngFor="let img of vmwareimgs; let i=index">
                     <td><input type="radio" name="image" class="fox-cloud-radio" [checked]="img.checked" (change)="selectItem(i)" value="{{i}}"></td>
-                    <td>
-                        <div class="tenant-description-c">{{img.name}}
-                            <div class="popover-content">
-                                <span>
-                                    {{img.description}}
-                                </span>
-                            </div>
-                        </div>
+                    <td title="{{img.description}}">
+                        <div class="tenant-description-c">{{img.name}} </div>
                     </td>
-                    <td style="position:relative">
-                        {{img.displayName}}
-                        <span class="pull-right icon-edit2" (click)="img.nameEditing=true; selectItem(img)"></span>
-                        <div *ngIf="img.nameEditing" class="popover fade bottom in" role="tooltip" style="z-index:-3;top:25px; left:150px; width:370px; max-width:1100px; display: block;">
-                                <div class="arrow" style="left: 30%;"></div>
-                                <div class="popover-content">
-                                    <form class="form-horizontal" role="form">
+                    <td style="position:relative">{{img.displayName}}             
+                        <span class="pull-right icon-edit2" (click)="img.nameEditing=true; onSelect(img);"></span>
+                        <div *ngIf="img.nameEditing" class="popover fade bottom in" role="tooltip" id="popover316538" style="top:25px; left:150px; width:370px; max-width:1100px; display: block;">
+                            <div class="arrow" style="left: 30%;"></div>
+                            <div class="popover-content">
+                                <form class="form-horizontal" role="form">
                                         <div class="form-group">
                                             <label class="col-sm-4 control-label">镜像显示名称:</label>
                                             <div class="col-sm-8 float-left">
-                                            <input type="text" [(ngModel)]="selectedimage.name">
+                                            <input type="text" [(ngModel)]="selectedimg.displayName" name="name">
                                             </div>
                                         </div>
-                                    </form>
+                                </form>
                                 <div class="pull-right" style="margin-bottom:10px;">
                                     <button class=" fox-cloud-button fox-cloud-button-white" (click)="onSave(img)">保存</button>
-                                    <button class="fox-cloud-button fox-cloud-button-white" (click)="img.nameEditing=false;">取消</button>
+                                    <button class="fox-cloud-button fox-cloud-button-white" (click)="onCancel(); img.nameEditing=false;">取消</button>
                                 </div>
-                            </div>                              
-                    </div>
+                            </div>
+                            
+                        </div>
                     </td>
                     <td>{{img.os}}</td>
                     <td>{{getDicText(img.bitsType, this.bitDict)}}</td>
-                    <td>{{img.size}}</td>
+                    <td>{{img.capacity}}</td>
                     <td>{{getDicText(img.type, this.typeDict)}}</td>
                     <td [ngSwitch]="displayIt(img.tenants)">
                         <div *ngSwitchCase="'some'" class="tenants-c">详细>>
@@ -121,6 +115,30 @@
     <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
     <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
 </div>
+
+<fc-popup #enableimagebox ot="确认" ct="取消" title="启用镜像" (of)="acceptVmwareImageEnableModify()" (cf)="cancelVmwareImageEnableModify()">
+	<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-12">
+					    您选择启用 ' {{selectedimg.displayName}} ' ， 请确认；如果确认，用户将能够在订购中选择此镜像。
+					</div>
+				</div>
+			</div>
+	</div>
+</fc-popup>
+
+<fc-popup #disableimagebox ot="确认" ct="取消" title="禁用镜像" (of)="acceptVmwareImageDisableModify()" (cf)="cancelVmwareImageEnableModify()">
+	<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-12">
+                        您选择禁用 ' {{selectedimg.displayName}} ' ， 请确认；如果确认，用户将不能在订购中选择此镜像。
+					</div>
+				</div>
+			</div>
+	</div>
+</fc-popup>
 
 <fc-popup #editimagebox ot="确认" ct="取消" title="编辑镜像" (of)="acceptVmwareImageModify()" (cf)="cancelVmwareImageModify()">
 	
@@ -164,7 +182,7 @@
 					<div class="col-sm-4 form-control-title">镜像容量：</div>
 					<div class="col-sm-8">
 						<!-- <input type="string" class="form-control input-control" [(ngModel)]="selectedimg.dnsAlt"> -->
-                        <span>50G</span>
+                        <span>{{selectedimg.capacity}}</span>
 					</div>
 				</div>
 			</div>
@@ -187,7 +205,5 @@
 				</div>
 			</div>
 	</div>
-<!--		{{subn.toString()}}   -->
-
 </fc-popup>
 

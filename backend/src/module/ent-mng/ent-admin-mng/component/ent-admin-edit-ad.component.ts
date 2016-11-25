@@ -14,20 +14,18 @@ import { Attest } from "../model/attest.model";
 
 @Component({
     selector: "ent-admin-cre",
-    templateUrl: "../template/ent-admin-cre-ad.component.html",
+    templateUrl: "../template/ent-admin-edit-ad.component.html",
     styleUrls: [],
     providers: []
 })
-export class EntAdminCreADComponent implements OnInit {
-
+export class EntAdminEditADComponent implements OnInit {
     eid = ""; //企业id
+    aid = ""; //管理员id
     noticeTitle = "";
     noticeMsg = "";
-    filterStr="";
+    filterStr = "";
     admin = new Admin();
     enterprise = new Enterprise();
-    adUsers: Array<AdUser>;
-    attests:Array<Attest>;
     @ViewChild("notice")
     notice: NoticeComponent;
 
@@ -44,13 +42,15 @@ export class EntAdminCreADComponent implements OnInit {
         if (activatedRouter.snapshot.params["eid"]) {
             this.eid = activatedRouter.snapshot.params["eid"] || "";
             this.getEnterpriseById(this.eid);
-            this.admin.enterpriseId = this.eid;
-            this.getAttest(this.eid);
+            this.aid = activatedRouter.snapshot.params["aid"] || "";
+            if (this.aid != "") {
+                this.getAdminById(this.aid);
+            }
         }
     }
 
     ngOnInit() {
-       
+
     }
 
     //根据企业id获取企业的基本信息
@@ -70,43 +70,24 @@ export class EntAdminCreADComponent implements OnInit {
             .catch(() => (e) => this.onRejected(e));
     }
 
-    //获取组织列表
-    getAttest(id:string) {
+    getAdminById(id: string) {
         this.layoutService.show();
-        this.service.getAttests(1, 9999,id)
-            .then(response => {
+        this.service.getAdminById(id)
+            .then(
+            response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.attests = response["resultContent"];
+                    this.admin = response["resultContent"];
                 } else {
                     this.showAlert("Res sync error");
                 }
-            })
-            .catch((e) => this.onRejected(e));
-    }
-
-    //获取ad用户
-    searchAdUser() {
-        if (this.admin.ldapId == "" || !this.filterStr || this.filterStr == "") {
-            this.showAlert("请选择认证源并且输入查询字符串");
-            return;
-        }
-
-        this.layoutService.show();
-        this.service.getAdUser(this.admin.ldapId, 1, 9999, this.filterStr)
-            .then(response => {
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
-                    this.adUsers = response["resultContent"];
-                } else {
-                    this.showAlert("Res sync error");
-                }
-            })
+            }
+            )
             .catch((e) => this.onRejected(e));
     }
 
     //创建或者更新管理员信息
-    create(): void {
+    saveAccount(): void {
         if (this.validationService.isBlank(this.admin.userName)) {
             this.showAlert("请输入管理员姓名");
             return;
@@ -116,19 +97,16 @@ export class EntAdminCreADComponent implements OnInit {
             this.showAlert("请输入电话");
             return;
         }
-
+         
         if (!this.validationService.isMoblie(this.admin.contactPhone) &&
             !this.validationService.isTel(this.admin.contactPhone)) {
             this.showAlert("请输入合法的联系电话;");
             return;
         }
-        if (!this.admin.loginName || this.admin.loginName == "") {
-            this.showAlert("请选择ad用户");
-            return;
-        }
+       
         this.admin.authMode = "1";
         this.layoutService.show();
-        this.service.createAdmin(this.admin)
+        this.service.updateAdmin(this.admin)
             .then(
             response => {
                 this.layoutService.hide();

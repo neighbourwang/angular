@@ -31,15 +31,14 @@ export class VmwareEntListService{
 
             }
         ];
-        
-        const api = this.restApiCfg.getRestApi("host-mng.img-mng.vmware-mng.vmware-ent.list");
-        return this.restApi.request(api.method, api.url, pathParams, null, 
-            {
+        const obj = {
                 "platformId": criteriaQuery.platformId,
                 "type": criteriaQuery.type,
                 "tenantId": criteriaQuery.tenantId
-            }
-        );
+        };
+        
+        const api = this.restApiCfg.getRestApi("host-mng.img-mng.vmware-mng.vmware-ent.list");
+        return this.restApi.request(api.method, api.url, pathParams, null, obj);
         */
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return EnterpriseModel_mock });
     }

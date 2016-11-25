@@ -1,33 +1,10 @@
-/*        {
-            "id": "ef349044-3bfb-4b09-b804-30954b084e0d",
-            "name": "windows",
-            "displayName": "我的windows",
-            "os": "CentOS",
-            "bitsType": "0",
-            "type": "0",
-            "tenants": [
-             {
-                        "name": "企业1",
-                        "id": "ef349044-3bfb-4b09-b804-30954b084e0d"
-            },
-            {
-                        "name": "企业2",
-                        "id": "ef349044-3bfb-4b09-b804-30954b084e0d"
-            }
-            ],
-            "status":"1",
-            "description":"xxx"
-        },
-*/
-
-
 export class VmwareImgModel {
     id: string;
     name: string;
     displayName: string;
     os: string;
     bitsType: string;
-    size: string;
+    capacity: string;
     type: string;
     tenants: Array<TenantModel>;
     status: string;
@@ -39,12 +16,12 @@ export class VmwareImgModel {
 }
 
 export class VmwareImgSyncModel {
-    id: string;
+    uuid: string;
     name: string;
     displayName: string;
     os: string;
     bitsType: string;
-    size: string;
+    capacity: string;
     type: string;
     syncResult: string;
 
@@ -57,6 +34,13 @@ export class VmwareImgSyncModel {
 export class TenantModel {
     id: string;
     name: string;
+}
+
+export class EnterpriseModel {
+    id: string;
+    name: string;
+
+    selected: boolean;
 }
 
 export class VmwareEntModel {

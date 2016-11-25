@@ -5,15 +5,15 @@ import { RestApiCfg, RestApi } from '../../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
 //model
-import { VmwareImgSyncModel } from '../model/vmware-img-list.model';
+import { EnterpriseModel } from '../model/vmware-img-list.model';
 
 //mock
-import { VmwareImgSyncModel_mock } from '../model/vmware-img-list.mock';
+import { TenantModel_mock } from '../model/vmware-img-ent-setup.mock';
 import { success_resp_mock } from '../model/vmware-img-enable-disable.mock';
 
 
 @Injectable()
-export class VmwareImgSyncService{
+export class VmwareImgEntSetupService{
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
@@ -25,7 +25,7 @@ export class VmwareImgSyncService{
         this.restApiCfg.loadCfgData();
     }
 
-    getVmwareImgSyncList(platformId: string): Promise<any>{
+    getAllEnts(platformId: string): Promise<any>{
         const pathParams = [
             {
                 key: "platformId",
@@ -35,32 +35,28 @@ export class VmwareImgSyncService{
         ];
         
         /*
-        const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.sync-image.list");
+        const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.ents.list");
         return this.restApi.request(api.method, api.url, pathParams, null, null);
         */
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return VmwareImgSyncModel_mock });
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return TenantModel_mock });
     }
-
-    VmwareSyncImages(platformId: string, selectedsyncvmimgs: Array<VmwareImgSyncModel>): Promise<any> {
+    saveVmwareImgEnts(imageId: string, selectedEnts: Array<EnterpriseModel>): Promise<any> {
         const pathParams = [
             {
-                key: "platformId",
-                value: platformId
+                key: "imageId",
+                value: imageId
 
             }
         ];
-        console.log(selectedsyncvmimgs, "((((((((((((((((((selectedsyncvmimgs))))))))))))))))))")
-
         const obj = {
-            "imageList": selectedsyncvmimgs
+                "tenants": selectedEnts
         };
-
+        console.log(imageId, selectedEnts, "((((((((((((((((((selectedEnts))))))))))))))))))")
         /*
-        const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.sync-image.sync");
+        const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.ents.list");
         return this.restApi.request(api.method, api.url, pathParams, null, obj);
         */
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });
     }
-
     
 }

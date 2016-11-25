@@ -79,7 +79,9 @@ export class ImgIndexComponent implements OnInit {
             this.router.navigate([
                 `host-mng/img-mng/openstack-mng`,
                 {
-                    "platformId": plf.id
+                    "platformId": plf.id,
+                    "platformName":plf.name
+
                 }
             ]
             );

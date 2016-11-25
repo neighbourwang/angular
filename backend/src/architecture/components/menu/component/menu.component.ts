@@ -243,7 +243,7 @@ const menu: Array<Object> = [
          "icon": "icon-order-manage",
          "top2_menu": [
           {
-              "label": "订单管理",
+              "label": "已订购服务管理",
                  "isOpen": false,
                  "isActive": false,
                  "routing": "op-center/order-mng/order-mng"

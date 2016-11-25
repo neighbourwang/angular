@@ -1,7 +1,7 @@
 ﻿import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from "../../../../architecture";
+import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
 
 import { Role } from "../model/role.model";
 import { Organization } from "../model/organization.model";
@@ -23,6 +23,7 @@ export class AccountMngCrAd implements OnInit {
         private service: AccountMngCreAdService,
         private router: Router,
         private layoutService: LayoutService,
+        private validationService: ValidationService
     ) {
     }
 
@@ -50,11 +51,7 @@ export class AccountMngCrAd implements OnInit {
         this.service.getRole()
             .then(response => {
                 this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
-                    this.roles = response["resultContent"];
-                } else {
-                    this.showAlert("Res sync error");
-                }
+                this.roles = response;
             })
             .catch((e) => this.onRejected(e));
     }
@@ -65,11 +62,7 @@ export class AccountMngCrAd implements OnInit {
         this.service.getOrg(1, 9999)
             .then(response => {
                 this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
-                    this.organizations = response["resultContent"];
-                } else {
-                    this.showAlert("Res sync error");
-                }
+                this.organizations = response;
             })
             .catch((e) => this.onRejected(e));
     }
@@ -111,11 +104,26 @@ export class AccountMngCrAd implements OnInit {
     }
 
 
-    //获取ad用户
     createAccount() {
 
         this.account.roles = this.roles.filter((r) => { return r.selected });
         this.account.organizations = this.organizations.filter((o) => { return o.selected });
+
+        if (this.validationService.isBlank(this.account.userName)) {
+            this.showAlert("请输入管理员姓名");
+            return;
+        }
+
+        if (this.validationService.isBlank(this.account.phone)) {
+            this.showAlert("请输入电话");
+            return;
+        }
+
+        if (!this.validationService.isMoblie(this.account.phone) &&
+            !this.validationService.isTel(this.account.phone)) {
+            this.showAlert("请输入合法的联系电话;");
+            return;
+        }
 
         if (!this.account.loginName || this.account.loginName == "") {
             this.showAlert("请选择ad用户");
@@ -131,12 +139,15 @@ export class AccountMngCrAd implements OnInit {
             this.showAlert("请选择所属机构");
             return;
         }
+
+
         this.layoutService.show();
         this.service.createAccount(this.account)
             .then(response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.showAlert("success");
+                    this.router.navigateByUrl('user-center/account-mng/account-mng-list');
                 } else {
                     this.showAlert("Res sync error");
                 }
@@ -148,6 +159,10 @@ export class AccountMngCrAd implements OnInit {
         this.organizations.forEach((o) => {
             o.selected = false;
         });
+    }
+
+    cancel() {
+        this.router.navigateByUrl('user-center/account-mng/account-mng-list');
     }
 
     showAlert(msg: string): void {

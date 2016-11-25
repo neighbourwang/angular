@@ -140,8 +140,8 @@ export class EntAdminMngService {
             }
         ];
         const api = this.restApiCfg.getRestApi("ent-mng.admin.resetPassword.put");
-        return this.restApi.request(api.method, api.url, pathParams,null,null);
-       // return new Promise(resovle => setTimeout(resovle, 200)).then(() => enterpriseOne);
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        // return new Promise(resovle => setTimeout(resovle, 200)).then(() => enterpriseOne);
     }
 
 }

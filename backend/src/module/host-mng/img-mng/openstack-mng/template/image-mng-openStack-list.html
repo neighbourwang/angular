@@ -8,36 +8,36 @@
     <div class="mgt15 ">      
             <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >镜像类型：</span>
             <div class="float-left pdr20">
-                <select class="pdl10 form-control">
-                    <option value="1">选择镜像</option>
-                    <option value="1">公共镜像</option>
-                    <option value="1">企业镜像</option>
-                    <option value="1">自定义镜像</option>
+                <select class="pdl10 form-control" [(ngModel)]="queryOpt.type" >
+                    <option value="">选择镜像</option>
+                    <option *ngFor = "let type of typeDic" [ngValue]="type.value">{{getDicText(type.value,this.typeDic)}}</option>
                 </select>
             </div>          
             <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >所属企业：</span>
             <div class="float-left">
-                <select class="pdl10 form-control">
-                    <option value="1">选择企业</option>
-                    <option value="1">BOE-CIO总部</option>
-                    <option value="1">BOE-信管中心</option>
+                <select class="pdl10 form-control" [(ngModel)]="queryOpt.tenantId" >
+                    <option value="">选择企业</option>
+                    <option *ngFor = "let tenant of tenants" [ngValue]="tenant.id">{{tenant.name}}</option>
                 </select>
             </div> 
-            <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10 "><span class="icon-button-label">确定 </span> </button>                                                              
+            <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10 "(click)="search()">
+                <span class="icon-button-label">确定 </span> 
+                </button>
+            {{queryOpt.toString()}}                                                              
     </div>         
     <div style="clear:both"></div>
     <div class="mgb20 " style="margin-top:20px">
-        <button class="fox-cloud-button fox-cloud-button-green mgr10" key="boe/image-public-sync-poenStack.html">同步公共镜像</button>
-        <button type="button" class="fox-cloud-button fox-cloud-button-green" data-toggle="modal" data-target="#my">同步企业镜像</button>       
+        <button class="fox-cloud-button fox-cloud-button-green mgr10" key="boe/image-public-sync-poenStack.html" (click)="syncPublic()">同步公共镜像</button>
+        <button type="button" class="fox-cloud-button fox-cloud-button-green" data-toggle="modal" data-target="#my" (click)="createSynTeOption()">同步企业镜像</button>       
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
              更多操作
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><a href="#myModal" data-toggle="modal">编辑</a></li>
-                <li><a href="javascript:">启用</a></li>
-                <li><a href="javascript:">禁用</a></li>
+                <li (click)="createEdit()"><a>编辑</a></li>
+                <li (click)="imageEnableOrDisable('1')"><a>启用</a></li>
+                <li (click)="imageEnableOrDisable('0')"><a>禁用</a></li>
             </ul>
         </div>
     </div>
@@ -50,17 +50,20 @@
                     <th>镜像显示名称</th>
                     <th>操作系统</th>
                     <th>系统位数</th>
+                    <th>镜像容量</th>
                     <th>镜像类型</th>
                     <th>所属企业</th>
                     <th>状态</th>
                  </tr>              
             </thead>
             <tbody>
-                <tr >
-                    <td><input type="radio" name="image" class="fox-cloud-radio"></td>
-                    <td><a href="#" key="boe/image-mng-openStack-list.html">windows2012dc</a></td>
-                    <td style="position:relative">
-                        windows2012 Datacenter R2 
+                <tr *ngFor="let image of images" (click)="selectImage(image)">
+                    <td >
+                        <input type="radio" class="fox-cloud-radio" name="radio" [checked]="image.selected" (change)="image.selected = $event.target.checked" />
+                    </td>
+                    
+                    <td >{{image.name}}</td>
+                    <td style="position:relative">{{image.displayName}}
                         <!--<span class="pull-right icon-edit2"></span>
                         <div class="popover fade bottom in" role="tooltip" style="z-index:-3;top:25px; left:150px; width:370px; max-width:1100px; display: block;">
                                 <div class="arrow" style="left: 30%;"></div>
@@ -80,63 +83,41 @@
                             </div>                              
                     </div>-->
                     </td>
-                    <td>windows2012 R2</td>
-                    <td>64</td>
-                    <td>公共镜像</td>
-                    <td>所有</td>
-                    <td class="font-green">已启用</td>                   
+                    <td >{{image.os}}</td>
+                    <td >{{getDicText(image.bitesType,this.bits_typeDic)}}</td>
+                    <td >{{image.capacity}}</td>
+                    <td >{{getDicText(image.type,this.typeDic)}}</td>
+                    <td >{{getImageTenant(image.tenants)}}</td>
+                    <td >{{getDicText(image.status,this.statusDic)}}</td>
+
                 </tr>
-                <tr>
-                    <td><input type="radio" name="image" class="fox-cloud-radio"></td>
-                    <td><a href="#" key="boe/image-mng-openStack-list.html">windows2012dc</a></td>
-                    <td>windows2012 Datacenter R2 <span class="pull-right icon-edit2"></span></td>
-                    <td>windows2012 R2</td>
-                    <td>64</td>
-                    <td>公共镜像</td>
-                    <td>所有</td>
-                    <td class="font-green">已启用</td>  
-                </tr>
-                <tr>
-                    <td><input type="radio" name="image" class="fox-cloud-radio"></td>
-                    <td><a href="#" key="boe/image-mng-openStack-list.html">windows2012dc</a></td>
-                    <td>windows2012 Datacenter R2 <span class="pull-right icon-edit2"></span></td>
-                    <td>windows2012 R2</td>
-                    <td>64</td>
-                    <td>公共镜像</td>
-                    <td>所有</td>
-                    <td class="font-green">已启用</td>  
-                </tr>
+
             </tbody>
 
         </table>
 
     </div>
 </div>
-<div class="fox-cloud-pagination-container">
-    <ul class="fox-cloud-pagination">
-        <span class="disable">上一页</span>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-        <span>下一页</span>
-    </ul>
-</div>
+
+    <div class="fox-cloud-pagination-container">
+        <fc-pagination #pager tp={{totalPage}} (pf)="getImages($event)"></fc-pagination>
+    </div>
 
 
 <fc-popup #editImage title="{{title}}" ot="保存" (of)="saveEdit();" ct="取消" (cf)="cancelEdit();">
                                 	
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">镜像名:</div>
-                <div class="col-sm-6"><span style="line-height:34px">windows2012dc</span> </div>
+                <div class="col-sm-4 form-control-title">镜像名：</div>
+                <div class="col-sm-6"><span style="line-height:34px">{{tempEditImage.name}}</span> </div>
             </div>
         </div>	
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像显示名称:</div>
-                <div class="col-sm-6"><input class="form-control" placeholder="windows2012 R2 64位"></div>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="tempEditImage.displayName" />
+                    </div>
             </div>
         </div>	
         <div class="row row-line-height">
@@ -144,7 +125,7 @@
                 <div class="col-sm-4 form-control-title">系统位数:</div>
                 <div class="col-sm-6">
                     <select class="form-control" >
-                        <option>64位</option>
+                        <option>{{getDicText(tempEditImage.bitesType,this.bits_typeDic)}}</option>
                     </select>
                 </div>
             </div>
@@ -152,52 +133,58 @@
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">操作系统:</div>
-                <div class="col-sm-6"><input class="form-control" placeholder="windows2012 R2 "></div>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="tempEditImage.os" />
+                    </div>
             </div>
         </div>	
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">镜像类型:</div>
-                <div class="col-sm-6"><span style="line-height:34px">企业镜像</span> </div>
+                <div class="col-sm-6">
+                    <span style="line-height:34px">{{getDicText(tempEditImage.type,this.typeDic)}}</span> 
+                    </div>
             </div>
         </div>
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">描述:</div>
-                <div class="col-sm-6"><textarea class="form-control" rows="3"></textarea></div>
+                <div class="col-sm-6"><textarea class="form-control" rows="3"[(ngModel)]="tempEditImage.description"></textarea></div>
             </div>
         </div>                   
     </fc-popup> 
 
+<!--同步弹出框内容-->
 <fc-popup #synTeImage title="{{title}}" ot="提交" (of)="commitSynTe()" ct="取消" (cf)="cancelCommitSynTe()">
-                                                                                    
-        <div class="row row-line-height">
-            <div class="form-group">
-                <div class="col-sm-4 form-control-title">同步企业镜像:</div>
-                <div class="col-sm-8"  >                                
-                    <ul >                                      
-                        <li>                                                
-                            <input type="checkbox" id="inlineCheckbox1" value="option1" class="fox-cloud-checkbox" >企业1                                             
-                        </li>
-                        <li>                                                
-                            <input type="checkbox" id="inlineCheckbox1" value="option1" class="fox-cloud-checkbox" >企业2                                             
-                        </li> 
-                            <li>                                                
-                            <input type="checkbox" id="inlineCheckbox1" value="option1" class="fox-cloud-checkbox" >企业3                                             
-                        </li> 
-                        <li>                                                
-                            <input type="checkbox" id="inlineCheckbox1" value="option1" class="fox-cloud-checkbox" >企业4                                            
-                        </li> 
-                    </ul>                                             
-                </div>                                          
+       <div class="table-container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>选择</th>
+                        <th>企业</th>
+                        <th>OpenStack企业名</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let tenant of tenants">
+                    <td><input type="checkbox" class="foc-cloud-checkbox"></td>
+                    <td>{{tenant.name}}</td>
+                    <td>Project_CIO_001</td>
+                </tr>
+                </tbody>
+            </table>
             </div>
-        </div> 
-               
+            <!--<div class="text-center " style="margin-top:40px">
+                <button class="fox-cloud-button-lg fox-cloud-button-white">
+                    <span class="icon-button-label">取消</span>
+                </button>     
+                <button class="fox-cloud-button-lg fox-cloud-button-white">
+                    <span class="icon-button-label">提交</span>
+                </button>
+            </div>-->
 </fc-popup> 
 
 
-<style>
-    
-    
-</style>
 
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>

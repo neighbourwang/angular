@@ -5,15 +5,22 @@ import { CommonComponentModule } from '../../../../architecture';
 import { OpenstackMngComponent } from './component/openstack-mng.component';
 import { OpenstackMngRouting } from './openstack-mng.routing'
 import { OpenstackMngService } from './service/openstack-mng.service'
+import { OpenstackImageSyncPublicComponent } from './component//openstack.image-sync-public.component'
+import { OpenstackImageSyncEntComponent } from './component/openstack.image-sync-ent.component'
 @NgModule({
     imports: [
         OpenstackMngRouting,
         CommonComponentModule
     ],
-    declarations: [OpenstackMngComponent
+    declarations: [
+        OpenstackMngComponent,
+        OpenstackImageSyncPublicComponent,
+        OpenstackImageSyncEntComponent
     ],
     exports: [
-        OpenstackMngComponent
+        OpenstackMngComponent,
+        OpenstackImageSyncPublicComponent,
+        OpenstackImageSyncEntComponent
     ],
     providers: [OpenstackMngService]
 })

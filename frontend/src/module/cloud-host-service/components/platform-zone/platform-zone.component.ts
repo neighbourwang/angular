@@ -51,6 +51,7 @@ export class PlatformZoneComponent implements OnInit {
 	reset() {
 		this.currentArea = this.emptyArea;
 		this.currentZone = this.emptyZone;
+		this.clickEmit();
 	}
 
 	setCurrentZone(zone:Zone = this.emptyZone) {
