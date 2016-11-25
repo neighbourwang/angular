@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
+import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ListItem
 	, OrderMngParam
 	, SubInstanceResp
@@ -20,6 +21,15 @@ import * as _ from 'underscore';
 export class OrderMngComponent implements OnInit{
 	@ViewChild("notice")
   	private _notice: NoticeComponent;
+
+  	@ViewChild("renewDialog")
+  	private _renewDialog:ModalComponent;
+
+  	@ViewChild("cancelDialog")
+  	private _cancelDialog:ModalComponent;
+
+  	@ViewChild("testDialog")
+  	private _testDialog:ModalComponent;
 
   	//当前选择的行
   	private selectedOrderItem: SubInstanceResp = null;
@@ -106,7 +116,34 @@ export class OrderMngComponent implements OnInit{
 
 		//配置订单加载
 		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
-		/*
+		this._orderLoader.Trait = (target:Array<SubInstanceResp>)=>{
+
+			let canRenew:(item:SubInstanceItemResp)=>boolean = (item:SubInstanceItemResp):boolean=>{
+				if (item.serviceType == 1)
+			      return false;
+
+			    if(item.billingInfo && item.billingInfo.billingMode == 1)//按流量计费
+			      return false;
+
+			    return true;
+			};
+
+			for(let i = 0; i < target.length; i++)
+			{
+				let orderItem = target[i];
+				if(orderItem.itemList && orderItem.itemList.length > 0)
+				{
+					if(orderItem.itemList.find(n=>!canRenew(n)) != null)
+						orderItem.canRenew = false;
+					else
+						orderItem.canRenew = true;
+				}
+				else{
+					orderItem.canRenew = true;
+				}
+			}
+		};
+/*
 		this._orderLoader.FakeDataFunc = (target:Array<SubInstanceResp>)=>{
 			let obj = new SubInstanceResp();
 			target.push(obj);
@@ -221,37 +258,60 @@ export class OrderMngComponent implements OnInit{
 
 	//选择续订	
 	renewSelect(orderItem:SubInstanceResp){
-		this.selectedOrderItem = orderItem;
+		// 成功、即将过期:7的订单可以  续订
+		if(!_.isEmpty(orderItem.itemList)
+			&& orderItem.itemList.filter(n=>n.status == "7").length > 0)
+		{
+			$('#renewOrder').modal('show');
+			this.selectedOrderItem = orderItem;
 
-		let self = this;
-		let getRenewPrice:()=>number = function() {
-			let item = self._renewPriceLoader.FirstItem;
+			let self = this;
+			let getRenewPrice:()=>number = function() {
+				let item = self._renewPriceLoader.FirstItem;
 
-			return item.basePrice || item.basicPrice || item.cyclePrice || item.unitPrice;
-		};
+				return item.basePrice || item.basicPrice || item.cyclePrice || item.unitPrice;
+			};
 
-		this._renewSetting.reset();
+			this._renewSetting.reset();
 
 
-		this.layoutService.show();
-		this._renewPriceLoader.Go(null, [{key:"_subId", value:orderItem.orderId}])
-		.then(success=>{
-			this.layoutService.hide();
+			this.layoutService.show();
+			this._renewPriceLoader.Go(null, [{key:"_subId", value:orderItem.orderId}])
+			.then(success=>{
+				this.layoutService.hide();
 
-			orderItem.itemList.map(n=>{
-				n.renewPrice = getRenewPrice();
-			});
-		})
-		.catch(err=>{
-			this.layoutService.hide();
-			this.showMsg(err);
-		})
+				orderItem.itemList.map(n=>{
+					n.renewPrice = getRenewPrice();
+				});
+			})
+			.catch(err=>{
+				this.layoutService.hide();
+				this.showMsg(err);
+			})
+			
+		}
+		else{
+			this.showMsg(`只有个“成功”或“即将过期”的订单可以续订`);
+		}
+
+
 	}
 
 	cancelSelect(orderItem:SubInstanceResp)
 	{
-		this._isCanceled = false;
-		this.selectedOrderItem = orderItem;
+		// 成功、即将过期:7的订单可以  续订
+		if(!_.isEmpty(orderItem.itemList)
+			&& orderItem.itemList.filter(n=>n.status == "7").length > 0)
+		{
+			$('#cancelOrder').modal('show');
+
+			this._isCanceled = false;
+			this.selectedOrderItem = orderItem;
+		}
+		else
+		{
+			this.showMsg(`只有个“成功”或“即将过期”的订单可以续订`);
+		}
 	}
 	
 
@@ -294,10 +354,15 @@ export class OrderMngComponent implements OnInit{
 			let item = this._orderStatusDic.Items.find(m=>m.value == n.status);
 			if(item) n.statusName = item.displayValue as string;
 
-			item = this._productTypeLoader.Items.find(m=>m.value == n.serviceType);
+			item = this._productTypeLoader.Items.find(m=>m.value == n.serviceType.toString());
 			if(item) n.serviceTypeName = item.displayValue as string;
 
-			item = this._billinModeDic.Items.find(m=>m.value == n.billingMode);
+			item = this._billinModeDic.Items.find(m=>{
+				if(n.billingMode)
+					return m.value == n.billingMode.toString();
+				else
+					return false;
+			});
 			if(item) n.billingModeName = item.displayValue as string;
 		});
 

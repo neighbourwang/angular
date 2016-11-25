@@ -7,7 +7,8 @@ export class AdminAD {
     loginName: string ;
     enterpriseId: string;
     type: string;
-    bindStatus:string;
+    bindStatus: string;
+
     isSelect?: boolean = false;
     constructor() {
     }

@@ -1,19 +1,19 @@
 export class Admin {
-    id:string;
+    id: string;
     userName: string;
     contactPhone: string;
     email: string;
     description: string;
-    loginName: string ;
-    password:string;
+    loginName: string;
+    password: string;
     enterpriseId: string;
     enterpriseName: string;
     status: number;
-    isSelect?: boolean = false;
-    adUserId: string;
-    authMode:string;  
+    ldapId: string = "";
+    ldapName: string;
+    isSelect = false;
+    authMode: string;//0 ±¾µØ £¬ 1 AD
+
     constructor() {
     }
 }
-
- 
