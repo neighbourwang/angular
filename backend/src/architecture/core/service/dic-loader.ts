@@ -1,49 +1,50 @@
-import { Injectable } from '@angular/core';
-import { RestApiCfg, RestApi, RestApiModel, ItemLoader, SystemDictionary } from './../../../architecture';
+import { Injectable } from "@angular/core";
+import { RestApiCfg, RestApi, RestApiModel, ItemLoader, SystemDictionary } from "./../../../architecture";
 
-export class DicLoader{
-	private _items: ItemLoader<SystemDictionary> = null;
-	SourceName:string = "";
-	TargetName:string = "";
-	constructor(
-		private restApiCfg:RestApiCfg
-		,private restApi:RestApi
-		,private _owner:string
-		,private _field:string
-		){
-		this._items = new ItemLoader<SystemDictionary>(false, "数据字典", "sysdic.owner.field", restApiCfg, restApi);
-	}
+export class DicLoader {
+    private _items: ItemLoader<SystemDictionary> = null;
+    SourceName = "";
+    TargetName = "";
 
-	get Items():Array<SystemDictionary>{
-		return this._items.Items;
-	}
+    constructor(
+        private restApiCfg: RestApiCfg,
+        private restApi: RestApi,
+        private _owner: string,
+        private _field: string
+    ) {
+        this._items = new ItemLoader<SystemDictionary>(false, "数据字典", "sysdic.owner.field", restApiCfg, restApi);
+    }
 
-	Go():Promise<any>{
-		return new Promise((resolve, reject)=>{
-			this._items.Go(null, [{ key: "_owner", value: this._owner }, { key: "_field", value: this._field }])
-			.then(success=>{
-				resolve(success);
-			},err=>{
-				reject(err);
-			})
-		});
-	}
+    get Items(): Array<SystemDictionary> {
+        return this._items.Items;
+    }
 
-	UpdateWithDic(items:Array<any>, targetName?:string, sourceName?:string)
-	{
-		let getName =(id:string):string=>{
-			let obj = this._items.Items.find(n=>n.value ==id) as SystemDictionary;
+    Go(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._items.Go(null, [{ key: "_owner", value: this._owner }, { key: "_field", value: this._field }])
+                .then(success => {
+                        resolve(success);
+                    },
+                    err => {
+                        reject(err);
+                    });
+        });
+    }
 
-			if(obj)
-				return obj.displayValue as string;
-			else
-				return id;
-		};
+    UpdateWithDic(items: Array<any>, targetName?: string, sourceName?: string) {
+        const getName = (id: string): string => {
+            const obj = this._items.Items.find(n => n.value == id) as SystemDictionary;
 
-		if(targetName)
-			this.TargetName = targetName;
-		if(sourceName)
-			this.SourceName = sourceName;
-		items.map(n=>{n[this.TargetName] = getName(n[this.SourceName]);});
-	}
+            if (obj)
+                return obj.displayValue as string;
+            else
+                return id;
+        };
+
+        if (targetName)
+            this.TargetName = targetName;
+        if (sourceName)
+            this.SourceName = sourceName;
+        items.map(n => { n[this.TargetName] = getName(n[this.SourceName]); });
+    }
 }

@@ -1,26 +1,26 @@
-﻿import { Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+﻿import { Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChanges } from "@angular/core";
 
 @Component({
-    selector: 'fc-pagination',
-    templateUrl: '../template/pagination.component.html',
+    selector: "fc-pagination",
+    templateUrl: "../template/pagination.component.html",
     inputs: ["tp", "pp"]
 })
-
 export class PaginationComponent implements OnInit, OnChanges {
     tp: number;
-    pp: number = 10;
+    pp = 10;
 
-    cp: number = 1;
+    cp = 1;
 
     prev: number;
     next: number;
 
-    pages: Array<number> = new Array<number>();
+    pages = new Array<number>();
 
-    @Output() pf = new EventEmitter<any>();
+    @Output()
+    pf = new EventEmitter<any>();
 
     ngOnInit() {
-        
+
     }
 
     // 分页信息变化后，重新计算分页信息
@@ -40,7 +40,7 @@ export class PaginationComponent implements OnInit, OnChanges {
         if (this.pp % 2 == 1) {
             return Math.floor(this.pp / 2) + 1;
         } else {
-            return this.pp / 2
+            return this.pp / 2;
         }
     }
 
@@ -53,19 +53,19 @@ export class PaginationComponent implements OnInit, OnChanges {
 
     // 重新计算分页信息
     private reCalculatePage() {
-        let bf: number = 0;
-        let af: number = 0;
+        let bf = 0;
+        let af = 0;
 
         if (this.pp % 2 == 1) {
-            bf = Math.floor(this.pp / 2)
+            bf = Math.floor(this.pp / 2);
             af = bf;
         } else {
             bf = this.pp / 2;
             af = this.pp / 2 - 1;
         }
 
-        let sp: number = 0;
-        let ep: number = 0;
+        let sp = 0;
+        let ep = 0;
 
         if ((this.cp - bf) <= 0) {
             sp = 1;
@@ -90,15 +90,15 @@ export class PaginationComponent implements OnInit, OnChanges {
         this.prev = this.cp == 1 ? 1 : this.cp - 1;
         this.next = this.cp > this.tp ? this.cp : this.cp + 1;
 
-        let pages = new Array<number>();
-        
+        const pages = new Array<number>();
+
         for (let i = sp; i <= ep; i++) {
             pages.push(i);
         }
 
         this.pages = pages;
     }
-    
+
     // 是否输出组件判断
     private isRender() {
         return this.tp > 1;

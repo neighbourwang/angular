@@ -55,7 +55,7 @@ export let RestApis: RestApiModel[] = [
      * Cloud-Host Instance List
      */
     {
-        "desc": "获取云主机列表",
+        "desc": "获取云主机列表 - 弃用",
         "method": "GET",
         "id": "hosts.instance.get",
         "url": "marketplace/authsec/subinstance/itemlist/vm/page/{page}/size/{size}"
@@ -101,6 +101,18 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "id": "disk.search.page",
         "url": "marketplace/authsec/subinstance/itemlist/disk/search/page"
+    },
+    {
+        "desc": "获取云主机列表",
+        "method": "POST",
+        "id": "vm.search.page",
+        "url": "marketplace/authsec/subinstance/itemlist/vm/search/page"
+    },
+    {
+        "desc": "获取云主机标签",
+        "method": "GET",
+        "id": "instance.labels",
+        "url": "marketplace/authsec/instance/labels"
     },
     //镜像管理部分
     {
@@ -219,10 +231,23 @@ export let RestApis: RestApiModel[] = [
         "method" : "DELETE",
         "url" : "basis/authsec/mpp/user/{id}"
     },
+    //账号管理
     {
         "desc" : "用户中心，帐号管理，帐号创建，获取所有角色",
         "id" : "user-center.account-mng.create.roleList",
         "method" : "GET",
         "url" : "basis/authsec/mpp/roles/page/{page}/size/{size}"
-    }
+    },
+    {
+        "desc" : "用户中心，帐号管理，帐号创建，获取所有机构",
+        "id" : "user-center.account-mng.create.orgList",
+        "method" : "GET",
+        "url" : "basis/authsec/mpp/organizations/page/{page}/size/{size}"
+    },
+    {
+        "desc": "创建账户",
+        "method": "POST",
+        "id": "user-center.account-mng.create.post",
+        "url": "marketplace/authsec/mpp/user"        
+    },
 ]

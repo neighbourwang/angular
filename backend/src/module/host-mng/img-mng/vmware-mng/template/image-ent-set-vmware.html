@@ -1,0 +1,99 @@
+<div class="page-content-header icon-content-header-purchasing">设置企业</div>
+<div class="page-content">
+    <div class="row" style="margin-top:30px;">
+        <div class="col-md-12">
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">镜像名:</div>
+                    <div class="col-md-4">
+                        <span style="line-height:34px">{{imageName}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">镜像显示名称:</div>
+                    <div class="col-md-4">
+                        <span style="line-height:34px">{{imagedisplayName}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">操作系统:</div>
+                    <div class="col-md-4">
+                        <span style="line-height:34px">{{imageOs}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">系统位数:</div>
+                    <div class="col-md-4">
+                        <span style="line-height:34px">
+                            {{getDicText(imagebitsTyep, this.bitDict)}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mgb20 mgt20" style="margin-left:25%;">
+        <div class="col-md-3">
+            <table class="table table-hover" style="border: 1px solid #cfd8e7;">
+                <thead>
+                    <tr>
+                        <th>未选择企业</th>
+                    </tr>
+                </thead>
+                <tbody>                 
+                    <tr *ngFor="let uslent of unselectedEnts">
+                        <td>
+                            <label><input type="checkbox" name="unselected" [checked]="uslent.selected" (change)="uslent.selected=$event.target.checked;" class="fox-cloud-checkbox" />{{uslent.name}}</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="float-left">
+            <div class="mgb10 mgt15">
+                <button (click)="moveToRight();" class="fox-cloud-button fox-cloud-button-white">
+                    <span class="icon-button-label">移入</span>
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                </button>
+            </div>
+            <div>
+                <button (click)="moveToLeft();" class="fox-cloud-button fox-cloud-button-white">
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                    <span class="icon-button-label">移出</span>
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3 ">
+            <table class="table table-hover" style="border: 1px solid #cfd8e7;">
+                <thead>
+                    <tr>
+                        <th>已选择企业</th>
+                    </tr>
+                </thead>
+                <tbody>                    
+                    <tr *ngFor="let slent of selectedEnts">
+                        <td>
+                            <label><input type="checkbox" name="selected" [checked]="slent.selected" (change)="slent.selected=$event.target.checked;" class="fox-cloud-checkbox" />{{slent.name}}</label>                        
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="text-center " style="margin-top:40px">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="VmwareImgListPage()">
+        <span class="icon-button-label">取消</span>
+    </button>     
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSaveVmwareImgEnts()">
+        <span class="icon-button-label">保存</span>
+    </button>
+</div>
+
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>

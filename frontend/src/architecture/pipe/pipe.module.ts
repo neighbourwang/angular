@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import { OrderByPipe } from './orderby';
 import { dictPipe } from './dict.pipe';
+import { formatDataPipe } from './formatData.pipe';
+import { decimalPlacesPipe } from './decimalPlaces.pipe';
+import { ObjectToArrPipe } from './objectToArr.pipe';
 
 
 @NgModule({
@@ -10,11 +13,17 @@ import { dictPipe } from './dict.pipe';
     ],
     declarations: [
         OrderByPipe,
-        dictPipe
+        dictPipe,
+        formatDataPipe,
+        decimalPlacesPipe,
+        ObjectToArrPipe
     ],
     exports: [
         OrderByPipe,
-        dictPipe
+        dictPipe,
+        formatDataPipe,
+        decimalPlacesPipe,
+        ObjectToArrPipe
     ],
     providers: [],
 })

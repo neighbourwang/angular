@@ -1,0 +1,35 @@
+﻿<div class="page-content-header icon-content-header-purchasing"> 镜像管理</div>
+<div class="page-content">
+    <div class="table-container mgt20">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    
+                    <th>云平台名称</th>
+                    <th>所属数据中心</th>
+                    <th>所属地域</th>
+                    <th>云平台类型</th>
+                    <th>公共镜像数量</th>
+                    <th>最近一次同步时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let plf of platforms">
+                    <td>{{plf.id}}</td>
+                   
+                    <td><a href="javascript:void(0);" (click)="choosePage(plf);" key="boe/image-mng-openStack-list.html">{{plf.name}}</a></td>
+                    <td>{{plf.dataCenter}}</td>
+                    <td>{{plf.region}}上海</td>
+                    <td>{{ getDicText(plf.type,this.typeDic)}}</td>
+                    <td>{{plf.imagesNum}}</td>
+                    <td class="font-green">{{plf.syncDate}}</td>                   
+                </tr>              
+            </tbody>
+        </table>
+    </div>
+    <div class="fox-cloud-pagination-container">
+        <fc-pagination #pager tp={{totalPage}} (pf)="getPlatforms($event)"></fc-pagination>
+    </div>
+</div>
+

@@ -36,3 +36,48 @@ export class CheckListItem{
 	checkResultName: string = null;//审批结果名称
 	
 }
+
+/*
+GeneralPagingResultOfListOfOrderItem {
+detailDescription (string, optional),
+pageInfo (PageInfo, optional),
+resultCode (string, optional),
+resultContent (Array[OrderItem], optional)
+}
+PageInfo {
+currentPage (integer, optional),
+pageSize (integer, optional),
+totalPage (integer, optional),
+totalRecords (integer, optional)
+}
+OrderItem {
+id (string, optional): 订单ID ,
+orderCode (string, optional): 订单编号 ,
+orderInstanceItems (Array[OrderInstanceItem], optional): 订单中的产品信息 ,
+relatedOrder (Array[OrderItem], optional): 关联订单
+}
+OrderInstanceItem {
+billingCycle (string, optional): 购买时长 ,
+billingMode (string, optional): 计费模式 ,
+createDate (string, optional): 创建时间 ,
+exireDate (string, optional): 过期时间 ,
+instanceName (string, optional): 实例名称 ,
+isSetPassword (string, optional): 密码设置与否，0 未设置，1 已设置 ,
+oneTimePrice (integer, optional): 一次性费用 ,
+price (integer, optional): 费用 ,
+productType (string, optional): 产品类型 ,
+quantity (string, optional): 订购数量 ,
+specificationItem (Array[SpecificationItem 每个实例为 可用区名称，平台名称（region）,CPU核数,内存大小,硬盘类型,硬盘大小,启动盘容量，操作系统，内部IP，外部IP 中的一项], optional): 产品规格 ,
+status (string, optional): 订单状态 ,
+subscriptTime (integer, optional): 购买周期
+}
+SpecificationItem 每个实例为 可用区名称，平台名称（region）,CPU核数,内存大小,硬盘类型,硬盘大小,启动盘容量，操作系统，内部IP，外部IP 中的一项 {
+attrCode (string, optional): 服务属性Code ,
+attrDisplayName (string, optional): 服务属性页面显示的名称 ,
+attrDisplayValue (string, optional): 服务属性值显示值 ,
+attrOrderSeq (integer, optional): 属性显示顺序, 如果为空，则忽略 ,
+attrValueCode (string, optional): 服务属性值Code ,
+description (string, optional): 其他描述性内容，非不要 ,
+valueUnit (string, optional): 服务属性值的单位
+}
+*/

@@ -7,7 +7,7 @@ export const OpenstackMngRouting = RouterModule.forChild([
 
     {
         //path:'host-mng/image/openstack-mng',
-        path:'host-mng/img-mng/index',
+        path:'host-mng/img-mng/openstack-mng',
         component: OpenstackMngComponent
     },
     {

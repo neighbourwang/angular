@@ -7,12 +7,14 @@ import { CommonComponentModule } from '../../../architecture';
 import { AccountMngComponent } from './component/account-mng-list.component';
 import { AccountMngCrLocal } from './component/account-mng-cr-local.component';
 import { AccountMngCrAd } from './component/account-mng-cr-ad.component';
+import { AccountMngEditAd } from './component/account-mng-edit-ad.component';
 
 // Routing
 import { AccountMngRouting } from './account-mng.routing';
 
 //Service
 import { AccountMngService } from './service/account-mng-list.service';
+import { AccountMngCreAdService } from './service/account-mng-cr-ad.service';
 
 @NgModule({
     imports: [
@@ -23,12 +25,14 @@ import { AccountMngService } from './service/account-mng-list.service';
     declarations: [
         AccountMngComponent,
         AccountMngCrLocal,
-        AccountMngCrAd
+        AccountMngCrAd,
+        AccountMngEditAd
     ],
     exports: [
     ],
     providers: [
-        AccountMngService
+        AccountMngService,
+        AccountMngCreAdService
     ]
 
 })

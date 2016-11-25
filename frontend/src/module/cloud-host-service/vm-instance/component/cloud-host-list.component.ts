@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 import { cloudHostServiceList } from '../service/cloud-host-list.service'
 
-import { VmList, HandleVm } from '../model/vm-list.model';
+import { VmList, HandleVm, QuiryVmList } from '../model/vm-list.model';
+import { VMInstanceLabelItem } from '../model/labe-iItem.model';
 
 @Component({
 	selector: 'cloud-host-list',
@@ -21,10 +22,11 @@ export class cloudHostListComponent implements OnInit {
 	@ViewChild('notice')
 	private noticeDialog: NoticeComponent;
 
-	pageSize: number = 5;
-	totalPages: number = 0;
-	currPage: number = 1;
-  
+	@ViewChild('platformZone') platformZone;
+
+	list : QuiryVmList = new QuiryVmList();
+	saveList : QuiryVmList = new QuiryVmList();   //储存点，重置搜索时会返回到这个点
+
 	modalTitle: string = '';
 	modalMessage: string = '';
 	modalOKTitle: string = '';
@@ -33,6 +35,7 @@ export class cloudHostListComponent implements OnInit {
 	superSearch: boolean = false;   //高级搜索开关
 	vmList: VmList[] = [];   //主机
 	handleData: HandleVm;   //发送操纵云主机的数据
+	labelItem:VMInstanceLabelItem[] = [];
 
 	constructor(
 		private layoutService: LayoutService,
@@ -42,36 +45,45 @@ export class cloudHostListComponent implements OnInit {
 		this.handleData = new HandleVm();
 	}
 	ngOnInit() {
-		this.setArea();
 		this.setHostList();
-	}
-
-	setArea(): void {
-		// this.service.getHostConfigList().then(configList => {
-		// 	this.areaConfig = configList.filter(config => config.attrCode === "PLATFORM")[0].valueList;
-		// });
+		this.getLabels();  //获取标签列表
 	}
 
 	setHostList(): void {
-		// this.layoutService.show();
-		this.service.getHostList(this.currPage, this.pageSize).then(res => {
+		this.service.getHostList(this.list).then(res => {
 			if (res.resultCode !== "100") {
 				throw "";
 			}
-			// this.layoutService.hide();
-			this.totalPages = res.pageInfo.totalPage;
+			this.list.pageParameter.totalPage = res.pageInfo.totalPage;
 			return res.resultContent;
 		}).then(list => {
 			this.vmList = list;
 		}).catch(error => {
 			// this.layoutService.hide();
 		});
+	};
 
+	getLabels() {
+		this.service.getLabels().then(res => {
+			this.labelItem = res;
+		})
 	}
 
-	forMatData(number : number) : string {
-		var d = new Date(number);
- 		return (d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds());
+	resetSearch(){   //重置搜索
+		this.list = Object.assign({}, this.saveList);
+		this.platformZone.reset();
+	}
+	search() {    //搜索
+		console.log(this.list)
+
+		// this.setHostList();
+	}
+
+	platformClick(data) {   //选择区域列表
+		this.list.platformId = data.area.id;
+		this.list.zoneId = data.zone.zoneId;
+		this.saveList.platformId = data.area.id;
+		this.saveList.zoneId =  data.zone.zoneId;
 	}
 
 	//云主机的操作相关
@@ -123,13 +135,13 @@ export class cloudHostListComponent implements OnInit {
 	changePage(page: number) {
 
 		page = page < 1 ? 1 : page;
-		page = page > this.totalPages ? this.totalPages : page;
+		page = page > this.list.pageParameter.totalPage ? this.list.pageParameter.totalPage : page;
 
-		if (this.currPage == page) {
+		if (this.list.pageParameter.currentPage == page) {
 			return;
 		}
 
-		this.currPage = page;
+		this.list.pageParameter.currentPage = page;
 		this.setHostList();
 	}
 }

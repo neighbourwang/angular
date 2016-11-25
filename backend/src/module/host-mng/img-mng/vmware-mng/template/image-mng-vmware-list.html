@@ -1,0 +1,209 @@
+﻿<div class="page-content-header icon-content-header-purchasing"> 镜像管理----XXXXX(平台名称)
+    <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" key="boe/image-mng.html" (click)="ImgMngPage()">
+        返回镜像管理列表
+    </button>
+</div>
+<div class="page-content">
+    <div class="mgt15 ">      
+            <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >镜像类型：</span>
+            <div class="float-left pdr20">
+                <select class="pdl10 form-control" [(ngModel)]="queryOpt.type">
+                    <option [value]="" value="">选择镜像</option>
+                    <option *ngFor="let td of typeDict" [value]="td.value">{{td.displayValue}}</option>
+                </select>
+            </div>          
+            <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >所属企业：</span>
+            <div class="float-left">
+                <select class="pdl10 form-control" [(ngModel)]="queryOpt.tenantId">
+                    <option [value]="" value="">选择企业</option>
+                    <option *ngFor="let ent of vmwareents" [value]="ent.id">{{ent.name}}</option>
+                </select>
+            </div>  
+            <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10" (click)="filter()"><span class="icon-button-label">确定 </span> </button>                                                             
+    </div>         
+    <div style="clear:both"></div>
+    <div class="mgb20 " style="margin-top:20px">
+        <button class="fox-cloud-button fox-cloud-button-green mgr10" key="boe/image-sync-vmware.html" (click)="VmwareImgSyncPage()">同步镜像</button>
+        <button class="fox-cloud-button fox-cloud-button-green" key="boe/image-ent-set-vmware.html" (click)="VmwareImgEntSetup()">设置企业</button>
+        <div class="dropdown pull-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             更多操作
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <li><a href="#myModal" data-toggle="modal" (click)="editImage()">编辑</a></li>
+                <li><a href="javascript:" (click)="enableImage()">启用</a></li>
+                <li><a href="javascript:" (click)="disableImage()">禁用</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="table table-hover">
+             <thead>
+                <tr>
+                    <th>选择</th>
+                    <th>镜像名</th>
+                    <th>镜像显示名称</th>
+                    <th>操作系统</th>
+                    <th>系统位数</th>
+                    <th>镜像容量</th>
+                    <th>镜像类型</th>
+                    <th>所属企业</th>
+                    <th>状态</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let img of vmwareimgs; let i=index">
+                    <td><input type="radio" name="image" class="fox-cloud-radio" [checked]="img.checked" (change)="selectItem(i)" value="{{i}}"></td>
+                    <td title="{{img.description}}">
+                        <div class="tenant-description-c">{{img.name}} </div>
+                    </td>
+                    <td style="position:relative">{{img.displayName}}             
+                        <span class="pull-right icon-edit2" (click)="img.nameEditing=true; onSelect(img);"></span>
+                        <div *ngIf="img.nameEditing" class="popover fade bottom in" role="tooltip" id="popover316538" style="top:25px; left:150px; width:370px; max-width:1100px; display: block;">
+                            <div class="arrow" style="left: 30%;"></div>
+                            <div class="popover-content">
+                                <form class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">镜像显示名称:</label>
+                                            <div class="col-sm-8 float-left">
+                                            <input type="text" [(ngModel)]="selectedimg.displayName" name="name">
+                                            </div>
+                                        </div>
+                                </form>
+                                <div class="pull-right" style="margin-bottom:10px;">
+                                    <button class=" fox-cloud-button fox-cloud-button-white" (click)="onSave(img)">保存</button>
+                                    <button class="fox-cloud-button fox-cloud-button-white" (click)="onCancel(); img.nameEditing=false;">取消</button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </td>
+                    <td>{{img.os}}</td>
+                    <td>{{getDicText(img.bitsType, this.bitDict)}}</td>
+                    <td>{{img.capacity}}</td>
+                    <td>{{getDicText(img.type, this.typeDict)}}</td>
+                    <td [ngSwitch]="displayIt(img.tenants)">
+                        <div *ngSwitchCase="'some'" class="tenants-c">详细>>
+                        <div class="table-container" style=" border-left: 1px solid #cfd8e7;border-right: 1px solid #cfd8e7">
+                            <table class="table table-hover" >
+                                <thead>
+                                    <th style="background-color:#00a982;color:white">所有企业</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let tenant of img.tenants">
+                                        <td>{{tenant.name}}</td>
+                                    </tr>
+                                </tbody>                          
+                            </table>
+                        </div>
+                        </div>
+                        <div *ngSwitchCase="'all'">所有</div>
+                        <div *ngSwitchCase="'special'">{{img.tenants[0].name}}</div>
+                        
+                    </td>
+                    <td class="font-green">{{getDicText(img.status, this.statusDict)}}</td>                   
+                </tr>
+            </tbody>
+        </table>
+    {{queryOpt.toString()}}
+    </div>
+
+    <div class="fox-cloud-pagination-container">
+        <fc-pagination #pager tp={{totalPage}} (pf)="getVmwareImgList($event)"></fc-pagination>
+    </div>
+    <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+    <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
+</div>
+
+<fc-popup #enableimagebox ot="确认" ct="取消" title="启用镜像" (of)="acceptVmwareImageEnableModify()" (cf)="cancelVmwareImageEnableModify()">
+	<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-12">
+					    您选择启用 ' {{selectedimg.displayName}} ' ， 请确认；如果确认，用户将能够在订购中选择此镜像。
+					</div>
+				</div>
+			</div>
+	</div>
+</fc-popup>
+
+<fc-popup #disableimagebox ot="确认" ct="取消" title="禁用镜像" (of)="acceptVmwareImageDisableModify()" (cf)="cancelVmwareImageEnableModify()">
+	<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-12">
+                        您选择禁用 ' {{selectedimg.displayName}} ' ， 请确认；如果确认，用户将不能在订购中选择此镜像。
+					</div>
+				</div>
+			</div>
+	</div>
+</fc-popup>
+
+<fc-popup #editimagebox ot="确认" ct="取消" title="编辑镜像" (of)="acceptVmwareImageModify()" (cf)="cancelVmwareImageModify()">
+	
+	<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像名：</div>
+					<div class="col-sm-8">
+					    {{selectedimg.name}}
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像显示名称：</div>
+					<div class="col-sm-8">
+					    <input type="string" class="form-control input-control" [(ngModel)]="selectedimg.displayName">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">操作系统：</div>
+					<div class="col-sm-8">
+						<input type="string" class="form-control input-control" [(ngModel)]="selectedimg.os">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">系统位数：</div>
+					<div class="col-sm-8">                        
+                        <select [(ngModel)]="selectedimg.bitsType">
+                            <option *ngFor="let bit of this.bitDict" [value]="bit.value">{{bit.displayValue}}</option>
+                        </select>
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">镜像容量：</div>
+					<div class="col-sm-8">
+						<!-- <input type="string" class="form-control input-control" [(ngModel)]="selectedimg.dnsAlt"> -->
+                        <span>{{selectedimg.capacity}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像类型：</div>
+					<div class="col-sm-8">
+                        <select [(ngModel)]="selectedimg.type">
+                            <option *ngFor="let type of this.typeDict" [value]="type.value">{{type.displayValue}}</option>
+                        </select>
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">描述：</div>
+					<div class="col-sm-8">
+						<input type="string" class="form-control input-control" [(ngModel)]="selectedimg.description">
+					</div>
+				</div>
+			</div>
+	</div>
+</fc-popup>
+

@@ -1,6 +1,8 @@
 export class IpMngModel {
         id: string; //网络端口组ID
-        dataCenter: string; //数据中心,VC中定义的
+        dcId: string; 
+        dcName: string; //数据中心,VC中定义的
+        clusterId: string;
         clusterName: string; //集群名称
         clusterDisplayName: string; //集群显示名称
         portGroup: string; //标准端口组名称

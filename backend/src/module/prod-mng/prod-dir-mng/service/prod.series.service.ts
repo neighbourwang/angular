@@ -18,6 +18,6 @@ export class ProdSeriesService {
     getProdSeries() {
         let api = this.restApiCfg.getRestApi("services.simple.get");
 
-        return this.restApi.request(api.method, api.url, [], undefined);
+        return this.restApi.request(api.method, api.url,[],[{key:'status',value:1}]);
     }
 }
