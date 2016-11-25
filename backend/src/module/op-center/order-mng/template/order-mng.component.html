@@ -105,6 +105,8 @@
 						<td class="order-title" colspan="7">{{orderItem.purchaseDate}} 订单号：{{orderItem.orderNo}}</td>
 						
 						<td><button class="fox-cloud-button  fox-cloud-button-green pull-right"  data-toggle="modal" data-target="#renewOrder" (click)="renewSelect(orderItem)">续&nbsp;&nbsp;&nbsp;订</button></td>
+						<td><button class="fox-cloud-button  fox-cloud-button-green pull-right" data-toggle="modal" data-target="#cancelOrder" (click)="cancelSelect(orderItem)">退订</button></td>
+
 						<td><button class="fox-cloud-button  fox-cloud-button-green  pull-right"  (click)="showDetail(orderItem.orderId)">详&nbsp;&nbsp;&nbsp;情</button></td>
 					</tr>
 					<tr *ngFor="let prodItem of orderItem.itemList">
@@ -198,6 +200,49 @@
 				
 		  	</div>
 		</div>
-	
-
 	 </div>	
+
+	 <!--退订-->
+	<div class="modal fade" id="cancelOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  	<div class="modal-dialog" role="document" style="width:80%!important;">
+				<div class="modal-content">
+				  	<div class="modal-header">
+					 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">订单退订</h4>
+				  	</div>
+				 	<div class="modal-body"> 
+ 						<order-mng-cancel [orderItem]="selectedOrderItem"></order-mng-cancel>
+ 						<!-- 退订 -->
+						<div *ngIf="!_isCanceled" class="OrderRenew"> 
+							<div class="page-content">
+								<div class="mgb20">
+									<span class="warnInfo mgb20">你的订单一旦退订，所有相关的资源和数据都会被删除，无法恢复！请谨慎选择退订服务。</span>
+								</div>
+							</div>
+					   	</div>
+					   	<!-- 退订完成 -->
+			        	<div *ngIf="_isCanceled" class="OrderRenew"> 
+							<div class="page-content">
+								<div class="page-second-container">
+											<span class="warnInfo float-left mgb20">你的订单已申请退订，资源将会被立刻删除！<br>如需审批，则要等待退订审批通过后，系统才会开始删除资源。<br>您可以登陆管理控制台，查看退订状态。</span>
+											<button class="button-size-big button-confirm pull-right" data-dismiss="modal" (click)="search()">管理控制台</button>
+											<div style="height: 40px;"></div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+			      	
+			      	<!-- 退订 -->
+				  	<div *ngIf="!_isCanceled" class="modal-footer" style="text-align: center;">
+						<button type="button" class="btn button-confirm button-size-big" (click)="cancel()" >确认退订</button>
+		                <button type="button" class="btn  button-size-big button-white" data-dismiss="modal">取消</button>
+				  	</div>
+					
+					<!-- 退订完成 -->
+				  	<div *ngIf="_isCanceled" class="modal-footer">
+				  	</div>
+
+		  	</div>
+		</div>
+	</div>

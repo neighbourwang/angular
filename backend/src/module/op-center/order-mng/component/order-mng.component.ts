@@ -27,7 +27,9 @@ export class OrderMngComponent implements OnInit{
 	private _orderLoader:ItemLoader<SubInstanceResp> = null;
 	private _billinModeDic:DicLoader = null;
 
-
+	//退订
+	private _isCanceled:boolean = false;
+	private _cancelHandler:ItemLoader<any> = null;
 
 	//续订数据
 	private _renewSetting:RenewSetting = new RenewSetting();
@@ -37,6 +39,9 @@ export class OrderMngComponent implements OnInit{
 	//当前选择的行
   	private selectedOrderItem: SubInstanceResp = new SubInstanceResp();
 
+
+	//续费模式
+	private _periodTypeDic:DicLoader = null;
 
 	private _param:OrderMngParam = new OrderMngParam();
 	private initDate:string = null;
@@ -48,8 +53,19 @@ export class OrderMngComponent implements OnInit{
 		private restApi:RestApi){
 
 		this._billinModeDic = new DicLoader(restApiCfg, restApi, "BILLING_MODE", "TYPE");
+
+		//退订
+		this._cancelHandler = new ItemLoader<any>(false, "退订", "op-center.order-mng.order-cancel.get", restApiCfg, restApi);
+
 		//续订
 		this._renewHandler = new ItemLoader<any>(false, "订单续订", "op-center.order-mng.order-renew.get", restApiCfg, restApi);
+
+		//续订费用
+		this._renewPriceLoader = new ItemLoader<ProductBillingItem>(false, "续订费用", "op-center.order-mng.order-renew-price.get", restApiCfg, restApi);
+
+		//续费模式
+		this._periodTypeDic = new DicLoader(restApiCfg, restApi, "PACKAGE_BILLING", "PERIOD_TYPE");
+
 		//配置企业列表加载
 		this._adminLoader = new ItemLoader<AdminListItem>(false, "企业列表", "op-center.order-mng.ent-list.get", this.restApiCfg, this.restApi);
 
@@ -150,6 +166,9 @@ export class OrderMngComponent implements OnInit{
 			return this.loadPlatform();
 		})
 		.then(success=>{
+			return this._periodTypeDic.Go();
+		})
+		.then(success=>{
 			return this.loadAdmin();
 		})
 		.then(success=>{
@@ -212,7 +231,7 @@ export class OrderMngComponent implements OnInit{
 		this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderItemId}`);
 	}
 	
-		//续订
+	//续订
 	renew(){
 		console.log('renew start');
 		let param = [{
@@ -302,6 +321,7 @@ export class OrderMngComponent implements OnInit{
 		// this.renewOrder.open();
 		
 		this.selectedOrderItem = orderItem;
+		this._renewSetting.reset();
 
 		let self = this;
 		let getRenewPrice:()=>number = function() {
@@ -311,20 +331,34 @@ export class OrderMngComponent implements OnInit{
 		};
 
 
-		// this.layoutService.show();
+		this.layoutService.show();
 
-		// this._renewPriceLoader.Go(null, [{key:"_subId", value:orderItem.orderId}])
-		// .then(success=>{
-		// 	this.layoutService.hide();
+		this._renewPriceLoader.Go(null, [{key:"_subId", value:orderItem.orderId}])
+		.then(success=>{
+			this.layoutService.hide();
 
-		// 	orderItem.itemList.map(n=>{
-		// 		n.renewPrice = getRenewPrice();
-		// 	});
-		// })
-		// .catch(err=>{
-		// 	this.layoutService.hide();
-		// 	this.showMsg(err);
-		// })
+			orderItem.itemList.map(n=>{
+				n.renewPrice = getRenewPrice();
+			});
+		})
+		.catch(err=>{
+			this.layoutService.hide();
+			this.showMsg(err);
+		})
+	}
+
+	get selectedPeriodTypeName():string{
+		if(this.selectedOrderItem 
+			&& !_.isEmpty(this.selectedOrderItem.itemList)
+			&& this.selectedOrderItem.itemList[0].billingInfo){
+			let item = this._periodTypeDic.Items.find(n=>n.value == this.selectedOrderItem.itemList[0].billingInfo.periodType.toString());
+			if(item)
+				return item.displayValue as string;
+			else
+				return "None";
+		}
+		else
+			return "None";
 	}
 
 	selectForever(){
@@ -413,6 +447,24 @@ export class OrderMngComponent implements OnInit{
 		return toDate(handlerObj[renewMode](renewLen)(this.selectedOrderItem.itemList[0].expireDate));
 	}
 
+	//退订
+	cancel(){
+		this._cancelHandler.Go(null, [{key:"_subId", value:this.selectedOrderItem.orderId}])
+		.then(success=>{
+			this._isCanceled = true;
+			this.search();
+		})
+		.catch(err=>{
+			this.showMsg(err);
+		})
+	}
+
+	//选择退订
+	cancelSelect(orderItem:SubInstanceResp)
+	{
+		this._isCanceled = false;
+		this.selectedOrderItem = orderItem;
+	}
 
 	
 }

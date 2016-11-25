@@ -1,6 +1,6 @@
 ﻿<fc-notice #notice ot="确认"></fc-notice>
 <div class="OrderManage">	
-	<div class="page-content-header">已订购管理</div>
+	<div class="page-content-header">已购服务管理</div>
 	<div class="page-content">
 		<div class="mgb20">
 			<ul class="nav nav-tabs" id="myTabs" role="tablist">
@@ -99,22 +99,25 @@
 			<table class="table">
 				<thead>	
 					<tr>
-						<th class="order-title"> 产品信息</th>
-						<th  class="text-center">产品类型</th>
+						<th class="order-title"> 已购服务详情</th>
 						<th class="text-center">计费模式</th>
 						<th class="text-center">购买周期</th>
 						<th class="text-center">数量</th>
-						<th class="text-center">单价费用</th>
+						<th class="text-center">费用</th>
+						<th  class="text-center">产品类型</th>
+						
 						<th class="text-center">状态</th>
 						<th class="text-center">创建时间</th>
 						<th class="text-center">到期时间</th>
+						<th>订购人</th>
+						<th>所属部门</th>
 					</tr>			
 				</thead>
 			</table>
 
 			<table class="table _table" *ngFor="let orderItem of _orderLoader.Items">
 				<tr>
-					<td class="order-title font-green" colspan="7">{{orderItem.purchaseDate}} 订单号：{{orderItem.orderNo}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间：2016-10-08</td>
+					<td class=" font-green leftAlign pdl20" colspan="9" data-toggle="modal" data-target="#orderDetail" (click)="showDetail(orderItem)">{{orderItem.purchaseDate}} 订单号：{{orderItem.orderNo}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间：2016-10-08</td>
 					<td colspan="2">
 						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#renewOrder" (click)="renewSelect(orderItem)">续订</button>
 						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#cancelOrder" (click)="cancelSelect(orderItem)">退订</button>
@@ -122,19 +125,21 @@
 					</td>	
 				</tr>
 				<tr *ngFor="let prodItem of orderItem.itemList">
-					<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
+					<td class="order-title">
 						<ul>
 							<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 						</ul>
 					</td>
-					<td>{{prodItem.serviceTypeName}}</td>
 					<td>{{prodItem.billingModeName}}</td>
 					<td>{{prodItem.period}}</td>
 					<td>{{prodItem.quantity}}</td>
 					<td style="width: 100px;">{{prodItem.oneTimePriceAndPrice}}</td>
+					<td>{{prodItem.serviceTypeName}}</td>
 					<td class="validateInfo">{{prodItem.statusName}}</td>
 					<td>{{prodItem.createDate}}</td>
 					<td>{{prodItem.expireDate}}</td>
+					<td>订购人</td>
+					<td>所属部门</td>
 				</tr>
 			</table>
 		</div>
@@ -259,7 +264,7 @@
 							<div class="page-content">
 								<div class="page-second-container">
 											<span class="warnInfo float-left mgb20">你的订单已申请退订，资源将会被立刻删除！<br>如需审批，则要等待退订审批通过后，系统才会开始删除资源。<br>您可以登陆管理控制台，查看退订状态。</span>
-											<button class="button-size-big button-confirm pull-right" data-dismiss="modal">管理控制台</button>
+											<button class="button-size-big button-confirm pull-right" data-dismiss="modal" (click)="search();">管理控制台</button>
 											<div style="height: 40px;"></div>
 								</div>
 							</div>
