@@ -135,8 +135,6 @@ export class EntAdminMngComponent implements OnInit {
                     if (response && 100 == response["resultCode"]) {
 
                         this.enterprise = response["resultContent"];
-
-                        this.layoutService.hide();
                     } else {
                         this.showAlert("Res sync error");
                     }
