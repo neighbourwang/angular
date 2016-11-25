@@ -4,15 +4,24 @@
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
+                    <span class="asterisk">*</span>企业：
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" disabled="disabled" class="form-control" [value]="enterprise.name||''" placeholder="">
+                </div>
+            </div>
+        </div>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title">
                     <span class="asterisk">*</span>
                     姓名
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" [(ngModel)]="account.userName" placeholder="请输入姓名">
+                    <input type="text" class="form-control" [(ngModel)]="admin.userName" placeholder="请输入姓名">
                 </div>
             </div>
         </div>
-
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
@@ -20,7 +29,7 @@
                     联系电话
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" [(ngModel)]="account.phone" placeholder="请输入联系电话">
+                    <input type="text" class="form-control" [(ngModel)]="admin.contactPhone" placeholder="请输入联系电话">
                 </div>
             </div>
         </div>
@@ -31,18 +40,7 @@
                     描述
                 </div>
                 <div class="col-sm-4">
-                    <textarea type="text" class="form-control" [(ngModel)]="account.description" placeholder="请输入联系描述" rows="3"></textarea>
-                </div>
-            </div>
-        </div>
-        <div class="row row-line-height">
-            <div class="form-group">
-                <div class="col-sm-4 form-control-title">
-                </div>
-                <div class="col-sm-4 checkbox">
-                    <label>
-                        <input type="checkbox" [checked]="account.isLeader" (change)="account.isLeader=$event.target.checked"> 是否部门负责人？
-                    </label>
+                    <textarea type="text" class="form-control" [(ngModel)]="admin.description" placeholder="请输入联系描述" rows="3"></textarea>
                 </div>
             </div>
         </div>
@@ -52,12 +50,12 @@
                     认证源
                 </div>
                 <div class="col-sm-4">
-                    <select class="form-control" [(ngModel)]="account.ldapId">
+                    <select class="form-control" [(ngModel)]="admin.ldapId">
                         <option value="">请选择</option>
                         <option *ngFor="let attest of attests" [value]="attest.id">{{attest.name}}</option>
                     </select>
                 </div>
-                     
+
             </div>
         </div>
         <div class="row row-line-height">
@@ -69,13 +67,13 @@
                     <input type="text" class="form-control" [(ngModel)]="filterStr" placeholder="">
                 </div>
                 <div class="col-sm-4">
-                    <button class="fox-cloud-button-md fox-cloud-button-white" style="margin-top:5px" (click)="searchAdUser();">查询</button>
+                    <button class="fox-cloud-button-md fox-cloud-button-white" style="margin-top: 5px" (click)="searchAdUser();">查询</button>
                 </div>
             </div>
         </div>
-        <div class="row row-line-height" style="width : 80% ; margin: 10px auto; ">
+        <div class="row row-line-height" style="width: 80%; margin: 10px auto;">
             <div class="table-container" style="max-height: 300px; overflow-y: scroll;">
-                <table class="table table-hover" >
+                <table class="table table-hover">
                     <thead>
                     <tr>
                         <th style="width: 10%;" class="check-box-col">选择</th>
@@ -88,7 +86,7 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let user of adUsers">
-                        <td><input class="fox-cloud-radio" type="radio" name="aduser-list" (change)="account.loginName=user.loginName;" /></td>
+                        <td><input class="fox-cloud-radio" type="radio" name="aduser-list" (change)="admin.loginName=user.loginName;"/></td>
                         <td>{{user.loginName}}</td>
                         <td>{{user.userName}}</td>
                         <td>{{user.email}}</td>
@@ -99,44 +97,13 @@
                 </table>
             </div>
         </div>
-        <div class="row row-line-height" style="margin-top : 20px">
-            <div class="form-group">
-                <div class="col-sm-4 form-control-title">
-                    绑定角色
-                </div>
-                <div class="col-sm-6">
-                    <div class="btn-group">
-                        <div class="btn-group float-left" data-toggle="buttons">
-                            <button *ngFor="let role of roles;" class="btn btn-default" [ngClass]="{'active':role.selected}" (click)="role.selected=!role.selected;">
-                                <!--<input type="checkbox" name="role" autocomplete="off" [checked]="role.selected" >--> {{role.name}}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row row-line-height">
-            <div class="form-group">
-                <div class="col-sm-4 form-control-title">
-                    绑定结构
-                </div>
-                <div class="col-sm-6">
-                    <div class="btn-group" style="max-height: 300px; overflow: auto;">
-                        <div class="btn-group float-left" data-toggle="buttons">
-                            <label *ngFor="let org of organizations;" class="btn btn-default" style="margin: 3px 0;" [ngClass]="{'active':org.selected}" (click)="clearSelectedOrg(); org.selected=true;">
-                                <input type="radio" name="org" autocomplete="off" [checked]="org.selected" > {{org.name}}
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
         <div class="text-center">
-            <button class="fox-cloud-button-lg fox-cloud-button-white" >
+            <button class="fox-cloud-button-lg fox-cloud-button-white">
                 <span class="icon-button-label" (click)="cancel()">取消</span>
             </button>
-            <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px">
-                <span class="icon-button-label" (click)="createAccount()">创建</span>
+            <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left: 10px">
+                <span class="icon-button-label" (click)="create()">创建</span>
             </button>
         </div>
     </div>

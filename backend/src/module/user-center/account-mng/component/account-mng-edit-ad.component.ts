@@ -1,7 +1,7 @@
 ﻿import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from "../../../../architecture";
+import { LayoutService, NoticeComponent, ValidationService,ConfirmComponent, PopupComponent } from "../../../../architecture";
 
 import { Role } from "../model/role.model";
 import { Organization } from "../model/organization.model";
@@ -23,7 +23,9 @@ export class AccountMngEditAd implements OnInit {
         private service: AccountMngCreAdService,
         private router: Router,
         private layoutService: LayoutService,
-        private activatedRouter: ActivatedRoute
+        private activatedRouter: ActivatedRoute,
+        private validationService: ValidationService
+
     ) {
         this.aid = activatedRouter.snapshot.params["id"] || "";
     }
@@ -58,12 +60,40 @@ export class AccountMngEditAd implements OnInit {
 
         this.account.roles = this.roles.filter((r) => { return r.selected });
         this.account.organizations = this.organizations.filter((o) => { return o.selected });
+
+        if (this.validationService.isBlank(this.account.userName)) {
+            this.showAlert("请输入管理员姓名");
+            return;
+        }
+
+        if (this.validationService.isBlank(this.account.phone)) {
+            this.showAlert("请输入电话");
+            return;
+        }
+
+        if (!this.validationService.isMoblie(this.account.phone) &&
+            !this.validationService.isTel(this.account.phone)) {
+            this.showAlert("请输入合法的联系电话;");
+            return;
+        }
+
+        if (this.account.roles.length === 0) {
+            this.showAlert("至少选择一个角色");
+            return;
+        }
+
+        if (this.account.organizations.length === 0) {
+            this.showAlert("请选择所属机构");
+            return;
+        }
+
         this.layoutService.show();
         this.service.editAccount(this.aid,this.account)
             .then(response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.showAlert("success");
+                    this.router.navigateByUrl('user-center/account-mng/account-mng-list');
                 } else {
                     this.showAlert("Res sync error");
                 }
@@ -94,6 +124,10 @@ export class AccountMngEditAd implements OnInit {
             o.selected = false;
         });
         org.selected = true;
+    }
+
+    cancel() {
+        this.router.navigateByUrl('user-center/account-mng/account-mng-list');
     }
 
     showAlert(msg: string): void {

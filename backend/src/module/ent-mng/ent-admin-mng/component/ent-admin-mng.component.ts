@@ -1,7 +1,8 @@
 ﻿import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, SystemDictionary,
+import {
+    LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, PopupComponent, SystemDictionary,
     SystemDictionaryService } from "../../../../architecture";
 
 import { Admin } from "../model/admin.model";
@@ -23,7 +24,7 @@ export class EntAdminMngComponent implements OnInit {
     pageIndex = 0;
     tp = 1; //totalPage
     pageSize = 10;
-
+    authenticationSource = 1;
     noticeTitle = "";
     noticeMsg = "";
 
@@ -35,6 +36,11 @@ export class EntAdminMngComponent implements OnInit {
 
     @ViewChild("pager")
     pager: PaginationComponent;
+
+
+    @ViewChild("crAccountModel")
+    crAccountModel: PopupComponent;
+
 
     admins: Admin[]; //当前企业的所有管理员
     enterprise: Enterprise; //当前企业
@@ -254,15 +260,7 @@ export class EntAdminMngComponent implements OnInit {
         this.tp = ret.pageInfo.totalPage;
     }
 
-    //跳转至创建页面
-    gotoCreatePage(): void {
-        if (this.enterprise.authMode == "1") {
-            this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-cre-ad/enterprise/${this.eid}`);
-        } else {
-            this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-cre/enterprise/${this.eid}`);
-        }
-
-    }
+   
 
     //编辑管理员
     editAdmin() {
@@ -271,7 +269,7 @@ export class EntAdminMngComponent implements OnInit {
             this.showAlert("请先选择需要编辑的管理员！");
             return;
         }
-        if (this.enterprise.authMode == "1") {
+        if (selectAdmin.authMode == "1") {
             this.router
                 .navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-cre-ad/enterprise/${this.eid}/id/${selectAdmin.id}`);
         } else {
@@ -312,6 +310,32 @@ export class EntAdminMngComponent implements OnInit {
             )
             .catch((e) => this.onRejected(e));
     }
+
+    openCrAccountPop() {
+        this.crAccountModel.open();
+    }
+
+    //跳转至创建页面
+    crAccount(): void {
+        if (this.authenticationSource == 1) {
+            this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-cre-ad/enterprise/${this.eid}`);
+        } else {
+            this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-cre/enterprise/${this.eid}`);
+        }
+
+    }
+
+    authenticationSourceList = [
+        {
+            id: 0,
+            name: "本地"
+        },
+        {
+            id: 1,
+            name: "AD"
+        }
+    ];
+
 
     showAlert(msg: string): void {
         this.layoutService.hide();
