@@ -310,7 +310,7 @@ export class OrderMngComponent implements OnInit{
 		}
 		else
 		{
-			this.showMsg(`只有个“成功”或“即将过期”的订单可以续订`);
+			this.showMsg(`只有个“成功”或“即将过期”的订单可以退订`);
 		}
 	}
 	
