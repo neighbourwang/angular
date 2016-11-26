@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
@@ -13,7 +13,7 @@ import { Account, Role,Organization } from '../model/account.model'
   styleUrls: [],
   providers: []
 })
-export class AccountMngCrLocalComponent implements OnInit {
+export class AccountMngCrLocalComponent implements OnInit ,OnChanges {
 
   constructor(
     private layoutService: LayoutService,
@@ -23,10 +23,17 @@ export class AccountMngCrLocalComponent implements OnInit {
 
   @Input()
   isEdit: boolean;
+  @Input()
+  editId:string;
+
+
+  
   account = new Account();
   roles: Array<Role>;
   orgs:Array<Organization>;
   ngOnInit() {
+    console.log(this.isEdit,'ggggggggg');
+    console.log(this.editId);
     //获取所有角色
     this.service.getRoleList().then(
       res => {
@@ -46,6 +53,15 @@ export class AccountMngCrLocalComponent implements OnInit {
       console.error(err);
     })
   }
+
+
+  ngOnChanges(changes: SimpleChanges) {
+        console.log(this.isEdit,'ggggggggg');
+        console.log(this.editId);
+    }
+
+
+
   //选择角色
   selectRole(idx) {
     console.log(idx);
