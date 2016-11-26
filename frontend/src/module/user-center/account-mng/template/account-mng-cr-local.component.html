@@ -7,7 +7,7 @@
                 <div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
                     <div class="col-md-2 content-title" style="text-align : center"><span class="asterisk">*</span>姓名</div>
                     <div class="col-md-8 no-padding">
-                        <input class="form-control" placeholder="请输入姓名" type="text" [(ngModel)]="account.name" name="name" required
+                        <input class="form-control" placeholder="请输入姓名" type="text" [(ngModel)]="account.userName" name="name" required
                         [ngClass]="{'has-error': name.errors && (name.dirty || name.touched)}" #name='ngModel'/>
                         <span class="help-block" *ngIf="name.errors?.required">name不能为空</span>
                     </div>
@@ -43,7 +43,7 @@
             <th class="col-md-1 col-xs-3 text-center">绑定角色</th>
             <td>
                 <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px" *ngFor="let role of roles ;let idx=index ">
-                    <input type="radio" class="fox-cloud-radio"   value="role.id" [checked]="account.roles[0].id==role.id" (click)="selectRole(idx)"> 
+                    <input type="radio" class="fox-cloud-radio"   value="role?.id" [checked]="account.roles[0]?.id==role?.id" (click)="selectRole(idx)"> 
                     <span>{{role?.name}}</span>
                 </label>
 

@@ -1,11 +1,12 @@
-import { Component, OnInit, Input,OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
-
+//service
 import { AccountMngService } from '../service/account-mng.service';
-
-import { Account, Role,Organization } from '../model/account.model'
+import { PutLocalAccService } from '../../person-acc-mng/service/person-acc-put.service';
+//model
+import { Account, Role, Organization } from '../model/account.model'
 
 @Component({
   selector: 'account-mng-cr-local',
@@ -13,31 +14,32 @@ import { Account, Role,Organization } from '../model/account.model'
   styleUrls: [],
   providers: []
 })
-export class AccountMngCrLocalComponent implements OnInit ,OnChanges {
+export class AccountMngCrLocalComponent implements OnInit, OnChanges {
 
   constructor(
     private layoutService: LayoutService,
     private router: Router,
-    private service: AccountMngService
+    private service: AccountMngService,
+    private putLocalAccService: PutLocalAccService
   ) { }
 
   @Input()
   isEdit: boolean;
   @Input()
-  editId:string;
+  editId: string;
 
 
-  
+
   account = new Account();
   roles: Array<Role>;
-  orgs:Array<Organization>;
+  orgs: Array<Organization>;
   ngOnInit() {
-    console.log(this.isEdit,'ggggggggg');
+    console.log(this.isEdit, 'ggggggggg');
     console.log(this.editId);
     //获取所有角色
     this.service.getRoleList().then(
       res => {
-        console.log('角色',res);
+        console.log('角色', res);
         this.roles = res.resultContent;
       }
     ).catch(err => {
@@ -46,7 +48,7 @@ export class AccountMngCrLocalComponent implements OnInit ,OnChanges {
     //获取所有机构
     this.service.getOrgList().then(
       res => {
-        console.log('机构',res);
+        console.log('机构', res);
         this.orgs = res.resultContent;
       }
     ).catch(err => {
@@ -56,9 +58,19 @@ export class AccountMngCrLocalComponent implements OnInit ,OnChanges {
 
 
   ngOnChanges(changes: SimpleChanges) {
-        console.log(this.isEdit,'ggggggggg');
-        console.log(this.editId);
+    console.log(this.isEdit, 'ggggggggg');
+    console.log(this.editId);
+    if(this.isEdit){
+      this.service.getLocalAcc(this.editId).then(
+      res => {
+        console.log('账号', res);
+        this.account = res.resultContent;
+      }
+    ).catch(err => {
+      console.error(err);
+    })
     }
+  }
 
 
 
@@ -77,8 +89,8 @@ export class AccountMngCrLocalComponent implements OnInit ,OnChanges {
     console.log(this.account.roles);
   }
   //选择部门
-  selectOrg(idx){
-     console.log(idx);
+  selectOrg(idx) {
+    console.log(idx);
     this.orgs.forEach(ele => {
       ele.selected = false;
     });
@@ -90,8 +102,8 @@ export class AccountMngCrLocalComponent implements OnInit ,OnChanges {
     })
     console.log(this.account.organizations);
   }
-  save(){
-      console.log(this.account);
-      return this.service.createAccount(this.account)
+  save() {
+    console.log(this.account);
+    return this.service.createAccount(this.account)
   }
 }
