@@ -7,7 +7,7 @@
                     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
                         <div class="col-md-2 content-title" style="text-align : center"><span class="asterisk">*</span>姓名</div>
                         <div class="col-md-8 no-padding form-group" [ngClass]="{'has-error': name.errors && (name.dirty || name.touched)}">
-                            <input class="form-control" placeholder="请输入姓名" type="text" [(ngModel)]="account.userName" name="name" id="name" required #name='ngModel'/>
+                            <input class="form-control" placeholder="请输入姓名" type="text" [(ngModel)]="account.loginName" name="name" id="name" required #name='ngModel'/>
                             <!--<span class="help-block" *ngIf="name.errors?.required">name不能为空</span>-->
                         </div>
                     </div>
@@ -46,20 +46,7 @@
                     <span>{{role?.name}}</span>
                 </label>
 
-                <!--<label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                    <span>部门负责人</span>
-                </label>
-
-                <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                    <span>普通用户</span>
-                </label>
-
-                <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                    <span>审批员</span>
-                </label>-->
+                
 
             </td>
         </tr>
@@ -67,54 +54,10 @@
             <th class="col-md-1 col-xs-3 text-center">绑定部门</th>
             <td>
                 <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px" *ngFor='let org of orgs;let idx=index'>
-                    <input type="radio" class="fox-cloud-radio" (click)='selectOrg(idx)' value="option1" [checked]='account.organizations[0].id==org.id'> 
+                    <input type="radio" class="fox-cloud-radio" (click)='selectOrg(idx)' value="option1" [checked]='account.organizations[0]?.id==org.id'> 
                     <span>{{org.name}}</span>
                 </label>
-                <!--
-                <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px"> 
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                    <span>部门负责人</span>
-                </label>
-
-                <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                    <span>部门一</span>
-                </label>
-
-                <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                    <span>部门二</span>
-                </label>
-
-                <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                    <span>部门三</span>
-                </label>
-
-                <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                    <span>部门四</span>
-                </label>
-
-                <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                    <span>部门五</span>
-                </label>
-
-                <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                    <span>部门五</span>
-                </label>
-
-                <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                    <span>部门五</span>
-                </label>
-
-                <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                    <span>部门五</span>
-                </label>
+                
 
                 <div class="font-green float-right" style="margin-top : 10px">
                     更多部门 >>
