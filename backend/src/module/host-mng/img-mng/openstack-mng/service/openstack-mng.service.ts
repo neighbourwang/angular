@@ -4,11 +4,12 @@ import { RestApiCfg, RestApi } from '../../../../../architecture';
 
 import 'rxjs/add/operator/toPromise';
 
-import {Image} from '../model/image.model';
+import { Image} from '../model/image.model';
 import { CriteriaQuery } from '../model/criteria-Query.model';
 import { Images_mock} from'../model/images.mock.model'
 import { Tenants_mock} from'../model/tenants.mock.model'
 import { SyncPublic_mock } from '../model/sync-public.mock.model'
+import { Tenant} from '../model/tenant.model';
 
 @Injectable()
 export class OpenstackMngService{
@@ -41,7 +42,7 @@ export class OpenstackMngService{
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Images_mock });
     }
 
-    getTenants(platformId:string){
+    getTenants(platformId:string): Promise<any>{
         const pathParams = [
             {
                 key: "platformId",
@@ -52,7 +53,7 @@ export class OpenstackMngService{
         // return this.restApi.request(api.method, api.url, pathParams, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return Tenants_mock});
     }
-    saveEditImage(image:Image){
+    saveEditImage(image:Image): Promise<any>{
         const pathParams = [
             {
                 key: "id",
@@ -94,6 +95,7 @@ export class OpenstackMngService{
             }}
         );
     }
+    //获取公共同步镜像列表
     //host-mng.openstack-mng.image.sync-public.getlist
     getSynImages_public(platformId:string): Promise<any>{
         const pathParams = [
@@ -107,6 +109,23 @@ export class OpenstackMngService{
         // return this.restApi.request(api.method, api.url, pathParams, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return SyncPublic_mock});
     }
+
+    //获取企业同步镜像列表
+    getSynImages_ent(platformId:string, tList:Array<Tenant>): Promise<any>{
+        const pathParams = [
+            {
+                key: "platformId",
+                value: platformId
+            }
+        ];
+        let ids = new Array<String>();
+        tList.forEach((t)=>{ids.push(t.id)})
+        // const api = this.restApiCfg.getRestApi("host-mng.openstack-mng.image.sync-public.getlist");
+        // return this.restApi.request(api.method, api.url, pathParams, null, ids);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return SyncPublic_mock});
+    }
+
+
 
     //host-mng.openstack-mng.image.sync-public.sync
     doSynImages_public(platformId:string, synImages:Array<Image>): Promise<any>{

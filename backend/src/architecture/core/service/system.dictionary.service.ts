@@ -16,6 +16,7 @@ export class SystemDictionaryService {
 
         const api = this.restApiCfg.getRestApi("sysdic");
 
+        
         dicPromise = dicPromise
             ? dicPromise
             : this.restApi.request(api.method, api.url, undefined, undefined, undefined)
