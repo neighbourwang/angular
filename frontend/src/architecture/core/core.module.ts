@@ -8,7 +8,7 @@ import { RestApi } from './service/restapi.service';
 import { ValidationService } from './service/validation.service';
 import { SystemDictionaryService } from './service/system.dictionary.service';
 @NgModule({
-    imports:[
+    imports: [
         CommonModule,
         HttpModule
     ],
@@ -30,9 +30,11 @@ import { SystemDictionaryService } from './service/system.dictionary.service';
     ]
 })
 export class CoreModule {
-    constructor (@Optional() @SkipSelf() parentModule: CoreModule) {
+    userService:UserService;
+    constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
         if (parentModule) {
             throw new Error('CoreModule is already loaded. Import it in the AppModule only');
         }
     }
+   
 }

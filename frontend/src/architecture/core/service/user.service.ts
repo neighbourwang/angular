@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
+import { Http, Headers, RequestOptionsArgs, Response, Jsonp, URLSearchParams } from '@angular/http';
 
 @Injectable()
 export class UserService {
@@ -6,8 +7,9 @@ export class UserService {
     userName: string;
     accessToken: string;
     loginFlg: boolean;
-
-    constructor() {
+    constructor(
+        private http:Http
+    ) {
         this.resetData();
     }
 

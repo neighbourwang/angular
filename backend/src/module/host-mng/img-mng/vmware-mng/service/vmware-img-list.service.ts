@@ -44,17 +44,18 @@ export class VmwareImgListService{
         const obj = {
                 "type": queryOpt.type,
                 "tenantId": queryOpt.tenantId
-            };
+        };
+        console.log(platformId, obj, "(((((((((((((((((((platformId and obj)))))))))))))))))))");
         
-        /*
-        const api = this.restApiCfg.getRestApi("host-mng.img-mng.vmware-mng.vmware-img.list");
+        //*
+        const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.image.list");
         return this.restApi.request(api.method, api.url, pathParams, null, obj);
-        */
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return VmwareImgModel_mock });
+        //*/
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return VmwareImgModel_mock });
     }
 
-    enableImage(img_id: string, status: string): Promise<any> {
-        /*
+    enableImage(img_id: string, status: any): Promise<any> {
+        ///*
         const pathParams = [
             {
                 key: "id",
@@ -65,14 +66,15 @@ export class VmwareImgListService{
                 value: status
             }            
         ];
-        //const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.image.enable-disable");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        */
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });
+        console.log(img_id, status, "(((((((((((((((((((((img_id and status)))))))))))))))))))))img_id and status");
+        const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.image.enable-disable");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //*/
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });
     }
 
-    disableImage(img_id: string, status: string): Promise<any> {
-        /*
+    disableImage(img_id: string, status: any): Promise<any> {
+        ///*
         const pathParams = [
             {
                 key: "id",
@@ -83,14 +85,15 @@ export class VmwareImgListService{
                 value: status
             }            
         ];
-        //const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.image.enable-disable");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        */
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });
+        console.log(img_id, status, "((((((((((((((((((((img_id and status))))))))))))))))))))");
+        const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.image.enable-disable");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //*/
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });
     }
 
     updateImage(image: VmwareImgModel): Promise<any> {
-        /*
+        ///*
         const pathParams = [
             {
                 key: "id",
@@ -104,11 +107,12 @@ export class VmwareImgListService{
                 "type" : image.type,
                 "description" : image.description
         };
+        console.log(image.id, obj, "(((((((((((((((((((((image.id and obj)))))))))))))))))))))");
         const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.image.edit");
         return this.restApi.request(api.method, api.url, pathParams, null, obj);
-        */
+        //*/
 
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });
     }
     
 }

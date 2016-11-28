@@ -16,7 +16,7 @@ import { PersonAccMngRouting } from './person-acc-mng.routing';
 
 //Service
 import { GetPersonAccService } from './service/person-acc-get.service';
-import { PutPersonAccService } from './service/person-acc-put.service';
+import { PutLocalAccService } from './service/person-acc-put.service';
 import { EditPersonAccPwdService } from './service/person-acc-pwd.service';
 
 @NgModule({
@@ -33,7 +33,7 @@ import { EditPersonAccPwdService } from './service/person-acc-pwd.service';
     ],
     providers: [
        GetPersonAccService,
-       PutPersonAccService,
+       PutLocalAccService,
        EditPersonAccPwdService
     ]
 

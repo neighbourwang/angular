@@ -11,7 +11,9 @@ import { RestApi
 	, DicLoader
 	, ItemLoader } from '../../../architecture';
 
-import { CheckCenterParam } from './../model';
+import { CheckCenterParam
+	, CheckListItem } from './../model';
+import * as _ from 'underscore';
 
 @Component({
 	selector: 'check-mng-list',
@@ -30,11 +32,41 @@ export class CheckMngHascheckComponent implements OnInit{
 	private _isAdvSearch:boolean = false;//高级查询
 	private _userListLoader:ItemLoader<{id:string;name:string}> = null;//用户列表
 	private _approverListLoader:ItemLoader<{id:string;name:string}> = null;//审批人列表
+	private _listLoader:ItemLoader<CheckListItem> = null;//列表数据加载
 
 	constructor(
 		private _restApiCfg:RestApiCfg
 		,private _restApi:RestApi
 		,private _layoutService:LayoutService){
+
+		//列表数据加载
+		this._listLoader = new ItemLoader<CheckListItem>(true, "待审批列表", "check-center.has-checked.list", _restApiCfg, _restApi);
+		this._listLoader.MapFunc = (source:Array<any>, target:Array<CheckListItem>)=>{
+			let obj = new CheckListItem();
+			target.push(obj);
+
+			for(let item of source)
+			{
+				obj.orderCodeStr = item.orderNo;//订单编号
+				obj.serviceTypeName = item.serviceType; //产品类型
+				// obj.platformStr = ?? 区域
+				// obj.zoneStr = ?? 可用区
+				obj.orderTypeName = item.orderType;// 订单类型
+				obj.userStr = item.submiter;// 用户,提交者
+				obj.departmentStr = item.departmentName;// 部门
+				obj.entStr = item.enterpriszeName;// 企业
+				//费用
+				obj.billingModeName =item.billingInfo ? item.billingInfo.billingMode:""; //计费模式
+				obj.billingDurationStr = item.period;//订单周期
+				obj.oneTimePriceNum = item.billingInfo ? item.billingInfo.basePrice: "";//一次性费用
+				// obj.priceNum = ??费用
+
+				obj.createTimeStr = item.createDate;// 创建时间
+				// obj.checkResultId = ?? 审批结果		
+
+			}
+		};
+
 
 		//审批人列表
 		this._approverListLoader = new ItemLoader<{id:string;name:string}>(false, "审批人列表", "check-center.approver-list.get", _restApiCfg, _restApi);
@@ -89,10 +121,28 @@ export class CheckMngHascheckComponent implements OnInit{
 	}
 
 	//搜索
-	search(){
+	search(pageNum:number = 1){
+
+		let param = _.extend({}, this._param);
+
+		//匹配后台搜索框参数
+        //param.searchText = this._param.queryParam;
+
+		
+		param.pageParameter = {
+			currentPage:pageNum
+			,size:10
+		};
+		this._layoutService.show();
+		this._listLoader.Go(pageNum, null, param)
+		.then(success=>{
+			this._layoutService.hide();
+		})
+		.catch(err=>{
+			this._layoutService.hide();
+		});
 
 	}
-
 	//根据企业加载部门
 	entChanged(){
 		this._layoutService.show();
