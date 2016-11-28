@@ -26,6 +26,6 @@ export class SiteComponent implements OnInit{
   }
   preLoad(){
     this.dictService.get();  //初始化获取所有的数据字典
-    this.userService.loginService();
+    // this.userService.loginService();
   }
 }
