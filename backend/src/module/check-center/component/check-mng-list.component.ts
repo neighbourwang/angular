@@ -121,7 +121,7 @@ export class CheckMngListComponent implements OnInit{
 
 		
         //匹配后台搜索框参数/authsec/backend/approval/orders/search/paging 
-		param.quickSearchStr = 0;//approvalStatus代表未审批
+		param.approvalStatus = 0;//approvalStatus代表未审批
         param.quickSearchStr = this._param.quickSearchStr;//输入订单号快速查询 ？
  		param.enterpriseId = this._param.entIdStr; //企业enterpriseId
 		param.organization = this._param.departmentIdNum; //部门organization？
