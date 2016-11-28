@@ -8,6 +8,7 @@ export class CheckCenterParam{
 	startDateStr: string = null;//开始时间
 	endDateStr: string = null;//结束时间
 	checkUserIdStr: string = null;//审批人
+	submitUserId :string = null;//提交者
 
 	reset(){
 		this.quickSearchStr = null;//输入订单号快速查询

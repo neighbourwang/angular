@@ -110,13 +110,24 @@ export class CheckMngListComponent implements OnInit{
 
 	showMsg(msg:string)
 	{
-		this._notice.open("系统", msg);
+		// this._notice.open("系统", msg);
+		alert("aaaaaaa");
+		$("[data-toggle='tooltip']").tooltip();
 	}
 
 	//搜索
 	search(pageNum:number = 1){
 
-		let param = {};
+		let param = _.extend({}, this._param);
+
+		//匹配后台搜索框参数
+        //param.searchText = this._param.queryParam;
+
+		
+		param.pageParameter = {
+			currentPage:pageNum
+			,size:10
+		};
 		this._layoutService.show();
 		this._listLoader.Go(pageNum, null, param)
 		.then(success=>{
@@ -127,7 +138,7 @@ export class CheckMngListComponent implements OnInit{
 		});
 
 	}
-
+	
 	//根据企业加载部门
 	entChanged(){
 		this._layoutService.show();

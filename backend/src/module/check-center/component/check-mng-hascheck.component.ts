@@ -39,7 +39,7 @@ export class CheckMngHascheckComponent implements OnInit{
 		,private _layoutService:LayoutService){
 
 		//列表数据加载
-		this._listLoader = new ItemLoader<CheckListItem>(true, "待审批列表", "check-center.not-checked.list", _restApiCfg, _restApi);
+		this._listLoader = new ItemLoader<CheckListItem>(true, "待审批列表", "check-center.has-checked.list", _restApiCfg, _restApi);
 		this._listLoader.MapFunc = (source:Array<any>, target:Array<CheckListItem>)=>{
 			let obj = new CheckListItem();
 			target.push(obj);
@@ -120,10 +120,28 @@ export class CheckMngHascheckComponent implements OnInit{
 	}
 
 	//搜索
-	search(){
+	search(pageNum:number = 1){
+
+		let param = _.extend({}, this._param);
+
+		//匹配后台搜索框参数
+        //param.searchText = this._param.queryParam;
+
+		
+		param.pageParameter = {
+			currentPage:pageNum
+			,size:10
+		};
+		this._layoutService.show();
+		this._listLoader.Go(pageNum, null, param)
+		.then(success=>{
+			this._layoutService.hide();
+		})
+		.catch(err=>{
+			this._layoutService.hide();
+		});
 
 	}
-
 	//根据企业加载部门
 	entChanged(){
 		this._layoutService.show();
