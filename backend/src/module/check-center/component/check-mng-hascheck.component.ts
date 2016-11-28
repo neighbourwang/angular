@@ -13,6 +13,7 @@ import { RestApi
 
 import { CheckCenterParam
 	, CheckListItem } from './../model';
+import * as _ from 'underscore';
 
 @Component({
 	selector: 'check-mng-list',
