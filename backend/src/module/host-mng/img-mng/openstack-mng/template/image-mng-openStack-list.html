@@ -1,6 +1,6 @@
 <link src="image-mng-openStack.less">
 <div class="page-content-header icon-content-header-purchasing"> 镜像管理-{{platformName}}  
-    <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" key="boe/image-mng.html">
+    <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" (click)="back()"style="padding:2px 15px;font-size:14px" key="boe/image-mng.html">
         返回镜像管理列表
     </button>
 </div>
@@ -9,8 +9,8 @@
             <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >镜像类型：</span>
             <div class="float-left pdr20">
                 <select class="pdl10 form-control" [(ngModel)]="queryOpt.type" >
-                    <option value="">选择镜像</option>
-                    <option *ngFor = "let type of typeDic" [ngValue]="type.value">{{getDicText(type.value,this.typeDic)}}</option>
+                    <option value="">选择镜像类型</option>
+                    <option *ngFor = "let type of typeDic" [ngValue]="type.value">{{getDicText(type.value,typeDic)}}</option>
                 </select>
             </div>          
             <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >所属企业：</span>
@@ -84,11 +84,11 @@
                     </div>
                     </td>
                     <td >{{image.os}}</td>
-                    <td >{{getDicText(image.bitesType,this.bits_typeDic)}}</td>
-                    <td >{{image.capacity}}</td>
-                    <td >{{getDicText(image.type,this.typeDic)}}</td>
+                    <td >{{getDicText(image.bitesType,bits_typeDic)}}</td>
+                    <td >{{image.capacity}}G</td>
+                    <td >{{getDicText(image.type,typeDic)}}</td>
                     <td >{{getImageTenant(image.tenants)}}</td>
-                    <td >{{getDicText(image.status,this.statusDic)}}</td>
+                    <td >{{getDicText(image.status,statusDic)}}</td>
 
                 </tr>
 
@@ -125,7 +125,9 @@
                 <div class="col-sm-4 form-control-title">系统位数:</div>
                 <div class="col-sm-6">
                     <select class="form-control" >
-                        <option>{{getDicText(tempEditImage.bitesType,this.bits_typeDic)}}</option>
+                        <option [ngValue]="tempEditImage.bitesType">{{getDicText(tempEditImage.bitesType,bits_typeDic)}}</option>
+                        <option *ngFor = "let type of bits_typeDic" [ngValue]="type.value">{{getDicText(type.value,bits_typeDic)}}</option>
+                        
                     </select>
                 </div>
             </div>
