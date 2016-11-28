@@ -248,7 +248,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建账户",
         "method": "POST",
         "id": "user-center.account-mng.create.post",
-        "url": "marketplace/authsec/mpp/user"        
+        "url": "basis/authsec/mpp/user"        
     },
     {
         "desc" : "用户中心，帐号管理，帐号编辑，获取账号详情",

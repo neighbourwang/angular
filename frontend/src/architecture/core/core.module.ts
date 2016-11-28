@@ -32,19 +32,9 @@ import { SystemDictionaryService } from './service/system.dictionary.service';
 export class CoreModule {
     userService:UserService;
     constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
-        // private 
         if (parentModule) {
             throw new Error('CoreModule is already loaded. Import it in the AppModule only');
         }
     }
-    // static forRoot(): ModuleWithProviders {
-    //     // let userService:UserService;
-    //     console.log(this.userService);
-    //     return {
-    //         ngModule: CoreModule,
-    //         providers: [
-               
-    //         ]
-    //     };
-    // }
+   
 }
