@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../../../core/service/layout.service';
 import { SystemDictionaryService } from '../../../../architecture';
 
+
+
 @Component({
   selector: 'fc-root',
   templateUrl: '../template/site.component.html',
@@ -13,7 +15,7 @@ export class SiteComponent implements OnInit{
   
   constructor (
     private layoutService: LayoutService,
-    private dictService: SystemDictionaryService
+    private dictService: SystemDictionaryService,
   ) { }
   
   ngOnInit() {

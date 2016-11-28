@@ -1075,7 +1075,14 @@ export let RestApis: RestApiModel[] = [
         "desc": "查询待审批/已审批订单",
         "id": "check-center.not-checked.list",
         "method": "POST",
-        "url": "adminui/authsec/backend/approval/order/search/paging"        
+        "url": "/adminboe/authsec/backend/approval/order/{orderId}/operation/{operation}"
+    
+    }
+    ,{
+        "desc": "查询待审批/已审批订单",
+        "id": "check-center.has-checked.list",
+        "method": "POST",
+        "url": "adminui/authsec/backend/approval/order/search/paging"     
     }
     ,{
         "desc": "获取订单详情",
@@ -1185,48 +1192,48 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取镜像列表-vmare2.2",
         "id": "host-mng.vmware-mng.image.list",
         "method": "POST",
-        "url": "adminui/authsec/images/vmware/{platformId}/page/{page}/size/{size}"
+        "url": "adminboe/authsec/images/vmware/{platformId}/page/{page}/size/{size}"
     }
     , {
         "desc": "获取下拉企业列表-vmware2.3",
         "id": "host-mng.vmware-mng.dropdown-ent.list",
         "method": "GET",
-        "url": "adminui/authsec/images/{platformId}/tenants/dropdown"
+        "url": "adminboe/authsec/images/{platformId}/tenants/dropdown"
     }
     , {
         "desc": "获取未选择和已选择的企业列表-vmware3.1",
         "id": "host-mng.vmware-mng.ents.list",
         "method": "POST",
-        "url": "/adminui/authsec/image/detail/{platformId}/tenants"
+        "url": "adminboe/authsec/image/detail/{platformId}/tenants"
     }
     , {
         "desc": "设置企业并保存-vmware3.2",
         "id": "host-mng.vmware-mng.ent.save",
         "method": "POST",
-        "url": "/adminui/authsec/image/{imageId}/tenants"
+        "url": "adminboe/authsec/image/{imageId}/tenants"
     }
     , {
         "desc": "启用和禁用镜像-vmware4",
         "id": "host-mng.vmware-mng.image.enable-disable",
         "method": "PUT",
-        "url": "/adminui/authsec/image/{id}/{status}"
+        "url": "adminboe/authsec/image/{id}/{status}"
     }
     , {
         "desc": "编辑镜像-vmware5",
         "id": "host-mng.vmware-mng.image.edit",
         "method": "PUT",
-        "url": "/adminui/authsec/image/{id}"
+        "url": "adminboe/authsec/image/{id}"
     }
     , {
         "desc": "获取待同步的镜像列表-vmware11",
         "id": "host-mng.vmware-mng.sync-image.list",
         "method": "GET",
-        "url": "/adminui/authsec/images/vmware/{platformId}"
+        "url": "adminboe/authsec/images/vmware/{platformId}"
     }
     , {
         "desc": "同步镜像-vmware12",
         "id": "host-mng.vmware-mng.sync-image.sync",
         "method": "POST",
-        "url": "/adminui/authsec/images/vmware/{platformId}/sync"
+        "url": "adminboe/authsec/images/vmware/{platformId}/sync"
     }
 ]

@@ -18,7 +18,12 @@ export class AccountMngService {
 
         return this.restApi.request(api.method, api.url, [{key : "page", value : page},{key : "size" , value : size}], undefined);
     }
+    //获取账号详情
+    getLocalAcc (id : string){
+        let api = this.restApiCfg.getRestApi("user-center.account-mng.detail");
 
+        return this.restApi.request(api.method,api.url,[{key : "id", value : id}],undefined);
+    }
     // 启用帐号 user-center.account-mng.enableAcc
     enableAcc (id : string){
         let api = this.restApiCfg.getRestApi("user-center.account-mng.enableAcc");

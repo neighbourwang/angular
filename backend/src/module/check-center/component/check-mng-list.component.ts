@@ -47,21 +47,23 @@ export class CheckMngListComponent implements OnInit{
 
 			for(let item of source)
 			{
-				obj.orderCodeStr = item.orderCode;//订单编号
-				obj.serviceTypeName = _.isEmpty(item.orderInstanceItems) ? "": item.orderInstanceItems.map(n=>n.productType).join("<br/>"); //产品类型
+				obj.orderCodeStr = item.orderNo;//订单编号
+				obj.serviceTypeName = item.serviceType; //产品类型
 				// obj.platformStr = ?? 区域
 				// obj.zoneStr = ?? 可用区
-				// obj.orderTypeName = ?? 订单类型
-				// obj.userStr = ?? 用户
-				// obj.departmentStr = ?? 部门
-				// obj.entStr = ?? 企业
-				obj.billingModeNum = _.isEmpty(item.orderInstanceItems) ? "" : item.orderInstanceItems[0].billingMode;
-				obj.billingModeName = obj.billingModeNum.toString();
-				// obj.billingDurationStr = ?? 订单周期
-				obj.oneTimePriceNum = _.isEmpty(item.orderInstanceItems) ? 0 : item.orderInstanceItems[0].oneTimePrice;
-				obj.priceNum = _.isEmpty(item.orderInstanceItems) ? 0 : item.orderInstanceItems[0].price;
-				obj.createTimeStr = _.isEmpty(item.orderInstanceItems) ? "" : item.orderInstanceItems[0].createDate;
-				// obj.checkResultId = ?? 审批结果				
+				obj.orderTypeName = item.orderType;// 订单类型
+				obj.userStr = item.submiter;// 用户,提交者
+				obj.departmentStr = item.departmentName;// 部门
+				obj.entStr = item.enterpriszeName;// 企业
+				//费用
+				obj.billingModeName =item.billingInfo ? item.billingInfo.billingMode:""; //计费模式
+				obj.billingDurationStr = item.period;//订单周期
+				obj.oneTimePriceNum = item.billingInfo ? item.billingInfo.basePrice: "";//一次性费用
+				// obj.priceNum = ??费用
+
+				obj.createTimeStr = item.createDate;// 创建时间
+				// obj.checkResultId = ?? 审批结果		
+
 			}
 		};
 
@@ -108,13 +110,24 @@ export class CheckMngListComponent implements OnInit{
 
 	showMsg(msg:string)
 	{
-		this._notice.open("系统", msg);
+		// this._notice.open("系统", msg);
+		alert("aaaaaaa");
+		$("[data-toggle='tooltip']").tooltip();
 	}
 
 	//搜索
 	search(pageNum:number = 1){
 
-		let param = {};
+		let param = _.extend({}, this._param);
+
+		//匹配后台搜索框参数
+        //param.searchText = this._param.queryParam;
+
+		
+		param.pageParameter = {
+			currentPage:pageNum
+			,size:10
+		};
 		this._layoutService.show();
 		this._listLoader.Go(pageNum, null, param)
 		.then(success=>{
@@ -125,7 +138,7 @@ export class CheckMngListComponent implements OnInit{
 		});
 
 	}
-
+	
 	//根据企业加载部门
 	entChanged(){
 		this._layoutService.show();

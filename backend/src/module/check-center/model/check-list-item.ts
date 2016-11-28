@@ -33,16 +33,15 @@ export class CheckListItem{
 
 	createTimeStr: string = null;//创建时间
 	checkResultId: number = null;//审批结果
-	checkResultName: string = null;//审批结果名称
-	
+	checkResultName: string = null;//审批结果名称	
 }
 
 /*
-GeneralPagingResultOfListOfOrderItem {
+GeneralPagingResultOfListOf审批列表记录项 {
 detailDescription (string, optional),
 pageInfo (PageInfo, optional),
 resultCode (string, optional),
-resultContent (Array[OrderItem], optional)
+resultContent (Array[审批列表记录项], optional)
 }
 PageInfo {
 currentPage (integer, optional),
@@ -50,28 +49,35 @@ pageSize (integer, optional),
 totalPage (integer, optional),
 totalRecords (integer, optional)
 }
-OrderItem {
-id (string, optional): 订单ID ,
-orderCode (string, optional): 订单编号 ,
-orderInstanceItems (Array[OrderInstanceItem], optional): 订单中的产品信息 ,
-relatedOrder (Array[OrderItem], optional): 关联订单
-}
-OrderInstanceItem {
-billingCycle (string, optional): 购买时长 ,
-billingMode (string, optional): 计费模式 ,
+审批列表记录项 {
+billingInfo (ProductBillingItem, optional): 产品计费详细信息 ,
 createDate (string, optional): 创建时间 ,
-exireDate (string, optional): 过期时间 ,
+departmentName (string, optional): 部门 ,
+enterpriseName (string, optional): 企业 ,
+expireDate (string, optional): 过期时间 ,
 instanceName (string, optional): 实例名称 ,
-isSetPassword (string, optional): 密码设置与否，0 未设置，1 已设置 ,
-oneTimePrice (integer, optional): 一次性费用 ,
-price (integer, optional): 费用 ,
-productType (string, optional): 产品类型 ,
-quantity (string, optional): 订购数量 ,
-specificationItem (Array[SpecificationItem 每个实例为 可用区名称，平台名称（region）,CPU核数,内存大小,硬盘类型,硬盘大小,启动盘容量，操作系统，内部IP，外部IP 中的一项], optional): 产品规格 ,
-status (string, optional): 订单状态 ,
-subscriptTime (integer, optional): 购买周期
+orderDesc (string, optional): 订单描述 ,
+orderId (string, optional): 订单ID，不做显示，操作回传 ,
+orderNo (string, optional): 对应UI界面中的订单编号 ,
+orderType (string, optional): 订单类型 ,
+period (integer, optional): 购买周期 ,
+quantity (integer, optional): 订购数量 ,
+serviceType (string, optional): 产品类型 ,
+specList (Array[SubInstanceAttrPair], optional): 产品规格 ,
+status (string, optional): UI订单状态，需要查询数据字典 ,
+submiter (string, optional): 提交者
 }
-SpecificationItem 每个实例为 可用区名称，平台名称（region）,CPU核数,内存大小,硬盘类型,硬盘大小,启动盘容量，操作系统，内部IP，外部IP 中的一项 {
+ProductBillingItem {
+basePrice (number, optional): 一次性价格 ,
+basicPrice (number, optional): 周期计费-基础周期价格 ,
+billingId (string, optional): 产品计费ID ,
+billingMode (string, optional): 计费类型，需要检索数据字典 ,
+cyclePrice (number, optional): 周期计费-增量周期价格 ,
+periodType (string, optional): 周期计费-周期类型，需要检索数据字典 ,
+unitPrice (number, optional): 流量计费-流量单价 ,
+unitType (number, optional): 流量计费-流量计费类型，需要查询数据字典
+}
+SubInstanceAttrPair {
 attrCode (string, optional): 服务属性Code ,
 attrDisplayName (string, optional): 服务属性页面显示的名称 ,
 attrDisplayValue (string, optional): 服务属性值显示值 ,

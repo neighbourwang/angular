@@ -5,7 +5,7 @@ import { LayoutService, ValidationService, PopupComponent,NoticeComponent } from
 
 //service
 import { GetPersonAccService } from '../service/person-acc-get.service';
-import { PutPersonAccService } from '../service/person-acc-put.service';
+import { PutLocalAccService } from '../service/person-acc-put.service';
 import { EditPersonAccPwdService } from '../service/person-acc-pwd.service';
 
 //model
@@ -22,7 +22,7 @@ export class PersonAccMngComponent implements OnInit {
     constructor(
         private router: Router,
         private getPersonAcc: GetPersonAccService,
-        private putPersonAcc: PutPersonAccService,
+        private putPersonAcc: PutLocalAccService,
         private putPersonAccPwd: EditPersonAccPwdService
     ) { }
     @ViewChild('editPassWord')
@@ -194,7 +194,7 @@ export class PersonAccMngComponent implements OnInit {
         
     }
     saveEditPerAcc() {
-        return this.putPersonAcc.putPersonAcc(this.personAcc.id, this.personAcc).then(response => {
+        return this.putPersonAcc.putLocalAcc(this.personAcc.id, this.personAcc).then(response => {
             console.log(response);
             this.getCurrentAccount();
         }).catch(err => {
