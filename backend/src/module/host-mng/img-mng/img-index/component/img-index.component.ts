@@ -93,7 +93,7 @@ export class ImgIndexComponent implements OnInit {
         }
     }
 
-    //¸ù¾İvalue»ñÈ¡×ÖµäµÄtxt
+    //æ ¹æ®valueè·å–å­—å…¸çš„txt
     getDicText(value: string, dic: Array<SystemDictionary>): String {
         const d = dic.find((e) => {
             return e.value == value;
@@ -109,13 +109,13 @@ export class ImgIndexComponent implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "ÌáÊ¾";
+        this.noticeTitle = "æç¤º";
         this.noticeMsg = msg;
         this.notice.open();
     }
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("»ñÈ¡Êı¾İÊ§°Ü£¡");
+        this.showAlert("è·å–æ•°æ®å¤±è´¥ï¼");
     }
 }

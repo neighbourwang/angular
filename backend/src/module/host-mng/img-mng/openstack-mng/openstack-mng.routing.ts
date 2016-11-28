@@ -6,7 +6,7 @@ import { OpenstackImageSyncEntComponent } from './component/openstack.image-sync
 export const OpenstackMngRouting = RouterModule.forChild([
 
     {
-        //path:'host-mng/image/openstack-mng',
+        //path:'host-mng/img-mng/openstack-mng',
         path:'host-mng/img-mng/openstack-mng',
         component: OpenstackMngComponent
     },

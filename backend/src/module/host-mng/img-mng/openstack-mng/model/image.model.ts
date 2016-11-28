@@ -14,4 +14,5 @@ export class Image {
     selected:boolean;
     syncResult:string;
        
+    nameEditing:boolean;
 }

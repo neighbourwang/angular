@@ -4,7 +4,8 @@ import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService,
 
 import { Image } from'../model/image.model';
 import { OpenstackMngService} from '../service/openstack-mng.service';
-
+import { SelectedTenantListService } from '../service/selected-tenant-list.service';
+import { Tenant} from'../model/tenant.model';
 @Component({
     selector:"img-openstack-image-sync-ent",
     templateUrl:"../template/image-ent-sync-openStack.html",
@@ -19,7 +20,9 @@ export class OpenstackImageSyncEntComponent implements OnInit{
         private dicService: SystemDictionaryService,
         private service: OpenstackMngService,
         private layoutService: LayoutService,
-        private validationService: ValidationService
+        private validationService: ValidationService,
+        private tenantService: SelectedTenantListService
+
     ){}
 
     @ViewChild("notice")
@@ -36,13 +39,24 @@ export class OpenstackImageSyncEntComponent implements OnInit{
     images:Array<Image>;
     //syncImages:Array<SyncImage>;
     images_needsync:Array<Image>;
+    
+    postTenants:Array<Tenant>;//用于post的参数
+    
+    selectedTenantList:Array<Tenant>;//用户在上一个页面选择的企业列表
+    
+    selectedTenant:Tenant;//当前选择的企业，初始为空
+    defaultSelected:Tenant = new Tenant();//默认选择的企业
 
     typeDic: Array<SystemDictionary>;//镜像类型
     bits_typeDic: Array<SystemDictionary>;//系统位数
     ownerDic: Array<SystemDictionary>;//归属
     statusDic: Array<SystemDictionary>;//状态
     syncDic: Array<SystemDictionary>;//同步结果
+
     ngOnInit(){
+        this.selectedTenantList = this.tenantService.getList();
+        this.postTenants = this.selectedTenantList;
+
         this.dicService.getItems("IMAGES", "TYPE")
             .then(
             (dic) => {
@@ -73,9 +87,24 @@ export class OpenstackImageSyncEntComponent implements OnInit{
 			this.getSynImages();
 		});
     }
+
+    search(){
+        if(this.selectedTenant == this.defaultSelected){
+            //选择所有
+            this.postTenants = this.selectedTenantList;
+            this.getSynImages();
+        }else{
+            //选择了一个企业
+            this.postTenants = new Array<Tenant>();
+            this.postTenants.push(this.selectedTenant);
+            this.getSynImages();
+        }
+
+    }
+
     getSynImages():void{
         this.layoutService.show();
-        this.service.getSynImages_public( this.platformId)
+        this.service.getSynImages_ent( this.platformId, this.postTenants)
             .then(
                 response =>{
                     this.layoutService.hide();
@@ -150,9 +179,9 @@ export class OpenstackImageSyncEntComponent implements OnInit{
         this.noticeMsg = msg;
         this.notice.open();
     }
+   
     back(){
-        //this.router2.navigateByUrl("");
+        this.router2.navigate(['host-mng/img-mng/openstack-mng', {"platform_id": this.platformId,"platformName":this.platformName}]);
     }
-    
     
 }
