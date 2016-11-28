@@ -152,11 +152,11 @@
 		<td class="text-center">{{organ.status}}</td> 
 		<td class="text-center">{{organ.describtion}}</td>
 		<td class="text-center">
-            <span class="glyphicon glyphicon-edit font-green" (click)="confirm(organ,'edit')" style="margin-right : 10px "></span><!-- 编辑 -->
+            <span class="glyphicon glyphicon-edit font-green" (click)="statusChange(organ,'edit')" style="margin-right : 10px "></span><!-- 编辑 -->
             <!--<span class="glyphicon glyphicon-lock font-green" style="margin-right : 10px"></span>-->
-            <span class="glyphicon glyphicon-ok-circle font-green" (click)="confirm(organ,'start')" style="margin-right : 10px"></span> <!-- 启用 -->
-            <span class="glyphicon glyphicon-ban-circle font-orange" (click)="confirm(organ,'disabled')" style="margin-right : 10px"></span> <!-- 禁用 -->
-            <span class="glyphicon glyphicon-trash font-orange" (click)="confirm(organ,'delete')"></span> <!-- 删除 -->
+            <span class="glyphicon glyphicon-ok-circle font-green" (click)="statusChange(organ,'start')" style="margin-right : 10px"></span> <!-- 启用 -->
+            <span class="glyphicon glyphicon-ban-circle font-orange" (click)="statusChange(organ,'disabled')" style="margin-right : 10px"></span> <!-- 禁用 -->
+            <span class="glyphicon glyphicon-trash font-orange" (click)="statusChange(organ,'delete')"></span> <!-- 删除 -->
         </td>
 	</tr>
 </tbody></table>
@@ -179,6 +179,6 @@
   </div>
 </div>
 
-<fc-confirm  #confirm   title="{{confirmTitle}}"  msg="{{confirmMessage}}"  (cf)="confirm()"></fc-confirm>
+<fc-confirm  #confirm   title="{{confirmTitle}}"  msg="{{confirmMessage}}"  (cf)="confirmOk()"></fc-confirm>
 
 
