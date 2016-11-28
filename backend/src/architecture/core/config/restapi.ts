@@ -1071,16 +1071,10 @@ export let RestApis: RestApiModel[] = [
     
     }
     // 审批中心
+   
     ,{
         "desc": "查询待审批/已审批订单",
         "id": "check-center.not-checked.list",
-        "method": "POST",
-        "url": "/adminboe/authsec/backend/approval/order/{orderId}/operation/{operation}"
-    
-    }
-    ,{
-        "desc": "查询待审批/已审批订单",
-        "id": "check-center.has-checked.list",
         "method": "POST",
         "url": "adminui/authsec/backend/approval/order/search/paging"     
     }
