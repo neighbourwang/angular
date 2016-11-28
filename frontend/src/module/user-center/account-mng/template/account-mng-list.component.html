@@ -49,7 +49,7 @@
 				<h4 class="modal-title" id="myModalLabel">创建帐号</h4>
 			</div>
 			<div class="modal-body">
-				<account-mng-cr-local #crLocal [isEdit]="isEdit" [editId]="editId"></account-mng-cr-local>
+				<account-mng-cr-local #crLocal *ngIf="active" [isEdit]="isEdit" [editId]="editId"></account-mng-cr-local>
 				<!--<account-mng-cr-ad #crAd [isEdit]="isEdit"></account-mng-cr-ad>-->
 			</div>
 			<div class="modal-footer">

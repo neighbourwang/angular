@@ -35,7 +35,9 @@ export class AccountMngCrLocalComponent implements OnInit, OnChanges {
   account = new Account();
   roles: Array<Role>;
   orgs: Array<Organization>;
+  active:boolean;
   ngOnInit() {
+        
     console.log(this.editId);
     //获取所有角色
     this.service.getRoleList().then(
@@ -56,8 +58,6 @@ export class AccountMngCrLocalComponent implements OnInit, OnChanges {
       console.error(err);
     })
   }
-
-
   ngOnChanges(changes: SimpleChanges) {
     console.log(this.editId);
     if (this.isEdit) {
