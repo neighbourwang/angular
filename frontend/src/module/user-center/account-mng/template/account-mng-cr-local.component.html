@@ -7,18 +7,27 @@
                     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
                         <div class="col-md-2 content-title" style="text-align : center"><span class="asterisk">*</span>姓名</div>
                         <div class="col-md-8 no-padding form-group" [ngClass]="{'has-error': name.errors && (name.dirty || name.touched)}">
-                            <input class="form-control" placeholder="请输入姓名" type="text" [(ngModel)]="account.userName" name="name" id="name" required #name='ngModel'/>
+                            <input class="form-control" placeholder="请输入姓名" type="text" [(ngModel)]="account.userName" name="name" id="name" required
+                                #name='ngModel' />
                             <!--<span class="help-block" *ngIf="name.errors?.required">name不能为空</span>-->
+                            <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
+                                <div [hidden]="!name.errors.required">
+                                    姓名不能为空
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
                         <div class="col-md-2 content-title" style="text-align : center"><span class="asterisk">*</span>帐号</div>
                         <div class="col-md-8 no-padding" [ngClass]="{'has-error': email.errors && (email.dirty || email.touched)}">
-                            <input class="form-control" placeholder="请输入帐号" type="email" [(ngModel)]="account.loginName" name="email" id="email" #email='ngModel' 
+                            <input class="form-control" placeholder="请输入帐号" type="text" [(ngModel)]="account.loginName" name="email" id="email" #email='ngModel'
                                 required>
-                            <span class="help-block" *ngIf="email.errors?.pattern">请填写正确的email</span>
-                            <!--<span class="help-block" *ngIf="email.errors?.required">email不能为空</span>-->
+                            <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
+                                <div [hidden]="!email.errors.required">
+                                    账号不能为空
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -26,6 +35,11 @@
                         <div class="col-md-2 content-title" style="text-align : center"><span class="asterisk">*</span>电话</div>
                         <div class="col-md-8 no-padding" [ngClass]="{'has-error': phone.errors && (phone.dirty || phone.touched)}">
                             <input class="form-control" placeholder="请输入电话" type="phone" [(ngModel)]="account.phone" name="phone" required #phone="ngModel">
+                            <div *ngIf="phone.errors && (phone.dirty || phone.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
+                                <div [hidden]="!phone.errors.required">
+                                    电话不能为空
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-12 no-padding mgb15" style="height : 60px ; line-height : 35px">
@@ -46,7 +60,7 @@
                     <span>{{role?.name}}</span>
                 </label>
 
-                
+
 
             </td>
         </tr>
@@ -57,7 +71,7 @@
                     <input type="radio" class="fox-cloud-radio" (click)='selectOrg(idx)' value="option1" [checked]='account.organizations[0]?.id==org.id'> 
                     <span>{{org.name}}</span>
                 </label>
-                
+
 
                 <div class="font-green float-right" style="margin-top : 10px">
                     更多部门 >>
