@@ -40,7 +40,7 @@ export class CheckMngHascheckComponent implements OnInit{
 		,private _layoutService:LayoutService){
 
 		//列表数据加载
-		this._listLoader = new ItemLoader<CheckListItem>(true, "待审批列表", "check-center.has-checked.list", _restApiCfg, _restApi);
+		this._listLoader = new ItemLoader<CheckListItem>(true, "已审批列表", "check-center.not-checked.list", _restApiCfg, _restApi);
 		this._listLoader.MapFunc = (source:Array<any>, target:Array<CheckListItem>)=>{
 			let obj = new CheckListItem();
 			target.push(obj);
@@ -126,9 +126,16 @@ export class CheckMngHascheckComponent implements OnInit{
 		let param = _.extend({}, this._param);
 
 		//匹配后台搜索框参数
-        //param.searchText = this._param.queryParam;
-
-		
+		param.approvalStatus = 1;//approvalStatus代表已审批
+        param.quickSearchStr = this._param.quickSearchStr;//输入订单号快速查询 ？
+ 		param.enterpriseId = this._param.entIdStr; //企业enterpriseId
+		param.organization = this._param.departmentIdNum; //部门organization？
+		param.orderType = this._param.orderTypeNum;//订单类型orderType
+		param.serviceId = this._param.serviceTypeNum;//产品类型serviceId
+		param.createTime = this._param.startDateStr;//创建时间
+		param.expireTime = this._param.endDateStr; //结束时间
+		param.serviceId = this._param.submitUserId;		//提交者？
+			
 		param.pageParameter = {
 			currentPage:pageNum
 			,size:10

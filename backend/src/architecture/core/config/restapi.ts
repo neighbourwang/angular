@@ -1071,16 +1071,10 @@ export let RestApis: RestApiModel[] = [
     
     }
     // 审批中心
+   
     ,{
         "desc": "查询待审批/已审批订单",
         "id": "check-center.not-checked.list",
-        "method": "POST",
-        "url": "/adminboe/authsec/backend/approval/order/{orderId}/operation/{operation}"
-    
-    }
-    ,{
-        "desc": "查询待审批/已审批订单",
-        "id": "check-center.has-checked.list",
         "method": "POST",
         "url": "adminui/authsec/backend/approval/order/search/paging"     
     }
@@ -1150,6 +1144,13 @@ export let RestApis: RestApiModel[] = [
 
 
     ////云主机管理-镜像管理-
+    //镜像管理导航页
+    , {
+        "desc": "获取平台列表-img-index",
+        "id": "host-mng.img-index.platforms.list",
+        "method": "GET",
+        "url": "/adminboe/authsec/platforms/page/{page}/size/{size}"
+    }
     //openstack镜像管理
     , {
         "desc": "获取镜像列表-openstack",

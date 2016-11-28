@@ -4,7 +4,7 @@ export class platform {
     name: string;
     dataCenter: string;
     region: string;
-    type: number;
+    type: string;
     imagesNum: number;
     syncDate: string;
 }
