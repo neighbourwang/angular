@@ -2,6 +2,8 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+const ip = require('ip');
+
 import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, ValidationService } from '../../../../../architecture';
 
 //model 
@@ -116,6 +118,7 @@ export class IpMngListComponent implements OnInit{
         });
 
         this.getIpMngList();
+        console.log("127.0.0.1 is private network?", ip.isPrivate('127.0.0.1'))
     }
 
     getDcList() {

@@ -98,7 +98,7 @@ export const EnterpriseModel_mock = {
         },
         {
             "name": "BOE",
-            "id": "ef349044-3bfb-4b09-b804-30954b084e04"
+            "id": "191af465-b5dc-4992-a5c9-459e339dc719"
         }
     ]
 }

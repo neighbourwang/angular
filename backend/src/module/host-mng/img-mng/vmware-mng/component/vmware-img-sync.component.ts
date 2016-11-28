@@ -113,7 +113,6 @@ export class VmwareImgSyncComponent implements OnInit {
     }
 
     displayIt(tenants: Array<TenantModel>): String {
-        //console.log(tenants.length, "tenants.length")
         if (tenants.length == 0)
             return "all";
         else if (tenants.length == 1)
@@ -147,13 +146,10 @@ export class VmwareImgSyncComponent implements OnInit {
 
     getSelectedItems() {
         this.selectedsyncvmimgs = this.vmwaresyncimgs.filter(n=> { return (n.checked == true);});
-        //console.log(this.selectedsyncvmimgs, "=== Please see which one is selected ===");
         if (this.selectedsyncvmimgs.length != 0){
-            console.log("==========getSelectedItems 1=============");
             return this.selectedsyncvmimgs;
         }
         else {
-            console.log("==========getSelectedItems 2=============");
             this.showMsg("请选择相应的镜像");
             return null;
         }

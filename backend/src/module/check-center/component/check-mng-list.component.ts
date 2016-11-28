@@ -110,13 +110,32 @@ export class CheckMngListComponent implements OnInit{
 
 	showMsg(msg:string)
 	{
-		this._notice.open("系统", msg);
+		 this._notice.open("系统", msg);
+		
 	}
 
 	//搜索
 	search(pageNum:number = 1){
 
-		let param = {};
+		let param = _.extend({}, this._param);
+
+		
+        //匹配后台搜索框参数/authsec/backend/approval/orders/search/paging 
+		param.quickSearchStr = 0;//approvalStatus代表未审批
+        param.quickSearchStr = this._param.quickSearchStr;//输入订单号快速查询 ？
+ 		param.enterpriseId = this._param.entIdStr; //企业enterpriseId
+		param.organization = this._param.departmentIdNum; //部门organization？
+		param.orderType = this._param.orderTypeNum;//订单类型orderType
+		param.serviceId = this._param.serviceTypeNum;//产品类型serviceId
+		param.createTime = this._param.startDateStr;//创建时间
+		param.expireTime = this._param.endDateStr; //结束时间
+		param.serviceId = this._param.submitUserId;		//提交者？
+
+		
+		param.pageParameter = {
+			currentPage:pageNum
+			,size:10
+		};
 		this._layoutService.show();
 		this._listLoader.Go(pageNum, null, param)
 		.then(success=>{
@@ -127,7 +146,7 @@ export class CheckMngListComponent implements OnInit{
 		});
 
 	}
-
+	
 	//根据企业加载部门
 	entChanged(){
 		this._layoutService.show();
