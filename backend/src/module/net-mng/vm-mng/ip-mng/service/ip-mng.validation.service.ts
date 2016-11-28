@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ValidationService } from '../../../../../architecture';
 
+/*
+https://www.npmjs.com/package/ip
+*/
 const ip = require('ip');
 
 import 'rxjs/add/operator/toPromise';
