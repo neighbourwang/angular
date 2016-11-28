@@ -1,6 +1,8 @@
 import { Injectable, Optional } from '@angular/core';
 import { Http, Headers, RequestOptionsArgs, Response, Jsonp, URLSearchParams } from '@angular/http';
 
+import { environment } from '../../environments/environment';
+
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/timeout';
 
@@ -45,10 +47,7 @@ export class RestApi {
         let queryParameters = this.createQueryParams(queryParams);
         let headerParams = new Headers();
 
-        jwt = 'bearer f8ac410c-4fa5-4526-acee-c911dd6e16a2';
-        if (jwt) {
-            headerParams.append('Authorization', jwt);
-        }
+        headerParams.append('Authorization', environment.jwt);
 
         let requestOptions: RequestOptionsArgs = {
             method: type,
