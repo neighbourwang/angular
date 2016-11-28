@@ -1,6 +1,8 @@
 import { Injectable, Optional } from '@angular/core';
 import { Http, Headers, RequestOptionsArgs, Response, Jsonp, URLSearchParams } from '@angular/http';
 
+import { environment } from '../../environments/environment';
+
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/timeout';
 
@@ -45,9 +47,7 @@ export class RestApi {
         let queryParameters = this.createQueryParams(queryParams);
         let headerParams = new Headers();
 
-        if (jwt) {
-            headerParams.append('Authorization', jwt);
-        }
+        headerParams.append('Authorization', environment.jwt);
 
         let requestOptions: RequestOptionsArgs = {
             method: type,
@@ -58,7 +58,6 @@ export class RestApi {
             headerParams.append('Content-Type', 'application/json');
             requestOptions.body = JSON.stringify(body);
         }
-        
 
         let resData = this.http.request(path, requestOptions)
                                .timeout(100000, new Error('接口请求超时！'))
