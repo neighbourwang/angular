@@ -4,7 +4,8 @@
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
 export const environment = {
-  production: false,
-  baseIp : "",
-  basePort : ""
+	production: false,
+	baseIp : "",
+	basePort : "",
+	jwt : "bearer f8ac410c-4fa5-4526-acee-c911dd6e16a2"
 };

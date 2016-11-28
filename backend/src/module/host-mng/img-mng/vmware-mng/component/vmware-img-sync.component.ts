@@ -7,7 +7,6 @@ import { VmwareImgSyncModel, TenantModel } from '../model/vmware-img-list.model'
 
 //service
 import { VmwareImgSyncService } from '../service/vmware-img-sync.service';
-//import { VmwareEntListService } from '../service/enterprise-list.service';
 
 @Component({
     selector: "vmware-img-sync",
@@ -53,6 +52,7 @@ export class VmwareImgSyncComponent implements OnInit {
 
     platformId: string;
     vmwaresyncimgs: Array<VmwareImgSyncModel>;
+    selectedsyncvmimgs: Array<VmwareImgSyncModel>;
 
     ngOnInit() {
         this.dicService.getItems("IMAGES", "TYPE")
@@ -123,6 +123,42 @@ export class VmwareImgSyncComponent implements OnInit {
 
     }
 
+    //选择行
+    selectItem(index:number): void {
+        if(this.vmwaresyncimgs[index].checked == true)
+        {
+            this.vmwaresyncimgs[index].checked = false;
+            console.log(this.vmwaresyncimgs[index], "=== Unselected ===");
+        }
+        else if(this.vmwaresyncimgs[index].checked == false || this.validationService.isBlank(this.vmwaresyncimgs[index].checked))
+        {
+            this.vmwaresyncimgs[index].checked = true;
+            console.log(this.vmwaresyncimgs[index], "=== Selected ===");
+        } else {
+            console.log("Can't select/unselect the item!");
+        }
+        
+    }
+
+    UnselectItem(): void {
+        this.vmwaresyncimgs.map(n=> {n.checked = false;});
+        console.log(this.vmwaresyncimgs, "=== Please see all items are Unselected ===");
+    }
+
+    getSelectedItems() {
+        this.selectedsyncvmimgs = this.vmwaresyncimgs.filter(n=> { return (n.checked == true);});
+        //console.log(this.selectedsyncvmimgs, "=== Please see which one is selected ===");
+        if (this.selectedsyncvmimgs.length != 0){
+            console.log("==========getSelectedItems 1=============");
+            return this.selectedsyncvmimgs;
+        }
+        else {
+            console.log("==========getSelectedItems 2=============");
+            this.showMsg("请选择相应的镜像");
+            return null;
+        }
+    }
+
     getVmwareImgSyncList(): void {
         this.layoutService.show();
         this.syncService.getVmwareImgSyncList(this.platformId)
@@ -149,17 +185,16 @@ export class VmwareImgSyncComponent implements OnInit {
 
     VmwareSyncImages(): void {
         this.layoutService.show();
-        this.syncService.VmwareSyncImages(this.platformId)
+        this.getSelectedItems();
+        console.log(this.selectedsyncvmimgs, "[[[[[[[[[[马上要同步的镜像]]]]]]]]]]");
+        this.syncService.VmwareSyncImages(this.platformId, this.selectedsyncvmimgs)
             .then(
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    //this.vmwaresyncimgs = response.resultContent;
-                    //console.log(this.vmwaresyncimgs, "vmwaresyncimgs!!!");
                 } else {
-                    alert("Res sync error");
-
+                    this.showAlert("Res sync error");
                 }
             }
             )

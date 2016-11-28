@@ -55,7 +55,7 @@ export let RestApis: RestApiModel[] = [
      * Cloud-Host Instance List
      */
     {
-        "desc": "获取云主机列表",
+        "desc": "获取云主机列表 - 弃用",
         "method": "GET",
         "id": "hosts.instance.get",
         "url": "marketplace/authsec/subinstance/itemlist/vm/page/{page}/size/{size}"
@@ -101,6 +101,18 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "id": "disk.search.page",
         "url": "marketplace/authsec/subinstance/itemlist/disk/search/page"
+    },
+    {
+        "desc": "获取云主机列表",
+        "method": "POST",
+        "id": "vm.search.page",
+        "url": "marketplace/authsec/subinstance/itemlist/vm/search/page"
+    },
+    {
+        "desc": "获取云主机标签",
+        "method": "GET",
+        "id": "instance.labels",
+        "url": "marketplace/authsec/instance/labels"
     },
     //镜像管理部分
     {
@@ -185,7 +197,7 @@ export let RestApis: RestApiModel[] = [
     },
     {
         "desc" : "编辑账户本地",
-        "id" : "user-center.account-mng.edit",
+        "id" : "user-center.account-mng.editLocal",
         "method" : "PUT",
         "url" : "basis/authsec/mpp/user/{id}"
     },
@@ -219,10 +231,84 @@ export let RestApis: RestApiModel[] = [
         "method" : "DELETE",
         "url" : "basis/authsec/mpp/user/{id}"
     },
+    //账号管理
     {
         "desc" : "用户中心，帐号管理，帐号创建，获取所有角色",
         "id" : "user-center.account-mng.create.roleList",
         "method" : "GET",
         "url" : "basis/authsec/mpp/roles/page/{page}/size/{size}"
-    }
+    },
+    {
+        "desc" : "用户中心，帐号管理，帐号创建，获取所有机构",
+        "id" : "user-center.account-mng.create.orgList",
+        "method" : "GET",
+        "url" : "basis/authsec/mpp/organizations/page/{page}/size/{size}"
+    },
+    {
+        "desc": "创建账户",
+        "method": "POST",
+        "id": "user-center.account-mng.create.post",
+        "url": "marketplace/authsec/mpp/user"        
+    },
+    {
+        "desc" : "用户中心，帐号管理，帐号编辑，获取账号详情",
+        "id" : "user-center.account-mng.detail",
+        "method" : "GET",
+        "url" : "basis/authsec/mpp/user/{id}"
+    },
+    //  {
+    //     "desc" : "用户中心，帐号管理，帐号编辑，PUT",
+    //     "id" : "user-center.account-mng.editLocal",
+    //     "method" : "PUT",
+    //     "url" : "basis/authsec/mpp/user/{id}"
+    // },
+    //组织管理
+     {
+        "desc": "获取所有机构",
+        "id": "user-center.org-mng.list",
+        "method": "GET",
+        "url": "basis/authsec/mpp/organizations/page/{page}/size/{size}"
+    },
+    {
+        "desc": "删除机构",
+        "id": "user-center.org-mng.delete",
+        "method": "DELETE",
+        "url": "basis/authsec/mpp/organization/{id}"
+    },
+    {
+        "desc": "启用机构",
+        "id": "user-center.org-mng.enable",
+        "method": "PUT",
+        "url": "basis/authsec/mpp/organization/{id}/enable"
+    },
+    {
+        "desc": "禁用机构",
+        "id": "user-center.org-mng.disable",
+        "method": "PUT",
+        "url": "basis/authsec/mpp/organization/{id}/disable"
+    },
+    {
+        "desc": "创建机构",
+        "id": "user-center.org-mng.create",
+        "method": "POST",
+        "url": "basis/authsec/mpp/organization"
+    },
+    {
+        "desc": "获得单个机构",
+        "id": "user-center.org-mng.account.get",
+        "method": "GET",
+        "url": "basis/authsec/mpp/organization/{id}"
+    },
+    {
+        "desc": "获得机构下的成员",
+        "id": "user-center.org-mng.user-by-org.list",
+        "method": "GET",
+        "url": "basis/authsec/mpp/users/organization/{id}"
+    },
+     {
+        "desc" : "编辑机构",
+        "id" : "user-center.org-mng.edit",
+        "method" : "PUT",
+        "url" : "basis/authsec/mpp/organization/{id}"
+    },
 ]

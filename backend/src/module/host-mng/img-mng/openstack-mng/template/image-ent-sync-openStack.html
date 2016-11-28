@@ -1,0 +1,92 @@
+<div class="page-content-header icon-content-header-purchasing"> 镜像管理</div>
+<div class="page-content">
+    <table class="table table-hover ">
+        <thead>
+            <tr>
+                <th style="text-align:left;">同步企业镜像：XXX云平台(类型：OpenStack)</th>
+                <th style="text-align:right;">
+                    <button class=" fox-cloud-button fox-cloud-button-white " key="boe/image-mng.html">
+                        <span class="icon-button-label" >返回镜像管理列表</span>
+                    </button>
+                </th>
+            </tr>
+        </thead>
+    </table>
+     <div class="mgt20 ">
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">所属企业：</span>       
+        <div class="float-left pdr20">
+            <select class="pdl10 form-control">
+                <option value="1">选择企业</option>
+                <option value="1">BOE-CIO总部</option>
+                <option value="1">BOE信管中心</option>                
+            </select>
+        </div>
+    </div>  
+    <div style="clear:both"></div>
+      <div class="table-container mgt20" >
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>选择</th>
+                    <th>编号</th>
+                    <th>镜像名</th>
+                    <th>镜像显示名称</th>
+                    <th>操作系统</th>
+                    <th>系统位数</th>
+                    <th>镜像类型</th>
+                    <th>所属企业</th>
+                    <th>同步结果</th>
+                </tr>            
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="radio" name="radio" class="fox-cloud-radio"></td>
+                    <td>1</td>
+                    <td>windows2012dc</td>
+                    <td><input type="text" placeholder="windows2012dc" style="padding:0"></td>
+                    <td><input type="text" style="padding:0" ></td>
+                    <td>
+                        <select>
+                            <option>32位</option>
+                            <option>64位</option>
+                        </select>
+                    </td>
+                    <td>企业镜像</td>
+                    <td>CIO</td>
+                    <td class="font-green">新增</td>
+                </tr>
+                <tr>
+                    <td><input type="radio" name="radio" class="fox-cloud-radio"></td>
+                    <td>2</td>
+                    <td>windows2012dc</td>
+                    <td>windows2012 Datacenter R2</td>
+                    <td>windows2012 R2</td>
+                    <td>64</td>
+                    <td>企业镜像</td>
+                    <td>B1</td>
+                    <td class="font-green">更新</td>
+                </tr>
+                <tr>
+                    <td><input type="radio" name="radio" class="fox-cloud-radio"></td>
+                    <td>3</td>
+                    <td>rdlh</td>
+                    <td>RedHat7.0</td>
+                    <td>RedHat7.0</td>
+                    <td>64</td>
+                    <td>企业镜像</td>
+                    <td>CIO</td>
+                    <td class="font-orange">未发现</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="text-center " style="margin-top:40px">
+    <button class="fox-cloud-button-lg fox-cloud-button-white">
+        <span class="icon-button-label">取消</span>
+    </button>     
+    <button class="fox-cloud-button-lg fox-cloud-button-white">
+        <span class="icon-button-label">同步</span>
+    </button>
+</div>

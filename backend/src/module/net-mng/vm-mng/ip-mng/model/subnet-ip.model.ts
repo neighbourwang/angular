@@ -9,7 +9,7 @@ export class subnetIpModel {
 
     subnetCIDR: string;
     gateway: string;
-    ips: string;
+    ips: Array<string>;
 
     toString(){
         return JSON.stringify(this);

@@ -192,7 +192,7 @@ const menu: Array<any> = [
                 "routing": ""
             },
             {
-                "label": "订单管理",
+                "label": "已购服务管理",
                 "isOpen": false,
                 "routing": "op-center/order-mng/order-mng"
             }

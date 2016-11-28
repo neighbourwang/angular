@@ -4,7 +4,8 @@ import { RestApiCfg, RestApi } from "../../../../architecture";
 
 import { Admin } from "../model/admin.model";
 
-import { enterprises, createAdminRes, updateAdminRes, getAdminByIdRes, adadminList } from "../model/enterprise-mock.model";
+import { enterprises, createAdminRes, updateAdminRes, getAdminByIdRes, adadminList } from
+    "../model/enterprise-mock.model";
 
 import "rxjs/add/operator/toPromise";
 
@@ -23,6 +24,18 @@ export class EntAdminCreService {
         this.restApiCfg.loadCfgData();
     }
 
+    getEnterpriseById(id: string): Promise<any> {
+        const pathParams = [
+            {
+                key: "enterpriseId",
+                value: id
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("ent-mng.admin.enterprise.simple.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        // return new Promise(resovle => setTimeout(resovle, 200)).then(() => enterpriseOne);
+    }
+
     getAdminById(id: String): Promise<any> {
 
         const pathParams = [
@@ -36,31 +49,11 @@ export class EntAdminCreService {
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => getAdminByIdRes);
     }
 
-    getEnterprise(): Promise<any> {
-
-        const pathParams = [
-            {
-                key: "page",
-                value: 1
-            },
-            {
-                key: "size",
-                value: 999
-            }
-
-        ];
-
-        const api = this.restApiCfg.getRestApi("ent-mng.admin.cre.enterprise.get");
-        return this.restApi.request(api.method, api.url, pathParams, null, null);
-
-        // return new Promise(resovle => setTimeout(resovle, 200)).then(() => enterprises);
-    }
-
     createAdmin(admin: Admin): Promise<any> {
 
         const pathParams = [
             {
-                key: "enterprise",
+                key: "enterpriseId",
                 value: admin.enterpriseId
             }
         ];
@@ -69,7 +62,7 @@ export class EntAdminCreService {
         return this.restApi.request(api.method, api.url, pathParams, null, admin);
 
 
-       // return new Promise(resovle => setTimeout(resovle, 200)).then(() => createAdminRes);
+        // return new Promise(resovle => setTimeout(resovle, 200)).then(() => createAdminRes);
     }
 
     updateAdmin(admin: Admin): Promise<any> {
@@ -85,12 +78,9 @@ export class EntAdminCreService {
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => updateAdminRes);
     }
 
-    getEnterpriseADAdmins(enterpriseId: string, pageIndex: number, pageSize: number): Promise<any> {
+    //获取认证源列表
+    getAttests(pageIndex: number, pageSize: number, eid: string): Promise<any> {
         const pathParams = [
-            {
-                key: "enterpriseId",
-                value: enterpriseId
-            },
             {
                 key: "page",
                 value: pageIndex
@@ -98,12 +88,32 @@ export class EntAdminCreService {
             {
                 key: "size",
                 value: pageSize
+            },
+            {
+                key: "enterpriseId",
+                value: eid
             }
         ];
-        const api = this.restApiCfg.getRestApi("ent-mng.enterprise.adadmin.get");
-        return this.restApi.request(api.method, api.url,pathParams,null,null);
-        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => adadminList);
+
+        const api = this.restApiCfg.getRestApi("ent-mng.enterprise.ldap.list");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => attests);
     }
 
-}
+    //编辑帐号
+    editAccount(id: string, account) {
+        let api = this.restApiCfg.getDataRestApi("user-center.account-mng.local.edit");
 
+        return this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined, account);
+    }
+
+    //获取AD用户表
+    getAdUser(ldapid: string, pageIndex: number, pageSize: number, filterStr: string) {
+        let api = this.restApiCfg.getDataRestApi("user-center.account-mng.aduser.get");
+        let opt = {
+            "filter": filterStr
+        }
+        return this.restApi.request(api.method, api.url, [{ key: "ldapid", value: ldapid }, { key: "page", value: pageIndex }, { key: "size", value: pageSize }], undefined, opt);
+    }
+  
+}

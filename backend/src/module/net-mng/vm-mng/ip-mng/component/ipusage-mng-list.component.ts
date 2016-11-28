@@ -138,14 +138,14 @@ export class IpUsageMngListComponent implements OnInit{
         this.UnselectItem();
     }
 
-    getIpUsageMngList( id: string, ipusagequery? ): void {
-        if (this.validationService.isBlank(id)){
+    getIpUsageMngList( pg_id: string, ipusagequery? ): void {
+        if (this.validationService.isBlank(pg_id)){
             this.showAlert("请选择相应的dataCenter");
             return;
         }
         this.layoutService.show();
         //this.service.getIpMngList(this.query, this.pageIndex, this.pageSize)
-        this.service.getIpUsageMngList( id )
+        this.service.getIpUsageMngList( pg_id )
         .then(
             response => {
                 this.layoutService.hide();
@@ -202,7 +202,7 @@ export class IpUsageMngListComponent implements OnInit{
             this.selectedip = ip;
             console.log(this.selectedip.id);
             console.log(this.pg_id);
-            if(this.selectedip.status == "1"){
+            if(this.selectedip.status == this.statusDic.find(n => n.code == "OCCUPIED").value){
                 this.showMsg("IP已被占用");
                 return; 
             }
@@ -228,7 +228,7 @@ export class IpUsageMngListComponent implements OnInit{
         if(ip){
             this.selectedip = ip;
             console.log(this.selectedip.id);
-            if (this.selectedip.status == "2") {
+            if (this.selectedip.status == this.statusDic.find(n => n.code == "FREE").value) {
                 this.showMsg("IP未被占用，无法释放");
                 return;
             }

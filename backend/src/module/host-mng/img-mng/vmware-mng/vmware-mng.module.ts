@@ -9,10 +9,13 @@ import { VmwareMngRouting } from './vmware-mng.routing';
 //Components
 import { VmwareImgListComponent } from './component/vmware-img-list.component';
 import { VmwareImgSyncComponent } from './component/vmware-img-sync.component';
+import { VmwareImgEntSetupComponent } from './component/vmware-img-ent-setup.component';
 
 //Service
 import { VmwareImgListService } from './service/vmware-img-list.service';
 import { VmwareEntListService } from './service/enterprise-list.service';
+import { VmwareImgEntSetupService } from './service/vmware-img-ent-setup.service';
+
 
 @NgModule({
     imports: [
@@ -21,15 +24,18 @@ import { VmwareEntListService } from './service/enterprise-list.service';
     ],
     declarations: [
         VmwareImgListComponent,
-        VmwareImgSyncComponent
+        VmwareImgSyncComponent,
+        VmwareImgEntSetupComponent
     ],
     exports: [
         VmwareImgListComponent,
-        VmwareImgSyncComponent
+        VmwareImgSyncComponent,
+        VmwareImgEntSetupComponent
     ],
     providers: [
         VmwareImgListService,
-        VmwareEntListService
+        VmwareEntListService,
+        VmwareImgEntSetupService
     ]
 
 })

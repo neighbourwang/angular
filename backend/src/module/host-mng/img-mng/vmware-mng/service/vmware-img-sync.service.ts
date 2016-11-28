@@ -35,13 +35,13 @@ export class VmwareImgSyncService{
         ];
         
         /*
-        const api = this.restApiCfg.getRestApi("host-mng.img-mng.vmware-mng.vmware-img.list");
+        const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.sync-image.list");
         return this.restApi.request(api.method, api.url, pathParams, null, null);
         */
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return VmwareImgSyncModel_mock });
     }
 
-    VmwareSyncImages(platformId: string): Promise<any>{
+    VmwareSyncImages(platformId: string, selectedsyncvmimgs: Array<VmwareImgSyncModel>): Promise<any> {
         const pathParams = [
             {
                 key: "platformId",
@@ -49,10 +49,15 @@ export class VmwareImgSyncService{
 
             }
         ];
-        
+        console.log(selectedsyncvmimgs, "((((((((((((((((((selectedsyncvmimgs))))))))))))))))))")
+
+        const obj = {
+            "imageList": selectedsyncvmimgs
+        };
+
         /*
-        const api = this.restApiCfg.getRestApi("host-mng.img-mng.vmware-mng.vmware-img.list");
-        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.sync-image.sync");
+        return this.restApi.request(api.method, api.url, pathParams, null, obj);
         */
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });
     }

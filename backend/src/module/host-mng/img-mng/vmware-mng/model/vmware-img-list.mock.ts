@@ -7,7 +7,8 @@ export const VmwareImgModel_mock = {
             "name": "windows",
             "displayName": "我的windows",
             "os": "CentOS",
-            "bitesType": "0",
+            "bitsType": "0",
+            "capacity": "50G",
             "type": "0",
             "tenants": [
             ],
@@ -20,7 +21,7 @@ export const VmwareImgModel_mock = {
             "displayName": "windows 2016",
             "os": "CentOS 2016",
             "bitsType": "0",
-            "size": "50G",
+            "capacity": "50G",
             "type": "0",
             "tenants": [
             ],
@@ -33,7 +34,7 @@ export const VmwareImgModel_mock = {
             "displayName": "windows for BOE",
             "os": "CentOS BOE",
             "bitsType": "1",
-            "size": "50G",
+            "capacity": "50G",
             "type": "1",
             "tenants": [
                 {
@@ -50,7 +51,7 @@ export const VmwareImgModel_mock = {
             "displayName": "我的windows",
             "os": "CentOS MINE",
             "bitsType": "0",
-            "size": "50G",
+            "capacity": "50G",
             "type": "2",
             "tenants": [
                 {
@@ -109,32 +110,32 @@ export const VmwareImgSyncModel_mock = {
     "detailDescription": null,
     "resultContent": [
         {
-            "id": "ef349044-3bfb-4b09-b804-30954b084eaa",
+            "uuid": "ef349044-3bfb-4b09-b804-30954b084eaa",
             "name": "windows-2016",
             "displayName": "windows 2016",
             "os": "CentOS 2016",
             "bitsType": "0",
-            "size": "50G",
+            "capacity": "50G",
             "type": "0",
             "syncResult": "0"
         },
         {
-            "id": "ef349044-3bfb-4b09-b804-30954b084ebb",
+            "uuid": "ef349044-3bfb-4b09-b804-30954b084ebb",
             "name": "windows-boe",
             "displayName": "windows for BOE",
             "os": "CentOS BOE",
             "bitsType": "1",
-            "size": "50G",
+            "capacity": "50G",
             "type": "1",
             "syncResult": "1"
         },
         {
-            "id": "ef349044-3bfb-4b09-b804-30954b084ecc",
+            "uuid": "ef349044-3bfb-4b09-b804-30954b084ecc",
             "name": "windows-customized",
             "displayName": "我的windows",
             "os": "CentOS MINE",
             "bitsType": "0",
-            "size": "50G",
+            "capacity": "50G",
             "type": "2",
             "syncResult": "1"
         }

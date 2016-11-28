@@ -550,6 +550,16 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.order-renew.get",
         "method": "POST",
         "url": "adminui/authsec/order/{orderId}/renew"
+    }, {
+        "desc": "续订费用",
+        "id": "op-center.order-mng.order-renew-price.get",
+        "method": "GET",
+        "url": "marketplace/authsec/subscription/instance/{_subId}/price"
+    }, {
+        "desc": "订单退订",
+        "id": "op-center.order-mng.order-cancel.get",
+        "method": "GET",
+        "url": "adminui/authsec/shopping/subinstance/{_subId}/cancel"
     },
 
     //<!--后台-运营中心-订单管理-->
@@ -559,7 +569,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "分页获取所有产品目录",
         "id": "prod-mng.prod-dir-mng.list.get",
         "method": "POST",
-        "url": "adminui/authsec/services/page/{page}/size/{size}"
+        "url": "adminui/authsec/services/pagging"
     },
     {
         "desc": "获取所有已激活云平台, 为下拉框准备",
@@ -717,8 +727,26 @@ export let RestApis: RestApiModel[] = [
         "url": "basis/authsec/adm/user/{id}"
     },
     {
+        "desc": "用户中心 查询符合条件的AD用户",
+        "id": "user-center.account-mng.aduser.get",
+        "method": "POST",
+        "url": "basis/authsec/ldap/{ldapid}/adusers/page/{page}/size/{size}"
+    },
+    {
         "desc": "查询单个帐号",
         "id": "user-center.account-mng.local.get",
+        "method": "GET",
+        "url": "basis/authsec/adm/user/{id}"
+    },
+    {
+        "desc": "创建帐号（AD）",
+        "id": "user-center.account-mng.ad.create",
+        "method": "POST",
+        "url": "basis/authsec/aduser"
+    },
+    {
+        "desc": "获取AD帐号详情",
+        "id": "user-center.account-mng.ad.get",
         "method": "GET",
         "url": "basis/authsec/adm/user/{id}"
     },
@@ -801,6 +829,7 @@ export let RestApis: RestApiModel[] = [
         "method" : "GET",
         "url" : "basis/authsec/adm/menu/tree"
     },
+    
     //个人账户管理
     {
         "desc": "获取当前登录账户信息",
@@ -933,9 +962,23 @@ export let RestApis: RestApiModel[] = [
         "url": "adminboe/authsec/vmware/network/getlist"
     },
     {
+        "desc": "获取DC/Cluster值",
+        "id": "net-mng.vmware.querycondition.get",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/queryCondition"
+
+    },
+    {
+        "desc": "获取IP子网信息或IP范围",
+        "id": "net-mng.vmware.subnetinfo-ips.get",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/portGroup/{portGroup_id}"
+
+    },
+    {
         "desc": "获取IP地址管理列表",
         "id": "net-mng.vmware.ipmng.list",
-        "method": "POST",
+        "method": "GET",
         "url": "adminboe/authsec/vmware/network/portGroup"
     },
     {
@@ -960,7 +1003,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "设置IP子网",
         "id": "net-mng.vmware.subnet.setup",
         "method": "PUT",
-        "url": "adminboe/authsec/vmware/network/portGroup"
+        "url": "adminboe/authsec/vmware/network/portGroup/{portGroup_id}/subnet"
     },
     {
         "desc": "设置子网IP范围",
@@ -1106,6 +1149,36 @@ export let RestApis: RestApiModel[] = [
         "id": "host-mng.openstack-mng.image.list",
         "method": "POST",
         "url": "/adminui/authsec/images/openstack/{platformId}/page/{page}/size/{size}"
+    },
+    {
+        "desc": "镜像openstack保存编辑",
+        "id": "host-mng.openstack-mng.image.saveedit",
+        "method": "PUT",
+        "url": "/adminui/authsec/images/openstack/{platformId}/page/{page}/size/{size}"
+    },
+    {
+        "desc": "镜像openstack启用禁用",
+        "id": "host-mng.openstack-mng.image.EDable",
+        "method": "PUT",
+        "url": "/adminui/authsec/image/{id}/{status}"
+    },
+    {
+        "desc": "企业下拉列表",
+        "id": "host-mng.openstack-mng.image.tenantlist",
+        "method": "GET",
+        "url": "/adminui/authsec/images/{platformId}/tenants/dropdown"
+    },
+    {
+        "desc": "Openstack_同步公共镜像_获取镜像列表",
+        "id": "host-mng.openstack-mng.image.sync-public.getlist",
+        "method": "GET",
+         "url": "/adminui/authsec/images/openstack/pub/{platformId}"
+    },
+    {
+        "desc": "Openstack_同步公共镜像_同步",
+        "id": "host-mng.openstack-mng.image.sync-public.sync",
+        "method": "POST",
+         "url": "/adminui/authsec/images/openstack/pub/{platformId}/sync"
     }
     //vmware镜像管理
     , {

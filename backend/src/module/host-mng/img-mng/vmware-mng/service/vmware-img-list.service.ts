@@ -41,28 +41,51 @@ export class VmwareImgListService{
                 value: pageSize
             }
         ];
+        const obj = {
+                "type": queryOpt.type,
+                "tenantId": queryOpt.tenantId
+            };
         
         /*
         const api = this.restApiCfg.getRestApi("host-mng.img-mng.vmware-mng.vmware-img.list");
-        return this.restApi.request(api.method, api.url, pathParams, null, 
-            {
-                "type": criteriaQuery.type,
-                "tenantId": criteriaQuery.tenantId
-            }
-        );
+        return this.restApi.request(api.method, api.url, pathParams, null, obj);
         */
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return VmwareImgModel_mock });
     }
 
     enableImage(img_id: string, status: string): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("host-mng.img-mng.vmware-mng.vmware-img.list");
-        //return this.restApi.request(api.method, api.url, null, null, null);
+        /*
+        const pathParams = [
+            {
+                key: "id",
+                value: img_id
+            },
+            {
+                key: "status",
+                value: status
+            }            
+        ];
+        //const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.image.enable-disable");
+        //return this.restApi.request(api.method, api.url, pathParams, null, null);
+        */
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });
     }
 
     disableImage(img_id: string, status: string): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("host-mng.img-mng.vmware-mng.vmware-img.list");
-        //return this.restApi.request(api.method, api.url, null, null, null);
+        /*
+        const pathParams = [
+            {
+                key: "id",
+                value: img_id
+            },
+            {
+                key: "status",
+                value: status
+            }            
+        ];
+        //const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.image.enable-disable");
+        //return this.restApi.request(api.method, api.url, pathParams, null, null);
+        */
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });
     }
 
@@ -74,16 +97,15 @@ export class VmwareImgListService{
                 value: image.id
             }
         ];
-        const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.image.edit");
-        return this.restApi.request(api.method, api.url, pathParams, null,
-            {
+        const obj = {
                 "displayName" : image.displayName,
                 "os" : image.os,
                 "bitsType" : image.bitsType,
                 "type" : image.type,
                 "description" : image.description
-            }
-        );
+        };
+        const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.image.edit");
+        return this.restApi.request(api.method, api.url, pathParams, null, obj);
         */
 
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });

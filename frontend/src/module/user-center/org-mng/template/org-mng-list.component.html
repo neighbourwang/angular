@@ -131,7 +131,7 @@
 </div>
 
 <div class="mgb20" style="overflow : hidden">
-    <button class="btn button-confirm float-right" (click)="openCreate()">创建帐号</button>
+    <button class="btn button-confirm float-right" (click)="openCreate()">创建部门</button>
 </div>
 
 <table class="table table-hover mgb20">
@@ -144,19 +144,19 @@
 		<th class="text-center" style="width : 10%">描述</th>
 		<th class="text-center" style="width : 25%">操作</th>
 	</tr>
-	<tr>
-		<td class="text-center"><input name="host-list" type="radio"></td>
-		<td class="text-center active">管理员</td>
-		<td class="text-center">5</td>
-		<td class="text-center">章三</td>
-		<td class="text-center">启用</td> 
-		<td class="text-center">描述</td>
+	<tr *ngFor='let organ of orgs;let idx=index'>
+		<td class="text-center"><input name="host-list" type="radio" class="fox-cloud-radio"></td>
+		<td class="text-center active">{{organ.name}}</td>
+		<td class="text-center">{{organ.headCount}}</td>
+		<td class="text-center">{{organ.leaderName}}</td>
+		<td class="text-center">{{organ.status}}</td> 
+		<td class="text-center">{{organ.describtion}}</td>
 		<td class="text-center">
-            <span class="glyphicon glyphicon-edit font-green" (click)="openEdit()" style="margin-right : 10px "></span><!-- 编辑 -->
+            <span class="glyphicon glyphicon-edit font-green" (click)="confirm(organ,'edit')" style="margin-right : 10px "></span><!-- 编辑 -->
             <!--<span class="glyphicon glyphicon-lock font-green" style="margin-right : 10px"></span>-->
-            <span class="glyphicon glyphicon-ok-circle font-green" (click)="enable()" style="margin-right : 10px"></span> <!-- 启用 -->
-            <span class="glyphicon glyphicon-ban-circle font-orange" (click)="disable()" style="margin-right : 10px"></span> <!-- 禁用 -->
-            <span class="glyphicon glyphicon-trash font-orange" (click)="delete()"></span> <!-- 删除 -->
+            <span class="glyphicon glyphicon-ok-circle font-green" (click)="confirm(organ,'start')" style="margin-right : 10px"></span> <!-- 启用 -->
+            <span class="glyphicon glyphicon-ban-circle font-orange" (click)="confirm(organ,'disabled')" style="margin-right : 10px"></span> <!-- 禁用 -->
+            <span class="glyphicon glyphicon-trash font-orange" (click)="confirm(organ,'delete')"></span> <!-- 删除 -->
         </td>
 	</tr>
 </tbody></table>
@@ -179,9 +179,6 @@
   </div>
 </div>
 
-<fc-confirm #confirm 
-            title="{{confirmTitle}}" 
-            msg="{{confirmMessage}}" 
-            (cf)="confirmOk()"></fc-confirm>
+<fc-confirm  #confirm   title="{{confirmTitle}}"  msg="{{confirmMessage}}"  (cf)="confirm()"></fc-confirm>
 
 

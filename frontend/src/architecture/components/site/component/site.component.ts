@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../../../core/service/layout.service';
 import { SystemDictionaryService } from '../../../../architecture';
+import { UserService } from '../../../core/service/user.service';
+
+
 
 @Component({
   selector: 'fc-root',
@@ -13,7 +16,8 @@ export class SiteComponent implements OnInit{
   
   constructor (
     private layoutService: LayoutService,
-    private dictService: SystemDictionaryService
+    private dictService: SystemDictionaryService,
+    private userService: UserService
   ) { }
   
   ngOnInit() {
@@ -22,5 +26,6 @@ export class SiteComponent implements OnInit{
   }
   preLoad(){
     this.dictService.get();  //初始化获取所有的数据字典
+    // this.userService.loginService();
   }
 }

@@ -21,7 +21,10 @@ export class cloudDriveListComponent implements OnInit {
 	@ViewChild('notice')
 	private noticeDialog: NoticeComponent;
 
-	totalPages: number = 0;
+	@ViewChild('platformZone') platformZone;
+
+	list : QuiryDistList = new QuiryDistList();
+	saveList : QuiryDistList = new QuiryDistList();   //储存点，重置搜索时会返回到这个点
   
 	modalTitle: string = '';
 	modalMessage: string = '';
@@ -29,7 +32,6 @@ export class cloudDriveListComponent implements OnInit {
 
 	areaConfig = [];   //区域
 	superSearch: boolean = false;   //高级搜索开关
-	quiryDistList : QuiryDistList;
 	distList : DistList[];
 
 	constructor(
@@ -37,38 +39,50 @@ export class cloudDriveListComponent implements OnInit {
 		private router: Router,
 		private service: cloudDriveServiceList
 	) {
-		this.quiryDistList = new QuiryDistList();
-		this.quiryDistList.pageParameter.size = 5;  //设置页数
 	}
 	ngOnInit() {
 		// this.setArea();
-		this.setHostList();
+		this.setDiskList();
 	}
 
-	setHostList(): void {
+	setDiskList(): void {
 		// this.layoutService.show();
-		this.service.getDistList(this.quiryDistList).then(res => {
+		this.service.getDistList(this.list).then(res => {
 			if (res.resultCode !== "100") {
 				throw "";
 			}
 			// this.layoutService.hide();
-			this.totalPages = res.pageInfo.totalPage;
+			this.list.pageParameter.totalPage = res.pageInfo.totalPage;
 			return res.resultContent;
 		}).then(list => {
 			this.distList = list;
 		}).catch(error => {
-			this.layoutService.hide();
+			// this.layoutService.hide();
 		});
 
 	}
 
-	platformClick(data){
-		console.log(data);
+	
+	platformClick(data) {   //选择区域列表
+		this.list.platformId = data.area.id;
+		// this.list.zoneId = data.zone.zoneId;
+		this.saveList.platformId = data.area.id;
+		// this.saveList.zoneId =  data.zone.zoneId;
 	}
 
 	//云主机的操作相关
 	handleVm() {
 		
+	}
+
+	resetSearch(){   //重置搜索
+		this.list = Object.assign({}, this.saveList);
+		this.platformZone.reset();
+	}
+	search() {    //搜索
+		console.log(this.list)
+
+		this.setDiskList();
 	}
 
 	goTo(url : string) {
@@ -99,13 +113,13 @@ export class cloudDriveListComponent implements OnInit {
 	changePage(page: number) {
 
 		page = page < 1 ? 1 : page;
-		page = page > this.totalPages ? this.totalPages : page;
+		page = page > this.list.pageParameter.totalPage ? this.list.pageParameter.totalPage : page;
 
-		if (this.quiryDistList.pageParameter.currentPage == page) {
+		if (this.list.pageParameter.currentPage == page) {
 			return;
 		}
 
-		this.quiryDistList.pageParameter.currentPage = page;
-		this.setHostList();
+		this.list.pageParameter.currentPage = page;
+		this.setDiskList();
 	}
 }

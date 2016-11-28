@@ -4,7 +4,10 @@ import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent, ConfirmComponent} from '../../../../architecture';
 
 import { OrgMngCrComponent } from './org-mng-cr.component';
-
+//service
+import { OrgMngService } from '../service/org-mng.service';
+//model
+import { Org ,OrgPer} from '../model/org-mng.org.model';
 
 
 @Component({
@@ -13,91 +16,148 @@ import { OrgMngCrComponent } from './org-mng-cr.component';
   styleUrls: [],
   providers: []
 })
-export class OrgMngListComponent implements OnInit {
-  
+export class OrgMngListComponent implements OnInit {  
   constructor(
     private layoutService: LayoutService,
-    private router: Router
+    private router: Router,
+    private service:OrgMngService
   ) {}
-
-
-  confirmTitle : string;
-  confirmMessage : string;
-  confirmType : number; // 0 启用 1 禁用 2 删除
-  isEdit : boolean = false;
 
   @ViewChild('confirm')
   private confirmDialog: ConfirmComponent;
 
+  @ViewChild('notice')
+  private notice:NoticeComponent;
+
   @ViewChild('crModel')
   private crModel : OrgMngCrComponent;
 
+    // 机构列表
+    orgs : Array<Org> = new Array<Org>();
+    // 被选中的当前机构
+    org : Org = new Org();
+    // 平台数据总页数
+    tp:number = 0;
+    // 每页显示的数据条数
+    pp:number = 10;
 
-  ngOnInit() {
-    
-  }
+    // confirm 的头部 
+    confirmTitle : string;
+    // confirm 的内容
+    confirmMessage : string;
+    // confirm 的类型 判断是 禁用 启用 删除
+    confirmType : string;
+    confirmOrg:OrgPer;
+    isEdit : boolean = false;
+    ngOnInit() {
+        this.getOrg(0 , this.pp);
+    }
+    getOrg(page : number , size : number){
+        this.service.getOrg(page,size).then(
+            res => {
+                this.orgs = res.resultContent;
+                let pageInfo = res.pageInfo;
+                this.tp = pageInfo.totalPage;
+                console.log(this.orgs);
+            }
+        ).catch(
+            err => {
+                console.error(err);
+            }
+        )
+    }
 
+    paging(page){
+        this.getOrg(page, 10);
+    }
+ 
 
-  confirmOk(){
-    switch(this.confirmType){
-      case 0 :
+  confirm(org,type){
+    console.log(org)
+    console.log(type)
+    this.confirmOrg=org;
+    switch(type){
+      case 'start' :
         console.log('启用');
-        break;
-      case 1 : 
-        console.log('禁用');
-        break;
-      case 2 :
+           this.confirmTitle = "启用部门";
+           this.confirmMessage = "您选择启用${org.name}，请确认";
+           this.confirmDialog.open();
+           this.confirmType = type;
+           break;
+      case 'edit' : 
+            this.isEdit = true;
+            $('#crModel').modal('show')
+          break;
+      case 'delete' :
         console.log('删除');
+           this.confirmTitle = "删除部门";
+           this.confirmMessage = "您选择删除${org.name}，请确认。如果确认，部门将删除且该部门中的用户将被移除";
+           this.confirmDialog.open();
+           this.confirmType = type;
+           break;
+      case 'disabled' :
+        console.log('禁用');
+            this.confirmTitle = "禁用部门";
+            this.confirmMessage = "您选择禁用${org.name}，，请确认。如果确认，机构成员将无法操作相关资源";
+            this.confirmDialog.open();
+            this.confirmType = type;
     }
   }
-
-  //启用
-  enable(){
-    this.confirmTitle = "启用部门";
-    this.confirmMessage = "您选择启用xxx，请确认";
-    this.confirmDialog.open();
-    this.confirmType = 0;
+  //确认操作
+  confirmOk(){
+        switch(this.confirmType){
+            case 'start' :
+              this.service.enableOrg(this.confirmOrg.id).then(
+                  res => {
+                    console.log(res);
+                    this.getOrg(0, 10);
+                  }
+                ).catch(
+                      err => {
+                        console.error(err);
+                      }
+                )
+              break;
+             case 'delete' :
+                this.service.deleteOrg(this.confirmOrg.id).then(
+                    res => {
+                      console.log(res);
+                      this.getOrg(0, 10);
+                    }
+                  ).catch(
+                        err => {
+                          console.error(err);
+                        }
+                  )
+                  break;
+              case 'disabled' :
+                  this.service.disableOrg(this.confirmOrg.id).then(
+                        res => {
+                          console.log(res);
+                          this.getOrg(0, 10);
+                        }
+                      ).catch(
+                            err => {
+                              console.error(err);
+                            }
+                      )      
   }
-
-  //禁用
-  disable(){
-    this.confirmTitle = "禁用部门";
-    this.confirmMessage = "您选择禁用xxx，请确认。如果确认，机构成员将无法操作相关资源";
-    this.confirmDialog.open();
-    this.confirmType = 1;
-  }
-
-  //删除
-  delete (){
-    this.confirmTitle = "删除部门";
-    this.confirmMessage = "您选择删除xxx，请确认。如果确认，部门将删除且该部门中的用户将被移除";
-    this.confirmDialog.open();
-    this.confirmType = 2;
-  }
-
-  //编辑
-  openEdit (){
-    console.log('edit');
-    this.isEdit = true;
-    $('#crModel').modal('show')
-  }
+} 
 
   //创建
-  openCreate (){
-    console.log('create');
-    this.isEdit = false;
-    $('#crModel').modal('show')
-  }
+  // openCreate (){
+  //   console.log('create');
+  //   this.isEdit = false;
+  //   $('#crModel').modal('show')
+  // };
   // 弹出框 点击确认
-  updata(){
-    this.crModel.save();
-    if(this.isEdit){
-      console.log('edit');
-    }else{
-      console.log('create');
-    }
-    $('#crModel').modal('hide');
-  }
-
-  
+  // updata(){
+  //   this.crModel.save();
+  //   if(this.isEdit){
+  //     console.log('edit');
+  //   }else{
+  //     console.log('create');
+  //   }
+  //   $('#crModel').modal('hide');
+  // } 
 }

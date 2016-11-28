@@ -10,6 +10,8 @@ export class Image {
     tenants: Array<Tenant>;
     status:string;
     description:string;
-
-        
+    capacity:number;
+    selected:boolean;
+    syncResult:string;
+       
 }

@@ -1,65 +1,80 @@
 <h1 class="page-content-header mgb20">帐号管理</h1>
 <div class="mgb20" style="overflow : hidden">
-    <div class="input-group col-md-2 float-left">
-        <input class="form-control" [(ngModel)]="keyword" (keyup.enter)="search()" placeholder="输入帐号信息快速搜索" type="text">
-        <div class="input-group-addon"  (click)="search()"><span class="glyphicon glyphicon-search"></span></div>
-		</div>
-	
+	<div class="input-group col-md-2 float-left">
+		<input class="form-control" [(ngModel)]="keyword" (keyup.enter)="search()" placeholder="输入帐号信息快速搜索" type="text">
+		<div class="input-group-addon" (click)="search()"><span class="glyphicon glyphicon-search"></span></div>
+	</div>
 
-    <button class="btn button-confirm float-right" data-toggle="modal" (click)="create()">创建帐号</button>
+
+	<button class="btn button-confirm float-right" data-toggle="modal" (click)="create()">创建帐号</button>
 </div>
 
 <table class="table table-hover mgb20">
-	<tbody><tr>
-		<!--<th class="text-center" style="width : 5%">选择</th>-->
-		<th class="text-center" style="width : 10%">姓名</th>
-		<th class="text-center" style="width : 15%">帐号</th>
-		<th class="text-center" style="width : 10%">联系电话</th>
-		<th class="text-center" style="width : 10%">所属部门</th> 
-		<th class="text-center" style="width : 10%">角色</th>
-		<th class="text-center" style="width : 10%">状态</th>
-		<th class="text-center" style="width : 25%">操作</th>
-	</tr>
-	<tr *ngFor="let account of accounts;let idx = index">
-		<!--<td class="text-center"><input name="host-list" type="radio"></td>-->
-		<td class="text-center active">{{account.userName}}</td>
-		<td class="text-center">{{account.loginName}}</td>
-		<td class="text-center">{{account.phone}}</td>
-		<td class="text-center">销售</td> 
-		<td class="text-center">部门负责人</td>
-		<td class="text-center">启用</td>
-		<td class="text-center">
-            <span class="glyphicon glyphicon-edit font-green" (click)="edit(account.id,idx)"style="margin-right : 10px "></span>
-            <!--<span class="glyphicon glyphicon-lock font-green" style="margin-right : 10px"></span>-->
-            <span class="glyphicon glyphicon-ok-circle font-green" (click)="enable(account.id,idx)" style="margin-right : 10px"></span>
-            <span class="glyphicon glyphicon-ban-circle font-orange" (click)="disable(account.id,idx)" style="margin-right : 10px"></span>
-            <span class="glyphicon glyphicon-trash font-orange" (click)="delete(account.id,idx)"></span>
-        </td>
-	</tr>
-</tbody></table>
+	<tbody>
+		<tr>
+			<!--<th class="text-center" style="width : 5%">选择</th>-->
+			<th class="text-center" style="width : 10%">姓名</th>
+			<th class="text-center" style="width : 15%">帐号</th>
+			<th class="text-center" style="width : 10%">联系电话</th>
+			<th class="text-center" style="width : 10%">所属部门</th>
+			<th class="text-center" style="width : 10%">角色</th>
+			<th class="text-center" style="width : 10%">状态</th>
+			<th class="text-center" style="width : 25%">操作</th>
+		</tr>
+		<tr *ngFor="let account of accounts;let idx = index">
+			<!--<td class="text-center"><input name="host-list" type="radio"></td>-->
+			<td class="text-center active">{{account.userName}}</td>
+			<td class="text-center">{{account.loginName}}</td>
+			<td class="text-center">{{account.phone}}</td>
+			<td class="text-center">销售</td>
+			<td class="text-center">部门负责人</td>
+			<td class="text-center">启用</td>
+			<td class="text-center">
+				<span class="glyphicon glyphicon-edit font-green" (click)="edit(account,idx)" style="margin-right : 10px "></span>
+				<!--<span class="glyphicon glyphicon-lock font-green" style="margin-right : 10px"></span>-->
+				<span class="glyphicon glyphicon-ok-circle font-green" (click)="enable(account.id,idx)" style="margin-right : 10px"></span>
+				<span class="glyphicon glyphicon-ban-circle font-orange" (click)="disable(account.id,idx)" style="margin-right : 10px"></span>
+				<span class="glyphicon glyphicon-trash font-orange" (click)="delete(account.id,idx)"></span>
+			</td>
+		</tr>
+	</tbody>
+</table>
 
 
 <div class="modal fade" id="crModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-	<div class="modal-content">
-	  <div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		<h4 class="modal-title" id="myModalLabel">创建帐号</h4>
-	  </div>
-	  <div class="modal-body"> 
-          <account-mng-cr-local></account-mng-cr-local>
-          <!--<account-mng-cr-ad #crAd [isEdit]="isEdit"></account-mng-cr-ad>-->
-      </div>
-	  <div class="modal-footer">
-		<button type="button" class="btn button-confirm button-size-big" (click)="save()">确定</button>
-		<button type="button" class="btn btn-default button-size-big" data-dismiss="modal">取消</button>
-	  </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">创建帐号</h4>
+			</div>
+			<div class="modal-body">
+				<account-mng-cr-local #crLocal [isEdit]="isEdit" [editId]="editId"></account-mng-cr-local>
+				<!--<account-mng-cr-ad #crAd [isEdit]="isEdit"></account-mng-cr-ad>-->
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn button-confirm button-size-big" (click)="save()">确定</button>
+				<button type="button" class="btn btn-default button-size-big" data-dismiss="modal">取消</button>
+			</div>
+		</div>
 	</div>
-  </div>
 </div>
 
-
-<fc-confirm #confirm 
-            title="{{confirmTitle}}" 
-            msg="{{confirmMessage}}" 
-            (cf)="confirmOk()"></fc-confirm>
+<fc-pagination #pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
+<fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMessage}}" (cf)="confirmOk()"></fc-confirm>
+<fc-popup #creAccount title="{{title}}" ot="创建" (of)="otCreate()" ct="取消" (cf)="ccf()">
+	<div class="row row-line-height">
+		<div class="form-group">
+			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>选择账号类别：</div>
+			<div class="col-sm-6">
+				<!--<select class="form-control" [(ngModel)]="entResQuota">
+                    <option *ngFor="let item of regions;" [value]="item.id">云主机服务</option>
+                </select>-->
+				<select class="form-control" [(ngModel)]="accountType">
+                    <option value="1">本地账号</option>
+                    <option value="2">AD账号</option>
+                </select>
+			</div>
+		</div>
+	</div>
+</fc-popup>
