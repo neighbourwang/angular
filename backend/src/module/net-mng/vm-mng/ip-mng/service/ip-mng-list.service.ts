@@ -56,7 +56,7 @@ export class IpMngListService {
 
 	updateSubnetIPs(portGroup:string, ippool: subnetIpModel): Promise <any> {
 		//API CALL
-        //*
+        /*
         const pathParams = [
             {
                 key: "portGroup_id",
@@ -68,12 +68,12 @@ export class IpMngListService {
         console.log(ippool.ips, "ippool.ips")
         return this.restApi.request(api.method, api.url, pathParams, null, ippool.ips);
         //*/
-		//return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
+		return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
 	}
 
     updateSubnet(portGroup: string, subn: subnetModel): Promise<any> {
         //API CALL
-        //*
+        /*
         const pathParams = [
             {
                 key: "portGroup_id",
@@ -92,7 +92,7 @@ export class IpMngListService {
             }
         );
         //*/
-        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
     }
 
     getDCList(): Promise<any> {

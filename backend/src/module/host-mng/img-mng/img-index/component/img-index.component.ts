@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, } from '@angular/core';
+﻿import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { RestApi, RestApiCfg, LayoutService, PaginationComponent, NoticeComponent,ValidationService, SystemDictionaryService, SystemDictionary } from '../../../../../architecture';
 
@@ -45,13 +45,13 @@ export class ImgIndexComponent implements OnInit {
     
     ngOnInit() {
        
-        //this.dicservice.getitems("platform", "type")
-        //    .then(
-        //    dic => {
-        //        this.typedic = dic;
-        //        this.getPlatforms();
-        //    });
-        this.getPlatforms();
+        this.dicService.getItems("PLATFORM", "TYPE")
+            .then(
+            dic => {
+                this.typeDic = dic;
+                this.getPlatforms();
+            });
+        
     }
 
     getPlatforms(pageIndex?) {
@@ -93,7 +93,7 @@ export class ImgIndexComponent implements OnInit {
         }
     }
 
-    //根据value获取字典的txt
+    //鏍规嵁value鑾峰彇瀛楀吀鐨則xt
     getDicText(value: string, dic: Array<SystemDictionary>): String {
         const d = dic.find((e) => {
             return e.value == value;
@@ -116,6 +116,6 @@ export class ImgIndexComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("获取数据失败");
     }
 }

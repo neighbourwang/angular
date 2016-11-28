@@ -18,14 +18,14 @@
                 <tr *ngFor="let plf of platforms">
                     <td>{{plf.id}}</td>
                    
-                    <td><a href="javascript:void(0);" (click)="choosePage(plf);" key="boe/image-mng-openStack-list.html">{{plf.name}}</a></td>
+                    <td><a href="javascript:void(0);" (click)="choosePage(plf);">{{plf.name}}</a></td>
                     <td>{{plf.dataCenter}}</td>
                     <td>{{plf.region}}上海</td>
-                    <td>{{plf.type}}</td>
+                    <td class="font-green">{{getDicText(plf.type,this.typeDic)}}</td>           
                     <td>{{plf.imagesNum}}</td>
-                    <td class="font-green">{{plf.syncDate}}</td>                   
+                    <td>{{plf.syncDate}}</td>                  
                 </tr> 
-                <!--getDicText(plf.type,this.typeDic)-->           
+                    
             </tbody>
         </table>
     </div>
