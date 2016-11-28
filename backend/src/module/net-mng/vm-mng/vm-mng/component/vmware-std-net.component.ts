@@ -60,10 +60,11 @@ export class VmwareStdNetComponent implements OnInit {
 
     ngOnInit() {
         this.getDcList();
+       
         this.dicService.getItems("PORTGROUP", "STATUS")
             .then(
             dic => {
-                this.statusDic = dic;
+               this.statusDic = dic;
                 this.getData();
             });
     }

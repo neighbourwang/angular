@@ -31,8 +31,8 @@ export class ImgIndexService {
                 value: pageSize
             }
         ];
-        //const api = this.restApiCfg.getRestApi("host-mng.img-index.platforms.list");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => platforms_mock);
+        const api = this.restApiCfg.getRestApi("host-mng.img-index.platforms.list");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => platforms_mock);
     }
 }

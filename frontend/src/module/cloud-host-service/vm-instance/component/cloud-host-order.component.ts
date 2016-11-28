@@ -20,6 +20,7 @@ export class cloudHostComponentOrder implements OnInit {
 	sendModule: SendModule;
 	setPassword: boolean = true;
 
+
 	@ViewChild('cartButton') cartButton;
 	// timeForever : boolean = false;
 
@@ -107,7 +108,6 @@ export class cloudHostComponentOrder implements OnInit {
 	setConfigList(): void {
 		this.layoutService.show();
 		this.service.getHostConfigList().then(configList => {
-			console.log(configList)
 			configList.attrList.forEach(config => {
 				// 设置配置列表
 				const attrName = config.attrCode.toLowerCase();
@@ -116,6 +116,7 @@ export class cloudHostComponentOrder implements OnInit {
 				this.setSenModule(config);
 			});
 			this.sendModule.username.attrValue = "root";
+			console.log(this.sendModule, this.configs)
 
 			this.skuMap = configList.skuMap;
 		}).then(res => {
@@ -173,10 +174,12 @@ export class cloudHostComponentOrder implements OnInit {
 
 	con(value) {
 		console.log(value)
+
 	}
 	parseInt(value) {
 		return parseInt(value);
 	}
+
 
 	checkInput() {
 
