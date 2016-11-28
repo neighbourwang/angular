@@ -13,6 +13,8 @@ import { cloudHostListComponent } from './component/cloud-host-list.component';
 
 import { cloudHostComponentOrder } from './component/cloud-host-order.component';
 
+import { subAddStorageComponent } from './component/sub-add-storage.component';
+
 import { CloudHostComponents } from '../components/cloud-host-components.module';
 
 
@@ -35,13 +37,15 @@ import { cloudHostServiceList } from './service/cloud-host-list.service';
     ],
     declarations: [
         cloudHostListComponent,
-        cloudHostComponentOrder
+        cloudHostComponentOrder,
+        subAddStorageComponent
     ],
     exports: [
     ],
     providers: [
         cloudHostServiceOrder,
         cloudHostServiceList,
+        subAddStorageComponent
     ]
 
 })
