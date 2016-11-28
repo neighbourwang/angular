@@ -45,12 +45,13 @@ export class ImgIndexComponent implements OnInit {
     
     ngOnInit() {
        
-        this.dicService.getItems("PLATFORM", "TYPE")
-            .then(
-            dic => {
-                this.typeDic = dic;
-                this.getPlatforms();
-            });
+        //this.dicservice.getitems("platform", "type")
+        //    .then(
+        //    dic => {
+        //        this.typedic = dic;
+        //        this.getPlatforms();
+        //    });
+        this.getPlatforms();
     }
 
     getPlatforms(pageIndex?) {
@@ -72,8 +73,8 @@ export class ImgIndexComponent implements OnInit {
     }
 
     choosePage(plf:platform) {
-        const openstack = [0, 1];
-        const vmware = [2];
+        const openstack = ['0', '1'];
+        const vmware = ['2'];
 
         if (openstack.indexOf(plf.type) >-1) {
             this.router.navigate([
