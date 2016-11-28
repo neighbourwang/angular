@@ -11,7 +11,6 @@ export class UserService {
         private http:Http
     ) {
         this.resetData();
-        // this.loginService();
     }
 
     login(userId: string, password: string) {
@@ -33,21 +32,5 @@ export class UserService {
         this.userName = '';
         this.accessToken = '';
         this.loginFlg = false;
-    }
-
-    loginService(){
-        console.log(this.http)
-        let username='gavin@hpe.com',
-            password='12345';
-        let data='grant_type=password'+'&username='+username+'&password='+password;
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        this.http.post('15.114.100.52:30077/uaa/oauth/token',data,{headers:headers}).map(res => res.json())
-            .subscribe(
-             data => console.log(data),
-             err => console.error(err),
-            () => console.log('login Complete')
-            )
-
     }
 }
