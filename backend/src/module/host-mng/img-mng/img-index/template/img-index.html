@@ -21,10 +21,11 @@
                     <td><a href="javascript:void(0);" (click)="choosePage(plf);" key="boe/image-mng-openStack-list.html">{{plf.name}}</a></td>
                     <td>{{plf.dataCenter}}</td>
                     <td>{{plf.region}}上海</td>
-                    <td>{{ getDicText(plf.type,this.typeDic)}}</td>
+                    <td>{{plf.type}}</td>
                     <td>{{plf.imagesNum}}</td>
                     <td class="font-green">{{plf.syncDate}}</td>                   
-                </tr>              
+                </tr> 
+                <!--getDicText(plf.type,this.typeDic)-->           
             </tbody>
         </table>
     </div>

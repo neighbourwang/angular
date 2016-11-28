@@ -1,5 +1,5 @@
 <link src="image-mng-openStack.less">
-<div class="page-content-header icon-content-header-purchasing"> 镜像管理----XXXXX(平台名称)  
+<div class="page-content-header icon-content-header-purchasing"> 镜像管理-{{platformName}}  
     <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" key="boe/image-mng.html">
         返回镜像管理列表
     </button>
@@ -64,24 +64,24 @@
                     
                     <td >{{image.name}}</td>
                     <td style="position:relative">{{image.displayName}}
-                        <!--<span class="pull-right icon-edit2"></span>
-                        <div class="popover fade bottom in" role="tooltip" style="z-index:-3;top:25px; left:150px; width:370px; max-width:1100px; display: block;">
+                        <span class="pull-right icon-edit2" (click)="openEidtDisplayName(image);image.nameEditing=true;"></span>
+                        <div *ngIf="image.nameEditing"class="popover fade bottom in" role="tooltip" style="position:absolute;top:30px; left:30px; width:370px; max-width:1100px; display: block;">
                                 <div class="arrow" style="left: 30%;"></div>
                                 <div class="popover-content">
                                     <form class="form-horizontal" role="form">
                                         <div class="form-group">
                                             <label class="col-sm-4 control-label">镜像显示名称:</label>
                                             <div class="col-sm-8 float-left">
-                                            <input type="text">
+                                            <input type="text" [(ngModel)]="temp2.displayName" name ="displayName">
                                             </div>
                                         </div>
                                     </form>
                                 <div class="pull-right" style="margin-bottom:10px;">
-                                    <button class=" fox-cloud-button fox-cloud-button-white">保存</button>
-                                    <button class="fox-cloud-button fox-cloud-button-white">取消</button>
+                                    <button class=" fox-cloud-button fox-cloud-button-white"(click)="updateEditDisplayName(image)">保存</button>
+                                    <button class="fox-cloud-button fox-cloud-button-white"(click)="image.nameEditing=false;">取消</button>
                                 </div>
                             </div>                              
-                    </div>-->
+                    </div>
                     </td>
                     <td >{{image.os}}</td>
                     <td >{{getDicText(image.bitesType,this.bits_typeDic)}}</td>
@@ -162,26 +162,16 @@
                     <tr>
                         <th>选择</th>
                         <th>企业</th>
-                        <th>OpenStack企业名</th>
                     </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let tenant of tenants">
-                    <td><input type="checkbox" class="foc-cloud-checkbox"></td>
+                    <td><input type="checkbox" class="foc-cloud-checkbox" [checked]="tenant.selected" (change)="tenant.selected = $event.target.checked"></td>
                     <td>{{tenant.name}}</td>
-                    <td>Project_CIO_001</td>
                 </tr>
                 </tbody>
             </table>
             </div>
-            <!--<div class="text-center " style="margin-top:40px">
-                <button class="fox-cloud-button-lg fox-cloud-button-white">
-                    <span class="icon-button-label">取消</span>
-                </button>     
-                <button class="fox-cloud-button-lg fox-cloud-button-white">
-                    <span class="icon-button-label">提交</span>
-                </button>
-            </div>-->
 </fc-popup> 
 
 

@@ -1,11 +1,12 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {  Router,ActivatedRoute,Params  } from '@angular/router';
 import { RestApi, RestApiCfg, LayoutService, NoticeComponent,PopupComponent, ValidationService, PaginationComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../../architecture';
 
 import { Image } from '../model/image.model';
 import { CriteriaQuery} from '../model/criteria-query.model';
 import { OpenstackMngService} from '../service/openstack-mng.service';
 import { Tenant } from'../model/tenant.model';
+import { SelectedTenantListService } from '../service/selected-tenant-list.service';
 @Component({
     selector:"img-openstack-mng",
     templateUrl:"../template/image-mng-openStack-list.html",
@@ -16,11 +17,13 @@ import { Tenant } from'../model/tenant.model';
 export class OpenstackMngComponent implements OnInit{
 
     constructor(
-        private router: Router,
-        private dicService: SystemDictionaryService,
+        private router: ActivatedRoute,
+        private router2: Router,
+        //private dicService: SystemDictionaryService,
         private service: OpenstackMngService,
         private layoutService: LayoutService,
-        private validationService: ValidationService
+        private validationService: ValidationService,
+        private tenantService: SelectedTenantListService
         ){
     }
     images:Array<Image>;
@@ -58,28 +61,37 @@ export class OpenstackMngComponent implements OnInit{
 
     selectedImage:Image = null;
     tempEditImage:Image = new Image();
+    temp2:Image = new Image();
 
     ngOnInit(){
-        this.dicService.getItems("IMAGES", "TYPE")
-            .then(
-            (dic) => {
-                this.typeDic = dic;
-                return this.dicService.getItems("IMAGES", "BITS_TYPE");
-            })
-            .then((dic) => {
-                this.bits_typeDic = dic;
-                return this.dicService.getItems("IMAGES", "OWNER");
-            })
-            .then((dic) => {
-                this.ownerDic = dic;
-                return this.dicService.getItems("IMAGES", "ADM_STATUS");
-            })
-            .then((dic) => {
-                this.statusDic = dic;
-                this.getTenants();
-                this.getImages();
+        this.router.params.forEach((params: Params) => {
+			this.platformId = params['platformId'];
+            this.platformName = params['platformName'];
+			console.log("接收的platform_id:" + this.platformId);
+            console.log("接收的platformName:" + this.platformName);
+		});
+        // this.dicService.getItems("IMAGES", "TYPE")
+        //     .then(
+        //     (dic) => {
+        //         this.typeDic = dic;
+        //         return this.dicService.getItems("IMAGES", "BITS_TYPE");
+        //     })
+        //     .then((dic) => {
+        //         this.bits_typeDic = dic;
+        //         return this.dicService.getItems("IMAGES", "OWNER");
+        //     })
+        //     .then((dic) => {
+        //         this.ownerDic = dic;
+        //         return this.dicService.getItems("IMAGES", "ADM_STATUS");
+        //     })
+        //     .then((dic) => {
+        //         this.statusDic = dic;
+        //         this.getTenants();
+        //         this.getImages();
                 
-            });
+        //     });
+            this.getTenants();
+            this.getImages();
     }
 
     getTenants(){
@@ -214,9 +226,69 @@ export class OpenstackMngComponent implements OnInit{
         this.confirm.open();
     }
 
+    //修改显示名称的弹出框
+    openEidtDisplayName(image:Image){
+        this.closeEditDisplayName();
+        let temp:Image = new Image();
+        temp.id = image.id;
+        temp.name = image.name;
+        temp.displayName = image.displayName;
+        temp.os = image.os;
+        temp.bitesType = image.bitesType;
+        temp.type = image.type;
+        temp.tenants = image.tenants;
+        temp.status = image.status;
+        temp.description = image.description;
+        temp.nameEditing = image.nameEditing;
+        temp.selected = image.selected;
+        this.temp2 = temp;
+        
+    }
+    //关闭所有修改显示名称的弹出窗口
+    closeEditDisplayName() {
+        this.images.map((image) => {
+            image.nameEditing = false;
+        });
+    }
+    //更新显示名称
+    updateEditDisplayName(image:Image){
+        if (this.validationService.isBlank(this.temp2.displayName)) {
+            this.showAlert("镜像显示名称不能为空");
+            return;
+        }
+        this.layoutService.show();
+        this.service.saveEditImage(this.temp2)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    let c = this.temp2;
+                    image.id = c.id;
+                    image.name = c.name;
+                    image.displayName = c.displayName;
+                    image.os = c.os;
+                    image.bitesType = c.bitesType;
+                    image.type = c.type;
+                    image.tenants = c.tenants;
+                    image.status = c.status;
+                    image.description = c.description;
+                    image.selected =c.selected;
+
+                    image.nameEditing = false;
+
+
+                    this.editImage.close();
+                } else {
+                    alert("Res sync error");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
 
     ////弹出编辑框
     createEdit(){
+        this.closeEditDisplayName();
         if(!this.selectedImage){
             this.showAlert("请先选择要编辑的镜像");
         }else{
@@ -231,6 +303,7 @@ export class OpenstackMngComponent implements OnInit{
             temp.status = this.selectedImage.status;
             temp.description = this.selectedImage.description;
 
+            temp.nameEditing = this.selectedImage.nameEditing;
             temp.selected = this.selectedImage.selected;
             this.tempEditImage= temp;
             this.editImage.open('编辑镜像');
@@ -266,7 +339,19 @@ export class OpenstackMngComponent implements OnInit{
     }
     //进入同步企业页面
     commitSynTe(){
-        this.router.navigate(['host-mng/img-mng/openstack-mng/img-openstack-image-sync-ent', {"platformId": this.platformId,"platformName":this.platformName}]);
+        let tlist:Array<Tenant> = new Array<Tenant>();
+        this.tenants.forEach((t)=>
+            {
+                if(t.selected){
+                    tlist.push(t);
+                }
+            });
+        if(!tlist && tlist.length>0){
+            this.tenantService.setList(tlist);
+            this.router2.navigate(['host-mng/img-mng/openstack-mng/img-openstack-image-sync-ent', {"platformId": this.platformId,"platformName":this.platformName}]);
+        }else{
+
+        }
     }
     cancelCommitSynTe(){
         
@@ -298,6 +383,6 @@ export class OpenstackMngComponent implements OnInit{
     }
     //同步公共镜像
     syncPublic(){
-        this.router.navigate(['host-mng/img-mng/openstack-mng/img-openstack-image-sync-public', {"platform_id": this.platformId,"platformName":this.platformName}]);
+        this.router2.navigate(['host-mng/img-mng/openstack-mng/img-openstack-image-sync-public', {"platform_id": this.platformId,"platformName":this.platformName}]);
     }
 }
