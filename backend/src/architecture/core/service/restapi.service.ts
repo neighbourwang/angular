@@ -51,7 +51,8 @@ export class RestApi {
 
         const queryParameters = this.createQueryParams(queryParams);
         const headerParams = new Headers();
-
+        
+        jwt = 'bearer f8ac410c-4fa5-4526-acee-c911dd6e16a2';
         if (jwt) {
             headerParams.append("Authorization", jwt);
         }

@@ -45,6 +45,7 @@ export class RestApi {
         let queryParameters = this.createQueryParams(queryParams);
         let headerParams = new Headers();
 
+        jwt = 'bearer f8ac410c-4fa5-4526-acee-c911dd6e16a2';
         if (jwt) {
             headerParams.append('Authorization', jwt);
         }
@@ -58,7 +59,6 @@ export class RestApi {
             headerParams.append('Content-Type', 'application/json');
             requestOptions.body = JSON.stringify(body);
         }
-        
 
         let resData = this.http.request(path, requestOptions)
                                .timeout(100000, new Error('接口请求超时！'))
