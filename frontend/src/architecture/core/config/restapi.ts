@@ -311,4 +311,10 @@ export let RestApis: RestApiModel[] = [
         "method" : "PUT",
         "url" : "basis/authsec/mpp/organization/{id}"
     },
+     {
+        "desc": "获取未管理人员列表",
+        "id": "user-center.org-mng.nomnguser.list",
+        "method": "GET",
+        "url": "basis/authsec/mpp/users/nonorganization/page/{page}/size/{size}"
+    },
 ]

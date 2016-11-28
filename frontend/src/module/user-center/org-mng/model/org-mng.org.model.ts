@@ -17,7 +17,9 @@ class Member {
       "name": string;
       "orgs": Array<Organization>;
       "phone":string
-      "roles": Array<Role>;
+      "roles": Array<Role>; 
+      "type":number;
+      "userName":string;
     }
 class Platform {
       "dataCenter": string;
@@ -56,5 +58,6 @@ class OrgPer{
 }
 export {
   Org,
-  OrgPer
+  OrgPer,
+  Member
 }

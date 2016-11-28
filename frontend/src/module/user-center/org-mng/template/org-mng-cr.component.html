@@ -20,8 +20,9 @@
                 <div class="col-md-12 no-padding">
                     <div class="col-md-2 content-title" style="text-align : center">部门成员</div>
                     <div class="col-md-8 no-padding">
-                        <label class="checkbox-inline" style="margin-left : 0;margin-right : 20px;margin-bottom : 10px">
-                            <input type="checkbox" id="inlineCheckbox1" value="option1" > 张三
+                        <label class="checkbox-inline" style="margin-left : 0;margin-right : 20px;margin-bottom : 10px"
+                        *ngFor="let member of members">
+                            <input type="checkbox" id="inlineCheckbox1" value="membe.id"  (click)="selectMember(member)"/> {{member.userName}}
                         </label>
 
                     </div>
@@ -36,7 +37,7 @@
             </td>
         </tr>
         <tr>
-            <th class="col-md-1 col-xs-3 text-center">配置设置</th>
+            <th class="col-md-1 col-xs-3 text-center">配额设置</th>
             <td>
                 <div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
                     <div class="col-md-2 content-title" style="text-align : center">云主机数量</div>
@@ -71,7 +72,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
                     <div class="col-md-2 content-title" style="text-align : center">存储额度</div>
                     <div class="col-md-10 no-padding">
