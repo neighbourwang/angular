@@ -1,130 +1,94 @@
 <div>
     <table class="cm-table-left">
-        <tbody><tr>
-            <th class="col-md-1 col-xs-3 text-center">基本信息</th>
-            <td>
-                <div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
-                    <div class="col-md-2 content-title" style="text-align : center">部门名称</div>
-                    <div class="col-md-8 no-padding">
-                        <input class="form-control" placeholder="请输入部门名称" type="text">
+        <tbody>
+            <tr>
+                <th class="col-md-1 col-xs-3 text-center">基本信息</th>
+                <td>
+                    <div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
+                        <div class="col-md-2 content-title" style="text-align : center">部门名称</div>
+                        <div class="col-md-8 no-padding">
+                            <input class="form-control" placeholder="请输入部门名称" type="text">
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
-                    <div class="col-md-2 content-title" style="text-align : center">部门负责人</div>
-                    <div class="col-md-8 no-padding">
-                        <input class="form-control" placeholder="请输入部门负责人" type="text">
+                    <div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
+                        <div class="col-md-2 content-title" style="text-align : center">部门负责人</div>
+                        <div class="col-md-8 no-padding">
+                            <input class="form-control" placeholder="请输入部门负责人" type="text">
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-md-12 no-padding">
-                    <div class="col-md-2 content-title" style="text-align : center">部门成员</div>
-                    <div class="col-md-8 no-padding">
-                        <label class="checkbox-inline" style="margin-left : 0;margin-right : 20px;margin-bottom : 10px"
-                        *ngFor="let member of members">
-                            <input type="checkbox" id="inlineCheckbox1" value="membe.id"  (click)="selectMember(member)"/> {{member.userName}}
+                    <div class="col-md-12 no-padding">
+                        <div class="col-md-2 content-title" style="text-align : center">部门成员</div>
+                        <div class="col-md-8 no-padding">
+                            <label class="checkbox-inline" style="margin-left : 0;margin-right : 20px;margin-bottom : 10px" *ngFor="let member of members">
+                            <input type="checkbox"  class="fox-cloud-checkbox" id="inlineCheckbox1" value="membe.id"  (click)="selectMember(member)"/> {{member.userName}}
                         </label>
 
+                        </div>
                     </div>
-                </div>
 
-                <!--<div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
+                    <!--<div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
                     <div class="col-md-2 content-title" style="text-align : center"></div>
                     <div class="col-md-8 no-padding">
                         <span class="font-green">更多>>></span>
                     </div>
                 </div>-->
-            </td>
-        </tr>
-        <tr>
-            <th class="col-md-1 col-xs-3 text-center">配额设置</th>
-            <td>
-                <div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
-                    <div class="col-md-2 content-title" style="text-align : center">云主机数量</div>
-                    <div class="col-md-10 no-padding">
-                        <div class="btn-group input-step-compontent col-md-5 float-left">  
-                            <button type="button" class="btn btn-default col-md-3"><span class="glyphicon glyphicon-minus"></span></button>
-                            <input type="text" class="form-control" value="20">
-                            <button type="button" class="btn btn-default clickable"><span class="glyphicon glyphicon-plus"></span></button>
-                            <span style="margin-left : 10px">台</span>
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-1 col-xs-3 text-center">配额设置</th>
+                <td>
+                    <div style="border:1px solid #ddd;border-bottom:none">
+                        <div class="col-md-12 no-padding bg-gray " style="height : 50px ; line-height : 50px; border-bottom:1px solid #ddd">
+                            <div class="col-md-3 content-title" style="text-align : center"></div>
+                            <div class="col-md-3 content-title" style="text-align : center">
+                                部门配置
+                            </div>
+                            <div class="col-md-3 content-title" style="text-align : center">部门已使用额度</div>
+                            <div class="col-md-3 content-title" style="text-align : center">企业可用额度</div>
                         </div>
-                        <div class="col-md-7">
-                            <span>
-                                (共<span class="font-green">800</span>台，还剩<span class="font-orange">200</span>台可使用)
-                            </span>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
-                    <div class="col-md-2 content-title" style="text-align : center">物理机数量</div>
-                    <div class="col-md-10 no-padding">
-                        <div class="btn-group input-step-compontent col-md-5 float-left">  
-                            <button type="button" class="btn btn-default col-md-3"><span class="glyphicon glyphicon-minus"></span></button>
-                            <input type="text" class="form-control" value="20">
-                            <button type="button" class="btn btn-default clickable"><span class="glyphicon glyphicon-plus"></span></button>
-                            <span style="margin-left : 10px">台</span>
+                        <div class="col-md-12 no-padding " style="height : 50px ; line-height : 50px; border-bottom:1px solid #ddd">
+                            <div class="col-md-3 content-title bg-gray" style="text-align : center">vCPU数量(核)</div>
+                            <div class="col-md-3 content-title" style="text-align : center">
+                                <count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
+                            </div>
+                            <div class="col-md-3 content-title" style="text-align : center">0</div>
+                            <div class="col-md-3 content-title" style="text-align : center">200</div>
                         </div>
-                        <div class="col-md-7">
-                            <span>
-                                (共<span class="font-green">800</span>台，还剩<span class="font-orange">200</span>台可使用)
-                            </span>
-                        </div>
+                        <div style="clear:both"></div>
                     </div>
-                </div>
-                <div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
-                    <div class="col-md-2 content-title" style="text-align : center">存储额度</div>
-                    <div class="col-md-10 no-padding">
-                        <div class="btn-group input-step-compontent col-md-5 float-left">  
-                            <button type="button" class="btn btn-default col-md-3"><span class="glyphicon glyphicon-minus"></span></button>
-                            <input type="text" class="form-control" value="20">
-                            <button type="button" class="btn btn-default clickable"><span class="glyphicon glyphicon-plus"></span></button>
-                            <span style="margin-left : 4px">GB</span>
-                        </div>
-                        <div class="col-md-7">
-                            <span>
-                                (共<span class="font-green">800</span>GB，还剩<span class="font-orange">200</span>台可使用)
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                    
 
-                <div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
-                    <div class="col-md-2 content-title" style="text-align : center">快照数量</div>
-                    <div class="col-md-10 no-padding">
-                        <div class="btn-group input-step-compontent col-md-5 float-left">  
-                            <button type="button" class="btn btn-default col-md-3"><span class="glyphicon glyphicon-minus"></span></button>
-                            <input type="text" class="form-control" value="20">
-                            <button type="button" class="btn btn-default clickable"><span class="glyphicon glyphicon-plus"></span></button>
-                            <span style="margin-left : 10px">个</span>
+                </td>
+            </tr> 
+            <tr>
+                <th class="col-md-1 col-xs-3 text-center">配额设置</th>
+                <td>
+                    <div style="border:1px solid #ddd;border-bottom:none">
+                        <div class="col-md-12 no-padding bg-gray " style="height : 50px ; line-height : 50px; border-bottom:1px solid #ddd">
+                            <div class="col-md-3 content-title" style="text-align : center"></div>
+                            <div class="col-md-3 content-title" style="text-align : center">
+                                部门配置
+                            </div>
+                            <div class="col-md-3 content-title" style="text-align : center">部门已使用额度</div>
+                            <div class="col-md-3 content-title" style="text-align : center">企业可用额度</div>
                         </div>
-                        <div class="col-md-7">
-                            <span>
-                                (共<span class="font-green">800</span>个，还剩<span class="font-orange">200</span>个可使用)
-                            </span>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
-                    <div class="col-md-2 content-title" style="text-align : center">镜像数量</div>
-                    <div class="col-md-10 no-padding">
-                        <div class="btn-group input-step-compontent col-md-5 float-left">  
-                            <button type="button" class="btn btn-default col-md-3"><span class="glyphicon glyphicon-minus"></span></button>
-                            <input type="text" class="form-control" value="20">
-                            <button type="button" class="btn btn-default clickable"><span class="glyphicon glyphicon-plus"></span></button>
-                            <span style="margin-left : 10px">个</span>
+                        <div class="col-md-12 no-padding " style="height : 50px ; line-height : 50px; border-bottom:1px solid #ddd">
+                            <div class="col-md-3 content-title bg-gray" style="text-align : center">vCPU数量(核)</div>
+                            <div class="col-md-3 content-title" style="text-align : center">
+                                0
+                            </div>
+                            <div class="col-md-3 content-title" style="text-align : center">0</div>
+                            <div class="col-md-3 content-title" style="text-align : center">200</div>
                         </div>
-                        <div class="col-md-7">
-                            <span>
-                                (共<span class="font-green">800</span>个，还剩<span class="font-orange">200</span>个可使用)
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                        <div style="clear:both"></div>
+                    </div>                   
 
-            </td>
-        </tr>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>

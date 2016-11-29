@@ -1,7 +1,7 @@
 import { Component,OnInit,Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent} from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent,CountBarComponent} from '../../../../architecture';
 //service
 import { OrgMngService } from '../service/org-mng.service';
 //model
@@ -51,5 +51,16 @@ export class OrgMngCrComponent implements OnInit {
   save (){
     console.log('save');
   }
+
+   //同步countBar数据
+    outputValue(e, arg) {
+        console.log(arg);
+        // this.prodDir.specification[arg] = e;
+        // arg=e;
+        console.log(e);
+        // console.log(this.prodDir.specification.mem);
+        // console.log(this.prodDir.specification.vcpu);          
+
+    }
   
 }
