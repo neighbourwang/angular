@@ -3,12 +3,18 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
-// const jwt  = new Promise(next => {
-// 	next($.post("http://15.114.100.52:30077/uaa/oauth/token?grant_type=password&username=gavin@hpe.com&password=12345&client_id=ui&client_secret=12345"))
-// }).then(res => {
-// 	console.log(res,2222)
-// })
-
+// $.ajax({
+//     url: "http://15.114.100.52:30077/uaa/oauth/token?grant_type=password&username=gavin@hpe.com&password=12345&client_id=ui&client_secret=12345",
+//     type: "POST",
+//     crossDomain: true,
+//     success: function (response) {
+//         var resp = JSON.parse(response)
+//         alert(resp.status);
+//     },
+//     error: function (xhr, status) {
+//         alert("error");
+//     }
+// });
 
 export const environment = {
 	production: false,

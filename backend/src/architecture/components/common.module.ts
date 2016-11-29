@@ -13,6 +13,8 @@ import { CountBarComponent} from './countBar/component/count-bar.component'
 
 import { MyDatePickerModule } from './date-picker/my-date-picker.module';
 
+import { ClickOutsideModule } from 'ng2-click-outside';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -36,7 +38,8 @@ import { MyDatePickerModule } from './date-picker/my-date-picker.module';
         ConfirmComponent,
         PopupComponent,
         CountBarComponent,
-        MyDatePickerModule
+        MyDatePickerModule,
+        ClickOutsideModule
     ]
 })
 export class CommonComponentModule { }
