@@ -38,19 +38,8 @@ export class VmwareService {
     saveEditNet(stdnet: StdNet): Promise<any> {
         
         const api = this.restApiCfg.getRestApi("net-img.vm-mng.network.update");
-        return this.restApi.request(api.method, api.url, null, null,
-            {
-                "id": stdnet.id,
-                "dcName": stdnet.dcName, 
-                "dcId":stdnet.dcId,
-                "clusterName": stdnet.clusterName, 
-                 "clusterId":stdnet.clusterId,
-                "clusterDisplayName": stdnet.clusterDisplayName, 
-                "portDisplayName": stdnet.portDisplayName,
-                "portGroupName":stdnet.portGroupName, 
-                "vlanId":stdnet.vlanId
-            }
-        );
+        return this.restApi.request(api.method, api.url, null, null, stdnet);
+        
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return StdNet_mock });
     }
 
