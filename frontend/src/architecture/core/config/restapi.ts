@@ -29,6 +29,13 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "basis/authsec/sysdic/{_owner}/{_field}/{_code}"
     },
+    {
+        "desc": "获取token",
+        "id": "oauth.token",
+        "method": "POST",
+        "url": "/uaa/oauth/token?grant_type=password&username=gavin@hpe.com&password=12345&client_id=ui&client_secret=12345"
+    },
+
     // 数据字典
     {
         "desc": "获取可订购云主机配置数据",
