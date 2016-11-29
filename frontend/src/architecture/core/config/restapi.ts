@@ -256,6 +256,24 @@ export let RestApis: RestApiModel[] = [
         "method" : "GET",
         "url" : "basis/authsec/mpp/user/{id}"
     },
+    {
+        "desc": "用户中心，帐号管理，获取AD认证源列表",
+        "id": "user-center.attest-mng.ldap.attest.simple.list",
+        "method": "GET",
+        "url": "basis/authsec/ldaps/simple"
+    },
+    {
+        "desc": "查询AD用户",
+        "id": "user-center.attest-mng.ldap.adusers.list",
+        "method": "POST",
+        "url": "basis/authsec/ldap/{id}/adusers/page/{page}/size/{size}"
+    },
+    {
+        "desc": "创建帐号（AD）",
+        "id": "user-center.account-mng.ad.create",
+        "method": "POST",
+        "url": "basis/authsec/aduser"
+    },
     //  {
     //     "desc" : "用户中心，帐号管理，帐号编辑，PUT",
     //     "id" : "user-center.account-mng.editLocal",

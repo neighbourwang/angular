@@ -10,12 +10,12 @@ import { AdUser } from "../model/adUser.model";
 import { AccountMngAdService } from "../service/account-ad.service";
 
 @Component({
-    selector: "account-mng-cr-ad",
-    templateUrl: "../template/account-mng-cr-ad.component.html",
+    selector: "account-mng-edit-ad",
+    templateUrl: "../template/account-mng-edit-ad.component.html",
     styleUrls: [],
     providers: []
 })
-export class AccountMngCrAdComponent implements OnInit {
+export class AccountMngEditAdComponent implements OnInit {
 
     constructor(
         private layoutService: LayoutService,
@@ -33,14 +33,11 @@ export class AccountMngCrAdComponent implements OnInit {
     account = new Account();
     roles: Array<Role>;
     organizations: Array<Organization>;
-    adUsers: Array<AdUser>;
-    attests: Array<Attest>;
     filterStr: string; //查询AD账户的查询条件
 
     ngOnInit() {
         this.getRole();
         this.getOrg();
-        this.getAttest();
     }
 
     //获取角色列表0
@@ -65,52 +62,21 @@ export class AccountMngCrAdComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    //获取组织列表
-    getAttest() {
-        this.layoutService.show();
-        this.service.getAttests(1, 9999)
-            .then(response => {
-                this.layoutService.hide();
-                this.attests = response["resultContent"];
-            })
-            .catch((e) => this.onRejected(e));
-    }
+     
 
-
-    //获取ad用户
-    searchAdUser() {
-        if (this.account.ldapId == "" || !this.filterStr || this.filterStr == "") {
-            this.showAlert("请选择认证源并且输入查询字符串");
-            return;
-        }
-
-        this.layoutService.show();
-        this.service.getAdUser(this.account.ldapId, 1, 9999, this.filterStr)
-            .then(response => {
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
-                    this.adUsers = response["resultContent"];
-                } else {
-                    this.showAlert("Res sync error");
-                }
-            })
-            .catch((e) => this.onRejected(e));
-    }
-
-
-    createAccount(): Promise<any> {
+    editAccount(): Promise<any> {
 
         this.account.roles = this.roles.filter((r) => { return r.selected });
         this.account.organizations = this.organizations.filter((o) => { return o.selected });
 
         if (this.validationService.isBlank(this.account.userName)) {
             this.showAlert("请输入管理员姓名");
-            return;
+            return null;
         }
 
         if (this.validationService.isBlank(this.account.phone)) {
             this.showAlert("请输入电话");
-            return;
+            return null;
         }
 
         if (!this.validationService.isMoblie(this.account.phone) &&
@@ -119,10 +85,6 @@ export class AccountMngCrAdComponent implements OnInit {
             return null;
         }
 
-        if (!this.account.loginName || this.account.loginName == "") {
-            this.showAlert("请选择ad用户");
-            return null;
-        }
 
         if (this.account.roles.length === 0) {
             this.showAlert("至少选择一个角色");

@@ -14,6 +14,7 @@ import { AccountMngCrAdComponent } from './component/account-mng-cr-ad.component
 
 //service
 import { AccountMngService } from './service/account-mng.service';
+import { AccountMngAdService } from './service/account-ad.service';
 
 
 @NgModule({
@@ -28,9 +29,12 @@ import { AccountMngService } from './service/account-mng.service';
         AccountMngCrAdComponent
     ],
     exports: [
+        AccountMngCrLocalComponent,
+        AccountMngCrAdComponent
     ],
     providers: [
-        AccountMngService
+        AccountMngService,
+        AccountMngAdService
     ]
 
 })

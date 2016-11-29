@@ -1,0 +1,101 @@
+<table class="cm-table-left">
+    <tbody>
+    <tr>
+        <th class="col-md-1 col-xs-3 text-center">基本信息</th>
+        <td>
+            <div class="col-md-12">
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-2 form-control-title" style="padding:0"><span class="asterisk">*</span>姓名:</div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="管华">
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-2 form-control-title" style="padding:0"><span class="asterisk">*</span>账号:</div>
+                        <div class="col-md-6">
+                            <span style="line-height:34px"> example@abc.com</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-2 form-control-title" style="padding:0"><span class="asterisk">*</span>认证源:</div>
+                        <div class="col-md-6">
+                            <span style="line-height:34px"> aa.com.cn</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-2 form-control-title" style="padding:0"><span class="asterisk">*</span>电话:</div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="+8602164223399">
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-2 form-control-title" style="padding:0">描述:</div>
+                        <div class="col-md-6">
+                            <textarea class="form-control" rows="5" placeholder=""></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <th class="col-md-1 col-xs-3 text-center">绑定角色</th>
+        <td>
+            <div>
+                <label class="radio-inline">
+                    <input type="checkbox" name="role" class="fox-cloud-checkbox">管理员
+                </label>
+                <label class="radio-inline">
+                    <input type="checkbox" name="role" class="fox-cloud-checkbox">部门负责人
+                </label>
+                <label class="radio-inline">
+                    <input type="checkbox" name="role" class="fox-cloud-checkbox">普通用户
+                </label>
+                <label class="radio-inline">
+                    <input type="checkbox" name="role" class="fox-cloud-checkbox">审批员
+                </label>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <th class="col-md-1 col-xs-3 text-center">绑定部门</th>
+        <td>
+            <div>
+                <label class="checkbox-inline">
+                    <input type="radio" name="department" class="fox-cloud-radio">管理员部门
+                </label>
+                <label class="checkbox-inline">
+                    <input type="radio" name="department" class="fox-cloud-radio">普通用户部门
+                </label>
+                <label class="checkbox-inline">
+                    <input type="radio" name="department" class="fox-cloud-radio">部门一
+                </label>
+                <label class="checkbox-inline">
+                    <input type="radio" name="department" class="fox-cloud-radio">部门二
+                </label>
+                <label class="checkbox-inline">
+                    <input type="radio" name="department" class="fox-cloud-radio">部门三
+                </label>
+                <br />
+                <label class="checkbox-inline">
+                    <input type="radio" name="department" class="fox-cloud-radio">部门四
+                </label>
+                <label class="checkbox-inline">
+                    <input type="radio" name="department" class="fox-cloud-radio">部门五
+                </label>
+                <a class="font-green" style="text-decoration:underline;;margin-left:25px">更多部门</a>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
