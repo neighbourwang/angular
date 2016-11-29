@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges ,ViewChild} from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
@@ -28,13 +29,15 @@ export class AccountMngCrLocalComponent implements OnInit, OnChanges {
   @Input()
   editId: string;
 
-
+  @ViewChild('accountForm')
+  'accountForm':NgForm;
 
   account = new Account();
   roles: Array<Role>;
   orgs: Array<Organization>;
+  active:boolean;
   ngOnInit() {
-    console.log(this.isEdit, 'ggggggggg');
+        
     console.log(this.editId);
     //获取所有角色
     this.service.getRoleList().then(
@@ -55,20 +58,17 @@ export class AccountMngCrLocalComponent implements OnInit, OnChanges {
       console.error(err);
     })
   }
-
-
   ngOnChanges(changes: SimpleChanges) {
-    console.log(this.isEdit, 'ggggggggg');
     console.log(this.editId);
-    if(this.isEdit){
+    if (this.isEdit) {
       this.service.getLocalAcc(this.editId).then(
-      res => {
-        console.log('账号', res);
-        this.account = res.resultContent;
-      }
-    ).catch(err => {
-      console.error(err);
-    })
+        res => {
+          console.log('账号', res);
+          this.account = res.resultContent;
+        }
+      ).catch(err => {
+        console.error(err);
+      })
     }
   }
 
@@ -104,6 +104,13 @@ export class AccountMngCrLocalComponent implements OnInit, OnChanges {
   }
   save() {
     console.log(this.account);
-    return this.service.createAccount(this.account)
+    if(this.accountForm.invalid){
+        return Promise.reject('error');
+    }else if(this.isEdit){
+        return this.service.editAccount(this.editId,this.account);
+    }else{
+        return this.service.createAccount(this.account)
+    }   
+    
   }
 }

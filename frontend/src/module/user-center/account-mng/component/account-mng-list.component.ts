@@ -70,6 +70,7 @@ export class AccountMngListComponent implements OnInit {
       res => {
         console.log(res);
         $('#crModel').modal('hide');
+        this.getAccountList(1, this.pp);
       }
     ).catch(
       err => {
@@ -89,10 +90,15 @@ export class AccountMngListComponent implements OnInit {
   }
   //
   accountType: string = '1';
+  active:boolean;
   otCreate() {
     this.createAccountPopUp.close();
     console.log(this.accountType)
     if(this.accountType=='1'){
+        this.active=false;
+        setTimeout(()=>{
+            this.active=true;
+        },0)
         this.isEdit = false;
         $('#crModel').modal('show');
     }else{

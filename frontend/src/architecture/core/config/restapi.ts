@@ -256,12 +256,7 @@ export let RestApis: RestApiModel[] = [
         "method" : "GET",
         "url" : "basis/authsec/mpp/user/{id}"
     },
-    //  {
-    //     "desc" : "用户中心，帐号管理，帐号编辑，PUT",
-    //     "id" : "user-center.account-mng.editLocal",
-    //     "method" : "PUT",
-    //     "url" : "basis/authsec/mpp/user/{id}"
-    // },
+    
     //组织管理
      {
         "desc": "获取所有机构",
@@ -310,5 +305,11 @@ export let RestApis: RestApiModel[] = [
         "id" : "user-center.org-mng.edit",
         "method" : "PUT",
         "url" : "basis/authsec/mpp/organization/{id}"
+    },
+     {
+        "desc": "获取未管理人员列表",
+        "id": "user-center.org-mng.nomnguser.list",
+        "method": "GET",
+        "url": "basis/authsec/mpp/users/nonorganization/page/{page}/size/{size}"
     },
 ]
