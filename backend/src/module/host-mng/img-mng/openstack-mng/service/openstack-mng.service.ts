@@ -124,14 +124,14 @@ export class OpenstackMngService{
         let ids = new Array<String>();
         tList.forEach((t)=>{ids.push(t.id)})
         
-        const api = this.restApiCfg.getRestApi("host-mng.openstack-mng.image.sync-public.getlist");
+        const api = this.restApiCfg.getRestApi("host-mng.openstack-mng.image.sync-ent.getlist");
         return this.restApi.request(api.method, api.url, pathParams, null, ids);
         
         //return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return SyncPublic_mock});
     }
 
 
-
+    //同步公共镜像
     //host-mng.openstack-mng.image.sync-public.sync
     doSynImages_public(platformId:string, synImages:Array<Image>): Promise<any>{
         const pathParams = [
@@ -142,6 +142,25 @@ export class OpenstackMngService{
         ];
 
         const api = this.restApiCfg.getRestApi("host-mng.openstack-mng.image.sync-public.sync");
+        return this.restApi.request(api.method, api.url, pathParams, null, synImages);
+        
+        //  return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return {
+        //         resultCode: 100,
+        //         detailDescription: null
+        //     }}
+        // );
+    }
+    //同步企业镜像
+    //host-mng.openstack-mng.image.sync-public.sync
+    doSynImages_ent(platformId:string, synImages:Array<Image>): Promise<any>{
+        const pathParams = [
+            {
+                key: "platformId",
+                value: platformId
+            }
+        ];
+
+        const api = this.restApiCfg.getRestApi("host-mng.openstack-mng.image.sync-ent.sync");
         return this.restApi.request(api.method, api.url, pathParams, null, synImages);
         
         //  return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return {

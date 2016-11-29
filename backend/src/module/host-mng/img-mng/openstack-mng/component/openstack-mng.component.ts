@@ -67,7 +67,7 @@ export class OpenstackMngComponent implements OnInit{
         this.router.params.forEach((params: Params) => {
 			this.platformId = params['platformId']? params['platformId']:"00721c45-17c9-4b68-b941-090ddd5db4b7";
             this.platformName = params['platformName'] ? params['platformName']:"上海HPE云平台服务F区";
-			console.log("接收的platform_id:" + this.platformId);
+			console.log("接收的platformId:" + this.platformId);
             console.log("接收的platformName:" + this.platformName);
 		});
         this.dicService.getItems("IMAGES", "TYPE")
@@ -175,7 +175,7 @@ export class OpenstackMngComponent implements OnInit{
                     this.showAlert("该镜像已是禁用状态");
                 }else{
                     //选择启用
-                     this.enableImage(this.selectedImage.id)
+                     this.enableImage(this.selectedImage.id);
                 }
             }
             else if ("1"== this.selectedImage.status){
@@ -185,7 +185,16 @@ export class OpenstackMngComponent implements OnInit{
                     this.showAlert("该镜像已是启用状态");
                 }else{
                     //选择禁用
-                     this.disableImage(this.selectedImage.id)
+                     this.disableImage(this.selectedImage.id);
+                }
+            }else if("2" == this.selectedImage.status){
+                //选择的image当前是未启用状态
+                if(status == "1"){
+                     //选择启用
+                     this.enableImage(this.selectedImage.id);
+                }else{
+                    //选择禁用
+                     this.disableImage(this.selectedImage.id);
                 }
             }
         }
@@ -204,6 +213,7 @@ export class OpenstackMngComponent implements OnInit{
                     response => {
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
+                            this.getImages();
                             this.showAlert("启用成功");
                         } else {
                             alert("Res sync error");
@@ -229,7 +239,8 @@ export class OpenstackMngComponent implements OnInit{
                     response => {
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
-                            this.showAlert("启用成功");
+                            this.getImages();
+                            this.showAlert("禁用成功");
                         } else {
                             alert("Res sync error");
                         }

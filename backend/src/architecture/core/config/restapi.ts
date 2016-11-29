@@ -1187,6 +1187,18 @@ export let RestApis: RestApiModel[] = [
         "id": "host-mng.openstack-mng.image.sync-public.sync",
         "method": "POST",
          "url": "/adminboe/authsec/images/openstack/pub/{platformId}/sync"
+    },
+    {
+        "desc": "Openstack_同步企业镜像_获取镜像列表",
+        "id": "host-mng.openstack-mng.image.sync-ent.getlist",
+        "method": "GET",
+         "url": "/adminboe/authsec/images/openstack/ent/{platformId}"
+    },
+    {
+        "desc": "Openstack_同步企业镜像_同步",
+        "id": "host-mng.openstack-mng.image.sync-ent.sync",
+        "method": "POST",
+         "url": "/adminboe/authsec/images/openstack/ent/{platformId}/sync"
     }
     //vmware镜像管理
     , {

@@ -23,7 +23,7 @@
             <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10 "(click)="search()">
                 <span class="icon-button-label">确定 </span> 
                 </button>
-            {{queryOpt.toString()}}                                                              
+            <!--{{queryOpt.toString()}} 测试显示-->
     </div>         
     <div style="clear:both"></div>
     <div class="mgb20 " style="margin-top:20px">
@@ -90,7 +90,7 @@
                     <td >{{image.capacity}}G</td>
                     <td >{{getDicText(image.type,typeDic)}}</td>
                     <td >{{getImageTenant(image.tenants)}}</td>
-                    <td [ngClass]="{'font-green':image.status!='2','font-orange':image.status==2}">{{getDicText(image.status,statusDic)}}</td>
+                    <td [ngClass]="{'font-green':image.status=='1','font-orange':image.status==0}">{{getDicText(image.status,statusDic)}}</td>
 
                 </tr>
 
@@ -99,6 +99,7 @@
         </table>
             
     </div>
+    <div style="height:200px"></div>
 </div>
 
     <div class="fox-cloud-pagination-container">

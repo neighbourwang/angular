@@ -34,7 +34,6 @@ export class OpenstackImageSyncPublicComponent implements OnInit{
     platformId:string;
     platformName:string;
     images:Array<Image>;
-    //syncImages:Array<SyncImage>;
     images_needsync:Array<Image>;
 
     typeDic: Array<SystemDictionary>;//镜像类型
@@ -151,7 +150,7 @@ export class OpenstackImageSyncPublicComponent implements OnInit{
         this.notice.open();
     }
     back(){
-        this.router2.navigate(['host-mng/img-mng/openstack-mng', {"platform_id": this.platformId,"platformName":this.platformName}]);
+        this.router2.navigate(['host-mng/img-mng/openstack-mng', {"platformId": this.platformId,"platformName":this.platformName}]);
     }
     
     
