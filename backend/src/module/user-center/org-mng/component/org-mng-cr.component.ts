@@ -114,9 +114,7 @@ export class OrgMngCrComponent implements OnInit{
                     err => {
                         console.error(err);
                     }
-                )
-
-                
+                )               
 
             }else{
                 //创建

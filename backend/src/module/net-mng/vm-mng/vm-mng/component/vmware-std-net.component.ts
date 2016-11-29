@@ -135,7 +135,7 @@ export class VmwareStdNetComponent implements OnInit {
         this.tempEditNet.clusterName = "";
     }
 
-    //编辑标准网络
+    //弹出编辑框
     edit() {
         console.log('edit');
         const selectedNet = this.filternets.find((stdnet) => { return stdnet.selected });
@@ -193,6 +193,7 @@ export class VmwareStdNetComponent implements OnInit {
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
+                    this.editStdNet.close();
                     this.getData();
                 } else {
                     alert("Res sync error");
@@ -219,7 +220,8 @@ export class VmwareStdNetComponent implements OnInit {
         cstdnet.lastUpdate = stdnet.lastUpdate;
         this.editPort = cstdnet;
     }
-    //更新标准端口组显示名称
+
+    //保存标准端口组显示名称
     updatePort(stdnet: StdNet) {
         this.layoutService.show();
         if (this.validationService.isBlank(this.editPort.portDisplayName)) {
@@ -231,6 +233,7 @@ export class VmwareStdNetComponent implements OnInit {
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
+                    
                     this.getData();
                 } else {
                     alert("Res sync error");
@@ -264,6 +267,7 @@ export class VmwareStdNetComponent implements OnInit {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.showAlert("启用成功");
+                        this.getData();
                     } else {
                         alert("Res sync error");
                     }
@@ -298,6 +302,7 @@ export class VmwareStdNetComponent implements OnInit {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.showAlert("禁用成功");
+                        this.getData();
                     } else {
                         alert("Res sync error");
                     }
@@ -330,6 +335,7 @@ export class VmwareStdNetComponent implements OnInit {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.showAlert("删除成功");
+                        this.getData();
                     } else {
                         alert("Res sync error");
                     }
