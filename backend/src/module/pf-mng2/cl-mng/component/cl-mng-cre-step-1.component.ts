@@ -64,7 +64,11 @@ export class ClMngCreStep1Component implements OnInit{
             )
         this.commonService.getRegion()
             .then(
-                res => this.regions = res
+                
+                res => {
+                    console.log('region',res);
+                    this.regions = res;
+                }
             ).catch(
                 err => {
                     console.error('err');
