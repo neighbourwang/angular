@@ -14,6 +14,8 @@ import { CountBarComponent} from './countBar/component/count-bar.component'
 import { MyDatePickerModule } from './date-picker/my-date-picker.module';
 import { BootstrapPopoverDirective } from './popover/bootstrap-popover.directive';
 
+import { ClickOutsideModule } from 'ng2-click-outside';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -40,6 +42,7 @@ import { BootstrapPopoverDirective } from './popover/bootstrap-popover.directive
         CountBarComponent,
         MyDatePickerModule,
         BootstrapPopoverDirective
+        ClickOutsideModule
     ]
 })
 export class CommonComponentModule { }

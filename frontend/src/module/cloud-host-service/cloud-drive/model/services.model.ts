@@ -1,9 +1,10 @@
 
 class VlueList {
-    id?: string = "";
-    code?: string = "";
-    displayName?: string = "";
-    value?: any;
+    attrValueId?: string = "";
+    attrValueCode?: string = "";
+    attrDisplayValue?: string = "";
+    attrValue?: any;
+    value?:string;
 }
 
 class OrderService {
@@ -19,51 +20,31 @@ class OrderService {
 }
 
 class OrderList {
-    bootsize: OrderService = new OrderService();
-    bootstorage: OrderService = new OrderService();
-    cpu: OrderService = new OrderService();
-    disk: OrderService = new OrderService();
-    imagetype: OrderService = new OrderService();
-    instancename: OrderService = new OrderService();
-    mem: OrderService = new OrderService();
-    networktype: OrderService = new OrderService();
-    os: OrderService = new OrderService();
-    password: OrderService = new OrderService();
-    platform: OrderService = new OrderService();
-    securitygroup: OrderService = new OrderService();
-    settingtype: OrderService = new OrderService();
-    startupsource: OrderService = new OrderService();
-    storage: OrderService = new OrderService();
-    storagesize: OrderService = new OrderService();
-    // stroagesize: OrderService = new OrderService();
-    timeline: OrderService = new OrderService();
-    timelineunit: OrderService = new OrderService();
-    username: OrderService = new OrderService();
-    zone: OrderService = new OrderService();
+    platform : OrderService = new OrderService();
+    zone : OrderService = new OrderService();
+    diskinitialsize : OrderService = new OrderService();
+    disktype : OrderService = new OrderService();
+    diskmounthostid : OrderService = new OrderService();
+    diskmaxsize : OrderService = new OrderService();
+    disksize : OrderService = new OrderService();
+    diskstepsize : OrderService = new OrderService();
+    storage : OrderService = new OrderService();
+    diskinsname : OrderService = new OrderService();
+    diskmounthostname : OrderService = new OrderService();
 }
 
 class SendModule {
-    bootsize: VlueList = new VlueList();
-    bootstorage: VlueList = new VlueList();
-    cpu: VlueList = new VlueList();
-    disk: VlueList = new VlueList();
-    imagetype: VlueList = new VlueList();
-    instancename: VlueList = new VlueList();
-    mem: VlueList = new VlueList();
-    networktype: VlueList = new VlueList();
-    os: VlueList = new VlueList();
-    password: VlueList = new VlueList();
-    platform: VlueList = new VlueList();
-    securitygroup: VlueList = new VlueList();
-    settingtype: VlueList = new VlueList();
-    startupsource: VlueList = new VlueList();
-    storage: VlueList = new VlueList();
-    storagesize: VlueList = new VlueList();
-    // stroagesize: VlueList = new VlueList();
-    timeline: VlueList = new VlueList();
-    timelineunit: VlueList = new VlueList();
-    username: VlueList = new VlueList();
-    zone: OrderService = new OrderService()
+    platform : VlueList = new VlueList();
+    zone : VlueList = new VlueList();
+    diskinitialsize : VlueList = new VlueList();
+    disktype : VlueList = new VlueList();
+    diskmounthostid : VlueList = new VlueList();
+    diskmaxsize : VlueList = new VlueList();
+    disksize : VlueList = new VlueList();
+    diskstepsize : VlueList = new VlueList();
+    storage : VlueList = new VlueList();
+    diskinsname : VlueList = new VlueList();
+    diskmounthostname : VlueList = new VlueList();
 }
 
 class TimeLineData {
