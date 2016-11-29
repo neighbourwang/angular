@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Input, ViewChild, Output } from "@angular/core";
+﻿import { Component, OnInit, Input, ViewChild, Output, SimpleChanges } from "@angular/core";
 import { Router } from "@angular/router";
 
 import { LayoutService, NoticeComponent, ConfirmComponent, ValidationService } from "../../../../architecture";
@@ -10,12 +10,12 @@ import { AdUser } from "../model/adUser.model";
 import { AccountMngService } from "../service/account-mng.service";
 
 @Component({
-    selector: "account-mng-cr-ad",
-    templateUrl: "../template/account-mng-cr-ad.component.html",
+    selector: "account-mng-edit-ad",
+    templateUrl: "../template/account-mng-edit-ad.component.html",
     styleUrls: [],
     providers: []
 })
-export class AccountMngCrAdComponent implements OnInit {
+export class AccountMngEditAdComponent implements OnInit {
 
     constructor(
         private layoutService: LayoutService,
@@ -25,56 +25,69 @@ export class AccountMngCrAdComponent implements OnInit {
     ) {
     }
 
+
+    @Input()
+    accountId: string;
+
     noticeTitle = "";
     noticeMsg = "";
 
     @ViewChild("notice")
     notice: NoticeComponent;
     account = new Account();
-    adUsers: Array<AdUser>;
-    filterStr: string; //查询AD账户的查询条件
-
     ngOnInit() {
+    }
 
+    ngOnChanges(changes: SimpleChanges) {
+        console.log(this.accountId);
+        if (!this.accountId || this.accountId == "")
+            return;
+        this.clearData();
+        this.layoutService.show();
+        this.service.getLocalAcc(this.accountId)
+            .then(
+            res => {
+                this.layoutService.hide();
+                console.log("账号", res);
+                this.account = res.resultContent;
+                this.setDefaultSelect();
+            }
+            )
+            .catch(e => {
+                this.onRejected(e);
+            });
     }
 
     clearData() {
         this.account = new Account();
-        this.filterStr = "";
-        this.clearSelectedOrg();
-        this.clearSelectedRole();
+        this.setDefaultSelect();
     }
 
-    //获取ad用户
-    searchAdUser() {
-        if (this.account.ldapId == "" || !this.filterStr || this.filterStr == "") {
-            this.showAlert("请选择认证源并且输入查询字符串");
-            return;
-        }
+    setDefaultSelect() {
+        this.service.roles.forEach((role) => {
+            this.account.roles.forEach((o) => {
+                if (!role.selected)
+                    role.selected = o.id == role.id;
+            });
+        });
 
-        this.layoutService.show();
-        this.service.getAdUser(this.account.ldapId, 1, 9999, this.filterStr)
-            .then(response => {
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
-                    this.adUsers = response["resultContent"];
-                } else {
-                    this.showAlert("Res sync error");
-                }
-            })
-            .catch((e) => this.onRejected(e));
+        this.service.orgs.forEach((org) => {
+            this.account.organizations.forEach((o) => {
+                if (!org.selected)
+                    org.selected = o.id == org.id;
+            });
+        });
+
     }
 
-
-    createAccount(): Promise<any> {
+    editAccount(): Promise<any> {
 
         this.account.roles = this.service.roles.filter((r) => { return r.selected });
         this.account.organizations = this.service.orgs.filter((o) => { return o.selected });
 
-
         if (this.validationService.isBlank(this.account.userName)) {
             this.showAlert("请输入管理员姓名");
-            return new Promise(resovle => setTimeout(resovle, 10)).then(()=>false);
+            return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
         if (this.validationService.isBlank(this.account.phone)) {
@@ -88,10 +101,6 @@ export class AccountMngCrAdComponent implements OnInit {
             return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
-        if (!this.account.loginName || this.account.loginName == "") {
-            this.showAlert("请选择ad用户");
-            return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
-        }
 
         if (this.account.roles.length === 0) {
             this.showAlert("至少选择一个角色");
@@ -104,23 +113,15 @@ export class AccountMngCrAdComponent implements OnInit {
         }
 
         this.layoutService.show();
-        return this.service.createAccount(this.account)
-            .then((res) => {
-                this.layoutService.hide();
-                return true;
-            })
-            .catch((e) => { this.onRejected(e); });
+        return this.service.editAdAccount(this.account).then((res) => {
+            this.layoutService.hide();
+            return res;
+        }).catch((e) => {this.onRejected(e);});
     }
 
-    clearSelectedOrg() {
+    clearSelectedOrg(org: Organization) {
         this.service.orgs.forEach((o) => {
             o.selected = false;
-        });
-    }
-
-    clearSelectedRole() {
-        this.service.roles.forEach((r) => {
-            r.selected = false;
         });
     }
 

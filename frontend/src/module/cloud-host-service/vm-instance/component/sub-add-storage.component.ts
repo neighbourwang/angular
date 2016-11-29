@@ -17,7 +17,7 @@ interface Storage {
 })
 export class subAddStorageComponent implements OnInit {
 
-	@Output() onClick = new EventEmitter<any>();
+	@Output() onChanges = new EventEmitter<any>();
 
 	@Input() configs:OrderList = new OrderList;
 	@Input() maxLenght:number = 3;  //数据盘的最大数量
@@ -33,9 +33,12 @@ export class subAddStorageComponent implements OnInit {
 	}
 
 	outputValue(value, i) {
-		this.forArr[i].storagesize.attrValue = value;
-		this.forArr[i].storagesize.attrDisplayValue = value + "GB";
-		console.log(this.forArr, 3322)
+		let storagesize = new VlueList;
+
+		storagesize.attrValue = value;
+		storagesize.attrDisplayValue = value + "GB";
+
+		this.forArr[i].storagesize = storagesize;
 	}
 
 	delete(i) {
@@ -48,6 +51,11 @@ export class subAddStorageComponent implements OnInit {
 			storage : this.defaultStorage,
 			storagesize : this.defaultStorageSize
 		});
-		console.log(this.forArr)
+	}
+
+	emit() {
+		this.forArr = this.forArr.filter( arr => arr.storage.attrValue && arr.storagesize.attrValueCode );  //排除空的
+
+		this.onChanges.emit( this.forArr );
 	}
 }

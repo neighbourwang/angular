@@ -11,17 +11,17 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">云平台</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label *ngFor="let value of configs.platform.valueList;" (click)="sendModule.platform = value" class="btn btn-default" [ngClass]="{'active': sendModule.platform.id === value.id}">
-							<input type="radio" name="location" autocomplete="off"> {{ value.displayName }}
+						<label *ngFor="let value of configs.platform.valueList;" (click)="sendModule.platform = value" class="btn btn-default" [ngClass]="{'active': sendModule.platform.attrValueId === value.attrValueId}">
+							<input type="radio" name="location" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
 					<div class="col-md-2 content-title">可用区</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label 
-							*ngFor="let value of configs.zone.mapValueList[sendModule.platform.id];" 
+							*ngFor="let value of configs.zone.mapValueList[sendModule[getRelyName(configs.zone.relyAttrId)].attrValueId];" 
 							(click)="sendModule.zone = value" 
-							class="btn btn-default" [ngClass]="{'active': sendModule.zone.id === value.id}">
-							<input type="radio" name="zone" autocomplete="off"> {{ value.displayName }}
+							class="btn btn-default" [ngClass]="{'active': sendModule.zone.attrValueId === value.attrValueId}">
+							<input type="radio" name="zone" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
 					<div class="col-md-2"></div>
@@ -33,19 +33,22 @@
 				<div class="col-md-1 li-title">
 					<p><span class="icon-configure"></span><br>配置选项</p>
 				</div>
-				<div class="col-md-12 li-content">
+				<div class="col-md-12 li-content" (clickOutside)="onClickedOutside($event)" >
 					<div class="col-md-2 content-title">云硬盘</div>
-					<div class="col-md-10 btn-group" id="cloud-desk" data-toggle="buttons">
-						<label class="btn btn-default active">
-							<input type="radio" name="mirror" autocomplete="off" checked=""> 空白盘
+					<div class="col-md-10 btn-group" id="cloud-desk">
+<!-- 
+						<label 
+							*ngFor="let value of configs.disktype.valueList;" 
+							(click)="sendModule.disktype = value" class="btn btn-default" 
+							[ngClass]="{'active': sendModule.disktype.attrValueId === value.attrValueId}">
+
+							<input type="radio" name="location" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
-						<label class="btn btn-default" id="popover_never" rel="popover" data-placement="bottom" data-content="">
-							<input type="radio" name="mirror" autocomplete="off"> 从未挂载盘
-						</label>
-						<label class="btn btn-default" id="popover_backup" rel="popover" data-placement="bottom" data-content="">
-							<input type="radio" name="mirror" autocomplete="off"> 从备份恢复
-						</label>
-						<div id="popover_never_content" style="display: none">
+						 -->
+						<button (click)="closePopover('popover_never','popover_backup')" class="btn btn-default">空白盘</button>
+						<button (click)="closePopover('popover_backup')" class="btn btn-default" id="popover_never" rel="popover" data-placement="bottom" data-content="">从未挂载盘</button>
+						<button (click)="closePopover('popover_never')" class="btn btn-default" id="popover_backup" rel="popover" data-placement="bottom" data-content="">从备份恢复</button>
+						<div id="popover_never_content"  style="display: none">
 							<div class="col-md-12 mgb15 no-padding">
 								<select class="form-control float-left drive-select">
 									<option value="1">云硬盘名称</option>
@@ -104,35 +107,29 @@
 					</div>	
 					<div class="col-md-2 content-title">云硬盘类型</div>	
 					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label class="btn btn-default active">
-							<input type="radio" name="mirror" autocomplete="off" checked=""> 高速I/O
-						</label>
-						<label class="btn btn-default" rel="popover" data-placement="bottom" data-content="">
-							<input type="radio" name="mirror" autocomplete="off"> 高速I/O-2
-						</label>
-						<label class="btn btn-default" rel="popover" data-placement="bottom" data-content="">
-							<input type="radio" name="mirror" autocomplete="off"> 高速I/O-3
-						</label>
-						<label class="btn btn-default" rel="popover" data-placement="bottom" data-content="">
-							<input type="radio" name="mirror" autocomplete="off"> SSD盘
-						</label>
-						<label class="btn btn-default" rel="popover" data-placement="bottom" data-content="">
-							<input type="radio" name="mirror" autocomplete="off"> 普通盘
+						<label 
+							*ngFor="let value of configs.storage.mapValueList[sendModule[getRelyName(configs.storage.relyAttrId)].attrValueId];" 
+							(click)="sendModule.storage = value" 
+							class="btn btn-default" [ngClass]="{'active': sendModule.storage.attrValueId === value.attrValueId}">
+							<input type="radio" name="storage" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
 					</div>	
 					<div class="col-md-12 no-padding mgb20">
 						<div class="col-md-2 content-title">容量(GB)</div>	
-						<div class="btn-group input-step-compontent col-md-2 no-padding">  
-							<button type="button" class="btn btn-default col-md-3"><span class="glyphicon glyphicon-minus"></span></button>
-							<input type="text" class="form-control" value="20">
-							<button type="button" class="btn btn-default clickable"><span class="glyphicon glyphicon-plus"></span></button>
+						<div class="col-md-2 no-padding">  
+							<count-bar 
+					            [step]=10 
+					            [max]=500 
+					            [min]=40 
+					            [disabled]=false 
+					            [value]=40 (output)="outputValue($event)"></count-bar>
 						</div>	
 						<div class="col-md-7 disk-tip">可以购买容量 40~500GB的云硬盘。40GB起，增加按照每10GB一档。</div>
 					</div>
 					<div class="col-md-12 no-padding mgb15">
 						<div class="col-md-2 content-title">云硬盘实例名称</div>
 						<div class="col-md-4 no-padding mgr15">
-							<input type="text" [(ngModel)]="sendModule.instancename.value" class="form-control" placeholder="如不填写，则系统自动生成">
+							<input type="text" [(ngModel)]="sendModule.diskinsname.value" class="form-control" placeholder="如不填写，则系统自动生成">
 						</div>
 						<div class="col-md-5 disk-tip no-padding">2-68个字符，以大小写字母或者中文开头，可包含数字，“.”, "-", "_"</div>
 					</div>	
@@ -145,7 +142,6 @@
 				        </div>
 						
 						<div id="popover_host_content" style="display: none">
-						<div class="col-md-12 mgb15 no-padding"><input type="radio" name=""> 是否随云主机一起删除？</div>
 							<div class="col-md-12 mgb15 no-padding">
 								<select class="form-control float-left drive-select">
 									<option value="1">云硬盘名称</option>

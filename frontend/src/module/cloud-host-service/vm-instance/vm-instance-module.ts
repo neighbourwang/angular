@@ -30,7 +30,7 @@ import { cloudHostServiceList } from './service/cloud-host-list.service';
         VmInstanceRouting,
         CommonComponentModule,
         CloudHostComponents,
-        PipeModule
+        PipeModule,
         // MyDatePickerModule
         // TabsModule
         // TreeModule
