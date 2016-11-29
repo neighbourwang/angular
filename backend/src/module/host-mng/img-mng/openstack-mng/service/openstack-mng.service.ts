@@ -35,13 +35,13 @@ export class OpenstackMngService{
                 value: pageSize
             }
         ];
-        // const api = this.restApiCfg.getRestApi('host-mng.openstack-mng.image.list');
-        // return this.restApi.request(api.method, api.url, pathParams, null, {
-        //     "type": criteriaQuery.type,
-        //     "tenantId": criteriaQuery.tenantId})
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Images_mock });
+        const api = this.restApiCfg.getRestApi('host-mng.openstack-mng.image.list');
+        return this.restApi.request(api.method, api.url, pathParams, null, {
+            "type": criteriaQuery.type,
+            "tenantId": criteriaQuery.tenantId})
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Images_mock });
     }
-
+    //企业下拉列表
     getTenants(platformId:string): Promise<any>{
         const pathParams = [
             {
@@ -60,18 +60,19 @@ export class OpenstackMngService{
                 value: image.id
             }
         ];
-        // const api = this.restApiCfg.getRestApi('host-mng.openstack-mng.image.saveedit');
-        // return this.restApi.request(api.method, api.url, pathParams, null, {
-        //      "displayName": image.displayName,
-        //     "os": image.os,
-        //     "bitesType": image.bitesType,
-        //     "type": image.type,
-        //     "description": image.description});
-        return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return {
-            resultCode: 100,
-            detailDescription: null
-            }}
-        );
+        const api = this.restApiCfg.getRestApi('host-mng.openstack-mng.image.saveedit');
+        return this.restApi.request(api.method, api.url, pathParams, null, {
+             "displayName": image.displayName,
+            "os": image.os,
+            "bitsType": image.bitsType,
+            "type": image.type,
+            "description": image.description});
+        
+        // return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return {
+        //     resultCode: 100,
+        //     detailDescription: null
+        //     }}
+        // );
     }
 
     //启用/禁用
@@ -87,13 +88,14 @@ export class OpenstackMngService{
             }
         ];
 
-        // const api = this.restApiCfg.getRestApi("host-mng.openstack-mng.image.EDable");
-        // return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return {
-                resultCode: 100,
-                detailDescription: null
-            }}
-        );
+        const api = this.restApiCfg.getRestApi("host-mng.openstack-mng.image.EDable");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+       
+        // return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return {
+        //         resultCode: 100,
+        //         detailDescription: null
+        //     }}
+        // );
     }
     //获取公共同步镜像列表
     //host-mng.openstack-mng.image.sync-public.getlist
@@ -105,9 +107,10 @@ export class OpenstackMngService{
             }
         ];
 
-        // const api = this.restApiCfg.getRestApi("host-mng.openstack-mng.image.sync-public.getlist");
-        // return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return SyncPublic_mock});
+        const api = this.restApiCfg.getRestApi("host-mng.openstack-mng.image.sync-public.getlist");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return SyncPublic_mock});
     }
 
     //获取企业同步镜像列表
@@ -120,13 +123,15 @@ export class OpenstackMngService{
         ];
         let ids = new Array<String>();
         tList.forEach((t)=>{ids.push(t.id)})
-        // const api = this.restApiCfg.getRestApi("host-mng.openstack-mng.image.sync-public.getlist");
-        // return this.restApi.request(api.method, api.url, pathParams, null, ids);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return SyncPublic_mock});
+        
+        const api = this.restApiCfg.getRestApi("host-mng.openstack-mng.image.sync-ent.getlist");
+        return this.restApi.request(api.method, api.url, pathParams, null, ids);
+        
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return SyncPublic_mock});
     }
 
 
-
+    //同步公共镜像
     //host-mng.openstack-mng.image.sync-public.sync
     doSynImages_public(platformId:string, synImages:Array<Image>): Promise<any>{
         const pathParams = [
@@ -136,12 +141,32 @@ export class OpenstackMngService{
             }
         ];
 
-        // const api = this.restApiCfg.getRestApi("host-mng.openstack-mng.image.sync-public.sync");
-        // return this.restApi.request(api.method, api.url, pathParams, null, synImages);
-         return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return {
-                resultCode: 100,
-                detailDescription: null
-            }}
-        );
+        const api = this.restApiCfg.getRestApi("host-mng.openstack-mng.image.sync-public.sync");
+        return this.restApi.request(api.method, api.url, pathParams, null, synImages);
+        
+        //  return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return {
+        //         resultCode: 100,
+        //         detailDescription: null
+        //     }}
+        // );
+    }
+    //同步企业镜像
+    //host-mng.openstack-mng.image.sync-public.sync
+    doSynImages_ent(platformId:string, synImages:Array<Image>): Promise<any>{
+        const pathParams = [
+            {
+                key: "platformId",
+                value: platformId
+            }
+        ];
+
+        const api = this.restApiCfg.getRestApi("host-mng.openstack-mng.image.sync-ent.sync");
+        return this.restApi.request(api.method, api.url, pathParams, null, synImages);
+        
+        //  return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return {
+        //         resultCode: 100,
+        //         detailDescription: null
+        //     }}
+        // );
     }
 }

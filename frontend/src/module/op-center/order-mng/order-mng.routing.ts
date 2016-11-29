@@ -1,6 +1,6 @@
 ﻿import { ModuleWithProviders } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { OrderMngDetailComponent, OrderMngComponent, OrderMngRenewComponent,OrderMngCancelComponent} from './component';
+import { OrderMngDetailComponent, OrderMngComponent, OrderMngRenewComponent,OrderMngCancelComponent,OrderMngSearchComponent} from './component';
 
 export const OrderMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
@@ -16,6 +16,9 @@ export const OrderMngRouting: ModuleWithProviders = RouterModule.forChild([
     },{
         path: 'op-center/order-mng/order-mng-cancel',
         component: OrderMngCancelComponent
+    },{
+        path: 'op-center/order-mng/order-mng-search',
+        component: OrderMngSearchComponent
     }
     
 ]);

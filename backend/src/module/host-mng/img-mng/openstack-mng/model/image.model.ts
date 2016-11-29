@@ -5,7 +5,7 @@ export class Image {
     name: string;
     displayName: string;
     os: string;
-    bitesType:string;
+    bitsType:string;
     type: string;
     tenants: Array<Tenant>;
     status:string;
@@ -15,4 +15,6 @@ export class Image {
     syncResult:string;
        
     nameEditing:boolean;
+
+   
 }
