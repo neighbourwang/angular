@@ -195,6 +195,10 @@ const menu: Array<any> = [
                 "label": "已购服务管理",
                 "isOpen": false,
                 "routing": "op-center/order-mng/order-mng"
+            }, {
+                "label": "订单查询",
+                "isOpen": false,
+                "routing": "op-center/order-mng/order-mng-search"
             }
         ]
     },

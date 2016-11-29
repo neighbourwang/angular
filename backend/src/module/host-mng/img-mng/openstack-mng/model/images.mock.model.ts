@@ -8,7 +8,7 @@ export const Images_mock={
             "name": "windows",
             "displayName": "我的windows",
             "os": "CentOS",
-            "bitesType": "0",
+            "bitsType": "0",
             "type": "0",
             "tenants": [
              {
@@ -25,7 +25,7 @@ export const Images_mock={
             "name": "windows",
             "displayName": "我的windows",
             "os": "CentOS",
-            "bitesType": "0",
+            "bitsType": "0",
             "type": "0",
             "tenants": [
              {
@@ -42,7 +42,7 @@ export const Images_mock={
             "name": "windows",
             "displayName": "我的windows",
             "os": "CentOS",
-            "bitesType": "0",
+            "bitsType": "0",
             "type": "0",
             "tenants": [
              {
@@ -59,7 +59,7 @@ export const Images_mock={
             "name": "windows",
             "displayName": "我的windows",
             "os": "CentOS",
-            "bitesType": "0",
+            "bitsType": "0",
             "type": "0",
             "tenants": [
              {
@@ -76,7 +76,7 @@ export const Images_mock={
             "name": "windows",
             "displayName": "我的windows",
             "os": "CentOS",
-            "bitesType": "0",
+            "bitsType": "0",
             "type": "0",
             "tenants": [
              {
@@ -93,7 +93,7 @@ export const Images_mock={
             "name": "windows",
             "displayName": "我的windows",
             "os": "CentOS",
-            "bitesType": "0",
+            "bitsType": "0",
             "type": "0",
             "tenants": [
              {
@@ -110,7 +110,7 @@ export const Images_mock={
             "name": "windows",
             "displayName": "我的windows",
             "os": "CentOS",
-            "bitesType": "0",
+            "bitsType": "0",
             "type": "0",
             "tenants": [
              {
@@ -127,7 +127,7 @@ export const Images_mock={
             "name": "windows",
             "displayName": "我的windows",
             "os": "CentOS",
-            "bitesType": "0",
+            "bitsType": "0",
             "type": "0",
             "tenants": [
              {
@@ -144,7 +144,7 @@ export const Images_mock={
             "name": "windows",
             "displayName": "我的windows",
             "os": "CentOS",
-            "bitesType": "0",
+            "bitsType": "0",
             "type": "0",
             "tenants": [
              {
@@ -161,7 +161,7 @@ export const Images_mock={
             "name": "windows",
             "displayName": "我的windows",
             "os": "CentOS",
-            "bitesType": "0",
+            "bitsType": "0",
             "type": "0",
             "tenants": [
              {
@@ -178,7 +178,7 @@ export const Images_mock={
             "name": "windows",
             "displayName": "我的windows",
             "os": "CentOS",
-            "bitesType": "0",
+            "bitsType": "0",
             "type": "0",
             "tenants": [
              {
@@ -195,7 +195,7 @@ export const Images_mock={
             "name": "windows",
             "displayName": "我的windows",
             "os": "CentOS",
-            "bitesType": "0",
+            "bitsType": "0",
             "type": "0",
             "tenants": [
              {
@@ -212,7 +212,7 @@ export const Images_mock={
             "name": "windows",
             "displayName": "我的windows",
             "os": "CentOS",
-            "bitesType": "0",
+            "bitsType": "0",
             "type": "0",
             "tenants": [
              {
@@ -229,7 +229,7 @@ export const Images_mock={
             "name": "windows",
             "displayName": "我的windows",
             "os": "CentOS",
-            "bitesType": "0",
+            "bitsType": "0",
             "type": "0",
             "tenants": [
              {
@@ -246,7 +246,7 @@ export const Images_mock={
             "name": "windows",
             "displayName": "我的windows",
             "os": "CentOS",
-            "bitesType": "0",
+            "bitsType": "0",
             "type": "0",
             "tenants": [
              {

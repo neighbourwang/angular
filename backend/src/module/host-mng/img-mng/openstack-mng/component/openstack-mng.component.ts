@@ -19,7 +19,7 @@ export class OpenstackMngComponent implements OnInit{
     constructor(
         private router: ActivatedRoute,
         private router2: Router,
-        //private dicService: SystemDictionaryService,
+        private dicService: SystemDictionaryService,
         private service: OpenstackMngService,
         private layoutService: LayoutService,
         private validationService: ValidationService,
@@ -33,8 +33,8 @@ export class OpenstackMngComponent implements OnInit{
     pageSize = 10;
     totalPage = 1;
 
-    platformId:string = "cade848b-6f98-447e-87d7-eb59aa5859af";
-    platformName:string = "武汉云平台";
+    platformId:string;
+    platformName:string;
 
     @ViewChild("pager")
     pager: PaginationComponent;
@@ -65,33 +65,31 @@ export class OpenstackMngComponent implements OnInit{
 
     ngOnInit(){
         this.router.params.forEach((params: Params) => {
-			this.platformId = params['platformId'];
-            this.platformName = params['platformName'];
-			console.log("接收的platform_id:" + this.platformId);
+			this.platformId = params['platformId']? params['platformId']:"00721c45-17c9-4b68-b941-090ddd5db4b7";
+            this.platformName = params['platformName'] ? params['platformName']:"上海HPE云平台服务F区";
+			console.log("接收的platformId:" + this.platformId);
             console.log("接收的platformName:" + this.platformName);
 		});
-        // this.dicService.getItems("IMAGES", "TYPE")
-        //     .then(
-        //     (dic) => {
-        //         this.typeDic = dic;
-        //         return this.dicService.getItems("IMAGES", "BITS_TYPE");
-        //     })
-        //     .then((dic) => {
-        //         this.bits_typeDic = dic;
-        //         return this.dicService.getItems("IMAGES", "OWNER");
-        //     })
-        //     .then((dic) => {
-        //         this.ownerDic = dic;
-        //         return this.dicService.getItems("IMAGES", "ADM_STATUS");
-        //     })
-        //     .then((dic) => {
-        //         this.statusDic = dic;
-        //         this.getTenants();
-        //         this.getImages();
+        this.dicService.getItems("IMAGES", "TYPE")
+            .then(
+            (dic) => {
+                this.typeDic = dic;
+                return this.dicService.getItems("IMAGES", "BITS_TYPE");
+            })
+            .then((dic) => {
+                this.bits_typeDic = dic;
+                return this.dicService.getItems("IMAGES", "OWNER");
+            })
+            .then((dic) => {
+                this.ownerDic = dic;
+                return this.dicService.getItems("IMAGES", "ADM_STATUS");
+            })
+            .then((dic) => {
+                this.statusDic = dic;
+                this.getTenants();
+                this.getImages();
                 
-        //     });
-            this.getTenants();
-            this.getImages();
+            });
     }
 
     getTenants(){
@@ -142,13 +140,29 @@ export class OpenstackMngComponent implements OnInit{
         }
 
     }
+    //根据value获取字典的txt
+    getDicTextforBit(value: string): String {
+        let dic = this.bits_typeDic;
+        if (!$.isArray(dic)) {
+            return value;
+        }
+        const d = dic.find((e) => {
+            return e.value == value;
+        });
+        if (d) {
+            return d.displayValue;
+        } else {
+            console.log(value);
+            return value;
+        }
+
+    }
     selectImage(image:Image){
         this.images.forEach((e)=>{e.selected = false});
         image.selected = true;
         this.selectedImage = image;
         
     }
-    
     imageEnableOrDisable(status:string){
 
         if(!this.selectedImage || ''== this.selectedImage.id){
@@ -161,7 +175,7 @@ export class OpenstackMngComponent implements OnInit{
                     this.showAlert("该镜像已是禁用状态");
                 }else{
                     //选择启用
-                     this.enableImage(this.selectedImage.id)
+                     this.enableImage(this.selectedImage.id);
                 }
             }
             else if ("1"== this.selectedImage.status){
@@ -171,7 +185,16 @@ export class OpenstackMngComponent implements OnInit{
                     this.showAlert("该镜像已是启用状态");
                 }else{
                     //选择禁用
-                     this.disableImage(this.selectedImage.id)
+                     this.disableImage(this.selectedImage.id);
+                }
+            }else if("2" == this.selectedImage.status){
+                //选择的image当前是未启用状态
+                if(status == "1"){
+                     //选择启用
+                     this.enableImage(this.selectedImage.id);
+                }else{
+                    //选择禁用
+                     this.disableImage(this.selectedImage.id);
                 }
             }
         }
@@ -190,6 +213,7 @@ export class OpenstackMngComponent implements OnInit{
                     response => {
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
+                            this.getImages();
                             this.showAlert("启用成功");
                         } else {
                             alert("Res sync error");
@@ -215,7 +239,8 @@ export class OpenstackMngComponent implements OnInit{
                     response => {
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
-                            this.showAlert("启用成功");
+                            this.getImages();
+                            this.showAlert("禁用成功");
                         } else {
                             alert("Res sync error");
                         }
@@ -234,7 +259,7 @@ export class OpenstackMngComponent implements OnInit{
         temp.name = image.name;
         temp.displayName = image.displayName;
         temp.os = image.os;
-        temp.bitesType = image.bitesType;
+        temp.bitsType = image.bitsType;
         temp.type = image.type;
         temp.tenants = image.tenants;
         temp.status = image.status;
@@ -267,7 +292,7 @@ export class OpenstackMngComponent implements OnInit{
                     image.name = c.name;
                     image.displayName = c.displayName;
                     image.os = c.os;
-                    image.bitesType = c.bitesType;
+                    image.bitsType = c.bitsType;
                     image.type = c.type;
                     image.tenants = c.tenants;
                     image.status = c.status;
@@ -297,7 +322,7 @@ export class OpenstackMngComponent implements OnInit{
             temp.name = this.selectedImage.name;
             temp.displayName = this.selectedImage.displayName;
             temp.os = this.selectedImage.os;
-            temp.bitesType = this.selectedImage.bitesType;
+            temp.bitsType = this.selectedImage.bitsType;
             temp.type = this.selectedImage.type;
             temp.tenants = this.selectedImage.tenants;
             temp.status = this.selectedImage.status;
@@ -346,7 +371,7 @@ export class OpenstackMngComponent implements OnInit{
                     tlist.push(t);
                 }
             });
-        if(!tlist && tlist.length>0){
+        if(tlist && tlist.length>0){
             this.tenantService.setList(tlist);
             this.router2.navigate(['host-mng/img-mng/openstack-mng/img-openstack-image-sync-ent', {"platformId": this.platformId,"platformName":this.platformName}]);
         }else{
@@ -383,6 +408,19 @@ export class OpenstackMngComponent implements OnInit{
     }
     //同步公共镜像
     syncPublic(){
-        this.router2.navigate(['host-mng/img-mng/openstack-mng/img-openstack-image-sync-public', {"platform_id": this.platformId,"platformName":this.platformName}]);
+        this.router2.navigate(['host-mng/img-mng/openstack-mng/img-openstack-image-sync-public', {"platformId": this.platformId,"platformName":this.platformName}]);
+    }
+    back(){
+        this.router2.navigateByUrl('host-mng/img-mng/img-index');        
+    }
+    //编辑时 默认系统位数选项
+    setDefaultBits(type:SystemDictionary, value:string){
+        if(value == type.value){
+            let classes =  {
+                selected:"selected"
+            };
+            return classes;
+        }
+       
     }
 }

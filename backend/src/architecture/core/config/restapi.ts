@@ -1156,37 +1156,49 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取镜像列表-openstack",
         "id": "host-mng.openstack-mng.image.list",
         "method": "POST",
-        "url": "/adminui/authsec/images/openstack/{platformId}/page/{page}/size/{size}"
+        "url": "/adminboe/authsec/images/openstack/{platformId}/page/{page}/size/{size}"
     },
     {
         "desc": "镜像openstack保存编辑",
         "id": "host-mng.openstack-mng.image.saveedit",
         "method": "PUT",
-        "url": "/adminui/authsec/images/openstack/{platformId}/page/{page}/size/{size}"
+        "url": "/adminboe/authsec/image/{id}"
     },
     {
         "desc": "镜像openstack启用禁用",
         "id": "host-mng.openstack-mng.image.EDable",
         "method": "PUT",
-        "url": "/adminui/authsec/image/{id}/{status}"
+        "url": "/adminboe/authsec/image/{id}/{status}"
     },
     {
         "desc": "企业下拉列表",
         "id": "host-mng.openstack-mng.image.tenantlist",
         "method": "GET",
-        "url": "/adminui/authsec/images/{platformId}/tenants/dropdown"
+        "url": "/adminboe/authsec/images/{platformId}/tenants/dropdown"
     },
     {
         "desc": "Openstack_同步公共镜像_获取镜像列表",
         "id": "host-mng.openstack-mng.image.sync-public.getlist",
         "method": "GET",
-         "url": "/adminui/authsec/images/openstack/pub/{platformId}"
+         "url": "/adminboe/authsec/images/openstack/pub/{platformId}"
     },
     {
         "desc": "Openstack_同步公共镜像_同步",
         "id": "host-mng.openstack-mng.image.sync-public.sync",
         "method": "POST",
-         "url": "/adminui/authsec/images/openstack/pub/{platformId}/sync"
+         "url": "/adminboe/authsec/images/openstack/pub/{platformId}/sync"
+    },
+    {
+        "desc": "Openstack_同步企业镜像_获取镜像列表",
+        "id": "host-mng.openstack-mng.image.sync-ent.getlist",
+        "method": "GET",
+         "url": "/adminboe/authsec/images/openstack/ent/{platformId}"
+    },
+    {
+        "desc": "Openstack_同步企业镜像_同步",
+        "id": "host-mng.openstack-mng.image.sync-ent.sync",
+        "method": "POST",
+         "url": "/adminboe/authsec/images/openstack/ent/{platformId}/sync"
     }
     //vmware镜像管理
     , {
