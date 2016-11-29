@@ -139,7 +139,6 @@ export class VmwareImgEntSetupComponent implements OnInit {
                     this.layoutService.hide();
                     this.selectedEnts = response.resultContent.selectedTenants;
                     this.unselectedEnts = response.resultContent.unselectedTenants;
-                    //console.log(response.resultContent, "==============");
                     console.log(this.selectedEnts, "selectedEnts!!!");
                     console.log(this.unselectedEnts, "unselectedEnts!!!");
                 } else {

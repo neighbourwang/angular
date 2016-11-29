@@ -169,11 +169,9 @@ export class VmwareImgListComponent implements OnInit {
     getSelected() {
         let item = this.vmwareimgs.find((n) => n.checked) as VmwareImgModel;
         if (item){
-            //console.log("==========getSelected 1=============");
             return item;
         }
         else {
-            //console.log("==========getSelected 2=============");
             this.showMsg("请选择相应的镜像");
             return null;
         }
@@ -225,7 +223,7 @@ export class VmwareImgListComponent implements OnInit {
 
     //Menu: 启用镜像
     enableImage(): void {
-        console.log('conponent: enableImage');
+        console.log('call enableImage');
         let image = this.getSelected();
         if (image) {
             console.log(image, "========== enableImage =============");
@@ -244,8 +242,7 @@ export class VmwareImgListComponent implements OnInit {
     acceptVmwareImageEnableModify(): void {
         console.log('clicked acceptVmwareImageEnableModify');
         if (this.selectedimg) {
-            console.log(this.selectedimg.id);
-            this.service.enableImage(this.selectedimg.id, "enable")
+            this.service.enableImage(this.selectedimg.id, this.statusDict.find(n => n.code === "AVAILABLE").value)
                 .then(res => {
                     if (res && res.resultCode == "100") {
                         console.log(res, "镜像启用成功")
@@ -272,10 +269,9 @@ export class VmwareImgListComponent implements OnInit {
 
     //Menu: 禁用镜像
     disableImage(): void {
-        console.log('conponent: disableImage');
+        console.log('call disableImage');
         let image = this.getSelected();
         if (image) {
-            console.log(image, "========== disableImage =============");
             this.selectedimg = image;
             if(this.selectedimg.status == this.statusDict.find(n => n.code === "UNAVAILABLE").value){
                 this.showMsg("镜像已被占用");
@@ -292,7 +288,7 @@ export class VmwareImgListComponent implements OnInit {
         console.log('clicked acceptVmwareImageDisableModify');
         if (this.selectedimg) {
             console.log(this.selectedimg.id);
-            this.service.disableImage(this.selectedimg.id, "disable")
+            this.service.disableImage(this.selectedimg.id, this.statusDict.find(n => n.code === "UNAVAILABLE").value)
                 .then(res => {
                     if (res && res.resultCode == "100") {
                         console.log(res, "镜像禁用成功")
@@ -319,12 +315,9 @@ export class VmwareImgListComponent implements OnInit {
 
     //Menu: 编辑镜像
     editImage(): void {
-        console.log('conponent: editImage');
+        console.log('call editImage');
         let image = this.getSelected();
         if (image) {
-            console.log(image, "========== editImage =============");
-            // OR get subenet information from API
-            //this.subn.portGroup = pg.id;
             this.selectedimg = image;
             this.editimagebox.open();
         } else {
@@ -463,12 +456,10 @@ export class VmwareImgListComponent implements OnInit {
         tmpimage.status = img.status;
         tmpimage.description = img.description;
         this.selectedimg = tmpimage;
-        console.log(this.selectedimg);
     }
 
     onSave(img: VmwareImgModel): void {
         this.layoutService.show();
-        //this.service.updateImage(image);   //selectedimage.id and selectedimage.name
         if (this.validationService.isBlank(this.selectedimg.displayName)) {
             this.layoutService.hide();
             this.showAlert("镜像名称不能为空");
@@ -512,7 +503,6 @@ export class VmwareImgListComponent implements OnInit {
         this.selectedimg.status = "";
         this.selectedimg.description = "";
         this.selectedimg = tmpimage;
-        console.log(this.selectedimg);
     }
 
 }

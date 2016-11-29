@@ -147,50 +147,7 @@
 							<div class="col-md-6 content-title2">GB</div>
 						</div>
 					</div>
-					<div class="col-md-12 no-padding">
-						<div class="col-md-2 content-title">数据盘</div>
-						<div class="col-md-10 no-padding data-disk">
-							<div class="col-md-12 no-padding mb10">
-								<div class="col-md-3 no-padding">
-									<!-- <select [(ngModel)]="sendModule.storage" (change)="sendModule.storage = value" class="form-control">
-										<option
-										*ngFor="let value of configs.storage.valueList;"
-										[ngValue]="value" >{{ value.attrDisplayValue }}</option>
-									</select> -->
-									<select class="form-control">
-										<option selected>高速I/O</option>>
-									</select>
-								</div>
-								<div class="col-md-1 content-title2">容量</div>
-								<div class="col-md-2 no-padding">
-									<select class="form-control">
-										<option selected>20</option>>
-									</select>
-									<!-- <select [(ngModel)]="sendModule.storagesize" (change)="sendModule.storagesize = value" class="form-control">
-										<option
-										*ngFor="let value of configs.storagesize.valueList;"
-										[ngValue]="value" >{{ value.attrDisplayValue }}</option>
-									</select> -->
-									<!--<div class="btn-group input-step-compontent">
-										<button type="button" class="btn btn-default col-md-3"><span class="glyphicon glyphicon-minus"></span></button>
-										<input type="text" class="form-control" value="20">
-										<button type="button" class="btn btn-default clickable"><span class="glyphicon glyphicon-plus"></span></button>
-									</div>-->
-								</div>
-								<div class="col-md-1 content-title2">GB</div>
-								<div class="col-md-3 text-right">
-									<!--<button class="btn button-gray-gradient"><span class="glyphicon glyphicon-remove"></span> 删除</button>-->
-								</div>
-							</div>
-						</div>
-						<div class="col-md-2 content-title"></div>
-						<div class="col-md-10 add-disk-box">
-							<div class="col-md-3 content-title2 no-padding">
-								<button class="btn button-gray-gradient button-icon"><span class="glyphicon glyphicon-plus"></span> 增加数据盘</button>
-							</div>
-							<div class="col-md-7 no-padding disk-tip">一共可以增加<span class="font-green">3</span>块，还可以增加<span class="font-orange">2</span>块</div>
-						</div>
-					</div>
+					<add-storage [configs]="configs"></add-storage>
 				</div>
 			</li>
 			<li>

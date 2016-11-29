@@ -31,15 +31,15 @@ export class VmwareEntListService{
 
             }
         ];
-        const obj = {
-                "platformId": criteriaQuery.platformId,
-                "type": criteriaQuery.type,
-                "tenantId": criteriaQuery.tenantId
-        };
+        //const obj = {
+        //        "platformId": criteriaQuery.platformId,
+        //        "type": criteriaQuery.type,
+        //        "tenantId": criteriaQuery.tenantId
+        //};
         
-        const api = this.restApiCfg.getRestApi("host-mng.img-mng.vmware-mng.vmware-ent.list");
-        return this.restApi.request(api.method, api.url, pathParams, null, obj);
-        */
+        const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.dropdown-ent.list");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //*/
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return EnterpriseModel_mock });
     }
     

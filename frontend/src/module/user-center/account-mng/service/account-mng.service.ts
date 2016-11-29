@@ -55,12 +55,18 @@ export class AccountMngService {
     getOrgList(){
         let api = this.restApiCfg.getRestApi("user-center.account-mng.create.orgList");
 
-        return this.restApi.request(api.method , api.url , [{key : "page", value : 0},{key : "size", value : 99999}],undefined);
+        return this.restApi.request(api.method , api.url , [{key : "page", value : 0},{key : "size", value : 10}],undefined);
     }
     //创建账户
     createAccount(data:any){
         let api = this.restApiCfg.getRestApi("user-center.account-mng.create.post");
 
         return this.restApi.request(api.method , api.url , [],undefined,data);
+    }
+    //编辑本地账户
+    editAccount(id:string,data:any){
+        let api = this.restApiCfg.getRestApi("user-center.account-mng.editLocal");
+
+        return this.restApi.request(api.method , api.url , [{key:'id',value:id}],undefined,data);
     }
 }
