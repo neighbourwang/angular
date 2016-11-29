@@ -102,10 +102,10 @@
 					</tr>			
 				</thead>
 				<tbody>
-					<tr *ngFor="let item of _listLoader.Items;let i=index;">
-						<td >{{index}}</td>
-						<td>{{item.orderCodeStr}}<br>
-						    <a (click)="openDetail(item)">详细信息>>></a></td>
+					<tr>
+						<td>1</td>
+						<td>22370537538484773<br>
+						    <a lab-bootstrap-popover id="detail-0" contentid="content-1">详细信息>>></a></td>
 						<td>云主机<br>
 						     运硬盘<br>
 						     数据库</td>
@@ -153,7 +153,7 @@
 		<!-- <fc-pagination tp={{}} (pf)="changePage($event)"></fc-pagination> -->
 	</div>
 
-	<div class="DetailInfo">
+	<div class="DetailInfo" id="content-1" style="display: none;width: 300px">
 		<table class="table table-hover">
 			<thead>
 				<tr><th class="form-control-title" colspan="2">详细信息</th></tr>

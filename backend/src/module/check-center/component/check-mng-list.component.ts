@@ -181,4 +181,9 @@ export class CheckMngListComponent implements OnInit{
 	{
 
 	}
+
+	contentIdGen(num:number):string
+	{
+		return `content-${num}`;
+	}
 }
