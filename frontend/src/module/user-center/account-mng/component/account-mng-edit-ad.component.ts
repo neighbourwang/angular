@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Input, ViewChild, Output } from "@angular/core";
+﻿import { Component, OnInit, Input, ViewChild, Output, SimpleChanges } from "@angular/core";
 import { Router } from "@angular/router";
 
 import { LayoutService, NoticeComponent, ConfirmComponent, ValidationService } from "../../../../architecture";
@@ -7,7 +7,7 @@ import { Account, Role, Organization } from "../model/account.model";
 import { Attest } from "../model/attest.model";
 import { AdUser } from "../model/adUser.model";
 
-import { AccountMngAdService } from "../service/account-ad.service";
+import { AccountMngService } from "../service/account-mng.service";
 
 @Component({
     selector: "account-mng-edit-ad",
@@ -20,10 +20,14 @@ export class AccountMngEditAdComponent implements OnInit {
     constructor(
         private layoutService: LayoutService,
         private router: Router,
-        private service: AccountMngAdService,
+        public service: AccountMngService,
         private validationService: ValidationService
     ) {
     }
+
+
+    @Input()
+    accountId: string;
 
     noticeTitle = "";
     noticeMsg = "";
@@ -31,80 +35,92 @@ export class AccountMngEditAdComponent implements OnInit {
     @ViewChild("notice")
     notice: NoticeComponent;
     account = new Account();
-    roles: Array<Role>;
-    organizations: Array<Organization>;
-    filterStr: string; //查询AD账户的查询条件
-
     ngOnInit() {
-        this.getRole();
-        this.getOrg();
     }
 
-    //获取角色列表0
-    getRole() {
+    ngOnChanges(changes: SimpleChanges) {
+        console.log(this.accountId);
+        if (!this.accountId || this.accountId == "")
+            return;
+        this.clearData();
         this.layoutService.show();
-        this.service.getRoleList()
-            .then(response => {
+        this.service.getLocalAcc(this.accountId)
+            .then(
+            res => {
                 this.layoutService.hide();
-                this.roles = response;
-            })
-            .catch((e) => this.onRejected(e));
+                console.log("账号", res);
+                this.account = res.resultContent;
+                this.setDefaultSelect();
+            }
+            )
+            .catch(e => {
+                this.onRejected(e);
+            });
     }
 
-    //获取组织列表
-    getOrg() {
-        this.layoutService.show();
-        this.service.getOrgList(1, 9999)
-            .then(response => {
-                this.layoutService.hide();
-                this.organizations = response;
-            })
-            .catch((e) => this.onRejected(e));
+    clearData() {
+        this.account = new Account();
+        this.setDefaultSelect();
     }
 
-     
+    setDefaultSelect() {
+        this.service.roles.forEach((role) => {
+            this.account.roles.forEach((o) => {
+                if (!role.selected)
+                    role.selected = o.id == role.id;
+            });
+        });
+
+        this.service.orgs.forEach((org) => {
+            this.account.organizations.forEach((o) => {
+                if (!org.selected)
+                    org.selected = o.id == org.id;
+            });
+        });
+
+    }
 
     editAccount(): Promise<any> {
 
-        this.account.roles = this.roles.filter((r) => { return r.selected });
-        this.account.organizations = this.organizations.filter((o) => { return o.selected });
+        this.account.roles = this.service.roles.filter((r) => { return r.selected });
+        this.account.organizations = this.service.orgs.filter((o) => { return o.selected });
 
         if (this.validationService.isBlank(this.account.userName)) {
             this.showAlert("请输入管理员姓名");
-            return null;
+            return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
         if (this.validationService.isBlank(this.account.phone)) {
             this.showAlert("请输入电话");
-            return null;
+            return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
         if (!this.validationService.isMoblie(this.account.phone) &&
             !this.validationService.isTel(this.account.phone)) {
             this.showAlert("请输入合法的联系电话;");
-            return null;
+            return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
 
         if (this.account.roles.length === 0) {
             this.showAlert("至少选择一个角色");
-            return null;
+            return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
         if (this.account.organizations.length === 0) {
             this.showAlert("请选择所属机构");
-            return null;
+            return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
         this.layoutService.show();
-        return this.service.createAccount(this.account).then((res) => {
+        return this.service.editAdAccount(this.account).then((res) => {
             this.layoutService.hide();
             return res;
         }).catch((e) => {this.onRejected(e);});
     }
 
     clearSelectedOrg(org: Organization) {
-        this.organizations.forEach((o) => {
+        this.service.orgs.forEach((o) => {
             o.selected = false;
         });
     }

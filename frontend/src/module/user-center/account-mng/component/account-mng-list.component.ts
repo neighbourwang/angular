@@ -1,215 +1,286 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { Router } from "@angular/router";
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from "../../../../architecture";
 
-import { AccountMngCrAdComponent } from './account-mng-cr-ad.component';
-import { AccountMngCrLocalComponent } from './account-mng-cr-local.component';
+import { AccountMngCrAdComponent } from "./account-mng-cr-ad.component";
+import { AccountMngCrLocalComponent } from "./account-mng-cr-local.component";
+import { AccountMngEditAdComponent } from "./account-mng-edit-ad.component";
 
-import { AccountMngService } from '../service/account-mng.service';
+import { AccountMngService } from "../service/account-mng.service";
 
-import { Account } from '../model/account';
+import { Account } from "../model/account";
 
 @Component({
     // selector: 'account-mng-list',
-    templateUrl: '../template/account-mng-list.component.html',
+    templateUrl: "../template/account-mng-list.component.html",
     styleUrls: [],
     providers: []
 })
 export class AccountMngListComponent implements OnInit {
 
-    @ViewChild('crLocal')
+    noticeTitle = "";
+    noticeMsg = "";
+
+    @ViewChild("notice")
+    notice: NoticeComponent;
+
+    @ViewChild("crLocal")
     private crLocal: AccountMngCrLocalComponent;
 
-    @ViewChild('crAdCount')
+    @ViewChild("crAdCount")
     private crAd: AccountMngCrAdComponent;
 
-    @ViewChild('confirm')
+    @ViewChild("editAd")
+    private editAd: AccountMngEditAdComponent;
+
+    @ViewChild("confirm")
     private confirm: ConfirmComponent;
 
-    @ViewChild('creAccount')
+
+    @ViewChild("creAccount")
     private createAccountPopUp: PopupComponent;
 
 
-    @ViewChild('crAdAccount')
+    @ViewChild("crLocalAccount")
+    private createLocalAccountPopUp: PopupComponent;
+
+    @ViewChild("crAdAccount")
     private createAdAccountPopUp: PopupComponent;
 
 
-    @ViewChild('editAdAccount')
+    @ViewChild("editAdAccount")
     private editAdAccountPopUp: PopupComponent;
 
     constructor(
         private layoutService: LayoutService,
         private router: Router,
         private service: AccountMngService
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
         this.getAccountList(1, this.pp);
+        this.getRole();
+        this.getOrg();
+        this.getAttest();
     }
+
     //关键字搜索
     keyword: string;
     //判断 修改 还是 新建
     isEdit: boolean;
     //confirm得title
-    confirmTitle: string = '';
+    confirmTitle = "";
     //confirm得信息
-    confirmMessage: string = '';
+    confirmMessage = "";
     //获取当前得confirm类型 判断操作
     confirmType: number;
 
-    accounts: Array<Account> = new Array<Account>();
+    accounts = new Array<Account>();
 
     accountId: string;
+
     //获取账户列表
     getAccountList(page: number, size: number) {
-        this.service.getAccountList(page, size).then(
-            res => {
-                console.log(res);
-                this.accounts = res.resultContent;
-                this.tp = res.pageInfo.totalPage
-            }
-        ).catch(
-            err => {
-                console.error(err);
-            }
+        this.service.getAccountList(page, size)
+            .then(
+                res => {
+                    console.log(res);
+                    this.accounts = res.resultContent;
+                    this.tp = res.pageInfo.totalPage;
+                }
             )
+            .catch(
+                err => {
+                    console.error(err);
+                }
+            );
     }
+
+    //获取角色列表0
+    getRole() {
+        this.layoutService.show();
+        this.service.getRoleList()
+            .then(response => {
+                this.layoutService.hide();
+            })
+            .catch((e) => this.onRejected(e));
+    }
+
+    //获取组织列表
+    getOrg() {
+        this.layoutService.show();
+        this.service.getOrgList(1, 9999)
+            .then(response => {
+                this.layoutService.hide();
+            })
+            .catch((e) => this.onRejected(e));
+    }
+
+    //获取组织列表
+    getAttest() {
+        this.layoutService.show();
+        this.service.getAttests(1, 9999)
+            .then(response => {
+                this.layoutService.hide();
+            })
+            .catch((e) => this.onRejected(e));
+    }
+
     //保存
     save() {
-        this.crLocal.save().then(
-            res => {
-                console.log(res);
-                $('#crModel').modal('hide');
-            }
-        ).catch(
-            err => {
-                console.error('err');
-            }
+        this.crLocal.save()
+            .then(
+                res => {
+                    console.log(res);
+                    this.createLocalAccountPopUp.close();
+                }
             )
-
+            .catch(
+                err => {
+                    console.error("err");
+                }
+            );
     }
+
     //搜索
     search() {
-        console.log('seach', this.keyword);
+        console.log("seach", this.keyword);
     }
 
     //创建
     create() {
-        this.createAccountPopUp.open('创建帐号');
+        this.createAccountPopUp.open("创建帐号");
     }
+
     //
-    accountType: string = '1';
+    accountType = "1";
+
     otCreate() {
         this.createAccountPopUp.close();
         console.log(this.accountType);
-        if (this.accountType == '1') {
+        if (this.accountType == "1") {
             this.isEdit = false;
-            window.setTimeout(function () {
-                $('#crModel').modal('show');
-            },
+            window.setTimeout(() => {
+                    this.createLocalAccountPopUp.open("创建本地账号");
+                },
                 510);
 
         } else {
             window.setTimeout(() => {
-                this.createAdAccountPopUp.open("创建AD账号");
-            },
+                    this.crAd.clearData();
+                    this.createAdAccountPopUp.open("创建AD账号");
+                },
                 510);
         }
     }
 
     //修改
     editId: string;
+
     edit(account) {
         console.log(account);
         this.isEdit = true;
         this.editId = account.id;
-        $('#crModel').modal('show');
+        //if (account.type == 0) { //0 本地  ,1 AD
+        //    this.createLocalAccountPopUp.open("编辑本地账号");
+        //} else {
+        this.editAdAccountPopUp.open("编辑AD账号");
+        // }
     }
+
     //启用
     enable(accountId, index) {
-        this.confirmTitle = '启用帐号';
-        let accountName = this.accounts[index].userName;
+        this.confirmTitle = "启用帐号";
+        const accountName = this.accounts[index].userName;
         this.accountId = this.accounts[index].id;
-        this.confirmMessage = '您选择启用' + accountName + '，请确认';
+        this.confirmMessage = `您选择启用${accountName}，请确认`;
         this.confirmType = 1;
         this.confirm.open();
     }
 
     //禁用
     disable(accountId, index) {
-        this.confirmTitle = '禁用帐号';
-        let accountName = this.accounts[index].userName;
+        this.confirmTitle = "禁用帐号";
+        const accountName = this.accounts[index].userName;
         this.accountId = this.accounts[index].id;
-        this.confirmMessage = '您选择禁用' + accountName + '，请确认。如果确认，机构成员将无法操作相关资源';
+        this.confirmMessage = `您选择禁用${accountName}，请确认。如果确认，机构成员将无法操作相关资源`;
         this.confirmType = 2;
         this.confirm.open();
 
     }
+
     //删除
     delete(accountId, index) {
-        this.confirmTitle = '删除帐号';
-        let accountName = this.accounts[index].userName;
+        this.confirmTitle = "删除帐号";
+        const accountName = this.accounts[index].userName;
         this.accountId = this.accounts[index].id;
-        this.confirmMessage = '您选择删除' + accountName + '，请确认。如果确认，部门将被删除且该部门中的用户将被移除。';
+        this.confirmMessage = `您选择删除${accountName}，请确认。如果确认，部门将被删除且该部门中的用户将被移除。`;
         this.confirmType = 3;
         this.confirm.open();
     }
 
     confirmOk() {
         switch (this.confirmType) {
-            case 1:
-                console.log('启用');
-                this.enableAcc();
-                break;
-            case 2:
-                console.log('禁用');
-                this.disableAcc();
-                break;
-            case 3:
-                console.log('删除');
-                this.deleteAcc();
-                break;
+        case 1:
+            console.log("启用");
+            this.enableAcc();
+            break;
+        case 2:
+            console.log("禁用");
+            this.disableAcc();
+            break;
+        case 3:
+            console.log("删除");
+            this.deleteAcc();
+            break;
         }
     }
 
     enableAcc() {
-        this.service.enableAcc(this.accountId).then(
-            res => {
-                console.log(res);
-                this.getAccountList(1, this.pp);
-            }
-        ).catch(
-            err => {
-                console.error(err);
-            }
+        this.service.enableAcc(this.accountId)
+            .then(
+                res => {
+                    console.log(res);
+                    this.getAccountList(1, this.pp);
+                }
             )
+            .catch(
+                err => {
+                    console.error(err);
+                }
+            );
     }
 
     disableAcc() {
-        this.service.disableAcc(this.accountId).then(
-            res => {
-                console.log(res);
-                this.getAccountList(1, this.pp);
-            }
-        ).catch(
-            err => {
-                console.error(err);
-            }
+        this.service.disableAcc(this.accountId)
+            .then(
+                res => {
+                    console.log(res);
+                    this.getAccountList(1, this.pp);
+                }
             )
+            .catch(
+                err => {
+                    console.error(err);
+                }
+            );
     }
 
     deleteAcc() {
-        this.service.deleteAcc(this.accountId).then(
-            res => {
-                console.log(res);
-                this.getAccountList(1, this.pp);
-            }
-        ).catch(
-            err => {
-                console.error(err);
-            }
+        this.service.deleteAcc(this.accountId)
+            .then(
+                res => {
+                    console.log(res);
+                    this.getAccountList(1, this.pp);
+                }
             )
+            .catch(
+                err => {
+                    console.error(err);
+                }
+            );
     }
 
     //创建AD账户
@@ -217,18 +288,52 @@ export class AccountMngListComponent implements OnInit {
         this.crAd.createAccount()
             .then(res => {
                 console.log(res);
+                if (res == false)
+                    return;
                 this.createAdAccountPopUp.close();
                 this.getAccountList(1, this.pp);
             });
     }
 
+    editAccount() {
+        this.editAd.editAccount()
+            .then(res => {
+                    console.log(res);
+                    if (res == false)
+                        return;
+                    this.createAdAccountPopUp.close();
+                    this.getAccountList(1, this.pp);
+                }
+            );
+    }
 
-    //分页
-    tp: number = 0;
-    pp: number = 10;
+//分页
+    tp = 0;
+    pp = 10;
+
     paging(page) {
         console.log(page);
         this.getAccountList(page, this.pp);
     }
+
     ccf() { }
+
+    showAlert(msg: string): void {
+        this.layoutService.hide();
+
+        this.noticeTitle = "提示";
+        this.noticeMsg = msg;
+        this.notice.open();
+    }
+
+    showConfirm(msg: string): void {
+
+    }
+
+    onRejected(reason: any) {
+        this.layoutService.hide();
+        console.log(reason);
+        this.showAlert("获取数据失败！");
+    }
+
 }

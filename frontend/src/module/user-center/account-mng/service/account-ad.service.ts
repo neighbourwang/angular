@@ -17,13 +17,7 @@ export class AccountMngAdService {
     roles: Array<Role> = [];
     orgs: Array<Organization> = [];
     attests: Array<Attest> = [];
-    //获取账号详情
-    getLocalAcc(id: string) {
-        let api = this.restApiCfg.getRestApi("user-center.account-mng.detail");
-
-        return this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined);
-    }
-
+    
     // 获取所有角色列表
     getRoleList() {
         if (this.roles.length == 0) {
@@ -104,15 +98,30 @@ export class AccountMngAdService {
         }
         return this.restApi.request(api.method, api.url, [{ key: "ldapid", value: ldapid }, { key: "page", value: pageIndex }, { key: "size", value: pageSize }], undefined, opt);
     }
-    //创建账户
-    createAccount(data: any) {
-        let api = this.restApiCfg.getRestApi("user-center.account-mng.create.post");
+    //创建 帐号
+    createAdAccount(account) {
+        let api = this.restApiCfg.getRestApi("user-center.account-mng.ad.create");
 
-        return this.restApi.request(api.method, api.url, [], undefined, data);
+        return this.restApi.request(api.method, api.url, undefined, undefined, account);
     }
 
+    //获取单个帐号
+    getAdAccountById(id: string) {
+        let api = this.restApiCfg.getRestApi("user-center.account-mng.ad.get");
+        return this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined).then(
+            res => {
+                if (res && 100 == res["resultCode"]) {
+                    return res.resultContent;
+                } else {
+                    throw "error";
+                }
+            }
+        );
+    }
+
+
     //编辑帐号
-    editAccount(id: string, account) {
+    editAdAccount(id: string, account) {
         let api = this.restApiCfg.getRestApi("user-center.account-mng.local.edit");
 
         return this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined, account);

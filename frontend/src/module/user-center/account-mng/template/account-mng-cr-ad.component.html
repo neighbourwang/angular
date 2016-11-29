@@ -32,18 +32,18 @@
                 <div class="float-left">
                     <select class="form-control" [(ngModel)]="account.ldapId">
                         <option value="">请选择</option>
-                        <option *ngFor="let attest of attests" [value]="attest.id">{{attest.name}}</option>
+                        <option *ngFor="let attest of service.attests" [value]="attest.id">{{attest.name}}</option>
                     </select>
                 </div>
                 <div class="input-group col-md-5 mgb20">
                     <input class="form-control" placeholder="输入AD用户信息搜索" [(ngModel)]="filterStr" type="text">
-                    <div class="input-group-addon" (click)="searchAdUser();">
+                    <div class="input-group-addon pointer" (click)="searchAdUser();">
                         <span class="glyphicon glyphicon-search"></span>
                         <span style="position: relative; top: -2px;display: inline-block;line-height: 1;padding-left:2px"> 查询</span>
                     </div>
                 </div>
                 <div style="height:200px; overflow-y:scroll; ">
-                    <table class="table table-hover">
+                    <table class="table table-hover" style="width: 615px; word-break: break-all;">
                         <thead>
                             <tr>
                                 <th style="width: 10%;" class="check-box-col">选择</th>
@@ -72,7 +72,7 @@
             <th class="col-md-1 col-xs-3 text-center">绑定角色</th>
             <td>
                 <div>
-                    <label class="radio-inline" *ngFor="let role of roles;" >
+                    <label class="radio-inline" *ngFor="let role of service.roles;" >
                         <input type="checkbox" name="role" [checked]="role.selected" (change)="role.selected=$event.target.checked;" class="fox-cloud-checkbox">{{role.name}}
                     </label>
                 </div>
@@ -82,7 +82,7 @@
             <th class="col-md-1 col-xs-3 text-center">绑定部门</th>
             <td>
                 <div>
-                    <label class="checkbox-inline" *ngFor="let org of organizations;">
+                    <label class="checkbox-inline" *ngFor="let org of service.orgs;">
                         <input type="radio" name="department"  [checked]="org.selected" (change)="clearSelectedOrg();org.selected=$event.target.checked;" class="fox-cloud-radio">{{org.name}}
                     </label>
                 </div>

@@ -7,7 +7,7 @@ import { Account, Role, Organization } from "../model/account.model";
 import { Attest } from "../model/attest.model";
 import { AdUser } from "../model/adUser.model";
 
-import { AccountMngAdService } from "../service/account-ad.service";
+import { AccountMngService } from "../service/account-mng.service";
 
 @Component({
     selector: "account-mng-cr-ad",
@@ -20,7 +20,7 @@ export class AccountMngCrAdComponent implements OnInit {
     constructor(
         private layoutService: LayoutService,
         private router: Router,
-        private service: AccountMngAdService,
+        public service: AccountMngService,
         private validationService: ValidationService
     ) {
     }
@@ -31,51 +31,19 @@ export class AccountMngCrAdComponent implements OnInit {
     @ViewChild("notice")
     notice: NoticeComponent;
     account = new Account();
-    roles: Array<Role>;
-    organizations: Array<Organization>;
     adUsers: Array<AdUser>;
-    attests: Array<Attest>;
     filterStr: string; //查询AD账户的查询条件
 
     ngOnInit() {
-        this.getRole();
-        this.getOrg();
-        this.getAttest();
+
     }
 
-    //获取角色列表0
-    getRole() {
-        this.layoutService.show();
-        this.service.getRoleList()
-            .then(response => {
-                this.layoutService.hide();
-                this.roles = response;
-            })
-            .catch((e) => this.onRejected(e));
+    clearData() {
+        this.account = new Account();
+        this.filterStr = "";
+        this.clearSelectedOrg();
+        this.clearSelectedRole();
     }
-
-    //获取组织列表
-    getOrg() {
-        this.layoutService.show();
-        this.service.getOrgList(1, 9999)
-            .then(response => {
-                this.layoutService.hide();
-                this.organizations = response;
-            })
-            .catch((e) => this.onRejected(e));
-    }
-
-    //获取组织列表
-    getAttest() {
-        this.layoutService.show();
-        this.service.getAttests(1, 9999)
-            .then(response => {
-                this.layoutService.hide();
-                this.attests = response;
-            })
-            .catch((e) => this.onRejected(e));
-    }
-
 
     //获取ad用户
     searchAdUser() {
@@ -100,50 +68,59 @@ export class AccountMngCrAdComponent implements OnInit {
 
     createAccount(): Promise<any> {
 
-        this.account.roles = this.roles.filter((r) => { return r.selected });
-        this.account.organizations = this.organizations.filter((o) => { return o.selected });
+        this.account.roles = this.service.roles.filter((r) => { return r.selected });
+        this.account.organizations = this.service.orgs.filter((o) => { return o.selected });
+
 
         if (this.validationService.isBlank(this.account.userName)) {
             this.showAlert("请输入管理员姓名");
-            return;
+            return new Promise(resovle => setTimeout(resovle, 10)).then(()=>false);
         }
 
         if (this.validationService.isBlank(this.account.phone)) {
             this.showAlert("请输入电话");
-            return;
+            return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
         if (!this.validationService.isMoblie(this.account.phone) &&
             !this.validationService.isTel(this.account.phone)) {
             this.showAlert("请输入合法的联系电话;");
-            return null;
+            return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
         if (!this.account.loginName || this.account.loginName == "") {
             this.showAlert("请选择ad用户");
-            return null;
+            return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
         if (this.account.roles.length === 0) {
             this.showAlert("至少选择一个角色");
-            return null;
+            return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
         if (this.account.organizations.length === 0) {
             this.showAlert("请选择所属机构");
-            return null;
+            return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
         this.layoutService.show();
-        return this.service.createAccount(this.account).then((res) => {
-            this.layoutService.hide();
-            return res;
-        }).catch((e) => {this.onRejected(e);});
+        return this.service.createAccount(this.account)
+            .then((res) => {
+                this.layoutService.hide();
+                return true;
+            })
+            .catch((e) => { this.onRejected(e); });
     }
 
-    clearSelectedOrg(org: Organization) {
-        this.organizations.forEach((o) => {
+    clearSelectedOrg() {
+        this.service.orgs.forEach((o) => {
             o.selected = false;
+        });
+    }
+
+    clearSelectedRole() {
+        this.service.roles.forEach((r) => {
+            r.selected = false;
         });
     }
 
