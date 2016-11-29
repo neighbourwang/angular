@@ -64,7 +64,7 @@ export class OpenstackMngService{
         return this.restApi.request(api.method, api.url, pathParams, null, {
              "displayName": image.displayName,
             "os": image.os,
-            "bitesType": image.bitesType,
+            "bitsType": image.bitsType,
             "type": image.type,
             "description": image.description});
         

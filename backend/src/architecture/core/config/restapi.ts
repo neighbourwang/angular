@@ -1162,7 +1162,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "镜像openstack保存编辑",
         "id": "host-mng.openstack-mng.image.saveedit",
         "method": "PUT",
-        "url": "/adminboe/authsec/images/openstack/{platformId}/page/{page}/size/{size}"
+        "url": "/adminboe/authsec/image/{id}"
     },
     {
         "desc": "镜像openstack启用禁用",

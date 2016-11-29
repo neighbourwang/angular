@@ -29,6 +29,7 @@
     <div class="mgb20 " style="margin-top:20px">
         <button class="fox-cloud-button fox-cloud-button-green mgr10" key="boe/image-public-sync-poenStack.html" (click)="syncPublic()">同步公共镜像</button>
         <button type="button" class="fox-cloud-button fox-cloud-button-green" data-toggle="modal" data-target="#my" (click)="createSynTeOption()">同步企业镜像</button>       
+        
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
              更多操作
@@ -42,6 +43,7 @@
         </div>
     </div>
     <div class="table-container">
+        
         <table class="table table-hover">
              <thead>
                  <tr>
@@ -84,18 +86,18 @@
                     </div>
                     </td>
                     <td >{{image.os}}</td>
-                    <td >{{getDicText(image.bitesType,bits_typeDic)}}</td>
+                    <td >{{getDicTextforBit(image.bitsType)}}</td>
                     <td >{{image.capacity}}G</td>
                     <td >{{getDicText(image.type,typeDic)}}</td>
                     <td >{{getImageTenant(image.tenants)}}</td>
-                    <td >{{getDicText(image.status,statusDic)}}</td>
+                    <td [ngClass]="{'font-green':image.status!='2','font-orange':image.status==2}">{{getDicText(image.status,statusDic)}}</td>
 
                 </tr>
 
             </tbody>
 
         </table>
-
+            
     </div>
 </div>
 
@@ -124,9 +126,8 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">系统位数:</div>
                 <div class="col-sm-6">
-                    <select class="form-control" >
-                        <option [ngValue]="tempEditImage.bitesType">{{getDicText(tempEditImage.bitesType,bits_typeDic)}}</option>
-                        <option *ngFor = "let type of bits_typeDic" [ngValue]="type.value">{{getDicText(type.value,bits_typeDic)}}</option>
+                    <select class="form-control" [(ngModel)]="tempEditImage.bitsType">
+                        <option *ngFor = "let type of bits_typeDic" [ngValue]="type.value" [ngClass]="setDefaultBits(type,tempEditImage.bitsType)">{{getDicText(type.value,bits_typeDic)}}</option>
                         
                     </select>
                 </div>

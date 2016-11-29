@@ -140,13 +140,29 @@ export class OpenstackMngComponent implements OnInit{
         }
 
     }
+    //根据value获取字典的txt
+    getDicTextforBit(value: string): String {
+        let dic = this.bits_typeDic;
+        if (!$.isArray(dic)) {
+            return value;
+        }
+        const d = dic.find((e) => {
+            return e.value == value;
+        });
+        if (d) {
+            return d.displayValue;
+        } else {
+            console.log(value);
+            return value;
+        }
+
+    }
     selectImage(image:Image){
         this.images.forEach((e)=>{e.selected = false});
         image.selected = true;
         this.selectedImage = image;
         
     }
-    
     imageEnableOrDisable(status:string){
 
         if(!this.selectedImage || ''== this.selectedImage.id){
@@ -232,7 +248,7 @@ export class OpenstackMngComponent implements OnInit{
         temp.name = image.name;
         temp.displayName = image.displayName;
         temp.os = image.os;
-        temp.bitesType = image.bitesType;
+        temp.bitsType = image.bitsType;
         temp.type = image.type;
         temp.tenants = image.tenants;
         temp.status = image.status;
@@ -265,7 +281,7 @@ export class OpenstackMngComponent implements OnInit{
                     image.name = c.name;
                     image.displayName = c.displayName;
                     image.os = c.os;
-                    image.bitesType = c.bitesType;
+                    image.bitsType = c.bitsType;
                     image.type = c.type;
                     image.tenants = c.tenants;
                     image.status = c.status;
@@ -295,7 +311,7 @@ export class OpenstackMngComponent implements OnInit{
             temp.name = this.selectedImage.name;
             temp.displayName = this.selectedImage.displayName;
             temp.os = this.selectedImage.os;
-            temp.bitesType = this.selectedImage.bitesType;
+            temp.bitsType = this.selectedImage.bitsType;
             temp.type = this.selectedImage.type;
             temp.tenants = this.selectedImage.tenants;
             temp.status = this.selectedImage.status;
@@ -381,9 +397,19 @@ export class OpenstackMngComponent implements OnInit{
     }
     //同步公共镜像
     syncPublic(){
-        this.router2.navigate(['host-mng/img-mng/openstack-mng/img-openstack-image-sync-public', {"platform_id": this.platformId,"platformName":this.platformName}]);
+        this.router2.navigate(['host-mng/img-mng/openstack-mng/img-openstack-image-sync-public', {"platformId": this.platformId,"platformName":this.platformName}]);
     }
     back(){
         this.router2.navigateByUrl('host-mng/img-mng/img-index');        
+    }
+    //编辑时 默认系统位数选项
+    setDefaultBits(type:SystemDictionary, value:string){
+        if(value == type.value){
+            let classes =  {
+                selected:"selected"
+            };
+            return classes;
+        }
+       
     }
 }

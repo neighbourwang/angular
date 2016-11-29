@@ -54,12 +54,12 @@
                     </td>
                     <td style="position:relative">
                         <div *ngIf="image.syncResult==0">
-                            <select [(ngModel)]="image.bitesType">
-                                <option *ngFor = "let type of bits_typeDic" [ngValue]="type.value">{{getDicText(type.value,this.bits_typeDic)}}</option>
+                            <select class="form-control" [(ngModel)]="image.bitsType">
+                                <option *ngFor = "let type of bits_typeDic" [ngValue]="type.value" [ngClass]="setDefaultBits(type,image.bitsType)">{{getDicText(type.value,bits_typeDic)}}</option>
                             </select>
                         </div>
                         <div *ngIf="image.syncResult!=0">
-                            {{getDicText(image.bitesType,this.bits_typeDic)}}
+                            {{getDicText(image.bitsType,this.bits_typeDic)}}
                         </div>
                     </td>
                     <td >公共镜像</td>
