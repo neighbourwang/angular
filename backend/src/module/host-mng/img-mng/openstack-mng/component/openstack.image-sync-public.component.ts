@@ -16,7 +16,7 @@ export class OpenstackImageSyncPublicComponent implements OnInit{
     constructor(
         private router: ActivatedRoute,
         private router2: Router,
-        //private dicService: SystemDictionaryService,
+        private dicService: SystemDictionaryService,
         private service: OpenstackMngService,
         private layoutService: LayoutService,
         private validationService: ValidationService
@@ -34,7 +34,6 @@ export class OpenstackImageSyncPublicComponent implements OnInit{
     platformId:string;
     platformName:string;
     images:Array<Image>;
-    //syncImages:Array<SyncImage>;
     images_needsync:Array<Image>;
 
     typeDic: Array<SystemDictionary>;//镜像类型
@@ -43,27 +42,27 @@ export class OpenstackImageSyncPublicComponent implements OnInit{
     statusDic: Array<SystemDictionary>;//状态
     syncDic: Array<SystemDictionary>;//同步结果
     ngOnInit(){
-        // this.dicService.getItems("IMAGES", "TYPE")
-        //     .then(
-        //     (dic) => {
-        //         this.typeDic = dic;
-        //         return this.dicService.getItems("IMAGES", "BITS_TYPE");
-        //     })
-        //     .then((dic) => {
-        //         this.bits_typeDic = dic;
-        //         return this.dicService.getItems("IMAGES", "OWNER");
-        //     })
-        //     .then((dic) => {
-        //         this.ownerDic = dic;
-        //         return this.dicService.getItems("IMAGES", "ADM_STATUS");
-        //     })
-        //     .then((dic) => {
-        //         this.statusDic = dic;
-        //         return this.dicService.getItems("IMAGES", "SYNC_RESULT");
-        //     })
-        //     .then((dic)=>{
-        //         this.syncDic = dic;
-        //     });
+        this.dicService.getItems("IMAGES", "TYPE")
+            .then(
+            (dic) => {
+                this.typeDic = dic;
+                return this.dicService.getItems("IMAGES", "BITS_TYPE");
+            })
+            .then((dic) => {
+                this.bits_typeDic = dic;
+                return this.dicService.getItems("IMAGES", "OWNER");
+            })
+            .then((dic) => {
+                this.ownerDic = dic;
+                return this.dicService.getItems("IMAGES", "ADM_STATUS");
+            })
+            .then((dic) => {
+                this.statusDic = dic;
+                return this.dicService.getItems("IMAGES", "SYNC_RESULT");
+            })
+            .then((dic)=>{
+                this.syncDic = dic;
+            });
 
         this.router.params.forEach((params: Params) => {
 			this.platformId = params['platformId'];
@@ -151,7 +150,7 @@ export class OpenstackImageSyncPublicComponent implements OnInit{
         this.notice.open();
     }
     back(){
-        this.router2.navigate(['host-mng/img-mng/openstack-mng', {"platform_id": this.platformId,"platformName":this.platformName}]);
+        this.router2.navigate(['host-mng/img-mng/openstack-mng', {"platformId": this.platformId,"platformName":this.platformName}]);
     }
     
     

@@ -6,8 +6,8 @@ import { AttrList, PayLoad } from '../model/attr-list.model';
 import { OrderList, OrderService, SendModule, TimeLineData, VlueList } from '../model/services.model';
 
 interface Storage {
-	storage : string,
-	storagesize : string
+	storage : VlueList,
+	storagesize : VlueList
 }
 
 @Component({
@@ -22,21 +22,32 @@ export class subAddStorageComponent implements OnInit {
 	@Input() configs:OrderList = new OrderList;
 	@Input() maxLenght:number = 3;  //数据盘的最大数量
 
+	defaultStorage : VlueList = new VlueList;
+	defaultStorageSize : VlueList = new VlueList;
+
 	forArr:Array<Storage> = []; 
 
 	ngOnInit() {
-		console.log(this.configs);
+		this.defaultStorageSize.attrValue = "40";
+		this.defaultStorageSize.attrDisplayValue = "40GB";
 	}
 
-	outputValue(value) {
-		console.log(value)
+	outputValue(value, i) {
+		this.forArr[i].storagesize.attrValue = value;
+		this.forArr[i].storagesize.attrDisplayValue = value + "GB";
+		console.log(this.forArr, 3322)
+	}
+
+	delete(i) {
+		this.forArr.splice(i, 1);
 	}
  
 	addDisk(){   //添加一块
 		if(this.forArr.length === this.maxLenght) return;
 		this.forArr.push({
-			storage : "",
-			storagesize : ""
+			storage : this.defaultStorage,
+			storagesize : this.defaultStorageSize
 		});
+		console.log(this.forArr)
 	}
 }
