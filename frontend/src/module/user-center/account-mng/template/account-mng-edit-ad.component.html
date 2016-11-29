@@ -1,0 +1,72 @@
+<table class="cm-table-left">
+    <tbody>
+        <tr>
+            <th class="col-md-1 col-xs-3 text-center">基本信息</th>
+            <td>
+                <div class="col-md-12">
+                    <div class="row row-line-height">
+                        <div class="form-group">
+                            <div class="col-sm-2 form-control-title" style="padding:0"><span class="asterisk">*</span>姓名:</div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="" [(ngModel)]="account.userName">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-line-height">
+                        <div class="form-group">
+                            <div class="col-sm-2 form-control-title" style="padding:0"><span class="asterisk">*</span>账号:</div>
+                            <div class="col-md-6">
+                                <span style="line-height:34px">{{account.loginName}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-line-height">
+                        <div class="form-group">
+                            <div class="col-sm-2 form-control-title" style="padding:0"><span class="asterisk">*</span>认证源:</div>
+                            <div class="col-md-6">
+                                <span style="line-height:34px">{{account.ldapName}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-line-height">
+                        <div class="form-group">
+                            <div class="col-sm-2 form-control-title" style="padding:0"><span class="asterisk">*</span>电话:</div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="" [(ngModel)]="account.phone">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-line-height">
+                        <div class="form-group">
+                            <div class="col-sm-2 form-control-title" style="padding:0">描述:</div>
+                            <div class="col-md-6">
+                                <textarea class="form-control" rows="5" placeholder="" [(ngModel)]="account.description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th class="col-md-1 col-xs-3 text-center">绑定角色</th>
+            <td>
+                <div>
+                    <label class="radio-inline" *ngFor="let role of service.roles;">
+                        <input type="checkbox" name="role" [checked]="role.selected" (change)="role.selected=$event.target.checked;" class="fox-cloud-checkbox">{{role.name}}
+                    </label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th class="col-md-1 col-xs-3 text-center">绑定部门</th>
+            <td>
+                <div>
+                    <label class="checkbox-inline" *ngFor="let org of service.orgs;">
+                        <input type="radio" name="department" [checked]="org.selected" (change)="clearSelectedOrg();org.selected=$event.target.checked;" class="fox-cloud-radio">{{org.name}}
+                    </label>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
