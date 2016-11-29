@@ -125,29 +125,34 @@ export class OpenstackImageSyncEntComponent implements OnInit{
 
         //this.images_needsync.splice(0,this.images_needsync.length);
         this.images_needsync = new Array<Image>();
-        this.images.forEach( (i)=>{
-            if(i.selected){
-                this.images_needsync.push(i);
-            }
-        });
 
-        if(this.images_needsync.length == 0){
-            this.showAlert("请勾选要同步的镜像");
-        }else{
-            this.layoutService.show();
-            this.service.doSynImages_public(this.platformId, this.images_needsync)
-            .then(
-                response =>{
-                    this.layoutService.hide();
-                    if(response && 100 == response["resultCode"]){
-                        this.layoutService.hide();
-                        this.showAlert("同步成功");
-                    } else{
-                        alert("Res.sync error");
-                    }
+        if(this.images && this.images.length>0){
+            this.images.forEach( (i)=>{
+                if(i.selected){
+                    this.images_needsync.push(i);
                 }
-            )
-            .catch((e) => this.onRejected(e));
+            });
+
+            if(this.images_needsync.length == 0){
+                this.showAlert("请勾选要同步的镜像");
+            }else{
+                this.layoutService.show();
+                this.service.doSynImages_ent(this.platformId, this.images_needsync)
+                .then(
+                    response =>{
+                        this.layoutService.hide();
+                        if(response && 100 == response["resultCode"]){
+                            this.layoutService.hide();
+                            this.showAlert("同步成功");
+                        } else{
+                            alert("Res.sync error");
+                        }
+                    }
+                )
+                .catch((e) => this.onRejected(e));
+            }
+        }else{
+            console.log("镜像列表为空");
         }
         
     }
@@ -181,7 +186,7 @@ export class OpenstackImageSyncEntComponent implements OnInit{
     }
    
     back(){
-        this.router2.navigate(['host-mng/img-mng/openstack-mng', {"platform_id": this.platformId,"platformName":this.platformName}]);
+        this.router2.navigate(['host-mng/img-mng/openstack-mng', {"platformId": this.platformId,"platformName":this.platformName}]);
     }
     
 }
