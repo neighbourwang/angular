@@ -111,7 +111,10 @@ export class AccountMngListComponent implements OnInit {
                 510);
 
         } else {
-            this.createAdAccountPopUp.open("创建AD账号");
+            window.setTimeout(() => {
+                this.createAdAccountPopUp.open("创建AD账号");
+            },
+                510);
         }
     }
 

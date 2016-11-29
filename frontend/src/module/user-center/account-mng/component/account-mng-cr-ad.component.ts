@@ -71,7 +71,7 @@ export class AccountMngCrAdComponent implements OnInit {
         this.service.getAttests(1, 9999)
             .then(response => {
                 this.layoutService.hide();
-                this.attests = response["resultContent"];
+                this.attests = response;
             })
             .catch((e) => this.onRejected(e));
     }

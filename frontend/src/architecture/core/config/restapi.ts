@@ -264,7 +264,7 @@ export let RestApis: RestApiModel[] = [
     },
     {
         "desc": "查询AD用户",
-        "id": "user-center.attest-mng.ldap.adusers.list",
+        "id": "user-center.attest-mng.ldap.adusers.get",
         "method": "POST",
         "url": "basis/authsec/ldap/{id}/adusers/page/{page}/size/{size}"
     },
