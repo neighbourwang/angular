@@ -51,8 +51,9 @@ export class ImgIndexComponent implements OnInit {
                 this.typeDic = dic;
                 this.getPlatforms();
             });
-        
+       
     }
+
 
     getPlatforms(pageIndex?) {
         this.pageIndex = pageIndex || this.pageIndex;
