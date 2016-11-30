@@ -21,8 +21,8 @@ html:
 </popover-content>
 
 
-<!-- 可以通过popover_host.popover?.visible 来获取content是否已经隐藏 -->
-<!-- <button [ngClass]="{'active': popover_host.popover?.visible}" ></button> -->
+<!-- 可以通过myPopover.popover?.visible 来获取content是否已经隐藏 -->
+<!-- <button [ngClass]="{'active': myPopover.popover?.visible}" ></button> -->
 ```
 
 或者 
