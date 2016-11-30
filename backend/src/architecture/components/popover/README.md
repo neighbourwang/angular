@@ -41,7 +41,18 @@ html:
 </div>
 ```
 
+如果在循环里用，如下：
 
+```html
+<li  *ngFor="let i of [1,2,3,4,5]">
+    <button  class="btn btn-default" [popover]="popover">
+        点我
+    </button>
+    <popover-content #popover [closeOnClickOutside]="true" >
+        {{i}}
+    </popover-content>
+</li>
+```
 
 ### 可选参数
 

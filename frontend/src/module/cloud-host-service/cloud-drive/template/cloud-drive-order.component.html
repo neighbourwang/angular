@@ -41,19 +41,8 @@
 						<button [popover]="popover_never" class="btn btn-default">从未挂载盘</button>
 						<button [popover]="popover_backup" class="btn btn-default">从备份恢复</button>
 						
-						<li  *ngFor="let i of [1,2,3,4,5]">
-							<button  class="btn btn-default" [popover]="popover">
-							    element
-							</button>
-							<popover-content #popover [closeOnClickOutside]="true" >
-							    {{i}}
-							</popover-content>
-						</li>
-						
-						
 						<popover-content #popover_never [closeOnClickOutside]="true" >
 							<table-list [platformId]="sendModule.platform.attrValueId"></table-list>
-						    
 						</popover-content>
 
 						<popover-content #popover_backup [closeOnClickOutside]="true" >
