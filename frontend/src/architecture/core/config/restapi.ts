@@ -354,4 +354,11 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "basis/authsec/mpp/users/nonorganization/page/{page}/size/{size}"
     },
+    {
+        "desc": "获取当前登录人企业ID",
+        "id": "user-center.org-mng.currentEnterpriseID.get",
+        "method": "GET",
+        "url": "basis/authsec/mpp/currentEnterpriseId"
+    },
+    
 ]
