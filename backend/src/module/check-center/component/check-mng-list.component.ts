@@ -42,11 +42,12 @@ export class CheckMngListComponent implements OnInit{
 		//列表数据加载
 		this._listLoader = new ItemLoader<CheckListItem>(true, "待审批列表", "check-center.not-checked.list", _restApiCfg, _restApi);
 		this._listLoader.MapFunc = (source:Array<any>, target:Array<CheckListItem>)=>{
-			let obj = new CheckListItem();
-			target.push(obj);
 
 			for(let item of source)
 			{
+				let obj = new CheckListItem();
+				target.push(obj);
+				
 				obj.orderCodeStr = item.orderNo;//订单编号
 				obj.serviceTypeIdStr = item.serviceType;//产品类型
 				// obj.platformStr = ?? 区域
