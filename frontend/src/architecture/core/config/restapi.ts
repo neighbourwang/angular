@@ -348,4 +348,10 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "basis/authsec/mpp/users/nonorganization/page/{page}/size/{size}"
     },
+    {
+        "desc": "获取组织成员列表(for leader)",
+        "id": "user-center.org-mng.members.list",
+        "method": "GET",
+        "url": "basis/authsec/mpp/users/nonorganization/page/{page}/size/{size}"
+    },
 ]
