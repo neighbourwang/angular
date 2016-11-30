@@ -42,9 +42,19 @@ class Platform {
   "members": Array<Member>;
   "name": string;
   "platforms": Array<Platform>;
-
+  "resource":Resource;
   
 }
+class Resource {
+    "disk": number;
+    "image": number;
+    "ipaddress": number;
+    "mem": number;
+    "physical": number;
+    "snapshot": number;
+    "storage": number;
+    "vcpu":number;
+  }
 class OrgPer{
       "id": string;
       "name": string;
@@ -59,5 +69,6 @@ class OrgPer{
 export {
   Org,
   OrgPer,
-  Member
+  Member,
+  Resource
 }
