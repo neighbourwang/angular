@@ -4,6 +4,7 @@ import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ConfirmComponent, 
 
 import { StdNet } from '../model/std-net.model';
 import { DCModel } from "../model/dc.model";
+import {  ClusterMode } from "../model/cluster.model";
 import { StdNet_mock } from '../model/std-net.mock.model';
 import { VmwareService } from '../service/vmware.service';
 
@@ -43,9 +44,11 @@ export class VmwareStdNetComponent implements OnInit {
 
     defaultDc: DCModel = new DCModel();
     selectedDC: DCModel = this.defaultDc; //当前选中的DC
-    selectedVDS = "";//当前选中的可用区
+    defaultCluster: ClusterMode = new ClusterMode();
+    selectCluster = this.defaultCluster;//当前选中的可用区
 
     selectedDC4Popup: DCModel = this.defaultDc;//创建，编辑框选中的DCModel
+    selectedCluster4Popup: ClusterMode = this.defaultCluster;//创建，编辑框选中的DCModel
 
     dcList: Array<DCModel>;
 
@@ -106,8 +109,8 @@ export class VmwareStdNetComponent implements OnInit {
 
     filter() {
         this.filternets = this.allnets.filter((p) => {
-            return (!this.selectedDC.dcName || this.selectedDC.dcName === p.dcName) &&
-                (this.selectedVDS === "" || this.selectedVDS === p.clusterName);
+            return (this.selectedDC == this.defaultDc || this.selectedDC.dcId === p.dcId) &&
+                (this.selectCluster === this.defaultCluster || this.selectCluster.clusterId === p.clusterId);
         });
     }
 
@@ -127,12 +130,16 @@ export class VmwareStdNetComponent implements OnInit {
     }
 
     //设置创建编辑框中的被选中DC实例
-    setSelectedDC4Popup(value) {
-        this.selectedDC4Popup = this.dcList.find((dc) => { return dc.dcName == value });
+    setSelectedDC4Popup(dcId,clusterId) {
+        this.selectedDC4Popup = this.dcList.find((dc) => { return dc.dcId == dcId });
+
         if (!this.selectedDC4Popup) {
-           this.selectedDC4Popup = this.defaultDc;
+            this.selectedDC4Popup = this.defaultDc;
         }
-        this.tempEditNet.clusterName = "";
+        this.selectedCluster4Popup = this.selectedDC4Popup.clusters.find((c) => { return c.clusterId == clusterId });
+        if (!this.selectedCluster4Popup) {
+            this.selectedCluster4Popup = this.defaultCluster;
+        }
     }
 
     //弹出编辑框
@@ -147,7 +154,7 @@ export class VmwareStdNetComponent implements OnInit {
         cstdnet.id = selectedNet.id;
         cstdnet.dcId = selectedNet.dcId;
         cstdnet.dcName = selectedNet.dcName;
-        this.setSelectedDC4Popup(cstdnet.dcName);
+        this.setSelectedDC4Popup(selectedNet.dcId,selectedNet.clusterId);
         cstdnet.clusterId = selectedNet.clusterId;
         cstdnet.clusterName = selectedNet.clusterName;
         cstdnet.clusterDisplayName = selectedNet.clusterDisplayName;
@@ -168,6 +175,10 @@ export class VmwareStdNetComponent implements OnInit {
     //创建/编辑后的数据保存
     saveEditNet(stdnet: StdNet) {
         this.layoutService.show();
+        this.tempEditNet.dcId = this.selectedDC4Popup.dcId;
+        this.tempEditNet.dcName = this.selectedDC4Popup.dcName;
+        this.tempEditNet.clusterId = this.selectedCluster4Popup.clusterId;
+        this.tempEditNet.clusterName = this.selectedCluster4Popup.clusterName;
         if (this.validationService.isBlank(this.tempEditNet.dcName)) {
             this.showAlert("请选择数据中心.");
             return;

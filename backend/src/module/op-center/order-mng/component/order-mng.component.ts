@@ -350,9 +350,9 @@ export class OrderMngComponent implements OnInit{
 	//选择续订	
 	renewSelect(orderItem:SubInstanceResp){
 		
-		// 成功、即将过期:7的订单可以  续订
+		// 已激活、即将过期:7的订单可以  续订
 		if(!_.isEmpty(orderItem.itemList)
-			&& orderItem.itemList.filter(n=>n.status == "7").length > 0)
+			&& orderItem.itemList.filter(n=>n.status == "7" || n.status == "2").length > 0)
 		{
 			$('#renewOrder').modal('show');
 			
@@ -384,7 +384,7 @@ export class OrderMngComponent implements OnInit{
 		}
 		else
 		{
-			this.showMsg(`只有个“成功”或“即将过期”的订单可以续订`);
+			this.showMsg(`只有个“已激活”或“即将过期”的订单可以续订`);
 		}
 	}
 
@@ -503,9 +503,9 @@ export class OrderMngComponent implements OnInit{
 	//选择退订
 	cancelSelect(orderItem:SubInstanceResp)
 	{
-		// 成功、即将过期:7的订单可以  续订
+		// 已激活、即将过期:7的订单可以  续订
 		if(!_.isEmpty(orderItem.itemList)
-			&& orderItem.itemList.filter(n=>n.status == "7").length > 0)
+			&& orderItem.itemList.filter(n=>n.status == "7" ||n.status == "2").length > 0)
 		{
 			$('#cancelOrder').modal('show');
 
@@ -514,7 +514,7 @@ export class OrderMngComponent implements OnInit{
 		}
 		else
 		{
-			this.showMsg(`只有个“成功”或“即将过期”的订单可以退订`);
+			this.showMsg(`只有个“已激活”或“即将过期”的订单可以退订`);
 		}
 	}
 

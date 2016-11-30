@@ -240,6 +240,13 @@ return new Promise((next) => {
             "attrValueCode": null,
             "attrDisplayValue": "HOS2",
             "attrValue": "88"
+          },
+
+          {
+            "attrValueId": "testid",
+            "attrValueCode": null,
+            "attrDisplayValue": "测试的云平台",
+            "attrValue": "88"
           }
         ],
         "mapValueList": null
