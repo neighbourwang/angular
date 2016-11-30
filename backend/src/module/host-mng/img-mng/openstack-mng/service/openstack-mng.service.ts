@@ -121,11 +121,9 @@ export class OpenstackMngService{
                 value: platformId
             }
         ];
-        let ids = new Array<String>();
-        tList.forEach((t)=>{ids.push(t.id)})
         
         const api = this.restApiCfg.getRestApi("host-mng.openstack-mng.image.sync-ent.getlist");
-        return this.restApi.request(api.method, api.url, pathParams, null, ids);
+        return this.restApi.request(api.method, api.url, pathParams, null, { "tenants":tList});
         
         //return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return SyncPublic_mock});
     }

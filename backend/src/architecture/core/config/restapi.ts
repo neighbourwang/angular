@@ -1191,7 +1191,7 @@ export let RestApis: RestApiModel[] = [
     {
         "desc": "Openstack_同步企业镜像_获取镜像列表",
         "id": "host-mng.openstack-mng.image.sync-ent.getlist",
-        "method": "GET",
+        "method": "POST",
          "url": "/adminboe/authsec/images/openstack/ent/{platformId}"
     },
     {
