@@ -12,6 +12,7 @@ import { CloudDriveRouting } from './cloud-drive-routing';
 import { cloudDriveListComponent } from './component/cloud-drive-list.component';
 
 import { cloudDriveComponentOrder } from './component/cloud-drive-order.component';
+import { subTableListComponent } from './component/sub-table-list.component';
 import { CloudHostComponents } from '../components/cloud-host-components.module';
 
 //service
@@ -32,13 +33,15 @@ import { cloudDriveServiceList } from './service/cloud-drive-list.service';
     ],
     declarations: [
         cloudDriveListComponent,
-        cloudDriveComponentOrder
+        cloudDriveComponentOrder,
+        subTableListComponent
     ],
     exports: [
     ],
     providers: [
         cloudDriveServiceOrder,
-        cloudDriveServiceList
+        cloudDriveServiceList,
+        subTableListComponent
     ]
 
 })
