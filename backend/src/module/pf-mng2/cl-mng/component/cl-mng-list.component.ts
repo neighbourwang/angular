@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 
 import { ClMngListService } from '../service/cl-mgn-list.service';
 
@@ -22,43 +22,43 @@ import { Platform } from '../model/platform.model';
 export class ClMngListComponent implements OnInit {
 
 
-    constructor(private layoutService:LayoutService,
-                private service:ClMngListService,
-                private router:Router,
-                private platFormTypeService : ClMngCreStep1Service,
-                private commonService : ClMngCommonService
-                ) {
+    constructor(private layoutService: LayoutService,
+        private service: ClMngListService,
+        private router: Router,
+        private platFormTypeService: ClMngCreStep1Service,
+        private commonService: ClMngCommonService
+    ) {
     }
 
     // 平台数组
-    platforms:Array<Platform> = new Array<Platform>();
+    platforms: Array<Platform> = new Array<Platform>();
 
     // 平台数据总页数
-    tp:number = 0;
+    tp: number = 0;
     // 每页显示的数据条数
-    pp:number = 10;
+    pp: number = 10;
 
 
     @ViewChild('removeConfirm')
-    removeConfirm:ConfirmComponent;
+    removeConfirm: ConfirmComponent;
 
     @ViewChild('enableConfirm')
-    enableConfirm:ConfirmComponent;
+    enableConfirm: ConfirmComponent;
 
     @ViewChild('disableConfirm')
-    disableConfirm:ConfirmComponent;
+    disableConfirm: ConfirmComponent;
 
     @ViewChild('notice')
-    notice:ConfirmComponent;
+    notice: ConfirmComponent;
 
     // 确认Box/通知Box的标题
-    title:String = "";
+    title: String = "";
     // 确认Box/通知Box的内容
-    msg:String = "";
+    msg: String = "";
     // 云平台类型
-    platFormType : Array<any> = new Array<any>();
+    platFormType: Array<any> = new Array<any>();
     // 云平台状态
-    platFormStatus : Array<any> = new Array<any>();
+    platFormStatus: Array<any> = new Array<any>();
 
 
     //初始化
@@ -74,7 +74,7 @@ export class ClMngListComponent implements OnInit {
         //                 this.backend(1, this.pp);
         //             }
         //         )
-                
+
         //     }
         // ).catch(
         //     err => {
@@ -89,26 +89,26 @@ export class ClMngListComponent implements OnInit {
             }
         ).then(
             res => {
-            this.commonService.getPlatFormStatus().then(
+                this.commonService.getPlatFormStatus().then(
                     res => {
                         this.platFormStatus = res;
                         this.backend(1, this.pp);
                     }
                 )
             }
-        ).catch(
+            ).catch(
             err => {
                 console.error(err);
-                this.notice.open('错误提示','获取云平台列表错误');
+                this.notice.open('错误提示', '获取云平台列表错误');
             }
-        )
-        
+            )
+
     }
 
     //删除按钮
     remove() {
         console.log('remove');
-        let platForm:Platform = this.getPlatForm();
+        let platForm: Platform = this.getPlatForm();
         if (!platForm) {
             this.notice.open('操作错误', '请选择云平台');
         } else {
@@ -119,7 +119,7 @@ export class ClMngListComponent implements OnInit {
     //启用按钮
     enable() {
         console.log('enable');
-        let platForm:Platform = this.getPlatForm();
+        let platForm: Platform = this.getPlatForm();
         if (!platForm) {
             this.notice.open('操作错误', '请选择云平台');
         } else {
@@ -130,7 +130,7 @@ export class ClMngListComponent implements OnInit {
     //禁用按钮
     disable() {
         console.log('disable');
-        let platForm:Platform = this.getPlatForm();
+        let platForm: Platform = this.getPlatForm();
         if (!platForm) {
             this.notice.open('操作错误', '请选择云平台');
         } else {
@@ -146,7 +146,7 @@ export class ClMngListComponent implements OnInit {
     }
 
     // 选择云平台
-    switchSelectIndividual(id:number) {
+    switchSelectIndividual(id: number) {
         console.log(id);
         for (let i = 0; i < this.platforms.length; i++) {
             this.platforms[i].isSelected = false;
@@ -158,7 +158,7 @@ export class ClMngListComponent implements OnInit {
     removeCof() {
         //调用接口
         this.layoutService.show();
-        let platForm:Platform = this.getPlatForm();
+        let platForm: Platform = this.getPlatForm();
 
         //调用接口
         this.service.deletePlatform(platForm.id).then(
@@ -173,9 +173,9 @@ export class ClMngListComponent implements OnInit {
         ).catch(
             err => {
                 console.error('error');
-                this.notice.open('错误提示','删除云平台异常，请稍后再试');
+                this.notice.open('错误提示', '删除云平台异常，请稍后再试');
             }
-        );
+            );
 
 
     }
@@ -184,7 +184,7 @@ export class ClMngListComponent implements OnInit {
     enableCof() {
         //调用接口
         this.layoutService.show();
-        let platForm:Platform = this.getPlatForm();
+        let platForm: Platform = this.getPlatForm();
         this.service.activePlatform(platForm.id).then(
             response => {
                 if (response && 100 == response.resultCode) {
@@ -196,15 +196,15 @@ export class ClMngListComponent implements OnInit {
         ).catch(
             err => {
                 console.error('error');
-                this.notice.open('错误提示','启用云平台异常，请稍候再试');
+                this.notice.open('错误提示', '启用云平台异常，请稍候再试');
             }
-        )
+            )
     }
 
     // 禁用弹出框确认按钮
     disableCof() {
         this.layoutService.show();
-        let platForm:Platform = this.getPlatForm();
+        let platForm: Platform = this.getPlatForm();
         this.service.disablePlatform(platForm.id).then(
             response => {
                 if (response && 100 == response.resultCode) {
@@ -215,9 +215,9 @@ export class ClMngListComponent implements OnInit {
             }
         ).catch(
             err => {
-                this.notice.open('错误提示','禁用云平台异常，请稍候再试');
+                this.notice.open('错误提示', '禁用云平台异常，请稍候再试');
             }
-        )
+            )
     }
 
     ccf() {
@@ -230,7 +230,7 @@ export class ClMngListComponent implements OnInit {
 
     // 获得当前选中的平台
     getPlatForm() {
-        let platForm:Platform;
+        let platForm: Platform;
         for (let i = 0; i < this.platforms.length; i++) {
             if (this.platforms[i].isSelected == true) {
                 platForm = this.platforms[i];
@@ -242,7 +242,7 @@ export class ClMngListComponent implements OnInit {
 
 
     // 获得云平台list
-    backend(page:number, size:number) {
+    backend(page: number, size: number) {
         this.layoutService.show();
         this.tp = 0;
         this.service.getPlatforms(page, size).then(
@@ -259,8 +259,8 @@ export class ClMngListComponent implements OnInit {
                         // platform. = content.
                         platform.name = content.name;
                         // platform.platformType = content.platformType;
-                        for(let item of platFormTypes){
-                            if(content.platformType == item.value){
+                        for (let item of platFormTypes) {
+                            if (content.platformType == item.value) {
                                 platform.platformType = item.displayValue
                             }
                         }
@@ -271,8 +271,8 @@ export class ClMngListComponent implements OnInit {
                         platform.version = content.version;
                         platform.regionId = content.regionId;
                         platform.dataCenter = content.dataCenter;
-                        for(let item of platFormStatus){
-                            if(content.status == item.value){
+                        for (let item of platFormStatus) {
+                            if (content.status == item.value) {
                                 platform.status = item.displayValue
                             }
                         }
@@ -288,7 +288,7 @@ export class ClMngListComponent implements OnInit {
                     this.platforms = backend;
 
                 } else {
-                    this.notice.open('错误','获取信息错误');
+                    this.notice.open('错误', '获取信息错误');
                     console.log(response);
                 }
                 this.layoutService.hide();
@@ -300,9 +300,9 @@ export class ClMngListComponent implements OnInit {
             // }
             err => {
                 this.layoutService.hide();
-                this.notice.open('错误','获取云平台错误');
+                this.notice.open('错误', '获取云平台错误');
             }
-        );
+            );
     }
 
     paging(page) {
@@ -319,6 +319,12 @@ export class ClMngListComponent implements OnInit {
     //    }
     //    return newAr;
     //}
+
+
+    godetail(item){
+        console.log(item);
+        this.router.navigate(["pf-mng2/pf-mng-detail", {id:item.id,type:item.platformType,name:item.name}]);
+    }
 
 
 }
