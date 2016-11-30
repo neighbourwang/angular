@@ -48,10 +48,10 @@ export class CheckMngListComponent implements OnInit{
 			for(let item of source)
 			{
 				obj.orderCodeStr = item.orderNo;//订单编号
-				obj.serviceTypeName = item.serviceType; //产品类型
+				obj.serviceTypeIdStr = item.serviceType;//产品类型
 				// obj.platformStr = ?? 区域
 				// obj.zoneStr = ?? 可用区
-				obj.orderTypeName = item.orderType;// 订单类型
+				obj.orderTypeName = item.orderType;//订单类型
 				obj.userStr = item.submiter;// 用户,提交者
 				obj.departmentStr = item.departmentName;// 部门
 				obj.entStr = item.enterpriszeName;// 企业
@@ -62,9 +62,16 @@ export class CheckMngListComponent implements OnInit{
 				// obj.priceNum = ??费用
 
 				obj.createTimeStr = item.createDate;// 创建时间
-				// obj.checkResultId = ?? 审批结果		
+				// obj.checkResultId = ?? 审批结果	
+				obj.description = item.orderDesc; //描述	
 
 			}
+		};
+
+		this._listLoader.Trait = (target:Array<CheckListItem>)=>{
+			//处理字典
+			this._serviceTypeDic.UpdateWithDic(target, "serviceTypeName", "serviceTypeIdStr");
+			this._orderTypeDic.UpdateWithDic(target, "orderTypeNum", "orderTypeName");
 		};
 
 		//用户列表
@@ -161,8 +168,15 @@ export class CheckMngListComponent implements OnInit{
 		
 	}
 
+	//拒绝
 	refuse(){
 		this.refuseDialog.open();
+	}
+
+	//同意
+	accept()
+	{
+
 	}
 
 	departmentChanged(){
@@ -185,5 +199,10 @@ export class CheckMngListComponent implements OnInit{
 	contentIdGen(num:number):string
 	{
 		return `content-${num}`;
+	}
+
+	changePage(pageNum:number)
+	{
+		this.search(pageNum);
 	}
 }
