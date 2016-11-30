@@ -23,7 +23,7 @@ export class OrgMngCrComponent implements OnInit {
 
   @Input() isEdit: boolean;
 
-  org:Org;
+  org:Org=new Org();
   members:Array<Member>;
   ngOnInit() {
     //获取机构成员
