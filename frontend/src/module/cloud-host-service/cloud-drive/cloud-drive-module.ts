@@ -18,6 +18,7 @@ import { CloudHostComponents } from '../components/cloud-host-components.module'
 //service
 import { cloudDriveServiceOrder } from './service/cloud-drive-order.service'; 
 import { cloudDriveServiceList } from './service/cloud-drive-list.service'; 
+import { SubTableListService } from './service/sub-table-list.service'; 
 
 // import { MyDatePickerModule } from 'mydatepicker';
 
@@ -41,7 +42,8 @@ import { cloudDriveServiceList } from './service/cloud-drive-list.service';
     providers: [
         cloudDriveServiceOrder,
         cloudDriveServiceList,
-        subTableListComponent
+        subTableListComponent,
+        SubTableListService
     ]
 
 })
