@@ -7,5 +7,5 @@ export const environment = {
 	production: false,
 	baseIp : "",
 	basePort : "",
-	jwt : "bearer 48c65f87-ba69-42f1-bdf9-905c4789f8b3"
+	jwt : "bearer 9320afb2-d73e-490b-8028-202187aaf21b"
 };

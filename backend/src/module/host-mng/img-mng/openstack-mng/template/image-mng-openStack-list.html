@@ -1,6 +1,6 @@
 <link src="image-mng-openStack.less">
 <div class="page-content-header icon-content-header-purchasing"> 镜像管理-{{platformName}}  
-    <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" key="boe/image-mng.html">
+    <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" (click)="back()"style="padding:2px 15px;font-size:14px" key="boe/image-mng.html">
         返回镜像管理列表
     </button>
 </div>
@@ -9,8 +9,8 @@
             <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >镜像类型：</span>
             <div class="float-left pdr20">
                 <select class="pdl10 form-control" [(ngModel)]="queryOpt.type" >
-                    <option value="">选择镜像</option>
-                    <option *ngFor = "let type of typeDic" [ngValue]="type.value">{{getDicText(type.value,this.typeDic)}}</option>
+                    <option value="">选择镜像类型</option>
+                    <option *ngFor = "let type of typeDic" [ngValue]="type.value">{{getDicText(type.value,typeDic)}}</option>
                 </select>
             </div>          
             <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >所属企业：</span>
@@ -23,12 +23,13 @@
             <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10 "(click)="search()">
                 <span class="icon-button-label">确定 </span> 
                 </button>
-            {{queryOpt.toString()}}                                                              
+            <!--{{queryOpt.toString()}} 测试显示-->
     </div>         
     <div style="clear:both"></div>
     <div class="mgb20 " style="margin-top:20px">
         <button class="fox-cloud-button fox-cloud-button-green mgr10" key="boe/image-public-sync-poenStack.html" (click)="syncPublic()">同步公共镜像</button>
         <button type="button" class="fox-cloud-button fox-cloud-button-green" data-toggle="modal" data-target="#my" (click)="createSynTeOption()">同步企业镜像</button>       
+        
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
              更多操作
@@ -42,6 +43,7 @@
         </div>
     </div>
     <div class="table-container">
+        
         <table class="table table-hover">
              <thead>
                  <tr>
@@ -84,19 +86,20 @@
                     </div>
                     </td>
                     <td >{{image.os}}</td>
-                    <td >{{getDicText(image.bitesType,this.bits_typeDic)}}</td>
-                    <td >{{image.capacity}}</td>
-                    <td >{{getDicText(image.type,this.typeDic)}}</td>
+                    <td >{{getDicTextforBit(image.bitsType)}}</td>
+                    <td >{{image.capacity}}G</td>
+                    <td >{{getDicText(image.type,typeDic)}}</td>
                     <td >{{getImageTenant(image.tenants)}}</td>
-                    <td >{{getDicText(image.status,this.statusDic)}}</td>
+                    <td [ngClass]="{'font-green':image.status=='1','font-orange':image.status==0}">{{getDicText(image.status,statusDic)}}</td>
 
                 </tr>
 
             </tbody>
 
         </table>
-
+            
     </div>
+    <div style="height:200px"></div>
 </div>
 
     <div class="fox-cloud-pagination-container">
@@ -124,8 +127,9 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">系统位数:</div>
                 <div class="col-sm-6">
-                    <select class="form-control" >
-                        <option>{{getDicText(tempEditImage.bitesType,this.bits_typeDic)}}</option>
+                    <select class="form-control" [(ngModel)]="tempEditImage.bitsType">
+                        <option *ngFor = "let type of bits_typeDic" [ngValue]="type.value" [ngClass]="setDefaultBits(type,tempEditImage.bitsType)">{{getDicText(type.value,bits_typeDic)}}</option>
+                        
                     </select>
                 </div>
             </div>

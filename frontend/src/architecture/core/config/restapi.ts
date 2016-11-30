@@ -29,6 +29,13 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "basis/authsec/sysdic/{_owner}/{_field}/{_code}"
     },
+    {
+        "desc": "获取token",
+        "id": "oauth.token",
+        "method": "POST",
+        "url": "/uaa/oauth/token?grant_type=password&username=gavin@hpe.com&password=12345&client_id=ui&client_secret=12345"
+    },
+
     // 数据字典
     {
         "desc": "获取可订购云主机配置数据",
@@ -256,7 +263,36 @@ export let RestApis: RestApiModel[] = [
         "method" : "GET",
         "url" : "basis/authsec/mpp/user/{id}"
     },
-    
+    {
+        "desc": "用户中心，帐号管理，获取AD认证源列表",
+        "id": "user-center.attest-mng.ldap.attest.simple.list",
+        "method": "GET",
+        "url": "basis/authsec/ldaps/simple"
+    },
+    {
+        "desc": "用户中心 查询符合条件的AD用户",
+        "id": "user-center.account-mng.aduser.get",
+        "method": "POST",
+        "url": "basis/authsec/ldap/{ldapid}/adusers/page/{page}/size/{size}"
+    },
+    {
+        "desc": "创建帐号（AD）",
+        "id": "user-center.account-mng.ad.create",
+        "method": "POST",
+        "url": "basis/authsec/aduser"
+    },
+    {
+        "desc": "获取AD帐号详情",
+        "id": "user-center.account-mng.ad.get",
+        "method": "GET",
+        "url": "basis/authsec/adm/user/{id}"
+    },
+    //  {
+    //     "desc" : "用户中心，帐号管理，帐号编辑，PUT",
+    //     "id" : "user-center.account-mng.editLocal",
+    //     "method" : "PUT",
+    //     "url" : "basis/authsec/mpp/user/{id}"
+    // },
     //组织管理
      {
         "desc": "获取所有机构",
@@ -309,6 +345,12 @@ export let RestApis: RestApiModel[] = [
      {
         "desc": "获取未管理人员列表",
         "id": "user-center.org-mng.nomnguser.list",
+        "method": "GET",
+        "url": "basis/authsec/mpp/users/nonorganization/page/{page}/size/{size}"
+    },
+    {
+        "desc": "获取组织成员列表(for leader)",
+        "id": "user-center.org-mng.members.list",
         "method": "GET",
         "url": "basis/authsec/mpp/users/nonorganization/page/{page}/size/{size}"
     },

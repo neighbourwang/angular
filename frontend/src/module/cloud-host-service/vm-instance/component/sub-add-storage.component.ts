@@ -6,8 +6,8 @@ import { AttrList, PayLoad } from '../model/attr-list.model';
 import { OrderList, OrderService, SendModule, TimeLineData, VlueList } from '../model/services.model';
 
 interface Storage {
-	storage : string,
-	storagesize : string
+	storage : VlueList,
+	storagesize : VlueList
 }
 
 @Component({
@@ -17,26 +17,45 @@ interface Storage {
 })
 export class subAddStorageComponent implements OnInit {
 
-	@Output() onClick = new EventEmitter<any>();
+	@Output() onChanges = new EventEmitter<any>();
 
 	@Input() configs:OrderList = new OrderList;
 	@Input() maxLenght:number = 3;  //数据盘的最大数量
 
+	defaultStorage : VlueList = new VlueList;
+	defaultStorageSize : VlueList = new VlueList;
+
 	forArr:Array<Storage> = []; 
 
 	ngOnInit() {
-		console.log(this.configs);
+		this.defaultStorageSize.attrValue = "40";
+		this.defaultStorageSize.attrDisplayValue = "40GB";
 	}
 
-	outputValue(value) {
-		console.log(value)
+	outputValue(value, i) {
+		let storagesize = new VlueList;
+
+		storagesize.attrValue = value;
+		storagesize.attrDisplayValue = value + "GB";
+
+		this.forArr[i].storagesize = storagesize;
+	}
+
+	delete(i) {
+		this.forArr.splice(i, 1);
 	}
  
 	addDisk(){   //添加一块
 		if(this.forArr.length === this.maxLenght) return;
 		this.forArr.push({
-			storage : "",
-			storagesize : ""
+			storage : this.defaultStorage,
+			storagesize : this.defaultStorageSize
 		});
+	}
+
+	emit() {
+		this.forArr = this.forArr.filter( arr => arr.storage.attrValue && arr.storagesize.attrValueCode );  //排除空的
+
+		this.onChanges.emit( this.forArr );
 	}
 }
