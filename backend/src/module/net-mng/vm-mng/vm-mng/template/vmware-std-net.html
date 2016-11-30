@@ -14,16 +14,16 @@
         <label class="pdr10 ">
             数据中心(DC)名称:
         </label>
-        <select class="pdl20 pdr20 form-control" [(ngModel)]="selectedDC" (change)="selectedVDS=''">
+        <select class="pdl20 pdr20 form-control" [(ngModel)]="selectedDC" (change)="selectCluster=defaultCluster;">
             <option [ngValue]="defaultDc">所有</option>
             <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
         </select>
         <label class="pdr10 pdl20">
             可用区名称:
         </label>
-        <select class="pdl20 pdr20 mgr20 form-control" [(ngModel)]="selectedVDS">
-            <option value="">所有</option>
-            <option *ngFor="let vds of selectedDC.clusters" [value]="vds.clusterName">{{vds.clusterName}}</option>            
+        <select class="pdl20 pdr20 mgr20 form-control" [(ngModel)]="selectCluster">
+            <option [ngValue]="defaultCluster">所有</option>
+            <option *ngFor="let vds of selectedDC.clusters" [ngValue]="vds">{{vds.clusterName}}</option>            
         </select>
         <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px;" (click)="filter();"> 确定</button>
     </div>
@@ -119,9 +119,9 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>DC：</div>
             <div class="col-sm-6">
-                <select class="form-control" [(ngModel)]="tempEditNet.dcName"  (change)="setSelectedDC4Popup($event.target.value);">
-                    <option [value]="" value= "">请选择</option>
-                    <option *ngFor="let dc of dcList" [value]="dc.dcName">{{dc.dcName}}</option>
+                <select class="form-control" [(ngModel)]="selectedDC4Popup" (change)="selectedCluster4Popup = defaultCluster;">
+                    <option [ngValue]="defaultDc">请选择</option>
+                    <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
                 </select>
             </div>
         </div>
@@ -130,9 +130,9 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可用区名称：</div>
             <div class="col-sm-6">               
-                <select class="form-control" [(ngModel)]="tempEditNet.clusterName">
-                    <option value="">请选择</option>
-                    <option *ngFor="let vds of selectedDC4Popup.clusters" [value]="vds.clusterName">{{vds.clusterName}}</option>
+                <select class="form-control" [(ngModel)]="selectedCluster4Popup">
+                    <option [ngValue]="defaultCluster">请选择</option>
+                    <option *ngFor="let vds of selectedDC4Popup.clusters" [ngValue]="vds">{{vds.clusterName}}</option>
                 </select>
             </div>
         </div>
