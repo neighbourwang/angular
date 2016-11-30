@@ -75,3 +75,6 @@ html:
     * `[popoverCloseOnClickOutside]="true|false"` 当鼠标点击popover之外的地方会隐藏. Default is **false**.
     * `[popoverDismissTimeout]="number"` 过多少毫秒会自动隐藏. Default is **0**, 意思是不消失.
 
+### 例子
+
+[例子](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/module/cloud-host-service/cloud-drive/template/cloud-drive-order.component.html)
