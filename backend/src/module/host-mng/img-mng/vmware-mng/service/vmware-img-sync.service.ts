@@ -34,11 +34,11 @@ export class VmwareImgSyncService{
             }
         ];
         
-        /*
+        //*
         const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.sync-image.list");
         return this.restApi.request(api.method, api.url, pathParams, null, null);
-        */
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return VmwareImgSyncModel_mock });
+        //*/
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return VmwareImgSyncModel_mock });
     }
 
     VmwareSyncImages(platformId: string, selectedsyncvmimgs: Array<VmwareImgSyncModel>): Promise<any> {
@@ -55,11 +55,11 @@ export class VmwareImgSyncService{
             "imageList": selectedsyncvmimgs
         };
 
-        /*
+        //*
         const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.sync-image.sync");
         return this.restApi.request(api.method, api.url, pathParams, null, obj);
-        */
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });
+        //*/
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });
     }
 
     
