@@ -28,9 +28,9 @@ export class PortMngSetService {
                 value: id
             }
         ];
-        //const api = this.restApiCfg.getRestApi("net-mng.vmware.port.enterprise.list");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => port_net_mock);
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.port.enterprise.list");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => port_net_mock);
     }
 
     saveEnterpirseGroup(enterpirses:Array<Enterprise>,id:string): Promise<any> {
@@ -38,8 +38,8 @@ export class PortMngSetService {
             id: id,
             "enterpriseSelectedList": enterpirses
         };
-        //const api = this.restApiCfg.getRestApi("net-mng.vmware.port.enterprise.save");
-        //return this.restApi.request(api.method, api.url, pathParams, null, obj);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => port_net_mock);
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.port.enterprise.save");
+        return this.restApi.request(api.method, api.url, null, null, obj);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => port_net_mock);
     }
 }
