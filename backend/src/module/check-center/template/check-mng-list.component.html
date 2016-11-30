@@ -5,7 +5,7 @@
 		<div class="table-container">
 			<div class="search-container">
 				<input type="text" class="form-control searchbox gray-searchbox" placeholder="输入订单信息快速查询"  [(ngModel)]="_param.quickSearchStr" />
-				<span class="glyphicon glyphicon-search searchbox-incon"></span>
+				<span class="glyphicon glyphicon-search searchbox-incon" (click)="search()"></span>
 						
 				<button class=" form-control-title fox-cloud-button-sm    left"  [ngClass]="{'fox-cloud-button-white':_isAdvSearch==1,'fox-cloud-button-grey':_isAdvSearch!=1}" (click)="_isAdvSearch = !_isAdvSearch">高级查询</button>
 			</div>
@@ -82,7 +82,7 @@
 				</tbody>
 			</table>	
 		</div>
-		<div class="form-control-title mgb10 mgt20 left">当查询到29个订单需要审批，查询结果如下：</div>
+		<div class="form-control-title mgb10 mgt20 left">当查询到{{_listLoader.Items.length}}个订单需要审批，查询结果如下：</div>
 			<div class="table-container">
 			<table class="table">
 				<thead>	
@@ -103,98 +103,79 @@
 					</tr>			
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>22370537538484773<br>
-						    <a lab-bootstrap-popover id="detail-0" contentid="content-1">详细信息>>></a></td>
-						<td>数据库</td>
-						<td>上海A区
-						     高可用1</td>
-						<td>新订单</td>
-						<td>用于****应用</td>
-						<td>张三</td>
-						<td>部门</td>
-						<td>企业</td>
-						<td>计费模式：包年包月<br>
-						 	订单周期：1个月<br>
-						 	一次性费用：￥0<br>
-						 	费用：￥100月</td>
-						<td>2016-10-01<br>
-							23:10</td>
-						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white" style="margin-right: 10px;">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white" (click)="refuse()">拒绝</button></td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>22370537538484773<br>
-						    <a>详细信息>>></a></td>
-						<td>数据库</td>
-						<td>上海A区
-						     高可用1</td>
-						<td>新订单</td>
-						<td>用于****应用</td>
-						<td>张三</td>
-						<td>部门</td>
-						<td>企业</td>
-						<td>计费模式：包年包月<br>
-						 	订单周期：1个月<br>
-						 	一次性费用：￥0<br>
-						 	费用：￥100月</td>
-						<td>2016-10-01<br>
-							23:10</td>
-						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white" style="margin-right: 10px;">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white">拒绝</button></td>
-					</tr>
-			
-					
+					<tr *ngFor="let item of _listLoader.Items;let i = index;">
+						<td>{{i}}</td>
+						<td>{{item.orderCodeStr}}<br>
+						    <a lab-bootstrap-popover id="detail-{{i}}" [attr.contentid]="contentIdGen(i)">详细信息>>></a>
+						    <!-- 弹出内容模板 -->
+					    	<div class="DetailInfo" [attr.id]="contentIdGen(i)" style="display: none;">
+								<table class="table table-hover">
+									<thead>
+										<tr><th class="form-control-title" colspan="2">详细信息</th></tr>
+									</thead>
+									<tbody>
+											<tr >
+												<td style="width: 30%;">云主机</td>
+												<td class="leftAlign">
+													<ul>
+													  <li>区域：华北1</li>
+													   <li>可用区：可用区B</li>
+													    <li>实例规格：CPU 2核/内存4GB/启动盘/70G</li>
+													     <li>IP地址：10.1.1.1（内部）<br>
+													         192.168.1.1（外部）</li>
+													      <li>操作系统：******</li>
+													       <li>密码：已设置</li>
+													        <li>实例名称：abcabc</li>
+													</ul>
+												</td>
+											</tr>
+											<tr>
+												<td style="width: 30%;">云硬盘</td>
+												<td class="leftAlign">
+													<ul>
+													  <li>区域：华北1</li>
+													   <li>可用区：可用区B</li>
+													    <li>云硬盘类型：高性能I/O</li>
+													     <li>云盘容量：100GB</li>
+													</ul>
+												</td>
+											</tr>
+											<tr>
+												<td style="width: 30%;">数据库</td>
+												<td class="leftAlign">
+													<ul>
+													  <li>数据库类型：Oracle</li>
+													   <li>数据库版本：11g</li>
+													</ul>
+												</td>
+											</tr>
+									</tbody>
+								</table>
+							</div>
+
+					    </td>
+						<td>{{item.serviceTypeName}}</td>
+						<td>{{item.platformStr}}<br/>
+						    {{item.zoneStr}}</td>
+						<td>{{item.orderTypeName}}</td>
+						<td>{{item.description}}</td>
+						<td>{{item.userStr}}</td>
+						<td>{{item.departmentStr}}</td>
+						<td>{{item.entStr}}</td>
+						<td>计费模式：{{item.billingModeName}}
+							<br/>订单周期：{{item.billingDurationStr}}
+							<br/>一次性费用：{{item.oneTimePriceNum}}
+							<br/>费用：{{item.priceNum}}
+						</td>
+						<td>{{item.createTimeStr}}</td>
+						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white" style="margin-right: 10px;" (click)="accept()">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white" (click)="refuse()">拒绝</button></td>
+					</tr>					
 				</tbody>
 			</table>
 		</div>
-		<!-- <fc-pagination tp={{}} (pf)="changePage($event)"></fc-pagination> -->
+		<fc-pagination tp={{_listLoader.TotalPages}} (pf)="changePage($event)"></fc-pagination>
 	</div>
 
-	<div class="DetailInfo" id="content-1" style="display: none;width: 300px">
-		<table class="table table-hover">
-			<thead>
-				<tr><th class="form-control-title" colspan="2">详细信息</th></tr>
-			</thead>
-			<tbody>
-					<tr >
-						<td style="width: 30%;">云主机</td>
-						<td class="leftAlign">
-							<ul>
-							  <li>区域：华北1</li>
-							   <li>可用区：可用区B</li>
-							    <li>实例规格：CPU 2核/内存4GB/启动盘/70G</li>
-							     <li>IP地址：10.1.1.1（内部）<br>
-							         192.168.1.1（外部）</li>
-							      <li>操作系统：******</li>
-							       <li>密码：已设置</li>
-							        <li>实例名称：abcabc</li>
-							</ul>
-						</td>
-					</tr>
-					<tr>
-						<td style="width: 30%;">云硬盘</td>
-						<td class="leftAlign">
-							<ul>
-							  <li>区域：华北1</li>
-							   <li>可用区：可用区B</li>
-							    <li>云硬盘类型：高性能I/O</li>
-							     <li>云盘容量：100GB</li>
-							</ul>
-						</td>
-					</tr>
-					<tr>
-						<td style="width: 30%;">数据库</td>
-						<td class="leftAlign">
-							<ul>
-							  <li>数据库类型：Oracle</li>
-							   <li>数据库版本：11g</li>
-							</ul>
-						</td>
-					</tr>
-			</tbody>
-		</table>
-	</div>
 <!--拒绝-->
 	<fc-popup #refuseDialog ot="提交" ct="取消" title="订单请求被拒绝"  (of)="accept()" (cf)="cancel();">	
 		<div class="dialogContent">
