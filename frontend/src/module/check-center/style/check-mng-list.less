@@ -1,12 +1,12 @@
 .validateInfo{ color: #00a982; } /*验证信息显示绿色*/
-.warnInf{ color: red; }  /*验证信息显示红色*/
+.warnInfo{ color: red; }  /*验证信息显示红色*/
 .left{float: left;}     /*左浮动*/
 .leftAlign{text-align: left!important;}/*表格td居左*/
 .rightAlign{text-align: right!important;}/*表格td居右*/
 ._margin{margin-bottom: 30px;}/*间隔30px*/
 .tdVAlign{vertical-align: middle;}
 .bgWhite{background-color:white!important;}
-.bgGray{background-color:#ddd!important;}
+.bgGray{background-color:#f7f7f7!important;}
 ul li{ list-style: none; }
 
 .mgl40{margin-left:40px;}
@@ -21,7 +21,7 @@ ul li{ list-style: none; }
 	.page-content{
 	    z-index:5;
 		.table-container{
-			border-bottom: 2px solid #00a982;/*点击高级查询后显示这条线*/
+			border-bottom: 2px solid #f7f7f7;/*点击高级查询后显示这条线*/
 			border-top:none;
 			margin-bottom:30px;
 			.search-container{
@@ -30,6 +30,11 @@ ul li{ list-style: none; }
     				    padding: 4px 40px;
     					font-size: 17px;
     			}
+			}
+			._table{
+				tr{
+				    border:none!important;
+				}
 			}
 			table{
 				// margin-bottom:20px!important;
@@ -46,7 +51,7 @@ ul li{ list-style: none; }
 				}
 				
 				tr{
-				    border:none;
+				    border:1px solid #ddd;
 					th{
 						text-align:center;
 					}
