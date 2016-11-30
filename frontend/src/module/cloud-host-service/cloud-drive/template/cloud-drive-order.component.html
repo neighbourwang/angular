@@ -36,30 +36,10 @@
 				<div class="col-md-12 li-content" >
 					<div class="col-md-2 content-title">云硬盘</div>
 					<div class="col-md-10 btn-group" id="cloud-desk">
-<!-- 
-						<label 
-							*ngFor="let value of configs.disktype.valueList;" 
-							(click)="sendModule.disktype = value" class="btn btn-default" 
-							[ngClass]="{'active': sendModule.disktype.attrValueId === value.attrValueId}">
 
-							<input type="radio" name="location" autocomplete="off"> {{ value.attrDisplayValue }}
-						</label>
-						 -->
 						<button class="btn btn-default">空白盘</button>
 						<button [popover]="popover_never" class="btn btn-default">从未挂载盘</button>
 						<button [popover]="popover_backup" class="btn btn-default">从备份恢复</button>
-
-						<div popover="content to be shown in the popover"
-     popoverTitle="Popover header"
-     popoverPlacement="top"
-     [popoverOnHover]="false"
-     [popoverCloseOnClickOutside]="true"
-     [popoverCloseOnMouseOutside]="false"
-     [popoverDisabled]="false"
-     [popoverAnimation]="true"
-     [popoverDismissTimeout]="1000">
-    element on which this popover is applied.
-</div>
 						
 						<popover-content #popover_never [closeOnClickOutside]="true" >
 						    <div class="col-md-12 mgb15 no-padding">
