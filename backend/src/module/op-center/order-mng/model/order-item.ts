@@ -83,6 +83,8 @@ export class SubInstanceItemResp {
   serviceType: number = null;//, optional): 产品类型 ,
   specList: Array<SubInstanceAttrPair> = null;//[SubInstanceAttrPair], optional): 产品规格 ,
   status: string = null;//, optional): UI订单状态，需要查询数据字典
+  buyer: string = null;//订购人
+  departmentName: string = null;//所属部门
 
   get billingMode():number{//包装计费模式
     return this.billingInfo ? this.billingInfo.billingMode : null;

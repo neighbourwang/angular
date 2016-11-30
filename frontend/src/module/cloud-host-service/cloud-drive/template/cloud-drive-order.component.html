@@ -36,46 +36,40 @@
 				<div class="col-md-12 li-content" >
 					<div class="col-md-2 content-title">云硬盘</div>
 					<div class="col-md-10 btn-group" id="cloud-desk">
-<!-- 
-						<label 
-							*ngFor="let value of configs.disktype.valueList;" 
-							(click)="sendModule.disktype = value" class="btn btn-default" 
-							[ngClass]="{'active': sendModule.disktype.attrValueId === value.attrValueId}">
 
-							<input type="radio" name="location" autocomplete="off"> {{ value.attrDisplayValue }}
-						</label>
-						 -->
-						<button (click)="closePopover('popover_never','popover_backup')" class="btn btn-default">空白盘</button>
-						<button (click)="closePopover('popover_backup')" class="btn btn-default" id="popover_never" rel="popover" data-placement="bottom" data-content="">从未挂载盘</button>
-						<button (click)="closePopover('popover_never')" class="btn btn-default" id="popover_backup" rel="popover" data-placement="bottom" data-content="">从备份恢复</button>
-						<div id="popover_never_content"  style="display: none">
-							<div class="col-md-12 mgb15 no-padding">
-								<select class="form-control float-left drive-select">
-									<option value="1">云硬盘名称</option>
-									<option value="1">支持</option>
-									<option value="1">不支持</option>
-								</select>
-								<div class="input-group float-left drive-search">
-									<input class="form-control " placeholder="输入云主机硬盘搜索">
-									<div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
-								</div>
-							</div>
-							<table class="table table-hover">
-								<tr>
-									<th class="text-center">云硬盘名称</th>
-									<th class="text-center">储存类型</th>
-									<th class="text-center">容量(GB)</th>
-									<th class="text-center">属性</th>
-								</tr>
-								<tr *ngFor="let i of [1,2,3,4,5]">
-									<td class="text-center">cirros-0.3.4</td>
-									<td class="text-center">SSD盘</td> 
-									<td class="text-center">40</td>
-									<td class="text-center">启动盘</td>
-								</tr>
-							</table>
-						</div>
-						<div id="popover_backup_content" style="display: none">
+						<button class="btn btn-default">空白盘</button>
+						<button [popover]="popover_never" class="btn btn-default">从未挂载盘</button>
+						<button [popover]="popover_backup" class="btn btn-default">从备份恢复</button>
+						
+						<popover-content #popover_never [closeOnClickOutside]="true" >
+						    <div class="col-md-12 mgb15 no-padding">
+					            <select class="form-control float-left drive-select">
+					                <option value="1">云硬盘名称</option>
+					                <option value="1">支持</option>
+					                <option value="1">不支持</option>
+					            </select>
+					            <div class="input-group float-left drive-search">
+					                <input class="form-control " placeholder="输入云主机硬盘搜索">
+					                <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+					            </div>
+					        </div>
+					        <table class="table table-hover">
+					            <tr>
+					                <th class="text-center">云硬盘名称</th>
+					                <th class="text-center">储存类型</th>
+					                <th class="text-center">容量(GB)</th>
+					                <th class="text-center">属性</th>
+					            </tr>
+					            <tr *ngFor="let i of [1,2,3,4,5]">
+					                <td class="text-center">cirros-0.3.4</td>
+					                <td class="text-center">SSD盘</td> 
+					                <td class="text-center">40</td>
+					                <td class="text-center">启动盘</td>
+					            </tr>
+					        </table>
+						</popover-content>
+
+						<popover-content #popover_backup [closeOnClickOutside]="true" >
 							<div class="col-md-12 mgb15 no-padding">
 								<select class="form-control float-left drive-select">
 									<option value="1">云硬盘名称</option>
@@ -103,7 +97,7 @@
 									<td class="text-center">启动盘</td>
 								</tr>
 							</table>
-						</div>
+						</popover-content>
 					</div>	
 					<div class="col-md-2 content-title">云硬盘类型</div>	
 					<div class="col-md-10 btn-group" data-toggle="buttons">
@@ -135,11 +129,40 @@
 					</div>	
 					<div class="col-md-12 content-title btn-group">
 						<span class="float-left mgr20 lh34"><input type="radio" name=""> 是否挂载到云主机 </span>
-						<div class="input-group float-left" id="popover_host" rel="popover" data-placement="bottom" data-content="">
-				            <label class="btn btn-default button-gray-gradient" (click)="superSearch = superSearch ? false : true" [ngClass]="{'active': superSearch}">
-				                云主机实例列表
-				            </label>
-				        </div>
+				        <button 
+				        	[popover]="popover_host" 
+				        	[ngClass]="{'active': popover_host.popover?.visible}" 
+				        	class="btn btn-default button-gray-gradient">云主机实例列表</button>
+
+				        <popover-content #popover_host [closeOnClickOutside]="true" >
+							<div class="col-md-12 mgb15 no-padding">
+								<select class="form-control float-left drive-select">
+									<option value="1">云硬盘名称</option>
+									<option value="1">支持</option>
+									<option value="1">不支持</option>
+								</select>
+								<div class="input-group float-left drive-search">
+									<input class="form-control " placeholder="输入云主机硬盘搜索">
+									<div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+								</div>
+							</div>
+							<table class="table table-hover">
+								<tr>
+									<th class="text-center">备份名称</th>
+									<th class="text-center">源硬盘名称</th>
+									<th class="text-center">源主机名称</th>
+									<th class="text-center">容量(GB)</th>
+									<th class="text-center">属性</th>
+								</tr>
+								<tr *ngFor="let i of [1,2,3,4,5]">
+									<td class="text-center">cirros-0.3.4</td>
+									<td class="text-center">SSD盘</td> 
+									<td class="text-center">cirros</td>
+									<td class="text-center">40</td>
+									<td class="text-center">启动盘</td>
+								</tr>
+							</table>
+						</popover-content>
 						
 						<div id="popover_host_content" style="display: none">
 							<div class="col-md-12 mgb15 no-padding">
