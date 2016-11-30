@@ -41,7 +41,7 @@ import { ClickOutsideModule } from 'ng2-click-outside';
         PopupComponent,
         CountBarComponent,
         MyDatePickerModule,
-        BootstrapPopoverDirective
+        BootstrapPopoverDirective,
         ClickOutsideModule
     ]
 })
