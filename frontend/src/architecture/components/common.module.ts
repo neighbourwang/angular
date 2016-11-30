@@ -11,6 +11,7 @@ import { NoticeComponent } from './dialog/component/notice.component';
 import { ConfirmComponent } from './dialog/component/confirm.component';
 import { PopupComponent } from './dialog/component/popup.component';
 import { CountBarComponent } from './countBar/component/count-bar.component';
+import { PopoverModule } from './popover/index';
 import { MyDatePickerModule } from './date-picker/my-date-picker.module';
 
 import { ClickOutsideModule } from 'ng2-click-outside';
@@ -25,6 +26,7 @@ import { ClickOutsideModule } from 'ng2-click-outside';
         CommonModule,
         Ng2Bs3ModalModule,
         FormsModule,
+        ClickOutsideModule
         // ChartsModule
     ],
     declarations: [
@@ -48,8 +50,8 @@ import { ClickOutsideModule } from 'ng2-click-outside';
         ConfirmComponent,
         PopupComponent,
         CountBarComponent,
-        FormsModule,
-        ClickOutsideModule
+        ClickOutsideModule,
+        PopoverModule
         // OrderByPipe
         // DonutChart,
         // LineChart

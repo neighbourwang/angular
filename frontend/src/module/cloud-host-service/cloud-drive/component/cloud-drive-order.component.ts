@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService } from '../../../../architecture';
@@ -39,7 +39,6 @@ export class cloudDriveComponentOrder implements OnInit {
 
 	ngOnInit() {
 		this.setConfigList();
-		this.initPopover();
 		// $("[data-toggle=popover]").popover();
 	}
 
@@ -170,44 +169,17 @@ export class cloudDriveComponentOrder implements OnInit {
 		this.router.navigateByUrl(url);
 	}
 	buyNow() {
-		this.layoutService.show();
-		this.checkInput();
-		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
-		// console.log(JSON.stringify(payLoadArr))
-		this.service.saveOrder(payLoadArr).then(res => {
-			this.layoutService.hide();
-			this.router.navigateByUrl("cloud-host-service/cart-order");
-		}).catch(res => {
-			this.layoutService.hide();
-		})
+
+		// this.layoutService.show();
+		// this.checkInput();
+		// let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
+		// // console.log(JSON.stringify(payLoadArr))
+		// this.service.saveOrder(payLoadArr).then(res => {
+		// 	this.layoutService.hide();
+		// 	this.router.navigateByUrl("cloud-host-service/cart-order");
+		// }).catch(res => {
+		// 	this.layoutService.hide();
+		// })
 	}
 
-	initPopover(){   //初始化popover
-		$('#popover_never').popover({ 
-	      html : true, 
-	      content: function() {
-	        return $('#popover_never_content').html();
-	      }
-	    });
-		$('#popover_backup').popover({ 
-	      html : true, 
-	      content: function() {
-	        return $('#popover_backup_content').html();
-	      }
-	    });
-		$('#popover_host').popover({ 
-	      html : true, 
-	      content: function() {
-	        return $('#popover_host_content').html();
-	      }
-	    });
-	}
-	closePopover(...arrs) {
-		arrs.forEach(arr => {
-			$('#'+arr+'').popover('hide');
-		})
-	}
-	onClickedOutside(even){
-		console.log(even)
-	}
 }
