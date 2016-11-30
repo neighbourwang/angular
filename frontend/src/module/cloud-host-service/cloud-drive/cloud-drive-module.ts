@@ -12,11 +12,13 @@ import { CloudDriveRouting } from './cloud-drive-routing';
 import { cloudDriveListComponent } from './component/cloud-drive-list.component';
 
 import { cloudDriveComponentOrder } from './component/cloud-drive-order.component';
+import { subTableListComponent } from './component/sub-table-list.component';
 import { CloudHostComponents } from '../components/cloud-host-components.module';
 
 //service
 import { cloudDriveServiceOrder } from './service/cloud-drive-order.service'; 
 import { cloudDriveServiceList } from './service/cloud-drive-list.service'; 
+import { SubTableListService } from './service/sub-table-list.service'; 
 
 // import { MyDatePickerModule } from 'mydatepicker';
 
@@ -32,13 +34,16 @@ import { cloudDriveServiceList } from './service/cloud-drive-list.service';
     ],
     declarations: [
         cloudDriveListComponent,
-        cloudDriveComponentOrder
+        cloudDriveComponentOrder,
+        subTableListComponent
     ],
     exports: [
     ],
     providers: [
         cloudDriveServiceOrder,
-        cloudDriveServiceList
+        cloudDriveServiceList,
+        subTableListComponent,
+        SubTableListService
     ]
 
 })

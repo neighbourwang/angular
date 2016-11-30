@@ -109,50 +109,10 @@
 						    <a lab-bootstrap-popover id="detail-{{i}}" [attr.contentid]="contentIdGen(i)">详细信息>>></a>
 						    <!-- 弹出内容模板 -->
 					    	<div class="DetailInfo" [attr.id]="contentIdGen(i)" style="display: none;">
-								<table class="table table-hover">
-									<thead>
-										<tr><th class="form-control-title" colspan="2">详细信息</th></tr>
-									</thead>
-									<tbody>
-											<tr >
-												<td style="width: 30%;">云主机</td>
-												<td class="leftAlign">
-													<ul>
-													  <li>区域：华北1</li>
-													   <li>可用区：可用区B</li>
-													    <li>实例规格：CPU 2核/内存4GB/启动盘/70G</li>
-													     <li>IP地址：10.1.1.1（内部）<br>
-													         192.168.1.1（外部）</li>
-													      <li>操作系统：******</li>
-													       <li>密码：已设置</li>
-													        <li>实例名称：abcabc</li>
-													</ul>
-												</td>
-											</tr>
-											<tr>
-												<td style="width: 30%;">云硬盘</td>
-												<td class="leftAlign">
-													<ul>
-													  <li>区域：华北1</li>
-													   <li>可用区：可用区B</li>
-													    <li>云硬盘类型：高性能I/O</li>
-													     <li>云盘容量：100GB</li>
-													</ul>
-												</td>
-											</tr>
-											<tr>
-												<td style="width: 30%;">数据库</td>
-												<td class="leftAlign">
-													<ul>
-													  <li>数据库类型：Oracle</li>
-													   <li>数据库版本：11g</li>
-													</ul>
-												</td>
-											</tr>
-									</tbody>
-								</table>
+								<ul>
+									<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}:{{spec.attrDisplayValue}}</li>
+								</ul>
 							</div>
-
 					    </td>
 						<td>{{item.serviceTypeName}}</td>
 						<td>{{item.platformStr}}<br/>

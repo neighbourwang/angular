@@ -21,8 +21,8 @@ html:
 </popover-content>
 
 
-<!-- 可以通过popover_host.popover?.visible 来获取content是否已经隐藏 -->
-<!-- <button [ngClass]="{'active': popover_host.popover?.visible}" ></button> -->
+<!-- 可以通过myPopover.popover?.visible 来获取content是否已经隐藏 -->
+<!-- <button [ngClass]="{'active': myPopover.popover?.visible}" ></button> -->
 ```
 
 或者 
@@ -41,7 +41,18 @@ html:
 </div>
 ```
 
+如果在循环里用，如下：
 
+```html
+<li  *ngFor="let i of [1,2,3,4,5]">
+    <button  class="btn btn-default" [popover]="popover">
+        点我
+    </button>
+    <popover-content #popover [closeOnClickOutside]="true" >
+        {{i}}
+    </popover-content>
+</li>
+```
 
 ### 可选参数
 
@@ -64,3 +75,6 @@ html:
     * `[popoverCloseOnClickOutside]="true|false"` 当鼠标点击popover之外的地方会隐藏. Default is **false**.
     * `[popoverDismissTimeout]="number"` 过多少毫秒会自动隐藏. Default is **0**, 意思是不消失.
 
+### 例子
+
+[例子](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/module/cloud-host-service/cloud-drive/template/cloud-drive-order.component.html)

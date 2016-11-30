@@ -1,0 +1,82 @@
+<!-- 从未挂载盘列表 -->
+<div *ngIf="code==='unmount'" class="col-md-12 mgb15 no-padding">
+    <select [(ngModel)]="list.queryField" class="form-control mgr15 float-left drive-select">
+        <option
+         *ngFor="let v of service.diskQueryField | async; let i = index;"
+         [ngValue]="v.value" >{{ v.displayValue }}</option>
+    </select>
+    <div class="input-group float-left drive-search">
+        <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="输入云硬盘名称搜索">
+        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+    </div>
+</div>
+<table *ngIf="code==='unmount'" class="table table-hover">
+    <tr>
+        <th class="text-center">云硬盘名称</th>
+        <th class="text-center">储存类型</th>
+        <th class="text-center">容量(GB)</th>
+        <th class="text-center">属性</th>
+    </tr>
+    <tr *ngFor="let i of [1,2,3,4,5]">
+        <td class="text-center">cirros-0.3.4</td>
+        <td class="text-center">SSD盘</td> 
+        <td class="text-center">40</td>
+        <td class="text-center">启动盘</td>
+    </tr>
+</table>
+
+<!-- 备份列表 -->
+<div *ngIf="code==='backup'" class="col-md-12 mgb15 no-padding">
+    <select [(ngModel)]="list.queryField" class="form-control mgr15 float-left drive-select">
+        <option
+         *ngFor="let v of service.diskQueryField | async; let i = index;"
+         [ngValue]="v.value" >{{ v.displayValue }}</option>
+    </select>
+    <div class="input-group float-left drive-search">
+        <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="输入云硬盘名称搜索">
+        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+    </div>
+</div>
+<table *ngIf="code==='backup'" class="table table-hover">
+    <tr>
+        <th class="text-center">云硬盘名称</th>
+        <th class="text-center">储存类型</th>
+        <th class="text-center">容量(GB)</th>
+        <th class="text-center">属性</th>
+    </tr>
+    <tr *ngFor="let i of [1,2,3,4,5]">
+        <td class="text-center">cirros-0.3.4</td>
+        <td class="text-center">SSD盘</td> 
+        <td class="text-center">40</td>
+        <td class="text-center">启动盘</td>
+    </tr>
+</table>
+
+<!-- 云主机实例列表 -->
+<div *ngIf="code==='vm'" class="col-md-12 mgb15 no-padding">
+    <select [(ngModel)]="list.queryField" class="form-control mgr15 float-left drive-select">
+        <option
+         *ngFor="let v of service.vmQueryField | async; let i = index;"
+         [ngValue]="v.value" >{{ v.displayValue }}</option>
+    </select>
+    <div class="input-group float-left drive-search">
+        <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="输入云主名称搜索">
+        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+    </div>
+</div>
+<table *ngIf="code==='vm'" class="table table-hover">
+    <tr>
+        <th class="text-center">云硬盘名称</th>
+        <th class="text-center">配置</th>
+        <th class="text-center">镜像</th>
+        <th class="text-center">内部IP</th>
+        <th class="text-center">外部IP</th>
+    </tr>
+    <tr *ngFor="let vm of vmList">
+        <td class="text-center">{{vm.instanceName}}</td>
+        <td class="text-center">{{vm.specification}}</td> 
+        <td class="text-center">{{vm.osInfo}}</td>
+        <td class="text-center">{{vm.privateIP}}</td>
+        <td class="text-center">{{vm.publicIP}}</td>
+    </tr>
+</table>
