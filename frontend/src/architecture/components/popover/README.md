@@ -1,5 +1,7 @@
 # popover组件
 
+![angular 2 popover](https://raw.githubusercontent.com/pleerock/ng2-popover/master/resources/popover-example.png)
+
 
 
 ### 使用方法
