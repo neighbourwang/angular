@@ -1076,7 +1076,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "查询待审批/已审批订单",
         "id": "check-center.not-checked.list",
         "method": "POST",
-        "url": "adminui/authsec/backend/approval/order/search/paging"     
+        "url": "adminui/authsec/backend/approval/orders/search/paging"     
     }
     ,{
         "desc": "获取订单详情",
