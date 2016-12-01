@@ -1,0 +1,151 @@
+<div class="page-content-header icon-content-header-platform-manage">云平台详细 <span>{{platformName}}</span></div>
+<div class="mgt20" style="border-bottom:1px solid #ddd;padding-bottom:5px"> 
+    <button type="button" class="btn btn-default" *ngFor="let item of Tabels;let idx = index" (click)="changeTab(item,idx)" [ngClass]="{'btn-active': item.active}">{{item.name}}</button>
+</div>
+
+<div *ngIf="Tabels[0].active">
+    <div class="page-content fix-page-content">    
+    <div class="row" style="padding-top: 30px;">
+        <div class="col-md-12">
+            <div class="row row-line-height">
+                <div class="form-group">
+
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        云平台名称：
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="name"  placeholder="请输入云平台名称">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        所属数据中心：
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="dataCenter"  placeholder="请输入所属数据中心">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        所属地域：
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" [(ngModel)]="regionId">
+                            <option *ngFor="let item of regions;" [value]="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        云平台类型：
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" *ngFor="let item of platformTypes;let idx = index" (click)="choosePlatFormType(item,idx)" [ngClass]="{'btn-active': item.isSelected}">{{item.displayValue}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        地址：
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="uri"  placeholder="请输入地址">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        版本：
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" [(ngModel)]="version">
+                            <option *ngFor="let item of platformVersion;" [value]="item.value">{{item.displayValue}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        用户名：
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="userName" placeholder="请输入用户名">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        密码：
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="password" class="form-control" [(ngModel)]="passwd" placeholder="请输入密码">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        是否支持云主机变更：
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="radio" class="fox-cloud-radio" [(ngModel)]="passwd">支持
+                        <input type="radio" class="fox-cloud-radio" [(ngModel)]="passwd">不支持
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="text-center">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="back();">
+        <span class="icon-button-label">取消</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="save();">
+        <span class="icon-button-label">保存</span>
+    </button>
+</div>
+</div>
+<div *ngIf="Tabels[1].active">
+    可用去与配额
+</div>
+<div *ngIf="Tabels[2].active">
+    存储区与配额
+</div>
+
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认"></fc-notice>
+
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>

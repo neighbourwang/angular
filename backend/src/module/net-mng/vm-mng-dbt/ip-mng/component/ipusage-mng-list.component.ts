@@ -5,7 +5,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { LayoutService, NoticeComponent , ConfirmComponent, ValidationService, SystemDictionary, SystemDictionaryService, PaginationComponent  } from '../../../../../architecture';
 
 //model 
-import { IpUsageMngModel } from '../model/ipusage-mng.model';
+import { IpUsageMngModel } from '../model/ip-mng.model';
 
 
 //service
@@ -13,7 +13,7 @@ import { IpUsageMngListService } from '../service/ipusage-mng-list.service';
 
 @Component({
     selector: 'ipusage-mng-list',
-    templateUrl: '../template/mng_ip_addr.html',
+    templateUrl: '../template/vmware-dis-ipAddr-mng.html',
     styleUrls: [],
     providers: []
 })
@@ -126,7 +126,7 @@ export class IpUsageMngListComponent implements OnInit{
     }
 
     ipMngPage() {
-        this.router.navigate([`net-mng/vm-mng/ip-mng-list`]);
+        this.router.navigate([`net-mng/vm-dist-mng/ip-mng-list`]);
     }
 
     filter(query?): void {
@@ -135,11 +135,10 @@ export class IpUsageMngListComponent implements OnInit{
         this.ipusagemngs = this.rawipusagemngs.filter((item)=>{
             return (this.ipusagequery == "all" || item.status == this.ipusagequery) 
         });
-        console.log(this.ipusagemngs, "ipusagemngs!!!");
         this.UnselectItem();
     }
 
-    getIpUsageMngList( pg_id: string ): void {
+    getIpUsageMngList( pg_id: string, ipusagequery? ): void {
         if (this.validationService.isBlank(pg_id)){
             this.showAlert("请选择相应的dataCenter");
             return;
@@ -150,12 +149,13 @@ export class IpUsageMngListComponent implements OnInit{
         .then(
             response => {
                 this.layoutService.hide();
-                //console.log(response, "IPUsagemngS!!!");
+                console.log(response, "IPUsagemngS!!!");
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
                     this.rawipusagemngs = response.resultContent;
-                    console.log(this.rawipusagemngs, "rawipusagemngs!!!");
-                    this.filter();                    
+                    this.filter();
+                    console.log(this.rawipusagemngs, "IPUsagemngS!!!");
+                    //this.totalPage = response.pageInfo.totalPage;
                 } else {
                     alert("Res sync error");
                     this.layoutService.hide();                   
@@ -176,7 +176,7 @@ export class IpUsageMngListComponent implements OnInit{
     UnselectItem(): void {
         this.ipusagemngs.map(n=> {n.checked = false;});
         if(this.selectedip) this.selectedip.checked = false;
-        //console.log(this.ipusagemngs, "=== Please see all items are Unselected ===");
+        console.log(this.ipusagemngs, "=== Please see all items are Unselected ===");
     }
 
     getSelected() {

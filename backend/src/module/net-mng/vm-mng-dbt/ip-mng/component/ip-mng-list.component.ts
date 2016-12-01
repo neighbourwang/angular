@@ -5,11 +5,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, ValidationService } from '../../../../../architecture';
 
 //model 
-import { IpMngModel } from '../model/ip-mng.model';
-import { subnetModel, subnetInfoModel } from '../model/subnet.model';
-import { subnetIpModel } from '../model/subnet-ip.model';
-import { DCModel } from '../model/dccluster.model';
-
+import { IpMngModel, DCModel, SwitchModel, subnetModel, subnetInfoModel, subnetIpModel, IpUsageMngModel } from '../model/ip-mng.model';
 
 
 //service
@@ -18,7 +14,7 @@ import { IPValidationService } from '../service/ip-mng.validation.service';
 
 @Component({
     selector: 'ip-mng-list',
-    templateUrl: '../template/ip_addr_mng.html',
+    templateUrl: '../template/vmware-dis-ip-mng.html',
     styleUrls: [],
     providers: [
         IpMngListService,
@@ -130,10 +126,9 @@ export class IpMngListComponent implements OnInit{
 
     filter(): void {
         this.ipmngs = this.rawipmngs.filter((item)=>{
-            return ( this.selectedVDS == "" || item.clusterId == this.selectedVDS ) &&
+            return ( this.selectedVDS == "" || item.switchId == this.selectedVDS ) &&
             ( this.selectedDC.dcId == "" || item.dcId == this.selectedDC.dcId )
         })
-        console.log(this.ipmngs, "IPmngS --- filter");
         this.UnselectItem();
     }
 
@@ -143,12 +138,12 @@ export class IpMngListComponent implements OnInit{
             .then(
             response => {
                 this.layoutService.hide();
-                //console.log(response, "IPmngS!!!");
+                console.log(response, "IPmngS!!!");
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
                     this.rawipmngs = response.resultContent;
                     this.filter();
-                    console.log(this.ipmngs, "IPmngS --- getIpMngList");
+                    console.log(this.ipmngs, "IPmngS 11111111111111111111111");
                 } else {
                     alert("Res sync error");
                     this.layoutService.hide();
@@ -159,7 +154,7 @@ export class IpMngListComponent implements OnInit{
 
     //Menu: 设置IP子网
     setupSubnet(): void {
-        console.log('conponent: net-mng/vm-mng/ip-mng-list/subnet');
+        console.log('conponent: net-mng/vm-dist-mng/ip-mng-list/subnet');
         //this.layoutService.show();
         let pg = this.getSelected();
         console.log(pg, "========== setupSubnet =============");
@@ -195,7 +190,7 @@ export class IpMngListComponent implements OnInit{
 
     //Menu: 设置子网IP地址范围
     setupIPs(): void {
-        console.log('conponent: net-mng/vm-mng/ip-mng-list/ips');
+        console.log('conponent: net-mng/vm-dist-mng/ip-mng-list/ips');
         let pg = this.getSelected();
         console.log(pg, "============ setupIPs ===========");
         this.layoutService.show();
@@ -239,13 +234,13 @@ export class IpMngListComponent implements OnInit{
         //this.router.navigate([`net-mng/ipusage-mng-list/${this.dc}`]);
         let pg = this.getSelected();
         if(pg){
-            this.router.navigate([`net-mng/vm-mng/ipusage-mng-list`, { "pg_id": pg.id, "pg_name": pg.clusterName}]);
+            this.router.navigate([`net-mng/vm-dist-mng/ipusage-mng-list`, { "pg_id": pg.id, "pg_name": pg.switchName}]);
         }        
     }
 
     //Menu: 返回上一层, 可以在[返回上一层]调用
     vmwareNetworkPage() {
-        this.router.navigate([`net-mng/vm-mng/vm-mng`]);     
+        this.router.navigate([`net-mng/vm-dist-mng/vm-mng`]);     
     }
 
     acceptIPsModify(): void {

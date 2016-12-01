@@ -7,7 +7,7 @@
         <thead>
             <tr>
                 <th style="text-align:left;">
-                    VMware网络管理 -- 管理标准网络 -- IP地址管理&nbsp;&nbsp;&nbsp;&nbsp;"地区" "数据中心" 平台显示名称 + 连接URL https://192.168.1.1:443
+                    VMware网络管理 -- 管理分布式网络 -- IP地址管理  &nbsp; &nbsp; &nbsp;"地区" "数据中心" 平台显示名称 + 连接URL https://192.168.1.1:443
                 </th>
                 <th style="text-align:right;">
                     <button class=" fox-cloud-button fox-cloud-button-white ">
@@ -17,79 +17,55 @@
             </tr>
         </thead>
     </table>
-
-    <div class="mgt10 mgb20" >
-<!-- 
-		<span class="pull-left font-gray mgt5">
-            数据中心(DC)名称：
-        </span>
-        <div class="pull-left mgl15">
-            <select class="form-control" [(ngModel)]="ipmngquery.dataCenter">
-                <option [value]="''">所有</option>
-                <option *ngFor="let dc of datacenter" [value]="dc">{{dc}}</option>
-            </select>
-        </div>
-        <span class="pull-left font-gray mgt5">
-            可用区（集群）名称 :
-        </span>
-        <div class="pull-left mgl15">
-            <select class="form-control" [(ngModel)]="ipmngquery.cluster">
-                <option [value]="" value="">所有</option>
-                <option *ngFor="let cls of cluster" [value]="cls">{{cls}}</option>
-            </select>
-        </div>
--->
-		<span class="pull-left font-gray mgt5">
-            数据中心(DC)名称：
-        </span>
-        <div class="pull-left mgl15">
+    <div class="mgt15 "> 
+		<span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 数据中心(DC)名称：</span>
+        <div class="float-left pdr20">
             <select class="form-control" [(ngModel)]="selectedDC" (change)="selectedVDS=''" >
                 <option [ngValue]="defaultDc">所有</option>
                 <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
             </select>
-        </div>
-        <span class="pull-left font-gray mgt5 mgl15">
-            可用区（集群）名称 :
-        </span>
-        <div class="pull-left mgl15">
+        </div>     
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 分布式交换机名称(VDS)：</span>
+        <div class="float-left pdr20">
             <select class="form-control" [(ngModel)]="selectedVDS">
                 <option [value]="" value="">所有</option>
-                <option *ngFor="let vds of selectedDC.clusters" [value]="vds.clusterId">{{vds.clusterName}}</option>
+                <option *ngFor="let vds of selectedDC.switchList" [value]="vds.switchId">{{vds.switchName}}</option>
             </select>
-        </div>
+        </div>   
 		<button type="button" class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="filter()"> 确定</button>
     </div>
+    <div style="clear:both"></div>
 
-    <div class="mgb10">
+    <div class="mgb20 mgt15">
         <button class="fox-cloud-button fox-cloud-button-green" (click)="setupSubnet()">设置IP子网</button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="setupIPs()">设置IP地址范围</button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="ipUsageMngPage()">管理IP地址</button>
     </div>
 
     <div class="table-container">
-        <table class="table table-hover">
+        <table class="table table-hover" >
             <thead>
-            <tr>
-                <th>选择</th>
-                <th>数据中心（DC)</th>
-                <th>可用区（集群）名称</th>
-                <th>标准端口组名称</th>
-                <th>标准端口组显示名称</th>
-                <th>VLAN ID</th>
-                <th>子网信息</th>
-                <th>网关地址</th>
-                <th>IP地址池数量</th>
-                <th>已使用IP地址数量</th>
-                <th>剩余IP地址数量</th>
+            <tr >
+                <th class="top-align">选择</th>
+                <th class="top-align">数据中心<br/>(DC)</th>
+                <th class="top-align"> 分布式交换机名称<br/>(VDS)</th>
+                <th class="top-align">分布式虚拟端口端口组名称<br/>(dv Port-group)</th>
+                <th class="top-align">分布式端口组显示名称</th>
+                <th class="top-align">VLAN ID</th>
+                <th class="top-align">子网信息</th>
+                <th class="top-align">网关地址</th>
+                <th class="top-align">IP地址池数量</th>
+                <th class="top-align">已使用IP地址数量</th>
+                <th class="top-align">剩余IP地址数量</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let ipmng of ipmngs; let i=index;">
                 <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="ipmng.checked" (change)="selectItem(i)" value="{{i}}"></td>
                 <td>{{ipmng.dcName}}</td>
-                <td>{{ipmng.clusterName}}</td>
-                <td>{{ipmng.portGroup}}</td>
-                <td>{{displayIt(ipmng.portGroupDisplayName)}}</td>
+                <td>{{ipmng.switchName}}</td>
+                <td>{{ipmng.dvPortGroupName}}</td>
+                <td>{{displayIt(ipmng.distPortGroupDisplayName)}}</td>
                 <td>{{ipmng.vlanId}}</td>
                 <td>{{displayIt(ipmng.segmentCIDR)}}</td>
                 <td>{{displayIt(ipmng.gateWay)}}</td>
@@ -97,19 +73,17 @@
                 <td>{{displayIt(ipmng.usedIPCount)}}</td>
                 <td>{{displayIt(ipmng.freeIPCount)}}</td>
 
-			</tr>
+			</tr>         
             </tbody>
         </table>
-<!--
-    {{selectedDC.dcId}}
-    {{selectedVDS}}
-	{{subn.toString()}}
-	{{ippool.toString()}}
--->
-
-
     </div>
+
+
 </div>
+
+
+
+
 
 <fc-notice #notice ot="确认" (of)="okClicked()"></fc-notice>
 <fc-confirm #confirm ot="确认" ct="取消" (of)="onConfirmed()"></fc-confirm>
