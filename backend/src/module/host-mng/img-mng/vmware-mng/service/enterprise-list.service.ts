@@ -23,7 +23,7 @@ export class VmwareEntListService{
     }
 
     getEntList( platformId: string ): Promise<any>{
-        /*
+        //*
         const pathParams = [
             {
                 key: "platformId",
@@ -40,7 +40,7 @@ export class VmwareEntListService{
         const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.dropdown-ent.list");
         return this.restApi.request(api.method, api.url, pathParams, null, null);
         //*/
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return EnterpriseModel_mock });
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return EnterpriseModel_mock });
     }
     
 }

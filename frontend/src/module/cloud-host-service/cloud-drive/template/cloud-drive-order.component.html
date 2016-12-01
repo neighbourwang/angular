@@ -78,14 +78,18 @@
 						<div class="col-md-5 disk-tip no-padding">2-68个字符，以大小写字母或者中文开头，可包含数字，“.”, "-", "_"</div>
 					</div>	
 					<div class="col-md-12 content-title btn-group">
-						<span class="float-left mgr20 lh34"><input type="radio" name=""> 是否挂载到云主机 </span>
+						<span class="float-left mgr20 lh34">
+							<input type="checkbox" [(ngModel)]="isAttachVm" (click)="vmListClick()" name=""> 
+							是否挂载到云主机 
+						</span>
 				        <button 
 				        	[popover]="popover_host" 
 				        	[ngClass]="{'active': popover_host.popover?.visible}" 
+				        	[disabled]="!isAttachVm" 
 				        	class="btn btn-default button-gray-gradient">云主机实例列表</button>
 
 				        <popover-content #popover_host [closeOnClickOutside]="true" >
-							<table-list code="vm" [platformId]="sendModule.platform.attrValueId"></table-list>
+							<table-list code="vm" (onSelect)="vmListClick($event);popover_host.hide();" [platformId]="sendModule.platform.attrValueId"></table-list>
 						</popover-content>
 						
 						<div id="popover_host_content" style="display: none">

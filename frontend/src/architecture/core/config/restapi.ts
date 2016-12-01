@@ -391,4 +391,12 @@ export let RestApis: RestApiModel[] = [
         "url": "basis/authsec/mpp/currentEnterpriseId"
     },
     
+    // 审批中心
+    {
+        "desc": "获取审批列表",
+        "id": "check-center.get-list.post",
+        "method": "POST",
+        "url": "marketplace/authsec/front/approval/order/search/paging"
+    }
+    // 审批中心
 ]

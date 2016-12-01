@@ -68,6 +68,9 @@ export class CheckMngHascheckComponent implements OnInit{
 				// obj.checkResultId = ?? 审批结果	
 				obj.description = item.orderDesc; //描述	
 
+				obj.specList = item.specList; //获取产品信息
+
+
 			}
 		};
 
