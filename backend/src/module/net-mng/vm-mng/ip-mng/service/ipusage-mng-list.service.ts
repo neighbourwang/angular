@@ -30,33 +30,35 @@ export class IpUsageMngListService {
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return IpUsageMngModel_mock });
     }
 
-    enableIP(ip_id: string): Promise <any>  {
+    enableIP(ipusage: IpUsageMngModel): Promise <any>  {
         console.log("enableIP");               
         //API CALL
         const pathParams = [
             {
                 key: "ip_id",
-                value: ip_id
+                value: ipusage.id
             }
         ];
+        const body = [ipusage.description]; 
         const api = this.restApiCfg.getRestApi("net-mng.vmware.subnetip.occupy");
-        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
 
 
     }
 
-    disableIP(ip_id: string): Promise <any>  {
+    disableIP(ipusage: IpUsageMngModel): Promise <any>  {
         console.log("disableIP");        
         //API CALL
         const pathParams = [
             {
                 key: "ip_id",
-                value: ip_id
+                value: ipusage.id
             }
         ];
+        const body = [ipusage.description]; 
         const api = this.restApiCfg.getRestApi("net-mng.vmware.subnetip.release");
-        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
 
     }

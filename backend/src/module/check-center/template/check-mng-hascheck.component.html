@@ -118,7 +118,7 @@
 									<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}:{{spec.attrDisplayValue}}</li>
 								</ul>
 							</div>-->
-							<a [popover]="myPopover">详细信息>>>></a>
+							<a [popover]="myPopover" class="hands">详细信息>>>></a>
 
 							<popover-content #myPopover 
 							placement="right"
@@ -145,7 +145,7 @@
 							<br/>费用：{{item.priceNum}}
 						</td>
 						<td>{{item.createTimeStr}}<br>
-							<a [popover]="checkPopover">审批详细>>>></a>
+							<a class="hands" [popover]="checkPopover">审批详细>>>></a>
 
 							<popover-content #checkPopover 
 							placement="right"
