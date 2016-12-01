@@ -22,12 +22,14 @@ import * as _ from 'underscore';
 })
 export class CheckMngListComponent implements OnInit{ 
 	private _param:CheckCenterParam = new CheckCenterParam();
-	private _entLoader:ItemLoader<{id:string; name:string}> = null; //企业列表
 	private _departmentLoader:ItemLoader<{id:string;name:string}> = null; //部门列表
 	private _serviceTypeDic:DicLoader = null; //产品类型
 	private _orderTypeDic : DicLoader =null;//订单类型
 	private _isAdvSearch:boolean = false;//高级查询
 	private _listLoader:ItemLoader<CheckListItem> = null;//列表数据加载
+
+	private _entId:string = "191af465-b5dc-4992-a5c9-459e339dc719";
+
 
 	@ViewChild("notice") private _notice:NoticeComponent;
 	@ViewChild("refuseDialog")
@@ -37,18 +39,19 @@ export class CheckMngListComponent implements OnInit{
 		,private _restApi:RestApi
 		,private _layoutService:LayoutService){
 			//列表数据加载
-		this._listLoader = new ItemLoader<CheckListItem>(true, "待审批列表", "check-center.not-checked.list", _restApiCfg, _restApi);
+		this._listLoader = new ItemLoader<CheckListItem>(true, "待审批列表", "check-center.get-list.post", _restApiCfg, _restApi);
 		this._listLoader.MapFunc = (source:Array<any>, target:Array<CheckListItem>)=>{
-			let obj = new CheckListItem();
-			target.push(obj);
 
 			for(let item of source)
 			{
+				let obj = new CheckListItem();
+				target.push(obj);
+
 				obj.orderCodeStr = item.orderNo;//订单编号
-				obj.serviceTypeName = item.serviceType; //产品类型
+				obj.serviceTypeIdStr = item.serviceType;//产品类型
 				// obj.platformStr = ?? 区域
 				// obj.zoneStr = ?? 可用区
-				obj.orderTypeName = item.orderType;// 订单类型
+				obj.orderTypeName = item.orderType;//订单类型
 				obj.userStr = item.submiter;// 用户,提交者
 				obj.departmentStr = item.departmentName;// 部门
 				obj.entStr = item.enterpriszeName;// 企业
@@ -59,27 +62,25 @@ export class CheckMngListComponent implements OnInit{
 				// obj.priceNum = ??费用
 
 				obj.createTimeStr = item.createDate;// 创建时间
-				// obj.checkResultId = ?? 审批结果		
+				// obj.checkResultId = ?? 审批结果	
+				obj.description = item.orderDesc; //描述			
 
+				obj.specList = item.specList; //获取产品信息
 			}
 		};
 
-		//企业列表配置
-		this._entLoader = new ItemLoader<{id:string;name:string}>(false, "企业列表", "op-center.order-mng.ent-list.get", _restApiCfg, _restApi);
-
 		//部门列表配置
 		this._departmentLoader = new ItemLoader<{id:string;name:string}>(false, "部门列表", "op-center.order-mng.department-list.get", _restApiCfg, _restApi);
-
 		//产品类型配置
-		this._serviceTypeDic = new DicLoader(_restApiCfg, _restApi, "GLOBAL", "SERVICE_TYPE");//²úÆ·ÀàÐÍÁÐ±í', "op-center.order-mng.product-type-list.get", _restApiCfg, _restApi);
-        
+		this._serviceTypeDic = new DicLoader(_restApiCfg, _restApi, "GLOBAL", "SERVICE_TYPE");
+        //订单类型
 		this._orderTypeDic = new DicLoader(_restApiCfg, _restApi, "ORDER", "SERVICE_TYPE");
 	}
 	
 	ngOnInit(){
 
 		this._layoutService.show();
-		this._entLoader.Go()
+		this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._entId}])
 		.then(success=>{
 			return this._serviceTypeDic.Go();
 		})
@@ -97,7 +98,7 @@ export class CheckMngListComponent implements OnInit{
 
 	showMsg(msg:string)
 	{
-		this._notice.open("ÏµÍ³", msg);
+		this._notice.open("系统", msg);
 	}
 
 	
@@ -130,6 +131,8 @@ export class CheckMngListComponent implements OnInit{
 		})
 		.catch(err=>{
 			this._layoutService.hide();
+			this.showMsg(err);
+			
 		});
 
 	}
@@ -148,9 +151,26 @@ export class CheckMngListComponent implements OnInit{
 		
 	}
 
+	//拒绝
 	refuse(){
 		this.refuseDialog.open();
 	}
 
+	//同意
+	accept(){
+
+	}
+
+	onStartDateChange(date:string){
+		this._param.startDateStr = date;
+	}
+
+	onEndDateChange(date:string){
+		this._param.endDateStr = date;
+	}
+
+	changePage(pageNum:number){
+		this.search(pageNum);
+	}
 
 }
