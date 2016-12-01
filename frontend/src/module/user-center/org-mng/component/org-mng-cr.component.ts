@@ -1,11 +1,11 @@
-import { Component,OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent,CountBarComponent} from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent } from '../../../../architecture';
 //service
 import { OrgMngService } from '../service/org-mng.service';
 //model
-import { Org ,Member ,Resource} from '../model/org-mng.org.model';
+import { Org, Member, Resource } from '../model/org-mng.org.model';
 
 @Component({
   selector: 'org-mng-cr',
@@ -14,54 +14,65 @@ import { Org ,Member ,Resource} from '../model/org-mng.org.model';
   providers: []
 })
 export class OrgMngCrComponent implements OnInit {
-  
+
   constructor(
-    private layoutService : LayoutService,
-    private router : Router,
-    private service : OrgMngService
-  ) {}
+    private layoutService: LayoutService,
+    private router: Router,
+    private service: OrgMngService
+  ) { }
 
-  @Input() isEdit: boolean;
+  @Input()
+  isEdit: boolean;
+  @Input()
+  editId: string;
 
-  org:Org=new Org();
-  members:Array<Member>;
+  org: Org = new Org();
+  members: Array<Member>;
   ngOnInit() {
     //获取机构成员
-    this.service.getNoMngUser(1,9999).then(
-                    res => {
-                        console.log('getNoMngUser',res); 
-                        this.members=res.resultContent;                      
-                    }
-                ).catch(
-                    err => {
-                        console.error(err);
-                    }
-                )
-    if(this.isEdit){
+    this.service.getNoMngUser(1, 9999).then(
+      res => {
+        console.log('getNoMngUser', res);
+        this.members = res.resultContent;
+      }
+    ).catch(
+      err => {
+        console.error(err);
+      }
+      )
+    if (this.isEdit) {
       console.log('edit 读取接口')
-    }else{
+    } else {
       console.log('创建');
     }
   }
   //选择机构成员
-  selectMember(member){
+  selectMember(member) {
     console.log(member)
+    member.selected = !member.selected;
+    this.org.members = this.members.filter(ele => {
+      if (ele.selected == true) {
+        return ele
+      }
+    })
+    console.log(this.org.members)
   }
   //保存 给父组件调用
-  save (){
+  save() {
 
     console.log(this.org);
   }
 
-   //同步countBar数据
-    outputValue(e, arg) {
-        console.log(arg);
-        // this.prodDir.specification[arg] = e;
-        // arg=e;
-        console.log(e);
-        // console.log(this.prodDir.specification.mem);
-        // console.log(this.prodDir.specification.vcpu);          
+  //同步countBar数据
+  outputValue(e, arg) {
+    console.log(arg);
+    // this.prodDir.specification[arg] = e;
+    // arg=e;
+    console.log(e);
+    // console.log(this.prodDir.specification.mem);
+    // console.log(this.prodDir.specification.vcpu);          
 
-    }
-  
+  }
+  /////////////////////edit   getUserByOrg
+
 }

@@ -1,5 +1,5 @@
 <div class="page-content-header icon-content-header-platform-manage">云平台管理</div>
-<div class="page-content">
+<div class="page-content" style="min-height:300px;">
     <div style="padding-bottom: 10px;">
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -13,6 +13,15 @@
                 <li><a (click)="disable();">禁用</a></li>
             </ul>
         </div>
+        <button class="pull-right fox-cloud-button-md fox-cloud-button-white" style="line-height:28px ;padding:0 10px; margin-left: 20px;margin-right: 20px"
+			(click)='goDiskMng()'>管理启动盘
+        </button>
+        <button class="pull-right fox-cloud-button-md fox-cloud-button-white" style="line-height:28px ;padding:0 10px; margin-left: 20px;margin-right: 20px"
+			(click)='goDiskMng()'>管理云主机规格
+        </button>
+        <button class="pull-right fox-cloud-button-md fox-cloud-button-white" style="line-height:28px ;padding:0 10px; margin-left: 20px;margin-right: 20px"
+			(click)='goDiskMng()'>修改配额与配置
+        </button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="create();">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">创建云平台</span>

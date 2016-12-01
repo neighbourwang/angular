@@ -49,6 +49,7 @@ export class OrgMngListComponent implements OnInit {
   confirmType: string;
   confirmOrg: OrgPer;
   isEdit: boolean = false;
+  editId:string;
   ngOnInit() {
     this.getCurEntId();
     this.getOrg(0, this.pp);
@@ -70,7 +71,7 @@ export class OrgMngListComponent implements OnInit {
   getCurEntResource(id){
     this.service.getCurEntResource(id).then(
       res => {
-        console.log(res);
+        console.log('获取企业资源信息',res);
       }
     ).catch(
       err => {

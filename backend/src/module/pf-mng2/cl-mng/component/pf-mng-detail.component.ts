@@ -64,11 +64,6 @@ export class PfDetailComponent implements OnInit {
         {name:'可用区与配额',active:false},
         {name:'存储区与配额',active:false}        
         ]
-    basicInfo:boolean=true;
-    zoneAvailable:boolean=false;
-    storageAvailable:boolean=false;
-
-
     platformName:string;
     platformTypes : Array<any> = new Array<any>();
     platformVersion : Array<any> = new Array<any>();
