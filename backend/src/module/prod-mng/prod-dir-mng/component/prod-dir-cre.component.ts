@@ -27,7 +27,7 @@ export class ProdDirCreComponent implements OnInit {
         private CreateProdDirService: CreateProdDirService,
         private LayoutService: LayoutService
     ) { }
-   
+
     @ViewChild('notice')
     notice: NoticeComponent;
 
@@ -77,8 +77,24 @@ export class ProdDirCreComponent implements OnInit {
         // console.log(this.prodDir.specification.vcpu);          
 
     }
+    testList = [
+        {
+            displayName: "高速I/O",
+            selected: false,
+            serviceSKUId:'sadasdasdas',
+            storageId: "88",
+            storageName: "高速I/O",
+        },
+        {
+            displayName: "高速I/O",
+            selected: false,
+            serviceSKUId:'sadasdasdas',
+            storageId: "77",
+            storageName: "高速I/O",
+        }
+    ]
     //点击获取可用平台
-    selectPlateForm() {        
+    selectPlateForm() {
         console.log(this.prodDir.specification.vcpu);
         console.log(this.prodDir.specification.mem);
         this.CreateProdDirService.postCpuMmr(this.prodDir.specification.vcpu, this.prodDir.specification.mem).then(response => {
@@ -87,10 +103,11 @@ export class ProdDirCreComponent implements OnInit {
                 let resultContent = response.resultContent;
                 this._platformlist = response.resultContent;
                 console.log(this._platformlist);
+
                 for (let plate of this._platformlist) {
                     for (let zone of plate.zoneList) {
                         zone.storageId = zone.storageList[0].storageId;
-                        zone.serviceSKUId =zone.storageList[0].serviceSKUId;
+                        zone.serviceSKUId = zone.storageList[0].serviceSKUId;
                         // console.log(zone.storageList);
                     }
                 }
@@ -98,7 +115,7 @@ export class ProdDirCreComponent implements OnInit {
 
             }
             this.LayoutService.hide();
-            this.selectAllZone=false;
+            this.selectAllZone = false;
         }).catch(err => {
             console.error(err);
         });
@@ -107,12 +124,12 @@ export class ProdDirCreComponent implements OnInit {
     selectAllZone: boolean = false;
     selectAllZones() {
         this.selectAllZone = !this.selectAllZone;
-        console.log(this.selectAllZone);       
-         for (let plate of this._platformlist) {
-                for (let zone of plate.zoneList) {
-                    zone.selected = this.selectAllZone;
-                    // console.log(zone.storageList);
-                }   
+        console.log(this.selectAllZone);
+        for (let plate of this._platformlist) {
+            for (let zone of plate.zoneList) {
+                zone.selected = this.selectAllZone;
+                // console.log(zone.storageList);
+            }
         }
         this.prodDir.platformList = this._platformlist.filter(function (ele) {
             for (let zone of ele.zoneList) {
@@ -123,8 +140,9 @@ export class ProdDirCreComponent implements OnInit {
         })
     }
     //选择平台启动盘,this 
-    selectStorage(id){
+    selectStorage(id,idx) {
         console.log(id);
+        console.log(idx);
     }
     //选择平台可用区
     selectZone(idx, idxx) {
@@ -137,6 +155,7 @@ export class ProdDirCreComponent implements OnInit {
                 }
             }
         })
+        if(this.prodDir.platformList.length==0){this.selectAllZone=false}
     }
 
     cancel() {
@@ -149,15 +168,15 @@ export class ProdDirCreComponent implements OnInit {
             this.notice.open('操作错误', '请输入产品目录名称');
             return;
         }
-        if(this.prodDir.specification.vcpu==0||this.prodDir.specification.mem==0){
+        if (this.prodDir.specification.vcpu == 0 || this.prodDir.specification.mem == 0) {
             this.notice.open('操作错误', '产品规格数据设置错误');
             return;
         }
-        if(this.prodDir.platformList.length==0){
-            this.notice.open('操作错误','请选择可用平台');
+        if (this.prodDir.platformList.length == 0) {
+            this.notice.open('操作错误', '请选择可用平台');
             return;
         }
-        this.prodDir.serviceTemplateId='';
+        this.prodDir.serviceTemplateId = '';
         this.LayoutService.show();
         this.CreateProdDirService.postVmProdDir(this.prodDir).then(response => {
             console.log(response);

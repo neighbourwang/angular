@@ -7,10 +7,10 @@
         <div style="padding : 30px 20px;border : 1px solid #ddd">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">800</span>台
+                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{entResourceObj.vcpuQuota||0}}</span>台
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">200</span>台
+                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{entResourceObj.vcpuQuota-entResourceObj.usedVCpuRate||0}}</span>台
                 </div>
                 <div style="clear : both">
                 </div>

@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgForm } from "@angular/forms";
 
 import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent } from '../../../../architecture';
 //service
@@ -25,6 +26,9 @@ export class OrgMngCrComponent implements OnInit {
   isEdit: boolean;
   @Input()
   editId: string;
+
+   @ViewChild("orgForm")
+    'orgForm': NgForm;
 
   org: Org = new Org();
   members: Array<Member>;
@@ -59,8 +63,15 @@ export class OrgMngCrComponent implements OnInit {
   }
   //保存 给父组件调用
   save() {
-
     console.log(this.org);
+    this.service.createOrg(this.org)
+    //  if (this.orgForm.invalid) {
+    //         return Promise.reject("error");
+    //     } else if (this.isEdit) {
+    //         return this.service.editOrg(this.editId, this.org);
+    //     } else {
+    //         this.service.createOrg(this.org);
+    //     }
   }
 
   //同步countBar数据

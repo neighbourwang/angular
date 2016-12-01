@@ -8,6 +8,7 @@ import { OrgMngCrComponent } from './org-mng-cr.component';
 import { OrgMngService } from '../service/org-mng.service';
 //model
 import { Org, OrgPer } from '../model/org-mng.org.model';
+import { EntResource } from '../model/ent-resource-obj.model';
 
 
 @Component({
@@ -50,6 +51,9 @@ export class OrgMngListComponent implements OnInit {
   confirmOrg: OrgPer;
   isEdit: boolean = false;
   editId:string;
+
+  //企业资源对象
+  entResourceObj=new EntResource();
   ngOnInit() {
     this.getCurEntId();
     this.getOrg(0, this.pp);
@@ -72,6 +76,7 @@ export class OrgMngListComponent implements OnInit {
     this.service.getCurEntResource(id).then(
       res => {
         console.log('获取企业资源信息',res);
+        this.entResourceObj=res.resultContent[0];
       }
     ).catch(
       err => {
