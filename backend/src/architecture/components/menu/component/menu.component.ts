@@ -247,6 +247,12 @@ const menu: Array<Object> = [
                  "isOpen": false,
                  "isActive": false,
                  "routing": "op-center/order-mng/order-mng"
+             },
+              {
+              "label": "订单查询",
+                 "isOpen": false,
+                 "isActive": false,
+                 "routing": "op-center/order-mng/order-mng-search"
              }
          ]
      },
