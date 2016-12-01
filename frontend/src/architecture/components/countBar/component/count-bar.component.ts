@@ -43,7 +43,7 @@ export class CountBarComponent implements OnInit{
         this.value=Number(this.value); 
         if(!this.disabled){
             console.log(this)
-            this.value<this.max&&(this.value += this.step);
+            this.value<this.max&&(this.value += +this.step);
             this.output.emit(this.value);
         }        
     }
@@ -51,7 +51,7 @@ export class CountBarComponent implements OnInit{
         this.value=Number(this.value);        
         if(!this.disabled){
             console.log(this)
-            this.value>this.min&&(this.value -= this.step);
+            this.value>this.min&&(this.value -= +this.step);
             this.output.emit(this.value);
         }
     }

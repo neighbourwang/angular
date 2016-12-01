@@ -36,8 +36,20 @@
 				<div class="col-md-12 li-content" >
 					<div class="col-md-2 content-title">云硬盘</div>
 					<div class="col-md-10 btn-group" id="cloud-desk">
+						
+						<ng-container *ngFor="let value of configs.disktype.valueList;">
+							<button 
+								[popover]="value.attrValue=='0' ? null : myPopover"
+								[ngClass]="{'active': sendModule.disktype.attrValueId === value.attrValueId}"
+								class="btn btn-default">
+								{{value.attrDisplayValue}}
+							</button>
 
-						<button class="btn btn-default">空白盘</button>
+							<popover-content #myPopover [closeOnClickOutside]="true" >
+								<table-list [code]="value.attrValue" [platformId]="sendModule.platform.attrValueId"></table-list>
+							</popover-content>
+						</ng-container>
+						<!-- <button class="btn btn-default">空白盘</button>
 						<button [popover]="popover_never" class="btn btn-default">从未挂载盘</button>
 						<button [popover]="popover_backup" class="btn btn-default">从备份恢复</button>
 						
@@ -47,7 +59,7 @@
 
 						<popover-content #popover_backup [closeOnClickOutside]="true" >
 							<table-list code="backup" [platformId]="sendModule.platform.attrValueId"></table-list>
-						</popover-content>
+						</popover-content> -->
 					</div>	
 					<div class="col-md-2 content-title">云硬盘类型</div>	
 					<div class="col-md-10 btn-group" data-toggle="buttons">
@@ -62,18 +74,18 @@
 						<div class="col-md-2 content-title">容量(GB)</div>	
 						<div class="col-md-2 no-padding">  
 							<count-bar 
-					            [step]=10 
-					            [max]=500 
-					            [min]=40 
+					            [step]="sendModule.diskstepsize.attrValue" 
+					            [max]="sendModule.diskmaxsize.attrValue" 
+					            [min]="sendModule.diskinitialsize.attrValue" 
 					            [disabled]=false 
-					            [value]=40 (output)="outputValue($event)"></count-bar>
+					            [value]="sendModule.diskinitialsize.attrValue" (output)="outputValue($event)"></count-bar>
 						</div>	
 						<div class="col-md-7 disk-tip">可以购买容量 40~500GB的云硬盘。40GB起，增加按照每10GB一档。</div>
 					</div>
 					<div class="col-md-12 no-padding mgb15">
 						<div class="col-md-2 content-title">云硬盘实例名称</div>
 						<div class="col-md-4 no-padding mgr15">
-							<input type="text" [(ngModel)]="sendModule.diskinsname.value" class="form-control" placeholder="如不填写，则系统自动生成">
+							<input type="text" [(ngModel)]="sendModule.diskinsname.attrValue" class="form-control" placeholder="如不填写，则系统自动生成">
 						</div>
 						<div class="col-md-5 disk-tip no-padding">2-68个字符，以大小写字母或者中文开头，可包含数字，“.”, "-", "_"</div>
 					</div>	
@@ -86,41 +98,19 @@
 				        	[popover]="popover_host" 
 				        	[ngClass]="{'active': popover_host.popover?.visible}" 
 				        	[disabled]="!isAttachVm" 
-				        	class="btn btn-default button-gray-gradient">云主机实例列表</button>
+				        	class="btn btn-default button-gray-gradient mgr20">云主机实例列表</button>
 
 				        <popover-content #popover_host [closeOnClickOutside]="true" >
-							<table-list code="vm" (onSelect)="vmListClick($event);popover_host.hide();" [platformId]="sendModule.platform.attrValueId"></table-list>
+							<table-list 
+								code="3" 
+								(onSelect)="vmListClick($event);popover_host.hide();" 
+								[platformId]="sendModule.platform.attrValueId"></table-list>
 						</popover-content>
 						
-						<div id="popover_host_content" style="display: none">
-							<div class="col-md-12 mgb15 no-padding">
-								<select class="form-control float-left drive-select">
-									<option value="1">云硬盘名称</option>
-									<option value="1">支持</option>
-									<option value="1">不支持</option>
-								</select>
-								<div class="input-group float-left drive-search">
-									<input class="form-control " placeholder="输入云主机硬盘搜索">
-									<div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
-								</div>
-							</div>
-							<table class="table table-hover">
-								<tr>
-									<th class="text-center">备份名称</th>
-									<th class="text-center">源硬盘名称</th>
-									<th class="text-center">源主机名称</th>
-									<th class="text-center">容量(GB)</th>
-									<th class="text-center">属性</th>
-								</tr>
-								<tr *ngFor="let i of [1,2,3,4,5]">
-									<td class="text-center">cirros-0.3.4</td>
-									<td class="text-center">SSD盘</td> 
-									<td class="text-center">cirros</td>
-									<td class="text-center">40</td>
-									<td class="text-center">启动盘</td>
-								</tr>
-							</table>
-						</div>
+						<span class="float-left mgr20 lh34" *ngIf="sendModule.diskmounthostname.attrValue">
+							<span class="float-left">云主机名称：</span>
+							<input type="text" style="width: 220px;" class="form-control float-left" disabled="ture" [(ngModel)]="sendModule.diskmounthostname.attrValue" name="" />
+						</span>
 					</div>
 				</div>
 			</li>
