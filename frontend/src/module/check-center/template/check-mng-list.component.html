@@ -22,13 +22,6 @@
 								</select>
 
 							</div>
-							<div class="left">
-								<select class="form-control" [(ngModel)]="_param.departmentIdNum">
-									<option class="hands" [value]="null">所有用户</option>
-									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
-								</select>
-								
-							</div>
 							<div class="left form-control-title mgl20">提交者：</div>
 							<div class="left">
 								<select class="form-control" [(ngModel)]="_param.submitUserId">
@@ -45,8 +38,8 @@
 						<td><div class="left form-control-title">订单类型：</div>
 								<div class="dropdown left">
 								<select class="form-control " [(ngModel)]="_param.orderTypeNum">
-									<option class="hands">新订单</option>
-									<option class="hands">旧订单</option>
+									<option class="hands" [value]="null">所有类型</option>
+									<option class="hands" *ngFor="let item of _orderTypeDic.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
 							<div class="left form-control-title mgl20">创建时间：</div>
@@ -58,21 +51,12 @@
 								<date-picker (dateChanged)="onEndDateChange($event)"></date-picker>
 							</div>
 						</td>
-						<!--<td><div class="left form-control-title">创建时间：</div>
-							<div class="dropdown left">			
-								<date-picker (dateChanged)="onStartDateChange($event)"></date-picker>
-							</div>
-                            <div class="left form-control-title">—</div>
-							<div class="dropdown left">			
-								<date-picker (dateChanged)="onEndDateChange($event)"></date-picker>
-							</div>
-						</td>-->
 					</tr>
 					<tr>
 						<td><div class="left form-control-title">产品类型：</div>
 							<div class="dropdown left">
 								<select class="form-control" [(ngModel)]="_param.serviceTypeNum">
-									<option class="hands" [value]="null">所有服务</option>
+									<option class="hands" [value]="null">所有类型</option>
 									<option class="hands" *ngFor="let item of _serviceTypeDic.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>

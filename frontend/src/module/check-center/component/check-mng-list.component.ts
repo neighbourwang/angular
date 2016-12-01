@@ -150,5 +150,12 @@ export class CheckMngListComponent implements OnInit{
 		this.refuseDialog.open();
 	}
 
+	onStartDateChange(date:string){
+		this._param.startDateStr = date;
+	}
+
+	onEndDateChange(date:string){
+		this._param.endDateStr = date;
+	}
 
 }
