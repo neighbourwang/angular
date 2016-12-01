@@ -10,6 +10,7 @@ import { NoticeComponent } from './dialog/component/notice.component';
 import { ConfirmComponent } from './dialog/component/confirm.component';
 import { PopupComponent } from './dialog/component/popup.component';
 import { CountBarComponent} from './countBar/component/count-bar.component'
+import { PopoverModule } from './popover/index';
 
 import { MyDatePickerModule } from './date-picker/my-date-picker.module';
 import { BootstrapPopoverDirective } from './popover/bootstrap-popover.directive';
@@ -41,8 +42,9 @@ import { ClickOutsideModule } from 'ng2-click-outside';
         PopupComponent,
         CountBarComponent,
         MyDatePickerModule,
-        BootstrapPopoverDirective
-        ClickOutsideModule
+        BootstrapPopoverDirective,
+        ClickOutsideModule,
+        PopoverModule
     ]
 })
 export class CommonComponentModule { }

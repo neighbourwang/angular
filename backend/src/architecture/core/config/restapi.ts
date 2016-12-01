@@ -1076,7 +1076,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "查询待审批/已审批订单",
         "id": "check-center.not-checked.list",
         "method": "POST",
-        "url": "adminui/authsec/backend/approval/order/search/paging"     
+        "url": "adminui/authsec/backend/approval/orders/search/paging"     
     }
     ,{
         "desc": "获取订单详情",
@@ -1191,7 +1191,7 @@ export let RestApis: RestApiModel[] = [
     {
         "desc": "Openstack_同步企业镜像_获取镜像列表",
         "id": "host-mng.openstack-mng.image.sync-ent.getlist",
-        "method": "GET",
+        "method": "POST",
          "url": "/adminboe/authsec/images/openstack/ent/{platformId}"
     },
     {
