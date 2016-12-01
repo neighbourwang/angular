@@ -30,6 +30,9 @@ export class CheckMngListComponent implements OnInit{
 	private _isAdvSearch:boolean = false;//高级查询
 	private _userListLoader:ItemLoader<{id:string;name:string}> = null;//用户列表
 	private _listLoader:ItemLoader<CheckListItem> = null;//列表数据加载
+	private _refuseHandler:ItemLoader<any> = null;//拒绝
+	private _selectedItem:CheckListItem = null;//当前选择的数据
+	private refuseReason:string = null;//拒绝原因
 
 	@ViewChild("notice") private _notice:NoticeComponent;
 	@ViewChild("refuseDialog")
@@ -39,6 +42,9 @@ export class CheckMngListComponent implements OnInit{
 		,private _restApi:RestApi
 		,private _layoutService:LayoutService){
 
+		//拒绝
+		this._refuseHandler = new ItemLoader<any>(false, '拒绝', "check-center.approve-refust.post", _restApiCfg,_restApi);
+
 		//列表数据加载
 		this._listLoader = new ItemLoader<CheckListItem>(true, "待审批列表", "check-center.not-checked.list", _restApiCfg, _restApi);
 		this._listLoader.MapFunc = (source:Array<any>, target:Array<CheckListItem>)=>{
@@ -47,7 +53,8 @@ export class CheckMngListComponent implements OnInit{
 			{
 				let obj = new CheckListItem();
 				target.push(obj);
-				
+
+				obj.orderId = item.orderId;//订单id				
 				obj.orderCodeStr = item.orderNo;//订单编号
 				obj.serviceTypeIdStr = item.serviceType;//产品类型
 				// obj.platformStr = ?? 区域
@@ -153,6 +160,7 @@ export class CheckMngListComponent implements OnInit{
 		})
 		.catch(err=>{
 			this._layoutService.hide();
+			this.showMsg(err);
 		});
 
 	}
@@ -172,8 +180,35 @@ export class CheckMngListComponent implements OnInit{
 	}
 
 	//拒绝
-	refuse(){
+	refuse(item:CheckListItem){
+		this._selectedItem = item;
 		this.refuseDialog.open();
+	}
+
+	//确认拒绝
+	confirmRefuse(){
+		this._refuseHandler.Go(null, [{key:"orderId",value:this._selectedItem.orderId}
+			,{key:"operation", value:0}
+			], {reason:this.refuseReason})
+		.then(success=>{
+			this.clearRefuseData();
+			this.refuseDialog.close();
+		})
+		.catch(err=>{
+			this.showMsg(err);
+		});
+	}
+
+	//取消拒绝
+	cancelRefuse(){
+		this.clearRefuseData();
+		this.refuseDialog.close();
+	}
+
+	//清除拒绝数据
+	clearRefuseData(){
+		this.refuseReason = null;
+		this._selectedItem = null;
 	}
 
 	//同意
@@ -191,18 +226,7 @@ export class CheckMngListComponent implements OnInit{
 		.catch(err=>{
 			this._layoutService.hide();
 		});
-	}
-
-	//打开订单详情
-	openDetail(item:CheckListItem)
-	{
-
-	}
-
-	contentIdGen(num:number):string
-	{
-		return `content-${num}`;
-	}
+	}	
 
 	changePage(pageNum:number)
 	{

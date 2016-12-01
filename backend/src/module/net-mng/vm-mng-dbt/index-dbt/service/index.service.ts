@@ -31,10 +31,16 @@ export class VmDisIndexService {
         //const api = this.restApiCfg.getRestApi("net-img.vm-mng.network.list");
         //return this.restApi.request(api.method, api.url, null, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => port_mock);
-}
+    }
 
     
-
+    saveEdit(port: port): Promise<any> {
+        
+        //const api = this.restApiCfg.getRestApi("net-img.vm-mng.network.update");
+        //return this.restApi.request(api.method, api.url, null, null, stdnet);
+        
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
+    }
     
     netEnable(id:string):Promise<any>{
         //如果运行状态不是运行中的，则不能启用此网络

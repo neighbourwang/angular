@@ -1079,18 +1079,6 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/backend/approval/orders/search/paging"     
     }
     ,{
-        "desc": "获取订单详情",
-        "id": "check-center.order.detail",
-        "method": "GET",
-        "url": "none"        
-    }
-    ,{
-        "desc": "获取审批详情",
-        "id": "check-center.check.detail",
-        "method": "GET",
-        "url": "none"        
-    }
-    ,{
         "desc": "获取用户列表",
         "id": "check-center.user-list.get",
         "method": "GET",
@@ -1102,6 +1090,13 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminui/authsec/approval/department/{departmentId}/approvers"        
     }
+    ,{
+        "desc": "审批拒绝/通过",
+        "id": "check-center.approve-refust.post",
+        "method": "POST",
+        "url": "adminui/authsec/backend/approval/order/{orderId}/operation/{operation}"        
+    }
+
     // 审批中心    
 
     // vmware标准网络   

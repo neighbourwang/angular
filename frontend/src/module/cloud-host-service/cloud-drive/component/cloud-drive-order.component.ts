@@ -90,6 +90,7 @@ export class cloudDriveComponentOrder implements OnInit {
 		this.payLoad.productId = sku.productId;
 		this.payLoad.attrList = payloadList;
 		this.payLoad.itemNo = this.makeItemNum();
+		this.payLoad.serviceType = "1";  //云硬盘的type
 
 		this.payLoadArr = [];
 		this.payLoadArr.push(this.payLoad);
@@ -181,17 +182,16 @@ export class cloudDriveComponentOrder implements OnInit {
 		this.router.navigateByUrl(url);
 	}
 	buyNow() {
-		console.log(this.sendModule)
-		// this.layoutService.show();
-		// this.checkInput();
-		// let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
-		// // console.log(JSON.stringify(payLoadArr))
-		// this.service.saveOrder(payLoadArr).then(res => {
-		// 	this.layoutService.hide();
-		// 	this.router.navigateByUrl("cloud-host-service/cart-order");
-		// }).catch(res => {
-		// 	this.layoutService.hide();
-		// })
+		this.layoutService.show();
+		this.checkInput();
+		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
+		console.log(this.sendModule, payLoadArr)
+		this.service.saveOrder(payLoadArr).then(res => {
+			this.layoutService.hide();
+			this.router.navigateByUrl("cloud-host-service/cart-order");
+		}).catch(res => {
+			this.layoutService.hide();
+		})
 	}
 
 }
