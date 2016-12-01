@@ -116,7 +116,7 @@
             </td> 
         </tr>
     </table>
-    <fc-pagination tp={{totalPages}} (pf)="changePage($event)"></fc-pagination>
+    <fc-pagination tp={{list.pageParameter.totalPage}} (pf)="changePage($event)"></fc-pagination>
 </div>
 <fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
