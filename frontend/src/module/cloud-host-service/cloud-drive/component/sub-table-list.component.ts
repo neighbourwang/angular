@@ -38,9 +38,9 @@ export class subTableListComponent implements OnInit {
 		this.list.platformId = this.platformId;
 
 		switch (this.code) {
-			case "vm": this.setVmList(); break;
-			// case "backup": this.setBackupList(); break;
-			// case "unmount": this.setUnmountList(); break;
+			case "3": this.setVmList(); break;
+			// case "2": this.setBackupList(); break;
+			// case "1": this.setUnmountList(); break;
 		}
 	}
 
