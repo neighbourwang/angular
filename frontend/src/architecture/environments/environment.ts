@@ -4,7 +4,7 @@
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
 // $.ajax({
-//     url: "http://15.114.100.52:30077/uaa/oauth/token?grant_type=password&username=gavin@hpe.com&password=12345&client_id=ui&client_secret=12345",
+//     url: "http://15.114.100.52:30072/uaa/oauth/token?grant_type=password&username=gavin@hpe.com&password=12345&client_id=ui&client_secret=12345",
 //     type: "POST",
 //     beforeSend: function (request)
 //     {
@@ -24,5 +24,5 @@ export const environment = {
 	production: false,
 	baseIp : "",
 	basePort : "",
-	jwt : "bearer 7981b7c0-2274-471a-8e8e-d9022239ff22"
+	jwt : "bearer daccf088-707f-4638-b4f6-383cc33406d9"
 };
