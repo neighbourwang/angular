@@ -6,7 +6,7 @@
 			<div class="search-container">
 				<div class="input-group col-md-2 float-left mgr20">
 					<input class="form-control" placeholder="输入云主机信息搜索" type="email">
-					<div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+					<div class="input-group-addon"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div>
 				<button class="button-gray-gradient float-left mgl20" [ngClass]="{'btn-default':_isAdvSearch!=1,'fox-cloud-button-white':_isAdvSearch==1}" (click)="_isAdvSearch=!_isAdvSearch">高&nbsp;级&nbsp;查&nbsp;询</button>
 			</div>
