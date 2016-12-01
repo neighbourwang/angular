@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 //import { RADIO_GROUP_DIRECTIVES } from "ng2-radio-group";
-import { LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, ValidationService, SystemDictionary, SystemDictionaryService } from "../../../../architecture";
+import { LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, ValidationService, SystemDictionary, SystemDictionaryService ,PopupComponent} from "../../../../architecture";
 
 import { Image } from '../model/img-mng.model';
 import { Area } from '../model/area.model';
@@ -12,7 +12,7 @@ import { ImgMngService } from '../service/img-mng.service';
 
 @Component({
     selector: "img-mng",
-    templateUrl: "../template/img-mng.html",
+    templateUrl: "../template/mpp-image.html",
     styleUrls: ["../style/img-mng.less"],
     providers: []
 })
@@ -43,6 +43,9 @@ export class ImgMngComponent implements OnInit {
     @ViewChild("pager")
     pager: PaginationComponent;
 
+    @ViewChild("editPopup")
+    editPopup: PopupComponent;
+    
     images: Array<Image> = [];
     typeDic: Array<SystemDictionary>;
     ownerDic: Array<SystemDictionary>;
@@ -131,7 +134,7 @@ export class ImgMngComponent implements OnInit {
     }
 
     //更新镜像
-    updateImage(image: Image) {
+    updateImage() {
         this.layoutService.show();
         if (this.validationService.isBlank(this.editImage.name)) {
             this.showAlert("镜像名称不能为空.");
@@ -142,18 +145,7 @@ export class ImgMngComponent implements OnInit {
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    let cimage = this.editImage;
-                    image.id = cimage.id;
-                    image.name = cimage.name;
-                    image.type = cimage.type;
-                    image.os = cimage.os;
-                    image.bits = cimage.bits;
-                    image.createTime = cimage.createTime;
-                    image.status = cimage.status;
-                    image.progress = cimage.progress;
-                    image.description = cimage.description;
-                    image.desEditing = false;
-                    image.nameEditing = false;
+                    this.getImageList();
                 } else {
                     alert("Res sync error");
                 }
@@ -180,6 +172,8 @@ export class ImgMngComponent implements OnInit {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.layoutService.hide();
+                        this.editPopup.close();
+                        this.getImageList();
                     } else {
                         alert("Res sync error");
                     }
@@ -198,7 +192,7 @@ export class ImgMngComponent implements OnInit {
     }
 
     openEidtPanel(image): void {
-        this.closeEditPanel();
+        
         let cimage = new Image();
         cimage.id = image.id;
         cimage.id = image.id;
@@ -210,7 +204,9 @@ export class ImgMngComponent implements OnInit {
         cimage.status = image.status;
         cimage.progress = image.progress;
         cimage.description = image.description;
+        cimage.imageOwner = image.imageOwner;
         this.editImage = cimage;
+        this.editPopup.open("编辑镜像");
     }
 
     setKeyword(type: string, value: string) {
@@ -224,13 +220,6 @@ export class ImgMngComponent implements OnInit {
     }
 
     resetQueryOpt() {
-        //this.queryOpt.areaList = "";
-        //this.queryOpt.imageName = "";
-        //this.queryOpt.imageOwner = "";
-        //this.queryOpt.os = "";
-        //this.queryOpt.status = "";
-        //this.queryOpt.imageType = "";
-        //this.queryOpt.osAndName = "";
         this.queryOpt = new CriteriaQuery();
     }
 

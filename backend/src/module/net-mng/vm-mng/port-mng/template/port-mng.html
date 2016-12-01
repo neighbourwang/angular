@@ -6,7 +6,7 @@
         <tr>
             <th style="text-align:left;">VMware网络管理--管理分布式网络--端口组资源分配</th>
             <th style="text-align:right;">
-                <button class=" fox-cloud-button fox-cloud-button-white ">
+                <button class="fox-cloud-button fox-cloud-button-white" (click)="gotoVm();">
                     <span class="icon-button-label">返回上一级</span>
                 </button>
             </th>
@@ -56,7 +56,7 @@
                 <td>{{port.clusterName}}</td>
                 <td>{{port.clusterDisplayName}}</td>
                 <td>{{port.portGroupName}}</td>
-                <td>{{port.portDisplayName}}</td>
+                <td>{{port.portDisplayName||"未设置"}}</td>
                 <td>
                     <ol>
                         <li *ngFor="let e of port.enterpriseList" style="display: inline-block; padding: 2px 5px;">

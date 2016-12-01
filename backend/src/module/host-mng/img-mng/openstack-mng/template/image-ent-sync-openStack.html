@@ -49,7 +49,7 @@
                         {{i+1}}
                     </td>
                     <td >{{image.name}}</td>
-                    <td style="position:relative">
+                    <td >
                         <div *ngIf="image.syncResult==0">
                             <input type="text" style="padding:0;text-align:center" placeholder="image.displayName" [(ngModel)]="image.displayName" />
                         </div>
@@ -57,7 +57,7 @@
                             {{image.displayName}}
                         </div>
                     </td>
-                    <td style="position:relative">
+                    <td >
                         <div *ngIf="image.syncResult==0">
                             <input type="text" style="padding:0;text-align:center" placeholder="image.os" [(ngModel)]="image.os" />
                         </div>
@@ -65,7 +65,7 @@
                             {{image.os}}
                         </div>
                     </td>
-                    <td style="position:relative">
+                    <td >
                         <div *ngIf="image.syncResult==0">
                             <select class="form-control" [(ngModel)]="image.bitsType">
                                 <option *ngFor = "let type of bits_typeDic" [ngValue]="type.value" [ngClass]="setDefaultBits(type,image.bitsType)">{{getDicText(type.value,bits_typeDic)}}</option>

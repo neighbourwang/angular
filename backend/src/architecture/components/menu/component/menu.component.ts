@@ -233,7 +233,7 @@ const menu: Array<Object> = [
               "label": "VmWare",
                  "isOpen": false,
                  "isActive": false,
-                 "routing": "net-mng/vmware/vmware-std-net"
+                 "routing": "net-mng/vm-mng"
              }
          ]
      },

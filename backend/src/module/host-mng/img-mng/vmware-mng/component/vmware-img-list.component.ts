@@ -57,7 +57,7 @@ export class VmwareImgListComponent implements OnInit {
     noticeMsg = "";
 
     pageIndex = 1;
-    pageSize = 2;
+    pageSize = 5;
     totalPage = 2;
 
     typeDict: Array<SystemDictionary>;//镜像类型
@@ -99,7 +99,7 @@ export class VmwareImgListComponent implements OnInit {
             .then((dic) => {
                 this.bitDict = dic;
                 console.log(this.bitDict, "bitDict!!!");
-                return this.dicService.getItems("IMAGES", "STATUS");
+                return this.dicService.getItems("IMAGES", "ADM_STATUS");
             })
             .then((dic) => {
                 this.statusDict = dic;
