@@ -126,38 +126,25 @@
 							[closeOnClickOutside]="true" >
 
 												<ul>
-													<li>区域：&nbsp;&nbsp;华北1</li>
-													<li>可用区：&nbsp;&nbsp;可用区B</li>
-													<li>实例规格：&nbsp;&nbsp;CPU 2核/内存4GB/启动盘/70G</li>
-													<li>IP地址：&nbsp;&nbsp;10.1.1.1（内部）<br>
-														192.168.1.1（外部）</li>
-													<li>云硬盘类型：&nbsp;&nbsp;******</li>
-													<li>云硬盘容量：&nbsp;&nbsp;已设置</li>
-													<li>操作系统：&nbsp;&nbsp;******</li>
-													<li>数据库类型：&nbsp;&nbsp;已设置</li>
-													<li>数据库版本：&nbsp;&nbsp;******</li>
-													<li>密码：&nbsp;&nbsp;已设置</li>
-													<li>实例名称：&nbsp;&nbsp;abcabc</li>			
+													<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}:{{spec.attrDisplayValue}}</li>
 												</ul>
 
 						</popover-content>
 					    </td>
-						<td>云主机<br>
-						     运硬盘<br>
-						     数据库</td>
-						<td>上海A区<br>
-						     高可用1</td>
-						<td>新订单</td>
-						<td>用于****应用</td>
-						<td>张三</td>
-						<td>部门</td>>
-						<td>企业</td>
-						<td>计费模式：包年包月<br>
-						 	订单周期：1个月<br>
-						 	一次性费用：￥0<br>
-						 	费用：￥100月</td>
-						<td>2016-10-01<br>
-							23:10<br>
+						<td>{{item.serviceTypeName}}</td>
+						<td>{{item.platformStr}}<br/>
+						    {{item.zoneStr}}</td>
+						<td>{{item.orderTypeName}}</td>
+						<td>{{item.description}}</td>
+						<td>{{item.userStr}}</td>
+						<td>{{item.departmentStr}}</td>
+						<td>{{item.entStr}}</td>
+						<td>计费模式：{{item.billingModeName}}
+							<br/>订单周期：{{item.billingDurationStr}}
+							<br/>一次性费用：{{item.oneTimePriceNum}}
+							<br/>费用：{{item.priceNum}}
+						</td>
+						<td>{{item.createTimeStr}}<br>
 							<a class="hands" [popover]="checkPopover">审批详细>>>></a>
 
 							<popover-content #checkPopover 
@@ -165,11 +152,11 @@
 							[animation]="true" 
 							[closeOnClickOutside]="true" >
 
-												<ul>
-													<li>审批人：&nbsp;&nbsp;李四</li>
-													<li>审批时间：&nbsp;&nbsp;2016-1-11</li>
-													<li>审批意见：&nbsp;&nbsp;同意</li>			
-												</ul>
+								<ul>
+									<li>审批人：&nbsp;&nbsp;李四</li>
+									<li>审批时间：&nbsp;&nbsp;2016-1-11</li>
+									<li>审批意见：&nbsp;&nbsp;同意</li>			
+								</ul>
 
 						</popover-content>
 
