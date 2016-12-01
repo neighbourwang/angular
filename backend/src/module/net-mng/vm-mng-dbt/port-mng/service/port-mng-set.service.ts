@@ -34,17 +34,12 @@ export class PortMngSetService {
     }
 
     saveEnterpirseGroup(enterpirses:Array<Enterprise>,id:string): Promise<any> {
-        const pathParams = [
-            {
-                key: "id",
-                value: id
-            }
-        ];
         const obj = {
+            id: id,
             "enterpriseSelectedList": enterpirses
         };
         const api = this.restApiCfg.getRestApi("net-mng.vmware.port.enterprise.save");
-        return this.restApi.request(api.method, api.url, pathParams, null, obj);
+        return this.restApi.request(api.method, api.url, null, null, obj);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => port_net_mock);
     }
 }

@@ -60,7 +60,7 @@ export class ImgMngService {
             }
         ];
         const api = this.restApiCfg.getRestApi("image.mng.delete");
-        return this.restApi.request(api.method, api.url, null, null, null);
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
       //  return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Images_mock });
     }
 
