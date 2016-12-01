@@ -159,6 +159,7 @@ export class CheckMngHascheckComponent implements OnInit{
 		})
 		.catch(err=>{
 			this._layoutService.hide();
+			this.showMsg(err);
 		});
 
 	}
@@ -190,19 +191,10 @@ export class CheckMngHascheckComponent implements OnInit{
 		});
 	}
 
-	contentIdGen(num:number):string
-	{
-		return `content-${num}`;
-	}
-
 	changePage(pageNum:number)
 	{
 		this.search(pageNum);
 	}
 
-	approveIdGen(num:number)
-	{
-		return `approve-${num}`;		
-	}
 
 }
