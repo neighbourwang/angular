@@ -11,7 +11,7 @@ import { VmwareService } from '../service/vmware.service';
 @Component({
     selector: "wmware-std-net",
     templateUrl: "../template/vmware-std-net.html",
-    styleUrls: ["../style/vmware.less"],
+    styleUrls: [],
     providers: []
 }
 )

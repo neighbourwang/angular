@@ -123,7 +123,9 @@ export class VmDisIndexComponent implements OnInit {
         
         this.editPort = port;
     }
-
+    close(port): void {
+        port.isOpen = false;
+    }
     //保存标准端口组显示名称
     saveEdit(port: port) {
         this.layoutService.show();
@@ -237,9 +239,9 @@ export class VmDisIndexComponent implements OnInit {
 
     }
 
-    //gotoPortMng() {
-    //    this.router.navigate([`net-mng/vm-mng/port-mng`]);
-    //}
+    gotoPortMng() {
+        this.router.navigate([`net-mng/vm-mng/port-mng`]);
+    }
 
     //gotoIpMng() {
     //    const selectedPort = this.filterports.find((port) => { return port.selected });
