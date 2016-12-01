@@ -135,10 +135,11 @@ export class IpUsageMngListComponent implements OnInit{
         this.ipusagemngs = this.rawipusagemngs.filter((item)=>{
             return (this.ipusagequery == "all" || item.status == this.ipusagequery) 
         });
+        console.log(this.ipusagemngs, "ipusagemngs!!!");
         this.UnselectItem();
     }
 
-    getIpUsageMngList( pg_id: string, ipusagequery? ): void {
+    getIpUsageMngList( pg_id: string ): void {
         if (this.validationService.isBlank(pg_id)){
             this.showAlert("请选择相应的dataCenter");
             return;
@@ -149,13 +150,12 @@ export class IpUsageMngListComponent implements OnInit{
         .then(
             response => {
                 this.layoutService.hide();
-                console.log(response, "IPUsagemngS!!!");
+                //console.log(response, "IPUsagemngS!!!");
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
                     this.rawipusagemngs = response.resultContent;
-                    this.filter();
-                    console.log(this.rawipusagemngs, "IPUsagemngS!!!");
-                    //this.totalPage = response.pageInfo.totalPage;
+                    console.log(this.rawipusagemngs, "rawipusagemngs!!!");
+                    this.filter();                    
                 } else {
                     alert("Res sync error");
                     this.layoutService.hide();                   
@@ -176,7 +176,7 @@ export class IpUsageMngListComponent implements OnInit{
     UnselectItem(): void {
         this.ipusagemngs.map(n=> {n.checked = false;});
         if(this.selectedip) this.selectedip.checked = false;
-        console.log(this.ipusagemngs, "=== Please see all items are Unselected ===");
+        //console.log(this.ipusagemngs, "=== Please see all items are Unselected ===");
     }
 
     getSelected() {

@@ -5,7 +5,7 @@ import { LayoutService, NoticeComponent, ConfirmComponent,CountBarComponent} fro
 //service
 import { OrgMngService } from '../service/org-mng.service';
 //model
-import { Org ,Member} from '../model/org-mng.org.model';
+import { Org ,Member ,Resource} from '../model/org-mng.org.model';
 
 @Component({
   selector: 'org-mng-cr',
@@ -23,7 +23,7 @@ export class OrgMngCrComponent implements OnInit {
 
   @Input() isEdit: boolean;
 
-  org:Org;
+  org:Org=new Org();
   members:Array<Member>;
   ngOnInit() {
     //获取机构成员

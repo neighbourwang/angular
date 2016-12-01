@@ -121,6 +121,24 @@ export let RestApis: RestApiModel[] = [
         "id": "instance.labels",
         "url": "marketplace/authsec/instance/labels"
     },
+    {
+        "desc": "云硬盘创建页面，分页获取备份盘实例",
+        "method": "POST",
+        "id": "disk.backup.search",
+        "url": "marketplace/authsec/instance/itemlist/disk/backup/search/page"
+    },
+    {
+        "desc": "云硬盘创建页面，分页获取未挂载盘实例",
+        "method": "POST",
+        "id": "disk.unmount.search",
+        "url": "marketplace/authsec/instance/itemlist/disk/unmount/search/page"
+    },
+    {
+        "desc": "云硬盘创建页面，分页获取云主机实例",
+        "method": "POST",
+        "id": "disk.vm.search",
+        "url": "marketplace/authsec/subinstance/itemlist/vm/simple/search/page"
+    },
     //镜像管理部分
     {
         "desc": "获取镜像列表",
@@ -354,4 +372,18 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "basis/authsec/mpp/users/nonorganization/page/{page}/size/{size}"
     },
+    {
+        "desc": "获取当前登录人企业ID",
+        "id": "user-center.org-mng.currentEnterpriseID.get",
+        "method": "GET",
+        "url": "basis/authsec/mpp/currentEnterpriseId"
+    },
+    // 审批中心
+    {
+        "desc": "获取审批列表",
+        "id": "check-center.get-list.post",
+        "method": "POST",
+        "url": "marketplace/authsec/front/approval/order/search/paging"
+    }
+    // 审批中心
 ]

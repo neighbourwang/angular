@@ -7,14 +7,16 @@
                     <div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
                         <div class="col-md-2 content-title" style="text-align : center">部门名称</div>
                         <div class="col-md-8 no-padding">
-                            <input class="form-control" placeholder="请输入部门名称" type="text">
+                            <input class="form-control" placeholder="请输入部门名称" type="text" [(ngModel)]="org.name">
                         </div>
                     </div>
 
                     <div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
                         <div class="col-md-2 content-title" style="text-align : center">部门负责人</div>
                         <div class="col-md-8 no-padding">
-                            <input class="form-control" placeholder="请输入部门负责人" type="text">
+                            <select class="form-control" [(ngModel)]="org.leaderId">
+                                <!--<option *ngFor="let item of accountByOrg;" [value]="item.id">{{item.userName}}  {{item.loginName}}</option>-->
+                            </select>
                         </div>
                     </div>
 
@@ -22,9 +24,8 @@
                         <div class="col-md-2 content-title" style="text-align : center">部门成员</div>
                         <div class="col-md-8 no-padding">
                             <label class="checkbox-inline" style="margin-left : 0;margin-right : 20px;margin-bottom : 10px" *ngFor="let member of members">
-                            <input type="checkbox"  class="fox-cloud-checkbox" id="inlineCheckbox1" value="membe.id"  (click)="selectMember(member)"/> {{member.userName}}
-                        </label>
-
+                                <input type="checkbox"  class="fox-cloud-checkbox" id="inlineCheckbox1" value="membe.id"  (click)="selectMember(member)"/> {{member.userName}}
+                            </label>
                         </div>
                     </div>
 
@@ -59,10 +60,8 @@
                         </div>
                         <div style="clear:both"></div>
                     </div>
-                    
-
                 </td>
-            </tr> 
+            </tr>
             <tr>
                 <th class="col-md-1 col-xs-3 text-center">配额设置</th>
                 <td>
@@ -85,7 +84,7 @@
                             <div class="col-md-3 content-title" style="text-align : center">200</div>
                         </div>
                         <div style="clear:both"></div>
-                    </div>                   
+                    </div>
 
                 </td>
             </tr>

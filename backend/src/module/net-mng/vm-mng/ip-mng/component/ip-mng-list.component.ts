@@ -133,6 +133,7 @@ export class IpMngListComponent implements OnInit{
             return ( this.selectedVDS == "" || item.clusterId == this.selectedVDS ) &&
             ( this.selectedDC.dcId == "" || item.dcId == this.selectedDC.dcId )
         })
+        console.log(this.ipmngs, "IPmngS --- filter");
         this.UnselectItem();
     }
 
@@ -142,12 +143,12 @@ export class IpMngListComponent implements OnInit{
             .then(
             response => {
                 this.layoutService.hide();
-                console.log(response, "IPmngS!!!");
+                //console.log(response, "IPmngS!!!");
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
                     this.rawipmngs = response.resultContent;
                     this.filter();
-                    console.log(this.ipmngs, "IPmngS 11111111111111111111111");
+                    console.log(this.ipmngs, "IPmngS --- getIpMngList");
                 } else {
                     alert("Res sync error");
                     this.layoutService.hide();
@@ -356,7 +357,7 @@ export class IpMngListComponent implements OnInit{
 
     UnselectItem(): void {
         this.ipmngs.map(n=> {n.checked = false;});
-        console.log(this.ipmngs, "=== Please see all items are Unselected ===");
+        //console.log(this.ipmngs, "=== Please see all items are Unselected ===");
     }
 
     getSelected() {

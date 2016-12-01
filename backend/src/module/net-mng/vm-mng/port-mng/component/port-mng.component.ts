@@ -8,9 +8,11 @@ import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../..
 import { Enterprise } from '../model/enterprise.model';
 import { PortMngModel } from "../model/port.model";
 import { DCModel } from "../model/dc.model";
+import { ClusterMode } from "../model/cluster.model";
 
 //service
 import { PortMngService } from '../service/port-mng.service';
+  
 
 @Component({
     selector: 'port-mng-list',
@@ -34,9 +36,11 @@ export class PortMngComponent implements OnInit {
 
     @ViewChild("notice")
     notice: NoticeComponent;
+
     defaultDc: DCModel = new DCModel();
     selectedDC: DCModel = this.defaultDc; //当前选中的DC
-    selectedVDS = "";//当前选中的可用区
+    defaultCluster: ClusterMode = new ClusterMode();
+    selectCluster = this.defaultCluster;//当前选中的可用区
 
     dcList: Array<DCModel>;
 
@@ -83,10 +87,11 @@ export class PortMngComponent implements OnInit {
 
     filter() {
         this.filterPorts = this.allPorts.filter((p) => {
-            return (!this.selectedDC.dcName || this.selectedDC.dcName === p.dcName) &&
-                (this.selectedVDS === "" || this.selectedVDS === p.clusterName);
+            return (this.selectedDC == this.defaultDc || this.selectedDC.dcId === p.dcId) &&
+                (this.selectCluster === this.defaultCluster || this.selectCluster.clusterId === p.clusterId);
         });
     }
+
 
     selectPort(port: PortMngModel) {
         this.filterPorts.forEach((port) => {

@@ -6,11 +6,11 @@
 			<div class="search-container">
 				<div class="input-group col-md-2 float-left mgr20">
 					<input class="form-control" placeholder="输入云主机信息搜索" type="email">
-					<div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+					<div class="input-group-addon"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div> 
-				<button class="btn btn-default  float-left mgl20" [ngClass]="{'button-gray-gradient':_isAdvSearch!=1,'fox-cloud-button-white':_isAdvSearch==1}"  (click)="_isAdvSearch=!_isAdvSearch">高&nbsp;级&nbsp;查&nbsp;询</button>
+				<button class=" button-gray-gradient float-left mgl20" [ngClass]="{'button-gray-gradient':_isAdvSearch!=1,'fox-cloud-button-white':_isAdvSearch==1}"  (click)="_isAdvSearch=!_isAdvSearch">高&nbsp;级&nbsp;查&nbsp;询</button>
 			</div>
-			<table class="table bgGray" *ngIf="_isAdvSearch">
+			<table class="table bgGray _table" *ngIf="_isAdvSearch">
 				<tbody>
 					<tr>				
 						<td>
@@ -21,13 +21,6 @@
 									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 
-							</div>
-							<div class="left">
-								<select class="form-control" [(ngModel)]="_param.departmentIdNum">
-									<option class="hands" [value]="null">所有用户</option>
-									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
-								</select>
-								
 							</div>
 							<div class="left form-control-title mgl20">提交者：</div>
 							<div class="left">
@@ -45,8 +38,8 @@
 						<td><div class="left form-control-title">订单类型：</div>
 								<div class="dropdown left">
 								<select class="form-control " [(ngModel)]="_param.orderTypeNum">
-									<option class="hands">新订单</option>
-									<option class="hands">旧订单</option>
+									<option class="hands" [value]="null">所有类型</option>
+									<option class="hands" *ngFor="let item of _orderTypeDic.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
 							<div class="left form-control-title mgl20">创建时间：</div>
@@ -58,21 +51,12 @@
 								<date-picker (dateChanged)="onEndDateChange($event)"></date-picker>
 							</div>
 						</td>
-						<!--<td><div class="left form-control-title">创建时间：</div>
-							<div class="dropdown left">			
-								<date-picker (dateChanged)="onStartDateChange($event)"></date-picker>
-							</div>
-                            <div class="left form-control-title">—</div>
-							<div class="dropdown left">			
-								<date-picker (dateChanged)="onEndDateChange($event)"></date-picker>
-							</div>
-						</td>-->
 					</tr>
 					<tr>
 						<td><div class="left form-control-title">产品类型：</div>
 							<div class="dropdown left">
 								<select class="form-control" [(ngModel)]="_param.serviceTypeNum">
-									<option class="hands" [value]="null">所有服务</option>
+									<option class="hands" [value]="null">所有类型</option>
 									<option class="hands" *ngFor="let item of _serviceTypeDic.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
@@ -90,9 +74,9 @@
 				</tbody>
 			</table>	
 		</div>
-		<div class="form-control-title left mgb10 mgt20">当查询到29个订单需要审批，查询结果如下：</div>
+		<div class="form-control-title left mgb10 mgt20">当查询到<span class="validateInfo">{{_listLoader.Items.length}}</span>个订单需要审批，查询结果如下：</div>
 			<div class="table-container ">
-			<table class="table">
+			<table class="table ">
 				<thead>	
 					<tr class="form-control-title">
 						<th>编号</th>
@@ -106,14 +90,13 @@
 						<th>企业</th>
 						<th>费用</th>
 						<th>创建时间</th>
-						<th>操作</th>
+						<th>审批结果</th>
 					</tr>			
 				</thead>
 				<tbody>
 					<tr>
 						<td>1</td>
-						<td>22370537538484773<br>
-						    <a>详细信息>>></a></td>
+						<td>22370537538484773<br></td>
 						<td>数据库</td>
 						<td>上海A区
 						     高可用1</td>
@@ -124,16 +107,15 @@
 						<td>企业</td>
 						<td>计费模式：包年包月<br>
 						 	订单周期：1个月<br>
-						 	一次性费用：￥0<br>
-						 	费用：￥100月</td>
+						 	一次性费用：<span class="warnInfo">￥0</span><br>
+						 	费用：<span class="warnInfo">￥100月</span></td>
 						<td>2016-10-01<br>
 							23:10</td>
-						<td><button class=" button-gray-gradient" style="margin-right: 10px;">同意</button><button class=" button-gray-gradient" (click)="refuse()">拒绝</button></td>
+						<td><button class=" button-gray-gradient">同意</button><br><button class=" button-gray-gradient mgt10" (click)="refuse()">拒绝</button></td>
 					</tr>
 					<tr>
 						<td>2</td>
-						<td>22370537538484773<br>
-						    <a>详细信息>>></a></td>
+						<td>22370537538484773</td>
 						<td>数据库</td>
 						<td>上海A区
 						     高可用1</td>
@@ -144,11 +126,11 @@
 						<td>企业</td>
 						<td>计费模式：包年包月<br>
 						 	订单周期：1个月<br>
-						 	一次性费用：￥0<br>
-						 	费用：￥100月</td>
+						 	一次性费用：<span class="warnInfo">￥0</span><br>
+						 	费用：<span class="warnInfo">￥100月</span></td>
 						<td>2016-10-01<br>
 							23:10</td>
-						<td><button class=" button-gray-gradient" style="margin-right: 10px;">同意</button><button class=" button-gray-gradient" (click)="refuse()">拒绝</button></td>
+						<td><button class=" button-gray-gradient">同意</button><br><button class=" button-gray-gradient mgt10" (click)="refuse()">拒绝</button></td>
 					</tr>
 				</tbody>
 			</table>

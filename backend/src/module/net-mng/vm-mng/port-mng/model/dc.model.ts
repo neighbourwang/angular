@@ -1,4 +1,6 @@
-﻿export class DCModel {
+﻿import  { ClusterMode} from "./cluster.model"
+export class DCModel {
+    dcId: string;
     dcName: string;
-    clusterNameList:Array<string>;
+    clusters: Array<ClusterMode>;
 }
