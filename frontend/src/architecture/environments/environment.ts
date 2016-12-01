@@ -6,6 +6,10 @@
 // $.ajax({
 //     url: "http://15.114.100.52:30077/uaa/oauth/token?grant_type=password&username=gavin@hpe.com&password=12345&client_id=ui&client_secret=12345",
 //     type: "POST",
+//     beforeSend: function (request)
+//     {
+//         request.setRequestHeader("Authorization", "Basic " + btoa("ui:secret"))
+//     },
 //     crossDomain: true,
 //     success: function (response) {
 //         var resp = JSON.parse(response)

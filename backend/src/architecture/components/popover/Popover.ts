@@ -103,7 +103,7 @@ export class Popover implements OnChanges {
     }
 
     show() {
-        if (this.visible) return;
+        if (this.visible || !this.content) return;
 
         this.visible = true;
         if (typeof this.content === "string") {
