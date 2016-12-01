@@ -49,7 +49,8 @@ export class OrgMngCrComponent implements OnInit {
   }
   //保存 给父组件调用
   save (){
-    console.log('save');
+
+    console.log(this.org);
   }
 
    //同步countBar数据

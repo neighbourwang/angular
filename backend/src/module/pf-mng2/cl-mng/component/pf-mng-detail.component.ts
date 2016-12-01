@@ -27,6 +27,7 @@ export class PfDetailComponent implements OnInit {
 
     constructor(private layoutService:LayoutService,
                 private service:ClMngListService,
+                private route:Router,
                 private router:ActivatedRoute,
                 private platFormTypeService : ClMngCreStep1Service,
                 private commonService : ClMngCommonService,
@@ -122,6 +123,9 @@ export class PfDetailComponent implements OnInit {
     }
     back(){
         this.location.back();
+    }
+    goList(){
+        this.route.navigate(['pf-mng2/cl-mng/cl-mng'])
     }
     save(){}
 

@@ -1,149 +1,305 @@
-<div class="page-content-header icon-content-header-platform-manage">云平台详细 <span>{{platformName}}</span></div>
-<div class="mgt20" style="border-bottom:1px solid #ddd;padding-bottom:5px"> 
-    <button type="button" class="btn btn-default" *ngFor="let item of Tabels;let idx = index" (click)="changeTab(item,idx)" [ngClass]="{'btn-active': item.active}">{{item.name}}</button>
+<div class="page-content-header icon-content-header-platform-manage" style="padding-bottom:10px;height:45px;">
+    云平台详细 <span>{{platformName}}</span>
+    <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
+        <span class="icon-button-label" (click)='goList()'>返回云平台概览</span>
+    </button>
 </div>
-
+<div class="mgt20" style="border-bottom:1px solid #ddd;padding-bottom:5px">
+    <button type="button" class="btn btn-default grayTab noBorder" *ngFor="let item of Tabels;let idx = index" (click)="changeTab(item,idx)"
+        [ngClass]="{'btn-active': item.active}" style="margin-right:2px;">{{item.name}}</button>
+</div>
 <div *ngIf="Tabels[0].active">
-    <div class="page-content fix-page-content">    
-    <div class="row" style="padding-top: 30px;">
-        <div class="col-md-12">
-            <div class="row row-line-height">
-                <div class="form-group">
+    <div class="page-content fix-page-content">
+        <div class="row" style="padding-top: 30px;">
+            <div class="col-md-12">
+                <div class="row row-line-height">
+                    <div class="form-group">
 
-                    <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span>
-                        云平台名称：
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="name"  placeholder="请输入云平台名称">
-                    </div>
-                </div>
-            </div>
-
-            <div class="row row-line-height">
-                <div class="form-group">
-
-                    <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span>
-                        所属数据中心：
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="dataCenter"  placeholder="请输入所属数据中心">
-                    </div>
-                </div>
-            </div>
-            <div class="row row-line-height">
-                <div class="form-group">
-
-                    <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span>
-                        所属地域：
-                    </div>
-                    <div class="col-sm-4">
-                        <select class="form-control" [(ngModel)]="regionId">
-                            <option *ngFor="let item of regions;" [value]="item.id">{{item.name}}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row row-line-height">
-                <div class="form-group">
-
-                    <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span>
-                        云平台类型：
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default" *ngFor="let item of platformTypes;let idx = index" (click)="choosePlatFormType(item,idx)" [ngClass]="{'btn-active': item.isSelected}">{{item.displayValue}}</button>
+                        <div class="col-sm-4 form-control-title">
+                            <span class="asterisk">*</span> 云平台名称：
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" [(ngModel)]="name" placeholder="请输入云平台名称">
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row row-line-height">
-                <div class="form-group">
 
-                    <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span>
-                        地址：
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="uri"  placeholder="请输入地址">
+                <div class="row row-line-height">
+                    <div class="form-group">
+
+                        <div class="col-sm-4 form-control-title">
+                            <span class="asterisk">*</span> 所属数据中心：
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" [(ngModel)]="dataCenter" placeholder="请输入所属数据中心">
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="row row-line-height">
+                    <div class="form-group">
 
-            <div class="row row-line-height">
-                <div class="form-group">
-
-                    <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span>
-                        版本：
+                        <div class="col-sm-4 form-control-title">
+                            <span class="asterisk">*</span> 所属地域：
+                        </div>
+                        <div class="col-sm-4">
+                            <select class="form-control" [(ngModel)]="regionId">
+                            <option *ngFor="let item of regions;" [value]="item.id">{{item.name}}</option>
+                        </select>
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <select class="form-control" [(ngModel)]="version">
+                </div>
+
+                <div class="row row-line-height">
+                    <div class="form-group">
+
+                        <div class="col-sm-4 form-control-title">
+                            <span class="asterisk">*</span> 云平台类型：
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default" *ngFor="let item of platformTypes;let idx = index" (click)="choosePlatFormType(item,idx)"
+                                    [ngClass]="{'btn-active': item.isSelected}">{{item.displayValue}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-line-height">
+                    <div class="form-group">
+
+                        <div class="col-sm-4 form-control-title">
+                            <span class="asterisk">*</span> 地址：
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" [(ngModel)]="uri" placeholder="请输入地址">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row row-line-height">
+                    <div class="form-group">
+
+                        <div class="col-sm-4 form-control-title">
+                            <span class="asterisk">*</span> 版本：
+                        </div>
+                        <div class="col-sm-4">
+                            <select class="form-control" [(ngModel)]="version">
                             <option *ngFor="let item of platformVersion;" [value]="item.value">{{item.displayValue}}</option>
                         </select>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row row-line-height">
-                <div class="form-group">
+                <div class="row row-line-height">
+                    <div class="form-group">
 
-                    <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span>
-                        用户名：
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="userName" placeholder="请输入用户名">
-                    </div>
-                </div>
-            </div>
-
-            <div class="row row-line-height">
-                <div class="form-group">
-
-                    <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span>
-                        密码：
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="password" class="form-control" [(ngModel)]="passwd" placeholder="请输入密码">
+                        <div class="col-sm-4 form-control-title">
+                            <span class="asterisk">*</span> 用户名：
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" [(ngModel)]="userName" placeholder="请输入用户名">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row row-line-height">
-                <div class="form-group">
 
-                    <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span>
-                        是否支持云主机变更：
+                <div class="row row-line-height">
+                    <div class="form-group">
+
+                        <div class="col-sm-4 form-control-title">
+                            <span class="asterisk">*</span> 密码：
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="password" class="form-control" [(ngModel)]="passwd" placeholder="请输入密码">
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <input type="radio" class="fox-cloud-radio" [(ngModel)]="passwd">支持
-                        <input type="radio" class="fox-cloud-radio" [(ngModel)]="passwd">不支持
+                </div>
+                <div class="row row-line-height">
+                    <div class="form-group">
+
+                        <div class="col-sm-4 form-control-title">
+                            <span class="asterisk">*</span> 是否支持云主机变更：
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="radio" class="fox-cloud-radio" [(ngModel)]="passwd" style="margin-right:10px;">支持
+                            <input type="radio" class="fox-cloud-radio" [(ngModel)]="passwd" style="margin:0 10px 0 20px;">不支持
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="text-center">
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="back();">
+    <div class="text-center">
+        <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="back();" style="margin-right:40px;">
         <span class="icon-button-label">取消</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="save();">
+        <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="save();">
         <span class="icon-button-label">保存</span>
     </button>
-</div>
+    </div>
 </div>
 <div *ngIf="Tabels[1].active">
-    可用去与配额
+    <div class="page-content">
+        <div style="padding-bottom: 10px;">
+             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
+                <span class="icon-button-label" (click)='goList()'>同步存储后端</span>
+             </button>
+             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right;margin-right:20px">
+                <span class="icon-button-label" (click)='goList()'>同步存储空间</span>
+            </button>
+            <div style="clear:both"></div>
+        </div>
+        <div class="table-container" >
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>                        
+                        <th class="check-box-col">DC/Region</th>
+                        <th>名称</th>
+                        <th>显示名称</th>
+                        <th>宿主机</th>
+                        <th>物理CPU核数</th>
+                        <th>物理内存总数(GB)</th>
+                        <th>CPU超百分比</th>
+                        <th>配额%</th>
+                        <th>状态</th>
+                        <th>说明</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td style="cursor:pointer">Region1</td>
+                        <td>AZ1</td>
+                        <td><input type="text" value='高性能区1'></td>
+                        <td>vSAN</td>
+                        <td>1200</td>
+                        <td>12800</td>
+                        <td>4</td>
+                        <td>85</td>
+                        <td>已启用</td>
+                        <td>高配置内存CPUh和磁盘区</td>
+                        <td>
+                            <button class="fox-cloud-button-md fox-cloud-button-white">启用</button>
+                            <button class="fox-cloud-button-md fox-cloud-button-white">禁用</button> 
+                        </td>                                               
+                    </tr>
+                </tbody>
+            </table>
+        </div>       
+    </div>
 </div>
 <div *ngIf="Tabels[2].active">
-    存储区与配额
+    <div class="page-content">
+        <div style="padding-bottom: 10px;">
+             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
+                <span class="icon-button-label" (click)='goList()'>同步存储后端</span>
+             </button>
+             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right;margin-right:20px">
+                <span class="icon-button-label" (click)='goList()'>同步存储空间</span>
+            </button>
+            <div style="clear:both"></div>
+        </div>
+        <div class="table-container"  *ngIf="true">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>                        
+                        <th class="check-box-col">可用区</th>
+                        <th>名称</th>
+                        <th>显示名称</th>
+                        <th>存储类型</th>
+                        <th>总容量(GB)</th>
+                        <th>副本数</th>
+                        <th>配额%</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td style="cursor:pointer">Claster1</td>
+                        <td>cinder1</td>
+                        <td><input type="text" value='高速I/O-1'></td>
+                        <td>vSAN</td>
+                        <td>12800</td>
+                        <td>2</td>
+                        <td>85</td>
+                        <td>已启用</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td style="cursor:pointer">Claster1</td>
+                        <td>cinder1</td>
+                        <td><input type="text" value='高速I/O-1'></td>
+                        <td>vSAN</td>
+                        <td>12800</td>
+                        <td>2</td>
+                        <td>85</td>
+                        <td>已启用</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td style="cursor:pointer">Claster1</td>
+                        <td>cinder1</td>
+                        <td><input type="text" value='高速I/O-1'></td>
+                        <td>vSAN</td>
+                        <td>12800</td>
+                        <td>2</td>
+                        <td>85</td>
+                        <td>已启用</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-container"  *ngIf="OpenStack">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>                        
+                        <th>名称</th>
+                        <th>显示名称</th>
+                        <th>存储类型</th>
+                        <th>总容量(GB)</th>
+                        <th>副本数</th>
+                        <th>配额%</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>cinder1</td>
+                        <td><input type="text" value='高速I/O-1'></td>
+                        <td>vSAN</td>
+                        <td>12800</td>
+                        <td>2</td>
+                        <td>85</td>
+                        <td>已启用</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>cinder1</td>
+                        <td><input type="text" value='高速I/O-1'></td>
+                        <td>vSAN</td>
+                        <td>12800</td>
+                        <td>2</td>
+                        <td>85</td>
+                        <td>已启用</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>cinder1</td>
+                        <td><input type="text" value='高速I/O-1'></td>
+                        <td>vSAN</td>
+                        <td>12800</td>
+                        <td>2</td>
+                        <td>85</td>
+                        <td>已启用</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认"></fc-notice>
