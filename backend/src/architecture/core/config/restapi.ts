@@ -952,7 +952,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取端口资源设置企业保存",
         "id": "net-mng.vmware.port.enterprise.save",
         "method": "POST",
-        "url": "adminboe/authsec/vmware/network/save/ent"
+        "url": "adminboe/authsec/vmware/network/{id}/save/ent"
     },
     //IP地址管理
     {
