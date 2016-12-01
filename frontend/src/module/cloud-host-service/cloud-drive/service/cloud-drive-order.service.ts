@@ -93,16 +93,16 @@ return new Promise((next) => {
         "relyAttrId": null,
         "valueList": [
           {
-            "attrValueId": "9774de0c-a74f-11e6-a18b-0050568a49fd",
-            "attrValueCode": null,
-            "attrDisplayValue": "从备份恢复",
-            "attrValue": "2"
-          },
-          {
             "attrValueId": "90bfdf09-a74f-11e6-a18b-0050568a49fd",
             "attrValueCode": null,
             "attrDisplayValue": "空白盘",
             "attrValue": "0"
+          },
+          {
+            "attrValueId": "9774de0c-a74f-11e6-a18b-0050568a49fd",
+            "attrValueCode": null,
+            "attrDisplayValue": "从备份恢复",
+            "attrValue": "2"
           },
           {
             "attrValueId": "9447bd7f-a74f-11e6-a18b-0050568a49fd",

@@ -168,7 +168,13 @@ export class cloudDriveComponentOrder implements OnInit {
 	}
 
 	vmListClick(vm) {
-		this.sendModule.diskmounthostid.attrValue = !this.isAttachVm ? "" : vm ? vm.itemId : "";
+		if(this.isAttachVm && vm) {
+			this.sendModule.diskmounthostid.attrValue = vm.itemId;
+			this.sendModule.diskmounthostname.attrValue = vm.instanceName;
+		}else {
+			this.sendModule.diskmounthostid.attrValue = "";
+			this.sendModule.diskmounthostname.attrValue = "";
+		}
 	}
 
 	goTo(url: string) {

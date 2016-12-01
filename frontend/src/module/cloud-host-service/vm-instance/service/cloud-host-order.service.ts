@@ -16,10 +16,10 @@ export class cloudHostServiceOrder {
 
     getHostConfigList() : Promise<any>{
         // const api = this.restApiCfg.getRestApi("hosts.services.get");
-        // const api = this.restApiCfg.getRestApi("oauth.token");
-        // this.restApi.request(api.method, api.url, undefined, undefined).then(res => {
-        //   console.log(res,2313123)
-        // })
+        const api = this.restApiCfg.getRestApi("oauth.token");
+        this.restApi.request(api.method, api.url, undefined, undefined).then(res => {
+          console.log(res,2313123)
+        })
 
 return new Promise((next) => {
     next(
