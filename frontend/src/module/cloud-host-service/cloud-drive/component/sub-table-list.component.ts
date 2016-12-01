@@ -14,7 +14,7 @@ import { DiskUnMountItem, DiskBackupItem, VMSimpleItem } from '../model/sub-tabl
 })
 export class subTableListComponent implements OnInit {
 
-	// @Output() onChanges = new EventEmitter<any>();
+	@Output() onSelect = new EventEmitter<any>();
 
 	@Input() platformId:string;
 	@Input() code:string;
@@ -31,6 +31,10 @@ export class subTableListComponent implements OnInit {
 	};
 
 	ngOnInit() {
+		this.getList();
+	}
+
+	getList() {
 		this.list.platformId = this.platformId;
 
 		switch (this.code) {
@@ -56,5 +60,23 @@ export class subTableListComponent implements OnInit {
 		this.service.getVmList(this.list).then(res => {
 			this.vmList = res.resultContent;
 		})
+	}
+
+	emit(instance) {
+		this.onSelect.emit(instance);
+	}
+
+	//分页
+	changePage(page: number) {
+
+		page = page < 1 ? 1 : page;
+		page = page > this.list.pageParameter.totalPage ? this.list.pageParameter.totalPage : page;
+
+		if (this.list.pageParameter.currentPage == page) {
+			return;
+		}
+
+		this.list.pageParameter.currentPage = page;
+		this.getList();
 	}
 }
