@@ -9,6 +9,8 @@ import { CommonComponentModule } from '../../../architecture';
 
 //Components
 import { ClMngListComponent } from './component/cl-mng-list.component';
+import { PfDetailComponent } from './component/pf-mng-detail.component';
+
 
 import { ClMngCreStep1Component } from './component/cl-mng-cre-step-1.component';
 
@@ -53,6 +55,7 @@ import { ClMngCommonService } from './service/cl-mng-common.service';
     ],
     declarations: [
         ClMngListComponent,
+        PfDetailComponent,
         ClMngCreStep1Component,
         ClMngCreStep2Component,
         ClMngCreStep3Component,

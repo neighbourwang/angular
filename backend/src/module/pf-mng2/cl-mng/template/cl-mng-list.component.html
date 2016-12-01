@@ -39,7 +39,7 @@
                 <td><input class="fox-cloud-radio" type="radio" name="isSelected" check="item.isSelected" (click)="switchSelectIndividual(idx)"/></td>
                 <!--<td>123</td>-->
                 <td>{{item.id}}</td>
-                <td>{{item.name}}</td>
+                <td (click)="godetail(item)" style="cursor:pointer">{{item.name}}</td>
                 <td>{{item.dataCenter}}</td>
                 <td>{{item.regionId}}</td>
                 <td>{{item.platformType}}</td>
