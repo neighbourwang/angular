@@ -4,21 +4,21 @@ export const port_mock = {
     "resultContent": [
         {
                 "id": "mkgroup1-3bfb-4b09-b804-30954b084e0c",
-                "dcId": "8b7c40e9-a66e-4e18-b751-e735e5e19ae8",
+                "dcId": "77557b4d-9004-4118-807f-c9d6bffcbbd3",
                 "dcName": "DC1",
-                "switchId": "c10723b9-fe23-40c9-a255-62b7b0835665",
+                "switchId": "792a37ea-2443-4ae5-8ad9-32f7ddce8a32",
                 "switchName": "cluster1",
                 "dvPortGroupName": "2c40a427-6e67-4bd3-a3b1-fb897f7051ff",
-                "distPortGroupDisplayName": null,
+                "distPortGroupDisplayName": "tt",
                 "vlanId": "62",
                 "status": "1",
                 "lastUpdate": "2016/11/22 13:13:36"
         },
         {
                 "id": "mkgroup1-3bfb-4b09-b804-30954b084e0c",
-                "dcId": "8b7c40e9-a66e-4e18-b751-e735e5e19ae8",
+                "dcId": "77557b4d-9004-4118-807f-c9d6bffcbbd3",
                 "dcName": "DC1",
-                "switchId": "c10723b9-fe23-40c9-a255-62b7b0835665",
+                "switchId": "792a37ea-2443-4ae5-8ad9-32f7ddce8a32",
                 "switchName": "cluster1",
                 "dvPortGroupName": "2c40a427-6e67-4bd3-a3b1-fb897f7051ff",
                 "distPortGroupDisplayName": null,
@@ -28,9 +28,9 @@ export const port_mock = {
         },
         {
                 "id": "mkgroup1-3bfb-4b09-b804-30954b084e0c",
-                "dcId": "8b7c40e9-a66e-4e18-b751-e735e5e19ae8",
+                "dcId": "8121c33b-a698-48cf-abc4-fa68a8bed2e9",
                 "dcName": "DC2",
-                "switchId": "c10723b9-fe23-40c9-a255-62b7b0835665",
+                "switchId": "c04e2749-6d72-4671-8a14-a92d6abdcb59",
                 "switchName": "cluster1",
                 "dvPortGroupName": "2c40a427-6e67-4bd3-a3b1-fb897f7051ff",
                 "distPortGroupDisplayName": null,

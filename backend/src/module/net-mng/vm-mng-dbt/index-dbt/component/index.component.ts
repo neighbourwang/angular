@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, } from '@angular/core';
+ï»¿import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, ValidationService, PopupComponent, SystemDictionaryService, SystemDictionary } from '../../../../../architecture';
 
@@ -41,9 +41,9 @@ export class VmDisIndexComponent implements OnInit {
     noticeMsg = "";
 
     defaultDc: DCModel = new DCModel();
-    selectedDC: DCModel = this.defaultDc; //µ±Ç°Ñ¡ÖĞµÄDC
+    selectedDC: DCModel = this.defaultDc; //å½“å‰é€‰ä¸­çš„DC
     defaultSwitch: switchMode = new switchMode();
-    selectSwitch = this.defaultSwitch;//µ±Ç°Ñ¡ÖĞµÄ¿ÉÓÃÇø
+    selectSwitch = this.defaultSwitch;//å½“å‰é€‰ä¸­çš„å¯ç”¨åŒº
 
     
 
@@ -52,8 +52,9 @@ export class VmDisIndexComponent implements OnInit {
     allports: Array<port>;
     filterports: Array<port>;
 
+    editPort: port = new port();
 
-    statusDic: Array<SystemDictionary>;//×´Ì¬
+    statusDic: Array<SystemDictionary>;//çŠ¶æ€
 
    
 
@@ -94,7 +95,7 @@ export class VmDisIndexComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.allports = response["resultContent"];
-                    //this.filter();
+                    this.filter();
                 } else {
                     alert("Res sync error");
                 }
@@ -103,91 +104,126 @@ export class VmDisIndexComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    //filter() {
-    //    this.filterports = this.allports.filter((p) => {
-    //        return (this.selectedDC == this.defaultDc || this.selectedDC.dcId === p.dcId) &&
-    //            (this.selectport === this.defaultport || this.selectport.portId === p.portId);
-    //    });
-    //}
+    filter() {
+        this.filterports = this.allports.filter((p) => {
+            return (this.selectedDC == this.defaultDc || this.selectedDC.dcId === p.dcId) &&
+                (this.selectSwitch === this.defaultSwitch || this.selectSwitch.switchId === p.switchId);
+        });
+    }
+
+   selectPort(port: port) {
+        this.filterports.forEach((port) => {
+            port.selected = false;
+        });
+        port.selected = true;
+    }
+
+    //å¼¹å‡ºç¼–è¾‘æ ‡å‡†ç«¯å£ç»„æ˜¾ç¤ºåç§°
+    openEdit(port): void {
+        
+        this.editPort = port;
+    }
+    close(port): void {
+        port.isOpen = false;
+    }
+    //ä¿å­˜æ ‡å‡†ç«¯å£ç»„æ˜¾ç¤ºåç§°
+    saveEdit(port: port) {
+        this.layoutService.show();
+        if (this.validationService.isBlank(this.editPort.distPortGroupDisplayName)) {
+            this.showAlert("æ ‡å‡†ç«¯å£ç»„æ˜¾ç¤ºåç§°ä¸èƒ½ä¸ºç©º.");
+            return;
+        }
+        this.service.saveEdit(this.editPort)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    
+                    this.getData();
+                } else {
+                    alert("Res sync error");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    //å¯ç”¨æ ‡å‡†ç½‘ç»œ
+    portEnable() {
+        const selectedPort = this.filterports.find((port) => { return port.selected });
+        if (!selectedPort) {
+            this.showAlert(`è¯·å…ˆé€‰æ‹©éœ€è¦å¯ç”¨çš„æ ‡å‡†ç½‘ç»œï¼`);
+            return;
+        }
+        this.noticeTitle = "å¯ç”¨ç½‘ç»œ";
+
+        if (selectedPort.status == "1") {
+            this.showAlert("è¯¥ç½‘ç»œå·²å¤„äºå¯ç”¨çŠ¶æ€");
+            return;
+        }
+        this.noticeMsg = `æ‚¨é€‰æ‹©å¯ç”¨ '${selectedPort.dvPortGroupName}'ç«¯å£ç»„ï¼Œå…¶ç«¯å£ç»„åç§°ä¸º${selectedPort.distPortGroupDisplayName}' ï¼Œ 
+                        è¯·ç¡®è®¤ï¼›å¦‚æœç¡®è®¤ï¼Œç”¨æˆ·å°†èƒ½å¤Ÿåœ¨è®¢è´­ä¸­é€‰æ‹©æ­¤ç½‘ç»œã€‚`;
+        this.confirm.ccf = () => { };
+        this.confirm.cof = () => {
+            this.layoutService.show();
+            this.service.netEnable(selectedPort.id)
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.showAlert("å¯ç”¨æˆåŠŸ");
+                        this.getData();
+                    } else {
+                        alert("Res sync error");
+                    }
+                }
+                )
+                .catch((e) => this.onRejected(e));
+
+        };
+        this.confirm.open();
+    }
+
+
+    //ç¦ç”¨ç½‘ç»œ
+    portDisable() {
+        const selectedPort = this.filterports.find((port) => { return port.selected });
+        if (!selectedPort) {
+            this.showAlert(`è¯·å…ˆé€‰æ‹©éœ€è¦ç¦ç”¨çš„æ ‡å‡†ç½‘ç»œï¼`);
+            return;
+        }
+        this.noticeTitle = "ç¦ç”¨ç½‘ç»œ";
+
+        if (selectedPort.status == "2") {
+            this.showAlert("è¯¥ç½‘ç»œå·²å¤„äºç¦ç”¨çŠ¶æ€");
+            return;
+        }
+        this.noticeMsg = `æ‚¨é€‰æ‹©ç¦ç”¨ '${selectedPort.dvPortGroupName}'ç«¯å£ç»„ï¼Œå…¶ç«¯å£ç»„åç§°ä¸º${selectedPort.distPortGroupDisplayName}' ï¼Œ 
+                        è¯·ç¡®è®¤ï¼›å¦‚æœç¡®è®¤ï¼Œç”¨æˆ·å°†ä¸èƒ½å¤Ÿåœ¨è®¢è´­ä¸­é€‰æ‹©æ­¤ç½‘ç»œã€‚`;
+        this.confirm.ccf = () => { };
+        this.confirm.cof = () => {
+            this.layoutService.show();
+            this.service.netDisable(selectedPort.id)
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.showAlert("ç¦ç”¨æˆåŠŸ");
+                        this.getData();
+                    } else {
+                        alert("Res sync error");
+                    }
+                }
+                )
+                .catch((e) => this.onRejected(e));
+
+        };
+        this.confirm.open();
+    }
 
  
 
-    //ÆôÓÃ±ê×¼ÍøÂç
-    //netEnable() {
-    //    const selectedPort = this.filterports.find((port) => { return port.selected });
-    //    if (!selectedPort) {
-    //        this.showAlert(`ÇëÏÈÑ¡ÔñĞèÒªÆôÓÃµÄ±ê×¼ÍøÂç£¡`);
-    //        return;
-    //    }
-    //    this.noticeTitle = "ÆôÓÃÍøÂç";
-
-    //    if (selectedPort.status == "1") {
-    //        this.showAlert("¸ÃÍøÂçÒÑ´¦ÓÚÆôÓÃ×´Ì¬");
-    //        return;
-    //    }
-    //    this.noticeMsg = `ÄúÑ¡ÔñÆôÓÃ '${selectedPort.portDisplayName}'¶Ë¿Ú×é£¬Æä¶Ë¿Ú×éÃû³ÆÎª${selectedPort.portGroupName}' £¬ 
-    //                    ÇëÈ·ÈÏ£»Èç¹ûÈ·ÈÏ£¬ÓÃ»§½«ÄÜ¹»ÔÚ¶©¹ºÖĞÑ¡Ôñ´ËÍøÂç¡£`;
-    //    this.confirm.ccf = () => { };
-    //    this.confirm.cof = () => {
-    //        this.layoutService.show();
-    //        this.service.netEnable(selectedPort.id)
-    //            .then(
-    //            response => {
-    //                this.layoutService.hide();
-    //                if (response && 100 == response["resultCode"]) {
-    //                    this.showAlert("ÆôÓÃ³É¹¦");
-    //                    this.getData();
-    //                } else {
-    //                    alert("Res sync error");
-    //                }
-    //            }
-    //            )
-    //            .catch((e) => this.onRejected(e));
-
-    //    };
-    //    this.confirm.open();
-    //}
-
-
-    //½ûÓÃÍøÂç
-    //netDisable() {
-    //    const selectedPort = this.filterports.find((port) => { return port.selected });
-    //    if (!selectedPort) {
-    //        this.showAlert(`ÇëÏÈÑ¡ÔñĞèÒª½ûÓÃµÄ±ê×¼ÍøÂç£¡`);
-    //        return;
-    //    }
-    //    this.noticeTitle = "½ûÓÃÍøÂç";
-
-    //    if (selectedPort.status == "2") {
-    //        this.showAlert("¸ÃÍøÂçÒÑ´¦ÓÚ½ûÓÃ×´Ì¬");
-    //        return;
-    //    }
-    //    this.noticeMsg = `ÄúÑ¡Ôñ½ûÓÃ '${selectedPort.portDisplayName}'¶Ë¿Ú×é£¬Æä¶Ë¿Ú×éÃû³ÆÎª${selectedPort.portGroupName}' £¬ 
-    //                    ÇëÈ·ÈÏ£»Èç¹ûÈ·ÈÏ£¬ÓÃ»§½«²»ÄÜ¹»ÔÚ¶©¹ºÖĞÑ¡Ôñ´ËÍøÂç¡£`;
-    //    this.confirm.ccf = () => { };
-    //    this.confirm.cof = () => {
-    //        this.layoutService.show();
-    //        this.service.netDisable(selectedPort.id)
-    //            .then(
-    //            response => {
-    //                this.layoutService.hide();
-    //                if (response && 100 == response["resultCode"]) {
-    //                    this.showAlert("½ûÓÃ³É¹¦");
-    //                    this.getData();
-    //                } else {
-    //                    alert("Res sync error");
-    //                }
-    //            }
-    //            )
-    //            .catch((e) => this.onRejected(e));
-
-    //    };
-    //    this.confirm.open();
-    //}
-
- 
-
-    //¸ù¾İvalue»ñÈ¡×ÖµäµÄtxt
+    //æ ¹æ®valueè·å–å­—å…¸çš„txt
     getDicText(value: string, dic: Array<SystemDictionary>): String {
         if (!$.isArray(dic)) {
             return value;
@@ -203,9 +239,9 @@ export class VmDisIndexComponent implements OnInit {
 
     }
 
-    //gotoPortMng() {
-    //    this.router.navigate([`net-mng/vm-mng/port-mng`]);
-    //}
+    gotoPortMng() {
+        this.router.navigate([`net-mng/vm-mng/port-mng`]);
+    }
 
     //gotoIpMng() {
     //    const selectedPort = this.filterports.find((port) => { return port.selected });
@@ -228,12 +264,12 @@ export class VmDisIndexComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("»ñÈ¡Êı¾İÊ§°Ü£¡");
+        this.showAlert("è·å–æ•°æ®å¤±è´¥ï¼");
     }
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "ÌáÊ¾";
+        this.noticeTitle = "æç¤º";
         this.noticeMsg = msg;
         this.notice.open();
     }

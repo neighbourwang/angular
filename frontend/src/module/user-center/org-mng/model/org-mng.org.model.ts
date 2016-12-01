@@ -20,6 +20,7 @@ class Member {
       "roles": Array<Role>; 
       "type":number;
       "userName":string;
+      "selected":boolean
     }
 class Platform {
       "dataCenter": string;

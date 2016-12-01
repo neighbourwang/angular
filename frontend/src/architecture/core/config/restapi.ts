@@ -378,6 +378,13 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "basis/authsec/mpp/currentEnterpriseId"
     },
+    {
+        "desc": "获取当前登录人企业可用资源",
+        "id": "user-center.org-mng.currEntResoure.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprise/{id}/resouces/quotas/page/{page}/size/{size}"
+    },
+    
     // 审批中心
     {
         "desc": "获取审批列表",
