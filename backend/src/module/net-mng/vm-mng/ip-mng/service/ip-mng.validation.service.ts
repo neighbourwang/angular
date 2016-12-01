@@ -32,6 +32,7 @@ export class IPValidationService {
         return reg.test(val);
     }
 
+/*
     isIPpool(val: any): boolean {
         if (val instanceof Array) val = val.join(';');
         console.log(val, "val--------------------1");
@@ -56,7 +57,7 @@ export class IPValidationService {
         if (flag == 0) return true;
         else return false;
     }
-
+*/
     //
     //console.log("127.0.0.1 is private network?", ip.isPrivate('127.0.0.1'));
     //let str = ip.cidrSubnet('192.168.1.134/26');
@@ -86,7 +87,7 @@ export class IPValidationService {
     }
 
     isIpScope(pool: any, cidr: any): boolean {
-        if (pool instanceof Array) pool = pool.join(';');
+        if (pool instanceof Array) pool = pool.join(' ');
         //console.log(pool, "val--------------------1");
         //let flag = 0;
         //const reg = /^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$/;
@@ -153,10 +154,6 @@ export class IPValidationService {
             },
             "iporempty":{
                 "func": val => !this.isIPorEmpty(val),
-                "msg": "不符合IP规范或不为空"
-            },
-            "ippool":{
-                "func": val => !this.isIPpool(val),
                 "msg": "不符合IP规范或不为空"
             },
             //*

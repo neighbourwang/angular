@@ -131,6 +131,8 @@ export class CheckMngListComponent implements OnInit{
 		})
 		.catch(err=>{
 			this._layoutService.hide();
+			this.showMsg(err);
+			
 		});
 
 	}

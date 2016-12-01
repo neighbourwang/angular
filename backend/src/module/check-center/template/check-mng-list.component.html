@@ -113,7 +113,7 @@
 									<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}:{{spec.attrDisplayValue}}</li>
 								</ul>
 							</div>-->
-							<a [popover]="myPopover">详细信息>>>></a>
+							<a class="hands" [popover]="myPopover">详细信息>>>></a>
 
 							<popover-content #myPopover 
 							placement="right"
@@ -121,18 +121,7 @@
 							[closeOnClickOutside]="true" >
 
 												<ul>
-													<li>区域：&nbsp;&nbsp;华北1</li>
-													<li>可用区：&nbsp;&nbsp;可用区B</li>
-													<li>实例规格：&nbsp;&nbsp;CPU 2核/内存4GB/启动盘/70G</li>
-													<li>IP地址：&nbsp;&nbsp;10.1.1.1（内部）<br>
-														192.168.1.1（外部）</li>
-													<li>云硬盘类型：&nbsp;&nbsp;******</li>
-													<li>云硬盘容量：&nbsp;&nbsp;已设置</li>
-													<li>操作系统：&nbsp;&nbsp;******</li>
-													<li>数据库类型：&nbsp;&nbsp;已设置</li>
-													<li>数据库版本：&nbsp;&nbsp;******</li>
-													<li>密码：&nbsp;&nbsp;已设置</li>
-													<li>实例名称：&nbsp;&nbsp;abcabc</li>			
+													<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}:{{spec.attrDisplayValue}}</li>
 												</ul>
 
 						</popover-content>
@@ -151,48 +140,22 @@
 							<br/>费用：{{item.priceNum}}
 						</td>
 						<td>{{item.createTimeStr}}</td>
-						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white" style="margin-right: 10px;" (click)="accept()">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white" (click)="refuse()">拒绝</button></td>
+						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white" style="margin-right: 10px;" (click)="accept()">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white" (click)="refuse(item)">拒绝</button></td>
 					</tr>					
 				</tbody>
 			</table>
-		</div>
-
-
-		<!--<a [popover]="myPopover">详细信息《《《</a>
-
-			<popover-content #myPopover 
-							placement="right"
-							[animation]="true" 
-							[closeOnClickOutside]="true" >
-
-												<ul>
-													<li>区域：&nbsp;&nbsp;华北1</li>
-													<li>可用区：&nbsp;&nbsp;可用区B</li>
-													<li>实例规格：&nbsp;&nbsp;CPU 2核/内存4GB/启动盘/70G</li>
-													<li>IP地址：&nbsp;&nbsp;10.1.1.1（内部）<br>
-														192.168.1.1（外部）</li>
-													<li>云硬盘类型：&nbsp;&nbsp;******</li>
-													<li>云硬盘容量：&nbsp;&nbsp;已设置</li>
-													<li>操作系统：&nbsp;&nbsp;******</li>
-													<li>数据库类型：&nbsp;&nbsp;已设置</li>
-													<li>数据库版本：&nbsp;&nbsp;******</li>
-													<li>密码：&nbsp;&nbsp;已设置</li>
-													<li>实例名称：&nbsp;&nbsp;abcabc</li>			
-												</ul>
-
-			</popover-content>-->
-	
+		</div>	
 		<fc-pagination tp={{_listLoader.TotalPages}} (pf)="changePage($event)"></fc-pagination>
 	</div>
 
 <!--拒绝-->
-	<fc-popup #refuseDialog ot="提交" ct="取消" title="订单请求被拒绝"  (of)="accept()" (cf)="cancel();">	
+	<fc-popup #refuseDialog ot="提交" ct="取消" title="订单请求被拒绝"  (of)="confirmRefuse()" (cf)="cancelRefuse();">	
 		<div class="dialogContent">
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>原因：</div>
 					<div class="col-sm-8">
-						<textarea class="form-control mgb20" rows="7" style="width: 370px;"></textarea>
+						<textarea class="form-control mgb20" rows="7" style="width: 370px;" [(ngModel)]="refuseReason"></textarea>
 						<span>可以输入中文与字符，最大不能超过200个字</span>
 					</div>
 				</div>

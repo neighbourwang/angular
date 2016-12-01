@@ -39,7 +39,7 @@ export class CheckMngHascheckComponent implements OnInit{
 
 
 		//列表数据加载
-		this._listLoader = new ItemLoader<CheckListItem>(true, "待审批列表", "check-center.not-checked.list", _restApiCfg, _restApi);
+		this._listLoader = new ItemLoader<CheckListItem>(true, "已审批列表", "check-center.get-list.post", _restApiCfg, _restApi);
 		this._listLoader.MapFunc = (source:Array<any>, target:Array<CheckListItem>)=>{
 
 			for(let item of source)
@@ -98,7 +98,7 @@ export class CheckMngHascheckComponent implements OnInit{
 
 	showMsg(msg:string)
 	{
-		this._notice.open("ÏµÍ³", msg);
+		this._notice.open("系统", msg);
 	}
 
 	//搜索
@@ -130,6 +130,8 @@ export class CheckMngHascheckComponent implements OnInit{
 		})
 		.catch(err=>{
 			this._layoutService.hide();
+			this.showMsg(err);
+
 		});
 
 	}

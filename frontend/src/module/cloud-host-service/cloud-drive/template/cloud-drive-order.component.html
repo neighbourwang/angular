@@ -36,8 +36,20 @@
 				<div class="col-md-12 li-content" >
 					<div class="col-md-2 content-title">云硬盘</div>
 					<div class="col-md-10 btn-group" id="cloud-desk">
+						
+						<ng-container *ngFor="let value of configs.disktype.valueList;">
+							<button 
+								[popover]="value.attrValue=='0' ? null : myPopover"
+								[ngClass]="{'active': sendModule.disktype.attrValueId === value.attrValueId}"
+								class="btn btn-default">
+								{{value.attrDisplayValue}}
+							</button>
 
-						<button class="btn btn-default">空白盘</button>
+							<popover-content #myPopover [closeOnClickOutside]="true" >
+								<table-list [code]="value.attrValue" [platformId]="sendModule.platform.attrValueId"></table-list>
+							</popover-content>
+						</ng-container>
+						<!-- <button class="btn btn-default">空白盘</button>
 						<button [popover]="popover_never" class="btn btn-default">从未挂载盘</button>
 						<button [popover]="popover_backup" class="btn btn-default">从备份恢复</button>
 						
@@ -47,7 +59,7 @@
 
 						<popover-content #popover_backup [closeOnClickOutside]="true" >
 							<table-list code="backup" [platformId]="sendModule.platform.attrValueId"></table-list>
-						</popover-content>
+						</popover-content> -->
 					</div>	
 					<div class="col-md-2 content-title">云硬盘类型</div>	
 					<div class="col-md-10 btn-group" data-toggle="buttons">
@@ -62,18 +74,18 @@
 						<div class="col-md-2 content-title">容量(GB)</div>	
 						<div class="col-md-2 no-padding">  
 							<count-bar 
-					            [step]=10 
-					            [max]=500 
-					            [min]=40 
+					            [step]="sendModule.diskstepsize.attrValue" 
+					            [max]="sendModule.diskmaxsize.attrValue" 
+					            [min]="sendModule.diskinitialsize.attrValue" 
 					            [disabled]=false 
-					            [value]=40 (output)="outputValue($event)"></count-bar>
+					            [value]="sendModule.diskinitialsize.attrValue" (output)="outputValue($event)"></count-bar>
 						</div>	
-						<div class="col-md-7 disk-tip">可以购买容量 40~500GB的云硬盘。40GB起，增加按照每10GB一档。</div>
+						<div class="col-md-7 disk-tip">可以购买容量 {{sendModule.diskinitialsize.attrValue}}~{{sendModule.diskmaxsize.attrValue}}GB的云硬盘。{{sendModule.diskinitialsize.attrValue}}GB起，增加按照每{{sendModule.diskstepsize.attrValue}}GB一档。</div>
 					</div>
 					<div class="col-md-12 no-padding mgb15">
 						<div class="col-md-2 content-title">云硬盘实例名称</div>
 						<div class="col-md-4 no-padding mgr15">
-							<input type="text" [(ngModel)]="sendModule.diskinsname.value" class="form-control" placeholder="如不填写，则系统自动生成">
+							<input type="text" [(ngModel)]="sendModule.diskinsname.attrValue" class="form-control" placeholder="如不填写，则系统自动生成">
 						</div>
 						<div class="col-md-5 disk-tip no-padding">2-68个字符，以大小写字母或者中文开头，可包含数字，“.”, "-", "_"</div>
 					</div>	
@@ -86,41 +98,19 @@
 				        	[popover]="popover_host" 
 				        	[ngClass]="{'active': popover_host.popover?.visible}" 
 				        	[disabled]="!isAttachVm" 
-				        	class="btn btn-default button-gray-gradient">云主机实例列表</button>
+				        	class="btn btn-default button-gray-gradient mgr20">云主机实例列表</button>
 
 				        <popover-content #popover_host [closeOnClickOutside]="true" >
-							<table-list code="vm" (onSelect)="vmListClick($event);popover_host.hide();" [platformId]="sendModule.platform.attrValueId"></table-list>
+							<table-list 
+								code="3" 
+								(onSelect)="vmListClick($event);popover_host.hide();" 
+								[platformId]="sendModule.platform.attrValueId"></table-list>
 						</popover-content>
 						
-						<div id="popover_host_content" style="display: none">
-							<div class="col-md-12 mgb15 no-padding">
-								<select class="form-control float-left drive-select">
-									<option value="1">云硬盘名称</option>
-									<option value="1">支持</option>
-									<option value="1">不支持</option>
-								</select>
-								<div class="input-group float-left drive-search">
-									<input class="form-control " placeholder="输入云主机硬盘搜索">
-									<div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
-								</div>
-							</div>
-							<table class="table table-hover">
-								<tr>
-									<th class="text-center">备份名称</th>
-									<th class="text-center">源硬盘名称</th>
-									<th class="text-center">源主机名称</th>
-									<th class="text-center">容量(GB)</th>
-									<th class="text-center">属性</th>
-								</tr>
-								<tr *ngFor="let i of [1,2,3,4,5]">
-									<td class="text-center">cirros-0.3.4</td>
-									<td class="text-center">SSD盘</td> 
-									<td class="text-center">cirros</td>
-									<td class="text-center">40</td>
-									<td class="text-center">启动盘</td>
-								</tr>
-							</table>
-						</div>
+						<span class="float-left mgr20 lh34" *ngIf="sendModule.diskmounthostname.attrValue">
+							<span class="float-left">云主机名称：</span>
+							<input type="text" style="width: 220px;" class="form-control float-left" disabled="ture" [(ngModel)]="sendModule.diskmounthostname.attrValue" name="" />
+						</span>
 					</div>
 				</div>
 			</li>
@@ -140,13 +130,7 @@
 								<option [ngValue]="4">4台</option>
 								<option [ngValue]="5">5台</option>
 							</select>
-							<!--<div class="btn-group input-step-compontent">
-								<button type="button" class="btn btn-default col-md-3"><span class="glyphicon glyphicon-minus"></span></button>
-								<input type="text" class="form-control" value="20">
-								<button type="button" class="btn btn-default clickable"><span class="glyphicon glyphicon-plus"></span></button>
-							</div>-->
 						</div>
-						<!--<div class="col-md-2 no-padding lh32">台</div>-->
 					</div>
 				</div>
 			</li>
@@ -154,33 +138,22 @@
 	</div>
 	 <!-- [ngClass]="{'right-fixed' : rightFixed}" (window:scroll)="onScroll($event)" -->
 	<div class="col-md-3 no-padding right-box">
-		<div class="col-md-12 no-padding title-box">
-			<div class="col-md-6"><button class="btn button-gray-gradient"><span class="icon-shopping"></span>查看购物车 0</button></div>
-			<div class="col-md-6"><button class="btn button-gray-gradient"><span class="icon-delete"></span>清空购物车</button></div>
-		</div>
+		<cart-button #cartButton></cart-button>
 		<div class="col-md-12 content-box">
 			<h3 class="boder-gray-bottom-title">当前配置</h3>
 			<h4 class="cloud-title font-green">区域</h4>
-			<p class="cloud-p">云平台: {{ sendModule.platform ? sendModule.platform.displayName : "" }}</p>
-			<p class="cloud-p">可用区: {{ sendModule.zone ? sendModule.zone.displayName : "" }}</p>
-			<h4 class="cloud-title font-green">网络</h4>
-			<p class="cloud-p">网络类型: {{ sendModule.networktype ? sendModule.networktype.displayName : "" }}</p>
-			<p class="cloud-p">安全组: {{ sendModule.securitygroup ? sendModule.securitygroup.displayName : "" }}</p>
-			<h4 class="cloud-title font-green">实例规格</h4>
-			<p class="cloud-p">CPU: {{ sendModule.cpu ? sendModule.cpu.displayName : "" }}</p>
-			<p class="cloud-p">内存: {{ sendModule.mem ? sendModule.mem.displayName : "" }}</p>
-			<h4 class="cloud-title font-green">云主机源</h4>
-			<p class="cloud-p">启动源: {{ sendModule.startupsource ? sendModule.startupsource.displayName : "" }}</p>
-			<p class="cloud-p">镜像类型: {{ sendModule.imagetype ? sendModule.imagetype.displayName : "" }}</p>
-			<p class="cloud-p">镜像名称: {{ sendModule.os ? sendModule.os.displayName : "" }}</p>
-			<h4 class="cloud-title font-green">储存</h4>
-			<p class="cloud-p">启动盘: {{ sendModule.bootstorage ? sendModule.bootstorage.displayName : "" }} / {{ sendModule.bootsize ? sendModule.bootsize.displayName : "" }}</p>
-			<!-- <p class="cloud-p">数据盘: {{ sendModule.stroage ? sendModule.stroage.displayName : "" }} / {{ sendModule.storagesize ? sendModule.storagesize.displayName : "" }}</p> -->
-			<h4 class="cloud-title font-green">购买量</h4>
-			<p class="cloud-p">购买时长: {{ sendModule.timelineunit ? sendModule.timelineunit.displayName : ""}} / {{ sendModule.timeline ? sendModule.timeline.value : ""}}</p>
-			<p class="cloud-p">购买量: {{payLoad.quality}}台</p>
+			<p class="cloud-p">云平台: {{ sendModule.platform?.attrDisplayValue}}</p>
+			<p class="cloud-p">可用区: {{ sendModule.zone?.attrDisplayValue}}</p>
+			<h4 class="cloud-title font-green">配置选项</h4>
+			<p class="cloud-p">云硬盘: {{sendModule.disktype?.attrDisplayValue}}</p>
+			<p class="cloud-p">云硬盘类型: {{sendModule.storage?.attrDisplayValue}}</p>
+			<p class="cloud-p">容量(GB): {{sendModule.disksize?.attrDisplayValue}}</p>
+			<p class="cloud-p">云硬盘实例名称: {{sendModule.diskinsname?.attrValue}}</p>
+			<p class="cloud-p">挂载到云主机: {{sendModule.diskmounthostid?.attrValue}}</p>
+			<h4 class="cloud-title font-green">购买量:</h4>
+			<p class="cloud-p">购买量: {{payLoad.quality}}</p>
 			<div class="cloud-line"></div>
-			<h4 class="cloud-title">费用总计：<font class="font-orange">¥{{ this.sendModule.timeline ? this.parseInt((this.parseInt(this.sendModule.cpu.displayName)*20 + ((this.parseInt(this.sendModule.mem.displayName) < 50) ? this.parseInt(this.sendModule.mem.displayName)*10 : this.parseInt(this.sendModule.mem.displayName)*0.1 ) + 20 +this.parseInt(this.sendModule.timeline.value ? this.sendModule.timeline.value*1.21 : 1 ))*this.parseInt(this.payLoad.quality)*100)/100 : 0 }}</font></h4>
+			<h4 class="cloud-title">费用总计：<font class="font-orange">¥{{ this.sendModule.timeline ? this.parseInt((this.parseInt(this.sendModule.cpu.attrDisplayValue)*20 + ((this.parseInt(this.sendModule.mem.attrDisplayValue) < 50) ? this.parseInt(this.sendModule.mem.attrDisplayValue)*10 : this.parseInt(this.sendModule.mem.attrDisplayValue)*0.1 ) + 20 +this.parseInt(this.sendModule.timeline.value ? this.sendModule.timeline.value*1.21 : 1 ))*this.parseInt(this.payLoad.quality)*100)/100 : 0 }}</font></h4>
 			<div class="col-md-12 colud-order-button">
 				<div class="col-md-6"><button (click)="buyNow()" class="btn button-orange-deep">立即购买</button></div>
 				<div class="col-md-6"><button class="btn button-orange-light">加入购物车</button></div>

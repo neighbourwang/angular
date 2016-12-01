@@ -9,7 +9,7 @@ export const IpMngModel_mock = {
         "portGroup": "dv1 c1 pg1", //标准端口组名称
         "portGroupDisplayName": "dv pg1", //标准端口组显示名称
         "vlanId": "100", //虚拟局域网ID
-        "segmentCIDR": "10.10.0.0/24", //网段信息
+        "subnetCIDR": "10.10.0.0/24", //网段信息
         "gateway": "10.10.0.1", //网关信息
         "ipCount": 24, //ip总数量
         "usedIPCount": 20, //已使用ip数量
@@ -22,7 +22,7 @@ export const IpMngModel_mock = {
         "portGroup": "dv1 c2 pg2", //标准端口组名称
         "portGroupDisplayName": "", //标准端口组显示名称
         "vlanId": "100", //虚拟局域网ID
-        "segmentCIDR": "", //网段信息
+        "subnetCIDR": "", //网段信息
         "gateway": "", //网关信息
         "ipCount": "", //ip总数量
         "usedIPCount": "", //已使用ip数量
@@ -35,7 +35,7 @@ export const IpMngModel_mock = {
         "portGroup": "dv1 c2 pg1", //标准端口组名称
         "portGroupDisplayName": "dv pg1", //标准端口组显示名称
         "vlanId": "100", //虚拟局域网ID
-        "segmentCIDR": "10.10.0.0/24", //网段信息
+        "subnetCIDR": "10.10.0.0/24", //网段信息
         "gateway": "10.10.0.1", //网关信息
         "ipCount": 24, //ip总数量
         "usedIPCount": 20, //已使用ip数量
@@ -48,7 +48,7 @@ export const IpMngModel_mock = {
         "portGroup": "dv2 c1 pg1", //标准端口组名称
         "portGroupDisplayName": "", //标准端口组显示名称
         "vlanId": "100", //虚拟局域网ID
-        "segmentCIDR": "", //网段信息
+        "subnetCIDR": "", //网段信息
         "gateway": "", //网关信息
         "ipCount": "", //ip总数量
         "usedIPCount": "", //已使用ip数量
@@ -61,7 +61,7 @@ export const IpMngModel_mock = {
         "portGroup": "dv2 c2 pg1", //标准端口组名称
         "portGroupDisplayName": "", //标准端口组显示名称
         "vlanId": "100", //虚拟局域网ID
-        "segmentCIDR": "", //网段信息
+        "subnetCIDR": "", //网段信息
         "gateway": "", //网关信息
         "ipCount": "", //ip总数量
         "usedIPCount": "", //已使用ip数量

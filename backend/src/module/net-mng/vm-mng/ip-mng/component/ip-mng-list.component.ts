@@ -67,6 +67,7 @@ export class IpMngListComponent implements OnInit{
 
     rawipmngs: Array<IpMngModel>;
     ipmngs: Array<IpMngModel>;
+    selectedipmng: IpMngModel = new IpMngModel();
 
     subn: subnetModel = new subnetModel();
     ippool: subnetIpModel = new subnetIpModel();
@@ -166,6 +167,7 @@ export class IpMngListComponent implements OnInit{
          if (pg) {
              // OR get subenet information from API
             this.subn.portGroup = pg.id;
+            console.log(this.subn.portGroup, "========== setupSubnet =============");
             this.service.getSubnetInfoIps(this.subn.portGroup)
             .then(
             response => {
@@ -203,7 +205,8 @@ export class IpMngListComponent implements OnInit{
             // OR get subenet information from API
             this.layoutService.hide();
             this.ippool.portGroup = pg.id;
-            this.service.getSubnetInfoIps(this.subn.portGroup)
+            console.log(this.ippool.portGroup, "========== setupIPs =============");
+            this.service.getSubnetInfoIps(this.ippool.portGroup)
             .then(
             response => {
                 this.layoutService.hide();
@@ -212,9 +215,18 @@ export class IpMngListComponent implements OnInit{
                     this.subnetInfo = response.resultContent;
                     this.ippool.subnetCIDR = this.subnetInfo.subnetCIDR;
                     this.ippool.gateway = this.subnetInfo.gateway;
+                    console.log(this.subnetInfo.range, "this.subnetInfo.range ===========setupIPs============");
                     this.ippool.ips = this.subnetInfo.range;
-                    console.log(this.ippool, "ippool 11111111111111111111111");
+                    /*
+                    let i = 0;
+                    for(; i < this.subnetInfo.range.length; i++) {
+                        console.log(this.subnetInfo.range[0], "this.subnetInfo.range[0]");
+                        this.ippool.ips.push(this.subnetInfo.range[i]);
+                    }
+                    */
+                    console.log(this.ippool, "ippool ===========setupIPs============");
                 } else {
+                    console.log("========== setupIPs [if]else=============");
                     alert("Res sync error");
                     this.layoutService.hide();
                 }
@@ -279,7 +291,7 @@ export class IpMngListComponent implements OnInit{
 
     cancelIPsModify(): void {
         console.log('clicked cancelIPsModify');
-        this.ippool.ips = [];
+        this.ippool.ips = "";
         this.ippool.subnetCIDR = "";
         this.ippool.gateway = "";
     }
@@ -340,10 +352,12 @@ export class IpMngListComponent implements OnInit{
     }
 
     //根据value显示
-    displayIt(value: string): String {
+    displayIt(value: any): any {
         if(this.validationService.isBlank(value)){
+            //console.log(value, "In dispalyIt()1")
             return "未设置";
         } else {
+            //console.log(value, "In dispalyIt()2")
             return value;
         }
     }
