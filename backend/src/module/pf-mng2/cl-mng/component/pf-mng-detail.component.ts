@@ -27,6 +27,7 @@ export class PfDetailComponent implements OnInit {
 
     constructor(private layoutService:LayoutService,
                 private service:ClMngListService,
+                private route:Router,
                 private router:ActivatedRoute,
                 private platFormTypeService : ClMngCreStep1Service,
                 private commonService : ClMngCommonService,
@@ -63,11 +64,6 @@ export class PfDetailComponent implements OnInit {
         {name:'可用区与配额',active:false},
         {name:'存储区与配额',active:false}        
         ]
-    basicInfo:boolean=true;
-    zoneAvailable:boolean=false;
-    storageAvailable:boolean=false;
-
-
     platformName:string;
     platformTypes : Array<any> = new Array<any>();
     platformVersion : Array<any> = new Array<any>();
@@ -122,6 +118,9 @@ export class PfDetailComponent implements OnInit {
     }
     back(){
         this.location.back();
+    }
+    goList(){
+        this.route.navigate(['pf-mng2/cl-mng/cl-mng'])
     }
     save(){}
 

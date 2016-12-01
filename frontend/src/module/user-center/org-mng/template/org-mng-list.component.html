@@ -169,7 +169,7 @@
 		<h4 class="modal-title" id="myModalLabel">创建部门</h4>
 	  </div>
 	  <div class="modal-body"> 
-          <org-mng-cr #crModel (idEdit)="isEdit"></org-mng-cr>
+          <org-mng-cr #crModel [isEdit]="isEdit" [editId]="editId"></org-mng-cr>
       </div>
 	  <div class="modal-footer">
 		<button type="button" class="btn button-confirm button-size-big" (click)="updata()">确定</button>

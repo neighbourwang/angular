@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { ClMngListComponent } from './component/cl-mng-list.component';
 import { PfDetailComponent } from './component/pf-mng-detail.component';
+import { bootDiskMngComponent } from './component/pf-mng-bootDisk.component';
 
 import { ClMngCreStep1Component } from './component/cl-mng-cre-step-1.component';
 import { ClMngCreStep2Component } from './component/cl-mng-cre-step-2.component';
@@ -47,5 +48,10 @@ export const ClMngRouting:ModuleWithProviders = RouterModule.forChild([
         path: 'pf-mng2/pf-mng-detail',
         component: PfDetailComponent
     },
+    {
+        path: 'pf-mng2/pf-mng-bootDisk',
+        component: bootDiskMngComponent
+    },
+    
     
 ]);
