@@ -143,6 +143,7 @@ export class OpenstackImageSyncEntComponent implements OnInit{
                         this.layoutService.hide();
                         if(response && 100 == response["resultCode"]){
                             this.layoutService.hide();
+                            this.getSynImages();
                             this.showAlert("同步成功");
                         } else{
                             alert("Res.sync error");

@@ -66,6 +66,8 @@ export class CheckMngListComponent implements OnInit{
 				// obj.checkResultId = ?? 审批结果	
 				obj.description = item.orderDesc; //描述	
 
+				obj.specList = item.specList;
+
 			}
 		};
 

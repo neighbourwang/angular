@@ -1,6 +1,6 @@
 /***************************子组件，table列表*************************/
 
-import { Component,ViewChild, OnInit,Input , Output,EventEmitter } from '@angular/core';
+import { Component,ViewChild, OnInit,Input , Output,EventEmitter, OnChanges } from '@angular/core';
 
 import { SubTableListService } from '../service/sub-table-list.service';
 import { QuiryDistList, DistList } from '../model/dist-list.model';
@@ -12,7 +12,7 @@ import { DiskUnMountItem, DiskBackupItem, VMSimpleItem } from '../model/sub-tabl
 	templateUrl: '../template/sub-table-list.component.html',
 	styleUrls: ['../style/sub-table-list.less']
 })
-export class subTableListComponent implements OnInit {
+export class subTableListComponent implements OnInit, OnChanges {
 
 	@Output() onSelect = new EventEmitter<any>();
 
@@ -31,6 +31,12 @@ export class subTableListComponent implements OnInit {
 	};
 
 	ngOnInit() {
+		// this.getList();
+	}
+
+	ngOnChanges(changes) {
+		if(!this.platformId) return;
+		this.platformId = changes.platformId.currentValue;
 		this.getList();
 	}
 
@@ -59,6 +65,7 @@ export class subTableListComponent implements OnInit {
 	setVmList() {
 		this.service.getVmList(this.list).then(res => {
 			this.vmList = res.resultContent;
+			console.log(res.resultContent)
 		})
 	}
 
