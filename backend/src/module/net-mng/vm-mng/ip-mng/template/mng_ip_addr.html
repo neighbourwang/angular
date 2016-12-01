@@ -23,7 +23,6 @@
         </span>
         <div class="col-md-2">
             <span class="pull-left font-gray mgt5 pdl15">{{pg_name}}</span>
-            <!--<input type="text" class="form-control" placeholder="信管中心-B1网络" value="{{pg_name}}"> -->
         </div>
     </div>
 
@@ -61,7 +60,8 @@
                 <td>{{ipusagemng.addr}}</td>
                 <td>{{displayIt(ipusagemng.instanceName)}}</td>
                 <td>{{displayIt(ipusagemng.tenantName)}}</td>
-                <td>{{ipusagemng.status}}</td><!-- {{getDicText(ipusagemng.status,this.statusDic)}}</td> -->
+                <!-- <td>{{ipusagemng.status}}</td> -->
+                <td>{{getDicText(ipusagemng.status,this.statusDic)}}</td>
                 <td>{{displayIt(ipusagemng.description)}}</td>
             </tr>
             </tbody>
@@ -83,8 +83,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">占用IP:</div>
 					<div class="col-sm-8">
-						<span>{{selectedip.addr}}</span>
-					    <!-- <input type="string" class="form-control input-control" [(ngModel)]="ippool.subnetCIDR"></span> -->
+						<span>{{changedip.addr}}</span>
 					</div>
 				</div>
 			</div>
@@ -92,7 +91,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>说明：</div>
 					<div class="col-sm-8">
-					    <input type="string" class="form-control input-control" [(ngModel)]="selectedip.description">
+					    <input type="string" class="form-control input-control" [(ngModel)]="changedip.description">
 					</div>
 				</div>
 			</div>
@@ -106,8 +105,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">释放IP:</div>
 					<div class="col-sm-8">
-						<span>{{selectedip.addr}}</span>
-					    <!-- <input type="string" class="form-control input-control" [(ngModel)]="ippool.subnetCIDR"></span> -->
+						<span>{{changedip.addr}}</span>
 					</div>
 				</div>
 			</div>
@@ -115,7 +113,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>说明：</div>
 					<div class="col-sm-8">
-					    <input type="string" class="form-control input-control" [(ngModel)]="selectedip.description">
+					    <input type="string" class="form-control input-control" [(ngModel)]="changedip.description">
 					</div>
 				</div>
 			</div>
