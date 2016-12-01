@@ -82,5 +82,6 @@ export class OrgMngService {
         return this.restApi.request(api.method , api.url ,[{ key : "id" , value : id}],undefined,org);
     }
     //获得当前登录人企业ID
-    
+    //获得当前登陆人企业资源
+    getCurEntResource
 }

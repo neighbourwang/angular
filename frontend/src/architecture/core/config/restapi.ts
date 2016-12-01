@@ -378,5 +378,17 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "basis/authsec/mpp/currentEnterpriseId"
     },
+    {
+        "desc": "获取当前登录人企业可用资源",
+        "id": "user-center.org-mng.currEntResoure.get",
+        "method": "GET",
+        "url": "basis/authsec/mpp/currentEnterpriseId"
+    },
+    {
+        "desc": "获取当前组织用户",
+        "id": "user-center.org-mng.currEntResoure.get",
+        "method": "GET",
+        "url": "basis/authsec/mpp/currentEnterpriseId"
+    },
     
 ]
