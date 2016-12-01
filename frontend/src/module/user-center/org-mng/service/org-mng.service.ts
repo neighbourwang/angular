@@ -82,6 +82,16 @@ export class OrgMngService {
         return this.restApi.request(api.method , api.url ,[{ key : "id" , value : id}],undefined,org);
     }
     //获得当前登录人企业ID
+    
+    getCurEntId(){
+        let api = this.restApiCfg.getRestApi("user-center.org-mng.currentEnterpriseID.get");
+
+        return this.restApi.request(api.method , api.url,[],undefined);
+    }
     //获得当前登陆人企业资源
-    getCurEntResource
+    getCurEntResource(id:string){
+        let api = this.restApiCfg.getRestApi("user-center.org-mng.currEntResoure.get");
+
+        return this.restApi.request(api.method , api.url,[{key : "id" ,value : id}],undefined);
+    }
 }

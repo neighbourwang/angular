@@ -50,8 +50,35 @@ export class OrgMngListComponent implements OnInit {
   confirmOrg: OrgPer;
   isEdit: boolean = false;
   ngOnInit() {
+    this.getCurEntId();
     this.getOrg(0, this.pp);
   }
+  //获取企业ID
+  getCurEntId(){
+    return this.service.getCurEntId().then(
+      res => {
+        console.log(res);
+        this.getCurEntResource(res.resultContent);
+      }
+    ).catch(
+      err => {
+        console.error('获取当前切ID失败');
+      }
+      )
+  }
+  //获取企业资源
+  getCurEntResource(id){
+    this.service.getCurEntResource(id).then(
+      res => {
+        console.log(res);
+      }
+    ).catch(
+      err => {
+        console.error('获取企业资源信息失败');
+      }
+      )
+  }
+
   getOrg(page: number, size: number) {
     this.service.getOrg(page, size).then(
       res => {
