@@ -404,7 +404,11 @@ export class OpenstackMngComponent implements OnInit{
 
     getImageTenant(ts:Array<Tenant>): String {
         let t: Tenant = ts[0];
-        return t.name;
+        if(t){
+            return t.name?t.name:"所有";
+        }else{
+            return "所有";
+        }
     }
     //同步公共镜像
     syncPublic(){

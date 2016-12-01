@@ -126,7 +126,7 @@ export class CheckMngHascheckComponent implements OnInit{
 
 	showMsg(msg:string)
 	{
-		this._notice.open("ÏµÍ³", msg);
+		this._notice.open("系统", msg);
 	}
 
 	//搜索
@@ -197,5 +197,9 @@ export class CheckMngHascheckComponent implements OnInit{
 		this.search(pageNum);
 	}
 
+	approveIdGen(num:number)
+	{
+		return `approve-${num}`;		
+	}
 
 }

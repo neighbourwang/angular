@@ -27,6 +27,8 @@ export class cloudDriveComponentOrder implements OnInit {
 	passwordShadow: string;
 	skuMap: any;  //skuMap
 
+	isAttachVm: boolean = true;
+
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -165,11 +167,15 @@ export class cloudDriveComponentOrder implements OnInit {
 
 	}
 
+	vmListClick(vm) {
+		this.sendModule.diskmounthostid.attrValue = !this.isAttachVm ? "" : vm ? vm.itemId : "";
+	}
+
 	goTo(url: string) {
 		this.router.navigateByUrl(url);
 	}
 	buyNow() {
-
+		console.log(this.sendModule)
 		// this.layoutService.show();
 		// this.checkInput();
 		// let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象

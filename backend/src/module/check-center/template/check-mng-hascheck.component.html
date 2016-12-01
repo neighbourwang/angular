@@ -1,3 +1,4 @@
+<fc-notice #notice ot="确认"></fc-notice>
 <div class="CheckMngList">
 	<div class="page-content-header icon-order-manage" style="border-bottom: 3px solid  #01a982;margin: 10px 0px;padding: 0;">已审批列表</div>
 	<div class="page-content">
@@ -32,7 +33,7 @@
 						<td ><div class="left form-control-title mgl20">提交者：</div>
 							<div class="left">
 								<select class="form-control" [(ngModel)]="_param.submitUserId">
-									<option class="hands" [value]="null">所有用户</option>
+									<option class="hands" [value]="null">所有提交者</option>
 									<option class="hands" *ngFor="let item of _userListLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
@@ -51,7 +52,7 @@
 						<td><div class="left form-control-title">产品类型：</div>
 							<div class="left">
 								<select class="form-control" [(ngModel)]="_param.serviceTypeNum">
-									<option class="hands" [value]="null">所有服务</option>
+									<option class="hands" [value]="null">所有类型</option>
 									<option class="hands" *ngFor="let item of _serviceTypeDic.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
@@ -98,7 +99,9 @@
 						<th>所在区域及可用区</th>
 						<th>订单类型</th>
 						<th>订单描述</th>
-						<th>用户/部门/企业</th>
+						<th>提交者</th>
+						<th>部门</th>
+						<th>企业</th>
 						<th>费用</th>
 						<th>创建时间</th>
 						<th>审批结果</th>
@@ -110,48 +113,9 @@
 						<td>{{item.orderCodeStr}}<br>
 						    <a lab-bootstrap-popover id="detail-{{i}}" [attr.contentid]="contentIdGen(i)">详细信息>>></a>
 					    	<div class="DetailInfo" [attr.id]="contentIdGen(i)" style="display: none;">
-								<table class="table table-hover">
-									<thead>
-										<tr><th class="form-control-title" colspan="2">详细信息</th></tr>
-									</thead>
-									<tbody>
-											<tr >
-												<td style="width: 30%;">云主机</td>
-												<td class="leftAlign">
-													<ul>
-													  <li>区域：华北1</li>
-													   <li>可用区：可用区B</li>
-													    <li>实例规格：CPU 2核/内存4GB/启动盘/70G</li>
-													     <li>IP地址：10.1.1.1（内部）<br>
-													         192.168.1.1（外部）</li>
-													      <li>操作系统：******</li>
-													       <li>密码：已设置</li>
-													        <li>实例名称：abcabc</li>
-													</ul>
-												</td>
-											</tr>
-											<tr>
-												<td style="width: 30%;">云硬盘</td>
-												<td class="leftAlign">
-													<ul>
-													  <li>区域：华北1</li>
-													   <li>可用区：可用区B</li>
-													    <li>云硬盘类型：高性能I/O</li>
-													     <li>云盘容量：100GB</li>
-													</ul>
-												</td>
-											</tr>
-											<tr>
-												<td style="width: 30%;">数据库</td>
-												<td class="leftAlign">
-													<ul>
-													  <li>数据库类型：Oracle</li>
-													   <li>数据库版本：11g</li>
-													</ul>
-												</td>
-											</tr>
-									</tbody>
-								</table>
+								<ul>
+									<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}:{{spec.attrDisplayValue}}</li>
+								</ul>
 							</div>
 
 					    </td>
@@ -162,43 +126,28 @@
 						     高可用1</td>
 						<td>新订单</td>
 						<td>用于****应用</td>
-						<td>张三<br>
-						    部门<br>
-						    企业<br></td>
+						<td>张三</td>
+						<td>部门</td>>
+						<td>企业</td>
 						<td>计费模式：包年包月<br>
 						 	订单周期：1个月<br>
 						 	一次性费用：￥0<br>
 						 	费用：￥100月</td>
 						<td>2016-10-01<br>
 							23:10<br>
-							<a>审批信息>>></a></td>
+							<a lab-bootstrap-popover id="approve-{{i}}" [attr.contentid]="approveIdGen(i)">审批信息>>></a>
+							<div class="CheckInfo" [attr.id]="approveIdGen(i)" style="display: none;">
+								<ul>
+									<li>审批人： 李四</li>
+									<li>审批时间：2016-10-01 10:23</li>
+									<li>审批意见：同意</li>
+								</ul>
+							</div>
+						</td>
 						<td>同意</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-	</div>
-
-	<div class="CheckInfo">
-	   <table class="table table-hover">
-	   		<thead>
-	   			<tr><th colspan="2" class="form-control-title">审批详细</th></tr>
-	   		</thead>
-	   		<tbody>
-	   			<tr>
-	   				<td>审批人:</td>
-	   				<td>李四</td>
-	   			</tr>
-	   				<tr>
-	   				<td>审批时间:</td>
-	   				<td>2016-10-01 10:23</td>
-	   			</tr>
-	   				<tr>
-	   				<td>审批意见:</td>
-	   				<td>同意</td>
-	   			</tr>
-	   		</tbody>
-	   </table>
-
 	</div>
 </div>
