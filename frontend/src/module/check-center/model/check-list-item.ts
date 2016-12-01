@@ -34,6 +34,9 @@ export class CheckListItem{
 	createTimeStr: string = null;//创建时间
 	checkResultId: number = null;//审批结果
 	checkResultName: string = null;//审批结果名称	
+	description: string = null; //描述
+	specList:Array<{attrDisplayName:string;attrDisplayValue:string}> = null;//产品详细信息
+	
 }
 
 /*
