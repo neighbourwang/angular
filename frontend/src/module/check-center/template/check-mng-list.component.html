@@ -6,7 +6,7 @@
 			<div class="search-container">
 				<div class="input-group col-md-2 float-left mgr20">
 					<input class="form-control" placeholder="输入云主机信息搜索" type="email">
-					<div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+					<div class="input-group-addon"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div> 
 				<button class=" button-gray-gradient float-left mgl20" [ngClass]="{'button-gray-gradient':_isAdvSearch!=1,'fox-cloud-button-white':_isAdvSearch==1}"  (click)="_isAdvSearch=!_isAdvSearch">高&nbsp;级&nbsp;查&nbsp;询</button>
 			</div>
@@ -90,7 +90,7 @@
 				</tbody>
 			</table>	
 		</div>
-		<div class="form-control-title left mgb10 mgt20">当查询到<span class="validateInfo">29</span>个订单需要审批，查询结果如下：</div>
+		<div class="form-control-title left mgb10 mgt20">当查询到<span class="validateInfo">{{_listLoader.Items.length}}</span>个订单需要审批，查询结果如下：</div>
 			<div class="table-container ">
 			<table class="table ">
 				<thead>	
