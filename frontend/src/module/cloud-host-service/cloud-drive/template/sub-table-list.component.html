@@ -3,7 +3,7 @@
     <select [(ngModel)]="list.queryField" class="form-control mgr15 float-left drive-select">
         <option
          *ngFor="let v of service.diskQueryField | async; let i = index;"
-         [ngValue]="v.value" >{{ v.displayValue }}</option>
+         [ngValue]="v.code" >{{ v.displayValue }}</option>
     </select>
     <div class="input-group float-left drive-search">
         <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="输入云硬盘信息搜索">
@@ -28,7 +28,7 @@
     <select [(ngModel)]="list.queryField" class="form-control mgr15 float-left drive-select">
         <option
          *ngFor="let v of service.diskQueryField | async; let i = index;"
-         [ngValue]="v.value" >{{ v.displayValue }}</option>
+         [ngValue]="v.code" >{{ v.displayValue }}</option>
     </select>
     <div class="input-group float-left drive-search">
         <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="输入云硬盘信息搜索">
@@ -55,7 +55,7 @@
     <select [(ngModel)]="list.queryField" class="form-control mgr15 float-left drive-select">
         <option
          *ngFor="let v of service.vmQueryField | async; let i = index;"
-         [ngValue]="v.value" >{{ v.displayValue }}</option>
+         [ngValue]="v.code" >{{ v.displayValue }}</option>
     </select>
     <div class="input-group float-left drive-search">
         <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="输入云主信息搜索">
