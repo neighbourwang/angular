@@ -1,0 +1,96 @@
+@import "../../../../architecture/assets/style/constant.less";
+
+.cloud_mirror {
+    z-index: 0;
+
+    .td_mirror {
+        position: relative;
+        border-left: 1px solid transparent;
+        border-right: 1px solid transparent;
+    }
+
+    .tdspan {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: @mainColor;
+        color: @white-color;
+        font-size: 12px;
+        display: none;
+        cursor: pointer;
+    }
+
+    .td_mirror:hover .tdspan {
+        display: block;
+    }
+
+    .td_mirror:hover {
+        border: 1px dotted @mainColor;
+    }
+
+
+    .left-box-mirror {
+        border: 1px solid @gray-color;
+        margin-top: 20px;
+        padding-left: 0;
+
+        li {
+            overflow: hidden;
+            position: relative;
+            padding-left: 12%;
+            min-height: 90px;
+            border-bottom: 1px solid @gray-color;
+
+            &:last-child {
+                border-bottom: 0;
+            }
+
+            &::after {
+                clear: both;
+                content: "";
+                display: block;
+            }
+        }
+
+        .li-title {
+            background: @fa-color;
+            text-align: center;
+            padding: 15px 0;
+            position: absolute;
+            left: 0;
+            height: 100%;
+            width: 12%;
+            border-right: 1px solid @gray-color;
+
+            p {
+                height: 56px;
+                position: absolute;
+                top: 50%;
+                right: 0;
+                left: 0;
+                margin-top: -28px;
+                display: inline-block;
+                line-height: 20px;
+
+                span {
+                    height: 30px;
+                    width: 30px;
+                    display: inline-block;
+                }
+            }
+        }
+
+        .li-content {
+            padding: 35px 0 25px;
+
+            .btn-default {
+                padding: 5px 30px;
+            }
+        }
+    }
+
+    .btn-save {
+        background: @orange-color;
+        color: @white-color;
+    }
+}
