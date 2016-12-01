@@ -6,8 +6,8 @@
          [ngValue]="v.value" >{{ v.displayValue }}</option>
     </select>
     <div class="input-group float-left drive-search">
-        <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="输入云硬盘名称搜索">
-        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+        <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="输入云硬盘信息搜索">
+        <div (click)="setUnmountList()" class="input-group-addon cup"><span class="glyphicon glyphicon-search"></span></div>
     </div>
 </div>
 <table *ngIf="code==='unmount'" class="table table-hover">
@@ -15,13 +15,11 @@
         <th class="text-center">云硬盘名称</th>
         <th class="text-center">储存类型</th>
         <th class="text-center">容量(GB)</th>
-        <th class="text-center">属性</th>
     </tr>
-    <tr *ngFor="let i of [1,2,3,4,5]">
-        <td class="text-center">cirros-0.3.4</td>
-        <td class="text-center">SSD盘</td> 
-        <td class="text-center">40</td>
-        <td class="text-center">启动盘</td>
+    <tr *ngFor="let unmount of unmountList" class="cup" (click)="emit(unmount)">
+        <td class="text-center">{{unmount.name}}</td>
+        <td class="text-center">{{unmount.type}}</td> 
+        <td class="text-center">{{unmount.size}}</td>
     </tr>
 </table>
 
@@ -33,22 +31,22 @@
          [ngValue]="v.value" >{{ v.displayValue }}</option>
     </select>
     <div class="input-group float-left drive-search">
-        <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="输入云硬盘名称搜索">
-        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+        <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="输入云硬盘信息搜索">
+        <div (click)="setBackupList()" class="input-group-addon cup"><span class="glyphicon glyphicon-search"></span></div>
     </div>
 </div>
 <table *ngIf="code==='backup'" class="table table-hover">
     <tr>
-        <th class="text-center">云硬盘名称</th>
-        <th class="text-center">储存类型</th>
+        <th class="text-center">备份名称</th>
+        <th class="text-center">源云硬盘名称</th>
+        <th class="text-center">源虚拟机名称</th>
         <th class="text-center">容量(GB)</th>
-        <th class="text-center">属性</th>
     </tr>
-    <tr *ngFor="let i of [1,2,3,4,5]">
-        <td class="text-center">cirros-0.3.4</td>
-        <td class="text-center">SSD盘</td> 
-        <td class="text-center">40</td>
-        <td class="text-center">启动盘</td>
+    <tr *ngFor="let backup of backupList" class="cup" (click)="emit(backup)">
+        <td class="text-center">{{backup.id}}</td>
+        <td class="text-center">{{backup.name}}</td> 
+        <td class="text-center">{{backup.vmName}}</td>
+        <td class="text-center">{{backup.size}}</td>
     </tr>
 </table>
 
@@ -60,8 +58,8 @@
          [ngValue]="v.value" >{{ v.displayValue }}</option>
     </select>
     <div class="input-group float-left drive-search">
-        <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="输入云主名称搜索">
-        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+        <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="输入云主信息搜索">
+        <div (click)="setVmList()" class="input-group-addon cup"><span class="glyphicon glyphicon-search"></span></div>
     </div>
 </div>
 <table *ngIf="code==='vm'" class="table table-hover">
@@ -72,7 +70,7 @@
         <th class="text-center">内部IP</th>
         <th class="text-center">外部IP</th>
     </tr>
-    <tr *ngFor="let vm of vmList">
+    <tr *ngFor="let vm of vmList" class="cup" (click)="emit(vm)">
         <td class="text-center">{{vm.instanceName}}</td>
         <td class="text-center">{{vm.specification}}</td> 
         <td class="text-center">{{vm.osInfo}}</td>
@@ -80,3 +78,5 @@
         <td class="text-center">{{vm.publicIP}}</td>
     </tr>
 </table>
+
+<fc-pagination tp={{list.pageParameter.totalPage}} (pf)="changePage($event)"></fc-pagination>
