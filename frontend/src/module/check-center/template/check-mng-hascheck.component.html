@@ -6,7 +6,7 @@
 			<div class="search-container">
 				<div class="input-group col-md-2 float-left mgr20">
 					<input class="form-control" placeholder="输入云主机信息搜索" type="email">
-					<div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+					<div class="input-group-addon"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div>
 				<button class="button-gray-gradient float-left mgl20" [ngClass]="{'btn-default':_isAdvSearch!=1,'fox-cloud-button-white':_isAdvSearch==1}" (click)="_isAdvSearch=!_isAdvSearch">高&nbsp;级&nbsp;查&nbsp;询</button>
 			</div>
@@ -106,12 +106,38 @@
 					<tr *ngFor="let item of _listLoader.Items;let i = index;">
 						<td >{{i}}</td>
 						<td class="validateInfo">
-							<a [popover]="popover">{{item.orderCodeStr}}</a>
+							<!--<a [popover]="popover">{{item.orderCodeStr}}</a>
 							<popover-content #popover [closeOnClickOutside]="true" class="DetailInfo" >
 								<ul>
 									<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}:{{spec.attrDisplayValue}}</li>
 								</ul>
-							</popover-content>
+							</popover-content>-->
+
+
+							
+							<a class="hands" [popover]="myPopover">详细信息>>>></a>
+
+							<popover-content #myPopover 
+							placement="right"
+							[animation]="true" 
+							[closeOnClickOutside]="true" >
+
+												<ul>
+													<li>区域：&nbsp;&nbsp;华北1</li>
+													<li>可用区：&nbsp;&nbsp;可用区B</li>
+													<li>实例规格：&nbsp;&nbsp;CPU 2核/内存4GB/启动盘/70G</li>
+													<li>IP地址：&nbsp;&nbsp;10.1.1.1（内部）<br>
+														192.168.1.1（外部）</li>
+													<li>云硬盘类型：&nbsp;&nbsp;******</li>
+													<li>云硬盘容量：&nbsp;&nbsp;已设置</li>
+													<li>操作系统：&nbsp;&nbsp;******</li>
+													<li>数据库类型：&nbsp;&nbsp;已设置</li>
+													<li>数据库版本：&nbsp;&nbsp;******</li>
+													<li>密码：&nbsp;&nbsp;已设置</li>
+													<li>实例名称：&nbsp;&nbsp;abcabc</li>			
+												</ul>
+
+						</popover-content>
 						</td>
 						<td>{{item.serviceTypeName}}</td>
 						<td>{{item.platformStr}}
@@ -127,14 +153,29 @@
 						 	费用：<span class="warnInfo">{{item.priceNum}}</span></td>
 						<td>{{item.createTimeStr}}</td>
 						<td class="validateInfo">
-							<a [popover]="popover_result">{{item.checkResultName}}</a>
+							<!--<a [popover]="popover_result">{{item.checkResultName}}</a>
 							<popover-content #popover_result [closeOnClickOutside]="true" class="CheckInfo" >
 								<ul>
 									<li>审批人：李四</li>
 									<li>审批时间：审批时间</li>
 									<li>审批意见：{{item.checkResultName}}</li>
 								</ul>
-							</popover-content>
+							</popover-content>-->
+
+							<a class="hands" [popover]="checkPopover">审批详细>>>></a>
+
+							<popover-content #checkPopover 
+							placement="right"
+							[animation]="true" 
+							[closeOnClickOutside]="true" >
+
+												<ul>
+													<li>审批人：&nbsp;&nbsp;李四</li>
+													<li>审批时间：&nbsp;&nbsp;2016-1-11</li>
+													<li>审批意见：&nbsp;&nbsp;同意</li>			
+												</ul>
+
+						</popover-content>
 						</td>
 					</tr>
 				</tbody>

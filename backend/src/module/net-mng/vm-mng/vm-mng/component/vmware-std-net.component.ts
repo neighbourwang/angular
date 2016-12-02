@@ -11,7 +11,7 @@ import { VmwareService } from '../service/vmware.service';
 @Component({
     selector: "wmware-std-net",
     templateUrl: "../template/vmware-std-net.html",
-    styleUrls: ["../style/vmware.less"],
+    styleUrls: [],
     providers: []
 }
 )
@@ -199,6 +199,16 @@ export class VmwareStdNetComponent implements OnInit {
             this.showAlert("VLAN ID不能为空.");
             return;
         }
+        if (!this.validationService.isNumber(this.tempEditNet.vlanId)) {
+            this.showAlert("VLAN ID必须是数字.");
+            return;
+        }
+        //else {
+        //    if (!(this.tempEditNet.vlanId > 0 && this.tempEditNet.vlanId < 4096)) {
+        //        this.showAlert("VLAN ID必须是1~4095的数字.");
+        //        return;
+        //    }
+        //}
         this.service.saveEditNet(this.tempEditNet)
             .then(
             response => {

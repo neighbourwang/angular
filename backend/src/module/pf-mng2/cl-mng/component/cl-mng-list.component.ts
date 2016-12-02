@@ -286,7 +286,6 @@ export class ClMngListComponent implements OnInit {
                     this.tp = pageInfo.totalPage;
 
                     this.platforms = backend;
-
                 } else {
                     this.notice.open('错误', '获取信息错误');
                     console.log(response);
@@ -320,11 +319,21 @@ export class ClMngListComponent implements OnInit {
     //    return newAr;
     //}
 
-
+    //去详情
     godetail(item){
         console.log(item);
         this.router.navigate(["pf-mng2/pf-mng-detail", {id:item.id,type:item.platformType,name:item.name}]);
     }
 
-
+    //管理启动盘
+    goDiskMng(){
+         console.log('bootDisk');
+        let platForm: Platform = this.getPlatForm();
+        if (!platForm) {
+            this.notice.open('操作错误', '请选择云平台');
+        } else {
+            this.router.navigate(["pf-mng2/pf-mng-bootDisk", {id:platForm.id,type:platForm.platformType,name:platForm.name}]);
+        }
+        
+    }
 }

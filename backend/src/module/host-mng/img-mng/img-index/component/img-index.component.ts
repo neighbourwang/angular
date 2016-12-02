@@ -89,7 +89,7 @@ export class ImgIndexComponent implements OnInit {
             );
         } else {
             this.router.navigate([
-                `host-mng/img-mng/vmware-img-list/${plf.id}`]);
+                `host-mng/img-mng/vmware-img-list/${plf.id}`, { "platformName": plf.name }]);
 
         }
     }

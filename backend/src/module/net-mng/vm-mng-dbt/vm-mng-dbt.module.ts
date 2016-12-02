@@ -2,15 +2,19 @@ import { NgModule } from '@angular/core';
 
 import { CommonComponentModule } from '../../../architecture';
 import { IpMngModule } from './ip-mng/ip-mng.module';
+import { VmDisIndexModule}from './index-dbt/index.module';
 
 @NgModule({
     imports:[
         CommonComponentModule,
-        IpMngModule
+        IpMngModule,
+        VmDisIndexModule
     ],
     declarations:[],
-    exports:[
-        IpMngModule
+    
+    exports: [
+        IpMngModule,
+        VmDisIndexModule
     ],
     providers:[]
 

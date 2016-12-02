@@ -65,6 +65,7 @@ export class VmwareImgListComponent implements OnInit {
     bitDict: Array<SystemDictionary>;//os位数
 
     platformId: string = "";
+    platformName: string = "";
     queryOpt: CriteriaQuery = new CriteriaQuery();
     vmwareimgs: Array<VmwareImgModel>;
     selectedimg: VmwareImgModel = new VmwareImgModel();
@@ -89,6 +90,10 @@ export class VmwareImgListComponent implements OnInit {
     }
 
     ngOnInit() {
+       this.activatedRouter.params.forEach((params: Params) => {
+            this.platformName = params['platformName'] ? params['platformName']:"上海HPE VMWare云平台";
+            console.log("接收的platformName:" + this.platformName);
+		});
         this.dicService.getItems("IMAGES", "TYPE")
             .then(
             (dic) => {

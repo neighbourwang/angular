@@ -14,6 +14,8 @@ import { OrderList, OrderService, SendModule,TimeLineData, VlueList } from '../m
 })
 export class cloudDriveComponentOrder implements OnInit {
 
+	@ViewChild('cartButton') cartButton;
+
 	configs: OrderList;
 	payLoad: PayLoad;
 	payLoadArr : PayLoad[];  //最后提交的是个PayLoad数组
@@ -46,21 +48,20 @@ export class cloudDriveComponentOrder implements OnInit {
 
 	private getSkuId(payLoadList: AttrList[]): { skuId: string, productId: string } {   //获取skuID和productId
 		const trim = val => val.replace("[", "").replace("]", ""),
-			totalId = payLoadList.map(list => list.attrId).join(",");
+			totalId = payLoadList.map(list => list.attrValueId).join(",");
 
 		let nub = 0, 	//验证sku成功的个数
-			skuValue = "";  
+			skuValue = {};  
 
 		for (let sku in this.skuMap) {
 			sku.split(", ").forEach(skuString => {
-				totalId.indexOf(trim(skuString))
-			})
+				if(totalId.indexOf(trim(skuString)) > -1 ) nub++; 
+			});
+			if(nub === 3) {
+				return this.skuMap[sku]
+			}
+			nub = 0;
 		}
-
-		return {
-			skuId: "1c8628ae-f062-4250-8439-df50f7fe82d8",
-			productId: "3ddb2960-eb3c-449c-90de-fd62235c249c"
-		};
 	}
 
 	private itemNum:number = 0;
@@ -90,6 +91,7 @@ export class cloudDriveComponentOrder implements OnInit {
 		this.payLoad.productId = sku.productId;
 		this.payLoad.attrList = payloadList;
 		this.payLoad.itemNo = this.makeItemNum();
+		this.payLoad.serviceType = "1";  //云硬盘的type
 
 		this.payLoadArr = [];
 		this.payLoadArr.push(this.payLoad);
@@ -139,18 +141,16 @@ export class cloudDriveComponentOrder implements OnInit {
 	}
 
 	addCart() {   //加入购物车
-		// let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
-		// console.log(payLoadArr, JSON.stringify(payLoadArr))
-		// // console.log(JSON.stringify(payLoad))
-		// this.layoutService.show();
-		// this.service.addCart(payLoadArr).then(res => {
-		// 	this.layoutService.hide();
-		// 	alert("加入购物车成功！");
-		// 	this.cartButton.setCartList();
-		// 	// this.router.navigateByUrl("cloud-host-service/cloud-host-list");
-		// }).catch(res => {
-		// 	this.layoutService.hide();
-		// })
+		this.layoutService.show();
+		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
+		this.service.addCart(payLoadArr).then(res => {
+			this.layoutService.hide();
+			alert("加入购物车成功！");
+			this.cartButton.setCartList();
+			// this.router.navigateByUrl("cloud-host-service/cloud-host-list");
+		}).catch(res => {
+			this.layoutService.hide();
+		})
 	}
 
 
@@ -168,24 +168,30 @@ export class cloudDriveComponentOrder implements OnInit {
 	}
 
 	vmListClick(vm) {
-		this.sendModule.diskmounthostid.attrValue = !this.isAttachVm ? "" : vm ? vm.itemId : "";
+		if(this.isAttachVm && vm) {
+			this.sendModule.diskmounthostid.attrValue = vm.itemId;
+			this.sendModule.diskmounthostname.attrValue = vm.instanceName;
+		}else {
+			this.sendModule.diskmounthostid.attrValue = "";
+			this.sendModule.diskmounthostname.attrValue = "";
+		}
 	}
 
 	goTo(url: string) {
 		this.router.navigateByUrl(url);
 	}
 	buyNow() {
-		console.log(this.sendModule)
-		// this.layoutService.show();
-		// this.checkInput();
-		// let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
-		// // console.log(JSON.stringify(payLoadArr))
-		// this.service.saveOrder(payLoadArr).then(res => {
-		// 	this.layoutService.hide();
-		// 	this.router.navigateByUrl("cloud-host-service/cart-order");
-		// }).catch(res => {
-		// 	this.layoutService.hide();
-		// })
+		this.layoutService.show();
+		this.checkInput();
+		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
+		console.log(this.sendModule, payLoadArr)
+		console.log(JSON.stringify(payLoadArr))
+		this.service.saveOrder(payLoadArr).then(res => {
+			this.layoutService.hide();
+			this.router.navigateByUrl("cloud-host-service/cart-order");
+		}).catch(res => {
+			this.layoutService.hide();
+		})
 	}
 
 }

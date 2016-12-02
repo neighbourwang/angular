@@ -11,7 +11,9 @@ import { OrderMngRouting } from './order-mng.routing';
 import {OrderMngDetailComponent
     , OrderMngComponent
     ,OrderMngRenewComponent
-    , OrderMngCancelComponent } from './component';
+    , OrderMngCancelComponent
+    ,OrderMngSearchComponent
+    ,OrderMngSearchDetailComponent } from './component';
 
 @NgModule({
     imports: [
@@ -24,6 +26,8 @@ import {OrderMngDetailComponent
         ,OrderMngComponent
         ,OrderMngRenewComponent
         ,OrderMngCancelComponent
+        ,OrderMngSearchComponent
+        ,OrderMngSearchDetailComponent
     ],
     exports: [],
     providers: []

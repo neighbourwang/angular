@@ -1,16 +1,16 @@
 <!-- 从未挂载盘列表 -->
-<div *ngIf="code==='unmount'" class="col-md-12 mgb15 no-padding">
+<div *ngIf="code==='1'" class="col-md-12 mgb15 no-padding">
     <select [(ngModel)]="list.queryField" class="form-control mgr15 float-left drive-select">
         <option
          *ngFor="let v of service.diskQueryField | async; let i = index;"
-         [ngValue]="v.value" >{{ v.displayValue }}</option>
+         [ngValue]="v.code" >{{ v.displayValue }}</option>
     </select>
     <div class="input-group float-left drive-search">
         <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="输入云硬盘信息搜索">
         <div (click)="setUnmountList()" class="input-group-addon cup"><span class="glyphicon glyphicon-search"></span></div>
     </div>
 </div>
-<table *ngIf="code==='unmount'" class="table table-hover">
+<table *ngIf="code==='1'" class="table table-hover">
     <tr>
         <th class="text-center">云硬盘名称</th>
         <th class="text-center">储存类型</th>
@@ -24,18 +24,18 @@
 </table>
 
 <!-- 备份列表 -->
-<div *ngIf="code==='backup'" class="col-md-12 mgb15 no-padding">
+<div *ngIf="code==='2'" class="col-md-12 mgb15 no-padding">
     <select [(ngModel)]="list.queryField" class="form-control mgr15 float-left drive-select">
         <option
          *ngFor="let v of service.diskQueryField | async; let i = index;"
-         [ngValue]="v.value" >{{ v.displayValue }}</option>
+         [ngValue]="v.code" >{{ v.displayValue }}</option>
     </select>
     <div class="input-group float-left drive-search">
         <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="输入云硬盘信息搜索">
         <div (click)="setBackupList()" class="input-group-addon cup"><span class="glyphicon glyphicon-search"></span></div>
     </div>
 </div>
-<table *ngIf="code==='backup'" class="table table-hover">
+<table *ngIf="code==='2'" class="table table-hover">
     <tr>
         <th class="text-center">备份名称</th>
         <th class="text-center">源云硬盘名称</th>
@@ -51,18 +51,18 @@
 </table>
 
 <!-- 云主机实例列表 -->
-<div *ngIf="code==='vm'" class="col-md-12 mgb15 no-padding">
+<div *ngIf="code==='3'" class="col-md-12 mgb15 no-padding">
     <select [(ngModel)]="list.queryField" class="form-control mgr15 float-left drive-select">
         <option
          *ngFor="let v of service.vmQueryField | async; let i = index;"
-         [ngValue]="v.value" >{{ v.displayValue }}</option>
+         [ngValue]="v.code" >{{ v.displayValue }}</option>
     </select>
     <div class="input-group float-left drive-search">
         <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="输入云主信息搜索">
         <div (click)="setVmList()" class="input-group-addon cup"><span class="glyphicon glyphicon-search"></span></div>
     </div>
 </div>
-<table *ngIf="code==='vm'" class="table table-hover">
+<table *ngIf="code==='3'" class="table table-hover">
     <tr>
         <th class="text-center">云硬盘名称</th>
         <th class="text-center">配置</th>

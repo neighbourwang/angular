@@ -224,16 +224,22 @@ const menu: Array<Object> = [
          "icon": "icon-order-manage",
          "top2_menu": [
           {
-              "label": "Opensatck网络",
+              "label": "Openstack网络",
                  "isOpen": false,
                  "isActive": false,
                  "routing": "net-mng/openstack/openstack-net-mng"
              },
          {
-              "label": "VmWare",
+              "label": "VmWare网络",
                  "isOpen": false,
                  "isActive": false,
                  "routing": "net-mng/vm-mng"
+          },
+         {
+              "label": "VmWare分布式网络",
+                 "isOpen": false,
+                 "isActive": false,
+                 "routing": "net-mng/vm-mng-dbt/index"
              }
          ]
      },
@@ -247,6 +253,12 @@ const menu: Array<Object> = [
                  "isOpen": false,
                  "isActive": false,
                  "routing": "op-center/order-mng/order-mng"
+             },
+              {
+              "label": "订单查询",
+                 "isOpen": false,
+                 "isActive": false,
+                 "routing": "op-center/order-mng/order-mng-search"
              }
          ]
      },

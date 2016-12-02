@@ -42,51 +42,49 @@ export class IpMngListService {
             }
         );
         */
-
         const api = this.restApiCfg.getRestApi("net-mng.vmware.ipmng.list");
         return this.restApi.request(api.method, api.url, null, null, null);
-
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return IpMngModel_mock });
     }
 
-	updateSubnetIPs(portGroup:string, ippool: subnetIpModel): Promise <any> {
-		//API CALL
-        //*
+	updateSubnetIPs(portGroup: any, ippool: subnetIpModel): Promise <any> {
+        console.log('updateSubnetIPs');
         const pathParams = [
             {
                 key: "portGroup_id",
                 value: portGroup
             }
         ];
-        console.log('updateSubnetIPs');
+        ippool.ips = ippool.ipstr.replace(/\s+/g, "").replace(/\n\r/g, "").split(';');
+        let ips: Array<String> = ippool.ips.filter(item => {return item != ""});
+        console.log(ips, "(((((((((((((((ips)))))))))))))))");
+        const body = ips;
+        console.log(pathParams, body, "pathParams and body");
         const api = this.restApiCfg.getRestApi("net-mng.vmware.subnetips.setup");
-        console.log(ippool.ips, "ippool.ips")
-        return this.restApi.request(api.method, api.url, pathParams, null, ippool.ips);
-        //*/
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+
 		//return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
 	}
 
-    updateSubnet(portGroup: string, subn: subnetModel): Promise<any> {
-        //API CALL
-        //*
+    updateSubnet(portGroup: any, subn: subnetModel): Promise<any> {
+        console.log('updateSubnet');
         const pathParams = [
             {
                 key: "portGroup_id",
                 value: portGroup
             }
         ];
-        console.log('updateSubnet');
-        const api = this.restApiCfg.getRestApi("net-mng.vmware.subnet.setup");
-        return this.restApi.request(api.method, api.url, pathParams, null,
-            {
+        const body = {
                 "subnetCIDR": subn.subnetCIDR,
                 "subnetMask": subn.subnetMask,
                 "gateway": subn.gateway,
                 "dnsPre": subn.dnsPre,
                 "dnsAlt": subn.dnsAlt
-            }
-        );
-        //*/
+            };
+        console.log(pathParams, body, "pathParams and body");
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.subnet.setup");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
     }
 
@@ -96,17 +94,18 @@ export class IpMngListService {
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => net_dc_list_mock);
     }
 
-    getSubnetInfoIps(portGroup:string): Promise<any> {
+    getSubnetInfoIps(portGroup: any): Promise<any> {
+        console.log('getSubnetInfoIps');
         const pathParams = [
             {
                 key: "portGroup_id",
                 value: portGroup
             }
         ];
+        console.log(pathParams, "pathParams");
         const api = this.restApiCfg.getRestApi("net-mng.vmware.subnetinfo-ips.get");
         return this.restApi.request(api.method, api.url, pathParams, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
     }
-
 
 }

@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { LayoutService, NoticeComponent , ConfirmComponent, ValidationService, SystemDictionary, SystemDictionaryService, PaginationComponent  } from '../../../../../architecture';
+import { LayoutService, NoticeComponent , ConfirmComponent, ValidationService, SystemDictionary, PopupComponent, SystemDictionaryService, PaginationComponent  } from '../../../../../architecture';
 
 //model 
 import { IpUsageMngModel } from '../model/ipusage-mng.model';
@@ -42,6 +42,12 @@ export class IpUsageMngListComponent implements OnInit{
 
     @ViewChild("confirm")
     confirm: ConfirmComponent;
+
+    @ViewChild("enableipbox")
+    enableipbox: PopupComponent;
+
+    @ViewChild("disableipbox")
+    disableipbox: PopupComponent;
 	
 	noticeTitle = "";
     noticeMsg = "";
@@ -49,7 +55,8 @@ export class IpUsageMngListComponent implements OnInit{
 	statusDic: Array<SystemDictionary>;//状态
     ipusagemngs: Array<IpUsageMngModel>;
     rawipusagemngs: Array<IpUsageMngModel>;
-    selectedip: IpUsageMngModel = new IpUsageMngModel();
+    selectedip: IpUsageMngModel = new IpUsageMngModel(); //被选中的ipusage
+    changedip: IpUsageMngModel = new IpUsageMngModel(); //前台绑定的ipusage
     pg_id: string;
     pg_name: string;
     ipusagequery: string = "all";
@@ -65,7 +72,6 @@ export class IpUsageMngListComponent implements OnInit{
     }
 
     private confirmedHandler: Function = null;
-    //启用，禁用，删除的处理
     onConfirmed() {
         if (this.confirmedHandler) {
             this.confirmedHandler();
@@ -130,7 +136,7 @@ export class IpUsageMngListComponent implements OnInit{
     }
 
     filter(query?): void {
-        console.log("=== filter ===");
+        //console.log("=== filter ===");
         this.ipusagequery = query || this.ipusagequery;
         this.ipusagemngs = this.rawipusagemngs.filter((item)=>{
             return (this.ipusagequery == "all" || item.status == this.ipusagequery) 
@@ -145,12 +151,10 @@ export class IpUsageMngListComponent implements OnInit{
             return;
         }
         this.layoutService.show();
-        //this.service.getIpMngList(this.query, this.pageIndex, this.pageSize)
         this.service.getIpUsageMngList( pg_id )
         .then(
             response => {
                 this.layoutService.hide();
-                //console.log(response, "IPUsagemngS!!!");
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
                     this.rawipusagemngs = response.resultContent;
@@ -182,11 +186,11 @@ export class IpUsageMngListComponent implements OnInit{
     getSelected() {
         let item = this.ipusagemngs.find((n) => n.checked) as IpUsageMngModel;
         if (item){
-            console.log(item, "this.getSelected 1");
+            //console.log(item, "this.getSelected 1");
             return item;
         }            
         else {
-            console.log(item, "this.getSelected 2");
+            //console.log(item, "this.getSelected 2");
             this.showMsg("请选择相应的行");
             return null;
         }
@@ -197,56 +201,123 @@ export class IpUsageMngListComponent implements OnInit{
     }
 
     enable(): void{
-        let ip = this.getSelected();
-        if(ip){
-            this.selectedip = ip;
+        this.selectedip = this.getSelected();
+        if(this.selectedip){
+            this.changedip.id = this.selectedip.id;
+            this.changedip.addr = this.selectedip.addr;
+            this.changedip.description = this.selectedip.description;
             console.log(this.selectedip.id);
-            console.log(this.pg_id);
-            if(this.selectedip.status == this.statusDic.find(n => n.code == "OCCUPIED").value){
+            //if(this.selectedip.status == this.statusDic.find(n => n.code == "OCCUPIED").value){
+            if(this.selectedip.status == "1"){
                 this.showMsg("IP已被占用");
                 return; 
             }
-            this.service.enableIP(this.selectedip.id)
-            .then(res => {
-                    if (res && res.resultCode == "100") {
-                        console.log(res, "设置IP地址范围成功")
-                    } else {
-                        this.showMsg("设置IP地址范围失败");
-                        return;
-                    }
-                })
-                .then(()=>{
-                    this.getIpUsageMngList(this.pg_id);
-                })
-                .catch((e) => this.onRejected(e))
+            this.enableipbox.open();
         }
-
     }
 
     disable(): void {
-        let ip = this.getSelected();
-        if(ip){
-            this.selectedip = ip;
+        this.selectedip = this.getSelected();
+        if(this.selectedip){
+            this.changedip.id = this.selectedip.id;
+            this.changedip.addr = this.selectedip.addr;
+            this.changedip.description = this.selectedip.description;
             console.log(this.selectedip.id);
-            if (this.selectedip.status == this.statusDic.find(n => n.code == "FREE").value) {
+            //if (this.selectedip.status == this.statusDic.find(n => n.code == "FREE").value) {
+            if(this.selectedip.status == "2"){
                 this.showMsg("IP未被占用，无法释放");
                 return;
             }
-            this.service.disableIP(this.selectedip.id)
-            .then(res => {
-                    if (res && res.resultCode == "100") {
-                        console.log(res, "设置IP地址范围成功")
-                    } else {
-                        this.showMsg("设置IP地址范围失败");
-                        return;
-                    }
-                })
-                .then(()=>{
-                    this.getIpUsageMngList(this.pg_id);
-                })
-                .catch((e) => this.onRejected(e))
+            this.disableipbox.open();
         }
 
     }
 
+    acceptEnableIPModify(): void {
+        console.log('clicked acceptEnableIPModify');
+        //console.log(this.changedip.description, "this.changedip.description");
+        if (this.validationService.isBlank(this.changedip.description)) {
+            this.showMsg("请填写说明");
+            this.enableipbox.close();
+            this.okCallback = () => {
+                this.enableipbox.open(); 
+            }
+        } else {
+            //console.log('clicked acceptEnableIPModify 2');
+            this.service.enableIP(this.changedip)
+                .then(res => {
+                    if (res && res.resultCode == "100") {
+                        //this.changedip.status = <string>this.statusDic.find(n => n.code == "OCCUPIED").value;
+                        this.changedip.status = '1';
+                        console.log(res, "IP占用成功")
+                    } else {
+                        this.showMsg("IP占用失败");
+                        return;
+                    }
+                })
+                .then(() => {
+                    console.log('clicked acceptEnableIPModify OK');
+                    //this.getIpUsageMngList(this.pg_id);
+                    this.selectedip.description = this.changedip.description;
+                    this.selectedip.status = this.changedip.status;
+                    this.enableipbox.close();
+                })
+                .catch(err => {
+                    console.log('clicked acceptEnableIPModify 6');
+                    console.log('IP占用失败', err);
+                    this.showMsg("IP占用失败");
+                    this.okCallback = () => { this.enableipbox.open(); };
+                })
+        }
+    }
+
+    cancelEnableIPModify(): void {
+        console.log('clicked cancelEnableIPModify');
+        this.changedip.description = this.selectedip.description;
+    }
+
+
+
+    acceptDisableIPModify(): void {
+        console.log('clicked acceptDisableIPModify');
+        //console.log(this.changedip.description, "this.selectedip.description");
+        if (this.validationService.isBlank(this.changedip.description)) {
+            this.showMsg("请填写说明");            
+            this.enableipbox.close();
+            this.okCallback = () => {
+                this.disableipbox.open(); 
+            }
+        } else {
+            //console.log('clicked acceptDisableIPModify 2');
+            this.service.disableIP(this.changedip)
+                .then(res => {
+                    if (res && res.resultCode == "100") {
+                        //this.changedip.status = <string>this.statusDic.find(n => n.code == "FREE").value;
+                        this.changedip.status = '2';
+                        console.log(res, "IP释放成功")
+                    } else {
+                        this.showMsg("IP释放失败");
+                        return;
+                    }
+                })
+                .then(() => {
+                    console.log('clicked acceptDisableIPModify OK');
+                    //this.getIpUsageMngList(this.pg_id);
+                    this.selectedip.description = this.changedip.description;
+                    this.selectedip.status = this.changedip.status;
+                    this.disableipbox.close();
+                })
+                .catch(err => {
+                    console.log('clicked acceptDisableIPModify 6');
+                    console.log('IP释放失败', err);
+                    this.showMsg("IP释放失败");
+                    this.okCallback = () => { this.disableipbox.open(); };
+                })
+        }
+    }
+
+    cancelDisableIPModify(): void {
+        console.log('clicked cancelDisableIPModify');
+        this.changedip.description = this.selectedip.description;
+    }
 }

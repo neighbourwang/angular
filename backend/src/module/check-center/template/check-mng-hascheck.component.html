@@ -111,38 +111,55 @@
 					<tr *ngFor="let item of _listLoader.Items;let i=index;">
 						<td>{{i}}</td>
 						<td>{{item.orderCodeStr}}<br>
-						    <a lab-bootstrap-popover id="detail-{{i}}" [attr.contentid]="contentIdGen(i)">详细信息>>></a>
-					    	<div class="DetailInfo" [attr.id]="contentIdGen(i)" style="display: none;">
+							<!--<a  [popover]="detailPopover" id="detail-{{i}}" [attr.contentid]="contentIdGen(i)">详细信息>>></a>-->
+						    <!-- 弹出内容模板 -->
+					    	<!--<div class="DetailInfo" [attr.id]="contentIdGen(i)" style="display: none;">
 								<ul>
 									<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}:{{spec.attrDisplayValue}}</li>
 								</ul>
-							</div>
+							</div>-->
+							<a [popover]="myPopover" class="hands">详细信息>>>></a>
 
+							<popover-content #myPopover 
+							placement="right"
+							[animation]="true" 
+							[closeOnClickOutside]="true" >
+
+												<ul>
+													<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}:{{spec.attrDisplayValue}}</li>
+												</ul>
+
+						</popover-content>
 					    </td>
-						<td>云主机<br>
-						     运硬盘<br>
-						     数据库</td>
-						<td>上海A区<br>
-						     高可用1</td>
-						<td>新订单</td>
-						<td>用于****应用</td>
-						<td>张三</td>
-						<td>部门</td>>
-						<td>企业</td>
-						<td>计费模式：包年包月<br>
-						 	订单周期：1个月<br>
-						 	一次性费用：￥0<br>
-						 	费用：￥100月</td>
-						<td>2016-10-01<br>
-							23:10<br>
-							<a lab-bootstrap-popover id="approve-{{i}}" [attr.contentid]="approveIdGen(i)">审批信息>>></a>
-							<div class="CheckInfo" [attr.id]="approveIdGen(i)" style="display: none;">
+						<td>{{item.serviceTypeName}}</td>
+						<td>{{item.platformStr}}<br/>
+						    {{item.zoneStr}}</td>
+						<td>{{item.orderTypeName}}</td>
+						<td>{{item.description}}</td>
+						<td>{{item.userStr}}</td>
+						<td>{{item.departmentStr}}</td>
+						<td>{{item.entStr}}</td>
+						<td>计费模式：{{item.billingModeName}}
+							<br/>订单周期：{{item.billingDurationStr}}
+							<br/>一次性费用：{{item.oneTimePriceNum}}
+							<br/>费用：{{item.priceNum}}
+						</td>
+						<td>{{item.createTimeStr}}<br>
+							<a class="hands" [popover]="checkPopover">审批详细>>>></a>
+
+							<popover-content #checkPopover 
+							placement="right"
+							[animation]="true" 
+							[closeOnClickOutside]="true" >
+
 								<ul>
-									<li>审批人： 李四</li>
-									<li>审批时间：2016-10-01 10:23</li>
-									<li>审批意见：同意</li>
+									<li>审批人：&nbsp;&nbsp;李四</li>
+									<li>审批时间：&nbsp;&nbsp;2016-1-11</li>
+									<li>审批意见：&nbsp;&nbsp;同意</li>			
 								</ul>
-							</div>
+
+						</popover-content>
+
 						</td>
 						<td>同意</td>
 					</tr>

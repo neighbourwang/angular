@@ -106,13 +106,25 @@
 					<tr *ngFor="let item of _listLoader.Items;let i = index;">
 						<td>{{i}}</td>
 						<td>{{item.orderCodeStr}}<br>
-						    <a lab-bootstrap-popover id="detail-{{i}}" [attr.contentid]="contentIdGen(i)">详细信息>>></a>
+						    	<!--<a  [popover]="detailPopover" id="detail-{{i}}" [attr.contentid]="contentIdGen(i)">详细信息>>></a>-->
 						    <!-- 弹出内容模板 -->
-					    	<div class="DetailInfo" [attr.id]="contentIdGen(i)" style="display: none;">
+					    	<!--<div class="DetailInfo" [attr.id]="contentIdGen(i)" style="display: none;">
 								<ul>
 									<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}:{{spec.attrDisplayValue}}</li>
 								</ul>
-							</div>
+							</div>-->
+							<a class="hands" [popover]="myPopover">详细信息>>>></a>
+
+							<popover-content #myPopover 
+							placement="right"
+							[animation]="true" 
+							[closeOnClickOutside]="true" >
+
+												<ul>
+													<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}:{{spec.attrDisplayValue}}</li>
+												</ul>
+
+						</popover-content>
 					    </td>
 						<td>{{item.serviceTypeName}}</td>
 						<td>{{item.platformStr}}<br/>
@@ -128,22 +140,22 @@
 							<br/>费用：{{item.priceNum}}
 						</td>
 						<td>{{item.createTimeStr}}</td>
-						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white" style="margin-right: 10px;" (click)="accept()">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white" (click)="refuse()">拒绝</button></td>
+						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white" style="margin-right: 10px;" (click)="accept()">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white" (click)="refuse(item)">拒绝</button></td>
 					</tr>					
 				</tbody>
 			</table>
-		</div>
+		</div>	
 		<fc-pagination tp={{_listLoader.TotalPages}} (pf)="changePage($event)"></fc-pagination>
 	</div>
 
 <!--拒绝-->
-	<fc-popup #refuseDialog ot="提交" ct="取消" title="订单请求被拒绝"  (of)="accept()" (cf)="cancel();">	
+	<fc-popup #refuseDialog ot="提交" ct="取消" title="订单请求被拒绝"  (of)="confirmRefuse()" (cf)="cancelRefuse();">	
 		<div class="dialogContent">
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>原因：</div>
 					<div class="col-sm-8">
-						<textarea class="form-control mgb20" rows="7" style="width: 370px;"></textarea>
+						<textarea class="form-control mgb20" rows="7" style="width: 370px;" [(ngModel)]="refuseReason"></textarea>
 						<span>可以输入中文与字符，最大不能超过200个字</span>
 					</div>
 				</div>

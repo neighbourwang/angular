@@ -25,7 +25,7 @@
 							<div class="left form-control-title mgl20">提交者：</div>
 							<div class="left">
 								<select class="form-control" [(ngModel)]="_param.submitUserId">
-									<option class="hands">所有用户</option>
+									<option class="hands">所有提交者</option>
 									<option class="hands">关羽</option>
 									<option class="hands">张飞</option>
 									<option class="hands">刘备</option>
@@ -97,12 +97,36 @@
 					<tr *ngFor="let item of _listLoader.Items;let i = index;">
 						<td>{{i}}</td>
 						<td>
-							<a [popover]="popover">{{item.orderCodeStr}}</a>
-							<popover-content #popover [closeOnClickOutside]="true" class="DetailInfo" >
+							<!--<a [popover]="popover">{{item.orderCodeStr}}</a>
+							<popover-content #popover [closeOnClickOutside]="true">
 								<ul>
 									<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}:{{spec.attrDisplayValue}}</li>
 								</ul>
-							</popover-content>
+							</popover-content>-->
+
+							<a class="hands" [popover]="myPopover">详细信息>>>></a>
+
+							<popover-content #myPopover 
+							placement="right"
+							[animation]="true" 
+							[closeOnClickOutside]="true" >
+
+												<ul>
+													<li>区域：&nbsp;&nbsp;华北1</li>
+													<li>可用区：&nbsp;&nbsp;可用区B</li>
+													<li>实例规格：&nbsp;&nbsp;CPU 2核/内存4GB/启动盘/70G</li>
+													<li>IP地址：&nbsp;&nbsp;10.1.1.1（内部）<br>
+														192.168.1.1（外部）</li>
+													<li>云硬盘类型：&nbsp;&nbsp;******</li>
+													<li>云硬盘容量：&nbsp;&nbsp;已设置</li>
+													<li>操作系统：&nbsp;&nbsp;******</li>
+													<li>数据库类型：&nbsp;&nbsp;已设置</li>
+													<li>数据库版本：&nbsp;&nbsp;******</li>
+													<li>密码：&nbsp;&nbsp;已设置</li>
+													<li>实例名称：&nbsp;&nbsp;abcabc</li>			
+												</ul>
+
+						</popover-content>
 
 						</td>
 						<td>{{item.serviceTypeName}}</td>
@@ -123,6 +147,31 @@
 				</tbody>
 			</table>
 		</div>
+                         <!--tooltip测试-->
+							<!--<a [popover]="myPopover">详细信息>>>></a>
+
+							<popover-content #myPopover 
+							placement="right"
+							[animation]="true" 
+							[closeOnClickOutside]="true" >
+
+												<ul>
+													<li>区域：&nbsp;&nbsp;华北1</li>
+													<li>可用区：&nbsp;&nbsp;可用区B</li>
+													<li>实例规格：&nbsp;&nbsp;CPU 2核/内存4GB/启动盘/70G</li>
+													<li>IP地址：&nbsp;&nbsp;10.1.1.1（内部）<br>
+														192.168.1.1（外部）</li>
+													<li>云硬盘类型：&nbsp;&nbsp;******</li>
+													<li>云硬盘容量：&nbsp;&nbsp;已设置</li>
+													<li>操作系统：&nbsp;&nbsp;******</li>
+													<li>数据库类型：&nbsp;&nbsp;已设置</li>
+													<li>数据库版本：&nbsp;&nbsp;******</li>
+													<li>密码：&nbsp;&nbsp;已设置</li>
+													<li>实例名称：&nbsp;&nbsp;abcabc</li>			
+												</ul>
+
+						</popover-content>-->
+		
 		<fc-pagination tp={{_listLoader.TotalPages}} (pf)="changePage($event)"></fc-pagination>
 	</div>
 
