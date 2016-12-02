@@ -5,21 +5,20 @@
         <table class="table table-hover" >
             <thead>
                 <tr>
-                    <th>数据中心（DC）</th>
-                    <th>可用区（集群）名称</th>
-                    <th>可用区显示名称</th>
-                    <th>标准端口组显示名称</th>
-                    <th>标准端口组名称</th>
+                    <th>数据中心(DC)名称</th>
+                    <th>分布式交换机名称(VDS)</th>
+                    <th>分布式虚拟端口端口组名称(dv Port-group)</th>
+                    <th>端口组显示名称</th>
                     <th>VLANID</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let port of ports">
                     <td>{{port.dcName}}</td>
-                    <td>{{port.clusterName}}</td>
-                    <td>{{port.clusterDisplayName}}1</td>
-                    <td>{{port.portDisplayName}}</td>
-                    <td>{{port.portGroupName}}</td>
+                    <td>{{port.dcName}}</td>
+                    <td>{{port.switchsName}}</td>
+                    <td>{{port.dvPortGroupName}}</td>
+                    <td>未设置</td>
                     <td>{{port.vlanId}}</td>
                 </tr>
             </tbody>

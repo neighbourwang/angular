@@ -143,6 +143,9 @@ export class ProdDirDiskCreComponent implements OnInit {
         if(this.prodDir.platformList.length==0){
             this.selectAllZone=false;
         }
+        if(this.prodDir.platformList.length==this._platformlist.length){
+            this.selectAllZone=true;
+        }
     }
 
     cancel() {
