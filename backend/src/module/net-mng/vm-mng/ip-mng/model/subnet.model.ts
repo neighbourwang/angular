@@ -58,7 +58,7 @@ export class subnetInfoModel {
     subnetMask: string;
     dnsPre: string;
     dnsAlt: string;
-    range: string;
+    range: Array<String>;
 
     toString(){
         return JSON.stringify(this);

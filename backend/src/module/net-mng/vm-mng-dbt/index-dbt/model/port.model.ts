@@ -1,5 +1,6 @@
 export class port{
     selected: boolean;
+    isOpen:boolean;
     id: string;
     dcId: string;
     dcName: string;

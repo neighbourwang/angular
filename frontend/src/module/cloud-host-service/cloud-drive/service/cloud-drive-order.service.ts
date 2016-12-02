@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi } from '../../../../architecture';
+import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../architecture';
 
 import { PayLoad } from '../model/attr-list.model';
 import { TimeLineData } from '../model/services.model';
@@ -11,6 +11,7 @@ import 'rxjs/add/operator/toPromise';
 export class cloudDriveServiceOrder {
     constructor(private http:Http,
                 private restApiCfg:RestApiCfg,
+                private dict:SystemDictionaryService,
                 private restApi:RestApi) {
     }
 
@@ -246,7 +247,7 @@ return new Promise((next) => {
             "attrValueId": "testid",
             "attrValueCode": null,
             "attrDisplayValue": "测试的云平台",
-            "attrValue": "88"
+            "attrValue": "288"
           }
         ],
         "mapValueList": null
@@ -553,33 +554,16 @@ return new Promise((next) => {
     }
 
     saveOrder(payload: PayLoad[]): Promise<any> {
-
         let api = this.restApiCfg.getRestApi('hosts.order.add');
         return this.restApi.request(api.method, api.url, undefined, undefined, payload);
-        
+    }
+    addCart(payload: PayLoad[]): Promise<any> {
+        let api = this.restApiCfg.getRestApi('shopping.cart.add');
+        return this.restApi.request(api.method, api.url, undefined, undefined, payload);
     }
 
-    getTimeLineType() : Promise<TimeLineData[]> {
-        let api = this.restApiCfg.getRestApi('sysdic.owner.field');
-
-        let pathParams = [
-            {
-                key: '_owner',
-                value: "PACKAGE_BILLING"
-            }, 
-            {
-                key: '_field',
-                value: "PERIOD_TYPE"
-            }
-        ];
-        const request = this.restApi.request(api.method, api.url, pathParams, undefined, undefined)
-                            .then(res => {
-                                if(res.resultCode !== "100"){
-                                    throw "";
-                                }
-                                return res.resultContent;
-                            });
-                           
-        return request;
-    }
+    dictRelyType = this.dict.get({    //rely_type
+        owner : "GLOBAL",
+        field : "RELY_TYPE"
+    });
 }

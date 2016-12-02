@@ -18,28 +18,29 @@ export class IpUsageMngListService {
     ) { }
 
     getIpUsageMngList( pg_id: string ): Promise <any> {
-        //API CALL
+        console.log("getIpUsageMngList"); 
         const pathParams = [
             {
                 key: "portGroup_id",
                 value: pg_id
             }
         ];
+        //console.log(pathParams, "pathParams");
         const api = this.restApiCfg.getRestApi("net-mng.vmware.ipusagemng.list");
         return this.restApi.request(api.method, api.url, pathParams, null, null);        
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return IpUsageMngModel_mock });
     }
 
     enableIP(ipusage: IpUsageMngModel): Promise <any>  {
-        console.log("enableIP");               
-        //API CALL
+        console.log("enableIP"); 
         const pathParams = [
             {
                 key: "ip_id",
                 value: ipusage.id
             }
         ];
-        const body = [ipusage.description]; 
+        const body = [ipusage.description];
+        console.log(pathParams, body, "pathParams and body");
         const api = this.restApiCfg.getRestApi("net-mng.vmware.subnetip.occupy");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
@@ -48,8 +49,7 @@ export class IpUsageMngListService {
     }
 
     disableIP(ipusage: IpUsageMngModel): Promise <any>  {
-        console.log("disableIP");        
-        //API CALL
+        console.log("disableIP");   
         const pathParams = [
             {
                 key: "ip_id",
@@ -57,6 +57,7 @@ export class IpUsageMngListService {
             }
         ];
         const body = [ipusage.description]; 
+        console.log(pathParams, body, "pathParams and body");
         const api = this.restApiCfg.getRestApi("net-mng.vmware.subnetip.release");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });

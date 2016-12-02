@@ -16,13 +16,13 @@ import { ClMngCommonService } from '../service/cl-mng-common.service';
 import { Platform } from '../model/platform.model';
 
 @Component({
-    templateUrl: '../template/pf-mng-detail.component.html',
+    templateUrl: '../template/pf-mng-bootDisk.component.html',
     styleUrls: [
         '../style/cl-mng.less'
     ],
     providers: []
 })
-export class PfDetailComponent implements OnInit {
+export class bootDiskMngComponent implements OnInit {
 
 
     constructor(private layoutService:LayoutService,
@@ -59,63 +59,50 @@ export class PfDetailComponent implements OnInit {
     platFormStatus : Array<any> = new Array<any>();
 
 
-    Tabels=[
-        {name:'基本信息',active:true},
-        {name:'可用区与配额',active:false},
-        {name:'存储区与配额',active:false}        
-        ]
+  
     platformName:string;
-    platformTypes : Array<any> = new Array<any>();
-    platformVersion : Array<any> = new Array<any>();
-    regions : Array<any> = new Array<any>();
+    platformType:string;
     //初始化
     ngOnInit() {
         let id:string;
         let type:string;
         this.router.params.forEach((params: Params)=>{
              id=params['id'];
-             type=params['type'];
              this.platformName=params['name'];
+             this.platformType=params['type']
              console.log(id,type,name)
             //  (type=='0')&&(this.vmProdDir=true);
             //  (type=='1')&&(this.vmProdDir=false);             
         })
         
         //获取云平台类型
-        this.commonService.getPlatFormTypes()
-            .then(
-                res => this.platformTypes = res
-            )
-            .catch(
-                err => {
-                    console.error('err');
-                    this.notice.open('错误','获取信息错误');
-                }
-            )
-            //获取区域列表
-        this.commonService.getRegion()
-            .then(
+        // this.commonService.getPlatFormTypes()
+        //     .then(
+        //         res => this.platformTypes = res
+        //     )
+        //     .catch(
+        //         err => {
+        //             console.error('err');
+        //             this.notice.open('错误','获取信息错误');
+        //         }
+        //     )
+        //     //获取区域列表
+        // this.commonService.getRegion()
+        //     .then(
                 
-                res => {
-                    console.log('region',res);
-                    this.regions = res;
-                }
-            ).catch(
-                err => {
-                    console.error('err');
-                    this.notice.open('错误','获取信息错误');
-                }
-            )       
+        //         res => {
+        //             console.log('region',res);
+        //             this.regions = res;
+        //         }
+        //     ).catch(
+        //         err => {
+        //             console.error('err');
+        //             this.notice.open('错误','获取信息错误');
+        //         }
+        //     )       
         
     }
-    //切换TAB
-    changeTab(item,index){        
-        this.Tabels.forEach((ele)=>{
-            ele.active=false;
-        })
-        item.active=true;
-        
-    }
+   
     back(){
         this.location.back();
     }
@@ -123,5 +110,7 @@ export class PfDetailComponent implements OnInit {
         this.route.navigate(['pf-mng2/cl-mng/cl-mng'])
     }
     save(){}
-
+    createBootDisk(){
+        this.route.navigate(['pf-mng2/pf-mng-bootDisk-creEdit'])
+    }
 }

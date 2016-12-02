@@ -66,6 +66,7 @@ export class IPValidationService {
         let str = val.split('/');
         if( !this.validationService.isBlank(str[0]) && !this.validationService.isBlank(str[1]) )
         {
+            console.log(str[0], str[1], "str0 and str1");
             if( this.isIP(str[0]) && this.validationService.isNumber(str[1]) && (str[1] > 0 && str[1] < 32))
             return true;
             else return false;
@@ -88,14 +89,12 @@ export class IPValidationService {
 
     isIpScope(pool: any, cidr: any): boolean {
         if (pool instanceof Array) pool = pool.join(' ');
-        //console.log(pool, "val--------------------1");
-        //let flag = 0;
-        //const reg = /^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$/;
-        pool = pool.replace(/\s+/g, "");
-        let arrayips = pool.split(';');
+        pool = pool.replace(/\s+/g, "").replace(/\n\r/g, "");
+        //console.log(pool, "pool");
+        let arrayips = pool.split(';').filter(item => {return item != ""});
         console.log(arrayips, "arrayips");
         let i = 0;
-        for (i = 0; i < (arrayips.length - 1); i++) {
+        for (i = 0; i < arrayips.length; i++) {
             let lineips = arrayips[i].split(',');
             console.log(lineips, "lineips");
             if (lineips.length == 1) {
@@ -131,7 +130,7 @@ export class IPValidationService {
                 return false;
             }
         }
-        if( i >= (arrayips.length - 1)) return true;
+        if( i >= arrayips.length) return true;
     }
 
     validate(name: string, val: any, op: string) {

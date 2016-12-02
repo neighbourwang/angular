@@ -17,7 +17,7 @@
 						<div class="prodSpecific">
 							<span class="form-line-height font-gray" >cpu</span>
 							<span >
-								<count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
+								<count-bar [default]=0 [step]=1 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
 							</span>
 							<span class="form-line-height font-gray">核(vCPU)</span>
 						</div>
@@ -126,7 +126,7 @@
 						<div class="col-sm-4">
 							<div class="row row-line-height inputLeft" *ngFor='let zone of plateform.zoneList'>
 								<select class="form-control" [(ngModel)]="zone.storageId" (ngModelChange)="selectStorage($event,idx)">
-                                    <option *ngFor="let storage of zone.storageList;let idx=index" [value]="storage.storageId">{{storage.storageName}}</option>
+                                    <option *ngFor="let storage of zone.storageList;let idx=index" [value]="storage.storageId">{{storage.displayName}}</option>
                                 </select>
 							</div>
 						</div>

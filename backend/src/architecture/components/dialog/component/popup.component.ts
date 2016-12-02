@@ -2,7 +2,7 @@ import { Component, ViewChild, EventEmitter, Input, Output, Renderer, ElementRef
 
 @Component({
     selector: 'fc-popup'
-    ,template:`<div class="modal fade" #popupCmp tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    ,template:`<div class="modal fade" #popupCmp tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="z-index: 50">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <!--header-->

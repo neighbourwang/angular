@@ -22,21 +22,27 @@ export class VmDisIndexService {
 
     //获取初始化列表数据
     getDCList(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("net-img.vm-mng.network.dclist");
+        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.dclist");
         //return this.restApi.request(api.method, api.url, null, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => dclist_mock);
     }
 
      getData(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("net-img.vm-mng.network.list");
+        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.portlist");
         //return this.restApi.request(api.method, api.url, null, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => port_mock);
-}
+    }
 
     
-
+    saveEdit(port: port): Promise<any> {
+        
+        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.setportname");
+        //return this.restApi.request(api.method, api.url, null, null,port);
+        
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
+    }
     
-    netEnable(id:string):Promise<any>{
+    portEnable(id:string):Promise<any>{
         //如果运行状态不是运行中的，则不能启用此网络
         const pathParams = [
             {
@@ -45,12 +51,12 @@ export class VmDisIndexService {
             }
         ];
 
-         //const api = this.restApiCfg.getRestApi("net-img.vm-mng.network.enable");
+         //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.enable");
          //return this.restApi.request(api.method, api.url, pathParams, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
     }
 
-     netDisable(id:string):Promise<any>{
+     portDisable(id:string):Promise<any>{
         const pathParams = [
             {
                 key: "id",
@@ -58,7 +64,7 @@ export class VmDisIndexService {
             }
         ];
 
-         //const api = this.restApiCfg.getRestApi("net-img.vm-mng.network.disable");
+         //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.disable");
         //return this.restApi.request(api.method, api.url, pathParams, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
     }
