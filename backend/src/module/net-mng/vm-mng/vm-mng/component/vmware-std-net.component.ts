@@ -394,8 +394,8 @@ export class VmwareStdNetComponent implements OnInit {
             this.router.navigate([
                     `net-mng/vm-mng/ip-mng-list`,
                     {
-                        "dc_name": selectedNet.dcName,
-                        "cls_name": selectedNet.clusterName
+                        "dc_Id": selectedNet.dcId,
+                        "cls_Id": selectedNet.clusterId
                     }
                 ]
             );
