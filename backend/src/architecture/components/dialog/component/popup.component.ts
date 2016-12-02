@@ -1,67 +1,41 @@
-import { Component, ViewChild, EventEmitter, Input, Output, Renderer, ElementRef } from "@angular/core";
+import { Component, ViewChild, EventEmitter, Input, Output, OnInit } from "@angular/core";
+
+import { ModalComponent } from "ng2-bs3-modal/ng2-bs3-modal";
 
 @Component({
-    selector: 'fc-popup'
-    ,template:`<div class="modal fade" #popupCmp tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="z-index: 50">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <!--header-->
-                      <div class="modal-header" class="fox-cloud-modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
-                      </div>
-
-                      <!--content-->
-                     <div class="modal-body fox-cloud-modal-body"> 
-                        <ng-content></ng-content>
-                    </div>
-                      
-                      <!-- footer -->
-                      <div class="modal-footer fox-cloud-modal-footer" style="text-align: center;">
-                          <button class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal" (click)="cancel()">
-                            <span class="icon-button-label">{{ct}}</span><!-- 取消 -->
-                        </button>
-                        <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="accept()" style="margin-left: 30px">
-                            <span class="icon-button-label">{{ot}}</span><!-- 确认 -->
-                        </button>
-                      </div>
-                  </div>
-              </div>
-        </div>`
+    selector: "fc-popup",
+    templateUrl: "../template/popup.component.html",
+    inputs: ["title", "ot", "ct"]
 })
-export class PopupComponent {
-    @Input()
-    private title:string = "系统";//标题
-    @Input()
-    private ct:string = "取消";//取消
-    @Input()
-    private ot:string = "确认";//确认
+export class PopupComponent implements OnInit {
     @Output()
-    private cf = new EventEmitter<any>();//取消处理
+    of = new EventEmitter<any>();
     @Output()
-    private of = new EventEmitter<any>();//确认处理
-    @ViewChild('popupCmp')
-    private popupCmp:ElementRef;
+    cf = new EventEmitter<any>();
 
-    constructor(element:ElementRef, renderer: Renderer)
-    {
-        console.log('render', renderer, 'element', element);
-    }
-    private cancel(){
-        this.cf.emit();
+    title: String;
+
+    @ViewChild("dialog")
+    private dialog: ModalComponent;
+
+    ngOnInit() {
     }
 
-    private accept(){
+    cof() {
         this.of.emit();
     }
 
-    open(title?:string)
-    {
-        title && (this.title = title);
-        $(this.popupCmp.nativeElement).modal('show');
+    ccf() {
+        this.cf.emit();
     }
 
-    close(){
-        $(this.popupCmp.nativeElement).modal('hide');
+    open(title?: String, msg?: String) {
+        title && (this.title = title);
+
+        this.dialog.open();
+    }
+
+    close() {
+        this.dialog.close();
     }
 }
