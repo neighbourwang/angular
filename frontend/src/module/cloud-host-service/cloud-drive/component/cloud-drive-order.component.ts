@@ -43,6 +43,9 @@ export class cloudDriveComponentOrder implements OnInit {
 
 	ngOnInit() {
 		this.setConfigList();
+		this.service.dictRelyType.then(res => {
+			console.log(res)
+		})
 		// $("[data-toggle=popover]").popover();
 	}
 
@@ -92,6 +95,7 @@ export class cloudDriveComponentOrder implements OnInit {
 		this.payLoad.attrList = payloadList;
 		this.payLoad.itemNo = this.makeItemNum();
 		this.payLoad.serviceType = "1";  //云硬盘的type
+		this.payLoad.relyType = this.sendModule.diskmounthostid.attrValue ? "Mount Rely" : "No Rely";  //依赖类型
 
 		this.payLoadArr = [];
 		this.payLoadArr.push(this.payLoad);
