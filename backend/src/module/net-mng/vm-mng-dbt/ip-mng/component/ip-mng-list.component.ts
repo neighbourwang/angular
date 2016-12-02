@@ -93,12 +93,12 @@ export class IpMngListComponent implements OnInit{
         this.getDcList();
 
         this.activatedRouter.params.forEach((params: Params) => {
-            if (params["dc_name"] != null) {
-                this.selectedDC.dcName = params["dc_name"];                
-                console.log(this.selectedDC.dcName, "this.selectedDC.dcName");
+            if (params["dc_Id"] != null) {
+                this.selectedDC.dcId = params["dc_Id"];                
+                console.log(this.selectedDC.dcId, "this.selectedDC.dc_Id");
             }
-            if (params["cls_name"] != null) {
-                this.selectedVDS = params["cls_name"];
+            if (params["switch_Id"] != null) {
+                this.selectedVDS = params["switch_Id"];
                 console.log(this.selectedVDS, "this.selectedVDS");
             }
         });
@@ -243,7 +243,7 @@ export class IpMngListComponent implements OnInit{
 
     //Menu: 返回上一层, 可以在[返回上一层]调用
     vmwareNetworkPage() {
-        this.router.navigate([`net-mng/vm-mng-dbt/vm-mng`]);     
+        this.router.navigate([`net-mng/vm-mng-dbt/index`]);     
     }
 
     acceptIPsModify(): void {
@@ -306,9 +306,9 @@ export class IpMngListComponent implements OnInit{
                     this.pg.gateway = this.subn.gateway;
                     this.subnetbox.close();
                 })
-                .catch(err => {
-                    this.subnetbox.close();
+                .catch(err => {                    
                     console.log('设置IP子网,请检查填入项', err);
+                    this.subnetbox.close();
                     this.showMsg("设置IP子网,请检查填入项");
                     this.okCallback = () => { this.subnetbox.open(); };
                 })
