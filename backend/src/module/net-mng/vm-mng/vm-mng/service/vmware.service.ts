@@ -22,15 +22,15 @@ export class VmwareService {
 
     //获取初始化列表数据
     getDCList(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("net-img.vm-mng.network.dclist");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => net_dc_list_mock);
+         const api = this.restApiCfg.getRestApi("net-img.vm-mng.network.dclist");
+         return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => net_dc_list_mock);
     }
 
      getData(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("net-img.vm-mng.network.list");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => StdNet_mock);
+        const api = this.restApiCfg.getRestApi("net-img.vm-mng.network.list");
+        return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => StdNet_mock);
 }
 
     

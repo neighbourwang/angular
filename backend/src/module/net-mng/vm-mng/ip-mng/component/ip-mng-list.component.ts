@@ -99,12 +99,12 @@ export class IpMngListComponent implements OnInit{
         this.getDcList();
 
         this.activatedRouter.params.forEach((params: Params) => {
-            if (params["dc_name"] != null) {
-                this.selectedDC.dcName = params["dc_name"];                
-                console.log(this.selectedDC.dcName, "this.selectedDC.dcName");
+            if (params["dc_Id"] != null) {
+                this.selectedDC.dcId = params["dc_Id"];                
+                console.log(this.selectedDC.dcId, "this.selectedDC.dcId");
             }
-            if (params["cls_name"] != null) {
-                this.selectedVDS = params["cls_name"];
+            if (params["cls_Id"] != null) {
+                this.selectedVDS = params["cls_Id"];
                 console.log(this.selectedVDS, "this.selectedVDS");
             }
         });
@@ -249,7 +249,7 @@ export class IpMngListComponent implements OnInit{
 
     //Menu: 返回上一层, 可以在[返回上一层]调用
     vmwareNetworkPage() {
-        this.router.navigate([`net-mng/vm-mng/vm-mng`]);     
+        this.router.navigate([`net-mng/vm-mng`]);     
     }
 
     acceptIPsModify(): void {

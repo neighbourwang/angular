@@ -200,9 +200,9 @@ export class VmwareStdNetComponent implements OnInit {
             return;
         }
         if (!(this.validationService.isNumber(this.tempEditNet.vlanId)
-             &&parseInt(this.tempEditNet.vlanId) > 0 && parseInt(this.tempEditNet.vlanId) < 4096))
+             &&parseInt(this.tempEditNet.vlanId) >= 0 && parseInt(this.tempEditNet.vlanId) <= 4096))
            {
-            this.showAlert("VLAN ID必须是1~4095的数字.");
+            this.showAlert("VLAN ID必须是0~4096的数字.");
             return;
         }
         
@@ -391,8 +391,8 @@ export class VmwareStdNetComponent implements OnInit {
             this.router.navigate([
                     `net-mng/vm-mng/ip-mng-list`,
                     {
-                        "dc_name": selectedNet.dcName,
-                        "cls_name": selectedNet.clusterName
+                        "dc_Id": selectedNet.dcId,
+                        "cls_Id": selectedNet.clusterId
                     }
                 ]
             );
