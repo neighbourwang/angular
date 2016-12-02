@@ -8,7 +8,7 @@ import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, Vali
 import { IpMngModel } from '../model/ip-mng.model';
 import { subnetModel, subnetInfoModel } from '../model/subnet.model';
 import { subnetIpModel } from '../model/subnet-ip.model';
-import { DCModel } from '../model/dccluster.model';
+import { DCModel, ClusterModel } from '../model/dccluster.model';
 
 
 
@@ -60,9 +60,10 @@ export class IpMngListComponent implements OnInit{
 	noticeTitle = "";
     noticeMsg = "";
 
-    defaultDc: DCModel = new DCModel();
-    selectedDC: DCModel = this.defaultDc; //当前选中的DC
-    selectedVDS = "";//当前选中的可用区
+    defaultDC: DCModel = new DCModel();
+    selectedDC: DCModel = this.defaultDC; //当前选中的DC
+    defaultVDS: ClusterModel = new ClusterModel();
+    selectedVDS: ClusterModel = this.defaultVDS;//当前选中的可用区
     dcList: Array<DCModel>;
 
     rawipmngs: Array<IpMngModel>;
@@ -104,8 +105,8 @@ export class IpMngListComponent implements OnInit{
                 console.log(this.selectedDC.dcId, "this.selectedDC.dcId");
             }
             if (params["cls_Id"] != null) {
-                this.selectedVDS = params["cls_Id"];
-                console.log(this.selectedVDS, "this.selectedVDS");
+                this.selectedVDS.clusterId = params["cls_Id"];
+                console.log(this.selectedVDS.clusterId, "this.selectedVDS.clusterId");
             }
         });
 
@@ -131,7 +132,7 @@ export class IpMngListComponent implements OnInit{
 
     filter(): void {
         this.ipmngs = this.rawipmngs.filter((item)=>{
-            return ( this.selectedVDS == "" || item.clusterId == this.selectedVDS ) &&
+            return ( this.selectedVDS.clusterId == "" || item.clusterId == this.selectedVDS.clusterId ) &&
             ( this.selectedDC.dcId == "" || item.dcId == this.selectedDC.dcId )
         })
         console.log(this.ipmngs, "IPmngS --- filter");

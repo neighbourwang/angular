@@ -56,9 +56,10 @@ export class IpMngListComponent implements OnInit{
 	noticeTitle = "";
     noticeMsg = "";
 
-    defaultDc: DCModel = new DCModel();
-    selectedDC: DCModel = this.defaultDc; //当前选中的DC
-    selectedVDS = "";//当前选中的可用区
+    defaultDC: DCModel = new DCModel();
+    selectedDC: DCModel = this.defaultDC; //当前选中的DC
+    defaultVDS: SwitchModel = new SwitchModel();
+    selectedVDS: SwitchModel = this.defaultVDS;//当前选中的可用区
     dcList: Array<DCModel>;
 
     rawipmngs: Array<IpMngModel>;
@@ -98,8 +99,8 @@ export class IpMngListComponent implements OnInit{
                 console.log(this.selectedDC.dcId, "this.selectedDC.dc_Id");
             }
             if (params["switch_Id"] != null) {
-                this.selectedVDS = params["switch_Id"];
-                console.log(this.selectedVDS, "this.selectedVDS");
+                this.selectedVDS.switchId = params["switch_Id"];
+                console.log(this.selectedVDS.switchId, "this.selectedVDS.switchId");
             }
         });
 
@@ -125,7 +126,7 @@ export class IpMngListComponent implements OnInit{
 
     filter(): void {
         this.ipmngs = this.rawipmngs.filter((item)=>{
-            return ( this.selectedVDS == "" || item.switchId == this.selectedVDS ) &&
+            return ( this.selectedVDS.switchId == "" || item.switchId == this.selectedVDS.switchId ) &&
             ( this.selectedDC.dcId == "" || item.dcId == this.selectedDC.dcId )
         })
         console.log(this.ipmngs, "IPmngS --- filter");
@@ -248,6 +249,7 @@ export class IpMngListComponent implements OnInit{
 
     acceptIPsModify(): void {
         console.log('clicked acceptIPsModify');
+        console.log(this.ippool.ipstr, "this.ippool.ipstr");
         if (this.validateIPModify()) {
             //console.log('clicked acceptIPsModify 2');
             this.service.updateSubnetIPs(this.ippool.portGroup, this.ippool)

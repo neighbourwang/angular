@@ -20,19 +20,19 @@
     <div class="mgt15 "> 
 		<span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 数据中心(DC)名称：</span>
         <div class="float-left pdr20">
-            <select class="form-control" [(ngModel)]="selectedDC" (change)="selectedVDS=''" >
-                <option [ngValue]="defaultDc">所有</option>
+            <select class="form-control" [(ngModel)]="selectedDC" (change)="selectedVDS=defaultVDS" >
+                <option [ngValue]="defaultDC">所有</option>
                 <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
             </select>
         </div>     
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 分布式交换机名称(VDS)：</span>
         <div class="float-left pdr20">
             <select class="form-control" [(ngModel)]="selectedVDS">
-                <option [value]="" value="">所有</option>
-                <option *ngFor="let vds of selectedDC.switchList" [value]="vds.switchId">{{vds.switchName}}</option>
+                <option [ngValue]="defaultVDS">所有</option>
+                <option *ngFor="let vds of selectedDC.switchList" [ngValue]="vds">{{vds.switchName}}</option>
             </select>
         </div>   
-		<button type="button" class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="filter(); selectedDC=defaultDc; selectedVDS=''"> 确定</button>
+		<button type="button" class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="filter(); selectedDC=defaultDC; selectedDC.dcId=''; selectedVDS=defaultVDS; selectedVDS.switchId='';"> 确定</button>
     </div>
     <div style="clear:both"></div>
 
@@ -85,9 +85,10 @@
 
 </div>
 
-
-
-
+<!--
+    dcId:  {{selectedDC.dcId}} <br/>
+    switchId:  {{selectedVDS.switchId}}<br/>
+-->
 
 <fc-notice #notice ot="确认" (of)="okClicked()"></fc-notice>
 <fc-confirm #confirm ot="确认" ct="取消" (of)="onConfirmed()"></fc-confirm>
@@ -137,8 +138,6 @@
 				</div>
 			</div>
 	</div>
-<!--		{{subn.toString()}}   -->
-
 </fc-popup>
 
 <fc-popup #ipsbox ot="确认" ct="取消" title="设置IP地址范围" (of)="acceptIPsModify()" (cf)="cancelIPsModify()">
@@ -167,11 +166,9 @@
 					<div class="col-sm-4 form-control-title">IP地址范围：</div>
 					<div class="col-sm-8">
 					<!-- <input type="string" class="form-control input-control" [(ngModel)]="ippool.ips">  -->
-					<textarea class="form-control input-control" placeholder="" rows="4" [(ngModel)]="ippool.ips"></textarea>
+					<textarea class="form-control input-control" placeholder="" rows="4" [(ngModel)]="ippool.ipstr"></textarea>
 					</div>
 				</div>
 			</div>
 	</div>
-<!--		{{ippool.toString()}}    -->
-
 </fc-popup>
