@@ -54,8 +54,6 @@ export class RestApi {
         const queryParameters = this.createQueryParams(queryParams);
         const headerParams = new Headers();
         
-        headerParams.append('Authorization', environment.jwt);
-
         const requestOptions: RequestOptionsArgs = {
             method: type,
             headers: headerParams,
@@ -66,27 +64,28 @@ export class RestApi {
             requestOptions.body = JSON.stringify(body);
         }
 
-
-        const resData = this.http.request(path, requestOptions)
-            .timeout(30000, new Error("接口请求超时！"))
-            .toPromise()
-            .then(
-                res => {
-                    console.debug(`SUCCESS ${type} ${new Date().toLocaleString()}: ${path}`);
-                    // if (type == 'DELETE') {
-                    //     return Promise.resolve(0);
-                    // } else {
-                    return this.extractData(res);
-                    // }
-
-                }
-            )
-            .catch(
-                error => {
-                    console.debug(`FAILURE ${type} ${new Date().toLocaleString()}: ${path}`);
-                    return this.handleError(error);
-                }
-            );
+        const resData = environment.jwt.then((jwt:string) => {
+                             headerParams.append('Authorization', jwt);
+                       }).then(res =>
+                            this.http.request(path, requestOptions)
+                               .timeout(30000, new Error('接口请求超时！'))
+                               .toPromise()
+                       ).then(
+                            res => {
+                                console.debug(`SUCCESS ${type} ${new Date().toLocaleString()}: ${path}`);
+                                // if (type == 'DELETE') {
+                                //     return Promise.resolve(0);
+                                // } else {
+                                    return this.extractData(res);
+                                // }
+                            }
+                        )
+                        .catch(
+                            error => {
+                                console.debug(`FAILURE ${type} ${new Date().toLocaleString()}: ${path}`);
+                                return this.handleError(error);
+                            }
+                        );
 
         // console.debug(`END ${type} ${new Date().toLocaleString()}: ${path}`);
 
