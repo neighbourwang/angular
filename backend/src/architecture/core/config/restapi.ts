@@ -1098,7 +1098,7 @@ export let RestApis: RestApiModel[] = [
     }
 
     // 审批中心    
-
+    //云网络管理
     // vmware标准网络   
     , {
         "desc": "获取标准网络列表",
@@ -1135,8 +1135,22 @@ export let RestApis: RestApiModel[] = [
         "id": "net-img.vm-mng.network.update",
         "method": "POST",
         "url": "/adminboe/authsec/vmware/network/update"
-    }
-
+    },
+    //云网络管理
+    //vmware-分布式网络
+    {
+        "desc": "端口组列表",
+        "id": "net-img.vm-mng-dbt.port-list",
+        "method": "GET",
+        "url": "/adminboe/authsec/vmware/network/dist/portres/{id}/list"
+    },
+    {
+        "desc": "设置企业",
+        "id": "net-img.vm-mng-dbt.set-ent",
+        "method": "GET",
+        "url": "/adminboe/authsec/vmware/network/dist/portres/{id}/set/ent"
+    },
+    
 
     ////云主机管理-镜像管理-
     //镜像管理导航页

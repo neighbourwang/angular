@@ -44,8 +44,10 @@ export class OpenstackImageSyncEntComponent implements OnInit{
     
     selectedTenantList:Array<Tenant>;//用户在上一个页面选择的企业列表
     
-    selectedTenant:Tenant;//当前选择的企业，初始为空
     defaultSelected:Tenant = new Tenant();//默认选择的企业
+    selectedTenant:Tenant = this.defaultSelected;//当前选择的企业，初始为空
+    
+
 
     typeDic: Array<SystemDictionary>;//镜像类型
     bits_typeDic: Array<SystemDictionary>;//系统位数

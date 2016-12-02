@@ -11,7 +11,7 @@ import { PortMngModel } from "../model/port.model";
 import { PortMngSetService } from '../service/port-mng-set.service';
 
 @Component({
-    selector: 'port-mng-list',
+    selector: 'port-mng',
     templateUrl: '../template/port-mng-set.html',
     styleUrls: [],
     providers: []

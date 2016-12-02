@@ -240,7 +240,7 @@ export class VmDisIndexComponent implements OnInit {
     }
 
     gotoPortMng() {
-        this.router.navigate([`net-mng/vm-mng/port-mng`]);
+        this.router.navigateByUrl('net-mng/vm-mng-dbt/port-mng');
     }
 
     //gotoIpMng() {

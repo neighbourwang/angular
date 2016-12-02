@@ -15,7 +15,7 @@ import { PortMngService } from '../service/port-mng.service';
   
 
 @Component({
-    selector: 'port-mng-list',
+    selector: 'port-mng',
     templateUrl: '../template/port-mng.html',
     styleUrls: [],
     providers: []
@@ -126,5 +126,8 @@ export class PortMngComponent implements OnInit {
         this.layoutService.hide();
         console.log(reason);
         this.showAlert("获取数据失败！");
+    }
+    back(){
+        this.router.navigateByUrl('/net-mng/vm-mng-dbt/index');
     }
 }
