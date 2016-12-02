@@ -1,4 +1,5 @@
-﻿<div class="page-content-header icon-cloud-network-mngOn">
+﻿<div>
+<div class="page-content-header icon-cloud-network-mngOn">
     VMWare网络管理
 </div>
 <div class="page-content">
@@ -77,7 +78,7 @@
                     <td>{{stdnet.clusterDisplayName}}</td>
                     <td style="position:relative;">
                         {{stdnet.portDisplayName||"未设置"}}<span class="icon-edit2" (click)="openEditPort(stdnet);stdnet.nameEditing=true;" style="padding: 1px 15px; margin-left: 5px;"></span>
-                        <div *ngIf="stdnet.nameEditing" class="popover fade bottom in" role="tooltip" style="z-index:99;position:absolute;top: 35px; left: 8.5px; width:420px;max-width:1000px; display: block;">
+                        <div *ngIf="stdnet.nameEditing" class="popover fade bottom in" role="tooltip" style="z-index:4;position:absolute;top: 35px; left: 8.5px; width:420px;max-width:1000px; display: block;">
                             <div class="arrow" style="left: 20%;"></div>
                             <div class="popover-content">
                                 <form class="form-horizontal" role="form">
@@ -114,7 +115,7 @@
 <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
  
 
-<fc-popup #editStdNet title="{{title}}" ot="{{tempEditNet.id==''?'创建':'保存'}}" (of)="saveEditNet(stdnet);" ct="关闭" (cf)="cancelEdit();">
+<fc-popup #editStdNet style="z-index:4;"title="{{title}}" ot="{{tempEditNet.id==''?'创建':'保存'}}" (of)="saveEditNet(stdnet);" ct="关闭" (cf)="cancelEdit();">
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>DC：</div>
@@ -162,5 +163,4 @@
         </div>
     </div>
 </fc-popup>
-
- 
+</div>
