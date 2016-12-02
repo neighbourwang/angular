@@ -18,7 +18,7 @@ import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../
     selector: 'cl-mng-cre-step-1',
     templateUrl: '../template/pf-mng-bootDisk-creEdit.component.html',
     styleUrls: [
-        '../style/cl-mng.less'
+        '../style/pf-mng.less'
     ],
     providers: []
 })

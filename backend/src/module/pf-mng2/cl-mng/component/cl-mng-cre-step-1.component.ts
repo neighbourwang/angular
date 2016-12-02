@@ -82,7 +82,7 @@ export class ClMngCreStep1Component implements OnInit{
     }
     // 下一步
     ccf(){}
-    cof(){
+    otcreate(){
         this.service.crPlatForm(this.creStep1Model).then(
                 res => {
                     this.idService.setPlatformId(res.resultContent);

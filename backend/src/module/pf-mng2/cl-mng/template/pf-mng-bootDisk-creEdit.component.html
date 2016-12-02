@@ -1,1 +1,102 @@
 <div class="page-content-header icon-content-header-platform-manage">新建启动盘</div>
+<div class="page-contentrow mgt20">
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="row  row-line-height">
+                <div class="col-md-3 form-control-title">启动盘名称：</div>
+                <div class="col-md-9">
+                    <input class="form-control" type="text" placeholder="名称">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="row  row-line-height">
+                <div class="col-md-3 form-control-title">可用区：</div>
+                <div class="col-md-9">
+                    <select class="form-control ">
+	                     <option value="1">可用区1</option>
+	                     <option value="1">可用区2</option>
+	                     <option value="1">可用区3</option>
+	                </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="row  row-line-height">
+                <div class="col-md-3 form-control-title">说明：</div>
+                <div class="col-md-9">
+                    <input class="form-control" type="text" placeholder="说明文字">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row page-contentrow mgt20 twoList">
+    <div class="col-md-5 bord">
+        <div class="row grayTab">
+            <div class="col-md-4 form-control-title boldTitle">所有存储后端</div>
+            <div class="col-md-7">
+                <div class="has-feedback">
+                    <input type="text" class="form-control" #userName [(ngModel)]="personAcc">
+                    <span class="glyphicon glyphicon-search form-control-feedback font-green"></span>
+                    <!--<span class="cancel" (click)="clear('userName')"></span>-->
+                </div>
+                <!--<div class="input-group float-left">
+                    <input class="form-control" placeholder="输入云主机信息搜索" type="email">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+                </div>-->
+            </div>
+        </div>
+        <div class="row bodyList">
+            <div class="col-md-12 ">
+                helion-cp1-kvm-comp1-001-mgmt
+            </div>
+            <div class="col-md-12 ">
+                helion-cp1-kvm-comp1-001-mgmt
+            </div>
+            <div class="col-md-12 ">
+                helion-cp1-kvm-comp1-001-mgmt
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-5 bord">
+        <div class="row grayTab">
+            <div class="col-md-4 form-control-title boldTitle">选中的存储后端</div>
+            <div class="col-md-7">
+                <div class="has-feedback">
+                    <input type="text" class="form-control" #userName [(ngModel)]="personAcc">
+                    <span class="glyphicon glyphicon-search form-control-feedback font-green"></span>
+                    <!--<span class="cancel" (click)="clear('userName')"></span>-->
+                </div>
+                <!--<div class="input-group float-left">
+                    <input class="form-control" placeholder="输入云主机信息搜索" type="email">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+                </div>-->
+            </div>
+        </div>
+        <div class="row bodyList">
+            <div class="col-md-12 ">
+                helion-cp1-kvm-comp1-001-mgmt
+            </div>
+            <div class="col-md-12 ">
+                helion-cp1-kvm-comp1-001-mgmt
+            </div>
+            <div class="col-md-12 ">
+                helion-cp1-kvm-comp1-001-mgmt
+            </div>
+        </div>
+    </div>
+</div>
+<div class="text-center">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();" style="margin-right:40px;">
+            <span class="icon-button-label">取消</span>
+        </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="save();">
+            <span class="icon-button-label">保存</span>
+    </button>
+</div>
