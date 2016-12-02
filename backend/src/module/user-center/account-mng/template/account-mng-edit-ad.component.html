@@ -75,7 +75,7 @@
                 <div class="col-sm-6">
                     <div class="btn-group">
                         <div class="btn-group float-left">
-                            <button *ngFor="let role of roles;" class="btn btn-default" (click)="role.selected=!role.selected;" [ngClass]="{'active':role.selected}">
+                            <button *ngFor="let role of roles;" title="{{role.name}}" class="btn btn-default fix-width-140" (click)="role.selected=!role.selected;" [ngClass]="{'active':role.selected}">
                                  {{role.name}}
                             </button>
                         </div>
@@ -91,7 +91,7 @@
                 <div class="col-sm-6">
                     <div class="btn-group" style="max-height: 300px; overflow: auto;">
                         <div class="btn-group float-left" data-toggle="buttons">
-                            <label *ngFor="let org of organizations;" class="btn btn-default" style="margin: 3px 0;" [ngClass]="{'active':org.selected}" (click)="clearSelectedOrg(org);">
+                            <label *ngFor="let org of organizations;" title="{{org.name}}" class="btn btn-default fix-width-140" style="margin: 3px 0;" [ngClass]="{'active':org.selected}" (click)="clearSelectedOrg(org);">
                                 <input type="radio" name="org" autocomplete="off"> {{org.name}}
                             </label>
                         </div>

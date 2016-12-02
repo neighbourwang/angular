@@ -253,7 +253,7 @@ export class IpMngListComponent implements OnInit{
     }
 
     acceptIPsModify(): void {
-        //console.log('clicked acceptIPsModify');
+        console.log('clicked acceptIPsModify');
         if (this.validateIPModify()) {
             //console.log('clicked acceptIPsModify 2');
             this.service.updateSubnetIPs(this.ippool.portGroup, this.ippool)
@@ -263,19 +263,21 @@ export class IpMngListComponent implements OnInit{
                         console.log(res, "设置IP地址范围成功")
                     } else {
                         console.log('clicked acceptIPsModify 4');
+                        this.ipsbox.close();
                         this.showMsg("设置IP地址范围失败");
                         return;
                     }
                 })
                 .then(()=>{
                     console.log('clicked acceptIPsModify 5');
-                    this.getIpMngList();
+                    this.getIpMngList(); // Need to get list since we need to get ipcount after setting up ipscope.
                     this.ipsbox.close();
                 })
                 .catch(err => {
                     console.log('clicked acceptIPsModify 6');
                     console.log('设置IP地址范围失败', err);
-                    //this.showMsg("设置IP地址范围,请检查填入项");
+                    this.ipsbox.close();
+                    this.showMsg("设置IP地址范围,请检查填入项");
                     this.okCallback = () => { 
                         this.ipsbox.open();  };
                 })
@@ -299,23 +301,23 @@ export class IpMngListComponent implements OnInit{
                         console.log(res, "设置IP子网成功");                        
                     } else {
                         console.log('clicked acceptSubnetModify 4');
+                        this.subnetbox.close();
                         this.showMsg("设置IP子网失败");
                         return;
                     }
                 })
                 .then(()=>{
-                    //this.getIpMngList();
+                    //this.getIpMngList();// don't need to get list.
                     console.log('clicked acceptSubnetModify 5');
                     this.pg.subnetCIDR = this.subn.subnetCIDR;
                     this.pg.gateway = this.subn.gateway;
-                    this.subn
                     this.subnetbox.close();
                 })
-                .catch(err => {
-                    this.subnetbox.close();
+                .catch(err => {                    
                     console.log('clicked acceptSubnetModify 6');
                     console.log('设置IP子网,请检查填入项', err);
-                    //this.showMsg("设置IP子网,请检查填入项");
+                    this.subnetbox.close();
+                    this.showMsg("设置IP子网,请检查填入项");
                     this.okCallback = () => { this.subnetbox.open(); };
                 })
         }        
@@ -406,8 +408,8 @@ export class IpMngListComponent implements OnInit{
         //console.log(notValid, "notValid!!!")
         if (notValid !== void 0) {
             console.log("validateIPModify Failed!!!");
-            this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));
             this.ipsbox.close();
+            this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));            
             this.okCallback = () => {
                 this.ipsbox.open();                
             };            
@@ -479,8 +481,8 @@ export class IpMngListComponent implements OnInit{
         //console.log(notValid, "notValid!!!")
         if (notValid !== void 0) {
             console.log("validateSubnetModify Failed!!!");
-            this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));
             this.subnetbox.close();
+            this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));            
             this.okCallback = () => {
                 this.subnetbox.open();                
             };            
