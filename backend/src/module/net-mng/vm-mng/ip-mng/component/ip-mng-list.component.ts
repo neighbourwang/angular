@@ -68,6 +68,7 @@ export class IpMngListComponent implements OnInit{
     rawipmngs: Array<IpMngModel>;
     ipmngs: Array<IpMngModel>;
     selectedipmng: IpMngModel = new IpMngModel();
+    pg: IpMngModel = new IpMngModel();
 
     subn: subnetModel = new subnetModel();
     ippool: subnetIpModel = new subnetIpModel();
@@ -84,7 +85,6 @@ export class IpMngListComponent implements OnInit{
     }
 
     private confirmedHandler: Function = null;
-    //启用，禁用，删除的处理
     onConfirmed() {
         if (this.confirmedHandler) {
             this.confirmedHandler();
@@ -144,7 +144,6 @@ export class IpMngListComponent implements OnInit{
             .then(
             response => {
                 this.layoutService.hide();
-                //console.log(response, "IPmngS!!!");
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
                     this.rawipmngs = response.resultContent;
@@ -161,12 +160,11 @@ export class IpMngListComponent implements OnInit{
     //Menu: 设置IP子网
     setupSubnet(): void {
         console.log('conponent: net-mng/vm-mng/ip-mng-list/subnet');
-        //this.layoutService.show();
-        let pg = this.getSelected();
-        console.log(pg, "========== setupSubnet =============");
-         if (pg) {
-             // OR get subenet information from API
-            this.subn.portGroup = pg.id;
+        this.layoutService.show();
+        this.pg = this.getSelected();
+         if (this.pg) {
+            this.layoutService.hide();
+            this.subn.portGroup = this.pg.id;
             console.log(this.subn.portGroup, "========== setupSubnet =============");
             this.service.getSubnetInfoIps(this.subn.portGroup)
             .then(
@@ -175,12 +173,13 @@ export class IpMngListComponent implements OnInit{
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
                     this.subnetInfo = response.resultContent;
+                    console.log(this.subnetInfo, "this.subnetInfo")
                     this.subn.subnetCIDR = this.subnetInfo.subnetCIDR;
                     this.subn.subnetMask = this.subnetInfo.subnetMask;
                     this.subn.gateway = this.subnetInfo.gateway;
                     this.subn.dnsPre = this.subnetInfo.dnsPre;
                     this.subn.dnsAlt = this.subnetInfo.dnsAlt;
-                    console.log(this.subn, "subn 11111111111111111111111");
+                    console.log(this.subn, "subn-------");
                 } else {
                     alert("Res sync error");
                     this.layoutService.hide();
@@ -198,33 +197,31 @@ export class IpMngListComponent implements OnInit{
     //Menu: 设置子网IP地址范围
     setupIPs(): void {
         console.log('conponent: net-mng/vm-mng/ip-mng-list/ips');
-        let pg = this.getSelected();
-        console.log(pg, "============ setupIPs ===========");
+        this.pg = this.getSelected();
         this.layoutService.show();
-        if (pg) {
-            // OR get subenet information from API
+        if (this.pg) {
             this.layoutService.hide();
-            this.ippool.portGroup = pg.id;
+            this.ippool.portGroup = this.pg.id;
             console.log(this.ippool.portGroup, "========== setupIPs =============");
             this.service.getSubnetInfoIps(this.ippool.portGroup)
             .then(
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.layoutService.hide();
+                    this.layoutService.hide();                    
                     this.subnetInfo = response.resultContent;
+                    console.log(this.subnetInfo, "this.subnetInfo")
                     this.ippool.subnetCIDR = this.subnetInfo.subnetCIDR;
                     this.ippool.gateway = this.subnetInfo.gateway;
-                    console.log(this.subnetInfo.range, "this.subnetInfo.range ===========setupIPs============");
                     this.ippool.ips = this.subnetInfo.range;
-                    /*
-                    let i = 0;
-                    for(; i < this.subnetInfo.range.length; i++) {
-                        console.log(this.subnetInfo.range[0], "this.subnetInfo.range[0]");
-                        this.ippool.ips.push(this.subnetInfo.range[i]);
+                    if(!this.ippool.ips){
+                        console.log("No ips from response!");
+                        this.ippool.ipstr = "";
+                    } else {
+                        console.log("Ips from response!");
+                        this.ippool.ipstr = this.ippool.ips.join('');
                     }
-                    */
-                    console.log(this.ippool, "ippool ===========setupIPs============");
+                    console.log(this.ippool.ips, this.ippool.ipstr, this.ippool, "ips, ipstr, and ippool object");
                 } else {
                     console.log("========== setupIPs [if]else=============");
                     alert("Res sync error");
@@ -232,9 +229,6 @@ export class IpMngListComponent implements OnInit{
                 }
             })
             .catch((e) => this.onRejected(e));
-            //this.ippool.portGroup = pg.id;
-            //this.ippool.subnetCIDR = pg.segmentCIDR;
-            //this.ippool.gateway = pg.gateWay;
             this.ipsbox.open();
 
         } else {          
@@ -247,8 +241,6 @@ export class IpMngListComponent implements OnInit{
 
     //Menu: 管理子网IP使用情况
     ipUsageMngPage() {
-        //attest = attest || new Attest();
-        //this.router.navigate([`net-mng/ipusage-mng-list/${this.dc}`]);
         let pg = this.getSelected();
         if(pg){
             this.router.navigate([`net-mng/vm-mng/ipusage-mng-list`, { "pg_id": pg.id, "pg_name": pg.clusterName}]);
@@ -261,12 +253,12 @@ export class IpMngListComponent implements OnInit{
     }
 
     acceptIPsModify(): void {
-        console.log('clicked acceptIPsModify');
+        //console.log('clicked acceptIPsModify');
         if (this.validateIPModify()) {
-            console.log('clicked acceptIPsModify 2');
+            //console.log('clicked acceptIPsModify 2');
             this.service.updateSubnetIPs(this.ippool.portGroup, this.ippool)
                 .then(res => {
-                    console.log('clicked acceptIPsModify 3');
+                    //console.log('clicked acceptIPsModify 3');
                     if (res && res.resultCode == "100") {
                         console.log(res, "设置IP地址范围成功")
                     } else {
@@ -282,16 +274,18 @@ export class IpMngListComponent implements OnInit{
                 })
                 .catch(err => {
                     console.log('clicked acceptIPsModify 6');
-                    console.log('设置IP地址范围,请检查填入项', err);
-                    this.showMsg("设置IP地址范围,请检查填入项");
-                    this.okCallback = () => { this.ipsbox.open(); };
+                    console.log('设置IP地址范围失败', err);
+                    //this.showMsg("设置IP地址范围,请检查填入项");
+                    this.okCallback = () => { 
+                        this.ipsbox.open();  };
                 })
         }
     }
 
     cancelIPsModify(): void {
         console.log('clicked cancelIPsModify');
-        this.ippool.ips = "";
+        this.ippool.ips = [];
+        this.ippool.ipstr = "";
         this.ippool.subnetCIDR = "";
         this.ippool.gateway = "";
     }
@@ -304,18 +298,24 @@ export class IpMngListComponent implements OnInit{
                     if (res && res.resultCode == "100") {
                         console.log(res, "设置IP子网成功");                        
                     } else {
+                        console.log('clicked acceptSubnetModify 4');
                         this.showMsg("设置IP子网失败");
                         return;
                     }
                 })
                 .then(()=>{
-                    this.getIpMngList();
+                    //this.getIpMngList();
+                    console.log('clicked acceptSubnetModify 5');
+                    this.pg.subnetCIDR = this.subn.subnetCIDR;
+                    this.pg.gateway = this.subn.gateway;
+                    this.subn
                     this.subnetbox.close();
                 })
                 .catch(err => {
                     this.subnetbox.close();
+                    console.log('clicked acceptSubnetModify 6');
                     console.log('设置IP子网,请检查填入项', err);
-                    this.showMsg("设置IP子网,请检查填入项");
+                    //this.showMsg("设置IP子网,请检查填入项");
                     this.okCallback = () => { this.subnetbox.open(); };
                 })
         }        
@@ -394,27 +394,26 @@ export class IpMngListComponent implements OnInit{
         notValid = [
             {
                 "name": "IP地址范围"
-                , 'value': this.ippool.ips
+                , 'value': this.ippool.ipstr
                 , "op": "*"
             },
             {
                 "name": "IP地址范围"
-                , 'value': [this.ippool.ips, this.ippool.subnetCIDR]
+                , 'value': [this.ippool.ipstr, this.ippool.subnetCIDR]
                 , "op": "ipscope"
             }
-            ].find(n => this.ipService.validate(n.name, n.value, n.op) !== undefined)
-        
-        console.log(notValid, "notValid!!!")
-
+            ].find(n => this.ipService.validate(n.name, n.value, n.op) !== undefined)        
+        //console.log(notValid, "notValid!!!")
         if (notValid !== void 0) {
+            console.log("validateIPModify Failed!!!");
             this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));
             this.ipsbox.close();
             this.okCallback = () => {
                 this.ipsbox.open();                
-            };
-            
+            };            
             return false;
         } else {
+            console.log("validateIPModify OK!!!");
             return true;
         }
     }
@@ -476,19 +475,18 @@ export class IpMngListComponent implements OnInit{
                 , "op": "maskinsubnet"
             },
             //*/
-            ].find(n => this.ipService.validate(n.name, n.value, n.op) !== undefined)
-        
-        console.log(notValid, "notValid!!!")
-
+            ].find(n => this.ipService.validate(n.name, n.value, n.op) !== undefined)        
+        //console.log(notValid, "notValid!!!")
         if (notValid !== void 0) {
+            console.log("validateSubnetModify Failed!!!");
             this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));
             this.subnetbox.close();
             this.okCallback = () => {
                 this.subnetbox.open();                
-            };
-            
+            };            
             return false;
         } else {
+            console.log("validateSubnetModify OK!!!");
             return true;
         }
     }

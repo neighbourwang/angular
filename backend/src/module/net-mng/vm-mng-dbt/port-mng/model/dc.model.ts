@@ -1,6 +1,6 @@
-﻿import  { ClusterMode} from "./cluster.model"
+﻿import  { SwitchMode } from "./switch.model"
 export class DCModel {
     dcId: string;
     dcName: string;
-    clusters: Array<ClusterMode>;
+    switchs: Array<SwitchMode>;
 }

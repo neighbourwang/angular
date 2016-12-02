@@ -76,7 +76,7 @@
                     <td>{{stdnet.clusterName}}</td>
                     <td>{{stdnet.clusterDisplayName}}</td>
                     <td style="position:relative;">
-                        {{stdnet.portDisplayName||"未设置"}}<span class=" icon-edit2" (click)="openEditPort(stdnet);stdnet.nameEditing=true;" style="padding: 1px 15px; margin-left: 5px;"></span>
+                        {{stdnet.portDisplayName||"未设置"}}<span class="icon-edit2" (click)="openEditPort(stdnet);stdnet.nameEditing=true;" style="padding: 1px 15px; margin-left: 5px;"></span>
                         <div *ngIf="stdnet.nameEditing" class="popover fade bottom in" role="tooltip" style="z-index:99;position:absolute;top: 35px; left: 8.5px; width:420px;max-width:1000px; display: block;">
                             <div class="arrow" style="left: 20%;"></div>
                             <div class="popover-content">
@@ -89,8 +89,8 @@
                                     </div>
                                 </form>
                                 <div class="pull-right" style="margin-bottom:10px;">
-                                    <button class="btn btn-default btn-save" (click)="updatePort(stdnet)">保存</button>
-                                    <button class="btn btn-default" (click)="stdnet.nameEditing=false;">取消</button>
+                                    <button class="fox-cloud-button fox-cloud-button-white" (click)="updatePort(stdnet)">保存</button>
+                                    <button class="fox-cloud-button fox-cloud-button-white" (click)="stdnet.nameEditing=false;">取消</button>
                                 </div>
                             </div>
                         </div>

@@ -10,6 +10,9 @@ import { CommonComponentModule } from '../../../architecture';
 //Components
 import { ClMngListComponent } from './component/cl-mng-list.component';
 import { PfDetailComponent } from './component/pf-mng-detail.component';
+import { bootDiskMngComponent } from './component/pf-mng-bootDisk.component';
+import { bootDiskCreEditComponent } from './component/pf-mng-bootDisk-creEdit.component';
+
 
 
 import { ClMngCreStep1Component } from './component/cl-mng-cre-step-1.component';
@@ -61,7 +64,9 @@ import { ClMngCommonService } from './service/cl-mng-common.service';
         ClMngCreStep3Component,
         ClMngCreStep4Component,
         ClMngCreStep5Component,
-        ClMngCreStep6Component
+        ClMngCreStep6Component,
+        bootDiskMngComponent,
+        bootDiskCreEditComponent
     ],
     exports: [
     ],

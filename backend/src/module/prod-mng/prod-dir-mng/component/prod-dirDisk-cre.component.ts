@@ -128,15 +128,24 @@ export class ProdDirDiskCreComponent implements OnInit {
     }
     //选择平台可用区
     selectZone(idx, idxx) {
-        // this._platformlist[idx].zoneList[idxx].selected = !this._platformlist[idx].zoneList[idxx].selected;
-        // console.log(this._platformlist[idx]);
-        // this.prodDir.platformList = this._platformlist.filter(function (ele) {
-        //     for (let zone of ele.zoneList) {
-        //         if (zone.selected == true) {
-        //             return ele;
-        //         }
-        //     }
-        // })
+        console.log(idx)
+        console.log(idxx)
+        this._platformlist[idx].platformInfo[idxx].selected = !this._platformlist[idx].platformInfo[idxx].selected;
+        console.log(this._platformlist[idx]);
+        this.prodDir.platformList = this._platformlist.filter(function (ele) {
+            for (let zone of ele.platformInfo) {
+                if (zone.selected == true) {
+                    return ele;
+                }
+            }
+        })
+        console.log(this.prodDir.platformList);
+        if(this.prodDir.platformList.length==0){
+            this.selectAllZone=false;
+        }
+        if(this.prodDir.platformList.length==this._platformlist.length){
+            this.selectAllZone=true;
+        }
     }
 
     cancel() {
