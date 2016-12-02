@@ -1,4 +1,4 @@
-/**** 时间戳转为时间  {{1497654369000 | formatData}} ===> 2017-6-17 7:6:9*****/
+/**** 时间戳转为时间  {{1497654369000 | formatData}} ===> 2017-06-17 07:06:09*****/
 
 import { Pipe, PipeTransform } from "@angular/core";
 import { SystemDictionaryService } from '../../architecture';
@@ -10,7 +10,8 @@ import { SystemDictionaryService } from '../../architecture';
 export class formatDataPipe implements PipeTransform {
 
     transform(number : number): string {
-        var d = new Date(number);
-        return (d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds());
+        const d = new Date(number);
+        const cr = (nub:number) => nub<10 ? ("0"+nub) : nub;
+        return (d.getFullYear()+"-"+(cr(d.getMonth()+1))+"-"+cr(d.getDate())+" "+cr(d.getHours())+":"+cr(d.getMinutes())+":"+cr(d.getSeconds()));
     }
 }

@@ -14,8 +14,8 @@
                     <button (click)="list.ownerType = ''" class="btn btn-default" [ngClass]="{'active':list.ownerType === ''}">所有</button>
 
                     <button *ngFor="let v of service.ownerType | async;" 
-                            (click)="list.ownerType = v.value" 
-                            [ngClass]="{'active':list.ownerType === v.value}"
+                            (click)="list.ownerType = v.code" 
+                            [ngClass]="{'active':list.ownerType === v.code}"
                             class="btn btn-default">{{ v.displayValue }}
                     </button>
                 </div>
@@ -27,7 +27,7 @@
             <select [(ngModel)]="list.queryField" class="form-control">
                 <option
                  *ngFor="let v of service.queryField | async; let i = index;"
-                 [ngValue]="v.value" >{{ v.displayValue }}</option>
+                 [value]="v.code" >{{ v.displayValue }}</option>
             </select>
         </div>
          
@@ -36,7 +36,7 @@
                 <option disabled selected value class="hideoption">状态</option>
                 <option
                  *ngFor="let v of service.computeStatus | async; let i = index;"
-                 [ngValue]="v.value" >{{ v.displayValue }}</option>
+                 [value]="v.code" >{{ v.displayValue }}</option>
             </select>
          </div>
         <div class="input-group col-md-2 float-left mgr10">

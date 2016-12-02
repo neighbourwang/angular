@@ -1,4 +1,5 @@
 export class CheckListItem{
+	orderId:string = null;//订单id
 	orderCodeStr: string  = null;//订单编号
 	serviceTypeIdStr: string = null;//产品类型
 	serviceTypeName: string = null;//产品类型名称

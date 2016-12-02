@@ -32,10 +32,10 @@ export class SubTableListService {
     diskQueryField = this.dict.get({    //云硬盘检索的字段列表，取数据字典的code返回
         owner : "GLOBAL_QUERY",
         field : "DISK_INSTANCE"
-    });
+    })
     vmQueryField = this.dict.get({    //云硬盘检索的字段列表，取数据字典的code返回
         owner : "GLOBAL_QUERY",
         field : "COMPUTE_INSTANCE"
-    });
+    })
 
 }

@@ -79,13 +79,13 @@ export class CheckMngListComponent implements OnInit{
 
 			}
 		};
-		this._listLoader.FakeDataFunc = (target:Array<CheckListItem>)=>{
-			let obj = new CheckListItem();
-			target.push(obj);
+		// this._listLoader.FakeDataFunc = (target:Array<CheckListItem>)=>{
+		// 	let obj = new CheckListItem();
+		// 	target.push(obj);
 
-			obj.orderId = 'abc-swerw';//订单id				
-			obj.orderCodeStr = 'abc-123423';//订单编号
-		};
+		// 	obj.orderId = 'abc-swerw';//订单id				
+		// 	obj.orderCodeStr = 'abc-123423';//订单编号
+		// };
 
 		this._listLoader.Trait = (target:Array<CheckListItem>)=>{
 			//处理字典

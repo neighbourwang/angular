@@ -16,14 +16,14 @@ import { ObjectToArrPipe } from './objectToArr.pipe';
         dictPipe,
         formatDataPipe,
         decimalPlacesPipe,
-        ObjectToArrPipe
+        ObjectToArrPipe,
     ],
     exports: [
         OrderByPipe,
         dictPipe,
         formatDataPipe,
         decimalPlacesPipe,
-        ObjectToArrPipe
+        ObjectToArrPipe,
     ],
     providers: [],
 })
