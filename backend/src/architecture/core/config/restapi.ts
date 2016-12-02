@@ -1244,4 +1244,36 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "adminboe/authsec/images/vmware/{platformId}/sync"
     }
+
+    //Vmware分布式网络导航页
+    , {
+        "desc": "获取分布式列表",
+        "id": "net-mng.vm-mng-dbt.index.portlist",
+        "method": "GET",
+        "url": "/adminboe/authsec/vmware/network/dist/portlist"
+    }
+    , {
+        "desc": "获取数据中心联动列表",
+        "id": "net-mng.vm-mng-dbt.index.dclist",
+        "method": "GET",
+        "url": "/adminboe/authsec/vmware/network/dist/dclist"
+    }
+    , {
+        "desc": "设置端口组显示名称",
+        "id": "net-mng.vm-mng-dbt.index.setportname",
+        "method": "PUT",
+        "url": "/adminboe/authsec/vmware/network/dist/{id}/setportname"
+    }
+    , {
+        "desc": "启用分布式网络",
+        "id": "net-mng.vm-mng-dbt.index.enable",
+        "method": "PUT",
+        "url": "/adminboe/authsec/vmware/network/dist/{id}/enable"
+    }
+    , {
+        "desc": "禁用分布式网络",
+        "id": "net-mng.vm-mng-dbt.index.disable",
+        "method": "PUT",
+        "url": "/adminboe/authsec/vmware/network/dist/{id}/disable"
+    }
 ]
