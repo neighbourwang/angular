@@ -73,7 +73,7 @@
             <td>
                 <div>
                     <label class="radio-inline fix-width-140 mgt5"  *ngFor="let role of service.roles;"  title="{{role.name}}" >
-                        <input type="checkbox" name="role" [checked]="role.selected" (change)="role.selected=$event.target.checked;" class="fox-cloud-checkbox">{{role.name}}
+                        <input type="checkbox" name="role-cr-ad" [checked]="role.selected" (change)="role.selected=$event.target.checked;" class="fox-cloud-checkbox">{{role.name}}
                     </label>
                 </div>
             </td>
@@ -82,8 +82,8 @@
             <th class="col-md-1 col-xs-3 text-center">绑定部门</th>
             <td>
                 <div>
-                    <label class="checkbox-inline fix-width-140 mgt5" *ngFor="let org of service.orgs;" title="{{org.name}}"  (click)="clearSelectedOrg();org.selected=true;">
-                        <input type="radio" name="department"   [checked]="org.checked" class="fox-cloud-radio">{{org.name}}
+                    <label class="checkbox-inline fix-width-140 mgt5" *ngFor="let org of service.orgs;" title="{{org.name}}"  >
+                        <input type="radio" name="department-cr-ad"  class="fox-cloud-radio" (change)="clearSelectedOrg();org.selected=true;">{{org.name}}
                     </label>
                 </div>
             </td>

@@ -31,7 +31,15 @@ export class subTableListComponent implements OnInit, OnChanges {
 	};
 
 	ngOnInit() {
-		// this.getList();
+		this.initSelect();
+	}
+
+	initSelect() {    //设置选择第一位
+		switch (this.code) {
+			case "1":
+			case "2": this.service.diskQueryField.then(arr => this.list.queryField = arr[0].code); break;
+			case "3": this.service.vmQueryField.then(arr => this.list.queryField = arr[0].code); break;
+		}
 	}
 
 	ngOnChanges(changes) {

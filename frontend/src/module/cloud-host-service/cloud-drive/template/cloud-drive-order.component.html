@@ -49,17 +49,6 @@
 								<table-list [code]="value.attrValue" [platformId]="sendModule.platform.attrValue"></table-list>
 							</popover-content>
 						</ng-container>
-						<!-- <button class="btn btn-default">空白盘</button>
-						<button [popover]="popover_never" class="btn btn-default">从未挂载盘</button>
-						<button [popover]="popover_backup" class="btn btn-default">从备份恢复</button>
-						
-						<popover-content #popover_never [closeOnClickOutside]="true" >
-							<table-list code="unmount" [platformId]="sendModule.platform.attrValueId"></table-list>
-						</popover-content>
-
-						<popover-content #popover_backup [closeOnClickOutside]="true" >
-							<table-list code="backup" [platformId]="sendModule.platform.attrValueId"></table-list>
-						</popover-content> -->
 					</div>	
 					<div class="col-md-2 content-title">云硬盘类型</div>	
 					<div class="col-md-10 btn-group" data-toggle="buttons">
@@ -156,7 +145,7 @@
 			<h4 class="cloud-title">费用总计：<font class="font-orange">¥{{ this.sendModule.timeline ? this.parseInt((this.parseInt(this.sendModule.cpu.attrDisplayValue)*20 + ((this.parseInt(this.sendModule.mem.attrDisplayValue) < 50) ? this.parseInt(this.sendModule.mem.attrDisplayValue)*10 : this.parseInt(this.sendModule.mem.attrDisplayValue)*0.1 ) + 20 +this.parseInt(this.sendModule.timeline.value ? this.sendModule.timeline.value*1.21 : 1 ))*this.parseInt(this.payLoad.quality)*100)/100 : 0 }}</font></h4>
 			<div class="col-md-12 colud-order-button">
 				<div class="col-md-6"><button (click)="buyNow()" class="btn button-orange-deep">立即购买</button></div>
-				<div class="col-md-6"><button class="btn button-orange-light">加入购物车</button></div>
+				<div class="col-md-6"><button (click)="addCart()" class="btn button-orange-light">加入购物车</button></div>
 			</div>
 		</div>
 	</div>

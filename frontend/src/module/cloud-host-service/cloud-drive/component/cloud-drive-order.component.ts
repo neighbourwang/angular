@@ -95,7 +95,7 @@ export class cloudDriveComponentOrder implements OnInit {
 		this.payLoad.attrList = payloadList;
 		this.payLoad.itemNo = this.makeItemNum();
 		this.payLoad.serviceType = "1";  //云硬盘的type
-		this.payLoad.relyType = this.sendModule.diskmounthostid.attrValue ? "Mount Rely" : "No Rely";  //依赖类型
+		this.payLoad.relyType = this.sendModule.diskmounthostid.attrValue ? "1" : "0";  //依赖类型
 
 		this.payLoadArr = [];
 		this.payLoadArr.push(this.payLoad);

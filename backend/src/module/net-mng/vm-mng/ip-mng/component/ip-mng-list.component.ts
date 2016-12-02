@@ -8,7 +8,7 @@ import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, Vali
 import { IpMngModel } from '../model/ip-mng.model';
 import { subnetModel, subnetInfoModel } from '../model/subnet.model';
 import { subnetIpModel } from '../model/subnet-ip.model';
-import { DCModel } from '../model/dccluster.model';
+import { DCModel, ClusterModel } from '../model/dccluster.model';
 
 
 
@@ -60,9 +60,10 @@ export class IpMngListComponent implements OnInit{
 	noticeTitle = "";
     noticeMsg = "";
 
-    defaultDc: DCModel = new DCModel();
-    selectedDC: DCModel = this.defaultDc; //当前选中的DC
-    selectedVDS = "";//当前选中的可用区
+    defaultDC: DCModel = new DCModel();
+    selectedDC: DCModel = this.defaultDC; //当前选中的DC
+    defaultVDS: ClusterModel = new ClusterModel();
+    selectedVDS: ClusterModel = this.defaultVDS;//当前选中的可用区
     dcList: Array<DCModel>;
 
     rawipmngs: Array<IpMngModel>;
@@ -99,13 +100,13 @@ export class IpMngListComponent implements OnInit{
         this.getDcList();
 
         this.activatedRouter.params.forEach((params: Params) => {
-            if (params["dc_name"] != null) {
-                this.selectedDC.dcName = params["dc_name"];                
-                console.log(this.selectedDC.dcName, "this.selectedDC.dcName");
+            if (params["dc_Id"] != null) {
+                this.selectedDC.dcId = params["dc_Id"];                
+                console.log(this.selectedDC.dcId, "this.selectedDC.dcId");
             }
-            if (params["cls_name"] != null) {
-                this.selectedVDS = params["cls_name"];
-                console.log(this.selectedVDS, "this.selectedVDS");
+            if (params["cls_Id"] != null) {
+                this.selectedVDS.clusterId = params["cls_Id"];
+                console.log(this.selectedVDS.clusterId, "this.selectedVDS.clusterId");
             }
         });
 
@@ -131,7 +132,7 @@ export class IpMngListComponent implements OnInit{
 
     filter(): void {
         this.ipmngs = this.rawipmngs.filter((item)=>{
-            return ( this.selectedVDS == "" || item.clusterId == this.selectedVDS ) &&
+            return ( this.selectedVDS.clusterId == "" || item.clusterId == this.selectedVDS.clusterId ) &&
             ( this.selectedDC.dcId == "" || item.dcId == this.selectedDC.dcId )
         })
         console.log(this.ipmngs, "IPmngS --- filter");
@@ -249,7 +250,7 @@ export class IpMngListComponent implements OnInit{
 
     //Menu: 返回上一层, 可以在[返回上一层]调用
     vmwareNetworkPage() {
-        this.router.navigate([`net-mng/vm-mng/vm-mng`]);     
+        this.router.navigate([`net-mng/vm-mng`]);     
     }
 
     acceptIPsModify(): void {

@@ -27,6 +27,10 @@ export class CheckMngListComponent implements OnInit{
 	private _orderTypeDic : DicLoader =null;//订单类型
 	private _isAdvSearch:boolean = false;//高级查询
 	private _listLoader:ItemLoader<CheckListItem> = null;//列表数据加载
+	private _refuseHandler:ItemLoader<any> = null;//拒绝
+	private _selectedItem:CheckListItem = null;//当前选择的数据
+	private refuseReason:string = null;//拒绝原因
+
 
 	private _entId:string = "191af465-b5dc-4992-a5c9-459e339dc719";
 
@@ -34,11 +38,18 @@ export class CheckMngListComponent implements OnInit{
 	@ViewChild("notice") private _notice:NoticeComponent;
 	@ViewChild("refuseDialog")
 		refuseDialog: PopupComponent;
+	@ViewChild("confirmAcceptDialog")
+	private _confirmAccept:ConfirmComponent;
+
 	constructor(
 		private _restApiCfg:RestApiCfg
 		,private _restApi:RestApi
 		,private _layoutService:LayoutService){
-			//列表数据加载
+
+		//拒绝
+		this._refuseHandler = new ItemLoader<any>(false, '拒绝', "check-center.approve-refust.post", _restApiCfg,_restApi);
+
+		//列表数据加载
 		this._listLoader = new ItemLoader<CheckListItem>(true, "待审批列表", "check-center.get-list.post", _restApiCfg, _restApi);
 		this._listLoader.MapFunc = (source:Array<any>, target:Array<CheckListItem>)=>{
 
@@ -47,6 +58,7 @@ export class CheckMngListComponent implements OnInit{
 				let obj = new CheckListItem();
 				target.push(obj);
 
+				obj.orderId = item.orderId;
 				obj.orderCodeStr = item.orderNo;//订单编号
 				obj.serviceTypeIdStr = item.serviceType;//产品类型
 				// obj.platformStr = ?? 区域
@@ -67,6 +79,21 @@ export class CheckMngListComponent implements OnInit{
 
 				obj.specList = item.specList; //获取产品信息
 			}
+		};
+
+		// this._listLoader.FakeDataFunc = (target:Array<CheckListItem>)=>{
+		// 	let obj = new CheckListItem();
+		// 	target.push(obj);
+
+		// 	obj.orderId = 'abc-swerw';//订单id				
+		// 	obj.orderCodeStr = 'abc-123423';//订单编号
+		// };
+
+
+		this._listLoader.Trait = (target:Array<CheckListItem>)=>{
+			//处理字典
+			this._serviceTypeDic.UpdateWithDic(target, "serviceTypeName", "serviceTypeIdStr");
+			this._orderTypeDic.UpdateWithDic(target, "orderTypeNum", "orderTypeName");
 		};
 
 		//部门列表配置
@@ -152,13 +179,65 @@ export class CheckMngListComponent implements OnInit{
 	}
 
 	//拒绝
-	refuse(){
+	refuse(item:CheckListItem){
+		this._selectedItem = item;
 		this.refuseDialog.open();
 	}
 
-	//同意
-	accept(){
+	//确认拒绝
+	confirmRefuse(){
+		if(!(this.refuseReason && this.refuseReason.length <= 200))
+		{
+			this.showMsg('必须填写拒绝原因，且不能超出200字');
+			return;
+		}
 
+		this.approveOrder(0, this._selectedItem.orderId);
+	}
+	
+	//审批处理
+	//0:拒绝
+	//1:同意
+	private approveOrder(status:number, orderId:string)
+	{
+		this._refuseHandler.Go(null, [{key:"orderId",value:orderId}
+			,{key:"operation", value:status}
+			], {reason:this.refuseReason})
+		.then(success=>{
+			this.clearApproveData();
+			this.refuseDialog.close();
+		})
+		.catch(err=>{
+			this.showMsg(err);
+		});
+		
+	}
+
+	//取消拒绝
+	cancelRefuse(){
+		this.clearApproveData();
+		this.refuseDialog.close();
+	}
+
+	//清除提交数据
+	clearApproveData(){
+		this.refuseReason = null;
+		this._selectedItem = null;
+	}
+
+	//同意
+	accept(item:CheckListItem)
+	{
+		this._selectedItem = item;
+		this._confirmAccept.open('审批同意', '你确认要审批同意该订单吗？');
+	}
+
+	confirmAccept(){
+		this.approveOrder(1, this._selectedItem.orderId);
+	}
+
+	cancelAccept(){
+		this.clearApproveData();
 	}
 
 	onStartDateChange(date:string){

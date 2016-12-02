@@ -32,6 +32,32 @@ export class IPValidationService {
         return reg.test(val);
     }
 
+/*
+    isIPpool(val: any): boolean {
+        if (val instanceof Array) val = val.join(';');
+        console.log(val, "val--------------------1");
+        let flag = 0;
+        const reg = /^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$/;
+        val = val.replace(/\s+/g, "");
+        let arrayips = val.split(';');
+        for (let i = 0; i < arrayips.length; i++) {
+            let lineips = arrayips[i].split(',');
+            for (let j = 0; j < lineips.length; j++) {
+                if (lineips[j] != "") {
+                    if (reg.test(lineips[j])) {
+                        flag = flag + 0;
+                    }
+                    else {
+                        flag = flag + 1;
+                    }
+                }
+            }
+        }
+        console.log(flag, "flag--------------------5")
+        if (flag == 0) return true;
+        else return false;
+    }
+*/
     //
     //console.log("127.0.0.1 is private network?", ip.isPrivate('127.0.0.1'));
     //let str = ip.cidrSubnet('192.168.1.134/26');
@@ -40,9 +66,10 @@ export class IPValidationService {
         let str = val.split('/');
         if( !this.validationService.isBlank(str[0]) && !this.validationService.isBlank(str[1]) )
         {
-            if( this.isIP(str[0]) && this.validationService.isNumber(str[1]) && (str[1] > 0 && str[1] < 32))
-            return true;
-            else return false;
+            console.log(str[0], str[1], "str0 and str1");
+            if( this.isIP(str[0]) && this.validationService.isNumber(str[1]) && (str[1] > 0 && str[1] < 32)) {
+                return true;
+            } else return false;
 
         } else return false;
     }
@@ -106,7 +133,6 @@ export class IPValidationService {
         if( i >= arrayips.length) return true;
     }
 
-
     validate(name: string, val: any, op: string) {
         let map: any = {
             "*": {
@@ -156,7 +182,4 @@ export class IPValidationService {
         else
             return undefined;
     }
-
-
-
 }
