@@ -32,31 +32,6 @@ export class IPValidationService {
         return reg.test(val);
     }
 
-    isIPpool(val: any): boolean {
-        if (val instanceof Array) val = val.join(';');
-        console.log(val, "val--------------------1");
-        let flag = 0;
-        const reg = /^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$/;
-        val = val.replace(/\s+/g, "");
-        let arrayips = val.split(';');
-        for (let i = 0; i < arrayips.length; i++) {
-            let lineips = arrayips[i].split(',');
-            for (let j = 0; j < lineips.length; j++) {
-                if (lineips[j] != "") {
-                    if (reg.test(lineips[j])) {
-                        flag = flag + 0;
-                    }
-                    else {
-                        flag = flag + 1;
-                    }
-                }
-            }
-        }
-        console.log(flag, "flag--------------------5")
-        if (flag == 0) return true;
-        else return false;
-    }
-
     //
     //console.log("127.0.0.1 is private network?", ip.isPrivate('127.0.0.1'));
     //let str = ip.cidrSubnet('192.168.1.134/26');
@@ -86,15 +61,13 @@ export class IPValidationService {
     }
 
     isIpScope(pool: any, cidr: any): boolean {
-        if (pool instanceof Array) pool = pool.join(';');
-        //console.log(pool, "val--------------------1");
-        //let flag = 0;
-        //const reg = /^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$/;
-        pool = pool.replace(/\s+/g, "");
-        let arrayips = pool.split(';');
+        if (pool instanceof Array) pool = pool.join(' ');
+        pool = pool.replace(/\s+/g, "").replace(/\n\r/g, "");
+        //console.log(pool, "pool");
+        let arrayips = pool.split(';').filter(item => {return item != ""});
         console.log(arrayips, "arrayips");
         let i = 0;
-        for (i = 0; i < (arrayips.length - 1); i++) {
+        for (i = 0; i < arrayips.length; i++) {
             let lineips = arrayips[i].split(',');
             console.log(lineips, "lineips");
             if (lineips.length == 1) {
@@ -130,8 +103,9 @@ export class IPValidationService {
                 return false;
             }
         }
-        if( i >= (arrayips.length - 1)) return true;
+        if( i >= arrayips.length) return true;
     }
+
 
     validate(name: string, val: any, op: string) {
         let map: any = {
@@ -153,10 +127,6 @@ export class IPValidationService {
             },
             "iporempty":{
                 "func": val => !this.isIPorEmpty(val),
-                "msg": "不符合IP规范或不为空"
-            },
-            "ippool":{
-                "func": val => !this.isIPpool(val),
                 "msg": "不符合IP规范或不为空"
             },
             //*
