@@ -1,4 +1,5 @@
 ﻿<fc-notice #notice ot="确认"></fc-notice>
+<fc-confirm #confirmAcceptDialog (cf)="confirmAccept()" (of)="cancelAccept()"></fc-confirm>
 <div class="CheckMngList">
 	<div class="page-content-header icon-order-manage" style="border-bottom: 3px solid  #01a982;margin: 10px 0px;padding: 0;">待审批列表</div>
 	<div class="page-content">
@@ -140,7 +141,7 @@
 							<br/>费用：{{item.priceNum}}
 						</td>
 						<td>{{item.createTimeStr}}</td>
-						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white" style="margin-right: 10px;" (click)="accept()">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white" (click)="refuse(item)">拒绝</button></td>
+						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white" style="margin-right: 10px;" (click)="accept(item)">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white" (click)="refuse(item)">拒绝</button></td>
 					</tr>					
 				</tbody>
 			</table>
