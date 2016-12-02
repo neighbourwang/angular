@@ -23,7 +23,7 @@ export class IpMngModel {
         distPortGroupDisplayName: string; //标准端口组显示名称
         vlanId: string; //虚拟局域网ID
         subnetCIDR: string; //网段信息
-        gateWay: string; //网关信息
+        gateway: string; //网关信息
         ipCount: string; //ip总数量
         usedIPCount: string; //已使用ip数量
         freeIPCount: string; //剩余ip数量
@@ -113,6 +113,7 @@ export class subnetIpModel {
     subnetCIDR: string;
     gateway: string;
     ips: Array<string>;
+    ipstr: string;
 
     toString(){
         return JSON.stringify(this);

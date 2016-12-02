@@ -77,6 +77,13 @@ export class CheckMngListComponent implements OnInit{
 
 			}
 		};
+		this._listLoader.FakeDataFunc = (target:Array<CheckListItem>)=>{
+			let obj = new CheckListItem();
+			target.push(obj);
+
+			obj.orderId = 'abc-swerw';//订单id				
+			obj.orderCodeStr = 'abc-123423';//订单编号
+		};
 
 		this._listLoader.Trait = (target:Array<CheckListItem>)=>{
 			//处理字典
@@ -187,6 +194,12 @@ export class CheckMngListComponent implements OnInit{
 
 	//确认拒绝
 	confirmRefuse(){
+		if(!(this.refuseReason && this.refuseReason.length <= 200))
+		{
+			this.showMsg('必须填写拒绝原因，且不能超出200字');
+			return;
+		}
+
 		this._refuseHandler.Go(null, [{key:"orderId",value:this._selectedItem.orderId}
 			,{key:"operation", value:0}
 			], {reason:this.refuseReason})

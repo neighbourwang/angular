@@ -251,6 +251,7 @@ export class IpUsageMngListComponent implements OnInit{
                         this.changedip.status = '1';
                         console.log(res, "IP占用成功")
                     } else {
+                        this.enableipbox.close();
                         this.showMsg("IP占用失败");
                         return;
                     }
@@ -265,6 +266,7 @@ export class IpUsageMngListComponent implements OnInit{
                 .catch(err => {
                     console.log('clicked acceptEnableIPModify 6');
                     console.log('IP占用失败', err);
+                    this.enableipbox.close();
                     this.showMsg("IP占用失败");
                     this.okCallback = () => { this.enableipbox.open(); };
                 })
@@ -283,7 +285,7 @@ export class IpUsageMngListComponent implements OnInit{
         //console.log(this.changedip.description, "this.selectedip.description");
         if (this.validationService.isBlank(this.changedip.description)) {
             this.showMsg("请填写说明");            
-            this.enableipbox.close();
+            this.disableipbox.close();
             this.okCallback = () => {
                 this.disableipbox.open(); 
             }
@@ -296,6 +298,7 @@ export class IpUsageMngListComponent implements OnInit{
                         this.changedip.status = '2';
                         console.log(res, "IP释放成功")
                     } else {
+                        this.disableipbox.close();
                         this.showMsg("IP释放失败");
                         return;
                     }
@@ -310,6 +313,7 @@ export class IpUsageMngListComponent implements OnInit{
                 .catch(err => {
                     console.log('clicked acceptDisableIPModify 6');
                     console.log('IP释放失败', err);
+                    this.disableipbox.close();
                     this.showMsg("IP释放失败");
                     this.okCallback = () => { this.disableipbox.open(); };
                 })

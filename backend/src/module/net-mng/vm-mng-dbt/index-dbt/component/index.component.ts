@@ -166,7 +166,7 @@ export class VmDisIndexComponent implements OnInit {
         this.confirm.ccf = () => { };
         this.confirm.cof = () => {
             this.layoutService.show();
-            this.service.netEnable(selectedPort.id)
+            this.service.portEnable(selectedPort.id)
                 .then(
                 response => {
                     this.layoutService.hide();
@@ -203,7 +203,7 @@ export class VmDisIndexComponent implements OnInit {
         this.confirm.ccf = () => { };
         this.confirm.cof = () => {
             this.layoutService.show();
-            this.service.netDisable(selectedPort.id)
+            this.service.portDisable(selectedPort.id)
                 .then(
                 response => {
                     this.layoutService.hide();
@@ -243,23 +243,23 @@ export class VmDisIndexComponent implements OnInit {
         this.router.navigateByUrl('net-mng/vm-mng-dbt/port-mng');
     }
 
-    //gotoIpMng() {
-    //    const selectedPort = this.filterports.find((port) => { return port.selected });
-    //    if (selectedPort) {
-    //        this.router.navigate([
-    //                `net-mng/vm-mng/ip-mng-list`,
-    //                {
-    //                    "dc_name": selectedPort.dcName,
-    //                    "cls_name": selectedPort.portName
-    //                }
-    //            ]
-    //        );
-    //    } else {
-    //        this.router.navigate([
-    //            `net-mng/vm-mng/ip-mng-list`]
-    //        );
-    //    }
-    //}
+    gotoIpMng() {
+        const selectedPort = this.filterports.find((port) => { return port.selected });
+        if (selectedPort) {
+            this.router.navigate([
+                    `net-mng/vm-mng-dbt/ip-mng-list`,
+                    {
+                        "dc_Id": selectedPort.dcId,
+                        "switch_Id": selectedPort.switchId
+                    }
+                ]
+            );
+        } else {
+            this.router.navigate([
+                `net-mng/vm-mng-dbt/ip-mng-list`]
+            );
+        }
+    }
 
     onRejected(reason: any) {
         this.layoutService.hide();
