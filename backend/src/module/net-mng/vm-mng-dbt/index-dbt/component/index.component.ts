@@ -247,16 +247,16 @@ export class VmDisIndexComponent implements OnInit {
         const selectedPort = this.filterports.find((port) => { return port.selected });
         if (selectedPort) {
             this.router.navigate([
-                    `net-mng/vm-dist-mng/ip-mng-list`,
+                    `net-mng/vm-mng-dbt/ip-mng-list`,
                     {
-                        "dc_name": selectedPort.dcName,
-                        "cls_name": selectedPort.dvPortGroupName
+                        "dc_Id": selectedPort.dcId,
+                        "switch_Id": selectedPort.switchId
                     }
                 ]
             );
         } else {
             this.router.navigate([
-                `net-mng/vm-dist-mng/ip-mng-list`]
+                `net-mng/vm-mng-dbt/ip-mng-list`]
             );
         }
     }
