@@ -1,4 +1,4 @@
 export const Success_mock = {
-    resultCode: "100",
+    resultCode: "101",
     detailDescription: "",
 }

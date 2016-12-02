@@ -1011,6 +1011,57 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "url": "adminboe/authsec/vmware/network/portGroup/{portGroup_id}/subnetRange"
     },
+    //IP地址管理[分布式网络]
+    {
+        "desc": "获取IP地址管理列表",
+        "id": "net-mng.vmware.dbt.ipmng.list",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/dist/iplist"
+    },
+    {
+        "desc": "获取DC/Switch值",
+        "id": "net-mng.vmware.dbt.querycondition.get",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/dist/dclist"
+
+    },
+    {
+        "desc": "获取IP子网信息及IP范围",
+        "id": "net-mng.vmware.dbt.subnetinfo-ips.get",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/dist/{id}/getsub"
+
+    },
+    {
+        "desc": "设置IP子网",
+        "id": "net-mng.vmware.dbt.subnet.setup",
+        "method": "PUT",
+        "url": "adminboe/authsec/vmware/network/dist/{id}/subnet"
+    },
+    {
+        "desc": "设置子网IP范围",
+        "id": "net-mng.vmware.dbt.subnetips.setup",
+        "method": "PUT",
+        "url": "adminboe/authsec/vmware/network/dist/{id}/subnetRange"
+    },
+    {
+        "desc": "获取IP使用情况列表",
+        "id": "net-mng.vmware.dbt.ipusagemng.list",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/dist/{id}/ipmgmlist"
+    },
+    {
+        "desc": "IP地址占用",
+        "id": "net-mng.vmware.dbt.subnetip.occupy",
+        "method": "PUT",
+        "url": "adminboe/authsec/vmware/network/dist/ip/{id}/occupy"
+    },
+    {
+        "desc": "IP地址释放",
+        "id": "net-mng.vmware.dbt.subnetip.release",
+        "method": "PUT",
+        "url": "adminboe/authsec/vmware/network/dist/ip/{id}/release"
+    },    
       //云网络管理
         //openstack
     {
