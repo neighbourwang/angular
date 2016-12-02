@@ -64,7 +64,7 @@ export class OrgMngCrComponent implements OnInit {
   //保存 给父组件调用
   save() {
     console.log(this.org);
-    this.service.createOrg(this.org)
+    // this.service.createOrg(this.org)
     //  if (this.orgForm.invalid) {
     //         return Promise.reject("error");
     //     } else if (this.isEdit) {
