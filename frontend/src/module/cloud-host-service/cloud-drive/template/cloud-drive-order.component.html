@@ -77,7 +77,7 @@
 					            [step]="sendModule.diskstepsize.attrValue" 
 					            [max]="sendModule.diskmaxsize.attrValue" 
 					            [min]="sendModule.diskinitialsize.attrValue" 
-					            [disabled]=false 
+					            [stepCheck]=true
 					            [value]="sendModule.diskinitialsize.attrValue" (output)="outputValue($event)"></count-bar>
 						</div>	
 						<div class="col-md-7 disk-tip">可以购买容量 {{sendModule.diskinitialsize.attrValue}}~{{sendModule.diskmaxsize.attrValue}}GB的云硬盘。{{sendModule.diskinitialsize.attrValue}}GB起，增加按照每{{sendModule.diskstepsize.attrValue}}GB一档。</div>

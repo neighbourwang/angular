@@ -32,7 +32,7 @@ export class CountBarComponent implements OnInit{
     @Input()
     value:number = 0;
     @Input()
-    stepCheck:boolean = false;   //强制开启step检测 手动输入的时候不允许输入入step倍数的数字
+    stepCheck:boolean = false;   //强制开启step检测 手动输入的时候不允许输入不是step倍数的数字
     @Output()
     output=new EventEmitter();
 
