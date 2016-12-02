@@ -8,7 +8,7 @@ import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../..
 import { Enterprise } from '../model/enterprise.model';
 import { PortMngModel } from "../model/port.model";
 import { DCModel } from "../model/dc.model";
-import { ClusterMode } from "../model/cluster.model";
+import { SwitchMode } from "../model/switch.model";
 
 //service
 import { PortMngService } from '../service/port-mng.service';
@@ -39,8 +39,8 @@ export class PortMngComponent implements OnInit {
 
     defaultDc: DCModel = new DCModel();
     selectedDC: DCModel = this.defaultDc; //当前选中的DC
-    defaultCluster: ClusterMode = new ClusterMode();
-    selectCluster = this.defaultCluster;//当前选中的可用区
+    defaultSwitch: SwitchMode = new SwitchMode();
+    selectSwitch = this.defaultSwitch;//当前选中的可用区
 
     dcList: Array<DCModel>;
 
@@ -88,7 +88,7 @@ export class PortMngComponent implements OnInit {
     filter() {
         this.filterPorts = this.allPorts.filter((p) => {
             return (this.selectedDC == this.defaultDc || this.selectedDC.dcId === p.dcId) &&
-                (this.selectCluster === this.defaultCluster || this.selectCluster.clusterId === p.clusterId);
+                (this.selectSwitch === this.defaultSwitch || this.selectSwitch.switchId === p.switchId);
         });
     }
 
