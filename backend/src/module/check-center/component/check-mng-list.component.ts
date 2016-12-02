@@ -37,6 +37,8 @@ export class CheckMngListComponent implements OnInit{
 	@ViewChild("notice") private _notice:NoticeComponent;
 	@ViewChild("refuseDialog")
 		refuseDialog: PopupComponent;
+	@ViewChild("confirmAcceptDialog")
+	private _confirmAccept:ConfirmComponent;
 	constructor(
 		private _restApiCfg:RestApiCfg
 		,private _restApi:RestApi
@@ -200,34 +202,52 @@ export class CheckMngListComponent implements OnInit{
 			return;
 		}
 
-		this._refuseHandler.Go(null, [{key:"orderId",value:this._selectedItem.orderId}
-			,{key:"operation", value:0}
+		this.approveOrder(0, this._selectedItem.orderId);
+	}
+
+	//审批处理
+	//0:拒绝
+	//1:同意
+	private approveOrder(status:number, orderId:string)
+	{
+		this._refuseHandler.Go(null, [{key:"orderId",value:orderId}
+			,{key:"operation", value:status}
 			], {reason:this.refuseReason})
 		.then(success=>{
-			this.clearRefuseData();
+			this.clearApproveData();
 			this.refuseDialog.close();
 		})
 		.catch(err=>{
 			this.showMsg(err);
 		});
+		
 	}
 
 	//取消拒绝
 	cancelRefuse(){
-		this.clearRefuseData();
+		this.clearApproveData();
 		this.refuseDialog.close();
 	}
 
-	//清除拒绝数据
-	clearRefuseData(){
+	//清除提交数据
+	clearApproveData(){
 		this.refuseReason = null;
 		this._selectedItem = null;
 	}
 
 	//同意
-	accept()
+	accept(item:CheckListItem)
 	{
+		this._selectedItem = item;
+		this._confirmAccept.open('审批同意', '你确认要审批同意该订单吗？');
+	}
 
+	confirmAccept(){
+		this.approveOrder(1, this._selectedItem.orderId);
+	}
+
+	cancelAccept(){
+		this.clearApproveData();
 	}
 
 	departmentChanged(){
