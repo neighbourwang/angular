@@ -304,7 +304,9 @@ export class AccountMngListComponent implements OnInit {
                     this.createAdAccountPopUp.close();
                     this.getAccountList(1, this.pp);
                 }
-            );
+            ).catch(err=>{
+                console.error(err);
+            });
     }
 
 //分页

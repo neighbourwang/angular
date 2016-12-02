@@ -5,7 +5,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../architecture';
+import { LayoutService, NoticeComponent , ConfirmComponent ,PopupComponent  } from '../../../../architecture';
 
 //model 
 import { CreStep1Model } from '../model/Cre-step1.model';
@@ -47,6 +47,9 @@ export class ClMngCreStep1Component implements OnInit{
     @ViewChild('notice')
     notice:ConfirmComponent;
 
+    @ViewChild('regionSelect')
+    regionSelect: PopupComponent;
+
     ngOnInit (){
         console.log('init');
         //this.layoutService.show();
@@ -78,13 +81,9 @@ export class ClMngCreStep1Component implements OnInit{
         // this.layoutService.hide();
     }
     // 下一步
-    next (){
-        let message : String= this.checkValue();
-        if(this.checkValue()){
-            this.notice.open('错误',message);
-        }else{
-            // this.router.navigateByUrl("pf-mng2/cl-mng/cre-step2");
-            this.service.crPlatForm(this.creStep1Model).then(
+    ccf(){}
+    cof(){
+        this.service.crPlatForm(this.creStep1Model).then(
                 res => {
                     this.idService.setPlatformId(res.resultContent);
                     this.router.navigateByUrl("pf-mng2/cl-mng/cre-step2");
@@ -95,6 +94,16 @@ export class ClMngCreStep1Component implements OnInit{
                     this.notice.open('错误','创建云平台错误');
                 }
             )
+    }
+    next (){      
+
+        let message : String= this.checkValue();
+        if(this.checkValue()){
+            this.notice.open('错误',message);
+        }else{
+            this.regionSelect.open('创建云平台：选取Region')
+            // this.router.navigateByUrl("pf-mng2/cl-mng/cre-step2");
+            
         }
         
     }

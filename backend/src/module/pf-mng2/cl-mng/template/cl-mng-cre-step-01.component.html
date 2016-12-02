@@ -150,3 +150,20 @@
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认"></fc-notice>
 
 <fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-popup #regionSelect title="{{title}}" ot="创建" (of)="otcreate()" ct="取消" (cf)="ccf()">
+	<div class="row row-line-height">
+		<div class="form-group">
+			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>Region名称：</div>
+			<div class="col-sm-6">
+				<select class="form-control" [(ngModel)]="entResQuota">
+                    <!--<option *ngFor="let item of regions;" [value]="item.id">云主机服务</option>-->
+                    <option value="">Region1</option>
+                    <option value="">Region2</option>
+                </select>
+				<!--<select class="form-control" [(ngModel)]="prodDirTypeId">
+                    <option *ngFor="let item of prodDirTypeList;" [value]="item.id">{{item.name}}</option>
+                </select>-->
+			</div>
+		</div>
+	</div>
+</fc-popup>
