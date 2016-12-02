@@ -1011,6 +1011,57 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "url": "adminboe/authsec/vmware/network/portGroup/{portGroup_id}/subnetRange"
     },
+    //IP地址管理[分布式网络]
+    {
+        "desc": "获取IP地址管理列表",
+        "id": "net-mng.vmware.dbt.ipmng.list",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/dist/iplist"
+    },
+    {
+        "desc": "获取DC/Switch值",
+        "id": "net-mng.vmware.dbt.querycondition.get",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/dist/dclist"
+
+    },
+    {
+        "desc": "获取IP子网信息及IP范围",
+        "id": "net-mng.vmware.dbt.subnetinfo-ips.get",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/dist/{id}/getsub"
+
+    },
+    {
+        "desc": "设置IP子网",
+        "id": "net-mng.vmware.dbt.subnet.setup",
+        "method": "PUT",
+        "url": "adminboe/authsec/vmware/network/dist/{id}/subnet"
+    },
+    {
+        "desc": "设置子网IP范围",
+        "id": "net-mng.vmware.dbt.subnetips.setup",
+        "method": "PUT",
+        "url": "adminboe/authsec/vmware/network/dist/{id}/subnetRange"
+    },
+    {
+        "desc": "获取IP使用情况列表",
+        "id": "net-mng.vmware.dbt.ipusagemng.list",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/dist/{id}/ipmgmlist"
+    },
+    {
+        "desc": "IP地址占用",
+        "id": "net-mng.vmware.dbt.subnetip.occupy",
+        "method": "PUT",
+        "url": "adminboe/authsec/vmware/network/dist/ip/{id}/occupy"
+    },
+    {
+        "desc": "IP地址释放",
+        "id": "net-mng.vmware.dbt.subnetip.release",
+        "method": "PUT",
+        "url": "adminboe/authsec/vmware/network/dist/ip/{id}/release"
+    },    
       //云网络管理
         //openstack
     {
@@ -1243,5 +1294,37 @@ export let RestApis: RestApiModel[] = [
         "id": "host-mng.vmware-mng.sync-image.sync",
         "method": "POST",
         "url": "adminboe/authsec/images/vmware/{platformId}/sync"
+    }
+
+    //Vmware分布式网络导航页
+    , {
+        "desc": "获取分布式列表",
+        "id": "net-mng.vm-mng-dbt.index.portlist",
+        "method": "GET",
+        "url": "/adminboe/authsec/vmware/network/dist/portlist"
+    }
+    , {
+        "desc": "获取数据中心联动列表",
+        "id": "net-mng.vm-mng-dbt.index.dclist",
+        "method": "GET",
+        "url": "/adminboe/authsec/vmware/network/dist/dclist"
+    }
+    , {
+        "desc": "设置端口组显示名称",
+        "id": "net-mng.vm-mng-dbt.index.setportname",
+        "method": "PUT",
+        "url": "/adminboe/authsec/vmware/network/dist/{id}/setportname"
+    }
+    , {
+        "desc": "启用分布式网络",
+        "id": "net-mng.vm-mng-dbt.index.enable",
+        "method": "PUT",
+        "url": "/adminboe/authsec/vmware/network/dist/{id}/enable"
+    }
+    , {
+        "desc": "禁用分布式网络",
+        "id": "net-mng.vm-mng-dbt.index.disable",
+        "method": "PUT",
+        "url": "/adminboe/authsec/vmware/network/dist/{id}/disable"
     }
 ]
