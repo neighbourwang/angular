@@ -19,7 +19,7 @@
 									</thead>
 									<tbody>
 									<tr *ngFor="let prodItem of orderItem.itemList">
-										<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
+										<td style="text-align: float-left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
 											<ul>
 												<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 											</ul>
@@ -29,7 +29,7 @@
 										<td>{{prodItem.period}}</td>
 										<td>{{prodItem.quantity}}</td>
 										<td style="width: 100px;">{{prodItem.oneTimePriceAndPrice}}</td>
-										<td class="validateInfo">{{prodItem.statusName}}</td>
+										<td class="font-green">{{prodItem.statusName}}</td>
 										<td>{{prodItem.createDate}}</td>
 										<td>{{prodItem.expireDate}}</td>
 									</tr>
