@@ -32,7 +32,7 @@
                 <option *ngFor="let vds of selectedDC.switchList" [value]="vds.switchId">{{vds.switchName}}</option>
             </select>
         </div>   
-		<button type="button" class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="filter()"> 确定</button>
+		<button type="button" class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="filter(); selectedDC=defaultDc; selectedVDS=''"> 确定</button>
     </div>
     <div style="clear:both"></div>
 
@@ -40,6 +40,10 @@
         <button class="fox-cloud-button fox-cloud-button-green" (click)="setupSubnet()">设置IP子网</button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="setupIPs()">设置IP地址范围</button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="ipUsageMngPage()">管理IP地址</button>
+		<!--
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="setupIPs()" [disabled]="!selectedipmng.subnetCIDR">设置IP地址范围</button>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="ipUsageMngPage()" [disabled]="!selectedipmng.subnetCIDR || !selectedipmng.ipCount || selectedipmng.ipCount == '0'">管理IP地址</button>
+        -->
     </div>
 
     <div class="table-container">
