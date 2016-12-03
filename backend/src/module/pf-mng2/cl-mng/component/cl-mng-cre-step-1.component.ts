@@ -34,7 +34,8 @@ export class ClMngCreStep1Component implements OnInit{
     platformTypes : Array<any> = new Array<any>();
     platformVersion : Array<any> = new Array<any>();
     regions : Array<any> = new Array<any>();
-
+    platFormRegionList : Array<any> = new Array<any>();
+    
     constructor(
         private router : Router,
         private service : ClMngCreStep1Service,
@@ -79,9 +80,25 @@ export class ClMngCreStep1Component implements OnInit{
                 }
             )
         // this.layoutService.hide();
+        this.getPlatformRegionList();
     }
     // 下一步
     ccf(){}
+    //获取platformRegionList
+    // platFormRegionList:;
+    getPlatformRegionList(){
+        this.service.getPlatformRegionList().then(                
+                res => {
+                    console.log('platFormRegions',res);
+                    this.platFormRegionList=res.resultContent;
+                }
+            ).catch(
+                err => {
+                    console.error('err');
+                    this.notice.open('错误','平台信息错误');
+                }
+            )
+    }
     otcreate(){
         this.service.crPlatForm(this.creStep1Model).then(
                 res => {

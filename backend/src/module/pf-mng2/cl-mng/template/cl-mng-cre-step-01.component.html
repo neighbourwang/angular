@@ -155,14 +155,14 @@
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>Region名称：</div>
 			<div class="col-sm-6">
-				<select class="form-control" [(ngModel)]="entResQuota">
-                    <!--<option *ngFor="let item of regions;" [value]="item.id">云主机服务</option>-->
+				<!--<select class="form-control" [(ngModel)]="entResQuota">
+                    <option *ngFor="let item of regions;" [value]="item.id">云主机服务</option>
                     <option value="">Region1</option>
                     <option value="">Region2</option>
-                </select>
-				<!--<select class="form-control" [(ngModel)]="prodDirTypeId">
-                    <option *ngFor="let item of prodDirTypeList;" [value]="item.id">{{item.name}}</option>
                 </select>-->
+				<select class="form-control">
+                    <option *ngFor="let item of platFormRegionList;" [value]="item.id">{{item.name}}</option>
+                </select>
 			</div>
 		</div>
 	</div>
