@@ -100,7 +100,15 @@ export class bootDiskMngComponent implements OnInit {
         //     )       
         
     }
-   
+   getProddir() {
+        // let proddir : Proddir ;
+        // for(let i = 0 ; i < this.prodDirList.length ; i ++){
+        //     if(this.prodDirList[i].isSelected == true){
+        //         proddir = this.prodDirList[i];
+        //     }
+        // }
+        // return proddir;
+    }
     back(){
         this.location.back();
     }
