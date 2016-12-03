@@ -45,8 +45,10 @@ export class cloudHostListComponent implements OnInit {
 		this.handleData = new HandleVm();
 	}
 	ngOnInit() {
+		
 		this.setHostList();
 		this.getLabels();  //获取标签列表
+		this.initSelect();
 	}
 
 	setHostList(): void {
@@ -63,6 +65,10 @@ export class cloudHostListComponent implements OnInit {
 		});
 	};
 
+	initSelect(){
+		this.service.queryField.then(arr => this.list.queryField = arr[0].code);
+	}
+
 	getLabels() {
 		this.service.getLabels().then(res => {
 			this.labelItem = res;
@@ -76,7 +82,7 @@ export class cloudHostListComponent implements OnInit {
 	search() {    //搜索
 		console.log(this.list)
 
-		// this.setHostList();
+		this.setHostList();
 	}
 
 	platformClick(data) {   //选择区域列表

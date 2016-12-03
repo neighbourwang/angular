@@ -957,8 +957,13 @@ export class cloudHostServiceOrder {
 //        )
 // })
 
-
-        const request = this.restApi.request(api.method, api.url, undefined, undefined)
+        let pathParams = [
+            {
+                key: 'id',
+                value: "0"
+            }
+        ];
+        const request = this.restApi.request(api.method, api.url, pathParams, undefined)
                             .then(res => {
                                 if(res.resultCode !== "100"){
                                     throw "";

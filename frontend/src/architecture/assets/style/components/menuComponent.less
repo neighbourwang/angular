@@ -44,6 +44,17 @@
     .top1-menu-trigger, .top1-menu-trigger span{
         cursor: pointer;
     }
+    .top1-menu-trigger {
+        .menu-arrow {
+            float: right;
+            margin-right: 25px;
+            line-height: 27px;
+            &::before {
+                font-size: 12px;
+                color: @ccc-color;
+            }
+        }
+    }
     .top2-menu {
         position: relative;
         display: block;
