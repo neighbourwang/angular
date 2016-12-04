@@ -16,7 +16,7 @@
         <ng-container *ngFor="let order of orderList | orderBy : 'createDate'; ">
         <tr>
             <td colspan="9" class="table-line-head">
-                <font class="font-green">订单号：{{order.itemNo}} 创建时间：{{order.createDate | formatData}}</font>
+                <font class="font-green">订单号：{{order.itemNo}} 订单ID：{{order.id}} 创建时间：{{order.createDate | formatData}}</font>
             </td>
         </tr>
         <tr *ngFor="let items of order.itemList;">

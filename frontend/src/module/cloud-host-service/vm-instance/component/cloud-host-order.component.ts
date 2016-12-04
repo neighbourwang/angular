@@ -44,9 +44,9 @@ export class cloudHostComponentOrder implements OnInit {
 		// $("[data-toggle=popover]").popover();
 	}
 
-	private getSkuId(payLoadList: AttrList[]): { skuId: string, productId: string } {   //获取skuID和productId
+	private getSkuId(payLoadList: AttrList[], skuException:string[]): { skuId: string, productId: string } {   //获取skuID和productId
 		const trim = val => val.replace("[", "").replace("]", ""),
-			totalId = payLoadList.map(list => list.attrValueId).join(",");
+			totalId = payLoadList.map(list => list.attrValueId).concat(skuException).join(",");
 
 		let nub = 0, 	//验证sku成功的个数
 			skuValue = {};  
@@ -77,7 +77,8 @@ export class cloudHostComponentOrder implements OnInit {
 		this.sendModule.storagesize.attrValue = "20";
 		this.sendModule.bootsize.attrValue = "20";
 
-		let payloadList = [];
+		let payloadList = [], 
+			skuException = [];  //例外的sku
 		for (let v in this.sendModule) {
 			payloadList.push({
 				attrId: this.configs[v].attrId,   	//服务属性ID
@@ -88,9 +89,13 @@ export class cloudHostComponentOrder implements OnInit {
 				attrValue: this.sendModule[v].attrValue, 	//服务属性值
 				attrValueCode: this.sendModule[v].attrValueCode, 	//服务属性值
 			});
+			if(v === "timelineunit") {
+				skuException.push(this.sendModule[v].attrValueCode);  //例外的匹配
+			}
 		};
 
-		let sku = this.getSkuId(payloadList);   //获取sku
+		
+		let sku = this.getSkuId(payloadList, skuException);   //获取sku
 
 		this.payLoad.skuId = sku.skuId;
 		this.payLoad.productId = sku.productId;
@@ -191,7 +196,6 @@ export class cloudHostComponentOrder implements OnInit {
 		this.layoutService.show();
 		this.checkInput();
 		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
-		
 		this.service.saveOrder(payLoadArr).then(res => {
 			this.layoutService.hide();
 			this.router.navigateByUrl("cloud-host-service/cart-order");
