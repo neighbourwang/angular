@@ -46,21 +46,20 @@ export class cloudHostComponentOrder implements OnInit {
 
 	private getSkuId(payLoadList: AttrList[]): { skuId: string, productId: string } {   //获取skuID和productId
 		const trim = val => val.replace("[", "").replace("]", ""),
-			totalId = payLoadList.map(list => list.attrId).join(",");
+			totalId = payLoadList.map(list => list.attrValueId).join(",");
 
 		let nub = 0, 	//验证sku成功的个数
-			skuValue = "";  
+			skuValue = {};  
 
 		for (let sku in this.skuMap) {
 			sku.split(", ").forEach(skuString => {
-				totalId.indexOf(trim(skuString))
-			})
+				if(totalId.indexOf(trim(skuString)) > -1 ) nub++; 
+			});
+			if(nub === 4) {
+				return this.skuMap[sku]
+			}
+			nub = 0;
 		}
-
-		return {
-			skuId: "1c8628ae-f062-4250-8439-df50f7fe82d8",
-			productId: "3ddb2960-eb3c-449c-90de-fd62235c249c"
-		};
 	}
 
 	private itemNum:number = 0;
@@ -120,7 +119,7 @@ export class cloudHostComponentOrder implements OnInit {
 
 			this.skuMap = configList.skuMap;
 		}).then(res => {
-			this.setTimeLineType();
+			// this.setTimeLineType();
 			this.layoutService.hide();
 		}).catch(e => {
 			this.layoutService.hide();
@@ -192,7 +191,7 @@ export class cloudHostComponentOrder implements OnInit {
 		this.layoutService.show();
 		this.checkInput();
 		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
-		// console.log(JSON.stringify(payLoadArr))
+		
 		this.service.saveOrder(payLoadArr).then(res => {
 			this.layoutService.hide();
 			this.router.navigateByUrl("cloud-host-service/cart-order");
