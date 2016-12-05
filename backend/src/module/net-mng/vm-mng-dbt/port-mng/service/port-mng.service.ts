@@ -4,7 +4,7 @@ import { RestApiCfg, RestApi, RestApiModel } from '../../../../../architecture';
 
 //model 
 import { Enterprise } from '../model/enterprise.model';
-import { port_net_mock, portlist_mock, net_dc_list_mock} from "../model/port-list.mock";
+import { portlist_mock, net_dc_list_mock} from "../model/port-list.mock";
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()

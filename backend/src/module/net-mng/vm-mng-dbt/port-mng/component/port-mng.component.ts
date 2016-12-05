@@ -107,7 +107,7 @@ export class PortMngComponent implements OnInit {
             this.showAlert("请先选择需要设置的企业的端口组");
             return;
         }
-        this.router.navigate([`net-mng/vm-mng/port-mng-set/${port.id}`]);
+        this.router.navigate([`net-mng/vm-mng-dbt/port-mng-set/${port.id}`]);
     }
 
     showAlert(msg: string): void {

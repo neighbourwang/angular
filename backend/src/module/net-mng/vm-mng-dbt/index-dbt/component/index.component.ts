@@ -288,14 +288,14 @@ export class VmDisIndexComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {
 
                     this.infoListForSyn = response["resultContent"];
-                    
+                    this.synDbt.open('同步分布式网络信息-网络信息');
                 } else {
                     alert("Res sync error");
                 }
             }
         )
             .catch((e) => this.onRejected(e));
-        this.synDbt.open('同步分布式网络信息-网络信息');
+        
     }
     //同步
     doSynDbt(){
@@ -312,14 +312,19 @@ export class VmDisIndexComponent implements OnInit {
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.synDbt.close();
-                    this.createPopor();
+
+                    //this.synDbt.close();
+                    this.infoListForSyn = response["resultContent"];
+                    this.showAlert("同步成功");
+                    this.synDbt.open('同步分布式网络信息-网络信息');
+                    
                 } else {
                     alert("Res sync error");
                 }
             }
         )
-            .catch((e) => this.onRejected(e));
+        .catch((e) => this.onRejected(e));
+        
     }
     closeSynDbt(){
         this.synDbt.close();
