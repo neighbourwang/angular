@@ -22,24 +22,29 @@ export class VmDisIndexService {
 
     //获取初始化列表数据
     getDCList(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.dclist");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => dclist_mock);
+        const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.dclist");
+        return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => dclist_mock);
     }
 
      getData(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.portlist");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => port_mock);
+        const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.portlist");
+        return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => port_mock);
     }
 
     
-    saveEdit(port: port): Promise<any> {
+    saveEdit(Port: port): Promise<any> {
+        const pathParams = [
+            {
+                key: "id",
+                value: Port.id
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.setportname");
+        return this.restApi.request(api.method, api.url, pathParams, null,[Port.distPortGroupDisplayName]);
         
-        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.setportname");
-        //return this.restApi.request(api.method, api.url, null, null,port);
-        
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
     }
     
     portEnable(id:string):Promise<any>{
@@ -51,9 +56,9 @@ export class VmDisIndexService {
             }
         ];
 
-         //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.enable");
-         //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
+         const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.enable");
+         return this.restApi.request(api.method, api.url, pathParams, null, null);
+       //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
     }
 
      portDisable(id:string):Promise<any>{
@@ -64,9 +69,9 @@ export class VmDisIndexService {
             }
         ];
 
-         //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.disable");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
+         const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.disable");
+         return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
     }
 
     
