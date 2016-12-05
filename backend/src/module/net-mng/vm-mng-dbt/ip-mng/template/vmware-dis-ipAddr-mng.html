@@ -17,7 +17,7 @@
     </table>
     <div class="row mgt10 mgb20" >
         <span class="pull-left font-gray mgt5 pdl15">
-            端口组显示名称 :
+            分布式交换机名称(VDS) :
         </span>
         <div class="col-md-2">
             <span class="pull-left font-gray mgt5 pdl15">{{pg_name}}</span>
@@ -59,7 +59,8 @@
                 <td>{{ipusagemng.addr}}</td>
                 <td>{{displayIt(ipusagemng.instanceName)}}</td>
                 <td>{{displayIt(ipusagemng.tenantName)}}</td>
-                <td>{{getDicText(ipusagemng.status,this.statusDic)}}</td>
+                <td>{{ipusagemng.status}}</td>
+                <!-- <td>{{getDicText(ipusagemng.status,this.statusDic)}}</td>  -->
                 <td>{{displayIt(ipusagemng.description)}}</td>
                 </tr>          
             </tbody>
@@ -70,12 +71,45 @@
 <fc-notice #notice ot="确认" (of)="okClicked()"></fc-notice>
 <fc-confirm #confirm ot="确认" ct="取消" (of)="onConfirmed()"></fc-confirm>
 
-<!--
-<div class="text-center">
-    <button class="fox-cloud-button-lg fox-cloud-button-white">
-        <span class="icon-button-label">关闭</span>
-    </button>
-</div>
--->
+<fc-popup #enableipbox ot="确认" ct="取消" title="占用IP" (of)="acceptEnableIPModify()" (cf)="cancelEnableIPModify()">
+	<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">占用IP:</div>
+					<div class="col-sm-8">
+						<span>{{changedip.addr}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>说明：</div>
+					<div class="col-sm-8">
+					    <input type="string" class="form-control input-control" [(ngModel)]="changedip.description">
+					</div>
+				</div>
+			</div>
+	</div>
+</fc-popup>
 
-
+<fc-popup #disableipbox ot="确认" ct="取消" title="释放IP" (of)="acceptDisableIPModify()" (cf)="cancelDisableIPModify()">
+	
+	<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">释放IP:</div>
+					<div class="col-sm-8">
+						<span>{{changedip.addr}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>说明：</div>
+					<div class="col-sm-8">
+					    <input type="string" class="form-control input-control" [(ngModel)]="changedip.description">
+					</div>
+				</div>
+			</div>
+	</div>
+</fc-popup>

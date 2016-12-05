@@ -21,4 +21,11 @@ export class ClMngCreStep1Service {
 
         return this.restApi.request(api.method , api.url,undefined , undefined , creStep1Model);
     }
+    //获取platformRegions列表
+    
+    getPlatformRegionList (){
+        let api = this.restApiCfg.getDataRestApi("pf.cre.step.01.paltformRegins.get");
+
+        return this.restApi.request(api.method , api.url,[],undefined , undefined);
+    }
 }

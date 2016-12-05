@@ -8,7 +8,6 @@ import { LayoutService, NoticeComponent , ConfirmComponent ,PopupComponent } fro
 
 import { ClMngListService } from '../service/cl-mgn-list.service';
 
-import { ClMngCreStep1Service } from '../service/cl-mng-cre-step-1.service';
 
 import { ClMngCommonService } from '../service/cl-mng-common.service';
 
@@ -29,7 +28,6 @@ export class bootDiskMngComponent implements OnInit {
                 private service:ClMngListService,
                 private route:Router,
                 private router:ActivatedRoute,
-                private platFormTypeService : ClMngCreStep1Service,
                 private commonService : ClMngCommonService,
                 private location :Location
                 ) {
@@ -37,17 +35,17 @@ export class bootDiskMngComponent implements OnInit {
 
 
 
-    @ViewChild('removeConfirm')
-    removeConfirm:ConfirmComponent;
+    @ViewChild('publishConfirm')
+    publishConfirm: ConfirmComponent;
 
-    @ViewChild('enableConfirm')
-    enableConfirm:ConfirmComponent;
+    @ViewChild('ccPublishConfirm')
+    ccPublishConfirm: ConfirmComponent;
 
-    @ViewChild('disableConfirm')
-    disableConfirm:ConfirmComponent;
+    @ViewChild('deleteConfirm')
+    deleteConfirm: ConfirmComponent;
 
     @ViewChild('notice')
-    notice:ConfirmComponent;
+    notice: NoticeComponent;
 
     // 确认Box/通知Box的标题
     title:String = "";
@@ -102,7 +100,15 @@ export class bootDiskMngComponent implements OnInit {
         //     )       
         
     }
-   
+   getProddir() {
+        // let proddir : Proddir ;
+        // for(let i = 0 ; i < this.prodDirList.length ; i ++){
+        //     if(this.prodDirList[i].isSelected == true){
+        //         proddir = this.prodDirList[i];
+        //     }
+        // }
+        // return proddir;
+    }
     back(){
         this.location.back();
     }

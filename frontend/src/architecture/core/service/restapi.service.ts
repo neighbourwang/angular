@@ -47,7 +47,7 @@ export class RestApi {
         let queryParameters = this.createQueryParams(queryParams);
         let headerParams = new Headers();
 
-        headerParams.append('Authorization', environment.jwt);
+       
 
         let requestOptions: RequestOptionsArgs = {
             method: type,
@@ -59,26 +59,28 @@ export class RestApi {
             requestOptions.body = JSON.stringify(body);
         }
 
-        let resData = this.http.request(path, requestOptions)
+        let resData = environment.jwt.then((jwt:string) => {
+                             headerParams.append('Authorization', jwt);
+                       }).then(res =>
+                            this.http.request(path, requestOptions)
                                .timeout(100000, new Error('接口请求超时！'))
                                .toPromise()
-                               .then(
-                                    res => {
-                                        console.debug(`SUCCESS ${type} ${new Date().toLocaleString()}: ${path}`);
-                                        // if (type == 'DELETE') {
-                                        //     return Promise.resolve(0);
-                                        // } else {
-                                            return this.extractData(res);
-                                        // }
-                                        
-                                    }
-                                )
-                                .catch(
-                                    error => {
-                                        console.debug(`FAILURE ${type} ${new Date().toLocaleString()}: ${path}`);
-                                        return this.handleError(error);
-                                    }
-                                );
+                       ).then(
+                            res => {
+                                console.debug(`SUCCESS ${type} ${new Date().toLocaleString()}: ${path}`);
+                                // if (type == 'DELETE') {
+                                //     return Promise.resolve(0);
+                                // } else {
+                                    return this.extractData(res);
+                                // }
+                            }
+                        )
+                        .catch(
+                            error => {
+                                console.debug(`FAILURE ${type} ${new Date().toLocaleString()}: ${path}`);
+                                return this.handleError(error);
+                            }
+                        );
 
         // console.debug(`END ${type} ${new Date().toLocaleString()}: ${path}`);
 

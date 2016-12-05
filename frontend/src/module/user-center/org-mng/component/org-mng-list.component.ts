@@ -185,12 +185,21 @@ export class OrgMngListComponent implements OnInit {
   };
   //弹出框 点击确认
   updata() {
-    this.crModel.save();
+    this.crModel.save().then(res => {
+                    console.log(res);
+                    if (res == false)
+                        return;
+                    $('#crModel').modal('hide');
+                    this.getOrg(0, 10);
+                }
+            ).catch(err=>{
+                console.error(err);
+            });;
     if (this.isEdit) {
       console.log('edit');
     } else {
       console.log('create');
     }
-    $('#crModel').modal('hide');
+    
   }
 }

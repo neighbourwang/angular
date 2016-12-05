@@ -43,6 +43,7 @@ export class cloudDriveListComponent implements OnInit {
 	ngOnInit() {
 		// this.setArea();
 		this.setDiskList();
+		this.initSelect();
 	}
 
 	setDiskList(): void {
@@ -59,7 +60,10 @@ export class cloudDriveListComponent implements OnInit {
 		}).catch(error => {
 			// this.layoutService.hide();
 		});
+	}
 
+	initSelect(){
+		this.service.queryField.then(arr => this.list.queryField = arr[0].code);
 	}
 
 	
@@ -78,6 +82,7 @@ export class cloudDriveListComponent implements OnInit {
 	resetSearch(){   //重置搜索
 		this.list = Object.assign({}, this.saveList);
 		this.platformZone.reset();
+		this.initSelect();
 	}
 	search() {    //搜索
 		console.log(this.list)
