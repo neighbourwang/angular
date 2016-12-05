@@ -17,33 +17,33 @@ export class IpUsageMngListService {
         private restApi: RestApi
     ) { }
 
-    getIpUsageMngList( pg_id: string ): Promise <any> {
+    getIpUsageMngList( pg_id: any ): Promise <any> {
         console.log("getIpUsageMngList"); 
         const pathParams = [
             {
-                key: "portGroup_id",
+                key: "id",
                 value: pg_id
             }
         ];
         console.log(pathParams, "pathParams");
-        //const api = this.restApiCfg.getRestApi("net-mng.vmware.dbt.ipusagemng.list");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);        
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return IpUsageMngModel_mock });
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.dbt.ipusagemng.list");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);        
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return IpUsageMngModel_mock });
     }
 
     enableIP(ipusage: IpUsageMngModel): Promise <any>  {
         console.log("enableIP"); 
         const pathParams = [
             {
-                key: "ip_id",
+                key: "id",
                 value: ipusage.id
             }
         ];
         const body = [ipusage.description];
         console.log(pathParams, body, "pathParams and body");
-        //const api = this.restApiCfg.getRestApi("net-mng.vmware.dbt.subnetip.occupy");
-        //return this.restApi.request(api.method, api.url, pathParams, null, body);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.dbt.subnetip.occupy");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
 
 
     }
@@ -52,15 +52,15 @@ export class IpUsageMngListService {
         console.log("disableIP");   
         const pathParams = [
             {
-                key: "ip_id",
+                key: "id",
                 value: ipusage.id
             }
         ];
         const body = [ipusage.description]; 
         console.log(pathParams, body, "pathParams and body");
-        //const api = this.restApiCfg.getRestApi("net-mng.vmware.dbt.subnetip.release");
-        //return this.restApi.request(api.method, api.url, pathParams, null, body);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.dbt.subnetip.release");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
 
     }
 

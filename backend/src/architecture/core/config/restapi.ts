@@ -1033,10 +1033,9 @@ export let RestApis: RestApiModel[] = [
     },
     {
         "desc": "获取IP子网信息及IP范围",
-        "id": "net-mng.vmware.dbt.subnetinfo-ips.get",
+        "id": "net-mng.vmware.dbt.subnetinfo.ips.get",
         "method": "GET",
         "url": "adminboe/authsec/vmware/network/dist/{id}/getsub"
-
     },
     {
         "desc": "设置IP子网",
