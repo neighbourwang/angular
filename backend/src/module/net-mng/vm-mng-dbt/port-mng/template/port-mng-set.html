@@ -15,8 +15,7 @@
             <tbody>
                 <tr *ngFor="let port of ports">
                     <td>{{port.dcName}}</td>
-                    <td>{{port.dcName}}</td>
-                    <td>{{port.switchsName}}</td>
+                    <td>{{port.switchName}}</td>
                     <td>{{port.dvPortGroupName}}</td>
                     <td>未设置</td>
                     <td>{{port.vlanId}}</td>
@@ -31,17 +30,19 @@
            
     <div class="row mgb20" style="margin-left:20%;">
         <div class="col-md-4 ">
-            <table class="table table-hover" style="border: 1px solid #cfd8e7;">
+            <table class="table table-hover" style="border: 1px solid #cfd8e7;table-layout:fixed">
                 <thead>
                     <tr>
-                        <th>可选企业</th>
+                        <th style="width:260px">可选企业</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let enterprise of unselectedEnterprise;">
-                        <td>
-                            <label><input type="checkbox" name="unselected" [checked]="enterprise.selected" (change)="enterprise.selected=$event.target.checked;" class="fox-cloud-checkbox" />{{enterprise.com}}</label>
-</td>
+                        <td style="text-align:left;padding-left:30px">
+                            <label><input type="checkbox" name="unselected" [checked]="enterprise.selected" (change)="enterprise.selected=$event.target.checked;" class="fox-cloud-checkbox" />
+                            {{enterprise.com}}
+                            </label>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -64,13 +65,14 @@
             <table class="table table-hover" style="border: 1px solid #cfd8e7;">
                 <thead>
                     <tr>
-                        <th>选中企业</th>
+                        <th style="width:260px">选中企业</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let enterprise of selectedEnterprise;">
-                        <td>
-                            <label><input type="checkbox" name="selected" [checked]="enterprise.selected" (change)="enterprise.selected=$event.target.checked;" class="fox-cloud-checkbox" />{{enterprise.com}}</label>
+                        <td style="text-align:left;padding-left:30px">
+                            <label><input type="checkbox" name="selected" [checked]="enterprise.selected" (change)="enterprise.selected=$event.target.checked;" class="fox-cloud-checkbox" />
+                            {{enterprise.com}}</label>
                         </td>
                     </tr>
                 </tbody>
