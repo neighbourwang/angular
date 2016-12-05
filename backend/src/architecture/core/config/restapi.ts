@@ -1352,7 +1352,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "端口组列表",
         "id": "net-mng.vm-mng-dbt.port.list",
         "method": "GET",
-        "url": "/adminboe/authsec/vmware/network/dist/portres/{id}/list"
+        "url": "adminboe/authsec/vmware/network/dist/portres/list"
     },
     {
         "desc": "设置企业",
@@ -1365,5 +1365,11 @@ export let RestApis: RestApiModel[] = [
         "id": "net-mng.vm-mng-dbt.port.dclist",
         "method": "GET",
         "url": "/adminboe/authsec/vmware/network/dist/dclist"
+    },
+    {
+        "desc": "保存企业",
+        "id": "net-mng.vm-mng-dbt.port.ent-save",
+        "method": "POST",
+        "url": "adminboe/authsec/vmware/network/dist/portres/{id}/save/ent"
     }
 ]
