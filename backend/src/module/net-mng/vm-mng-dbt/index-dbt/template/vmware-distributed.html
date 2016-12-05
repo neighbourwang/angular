@@ -35,7 +35,7 @@
 <div class="mgt15" style="clear:both"></div> 
    
     <div class="mgb20 ">
-        <button class="fox-cloud-button fox-cloud-button-green" data-toggle="modal" data-target="#myModal" >          
+        <button class="fox-cloud-button fox-cloud-button-green" data-toggle="modal" data-target="#myModal" (click)="createPopor()">          
             <span class="icon-button-label icon-left-button-label">同步分布式网络</span> <!--请添加创建的弹出框-->
         </button>       
         <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoPortMng();">       
@@ -108,3 +108,27 @@
 
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
 <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
+
+<!--同步弹出框内容-->
+<fc-popup #synDbt title="{{title}}" ot="同步" (of)="doSynDbt()" ct="关闭" (cf)="closeSynDbt()">
+       <div class="table-container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>选择</th>
+                        <th>数据中心(DC)</th>
+                        <th>分布式交换机名称(VDS)</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let port of infoListForSyn">
+                   <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="port.selected" (change)="selectSyn(port)"> </td>
+                    <td>{{port.dcName}}</td>
+                    <td>{{port.switchName}}</td>
+                    <td>{{port.status}}</td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+</fc-popup> 

@@ -35,6 +35,8 @@ export class VmDisIndexComponent implements OnInit {
     @ViewChild("confirm")
     confirm: ConfirmComponent;
 
+    @ViewChild("synDbt")
+    synDbt: PopupComponent;
     
 
     noticeTitle = "";
@@ -272,5 +274,60 @@ export class VmDisIndexComponent implements OnInit {
         this.noticeTitle = "提示";
         this.noticeMsg = msg;
         this.notice.open();
+    }
+
+//同步列表弹出框
+    infoListForSyn:Array<port>;
+    createPopor(){
+        //获取信息
+        this.layoutService.show();
+        this.service.getSynInfolist()
+        .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+
+                    this.infoListForSyn = response["resultContent"];
+                    
+                } else {
+                    alert("Res sync error");
+                }
+            }
+        )
+            .catch((e) => this.onRejected(e));
+        this.synDbt.open('同步分布式网络信息-网络信息');
+    }
+    //同步
+    doSynDbt(){
+        let id:string;
+        this.infoListForSyn.forEach(
+            (p)=>{
+                if(p.selected){
+                    id = p.switchId ;
+                }
+            }
+        )
+        this.service.doSyn(id)
+        .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.synDbt.close();
+                    this.createPopor();
+                } else {
+                    alert("Res sync error");
+                }
+            }
+        )
+            .catch((e) => this.onRejected(e));
+    }
+    closeSynDbt(){
+        this.synDbt.close();
+    }
+    selectSyn(port: port) {
+        this.infoListForSyn.forEach((port) => {
+            port.selected = false;
+        });
+        port.selected = true;
     }
 }

@@ -1187,25 +1187,12 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "/adminboe/authsec/vmware/network/update"
     },
-    //云网络管理
-    //vmware-分布式网络
-    {
-        "desc": "端口组列表",
-        "id": "net-img.vm-mng-dbt.port-list",
-        "method": "GET",
-        "url": "/adminboe/authsec/vmware/network/dist/portres/{id}/list"
-    },
-    {
-        "desc": "设置企业",
-        "id": "net-img.vm-mng-dbt.set-ent",
-        "method": "GET",
-        "url": "/adminboe/authsec/vmware/network/dist/portres/{id}/set/ent"
-    },
+    
     
 
     ////云主机管理-镜像管理-
     //镜像管理导航页
-    , {
+    {
         "desc": "获取平台列表-img-index",
         "id": "host-mng.img-index.platforms.list",
         "method": "GET",
@@ -1340,5 +1327,37 @@ export let RestApis: RestApiModel[] = [
         "id": "net-mng.vm-mng-dbt.index.disable",
         "method": "PUT",
         "url": "/adminboe/authsec/vmware/network/dist/{id}/disable"
+    },
+    {
+        "desc": "分布式网络取得同步网络信息",
+        "id": "net-mng.vm-mng-dbt.index.syn.getinfolist",
+        "method": "GET",
+        "url": "/adminboe/authsec/vmware/network/dist/synclist"
+    },
+    {
+        "desc": "分布式网络同步网络",
+        "id": "net-mng.vm-mng-dbt.index.syn.dosyn",
+        "method": "PUT",
+        "url": "/adminboe/authsec/vmware/network/dist/{vds_id}/sync"
+    },
+    //云网络管理
+    //vmware-分布式网络
+    {
+        "desc": "端口组列表",
+        "id": "net-mng.vm-mng-dbt.port.list",
+        "method": "GET",
+        "url": "/adminboe/authsec/vmware/network/dist/portres/{id}/list"
+    },
+    {
+        "desc": "设置企业",
+        "id": "net-mng.vm-mng-dbt.port.set-ent",
+        "method": "GET",
+        "url": "/adminboe/authsec/vmware/network/dist/portres/{id}/set/ent"
+    },
+    {
+        "desc": "数据中心联动列表",
+        "id": "net-mng.vm-mng-dbt.port.dclist",
+        "method": "GET",
+        "url": "/adminboe/authsec/vmware/network/dist/dclist"
     }
 ]
