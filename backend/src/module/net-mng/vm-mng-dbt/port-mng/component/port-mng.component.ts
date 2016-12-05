@@ -15,7 +15,7 @@ import { PortMngService } from '../service/port-mng.service';
   
 
 @Component({
-    selector: 'port-mng-list',
+    selector: 'port-mng',
     templateUrl: '../template/port-mng.html',
     styleUrls: [],
     providers: []
@@ -59,7 +59,7 @@ export class PortMngComponent implements OnInit {
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.allPorts = response["resultContent"].portResList;
+                    this.allPorts = response["resultContent"];
                     this.filter();
                 } else {
                     alert("Res sync error");
@@ -107,7 +107,7 @@ export class PortMngComponent implements OnInit {
             this.showAlert("请先选择需要设置的企业的端口组");
             return;
         }
-        this.router.navigate([`net-mng/vm-mng/port-mng-set/${port.id}`]);
+        this.router.navigate([`net-mng/vm-mng-dbt/port-mng-set/${port.switchId}`]);
     }
 
     showAlert(msg: string): void {
@@ -126,5 +126,8 @@ export class PortMngComponent implements OnInit {
         this.layoutService.hide();
         console.log(reason);
         this.showAlert("获取数据失败！");
+    }
+    back(){
+        this.router.navigateByUrl('/net-mng/vm-mng-dbt/index');
     }
 }
