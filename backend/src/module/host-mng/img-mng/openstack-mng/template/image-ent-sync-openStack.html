@@ -50,7 +50,7 @@
                     </td>
                     <td >{{image.name}}</td>
                     <td >
-                        <div *ngIf="image.syncResult==0">
+                        <div *ngIf="image.syncResult==0" style="height:39px;padding-top:7px">
                             <input type="text" style="padding:0;text-align:center" placeholder="image.displayName" [(ngModel)]="image.displayName" />
                         </div>
                         <div *ngIf="image.syncResult!=0">
@@ -58,7 +58,7 @@
                         </div>
                     </td>
                     <td >
-                        <div *ngIf="image.syncResult==0">
+                        <div *ngIf="image.syncResult==0" style="height:39px;padding-top:7px">
                             <input type="text" style="padding:0;text-align:center" placeholder="image.os" [(ngModel)]="image.os" />
                         </div>
                         <div *ngIf="image.syncResult!=0">

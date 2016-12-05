@@ -11,7 +11,7 @@ export const port_mock = {
                 "dvPortGroupName": "2c40a427-6e67-4bd3-a3b1-fb897f7051ff",
                 "distPortGroupDisplayName": "tt",
                 "vlanId": "62",
-                "status": "1",
+                "status": "0",
                 "lastUpdate": "2016/11/22 13:13:36"
         },
         {
@@ -98,5 +98,23 @@ export const dclist_mock = {
                 }
             ]
         } 
+    ]
+}
+export const port_mock_changed = {
+     "resultCode": "100",
+    "detailDescription": null,
+    "resultContent": [
+        {
+                "id": "mkgroup1-3bfb-4b09-b804-30954b084e0c",
+                "dcId": "77557b4d-9004-4118-807f-c9d6bffcbbd3",
+                "dcName": "DC1",
+                "switchId": "792a37ea-2443-4ae5-8ad9-32f7ddce8a32",
+                "switchName": "cluster1",
+                "dvPortGroupName": "2c40a427-6e67-4bd3-a3b1-fb897f7051ff",
+                "distPortGroupDisplayName": "tt",
+                "vlanId": "62",
+                "status": "1",
+                "lastUpdate": "2016/11/22 13:13:36"
+        }
     ]
 }

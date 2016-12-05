@@ -6,7 +6,7 @@
         <tr>
             <th style="text-align:left;">VMware网络管理--管理分布式网络--端口组资源分配</th>
             <th style="text-align:right;">
-                <button class=" fox-cloud-button fox-cloud-button-white ">
+                <button class=" fox-cloud-button fox-cloud-button-white " (click)="back()">
                     <span class="icon-button-label">返回上一级</span>
                 </button>
             </th>
@@ -18,7 +18,7 @@
         <label class="pdr10 ">
             数据中心(DC)名称:
         </label>
-        <select class="pdl20 pdr20 form-control" [(ngModel)]="selectedDC" (change)="selectVds=defaultVds;">
+        <select class="pdl20 pdr20 form-control" [(ngModel)]="selectedDC" (change)="selectVds=defaultSwitch;">
             <option [ngValue]="defaultDc">所有</option>
             <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
         </select>
@@ -27,7 +27,7 @@
         </label>
         <select class="pdl20 pdr20 mgr20 form-control" [(ngModel)]="selectSwitch">
             <option [ngValue]="defaultSwitch">所有</option>
-            <option *ngFor="let vds of selectedDC.switchs" [ngValue]="vds">{{vds.switchName}}</option>
+            <option *ngFor="let vds of selectedDC.switchList" [ngValue]="vds">{{vds.switchName}}</option>
         </select>
         <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px;" (click)="filter();"> 确定</button>
     </div>
@@ -51,7 +51,7 @@
                     <input type="radio" class="fox-cloud-radio" name="group" [checked]="port.selected" (change)="selectPort(port);" />
                 </td>
                 <td>{{port.dcName}}</td>
-                <td>{{port.switchsName}}</td>
+                <td>{{port.switchName}}</td>
                 <td>{{port.dvPortGroupName}}</td>
                 <td>
                     <ol>
