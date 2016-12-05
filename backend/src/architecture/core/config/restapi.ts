@@ -1269,7 +1269,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取未选择和已选择的企业列表-vmware3.1",
         "id": "host-mng.vmware-mng.ents.list",
         "method": "POST",
-        "url": "adminboe/authsec/image/detail/{platformId}/tenants"
+        "url": "adminboe/authsec/image/detail/{platformId}/{imageId}/tenants"
     }
     , {
         "desc": "设置企业并保存-vmware3.2",
