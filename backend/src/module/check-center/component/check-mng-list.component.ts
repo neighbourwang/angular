@@ -147,7 +147,7 @@ export class CheckMngListComponent implements OnInit{
 
 		
         //匹配后台搜索框参数/authsec/backend/approval/orders/search/paging 
-		param.approvalStatus = 0;//approvalStatus代表未审批
+		param.status = 0;//approvalStatus代表未审批
         param.quickSearchStr = this._param.quickSearchStr;//输入订单号快速查询 ？
  		param.enterpriseId = this._param.entIdStr; //企业enterpriseId
 		param.organization = this._param.departmentIdNum; //部门organization？
@@ -155,7 +155,7 @@ export class CheckMngListComponent implements OnInit{
 		param.serviceId = this._param.serviceTypeNum;//产品类型serviceId
 		param.createTime = this._param.startDateStr;//创建时间
 		param.expireTime = this._param.endDateStr; //结束时间
-		param.serviceId = this._param.submitUserId;		//提交者？
+		//param.serviceId = this._param.submitUserId;		//提交者？
 
 		
 		param.pageParameter = {
