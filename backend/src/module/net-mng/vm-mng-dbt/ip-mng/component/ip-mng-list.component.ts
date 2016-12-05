@@ -56,9 +56,10 @@ export class IpMngListComponent implements OnInit{
 	noticeTitle = "";
     noticeMsg = "";
 
-    defaultDc: DCModel = new DCModel();
-    selectedDC: DCModel = this.defaultDc; //当前选中的DC
-    selectedVDS = "";//当前选中的可用区
+    defaultDC: DCModel = new DCModel();
+    selectedDC: DCModel = this.defaultDC; //当前选中的DC
+    defaultVDS: SwitchModel = new SwitchModel();
+    selectedVDS: SwitchModel = this.defaultVDS;//当前选中的可用区
     dcList: Array<DCModel>;
 
     rawipmngs: Array<IpMngModel>;
@@ -93,13 +94,13 @@ export class IpMngListComponent implements OnInit{
         this.getDcList();
 
         this.activatedRouter.params.forEach((params: Params) => {
-            if (params["dc_name"] != null) {
-                this.selectedDC.dcName = params["dc_name"];                
-                console.log(this.selectedDC.dcName, "this.selectedDC.dcName");
+            if (params["dc_Id"] != null) {
+                this.selectedDC.dcId = params["dc_Id"];                
+                console.log(this.selectedDC.dcId, "this.selectedDC.dc_Id");
             }
-            if (params["cls_name"] != null) {
-                this.selectedVDS = params["cls_name"];
-                console.log(this.selectedVDS, "this.selectedVDS");
+            if (params["switch_Id"] != null) {
+                this.selectedVDS.switchId = params["switch_Id"];
+                console.log(this.selectedVDS.switchId, "this.selectedVDS.switchId");
             }
         });
 
@@ -125,7 +126,7 @@ export class IpMngListComponent implements OnInit{
 
     filter(): void {
         this.ipmngs = this.rawipmngs.filter((item)=>{
-            return ( this.selectedVDS == "" || item.switchId == this.selectedVDS ) &&
+            return ( this.selectedVDS.switchId == "" || item.switchId == this.selectedVDS.switchId ) &&
             ( this.selectedDC.dcId == "" || item.dcId == this.selectedDC.dcId )
         })
         console.log(this.ipmngs, "IPmngS --- filter");
@@ -243,11 +244,12 @@ export class IpMngListComponent implements OnInit{
 
     //Menu: 返回上一层, 可以在[返回上一层]调用
     vmwareNetworkPage() {
-        this.router.navigate([`net-mng/vm-mng-dbt/vm-mng`]);     
+        this.router.navigate([`net-mng/vm-mng-dbt/index`]);     
     }
 
     acceptIPsModify(): void {
         console.log('clicked acceptIPsModify');
+        console.log(this.ippool.ipstr, "this.ippool.ipstr");
         if (this.validateIPModify()) {
             //console.log('clicked acceptIPsModify 2');
             this.service.updateSubnetIPs(this.ippool.portGroup, this.ippool)
@@ -306,9 +308,9 @@ export class IpMngListComponent implements OnInit{
                     this.pg.gateway = this.subn.gateway;
                     this.subnetbox.close();
                 })
-                .catch(err => {
-                    this.subnetbox.close();
+                .catch(err => {                    
                     console.log('设置IP子网,请检查填入项', err);
+                    this.subnetbox.close();
                     this.showMsg("设置IP子网,请检查填入项");
                     this.okCallback = () => { this.subnetbox.open(); };
                 })

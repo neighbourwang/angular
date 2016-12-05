@@ -23,8 +23,8 @@
             数据中心(DC)名称：
         </span>
         <div class="pull-left mgl15">
-            <select class="form-control" [(ngModel)]="selectedDC" (change)="selectedVDS=''" >
-                <option [ngValue]="defaultDc">所有</option>
+            <select class="form-control" [(ngModel)]="selectedDC" (change)="selectedVDS=defaultVDS" >
+                <option [ngValue]="defaultDC">所有</option>
                 <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
             </select>
         </div>
@@ -33,11 +33,11 @@
         </span>
         <div class="pull-left mgl15">
             <select class="form-control" [(ngModel)]="selectedVDS">
-                <option [value]="" value="">所有</option>
-                <option *ngFor="let vds of selectedDC.clusters" [value]="vds.clusterId">{{vds.clusterName}}</option>
+                <option [ngValue]="defaultVDS">所有</option>
+                <option *ngFor="let vds of selectedDC.clusters" [ngValue]="vds">{{vds.clusterName}}</option>
             </select>
         </div>
-		<button type="button" class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="filter(); selectedDC = defaultDc; selectedVDS = ''"> 确定</button>
+		<button type="button" class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="filter(); selectedDC=defaultDC;selectedDC.dcId='';selectedVDS=defaultVDS;selectedVDS.clusterId=''"> 确定</button>
     </div>
 
     <div class="mgb10">
@@ -87,10 +87,11 @@
             </tbody>
         </table>
 <!--
-    {{selectedDC.dcId}}
-    {{selectedVDS}}
-	{{subn.toString()}}
-	{{ippool.toString()}}
+    dcId:  {{selectedDC.dcId}} <br/>
+    clusterId:  {{selectedVDS.clusterId}}<br/>
+
+	{{subn.toString()}}<br/>
+	{{ippool.toString()}}<br/>
 -->
 
 

@@ -31,7 +31,15 @@ export class subTableListComponent implements OnInit, OnChanges {
 	};
 
 	ngOnInit() {
-		// this.getList();
+		this.initSelect();
+	}
+
+	initSelect() {    //设置选择第一位
+		switch (this.code) {
+			case "1":
+			case "2": this.service.diskQueryField.then(arr => this.list.queryField = arr[0].code); break;
+			case "3": this.service.vmQueryField.then(arr => this.list.queryField = arr[0].code); break;
+		}
 	}
 
 	ngOnChanges(changes) {
@@ -53,18 +61,21 @@ export class subTableListComponent implements OnInit, OnChanges {
 	setBackupList() {
 		this.service.getBackupList(this.list).then(res => {
 			console.log(res)
+			this.list.pageParameter.totalPage = res.pageInfo.totalPage;
 		})
 	}
 
 	setUnmountList() {
 		this.service.getUnmountList(this.list).then(res => {
 			console.log(res)
+			this.list.pageParameter.totalPage = res.pageInfo.totalPage;
 		})
 	}
 
 	setVmList() {
 		this.service.getVmList(this.list).then(res => {
 			this.vmList = res.resultContent;
+			this.list.pageParameter.totalPage = res.pageInfo.totalPage;
 			console.log(res.resultContent)
 		})
 	}

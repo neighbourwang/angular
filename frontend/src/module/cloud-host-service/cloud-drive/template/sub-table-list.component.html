@@ -58,13 +58,13 @@
          [ngValue]="v.code" >{{ v.displayValue }}</option>
     </select>
     <div class="input-group float-left drive-search">
-        <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="输入云主信息搜索">
+        <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="输入信息搜索">
         <div (click)="setVmList()" class="input-group-addon cup"><span class="glyphicon glyphicon-search"></span></div>
     </div>
 </div>
 <table *ngIf="code==='3'" class="table table-hover">
     <tr>
-        <th class="text-center">云硬盘名称</th>
+        <th class="text-center">云主机名称</th>
         <th class="text-center">配置</th>
         <th class="text-center">镜像</th>
         <th class="text-center">内部IP</th>

@@ -1,11 +1,11 @@
 ﻿export class SystemDictionary {
-    owner: String;
-    field: String;
-    code: String;
-    value: String;
-    displayValue: String;
+    owner: string;
+    field: string;
+    code: string;
+    value: string;
+    displayValue: string;
 
-    toString(): String {
+    toString(): string {
         return this.owner + "\n" +
             this.field + "\n" +
             this.code + "\n" +

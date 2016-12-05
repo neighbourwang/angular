@@ -103,7 +103,7 @@ export class ProdDirListComponent implements OnInit {
 
         this.backend({
             "categoryId": '',
-            "page": 1,
+            "page": 0,
             "platformId": '',
             "size": this.pp,
         });

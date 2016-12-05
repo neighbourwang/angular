@@ -7,27 +7,27 @@
                 <platform-zone #platformZone (onClick)="platformClick($event)"></platform-zone>
             </td>
         </tr>
-        <tr>
+        <!--<tr>
             <th class="col-md-1 col-xs-3 text-center">实例归属</th>
             <td>
                 <div class="col-md-10 btn-group" data-toggle="buttons">
                     <button (click)="list.ownerType = ''" class="btn btn-default" [ngClass]="{'active':list.ownerType === ''}">所有</button>
 
                     <button *ngFor="let v of service.ownerType | async;" 
-                            (click)="list.ownerType = v.value" 
-                            [ngClass]="{'active':list.ownerType === v.value}"
+                            (click)="list.ownerType = v.code" 
+                            [ngClass]="{'active':list.ownerType === v.code}"
                             class="btn btn-default">{{ v.displayValue }}
                     </button>
                 </div>
             </td>
-        </tr>
+        </tr>-->
     </table>
     <div class="col-md-12 no-padding mgb20">
         <div class="dropdown float-left mgr10">
             <select [(ngModel)]="list.queryField" class="form-control">
                 <option
                  *ngFor="let v of service.queryField | async; let i = index;"
-                 [ngValue]="v.value" >{{ v.displayValue }}</option>
+                 [value]="v.code" >{{ v.displayValue }}</option>
             </select>
         </div>
          
@@ -36,7 +36,7 @@
                 <option disabled selected value class="hideoption">状态</option>
                 <option
                  *ngFor="let v of service.computeStatus | async; let i = index;"
-                 [ngValue]="v.value" >{{ v.displayValue }}</option>
+                 [value]="v.code" >{{ v.displayValue }}</option>
             </select>
          </div>
         <div class="input-group col-md-2 float-left mgr10">
@@ -54,7 +54,7 @@
         <div class="float-right">
             <button class="btn float-left mgr5 btn-success" (click)="goTo('cloud-host-service/cloud-drive-order')"><i class="glyphicon glyphicon-plus"></i> 创建云硬盘</button>
 
-            <div class="dropdown float-left  mgr5">
+            <!--<div class="dropdown float-left  mgr5">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 更多操作
                 <span class="caret"></span>
@@ -64,7 +64,7 @@
                     <li><a href="javascript:">卸载</a></li>
                     <li><a href="javascript:">备份</a></li>
                 </ul>
-            </div>
+            </div>-->
         </div>
     </div>
     <table class="table table-hover">
@@ -76,7 +76,7 @@
             <th class="text-center">挂载位置（云主机名称）</th> 
             <th class="text-center">状态</th>
             <th class="text-center">到期时间</th>
-            <th class="text-center">可卸载</th> 
+            <!--<th class="text-center">可卸载</th> -->
             <th class="text-center">所在地区</th>
             <th class="text-center">可用区</th>
             <th class="text-center">属性</th>
@@ -91,7 +91,7 @@
             <td class="text-center">{{dist.relyName}}</td> 
             <td class="text-center">{{dist.status | dict:service.computeStatus | async}}</td>
             <td class="text-center">{{dist.expireDate | formatData}}</td>
-            <td class="text-center">{{dist.unloadAble}}</td>
+            <!--<td class="text-center">{{dist.unloadAble}}</td>-->
             <td class="text-center">{{dist.platformName}}</td> 
             <td class="text-center">{{dist.zoneName}}</td> 
             <td class="text-center">{{dist.useType}}</td>
