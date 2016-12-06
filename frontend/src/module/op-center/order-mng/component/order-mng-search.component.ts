@@ -50,7 +50,39 @@ export class OrderMngSearchComponent implements OnInit{
 
 		//配置订单加载
 		this._orderLoader = new ItemLoader<SearchOrderItem>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
-		
+		this._orderLoader.MapFunc = (source:Array<any>, target:Array<SearchOrderItem>)=>{
+			for(let item of source)
+			{
+				let obj = new SearchOrderItem();
+				target.push(obj);
+
+				_.extendOwn(obj, item);
+
+				obj.orderId = item.id;// 订单编号
+				obj.serviceType = item.productType;// 产品类型
+				obj.orderType = item.orderType;// 订单类型
+				obj.status = item.orderStatus;// 订单状态
+				//费用
+				if(item.productBillingItem)
+				{
+					obj.oncePrice = item.productBillingItem.basePrice;//一次性费用
+
+					if(item.productBillingItem.billingMode == 0)//包月包年
+					{
+						obj.price = item.productBillingItem.basicPrice + item.productBillingItem.cyclePrice;
+					}	
+					else if(item.productBillingItem.billingMode == 1)//按量
+					{
+						obj.price = item.productBillingItem.unitPrice;
+					}
+				}
+				obj.submitTime = item.createDate;// 提交时间
+				obj.EndTime = item.completeDate;//完成时间
+				obj.submitPeople = item.submiter;//提交者
+				obj.departmentName = item.departmentName;//所属部门
+			}
+		};
+      
 	}
 	ngOnInit(){
 		this.layoutService.show();
