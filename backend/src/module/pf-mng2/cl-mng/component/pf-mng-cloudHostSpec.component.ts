@@ -15,13 +15,13 @@ import { ClMngCommonService } from '../service/cl-mng-common.service';
 import { Platform } from '../model/platform.model';
 
 @Component({
-    templateUrl: '../template/pf-mng-bootDisk.component.html',
+    templateUrl: '../template/pf-mng-cloudHostSpec.component.html',
     styleUrls: [
         '../style/cl-mng.less'
     ],
     providers: []
 })
-export class bootDiskMngComponent implements OnInit {
+export class CloudHostSpecComponent implements OnInit {
 
 
     constructor(private layoutService:LayoutService,

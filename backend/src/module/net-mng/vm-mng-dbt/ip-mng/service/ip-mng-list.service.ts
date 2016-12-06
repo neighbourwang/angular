@@ -18,34 +18,35 @@ export class IpMngListService {
     ) { }
 
     getIpMngList(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("net-mng.vmware.dbt.ipmng.list");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return IpMngModel_mock });
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.dbt.ipmng.list");
+        return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return IpMngModel_mock });
     }
     
     getDCList(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("net-mng.vmware.dbt.querycondition.get");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => net_dc_list_mock);
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.dbt.querycondition.get");
+        return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => net_dc_list_mock);
     }
 
-    getSubnetInfoIps(portGroup:string): Promise<any> {
+    getSubnetInfoIps(portGroup:any): Promise<any> {
         const pathParams = [
             {
-                key: "portGroup_id",
+                key: "id",
                 value: portGroup
             }
         ];
-        //const api = this.restApiCfg.getRestApi("net-mng.vmware.dbt.subnetinfo-ips.get");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return subnetInfoModel_mock });
+        console.log(pathParams, "pathParams in getSubnetInfoIps!");
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.dbt.subnetinfo.ips.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return subnetInfoModel_mock });
     }
 
 	updateSubnetIPs(portGroup:any, ippool: subnetIpModel): Promise <any> {
         console.log('updateSubnetIPs');
         const pathParams = [
             {
-                key: "portGroup_id",
+                key: "id",
                 value: portGroup
             }
         ];
@@ -54,16 +55,16 @@ export class IpMngListService {
         console.log(ips, "(((((((((((((((ips)))))))))))))))");
         const body = ips;
         console.log(pathParams, body, "pathParams and body");
-        //const api = this.restApiCfg.getRestApi("net-mng.vmware.dbt.subnetips.setup");
-        //return this.restApi.request(api.method, api.url, pathParams, null, body);
-		return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.dbt.subnetips.setup");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+		//return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
 	}
 
     updateSubnet(portGroup: any, subn: subnetModel): Promise<any> {
         console.log('updateSubnet');
         const pathParams = [
             {
-                key: "portGroup_id",
+                key: "id",
                 value: portGroup
             }
         ];
@@ -75,8 +76,8 @@ export class IpMngListService {
                 "dnsAlt": subn.dnsAlt
             };
         console.log(pathParams, body, "pathParams and body");        
-        //const api = this.restApiCfg.getRestApi("net-mng.vmware.dbt.subnet.setup");
-        //return this.restApi.request(api.method, api.url, pathParams, null, body);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.dbt.subnet.setup");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
     }
 }

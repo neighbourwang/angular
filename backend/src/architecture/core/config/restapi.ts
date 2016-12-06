@@ -536,7 +536,12 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.department-list.get",
         "method": "GET",
         "url": "basis/authsec/adm/organization/enterprise/{enterpriseId}"
-    },  {
+    },{
+        "desc": "部门列表",
+        "id": "op-center.order-mng.booker-list.get",
+        "method": "GET",
+        "url": ""
+    }, {
         "desc": "区域列表",
         "id": "op-center.order-mng.region-list.get",
         "method": "GET",
@@ -546,6 +551,11 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.avail-region-list.get",
         "method": "GET",
         "url": "adminui/authsec/platform/{_id}/zone"
+    },{
+        "desc": "订购人列表",
+        "id": "op-center.order-mng.buyer-list.get",
+        "method": "GET",
+        "url": "adminui/authsec/approval/department/{departmentId}/users"
     }, {
         "desc": "订单列表",
         "id": "op-center.order-mng.order-list.post",
@@ -566,6 +576,11 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.order-cancel.get",
         "method": "GET",
         "url": "adminui/authsec/shopping/subinstance/{_subId}/cancel"
+    }, {
+        "desc": "订单查询列表",
+        "id": "op-center.order-mng.search-list.post",
+        "method": "POST",
+        "url": "adminui/authsec/order/search/paging"
     },
 
     //<!--后台-运营中心-订单管理-->
@@ -1033,10 +1048,9 @@ export let RestApis: RestApiModel[] = [
     },
     {
         "desc": "获取IP子网信息及IP范围",
-        "id": "net-mng.vmware.dbt.subnetinfo-ips.get",
+        "id": "net-mng.vmware.dbt.subnetinfo.ips.get",
         "method": "GET",
         "url": "adminboe/authsec/vmware/network/dist/{id}/getsub"
-
     },
     {
         "desc": "设置IP子网",
@@ -1153,7 +1167,12 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "adminui/authsec/backend/approval/order/{orderId}/operation/{operation}"        
     }
-
+    ,{
+        "desc": "获取审批意见",
+        "id": "check-center.approve-info.get",
+        "method": "GET",
+        "url": "adminui/authsec/backend/approval/history/order/{orderId}"        
+    }
     // 审批中心    
     //云网络管理
     // vmware标准网络   
@@ -1161,13 +1180,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取标准网络列表",
         "id": "net-img.vm-mng.network.list",
         "method": "GET",
-        "url": "/adminboe/authsec/vmware/network/getlist"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/getlist"
     }
     , {
         "desc": "获取标准网络数据中心列表",
         "id": "net-img.vm-mng.network.dclist",
         "method": "GET",
-        "url": "/adminboe/authsec/vmware/network/dclist"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dclist"
     }
     , {
         "desc": "标准网络启用",
@@ -1191,7 +1210,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建/编辑标准网络",
         "id": "net-img.vm-mng.network.update",
         "method": "POST",
-        "url": "/adminboe/authsec/vmware/network/update"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/update"
     },
     
     
@@ -1270,7 +1289,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取未选择和已选择的企业列表-vmware3.1",
         "id": "host-mng.vmware-mng.ents.list",
         "method": "POST",
-        "url": "adminboe/authsec/image/detail/{platformId}/tenants"
+        "url": "adminboe/authsec/image/detail/{platformId}/{imageId}/tenants"
     }
     , {
         "desc": "设置企业并保存-vmware3.2",
@@ -1308,13 +1327,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取分布式列表",
         "id": "net-mng.vm-mng-dbt.index.portlist",
         "method": "GET",
-        "url": "/adminboe/authsec/vmware/network/dist/portlist"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dist/portlist"
     }
     , {
         "desc": "获取数据中心联动列表",
         "id": "net-mng.vm-mng-dbt.index.dclist",
         "method": "GET",
-        "url": "/adminboe/authsec/vmware/network/dist/dclist"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dist/dclist"
     }
     , {
         "desc": "设置端口组显示名称",
@@ -1352,7 +1371,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "端口组列表",
         "id": "net-mng.vm-mng-dbt.port.list",
         "method": "GET",
-        "url": "/adminboe/authsec/vmware/network/dist/portres/{id}/list"
+        "url": "adminboe/authsec/vmware/network/dist/portres/list"
     },
     {
         "desc": "设置企业",
@@ -1365,5 +1384,11 @@ export let RestApis: RestApiModel[] = [
         "id": "net-mng.vm-mng-dbt.port.dclist",
         "method": "GET",
         "url": "/adminboe/authsec/vmware/network/dist/dclist"
+    },
+    {
+        "desc": "保存企业",
+        "id": "net-mng.vm-mng-dbt.port.ent-save",
+        "method": "POST",
+        "url": "adminboe/authsec/vmware/network/dist/portres/{id}/save/ent"
     }
 ]

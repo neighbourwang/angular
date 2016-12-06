@@ -2,7 +2,7 @@
 export class OrderMngParam{
 
   queryParam: string = null;//搜索框参数
-  people:string = null;//订购人
+  buyerId:string = null;//订购人
   createDate: string = null; // 创建时间 "2016-11-16T08:31:23.720Z",
   enterpriseId: string = null; // 企业ID
   expireDate: string = null; // 到期时间"2016-11-16T08:31:23.720Z",

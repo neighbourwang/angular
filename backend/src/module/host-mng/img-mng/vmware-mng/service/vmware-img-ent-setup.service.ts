@@ -25,15 +25,18 @@ export class VmwareImgEntSetupService{
         this.restApiCfg.loadCfgData();
     }
 
-    getAllEnts(platformId: string): Promise<any>{
+    getAllEnts(platformId: string, imageId: string): Promise<any>{
         const pathParams = [
             {
                 key: "platformId",
                 value: platformId
-
+            },
+            {
+                key: "imageId",
+                value: imageId
             }
         ];
-        
+        console.log(pathParams, "((((((((((((((((((pathParams))))))))))))))))))");        
         //*
         const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.ents.list");
         return this.restApi.request(api.method, api.url, pathParams, null, null);
@@ -45,15 +48,14 @@ export class VmwareImgEntSetupService{
             {
                 key: "imageId",
                 value: imageId
-
             }
         ];
         const obj = {
                 "tenants": selectedEnts
         };
-        console.log(imageId, selectedEnts, "((((((((((((((((((selectedEnts))))))))))))))))))")
+        console.log(imageId, selectedEnts, "((((((((((((((((((selectedEnts))))))))))))))))))");
         //*
-        const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.ents.list");
+        const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.ent.save");
         return this.restApi.request(api.method, api.url, pathParams, null, obj);
         //*/
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });

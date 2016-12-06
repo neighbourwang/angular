@@ -78,26 +78,26 @@
                     <td style="position:relative"> 
                         {{port.distPortGroupDisplayName||"未设置"}}
                         <span class="icon-edit2" (click)="openEdit(port);port.isOpen=true;" style="padding:1px 15px"></span> 
-                         <div *ngIf="port.isOpen" class="popover fade bottom in" role="tooltip" style="position:absolute;top:30px; right:150px; width:400px; max-width:1100px; display: block;">
+                         <div *ngIf="port.isOpen" class="popover fade bottom in" role="tooltip" style="position:absolute;top:30px; right:150px; width:420px; max-width:1100px; display: block;">
                                 <div class="arrow" style="left: 30%;"></div>
                                 <div class="popover-content">
                                     <form class="form-horizontal" role="form">
                                         <div class="form-group">
-                                            <label class="col-sm-5 control-label">分布式端口组显示名称:</label>
-                                            <div class="col-sm-7 float-left">
+                                            <label class="col-sm-6 control-label">分布式端口组显示名称:</label>
+                                            <div class="col-sm-6 float-left">
                                             <input type="text" [(ngModel)]="editPort.distPortGroupDisplayName" name="portname"/>
                                             </div>
                                         </div>
                                     </form>
                                 <div class="pull-right" style="margin-bottom:10px;">
                                     <button class=" fox-cloud-button fox-cloud-button-white" (click)="saveEdit(port)">保存</button>
-                                    <button class="fox-cloud-button fox-cloud-button-white" (click)="close(port);">取消</button>
+                                    <button class="fox-cloud-button fox-cloud-button-white" (click)="port.isOpen = false;">取消</button>
                                 </div>
                             </div> 
                           </div>
                     </td>                  
                     <td>{{port.vlanId}}</td>
-                    <td class="font-green">{{port.status}}</td>
+                    <td [ngClass]="port.status==1?'font-green':'font-orange'">{{getDicText(port.status,this.statusDic)}}</td>
                     <td>{{port.lastUpdate}}</td>
                 </tr>           
             </tbody>

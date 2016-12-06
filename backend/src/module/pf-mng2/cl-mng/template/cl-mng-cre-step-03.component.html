@@ -46,6 +46,132 @@
                     </tr>
                 </tbody>
             </table>
+            <table *ngIf="platformType=='2'" class="table table-hover mgt20" style="">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th >DC</th>
+                        <th>可用区名称</th>
+                        <th>显示名称</th>
+                        <th>宿主机数量</th>
+                        <th>物理CPU总核数</th>
+                        <th>总内存数(GB)</th>
+                        <th style="width:10%">CPU超百分比</th>
+                        <th style="width:10%">配额%</th>
+                        <th style="width:30%">说明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{idx + 1}}</td>
+                        <td>DC1</td>
+                        <td>AZ1</td>
+                        <td><input type="text" class="form-control" [(ngModel)]="item" value="高性能区1"></td>
+                        <td>5</td>
+                        <td>1200</td>
+                        <td>12800</td>
+                        <td>
+                            <!--<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
+                            <input type="number" class="form-control" value="4" [(ngModel)]="item" style="width: 100px; display: inline;">
+                            </td>
+                        <td><input type="number" class="form-control" value="80"></td>
+                        <td><input type="text" class="form-control" value="高配置的CPU、内存和磁盘区"></td>
+                    </tr>
+                    <tr>
+                        <td>{{idx + 1}}</td>
+                        <td>DC1</td>
+                        <td>AZ1</td>
+                        <td><input type="text" class="form-control" [(ngModel)]="item" value="高性能区1"></td>
+                        <td>5</td>
+                        <td>1200</td>
+                        <td>12800</td>
+                        <td>
+                            <!--<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
+                            <input type="number" class="form-control" value="4" [(ngModel)]="item" style="width: 100px; display: inline;">
+                            </td>
+                        <td><input type="number" class="form-control" value="80"></td>
+                        <td><input type="text" class="form-control" value="高配置的CPU、内存和磁盘区"></td>
+                    </tr>
+                    <tr>
+                        <td>{{idx + 1}}</td>
+                        <td >DC1</td>
+                        <td>AZ1</td>
+                        <td><input type="text" class="form-control" [(ngModel)]="item" value="高性能区1"></td>
+                        <td>5</td>
+                        <td>1200</td>
+                        <td>12800</td>
+                        <td>
+                            <!--<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
+                            <input type="number" class="form-control" value="4" [(ngModel)]="item" style="width: 100px; display: inline;">
+                            </td>
+                        <td><input type="number" class="form-control" value="80"></td>
+                        <td><input type="text" class="form-control" value="高配置的CPU、内存和磁盘区"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table *ngIf="platformType=='0'" class="table table-hover mgt20" style="">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Region</th>
+                        <th>可用区名称</th>
+                        <th>显示名称</th>
+                        <th>宿主机数量</th>
+                        <th>物理CPU总核数</th>
+                        <th>总内存数(GB)</th>
+                        <th style="width:10%">CPU超百分比</th>
+                        <th style="width:10%">配额%</th>
+                        <th style="width:30%">说明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{idx + 1}}</td>
+                        <td >DC1</td>
+                        <td>AZ1</td>
+                        <td><input type="text" class="form-control" [(ngModel)]="item" value="高性能区1"></td>
+                        <td>5</td>
+                        <td>1200</td>
+                        <td>12800</td>
+                        <td>
+                            <!--<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
+                            <input type="number" class="form-control" value="4" [(ngModel)]="item" style="width: 100px; display: inline;">
+                            </td>
+                        <td><input type="number" class="form-control" value="80"></td>
+                        <td><input type="text" class="form-control" value="高配置的CPU、内存和磁盘区"></td>
+                    </tr>
+                    <tr>
+                        <td>{{idx + 1}}</td>
+                        <td >DC1</td>
+                        <td>AZ1</td>
+                        <td><input type="text" class="form-control" [(ngModel)]="item" value="高性能区1"></td>
+                        <td>5</td>
+                        <td>1200</td>
+                        <td>12800</td>
+                        <td>
+                            <!--<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
+                            <input type="number" class="form-control" value="4" [(ngModel)]="item" style="width: 100px; display: inline;">
+                            </td>
+                        <td><input type="number" class="form-control" value="80"></td>
+                        <td><input type="text" class="form-control" value="高配置的CPU、内存和磁盘区"></td>
+                    </tr>
+                    <tr>
+                        <td>{{idx + 1}}</td>
+                        <td >DC1</td>
+                        <td>AZ1</td>
+                        <td><input type="text" class="form-control" [(ngModel)]="item" value="高性能区1"></td>
+                        <td>5</td>
+                        <td>1200</td>
+                        <td>12800</td>
+                        <td>
+                            <!--<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
+                            <input type="number" class="form-control" value="4" [(ngModel)]="item" style="width: 100px; display: inline;">
+                            </td>
+                        <td><input type="number" class="form-control" value="80"></td>
+                        <td><input type="text" class="form-control" value="高配置的CPU、内存和磁盘区"></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div class="col-md-1"></div>
     </div>
@@ -54,10 +180,10 @@
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
         <span class="icon-button-label">取消</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="previous();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="previous();">
         <span class="icon-button-label">上一步</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="next();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();">
         <span class="icon-button-label">下一步</span>
     </button>
 </div>

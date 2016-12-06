@@ -18,7 +18,7 @@
         <label class="pdr10 ">
             数据中心(DC)名称:
         </label>
-        <select class="pdl20 pdr20 form-control" [(ngModel)]="selectedDC" (change)="selectVds=defaultSwitch;">
+        <select class="pdl20 pdr20 form-control" [(ngModel)]="selectedDC" (change)="selectSwitch=defaultSwitch;">
             <option [ngValue]="defaultDc">所有</option>
             <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
         </select>

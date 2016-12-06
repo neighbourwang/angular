@@ -47,7 +47,7 @@ export class VmDisIndexComponent implements OnInit {
     defaultSwitch: switchMode = new switchMode();
     selectSwitch = this.defaultSwitch;//当前选中的可用区
 
-    
+    platformId: string;
 
     dcList: Array<DCModel>;
 
@@ -61,21 +61,22 @@ export class VmDisIndexComponent implements OnInit {
    
 
     ngOnInit() {
+        this.platformId = "88";
         this.getDcList();
-       this.getData();
-        //this.dicService.getItems("PORTGROUP", "STATUS")
-        //    .then(
-        //    dic => {
-        //       this.statusDic = dic;
-        //        this.getData();
-        //    });
+      
+        this.dicService.getItems("portgroup", "status")
+            .then(
+            dic => {
+               this.statusDic = dic;
+                this.getData();
+            });
     }
 
 
 
     getDcList() {
         this.layoutService.show();
-        this.service.getDCList()
+        this.service.getDCList(this.platformId)
             .then(
             response => {
                 this.layoutService.hide();
@@ -91,7 +92,7 @@ export class VmDisIndexComponent implements OnInit {
 
     getData() {
         this.layoutService.show();
-        this.service.getData()
+        this.service.getData(this.platformId)
             .then(
             response => {
                 this.layoutService.hide();
@@ -121,15 +122,23 @@ export class VmDisIndexComponent implements OnInit {
     }
 
     //弹出编辑标准端口组显示名称
-    openEdit(port): void {
-        
-        this.editPort = port;
+    openEdit(Port:port): void {
+        let cport = new port();
+        cport.id = Port.id;
+        cport.dcId = Port.dcId;
+        cport.dcName = Port.dcName;
+        cport.switchId = Port.switchId;
+        cport.switchName = Port.switchName;    
+        cport.dvPortGroupName = Port.dvPortGroupName;
+        cport.distPortGroupDisplayName = Port.distPortGroupDisplayName;
+        cport.vlanId = Port.vlanId;
+        cport.status = Port.status;
+        cport.lastUpdate = Port.lastUpdate;
+        this.editPort = cport;
     }
-    close(port): void {
-        port.isOpen = false;
-    }
+    
     //保存标准端口组显示名称
-    saveEdit(port: port) {
+    saveEdit(Port: port) {
         this.layoutService.show();
         if (this.validationService.isBlank(this.editPort.distPortGroupDisplayName)) {
             this.showAlert("标准端口组显示名称不能为空.");

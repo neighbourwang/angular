@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi } from '../../../../../architecture';
 
@@ -20,30 +20,49 @@ export class VmDisIndexService {
         this.restApiCfg.loadCfgData();
     }
 
-    //获取初始化列表数据
-    getDCList(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.dclist");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => dclist_mock);
+    //获取数据中心联动列表
+    getDCList(platform_Id:string): Promise<any> {
+        const pathParams = [
+            {
+                key: "platform_id",
+                value: platform_Id
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.dclist");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => dclist_mock);
     }
 
-     getData(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.portlist");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => port_mock);
+    //获取分布式端口列表
+    getData(platform_Id:string): Promise<any> {
+        const pathParams = [
+            {
+                key: "platform_id",
+                value: platform_Id
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.portlist");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => port_mock);
     }
 
-    
-    saveEdit(port: port): Promise<any> {
+    //保存分布式端口组显示名称
+    saveEdit(Port: port): Promise<any> {
+        const pathParams = [
+            {
+                key: "id",
+                value: Port.id
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.setportname");
+        return this.restApi.request(api.method, api.url, pathParams, null,[Port.distPortGroupDisplayName]);
         
-        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.setportname");
-        //return this.restApi.request(api.method, api.url, null, null,port);
-        
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
     }
-    
+
+    //启用
     portEnable(id:string):Promise<any>{
-        //如果运行状态不是运行中的，则不能启用此网络
+        
         const pathParams = [
             {
                 key: "id",
@@ -51,12 +70,13 @@ export class VmDisIndexService {
             }
         ];
 
-         //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.enable");
-         //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
+         const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.enable");
+         return this.restApi.request(api.method, api.url, pathParams, null, null);
+       //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
     }
 
-     portDisable(id:string):Promise<any>{
+    //禁用
+    portDisable(id: string): Promise<any>{
         const pathParams = [
             {
                 key: "id",
@@ -64,9 +84,9 @@ export class VmDisIndexService {
             }
         ];
 
-         //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.disable");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
+         const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.disable");
+         return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
     }
     //获取分布式同步网络信息
     getSynInfolist():Promise<any>{
