@@ -233,7 +233,7 @@ const menu: Array<Object> = [
               "label": "VmWare网络",
                  "isOpen": false,
                  "isActive": false,
-                 "routing": "net-mng/vm-mng"
+                 "routing": "net-mng/vm-mng/88"
           },
          {
               "label": "VmWare分布式网络",

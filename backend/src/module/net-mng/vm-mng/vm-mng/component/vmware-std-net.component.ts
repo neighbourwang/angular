@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, ViewChild, } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, ValidationService, PopupComponent, SystemDictionaryService, SystemDictionary } from '../../../../../architecture';
 
 import { StdNet } from '../model/std-net.model';
@@ -19,12 +19,19 @@ import { VmwareService } from '../service/vmware.service';
 export class VmwareStdNetComponent implements OnInit {
 
     constructor(
+        private activatedRouter: ActivatedRoute,
         private router: Router,
         private dicService: SystemDictionaryService,
         private service: VmwareService,
         private layoutService: LayoutService,
         private validationService: ValidationService
     ) {
+     if (activatedRouter.snapshot.params["pid"]) {
+            this.platformId = activatedRouter.snapshot.params["pid"] || "";
+        } else {
+            this.platformId = "88";
+        } 
+
     }
 
     @ViewChild("pager")
@@ -50,8 +57,9 @@ export class VmwareStdNetComponent implements OnInit {
     selectedDC4Popup: DCModel = this.defaultDc;//创建，编辑框选中的DCModel
     selectedCluster4Popup: ClusterMode = this.defaultCluster;//创建，编辑框选中的DCModel
 
-    dcList: Array<DCModel>;
+    platformId: string;
 
+    dcList: Array<DCModel>;
     allnets: Array<StdNet>;
     filternets: Array<StdNet>;
 
@@ -62,8 +70,9 @@ export class VmwareStdNetComponent implements OnInit {
     tempEditNet: StdNet = new StdNet();
 
     ngOnInit() {
-        this.getDcList();
-       
+        this.platformId = "88";
+
+        this.getDcList();      
         this.dicService.getItems("PORTGROUP", "STATUS")
             .then(
             dic => {
@@ -76,7 +85,7 @@ export class VmwareStdNetComponent implements OnInit {
 
     getDcList() {
         this.layoutService.show();
-        this.service.getDCList()
+        this.service.getDCList(this.platformId)
             .then(
             response => {
                 this.layoutService.hide();
@@ -92,7 +101,7 @@ export class VmwareStdNetComponent implements OnInit {
 
     getData() {
         this.layoutService.show();
-        this.service.getData()
+        this.service.getData(this.platformId)
             .then(
             response => {
                 this.layoutService.hide();
@@ -206,7 +215,7 @@ export class VmwareStdNetComponent implements OnInit {
             return;
         }
         
-        this.service.saveEditNet(this.tempEditNet)
+        this.service.saveEditNet(this.platformId, this.tempEditNet)
             .then(
             response => {
                 this.layoutService.hide();
@@ -246,7 +255,7 @@ export class VmwareStdNetComponent implements OnInit {
             this.showAlert("标准端口组显示名称不能为空.");
             return;
         }
-        this.service.saveEditNet(this.editPort)
+        this.service.saveEditNet(this.platformId, this.editPort)
             .then(
             response => {
                 this.layoutService.hide();
@@ -382,7 +391,7 @@ export class VmwareStdNetComponent implements OnInit {
     }
 
     gotoPortMng() {
-        this.router.navigate([`net-mng/vm-mng/port-mng`]);
+        this.router.navigate([`net-mng/vm-mng/port-mng`, {"pid":this.platformId}]);
     }
 
     gotoIpMng() {
@@ -392,13 +401,19 @@ export class VmwareStdNetComponent implements OnInit {
                     `net-mng/vm-mng/ip-mng-list`,
                     {
                         "dc_Id": selectedNet.dcId,
-                        "cls_Id": selectedNet.clusterId
+                        "cls_Id": selectedNet.clusterId,
+                        "pid":this.platformId
                     }
                 ]
             );
         } else {
             this.router.navigate([
-                `net-mng/vm-mng/ip-mng-list`]
+                `net-mng/vm-mng/ip-mng-list`,
+                {
+                        
+                        "pid":this.platformId
+                    }
+            ]
             );
         }
     }

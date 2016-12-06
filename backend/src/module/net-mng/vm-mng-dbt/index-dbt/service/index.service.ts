@@ -21,16 +21,28 @@ export class VmDisIndexService {
     }
 
     //获取数据中心联动列表
-    getDCList(): Promise<any> {
+    getDCList(platform_Id:string): Promise<any> {
+        const pathParams = [
+            {
+                key: "platform_id",
+                value: platform_Id
+            }
+        ];
         const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.dclist");
-        return this.restApi.request(api.method, api.url, null, null, null);
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => dclist_mock);
     }
 
     //获取分布式端口列表
-     getData(): Promise<any> {
+    getData(platform_Id:string): Promise<any> {
+        const pathParams = [
+            {
+                key: "platform_id",
+                value: platform_Id
+            }
+        ];
         const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.portlist");
-        return this.restApi.request(api.method, api.url, null, null, null);
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => port_mock);
     }
 
