@@ -60,6 +60,8 @@ export class IpMngListComponent implements OnInit{
 	noticeTitle = "";
     noticeMsg = "";
 
+    platformId: string = "";
+
     defaultDC: DCModel = new DCModel();
     selectedDC: DCModel = this.defaultDC; //当前选中的DC
     defaultVDS: ClusterModel = new ClusterModel();
@@ -97,7 +99,6 @@ export class IpMngListComponent implements OnInit{
 
     ngOnInit (){
         console.log('init');
-        this.getDcList();
 
         this.activatedRouter.params.forEach((params: Params) => {
             if (params["dc_Id"] != null) {
@@ -108,14 +109,18 @@ export class IpMngListComponent implements OnInit{
                 this.selectedVDS.clusterId = params["cls_Id"];
                 console.log(this.selectedVDS.clusterId, "this.selectedVDS.clusterId");
             }
+            if (params["platform_Id"] != null) {
+                this.platformId = params["platform_Id"];
+                console.log(this.platformId, "this.platform_Id");
+            }
         });
-
+        this.getDcList();
         this.getIpMngList();
     }
 
     getDcList() {
         this.layoutService.show();
-        this.service.getDCList()
+        this.service.getDCList(this.platformId)
             .then(
                 response => {
                     this.layoutService.hide();
@@ -141,7 +146,7 @@ export class IpMngListComponent implements OnInit{
 
     getIpMngList(): void {
         this.layoutService.show();
-        this.service.getIpMngList()
+        this.service.getIpMngList(this.platformId)
             .then(
             response => {
                 this.layoutService.hide();

@@ -17,15 +17,27 @@ export class IpMngListService {
         private restApi: RestApi
     ) { }
 
-    getIpMngList(): Promise<any> {
+    getIpMngList(platform_id: any): Promise<any> {
+        const pathParams = [
+            {
+                key: "platform_id",
+                value: platform_id
+            }
+        ];
         const api = this.restApiCfg.getRestApi("net-mng.vmware.dbt.ipmng.list");
-        return this.restApi.request(api.method, api.url, null, null, null);
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return IpMngModel_mock });
     }
     
-    getDCList(): Promise<any> {
-        const api = this.restApiCfg.getRestApi("net-mng.vmware.dbt.querycondition.get");
-        return this.restApi.request(api.method, api.url, null, null, null);
+    getDCList(platform_id: any): Promise<any> {
+        const pathParams = [
+            {
+                key: "platform_id",
+                value: platform_id
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.dbt.dclist.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => net_dc_list_mock);
     }
 

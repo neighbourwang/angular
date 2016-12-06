@@ -975,23 +975,23 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "adminboe/authsec/vmware/network/{id}/save/ent"
     },
-    //IP地址管理
+    //IP地址管理[标准网络]
     {
         "desc": "标准网络列表",
         "id": "net-mng.vmware.network.list",
         "method": "GET",
-        "url": "adminboe/authsec/vmware/network/getlist"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/getlist"
     },
     {
         "desc": "获取DC/Cluster值",
-        "id": "net-mng.vmware.querycondition.get",
+        "id": "net-mng.vmware.dclist.get",
         "method": "GET",
-        "url": "adminboe/authsec/vmware/network/queryCondition"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dclist"
 
     },
     {
         "desc": "获取IP子网信息或IP范围",
-        "id": "net-mng.vmware.subnetinfo-ips.get",
+        "id": "net-mng.vmware.subnetinfo.ips.get",
         "method": "GET",
         "url": "adminboe/authsec/vmware/network/portGroup/{portGroup_id}"
 
@@ -1000,7 +1000,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取IP地址管理列表",
         "id": "net-mng.vmware.ipmng.list",
         "method": "GET",
-        "url": "adminboe/authsec/vmware/network/portGroup"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/portGroup"
     },
     {
         "desc": "获取IP使用情况列表",
@@ -1037,13 +1037,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取IP地址管理列表",
         "id": "net-mng.vmware.dbt.ipmng.list",
         "method": "GET",
-        "url": "adminboe/authsec/vmware/network/dist/iplist"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dist/iplist"
     },
     {
         "desc": "获取DC/Switch值",
-        "id": "net-mng.vmware.dbt.querycondition.get",
+        "id": "net-mng.vmware.dbt.dclist.get",
         "method": "GET",
-        "url": "adminboe/authsec/vmware/network/dist/dclist"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dist/dclist"
 
     },
     {
