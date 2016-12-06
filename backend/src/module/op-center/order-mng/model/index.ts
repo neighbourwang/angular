@@ -9,3 +9,4 @@ export * from './product-item';
 export * from './product-type';
 export * from './renew-setting';
 export * from './sub-region';
+export * from './search-order-item';
