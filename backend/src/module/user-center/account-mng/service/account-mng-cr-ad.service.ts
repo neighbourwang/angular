@@ -18,17 +18,8 @@ export class AccountMngCreAdService {
 
         let api = this.restApiCfg.getRestApi("user-center.org-mng.list");
 
-        //return this.restApi.request(api.method, api.url, [{ key: "page", value: page }, { key: "size", value: size }], undefined)
-        //.then(
-        //    res => {
-        //        if (res && 100 == res["resultCode"]) {
-        //            return res.resultContent;
-        //        } else {
-        //            throw "error";
-        //        }
-        //    }
-        //);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => orgs).then(
+        return this.restApi.request(api.method, api.url, [{ key: "page", value: page }, { key: "size", value: size }], undefined)
+        .then(
             res => {
                 if (res && 100 == res["resultCode"]) {
                     return res.resultContent;
@@ -37,6 +28,15 @@ export class AccountMngCreAdService {
                 }
             }
         );
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => orgs).then(
+        //    res => {
+        //        if (res && 100 == res["resultCode"]) {
+        //            return res.resultContent;
+        //        } else {
+        //            throw "error";
+        //        }
+        //    }
+        //);
     }
 
     //获取 所有角色
