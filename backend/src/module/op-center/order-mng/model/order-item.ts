@@ -89,11 +89,7 @@ export class SubInstanceItemResp {
   get billingMode():number{//包装计费模式
     return this.billingInfo ? this.billingInfo.billingMode : null;
   }
-
-  get oneTimePriceAndPrice():string{//单价费用
-    return this.billingInfo ? this.billingInfo.oneTimePriceAndPrice : "";
-  }
-
+  
   get oneTimePrice():number{
     return this.billingInfo ? this.billingInfo.basePrice : 0;
   }
@@ -119,11 +115,6 @@ export class ProductBillingItem {
   unitPrice: number = null;//, optional): 流量计费-流量单价 ,
   unitType: number = null;//, optional): 流量计费-流量计费类型，需要查询数据字典
   periodType: number = null; //周期计费-周期类型，需要检索数据字典
-
-  get oneTimePriceAndPrice():string{ //单价费用
-    return `一次性价格:${this.basePrice}
-    价格:${this.basicPrice}`;
-  }
 
   get price():number{
     if(this.billingMode == 0)//包年包月

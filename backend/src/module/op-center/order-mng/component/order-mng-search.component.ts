@@ -64,7 +64,20 @@ export class OrderMngSearchComponent implements OnInit{
 			obj.serviceType = item.productType;// 产品类型
 			obj.orderType = item.orderType;// 订单类型
 			obj.status = item.orderStatus;// 订单状态
-			obj.oncePrice = item.ProductBillingItem;//费用 
+			//费用
+			if(item.productBillingItem)
+			{
+				obj.oncePrice = item.productBillingItem.basePrice;//一次性费用
+
+				if(item.productBillingItem.billingMode == 0)//包月包年
+				{
+					obj.price = item.productBillingItem.basicPrice + item.productBillingItem.cyclePrice;
+				}	
+				else if(item.productBillingItem.billingMode == 1)//按量
+				{
+					obj.price = item.productBillingItem.unitPrice;
+				}
+			}
 			obj.submitTime = item.createDate;// 提交时间
 			obj.EndTime = item.completeDate;//完成时间
 			obj.submitPeople = item.submiter;//提交者
@@ -148,7 +161,7 @@ export class OrderMngSearchComponent implements OnInit{
 
 	}
 
-search(pageNumber:number = 1){
+	search(pageNumber:number = 1){
 		this.layoutService.show();
 
 		let param = _.extend({}, this._param);
@@ -183,7 +196,8 @@ search(pageNumber:number = 1){
 	onEndTimeChange($event){
 		this._param.expireDate = $event.formatted;
 	}
-showMsg(msg: string)
+	
+	showMsg(msg: string)
 	{
 		this._notice.open("系统提示", msg);
 	}

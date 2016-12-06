@@ -70,7 +70,7 @@ export class VmwareStdNetComponent implements OnInit {
     tempEditNet: StdNet = new StdNet();
 
     ngOnInit() {
-        this.platformId = "88";
+        
 
         this.getDcList();      
         this.dicService.getItems("PORTGROUP", "STATUS")
