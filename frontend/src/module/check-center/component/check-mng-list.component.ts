@@ -68,10 +68,21 @@ export class CheckMngListComponent implements OnInit{
 				obj.departmentStr = item.departmentName;// 部门
 				obj.entStr = item.enterpriszeName;// 企业
 				//费用
-				obj.billingModeName =item.billingInfo ? item.billingInfo.billingMode:""; //计费模式
+				obj.billingModeNum =item.billingInfo ? item.billingInfo.billingMode: null; //计费模式
 				obj.billingDurationStr = item.period;//订单周期
-				obj.oneTimePriceNum = item.billingInfo ? item.billingInfo.basePrice: "";//一次性费用
-				// obj.priceNum = ??费用
+				obj.oneTimePriceNum = item.billingInfo ? item.billingInfo.basePrice: null;//一次性费用
+				if(item.billingInfo)
+				{
+					if(obj.billingModeNum == 0)//包年包月
+					{
+						obj.priceNum = item.billingInfo.basicPrice + item.billingInfo.cyclePrice
+					}
+					else if(obj.billingModeNum == 1)//按量
+					{
+						obj.priceNum = item.billingInfo.unitPrice;
+					}
+					
+				}
 
 				obj.createTimeStr = item.createDate;// 创建时间
 				// obj.checkResultId = ?? 审批结果	
