@@ -1,6 +1,6 @@
 ﻿import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute} from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../../architecture';
 
@@ -27,7 +27,13 @@ export class PortMngComponent implements OnInit {
         private router: Router,
         private service: PortMngService,
         private layoutService: LayoutService,
+        activatedRouter: ActivatedRoute
     ) {
+        if (activatedRouter.snapshot.params["platformId"]) {
+            this.platformId = activatedRouter.snapshot.params["platformId"] || "";
+        } else {
+            this.platformId = "99";
+        }
 
 
     }
@@ -47,6 +53,8 @@ export class PortMngComponent implements OnInit {
     allPorts: Array<PortMngModel>;
     filterPorts: Array<PortMngModel>;
    
+    platformId:string;
+
     ngOnInit() {
         this.getDcList();
         this.getData();
@@ -54,7 +62,7 @@ export class PortMngComponent implements OnInit {
 
     getData() {
         this.layoutService.show();
-        this.service.getData()
+        this.service.getData(this.platformId)
             .then(
             response => {
                 this.layoutService.hide();
@@ -71,7 +79,7 @@ export class PortMngComponent implements OnInit {
 
     getDcList() {
         this.layoutService.show();
-        this.service.getDCList()
+        this.service.getDCList(this.platformId)
             .then(
                 response => {
                     this.layoutService.hide();

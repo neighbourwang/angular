@@ -32,4 +32,6 @@
     <div class="fox-cloud-pagination-container">
         <fc-pagination #pager tp={{totalPage}} (pf)="getPlatforms($event)"></fc-pagination>
     </div>
+    
+    <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
 </div>

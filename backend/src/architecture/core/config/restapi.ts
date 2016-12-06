@@ -1338,13 +1338,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "分布式网络取得同步网络信息",
         "id": "net-mng.vm-mng-dbt.index.syn.getinfolist",
         "method": "GET",
-        "url": "/adminboe/authsec/vmware/network/dist/synclist"
+        "url": "/adminboe/authsec/platform/{platform_id}/vmware/network/dist/synclist"
     },
     {
         "desc": "分布式网络同步网络",
         "id": "net-mng.vm-mng-dbt.index.syn.dosyn",
         "method": "PUT",
-        "url": "/adminboe/authsec/vmware/network/dist/{vds_id}/sync"
+        "url": "/adminboe/authsec/platform/{platform_id}/vmware/network/dist/{vds_id}/sync"
     },
     //云网络管理
     //vmware-分布式网络
@@ -1352,7 +1352,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "端口组列表",
         "id": "net-mng.vm-mng-dbt.port.list",
         "method": "GET",
-        "url": "adminboe/authsec/vmware/network/dist/portres/list"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dist/portres/list"
     },
     {
         "desc": "设置企业",
@@ -1364,7 +1364,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "数据中心联动列表",
         "id": "net-mng.vm-mng-dbt.port.dclist",
         "method": "GET",
-        "url": "/adminboe/authsec/vmware/network/dist/dclist"
+        "url": "/adminboe/authsec/platform/{platform_id}/vmware/network/dist/dclist"
     },
     {
         "desc": "保存企业",
