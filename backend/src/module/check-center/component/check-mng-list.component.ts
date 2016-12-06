@@ -21,6 +21,7 @@ import * as _ from 'underscore';
 	styleUrls: ['../style/check-mng-list.less'],
 	providers: []	
 })
+
 export class CheckMngListComponent implements OnInit{ 
 	private _param:CheckCenterParam = new CheckCenterParam();
 	private _entLoader:ItemLoader<{id:string; name:string}> = null; //企业列表

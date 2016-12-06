@@ -156,8 +156,12 @@ export class AccountMngListComponent implements OnInit {
 
     //
     accountType = "1";
-
+    isActive:boolean=false;
     otCreate() {
+        this.isActive=false;
+        window.setTimeout(()=>{
+            this.isActive=true
+        },0)
         this.createAccountPopUp.close();
         console.log(this.accountType);
         if (this.accountType == "1") {

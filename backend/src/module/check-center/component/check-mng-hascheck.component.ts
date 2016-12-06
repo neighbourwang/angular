@@ -12,7 +12,7 @@ import { RestApi
 	, ItemLoader } from '../../../architecture';
 
 import { CheckCenterParam
-	, CheckListItem } from './../model';
+	, CheckListItem,ApproveItem } from './../model';
 import * as _ from 'underscore';
 
 @Component({
@@ -32,6 +32,7 @@ export class CheckMngHascheckComponent implements OnInit{
 	private _isAdvSearch:boolean = false;//高级查询
 	private _userListLoader:ItemLoader<{id:string;name:string}> = null;//用户列表
 	private _approverListLoader:ItemLoader<{id:string;name:string}> = null;//审批人列表
+	private _approveInfoLoader:ItemLoader<ApproveItem> = null;//审批意见
 	private _listLoader:ItemLoader<CheckListItem> = null;//列表数据加载
 
 	constructor(
@@ -107,6 +108,22 @@ export class CheckMngHascheckComponent implements OnInit{
 		//产品类型配置
 		this._serviceTypeDic = new DicLoader(_restApiCfg, _restApi, "GLOBAL", "SERVICE_TYPE");//²úÆ·ÀàÐÍÁÐ±í', "op-center.order-mng.product-type-list.get", _restApiCfg, _restApi);
 
+
+		//审批意见
+		this._approveInfoLoader = new ItemLoader<ApproveItem>(false, "审批人列表", "check-center.approve-info.get", _restApiCfg, _restApi);
+
+	// 	this._approverListLoader.MapFunc = (source:Array<any>, target:Array<ApproveItem>)=>{
+	// 	for(let item of source)
+	// 	{
+	// 		let obj = new ApproveItem();
+	// 		target.push(obj);
+
+	// 		_.extendOwn(obj, item);
+
+	// 		obj.approver = item.approver;
+
+    //   }
+    // };
 
 	}
 	ngOnInit(){
@@ -194,6 +211,17 @@ export class CheckMngHascheckComponent implements OnInit{
 	changePage(pageNum:number)
 	{
 		this.search(pageNum);
+	}
+
+	//审批意见
+	getApproveInfo(orderId:string){
+		this._approveInfoLoader.Go(null,[{key:"orderId",value:orderId}])
+		.then(success=>{
+			//this._layoutService.hide();
+		})
+		.catch(err=>{
+			this._layoutService.hide();
+		})
 	}
 
 
