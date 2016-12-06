@@ -98,9 +98,19 @@ export class OrderMngComponent implements OnInit{
 			    return true;
 			};
 
+			let reloadstruct:(items:Array<SubInstanceItemResp>)=>void = (items:Array<SubInstanceItemResp>)=>{
+				for(let i = 0; i < items.length; i++){
+					items[i] = _.extendOwn(new SubInstanceItemResp(), items[i]);
+				}
+			};
+
 			for(let i = 0; i < target.length; i++)
 			{
 				let orderItem = target[i];
+
+				reloadstruct(orderItem.itemList);
+
+
 				if(orderItem.itemList && orderItem.itemList.length > 0)
 				{
 					if(orderItem.itemList.find(n=>!canRenew(n)) != null)
@@ -111,7 +121,11 @@ export class OrderMngComponent implements OnInit{
 				else{
 					orderItem.canRenew = true;
 				}
+
+				this._billinModeDic.UpdateWithDic(orderItem.itemList, "billingModeName", "billingMode");
 			}
+
+
 		};
 		/*
 		this._orderLoader.FakeDataFunc = (target:Array<SubInstanceResp>)=>{

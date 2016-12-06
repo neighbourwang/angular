@@ -94,6 +94,14 @@ export class SubInstanceItemResp {
     return this.billingInfo ? this.billingInfo.oneTimePriceAndPrice : "";
   }
 
+  get oneTimePrice():number{
+    return this.billingInfo ? this.billingInfo.basePrice : 0;
+  }
+
+  get price():number{
+    return this.billingInfo ? this.billingInfo.price : 0;
+  }
+
   statusName: string = null;//用于界面显示
   serviceTypeName: string = null;//产品类型名称
   billingModeName: string = null;//计费模式名称
@@ -115,6 +123,19 @@ export class ProductBillingItem {
   get oneTimePriceAndPrice():string{ //单价费用
     return `一次性价格:${this.basePrice}
     价格:${this.basicPrice}`;
+  }
+
+  get price():number{
+    if(this.billingMode == 0)//包年包月
+    {
+      return this.basicPrice + this.cyclePrice;
+    }
+    else if(this.billingMode == 1)//按量计费
+    {
+      return this.unitPrice;
+    }
+    else
+      return null;
   }
 
 }
