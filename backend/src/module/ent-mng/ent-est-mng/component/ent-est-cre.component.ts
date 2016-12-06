@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { EntEst, ResourceQuota, CertMethod } from '../model'
 import { EntEstCreService, Paging } from '../service/ent-est-cre.service'
+import * as _ from 'underscore';
 
 @Component({
 	selector:'ent-est-cre'
@@ -65,6 +66,7 @@ export class EntEstCreComponent implements OnInit{
 			  this.entEst.BasicInfo.certUrl = "";
 			  this.entEst.BasicInfo.password = "";
 			  this.entEst.BasicInfo.description="";
+			  this.entEst.BasicInfo.platformIds = [];
 		}	
 	}
 
@@ -155,6 +157,11 @@ export class EntEstCreComponent implements OnInit{
 			return false;
 		}
 
+		if(_.isEmpty(this.entEst.BasicInfo.platformIds))
+		{
+			this.showMsg('请选择平台');
+			return false;
+		}
 		return true;
 	}
 
@@ -165,6 +172,8 @@ export class EntEstCreComponent implements OnInit{
 
 	//创建企业
 	create(){
+		this.entEst.BasicInfo.platformIds
+			= this.entEst.BasicInfo.platformIds.concat(this.resourceQuotas.items.filter(n=>n.checked).map(n=>n.platformId));
 		if(this.validate())
 		{
 			this.service.createEnterpise(this.entEst).then(ret=>{
@@ -192,19 +201,6 @@ export class EntEstCreComponent implements OnInit{
 		let files = event.srcElement.files;
 
 		console.log('files', files);//上传的文件
-	}
-
-	changePage(page: number) {
-
-		page = page < 1 ? 1 : page;
-		page = page > this.resourceQuotas.totalPages ? this.resourceQuotas.totalPages : page;
-
-		if (this.resourceQuotas.currentPage == page) {
-		  return;
-		}
-
-		this.resourceQuotas.currentPage = page;
-		this.loadResourceQuotas();
 	}
 
 	loadResourceQuotas(){
