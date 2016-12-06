@@ -5,9 +5,6 @@ export class CheckListItem{
 	serviceTypeName: string = null;//产品类型名称
 	platformStr: string = null;//所在区域
 	zoneStr: string = null;//可用区域
-	get platformAndZoneStr():string{ //所在区域及可用区域
-		return `${this.platformStr}<br/>${this.zoneStr}`;
-	}
 	orderTypeNum: number = null;//订单类型
 	orderTypeName: string = null;//订单类型名称
 	userStr: string = null;//用户, 提交者
@@ -20,13 +17,6 @@ export class CheckListItem{
 	oneTimePriceNum: number = null;//一次性费用
 	priceNum: number = null;//费用
 
-	get priceStr(): string{
-		return `计费模式：${this.billingModeName}<br/>
-		订单周期：${this.billingDurationStr}
-		一次性费用：${this.oneTimePriceNum}
-		费用：${this.priceNum}
-		`;
-	}
 
 	createTimeStr: string = null;//创建时间
 	checkResultId: number = null;//审批结果

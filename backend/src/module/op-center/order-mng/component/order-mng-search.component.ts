@@ -64,7 +64,20 @@ export class OrderMngSearchComponent implements OnInit{
 			obj.serviceType = item.productType;// 产品类型
 			obj.orderType = item.orderType;// 订单类型
 			obj.status = item.orderStatus;// 订单状态
-			obj.oncePrice = item.ProductBillingItem;//费用 
+			//费用
+			if(item.productBillingItem)
+			{
+				obj.oncePrice = item.productBillingItem.basePrice;//一次性费用
+
+				if(item.productBillingItem.billingMode == 0)//包月包年
+				{
+					obj.price = item.productBillingItem.basicPrice + item.productBillingItem.cyclePrice;
+				}	
+				else if(item.productBillingItem.billingMode == 1)//按量
+				{
+					obj.price = item.productBillingItem.unitPrice;
+				}
+			}
 			obj.submitTime = item.createDate;// 提交时间
 			obj.EndTime = item.completeDate;//完成时间
 			obj.submitPeople = item.submiter;//提交者
