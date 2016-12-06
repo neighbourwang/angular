@@ -1162,7 +1162,12 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "adminui/authsec/backend/approval/order/{orderId}/operation/{operation}"        
     }
-
+    ,{
+        "desc": "获取审批意见",
+        "id": "check-center.approve-info.get",
+        "method": "GET",
+        "url": "adminui/authsec/backend/approval/history/order/{orderId}"        
+    }
     // 审批中心    
     //云网络管理
     // vmware标准网络   
