@@ -96,9 +96,9 @@ export class VmDisIndexService {
                 value: platform_id
             }
         ];
-        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.syn.getinfolist");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
+        const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.syn.getinfolist");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
     }
     
     doSyn(id:string, platform_id:string):Promise<any>{
@@ -113,9 +113,9 @@ export class VmDisIndexService {
             }
         ];
 
-        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.syn.dosyn");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock_changed });
+        const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.syn.dosyn");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock_changed });
 
     }
 }
