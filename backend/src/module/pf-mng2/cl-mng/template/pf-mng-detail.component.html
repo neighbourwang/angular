@@ -174,10 +174,17 @@
                         <td>vSAN</td>
                         <td>1200</td>
                         <td>12800</td>
-                        <td>4</td>
-                        <td>85</td>
+                        <td>
+                            <input type="number" class="form-control" [(ngModel)]="item" style="width: 100px; display: inline;" value="2">
+                            <!--<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" [(ngModel)]="item" style="display: inline;" value="85">
+                        </td>
                         <td>已启用</td>
-                        <td>高配置内存CPUh和磁盘区</td>
+                        <td >
+                            <input type="text" class="form-control" [(ngModel)]="item" style="display: inline;" value="高速I/O存储后端">
+                        </td> 
                         <td>
                             <button class="fox-cloud-button-md fox-cloud-button-white">启用</button>
                             <button class="fox-cloud-button-md fox-cloud-button-white">禁用</button> 
@@ -212,6 +219,7 @@
                         <th>副本数</th>
                         <th>配额%</th>
                         <th>状态</th>
+                        <th>说明</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -222,32 +230,57 @@
                         <td><input type="text" value='高速I/O-1'></td>
                         <td>vSAN</td>
                         <td>12800</td>
-                        <td>2</td>
-                        <td>85</td>
+                        <td>
+                            <input type="number" class="form-control" [(ngModel)]="item" style="width: 100px; display: inline;" value="2">
+                            <!--<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" [(ngModel)]="item" style="display: inline;" value="85">
+                        </td>
                         <td>已启用</td>
+                        <td >
+                            <input type="text" class="form-control" [(ngModel)]="item" style="display: inline;" value="高速I/O存储后端">
+                        </td> 
                     </tr>
-                    <tr>
+                     <tr>
                         <td>1</td>
                         <td style="cursor:pointer">Claster1</td>
                         <td>cinder1</td>
                         <td><input type="text" value='高速I/O-1'></td>
                         <td>vSAN</td>
                         <td>12800</td>
-                        <td>2</td>
-                        <td>85</td>
+                        <td>
+                            <input type="number" class="form-control" [(ngModel)]="item" style="width: 100px; display: inline;" value="2">
+                            <!--<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" [(ngModel)]="item" style="display: inline;" value="85">
+                        </td>
                         <td>已启用</td>
+                        <td >
+                            <input type="text" class="form-control" [(ngModel)]="item" style="display: inline;" value="高速I/O存储后端">
+                        </td> 
                     </tr>
-                    <tr>
+                     <tr>
                         <td>1</td>
                         <td style="cursor:pointer">Claster1</td>
                         <td>cinder1</td>
                         <td><input type="text" value='高速I/O-1'></td>
                         <td>vSAN</td>
                         <td>12800</td>
-                        <td>2</td>
-                        <td>85</td>
+                        <td>
+                            <input type="number" class="form-control" [(ngModel)]="item" style="width: 100px; display: inline;" value="2">
+                            <!--<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" [(ngModel)]="item" style="display: inline;" value="85">
+                        </td>
                         <td>已启用</td>
+                        <td >
+                            <input type="text" class="form-control" [(ngModel)]="item" style="display: inline;" value="高速I/O存储后端">
+                        </td> 
                     </tr>
+                    
                 </tbody>
             </table>
         </div>
@@ -263,6 +296,7 @@
                         <th>副本数</th>
                         <th>配额%</th>
                         <th>状态</th>
+                        <th>说明</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -272,9 +306,17 @@
                         <td><input type="text" value='高速I/O-1'></td>
                         <td>vSAN</td>
                         <td>12800</td>
-                        <td>2</td>
-                        <td>85</td>
+                        <td>
+                            <input type="number" class="form-control" [(ngModel)]="item" style="width: 100px; display: inline;" value="2">
+                            <!--<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" [(ngModel)]="item" style="display: inline;" value="85">
+                        </td>
                         <td>已启用</td>
+                        <td >
+                            <input type="text" class="form-control" [(ngModel)]="item" style="display: inline;" value="高速I/O存储后端">
+                        </td>                        
                     </tr>
                     <tr>
                         <td>1</td>
@@ -282,9 +324,17 @@
                         <td><input type="text" value='高速I/O-1'></td>
                         <td>vSAN</td>
                         <td>12800</td>
-                        <td>2</td>
-                        <td>85</td>
+                        <td>
+                            <input type="number" class="form-control" [(ngModel)]="item" style="width: 100px; display: inline;" value="2">
+                            <!--<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" [(ngModel)]="item" style="display: inline;" value="85">
+                        </td>
                         <td>已启用</td>
+                        <td >
+                            <input type="text" class="form-control" [(ngModel)]="item" style="display: inline;" value="高速I/O存储后端">
+                        </td>                        
                     </tr>
                     <tr>
                         <td>1</td>
@@ -292,9 +342,17 @@
                         <td><input type="text" value='高速I/O-1'></td>
                         <td>vSAN</td>
                         <td>12800</td>
-                        <td>2</td>
-                        <td>85</td>
+                        <td>
+                            <input type="number" class="form-control" [(ngModel)]="item" style="width: 100px; display: inline;" value="2">
+                            <!--<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" [(ngModel)]="item" style="display: inline;" value="85">
+                        </td>
                         <td>已启用</td>
+                        <td >
+                            <input type="text" class="form-control" [(ngModel)]="item" style="display: inline;" value="高速I/O存储后端">
+                        </td>                        
                     </tr>
                 </tbody>
             </table>

@@ -3,7 +3,7 @@
  */
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { Router } from '@angular/router';
+import { Router ,Params ,ActivatedRoute} from '@angular/router';
 
 import { ClMngIdService } from '../service/cl-mng-id.service';
 
@@ -22,17 +22,23 @@ import { CreStep2Model } from '../model/cre-step2.model';
 export class ClMngCreStep2Component implements OnInit{
 
     constructor(
-        private router : Router,
+        private router :ActivatedRoute,
+        private route : Router,
         private idService : ClMngIdService,
         private service : ClMngCreStep2Service
     ) {}
 
     creStep2Model : CreStep2Model = new CreStep2Model('正在同步可用区' , 0);
 
-
+    platformType:string;
     ngOnInit (){
         let platFormId : String = this.idService.getPlatformId();
         console.log('init');
+        //获取平台类型
+        this.router.params.forEach((params: Params)=>{
+             this.platformType=params['type'];
+             console.log(this.platformType);
+        })
         //可用区同步
         this.service.zones(platFormId).then(
             res => {
@@ -137,13 +143,13 @@ export class ClMngCreStep2Component implements OnInit{
 
 
     next (){
-        this.router.navigateByUrl("pf-mng2/cl-mng/cre-step3");
+        this.route.navigate(["pf-mng2/cl-mng/cre-step3",{type:this.platformType}]);
     }
 
     previous (){
-        this.router.navigateByUrl('pf-mng2/cl-mng/cre-step1');
+        this.route.navigateByUrl('pf-mng2/cl-mng/cre-step1');
     }
     cancel (){
-        this.router.navigateByUrl("pf-mng2/cl-mng/cl-mng");
+        this.route.navigateByUrl("pf-mng2/cl-mng/cl-mng");
     }
 }

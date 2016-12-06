@@ -101,7 +101,7 @@ export class ClMngCreStep1Component implements OnInit {
     }
     //
     otcreate() {
-        this.router.navigateByUrl("pf-mng2/cl-mng/cre-step2");
+        this.router.navigate(["pf-mng2/cl-mng/cre-step2",{'type':this.creStep1Model.platformType}]);
     }
     next() {
         let message: String = this.checkValue();
@@ -114,7 +114,7 @@ export class ClMngCreStep1Component implements OnInit {
                     if (this.creStep1Model.platformType == '0') {
                         this.regionSelect.open('创建云平台：选取Region')
                     } else {
-                        this.router.navigateByUrl("pf-mng2/cl-mng/cre-step2");
+                        this.router.navigate(["pf-mng2/cl-mng/cre-step2",{'type':this.creStep1Model.platformType}]);
                     }
                 }
             ).catch(

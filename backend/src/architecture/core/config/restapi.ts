@@ -1180,13 +1180,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取标准网络列表",
         "id": "net-img.vm-mng.network.list",
         "method": "GET",
-        "url": "/adminboe/authsec/vmware/network/getlist"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/getlist"
     }
     , {
         "desc": "获取标准网络数据中心列表",
         "id": "net-img.vm-mng.network.dclist",
         "method": "GET",
-        "url": "/adminboe/authsec/vmware/network/dclist"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dclist"
     }
     , {
         "desc": "标准网络启用",
@@ -1210,7 +1210,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建/编辑标准网络",
         "id": "net-img.vm-mng.network.update",
         "method": "POST",
-        "url": "/adminboe/authsec/vmware/network/update"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/update"
     },
     
     
@@ -1327,13 +1327,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取分布式列表",
         "id": "net-mng.vm-mng-dbt.index.portlist",
         "method": "GET",
-        "url": "/adminboe/authsec/vmware/network/dist/portlist"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dist/portlist"
     }
     , {
         "desc": "获取数据中心联动列表",
         "id": "net-mng.vm-mng-dbt.index.dclist",
         "method": "GET",
-        "url": "/adminboe/authsec/vmware/network/dist/dclist"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dist/dclist"
     }
     , {
         "desc": "设置端口组显示名称",
