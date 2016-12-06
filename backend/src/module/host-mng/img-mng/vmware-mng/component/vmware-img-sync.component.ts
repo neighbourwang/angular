@@ -168,12 +168,11 @@ export class VmwareImgSyncComponent implements OnInit {
         this.syncService.getVmwareImgSyncList(this.platformId)
             .then(
             response => {
-                if (response && 100 == response["resultCode"]) {
-                    this.layoutService.hide();
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {                    
                     this.vmwaresyncimgs = response.resultContent;
                     console.log(this.vmwaresyncimgs, "vmwaresyncimgs!!!");
                 } else {
-                    this.layoutService.hide();
                     alert("Res sync error");
 
                 }
@@ -187,19 +186,18 @@ export class VmwareImgSyncComponent implements OnInit {
         this.router.navigate([`host-mng/img-mng/vmware-img-list/${this.platformId}`]);
     }
 
-    VmwareSyncImages(): void {
-        this.layoutService.show();
+    VmwareSyncImages(): void {        
         this.getSelectedItems();
         console.log(this.selectedsyncvmimgs, "[[[[[[[[[[马上要同步的镜像]]]]]]]]]]");
         if(this.selectedsyncvmimgs.length > 0) {
-        this.syncService.VmwareSyncImages(this.platformId, this.selectedsyncvmimgs)
+            this.layoutService.show();
+            this.syncService.VmwareSyncImages(this.platformId, this.selectedsyncvmimgs)
             .then(
             response => {
-                if (response && 100 == response["resultCode"]) {
-                    this.layoutService.hide();
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {                    
                     console.log("镜像同步成功");
                 } else {
-                    this.layoutService.hide();
                     this.showAlert("Res sync error");
                 }
             }
@@ -219,7 +217,6 @@ export class VmwareImgSyncComponent implements OnInit {
             )
             .catch((e) => this.onRejected(e));
         } else {
-            this.layoutService.hide();
             this.showAlert("没有镜像需要同步");
             console.log("No image need to be synced.");
         }

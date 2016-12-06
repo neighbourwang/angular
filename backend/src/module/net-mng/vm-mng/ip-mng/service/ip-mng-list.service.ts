@@ -117,7 +117,7 @@ export class IpMngListService {
             }
         ];
         console.log(pathParams, "pathParams");
-        const api = this.restApiCfg.getRestApi("net-mng.vmware.subnetinfo-ips.get");
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.subnetinfo.ips.get");
         return this.restApi.request(api.method, api.url, pathParams, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
     }
