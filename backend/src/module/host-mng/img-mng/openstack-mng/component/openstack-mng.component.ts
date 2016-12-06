@@ -152,7 +152,6 @@ export class OpenstackMngComponent implements OnInit{
         if (d) {
             return d.displayValue;
         } else {
-            console.log(value);
             return value;
         }
 

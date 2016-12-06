@@ -1033,10 +1033,9 @@ export let RestApis: RestApiModel[] = [
     },
     {
         "desc": "获取IP子网信息及IP范围",
-        "id": "net-mng.vmware.dbt.subnetinfo-ips.get",
+        "id": "net-mng.vmware.dbt.subnetinfo.ips.get",
         "method": "GET",
         "url": "adminboe/authsec/vmware/network/dist/{id}/getsub"
-
     },
     {
         "desc": "设置IP子网",
@@ -1155,7 +1154,7 @@ export let RestApis: RestApiModel[] = [
     }
 
     // 审批中心    
-
+    //云网络管理
     // vmware标准网络   
     , {
         "desc": "获取标准网络列表",
@@ -1192,12 +1191,13 @@ export let RestApis: RestApiModel[] = [
         "id": "net-img.vm-mng.network.update",
         "method": "POST",
         "url": "/adminboe/authsec/vmware/network/update"
-    }
-
+    },
+    
+    
 
     ////云主机管理-镜像管理-
     //镜像管理导航页
-    , {
+    {
         "desc": "获取平台列表-img-index",
         "id": "host-mng.img-index.platforms.list",
         "method": "GET",
@@ -1269,7 +1269,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取未选择和已选择的企业列表-vmware3.1",
         "id": "host-mng.vmware-mng.ents.list",
         "method": "POST",
-        "url": "adminboe/authsec/image/detail/{platformId}/tenants"
+        "url": "adminboe/authsec/image/detail/{platformId}/{imageId}/tenants"
     }
     , {
         "desc": "设置企业并保存-vmware3.2",
@@ -1332,5 +1332,43 @@ export let RestApis: RestApiModel[] = [
         "id": "net-mng.vm-mng-dbt.index.disable",
         "method": "PUT",
         "url": "/adminboe/authsec/vmware/network/dist/{id}/disable"
+    },
+    {
+        "desc": "分布式网络取得同步网络信息",
+        "id": "net-mng.vm-mng-dbt.index.syn.getinfolist",
+        "method": "GET",
+        "url": "/adminboe/authsec/vmware/network/dist/synclist"
+    },
+    {
+        "desc": "分布式网络同步网络",
+        "id": "net-mng.vm-mng-dbt.index.syn.dosyn",
+        "method": "PUT",
+        "url": "/adminboe/authsec/vmware/network/dist/{vds_id}/sync"
+    },
+    //云网络管理
+    //vmware-分布式网络
+    {
+        "desc": "端口组列表",
+        "id": "net-mng.vm-mng-dbt.port.list",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/dist/portres/list"
+    },
+    {
+        "desc": "设置企业",
+        "id": "net-mng.vm-mng-dbt.port.set-ent",
+        "method": "GET",
+        "url": "/adminboe/authsec/vmware/network/dist/portres/{id}/set/ent"
+    },
+    {
+        "desc": "数据中心联动列表",
+        "id": "net-mng.vm-mng-dbt.port.dclist",
+        "method": "GET",
+        "url": "/adminboe/authsec/vmware/network/dist/dclist"
+    },
+    {
+        "desc": "保存企业",
+        "id": "net-mng.vm-mng-dbt.port.ent-save",
+        "method": "POST",
+        "url": "adminboe/authsec/vmware/network/dist/portres/{id}/save/ent"
     }
 ]
