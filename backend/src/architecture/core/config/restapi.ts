@@ -576,7 +576,7 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.order-cancel.get",
         "method": "GET",
         "url": "adminui/authsec/shopping/subinstance/{_subId}/cancel"
-    },, {
+    }, {
         "desc": "订单查询列表",
         "id": "op-center.order-mng.search-list.post",
         "method": "POST",
