@@ -155,7 +155,7 @@ export class CheckMngHascheckComponent implements OnInit{
 		let param = _.extend({}, this._param);
 
 		//匹配后台搜索框参数
-		param.approvalStatus = 1;//approvalStatus代表已审批
+		param.status = 1;//approvalStatus代表已审批
         param.quickSearchStr = this._param.quickSearchStr;//输入订单号快速查询 ？
  		param.enterpriseId = this._param.entIdStr; //企业enterpriseId
 		param.organization = this._param.departmentIdNum; //部门organization？
