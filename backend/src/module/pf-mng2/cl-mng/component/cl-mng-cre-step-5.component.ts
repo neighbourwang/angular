@@ -3,7 +3,7 @@
  */
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { Router } from '@angular/router';
+import { Router ,Params ,ActivatedRoute} from '@angular/router';
 
 import { CreStep5Model }  from '../model/cre-step5.model';
 
@@ -26,6 +26,7 @@ export class ClMngCreStep5Component implements OnInit{
 
 
     constructor(
+        private route:ActivatedRoute,
         private router : Router,
         private service : ClMngCreStep5Service,
         private idService : ClMngIdService
@@ -33,8 +34,13 @@ export class ClMngCreStep5Component implements OnInit{
 
     creStep5Model : Array<CreStep5Model> = new Array<CreStep5Model>();
 
+    platformType:number;
     ngOnInit (){
-        console.log('init');
+        //获取平台类型
+        this.route.params.forEach((params: Params)=>{
+             this.platformType=params['type'];
+             console.log(this.platformType);
+        })
 
         let platFormId : String = this.idService.getPlatformId();
         // platFormId = "4f565fe7-09fc-4b8b-8227-a0b5b8b1eb6c";
@@ -61,7 +67,7 @@ export class ClMngCreStep5Component implements OnInit{
         this.service.putFlavors(platFormId ,this.creStep5Model).then(
             res => {
                 // console.log(res);
-                this.router.navigateByUrl("pf-mng2/cl-mng/cre-step6");
+                this.router.navigate(["pf-mng2/cl-mng/cre-step6",{type:this.platformType}]);
             }
         ).catch(
             error => {
@@ -73,7 +79,7 @@ export class ClMngCreStep5Component implements OnInit{
     }
 
     previous (){
-        this.router.navigateByUrl('pf-mng2/cl-mng/cre-step4');
+        this.router.navigate(["pf-mng2/cl-mng/cre-step4",{type:this.platformType}]);
     }
     cancel (){
         this.router.navigateByUrl("pf-mng2/cl-mng/cl-mng");

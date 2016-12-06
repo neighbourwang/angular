@@ -3,7 +3,7 @@
  */
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { Router } from '@angular/router';
+import { Router ,Params ,ActivatedRoute} from '@angular/router';
 
 import { CreStep4Model }  from '../model/cre-step4.model';
 
@@ -27,6 +27,7 @@ import { ClMngIdService } from '../service/cl-mng-id.service';
 export class ClMngCreStep4Component implements OnInit{
 
     constructor(
+        private route:ActivatedRoute,
         private router : Router,
         private idService : ClMngIdService,
         private service : ClMngCreStep4Service
@@ -34,8 +35,13 @@ export class ClMngCreStep4Component implements OnInit{
 
     creStep4Model : Array<CreStep4Model> = new Array<CreStep4Model>();  
 
+    platformType:string;
     ngOnInit (){
-        console.log('init');
+        //获取平台类型
+        this.route.params.forEach((params: Params)=>{
+             this.platformType=params['type'];
+             console.log(this.platformType);
+        })
 
         let platFormId : String = this.idService.getPlatformId();
         
@@ -59,7 +65,12 @@ export class ClMngCreStep4Component implements OnInit{
         this.service.putStorage(platFormId , this.creStep4Model).then(
             res => {
                 console.log(res);
-                this.router.navigateByUrl("pf-mng2/cl-mng/cre-step5");
+                if(this.platformType=='0'){
+                    this.router.navigate(["pf-mng2/cl-mng/cre-step5",{type:this.platformType}]);
+                }else if(this.platformType=='2'){
+                    this.router.navigate(["pf-mng2/cl-mng/cre-step6",{type:this.platformType}]);
+                }
+                
             }
         ).catch(
             error => {
@@ -70,10 +81,10 @@ export class ClMngCreStep4Component implements OnInit{
     }
 
     previous (){
-        this.router.navigateByUrl('pf-mng2/cl-mng/cre-step3');
+       this.router.navigate(["pf-mng2/cl-mng/cl-mng3",{type:this.platformType}]);
     }
     cancel (){
-        this.router.navigateByUrl("pf-mng2/cl-mng/cl-mng");
+       this.router.navigate(["pf-mng2/cl-mng/cl-mng",{type:this.platformType}]);
     }
 
     outputValue(e , index){
