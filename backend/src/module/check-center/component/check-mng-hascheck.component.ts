@@ -172,14 +172,15 @@ export class CheckMngHascheckComponent implements OnInit{
 
 		//匹配后台搜索框参数
 		param.status = 1;//approvalStatus代表已审批
-        param.quickSearchStr = this._param.quickSearchStr;//输入订单号快速查询 ？
+        param.orderCode = this._param.quickSearchStr;//输入订单号快速查询 ？
  		param.enterpriseId = this._param.entIdStr; //企业enterpriseId
 		param.organization = this._param.departmentIdNum; //部门organization？
 		param.orderType = this._param.orderTypeNum;//订单类型orderType
 		param.serviceId = this._param.serviceTypeNum;//产品类型serviceId
 		param.createTime = this._param.startDateStr;//创建时间
 		param.expireTime = this._param.endDateStr; //结束时间
-		param.serviceId = this._param.submitUserId;		//提交者？
+		param.userId = this._param.submitUserId;		//提交者？
+		param.approverId = this._param.checkUserIdStr;// 审批人
 			
 		param.pageParameter = {
 			currentPage:pageNum

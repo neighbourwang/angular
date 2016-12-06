@@ -81,7 +81,7 @@ export class OrderMngSearchComponent implements OnInit{
 				obj.submitPeople = item.submiter;//提交者
 				obj.departmentName = item.departmentName;//所属部门
 			}
-		}
+		};
       
 	}
 	ngOnInit(){

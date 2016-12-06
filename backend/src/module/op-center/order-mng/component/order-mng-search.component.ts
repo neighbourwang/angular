@@ -161,7 +161,7 @@ export class OrderMngSearchComponent implements OnInit{
 
 	}
 
-search(pageNumber:number = 1){
+	search(pageNumber:number = 1){
 		this.layoutService.show();
 
 		let param = _.extend({}, this._param);
@@ -196,7 +196,8 @@ search(pageNumber:number = 1){
 	onEndTimeChange($event){
 		this._param.expireDate = $event.formatted;
 	}
-showMsg(msg: string)
+	
+	showMsg(msg: string)
 	{
 		this._notice.open("系统提示", msg);
 	}
