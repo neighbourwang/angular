@@ -69,6 +69,7 @@ export class VmwareImgListComponent implements OnInit {
     queryOpt: CriteriaQuery = new CriteriaQuery();
     vmwareimgs: Array<VmwareImgModel>;
     selectedimg: VmwareImgModel = new VmwareImgModel();
+    changedimg: VmwareImgModel = new VmwareImgModel();
     vmwareents: Array<VmwareEntModel>;
 
     private okCallback: Function = null;
@@ -94,6 +95,7 @@ export class VmwareImgListComponent implements OnInit {
             this.platformName = params['platformName'] ? params['platformName']:"上海HPE VMWare云平台";
             console.log("接收的platformName:" + this.platformName);
 		});
+
         this.dicService.getItems("IMAGES", "TYPE")
             .then(
             (dic) => {
@@ -186,15 +188,14 @@ export class VmwareImgListComponent implements OnInit {
         this.layoutService.show();
         this.entService.getEntList(this.platformId)
             .then(
-            response => {
-                this.layoutService.hide();
+            response => {                
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
                     this.vmwareents = response.resultContent;
                     console.log(this.vmwareents, "Ents!!!");
                 } else {
-                    alert("Res sync error");
                     this.layoutService.hide();
+                    alert("Res sync error");
                 }
             })
             .catch((e) => this.onRejected(e));
@@ -207,15 +208,14 @@ export class VmwareImgListComponent implements OnInit {
         this.service.getVmwareImgList(this.platformId, this.queryOpt, this.pageIndex, this.pageSize)
             .then(
             response => {
-                this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
                     this.vmwareimgs = response.resultContent;
                     console.log(this.vmwareimgs, "Imgs!!!");
                     this.totalPage = response.pageInfo.totalPage;
                 } else {
+                    this.layoutService.hide();
                     alert("Res sync error");
-
                 }
             }
             )
@@ -223,6 +223,8 @@ export class VmwareImgListComponent implements OnInit {
     }
 
     filter(): void {
+        this.pageIndex = 1;
+        this.pageSize = 5;
         this.getVmwareImgList();
     }
 
@@ -231,9 +233,8 @@ export class VmwareImgListComponent implements OnInit {
         console.log('call enableImage');
         let image = this.getSelected();
         if (image) {
-            console.log(image, "========== enableImage =============");
             this.selectedimg = image;
-            if(this.selectedimg.status == this.statusDict.find(n => n.code === "AVAILABLE").value){
+            if(this.selectedimg.status == this.statusDict.find(n => n.code === "ENABLE").value){
                 this.showMsg("镜像已被占用");
                 return; 
             }
@@ -246,22 +247,28 @@ export class VmwareImgListComponent implements OnInit {
 
     acceptVmwareImageEnableModify(): void {
         console.log('clicked acceptVmwareImageEnableModify');
+        this.layoutService.show();
         if (this.selectedimg) {
-            this.service.enableImage(this.selectedimg.id, this.statusDict.find(n => n.code === "AVAILABLE").value)
+            this.service.enableImage(this.selectedimg.id, this.statusDict.find(n => n.code === "ENABLE").value)
                 .then(res => {
                     if (res && res.resultCode == "100") {
+                        this.layoutService.hide();
+                        this.selectedimg.status = <string>this.statusDict.find(n => n.code === "ENABLE").value;
                         console.log(res, "镜像启用成功")
                     } else {
+                        this.layoutService.hide();
+                        this.enableimagebox.close();
                         this.showMsg("镜像启用失败");
                         return;
                     }
                 })
                 .then(() => {
-                    this.getVmwareImgList();
                     this.enableimagebox.close();
                 })
                 .catch(err => {
                     console.log('镜像更新', err);
+                    this.layoutService.hide();
+                    this.enableimagebox.close();
                     this.showMsg("镜像更新");
                     this.okCallback = () => { this.enableimagebox.open(); };
                 })
@@ -278,8 +285,8 @@ export class VmwareImgListComponent implements OnInit {
         let image = this.getSelected();
         if (image) {
             this.selectedimg = image;
-            if(this.selectedimg.status == this.statusDict.find(n => n.code === "UNAVAILABLE").value){
-                this.showMsg("镜像已被占用");
+            if(this.selectedimg.status == this.statusDict.find(n => n.code === "FORBIDDEN").value){
+                this.showMsg("镜像已被禁用");
                 return; 
             }
             this.disableimagebox.open();
@@ -291,23 +298,29 @@ export class VmwareImgListComponent implements OnInit {
 
     acceptVmwareImageDisableModify(): void {
         console.log('clicked acceptVmwareImageDisableModify');
+        this.layoutService.show();
         if (this.selectedimg) {
             console.log(this.selectedimg.id);
-            this.service.disableImage(this.selectedimg.id, this.statusDict.find(n => n.code === "UNAVAILABLE").value)
+            this.service.disableImage(this.selectedimg.id, this.statusDict.find(n => n.code === "FORBIDDEN").value)
                 .then(res => {
                     if (res && res.resultCode == "100") {
+                        this.layoutService.hide();
+                        this.selectedimg.status = <string>this.statusDict.find(n => n.code === "FORBIDDEN").value;
                         console.log(res, "镜像禁用成功")
                     } else {
+                        this.layoutService.hide();
+                        this.disableimagebox.close();
                         this.showMsg("镜像禁用失败");
                         return;
                     }
                 })
                 .then(() => {
-                    this.getVmwareImgList();
                     this.disableimagebox.close();
                 })
                 .catch(err => {
                     console.log('镜像更新', err);
+                    this.layoutService.hide();
+                    this.disableimagebox.close();
                     this.showMsg("镜像更新");
                     this.okCallback = () => { this.disableimagebox.open(); };
                 })
@@ -324,6 +337,14 @@ export class VmwareImgListComponent implements OnInit {
         let image = this.getSelected();
         if (image) {
             this.selectedimg = image;
+            this.changedimg.id = this.selectedimg.id;
+            this.changedimg.name = this.selectedimg.name;
+            this.changedimg.displayName = this.selectedimg.displayName;
+            this.changedimg.os = this.selectedimg.os;
+            this.changedimg.bitsType = this.selectedimg.bitsType;
+            this.changedimg.capacity = this.selectedimg.capacity;
+            this.changedimg.type = this.selectedimg.type;
+            this.changedimg.description = this.selectedimg.description;
             this.editimagebox.open();
         } else {
                 this.showMsg("请选择镜像");
@@ -333,28 +354,44 @@ export class VmwareImgListComponent implements OnInit {
 
     acceptVmwareImageModify(): void {
         console.log('clicked acceptVmwareImageModify');
+        this.layoutService.show();
         if (this.selectedimg) {
             if (this.validateImgModify()) {
-                console.log(this.selectedimg.id);
-                this.service.updateImage(this.selectedimg)
+                this.service.updateImage(this.changedimg)
                     .then(res => {
                         if (res && res.resultCode == "100") {
+                            this.layoutService.hide();
                             console.log(res, "镜像更新成功")
                         } else {
+                            this.editimagebox.close();
+                            this.layoutService.hide();
                             this.showMsg("镜像更新失败");
                             return;
                         }
                     })
                     .then(() => {
-                        this.getVmwareImgList();
+                        this.selectedimg.name = this.changedimg.name;
+                        this.selectedimg.displayName = this.changedimg.displayName;
+                        this.selectedimg.os = this.changedimg.os;
+                        this.selectedimg.bitsType = this.changedimg.bitsType;
+                        this.selectedimg.capacity = this.changedimg.capacity;
+                        this.selectedimg.type = this.changedimg.type;
+                        this.selectedimg.description = this.changedimg.description;
                         this.editimagebox.close();
                     })
                     .catch(err => {
                         console.log('镜像更新', err);
+                        this.layoutService.hide();
+                        this.editimagebox.close();
                         this.showMsg("镜像更新");
-                        this.okCallback = () => { this.editimagebox.open(); };
+                        this.okCallback = () => { this.editimagebox.open();};
                     })
+            }else{
+                console.log('镜像更新验证失败');
+                this.layoutService.hide();
             }
+        } else {
+            this.layoutService.hide();
         }
     }
 
@@ -382,17 +419,17 @@ export class VmwareImgListComponent implements OnInit {
         notValid = [
             {
                 "name": "镜像名称"
-                , 'value': this.selectedimg.name
+                , 'value': this.changedimg.name
                 , "op": "*"
             },
             {
                 "name": "镜像显示名称"
-                , 'value': this.selectedimg.displayName
+                , 'value': this.changedimg.displayName
                 , "op": "*"
             },
             {
                 "name": "镜像类型"
-                , 'value': this.selectedimg.type
+                , 'value': this.changedimg.type
                 , "op": "*"
             }
             ].find(n => this.validate(n.name, n.value, n.op) !== undefined)
@@ -404,8 +441,7 @@ export class VmwareImgListComponent implements OnInit {
             this.editimagebox.close();
             this.okCallback = () => {
                 this.editimagebox.open();                
-            };
-            
+            };            
             return false;
         } else {
             return true;
@@ -418,7 +454,7 @@ export class VmwareImgListComponent implements OnInit {
 
     //Menu: 同步镜像
     VmwareImgSyncPage() {
-        this.router.navigate([`host-mng/img-mng/vmware-img-sync/${this.platformId}`]);
+        this.router.navigate([`host-mng/img-mng/vmware-img-sync/${this.platformId}`, {"platformName": this.platformName}]);
     }
 
     //Menu: 设置企业

@@ -234,8 +234,10 @@ export class IpUsageMngListComponent implements OnInit{
 
     acceptEnableIPModify(): void {
         console.log('clicked acceptEnableIPModify');
+        this.layoutService.show();
         //console.log(this.changedip.description, "this.changedip.description");
         if (this.validationService.isBlank(this.changedip.description)) {
+            this.layoutService.hide();
             this.enableipbox.close();
             this.showMsg("请填写说明");            
             this.okCallback = () => {
@@ -246,10 +248,12 @@ export class IpUsageMngListComponent implements OnInit{
             this.service.enableIP(this.changedip)
                 .then(res => {
                     if (res && res.resultCode == "100") {
+                        this.layoutService.hide();
                         //this.changedip.status = <string>this.statusDic.find(n => n.code == "OCCUPIED").value;
                         this.changedip.status = '1';
                         console.log(res, "IP占用成功")
                     } else {
+                        this.layoutService.hide();
                         this.enableipbox.close();
                         this.showMsg("IP占用失败");
                         return;
@@ -264,6 +268,7 @@ export class IpUsageMngListComponent implements OnInit{
                 })
                 .catch(err => {
                     console.log('clicked acceptEnableIPModify 6');
+                    this.layoutService.hide();
                     console.log('IP占用失败', err);
                     this.enableipbox.close();
                     this.showMsg("IP占用失败");
@@ -281,8 +286,10 @@ export class IpUsageMngListComponent implements OnInit{
 
     acceptDisableIPModify(): void {
         console.log('clicked acceptDisableIPModify');
+        this.layoutService.show();
         //console.log(this.changedip.description, "this.selectedip.description");
         if (this.validationService.isBlank(this.changedip.description)) {
+            this.layoutService.hide();
             this.disableipbox.close();
             this.showMsg("请填写说明");          
             this.okCallback = () => {
@@ -293,10 +300,12 @@ export class IpUsageMngListComponent implements OnInit{
             this.service.disableIP(this.changedip)
                 .then(res => {
                     if (res && res.resultCode == "100") {
+                        this.layoutService.hide();
                         //this.changedip.status = <string>this.statusDic.find(n => n.code == "FREE").value;
                         this.changedip.status = '2';
                         console.log(res, "IP释放成功")
                     } else {
+                        this.layoutService.hide();
                         this.disableipbox.close();
                         this.showMsg("IP释放失败");
                         return;
@@ -311,6 +320,7 @@ export class IpUsageMngListComponent implements OnInit{
                 })
                 .catch(err => {
                     console.log('clicked acceptDisableIPModify 6');
+                    this.layoutService.hide();
                     console.log('IP释放失败', err);
                     this.disableipbox.close();
                     this.showMsg("IP释放失败");

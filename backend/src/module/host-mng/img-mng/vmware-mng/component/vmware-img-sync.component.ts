@@ -51,10 +51,18 @@ export class VmwareImgSyncComponent implements OnInit {
     syncReslDict: Array<SystemDictionary>;//同步结果
 
     platformId: string;
+    platformName: string;
     vmwaresyncimgs: Array<VmwareImgSyncModel>;
+    newvmwaresyncimgs : Array<VmwareImgSyncModel>;
     selectedsyncvmimgs: Array<VmwareImgSyncModel>;
+    unselectedsyncvmimgs: Array<VmwareImgSyncModel>;
 
     ngOnInit() {
+       this.activatedRouter.params.forEach((params: Params) => {
+            this.platformName = params['platformName'] ? params['platformName']:"上海HPE VMWare云平台";
+            console.log("接收的platformName:" + this.platformName);
+		});
+
         this.dicService.getItems("IMAGES", "TYPE")
             .then(
             (dic) => {
@@ -160,12 +168,12 @@ export class VmwareImgSyncComponent implements OnInit {
         this.syncService.getVmwareImgSyncList(this.platformId)
             .then(
             response => {
-                this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
                     this.vmwaresyncimgs = response.resultContent;
                     console.log(this.vmwaresyncimgs, "vmwaresyncimgs!!!");
                 } else {
+                    this.layoutService.hide();
                     alert("Res sync error");
 
                 }
@@ -183,19 +191,38 @@ export class VmwareImgSyncComponent implements OnInit {
         this.layoutService.show();
         this.getSelectedItems();
         console.log(this.selectedsyncvmimgs, "[[[[[[[[[[马上要同步的镜像]]]]]]]]]]");
+        if(this.selectedsyncvmimgs.length > 0) {
         this.syncService.VmwareSyncImages(this.platformId, this.selectedsyncvmimgs)
             .then(
             response => {
-                this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
+                    console.log("镜像同步成功");
                 } else {
+                    this.layoutService.hide();
                     this.showAlert("Res sync error");
                 }
             }
+            ).then( n =>
+                {
+                    //this.getUnSelectedItems();
+                    for (var i = this.vmwaresyncimgs.length - 1; i >= 0; i--) {
+                        if (this.vmwaresyncimgs[i].checked == true) {
+                            this.vmwaresyncimgs.splice(i, 1);
+                            //let e = this.vmwaresyncimgs.splice(i, 1);
+                            //this.unselectedsyncvmimgs.push(e[0]);
+                        }
+                    }
+                    //this.vmwaresyncimgs = this.unselectedsyncvmimgs;
+                    console.log(this.vmwaresyncimgs, "New sync images!!!");
+                }
             )
             .catch((e) => this.onRejected(e));
-
+        } else {
+            this.layoutService.hide();
+            this.showAlert("没有镜像需要同步");
+            console.log("No image need to be synced.");
+        }
     }
 
 }

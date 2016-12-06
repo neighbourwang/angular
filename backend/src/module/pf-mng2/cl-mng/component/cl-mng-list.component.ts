@@ -336,4 +336,16 @@ export class ClMngListComponent implements OnInit {
         }
         
     }
+    //管理云主机规格(只针对openstack平台)
+    goVmSpec(){
+         console.log('vmConfig');
+        let platForm: Platform = this.getPlatForm();
+        if (!platForm) {
+            this.notice.open('操作错误', '请选择云平台');
+        } else if(platForm.platformType!="OpenStack"){
+            this.notice.open('操作错误','配置规格只适用openStack类型平台');
+        }else {
+            this.router.navigate(["pf-mng2/pf-mng-cloudHostSpec", {id:platForm.id,type:platForm.platformType,name:platForm.name}]);
+        }
+    }
 }

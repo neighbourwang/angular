@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, ViewChild, } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, ValidationService, PopupComponent, SystemDictionaryService, SystemDictionary } from '../../../../../architecture';
 
 import { DCModel } from "../model/dc.model";
@@ -18,12 +18,18 @@ import { VmDisIndexService } from '../service/index.service';
 export class VmDisIndexComponent implements OnInit {
 
     constructor(
+        private activatedRouter: ActivatedRoute,
         private router: Router,
         private dicService: SystemDictionaryService,
         private service: VmDisIndexService,
         private layoutService: LayoutService,
         private validationService: ValidationService
     ) {
+         if (activatedRouter.snapshot.params["pid"]) {
+            this.platformId = activatedRouter.snapshot.params["pid"] || "";
+        } else {
+            this.platformId = "88";
+        } 
     }
 
     @ViewChild("pager")
@@ -47,7 +53,7 @@ export class VmDisIndexComponent implements OnInit {
     defaultSwitch: switchMode = new switchMode();
     selectSwitch = this.defaultSwitch;//当前选中的可用区
 
-    
+    platformId: string;
 
     dcList: Array<DCModel>;
 
@@ -61,21 +67,22 @@ export class VmDisIndexComponent implements OnInit {
    
 
     ngOnInit() {
+        
         this.getDcList();
-       this.getData();
-        //this.dicService.getItems("PORTGROUP", "STATUS")
-        //    .then(
-        //    dic => {
-        //       this.statusDic = dic;
-        //        this.getData();
-        //    });
+      
+        this.dicService.getItems("portgroup", "status")
+            .then(
+            dic => {
+               this.statusDic = dic;
+                this.getData();
+            });
     }
 
 
 
     getDcList() {
         this.layoutService.show();
-        this.service.getDCList()
+        this.service.getDCList(this.platformId)
             .then(
             response => {
                 this.layoutService.hide();
@@ -91,7 +98,7 @@ export class VmDisIndexComponent implements OnInit {
 
     getData() {
         this.layoutService.show();
-        this.service.getData()
+        this.service.getData(this.platformId)
             .then(
             response => {
                 this.layoutService.hide();
@@ -121,15 +128,23 @@ export class VmDisIndexComponent implements OnInit {
     }
 
     //弹出编辑标准端口组显示名称
-    openEdit(port): void {
-        
-        this.editPort = port;
+    openEdit(Port:port): void {
+        let cport = new port();
+        cport.id = Port.id;
+        cport.dcId = Port.dcId;
+        cport.dcName = Port.dcName;
+        cport.switchId = Port.switchId;
+        cport.switchName = Port.switchName;    
+        cport.dvPortGroupName = Port.dvPortGroupName;
+        cport.distPortGroupDisplayName = Port.distPortGroupDisplayName;
+        cport.vlanId = Port.vlanId;
+        cport.status = Port.status;
+        cport.lastUpdate = Port.lastUpdate;
+        this.editPort = cport;
     }
-    close(port): void {
-        port.isOpen = false;
-    }
+    
     //保存标准端口组显示名称
-    saveEdit(port: port) {
+    saveEdit(Port: port) {
         this.layoutService.show();
         if (this.validationService.isBlank(this.editPort.distPortGroupDisplayName)) {
             this.showAlert("标准端口组显示名称不能为空.");
@@ -242,7 +257,7 @@ export class VmDisIndexComponent implements OnInit {
     }
 
     gotoPortMng() {
-        this.router.navigateByUrl('net-mng/vm-mng-dbt/port-mng');
+        this.router.navigate([`net-mng/vm-mng-dbt/port-mng`, {"pid":this.platformId}]);
     }
 
     gotoIpMng() {
@@ -252,13 +267,18 @@ export class VmDisIndexComponent implements OnInit {
                     `net-mng/vm-mng-dbt/ip-mng-list`,
                     {
                         "dc_Id": selectedPort.dcId,
-                        "switch_Id": selectedPort.switchId
+                        "switch_Id": selectedPort.switchId,
+                        "pid":this.platformId
                     }
                 ]
             );
         } else {
             this.router.navigate([
-                `net-mng/vm-mng-dbt/ip-mng-list`]
+                `net-mng/vm-mng-dbt/ip-mng-list`,
+                {
+                    "pid":this.platformId
+                }
+            ]
             );
         }
     }
