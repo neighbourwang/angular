@@ -155,13 +155,11 @@ export class IpUsageMngListComponent implements OnInit{
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.layoutService.hide();
                     this.rawipusagemngs = response.resultContent;
                     console.log(this.rawipusagemngs, "rawipusagemngs!!!");
                     this.filter();                    
                 } else {
-                    alert("Res sync error");
-                    this.layoutService.hide();                   
+                    alert("Res sync error");               
                 }
         }).catch((e) => this.onRejected(e));
 
@@ -247,13 +245,12 @@ export class IpUsageMngListComponent implements OnInit{
             //console.log('clicked acceptEnableIPModify 2');
             this.service.enableIP(this.changedip)
                 .then(res => {
-                    if (res && res.resultCode == "100") {
-                        this.layoutService.hide();
+                    this.layoutService.hide();
+                    if (res && res.resultCode == "100") {                        
                         //this.changedip.status = <string>this.statusDic.find(n => n.code == "OCCUPIED").value;
                         this.changedip.status = '1';
                         console.log(res, "IP占用成功")
                     } else {
-                        this.layoutService.hide();
                         this.enableipbox.close();
                         this.showMsg("IP占用失败");
                         return;
@@ -299,13 +296,12 @@ export class IpUsageMngListComponent implements OnInit{
             //console.log('clicked acceptDisableIPModify 2');
             this.service.disableIP(this.changedip)
                 .then(res => {
+                    this.layoutService.hide();
                     if (res && res.resultCode == "100") {
-                        this.layoutService.hide();
                         //this.changedip.status = <string>this.statusDic.find(n => n.code == "FREE").value;
                         this.changedip.status = '2';
                         console.log(res, "IP释放成功")
                     } else {
-                        this.layoutService.hide();
                         this.disableipbox.close();
                         this.showMsg("IP释放失败");
                         return;

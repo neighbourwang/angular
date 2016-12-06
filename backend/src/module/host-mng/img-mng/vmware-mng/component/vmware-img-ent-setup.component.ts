@@ -133,15 +133,14 @@ export class VmwareImgEntSetupComponent implements OnInit {
         this.layoutService.show();
         this.entService.getAllEnts(this.platformId, this.imageId)
             .then(
-            response => {                
-                if (response && 100 == response["resultCode"]) {
-                    this.layoutService.hide();
+            response => {  
+                this.layoutService.hide();              
+                if (response && 100 == response["resultCode"]) {                    
                     this.selectedEnts = response.resultContent.selectedTenants;
                     this.unselectedEnts = response.resultContent.unselectedTenants;
                     console.log(this.selectedEnts, "selectedEnts!!!");
                     console.log(this.unselectedEnts, "unselectedEnts!!!");
                 } else {
-                    this.layoutService.hide();
                     alert("Res sync error");
                 }
             }
@@ -160,13 +159,11 @@ export class VmwareImgEntSetupComponent implements OnInit {
         this.entService.saveVmwareImgEnts(this.imageId, this.selectedEnts)
             .then(
             response => {
-                //this.layoutService.hide();
+                this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.layoutService.hide();
                     this.showAlert("保存成功！");
                     this.VmwareImgListPage();
                 } else {
-                    this.layoutService.hide();
                     this.showAlert("Res sync error");
                 }
             }

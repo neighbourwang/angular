@@ -147,13 +147,11 @@ export class IpMngListComponent implements OnInit{
                 this.layoutService.hide();
                 console.log(response, "IPmngS!!!");
                 if (response && 100 == response["resultCode"]) {
-                    this.layoutService.hide();
                     this.rawipmngs = response.resultContent;
                     this.filter();
                     console.log(this.ipmngs, "IPmngS --- getIpMngList");
                 } else {
                     alert("Res sync error");
-                    this.layoutService.hide();
                 }
             })
             .catch((e) => this.onRejected(e));
@@ -161,18 +159,16 @@ export class IpMngListComponent implements OnInit{
 
     //Menu: 设置IP子网
     setupSubnet(): void {
-        console.log('conponent: net-mng/vm-mng-dbt/ip-mng-list/subnet');
-        this.layoutService.show();
+        console.log('conponent: net-mng/vm-mng-dbt/ip-mng-list/subnet');        
         this.pg = this.getSelected();
          if (this.pg) {
-            //this.layoutService.hide();
             this.subn.portGroup = this.pg.id;
+            this.layoutService.show();
             this.service.getSubnetInfoIps(this.subn.portGroup)
             .then(
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.layoutService.hide();
                     this.subnetInfo = response.resultContent;
                     console.log(this.subnetInfo, "this.subnetInfo");
                     this.subn.subnetCIDR = this.subnetInfo.subnetCIDR;
@@ -183,14 +179,12 @@ export class IpMngListComponent implements OnInit{
                     console.log(this.subn, "subn------");
                 } else {
                     alert("Res sync error");
-                    this.layoutService.hide();
                 }
             })
             .catch((e) => this.onRejected(e));
             this.subnetbox.open();            
         } else {          
             this.showAlert("请选择相应的PortGroup");
-            this.layoutService.hide();
             return;
         }
     }
@@ -198,13 +192,11 @@ export class IpMngListComponent implements OnInit{
     //Menu: 设置子网IP地址范围
     setupIPs(): void {
         console.log('conponent: net-mng/vm-mng-dbt/ip-mng-list/ips');
-        this.pg = this.getSelected();
-        this.layoutService.show();
+        this.pg = this.getSelected();        
         if (this.pg) {
-            // OR get subenet information from API
-            //this.layoutService.hide();
             this.ippool.portGroup = this.pg.id;
             console.log(this.ippool.portGroup, "========== setupIPs =============");
+            this.layoutService.show();
             this.service.getSubnetInfoIps(this.subn.portGroup)
             .then(
             response => {
@@ -226,14 +218,12 @@ export class IpMngListComponent implements OnInit{
                 } else {
                     console.log("========== setupIPs [if]else=============");
                     alert("Res sync error");
-                    this.layoutService.hide();
                 }
             })
             .catch((e) => this.onRejected(e));
             this.ipsbox.open();
         } else {          
             this.showAlert("请选择相应的PortGroup");
-            this.layoutService.hide();
             return;
         }
 
@@ -249,24 +239,23 @@ export class IpMngListComponent implements OnInit{
 
     //Menu: 返回上一层, 可以在[返回上一层]调用
     vmwareNetworkPage() {
-        this.router.navigate([`net-mng/vm-mng-dbt/index`]);     
+        this.router.navigate([`net-mng/vm-mng-dbt/index/${this.platformId}`]);     
     }
 
     acceptIPsModify(): void {
-        console.log('clicked acceptIPsModify');
-        this.layoutService.show();
+        console.log('clicked acceptIPsModify');        
         console.log(this.ippool.ipstr, "this.ippool.ipstr");
         if (this.validateIPModify()) {
             //console.log('clicked acceptIPsModify 2');
+            this.layoutService.show();
             this.service.updateSubnetIPs(this.ippool.portGroup, this.ippool)
                 .then(res => {
                     //console.log('clicked acceptIPsModify 3');
-                    if (res && res.resultCode == "100") {
-                        this.layoutService.hide();
+                    this.layoutService.hide();
+                    if (res && res.resultCode == "100") {                        
                         console.log(res, "设置IP地址范围成功")
                     } else {
                         console.log('clicked acceptIPsModify 4');
-                        this.layoutService.hide();
                         this.ipsbox.close();
                         this.showMsg("设置IP地址范围失败");
                         return;
@@ -297,17 +286,16 @@ export class IpMngListComponent implements OnInit{
     }
 
     acceptSubnetModify(): void {
-        console.log('clicked acceptSubnetModify');
-        this.layoutService.hide();
+        console.log('clicked acceptSubnetModify');        
         if (this.validateSubnetModify()) {
+            this.layoutService.show();
             this.service.updateSubnet(this.subn.portGroup, this.subn)
                 .then(res => {
-                    if (res && res.resultCode == "100") {
-                        this.layoutService.hide();
+                    this.layoutService.hide();
+                    if (res && res.resultCode == "100") {                        
                         console.log(res, "设置IP子网成功");                        
                     } else {
                         console.log('clicked acceptSubnetModify 4');
-                        this.layoutService.hide();
                         this.subnetbox.close();
                         this.showMsg("设置IP子网失败");
                         return;
@@ -351,9 +339,10 @@ export class IpMngListComponent implements OnInit{
     }
 
 	showAlert(msg: string): void {
-        this.layoutService.hide();
+        //this.layoutService.hide();
         this.noticeTitle = "提示";
         this.noticeMsg = msg;
+        console.log(this.noticeTitle, this.noticeMsg);
         this.notice.open();
     }
 
