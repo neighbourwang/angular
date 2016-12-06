@@ -1,7 +1,7 @@
 <div class="page-content-header icon-content-header-platform-manage" style="padding-bottom:10px;height:45px;">
-    管理云主机规格: <span style="margin-right:20px;">{{platformName}}</span> 云主机类型: <span>{{platformType}}</span>
+    管理云主机启动盘: <span style="margin-right:20px;">{{platformName}}</span> 云主机类型: <span>{{platformType}}</span>
     <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
-        <span class="icon-button-label" (click)='goList()'>返回云平台概览</span>
+        <span class="icon-button-label" (click)='goList()'>返回云平台列表</span>
     </button>
 </div>
 <div *ngIf=false>
@@ -94,7 +94,7 @@
                     <th>启动盘名称</th>
                     <th>后端存储</th>
                     <th>状态</th>
-                    <th>说明</th>
+                    <th style="width:20%">说明</th>
                 </tr>
             </thead>
             <tbody>

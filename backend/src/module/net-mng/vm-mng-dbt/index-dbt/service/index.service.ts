@@ -4,7 +4,7 @@ import { RestApiCfg, RestApi } from '../../../../../architecture';
 
 import 'rxjs/add/operator/toPromise';
 
-import { port_mock, dclist_mock } from '../model/port.mock.model';
+import { port_mock, dclist_mock, port_mock_changed } from '../model/port.mock.model';
 import { port } from '../model/port.model';
 
 @Injectable()
@@ -20,30 +20,35 @@ export class VmDisIndexService {
         this.restApiCfg.loadCfgData();
     }
 
-    //»ñÈ¡³õÊ¼»¯ÁĞ±íÊı¾İ
+    //è·å–åˆå§‹åŒ–åˆ—è¡¨æ•°æ®
     getDCList(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.dclist");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => dclist_mock);
+        const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.dclist");
+        return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => dclist_mock);
     }
 
      getData(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.portlist");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => port_mock);
+        const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.portlist");
+        return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => port_mock);
     }
 
     
-    saveEdit(port: port): Promise<any> {
+    saveEdit(Port: port): Promise<any> {
+        const pathParams = [
+            {
+                key: "id",
+                value: Port.id
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.setportname");
+        return this.restApi.request(api.method, api.url, pathParams, null,[Port.distPortGroupDisplayName]);
         
-        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.setportname");
-        //return this.restApi.request(api.method, api.url, null, null,port);
-        
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
     }
     
     portEnable(id:string):Promise<any>{
-        //Èç¹ûÔËĞĞ×´Ì¬²»ÊÇÔËĞĞÖĞµÄ£¬Ôò²»ÄÜÆôÓÃ´ËÍøÂç
+        //å¦‚æœè¿è¡ŒçŠ¶æ€ä¸æ˜¯è¿è¡Œä¸­çš„ï¼Œåˆ™ä¸èƒ½å¯ç”¨æ­¤ç½‘ç»œ
         const pathParams = [
             {
                 key: "id",
@@ -51,9 +56,9 @@ export class VmDisIndexService {
             }
         ];
 
-         //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.enable");
-         //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
+         const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.enable");
+         return this.restApi.request(api.method, api.url, pathParams, null, null);
+       //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
     }
 
      portDisable(id:string):Promise<any>{
@@ -64,10 +69,28 @@ export class VmDisIndexService {
             }
         ];
 
-         //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.disable");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
+         const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.disable");
+         return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
+    }
+    //è·å–åˆ†å¸ƒå¼åŒæ­¥ç½‘ç»œä¿¡æ¯
+    getSynInfolist():Promise<any>{
+        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.syn.getinfolist");
+        //return this.restApi.request(api.method, api.url, null, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
     }
-
     
+    doSyn(id:string):Promise<any>{
+        const pathParams = [
+            {
+                key: "vds_id",
+                value: id
+            }
+        ];
+
+        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.syn.dosyn");
+        //return this.restApi.request(api.method, api.url, pathParams, null, null);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock_changed });
+
+    }
 }

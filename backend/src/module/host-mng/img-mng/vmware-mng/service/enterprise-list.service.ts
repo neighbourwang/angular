@@ -36,7 +36,7 @@ export class VmwareEntListService{
         //        "type": criteriaQuery.type,
         //        "tenantId": criteriaQuery.tenantId
         //};
-        
+        console.log(platformId, "platformId in getEntList()");
         const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.dropdown-ent.list");
         return this.restApi.request(api.method, api.url, pathParams, null, null);
         //*/

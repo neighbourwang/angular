@@ -12,6 +12,7 @@ import { ClMngListComponent } from './component/cl-mng-list.component';
 import { PfDetailComponent } from './component/pf-mng-detail.component';
 import { bootDiskMngComponent } from './component/pf-mng-bootDisk.component';
 import { bootDiskCreEditComponent } from './component/pf-mng-bootDisk-creEdit.component';
+import { CloudHostSpecComponent } from './component/pf-mng-cloudHostSpec.component';
 
 
 
@@ -50,6 +51,7 @@ import { ClMngCreStep6Service } from './service/cl-mng-cre-step-6.service';
 
 import { ClMngCommonService } from './service/cl-mng-common.service';
 
+
 @NgModule({
     imports: [
         CommonComponentModule,
@@ -66,7 +68,8 @@ import { ClMngCommonService } from './service/cl-mng-common.service';
         ClMngCreStep5Component,
         ClMngCreStep6Component,
         bootDiskMngComponent,
-        bootDiskCreEditComponent
+        bootDiskCreEditComponent,
+        CloudHostSpecComponent
     ],
     exports: [
     ],

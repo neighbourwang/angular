@@ -8,6 +8,7 @@ import { ClMngListComponent } from './component/cl-mng-list.component';
 import { PfDetailComponent } from './component/pf-mng-detail.component';
 import { bootDiskMngComponent } from './component/pf-mng-bootDisk.component';
 import { bootDiskCreEditComponent } from './component/pf-mng-bootDisk-creEdit.component';
+import { CloudHostSpecComponent } from './component/pf-mng-cloudHostSpec.component';
 
 
 import { ClMngCreStep1Component } from './component/cl-mng-cre-step-1.component';
@@ -58,6 +59,11 @@ export const ClMngRouting:ModuleWithProviders = RouterModule.forChild([
         path: 'pf-mng2/pf-mng-bootDisk-creEdit',
         component: bootDiskCreEditComponent
     },
+    {
+        path: 'pf-mng2/pf-mng-cloudHostSpec',
+        component:CloudHostSpecComponent
+    },
+    
     
     
 ]);
