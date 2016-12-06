@@ -15,7 +15,6 @@ import { Attest } from "../model/attest.model";
 })
 export class AttestSourceCreComponent implements OnInit {
     constructor(
-        private router: ActivatedRoute,
         private route: Router,
         private service: AttMngCreService,
         private layoutService: LayoutService,
@@ -43,7 +42,7 @@ export class AttestSourceCreComponent implements OnInit {
 
     ngOnInit() {
         // console.log(this.router.params);
-        this.router.params.forEach((params: Params) => {
+        this.activatedRouter.params.forEach((params: Params) => {
             const id = params["id"];
             this.type = params["type"];
             console.log(this.type);

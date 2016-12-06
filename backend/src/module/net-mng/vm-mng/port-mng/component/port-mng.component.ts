@@ -1,6 +1,6 @@
-﻿import { Component, ViewChild, OnInit, Params } from '@angular/core';
+﻿import { Component, ViewChild, OnInit  } from '@angular/core';
 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../../architecture';
 
@@ -25,6 +25,7 @@ export class PortMngComponent implements OnInit {
 
     constructor(
         private router: Router,
+        private activatedRoute: ActivatedRoute,
         private service: PortMngService,
         private layoutService: LayoutService,
     ) {
@@ -48,7 +49,7 @@ export class PortMngComponent implements OnInit {
     filterPorts: Array<PortMngModel>;
     pid: string;//platformId;
     ngOnInit() {
-        this.router.params.forEach((params: Params) => {
+        this.activatedRoute.params.forEach((params: Params) => {
             this.pid = params["pid"];
         });
         this.getDcList();

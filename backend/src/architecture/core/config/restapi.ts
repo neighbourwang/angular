@@ -955,13 +955,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取端口组资源分配列表",
         "id": "net-mng.vmware.dc.list",
         "method": "GET",
-        "url": "/adminboe/authsec/vmware/network/dclist/platform/{pid}"
+        "url": "adminboe/authsec/platform/{pid}/vmware/network/dclist"
     },
     {
         "desc": "获取端口组资源分配列表",
         "id": "net-mng.vmware.port.list",
         "method": "GET",
-        "url": "adminboe/authsec/vmware/network/portresource/platform/{pid}"
+        "url": "adminboe/authsec/platform/{pid}/vmware/network/portresource"
     },
     {
         "desc": "获取端口资源企业列表",

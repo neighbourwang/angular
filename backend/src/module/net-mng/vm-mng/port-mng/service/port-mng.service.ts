@@ -21,7 +21,7 @@ export class PortMngService {
 
 
     //获取初始化列表数据
-    getData(): Promise<any> {
+    getData(pid:string): Promise<any> {
         const pathParams = [
             {
                 key: "pid",
