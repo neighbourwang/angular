@@ -61,7 +61,7 @@
                 <td>{{displayIt(ipusagemng.instanceName)}}</td>
                 <td>{{displayIt(ipusagemng.tenantName)}}</td>
                 <!-- <td>{{ipusagemng.status}}</td> -->
-                <td>{{getDicText(ipusagemng.status,this.statusDic)}}</td>
+                <td [ngClass]="{'font-green':ipusagemng.status=='2','font-orange':ipusagemng.status=='1'}">{{getDicText(ipusagemng.status,this.statusDic)}}</td>
                 <td>{{displayIt(ipusagemng.description)}}</td>
             </tr>
             </tbody>
