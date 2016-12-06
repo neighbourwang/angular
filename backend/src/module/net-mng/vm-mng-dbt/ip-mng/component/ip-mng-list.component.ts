@@ -103,8 +103,8 @@ export class IpMngListComponent implements OnInit{
                 this.selectedVDS.switchId = params["switch_Id"];
                 console.log(this.selectedVDS.switchId, "this.selectedVDS.switchId");
             }
-            if (params["platform_Id"] != null) {
-                this.platformId = params["platform_Id"];
+            if (params["pid"] != null) {
+                this.platformId = params["pid"];
                 console.log(this.platformId, "this.platformId");
             }
         });

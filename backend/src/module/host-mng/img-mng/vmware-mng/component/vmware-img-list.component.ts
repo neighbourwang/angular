@@ -286,7 +286,7 @@ export class VmwareImgListComponent implements OnInit {
         if (image) {
             this.selectedimg = image;
             if(this.selectedimg.status == this.statusDict.find(n => n.code === "FORBIDDEN").value){
-                this.showMsg("镜像已被占用");
+                this.showMsg("镜像已被禁用");
                 return; 
             }
             this.disableimagebox.open();

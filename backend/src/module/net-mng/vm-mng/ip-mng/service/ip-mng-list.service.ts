@@ -27,7 +27,8 @@ export class IpMngListService {
                 value: platform_id
             }
         ];
-        const api = this.restApiCfg.getRestApi("net-mng.vmware.querycondition.get");
+        console.log(pathParams, "pathParams in getDCList");
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.dclist.get");
         return this.restApi.request(api.method, api.url, pathParams, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => net_dc_list_mock);
     }
