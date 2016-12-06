@@ -47,7 +47,7 @@ export class VmDisIndexComponent implements OnInit {
     defaultSwitch: switchMode = new switchMode();
     selectSwitch = this.defaultSwitch;//当前选中的可用区
 
-    
+    platformId: string;
 
     dcList: Array<DCModel>;
 
@@ -61,6 +61,7 @@ export class VmDisIndexComponent implements OnInit {
    
 
     ngOnInit() {
+        this.platformId = "88";
         this.getDcList();
       
         this.dicService.getItems("portgroup", "status")
@@ -75,7 +76,7 @@ export class VmDisIndexComponent implements OnInit {
 
     getDcList() {
         this.layoutService.show();
-        this.service.getDCList()
+        this.service.getDCList(this.platformId)
             .then(
             response => {
                 this.layoutService.hide();
@@ -91,7 +92,7 @@ export class VmDisIndexComponent implements OnInit {
 
     getData() {
         this.layoutService.show();
-        this.service.getData()
+        this.service.getData(this.platformId)
             .then(
             response => {
                 this.layoutService.hide();

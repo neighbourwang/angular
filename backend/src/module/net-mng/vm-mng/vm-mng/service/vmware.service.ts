@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+ï»¿import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi } from '../../../../../architecture';
 
@@ -20,31 +20,48 @@ export class VmwareService {
         this.restApiCfg.loadCfgData();
     }
 
-    //»ñÈ¡³õÊ¼»¯ÁĞ±íÊı¾İ
-    getDCList(): Promise<any> {
+    //è·å–åˆå§‹åŒ–åˆ—è¡¨æ•°æ®
+    getDCList(platform_Id:string): Promise<any> {
+        const pathParams = [
+            {
+                key: "platform_id",
+                value: platform_Id
+            }
+        ];
          const api = this.restApiCfg.getRestApi("net-img.vm-mng.network.dclist");
-         return this.restApi.request(api.method, api.url, null, null, null);
+         return this.restApi.request(api.method, api.url, pathParams, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => net_dc_list_mock);
     }
 
-     getData(): Promise<any> {
+    getData(platform_Id:string): Promise<any> {
+        const pathParams = [
+            {
+                key: "platform_id",
+                value: platform_Id
+            }
+        ];
         const api = this.restApiCfg.getRestApi("net-img.vm-mng.network.list");
-        return this.restApi.request(api.method, api.url, null, null, null);
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => StdNet_mock);
 }
 
     
 
-    saveEditNet(stdnet: StdNet): Promise<any> {
-        
+    saveEditNet(platform_Id:string, stdnet: StdNet): Promise<any> {
+        const pathParams = [
+            {
+                key: "platform_id",
+                value: platform_Id
+            }
+        ];
         const api = this.restApiCfg.getRestApi("net-img.vm-mng.network.update");
-        return this.restApi.request(api.method, api.url, null, null, stdnet);
+        return this.restApi.request(api.method, api.url, pathParams, null, stdnet);
         
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return StdNet_mock });
     }
 
     netEnable(id:string):Promise<any>{
-        //Èç¹ûÔËĞĞ×´Ì¬²»ÊÇÔËĞĞÖĞµÄ£¬Ôò²»ÄÜÆôÓÃ´ËÍøÂç
+        //å¦‚æœè¿è¡ŒçŠ¶æ€ä¸æ˜¯è¿è¡Œä¸­çš„ï¼Œåˆ™ä¸èƒ½å¯ç”¨æ­¤ç½‘ç»œ
         const pathParams = [
             {
                 key: "id",
