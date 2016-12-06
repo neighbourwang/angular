@@ -22,15 +22,27 @@ export class PortMngService {
 
     //获取初始化列表数据
     getData(): Promise<any> {
+        const pathParams = [
+            {
+                key: "pid",
+                value: pid
+            }
+        ];
         const api = this.restApiCfg.getRestApi("net-mng.vmware.port.list");
-        return this.restApi.request(api.method, api.url, null, null, null);
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => portlist_mock);
     }
 
     //获取初始化列表数据
-    getDCList(): Promise<any> {
+    getDCList(pid: string): Promise<any> {
+        const pathParams = [
+            {
+                key: "pid",
+                value: pid
+            }
+        ];
         const api = this.restApiCfg.getRestApi("net-mng.vmware.dc.list");
-        return this.restApi.request(api.method, api.url, null, null, null);
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => net_dc_list_mock);
     }
 

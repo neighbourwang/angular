@@ -1,4 +1,4 @@
-﻿import { Component, ViewChild, OnInit } from '@angular/core';
+﻿import { Component, ViewChild, OnInit, Params } from '@angular/core';
 
 import { Router } from '@angular/router';
 
@@ -12,7 +12,7 @@ import { ClusterMode } from "../model/cluster.model";
 
 //service
 import { PortMngService } from '../service/port-mng.service';
-  
+
 
 @Component({
     selector: 'port-mng-list',
@@ -46,15 +46,18 @@ export class PortMngComponent implements OnInit {
 
     allPorts: Array<PortMngModel>;
     filterPorts: Array<PortMngModel>;
-   
+    pid: string;//platformId;
     ngOnInit() {
+        this.router.params.forEach((params: Params) => {
+            this.pid = params["pid"];
+        });
         this.getDcList();
         this.getData();
     }
 
     getData() {
         this.layoutService.show();
-        this.service.getData()
+        this.service.getData(this.pid)
             .then(
             response => {
                 this.layoutService.hide();
@@ -71,16 +74,16 @@ export class PortMngComponent implements OnInit {
 
     getDcList() {
         this.layoutService.show();
-        this.service.getDCList()
+        this.service.getDCList(this.pid)
             .then(
-                response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.dcList = response["resultContent"];
-                    } else {
-                        alert("Res sync error");
-                    }
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.dcList = response["resultContent"];
+                } else {
+                    alert("Res sync error");
                 }
+            }
             )
             .catch((e) => this.onRejected(e));
     }
