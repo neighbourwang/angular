@@ -35,6 +35,8 @@ export class VmDisIndexComponent implements OnInit {
     @ViewChild("confirm")
     confirm: ConfirmComponent;
 
+    @ViewChild("synDbt")
+    synDbt: PopupComponent;
     
 
     noticeTitle = "";
@@ -60,13 +62,13 @@ export class VmDisIndexComponent implements OnInit {
 
     ngOnInit() {
         this.getDcList();
-       this.getData();
-        //this.dicService.getItems("PORTGROUP", "STATUS")
-        //    .then(
-        //    dic => {
-        //       this.statusDic = dic;
-        //        this.getData();
-        //    });
+      
+        this.dicService.getItems("portgroup", "status")
+            .then(
+            dic => {
+               this.statusDic = dic;
+                this.getData();
+            });
     }
 
 
@@ -119,15 +121,23 @@ export class VmDisIndexComponent implements OnInit {
     }
 
     //弹出编辑标准端口组显示名称
-    openEdit(port): void {
-        
-        this.editPort = port;
+    openEdit(Port:port): void {
+        let cport = new port();
+        cport.id = Port.id;
+        cport.dcId = Port.dcId;
+        cport.dcName = Port.dcName;
+        cport.switchId = Port.switchId;
+        cport.switchName = Port.switchName;    
+        cport.dvPortGroupName = Port.dvPortGroupName;
+        cport.distPortGroupDisplayName = Port.distPortGroupDisplayName;
+        cport.vlanId = Port.vlanId;
+        cport.status = Port.status;
+        cport.lastUpdate = Port.lastUpdate;
+        this.editPort = cport;
     }
-    close(port): void {
-        port.isOpen = false;
-    }
+    
     //保存标准端口组显示名称
-    saveEdit(port: port) {
+    saveEdit(Port: port) {
         this.layoutService.show();
         if (this.validationService.isBlank(this.editPort.distPortGroupDisplayName)) {
             this.showAlert("标准端口组显示名称不能为空.");
@@ -240,7 +250,7 @@ export class VmDisIndexComponent implements OnInit {
     }
 
     gotoPortMng() {
-        this.router.navigate([`net-mng/vm-mng/port-mng`]);
+        this.router.navigateByUrl('net-mng/vm-mng-dbt/port-mng');
     }
 
     gotoIpMng() {
@@ -272,5 +282,65 @@ export class VmDisIndexComponent implements OnInit {
         this.noticeTitle = "提示";
         this.noticeMsg = msg;
         this.notice.open();
+    }
+
+//同步列表弹出框
+    infoListForSyn:Array<port>;
+    createPopor(){
+        //获取信息
+        this.layoutService.show();
+        this.service.getSynInfolist()
+        .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+
+                    this.infoListForSyn = response["resultContent"];
+                    this.synDbt.open('同步分布式网络信息-网络信息');
+                } else {
+                    alert("Res sync error");
+                }
+            }
+        )
+            .catch((e) => this.onRejected(e));
+        
+    }
+    //同步
+    doSynDbt(){
+        let id:string;
+        this.infoListForSyn.forEach(
+            (p)=>{
+                if(p.selected){
+                    id = p.switchId ;
+                }
+            }
+        )
+        this.service.doSyn(id)
+        .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+
+                    //this.synDbt.close();
+                    this.infoListForSyn = response["resultContent"];
+                    this.showAlert("同步成功");
+                    this.synDbt.open('同步分布式网络信息-网络信息');
+                    
+                } else {
+                    alert("Res sync error");
+                }
+            }
+        )
+        .catch((e) => this.onRejected(e));
+        
+    }
+    closeSynDbt(){
+        this.synDbt.close();
+    }
+    selectSyn(port: port) {
+        this.infoListForSyn.forEach((port) => {
+            port.selected = false;
+        });
+        port.selected = true;
     }
 }

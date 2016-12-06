@@ -38,13 +38,13 @@ export let RestApis: RestApiModel[] = [
 
     // 数据字典
     {
-        "desc": "获取可订购云主机配置数据",
+        "desc": "获取可订购配置数据",
         "method": "GET",
         "id": "hosts.services.get",
         // "url": "marketplace/authsec/shopping/servicelist/vm"
         // "url": "marketplace/authsec/shopping/servicelist/88/1/vm",
         // "url": "marketplace/authsec/shopping/servicelist/88/1/vm",
-        "url": "marketplace/authsec/shopping/servicelist/type/0"
+        "url": "marketplace/authsec/shopping/servicelist/type/{id}"
     },
     {
         "desc": "云主机订购",

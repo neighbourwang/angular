@@ -164,7 +164,7 @@ export class IpMngListComponent implements OnInit{
         this.layoutService.show();
         this.pg = this.getSelected();
          if (this.pg) {
-            this.layoutService.hide();
+            //this.layoutService.hide();
             this.subn.portGroup = this.pg.id;
             console.log(this.subn.portGroup, "========== setupSubnet =============");
             this.service.getSubnetInfoIps(this.subn.portGroup)
@@ -201,7 +201,7 @@ export class IpMngListComponent implements OnInit{
         this.pg = this.getSelected();
         this.layoutService.show();
         if (this.pg) {
-            this.layoutService.hide();
+            //this.layoutService.hide();
             this.ippool.portGroup = this.pg.id;
             console.log(this.ippool.portGroup, "========== setupIPs =============");
             this.service.getSubnetInfoIps(this.ippool.portGroup)
@@ -255,15 +255,18 @@ export class IpMngListComponent implements OnInit{
 
     acceptIPsModify(): void {
         console.log('clicked acceptIPsModify');
+        this.layoutService.show();
         if (this.validateIPModify()) {
             //console.log('clicked acceptIPsModify 2');
             this.service.updateSubnetIPs(this.ippool.portGroup, this.ippool)
                 .then(res => {
                     //console.log('clicked acceptIPsModify 3');
                     if (res && res.resultCode == "100") {
+                        this.layoutService.hide();
                         console.log(res, "设置IP地址范围成功")
                     } else {
                         console.log('clicked acceptIPsModify 4');
+                        this.layoutService.hide();
                         this.ipsbox.close();
                         this.showMsg("设置IP地址范围失败");
                         return;
@@ -295,13 +298,16 @@ export class IpMngListComponent implements OnInit{
 
     acceptSubnetModify(): void {
         console.log('clicked acceptSubnetModify');
+        this.layoutService.show();
         if (this.validateSubnetModify()) {
             this.service.updateSubnet(this.subn.portGroup, this.subn)
                 .then(res => {
                     if (res && res.resultCode == "100") {
+                        this.layoutService.hide();
                         console.log(res, "设置IP子网成功");                        
                     } else {
                         console.log('clicked acceptSubnetModify 4');
+                        this.layoutService.hide();
                         this.subnetbox.close();
                         this.showMsg("设置IP子网失败");
                         return;

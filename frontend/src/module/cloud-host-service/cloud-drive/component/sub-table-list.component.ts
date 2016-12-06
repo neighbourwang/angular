@@ -61,18 +61,21 @@ export class subTableListComponent implements OnInit, OnChanges {
 	setBackupList() {
 		this.service.getBackupList(this.list).then(res => {
 			console.log(res)
+			this.list.pageParameter.totalPage = res.pageInfo.totalPage;
 		})
 	}
 
 	setUnmountList() {
 		this.service.getUnmountList(this.list).then(res => {
 			console.log(res)
+			this.list.pageParameter.totalPage = res.pageInfo.totalPage;
 		})
 	}
 
 	setVmList() {
 		this.service.getVmList(this.list).then(res => {
 			this.vmList = res.resultContent;
+			this.list.pageParameter.totalPage = res.pageInfo.totalPage;
 			console.log(res.resultContent)
 		})
 	}
