@@ -26,7 +26,7 @@ export class OrderMngComponent implements OnInit{
 	private _orderStatus:DicLoader = null;
 	private _orderLoader:ItemLoader<SubInstanceResp> = null;
 	private _billinModeDic:DicLoader = null;
-
+    private _buyerListLoader:ItemLoader<{id:string;name:string}> = null;//订购人列表
 	//退订
 	private _isCanceled:boolean = false;
 	private _cancelHandler:ItemLoader<any> = null;
@@ -54,6 +54,7 @@ export class OrderMngComponent implements OnInit{
 
 		this._billinModeDic = new DicLoader(restApiCfg, restApi, "BILLING_MODE", "TYPE");
 
+		this._buyerListLoader = new ItemLoader<{id:string;name:string}>(false,"订购人列表","op-center.order-mng.buyer-list.get",restApiCfg,restApi);
 		//退订
 		this._cancelHandler = new ItemLoader<any>(false, "退订", "op-center.order-mng.order-cancel.get", restApiCfg, restApi);
 
@@ -219,6 +220,7 @@ export class OrderMngComponent implements OnInit{
 		});
 	}
 
+//根据企业加载部门
 	loadDepartment(){
 		this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._param.enterpriseId}])
 		.then(success=>{
@@ -227,7 +229,19 @@ export class OrderMngComponent implements OnInit{
 			this._param.organization = null;
 		});
 	}
+//根据部门加载订购人
+	loadBuyer(){
+		this._buyerListLoader.Go(null,[{key:"departmentId",value:this._param.organization}])
+		.then(success=>{
+			this._param.buyerId = null;
+		})
+		.catch(err=>{
+			this._param.buyerId = null;
+			this.showMsg("加载订购人列表出错！");
+		})
+	}
 
+	
 	loadPlatform():Promise<any>{
 		return new Promise((resolve, reject)=>{
 			this._platformLoader.Go()
