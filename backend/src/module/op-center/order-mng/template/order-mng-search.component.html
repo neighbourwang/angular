@@ -26,19 +26,19 @@
 						<td class="none-border">
 							<span class="float-left  form-control-title">订购人:</span>
 							<div class="dropdown float-left">
-								<select class="form-control">
+								<select class="form-control" [(ngModel)]="_param.buyerId">
 									<option class="hands" [value]="null">所有用户</option>
-									<option class="hands">张三</option>
+									<option class="hands" *ngFor = "let item of _buyerLoader.Items" [value] = "item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
 						<td class="none-border">
 							<div class="dropdown float-left">			
-								<span class="mgr10 mgt10  form-control-title">提交时间：</span><date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
+								<span class="mgr10 mgt10  form-control-title">提交时间：</span><date-picker (dateChanged)="onEndTimeChange($event)"></date-picker>
 							</div>
 						
 							<div class="dropdown float-left">			
-								<span class="mgr10 mgt10">——</span><date-picker (dateChanged)="onExpireTimeChange($event)"></date-picker>
+								<span class="mgr10 mgt10">——</span><date-picker (dateChanged)="onEndTimeChange($event)"></date-picker>
 							</div>
 						</td>
 						<td class="none-border ">
@@ -86,19 +86,18 @@
 					</tr>			
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>2370537538484773</td>
-						<td>数据库（包年包月）</td>
-						<td>新订单</td>
-						<td>审批中</td>
-						<td>一次性费用：￥30<br>
-							费用：￥184/月
+					<tr *ngFor="let item of _orderLoader.Items;let i=index;">
+						<td>{{i}}</td>
+						<td>{{item.orderId}}</td>
+						<td>{{item.serviceTypeName}}</td>
+						<td>{{item.orderType}}</td>
+						<td>{{item.statusName}}</td>
+						<td>{{item.oncePrice}}<br>{{item.price}}
 						</td>
-						<td>2016/11/1 10:23</td>
-						<td></td>
-						<td>张三</td>
-						<td>销售部</td>
+						<td>{{item.submitTime}}</td>
+						<td>{{item.EndTime}}</td>
+						<td>{{item.submitPeople}}</td>
+						<td>{{item.departmentName}}</td>
 						<td class="left-td">
 							<button class="mgr20  fox-cloud-button-green" data-toggle="modal" data-target="#searchDetail">详&nbsp;&nbsp;&nbsp;情</button>
 							<button class="fox-cloud-button-green" data-toggle="modal" data-target="#cancelOrder">撤&nbsp;&nbsp;&nbsp;单</button>

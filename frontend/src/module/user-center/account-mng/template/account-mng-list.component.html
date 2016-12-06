@@ -57,9 +57,9 @@
     </div>
 </fc-popup>
 
-<fc-popup #crLocalAccount title="{{title}}" ot="{{isEdit==false?'创建':'保存'}}" (of)="createAdAccount();" ct="取消" (cf)="ccf()">
+<fc-popup  #crLocalAccount title="{{title}}" ot="{{isEdit==false?'创建':'保存'}}" (of)="createAdAccount();" ct="取消" (cf)="ccf()">
     <div class="row row-line-height">
-        <account-mng-cr-local #crLocal [isEdit]="isEdit" [editId]="editId"></account-mng-cr-local>
+        <account-mng-cr-local *ngIf="isActive" #crLocal [isEdit]="isEdit" [editId]="editId"></account-mng-cr-local>
     </div>
 </fc-popup>
 

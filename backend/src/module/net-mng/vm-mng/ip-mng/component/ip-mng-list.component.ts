@@ -164,7 +164,7 @@ export class IpMngListComponent implements OnInit{
         this.layoutService.show();
         this.pg = this.getSelected();
          if (this.pg) {
-            this.layoutService.hide();
+            //this.layoutService.hide();
             this.subn.portGroup = this.pg.id;
             console.log(this.subn.portGroup, "========== setupSubnet =============");
             this.service.getSubnetInfoIps(this.subn.portGroup)
@@ -201,7 +201,7 @@ export class IpMngListComponent implements OnInit{
         this.pg = this.getSelected();
         this.layoutService.show();
         if (this.pg) {
-            this.layoutService.hide();
+            //this.layoutService.hide();
             this.ippool.portGroup = this.pg.id;
             console.log(this.ippool.portGroup, "========== setupIPs =============");
             this.service.getSubnetInfoIps(this.ippool.portGroup)

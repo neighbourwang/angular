@@ -102,7 +102,7 @@
                         <div *ngSwitchCase="'special'">{{img.tenants[0].name}}</div>
                         
                     </td>
-                    <td class="font-green">{{getDicText(img.status, this.statusDict)}}</td>                   
+                    <td [ngClass]="{'font-green':img.status=='1','font-orange':img.status=='0'}">{{getDicText(img.status, this.statusDict)}}</td>                   
                 </tr>
             </tbody>
         </table>

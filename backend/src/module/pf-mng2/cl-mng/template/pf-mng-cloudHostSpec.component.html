@@ -1,0 +1,77 @@
+<div class="page-content-header icon-content-header-platform-manage" style="padding-bottom:10px;height:45px;">
+    管理云主机规格: <span style="margin-right:20px;">{{platformName}}</span> 云主机类型: <span>{{platformType}}</span>
+    <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
+        <span class="icon-button-label" (click)='goList()'>返回云平台列表</span>
+    </button>
+</div>
+<div >
+    <div class="page-content">
+        <div style="padding-bottom: 10px;">
+             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
+                <span class="icon-button-label" (click)='goList()'>同步存储后端</span>
+             </button>
+            <div style="clear:both"></div>
+        </div>
+        <div class="table-container" >
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>                        
+                        <th>名称</th>
+                        <th>vCPU</th>
+                        <th>内存(MB)</th>
+                        <th>启动盘大小(GB)</th>
+                        <th>状态</th>
+                        <th>同步结果</th>
+                        <th>更新时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td style="cursor:pointer">m2.tiny</td>
+                        <td>1</td>
+                        <td>512</td>
+                        <td>40</td>
+                        <td>已启用</td>
+                        <td>使用中</td>
+                        <td>2016-11-30 15:00:00</td>
+                        <td>
+                            <button class="fox-cloud-button-md fox-cloud-button-white">启用</button>
+                            <button class="fox-cloud-button-md fox-cloud-button-white">禁用</button> 
+                        </td>                                               
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td style="cursor:pointer">m2.tiny</td>
+                        <td>1</td>
+                        <td>512</td>
+                        <td>40</td>
+                        <td>已启用</td>
+                        <td>使用中</td>
+                        <td>2016-11-30 15:00:00</td>
+                        <td>
+                            <button class="fox-cloud-button-md fox-cloud-button-white">启用</button>
+                            <button class="fox-cloud-button-md fox-cloud-button-white">禁用</button> 
+                        </td>                                               
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td style="cursor:pointer">m2.tiny</td>
+                        <td>1</td>
+                        <td>512</td>
+                        <td>40</td>
+                        <td>已启用</td>
+                        <td>使用中</td>
+                        <td>2016-11-30 15:00:00</td>
+                        <td>
+                            <button class="fox-cloud-button-md fox-cloud-button-white">启用</button>
+                            <button class="fox-cloud-button-md fox-cloud-button-white">禁用</button> 
+                        </td>                                               
+                    </tr>
+                </tbody>
+            </table>
+        </div>       
+    </div>
+</div>
