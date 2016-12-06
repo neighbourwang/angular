@@ -14,7 +14,7 @@ export class RestApiCfg {
 
     // protected baseIp = environment.baseIp || '16.168.19.15';
     // protected basePort = '31072';//测试
-    protected basePort = environment.basePort || "31072"; //开发
+    protected basePort = environment.basePort || "30072"; //开发
     // protected basePort = environment.basePort || '9302';//开发
 
 

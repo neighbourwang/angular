@@ -20,7 +20,26 @@ export class IpMngListService {
         private restApi: RestApi
     ) { }
 
-    getIpMngList(): Promise<any> {
+    getDCList(platform_id: any): Promise<any> {
+        const pathParams = [
+            {
+                key: "platform_id",
+                value: platform_id
+            }
+        ];
+        console.log(pathParams, "pathParams in getDCList");
+        const api = this.restApiCfg.getRestApi("net-mng.vmware.dclist.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => net_dc_list_mock);
+    }
+
+    getIpMngList(platform_id: any): Promise<any> {
+        const pathParams = [
+            {
+                key: "platform_id",
+                value: platform_id
+            }
+        ];
         /*
         const pathParams = [
             {
@@ -42,8 +61,9 @@ export class IpMngListService {
             }
         );
         */
+        
         const api = this.restApiCfg.getRestApi("net-mng.vmware.ipmng.list");
-        return this.restApi.request(api.method, api.url, null, null, null);
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return IpMngModel_mock });
     }
 
@@ -86,12 +106,6 @@ export class IpMngListService {
         return this.restApi.request(api.method, api.url, pathParams, null, body);
 
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
-    }
-
-    getDCList(): Promise<any> {
-        const api = this.restApiCfg.getRestApi("net-mng.vmware.querycondition.get");
-        return this.restApi.request(api.method, api.url, null, null, null);
-        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => net_dc_list_mock);
     }
 
     getSubnetInfoIps(portGroup: any): Promise<any> {
