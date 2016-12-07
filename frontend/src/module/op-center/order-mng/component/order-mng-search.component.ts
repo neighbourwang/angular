@@ -26,7 +26,6 @@ export class OrderMngSearchComponent implements OnInit{
 
 	private _productTypeLoader: DicLoader = null;
 	
-	//private _orderStatus:DicLoader = null;
 	private _orderLoader:ItemLoader<SearchOrderItem> = null;
 	private _entId:string = "191af465-b5dc-4992-a5c9-459e339dc719";
 	
@@ -46,11 +45,21 @@ export class OrderMngSearchComponent implements OnInit{
 
 
 		//配置订单状态
-		this._orderStatus = new DicLoader(this.restApiCfg, this.restApi, "SUBINSTANCE", "STATUS");
+		this._orderStatus = new DicLoader(this.restApiCfg, this.restApi, "ORDER", "STATUS");
 
 		//配置订单加载
-		this._orderLoader = new ItemLoader<SearchOrderItem>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
+		this._orderLoader = new ItemLoader<SearchOrderItem>(true, "订单列表", "op-center.order-search.list.post", restApiCfg, restApi);
 		this._orderLoader.MapFunc = (source:Array<any>, target:Array<SearchOrderItem>)=>{
+
+			let getfirstItem:(item:any)=>any = function(item:any):any{
+				if(item && !_.isEmpty(item.itemList))
+				{
+					return item.itemList[0];
+				}
+				return null;
+			};
+
+
 			for(let item of source)
 			{
 				let obj = new SearchOrderItem();
@@ -58,29 +67,37 @@ export class OrderMngSearchComponent implements OnInit{
 
 				_.extendOwn(obj, item);
 
-				obj.orderId = item.id;// 订单编号
-				obj.serviceType = item.productType;// 产品类型
-				obj.orderType = item.orderType;// 订单类型
-				obj.status = item.orderStatus;// 订单状态
-				//费用
-				if(item.productBillingItem)
-				{
-					obj.oncePrice = item.productBillingItem.basePrice;//一次性费用
+				let getProperty = _.propertyOf(getfirstItem(item));
 
-					if(item.productBillingItem.billingMode == 0)//包月包年
+
+				obj.serviceType = getProperty("serviceType");// 产品类型
+				obj.orderType = null;// 订单类型
+				obj.status = getProperty("status");// 订单状态
+				let billingInfo = getProperty('billingInfo');
+				//费用
+				if(billingInfo)
+				{
+					obj.oncePrice = billingInfo.basePrice;//一次性费用
+
+					if(billingInfo.billingMode == 0)//包月包年
 					{
-						obj.price = item.productBillingItem.basicPrice + item.productBillingItem.cyclePrice;
+						obj.price = billingInfo.basicPrice + billingInfo.cyclePrice;
 					}	
-					else if(item.productBillingItem.billingMode == 1)//按量
+					else if(billingInfo.billingMode == 1)//按量
 					{
-						obj.price = item.productBillingItem.unitPrice;
+						obj.price = billingInfo.unitPrice;
 					}
 				}
-				obj.submitTime = item.createDate;// 提交时间
-				obj.EndTime = item.completeDate;//完成时间
-				obj.submitPeople = item.submiter;//提交者
-				obj.departmentName = item.departmentName;//所属部门
+				obj.submitTime = getProperty('createDate');// 提交时间
+				obj.EndTime = getProperty('expireDate');//完成时间
+				obj.submitPeople = getProperty('buyer');//提交者
+				obj.departmentName = getProperty('departmentName');//所属部门
 			}
+		};
+
+		this._orderLoader.Trait = (items:Array<SearchOrderItem>)=>{
+			this._orderStatus.UpdateWithDic(items, "statusName", "status");
+			this._productTypeLoader.UpdateWithDic(items, "serviceTypeName", "serviceType");
 		};
       
 	}
@@ -136,7 +153,7 @@ export class OrderMngSearchComponent implements OnInit{
 
 	}
 
-search(pageNumber:number = 1){
+	search(pageNumber:number = 1){
 		this.layoutService.show();
 
 		let param = _.extend({}, this._param);
