@@ -239,7 +239,7 @@ const menu: Array<Object> = [
               "label": "VmWare分布式网络",
                  "isOpen": false,
                  "isActive": false,
-                 "routing": "net-mng/vm-mng-dbt/index"
+                 "routing": "net-mng/vm-mng-dbt/index/88"
              }
          ]
      },

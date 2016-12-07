@@ -20,17 +20,29 @@ export class PortMngService {
     }
 
 
-    //获取初始化列表数据
-    getData(): Promise<any> {
+    //获取端口组列表
+    getData(id:string): Promise<any> {
+        const pathParams = [
+            {
+                key: "platform_id",
+                value: id
+            }
+        ];
         const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.port.list");
-        return this.restApi.request(api.method, api.url, null, null, null);
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => portlist_mock);
     }
 
-    //获取初始化列表数据
-    getDCList(): Promise<any> {
+    //获取数据中心列表
+    getDCList(id:string): Promise<any> {
+         const pathParams = [
+            {
+                key: "platform_id",
+                value: id
+            }
+        ];
         const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.port.dclist");
-        return this.restApi.request(api.method, api.url, null, null, null);
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => net_dc_list_mock);
     }
 

@@ -10,7 +10,7 @@ export const VMPortMngRouting: ModuleWithProviders = RouterModule.forChild([
         component: PortMngComponent
     },
     {
-        path: 'net-mng/vm-mng-dbt/port-mng-set/:id',
+        path: 'net-mng/vm-mng-dbt/port-mng-set',
         component: PortMngSetComponent
     },
 ]);

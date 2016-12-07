@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, ViewChild, } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, ValidationService, PopupComponent, SystemDictionaryService, SystemDictionary } from '../../../../../architecture';
 
 import { DCModel } from "../model/dc.model";
@@ -18,12 +18,18 @@ import { VmDisIndexService } from '../service/index.service';
 export class VmDisIndexComponent implements OnInit {
 
     constructor(
+        private activatedRouter: ActivatedRoute,
         private router: Router,
         private dicService: SystemDictionaryService,
         private service: VmDisIndexService,
         private layoutService: LayoutService,
         private validationService: ValidationService
     ) {
+         if (activatedRouter.snapshot.params["pid"]) {
+            this.platformId = activatedRouter.snapshot.params["pid"] || "";
+        } else {
+            this.platformId = "88";
+        } 
     }
 
     @ViewChild("pager")
@@ -61,7 +67,7 @@ export class VmDisIndexComponent implements OnInit {
    
 
     ngOnInit() {
-        this.platformId = "88";
+        
         this.getDcList();
       
         this.dicService.getItems("portgroup", "status")
@@ -251,7 +257,8 @@ export class VmDisIndexComponent implements OnInit {
     }
 
     gotoPortMng() {
-        this.router.navigateByUrl('net-mng/vm-mng-dbt/port-mng');
+        this.router.navigate([`net-mng/vm-mng-dbt/port-mng`, {"pid":this.platformId}]);
+        //this.router.navigate([`net-mng/vm-mng-dbt/port-mng/${this.platformId}`]);
     }
 
     gotoIpMng() {
@@ -261,13 +268,18 @@ export class VmDisIndexComponent implements OnInit {
                     `net-mng/vm-mng-dbt/ip-mng-list`,
                     {
                         "dc_Id": selectedPort.dcId,
-                        "switch_Id": selectedPort.switchId
+                        "switch_Id": selectedPort.switchId,
+                        "pid":this.platformId
                     }
                 ]
             );
         } else {
             this.router.navigate([
-                `net-mng/vm-mng-dbt/ip-mng-list`]
+                `net-mng/vm-mng-dbt/ip-mng-list`,
+                {
+                    "pid":this.platformId
+                }
+            ]
             );
         }
     }
@@ -290,7 +302,7 @@ export class VmDisIndexComponent implements OnInit {
     createPopor(){
         //获取信息
         this.layoutService.show();
-        this.service.getSynInfolist()
+        this.service.getSynInfolist(this.platformId)
         .then(
             response => {
                 this.layoutService.hide();
@@ -316,16 +328,16 @@ export class VmDisIndexComponent implements OnInit {
                 }
             }
         )
-        this.service.doSyn(id)
+        this.service.doSyn(id, this.platformId)
         .then(
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
 
                     //this.synDbt.close();
-                    this.infoListForSyn = response["resultContent"];
+                    this.createPopor();
                     this.showAlert("同步成功");
-                    this.synDbt.open('同步分布式网络信息-网络信息');
+                    //this.synDbt.open('同步分布式网络信息-网络信息');
                     
                 } else {
                     alert("Res sync error");

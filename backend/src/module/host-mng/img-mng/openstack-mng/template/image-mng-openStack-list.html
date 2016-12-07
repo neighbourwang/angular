@@ -9,14 +9,14 @@
             <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >镜像类型：</span>
             <div class="float-left pdr20">
                 <select class="pdl10 form-control" [(ngModel)]="queryOpt.type" >
-                    <option value="">选择镜像类型</option>
+                    <option value="">所有镜像类型</option>
                     <option *ngFor = "let type of typeDic" [ngValue]="type.value">{{getDicText(type.value,typeDic)}}</option>
                 </select>
             </div>          
             <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >所属企业：</span>
             <div class="float-left">
                 <select class="pdl10 form-control" [(ngModel)]="queryOpt.tenantId" >
-                    <option value="">选择企业</option>
+                    <option value="">所有企业</option>
                     <option *ngFor = "let tenant of tenants" [ngValue]="tenant.id">{{tenant.name}}</option>
                 </select>
             </div> 

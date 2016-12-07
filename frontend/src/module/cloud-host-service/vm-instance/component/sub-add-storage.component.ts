@@ -19,13 +19,13 @@ export class subAddStorageComponent implements OnInit {
 
 	@Output() onChanges = new EventEmitter<any>();
 
-	@Input() configs:OrderList = new OrderList;
+	@Input() configs:VlueList[] = [];
 	@Input() maxLenght:number = 3;  //数据盘的最大数量
 
 	defaultStorage : VlueList = new VlueList;
 	defaultStorageSize : VlueList = new VlueList;
 
-	forArr:Array<Storage> = []; 
+	forArr:Array<Storage> = [];
 
 	ngOnInit() {
 		this.defaultStorageSize.attrValue = "40";
@@ -44,7 +44,7 @@ export class subAddStorageComponent implements OnInit {
 	delete(i) {
 		this.forArr.splice(i, 1);
 	}
- 
+
 	addDisk(){   //添加一块
 		if(this.forArr.length === this.maxLenght) return;
 		this.forArr.push({
@@ -53,9 +53,9 @@ export class subAddStorageComponent implements OnInit {
 		});
 	}
 
-	emit() {
-		this.forArr = this.forArr.filter( arr => arr.storage.attrValue && arr.storagesize.attrValueCode );  //排除空的
+	getData() {
+		this.forArr = this.forArr.filter( arr => arr.storage.attrValue && arr.storagesize.attrValue );  //排除空的
 
-		this.onChanges.emit( this.forArr );
+		return this.forArr;
 	}
 }

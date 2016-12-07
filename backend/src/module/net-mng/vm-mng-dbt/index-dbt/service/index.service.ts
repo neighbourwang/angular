@@ -89,23 +89,33 @@ export class VmDisIndexService {
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
     }
     //获取分布式同步网络信息
-    getSynInfolist():Promise<any>{
-        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.syn.getinfolist");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
+    getSynInfolist(platform_id:string):Promise<any>{
+         const pathParams = [
+            {
+                key:"platform_id",
+                value: platform_id
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.syn.getinfolist");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
     }
     
-    doSyn(id:string):Promise<any>{
+    doSyn(id:string, platform_id:string):Promise<any>{
         const pathParams = [
             {
                 key: "vds_id",
                 value: id
+            },
+            {
+                key:"platform_id",
+                value: platform_id
             }
         ];
 
-        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.syn.dosyn");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock_changed });
+        const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.syn.dosyn");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock_changed });
 
     }
 }

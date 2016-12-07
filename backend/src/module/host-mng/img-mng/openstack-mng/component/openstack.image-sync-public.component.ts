@@ -110,7 +110,7 @@ export class OpenstackImageSyncPublicComponent implements OnInit{
                 response =>{
                     this.layoutService.hide();
                     if(response && 100 == response["resultCode"]){
-                        this.layoutService.hide();
+                        //this.layoutService.hide();
                         this.getSynImages();
                         this.showAlert("同步成功");
                     } else{
