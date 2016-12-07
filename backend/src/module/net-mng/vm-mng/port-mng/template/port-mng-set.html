@@ -1,8 +1,8 @@
-﻿<div class="page-content-header icon-cloud-network-mngOn">VMware网络</div>
+﻿<div class="page-content-header icon-cloud-network-mngOn">VMvare网络</div>
 <div class="page-content">
-    <label >端口组资源分配——设置企业</label>
+    <label>端口组资源分配——设置企业</label>
     <div class="table-container mgt5 mgb20">
-        <table class="table table-hover" >
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>数据中心（DC）</th>
@@ -30,26 +30,23 @@
     <div style="margin-left:13%;"><label><span class="asterisk">*</span>选择企业：</label></div>
 
 
-    <div class="row mgb20" style="margin-left:20%;">
+    <div class="row mgb20" style="margin-left: 20%;">
+
         <div class="col-md-4 ">
+            <div style="text-align: center; font-weight: bold;">可选企业</div>
             <div style="max-height: 400px; overflow: auto;">
-            <table class="table table-hover" style="border: 1px solid #cfd8e7;">
-                <thead>
-                    <tr>
-                        <th>可选企业</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let enterprise of unselectedEnterprise;">
-                        <td>
-                            <label><input type="checkbox" name="unselected" [checked]="enterprise.selected" (change)="enterprise.selected=$event.target.checked;" class="fox-cloud-checkbox" />{{enterprise.com}}</label>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                <table class="table table-hover" style="border: 1px solid #cfd8e7;">
+                    <tbody>
+                        <tr *ngFor="let enterprise of unselectedEnterprise;">
+                            <td style="text-align: left; padding-left: 10px;">
+                                <label><input type="checkbox" name="unselected" [checked]="enterprise.selected" (change)="enterprise.selected=$event.target.checked;" class="fox-cloud-checkbox" />{{enterprise.com}}</label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        </div>
-        <div  class="col-md-2 text-center">
+        <div class="col-md-2 text-center">
             <div class="mgb10 mgt15">
                 <button (click)="moveToRight();" class="fox-cloud-button fox-cloud-button-white">
                     <span class="icon-button-label">移入</span>
@@ -63,31 +60,27 @@
                 </button>
             </div>
         </div>
-        <div class="col-md-4 ">
-            <div style="max-height: 400px; overflow: auto;">
-            <table class="table table-hover" style="border: 1px solid #cfd8e7;">
-                <thead>
-                    <tr>
-                        <th>选中企业</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let enterprise of selectedEnterprise;">
-                        <td>
-                            <label><input type="checkbox" name="selected" [checked]="enterprise.selected" (change)="enterprise.selected=$event.target.checked;" class="fox-cloud-checkbox" />{{enterprise.com}}</label>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="col-md-4">
+            <div style="text-align: center; font-weight: bold;">选中企业</div>
+            <div style="max-height: 400px; overflow: auto">
+                <table class="table table-hover" style="border: 1px solid #cfd8e7;">
+                    <tbody>
+                        <tr *ngFor="let enterprise of selectedEnterprise;">
+                            <td style="text-align: left; padding-left: 10px;">
+                                <label><input type="checkbox" name="selected" [checked]="enterprise.selected" (change)="enterprise.selected=$event.target.checked;" class="fox-cloud-checkbox" />{{enterprise.com}}</label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
 <div class="text-center">
-    <button (click) ="gotoPortMng()"  class="fox-cloud-button-lg fox-cloud-button-white" >
+    <button (click)="gotoPortMng()" class="fox-cloud-button-lg fox-cloud-button-white">
         <span class="icon-button-label">返回</span>
     </button>
-    <button   (click) ="saveEnterpriseGroup()" class="fox-cloud-button-lg fox-cloud-button-white">
+    <button (click)="saveEnterpriseGroup()" class="fox-cloud-button-lg fox-cloud-button-white">
         <span class="icon-button-label">保存</span>
     </button>
 </div>

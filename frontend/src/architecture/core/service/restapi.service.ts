@@ -9,12 +9,12 @@ import 'rxjs/add/operator/timeout';
 @Injectable()
 export class RestApi {
 
-    public defaultHeaders : Headers;
+    public defaultHeaders: Headers;
 
     constructor(
         private http: Http
         // private jsonp: Jsonp
-    ) {}
+    ) { }
 
     get(url: string, pathParams: Array<any>, queryParams: any, jwt: string = undefined): Promise<any> {
         return this.httpRequest('GET', url, jwt, pathParams, queryParams, undefined);
@@ -31,7 +31,7 @@ export class RestApi {
     delete(url: string, pathParams: Array<any>, queryParams: any, body: any, jwt: string = undefined): Promise<any> {
         return this.httpRequest('DELETE', url, jwt, pathParams, queryParams, body);
     }
-    
+
     request(type: string, url: string, pathParams: Array<any>, queryParams: Array<any>, body: any = undefined): Promise<any> {
         return this.httpRequest(type, url, undefined, pathParams, queryParams, body);
     }
@@ -40,14 +40,14 @@ export class RestApi {
         console.debug(`START ${type} ${new Date().toLocaleString()}: ${url}`);
 
         const path = pathParams ? this.createPath(url, pathParams) : url;
-        
+
         console.debug(`START ${type} ${new Date().toLocaleString()}: ${path}`);
 
-        
+
         let queryParameters = this.createQueryParams(queryParams);
         let headerParams = new Headers();
 
-       
+
 
         let requestOptions: RequestOptionsArgs = {
             method: type,
@@ -59,28 +59,28 @@ export class RestApi {
             requestOptions.body = JSON.stringify(body);
         }
 
-        let resData = environment.jwt.then((jwt:string) => {
-                             headerParams.append('Authorization', jwt);
-                       }).then(res =>
-                            this.http.request(path, requestOptions)
-                               .timeout(100000, new Error('接口请求超时！'))
-                               .toPromise()
-                       ).then(
-                            res => {
-                                console.debug(`SUCCESS ${type} ${new Date().toLocaleString()}: ${path}`);
-                                // if (type == 'DELETE') {
-                                //     return Promise.resolve(0);
-                                // } else {
-                                    return this.extractData(res);
-                                // }
-                            }
-                        )
-                        .catch(
-                            error => {
-                                console.debug(`FAILURE ${type} ${new Date().toLocaleString()}: ${path}`);
-                                return this.handleError(error);
-                            }
-                        );
+        let resData = environment.jwt.then((jwt: string) => {
+            headerParams.append('Authorization', jwt);
+        }).then(res =>
+            this.http.request(path, requestOptions)
+                .timeout(100000, new Error('接口请求超时！'))
+                .toPromise()
+            ).then(
+            res => {
+                console.debug(`SUCCESS ${type} ${new Date().toLocaleString()}: ${path}`);
+                // if (type == 'DELETE') {
+                //     return Promise.resolve(0);
+                // } else {
+                return this.extractData(res);
+                // }
+            }
+            )
+            .catch(
+            error => {
+                console.debug(`FAILURE ${type} ${new Date().toLocaleString()}: ${path}`);
+                return this.handleError(error);
+            }
+            );
 
         // console.debug(`END ${type} ${new Date().toLocaleString()}: ${path}`);
 
@@ -108,18 +108,14 @@ export class RestApi {
     }
 
     private extractData(res: Response) {
-        let body:any;
-        if(res.text() != '') {
+        let body: any;
+        if (res.text() != '') {
             body = res.json();
         } else {
             body = {};
         }
-        
-        if (body.resultCode && body.resultCode != 100) {
-            return Promise.reject(undefined);
-        } else {
-            return Promise.resolve(body);
-        }
+
+        return Promise.resolve(body);
     }
 
     private handleError(error: any) {
