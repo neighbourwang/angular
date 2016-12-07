@@ -41,17 +41,17 @@ export class EntEstCreComponent implements OnInit{
 		this.isLocal = true;
 		this.clearEntEst();
 		this.entEst.BasicInfo.certMethod = CertMethod.Local;	    
-		this.isADSelected();
 	}
 
 	selectAD(){
+		console.log('ad selected');
 		this.isLocal = false;
-		this.clearEntEst();
+		this.clearEntEst(); 
 		this.entEst.BasicInfo.certMethod = CertMethod.AD;
-		this.isADSelected();
 	}
 
 	isADSelected(){
+		console.log('isAdSelected', this.isLocal);
           if(this.isLocal == false){	  
 			  return true;
 		  }
@@ -60,11 +60,10 @@ export class EntEstCreComponent implements OnInit{
 	//清空基本信息数据
 	clearEntEst(){	
 		if(this.entEst && this.entEst!= null){
- 			  this.entEst.BasicInfo.name="";
-			  this.entEst.BasicInfo.contactorName="";
 			  this.entEst.BasicInfo.certUrl = "";
 			  this.entEst.BasicInfo.password = "";
 			  this.entEst.BasicInfo.description="";
+			  this.entEst.BasicInfo.platformIds = [];
 		}	
 	}
 

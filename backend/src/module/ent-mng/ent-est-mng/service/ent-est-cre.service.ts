@@ -58,11 +58,11 @@ export class EntEstCreService{
 		let params = [
 			{
 				key:"_page"
-				,value: resourceQuotaPaging.currentPage == 0 ? 1 : resourceQuotaPaging.currentPage
+				,value: 1
 			}
 			,{
 				key:"_size"
-				,value:10
+				,value:200
 			}
 		];
 
@@ -83,7 +83,7 @@ export class EntEstCreService{
 					obj.regionName = item.regionName;
 					obj.platformVMQuota = item.vmQuota;
 					obj.storageQuota = item.storageQuota;
-
+					obj.platformId = item.platformId;
 				}
 			});
 
@@ -383,6 +383,7 @@ export class EntEstCreService{
 			"userName": entEst.BasicInfo.contactorName,
 			//"isSSL": entEst.BasicInfo.isSSL, //是否进行SSL加密
 			"accountAttribute": entEst.BasicInfo.accountAttribute//登录账户属性名称
+			,"platformIdList": entEst.BasicInfo.platformIds
 		},
 		"quotaList": {
 			"enterpriseId":entEst.ResourceQuota.enterpriseId,
