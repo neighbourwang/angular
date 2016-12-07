@@ -222,17 +222,17 @@ export class EntEstCreComponent implements OnInit{
 		this.service.testAD(this.entEst).then(res => {
 			this.layoutService.hide();
 			if (res && res.resultCode == "100") {
-				console.log(res, "AD测试成功");
+				console.log("AD测试成功", res);
 				this.flag = "true";
 			} else {
-				console.log('AD测试失败');
+				console.log("AD测试失败", res);
 				//this.showMsg("AD测试失败");
 				this.flag = "false";
 				return;
 			}
 		})
 		.catch(err => {
-			console.log('AD测试异常', err);
+			console.log("AD测试异常", err);
 			this.layoutService.hide();
 			//this.showMsg("AD测试失败");
 			this.flag = "false";

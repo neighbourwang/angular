@@ -139,7 +139,11 @@ export class IpMngListComponent implements OnInit{
         this.ipmngs = this.rawipmngs.filter((item)=>{
             return ( this.selectedVDS.clusterId == "" || item.clusterId == this.selectedVDS.clusterId ) &&
             ( this.selectedDC.dcId == "" || item.dcId == this.selectedDC.dcId )
-        })
+        });
+        this.selectedDC=this.defaultDC;
+        this.selectedDC.dcId='';
+        this.selectedVDS=this.defaultVDS;
+        this.selectedVDS.clusterId='';
         console.log(this.ipmngs, "IPmngS --- filter");
         this.UnselectItem();
     }
