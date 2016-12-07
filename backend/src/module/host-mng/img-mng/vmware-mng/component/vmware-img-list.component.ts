@@ -233,7 +233,7 @@ export class VmwareImgListComponent implements OnInit {
         if (image) {
             this.selectedimg = image;
             if(this.selectedimg.status == this.statusDict.find(n => n.code === "ENABLE").value){
-                this.showMsg("镜像已被占用");
+                this.showMsg("镜像已启用");
                 return; 
             }
             this.enableimagebox.open();
@@ -263,10 +263,10 @@ export class VmwareImgListComponent implements OnInit {
                     this.enableimagebox.close();
                 })
                 .catch(err => {
-                    console.log('镜像更新', err);
+                    console.log('镜像启用异常', err);
                     this.layoutService.hide();
                     this.enableimagebox.close();
-                    this.showMsg("镜像更新");
+                    this.showMsg("镜像启用异常");
                     this.okCallback = () => { this.enableimagebox.open(); };
                 })
         }
@@ -314,10 +314,10 @@ export class VmwareImgListComponent implements OnInit {
                     this.disableimagebox.close();
                 })
                 .catch(err => {
-                    console.log('镜像更新', err);
+                    console.log('镜像禁用异常', err);
                     this.layoutService.hide();
                     this.disableimagebox.close();
-                    this.showMsg("镜像更新");
+                    this.showMsg("镜像禁用异常");
                     this.okCallback = () => { this.disableimagebox.open(); };
                 })
         }
@@ -375,10 +375,10 @@ export class VmwareImgListComponent implements OnInit {
                         this.editimagebox.close();
                     })
                     .catch(err => {
-                        console.log('镜像更新', err);
+                        console.log('镜像更新异常', err);
                         this.layoutService.hide();
                         this.editimagebox.close();
-                        this.showMsg("镜像更新");
+                        this.showMsg("镜像更新异常");
                         this.okCallback = () => { this.editimagebox.open();};
                     })
             } else {
@@ -435,9 +435,11 @@ export class VmwareImgListComponent implements OnInit {
             this.editimagebox.close();
             this.okCallback = () => {
                 this.editimagebox.open();                
-            };            
+            };
+            console.log('镜像更新验证失败 in ', "validateImgModify");
             return false;
         } else {
+            console.log('镜像更新验证成功 in ', "validateImgModify");
             return true;
         }
     }

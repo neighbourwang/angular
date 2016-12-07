@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 import { cloudDriveServiceList } from '../service/cloud-drive-list.service'
 
-import { QuiryDistList, DistList } from '../model/dist-list.model';
+import { QuiryDistList,HandleDist , DistList } from '../model/dist-list.model';
 
 @Component({
 	selector: 'cloud-drive-list',
@@ -25,6 +25,8 @@ export class cloudDriveListComponent implements OnInit {
 
 	list : QuiryDistList = new QuiryDistList();
 	saveList : QuiryDistList = new QuiryDistList();   //储存点，重置搜索时会返回到这个点
+
+	handleData: HandleDist = new HandleDist;   //发送操纵云主机的数据
   
 	modalTitle: string = '';
 	modalMessage: string = '';
@@ -42,11 +44,11 @@ export class cloudDriveListComponent implements OnInit {
 	}
 	ngOnInit() {
 		// this.setArea();
-		this.setDiskList();
+		this.setDistList();
 		this.initSelect();
 	}
 
-	setDiskList(): void {
+	setDistList(): void {
 		// this.layoutService.show();
 		this.service.getDistList(this.list).then(res => {
 			if (res.resultCode !== "100") {
@@ -74,9 +76,26 @@ export class cloudDriveListComponent implements OnInit {
 		// this.saveList.zoneId =  data.zone.zoneId;
 	}
 
-	//云主机的操作相关
-	handleVm() {
-		
+	//云硬盘的操作相关
+	handleDist(key:string ,dist:DistList, msg:string) {
+		this.layoutService.show();
+
+		this.handleData.id = dist.id;
+		this.handleData.uid = dist.uid;
+		this.handleData.actions = key;
+		this.handleData.enterpriseIds.platformId = dist.platformId;
+
+		this.service.handleDist(this.handleData).then(res => {
+			this.layoutService.hide();
+			// alert(msg+"成功！");
+			this.showNotice("云主机操作" ,msg+"成功！");
+
+			setTimeout(() => {   //延迟4秒执行 因为后端4秒同步一次状态
+				this.setDistList();
+			},4000)
+		}).catch(error => {
+			this.layoutService.hide();
+		})
 	}
 
 	resetSearch(){   //重置搜索
@@ -87,7 +106,7 @@ export class cloudDriveListComponent implements OnInit {
 	search() {    //搜索
 		console.log(this.list)
 
-		this.setDiskList();
+		this.setDistList();
 	}
 
 	goTo(url : string) {
@@ -125,6 +144,6 @@ export class cloudDriveListComponent implements OnInit {
 		}
 
 		this.list.pageParameter.currentPage = page;
-		this.setDiskList();
+		this.setDistList();
 	}
 }

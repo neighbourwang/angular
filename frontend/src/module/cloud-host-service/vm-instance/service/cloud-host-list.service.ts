@@ -46,6 +46,20 @@ export class cloudHostServiceList {
         return request;
     }
 
+    getConsoleUrl(pathParams) : Promise<any> {
+        let api = this.restApiCfg.getRestApi('vm.console.url');
+
+        const request = this.restApi.request(api.method, api.url, pathParams, undefined, undefined)
+                            .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "";
+                                }
+                                return res.resultContent;
+                            });
+
+        return request;
+    }
+
     getLabels() : Promise<VMInstanceLabelItem[]> { 
         const api = this.restApiCfg.getRestApi("instance.labels");
 

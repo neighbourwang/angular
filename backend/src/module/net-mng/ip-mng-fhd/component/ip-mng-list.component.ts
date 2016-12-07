@@ -22,7 +22,7 @@ export class IpMngListComponent implements OnInit{
     constructor(
         private router : Router,
         private service : IpMngListService,
-        private layoutService : LayoutService,
+        private layoutService : LayoutService
     ) {}
 
 

@@ -16,6 +16,17 @@ class QuiryDistList {
   unloadAble : string = "";  //云硬盘是否可卸载
 }
 
+class HandleDist {
+  actions: string;
+  enterpriseIds = {
+    enterpriseId: "100",
+    platformId: "88"
+  };
+  id:string;
+  uid:string;
+}
+
+
 class DistList {
     id: string;
     instanceItemId: string;
@@ -31,9 +42,12 @@ class DistList {
     zoneName: string;
     useType: string;
     sourceType: number;
+    uid:string;
+    platformId: string;
 }
 
 export {
+    HandleDist,
     DistList,
     QuiryDistList
 }

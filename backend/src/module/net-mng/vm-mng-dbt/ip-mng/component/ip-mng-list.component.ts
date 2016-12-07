@@ -134,7 +134,11 @@ export class IpMngListComponent implements OnInit{
         this.ipmngs = this.rawipmngs.filter((item)=>{
             return ( this.selectedVDS.switchId == "" || item.switchId == this.selectedVDS.switchId ) &&
             ( this.selectedDC.dcId == "" || item.dcId == this.selectedDC.dcId )
-        })
+        });
+        this.selectedDC=this.defaultDC;
+        this.selectedDC.dcId='';
+        this.selectedVDS=this.defaultVDS;
+        this.selectedVDS.switchId='';
         console.log(this.ipmngs, "IPmngS --- filter");
         this.UnselectItem();
     }
@@ -233,12 +237,7 @@ export class IpMngListComponent implements OnInit{
     ipUsageMngPage() {
         let pg = this.getSelected();
         if(pg){
-            this.router.navigate([`net-mng/vm-mng-dbt/ipusage-mng-list`, 
-            {
-                "pg_id": pg.id,
-                "pg_name": pg.switchName,
-                "pid": this.platformId
-            }]);
+            this.router.navigate([`net-mng/vm-mng-dbt/ipusage-mng-list`, { "pg_id": pg.id, "pg_name": pg.switchName}]);
         }        
     }
 
