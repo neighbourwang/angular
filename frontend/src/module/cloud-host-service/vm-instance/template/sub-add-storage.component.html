@@ -1,23 +1,23 @@
 <div class="col-md-12 no-padding">
 	<ng-container *ngFor="let list of forArr;let i = index">
-	<div class="col-md-2 content-title">{{i === 0 ? configs.storage.attrDisplayName : ""}}</div>
+	<div class="col-md-2 content-title">{{i === 0 ? "数据盘" : ""}}</div>
 	<div class="col-md-10 no-padding data-disk">
 		<div class="col-md-12 no-padding mgb10">
 			<div class="col-md-3 no-padding">
 				<select class="form-control" [(ngModel)]="list.storage">
                 	<option disabled selected [ngValue]="defaultStorage" class="hideoption">请选择数据盘类型</option>
 					<option
-					*ngFor="let value of configs.storage.valueList;"
+					*ngFor="let value of configs;"
 					[ngValue]="value" >{{ value.attrDisplayValue }}</option>
 				</select>
 			</div>
 			<div class="col-md-1 content-title2">容量</div>
 			<div class="col-md-2 no-padding">
-				<count-bar 
-		            [step]=10 
-		            [max]=500 
-		            [min]=40 
-		            [disabled]=false 
+				<count-bar
+		            [step]=10
+		            [max]=500
+		            [min]=40
+		            [disabled]=false
 		            [value]=40 (output)="outputValue($event, i)"></count-bar>
 			</div>
 			<div class="col-md-1 content-title2">GB</div>
@@ -27,7 +27,7 @@
 		</div>
 	</div>
 	</ng-container>
-	<div class="col-md-2 content-title">{{!this.forArr.length ? configs.storage.attrDisplayName : ""}}</div>
+	<div class="col-md-2 content-title">{{!this.forArr.length ? "数据盘" : ""}}</div>
 	<div class="col-md-10 add-disk-box">
 		<div class="col-md-3 content-title2 no-padding">
 			<button (click)="addDisk()" [disabled]="this.forArr.length === this.maxLenght" class="btn button-gray-gradient button-icon"><span class="glyphicon glyphicon-plus"></span> 增加数据盘</button>
