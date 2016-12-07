@@ -394,7 +394,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取当前登录人企业可用资源",
         "id": "user-center.org-mng.currEntResoure.get",
         "method": "GET",
-        "url": "adminui/authsec/enterprise/{id}/resouces/quotas/page/{page}/size/{size}"
+        "url": "adminui/authsec/enterprise/{id}/resouce/quota/detail"
     },
     
     // 审批中心
