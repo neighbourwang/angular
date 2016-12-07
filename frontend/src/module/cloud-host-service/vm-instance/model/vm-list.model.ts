@@ -35,12 +35,13 @@ class VmList{
     publicIP : string; //外部IP
     diskCount : number; //磁盘数量
     snapshotCount : number; //快照数量
+    platformId : string;
 }
 
 class HandleVm {
   actions: string;
   enterpriseIds = {
-    enterpriseId: "88",
+    enterpriseId: "100",
     platformId: "88"
   };
   id:string;

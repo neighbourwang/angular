@@ -56,7 +56,7 @@ export class IpUsageMngListService {
                 value: ipusage.id
             }
         ];
-        const body = [""]; 
+        const body = [ipusage.description]; 
         console.log(pathParams, body, "pathParams and body");
         const api = this.restApiCfg.getRestApi("net-mng.vmware.dbt.subnetip.release");
         return this.restApi.request(api.method, api.url, pathParams, null, body);

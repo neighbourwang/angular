@@ -312,13 +312,7 @@ export class EntAdminMngComponent implements OnInit {
     }
 
     openCrAccountPop() {
-        if (this.enterprise.authMode == "1") {
-            this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-cre-ad/enterprise/${this.eid}`);
-        } else {
-            this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-cre/enterprise/${this.eid}`);
-        }
-
-        //this.crAccountModel.open();
+        this.crAccountModel.open();
     }
 
     //跳转至创建页面

@@ -41,6 +41,7 @@ export class OpenstackImageSyncPublicComponent implements OnInit{
     ownerDic: Array<SystemDictionary>;//归属
     statusDic: Array<SystemDictionary>;//状态
     syncDic: Array<SystemDictionary>;//同步结果
+    osDic: Array<SystemDictionary>;//操作系统
     ngOnInit(){
         this.dicService.getItems("IMAGES", "TYPE")
             .then(
@@ -62,6 +63,10 @@ export class OpenstackImageSyncPublicComponent implements OnInit{
             })
             .then((dic)=>{
                 this.syncDic = dic;
+                return this.dicService.getItems("IMAGES","OS");
+            })
+            .then((dic)=>{
+                this.osDic = dic;
             });
 
         this.router.params.forEach((params: Params) => {
@@ -162,5 +167,38 @@ export class OpenstackImageSyncPublicComponent implements OnInit{
             return classes;
         }
     }
-    
+
+    //编辑时 默认操作系统选项
+    setDefaultOs(type:SystemDictionary, value:string){
+        if(value == type.value){
+            let classes =  {
+                selected:"selected"
+            };
+            return classes;
+        }
+    }
+     //显示镜像容量
+    showCapacity(capacity:number){
+        const Tn = 1099511627776.0;
+        const Gn = 1073741824.0;
+        const Mn = 1048576.0;
+        const Kn = 1024.0;
+        if(capacity==undefined){
+            return "未知"
+        }else{
+            let c = capacity;
+            if(c==0){
+                return "0";
+            }
+            if( c >= Tn){
+                return (c/Tn).toFixed(2) + "T";
+            }else if (c >= Gn){
+                return (c/Gn).toFixed(2) + "G";
+            }else if (c>=Mn){
+                return (c/Mn).toFixed(2) + "M";
+            }else{
+                return (c/Kn).toFixed(2) + "K";
+            }
+        }
+    }
 }
