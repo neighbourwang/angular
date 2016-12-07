@@ -3,7 +3,7 @@
 	<div class="page-second-title">基本信息</div>
 
 	<div class=" localPanel"  [ngClass]="{'localPanel':isLocal,'basePanel':!isLocal}">
-		<div class="left">
+		<div class="infoContent left ">
 				<div class="row row-line-height">
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>名称：</div>
@@ -162,7 +162,8 @@
 	   		<div class="title page-second-title mgb20"><span class="glyphicon glyphicon-chevron-down cheron-icon"></span>
 	               <span  style="font-size:18px;color:#000;position:relative;top:0;left:0;" class="">所有平台配额参考</span>
 	   		</div>
-	   		<table class="table table-hover">
+			<div style="height: 700px;overflow: scroll;">
+	   		<table class="table table-hover" >
 	   			<thead>
 	   				<tr>
 	   				    <th>选择</th>
@@ -185,6 +186,7 @@
 					</tr>
 	   			</tbody>
 	   		</table>
+			</div>
 	</div>
 </div>
 
