@@ -119,6 +119,9 @@ export class OrderMngSearchComponent implements OnInit{
 			return this.loadDepartment();
 		})
 		.then(success=>{
+			return this.loadBuyer();
+		})
+		.then(success=>{
 			this.layoutService.hide();
 		})
 		.catch(err=>{
@@ -137,7 +140,7 @@ export class OrderMngSearchComponent implements OnInit{
 	}
 
 	loadBuyer(){
-		this._buyerLoader.Go(null, [{key:"departmentId", value:this._param.organization}])
+		this._buyerLoader.Go(null, [{key:"enterpriseId", value:this._entId}])
 		.then(success=>{
 			this._param.organization = null;
 		}, err=>{

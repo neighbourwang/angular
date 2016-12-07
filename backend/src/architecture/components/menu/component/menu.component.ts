@@ -290,7 +290,7 @@ const menu: Array<Object> = [
                  "isOpen": false,
                  "isActive": false,
                  "routing": "host-mng/img-mng/img-index"
-             }, 
+             },
          ]
      }
 ];

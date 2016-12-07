@@ -39,7 +39,7 @@ export class OrderMngSearchComponent implements OnInit{
 		this._departmentLoader = new ItemLoader<DepartmentItem>(false, '部门列表', "op-center.order-mng.department-list.get", this.restApiCfg, this.restApi);
 
 			//订购人加载
-		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, '部门列表', "op-center.order-mng.buyer-list.get", this.restApiCfg, this.restApi);
+		this._buyerLoader = new ItemLoader<DepartmentItem>(false, '部门列表', "op-center.order-mng.booker-list.get", this.restApiCfg, this.restApi);
 
 		//产品类型配置
 		this._productTypeLoader = new DicLoader(restApiCfg, restApi, "GLOBAL", "SERVICE_TYPE");
@@ -115,7 +115,7 @@ export class OrderMngSearchComponent implements OnInit{
 	}
 
 	loadBuyer(){
-		this._buyerLoader.Go(null, [{key:"departmentId", value:this._param.organization}])
+		this._buyerLoader.Go(null, [{key:"enterpriseId", value:this._entId}])
 		.then(success=>{
 			this._param.organization = null;
 		}, err=>{
