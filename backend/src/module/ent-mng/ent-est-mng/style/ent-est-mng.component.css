@@ -142,10 +142,6 @@
     left: -19px;
 }
 
-.basePanel{
-  width: 1200px;
-  height: 450px;
-}
 .ht300{
     height: 300px!important;                      
 }
@@ -320,10 +316,11 @@
     padding-left: 5px!important;
 }
 .input-control{
-    width: 225px;
+    width: 400px;
     display: inline-block;
     margin-right: 10px;
 }
+
 /*.enterprise-content-header{
 	height: 40px;
 	padding: 10px;
@@ -332,7 +329,7 @@
 	border-bottom: solid 1px #C1CACA;
 }*/
 .dialogContent{
-    width: 500px;
+    width: 800px;
     position: relative;
     left: -30px;
 }
@@ -344,3 +341,27 @@
 .hands:hover{
     cursor: pointer;
 }
+
+.basePanel{
+  width: 1200px;
+  height: 580px;
+ 
+}
+.localPanel{
+ height: 250px!important;
+}
+
+.secondPanel{
+  height:520px;
+}
+
+.centerPanel{
+  margin: 0 auto;
+  width:1000px;
+}
+.test-title {
+    position: absolute;
+    left: 990px;
+    top: 355px;
+    }
+
