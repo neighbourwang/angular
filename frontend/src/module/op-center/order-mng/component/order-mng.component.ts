@@ -41,8 +41,6 @@ export class OrderMngComponent implements OnInit{
 	private _orderStatusDic:DicLoader = null;
 	//产品类型
 	private _productTypeLoader:DicLoader = null;
-
-	private _buyerLoader:ItemLoader<{id:string; name:string}> = null //订购人
 	//区域
 	private _platformLoader:ItemLoader<ListItem> = null;
 	//可用区
@@ -95,10 +93,6 @@ export class OrderMngComponent implements OnInit{
 		//部门配置
 		this._departmentLoader = new ItemLoader<ListItem>(false, "部门列表", "op-center.order-mng.department-list.get", restApiCfg, restApi);
 		
-
-		//订购人配置
-		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, '部门列表', "op-center.order-mng.buyer-list.get", this.restApiCfg, this.restApi);
-
 		//订单状态配置
 		this._orderStatusDic = new DicLoader(restApiCfg, restApi, "SUBINSTANCE", "STATUS");
 
@@ -270,15 +264,7 @@ export class OrderMngComponent implements OnInit{
 			})
 		});
 	}
-	///加载订购人下拉列表
-	loadBuyer(){
-		this._buyerLoader.Go(null, [{key:"departmentId", value:this._param.organization}])
-		.then(success=>{
-			this._param.organization = null;
-		}, err=>{
-			this._param.organization = null;
-		});
-	}
+	
 	showDetail(orderItem:SubInstanceResp){
 		//this.router.navigateByUrl('op-center/order-mng/order-mng-detail');
 	}

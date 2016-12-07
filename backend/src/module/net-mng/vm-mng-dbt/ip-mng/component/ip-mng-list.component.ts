@@ -134,7 +134,11 @@ export class IpMngListComponent implements OnInit{
         this.ipmngs = this.rawipmngs.filter((item)=>{
             return ( this.selectedVDS.switchId == "" || item.switchId == this.selectedVDS.switchId ) &&
             ( this.selectedDC.dcId == "" || item.dcId == this.selectedDC.dcId )
-        })
+        });
+        this.selectedDC=this.defaultDC;
+        this.selectedDC.dcId='';
+        this.selectedVDS=this.defaultVDS;
+        this.selectedVDS.switchId='';
         console.log(this.ipmngs, "IPmngS --- filter");
         this.UnselectItem();
     }
@@ -205,6 +209,7 @@ export class IpMngListComponent implements OnInit{
                     this.subnetInfo = response.resultContent;
                     console.log(this.subnetInfo, "this.subnetInfo");
                     this.ippool.subnetCIDR = this.subnetInfo.subnetCIDR;
+                    this.ippool.subnetMask = this.subnetInfo.subnetMask;
                     this.ippool.gateway = this.subnetInfo.gateway;
                     this.ippool.ips = this.subnetInfo.range;
                     if(!this.ippool.ips){
@@ -233,12 +238,7 @@ export class IpMngListComponent implements OnInit{
     ipUsageMngPage() {
         let pg = this.getSelected();
         if(pg){
-            this.router.navigate([`net-mng/vm-mng-dbt/ipusage-mng-list`, 
-            {
-                "pg_id": pg.id,
-                "pg_name": pg.switchName,
-                "pid": this.platformId
-            }]);
+            this.router.navigate([`net-mng/vm-mng-dbt/ipusage-mng-list`, { "pg_id": pg.id, "pg_name": pg.switchName}]);
         }        
     }
 
@@ -274,9 +274,9 @@ export class IpMngListComponent implements OnInit{
                 .catch(err => {
                     console.log('clicked acceptIPsModify 6');
                     this.layoutService.hide();
-                    console.log('设置IP地址范围,请检查填入项', err);
+                    console.log('设置IP地址范围异常', err);
                     this.ipsbox.close();
-                    this.showMsg("设置IP地址范围,请检查填入项");
+                    this.showMsg("设置IP地址范围异常");
                     this.okCallback = () => { this.ipsbox.open(); };
                 })
         }
@@ -315,10 +315,10 @@ export class IpMngListComponent implements OnInit{
                     this.subnetbox.close();
                 })
                 .catch(err => {                    
-                    console.log('设置IP子网,请检查填入项', err);
+                    console.log('设置IP子网异常', err);
                     this.layoutService.hide();
                     this.subnetbox.close();
-                    this.showMsg("设置IP子网,请检查填入项");
+                    this.showMsg("设置IP子网异常");
                     this.okCallback = () => { this.subnetbox.open(); };
                 })
         }        
@@ -399,10 +399,16 @@ export class IpMngListComponent implements OnInit{
                 , 'value': this.ippool.ipstr
                 , "op": "*"
             },
+            /*
             {
                 "name": "IP地址范围"
                 , 'value': [this.ippool.ipstr, this.ippool.subnetCIDR]
                 , "op": "ipscope"
+            },*/
+            {
+                "name": "IP地址范围"
+                , 'value': [this.ippool.ipstr, this.ippool.subnetCIDR, this.ippool.subnetMask]
+                , "op": "ipscopepermask"
             }
             ].find(n => this.ipService.validate(n.name, n.value, n.op) !== undefined)        
         //console.log(notValid, "notValid!!!")
@@ -464,8 +470,10 @@ export class IpMngListComponent implements OnInit{
             {
                 "name": "子网信息"
                 , 'value': this.subn.subnetCIDR
-                , "op": "cidr"
+                , "op": "ip"
+                //, "op": "cidr"
             },
+            /*
             {
                 "name": "网关地址"
                 , 'value': [this.subn.gateway, this.subn.subnetCIDR]
@@ -475,6 +483,12 @@ export class IpMngListComponent implements OnInit{
                 "name": "子网掩码"
                 , 'value': [this.subn.subnetMask, this.subn.subnetCIDR]
                 , "op": "maskinsubnet"
+            },
+            */
+            {
+                "name": "网关地址"
+                , 'value': [this.subn.gateway, this.subn.subnetCIDR, this.subn.subnetMask]
+                , "op": "gatewayinsubnetandmask"
             },
             //*/
             ].find(n => this.ipService.validate(n.name, n.value, n.op) !== undefined)        

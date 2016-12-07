@@ -74,6 +74,18 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/subinstance/itemlist/vm/action"
     },
     {
+        "desc": "云硬盘操作",
+        "method": "POST",
+        "id": "hosts.vm.action",
+        "url": "marketplace/authsec/subinstance/itemlist/dist/action"
+    },
+    {
+        "desc": "获取云主机控制台",
+        "method": "GET",
+        "id": "vm.console.url",
+        "url": "marketplace/authsec/platforms/{platformid}/enterprise/{enterpriseId}/subinstance/computes/{uuid}/vnc"
+    },
+    {
         "desc": "获取云主机详细信息",
         "method": "GET",
         "id": "hosts.instance.detail",
@@ -170,12 +182,6 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "id": "op-center.order-mng.department-list.get",
         "url": "basis/authsec/adm/organization/enterprise/{enterpriseId}"        
-    }
-    ,{
-        "desc": "订购人列表获取",
-        "method": "GET",
-        "id": "op-center.order-mng.buyer-list.get",
-        "url": "basis/"        
     }
     ,{
         "desc": "区域获取",
@@ -309,12 +315,6 @@ export let RestApis: RestApiModel[] = [
         "url": "basis/authsec/ldaps/simple"
     },
     {
-        "desc": "获取企业认证源列表（下拉框）",
-        "id": "ent-mng.enterprise.ldap.simple.list",
-        "method": "GET",
-        "url": "basis/authsec/enterprise/{enterpriseId}/ldaps/simple"
-    },
-    {
         "desc": "用户中心 查询符合条件的AD用户",
         "id": "user-center.account-mng.aduser.get",
         "method": "POST",
@@ -409,7 +409,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取当前登录人企业可用资源",
         "id": "user-center.org-mng.currEntResoure.get",
         "method": "GET",
-        "url": "adminui/authsec/enterprise/{id}/resouce/quota/detail"
+        "url": "adminui/authsec/enterprise/{id}/resouces/quotas/page/{page}/size/{size}"
     },
     
     // 审批中心

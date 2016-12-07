@@ -48,6 +48,7 @@ export class VmwareImgSyncComponent implements OnInit {
     typeDict: Array<SystemDictionary>;//镜像类型
     statusDict: Array<SystemDictionary>;//镜像状态
     bitDict: Array<SystemDictionary>;//os位数
+    osDict: Array<SystemDictionary>;//os类型
     syncReslDict: Array<SystemDictionary>;//同步结果
 
     platformId: string;
@@ -59,7 +60,7 @@ export class VmwareImgSyncComponent implements OnInit {
 
     ngOnInit() {
        this.activatedRouter.params.forEach((params: Params) => {
-            this.platformName = params['platformName'] ? params['platformName']:"上海HPE VMware云平台";
+            this.platformName = params['platformName'] ? params['platformName']:"上海HPE VMWare云平台";
             console.log("接收的platformName:" + this.platformName);
 		});
 
@@ -83,6 +84,11 @@ export class VmwareImgSyncComponent implements OnInit {
             .then((dic) => {
                 this.statusDict = dic;
                 console.log(this.statusDict, "statusDict!!!");
+                return this.dicService.getItems("IMAGES", "OS");                
+            })
+            .then((dic) => {
+                this.osDict = dic;
+                console.log(this.osDict, "osDict!!!");
                 this.getVmwareImgSyncList();
             });
 
@@ -127,7 +133,31 @@ export class VmwareImgSyncComponent implements OnInit {
             return "special";
         else
             return "some";
+    }
 
+     //显示镜像容量
+    showCapacity(capacity:number){
+        const Tn = 1099511627776.0;
+        const Gn = 1073741824.0;
+        const Mn = 1048576.0;
+        const Kn = 1024.0;
+        if(capacity==undefined){
+            return "未知"
+        }else{
+            let c = capacity;
+            if(c==0){
+                return "0";
+            }
+            if( c >= Tn){
+                return (c/Tn).toFixed(2) + "T";
+            }else if (c >= Gn){
+                return (c/Gn).toFixed(2) + "G";
+            }else if (c>=Mn){
+                return (c/Mn).toFixed(2) + "M";
+            }else{
+                return (c/Kn).toFixed(2) + "K";
+            }
+        }
     }
 
     //选择行

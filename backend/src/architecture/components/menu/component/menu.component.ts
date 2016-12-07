@@ -84,7 +84,7 @@ const menu: Array<Object> = [
     {
     "label" : "产品管理",
     "isOpen" : false,
-    "icon": "icon-platform-manage",
+    "icon": "icon-product-and-service",
     "top2_menu" : [
       {
           "label": "产品目录管理",
@@ -103,7 +103,7 @@ const menu: Array<Object> = [
   {
     "label" : "用户中心",
     "isOpen" : false,
-    "icon": "icon-platform-manage",
+    "icon": "icon-content-header-userCenterWhite",
     "top2_menu" : [
       {
           "label": "账号管理",
@@ -208,7 +208,7 @@ const menu: Array<Object> = [
     {
          "label": "云主机管理",
          "isOpen": true,
-         "icon": "icon-order-manage",
+         "icon": "icon-content-header-purchasingWhite",
          "top2_menu": [
           {
               "label": "镜像管理",
@@ -221,7 +221,7 @@ const menu: Array<Object> = [
      {
          "label": "云网络管理",
          "isOpen": true,
-         "icon": "icon-order-manage",
+         "icon": "icon-cloud-network-mng",
          "top2_menu": [
           {
               "label": "OpenStack网络",
@@ -230,7 +230,7 @@ const menu: Array<Object> = [
                  "routing": "net-mng/openstack/openstack-net-mng"
              },
          {
-              "label": "VMware标准网络",
+              "label": "VMware网络",
                  "isOpen": false,
                  "isActive": false,
                  "routing": "net-mng/vm-mng/88"
@@ -246,7 +246,7 @@ const menu: Array<Object> = [
      {
          "label": "运营中心",
          "isOpen": true,
-         "icon": "icon-order-manage",
+         "icon": "icon-operator",
          "top2_menu": [
           {
               "label": "已订购服务管理",
@@ -290,7 +290,7 @@ const menu: Array<Object> = [
                  "isOpen": false,
                  "isActive": false,
                  "routing": "host-mng/img-mng/img-index"
-             }, 
+             },
          ]
      }
 ];

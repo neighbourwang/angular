@@ -107,6 +107,7 @@ export class AccountMngService {
         }
     }
 
+    //获取认证源列表
     getAttests(pageIndex: number, pageSize: number): Promise<any> {
         const pathParams = [
             {
@@ -116,15 +117,11 @@ export class AccountMngService {
             {
                 key: "size",
                 value: pageSize
-            },
-            {
-                key: "enterpriseId",
-                value: "100"
             }
         ];
 
         if (this.attests.length == 0) {
-            const api = this.restApiCfg.getRestApi("ent-mng.enterprise.ldap.simple.list");
+            const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.attest.simple.list");
             return this.restApi.request(api.method, api.url, pathParams, null, null)
                 .then(res => {
                     if (res && 100 == res["resultCode"]) {

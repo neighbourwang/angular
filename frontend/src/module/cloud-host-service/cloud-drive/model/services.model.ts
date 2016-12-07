@@ -54,7 +54,6 @@ class TimeLineData {
     owner :string;
     value :string;
 }
-
 export {
     VlueList,
     OrderService,

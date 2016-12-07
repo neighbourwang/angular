@@ -161,6 +161,31 @@ export class VmwareImgListComponent implements OnInit {
 
     }
 
+     //显示镜像容量
+    showCapacity(capacity:number){
+        const Tn = 1099511627776.0;
+        const Gn = 1073741824.0;
+        const Mn = 1048576.0;
+        const Kn = 1024.0;
+        if(capacity==undefined){
+            return "未知"
+        }else{
+            let c = capacity;
+            if(c==0){
+                return "0";
+            }
+            if( c >= Tn){
+                return (c/Tn).toFixed(2) + "T";
+            }else if (c >= Gn){
+                return (c/Gn).toFixed(2) + "G";
+            }else if (c>=Mn){
+                return (c/Mn).toFixed(2) + "M";
+            }else{
+                return (c/Kn).toFixed(2) + "K";
+            }
+        }
+    }
+
     //选择行
     selectItem(index:number): void {
         this.vmwareimgs.map(n=> {n.checked = false;});
@@ -233,7 +258,7 @@ export class VmwareImgListComponent implements OnInit {
         if (image) {
             this.selectedimg = image;
             if(this.selectedimg.status == this.statusDict.find(n => n.code === "ENABLE").value){
-                this.showMsg("镜像已被占用");
+                this.showMsg("镜像已启用");
                 return; 
             }
             this.enableimagebox.open();
@@ -263,10 +288,10 @@ export class VmwareImgListComponent implements OnInit {
                     this.enableimagebox.close();
                 })
                 .catch(err => {
-                    console.log('镜像更新', err);
+                    console.log('镜像启用异常', err);
                     this.layoutService.hide();
                     this.enableimagebox.close();
-                    this.showMsg("镜像更新");
+                    this.showMsg("镜像启用异常");
                     this.okCallback = () => { this.enableimagebox.open(); };
                 })
         }
@@ -314,10 +339,10 @@ export class VmwareImgListComponent implements OnInit {
                     this.disableimagebox.close();
                 })
                 .catch(err => {
-                    console.log('镜像更新', err);
+                    console.log('镜像禁用异常', err);
                     this.layoutService.hide();
                     this.disableimagebox.close();
-                    this.showMsg("镜像更新");
+                    this.showMsg("镜像禁用异常");
                     this.okCallback = () => { this.disableimagebox.open(); };
                 })
         }
@@ -375,10 +400,10 @@ export class VmwareImgListComponent implements OnInit {
                         this.editimagebox.close();
                     })
                     .catch(err => {
-                        console.log('镜像更新', err);
+                        console.log('镜像更新异常', err);
                         this.layoutService.hide();
                         this.editimagebox.close();
-                        this.showMsg("镜像更新");
+                        this.showMsg("镜像更新异常");
                         this.okCallback = () => { this.editimagebox.open();};
                     })
             } else {
@@ -435,9 +460,11 @@ export class VmwareImgListComponent implements OnInit {
             this.editimagebox.close();
             this.okCallback = () => {
                 this.editimagebox.open();                
-            };            
+            };
+            console.log('镜像更新验证失败 in ', "validateImgModify");
             return false;
         } else {
+            console.log('镜像更新验证成功 in ', "validateImgModify");
             return true;
         }
     }
