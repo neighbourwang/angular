@@ -200,6 +200,15 @@ export class OpenstackImageSyncEntComponent implements OnInit{
             return classes;
         }
     }
+    //编辑时 默认操作系统选项
+    setDefaultOs(type:SystemDictionary, value:string){
+        if(value == type.value){
+            let classes =  {
+                selected:"selected"
+            };
+            return classes;
+        }
+    }
      //显示镜像容量
     showCapacity(capacity:number){
         const Tn = 1099511627776.0;

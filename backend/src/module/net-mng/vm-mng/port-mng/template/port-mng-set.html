@@ -32,6 +32,7 @@
 
     <div class="row mgb20" style="margin-left:20%;">
         <div class="col-md-4 ">
+            <div style="max-height: 400px; overflow: auto;">
             <table class="table table-hover" style="border: 1px solid #cfd8e7;">
                 <thead>
                     <tr>
@@ -42,10 +43,11 @@
                     <tr *ngFor="let enterprise of unselectedEnterprise;">
                         <td>
                             <label><input type="checkbox" name="unselected" [checked]="enterprise.selected" (change)="enterprise.selected=$event.target.checked;" class="fox-cloud-checkbox" />{{enterprise.com}}</label>
-</td>
+                        </td>
                     </tr>
                 </tbody>
             </table>
+        </div>
         </div>
         <div  class="col-md-2 text-center">
             <div class="mgb10 mgt15">
@@ -62,6 +64,7 @@
             </div>
         </div>
         <div class="col-md-4 ">
+            <div style="max-height: 400px; overflow: auto;">
             <table class="table table-hover" style="border: 1px solid #cfd8e7;">
                 <thead>
                     <tr>
@@ -76,6 +79,7 @@
                     </tr>
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 </div>

@@ -41,6 +41,7 @@ export class OpenstackImageSyncPublicComponent implements OnInit{
     ownerDic: Array<SystemDictionary>;//归属
     statusDic: Array<SystemDictionary>;//状态
     syncDic: Array<SystemDictionary>;//同步结果
+    osDic: Array<SystemDictionary>;//操作系统
     ngOnInit(){
         this.dicService.getItems("IMAGES", "TYPE")
             .then(
@@ -62,6 +63,10 @@ export class OpenstackImageSyncPublicComponent implements OnInit{
             })
             .then((dic)=>{
                 this.syncDic = dic;
+                return this.dicService.getItems("IMAGES","OS");
+            })
+            .then((dic)=>{
+                this.osDic = dic;
             });
 
         this.router.params.forEach((params: Params) => {
@@ -155,6 +160,16 @@ export class OpenstackImageSyncPublicComponent implements OnInit{
     }
     //编辑时 默认系统位数选项
     setDefaultBits(type:SystemDictionary, value:string){
+        if(value == type.value){
+            let classes =  {
+                selected:"selected"
+            };
+            return classes;
+        }
+    }
+
+    //编辑时 默认操作系统选项
+    setDefaultOs(type:SystemDictionary, value:string){
         if(value == type.value){
             let classes =  {
                 selected:"selected"
