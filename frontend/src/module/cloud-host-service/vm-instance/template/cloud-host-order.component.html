@@ -18,7 +18,7 @@
 					<div class="col-md-2 content-title">可用区</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label
-							*ngFor="let value of configs.zone.mapValueList[sendModule[getRelyName(configs.zone.relyAttrId)].attrValueId];"
+							*ngFor="let value of  rely('zone');"
 							(click)="sendModule.zone = value"
 							class="btn btn-default" [ngClass]="{'active': sendModule.zone.attrValueId === value.attrValueId}">
 							<input type="radio" name="zone" autocomplete="off"> {{ value.attrDisplayValue }}
@@ -129,7 +129,7 @@
 									*ngIf="sendModule.zone.attrValueId"
 									[(ngModel)]="sendModule.bootstorage" class="form-control">
 										<option
-										*ngFor="let value of configs.bootstorage.mapValueList[sendModule[getRelyName(configs.bootstorage.relyAttrId)].attrValueId];"
+										*ngFor="let value of rely('bootstorage')"
 										[ngValue]="value" >{{ value.attrDisplayValue }}</option>
 								</select>
 							</div>
