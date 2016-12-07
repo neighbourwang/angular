@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService, PaginationComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
+import { RestApi, RestApiCfg, LayoutService,PopupComponent, NoticeComponent, ValidationService, PaginationComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 
 
 import { Network } from '../model/network.model';
@@ -10,12 +10,13 @@ import { CriteriaQuery } from '../model/criteria-query.model';
 import { Region } from '../model/region.model';
 import { DataCenter } from '../model/dataCenter.model';
 import { PlatformInfo } from '../model/platformInfo.model';
-
+import { Tenant } from'../model/tenant.model';
+import { SelectedTenantListService } from '../service/selected-tenant-list.service';
 @Component({
     selector: "openstack-net-mng",
     templateUrl: "../template/OpenStack-net-mng.html",
     styleUrls: [],
-    providers: []
+    providers: [SelectedTenantListService]
 }
 )
 export class OpenstackNetMngComponent implements OnInit {
@@ -25,7 +26,8 @@ export class OpenstackNetMngComponent implements OnInit {
         private dicService: SystemDictionaryService,
         private service: OpenstackService,
         private layoutService: LayoutService,
-        private validationService: ValidationService
+        private validationService: ValidationService,
+        private tenantService: SelectedTenantListService
     ) {
     }
     @ViewChild("pager")
@@ -36,6 +38,9 @@ export class OpenstackNetMngComponent implements OnInit {
 
     @ViewChild("confirm")
     confirm: ConfirmComponent;
+
+    @ViewChild("synEnts")
+    synEnts: PopupComponent;
 
     noticeTitle = "";
     noticeMsg = "";
@@ -66,8 +71,12 @@ export class OpenstackNetMngComponent implements OnInit {
     defaultPlatform = new PlatformInfo();
     selectedPfi: PlatformInfo = this.defaultPlatform;
 
-    selectedNetwork:Network;
+    selectedNetwork:Network = new Network();
     editNetwork:Network;
+    //所有企业
+    tenants:Array<Tenant>;
+    //选择的要同步的企业
+    selectedEntList:Array<string>;
     ngOnInit() {
         this.dicService.getItems("NETWORK", "TYPE")
             .then(
@@ -165,9 +174,10 @@ export class OpenstackNetMngComponent implements OnInit {
                     this.service.networkStart(this.selectedNetwork.id)
                         .then(
                             response => {
-                                this.layoutService.hide();
+                                //this.layoutService.hide();
                                 if (response && 100 == response["resultCode"]) {
                                     this.showAlert("启用成功");
+                                    this.getNetworkList();
                                 } else {
                                     alert("Res sync error");
                                 }
@@ -196,9 +206,10 @@ export class OpenstackNetMngComponent implements OnInit {
                     this.service.networkStop(this.selectedNetwork.id)
                         .then(
                             response => {
-                                this.layoutService.hide();
+                                //this.layoutService.hide();
                                 if (response && 100 == response["resultCode"]) {
                                     this.showAlert("禁用成功");
+                                    this.getNetworkList();
                                 } else {
                                     alert("Res sync error");
                                 }
@@ -261,7 +272,57 @@ export class OpenstackNetMngComponent implements OnInit {
             )
     }
 
+//选择企业
+    getTenants(){
+         let platform_id = this.selectedNetwork.platformId;
+        let platformName = this.selectedNetwork.platformName;
+        console.log("选中的platform_id：" + platform_id);
+        if(!platform_id || platform_id==""){
+            this.showAlert("请先选则平台");
+        }else{
+           
+            this.service.getTenants( this.selectedPfi.platformId)
+                .then(
+                    response =>{
+                        if(response && 100 == response["resultCode"]){
+                            this.tenants = response.resultContent;
+                            this.synEnts.open("请选择需要同步的企业");
+                        } else{
+                            alert("Res.sync error");
+                        }
+                    }
+                )
+                .catch((e) => this.onRejected(e));
+        }
+    }
+   //同步企业选择弹出框
+    createSynTeOption(){
+        
+        this.getTenants();
+        
+    }
+    
 
+    //进入同步页面
+    commitSynTe(){
+        let tlist:Array<Tenant> = new Array<Tenant>();
+        this.tenants.forEach((t)=>
+            {
+                if(t.selected){
+                    tlist.push(t);
+                }
+            });
+        if(tlist && tlist.length>0){
+            this.tenantService.setList(tlist);
+            this.router.navigate(['net-mng/openstack/openstack-synchr-net', {"platform_id": this.selectedNetwork.platformId,"platformName":this.selectedNetwork.platformName}]);
+        }else{
+
+        }
+    }
+    cancelCommitSynTe(){
+        
+    }
+//
     getSynNetworkPage(){
         let platform_id = this.selectedNetwork.platformId;
         let platformName = this.selectedNetwork.platformName;

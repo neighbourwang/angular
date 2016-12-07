@@ -22,6 +22,7 @@ export class cloudHostComponentOrder implements OnInit {
 
 
 	@ViewChild('cartButton') cartButton;
+	@ViewChild('storage') storage;
 	// timeForever : boolean = false;
 
 	// rightFixed : boolean = false;   //让右侧配置起飞
@@ -49,11 +50,11 @@ export class cloudHostComponentOrder implements OnInit {
 			totalId = payLoadList.map(list => list.attrValueId).concat(skuException).join(",");
 
 		let nub = 0, 	//验证sku成功的个数
-			skuValue = {};  
+			skuValue = {};
 
 		for (let sku in this.skuMap) {
 			sku.split(", ").forEach(skuString => {
-				if(totalId.indexOf(trim(skuString)) > -1 ) nub++; 
+				if(totalId.indexOf(trim(skuString)) > -1 ) nub++;
 			});
 			if(nub === 4) {
 				return this.skuMap[sku]
@@ -77,7 +78,7 @@ export class cloudHostComponentOrder implements OnInit {
 		this.sendModule.storagesize.attrValue = "20";
 		this.sendModule.bootsize.attrValue = "20";
 
-		let payloadList = [], 
+		let payloadList = [],
 			skuException = [];  //例外的sku
 		for (let v in this.sendModule) {
 			payloadList.push({
@@ -94,7 +95,7 @@ export class cloudHostComponentOrder implements OnInit {
 			}
 		};
 
-		
+
 		let sku = this.getSkuId(payloadList, skuException);   //获取sku
 
 		this.payLoad.skuId = sku.skuId;
@@ -104,6 +105,10 @@ export class cloudHostComponentOrder implements OnInit {
 
 		this.payLoadArr = [];
 		this.payLoadArr.push(this.payLoad);
+
+		/****下面开始处理数据盘的逻辑****/
+		const storage = this.storage.getData();   //获取数据盘
+
 
 		return this.payLoadArr;
 	}
@@ -159,6 +164,14 @@ export class cloudHostComponentOrder implements OnInit {
 			}
 		}
 	}
+	rely(attrName:string):VlueList[] {
+		//根据他的依赖的id获取它自身的list
+		console.count();
+		console.log(attrName)
+		const list = this.configs[attrName].mapValueList[this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId];
+		if(list.length) this.sendModule[attrName] = list[0];   //设置sendmodule
+		return list;
+	}
 
 	addCart() {   //加入购物车
 		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
@@ -193,14 +206,14 @@ export class cloudHostComponentOrder implements OnInit {
 		this.router.navigateByUrl(url);
 	}
 	buyNow() {
-		this.layoutService.show();
+		// this.layoutService.show();
 		this.checkInput();
 		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
-		this.service.saveOrder(payLoadArr).then(res => {
-			this.layoutService.hide();
-			this.router.navigateByUrl("cloud-host-service/cart-order");
-		}).catch(res => {
-			this.layoutService.hide();
-		})
+		// this.service.saveOrder(payLoadArr).then(res => {
+		// 	this.layoutService.hide();
+		// 	this.router.navigateByUrl("cloud-host-service/cart-order");
+		// }).catch(res => {
+		// 	this.layoutService.hide();
+		// })
 	}
 }

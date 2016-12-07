@@ -258,6 +258,7 @@ export class VmDisIndexComponent implements OnInit {
 
     gotoPortMng() {
         this.router.navigate([`net-mng/vm-mng-dbt/port-mng`, {"pid":this.platformId}]);
+        //this.router.navigate([`net-mng/vm-mng-dbt/port-mng/${this.platformId}`]);
     }
 
     gotoIpMng() {
@@ -301,7 +302,7 @@ export class VmDisIndexComponent implements OnInit {
     createPopor(){
         //获取信息
         this.layoutService.show();
-        this.service.getSynInfolist()
+        this.service.getSynInfolist(this.platformId)
         .then(
             response => {
                 this.layoutService.hide();
@@ -327,16 +328,16 @@ export class VmDisIndexComponent implements OnInit {
                 }
             }
         )
-        this.service.doSyn(id)
+        this.service.doSyn(id, this.platformId)
         .then(
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
 
                     //this.synDbt.close();
-                    this.infoListForSyn = response["resultContent"];
+                    this.createPopor();
                     this.showAlert("同步成功");
-                    this.synDbt.open('同步分布式网络信息-网络信息');
+                    //this.synDbt.open('同步分布式网络信息-网络信息');
                     
                 } else {
                     alert("Res sync error");

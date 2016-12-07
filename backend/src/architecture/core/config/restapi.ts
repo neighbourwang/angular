@@ -523,7 +523,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取订单详情",
         "id": "op-center.order-mng.order-detail.get",
         "method": "GET",
-        "url": "adminui/authsec/backend/order/{orderId}"
+        "url": "adminui/authsec/order/{orderId}"
     },
     {
         "desc": "企业列表",
@@ -875,79 +875,79 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取认证源列表",
         "id": "user-center.attest-mng.list",
         "method": "GET",
-        "url": "adminboe/authsec/ldaps/page/{page}/size/{size}"
+        "url": "basis/authsec/ldaps/page/{page}/size/{size}"
     },
     {
         "desc": "认证源测试",
         "id": "user-center.attest-mng.ldap.test",
         "method": "POST",
-        "url": "adminboe/authsec/ldap/test"
+        "url": "basis/authsec/ldap/test"
     },
     {
         "desc": "创建认证源",
         "id": "user-center.attest-mng.ldap.create",
         "method": "POST",
-        "url": "adminboe/authsec/ldap"
+        "url": "basis/authsec/ldap"
     },
     {
         "desc": "获取认证源详情",
         "id": "user-center.attest-mng.ldap.get",
         "method": "GET",
-        "url": "adminboe/authsec/ldap/{id}"
+        "url": "basis/authsec/ldap/{id}"
     },
     {
         "desc": "编辑认证源",
         "id": "user-center.attest-mng.ldap.edit",
         "method": "PUT",
-        "url": "adminboe/authsec/ldap/{id}"
+        "url": "basis/authsec/ldap/{id}"
     },
     {
         "desc": "修改认证帐户",
         "id": "user-center.attest-mng.ldap.editacc",
         "method": "PUT",
-        "url": "adminboe/authsec/ldap/{id}/account"
+        "url": "basis/authsec/ldap/{id}/account"
     },
     {
         "desc": "删除认证源",
         "id": "user-center.attest-mng.ldap.delete",
         "method": "DELETE",
-        "url": "adminboe/authsec/ldap/{id}"
+        "url": "basis/authsec/ldap/{id}"
     },
     {
         "desc": "启用/禁用认证源",
         "id": "user-center.attest-mng.ldap.edit.status",
         "method": "PUT",
-        "url": "adminboe/authsec/ldap/{id}/status/{status}"
+        "url": "basis/authsec/ldap/{id}/status/{status}"
     },
     {
         "desc": "查询AD用户",
         "id": "user-center.attest-mng.ldap.adusers.list",
         "method": "POST",
-        "url": "adminboe/authsec/ldap/{id}/adusers/page/{page}/size/{size}"
+        "url": "basis/authsec/ldap/{id}/adusers/page/{page}/size/{size}"
     },
     {
         "desc": "认证源简单列表（下拉框）",
         "id": "user-center.attest-mng.ldap.attest.simple.list",
         "method": "GET",
-        "url": "adminboe/authsec/ldaps/simple"
+        "url": "basis/authsec/ldaps/simple"
     },
     {
         "desc": "创建企业认证源",
         "id": "ent-mng.enterprise.ldap.create",
         "method": "POST",
-        "url": "adminboe/authsec/enterprise/{enterpriseId}/ldap"
+        "url": "basis/authsec/enterprise/{enterpriseId}/ldap"
     },
     {
         "desc": "获取企业认证源列表",
         "id": "ent-mng.enterprise.ldap.list",
         "method": "GET",
-        "url": "adminboe/authsec/enterprise/{enterpriseId}/ldaps/page/{page}/size/{size}"
+        "url": "basis/authsec/enterprise/{enterpriseId}/ldaps/page/{page}/size/{size}"
     },
     {
         "desc": "获取企业认证源列表（下拉框）",
         "id": "ent-mng.enterprise.ldap.simple.list",
         "method": "GET",
-        "url": "adminboe/authsec/enterprise/{enterpriseId}/ldaps/simple"
+        "url": "basis/authsec/enterprise/{enterpriseId}/ldaps/simple"
     },
     
     //Vmware 端口
@@ -1357,13 +1357,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "分布式网络取得同步网络信息",
         "id": "net-mng.vm-mng-dbt.index.syn.getinfolist",
         "method": "GET",
-        "url": "/adminboe/authsec/vmware/network/dist/synclist"
+        "url": "/adminboe/authsec/platform/{platform_id}/vmware/network/dist/synclist"
     },
     {
         "desc": "分布式网络同步网络",
         "id": "net-mng.vm-mng-dbt.index.syn.dosyn",
         "method": "PUT",
-        "url": "/adminboe/authsec/vmware/network/dist/{vds_id}/sync"
+        "url": "/adminboe/authsec/platform/{platform_id}/vmware/network/dist/{vds_id}/sync"
     },
     //云网络管理
     //vmware-分布式网络
@@ -1371,7 +1371,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "端口组列表",
         "id": "net-mng.vm-mng-dbt.port.list",
         "method": "GET",
-        "url": "adminboe/authsec/vmware/network/dist/portres/list"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dist/portres/list"
     },
     {
         "desc": "设置企业",
@@ -1383,7 +1383,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "数据中心联动列表",
         "id": "net-mng.vm-mng-dbt.port.dclist",
         "method": "GET",
-        "url": "/adminboe/authsec/vmware/network/dist/dclist"
+        "url": "/adminboe/authsec/platform/{platform_id}/vmware/network/dist/dclist"
     },
     {
         "desc": "保存企业",

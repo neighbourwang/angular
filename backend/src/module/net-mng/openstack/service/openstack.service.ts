@@ -121,5 +121,16 @@ export class OpenstackService{
         return this.restApi.request(api.method, api.url, null, null, {"id":network.id, "subnetDisplayName":network.subnetDisplayName});
     }
 
-    
+    //企业下拉列表
+    getTenants(platformId:string): Promise<any>{
+        const pathParams = [
+            {
+                key: "platformId",
+                value: platformId
+            }
+        ];
+        const api = this.restApiCfg.getRestApi('host-mng.openstack-mng.image.tenantlist');
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return Tenants_mock});
+    }
 }

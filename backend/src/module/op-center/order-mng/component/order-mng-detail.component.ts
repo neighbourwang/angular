@@ -9,8 +9,8 @@ import { ItemLoader
   , ConfirmComponent
   , SystemDictionaryService
   , SystemDictionary } from '../../../../architecture';
-import { OrderDetailItem} from '../model';
-
+import { OrderDetailItem,DetaiItem} from '../model';
+import * as _ from 'underscore';
 @Component({
   // moduleId: module.id,
   selector: 'order-mng-detail',
@@ -19,7 +19,7 @@ import { OrderDetailItem} from '../model';
   providers: []
 }) 
 export class OrderMngDetailComponent implements OnInit {
-  private _orderDetail:ItemLoader<OrderDetailItem> = null;
+  private _orderDetail:ItemLoader<DetaiItem> = null;
   @ViewChild("notice")
   private _notice: NoticeComponent;
 
@@ -30,9 +30,29 @@ export class OrderMngDetailComponent implements OnInit {
     private restApi:RestApi
   ) {
     //配置订单详情加载信息
-    this._orderDetail = new ItemLoader<OrderDetailItem>(false, "订单详情", "op-center.order-mng.order-detail.get", this.restApiCfg, this.restApi);
-    this._orderDetail.MapFunc = (source:Array<any>, target:Array<OrderDetailItem>):void=>{
+    this._orderDetail = new ItemLoader<DetaiItem>(false, "订单详情", "op-center.order-mng.order-detail.get", this.restApiCfg, this.restApi);
+    this._orderDetail.MapFunc = (source:Array<any>, target:Array<DetaiItem>):void=>{
+          let obj = new DetaiItem();
+          for(let item of source){
+             target.push(obj);
+            _.extendOwn(obj, item);
+            obj.orderCode = item.oorderCode;
 
+            //关联订单
+           let relatedOrders : DetaiItem[] = [];
+           for(let relatedOrder of relatedOrders){
+             //orderCode,实例名称？？，productType,配置？？，productBillingItem.billingMode，orderStatus，productBillingItem.basePrice,.productBillingItem.basicPrice,completeDate
+              relatedOrder.orderCode = item.relatedOrders.orderCode;
+              relatedOrder.instanceName = item.relatedOrders.name;//实例名称??
+              //relatedOrder.status = item.relatedOrders.orderStatu;//配置
+              relatedOrder.billingMode = item.relatedOrders.productBillingItem.billingMode;//计费模式
+              relatedOrder.oneTimePrice = item.relatedOrders.productBillingItem.basePrice;//一次性费用
+              relatedOrder.price = item.relatedOrders.productBillingItem.basicPrice;//费用
+              relatedOrder.exireDate = item.relatedOrders.completeDate;//到期时间
+            }
+            obj.relatedOrders = relatedOrders;
+          }
+         
     };
   }
 

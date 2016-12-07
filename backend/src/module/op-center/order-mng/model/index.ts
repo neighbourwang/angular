@@ -10,3 +10,4 @@ export * from './product-type';
 export * from './renew-setting';
 export * from './sub-region';
 export * from './search-order-item';
+export * from './order-detail-item';
