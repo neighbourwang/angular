@@ -22,6 +22,7 @@
                     <th>镜像显示名称</th>
                     <th>操作系统</th>
                     <th>系统位数</th>
+                    <th>镜像容量</th>
                     <th>镜像类型</th>
                     <th>所属企业</th>
                     <th>同步结果</th>
@@ -62,6 +63,7 @@
                             {{getDicText(image.bitsType,this.bits_typeDic)}}
                         </div>
                     </td>
+                    <td >{{showCapacity(image.capacity)}}</td>
                     <td >公共镜像</td>
                     <td >所有</td>
                     <td [ngClass]="{'font-green':image.status!='2','font-orange':image.status==2}">{{getDicText(image.syncResult,this.syncDic)}}</td>

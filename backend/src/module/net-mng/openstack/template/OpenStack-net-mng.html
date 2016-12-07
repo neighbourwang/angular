@@ -4,34 +4,42 @@
 <div class="page-content">
     <div class="mgb20" style="margin-top:10px">
         <div class="pull-left mgr20">
-            <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedDc=defaultDc;selectedPfi = defaultPlatform" >
-                <option [ngValue]="defaultRegion">所有地域</option>
+            <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedDc=defaultDc;selectedPfi = defaultPlatform" style="line-height:34px;padding:6px 12px;width:80px">
+                <option [ngValue]="defaultRegion">地域</option>
                 <option *ngFor="let region of regionList" [ngValue]="region">{{region.region}}</option>
             </select>
         </div>
-        <div class="pull-left  mgr20">
-            <select class="form-control" [(ngModel)]="selectedDc" (change)="selectedPfi = defaultPlatform; queryOpt.dataCenter = selectedDc.id">
-                <option [ngValue]="defaultDc">所有数据中心</option>
+        <div class="pull-left  mgr20" >
+            <select class="form-control" [(ngModel)]="selectedDc" (change)="selectedPfi = defaultPlatform; queryOpt.dataCenter = selectedDc.id" style="line-height:34px;padding:6px 12px;width:120px">
+                <option [ngValue]="defaultDc">数据中心</option>
                 <option *ngFor="let dc of selectedRegion.dataCenters" [ngValue]="dc">{{dc.dcName}}</option>
             </select>
         </div>
-        <div class="pull-left col-md-2 mgr20 ">
-            <select  [(ngModel)]="selectedPfi"(change)="queryOpt.url = selectedPfi.url" style="line-height:34px;padding:6px 12px">
-                <option [ngValue]="defaultPlatform">所有平台</option>
+        <div class="pull-left  mgr20 " >
+            <select  [(ngModel)]="selectedPfi"(change)="queryOpt.url = selectedPfi.url" style="line-height:34px;padding:6px 12px;width:318px">
+                <option [ngValue]="defaultPlatform">平台</option>
                 <option *ngFor="let pf of selectedDc.platforms" [ngValue]="pf">{{pf.platformName +" "+pf.url}}</option>
             </select>
         </div>
-        
+        <div class="pull-left  mgr20 ">
+            <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" (click)="search1()"> 确定</button>
+        </div>
     </div>
     <div class="clear"></div>
     <div class="mgb20 mgt10">
         <h4 class="pull-left mgr15 ">所属企业:</h4>
-        <div class="pull-left mgr15 col-md-3 " style="position:relative;padding:0">
+        <!--<div class="pull-left mgr15 col-md-3 " style="position:relative;padding:0">
             <span class="glyphicon glyphicon-search form-control-feedback"></span>
             <input type="text" class="form-control " placeholder="输入企业/租户信息搜索" [(ngModel)]="queryOpt.tenantName"/>
         </div>
-        <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" (click)="search()"> 确定</button>
-        <button type="button" class="fox-cloud-button fox-cloud-button-white" style="height:34px" (click)="resetQueryOpt()"> 重置</button>
+        <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" (click)="search2()"> 确定</button>-->
+        <div class="input-group col-md-2 float-left">
+            <input class="form-control" placeholder="输入企业/租户信息搜索" type="email">
+            <div class="input-group-addon"(click)="search2()"><span class="glyphicon glyphicon-search" ></span></div>
+        </div> 
+
+
+        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="resetQueryOpt()"> 重置</button>
         <div class="dropdown pull-right" style="margin-left:10px">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 更多操作
@@ -118,6 +126,7 @@
 
 <!--同步弹出框内容-->
 <fc-popup #synEnts title="{{title}}" ot="提交" (of)="commitSynTe()" ct="取消" (cf)="cancelCommitSynTe()">
+    <div style="max-height: 400px; overflow: auto;">
        <div class="table-container">
             <table class="table table-hover">
                 <thead>
@@ -128,12 +137,14 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let tenant of tenants">
-                    <td><input type="checkbox" class="foc-cloud-checkbox" [checked]="tenant.selected" (change)="tenant.selected = $event.target.checked"></td>
-                    <td>{{tenant.name}}</td>
+                    <td >
+                        <input type="checkbox" class="foc-cloud-checkbox" [checked]="tenant.selected" (change)="tenant.selected = $event.target.checked"></td>
+                    <td style="text-align: left; padding-left: 10px;">{{tenant.name}}</td>
                 </tr>
                 </tbody>
             </table>
             </div>
+    </div>
 </fc-popup> 
 
 
