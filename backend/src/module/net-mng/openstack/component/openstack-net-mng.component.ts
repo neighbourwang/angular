@@ -94,7 +94,7 @@ export class OpenstackNetMngComponent implements OnInit {
             })
             .then((dic) => {
                 this.statusDic = dic;
-                //this.getNetworkList();
+                this.getNetworkList();
                 this.getOptionInfo();
             });
     }
@@ -110,7 +110,6 @@ export class OpenstackNetMngComponent implements OnInit {
                     this.layoutService.hide();
                     this.networks = response.resultContent;
                     this.totalPage = response.pageInfo.totalPage;
-                    this.selectedNetwork= new Network();
                 } else {
                     alert("Res sync error");
 
@@ -119,16 +118,7 @@ export class OpenstackNetMngComponent implements OnInit {
             )
             .catch((e) => this.onRejected(e));
     }
-    search1() {
-        let tenantName = this.queryOpt.tenantName;
-        this.queryOpt = new CriteriaQuery();
-        this.queryOpt.region = this.selectedRegion.region;
-        this.queryOpt.dataCenter = this.selectedDc.dcName;
-        this.queryOpt.platformId = this.selectedPfi.platformId;
-        this.getNetworkList();
-        this.pager.render(1);
-    }
-    search2() {
+    search() {
         let tenantName = this.queryOpt.tenantName;
         this.queryOpt = new CriteriaQuery();
         this.queryOpt.region = this.selectedRegion.region;
@@ -140,12 +130,12 @@ export class OpenstackNetMngComponent implements OnInit {
     }
 
     resetQueryOpt() {
-        // this.selectedRegion = this.defaultRegion;
-        // this.selectedDc = this.defaultDc;
-        // this.selectedPfi = this.defaultPlatform;
-        //this.queryOpt = new CriteriaQuery();
-        this.queryOpt.tenantName = "";
-        //this.getNetworkList();
+        this.selectedRegion = this.defaultRegion;
+        this.selectedDc = this.defaultDc;
+        this.selectedPfi = this.defaultPlatform;
+        this.queryOpt = new CriteriaQuery();
+        this.selectedNetwork = new Network();
+        this.getNetworkList();
         }
 
 
@@ -167,7 +157,7 @@ export class OpenstackNetMngComponent implements OnInit {
     networkStart(){
 
        
-        if(!this.selectedNetwork || !this.selectedNetwork.id){
+        if(!this.selectedNetwork){
             this.showAlert("请先选中一个网络");
         }else{
             this.noticeTitle = "启用网络";
@@ -188,7 +178,6 @@ export class OpenstackNetMngComponent implements OnInit {
                                 if (response && 100 == response["resultCode"]) {
                                     this.showAlert("启用成功");
                                     this.getNetworkList();
-                                    this.selectedNetwork= new Network();
                                 } else {
                                     alert("Res sync error");
                                 }
@@ -204,9 +193,8 @@ export class OpenstackNetMngComponent implements OnInit {
     }
     //禁用网络
     networkStop(){
-        //console.log("this.selectedNetwork.id="+this.selectedNetwork.id);
-        if(!this.selectedNetwork || !this.selectedNetwork.id){
-            this.showAlert("请先选中一个网络");
+        if(!this.selectedNetwork){
+                    this.showAlert("请先选中一个网络");
         }else{
             this.noticeTitle = "禁用网络";
             this.noticeMsg = `您选择禁用 '${this.selectedNetwork.subnetName}?'网络，其网段为${this.selectedNetwork.segmentCIDR}?' ， 
@@ -222,7 +210,6 @@ export class OpenstackNetMngComponent implements OnInit {
                                 if (response && 100 == response["resultCode"]) {
                                     this.showAlert("禁用成功");
                                     this.getNetworkList();
-                                    this.selectedNetwork= new Network();
                                 } else {
                                     alert("Res sync error");
                                 }
@@ -287,11 +274,10 @@ export class OpenstackNetMngComponent implements OnInit {
 
 //选择企业
     getTenants(){
-         let platform_id = this.selectedPfi.platformId;
-        //let platformName = this.selectedNetwork.platformName;
+         let platform_id = this.selectedNetwork.platformId;
+        let platformName = this.selectedNetwork.platformName;
         console.log("选中的platform_id：" + platform_id);
-        
-        if(this.selectedPfi==this.defaultPlatform || !platform_id || platform_id == ""){
+        if(!platform_id || platform_id==""){
             this.showAlert("请先选则平台");
         }else{
            
@@ -328,7 +314,7 @@ export class OpenstackNetMngComponent implements OnInit {
             });
         if(tlist && tlist.length>0){
             this.tenantService.setList(tlist);
-            this.router.navigate(['net-mng/openstack/openstack-synchr-net', {"platform_id": this.selectedPfi.platformId,"platformName":this.selectedPfi.platformName}]);
+            this.router.navigate(['net-mng/openstack/openstack-synchr-net', {"platform_id": this.selectedNetwork.platformId,"platformName":this.selectedNetwork.platformName}]);
         }else{
 
         }
@@ -337,16 +323,16 @@ export class OpenstackNetMngComponent implements OnInit {
         
     }
 //
-    // getSynNetworkPage(){
-    //     let platform_id = this.selectedNetwork.platformId;
-    //     let platformName = this.selectedNetwork.platformName;
-    //     console.log("选中的platform_id：" + platform_id);
-    //     if(!platform_id || platform_id==""){
-    //         this.showAlert("请先选则平台");
-    //     }else{
-    //         this.router.navigate(['net-mng/openstack/openstack-synchr-net', {"platform_id": platform_id,"platformName":platformName}]);
-    //     }
-    // }
+    getSynNetworkPage(){
+        let platform_id = this.selectedNetwork.platformId;
+        let platformName = this.selectedNetwork.platformName;
+        console.log("选中的platform_id：" + platform_id);
+        if(!platform_id || platform_id==""){
+            this.showAlert("请先选则平台");
+        }else{
+            this.router.navigate(['net-mng/openstack/openstack-synchr-net', {"platform_id": platform_id,"platformName":platformName}]);
+        }
+    }
 
     openEidtPanel(network:Network): void {
         this.closeEditPanel();

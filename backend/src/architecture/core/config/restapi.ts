@@ -43,7 +43,7 @@ export let RestApis: RestApiModel[] = [
     {
         "desc": "获取平台regiongs列表",
         "id": "pf.cre.step.01.paltformRegins.get",
-        "method": "POST",
+        "method": "GET",
         "url": "adminui/authsec/regions"
     },
     {
@@ -1094,20 +1094,20 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取同步网络列表",
         "id": "net-mng.openstack.net.syn.list",
         "method": "GET",
-        "url": "adminboe/authsec/{platform_id}/openstack/networkSync"
+        "url": "/adminboe/authsec/{platform_id}/openstack/networkSync"
     },
     {
         "desc": "获取地域数据中心数据平台选项",
         "id": "net-mng.openstack.net.region_option",
         "method": "GET",
-        "url": "adminboe/authsec/openstack/network/queryCondition"
+        "url": "/adminboe/authsec/openstack/network/queryCondition"
     
     },
     {
         "desc": "同步网络（单个、多个）添加",
         "id": "net-mng.openstack.net.syn.add",
         "method": "POST",
-        "url": "adminboe/authsec/openstack/network"
+        "url": "/adminboe/authsec/openstack/network"
     },
     {
         "desc": "同步网络（单个、多个）网络更新",
@@ -1132,13 +1132,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "openstack启用网络",
         "id": "net-mng.openstack.net.networkStart",
         "method": "PUT",
-        "url": "adminboe/authsec/openstack/network/{id}/enable"
+        "url": "/adminboe/authsec/openstack/network/{id}/enable"
     
     },{
         "desc": "openstack禁用网络",
         "id": "net-mng.openstack.net.networkStop",
         "method": "PUT",
-        "url": "adminboe/authsec/openstack/network/{id}/disable"
+        "url": "/adminboe/authsec/openstack/network/{id}/disable"
     
     }
     // 审批中心
@@ -1192,19 +1192,19 @@ export let RestApis: RestApiModel[] = [
         "desc": "标准网络启用",
         "id": "net-img.vm-mng.network.enable",
         "method": "PUT",
-        "url": "adminboe/authsec/vmware/network/{id}/enable"
+        "url": "/adminboe/authsec/vmware/network/{id}/enable"
     }
     , {
         "desc": "标准网络禁用",
         "id": "net-img.vm-mng.network.disable",
         "method": "PUT",
-        "url": "adminboe/authsec/vmware/network/{id}/disable"
+        "url": "/adminboe/authsec/vmware/network/{id}/disable"
     }
     , {
         "desc": "标准网络删除",
         "id": "net-img.vm-mng.network.remove",
         "method": "PUT",
-        "url": "adminboe/authsec/vmware/network/{id}/remove"
+        "url": "/adminboe/authsec/vmware/network/{id}/remove"
     }
     , {
         "desc": "创建/编辑标准网络",
@@ -1221,56 +1221,56 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取平台列表-img-index",
         "id": "host-mng.img-index.platforms.list",
         "method": "GET",
-        "url": "adminboe/authsec/platforms/page/{page}/size/{size}"
+        "url": "/adminboe/authsec/platforms/page/{page}/size/{size}"
     }
     //openstack镜像管理
     , {
         "desc": "获取镜像列表-openstack",
         "id": "host-mng.openstack-mng.image.list",
         "method": "POST",
-        "url": "adminboe/authsec/images/openstack/{platformId}/page/{page}/size/{size}"
+        "url": "/adminboe/authsec/images/openstack/{platformId}/page/{page}/size/{size}"
     },
     {
         "desc": "镜像openstack保存编辑",
         "id": "host-mng.openstack-mng.image.saveedit",
         "method": "PUT",
-        "url": "adminboe/authsec/image/{id}"
+        "url": "/adminboe/authsec/image/{id}"
     },
     {
         "desc": "镜像openstack启用禁用",
         "id": "host-mng.openstack-mng.image.EDable",
         "method": "PUT",
-        "url": "adminboe/authsec/image/{id}/{status}"
+        "url": "/adminboe/authsec/image/{id}/{status}"
     },
     {
         "desc": "企业下拉列表",
         "id": "host-mng.openstack-mng.image.tenantlist",
         "method": "GET",
-        "url": "adminboe/authsec/images/{platformId}/tenants/dropdown"
+        "url": "/adminboe/authsec/images/{platformId}/tenants/dropdown"
     },
     {
         "desc": "Openstack_同步公共镜像_获取镜像列表",
         "id": "host-mng.openstack-mng.image.sync-public.getlist",
         "method": "GET",
-         "url": "adminboe/authsec/images/openstack/pub/{platformId}"
+         "url": "/adminboe/authsec/images/openstack/pub/{platformId}"
     },
     {
         "desc": "Openstack_同步公共镜像_同步",
         "id": "host-mng.openstack-mng.image.sync-public.sync",
         "method": "POST",
-         "url": "adminboe/authsec/images/openstack/pub/{platformId}/sync"
+         "url": "/adminboe/authsec/images/openstack/pub/{platformId}/sync"
     },
     {
         "desc": "Openstack_同步企业镜像_获取镜像列表",
         "id": "host-mng.openstack-mng.image.sync-ent.getlist",
         "method": "POST",
-         "url": "adminboe/authsec/images/openstack/ent/{platformId}"
+         "url": "/adminboe/authsec/images/openstack/ent/{platformId}"
     },
     {
         "desc": "Openstack_同步企业镜像_同步",
         "id": "host-mng.openstack-mng.image.sync-ent.sync",
         "method": "POST",
-         "url": "adminboe/authsec/images/openstack/ent/{platformId}/sync"
+         "url": "/adminboe/authsec/images/openstack/ent/{platformId}/sync"
     }
     //vmware镜像管理
     , {
@@ -1339,31 +1339,31 @@ export let RestApis: RestApiModel[] = [
         "desc": "设置端口组显示名称",
         "id": "net-mng.vm-mng-dbt.index.setportname",
         "method": "PUT",
-        "url": "adminboe/authsec/vmware/network/dist/{id}/setportname"
+        "url": "/adminboe/authsec/vmware/network/dist/{id}/setportname"
     }
     , {
         "desc": "启用分布式网络",
         "id": "net-mng.vm-mng-dbt.index.enable",
         "method": "PUT",
-        "url": "adminboe/authsec/vmware/network/dist/{id}/enable"
+        "url": "/adminboe/authsec/vmware/network/dist/{id}/enable"
     }
     , {
         "desc": "禁用分布式网络",
         "id": "net-mng.vm-mng-dbt.index.disable",
         "method": "PUT",
-        "url": "adminboe/authsec/vmware/network/dist/{id}/disable"
+        "url": "/adminboe/authsec/vmware/network/dist/{id}/disable"
     },
     {
         "desc": "分布式网络取得同步网络信息",
         "id": "net-mng.vm-mng-dbt.index.syn.getinfolist",
         "method": "GET",
-        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dist/synclist"
+        "url": "/adminboe/authsec/platform/{platform_id}/vmware/network/dist/synclist"
     },
     {
         "desc": "分布式网络同步网络",
         "id": "net-mng.vm-mng-dbt.index.syn.dosyn",
         "method": "PUT",
-        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dist/{vds_id}/sync"
+        "url": "/adminboe/authsec/platform/{platform_id}/vmware/network/dist/{vds_id}/sync"
     },
     //云网络管理
     //vmware-分布式网络
@@ -1377,13 +1377,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "设置企业",
         "id": "net-mng.vm-mng-dbt.port.set-ent",
         "method": "GET",
-        "url": "adminboe/authsec/vmware/network/dist/portres/{id}/set/ent"
+        "url": "/adminboe/authsec/vmware/network/dist/portres/{id}/set/ent"
     },
     {
         "desc": "数据中心联动列表",
         "id": "net-mng.vm-mng-dbt.port.dclist",
         "method": "GET",
-        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dist/dclist"
+        "url": "/adminboe/authsec/platform/{platform_id}/vmware/network/dist/dclist"
     },
     {
         "desc": "保存企业",

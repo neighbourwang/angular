@@ -1,38 +1,44 @@
 <div class="page-content-header icon-cloud-network-mngOn">
-    VMware网络	  
+    VMware网络
 </div>
 <div class="page-content">
-    <div class="mgb20" style="background-color:#d1ece7;height:40px">
-        <button class="fox-cloud-button-md fox-cloud-button-white pull-right  mgr5" style="margin-top:7px">
-            返回上一级
-        </button>
-        <div style="line-height:40px;font-size:16px;padding-left:10px"> VMware网络管理--管理分布式网络 "地区" "数据中心"平台显示名称+URL连接https://192.168.1.1:443</div>
-    </div>
-    <div class="mgt15 ">      
+    <table class="table table-hover ">
+        <thead>
+            <tr>
+                <th style="text-align:left;">VMware网络管理--管理分布式网络&nbsp;&nbsp; "地区" "数据中心"平台显示名称+连接URL https://192.168.1.1:43</th>
+                <th style="text-align:right;">
+                    <button class=" fox-cloud-button fox-cloud-button-white ">
+                        <span class="icon-button-label">返回上一级</span>
+                    </button>
+                </th>
+            </tr>
+        </thead>
+    </table>
+    <div class="mgt15 ">
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 数据中心(DC)名称：</span>
         <div class="float-left pdr20">
             <select class="pdl10 form-control" [(ngModel)]="selectedDC" (change)="selectSwitch=this.defaultSwitch;">
                 <option [ngValue]="defaultDc">所有</option>
-                <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>              
+                <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
             </select>
-        </div>          
+        </div>
         <span class="float-left mgl10" style="display:inline-block;font-size:16px;padding:6px 0"> 分布式交换机名称(VDS)：</span>
         <div class="float-left">
             <select class="pdl10 form-control" [(ngModel)]="selectSwitch">
                 <option [ngValue]="defaultSwitch">所有</option>
                 <option *ngFor="let sw of selectedDC.switchList" [ngValue]="sw">{{sw.switchName}}</option >
-                
+
             </select>
-        </div> 
-        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl15 " (click)="filter();"><span class="icon-button-label">确定 </span> </button>                                                              
+        </div>
+        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl15 " (click)="filter();"><span class="icon-button-label">确定 </span> </button>
     </div>
-<div class="mgt15" style="clear:both"></div> 
-   
+<div class="mgt15" style="clear:both"></div>
+
     <div class="mgb20 ">
-        <button class="fox-cloud-button fox-cloud-button-green" data-toggle="modal" data-target="#myModal" (click)="createPopor()">          
+        <button class="fox-cloud-button fox-cloud-button-green" data-toggle="modal" data-target="#myModal" (click)="createPopor()">
             <span class="icon-button-label icon-left-button-label">同步分布式网络</span> <!--请添加创建的弹出框-->
-        </button>       
-        <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoPortMng();">       
+        </button>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoPortMng();">
             <span class="icon-button-label icon-left-button-label">端口组资源分配</span>
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoIpMng()">
@@ -69,9 +75,9 @@
                     <td>{{port.dcName}}</td>
                     <td>{{port.switchName}}</td>
                     <td>{{port.dvPortGroupName}}</td>
-                    <td style="position:relative"> 
+                    <td style="position:relative">
                         {{port.distPortGroupDisplayName||"未设置"}}
-                        <span class="icon-edit2" (click)="openEdit(port);port.isOpen=true;" style="padding:1px 15px"></span> 
+                        <span class="icon-edit2" (click)="openEdit(port);port.isOpen=true;" style="padding:1px 15px"></span>
                          <div *ngIf="port.isOpen" class="popover fade bottom in" role="tooltip" style="position:absolute;top:30px; right:150px; width:420px; max-width:1100px; display: block;">
                                 <div class="arrow" style="left: 30%;"></div>
                                 <div class="popover-content">
@@ -87,13 +93,13 @@
                                     <button class=" fox-cloud-button fox-cloud-button-white" (click)="saveEdit(port)">保存</button>
                                     <button class="fox-cloud-button fox-cloud-button-white" (click)="port.isOpen = false;">取消</button>
                                 </div>
-                            </div> 
+                            </div>
                           </div>
-                    </td>                  
+                    </td>
                     <td>{{port.vlanId}}</td>
                     <td [ngClass]="port.status==1?'font-green':'font-orange'">{{getDicText(port.status,this.statusDic)}}</td>
                     <td>{{port.lastUpdate}}</td>
-                </tr>           
+                </tr>
             </tbody>
         </table>
     </div>
@@ -120,9 +126,9 @@
                    <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="port.selected" (change)="selectSyn(port)"> </td>
                     <td>{{port.dcName}}</td>
                     <td>{{port.switchName}}</td>
-                    <td [ngClass]="port.status==1?'font-green':'font-orange'">{{getDicText(port.status,this.status_synDic)}}</td>
+                    <td [ngClass]="port.status==1?'font-green':'font-orange'">{{getDicText(port.status,this.statusDic)}}</td>
                 </tr>
                 </tbody>
             </table>
             </div>
-</fc-popup> 
+</fc-popup>

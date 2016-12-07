@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10 table-container no-padding">
-            <!--<table class="table table-hover">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>编号</th>
@@ -39,13 +39,13 @@
                         <td>{{item.vcpunum}}</td>
                         <td>{{item.memSize}}</td>
                         <td>
-                            <count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
+                            <count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>
                             <!--<input type="number" class="form-control" [(ngModel)]="item.vmQuota" style="width: 100px; display: inline;">-->
-                            <!--</td>
+                            </td>
                         <td><input type="text" class="form-control" [(ngModel)]="item.description"></td>
                     </tr>
                 </tbody>
-            </table>-->
+            </table>
             <table *ngIf="platformType=='2'" class="table table-hover mgt20" style="">
                 <thead>
                     <tr>
@@ -125,22 +125,51 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of creStep3Model; let idx = index;">
+                    <tr>
                         <td>{{idx + 1}}</td>
-                        <td >{{item.dcOrRegion}}</td>
-                        <td>{{item.name}}</td>
-                        <td><input type="text" class="form-control" [(ngModel)]="item.displayName" value="高性能区1"></td>
-                        <td>{{item.hostnum||0}}</td>
-                        <td>{{item.vcpunum||0}}</td>
-                        <td>{{item.memSize||0}}</td>
+                        <td >DC1</td>
+                        <td>AZ1</td>
+                        <td><input type="text" class="form-control" [(ngModel)]="item" value="高性能区1"></td>
+                        <td>5</td>
+                        <td>1200</td>
+                        <td>12800</td>
                         <td>
                             <!--<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
-                            <input type="number" class="form-control"  [(ngModel)]="item.exceedPercentage" style="width: 100px; display: inline;">
-                        </td>
-                        <td><input type="number" class="form-control" [(ngModel)]="item.quotaPercentage"></td>
-                        <td><input type="text" class="form-control" [(ngModel)]="item.description"></td>
+                            <input type="number" class="form-control" value="4" [(ngModel)]="item" style="width: 100px; display: inline;">
+                            </td>
+                        <td><input type="number" class="form-control" value="80"></td>
+                        <td><input type="text" class="form-control" value="高配置的CPU、内存和磁盘区"></td>
                     </tr>
-                   
+                    <tr>
+                        <td>{{idx + 1}}</td>
+                        <td >DC1</td>
+                        <td>AZ1</td>
+                        <td><input type="text" class="form-control" [(ngModel)]="item" value="高性能区1"></td>
+                        <td>5</td>
+                        <td>1200</td>
+                        <td>12800</td>
+                        <td>
+                            <!--<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
+                            <input type="number" class="form-control" value="4" [(ngModel)]="item" style="width: 100px; display: inline;">
+                            </td>
+                        <td><input type="number" class="form-control" value="80"></td>
+                        <td><input type="text" class="form-control" value="高配置的CPU、内存和磁盘区"></td>
+                    </tr>
+                    <tr>
+                        <td>{{idx + 1}}</td>
+                        <td >DC1</td>
+                        <td>AZ1</td>
+                        <td><input type="text" class="form-control" [(ngModel)]="item" value="高性能区1"></td>
+                        <td>5</td>
+                        <td>1200</td>
+                        <td>12800</td>
+                        <td>
+                            <!--<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
+                            <input type="number" class="form-control" value="4" [(ngModel)]="item" style="width: 100px; display: inline;">
+                            </td>
+                        <td><input type="number" class="form-control" value="80"></td>
+                        <td><input type="text" class="form-control" value="高配置的CPU、内存和磁盘区"></td>
+                    </tr>
                 </tbody>
             </table>
         </div>

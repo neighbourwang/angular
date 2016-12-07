@@ -7,7 +7,6 @@ export class CreStep1Model {
     version : string ;//版本
     userName : string ;//用户名
     passwd : string; //密码
-    region : string;//region
     regionId : string; //所属地域
     constructor() {
     }

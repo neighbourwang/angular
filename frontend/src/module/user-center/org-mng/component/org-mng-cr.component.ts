@@ -34,7 +34,7 @@ export class OrgMngCrComponent implements OnInit {
   members: Array<Member>;
   ngOnInit() {
     //获取机构成员
-    this.service.getNoMngUser(1, 10).then(
+    this.service.getNoMngUser(1, 9999).then(
       res => {
         console.log('getNoMngUser', res);
         this.members = res.resultContent;
@@ -77,8 +77,11 @@ export class OrgMngCrComponent implements OnInit {
   //同步countBar数据
   outputValue(e, arg) {
     console.log(arg);
-    this.org.resource[arg] = e;
+    // this.prodDir.specification[arg] = e;
+    // arg=e;
     console.log(e);
+    // console.log(this.prodDir.specification.mem);
+    // console.log(this.prodDir.specification.vcpu);          
 
   }
   /////////////////////edit   getUserByOrg
