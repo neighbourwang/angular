@@ -58,8 +58,8 @@ class SendModule {
     securitygroup: VlueList = new VlueList();
     settingtype: VlueList = new VlueList();
     startupsource: VlueList = new VlueList();
-    storage: VlueList = new VlueList();
-    storagesize: VlueList = new VlueList();
+    // storage: VlueList = new VlueList();
+    // storagesize: VlueList = new VlueList();
     // stroagesize: VlueList = new VlueList();
     timeline: VlueList = new VlueList();
     timelineunit: VlueList = new VlueList();
