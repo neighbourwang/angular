@@ -432,7 +432,9 @@ export class OpenstackMngComponent implements OnInit{
         const Gn = 1073741824.0;
         const Mn = 1048576.0;
         const Kn = 1024.0;
-        if(capacity|| capacity==0){
+        if(capacity==undefined){
+            return "未知"
+        }else{
             let c = capacity;
             if(c==0){
                 return "0";
@@ -446,8 +448,6 @@ export class OpenstackMngComponent implements OnInit{
             }else{
                 return (c/Kn).toFixed(2) + "K";
             }
-        }else{
-            return "未知";
         }
     }
 }
