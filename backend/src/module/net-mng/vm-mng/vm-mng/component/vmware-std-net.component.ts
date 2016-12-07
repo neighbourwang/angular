@@ -159,6 +159,10 @@ export class VmwareStdNetComponent implements OnInit {
             this.showAlert("请选择网络");
             return false;
         }
+        if (selectedNet.status == "1") {
+            this.showAlert("启用状态下不能编辑！");
+            return;
+        }
         let cstdnet = new StdNet();
         cstdnet.id = selectedNet.id;
         cstdnet.dcId = selectedNet.dcId;
@@ -348,9 +352,11 @@ export class VmwareStdNetComponent implements OnInit {
             this.showAlert(`请先选择需要删除的标准网络！`);
             return;
         }
+        if (selectedNet.status == "1") {
+            this.showAlert("启用状态下不能删除！");
+            return;
+        }
         this.noticeTitle = "删除网络";
-
-
         this.noticeMsg = `您选择删除 '${selectedNet.portDisplayName}'端口组，其端口组名称为${selectedNet.portGroupName}' ， 
                         请确认；如果确认，此网络将被删除。`;
         this.confirm.ccf = () => { };
