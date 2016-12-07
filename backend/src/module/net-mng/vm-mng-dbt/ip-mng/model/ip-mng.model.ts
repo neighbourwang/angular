@@ -111,6 +111,7 @@ export class subnetIpModel {
     portGroup: string;
 
     subnetCIDR: string;
+    subnetMask: string;
     gateway: string;
     ips: Array<string>;
     ipstr: string;

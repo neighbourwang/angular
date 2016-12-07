@@ -43,10 +43,15 @@ export class AttestSourceCreComponent implements OnInit {
             console.log(this.type);
             switch (this.type) {
                 case "edit":
+                    this.title = "编辑认证源";
                     this.edit = true;
                     break;
                 case "editAcc":
+                    this.title = "编辑认证源";
                     this.editAcc = true;
+                    break;
+                case "create":
+                    this.title = "创建认证源";
                     break;
             }
             if (id) {

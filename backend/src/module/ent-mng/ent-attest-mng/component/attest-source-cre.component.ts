@@ -39,7 +39,7 @@ export class AttestSourceCreComponent implements OnInit {
     editAcc = false;
     testResult?: boolean;
     type: string;
-
+    title:string;
     ngOnInit() {
         // console.log(this.router.params);
         this.activatedRouter.params.forEach((params: Params) => {
@@ -49,9 +49,14 @@ export class AttestSourceCreComponent implements OnInit {
             switch (this.type) {
                 case "edit":
                     this.edit = true;
+                    this.title = "编辑认证源";
                     break;
                 case "editAcc":
                     this.editAcc = true;
+                    this.title = "编辑认证源";
+                    break;
+                case "create":
+                    this.title = "创建认证源";
                     break;
             }
             if (id) {

@@ -62,7 +62,7 @@
                         {{getDicText(syncimg.bitsType, this.bitDict)}}
                         </div>
                     </td>
-                    <td>{{syncimg.capacity}}</td>
+                    <td>{{showCapacity(syncimg.capacity)}}</td>
                     <td>
                         <div *ngIf="syncimg.syncResult==0">
                         <select [(ngModel)]="syncimg.type">
