@@ -60,7 +60,7 @@
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">vCPU数量(核)</div>
                             <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
+                                <count-bar [default]=0 [step]=1 [max]=100000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
                             </div>
                             <div class="col-md-3 content-title" style="text-align : center">0</div>
                             <div class="col-md-3 content-title" style="text-align : center">200</div>
@@ -68,7 +68,7 @@
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">内存数量(GB)</div>
                             <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
+                                <count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'mem')"></count-bar>
                             </div>
                             <div class="col-md-3 content-title" style="text-align : center">0</div>
                             <div class="col-md-3 content-title" style="text-align : center">200</div>
@@ -76,7 +76,7 @@
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">物理机数量(台)</div>
                             <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
+                                <count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'physical')"></count-bar>
                             </div>
                             <div class="col-md-3 content-title" style="text-align : center">0</div>
                             <div class="col-md-3 content-title" style="text-align : center">200</div>
@@ -84,7 +84,7 @@
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">存储额度(GB)</div>
                             <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
+                                <count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'storage')"></count-bar>
                             </div>
                             <div class="col-md-3 content-title" style="text-align : center">0</div>
                             <div class="col-md-3 content-title" style="text-align : center">200</div>
@@ -92,7 +92,7 @@
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">快照数量(个)</div>
                             <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
+                                <count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'snapshot')"></count-bar>
                             </div>
                             <div class="col-md-3 content-title" style="text-align : center">0</div>
                             <div class="col-md-3 content-title" style="text-align : center">200</div>
@@ -100,7 +100,7 @@
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">镜像数量(个)</div>
                             <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
+                                <count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'image')"></count-bar>
                             </div>
                             <div class="col-md-3 content-title" style="text-align : center">0</div>
                             <div class="col-md-3 content-title" style="text-align : center">200</div>
@@ -108,7 +108,7 @@
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">浮动IP地址(个)</div>
                             <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
+                                <count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'ipaddress')"></count-bar>
                             </div>
                             <div class="col-md-3 content-title" style="text-align : center">0</div>
                             <div class="col-md-3 content-title" style="text-align : center">200</div>

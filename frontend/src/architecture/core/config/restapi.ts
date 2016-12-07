@@ -294,6 +294,12 @@ export let RestApis: RestApiModel[] = [
         "url": "basis/authsec/ldaps/simple"
     },
     {
+        "desc": "获取企业认证源列表（下拉框）",
+        "id": "ent-mng.enterprise.ldap.simple.list",
+        "method": "GET",
+        "url": "basis/authsec/enterprise/{enterpriseId}/ldaps/simple"
+    },
+    {
         "desc": "用户中心 查询符合条件的AD用户",
         "id": "user-center.account-mng.aduser.get",
         "method": "POST",
@@ -388,7 +394,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取当前登录人企业可用资源",
         "id": "user-center.org-mng.currEntResoure.get",
         "method": "GET",
-        "url": "adminui/authsec/enterprise/{id}/resouces/quotas/page/{page}/size/{size}"
+        "url": "adminui/authsec/enterprise/{id}/resouce/quota/detail"
     },
     
     // 审批中心
