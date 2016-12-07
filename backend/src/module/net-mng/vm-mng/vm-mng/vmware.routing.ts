@@ -4,7 +4,7 @@ import { VmwareStdNetComponent } from './component/vmware-std-net.component';
 
 export const VmwareRouting = RouterModule.forChild([
     {
-        path: "net-mng/vm-mng",
+        path: "net-mng/vm-mng/:pid",
         component: VmwareStdNetComponent 
     }
 ]);

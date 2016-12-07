@@ -12,7 +12,7 @@ import 'rxjs/add/operator/toPromise';
 export class RestApiCfg {
     protected baseIp = environment.baseIp || '15.114.100.55';
     // protected basePort = '31072';//测试
-    protected basePort = environment.basePort || '31072';//开发
+    protected basePort = environment.basePort || '30072';//开发
     protected restApiList: RestApiModel[];
 
     constructor(private http: Http) {
@@ -22,7 +22,7 @@ export class RestApiCfg {
     loadCfgData() {
         this.restApiList = RestApis;
     }
-    
+
     getRestApiUrl(apiId: string, ip?: string, port?: string): string {
         let url = '';
         port = port || this.basePort;
@@ -35,7 +35,7 @@ export class RestApiCfg {
         }
         return url;
     }
-    
+
     getRestApi(apiId: string, ip?: string, port?: string): RestApiModel {
         let restApi:RestApiModel = new RestApiModel();
         port = port || this.basePort;

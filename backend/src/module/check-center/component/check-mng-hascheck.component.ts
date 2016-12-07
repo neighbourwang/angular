@@ -34,11 +34,15 @@ export class CheckMngHascheckComponent implements OnInit{
 	private _approverListLoader:ItemLoader<{id:string;name:string}> = null;//审批人列表
 	private _approveInfoLoader:ItemLoader<ApproveItem> = null;//审批意见
 	private _listLoader:ItemLoader<CheckListItem> = null;//列表数据加载
+	private _billinModeDic:DicLoader = null; //计费模式
 
 	constructor(
 		private _restApiCfg:RestApiCfg
 		,private _restApi:RestApi
 		,private _layoutService:LayoutService){
+
+		//计费模式字典
+		this._billinModeDic = new DicLoader(_restApiCfg, _restApi, "BILLING_MODE", "TYPE");
 
 		//列表数据加载
 		this._listLoader = new ItemLoader<CheckListItem>(true, "已审批列表", "check-center.not-checked.list", _restApiCfg, _restApi);
@@ -60,10 +64,21 @@ export class CheckMngHascheckComponent implements OnInit{
 				obj.departmentStr = item.departmentName;// 部门
 				obj.entStr = item.enterpriszeName;// 企业
 				//费用
-				obj.billingModeName =item.billingInfo ? item.billingInfo.billingMode:""; //计费模式
+				obj.billingModeNum =item.billingInfo ? item.billingInfo.billingMode: null; //计费模式
 				obj.billingDurationStr = item.period;//订单周期
 				obj.oneTimePriceNum = item.billingInfo ? item.billingInfo.basePrice: "";//一次性费用
-				// obj.priceNum = ??费用
+				if(item.billingInfo)
+				{
+					if(obj.billingModeNum == 0)//包年包月
+					{
+						obj.priceNum = item.billingInfo.basicPrice + item.billingInfo.cyclePrice
+					}
+					else if(obj.billingModeNum == 1)//按量
+					{
+						obj.priceNum = item.billingInfo.unitPrice;
+					}
+					
+				}
 
 				obj.createTimeStr = item.createDate;// 创建时间
 				// obj.checkResultId = ?? 审批结果	
@@ -79,6 +94,7 @@ export class CheckMngHascheckComponent implements OnInit{
 			//处理字典
 			this._serviceTypeDic.UpdateWithDic(target, "serviceTypeName", "serviceTypeIdStr");
 			this._orderTypeDic.UpdateWithDic(target, "orderTypeNum", "orderTypeName");
+			this._billinModeDic.UpdateWithDic(target, "billingModeName", "billingModeNum")
 		};
 
 		//审批人列表
@@ -155,15 +171,16 @@ export class CheckMngHascheckComponent implements OnInit{
 		let param = _.extend({}, this._param);
 
 		//匹配后台搜索框参数
-		param.approvalStatus = 1;//approvalStatus代表已审批
-        param.quickSearchStr = this._param.quickSearchStr;//输入订单号快速查询 ？
+		param.status = 1;//approvalStatus代表已审批
+        param.orderCode = this._param.quickSearchStr;//输入订单号快速查询 ？
  		param.enterpriseId = this._param.entIdStr; //企业enterpriseId
 		param.organization = this._param.departmentIdNum; //部门organization？
 		param.orderType = this._param.orderTypeNum;//订单类型orderType
 		param.serviceId = this._param.serviceTypeNum;//产品类型serviceId
 		param.createTime = this._param.startDateStr;//创建时间
 		param.expireTime = this._param.endDateStr; //结束时间
-		param.serviceId = this._param.submitUserId;		//提交者？
+		param.userId = this._param.submitUserId;		//提交者？
+		param.approverId = this._param.checkUserIdStr;// 审批人
 			
 		param.pageParameter = {
 			currentPage:pageNum

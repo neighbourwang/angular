@@ -18,7 +18,8 @@ import { Account } from "../model/account";
 export class AccountMngComponent implements OnInit {
     constructor(
         private service: AccountMngService,
-        private router: Router
+        private router: Router,
+        private layoutService: LayoutService
     ) {
     }
 
@@ -46,9 +47,11 @@ export class AccountMngComponent implements OnInit {
 
     getAccount(index?) {
         this.tp = index || this.tp;
+        this.layoutService.show();
         this.service.getAccount(this.tp, this.pp)
             .then(
-                res => {
+            res => {
+                this.layoutService.hide();
                     console.log(res);
                     this.accounts = res.resultContent;
                     this.tp = res.pageInfo.totalPage;
@@ -58,7 +61,8 @@ export class AccountMngComponent implements OnInit {
                 }
             )
             .catch(
-                error => {
+            error => {
+                this.layoutService.hide();
                     console.error(error);
                 }
             );

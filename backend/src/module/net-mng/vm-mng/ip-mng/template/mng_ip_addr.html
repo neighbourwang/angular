@@ -74,8 +74,8 @@
     </div>
 </div>
 
-<fc-notice #notice ot="确认" (of)="okClicked()"></fc-notice>
-<fc-confirm #confirm ot="确认" ct="取消" (of)="onConfirmed()"></fc-confirm>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" (of)="okClicked()"></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消" (of)="onConfirmed()"></fc-confirm>
 
 <fc-popup #enableipbox ot="确认" ct="取消" title="占用IP" (of)="acceptEnableIPModify()" (cf)="cancelEnableIPModify()">
 	<div class="dialogContent">

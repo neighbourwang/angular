@@ -71,8 +71,8 @@
                 <td>{{ipmng.dvPortGroupName}}</td>
                 <td>{{displayIt(ipmng.distPortGroupDisplayName)}}</td>
                 <td>{{ipmng.vlanId}}</td>
-                <td>{{displayIt(ipmng.segmentCIDR)}}</td>
-                <td>{{displayIt(ipmng.gateWay)}}</td>
+                <td>{{displayIt(ipmng.subnetCIDR)}}</td>
+                <td>{{displayIt(ipmng.gateway)}}</td>
                 <td>{{displayIt(ipmng.ipCount)}}</td>
                 <td>{{displayIt(ipmng.usedIPCount)}}</td>
                 <td>{{displayIt(ipmng.freeIPCount)}}</td>
@@ -90,8 +90,8 @@
     switchId:  {{selectedVDS.switchId}}<br/>
 -->
 
-<fc-notice #notice ot="确认" (of)="okClicked()"></fc-notice>
-<fc-confirm #confirm ot="确认" ct="取消" (of)="onConfirmed()"></fc-confirm>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" (of)="okClicked()"></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消" (of)="onConfirmed()"></fc-confirm>
 
 
 <fc-popup #subnetbox ot="确认" ct="取消" title="设置IP子网" (of)="acceptSubnetModify()" (cf)="cancelSubnetModify()">

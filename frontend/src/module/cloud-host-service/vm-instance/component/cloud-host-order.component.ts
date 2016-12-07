@@ -22,6 +22,7 @@ export class cloudHostComponentOrder implements OnInit {
 
 
 	@ViewChild('cartButton') cartButton;
+	@ViewChild('storage') storage;
 	// timeForever : boolean = false;
 
 	// rightFixed : boolean = false;   //让右侧配置起飞
@@ -49,11 +50,11 @@ export class cloudHostComponentOrder implements OnInit {
 			totalId = payLoadList.map(list => list.attrValueId).concat(skuException).join(",");
 
 		let nub = 0, 	//验证sku成功的个数
-			skuValue = {};  
+			skuValue = {};
 
 		for (let sku in this.skuMap) {
 			sku.split(", ").forEach(skuString => {
-				if(totalId.indexOf(trim(skuString)) > -1 ) nub++; 
+				if(totalId.indexOf(trim(skuString)) > -1 ) nub++;
 			});
 			if(nub === 4) {
 				return this.skuMap[sku]
@@ -69,6 +70,7 @@ export class cloudHostComponentOrder implements OnInit {
 
 	//把payLoad转换成提交的post对象
 	private payLoadFormat(): PayLoad[] {
+		console.log(this.storage.getData(), "storage");
 		//特殊处理
 		console.log(this.sendModule.timeline)
 		this.sendModule.timeline.attrValue = parseInt(this.sendModule.timeline.value);
@@ -77,7 +79,7 @@ export class cloudHostComponentOrder implements OnInit {
 		this.sendModule.storagesize.attrValue = "20";
 		this.sendModule.bootsize.attrValue = "20";
 
-		let payloadList = [], 
+		let payloadList = [],
 			skuException = [];  //例外的sku
 		for (let v in this.sendModule) {
 			payloadList.push({
@@ -94,7 +96,7 @@ export class cloudHostComponentOrder implements OnInit {
 			}
 		};
 
-		
+
 		let sku = this.getSkuId(payloadList, skuException);   //获取sku
 
 		this.payLoad.skuId = sku.skuId;
@@ -193,14 +195,14 @@ export class cloudHostComponentOrder implements OnInit {
 		this.router.navigateByUrl(url);
 	}
 	buyNow() {
-		this.layoutService.show();
+		// this.layoutService.show();
 		this.checkInput();
 		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
-		this.service.saveOrder(payLoadArr).then(res => {
-			this.layoutService.hide();
-			this.router.navigateByUrl("cloud-host-service/cart-order");
-		}).catch(res => {
-			this.layoutService.hide();
-		})
+		// this.service.saveOrder(payLoadArr).then(res => {
+		// 	this.layoutService.hide();
+		// 	this.router.navigateByUrl("cloud-host-service/cart-order");
+		// }).catch(res => {
+		// 	this.layoutService.hide();
+		// })
 	}
 }
