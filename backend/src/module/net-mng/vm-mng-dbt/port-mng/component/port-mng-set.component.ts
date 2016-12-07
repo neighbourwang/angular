@@ -114,7 +114,7 @@ export class PortMngSetComponent implements OnInit {
 
     gotoPortMng() {
         //this.router.navigate([`net-mng/vm-mng-dbt/port-mng/${this.platformId}`]);
-        this.router.navigate(['net-mng/vm-mng-dbt/port-mng', {"platform_id": this.platformId}]);
+        this.router.navigate(['net-mng/vm-mng-dbt/port-mng', {"pid": this.platformId}]);
     }
 
     showAlert(msg: string): void {

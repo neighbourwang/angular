@@ -110,7 +110,7 @@ export class IpMngListComponent implements OnInit{
             }
             if (params["pid"] != null) {
                 this.platformId = params["pid"];
-                console.log(this.platformId, "this.platform_Id");
+                console.log(this.platformId, "this.platformId");
             }
         });
         this.getDcList();
@@ -242,7 +242,12 @@ export class IpMngListComponent implements OnInit{
     ipUsageMngPage() {
         let pg = this.getSelected();
         if(pg){
-            this.router.navigate([`net-mng/vm-mng/ipusage-mng-list`, { "pg_id": pg.id, "pg_name": pg.clusterName}]);
+            this.router.navigate([`net-mng/vm-mng/ipusage-mng-list`, 
+            {
+                "pg_id": pg.id,
+                "pg_name": pg.clusterName,
+                "pid": this.platformId
+            }]);
         }        
     }
 
