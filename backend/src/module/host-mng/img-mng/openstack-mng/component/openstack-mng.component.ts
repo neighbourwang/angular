@@ -117,6 +117,7 @@ export class OpenstackMngComponent implements OnInit{
                         this.layoutService.hide();
                         this.images = response.resultContent;
                         this.totalPage = response.pageInfo.totalPage;
+                        this.selectedImage = null;
                     } else{
                         alert("Res.sync error");
                     }
@@ -214,6 +215,7 @@ export class OpenstackMngComponent implements OnInit{
                         if (response && 100 == response["resultCode"]) {
                             this.getImages();
                             this.showAlert("启用成功");
+                            this.selectedImage = null;
                         } else {
                             alert("Res sync error");
                         }
@@ -240,6 +242,7 @@ export class OpenstackMngComponent implements OnInit{
                         if (response && 100 == response["resultCode"]) {
                             this.getImages();
                             this.showAlert("禁用成功");
+                            this.selectedImage = null;
                         } else {
                             alert("Res sync error");
                         }
@@ -334,7 +337,7 @@ export class OpenstackMngComponent implements OnInit{
         }
     }
     saveEdit(){
-        if (this.validationService.isBlank(this.selectedImage.displayName)) {
+        if (this.validationService.isBlank(this.tempEditImage.displayName)) {
             this.showAlert("镜像显示名称不能为空");
             return;
         }
@@ -347,6 +350,7 @@ export class OpenstackMngComponent implements OnInit{
                     this.getImages();
                     this.editImage.close();
                     this.showAlert("编辑成功");
+                    this.selectedImage = null;
                 } else {
                     alert("Res sync error");
                 }

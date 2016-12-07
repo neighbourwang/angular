@@ -1,5 +1,5 @@
 <div class="page-content-header icon-cloud-network-mngOn">
-    VMWare网络
+    VMware网络
 </div>
 <div class="page-content">
     
@@ -38,12 +38,12 @@
 
     <div class="mgb20 mgt15">
         <button class="fox-cloud-button fox-cloud-button-green" (click)="setupSubnet()">设置IP子网</button>
+		<!--
         <button class="fox-cloud-button fox-cloud-button-green" (click)="setupIPs()">设置IP地址范围</button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="ipUsageMngPage()">管理IP地址</button>
-		<!--
+		-->
         <button class="fox-cloud-button fox-cloud-button-green" (click)="setupIPs()" [disabled]="!selectedipmng.subnetCIDR">设置IP地址范围</button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="ipUsageMngPage()" [disabled]="!selectedipmng.subnetCIDR || !selectedipmng.ipCount || selectedipmng.ipCount == '0'">管理IP地址</button>
-        -->
     </div>
 
     <div class="table-container">
@@ -65,7 +65,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let ipmng of ipmngs; let i=index;">
-                <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="ipmng.checked" (change)="selectItem(i)" value="{{i}}"></td>
+                <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="ipmng.checked" (change)="selectItem(i);  selectedipmng = ipmng;" value="{{i}}"></td>
                 <td>{{ipmng.dcName}}</td>
                 <td>{{ipmng.switchName}}</td>
                 <td>{{ipmng.dvPortGroupName}}</td>
@@ -76,7 +76,6 @@
                 <td>{{displayIt(ipmng.ipCount)}}</td>
                 <td>{{displayIt(ipmng.usedIPCount)}}</td>
                 <td>{{displayIt(ipmng.freeIPCount)}}</td>
-
 			</tr>         
             </tbody>
         </table>
