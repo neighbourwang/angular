@@ -129,7 +129,7 @@
 									*ngIf="sendModule.zone.attrValueId"
 									[(ngModel)]="sendModule.bootstorage" class="form-control">
 										<option
-										*ngFor="let value of configs.bootstorage.mapValueList[sendModule[getRelyName(configs.bootstorage.relyAttrId)].attrValueId];"
+										*ngFor="let value of rely('bootstorage')"
 										[ngValue]="value" >{{ value.attrDisplayValue }}</option>
 								</select>
 							</div>
