@@ -4,25 +4,19 @@
 </div>
 <div class="page-content">
     <div class="mgb20" style="background-color:#d1ece7;height:40px">
-        <!--<button class="fox-cloud-button-md fox-cloud-button-white pull-right  mgr5" style="margin-top:7px">
+        <button class="fox-cloud-button-md fox-cloud-button-white pull-right  mgr5" style="margin-top:7px">
             返回上一级
-        </button>-->
+        </button>
         <div style="line-height:40px;font-size:16px;padding-left:10px"> VMware网络管理--管理标准网络 "地区" "数据中心"平台显示名称+URL连接https://192.168.1.1:443</div>
-
-
     </div>
     <div class="mgb20 form-inline">
-        <label class="pdr10 ">
-            数据中心(DC)名称:
-        </label>
-        <select class="pdl20 pdr20 form-control" [(ngModel)]="selectedDC" (change)="selectCluster=defaultCluster;">
+       <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 数据中心(DC)名称：</span>
+        <select class="float-left pdl20 pdr20 form-control" [(ngModel)]="selectedDC" (change)="selectCluster=defaultCluster;">
             <option [ngValue]="defaultDc">所有</option>
             <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
         </select>
-        <label class="pdr10 pdl20">
-            可用区名称:
-        </label>
-        <select class="pdl20 pdr20 mgr20 form-control" [(ngModel)]="selectCluster">
+        <span class="float-left mgl10" style="display:inline-block;font-size:16px;padding:6px 0">  可用区名称：</span>
+        <select class="float-left pdl20 pdr20 mgr20 form-control" [(ngModel)]="selectCluster">
             <option [ngValue]="defaultCluster">所有</option>
             <option *ngFor="let vds of selectedDC.clusters" [ngValue]="vds">{{vds.clusterName}}</option>            
         </select>
