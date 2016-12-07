@@ -5,7 +5,6 @@
 		<div class="col-md-12 no-padding mgb10">
 			<div class="col-md-3 no-padding">
 				<select class="form-control" [(ngModel)]="list.storage">
-                	<option disabled selected [ngValue]="defaultStorage" class="hideoption">请选择数据盘类型</option>
 					<option
 					*ngFor="let value of configs;"
 					[ngValue]="value" >{{ value.attrDisplayValue }}</option>

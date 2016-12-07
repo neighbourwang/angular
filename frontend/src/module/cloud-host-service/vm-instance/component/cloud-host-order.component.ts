@@ -83,11 +83,9 @@ console.log(payLoadList,222)
 	 */
 	private payLoadFormat(): PayLoad[] {
 		//特殊处理
-		console.log(this.sendModule.timeline)
 		this.sendModule.timeline.attrValue = parseInt(this.sendModule.timeline.value);
 
 		//临时处理 演示用
-		this.sendModule.storagesize.attrValue = "20";
 		this.sendModule.bootsize.attrValue = "20";
 
 		let payloadList = [],
@@ -126,6 +124,7 @@ console.log(payLoadList,222)
 		if(storage.length) {   //如果有数据盘的数据
 
 		}
+
 
 		return this.payLoadArr;
 	}
@@ -182,11 +181,12 @@ console.log(payLoadList,222)
 		}
 	}
 	rely(attrName:string):VlueList[] {
+		if(!this.configs[attrName].relyAttrId) return [];
+
 		//根据他的依赖的id获取它自身的list
-		console.count();
-		console.log(attrName)
 		const list = this.configs[attrName].mapValueList[this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId];
-		if(list.length) this.sendModule[attrName] = list[0];   //设置sendmodule
+		 //设置sendmodule使它选择第一个
+		if(list.length && this.sendModule[attrName]) this.sendModule[attrName] = list[0];  
 		return list;
 	}
 
