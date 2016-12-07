@@ -80,11 +80,63 @@ export class IPValidationService {
 
     }
 
+
+    isGatewayInSubnetAndMask(val: any): boolean {
+        if(ip.subnet(val[1], val[2]).contains(val[0])) return true;
+        else return false;
+    }
+
     isMaskInSubnet(val: any): boolean {
         console.log(ip.toLong(val[0]), ip.toLong(ip.cidrSubnet(val[1]).subnetMask), "子网掩码", "期望子网掩码")
         if(ip.toLong(val[0]) == ip.toLong(ip.cidrSubnet(val[1]).subnetMask)) return true;
         else return false;
 
+    }
+
+    isIpScopePerMask(pool: any, cidr: any, mask: any): boolean {
+        if (pool instanceof Array) pool = pool.join(' ');
+        pool = pool.replace(/\s+/g, "").replace(/\n\r/g, "");
+        //console.log(pool, "pool");
+        let arrayips = pool.split(';').filter(item => {return item != ""});
+        console.log(arrayips, "arrayips");
+        let i = 0;
+        for (i = 0; i < arrayips.length; i++) {
+            let lineips = arrayips[i].split(',');
+            console.log(lineips, "lineips");
+            if (lineips.length == 1) {
+                if (!this.validationService.isBlank(lineips[0]) && this.isIP(lineips[0])) {
+                    if (ip.subnet(cidr, mask).contains(lineips[0])) continue;
+                    else {
+                        console.log("one ip was not in subnet");
+                        return false;
+                    }
+                } else {
+                    console.log("no ip before ',', or not-IP");
+                    return false;
+                }
+            } else if (lineips.length == 2) {
+                if (!this.validationService.isBlank(lineips[0]) && !this.validationService.isBlank(lineips[1])
+                    && this.isIP(lineips[0]) && this.isIP(lineips[1])) {
+                    if (ip.toLong(lineips[1]) >= ip.toLong(lineips[0])) {
+                        if (ip.subnet(cidr, mask).contains(lineips[0]) && ip.subnet(cidr, mask).contains(lineips[1])) continue;
+                        else {
+                            console.log("one ip was not in subnet")
+                            return false;
+                        }
+                    } else {
+                        console.log("two ips in line don't matches 'x<=y'")
+                        return false;
+                    }
+                } else {
+                    console.log("one ip was null or not-IP")
+                    return false;
+                }
+            } else {
+                console.log("two ips per line!")
+                return false;
+            }
+        }
+        if( i >= arrayips.length) return true;
     }
 
     isIpScope(pool: any, cidr: any): boolean {
@@ -164,12 +216,20 @@ export class IPValidationService {
                 "func": val => !this.isGatewayInSubnet(val),
                 "msg": "不在子网中"
             },
+            "gatewayinsubnetandmask":{
+                "func": val => !this.isGatewayInSubnetAndMask(val),
+                "msg": "不在子网中"
+            },
             "maskinsubnet":{
                 "func": val => !this.isMaskInSubnet(val),
                 "msg": "不符合该子网信息"
             },
             "ipscope":{
                 "func": val => !this.isIpScope(val[0], val[1]),
+                "msg": "不在子网中"
+            },
+            "ipscopepermask":{
+                "func": val => !this.isIpScopePerMask(val[0], val[1], val[2]),
                 "msg": "不在子网中"
             },
             //*/
