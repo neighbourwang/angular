@@ -52,8 +52,6 @@ export class IpUsageMngListComponent implements OnInit{
 	noticeTitle = "";
     noticeMsg = "";
 
-    platformId: string;
-
 	statusDic: Array<SystemDictionary>;//状态
     ipusagemngs: Array<IpUsageMngModel>;
     rawipusagemngs: Array<IpUsageMngModel>;
@@ -110,20 +108,11 @@ export class IpUsageMngListComponent implements OnInit{
         }).catch((e) => this.onRejected(e));
 
         this.activatedRouter.params.forEach((params: Params) => {
-            if (params["pg_id"] != null) {
-                this.pg_id = params["pg_id"];
-                console.log(this.pg_id);
-            }
-            if (params["pg_id"] != null) {
-                this.pg_name = params["pg_name"];
-                console.log(this.pg_name);
-            }
-            if (params["pid"] != null) {
-                this.platformId = params["pid"];
-                console.log(this.platformId, "this.platformId");
-            }
+            this.pg_id = params["pg_id"];
+            this.pg_name = params["pg_name"];
+            console.log(this.pg_id);
+            console.log(this.pg_name);
         });
-        
 
         this.getIpUsageMngList(this.pg_id);
 
@@ -143,7 +132,7 @@ export class IpUsageMngListComponent implements OnInit{
     }
 
     ipMngPage() {
-        this.router.navigate([`net-mng/vm-mng/ip-mng-list`, {"pid": this.platformId}]);
+        this.router.navigate([`net-mng/vm-mng/ip-mng-list`]);
     }
 
     filter(query?): void {

@@ -184,12 +184,6 @@ export let RestApis: RestApiModel[] = [
         "url": "basis/authsec/adm/organization/enterprise/{enterpriseId}"        
     }
     ,{
-        "desc": "订购人列表获取",
-        "method": "GET",
-        "id": "op-center.order-mng.buyer-list.get",
-        "url": "basis/"        
-    }
-    ,{
         "desc": "区域获取",
         "method": "GET",
         "id": "op-center.order-mng.platform-list.get",

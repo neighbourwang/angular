@@ -117,7 +117,6 @@ export class OpenstackMngComponent implements OnInit{
                         this.layoutService.hide();
                         this.images = response.resultContent;
                         this.totalPage = response.pageInfo.totalPage;
-                        this.selectedImage = null;
                     } else{
                         alert("Res.sync error");
                     }
@@ -215,7 +214,6 @@ export class OpenstackMngComponent implements OnInit{
                         if (response && 100 == response["resultCode"]) {
                             this.getImages();
                             this.showAlert("启用成功");
-                            this.selectedImage = null;
                         } else {
                             alert("Res sync error");
                         }
@@ -242,7 +240,6 @@ export class OpenstackMngComponent implements OnInit{
                         if (response && 100 == response["resultCode"]) {
                             this.getImages();
                             this.showAlert("禁用成功");
-                            this.selectedImage = null;
                         } else {
                             alert("Res sync error");
                         }
@@ -337,7 +334,7 @@ export class OpenstackMngComponent implements OnInit{
         }
     }
     saveEdit(){
-        if (this.validationService.isBlank(this.tempEditImage.displayName)) {
+        if (this.validationService.isBlank(this.selectedImage.displayName)) {
             this.showAlert("镜像显示名称不能为空");
             return;
         }
@@ -350,7 +347,6 @@ export class OpenstackMngComponent implements OnInit{
                     this.getImages();
                     this.editImage.close();
                     this.showAlert("编辑成功");
-                    this.selectedImage = null;
                 } else {
                     alert("Res sync error");
                 }
@@ -429,5 +425,29 @@ export class OpenstackMngComponent implements OnInit{
             return classes;
         }
        
+    }
+    //显示镜像容量
+    showCapacity(capacity:number){
+        const Tn = 1099511627776.0;
+        const Gn = 1073741824.0;
+        const Mn = 1048576.0;
+        const Kn = 1024.0;
+        if(capacity==undefined){
+            return "未知"
+        }else{
+            let c = capacity;
+            if(c==0){
+                return "0";
+            }
+            if( c >= Tn){
+                return (c/Tn).toFixed(2) + "T";
+            }else if (c >= Gn){
+                return (c/Gn).toFixed(2) + "G";
+            }else if (c>=Mn){
+                return (c/Mn).toFixed(2) + "M";
+            }else{
+                return (c/Kn).toFixed(2) + "K";
+            }
+        }
     }
 }
