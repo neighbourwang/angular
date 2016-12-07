@@ -4,7 +4,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>编号</th>
+                    <th>序号</th>
                     
                     <th>云平台名称</th>
                     <th>所属数据中心</th>
@@ -15,8 +15,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let plf of platforms">
-                    <td>{{plf.id}}</td>
+                <tr *ngFor="let plf of platforms;let i=index">
+                    <td>{{(pageIndex-1)*pageSize+i+1}}</td>
                    
                     <td><a href="javascript:void(0);" (click)="choosePage(plf);">{{plf.name}}</a></td>
                     <td>{{plf.dataCenter}}</td>

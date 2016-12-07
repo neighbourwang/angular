@@ -1,6 +1,6 @@
 ﻿import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute,Params} from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../../architecture';
 
@@ -22,7 +22,7 @@ export class PortMngSetComponent implements OnInit {
         private router: Router,
         private service: PortMngSetService,
         private layoutService: LayoutService,
-        activatedRouter: ActivatedRoute
+        private activatedRouter: ActivatedRoute
     ) {
         if (activatedRouter.snapshot.params["id"]) {
             this.pid = activatedRouter.snapshot.params["id"] || "";
@@ -32,7 +32,8 @@ export class PortMngSetComponent implements OnInit {
 
     }
 
-    pid: string;
+    pid: string; //
+    platform_id:string;
     selectedEnterprise: Array<Enterprise>;
     unselectedEnterprise: Array<Enterprise>;
     ports: Array<PortMngModel>;
@@ -44,6 +45,9 @@ export class PortMngSetComponent implements OnInit {
 
 
     ngOnInit() {
+        this.activatedRouter.params.forEach((params: Params) => {
+            this.platform_id = params["platform_id"];
+        });
         console.log('init');
         this.getData();
     }
@@ -108,7 +112,7 @@ export class PortMngSetComponent implements OnInit {
 
 
     gotoPortMng() {
-        this.router.navigate([`net-mng/vm-mng/port-mng`]);
+        this.router.navigate([`net-mng/vm-mng/port-mng`, { pid:this.platform_id}]);
     }
 
     showAlert(msg: string): void {

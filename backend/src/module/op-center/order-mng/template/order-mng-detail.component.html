@@ -7,36 +7,36 @@
 		<div class="table-container mgb20">
 			<table class="table table-bordered mgb20 text-left ">
 				<thead>	
-					<tr><th class="form-control-title text-left " colspan="2">基本信息</th></tr>			
+					<tr><th class="form-control-title text-left " colspan="2">基本信息</th></tr>		
 				</thead>
 				<tbody>
-					<tr>
-						<td class="text-left">已订购服务编号：12333333</td>	
-						<td class="text-left">状态：已激活</td>
+					<tr *ngFor="let item of _orderDetail.Items">
+						<td class="text-left">已订购服务编号：{{item.orderCode}}</td>	
+						<td class="text-left">状态：{{item.status}}</td>
 					</tr>
 					<tr>
-						<td class="text-left">产品类型：云主机</td>	
-						<td class="text-left">区域/可用区：上海A区 高可用区</td>
+						<td class="text-left">产品类型：{{item.productType}}</td>	
+						<td class="text-left">区域/可用区：{{item.region}}</td>
 					</tr>
 					<tr>
 						<td class="text-left">当前配置：CPU 4赫/内存 8GB/启动盘 70G</td>	
-						<td class="text-left">创建时间：2016-10-25 22:02:22</td>
+						<td class="text-left">创建时间：{{item.createDate}}</td>
 					</tr>
 					<tr>
-						<td class="text-left">计费模式：包年包月</td>	
-						<td class="text-left">到期时间：2016-10-25 22:02:22</td>
+						<td class="text-left">计费模式：{{item.billingMode}}</td>	
+						<td class="text-left">到期时间：{{item.exireDate}}</td>
 					</tr>
 					<tr>
-						<td class="text-left">一次性费用：￥30</td>	
-						<td class="text-left">订购人：张三</td>
+						<td class="text-left">一次性费用：{{item.oneTimePrice}}</td>	
+						<td class="text-left">订购人：{{item.billingPerson}}</td>
 					</tr>
 					<tr>
-						<td class="text-left">费用：￥184/月</td>	
-						<td class="text-left">部门：销售部</td>
+						<td class="text-left">费用：{{item.price}}</td>	
+						<td class="text-left">部门：{{item.department}}</td>
 					</tr>
 					<tr>
-						<td class="text-left">实例名称：myCentOS-VM-001</td>	
-						<td class="text-left">企业：BOE-CIO总部</td>
+						<td class="text-left">实例名称：{{item.instanceName}}</td>	
+						<td class="text-left">企业：{{item.enterpirse}}</td>
 					</tr>				
 				</tbody>
 			</table>
@@ -49,7 +49,7 @@
 							
 				</thead>
 				<tbody>
-					<tr class="bg-light-blue border-gray">
+					<tr class="bg-light-blue border-gray" >
 						<td>已订购服务编号</td>
 						<td>实例名称</td>
 						<td>产品类型</td>
@@ -58,14 +58,14 @@
 						<td>状态</td>
 						<td>费用</td>
 						<td>到期时间</td>
-					</tr>
-					<tr>
-						<td>122222222222</td>
-						<td>win2008licensesrv-001</td>
-						<td>OS服务</td>
-						<td>无</td>
-						<td>包年包月</td>
-						<td class="font-green">使用中</td>
+					</tr> //orderCode,实例名称？？，productType,配置？？，productBillingItem.billingMode，orderStatus，productBillingItem.basePrice,.productBillingItem.basicPrice,completeDate
+					<tr *ngFor="let relatedOrder of _orderDetail.Items.relatedOrders">
+						<td>{{relatedOrder.orderCode}}</td>
+						<td>实例名称{{relatedOrder.orderCode}}</td>
+						<td>{{relatedOrder.productType}}</td>
+						<td>配置{{relatedOrder.productType}}</td>
+						<td>{{relatedOrder.billingMode}}</td>
+						<td class="font-green">{{relatedOrder.status}}</td>
 						<td>
 							<ul>
 								<li>一次性费用：￥30</li>

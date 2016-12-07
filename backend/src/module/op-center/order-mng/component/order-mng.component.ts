@@ -26,7 +26,7 @@ export class OrderMngComponent implements OnInit{
 	private _orderStatus:DicLoader = null;
 	private _orderLoader:ItemLoader<SubInstanceResp> = null;
 	private _billinModeDic:DicLoader = null;
-    private _buyerListLoader:ItemLoader<{id:string;name:string}> = null;//订购人列表
+    private _buyerLoader:ItemLoader<{id:string;name:string}> = null;//订购人列表
 	//退订
 	private _isCanceled:boolean = false;
 	private _cancelHandler:ItemLoader<any> = null;
@@ -54,7 +54,7 @@ export class OrderMngComponent implements OnInit{
 
 		this._billinModeDic = new DicLoader(restApiCfg, restApi, "BILLING_MODE", "TYPE");
 
-		this._buyerListLoader = new ItemLoader<{id:string;name:string}>(false,"订购人列表","op-center.order-mng.buyer-list.get",restApiCfg,restApi);
+		this._buyerLoader = new ItemLoader<{id:string;name:string}>(false,"订购人列表","op-center.order-mng.buyer-list.get",restApiCfg,restApi);
 		//退订
 		this._cancelHandler = new ItemLoader<any>(false, "退订", "op-center.order-mng.order-cancel.get", restApiCfg, restApi);
 
@@ -245,7 +245,7 @@ export class OrderMngComponent implements OnInit{
 	}
 //根据部门加载订购人
 	loadBuyer(){
-		this._buyerListLoader.Go(null,[{key:"departmentId",value:this._param.organization}])
+		this._buyerLoader.Go(null,[{key:"departmentId",value:this._param.organization}])
 		.then(success=>{
 			this._param.buyerId = null;
 		})
@@ -283,6 +283,7 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	showDetail(orderItemId:string){
+	
 		this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderItemId}`);
 	}
 	
