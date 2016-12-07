@@ -66,12 +66,12 @@
   float: right;
 }
 .clickable {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .selected {
-  color: #fff !important;
-  background-color: #00a982 !important;
+	color: #fff !important;
+	background-color: #00a982 !important;
 }
 .textLeft{
     text-align: left!important;
@@ -121,7 +121,7 @@
     display: inline; 
 }
 .gray-searchbox{
-  background-color: #EFF4F8;
+	background-color: #EFF4F8;
 }
 
 .searchbox-incon{
@@ -132,9 +132,9 @@
 
 
 .chevron-down-bt{
-  display: inline-block;
-  margin-top:3px; 
-  color: #00a982;
+	display: inline-block;
+	margin-top:3px; 
+	color: #00a982;
 }
 .chevron-down-bt-second{
     position: relative;
@@ -142,45 +142,84 @@
     left: -19px;
 }
 
-.basePanel{
-  width: 1200px;
-  height: 580px;
- 
-}
-.localPanel{
- height: 250px!important;
-}
 .ht300{
     height: 300px!important;                      
 }
+.wt280{width: 280px!important;}
 .infoContent{
   width:700px;
   margin-top: 30px; 
 }
 .infoContent button{
-  margin-right: -15px; 
+	margin-right: -15px; 
 }
-.basePanel button.active{
-  background-color: #00a982;
-  color: #fff;
+.infoContent button.active{
+	background-color: #00a982;
+	color: #fff;
+}
+.uploadImg{
+  margin-top: 75px;
+}
+.uploadImg span{
+	color:  #C1CACA;
+	font-size: 18px;
+  
+}
+.imgPanel{
+	width:412px;
+    height: 300px;
+    border:1px solid #000;
 }
 
+.uploadImg span:first-child{
+	color:  #C1CACA;
+	font-size: 18px;
+	position: relative;
+    top: 150px;
+    left: 0px;
+}
+.uploadImg .title span{
+	font-size: 16px;
+    color: #000;
+}
+
+.uploadImg .title .cheron-icon{
+    position: relative;
+    top: 0px;
+    font-size: 14px;
+}
+.uploadImg span{
+	position: relative;
+    left: -280px;
+    font-size: 25px;
+    top: 7px;
+    color: #CACACA;
+}
+.uploadImg button{
+	color: #CACACA;
+	font-size: 18px;
+}
+.buttonPanel{
+	width: 1200px;
+	text-align: center;
+    margin-top:50px; 
+}
 .gray-larger-bg{
-  padding:  25px 160px ;
+	padding:  25px 160px ;
 
 }
 .smaller-bt{
-  padding:  2px 20px ;
+	padding:  2px 20px ;
 }
 .green-delete-bt{
     padding: 10px 3px;
-  background-color: #00a982;
-  border-color: #00a982;
+	background-color: #00a982;
+	border-color: #00a982;
 }
 .green-delete-bt i{
-  border: 1px solid #fff;
-  width: 20px;
-  display: block;
+	border: 1px solid #fff;
+	width: 20px;
+	display: block;
 }
 .green-add-bt{
     padding: 1px 3px;
@@ -188,7 +227,7 @@
     border-color: #00a982;
 }
 .green-add-bt i{
-  border: 1px solid #fff;
+	border: 1px solid #fff;
     width: 20px;
     display: inline-block;
     position: relative;
@@ -202,51 +241,51 @@
     left: 11px;
 }
 .gray-smaller-bt{
-  background-color: #C1CACA;
-  color: #fff;
+	background-color: #C1CACA;
+	color: #fff;
 }
 .green-smaller-bt{
-  background-color:#00a982; 
-  color: #fff;
+	background-color:#00a982; 
+	color: #fff;
 }
 .disabled-smaller-bt{
-  background-color:#fff; 
-  color: #000;
+	background-color:#fff; 
+	color: #000;
 }
 .disabled-smaller-bt:hover{
     cursor: auto;
 }
 .validateInfo{
-  color: #00a982;
-  font-family: "微软雅黑";
-  margin-left: 20px; 
+	color: #00a982;
+	font-family: "微软雅黑";
+	margin-left: 20px; 
 }
 .warnInfo{
-  color: red;
+	color: red;
 }
 .setProdPanel{
-  height: 400px;
-  margin-bottom:50px; 
+	height: 400px;
+	margin-bottom:50px; 
 }
 .checkProdPanel{
-  height: 300px;
+	height: 300px;
     margin-bottom: 30px;
     margin-top: 30px;
     margin-left: 50px;
     margin-right: 90px;
 }
 .titlePanel{
-  width: 100%;
-  height: 50px;
-  background-color:#EFF4F8;
-  padding-top: 10px;
+	width: 100%;
+	height: 50px;
+	background-color:#EFF4F8;
+	padding-top: 10px;
     padding-left: 20px;
 }
 .titlePanel span{
-  font-size: 15px;
+	font-size: 15px;
 }
 .green-border{
-  border: 1px solid #CFD8E7;
+	border: 1px solid #CFD8E7;
 }
 .contentPanel{
     margin: 10px;
@@ -255,24 +294,24 @@
    text-align: center;
 }
 .table-thead{
-  background-color: #EFEFEF;
+	background-color: #EFEFEF;
 }
 .info-title{
-  font-size: 18px;
-  border-bottom: 2px solid #CFD8E7;
-  padding-top: 10px;
+	font-size: 18px;
+	border-bottom: 2px solid #CFD8E7;
+	padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 10px;
 }
 .sm-container{
-  width: 350px;
+	width: 350px;
     height: 150px;
     background-color: #CFD8E7;
     margin-left: 50px;
     margin-top: 10px;
 }
 .sm-container:first-child{
-  margin-left:0;
+	margin-left:0;
 }
 .baseContainer .container{
     padding-left: 5px!important;
@@ -283,6 +322,13 @@
     margin-right: 10px;
 }
 
+/*.enterprise-content-header{
+	height: 40px;
+	padding: 10px;
+	font-size: 18px;
+	font-weight: bold;
+	border-bottom: solid 1px #C1CACA;
+}*/
 .dialogContent{
     width: 500px;
     position: relative;
@@ -296,8 +342,18 @@
 .hands:hover{
     cursor: pointer;
 }
+
+.basePanel{
+  width: 1200px;
+  height: 580px;
+ 
+}
+.localPanel{
+ height: 250px!important;
+}
+
 .secondPanel{
-  height:350px;
+  height:520px;
 }
 
 .centerPanel{
@@ -309,4 +365,4 @@
     left: 990px;
     top: 355px;
     }
-    
+

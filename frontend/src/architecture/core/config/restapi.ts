@@ -224,6 +224,21 @@ export let RestApis: RestApiModel[] = [
     },
     //费用中心-订单管理-->
 
+    //订单查询
+    {
+        "desc": "查询订单",
+        "method": "POST",
+        "id": "op-center.order-search.list.post",
+        "url": "marketplace/authsec/subinstance/subscription/orderlist"        
+    },
+    {
+        "desc": "查询订单详情",
+        "method": "GET",
+        "id": "op-center.order-search.detail.get",
+        "url": "marketplace/authsec/subinstance/{subinstanceCode}/orderDetail"        
+    },
+    //订单查询
+
     //用户中心
     //个人账户管理
     {
