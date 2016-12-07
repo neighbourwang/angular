@@ -55,7 +55,7 @@ export class ClMngCreStep1Component implements OnInit {
         console.log('init');
         //this.layoutService.show();
 
-        //获取云平台类型
+        //获取云平台类型列表
         this.commonService.getPlatFormTypes()
             .then(
             res => this.platformTypes = res
@@ -144,6 +144,7 @@ export class ClMngCreStep1Component implements OnInit {
         }
         this.platformTypes[index].isSelected = true;
         this.creStep1Model.platformType = item.value;
+        console.log(item);
         this.creStep1Model.version='';
         this.commonService.getVersion(item.code).then(
             res => {
