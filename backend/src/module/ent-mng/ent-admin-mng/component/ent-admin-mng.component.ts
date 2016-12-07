@@ -43,7 +43,7 @@ export class EntAdminMngComponent implements OnInit {
 
 
     admins: Admin[]; //当前企业的所有管理员
-    enterprise: Enterprise; //当前企业
+    enterprise: Enterprise =new Enterprise(); //当前企业
 
     statusDic: Array<SystemDictionary>; //用户状态字典
     authDic: Array<SystemDictionary>; //认证模式字典
