@@ -4,13 +4,13 @@
 <div class="page-content">
     <div class="mgb20" style="margin-top:10px">
         <div class="pull-left mgr20">
-            <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedDc=defaultDc;selectedPfi = defaultPlatform" >
+            <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedDc=defaultDc;selectedPfi = defaultPlatform" style="line-height:34px;padding:6px 12px;width:80px">
                 <option [ngValue]="defaultRegion">地域</option>
                 <option *ngFor="let region of regionList" [ngValue]="region">{{region.region}}</option>
             </select>
         </div>
-        <div class="pull-left  mgr20" style="width:120px">
-            <select class="form-control" [(ngModel)]="selectedDc" (change)="selectedPfi = defaultPlatform; queryOpt.dataCenter = selectedDc.id">
+        <div class="pull-left  mgr20" >
+            <select class="form-control" [(ngModel)]="selectedDc" (change)="selectedPfi = defaultPlatform; queryOpt.dataCenter = selectedDc.id" style="line-height:34px;padding:6px 12px;width:120px">
                 <option [ngValue]="defaultDc">数据中心</option>
                 <option *ngFor="let dc of selectedRegion.dataCenters" [ngValue]="dc">{{dc.dcName}}</option>
             </select>
@@ -120,6 +120,7 @@
 
 <!--同步弹出框内容-->
 <fc-popup #synEnts title="{{title}}" ot="提交" (of)="commitSynTe()" ct="取消" (cf)="cancelCommitSynTe()">
+    <div style="max-height: 400px; overflow: auto;">
        <div class="table-container">
             <table class="table table-hover">
                 <thead>
@@ -130,12 +131,14 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let tenant of tenants">
-                    <td><input type="checkbox" class="foc-cloud-checkbox" [checked]="tenant.selected" (change)="tenant.selected = $event.target.checked"></td>
-                    <td>{{tenant.name}}</td>
+                    <td >
+                        <input type="checkbox" class="foc-cloud-checkbox" [checked]="tenant.selected" (change)="tenant.selected = $event.target.checked"></td>
+                    <td style="text-align: left; padding-left: 10px;">{{tenant.name}}</td>
                 </tr>
                 </tbody>
             </table>
             </div>
+    </div>
 </fc-popup> 
 
 
