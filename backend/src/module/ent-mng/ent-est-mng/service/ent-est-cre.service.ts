@@ -399,6 +399,18 @@ export class EntEstCreService{
 		return this.restApi.request(api.method, api.url, [], [], target);
 	}
 
+	//测试AD信息
+	testAD(entEst:EntEst): Promise<any> {
+		let api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.test");
+		const body = {
+			"password": entEst.BasicInfo.password,
+			"url": entEst.BasicInfo.certUrl,
+			"userName": entEst.BasicInfo.contactorName
+		};
+
+		return this.restApi.request(api.method, api.url, null, null, body);
+	}
+
 	//修改企业配额
 	updateEntQuota(entQuota:EntEstCreResourceQuota)
 	{

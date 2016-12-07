@@ -16,14 +16,20 @@ export class EntEstCreComponent implements OnInit{
 	@ViewChild('notice')
     notice: NoticeComponent;
 
+	noticeTitle = "";
+    noticeMsg = "";
+
 	private entEst: EntEst = null;
 	private currencyTypes : Array<SystemDictionary> = null;
 	private resourceQuotas: Paging<ResourceQuota> = new Paging<ResourceQuota>();
 	private isLocal:boolean = true;
 
+    private flag: string = "";
+
 	constructor(
 		private router: Router,
 		private service: EntEstCreService,
+		private layoutService: LayoutService,
 		private sysDicService: SystemDictionaryService
 		){
 
@@ -214,7 +220,27 @@ export class EntEstCreComponent implements OnInit{
 
 	}
 
-
-
+    //测试AD信息
+	testAD(): any {
+		this.layoutService.show();
+		this.service.testAD(this.entEst).then(res => {
+			this.layoutService.hide();
+			if (res && res.resultCode == "100") {
+				console.log(res, "AD测试成功");
+				this.flag = "true";
+			} else {
+				console.log('AD测试失败');
+				//this.showMsg("AD测试失败");
+				this.flag = "false";
+				return;
+			}
+		})
+		.catch(err => {
+			console.log('AD测试异常', err);
+			this.layoutService.hide();
+			//this.showMsg("AD测试失败");
+			this.flag = "false";
+		});
+	}
 
 }
