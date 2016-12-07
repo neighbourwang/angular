@@ -31,24 +31,21 @@
     <div class="row mgb20" style="margin-left:20%;">
          
         <div class="col-md-4 ">
+            <div style="text-align: center; font-weight: bold;">可选企业</div>
             <div style="max-height: 400px; overflow: auto;">
-            <table class="table table-hover" style="border: 1px solid #cfd8e7;table-layout:fixed">
-                <thead>
-                    <tr>
-                        <th style="width:260px">可选企业</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let enterprise of unselectedEnterprise;">
-                        <td style="text-align:left;padding-left:30px">
-                            <label><input type="checkbox" name="unselected" [checked]="enterprise.selected" (change)="enterprise.selected=$event.target.checked;" class="fox-cloud-checkbox" />
-                            {{enterprise.com}}
-                            </label>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                <table class="table table-hover" style="border: 1px solid #cfd8e7;table-layout:fixed">
+                    <tbody>
+                        <tr *ngFor="let enterprise of unselectedEnterprise;">
+                            <td style="text-align:left;padding-left:30px">
+                                <label>
+                                    <input type="checkbox" name="unselected" [checked]="enterprise.selected" (change)="enterprise.selected=$event.target.checked;" class="fox-cloud-checkbox" />
+                                    {{enterprise.com}}
+                                </label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div  class="col-md-2 text-center">
             <div class="mgb10 mgt15">
@@ -66,23 +63,21 @@
         </div>
        
         <div class="col-md-4 ">
-             <div style="max-height: 400px; overflow: auto;">
-            <table class="table table-hover" style="border: 1px solid #cfd8e7;">
-                <thead>
-                    <tr>
-                        <th style="width:260px">选中企业</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let enterprise of selectedEnterprise;">
-                        <td style="text-align:left;padding-left:30px">
-                            <label><input type="checkbox" name="selected" [checked]="enterprise.selected" (change)="enterprise.selected=$event.target.checked;" class="fox-cloud-checkbox" />
-                            {{enterprise.com}}</label>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            <div style="text-align: center; font-weight: bold;">选中企业</div>
+            <div style="max-height: 400px; overflow: auto;">
+                <table class="table table-hover" style="border: 1px solid #cfd8e7;">
+                    <tbody>
+                        <tr *ngFor="let enterprise of selectedEnterprise;">
+                            <td style="text-align:left;padding-left:30px">
+                                <label>
+                                    <input type="checkbox" name="selected" [checked]="enterprise.selected" (change)="enterprise.selected=$event.target.checked;" class="fox-cloud-checkbox" />
+                                    {{enterprise.com}}
+                                </label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
     </div>
     </div>
 </div>
