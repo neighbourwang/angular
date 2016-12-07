@@ -115,11 +115,7 @@ export class RestApi {
             body = {};
         }
         
-        if (body.resultCode && body.resultCode != 100) {
-            return Promise.reject(undefined);
-        } else {
-            return Promise.resolve(body);
-        }
+        return Promise.resolve(body);
     }
 
     private handleError(error: any) {
