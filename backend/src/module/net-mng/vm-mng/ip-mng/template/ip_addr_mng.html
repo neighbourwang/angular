@@ -1,8 +1,8 @@
 <div class="page-content-header icon-cloud-network-mngOn">
-    VMWare网络
+    VMware网络
 </div>
 <div class="page-content">
-    
+
     <table class="table table-hover ">
         <thead>
             <tr>
@@ -46,10 +46,10 @@
         <button class="fox-cloud-button fox-cloud-button-green" (click)="setupIPs()">设置IP地址范围</button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="ipUsageMngPage()">管理IP地址</button>
         -->
-        
+
         <button class="fox-cloud-button fox-cloud-button-green" (click)="setupIPs()" [disabled]="!selectedipmng.subnetCIDR">设置IP地址范围</button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="ipUsageMngPage()" [disabled]="!selectedipmng.subnetCIDR || !selectedipmng.ipCount || selectedipmng.ipCount == '0'">管理IP地址</button>
-        
+
     </div>
 
     <div class="table-container">
@@ -103,7 +103,7 @@
 
 
 <fc-popup #subnetbox ot="确认" ct="取消" title="设置IP子网" (of)="acceptSubnetModify()" (cf)="cancelSubnetModify()">
-	
+
 	<div class="dialogContent">
 			<div class="row row-line-height">
 				<div class="form-group">
@@ -149,7 +149,7 @@
 </fc-popup>
 
 <fc-popup #ipsbox ot="确认" ct="取消" title="设置IP地址范围" (of)="acceptIPsModify()" (cf)="cancelIPsModify()">
-	
+
 	<div class="dialogContent">
 			<div class="row row-line-height">
 				<div class="form-group">

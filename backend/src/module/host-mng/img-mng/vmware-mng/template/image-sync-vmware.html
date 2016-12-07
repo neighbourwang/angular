@@ -43,7 +43,10 @@
                     </td>
                     <td>
                         <div *ngIf="syncimg.syncResult==0">
-                            <input type="text" class="form-control" [(ngModel)]="syncimg.os" />
+                            <!--<input type="text" class="form-control" [(ngModel)]="syncimg.os" /> -->
+                            <select [(ngModel)]="syncimg.os">
+                                <option *ngFor="let os of this.osDict" [value]="os.value">{{os.displayValue}}</option>
+                            </select>
                         </div>
                         <div *ngIf="syncimg.syncResult!=0">
                             {{syncimg.os}}

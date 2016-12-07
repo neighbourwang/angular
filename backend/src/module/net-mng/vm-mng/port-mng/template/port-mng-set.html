@@ -1,4 +1,4 @@
-﻿<div class="page-content-header icon-cloud-network-mngOn">Vmvare网络</div>
+﻿<div class="page-content-header icon-cloud-network-mngOn">VMware网络</div>
 <div class="page-content">
     <label >端口组资源分配——设置企业</label>
     <div class="table-container mgt5 mgb20">
@@ -26,12 +26,12 @@
         </table>
     </div>
 
-    
+
     <div style="margin-left:13%;"><label><span class="asterisk">*</span>选择企业：</label></div>
-   
-           
+
+
     <div class="row mgb20" style="margin-left:20%;">
-        <div class="col-md-4 " style="max-height: 400px; overflow: auto;">
+        <div class="col-md-4 ">
             <table class="table table-hover" style="border: 1px solid #cfd8e7;">
                 <thead>
                     <tr>
@@ -40,7 +40,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let enterprise of unselectedEnterprise;">
-                        <td style="text-align: left; padding-left: 10px;">
+                        <td>
                             <label><input type="checkbox" name="unselected" [checked]="enterprise.selected" (change)="enterprise.selected=$event.target.checked;" class="fox-cloud-checkbox" />{{enterprise.com}}</label>
 </td>
                     </tr>
@@ -61,7 +61,7 @@
                 </button>
             </div>
         </div>
-        <div class="col-md-4" style="max-height: 400px; overflow: auto">
+        <div class="col-md-4 ">
             <table class="table table-hover" style="border: 1px solid #cfd8e7;">
                 <thead>
                     <tr>
@@ -70,14 +70,14 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let enterprise of selectedEnterprise;">
-                        <td style="text-align: left; padding-left: 10px;">
+                        <td>
                             <label><input type="checkbox" name="selected" [checked]="enterprise.selected" (change)="enterprise.selected=$event.target.checked;" class="fox-cloud-checkbox" />{{enterprise.com}}</label>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-    </div>       
+    </div>
 </div>
 <div class="text-center">
     <button (click) ="gotoPortMng()"  class="fox-cloud-button-lg fox-cloud-button-white" >
