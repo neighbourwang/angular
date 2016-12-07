@@ -44,7 +44,9 @@ class Platform {
   "name": string;
   "platforms": Array<Platform>;
   "resource":Resource;
-  
+  constructor(){
+    this.resource=new Resource;
+  }
 }
 class Resource {
     "disk": number;

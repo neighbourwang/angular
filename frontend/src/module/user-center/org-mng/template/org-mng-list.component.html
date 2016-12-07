@@ -161,7 +161,7 @@
 	</tr>
 </tbody></table>
 
-<div class="modal fade" id="crModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!--<div class="modal fade" id="crModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
 	<div class="modal-content">
 	  <div class="modal-header">
@@ -176,8 +176,14 @@
 		<button type="button" class="btn btn-default button-size-big" data-dismiss="modal">取消</button>
 	  </div>
 	</div>
+
   </div>
-</div>
+</div>-->
+<fc-popup  #creOrgPop title="{{title}}" ot="{{isEdit==false?'创建':'保存'}}" (of)="createOrg();" ct="取消" (cf)="ccf()">
+    <div class="row row-line-height">
+         <org-mng-cr *ngIf="true" #crModel [isEdit]="isEdit" [editId]="editId"></org-mng-cr>    
+    </div>
+</fc-popup>
 
 <fc-confirm  #confirm   title="{{confirmTitle}}"  msg="{{confirmMessage}}"  (cf)="confirmOk()"></fc-confirm>
 
