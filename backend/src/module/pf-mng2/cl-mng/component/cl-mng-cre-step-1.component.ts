@@ -55,7 +55,7 @@ export class ClMngCreStep1Component implements OnInit {
         console.log('init');
         //this.layoutService.show();
 
-        //获取云平台类型
+        //获取云平台类型列表
         this.commonService.getPlatFormTypes()
             .then(
             res => this.platformTypes = res
@@ -101,21 +101,29 @@ export class ClMngCreStep1Component implements OnInit {
     }
     //
     otcreate() {
-        this.router.navigate(["pf-mng2/cl-mng/cre-step2",{'type':this.creStep1Model.platformType}]);
+        this.service.crPlatForm(this.creStep1Model).then(
+            res => {
+                this.idService.setPlatformId(res.resultContent);
+                this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);
+            }
+        ).catch(
+            err => {
+                console.error('error');
+                this.notice.open('错误', '创建云平台错误');
+            }
+            )
     }
     next() {
         let message: String = this.checkValue();
         if (this.checkValue()) {
             this.notice.open('错误', message);
+        } else if (this.creStep1Model.platformType == '0') {
+            this.regionSelect.open('创建云平台：选取Region')
         } else {
             this.service.crPlatForm(this.creStep1Model).then(
                 res => {
                     this.idService.setPlatformId(res.resultContent);
-                    if (this.creStep1Model.platformType == '0') {
-                        this.regionSelect.open('创建云平台：选取Region')
-                    } else {
-                        this.router.navigate(["pf-mng2/cl-mng/cre-step2",{'type':this.creStep1Model.platformType}]);
-                    }
+                    this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);
                 }
             ).catch(
                 err => {
@@ -136,7 +144,8 @@ export class ClMngCreStep1Component implements OnInit {
         }
         this.platformTypes[index].isSelected = true;
         this.creStep1Model.platformType = item.value;
-
+        console.log(item);
+        this.creStep1Model.version='';
         this.commonService.getVersion(item.code).then(
             res => {
                 this.platformVersion = res
