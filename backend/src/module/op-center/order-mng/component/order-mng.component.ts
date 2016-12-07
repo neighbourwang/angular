@@ -269,6 +269,7 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	showDetail(orderItemId:string){
+	
 		this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderItemId}`);
 	}
 	
