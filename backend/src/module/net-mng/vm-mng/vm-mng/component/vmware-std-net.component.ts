@@ -159,6 +159,10 @@ export class VmwareStdNetComponent implements OnInit {
             this.showAlert("请选择网络");
             return false;
         }
+        if (selectedNet.status == "1") {
+            this.showAlert("启用状态下不能编辑！");
+            return;
+        }
         let cstdnet = new StdNet();
         cstdnet.id = selectedNet.id;
         cstdnet.dcId = selectedNet.dcId;
@@ -346,6 +350,10 @@ export class VmwareStdNetComponent implements OnInit {
         const selectedNet = this.filternets.find((stdnet) => { return stdnet.selected });
         if (!selectedNet) {
             this.showAlert(`请先选择需要删除的标准网络！`);
+            return;
+        }
+        if (selectedNet.status == "1") {
+            this.showAlert("启用状态下不能删除！");
             return;
         }
         this.noticeTitle = "删除网络";

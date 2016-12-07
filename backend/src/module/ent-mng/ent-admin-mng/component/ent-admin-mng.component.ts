@@ -3,7 +3,8 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import {
     LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, PopupComponent, SystemDictionary,
-    SystemDictionaryService } from "../../../../architecture";
+    SystemDictionaryService
+} from "../../../../architecture";
 
 import { Admin } from "../model/admin.model";
 
@@ -43,7 +44,7 @@ export class EntAdminMngComponent implements OnInit {
 
 
     admins: Admin[]; //当前企业的所有管理员
-    enterprise: Enterprise =new Enterprise(); //当前企业
+    enterprise: Enterprise; //当前企业
 
     statusDic: Array<SystemDictionary>; //用户状态字典
     authDic: Array<SystemDictionary>; //认证模式字典
@@ -76,17 +77,17 @@ export class EntAdminMngComponent implements OnInit {
         //    });
         this.sysDicService.getItems("USER", "STATUS")
             .then(
-                (systemDictionarys) => {
-                    this.statusDic = systemDictionarys;
-                    return this.sysDicService.getItems("AUTHENTICATION", "MODE");
-                }
+            (systemDictionarys) => {
+                this.statusDic = systemDictionarys;
+                return this.sysDicService.getItems("AUTHENTICATION", "MODE");
+            }
             )
             .then(
-                (systemDictionarys) => {
-                    this.authDic = systemDictionarys;
-                    this.getData();
-                    this.getEnterpriseById(this.eid);
-                });
+            (systemDictionarys) => {
+                this.authDic = systemDictionarys;
+                this.getData();
+                this.getEnterpriseById(this.eid);
+            });
     }
 
     ////获取用户状态字典
@@ -136,15 +137,15 @@ export class EntAdminMngComponent implements OnInit {
         this.layoutService.show();
         this.service.getEnterpriseById(id)
             .then(
-                response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
 
-                        this.enterprise = response["resultContent"];
-                    } else {
-                        this.showAlert("Res sync error");
-                    }
+                    this.enterprise = response["resultContent"];
+                } else {
+                    this.showAlert("Res sync error");
                 }
+            }
             )
             .catch((e) => this.onRejected(e));
     }
@@ -173,27 +174,27 @@ export class EntAdminMngComponent implements OnInit {
             if (selectAdmin.length == 1) {
                 this.service.deleteAdmin(selectAdmin[0].id)
                     .then(response => {
-                            this.layoutService.hide();
-                            if (response && 100 == response["resultCode"]) {
-                                //删除成功
-                                this.getData();
-                            } else {
-                                alert("Res sync error");
-                            }
+                        this.layoutService.hide();
+                        if (response && 100 == response["resultCode"]) {
+                            //删除成功
+                            this.getData();
+                        } else {
+                            alert("Res sync error");
                         }
+                    }
                     )
                     .catch((e) => this.onRejected(e));
             } else {
                 this.service.deleteAdmins(selectAdmin)
                     .then(response => {
-                            this.layoutService.hide();
-                            if (response && 100 == response["resultCode"]) {
-                                //删除成功
-                                this.getData();
-                            } else {
-                                alert("Res sync error");
-                            }
+                        this.layoutService.hide();
+                        if (response && 100 == response["resultCode"]) {
+                            //删除成功
+                            this.getData();
+                        } else {
+                            alert("Res sync error");
                         }
+                    }
                     )
                     .catch((e) => this.onRejected(e));
             }
@@ -222,13 +223,13 @@ export class EntAdminMngComponent implements OnInit {
             this.layoutService.show();
             this.service.updateAdminStatus(selectAdmin, status)
                 .then(response => {
-                        this.layoutService.hide();
-                        if (response && 100 == response["resultCode"]) {
-                            this.getData();
-                        } else {
-                            alert("Res sync error");
-                        }
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.getData();
+                    } else {
+                        alert("Res sync error");
                     }
+                }
                 )
                 .catch((e) => this.onRejected(e));
         };
@@ -241,15 +242,15 @@ export class EntAdminMngComponent implements OnInit {
         this.layoutService.show();
         this.service.getEnterpriseAdmins(this.eid, this.pageIndex, this.pageSize)
             .then(
-                response => {
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.layoutService.hide();
-                        this.setData(response);
-                    } else {
-                        alert("Res sync error");
-                    }
+                    this.setData(response);
+                } else {
+                    alert("Res sync error");
                 }
+            }
             )
             .catch((e) => this.onRejected(e));
     }
@@ -260,7 +261,7 @@ export class EntAdminMngComponent implements OnInit {
         this.tp = ret.pageInfo.totalPage;
     }
 
-   
+
 
     //编辑管理员
     editAdmin() {
@@ -298,15 +299,15 @@ export class EntAdminMngComponent implements OnInit {
         }
         this.service.resetPassword(selectAdmin)
             .then(
-                response => {
+            response => {
+                this.layoutService.hide();
+                if (response && "100" == response["resultCode"]) {
                     this.layoutService.hide();
-                    if (response && "100" == response["resultCode"]) {
-                        this.layoutService.hide();
-                        this.showAlert("密码重置成功");
-                    } else {
-                        alert("Res sync error");
-                    }
+                    this.showAlert("密码重置成功");
+                } else {
+                    alert("Res sync error");
                 }
+            }
             )
             .catch((e) => this.onRejected(e));
     }
@@ -317,6 +318,7 @@ export class EntAdminMngComponent implements OnInit {
         } else {
             this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-cre/enterprise/${this.eid}`);
         }
+
         //this.crAccountModel.open();
     }
 
@@ -360,9 +362,9 @@ export class EntAdminMngComponent implements OnInit {
         this.showAlert("获取数据失败！");
     }
 
-    nof() {}
+    nof() { }
 
-    cof() {}
+    cof() { }
 
-    ccf() {}
+    ccf() { }
 }

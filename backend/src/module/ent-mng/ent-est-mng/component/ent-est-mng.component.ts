@@ -504,10 +504,16 @@ export class EntEstMngComponent implements OnInit {
   }
 
   //管理认证源
-  setupCerts(){
-    if(this.getSelected())
-    {
+  setupCerts() {
+      let selectItem = this.getSelected();
+      if (!selectItem) {
+          this.showMsg("请选择企业");
+          return;
+      }
+      if (selectItem.authMode != CertMethod.AD) { //caozhongying 这个地方需要增加一个属性
+          this.showMsg("只有AD认证企业才可以设置认证源");
+          return;
+      }
       this.router.navigateByUrl(`ent-mng/attest-mng/attest-mng/${this.getSelected().enterpriseId}`);
-    }
   }
 }
