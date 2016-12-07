@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../../architecture';
 
-//model 
+//model
 import { Enterprise } from '../model/enterprise.model';
 import { PortMngModel } from "../model/port.model";
 import { DCModel } from "../model/dc.model";
@@ -27,7 +27,7 @@ export class PortMngComponent implements OnInit {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private service: PortMngService,
-        private layoutService: LayoutService,
+        private layoutService: LayoutService
     ) {
 
 
