@@ -446,29 +446,6 @@ export class EntEstCreService{
 	}
 
 
-   
-	//更新企业认证信息
-	updateEntCert(entBasicInfo:EntEstBasicInfo){
-		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.updateauth");
-
-		let localParams = [
-		{
-			key:"_enterpriseId"
-			,value:entBasicInfo.id
-		}
-		]
-		let target:any = {
-			"authMode": null,//前台未提供
-			"id": entBasicInfo.id,
-			"password": entBasicInfo.password,
-			"url": entBasicInfo.certUrl,
-			"userName": entBasicInfo.contactorName
-		};
-
-		return this.restApi.request(api.method, api.url, localParams, [], target);
-
-	}
-
 	//更新企业状态：启用，禁用，删除
 	//0: Initial; 1: Active; 2: Suspend; 3: Cancelled, 4: Deleted.
 
