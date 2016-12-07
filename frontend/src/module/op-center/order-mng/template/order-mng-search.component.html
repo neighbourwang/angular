@@ -1,4 +1,4 @@
-
+<fc-notice #notice ot="确认"></fc-notice>
 <div class="OrderSearch">	
 	<div class="page-content-header mgb20 ">订单查询</div>
 	<div class="page-content mgt20">
@@ -99,7 +99,7 @@
 						<td>{{item.submitPeople}}</td>
 						<td>{{item.departmentName}}</td>
 						<td class="left-td">
-							<button class="mgr20  button-gray-gradient" data-toggle="modal" data-target="#searchDetail">详&nbsp;&nbsp;&nbsp;情</button>
+							<button class="mgr20  button-gray-gradient" data-toggle="modal" data-target="#searchDetail" (click)="showDetail(item.orderId)">详&nbsp;&nbsp;&nbsp;情</button>
 							<button class="button-gray-gradient" data-toggle="modal" data-target="#cancelOrder">撤&nbsp;&nbsp;&nbsp;单</button>
 							
 						</td>
@@ -107,6 +107,7 @@
 				</tbody>
 			</table>
 		</div>
+
 	</div>
 
 

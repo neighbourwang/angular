@@ -2,7 +2,7 @@
 import { Input,Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent, DicLoader,ItemLoader,RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import { AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam,SubInstanceResp,SubInstanceItemResp,SearchOrderItem} from '../model'
+import { SearchOrderDetail, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam,SubInstanceResp,SubInstanceItemResp,SearchOrderItem} from '../model'
 
 import * as _ from 'underscore';
 @Component({
@@ -28,16 +28,22 @@ export class OrderMngSearchComponent implements OnInit{
 	
 	private _orderLoader:ItemLoader<SearchOrderItem> = null;
 	private _entId:string = "191af465-b5dc-4992-a5c9-459e339dc719";
+
+	private _orderDetail:ItemLoader<SearchOrderDetail> = null;
 	
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
-			//配置部门列表加载
+
+		//获取订单详情
+		this._orderDetail = new ItemLoader<SearchOrderDetail>(false, "订单详情", "op-center.order-search.detail.get", restApiCfg, restApi);
+
+		//配置部门列表加载
 		this._departmentLoader = new ItemLoader<DepartmentItem>(false, '部门列表', "op-center.order-mng.department-list.get", this.restApiCfg, this.restApi);
 
-			//订购人加载
+		//订购人加载
 		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, '部门列表', "op-center.order-mng.buyer-list.get", this.restApiCfg, this.restApi);
 
 		//产品类型配置
@@ -139,19 +145,7 @@ export class OrderMngSearchComponent implements OnInit{
 			this._param.organization = null;
 		});
 	}
-	//翻译订单状态及产屏类型
-	updateStatusName(){
-		let list:Array<SubInstanceItemResp> = []
-		
-		list.map(n=>{
-			let item = this._orderStatus.Items.find(m=>m.value == n.status);
-			if(item) n.statusName = item.displayValue as string;
-
-			item = this._productTypeLoader.Items.find(m=>m.value == n.serviceType.toString());
-			if(item) n.serviceTypeName = item.displayValue as string;
-		});
-
-	}
+	
 
 	search(pageNumber:number = 1){
 		this.layoutService.show();
@@ -170,8 +164,6 @@ export class OrderMngSearchComponent implements OnInit{
 		.then(success=>{
 			this.layoutService.hide();
 
-			//翻译状态
-			this.updateStatusName();
 		},err=>{
 			this.layoutService.hide();
 		});
@@ -186,7 +178,7 @@ export class OrderMngSearchComponent implements OnInit{
 	onEndTimeChange($event){
 		this._param.expireDate = $event.formatted;
 	}
-showMsg(msg: string)
+	showMsg(msg: string)
 	{
 		this._notice.open("系统提示", msg);
 	}
@@ -199,6 +191,19 @@ showMsg(msg: string)
         "url": " /marketplace/authsec/subscription/instance/{_subId}/cancel"        
     }
 */
+	}
+
+	showDetail(orderId:string)
+	{
+		this.layoutService.show();
+		this._orderDetail.Go(null, [{key:"subinstanceCode", value:orderId}])
+		.then(success=>{
+			this.layoutService.hide();
+		})
+		.catch(err=>{
+			this.layoutService.hide();
+			this.showMsg(err);
+		})
 	}
 	
 }
