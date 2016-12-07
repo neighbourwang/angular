@@ -49,9 +49,9 @@ export class OpenstackMngService{
                 value: platformId
             }
         ];
-        //  const api = this.restApiCfg.getRestApi('host-mng.openstack-mng.image.tenantlist');
-        // return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return Tenants_mock});
+        const api = this.restApiCfg.getRestApi('host-mng.openstack-mng.image.tenantlist');
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return Tenants_mock});
     }
     saveEditImage(image:Image): Promise<any>{
         const pathParams = [

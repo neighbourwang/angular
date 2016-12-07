@@ -1,6 +1,6 @@
 ﻿import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params} from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../../architecture';
 
@@ -27,8 +27,9 @@ export class PortMngComponent implements OnInit {
         private router: Router,
         private service: PortMngService,
         private layoutService: LayoutService,
+        private router2:ActivatedRoute
     ) {
-
+        
 
     }
     noticeTitle = "";
@@ -47,14 +48,21 @@ export class PortMngComponent implements OnInit {
     allPorts: Array<PortMngModel>;
     filterPorts: Array<PortMngModel>;
    
+    platformId:string;
+
     ngOnInit() {
+        this.router2.params.forEach((params: Params) => {
+			this.platformId = params['pid'];
+			console.log("接收的platform_id:" + this.platformId);
+			
+		});
         this.getDcList();
         this.getData();
     }
 
     getData() {
         this.layoutService.show();
-        this.service.getData()
+        this.service.getData(this.platformId)
             .then(
             response => {
                 this.layoutService.hide();
@@ -71,7 +79,7 @@ export class PortMngComponent implements OnInit {
 
     getDcList() {
         this.layoutService.show();
-        this.service.getDCList()
+        this.service.getDCList(this.platformId)
             .then(
                 response => {
                     this.layoutService.hide();
@@ -102,12 +110,15 @@ export class PortMngComponent implements OnInit {
 
 
     gotoSetPage() {
-        const port = this.filterPorts.find((p) => { return p.selected; });
-        if (!port) {
-            this.showAlert("请先选择需要设置的企业的端口组");
-            return;
+        if(this.filterPorts){
+            const port = this.filterPorts.find((p) => { return p.selected; });
+            if (!port) {
+                this.showAlert("请先选择需要设置的企业的端口组");
+                return;
+            }
+            //this.router.navigate([`net-mng/vm-mng-dbt/port-mng-set/${port.switchId}`]);
+            this.router.navigate(['net-mng/vm-mng-dbt/port-mng-set', {"platform_id": this.platformId,"switchId":port.switchId}]);
         }
-        this.router.navigate([`net-mng/vm-mng-dbt/port-mng-set/${port.switchId}`]);
     }
 
     showAlert(msg: string): void {

@@ -6,12 +6,13 @@ import { RestApi, RestApiCfg, LayoutService, NoticeComponent, PopupComponent, Co
 import { OpenstackService } from '../service/openstack.service';
 import { Network_Syn } from '../model/network-syn.model';
 import { Network } from '../model/network.model';
+import { SelectedTenantListService } from '../service/selected-tenant-list.service';
 
 @Component({
 	selector: "openstack-synchr-net",
 	templateUrl: "../template/OpenStack-synchr-net.html",
 	styleUrls: [],
-	providers: []	
+	providers: [SelectedTenantListService]	
 }
 	)
 export class OpenstackSynchrNetComponent implements OnInit{
@@ -20,7 +21,8 @@ export class OpenstackSynchrNetComponent implements OnInit{
         private router2: Router,
 		private service: OpenstackService ,
 		private layoutService: LayoutService,
-		private dicService: SystemDictionaryService
+		private dicService: SystemDictionaryService,
+        private tenantService: SelectedTenantListService
 	){
 
 	}
@@ -67,10 +69,26 @@ export class OpenstackSynchrNetComponent implements OnInit{
 			console.log("接收的platform_id:" + this.platform_id);
             console.log("接收的platformName:" + this.platformName);
 			this.getSynList(this.platform_id);
+            this.filter();
 		});
 		
 	}
 
+    filter(){
+        if(this.synNetworks){
+            let tNameList = this.tenantService.getList();
+            let flag:boolean = false;
+            this.synNetworks = this.synNetworks.filter((s)=>{
+                
+                tNameList.forEach((t)=>{
+                    if(t.name == s.tenantName){
+                        flag = true;
+                    }
+                })
+                return flag;
+            });
+        }
+    }
 	getSynList(platform_id:string):void {
 		this.layoutService.show();
         this.service.getSynNetworks(platform_id)

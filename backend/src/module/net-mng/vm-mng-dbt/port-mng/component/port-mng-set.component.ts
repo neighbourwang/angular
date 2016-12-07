@@ -1,6 +1,6 @@
 ﻿import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../../architecture';
 
@@ -22,17 +22,13 @@ export class PortMngSetComponent implements OnInit {
         private router: Router,
         private service: PortMngSetService,
         private layoutService: LayoutService,
-        activatedRouter: ActivatedRoute
+        private router2: ActivatedRoute,
     ) {
-        if (activatedRouter.snapshot.params["id"]) {
-            this.pid = activatedRouter.snapshot.params["id"] || "";
-        } else {
-            this.pid = "1";
-        }
-
+        
     }
 
-    pid: string;
+    switchId: string;
+    platformId: string;
     selectedEnterprise: Array<Enterprise>;
     unselectedEnterprise: Array<Enterprise>;
     ports: Array<PortMngModel>;
@@ -45,12 +41,20 @@ export class PortMngSetComponent implements OnInit {
 
     ngOnInit() {
         console.log('init');
+         this.router2.params.forEach((params: Params) => {
+			this.platformId = params['platform_id'];
+            this.switchId = params['switchId'];
+			console.log("接收的platform_id:" + this.platformId);
+            console.log("接收的switchId:" + this.switchId);
+			
+		});
         this.getData();
     }
 
     getData() {
         this.layoutService.show();
-        this.service.getData(this.pid)
+       
+        this.service.getData(this.switchId)
             .then(
             response => {
                 this.layoutService.hide();
@@ -65,6 +69,7 @@ export class PortMngSetComponent implements OnInit {
             }
             )
             .catch((e) => this.onRejected(e));
+
     }
 
     moveToRight() {
@@ -91,7 +96,7 @@ export class PortMngSetComponent implements OnInit {
 
     saveEnterpriseGroup() {
         this.layoutService.show();
-        this.service.saveEnterpirseGroup(this.selectedEnterprise, this.pid)
+        this.service.saveEnterpirseGroup(this.selectedEnterprise, this.switchId)
             .then(
             response => {
                 this.layoutService.hide();
@@ -108,7 +113,8 @@ export class PortMngSetComponent implements OnInit {
 
 
     gotoPortMng() {
-        this.router.navigate([`net-mng/vm-mng-dbt/port-mng`]);
+        //this.router.navigate([`net-mng/vm-mng-dbt/port-mng/${this.platformId}`]);
+        this.router.navigate(['net-mng/vm-mng-dbt/port-mng', {"platform_id": this.platformId}]);
     }
 
     showAlert(msg: string): void {

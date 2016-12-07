@@ -21,7 +21,7 @@ export class CheckCenterParam{
 		this.serviceTypeNum = null;//产品类型
 		this.startDateStr = null;//开始时间
 		this.endDateStr = null;//结束时间
-		this.checkUserIdStr = null;
+		this.checkUserIdStr = null; //审批人
 	}
 }
 
