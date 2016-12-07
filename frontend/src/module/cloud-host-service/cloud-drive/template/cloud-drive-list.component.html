@@ -103,14 +103,14 @@
                     <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" [attr.aria-labelledby]="'dropdownMenu'+(index+3)">
-                        <!-- <li><a (click)="handleVm('start', vm, '启动')" href="javascript:">启动</a></li> -->
-                        <!-- <li><a (click)="handleVm('stop', vm)" href="javascript:">停止</a></li> -->
-                        <!-- <li><a (click)="handleVm('pause', vm, '暂停')" href="javascript:">暂停</a></li> -->
-                        <!-- <li><a (click)="handleVm('unpause', vm , '开始')" href="javascript:">开始</a></li> -->
-                        <!-- <li><a (click)="handleVm('resume', vm)" href="javascript:">恢复</a></li> -->
-                        <!-- <li><a (click)="handleVm('hardReboot', vm , '硬重启')" href="javascript:">硬重启</a></li> -->
-                        <!-- <li><a (click)="handleVm('softReboot', vm , '软重启')" href="javascript:">软重启</a></li> -->
-                        <!-- <li><a (click)="handleVm('suspend', vm)" href="javascript:">挂起</a></li> -->
+                        <li><a (click)="handleDist('mount', dist, '挂载云硬盘')" href="javascript:">挂载</a></li>
+                        <li><a (click)="handleDist('unmount', dist, '卸载云硬盘')" href="javascript:">卸载</a></li>
+                        <!-- <li><a (click)="handleDist('pause', vm, '暂停')" href="javascript:">暂停</a></li> -->
+                        <!-- <li><a (click)="handleDist('unpause', vm , '开始')" href="javascript:">开始</a></li> -->
+                        <!-- <li><a (click)="handleDist('resume', vm)" href="javascript:">恢复</a></li> -->
+                        <!-- <li><a (click)="handleDist('hardReboot', vm , '硬重启')" href="javascript:">硬重启</a></li> -->
+                        <!-- <li><a (click)="handleDist('softReboot', vm , '软重启')" href="javascript:">软重启</a></li> -->
+                        <!-- <li><a (click)="handleDist('suspend', vm)" href="javascript:">挂起</a></li> -->
                     </ul>
                 </div>
             </td> 
