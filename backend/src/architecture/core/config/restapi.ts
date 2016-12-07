@@ -43,7 +43,7 @@ export let RestApis: RestApiModel[] = [
     {
         "desc": "获取平台regiongs列表",
         "id": "pf.cre.step.01.paltformRegins.get",
-        "method": "POST",
+        "method": "GET",
         "url": "adminui/authsec/regions"
     },
     {

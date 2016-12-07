@@ -172,12 +172,6 @@ export let RestApis: RestApiModel[] = [
         "url": "basis/authsec/adm/organization/enterprise/{enterpriseId}"        
     }
     ,{
-        "desc": "订购人列表获取",
-        "method": "GET",
-        "id": "op-center.order-mng.buyer-list.get",
-        "url": "basis/"        
-    }
-    ,{
         "desc": "区域获取",
         "method": "GET",
         "id": "op-center.order-mng.platform-list.get",
@@ -388,7 +382,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取当前登录人企业可用资源",
         "id": "user-center.org-mng.currEntResoure.get",
         "method": "GET",
-        "url": "adminui/authsec/enterprise/{id}/resouce/quota/detail"
+        "url": "adminui/authsec/enterprise/{id}/resouces/quotas/page/{page}/size/{size}"
     },
     
     // 审批中心

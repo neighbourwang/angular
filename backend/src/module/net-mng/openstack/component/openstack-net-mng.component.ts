@@ -110,7 +110,6 @@ export class OpenstackNetMngComponent implements OnInit {
                     this.layoutService.hide();
                     this.networks = response.resultContent;
                     this.totalPage = response.pageInfo.totalPage;
-                    this.selectedNetwork= new Network();
                 } else {
                     alert("Res sync error");
 
@@ -158,7 +157,7 @@ export class OpenstackNetMngComponent implements OnInit {
     networkStart(){
 
        
-        if(!this.selectedNetwork || !this.selectedNetwork.id){
+        if(!this.selectedNetwork){
             this.showAlert("请先选中一个网络");
         }else{
             this.noticeTitle = "启用网络";
@@ -179,7 +178,6 @@ export class OpenstackNetMngComponent implements OnInit {
                                 if (response && 100 == response["resultCode"]) {
                                     this.showAlert("启用成功");
                                     this.getNetworkList();
-                                    this.selectedNetwork= new Network();
                                 } else {
                                     alert("Res sync error");
                                 }
@@ -195,9 +193,8 @@ export class OpenstackNetMngComponent implements OnInit {
     }
     //禁用网络
     networkStop(){
-        //console.log("this.selectedNetwork.id="+this.selectedNetwork.id);
-        if(!this.selectedNetwork || !this.selectedNetwork.id){
-            this.showAlert("请先选中一个网络");
+        if(!this.selectedNetwork){
+                    this.showAlert("请先选中一个网络");
         }else{
             this.noticeTitle = "禁用网络";
             this.noticeMsg = `您选择禁用 '${this.selectedNetwork.subnetName}?'网络，其网段为${this.selectedNetwork.segmentCIDR}?' ， 
@@ -213,7 +210,6 @@ export class OpenstackNetMngComponent implements OnInit {
                                 if (response && 100 == response["resultCode"]) {
                                     this.showAlert("禁用成功");
                                     this.getNetworkList();
-                                    this.selectedNetwork= new Network();
                                 } else {
                                     alert("Res sync error");
                                 }
@@ -278,11 +274,10 @@ export class OpenstackNetMngComponent implements OnInit {
 
 //选择企业
     getTenants(){
-         let platform_id = this.selectedPfi.platformId;
-        //let platformName = this.selectedNetwork.platformName;
+         let platform_id = this.selectedNetwork.platformId;
+        let platformName = this.selectedNetwork.platformName;
         console.log("选中的platform_id：" + platform_id);
-        
-        if(this.selectedPfi==this.defaultPlatform || !platform_id || platform_id == ""){
+        if(!platform_id || platform_id==""){
             this.showAlert("请先选则平台");
         }else{
            
