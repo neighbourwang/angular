@@ -115,7 +115,7 @@ export class PortMngComponent implements OnInit {
     }
 
     gotoVm() {
-        this.router.navigate([`net-mng/vm-mng/vmware/vmware-std-net/${this.pid}`]);
+        this.router.navigate([`net-mng/vm-mng/${this.pid}`]);
     }
 
     showAlert(msg: string): void {
