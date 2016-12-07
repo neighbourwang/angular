@@ -224,19 +224,19 @@ const menu: Array<Object> = [
          "icon": "icon-order-manage",
          "top2_menu": [
           {
-              "label": "Openstack网络",
+              "label": "OpenStack网络",
                  "isOpen": false,
                  "isActive": false,
                  "routing": "net-mng/openstack/openstack-net-mng"
              },
          {
-              "label": "VmWare网络",
+              "label": "VMware网络",
                  "isOpen": false,
                  "isActive": false,
                  "routing": "net-mng/vm-mng/88"
           },
          {
-              "label": "VmWare分布式网络",
+              "label": "VMware分布式网络",
                  "isOpen": false,
                  "isActive": false,
                  "routing": "net-mng/vm-mng-dbt/index/88"
@@ -290,7 +290,7 @@ const menu: Array<Object> = [
                  "isOpen": false,
                  "isActive": false,
                  "routing": "host-mng/img-mng/img-index"
-             }, 
+             },
          ]
      }
 ];
