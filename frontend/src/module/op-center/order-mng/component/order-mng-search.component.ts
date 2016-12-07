@@ -1,4 +1,4 @@
-	
+
 import { Input,Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent, DicLoader,ItemLoader,RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
@@ -29,8 +29,9 @@ export class OrderMngSearchComponent implements OnInit{
 	private _orderLoader:ItemLoader<SearchOrderItem> = null;
 	private _entId:string = "191af465-b5dc-4992-a5c9-459e339dc719";
 
-	private _orderDetail:ItemLoader<SearchOrderDetail> = null;
-	
+	private _orderDetailLoader:ItemLoader<SearchOrderDetail> = null;
+
+	private _orderDetail:SearchOrderDetail = null;	
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -38,7 +39,7 @@ export class OrderMngSearchComponent implements OnInit{
 		private restApi:RestApi){
 
 		//获取订单详情
-		this._orderDetail = new ItemLoader<SearchOrderDetail>(false, "订单详情", "op-center.order-search.detail.get", restApiCfg, restApi);
+		this._orderDetailLoader = new ItemLoader<SearchOrderDetail>(false, "订单详情", "op-center.order-search.detail.get", restApiCfg, restApi);
 
 		//配置部门列表加载
 		this._departmentLoader = new ItemLoader<DepartmentItem>(false, '部门列表', "op-center.order-mng.department-list.get", this.restApiCfg, this.restApi);
@@ -196,9 +197,10 @@ export class OrderMngSearchComponent implements OnInit{
 	showDetail(orderId:string)
 	{
 		this.layoutService.show();
-		this._orderDetail.Go(null, [{key:"subinstanceCode", value:orderId}])
+		this._orderDetailLoader.Go(null, [{key:"subinstanceCode", value:orderId}])
 		.then(success=>{
 			this.layoutService.hide();
+			$('#searchDetail').modal('show');
 		})
 		.catch(err=>{
 			this.layoutService.hide();

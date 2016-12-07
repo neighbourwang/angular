@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, } from '@angular/core';
+import { Component, OnInit, ViewChild, Input} from '@angular/core';
 import { Router } from '@angular/router';
 import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
-import { OrderDetailItem } from '../model';
+import { SearchOrderDetail } from '../model';
 
 @Component({
   // moduleId: module.id,
@@ -11,7 +11,8 @@ import { OrderDetailItem } from '../model';
   providers: []
 }) 
 export class OrderMngSearchDetailComponent implements OnInit {
-  
+  @Input('detail')
+  private _detail:SearchOrderDetail;
 
   constructor(
     private layoutService: LayoutService,
