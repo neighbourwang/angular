@@ -17,21 +17,21 @@
             </tr>
         </thead>
     </table>
-    <div class="mgt15 ">
-		<span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 数据中心(DC)名称：</span>
-        <div class="float-left pdr20">
-            <select class="form-control" [(ngModel)]="selectedDC" (change)="selectedVDS=defaultVDS" >
-                <option [ngValue]="defaultDC">所有</option>
-                <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
-            </select>
-        </div>
-        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 分布式交换机名称(VDS)：</span>
-        <div class="float-left pdr20">
-            <select class="form-control" [(ngModel)]="selectedVDS">
-                <option [ngValue]="defaultVDS">所有</option>
-                <option *ngFor="let vds of selectedDC.switchList" [ngValue]="vds">{{vds.switchName}}</option>
-            </select>
-        </div>
+    <div class="mgb20 form-inline mgt15">
+        <label class="pdr10 ">
+            数据中心(DC)名称:
+        </label>
+        <select class="pdl20 pdr20 form-control" [(ngModel)]="selectedDC" (change)="selectedVDS=defaultVDS" >
+            <option [ngValue]="defaultDC">所有</option>
+            <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
+        </select>
+        <label class="pdr10 pdl20">
+            分布式交换机名称(VDS)：
+        </label>
+        <select class="pdl20 pdr20 form-control" [(ngModel)]="selectedVDS">
+            <option [ngValue]="defaultVDS">所有</option>
+            <option *ngFor="let vds of selectedDC.switchList" [ngValue]="vds">{{vds.switchName}}</option>
+        </select>
 		<button type="button" class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="filter(); selectedDC=defaultDC; selectedDC.dcId=''; selectedVDS=defaultVDS; selectedVDS.switchId='';"> 确定</button>
     </div>
     <div style="clear:both"></div>
