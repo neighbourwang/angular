@@ -81,7 +81,7 @@
                     </td>
                     <td>{{img.os}}</td>
                     <td>{{getDicText(img.bitsType, this.bitDict)}}</td>
-                    <td>{{img.capacity}}</td>
+                    <td>{{showCapacity(img.capacity)}}</td>
                     <td>{{getDicText(img.type, this.typeDict)}}</td>
                     <td [ngSwitch]="displayIt(img.tenants)">
                         <div *ngSwitchCase="'some'" class="tenants-c">详细>>
@@ -123,7 +123,7 @@
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-12">
-					    您选择启用 ' {{selectedimg.displayName}} ' ， 请确认；如果确认，用户将能够在订购中选择此镜像。
+					    您选择启用 ' {{selectedimg.displayName || "image"}} ' ， 请确认；如果确认，用户将能够在订购中选择此镜像。
 					</div>
 				</div>
 			</div>
@@ -135,7 +135,7 @@
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-12">
-                        您选择禁用 ' {{selectedimg.displayName}} ' ， 请确认；如果确认，用户将不能在订购中选择此镜像。
+                        您选择禁用 ' {{selectedimg.displayName || "image"}} ' ， 请确认；如果确认，用户将不能在订购中选择此镜像。
 					</div>
 				</div>
 			</div>

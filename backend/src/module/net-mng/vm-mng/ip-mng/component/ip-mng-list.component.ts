@@ -217,6 +217,7 @@ export class IpMngListComponent implements OnInit{
                     console.log(this.subnetInfo, "this.subnetInfo")
                     this.ippool.subnetCIDR = this.subnetInfo.subnetCIDR;
                     this.ippool.gateway = this.subnetInfo.gateway;
+                    this.ippool.subnetMask = this.subnetInfo.subnetMask;
                     this.ippool.ips = this.subnetInfo.range;
                     if(!this.ippool.ips){
                         console.log("No ips from response!");
@@ -280,10 +281,10 @@ export class IpMngListComponent implements OnInit{
                 })
                 .catch(err => {
                     console.log('clicked acceptIPsModify 6');
-                    console.log('设置IP地址范围失败', err);
+                    console.log('设置IP地址范围异常', err);
                     this.layoutService.hide();
                     this.ipsbox.close();
-                    this.showMsg("设置IP地址范围,请检查填入项");
+                    this.showMsg("设置IP地址范围异常");
                     this.okCallback = () => { 
                         this.ipsbox.open();  };
                 })
@@ -325,10 +326,10 @@ export class IpMngListComponent implements OnInit{
                 })
                 .catch(err => {                    
                     console.log('clicked acceptSubnetModify 6');
-                    console.log('设置IP子网,请检查填入项', err);
+                    console.log('设置IP子网异常', err);
                     this.layoutService.hide();
                     this.subnetbox.close();
-                    this.showMsg("设置IP子网,请检查填入项");
+                    this.showMsg("设置IP子网异常");
                     this.okCallback = () => { this.subnetbox.open(); };
                 })
         }        
@@ -412,10 +413,17 @@ export class IpMngListComponent implements OnInit{
                 , 'value': this.ippool.ipstr
                 , "op": "*"
             },
+            /*
             {
                 "name": "IP地址范围"
                 , 'value': [this.ippool.ipstr, this.ippool.subnetCIDR]
                 , "op": "ipscope"
+            },
+            */
+            {
+                "name": "IP地址范围"
+                , 'value': [this.ippool.ipstr, this.ippool.subnetCIDR, this.ippool.subnetMask]  //need subnetMask
+                , "op": "ipscopepermask"
             }
             ].find(n => this.ipService.validate(n.name, n.value, n.op) !== undefined)        
         //console.log(notValid, "notValid!!!")
@@ -477,8 +485,10 @@ export class IpMngListComponent implements OnInit{
             {
                 "name": "子网信息"
                 , 'value': this.subn.subnetCIDR
-                , "op": "cidr"
+                , "op": "ip"
+                //, "op": "cidr"
             },
+            /*
             {
                 "name": "网关地址"
                 , 'value': [this.subn.gateway, this.subn.subnetCIDR]
@@ -488,6 +498,12 @@ export class IpMngListComponent implements OnInit{
                 "name": "子网掩码"
                 , 'value': [this.subn.subnetMask, this.subn.subnetCIDR]
                 , "op": "maskinsubnet"
+            },
+            */
+            {
+                "name": "网关地址"
+                , 'value': [this.subn.gateway, this.subn.subnetCIDR, this.subn.subnetMask]
+                , "op": "gatewayinsubnetandmask"
             },
             //*/
             ].find(n => this.ipService.validate(n.name, n.value, n.op) !== undefined)        
