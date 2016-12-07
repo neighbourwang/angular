@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent ,PopupComponent} from '../../../../architecture';
 
 import { OrgMngCrComponent } from './org-mng-cr.component';
 //service
@@ -30,6 +30,9 @@ export class OrgMngListComponent implements OnInit {
   @ViewChild('notice')
   private notice: NoticeComponent;
 
+  @ViewChild('creOrgPop')
+  private creOrgPop: PopupComponent;
+
   @ViewChild('crModel')
   private crModel: OrgMngCrComponent;
 
@@ -56,7 +59,7 @@ export class OrgMngListComponent implements OnInit {
   entResourceObj=new EntResource();
   ngOnInit() {
     this.getCurEntId();
-    this.getOrg(0, this.pp);
+    this.getOrgs(0, this.pp);
   }
   //获取企业ID
   getCurEntId(){
@@ -85,7 +88,7 @@ export class OrgMngListComponent implements OnInit {
       )
   }
 
-  getOrg(page: number, size: number) {
+  getOrgs(page: number, size: number) {
     this.service.getOrg(page, size).then(
       res => {
         this.orgs = res.resultContent;
@@ -101,7 +104,7 @@ export class OrgMngListComponent implements OnInit {
   }
 
   paging(page) {
-    this.getOrg(page, 10);
+    this.getOrgs(page, 10);
   }
 
 
@@ -119,7 +122,8 @@ export class OrgMngListComponent implements OnInit {
         break;
       case 'edit':
         this.isEdit = true;
-        $('#crModel').modal('show')
+        // $('#crModel').modal('show')
+        this.creOrgPop.open('编辑部门');
         break;
       case 'delete':
         console.log('删除');
@@ -143,7 +147,7 @@ export class OrgMngListComponent implements OnInit {
         this.service.enableOrg(this.confirmOrg.id).then(
           res => {
             console.log(res);
-            this.getOrg(0, 10);
+            this.getOrgs(0, 10);
           }
         ).catch(
           err => {
@@ -155,7 +159,7 @@ export class OrgMngListComponent implements OnInit {
         this.service.deleteOrg(this.confirmOrg.id).then(
           res => {
             console.log(res);
-            this.getOrg(0, 10);
+            this.getOrgs(0, 10);
           }
         ).catch(
           err => {
@@ -167,7 +171,7 @@ export class OrgMngListComponent implements OnInit {
         this.service.disableOrg(this.confirmOrg.id).then(
           res => {
             console.log(res);
-            this.getOrg(0, 10);
+            this.getOrgs(0, 10);
           }
         ).catch(
           err => {
@@ -181,16 +185,19 @@ export class OrgMngListComponent implements OnInit {
   openCreate() {
     console.log('create');
     this.isEdit = false;
-    $('#crModel').modal('show')
+    // $('#crModel').modal('show');
+    this.creOrgPop.open('创建部门');
   };
   //弹出框 点击确认
-  updata() {
+  createOrg() {
     this.crModel.save().then(res => {
                     console.log(res);
                     if (res == false)
                         return;
-                    $('#crModel').modal('hide');
-                    this.getOrg(0, 10);
+                    // $('#crModel').modal('hide');
+
+                    this.creOrgPop.close();
+                    this.getOrgs(0, 10);
                 }
             ).catch(err=>{
                 console.error(err);
@@ -202,4 +209,5 @@ export class OrgMngListComponent implements OnInit {
     }
     
   }
+  ccf(){}
 }

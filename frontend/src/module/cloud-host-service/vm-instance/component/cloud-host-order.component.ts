@@ -71,9 +71,11 @@ export class cloudHostComponentOrder implements OnInit {
 	//把payLoad转换成提交的post对象
 	private payLoadFormat(): PayLoad[] {
 		//特殊处理
+		console.log(this.sendModule.timeline)
 		this.sendModule.timeline.attrValue = parseInt(this.sendModule.timeline.value);
 
 		//临时处理 演示用
+		this.sendModule.storagesize.attrValue = "20";
 		this.sendModule.bootsize.attrValue = "20";
 
 		let payloadList = [],
@@ -106,8 +108,6 @@ export class cloudHostComponentOrder implements OnInit {
 
 		/****下面开始处理数据盘的逻辑****/
 		const storage = this.storage.getData();   //获取数据盘
-
-		console.log(storage, this.payLoad)
 
 
 		return this.payLoadArr;
@@ -165,12 +165,11 @@ export class cloudHostComponentOrder implements OnInit {
 		}
 	}
 	rely(attrName:string):VlueList[] {
-		if(!this.configs[attrName].relyAttrId) return [];
-
 		//根据他的依赖的id获取它自身的list
+		console.count();
+		console.log(attrName)
 		const list = this.configs[attrName].mapValueList[this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId];
-		 //设置sendmodule使它选择第一个
-		if(list.length && this.sendModule[attrName]) this.sendModule[attrName] = list[0];  
+		if(list.length) this.sendModule[attrName] = list[0];   //设置sendmodule
 		return list;
 	}
 

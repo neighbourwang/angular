@@ -2,7 +2,7 @@
 <div class="page-content-header icon-cloud-network-mngOn">
     VMware网络
 </div>
-<div class="page-content">   
+<div class="page-content">
     <table class="table table-hover">
         <thead>
             <tr>
@@ -22,8 +22,8 @@
         <div class="col-md-2">
             <span class="pull-left font-gray mgt5 pdl15">{{pg_name}}</span>
         </div>
-    </div>       
-        
+    </div>
+
 
     <div class="mgb10">
         <button class="fox-cloud-button fox-cloud-button-green" (click)="filter('2')">空闲</button>
@@ -62,7 +62,7 @@
                 <!-- <td [ngClass]="{'font-green':ipusagemng.status=='2','font-orange':ipusagemng.status=='1'}">{{ipusagemng.status}}</td>  -->
                 <td [ngClass]="{'font-green':ipusagemng.status=='2','font-orange':ipusagemng.status=='1'}">{{getDicText(ipusagemng.status,this.statusDic)}}</td>
                 <td>{{displayIt(ipusagemng.description)}}</td>
-                </tr>          
+                </tr>
             </tbody>
         </table>
     </div>
@@ -93,7 +93,7 @@
 </fc-popup>
 
 <fc-popup #disableipbox ot="确认" ct="取消" title="释放IP" (of)="acceptDisableIPModify()" (cf)="cancelDisableIPModify()">
-	
+
 	<div class="dialogContent">
 			<div class="row row-line-height">
 				<div class="form-group">
@@ -103,7 +103,6 @@
 					</div>
 				</div>
 			</div>
-            <!--
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>说明：</div>
@@ -112,6 +111,5 @@
 					</div>
 				</div>
 			</div>
-            -->
 	</div>
 </fc-popup>

@@ -172,12 +172,6 @@ export let RestApis: RestApiModel[] = [
         "url": "basis/authsec/adm/organization/enterprise/{enterpriseId}"        
     }
     ,{
-        "desc": "订购人列表获取",
-        "method": "GET",
-        "id": "op-center.order-mng.buyer-list.get",
-        "url": "basis/"        
-    }
-    ,{
         "desc": "区域获取",
         "method": "GET",
         "id": "op-center.order-mng.platform-list.get",
@@ -217,15 +211,6 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/subscription/instance/{_subId}/price"        
     },
     //费用中心-订单管理-->
-
-    //订单查询
-    {
-        "desc": "查询订单",
-        "method": "POST",
-        "id": "op-center.order-search.list.post",
-        "url": "marketplace/authsec/subinstance/subscription/orderlist"        
-    },
-    //订单查询
 
     //用户中心
     //个人账户管理
@@ -301,12 +286,6 @@ export let RestApis: RestApiModel[] = [
         "id": "user-center.attest-mng.ldap.attest.simple.list",
         "method": "GET",
         "url": "basis/authsec/ldaps/simple"
-    },
-    {
-        "desc": "获取企业认证源列表（下拉框）",
-        "id": "ent-mng.enterprise.ldap.simple.list",
-        "method": "GET",
-        "url": "basis/authsec/enterprise/{enterpriseId}/ldaps/simple"
     },
     {
         "desc": "用户中心 查询符合条件的AD用户",
@@ -403,7 +382,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取当前登录人企业可用资源",
         "id": "user-center.org-mng.currEntResoure.get",
         "method": "GET",
-        "url": "adminui/authsec/enterprise/{id}/resouce/quota/detail"
+        "url": "adminui/authsec/enterprise/{id}/resouces/quotas/page/{page}/size/{size}"
     },
     
     // 审批中心

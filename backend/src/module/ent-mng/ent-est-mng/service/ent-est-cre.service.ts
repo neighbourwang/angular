@@ -58,11 +58,11 @@ export class EntEstCreService{
 		let params = [
 			{
 				key:"_page"
-				,value: 1
+				,value: resourceQuotaPaging.currentPage == 0 ? 1 : resourceQuotaPaging.currentPage
 			}
 			,{
 				key:"_size"
-				,value:200
+				,value:10
 			}
 		];
 
@@ -83,7 +83,7 @@ export class EntEstCreService{
 					obj.regionName = item.regionName;
 					obj.platformVMQuota = item.vmQuota;
 					obj.storageQuota = item.storageQuota;
-					obj.platformId = item.platformId;
+
 				}
 			});
 
@@ -383,7 +383,6 @@ export class EntEstCreService{
 			"userName": entEst.BasicInfo.contactorName,
 			//"isSSL": entEst.BasicInfo.isSSL, //是否进行SSL加密
 			"accountAttribute": entEst.BasicInfo.accountAttribute//登录账户属性名称
-			,"platformIdList": entEst.BasicInfo.platformIds
 		},
 		"quotaList": {
 			"enterpriseId":entEst.ResourceQuota.enterpriseId,
@@ -398,18 +397,6 @@ export class EntEstCreService{
 	};
 
 		return this.restApi.request(api.method, api.url, [], [], target);
-	}
-
-	//测试AD信息
-	testAD(entEst:EntEst): Promise<any> {
-		let api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.test");
-		const body = {
-			"password": entEst.BasicInfo.password,
-			"url": entEst.BasicInfo.certUrl,
-			"userName": entEst.BasicInfo.contactorName
-		};
-
-		return this.restApi.request(api.method, api.url, null, null, body);
 	}
 
 	//修改企业配额

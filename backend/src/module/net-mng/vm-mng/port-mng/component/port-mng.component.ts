@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../../architecture';
 
-//model 
+//model
 import { Enterprise } from '../model/enterprise.model';
 import { PortMngModel } from "../model/port.model";
 import { DCModel } from "../model/dc.model";
@@ -27,7 +27,7 @@ export class PortMngComponent implements OnInit {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private service: PortMngService,
-        private layoutService: LayoutService,
+        private layoutService: LayoutService
     ) {
 
 
@@ -111,11 +111,11 @@ export class PortMngComponent implements OnInit {
             this.showAlert("请先选择需要设置的企业的端口组");
             return;
         }
-        this.router.navigate([`net-mng/vm-mng/port-mng-set/${port.clusterId}`, { platform_id:this.pid}]);
+        this.router.navigate([`net-mng/vm-mng/port-mng-set/${port.clusterId}`]);
     }
 
     gotoVm() {
-        this.router.navigate([`net-mng/vm-mng/${this.pid}`]);
+        this.router.navigate([`net-mng/vm-mng/vmware/vmware-std-net`]);
     }
 
     showAlert(msg: string): void {

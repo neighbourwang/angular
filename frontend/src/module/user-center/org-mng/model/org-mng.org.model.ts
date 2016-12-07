@@ -44,7 +44,9 @@ class Platform {
   "name": string;
   "platforms": Array<Platform>;
   "resource":Resource;
-  
+  constructor(){
+    this.resource=new Resource;
+  }
 }
 class Resource {
     "disk": number;
@@ -55,16 +57,6 @@ class Resource {
     "snapshot": number;
     "storage": number;
     "vcpu":number;
-    constructor(){
-      this.disk=0;
-      this.image=0;
-      this.ipaddress=0;
-      this.physical=0;
-      this.mem=0;
-      this.snapshot=0;
-      this.storage=0;
-      this.vcpu=0;
-    }
   }
 class OrgPer{
       "id": string;

@@ -18,7 +18,7 @@
 					<div class="col-md-2 content-title">可用区</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label
-							*ngFor="let value of rely('zone')"
+							*ngFor="let value of configs.zone.mapValueList[sendModule[getRelyName(configs.zone.relyAttrId)].attrValueId];"
 							(click)="sendModule.zone = value"
 							class="btn btn-default" [ngClass]="{'active': sendModule.zone.attrValueId === value.attrValueId}">
 							<input type="radio" name="zone" autocomplete="off"> {{ value.attrDisplayValue }}
@@ -62,7 +62,7 @@
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 
 						<label
-							*ngFor="let value of rely('cpu')"
+							*ngFor="let value of configs.cpu.mapValueList[sendModule[getRelyName(configs.cpu.relyAttrId)].attrValueId];"
 							(click)="sendModule.cpu = value"
 							class="btn btn-default" [ngClass]="{'active': sendModule.cpu.attrValueId === value.attrValueId}">
 							<input type="radio" name="cpu" autocomplete="off"> {{ value.attrDisplayValue }}
@@ -70,8 +70,10 @@
 					</div>
 					<div class="col-md-2 content-title">内存</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
+						<label class="btn btn-default" *ngIf="!sendModule.cpu.attrValueId">请先选择CPU</label>
+
 						<label
-							*ngFor="let value of rely('mem')"
+							*ngFor="let value of configs.mem.mapValueList[sendModule[getRelyName(configs.mem.relyAttrId)].attrValueId];"
 							(click)="sendModule.mem = value"
 							class="btn btn-default" [ngClass]="{'active': sendModule.mem.attrValueId === value.attrValueId}">
 							<input type="radio" name="mem" autocomplete="off"> {{ value.attrDisplayValue }}
@@ -86,10 +88,9 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">启动源</div>
 					<div class="col-md-10">
-						<p *ngFor="let value of rely('startupsource')"></p> <!-- 这一行必须加上 否则造成切换云平台时候的显示错误 -->
 						<select [(ngModel)]="sendModule.startupsource" class="form-control">
 							<option
-							 *ngFor="let value of rely('startupsource')"
+							 *ngFor="let value of configs.startupsource.mapValueList[sendModule[getRelyName(configs.startupsource.relyAttrId)].attrValueId];"
 							 [ngValue]="value" >{{ value.attrDisplayValue }}</option>
 						</select>
 					</div>
@@ -97,8 +98,9 @@
 					<div class="col-md-10 text-tip">公共镜像即基础操作系统，自定义镜像为企业根据基础操作系统做过额外配置或优化后的操作系统</div>
 					<div class="col-md-2 content-title">镜像类型</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
+						<label class="btn btn-default" *ngIf="!sendModule[getRelyName(configs.imagetype.relyAttrId)].attrValueId">请先选择启动源</label>
 						<label
-							*ngFor="let value of rely('imagetype')"
+							*ngFor="let value of configs.imagetype.mapValueList[sendModule[getRelyName(configs.imagetype.relyAttrId)].attrValueId];"
 							(click)="sendModule.imagetype = value;" class="btn btn-default" [ngClass]="{'active': sendModule.imagetype.attrValueId === value.attrValueId}">
 							<input type="radio" name="imagetype" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
@@ -107,7 +109,7 @@
 					<div class="col-md-10">
 						<select [(ngModel)]="sendModule.os"  class="form-control">
 							<option
-							 *ngFor="let value of rely('os')"
+							 *ngFor="let value of configs.os.mapValueList[sendModule[getRelyName(configs.os.relyAttrId)].attrValueId];"
 							 [ngValue]="value" >{{ value.attrDisplayValue }}</option>
 						</select>
 					</div>
@@ -122,6 +124,7 @@
 						<div class="col-md-2 content-title">启动盘</div>
 						<div class="col-md-10 no-padding">
 							<div class="col-md-3 no-padding">
+								<label class="btn btn-default" *ngIf="!sendModule.zone.attrValueId">请先选择可用区</label>
 								<select
 									*ngIf="sendModule.zone.attrValueId"
 									[(ngModel)]="sendModule.bootstorage" class="form-control">
@@ -144,7 +147,7 @@
 							<div class="col-md-6 content-title2">GB</div>
 						</div>
 					</div>
-					<add-storage #storage [configs]="rely('storage')"></add-storage>
+					<add-storage #storage [configs]="configs.storage.mapValueList[sendModule[getRelyName(configs.storage.relyAttrId)].attrValueId]"></add-storage>
 				</div>
 			</li>
 			<li>

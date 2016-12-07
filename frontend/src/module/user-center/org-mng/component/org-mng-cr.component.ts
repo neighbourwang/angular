@@ -30,11 +30,11 @@ export class OrgMngCrComponent implements OnInit {
    @ViewChild("orgForm")
     'orgForm': NgForm;
 
-  org: Org = new Org();
+  org: Org =new Org();
   members: Array<Member>;
-  ngOnInit() {
+  ngOnInit() {   
     //获取机构成员
-    this.service.getNoMngUser(1, 10).then(
+    this.service.getNoMngUser(1, 9999).then(
       res => {
         console.log('getNoMngUser', res);
         this.members = res.resultContent;
@@ -45,9 +45,14 @@ export class OrgMngCrComponent implements OnInit {
       }
       )
     if (this.isEdit) {
-      console.log('edit 读取接口')
+      console.log('edit 读取接口',this.editId);
+      this.service.getOrgById(this.editId).then(res=>{
+          console.log(res);
+      })
     } else {
       console.log('创建');
+       //
+      this.org== new Org();
     }
   }
   //选择机构成员
@@ -77,8 +82,11 @@ export class OrgMngCrComponent implements OnInit {
   //同步countBar数据
   outputValue(e, arg) {
     console.log(arg);
-    this.org.resource[arg] = e;
+    // this.prodDir.specification[arg] = e;
+    // arg=e;
     console.log(e);
+    // console.log(this.prodDir.specification.mem);
+    // console.log(this.prodDir.specification.vcpu);          
 
   }
   /////////////////////edit   getUserByOrg
