@@ -42,11 +42,16 @@ export class ClMngCommonService {
         return this.restApi.request(api.method , api.url ,undefined , undefined);
     }
 
-    //根据平台类型获得版本
+    //根据平台类型获得版本列表
     private platFormVersion (owner : string){
         let api = this.restApiCfg.getDataRestApi("sysdic.owner.field");
         return this.restApi.request(api.method,api.url,[{key : "_owner",value : owner},{key : "_field", value : "VERSION"}],undefined);
     }
+    // //根据平台类型获得版本列表
+    // private platFormVersion (owner : string){
+    //     let api = this.restApiCfg.getDataRestApi("sysdic.owner.field");
+    //     return this.restApi.request(api.method,api.url,[{key : "_owner",value : owner},{key : "_field", value : "VERSION"}],undefined);
+    // }
 
     //获取平台状态
     private platFormStatus(){
@@ -103,16 +108,17 @@ export class ClMngCommonService {
     }
 
     getVersion(id : string) : Promise<Array<any>>{
-        if(this.version.length == 0){
+        console.log(this.version);
+        // if(this.version.length == 0){
             return this.platFormVersion(id).then(
                 res => {
                     this.version = res.resultContent;
                     return this.version;
                 }
             )
-        }else{
-            return Promise.resolve(this.version);
-        }
+        // }else{
+        //     return Promise.resolve(this.version);
+        // }
     }
 
 
