@@ -63,7 +63,7 @@ export class VmDisIndexComponent implements OnInit {
     editPort: port = new port();
 
     statusDic: Array<SystemDictionary>;//状态
-
+    status_synDic: Array<SystemDictionary>;//同步列表状态
    
 
     ngOnInit() {
@@ -72,8 +72,12 @@ export class VmDisIndexComponent implements OnInit {
       
         this.dicService.getItems("portgroup", "status")
             .then(
-            dic => {
+            (dic) => {
                this.statusDic = dic;
+                return this.dicService.getItems("vmdist","sync");
+            }).then(
+                (dic)=>{
+                this.status_synDic = dic;
                 this.getData();
             });
     }
