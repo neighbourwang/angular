@@ -48,6 +48,7 @@ export class VmwareImgSyncComponent implements OnInit {
     typeDict: Array<SystemDictionary>;//镜像类型
     statusDict: Array<SystemDictionary>;//镜像状态
     bitDict: Array<SystemDictionary>;//os位数
+    osDict: Array<SystemDictionary>;//os类型
     syncReslDict: Array<SystemDictionary>;//同步结果
 
     platformId: string;
@@ -83,6 +84,11 @@ export class VmwareImgSyncComponent implements OnInit {
             .then((dic) => {
                 this.statusDict = dic;
                 console.log(this.statusDict, "statusDict!!!");
+                return this.dicService.getItems("IMAGES", "OS");                
+            })
+            .then((dic) => {
+                this.osDict = dic;
+                console.log(this.osDict, "osDict!!!");
                 this.getVmwareImgSyncList();
             });
 
