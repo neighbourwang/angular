@@ -145,6 +145,7 @@
 .ht300{
     height: 300px!important;                      
 }
+.wt280{width: 280px!important;}
 .infoContent{
   width:700px;
   margin-top: 30px; 
@@ -329,7 +330,7 @@
 	border-bottom: solid 1px #C1CACA;
 }*/
 .dialogContent{
-    width: 800px;
+    width: 500px;
     position: relative;
     left: -30px;
 }
