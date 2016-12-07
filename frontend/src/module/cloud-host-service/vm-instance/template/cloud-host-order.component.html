@@ -17,9 +17,9 @@
 					<div class="col-md-10 text-tip">不同区域之间的产品内网不互通；订购后不支持更换区域，请谨慎选择！</div>
 					<div class="col-md-2 content-title">可用区</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label 
-							*ngFor="let value of configs.zone.mapValueList[sendModule[getRelyName(configs.zone.relyAttrId)].attrValueId];" 
-							(click)="sendModule.zone = value" 
+						<label
+							*ngFor="let value of configs.zone.mapValueList[sendModule[getRelyName(configs.zone.relyAttrId)].attrValueId];"
+							(click)="sendModule.zone = value"
 							class="btn btn-default" [ngClass]="{'active': sendModule.zone.attrValueId === value.attrValueId}">
 							<input type="radio" name="zone" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
@@ -61,9 +61,9 @@
 					<div class="col-md-2 content-title">CPU</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 
-						<label 
-							*ngFor="let value of configs.cpu.mapValueList[sendModule[getRelyName(configs.cpu.relyAttrId)].attrValueId];" 
-							(click)="sendModule.cpu = value" 
+						<label
+							*ngFor="let value of configs.cpu.mapValueList[sendModule[getRelyName(configs.cpu.relyAttrId)].attrValueId];"
+							(click)="sendModule.cpu = value"
 							class="btn btn-default" [ngClass]="{'active': sendModule.cpu.attrValueId === value.attrValueId}">
 							<input type="radio" name="cpu" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
@@ -72,9 +72,9 @@
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label class="btn btn-default" *ngIf="!sendModule.cpu.attrValueId">请先选择CPU</label>
 
-						<label 
-							*ngFor="let value of configs.mem.mapValueList[sendModule[getRelyName(configs.mem.relyAttrId)].attrValueId];" 
-							(click)="sendModule.mem = value" 
+						<label
+							*ngFor="let value of configs.mem.mapValueList[sendModule[getRelyName(configs.mem.relyAttrId)].attrValueId];"
+							(click)="sendModule.mem = value"
 							class="btn btn-default" [ngClass]="{'active': sendModule.mem.attrValueId === value.attrValueId}">
 							<input type="radio" name="mem" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
@@ -99,8 +99,8 @@
 					<div class="col-md-2 content-title">镜像类型</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label class="btn btn-default" *ngIf="!sendModule[getRelyName(configs.imagetype.relyAttrId)].attrValueId">请先选择启动源</label>
-						<label 
-							*ngFor="let value of configs.imagetype.mapValueList[sendModule[getRelyName(configs.imagetype.relyAttrId)].attrValueId];" 
+						<label
+							*ngFor="let value of configs.imagetype.mapValueList[sendModule[getRelyName(configs.imagetype.relyAttrId)].attrValueId];"
 							(click)="sendModule.imagetype = value;" class="btn btn-default" [ngClass]="{'active': sendModule.imagetype.attrValueId === value.attrValueId}">
 							<input type="radio" name="imagetype" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
@@ -125,11 +125,11 @@
 						<div class="col-md-10 no-padding">
 							<div class="col-md-3 no-padding">
 								<label class="btn btn-default" *ngIf="!sendModule.zone.attrValueId">请先选择可用区</label>
-								<select 
-									*ngIf="sendModule.zone.attrValueId" 
+								<select
+									*ngIf="sendModule.zone.attrValueId"
 									[(ngModel)]="sendModule.bootstorage" class="form-control">
 										<option
-										*ngFor="let value of configs.bootstorage.mapValueList[sendModule.zone.attrValueId];" 
+										*ngFor="let value of configs.bootstorage.mapValueList[sendModule[getRelyName(configs.bootstorage.relyAttrId)].attrValueId];"
 										[ngValue]="value" >{{ value.attrDisplayValue }}</option>
 								</select>
 							</div>
@@ -147,7 +147,7 @@
 							<div class="col-md-6 content-title2">GB</div>
 						</div>
 					</div>
-					<add-storage [configs]="configs"></add-storage>
+					<add-storage #storage [configs]="configs.storage.mapValueList[sendModule[getRelyName(configs.storage.relyAttrId)].attrValueId]"></add-storage>
 				</div>
 			</li>
 			<li>
@@ -183,7 +183,7 @@
 
 					<div class="col-md-12 no-padding mb20" *ngIf="setPassword">
 						<div class="col-md-2 content-title">确认密码</div>
-						<div class="col-md-4 no-padding" 
+						<div class="col-md-4 no-padding"
 							[ngClass]="{'has-error': passwordShadow !== sendModule.password.attrValue}">
 
 							<input type="password" class="form-control"  [(ngModel)]="passwordShadow"  placeholder="请再次输入主机密码">
