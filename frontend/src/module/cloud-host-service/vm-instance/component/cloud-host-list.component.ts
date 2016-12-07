@@ -96,9 +96,9 @@ export class cloudHostListComponent implements OnInit {
 	handleVm(key: string, vm: VmList ,msg) {
 		this.layoutService.show();
 
-		this.handleData.uid = "";
 		this.handleData.id = vm.uuid;
 		this.handleData.actions = key;
+		this.handleData.enterpriseIds.platformId = vm.platformId;
 
 		this.service.handleVm(this.handleData).then(res => {
 			this.layoutService.hide();
@@ -110,6 +110,26 @@ export class cloudHostListComponent implements OnInit {
 			},4000)
 		}).catch(error => {
 			this.layoutService.hide();
+		})
+	}
+
+	openConsole(vm: VmList) {
+        let pathParams = [
+            {
+                key: 'platformid',
+                value: vm.platformId
+            },
+            {
+                key: 'enterpriseId',
+                value: "100"
+            },
+            {
+                key: 'uuid',
+                value: vm.uuid
+            }
+        ];
+		this.service.getConsoleUrl(pathParams).then(res => {
+			window.open(res)
 		})
 	}
 

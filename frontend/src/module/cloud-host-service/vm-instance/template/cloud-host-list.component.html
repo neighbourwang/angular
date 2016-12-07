@@ -150,11 +150,14 @@
                         <li><a (click)="handleVm('start', vm, '启动')" href="javascript:">启动</a></li>
                         <!-- <li><a (click)="handleVm('stop', vm)" href="javascript:">停止</a></li> -->
                         <li><a (click)="handleVm('pause', vm, '暂停')" href="javascript:">暂停</a></li>
-                        <li><a (click)="handleVm('unpause', vm , '开始')" href="javascript:">开始</a></li>
+                        <!-- <li><a (click)="handleVm('unpause', vm , '开始')" href="javascript:">开始</a></li> -->
                         <!-- <li><a (click)="handleVm('resume', vm)" href="javascript:">恢复</a></li> -->
                         <li><a (click)="handleVm('hardReboot', vm , '硬重启')" href="javascript:">硬重启</a></li>
                         <li><a (click)="handleVm('softReboot', vm , '软重启')" href="javascript:">软重启</a></li>
                         <!-- <li><a (click)="handleVm('suspend', vm)" href="javascript:">挂起</a></li> -->
+                        <li><a (click)="handleVm('bindFloatingIp', vm, '绑定浮动IP')" href="javascript:">绑定浮动IP</a></li>
+                        <li><a (click)="handleVm('unbindFloatingIp', vm, '解绑浮动IP')" href="javascript:">解绑浮动IP</a></li>
+                        <li><a (click)="openConsole(vm)" href="javascript:">查看控制台</a></li>
                     </ul>
                 </div>
             </td> 

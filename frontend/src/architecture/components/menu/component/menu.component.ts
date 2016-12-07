@@ -74,34 +74,14 @@ const menu: Array<any> = [
         "icon": "icon-cloudhost",
         "top2_menu": [
             {
-                "label": "创建云主机",
-                "isOpen": true,
-                "routing": "cloud-host-service/cloud-host-order"
-            },
-            {
-                "label": "云主机列表",
+                "label": "云主机实例",
                 "isOpen": true,
                 "routing": "cloud-host-service/cloud-host-list"
             },
             {
-                "label": "创建云硬盘",
-                "isOpen": true,
-                "routing": "cloud-host-service/cloud-drive-order"
-            },
-            {
-                "label": "云硬盘列表",
+                "label": "云硬盘",
                 "isOpen": true,
                 "routing": "cloud-host-service/cloud-drive-list"
-            },
-            {
-                "label": "购物车列表",
-                "isOpen": true,
-                "routing": "cloud-host-service/cart-list"
-            },
-            {
-                "label": "订单完成",
-                "isOpen": true,
-                "routing": "cloud-host-service/cart-order"
             },
             {
                 "label": "镜像",
