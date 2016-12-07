@@ -58,7 +58,13 @@ export class ClMngCreStep1Component implements OnInit {
         //获取云平台类型列表
         this.commonService.getPlatFormTypes()
             .then(
-            res => this.platformTypes = res
+            res => {
+                this.platformTypes = res;
+                for (let i = 0; i < this.platformTypes.length; i++) {
+                    this.platformTypes[i].isSelected = false;
+                }
+            }
+
             )
             .catch(
             err => {
@@ -80,24 +86,22 @@ export class ClMngCreStep1Component implements OnInit {
             }
             )
         // this.layoutService.hide();
-        this.getPlatformRegionList();
+
     }
     // 下一步
     ccf() { }
     //获取platformRegionList
     // platFormRegionList:;
     getPlatformRegionList() {
-        this.service.getPlatformRegionList().then(
-            res => {
-                console.log('platFormRegions', res);
-                this.platFormRegionList = res.resultContent;
-            }
-        ).catch(
-            err => {
-                console.error('err');
-                this.notice.open('错误', '平台信息错误');
-            }
-            )
+        let data = {
+            "admin": this.creStep1Model.userName,
+            "domain": null,
+            "endpoint": this.creStep1Model.uri,
+            "password": this.creStep1Model.passwd,
+            "version": this.creStep1Model.version
+        }
+        console.log(data);
+        return this.service.getPlatformRegionList(data)
     }
     //
     otcreate() {
@@ -118,7 +122,29 @@ export class ClMngCreStep1Component implements OnInit {
         if (this.checkValue()) {
             this.notice.open('错误', message);
         } else if (this.creStep1Model.platformType == '0') {
-            this.regionSelect.open('创建云平台：选取Region')
+            this.getPlatformRegionList()
+                .then(
+                res => {
+                    console.log('platFormRegions', res);
+                    this.platFormRegionList = res.resultContent;
+                    this.regionSelect.open('创建云平台：选取Region')
+                }
+                ).catch(
+                err => {
+                    console.error('err');
+                    this.notice.open('错误', '平台信息错误');
+                }
+                )
+            // .then(
+            // res => {
+            //     this.regionSelect.open('创建云平台：选取Region')
+            // }
+            // ).catch(
+            //     err => {
+            //         console.error('err');
+            //         this.notice.open('错误', '获取Regions错误');
+            //     }
+            // )            
         } else {
             this.service.crPlatForm(this.creStep1Model).then(
                 res => {
@@ -145,7 +171,7 @@ export class ClMngCreStep1Component implements OnInit {
         this.platformTypes[index].isSelected = true;
         this.creStep1Model.platformType = item.value;
         console.log(item);
-        this.creStep1Model.version='';
+        this.creStep1Model.version = '';
         this.commonService.getVersion(item.code).then(
             res => {
                 this.platformVersion = res

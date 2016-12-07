@@ -2,6 +2,7 @@ export class ResourceQuota{
 	regionName: string = ""; //区域
     platformVMQuota: number = 0;//可分配云主机数量
     storageQuota: number = 0; //可用存储
+    platformId: string = null;//platform id
 
 	//for ui operation
 	checked: boolean = false;

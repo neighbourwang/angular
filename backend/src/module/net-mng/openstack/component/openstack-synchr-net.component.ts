@@ -145,7 +145,9 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.showAlert("添加成功");
-                    selected.syncResult = "2";
+                    //selected.syncResult = "2";
+                    this.getSynList(this.platform_id);
+                    this.filter();
                 }else{
                      alert("Res sync error");
                 }
@@ -169,9 +171,11 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.showAlert("全部添加成功");
-                    network_syns.forEach((n)=>{
-                        n.syncResult = "2";
-                    })
+                    // network_syns.forEach((n)=>{
+                    //     n.syncResult = "2";
+                    // })
+                    this.getSynList(this.platform_id);
+                    this.filter();
                 }else{
                      alert("Res sync error");
                 }
@@ -189,7 +193,8 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.showAlert("更新成功");
-                    
+                    this.getSynList(this.platform_id);
+                    this.filter();
                 }else{
                     alert("Res sync error");
                 }
@@ -210,6 +215,8 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.showAlert("全部更新成功");
+                    this.getSynList(this.platform_id);
+                    this.filter();
                 }else{
                      alert("Res sync error");
                 }
@@ -227,6 +234,8 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.showAlert("禁用成功");
+                    this.getSynList(this.platform_id);
+                    this.filter();
                 }else{
                     alert("Res sync error");
                 }
@@ -247,6 +256,8 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.showAlert("全部禁用成功");
+                    this.getSynList(this.platform_id);
+                    this.filter();
                 }else{
                      alert("Res sync error");
                 }
