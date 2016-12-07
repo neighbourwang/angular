@@ -223,14 +223,14 @@ console.log(payLoadList,222)
 		this.router.navigateByUrl(url);
 	}
 	buyNow() {
-		// this.layoutService.show();
+		this.layoutService.show();
 		this.checkInput();
 		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
-		// this.service.saveOrder(payLoadArr).then(res => {
-		// 	this.layoutService.hide();
-		// 	this.router.navigateByUrl("cloud-host-service/cart-order");
-		// }).catch(res => {
-		// 	this.layoutService.hide();
-		// })
+		this.service.saveOrder(payLoadArr).then(res => {
+			this.layoutService.hide();
+			this.router.navigateByUrl("cloud-host-service/cart-order");
+		}).catch(res => {
+			this.layoutService.hide();
+		})
 	}
 }
