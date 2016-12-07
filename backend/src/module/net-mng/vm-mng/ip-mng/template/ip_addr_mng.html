@@ -2,7 +2,7 @@
     VMware网络
 </div>
 <div class="page-content">
-    
+
     <table class="table table-hover ">
         <thead>
             <tr>
@@ -18,25 +18,21 @@
         </thead>
     </table>
 
-    <div class="mgt10 mgb20" >
-		<span class="pull-left font-gray mgt5">
-            数据中心(DC)名称：
-        </span>
-        <div class="pull-left mgl15">
-            <select class="form-control" [(ngModel)]="selectedDC" (change)="selectedVDS=defaultVDS" >
-                <option [ngValue]="defaultDC">所有</option>
-                <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
-            </select>
-        </div>
-        <span class="pull-left font-gray mgt5 mgl15">
-            可用区（集群）名称 :
-        </span>
-        <div class="pull-left mgl15">
-            <select class="form-control" [(ngModel)]="selectedVDS">
-                <option [ngValue]="defaultVDS">所有</option>
-                <option *ngFor="let vds of selectedDC.clusters" [ngValue]="vds">{{vds.clusterName}}</option>
-            </select>
-        </div>
+    <div class="mgb20 form-inline mgt15">
+        <label class="pdr10 ">
+            数据中心(DC)名称:
+        </label>
+        <select class="pdl20 pdr20 form-control" [(ngModel)]="selectedDC" (change)="selectedVDS=defaultVDS" >
+            <option [ngValue]="defaultDC">所有</option>
+            <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
+        </select>
+        <label class="pdr10 pdl20">
+            可用区（集群）名称:
+        </label>
+        <select class="pdl20 pdr20 form-control" [(ngModel)]="selectedVDS">
+            <option [ngValue]="defaultVDS">所有</option>
+            <option *ngFor="let vds of selectedDC.clusters" [ngValue]="vds">{{vds.clusterName}}</option>
+        </select>
 		<button type="button" class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="filter(); selectedDC=defaultDC;selectedDC.dcId='';selectedVDS=defaultVDS;selectedVDS.clusterId=''"> 确定</button>
     </div>
 
@@ -46,10 +42,10 @@
         <button class="fox-cloud-button fox-cloud-button-green" (click)="setupIPs()">设置IP地址范围</button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="ipUsageMngPage()">管理IP地址</button>
         -->
-        
+
         <button class="fox-cloud-button fox-cloud-button-green" (click)="setupIPs()" [disabled]="!selectedipmng.subnetCIDR">设置IP地址范围</button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="ipUsageMngPage()" [disabled]="!selectedipmng.subnetCIDR || !selectedipmng.ipCount || selectedipmng.ipCount == '0'">管理IP地址</button>
-        
+
     </div>
 
     <div class="table-container">
@@ -103,7 +99,7 @@
 
 
 <fc-popup #subnetbox ot="确认" ct="取消" title="设置IP子网" (of)="acceptSubnetModify()" (cf)="cancelSubnetModify()">
-	
+
 	<div class="dialogContent">
 			<div class="row row-line-height">
 				<div class="form-group">
@@ -149,7 +145,7 @@
 </fc-popup>
 
 <fc-popup #ipsbox ot="确认" ct="取消" title="设置IP地址范围" (of)="acceptIPsModify()" (cf)="cancelIPsModify()">
-	
+
 	<div class="dialogContent">
 			<div class="row row-line-height">
 				<div class="form-group">

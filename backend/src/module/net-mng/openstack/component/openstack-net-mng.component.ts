@@ -120,23 +120,30 @@ export class OpenstackNetMngComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
     search1() {
-        let tenantName = this.queryOpt.tenantName;
-        this.queryOpt = new CriteriaQuery();
-        this.queryOpt.region = this.selectedRegion.region;
-        this.queryOpt.dataCenter = this.selectedDc.dcName;
-        this.queryOpt.platformId = this.selectedPfi.platformId;
-        this.getNetworkList();
-        this.pager.render(1);
+        if(this.selectedPfi==this.defaultPlatform || !this.selectedPfi.platformId || this.selectedPfi.platformId == ""){
+            this.showAlert("请先选则平台");
+        }else{
+            this.queryOpt = new CriteriaQuery();
+            this.queryOpt.region = this.selectedRegion.region;
+            this.queryOpt.dataCenter = this.selectedDc.dcName;
+            this.queryOpt.platformId = this.selectedPfi.platformId;
+            this.getNetworkList();
+            this.pager.render(1);
+        }
     }
     search2() {
-        let tenantName = this.queryOpt.tenantName;
-        this.queryOpt = new CriteriaQuery();
-        this.queryOpt.region = this.selectedRegion.region;
-        this.queryOpt.dataCenter = this.selectedDc.dcName;
-        this.queryOpt.platformId = this.selectedPfi.platformId;
-        this.queryOpt.tenantName = tenantName;
-        this.getNetworkList();
-        this.pager.render(1);
+        if(this.selectedPfi==this.defaultPlatform || !this.selectedPfi.platformId || this.selectedPfi.platformId == ""){
+            this.showAlert("请先选则平台");
+        }else{
+            let tenantName = this.queryOpt.tenantName;
+            this.queryOpt = new CriteriaQuery();
+            this.queryOpt.region = this.selectedRegion.region;
+            this.queryOpt.dataCenter = this.selectedDc.dcName;
+            this.queryOpt.platformId = this.selectedPfi.platformId;
+            this.queryOpt.tenantName = tenantName;
+            this.getNetworkList();
+            this.pager.render(1);
+        }
     }
 
     resetQueryOpt() {
@@ -171,7 +178,7 @@ export class OpenstackNetMngComponent implements OnInit {
             this.showAlert("请先选中一个网络");
         }else{
             this.noticeTitle = "启用网络";
-            this.noticeMsg = `您选择启用 '${this.selectedNetwork.subnetName}?'网络，其网段为${this.selectedNetwork.segmentCIDR}?' ， 
+            this.noticeMsg = `您选择启用 '${this.selectedNetwork.subnetName}?'网络，其网段为'${this.selectedNetwork.segmentCIDR}?' ， 
                         请确认；如果确认，用户将能够在订购中选择此网络。`
          
             //如果运行状态不是运行中的，则不能启用此网络
@@ -209,7 +216,7 @@ export class OpenstackNetMngComponent implements OnInit {
             this.showAlert("请先选中一个网络");
         }else{
             this.noticeTitle = "禁用网络";
-            this.noticeMsg = `您选择禁用 '${this.selectedNetwork.subnetName}?'网络，其网段为${this.selectedNetwork.segmentCIDR}?' ， 
+            this.noticeMsg = `您选择禁用 '${this.selectedNetwork.subnetName}?'网络，其网段为'${this.selectedNetwork.segmentCIDR}?' ， 
                             请确认；如果确认，用户将不能够在订购中选择此网络。`
             if(this.selectedNetwork.status!='3'){
                 this.confirm.ccf = () => {
@@ -282,7 +289,7 @@ export class OpenstackNetMngComponent implements OnInit {
 
                 }
             }
-            )
+            ) .catch((e) => this.onRejected(e));
     }
 
 //选择企业

@@ -28,12 +28,18 @@
     <div class="clear"></div>
     <div class="mgb20 mgt10">
         <h4 class="pull-left mgr15 ">所属企业:</h4>
-        <div class="pull-left mgr15 col-md-3 " style="position:relative;padding:0">
+        <!--<div class="pull-left mgr15 col-md-3 " style="position:relative;padding:0">
             <span class="glyphicon glyphicon-search form-control-feedback"></span>
             <input type="text" class="form-control " placeholder="输入企业/租户信息搜索" [(ngModel)]="queryOpt.tenantName"/>
         </div>
-        <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" (click)="search2()"> 确定</button>
-        <button type="button" class="fox-cloud-button fox-cloud-button-white" style="height:34px" (click)="resetQueryOpt()"> 重置</button>
+        <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" (click)="search2()"> 确定</button>-->
+        <div class="input-group col-md-2 float-left">
+            <input class="form-control" placeholder="输入企业/租户信息搜索" type="email">
+            <div class="input-group-addon"(click)="search2()"><span class="glyphicon glyphicon-search" ></span></div>
+        </div> 
+
+
+        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="resetQueryOpt()"> 重置</button>
         <div class="dropdown pull-right" style="margin-left:10px">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 更多操作

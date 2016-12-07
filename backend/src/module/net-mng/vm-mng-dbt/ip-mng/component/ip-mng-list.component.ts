@@ -237,12 +237,7 @@ export class IpMngListComponent implements OnInit{
     ipUsageMngPage() {
         let pg = this.getSelected();
         if(pg){
-            this.router.navigate([`net-mng/vm-mng-dbt/ipusage-mng-list`, 
-            {
-                "pg_id": pg.id,
-                "pg_name": pg.switchName,
-                "pid": this.platformId
-            }]);
+            this.router.navigate([`net-mng/vm-mng-dbt/ipusage-mng-list`, { "pg_id": pg.id, "pg_name": pg.switchName}]);
         }        
     }
 

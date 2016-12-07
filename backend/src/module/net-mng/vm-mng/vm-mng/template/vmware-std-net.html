@@ -1,30 +1,30 @@
-﻿
+﻿<div>
 <div class="page-content-header icon-cloud-network-mngOn">
     VMware网络管理
 </div>
 <div class="page-content">
-    <table class="table table-hover">
-        <thead>
+        <table class="table table-hover ">
+            <thead>
             <tr>
-                <th style="text-align:left;">VMware网络管理--管理标准网络 "地区" "数据中心"平台显示名称+URL连接https://192.168.1.1:443</th>
-                <th style="text-align:right;">
-                    <button class="fox-cloud-button fox-cloud-button-white" (click)="gotoVm();">
-                        <span class="icon-button-label">返回上一级</span>
-                    </button>
-                </th>
+                <th style="text-align:left;"> VMWare网络管理--管理标准网络"地区" "数据中心"平台显示名称+URL连接https://192.168.1.1:443</th>
             </tr>
-        </thead>
-    </table>
-    <div class="mgb20 form-inline">
-       <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 数据中心(DC)名称：</span>
-        <select class="float-left pdl20 pdr20 form-control" [(ngModel)]="selectedDC" (change)="selectCluster=defaultCluster;">
+            </thead>
+        </table>
+
+    <div class="mgb20 form-inline mgt15">
+        <label class="pdr10 ">
+            数据中心(DC)名称:
+        </label>
+        <select class="pdl20 pdr20 form-control" [(ngModel)]="selectedDC" (change)="selectCluster=defaultCluster;">
             <option [ngValue]="defaultDc">所有</option>
             <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
         </select>
-        <span class="float-left mgl10" style="display:inline-block;font-size:16px;padding:6px 0">  可用区名称：</span>
-        <select class="float-left pdl20 pdr20 mgr20 form-control" [(ngModel)]="selectCluster">
+        <label class="pdr10 pdl20">
+            可用区名称:
+        </label>
+        <select class="pdl20 pdr20 mgr20 form-control" [(ngModel)]="selectCluster">
             <option [ngValue]="defaultCluster">所有</option>
-            <option *ngFor="let vds of selectedDC.clusters" [ngValue]="vds">{{vds.clusterName}}</option>            
+            <option *ngFor="let vds of selectedDC.clusters" [ngValue]="vds">{{vds.clusterName}}</option>
         </select>
         <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px;" (click)="filter();"> 确定</button>
     </div>
@@ -70,7 +70,7 @@
                 </tr>
             </thead>
             <tbody>
-                
+
                 <tr *ngFor="let stdnet of filternets">
                     <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="stdnet.selected" (change)="selectStdNet(stdnet)"> </td>
                     <td>{{stdnet.dcName}}</td>
@@ -98,12 +98,12 @@
                     </td>
                     <td>{{stdnet.portGroupName}}</td>
                     <td>{{stdnet.vlanId}}</td>
-                    
+
                     <td [ngClass]="stdnet.status==1?'font-green':'font-orange'"> {{getDicText(stdnet.status,this.statusDic)}} </td>
-                   
+
                     <td>{{stdnet.lastUpdate}}</td>
                 </tr>
-                
+
                 <!--getDicText(stdnet.stateDict,this.statusDic)-->
             </tbody>
         </table>
@@ -113,7 +113,7 @@
 
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
 <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
- 
+
 
 <fc-popup #editStdNet title="{{title}}" ot="{{tempEditNet.id==''?'创建':'保存'}}" (of)="saveEditNet(stdnet);" ct="关闭" (cf)="cancelEdit();">
     <div class="row row-line-height">
@@ -130,7 +130,7 @@
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可用区名称：</div>
-            <div class="col-sm-6">               
+            <div class="col-sm-6">
                 <select class="form-control" [(ngModel)]="selectedCluster4Popup">
                     <option [ngValue]="defaultCluster">请选择</option>
                     <option *ngFor="let vds of selectedDC4Popup.clusters" [ngValue]="vds">{{vds.clusterName}}</option>
@@ -163,3 +163,4 @@
         </div>
     </div>
 </fc-popup>
+</div>
