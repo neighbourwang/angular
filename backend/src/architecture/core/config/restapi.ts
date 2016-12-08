@@ -116,7 +116,20 @@ export let RestApis: RestApiModel[] = [
         "desc": "镜像同步",
         "id": "pf.cre.step.02.images.synchronize.get",
         "method": "GET",
-        "url": "adminui/authsec/platform/{pf-id}/images/synchronize"
+        "url": "adminui/authsec/platform/{pf-id}/images/synchronize"        
+    },
+    //update镜像同步
+    {
+        "desc": "镜像同步",
+        "id": "pf.cre.step.images.synchronize.get",
+        "method": "GET",
+        "url": "adminboe/authsec/images/openstack/pub/{id}" 
+    },
+    {
+        "desc": "镜像同步",
+        "id": "pf.cre.step.images.synchronize.post",
+        "method": "POST",
+        "url": "adminboe/authsec/images/openstack/pub/{id}/sync" 
     },
     {
         "desc": "宿主机同步",

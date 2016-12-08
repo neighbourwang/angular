@@ -266,6 +266,12 @@ export let RestApis: RestApiModel[] = [
         "url" : "basis/authsec/mpp/users/page/{page}/size/{size}"
     },
     {
+        "desc" : "用户中心，帐号管理，搜索帐号列表By用户名",
+        "id" : "user-center.search-account.list",
+        "method" : "GET",
+        "url" : "basis/authsec/mpp/users/search/page/{page}/size/{size}"
+    },
+    {
         "desc" : "用户中心，帐号管理，启用帐号",
         "id" : "user-center.account-mng.enableAcc",
         "method" : "PUT",
