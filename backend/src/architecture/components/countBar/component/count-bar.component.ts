@@ -38,12 +38,17 @@ export class CountBarComponent implements OnInit{
     ngOnInit (){
     }
     add() {
-        this.value = +this.value + +this.step;
+        if(!this.disabled){
+            this.value = +this.value + +this.step;
         this.valueChange();
+        }
+        
     }
     subtract() {
-        this.value = this.value - this.step;
+        if(!this.disabled){
+            this.value = this.value - this.step;
         this.valueChange();
+        }        
     }
     valueChange(){
         const beyond = (this.value - this.min)%this.step;

@@ -14,22 +14,21 @@
             </tr>
         </thead>
     </table>
-    <div class="mgb20 form-inline mgt15 ">
-        <label class="pdr10 ">
-            数据中心(DC)名称:
-        </label>
-        <select  class="pdl20 pdr20 form-control"  [(ngModel)]="selectedDC" (change)="selectSwitch=this.defaultSwitch;">
-            <option [ngValue]="defaultDc">所有</option>
-            <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
-        </select>
-        <label class="pdr10 pdl20">
-            分布式交换机名称(VDS)：
-        </label>
-        <select class="pdl20 pdr20 form-control" [(ngModel)]="selectSwitch">
-            <option [ngValue]="defaultSwitch">所有</option>
-            <option *ngFor="let sw of selectedDC.switchList" [ngValue]="sw">{{sw.switchName}}</option >
-        </select>
-
+    <div class="mgt15 ">
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 数据中心(DC)名称：</span>
+        <div class="float-left pdr20">
+             <select  class="pdl20 pdr20 form-control"  [(ngModel)]="selectedDC" (change)="selectSwitch=this.defaultSwitch;">
+                <option [ngValue]="defaultDc">所有</option>
+                <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
+             </select>
+        </div>
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 分布式交换机名称(VDS)：</span>
+        <div class="float-left">
+            <select class="pdl20 pdr20 form-control" [(ngModel)]="selectSwitch">
+                <option [ngValue]="defaultSwitch">所有</option>
+                <option *ngFor="let sw of selectedDC.switchList" [ngValue]="sw">{{sw.switchName}}</option >
+            </select>
+        </div>
         <button type="button" class="fox-cloud-button fox-cloud-button-white mgl15 " (click)="filter();"><span class="icon-button-label">确定 </span> </button>
     </div>
 <div class="mgt15" style="clear:both"></div>
@@ -56,14 +55,14 @@
             </div>
     </div>
     <div class="table-container">
-        <table class="table table-hover">
+        <table class="table table-hover" >
             <thead>
                 <tr>
                     <th>选择 </th>
                     <th>数据中心(DC) </th>
                     <th>分布式交换机名称(VDS) </th>
                     <th>分布式虚拟端口端口组名称(dv Port-group)</th>
-                    <th>分布式端口组显示名称</th>
+                    <th >分布式端口组显示名称</th>
                     <th>VLAN ID </th>
                     <th>状态 </th>
                     <th>最后更新时间 </th>
@@ -75,9 +74,9 @@
                     <td>{{port.dcName}}</td>
                     <td>{{port.switchName}}</td>
                     <td>{{port.dvPortGroupName}}</td>
-                    <td style="position:relative">
+                    <td style="position:relative;">
                         {{port.distPortGroupDisplayName||"未设置"}}
-                        <span class="icon-edit2" (click)="openEdit(port);port.isOpen=true;" style="padding:1px 15px"></span>
+                        <span class="icon-edit2 pull-right" (click)="openEdit(port);port.isOpen=true;" style="display:inline-block"></span>
                          <div *ngIf="port.isOpen" class="popover fade bottom in" role="tooltip" style="position:absolute;top:30px; right:150px; width:420px; max-width:1100px; display: block;">
                                 <div class="arrow" style="left: 30%;"></div>
                                 <div class="popover-content">
@@ -112,6 +111,7 @@
 <!--同步弹出框内容-->
 <fc-popup #synDbt title="{{title}}" ot="同步" (of)="doSynDbt()" ct="关闭" (cf)="closeSynDbt()">
        <div class="table-container">
+           <div style="max-height: 400px; overflow: auto;">
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -130,5 +130,6 @@
                 </tr>
                 </tbody>
             </table>
+           </div>
             </div>
 </fc-popup>

@@ -24,7 +24,7 @@
 						<td>
 							<span class="">部门:</span>
 							<div class="dropdown float-left">
-								<select class="form-control" [(ngModel)]="_param.organization">
+								<select class="form-control fix-width-120" [(ngModel)]="_param.organization">
 									<option class="hands" [value]="null">所有部门</option>
 									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
@@ -33,7 +33,7 @@
 						<td>
 							<span class="">订购人:</span>
 							<div class="dropdown float-left">
-								<select class="form-control">
+								<select class="form-control fix-width-120">
 									<option class="hands" [value]="null">所有用户</option>
 									<!--<option class="hands" *ngFor = "let item of _buyerLoader.Items" [value] = "item.id">{{item.name}}</option>-->
 								</select>
@@ -46,7 +46,7 @@
 							</div>
 						
 							<div class="dropdown float-left">			
-								<span class="mgr10 mgt10">到</span><date-picker (dateChanged)="onExpireTimeChange($event)"></date-picker>
+								<span class="mgr10 mgt10">到</span><date-picker  (dateChanged)="onExpireTimeChange($event)"></date-picker>
 							</div>
 						</td>
 						<td>
@@ -100,12 +100,11 @@
 				<thead>	
 					<tr>
 						<th class="order-title"> 已购服务详情</th>
+						<th  class="text-center">产品类型</th>
 						<th class="text-center">计费模式</th>
 						<th class="text-center">购买周期</th>
 						<th class="text-center">数量</th>
-						<th class="text-center">费用</th>
-						<th  class="text-center">产品类型</th>
-						
+						<th class="text-center">费用</th>		
 						<th class="text-center">状态</th>
 						<th class="text-center">创建时间</th>
 						<th class="text-center">到期时间</th>
@@ -121,7 +120,7 @@
 					<td colspan="2">
 						<button *ngIf="orderItem.canRenew" class="mgr5 pull-right button-gray-gradient" (click)="renewSelect(orderItem)">续订</button>
 						<button class="mgr5 pull-right button-gray-gradient" (click)="cancelSelect(orderItem)">退订</button>
-						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#orderDetail" (click)="showDetail(orderItem)">详情</button>
+						<button class="mgr5 pull-right button-gray-gradient" (click)="showDetail(orderItem)">详情</button>
 					</td>	
 				</tr>
 				<tr *ngFor="let prodItem of orderItem.itemList">
@@ -130,19 +129,19 @@
 							<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 						</ul>
 					</td>
+					<td>{{prodItem.serviceTypeName}}</td>
 					<td>{{prodItem.billingModeName}}</td>
 					<td>{{prodItem.period}}</td>
 					<td>{{prodItem.quantity}}</td>
 					<td style="width: 100px;">
 						一次性价格：{{prodItem.oneTimePrice}}<br/>
 						价格:{{prodItem.price}}
-					</td>
-					<td>{{prodItem.serviceTypeName}}</td>
+					</td>	
 					<td class="font-green">{{prodItem.statusName}}</td>
 					<td>{{prodItem.createDate}}</td>
 					<td>{{prodItem.expireDate}}</td>
-					<td>订购人</td>
-					<td>所属部门</td>
+					<td>{{prodItem.buyer}}</td>
+					<td>{{prodItem.departmentName}}</td>
 				</tr>
 			</table>
 		</div>
@@ -160,9 +159,7 @@
 						<h4 class="modal-title" id="myModalLabel">订单编号：2370537538484773</h4>
 				  	</div>
 				 	<div class="modal-body"> 
-			          <!--<account-mng-cr-local></account-mng-cr-local>
-			          <order-mng-detail></order-mng-detail>-->
-			         <order-mng-detail></order-mng-detail>
+						<order-mng-detail [orderDetail]="_orderDetailLoader.FirstItem"></order-mng-detail>
 					</div>
 			      
 				  	<div class="modal-footer">

@@ -16,6 +16,7 @@ import { ProdDirDeleteService } from '../service/prod-dir-delete.service';
 
 //model
 import { Proddir } from '../model/prodDirList.model';
+import { specification } from '../model/prodDir.model';
 // import {ProdDirModule} from '../prod-dir-mng.routing'
 @Component({
     selector: 'prod-dir-list',
@@ -109,10 +110,10 @@ export class ProdDirListComponent implements OnInit {
         });
     }
     data: any = {
-             "categoryId": "string",
-             "page": 0,
-             "platformId": "string",
-             "size": 0,
+        "categoryId": "string",
+        "page": 0,
+        "platformId": "string",
+        "size": 0,
     };
     onQuery() {
         // console.log(this.platformId);
@@ -120,8 +121,8 @@ export class ProdDirListComponent implements OnInit {
         this.data = {
             "categoryId": this.queryProDirTypeId,
             "platformId": this.platformId,
-            page:1,
-            size:this.pp
+            page: 1,
+            size: this.pp
         }
         this.backend(this.data);
     }
@@ -263,16 +264,25 @@ export class ProdDirListComponent implements OnInit {
         console.log('create');
         this.createProdDir.open('创建产品目录');
     }
+    //选择产品目录类型
+    showSpec: boolean = true;
+    selectProDirType(e) {
+        console.log(e);
+        this.showSpec =
+            e == '33f23ade-a0f8-11e6-a18b-0050568a49fd' ? true : false;
+    }
     otcreate() {
         let id = this.prodDirTypeId;
-        console.log(id);
-        if (this.prodDirTypeId == '33f23ade-a0f8-11e6-a18b-0050568a49fd') {
-            this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre"]);
-        } else {
-            this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre"]);
-        }
-        // let type = "new"
-        // 
+        console.log(this.spec);
+        if (this.spec.mem > 0 && this.spec.vcpu > 0) {
+            if (this.prodDirTypeId == '33f23ade-a0f8-11e6-a18b-0050568a49fd') {
+                this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre",{vcpu:this.spec.vcpu,mem:this.spec.mem,startupDisk:this.spec.startupDisk}]);
+            } else {
+                this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre"]);
+            }
+        }else{
+            this.notice.open('操作错误','云主机产品目录规格输入错误')
+        }       
     }
     //去编辑详情
     goDetail(item) {
@@ -340,8 +350,14 @@ export class ProdDirListComponent implements OnInit {
         this.backend({
             "categoryId": this.queryProDirTypeId,
             "platformId": this.platformId,
-            'page':page,
-            size:this.pp
+            'page': page,
+            size: this.pp
         });
+    }
+    //
+    spec: specification = new specification();
+    outputValue(e, arg) {
+        console.log(e, arg);
+        this.spec[arg] = e;
     }
 }

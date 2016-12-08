@@ -1,5 +1,5 @@
 <div class="page-content-header icon-content-header-purchasing"> 镜像管理</div>
-<div class="page-content">
+<div class="page-content" style="min-height:300px">
     <table class="table table-hover ">
         <thead>
             <tr>
@@ -38,7 +38,7 @@
                     </td>
                     <td >{{image.name}}</td>
                     <td >
-                        <div *ngIf="image.syncResult==0" style="height:39px;padding-top:7px">
+                        <div *ngIf="image.syncResult==0" >
                             <input type="text" style="padding:1px;text-align:center" placeholder="image.displayName" [(ngModel)]="image.displayName" />
                         </div>
                         <div *ngIf="image.syncResult!=0">
@@ -46,7 +46,7 @@
                         </div>
                     </td>
                     <td >
-                        <div *ngIf="image.syncResult==0" style="height:39px;padding-top:7px">
+                        <div *ngIf="image.syncResult==0" style="padding-top:2px">
                              <select [(ngModel)]="image.os">
                                 <option *ngFor = "let os of osDic" [ngValue]="os.value" [ngClass]="setDefaultOs(os,image.os)">{{getDicText(os.value,osDic)}}</option>
                             </select>
@@ -57,7 +57,7 @@
                         </div>
                     </td>
                     <td>
-                        <div *ngIf="image.syncResult==0">
+                        <div *ngIf="image.syncResult==0" style="padding-top:2px">
                             <select [(ngModel)]="image.bitsType">
                                 <option *ngFor = "let type of bits_typeDic" [ngValue]="type.value" [ngClass]="setDefaultBits(type,image.bitsType)">{{getDicText(type.value,bits_typeDic)}}</option>
                             </select>
@@ -69,7 +69,7 @@
                     <td >{{showCapacity(image.capacity)}}</td>
                     <td >公共镜像</td>
                     <td >所有</td>
-                    <td [ngClass]="{'font-green':image.status!='2','font-orange':image.status==2}">{{getDicText(image.syncResult,this.syncDic)}}</td>
+                    <td [ngClass]="{'font-green':image.status!='2','font-orange':image.status=='2'}">{{getDicText(image.syncResult,this.syncDic)}}</td>
 
                 </tr>
                 
@@ -79,7 +79,7 @@
 </div>
 
 
-<div class="text-center " style="margin-top:40px">       
+<div class="text-center " style="margin-top:50px">       
     
     <button class="fox-cloud-button-lg fox-cloud-button-white"(click)="back()">
         <span class="icon-button-label">返回</span>
@@ -88,6 +88,6 @@
         <span class="icon-button-label">同步</span>
     </button>
 </div>
-
+<div style="height:50px"></div>
 
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>

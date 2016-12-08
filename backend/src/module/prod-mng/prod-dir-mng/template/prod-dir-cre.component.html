@@ -17,7 +17,7 @@
 						<div class="prodSpecific">
 							<span class="form-line-height font-gray" >cpu</span>
 							<span >
-								<count-bar [default]=0 [step]=1 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
+								<count-bar [default]=0 [step]=1 [max]=1000000 [min]=0 [disabled]=true [value]="prodDir.specification.vcpu" (output)="outputValue($event,'vcpu')"></count-bar>
 							</span>
 							<span class="form-line-height font-gray">核(vCPU)</span>
 						</div>
@@ -40,7 +40,7 @@
 						<div class="prodSpecific">
 							<span class="form-line-height font-gray" >内存</span>
 							<span >
-								<count-bar [default]=0 [step]=100 [max]=100000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'mem')"></count-bar>
+								<count-bar [default]=0 [step]=100 [max]=100000 [min]=0 [disabled]=true [value]="prodDir.specification.mem" (output)="outputValue($event,'mem')"></count-bar>
 							</span>
 							<span class="form-line-height font-gray">兆(MB)</span>
 						</div>
@@ -63,7 +63,7 @@
 						<div class="prodSpecific">
 							<span class="form-line-height font-gray" >启动盘大小</span>
 							<span >
-								<count-bar [default]=0 [step]=100 [max]=100000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'startupDisk')"></count-bar>
+								<count-bar [default]=0 [step]=100 [max]=100000 [min]=0 [disabled]=true [value]="prodDir.specification.startupDisk" (output)="outputValue($event,'startupDisk')"></count-bar>
 							</span>
 							<span class="form-line-height font-gray">GB</span>
 						</div>
@@ -89,7 +89,7 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div for="firstname" class="col-sm-4 form-control-title" (click)='selectPlateForm()' style="cursor:pointer;">点击选择可用平台:</div>
+					<div for="firstname" class="col-sm-4 form-control-title" (click)='selectPlateForm()' style="cursor:pointer;">选择可用平台:</div>
 					<div class="col-sm-4">
 					</div>
 				</div>

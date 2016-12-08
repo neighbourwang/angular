@@ -41,6 +41,8 @@ export class EntEstMngComponent implements OnInit {
   private statusDic:DicLoader = null;
   private _certUpdateHandler:ItemLoader<any> = null;
 
+  private ADflag: string = "";
+
   constructor(
     private layoutService: LayoutService,
     private router: Router,
@@ -489,10 +491,10 @@ export class EntEstMngComponent implements OnInit {
 
     if(notValid !== void 0)
     {
+      this.showMsg(this.service.validate(notValid.name, notValid.value, notValid.op));
       this.okCallback = ()=>{
         this.setupCert.open();
-      };
-      this.showMsg(this.service.validate(notValid.name, notValid.value, notValid.op));
+      };      
       return false;
     }
     else
@@ -534,4 +536,30 @@ export class EntEstMngComponent implements OnInit {
       }
       this.router.navigateByUrl(`ent-mng/attest-mng/attest-mng/${this.getSelected().enterpriseId}`);
   }
+
+  //测试AD信息
+  testAD(): any {
+    if (this.validateCertModify()) {
+      this.layoutService.show();
+      this.service.testAD(this.entEst).then(res => {
+        this.layoutService.hide();
+        if (res && res.resultCode == "100") {
+          console.log("AD测试成功", res);
+          this.ADflag = "true";
+        } else {
+          console.log("AD测试失败", res);
+          //this.showMsg("AD测试失败");
+          this.ADflag = "false";
+          return;
+        }
+      })
+        .catch(err => {
+          console.log("AD测试异常", err);
+          this.layoutService.hide();
+          //this.showMsg("AD测试失败");
+          this.ADflag = "false";
+        });
+    }
+  }
+  
 }

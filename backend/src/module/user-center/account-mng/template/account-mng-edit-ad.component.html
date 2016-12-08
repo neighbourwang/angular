@@ -1,4 +1,5 @@
 <div class="page-content-header icon-content-header-userCenterOn">编辑AD用户</div>
+<div class="page-content">
 <div class="row" style="padding-top: 30px;">
     <div class="col-md-12">
         <div class="row row-line-height">
@@ -99,14 +100,17 @@
                 </div>
             </div>
         </div>
-        <div class="text-center">
+       
+    </div>
+</div>
+</div>
+ <div class="text-center" style="margin-top:50px">
             <button class="fox-cloud-button-lg fox-cloud-button-white">
                 <span class="icon-button-label" (click)="cancel()">取消</span>
             </button>
             <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px">
                 <span class="icon-button-label" (click)="saveAccount()">保存</span>
             </button>
-        </div>
-    </div>
 </div>
+<div style="height:50px"></div>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
