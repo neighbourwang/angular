@@ -744,6 +744,12 @@ export let RestApis: RestApiModel[] = [
         "url": "basis/authsec/adm/users/page/{page}/size/{size}"
     },
     {
+        "desc" : "用户中心，帐号管理，搜索帐号列表By用户名",
+        "id" : "user-center.search-account.list",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/users/search/page/{page}/size/{size}"
+    },
+    {
         "desc": "获取所有角色",
         "id": "user-center.role-mng.list",
         "method": "GET",
