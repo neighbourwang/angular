@@ -42,7 +42,12 @@ export class ProdDirCreComponent implements OnInit {
             // let id=+params['id'];
             prodDirId = params['id'];
             prodDirType = params['type'];
-
+            if(params['vcpu']){
+                this.prodDir.specification.vcpu=params['vcpu'];
+                this.prodDir.specification.mem=params['mem'];
+                this.prodDir.specification.startupDisk=params['startupDisk'];
+            }           
+            this.selectPlateForm();
         })
         if (prodDirType == 'new') {
 
@@ -103,7 +108,6 @@ export class ProdDirCreComponent implements OnInit {
                 let resultContent = response.resultContent;
                 this._platformlist = response.resultContent;
                 console.log(this._platformlist);
-
                 for (let plate of this._platformlist) {
                     for (let zone of plate.zoneList) {
                         zone.storageId = zone.storageList[0].storageId;

@@ -81,7 +81,7 @@ export class ClMngCreStep4Component implements OnInit{
     }
 
     previous (){
-       this.router.navigate(["pf-mng2/cl-mng/cl-mng3",{type:this.platformType}]);
+       this.router.navigate(["pf-mng2/cl-mng/cre-step3",{type:this.platformType}]);
     }
     cancel (){
        this.router.navigate(["pf-mng2/cl-mng/cl-mng",{type:this.platformType}]);
