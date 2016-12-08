@@ -31,7 +31,7 @@
                 <tr *ngFor="let syncimg of vmwaresyncimgs; let i=index;">
                     <td><input type="checkbox" name="1" class="fox-cloud-checkbox" [checked]="syncimg.checked" (change)="selectItem(i)" value="{{i}}">
                     </td>
-                    <td>{{i}}</td>
+                    <td>{{i+1}}</td>
                     <td>{{syncimg.name}}</td>
                     <td>
                         <div *ngIf="syncimg.syncResult==0">
