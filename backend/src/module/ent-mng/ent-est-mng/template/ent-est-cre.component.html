@@ -191,12 +191,10 @@
 	   				<tr *ngFor="let item of resourceQuotas.items">
    						<td><input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="item.checked"/></td>
 						<td>{{item.regionName}}</td>
-						<td>{{item.regionName}}</td>
-						<td>{{item.regionName}}</td>
-						<td>{{item.regionName}}</td>
-						<td>{{item.regionName}}</td>
-						<!--<td>{{item.platformVMQuota}}</td>
-						<td>{{item.storageQuota}}</td>-->
+						<td><!-- {{item.regionName}} --></td>
+						<td><!-- {{item.regionName}} --></td>
+						<td>{{item.storageQuota}}</td>
+						<td>{{item.platformVMQuota}}</td>
 					</tr>
 	   			</tbody>
 	   		</table>
