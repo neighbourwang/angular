@@ -35,7 +35,7 @@
 							<div class="dropdown float-left">
 								<select class="form-control">
 									<option class="hands" [value]="null">所有用户</option>
-									<option class="hands">张三</option>
+									<!--<option class="hands" *ngFor = "let item of _buyerLoader.Items" [value] = "item.id">{{item.name}}</option>-->
 								</select>
 							</div>
 						</td>
@@ -121,7 +121,7 @@
 					<td colspan="2">
 						<button *ngIf="orderItem.canRenew" class="mgr5 pull-right button-gray-gradient" (click)="renewSelect(orderItem)">续订</button>
 						<button class="mgr5 pull-right button-gray-gradient" (click)="cancelSelect(orderItem)">退订</button>
-						<button class="mgr5 pull-right button-gray-gradient" data-toggle="modal" data-target="#orderDetail" (click)="showDetail(orderItem)">详情</button>
+						<button class="mgr5 pull-right button-gray-gradient" (click)="showDetail(orderItem)">详情</button>
 					</td>	
 				</tr>
 				<tr *ngFor="let prodItem of orderItem.itemList">
@@ -141,8 +141,8 @@
 					<td class="font-green">{{prodItem.statusName}}</td>
 					<td>{{prodItem.createDate}}</td>
 					<td>{{prodItem.expireDate}}</td>
-					<td>订购人</td>
-					<td>所属部门</td>
+					<td>{{prodItem.buyer}}</td>
+					<td>{{prodItem.departmentName}}</td>
 				</tr>
 			</table>
 		</div>
@@ -160,9 +160,7 @@
 						<h4 class="modal-title" id="myModalLabel">订单编号：2370537538484773</h4>
 				  	</div>
 				 	<div class="modal-body"> 
-			          <!--<account-mng-cr-local></account-mng-cr-local>
-			          <order-mng-detail></order-mng-detail>-->
-			         <order-mng-detail></order-mng-detail>
+						<order-mng-detail [orderDetail]="_orderDetailLoader.FirstItem"></order-mng-detail>
 					</div>
 			      
 				  	<div class="modal-footer">
