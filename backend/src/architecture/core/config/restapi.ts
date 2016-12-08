@@ -1089,7 +1089,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取Openstack网络列表",
         "id": "net-mng.openstack.net.list",
         "method": "POST",
-        "url": "adminboe/authsec/openstack/network/page/{page}/size/{size}"
+        "url": "openstacknetworkmgmt/authsec/openstack/network/page/{page}/size/{size}"
     },
     {
         "desc": "获取同步网络列表",
