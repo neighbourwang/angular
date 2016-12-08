@@ -41,7 +41,7 @@ export class IpMngListService {
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => net_dc_list_mock);
     }
 
-    getSubnetInfoIps(portGroup:any): Promise<any> {
+    getSubnetInfoIps(portGroup: any): Promise<any> {
         const pathParams = [
             {
                 key: "id",
