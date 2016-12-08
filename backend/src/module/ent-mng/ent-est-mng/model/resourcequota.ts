@@ -1,8 +1,15 @@
 export class ResourceQuota{
-	regionName: string = ""; //区域
+	platformName: string = ""; //区域
     platformVMQuota: number = 0;//可分配云主机数量
     storageQuota: number = 0; //可用存储
     platformId:string = null;
+    vmQuota:number = null;
+
+    cpu: number = null;// cpu,
+    pychicalMachine: number = null;// 物理机,
+    memory: number = null;// 内存
+
+
 
 	//for ui operation
 	checked: boolean = false;

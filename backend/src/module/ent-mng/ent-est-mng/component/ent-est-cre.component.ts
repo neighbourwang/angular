@@ -183,10 +183,13 @@ export class EntEstCreComponent implements OnInit{
 		
 		if(this.validate())
 		{
+			this.layoutService.show();
 			this.service.createEnterpise(this.entEst).then(ret=>{
+				this.layoutService.hide();
 				this.returnToList();
 			})
 			.catch(err=>{
+				this.layoutService.hide();
 				console.log('创建企业失败', err);
 				this.notice.open("创建企业", "创建企业失败");
 			})
