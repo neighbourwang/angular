@@ -1,0 +1,519 @@
+﻿
+<div class="page-content">
+    <div>
+        <h1 class="page-content-header float-left">云主机详情</h1>
+        <div class="float-left mgt5 mgl10"><span class="icon-back"></span>返回云主机列表</div>
+        <div class="dropdown float-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                更多操作
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <li><a href="javascript:">挂载</a></li>
+                <li><a href="javascript:">卸载</a></li>
+                <li><a href="javascript:">备份</a></li>
+            </ul>
+        </div>
+        <button class="btn button-gray-gradient float-right mgr5">
+        <span class="icon-controller"></span>控制台
+        </button>
+    </div>
+    <div style="clear:both;"></div>
+    <div class="row" style="margin-top:30px;">
+        <div class="col-md-5 info-menu">
+            <table>
+                <thead>
+                 <tr>
+                     <th >
+                     <span class="icon-basic mgl10"></span>基本信息
+                     </th>
+                     <th style="position:relative;"><span class="glyphicon glyphicon-chevron-down" data-toggle="collapse" data-target="#basic"></span></th>
+                 </tr>
+                </thead>
+                <tbody class="collapse in" id="basic">
+                    <tr>
+                        <td>实例名称：</td>
+                        <td>df</td>
+                    </tr>
+                    <tr>
+                        <td>所在可用区：</td>
+                        <td>ergfhg</td>
+                    </tr>
+                    <tr>
+                        <td>运行时间：</td>
+                        <td>ddfgfds</td>
+                    </tr>
+                    <tr>
+                        <td>状态：</td>
+                        <td></td>
+                    </tr>
+                     <tr>
+                        <td>来源：</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table >
+                <thead>
+                 <tr>
+                     <th >
+                     <span class="icon-attachment mgl10"></span>附加信息
+                     </th>
+                     <th style="position:relative;">
+                     <span class="glyphicon glyphicon-chevron-down" data-toggle="collapse" data-target="#additional"></span>              
+                     </th>
+                 </tr>
+                </thead>
+                <tbody class="collapse in" id="additional">
+                    <tr>
+                        <td>附加服务：</td>
+                        <td>rf</td>
+                    </tr>
+                    <tr>
+                        <td>类型：</td>
+                        <td>dffg</td>
+                    </tr>
+                    <tr>
+                        <td>服务级别：</td>
+                        <td>ddff</td>
+                    </tr>
+                    <tr>
+                        <td>标签：</td>
+                        <td>ddf</td>
+                    </tr>
+                    <tr>
+                        <td>描述：</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table >
+                <thead>
+                 <tr>
+                     <th >
+                     <span class="icon-setting mgl10"></span>配置信息
+                     </th>
+                     <th style="position:relative;">
+                         <span class="glyphicon glyphicon-chevron-down" data-toggle="collapse" data-target="#setting"></span>
+                     </th>
+                 </tr>
+                </thead>
+                <tbody class="collapse in" id="setting">
+                    <tr>
+                        <td>CPU：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>内存：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>镜像：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>内部IP：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>外部IP：</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table >
+                <thead>
+                 <tr>
+                     <th>
+                     <span class="icon-storage mgl10"></span>磁盘信息
+                     </th>
+                     <th style="position:relative;"><span class="glyphicon glyphicon-chevron-down" data-toggle="collapse" data-target="#storage"></span></th>
+                 </tr>
+                </thead>
+                <tbody  class="collapse in" id="storage">
+                    <tr>
+                        <td>启动盘：</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>数据盘：</td>
+                        <td>2hjjkllshdhjskskls</td>
+                    </tr>
+                    <tr>
+                        <td>快照：</td>
+                        <td>2</td>
+                    </tr>                 
+                </tbody>
+            </table>
+            <table >
+                <thead>
+                 <tr>
+                     <th >
+                     <span class="icon-safety mgl10"></span>安全信息
+                     </th>
+                     <th style="position:relative;"><span class="glyphicon glyphicon-chevron-down" data-toggle="collapse" data-target="#safety"></span></th>
+                 </tr>
+                </thead>
+                <tbody class="collapse in" id="safety">
+                    <tr>
+                        <td>安全组：</td>
+                        <td></td>
+                    </tr>
+                 
+                </tbody>
+            </table>
+            <table >
+                <thead>
+                 <tr>
+                     <th >
+                     <span class="icon-payment mgl10"></span>付费信息
+                     </th>
+                     <th style="position:relative;"><span class="glyphicon glyphicon-chevron-down" data-toggle="collapse" data-target="#payment"></span></th>
+                 </tr>
+                </thead>
+                <tbody class="collapse in" id="payment">
+                    <tr>
+                        <td>订单编号：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>付费方式：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>创建时间：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>到期时间：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>释放时间：</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-7">
+            <div class="host-detail-chart">
+                <div class="main-head">
+                    <span class="icon-chart icon float-left"></span>
+                    <span class="title float-left">监控图表</span>
+                    <select class="form-control float-right mgt5 mgr5">
+                        <option value="1">最近6小时</option>
+                        <option value="2">最近12小时</option>
+                        <option value="3">最近24小时</option>
+                    </select>
+                    <button class="btn button-gray-gradient mgt5 mgr5 float-right ">
+                        <span class="icon-reset button-icon" ></span>刷新
+                    </button>
+                    <button class="float-right switch off" id='test_switch'>
+                        <span></span>
+                    </button>
+                    <!--<button class="float-right switch " id='test_switch'>
+                        <span></span>
+                    </button>-->
+                    <span class="title float-right">实时数据</span>
+                </div>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#detail_chart_a" role="tab" data-toggle="tab" aria-controls="detail_chart_a" aria-expanded="true">CUP使用率</a></li>
+                    <li role="presentation" class=""><a href="#detail_chart_b" role="tab" data-toggle="tab" aria-controls="detail_chart_b" aria-expanded="false">内存使用率</a></li>
+                    <li role="presentation" class=""><a href="#detail_chart_c" role="tab" data-toggle="tab" aria-controls="detail_chart_c" aria-expanded="false">硬盘</a></li>
+                    <li role="presentation" class=""><a href="#detail_chart_d" role="tab" data-toggle="tab" aria-controls="detail_chart_d" aria-expanded="false">网络流入/流出速率</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade active in" id="detail_chart_a" >
+                        <canvas class="chart-canvas" id='canvas_chart_a'></canvas>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="detail_chart_b" >
+                        <canvas class="chart-canvas" id='canvas_chart_b'></canvas>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="detail_chart_c" >
+                        <div class="chart-top-select">
+                            <select class="form-control float-right mgt5 mgr5">
+                                <option value="1">系统盘</option>
+                                <option value="2">c:盘</option>
+                                <option value="3">d:盘</option>
+                            </select>
+                        </div>
+                        <div class="chart-box">
+                            <ul class="chart-tab" role="tablist">
+                                <li role="presentation" class="active"><a href="#detail_chart_c_1" role="tab" data-toggle="tab" aria-controls="detail_chart_c_1" aria-expanded="true">磁盘读写速率</a></li>
+                                <li role="presentation"><a href="#detail_chart_c_2" role="tab" data-toggle="tab" aria-controls="detail_chart_c_2" aria-expanded="false">磁盘IOPS</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade active in" id="detail_chart_c_1">
+                                    <canvas class="chart-canvas" id='canvas_chart_c'></canvas>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="detail_chart_c_2">
+                                    <canvas class="chart-canvas" id='canvas_chart_d'></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="detail_chart_d" aria-labelledby="dropdown2-tab">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+            $(function(){
+                $('#test_switch').click(function(){
+                    var e = $(this);
+                    if(e.hasClass('off')){
+                        e.removeClass('off');
+                    }else{
+                        e.addClass('off');
+                    }
+                });
+                //模拟图表数据  ****详细的Angular2中应用chart.js请查看 http://valor-software.com/ng2-charts/
+                var chart_a = document.getElementById("canvas_chart_a");
+                var chart_b = document.getElementById("canvas_chart_b");
+                var chart_c = document.getElementById("canvas_chart_c");
+                var chart_d = document.getElementById("canvas_chart_d");
+
+                var theChart_a = new Chart(chart_a, {
+                    type: 'line',
+                    data: {
+                        labels: ["7:00", "8:00", "9:00", "10:00", "11:00", "12:00"],
+                        datasets: [
+                            {
+                                label: "CUP使用率 %",
+                                fill: false,
+                                lineTension: 0.2,
+                                backgroundColor: "#ffffff",
+                                borderColor: "rgba(75,192,192,1)",
+                                borderCapStyle: 'butt',
+                                borderDash: [],
+                                borderDashOffset: 0.0,
+                                borderJoinStyle: 'miter',
+                                pointBorderColor: "rgba(75,192,192,1)",
+                                pointBackgroundColor: "#fff",
+                                pointBorderWidth: 1,
+                                pointHoverRadius: 5,
+                                pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                                pointHoverBorderColor: "rgba(220,220,220,1)",
+                                pointHoverBorderWidth: 1,
+                                pointRadius: 1,
+                                pointHitRadius: 10,
+                                data: [30, 45, 80, 41, 56, 55, 20],
+                                spanGaps: false,
+                            }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true,
+                                    max: 100
+                                }
+                            }],
+                        },
+                        legend: {
+                            position: 'bottom',
+                            display: true,
+                            labels: {
+                                boxWidth: 24
+                            }
+                        }
+                    }
+                });
+
+                var theChart_b = new Chart(chart_b, {
+                    type: 'line',
+                    data: {
+                        labels: ["7:00", "8:00", "9:00", "10:00", "11:00", "12:00"],
+                        datasets: [
+                            {
+                                label: "内存使用率 %",
+                                fill: false,
+                                lineTension: 0.2,
+                                backgroundColor: "#ffffff",
+                                borderColor: "#FF6633",
+                                borderCapStyle: 'butt',
+                                borderDash: [],
+                                borderDashOffset: 0.0,
+                                borderJoinStyle: 'miter',
+                                pointBorderColor: "#FF6633",
+                                pointBackgroundColor: "#fff",
+                                pointBorderWidth: 1,
+                                pointHoverRadius: 5,
+                                pointHoverBackgroundColor: "#FF6633",
+                                pointHoverBorderColor: "rgba(220,220,220,1)",
+                                pointHoverBorderWidth: 1,
+                                pointRadius: 1,
+                                pointHitRadius: 10,
+                                data: [10, 73, 37, 42, 52, 30, 40],
+                                spanGaps: false,
+                            }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true,
+                                    max: 100
+                                }
+                            }],
+                        },
+                        legend: {
+                            position: 'bottom',
+                            display: true,
+                            labels: {
+                                boxWidth: 24
+                            }
+                        }
+                    }
+                });
+
+                var theChart_c = new Chart(chart_c, {
+                    type: 'line',
+                    data: {
+                        labels: ["2", "4", "6", "8", "16", "32", "64", "128"],
+                        datasets: [
+                            {
+                                label: "读取",
+                                fill: false,
+                                lineTension: 0,
+                                backgroundColor: "#ffffff",
+                                borderColor: "#66CC99",
+                                borderCapStyle: 'butt',
+                                borderDash: [],
+                                borderDashOffset: 0.0,
+                                borderJoinStyle: 'miter',
+                                pointBorderColor: "#66CC99",
+                                pointBackgroundColor: "#fff",
+                                pointBorderWidth: 1,
+                                pointHoverRadius: 5,
+                                pointHoverBackgroundColor: "#66CC99",
+                                pointHoverBorderColor: "rgba(220,220,220,1)",
+                                pointHoverBorderWidth: 1,
+                                pointRadius: 1,
+                                pointHitRadius: 10,
+                                data: [3200, 6200, 5500, 3329, 2200, 3200, 3790, 5902],
+                                spanGaps: false,
+                            },
+                            {
+                                label: "读入",
+                                fill: false,
+                                lineTension: 0,
+                                backgroundColor: "#ffffff",
+                                borderColor: "#FFCC33",
+                                borderCapStyle: 'butt',
+                                borderDash: [],
+                                borderDashOffset: 0.0,
+                                borderJoinStyle: 'miter',
+                                pointBorderColor: "#FFCC33",
+                                pointBackgroundColor: "#fff",
+                                pointBorderWidth: 1,
+                                pointHoverRadius: 5,
+                                pointHoverBackgroundColor: "#FFCC33",
+                                pointHoverBorderColor: "rgba(220,220,220,1)",
+                                pointHoverBorderWidth: 1,
+                                pointRadius: 1,
+                                pointHitRadius: 10,
+                                data: [1200, 7200, 4500, 5329, 2700, 3700, 2790, 4902],
+                                spanGaps: false,
+                            },
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true,
+                                    max: 10000
+                                }
+                            }],
+                        },
+                        legend: {
+                            position: 'bottom',
+                            display: true,
+                            labels: {
+                                boxWidth: 24,
+                                padding: 20
+                            }
+                        }
+                    }
+                });
+                var theChart_d = new Chart(chart_d, {
+                    type: 'line',
+                    data: {
+                        labels: ["2", "4", "6", "8", "16", "32", "64", "128"],
+                        datasets: [
+                            {
+                                label: "读取",
+                                fill: false,
+                                lineTension: 0,
+                                backgroundColor: "#ffffff",
+                                borderColor: "#FF9966",
+                                borderCapStyle: 'butt',
+                                borderDash: [],
+                                borderDashOffset: 0.0,
+                                borderJoinStyle: 'miter',
+                                pointBorderColor: "#FF9966",
+                                pointBackgroundColor: "#fff",
+                                pointBorderWidth: 1,
+                                pointHoverRadius: 5,
+                                pointHoverBackgroundColor: "#FF9966",
+                                pointHoverBorderColor: "rgba(220,220,220,1)",
+                                pointHoverBorderWidth: 1,
+                                pointRadius: 1,
+                                pointHitRadius: 10,
+                                data: [3200, 6200, 5500, 3329, 2200, 3200, 3790, 5902],
+                                spanGaps: false,
+                            },
+                            {
+                                label: "读入",
+                                fill: false,
+                                lineTension: 0,
+                                backgroundColor: "#ffffff",
+                                borderColor: "#9966FF",
+                                borderCapStyle: 'butt',
+                                borderDash: [],
+                                borderDashOffset: 0.0,
+                                borderJoinStyle: 'miter',
+                                pointBorderColor: "#9966FF",
+                                pointBackgroundColor: "#fff",
+                                pointBorderWidth: 1,
+                                pointHoverRadius: 5,
+                                pointHoverBackgroundColor: "#9966FF",
+                                pointHoverBorderColor: "rgba(220,220,220,1)",
+                                pointHoverBorderWidth: 1,
+                                pointRadius: 1,
+                                pointHitRadius: 10,
+                                data: [1200, 7200, 4500, 5329, 2700, 3700, 2790, 4902],
+                                spanGaps: false,
+                            },
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true,
+                                    max: 10000
+                                }
+                            }],
+                        },
+                        legend: {
+                            position: 'bottom',
+                            display: true,
+                            labels: {
+                                boxWidth: 24,
+                                padding: 20
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+
