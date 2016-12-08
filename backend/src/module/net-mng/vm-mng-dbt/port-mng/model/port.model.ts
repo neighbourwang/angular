@@ -8,7 +8,7 @@ export class PortMngModel {
     switchName: string;//VDS1
     dvPortGroupName: string;
     enterpriseList: Array<Enterprise>;
-
+    distPortGroupDisplayName:string;
     vlanId: string;
     selected: boolean;
     

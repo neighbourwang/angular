@@ -48,7 +48,7 @@
                     <td >
                         <div *ngIf="image.syncResult==0" style="height:39px;padding-top:7px">
                              <select [(ngModel)]="image.os">
-                                <option *ngFor = "let os of osDic" [ngValue]="os.value" [ngClass]="setDefaultOs(os,image.osType)">{{getDicText(os.value,osDic)}}</option>
+                                <option *ngFor = "let os of osDic" [ngValue]="os.value" [ngClass]="setDefaultOs(os,image.os)">{{getDicText(os.value,osDic)}}</option>
                             </select>
                             <!--<input type="text" style="padding:1px;text-align:center" placeholder="image.os" [(ngModel)]="image.os" />-->
                         </div>
@@ -69,7 +69,7 @@
                     <td >{{showCapacity(image.capacity)}}</td>
                     <td >公共镜像</td>
                     <td >所有</td>
-                    <td [ngClass]="{'font-green':image.status!='2','font-orange':image.status==2}">{{getDicText(image.syncResult,this.syncDic)}}</td>
+                    <td [ngClass]="{'font-green':image.status!='2','font-orange':image.status=='2'}">{{getDicText(image.syncResult,this.syncDic)}}</td>
 
                 </tr>
                 
@@ -80,13 +80,14 @@
 
 
 <div class="text-center " style="margin-top:40px">       
-    <button class="fox-cloud-button-lg fox-cloud-button-white"(click)="doSync()">
-        <span class="icon-button-label">同步</span>
-    </button>
+    
     <button class="fox-cloud-button-lg fox-cloud-button-white"(click)="back()">
         <span class="icon-button-label">返回</span>
     </button> 
+    <button class="fox-cloud-button-lg fox-cloud-button-white"(click)="doSync()">
+        <span class="icon-button-label">同步</span>
+    </button>
 </div>
-
+<div style="height:50px"></div>
 
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>

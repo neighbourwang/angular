@@ -139,6 +139,6 @@ export class PortMngComponent implements OnInit {
         this.showAlert("获取数据失败！");
     }
     back(){
-        this.router.navigateByUrl('/net-mng/vm-mng-dbt/index');
+        this.router.navigateByUrl(`/net-mng/vm-mng-dbt/index/${this.platformId}`);
     }
 }

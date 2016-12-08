@@ -85,7 +85,7 @@
                             </div>                              
                     </div>
                     </td>
-                    <td >{{image.os}}</td>
+                    <td >{{getDicText(image.os,osDic)}}</td>
                     <td >{{getDicTextforBit(image.bitsType)}}</td>
                     <td >{{showCapacity(image.capacity)}}</td>
                     <td >{{getDicText(image.type,typeDic)}}</td>
@@ -138,8 +138,10 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">操作系统:</div>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="tempEditImage.os" />
-                    </div>
+                    <select class="form-control" [(ngModel)]="tempEditImage.os">
+                        <option *ngFor = "let os of osDic" [ngValue]="os.value" [ngClass]="setDefaultOs(os,tempEditImage.os)">{{getDicText(os.value,osDic)}}</option>
+                    </select>
+                </div>
             </div>
         </div>	
         <div class="row row-line-height">
@@ -161,6 +163,7 @@
 <!--同步弹出框内容-->
 <fc-popup #synTeImage title="{{title}}" ot="提交" (of)="commitSynTe()" ct="取消" (cf)="cancelCommitSynTe()">
        <div class="table-container">
+           <div style="max-height: 400px; overflow: auto;">
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -170,11 +173,12 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let tenant of tenants">
-                    <td><input type="checkbox" class="foc-cloud-checkbox" [checked]="tenant.selected" (change)="tenant.selected = $event.target.checked"></td>
+                    <td><input type="checkbox" class="fox-cloud-checkbox" [checked]="tenant.selected" (change)="tenant.selected = $event.target.checked"></td>
                     <td>{{tenant.name}}</td>
                 </tr>
                 </tbody>
             </table>
+           </div>
             </div>
 </fc-popup> 
 

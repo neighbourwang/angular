@@ -3,7 +3,7 @@
     <table class="table table-hover ">
         <thead>
             <tr>
-                <th style="text-align:left;">同步镜像：{{platformName}}(类型：VMWare)</th>
+                <th style="text-align:left;">同步镜像：{{platformName}}(类型：VMware)</th>
                 <th style="text-align:right;">
                     <button class=" fox-cloud-button fox-cloud-button-white " key="boe/image-mng.html" (click)="VmwareImgListPage()">
                         <span class="icon-button-label">返回镜像管理列表</span>
@@ -31,7 +31,7 @@
                 <tr *ngFor="let syncimg of vmwaresyncimgs; let i=index;">
                     <td><input type="checkbox" name="1" class="fox-cloud-checkbox" [checked]="syncimg.checked" (change)="selectItem(i)" value="{{i}}">
                     </td>
-                    <td>{{i}}</td>
+                    <td>{{i+1}}</td>
                     <td>{{syncimg.name}}</td>
                     <td>
                         <div *ngIf="syncimg.syncResult==0">
@@ -79,14 +79,16 @@
         </table>
     </div>
 </div>
-<div class="text-center " style="margin-top:40px">   
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="VmwareSyncImages()">
-        <span class="icon-button-label">同步</span>
-    </button>
+<div class="text-center " style="margin-top:40px">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="VmwareImgListPage()">
         <span class="icon-button-label">返回</span>
     </button> 
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="VmwareSyncImages()">
+        <span class="icon-button-label">同步</span>
+    </button>
+ 
 </div>
+<div style="height:50px"></div>
 
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
 <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>

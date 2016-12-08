@@ -273,6 +273,7 @@
     margin-top: 30px;
     margin-left: 50px;
     margin-right: 90px;
+    width: 1200px;
 }
 .titlePanel{
 	width: 100%;
@@ -309,6 +310,7 @@
     background-color: #CFD8E7;
     margin-left: 50px;
     margin-top: 10px;
+    margin-right: 25px;
 }
 .sm-container:first-child{
 	margin-left:0;
@@ -362,7 +364,19 @@
 }
 .test-title {
     position: absolute;
-    left: 990px;
+    left: 1100px;
     top: 355px;
     }
+.ChecEstkMng{
+    width: 1400px;
+}
+.mgr150{
+    margin-right: 150px;
+}
+.mgr17{
+    margin-right:17px!important; 
+}
+.wd320{
+    width:320px;
+}
 
