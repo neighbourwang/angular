@@ -58,7 +58,7 @@ export class OpenstackMngComponent implements OnInit{
     bits_typeDic: Array<SystemDictionary>;//系统位数
     ownerDic: Array<SystemDictionary>;//归属
     statusDic: Array<SystemDictionary>;//状态
-
+    osDic:Array<SystemDictionary>;//os
     selectedImage:Image = null;
     tempEditImage:Image = new Image();
     temp2:Image = new Image();
@@ -86,6 +86,10 @@ export class OpenstackMngComponent implements OnInit{
             })
             .then((dic) => {
                 this.statusDic = dic;
+                return this.dicService.getItems("IMAGES","OS");
+            })
+            .then((dic)=>{
+                this.osDic = dic;
                 this.getTenants();
                 this.getImages();
                 
@@ -109,6 +113,7 @@ export class OpenstackMngComponent implements OnInit{
     getImages(pageIndex?):void{
         this.pageIndex = pageIndex || this.pageIndex;
         this.layoutService.show();
+        this.selectedImage = null;
         this.service.getImages(this.queryOpt, this.platformId, this.pageIndex, this.pageSize)
             .then(
                 response =>{
@@ -117,6 +122,7 @@ export class OpenstackMngComponent implements OnInit{
                         this.layoutService.hide();
                         this.images = response.resultContent;
                         this.totalPage = response.pageInfo.totalPage;
+                        this.selectedImage = null;
                     } else{
                         alert("Res.sync error");
                     }
@@ -334,7 +340,7 @@ export class OpenstackMngComponent implements OnInit{
         }
     }
     saveEdit(){
-        if (this.validationService.isBlank(this.selectedImage.displayName)) {
+        if (this.validationService.isBlank(this.tempEditImage.displayName)) {
             this.showAlert("镜像显示名称不能为空");
             return;
         }
@@ -425,6 +431,16 @@ export class OpenstackMngComponent implements OnInit{
             return classes;
         }
        
+    }
+
+    //编辑时 默认操作系统选项
+    setDefaultOs(type:SystemDictionary, value:string){
+        if(value == type.value){
+            let classes =  {
+                selected:"selected"
+            };
+            return classes;
+        }
     }
     //显示镜像容量
     showCapacity(capacity:number){
