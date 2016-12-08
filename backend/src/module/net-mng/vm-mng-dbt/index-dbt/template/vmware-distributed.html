@@ -126,7 +126,7 @@
                    <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="port.selected" (change)="selectSyn(port)"> </td>
                     <td>{{port.dcName}}</td>
                     <td>{{port.switchName}}</td>
-                    <td [ngClass]="port.status==1?'font-green':'font-orange'">{{getDicText(port.status,this.statusDic)}}</td>
+                    <td [ngClass]="port.status==1?'font-green':'font-orange'">{{getDicText(port.status,this.synDic)}}</td>
                 </tr>
                 </tbody>
             </table>

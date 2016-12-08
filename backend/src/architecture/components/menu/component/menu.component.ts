@@ -230,7 +230,7 @@ const menu: Array<Object> = [
                  "routing": "net-mng/openstack/openstack-net-mng"
              },
          {
-              "label": "VMware网络",
+              "label": "VMware标准网络",
                  "isOpen": false,
                  "isActive": false,
                  "routing": "net-mng/vm-mng/88"
@@ -280,17 +280,5 @@ const menu: Array<Object> = [
              }
          ]
      },
-     {
-         "label": "云主机管理",
-         "isOpen": true,
-         "icon": "icon-content-header-purchasingWhite",
-         "top2_menu": [
-             {
-                 "label": "镜像管理",
-                 "isOpen": false,
-                 "isActive": false,
-                 "routing": "host-mng/img-mng/img-index"
-             },
-         ]
-     }
+    
 ];

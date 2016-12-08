@@ -85,6 +85,17 @@
 		</div>
 	</div><!--第一个-->
 
+<div class="buttonPanel">
+    <button class="fox-cloud-button-lg fox-cloud-button-green" (click)="testAD()">
+		<span class="icon-button-label">测试</span>
+	</button>
+	<div [ngSwitch]="flag">
+		<span class="validateInfo" *ngSwitchCase="'true'">AD认证测试通过</span>
+		<span class="validateInfo" class="font-orange" *ngSwitchCase="'false'">AD认证测试失败</span>
+	</div>
+	<!-- <div *ngIf="flag"><span class="validateInfo">AD认证测试通过</span></div> -->
+</div>
+
 	<div class="secondPanel mgb20">
 		<div class="page-second-title">配额设置</div>
 			<div class="infoContent left">
@@ -193,4 +204,4 @@
 		<span class="icon-button-label">创建企业</span>
 	</button>
 </div>
-<fc-notice #notice ot="确认"></fc-notice>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>

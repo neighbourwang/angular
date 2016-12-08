@@ -63,7 +63,7 @@ export class VmDisIndexComponent implements OnInit {
     editPort: port = new port();
 
     statusDic: Array<SystemDictionary>;//状态
-
+    synDic:Array<SystemDictionary>;
    
 
     ngOnInit() {
@@ -74,7 +74,13 @@ export class VmDisIndexComponent implements OnInit {
             .then(
             dic => {
                this.statusDic = dic;
-                this.getData();
+               return this.dicService.getItems("vmdist","sync");
+                
+            })
+            .then(
+                dic =>{
+                    this.synDic = dic;
+                    this.getData();
             });
     }
 
@@ -328,23 +334,27 @@ export class VmDisIndexComponent implements OnInit {
                 }
             }
         )
-        this.service.doSyn(id, this.platformId)
-        .then(
-            response => {
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
+        if(id && id!=""){
+            this.service.doSyn(id, this.platformId)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
 
-                    //this.synDbt.close();
-                    this.createPopor();
-                    this.showAlert("同步成功");
-                    //this.synDbt.open('同步分布式网络信息-网络信息');
-                    
-                } else {
-                    alert("Res sync error");
+                        //this.synDbt.close();
+                        this.createPopor();
+                        this.showAlert("同步成功");
+                        //this.synDbt.open('同步分布式网络信息-网络信息');
+                        
+                    } else {
+                        alert("Res sync error");
+                    }
                 }
-            }
-        )
-        .catch((e) => this.onRejected(e));
+            )
+            .catch((e) => this.onRejected(e));
+        }else{
+            this.showAlert("请选择一个");
+        }
         
     }
     closeSynDbt(){
