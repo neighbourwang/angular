@@ -85,15 +85,14 @@
 		</div>
 	</div><!--第一个-->
 
-<div class="buttonPanel">
+<div class="buttonPanel" *ngIf="isLocal==false;">
     <button class="fox-cloud-button-lg fox-cloud-button-green" (click)="testAD()">
 		<span class="icon-button-label">测试</span>
 	</button>
-	<div [ngSwitch]="flag">
+	<div [ngSwitch]="ADflag">
 		<span class="validateInfo" *ngSwitchCase="'true'">AD认证测试通过</span>
 		<span class="validateInfo" class="font-orange" *ngSwitchCase="'false'">AD认证测试失败</span>
 	</div>
-	<!-- <div *ngIf="flag"><span class="validateInfo">AD认证测试通过</span></div> -->
 </div>
 
 	<div class="secondPanel mgb20">
