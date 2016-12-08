@@ -1,115 +1,119 @@
 <div class="page-content-header icon-content-header-userCenterOn">{{title}}</div>
-<div class="row" style="padding-top: 30px;">
-        <div class="col-md-12">
-            <div class="row row-line-height">
-                <div class="form-group">
-                    <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span>
-                        姓名
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control"  placeholder="请输入姓名" [(ngModel)]="account.userName">
-                    </div>
-                </div>
-            </div>
-
-            <div class="row row-line-height">
-                <div class="form-group">
-                    <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span>
-                        帐号
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control"  placeholder="请输入帐号" [disabled]="!isCreate" [(ngModel)]="account.loginName">
+<div class="page-content">
+    <div class="row" style="padding-top: 30px;">
+            <div class="col-md-12">
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-4 form-control-title">
+                            <span class="asterisk">*</span>
+                            姓名
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control"  placeholder="请输入姓名" [(ngModel)]="account.userName">
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row row-line-height">
-                <div class="form-group">
-                    <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span>
-                        联系电话
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control"  placeholder="请输入联系电话" [(ngModel)]="account.phone">
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-4 form-control-title">
+                            <span class="asterisk">*</span>
+                            帐号
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control"  placeholder="请输入帐号" [disabled]="!isCreate" [(ngModel)]="account.loginName">
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row row-line-height">
-                <div class="form-group">
-                    <div class="col-sm-4 form-control-title">
-                        描述
-                    </div>
-                    <div class="col-sm-4">
-                        <textarea type="text" class="form-control"  placeholder="请输入联系描述" rows="3" [(ngModel)]="account.description">
-                        </textarea>
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-4 form-control-title">
+                            <span class="asterisk">*</span>
+                            联系电话
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control"  placeholder="请输入联系电话" [(ngModel)]="account.phone">
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row row-line-height">
-                <div class="form-group">
-                    <div class="col-sm-4 form-control-title">
-                    </div>
-                    <div class="col-sm-4 checkbox">
-                        <label (click)="isLeader()">
-                            <input type="checkbox" > 是否机构负责人？
-                        </label>
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-4 form-control-title">
+                            描述
+                        </div>
+                        <div class="col-sm-4">
+                            <textarea type="text" class="form-control"  placeholder="请输入联系描述" rows="3" [(ngModel)]="account.description">
+                            </textarea>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row row-line-height">
-                <div class="form-group">
-                    <div class="col-sm-4 form-control-title">
-                        绑定角色
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-4 form-control-title">
+                        </div>
+                        <div class="col-sm-4 checkbox">
+                            <label (click)="isLeader()">
+                                <input type="checkbox" class="fox-cloud-checkbox"> 是否机构负责人？
+                            </label>
+                        </div>
                     </div>
-                    <div class="col-sm-6">
+                </div>
 
-                        <div class="btn-group">
-                            <div class="btn-group float-left" data-toggle="buttons">
-                                <label class="btn btn-default" *ngFor="let item of role" style="margin-bottom : 5px " (click)="addRole(item.id)" [ngClass]="{active: item.selected}">
-                                    <input type="checkbox" name="mirror" autocomplete="off" checked=""> {{item.name}}
-                                </label>
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-4 form-control-title">
+                            绑定角色
+                        </div>
+                        <div class="col-sm-6">
+
+                            <div class="btn-group">
+                                <div class="btn-group float-left" data-toggle="buttons">
+                                    <label class="btn btn-default" *ngFor="let item of role" style="margin-bottom : 5px " (click)="addRole(item.id)" [ngClass]="{active: item.selected}">
+                                        <input type="checkbox" name="mirror" autocomplete="off" checked=""> {{item.name}}
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row row-line-height">
-                <div class="form-group">
-                    <div class="col-sm-4 form-control-title">
-                        绑定机构
-                    </div>
-                    <div class="col-sm-5">
-                        <div style="height:40px;line-hight:36px;font-size:16px" *ngIf="account.organizations.length > 0">
-                            {{account.organizations[0].name}}
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-4 form-control-title">
+                            绑定机构
                         </div>
+                        <div class="col-sm-5">
+                            <div style="height:40px;line-hight:36px;font-size:16px" *ngIf="account.organizations.length > 0">
+                                {{account.organizations[0].name}}
+                            </div>
 
-                        <div class="btn-group">
-                            <div class="btn-group float-left" data-toggle="buttons">
-                                <label class="btn btn-default" *ngFor="let item of org"  style="margin-bottom : 5px" (click)="addOrg(item)" [ngClass]="{active: item.selected}">
-                                    <input type="radio" name="mirror" autocomplete="off" checked="" > {{item.name}}
-                                </label>
+                            <div class="btn-group">
+                                <div class="btn-group float-left" data-toggle="buttons">
+                                    <label class="btn btn-default" *ngFor="let item of org"  style="margin-bottom : 5px" (click)="addOrg(item)" [ngClass]="{active: item.selected}">
+                                        <input type="radio" name="mirror" autocomplete="off" checked="" > {{item.name}}
+                                    </label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-ms-1">
-                        <button class="fox-cloud-button-md fox-cloud-button-white" style="margin-top:5px" (click)="loadModeOrg()">更多>>></button>
+                        <div class="col-ms-1">
+                            <button class="fox-cloud-button-md fox-cloud-button-white" style="margin-top:5px" (click)="loadModeOrg()">更多>>></button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="text-center">
-                <button class="fox-cloud-button-lg fox-cloud-button-white" >
-                    <span class="icon-button-label">取消</span>
-                </button>
-                <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px" (click)="create()">
-                    <span class="icon-button-label" >{{btnTitle}}</span>
-                </button>
+               
             </div>
-        </div>
+    </div>
 </div>
+<div class="text-center" style="margin-top:50px">
+        <button class="fox-cloud-button-lg fox-cloud-button-white" >
+            <span class="icon-button-label">取消</span>
+        </button>
+        <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px" (click)="create()">
+            <span class="icon-button-label" >{{btnTitle}}</span>
+        </button>
+</div>
+<div style="height:50px"></div>
