@@ -124,9 +124,7 @@ export class cloudHostComponentOrder implements OnInit {
 		//临时处理 演示用
 		this.sendModule.bootsize.attrValue = "20";
 
-		let payloadList = [],
-			skuVmPayload = [],  //例外的sku
-			skuDiskPayload = [];  //例外的sku
+		let payloadList = [];
 		for (let v in this.sendModule) {
 			payloadList.push({
 				attrId: this.configs[v].attrId,   	//服务属性ID
@@ -139,12 +137,11 @@ export class cloudHostComponentOrder implements OnInit {
 			});
 		};
 
-		// const sku = this.getSkuId(skuVmPayload);   //获取sku
-
-		// this.payLoad.skuId = sku.skuId;
-		// this.payLoad.productId = sku.productId;
+		this.payLoad.skuId = this.vmSku.skuId;
+		this.payLoad.productId = this.vmSku.productId;
 		this.payLoad.attrList = payloadList;
 		this.payLoad.itemNo = this.makeItemNum();
+		this.payLoad.totalPrice = this.vmTotalPrice;
 
 		this.payLoadArr = [];
 		this.payLoadArr.push(this.payLoad);
@@ -181,8 +178,9 @@ export class cloudHostComponentOrder implements OnInit {
 	}
 	setDiskPrice(): void {  //获取数据盘的价格
 		const sku = this.diskSku.skuId,
-			  timeline = +this.sendModule.timeline.attrValue;
-		if(!sku || !timeline) return;  
+			  timeline = +this.sendModule.timeline.attrValue,
+			  storage = this.storage.getData();   //获取数据盘
+		if(!sku || !timeline || !storage.length) return;  
 
 
 	}
@@ -240,6 +238,7 @@ export class cloudHostComponentOrder implements OnInit {
 	}
 
 	addCart() {   //加入购物车
+		if(!this.checkInput()) return;
 		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
 		console.log(payLoadArr, JSON.stringify(payLoadArr))
 		// console.log(JSON.stringify(payLoad))
@@ -263,17 +262,22 @@ export class cloudHostComponentOrder implements OnInit {
 	}
 
 
-	checkInput() {
+	checkInput():boolean {
+		const al = value => !!alert(value);
 
+		if(!this.vmSku.skuId) return al("sku不正确")
+		if(!this.sendModule.timeline.attrValue) return al("请选择购买时长");
+		return true;
 	}
 
 	goTo(url: string) {
 		this.router.navigateByUrl(url);
 	}
 	buyNow() {
+		if(!this.checkInput()) return;
 		this.layoutService.show();
-		this.checkInput();
 		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
+		console.log(payLoadArr, JSON.stringify(payLoadArr))
 		this.service.saveOrder(payLoadArr).then(res => {
 			this.layoutService.hide();
 			this.router.navigateByUrl("cloud-host-service/cart-order");

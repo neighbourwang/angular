@@ -1,6 +1,6 @@
 <div class="page-content cloud_host_order">
 	<div class="col-md-9">
-		<h1 class="page-content-header">创建云主机  -> 测试请跳过创建云主机 不能创建</h1>
+		<h1 class="page-content-header">创建云主机</h1>
 		<ul class="left-box">
 			<li>
 				<div class="col-md-1 li-title">
@@ -153,7 +153,7 @@
 					<p><span class="icon-password"></span><br>密码设置</p>
 				</div>
 				<div class="col-md-12 li-content li-password">
-					<div class="col-md-12 no-padding mb15">
+					<!-- <div class="col-md-12 no-padding mb15">
 						<div class="col-md-2 content-title">设置方式</div>
 						<div class="col-md-4 no-padding btn-group" data-toggle="buttons">
 							<label class="btn btn-default active" (click)="setPassword = true">
@@ -164,7 +164,7 @@
 							</label>
 						</div>
 						<div class="col-md-5 no-padding text-tip">请牢记您所设置的密码，如遗忘可登录ESC控制台重置密码。</div>
-					</div>
+					</div> -->
 
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">用户名</div>
@@ -212,7 +212,9 @@
 							</select>
 						</div>
 						<div class="col-md-2 no-padding mr10">
-							<input [disabled]="timeForever" (change)="setVmPrice();setDiskPrice();" [(ngModel)]="sendModule.timeline.attrValue" type="text" class="form-control">
+							<input [disabled]="timeForever" 
+								   (keyup)="setVmPrice();setDiskPrice();" 
+								   [(ngModel)]="sendModule.timeline.attrValue" type="text" class="form-control">
 						</div>
 						<div class="col-md-2 no-padding">
 							<!-- <label class="btn btn-default" (click)="timeForever = timeForever ? false : true" [ngClass]="{'active': timeForever}">
@@ -271,7 +273,7 @@
 			<h4 class="cloud-title font-green">云主机费用</h4>
 			<p class="cloud-p">一次性费用: <font class="font-orange">{{ vmBasePrice }}</font></p>
 			<p class="cloud-p">费用: <font class="font-orange">{{vmTotalPrice}} / {{ sendModule.timelineunit.attrDisplayValue }}</font></p>
-			<h4 class="cloud-title">费用总计：<font class="font-orange">¥{{ 22 }}</font></h4>
+			<h4 class="cloud-title">费用总计：<font class="font-orange">¥{{ vmTotalPrice }}</font></h4>
 			<div class="col-md-12 colud-order-button">
 				<div class="col-md-6"><button (click)="buyNow()" class="btn button-orange-deep">立即购买</button></div>
 				<div class="col-md-6"><button (click)="addCart()" class="btn button-orange-light">加入购物车</button></div>
