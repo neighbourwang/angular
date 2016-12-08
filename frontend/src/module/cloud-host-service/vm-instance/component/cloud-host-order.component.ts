@@ -186,7 +186,7 @@ console.log(payLoadList,222)
 		//根据他的依赖的id获取它自身的list
 		const list = this.configs[attrName].mapValueList[this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId];
 		 //设置sendmodule使它选择第一个
-		if(list && list.length && this.sendModule[attrName]) this.sendModule[attrName] = list[0];  
+		if(list && list.length && this.sendModule[attrName] && !this.sendModule[attrName].attrValueId) this.sendModule[attrName] = list[0];  
 		return list;
 	}
 
