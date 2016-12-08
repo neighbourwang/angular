@@ -26,6 +26,12 @@ export class AccountMngService {
 
         return this.restApi.request(api.method , api.url , [{key : "page" , value : page},{key : "size" , value : size}],undefined)
     }
+     //账号搜索
+    searchAccountByName(page: number, size: number,kw:string){
+        let api = this.restApiCfg.getRestApi("user-center.search-account.list");
+
+        return this.restApi.request(api.method, api.url, [{ key: "page", value: page }, { key: "size", value: size }], [{key: "userName", value: kw }]);
+    }
 
     //获取 所有角色
     getRole () : Promise<any>{
