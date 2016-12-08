@@ -303,6 +303,7 @@ export class IpMngListComponent implements OnInit{
         this.ippool.ips = [];
         this.ippool.ipstr = "";
         this.ippool.subnetCIDR = "";
+        this.ippool.subnetMask = "";
         this.ippool.gateway = "";
     }
 

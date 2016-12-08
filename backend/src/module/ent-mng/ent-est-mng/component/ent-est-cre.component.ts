@@ -24,7 +24,7 @@ export class EntEstCreComponent implements OnInit{
 	private resourceQuotas: Paging<ResourceQuota> = new Paging<ResourceQuota>();
 	private isLocal:boolean = true;
 
-	private flag: string = "";
+	private ADflag: string = "";
 
 	constructor(
 		private router: Router,
@@ -219,18 +219,59 @@ export class EntEstCreComponent implements OnInit{
 
 	}
 
+
+  private okCallback:Function = null;
+  okClicked(){
+    console.log('okClicked');
+    if(this.okCallback)
+    {
+      console.log('okCallback()');
+      this.okCallback();
+      this.okCallback = null;
+    }
+  }
+
+  //验证AD测试数据
+  validateCertModify():boolean{
+    let notValid = [
+    {
+      "name":"URL地址"
+      ,'value':this.entEst.BasicInfo.certUrl
+      ,"op":"*"
+    },
+    {
+      "name":"用户名"
+      ,'value':this.entEst.BasicInfo.contactorName
+      ,"op":"*"
+    },
+    {
+      "name":"密码"
+      ,'value':this.entEst.BasicInfo.password
+      ,"op":"*"
+    }].find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
+
+    if(notValid !== void 0)
+    {
+      this.showMsg(this.service.validate(notValid.name, notValid.value, notValid.op));
+      return false;
+    }
+    else
+      return true;
+  }
+
     //测试AD信息
 	testAD(): any {
+		if (this.validateCertModify()) {
 		this.layoutService.show();
 		this.service.testAD(this.entEst).then(res => {
 			this.layoutService.hide();
 			if (res && res.resultCode == "100") {
 				console.log("AD测试成功", res);
-				this.flag = "true";
+				this.ADflag = "true";
 			} else {
 				console.log("AD测试失败", res);
 				//this.showMsg("AD测试失败");
-				this.flag = "false";
+				this.ADflag = "false";
 				return;
 			}
 		})
@@ -238,7 +279,8 @@ export class EntEstCreComponent implements OnInit{
 			console.log("AD测试异常", err);
 			this.layoutService.hide();
 			//this.showMsg("AD测试失败");
-			this.flag = "false";
+			this.ADflag = "false";
 		});
+	}
 	}
 }
