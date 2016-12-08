@@ -548,6 +548,18 @@ export class EntEstCreService{
 
 		});
 	}
+
+	//测试AD信息
+	testAD(entEst:EntEst): Promise<any> {
+		let api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.test");
+		const body = {
+			"password": entEst.BasicInfo.password,
+			"url": entEst.BasicInfo.certUrl,
+			"userName": entEst.BasicInfo.contactorName
+		};
+
+		return this.restApi.request(api.method, api.url, null, null, body);
+	}
 }
 
 export class Paging<T>{

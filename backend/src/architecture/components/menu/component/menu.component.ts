@@ -280,17 +280,5 @@ const menu: Array<Object> = [
              }
          ]
      },
-     {
-         "label": "云主机管理",
-         "isOpen": true,
-         "icon": "icon-content-header-purchasingWhite",
-         "top2_menu": [
-             {
-                 "label": "镜像管理",
-                 "isOpen": false,
-                 "isActive": false,
-                 "routing": "host-mng/img-mng/img-index"
-             },
-         ]
-     }
+    
 ];
