@@ -45,17 +45,18 @@
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>密码：</div>
 						<div class="col-sm-6">
-							<input type="password" class="form-control input-control" placeholder="******" [(ngModel)]="entEst.BasicInfo.password">
+							<input type="password" [ngClass]="{'wd320':!isLocal}"  class="form-control input-control" placeholder="******" [(ngModel)]="entEst.BasicInfo.password">
 						</div>
-						<!--<div class="col-sm-2 form-control-title">style="width: 320px;" 
-							<button class="fox-cloud-button fox-cloud-button-white float-left" (click)="test()">
+						<div class="col-sm-2 form-control-title"  *ngIf="isLocal==false;">
+							<button class="fox-cloud-button fox-cloud-button-white float-left"  style="margin-left:-30px" (click)="testAD()">
 							<span class="icon-button-label">测试</span>
 							</button>
-						</div>-->
+						</div>
 					</div>
-					<!--<div class="test-title form-control-title">
-							<span class="validateInfo">AD认证测试通过</span>
-						</div>-->
+					<div [ngSwitch]="ADflag" class="test-title form-control-title">
+							<span class="validateInfo" *ngSwitchCase="'true'">AD认证测试通过</span>
+							<span class="warnInfo" *ngSwitchCase="'false'">AD认证测试失败</span>
+						</div>
 				</div>
 				<div class="row row-line-height" *ngIf="isADSelected();">
 					<div class="form-group">
@@ -84,7 +85,7 @@
 				</div>
 		</div>
 	</div><!--第一个-->
-
+<!--
 <div class="buttonPanel" *ngIf="isLocal==false;">
     <button class="fox-cloud-button-lg fox-cloud-button-green" (click)="testAD()">
 		<span class="icon-button-label">测试</span>
@@ -93,7 +94,7 @@
 		<span class="validateInfo" *ngSwitchCase="'true'">AD认证测试通过</span>
 		<span class="validateInfo" class="font-orange" *ngSwitchCase="'false'">AD认证测试失败</span>
 	</div>
-</div>
+</div>-->
 
 	<div class="secondPanel mgb20">
 		<div class="page-second-title">配额设置</div>
@@ -178,16 +179,22 @@
 	   				<tr>
 	   				    <th>选择</th>
 	   					<th>区域</th>
-						<th>平台配额</th>
-						<th>存储配额</th>
+						<th>可分配vCPU数量</th>
+						<th>可分配内存(GB)</th>
+						<th>可分配存储(GB)</th>
+						<th>可分配物理机数量</th>
+						<!--<th>平台配额</th>
+						<th>存储配额</th>-->
 	   			    </tr>
 	   			</thead>
 	   			<tbody>
 	   				<tr *ngFor="let item of resourceQuotas.items">
    						<td><input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="item.checked"/></td>
 						<td>{{item.regionName}}</td>
-						<td>{{item.platformVMQuota}}</td>
+						<td><!-- {{item.regionName}} --></td>
+						<td><!-- {{item.regionName}} --></td>
 						<td>{{item.storageQuota}}</td>
+						<td>{{item.platformVMQuota}}</td>
 					</tr>
 	   			</tbody>
 	   		</table>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, } from '@angular/core';
+import { Component, OnInit, ViewChild, Input} from '@angular/core';
 import { Router } from '@angular/router';
 import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 import { OrderDetailItem } from '../model';
@@ -11,7 +11,8 @@ import { OrderDetailItem } from '../model';
   providers: []
 }) 
 export class OrderMngDetailComponent implements OnInit {
-  
+  @Input('orderDetail')
+  private _orderDetail:OrderDetailItem;
 
   constructor(
     private layoutService: LayoutService,

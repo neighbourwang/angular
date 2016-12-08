@@ -9,7 +9,9 @@ import { ListItem
 	,SubInstanceAttrPair
 	,ProductBillingItem
 	, RenewSetting
-	, PurchaseUnit} from '../model'
+	, PurchaseUnit
+	, OrderDetailItem
+} from '../model'
 import * as _ from 'underscore';
 
 @Component({
@@ -30,6 +32,9 @@ export class OrderMngComponent implements OnInit{
 
   	@ViewChild("testDialog")
   	private _testDialog:ModalComponent;
+
+  	//订单详情加载
+  	private _orderDetailLoader:ItemLoader<OrderDetailItem> = null;
 
   	//当前选择的行
   	private selectedOrderItem: SubInstanceResp = null;
@@ -70,6 +75,17 @@ export class OrderMngComponent implements OnInit{
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
+
+		//订单详情加载
+		this._orderDetailLoader = new ItemLoader<OrderDetailItem>(false, "订购详情", "op-center.order-mng.order-detail.get", restApiCfg, restApi);
+		this._orderDetailLoader.MapFunc = (source:Array<any>, target:Array<OrderDetailItem>)=>{
+			for(let item of source)
+			{
+				let obj:OrderDetailItem = _.extendOwn(new OrderDetailItem(), item)
+				target.push(obj);
+			}
+		};
+		this._orderDetailLoader.FirstItem = new OrderDetailItem();
 
 		//续订费用
 		this._renewPriceLoader = new ItemLoader<ProductBillingItem>(false, "续订费用", "op-center.order-mng.order-renew-price.get", restApiCfg, restApi);
@@ -265,8 +281,19 @@ export class OrderMngComponent implements OnInit{
 		});
 	}
 	
+	//显示详情
 	showDetail(orderItem:SubInstanceResp){
-		//this.router.navigateByUrl('op-center/order-mng/order-mng-detail');
+		this.layoutService.show();
+
+		this._orderDetailLoader.Go(null, [{key:"subinstanceCode",value:orderItem.orderId}])
+		.then(success=>{
+			this.layoutService.hide();
+			$('#orderDetail').modal('show');
+		})
+		.catch(err=>{
+			this.layoutService.hide();
+			this.showMsg(err);
+		})
 	}
 
 	//选择续订	
