@@ -4,11 +4,8 @@
         <input class="form-control" [(ngModel)]="keyword" (keyup.enter)="search()" placeholder="输入帐号信息快速搜索" type="text">
         <div class="input-group-addon" (click)="search()"><span class="glyphicon glyphicon-search"></span></div>
     </div>
-
-
     <button class="btn button-confirm float-right" data-toggle="modal" (click)="create()">创建帐号</button>
 </div>
-
 <table class="table table-hover mgb20">
     <tbody>
         <tr>

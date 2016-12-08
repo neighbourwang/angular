@@ -167,6 +167,7 @@ export let RestApis: RestApiModel[] = [
         "id": "pf.cre.images.get",
         "method": "GET",
         "url": "adminui/authsec/platform/{pf-id}/images"
+        // /authsec/images/openstack/pub/{platformId}
     },
     {
         "desc": "更新镜像",
