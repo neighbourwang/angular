@@ -53,7 +53,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let ipusagemng of ipusagemngs; let i=index;">
-                <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="ipusagemng.checked" (change)="selectItem(i); selectedipmng = ipmng;" value="{{i}}"></td>
+                <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="ipusagemng.checked" (change)="selectItem(i);" value="{{i}}"></td>
                 <td>{{ipusagemng.addr}}</td>
                 <td>{{displayIt(ipusagemng.instanceName)}}</td>
                 <td>{{displayIt(ipusagemng.tenantName)}}</td>
