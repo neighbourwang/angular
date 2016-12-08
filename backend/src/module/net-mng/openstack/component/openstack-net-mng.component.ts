@@ -102,6 +102,7 @@ export class OpenstackNetMngComponent implements OnInit {
     getNetworkList(pageIndex?): void {
         this.pageIndex = pageIndex || this.pageIndex;
         this.layoutService.show();
+        this.selectedNetwork= new Network();
         this.service.getNetworks(this.queryOpt, this.pageIndex, this.pageSize)
             .then(
             response => {
@@ -110,7 +111,7 @@ export class OpenstackNetMngComponent implements OnInit {
                     this.layoutService.hide();
                     this.networks = response.resultContent;
                     this.totalPage = response.pageInfo.totalPage;
-                    this.selectedNetwork= new Network();
+                    //this.selectedNetwork= new Network();
                 } else {
                     alert("Res sync error");
 
@@ -195,7 +196,7 @@ export class OpenstackNetMngComponent implements OnInit {
                                 if (response && 100 == response["resultCode"]) {
                                     this.showAlert("启用成功");
                                     this.getNetworkList();
-                                    this.selectedNetwork= new Network();
+                                    //this.selectedNetwork= new Network();
                                 } else {
                                     alert("Res sync error");
                                 }
@@ -229,7 +230,7 @@ export class OpenstackNetMngComponent implements OnInit {
                                 if (response && 100 == response["resultCode"]) {
                                     this.showAlert("禁用成功");
                                     this.getNetworkList();
-                                    this.selectedNetwork= new Network();
+                                   // this.selectedNetwork= new Network();
                                 } else {
                                     alert("Res sync error");
                                 }
