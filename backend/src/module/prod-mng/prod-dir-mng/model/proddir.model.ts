@@ -45,5 +45,6 @@ class ProdDir {
 }
 export {
     ProdDir,
-    platform
+    platform,
+    specification
 }

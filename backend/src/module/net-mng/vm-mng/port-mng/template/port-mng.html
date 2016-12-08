@@ -14,24 +14,25 @@
         </thead>
     </table>
 
-    <div class="mgb20 form-inline mgt15">
-        <label class="pdr10 ">
-            数据中心(DC)名称:
-        </label>
-        <select class="pdl20 pdr20 form-control" [(ngModel)]="selectedDC" (change)="selectCluster=defaultCluster;">
-            <option [ngValue]="defaultDc">所有</option>
-            <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
-        </select>
-        <label class="pdr10 pdl20">
-            可用区名称:
-        </label>
-        <select class="pdl20 pdr20 mgr20 form-control" [(ngModel)]="selectCluster">
-            <option [ngValue]="defaultCluster">所有</option>
-            <option *ngFor="let vds of selectedDC.clusters" [ngValue]="vds">{{vds.clusterName}}</option>
-        </select>
-        <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px;" (click)="filter();"> 确定</button>
+    <div class="mgt15 ">
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 数据中心(DC)名称：</span>
+        <div class="float-left pdr20">
+            <select class="pdl20 pdr20 form-control" [(ngModel)]="selectedDC" (change)="selectCluster=defaultCluster;">
+                <option [ngValue]="defaultDc">所有</option>
+                <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
+            </select>
+        </div>
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 可用区名称：</span>
+        <div class="float-left">
+            <select class="pdl20 pdr20 mgr20 form-control" [(ngModel)]="selectCluster">
+                <option [ngValue]="defaultCluster">所有</option>
+                <option *ngFor="let vds of selectedDC.clusters" [ngValue]="vds">{{vds.clusterName}}</option>
+            </select>
+        </div>
+        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl15 " style="height:34px;" (click)="filter();"> 确定</button>
     </div>
-    <button class="fox-cloud-button fox-cloud-button-green mgb10" (click)="gotoSetPage();">
+    <div class="mgt15" style="clear:both"></div>
+    <button class="fox-cloud-button fox-cloud-button-green mgb20" (click)="gotoSetPage();">
         设置企业
     </button>
     <div class="table-container port-res">

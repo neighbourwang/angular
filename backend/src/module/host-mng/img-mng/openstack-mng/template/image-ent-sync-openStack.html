@@ -81,8 +81,8 @@
                     </td>
                     <td >{{showCapacity(image.capacity)}}</td>
                     <td >企业镜像</td>
-                    <td >所有</td>
-                    <td [ngClass]="{'font-green':image.status!='2','font-orange':image.status==2}">{{getDicText(image.syncResult,this.syncDic)}}</td>
+                    <td >{{image.tenants[0]}}</td>
+                    <td [ngClass]="{'font-green':image.status!='2','font-orange':image.status=='2'}">{{getDicText(image.syncResult,this.syncDic)}}</td>
 
                 </tr>
                 

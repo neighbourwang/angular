@@ -27,7 +27,7 @@
     </div>
     <div class="clear"></div>
     <div class="mgb20 mgt10">
-        <h4 class="pull-left mgr15 ">所属企业:</h4>
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">所属企业：</span>
         <!--<div class="pull-left mgr15 col-md-3 " style="position:relative;padding:0">
             <span class="glyphicon glyphicon-search form-control-feedback"></span>
             <input type="text" class="form-control " placeholder="输入企业/租户信息搜索" [(ngModel)]="queryOpt.tenantName"/>
@@ -36,7 +36,7 @@
         <div class="input-group col-md-2 float-left">
             <input class="form-control" placeholder="输入企业/租户信息搜索" type="email">
             <div class="input-group-addon"(click)="search2()"><span class="glyphicon glyphicon-search" ></span></div>
-        </div> 
+        </div>
 
 
         <button type="button" class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="resetQueryOpt()"> 重置</button>
@@ -74,12 +74,12 @@
                     <td >
                         <input type="radio" class="fox-cloud-radio" name="radio" [checked]="network.selected" (change)="network.selected = $event.target.checked" />
                     </td>
-                    
+
                     <td >{{network.tenantName}}</td>
                     <td >{{network.networkName}}</td>
                     <td >{{network.subnetName}}</td>
                     <td style="position:relative">{{network.subnetDisplayName}}
-                        <span class="icon-edit2 pull-right" (click)="openEidtPanel(network);network.nameEditing=true;"></span>                                                                                       
+                        <span class="icon-edit2 pull-right" (click)="openEidtPanel(network);network.nameEditing=true;"></span>
                             <div *ngIf="network.nameEditing" class="popover fade bottom in" role="tooltip" style="position:absolute;top:30px; left:30px; width:370px; max-width:1100px; display: block;">
                                 <div class="arrow" style="left: 30%;"></div>
                                 <div class="popover-content">
@@ -95,8 +95,8 @@
                                     <button class=" fox-cloud-button fox-cloud-button-white"style="background-color:#00a982;color:white" (click)="updateSubnetDisplayName(network)">保存</button>
                                     <button class=" fox-cloud-button fox-cloud-button-white"(click)="network.nameEditing=false">取消</button>
                                 </div>
-                            </div>  
-                             </div>    
+                            </div>
+                             </div>
                     </td>
                     <td >{{network.segmentCIDR}}</td>
                     <td >{{network.gateway}}</td>
@@ -114,8 +114,8 @@
     </div>
     <div style="height:200px"></div>
         <!--{{queryOpt.toString()}}-->
-    
-   
+
+
     <div class="fox-cloud-pagination-container">
         <fc-pagination #pager tp={{totalPage}} (pf)="getNetworkList($event)"></fc-pagination>
     </div>
@@ -145,7 +145,7 @@
             </table>
             </div>
     </div>
-</fc-popup> 
+</fc-popup>
 
 
 
