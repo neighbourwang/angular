@@ -230,7 +230,7 @@ const menu: Array<Object> = [
                  "routing": "net-mng/openstack/openstack-net-mng"
              },
          {
-              "label": "VMware网络",
+              "label": "VMware标准网络",
                  "isOpen": false,
                  "isActive": false,
                  "routing": "net-mng/vm-mng/88"
