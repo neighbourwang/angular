@@ -77,7 +77,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "云硬盘操作",
         "method": "POST",
         "id": "hosts.vm.action",
-        "url": "marketplace/authsec/subinstance/itemlist/dist/action"
+        "url": "marketplace/authsec/subinstance/itemlist/disk/action"
     },
     {
         "desc": "获取云主机控制台",
