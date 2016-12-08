@@ -53,7 +53,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let ipusagemng of ipusagemngs; let i=index;">
-                <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="ipusagemng.checked" (change)="selectItem(i)" value="{{i}}"></td>
+                <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="ipusagemng.checked" (change)="selectItem(i);" value="{{i}}"></td>
                 <td>{{ipusagemng.addr}}</td>
                 <td>{{displayIt(ipusagemng.instanceName)}}</td>
                 <td>{{displayIt(ipusagemng.tenantName)}}</td>
@@ -102,6 +102,7 @@
 					</div>
 				</div>
 			</div>
+            <!--
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>说明：</div>
@@ -110,5 +111,6 @@
 					</div>
 				</div>
 			</div>
+            -->
 	</div>
 </fc-popup>
