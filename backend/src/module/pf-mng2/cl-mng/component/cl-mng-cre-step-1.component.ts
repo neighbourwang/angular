@@ -132,7 +132,7 @@ export class ClMngCreStep1Component implements OnInit {
                 ).catch(
                 err => {
                     console.error('err');
-                    this.notice.open('错误', '平台信息错误');
+                    this.notice.open('错误', '获取Region信息错误');
                 }
                 )           
         } else {

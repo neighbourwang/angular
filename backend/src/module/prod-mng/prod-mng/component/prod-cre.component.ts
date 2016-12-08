@@ -302,7 +302,8 @@ export class ProdCreComponent implements OnInit, OnChanges {
 
             // }
         }).catch(err => {
-            console.error(err)
+            console.error(err);
+            this.LayoutService.hide();
         })
     }
     ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
