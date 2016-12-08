@@ -176,7 +176,7 @@ export let RestApis: RestApiModel[] = [
         "id": "image.mng.area.list",
         "url": "/adminui/authsec/platforms/status/activation"
     }
-    //<--费用中心-订单管理
+    //<--费用中心-已购服务管理
     ,{
         "desc": "部门列表获取",
         "method": "GET",
@@ -203,9 +203,9 @@ export let RestApis: RestApiModel[] = [
     }
     ,{
         "desc": "订单详情查询",
-        "method": "GET",
+        "method": "POST",
         "id": "op-center.order-mng.order-detail.get",
-        "url": "NONE"        
+        "url": "marketplace/authsec/subinstance/{subinstanceCode}/orderDetail"        
     },{
         "desc": "订单退订",
         "method": "GET",
@@ -222,7 +222,7 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.order-renew-price.get",
         "url": "marketplace/authsec/subscription/instance/{_subId}/price"        
     },
-    //费用中心-订单管理-->
+    //费用中心-已购服务管理-->
 
     //订单查询
     {
