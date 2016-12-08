@@ -45,10 +45,10 @@ export class cloudHostComponentOrder implements OnInit {
 		// $("[data-toggle=popover]").popover();
 	}
 
-	private getSkuId(payLoadList: AttrList[], skuException:string[]): { skuId: string, productId: string } {   //获取skuID和productId
+	private getSkuId(payLoadList: string[]): { skuId: string, productId: string } {   //获取skuID和productId
 		const trim = val => val.replace("[", "").replace("]", ""),
-			totalId = payLoadList.map(list => list.attrValueId).concat(skuException).join(",");
-
+			  totalId = payLoadList.join(",");
+console.log(payLoadList,222)
 		let nub = 0, 	//验证sku成功的个数
 			skuValue = {};
 
@@ -56,7 +56,7 @@ export class cloudHostComponentOrder implements OnInit {
 			sku.split(", ").forEach(skuString => {
 				if(totalId.indexOf(trim(skuString)) > -1 ) nub++;
 			});
-			if(nub === 4) {
+			if(nub === payLoadList.length) {
 				return this.skuMap[sku]
 			}
 			nub = 0;
@@ -69,17 +69,28 @@ export class cloudHostComponentOrder implements OnInit {
 	}
 
 	//把payLoad转换成提交的post对象
+	/**
+	 * [payLoadFormat 把页面数据转换为发送给后端的数据 本页面的核心函数]
+	 *
+	 * 业务简介
+	 *** 总共有一个云主机订单
+	 *** 和三个可选的云硬盘订单（页面显示为云硬盘）
+	 *** PayLoad是一个数组，需要把上面的四个订单加入进去
+	 *** 需要取
+	 * 业务逻辑
+	 * 1. 
+	 * @return {PayLoad[]} [description]
+	 */
 	private payLoadFormat(): PayLoad[] {
 		//特殊处理
-		console.log(this.sendModule.timeline)
 		this.sendModule.timeline.attrValue = parseInt(this.sendModule.timeline.value);
 
 		//临时处理 演示用
-		this.sendModule.storagesize.attrValue = "20";
 		this.sendModule.bootsize.attrValue = "20";
 
 		let payloadList = [],
-			skuException = [];  //例外的sku
+			skuVmPayload = [],  //例外的sku
+			skuDistPayload = [];  //例外的sku
 		for (let v in this.sendModule) {
 			payloadList.push({
 				attrId: this.configs[v].attrId,   	//服务属性ID
@@ -90,13 +101,14 @@ export class cloudHostComponentOrder implements OnInit {
 				attrValue: this.sendModule[v].attrValue, 	//服务属性值
 				attrValueCode: this.sendModule[v].attrValueCode, 	//服务属性值
 			});
-			if(v === "timelineunit") {
-				skuException.push(this.sendModule[v].attrValueCode);  //例外的匹配
-			}
+
+			if(["zone", "platform", "cpu", "mem"].indexOf(v) > -1)    //vm主机订单的sku匹配的选项 需要匹配可用区 平台 cpu 内存
+				skuVmPayload.push(this.sendModule[v].attrValueId); 
+			if(["zone", "platform"].indexOf(v) > -1)    //云硬盘订单的sku匹配的选项 需要匹配 平台 可用区 （还有一个硬盘类型 由下面添加）
+				skuDistPayload.push(this.sendModule[v].attrValueId); 
 		};
 
-
-		let sku = this.getSkuId(payloadList, skuException);   //获取sku
+		const sku = this.getSkuId(skuVmPayload);   //获取sku
 
 		this.payLoad.skuId = sku.skuId;
 		this.payLoad.productId = sku.productId;
@@ -108,6 +120,10 @@ export class cloudHostComponentOrder implements OnInit {
 
 		/****下面开始处理数据盘的逻辑****/
 		const storage = this.storage.getData();   //获取数据盘
+
+		if(storage.length) {   //如果有数据盘的数据
+
+		}
 
 
 		return this.payLoadArr;
@@ -165,11 +181,12 @@ export class cloudHostComponentOrder implements OnInit {
 		}
 	}
 	rely(attrName:string):VlueList[] {
+		if(!this.configs[attrName].relyAttrId) return [];
+
 		//根据他的依赖的id获取它自身的list
-		console.count();
-		console.log(attrName)
 		const list = this.configs[attrName].mapValueList[this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId];
-		if(list.length) this.sendModule[attrName] = list[0];   //设置sendmodule
+		 //设置sendmodule使它选择第一个
+		if(list && list.length && this.sendModule[attrName]) this.sendModule[attrName] = list[0];  
 		return list;
 	}
 
@@ -206,14 +223,14 @@ export class cloudHostComponentOrder implements OnInit {
 		this.router.navigateByUrl(url);
 	}
 	buyNow() {
-		// this.layoutService.show();
+		this.layoutService.show();
 		this.checkInput();
 		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
-		// this.service.saveOrder(payLoadArr).then(res => {
-		// 	this.layoutService.hide();
-		// 	this.router.navigateByUrl("cloud-host-service/cart-order");
-		// }).catch(res => {
-		// 	this.layoutService.hide();
-		// })
+		this.service.saveOrder(payLoadArr).then(res => {
+			this.layoutService.hide();
+			this.router.navigateByUrl("cloud-host-service/cart-order");
+		}).catch(res => {
+			this.layoutService.hide();
+		})
 	}
 }

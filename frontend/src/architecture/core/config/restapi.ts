@@ -74,6 +74,18 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/subinstance/itemlist/vm/action"
     },
     {
+        "desc": "云硬盘操作",
+        "method": "POST",
+        "id": "hosts.vm.action",
+        "url": "marketplace/authsec/subinstance/itemlist/dist/action"
+    },
+    {
+        "desc": "获取云主机控制台",
+        "method": "GET",
+        "id": "vm.console.url",
+        "url": "marketplace/authsec/platforms/{platformid}/enterprise/{enterpriseId}/subinstance/computes/{uuid}/vnc"
+    },
+    {
         "desc": "获取云主机详细信息",
         "method": "GET",
         "id": "hosts.instance.detail",
@@ -212,6 +224,21 @@ export let RestApis: RestApiModel[] = [
     },
     //费用中心-订单管理-->
 
+    //订单查询
+    {
+        "desc": "查询订单",
+        "method": "POST",
+        "id": "op-center.order-search.list.post",
+        "url": "marketplace/authsec/subinstance/subscription/orderlist"        
+    },
+    {
+        "desc": "查询订单详情",
+        "method": "GET",
+        "id": "op-center.order-search.detail.get",
+        "url": "marketplace/authsec/subinstance/{subinstanceCode}/orderDetail"        
+    },
+    //订单查询
+
     //用户中心
     //个人账户管理
     {
@@ -286,6 +313,12 @@ export let RestApis: RestApiModel[] = [
         "id": "user-center.attest-mng.ldap.attest.simple.list",
         "method": "GET",
         "url": "basis/authsec/ldaps/simple"
+    },
+    {
+        "desc": "获取企业认证源列表（下拉框）",
+        "id": "ent-mng.enterprise.ldap.simple.list",
+        "method": "GET",
+        "url": "basis/authsec/enterprise/{enterpriseId}/ldaps/simple"
     },
     {
         "desc": "用户中心 查询符合条件的AD用户",

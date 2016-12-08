@@ -58,11 +58,11 @@ export class EntEstCreService{
 		let params = [
 			{
 				key:"_page"
-				,value: resourceQuotaPaging.currentPage == 0 ? 1 : resourceQuotaPaging.currentPage
+				,value: 1
 			}
 			,{
 				key:"_size"
-				,value:10
+				,value:200
 			}
 		];
 
@@ -83,7 +83,7 @@ export class EntEstCreService{
 					obj.regionName = item.regionName;
 					obj.platformVMQuota = item.vmQuota;
 					obj.storageQuota = item.storageQuota;
-
+					obj.platformId = item.platformId;
 				}
 			});
 
@@ -383,6 +383,7 @@ export class EntEstCreService{
 			"userName": entEst.BasicInfo.contactorName,
 			//"isSSL": entEst.BasicInfo.isSSL, //是否进行SSL加密
 			"accountAttribute": entEst.BasicInfo.accountAttribute//登录账户属性名称
+			,"platformIdList": entEst.BasicInfo.platformIds
 		},
 		"quotaList": {
 			"enterpriseId":entEst.ResourceQuota.enterpriseId,
@@ -444,29 +445,6 @@ export class EntEstCreService{
 		return this.restApi.request(api.method, api.url, localParams, [], target);
 	}
 
-
-   
-	//更新企业认证信息
-	updateEntCert(entBasicInfo:EntEstBasicInfo){
-		let api = this.restApiCfg.getRestApi("ent-mng.ent-est-mng.enterprise.updateauth");
-
-		let localParams = [
-		{
-			key:"_enterpriseId"
-			,value:entBasicInfo.id
-		}
-		]
-		let target:any = {
-			"authMode": null,//前台未提供
-			"id": entBasicInfo.id,
-			"password": entBasicInfo.password,
-			"url": entBasicInfo.certUrl,
-			"userName": entBasicInfo.contactorName
-		};
-
-		return this.restApi.request(api.method, api.url, localParams, [], target);
-
-	}
 
 	//更新企业状态：启用，禁用，删除
 	//0: Initial; 1: Active; 2: Suspend; 3: Cancelled, 4: Deleted.

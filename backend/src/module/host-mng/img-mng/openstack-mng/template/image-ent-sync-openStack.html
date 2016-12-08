@@ -60,10 +60,13 @@
                     </td>
                     <td >
                         <div *ngIf="image.syncResult==0" style="height:39px;padding-top:7px">
-                            <input type="text" style="padding:0;text-align:center" placeholder="image.os" [(ngModel)]="image.os" />
+                             <select [(ngModel)]="image.os">
+                                <option *ngFor = "let os of osDic" [ngValue]="os.value" [ngClass]="setDefaultOs(os,image.osType)">{{getDicText(os.value,osDic)}}</option>
+                            </select>
+                            <!--<input type="text" style="padding:1px;text-align:center" placeholder="image.os" [(ngModel)]="image.os" />-->
                         </div>
                         <div *ngIf="image.syncResult!=0">
-                            {{image.os}}
+                            {{getDicText(image.os,this.osDic)}}
                         </div>
                     </td>
                     <td >

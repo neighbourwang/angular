@@ -39,6 +39,7 @@ export class EntEstMngComponent implements OnInit {
   private entEstMng:ItemLoader<EntEstItem> = null;
   private entEstResource:ItemLoader<EntEstCreResourceQuota> = null;
   private statusDic:DicLoader = null;
+  private _certUpdateHandler:ItemLoader<any> = null;
 
   constructor(
     private layoutService: LayoutService,
@@ -47,6 +48,10 @@ export class EntEstMngComponent implements OnInit {
     private restApiCfg:RestApiCfg,
     private restApi:RestApi
   ) {
+
+    //认证数据更新
+    this._certUpdateHandler = new ItemLoader<any>(false, "认证更新", "ent-mng.ent-est-mng.enterprise.updateauth", restApiCfg, restApi);
+
     this.entEstMng = new ItemLoader<EntEstItem>(true, "企业管理列表", "ent-mng.ent-est-mng.enterprise.get", restApiCfg, restApi);
     
     //配置企业配额加载
@@ -61,6 +66,7 @@ export class EntEstMngComponent implements OnInit {
         obj.memroyQuota = item.memQuota;// : number = null;//": 0,//可用内存数量
         obj.physicalQuota = item.physicalMachineQuota;// : number = null;//": 0,//可创建物理机数量
         obj.snapShotQuota = item.snapshotQuota;// : number = null;//": 0,//可创建快照数量
+        obj.enterpriseId = obj.enterpriseId || this.getSelected().enterpriseId;
       }
     };
 
@@ -440,14 +446,24 @@ export class EntEstMngComponent implements OnInit {
   acceptCertModify(){
     if(this.validateCertModify())
     {
-      this.service.updateEntCert(this.entEst.BasicInfo)
-      .then(ret=>{
+      this.layoutService.show();
+
+      this._certUpdateHandler.Go(null, [{key:"_enterpriseId", value:this.getSelected().enterpriseId}], 
+        {
+          "authMode": null,//前台未提供
+          "id": this.entEst.BasicInfo.id,
+          "password": this.entEst.BasicInfo.password,
+          "url": this.entEst.BasicInfo.certUrl,
+          "userName": this.entEst.BasicInfo.contactorName
+        })
+      .then(success=>{
+        this.layoutService.hide();
+        this.setupCert.close();
         this.search(null);
       })
       .catch(err=>{
-        console.log('认证信息更新失败', err);
-        this.showMsg("认证信息更新失败");
-        this.okCallback = ()=>{this.setupCert.open();};
+        this.layoutService.hide();
+        this.showMsg(err);
       })
     }
   }
@@ -479,6 +495,8 @@ export class EntEstMngComponent implements OnInit {
       this.showMsg(this.service.validate(notValid.name, notValid.value, notValid.op));
       return false;
     }
+    else
+      return true;
   }
 
   //取消认证
@@ -504,10 +522,16 @@ export class EntEstMngComponent implements OnInit {
   }
 
   //管理认证源
-  setupCerts(){
-    if(this.getSelected())
-    {
+  setupCerts() {
+      let selectItem = this.getSelected();
+      if (!selectItem) {
+          this.showMsg("请选择企业");
+          return;
+      }
+      if (selectItem.authMode != CertMethod.AD) { //caozhongying 这个地方需要增加一个属性
+          this.showMsg("只有AD认证企业才可以设置认证源");
+          return;
+      }
       this.router.navigateByUrl(`ent-mng/attest-mng/attest-mng/${this.getSelected().enterpriseId}`);
-    }
   }
 }

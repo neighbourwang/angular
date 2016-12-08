@@ -133,7 +133,31 @@ export class VmwareImgSyncComponent implements OnInit {
             return "special";
         else
             return "some";
+    }
 
+     //显示镜像容量
+    showCapacity(capacity:number){
+        const Tn = 1099511627776.0;
+        const Gn = 1073741824.0;
+        const Mn = 1048576.0;
+        const Kn = 1024.0;
+        if(capacity==undefined){
+            return "未知"
+        }else{
+            let c = capacity;
+            if(c==0){
+                return "0";
+            }
+            if( c >= Tn){
+                return (c/Tn).toFixed(2) + "T";
+            }else if (c >= Gn){
+                return (c/Gn).toFixed(2) + "G";
+            }else if (c>=Mn){
+                return (c/Mn).toFixed(2) + "M";
+            }else{
+                return (c/Kn).toFixed(2) + "K";
+            }
+        }
     }
 
     //选择行
