@@ -15,13 +15,14 @@ import { cloudHostComponentOrder } from './component/cloud-host-order.component'
 
 import { subAddStorageComponent } from './component/sub-add-storage.component';
 
-import { CloudHostComponents } from '../components/cloud-host-components.module';
+import { cloudHostDetailComponent } from './component/cloud-host-detail.component';
 
+import { CloudHostComponents } from '../components/cloud-host-components.module';
 
 //service
 import { cloudHostServiceOrder } from './service/cloud-host-order.service'; 
 import { cloudHostServiceList } from './service/cloud-host-list.service'; 
-
+import {cloudHostDetailService} from './service/cloud-host-detail.service';
 
 // import { MyDatePickerModule } from 'mydatepicker';
 
@@ -30,7 +31,8 @@ import { cloudHostServiceList } from './service/cloud-host-list.service';
         VmInstanceRouting,
         CommonComponentModule,
         CloudHostComponents,
-        PipeModule,
+        
+        PipeModule
         // MyDatePickerModule
         // TabsModule
         // TreeModule
@@ -38,6 +40,7 @@ import { cloudHostServiceList } from './service/cloud-host-list.service';
     declarations: [
         cloudHostListComponent,
         cloudHostComponentOrder,
+        cloudHostDetailComponent,
         subAddStorageComponent
     ],
     exports: [
@@ -45,6 +48,7 @@ import { cloudHostServiceList } from './service/cloud-host-list.service';
     providers: [
         cloudHostServiceOrder,
         cloudHostServiceList,
+        cloudHostDetailService,
         subAddStorageComponent
     ]
 

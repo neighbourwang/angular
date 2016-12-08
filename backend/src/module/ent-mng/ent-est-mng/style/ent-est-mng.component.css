@@ -364,7 +364,7 @@
 }
 .test-title {
     position: absolute;
-    left: 990px;
+    left: 1100px;
     top: 355px;
     }
 .ChecEstkMng{
@@ -375,5 +375,8 @@
 }
 .mgr17{
     margin-right:17px!important; 
+}
+.wd320{
+    width:320px;
 }
 

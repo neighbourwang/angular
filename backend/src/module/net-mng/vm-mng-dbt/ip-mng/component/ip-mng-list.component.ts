@@ -200,7 +200,7 @@ export class IpMngListComponent implements OnInit{
         this.pg = this.getSelected();        
         if (this.pg) {
             this.ippool.portGroup = this.pg.id;
-            console.log(this.ippool.portGroup, "========== setupIPs =============");
+            console.log(this.ippool.portGroup, "this.ippool.portGroup");
             this.layoutService.show();
             this.service.getSubnetInfoIps(this.ippool.portGroup)
             .then(
