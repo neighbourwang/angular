@@ -1,0 +1,13 @@
+{
+  "name": "foxcloud",
+  "version": "0.0.0",
+  "license": "MIT",
+  "angular-cli": {},
+  "scripts": {
+    "build": "fis3 release"
+  },
+  "dependencies": {
+    "fis3": "^3.4.25"
+  },
+  "devDependencies": {}
+}
