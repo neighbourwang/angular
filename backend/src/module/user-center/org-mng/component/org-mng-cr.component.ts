@@ -240,6 +240,7 @@ export class OrgMngCrComponent implements OnInit{
             this.service.createOrg(this.org).then(
                 res => {
                     console.log(res);
+                     this.router.navigateByUrl('user-center/org-mng/org-mng-list');
                 }
             ).catch(
                 err => {
@@ -250,7 +251,8 @@ export class OrgMngCrComponent implements OnInit{
             console.log(this.org);
             this.service.editOrg(this.orgId,this.org).then(
                 res => {
-                    console.log(res)
+                    console.log(res);
+                     this.router.navigateByUrl('user-center/org-mng/org-mng-list');
                 }
             ).catch(
                 err => {
@@ -261,7 +263,9 @@ export class OrgMngCrComponent implements OnInit{
         
     }
 
-
+cancel(){
+    this.router.navigateByUrl('user-center/org-mng/org-mng-list');
+}
 
     
 

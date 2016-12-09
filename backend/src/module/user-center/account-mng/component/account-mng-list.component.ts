@@ -29,6 +29,9 @@ export class AccountMngComponent implements OnInit {
     @ViewChild("confirm")
     confirm: ConfirmComponent;
 
+    @ViewChild("notice")
+    notice: ConfirmComponent;
+
     //用来判断 confirm确定执行的方法 1 重置密码 2 启用 3 禁用 4 删除
     confirmType: number;
 
@@ -236,6 +239,8 @@ export class AccountMngComponent implements OnInit {
                 }
             );
     }
-
+    nof(){
+        
+    }
 
 }

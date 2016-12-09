@@ -1,6 +1,10 @@
 ﻿<div class="page-content-header icon-cloud-network-mngOn">VMware网络</div>
 <div class="page-content">
-    <label >端口组资源分配——设置企业</label>
+    <div class="row mgb5" >
+        <span class="pull-left pdl15" style="display:inline-block;font-size:16px;padding:6px 0">
+            端口组资源分配——设置企业
+        </span>
+    </div>
     <div class="table-container mgt5 mgb20">
         <table class="table table-hover" >
             <thead>
@@ -25,22 +29,21 @@
     </div>
 
 
-    <div style="margin-left:13%;"><label><span class="asterisk">*</span>选择企业：</label></div>
-
+    <div style="margin-left:13%;font-size:16px;"><span class="asterisk">*</span>选择企业：</div>
 
     <div class="row mgb20" style="margin-left:20%;">
 
         <div class="col-md-4 ">
-            <div style="text-align: center; font-weight: bold;">可选企业</div>
+            <div class="mgb10" style="text-align: center;font-size:16px;">可选企业</div>
             <div style="max-height: 400px; overflow: auto;">
                 <table class="table table-hover" style="border: 1px solid #cfd8e7;table-layout:fixed">
                     <tbody>
                         <tr *ngFor="let enterprise of unselectedEnterprise;">
                             <td style="text-align:left;padding-left:30px">
-                                <label>
+                                <div>
                                     <input type="checkbox" name="unselected" [checked]="enterprise.selected" (change)="enterprise.selected=$event.target.checked;" class="fox-cloud-checkbox" />
                                     {{enterprise.com}}
-                                </label>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -63,16 +66,16 @@
         </div>
 
         <div class="col-md-4 ">
-            <div style="text-align: center; font-weight: bold;">选中企业</div>
+            <div class="mgb10" style="text-align: center;font-size:16px;">选中企业</div>
             <div style="max-height: 400px; overflow: auto;">
                 <table class="table table-hover" style="border: 1px solid #cfd8e7;">
                     <tbody>
                         <tr *ngFor="let enterprise of selectedEnterprise;">
                             <td style="text-align:left;padding-left:30px">
-                                <label>
+                                <div>
                                     <input type="checkbox" name="selected" [checked]="enterprise.selected" (change)="enterprise.selected=$event.target.checked;" class="fox-cloud-checkbox" />
                                     {{enterprise.com}}
-                                </label>
+                                </div>
                             </td>
                         </tr>
                     </tbody>

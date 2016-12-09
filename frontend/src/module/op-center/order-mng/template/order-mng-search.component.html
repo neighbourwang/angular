@@ -1,12 +1,12 @@
 <fc-notice #notice ot="确认"></fc-notice>
 <div class="OrderSearch">	
-	<div class="page-content-header mgb20 ">订单查询</div>
-	<div class="page-content mgt20">
+	<div class="page-content-header ">订单查询</div>
+	<div class="page-content">
 		<div class="table-container">
 			<div class="">
 				<div class="input-group col-md-2 float-left mgr20">
-   					 <input class="form-control" placeholder="输入云主机信息搜索" type="email">
-    				 <div class="input-group-addon"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
+   					 <input class="form-control" placeholder="输入关键字搜索" type="email">
+    				 <div class="input-group-addon pointer"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div>
 						
 				<button class="button-gray-gradient  form-control-title ">重&nbsp;&nbsp;&nbsp;&nbsp;置</button>
@@ -24,7 +24,7 @@
 							</div>
 						</td>
 						<td class="none-border">
-							<span class="float-left  form-control-title">订购人:</span>
+							<span class="float-left  form-control-title">提交者:</span>
 							<div class="dropdown float-left">
 								<select class="form-control  fix-width-120" [(ngModel)]="_param.buyerId">
 									<option class="hands" [value]="null">所有用户</option>
@@ -38,7 +38,7 @@
 								<div class="dropdown float-left">			
 									<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
 								</div>
-								<span class="mgl10 mgt15 float-left">——</span>
+								<span class="mgl10 mgt15 float-left">—</span>
 								<div class="dropdown float-left">			
 									<date-picker (dateChanged)="onExpireTimeChange($event)"></date-picker>
 								</div>
@@ -69,7 +69,7 @@
 				</tbody>
 			</table>	
 		</div>
-		<div class="mgb20">当查询到<span class="font-green">{{_orderLoader.Items.length}}</span>个订单，订单列表如下：</div>
+		<div class="mgb20  form-control-title float-left">当前查询到<span class="font-green">{{_orderLoader.Items.length}}</span>个订单，订单列表如下：</div>
 			<div class="table-container">
 			<table class="table table-all-boder">
 				<thead>	

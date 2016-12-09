@@ -60,6 +60,7 @@ export class OrgMngListComponent implements OnInit {
   ngOnInit() {
     this.getCurEntId();
     this.getOrgs(0, this.pp);
+    this.service.getNoMngUser();
   }
   //获取企业ID
   getCurEntId(){
@@ -107,7 +108,7 @@ export class OrgMngListComponent implements OnInit {
     this.getOrgs(page, 10);
   }
 
-
+ 
   statusChange(org, type) {
     console.log(org)
     console.log(type)
@@ -115,6 +116,10 @@ export class OrgMngListComponent implements OnInit {
     switch (type) {
       case 'start':
         console.log('启用');
+        if (org.status == 1) {
+                this.notice.open('操作错误', '组织状态已启用')
+                return;
+        }
         this.confirmTitle = "启用部门";
         this.confirmMessage = "您选择启用"+org.name+"，请确认";
         this.confirmDialog.open();
@@ -123,9 +128,14 @@ export class OrgMngListComponent implements OnInit {
       case 'edit':
         this.isEdit = true;
         // $('#crModel').modal('show')
+        this.editId=org.id;
         this.creOrgPop.open('编辑部门');
         break;
       case 'delete':
+       if (org.status == 1) {
+                this.notice.open('操作错误', '不能删除启用状态下的组织')
+                return;
+        }
         console.log('删除');
         this.confirmTitle = "删除部门";
         this.confirmMessage = "您选择删除"+org.name+"，请确认。如果确认，部门将删除且该部门中的用户将被移除";
@@ -133,6 +143,10 @@ export class OrgMngListComponent implements OnInit {
         this.confirmType = type;
         break;
       case 'disabled':
+      if (org.status == 5) {
+                this.notice.open('操作错误', '改组织状态已禁用');
+                return;
+            }
         console.log('禁用');
         this.confirmTitle = "禁用部门";
         this.confirmMessage = "您选择禁用"+org.name+"，请确认。如果确认，机构成员将无法操作相关资源";
@@ -182,11 +196,17 @@ export class OrgMngListComponent implements OnInit {
   }
 
   //创建
+   temporary:boolean=false//刷新弹出框组件
   openCreate() {
     console.log('create');
+     this.creOrgPop.open('创建部门');
     this.isEdit = false;
+    this.temporary=false;
+        window.setTimeout(()=>{
+          this.temporary=true;          
+        },0);
     // $('#crModel').modal('show');
-    this.creOrgPop.open('创建部门');
+   
   };
   //弹出框 点击确认
   createOrg() {

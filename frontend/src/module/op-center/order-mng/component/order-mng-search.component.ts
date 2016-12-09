@@ -196,16 +196,16 @@ export class OrderMngSearchComponent implements OnInit{
 
 	showDetail(orderId:string)
 	{
-		this.layoutService.show();
-		this._orderDetailLoader.Go(null, [{key:"subinstanceCode", value:orderId}])
-		.then(success=>{
-			this.layoutService.hide();
 			$('#searchDetail').modal('show');
-		})
-		.catch(err=>{
-			this.layoutService.hide();
-			this.showMsg(err);
-		})
+		// this.layoutService.show();
+		// this._orderDetailLoader.Go(null, [{key:"subinstanceCode", value:orderId}])
+		// .then(success=>{
+		// 	this.layoutService.hide();
+		// })
+		// .catch(err=>{
+		// 	this.layoutService.hide();
+		// 	this.showMsg(err);
+		// })
 	}
 
 	changePage(pageNumber:number)

@@ -4,17 +4,16 @@
             <tr>
                 <th class="col-md-1 col-xs-3 text-center">基本信息</th>
                 <td>
-                    <form #orgForm="ngForm" (ngSubmit)="save(heroForm)">
+                    <form #orgForm="ngForm"  (ngSubmit)="save(heroForm)">
                         <div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
                             <div class="col-md-3 content-title" style="text-align : center"><span class="asterisk">*</span>部门名称</div>
                             <div class="col-md-8 no-padding" [ngClass]="{'has-error': name.errors && (name.dirty || name.touched)}">
-                                <input class="form-control" placeholder="请输入部门名称" type="text" [(ngModel)]="org.name" required  name="name" id="name" 
-                                #name='ngModel'>
+                                <input class="form-control" placeholder="请输入部门名称" type="text" [(ngModel)]="org.name" required name="name" id="name" #name='ngModel'>
                                 <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
-                                <div [hidden]="!name.errors.required">
-                                    部门名称不能为空
+                                    <div [hidden]="!name.errors.required">
+                                        部门名称不能为空
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
 
@@ -22,15 +21,15 @@
                             <div class="col-md-3 content-title" style="text-align : center"><span class="asterisk">*</span>部门负责人</div>
                             <div class="col-md-8 no-padding">
                                 <select class="form-control" [(ngModel)]="org.leaderId" name="leaderId">
-                                <!--<option *ngFor="let item of accountByOrg;" [value]="item.id">{{item.userName}}  {{item.loginName}}</option>-->
+                                <option *ngFor="let item of users;" [value]="item.id">{{item.userName}}</option>
                             </select>
                             </div>
                         </div>
                     </form>
-                    <div class="col-md-12 no-padding">
-                        <div class="col-md-2 content-title" style="text-align : center">部门成员</div>
+                    <div class="col-md-12 no-padding" style=" line-height : 35px">
+                        <div class="col-md-3 content-title" style="text-align : center">部门成员</div>
                         <div class="col-md-8 no-padding">
-                            <label class="checkbox-inline" style="margin-left : 0;margin-right : 20px;margin-bottom : 10px" *ngFor="let member of members">
+                            <label class="checkbox-inline" style="margin-left : 0;margin-right : 20px;margin-bottom : 10px" *ngFor="let member of service.members">
                                 <input type="checkbox"  class="fox-cloud-checkbox" id="inlineCheckbox1" value="membe.id"  (click)="selectMember(member)"/> {{member.userName}}
                             </label>
                         </div>
@@ -67,7 +66,8 @@
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">内存数量(GB)</div>
-                            <div class="col-md-3 content-title" style="text-align : center">                                <count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]="org.resource.mem" (output)="outputValue($event,'mem')"></count-bar>
+                            <div class="col-md-3 content-title" style="text-align : center">
+                                <count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]="org.resource.mem" (output)="outputValue($event,'mem')"></count-bar>
                             </div>
                             <div class="col-md-3 content-title" style="text-align : center">0</div>
                             <div class="col-md-3 content-title" style="text-align : center">200</div>
