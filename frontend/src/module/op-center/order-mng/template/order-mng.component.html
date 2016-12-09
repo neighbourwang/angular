@@ -42,11 +42,11 @@
 						<td >
 							<span class="mgr10 mgt10">到期时间：</span>
 							<div class="dropdown float-left">			
-								<span class="mgr10 mgt10">从</span><date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
+								<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
 							</div>
-						
+								<span class="mgr10 mgt10">——</span>
 							<div class="dropdown float-left">			
-								<span class="mgr10 mgt10">到</span><date-picker  (dateChanged)="onExpireTimeChange($event)"></date-picker>
+								<date-picker  (dateChanged)="onExpireTimeChange($event)"></date-picker>
 							</div>
 						</td>
 						<td>
