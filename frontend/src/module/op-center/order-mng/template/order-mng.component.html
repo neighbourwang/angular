@@ -13,7 +13,7 @@
 			<div class="">
 				<div class="input-group col-md-2 float-left mgr20">
    					 <input class="form-control" placeholder="输入关键字搜索" type="email" [(ngModel)]="_param.queryParam">
-    				 <div class="input-group-addon"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
+    				 <div class="input-group-addon pointer"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div>
 						
 				<button class="button-gray-gradient" (click)="_param.reset()">重&nbsp;&nbsp;&nbsp;&nbsp;置</button>
@@ -41,7 +41,7 @@
 						</td>
 						<td >
 							<div class="mgt-10">
-								<span class="mgr10 mgt10 form-control-title float-left mgt-5">到期时间：</span>
+								<span class="mgl20 mgt10 form-control-title float-left mgt-5">到期时间：</span>
 								<div class="dropdown float-left">			
 									<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
 								</div>
@@ -96,7 +96,7 @@
 				</tbody>
 			</table>	
 		</div>
-		<div class="mgb20 form-control-title float-left">当查询到<span class="font-green">{{_orderLoader.Items.length}}</span>个已购服务，已购服务列表如下：</div>
+		<div class="mgb20 form-control-title float-left">当前查询到<span class="font-green">{{_orderLoader.Items.length}}</span>个已购服务，已购服务列表如下：</div>
 			<div class="table-container">
 			<table class="table">
 				<thead>	
