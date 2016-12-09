@@ -22,10 +22,13 @@ export class cloudHostComponentOrder implements OnInit {
 
 	totalPrice : number = 0;
 	vmSku : SkuMap = new SkuMap;
-	diskSku : SkuMap = new SkuMap;
+	diskSku : SkuMap[];
 
 	vmBasePrice : number = 0; //云主机一次性费用
 	vmTotalPrice : number = 0; //云主机费用
+	diskBasePrice : number = 0; //云硬盘一次性费用
+	diskTotalPrice : number = 0; //云硬盘费用
+	diskUnitType : number = 0; //云硬盘类型
 
 
 	@ViewChild('cartButton') cartButton;
@@ -165,29 +168,41 @@ export class cloudHostComponentOrder implements OnInit {
 		}
 	}
 
-	setVmPrice(): void {   //获取主机的价格
-		const sku = this.diskSku.skuId,
-			  timeline = +this.sendModule.timeline.attrValue;
-		if(!this.sendModule.timelineunit.attrValueCode || !sku || !timeline) return;
+	setVmPrice(): void {   //设置主机的价格
+		const sku = this.vmSku.skuId,
+			  timeline = +(this.sendModule.timeline.attrValue || "0");
+		if(!this.sendModule.timelineunit.attrValueCode || !sku) return;
 
-		const price = this.proMap[`[${this.vmSku.skuId}, ${this.sendModule.timelineunit.attrValueCode}]`];
+		const price = this.proMap[`[${sku}, ${this.sendModule.timelineunit.attrValueCode}]`];
 
-		this.vmBasePrice = price.billingInfo.basePrice*timeline;  //一次性费用
-		this.vmTotalPrice = (price.billingInfo.basicPrice+price.billingInfo.cyclePrice)*timeline;   //周期费用
-		// console.log(price ,basePrice, totalPrice)
+		this.vmBasePrice = price.billingInfo.basePrice * timeline * this.payLoad.quality;  //一次性费用
+		this.vmTotalPrice = (price.billingInfo.basicPrice+price.billingInfo.cyclePrice) * timeline * this.payLoad.quality;   //周期费用
 	}
-	setDiskPrice(): void {  //获取数据盘的价格
-		const sku = this.diskSku.skuId,
-			  timeline = +this.sendModule.timeline.attrValue,
-			  storage = this.storage.getData();   //获取数据盘
-		if(!sku || !timeline || !storage.length) return;  
+	setDiskPrice(): void {  //设置数据盘的价格
+		const timeline = +(this.sendModule.timeline.attrValue || "0"),
+			  storages = this.storage.getData();   //获取数据盘
+																		console.log(storages)
+		this.diskSku = [];
+		let basePrice = 0, totalPrice = 0;
+		for(let data of storages) {   
+			let sku = this.getSkuId("disk");
 
+			this.sendModule.storage = data.storage; 
+			this.diskSku.push(sku); //获取sku
 
+			let price = this.proMap[`[${sku.skuId}]`];  //计算价格
+			basePrice += price.billingInfo.basePrice * timeline * this.payLoad.quality;  //一次性费用
+			totalPrice += price.billingInfo.unitPrice * data.storagesize.attrValue * timeline * this.payLoad.quality;   //周期费用
 
+			this.diskUnitType = price.billingInfo.unitType;
+		}
+
+		this.diskBasePrice = basePrice;  //一次性费用
+		this.diskTotalPrice = totalPrice;   //周期费用
 	}
 
-	storageChange() {
-		
+	storageChange(status) {
+		this.setDiskPrice();
 	}
 
 	setSenModule(config: OrderService): void {
@@ -235,7 +250,7 @@ export class cloudHostComponentOrder implements OnInit {
 
 	changes() { 
 		this.vmSku = this.getSkuId("vm");     //确定sku
-		this.diskSku = this.getSkuId("disk");   //确定sku 
+		// this.diskSku = this.getSkuId("disk");   //确定sku 
 
 		if(this.vmSku.skuId) {
 			this.setTimeUnit();   // 设置购买时长
@@ -270,7 +285,7 @@ export class cloudHostComponentOrder implements OnInit {
 	checkInput():boolean {
 		const al = value => !!alert(value);
 
-		if(!this.vmSku.skuId) return al("sku不正确")
+		if(!this.vmSku.skuId || !this.diskSku.length ) return al("sku不正确")
 		if(!this.sendModule.timeline.attrValue) return al("请选择购买时长");
 		return true;
 	}
