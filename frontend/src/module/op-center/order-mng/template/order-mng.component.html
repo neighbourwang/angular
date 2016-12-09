@@ -31,7 +31,7 @@
 							</div>
 						</td>
 						<td>
-							<span class="float-left mgt-5">订购人:</span>
+							<span class="float-left mgt-5 mgl15">订购人:</span>
 							<div class="dropdown float-left">
 								<select class="form-control fix-width-120">
 									<option class="hands" [value]="null">所有用户</option>
@@ -39,9 +39,9 @@
 								</select>
 							</div>
 						</td>
-						<td >
+						<td colspan="3">
 							<div class="mgt-10">
-								<span class="mgl20 mgt10 float-left mgt-5">到期时间：</span>
+								<span class="mgt10 float-left mgt-5">到期时间：</span>
 								<div class="dropdown float-left">			
 									<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
 								</div>
@@ -51,6 +51,9 @@
 								</div>
 							</div>
 						</td>
+						
+					</tr>
+					<tr>
 						<td>
 							<span class="float-left mgt-5" >
 							状态:</span>
@@ -71,7 +74,7 @@
 								</select>
 							</div>
 						</td>
-						<td>
+						<td style="width:257px;">
 							<span class="float-left mgt-5" >
 							区域:</span>
 							<div class="dropdown float-left">

@@ -15,7 +15,7 @@
 				<tbody>
 					<tr class="none-border">				
 						<td class="none-border">
-							<span class="float-left">部门:</span>
+							<span class="float-left" style="margin-left:30px">部门:</span>
 							<div class="dropdown float-left">
 								<select class="form-control  fix-width-120" [(ngModel)]="_param.organization">
 									<option class="hands" [value]="null">所有部门</option>
@@ -24,7 +24,7 @@
 							</div>
 						</td>
 						<td class="none-border">
-							<span class="float-left ">提交者:</span>
+							<span class="float-left mgl15">提交者:</span>
 							<div class="dropdown float-left">
 								<select class="form-control  fix-width-120" [(ngModel)]="_param.buyerId">
 									<option class="hands" [value]="null">所有用户</option>
@@ -44,6 +44,9 @@
 								</div>
 							</div>
 						</td>
+						
+					</tr>
+					<tr>
 						<td class="none-border ">
 							<span class="float-left" >
 							订单状态:</span>
