@@ -7,6 +7,7 @@ import { Status, EntEstItem, EntProdItem, EntEst
 	, EntEstCreResourceQuota } from '../model';
 import { LayoutService, ValidationService, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
+import * as _ from 'underscore';
 
 @Injectable()
 export class EntEstCreService{
@@ -77,13 +78,9 @@ export class EntEstCreService{
 			, (source, target:ResourceQuota[])=>{
 				for(let item of source)
 				{
-					let obj = new ResourceQuota();
-					target.push(obj);
 
-					obj.regionName = item.regionName;
-					obj.platformVMQuota = item.vmQuota;
-					obj.storageQuota = item.storageQuota;
-					obj.platformId = item.platformId;
+					let obj = new ResourceQuota();
+					target.push(_.extendOwn(new ResourceQuota(), item));
 				}
 			});
 
