@@ -145,7 +145,7 @@
 							<div class="col-md-6 content-title2">GB</div>
 						</div>
 					</div>
-					<add-storage #storage [configs]="rely('storage')"></add-storage>
+					<add-storage #storage [onChanges]="storageChange()" [configs]="rely('storage')"></add-storage>
 				</div>
 			</li>
 			<li>
@@ -207,7 +207,7 @@
 						<div class="col-md-2 no-padding mr10">
 							<select [disabled]="timeForever" [(ngModel)]="sendModule.timelineunit" class="form-control">
 								<option
-								*ngFor="let value of this.configs.timelineunit.mapValueList[this.vmSku.skuId]||[{}];"
+								*ngFor="let value of this.configs.timelineunit.mapValueList[this.vmSku.skuId];"
 								[ngValue]="value" >{{ value.attrDisplayValue }}</option>
 							</select>
 						</div>
