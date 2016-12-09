@@ -52,6 +52,7 @@ export class subAddStorageComponent implements OnInit,OnChanges {
 
 	delete(i) {
 		this.forArr.splice(i, 1);
+		this.onChanges.emit(this.getData());
 	}
 
 	addDisk(){   //添加一块
@@ -61,6 +62,7 @@ export class subAddStorageComponent implements OnInit,OnChanges {
 			storage : this.defaultStorage,
 			storagesize : this.defaultStorageSize
 		});
+		this.onChanges.emit(this.getData());
 	}
 
 	getData() {
