@@ -7,7 +7,7 @@ export class OrderDetailItem {
   typeName:string = null;//订单类型
   status:number = null;//订单状态
   statusName:string = null;//订单状态
-  buyer:string = null;//提交人
+  buyer:string = null;//提交人，操作者
   productType:number = null;//产品类型
   productTypeName:string = null;//产品类型
   department:string = null; //部门
@@ -19,7 +19,6 @@ export class OrderDetailItem {
   specification:string = null;//配置
   instanceName:string = null;//实例名称
   description:string;//说明
-  operator:string;//操作者
   billingModeName:string = null;//计费模式
 
   get billingMode():number{
