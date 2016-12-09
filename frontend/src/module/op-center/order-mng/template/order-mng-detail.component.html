@@ -2,61 +2,69 @@
 	<!--<div class="page-content-header icon-order-manage" style="border-bottom: 3px solid  #01a982;margin: 10px 0px;padding-left: 0; padding-bottom: 40px;">已订购服务编号：5370537<button class=" form-control-title button-gray-gradient pull-right">返回订购管理</button>
 	</div>-->
 	<div class="page-content">
+		<div class="noborder form-control-title float-left mgb10">订单信息</div>
 		<div class="table-container mgb20">
-			<table class="table table-bordered mgb20">
-				<thead>	
-					<tr><th class="form-control-title text-left" colspan="2">基本信息</th></tr>			
-				</thead>
+			<table class="table table-bordered first-table mgb20">
 				<tbody>
 					<tr>
-						<td>已订购服务编号：{{_orderDetail.instanceCode}}</td>	
-						<td>状态：{{_orderDetail.statusName}}</td>
+						<td>已订购服务编号</td>	
+						<td>{{_orderDetail.instanceCode}}</td>
+						<td>状态</td>
+						<td>{{_orderDetail.statusName}}</td>
 					</tr>
 					<tr>
-						<td>产品类型：{{_orderDetail.productTypeName}}</td>	
-						<td>区域/可用区：{{_orderDetail.platform}} {{_orderDetail.zone}}</td>
+						<td>产品类型</td>
+						<td>{{_orderDetail.productTypeName}}</td>	
+						<td>区域/可用区</td>
+						<td>{{_orderDetail.platform}} {{_orderDetail.zone}}</td>
 					</tr>
 					<tr>
-						<td>当前配置：{{_orderDetail.specification}}</td>	
-						<td>创建时间：{{_orderDetail.createDate}}</td>
+						<td>当前配置</td>
+						<td>{{_orderDetail.specification}}</td>	
+						<td>创建时间</td>
+						<td>{{_orderDetail.createDate}}</td>
 					</tr>
 					<tr>
-						<td>计费模式：{{_orderDetail.billingModeName}}</td>	
-						<td>到期时间：{{_orderDetail.expireDate}}</td>
+						<td>计费模式</td>
+						<td>{{_orderDetail.billingModeName}}</td>	
+						<td>到期时间</td>
+						<td>{{_orderDetail.expireDate}}</td>
 					</tr>
 					<tr>
-						<td>一次性费用：{{_orderDetail.oneTimePrice}}</td>	
-						<td>订购人：{{_orderDetail.buyer}}</td>
+						<td>一次性费用</td>
+						<td>{{_orderDetail.oneTimePrice}}</td>	
+						<td>订购人</td>
+						<td>{{_orderDetail.buyer}}</td>
 					</tr>
 					<tr>
-						<td>费用：{{_orderDetail.price}}</td>	
-						<td>部门：{{_orderDetail.department}}</td>
+						<td>费用</td>	
+						<td>{{_orderDetail.price}}</td>
+						<td>部门</td>
+						<td>{{_orderDetail.department}}</td>
 					</tr>
 					<tr>
-						<td>实例名称：{{_orderDetail.instanceName}}</td>	
-						<td>企业：{{_orderDetail.enterprise}}</td>
+						<td>实例名称</td>	
+						<td>{{_orderDetail.instanceName}}</td>
+						<td>企业</td>
+						<td>{{_orderDetail.enterprise}}</td>
 					</tr>				
 				</tbody>
 			</table>
 		</div>
-		
+		<div class="noborder  form-control-title float-left  mgb10">关联的已订购服务列表</div>
 		<div class="table-container mgb20">
 			<table class="table table-bordered mgb20 text-center">
-				<thead>	
-					<tr><th class="text-left form-control-title" colspan="8">关联的已订购服务列表</th></tr>	
-							
+				<thead>			
+						<th>已订购服务编号</th>
+						<th>实例名称</th>
+						<th>产品类型</th>
+						<th>配置</th>
+						<th>计费模式</th>
+						<th>状态</th>
+						<th>费用</th>
+						<th>到期时间</th>				
 				</thead>
 				<tbody>
-					<tr class="bg-light-blue border-gray">
-						<td>已订购服务编号</td>
-						<td>实例名称</td>
-						<td>产品类型</td>
-						<td>配置</td>
-						<td>计费模式</td>
-						<td>状态</td>
-						<td>费用</td>
-						<td>到期时间</td>
-					</tr>
 					<tr *ngFor="let item of _orderDetail.relatedSubInstanceList">
 						<td>{{item.instanceCode}}</td>
 						<td>{{item.instanceName}}</td>
@@ -75,23 +83,21 @@
 				</tbody>
 			</table>
 		</div>	
+		<div class="noborder  form-control-title float-left  mgb10">历史信息</div>
 		<div class="table-container mgb20">
 			<table class="table table-bordered mgb20 text-center">
-				<thead>	
-					<tr><th class="text-left form-control-title" colspan="8">历史信息</th></tr>	
-							
+				<thead>
+						<th>日期</th>
+						<th>实例名称</th>
+						<th>实例类型</th>
+						<th>配置</th>
+						<th>操作者</th>
+						<th>所属部门</th>
+						<th>到期时间</th>
+						<th>说明</th>
 				</thead>
 				<tbody>
-					<tr class="bg-light-blue border-gray" >
-						<td>日期</td>
-						<td>实例名称</td>
-						<td>实例类型</td>
-						<td>配置</td>
-						<td>操作者</td>
-						<td>所属部门</td>
-						<td>到期时间</td>
-						<td>说明</td>
-					</tr>
+					
 					<tr *ngFor="let item of _orderDetail.relatedOrderList">
 						<td>{{item.createDate}}</td>
 						<td>{{item.instanceName}}</td>
