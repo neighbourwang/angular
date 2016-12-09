@@ -77,7 +77,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "云硬盘操作",
         "method": "POST",
         "id": "hosts.vm.action",
-        "url": "marketplace/authsec/subinstance/itemlist/dist/action"
+        "url": "marketplace/authsec/subinstance/itemlist/disk/action"
     },
     {
         "desc": "获取云主机控制台",
@@ -264,6 +264,12 @@ export let RestApis: RestApiModel[] = [
         "id" : "user-center.account-mng.list",
         "method" : "GET",
         "url" : "basis/authsec/mpp/users/page/{page}/size/{size}"
+    },
+    {
+        "desc" : "用户中心，帐号管理，搜索帐号列表By用户名",
+        "id" : "user-center.search-account.list",
+        "method" : "GET",
+        "url" : "basis/authsec/mpp/users/search/page/{page}/size/{size}"
     },
     {
         "desc" : "用户中心，帐号管理，启用帐号",

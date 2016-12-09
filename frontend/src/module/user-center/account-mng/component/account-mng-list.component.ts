@@ -147,6 +147,18 @@ export class AccountMngListComponent implements OnInit {
     //搜索
     search() {
         console.log("seach", this.keyword);
+        this.service.searchAccountByName(1,9999,this.keyword).then(
+                res => {
+                    console.log(res);
+                    this.accounts = res.resultContent;
+                    this.tp = res.pageInfo.totalPage;
+                }
+            )
+            .catch(
+                err => {
+                    console.error(err);
+                }
+            );
     }
 
     //创建

@@ -102,6 +102,7 @@ export class ProdDirCreComponent implements OnInit {
     selectPlateForm() {
         console.log(this.prodDir.specification.vcpu);
         console.log(this.prodDir.specification.mem);
+        this.LayoutService.show();
         this.CreateProdDirService.postCpuMmr(this.prodDir.specification.vcpu, this.prodDir.specification.mem).then(response => {
             // console.log(response);
             if (response && 100 == response.resultCode) {
@@ -122,6 +123,7 @@ export class ProdDirCreComponent implements OnInit {
             this.selectAllZone = false;
         }).catch(err => {
             console.error(err);
+            this.LayoutService.hide();
         });
     }
     //选择全部可用区
@@ -189,6 +191,7 @@ export class ProdDirCreComponent implements OnInit {
             this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
         }).catch(err => {
             console.error(err);
+            this.LayoutService.hide();
         })
     }
 

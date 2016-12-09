@@ -45,10 +45,11 @@ export class AccountMngComponent implements OnInit {
         this.getAccount();
     }
 
-    getAccount(index?) {
-        this.tp = index || this.tp;
+    getAccount(index?,kw?) {
+        this.tp = index || 1;
+        this.keyup=kw||'';
         this.layoutService.show();
-        this.service.getAccount(this.tp, this.pp)
+        this.service.searchAccountByName(this.tp, this.pp,this.keyup)
             .then(
             res => {
                 this.layoutService.hide();
@@ -100,6 +101,23 @@ export class AccountMngComponent implements OnInit {
     //关键得搜索
     search() {
         console.log(this.keyup);
+        this.service.searchAccountByName(0, this.pp,this.keyup).then(
+            res => {
+                this.layoutService.hide();
+                    console.log(res);
+                    this.accounts = res.resultContent;
+                    this.tp = res.pageInfo.totalPage;
+                    for (let item of this.accounts) {
+                        item.selected = false;
+                    }
+                }
+            )
+            .catch(
+            error => {
+                this.layoutService.hide();
+                    console.error(error);
+                }
+            );
     }
 
     //编辑

@@ -10,7 +10,7 @@
             </select>
         </div>
         <div class="pull-left  mgr20" >
-            <select class="form-control" [(ngModel)]="selectedDc" (change)="selectedPfi = defaultPlatform; queryOpt.dataCenter = selectedDc.id" style="line-height:34px;padding:6px 12px;width:120px">
+            <select class="form-control" [(ngModel)]="selectedDc" (change)="selectedPfi = defaultPlatform; queryOpt.dataCenter = selectedDc.id" style="line-height:34px;padding:6px 12px;width:150px">
                 <option [ngValue]="defaultDc">数据中心</option>
                 <option *ngFor="let dc of selectedRegion.dataCenters" [ngValue]="dc">{{dc.dcName}}</option>
             </select>

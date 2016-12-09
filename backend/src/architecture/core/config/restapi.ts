@@ -116,7 +116,20 @@ export let RestApis: RestApiModel[] = [
         "desc": "镜像同步",
         "id": "pf.cre.step.02.images.synchronize.get",
         "method": "GET",
-        "url": "adminui/authsec/platform/{pf-id}/images/synchronize"
+        "url": "adminui/authsec/platform/{pf-id}/images/synchronize"        
+    },
+    //update镜像同步
+    {
+        "desc": "镜像同步",
+        "id": "pf.cre.step.images.synchronize.get",
+        "method": "GET",
+        "url": "adminboe/authsec/images/openstack/pub/{id}" 
+    },
+    {
+        "desc": "镜像同步",
+        "id": "pf.cre.step.images.synchronize.post",
+        "method": "POST",
+        "url": "adminboe/authsec/images/openstack/pub/{id}/sync" 
     },
     {
         "desc": "宿主机同步",
@@ -729,6 +742,12 @@ export let RestApis: RestApiModel[] = [
         "id": "user-center.account-mng.list",
         "method": "GET",
         "url": "basis/authsec/adm/users/page/{page}/size/{size}"
+    },
+    {
+        "desc" : "用户中心，帐号管理，搜索帐号列表By用户名",
+        "id" : "user-center.search-account.list",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/users/search/page/{page}/size/{size}"
     },
     {
         "desc": "获取所有角色",

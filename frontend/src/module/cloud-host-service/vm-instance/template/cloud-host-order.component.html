@@ -86,7 +86,7 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">启动源</div>
 					<div class="col-md-10">
-						<p *ngFor="let value of rely('startupsource')"></p> <!-- 这一行必须加上 否则造成切换云平台时候的显示错误 -->
+						<p *ngFor="let value of rely('startupsource')"></p> <!-- 这一行必须加上 否则造成切换父层时候的显示错误 -->
 						<select [(ngModel)]="sendModule.startupsource" class="form-control">
 							<option
 							 *ngFor="let value of rely('startupsource')"
@@ -105,6 +105,7 @@
 					</div>
 					<div class="col-md-2 content-title">镜像列表</div>
 					<div class="col-md-10">
+						<p style="display: none" *ngFor="let value of rely('os')"></p> <!-- 这一行必须加上 否则造成切父层时候的显示错误 -->
 						<select [(ngModel)]="sendModule.os"  class="form-control">
 							<option
 							 *ngFor="let value of rely('os')"
@@ -144,7 +145,7 @@
 							<div class="col-md-6 content-title2">GB</div>
 						</div>
 					</div>
-					<add-storage #storage [configs]="rely('storage')"></add-storage>
+					<add-storage #storage (onChanges)="storageChange()" [configs]="rely('storage')"></add-storage>
 				</div>
 			</li>
 			<li>
@@ -152,7 +153,7 @@
 					<p><span class="icon-password"></span><br>密码设置</p>
 				</div>
 				<div class="col-md-12 li-content li-password">
-					<div class="col-md-12 no-padding mb15">
+					<!-- <div class="col-md-12 no-padding mb15">
 						<div class="col-md-2 content-title">设置方式</div>
 						<div class="col-md-4 no-padding btn-group" data-toggle="buttons">
 							<label class="btn btn-default active" (click)="setPassword = true">
@@ -163,7 +164,7 @@
 							</label>
 						</div>
 						<div class="col-md-5 no-padding text-tip">请牢记您所设置的密码，如遗忘可登录ESC控制台重置密码。</div>
-					</div>
+					</div> -->
 
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">用户名</div>
@@ -206,12 +207,14 @@
 						<div class="col-md-2 no-padding mr10">
 							<select [disabled]="timeForever" [(ngModel)]="sendModule.timelineunit" class="form-control">
 								<option
-								*ngFor="let value of configs.timelineunit.valueList;"
+								*ngFor="let value of this.configs.timelineunit.mapValueList[this.vmSku.skuId];"
 								[ngValue]="value" >{{ value.attrDisplayValue }}</option>
 							</select>
 						</div>
 						<div class="col-md-2 no-padding mr10">
-							<input [disabled]="timeForever" [(ngModel)]="sendModule.timeline.value" type="text" class="form-control">
+							<input [disabled]="timeForever" 
+								   (keyup)="setVmPrice();setDiskPrice();" 
+								   [(ngModel)]="sendModule.timeline.attrValue" type="text" class="form-control">
 						</div>
 						<div class="col-md-2 no-padding">
 							<!-- <label class="btn btn-default" (click)="timeForever = timeForever ? false : true" [ngClass]="{'active': timeForever}">
@@ -264,10 +267,13 @@
 			<p class="cloud-p">启动盘: {{ sendModule.bootstorage ? sendModule.bootstorage.attrDisplayValue : "" }} / {{ sendModule.bootsize ? sendModule.bootsize.attrDisplayValue : "" }}</p>
 			<!-- <p class="cloud-p">数据盘: {{ sendModule.stroage ? sendModule.stroage.attrDisplayValue : "" }} / {{ sendModule.storagesize ? sendModule.storagesize.attrDisplayValue : "" }}</p> -->
 			<h4 class="cloud-title font-green">购买量</h4>
-			<p class="cloud-p">购买时长: {{ sendModule.timelineunit ? sendModule.timelineunit.attrDisplayValue : ""}} / {{ sendModule.timeline ? sendModule.timeline.value : ""}}</p>
+			<p class="cloud-p">购买时长: {{ sendModule.timelineunit.attrDisplayValue}} / {{ sendModule.timeline?.value}}</p>
 			<p class="cloud-p">购买量: {{payLoad.quality}}台</p>
 			<div class="cloud-line"></div>
-			<h4 class="cloud-title">费用总计：<font class="font-orange">¥{{ this.sendModule.timeline ? this.parseInt((this.parseInt(this.sendModule.cpu.attrDisplayValue)*20 + ((this.parseInt(this.sendModule.mem.attrDisplayValue) < 50) ? this.parseInt(this.sendModule.mem.attrDisplayValue)*10 : this.parseInt(this.sendModule.mem.attrDisplayValue)*0.1 ) + 20 +this.parseInt(this.sendModule.timeline.value ? this.sendModule.timeline.value*1.21 : 1 ))*this.parseInt(this.payLoad.quality)*100)/100 : 0 }}</font></h4>
+			<h4 class="cloud-title font-green">云主机费用</h4>
+			<p class="cloud-p">一次性费用: <font class="font-orange">{{ vmBasePrice }}</font></p>
+			<p class="cloud-p">费用: <font class="font-orange">{{vmTotalPrice}} / {{ sendModule.timelineunit.attrDisplayValue }}</font></p>
+			<h4 class="cloud-title">费用总计：<font class="font-orange">¥{{ vmTotalPrice }}</font></h4>
 			<div class="col-md-12 colud-order-button">
 				<div class="col-md-6"><button (click)="buyNow()" class="btn button-orange-deep">立即购买</button></div>
 				<div class="col-md-6"><button (click)="addCart()" class="btn button-orange-light">加入购物车</button></div>
@@ -275,3 +281,4 @@
 		</div>
 	</div>
 </div>
+

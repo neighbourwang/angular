@@ -3,7 +3,7 @@
  */
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { Router ,Params ,ActivatedRoute} from '@angular/router';
+import { Router, Params, ActivatedRoute } from '@angular/router';
 
 import { ClMngIdService } from '../service/cl-mng-id.service';
 
@@ -19,25 +19,25 @@ import { CreStep2Model } from '../model/cre-step2.model';
     providers: []
 })
 
-export class ClMngCreStep2Component implements OnInit{
+export class ClMngCreStep2Component implements OnInit {
 
     constructor(
-        private router :ActivatedRoute,
-        private route : Router,
-        private idService : ClMngIdService,
-        private service : ClMngCreStep2Service
-    ) {}
+        private router: ActivatedRoute,
+        private route: Router,
+        private idService: ClMngIdService,
+        private service: ClMngCreStep2Service
+    ) { }
 
-    creStep2Model : CreStep2Model = new CreStep2Model('正在同步可用区' , 0);
+    creStep2Model: CreStep2Model = new CreStep2Model('正在同步可用区', 0);
 
-    platformType:string;
-    ngOnInit (){
-        let platFormId : String = this.idService.getPlatformId();
+    platformType: string;
+    ngOnInit() {
+        let platFormId: String = this.idService.getPlatformId();
         console.log('init');
         //获取平台类型
-        this.router.params.forEach((params: Params)=>{
-             this.platformType=params['type'];
-             console.log(this.platformType);
+        this.router.params.forEach((params: Params) => {
+            this.platformType = params['type'];
+            console.log(this.platformType);
         })
         //可用区同步
         this.service.zones(platFormId).then(
@@ -54,16 +54,16 @@ export class ClMngCreStep2Component implements OnInit{
                 this.creStep2Model.zones = 'fail';
                 this.creStep2Model.message = '同步可用区失败';
             }
-        //     function(){
-        //     this.creStep2Model.synchronize = 'fail';
-        //     this.creStep2Model.message = '同步可用区失败';
-        // }
-        )
+            //     function(){
+            //     this.creStep2Model.synchronize = 'fail';
+            //     this.creStep2Model.message = '同步可用区失败';
+            // }
+            )
     }
 
-    
-    private storages(){
-        let platFormId : String = this.idService.getPlatformId();
+
+    private storages() {
+        let platFormId: String = this.idService.getPlatformId();
         this.service.storages(platFormId).then(
             res => {
                 console.log(res);
@@ -78,11 +78,11 @@ export class ClMngCreStep2Component implements OnInit{
                 this.creStep2Model.storages = 'fail';
                 this.creStep2Model.message = '同步存储失败';
             }
-        )
+            )
     }
 
-    private flavors (){
-        let platFormId : String = this.idService.getPlatformId();
+    private flavors() {
+        let platFormId: String = this.idService.getPlatformId();
 
         this.service.flavors(platFormId).then(
             res => {
@@ -98,58 +98,88 @@ export class ClMngCreStep2Component implements OnInit{
                 this.creStep2Model.flavors = 'fail';
                 this.creStep2Model.message = '同步云主机规格失败';
             }
-        )
+            )
     }
 
-    private images(){
-         let platFormId : String = this.idService.getPlatformId();
+    private images() {
+        let platFormId: String = this.idService.getPlatformId();
 
-         this.service.images(platFormId).then(
-             res => {
-                 console.log(res);
-                 this.creStep2Model.images = 'ok';
-                 this.creStep2Model.imagesStatus = true;
-                 this.creStep2Model.message = '同步镜像成功，正在同步宿主机';
-                 this.creStep2Model.percentage = 80;
-                 this.hosts();
-             }
-         ).catch(
-             error => {
-                 this.creStep2Model.images = 'fail';
-                 this.creStep2Model.message = '同步镜像失败';
-             }
-         )
+        this.service.images(platFormId).then(
+            res => {
+                console.log(res);
+                this.creStep2Model.images = 'ok';
+                this.creStep2Model.imagesStatus = true;
+                this.creStep2Model.message = '同步镜像成功，正在同步宿主机';
+                this.creStep2Model.percentage = 80;
+                this.hosts();
+            }
+        ).catch(
+            error => {
+                this.creStep2Model.images = 'fail';
+                this.creStep2Model.message = '同步镜像失败';
+            }
+            )
+        this.service.getImages(platFormId).then(
+            res => {
+                console.log(res.resultContent);
+                let data = {
+                    imageList: []
+                }
+                data.imageList = res.resultContent;
+                this.service.postImages(platFormId, data).then(
+                    res => {
+                        console.log(res);
+                        this.creStep2Model.images = 'ok';
+                        this.creStep2Model.imagesStatus = true;
+                        this.creStep2Model.message = '同步镜像成功，正在同步宿主机';
+                        this.creStep2Model.percentage = 80;
+                        this.hosts();
+                    }
+                ).catch(
+                    error => {
+                        this.creStep2Model.images = 'fail';
+                        this.creStep2Model.message = '同步镜像失败';
+                    }
+                    )
+
+            }
+        ).catch(
+            error => {
+                this.creStep2Model.images = 'fail';
+                this.creStep2Model.message = '获取镜像失败';
+            }
+            )
     }
 
-    private hosts(){
-        let platFormId : String = this.idService.getPlatformId();
+    private hosts() {
+        let platFormId: String = this.idService.getPlatformId();
 
         this.service.hosts(platFormId).then(
             res => {
                 console.log(res);
-                 this.creStep2Model.hosts = 'ok';
-                 this.creStep2Model.hostsStatus = true;
-                 this.creStep2Model.message = '同步宿主机成功,同步完成';
-                 this.creStep2Model.percentage = 100;
-                 this.creStep2Model.isNext = true;
+                this.creStep2Model.hosts = 'ok';
+                this.creStep2Model.hostsStatus = true;
+                this.creStep2Model.message = '同步宿主机成功,同步完成';
+                this.creStep2Model.percentage = 100;
+                this.creStep2Model.isNext = true;
             }
         ).catch(
             error => {
-                 this.creStep2Model.hosts = 'fail';
-                 this.creStep2Model.message = '同步宿主机失败';
+                this.creStep2Model.hosts = 'fail';
+                this.creStep2Model.message = '同步宿主机失败';
             }
-        )
+            )
     }
 
 
-    next (){
-        this.route.navigate(["pf-mng2/cl-mng/cre-step3",{type:this.platformType}]);
+    next() {
+        this.route.navigate(["pf-mng2/cl-mng/cre-step3", { type: this.platformType }]);
     }
 
-    previous (){
+    previous() {
         this.route.navigateByUrl('pf-mng2/cl-mng/cre-step1');
     }
-    cancel (){
+    cancel() {
         this.route.navigateByUrl("pf-mng2/cl-mng/cl-mng");
     }
 }

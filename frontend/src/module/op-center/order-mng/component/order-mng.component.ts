@@ -85,6 +85,23 @@ export class OrderMngComponent implements OnInit{
 				target.push(obj);
 			}
 		};
+		this._orderDetailLoader.Trait = (items:Array<OrderDetailItem>)=>{
+			let firstItem = this._orderDetailLoader.FirstItem;
+			console.log('firstitem', firstItem,  'billingMode');
+			this._billinModeDic.UpdateWithDic([firstItem], "billingModeName", "billingMode");
+			this._billinModeDic.UpdateWithDic(firstItem.relatedSubInstanceList, "billingModeName", "billingMode");
+			this._billinModeDic.UpdateWithDic(firstItem.relatedOrderList, "billingModeName", "billingMode");
+
+			this._periodTypeDic.UpdateWithDic([firstItem], "productTypeName", "productType");
+			this._periodTypeDic.UpdateWithDic(firstItem.relatedSubInstanceList, "productTypeName", "productType");
+			this._periodTypeDic.UpdateWithDic(firstItem.relatedOrderList, "productTypeName", "productType");
+
+			this._orderStatusDic.UpdateWithDic([firstItem], "statusName", "status");
+			this._orderStatusDic.UpdateWithDic(firstItem.relatedSubInstanceList, "statusName", "status");
+			this._orderStatusDic.UpdateWithDic(firstItem.relatedOrderList, "statusName", "status");
+			console.log('firstitem done', firstItem);
+		};
+
 		this._orderDetailLoader.FirstItem = new OrderDetailItem();
 
 		//续订费用

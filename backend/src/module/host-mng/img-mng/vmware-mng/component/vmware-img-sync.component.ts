@@ -229,10 +229,13 @@ export class VmwareImgSyncComponent implements OnInit {
                     console.log("镜像同步成功");
                 } else {
                     this.showAlert("Res sync error");
+                    return;
                 }
             }
             ).then( n =>
                 {
+                    this.getVmwareImgSyncList();
+                    /*
                     //this.getUnSelectedItems();
                     for (var i = this.vmwaresyncimgs.length - 1; i >= 0; i--) {
                         if (this.vmwaresyncimgs[i].checked == true) {
@@ -242,6 +245,7 @@ export class VmwareImgSyncComponent implements OnInit {
                         }
                     }
                     //this.vmwaresyncimgs = this.unselectedsyncvmimgs;
+                    */
                     console.log(this.vmwaresyncimgs, "New sync images!!!");
                 }
             )

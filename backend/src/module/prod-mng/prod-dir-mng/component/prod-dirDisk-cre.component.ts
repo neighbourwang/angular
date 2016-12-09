@@ -173,6 +173,7 @@ export class ProdDirDiskCreComponent implements OnInit {
             this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
         }).catch(err => {
             console.error(err);
+            this.LayoutService.hide();
         })
     }
 
