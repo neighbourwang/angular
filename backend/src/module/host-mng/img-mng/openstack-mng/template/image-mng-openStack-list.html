@@ -1,35 +1,35 @@
 <link src="image-mng-openStack.less">
-<div class="page-content-header icon-content-header-purchasing"> 镜像管理-{{platformName}}  
+<div class="page-content-header icon-content-header-purchasing"> 镜像管理-{{platformName}}
     <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" (click)="back()"style="padding:2px 15px;font-size:14px" key="boe/image-mng.html">
         返回镜像管理列表
     </button>
 </div>
 <div class="page-content">
-    <div class="mgt15 ">      
+    <div class="mgt15 ">
             <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >镜像类型：</span>
             <div class="float-left pdr20">
                 <select class="pdl10 form-control" [(ngModel)]="queryOpt.type" >
                     <option value="">所有镜像类型</option>
                     <option *ngFor = "let type of typeDic" [ngValue]="type.value">{{getDicText(type.value,typeDic)}}</option>
                 </select>
-            </div>          
+            </div>
             <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >所属企业：</span>
             <div class="float-left">
                 <select class="pdl10 form-control" [(ngModel)]="queryOpt.tenantId" >
                     <option value="">所有企业</option>
                     <option *ngFor = "let tenant of tenants" [ngValue]="tenant.id">{{tenant.name}}</option>
                 </select>
-            </div> 
+            </div>
             <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10 "(click)="search()">
-                <span class="icon-button-label">确定 </span> 
+                <span class="icon-button-label">确定 </span>
                 </button>
             <!--{{queryOpt.toString()}} 测试显示-->
-    </div>         
+    </div>
     <div style="clear:both"></div>
     <div class="mgb20 " style="margin-top:20px">
         <button class="fox-cloud-button fox-cloud-button-green mgr10" key="boe/image-public-sync-poenStack.html" (click)="syncPublic()">同步公共镜像</button>
-        <button type="button" class="fox-cloud-button fox-cloud-button-green" data-toggle="modal" data-target="#my" (click)="createSynTeOption()">同步企业镜像</button>       
-        
+        <button type="button" class="fox-cloud-button fox-cloud-button-green" data-toggle="modal" data-target="#my" (click)="createSynTeOption()">同步企业镜像</button>
+
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
              更多操作
@@ -43,7 +43,7 @@
         </div>
     </div>
     <div class="table-container">
-        
+
         <table class="table table-hover">
              <thead>
                  <tr>
@@ -56,18 +56,18 @@
                     <th>镜像类型</th>
                     <th>所属企业</th>
                     <th>状态</th>
-                 </tr>              
+                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let image of images" (click)="selectImage(image)">
                     <td >
                         <input type="radio" class="fox-cloud-radio" name="radio" [checked]="image.selected" (change)="image.selected = $event.target.checked" />
                     </td>
-                    
+
                     <td >{{image.name}}</td>
                     <td style="position:relative">{{image.displayName}}
                         <span class="pull-right icon-edit2" (click)="openEidtDisplayName(image);image.nameEditing=true;"></span>
-                        <div *ngIf="image.nameEditing"class="popover fade bottom in" role="tooltip" style="position:absolute;top:30px; left:30px; width:370px; max-width:1100px; display: block;">
+                        <div *ngIf="image.nameEditing"class="popover fade bottom in" role="tooltip" style="position:absolute;top:30px; left:30px; width:370px; max-width:1100px; display: block;z-index:50;">
                                 <div class="arrow" style="left: 30%;"></div>
                                 <div class="popover-content">
                                     <form class="form-horizontal" role="form">
@@ -82,7 +82,7 @@
                                     <button class=" fox-cloud-button fox-cloud-button-white"(click)="updateEditDisplayName(image)">保存</button>
                                     <button class="fox-cloud-button fox-cloud-button-white"(click)="image.nameEditing=false;">取消</button>
                                 </div>
-                            </div>                              
+                            </div>
                     </div>
                     </td>
                     <td >{{getDicText(image.os,osDic)}}</td>
@@ -97,7 +97,7 @@
             </tbody>
 
         </table>
-            
+
     </div>
     <div style="height:200px"></div>
 </div>
@@ -108,13 +108,13 @@
 
 
 <fc-popup #editImage title="{{title}}" ot="保存" (of)="saveEdit();" ct="取消" (cf)="cancelEdit();">
-                                	
+
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">镜像名：</div>
                 <div class="col-sm-6"><span style="line-height:34px">{{tempEditImage.name}}</span> </div>
             </div>
-        </div>	
+        </div>
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像显示名称:</div>
@@ -122,18 +122,18 @@
                     <input type="text" class="form-control" [(ngModel)]="tempEditImage.displayName" />
                     </div>
             </div>
-        </div>	
+        </div>
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">系统位数:</div>
                 <div class="col-sm-6">
                     <select class="form-control" [(ngModel)]="tempEditImage.bitsType">
                         <option *ngFor = "let type of bits_typeDic" [ngValue]="type.value" [ngClass]="setDefaultBits(type,tempEditImage.bitsType)">{{getDicText(type.value,bits_typeDic)}}</option>
-                        
+
                     </select>
                 </div>
             </div>
-        </div>	
+        </div>
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">操作系统:</div>
@@ -143,12 +143,12 @@
                     </select>
                 </div>
             </div>
-        </div>	
+        </div>
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">镜像类型:</div>
                 <div class="col-sm-6">
-                    <span style="line-height:34px">{{getDicText(tempEditImage.type,this.typeDic)}}</span> 
+                    <span style="line-height:34px">{{getDicText(tempEditImage.type,this.typeDic)}}</span>
                     </div>
             </div>
         </div>
@@ -157,8 +157,8 @@
                 <div class="col-sm-4 form-control-title">描述:</div>
                 <div class="col-sm-6"><textarea class="form-control" rows="3"[(ngModel)]="tempEditImage.description"></textarea></div>
             </div>
-        </div>                   
-    </fc-popup> 
+        </div>
+    </fc-popup>
 
 <!--同步弹出框内容-->
 <fc-popup #synTeImage title="{{title}}" ot="提交" (of)="commitSynTe()" ct="取消" (cf)="cancelCommitSynTe()">
@@ -173,14 +173,14 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let tenant of tenants">
-                    <td><input type="checkbox" class="foc-cloud-checkbox" [checked]="tenant.selected" (change)="tenant.selected = $event.target.checked"></td>
+                    <td><input type="checkbox" class="fox-cloud-checkbox" [checked]="tenant.selected" (change)="tenant.selected = $event.target.checked"></td>
                     <td>{{tenant.name}}</td>
                 </tr>
                 </tbody>
             </table>
            </div>
             </div>
-</fc-popup> 
+</fc-popup>
 
 
 

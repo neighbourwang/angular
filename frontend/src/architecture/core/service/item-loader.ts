@@ -34,6 +34,10 @@ export class ItemLoader<T>{
 		return this._items[0];
 	}
 
+	set FirstItem(item:T){
+		this._items.unshift(item);
+	}
+
 	loadArray<T>(source:any, target: T[])
 	{
 		if(target && source)

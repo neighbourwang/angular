@@ -5,7 +5,7 @@ import { LayoutService } from '../../../../architecture';
 import { cloudHostServiceOrder } from '../service/cloud-host-order.service';
 
 import { AttrList, PayLoad } from '../model/attr-list.model';
-import { OrderList, OrderService, SendModule, TimeLineData, VlueList } from '../model/services.model';
+import { OrderList, OrderService, SendModule, TimeLineData, VlueList, SkuMap, ProMap, BillingInfo } from '../model/services.model';
 
 @Component({
 	selector: 'cloud-host-order',
@@ -20,6 +20,13 @@ export class cloudHostComponentOrder implements OnInit {
 	sendModule: SendModule;
 	setPassword: boolean = true;
 
+	totalPrice : number = 0;
+	vmSku : SkuMap = new SkuMap;
+	diskSku : SkuMap = new SkuMap;
+
+	vmBasePrice : number = 0; //云主机一次性费用
+	vmTotalPrice : number = 0; //云主机费用
+
 
 	@ViewChild('cartButton') cartButton;
 	@ViewChild('storage') storage;
@@ -28,7 +35,8 @@ export class cloudHostComponentOrder implements OnInit {
 	// rightFixed : boolean = false;   //让右侧配置起飞
 
 	passwordShadow: string;
-	skuMap: any;  //skuMap
+	skuMap: SkuMap[];  //skuMap
+	proMap: ProMap[];  //skuMap
 
 	constructor(
 		private layoutService: LayoutService,
@@ -45,22 +53,52 @@ export class cloudHostComponentOrder implements OnInit {
 		// $("[data-toggle=popover]").popover();
 	}
 
-	private getSkuId(payLoadList: string[]): { skuId: string, productId: string } {   //获取skuID和productId
-		const trim = val => val.replace("[", "").replace("]", ""),
-			  totalId = payLoadList.join(",");
-console.log(payLoadList,222)
-		let nub = 0, 	//验证sku成功的个数
+	setConfigList(): void {
+		this.layoutService.show();
+		this.service.getHostConfigList().then(configList => {
+			configList.attrList.forEach(config => {
+				// 设置配置列表
+				const attrName = config.attrCode.toLowerCase();
+
+				this.configs[config.attrCode.toLowerCase()] = config;
+				this.setSenModule(config);
+			});
+			this.sendModule.username.attrValue = "root";
+			console.log(this.sendModule, this.configs)
+
+			this.skuMap = configList.skuMap;
+			this.proMap = configList.proMap;
+		}).then(res => {
+			// this.setTimeLineType();
+			this.layoutService.hide();
+		}).catch(e => {
+			this.layoutService.hide();
+		})
+	}
+
+	private getSkuId(code:"vm"|"disk"): SkuMap {   //获取skuID和productId
+
+		let list = code === "vm" ? ["zone", "platform", "cpu", "mem"].map(v => this.sendModule[v].attrValueId)   //vm主机订单的sku匹配的选项 需要匹配可用区 平台 cpu 内存
+				 : code === "disk" ? ["zone", "platform","storage"].map(v => this.sendModule[v].attrValueId) : [];  //云硬盘订单的sku匹配的选项 需要匹配 平台 可用区 （还有一个硬盘类型 由下面添加）
+
+		const trim = val => val.replace("[", "").replace("]", "");
+
+		for(let v of list) if(!v || !list.length) return new SkuMap;  //如果列表存在空值 直接return出去 不再匹配
+
+		let totalId = list.join(","),
+			nub = 0, 	//验证sku成功的个数
 			skuValue = {};
 
 		for (let sku in this.skuMap) {
 			sku.split(", ").forEach(skuString => {
 				if(totalId.indexOf(trim(skuString)) > -1 ) nub++;
 			});
-			if(nub === payLoadList.length) {
-				return this.skuMap[sku]
+			if(nub === list.length) {
+				return this.skuMap[sku];
 			}
 			nub = 0;
 		}
+		return new SkuMap;
 	}
 
 	private itemNum:number = 0;
@@ -82,15 +120,11 @@ console.log(payLoadList,222)
 	 * @return {PayLoad[]} [description]
 	 */
 	private payLoadFormat(): PayLoad[] {
-		//特殊处理
-		this.sendModule.timeline.attrValue = parseInt(this.sendModule.timeline.value);
 
 		//临时处理 演示用
 		this.sendModule.bootsize.attrValue = "20";
 
-		let payloadList = [],
-			skuVmPayload = [],  //例外的sku
-			skuDistPayload = [];  //例外的sku
+		let payloadList = [];
 		for (let v in this.sendModule) {
 			payloadList.push({
 				attrId: this.configs[v].attrId,   	//服务属性ID
@@ -101,19 +135,13 @@ console.log(payLoadList,222)
 				attrValue: this.sendModule[v].attrValue, 	//服务属性值
 				attrValueCode: this.sendModule[v].attrValueCode, 	//服务属性值
 			});
-
-			if(["zone", "platform", "cpu", "mem"].indexOf(v) > -1)    //vm主机订单的sku匹配的选项 需要匹配可用区 平台 cpu 内存
-				skuVmPayload.push(this.sendModule[v].attrValueId); 
-			if(["zone", "platform"].indexOf(v) > -1)    //云硬盘订单的sku匹配的选项 需要匹配 平台 可用区 （还有一个硬盘类型 由下面添加）
-				skuDistPayload.push(this.sendModule[v].attrValueId); 
 		};
 
-		const sku = this.getSkuId(skuVmPayload);   //获取sku
-
-		this.payLoad.skuId = sku.skuId;
-		this.payLoad.productId = sku.productId;
+		this.payLoad.skuId = this.vmSku.skuId;
+		this.payLoad.productId = this.vmSku.productId;
 		this.payLoad.attrList = payloadList;
 		this.payLoad.itemNo = this.makeItemNum();
+		this.payLoad.totalPrice = this.vmTotalPrice;
 
 		this.payLoadArr = [];
 		this.payLoadArr.push(this.payLoad);
@@ -124,32 +152,37 @@ console.log(payLoadList,222)
 		if(storage.length) {   //如果有数据盘的数据
 
 		}
-
-
 		return this.payLoadArr;
 	}
 
+	setTimeUnit(): void {
+		if(!this.vmSku.skuId) return ;
 
-	setConfigList(): void {
-		this.layoutService.show();
-		this.service.getHostConfigList().then(configList => {
-			configList.attrList.forEach(config => {
-				// 设置配置列表
-				const attrName = config.attrCode.toLowerCase();
+		const timeUnit = this.configs.timelineunit.mapValueList[this.vmSku.skuId];
+		if(timeUnit && timeUnit.length && this.sendModule.timelineunit.attrValueCode !== timeUnit[0].attrValueCode) {
+			this.sendModule.timelineunit = timeUnit[0];    //设置一下时长为第一位
+			this.setVmPrice();   //拿到时长就可以设置主机价格了  
+		}
+	}
 
-				this.configs[config.attrCode.toLowerCase()] = config;
-				this.setSenModule(config);
-			});
-			this.sendModule.username.attrValue = "root";
-			console.log(this.sendModule, this.configs)
+	setVmPrice(): void {   //获取主机的价格
+		const sku = this.diskSku.skuId,
+			  timeline = +this.sendModule.timeline.attrValue;
+		if(!this.sendModule.timelineunit.attrValueCode || !sku || !timeline) return;
 
-			this.skuMap = configList.skuMap;
-		}).then(res => {
-			// this.setTimeLineType();
-			this.layoutService.hide();
-		}).catch(e => {
-			this.layoutService.hide();
-		})
+		const price = this.proMap[`[${this.vmSku.skuId}, ${this.sendModule.timelineunit.attrValueCode}]`];
+
+		this.vmBasePrice = price.billingInfo.basePrice*timeline;  //一次性费用
+		this.vmTotalPrice = (price.billingInfo.basicPrice+price.billingInfo.cyclePrice)*timeline;   //周期费用
+		// console.log(price ,basePrice, totalPrice)
+	}
+	setDiskPrice(): void {  //获取数据盘的价格
+		const sku = this.diskSku.skuId,
+			  timeline = +this.sendModule.timeline.attrValue,
+			  storage = this.storage.getData();   //获取数据盘
+		if(!sku || !timeline || !storage.length) return;  
+
+
 	}
 
 	setSenModule(config: OrderService): void {
@@ -184,13 +217,28 @@ console.log(payLoadList,222)
 		if(!this.configs[attrName].relyAttrId) return [];
 
 		//根据他的依赖的id获取它自身的list
-		const list = this.configs[attrName].mapValueList[this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId];
+		const list = this.configs[attrName].mapValueList[this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId] || [];
+
+		const attrid = this.sendModule[attrName].attrValueId;   //获取当前的sendmoudle的attrid
+		const isHas = attrid && list && list.length && !!list.filter(l => l.attrValueId === attrid).length;   //列表里面是否有以选择的senModule
 		 //设置sendmodule使它选择第一个
-		if(list && list.length && this.sendModule[attrName] && !this.sendModule[attrName].attrValueId) this.sendModule[attrName] = list[0];  
+		if(list.length && (!attrid || !isHas)) this.sendModule[attrName] = list[0];   //当没有选择sendmoudle的attrid时候，说明该模块还没有选择过，如果list里面没有这个attrid说明，他的父级已经有变动，需要重新选择
+
+		this.changes();
 		return list;
 	}
 
+	changes() { 
+		this.vmSku = this.getSkuId("vm");     //确定sku
+		this.diskSku = this.getSkuId("disk");   //确定sku 
+
+		if(this.vmSku.skuId) {
+			this.setTimeUnit();   // 设置购买时长
+		}
+	}
+
 	addCart() {   //加入购物车
+		if(!this.checkInput()) return;
 		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
 		console.log(payLoadArr, JSON.stringify(payLoadArr))
 		// console.log(JSON.stringify(payLoad))
@@ -208,24 +256,28 @@ console.log(payLoadList,222)
 
 	con(value) {
 		console.log(value)
-
 	}
 	parseInt(value) {
 		return parseInt(value);
 	}
 
 
-	checkInput() {
+	checkInput():boolean {
+		const al = value => !!alert(value);
 
+		if(!this.vmSku.skuId) return al("sku不正确")
+		if(!this.sendModule.timeline.attrValue) return al("请选择购买时长");
+		return true;
 	}
 
 	goTo(url: string) {
 		this.router.navigateByUrl(url);
 	}
 	buyNow() {
+		if(!this.checkInput()) return;
 		this.layoutService.show();
-		this.checkInput();
 		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
+		console.log(payLoadArr, JSON.stringify(payLoadArr))
 		this.service.saveOrder(payLoadArr).then(res => {
 			this.layoutService.hide();
 			this.router.navigateByUrl("cloud-host-service/cart-order");

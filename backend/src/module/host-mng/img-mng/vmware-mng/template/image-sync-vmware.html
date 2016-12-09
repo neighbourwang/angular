@@ -1,5 +1,5 @@
 <div class="page-content-header icon-content-header-purchasing"> 镜像管理</div>
-<div class="page-content">
+<div class="page-content" style="min-height:300px">
     <table class="table table-hover ">
         <thead>
             <tr>
@@ -31,11 +31,11 @@
                 <tr *ngFor="let syncimg of vmwaresyncimgs; let i=index;">
                     <td><input type="checkbox" name="1" class="fox-cloud-checkbox" [checked]="syncimg.checked" (change)="selectItem(i)" value="{{i}}">
                     </td>
-                    <td>{{i}}</td>
+                    <td>{{i+1}}</td>
                     <td>{{syncimg.name}}</td>
                     <td>
                         <div *ngIf="syncimg.syncResult==0">
-                            <input type="text" class="form-control" [(ngModel)]="syncimg.displayName" />
+                            <input type="text"  [(ngModel)]="syncimg.displayName" />
                         </div>
                         <div *ngIf="syncimg.syncResult!=0">
                             {{syncimg.displayName}}
@@ -53,7 +53,7 @@
                         </div>
                     </td>
                     <td>
-                        <div *ngIf="syncimg.syncResult==0">
+                        <div *ngIf="syncimg.syncResult==0" style="padding-top:2px">
                         <select [(ngModel)]="syncimg.bitsType">
                             <option *ngFor="let bit of this.bitDict" [value]="bit.value">{{bit.displayValue}}</option>
                         </select>
@@ -64,7 +64,7 @@
                     </td>
                     <td>{{showCapacity(syncimg.capacity)}}</td>
                     <td>
-                        <div *ngIf="syncimg.syncResult==0">
+                        <div *ngIf="syncimg.syncResult==0" style="padding-top:2px">
                         <select [(ngModel)]="syncimg.type">
                             <option *ngFor="let type of this.typeDict" [value]="type.value">{{type.displayValue}}</option>
                         </select>
@@ -79,14 +79,16 @@
         </table>
     </div>
 </div>
-<div class="text-center " style="margin-top:40px">   
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="VmwareSyncImages()">
-        <span class="icon-button-label">同步</span>
-    </button>
+<div class="text-center " style="margin-top:50px">   
+    
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="VmwareImgListPage()">
         <span class="icon-button-label">返回</span>
     </button> 
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="VmwareSyncImages()">
+        <span class="icon-button-label">同步</span>
+    </button>
 </div>
+<div style="height:50px"></div>
 
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
 <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>

@@ -364,9 +364,10 @@
 }
 .test-title {
     position: absolute;
-    left: 990px;
-    top: 355px;
-    }
+    right: -120px;
+    top: 13px;
+}
+
 .ChecEstkMng{
     width: 1400px;
 }
@@ -375,5 +376,8 @@
 }
 .mgr17{
     margin-right:17px!important; 
+}
+.wd320{
+    width:320px;
 }
 

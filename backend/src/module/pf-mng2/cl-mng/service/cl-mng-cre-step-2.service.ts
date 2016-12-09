@@ -50,6 +50,18 @@ export class ClMngCreStep2Service {
 
         return this.restApi.request(api.method, api.url , [{key : 'pf-id' , value : id}],undefined);
     }
+    //update镜像同步
+    
+    getImages(id : String){
+        let api = this.restApiCfg.getRestApi("pf.cre.step.images.synchronize.get");
+
+        return this.restApi.request(api.method, api.url , [{key : 'id' , value : id}],undefined);
+    }
+    postImages(id : String,data:any){
+        let api = this.restApiCfg.getRestApi("pf.cre.step.images.synchronize.post");
+
+        return this.restApi.request(api.method, api.url , [{key : 'id' , value : id}],undefined,data);
+    }
 
     //宿主机 pf.cre.step.02.hosts.synchronize.get
     hosts( id : String){

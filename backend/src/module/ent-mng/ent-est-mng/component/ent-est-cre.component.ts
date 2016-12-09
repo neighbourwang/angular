@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { EntEst, ResourceQuota, CertMethod } from '../model'
 import { EntEstCreService, Paging } from '../service/ent-est-cre.service'
+import * as _ from 'underscore';
 
 @Component({
 	selector:'ent-est-cre'
@@ -160,6 +161,13 @@ export class EntEstCreComponent implements OnInit{
 			return false;
 		}
 
+		if(_.isEmpty(this.entEst.BasicInfo.platformIds))
+		{
+			this.showMsg('请选择平台');
+			return false;
+		}
+
+
 		return true;
 	}
 
@@ -170,12 +178,18 @@ export class EntEstCreComponent implements OnInit{
 
 	//创建企业
 	create(){
+		this.entEst.BasicInfo.platformIds
+			= this.entEst.BasicInfo.platformIds.concat(this.resourceQuotas.items.filter(n=>n.checked).map(n=>n.platformId));
+		
 		if(this.validate())
 		{
+			this.layoutService.show();
 			this.service.createEnterpise(this.entEst).then(ret=>{
+				this.layoutService.hide();
 				this.returnToList();
 			})
 			.catch(err=>{
+				this.layoutService.hide();
 				console.log('创建企业失败', err);
 				this.notice.open("创建企业", "创建企业失败");
 			})

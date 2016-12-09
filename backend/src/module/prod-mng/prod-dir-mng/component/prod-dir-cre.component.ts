@@ -42,7 +42,12 @@ export class ProdDirCreComponent implements OnInit {
             // let id=+params['id'];
             prodDirId = params['id'];
             prodDirType = params['type'];
-
+            if(params['vcpu']){
+                this.prodDir.specification.vcpu=params['vcpu'];
+                this.prodDir.specification.mem=params['mem'];
+                this.prodDir.specification.startupDisk=params['startupDisk'];
+            }           
+            this.selectPlateForm();
         })
         if (prodDirType == 'new') {
 
@@ -97,13 +102,13 @@ export class ProdDirCreComponent implements OnInit {
     selectPlateForm() {
         console.log(this.prodDir.specification.vcpu);
         console.log(this.prodDir.specification.mem);
+        this.LayoutService.show();
         this.CreateProdDirService.postCpuMmr(this.prodDir.specification.vcpu, this.prodDir.specification.mem).then(response => {
             // console.log(response);
             if (response && 100 == response.resultCode) {
                 let resultContent = response.resultContent;
                 this._platformlist = response.resultContent;
                 console.log(this._platformlist);
-
                 for (let plate of this._platformlist) {
                     for (let zone of plate.zoneList) {
                         zone.storageId = zone.storageList[0].storageId;
@@ -118,6 +123,7 @@ export class ProdDirCreComponent implements OnInit {
             this.selectAllZone = false;
         }).catch(err => {
             console.error(err);
+            this.LayoutService.hide();
         });
     }
     //选择全部可用区
@@ -185,6 +191,7 @@ export class ProdDirCreComponent implements OnInit {
             this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
         }).catch(err => {
             console.error(err);
+            this.LayoutService.hide();
         })
     }
 
