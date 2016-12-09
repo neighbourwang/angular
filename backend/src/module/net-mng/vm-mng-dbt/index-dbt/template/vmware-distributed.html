@@ -77,14 +77,14 @@
                     <td style="position:relative;">
                         {{port.distPortGroupDisplayName||"未设置"}}
                         <span class="icon-edit2 pull-right" (click)="openEdit(port);port.isOpen=true;" style="display:inline-block"></span>
-                         <div *ngIf="port.isOpen" class="popover fade bottom in" role="tooltip" style="position:absolute;top:30px; right:150px; width:420px; max-width:1100px; display: block;z-index: 50;">
+                         <div *ngIf="port.isOpen" class="popover fade bottom in" role="tooltip" style="z-index:50;position:absolute;top:30px; right:150px; width:420px; max-width:1100px; display: block;">
                                 <div class="arrow" style="left: 30%;"></div>
                                 <div class="popover-content">
                                     <form class="form-horizontal" role="form">
                                         <div class="form-group">
                                             <label class="col-sm-6 control-label">分布式端口组显示名称:</label>
                                             <div class="col-sm-6 float-left">
-                                            <input type="text" [(ngModel)]="editPort.distPortGroupDisplayName" name="portname"/>
+                                            <input type="text" class="form-control"[(ngModel)]="editPort.distPortGroupDisplayName" name="portname"/>
                                             </div>
                                         </div>
                                     </form>

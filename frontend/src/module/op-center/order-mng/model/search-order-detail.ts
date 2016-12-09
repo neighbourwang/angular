@@ -19,11 +19,13 @@ export class SearchOrderDetail{
 	operator:string;//操作者
 	billingModeName:string = null;//计费模式
 
+	
+
 
 	productBillingItem:{
 		billingId:string;
 		billingMode:number;
-		basePrice:number;
+		basePrice:number;//一次性费用
 		periodType:number;
 		basicPrice:number;
 		cyclePrice:number;
@@ -33,12 +35,31 @@ export class SearchOrderDetail{
 
 	//一次性费用
 	get oneTimePrice():number{
-		return 0;
+		if(this.productBillingItem)
+		{
+			return this.productBillingItem.basePrice
+		}
+		else
+			return null;
 	}
 
 	//费用
 	get price():number{
-		return 0;
+		if(this.productBillingItem)
+		{
+			if(this.productBillingItem.billingMode == 0)//包年包月
+			{
+				return this.productBillingItem.basicPrice + this.productBillingItem.cyclePrice;
+			}
+			else if(this.productBillingItem.billingMode == 1)//一次性费用
+			{
+				return this.productBillingItem.unitPrice;
+			}
+			else
+				return null;
+		}
+		else
+			return null;
 	}
 
 	relatedSubInstanceList:Array<SearchOrderDetail> = [];
