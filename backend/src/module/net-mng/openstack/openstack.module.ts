@@ -9,7 +9,8 @@ import { OpenstackRouting } from './Openstack.routing';
 import { OpenstackNetMngComponent } from './component/openstack-net-mng.component';
 import { OpenstackSynchrNetComponent } from './component/openstack-synchr-net.component';
 
-import { OpenstackService } from './service/openstack.service'
+import { OpenstackService } from './service/openstack.service';
+import { SelectedTenantListService } from './service/selected-tenant-list.service';
 @NgModule({
     imports: [
         OpenstackRouting,
@@ -24,7 +25,7 @@ import { OpenstackService } from './service/openstack.service'
         OpenstackNetMngComponent,
         OpenstackSynchrNetComponent
     ],
-    providers: [OpenstackService]
+    providers: [OpenstackService,SelectedTenantListService]
 })
 
 export class OpenstackModule { }

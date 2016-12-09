@@ -1095,7 +1095,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取同步网络列表",
         "id": "net-mng.openstack.net.syn.list",
         "method": "GET",
-        "url": "adminboe/authsec/{platform_id}/openstack/networkSync"
+        "url": "openstacknetworkmgmt/authsec/{platform_id}/openstack/networkSync"
     },
     {
         "desc": "获取地域数据中心数据平台选项",
@@ -1108,38 +1108,38 @@ export let RestApis: RestApiModel[] = [
         "desc": "同步网络（单个、多个）添加",
         "id": "net-mng.openstack.net.syn.add",
         "method": "POST",
-        "url": "adminboe/authsec/openstack/network"
+        "url": "openstacknetworkmgmt/authsec/openstack/network"
     },
     {
         "desc": "同步网络（单个、多个）网络更新",
         "id": "net-mng.openstack.net.syn.update",
         "method": "PUT",
-        "url": "adminboe/authsec/openstack/network/sync"
+        "url": "openstacknetworkmgmt/authsec/openstack/network/sync"
     
     },
     {
         "desc": "同步网络（单个、多个）网络禁用",
         "id": "net-mng.openstack.net.syn.disable",
         "method": "PUT",
-        "url": "adminboe/authsec/openstack/network/disable"
+        "url": "openstacknetworkmgmt/authsec/openstack/network/disable"
     
     },
     {
         "desc": "更改子网显示名称",
         "id": "net-mng.openstack.net.updatename",
         "method": "PUT",
-        "url": "adminboe/authsec/openstack/network/subnetDisplayName"
+        "url": "openstacknetworkmgmt/authsec/openstack/network/subnetDisplayName"
     },{
         "desc": "openstack启用网络",
         "id": "net-mng.openstack.net.networkStart",
         "method": "PUT",
-        "url": "adminboe/authsec/openstack/network/{id}/enable"
+        "url": "openstacknetworkmgmt/authsec/openstack/network/{id}/enable"
     
     },{
         "desc": "openstack禁用网络",
         "id": "net-mng.openstack.net.networkStop",
         "method": "PUT",
-        "url": "adminboe/authsec/openstack/network/{id}/disable"
+        "url": "openstacknetworkmgmt/authsec/openstack/network/{id}/disable"
     
     }
     // 审批中心

@@ -12,7 +12,7 @@ import { SelectedTenantListService } from '../service/selected-tenant-list.servi
 	selector: "openstack-synchr-net",
 	templateUrl: "../template/OpenStack-synchr-net.html",
 	styleUrls: [],
-	providers: [SelectedTenantListService]	
+	providers: []	
 }
 	)
 export class OpenstackSynchrNetComponent implements OnInit{
@@ -46,6 +46,13 @@ export class OpenstackSynchrNetComponent implements OnInit{
     //statusDic: Array<SystemDictionary>;//状态
     synDic: Array<SystemDictionary>;//同步结果 1-新增，2-已存在，3-不存在
 	ngOnInit(){
+        this.router.params.forEach((params: Params) => {
+			this.platform_id = params['platform_id'];
+            this.platformName = params['platformName'];
+			console.log("接收的platform_id:" + this.platform_id);
+            console.log("接收的platformName:" + this.platformName);
+			
+		});
 		this.dicService.getItems("NETWORK", "TYPE")
             .then(
             (dic) => {
@@ -62,15 +69,11 @@ export class OpenstackSynchrNetComponent implements OnInit{
             })
             .then((dic) => {
                 this.synDic = dic;
+                this.getSynList(this.platform_id);
+                
             });
-		this.router.params.forEach((params: Params) => {
-			this.platform_id = params['platform_id'];
-            this.platformName = params['platformName'];
-			console.log("接收的platform_id:" + this.platform_id);
-            console.log("接收的platformName:" + this.platformName);
-			this.getSynList(this.platform_id);
-            this.filter();
-		});
+		
+        
 		
 	}
 
@@ -98,6 +101,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
 					this.synNetworks = response.resultContent;
+                    this.filter();
                 } else {
                     alert("Res sync error");
 
