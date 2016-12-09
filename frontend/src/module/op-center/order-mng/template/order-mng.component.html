@@ -2,13 +2,13 @@
 <div class="OrderManage">	
 	<div class="page-content-header">已购服务管理</div>
 	<div class="page-content">
-		<div class="mgb20">
+		<!--<div class="mgb20">
 			<ul class="nav nav-tabs" id="myTabs" role="tablist">
 				<li  role="presentation" [class.active]="_param.scope==0"><a  id="department-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="false" (click)="_param.scope=0;">部门订单</a></li>
 				<li  role="presentation" [class.active]="_param.scope==1"><a id="all-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="false" (click)="_param.scope=1">所有订单</a></li>
 			</ul>
 			
-		</div>
+		</div>-->
 		<div class="table-container">
 			<div class="">
 				<div class="input-group col-md-2 float-left mgr20">
@@ -40,13 +40,15 @@
 							</div>
 						</td>
 						<td >
-							<span class="mgr10 mgt10">到期时间：</span>
-							<div class="dropdown float-left">			
-								<span class="mgr10 mgt10">从</span><date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
-							</div>
-						
-							<div class="dropdown float-left">			
-								<span class="mgr10 mgt10">到</span><date-picker  (dateChanged)="onExpireTimeChange($event)"></date-picker>
+							<div class="mgt-10">
+								<span class="mgr10 mgt10">到期时间：</span>
+								<div class="dropdown float-left">			
+									<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
+								</div>
+								<span class="mgt5 mgl10">——</span>
+								<div class="dropdown float-left">			
+									<date-picker  (dateChanged)="onExpireTimeChange($event)"></date-picker>
+								</div>
 							</div>
 						</td>
 						<td>
@@ -94,7 +96,7 @@
 				</tbody>
 			</table>	
 		</div>
-		<div class="mgb20">当查询到<span class="font-green">{{_orderLoader.Items.length}}</span>个订单需要审批，查询列表如下：</div>
+		<div class="mgb20">当查询到<span class="font-green">{{_orderLoader.Items.length}}</span>个已购服务，已购服务列表如下：</div>
 			<div class="table-container">
 			<table class="table">
 				<thead>	
@@ -116,7 +118,7 @@
 
 			<table class="table _table" *ngFor="let orderItem of _orderLoader.Items">
 				<tr>
-					<td class=" font-green leftAlign pdl20" colspan="9" data-toggle="modal" data-target="#orderDetail" (click)="showDetail(orderItem)">{{orderItem.purchaseDate}} 订单号：{{orderItem.orderNo}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下单时间：2016-10-08</td>
+					<td class=" font-green leftAlign pdl20" colspan="9" (click)="showDetail(orderItem)"><span>{{orderItem.purchaseDate}}</span><span class="pointer mgl10 float-none">已购服务编号：{{orderItem.orderNo}}</span></td>
 					<td colspan="2">
 						<button *ngIf="orderItem.canRenew" class="mgr5 pull-right button-gray-gradient" (click)="renewSelect(orderItem)">续订</button>
 						<button class="mgr5 pull-right button-gray-gradient" (click)="cancelSelect(orderItem)">退订</button>
@@ -145,6 +147,8 @@
 				</tr>
 			</table>
 		</div>
+		<fc-pagination tp={{_orderLoader.TotalPages}} (pf)="changePage($event)"></fc-pagination>
+		
 	</div>
 
 				
@@ -156,7 +160,7 @@
 				<div class="modal-content">
 				  	<div class="modal-header">
 					 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">订单编号：2370537538484773</h4>
+						<h4 class="modal-title" id="myModalLabel">已购服务编号：{{_orderDetailLoader.FirstItem.instanceCode}}</h4>
 				  	</div>
 				 	<div class="modal-body"> 
 						<order-mng-detail [orderDetail]="_orderDetailLoader.FirstItem"></order-mng-detail>

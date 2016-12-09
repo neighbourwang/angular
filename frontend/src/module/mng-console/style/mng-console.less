@@ -1,0 +1,284 @@
+@import "../../../architecture/assets/style/constant.less";
+.console-box{
+    @admin-box-height: 120px;
+    @bg-color:#f7f7f7;
+    @border-color:#dddddd;
+    @color-a:#00CC99;
+    @color-b:#FF6666;
+    @color-c:#FFCC33;
+    @color-d:#6699CC;
+    margin-top: 15px;
+    border: 1px solid @border-color;
+    overflow: hidden;
+    .space-10{
+        clear: both;
+        height: 10px;
+    }
+    .color-a{
+        color:@color-a;
+    }
+    .color-b{
+        color:@color-b;
+    }
+    .color-c{
+        color:@color-c;
+    }
+    .color-d{
+        background-color:@color-d;
+    }
+    .color-bg-a{
+        background-color:@color-a;
+    }
+    .color-bg-b{
+        background-color:@color-b;
+    }
+    .color-bg-c{
+        background-color:@color-c;
+    }
+    .color-bg-d{
+        background-color:@color-d;
+    }
+    .console-title{
+        height: 40px;
+        line-height: 40px;
+        background-color: @bg-color;
+        text-indent: 10px;
+        border-bottom: 1px solid @border-color;
+        &.next-title{
+            border-top: 1px solid @border-color;
+        }
+    }
+    .admin-box{
+        background-color: @bg-color;
+        .icon-admin{
+            height: @admin-box-height;
+            background-position: center;
+            background-size: auto 80%;
+        }
+        .admin-name{
+            margin-top: 20%;
+            font-size: 18px;
+            color: @mainColor;
+            margin-bottom: 0;
+        }
+        .admin-department{
+            font-size: 12px;
+        }
+
+    }
+    .work-box{
+        padding: 0;
+        height: @admin-box-height;
+        border-left: 1px solid #ddd;
+    }
+    .work-data{
+        padding: 0;
+        text-align: center;
+        .number{
+            margin-top: 18px;
+            margin-bottom: 0;
+            font-size: 24px;
+        }
+        .description{
+            margin-top: 4px;
+            font-size: 12px;
+        }
+    }
+    .quota-box{
+        display: inline-block;
+        width: 10%;
+        margin: 20px 0 55px 3.6%;
+        position: relative;
+        .percent-num{
+            vertical-align: top;
+            font-size: 21px;
+            height: 50px;
+            width: 50px;
+            line-height: 50px;
+            text-align: center;
+            position: absolute;
+            top:51%;
+            left: 52%;
+            margin-top: -25px;
+            margin-left: -25px;
+            sup{
+                font-size: 12px;
+                line-height: -50px;
+            }
+        }
+        .quota-name{
+            width: 100%;
+            font-size: 12px;
+            position: absolute;
+            left: 0;
+            bottom: -40px;
+            text-align: center;
+            height: 24px;
+            line-height: 24px;
+            background-color: @bg-color;
+
+        }
+    }
+    .resource-box{
+        display: inline-block;
+        width: 11.5%;
+        margin: 20px 0 20px 2.1%;
+        position: relative;
+        .resource-icon{
+            width: 100%;
+            height: 60px;
+            background-size: auto 73%;
+        }
+        .resource-name{
+            margin-top: 0;
+            text-align: center;
+            font-size: 12px;
+        }
+        .resource-state{
+            margin-top: 5px;
+            width: 100%;
+            font-size: 12px;
+            text-align: center;
+            line-height: 24px;
+            font-size: 12px;
+            background-color: @bg-color;
+        }
+    }
+    .host-shell{
+        @line-x-width:20px;
+        @line-color:#777;
+        overflow: hidden;
+        font-size: 12px;
+        padding: 10px;
+        .host-left,.host-right{
+            margin: 0;
+            float: left;
+            width: 50%;
+            position: relative;
+            .host-box{
+                cursor: pointer;
+                height: 30px;
+                line-height: 30px;
+                text-indent: 10px;
+                background-color: @bg-color;
+                overflow: hidden;
+                position: relative;
+                &:hover{
+                    opacity: 0.8
+                }
+                .host-name{
+                    padding-right: 8px;
+                }
+                .point{
+                    position: absolute;
+                    left: 8px;
+                    top:11px;
+                    height: 8px;
+                    width: 8px;
+                    display: inline-block;
+                    border-radius: 50%;
+                }
+            }
+            .line-x{
+                position: absolute;
+                top: 50%;
+                border-top: 1px dashed @line-color;
+                height: 0;
+                width: @line-x-width;
+            }
+            .line-y{
+                position: absolute;
+                width: 0;
+                border-left: 1px dashed @line-color;
+                left: 0;
+            }
+        }
+        .host-left{
+            padding: 5px 30px 5px 5px ;
+            .line-x{
+                right: 0;
+            }
+        }
+        .host-right{
+            padding: 5px 5px 5px 30px  ;
+            .line-x{
+                left: 0;
+            }
+            .host-box{
+                text-indent: 19px;
+            }
+        }
+        .host-top{
+            .line-y{
+                height: 50%;
+                top: 50%;
+            }
+        }
+        .host-center{
+            .line-y{
+                height: 100%;
+                top: 0%;
+            }
+        }
+        .host-bottom{
+            .line-y{
+                height: 50%;
+                top: 0%;
+            }
+        }
+    }
+    .ues-content{
+        padding: 25px;
+        position: relative;
+        .use-total{
+            position: absolute;
+            height: 30px;
+            line-height: 30px;
+            width: 30%;
+            left: 35%;
+            top: 44%;
+            margin-top: -15px;
+            font-size: 25px;
+            text-align: center;
+        }
+    }
+    .rank-content{
+        padding: 20px;
+        overflow: hidden;
+        .rank-left{
+            float: left;
+            width: 38%;
+            .rank-name{
+                height: 20px;
+                line-height: 20px;
+                margin: 5px 0;
+                overflow: hidden;
+            }
+        }
+        .rank-right{
+            float: right;
+            display: inline-block;
+            width: 60%;
+            border-left:5px solid @bg-color;
+            .rank-bar{
+                width: 82%;
+                height: 10px;
+                background-color: @border-color;
+                margin: 14px 0;
+                position: relative;
+                .bar{
+                    height: 9px;
+                    background-color: @color-a
+                }
+                .bar-num{
+                    font-size: 12px;
+                    position: absolute;
+                    top:0px;
+                    right: -30px;
+                    height: 10px;
+                    line-height: 10px;
+                }
+            }
+        }
+    }
+}

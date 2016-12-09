@@ -207,5 +207,10 @@ export class OrderMngSearchComponent implements OnInit{
 			this.showMsg(err);
 		})
 	}
+
+	changePage(pageNumber:number)
+	{
+		this.search(pageNumber);
+	}
 	
 }

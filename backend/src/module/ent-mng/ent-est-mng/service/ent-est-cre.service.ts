@@ -63,7 +63,7 @@ export class EntEstCreService{
 			}
 			,{
 				key:"_size"
-				,value:200
+				,value:2000
 			}
 		];
 

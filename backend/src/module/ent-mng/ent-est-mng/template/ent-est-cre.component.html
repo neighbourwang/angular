@@ -66,7 +66,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row row-line-height" *ngIf="isADSelected();">
+				<!--<div class="row row-line-height" *ngIf="isADSelected();">
 					<div class="form-group">
 						<div class="col-sm-4">
 							<input type="checkbox" class="fox-cloud-checkbox float-right mgr10">
@@ -74,7 +74,7 @@
 						<div class="col-sm-4 form-control-title textLeft">是否进行SSL加密？</div>
 						
 					</div>
-				</div>
+				</div>-->
 				<div class="row row-line-height">
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title">描述：</div>
@@ -182,7 +182,7 @@
 						<th>可分配vCPU数量</th>
 						<th>可分配内存(GB)</th>
 						<th>可分配存储(GB)</th>
-						<th>可分配物理机数量</th>
+						<!-- <th>可分配物理机数量</th> -->
 						<!--<th>平台配额</th>
 						<th>存储配额</th>-->
 	   			    </tr>
@@ -194,7 +194,7 @@
 						<td>{{item.cpu}}</td>
 						<td>{{item.memory}}</td>
 						<td>{{item.storageQuota}}</td>
-						<td>{{item.pychicalMachine}}</td>
+						<!-- <td>{{item.pychicalMachine}}</td> -->
 					</tr>
 	   			</tbody>
 	   		</table>

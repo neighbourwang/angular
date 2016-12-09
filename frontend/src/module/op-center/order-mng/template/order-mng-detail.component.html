@@ -1,6 +1,6 @@
 <div class="OrderDetail">   
-	<div class="page-content-header icon-order-manage" style="border-bottom: 3px solid  #01a982;margin: 10px 0px;padding-left: 0; padding-bottom: 40px;">订单编号：5370537<button class=" form-control-title button-gray-gradient pull-right">返回订购管理</button>
-	</div>
+	<!--<div class="page-content-header icon-order-manage" style="border-bottom: 3px solid  #01a982;margin: 10px 0px;padding-left: 0; padding-bottom: 40px;">已订购服务编号：5370537<button class=" form-control-title button-gray-gradient pull-right">返回订购管理</button>
+	</div>-->
 	<div class="page-content">
 		<div class="table-container mgb20">
 			<table class="table table-bordered mgb20">
@@ -21,16 +21,16 @@
 						<td>创建时间：{{_orderDetail.createDate}}</td>
 					</tr>
 					<tr>
-						<td>计费模式：包年包月</td>	
+						<td>计费模式：{{_orderDetail.billingModeName}}</td>	
 						<td>到期时间：{{_orderDetail.expireDate}}</td>
 					</tr>
 					<tr>
-						<td>一次性费用：￥30</td>	
-						<td>订购人：张三</td>
+						<td>一次性费用：{{_orderDetail.oneTimePrice}}</td>	
+						<td>订购人：{{_orderDetail.buyer}}</td>
 					</tr>
 					<tr>
-						<td>费用：￥184/月</td>	
-						<td>部门：销售部</td>
+						<td>费用：{{_orderDetail.price}}</td>	
+						<td>部门：{{_orderDetail.department}}</td>
 					</tr>
 					<tr>
 						<td>实例名称：{{_orderDetail.instanceName}}</td>	
@@ -95,13 +95,13 @@
 					<tr *ngFor="let item of _orderDetail.relatedOrderList">
 						<td>{{item.createDate}}</td>
 						<td>{{item.instanceName}}</td>
-						<td>{{item.typeName}}</td>
+						<td>{{item.productTypeName}}</td>
 						<td>{{item.specification}}</td>
-						<td>{{item.operator}}</td>
+						<td>{{item.buyer}}</td>
 						<td>{{item.department}}</td>
 						<td>{{item.expireDate}}
 						</td>
-						<td>{{item.description}}</td>
+						<td>{{item.typeName}}</td>
 					</tr>
 				</tbody>
 			</table>

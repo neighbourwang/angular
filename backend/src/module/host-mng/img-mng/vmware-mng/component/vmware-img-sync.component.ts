@@ -235,6 +235,7 @@ export class VmwareImgSyncComponent implements OnInit {
             ).then( n =>
                 {
                     this.getVmwareImgSyncList();
+                    this.showAlert("镜像同步成功");
                     /*
                     //this.getUnSelectedItems();
                     for (var i = this.vmwaresyncimgs.length - 1; i >= 0; i--) {
