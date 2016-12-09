@@ -145,7 +145,7 @@
 							<div class="col-md-6 content-title2">GB</div>
 						</div>
 					</div>
-					<add-storage #storage [onChanges]="storageChange()" [configs]="rely('storage')"></add-storage>
+					<add-storage #storage (onChanges)="storageChange()" [configs]="rely('storage')"></add-storage>
 				</div>
 			</li>
 			<li>
