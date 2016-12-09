@@ -22,7 +22,7 @@ export class OrderMngSearchComponent implements OnInit{
 
 	private _buyerLoader:ItemLoader<{id:string; name:string}> = null //订购人
 
-	private _orderStatus:DicLoader = null;
+	private _orderStatusDic:DicLoader = null;
 
 	private _productTypeLoader: DicLoader = null;
 	
@@ -40,6 +40,21 @@ export class OrderMngSearchComponent implements OnInit{
 
 		//获取订单详情
 		this._orderDetailLoader = new ItemLoader<SearchOrderDetail>(false, "订单详情", "op-center.order-search.detail.get", restApiCfg, restApi);
+		this._orderDetailLoader.MapFunc = (source:Array<any>, target:Array<SearchOrderDetail>)=>{
+			for(let item of source)
+			{
+				target.push(_.extendOwn(new SearchOrderDetail(), item));
+			}
+		}
+		this._orderDetailLoader.Trait = (items:Array<SearchOrderDetail>)=>{
+			let firstItem = this._orderDetailLoader.FirstItem;
+
+			this._orderStatusDic.UpdateWithDic([firstItem], "statusName", "status");
+			this._orderStatusDic.UpdateWithDic(firstItem.orderInstanceItems, "statusName", "status");
+		}
+		this._orderDetailLoader.FirstItem = new SearchOrderDetail();
+		this._orderDetailLoader.FirstItem.subInstanceList = [];
+
 
 		//配置部门列表加载
 		this._departmentLoader = new ItemLoader<DepartmentItem>(false, '部门列表', "op-center.order-mng.department-list.get", this.restApiCfg, this.restApi);
@@ -52,7 +67,7 @@ export class OrderMngSearchComponent implements OnInit{
 
 
 		//配置订单状态
-		this._orderStatus = new DicLoader(this.restApiCfg, this.restApi, "ORDER", "STATUS");
+		this._orderStatusDic = new DicLoader(this.restApiCfg, this.restApi, "ORDER", "STATUS");
 
 		//配置订单加载
 		this._orderLoader = new ItemLoader<SearchOrderItem>(true, "订单列表", "op-center.order-search.list.post", restApiCfg, restApi);
@@ -103,14 +118,14 @@ export class OrderMngSearchComponent implements OnInit{
 		};
 
 		this._orderLoader.Trait = (items:Array<SearchOrderItem>)=>{
-			this._orderStatus.UpdateWithDic(items, "statusName", "status");
+			this._orderStatusDic.UpdateWithDic(items, "statusName", "status");
 			this._productTypeLoader.UpdateWithDic(items, "serviceTypeName", "serviceType");
 		};
       
 	}
 	ngOnInit(){
 		this.layoutService.show();
-		this._orderStatus.Go()
+		this._orderStatusDic.Go()
 		.then(success=>{
 			return this._productTypeLoader.Go();
 		})
@@ -196,16 +211,16 @@ export class OrderMngSearchComponent implements OnInit{
 
 	showDetail(orderId:string)
 	{
+		this.layoutService.show();
+		this._orderDetailLoader.Go(null, [{key:"orderNo", value:orderId}])
+		.then(success=>{
 			$('#searchDetail').modal('show');
-		// this.layoutService.show();
-		// this._orderDetailLoader.Go(null, [{key:"subinstanceCode", value:orderId}])
-		// .then(success=>{
-		// 	this.layoutService.hide();
-		// })
-		// .catch(err=>{
-		// 	this.layoutService.hide();
-		// 	this.showMsg(err);
-		// })
+			this.layoutService.hide();
+		})
+		.catch(err=>{
+			this.layoutService.hide();
+			this.showMsg(err);
+		})
 	}
 
 	changePage(pageNumber:number)
