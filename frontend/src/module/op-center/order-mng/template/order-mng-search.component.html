@@ -33,12 +33,15 @@
 							</div>
 						</td>
 						<td class="none-border">
-							<div class="dropdown float-left">			
-								<span class="mgr10 mgt10  form-control-title">提交时间：</span><date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
-							</div>
-						
-							<div class="dropdown float-left">			
-								<span class="mgr10 mgt10">——</span><date-picker (dateChanged)="onExpireTimeChange($event)"></date-picker>
+							<div class="mgt-10">
+								<span class="mgt15  form-control-title float-left">提交时间：</span>
+								<div class="dropdown float-left">			
+									<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
+								</div>
+								<span class="mgl10 mgt15 float-left">——</span>
+								<div class="dropdown float-left">			
+									<date-picker (dateChanged)="onExpireTimeChange($event)"></date-picker>
+								</div>
 							</div>
 						</td>
 						<td class="none-border ">
