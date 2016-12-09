@@ -15,22 +15,18 @@ interface Storage {
 	templateUrl: '../template/sub-add-storage.component.html',
 	styleUrls: ['../style/sub-add-storage.less']
 })
-export class subAddStorageComponent implements OnInit,OnChanges {
+export class subAddStorageComponent implements OnChanges {
 
 	@Output() onChanges = new EventEmitter<any>();
 
 	@Input() configs:VlueList[] = [];
+	@Input() sendModule:SendModule;
 	@Input() maxLenght:number = 3;  //数据盘的最大数量
 
 	defaultStorage : VlueList = new VlueList;
 	defaultStorageSize : VlueList = new VlueList;
 
 	forArr:Array<Storage> = [];
-
-	ngOnInit() {
-		this.defaultStorageSize.attrValue = "40";
-		this.defaultStorageSize.attrDisplayValue = "40GB";
-	}
 
 	ngOnChanges(value) {
 		if(value.configs.currentValue.length) {
@@ -48,19 +44,25 @@ export class subAddStorageComponent implements OnInit,OnChanges {
 		storagesize.attrDisplayValue = value + "GB";
 
 		this.forArr[i].storagesize = storagesize;
+		this.onChanges.emit("storagesize");
 	}
 
 	delete(i) {
 		this.forArr.splice(i, 1);
+		this.onChanges.emit("delete");
 	}
 
 	addDisk(){   //添加一块
 		if(this.forArr.length === this.maxLenght) return;
 
+		this.defaultStorageSize.attrValue = this.sendModule.diskinitialsize.attrValue;
+		this.defaultStorageSize.attrDisplayValue = this.sendModule.diskinitialsize.attrValue + "GB";
+
 		this.forArr.push({
 			storage : this.defaultStorage,
 			storagesize : this.defaultStorageSize
 		});
+		this.onChanges.emit("add");
 	}
 
 	getData() {

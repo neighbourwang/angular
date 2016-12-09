@@ -34,7 +34,7 @@
         </div>
         <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" (click)="search2()"> 确定</button>-->
         <div class="input-group col-md-2 float-left">
-            <input class="form-control" placeholder="输入企业/租户信息搜索" type="email">
+            <input  type="text" class="form-control" placeholder="输入企业/租户信息搜索" [(ngModel)]="queryOpt.tenantName">
             <div class="input-group-addon"(click)="search2()"><span class="glyphicon glyphicon-search" ></span></div>
         </div>
 
@@ -80,14 +80,14 @@
                     <td >{{network.subnetName}}</td>
                     <td style="position:relative">{{network.subnetDisplayName}}
                         <span class="icon-edit2 pull-right" (click)="openEidtPanel(network);network.nameEditing=true;"></span>
-                            <div *ngIf="network.nameEditing" class="popover fade bottom in" role="tooltip" style="position:absolute;top:30px; left:30px; width:370px; max-width:1100px; display: block;">
+                            <div *ngIf="network.nameEditing" class="popover fade bottom in" role="tooltip" style="z-index:50;position:absolute;top:30px; left:30px; width:370px; max-width:1100px; display: block;">
                                 <div class="arrow" style="left: 30%;"></div>
                                 <div class="popover-content">
                                     <form class="form-horizontal" role="form">
                                         <div class="form-group">
                                             <label class="col-sm-4 control-label">子网显示名称:</label>
                                             <div class="col-sm-8 float-left">
-                                            <input type="text" rows="1" [(ngModel)]="editNetwork.subnetDisplayName" name="subDisplay"/>
+                                            <input type="text" rows="1" class="form-control"[(ngModel)]="editNetwork.subnetDisplayName" name="subDisplay"/>
                                             </div>
                                         </div>
                                     </form>
@@ -138,7 +138,7 @@
                 <tbody>
                 <tr *ngFor="let tenant of tenants">
                     <td >
-                        <input type="checkbox" class="foc-cloud-checkbox" [checked]="tenant.selected" (change)="tenant.selected = $event.target.checked"></td>
+                        <input type="checkbox" class="fox-cloud-checkbox" [checked]="tenant.selected" (change)="tenant.selected = $event.target.checked"></td>
                     <td style="text-align: left; padding-left: 10px;">{{tenant.name}}</td>
                 </tr>
                 </tbody>

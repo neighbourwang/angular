@@ -1,48 +1,115 @@
 export class SearchOrderDetail{
-	instanceCode:string = null;//订单编号
-	type:number = null;//订单类型
-	typeName:string = null;//订单类型
-	status:number = null;//订单状态
-	statusName:string = null;//订单状态
-	buyer:string = null;//提交人
-	productType:number = null;//产品类型
-	productTypeName:string = null;//产品类型
-	department:string = null; //部门
-	createDate:string = null;//提交时间
-	enterprise:string = null;//企业名称
-	expireDate:string = null;//完成时间
-	platform:string = null;//平台
-	zone:string = null;//可用区
-	specification:string = null;//配置
-	instanceName:string = null;//实例名称
-	description:string;//说明
-	operator:string;//操作者
-	billingModeName:string = null;//计费模式
+	billingPerson: string = null;//, optional): 提交者 ,
+	billingPersonId: string = null;//, optional): 提交者ID ,
+	completeDate: string = null;//, optional): 完成时间 ,
+	createDate: string = null;//, optional): 创建时间 ,
+	department: string = null;//, optional): 部门 ,
+	departmentId: string = null;//, optional): 部门ID ,
+	enterpirse: string = null;//, optional): 企业 ,
+	enterpirseId: string = null;//, optional): 企业ID ,
+	id: string = null;//, optional): 订单ID ,
+	orderCode: string = null;//, optional): 订单编号 ,
+	productType: string = null;//, optional): 产品类型 ,
+	status: string = null;//, optional): 订单状态 ,
+	productTypeName:string = null;
+	statusName:string = null;
+	orderInstanceItems:[{//订单中的产品信息
+		departmentName: string;//, optional): 所属部门 ,
+		desc: string;//, optional): 说明 ,
+		operation: string;//, optional): 操作 ,
+		operator: string;//, optional): 执行者 ,
+		status: string;//, optional): 订单状态
 
+	}]; //(Array[OrderHistoryItem], optional):  ,
+	subInstanceList:[{
+		billingInfo: {
+			basePrice: number;//, optional): 一次性价格 ,
+			basicPrice: number;//, optional): 周期计费-基础周期价格 ,
+			billingId: string;//, optional): 产品计费ID ,
+			billingMode: string;//, optional): 计费类型，需要检索数据字典 ,
+			cyclePrice: number;//, optional): 周期计费-增量周期价格 ,
+			periodType: string;//, optional): 周期计费-周期类型，需要检索数据字典 ,
+			unitPrice: number;//, optional): 流量计费-流量单价 ,
+			unitType: number;//, optional): 流量计费-流量计费类型，需要查询数据字典
+		}//, optional): 产品计费详细信息 ,
+		buyer: string;//, optional): 订购人 ,
+		createDate: string;//, optional): 创建时间 ,
+		departmentName: string;//, optional): 订购人所属部门名称 ,
+		expireDate: string;//, optional): 过期时间 ,
+		instanceName: string;//, optional): 实例名称 ,
+		period: number;//, optional): 购买周期 ,
+		quantity: number;//, optional): 订购数量 ,
+		serviceType: string;//, optional): 产品类型 ,
+		specList: [{
+			attrCode: string;//, optional): 服务属性Code ,
+			attrDisplayName: string;//, optional): 服务属性页面显示的名称 ,
+			attrDisplayValue: string;//, optional): 服务属性值显示值 ,
+			attrOrderSeq: number; //, optional): 属性显示顺序, 如果为空，则忽略 ,
+			attrValueCode: string;//, optional): 服务属性值Code ,
+			description: string;//, optional): 其他描述性内容，非不要 ,
+			valueUnit: string;//, optional): 服务属性值的单位
 
-	productBillingItem:{
-		billingId:string;
-		billingMode:number;
-		basePrice:number;
-		periodType:number;
-		basicPrice:number;
-		cyclePrice:number;
-		unitPrice:number;
-		unitType:number;
-	};
+		}];//[SubInstanceAttrPair], optional): 产品规格 ,
+		status: string;//, optional): UI订单状态，需要查询数据字典
 
-	//一次性费用
-	get oneTimePrice():number{
-		return 0;
-	}
-
-	//费用
-	get price():number{
-		return 0;
-	}
-
-	relatedSubInstanceList:Array<SearchOrderDetail> = [];
-
-	relatedOrderList:Array<SearchOrderDetail> = [];
-
+	}];//已购服务
 }
+
+/*
+
+OrderDetailItem {
+billingPerson (string, optional): 提交者 ,
+billingPersonId (string, optional): 提交者ID ,
+completeDate (string, optional): 完成时间 ,
+createDate (string, optional): 创建时间 ,
+department (string, optional): 部门 ,
+departmentId (string, optional): 部门ID ,
+enterpirse (string, optional): 企业 ,
+enterpirseId (string, optional): 企业ID ,
+id (string, optional): 订单ID ,
+orderCode (string, optional): 订单编号 ,
+orderInstanceItems (Array[OrderHistoryItem], optional): 订单中的产品信息 ,
+productType (string, optional): 产品类型 ,
+status (string, optional): 订单状态 ,
+subInstanceList (Array[SubInstanceItemResp], optional): 已购服务
+}
+OrderHistoryItem {
+departmentName (string, optional): 所属部门 ,
+desc (string, optional): 说明 ,
+operation (string, optional): 操作 ,
+operator (string, optional): 执行者 ,
+status (string, optional): 订单状态
+}
+SubInstanceItemResp {
+billingInfo (ProductBillingItem, optional): 产品计费详细信息 ,
+buyer (string, optional): 订购人 ,
+createDate (string, optional): 创建时间 ,
+departmentName (string, optional): 订购人所属部门名称 ,
+expireDate (string, optional): 过期时间 ,
+instanceName (string, optional): 实例名称 ,
+period (integer, optional): 购买周期 ,
+quantity (integer, optional): 订购数量 ,
+serviceType (string, optional): 产品类型 ,
+specList (Array[SubInstanceAttrPair], optional): 产品规格 ,
+status (string, optional): UI订单状态，需要查询数据字典
+}
+ProductBillingItem {
+basePrice (number, optional): 一次性价格 ,
+basicPrice (number, optional): 周期计费-基础周期价格 ,
+billingId (string, optional): 产品计费ID ,
+billingMode (string, optional): 计费类型，需要检索数据字典 ,
+cyclePrice (number, optional): 周期计费-增量周期价格 ,
+periodType (string, optional): 周期计费-周期类型，需要检索数据字典 ,
+unitPrice (number, optional): 流量计费-流量单价 ,
+unitType (number, optional): 流量计费-流量计费类型，需要查询数据字典
+}
+SubInstanceAttrPair {
+attrCode (string, optional): 服务属性Code ,
+attrDisplayName (string, optional): 服务属性页面显示的名称 ,
+attrDisplayValue (string, optional): 服务属性值显示值 ,
+attrOrderSeq (integer, optional): 属性显示顺序, 如果为空，则忽略 ,
+attrValueCode (string, optional): 服务属性值Code ,
+description (string, optional): 其他描述性内容，非不要 ,
+valueUnit (string, optional): 服务属性值的单位
+}
+*/

@@ -44,7 +44,7 @@
                     <td >{{network.subnetName}}</td>
                     <td >
                         <div *ngIf="network.syncResult==1">
-                            <input type="text" class="form-control" [(ngModel)]="network.subnetDisplayName" />
+                            <input type="text" class="" [(ngModel)]="network.subnetDisplayName" />
                         </div>
                         <div *ngIf="network.syncResult!=1">
                             {{network.subnetDisplayName}}

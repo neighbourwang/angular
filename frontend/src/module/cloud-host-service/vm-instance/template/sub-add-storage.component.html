@@ -4,7 +4,7 @@
 	<div class="col-md-10 no-padding data-disk">
 		<div class="col-md-12 no-padding mgb10">
 			<div class="col-md-3 no-padding">
-				<select class="form-control" [(ngModel)]="list.storage">
+				<select class="form-control" (change)="onChanges.emit('storage')" [(ngModel)]="list.storage">
 					<option
 					*ngFor="let value of configs;"
 					[ngValue]="value" >{{ value.attrDisplayValue }}</option>
@@ -13,11 +13,11 @@
 			<div class="col-md-1 content-title2">容量</div>
 			<div class="col-md-2 no-padding">
 				<count-bar
-		            [step]=10
-		            [max]=500
-		            [min]=40
-		            [disabled]=false
-		            [value]=40 (output)="outputValue($event, i)"></count-bar>
+		            [step]="sendModule.diskstepsize.attrValue" 
+		            [max]="sendModule.diskmaxsize.attrValue" 
+		            [min]="sendModule.diskinitialsize.attrValue" 
+		            [stepCheck]=true
+		            [value]="sendModule.diskinitialsize.attrValue" (output)="outputValue($event, i)"></count-bar>
 			</div>
 			<div class="col-md-1 content-title2">GB</div>
 			<div class="col-md-3 text-right">

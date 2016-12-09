@@ -145,7 +145,7 @@
 							<div class="col-md-6 content-title2">GB</div>
 						</div>
 					</div>
-					<add-storage #storage [configs]="rely('storage')"></add-storage>
+					<add-storage #storage (onChanges)="storageChange()" [sendModule]="sendModule" [configs]="rely('storage')"></add-storage>
 				</div>
 			</li>
 			<li>
@@ -207,7 +207,7 @@
 						<div class="col-md-2 no-padding mr10">
 							<select [disabled]="timeForever" [(ngModel)]="sendModule.timelineunit" class="form-control">
 								<option
-								*ngFor="let value of this.configs.timelineunit.mapValueList[this.vmSku.skuId]||[{}];"
+								*ngFor="let value of this.configs.timelineunit.mapValueList[this.vmSku.skuId];"
 								[ngValue]="value" >{{ value.attrDisplayValue }}</option>
 							</select>
 						</div>
@@ -226,7 +226,7 @@
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">购买量</div>
 						<div class="col-md-2 no-padding mr10">
-							<select [(ngModel)]="payLoad.quality"  class="form-control">
+							<select [(ngModel)]="payLoad.quality" (ngModelChange)="setVmPrice();setDiskPrice();"   class="form-control">
 								<option [ngValue]="1">1台</option>
 								<option [ngValue]="2">2台</option>
 								<option [ngValue]="3">3台</option>
@@ -251,29 +251,49 @@
 		<div class="col-md-12 content-box">
 			<h3 class="boder-gray-bottom-title">当前配置</h3>
 			<h4 class="cloud-title font-green">区域</h4>
-			<p class="cloud-p">云平台: {{ sendModule.platform ? sendModule.platform.attrDisplayValue : "" }}</p>
-			<p class="cloud-p">可用区: {{ sendModule.zone ? sendModule.zone.attrDisplayValue : "" }}</p>
+			<p class="cloud-p">云平台: {{ sendModule.platform?.attrDisplayValue}}</p>
+			<p class="cloud-p">可用区: {{ sendModule.zone?.attrDisplayValue}}</p>
 			<h4 class="cloud-title font-green">网络</h4>
-			<p class="cloud-p">网络类型: {{ sendModule.networktype ? sendModule.networktype.attrDisplayValue : "" }}</p>
-			<p class="cloud-p">安全组: {{ sendModule.securitygroup ? sendModule.securitygroup.attrDisplayValue : "" }}</p>
+			<p class="cloud-p">网络类型: {{ sendModule.networktype?.attrDisplayValue}}</p>
+			<p class="cloud-p">安全组: {{ sendModule.securitygroup?.attrDisplayValue}}</p>
 			<h4 class="cloud-title font-green">实例规格</h4>
-			<p class="cloud-p">CPU: {{ sendModule.cpu ? sendModule.cpu.attrDisplayValue : "" }}</p>
-			<p class="cloud-p">内存: {{ sendModule.mem ? sendModule.mem.attrDisplayValue : "" }}</p>
+			<p class="cloud-p">CPU: {{ sendModule.cpu?.attrDisplayValue}}</p>
+			<p class="cloud-p">内存: {{ sendModule.mem?.attrDisplayValue}}</p>
 			<h4 class="cloud-title font-green">云主机源</h4>
-			<p class="cloud-p">启动源: {{ sendModule.startupsource ? sendModule.startupsource.attrDisplayValue : "" }}</p>
-			<p class="cloud-p">镜像类型: {{ sendModule.imagetype ? sendModule.imagetype.attrDisplayValue : "" }}</p>
-			<p class="cloud-p">镜像名称: {{ sendModule.os ? sendModule.os.attrDisplayValue : "" }}</p>
+			<p class="cloud-p">启动源: {{ sendModule.startupsource?.attrDisplayValue}}</p>
+			<p class="cloud-p">镜像类型: {{ sendModule.imagetype?.attrDisplayValue}}</p>
+			<p class="cloud-p">镜像名称: {{ sendModule.os?.attrDisplayValue}}</p>
 			<h4 class="cloud-title font-green">储存</h4>
-			<p class="cloud-p">启动盘: {{ sendModule.bootstorage ? sendModule.bootstorage.attrDisplayValue : "" }} / {{ sendModule.bootsize ? sendModule.bootsize.attrDisplayValue : "" }}</p>
+			<p class="cloud-p">启动盘: {{ sendModule.bootstorage?.attrDisplayValue}} / 20</p>
 			<!-- <p class="cloud-p">数据盘: {{ sendModule.stroage ? sendModule.stroage.attrDisplayValue : "" }} / {{ sendModule.storagesize ? sendModule.storagesize.attrDisplayValue : "" }}</p> -->
 			<h4 class="cloud-title font-green">购买量</h4>
 			<p class="cloud-p">购买时长: {{ sendModule.timelineunit.attrDisplayValue}} / {{ sendModule.timeline?.value}}</p>
 			<p class="cloud-p">购买量: {{payLoad.quality}}台</p>
 			<div class="cloud-line"></div>
+
 			<h4 class="cloud-title font-green">云主机费用</h4>
-			<p class="cloud-p">一次性费用: <font class="font-orange">{{ vmBasePrice }}</font></p>
-			<p class="cloud-p">费用: <font class="font-orange">{{vmTotalPrice}} / {{ sendModule.timelineunit.attrDisplayValue }}</font></p>
-			<h4 class="cloud-title">费用总计：<font class="font-orange">¥{{ vmTotalPrice }}</font></h4>
+			<p class="cloud-p">一次性费用: <font class="font-orange">¥{{ vmBasePrice }}</font></p>
+			<p class="cloud-p">费用: <font class="font-orange">¥{{vmTotalPrice}} / {{ sendModule.timelineunit.attrDisplayValue }}</font></p>
+			<h4 class="cloud-title font-green">云硬盘费用</h4>
+			<p class="cloud-p">一次性费用: <font class="font-orange">¥ {{ diskBasePrice }}</font></p>
+			<p class="cloud-p">按量费用: <font class="font-orange">¥ {{diskTotalPrice}} / {{ diskUnitType | dict:service.unitType | async }}</font></p>
+			<div class="cloud-p">
+				<p class="cloud-title">费用总计：</p>
+	            <table style="width: 90%;line-height: 26px;">
+	                <tr>
+	                    <td>一次性费用： </td>
+	                    <td><font class="font-orange">¥{{vmBasePrice + diskBasePrice}} 元</font></td>
+	                </tr>
+	                <tr>
+	                    <td><font>费用： </font></td>
+	                    <td><font class="font-orange">¥{{diskTotalPrice}}</font> / {{ diskUnitType | dict:service.unitType | async }} <span class="float-right">按量</span></td>
+	                </tr>
+	                <tr>
+	                    <td></td>
+	                    <td><font class="font-orange">¥{{vmTotalPrice}}</font> / {{ sendModule.timelineunit.attrDisplayValue }} <span class="float-right">包年包月</span></td>
+	                </tr>
+	            </table>
+			</div>
 			<div class="col-md-12 colud-order-button">
 				<div class="col-md-6"><button (click)="buyNow()" class="btn button-orange-deep">立即购买</button></div>
 				<div class="col-md-6"><button (click)="addCart()" class="btn button-orange-light">加入购物车</button></div>

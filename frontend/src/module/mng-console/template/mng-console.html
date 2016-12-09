@@ -1,0 +1,598 @@
+﻿<div class="page-content">
+    <div>
+        <h1 class="page-content-header float-left">管理控制概览</h1>
+    </div>
+    <div style="clear:both;"></div>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="console-box ">
+                <div class="admin-box col-sm-4">
+                    <div class="col-sm-6 icon-admin"></div>
+                    <div class="col-sm-6">
+                        <p class="admin-name">魏源</p>
+                        <p class="admin-department">技术部</p>
+                    </div>
+                </div>
+                <div class="work-box col-sm-3">
+                    <div class="console-title">订单与审计统计</div>
+                    <div class="work-data col-sm-6">
+                        <p class="number">35</p>
+                        <p class="description">待审批</p>
+                    </div>
+                    <div class="work-data col-sm-6">
+                        <p class="number color-b">125</p>
+                        <p class="description">即将过期</p>
+                    </div>
+                </div>
+                <div class="work-box col-sm-5">
+                    <div class="console-title">工单统计</div>
+                    <div class="work-data col-sm-4">
+                        <p class="number">12</p>
+                        <p class="description">新创建</p>
+                    </div>
+                    <div class="work-data col-sm-4">
+                        <p class="number color-c">45</p>
+                        <p class="description">处理中</p>
+                    </div>
+                    <div class="work-data col-sm-4">
+                        <p class="number color-a">3245</p>
+                        <p class="description">已完成</p>
+                    </div>
+                </div>
+            </div>
+            <div class="console-box ">
+                <div class="console-title">总配额使用率</div>
+                <div class="quota-box ">
+                    <canvas id="quota-chart-a" width="100" height="100"></canvas>
+                    <div class="percent-num">30<sup>%</sup></div>
+                    <div class="quota-name">vCPU</div>
+                </div>
+                <div class="quota-box ">
+                    <canvas id="quota-chart-b" width="100" height="100"></canvas>
+                    <div class="percent-num">70<sup>%</sup></div>
+                    <div class="quota-name">内存</div>
+                </div>
+                <div class="quota-box ">
+                    <canvas id="quota-chart-c" width="100" height="100"></canvas>
+                    <div class="percent-num">30<sup>%</sup></div>
+                    <div class="quota-name">存储</div>
+                </div>
+                <div class="quota-box ">
+                    <canvas id="quota-chart-d" width="100" height="100"></canvas>
+                    <div class="percent-num">50<sup>%</sup></div>
+                    <div class="quota-name">物理机</div>
+                </div>
+                <div class="quota-box ">
+                    <canvas id="quota-chart-e" width="100" height="100"></canvas>
+                    <div class="percent-num">20<sup>%</sup></div>
+                    <div class="quota-name">快照</div>
+                </div>
+                <div class="quota-box ">
+                    <canvas id="quota-chart-f" width="100" height="100"></canvas>
+                    <div class="percent-num">30<sup>%</sup></div>
+                    <div class="quota-name">镜像</div>
+                </div>
+                <div class="quota-box ">
+                    <canvas id="quota-chart-g" width="100" height="100"></canvas>
+                    <div class="percent-num">20<sup>%</sup></div>
+                    <div class="quota-name">浮动IP</div>
+                </div>
+
+                <div class="console-title next-title">部门资源</div>
+                <div class="resource-box">
+                    <div class="resource-icon icon-resource-vcpu"></div>
+                    <p class="resource-name">vCPU</p>
+                    <div class="resource-state">
+                        <span>已启用</span>
+                        <span class="color-a mgl5">22</span>
+                    </div>
+                    <div class="resource-state">
+                        <span>未启用</span>
+                        <span class="color-b mgl5">32</span>
+                    </div>
+                </div>
+                <div class="resource-box">
+                    <div class="resource-icon icon-resource-memory"></div>
+                    <p class="resource-name">内存</p>
+                    <div class="resource-state">
+                        <span>已启用</span>
+                        <span class="color-a mgl5">22</span>
+                    </div>
+                    <div class="resource-state">
+                        <span>未启用</span>
+                        <span class="color-b mgl5">312</span>
+                    </div>
+                </div>
+                <div class="resource-box">
+                    <div class="resource-icon icon-resource-storage"></div>
+                    <p class="resource-name">存储</p>
+                    <div class="resource-state">
+                        <span>已启用</span>
+                        <span class="color-a mgl5">22</span>
+                    </div>
+                    <div class="resource-state">
+                        <span>未启用</span>
+                        <span class="color-b mgl5">32</span>
+                    </div>
+                </div>
+                <div class="resource-box">
+                    <div class="resource-icon icon-resource-machine"></div>
+                    <p class="resource-name">物理机</p>
+                    <div class="resource-state">
+                        <span>已启用</span>
+                        <span class="color-a mgl5">22</span>
+                    </div>
+                    <div class="resource-state">
+                        <span>未启用</span>
+                        <span class="color-b mgl5">32</span>
+                    </div>
+                </div>
+                <div class="resource-box">
+                    <div class="resource-icon icon-resource-snapshot"></div>
+                    <p class="resource-name">快照</p>
+                    <div class="resource-state">
+                        <span>已启用</span>
+                        <span class="color-a mgl5">22</span>
+                    </div>
+                    <div class="resource-state">
+                        <span>未启用</span>
+                        <span class="color-b mgl5">32</span>
+                    </div>
+                </div>
+                <div class="resource-box">
+                    <div class="resource-icon icon-resource-image"></div>
+                    <p class="resource-name">镜像</p>
+                    <div class="resource-state">
+                        <span>已启用</span>
+                        <span class="color-a mgl5">22</span>
+                    </div>
+                    <div class="resource-state">
+                        <span>未启用</span>
+                        <span class="color-b mgl5">32</span>
+                    </div>
+                </div>
+                <div class="resource-box">
+                    <div class="resource-icon icon-resource-ip"></div>
+                    <p class="resource-name">浮动IP地址</p>
+                    <div class="resource-state">
+                        <span>已启用</span>
+                        <span class="color-a mgl5">22</span>
+                    </div>
+                    <div class="resource-state">
+                        <span>未启用</span>
+                        <span class="color-b mgl5">32</span>
+                    </div>
+                </div>
+
+                <div class="console-title next-title">我的资源<span class="icon-shopping "></span></div>
+                <div class="col-sm-6">
+                    <div class="console-box">
+                        <div class="console-title">上海A区</div>
+                        <div class="host-shell">
+                            <div class="host-left">
+                                <div class="host-box">
+                                    <span class="host-name">云主机</span><span>14</span>
+                                </div>
+                                <div class="line-x"></div>
+                            </div>
+                            <div class="host-right host-top">
+                                <div class="host-box">
+                                    <span class="point color-bg-a"></span><span class="host-name">运行中</span><span>2</span>
+                                </div>
+                                <div class="line-x"></div>
+                                <div class="line-y"></div>
+                            </div>
+                            <div class="host-left">
+                                <div class="host-box">
+                                    <span class="host-name">云硬盘</span><span>0</span>
+                                </div>
+                            </div>
+                            <div class="host-right host-center">
+                                <div class="host-box">
+                                    <span class="point color-bg-c"></span><span class="host-name">即将过期</span><span>2</span>
+                                </div>
+                                <div class="line-x"></div>
+                                <div class="line-y"></div>
+                            </div>
+                            <div class="host-left">
+                                <div class="host-box">
+                                    <span class="host-name">快照</span><span>0</span>
+                                </div>
+                            </div>
+                            <div class="host-right host-center">
+                                <div class="host-box">
+                                    <span class="point color-bg-b"></span><span class="host-name">已过期</span><span>12</span>
+                                </div>
+                                <div class="line-x"></div>
+                                <div class="line-y"></div>
+                            </div>
+                            <div class="host-left">
+                                <div class="host-box">
+                                    <span class="host-name">镜像</span><span>2</span>
+                                </div>
+                            </div>
+                            <div class="host-right host-bottom">
+                                <div class="host-box">
+                                    <span class="point color-bg-d"></span><span class="host-name">近期创建</span><span>5</span>
+                                </div>
+                                <div class="line-x"></div>
+                                <div class="line-y"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="console-box">
+                        <div class="console-title">上海A区</div>
+                        <div class="host-shell">
+                            <div class="host-left">
+                                <div class="host-box">
+                                    <span class="host-name">云主机</span><span>14</span>
+                                </div>
+                                <div class="line-x"></div>
+                            </div>
+                            <div class="host-right host-top">
+                                <div class="host-box">
+                                    <span class="point color-bg-a"></span><span class="host-name">运行中</span><span>2</span>
+                                </div>
+                                <div class="line-x"></div>
+                                <div class="line-y"></div>
+                            </div>
+                            <div class="host-left">
+                                <div class="host-box">
+                                    <span class="host-name">云硬盘</span><span>0</span>
+                                </div>
+                            </div>
+                            <div class="host-right host-center">
+                                <div class="host-box">
+                                    <span class="point color-bg-c"></span><span class="host-name">即将过期</span><span>2</span>
+                                </div>
+                                <div class="line-x"></div>
+                                <div class="line-y"></div>
+                            </div>
+                            <div class="host-left">
+                                <div class="host-box">
+                                    <span class="host-name">快照</span><span>0</span>
+                                </div>
+                            </div>
+                            <div class="host-right host-center">
+                                <div class="host-box">
+                                    <span class="point color-bg-b"></span><span class="host-name">已过期</span><span>12</span>
+                                </div>
+                                <div class="line-x"></div>
+                                <div class="line-y"></div>
+                            </div>
+                            <div class="host-left">
+                                <div class="host-box">
+                                    <span class="host-name">镜像</span><span>2</span>
+                                </div>
+                            </div>
+                            <div class="host-right host-bottom">
+                                <div class="host-box">
+                                    <span class="point color-bg-d"></span><span class="host-name">近期创建</span><span>5</span>
+                                </div>
+                                <div class="line-x"></div>
+                                <div class="line-y"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="console-box">
+                        <div class="console-title">上海A区</div>
+                        <div class="host-shell">
+                            <div class="host-left">
+                                <div class="host-box">
+                                    <span class="host-name">云主机</span><span>14</span>
+                                </div>
+                                <div class="line-x"></div>
+                            </div>
+                            <div class="host-right host-top">
+                                <div class="host-box">
+                                    <span class="point color-bg-a"></span><span class="host-name">运行中</span><span>2</span>
+                                </div>
+                                <div class="line-x"></div>
+                                <div class="line-y"></div>
+                            </div>
+                            <div class="host-left">
+                                <div class="host-box">
+                                    <span class="host-name">云硬盘</span><span>0</span>
+                                </div>
+                            </div>
+                            <div class="host-right host-center">
+                                <div class="host-box">
+                                    <span class="point color-bg-c"></span><span class="host-name">即将过期</span><span>2</span>
+                                </div>
+                                <div class="line-x"></div>
+                                <div class="line-y"></div>
+                            </div>
+                            <div class="host-left">
+                                <div class="host-box">
+                                    <span class="host-name">快照</span><span>0</span>
+                                </div>
+                            </div>
+                            <div class="host-right host-center">
+                                <div class="host-box">
+                                    <span class="point color-bg-b"></span><span class="host-name">已过期</span><span>12</span>
+                                </div>
+                                <div class="line-x"></div>
+                                <div class="line-y"></div>
+                            </div>
+                            <div class="host-left">
+                                <div class="host-box">
+                                    <span class="host-name">镜像</span><span>2</span>
+                                </div>
+                            </div>
+                            <div class="host-right host-bottom">
+                                <div class="host-box">
+                                    <span class="point color-bg-d"></span><span class="host-name">近期创建</span><span>5</span>
+                                </div>
+                                <div class="line-x"></div>
+                                <div class="line-y"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="console-box">
+                        <div class="console-title">上海A区</div>
+                        <div class="host-shell">
+                            <div class="host-left">
+                                <div class="host-box">
+                                    <span class="host-name">云主机</span><span>14</span>
+                                </div>
+                                <div class="line-x"></div>
+                            </div>
+                            <div class="host-right host-top">
+                                <div class="host-box">
+                                    <span class="point color-bg-a"></span><span class="host-name">运行中</span><span>2</span>
+                                </div>
+                                <div class="line-x"></div>
+                                <div class="line-y"></div>
+                            </div>
+                            <div class="host-left">
+                                <div class="host-box">
+                                    <span class="host-name">云硬盘</span><span>0</span>
+                                </div>
+                            </div>
+                            <div class="host-right host-center">
+                                <div class="host-box">
+                                    <span class="point color-bg-c"></span><span class="host-name">即将过期</span><span>2</span>
+                                </div>
+                                <div class="line-x"></div>
+                                <div class="line-y"></div>
+                            </div>
+                            <div class="host-left">
+                                <div class="host-box">
+                                    <span class="host-name">快照</span><span>0</span>
+                                </div>
+                            </div>
+                            <div class="host-right host-center">
+                                <div class="host-box">
+                                    <span class="point color-bg-b"></span><span class="host-name">已过期</span><span>12</span>
+                                </div>
+                                <div class="line-x"></div>
+                                <div class="line-y"></div>
+                            </div>
+                            <div class="host-left">
+                                <div class="host-box">
+                                    <span class="host-name">镜像</span><span>2</span>
+                                </div>
+                            </div>
+                            <div class="host-right host-bottom">
+                                <div class="host-box">
+                                    <span class="point color-bg-d"></span><span class="host-name">近期创建</span><span>5</span>
+                                </div>
+                                <div class="line-x"></div>
+                                <div class="line-y"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-10"></div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="console-box ">
+                <div class="console-title">云主机CPU利用率概览</div>
+                <div class="ues-content">
+                    <canvas id="use-chart-a" width="200" height="160"></canvas>
+                    <div class="use-total">229</div>
+                </div>
+                <div class="console-title next-title">云主机Memory利用率概览</div>
+                <div class="ues-content">
+                    <canvas id="use-chart-b" width="200" height="160"></canvas>
+                    <div class="use-total">326</div>
+                </div>
+            </div>
+            
+            <div class="console-box ">
+                <div class="console-title">Top5云主机-按CPU利用率排名</div>
+                <div class="rank-content">
+                    <div class="rank-left">
+                        <div class="rank-name">MyCentos65-vm2</div>
+                        <div class="rank-name">wein2012-vm3</div>
+                        <div class="rank-name">redHat7.6-64-vm2</div>
+                        <div class="rank-name">wein2012-vm3</div>
+                        <div class="rank-name">MyCentos65-vm2</div>
+                    </div>
+                    <div class="rank-right">
+                        <div class="rank-bar">
+                            <div class="bar" style="width:80%;"></div>
+                            <div class="bar-num">80%</div>
+                        </div>
+                        <div class="rank-bar">
+                            <div class="bar" style="width:72%;"></div>
+                            <div class="bar-num">72%</div>
+                        </div>
+                        <div class="rank-bar">
+                            <div class="bar" style="width:71%;"></div>
+                            <div class="bar-num">71%</div>
+                        </div>
+                        <div class="rank-bar">
+                            <div class="bar" style="width:66%;"></div>
+                            <div class="bar-num">66%</div>
+                        </div>
+                        <div class="rank-bar">
+                            <div class="bar" style="width:52%;"></div>
+                            <div class="bar-num">52%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="console-title next-title">Top5云主机-按内存利用率排名</div>
+                <div class="rank-content">
+                    <div class="rank-left">
+                        <div class="rank-name">MyCentos65-vm2</div>
+                        <div class="rank-name">wein2012-vm3</div>
+                        <div class="rank-name">redHat7.6-64-vm2</div>
+                        <div class="rank-name">wein2012-vm3</div>
+                        <div class="rank-name">MyCentos65-vm2</div>
+                    </div>
+                    <div class="rank-right">
+                        <div class="rank-bar">
+                            <div class="bar" style="width:80%;"></div>
+                            <div class="bar-num">80%</div>
+                        </div>
+                        <div class="rank-bar">
+                            <div class="bar" style="width:72%;"></div>
+                            <div class="bar-num">72%</div>
+                        </div>
+                        <div class="rank-bar">
+                            <div class="bar" style="width:71%;"></div>
+                            <div class="bar-num">71%</div>
+                        </div>
+                        <div class="rank-bar">
+                            <div class="bar" style="width:66%;"></div>
+                            <div class="bar-num">66%</div>
+                        </div>
+                        <div class="rank-bar">
+                            <div class="bar" style="width:52%;"></div>
+                            <div class="bar-num">52%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="console-title next-title">Top5云主机-按磁盘利用率排名</div>
+                <div class="rank-content">
+                    <div class="rank-left">
+                        <div class="rank-name">MyCentos65-vm2</div>
+                        <div class="rank-name">wein2012-vm3</div>
+                        <div class="rank-name">redHat7.6-64-vm2</div>
+                        <div class="rank-name">wein2012-vm3</div>
+                        <div class="rank-name">MyCentos65-vm2</div>
+                    </div>
+                    <div class="rank-right">
+                        <div class="rank-bar">
+                            <div class="bar" style="width:80%;"></div>
+                            <div class="bar-num">80%</div>
+                        </div>
+                        <div class="rank-bar">
+                            <div class="bar" style="width:72%;"></div>
+                            <div class="bar-num">72%</div>
+                        </div>
+                        <div class="rank-bar">
+                            <div class="bar" style="width:71%;"></div>
+                            <div class="bar-num">71%</div>
+                        </div>
+                        <div class="rank-bar">
+                            <div class="bar" style="width:66%;"></div>
+                            <div class="bar-num">66%</div>
+                        </div>
+                        <div class="rank-bar">
+                            <div class="bar" style="width:52%;"></div>
+                            <div class="bar-num">52%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        $(function(){
+            //生成配额使用率
+            var quotaChartA = new QuotaChart('quota-chart-a',30);
+            var quotaChartB = new QuotaChart('quota-chart-b',72);
+            var quotaChartC = new QuotaChart('quota-chart-c',56);
+            var quotaChartD = new QuotaChart('quota-chart-d',35);
+            var quotaChartE = new QuotaChart('quota-chart-e',42);
+            var quotaChartF = new QuotaChart('quota-chart-f',94);
+            var quotaChartG = new QuotaChart('quota-chart-g',16);
+
+            //生成利用概率概览
+            var useChartA = new useChart('use-chart-a',[25,57,173]);
+            var useChartB = new useChart('use-chart-b',[125,217,15]);
+        });
+
+        //生成配额使用率函数
+        function QuotaChart(canvasId,percent){
+            var chart_a = document.getElementById(canvasId);
+            var theChart_a = new Chart(chart_a, {
+                type: 'doughnut',
+                data:  {
+                    datasets: [{
+                        data: [
+                            percent,100-percent
+                        ],
+                        backgroundColor: [
+                            "#00CC99","#E7E9ED"
+                        ],
+                        borderWidth:[
+                            0,0
+                        ]
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        enabled: false
+                    },
+                    cutoutPercentage: 82
+                }
+            });
+        }
+
+         //生成利用概率概览函数
+        function useChart(canvasId,useArray){
+            var chart_a = document.getElementById(canvasId);
+            var array = useArray;
+            var theChart_a = new Chart(chart_a, {
+                type: 'doughnut',
+                data:  {
+                    datasets: [{
+                        data: [
+                            array[0],array[1],array[2]
+                        ],
+                        backgroundColor: [
+                            "#FFCC33","#FF6666","#00CC99"
+                        ],
+                        borderWidth:[
+                            0,0,0
+                        ]
+                    }],
+                    labels:[
+                        '<30% ('+ array[0] +')',
+                        '30%~70% ('+ array[1] +')',
+                        '>70% ('+ array[2] +')'
+                    ]
+                },
+                options: {
+                    legend: {
+                        position: 'bottom',
+                        display: true,
+                        labels: {
+                            boxWidth: 12
+                        }
+                    },
+                    tooltips: {
+                        enabled: false,
+                    },
+                    cutoutPercentage: 82,
+                }
+            });
+        }
+    </script>

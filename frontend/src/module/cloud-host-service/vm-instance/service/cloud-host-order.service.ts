@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi } from '../../../../architecture';
+import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../architecture';
 
 import { PayLoad } from '../model/attr-list.model';
 import { TimeLineData } from '../model/services.model';
@@ -11,6 +11,7 @@ import 'rxjs/add/operator/toPromise';
 export class cloudHostServiceOrder {
     constructor(private http:Http,
                 private restApiCfg:RestApiCfg,
+                private dict:SystemDictionaryService,
                 private restApi:RestApi) {
     }
 
@@ -415,25 +416,6 @@ export class cloudHostServiceOrder {
 //       "mapValueList": null
 //     },
 //     {
-//       "attrId": "de2283fe-a0f7-11e6-a18b-0050568a49fd",
-//       "attrCode": "STORAGE",
-//       "attrDisplayName": "数据盘",
-//       "skuFlag": null,
-//       "valueType": 0,
-//       "mandatory": 0,
-//       "relyType": 0,
-//       "relyAttrId": null,
-//       "valueList": [
-//         {
-//           "attrValueId": "da3fc21a-a1b5-11e6-a18b-0050568a49fd",
-//           "attrValueCode": null,
-//           "attrDisplayValue": "高速I/O",
-//           "attrValue": "8816bd60-61c0-400b-b8b2-f20822d4baa8"
-//         }
-//       ],
-//       "mapValueList": null
-//     },
-//     {
 //       "attrId": "de229135-a0f7-11e6-a18b-0050568a49fd",
 //       "attrCode": "INSTANCENAME",
 //       "attrDisplayName": "实例名称",
@@ -604,7 +586,7 @@ export class cloudHostServiceOrder {
 //       "mapValueList": {
 //         "ead0ce48-a74e-11e6-a18b-0050568a49fd": [
 //           {
-//             "attrValueId": "5284d21b-a750-11e6-a18b-0050568a49fd",
+//             "attrValueId": "s",
 //             "attrValueCode": null,
 //             "attrDisplayValue": "高速I/O",
 //             "attrValue": "8816bd60-61c0-400b-b8b2-f20822d4baa8"
@@ -612,7 +594,7 @@ export class cloudHostServiceOrder {
 //         ],
 //         "2167aa03-a1b3-11e6-a18b-0050568a49fd": [
 //           {
-//             "attrValueId": "5284d21b-a750-11e6-a18b-0050568a49fd",
+//             "attrValueId": "s",
 //             "attrValueCode": "HIGHSPEEDIO",
 //             "attrDisplayValue": "高速I/O",
 //             "attrValue": "8816bd60-61c0-400b-b8b2-f20822d4baa8"
@@ -686,19 +668,19 @@ export class cloudHostServiceOrder {
 //     }
 //   ],
 //   "skuMap": {
-//     "[7a0b2215-a1b3-11e6-a18b-0050568a49fd, 2167aa03-a1b3-11e6-a18b-0050568a49fd, 5284d21b-a750-11e6-a18b-0050568a49fd]": {
+//     "[7a0b2215-a1b3-11e6-a18b-0050568a49fd, 2167aa03-a1b3-11e6-a18b-0050568a49fd, s]": {
 //       "productId": "eec0b1d3-a4f4-4bd5-a226-e8ee5ced3063",
 //       "skuId": "df84021c-4c9d-483f-b06f-ba47ff937803",
 //       "serviceType": 0,
 //       "serviceName": "IPHONE_1480079314"
 //     },
-//     "[5284d21b-a750-11e6-a18b-0050568a49fd, 1b4f62a7-a74f-11e6-a18b-0050568a49fd, ead0ce48-a74e-11e6-a18b-0050568a49fd]": {
+//     "[s, 1b4f62a7-a74f-11e6-a18b-0050568a49fd, ead0ce48-a74e-11e6-a18b-0050568a49fd]": {
 //       "productId": "43570b01-603e-4361-bea4-937b32e60d7a",
 //       "skuId": "e399669e-57e3-4d56-8c3e-d16ef0b9d79f",
 //       "serviceType": 0,
 //       "serviceName": "价格"
 //     },
-//     "[1b4f62a7-a74f-11e6-a18b-0050568a49fd, ead0ce48-a74e-11e6-a18b-0050568a49fd, 5284d21b-a750-11e6-a18b-0050568a49fd]": {
+//     "[1b4f62a7-a74f-11e6-a18b-0050568a49fd, ead0ce48-a74e-11e6-a18b-0050568a49fd, s]": {
 //       "productId": "2299cb06-ef18-439d-bc35-bc8ddaed6a94",
 //       "skuId": "d53656df-a2a4-4fca-84d5-c344a0c040bb",
 //       "serviceType": 0,
@@ -710,19 +692,19 @@ export class cloudHostServiceOrder {
 //       "serviceType": 0,
 //       "serviceName": "jira vm prod"
 //     },
-//     "[1b4f62a7-a74f-11e6-a18b-0050568a49fd, 5284d21b-a750-11e6-a18b-0050568a49fd, ead0ce48-a74e-11e6-a18b-0050568a49fd]": {
+//     "[1b4f62a7-a74f-11e6-a18b-0050568a49fd, s, ead0ce48-a74e-11e6-a18b-0050568a49fd]": {
 //       "productId": "25285961-f227-4b4e-950b-10c20f16fa37",
 //       "skuId": "24dd1fc0-6eaa-4827-9501-e5ea1d4a807b",
 //       "serviceType": 0,
 //       "serviceName": "周二"
 //     },
-//     "[5284d21b-a750-11e6-a18b-0050568a49fd, 2167aa03-a1b3-11e6-a18b-0050568a49fd, 7a0b2215-a1b3-11e6-a18b-0050568a49fd]": {
+//     "[s, 2167aa03-a1b3-11e6-a18b-0050568a49fd, 7a0b2215-a1b3-11e6-a18b-0050568a49fd]": {
 //       "productId": "3eecda39-c18a-4890-aeba-05a4cb5b6336",
 //       "skuId": "3895885d-17d1-4942-b89e-0bac0bb6f725",
 //       "serviceType": 0,
 //       "serviceName": "IPHONE_1480647598"
 //     },
-//     "[ead0ce48-a74e-11e6-a18b-0050568a49fd, 5284d21b-a750-11e6-a18b-0050568a49fd, 1b4f62a7-a74f-11e6-a18b-0050568a49fd]": {
+//     "[ead0ce48-a74e-11e6-a18b-0050568a49fd, s, 1b4f62a7-a74f-11e6-a18b-0050568a49fd]": {
 //       "productId": "2b772cc8-537f-4547-92b0-753a8c0165a2",
 //       "skuId": "19623245-92a1-4d1d-b84b-5467d4686852",
 //       "serviceType": 0,
@@ -1368,6 +1350,22 @@ export class cloudHostServiceOrder {
 //         "unitType": null
 //       }
 //     },
+//     "[df84021c-4c9d-483f-b06f-ba47ff937803]":{
+//         "productId": "11a88d23-22ce-4526-a816-97059330ea3c",
+//         "productName": "jira vm prod",
+//         "serviceId": "c48e2349-d651-4ac4-8746-7dc2af01e4b0",
+//         "serviceType": 0,
+//         "billingInfo": {
+//           "billingId": "5efc2205-1d1a-42a9-b867-cef333a30c10",
+//           "billingMode": 1,
+//           "basePrice": 100,
+//           "periodType": 3,
+//           "basicPrice": 300,
+//           "cyclePrice": 200,
+//           "unitPrice": 300,
+//           "unitType": 0
+//         }
+//     },
 //     "[9dac08ac-a5fe-4eb6-80ba-43612bc449e5, 5efc2205-1d1a-42a9-b867-cef333a30c10]": {
 //       "productId": "11a88d23-22ce-4526-a816-97059330ea3c",
 //       "productName": "jira vm prod",
@@ -1744,4 +1742,9 @@ export class cloudHostServiceOrder {
 
         return request;
     }
+
+    unitType = this.dict.get({ 
+        owner : "PACKAGE_BILLING",
+        field : "PERIOD_TYPE"
+    });
 }
