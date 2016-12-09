@@ -128,13 +128,15 @@ export class AccountMngListComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    //保存
+    //保存本地账号
     save() {
         this.crLocal.save()
             .then(
                 res => {
                     console.log(res);
+                    this.accounts=[];
                     this.createLocalAccountPopUp.close();
+                    this.getAccountList(1, this.pp);
                 }
             )
             .catch(
@@ -207,20 +209,20 @@ export class AccountMngListComponent implements OnInit {
     }
 
     //启用
-    enable(accountId, index) {
+    enable(account, index) {
         this.confirmTitle = "启用帐号";
-        const accountName = this.accounts[index].userName;
-        this.accountId = this.accounts[index].id;
+        const accountName = account.userName;
+        this.accountId = account.id;
         this.confirmMessage = `您选择启用${accountName}，请确认`;
         this.confirmType = 1;
         this.confirm.open();
     }
 
     //禁用
-    disable(accountId, index) {
+    disable(account, index) {
         this.confirmTitle = "禁用帐号";
-        const accountName = this.accounts[index].userName;
-        this.accountId = this.accounts[index].id;
+        const accountName = account.userName;
+        this.accountId = account.id;
         this.confirmMessage = `您选择禁用${accountName}，请确认。如果确认，机构成员将无法操作相关资源`;
         this.confirmType = 2;
         this.confirm.open();
@@ -228,10 +230,10 @@ export class AccountMngListComponent implements OnInit {
     }
 
     //删除
-    delete(accountId, index) {
+    delete(account, index) {
         this.confirmTitle = "删除帐号";
-        const accountName = this.accounts[index].userName;
-        this.accountId = this.accounts[index].id;
+        const accountName = account.userName;
+        this.accountId = account.id;
         this.confirmMessage = `您选择删除${accountName}，请确认。如果确认，部门将被删除且该部门中的用户将被移除。`;
         this.confirmType = 3;
         this.confirm.open();
@@ -297,8 +299,7 @@ export class AccountMngListComponent implements OnInit {
                     console.error(err);
                 }
             );
-    }
-
+    }   
     //创建AD账户
     createAdAccount() {
         this.crAd.createAccount()
@@ -311,7 +312,7 @@ export class AccountMngListComponent implements OnInit {
             });
     }
 
-    editAccount() {
+    editAdAccount() {
         this.editAd.editAccount()
             .then(res => {
                     console.log(res);

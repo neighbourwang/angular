@@ -15,6 +15,7 @@ import { AccountMngService } from "../service/account-mng-list.service";
 export class AccountMngCrLocal implements OnInit {
     constructor(
         private service: AccountMngService,
+        private layoutservice:LayoutService,
         private router: Router,
         private route: ActivatedRoute
     ) {
@@ -63,7 +64,7 @@ export class AccountMngCrLocal implements OnInit {
                 this.isCreate = false;
                 this.title = "编辑帐号";
                 this.btnTitle = "编辑";
-
+                this.layoutservice.show();
                 this.service.getRole()
                     .then(
                         role => {
@@ -105,11 +106,13 @@ export class AccountMngCrLocal implements OnInit {
                                         }
                                     }
                                 );
-                        }
+                                this.layoutservice.hide();
+                        }                        
                     )
                     .catch(
                         err => {
                             console.error(err);
+                            this.layoutservice.hide();
                         }
                     );
             } else {
@@ -117,6 +120,7 @@ export class AccountMngCrLocal implements OnInit {
                 this.isCreate = true;
                 this.title = "创建帐号";
                 this.btnTitle = "创建";
+                this.layoutservice.show();
                 this.service.getRole()
                     .then(
                         role => {
@@ -128,12 +132,15 @@ export class AccountMngCrLocal implements OnInit {
                             return this.service.getOrg(this.page, this.size)
                                 .then(org => {
                                     this.org = org.resultContent;
+                                    this.layoutservice.hide();
                                 });
                         }
                     )
                     .catch(
                         err => {
                             console.error(err);
+                            this.layoutservice.hide();
+
                         }
                     );
             }
@@ -148,6 +155,7 @@ export class AccountMngCrLocal implements OnInit {
                 .then(
                     res => {
                         console.log(res);
+                        this.router.navigateByUrl('user-center/account-mng/account-mng-list');
                     }
                 )
                 .catch(
@@ -160,6 +168,7 @@ export class AccountMngCrLocal implements OnInit {
                 .then(
                     res => {
                         console.log(res);
+                        this.router.navigateByUrl('user-center/account-mng/account-mng-list');
                     }
                 )
                 .catch(
@@ -240,5 +249,8 @@ export class AccountMngCrLocal implements OnInit {
             }
         }
     }
-
+    //取消
+    cancel(){
+        this.router.navigateByUrl('user-center/account-mng/account-mng-list');
+    }
 }

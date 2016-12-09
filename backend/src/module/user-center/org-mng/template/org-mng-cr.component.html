@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <div class="row row-line-height">
+        <div *ngIf="title == '编辑机构'" class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
                     机构负责人
@@ -95,7 +95,7 @@
         </div>
 
         <div class="text-center" style="margin-top : 30px">
-            <button class="fox-cloud-button-lg fox-cloud-button-white" >
+            <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel()">
                 <span class="icon-button-label">取消</span>
             </button>
             <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px" (click)="create()">

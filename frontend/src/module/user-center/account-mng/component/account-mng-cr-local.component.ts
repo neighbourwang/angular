@@ -59,10 +59,10 @@ export class AccountMngCrLocalComponent implements OnInit, OnChanges {
     //选择角色
     selectRole(idx) {
         console.log(idx);
-        this.service.roles.forEach(ele => {
-            ele.selected = false;
-        });
-        this.service.roles[idx].selected = true;
+        // this.service.roles.forEach(ele => {
+        //     ele.selected = false;
+        // });
+        this.service.roles[idx].selected = !this.service.roles[idx].selected;
         this.account.roles = this.service.roles.filter(ele => {
             if (ele.selected) {
                 return ele;

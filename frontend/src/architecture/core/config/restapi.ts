@@ -388,10 +388,17 @@ export let RestApis: RestApiModel[] = [
         "url": "basis/authsec/mpp/organization/{id}"
     },
     {
+        "desc": "获得单个机构资源信息",
+        "id": "user-center.org-mng.resource.get",
+        "method": "GET",
+        "url": "basis/authsec/mpp/organization/resource/{id}"
+    },
+    {
         "desc": "获得机构下的成员",
         "id": "user-center.org-mng.user-by-org.list",
         "method": "GET",
         "url": "basis/authsec/mpp/users/organization/{id}"
+        // adm/users/organization/e264346e-2857-4876-ba96-9fc2b0eeeb89
     },
      {
         "desc" : "编辑机构",
