@@ -18,7 +18,7 @@
 					<div class="col-md-2 content-title">可用区</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label 
-							*ngFor="let value of configs.zone.mapValueList[sendModule[getRelyName(configs.zone.relyAttrId)].attrValueId];" 
+							*ngFor="let value of rely('zone')"
 							(click)="sendModule.zone = value" 
 							class="btn btn-default" [ngClass]="{'active': sendModule.zone.attrValueId === value.attrValueId}">
 							<input type="radio" name="zone" autocomplete="off"> {{ value.attrDisplayValue }}
@@ -53,7 +53,7 @@
 					<div class="col-md-2 content-title">云硬盘类型</div>	
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label 
-							*ngFor="let value of configs.storage.mapValueList[sendModule[getRelyName(configs.storage.relyAttrId)].attrValueId];" 
+							*ngFor="let value of rely('storage')" 
 							(click)="sendModule.storage = value" 
 							class="btn btn-default" [ngClass]="{'active': sendModule.storage.attrValueId === value.attrValueId}">
 							<input type="radio" name="storage" autocomplete="off"> {{ value.attrDisplayValue }}
@@ -112,7 +112,7 @@
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">购买量</div>
 						<div class="col-md-2 no-padding mr10">
-							<select [(ngModel)]="payLoad.quality" (change)="payLoad.quality = value" class="form-control">
+							<select [(ngModel)]="payLoad.quality" class="form-control">
 								<option [ngValue]="1">1台</option>
 								<option [ngValue]="2">2台</option>
 								<option [ngValue]="3">3台</option>
@@ -142,7 +142,19 @@
 			<h4 class="cloud-title font-green">购买量:</h4>
 			<p class="cloud-p">购买量: {{payLoad.quality}}</p>
 			<div class="cloud-line"></div>
-			<h4 class="cloud-title">费用总计：<font class="font-orange">¥{{ this.sendModule.timeline ? this.parseInt((this.parseInt(this.sendModule.cpu.attrDisplayValue)*20 + ((this.parseInt(this.sendModule.mem.attrDisplayValue) < 50) ? this.parseInt(this.sendModule.mem.attrDisplayValue)*10 : this.parseInt(this.sendModule.mem.attrDisplayValue)*0.1 ) + 20 +this.parseInt(this.sendModule.timeline.value ? this.sendModule.timeline.value*1.21 : 1 ))*this.parseInt(this.payLoad.quality)*100)/100 : 0 }}</font></h4>
+			<div class="cloud-p">
+				<p class="cloud-title">费用总计：</p>
+	            <table style="width: 90%;line-height: 26px;">
+	                <tr>
+	                    <td>一次性费用： </td>
+	                    <td><font class="font-orange">¥{{diskBasePrice}} 元</font></td>
+	                </tr>
+	                <tr>
+	                    <td><font>费用： </font></td>
+	                    <td><font class="font-orange">¥{{diskTotalPrice}}</font><span class="float-right">按量</span></td>
+	                </tr>
+	            </table>
+			</div>
 			<div class="col-md-12 colud-order-button">
 				<div class="col-md-6"><button (click)="buyNow()" class="btn button-orange-deep">立即购买</button></div>
 				<div class="col-md-6"><button (click)="addCart()" class="btn button-orange-light">加入购物车</button></div>

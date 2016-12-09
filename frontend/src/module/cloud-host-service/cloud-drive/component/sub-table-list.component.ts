@@ -90,11 +90,11 @@ export class subTableListComponent implements OnInit, OnChanges {
 		page = page < 1 ? 1 : page;
 		page = page > this.list.pageParameter.totalPage ? this.list.pageParameter.totalPage : page;
 
-		if (this.list.pageParameter.currentPage == page) {
+		if (this.list.pageParameter.currentPage + 1 == page ) {
 			return;
 		}
 
-		this.list.pageParameter.currentPage = page;
+		this.list.pageParameter.currentPage = page - 1;
 		this.getList();
 	}
 }

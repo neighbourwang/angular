@@ -5,7 +5,7 @@ import { LayoutService } from '../../../../architecture';
 import { cloudDriveServiceOrder } from '../service/cloud-drive-order.service'
 
 import { AttrList, PayLoad } from '../model/attr-list.model';
-import { OrderList, OrderService, SendModule,TimeLineData, VlueList } from '../model/services.model';
+import { OrderList, OrderService, SendModule,TimeLineData, VlueList, SkuMap, ProMap, BillingInfo } from '../model/services.model';
 
 @Component({
 	selector: 'cloud-drive-order',
@@ -25,9 +25,15 @@ export class cloudDriveComponentOrder implements OnInit {
 	// timeForever : boolean = false;
 
 	// rightFixed : boolean = false;   //让右侧配置起飞
+	sku : SkuMap = new SkuMap;
 
 	passwordShadow: string;
-	skuMap: any;  //skuMap
+	skuMap: SkuMap[];  //skuMap
+	proMap: ProMap[];  //skuMap
+
+	diskBasePrice : number = 0; //云硬盘一次性费用
+	diskTotalPrice : number = 0; //云硬盘费用
+	diskUnitType : number = 0; //云硬盘类型
 
 	isAttachVm: boolean = true;
 
@@ -49,22 +55,52 @@ export class cloudDriveComponentOrder implements OnInit {
 		// $("[data-toggle=popover]").popover();
 	}
 
-	private getSkuId(payLoadList: AttrList[]): { skuId: string, productId: string } {   //获取skuID和productId
-		const trim = val => val.replace("[", "").replace("]", ""),
-			totalId = payLoadList.map(list => list.attrValueId).join(",");
+	setConfigList(): void {
+		this.layoutService.show();
+		this.service.getHostConfigList().then(configList => {
+			configList.attrList.forEach(config => {
+				// 设置配置列表
+				const attrName = config.attrCode.toLowerCase();
 
-		let nub = 0, 	//验证sku成功的个数
-			skuValue = {};  
+				this.configs[config.attrCode.toLowerCase()] = config;
+				this.setSenModule(config);
+			});
+			this.skuMap = configList.skuMap;
+			this.proMap = configList.proMap;
+
+			//设置初始化的硬盘大小
+			this.sendModule.disksize.attrValue = this.sendModule.diskinitialsize.attrValue;
+			this.sendModule.disksize.attrDisplayValue = this.sendModule.diskinitialsize.attrValue + "GB";
+		}).then(res => {
+			this.layoutService.hide();
+		}).catch(e => {
+			this.layoutService.hide();
+		})
+	}
+
+
+	private getSkuId(): SkuMap {   //获取skuID和productId
+
+		let list = ["zone", "platform","storage"].map(v => this.sendModule[v].attrValueId);  //云硬盘订单的sku匹配的选项 需要匹配 平台 可用区 （还有一个硬盘类型 由下面添加）
+
+		const trim = val => val.replace("[", "").replace("]", "");
+
+		for(let v of list) if(!v || !list.length) return new SkuMap;  //如果列表存在空值 直接return出去 不再匹配
+
+		let totalId = list.join(","),
+			nub = 0, 	//验证sku成功的个数
+			skuValue = {};
 
 		for (let sku in this.skuMap) {
 			sku.split(", ").forEach(skuString => {
-				if(totalId.indexOf(trim(skuString)) > -1 ) nub++; 
+				if(totalId.indexOf(trim(skuString)) > -1 ) nub++;
 			});
-			if(nub === 3) {
-				return this.skuMap[sku]
+			if(nub === list.length) {
+				return this.skuMap[sku];
 			}
 			nub = 0;
 		}
+		return new SkuMap;
 	}
 
 	private itemNum:number = 0;
@@ -88,10 +124,8 @@ export class cloudDriveComponentOrder implements OnInit {
 			});
 		};
 
-		let sku = this.getSkuId(payloadList);   //获取sku
-
-		this.payLoad.skuId = sku.skuId;
-		this.payLoad.productId = sku.productId;
+		this.payLoad.skuId = this.sku.skuId;
+		this.payLoad.productId = this.sku.productId;
 		this.payLoad.attrList = payloadList;
 		this.payLoad.itemNo = this.makeItemNum();
 		this.payLoad.serviceType = "1";  //云硬盘的type
@@ -103,25 +137,6 @@ export class cloudDriveComponentOrder implements OnInit {
 		return this.payLoadArr;
 	}
 
-
-	setConfigList(): void {
-		this.layoutService.show();
-		this.service.getHostConfigList().then(configList => {
-			configList.attrList.forEach(config => {
-				// 设置配置列表
-				const attrName = config.attrCode.toLowerCase();
-
-				this.configs[config.attrCode.toLowerCase()] = config;
-				this.setSenModule(config);
-			});
-			this.skuMap = configList.skuMap;
-		}).then(res => {
-			this.layoutService.hide();
-		}).catch(e => {
-			this.layoutService.hide();
-		})
-	}
-
 	setSenModule(config: OrderService): void {
 
 		const isValueLength = config.valueList && config.valueList.length;
@@ -130,13 +145,41 @@ export class cloudDriveComponentOrder implements OnInit {
 		//设置创建云硬盘的属性列表
 		isValueLength ? this.sendModule[attrName] = config.valueList[0] : 0;   //默认第一个
 	}
-
+	
 	getRelyName(relyAttrId): string {
 		for (let config in this.configs) {
 			if (this.configs[config].attrId === relyAttrId) {
 				return config;
 			}
 		}
+	}
+	rely(attrName:string):VlueList[] {
+		if(!this.configs[attrName].relyAttrId) return [];
+
+		//根据他的依赖的id获取它自身的list
+		const list = this.configs[attrName].mapValueList[this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId] || [];
+
+		const attrid = this.sendModule[attrName].attrValueId;   //获取当前的sendmoudle的attrid
+		const isHas = attrid && list && list.length && !!list.filter(l => l.attrValueId === attrid).length;   //列表里面是否有以选择的senModule
+		 //设置sendmodule使它选择第一个
+		if(list.length && (!attrid || !isHas)) this.sendModule[attrName] = list[0];   //当没有选择sendmoudle的attrid时候，说明该模块还没有选择过，如果list里面没有这个attrid说明，他的父级已经有变动，需要重新选择
+
+		this.setDiskPrice();
+		return list;
+	}
+
+	setDiskPrice(): void {  //设置数据盘的价格
+		let sku = this.getSkuId();
+		if(!sku.skuId) return;
+		this.sku = sku;
+
+		let price = this.proMap[`[${sku.skuId}]`];  //计算价格
+		if(!price) return;
+console.log(price)
+		this.diskBasePrice = price.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
+		this.diskTotalPrice = price.billingInfo.unitPrice * this.sendModule.disksize.attrValue * this.payLoad.quality;   //周期费用
+
+		this.diskUnitType = price.billingInfo.unitType;
 	}
 
 	outputValue(value) {
@@ -168,7 +211,10 @@ export class cloudDriveComponentOrder implements OnInit {
 
 
 	checkInput() {
+		const al = value => !!alert(value);
 
+		if(!this.sku) return al("sku不正确");
+		return true;
 	}
 
 	vmListClick(vm) {
