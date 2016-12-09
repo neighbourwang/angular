@@ -70,11 +70,17 @@ export class OrderMngComponent implements OnInit{
 	//续订费用
 	private _renewPriceLoader:ItemLoader<ProductBillingItem> = null;
 
+	//类型
+	private _typeDic:DicLoader = null;
+
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
+
+		//类型
+		this._typeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
 
 		//订单详情加载
 		this._orderDetailLoader = new ItemLoader<OrderDetailItem>(false, "订购详情", "op-center.order-mng.order-detail.get", restApiCfg, restApi);
@@ -99,6 +105,10 @@ export class OrderMngComponent implements OnInit{
 			this._orderStatusDic.UpdateWithDic([firstItem], "statusName", "status");
 			this._orderStatusDic.UpdateWithDic(firstItem.relatedSubInstanceList, "statusName", "status");
 			this._orderStatusDic.UpdateWithDic(firstItem.relatedOrderList, "statusName", "status");
+
+			this._typeDic.UpdateWithDic([firstItem], 'typeName', 'type');
+			this._typeDic.UpdateWithDic(firstItem.relatedSubInstanceList, 'typeName', 'type');
+			this._typeDic.UpdateWithDic(firstItem.relatedOrderList, 'typeName', 'type');
 			console.log('firstitem done', firstItem);
 		};
 
@@ -259,6 +269,9 @@ export class OrderMngComponent implements OnInit{
 		this._orderStatusDic.Go()
 		.then(success=>{
 			return this._productTypeLoader.Go();
+		})
+		.then(success=>{
+			return this._typeDic.Go();
 		})
 		.then(success=>{
 			return this._platformLoader.Go();
