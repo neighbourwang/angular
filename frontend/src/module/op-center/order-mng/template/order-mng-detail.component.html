@@ -21,16 +21,16 @@
 						<td>创建时间：{{_orderDetail.createDate}}</td>
 					</tr>
 					<tr>
-						<td>计费模式：包年包月</td>	
+						<td>计费模式：{{_orderDetail.billingModeName}}</td>	
 						<td>到期时间：{{_orderDetail.expireDate}}</td>
 					</tr>
 					<tr>
-						<td>一次性费用：￥30</td>	
-						<td>订购人：张三</td>
+						<td>一次性费用：{{_orderDetail.oneTimePrice}}</td>	
+						<td>订购人：{{_orderDetail.buyer}}</td>
 					</tr>
 					<tr>
-						<td>费用：￥184/月</td>	
-						<td>部门：销售部</td>
+						<td>费用：{{_orderDetail.price}}</td>	
+						<td>部门：{{_orderDetail.department}}</td>
 					</tr>
 					<tr>
 						<td>实例名称：{{_orderDetail.instanceName}}</td>	

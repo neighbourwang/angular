@@ -34,7 +34,7 @@
         </div>
         <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" (click)="search2()"> 确定</button>-->
         <div class="input-group col-md-2 float-left">
-            <input class="form-control" placeholder="输入企业/租户信息搜索" type="email">
+            <input  type="text" class="form-control" placeholder="输入企业/租户信息搜索" [(ngModel)]="queryOpt.tenantName">
             <div class="input-group-addon"(click)="search2()"><span class="glyphicon glyphicon-search" ></span></div>
         </div>
 

@@ -16,7 +16,7 @@ import { SelectedTenantListService } from '../service/selected-tenant-list.servi
     selector: "openstack-net-mng",
     templateUrl: "../template/OpenStack-net-mng.html",
     styleUrls: [],
-    providers: [SelectedTenantListService]
+    providers: []
 }
 )
 export class OpenstackNetMngComponent implements OnInit {
