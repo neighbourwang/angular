@@ -6,6 +6,8 @@ import { CommonComponentModule } from './architecture/components/common.module';
 import { MenuComponent } from './architecture/components/menu/component/menu.component';
 import { SiteComponent } from './architecture/components/site/component/site.component';
 
+//mng-console
+import {MngConsoleModule} from './module/mng-console/mng-console.module';
 //vm-instance
 import { CloudHostService } from './module/cloud-host-service/cloud-host-service.module';
 //用户中心
@@ -31,6 +33,7 @@ import { routing } from './app.routing';
         OrderMngModule,
         CheckCenterModule,
         ImgMngModule,
+        MngConsoleModule,
         routing
     ],
     declarations: [MenuComponent, SiteComponent],
