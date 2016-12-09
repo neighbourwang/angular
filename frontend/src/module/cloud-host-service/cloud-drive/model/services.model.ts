@@ -47,6 +47,13 @@ class SendModule {
     diskmounthostname : VlueList = new VlueList();
 }
 
+class SkuMap {
+    productId:string = "";
+    serviceName:string = "";
+    serviceType:number = 0;
+    skuId:string = "";
+}
+
 class TimeLineData {
     code :string ;
     displayValue :string;
@@ -54,10 +61,31 @@ class TimeLineData {
     owner :string;
     value :string;
 }
+interface BillingInfo {
+    basePrice:number;
+    basicPrice:number;
+    billingId:string;
+    billingMode:number;
+    cyclePrice:number;
+    periodType:number;
+    unitPrice:number;
+    unitType:number;
+}
+interface ProMap {
+    billingInfo : BillingInfo;
+    productId:string;
+    productName:string;
+    serviceId:string;
+    serviceType:number;
+}
+
 export {
     VlueList,
     OrderService,
     SendModule,
+    SkuMap,
+    BillingInfo,
+    ProMap,
     TimeLineData,
     OrderList
 }

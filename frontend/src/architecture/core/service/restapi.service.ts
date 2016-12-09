@@ -63,7 +63,7 @@ export class RestApi {
             headerParams.append('Authorization', jwt);
         }).then(res =>
             this.http.request(path, requestOptions)
-                .timeout(100000, new Error('接口请求超时！'))
+                .timeout(1000000, new Error('接口请求超时！'))
                 .toPromise()
             ).then(
             res => {
