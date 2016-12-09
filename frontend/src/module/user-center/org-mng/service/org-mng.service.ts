@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi } from '../../../../architecture';
 
+import { Org, Member, Resource } from '../model/org-mng.org.model';
+
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -11,88 +13,100 @@ export class OrgMngService {
         private restApiCfg: RestApiCfg,
         private restApi: RestApi
     ) { }
-     // 获取组织管理 所有机构
+    // 获取组织管理 所有机构
     getOrg(page: number, size: number) {
 
         let api = this.restApiCfg.getRestApi("user-center.org-mng.list");
 
-        return this.restApi.request(api.method, api.url,[{ key: "page", value: page }, { key: "size", value: 500 }], undefined);
+        return this.restApi.request(api.method, api.url, [{ key: "page", value: page }, { key: "size", value: 500 }], undefined);
     }
 
     //删除 机构
-    deleteOrg (id : string){
+    deleteOrg(id: string) {
         let api = this.restApiCfg.getRestApi("user-center.org-mng.delete");
 
-        return this.restApi.request(api.method,api.url,[{key : "id" , value : id}],undefined);
+        return this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined);
     }
 
     //启用 机构
-    enableOrg (id : string){
+    enableOrg(id: string) {
         let api = this.restApiCfg.getRestApi("user-center.org-mng.enable");
 
-        return this.restApi.request(api.method,api.url,[{key : "id" , value : id}],undefined);
+        return this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined);
     }
 
     //禁用机构
-    disableOrg (id : string){
+    disableOrg(id: string) {
         let api = this.restApiCfg.getRestApi("user-center.org-mng.disable");
 
-        return this.restApi.request(api.method , api.url , [{ key : "id" , value : id}],undefined);
-    }  
+        return this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined);
+    }
 
     //获取 未管理的机构成员列表
-    getNoMngUser (page:number,size:number){
+    members: Array<Member>=new Array();
+    getNoMngUser() {
         let api = this.restApiCfg.getRestApi("user-center.org-mng.nomnguser.list");
+        if (this.members.length == 0) {
+            return this.restApi.request(api.method, api.url, [{ key: "page", value: 0 }, { key: "size", value: 999 }], undefined).then(
+                res => {
+                    console.log('getNoMngUser', res);
+                    this.members = res.resultContent;
+                }
+            ).catch(
+                err => {
+                    console.error(err);
+                }
+                );
+        } else {
+            return new Promise(resovle => setTimeout(resovle, 10)).then(() => this.members);
+        }
 
-        return this.restApi.request(api.method , api.url , [{ key : "page" , value : page},{ key : "size" , value : size}],undefined);
     }
-
-    //获取未管理的云平台列表
-    getNoMngPlatForm(){
-        let api = this.restApiCfg.getRestApi("user-center.org-mng.nomngplatform.list");
-
-        return this.restApi.request(api.method , api.url ,undefined,undefined);
-    }
-
     //创建机构
-    createOrg(org){
+    createOrg(org) {
         let api = this.restApiCfg.getRestApi("user-center.org-mng.create");
 
-        return this.restApi.request(api.method,api.url,undefined,undefined,org);
+        return this.restApi.request(api.method, api.url, undefined, undefined, org);
     }
 
-    //获得单个机构
-    getOrgById (id : string){
+    //获得单个机构 基本信息
+    getOrgById(id: string) {
         let api = this.restApiCfg.getRestApi("user-center.org-mng.account.get");
 
-        return this.restApi.request(api.method , api.url ,[{key : "id" , value : id}],undefined);
+        return this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined);
+    }
+    //获得单个机构 资源信息
+    getOrgResourceById(id: string) {
+        let api = this.restApiCfg.getRestApi("user-center.org-mng.resource.get");
+
+        return this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined);
     }
 
     //获得机构下的成员
-    getUserByOrg(id : string){
+    getUserByOrg(id: string) {
         let api = this.restApiCfg.getRestApi("user-center.org-mng.user-by-org.list");
 
-        return this.restApi.request(api.method , api.url,[{key : "id" ,value : id}],undefined);
+        return this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined);
     }
 
     //编辑机构
-    editOrg(id : string , org){
+    editOrg(id: string, org) {
         let api = this.restApiCfg.getRestApi("user-center.org-mng.edit");
 
-        return this.restApi.request(api.method , api.url ,[{ key : "id" , value : id}],undefined,org);
+        return this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined, org);
     }
     //获得当前登录人企业ID
-    
-    getCurEntId(){
+
+    getCurEntId() {
         let api = this.restApiCfg.getRestApi("user-center.org-mng.currentEnterpriseID.get");
 
-        return this.restApi.request(api.method , api.url,[],undefined);
+        return this.restApi.request(api.method, api.url, [], undefined);
     }
     //获得当前登陆人企业资源
-    getCurEntResource(id:string){
+    getCurEntResource(id: string) {
         let api = this.restApiCfg.getRestApi("user-center.org-mng.currEntResoure.get");
 
-        return this.restApi.request(api.method , api.url,[{key : "id" ,value : id},{ key : "page" , value : 1},{ key : "size" , value : 9999}],undefined);
+        return this.restApi.request(api.method, api.url, [{ key: "id", value: id }, { key: "page", value: 1 }, { key: "size", value: 9999 }], undefined);
     }
 
     //user-center.org-mng.currOrgUser.get

@@ -56,7 +56,7 @@
             <th class="col-md-1 col-xs-3 text-center">绑定角色</th>
             <td>
                 <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px" *ngFor="let role of service.roles ;let idx=index ">
-                    <input type="radio" class="fox-cloud-radio"   value="role?.id" [checked]="account.roles[0]?.id==role?.id" (click)="selectRole(idx)"> 
+                    <input type="checkbox" class="fox-cloud-checkbox"   value="role?.id" [checked]="account.roles[0]?.id==role?.id" (click)="selectRole(idx)"> 
                     <span>{{role?.name}}</span>
                 </label>
 

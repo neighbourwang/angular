@@ -23,8 +23,45 @@ export class ClMngCreStep2Service {
     //    return this.restApi.request(api.method, api.url, [{ key: "page", value: page }, { key: "size", value: size }], undefined);
     //}
 
-    // 可用区同步
-    // pf.cre.step.02.zones.synchronize.get
+
+    //同步可用区
+    //  zones (id : String,platFormType:String){
+    //     switch(platFormType){
+    //         case "0":let api = this.restApiCfg.getRestApi("pf.cre.step.02.zones.synchronize.get");
+    //         case "2":let api = this.restApiCfg.getRestApi("pf.cre.step.02.cluster.synchronize.vmware.get");
+    //     }     
+    //     return this.restApi.request(api.method , api.url , [{key : "pf-id" , value : id}],undefined);
+    // }
+
+    // //存储同步
+    // storages(id : String,platFormType:String) {
+    //   switch(platFormType){
+    //         case "0":let api = this.restApiCfg.getRestApi("pf.cre.step.02.storages.synchronize.get");
+    //         case "2":let api = this.restApiCfg.getRestApi("pf.cre.step.02.storages.synchronize.vmware.get");
+    //     }     
+    //     return this.restApi.request(api.method, api.url, [{ key: "pf-id", value: id }], undefined);
+    // }
+
+    // //镜像 同步 
+    // images(id : String,platformType:String){
+    //       switch(platFormType){
+    //         case "0": let api = this.restApiCfg.getRestApi("pf.cre.step.02.images.synchronize.get");
+    //         case "2":let api = this.restApiCfg.getRestApi("pf.cre.step.02.images.synchronize.vmware.get");
+    //     }    
+    //     return this.restApi.request(api.method, api.url , [{key : 'pf-id' , value : id}],undefined);
+    // }
+  
+    //宿主机同步
+    // hosts( id : String,platformType:String){
+    //    switch(platFormType){
+    //         case "0": let api = this.restApiCfg.getRestApi("pf.cre.step.02.hosts.synchronize.vmware.get");
+    //         case "2":let api = this.restApiCfg.getRestApi("pf.cre.step.02.hosts.synchronize.vmware.get");
+    //     }    
+    //     return this.restApi.request(api.method , api.url , [{key : 'pf-id' , value : id}],undefined);
+    // 
+
+    
+
     zones (id : String){
         let api = this.restApiCfg.getRestApi("pf.cre.step.02.zones.synchronize.get");
         return this.restApi.request(api.method , api.url , [{key : "pf-id" , value : id}],undefined);
