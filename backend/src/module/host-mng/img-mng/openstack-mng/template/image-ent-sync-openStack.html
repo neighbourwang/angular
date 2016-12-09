@@ -51,8 +51,8 @@
                     </td>
                     <td >{{image.name}}</td>
                     <td >
-                        <div *ngIf="image.syncResult==0" >
-                            <input type="text"  class="form-control" style="padding:0;text-align:center" placeholder="image.displayName" [(ngModel)]="image.displayName" />
+                        <div  *ngIf="image.syncResult==0" >
+                            <input class="form-control" type="text" style="padding:0;text-align:center" placeholder="image.displayName" [(ngModel)]="image.displayName" />
                         </div>
                         <div *ngIf="image.syncResult!=0">
                             {{image.displayName}}
@@ -60,8 +60,9 @@
                     </td>
                     <td >
                         <div *ngIf="image.syncResult==0" style="padding-top:2px">
-                             <select [(ngModel)]="image.os">
-                                <option *ngFor = "let os of osDic" [ngValue]="os.value" [ngClass]="setDefaultOs(os,image.osType)">{{getDicText(os.value,osDic)}}</option>
+                             <select class="form-control" [(ngModel)]="image.os">
+                                <option selected="selected" [ngValue]="null"></option>
+                                <option *ngFor = "let os of osDic" [ngValue]="os.value" >{{getDicText(os.value,osDic)}}</option>
                             </select>
                             <!--<input type="text" style="padding:1px;text-align:center" placeholder="image.os" [(ngModel)]="image.os" />-->
                         </div>
@@ -72,7 +73,8 @@
                     <td >
                         <div *ngIf="image.syncResult==0" style="padding-top:2px">
                             <select class="form-control" [(ngModel)]="image.bitsType">
-                                <option *ngFor = "let type of bits_typeDic" [ngValue]="type.value" [ngClass]="setDefaultBits(type,image.bitsType)">{{getDicText(type.value,bits_typeDic)}}</option>
+                                <option selected="selected" ></option>
+                                <option *ngFor = "let type of bits_typeDic" [ngValue]="type.value" >{{getDicText(type.value,bits_typeDic)}}</option>
                             </select>
                         </div>
                         <div *ngIf="image.syncResult!=0">
@@ -81,7 +83,7 @@
                     </td>
                     <td >{{showCapacity(image.capacity)}}</td>
                     <td >企业镜像</td>
-                    <td >{{image.tenants[0]}}</td>
+                    <td >{{image.tenants[0].name}}</td>
                     <td [ngClass]="{'font-green':image.status!='2','font-orange':image.status=='2'}">{{getDicText(image.syncResult,this.syncDic)}}</td>
 
                 </tr>
@@ -92,7 +94,7 @@
 </div>
 
 <div *ngFor="let i of images_needsync">
-        {{i.displayName}}
+       
 </div>
 <div class="text-center " style="margin-top:50px">       
     
