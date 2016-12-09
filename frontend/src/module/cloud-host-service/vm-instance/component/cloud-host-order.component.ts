@@ -183,6 +183,11 @@ export class cloudHostComponentOrder implements OnInit {
 		if(!sku || !timeline || !storage.length) return;  
 
 
+
+	}
+
+	storageChange() {
+		
 	}
 
 	setSenModule(config: OrderService): void {
