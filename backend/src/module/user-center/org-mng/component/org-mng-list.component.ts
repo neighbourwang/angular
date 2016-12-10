@@ -51,6 +51,7 @@ export class OrgMngListComponent implements OnInit {
     }
 
     getOrg(page: number, size: number) {
+        this.org=new Org();
         this.service.getOrg(page, size).then(
             res => {
                 this.orgs = res.resultContent;
@@ -64,18 +65,24 @@ export class OrgMngListComponent implements OnInit {
             }
             )
     }
-
+    curPage:number=0;
     paging(page) {
-        this.getOrg(page, 10);
+        this.curPage=page;
+        this.getOrg(this.curPage, 10);
     }
 
     chooseItem(index: number) {
+        console.log(index);
+        this.orgs.forEach((ele)=>{
+            ele.selected=false;
+        })
+        this.orgs[index].selected=true;
         this.org = this.orgs[index];
     }
 
     delete() {
         console.log(this.org);
-        if (this.org.status) {
+        if (this.org.id) {
             if (this.org.status == 1) {
                 this.notice.open('操作错误', '不能删除启用状态下的组织')
                 return;
@@ -92,7 +99,7 @@ export class OrgMngListComponent implements OnInit {
 
     enable() {
         console.log(this.org);
-        if (this.org.status) {
+        if (this.org.id) {
             if (this.org.status == 1) {
                 this.notice.open('操作错误', '不能启用已启用状态下的组织')
                 return;
@@ -112,7 +119,7 @@ export class OrgMngListComponent implements OnInit {
                 this.notice.open('操作错误', '组织状态已禁用')
                 return;
             }
-        if (this.org.status) {
+        if (this.org.id) {
             this.confirmTitle = "禁用机构";
             this.confirmMessage = "您选择禁用 '" + this.org.name + "'，请确认。如果确认，机构内成员将无法操作相关资源";
             this.confirmType = 2;
@@ -150,7 +157,7 @@ export class OrgMngListComponent implements OnInit {
         this.service.deleteOrg(this.org.id).then(
             res => {
                 console.log(res);
-                this.getOrg(0, this.pp);
+                this.getOrg(this.curPage, 10);
             }
         ).catch(
             err => {
@@ -164,7 +171,7 @@ export class OrgMngListComponent implements OnInit {
         this.service.enableOrg(this.org.id).then(
             res => {
                 console.log(res);
-                this.getOrg(0, this.pp);
+                this.getOrg(this.curPage, 10);
             }
         ).catch(
             err => {
@@ -177,7 +184,7 @@ export class OrgMngListComponent implements OnInit {
         this.service.disableOrg(this.org.id).then(
             res => {
                 console.log(res);
-                this.getOrg(0, this.pp);
+                this.getOrg(this.curPage, 10);
             }
         ).catch(
             err => {

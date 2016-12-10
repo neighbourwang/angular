@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../../../core/service/layout.service';
 import { SystemDictionaryService } from '../../../../architecture';
+import { Router } from '@angular/router';
 
 
 
@@ -15,6 +16,7 @@ export class SiteComponent implements OnInit{
   
   constructor (
     private layoutService: LayoutService,
+		private router: Router,
     private dictService: SystemDictionaryService,
   ) { }
   

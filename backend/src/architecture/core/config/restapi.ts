@@ -1159,7 +1159,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取同步网络列表",
         "id": "net-mng.openstack.net.syn.list",
         "method": "GET",
-        "url": "openstacknetworkmgmt/authsec/{platform_id}/openstack/networkSync"
+        "url": "openstacknetworkmgmt/authsec/{platform_id}/openstack/networkSync/{eids}"
     },
     {
         "desc": "获取地域数据中心数据平台选项",

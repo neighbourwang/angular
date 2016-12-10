@@ -6,13 +6,26 @@
 .OrderDetail{
 	.page-content{
 		padding:0 50px;
+		
 		.table-container{
-		    
-			table{
-				th,td{
-					line-height: 30px;
+		    .first-table{
+				td:nth-child(odd){
+					background-color:#eff4f8;
+					text-align: center;
+					width:150px;
 				}
-			  	tr:nth-child(even){
+				td:nth-child(even){
+					text-align: left;
+				}
+			}
+			table{
+				th{
+					background-color:#eff4f8;
+					text-align: center;
+					height: 50px; 
+				}
+				td{
+					vertical-align: middle;
 					background-color:#fff;
 				}
 			}

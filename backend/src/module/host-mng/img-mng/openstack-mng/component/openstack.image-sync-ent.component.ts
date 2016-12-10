@@ -135,6 +135,9 @@ export class OpenstackImageSyncEntComponent implements OnInit{
         if(this.images && this.images.length>0){
             this.images.forEach( (i)=>{
                 if(i.selected){
+                    if(!i.displayName || i.displayName == ""){
+                        i.displayName = i.name;
+                    }
                     this.images_needsync.push(i);
                 }
             });

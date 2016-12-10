@@ -1,64 +1,78 @@
 <fc-notice #notice ot="确认" (of)="okClicked()"></fc-notice>
 
-<div class="OrderDetail">   
-	<div class="page-content-header icon-order-manage" style="border-bottom: 3px solid  #01a982;margin: 10px 0px;padding-left: 0; padding-bottom: 40px;">订单编号：5370537<button class=" form-control-title fox-cloud-button  fox-cloud-button-green pull-right">返回订购管理</button>
+<div class="OrderDetail"> 
+	<div>  
+	<span class="page-content-header float-left" style="border-bottom: 3px solid  #01a982;margin: 10px 0px;padding-left: 0; padding-bottom: 40px;">订单编号：5370537
+	</span>
+	<button class="fox-cloud-button  fox-cloud-button-green pull-right">返回订购管理</button>
 	</div>
 	<div class="page-content">
-		<div class="table-container mgb20">
-			<table class="table table-bordered mgb20 text-left ">
-				<thead>	
-					<tr><th class="form-control-title text-left " colspan="2">基本信息</th></tr>		
-				</thead>
+		<div class="noborder form-control-title float-left mgb10">基本信息</div>
+		<div class="table-container mgb20 noBorder">
+			<table class="table table-bordered first-table mgb20 text-left ">
 				<tbody>
-					<tr *ngFor="let item of _orderDetail.Items">
-						<td class="text-left">已订购服务编号：{{item.orderCode}}</td>	
-						<td class="text-left">状态：{{item.status}}</td>
+					<tr  *ngFor="let item of _orderDetail.Items">
+						<td>已购服务编号</td>	
+						<td>{{item.orderCode}}</td>
+						<td>状态</td>
+						<td>{{item.status}}</td>
 					</tr>
 					<tr>
-						<td class="text-left">产品类型：{{item.productType}}</td>	
-						<td class="text-left">区域/可用区：{{item.region}}</td>
+						<td>产品类型</td>
+						<td>{{item.productType}}</td>	
+						<td>区域/可用区</td>
+						<td>{{item.region}}</td>
 					</tr>
 					<tr>
-						<td class="text-left">当前配置：CPU 4赫/内存 8GB/启动盘 70G</td>	
-						<td class="text-left">创建时间：{{item.createDate}}</td>
+						<td>当前配置</td>
+						<td></td>	
+						<td>创建时间</td>
+						<td>{{item.createDate}}</td>
 					</tr>
 					<tr>
-						<td class="text-left">计费模式：{{item.billingMode}}</td>	
-						<td class="text-left">到期时间：{{item.exireDate}}</td>
+						<td>计费模式</td>
+						<td>{{item.billingMode}}</td>	
+						<td>到期时间</td>
+						<td>{{item.exireDate}}</td>
 					</tr>
 					<tr>
-						<td class="text-left">一次性费用：{{item.oneTimePrice}}</td>	
-						<td class="text-left">订购人：{{item.billingPerson}}</td>
+						<td>一次性费用</td>
+						<td>{{item.oneTimePrice}}</td>	
+						<td>订购人</td>
+						<td>{{item.billingPerson}}</td>
 					</tr>
 					<tr>
-						<td class="text-left">费用：{{item.price}}</td>	
-						<td class="text-left">部门：{{item.department}}</td>
+						<td>费用</td>	
+						<td>{{item.price}}</td>
+						<td>部门</td>
+						<td>{{item.department}}</td>
 					</tr>
 					<tr>
-						<td class="text-left">实例名称：{{item.instanceName}}</td>	
-						<td class="text-left">企业：{{item.enterpirse}}</td>
+						<td>实例名称</td>	
+						<td>{{item.instanceName}}</td>
+						<td>企业</td>
+						<td>{{item.enterpirse}}</td>
 					</tr>				
 				</tbody>
 			</table>
 		</div>
 		
-		<div class="table-container mgb20">
+		<div class="noborder form-control-title float-left mgb10">关联的已订购服务列表</div>
+		<div class="table-container mgb20 noBorder">
 			<table class="table table-bordered mgb20">
 				<thead>	
-					<tr><th class="text-left form-control-title" colspan="8">关联的已订购服务列表</th></tr>	
+					<th class="border-gray">已订购服务编号</th>
+					<th class="border-gray">实例名称</th>
+					<th class="border-gray">产品类型</th>
+					<th class="border-gray">配置</th>
+					<th class="border-gray">计费模式</th>
+					<th class="border-gray">状态</th>
+					<th class="border-gray">费用</th>
+					<th class="border-gray">到期时间</th>
 							
 				</thead>
 				<tbody>
-					<tr class="bg-light-blue border-gray" >
-						<td>已订购服务编号</td>
-						<td>实例名称</td>
-						<td>产品类型</td>
-						<td>配置</td>
-						<td>计费模式</td>
-						<td>状态</td>
-						<td>费用</td>
-						<td>到期时间</td>
-					</tr> //orderCode,实例名称？？，productType,配置？？，productBillingItem.billingMode，orderStatus，productBillingItem.basePrice,.productBillingItem.basicPrice,completeDate
+					<!-- //orderCode,实例名称？？，productType,配置？？，productBillingItem.billingMode，orderStatus，productBillingItem.basePrice,.productBillingItem.basicPrice,completeDate-->
 					<tr *ngFor="let relatedOrder of _orderDetail.Items.relatedOrders">
 						<td>{{relatedOrder.orderCode}}</td>
 						<td>实例名称{{relatedOrder.orderCode}}</td>
@@ -92,23 +106,23 @@
 				</tbody>
 			</table>
 		</div>	
-		<div class="table-container mgb20">
+
+
+		<div class="noborder form-control-title float-left mgb10">历史信息</div>
+		<div class="table-container mgb20 noBorder">
 			<table class="table table-bordered mgb20">
 				<thead>	
-					<tr><th class="text-left form-control-title" colspan="8">历史信息</th></tr>	
+					<th>日期</th>
+						<th>实例名称</th>
+						<th>实例类型</th>
+						<th>配置</th>
+						<th>操作者</th>
+						<th>所属部门</th>
+						<th>到期时间</th>
+						<th>说明</th>
 							
 				</thead>
 				<tbody>
-					<tr class="bg-light-blue border-gray">
-						<td>日期</td>
-						<td>实例名称</td>
-						<td>实例类型</td>
-						<td>配置</td>
-						<td>操作者</td>
-						<td>所属部门</td>
-						<td>到期时间</td>
-						<td>说明</td>
-					</tr>
 					<tr>
 						<td>2016-11-03</td>
 						<td>myCentOS-VM-001</td>

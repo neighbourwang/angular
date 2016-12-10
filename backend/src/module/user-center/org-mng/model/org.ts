@@ -5,4 +5,5 @@ export class Org {
     leaderName : string;//机构负责人名称
     status : number ;//状态
     description : string;//描述
+    selected:boolean;
 }

@@ -5,7 +5,7 @@
                 <th class="col-md-1 col-xs-3 text-center">基本信息</th>
                 <td>
                     <form #orgForm="ngForm"  (ngSubmit)="save(heroForm)">
-                        <div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
+                        <div class="col-md-12 no-padding mgb15" style="line-height : 35px">
                             <div class="col-md-3 content-title" style="text-align : center"><span class="asterisk">*</span>部门名称</div>
                             <div class="col-md-8 no-padding" [ngClass]="{'has-error': name.errors && (name.dirty || name.touched)}">
                                 <input class="form-control" placeholder="请输入部门名称" type="text" [(ngModel)]="org.name" required name="name" id="name" #name='ngModel'>
@@ -17,7 +17,7 @@
                             </div>
                         </div>
 
-                        <div *ngIf="isEdit" class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
+                        <div *ngIf="false" class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
                             <div class="col-md-3 content-title" style="text-align : center"><span class="asterisk">*</span>部门负责人</div>
                             <div class="col-md-8 no-padding">
                                 <select class="form-control" [(ngModel)]="org.leaderId" name="leaderId">
@@ -26,7 +26,7 @@
                             </div>
                         </div>
                     </form>
-                    <div class="col-md-12 no-padding" style=" line-height : 35px">
+                    <div class="col-md-12 no-padding" *ngIf="false" style=" line-height : 35px">
                         <div class="col-md-3 content-title" style="text-align : center">部门成员</div>
                         <div class="col-md-8 no-padding">
                             <label class="checkbox-inline" style="margin-left : 0;margin-right : 20px;margin-bottom : 10px" *ngFor="let member of service.members">

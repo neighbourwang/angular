@@ -81,11 +81,15 @@ export class OpenstackService{
     }
 
     //获取同步网络列表
-    getSynNetworks(platform_id: string):Promise<any>{
+    getSynNetworks(platform_id: string,eids: string):Promise<any>{
         const pathParams = [
             {
                 key: "platform_id",
                 value: platform_id
+            },
+            {
+                key:"eids",
+                value: eids
             }
          ];
         const api = this.restApiCfg.getRestApi("net-mng.openstack.net.syn.list");

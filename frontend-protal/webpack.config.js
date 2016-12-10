@@ -9,7 +9,7 @@ module.exports = {
 		common : [rootPath+"/src/common/common.js","webpack-dev-server/client?http://0.0.0.0:4001/", "webpack/hot/dev-server"],
 		login  : [rootPath+"/src/login/js/login.js"],
 		products  : [rootPath+"/src/products/js/products.js"],
-		protal  : [rootPath+"/src/protal/js/protal.js"]
+		portal  : [rootPath+"/src/portal/js/portal.js"]
 	},
 	output: {
 		path: rootPath+'/dist/',
@@ -36,9 +36,9 @@ module.exports = {
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new HtmlWebpackPlugin({
-		    filename: 'protal.html',
-		    chunks: ['common','protal'],
-		    template: 'src/protal/protal.ejs',
+		    filename: 'portal.html',
+		    chunks: ['common','portal'],
+		    template: 'src/portal/portal.ejs',
 		    chunksSortMode : 'none',
 		    hash: false
 		}),

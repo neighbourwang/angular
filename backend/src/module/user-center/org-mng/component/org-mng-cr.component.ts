@@ -5,8 +5,10 @@ import { LayoutService, NoticeComponent , ConfirmComponent ,PopupComponent } fro
 
 import { OrgMngService } from '../service/org-mng.service';
 
-import { Account } from '../model/account';
-import { PlatForm } from '../model/platform';
+// import { Account } from '../model/account';
+// import { PlatForm } from '../model/platform';
+//model
+import { Org, Member, Platform } from '../model/org.model';
 
 
 @Component({
@@ -19,7 +21,8 @@ export class OrgMngCrComponent implements OnInit{
     constructor(
         private router : Router,
         private route : ActivatedRoute,
-        private service : OrgMngService
+        private service : OrgMngService,
+        private layoutService : LayoutService
         ) { }
 
     title: string;
@@ -30,22 +33,15 @@ export class OrgMngCrComponent implements OnInit{
 
     more : boolean  = false;
 
-    account : Array<Account> = new Array<Account>();
-    platForm : Array<PlatForm> = new Array<PlatForm>();
+    account : Array<Member> = new Array<Member>();
+    platForm : Array<Platform> = new Array<Platform>();
 
-    accountByOrg : Array<Account> = new Array<Account>();
+    accountByOrg : Array<Member> = new Array<Member>();
 
     orgId : string ;
 
 
-    org : any = {
-        description : '',
-        leaderId : '',
-        members : [],
-        name : '',
-        platforms : []
-    }
-
+    org : Org=new Org;
     ngOnInit() {
         this.route.params.forEach((params: Params) => {
             if(params['id']){
@@ -54,42 +50,45 @@ export class OrgMngCrComponent implements OnInit{
                 this.btnName = '编辑';
                 this.isCreate = false;
                 this.orgId = params['id'];
-
+                this.layoutService.show()
                 this.service.getOrgById(params['id']).then(
                     res => {
                         console.log('getOrgById',res);
                         this.org = res.resultContent;
 
-                        this.service.getNoMngUser(0,this.size).then(
-                            res => {
-                                console.log('getNoMngUser',res)
-                                this.account = res.resultContent;
-                                if(res.pageInfo.totalRecords <= this.size){
-                                    this.more = false;
-                                }else{
-                                    this.more = true;
-                                }
+                        // this.service.getNoMngUser(0,this.size).then(
+                        //     res => {
+                        //         console.log('getNoMngUser',res)
+                        //         this.account = res.resultContent;
+                        //         if(res.pageInfo.totalRecords <= this.size){
+                        //             this.more = false;
+                        //         }else{
+                        //             this.more = true;
+                        //         }
 
-                                this.service.getUserByOrg(params['id']).then(
-                                    res => {
-                                        console.log('getUserByOrg',res);
-                                        this.accountByOrg = res.resultContent;
-                                        for(let account of this.accountByOrg){
-                                            account.selected = true;
-                                            this.account.unshift(account);
-                                        }
-                                    }
-                                ).catch(
-                                    err => {
-                                        console.error(err);
-                                    }
-                                )
-                            }
-                        ).catch(
-                            err => {
-                                console.error(err);
-                            }
-                        )
+                        //         this.service.getUserByOrg(params['id']).then(
+                        //             res => {
+                        //                 console.log('getUserByOrg',res);
+                        //                 this.accountByOrg = res.resultContent;
+                        //                 for(let account of this.accountByOrg){
+                        //                     account.selected = true;
+                        //                     this.account.unshift(account);
+                        //                 }
+                        //                 this.layoutService.hide();
+                        //             }
+                        //         ).catch(
+                        //             err => {
+                        //                 console.error(err);
+                        //                  this.layoutService.hide();
+                        //             }
+                        //         )
+                        //     }
+                        // ).catch(
+                        //     err => {
+                        //         console.error(err);
+                        //          this.layoutService.hide();
+                        //     }
+                        // )
 
                         
 
@@ -97,22 +96,28 @@ export class OrgMngCrComponent implements OnInit{
                             res => {
                                 console.log('getNoMngPlatForm',res);
                                 this.platForm = res.resultContent;
-
-                                for(let orgPlatForm of this.org.platforms){
-                                    orgPlatForm.selected = true;
-                                    this.platForm.unshift(orgPlatForm);
+                                for(let platform of this.platForm){
+                                    for(let orgPlatForm of this.org.platforms){
+                                    if(orgPlatForm.id == platform.id){
+                                        platform.selected=true;
+                                    }
+                                    // this.platForm.unshift(orgPlatForm);
                                 }
+                                }
+                                 this.layoutService.hide();
                             }
-
+                            
                         ).catch(
                             err => {
                                 console.error(err);
+                                 this.layoutService.hide();
                             }
                         )
                     }
                 ).catch(
                     err => {
                         console.error(err);
+                         this.layoutService.hide();
                     }
                 )               
 
@@ -122,21 +127,21 @@ export class OrgMngCrComponent implements OnInit{
                 this.btnName = '创建';
                 this.isCreate = true;
 
-                this.service.getNoMngUser(0,this.size).then(
-                    res => {
-                        console.log('getNoMngUser',res)
-                        this.account = res.resultContent;
-                        if(res.pageInfo.totalRecords <= this.size){
-                            this.more = false;
-                        }else{
-                            this.more = true;
-                        }
-                    }
-                ).catch(
-                    err => {
-                        console.error(err);
-                    }
-                )
+                // this.service.getNoMngUser(0,this.size).then(
+                //     res => {
+                //         console.log('getNoMngUser',res)
+                //         this.account = res.resultContent;
+                //         if(res.pageInfo.totalRecords <= this.size){
+                //             this.more = false;
+                //         }else{
+                //             this.more = true;
+                //         }
+                //     }
+                // ).catch(
+                //     err => {
+                //         console.error(err);
+                //     }
+                // )
 
                 this.service.getNoMngPlatForm().then(
                     res => {
@@ -165,10 +170,10 @@ export class OrgMngCrComponent implements OnInit{
                             this.more = true;
                         }
 
-                        for(let account of this.accountByOrg){
-                                    account.selected = true;
-                                    this.account.unshift(account);
-                                }
+                        // for(let account of this.accountByOrg){
+                        //             account.selected = true;
+                        //             this.account.unshift(account);
+                        //         }
                         }
                 ).catch(
                     err => {
@@ -181,23 +186,24 @@ export class OrgMngCrComponent implements OnInit{
     }
 
     chooseAccount (item){
-        for(let account of this.org.members){
-            if(item.id == account.id){
-                if(!this.isCreate){
-                    this.remove(this.accountByOrg, item);
-                    this.remove(this.org.members , item);
-                }else{
-                    this.remove(this.org.members , item);
-                }
-            }else{
-                if(!this.isCreate){
-                    this.org.members.push(item);
-                    this.accountByOrg.push(item);
-                }else{
-                    this.org.members.push(item);
-                }
-            }
-        }
+        console.log(item);
+        // for(let account of this.org.members){
+        //     if(item.id == account.id){
+        //         if(!this.isCreate){
+        //             this.remove(this.accountByOrg, item);
+        //             this.remove(this.org.members , item);
+        //         }else{
+        //             this.remove(this.org.members , item);
+        //         }
+        //     }else{
+        //         if(!this.isCreate){
+        //             this.org.members.push(item);
+        //             this.accountByOrg.push(item);
+        //         }else{
+        //             this.org.members.push(item);
+        //         }
+        //     }
+        // }
         // if(this.org.members.includes(item)){
             
             
@@ -209,15 +215,28 @@ export class OrgMngCrComponent implements OnInit{
         //         this.org.members.push(item);
         //     }
         // }
-        
+        item.selected=!item.selected;
+        this.org.members=this.account.filter((ele)=>{
+            if(ele.selected==true){
+                return ele;
+            }
+        })
+        console.log(this.org.members);
     }
 
     choosePlatForm(item){
-        if(this.org.platforms.includes(item)){
-            this.remove(this.org.platforms , item);
-        }else{
-            this.org.platforms.push(item);
-        }
+        // if(this.org.platforms.includes(item)){
+        //     this.remove(this.org.platforms , item);
+        // }else{
+        //     this.org.platforms.push(item);
+        // }
+        item.selected=!item.selected;
+        this.org.platforms=this.platForm.filter((ele)=>{
+            if(ele.selected==true){
+                return ele;
+            }
+        })
+        console.log(this.org.platforms);
     }
 
     remove(arr ,obj){
@@ -236,15 +255,18 @@ export class OrgMngCrComponent implements OnInit{
     }
 
     create(){
+         this.layoutService.show();
         if(this.isCreate){
             this.service.createOrg(this.org).then(
                 res => {
                     console.log(res);
+                    this.layoutService.hide();
                      this.router.navigateByUrl('user-center/org-mng/org-mng-list');
                 }
             ).catch(
                 err => {
                     console.error(err);
+                    this.layoutService.hide();
                 }
             )    
         }else{
@@ -252,11 +274,13 @@ export class OrgMngCrComponent implements OnInit{
             this.service.editOrg(this.orgId,this.org).then(
                 res => {
                     console.log(res);
+                    this.layoutService.hide();
                      this.router.navigateByUrl('user-center/org-mng/org-mng-list');
                 }
             ).catch(
                 err => {
                     console.error(err);
+                    this.layoutService.hide();
                 }
             )
         }

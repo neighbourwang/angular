@@ -102,6 +102,9 @@ export class OpenstackImageSyncPublicComponent implements OnInit{
         this.images_needsync = new Array<Image>();
         this.images.forEach( (i)=>{
             if(i.selected){
+                if(!i.displayName || i.displayName == ""){
+                    i.displayName = i.name;
+                }
                 this.images_needsync.push(i);
             }
         });

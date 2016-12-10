@@ -173,7 +173,7 @@ export class cloudHostComponentOrder implements OnInit {
 			  timeline = +(this.sendModule.timeline.attrValue || "0");
 		if(!this.sendModule.timelineunit.attrValueCode || !sku) return;
 
-		const price = this.proMap[`[${sku}]`];
+		const price = this.proMap[`[${sku}, ${this.sendModule.timelineunit.attrValueCode}]`];
 
 		this.vmBasePrice = price.billingInfo.basePrice * timeline * this.payLoad.quality;  //一次性费用
 		this.vmTotalPrice = (price.billingInfo.basicPrice+price.billingInfo.cyclePrice) * timeline * this.payLoad.quality;   //周期费用
@@ -191,7 +191,7 @@ export class cloudHostComponentOrder implements OnInit {
 			this.diskSku.push(sku); //获取sku
 
 			let price = this.proMap[`[${sku.skuId}]`];  //计算价格
-			console.log(price, "硬盘的价格")
+			console.log(price,sku.skuId, "硬盘的价格")
 			basePrice += price.billingInfo.basePrice * timeline * this.payLoad.quality;  //一次性费用
 			totalPrice += price.billingInfo.unitPrice * data.storagesize.attrValue * timeline * this.payLoad.quality;   //周期费用
 
@@ -286,7 +286,7 @@ export class cloudHostComponentOrder implements OnInit {
 	checkInput():boolean {
 		const al = value => !!alert(value);
 
-		if(!this.vmSku.skuId || !this.diskSku.length ) return al("sku不正确")
+		if(!this.vmSku.skuId) return al("sku不正确")
 		if(!this.sendModule.timeline.attrValue) return al("请选择购买时长");
 		return true;
 	}
