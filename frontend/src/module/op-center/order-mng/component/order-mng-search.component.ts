@@ -2,7 +2,11 @@
 import { Input,Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent, DicLoader,ItemLoader,RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import { SearchOrderDetail, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam,SubInstanceResp,SubInstanceItemResp,SearchOrderItem} from '../model'
+import { SearchOrderDetail, AdminListItem, DepartmentItem
+	, Platform, ProductType, SubRegion
+	, OrderMngParam,SubInstanceResp
+	,SubInstanceItemResp,SearchOrderItem
+	, SubInstanceItemResp1} from '../model'
 
 import * as _ from 'underscore';
 @Component({
@@ -24,7 +28,7 @@ export class OrderMngSearchComponent implements OnInit{
 
 	private _orderStatusDic:DicLoader = null;
 
-	private _productTypeLoader: DicLoader = null;
+	private _productTypeDic: DicLoader = null;
 	
 	private _orderLoader:ItemLoader<SearchOrderItem> = null;
 	private _entId:string = "191af465-b5dc-4992-a5c9-459e339dc719";
@@ -43,7 +47,13 @@ export class OrderMngSearchComponent implements OnInit{
 		this._orderDetailLoader.MapFunc = (source:Array<any>, target:Array<SearchOrderDetail>)=>{
 			for(let item of source)
 			{
-				target.push(_.extendOwn(new SearchOrderDetail(), item));
+				let obj = _.extendOwn(new SearchOrderDetail(), item) as SearchOrderDetail;
+				target.push(obj);
+
+				for(let i = 0; i < obj.subInstanceList.length; i++)
+				{
+					obj.subInstanceList[i] = _.extendOwn(new SubInstanceItemResp1(), item.subInstanceList[i]);
+				}
 			}
 		}
 		this._orderDetailLoader.Trait = (items:Array<SearchOrderDetail>)=>{
@@ -51,6 +61,10 @@ export class OrderMngSearchComponent implements OnInit{
 
 			this._orderStatusDic.UpdateWithDic([firstItem], "statusName", "status");
 			this._orderStatusDic.UpdateWithDic(firstItem.orderInstanceItems, "statusName", "status");
+
+			this._productTypeDic.UpdateWithDic([firstItem], 'productTypeName', 'productType');
+			this._productTypeDic.UpdateWithDic(firstItem.subInstanceList, 'serviceTypeName', 'serviceType');
+
 		}
 		this._orderDetailLoader.FirstItem = new SearchOrderDetail();
 		this._orderDetailLoader.FirstItem.subInstanceList = [];
@@ -63,7 +77,7 @@ export class OrderMngSearchComponent implements OnInit{
 		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, '部门列表', "op-center.order-mng.buyer-list.get", this.restApiCfg, this.restApi);
 
 		//产品类型配置
-		this._productTypeLoader = new DicLoader(restApiCfg, restApi, "GLOBAL", "SERVICE_TYPE");
+		this._productTypeDic = new DicLoader(restApiCfg, restApi, "GLOBAL", "SERVICE_TYPE");
 
 
 		//配置订单状态
@@ -119,7 +133,7 @@ export class OrderMngSearchComponent implements OnInit{
 
 		this._orderLoader.Trait = (items:Array<SearchOrderItem>)=>{
 			this._orderStatusDic.UpdateWithDic(items, "statusName", "status");
-			this._productTypeLoader.UpdateWithDic(items, "serviceTypeName", "serviceType");
+			this._productTypeDic.UpdateWithDic(items, "serviceTypeName", "serviceType");
 		};
       
 	}
@@ -127,7 +141,7 @@ export class OrderMngSearchComponent implements OnInit{
 		this.layoutService.show();
 		this._orderStatusDic.Go()
 		.then(success=>{
-			return this._productTypeLoader.Go();
+			return this._productTypeDic.Go();
 		})
 		.then(success=>{
 			return this.loadDepartment();
