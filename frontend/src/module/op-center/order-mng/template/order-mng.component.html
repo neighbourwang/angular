@@ -20,9 +20,9 @@
 			</div>
 			<table class="table mgb20">
 				<tbody>
-					<tr>				
+					<tr class="none-border">				
 						<td>
-							<span class="float-left mgt-5">部门:</span>
+							<span class="float-left">部门:</span>
 							<div class="dropdown float-left">
 								<select class="form-control fix-width-120" [(ngModel)]="_param.organization">
 									<option class="hands" [value]="null">所有部门</option>
@@ -31,7 +31,7 @@
 							</div>
 						</td>
 						<td>
-							<span class="float-left mgt-5 mgl15">订购人:</span>
+							<span class="float-left mgl15">订购人:</span>
 							<div class="dropdown float-left">
 								<select class="form-control fix-width-120">
 									<option class="hands" [value]="null">所有用户</option>
@@ -41,7 +41,7 @@
 						</td>
 						<td colspan="3">
 							<div class="mgt-10">
-								<span class="mgt10 float-left mgt-5">到期时间：</span>
+								<span class="mgt10 float-left">到期时间：</span>
 								<div class="dropdown float-left">			
 									<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
 								</div>
@@ -53,9 +53,9 @@
 						</td>
 						
 					</tr>
-					<tr>
+					<tr class="none-border">
 						<td>
-							<span class="float-left mgt-5" >
+							<span class="float-left " >
 							状态:</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.status">
@@ -65,7 +65,7 @@
 							</div>
 						</td>
 						<td>
-							<span class="float-left mgt-5" >
+							<span class="float-left" >
 							产品类型:</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.serviceType">
@@ -75,7 +75,7 @@
 							</div>
 						</td>
 						<td style="width:257px;">
-							<span class="float-left mgt-5" >
+							<span class="float-left " >
 							区域:</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.platformId" (ngModelChange)="onPlatformChanged()">
@@ -85,7 +85,7 @@
 							</div>
 						</td>
 						<td>
-							<span class="float-left mgt-5" >
+							<span class="float-left" >
 							可用区:</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.zoneId">

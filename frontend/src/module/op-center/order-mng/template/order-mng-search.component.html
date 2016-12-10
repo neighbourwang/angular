@@ -13,9 +13,9 @@
 			</div>
 			<table class="table  mgb20 mgt20">
 				<tbody>
-					<tr >				
+					<tr class="none-border">				
 						<td class="none-border">
-							<span class="float-left" style="margin-left:30px">部门:</span>
+							<span class="float-left mgt7" style="margin-left:30px">部门:</span>
 							<div class="dropdown float-left">
 								<select class="form-control  fix-width-120" [(ngModel)]="_param.organization">
 									<option class="hands" [value]="null">所有部门</option>
@@ -24,7 +24,7 @@
 							</div>
 						</td>
 						<td class="none-border">
-							<span class="float-left mgl15">提交者:</span>
+							<span class="float-left mgl15 mgt7">提交者:</span>
 							<div class="dropdown float-left">
 								<select class="form-control  fix-width-120" [(ngModel)]="_param.buyerId">
 									<option class="hands" [value]="null">所有用户</option>
@@ -34,7 +34,7 @@
 						</td>
 						<td class="none-border">
 							<div class="mgt-10">
-								<span class="mgt15 float-left">提交时间：</span>
+								<span class="mgt15 float-left mgt7">提交时间：</span>
 								<div class="dropdown float-left">			
 									<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
 								</div>
@@ -46,9 +46,9 @@
 						</td>
 						
 					</tr>
-					<tr>
+					<tr class="none-border">
 						<td class="none-border ">
-							<span class="float-left" >
+							<span class="float-left mgt7" >
 							订单状态:</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.status">
@@ -58,7 +58,7 @@
 							</div>
 						</td>
 						<td class="none-border ">
-							<span class="float-left" >
+							<span class="float-left mgt7" >
 							产品类型:</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.serviceType">
