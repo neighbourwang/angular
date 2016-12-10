@@ -47,12 +47,12 @@
 										</thead>
 										<tbody>
 											<tr *ngFor="let item of _detail.subInstanceList">
-												<td class="text-center" style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; width: 450px;" [ngSwitch]="item.serviceType">
-													<ul *ngSwitchDefault>
+												<td class="text-center" style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; width: 450px;">
+													<ul *ngIf="item.serviceType>1">
 														<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}：&nbsp;&nbsp;{{spec.attrDisplayValue}}</li>
 													</ul>
-													<vm-view [values]="item.specList" *ngSwitchCase="0"></vm-view>
-													<disk-view [values]="item.specList" *ngSwitchCase="1"></disk-view>
+													<vm-view [values]="item.specList" *ngIf="item.serviceType==0"></vm-view>
+													<disk-view [values]="item.specList" *ngIf="item.serviceType==1"></disk-view>
 												</td>
 												<td class="text-center">{{item.serviceTypeName}}<br>实例名称：{{item.instanceName}}</td>
 												<td class="text-center">{{item.quantity}}</td>

@@ -129,12 +129,12 @@
 					</td>	
 				</tr>
 				<tr *ngFor="let prodItem of orderItem.itemList">
-					<td class="order-title" [ngSwitch]="prodItem.servcieType">
-						<ul *ngSwitchDefault>
+					<td class="order-title">
+						<ul *ngIf="prodItem.serviceType>1">
 							<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 						</ul>
-						<vm-view [values]="prodItem.specList" *ngSwitchCase="0"></vm-view><!-- 显示云主机 -->
-						<disk-view [values]="prodItem.specList" *ngSwitchCase="1"></disk-view><!-- 显示云硬盘 -->
+						<vm-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==0"></vm-view><!-- 显示云主机 -->
+						<disk-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==1"></disk-view><!-- 显示云硬盘 -->
 					</td>
 					<td>{{prodItem.serviceTypeName}}</td>
 					<td>{{prodItem.billingModeName}}</td>

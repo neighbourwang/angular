@@ -143,12 +143,12 @@ export class OrderMngSearchComponent implements OnInit{
 		.then(success=>{
 			return this._productTypeDic.Go();
 		})
-		.then(success=>{
-			return this.loadDepartment();
-		})
-		.then(success=>{
-			return this.loadBuyer();
-		})
+		// .then(success=>{
+		// 	return this.loadDepartment();
+		// })
+		// .then(success=>{
+		// 	return this.loadBuyer();
+		// })
 		.then(success=>{
 			this.layoutService.hide();
 		})
