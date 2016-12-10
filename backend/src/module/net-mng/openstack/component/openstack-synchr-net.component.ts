@@ -87,7 +87,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                     eids = t.id +"," ;
                 });
                 
-                return eids.Substring(0,eids.Length-1);
+                return eids.substring(0,eids.length-1);
             }
         
     }
@@ -150,7 +150,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 if (response && 100 == response["resultCode"]) {
                     this.showAlert("添加成功");
                     this.getSynList(this.platform_id);
-                    this.filter();
+                    //this.filter();
                 }else{
                      alert("Res sync error");
                 }
@@ -178,7 +178,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                     //     n.syncResult = "2";
                     // })
                     this.getSynList(this.platform_id);
-                    this.filter();
+                    //this.filter();
                 }else{
                      alert("Res sync error");
                 }
@@ -197,7 +197,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 if (response && 100 == response["resultCode"]) {
                     this.showAlert("更新成功");
                     this.getSynList(this.platform_id);
-                    this.filter();
+                    //this.filter();
                 }else{
                     alert("Res sync error");
                 }
@@ -219,7 +219,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 if (response && 100 == response["resultCode"]) {
                     this.showAlert("全部更新成功");
                     this.getSynList(this.platform_id);
-                    this.filter();
+                    //this.filter();
                 }else{
                      alert("Res sync error");
                 }
@@ -238,7 +238,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 if (response && 100 == response["resultCode"]) {
                     this.showAlert("禁用成功");
                     this.getSynList(this.platform_id);
-                    this.filter();
+                    //this.filter();
                 }else{
                     alert("Res sync error");
                 }
@@ -260,7 +260,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 if (response && 100 == response["resultCode"]) {
                     this.showAlert("全部禁用成功");
                     this.getSynList(this.platform_id);
-                    this.filter();
+                    //this.filter();
                 }else{
                      alert("Res sync error");
                 }
