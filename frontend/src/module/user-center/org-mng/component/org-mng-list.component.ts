@@ -127,9 +127,12 @@ export class OrgMngListComponent implements OnInit {
         break;
       case 'edit':
         this.isEdit = true;
-        // $('#crModel').modal('show')
+        this.temporary=false;
+        window.setTimeout(()=>{
+          this.creOrgPop.open('编辑部门');
+          this.temporary=true;          
+        },0);
         this.editId=org.id;
-        this.creOrgPop.open('编辑部门');
         break;
       case 'delete':
        if (org.status == 1) {
@@ -144,7 +147,7 @@ export class OrgMngListComponent implements OnInit {
         break;
       case 'disabled':
       if (org.status == 5) {
-                this.notice.open('操作错误', '改组织状态已禁用');
+                this.notice.open('操作错误', '该组织状态已禁用');
                 return;
             }
         console.log('禁用');
@@ -199,10 +202,11 @@ export class OrgMngListComponent implements OnInit {
    temporary:boolean=false//刷新弹出框组件
   openCreate() {
     console.log('create');
-     this.creOrgPop.open('创建部门');
+    
     this.isEdit = false;
     this.temporary=false;
         window.setTimeout(()=>{
+          this.creOrgPop.open('创建部门');
           this.temporary=true;          
         },0);
     // $('#crModel').modal('show');
