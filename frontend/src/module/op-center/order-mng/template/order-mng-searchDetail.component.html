@@ -5,35 +5,35 @@
 									<table class="table table-all-boder first-table mgb20">
 										<tbody>
 											<tr>
-												<td class="text-center">订单号</td><td class="leftAlign">22370537538484773</td>
+												<td class="text-center">订单号</td><td class="leftAlign">{{_detail.orderCode}}</td>
 
-												<td class="text-center">订单类型</td><td class="leftAlign">新订单</td>
+												<td class="text-center">订单类型</td><td class="leftAlign">{{_detail.typeName}}</td>
 													
 											</tr>
 											<tr>
-												<td class="text-center">订单状态</td><td class="leftAlign">审批中</td>
+												<td class="text-center">订单状态</td><td class="leftAlign">{{_detail.statusName}}</td>
 												
 												<td class="text-center">提交人</td><td class="leftAlign">张三</td>	
 											</tr>
 											<tr>
-											<td class="text-center">产品类型</td><td class="leftAlign">数据库(包年包月)</td>
-											<td class="text-center">部门</td><td class="leftAlign">商务部</td>
+											<td class="text-center">产品类型</td><td class="leftAlign">{{_detail.productTypeName}}</td>
+											<td class="text-center">部门</td><td class="leftAlign">{{_detail.department}}</td>
 											</tr>
 											
 											<tr>
-											   <td class="text-center">提交时间</td><td class="leftAlign">2016-10-01 11:00</td>
-												<td class="text-center">企业</td><td class="leftAlign">BOE-CIO总部</td>
+											   <td class="text-center">提交时间</td><td class="leftAlign">{{_detail.createDate}}</td>
+												<td class="text-center">企业</td><td class="leftAlign">{{_detail.enterpirse}}</td>
 													
 											</tr>
 											<tr>
-											   <td class="text-center">完成时间</td><td class="leftAlign">2016-10-01 11:00</td>
+											   <td class="text-center">完成时间</td><td class="leftAlign">{{_detail.completeDate}}</td>
 												<td class="text-center"></td><td class="leftAlign"></td>
 													
 											</tr>
 										</tbody>
 									</table>
 							</div>
-							<div class="noborder  form-control-title float-left  mgb10">已购服务编号：5370537538484773</div>
+							<div class="noborder  form-control-title float-left  mgb10">已购服务编号：{{_detail.orderCode}}</div>
 							<div class="table-container mgb20">
 									<table class=" table table-all-boder mgb20">
 										<thead>
@@ -46,23 +46,16 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
+											<tr *ngFor="let item of _detail.subInstanceList">
 												<td class="text-center" style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; width: 450px;">
 													<ul>
-														<li>区域：&nbsp;&nbsp;华北1</li>
-														<li>可用区：&nbsp;&nbsp;可用区B</li>
-														<li>实例规格：&nbsp;&nbsp;CPU 2核/内存4GB/启动盘/70G</li>
-														<li>IP地址：&nbsp;&nbsp;10.1.1.1（内部）<br>
-															192.168.1.1（外部）</li>
-														<li>操作系统：&nbsp;&nbsp;******</li>
-														<li>密码：&nbsp;&nbsp;已设置</li>
-														<li>实例名称：&nbsp;&nbsp;abcabc</li>
+														<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}：&nbsp;&nbsp;{{spec.attrDisplayValue}}</li>
 													</ul>
 												</td>
-												<td class="text-center">云主机<br>实例名称：myCentOS-VM-001</td>
-												<td class="text-center">1台</td>
-												<td class="text-center">1个月</td>
-												<td style="width: 200px;" class="text-center">一次性费用：￥0<br>费用：￥50/月</td>
+												<td class="text-center">{{item.serviceTypeName}}<br>实例名称：{{item.instanceName}}</td>
+												<td class="text-center">{{item.quantity}}</td>
+												<td class="text-center">{{item.period}}</td>
+												<td style="width: 200px;" class="text-center">一次性费用：￥{{item.oneTimePrice}}<br>费用：￥{{item.price}}</td>
 											</tr>
 										</tbody>
 									</table>
@@ -70,15 +63,15 @@
 
 							<div class="noborder form-control-title float-left  mgb10">费用合计</div>
 							<div class="table-container table-border mgb20 ">
-									<table class="table"  style="border:1px solid #ddd;">
+									<table class="table"  style="border:1px solid #ddd;" *ngFor="let item of _detail.subInstanceList">
 										<tbody>
 											<tr class="noborder">
 												<td width="200px;" class="rightAlign noborder">一次性费用：</td>
-												<td class="font-red leftAlign noborder" >￥10</td>
+												<td class="font-red leftAlign noborder" >￥{{item.oneTimePrice}}</td>
 											</tr>
 											<tr class="noborder">
 												<td class="rightAlign noborder">费用：</td>
-												<td class="font-red leftAlign noborder">￥10/月</td>
+												<td class="font-red leftAlign noborder">￥{{item.price}}</td>
 											</tr>
 										</tbody>
 									</table>
@@ -99,19 +92,12 @@
 										</thead>
 
 										<tbody>
-											<tr>
-												<td class="text-center">系统</td>
-												<td class="text-center"></td>
-												<td class="text-center">订单完成</td>
-												<td class="text-center">成功</td>
-												<td class="text-center"></td>
-											</tr>
-											<tr>
-												<td class="text-center">李四</td>
-												<td class="text-center">IT管理部</td>
-												<td class="text-center">审批同意</td>
-												<td class="text-center">处理中</td>
-												<td class="text-center"></td>
+											<tr *ngFor="let item of _detail.orderInstanceItems">
+												<td class="text-center">{{item.operator}}</td>
+												<td class="text-center">{{item.departmentName}}</td>
+												<td class="text-center">{{item.operation}}</td>
+												<td class="text-center">{{item.statusName}}</td>
+												<td class="text-center">{{item.desc}}</td>
 											</tr>
 										</tbody>
 									</table>
