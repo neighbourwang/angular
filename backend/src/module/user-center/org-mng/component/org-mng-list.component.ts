@@ -65,12 +65,18 @@ export class OrgMngListComponent implements OnInit {
             }
             )
     }
-
+    curPage:number=0;
     paging(page) {
-        this.getOrg(page, 10);
+        this.curPage=page;
+        this.getOrg(this.curPage, 10);
     }
 
     chooseItem(index: number) {
+        console.log(index);
+        this.orgs.forEach((ele)=>{
+            ele.selected=false;
+        })
+        this.orgs[index].selected=true;
         this.org = this.orgs[index];
     }
 
@@ -151,7 +157,7 @@ export class OrgMngListComponent implements OnInit {
         this.service.deleteOrg(this.org.id).then(
             res => {
                 console.log(res);
-                this.getOrg(0, this.pp);
+                this.getOrg(this.curPage, 10);
             }
         ).catch(
             err => {
@@ -165,7 +171,7 @@ export class OrgMngListComponent implements OnInit {
         this.service.enableOrg(this.org.id).then(
             res => {
                 console.log(res);
-                this.getOrg(0, this.pp);
+                this.getOrg(this.curPage, 10);
             }
         ).catch(
             err => {
@@ -178,7 +184,7 @@ export class OrgMngListComponent implements OnInit {
         this.service.disableOrg(this.org.id).then(
             res => {
                 console.log(res);
-                this.getOrg(0, this.pp);
+                this.getOrg(this.curPage, 10);
             }
         ).catch(
             err => {
