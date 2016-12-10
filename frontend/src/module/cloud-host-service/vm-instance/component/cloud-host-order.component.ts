@@ -286,7 +286,7 @@ export class cloudHostComponentOrder implements OnInit {
 	checkInput():boolean {
 		const al = value => !!alert(value);
 
-		if(!this.vmSku.skuId || !this.diskSku.length ) return al("sku不正确")
+		if(!this.vmSku.skuId) return al("sku不正确")
 		if(!this.sendModule.timeline.attrValue) return al("请选择购买时长");
 		return true;
 	}
