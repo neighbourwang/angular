@@ -12,7 +12,7 @@
 		<div class="table-container">
 			<div class="">
 				<div class="input-group col-md-2 float-left mgr20">
-   					 <input class="form-control" placeholder="输入关键字搜索" type="email" [(ngModel)]="_param.queryParam">
+   					 <input class="form-control" placeholder="输入关键字搜索" type="email" [(ngModel)]="_param.searchText">
     				 <div class="input-group-addon pointer"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div>
 						
@@ -34,7 +34,7 @@
 							<span class="float-left mgt-5 mgl15">订购人:</span>
 							<div class="dropdown float-left">
 								<select class="form-control fix-width-120">
-									<option class="hands" [value]="null">所有用户</option>
+									<option class="hands" [value]=null>所有用户</option>
 									<!--<option class="hands" *ngFor = "let item of _buyerLoader.Items" [value] = "item.id">{{item.name}}</option>-->
 								</select>
 							</div>
@@ -59,7 +59,7 @@
 							状态:</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.status">
-									<option class="hands" [value]="null">所有</option>
+									<option class="hands" [value]=null>所有状态</option>
 									<option class="hands" *ngFor="let item of _orderStatusDic.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
@@ -69,7 +69,7 @@
 							产品类型:</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.serviceType">
-									<option class="hands" [value]="null">所有</option>
+									<option class="hands" [value]=null>所有类型</option>
 									<option class="hands" *ngFor="let item of _productTypeLoader.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
@@ -79,7 +79,7 @@
 							区域:</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.platformId" (ngModelChange)="onPlatformChanged()">
-									<option class="hands" [value]="null">所有</option>
+									<option class="hands" [value]="null">所有区域</option>
 									<option class="hands" *ngFor="let item of _platformLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
@@ -89,7 +89,7 @@
 							可用区:</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.zoneId">
-									<option class="hands" [value]="null">所有</option>
+									<option class="hands" [value]=null>所有区</option>
 									<option class="hands" *ngFor="let item of _regionLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>

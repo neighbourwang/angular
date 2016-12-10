@@ -12,6 +12,7 @@ export class OrderMngParam{
   status: string = null; // 状态"string",
   zoneId: string = null; // 可用区"string"
   scope:SearchScope = SearchScope.all; //搜索范围
+  searchText:string = null;//快速搜索
 
   reset(){
     this.createDate = null;
@@ -22,6 +23,7 @@ export class OrderMngParam{
     this.serviceType = null;
     this.status = null;
     this.zoneId = null;
+    this.searchText = null;//快速搜索
   }
 }
 
