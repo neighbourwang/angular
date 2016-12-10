@@ -53,6 +53,8 @@ export class OpenstackNetMngComponent implements OnInit {
     sharedDic: Array<SystemDictionary>;//是否共享
     stateDic: Array<SystemDictionary>;//运行状态
     statusDic: Array<SystemDictionary>;//状态
+    regionDic: Array<SystemDictionary>;//地域
+    dcDic: Array<SystemDictionary>;//数据中心
 
     queryOpt: CriteriaQuery = new CriteriaQuery();
     networks: Array<Network>;
@@ -94,7 +96,14 @@ export class OpenstackNetMngComponent implements OnInit {
             })
             .then((dic) => {
                 this.statusDic = dic;
-                //this.getNetworkList();
+                return this.dicService.getItems("NETWORK", "");
+            })
+            .then((dic) => {
+                this.regionDic = dic;
+                return this.dicService.getItems("NETWORK", "");
+            })
+            .then((dic) => {
+                this.dcDic = dic;
                 this.getOptionInfo();
             });
     }

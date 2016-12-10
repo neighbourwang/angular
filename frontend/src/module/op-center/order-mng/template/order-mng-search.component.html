@@ -15,7 +15,7 @@
 				<tbody>
 					<tr class="none-border">				
 						<td class="none-border">
-							<span class="float-left" style="margin-left:30px">部门:</span>
+							<span class="float-left mgt7" style="margin-left:30px">部门:</span>
 							<div class="dropdown float-left">
 								<select class="form-control  fix-width-120" [(ngModel)]="_param.organization">
 									<option class="hands" [value]="null">所有部门</option>
@@ -24,7 +24,7 @@
 							</div>
 						</td>
 						<td class="none-border">
-							<span class="float-left mgl15">提交者:</span>
+							<span class="float-left mgl15 mgt7">提交者:</span>
 							<div class="dropdown float-left">
 								<select class="form-control  fix-width-120" [(ngModel)]="_param.buyerId">
 									<option class="hands" [value]="null">所有用户</option>
@@ -34,7 +34,7 @@
 						</td>
 						<td class="none-border">
 							<div class="mgt-10">
-								<span class="mgt15 float-left">提交时间：</span>
+								<span class="mgt15 float-left mgt7">提交时间：</span>
 								<div class="dropdown float-left">			
 									<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
 								</div>
@@ -46,33 +46,32 @@
 						</td>
 						
 					</tr>
-					<tr>
+					<tr class="none-border">
 						<td class="none-border ">
-							<span class="float-left" >
+							<span class="float-left mgt7" >
 							订单状态:</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.status">
 									<option class="hands" [value]="null">成功</option>
-									<option class="hands" *ngFor="let item of _orderStatus.Items" [value]="item.value">{{item.displayValue}}</option>
+									<option class="hands" *ngFor="let item of _orderStatusDic.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
 						</td>
 						<td class="none-border ">
-							<span class="float-left" >
+							<span class="float-left mgt7" >
 							产品类型:</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.serviceType">
 									<option class="hands" [value]="null">所有</option>
-									<option class="hands" *ngFor="let item of _productTypeLoader.Items" [value]="item.value">{{item.displayValue}}</option>
+									<option class="hands" *ngFor="let item of _productTypeDic.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
 						</td>
 					</tr>
-					
 				</tbody>
 			</table>	
 		</div>
-		<div class="mgb20  form-control-title float-left">当前查询到<span class="font-green">{{_orderLoader.Items.length}}</span>个订单，订单列表如下：</div>
+		<div class="mgb20  form-control-title float-left">当前查询到<span class="font-green">{{_orderLoader.TotalRecords}}</span>个订单，订单列表如下：</div>
 			<div class="table-container">
 			<table class="table table-all-boder">
 				<thead>	
@@ -105,7 +104,7 @@
 						<td>{{item.submitPeople}}</td>
 						<td>{{item.departmentName}}</td>
 						<td class="left-td">
-							<button class="mgr20  button-gray-gradient" (click)="showDetail(item.orderId)">详&nbsp;&nbsp;&nbsp;情</button>
+							<button class="mgr20  button-gray-gradient" (click)="showDetail(item.orderNo)">详&nbsp;&nbsp;&nbsp;情</button>
 							<button class="button-gray-gradient" data-toggle="modal" data-target="#cancelOrder">撤&nbsp;&nbsp;&nbsp;单</button>
 							
 						</td>
@@ -127,7 +126,7 @@
 				  	</div>
 				 	<div class="modal-body"> 
 			          <!--<account-mng-cr-local></account-mng-cr-local>-->
-			          <order-mng-searchDetail [detail]="_orderDetail"></order-mng-searchDetail>
+			          <order-mng-searchDetail [detail]="_orderDetailLoader.FirstItem"></order-mng-searchDetail>
 			         
 					</div>
 			      

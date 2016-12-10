@@ -39,7 +39,7 @@
                     <td >{{image.name}}</td>
                     <td >
                         <div *ngIf="image.syncResult==0" >
-                            <input type="text" style="padding:1px;text-align:center" placeholder="image.displayName" [(ngModel)]="image.displayName" />
+                            <input class="form-control" type="text" style="padding:1px;text-align:center" placeholder="image.displayName" [(ngModel)]="image.displayName" />
                         </div>
                         <div *ngIf="image.syncResult!=0">
                             {{image.displayName}}
@@ -47,8 +47,9 @@
                     </td>
                     <td >
                         <div *ngIf="image.syncResult==0" style="padding-top:2px">
-                             <select [(ngModel)]="image.os">
-                                <option *ngFor = "let os of osDic" [ngValue]="os.value" [ngClass]="setDefaultOs(os,image.os)">{{getDicText(os.value,osDic)}}</option>
+                             <select class="form-control"[(ngModel)]="image.os">
+                                 <option selected="selected"></option>
+                                <option *ngFor = "let os of osDic" [ngValue]="os.value" >{{getDicText(os.value,osDic)}}</option>
                             </select>
                             <!--<input type="text" style="padding:1px;text-align:center" placeholder="image.os" [(ngModel)]="image.os" />-->
                         </div>
@@ -58,8 +59,9 @@
                     </td>
                     <td>
                         <div *ngIf="image.syncResult==0" style="padding-top:2px">
-                            <select [(ngModel)]="image.bitsType">
-                                <option *ngFor = "let type of bits_typeDic" [ngValue]="type.value" [ngClass]="setDefaultBits(type,image.bitsType)">{{getDicText(type.value,bits_typeDic)}}</option>
+                            <select class="form-control"[(ngModel)]="image.bitsType">
+                                <option selected="selected"></option>
+                                <option *ngFor = "let type of bits_typeDic" [ngValue]="type.value" >{{getDicText(type.value,bits_typeDic)}}</option>
                             </select>
                         </div>
                         <div *ngIf="image.syncResult!=0">

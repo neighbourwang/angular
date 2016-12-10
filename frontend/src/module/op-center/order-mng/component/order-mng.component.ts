@@ -291,6 +291,9 @@ export class OrderMngComponent implements OnInit{
 		.then(success=>{
 			this.layoutService.hide();
 		})
+		.then(success=>{
+			this.search();
+		})
 		.catch(err=>{
 			this.layoutService.hide();
 			this.showMsg(err);

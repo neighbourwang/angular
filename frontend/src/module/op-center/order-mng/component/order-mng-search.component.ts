@@ -2,7 +2,11 @@
 import { Input,Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent, DicLoader,ItemLoader,RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import { SearchOrderDetail, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam,SubInstanceResp,SubInstanceItemResp,SearchOrderItem} from '../model'
+import { SearchOrderDetail, AdminListItem, DepartmentItem
+	, Platform, ProductType, SubRegion
+	, OrderMngParam,SubInstanceResp
+	,SubInstanceItemResp,SearchOrderItem
+	, SubInstanceItemResp1} from '../model'
 
 import * as _ from 'underscore';
 @Component({
@@ -22,9 +26,9 @@ export class OrderMngSearchComponent implements OnInit{
 
 	private _buyerLoader:ItemLoader<{id:string; name:string}> = null //订购人
 
-	private _orderStatus:DicLoader = null;
+	private _orderStatusDic:DicLoader = null;
 
-	private _productTypeLoader: DicLoader = null;
+	private _productTypeDic: DicLoader = null;
 	
 	private _orderLoader:ItemLoader<SearchOrderItem> = null;
 	private _entId:string = "191af465-b5dc-4992-a5c9-459e339dc719";
@@ -40,6 +44,31 @@ export class OrderMngSearchComponent implements OnInit{
 
 		//获取订单详情
 		this._orderDetailLoader = new ItemLoader<SearchOrderDetail>(false, "订单详情", "op-center.order-search.detail.get", restApiCfg, restApi);
+		this._orderDetailLoader.MapFunc = (source:Array<any>, target:Array<SearchOrderDetail>)=>{
+			for(let item of source)
+			{
+				let obj = _.extendOwn(new SearchOrderDetail(), item) as SearchOrderDetail;
+				target.push(obj);
+
+				for(let i = 0; i < obj.subInstanceList.length; i++)
+				{
+					obj.subInstanceList[i] = _.extendOwn(new SubInstanceItemResp1(), item.subInstanceList[i]);
+				}
+			}
+		}
+		this._orderDetailLoader.Trait = (items:Array<SearchOrderDetail>)=>{
+			let firstItem = this._orderDetailLoader.FirstItem;
+
+			this._orderStatusDic.UpdateWithDic([firstItem], "statusName", "status");
+			this._orderStatusDic.UpdateWithDic(firstItem.orderInstanceItems, "statusName", "status");
+
+			this._productTypeDic.UpdateWithDic([firstItem], 'productTypeName', 'productType');
+			this._productTypeDic.UpdateWithDic(firstItem.subInstanceList, 'serviceTypeName', 'serviceType');
+
+		}
+		this._orderDetailLoader.FirstItem = new SearchOrderDetail();
+		this._orderDetailLoader.FirstItem.subInstanceList = [];
+
 
 		//配置部门列表加载
 		this._departmentLoader = new ItemLoader<DepartmentItem>(false, '部门列表', "op-center.order-mng.department-list.get", this.restApiCfg, this.restApi);
@@ -48,11 +77,11 @@ export class OrderMngSearchComponent implements OnInit{
 		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, '部门列表', "op-center.order-mng.buyer-list.get", this.restApiCfg, this.restApi);
 
 		//产品类型配置
-		this._productTypeLoader = new DicLoader(restApiCfg, restApi, "GLOBAL", "SERVICE_TYPE");
+		this._productTypeDic = new DicLoader(restApiCfg, restApi, "GLOBAL", "SERVICE_TYPE");
 
 
 		//配置订单状态
-		this._orderStatus = new DicLoader(this.restApiCfg, this.restApi, "ORDER", "STATUS");
+		this._orderStatusDic = new DicLoader(this.restApiCfg, this.restApi, "ORDER", "STATUS");
 
 		//配置订单加载
 		this._orderLoader = new ItemLoader<SearchOrderItem>(true, "订单列表", "op-center.order-search.list.post", restApiCfg, restApi);
@@ -103,16 +132,16 @@ export class OrderMngSearchComponent implements OnInit{
 		};
 
 		this._orderLoader.Trait = (items:Array<SearchOrderItem>)=>{
-			this._orderStatus.UpdateWithDic(items, "statusName", "status");
-			this._productTypeLoader.UpdateWithDic(items, "serviceTypeName", "serviceType");
+			this._orderStatusDic.UpdateWithDic(items, "statusName", "status");
+			this._productTypeDic.UpdateWithDic(items, "serviceTypeName", "serviceType");
 		};
       
 	}
 	ngOnInit(){
 		this.layoutService.show();
-		this._orderStatus.Go()
+		this._orderStatusDic.Go()
 		.then(success=>{
-			return this._productTypeLoader.Go();
+			return this._productTypeDic.Go();
 		})
 		.then(success=>{
 			return this.loadDepartment();
@@ -122,6 +151,9 @@ export class OrderMngSearchComponent implements OnInit{
 		})
 		.then(success=>{
 			this.layoutService.hide();
+		})
+		.then(success=>{
+			this.search();
 		})
 		.catch(err=>{
 			this.layoutService.hide();
@@ -196,16 +228,16 @@ export class OrderMngSearchComponent implements OnInit{
 
 	showDetail(orderId:string)
 	{
+		this.layoutService.show();
+		this._orderDetailLoader.Go(null, [{key:"orderNo", value:orderId}])
+		.then(success=>{
 			$('#searchDetail').modal('show');
-		// this.layoutService.show();
-		// this._orderDetailLoader.Go(null, [{key:"subinstanceCode", value:orderId}])
-		// .then(success=>{
-		// 	this.layoutService.hide();
-		// })
-		// .catch(err=>{
-		// 	this.layoutService.hide();
-		// 	this.showMsg(err);
-		// })
+			this.layoutService.hide();
+		})
+		.catch(err=>{
+			this.layoutService.hide();
+			this.showMsg(err);
+		})
 	}
 
 	changePage(pageNumber:number)
