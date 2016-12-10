@@ -55,13 +55,13 @@ export class AccountMngComponent implements OnInit {
         this.service.searchAccountByName(this.tp, this.pp, this.keyup)
             .then(
             res => {
-                this.layoutService.hide();
                 console.log(res);
                 this.accounts = res.resultContent;
                 this.tp = res.pageInfo.totalPage;
                 for (let item of this.accounts) {
                     item.selected = false;
                 }
+                this.layoutService.hide();
             }
             )
             .catch(
@@ -143,7 +143,7 @@ export class AccountMngComponent implements OnInit {
         if (this.chooseAccount.id) {
             if (this.chooseAccount.id) {
                 this.confirmType = 1;
-                this.confirm.open("重置密码", "您将想要重置机构xxx的密码,请确认");
+                this.confirm.open("重置密码", "您选择重置账号 "+this.chooseAccount.loginName+"的密码,请确认");
             }
         } else {
             this.notice.open('操作错误', '请选择组织')
@@ -155,7 +155,7 @@ export class AccountMngComponent implements OnInit {
     enable() {
         if (this.chooseAccount.id) {
             this.confirmType = 2;
-            this.confirm.open("启用帐号", "您选择启用 机构xxx，xxx'xxx@hpe.com'帐号，请确认");
+            this.confirm.open("启用帐号", "您选择启用帐号 "+this.chooseAccount.loginName+"，请确认");
         } else {
             this.notice.open('操作错误', '请选择组织')
         }
@@ -166,7 +166,7 @@ export class AccountMngComponent implements OnInit {
     disable() {
         if (this.chooseAccount.id) {
             this.confirmType = 3;
-            this.confirm.open("禁用帐号", "您选择禁用 机构xxx，xxx'xxx@hpe.com'帐号，请确认");
+            this.confirm.open("禁用帐号", "您选择禁用帐号 "+this.chooseAccount.loginName+"，请确认");
         } else {
             this.notice.open('操作错误', '请选择组织')
         }
@@ -177,7 +177,7 @@ export class AccountMngComponent implements OnInit {
     delete() {
         if (this.chooseAccount.id) {
             this.confirmType = 4;
-            this.confirm.open("删除帐号", "您选择删除 机构xxx，xxx'xxx@hpe.com'帐号，请确认");
+            this.confirm.open("删除帐号", "您选择删除帐号 "+this.chooseAccount.loginName+"，请确认");
         } else {
             this.notice.open('操作错误', '请选择组织')
         }
@@ -189,7 +189,7 @@ export class AccountMngComponent implements OnInit {
         switch (this.confirmType) {
             case 1:
                 console.log("重置密码");
-                this.ressetPasswordAccount();
+                this.ressetPasswordAccount()
                 break;
             case 2:
                 console.log("启用帐号");
@@ -212,10 +212,12 @@ export class AccountMngComponent implements OnInit {
     }
 
     disableAccount() {
+         this.layoutService.show();
         this.service.disableAccount(this.chooseAccount.id)
             .then(
             res => {
                 console.log(res);
+                this.getAccount();
             }
             )
             .catch(
@@ -230,6 +232,7 @@ export class AccountMngComponent implements OnInit {
             .then(
             res => {
                 console.log(res);
+                this.getAccount();
             }
             )
             .catch(
@@ -244,6 +247,7 @@ export class AccountMngComponent implements OnInit {
             .then(
             res => {
                 console.log(res);
+                this.getAccount();
             }
             )
             .catch(
@@ -258,6 +262,7 @@ export class AccountMngComponent implements OnInit {
             .then(
             res => {
                 console.log(res);
+                this.getAccount();
             }
             )
             .catch(

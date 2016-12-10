@@ -19,7 +19,8 @@ export class OrgMngCrComponent implements OnInit{
     constructor(
         private router : Router,
         private route : ActivatedRoute,
-        private service : OrgMngService
+        private service : OrgMngService,
+        private layoutService : LayoutService
         ) { }
 
     title: string;
@@ -54,7 +55,7 @@ export class OrgMngCrComponent implements OnInit{
                 this.btnName = '编辑';
                 this.isCreate = false;
                 this.orgId = params['id'];
-
+                this.layoutService.show()
                 this.service.getOrgById(params['id']).then(
                     res => {
                         console.log('getOrgById',res);
@@ -78,16 +79,19 @@ export class OrgMngCrComponent implements OnInit{
                                             account.selected = true;
                                             this.account.unshift(account);
                                         }
+                                        this.layoutService.hide();
                                     }
                                 ).catch(
                                     err => {
                                         console.error(err);
+                                         this.layoutService.hide();
                                     }
                                 )
                             }
                         ).catch(
                             err => {
                                 console.error(err);
+                                 this.layoutService.hide();
                             }
                         )
 
@@ -236,15 +240,18 @@ export class OrgMngCrComponent implements OnInit{
     }
 
     create(){
+         this.layoutService.show();
         if(this.isCreate){
             this.service.createOrg(this.org).then(
                 res => {
                     console.log(res);
+                    this.layoutService.hide();
                      this.router.navigateByUrl('user-center/org-mng/org-mng-list');
                 }
             ).catch(
                 err => {
                     console.error(err);
+                    this.layoutService.hide();
                 }
             )    
         }else{
@@ -252,11 +259,13 @@ export class OrgMngCrComponent implements OnInit{
             this.service.editOrg(this.orgId,this.org).then(
                 res => {
                     console.log(res);
+                    this.layoutService.hide();
                      this.router.navigateByUrl('user-center/org-mng/org-mng-list');
                 }
             ).catch(
                 err => {
                     console.error(err);
+                    this.layoutService.hide();
                 }
             )
         }
