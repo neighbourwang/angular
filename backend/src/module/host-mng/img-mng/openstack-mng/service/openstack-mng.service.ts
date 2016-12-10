@@ -159,7 +159,7 @@ export class OpenstackMngService{
         ];
 
         const api = this.restApiCfg.getRestApi("host-mng.openstack-mng.image.sync-ent.sync");
-        return this.restApi.request(api.method, api.url, pathParams, null, synImages);
+        return this.restApi.request(api.method, api.url, pathParams, null, {"imageList": synImages});
         
         //  return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return {
         //         resultCode: 100,
