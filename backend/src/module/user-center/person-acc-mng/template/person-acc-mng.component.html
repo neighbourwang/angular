@@ -15,7 +15,7 @@
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title">账号：</div>
 						<div class="col-sm-4">
-							<input type="text" class="form-control font-gray" [disabled]="!edit" [(ngModel)]="personAcc.loginName">
+							<input type="text" class="form-control font-gray" [disabled]="true" [(ngModel)]="personAcc.loginName">
 						</div>
 					</div>
 				</div>
@@ -50,7 +50,10 @@
 		<button class="fox-cloud-button-lg fox-cloud-button-white mgr20" (click)="onEdit();">
             <span class="icon-button-label">编辑</span>
         </button>
-		<button class="fox-cloud-button-lg fox-cloud-button-white " (click)="onEditPwd()">
+		<button class="fox-cloud-button-lg fox-cloud-button-white"  *ngIf="personAcc.type==0" (click)="onEditPwd()">
+            <span class="icon-button-label">修改密码</span>
+        </button>
+		<button *ngIf="personAcc.type!=0" class="fox-cloud-button-lg fox-cloud-button-disabled">
             <span class="icon-button-label">修改密码</span>
         </button>
 	</div>
