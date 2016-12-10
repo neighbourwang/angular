@@ -185,10 +185,6 @@ export class OrderMngSearchComponent implements OnInit{
 
 		let param = _.extend({}, this._param);
 
-		//匹配后台搜索框参数
-        param.searchText = this._param.queryParam;
-
-		
 		param.pageParameter = {
 			currentPage:pageNumber
 			,size:10
@@ -204,11 +200,11 @@ export class OrderMngSearchComponent implements OnInit{
 
 
 
-	onSubmitTimeChange($event){
+	onCreateTimeChange($event){
 		this._param.createDate = $event.formatted;
 	}
 
-	onEndTimeChange($event){
+	onExpireTimeChange($event){
 		this._param.expireDate = $event.formatted;
 	}
 	showMsg(msg: string)
