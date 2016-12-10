@@ -77,31 +77,31 @@ export class OpenstackSynchrNetComponent implements OnInit{
 		
 	}
 
-    filter(){
-        if(this.synNetworks){
+    getEids(){
             let tNameList = this.tenantService.getList();
-            let flag:boolean = false;
-            this.synNetworks = this.synNetworks.filter((s)=>{
-                
+            let eids:string="";
+            if(!tNameList || tNameList.length==0){
+                console.log("tNameList为空");
+            }else{
                 tNameList.forEach((t)=>{
-                    if(t.name == s.tenantName){
-                        flag = true;
-                    }
-                })
-                return flag;
-            });
-        }
+                    eids = t.id +"," ;
+                });
+                
+                return eids.Substring(0,eids.Length-1);
+            }
+        
     }
 	getSynList(platform_id:string):void {
 		this.layoutService.show();
-        this.service.getSynNetworks(platform_id)
+        let eids = this.getEids();
+        this.service.getSynNetworks(platform_id,eids)
             .then(
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
 					this.synNetworks = response.resultContent;
-                    this.filter();
+                    //this.filter();
                 } else {
                     alert("Res sync error");
 
