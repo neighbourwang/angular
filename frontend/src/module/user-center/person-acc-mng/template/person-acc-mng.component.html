@@ -58,7 +58,7 @@
 					<div class="col-md-3 pcContent">
 						<span class="pcDisplay">********</span>
 					</div>
-					<div class="col-md-1 font-green paOrder">
+					<div class="col-md-1 font-green paOrder" *ngIf="personAcc.type==0">
 						<span (click)="editPwd()">修改</span>
 					</div>
 				</div>
