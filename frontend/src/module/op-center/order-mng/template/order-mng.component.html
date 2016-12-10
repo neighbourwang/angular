@@ -12,7 +12,7 @@
 		<div class="table-container">
 			<div class="">
 				<div class="input-group col-md-2 float-left mgr20">
-   					 <input class="form-control" placeholder="输入关键字搜索" type="email" [(ngModel)]="_param.searchText">
+   					 <input class="form-control" placeholder="请输入订单号模糊查询" type="email" [(ngModel)]="_param.searchText">
     				 <div class="input-group-addon pointer"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div>
 						
@@ -20,7 +20,7 @@
 			</div>
 			<table class="table mgb20">
 				<tbody>
-					<tr class="none-border">				
+<!-- 					<tr class="none-border">				
 						<td>
 							<span class="float-left">部门:</span>
 							<div class="dropdown float-left">
@@ -35,7 +35,7 @@
 							<div class="dropdown float-left">
 								<select class="form-control fix-width-120">
 									<option class="hands" [value]=null>所有用户</option>
-									<!--<option class="hands" *ngFor = "let item of _buyerLoader.Items" [value] = "item.id">{{item.name}}</option>-->
+									<option class="hands" *ngFor = "let item of _buyerLoader.Items" [value] = "item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
@@ -53,7 +53,7 @@
 						</td>
 						
 					</tr>
-					<tr class="none-border">
+ -->					<tr class="none-border">
 						<td>
 							<span class="float-left " >
 							状态:</span>
@@ -129,10 +129,12 @@
 					</td>	
 				</tr>
 				<tr *ngFor="let prodItem of orderItem.itemList">
-					<td class="order-title">
-						<ul>
+					<td class="order-title" [ngSwitch]="prodItem.servcieType">
+						<ul *ngSwitchDefault>
 							<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 						</ul>
+						<vm-view [values]="prodItem.specList" *ngSwitchCase="0"></vm-view><!-- 显示云主机 -->
+						<disk-view [values]="prodItem.specList" *ngSwitchCase="1"></disk-view><!-- 显示云硬盘 -->
 					</td>
 					<td>{{prodItem.serviceTypeName}}</td>
 					<td>{{prodItem.billingModeName}}</td>
