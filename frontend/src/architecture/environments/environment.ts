@@ -21,11 +21,6 @@
     }); 
  })
 
-
-//  const promise = new Promise((resolve,reject) => {
-//      const token =  window.sessionStorage["token"];
-//      token ?　resolve(token) : reject("获取token失败！");
-//  })
  
 export const environment = {
 	production: false,
