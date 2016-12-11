@@ -346,12 +346,12 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "basis/authsec/adm/user/{id}"
     },
-    //  {
-    //     "desc" : "用户中心，帐号管理，帐号编辑，PUT",
-    //     "id" : "user-center.account-mng.editLocal",
-    //     "method" : "PUT",
-    //     "url" : "basis/authsec/mpp/user/{id}"
-    // },
+    {
+        "desc": "编辑账户本地",
+        "id": "user-center.account-mng.editAd",
+        "method": "PUT",
+        "url": "basis/authsec/mpp/user/{id}"
+    },
     //组织管理
      {
         "desc": "获取所有机构",

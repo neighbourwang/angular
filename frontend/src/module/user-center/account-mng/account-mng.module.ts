@@ -15,7 +15,6 @@ import { AccountMngEditAdComponent } from './component/account-mng-edit-ad.compo
 
 //service
 import { AccountMngService } from './service/account-mng.service';
-import { AccountMngAdService } from './service/account-ad.service';
 
 
 @NgModule({
@@ -37,7 +36,6 @@ import { AccountMngAdService } from './service/account-ad.service';
     ],
     providers: [
         AccountMngService,
-        AccountMngAdService
     ]
 
 })

@@ -178,7 +178,7 @@ export class AccountMngService {
 
     //编辑帐号
     editAdAccount(account) {
-        let api = this.restApiCfg.getRestApi("user-center.account-mng.local.edit");
-        return this.restApi.request(api.method, api.url, [{ key: "id", value: account.id }], undefined, account);
+        let api = this.restApiCfg.getRestApi("user-center.account-mng.editAd");
+        return this.restApi.request(api.method, api.url, [{ key: "id", value: account.userId }], undefined, account);
     }
 }
