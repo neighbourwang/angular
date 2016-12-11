@@ -5,7 +5,7 @@
 
 
  const promise = new Promise((resolve,reject) => {
-     const token =  window.sessionStorage["token"];
+     const token = "bearer " + window.sessionStorage["token"];
      token ?　resolve(token) : reject("获取token失败！");
  })
  

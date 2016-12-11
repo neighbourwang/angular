@@ -13,7 +13,7 @@
         },
         crossDomain: true,
         success: function (response) {
-            resolve(response.access_token)
+            resolve("bearer " + response.access_token)
         },
         error: function (xhr, status) {
            reject("获取token失败！")
