@@ -104,10 +104,10 @@ export class AccountMngCrAdComponent implements OnInit {
         }
 
         this.layoutService.show();
-        return this.service.createAccount(this.account)
+        return this.service.createAdAccount(this.account)
             .then((res) => {
                 this.layoutService.hide();
-                return true;
+                return res;
             })
             .catch((e) => { this.onRejected(e); });
     }

@@ -185,6 +185,11 @@ export class AttestMngComponent implements OnInit {
 
     }
 
+    //返回企业列表
+    gotoEnterpriseList() {
+        this.router.navigateByUrl(`ent-mng/ent-est-mng/ent-est-mng`);
+    }
+
     showAlert(msg: string): void {
         this.layoutService.hide();
 
