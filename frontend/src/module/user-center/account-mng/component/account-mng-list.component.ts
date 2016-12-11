@@ -61,9 +61,13 @@ export class AccountMngListComponent implements OnInit {
 
     ngOnInit() {
         this.getAccountList(1, this.pp);
+     
+
         this.getRole();
         this.getOrg();
-        this.getAttest();
+        if (this.service.userInfo.isAD) {
+            this.getAttest();
+        }
     }
 
     //关键字搜索
@@ -172,25 +176,32 @@ export class AccountMngListComponent implements OnInit {
     accountType = "1";
     isActive: boolean = false;
     otCreate() {
-        this.isActive = false;
-        window.setTimeout(() => {
-            this.isActive = true
-        }, 0)
-        this.createAccountPopUp.close();
-        console.log(this.accountType);
-        if (this.accountType == "1") {
-            this.isEdit = false;
-            window.setTimeout(() => {
-                this.createLocalAccountPopUp.open("创建本地账号");
-            },
-                510);
+        //this.isActive = false;
+        //window.setTimeout(() => {
+        //        this.isActive = true;
+        //    },
+        //    0);
+        //this.createAccountPopUp.close();
+        //console.log(this.accountType);
+        //if (this.accountType == "1") {
+        //    this.isEdit = false;
+        //    window.setTimeout(() => {
+        //        this.createLocalAccountPopUp.open("创建本地账号");
+        //    },
+        //        510);
 
+        //} else {
+        //    window.setTimeout(() => {
+        //        this.crAd.clearData();
+        //        this.createAdAccountPopUp.open("创建AD账号");
+        //    },
+        //        510);
+        //}
+
+        if (this.service.userInfo.isAD) {
+            this.createAdAccountPopUp.open("创建AD账号");
         } else {
-            window.setTimeout(() => {
-                this.crAd.clearData();
-                this.createAdAccountPopUp.open("创建AD账号");
-            },
-                510);
+            this.createLocalAccountPopUp.open("创建本地账号");
         }
     }
 
