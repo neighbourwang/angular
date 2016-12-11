@@ -26,9 +26,9 @@ export class DiskViewComponent implements OnInit{
 	ngOnInit(){
 		let getProperty = _.property("attrDisplayValue");
 		this._obj = {
-			diskInstanceName: getProperty(this.values.find(n=>n.attrCode == "INSTANCENAME"))
-			,capacity: getProperty(this.values.find(n=>n.attrCode == 'CPU'))
-			,vmName: getProperty(this.values.find(n=>n.attrCode == 'MEM')) || '无'
+			diskInstanceName: getProperty(this.values.find(n=>n.attrCode == "DISKINSNAME"))
+			,capacity: getProperty(this.values.find(n=>n.attrCode == 'DISKINITIALSIZE'))
+			,vmName: getProperty(this.values.find(n=>n.attrCode == 'DISKMOUNTHOSTNAME')) || '无'
 			,zone:getProperty(this.values.find(n=>n.attrCode == 'ZONE'))
 		};
 
