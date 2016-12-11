@@ -37,7 +37,7 @@ export class cloudDriveListComponent implements OnInit {
 	distList : DistList[];
 
 	constructor(
-		private layoutService: LayoutService,
+		private layoutService: LayoutService, 
 		private router: Router,
 		private service: cloudDriveServiceList
 	) {
@@ -46,6 +46,7 @@ export class cloudDriveListComponent implements OnInit {
 		// this.setArea();
 		this.setDistList();
 		this.initSelect();
+		console.log(this.service.userInfo)
 	}
 
 	setDistList(): void {

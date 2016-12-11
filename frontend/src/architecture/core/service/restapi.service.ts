@@ -36,6 +36,13 @@ export class RestApi {
         return this.httpRequest(type, url, undefined, pathParams, queryParams, body);
     }
 
+    getLoginInfo() : {userInfo:Object, userEnterpriseId:string} {   //获取当前的登陆信息
+        return {
+            userInfo : JSON.parse(sessionStorage["userInfo"]) || {},
+            userEnterpriseId : JSON.parse(sessionStorage["userEnterpriseId"])
+        }
+    }
+
     private httpRequest(type: string, url: string, jwt: string, pathParams: Array<any>, queryParams: Array<any>, body: any): Promise<any> {
         console.debug(`START ${type} ${new Date().toLocaleString()}: ${url}`);
 
@@ -59,8 +66,8 @@ export class RestApi {
             requestOptions.body = JSON.stringify(body);
         }
 
-        let resData = environment.jwt.then((jwt: string) => {
-            headerParams.append('Authorization', jwt);
+        let resData = environment.jwt.then((token: string) => {
+            headerParams.append('Authorization', token);
         }).then(res =>
             this.http.request(path, requestOptions)
                 .timeout(1000000, new Error('接口请求超时！'))
