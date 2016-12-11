@@ -3,6 +3,8 @@ import { Http, Headers, RequestOptionsArgs, Response, Jsonp, URLSearchParams } f
 
 import { environment } from '../../environments/environment';
 
+import { UserInfo } from '../model/userInfo';
+
 import "rxjs/add/operator/toPromise";
 import "rxjs/add/operator/timeout";
 
@@ -33,9 +35,14 @@ export class RestApi {
         return this.httpRequest("DELETE", url, jwt, pathParams, queryParams, body);
     }
 
-    request(type: string, url: string, pathParams: Array<any>, queryParams: Array<any>, body: any = undefined):
-        Promise<any> {
+    request(type: string, url: string, pathParams: Array<any>, queryParams: Array<any>, body: any = undefined): Promise<any> {
         return this.httpRequest(type, url, undefined, pathParams, queryParams, body);
+    }
+
+    getLoginInfo() : {userInfo:UserInfo} {   //获取当前的登陆信息
+        return {
+            userInfo : JSON.parse(sessionStorage["userInfo"]) || {}
+        }
     }
 
     private httpRequest(type: string,

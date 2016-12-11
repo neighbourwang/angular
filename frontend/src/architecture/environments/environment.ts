@@ -21,6 +21,8 @@
     }); 
  });
 
+//  const promise1 = new Promise(next => next("bearer 38487982-429e-417a-9ca3-39c49965e8bc"))
+
  function ajax(url, token, method?){
       return new Promise((resolve, reject) => {
           $.ajax({
@@ -44,12 +46,12 @@
 
 promise.then(token => Promise.all([
     ajax("basis/authsec/mpp/user/current", token),    //获取当前登录用户信息
-    ajax("basis/authsec/mpp/currentEnterpriseId", token)   // 获取用户企业id
+    // ajax("basis/authsec/mpp/currentEnterpriseId", token)   // 获取用户企业id
 ]))
 .then(arr => {
     sessionStorage["userInfo"] = JSON.stringify(arr[0]);
-    sessionStorage["userEnterpriseId"] = JSON.stringify(arr[1]);
-})
+    // sessionStorage["userEnterpriseId"] = JSON.stringify(arr[1]);
+});
 
 
 export const environment = {

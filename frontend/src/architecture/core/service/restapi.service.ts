@@ -1,6 +1,8 @@
 import { Injectable, Optional } from '@angular/core';
 import { Http, Headers, RequestOptionsArgs, Response, Jsonp, URLSearchParams } from '@angular/http';
 
+import { UserInfo } from '../model/userInfo';
+
 import { environment } from '../../environments/environment';
 
 import 'rxjs/add/operator/toPromise';
@@ -36,10 +38,10 @@ export class RestApi {
         return this.httpRequest(type, url, undefined, pathParams, queryParams, body);
     }
 
-    getLoginInfo() : {userInfo:Object, userEnterpriseId:string} {   //获取当前的登陆信息
+    getLoginInfo() : {userInfo:UserInfo} {   //获取当前的登陆信息
         return {
-            userInfo : JSON.parse(sessionStorage["userInfo"]) || {},
-            userEnterpriseId : JSON.parse(sessionStorage["userEnterpriseId"])
+            userInfo : JSON.parse(sessionStorage["userInfo"]) || {}
+            // userEnterpriseId : JSON.parse(sessionStorage["userEnterpriseId"])
         }
     }
 
