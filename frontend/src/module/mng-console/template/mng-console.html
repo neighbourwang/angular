@@ -1,12 +1,6 @@
 ﻿<div class="page-content">
     <div>
         <h1 class="page-content-header float-left">管理控制概览</h1>
-    <!--     <canvas baseChart
-              [data]="doughnutChartData"
-              [labels]="doughnutChartLabels"
-              [chartType]="doughnutChartType"
-              (chartHover)="chartHovered($event)"
-              (chartClick)="chartClicked($event)"></canvas> -->
     </div>
     <div style="clear:both;"></div>
     <div class="row">
@@ -49,37 +43,79 @@
             <div class="console-box ">
                 <div class="console-title">总配额使用率</div>
                 <div class="quota-box ">
-                    <canvas id="quota-chart-a" width="100" height="100"></canvas>
+                    <canvas baseChart
+                          width="100" height="100"
+                          [datasets]="quotaDtasets"
+                          chartType="doughnut"
+                          (chartHover)="chartHovered($event)"
+                          [options]="quotaOptions"
+                          (chartClick)="chartClicked($event)"></canvas>
                     <div class="percent-num">30<sup>%</sup></div>
                     <div class="quota-name">vCPU</div>
                 </div>
                 <div class="quota-box ">
-                    <canvas id="quota-chart-b" width="100" height="100"></canvas>
+                    <canvas baseChart
+                          width="100" height="100"
+                          [datasets]="quotaDtasets"
+                          chartType="doughnut"
+                          (chartHover)="chartHovered($event)"
+                          [options]="quotaOptions"
+                          (chartClick)="chartClicked($event)"></canvas>
                     <div class="percent-num">70<sup>%</sup></div>
                     <div class="quota-name">内存</div>
                 </div>
                 <div class="quota-box ">
-                    <canvas id="quota-chart-c" width="100" height="100"></canvas>
+                    <canvas baseChart
+                          width="100" height="100"
+                          [datasets]="quotaDtasets"
+                          chartType="doughnut"
+                          (chartHover)="chartHovered($event)"
+                          [options]="quotaOptions"
+                          (chartClick)="chartClicked($event)"></canvas>
                     <div class="percent-num">30<sup>%</sup></div>
                     <div class="quota-name">存储</div>
                 </div>
                 <div class="quota-box ">
-                    <canvas id="quota-chart-d" width="100" height="100"></canvas>
+                    <canvas baseChart
+                          width="100" height="100"
+                          [datasets]="quotaDtasets"
+                          chartType="doughnut"
+                          (chartHover)="chartHovered($event)"
+                          [options]="quotaOptions"
+                          (chartClick)="chartClicked($event)"></canvas>
                     <div class="percent-num">50<sup>%</sup></div>
                     <div class="quota-name">物理机</div>
                 </div>
                 <div class="quota-box ">
-                    <canvas id="quota-chart-e" width="100" height="100"></canvas>
+                    <canvas baseChart
+                          width="100" height="100"
+                          [datasets]="quotaDtasets"
+                          chartType="doughnut"
+                          (chartHover)="chartHovered($event)"
+                          [options]="quotaOptions"
+                          (chartClick)="chartClicked($event)"></canvas>
                     <div class="percent-num">20<sup>%</sup></div>
                     <div class="quota-name">快照</div>
                 </div>
                 <div class="quota-box ">
-                    <canvas id="quota-chart-f" width="100" height="100"></canvas>
+                    <canvas baseChart
+                          width="100" height="100"
+                          [datasets]="quotaDtasets"
+                          chartType="doughnut"
+                          (chartHover)="chartHovered($event)"
+                          [options]="quotaOptions"
+                          (chartClick)="chartClicked($event)"></canvas>
                     <div class="percent-num">30<sup>%</sup></div>
                     <div class="quota-name">镜像</div>
                 </div>
                 <div class="quota-box ">
-                    <canvas id="quota-chart-g" width="100" height="100"></canvas>
+                    <canvas baseChart
+                          width="100" height="100"
+                          [datasets]="quotaDtasets"
+                          chartType="doughnut"
+                          (chartHover)="chartHovered($event)"
+                          [options]="quotaOptions"
+                          (chartClick)="chartClicked($event)"></canvas>
                     <div class="percent-num">20<sup>%</sup></div>
                     <div class="quota-name">浮动IP</div>
                 </div>
@@ -402,12 +438,24 @@
             <div class="console-box ">
                 <div class="console-title">云主机CPU利用率概览</div>
                 <div class="ues-content">
-                    <canvas id="use-chart-a" width="200" height="160"></canvas>
+                    <canvas baseChart
+                          [datasets]="useDatasets"
+                          chartType="doughnut"
+                          (chartHover)="chartHovered($event)"
+                          [options]="useOptions"
+                          [labels]="useLabels"
+                          (chartClick)="chartClicked($event)"></canvas>
                     <div class="use-total">229</div>
                 </div>
                 <div class="console-title next-title">云主机Memory利用率概览</div>
                 <div class="ues-content">
-                    <canvas id="use-chart-b" width="200" height="160"></canvas>
+                    <canvas baseChart
+                          [datasets]="useDatasets"
+                          chartType="doughnut"
+                          (chartHover)="chartHovered($event)"
+                          [options]="useOptions"
+                          [labels]="useLabels"
+                          (chartClick)="chartClicked($event)"></canvas>
                     <div class="use-total">326</div>
                 </div>
             </div>
@@ -516,89 +564,3 @@
     </div>
 </div>
 
-    <script>
-        $(function(){
-            //生成配额使用率
-            var quotaChartA = new QuotaChart('quota-chart-a',30);
-            var quotaChartB = new QuotaChart('quota-chart-b',72);
-            var quotaChartC = new QuotaChart('quota-chart-c',56);
-            var quotaChartD = new QuotaChart('quota-chart-d',35);
-            var quotaChartE = new QuotaChart('quota-chart-e',42);
-            var quotaChartF = new QuotaChart('quota-chart-f',94);
-            var quotaChartG = new QuotaChart('quota-chart-g',16);
-
-            //生成利用概率概览
-            var useChartA = new useChart('use-chart-a',[25,57,173]);
-            var useChartB = new useChart('use-chart-b',[125,217,15]);
-        });
-
-        //生成配额使用率函数
-        function QuotaChart(canvasId,percent){
-            var chart_a = document.getElementById(canvasId);
-            var theChart_a = new Chart(chart_a, {
-                type: 'doughnut',
-                data:  {
-                    datasets: [{
-                        data: [
-                            percent,100-percent
-                        ],
-                        backgroundColor: [
-                            "#00CC99","#E7E9ED"
-                        ],
-                        borderWidth:[
-                            0,0
-                        ]
-                    }]
-                },
-                options: {
-                    legend: {
-                        display: false
-                    },
-                    tooltips: {
-                        enabled: false
-                    },
-                    cutoutPercentage: 82
-                }
-            });
-        }
-
-         //生成利用概率概览函数
-        function useChart(canvasId,useArray){
-            var chart_a = document.getElementById(canvasId);
-            var array = useArray;
-            var theChart_a = new Chart(chart_a, {
-                type: 'doughnut',
-                data:  {
-                    datasets: [{
-                        data: [
-                            array[0],array[1],array[2]
-                        ],
-                        backgroundColor: [
-                            "#FFCC33","#FF6666","#00CC99"
-                        ],
-                        borderWidth:[
-                            0,0,0
-                        ]
-                    }],
-                    labels:[
-                        '<30% ('+ array[0] +')',
-                        '30%~70% ('+ array[1] +')',
-                        '>70% ('+ array[2] +')'
-                    ]
-                },
-                options: {
-                    legend: {
-                        position: 'bottom',
-                        display: true,
-                        labels: {
-                            boxWidth: 12
-                        }
-                    },
-                    tooltips: {
-                        enabled: false,
-                    },
-                    cutoutPercentage: 82,
-                }
-            });
-        }
-    </script>

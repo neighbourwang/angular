@@ -225,10 +225,18 @@
                 </ul>
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane fade active in" id="detail_chart_a" >
-                        <canvas class="chart-canvas" id='canvas_chart_a'></canvas>
+                        <canvas baseChart class="chart-canvas"
+                            chartType="line"
+                            [labels]="a_labels"
+                            [datasets]="a_datasets"
+                            [options]="a_options" ></canvas>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="detail_chart_b" >
-                        <canvas class="chart-canvas" id='canvas_chart_b'></canvas>
+                        <canvas baseChart class="chart-canvas"
+                            chartType="line"
+                            [labels]="b_labels"
+                            [datasets]="b_datasets"
+                            [options]="b_options" ></canvas>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="detail_chart_c" >
                         <div class="chart-top-select">
@@ -245,10 +253,18 @@
                             </ul>
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade active in" id="detail_chart_c_1">
-                                    <canvas class="chart-canvas" id='canvas_chart_c'></canvas>
+                                    <canvas baseChart class="chart-canvas"
+                                        chartType="line"
+                                        [labels]="c_labels"
+                                        [datasets]="c_datasets"
+                                        [options]="c_options" ></canvas>
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade" id="detail_chart_c_2">
-                                    <canvas class="chart-canvas" id='canvas_chart_d'></canvas>
+                                    <canvas baseChart class="chart-canvas"
+                                        chartType="line"
+                                        [labels]="d_labels"
+                                        [datasets]="d_datasets"
+                                        [options]="d_options" ></canvas>
                                 </div>
                             </div>
                         </div>
@@ -262,258 +278,4 @@
     </div>
 </div>
 
-<script>
-            $(function(){
-                $('#test_switch').click(function(){
-                    var e = $(this);
-                    if(e.hasClass('off')){
-                        e.removeClass('off');
-                    }else{
-                        e.addClass('off');
-                    }
-                });
-                //模拟图表数据  ****详细的Angular2中应用chart.js请查看 http://valor-software.com/ng2-charts/
-                var chart_a = document.getElementById("canvas_chart_a");
-                var chart_b = document.getElementById("canvas_chart_b");
-                var chart_c = document.getElementById("canvas_chart_c");
-                var chart_d = document.getElementById("canvas_chart_d");
-
-                var theChart_a = new Chart(chart_a, {
-                    type: 'line',
-                    data: {
-                        labels: ["7:00", "8:00", "9:00", "10:00", "11:00", "12:00"],
-                        datasets: [
-                            {
-                                label: "CUP使用率 %",
-                                fill: false,
-                                lineTension: 0.2,
-                                backgroundColor: "#ffffff",
-                                borderColor: "rgba(75,192,192,1)",
-                                borderCapStyle: 'butt',
-                                borderDash: [],
-                                borderDashOffset: 0.0,
-                                borderJoinStyle: 'miter',
-                                pointBorderColor: "rgba(75,192,192,1)",
-                                pointBackgroundColor: "#fff",
-                                pointBorderWidth: 1,
-                                pointHoverRadius: 5,
-                                pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                                pointHoverBorderColor: "rgba(220,220,220,1)",
-                                pointHoverBorderWidth: 1,
-                                pointRadius: 1,
-                                pointHitRadius: 10,
-                                data: [30, 45, 80, 41, 56, 55, 20],
-                                spanGaps: false,
-                            }
-                        ]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero:true,
-                                    max: 100
-                                }
-                            }],
-                        },
-                        legend: {
-                            position: 'bottom',
-                            display: true,
-                            labels: {
-                                boxWidth: 24
-                            }
-                        }
-                    }
-                });
-
-                var theChart_b = new Chart(chart_b, {
-                    type: 'line',
-                    data: {
-                        labels: ["7:00", "8:00", "9:00", "10:00", "11:00", "12:00"],
-                        datasets: [
-                            {
-                                label: "内存使用率 %",
-                                fill: false,
-                                lineTension: 0.2,
-                                backgroundColor: "#ffffff",
-                                borderColor: "#FF6633",
-                                borderCapStyle: 'butt',
-                                borderDash: [],
-                                borderDashOffset: 0.0,
-                                borderJoinStyle: 'miter',
-                                pointBorderColor: "#FF6633",
-                                pointBackgroundColor: "#fff",
-                                pointBorderWidth: 1,
-                                pointHoverRadius: 5,
-                                pointHoverBackgroundColor: "#FF6633",
-                                pointHoverBorderColor: "rgba(220,220,220,1)",
-                                pointHoverBorderWidth: 1,
-                                pointRadius: 1,
-                                pointHitRadius: 10,
-                                data: [10, 73, 37, 42, 52, 30, 40],
-                                spanGaps: false,
-                            }
-                        ]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero:true,
-                                    max: 100
-                                }
-                            }],
-                        },
-                        legend: {
-                            position: 'bottom',
-                            display: true,
-                            labels: {
-                                boxWidth: 24
-                            }
-                        }
-                    }
-                });
-
-                var theChart_c = new Chart(chart_c, {
-                    type: 'line',
-                    data: {
-                        labels: ["2", "4", "6", "8", "16", "32", "64", "128"],
-                        datasets: [
-                            {
-                                label: "读取",
-                                fill: false,
-                                lineTension: 0,
-                                backgroundColor: "#ffffff",
-                                borderColor: "#66CC99",
-                                borderCapStyle: 'butt',
-                                borderDash: [],
-                                borderDashOffset: 0.0,
-                                borderJoinStyle: 'miter',
-                                pointBorderColor: "#66CC99",
-                                pointBackgroundColor: "#fff",
-                                pointBorderWidth: 1,
-                                pointHoverRadius: 5,
-                                pointHoverBackgroundColor: "#66CC99",
-                                pointHoverBorderColor: "rgba(220,220,220,1)",
-                                pointHoverBorderWidth: 1,
-                                pointRadius: 1,
-                                pointHitRadius: 10,
-                                data: [3200, 6200, 5500, 3329, 2200, 3200, 3790, 5902],
-                                spanGaps: false,
-                            },
-                            {
-                                label: "读入",
-                                fill: false,
-                                lineTension: 0,
-                                backgroundColor: "#ffffff",
-                                borderColor: "#FFCC33",
-                                borderCapStyle: 'butt',
-                                borderDash: [],
-                                borderDashOffset: 0.0,
-                                borderJoinStyle: 'miter',
-                                pointBorderColor: "#FFCC33",
-                                pointBackgroundColor: "#fff",
-                                pointBorderWidth: 1,
-                                pointHoverRadius: 5,
-                                pointHoverBackgroundColor: "#FFCC33",
-                                pointHoverBorderColor: "rgba(220,220,220,1)",
-                                pointHoverBorderWidth: 1,
-                                pointRadius: 1,
-                                pointHitRadius: 10,
-                                data: [1200, 7200, 4500, 5329, 2700, 3700, 2790, 4902],
-                                spanGaps: false,
-                            },
-                        ]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero:true,
-                                    max: 10000
-                                }
-                            }],
-                        },
-                        legend: {
-                            position: 'bottom',
-                            display: true,
-                            labels: {
-                                boxWidth: 24,
-                                padding: 20
-                            }
-                        }
-                    }
-                });
-                var theChart_d = new Chart(chart_d, {
-                    type: 'line',
-                    data: {
-                        labels: ["2", "4", "6", "8", "16", "32", "64", "128"],
-                        datasets: [
-                            {
-                                label: "读取",
-                                fill: false,
-                                lineTension: 0,
-                                backgroundColor: "#ffffff",
-                                borderColor: "#FF9966",
-                                borderCapStyle: 'butt',
-                                borderDash: [],
-                                borderDashOffset: 0.0,
-                                borderJoinStyle: 'miter',
-                                pointBorderColor: "#FF9966",
-                                pointBackgroundColor: "#fff",
-                                pointBorderWidth: 1,
-                                pointHoverRadius: 5,
-                                pointHoverBackgroundColor: "#FF9966",
-                                pointHoverBorderColor: "rgba(220,220,220,1)",
-                                pointHoverBorderWidth: 1,
-                                pointRadius: 1,
-                                pointHitRadius: 10,
-                                data: [3200, 6200, 5500, 3329, 2200, 3200, 3790, 5902],
-                                spanGaps: false,
-                            },
-                            {
-                                label: "读入",
-                                fill: false,
-                                lineTension: 0,
-                                backgroundColor: "#ffffff",
-                                borderColor: "#9966FF",
-                                borderCapStyle: 'butt',
-                                borderDash: [],
-                                borderDashOffset: 0.0,
-                                borderJoinStyle: 'miter',
-                                pointBorderColor: "#9966FF",
-                                pointBackgroundColor: "#fff",
-                                pointBorderWidth: 1,
-                                pointHoverRadius: 5,
-                                pointHoverBackgroundColor: "#9966FF",
-                                pointHoverBorderColor: "rgba(220,220,220,1)",
-                                pointHoverBorderWidth: 1,
-                                pointRadius: 1,
-                                pointHitRadius: 10,
-                                data: [1200, 7200, 4500, 5329, 2700, 3700, 2790, 4902],
-                                spanGaps: false,
-                            },
-                        ]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero:true,
-                                    max: 10000
-                                }
-                            }],
-                        },
-                        legend: {
-                            position: 'bottom',
-                            display: true,
-                            labels: {
-                                boxWidth: 24,
-                                padding: 20
-                            }
-                        }
-                    }
-                });
-            });
-        </script>
 
