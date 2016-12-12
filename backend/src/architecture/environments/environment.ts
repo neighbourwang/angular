@@ -19,11 +19,42 @@
            reject("获取token失败！")
         }
     }); 
- })
- 
+ });
+
+ function ajax(url, token, method?){
+      return new Promise((resolve, reject) => {
+          $.ajax({
+            url: `http://${environment.baseIp}:${environment.basePort}/${url}` ,
+            type: method || "GET",
+            beforeSend: function (request)
+            {
+                request.setRequestHeader('Authorization', token)
+            },
+            crossDomain: true,
+            success: function (response) {
+                resolve("bearer " + response.access_token)
+            },
+            error: function (xhr, status) {
+                reject("获取数据失败")
+            }
+        }); 
+      });
+ };
+
+
+promise.then(token => Promise.all([
+    ajax("basis/authsec/adm/user/current", token),    //获取当前登录用户信息
+    // ajax("basis/authsec/adm/currentEnterpriseId", token)   // 获取用户企业id
+]))
+.then(arr => {
+    sessionStorage["userInfo"] = JSON.stringify(arr[0]);
+    // sessionStorage["userEnterpriseId"] = JSON.stringify(arr[1]);
+})
+
+
 export const environment = {
 	production: false,
 	baseIp : "15.114.100.55",
 	basePort : "30072",
-	jwt : promise
-};
+    jwt : promise
+}
