@@ -9,7 +9,7 @@ import { AccountMngEditAdComponent } from "./account-mng-edit-ad.component";
 
 import { AccountMngService } from "../service/account-mng.service";
 
-import { Account } from "../model/account";
+import { Account } from "../model/account.model";
 
 @Component({
     // selector: 'account-mng-list',
@@ -166,46 +166,48 @@ export class AccountMngListComponent implements OnInit {
             }
             );
     }
-
+    accountType = "1";
+    isActive: boolean = false;
     //创建
     create() {
-       
+
         if (this.service.userInfo && this.service.userInfo.isAD) {
-          this.createAdAccountPopUp.open("创建AD账号");
+            this.crAd.clearData();
+            this.createAdAccountPopUp.open("创建AD账号");
         } else {
-            this.createLocalAccountPopUp.open("创建本地账号");
+            this.isEdit = false;            
+            
+            this.isActive = false;
+            window.setTimeout(() => {
+                
+                this.isActive = true;
+                this.createLocalAccountPopUp.open("创建本地账号");
+            }, 0);
         }
         //this.createAccountPopUp.open("创建帐号");
     }
 
     //
-    accountType = "1";
-    isActive: boolean = false;
-    otCreate() {
-        this.isActive = false;
-        window.setTimeout(() => {
-            this.isActive = true;
-        },
-            0);
-        this.createAccountPopUp.close();
-        console.log(this.accountType);
-        if (this.accountType == "1") {
-            this.isEdit = false;
-            window.setTimeout(() => {
-                this.createLocalAccountPopUp.open("创建本地账号");
-            },
-                510);
+    
+    // otCreate() {
 
-        } else {
-            window.setTimeout(() => {
-                this.crAd.clearData();
-                this.createAdAccountPopUp.open("创建AD账号");
-            },
-                510);
-        }
+    //     this.createAccountPopUp.close();
+    //     console.log(this.accountType);
+    //     if (this.accountType == "1") {
+    //         this.isEdit = false;
+    //         this.createLocalAccountPopUp.open("创建本地账号");
+           
+
+    //     } else {
+    //         window.setTimeout(() => {
+    //             this.crAd.clearData();
+    //             this.createAdAccountPopUp.open("创建AD账号");
+    //         },
+    //             510);
+    //     }
 
 
-    }
+    // }
 
     //修改
     editId: string;
@@ -214,8 +216,14 @@ export class AccountMngListComponent implements OnInit {
         console.log(account);
         this.isEdit = true;
         this.editId = account.id;
-        if (account.type == 0) { //0 本地  ,1 AD
-            this.createLocalAccountPopUp.open("编辑本地账号");
+        if (account.type == 0) { //0 本地  ,1 AD            
+            
+            this.isActive = false;
+            window.setTimeout(() => {
+                this.isActive = true;
+                this.createLocalAccountPopUp.open("编辑本地账号");
+                
+            }, 0);
         } else {
             this.editAdAccountPopUp.open("编辑AD账号");
         }

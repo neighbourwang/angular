@@ -164,6 +164,9 @@ export class AccountMngComponent implements OnInit {
 
     //禁用
     disable() {
+        if(this.chooseAccount.status==5){
+            this.notice.open('操作错误','账户状态为已禁用')
+        }
         if (this.chooseAccount.id) {
             this.confirmType = 3;
             this.confirm.open("禁用帐号", "您选择禁用帐号 "+this.chooseAccount.loginName+"，请确认");
@@ -175,6 +178,9 @@ export class AccountMngComponent implements OnInit {
 
     //删除
     delete() {
+        if(this.chooseAccount.status==1){
+            this.notice.open('操作错误','不能删除启用状态的账户')
+        }
         if (this.chooseAccount.id) {
             this.confirmType = 4;
             this.confirm.open("删除帐号", "您选择删除帐号 "+this.chooseAccount.loginName+"，请确认");

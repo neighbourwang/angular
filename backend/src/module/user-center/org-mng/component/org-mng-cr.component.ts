@@ -25,6 +25,11 @@ export class OrgMngCrComponent implements OnInit{
         private layoutService : LayoutService
         ) { }
 
+
+    @ViewChild('notice')
+    private notice: NoticeComponent;
+
+
     title: string;
     btnName : string;
     isCreate : boolean;
@@ -56,39 +61,39 @@ export class OrgMngCrComponent implements OnInit{
                         console.log('getOrgById',res);
                         this.org = res.resultContent;
 
-                        // this.service.getNoMngUser(0,this.size).then(
-                        //     res => {
-                        //         console.log('getNoMngUser',res)
-                        //         this.account = res.resultContent;
-                        //         if(res.pageInfo.totalRecords <= this.size){
-                        //             this.more = false;
-                        //         }else{
-                        //             this.more = true;
-                        //         }
+                        this.service.getNoMngUser(0,this.size).then(
+                            res => {
+                                console.log('getNoMngUser',res)
+                                this.account = res.resultContent;
+                                if(res.pageInfo.totalRecords <= this.size){
+                                    this.more = false;
+                                }else{
+                                    this.more = true;
+                                }
 
-                        //         this.service.getUserByOrg(params['id']).then(
-                        //             res => {
-                        //                 console.log('getUserByOrg',res);
-                        //                 this.accountByOrg = res.resultContent;
-                        //                 for(let account of this.accountByOrg){
-                        //                     account.selected = true;
-                        //                     this.account.unshift(account);
-                        //                 }
-                        //                 this.layoutService.hide();
-                        //             }
-                        //         ).catch(
-                        //             err => {
-                        //                 console.error(err);
-                        //                  this.layoutService.hide();
-                        //             }
-                        //         )
-                        //     }
-                        // ).catch(
-                        //     err => {
-                        //         console.error(err);
-                        //          this.layoutService.hide();
-                        //     }
-                        // )
+                                this.service.getUserByOrg(params['id']).then(
+                                    res => {
+                                        console.log('getUserByOrg',res);
+                                        this.accountByOrg = res.resultContent;
+                                        for(let account of this.accountByOrg){
+                                            account.selected = true;
+                                            this.account.unshift(account);
+                                        }
+                                        this.layoutService.hide();
+                                    }
+                                ).catch(
+                                    err => {
+                                        console.error(err);
+                                         this.layoutService.hide();
+                                    }
+                                )
+                            }
+                        ).catch(
+                            err => {
+                                console.error(err);
+                                 this.layoutService.hide();
+                            }
+                        )
 
                         
 
@@ -255,6 +260,10 @@ export class OrgMngCrComponent implements OnInit{
     }
 
     create(){
+        if(!this.org.name){
+            this.notice.open('操作错误','机构名称不能为空');
+            return;
+        }
          this.layoutService.show();
         if(this.isCreate){
             this.service.createOrg(this.org).then(
@@ -291,6 +300,7 @@ cancel(){
     this.router.navigateByUrl('user-center/org-mng/org-mng-list');
 }
 
+nof(){}
     
 
 } 
