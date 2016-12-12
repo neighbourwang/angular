@@ -230,7 +230,7 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "id": "op-center.order-search.list.post",
         // "url": "marketplace/authsec/subinstance/subscription/orderlist"        
-        "url":"adminui/authsec/order/search/paging"
+        "url":"marketplace/authsec/order/search/paging"
     },
     {
         "desc": "查询订单详情",
