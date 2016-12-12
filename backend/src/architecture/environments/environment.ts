@@ -32,7 +32,7 @@
             },
             crossDomain: true,
             success: function (response) {
-                resolve("bearer " + response.access_token)
+                resolve(response)
             },
             error: function (xhr, status) {
                 reject("获取数据失败")
