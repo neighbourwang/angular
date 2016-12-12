@@ -166,6 +166,16 @@ export class IpUsageMngListComponent implements OnInit{
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.rawipusagemngs = response.resultContent;
+                    if(this.rawipusagemngs.length > 1)
+                    {
+                        this.rawipusagemngs.sort(function(a,b){
+                            let ipa = a.addr.split(".");
+                            let numa = Number(ipa[0]) * 256 * 256 * 256 + Number(ipa[1]) * 256 * 256 + Number(ipa[2]) * 256 + Number(ipa[3]);
+                            let ipb = b.addr.split(".");
+                            let numb = Number(ipb[0]) * 256 * 256 * 256 + Number(ipb[1]) * 256 * 256 + Number(ipb[2]) * 256 + Number(ipb[3]);
+                            return numa>numb?1:-1;
+                        });
+                    }
                     console.log(this.rawipusagemngs, "rawipusagemngs!!!");
                     this.filter();                    
                 } else {
