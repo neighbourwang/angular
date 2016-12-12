@@ -174,7 +174,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取区域列表",
         "method": "GET",
         "id": "image.mng.area.list",
-        "url": "/adminui/authsec/platforms/status/activation"
+        "url": "adminui/authsec/platforms/status/activation"
     }
     //<--费用中心-已购服务管理
     ,{
@@ -187,7 +187,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "区域获取",
         "method": "GET",
         "id": "op-center.order-mng.platform-list.get",
-        "url": "/marketplace/authsec/platforms/status/activation"        
+        "url": "marketplace/authsec/platforms/status/activation"        
     }
     ,{
         "desc": "可用区获取",
