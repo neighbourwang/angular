@@ -5,7 +5,7 @@ import { NoticeComponent, DicLoader,ItemLoader,RestApi, RestApiCfg, LayoutServic
 import { SearchOrderDetail, AdminListItem, DepartmentItem
 	, Platform, ProductType, SubRegion
 	, OrderMngParam,SubInstanceResp
-	,SubInstanceItemResp,SearchOrderItem
+	,SearchOrderItem
 	, SubInstanceItemResp1} from '../model'
 
 import * as _ from 'underscore';

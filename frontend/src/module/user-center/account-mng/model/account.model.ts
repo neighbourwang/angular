@@ -8,6 +8,7 @@ class Rolee {
     "key": string;
     "num": boolean;
     "value": string;
+    selected:boolean;
 }
 
 class Member {
@@ -20,6 +21,7 @@ class Member {
     "orgs": Array<Org>;
     "phone": string;
     "roles": Array<Rolee>;
+    selected:boolean;
 }
 
 class Platform {

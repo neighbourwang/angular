@@ -122,8 +122,8 @@ export class ItemLoader<T>{
 
 						if(ret.pageInfo)
 						{
-							this.TotalPages = ret.pageInfo.totalPage || 100;
-							this.TotalRecords = ret.pageInfo.totalRecords;
+							this.TotalPages = ret.pageInfo.totalPage || 0;
+							this.TotalRecords = ret.pageInfo.totalRecords || 0;
 						}
 						else
 						{
