@@ -16,6 +16,8 @@ import { MyDatePickerModule } from './date-picker/my-date-picker.module';
 
 import { ClickOutsideModule } from 'ng2-click-outside';
 
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+
 // import { DonutChart } from './donutChart/component/chart.component';
 // import { LineChart } from './lineChart/component/chart.component';
 
@@ -51,7 +53,8 @@ import { ClickOutsideModule } from 'ng2-click-outside';
         PopupComponent,
         CountBarComponent,
         ClickOutsideModule,
-        PopoverModule
+        PopoverModule,
+        ChartsModule
         // OrderByPipe
         // DonutChart,
         // LineChart

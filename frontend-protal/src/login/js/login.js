@@ -1,5 +1,7 @@
 require("../less/login.less");                  //引入css
 
+const C    = require("../../common/const.js");          //引入全局配置
+
 $("#submit-button").click(function(){
 	let username = $("#l-username").val();
 	let password = $("#l-password").val();
@@ -12,7 +14,7 @@ $("#submit-button").click(function(){
 	$("#submit-button").val("正在登陆...");
 
 	$.ajax({
-        url: `http://15.114.100.52:32072/uaa/oauth/token?grant_type=password&username=${username}&password=${password}&client_id=ui&client_secret=12345`,
+        url: `http://15.114.100.52:30072/uaa/oauth/token?grant_type=password&username=${username}&password=${password}&client_id=ui&client_secret=12345`,
         type: "POST",
         beforeSend: function (request)
         {
@@ -20,9 +22,26 @@ $("#submit-button").click(function(){
         },
         crossDomain: true,
         success: function (response) {
-			sessionStorage["token"] = response.access_token;
-			location.href="/cloud-host-service/cloud-host-list"
-			isChecked = 0;
+			const token = "bearer " + response.access_token;
+
+			$.ajax({   //获取用户的登录信息
+	            url: `http://${C.baseIp}:${C.basePort}/basis/authsec/mpp/user/current` ,
+	            type: "GET",
+	            beforeSend: function (request)
+	            {
+	                request.setRequestHeader('Authorization', token)
+	            },
+	            crossDomain: true,
+	            success: function (response) {
+	                sessionStorage["userInfo"] = JSON.stringify(arr[0]);
+	                sessionStorage["token"] = token;
+					location.href="/mng-console"
+					isChecked = 0;
+	            },
+	            error: function (xhr, status) {
+	                alert("获取用户信息失败")
+	            }
+	        }); 
         },
         error: function (xhr, status) {
             alert("登录失败！请检查用户名和密码")
