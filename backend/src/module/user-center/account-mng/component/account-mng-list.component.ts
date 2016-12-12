@@ -185,7 +185,7 @@ export class AccountMngComponent implements OnInit {
     delete() {
         
         if(this.chooseAccount.status==1){
-            this.notice.open('操作错误','不能删除启用状态的账户')；
+            this.notice.open('操作错误','不能删除启用状态的账户');
             return;
         }
         if (this.chooseAccount.id) {
