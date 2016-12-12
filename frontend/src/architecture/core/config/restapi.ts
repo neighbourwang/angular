@@ -174,7 +174,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取区域列表",
         "method": "GET",
         "id": "image.mng.area.list",
-        "url": "/adminui/authsec/platforms/status/activation"
+        "url": "adminui/authsec/platforms/status/activation"
     }
     //<--费用中心-已购服务管理
     ,{
@@ -187,7 +187,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "区域获取",
         "method": "GET",
         "id": "op-center.order-mng.platform-list.get",
-        "url": "/marketplace/authsec/platforms/status/activation"        
+        "url": "marketplace/authsec/platforms/status/activation"        
     }
     ,{
         "desc": "可用区获取",
@@ -199,7 +199,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "订单列表查询",
         "method": "POST",
         "id": "op-center.order-mng.order-list.post",
-        "url": "marketplace/authsec/subscription/instances/search/paging"        
+        "url": "marketplace/authsec/order/search/paging"        
     }
     ,{
         "desc": "订单详情查询",
@@ -229,8 +229,8 @@ export let RestApis: RestApiModel[] = [
         "desc": "查询订单",
         "method": "POST",
         "id": "op-center.order-search.list.post",
-        // "url": "marketplace/authsec/subinstance/subscription/orderlist"        
-        "url":"adminui/authsec/order/search/paging"
+        "url": "marketplace/authsec/subinstance/subscription/orderlist"        
+        // "url":"marketplace/authsec/order/search/paging"
     },
     {
         "desc": "查询订单详情",

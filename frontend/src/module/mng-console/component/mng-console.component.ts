@@ -36,16 +36,41 @@ export class MngConsoleComponent implements OnInit {
 
     }
 
-    public doughnutChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-      public doughnutChartData:number[] = [350, 450, 100];
-      public doughnutChartType:string = 'doughnut';
+    public quotaDtasets = [{ data: [ 30, 70 ], backgroundColor: [ "#00CC99","#E7E9ED" ], borderWidth:[  0,0  ] }]
 
-      // events
-      public chartClicked(e:any):void {
-        console.log(e);
-      }
+    public quotaOptions = {
+                legend: { display: false },
+                tooltips: {  enabled: false },
+                cutoutPercentage: 82
+            }
 
-      public chartHovered(e:any):void {
+
+    public useDatasets = [{
+                        data: [25,57,173],
+                        backgroundColor: [ "#FFCC33","#FF6666","#00CC99"],
+                        borderWidth:[ 0,0,0]
+                    }];
+    public useLabels = [ '<30% (25)', '30%~70% (57)',  '>70% (173)' ];
+    public useOptions = {
+                    legend: {
+                        position: 'bottom',
+                        display: true,
+                        labels: {
+                            boxWidth: 10
+                        }
+                    },
+                    tooltips: {
+                        enabled: false,
+                    },
+                    cutoutPercentage: 82,
+                }
+
+    // events
+    public chartClicked(e:any):void {
         console.log(e);
-      }
+    }
+
+    public chartHovered(e:any):void {
+        console.log(e);
+    }
 }
