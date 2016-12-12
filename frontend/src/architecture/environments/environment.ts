@@ -34,7 +34,7 @@
             },
             crossDomain: true,
             success: function (response) {
-                resolve(response)
+                resolve(response.resultContent)
             },
             error: function (xhr, status) {
                 reject("获取数据失败")
