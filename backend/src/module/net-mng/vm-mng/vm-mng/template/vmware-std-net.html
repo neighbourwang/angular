@@ -20,7 +20,7 @@
         </div>
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 可用区名称：</span>
         <div class="float-left">
-            <select class="pdl20 pdr20 mgr20 form-control" [(ngModel)]="selectCluster">
+            <select class="pdl20 pdr20 form-control" [(ngModel)]="selectCluster">
                 <option [ngValue]="defaultCluster">所有</option>
                 <option *ngFor="let vds of selectedDC.clusters" [ngValue]="vds">{{vds.clusterName}}</option>
             </select>
