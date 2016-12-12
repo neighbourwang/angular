@@ -231,6 +231,10 @@ export class AccountMngListComponent implements OnInit {
 
     //启用
     enable(account, index) {
+        if(account.status==1){
+            this.notice.open('操作错误','账号状态已启用');
+            return;
+        }
         this.confirmTitle = "启用帐号";
         const accountName = account.userName;
         this.accountId = account.id;
@@ -241,6 +245,10 @@ export class AccountMngListComponent implements OnInit {
 
     //禁用
     disable(account, index) {
+        if(account.status==5){
+            this.notice.open('操作错误','账号状态已禁用');
+            return;
+        }
         this.confirmTitle = "禁用帐号";
         const accountName = account.userName;
         this.accountId = account.id;
@@ -252,6 +260,10 @@ export class AccountMngListComponent implements OnInit {
 
     //删除
     delete(account, index) {
+        if(account.status==1){
+            this.notice.open('操作错误','不能删除启用状态下的账号');
+            return;
+        }
         this.confirmTitle = "删除帐号";
         const accountName = account.userName;
         this.accountId = account.id;

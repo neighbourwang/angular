@@ -79,7 +79,7 @@
             <table class="table table-hover mgt20" *ngIf="platformType=='2'">
                 <thead>
                     <tr>
-                        <th>vmWare</th>
+                        <th>#</th>
                         <th>可用区</th>
                         <th>名称</th>
                         <th>显示名称</th>
@@ -92,21 +92,22 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>1</td>
-                        <td>Cluster1</td>
-                        <td>Data-stor1</td>
-                        <td><input type="text" class="form-control" [(ngModel)]="item" value="高速I/O-1"></td>                  
-                        <td>vSAN</td>                        
-                        <td>12800</td>
+                        <tr *ngFor="let item of creStep4Model; let idx = index;">
+                        <td>{{idx + 1}}</td>
+                        <td>{{item.clusterName}}</td>
+                        <td>{{item.name}}</td>
+                        <td><input type="text" class="form-control" [(ngModel)]="item.displayName"></td>
+                        <td>{{item.typeDisplayName}}</td>
+                        <td>{{item.maximum||0}}</td>
                         <td>
-                            <input type="number" class="form-control" [(ngModel)]="item" style="width: 100px; display: inline;" value="2">
+                            <input type="number" class="form-control" [(ngModel)]="item.replica" style="width: 100px; display: inline;">
                             <!--<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
                         </td>
                         <td>
-                            <input type="number" class="form-control" [(ngModel)]="item" style="display: inline;" value="85">
+                            <input type="number" class="form-control" [(ngModel)]="item.quota" style=" display: inline;">
                         </td>
                         <td >
-                            <input type="text" class="form-control" [(ngModel)]="item" style="display: inline;" value="高速I/O存储后端">
+                            <input type="text" class="form-control" [(ngModel)]="item.description" style=" display: inline;" >
                         </td>
                     </tr>
                 </tbody>

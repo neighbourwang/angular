@@ -29,7 +29,7 @@
                  <span [ngSwitch]="account.status">
                             <template [ngSwitchCase]="1">启用</template>
                             <template [ngSwitchCase]="5">禁用</template>
-                            <template [ngSwitchCase]="0">0</template>
+                            <template [ngSwitchCase]="0">未启用</template>
                             <template [ngSwitchCase]="4">已删除</template>
                             <template ngSwitchDefault>Unknown</template>
                     	</span>
