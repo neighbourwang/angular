@@ -39,7 +39,15 @@
                 <td>{{item.name}}</td>
                 <td>{{item.headCount}}</td>
                 <td>{{item.leaderName}}</td>
-                <td>{{item.status}}</td>
+                <td>
+                    <span [ngSwitch]="item.status">
+                            <template [ngSwitchCase]="1">启用</template>
+                            <template [ngSwitchCase]="5">禁用</template>
+                            <template [ngSwitchCase]="0">未启用</template>
+                            <template [ngSwitchCase]="4">4</template>
+                            <template ngSwitchDefault>Unknown</template>
+                    	</span>
+                </td>
                 <td>{{item.description}}</td>
             </tr>
             </tbody>

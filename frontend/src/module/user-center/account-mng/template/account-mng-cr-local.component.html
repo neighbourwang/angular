@@ -56,7 +56,7 @@
             <th class="col-md-1 col-xs-3 text-center">绑定角色</th>
             <td>
                 <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px" *ngFor="let role of service.roles ;let idx=index ">
-                    <input type="checkbox" class="fox-cloud-checkbox"   value="role?.id" [checked]="account.roles[0]?.id==role?.id" (click)="selectRole(idx)"> 
+                    <input type="checkbox" class="fox-cloud-checkbox"   value="role?.id" [checked]="role.selected" (click)="selectRole(idx)"> 
                     <span>{{role?.name}}</span>
                 </label>
             </td>
@@ -65,7 +65,7 @@
             <th class="col-md-1 col-xs-3 text-center">绑定部门</th>
             <td>
                 <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px" *ngFor='let org of service.orgs;let idx=index'>
-                    <input type="radio" class="fox-cloud-radio" (click)='selectOrg(idx)' value="option1" [checked]='account.organizations[0]?.id==org.id'> 
+                    <input type="radio" class="fox-cloud-radio" (click)='selectOrg(idx)' value="option1" [checked]='org.selected'> 
                     <span>{{org.name}}</span>
                 </label>
                 <div class="font-green float-right" style="margin-top : 10px">

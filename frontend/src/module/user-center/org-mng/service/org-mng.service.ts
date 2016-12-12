@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi } from '../../../../architecture';
 
 import { Org, Member, Resource } from '../model/org-mng.org.model';
-
+import { EntResource } from '../model/ent-resource-obj.model';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -43,7 +43,7 @@ export class OrgMngService {
     }
 
     //获取 未管理的机构成员列表
-    members: Array<Member>=new Array();
+    members: Array<Member> = new Array();
     getNoMngUser() {
         let api = this.restApiCfg.getRestApi("user-center.org-mng.nomnguser.list");
         if (this.members.length == 0) {
@@ -96,17 +96,45 @@ export class OrgMngService {
         return this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined, org);
     }
     //获得当前登录人企业ID
-
+    curEntId: string;
     getCurEntId() {
         let api = this.restApiCfg.getRestApi("user-center.org-mng.currentEnterpriseID.get");
-
-        return this.restApi.request(api.method, api.url, [], undefined);
+        if (!this.curEntId) {
+            return this.restApi.request(api.method, api.url, [], undefined).then(
+                res => {
+                    console.log('当前账户企业ID', res);
+                    if (res.resultContent) {
+                        this.curEntId = res.resultContent;
+                        this.getCurEntResource(res.resultContent);
+                    }
+                }
+            ).catch(
+                err => {
+                    console.error('获取当前切ID失败');
+                }
+                );
+        } else {
+            return new Promise(resovle => setTimeout(resovle, 10)).then(() => this.getCurEntResource(this.curEntId));
+        }
     }
     //获得当前登陆人企业资源
+    entResourceObj: EntResource=new EntResource();
     getCurEntResource(id: string) {
         let api = this.restApiCfg.getRestApi("user-center.org-mng.currEntResoure.get");
-
-        return this.restApi.request(api.method, api.url, [{ key: "id", value: id }, { key: "page", value: 1 }, { key: "size", value: 9999 }], undefined);
+        if (!this.entResourceObj.enterpriseId) {
+            return this.restApi.request(api.method, api.url, [{ key: "id", value: id }, { key: "page", value: 1 }, { key: "size", value: 9999 }], undefined).then(
+                res => {
+                    console.log('获取企业资源信息', res);
+                    this.entResourceObj = res.resultContent;
+                }
+            ).catch(
+                err => {
+                    console.error('获取企业资源信息失败');
+                }
+                );
+        } else {
+            return new Promise(resovle => setTimeout(resovle, 10)).then(() => this.entResourceObj);
+        }
     }
 
     //user-center.org-mng.currOrgUser.get

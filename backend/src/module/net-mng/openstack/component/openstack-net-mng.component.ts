@@ -131,7 +131,7 @@ export class OpenstackNetMngComponent implements OnInit {
     }
     search1() {
         if(this.selectedPfi==this.defaultPlatform || !this.selectedPfi.platformId || this.selectedPfi.platformId == ""){
-            this.showAlert("请先选则平台");
+            this.showAlert("请先选择平台");
         }else{
             this.queryOpt = new CriteriaQuery();
             this.queryOpt.region = this.selectedRegion.region;
@@ -143,7 +143,7 @@ export class OpenstackNetMngComponent implements OnInit {
     }
     search2() {
         if(this.selectedPfi==this.defaultPlatform || !this.selectedPfi.platformId || this.selectedPfi.platformId == ""){
-            this.showAlert("请先选则平台");
+            this.showAlert("请先选择平台");
         }else{
             let tenantName = this.queryOpt.tenantName;
             this.queryOpt = new CriteriaQuery();
@@ -309,7 +309,7 @@ export class OpenstackNetMngComponent implements OnInit {
         console.log("选中的platform_id：" + platform_id);
         
         if(this.selectedPfi==this.defaultPlatform || !platform_id || platform_id == ""){
-            this.showAlert("请先选则平台");
+            this.showAlert("请先选择平台");
         }else{
            
             this.service.getTenants( this.selectedPfi.platformId)
@@ -359,7 +359,7 @@ export class OpenstackNetMngComponent implements OnInit {
     //     let platformName = this.selectedNetwork.platformName;
     //     console.log("选中的platform_id：" + platform_id);
     //     if(!platform_id || platform_id==""){
-    //         this.showAlert("请先选则平台");
+    //         this.showAlert("请先选择平台");
     //     }else{
     //         this.router.navigate(['net-mng/openstack/openstack-synchr-net', {"platform_id": platform_id,"platformName":platformName}]);
     //     }
