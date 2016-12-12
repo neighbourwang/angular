@@ -59,57 +59,57 @@
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">vCPU数量(核)</div>
                             <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=1 [max]=100000 [min]=0 [disabled]=false [value]="org.resource.vcpu" (output)="outputValue($event,'vcpu')"></count-bar>
+                                <count-bar [default]=0 [step]=1 [max]=100000 [min]=0 [disabled]=false [value]="org.resource.vcpu||0" (output)="outputValue($event,'vcpu')"></count-bar>
                             </div>
-                            <div class="col-md-3 content-title" style="text-align : center">0</div>
+                            <div class="col-md-3 content-title" style="text-align : center">{{org.resource.usedCpu||0}}</div>
                             <div class="col-md-3 content-title" style="text-align : center">200</div>
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">内存数量(GB)</div>
                             <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]="org.resource.mem" (output)="outputValue($event,'mem')"></count-bar>
+                                <count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]="org.resource.mem||0" (output)="outputValue($event,'mem')"></count-bar>
                             </div>
-                            <div class="col-md-3 content-title" style="text-align : center">0</div>
+                            <div class="col-md-3 content-title" style="text-align : center">{{org.resource.usedMem||0}}</div>
                             <div class="col-md-3 content-title" style="text-align : center">200</div>
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">物理机数量(台)</div>
                             <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=1 [max]=1000000 [min]=0 [disabled]=false [value]="org.resource.physical" (output)="outputValue($event,'physical')"></count-bar>
+                                <count-bar [default]=0 [step]=1 [max]=1000000 [min]=0 [disabled]=false [value]="org.resource.physical||0" (output)="outputValue($event,'physical')"></count-bar>
                             </div>
-                            <div class="col-md-3 content-title" style="text-align : center">0</div>
+                            <div class="col-md-3 content-title" style="text-align : center">{{org.resource.usedPhysical||0}}</div>
                             <div class="col-md-3 content-title" style="text-align : center">200</div>
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">存储额度(GB)</div>
                             <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]="org.resource.storage" (output)="outputValue($event,'storage')"></count-bar>
+                                <count-bar [default]=0 [step]=100 [max]=1000000 [min]=0 [disabled]=false [value]="org.resource.storage||0" (output)="outputValue($event,'storage')"></count-bar>
                             </div>
-                            <div class="col-md-3 content-title" style="text-align : center">0</div>
+                            <div class="col-md-3 content-title" style="text-align : center">{{org.resource.usedStorage||0}}</div>
                             <div class="col-md-3 content-title" style="text-align : center">200</div>
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">快照数量(个)</div>
                             <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=1 [max]=1000000 [min]=0 [disabled]=false [value]="org.resource.snapshot" (output)="outputValue($event,'snapshot')"></count-bar>
+                                <count-bar [default]=0 [step]=1 [max]=1000000 [min]=0 [disabled]=false [value]="org.resource.snapshot||0" (output)="outputValue($event,'snapshot')"></count-bar>
                             </div>
-                            <div class="col-md-3 content-title" style="text-align : center">0</div>
+                            <div class="col-md-3 content-title" style="text-align : center">{{org.resource.usedSnapshot||0}}</div>
                             <div class="col-md-3 content-title" style="text-align : center">200</div>
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">镜像数量(个)</div>
                             <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=1 [max]=1000000 [min]=0 [disabled]=false [value]="org.resource.image" (output)="outputValue($event,'image')"></count-bar>
+                                <count-bar [default]=0 [step]=1 [max]=1000000 [min]=0 [disabled]=false [value]="org.resource.image||0" (output)="outputValue($event,'image')"></count-bar>
                             </div>
-                            <div class="col-md-3 content-title" style="text-align : center">0</div>
+                            <div class="col-md-3 content-title" style="text-align : center">{{org.resource.usedImage||0}}</div>
                             <div class="col-md-3 content-title" style="text-align : center">200</div>
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">浮动IP地址(个)</div>
                             <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=1 [max]=1000000 [min]=0 [disabled]=false [value]="org.resource.ipaddress" (output)="outputValue($event,'ipaddress')"></count-bar>
+                                <count-bar [default]=0 [step]=1 [max]=1000000 [min]=0 [disabled]=false [value]="org.resource.ipaddress||0" (output)="outputValue($event,'ipaddress')"></count-bar>
                             </div>
-                            <div class="col-md-3 content-title" style="text-align : center">0</div>
+                            <div class="col-md-3 content-title" style="text-align : center">{{org.resource.usedIpaddress||0}}</div>
                             <div class="col-md-3 content-title" style="text-align : center">200</div>
                         </div>
                         <div style="clear:both"></div>
