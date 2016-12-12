@@ -6,24 +6,26 @@
 		<div class="table-container">
 			<div class="search-container">
 				<div class="input-group col-md-2 float-left mgr20">
-					<input class="form-control" placeholder="输入云主机信息搜索" type="email">
+					<input class="form-control" placeholder="输入订单号或部门快速查询" type="email">
 					<div class="input-group-addon"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div> 
-				<button class=" button-gray-gradient float-left mgl20" [ngClass]="{'button-gray-gradient':_isAdvSearch!=1,'fox-cloud-button-white':_isAdvSearch==1}"  (click)="_isAdvSearch=!_isAdvSearch">高&nbsp;级&nbsp;查&nbsp;询</button>
+				<button class="btn btn-default button-gray-gradient float-left mgl20" [ngClass]="{'button-gray-gradient':_isAdvSearch!=1,'fox-cloud-button-white':_isAdvSearch==1}"  (click)="_isAdvSearch=!_isAdvSearch">高级查询</button>
 			</div>
-			<table class="table bgGray _table" *ngIf="_isAdvSearch">
+			<div  *ngIf="_isAdvSearch" class="bgGray" style="height:20px;"></div>
+			<table class="table bgGray _table mgb20" *ngIf="_isAdvSearch">
 				<tbody>
 					<tr>				
 						<td>
-							<div class="float-left form-control-title">订单归属：</div>
+							<span class="float-left">订单归属：</span>
 							<div class="float-left">
 								<select class="form-control" [(ngModel)]="_param.departmentIdNum">
 									<option class="hands" [value]="null">所有部门</option>
 									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
-
 							</div>
-							<div class="float-left form-control-title mgl20">提交者：</div>
+						</td>
+						<td>
+							<span class="float-left mgl20">提交者：</span>
 							<div class="float-left">
 								<select class="form-control" [(ngModel)]="_param.submitUserId">
 									<option class="hands">所有提交者</option>
@@ -33,28 +35,15 @@
 								</select>
 								</div>
 						</td>
-						
-					</tr>
-					<tr>
-						<td><div class="float-left form-control-title">订单类型：</div>
+						<td><span class="float-left">订单类型：</span>
 								<div class="dropdown float-left">
 								<select class="form-control " [(ngModel)]="_param.orderTypeNum">
 									<option class="hands" [value]="null">所有类型</option>
 									<option class="hands" *ngFor="let item of _orderTypeDic.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
-							<div class="float-left form-control-title mgl20">创建时间：</div>
-							<div class="dropdown float-left pdb20">			
-								<date-picker (dateChanged)="onStartDateChange($event)"></date-picker>
-							</div>
-                            <div class="float-left form-control-title mgl10 mgr20">—</div>
-							<div class="dropdown float-left">			
-								<date-picker (dateChanged)="onEndDateChange($event)"></date-picker>
-							</div>
 						</td>
-					</tr>
-					<tr>
-						<td><div class="float-left form-control-title">产品类型：</div>
+						<td><span class="float-left">产品类型：</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.serviceTypeNum">
 									<option class="hands" [value]="null">所有类型</option>
@@ -63,23 +52,38 @@
 							</div>
 						</td>
 					</tr>
-					<tr>
-							
-						<td>
-
-							<div style="margin-left: 115px;text-align:left!important;">
-								<button class="button-gray-gradient mgr20"  (click)="_param.reset()">重&nbsp;&nbsp;&nbsp;&nbsp;置</button><button class="button-gray-gradient mgl20" (click)="search()">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
+					<tr>		
+						<td colspan="4">
+							<div>
+								<span class="float-left mgt15">创建时间：</span>
+								<div class="dropdown float-left">			
+									<date-picker (dateChanged)="onStartDateChange($event)"></date-picker>
+								</div>
+								<span class="float-left form-control-title mgl10 mgr5">—</span>
+								<div class="dropdown float-left">			
+									<date-picker (dateChanged)="onEndDateChange($event)"></date-picker>
+								</div>
 							</div>
 						</td>
 					</tr>
+					<tr>
+						<td colspan="4" class="text-center">
+								
+								<button class="button-gray-gradient mgr20 mgt20 mgb10" (click)="search()">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
+								<div  class="input-group" style="display: inline-block;">
+									<button class="btn button-gray-gradient" (click)="_param.reset()"><span class="glyphicon glyphicon-repeat"></span> 重置</button>
+								</div>
+						</td>
+					</tr>
 				</tbody>
-			</table>	
+			</table>
+				
 		</div>
-		<div class="form-control-title float-left mgb10 mgt20">当查询到<span class="font-green">{{_listLoader.Items.length}}</span>个订单需要审批，查询结果如下：</div>
+		<div class="float-left mgb10">当前查询到<span class="font-green">{{_listLoader.Items.length}}</span>个订单需要审批，查询结果如下：</div>
 			<div class="table-container ">
 			<table class="table ">
 				<thead>	
-					<tr class="form-control-title">
+					<tr >
 						<th>编号</th>
 						<th>订单号</th>
 						<th>产品类型</th>
