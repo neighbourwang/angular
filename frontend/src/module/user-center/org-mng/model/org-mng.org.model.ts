@@ -38,7 +38,7 @@ class Platform {
 }
 class Org {
   "description": string;
-  status:number;
+  status: number;
   "id": string;
   "leaderId": string;
   "members": Array<Member>;
@@ -58,15 +58,40 @@ class Resource {
   "snapshot": number;
   "storage": number;
   "vcpu": number;
+  "id": string;
+  "network": number;
+  "organizationId": string;
+  "usedCpu": number;
+  "usedDisk": number;
+  "usedImage": number;
+  "usedIpaddress": number;
+  "usedMem": number;
+  "usedNetwork": number;
+  "usedPhysical": number;
+  "usedSnapshot": number;
+  "usedStorage": number;
+  "usedVm": number;
+  "vm": number;
   constructor() {
-    this.disk = 0;
-    this.image = 0;
-    this.ipaddress = 0;
-    this.mem = 0;
-    this.physical = 0;
-    this.snapshot = 0;
-    this.storage = 0;
-    this.vcpu = 0;
+    this.disk=0;
+  this.image=0;
+  this.ipaddress=0;
+  this.mem=0;
+  this.physical=0;
+  this.snapshot=0;
+  this.storage=0;
+  this.vcpu=0;
+  this.network=0;
+  this.usedCpu=0;
+  this.usedDisk=0;
+  this.usedImage=0;
+  this.usedIpaddress=0;
+  this.usedMem=0;
+  this.usedNetwork=0;
+  this.usedPhysical=0;
+  this.usedSnapshot=0;
+  this.usedStorage=0;
+  this.usedVm=0;
   }
 }
 class OrgPer {
@@ -77,8 +102,13 @@ class OrgPer {
   "leaderName": string;
   "status": number;
   "description": string;
-  "members": string;
-  "platforms": string;
+  "members": Array<Member>;
+  resource:Resource;
+  constructor(){
+    this.resource=new Resource();
+  }
+  // "platforms": string;
+  
 }
 export {
   Org,

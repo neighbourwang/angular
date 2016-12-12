@@ -7,6 +7,7 @@ import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent } f
 import { OrgMngService } from '../service/org-mng.service';
 //model
 import { Org, Member, Resource } from '../model/org-mng.org.model';
+import { EntResource } from '../model/ent-resource-obj.model';
 
 @Component({
   selector: 'org-mng-cr',
@@ -33,8 +34,12 @@ export class OrgMngCrComponent implements OnInit {
   org: Org = new Org();
   members: Array<Member>;
   users:Array<Member>;
+  curEntResource:EntResource;
+  resource:Resource=new Resource();
   ngOnChanges(changes: SimpleChanges) {
+    this.curEntResource=this.service.entResourceObj;
     this.org = new Org();
+    this.org.resource=new Resource();
     console.log(this.editId);    
     if (this.isEdit) {
       this.getUserList();
@@ -43,14 +48,15 @@ export class OrgMngCrComponent implements OnInit {
       this.service.getOrgResourceById(this.editId)
         .then(
         res => {
-          console.log("账号资源", res);
-          this.org.resource = res.resultContent;
+          console.log("部门资源", res);
+          this.resource = res.resultContent;
         }
         )
         .catch(err => {
           console.error(err);
         });
     }
+    
   }
   ngOnInit() {    
       if(this.isEdit){
@@ -97,6 +103,7 @@ export class OrgMngCrComponent implements OnInit {
   //保存 给父组件调用
   save() {
     console.log(this.org);
+    this.org.resource=this.resource;
     return this.service.createOrg(this.org)
     //  if (this.orgForm.invalid) {
     //         return Promise.reject("error");
