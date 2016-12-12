@@ -302,13 +302,14 @@ export class OpenstackMngComponent implements OnInit{
                     image.tenants = c.tenants;
                     image.status = c.status;
                     image.description = c.description;
-                    image.selected =c.selected;
+                    image.selected = false;
 
                     image.nameEditing = false;
 
 
                     this.editImage.close();
                 } else {
+                    this.selectedImage = null;
                     alert("Res sync error");
                 }
             }
@@ -354,6 +355,7 @@ export class OpenstackMngComponent implements OnInit{
                     this.editImage.close();
                     this.showAlert("编辑成功");
                 } else {
+                    this.selectedImage = null;
                     alert("Res sync error");
                 }
             }
@@ -407,12 +409,16 @@ export class OpenstackMngComponent implements OnInit{
         this.notice.open();
     }
 
-    getImageTenant(ts:Array<Tenant>): String {
-        let t: Tenant = ts[0];
-        if(t){
-            return t.name?t.name:"所有";
-        }else{
-            return "所有";
+    getImageTenant(ts:Array<Tenant>,type:string): String {
+        if(type=="0"){
+            return "所有"
+        }else {
+            let t: Tenant = ts[0];
+            if(t){
+                return t.name?t.name:"无";
+            }else{
+                return "无";
+            }
         }
     }
     //同步公共镜像
