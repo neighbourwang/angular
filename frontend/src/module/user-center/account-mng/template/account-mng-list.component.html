@@ -25,7 +25,15 @@
             <td class="text-center">{{account.phone}}</td>
             <td class="text-center">销售</td>
             <td class="text-center">部门负责人</td>
-            <td class="text-center">启用</td>
+            <td class="text-center">
+                 <span [ngSwitch]="account.status">
+                            <template [ngSwitchCase]="1">启用</template>
+                            <template [ngSwitchCase]="5">禁用</template>
+                            <template [ngSwitchCase]="0">未启用</template>
+                            <template [ngSwitchCase]="4">已删除</template>
+                            <template ngSwitchDefault>Unknown</template>
+                    	</span>
+            </td>
             <td class="text-center">
                 <span class="glyphicon glyphicon-edit font-green" (click)="edit(account,idx)" style="margin-right : 10px ;cursor:pointer"></span>
                 <!--<span class="glyphicon glyphicon-lock font-green" style="margin-right : 10px"></span>-->
@@ -40,7 +48,7 @@
 <fc-pagination #pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
 <fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMessage}}" (cf)="confirmOk()"></fc-confirm>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" (of)="nof()"></fc-notice>
-<fc-popup #creAccount title="{{title}}" ot="创建" (of)="otCreate()" ct="取消" (cf)="ccf()">
+<!--<fc-popup #creAccount title="{{title}}" ot="创建" (of)="otCreate()" ct="取消" (cf)="ccf()">
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>选择账号类别：</div>
@@ -52,11 +60,11 @@
             </div>
         </div>
     </div>
-</fc-popup>
+</fc-popup>-->
 
 <fc-popup  #crLocalAccount title="{{title}}" ot="{{isEdit==false?'创建':'保存'}}" (of)="save();" ct="取消" (cf)="ccf()">
     <div class="row row-line-height">
-        <account-mng-cr-local  #crLocal [isEdit]="isEdit" [editId]="editId"></account-mng-cr-local>
+        <account-mng-cr-local  *ngIf="isActive" #crLocal [isEdit]="isEdit" [editId]="editId"></account-mng-cr-local>
     </div>
 </fc-popup>
 

@@ -153,6 +153,10 @@ export class AccountMngComponent implements OnInit {
 
     //启用
     enable() {
+        if(this.chooseAccount.status==1){
+            this.notice.open('操作错误','账号状态为已启用')
+            return 
+        }
         if (this.chooseAccount.id) {
             this.confirmType = 2;
             this.confirm.open("启用帐号", "您选择启用帐号 "+this.chooseAccount.loginName+"，请确认");
@@ -164,6 +168,10 @@ export class AccountMngComponent implements OnInit {
 
     //禁用
     disable() {
+        if(this.chooseAccount.status==5){
+            this.notice.open('操作错误','账户状态为已禁用');
+            return ;
+        }
         if (this.chooseAccount.id) {
             this.confirmType = 3;
             this.confirm.open("禁用帐号", "您选择禁用帐号 "+this.chooseAccount.loginName+"，请确认");
@@ -175,6 +183,11 @@ export class AccountMngComponent implements OnInit {
 
     //删除
     delete() {
+        
+        if(this.chooseAccount.status==1){
+            this.notice.open('操作错误','不能删除启用状态的账户')；
+            return;
+        }
         if (this.chooseAccount.id) {
             this.confirmType = 4;
             this.confirm.open("删除帐号", "您选择删除帐号 "+this.chooseAccount.loginName+"，请确认");

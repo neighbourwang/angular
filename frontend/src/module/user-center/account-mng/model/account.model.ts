@@ -64,7 +64,8 @@ class Account {
     "phone": string;
     "roles": Array<Role>;
     "userName": string;
-    type: string;//0 ±¾µØ £¬ 1 AD
+    status:number;
+    type: string;//0 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 1 AD
     ldapId: string = "";
     ldapName: string;
     constructor() {

@@ -13,6 +13,7 @@ export class Account {
     ldapId: string = "";
     ldapName: string;
     roles: Array<Role> = [];
+    status:number;
     organizations: Array<Organization> = [];
     constructor() {
     }
