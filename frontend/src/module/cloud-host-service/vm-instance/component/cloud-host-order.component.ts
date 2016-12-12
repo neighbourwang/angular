@@ -109,6 +109,22 @@ export class cloudHostComponentOrder implements OnInit {
 		return new Date().getTime() + "" + (this.itemNum++);
 	}
 
+	private sendModuleToPay():AttrList[] {   //把sendModule转换成数组
+		let payloadList = [];
+		for (let v in this.sendModule) {
+			payloadList.push({
+				attrId: this.configs[v].attrId,   	//服务属性ID
+				attrCode: this.configs[v].attrCode,  	//服务属性CODE
+				attrDisplayValue: this.sendModule[v].attrDisplayValue, 	//服务属性Name
+				attrDisplayName: this.configs[v].attrDisplayName, 	//服务属性Name
+				attrValueId: this.sendModule[v].attrValueId,     	//服务属性值ID
+				attrValue: this.sendModule[v].attrValue, 	//服务属性值
+				attrValueCode: this.sendModule[v].attrValueCode, 	//服务属性值
+			});
+		};
+		return payloadList;
+	}
+
 	//把payLoad转换成提交的post对象
 	/**
 	 * [payLoadFormat 把页面数据转换为发送给后端的数据 本页面的核心函数]
@@ -123,38 +139,52 @@ export class cloudHostComponentOrder implements OnInit {
 	 * @return {PayLoad[]} [description]
 	 */
 	private payLoadFormat(): PayLoad[] {
-
 		//临时处理 演示用
 		this.sendModule.bootsize.attrValue = "20";
 
-		let payloadList = [];
-		for (let v in this.sendModule) {
-			payloadList.push({
-				attrId: this.configs[v].attrId,   	//服务属性ID
-				attrCode: this.configs[v].attrCode,  	//服务属性CODE
-				attrDisplayValue: this.sendModule[v].attrDisplayValue, 	//服务属性Name
-				attrDisplayName: this.configs[v].attrDisplayName, 	//服务属性Name
-				attrValueId: this.sendModule[v].attrValueId,     	//服务属性值ID
-				attrValue: this.sendModule[v].attrValue, 	//服务属性值
-				attrValueCode: this.sendModule[v].attrValueCode, 	//服务属性值
-			});
-		};
-
-		this.payLoad.skuId = this.vmSku.skuId;
-		this.payLoad.productId = this.vmSku.productId;
-		this.payLoad.attrList = payloadList;
-		this.payLoad.itemNo = this.makeItemNum();
-		this.payLoad.totalPrice = this.vmTotalPrice;
+		/****下面开始处云主机订单的逻辑****/
+		let payloadList = this.sendModuleToPay(),
+			itemNo = this.makeItemNum(),
+			payLoad = {
+				skuId : this.vmSku.skuId,
+				productId : this.vmSku.productId,
+				attrList : payloadList,
+				itemNo : itemNo,
+				totalPrice : this.vmTotalPrice,
+				quality : this.payLoad.quality,
+				serviceType : "0",
+				relyType : "" ,
+				relyItemNo : ""
+			}
 
 		this.payLoadArr = [];
-		this.payLoadArr.push(this.payLoad);
+		this.payLoadArr.push(payLoad);   //加入云主机的订单
 
-		/****下面开始处理数据盘的逻辑****/
-		const storage = this.storage.getData();   //获取数据盘
+		/****下面开始处理数据盘订单的逻辑****/
+		const storages = this.storage.getData();   //获取数据盘
 
-		if(storage.length) {   //如果有数据盘的数据
+		if(storages.length) {   //如果有数据盘的数据
+			for( let storage of storages){
+				this.sendModule.storage = storage.storage;
+				this.sendModule.storagesize = storage.storagesize;
 
+				let sku = this.getSkuId("disk"),
+					payloadList = this.sendModuleToPay();
+				payLoad = {
+					skuId : sku.skuId,
+					productId : sku.productId,
+					attrList : payloadList,
+					itemNo : this.makeItemNum(),
+					totalPrice : this.diskTotalPrice,
+					quality : this.payLoad.quality,
+					serviceType : "1",
+					relyType : "" ,
+					relyItemNo : itemNo
+				}
+				this.payLoadArr.push(payLoad);  //加入云硬盘
+			}
 		}
+		console.log("发送的订单数据："+this.payLoadArr)
 		return this.payLoadArr;
 	}
 
