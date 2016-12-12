@@ -5,6 +5,7 @@ export class CreStep4Model {
     // "id": "string",
     // "name": "string",
     // "quota": 0
+    clusterName:String; //可用区名称
     name : String; //名称
     displayName : String; //显示名称
     quota : number; //配额

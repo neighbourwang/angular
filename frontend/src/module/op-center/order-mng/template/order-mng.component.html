@@ -15,10 +15,11 @@
    					 <input class="form-control" placeholder="请输入订单号模糊查询" type="email" [(ngModel)]="_param.searchText">
     				 <div class="input-group-addon pointer"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div>
-						
-				<button class="button-gray-gradient" (click)="_param.reset()">重&nbsp;&nbsp;&nbsp;&nbsp;置</button>
+				<div  class="input-group float-left">
+               		<button class="btn button-gray-gradient" (click)="_param.reset()"><span class="glyphicon glyphicon-repeat"></span> 重置</button>
+        		</div>
 			</div>
-			<table class="table mgb20">
+			<table class="table">
 				<tbody>
 <!-- 					<tr class="none-border">				
 						<td>
@@ -99,7 +100,7 @@
 				</tbody>
 			</table>	
 		</div>
-		<div class="mgb20 form-control-title float-left">当前查询到<span class="font-green">{{_orderLoader.TotalRecords}}</span>个已购服务，已购服务列表如下：</div>
+		<div class="mgb10 float-left">当前查询到<span class="font-green">{{_orderLoader.TotalRecords}}</span>个已购服务，已购服务列表如下：</div>
 			<div class="table-container">
 			<table class="table">
 				<thead>	
