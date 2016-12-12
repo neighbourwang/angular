@@ -22,7 +22,7 @@ export class PortMngSetComponent implements OnInit {
         private router: Router,
         private service: PortMngSetService,
         private layoutService: LayoutService,
-        private router2: ActivatedRoute,
+        private router2: ActivatedRoute
     ) {
         
     }
