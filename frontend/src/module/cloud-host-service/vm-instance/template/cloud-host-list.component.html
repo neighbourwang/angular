@@ -107,6 +107,7 @@
             </ul>
         </div>-->
     </div>
+
     <table class="table table-hover">
         <tr>
             <th class="text-center"></th>
@@ -127,7 +128,16 @@
         </tr>
         <tr *ngFor="let vm of vmList;trackBy:vm?.expiryDate;">
             <td class="text-center"><input name="host-list" type="radio"></td>
-            <td class="text-center active">{{vm.instanceName}}</td>
+            <td class="text-center active" style="position: relative;width: 220px;line-height: 65px;"><span style="top: -1px;position: absolute;left: -1px;bottom: -1px;right: -1px;border: 1px solid #01a982;">{{vm.instanceName}}
+            <button 
+                            [popover]="mypopover" 
+                            [ngClass]="{'active': mypopover.popover?.visible}" 
+                            [disabled]="!isAttachVm" 
+            style="position: absolute;right: 0;bottom: 0;height: 20px;line-height: 20px;border: 0;background: #01a982;color: #fff;font-size: 12px;">编辑</button></span>
+                <popover-content #mypopover [closeOnClickOutside]="true" >
+                    啊实打实的
+                </popover-content>
+            </td>
             <td class="text-center">{{vm.specification}}</td>
             <td class="text-center">{{vm.osInfo}}</td>
             <td class="text-center">{{vm.privateIp}}</td> 

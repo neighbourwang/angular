@@ -23,7 +23,7 @@
         </div>
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 分布式交换机名称(VDS)：</span>
         <div class="float-left">
-            <select class="pdl20 pdr20 mgr20 form-control" [(ngModel)]="selectSwitch">
+            <select class="pdl20 pdr20 form-control" [(ngModel)]="selectSwitch">
                 <option [ngValue]="defaultSwitch">所有</option>
                 <option *ngFor="let vds of selectedDC.switchList" [ngValue]="vds">{{vds.switchName}}</option>
             </select>
