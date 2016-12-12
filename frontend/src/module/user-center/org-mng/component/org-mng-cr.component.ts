@@ -53,7 +53,9 @@ export class OrgMngCrComponent implements OnInit {
     }
   }
   ngOnInit() {    
-    
+      if(this.isEdit){
+        
+      }
   }
   //获取机构用户for leader列表
   getUserList(){    

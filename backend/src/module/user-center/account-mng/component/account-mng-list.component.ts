@@ -49,6 +49,7 @@ export class AccountMngComponent implements OnInit {
     }
 
     getAccount(index?, kw?) {
+        this.chooseAccount=new Account();
         this.tp = index || 1;
         this.keyup = kw || '';
         this.layoutService.show();
@@ -126,14 +127,14 @@ export class AccountMngComponent implements OnInit {
     //编辑
     edit() {
         //判断当前帐号的type跳转  demo演示 先跳转到本地编辑
-        if (this.chooseAccount.type) {
+        if (this.chooseAccount.id) {
             if (this.chooseAccount.type == "0") {
                 this.router.navigate([`/user-center/account-mng/account-mng-cr-local/${this.chooseAccount.id}`]);
             } else {
                 this.router.navigate([`/user-center/account-mng/account-mng-edit-ad/${this.chooseAccount.id}`]);
             }
         } else {
-            this.notice.open('操作错误', '请选择组织')
+            this.notice.open('操作错误', '请选择账号')
         }
 
     }
@@ -146,7 +147,7 @@ export class AccountMngComponent implements OnInit {
                 this.confirm.open("重置密码", "您选择重置账号 "+this.chooseAccount.loginName+"的密码,请确认");
             }
         } else {
-            this.notice.open('操作错误', '请选择组织')
+            this.notice.open('操作错误', '请选择账号')
         }
 
     }
@@ -161,7 +162,7 @@ export class AccountMngComponent implements OnInit {
             this.confirmType = 2;
             this.confirm.open("启用帐号", "您选择启用帐号 "+this.chooseAccount.loginName+"，请确认");
         } else {
-            this.notice.open('操作错误', '请选择组织')
+            this.notice.open('操作错误', '请选择账号')
         }
 
     }
@@ -176,7 +177,7 @@ export class AccountMngComponent implements OnInit {
             this.confirmType = 3;
             this.confirm.open("禁用帐号", "您选择禁用帐号 "+this.chooseAccount.loginName+"，请确认");
         } else {
-            this.notice.open('操作错误', '请选择组织')
+            this.notice.open('操作错误', '请选择账号')
         }
 
     }
@@ -185,14 +186,14 @@ export class AccountMngComponent implements OnInit {
     delete() {
         
         if(this.chooseAccount.status==1){
-            this.notice.open('操作错误','不能删除启用状态的账户')；
+            this.notice.open('操作错误','不能删除启用状态的账户')
             return;
         }
         if (this.chooseAccount.id) {
             this.confirmType = 4;
             this.confirm.open("删除帐号", "您选择删除帐号 "+this.chooseAccount.loginName+"，请确认");
         } else {
-            this.notice.open('操作错误', '请选择组织')
+            this.notice.open('操作错误', '请选择账号')
         }
 
     }
@@ -225,12 +226,12 @@ export class AccountMngComponent implements OnInit {
     }
 
     disableAccount() {
-         this.layoutService.show();
         this.service.disableAccount(this.chooseAccount.id)
             .then(
             res => {
                 console.log(res);
                 this.getAccount();
+
             }
             )
             .catch(

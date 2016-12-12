@@ -40,6 +40,12 @@ export class AccountMngCrLocalComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
+         this.service.roles.forEach(ele => {
+            ele.selected = false;
+        });
+        this.service.orgs.forEach(ele => {
+            ele.selected = false;
+        });
         console.log(this.editId);
         if (this.isEdit) {
             this.service.getLocalAcc(this.editId)
@@ -47,6 +53,14 @@ export class AccountMngCrLocalComponent implements OnInit, OnChanges {
                     res => {
                         console.log("账号", res);
                         this.account = res.resultContent;
+                        this.account.roles.forEach(ele=>{
+                            this.service.roles.forEach(e=>{
+                                if(ele.id==e.id){
+                                    e.selected=true;
+                                }
+                            })
+                        })
+                        
                     }
                 )
                 .catch(err => {
@@ -59,9 +73,7 @@ export class AccountMngCrLocalComponent implements OnInit, OnChanges {
     //选择角色
     selectRole(idx) {
         console.log(idx);
-        // this.service.roles.forEach(ele => {
-        //     ele.selected = false;
-        // });
+       
         this.service.roles[idx].selected = !this.service.roles[idx].selected;
         this.account.roles = this.service.roles.filter(ele => {
             if (ele.selected) {
