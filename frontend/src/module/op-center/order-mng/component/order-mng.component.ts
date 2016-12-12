@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
@@ -276,12 +276,9 @@ export class OrderMngComponent implements OnInit{
 		.then(success=>{
 			return this._platformLoader.Go();
 		})
-		.then(success=>{
-			this.layoutService.hide();
-		})
-		.then(success=>{
-			return this.loadDepartment();
-		})
+		// .then(success=>{
+		// 	return this.loadDepartment();
+		// })
 		.then(success=>{
 			return this._billinModeDic.Go();
 		})
@@ -290,6 +287,9 @@ export class OrderMngComponent implements OnInit{
 		})
 		.then(success=>{
 			this.layoutService.hide();
+		})
+		.then(success=>{
+			this.search();
 		})
 		.catch(err=>{
 			this.layoutService.hide();

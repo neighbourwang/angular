@@ -14,6 +14,8 @@ export class cloudDriveServiceList {
                 private restApi:RestApi) {
     }
 
+    userInfo = this.restApi.getLoginInfo().userInfo;
+
     getHostConfigList() : Promise<any>{
         const api = this.restApiCfg.getRestApi("hosts.services.get");
 

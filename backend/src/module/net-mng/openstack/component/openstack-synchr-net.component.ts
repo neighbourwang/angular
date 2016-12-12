@@ -77,31 +77,31 @@ export class OpenstackSynchrNetComponent implements OnInit{
 		
 	}
 
-    filter(){
-        if(this.synNetworks){
+    getEids(){
             let tNameList = this.tenantService.getList();
-            let flag:boolean = false;
-            this.synNetworks = this.synNetworks.filter((s)=>{
-                
+            let eids:string="";
+            if(!tNameList || tNameList.length==0){
+                console.log("tNameList为空");
+            }else{
                 tNameList.forEach((t)=>{
-                    if(t.name == s.tenantName){
-                        flag = true;
-                    }
-                })
-                return flag;
-            });
-        }
+                    eids = t.id +"," ;
+                });
+                
+                return eids.substring(0,eids.length-1);
+            }
+        
     }
 	getSynList(platform_id:string):void {
 		this.layoutService.show();
-        this.service.getSynNetworks(platform_id)
+        let eids = this.getEids();
+        this.service.getSynNetworks(platform_id,eids)
             .then(
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
 					this.synNetworks = response.resultContent;
-                    this.filter();
+                    //this.filter();
                 } else {
                     alert("Res sync error");
 
@@ -150,7 +150,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 if (response && 100 == response["resultCode"]) {
                     this.showAlert("添加成功");
                     this.getSynList(this.platform_id);
-                    this.filter();
+                    //this.filter();
                 }else{
                      alert("Res sync error");
                 }
@@ -178,7 +178,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                     //     n.syncResult = "2";
                     // })
                     this.getSynList(this.platform_id);
-                    this.filter();
+                    //this.filter();
                 }else{
                      alert("Res sync error");
                 }
@@ -197,7 +197,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 if (response && 100 == response["resultCode"]) {
                     this.showAlert("更新成功");
                     this.getSynList(this.platform_id);
-                    this.filter();
+                    //this.filter();
                 }else{
                     alert("Res sync error");
                 }
@@ -219,7 +219,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 if (response && 100 == response["resultCode"]) {
                     this.showAlert("全部更新成功");
                     this.getSynList(this.platform_id);
-                    this.filter();
+                    //this.filter();
                 }else{
                      alert("Res sync error");
                 }
@@ -238,7 +238,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 if (response && 100 == response["resultCode"]) {
                     this.showAlert("禁用成功");
                     this.getSynList(this.platform_id);
-                    this.filter();
+                    //this.filter();
                 }else{
                     alert("Res sync error");
                 }
@@ -260,7 +260,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 if (response && 100 == response["resultCode"]) {
                     this.showAlert("全部禁用成功");
                     this.getSynList(this.platform_id);
-                    this.filter();
+                    //this.filter();
                 }else{
                      alert("Res sync error");
                 }

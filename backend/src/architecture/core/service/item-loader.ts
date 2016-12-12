@@ -7,6 +7,7 @@ export class ItemLoader<T>{
 	PageSize:number = 10;//每一页的数量
 	private _items:Array<T> = [];
 	TotalPages: number = 1;
+	TotalRecords: number = 0;
 	QureryParams:Array<any> = null;//query parameter
 	PostParam:any = null;//传入PostParameter
 	FakeDataFunc:(target:Array<T>)=>void;//传入假数据
@@ -111,6 +112,7 @@ export class ItemLoader<T>{
 						if(ret.pageInfo)
 						{
 							this.TotalPages = ret.pageInfo.totalPage || 100;
+							this.TotalRecords = ret.pageInfo.totalRecords;
 						}
 						else
 						{

@@ -229,13 +229,15 @@ export let RestApis: RestApiModel[] = [
         "desc": "查询订单",
         "method": "POST",
         "id": "op-center.order-search.list.post",
-        "url": "marketplace/authsec/subinstance/subscription/orderlist"        
+        // "url": "marketplace/authsec/subinstance/subscription/orderlist"        
+        "url":"adminui/authsec/order/search/paging"
     },
     {
         "desc": "查询订单详情",
-        "method": "POST",
+        "method": "GET",
         "id": "op-center.order-search.detail.get",
-        "url": "marketplace/authsec/subinstance/order/{orderNo}/detail"        
+        "url": "marketplace/authsec/subinstance/order/{orderNo}/detail"     
+        // "url": "adminui/authsec/backend/order/{orderNo}/detail"    
     },
     //订单查询
 
@@ -344,12 +346,12 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "basis/authsec/adm/user/{id}"
     },
-    //  {
-    //     "desc" : "用户中心，帐号管理，帐号编辑，PUT",
-    //     "id" : "user-center.account-mng.editLocal",
-    //     "method" : "PUT",
-    //     "url" : "basis/authsec/mpp/user/{id}"
-    // },
+    {
+        "desc": "编辑账户本地",
+        "id": "user-center.account-mng.editAd",
+        "method": "PUT",
+        "url": "basis/authsec/mpp/user/{id}"
+    },
     //组织管理
      {
         "desc": "获取所有机构",
@@ -388,10 +390,17 @@ export let RestApis: RestApiModel[] = [
         "url": "basis/authsec/mpp/organization/{id}"
     },
     {
+        "desc": "获得单个机构资源信息",
+        "id": "user-center.org-mng.resource.get",
+        "method": "GET",
+        "url": "basis/authsec/mpp/organization/resource/{id}"
+    },
+    {
         "desc": "获得机构下的成员",
         "id": "user-center.org-mng.user-by-org.list",
         "method": "GET",
         "url": "basis/authsec/mpp/users/organization/{id}"
+        // adm/users/organization/e264346e-2857-4876-ba96-9fc2b0eeeb89
     },
      {
         "desc" : "编辑机构",

@@ -7,16 +7,16 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                <li (click)="edit()"><a>编辑</a></li>
-                <li (click)="enable()"><a>启用</a></li>
-                <li (click)="disable()"><a>禁用</a></li>
-				<li (click)="delete()"><a>删除</a></li>
+                <li (click)="edit()" style="cursor:pointer"><a>编辑</a></li>
+                <li (click)="enable()" style="cursor:pointer"><a>启用</a></li>
+                <li (click)="disable()" style="cursor:pointer"><a>禁用</a></li>
+				<li (click)="delete()" style="cursor:pointer"><a>删除</a></li>
             </ul>
         </div>
 
         <button class="fox-cloud-button fox-cloud-button-green" (click)="create()">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建帐号</span>
+            <span class="icon-button-label icon-left-button-label">创建组织</span>
         </button>
 </div>
 <div class="table-container" style="margin-top : 10px">
@@ -34,7 +34,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let item of orgs;let idx = index">
-                <td><input class="fox-cloud-radio" type="radio" name="isSelected" (click)="chooseItem(idx)"/></td>
+                <td (click)="chooseItem(idx)"><input class="fox-cloud-radio" type="radio" name="isSelected"  [checked]="item.selected"/></td>
                 <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.headCount}}</td>
@@ -47,5 +47,5 @@
     </div>
 
     <fc-pagination #pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
-
+    <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
     <fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="of()" ct="取消" (cf)="ccf()"></fc-confirm>

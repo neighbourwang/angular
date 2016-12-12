@@ -155,8 +155,6 @@
             </div>
         </div>
     </div>
-
-
     <div style="clear : both">
     </div>
 </div>
@@ -183,11 +181,11 @@
 		<td class="text-center">{{organ.status}}</td> 
 		<td class="text-center">{{organ.describtion}}</td>
 		<td class="text-center">
-            <span class="glyphicon glyphicon-edit font-green" (click)="statusChange(organ,'edit')" style="margin-right : 10px "></span><!-- 编辑 -->
+            <span class="glyphicon glyphicon-edit font-green" (click)="statusChange(organ,'edit')" style="margin-right : 10px ; cursor:pointer"></span><!-- 编辑 -->
             <!--<span class="glyphicon glyphicon-lock font-green" style="margin-right : 10px"></span>-->
-            <span class="glyphicon glyphicon-ok-circle font-green" (click)="statusChange(organ,'start')" style="margin-right : 10px"></span> <!-- 启用 -->
-            <span class="glyphicon glyphicon-ban-circle font-orange" (click)="statusChange(organ,'disabled')" style="margin-right : 10px"></span> <!-- 禁用 -->
-            <span class="glyphicon glyphicon-trash font-orange" (click)="statusChange(organ,'delete')"></span> <!-- 删除 -->
+            <span class="glyphicon glyphicon-ok-circle font-green" (click)="statusChange(organ,'start')" style="margin-right : 10px; cursor:pointer"></span> <!-- 启用 -->
+            <span class="glyphicon glyphicon-ban-circle font-orange" (click)="statusChange(organ,'disabled')" style="margin-right : 10px; cursor:pointer"></span> <!-- 禁用 -->
+            <span class="glyphicon glyphicon-trash font-orange" (click)="statusChange(organ,'delete')" style="cursor:pointer"></span> <!-- 删除 -->
         </td>
 	</tr>
 </tbody></table>
@@ -212,10 +210,10 @@
 </div>-->
 <fc-popup  #creOrgPop title="{{title}}" ot="{{isEdit==false?'创建':'保存'}}" (of)="createOrg();" ct="取消" (cf)="ccf()">
     <div class="row row-line-height">
-         <org-mng-cr *ngIf="true" #crModel [isEdit]="isEdit" [editId]="editId"></org-mng-cr>    
+         <org-mng-cr *ngIf="temporary" #crModel [isEdit]="isEdit" [editId]="editId"></org-mng-cr>    
     </div>
 </fc-popup>
 
 <fc-confirm  #confirm   title="{{confirmTitle}}"  msg="{{confirmMessage}}"  (cf)="confirmOk()"></fc-confirm>
-
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
 

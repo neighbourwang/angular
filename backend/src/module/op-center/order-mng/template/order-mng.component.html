@@ -91,7 +91,7 @@
 					</tbody>
 				</table>	
 			</div>
-			<div class="page-second-title" style="border:none;">当查询到{{_orderLoader.Items.length}}个订单需要审批，查询列表如下：</div>
+			<div class="page-second-title" style="border:none;">当前查询到{{_orderLoader.Items.length}}个已购服务，已购服务列表如下：</div>
 				<div class="table-container">
 				<table class="table">
 					<thead>	
@@ -115,10 +115,10 @@
 					<tr>
 						<td colspan="8" class="leftAlign font-green">{{orderItem.purchaseDate}} 订单号：{{orderItem.orderNo}}</td>
 						
-						<td><button *ngIf="orderItem.canRenew" class="fox-cloud-button  fox-cloud-button-green pull-right" (click)="renewSelect(orderItem)">续&nbsp;&nbsp;&nbsp;订</button></td>
+						<td><button *ngIf="orderItem.canRenew" class="fox-cloud-button  fox-cloud-button-green pull-right" (click)="renewSelect(orderItem)">续订</button></td>
 						<td><button class="fox-cloud-button  fox-cloud-button-green pull-right" (click)="cancelSelect(orderItem)">退订</button></td>
 
-						<td><button class="fox-cloud-button  fox-cloud-button-green  pull-right"  (click)="showDetail(orderItem.orderId)">详&nbsp;&nbsp;&nbsp;情</button></td>
+						<td><button class="fox-cloud-button  fox-cloud-button-green  pull-right"  (click)="showDetail(orderItem.orderId)">详情</button></td>
 					</tr>
 					<tr *ngFor="let prodItem of orderItem.itemList">
 						<td  class="order-title">

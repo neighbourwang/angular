@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <div class="row row-line-height">
+        <div  *ngIf="false" class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
                     机构负责人
@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <div class="row row-line-height">
+        <div class="row row-line-height" *ngIf="false">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
                     机构成员列表
@@ -45,7 +45,7 @@
                 <div class="col-sm-7">
                      <div class="checkbox">
                         <label style="margin-right: 5px;margin-bottom: 8px;" *ngFor="let item of account;" (click)="chooseAccount(item)">
-                            <input type="checkbox" class="fox-cloud-checkbox" [checked]="item.selected"> 
+                            <input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="item.selected"> 
                             <span style="margin-left : 5px;margin-right : 5px">{{item.userName}}</span>
                             <span>{{item.loginName}}</span>
                         </label>
@@ -95,7 +95,7 @@
         </div>
 
         <div class="text-center" style="margin-top : 30px">
-            <button class="fox-cloud-button-lg fox-cloud-button-white" >
+            <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel()">
                 <span class="icon-button-label">取消</span>
             </button>
             <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px" (click)="create()">

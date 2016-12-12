@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnChanges, SimpleChanges, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from "@angular/forms";
 
@@ -27,44 +27,70 @@ export class OrgMngCrComponent implements OnInit {
   @Input()
   editId: string;
 
-   @ViewChild("orgForm")
-    'orgForm': NgForm;
+  @ViewChild("orgForm")
+  'orgForm': NgForm;
 
-  org: Org =new Org();
+  org: Org = new Org();
   members: Array<Member>;
-  ngOnInit() {   
-    //获取机构成员
-    this.service.getNoMngUser(1, 9999).then(
+  users:Array<Member>;
+  ngOnChanges(changes: SimpleChanges) {
+    this.org = new Org();
+    console.log(this.editId);    
+    if (this.isEdit) {
+      this.getUserList();
+      this.getOrgDetail();
+      this.org.resource=new Resource();      
+      this.service.getOrgResourceById(this.editId)
+        .then(
+        res => {
+          console.log("账号资源", res);
+          this.org.resource = res.resultContent;
+        }
+        )
+        .catch(err => {
+          console.error(err);
+        });
+    }
+  }
+  ngOnInit() {    
+    
+  }
+  //获取机构用户for leader列表
+  getUserList(){    
+    this.service.getUserByOrg(this.editId).then(
       res => {
         console.log('getNoMngUser', res);
-        this.members = res.resultContent;
+         this.users = res.resultContent;
       }
     ).catch(
       err => {
         console.error(err);
       }
       )
-    if (this.isEdit) {
-      console.log('edit 读取接口',this.editId);
-      this.service.getOrgById(this.editId).then(res=>{
-          console.log(res);
-      })
-    } else {
-      console.log('创建');
-       //
-      this.org== new Org();
-    }
   }
   //选择机构成员
   selectMember(member) {
     console.log(member)
     member.selected = !member.selected;
-    this.org.members = this.members.filter(ele => {
+    this.org.members = this.service.members.filter(ele => {
       if (ele.selected == true) {
         return ele
       }
     })
     console.log(this.org.members)
+  }
+  获取部门详情
+  getOrgDetail(){
+    this.service.getOrgById(this.editId)
+        .then(
+        res => {
+          console.log("部门基本", res);
+          this.org = res.resultContent;
+        }
+        )
+        .catch(err => {
+          console.error(err);
+        });
   }
   //保存 给父组件调用
   save() {
@@ -82,12 +108,8 @@ export class OrgMngCrComponent implements OnInit {
   //同步countBar数据
   outputValue(e, arg) {
     console.log(arg);
-    // this.prodDir.specification[arg] = e;
-    // arg=e;
     console.log(e);
-    // console.log(this.prodDir.specification.mem);
-    // console.log(this.prodDir.specification.vcpu);          
-
+    this.org.resource[arg]=e;
   }
   /////////////////////edit   getUserByOrg
 

@@ -146,8 +146,10 @@ export class AccountMngCrAd implements OnInit {
             .then(response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.showAlert("success");
+                    //this.showAlert("success");
                     this.router.navigateByUrl('user-center/account-mng/account-mng-list');
+                } else if (response && "10051101" == response["resultCode"]) {
+                    this.showAlert("该账户已经被占用");
                 } else {
                     this.showAlert("Res sync error");
                 }

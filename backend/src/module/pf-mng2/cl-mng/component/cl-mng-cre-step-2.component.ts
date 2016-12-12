@@ -40,6 +40,28 @@ export class ClMngCreStep2Component implements OnInit {
             console.log(this.platformType);
         })
         //可用区同步
+    //       this.service.zones(platFormId,this.platformType).then(
+    //         res => {
+    //             console.log(res);
+    //             this.creStep2Model.zones = 'ok';
+    //             this.creStep2Model.zonesStatus = true;
+    //             this.creStep2Model.message = '同步可用区成功，正在同步存储区';
+    //             this.creStep2Model.percentage = 20;
+    //             this.storages();
+    //         }
+    //     ).catch(
+    //         error => {
+    //             this.creStep2Model.zones = 'fail';
+    //             this.creStep2Model.message = '同步可用区失败';
+    //         }
+    //         //     function(){
+    //         //     this.creStep2Model.synchronize = 'fail';
+    //         //     this.creStep2Model.message = '同步可用区失败';
+    //         // }
+    //         )
+    // }
+        
+
         this.service.zones(platFormId).then(
             res => {
                 console.log(res);

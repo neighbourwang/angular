@@ -16,7 +16,7 @@ export class AccountMngService {
     roles: Array<Role> = [];
     orgs: Array<Organization> = [];
     attests: Array<Attest> = [];
-
+    userInfo = this.restApi.getLoginInfo().userInfo;
     // 获取帐号列表
     getAccountList(page: number, size: number) {
         let api = this.restApiCfg.getRestApi("user-center.account-mng.list");
@@ -24,10 +24,10 @@ export class AccountMngService {
         return this.restApi.request(api.method, api.url, [{ key: "page", value: page }, { key: "size", value: size }], undefined);
     }
     //账号搜索
-    searchAccountByName(page: number, size: number,kw:string){
+    searchAccountByName(page: number, size: number, kw: string) {
         let api = this.restApiCfg.getRestApi("user-center.search-account.list");
 
-        return this.restApi.request(api.method, api.url, [{ key: "page", value: page }, { key: "size", value: size }], [{key: "userName", value: kw }]);
+        return this.restApi.request(api.method, api.url, [{ key: "page", value: page }, { key: "size", value: size }], [{ key: "userName", value: kw }]);
     }
     //获取账号详情
     getLocalAcc(id: string) {
@@ -126,7 +126,7 @@ export class AccountMngService {
             },
             {
                 key: "enterpriseId",
-                value: "100"
+                value: this.userInfo.enterpriseId
             }
         ];
 
@@ -178,7 +178,11 @@ export class AccountMngService {
 
     //编辑帐号
     editAdAccount(account) {
-        let api = this.restApiCfg.getRestApi("user-center.account-mng.local.edit");
-        return this.restApi.request(api.method, api.url, [{ key: "id", value: account.id }], undefined, account);
+        let api = this.restApiCfg.getRestApi("user-center.account-mng.editAd");
+        return this.restApi.request(api.method, api.url, [{ key: "id", value: account.userId }], undefined, account);
     }
+
+
+
+
 }

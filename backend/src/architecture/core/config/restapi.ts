@@ -118,6 +118,51 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminui/authsec/platform/{pf-id}/images/synchronize"        
     },
+    //vmware平台
+    // {
+    //     "desc": "可用区同步/集群",
+    //     "id": "pf.cre.step.02.cluster.synchronize.vmware.get",
+    //     "method": "GET",
+    //     "url": "/bridge/authsec/platform/{platform_id}/vmware/clusters"
+    // },
+    // {
+    //     "desc": "存储同步",
+    //     "id": "pf.cre.step.02.storages.synchronize.vmware.get",
+    //     "method": "GET",
+    //     "url": "/bridge/authsec/platform/{platform_id}/vmware/datastores"
+    // },
+    // {
+    //     "desc": "云主机规格",
+    //     "id": "pf.cre.step.02.flavors.synchronize.vmware.get",
+    //     "method": "GET",
+    //     "url": "adminui/authsec/platform/{pf-id}/flavors/synchronize"
+    // },
+    // {
+    //     "desc": "可用域同步",
+    //     "id": "pf.cre.step.02.regions.synchronize.vmware.get",
+    //     "method": "GET",
+    //     "url": "adminui/authsec/platform/{pf-id}/regions/synchronize"
+    // },
+    // {
+    //     "desc": "镜像同步",
+    //     "id": "pf.cre.step.02.images.synchronize.vmware.get",
+    //     "method": "GET",
+    //     "url": "adminui/authsec/platform/{pf-id}/images/synchronize"        
+    // },
+    //  {
+    //     "desc": "宿主机同步",
+    //     "id": "pf.cre.step.02.hosts.synchronize.vmware.get",
+    //     "method": "GET",
+    //     "url": /bridge/authsec/{platform_id}/vmware/hosts"
+    // },
+     //  {
+    //     "desc": "创建数据中心",
+    //     "id": "pf.cre.step.dc.create.vmware.post",
+    //     "method": "POST",
+    //     "url": /bridge/authsec/vmware/dcs"
+    // },
+
+
     //update镜像同步
     {
         "desc": "镜像同步",
@@ -1114,7 +1159,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取同步网络列表",
         "id": "net-mng.openstack.net.syn.list",
         "method": "GET",
-        "url": "openstacknetworkmgmt/authsec/{platform_id}/openstack/networkSync"
+        "url": "openstacknetworkmgmt/authsec/{platform_id}/openstack/networkSync/{eids}"
     },
     {
         "desc": "获取地域数据中心数据平台选项",

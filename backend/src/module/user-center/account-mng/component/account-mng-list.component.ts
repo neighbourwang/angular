@@ -29,6 +29,9 @@ export class AccountMngComponent implements OnInit {
     @ViewChild("confirm")
     confirm: ConfirmComponent;
 
+    @ViewChild("notice")
+    notice: ConfirmComponent;
+
     //用来判断 confirm确定执行的方法 1 重置密码 2 启用 3 禁用 4 删除
     confirmType: number;
 
@@ -45,27 +48,27 @@ export class AccountMngComponent implements OnInit {
         this.getAccount();
     }
 
-    getAccount(index?,kw?) {
+    getAccount(index?, kw?) {
         this.tp = index || 1;
-        this.keyup=kw||'';
+        this.keyup = kw || '';
         this.layoutService.show();
-        this.service.searchAccountByName(this.tp, this.pp,this.keyup)
+        this.service.searchAccountByName(this.tp, this.pp, this.keyup)
             .then(
             res => {
-                this.layoutService.hide();
-                    console.log(res);
-                    this.accounts = res.resultContent;
-                    this.tp = res.pageInfo.totalPage;
-                    for (let item of this.accounts) {
-                        item.selected = false;
-                    }
+                console.log(res);
+                this.accounts = res.resultContent;
+                this.tp = res.pageInfo.totalPage;
+                for (let item of this.accounts) {
+                    item.selected = false;
                 }
+                this.layoutService.hide();
+            }
             )
             .catch(
             error => {
                 this.layoutService.hide();
-                    console.error(error);
-                }
+                console.error(error);
+            }
             );
     }
 
@@ -101,78 +104,105 @@ export class AccountMngComponent implements OnInit {
     //关键得搜索
     search() {
         console.log(this.keyup);
-        this.service.searchAccountByName(0, this.pp,this.keyup).then(
+        this.service.searchAccountByName(0, this.pp, this.keyup).then(
             res => {
                 this.layoutService.hide();
-                    console.log(res);
-                    this.accounts = res.resultContent;
-                    this.tp = res.pageInfo.totalPage;
-                    for (let item of this.accounts) {
-                        item.selected = false;
-                    }
+                console.log(res);
+                this.accounts = res.resultContent;
+                this.tp = res.pageInfo.totalPage;
+                for (let item of this.accounts) {
+                    item.selected = false;
                 }
-            )
+            }
+        )
             .catch(
             error => {
                 this.layoutService.hide();
-                    console.error(error);
-                }
+                console.error(error);
+            }
             );
     }
 
     //编辑
     edit() {
         //判断当前帐号的type跳转  demo演示 先跳转到本地编辑
-        if (this.chooseAccount.type == "0") {
-            this.router.navigate([`/user-center/account-mng/account-mng-cr-local/${this.chooseAccount.id}`]);
+        if (this.chooseAccount.type) {
+            if (this.chooseAccount.type == "0") {
+                this.router.navigate([`/user-center/account-mng/account-mng-cr-local/${this.chooseAccount.id}`]);
+            } else {
+                this.router.navigate([`/user-center/account-mng/account-mng-edit-ad/${this.chooseAccount.id}`]);
+            }
         } else {
-            this.router.navigate([`/user-center/account-mng/account-mng-edit-ad/${this.chooseAccount.id}`]);
+            this.notice.open('操作错误', '请选择组织')
         }
+
     }
 
     //重置密码
     resetPassword() {
-        this.confirmType = 1;
-        this.confirm.open("重置密码", "您将想要重置机构xxx的密码,请确认");
+        if (this.chooseAccount.id) {
+            if (this.chooseAccount.id) {
+                this.confirmType = 1;
+                this.confirm.open("重置密码", "您选择重置账号 "+this.chooseAccount.loginName+"的密码,请确认");
+            }
+        } else {
+            this.notice.open('操作错误', '请选择组织')
+        }
+
     }
 
     //启用
     enable() {
-        this.confirmType = 2;
-        this.confirm.open("启用帐号", "您选择启用 机构xxx，xxx'xxx@hpe.com'帐号，请确认");
+        if (this.chooseAccount.id) {
+            this.confirmType = 2;
+            this.confirm.open("启用帐号", "您选择启用帐号 "+this.chooseAccount.loginName+"，请确认");
+        } else {
+            this.notice.open('操作错误', '请选择组织')
+        }
+
     }
 
     //禁用
     disable() {
-        this.confirmType = 3;
-        this.confirm.open("禁用帐号", "您选择禁用 机构xxx，xxx'xxx@hpe.com'帐号，请确认");
+        if (this.chooseAccount.id) {
+            this.confirmType = 3;
+            this.confirm.open("禁用帐号", "您选择禁用帐号 "+this.chooseAccount.loginName+"，请确认");
+        } else {
+            this.notice.open('操作错误', '请选择组织')
+        }
+
     }
 
     //删除
     delete() {
-        this.confirmType = 4;
-        this.confirm.open("删除帐号", "您选择删除 机构xxx，xxx'xxx@hpe.com'帐号，请确认");
+        if (this.chooseAccount.id) {
+            this.confirmType = 4;
+            this.confirm.open("删除帐号", "您选择删除帐号 "+this.chooseAccount.loginName+"，请确认");
+        } else {
+            this.notice.open('操作错误', '请选择组织')
+        }
+
     }
 
     //弹出框 确认
     ok() {
         switch (this.confirmType) {
-        case 1:
-            console.log("重置密码");
-            this.ressetPasswordAccount();
-            break;
-        case 2:
-            console.log("启用帐号");
-            this.enableAccount();
-            break;
-        case 3:
-            console.log("禁用帐号");
-            this.disableAccount();
-            break;
-        case 4:
-            console.log("删除帐号");
-            this.deleteAccount();
-            break;
+            case 1:
+                console.log("重置密码");
+                this.ressetPasswordAccount()
+                break;
+            case 2:
+                console.log("启用帐号");
+                this.enableAccount();
+                break;
+            case 3:
+                console.log("禁用帐号");
+                this.disableAccount();
+                break;
+            case 4:
+                console.log("删除帐号");
+                this.deleteAccount();
+                break;
         }
     }
 
@@ -182,60 +212,67 @@ export class AccountMngComponent implements OnInit {
     }
 
     disableAccount() {
+         this.layoutService.show();
         this.service.disableAccount(this.chooseAccount.id)
             .then(
-                res => {
-                    console.log(res);
-                }
+            res => {
+                console.log(res);
+                this.getAccount();
+            }
             )
             .catch(
-                err => {
-                    console.error(err);
-                }
+            err => {
+                console.error(err);
+            }
             );
     }
 
     enableAccount() {
         this.service.enableAccount(this.chooseAccount.id)
             .then(
-                res => {
-                    console.log(res);
-                }
+            res => {
+                console.log(res);
+                this.getAccount();
+            }
             )
             .catch(
-                err => {
-                    console.error(err);
-                }
+            err => {
+                console.error(err);
+            }
             );
     }
 
     ressetPasswordAccount() {
         this.service.resetPasswordAccount(this.chooseAccount.id)
             .then(
-                res => {
-                    console.log(res);
-                }
+            res => {
+                console.log(res);
+                this.getAccount();
+            }
             )
             .catch(
-                err => {
-                    console.error(err);
-                }
+            err => {
+                console.error(err);
+            }
             );
     }
 
     deleteAccount() {
         this.service.deleteAccount(this.chooseAccount.id)
             .then(
-                res => {
-                    console.log(res);
-                }
+            res => {
+                console.log(res);
+                this.getAccount();
+            }
             )
             .catch(
-                err => {
-                    console.error(err);
-                }
+            err => {
+                console.error(err);
+            }
             );
     }
+    nof() {
 
+    }
 
 }

@@ -2,7 +2,7 @@
 <div class="mgb20" style="overflow : hidden">
     <div class="input-group col-md-2 float-left">
         <input class="form-control" [(ngModel)]="keyword" (keyup.enter)="search()" placeholder="输入帐号信息快速搜索" type="text">
-        <div class="input-group-addon" (click)="search()"><span class="glyphicon glyphicon-search"></span></div>
+        <div class="input-group-addon" (click)="search()"><span class="glyphicon glyphicon-search" style="cursor:pointer"></span></div>
     </div>
     <button class="btn button-confirm float-right" data-toggle="modal" (click)="create()">创建帐号</button>
 </div>
@@ -27,11 +27,11 @@
             <td class="text-center">部门负责人</td>
             <td class="text-center">启用</td>
             <td class="text-center">
-                <span class="glyphicon glyphicon-edit font-green" (click)="edit(account,idx)" style="margin-right : 10px "></span>
+                <span class="glyphicon glyphicon-edit font-green" (click)="edit(account,idx)" style="margin-right : 10px ;cursor:pointer"></span>
                 <!--<span class="glyphicon glyphicon-lock font-green" style="margin-right : 10px"></span>-->
-                <span class="glyphicon glyphicon-ok-circle font-green" (click)="enable(account.id,idx)" style="margin-right : 10px"></span>
-                <span class="glyphicon glyphicon-ban-circle font-orange" (click)="disable(account.id,idx)" style="margin-right : 10px"></span>
-                <span class="glyphicon glyphicon-trash font-orange" (click)="delete(account.id,idx)"></span>
+                <span class="glyphicon glyphicon-ok-circle font-green" (click)="enable(account,idx)" style="margin-right : 10px;cursor:pointer"></span>
+                <span class="glyphicon glyphicon-ban-circle font-orange" (click)="disable(account,idx)" style="margin-right : 10px;cursor:pointer"></span>
+                <span class="glyphicon glyphicon-trash font-orange" (click)="delete(account,idx)" style="cursor:pointer"></span>
             </td>
         </tr>
     </tbody>
@@ -39,7 +39,7 @@
 
 <fc-pagination #pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
 <fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMessage}}" (cf)="confirmOk()"></fc-confirm>
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" (of)="nof()"></fc-notice>
 <fc-popup #creAccount title="{{title}}" ot="创建" (of)="otCreate()" ct="取消" (cf)="ccf()">
     <div class="row row-line-height">
         <div class="form-group">
@@ -54,7 +54,7 @@
     </div>
 </fc-popup>
 
-<fc-popup  #crLocalAccount title="{{title}}" ot="{{isEdit==false?'创建':'保存'}}" (of)="createAdAccount();" ct="取消" (cf)="ccf()">
+<fc-popup  #crLocalAccount title="{{title}}" ot="{{isEdit==false?'创建':'保存'}}" (of)="save();" ct="取消" (cf)="ccf()">
     <div class="row row-line-height">
         <account-mng-cr-local *ngIf="isActive" #crLocal [isEdit]="isEdit" [editId]="editId"></account-mng-cr-local>
     </div>
@@ -65,7 +65,7 @@
         <account-mng-cr-ad #crAdCount></account-mng-cr-ad>
     </div>
 </fc-popup>
-<fc-popup #editAdAccount title="{{title}}" ot="保存" (of)="editAccount()" ct="取消" (cf)="ccf()">
+<fc-popup #editAdAccount title="{{title}}" ot="保存" (of)="editAdAccountM();" ct="取消" (cf)="ccf()">
     <div class="row row-line-height">
         <account-mng-edit-ad #editAd [accountId]="editId"></account-mng-edit-ad>
     </div>

@@ -61,9 +61,13 @@ export class AccountMngListComponent implements OnInit {
 
     ngOnInit() {
         this.getAccountList(1, this.pp);
+     
+
         this.getRole();
         this.getOrg();
-        this.getAttest();
+        if (this.service.userInfo.isAD) {
+            this.getAttest();
+        }
     }
 
     //关键字搜索
@@ -85,16 +89,16 @@ export class AccountMngListComponent implements OnInit {
     getAccountList(page: number, size: number) {
         this.service.getAccountList(page, size)
             .then(
-                res => {
-                    console.log(res);
-                    this.accounts = res.resultContent;
-                    this.tp = res.pageInfo.totalPage;
-                }
+            res => {
+                console.log(res);
+                this.accounts = res.resultContent;
+                this.tp = res.pageInfo.totalPage;
+            }
             )
             .catch(
-                err => {
-                    console.error(err);
-                }
+            err => {
+                console.error(err);
+            }
             );
     }
 
@@ -128,36 +132,38 @@ export class AccountMngListComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    //保存
+    //保存本地账号
     save() {
         this.crLocal.save()
             .then(
-                res => {
-                    console.log(res);
-                    this.createLocalAccountPopUp.close();
-                }
+            res => {
+                console.log(res);
+                this.accounts = [];
+                this.createLocalAccountPopUp.close();
+                this.getAccountList(1, this.pp);
+            }
             )
             .catch(
-                err => {
-                    console.error("err");
-                }
+            err => {
+                console.error("err");
+            }
             );
     }
 
     //搜索
     search() {
         console.log("seach", this.keyword);
-        this.service.searchAccountByName(1,9999,this.keyword).then(
-                res => {
-                    console.log(res);
-                    this.accounts = res.resultContent;
-                    this.tp = res.pageInfo.totalPage;
-                }
-            )
+        this.service.searchAccountByName(1, 9999, this.keyword).then(
+            res => {
+                console.log(res);
+                this.accounts = res.resultContent;
+                this.tp = res.pageInfo.totalPage;
+            }
+        )
             .catch(
-                err => {
-                    console.error(err);
-                }
+            err => {
+                console.error(err);
+            }
             );
     }
 
@@ -168,27 +174,34 @@ export class AccountMngListComponent implements OnInit {
 
     //
     accountType = "1";
-    isActive:boolean=false;
+    isActive: boolean = false;
     otCreate() {
-        this.isActive=false;
-        window.setTimeout(()=>{
-            this.isActive=true
-        },0)
-        this.createAccountPopUp.close();
-        console.log(this.accountType);
-        if (this.accountType == "1") {
-            this.isEdit = false;
-            window.setTimeout(() => {
-                    this.createLocalAccountPopUp.open("创建本地账号");
-                },
-                510);
+        //this.isActive = false;
+        //window.setTimeout(() => {
+        //        this.isActive = true;
+        //    },
+        //    0);
+        //this.createAccountPopUp.close();
+        //console.log(this.accountType);
+        //if (this.accountType == "1") {
+        //    this.isEdit = false;
+        //    window.setTimeout(() => {
+        //        this.createLocalAccountPopUp.open("创建本地账号");
+        //    },
+        //        510);
 
+        //} else {
+        //    window.setTimeout(() => {
+        //        this.crAd.clearData();
+        //        this.createAdAccountPopUp.open("创建AD账号");
+        //    },
+        //        510);
+        //}
+
+        if (this.service.userInfo.isAD) {
+            this.createAdAccountPopUp.open("创建AD账号");
         } else {
-            window.setTimeout(() => {
-                    this.crAd.clearData();
-                    this.createAdAccountPopUp.open("创建AD账号");
-                },
-                510);
+            this.createLocalAccountPopUp.open("创建本地账号");
         }
     }
 
@@ -200,27 +213,27 @@ export class AccountMngListComponent implements OnInit {
         this.isEdit = true;
         this.editId = account.id;
         if (account.type == 0) { //0 本地  ,1 AD
-           this.createLocalAccountPopUp.open("编辑本地账号");
+            this.createLocalAccountPopUp.open("编辑本地账号");
         } else {
-        this.editAdAccountPopUp.open("编辑AD账号");
+            this.editAdAccountPopUp.open("编辑AD账号");
         }
     }
 
     //启用
-    enable(accountId, index) {
+    enable(account, index) {
         this.confirmTitle = "启用帐号";
-        const accountName = this.accounts[index].userName;
-        this.accountId = this.accounts[index].id;
+        const accountName = account.userName;
+        this.accountId = account.id;
         this.confirmMessage = `您选择启用${accountName}，请确认`;
         this.confirmType = 1;
         this.confirm.open();
     }
 
     //禁用
-    disable(accountId, index) {
+    disable(account, index) {
         this.confirmTitle = "禁用帐号";
-        const accountName = this.accounts[index].userName;
-        this.accountId = this.accounts[index].id;
+        const accountName = account.userName;
+        this.accountId = account.id;
         this.confirmMessage = `您选择禁用${accountName}，请确认。如果确认，机构成员将无法操作相关资源`;
         this.confirmType = 2;
         this.confirm.open();
@@ -228,10 +241,10 @@ export class AccountMngListComponent implements OnInit {
     }
 
     //删除
-    delete(accountId, index) {
+    delete(account, index) {
         this.confirmTitle = "删除帐号";
-        const accountName = this.accounts[index].userName;
-        this.accountId = this.accounts[index].id;
+        const accountName = account.userName;
+        this.accountId = account.id;
         this.confirmMessage = `您选择删除${accountName}，请确认。如果确认，部门将被删除且该部门中的用户将被移除。`;
         this.confirmType = 3;
         this.confirm.open();
@@ -239,93 +252,97 @@ export class AccountMngListComponent implements OnInit {
 
     confirmOk() {
         switch (this.confirmType) {
-        case 1:
-            console.log("启用");
-            this.enableAcc();
-            break;
-        case 2:
-            console.log("禁用");
-            this.disableAcc();
-            break;
-        case 3:
-            console.log("删除");
-            this.deleteAcc();
-            break;
+            case 1:
+                console.log("启用");
+                this.enableAcc();
+                break;
+            case 2:
+                console.log("禁用");
+                this.disableAcc();
+                break;
+            case 3:
+                console.log("删除");
+                this.deleteAcc();
+                break;
         }
     }
 
     enableAcc() {
         this.service.enableAcc(this.accountId)
             .then(
-                res => {
-                    console.log(res);
-                    this.getAccountList(1, this.pp);
-                }
+            res => {
+                console.log(res);
+                this.getAccountList(1, this.pp);
+            }
             )
             .catch(
-                err => {
-                    console.error(err);
-                }
+            err => {
+                console.error(err);
+            }
             );
     }
 
     disableAcc() {
         this.service.disableAcc(this.accountId)
             .then(
-                res => {
-                    console.log(res);
-                    this.getAccountList(1, this.pp);
-                }
+            res => {
+                console.log(res);
+                this.getAccountList(1, this.pp);
+            }
             )
             .catch(
-                err => {
-                    console.error(err);
-                }
+            err => {
+                console.error(err);
+            }
             );
     }
 
     deleteAcc() {
         this.service.deleteAcc(this.accountId)
             .then(
-                res => {
-                    console.log(res);
-                    this.getAccountList(1, this.pp);
-                }
+            res => {
+                console.log(res);
+                this.getAccountList(1, this.pp);
+            }
             )
             .catch(
-                err => {
-                    console.error(err);
-                }
+            err => {
+                console.error(err);
+            }
             );
     }
-
     //创建AD账户
     createAdAccount() {
         this.crAd.createAccount()
-            .then(res => {
-                console.log(res);
-                if (res == false)
-                    return;
-                this.createAdAccountPopUp.close();
-                this.getAccountList(1, this.pp);
+            .then(response => {
+                console.log(response);
+                if (response && 100 == response["resultCode"]) {
+                    this.createAdAccountPopUp.close();
+                    this.getAccountList(1, this.pp);
+                } else if (response && "10051101" == response["resultCode"]) {
+                    this.showAlert("该账户已经被占用");
+                }  
             });
     }
 
-    editAccount() {
+    editAdAccountM()  {
         this.editAd.editAccount()
-            .then(res => {
-                    console.log(res);
-                    if (res == false)
-                        return;
-                    this.createAdAccountPopUp.close();
+            .then(response => {
+                console.log(response);
+                if (response && 100 == response["resultCode"]) {
+                    this.editAdAccountPopUp.close();
                     this.getAccountList(1, this.pp);
+                } else if (response && "10051101" == response["resultCode"]) {
+                    this.showAlert("该账户已经被占用");
+                } else {
                 }
-            ).catch(err=>{
+            }
+            ).catch(err => {
                 console.error(err);
             });
     }
 
-//分页
+    //分页
     tp = 0;
     pp = 10;
 

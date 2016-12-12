@@ -54,7 +54,7 @@ export class OpenstackImageSyncEntComponent implements OnInit{
     ownerDic: Array<SystemDictionary>;//归属
     statusDic: Array<SystemDictionary>;//状态
     syncDic: Array<SystemDictionary>;//同步结果
-
+    osDic: Array<SystemDictionary>;//操作系统
     ngOnInit(){
         this.selectedTenantList = this.tenantService.getList();
         this.postTenants = this.selectedTenantList;
@@ -79,6 +79,10 @@ export class OpenstackImageSyncEntComponent implements OnInit{
             })
             .then((dic)=>{
                 this.syncDic = dic;
+                return this.dicService.getItems("IMAGES","OS");
+            })
+            .then((dic)=>{
+                this.osDic = dic;
             });
 
         this.router.params.forEach((params: Params) => {
@@ -131,6 +135,9 @@ export class OpenstackImageSyncEntComponent implements OnInit{
         if(this.images && this.images.length>0){
             this.images.forEach( (i)=>{
                 if(i.selected){
+                    if(!i.displayName || i.displayName == ""){
+                        i.displayName = i.name;
+                    }
                     this.images_needsync.push(i);
                 }
             });
@@ -202,12 +209,17 @@ export class OpenstackImageSyncEntComponent implements OnInit{
     }
     //编辑时 默认操作系统选项
     setDefaultOs(type:SystemDictionary, value:string){
-        if(value == type.value){
-            let classes =  {
-                selected:"selected"
+        // if(value == type.value){
+        //     let classes =  {
+        //         selected:"selected"
+        //     };
+        //     return classes;
+        // }
+        let classes =  {
+                disabled:"disabled"
             };
-            return classes;
-        }
+        return classes;
+        
     }
      //显示镜像容量
     showCapacity(capacity:number){
@@ -233,4 +245,6 @@ export class OpenstackImageSyncEntComponent implements OnInit{
             }
         }
     }
+
+   
 }

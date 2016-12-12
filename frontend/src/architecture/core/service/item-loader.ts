@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RestApiCfg, RestApi, RestApiModel } from './../../../architecture';
+import * as _ from 'underscore';
 
 @Injectable()
 export class ItemLoader<T>{
@@ -7,6 +8,7 @@ export class ItemLoader<T>{
 	PageSize:number = 10;//每一页的数量
 	private _items:Array<T> = [];
 	TotalPages: number = 1;
+	TotalRecords: number = 0;
 	QureryParams:Array<any> = null;//query parameter
 	PostParam:any = null;//传入PostParameter
 	FakeDataFunc:(target:Array<T>)=>void;//传入假数据
@@ -58,6 +60,16 @@ export class ItemLoader<T>{
 		}
 	}
 
+	private convertNull(param:any):any
+	{
+		return _.mapObject(param,(val:any,key:string)=>{
+			if(val === "null")
+				return null;
+			else
+				return val;
+		});
+	}
+
 	Go(pageNumber?:number, queryParams?:Array<any>, postParam?:any):Promise<any>{
 		return new Promise((resolve, reject)=>{
 			if(this.FakeDataFunc)
@@ -70,7 +82,7 @@ export class ItemLoader<T>{
 
 			this.setPageNumber(pageNumber);
 			this.setQueryParams(queryParams);
-			this.PostParam = postParam;
+			this.PostParam = this.convertNull(postParam);
 
 			let apiModel = this.restApiCfg.getRestApi(this._apiId);
 
@@ -111,6 +123,7 @@ export class ItemLoader<T>{
 						if(ret.pageInfo)
 						{
 							this.TotalPages = ret.pageInfo.totalPage || 100;
+							this.TotalRecords = ret.pageInfo.totalRecords;
 						}
 						else
 						{
