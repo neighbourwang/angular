@@ -56,39 +56,16 @@ export class OrgMngListComponent implements OnInit {
   editId:string;
 
   //企业资源对象
-  entResourceObj=new EntResource();
+  entResourceObj:EntResource;
   ngOnInit() {
-    this.getCurEntId();
+    this.entResourceObj=new EntResource();
+    this.service.getCurEntId();
     this.getOrgs(0, this.pp);
     this.service.getNoMngUser();
-  }
-  //获取企业ID
-  getCurEntId(){
-    return this.service.getCurEntId().then(
-      res => {
-        console.log(res);
-        this.getCurEntResource(res.resultContent);
-      }
-    ).catch(
-      err => {
-        console.error('获取当前切ID失败');
-      }
-      )
-  }
-  //获取企业资源
-  getCurEntResource(id){
-    this.service.getCurEntResource(id).then(
-      res => {
-        console.log('获取企业资源信息',res);
-        this.entResourceObj=res.resultContent[0];
-      }
-    ).catch(
-      err => {
-        console.error('获取企业资源信息失败');
-      }
-      )
+    this.entResourceObj=this.service.entResourceObj;
   }
 
+  //获取企业资源  
   getOrgs(page: number, size: number) {
     this.service.getOrg(page, size).then(
       res => {
@@ -106,9 +83,7 @@ export class OrgMngListComponent implements OnInit {
 
   paging(page) {
     this.getOrgs(page, 10);
-  }
-
- 
+  } 
   statusChange(org, type) {
     console.log(org)
     console.log(type)
