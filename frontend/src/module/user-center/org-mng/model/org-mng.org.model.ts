@@ -38,6 +38,7 @@ class Platform {
 }
 class Org {
   "description": string;
+  status:number;
   "id": string;
   "leaderId": string;
   "members": Array<Member>;

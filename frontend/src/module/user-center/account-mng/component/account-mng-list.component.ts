@@ -9,7 +9,7 @@ import { AccountMngEditAdComponent } from "./account-mng-edit-ad.component";
 
 import { AccountMngService } from "../service/account-mng.service";
 
-import { Account } from "../model/account";
+import { Account } from "../model/account.model";
 
 @Component({
     // selector: 'account-mng-list',
