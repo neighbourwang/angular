@@ -61,7 +61,7 @@ export class AccountMngListComponent implements OnInit {
 
     ngOnInit() {
         this.getAccountList(1, this.pp);
-     
+
 
         this.getRole();
         this.getOrg();
@@ -169,40 +169,42 @@ export class AccountMngListComponent implements OnInit {
 
     //创建
     create() {
-        this.createAccountPopUp.open("创建帐号");
+       
+        if (this.service.userInfo && this.service.userInfo.isAD) {
+          this.createAdAccountPopUp.open("创建AD账号");
+        } else {
+            this.createLocalAccountPopUp.open("创建本地账号");
+        }
+        //this.createAccountPopUp.open("创建帐号");
     }
 
     //
     accountType = "1";
     isActive: boolean = false;
     otCreate() {
-        //this.isActive = false;
-        //window.setTimeout(() => {
-        //        this.isActive = true;
-        //    },
-        //    0);
-        //this.createAccountPopUp.close();
-        //console.log(this.accountType);
-        //if (this.accountType == "1") {
-        //    this.isEdit = false;
-        //    window.setTimeout(() => {
-        //        this.createLocalAccountPopUp.open("创建本地账号");
-        //    },
-        //        510);
+        this.isActive = false;
+        window.setTimeout(() => {
+            this.isActive = true;
+        },
+            0);
+        this.createAccountPopUp.close();
+        console.log(this.accountType);
+        if (this.accountType == "1") {
+            this.isEdit = false;
+            window.setTimeout(() => {
+                this.createLocalAccountPopUp.open("创建本地账号");
+            },
+                510);
 
-        //} else {
-        //    window.setTimeout(() => {
-        //        this.crAd.clearData();
-        //        this.createAdAccountPopUp.open("创建AD账号");
-        //    },
-        //        510);
-        //}
-
-        if (this.service.userInfo.isAD) {
-            this.createAdAccountPopUp.open("创建AD账号");
         } else {
-            this.createLocalAccountPopUp.open("创建本地账号");
+            window.setTimeout(() => {
+                this.crAd.clearData();
+                this.createAdAccountPopUp.open("创建AD账号");
+            },
+                510);
         }
+
+
     }
 
     //修改
@@ -321,11 +323,11 @@ export class AccountMngListComponent implements OnInit {
                     this.getAccountList(1, this.pp);
                 } else if (response && "10051101" == response["resultCode"]) {
                     this.showAlert("该账户已经被占用");
-                }  
+                }
             });
     }
 
-    editAdAccountM()  {
+    editAdAccountM() {
         this.editAd.editAccount()
             .then(response => {
                 console.log(response);
