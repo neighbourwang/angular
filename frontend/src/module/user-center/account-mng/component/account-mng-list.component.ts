@@ -171,6 +171,7 @@ export class AccountMngListComponent implements OnInit {
     create() {
        
         if (this.service.userInfo && this.service.userInfo.isAD) {
+          this.crAd.clearData();
           this.createAdAccountPopUp.open("创建AD账号");
         } else {
             this.createLocalAccountPopUp.open("创建本地账号");
