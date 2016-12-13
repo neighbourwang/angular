@@ -84,7 +84,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 console.log("tNameList为空");
             }else{
                 tNameList.forEach((t)=>{
-                    eids = t.id +"," ;
+                    eids = t.id +"," + eids;
                 });
                 
                 return eids.substring(0,eids.length-1);
