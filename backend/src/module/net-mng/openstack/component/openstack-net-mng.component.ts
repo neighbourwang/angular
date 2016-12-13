@@ -207,7 +207,9 @@ export class OpenstackNetMngComponent implements OnInit {
                                     this.getNetworkList();
                                     //this.selectedNetwork= new Network();
                                 } else {
+                                    this.selectedNetwork= new Network();
                                     alert("Res sync error");
+                                    
                                 }
                             }
                         )
@@ -241,6 +243,7 @@ export class OpenstackNetMngComponent implements OnInit {
                                     this.getNetworkList();
                                    // this.selectedNetwork= new Network();
                                 } else {
+                                    this.selectedNetwork= new Network();
                                     alert("Res sync error");
                                 }
                             }
@@ -424,6 +427,7 @@ export class OpenstackNetMngComponent implements OnInit {
 
                     this.selectedNetwork = this.editNetwork;
                 }else{
+                    this.selectedNetwork= new Network();
                     alert("Res sync error");
                 }
             }).catch((e) => this.onRejected(e));

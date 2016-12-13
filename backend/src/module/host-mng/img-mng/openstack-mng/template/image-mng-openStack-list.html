@@ -89,7 +89,7 @@
                     <td >{{getDicTextforBit(image.bitsType)}}</td>
                     <td >{{showCapacity(image.capacity)}}</td>
                     <td >{{getDicText(image.type,typeDic)}}</td>
-                    <td >{{getImageTenant(image.tenants)}}</td>
+                    <td >{{getImageTenant(image.tenants,image.type)}}</td>
                     <td [ngClass]="{'font-green':image.status=='1','font-orange':image.status==0}">{{getDicText(image.status,statusDic)}}</td>
 
                 </tr>

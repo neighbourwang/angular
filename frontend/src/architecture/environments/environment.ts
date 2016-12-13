@@ -6,9 +6,50 @@
 const userName = "gavin@hpe.com",
       password = "12345"
 
+// $.ajax({
+//         url: `http://15.114.100.52:32072/uaa/oauth/token?grant_type=password&username=gavin@hpe.com&password=12345&client_id=ui&client_secret=12345`,
+//         type: "POST",
+//         beforeSend: function (request)
+//         {
+//             request.setRequestHeader("Authorization", "Basic " + btoa("ui:secret"))
+//         },
+//         crossDomain: true,
+//         success: function (response, status, xhr) {
+
+//             var bb = xhr.getResponseHeader('Pragma'); console.log(bb,2222)
+// console.log( xhr.getAllResponseHeaders())
+            
+//         },
+//         error: function (xhr, status) {
+           
+//         },
+//       xhrFields: {
+//         withCredentials: true
+//       }
+// }); 
+
+// $.ajax({
+//     url: "http://15.114.100.52:32072/basis/authsec/menu/tree/roles",
+//     type: "POST",
+//     beforeSend: function (request)
+//     {
+//         request.setRequestHeader("Authorization", "bearer 4000a778-2a92-41a7-8ab3-c795e831d005")
+//     },
+//     crossDomain: true,
+//     success: function (response) {
+//         alert("成功",response);
+//     },
+//     error: function (xhr, status) {
+//         alert("error");
+//     },
+//       xhrFields: {
+//         withCredentials: true
+//       }
+// }); 
+
  const promise = new Promise((resolve,reject) => {
      $.ajax({
-        url: `http://15.114.100.52:30072/uaa/oauth/token?grant_type=password&username=${userName}&password=${password}&client_id=ui&client_secret=12345`,
+        url: `http://15.114.100.52:30077/uaa/oauth/token?grant_type=password&username=${userName}&password=${password}&client_id=ui&client_secret=12345`,
         type: "POST",
         beforeSend: function (request)
         {
@@ -55,6 +96,8 @@ promise.then(token => Promise.all([
     sessionStorage["userInfo"] = JSON.stringify(arr[0]);
     // sessionStorage["userEnterpriseId"] = JSON.stringify(arr[1]);
 });
+
+
 
 
 export const environment = {

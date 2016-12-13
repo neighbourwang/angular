@@ -11,7 +11,7 @@ $("#submit-button").click(function(){
 	if(isChecked) return;
 
 	let isChecked = 1;
-	$("#submit-button").val("正在登陆...");
+	$("#submit-button").val("正在登录...");
 
 	$.ajax({
         url: `http://15.114.100.52:30072/uaa/oauth/token?grant_type=password&username=${username}&password=${password}&client_id=ui&client_secret=12345`,

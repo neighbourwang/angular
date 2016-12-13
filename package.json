@@ -4,7 +4,7 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
-    "build": "fis3 release"
+    "build:fis": "fis3 release"
   },
   "dependencies": {
     "fis3": "^3.4.25"

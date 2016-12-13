@@ -9,7 +9,9 @@
     				 <div class="input-group-addon"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div>
 						
-				<button class="fox-cloud-button-green fox-cloud-button-lg form-control-title " (click)="_param.reset()">重&nbsp;&nbsp;置</button>
+				<button class="fox-cloud-button-green fox-cloud-button reset-buttont pdl20 pdr20 pdt5" (click)="_param.reset()" >
+						<span class="icon-button-label">重&nbsp;&nbsp;置</span>
+				</button>
 			</div>
 			<table class="table  mgb20 mgt20">
 				<tbody>
@@ -55,12 +57,12 @@
 					</tr>
 					<tr>
 						<td class="none-border" colspan="4">
-							<span class="mgr10 mgt10  font-size-16 mgt5 float-left">提交时间：</span>
+							<span class="mgr10 mgt20  font-size-16 float-left">提交时间：</span>
 							<div class="float-left">			
 								<date-picker (dateChanged)="onSubmitTimeChange($event)"></date-picker>
 							</div>
 							
-							<span class="mgr10 mgt10 float-left">—</span>
+							<span class="mgr10 mgt20 mgl10 float-left">—</span>
 							<div class="float-left">			
 							<date-picker (dateChanged)="onEndTimeChange($event)"></date-picker>
 							</div>
@@ -69,11 +71,11 @@
 				</tbody>
 			</table>	
 		</div>
-		<div class="mgb10 mgt20 font-size-16">当前查询到<span class="font-green">{{_orderLoader.Items.length}}</span>个订单，订单列表如下：</div>
+		<div class="mgb10 mgt20 ">当前查询到<span class="font-green">{{_orderLoader.TotalRecords}}</span>个订单，订单列表如下：</div>
 			<div class="table-container">
 			<table class="table table-all-boder">
 				<thead>	
-					<tr class="font-size-16">
+					<tr class="">
 						<th>编号</th>
 						<th>订单号</th>
 						<th>产品类型</th>
@@ -91,11 +93,11 @@
 				<tbody>
 					<tr *ngFor="let item of _orderLoader.Items;let i=index;">
 						<td>{{i}}</td>
-						<td>{{item.orderId}}</td>
+						<td>{{item.orderNo}}</td>
 						<td>{{item.serviceTypeName}}</td>
-						<td>{{item.orderType}}</td>
+						<td>{{item.orderTypeName}}</td>
 						<td>{{item.statusName}}</td>
-						<td>{{item.oncePrice}}<br>{{item.price}}
+						<td>一次性费用：￥{{item.oncePrice}}<br>费用：￥{{item.price}}
 						</td>
 						<td>{{item.submitTime}}</td>
 						<td>{{item.EndTime}}</td>
@@ -105,24 +107,6 @@
 							<button class="mgr20  fox-cloud-button-green" data-toggle="modal" data-target="#searchDetail">详&nbsp;&nbsp;&nbsp;情</button>
 							<button class="fox-cloud-button-green" data-toggle="modal" data-target="#cancelOrder">撤&nbsp;&nbsp;&nbsp;单</button>
 							
-						</td>
-						
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>2370537538484773</td>
-						<td>数据库（包年包月）</td>
-						<td>新订单</td>
-						<td>审批拒绝</td>
-						<td>一次性费用：￥30<br>
-							费用：￥184/月
-						</td>
-						<td>2016/11/1 10:23</td>
-						<td>2016/11/1 10:23</td>
-						<td>张三</td>
-						<td>销售部</td>
-						<td class="left-td">
-							<button class="mgr10 fox-cloud-button-green" data-toggle="modal" data-target="#orderDetail">详&nbsp;&nbsp;&nbsp;情</button>
 						</td>
 						
 					</tr>

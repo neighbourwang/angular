@@ -1,6 +1,6 @@
 //The pipe class implements the PipeTransform interface's transform method that accepts an input value and an optional array of parameters and returns the transformed value.
 
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform, Injectable } from "@angular/core";
 
 //We tell Angular that this is a pipe by applying the @Pipe decorator which we import from the core Angular library.
 
@@ -11,6 +11,7 @@ import { Pipe, PipeTransform } from "@angular/core";
     name: "orderBy"
 })
 
+@Injectable()
 export class OrderByPipe implements PipeTransform {
     transform(array: Array<any>, args?) {
 
@@ -20,7 +21,7 @@ export class OrderByPipe implements PipeTransform {
 
             // get the first element
 
-            let orderByValue = args[0]
+            let orderByValue = args
             let byVal = 1
 
             // check if exclamation point 
