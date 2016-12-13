@@ -103,11 +103,8 @@
    constructor(
       private dict:SystemDictionaryServicei
    ) { };
-   ```
 
-   在service文件里面设置你自己所需要的数据，如：
-
-   ```javascript
+   //设置你自己所需要的数据，如：
    dictProductType = this.dict.get({      //这里的调用的方法为promise 所以dictProductType是一个promise
       owner : "GLOBAL",
       field : “SERVICE_TYPE”    
