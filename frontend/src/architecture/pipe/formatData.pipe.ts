@@ -1,12 +1,13 @@
 /**** 时间戳转为时间  {{1497654369000 | formatData}} ===> 2017-06-17 07:06:09*****/
 
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform, Injectable } from "@angular/core";
 import { SystemDictionaryService } from '../../architecture';
 
 @Pipe({
     name: "formatData"
 })
 
+@Injectable()
 export class formatDataPipe implements PipeTransform {
 
     transform(number : number): string {

@@ -2,7 +2,7 @@
 import { Component,ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, dictPipe } from '../../../../architecture';
 import { cloudDriveServiceList } from '../service/cloud-drive-list.service'
 
 import { QuiryDistList,HandleDist , DistList } from '../model/dist-list.model';
@@ -39,6 +39,7 @@ export class cloudDriveListComponent implements OnInit {
 	constructor(
 		private layoutService: LayoutService, 
 		private router: Router,
+		private dictPipe : dictPipe,
 		private service: cloudDriveServiceList
 	) {
 	}
@@ -46,7 +47,8 @@ export class cloudDriveListComponent implements OnInit {
 		// this.setArea();
 		this.setDistList();
 		this.initSelect();
-		console.log(this.service.userInfo)
+		
+		this.dictPipe.transform("1",this.service.computeStatus).then(res => console.log(res))
 	}
 
 	setDistList(): void {
