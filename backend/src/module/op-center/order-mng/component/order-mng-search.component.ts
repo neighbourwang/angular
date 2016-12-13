@@ -22,11 +22,11 @@ export class OrderMngSearchComponent implements OnInit{
 
 	private _buyerLoader:ItemLoader<{id:string; name:string}> = null //订购人
 
-	private _orderStatus:DicLoader = null;
+	private _orderStatusDic:DicLoader = null;
 
 	private _productTypeLoader: DicLoader = null;
 	
-	//private _orderStatus:DicLoader = null;
+	//private _orderStatusDic:DicLoader = null;
 	private _orderLoader:ItemLoader<SearchOrderItem> = null;
 
 	private _entId:string = "191af465-b5dc-4992-a5c9-459e339dc719";
@@ -48,7 +48,7 @@ export class OrderMngSearchComponent implements OnInit{
 
 
 		//配置订单状态
-		this._orderStatus = new DicLoader(this.restApiCfg, this.restApi, "SUBINSTANCE", "STATUS");
+		this._orderStatusDic = new DicLoader(this.restApiCfg, this.restApi, "SUBINSTANCE", "STATUS");
 
 		//配置订单加载
 		this._orderLoader = new ItemLoader<SearchOrderItem>(true, "订单查询列表", "op-center.order-mng.search-list.post", restApiCfg, restApi);
@@ -111,7 +111,7 @@ export class OrderMngSearchComponent implements OnInit{
 	}
 	ngOnInit(){
 		this.layoutService.show();
-		this._orderStatus.Go()
+		this._orderStatusDic.Go()
 		.then(success=>{
 			return this._productTypeLoader.Go();
 		})
@@ -152,7 +152,7 @@ export class OrderMngSearchComponent implements OnInit{
 		let list:Array<SubInstanceItemResp> = []
 		
 		list.map(n=>{
-			let item = this._orderStatus.Items.find(m=>m.value == n.status);
+			let item = this._orderStatusDic.Items.find(m=>m.value == n.status);
 			if(item) n.statusName = item.displayValue as string;
 
 			item = this._productTypeLoader.Items.find(m=>m.value == n.serviceType.toString());
