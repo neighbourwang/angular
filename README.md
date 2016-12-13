@@ -8,18 +8,19 @@
 
 # 项目公共组件
 
-|    组件名称     |      负责人      | 开发进度 |                   用法链接                   |
-| :---------: | :-----------: | :--: | :--------------------------------------: |
-|    分页组件     |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/architecture/components/pagination/README.md) |
-|    确认框组件    |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/components/dialog#确认框组件) |
-|    警告框组件    |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/components/dialog#警告框组件) |
-| 整屏loading组件 |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/architecture/components/spinner/README.md) |
-|   上传文件组件    | cao.zong-ying | 准备开发 |                    暂无                    |
-|  加减控制数字组件   | wang.yao-yao  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/blob/master/backend/src/architecture/components/countBar/README.md) |
-|   日期选择组件    |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/architecture/components/date-picker/README.md) |
-|   表单验证组件    |  zi.qing-ren  | 准备开发 |                    暂无                    |
-|  popover组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/components/popover) |
-|    图表组件     |  zi.qing-ren  |  完成  |                                          |
+|    组件名称     |  类型  |      负责人      | 开发进度 |                   用法链接                   |
+| :---------: | :--: | :-----------: | :--: | :--------------------------------------: |
+|    分页组件     |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/architecture/components/pagination/README.md) |
+|    确认框组件    |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/components/dialog#确认框组件) |
+|    警告框组件    |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/components/dialog#警告框组件) |
+| 整屏loading组件 |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/architecture/components/spinner/README.md) |
+|   上传文件组件    |  组件  | cao.zong-ying | 准备开发 |                    暂无                    |
+|  加减控制数字组件   |  组件  | wang.yao-yao  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/blob/master/backend/src/architecture/components/countBar/README.md) |
+|   日期选择组件    |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/architecture/components/date-picker/README.md) |
+|   表单验证组件    |  组件  |  zi.qing-ren  | 准备开发 |                    暂无                    |
+|  popover组件  |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/components/popover) |
+|    图表组件     |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/assets/README/chart.md) |
+| 点击元素以外触发事件  |  指令  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/assets/README/clickoutside.md) |
 
 ### 
 
@@ -97,7 +98,7 @@
 
 1.在你自己组件的service里面引入 SystemDictionaryService，并添加到constructor里面
 
-   ```javascript
+```javascript
    import { SystemDictionaryService } from '../../../../architecture';
 
    constructor(
@@ -109,22 +110,22 @@
       owner : "GLOBAL",
       field : “SERVICE_TYPE”    
    });
-   ```
+```
 
 
 2.直接用替换后台发来的数据里面需要查字典的地方
 
-   ```javascript
+```javascript
    {{cart.serviceType | dict:service.dictProductType | async}}
 
    //解读：cart.serviceType为调用后端的数据，一般是0，1，2之类的数字，后面是一个dict的管道，冒号后面的service.dictProductType是我们在service设置的promise，后面再加一个async的管道，就渲染出来的
-   ```
+```
 
    或者是用在循环出字典的地方
 
-   ```html
+```html
    <div *ngFor="let v of service.dictProductType | async">{{v.displayValue}}</div>  
-   ```
+```
 
    ​
 
