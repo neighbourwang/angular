@@ -1,11 +1,14 @@
 ﻿import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
-import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, ValidationService, PopupComponent, SystemDictionaryService, SystemDictionary } from '../../../../../architecture';
+import {
+    RestApi, RestApiCfg, LayoutService, NoticeComponent, dictPipe,
+    ConfirmComponent, PaginationComponent, ValidationService, PopupComponent, SystemDictionaryService, SystemDictionary
+} from '../../../../../architecture';
 
 import { DCModel } from "../model/dc.model";
 import { switchMode} from "../model/switch.model"
 import { port } from '../model/port.model';
-import { port_mock } from '../model/port.mock.model';
+//import { port_mock } from '../model/port.mock.model';
 import { VmDisIndexService } from '../service/index.service';
 
 @Component({
@@ -20,7 +23,6 @@ export class VmDisIndexComponent implements OnInit {
     constructor(
         private activatedRouter: ActivatedRoute,
         private router: Router,
-        private dicService: SystemDictionaryService,
         private service: VmDisIndexService,
         private layoutService: LayoutService,
         private validationService: ValidationService
@@ -67,21 +69,8 @@ export class VmDisIndexComponent implements OnInit {
    
 
     ngOnInit() {
-        
         this.getDcList();
-      
-        this.dicService.getItems("portgroup", "status")
-            .then(
-            dic => {
-               this.statusDic = dic;
-               return this.dicService.getItems("vmdist","sync");
-                
-            })
-            .then(
-                dic =>{
-                    this.synDic = dic;
-                    this.getData();
-            });
+        this.getData();
     }
 
 
@@ -242,24 +231,6 @@ export class VmDisIndexComponent implements OnInit {
 
         };
         this.confirm.open();
-    }
-
- 
-
-    //根据value获取字典的txt
-    getDicText(value: string, dic: Array<SystemDictionary>): String {
-        if (!$.isArray(dic)) {
-            return value;
-        }
-        const d = dic.find((e) => {
-            return e.value == value;
-        });
-        if (d) {
-            return d.displayValue;
-        } else {
-            return value;
-        }
-
     }
 
     gotoPortMng() {

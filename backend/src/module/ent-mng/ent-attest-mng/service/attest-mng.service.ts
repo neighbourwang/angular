@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
-import { RestApiCfg, RestApi } from "../../../../architecture";
+import { RestApiCfg, RestApi , SystemDictionaryService} from "../../../../architecture";
 
 import { Attest } from "../model/attest.model"
 import { AdUser } from "../model/aduser.model"
@@ -12,6 +12,7 @@ export class AttMngService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
+        private dict: SystemDictionaryService,
         private restApi: RestApi
     ) {
     }
@@ -72,4 +73,10 @@ export class AttMngService {
         return this.restApi.request(api.method, api.url, pathParams, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => attestDetail);
     }
+
+    //Êý¾Ý×Öµä
+    statusDic = this.dict.get({
+        owner: "USER",
+        field: "STATUS"
+    });
 }

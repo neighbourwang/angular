@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonComponentModule } from '../../../../architecture';
+import { CommonComponentModule, PipeModule } from '../../../../architecture';
 
 import { VmDisIndexRouting } from './index.routing';
 import { VmDisIndexComponent } from './component/index.component';
@@ -9,7 +9,8 @@ import { VmDisIndexService} from './service/index.service'
 @NgModule({
     imports: [
         VmDisIndexRouting,
-        CommonComponentModule
+        CommonComponentModule,
+        PipeModule
     ],
     declarations: [
         VmDisIndexComponent
@@ -19,7 +20,10 @@ import { VmDisIndexService} from './service/index.service'
         VmDisIndexComponent
         
     ],
-    providers: [VmDisIndexService]
+        
+    providers: [
+        VmDisIndexService
+    ]
 })
 
 export class VmDisIndexModule { }

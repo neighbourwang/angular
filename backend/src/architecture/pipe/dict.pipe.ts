@@ -26,14 +26,14 @@ import { SystemDictionaryService } from '../../architecture';
 
 export class dictPipe implements PipeTransform {
 
-    transform(value: string, promise:Promise<any[]>): Promise<string> {
+    transform(value: string | number, promise: Promise<any[]>): Promise<string> {
         return promise.then(arrs => {
 
-            if(!$.isArray(arrs)) return "";  //如果不是arr返回空
+            if (!$.isArray(arrs)) return "";  //如果不是arr返回空
 
             arrs = arrs.filter(arr => arr.value == value); //过滤字典
 
-            if(arrs.length) {   //是否取到了值
+            if (arrs.length) {   //是否取到了值
                 return arrs[0].displayValue;
             }
             return "";
