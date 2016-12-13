@@ -4,7 +4,7 @@
 import { NgModule } from '@angular/core';
 
 // Common Components
-import { CommonComponentModule } from '../../../../architecture';
+import { CommonComponentModule, PipeModule} from '../../../../architecture';
 
 //Components
 import { PortMngComponent } from './component/port-mng.component';
@@ -21,7 +21,8 @@ import { PortMngSetService } from "./service/port-mng-set.service";
 @NgModule({
     imports: [
         CommonComponentModule,
-        VMPortMngRouting
+        VMPortMngRouting,
+        PipeModule
     ],
     declarations: [
         PortMngComponent,

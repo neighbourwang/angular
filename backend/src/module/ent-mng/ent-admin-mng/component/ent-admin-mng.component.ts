@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import {
     LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, PopupComponent, SystemDictionary,
-    SystemDictionaryService
+    dictPipe
 } from "../../../../architecture";
 
 import { Admin } from "../model/admin.model";
@@ -44,7 +44,7 @@ export class EntAdminMngComponent implements OnInit {
 
 
     admins: Admin[]; //当前企业的所有管理员
-    enterprise: Enterprise=new Enterprise(); //当前企业
+    enterprise: Enterprise = new Enterprise(); //当前企业
 
     statusDic: Array<SystemDictionary>; //用户状态字典
     authDic: Array<SystemDictionary>; //认证模式字典
@@ -55,7 +55,7 @@ export class EntAdminMngComponent implements OnInit {
         private layoutService: LayoutService,
         private router: Router,
         private activatedRouter: ActivatedRoute,
-        private sysDicService: SystemDictionaryService,
+        private dictPipe: dictPipe,
     ) {
         if (activatedRouter.snapshot.params["id"]) {
             this.eid = activatedRouter.snapshot.params["id"] || "";
@@ -66,28 +66,9 @@ export class EntAdminMngComponent implements OnInit {
 
 
     ngOnInit() {
-        this.layoutService.show();
-        //this.getStatusDic().
-        //    then(() => {
-        //        return this.getAuthDic();
-        //    })
-        //    .then(() => {
-        //        this.getData();
-        //        this.getEnterpriseById(this.eid);
-        //    });
-        this.sysDicService.getItems("USER", "STATUS")
-            .then(
-            (systemDictionarys) => {
-                this.statusDic = systemDictionarys;
-                return this.sysDicService.getItems("AUTHENTICATION", "MODE");
-            }
-            )
-            .then(
-            (systemDictionarys) => {
-                this.authDic = systemDictionarys;
-                this.getData();
-                this.getEnterpriseById(this.eid);
-            });
+        this.getData();
+        this.getEnterpriseById(this.eid);
+
     }
 
     ////获取用户状态字典
@@ -118,18 +99,18 @@ export class EntAdminMngComponent implements OnInit {
     //    return p;
     //}
 
-    //根据value获取字典的txt
-    getDicText(value: string, dic: Array<SystemDictionary>): String {
-        const d = dic.find((e) => {
-            return e.value == value;
-        });
-        if (d) {
-            return d.displayValue;
-        } else {
-            return value;
-        }
+    ////根据value获取字典的txt
+    //getDicText(value: string, dic: Array<SystemDictionary>): String {
+    //    const d = dic.find((e) => {
+    //        return e.value == value;
+    //    });
+    //    if (d) {
+    //        return d.displayValue;
+    //    } else {
+    //        return value;
+    //    }
 
-    }
+    //}
 
     //根据企业id获取企业信息
     getEnterpriseById(id: string): void {
@@ -213,7 +194,10 @@ export class EntAdminMngComponent implements OnInit {
         this.noticeTitle = "警告";
 
         if (selectAdmin.status == status) {
-            this.showAlert(`该管理员已经是${this.getDicText(status.toString(), this.statusDic)}状态！`);
+            this.dictPipe.transform(selectAdmin.status, this.service.statusDic)
+                .then((x) => {
+                    this.showAlert(`该管理员已经是${x}状态！`);
+                });
             return;
         }
         this.noticeMsg = `确认${status == 1 ? "启用" : "禁用"}'${selectAdmin.userName}' ?`;
