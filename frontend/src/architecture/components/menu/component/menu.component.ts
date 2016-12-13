@@ -73,11 +73,11 @@ const menu: Array<any> = [
         "isOpen": true,
         "icon": "icon-cloudhost",
         "top2_menu": [
-            {
-                "label": "虚拟机实例",
-                "isOpen": true,
-                "routing": "cloud-host-service/cloud-host-detail"
-            },
+            // {
+            //     "label": "虚拟机实例",
+            //     "isOpen": true,
+            //     "routing": "cloud-host-service/cloud-host-detail"
+            // },
             {
                 "label": "云主机实例",
                 "isOpen": true,
