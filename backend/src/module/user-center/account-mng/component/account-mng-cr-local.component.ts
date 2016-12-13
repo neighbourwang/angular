@@ -6,6 +6,9 @@ import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from
 //service
 import { AccountMngService } from "../service/account-mng-list.service";
 
+//model
+import {Account}  from "../model/account"
+
 @Component({
     selector: "account-mng-cr-local",
     templateUrl: "../template/account-mng-cr-local.component.html",
@@ -37,22 +40,7 @@ export class AccountMngCrLocal implements OnInit {
     loadMode = true;
 
     accountId: string;
-
-
-    account: any = {
-        userName: "",
-        loginName: "",
-        phone: "",
-        description: "",
-        isLeader: 0,
-        roles: [],
-        organizations: [
-            {
-                name: ""
-            }
-        ]
-    };
-
+    account: Account=new Account();
     ngOnInit() {
         console.log(this.route.params, 2123123123);
         this.route.params.forEach((params: Params) => {
@@ -68,7 +56,9 @@ export class AccountMngCrLocal implements OnInit {
                 this.service.getRole()
                     .then(
                         role => {
-                            this.role = role.resultContent;
+                            this.role = role.resultContent;                            
+                            this.role.forEach(ele=>ele.selected=false)
+                            console.log('role',this.role);
                         }
                     )
                     .then(
@@ -86,16 +76,15 @@ export class AccountMngCrLocal implements OnInit {
                                     res => {
                                         this.account = res.resultContent;
                                         console.log(this.account);
-
                                         for (let role of this.role) {
                                             for (let account of this.account.roles) {
                                                 if (role.id == account.id) {
                                                     role.selected = true;
-                                                    break;
+                                                    continue;                                                    
                                                 }
                                             }
                                         }
-
+                                        console.log('role',this.role);
                                         for (let org of this.org) {
                                             for (let organizations of this.account.organizations) {
                                                 if (org.id == organizations.id) {
@@ -207,32 +196,51 @@ export class AccountMngCrLocal implements OnInit {
     }
 
     isLeader() {
-        if (this.account.isLeader == 0) {
-            this.account.isLeader = 1;
-        } else {
-            this.account.isLeader = 0;
-        }
+        this.account.isLeader=
+            this.account.isLeader==true?false:true;
+        // if (this.account.isLeader == 0) {
+        //     this.account.isLeader = 1;
+        // } else {
+        //     this.account.isLeader = 0;
+        // }
     }
 
-    addRole(item) {
-        const obj = {
-            id: item
-        };
-        if (this.account.roles.includes(obj)) {
-            this.remove(this.account.roles, obj);
-        } else {
-            this.account.roles.push(obj);
-        }
+    addRole(item,idx) {
+        
+        // item.selected=!item.selected
+        // this.role[idx].selected=!this.role[idx].selected;
+        console.log(item);
+        // const obj = {
+        //     id: item
+        // };
+        // if (this.account.roles.includes(obj)) {
+        //     this.remove(this.account.roles, obj);
+        // } else {
+        //     this.account.roles.push(obj);
+        // }
+        this.account.roles=this.role.filter((ele)=>{
+            if(ele.selected==true){
+                return ele;
+            }
+        })
+        console.log(this.account.roles);
     }
 
     addOrg(item) {
-        const obj = {
-            id: item.id,
-            name: item.name
-        };
-        if (!(this.account.organizations.includes(obj))) {
-            this.account.organizations[0] = obj;
-        }
+        // const obj = {
+        //     id: item.id,
+        //     name: item.name
+        // };
+        // if (!(this.account.organizations.includes(obj))) {
+        //     this.account.organizations[0] = obj;
+        // }
+        // item.selected=!item.selected;
+        //  this.account.r=this.role.filter((ele)=>{
+        //     if(ele.selected==true){
+        //         return ele;
+        //     }
+        // })
+        // console.log(this.account.roles);
     }
 
     remove(arr, obj) {

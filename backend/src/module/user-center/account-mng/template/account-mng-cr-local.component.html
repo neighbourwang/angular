@@ -69,13 +69,16 @@
                         </div>
                         <div class="col-sm-6">
 
-                            <div class="btn-group">
+                            <!--<div class="btn-group">
                                 <div class="btn-group float-left" data-toggle="buttons">
-                                    <label class="btn btn-default" *ngFor="let item of role" style="margin-bottom : 5px " (click)="addRole(item.id)" [ngClass]="{active: item.selected}">
-                                        <input type="checkbox" name="mirror" autocomplete="off" checked=""> {{item.name}}
+                                    <label class="btn btn-default" *ngFor="let item of role;let idx=index" style="margin-bottom : 5px " (click)="item.selected=!item.selected;addRole(item,idx)" [ngClass]="{active: item.selected}">
+                                        <input type="checkbox" name="mirror" autocomplete="off" [checked]="item.selected"> {{item.name}}
                                     </label>
                                 </div>
-                            </div>
+                            </div>-->
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" *ngFor="let item of role;let idx=index" (click)="addRole(item,idx)" [ngClass]="{'btn-active': item.isSelected}">{{item.displayValue}}</button>
+                        </div>
                         </div>
                     </div>
                 </div>

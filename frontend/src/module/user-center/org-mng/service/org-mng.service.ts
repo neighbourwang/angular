@@ -126,6 +126,7 @@ export class OrgMngService {
                 res => {
                     console.log('获取企业资源信息', res);
                     this.entResourceObj = res.resultContent;
+                    return this.entResourceObj;
                 }
             ).catch(
                 err => {
