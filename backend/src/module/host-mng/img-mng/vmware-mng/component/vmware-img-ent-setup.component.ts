@@ -131,7 +131,8 @@ export class VmwareImgEntSetupComponent implements OnInit {
         if (d) {
             return d.displayValue;
         } else {
-            return value;
+            //return value;
+            return "未设置";
         }
 
     }
