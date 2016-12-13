@@ -47,6 +47,7 @@ export class VmwareImgEntSetupComponent implements OnInit {
 
     //字典
     bitDict: Array<SystemDictionary>;//os位数
+    osDict: Array<SystemDictionary>;
 
     //路由参数
     platformId: string;
@@ -90,6 +91,12 @@ export class VmwareImgEntSetupComponent implements OnInit {
                 (dic) => {
                 this.bitDict = dic;
                 console.log(this.bitDict, "bitDict!!!");
+                return this.dicService.getItems("IMAGES", "OS");
+            })
+            .then(
+                (dic) => {
+                this.osDict = dic;
+                console.log(this.osDict, "osDict!!!");
                 this.getAllEnts();
             });
 
