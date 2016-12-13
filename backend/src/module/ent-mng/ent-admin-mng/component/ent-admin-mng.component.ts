@@ -2,7 +2,8 @@
 import { Router, ActivatedRoute } from "@angular/router";
 
 import {
-    LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, PopupComponent, SystemDictionary,
+    LayoutService, NoticeComponent, ConfirmComponent,
+    PaginationComponent, PopupComponent, SystemDictionary,
     dictPipe
 } from "../../../../architecture";
 
