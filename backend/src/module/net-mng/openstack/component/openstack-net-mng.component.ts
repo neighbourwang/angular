@@ -307,6 +307,7 @@ export class OpenstackNetMngComponent implements OnInit {
 
 //选择企业
     getTenants(){
+        this.layoutService.show();
          let platform_id = this.selectedPfi.platformId;
         //let platformName = this.selectedNetwork.platformName;
         console.log("选中的platform_id：" + platform_id);
@@ -318,6 +319,7 @@ export class OpenstackNetMngComponent implements OnInit {
             this.service.getTenants( this.selectedPfi.platformId)
                 .then(
                     response =>{
+                        this.layoutService.hide();
                         if(response && 100 == response["resultCode"]){
                             this.tenants = response.resultContent;
                             this.synEnts.open("请选择需要同步的企业");
