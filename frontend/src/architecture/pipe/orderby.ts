@@ -20,7 +20,7 @@ export class OrderByPipe implements PipeTransform {
 
             // get the first element
 
-            let orderByValue = args[0]
+            let orderByValue = args
             let byVal = 1
 
             // check if exclamation point 
