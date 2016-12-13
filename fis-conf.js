@@ -6,7 +6,7 @@ fis.media('backendDev').match(/(?:backend\/dist\/(.*)\.*)|(?:backend-portal\/dis
 	release: '/$1$2$3',
 	deploy: fis.plugin('http-push', {
 		receiver: 'http://16.187.145.3:8999/receiver',
-		to: '/etc/nginx/foxcloud/test'
+		to: '/etc/nginx/foxcloud/adm'
 	})
 });
 
@@ -15,7 +15,7 @@ fis.media('frontendDev').match(/(?:frontend\/dist\/(.*)\.*)|(?:frontend-portal\/
 	release: '/$1$2$3',
 	deploy: fis.plugin('http-push', {
 		receiver: 'http://16.187.145.3:8999/receiver',
-		to: '/etc/nginx/foxcloud/test'
+		to: '/etc/nginx/foxcloud/mpp'
 	})
 });
 
