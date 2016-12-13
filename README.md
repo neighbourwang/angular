@@ -96,7 +96,7 @@
 1. 在你自己组件的service里面引入 SystemDictionaryService，并添加到constructor里面
 
    ```javascript
-   import { SystemDictionaryService } from '../../../../architecture’;
+   import { SystemDictionaryService } from '../../../../architecture';
 
    constructor(
       private dict:SystemDictionaryServicei
