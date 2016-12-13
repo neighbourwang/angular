@@ -23,7 +23,7 @@
 | 点击元素以外触发事件  |  指令  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/assets/README/clickoutside.md) |
 
 ### 
-  
+
 # 项目的公共pipe
 
 ### 1.保留小数点的位数
@@ -127,5 +127,19 @@
    <div *ngFor="let v of service.dictProductType | async">{{v.displayValue}}</div>  
 ```
 
-   ​
+  ps： 如果用在compontent里面想通过某个code获取displayvalue，这样调用pipe
+
+```javascript
+import { dictPipe } from '../../../../architecture';
+
+constructor(
+  private dictPipe : dictPipe
+) {}
+
+test() {
+    this.dictPipe.transform("1",this.service.dictProductType).then(res => console.log(res))
+}
+```
+
+
 
