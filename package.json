@@ -4,10 +4,14 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
-    "build:fis": "fis3 release"
+    "backend:dev": "cd backend  && npm run build && cd ../backend-portal && npm run build && fis3 release backend:dev -f ../fis-conf.js",
+    "backend:test": "cd backend  && npm run build:test && cd ../backend-portal && npm run build && fis3 release backend:test -f ../fis-conf.js",
+    "frontend:dev": "cd frontend  && npm run build && cd ../frontend-portal && npm run build && fis3 release frontend:dev -f ../fis-conf.js",
+    "frontend:test": "cd frontend  && npm run build:test && cd ../frontend-portal && npm run build && fis3 release frontend:test -f ../fis-conf.js"
   },
   "dependencies": {
-    "fis3": "^3.4.25"
   },
   "devDependencies": {}
 }
+
+
