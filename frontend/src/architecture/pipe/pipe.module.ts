@@ -25,6 +25,12 @@ import { ObjectToArrPipe } from './objectToArr.pipe';
         decimalPlacesPipe,
         ObjectToArrPipe,
     ],
-    providers: [],
+    providers: [
+        OrderByPipe,
+        dictPipe,
+        formatDataPipe,
+        decimalPlacesPipe,
+        ObjectToArrPipe,
+    ],
 })
 export class PipeModule { }

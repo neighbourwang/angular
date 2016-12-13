@@ -16,7 +16,9 @@
     				 <div class="input-group-addon"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div>
 						
-				<button class="fox-cloud-button-green fox-cloud-button-lg form-control-title " (click)="_param.reset()">重&nbsp;&nbsp;置</button>
+				<button class="fox-cloud-button fox-cloud-button-green pdl20 pdr20 pdt5" (click)="_param.reset()">
+					<span class="icon-button-label">重&nbsp;&nbsp;置</span>
+				</button>
 			</div>
 				<table class="table">
 					<tbody>
@@ -99,11 +101,11 @@
 					</tbody>
 				</table>	
 			</div>
-			<div class="font-size-16 float-left mgt20 mgb10">当前查询到{{_orderLoader.Items.length}}个已购服务，已购服务列表如下：</div>
+			<div class=" float-left mgt20 mgb10">当前查询到{{_orderLoader.TotalRecords}}个已购服务，已购服务列表如下：</div>
 				<div class="table-container">
 				<table class="table">
 					<thead>	
-						<tr class="font-size-16" >
+						<tr class="" >
 							<th class="order-title"> 已购服务详情</th>
 							<th>计费模式</th>
 							<th>购买周期</th>
@@ -250,7 +252,7 @@
 			        	<div *ngIf="_isCanceled" class="OrderRenew"> 
 							<div class="page-content">
 								<div class="page-second-container">
-											<span class="font-red float-left mgb20">你的订单已申请退订，资源将会被立刻删除！<br>如需审批，则要等待退订审批通过后，系统才会开始删除资源。<br>您可以登陆管理控制台，查看退订状态。</span>
+											<span class="font-red float-left mgb20">你的订单已申请退订，资源将会被立刻删除！<br>如需审批，则要等待退订审批通过后，系统才会开始删除资源。<br>您可以登录管理控制台，查看退订状态。</span>
 											<button class="btn fox-cloud-button-green fox-cloud-button-lg pull-right" data-dismiss="modal" (click)="search()">管理控制台</button>
 											<div style="height: 40px;"></div>
 								</div>

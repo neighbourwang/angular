@@ -3,13 +3,14 @@
 	{{22.1122232323 | decimalPlaces : 4}} ===> 22.1122   //手动设置保留的位数
 *****/
 
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform, Injectable } from "@angular/core";
 import { SystemDictionaryService } from '../../architecture';
 
 @Pipe({
     name: "decimalPlaces"
 })
 
+@Injectable()
 export class decimalPlacesPipe implements PipeTransform {
 
     transform(number:number|string, length : number = 2): number {

@@ -8,7 +8,7 @@ const userName = "gavin@hpe.com",
 
 const promise = new Promise((resolve,reject) => {
  $.ajax({
-    url: `http://15.114.100.52:30072/uaa/oauth/token?grant_type=password&username=${userName}&password=${password}&client_id=ui&client_secret=12345`,
+    url: `http://15.114.100.52:30077/uaa/oauth/token?grant_type=password&username=${userName}&password=${password}&client_id=ui&client_secret=12345`,
     type: "POST",
     beforeSend: function (request)
     {

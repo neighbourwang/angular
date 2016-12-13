@@ -19,4 +19,5 @@ export * from './core/service/dic-loader';
 export * from './core/model/rest';
 export * from './core/model/system.dictionary.model';
 export * from './pipe/orderby';
+export * from './pipe/dict.pipe';
 export * from './pipe/pipe.module';
