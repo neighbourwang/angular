@@ -306,7 +306,7 @@ export class OpenstackMngComponent implements OnInit{
 
                     image.nameEditing = false;
 
-
+                    this.selectedImage = null;
                     this.editImage.close();
                 } else {
                     this.selectedImage = null;
