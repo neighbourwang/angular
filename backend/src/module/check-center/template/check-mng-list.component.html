@@ -8,13 +8,15 @@
 				<input type="text" class="form-control searchbox gray-searchbox" placeholder="输入订单信息快速查询"  [(ngModel)]="_param.quickSearchStr" />
 				<span class="glyphicon glyphicon-search searchbox-incon" (click)="search()"></span>
 						
-				<button class=" form-control-title fox-cloud-button-sm    float-left"  [ngClass]="{'fox-cloud-button-white':_isAdvSearch==1,'fox-cloud-button-grey':_isAdvSearch!=1}" (click)="_isAdvSearch = !_isAdvSearch">高级查询</button>
+				<button class="fox-cloud-button float-left"  [ngClass]="{'fox-cloud-button-white':_isAdvSearch==1,'fox-cloud-button-grey':_isAdvSearch!=1}" (click)="_isAdvSearch = !_isAdvSearch">
+				<span class="icon-button-label">高级查询</span>
+				</button>
 			</div>
 			<table class="table" *ngIf="_isAdvSearch">
 				<tbody>
 					<tr>				
 						<td >
-						    <div class="float-left font-size-16 mgt8">订单归属：<span class="font-size-16 mgt8 mgl10 mgr5">企业</span></div>
+						    <div class="float-left font-size-16 mgt8 mgr5">订单归属：<span class="font-size-16 mgt8 mgl10 mgr5">企业</span></div>
 							<div class="float-left">
 								<select class="form-control select_" [(ngModel)]="_param.entIdStr" (ngModelChange)="entChanged()">
 									<option class="hands" [value]="null">所有企业</option>
