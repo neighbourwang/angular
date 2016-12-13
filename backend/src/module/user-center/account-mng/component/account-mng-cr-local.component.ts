@@ -12,7 +12,7 @@ import {Account}  from "../model/account"
 @Component({
     selector: "account-mng-cr-local",
     templateUrl: "../template/account-mng-cr-local.component.html",
-    styleUrls: [],
+    styleUrls: ['../style/account-mng.style.less'],
     providers: []
 })
 export class AccountMngCrLocal implements OnInit {
@@ -42,6 +42,12 @@ export class AccountMngCrLocal implements OnInit {
     accountId: string;
     account: Account=new Account();
     ngOnInit() {
+        // this.role=[
+        //     {displayValue:'bt1',selected:false},
+        //      {displayValue:'bt1',selected:true},
+        //       {displayValue:'bt1',selected:false},
+        //        {displayValue:'bt1',selected:false},
+        // ]
         console.log(this.route.params, 2123123123);
         this.route.params.forEach((params: Params) => {
             if (params["id"]) {
@@ -207,7 +213,7 @@ export class AccountMngCrLocal implements OnInit {
 
     addRole(item,idx) {
         
-        // item.selected=!item.selected
+        item.selected=!item.selected
         // this.role[idx].selected=!this.role[idx].selected;
         console.log(item);
         // const obj = {
@@ -234,13 +240,15 @@ export class AccountMngCrLocal implements OnInit {
         // if (!(this.account.organizations.includes(obj))) {
         //     this.account.organizations[0] = obj;
         // }
+        this.org.forEach(ele=>ele.selected=false)
+        item.selected=true;
         // item.selected=!item.selected;
-        //  this.account.r=this.role.filter((ele)=>{
-        //     if(ele.selected==true){
-        //         return ele;
-        //     }
-        // })
-        // console.log(this.account.roles);
+         this.account.organizations=this.org.filter((ele)=>{
+            if(ele.selected==true){
+                return ele;
+            }
+        })
+        console.log(this.account.organizations);
     }
 
     remove(arr, obj) {

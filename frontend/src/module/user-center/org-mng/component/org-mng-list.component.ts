@@ -54,8 +54,11 @@ export class OrgMngListComponent implements OnInit {
   confirmOrg: OrgPer;
   isEdit: boolean = false;
   editId:string;
-  percent:string='20px';
-  bgColor:string='#2bd2ca'
+  percent:string='20%';
+  setPercent(arg){
+    let styles={width:this.percent}      
+      return styles;
+  }
   //企业资源对象
   entResourceObj:EntResource;
   ngOnInit() {

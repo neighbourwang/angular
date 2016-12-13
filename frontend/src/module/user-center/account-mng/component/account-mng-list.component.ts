@@ -61,8 +61,6 @@ export class AccountMngListComponent implements OnInit {
 
     ngOnInit() {
         this.getAccountList(1, this.pp);
-
-
         this.getRole();
         this.getOrg();
         if (this.service.userInfo.isAD) {
