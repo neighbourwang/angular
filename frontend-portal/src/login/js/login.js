@@ -33,7 +33,7 @@ $("#submit-button").click(function(){
 	            },
 	            crossDomain: true,
 	            success: function (response) {
-	                sessionStorage["userInfo"] = JSON.stringify(arr[0]);
+	                sessionStorage["userInfo"] = JSON.stringify(response.resultContent);
 	                sessionStorage["token"] = token;
 					location.href="/mng-console"
 					isChecked = 0;
