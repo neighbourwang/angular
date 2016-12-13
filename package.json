@@ -4,12 +4,12 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
-    "backend:dev": "cd backend  && npm run build && cd ../backend-portal && npm run build && fis3 release backend:dev -f ../fis-conf.js",
-    "backend:test": "cd backend  && npm run build:test && cd ../backend-portal && npm run build && fis3 release backend:test -f ../fis-conf.js",
-    "frontend:dev": "cd frontend  && npm run build && cd ../frontend-portal && npm run build && fis3 release frontend:dev -f ../fis-conf.js",
-    "frontend:test": "cd frontend  && npm run build:test && cd ../frontend-portal && npm run build && fis3 release frontend:test -f ../fis-conf.js",
-    "all:dev" : "npm run backend:dev && npm run frontend:dev",
-    "all:test" : "npm run backend:test && npm run frontend:test"
+    "build:backend": "cd backend  && npm run build && cd ../backend-portal && npm run build && fis3 release backend:dev -f ../fis-conf.js && echo '恭喜！后台已经发布到开发环境'",
+    "build:backend:qa": "cd backend  && npm run build:test && cd ../backend-portal && npm run build && fis3 release backend:test -f ../fis-conf.js && echo '恭喜！后台已经发布到测试环境'",
+    "build:frontend": "cd frontend  && npm run build && cd ../frontend-portal && npm run build && fis3 release frontend:dev -f ../fis-conf.js && echo '恭喜！前台已经发布到开发环境'",
+    "build:frontend:qa": "cd frontend  && npm run build:test && cd ../frontend-portal && npm run build && fis3 release frontend:test -f ../fis-conf.js && echo '恭喜！前台已经发布到测试环境'",
+    "build:all" : "npm run backend:dev && npm run frontend:dev && echo '恭喜！前后台都已经发布到开发环境'",
+    "build:all:qa" : "npm run backend:test && npm run frontend:test && echo '恭喜！前后台都已经发布到测试环境'"
   },
   "dependencies": {
   },
