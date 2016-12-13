@@ -23,8 +23,8 @@
 | 点击元素以外触发事件  |  指令  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/assets/README/clickoutside.md) |
 
 ### 
-
-##项目的公共pipe
+  
+# 项目的公共pipe
 
 ### 1.保留小数点的位数
 
