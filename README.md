@@ -92,8 +92,10 @@
 
 
 
-**调用方法如下**：
-1. 在你自己组件的service里面引入 SystemDictionaryService，并添加到constructor里面
+**调用方法如下**：  
+
+
+1.在你自己组件的service里面引入 SystemDictionaryService，并添加到constructor里面
 
    ```javascript
    import { SystemDictionaryService } from '../../../../architecture';
@@ -114,7 +116,7 @@
 
    ​
 
-2. 直接用替换后台发来的数据里面需要查字典的地方
+2.直接用替换后台发来的数据里面需要查字典的地方
 
    ```javascript
    {{cart.serviceType | dict:service.dictProductType | async}}
