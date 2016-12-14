@@ -50,6 +50,11 @@ export class ClMngCreStep3Component implements OnInit{
             res => {
                 console.log(res);
                 this.creStep3Model = res.resultContent;
+                this.creStep3Model.forEach(ele => {
+                    if (ele.quotaPercentage) {
+                        ele.quotaPercentDisplay = ele.quotaPercentage * 100;
+                    }
+                })
             }
         ).catch(
             error => {
@@ -63,6 +68,10 @@ export class ClMngCreStep3Component implements OnInit{
         let platFormId : String = this.idService.getPlatformId();
 
         // this.router.navigateByUrl("pf-mng2/cl-mng/cre-step4");
+        this.creStep3Model.forEach(ele => {
+            ele.quotaPercentage = ele.quotaPercentDisplay * 0.01
+        }
+        );
 
         //等待接口
         this.service.putZone( platFormId , this.creStep3Model).then(

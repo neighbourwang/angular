@@ -390,5 +390,6 @@ export class AccountMngListComponent implements OnInit {
         console.log(reason);
         this.showAlert("获取数据失败！");
     }
+    nof(){}
 
 }

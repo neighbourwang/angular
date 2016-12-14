@@ -8,10 +8,10 @@
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12 btn-group" data-toggle="buttons">
-                        <label class="btn btn-default fix-width-140" [ngClass]="{'active':queryOpt.areaList == ''}" (click)="queryOpt.areaId=''">
+                        <label class="btn btn-default fix-width-140 mgt5" [ngClass]="{'active':queryOpt.areaList == ''}" (click)="queryOpt.areaId=''">
                             <input type="radio" name="location" [checked]="queryOpt.areaList == ''" autocomplete="off"> 所有
                         </label>
-                        <label *ngFor="let area of areaList;" class="btn btn-default fix-width-140" title="{{area.name}}" [ngClass]="{'active':queryOpt.areaId == area.id}" (click)="queryOpt.areaId = area.id;">
+                        <label *ngFor="let area of areaList;" class="btn btn-default fix-width-140 mgt5" title="{{area.name}}" [ngClass]="{'active':queryOpt.areaId == area.id}" (click)="queryOpt.areaId = area.id;">
                             <input type="radio" name="location" autocomplete="off" [checked]="queryOpt.areaList == area.id">{{area.name}}
                         </label>
                     </div>
@@ -23,10 +23,10 @@
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12 btn-group" data-toggle="buttons">
-                        <label class="btn btn-default fix-width-140" [ngClass]="{'active':queryOpt.imageOwner == ''}" (click)="queryOpt.imageOwner=''">
+                        <label class="btn btn-default fix-width-140 mgt5" [ngClass]="{'active':queryOpt.imageOwner == ''}" (click)="queryOpt.imageOwner=''">
                             <input type="radio" name="location" checked="checked" autocomplete="off"> 所有
                         </label>
-                        <label *ngFor="let o of this.service.ownerDic | async;" class="btn btn-default fix-width-140" title="{{o.displayValue}}" [ngClass]="{'active':queryOpt.imageOwner == o.value}" (click)="queryOpt.imageOwner = o.value">
+                        <label *ngFor="let o of this.service.ownerDic | async;" class="btn btn-default fix-width-140 mgt5" title="{{o.displayValue}}" [ngClass]="{'active':queryOpt.imageOwner == o.value}" (click)="queryOpt.imageOwner = o.value">
                             <input type="radio" name="owner" autocomplete="off" [checked]="queryOpt.imageOwner == o.value" /> {{o.displayValue}}
                         </label>
                     </div>
@@ -35,42 +35,48 @@
         </ul>
 
         <div class="pull-left row" style="margin-bottom:20px;">
-            <div class="col-md-1">
-                <select class="form-control" (change)="setKeyword(type.value,keyword.value)" #type>
-                    <option value="0" selected="selected">镜像名称</option>
-                    <option value="1">操作系统</option>
-                </select>
+            <div class="col-md-1 text-right pdt10">
+                <span>镜像名称 :</span>
             </div>
             <div class="input-group col-md-2 float-left">
-                <input class="form-control" placeholder="输入镜像信息搜索" [(ngModel)]="queryOpt.osAndName" (change)="setKeyword(type.value,keyword.value)" #keyword>
+                <input class="form-control" placeholder="输入镜像名称搜索" [(ngModel)]="queryOpt.imageName">
                 <div class="input-group-addon">
                     <span class="glyphicon glyphicon-search"></span>
                 </div>
             </div>
-
-            <!--<span class="float-left" style="margin-left:10px;margin-top:6px;">状态 :</span>
-            <div class="col-md-2 float-left">
-                <select class="form-control" [(ngModel)]="queryOpt.status">
-                    <option [value]="" value="">所有</option>
-                    <option *ngFor="let stauts of this.service.statusDic | async" [value]="stauts.value">{{stauts.displayValue}}</option>
-                </select>
-            </div>-->
-
-            <span class="pull-left mgt10 mgl15">镜像类型 :</span>
+            <div class="col-md-1  text-right pdt10">
+                <span >操作系统 :</span>
+            </div>
             <div class="col-md-2">
-                <select class="form-control" [(ngModel)]="queryOpt.imageType">
+                <select class="form-control" [(ngModel)]="queryOpt.os">
                     <option [value]="" value="">所有</option>
-                    <option *ngFor="let type of this.service.typeDic | async;" [value]="type.value">{{type.displayValue}}</option>
+                    <option *ngFor="let os of this.service.osDic | async;" [value]="os.value">{{os.displayValue}}</option>
                 </select>
             </div>
+                <!--<span class="float-left" style="margin-left:10px;margin-top:6px;">状态 :</span>
+                <div class="col-md-2 float-left">
+                    <select class="form-control" [(ngModel)]="queryOpt.status">
+                        <option [value]="" value="">所有</option>
+                        <option *ngFor="let stauts of this.service.statusDic | async" [value]="stauts.value">{{stauts.displayValue}}</option>
+                    </select>
+                </div>-->
+            <div class="col-md-1  text-right pdt10">
+                <span>镜像类型 :</span>
+            </div>
+                <div class="col-md-2">
+                    <select class="form-control" [(ngModel)]="queryOpt.imageType">
+                        <option [value]="" value="">所有</option>
+                        <option *ngFor="let type of this.service.typeDic | async;" [value]="type.value">{{type.displayValue}}</option>
+                    </select>
+                </div>
 
-            <button class="btn button-gray-gradient" (click)="search()"><span class="glyphicon glyphicon-search"></span> 简单搜索</button>
-            <button class="btn button-gray-gradient" (click)="resetQueryOpt()"><span class="glyphicon glyphicon-repeat"></span> 重置选项</button>
-            <!--<button class="btn button-gray-gradient pull-right" style="margin-right:15px;">
-                <span class="icon icon-link"></span> 相关实例
-            </button>
-            -->
-        </div>
+                <button class="btn button-gray-gradient" (click)="search()"><span class="glyphicon glyphicon-search"></span> 简单搜索</button>
+                <button class="btn button-gray-gradient" (click)="resetQueryOpt()"><span class="glyphicon glyphicon-repeat"></span> 重置选项</button>
+                <!--<button class="btn button-gray-gradient pull-right" style="margin-right:15px;">
+                    <span class="icon icon-link"></span> 相关实例
+                </button>
+                -->
+            </div>
         <table class="table table-hover mgb20" style="table-layout:fixed">
             <thead>
                 <tr>

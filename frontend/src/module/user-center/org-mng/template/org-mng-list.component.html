@@ -20,7 +20,7 @@
             </div>
 
             <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="entResourceObj.usedVCpuRate" aria-valuemin="0" aria-valuemax="entResourceObj.vcpuQuota" style="background-color:#2bd2ca" [ngStyle]="setPercent('cpu')">
+                <div class="progress-bar" role="progressbar" aria-valuenow="entResourceObj.usedVCpuRate" aria-valuemin="0" aria-valuemax="entResourceObj.vcpuQuota" style="background-color:#2bd2ca" [ngStyle]="setPercent('usedCpuRate')">
                     <span class="sr-only">60% Complete</span>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;background-color : #2bd2ca">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="background-color : #2bd2ca"  [ngStyle]="setPercent('usedMemRate')">
                     <span class="sr-only">60% Complete</span>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                 </div>
             </div>
             <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;background-color : #2bd2ca">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="background-color : #2bd2ca" [ngStyle]="setPercent('usedPhysicalMachineRate')">
                     <span class="sr-only">60% Complete</span>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                 </div>
             </div>
             <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;background-color : #2bd2ca">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="background-color : #2bd2ca"  [ngStyle]="setPercent('usedStorageQuotaRate')">
                     <span class="sr-only">60% Complete</span>
                 </div>
             </div>
@@ -107,7 +107,7 @@
                 </div>
             </div>
             <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;background-color : #2bd2ca">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="background-color : #2bd2ca" [ngStyle]="setPercent('usedSnapshotQuotaRate')">
                     <span class="sr-only">60% Complete</span>
                 </div>
             </div>
@@ -128,7 +128,7 @@
                 </div>
             </div>
             <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;background-color : #2bd2ca">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="background-color : #2bd2ca" [ngStyle]="setPercent('usedImageQuotaRate')">
                     <span class="sr-only">60% Complete</span>
                 </div>
             </div>
@@ -149,7 +149,7 @@
                 </div>
             </div>
             <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;background-color : #2bd2ca">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="background-color : #2bd2ca" [ngStyle]="setPercent('usedFloatIpQuotaRate')">
                     <span class="sr-only">60% Complete</span>
                 </div>
             </div>
