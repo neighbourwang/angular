@@ -121,6 +121,7 @@ export class OrgMngService {
     entResourceObj: EntResource=new EntResource();
     getCurEntResource(id: string) {
         let api = this.restApiCfg.getRestApi("user-center.org-mng.currEntResoure.get");
+        console.log(this.entResourceObj.enterpriseId);
         if (!this.entResourceObj.enterpriseId) {
              this.restApi.request(api.method, api.url, [{ key: "id", value: id }, { key: "page", value: 1 }, { key: "size", value: 9999 }], undefined).then(
                 res => {
