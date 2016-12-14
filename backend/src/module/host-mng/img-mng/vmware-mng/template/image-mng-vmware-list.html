@@ -81,7 +81,7 @@
                     </td>
                     <td>{{getDicText(img.os, this.osDict)}}</td>
                     <td>{{getDicText(img.bitsType, this.bitDict)}}</td>
-                    <td>{{showCapacity(img.capacity)}}</td>
+                    <td>{{ img.capacity | formatCapacity}}</td>
                     <td>{{getDicText(img.type, this.typeDict)}}</td>
                     <td [ngSwitch]="displayIt(img.tenants)">
                         <div *ngSwitchCase="'some'" class="tenants-c">详细>>
@@ -187,7 +187,7 @@
 					<div class="col-sm-4 form-control-title">镜像容量：</div>
 					<div class="col-sm-8">
 						<!-- <input type="string" class="form-control input-control" [(ngModel)]="selectedimg.dnsAlt"> -->
-                        <span>{{showCapacity(changedimg.capacity)}}</span>
+                        <span>{{ changedimg.capacity | formatCapacity}}</span>
 					</div>
 				</div>
 			</div>

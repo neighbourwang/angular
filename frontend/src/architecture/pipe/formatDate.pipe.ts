@@ -1,13 +1,12 @@
-/**** 时间戳转为时间  {{1497654369000 | formatData}} ===> 2017-06-17 07:06:09*****/
+/**** 时间戳转为时间  {{1497654369000 | formatDate}} ===> 2017-06-17 07:06:09*****/
 
 import { Pipe, PipeTransform } from "@angular/core";
-import { SystemDictionaryService } from '../../architecture';
 
 @Pipe({
-    name: "formatData"
+    name: "formatDate"
 })
 
-export class formatDataPipe implements PipeTransform {
+export class formatDatePipe implements PipeTransform {
 
     transform(number : number): string {
         const d = new Date(number);

@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import { OrderByPipe } from './orderby';
 import { dictPipe } from './dict.pipe';
-import { formatDataPipe } from './formatData.pipe';
+import { formatDatePipe } from './formatDate.pipe';
 import { decimalPlacesPipe } from './decimalPlaces.pipe';
 import { ObjectToArrPipe } from './objectToArr.pipe';
-
+import { formatCapacity } from './formatCapacity.pipe';
 
 @NgModule({
     imports: [
@@ -14,21 +14,25 @@ import { ObjectToArrPipe } from './objectToArr.pipe';
     declarations: [
         OrderByPipe,
         dictPipe,
-        formatDataPipe,
+        formatDatePipe,
         decimalPlacesPipe,
-        ObjectToArrPipe
+        ObjectToArrPipe,
+        formatCapacity
     ],
     exports: [
         OrderByPipe,
         dictPipe,
-        formatDataPipe,
+        formatDatePipe,
         decimalPlacesPipe,
         ObjectToArrPipe,
+        formatCapacity
     ],
     providers: [OrderByPipe,
         dictPipe,
-        formatDataPipe,
+        formatDatePipe,
         decimalPlacesPipe,
-        ObjectToArrPipe]
+        ObjectToArrPipe,
+        formatCapacity
+    ]
 })
 export class PipeModule { }
