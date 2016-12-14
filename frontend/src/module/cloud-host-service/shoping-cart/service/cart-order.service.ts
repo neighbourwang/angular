@@ -33,9 +33,12 @@ export class cartOrderService {
         owner : "GLOBAL",
         field : "SERVICE_TYPE"
     })
-
     dictPriceModel = this.dict.get({  //获取产品type
         owner : "PACKAGE_BILLING",
         field : "PERIOD_TYPE"
+    })
+    orderStatus = this.dict.get({  //获取订单状态
+        owner : "ORDER",
+        field : "STATUS"
     })
 }
