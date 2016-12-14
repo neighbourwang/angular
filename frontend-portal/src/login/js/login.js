@@ -17,6 +17,13 @@ $("#l-username").blur(function(){
 	})
 });
 
+$("#l-password").keyup(function(e) {
+	let code = e.which; 
+    if(code==13) e.preventDefault();
+    if(code==32||code==13||code==188||code==186){
+        $("#submit-button").click();
+    } 
+});
 
 $("#submit-button").click(function(){
 	let username = $("#l-username").val(),
@@ -34,7 +41,7 @@ $("#submit-button").click(function(){
 	$("#submit-button").val("正在登录...");
 
 	$.ajax({
-        url: `http://${C.baseIp}:${C.basePort}/uaa/oauth/token?grant_type=password&username=${username}&password=${password}&client_id=ui&client_secret=12345`,
+        url: `http://${C.baseIp}:32072/uaa/oauth/token?grant_type=password&username=${username}&password=${password}&client_id=ui&client_secret=12345`,
         type: "POST",
         beforeSend: function (request)
         {
