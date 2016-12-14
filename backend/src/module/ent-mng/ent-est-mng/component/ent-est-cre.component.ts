@@ -184,7 +184,7 @@ export class EntEstCreComponent implements OnInit{
 	//创建企业
 	create(){
 		this.entEst.BasicInfo.platformIds
-			= this.entEst.BasicInfo.platformIds.concat(this.resourceQuotas.items.filter(n=>n.checked).map(n=>n.platformId));
+			= this.resourceQuotas.items.filter(n=>n.checked).map(n=>n.platformId);
 		
 		if(this.validate())
 		{
