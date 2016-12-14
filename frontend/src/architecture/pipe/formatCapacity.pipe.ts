@@ -1,4 +1,4 @@
-/**** 将type转化为TB/GB/MB/KB  {{102400 | formatCapacity}} ===> 100KB*****/
+/**** 将byte转化为TB/GB/MB/KB  {{102400 | formatCapacity}} ===> 100KB*****/
 
 import { Pipe, PipeTransform } from "@angular/core";
 
