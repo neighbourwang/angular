@@ -181,16 +181,6 @@ export class ImgMngComponent implements OnInit {
         this.editPopup.open("编辑镜像");
     }
 
-    setKeyword(type: string, value: string) {
-        if (type === "0") {
-            this.queryOpt.imageName = value;
-            this.queryOpt.os = "";
-        } else {
-            this.queryOpt.imageName = "";
-            this.queryOpt.os = value;
-        }
-    }
-
     resetQueryOpt() {
         this.queryOpt = new CriteriaQuery();
     }
