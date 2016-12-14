@@ -377,10 +377,12 @@ export class EntEstCreService{
 			"name": entEst.BasicInfo.name,
 			"password": entEst.BasicInfo.password,
 			"url": entEst.BasicInfo.certUrl,
-			"userName": entEst.BasicInfo.contactorName,
+			"userName": entEst.BasicInfo.contactorName
 			//"isSSL": entEst.BasicInfo.isSSL, //是否进行SSL加密
-			"accountAttribute": entEst.BasicInfo.accountAttribute//登录账户属性名称
 			,"platformIdList": entEst.BasicInfo.platformIds
+			,"adname": entEst.BasicInfo.adname
+			,"adDescription": entEst.BasicInfo.adDescription
+			,"loginProp": entEst.BasicInfo.loginProp//登录账户属性名称
 		},
 		"quotaList": {
 			"enterpriseId":entEst.ResourceQuota.enterpriseId,

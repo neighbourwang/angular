@@ -1,3 +1,8 @@
+/**
+ * [订购逻辑]
+ * 参考订购云主机的逻辑
+ */
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -175,7 +180,7 @@ export class cloudDriveComponentOrder implements OnInit {
 
 		let price = this.proMap[`[${sku.skuId}]`];  //计算价格
 		if(!price) return;
-console.log(price)
+
 		this.diskBasePrice = price.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
 		this.diskTotalPrice = price.billingInfo.unitPrice * this.sendModule.disksize.attrValue * this.payLoad.quality;   //周期费用
 

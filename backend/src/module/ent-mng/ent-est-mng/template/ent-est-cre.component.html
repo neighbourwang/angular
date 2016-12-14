@@ -35,6 +35,22 @@
 				</div>
 				<div class="row row-line-height" *ngIf="isADSelected();">
 					<div class="form-group">
+						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>AD名称：</div>
+						<div class="col-sm-4">
+							<input type="text" class="form-control input-control" placeholder="AD名称" [(ngModel)]="entEst.BasicInfo.adname">
+						</div>
+					</div>
+				</div>
+				<div class="row row-line-height" *ngIf="isADSelected();">
+					<div class="form-group">
+						<div class="col-sm-4 form-control-title">AD描述：</div>
+						<div class="col-sm-4">
+							<textarea class="form-control input-control" rows="4" placeholder="AD描述" [(ngModel)]="entEst.BasicInfo.adDescription"></textarea> 
+						</div>
+					</div>
+				</div>
+				<div class="row row-line-height" *ngIf="isADSelected();">
+					<div class="form-group">
 						<div class="col-sm-4 form-control-title"><span class="asterisk" >*</span>用户名(Full DN)：</div>
 						<div class="col-sm-4">
 							<input type="text" class="form-control input-control" placeholder="用户名" [(ngModel)]="entEst.BasicInfo.contactorName">
@@ -62,7 +78,7 @@
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"><span class="asterisk" >*</span>登录账户属性名称：</div>
 						<div class="col-sm-4">
-							<input type="text" class="form-control input-control" placeholder="用户名" [(ngModel)]="entEst.BasicInfo.accountAttribute">
+							<input type="text" class="form-control input-control" placeholder="登录账户属性名称" [(ngModel)]="entEst.BasicInfo.loginProp">
 						</div>
 					</div>
 				</div>

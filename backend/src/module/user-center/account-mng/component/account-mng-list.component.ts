@@ -156,7 +156,7 @@ export class AccountMngComponent implements OnInit {
     enable() {
         if(this.chooseAccount.status==1){
             this.notice.open('操作错误','账号状态为已启用')
-            return 
+            return
         }
         if (this.chooseAccount.id) {
             this.confirmType = 2;
@@ -184,7 +184,7 @@ export class AccountMngComponent implements OnInit {
 
     //删除
     delete() {
-        
+
         if(this.chooseAccount.status==1){
             this.notice.open('操作错误','不能删除启用状态的账户');
             return;
