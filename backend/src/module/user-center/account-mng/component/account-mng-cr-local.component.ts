@@ -24,6 +24,8 @@ export class AccountMngCrLocal implements OnInit {
     ) {
     }
 
+    @ViewChild('notice')
+    notice :NoticeComponent;
     //判断是否是创建 还是 编辑
     isCreate = false;
     // 标题 根据 isCreate 修改
@@ -145,6 +147,27 @@ export class AccountMngCrLocal implements OnInit {
 
     //创建
     create() {
+        console.log(this.account);
+        if(!this.account.userName){
+            this.notice.open('操作错误','请输入姓名');
+            return
+        }
+        if(!this.account.loginName){
+            this.notice.open('操作错误','请输入账号');
+            return
+        }
+         if(!this.account.phone){
+            this.notice.open('操作错误','请输入电话');
+            return
+        }
+        if(this.account.roles.length<1){
+            this.notice.open('操作错误','请选择角色');
+            return
+        }
+         if(this.account.organizations.length<1){
+            this.notice.open('操作错误','请选择组织机构');
+            return
+        }
         if (!this.isCreate) {
             this.service.editAccount(this.accountId, this.account)
                 .then(
@@ -269,4 +292,5 @@ export class AccountMngCrLocal implements OnInit {
     cancel(){
         this.router.navigateByUrl('user-center/account-mng/account-mng-list');
     }
+    nof(){}
 }
