@@ -67,6 +67,7 @@ export class OrgMngListComponent implements OnInit {
     this.getOrgs(0, this.pp);
     this.service.getNoMngUser();
     this.entResourceObj=this.service.entResourceObj;
+    console.log('qiyeresource',this.entResourceObj);
   }
 
   //获取企业资源  
