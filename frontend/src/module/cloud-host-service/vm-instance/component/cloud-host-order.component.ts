@@ -1,3 +1,17 @@
+/**
+ * [订购逻辑]
+ * 基本介绍：
+ * 1. 本页面能提交一个云主机，和三个挂载到该主机上的云硬盘，总共最多四个订单
+ * 2. 每个订单最后提交的都是一个 PayLoad， 发给后端的是payLoadArr 是一个PayLoad数组
+ * 3. sendModule是和页面绑定的数据，最终是要转换成PayLoad
+ *
+ * 流程介绍：
+ * 1. 每个订单根据所选来确定产品，也就是sku
+ * 2. 根据sku的id 来获取时长单位
+ * 3. 根据sku id与时长单位获取来获取价格 
+ * 4. 提交的时候根据sendModule转换成PayLoad
+ */
+
 import { Component,ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
