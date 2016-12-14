@@ -2,7 +2,7 @@ var webpack = require("webpack");
 var rootPath = process.cwd();
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require("path");
-
+var CleanWebpackPlugin = require('clean-webpack-plugin');  //发布前删除目录
 
 module.exports = {
 	entry: {
@@ -56,5 +56,6 @@ module.exports = {
 		    chunksSortMode : 'none',
 		    hash: false
 		}),
+		new CleanWebpackPlugin(['dist'])
 	]
 }

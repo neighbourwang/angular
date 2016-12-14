@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node_modules/.bin/webpack-dev-server --progress --port 4001 --hot --inline --colors --host 0.0.0.0",
-    "build": "webpack -p --config webpack.config.dev.js"
+    "build": "webpack -p --config webpack.config.dev.js",
+    "build:test": "webpack -p --define process.env.NODE_ENV='\"qa\"' --config webpack.config.dev.js"
   },
   "repository": {
     "type": "git"
@@ -30,6 +31,7 @@
     "webpack-dev-server": "^1.16.2"
   },
   "devDependencies": {
+    "clean-webpack-plugin": "^0.1.14",
     "ejs": "^2.5.2",
     "ejs-html-loader": "^2.0.2",
     "webpack": "^1.13.3"

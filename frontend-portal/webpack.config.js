@@ -3,9 +3,6 @@ var rootPath = process.cwd();
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require("path");
 
-console.log(process.env.NODE_ENV, 22222)
-
-
 module.exports = {
 	entry: {
 		common : [rootPath+"/src/common/common.js","webpack-dev-server/client?http://0.0.0.0:4001/", "webpack/hot/dev-server"],
