@@ -240,17 +240,17 @@ export class OrderMngComponent implements OnInit{
 			return this._typeDic.Go();
 		})
 		.then(success=>{
-			return this._platformLoader.Go();
-		})
-		// .then(success=>{
-		// 	return this.loadDepartment();
-		// })
-		.then(success=>{
 			return this._billinModeDic.Go();
 		})
 		.then(success=>{
 			return this._periodTypeDic.Go();
 		})
+		.then(success=>{
+			return this._platformLoader.Go();
+		})
+		// .then(success=>{
+		// 	return this.loadDepartment();
+		// })
 		.then(success=>{
 			this.layoutService.hide();
 		})
