@@ -62,7 +62,7 @@
             <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
-                        绑定角色
+                        <span class="asterisk">*</span>绑定角色
                     </div>
                     <div class="col-sm-6">
 
@@ -83,7 +83,7 @@
             <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
-                        绑定机构
+                        <span class="asterisk">*</span>绑定机构
                     </div>
                     <div class="col-sm-5">
                         <!--<div style="height:40px;line-hight:36px;font-size:16px" *ngIf="account.organizations.length > 0">
@@ -117,3 +117,4 @@
         </button>
 </div>
 <div style="height:50px"></div>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>

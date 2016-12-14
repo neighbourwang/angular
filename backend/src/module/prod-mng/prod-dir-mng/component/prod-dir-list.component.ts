@@ -274,15 +274,16 @@ export class ProdDirListComponent implements OnInit {
     otcreate() {
         let id = this.prodDirTypeId;
         console.log(this.spec);
-        if (this.spec.mem > 0 && this.spec.vcpu > 0) {
-            if (this.prodDirTypeId == '33f23ade-a0f8-11e6-a18b-0050568a49fd') {
-                this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre",{vcpu:this.spec.vcpu,mem:this.spec.mem,startupDisk:this.spec.startupDisk}]);
+        if (this.prodDirTypeId == '33f23ade-a0f8-11e6-a18b-0050568a49fd') {
+            if (this.spec.mem > 0 && this.spec.vcpu > 0) {
+                this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre", { vcpu: this.spec.vcpu, mem: this.spec.mem, startupDisk: this.spec.startupDisk }]);
             } else {
-                this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre"]);
-            }
-        }else{
-            this.notice.open('操作错误','云主机产品目录规格输入错误')
-        }       
+                this.notice.open('操作错误', '云主机产品目录规格输入错误')
+            }            
+        } else {
+            this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre"]);
+        }
+
     }
     //去编辑详情
     goDetail(item) {

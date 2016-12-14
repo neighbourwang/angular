@@ -14,7 +14,7 @@ $("#submit-button").click(function(){
 	$("#submit-button").val("正在登录...");
 
 	$.ajax({
-        url: `http://15.114.100.55:31072/uaa/oauth/token?grant_type=password&username=${username}&password=${password}&client_id=ui&client_secret=12345`,
+        url: `http://${C.baseIp}:${C.basePort}/uaa/oauth/token?grant_type=password&username=${username}&password=${password}&client_id=ui&client_secret=12345`,
         type: "POST",
         beforeSend: function (request)
         {

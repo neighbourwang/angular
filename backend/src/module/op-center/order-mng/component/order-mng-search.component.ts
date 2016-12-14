@@ -60,30 +60,81 @@ export class OrderMngSearchComponent implements OnInit{
 
 			_.extendOwn(obj, item);
 
-			obj.orderId = item.id;// 订单编号
-			obj.serviceType = item.productType;// 产品类型
+            obj.orderId = item.orderId;//订单ID
+			obj.orderNo = item.orderNo;// 订单编号，界面显示
+			obj.serviceType = item.serviceType;// 产品类型
 			obj.orderType = item.orderType;// 订单类型
-			obj.status = item.orderStatus;// 订单状态
+			obj.status = item.status;// 订单状态
 			//费用
-			if(item.productBillingItem)
+			if(item.billingInfo)
 			{
-				obj.oncePrice = item.productBillingItem.basePrice;//一次性费用
+				obj.oncePrice = item.billingInfo.basePrice;//一次性费用
 
-				if(item.productBillingItem.billingMode == 0)//包月包年
+				if(item.billingInfo.billingMode == 0)//包月包年
 				{
-					obj.price = item.productBillingItem.basicPrice + item.productBillingItem.cyclePrice;
+					obj.price = item.billingInfo.basicPrice + item.billingInfo.cyclePrice;
 				}	
-				else if(item.productBillingItem.billingMode == 1)//按量
+				else if(item.billingInfo.billingMode == 1)//按量
 				{
-					obj.price = item.productBillingItem.unitPrice;
+					obj.price = item.billingInfo.unitPrice;
 				}
 			}
 			obj.submitTime = item.createDate;// 提交时间
 			obj.EndTime = item.completeDate;//完成时间
 			obj.submitPeople = item.submiter;//提交者
+			obj.submitId = item.submiterId;//提交者Id,查询时需要
 			obj.departmentName = item.departmentName;//所属部门
       }
     };
+
+
+//   "resultContent": [
+//     {
+//       "billingInfo": {
+//         "basePrice": 0,
+//         "basicPrice": 0,
+//         "billingId": "string",
+//         "billingMode": "string",
+//         "cyclePrice": 0,
+//         "periodType": "string",
+//         "unitPrice": 0,
+//         "unitType": 0
+//       },
+//       "completeDate": "2016-12-13T08:14:41.653Z",
+//       "createDate": "2016-12-13T08:14:41.653Z",
+//       "departmentId": "string",
+//       "departmentName": "string",
+//       "enterpriseId": "string",
+//       "enterpriseName": "string",
+//       "expireDate": "2016-12-13T08:14:41.653Z",
+//       "instanceName": "string",
+//       "orderDesc": "string",
+//       "orderId": "string",
+//       "orderNo": "string",
+//       "orderType": "string",
+//       "period": 0,
+//       "platformName": "string",
+//       "quantity": 0,
+//       "serviceType": "string",
+//       "specList": [
+//         {
+//           "attrCode": "string",
+//           "attrDisplayName": "string",
+//           "attrDisplayValue": "string",
+//           "attrOrderSeq": 0,
+//           "attrValueCode": "string",
+//           "description": "string",
+//           "valueUnit": "string"
+//         }
+//       ],
+//       "status": "string",
+//       "submiter": "string",
+//       "submiterId": "string",
+//       "zoneName": "string"
+//     }
+//   ]
+
+
 //   @ApiModelProperty(notes = "订单ID")
 //     private String id;
 //     @ApiModelProperty(notes = "订单编号")
@@ -168,10 +219,11 @@ export class OrderMngSearchComponent implements OnInit{
 
 		//匹配后台搜索框参数
         // param.searchText = this._param.queryParam;
-        // param.productType = this._param.serviceType;
-		// param.orderStatus = this._param.status;
+         param.organization = this._param.organization;
+		 //param.serviceId = this._param.serviceType;
+		 param.status = this._param.status;
 		
-		
+		param.userId = this._param.buyerId;
 		param.pageParameter = {
 			currentPage:pageNumber
 			,size:10
@@ -187,7 +239,25 @@ export class OrderMngSearchComponent implements OnInit{
 		});
 	}
 
-
+// {
+//   "approverId": "string",
+//   "createTime": "2016-12-13T08:14:41.275Z",
+//   "enterpriseId": "string",
+//   "expireTime": "2016-12-13T08:14:41.275Z",
+//   "orderCode": "string",
+//   "orderType": "string",
+//   "organization": "string",
+//   "pageParameter": {
+//     "currentPage": 0,
+//     "offset": 0,
+//     "size": 0,
+//     "sort": {},
+//     "totalPage": 0
+//   },
+//   "serviceId": "string",
+//   "status": "string",
+//   "userId": "string"
+// }
 
 	onSubmitTimeChange($event){
 		this._param.createDate = $event.formatted;
