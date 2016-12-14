@@ -105,6 +105,12 @@ export class OpenstackImageSyncPublicComponent implements OnInit{
                 if(!i.displayName || i.displayName == ""){
                     i.displayName = i.name;
                 }
+                if(!i.bitsType || i.bitsType==""){
+                    i.bitsType=null;
+                }
+                if(!i.os || i.os==""){
+                    i.os=null;
+                }
                 this.images_needsync.push(i);
             }
         });
