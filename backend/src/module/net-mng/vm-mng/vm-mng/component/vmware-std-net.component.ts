@@ -1,6 +1,9 @@
 ﻿import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
-import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, ValidationService, PopupComponent, SystemDictionaryService, SystemDictionary } from '../../../../../architecture';
+import {
+    RestApi, RestApiCfg, LayoutService, NoticeComponent,
+    ConfirmComponent, PaginationComponent, ValidationService, PopupComponent, SystemDictionary
+     } from '../../../../../architecture';
 
 import { StdNet } from '../model/std-net.model';
 import { DCModel } from "../model/dc.model";
@@ -21,10 +24,9 @@ export class VmwareStdNetComponent implements OnInit {
     constructor(
         private activatedRouter: ActivatedRoute,
         private router: Router,
-        private dicService: SystemDictionaryService,
         private service: VmwareService,
         private layoutService: LayoutService,
-        private validationService: ValidationService
+        private validationService: ValidationService,
     ) {
      if (activatedRouter.snapshot.params["pid"]) {
             this.platformId = activatedRouter.snapshot.params["pid"] || "";
@@ -70,15 +72,8 @@ export class VmwareStdNetComponent implements OnInit {
     tempEditNet: StdNet = new StdNet();
 
     ngOnInit() {
-        
-
         this.getDcList();      
-        this.dicService.getItems("PORTGROUP", "STATUS")
-            .then(
-            dic => {
-               this.statusDic = dic;
-                this.getData();
-            });
+        this.getData();
     }
 
 
@@ -382,21 +377,7 @@ export class VmwareStdNetComponent implements OnInit {
         this.confirm.open();
     }
 
-    //根据value获取字典的txt
-    getDicText(value: string, dic: Array<SystemDictionary>): String {
-        if (!$.isArray(dic)) {
-            return value;
-        }
-        const d = dic.find((e) => {
-            return e.value == value;
-        });
-        if (d) {
-            return d.displayValue;
-        } else {
-            return value;
-        }
-
-    }
+   
 
     gotoPortMng() {
         this.router.navigate([`net-mng/vm-mng/port-mng`, {"pid":this.platformId}]);

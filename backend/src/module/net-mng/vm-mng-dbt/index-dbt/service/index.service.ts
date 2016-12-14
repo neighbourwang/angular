@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi } from '../../../../../architecture';
+import { RestApiCfg, RestApi,SystemDictionaryService } from '../../../../../architecture';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -12,13 +12,20 @@ export class VmDisIndexService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private dict: SystemDictionaryService
     ) {
     }
 
     init(): void {
         this.restApiCfg.loadCfgData();
     }
+
+    //数据字典
+    statusDic = this.dict.get({
+        owner: "PORTGROUP",
+        field: "STATUS"
+    });
 
     //获取数据中心联动列表
     getDCList(platform_Id:string): Promise<any> {

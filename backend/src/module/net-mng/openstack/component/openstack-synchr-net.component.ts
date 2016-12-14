@@ -84,7 +84,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 console.log("tNameList为空");
             }else{
                 tNameList.forEach((t)=>{
-                    eids = t.id +"," ;
+                    eids = t.id +"," + eids;
                 });
                 
                 return eids.substring(0,eids.length-1);
@@ -209,7 +209,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
         this.layoutService.show();
         let network_syns = new Array<Network_Syn>();
         this.synNetworks.forEach((s)=>{ 
-            if(s.syncResult=='2'){
+            if(s.syncResult=='2'||s.syncResult=='1'){
                 network_syns.push(s);
             }
         })
@@ -250,9 +250,9 @@ export class OpenstackSynchrNetComponent implements OnInit{
         this.layoutService.show();
         let network_syns = new Array<Network_Syn>();
         this.synNetworks.forEach((s)=>{ 
-            if(s.syncResult=='3'){
+            //if(s.syncResult=='3'){
                 network_syns.push(s);
-            }
+            ///}
         })
         this.service.synNetworkDisable( network_syns ).then(
             response=>{

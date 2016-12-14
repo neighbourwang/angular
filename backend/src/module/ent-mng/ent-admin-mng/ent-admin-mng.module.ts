@@ -2,7 +2,7 @@
 import { Ng2Bs3ModalModule } from "ng2-bs3-modal/ng2-bs3-modal";
 
 // Common Components
-import { CommonComponentModule } from "../../../architecture";
+import { CommonComponentModule, PipeModule } from "../../../architecture";
 
 // pf-conn-mng
 import { EntAdminCreComponent } from "./component/ent-admin-cre.component";
@@ -20,7 +20,8 @@ import { EntAdminMngRouting } from "./ent-admin-mng.routing";
     imports: [
         Ng2Bs3ModalModule,
         CommonComponentModule,
-        EntAdminMngRouting
+        EntAdminMngRouting,
+        PipeModule
     ],
     declarations: [
         EntAdminCreComponent,

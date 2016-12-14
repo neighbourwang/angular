@@ -58,7 +58,7 @@
                     <td title="{{img.description}}">
                         <div class="tenant-description-c">{{img.name}} </div>
                     </td>
-                    <td style="position:relative">{{img.displayName}}             
+                    <td style="position:relative">{{img.displayName || img.name}}             
                         <span class="pull-right icon-edit2" (click)="img.nameEditing=true; onSelect(img);"></span>
                         <div *ngIf="img.nameEditing" class="popover fade bottom in" role="tooltip" id="popover316538" style="top:25px; left:150px; width:370px; max-width:1100px; display: block; z-index: 50;">
                             <div class="arrow" style="left: 30%;"></div>
@@ -79,7 +79,7 @@
                             
                         </div>
                     </td>
-                    <td>{{img.os}}</td>
+                    <td>{{getDicText(img.os, this.osDict)}}</td>
                     <td>{{getDicText(img.bitsType, this.bitDict)}}</td>
                     <td>{{showCapacity(img.capacity)}}</td>
                     <td>{{getDicText(img.type, this.typeDict)}}</td>
@@ -165,7 +165,10 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">操作系统：</div>
 					<div class="col-sm-8">
-						<input type="string" class="form-control input-control" [(ngModel)]="changedimg.os">
+						<!--<input type="string" class="form-control input-control" [(ngModel)]="changedimg.os">  -->
+                        <select [(ngModel)]="changedimg.os">
+                            <option *ngFor="let os of this.osDict" [value]="os.value">{{os.displayValue}}</option>
+                        </select>
 					</div>
 				</div>
 			</div>
@@ -184,7 +187,7 @@
 					<div class="col-sm-4 form-control-title">镜像容量：</div>
 					<div class="col-sm-8">
 						<!-- <input type="string" class="form-control input-control" [(ngModel)]="selectedimg.dnsAlt"> -->
-                        <span>{{changedimg.capacity}}</span>
+                        <span>{{showCapacity(changedimg.capacity)}}</span>
 					</div>
 				</div>
 			</div>
@@ -193,7 +196,9 @@
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像类型：</div>
 					<div class="col-sm-8">
                         <select [(ngModel)]="changedimg.type">
-                            <option *ngFor="let type of this.typeDict" [value]="type.value">{{type.displayValue}}</option>
+                            <option [value]="'0'">公共镜像</option>
+                            <option [value]="'2'">企业镜像</option>
+                            <!-- <option *ngFor="let type of this.typeDict" [value]="type.value">{{type.displayValue}}</option> -->
                         </select>
 					</div>
 				</div>

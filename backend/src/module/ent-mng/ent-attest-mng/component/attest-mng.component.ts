@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import {
     LayoutService, ValidationService, NoticeComponent, PaginationComponent, ConfirmComponent, SystemDictionary,
-    SystemDictionaryService
+    dictPipe
 } from "../../../../architecture";
 
 import { Attest } from "../model/attest.model";
@@ -19,9 +19,9 @@ import { AttMngService } from "../service/attest-mng.service"
 export class AttestMngComponent implements OnInit {
     constructor(
         private router: Router,
-        private dicService: SystemDictionaryService,
         private layoutService: LayoutService,
         private service: AttMngService,
+        private dictPipe: dictPipe,
         private activatedRouter: ActivatedRoute
     ) {
         if (activatedRouter.snapshot.params["eid"]) {
@@ -38,7 +38,7 @@ export class AttestMngComponent implements OnInit {
     pageIndex = 1;
     pageSize = 20;
     attests: Attest[];
-    statusDic: Array<SystemDictionary>;
+    statusDic: Promise<SystemDictionary[]>;
 
     @ViewChild("notice")
     notice: NoticeComponent;
@@ -50,11 +50,8 @@ export class AttestMngComponent implements OnInit {
     pager: PaginationComponent;
 
     ngOnInit() {
-        this.dicService.getItems("USER", "STATUS")
-            .then((dic) => {
-                this.statusDic = dic;
-                this.getAttests();
-            });
+        this.getAttests();
+       
     }
 
     getAttests(index?: number) {
@@ -112,7 +109,12 @@ export class AttestMngComponent implements OnInit {
         }
 
         if (attest.status == status) {
-            this.showAlert(`该认证源已经是${this.getDicText(status.toString(), this.statusDic)}状态！`);
+            //${this.getDicText(status.toString(), this.statusDic) }
+            this.dictPipe.transform(status, this.service.statusDic)
+                .then((x) => {
+                    this.showAlert(`该认证源已经是${x}状态！`);
+                });
+         
             return;
         }
         this.noticeMsg = `确认${status == "1" ? "启用" : "禁用"}'${attest.name}' ?`;

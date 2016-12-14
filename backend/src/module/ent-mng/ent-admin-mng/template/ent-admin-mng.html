@@ -61,8 +61,12 @@
                 <td>{{admin.userName}}</td>
                 <td>{{admin.loginName}}</td>
                 <td>{{admin.contactPhone}}</td>
-                <td>{{getDicText(admin.authMode,this.authDic)}}</td>
-                <td [ngClass]="admin.status==1?'font-green':'font-orange'">{{getDicText(admin.status,this.statusDic)}}</td>
+                <td>
+                    {{admin.authMode | dict:this.service.authDic | async}}
+                </td>
+                <td [ngClass]="admin.status==1?'font-green':'font-orange'">
+                    {{attest.status | dict:this.service.statusDic | async}}
+                </td>
                 <td>
                     {{admin.description}}
                 </td>
