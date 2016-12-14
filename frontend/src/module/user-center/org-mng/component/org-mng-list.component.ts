@@ -55,22 +55,18 @@ export class OrgMngListComponent implements OnInit {
   isEdit: boolean = false;
   editId:string;
   percent:string='20%';
-  setPercent(arg){
-    let styles={width:this.percent}      
-      return styles;
-  }
+  
   //企业资源对象
   entResourceObj:EntResource;
   ngOnInit() {
     this.entResourceObj=new EntResource();
-    this.service.getCurEntId();
-    this.getOrgs(0, this.pp);
-    this.service.getNoMngUser();
-    this.entResourceObj=this.service.entResourceObj;
-    console.log('qiyeresource',this.entResourceObj);
+    this.service.getCurEntId().then(()=>{
+        this.getOrgs(0, this.pp);
+        this.service.getNoMngUser();
+    });   
+        
   }
-
-  //获取企业资源  
+  //获取组织列表
   getOrgs(page: number, size: number) {
     this.service.getOrg(page, size).then(
       res => {
@@ -78,6 +74,11 @@ export class OrgMngListComponent implements OnInit {
         let pageInfo = res.pageInfo;
         this.tp = pageInfo.totalPage;
         console.log(this.orgs);
+        this.entResourceObj=this.service.entResourceObj;
+         console.log('qiyeresource',this.entResourceObj);
+        //  this.entResourceObj.usedCpuRate='0.8';
+        //  this.entResourceObj.usedCpuRate=(parseFloat(this.entResourceObj.usedCpuRate)*100)+'%';
+        //  console.log(this.entResourceObj);
       }
     ).catch(
       err => {
@@ -85,7 +86,12 @@ export class OrgMngListComponent implements OnInit {
       }
       )
   }
-
+  //百分比进度条
+  setPercent(arg){
+    this.entResourceObj[arg]=(parseFloat(this.entResourceObj[arg])*100)+'%';
+    let styles={width:this.entResourceObj[arg]}        
+      return styles;
+  }
   paging(page) {
     this.getOrgs(page, 10);
   } 

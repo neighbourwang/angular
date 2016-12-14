@@ -38,6 +38,7 @@ export class OrgMngCrComponent implements OnInit {
   resource:Resource=new Resource();
   ngOnChanges(changes: SimpleChanges) {
     this.curEntResource=this.service.entResourceObj;
+    console.log(this.curEntResource);
     this.org = new Org();
     this.org.resource=new Resource();
     console.log(this.editId);    
