@@ -192,7 +192,7 @@ export class cloudHostComponentOrder implements OnInit {
 					totalPrice : this.diskTotalPrice,
 					quality : this.payLoad.quality,
 					serviceType : "1",
-					relyType : "" ,
+					relyType : "1" ,
 					relyItemNo : itemNo
 				}
 				this.payLoadArr.push(payLoad);  //加入云硬盘

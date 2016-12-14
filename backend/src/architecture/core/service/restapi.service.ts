@@ -93,6 +93,7 @@ export class RestApi {
                         .catch(
                             error => {
                                 console.debug(`FAILURE ${type} ${new Date().toLocaleString()}: ${path}`);
+                                if(error.status === 401 && error._body.indexOf("invalid_token") > -1) window.location.href = "/login.html";  //token不正确重新登录
                                 return this.handleError(error);
                             }
                         );
