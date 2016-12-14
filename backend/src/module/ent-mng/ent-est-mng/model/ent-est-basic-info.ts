@@ -14,8 +14,11 @@ export class EntEstBasicInfo{
 	description: string = null;//描述
 	logo: string = null;//logo
 	//isSSL: boolean = null;// 是否进行ssl加密
-	accountAttribute:string = null;//登录账户名属性
 	platformIds:Array<string> = [];
+
+	adname:string = null; //AD 名称
+	adDescription:string = null;//ad description
+	loginProp:string = null;//登录账户名属性
 
 	reset(){
 		this.code = null;
@@ -31,8 +34,10 @@ export class EntEstBasicInfo{
 		this.description = null;
 		this.logo = null;
 		//this.isSSL = null;
-		this.accountAttribute = null;
 		this.platformIds = [];
+		this.adname = null;
+		this.adDescription = null;
+		this.loginProp = null;
 	}
 }
 

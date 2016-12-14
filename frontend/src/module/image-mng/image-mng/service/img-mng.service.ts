@@ -46,6 +46,12 @@ export class ImgMngService {
         field: "OWNER"
     });
 
+    //Êý¾Ý×Öµä
+    osDic = this.dict.get({
+        owner: "IMAGES",
+        field: "OS"
+    });
+
     getImages(criteriaQuery: CriteriaQuery, pageIndex: number, pageSize: number): Promise<any> {
         const pathParams = [
             {

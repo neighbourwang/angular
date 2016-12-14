@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi, RestApiModel } from '../../../../../architecture';
+import { RestApiCfg, RestApi, RestApiModel, SystemDictionaryService } from '../../../../../architecture';
 
 //model 
 import { IpUsageMngModel } from '../model/ip-mng.model';
@@ -14,8 +14,14 @@ export class IpUsageMngListService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private dict:SystemDictionaryService
     ) { }
+
+    statusDic = this.dict.get({
+        owner: "IP",
+        field: "STATUS"
+    });
 
     getIpUsageMngList( pg_id: any ): Promise <any> {
         console.log("getIpUsageMngList"); 

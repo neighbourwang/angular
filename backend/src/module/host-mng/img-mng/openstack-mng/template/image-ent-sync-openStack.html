@@ -81,7 +81,7 @@
                             {{getDicText(image.bitsType,this.bits_typeDic)}}
                         </div>
                     </td>
-                    <td >{{showCapacity(image.capacity)}}</td>
+                    <td >{{image.capacity | formatCapacity}}</td>
                     <td >企业镜像</td>
                     <td >{{image.tenants[0].name}}</td>
                     <td [ngClass]="{'font-green':image.status!='2','font-orange':image.status=='2'}">{{getDicText(image.syncResult,this.syncDic)}}</td>

@@ -19,7 +19,7 @@
                     <span class="asterisk">*</span>
                     账号
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-4 mgt10">
                     {{account.loginName}}
                 </div>
             </div>
@@ -30,7 +30,7 @@
                     <span class="asterisk">*</span>
                     认证源
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-4 mgt10">
                     {{account.ldapName}}
                 </div>
             </div>
@@ -74,9 +74,9 @@
                     绑定角色
                 </div>
                 <div class="col-sm-6">
-                    <div class="btn-group">
-                        <div class="btn-group float-left">
-                            <button *ngFor="let role of roles;" title="{{role.name}}" class="btn btn-default fix-width-140" (click)="role.selected=!role.selected;" [ngClass]="{'active':role.selected}">
+                    <div class="btn-group pdl5">
+                        <div class="btn-group float-left" data-toggle="buttons">
+                            <button *ngFor="let role of roles;" title="{{role.name}}" class="btn btn-default fix-width-140 mgt5" (click)="role.selected=!role.selected;" [ngClass]="{'active':role.selected}">
                                  {{role.name}}
                             </button>
                         </div>
@@ -84,13 +84,13 @@
                 </div>
             </div>
         </div>
-        <div class="row row-line-height">
+        <div class="row row-line-height" style="margin-top : 20px">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
                     绑定结构
                 </div>
                 <div class="col-sm-6">
-                    <div class="btn-group" style="max-height: 300px; overflow: auto;">
+                    <div class="btn-group pdl5">
                         <div class="btn-group float-left" data-toggle="buttons">
                             <label *ngFor="let org of organizations;" title="{{org.name}}" class="btn btn-default fix-width-140" style="margin: 3px 0;" [ngClass]="{'active':org.selected}" (click)="clearSelectedOrg(org);">
                                 <input type="radio" name="org" autocomplete="off"> {{org.name}}
@@ -100,7 +100,7 @@
                 </div>
             </div>
         </div>
-       
+
     </div>
 </div>
 </div>

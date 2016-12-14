@@ -40,6 +40,9 @@ export class RestApi {
     }
 
     getLoginInfo() : {userInfo:UserInfo} {   //获取当前的登陆信息
+        if(!sessionStorage["userInfo"] || !sessionStorage["token"]) {
+            window.location.href = "/login.html";
+        }
         return {
             userInfo : JSON.parse(sessionStorage["userInfo"]) || {}
         }
