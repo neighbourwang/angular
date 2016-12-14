@@ -26,7 +26,7 @@
                         <label class="btn btn-default fix-width-140" [ngClass]="{'active':queryOpt.imageOwner == ''}" (click)="queryOpt.imageOwner=''">
                             <input type="radio" name="location" checked="checked" autocomplete="off"> 所有
                         </label>
-                        <label *ngFor="let o of ownerDic;" class="btn btn-default fix-width-140" title="{{o.displayValue}}"  [ngClass]="{'active':queryOpt.imageOwner == o.value}" (click)="queryOpt.imageOwner = o.value">
+                        <label *ngFor="let o of this.service.ownerDic | async;" class="btn btn-default fix-width-140" title="{{o.displayValue}}"  [ngClass]="{'active':queryOpt.imageOwner == o.value}" (click)="queryOpt.imageOwner = o.value">
                             <input type="radio" name="owner" autocomplete="off" [checked]="queryOpt.imageOwner == o.value" /> {{o.displayValue}}
                         </label>
                     </div>
@@ -52,7 +52,7 @@
             <div class="col-md-2 float-left">
                 <select class="form-control" [(ngModel)]="queryOpt.status">
                     <option [value]="" value="">所有</option>
-                    <option *ngFor="let stauts of statusDic" [value]="stauts.value">{{stauts.displayValue}}</option>
+                    <option *ngFor="let stauts of this.service.statusDic | async" [value]="stauts.value">{{stauts.displayValue}}</option>
                 </select>
             </div>
 
@@ -60,7 +60,7 @@
             <div class="col-md-2">
                 <select class="form-control" [(ngModel)]="queryOpt.imageType">
                     <option [value]="" value="">所有</option>
-                    <option *ngFor="let type of typeDic;" [value]="type.value">{{type.displayValue}}</option>
+                    <option *ngFor="let type of this.service.typeDic | async;" [value]="type.value">{{type.displayValue}}</option>
                 </select>
             </div>
 
@@ -94,9 +94,13 @@
                         <input type="radio" class="fox-cloud-radio" name="group-image" [checked]="image.selected" (change)="image.selected = $event.target.checked" />
                     </td>
                     <td class="text-center td_mirror" style="word-wrap:break-word">{{image.name}}  </td>
-                    <td class="text-center">{{getDicText(image.type,this.typeDic)}}</td>
+                    <td class="text-center">
+                        {{image.type | dict:this.service.typeDic | async}}
+                    </td>
                     <td class="text-center">{{image.os}}</td>
-                    <td class="text-center">{{getDicText(image.bits,this.bitDic)}}</td>
+                    <td class="text-center">
+                        {{image.bits | dict:this.service.bitDic | async}}
+                    </td>
                     <td class="text-center">50G</td>
                     <td class="text-center" style="word-wrap:break-word">{{image.creatorName}}</td>
                     <td class="text-center" style="word-wrap:break-word">{{image.orgName}}</td>

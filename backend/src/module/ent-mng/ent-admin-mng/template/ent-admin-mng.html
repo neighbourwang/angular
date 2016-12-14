@@ -41,36 +41,36 @@
     <div class="table-container">
         <table class="table table-hover">
             <thead>
-            <tr>
-                <th class="fristTh">
-                    选择
-                </th>
-                <th>管理员</th>
-                <th>账号</th>
-                <th>联系电话</th>
-                <th>类型</th>
-                <th>账号状态</th>
-                <th>描述</th>
-            </tr>
+                <tr>
+                    <th class="fristTh">
+                        选择
+                    </th>
+                    <th>管理员</th>
+                    <th>账号</th>
+                    <th>联系电话</th>
+                    <th>类型</th>
+                    <th>账号状态</th>
+                    <th>描述</th>
+                </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let admin of admins;" (click)="selectAdmin(admin)">
-                <td>
-                    <input type="radio" class="fox-cloud-radio"  name="group-admin" [checked]="admin.isSelect" (change)="admin.isSelect = $event.target.checked" />
-                </td>
-                <td>{{admin.userName}}</td>
-                <td>{{admin.loginName}}</td>
-                <td>{{admin.contactPhone}}</td>
-                <td>
-                    {{admin.authMode | dict:this.service.authDic | async}}
-                </td>
-                <td [ngClass]="admin.status==1?'font-green':'font-orange'">
-                    {{attest.status | dict:this.service.statusDic | async}}
-                </td>
-                <td>
-                    {{admin.description}}
-                </td>
-            </tr>
+                <tr *ngFor="let admin of admins;" (click)="selectAdmin(admin)">
+                    <td>
+                        <input type="radio" class="fox-cloud-radio" name="group-admin" [checked]="admin.isSelect" (change)="admin.isSelect = $event.target.checked" />
+                    </td>
+                    <td>{{admin.userName}}</td>
+                    <td>{{admin.loginName}}</td>
+                    <td>{{admin.contactPhone}}</td>
+                    <td>
+                        {{admin.authMode | dict:this.service.authDic | async}}
+                    </td>
+                    <td [ngClass]="admin.status==1?'font-green':'font-orange'">
+                        {{admin.status | dict:this.service.statusDic | async}}
+                    </td>
+                    <td>
+                        {{admin.description}}
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
