@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
-import { RestApiCfg, RestApi } from "../../../../architecture";
+import { RestApiCfg, RestApi,SystemDictionaryService } from "../../../../architecture";
 
 import { Images_mock, AreaList_mock } from "../model/img-mng.mock.model";
 import { Image } from "../model/img-mng.model";
@@ -13,13 +13,38 @@ export class ImgMngService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private  dict:SystemDictionaryService
     ) {
     }
 
     init(): void {
         this.restApiCfg.loadCfgData();
     }
+
+    //数据字典
+    statusDic = this.dict.get({
+        owner: "IMAGES",
+        field: "STATUS"
+    });
+
+    //数据字典
+    typeDic = this.dict.get({
+        owner: "IMAGES",
+        field: "TYPE"
+    });
+
+    //数据字典
+    bitDic = this.dict.get({
+        owner: "IMAGES",
+        field: "BITS_TYPE"
+    });
+
+    //数据字典
+    ownerDic = this.dict.get({
+        owner: "IMAGES",
+        field: "OWNER"
+    });
 
     getImages(criteriaQuery: CriteriaQuery, pageIndex: number, pageSize: number): Promise<any> {
         const pathParams = [

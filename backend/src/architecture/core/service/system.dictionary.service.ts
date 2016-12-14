@@ -28,11 +28,15 @@ export class SystemDictionaryService {
             });
 
         return dicPromise.then(dictList => {
-            return dictList.filter(dict => {
-                return (!cf.code || dict.code === cf.code) &&
-                    (!cf.owner || dict.owner === cf.owner) &&
-                    (!cf.field || dict.field === cf.field);
-            });
+            if ($.isArray(dictList)) {
+                return dictList.filter(dict => {
+                    return (!cf.code || dict.code === cf.code) &&
+                        (!cf.owner || dict.owner === cf.owner) &&
+                        (!cf.field || dict.field === cf.field);
+                });
+            } else {
+                return [];
+            }
         });
     };
 
