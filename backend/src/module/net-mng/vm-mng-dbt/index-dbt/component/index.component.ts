@@ -175,7 +175,7 @@ export class VmDisIndexComponent implements OnInit {
     portEnable() {
         const selectedPort = this.filterports.find((port) => { return port.selected });
         if (!selectedPort) {
-            this.showAlert(`请先选择需要启用的标准网络！`);
+            this.showAlert(`请先选择需要启用的分布式网络！`);
             return;
         }
         this.noticeTitle = "启用网络";
@@ -184,7 +184,7 @@ export class VmDisIndexComponent implements OnInit {
             this.showAlert("该网络已处于启用状态");
             return;
         }
-        this.noticeMsg = `您选择启用 '${selectedPort.dvPortGroupName}'端口组，其端口组名称为${selectedPort.distPortGroupDisplayName}' ， 
+        this.noticeMsg = `您选择启用 '${selectedPort.distPortGroupDisplayName}'分布式端口组，其VLAN ID为'${selectedPort.vlanId}' ， 
                         请确认；如果确认，用户将能够在订购中选择此网络。`;
         this.confirm.ccf = () => { };
         this.confirm.cof = () => {
@@ -212,7 +212,7 @@ export class VmDisIndexComponent implements OnInit {
     portDisable() {
         const selectedPort = this.filterports.find((port) => { return port.selected });
         if (!selectedPort) {
-            this.showAlert(`请先选择需要禁用的标准网络！`);
+            this.showAlert(`请先选择需要禁用的分布式网络！`);
             return;
         }
         this.noticeTitle = "禁用网络";
@@ -221,7 +221,7 @@ export class VmDisIndexComponent implements OnInit {
             this.showAlert("该网络已处于禁用状态");
             return;
         }
-        this.noticeMsg = `您选择禁用 '${selectedPort.dvPortGroupName}'端口组，其端口组名称为${selectedPort.distPortGroupDisplayName}' ， 
+        this.noticeMsg = `您选择禁用 '${selectedPort.distPortGroupDisplayName}'分布式端口组，其VLAN ID为'${selectedPort.vlanId}' ， 
                         请确认；如果确认，用户将不能够在订购中选择此网络。`;
         this.confirm.ccf = () => { };
         this.confirm.cof = () => {

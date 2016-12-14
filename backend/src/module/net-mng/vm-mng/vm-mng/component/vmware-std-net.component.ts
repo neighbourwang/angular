@@ -287,7 +287,7 @@ export class VmwareStdNetComponent implements OnInit {
             this.showAlert("该网络已处于启用状态");
             return;
         }
-        this.noticeMsg = `您选择启用 '${selectedNet.portDisplayName}'端口组，其端口组名称为${selectedNet.portGroupName}' ， 
+        this.noticeMsg = `您选择启用 '${selectedNet.portGroupName}'端口组，其VLAN ID为'${selectedNet.vlanId}' ， 
                         请确认；如果确认，用户将能够在订购中选择此网络。`;
         this.confirm.ccf = () => { };
         this.confirm.cof = () => {
@@ -322,7 +322,7 @@ export class VmwareStdNetComponent implements OnInit {
             this.showAlert("该网络已处于禁用状态");
             return;
         }
-        this.noticeMsg = `您选择禁用 '${selectedNet.portDisplayName}'端口组，其端口组名称为${selectedNet.portGroupName}' ， 
+        this.noticeMsg = `您选择禁用 '${selectedNet.portGroupName}'端口组，其VLAN ID为'${selectedNet.vlanId}' ， 
                         请确认；如果确认，用户将不能够在订购中选择此网络。`;
         this.confirm.ccf = () => { };
         this.confirm.cof = () => {
@@ -359,8 +359,8 @@ export class VmwareStdNetComponent implements OnInit {
         this.noticeTitle = "删除网络";
 
 
-        this.noticeMsg = `您选择删除 '${selectedNet.portDisplayName}'端口组，其端口组名称为${selectedNet.portGroupName}' ， 
-                        请确认；如果确认，此网络将被删除。`;
+        this.noticeMsg = `您选择删除 '${selectedNet.portGroupName}'端口组，其VLAN ID为'${selectedNet.vlanId}' ， 
+                        ；如果确认，此网络将被删除。`;
         this.confirm.ccf = () => { };
         this.confirm.cof = () => {
             this.layoutService.show();
