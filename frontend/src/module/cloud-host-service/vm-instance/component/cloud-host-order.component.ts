@@ -202,9 +202,10 @@ export class cloudHostComponentOrder implements OnInit {
 		const sku = this.vmSku.skuId,
 			  timeline = +(this.sendModule.timeline.attrValue || "0");
 		if(!this.sendModule.timelineunit.attrValueCode || !sku) return;
-
+console.log(`[${sku}, ${this.sendModule.timelineunit.attrValueCode}]`, "云主机")
 		const price = this.proMap[`[${sku}, ${this.sendModule.timelineunit.attrValueCode}]`];
 
+		if(!price) return;  //如果没获取到价格
 		this.vmBasePrice = price.billingInfo.basePrice * timeline * this.payLoad.quality;  //一次性费用
 		this.vmTotalPrice = (price.billingInfo.basicPrice+price.billingInfo.cyclePrice) * timeline * this.payLoad.quality;   //周期费用
 	}
@@ -221,7 +222,9 @@ export class cloudHostComponentOrder implements OnInit {
 			this.diskSku.push(sku); //获取sku
 
 			let price = this.proMap[`[${sku.skuId}]`];  //计算价格
-			console.log(price,sku.skuId, "硬盘的价格")
+
+console.log(`[${sku.skuId}]`, "云硬盘")
+			if(!price) return; //如果没获取到价格
 			basePrice += price.billingInfo.basePrice * timeline * this.payLoad.quality;  //一次性费用
 			totalPrice += price.billingInfo.unitPrice * data.storagesize.attrValue * timeline * this.payLoad.quality;   //周期费用
 
@@ -268,7 +271,7 @@ export class cloudHostComponentOrder implements OnInit {
 		if(!this.configs[attrName].relyAttrId) return [];
 
 		//根据他的依赖的id获取它自身的list
-		const list = this.configs[attrName].mapValueList[this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId] || [];
+		const list = (this.configs[attrName].mapValueList && this.configs[attrName].mapValueList[this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId]) || [];
 
 		const attrid = this.sendModule[attrName].attrValueId;   //获取当前的sendmoudle的attrid
 		const isHas = attrid && list && list.length && !!list.filter(l => l.attrValueId === attrid).length;   //列表里面是否有以选择的senModule

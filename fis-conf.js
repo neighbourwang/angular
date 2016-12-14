@@ -36,3 +36,13 @@ fis.media('frontendTest').match(/(?:frontend\/dist\/(.*)\.*)|(?:frontend-portal\
 		to: '/etc/nginx/foxcloud/frontend'
 	})
 });
+
+//后台发布到本地
+fis.media('backendCustom').match(/(?:backend\/dist\/(.*)\.*)|(?:backend-portal\/dist\/(.*)\.*)|(?:backend-portal(\/public\/.*)?\.*)/i, {
+	release: '/$1$2$3',
+});
+
+//前台发布到本地
+fis.media('frontendCustom').match(/(?:frontend\/dist\/(.*)\.*)|(?:frontend-portal\/dist\/(.*)\.*)|(?:frontend-portal(\/public\/.*)?\.*)/i, {
+	release: '/$1$2$3',
+});
