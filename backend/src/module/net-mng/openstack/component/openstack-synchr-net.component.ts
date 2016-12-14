@@ -169,21 +169,29 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 network_syns.push(s);
             }
         })
-        this.service.synNetworkAdd( network_syns ).then(
-            response=>{
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
-                    this.showAlert("全部添加成功");
-                    // network_syns.forEach((n)=>{
-                    //     n.syncResult = "2";
-                    // })
-                    this.getSynList(this.platform_id);
-                    //this.filter();
-                }else{
-                     alert("Res sync error");
-                }
-        })
-        .catch((e)=>this.onRejected(e));
+
+        if(!network_syns || network_syns.length==0){
+            //没有需要添加的
+            this.layoutService.hide();
+            this.showAlert("没有需要添加的网络");
+        }else {
+
+            this.service.synNetworkAdd( network_syns ).then(
+                response=>{
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.showAlert("全部添加成功");
+                        // network_syns.forEach((n)=>{
+                        //     n.syncResult = "2";
+                        // })
+                        this.getSynList(this.platform_id);
+                        //this.filter();
+                    }else{
+                        alert("Res sync error");
+                    }
+            })
+            .catch((e)=>this.onRejected(e));
+        }
     }
     //单个更新
     updateOne(selected: Network_Syn){
@@ -213,18 +221,24 @@ export class OpenstackSynchrNetComponent implements OnInit{
                 network_syns.push(s);
             }
         })
-        this.service.synNetworkUpdate( network_syns ).then(
-            response=>{
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
-                    this.showAlert("全部更新成功");
-                    this.getSynList(this.platform_id);
-                    //this.filter();
-                }else{
-                     alert("Res sync error");
-                }
-        })
-        .catch((e)=>this.onRejected(e));
+        if(!network_syns || network_syns.length==0){
+            //没有需要更新的
+            this.layoutService.hide();
+            this.showAlert("没有需要更新的网络");
+        }else {
+            this.service.synNetworkUpdate( network_syns ).then(
+                response=>{
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.showAlert("全部更新成功");
+                        this.getSynList(this.platform_id);
+                        //this.filter();
+                    }else{
+                        alert("Res sync error");
+                    }
+            })
+            .catch((e)=>this.onRejected(e));
+        }
     }
     //单个禁用
     disableOne(selected: Network_Syn){
