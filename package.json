@@ -4,12 +4,17 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
-    "release:backend": "cd backend  && npm run build && cd ../backend-portal && npm run build && fis3 release backendDev -f ../fis-conf.js",
-    "release:backend:qa": "cd backend  && npm run build:test && cd ../backend-portal && npm run build:test && fis3 release backendTest -f ../fis-conf.js",
     "release:frontend": "cd frontend  && npm run build && cd ../frontend-portal && npm run build && fis3 release frontendDev -f ../fis-conf.js",
-    "release:frontend:qa": "cd frontend  && npm run build:test && cd ../frontend-portal && npm run build:test && fis3 release frontendTest -f ../fis-conf.js",
+    "release:backend": "cd backend  && npm run build && cd ../backend-portal && npm run build && fis3 release backendDev -f ../fis-conf.js",
     "release:all" : "npm run release:backend && npm run release:frontend",
-    "release:all:qa" : "npm run release:backend:qa && npm run release:frontend:qa"
+
+    "release:frontend:qa": "cd frontend  && npm run build:test && cd ../frontend-portal && npm run build:test && fis3 release frontendTest -f ../fis-conf.js",
+    "release:backend:qa": "cd backend  && npm run build:test && cd ../backend-portal && npm run build:test && fis3 release backendTest -f ../fis-conf.js",
+    "release:all:qa" : "npm run release:backend:qa && npm run release:frontend:qa",
+
+    "build:frontend:custom": "cd frontend  && cd ../frontend-portal && npm run build:custom && fis3 release frontendCustom -f ../fis-conf.js -d ./dist",
+    "build:backend:custom": "cd backend  && cd ../backend-portal && npm run build:custom && fis3 release backendCustom -f ../fis-conf.js -d ./dist",
+    "build:all:custom" : "npm run build:backend:custom && npm run build:frontend:custom"
   },
   "dependencies": {
   },
