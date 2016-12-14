@@ -20,10 +20,10 @@
                    
                     <td><a href="javascript:void(0);" (click)="choosePage(plf);">{{plf.name}}</a></td>
                     <td>{{plf.dataCenter}}</td>
-                    <td>{{plf.region}}上海</td>
-                    <td class="font-green">{{getDicText(plf.type,this.typeDic)}}</td>           
+                    <td>{{plf.region}}</td>
+                    <td>{{getDicText(plf.type,this.typeDic)}}</td>           
                     <td>{{plf.imagesNum}}</td>
-                    <td>{{plf.syncDate}}</td>                  
+                    <td [ngClass]="plf.syncDate==null?'font-green':'font-blue'">{{plf.syncDate||"未同步"}}</td>                  
                 </tr> 
                     
             </tbody>
