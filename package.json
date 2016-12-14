@@ -12,13 +12,11 @@
     "release:backend:qa": "cd backend  && npm run build:test && cd ../backend-portal && npm run build:test && fis3 release backendTest -f ../fis-conf.js",
     "release:all:qa" : "npm run release:backend:qa && npm run release:frontend:qa",
 
-    "build:frontend:custom": "cd frontend  && cd ../frontend-portal && npm run build:custom && fis3 release frontendCustom -f ../fis-conf.js -d ./dist",
-    "build:backend:custom": "cd backend  && cd ../backend-portal && npm run build:custom && fis3 release backendCustom -f ../fis-conf.js -d ./dist",
+    "build:frontend:custom": "cd frontend  && npm run build:custom  && cd ../frontend-portal && npm run build:custom",
+    "build:backend:custom": "cd backend  && npm run build:custom  && cd ../backend-portal && npm run build:custom",
     "build:all:custom" : "npm run build:backend:custom && npm run build:frontend:custom"
   },
   "dependencies": {
   },
   "devDependencies": {}
 }
-
-

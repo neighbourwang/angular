@@ -98,6 +98,11 @@ export class EntEstCreComponent implements OnInit{
 					,"op":"*"
 				},
 				{
+					"name":"AD名称"
+					,"value":this.entEst.BasicInfo.adname
+					,"op":"*"
+				},
+				{
 					"name":"用户名(Full DN)"
 					,"value":this.entEst.BasicInfo.contactorName
 					,"op":"*"
@@ -110,7 +115,7 @@ export class EntEstCreComponent implements OnInit{
 				,
 				{
 					"name":"登录账户属性名称"
-					,"value":this.entEst.BasicInfo.accountAttribute
+					,"value":this.entEst.BasicInfo.loginProp
 					,"op":"*"
 				}]
 				);
@@ -179,7 +184,7 @@ export class EntEstCreComponent implements OnInit{
 	//创建企业
 	create(){
 		this.entEst.BasicInfo.platformIds
-			= this.entEst.BasicInfo.platformIds.concat(this.resourceQuotas.items.filter(n=>n.checked).map(n=>n.platformId));
+			= this.resourceQuotas.items.filter(n=>n.checked).map(n=>n.platformId);
 		
 		if(this.validate())
 		{

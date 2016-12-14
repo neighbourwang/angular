@@ -4,7 +4,7 @@
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
  const promise = new Promise((resolve,reject) => {
-     const token =  "bearer " + window.sessionStorage["token"];
+     const token =  window.sessionStorage["token"];
      token ?　resolve(token) : reject("获取token失败！");
  })
  

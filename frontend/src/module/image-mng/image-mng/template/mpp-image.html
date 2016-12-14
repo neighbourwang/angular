@@ -8,10 +8,10 @@
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12 btn-group" data-toggle="buttons">
-                        <label class="btn btn-default fix-width-140" [ngClass]="{'active':queryOpt.areaList == ''}" (click)="queryOpt.areaList=''">
+                        <label class="btn btn-default fix-width-140" [ngClass]="{'active':queryOpt.areaList == ''}" (click)="queryOpt.areaId=''">
                             <input type="radio" name="location" [checked]="queryOpt.areaList == ''" autocomplete="off"> 所有
                         </label>
-                        <label *ngFor="let area of areaList;" class="btn btn-default fix-width-140" title="{{area.name}}" [ngClass]="{'active':queryOpt.areaList == area.id}" (click)="queryOpt.areaList = area.id;">
+                        <label *ngFor="let area of areaList;" class="btn btn-default fix-width-140" title="{{area.name}}" [ngClass]="{'active':queryOpt.areaId == area.id}" (click)="queryOpt.areaId = area.id;">
                             <input type="radio" name="location" autocomplete="off" [checked]="queryOpt.areaList == area.id">{{area.name}}
                         </label>
                     </div>
@@ -26,7 +26,7 @@
                         <label class="btn btn-default fix-width-140" [ngClass]="{'active':queryOpt.imageOwner == ''}" (click)="queryOpt.imageOwner=''">
                             <input type="radio" name="location" checked="checked" autocomplete="off"> 所有
                         </label>
-                        <label *ngFor="let o of this.service.ownerDic | async;" class="btn btn-default fix-width-140" title="{{o.displayValue}}"  [ngClass]="{'active':queryOpt.imageOwner == o.value}" (click)="queryOpt.imageOwner = o.value">
+                        <label *ngFor="let o of this.service.ownerDic | async;" class="btn btn-default fix-width-140" title="{{o.displayValue}}" [ngClass]="{'active':queryOpt.imageOwner == o.value}" (click)="queryOpt.imageOwner = o.value">
                             <input type="radio" name="owner" autocomplete="off" [checked]="queryOpt.imageOwner == o.value" /> {{o.displayValue}}
                         </label>
                     </div>
@@ -48,15 +48,15 @@
                 </div>
             </div>
 
-            <span class="float-left" style="margin-left:10px;margin-top:6px;">状态 :</span>
+            <!--<span class="float-left" style="margin-left:10px;margin-top:6px;">状态 :</span>
             <div class="col-md-2 float-left">
                 <select class="form-control" [(ngModel)]="queryOpt.status">
                     <option [value]="" value="">所有</option>
                     <option *ngFor="let stauts of this.service.statusDic | async" [value]="stauts.value">{{stauts.displayValue}}</option>
                 </select>
-            </div>
+            </div>-->
 
-            <span class="pull-left mgb10" style="margin-top:6px;">镜像类型 :</span>
+            <span class="pull-left mgt10 mgl15">镜像类型 :</span>
             <div class="col-md-2">
                 <select class="form-control" [(ngModel)]="queryOpt.imageType">
                     <option [value]="" value="">所有</option>
@@ -75,17 +75,17 @@
             <thead>
                 <tr>
                     <th class="text-center" style="width:47px">选择</th>
-                    <th class="text-center" style="width:145px">镜像名称</th>
-                    <th class="text-center" style="width:145px">镜像类型</th>
-                    <th class="text-center" style="width:145px">操作系统</th>
-                    <th class="text-center" style="width:75px">系统位数</th>
-                    <th class="text-center" style="width:75px">镜像容量</th>  <!--新增镜像容量，删除状态列-->
-                    <th class="text-center" style="width:75px">创建人</th>
-                    <th class="text-center" style="width:145px">创建部门</th>
-                    <th class="text-center" style="width:135px">创建时间</th>
-                    <th class="text-center" style="width:54px">进度</th>
-                    <th class="text-center" style="width:145px">描述</th>
-                    <th class="text-center" style="width:100px">操作</th>
+                    <th class="text-center">镜像名称</th>
+                    <th class="text-center">镜像类型</th>
+                    <th class="text-center">操作系统</th>
+                    <th class="text-center">系统位数</th>
+                    <th class="text-center">镜像容量</th>  <!--新增镜像容量，删除状态列-->
+                    <th class="text-center">创建人</th>
+                    <th class="text-center">创建部门</th>
+                    <th class="text-center">创建时间</th>
+                    <th class="text-center">进度</th>
+                    <th class="text-center">描述</th>
+                    <th class="text-center">操作</th>
                 </tr>
             </thead>
             <tbody>
@@ -93,19 +93,19 @@
                     <td class="text-center">
                         <input type="radio" class="fox-cloud-radio" name="group-image" [checked]="image.selected" (change)="image.selected = $event.target.checked" />
                     </td>
-                    <td class="text-center td_mirror" style="word-wrap:break-word">{{image.name}}  </td>
+                    <td class="text-center" style="word-wrap:break-word">{{image.name}}  </td>
                     <td class="text-center">
                         {{image.type | dict:this.service.typeDic | async}}
                     </td>
-                    <td class="text-center">{{image.os}}</td>
+                    <td class="text-center">{{image.os | dict:this.service.osDic | async}}</td>
                     <td class="text-center">
                         {{image.bits | dict:this.service.bitDic | async}}
                     </td>
-                    <td class="text-center">50G</td>
+                    <td class="text-center">{{ image.capacity | formatCapacity}}</td>
                     <td class="text-center" style="word-wrap:break-word">{{image.creatorName}}</td>
                     <td class="text-center" style="word-wrap:break-word">{{image.orgName}}</td>
                     <td class="text-center">{{image.createTime}} </td>
-                    <td class="text-center">{{image.progress}}</td>
+                    <td class="text-center">{{image.progress}}%</td>
                     <td class="text-center " style="word-wrap:break-word">{{image.description}}</td>
                     <td class="text-center">
                         <div *ngIf="image.type !=0">
@@ -142,9 +142,9 @@
             <div class="col-sm-7 " style="line-height:34px">
                 <label *ngFor="let o of ownerDic;" class="pdr10">
                     <input class="fox-cloud-radio" [checked]="editImage.imageOwner==o.value" type="radio" name="editImage.imageOwner" (change)="editImage.imageOwner = o.value">
-                </label> 
+                </label>
             </div>
-            
+
         </div>
     </div>
     <div class="row row-line-height">
