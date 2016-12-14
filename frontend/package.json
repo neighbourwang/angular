@@ -5,7 +5,7 @@
   "angular-cli": {},
   "scripts": {
     "start": "ng serve --port 4000 --host 0.0.0.0",
-    "build": "ng build",
+    "build": "ng build --prod --env=dev",
     "build:prod": "ng build --prod --env=prod",
     "build:test": "ng build --prod --env=test",
     "build:custom": "ng build --prod --env=custom",
