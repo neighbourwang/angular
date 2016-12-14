@@ -54,12 +54,14 @@ export class ImgMngComponent implements OnInit {
     queryOpt: CriteriaQuery = new CriteriaQuery();
     editImage: Image = new Image();
     areaList: Array<Area>;
+    realQueryOpt: CriteriaQuery;
     ngOnInit() {
         this.getAreaList();
         this.getImageList();
     }
 
     search() {
+        this.realQueryOpt = $.extend({}, this.queryOpt);
         this.pager.render(1);
         this.getImageList();
     }
@@ -67,7 +69,7 @@ export class ImgMngComponent implements OnInit {
     getImageList(pageIndex?): void {
         this.pageIndex = pageIndex || this.pageIndex;
         this.layoutService.show();
-        this.service.getImages(this.queryOpt, this.pageIndex, this.pageSize)
+        this.service.getImages(this.realQueryOpt, this.pageIndex, this.pageSize)
             .then(
             response => {
                 this.layoutService.hide();
@@ -100,7 +102,7 @@ export class ImgMngComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    
+
 
     //更新镜像
     updateImage() {

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 // Common Components
-import { CommonComponentModule } from '../../../../architecture';
+import { CommonComponentModule,PipeModule } from '../../../../architecture';
 
 // Routing
 import { VmwareMngRouting } from './vmware-mng.routing';
@@ -20,7 +20,8 @@ import { VmwareImgEntSetupService } from './service/vmware-img-ent-setup.service
 @NgModule({
     imports: [
         CommonComponentModule,
-        VmwareMngRouting
+        VmwareMngRouting,
+        PipeModule
     ],
     declarations: [
         VmwareImgListComponent,

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 // Common Components
-import { CommonComponentModule } from '../../../../architecture';
+import { CommonComponentModule ,PipeModule} from '../../../../architecture';
 
 import { OpenstackMngComponent } from './component/openstack-mng.component';
 import { OpenstackMngRouting } from './openstack-mng.routing';
@@ -11,7 +11,8 @@ import { SelectedTenantListService } from './service/selected-tenant-list.servic
 @NgModule({
     imports: [
         OpenstackMngRouting,
-        CommonComponentModule
+        CommonComponentModule,
+        PipeModule
     ],
     declarations: [
         OpenstackMngComponent,
