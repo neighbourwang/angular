@@ -19,20 +19,20 @@ fis.media('frontendDev').match(/(?:frontend\/dist\/(.*)\.*)|(?:frontend-portal\/
 	})
 });
 
-//前台发布到测试环境
+//后台发布到测试环境
 fis.media('backendTest').match(/(?:backend\/dist\/(.*)\.*)|(?:backend-portal\/dist\/(.*)\.*)|(?:backend-portal(\/public\/.*)?\.*)/i, {
 	release: '/$1$2$3',
 	deploy: fis.plugin('http-push', {
 		receiver: 'http://16.187.145.3:8999/receiver',
-		to: '/etc/nginx/foxcloud/frontend'
+		to: '/etc/nginx/foxcloud/backend'
 	})
 });
 
-//后台发布到测试环境
+//前台发布到测试环境
 fis.media('frontendTest').match(/(?:frontend\/dist\/(.*)\.*)|(?:frontend-portal\/dist\/(.*)\.*)|(?:frontend-portal(\/public\/.*)?\.*)/i, {
 	release: '/$1$2$3',
 	deploy: fis.plugin('http-push', {
 		receiver: 'http://16.187.145.3:8999/receiver',
-		to: '/etc/nginx/foxcloud/backend'
+		to: '/etc/nginx/foxcloud/frontend'
 	})
 });
