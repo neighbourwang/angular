@@ -60,7 +60,11 @@ export class AccountMngCrLocalComponent implements OnInit, OnChanges {
                                 }
                             })
                         })
-                        
+                        this.service.orgs.forEach((ele)=>{
+                            if(ele.id==this.account.organizations[0].id){
+                                ele.selected=true;
+                            }
+                        })
                     }
                 )
                 .catch(err => {

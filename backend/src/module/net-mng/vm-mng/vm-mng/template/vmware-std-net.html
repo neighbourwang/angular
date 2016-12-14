@@ -99,7 +99,9 @@
                     <td>{{stdnet.portGroupName}}</td>
                     <td>{{stdnet.vlanId}}</td>
 
-                    <td [ngClass]="stdnet.status==1?'font-green':'font-orange'"> {{getDicText(stdnet.status,this.statusDic)}} </td>
+                    <td [ngClass]="stdnet.status==1?'font-green':'font-orange'">
+                        {{stdnet.status | dict:this.service.statusDic | async}}
+                    </td>
 
                     <td>{{stdnet.lastUpdate}}</td>
                 </tr>

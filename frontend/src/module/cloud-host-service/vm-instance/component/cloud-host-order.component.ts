@@ -1,3 +1,17 @@
+/**
+ * [订购逻辑]
+ * 基本介绍：
+ * 1. 本页面能提交一个云主机，和三个挂载到该主机上的云硬盘，总共最多四个订单
+ * 2. 每个订单最后提交的都是一个 PayLoad， 发给后端的是payLoadArr 是一个PayLoad数组
+ * 3. sendModule是和页面绑定的数据，最终是要转换成PayLoad
+ *
+ * 流程介绍：
+ * 1. 每个订单根据所选来确定产品，也就是sku
+ * 2. 根据sku的id 来获取时长单位
+ * 3. 根据sku id与时长单位获取来获取价格 
+ * 4. 提交的时候根据sendModule转换成PayLoad
+ */
+
 import { Component,ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -202,9 +216,10 @@ export class cloudHostComponentOrder implements OnInit {
 		const sku = this.vmSku.skuId,
 			  timeline = +(this.sendModule.timeline.attrValue || "0");
 		if(!this.sendModule.timelineunit.attrValueCode || !sku) return;
-
+console.log(`[${sku}, ${this.sendModule.timelineunit.attrValueCode}]`, "云主机")
 		const price = this.proMap[`[${sku}, ${this.sendModule.timelineunit.attrValueCode}]`];
 
+		if(!price) return;  //如果没获取到价格
 		this.vmBasePrice = price.billingInfo.basePrice * timeline * this.payLoad.quality;  //一次性费用
 		this.vmTotalPrice = (price.billingInfo.basicPrice+price.billingInfo.cyclePrice) * timeline * this.payLoad.quality;   //周期费用
 	}
@@ -221,7 +236,9 @@ export class cloudHostComponentOrder implements OnInit {
 			this.diskSku.push(sku); //获取sku
 
 			let price = this.proMap[`[${sku.skuId}]`];  //计算价格
-			console.log(price,sku.skuId, "硬盘的价格")
+
+console.log(`[${sku.skuId}]`, "云硬盘")
+			if(!price) return; //如果没获取到价格
 			basePrice += price.billingInfo.basePrice * timeline * this.payLoad.quality;  //一次性费用
 			totalPrice += price.billingInfo.unitPrice * data.storagesize.attrValue * timeline * this.payLoad.quality;   //周期费用
 
@@ -268,7 +285,7 @@ export class cloudHostComponentOrder implements OnInit {
 		if(!this.configs[attrName].relyAttrId) return [];
 
 		//根据他的依赖的id获取它自身的list
-		const list = this.configs[attrName].mapValueList[this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId] || [];
+		const list = (this.configs[attrName].mapValueList && this.configs[attrName].mapValueList[this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId]) || [];
 
 		const attrid = this.sendModule[attrName].attrValueId;   //获取当前的sendmoudle的attrid
 		const isHas = attrid && list && list.length && !!list.filter(l => l.attrValueId === attrid).length;   //列表里面是否有以选择的senModule

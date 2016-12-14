@@ -8,7 +8,7 @@ import {Component, Input, Output,EventEmitter,OnChanges,SimpleChange,OnInit} fro
     selector: 'count-bar',
     template: `<div class="countBar">
                <span class="glyphicon glyphicon-minus font-gray" [ngClass]="{gray:disabled || value == min}" (click)="subtract()"></span>
-               <input type="text" class="font-gray" [(ngModel)]="value" name="editValue" #box (change)="valueChange($event)" [disabled]="disabled">
+               <input type="text" class="font-gray "  [(ngModel)]="value" name="editValue" #box (change)="valueChange($event)" [disabled]="disabled">
                <span class="glyphicon glyphicon-plus font-gray" (click)="add()" [ngClass]="{gray:disabled || value == max}"></span>
                </div>
                `,
@@ -35,6 +35,7 @@ export class CountBarComponent implements OnInit{
     @Output()
     output=new EventEmitter();
 
+    unValid:boolean=false;
     ngOnInit (){
     }
     add() {
@@ -48,15 +49,21 @@ export class CountBarComponent implements OnInit{
         if(!this.disabled){
             this.value = this.value - this.step;
         this.valueChange();
-        }        
+        }      
     }
     valueChange(){
         const beyond = (this.value - this.min)%this.step;
         if(this.stepCheck && beyond !== 0)  this.value = this.value - beyond;   //检测是否输入了非步长倍数的数字
 
         this.value = +this.value > +this.max ? +this.max : +this.value < +this.min ? +this.min : +this.value;
-        if(!this.value) this.value = this.min;   //检测是否非法
-        this.output.emit(this.value);
+        if(!this.value){
+            this.value = this.min;
+            this.unValid=true;
+        }else{
+            this.output.emit(this.value);
+            this.unValid=false;
+        }    //检测是否非法
+        
     }
     unEdit(){
         this.value=this.min;

@@ -20,7 +20,7 @@
             </div>
 
             <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="entResourceObj.usedVCpuRate" aria-valuemin="0" aria-valuemax="entResourceObj.vcpuQuota" style="width: 50%;background-color : #2bd2ca">
+                <div class="progress-bar" role="progressbar" aria-valuenow="entResourceObj.usedVCpuRate" aria-valuemin="0" aria-valuemax="entResourceObj.vcpuQuota" style="background-color:#2bd2ca" [ngStyle]="setPercent('cpu')">
                     <span class="sr-only">60% Complete</span>
                 </div>
             </div>

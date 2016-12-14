@@ -1,6 +1,9 @@
 ﻿import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
-import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, ValidationService, PopupComponent, SystemDictionaryService, SystemDictionary } from '../../../../../architecture';
+import {
+    RestApi, RestApiCfg, LayoutService, NoticeComponent,
+    ConfirmComponent, PaginationComponent, ValidationService, PopupComponent, SystemDictionary
+     } from '../../../../../architecture';
 
 import { StdNet } from '../model/std-net.model';
 import { DCModel } from "../model/dc.model";
@@ -21,10 +24,9 @@ export class VmwareStdNetComponent implements OnInit {
     constructor(
         private activatedRouter: ActivatedRoute,
         private router: Router,
-        private dicService: SystemDictionaryService,
         private service: VmwareService,
         private layoutService: LayoutService,
-        private validationService: ValidationService
+        private validationService: ValidationService,
     ) {
      if (activatedRouter.snapshot.params["pid"]) {
             this.platformId = activatedRouter.snapshot.params["pid"] || "";
@@ -70,15 +72,8 @@ export class VmwareStdNetComponent implements OnInit {
     tempEditNet: StdNet = new StdNet();
 
     ngOnInit() {
-        
-
         this.getDcList();      
-        this.dicService.getItems("PORTGROUP", "STATUS")
-            .then(
-            dic => {
-               this.statusDic = dic;
-                this.getData();
-            });
+        this.getData();
     }
 
 
@@ -287,7 +282,7 @@ export class VmwareStdNetComponent implements OnInit {
             this.showAlert("该网络已处于启用状态");
             return;
         }
-        this.noticeMsg = `您选择启用 '${selectedNet.portDisplayName}'端口组，其端口组名称为${selectedNet.portGroupName}' ， 
+        this.noticeMsg = `您选择启用 '${selectedNet.portGroupName}'端口组，其VLAN ID为'${selectedNet.vlanId}' ， 
                         请确认；如果确认，用户将能够在订购中选择此网络。`;
         this.confirm.ccf = () => { };
         this.confirm.cof = () => {
@@ -322,7 +317,7 @@ export class VmwareStdNetComponent implements OnInit {
             this.showAlert("该网络已处于禁用状态");
             return;
         }
-        this.noticeMsg = `您选择禁用 '${selectedNet.portDisplayName}'端口组，其端口组名称为${selectedNet.portGroupName}' ， 
+        this.noticeMsg = `您选择禁用 '${selectedNet.portGroupName}'端口组，其VLAN ID为'${selectedNet.vlanId}' ， 
                         请确认；如果确认，用户将不能够在订购中选择此网络。`;
         this.confirm.ccf = () => { };
         this.confirm.cof = () => {
@@ -359,7 +354,7 @@ export class VmwareStdNetComponent implements OnInit {
         this.noticeTitle = "删除网络";
 
 
-        this.noticeMsg = `您选择删除 '${selectedNet.portDisplayName}'端口组，其端口组名称为${selectedNet.portGroupName}' ， 
+        this.noticeMsg = `您选择删除 '${selectedNet.portGroupName}'端口组，其VLAN ID为'${selectedNet.vlanId}' ， 
                         请确认；如果确认，此网络将被删除。`;
         this.confirm.ccf = () => { };
         this.confirm.cof = () => {
@@ -382,21 +377,7 @@ export class VmwareStdNetComponent implements OnInit {
         this.confirm.open();
     }
 
-    //根据value获取字典的txt
-    getDicText(value: string, dic: Array<SystemDictionary>): String {
-        if (!$.isArray(dic)) {
-            return value;
-        }
-        const d = dic.find((e) => {
-            return e.value == value;
-        });
-        if (d) {
-            return d.displayValue;
-        } else {
-            return value;
-        }
-
-    }
+   
 
     gotoPortMng() {
         this.router.navigate([`net-mng/vm-mng/port-mng`, {"pid":this.platformId}]);

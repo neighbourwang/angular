@@ -1,10 +1,10 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi } from '../../../../../architecture';
+import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../../architecture';
 
 import 'rxjs/add/operator/toPromise';
 
-import { StdNet_mock, net_dc_list_mock } from '../model/std-net.mock.model';
+//import { StdNet_mock, net_dc_list_mock } from '../model/std-net.mock.model';
 import { StdNet } from '../model/std-net.model';
 
 @Injectable()
@@ -12,13 +12,21 @@ export class VmwareService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private dict:SystemDictionaryService
     ) {
     }
 
     init(): void {
         this.restApiCfg.loadCfgData();
     }
+
+    //数据字典
+    statusDic = this.dict.get({
+        owner: "PORTGROUP",
+        field: "STATUS"
+    });
+
 
     //获取初始化列表数据
     getDCList(platform_Id:string): Promise<any> {
@@ -44,8 +52,6 @@ export class VmwareService {
         return this.restApi.request(api.method, api.url, pathParams, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => StdNet_mock);
 }
-
-    
 
     saveEditNet(platform_Id:string, stdnet: StdNet): Promise<any> {
         const pathParams = [

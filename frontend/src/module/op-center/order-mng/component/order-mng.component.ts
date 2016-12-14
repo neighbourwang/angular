@@ -164,8 +164,6 @@ export class OrderMngComponent implements OnInit{
 			{
 				target[i] = _.extendOwn(new SubInstanceResp(), target[i]);
 			}
-
-			this._billinModeDic.UpdateWithDic(target, "billingModeName", "billingMode");
 		};
 /*
 		this._orderLoader.FakeDataFunc = (target:Array<SubInstanceResp>)=>{
@@ -242,17 +240,17 @@ export class OrderMngComponent implements OnInit{
 			return this._typeDic.Go();
 		})
 		.then(success=>{
-			return this._platformLoader.Go();
-		})
-		// .then(success=>{
-		// 	return this.loadDepartment();
-		// })
-		.then(success=>{
 			return this._billinModeDic.Go();
 		})
 		.then(success=>{
 			return this._periodTypeDic.Go();
 		})
+		.then(success=>{
+			return this._platformLoader.Go();
+		})
+		// .then(success=>{
+		// 	return this.loadDepartment();
+		// })
 		.then(success=>{
 			this.layoutService.hide();
 		})
@@ -384,6 +382,7 @@ export class OrderMngComponent implements OnInit{
 	updateStatusName(){
 		this._orderStatusDic.UpdateWithDic(this._orderLoader.Items, "statusName","status");
 		this._productTypeLoader.UpdateWithDic(this._orderLoader.Items, "serviceTypeName", "serviceType");
+		console.log('this._orderLoader.Items', this._orderLoader.Items);
 		this._billinModeDic.UpdateWithDic(this._orderLoader.Items, "billingModeName", "billingMode");
 	}
 
