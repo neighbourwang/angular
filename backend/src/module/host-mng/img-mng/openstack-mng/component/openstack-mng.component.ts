@@ -213,6 +213,7 @@ export class OpenstackMngComponent implements OnInit{
         this.confirm.ccf = () => {
         };
         this.confirm.cof = () => {
+             this.layoutService.show();
             this.service.imageEnableOrDisable(this.selectedImage.id, '1')
                 .then(
                     response => {
@@ -239,6 +240,7 @@ export class OpenstackMngComponent implements OnInit{
         this.confirm.ccf = () => {
         };
         this.confirm.cof = () => {
+            this.layoutService.show();
             this.service.imageEnableOrDisable(this.selectedImage.id, '0')
                 .then(
                     response => {

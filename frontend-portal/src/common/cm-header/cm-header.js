@@ -5,6 +5,14 @@ const C    = require("../const.js");          //引入全局配置
 module.exports = {
 	template: html(C),
 	controller : function() {
+	    const userInfo = sessionStorage["userInfo"] && JSON.parse(sessionStorage["userInfo"]);
+
+	    if(userInfo) {  //如果登录了
+	    	$(".cm-header .h-login-box").html("欢迎，" + userInfo.loginName);
+	    }else {
+	   		$(".cm-header .box-ul3 a,.h-console").attr("href","/login.html");
+	    }
+
 
 		//  根据url加上active
 		$(".cm-header .h-nav a.header-title").each(function(){

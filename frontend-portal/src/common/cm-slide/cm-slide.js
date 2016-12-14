@@ -31,7 +31,11 @@ module.exports = {
 				$(this).click(() => {
 					index = i; change();
 				})
-			})
+			});
+
+			window.onresize = () => {
+				windowWidth = $(window).width();
+			};
 
 			setTime();   //初始化开始换灯泡
 		});
