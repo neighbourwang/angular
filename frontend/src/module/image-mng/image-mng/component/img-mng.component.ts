@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 //import { RADIO_GROUP_DIRECTIVES } from "ng2-radio-group";
-import { LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, ValidationService, SystemDictionary, SystemDictionaryService ,PopupComponent} from "../../../../architecture";
+import { LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, ValidationService, SystemDictionary, SystemDictionaryService, PopupComponent } from "../../../../architecture";
 
 import { Image } from '../model/img-mng.model';
 import { Area } from '../model/area.model';
@@ -45,7 +45,7 @@ export class ImgMngComponent implements OnInit {
 
     @ViewChild("editPopup")
     editPopup: PopupComponent;
-    
+
     images: Array<Image> = [];
     typeDic: Array<SystemDictionary>;
     ownerDic: Array<SystemDictionary>;
@@ -56,24 +56,7 @@ export class ImgMngComponent implements OnInit {
     areaList: Array<Area>;
     ngOnInit() {
         this.getAreaList();
-        this.dicService.getItems("IMAGES", "STATUS")
-            .then(
-            (dic) => {
-                this.statusDic = dic;
-                return this.dicService.getItems("IMAGES", "TYPE");
-            })
-            .then((dic) => {
-                this.typeDic = dic;
-                return this.dicService.getItems("IMAGES", "BITS_TYPE");
-            })
-            .then((dic) => {
-                this.bitDic = dic;
-                return this.dicService.getItems("IMAGES", "OWNER");
-            })
-            .then((dic) => {
-                this.ownerDic = dic;
-                this.getImageList();
-            });
+        this.getImageList();
     }
 
     search() {
@@ -117,21 +100,7 @@ export class ImgMngComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    //根据value获取字典的txt
-    getDicText(value: string, dic: Array<SystemDictionary>): String {
-        if (!$.isArray(dic)) {
-            return value;
-        }
-        const d = dic.find((e) => {
-            return e.value == value;
-        });
-        if (d) {
-            return d.displayValue;
-        } else {
-            return value;
-        }
-
-    }
+    
 
     //更新镜像
     updateImage() {
@@ -146,6 +115,7 @@ export class ImgMngComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.getImageList();
+                    this.editPopup.close();
                 } else {
                     alert("Res sync error");
                 }
@@ -192,7 +162,7 @@ export class ImgMngComponent implements OnInit {
     }
 
     openEidtPanel(image): void {
-        
+
         let cimage = new Image();
         cimage.id = image.id;
         cimage.id = image.id;

@@ -39,7 +39,7 @@ export class SubInstanceResp {
   renewPrice:number = null;//续订费用，每次续订时组装。
   periodTypeName: string = null;//计费时长单位
 
-  buyer:string = null;//订购人
+  submiter:string = null;//订购人
   departmentName:string = null;//部门
 
   orderId: string = null;//, optional): 订单ID，不做显示，操作回传 ,

@@ -1,0 +1,39 @@
+{
+  "name": "html-css",
+  "version": "1.0.0",
+  "description": "html &amp; css",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node_modules/.bin/webpack-dev-server --progress --port 4001 --hot --inline --colors --host 0.0.0.0",
+    "build": "webpack -p --config webpack.config.dev.js",
+    "build:test": "webpack -p --define process.env.NODE_ENV='\"qa\"' --config webpack.config.dev.js"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-loader": "^6.2.7",
+    "babel-preset-latest": "^6.16.0",
+    "bundle-loader": "^0.5.4",
+    "css-loader": "^0.25.0",
+    "ejs-loader": "^0.3.0",
+    "html-webpack-plugin": "^2.24.1",
+    "jquery": "^3.1.1",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.14",
+    "ejs": "^2.5.2",
+    "ejs-html-loader": "^2.0.2",
+    "webpack": "^1.13.3"
+  }
+}

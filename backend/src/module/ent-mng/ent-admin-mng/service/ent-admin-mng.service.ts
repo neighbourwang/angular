@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
-import { RestApiCfg, RestApi } from "../../../../architecture";
+import { RestApiCfg, RestApi,SystemDictionaryService } from "../../../../architecture";
 
-import { adminList, enterpriseOne } from "../model/enterprise-mock.model";
+//import { adminList, enterpriseOne } from "../model/enterprise-mock.model";
 
 import { Admin } from "../model/admin.model";
 
@@ -13,7 +13,8 @@ export class EntAdminMngService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private dict:SystemDictionaryService
     ) {
     }
 
@@ -21,6 +22,17 @@ export class EntAdminMngService {
         this.restApiCfg.loadCfgData();
     }
 
+    //数据字典
+    statusDic = this.dict.get({
+        owner: "USER",
+        field: "STATUS"
+    });
+
+    //数据字典
+    authDic = this.dict.get({
+        owner: "AUTHENTICATION",
+        field: "MODE"
+    });
 
     getAdmins(pageIndex: number, pageSize: number): Promise<any> {
         const pathParams = [
