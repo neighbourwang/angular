@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 // Common Components
-import { CommonComponentModule } from '../../../../architecture';
+import { CommonComponentModule, PipeModule } from '../../../../architecture';
 
 //Components
 import { IpMngListComponent } from './component/ip-mng-list.component';
@@ -18,7 +18,8 @@ import { IpUsageMngListService } from './service/ipusage-mng-list.service';
 @NgModule({
     imports: [
         CommonComponentModule,
-        IpMngRouting
+        IpMngRouting,
+        PipeModule
     ],
     declarations: [
         IpMngListComponent,
