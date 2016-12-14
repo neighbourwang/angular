@@ -2,6 +2,14 @@ require("../less/login.less");                  //引入css
 
 const C    = require("../../common/const.js");          //引入全局配置
 
+
+$("#l-username").blur(function(){
+	$.get(`http://${C.baseIp}:${C.basePort}/basis/noauth/ldaps?login=${$(this).val()}`, res => {
+		console.log(res)
+	})
+});
+
+
 $("#submit-button").click(function(){
 	let username = $("#l-username").val();
 	let password = $("#l-password").val();

@@ -355,7 +355,7 @@ export class VmwareStdNetComponent implements OnInit {
 
 
         this.noticeMsg = `您选择删除 '${selectedNet.portGroupName}'端口组，其VLAN ID为'${selectedNet.vlanId}' ， 
-                        ；如果确认，此网络将被删除。`;
+                        请确认；如果确认，此网络将被删除。`;
         this.confirm.ccf = () => { };
         this.confirm.cof = () => {
             this.layoutService.show();
