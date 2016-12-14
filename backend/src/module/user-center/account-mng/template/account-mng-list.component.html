@@ -1,5 +1,5 @@
 <div class="page-content-header icon-content-header-userCenterOn">账号管理</div>
-<div class="page-content">
+<div class="page-content" style="min-height:300px;">
     <div style="padding-bottom: 10px;">
 
         <div class="dropdown pull-right">
@@ -53,7 +53,7 @@
                     <td>
                         <span [ngSwitch]="item.status">
                             <template [ngSwitchCase]="1">启用</template>
-                            <template [ngSwitchCase]="5">禁用</template>
+                            <template [ngSwitchCase]="3">禁用</template>
                             <template [ngSwitchCase]="0">未启用</template>
                             <template [ngSwitchCase]="4">4</template>
                             <template ngSwitchDefault>Unknown</template>

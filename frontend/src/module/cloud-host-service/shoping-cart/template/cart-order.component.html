@@ -47,9 +47,9 @@
                     </tr>
                 </table>
             </td> 
-            <td class="text-center table-text-middle"><font class="font-green">审批中</font></td> 
-            <td class="text-center table-text-middle">2017-6-11 10:01:02</td> 
-            <td class="text-center table-text-middle">2017-6-11 10:01:02</td> 
+            <td class="text-center table-text-middle"><font class="font-green">{{items.status | dict:service.orderStatus | async}}</font></td> 
+            <td class="text-center table-text-middle">{{items.createDate | formatDate}}</td> 
+            <td class="text-center table-text-middle">{{items.expireDate | formatDate}}</td> 
             <td class="text-center table-text-middle">{{items.quantity}}台</td>
         </tr>
         </ng-container>

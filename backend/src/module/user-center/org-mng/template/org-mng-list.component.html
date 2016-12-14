@@ -35,7 +35,7 @@
             <tbody>
             <tr *ngFor="let item of orgs;let idx = index">
                 <td (click)="chooseItem(idx)"><input class="fox-cloud-radio" type="radio" name="isSelected"  [checked]="item.selected"/></td>
-                <td>{{item.id}}</td>
+                <td>{{idx+1}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.headCount}}</td>
                 <td>{{item.leaderName}}</td>

@@ -3,6 +3,10 @@
 // `ng build --env=test` then `environment.test.ts` will be used instead.
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
+// // const userName = "michaelwang@hpe.com",
+// const userName = "otheradmin@hpe.com",
+
+//       password = "12345"
 const promise = new Promise((resolve,reject) => {
      const token =  window.sessionStorage["token"];
      token ?　resolve(token) : reject("获取token失败！");
