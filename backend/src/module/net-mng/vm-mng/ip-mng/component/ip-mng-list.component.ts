@@ -125,7 +125,7 @@ export class IpMngListComponent implements OnInit{
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.dcList = response["resultContent"];
-                        console.log(this.dcList, "this.dcList--------------------");
+                        console.log(this.dcList, "DCList");
                     } else {
                         //alert("Res sync error");
                         this.showAlert("获取数据失败");
@@ -157,7 +157,7 @@ export class IpMngListComponent implements OnInit{
                 if (response && 100 == response["resultCode"]) {
                     this.rawipmngs = response.resultContent;
                     this.filter();
-                    console.log(this.ipmngs, "IPmngS --- getIpMngList");
+                    //console.log(this.ipmngs, "IPmngS --- getIpMngList");
                 } else {
                     alert("Res sync error");
                 }
