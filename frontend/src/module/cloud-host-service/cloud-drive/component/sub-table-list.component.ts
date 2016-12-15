@@ -23,6 +23,8 @@ export class subTableListComponent implements OnInit, OnChanges {
 	backupList : DiskBackupItem[] = [];
 	vmList : VMSimpleItem[] = [];
 
+	activeNum : -1;
+
 	list : QuiryDistList = new QuiryDistList();
 
 	constructor(

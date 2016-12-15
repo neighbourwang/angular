@@ -16,7 +16,7 @@
         <th class="text-center">储存类型</th>
         <th class="text-center">容量(GB)</th>
     </tr>
-    <tr *ngFor="let unmount of unmountList" class="cup" (click)="emit(unmount)">
+    <tr *ngFor="let unmount of unmountList; let i = index;" [ngClass]="{'active':activeNum === i}" class="cup" (click)="emit(unmount);activeNum = i">
         <td class="text-center">{{unmount.name}}</td>
         <td class="text-center">{{unmount.type}}</td> 
         <td class="text-center">{{unmount.size}}</td>
@@ -42,7 +42,7 @@
         <th class="text-center">源虚拟机名称</th>
         <th class="text-center">容量(GB)</th>
     </tr>
-    <tr *ngFor="let backup of backupList" class="cup" (click)="emit(backup)">
+    <tr *ngFor="let backup of backupList; let i = index;" class="cup" [ngClass]="{'active':activeNum === i}" (click)="emit(backup); activeNum = i">
         <td class="text-center">{{backup.id}}</td>
         <td class="text-center">{{backup.name}}</td> 
         <td class="text-center">{{backup.vmName}}</td>
@@ -70,7 +70,7 @@
         <th class="text-center">内部IP</th>
         <th class="text-center">外部IP</th>
     </tr>
-    <tr *ngFor="let vm of vmList" class="cup" (click)="emit(vm)">
+    <tr *ngFor="let vm of vmList; let i = index;" class="cup" [ngClass]="{'active':activeNum === i}" (click)="emit(vm);activeNum = i">
         <td class="text-center">{{vm.instanceName}}</td>
         <td class="text-center">{{vm.specification}}</td> 
         <td class="text-center">{{vm.osInfo}}</td>

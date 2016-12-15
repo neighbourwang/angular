@@ -4,11 +4,13 @@
         <ng-content></ng-content>
     </modal-body>
     <modal-footer class="fox-cloud-modal-footer">
-        <button class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal" (click)="ccf()">
-            <span class="icon-button-label">{{ct}}</span><!-- 取消 -->
-        </button>
-        <button class="fox-cloud-button-lg fox-cloud-button-white"  (click)="cof()" style="margin-left: 30px">
-            <span class="icon-button-label">{{ot}}</span><!-- 确认 -->
-        </button>
+        <!-- <button class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal" (click)="ccf()">
+            <span class="icon-button-label">{{ct}}</span>
+        </button> -->
+        <button class="btn btn-default button-size-big" data-dismiss="modal" (click)="ccf()">{{ct}}</button> <!-- 取消 -->
+        <button class="btn button-confirm button-size-big"  (click)="cof()">{{ot}}</button> <!-- 确认 -->
+       <!--  <button class="fox-cloud-button-lg fox-cloud-button-white"  (click)="cof()" style="margin-left: 30px">
+            <span class="icon-button-label">{{ot}}</span>
+        </button> -->
     </modal-footer>
 </modal>
