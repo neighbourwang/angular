@@ -23,6 +23,8 @@ export class subTableListComponent implements OnInit, OnChanges {
 	backupList : DiskBackupItem[] = [];
 	vmList : VMSimpleItem[] = [];
 
+	activeNum : -1;
+
 	list : QuiryDistList = new QuiryDistList();
 
 	constructor(
@@ -43,7 +45,7 @@ export class subTableListComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(changes) {
-		if(!this.platformId) return;
+		// if(!this.platformId) return;
 		this.platformId = changes.platformId.currentValue;
 		this.getList();
 	}

@@ -121,12 +121,15 @@ export class OrgMngService {
     entResourceObj: EntResource=new EntResource();
     getCurEntResource(id: string) {
         let api = this.restApiCfg.getRestApi("user-center.org-mng.currEntResoure.get");
+        console.log(this.entResourceObj.enterpriseId);
         if (!this.entResourceObj.enterpriseId) {
-            return this.restApi.request(api.method, api.url, [{ key: "id", value: id }, { key: "page", value: 1 }, { key: "size", value: 9999 }], undefined).then(
+             this.restApi.request(api.method, api.url, [{ key: "id", value: id }, { key: "page", value: 1 }, { key: "size", value: 9999 }], undefined).then(
                 res => {
                     console.log('获取企业资源信息', res);
-                    this.entResourceObj = res.resultContent;
+                    this.entResourceObj = res.resultContent[0];
+                    console.log(this.entResourceObj);
                     return this.entResourceObj;
+
                 }
             ).catch(
                 err => {
@@ -134,7 +137,10 @@ export class OrgMngService {
                 }
                 );
         } else {
-            return new Promise(resovle => setTimeout(resovle, 10)).then(() => this.entResourceObj);
+            return new Promise(resovle => setTimeout(resovle, 10)).then(() =>{
+                this.entResourceObj
+            } 
+            );
         }
     }
 
