@@ -26,8 +26,8 @@ $("#l-password").keyup(function(e) {
 });
 
 $("#submit-button").click(function(){
-	let username = $("#l-username").val(),
-		password = $("#l-password").val(),
+	let username = $("#l-username").val().trim(),
+		password = $("#l-password").val().trim(),
 		adId = $("#account-select").val() || "";
 
 	if($("#l-username").val() === "") return alert("请输入用户名");

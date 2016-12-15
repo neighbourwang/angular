@@ -18,7 +18,7 @@ module.exports = {
     "position" : "right"
   },
   {
-    "name": "福清",
+    "name": "固安",
     "width": "50",
     "left": "772",
     "type": "blue",
