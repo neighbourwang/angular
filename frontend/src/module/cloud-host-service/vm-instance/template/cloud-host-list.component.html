@@ -121,9 +121,9 @@
             <th class="text-center">到期时间</th>
             <!--<th class="text-center">云硬盘数</th> -->
             <!--<th class="text-center">快照数</th>-->
-            <th class="text-center">附加服务</th>
-            <th class="text-center">类型</th>
-            <th class="text-center">服务类别</th>
+            <!-- <th class="text-center">附加服务</th> -->
+            <!-- <th class="text-center">类型</th> -->
+            <!-- <th class="text-center">服务类别</th> -->
             <th class="text-center">操作</th> 
         </tr>
         <tr *ngFor="let vm of vmList;trackBy:vm?.expiryDate;">
@@ -148,9 +148,9 @@
             <td class="text-center">{{vm.expiryDate}}</td>
             <!--<td class="text-center">{{vm.diskCount}}</td> -->
             <!--<td class="text-center">{{vm.snapshotCount}}</td>-->
-            <td class="text-center">无</td>
-            <td class="text-center">生产</td>
-            <td class="text-center">关键</td>
+            <!-- <td class="text-center">无</td> -->
+            <!-- <td class="text-center">生产</td> -->
+            <!-- <td class="text-center">关键</td> -->
             <td class="text-center">
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" [attr.id]="'dropdownMenu'+(index+3)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
