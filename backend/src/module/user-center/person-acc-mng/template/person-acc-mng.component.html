@@ -31,7 +31,8 @@
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title">类型：</div>
 						<div class="col-sm-4">
-							<span style="line-height:34px;">本地</span>
+							<span *ngIf="!personAcc.isAD" style="line-height:34px;">本地</span>
+							<span *ngIf="personAcc.isAD" style="line-height:34px;">AD</span>
 						</div>
 					</div>
 				</div>
@@ -50,10 +51,10 @@
 		<button class="fox-cloud-button-lg fox-cloud-button-white mgr20" (click)="onEdit();">
             <span class="icon-button-label">编辑</span>
         </button>
-		<button class="fox-cloud-button-lg fox-cloud-button-white"  *ngIf="personAcc.type==0" (click)="onEditPwd()">
+		<button class="fox-cloud-button-lg fox-cloud-button-white"  *ngIf="!personAcc.isAD" (click)="onEditPwd()">
             <span class="icon-button-label">修改密码</span>
         </button>
-		<button *ngIf="personAcc.type!=0" class="fox-cloud-button-lg fox-cloud-button-disabled">
+		<button *ngIf="personAcc.isAD" class="fox-cloud-button-lg fox-cloud-button-disabled">
             <span class="icon-button-label">修改密码</span>
         </button>
 	</div>
