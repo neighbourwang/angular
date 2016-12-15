@@ -123,7 +123,7 @@
                    <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="port.selected" (change)="selectSyn(port)"> </td>
                     <td>{{port.dcName}}</td>
                     <td>{{port.switchName}}</td>
-                    <td [ngClass]="port.status==1?'font-green':'font-orange'">{{getDicText(port.status,this.synDic)}}</td>
+                    <td [ngClass]="port.status==1?'font-green':'font-orange'">{{port.status | dict:this.service.synDic | async}}</td>
                 </tr>
                 </tbody>
             </table>

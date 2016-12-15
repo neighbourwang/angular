@@ -26,6 +26,10 @@ export class VmDisIndexService {
         owner: "PORTGROUP",
         field: "STATUS"
     });
+    synDic = this.dict.get({
+        owner: "VMDIST",
+        field: "SYNC"
+    });
 
     //获取数据中心联动列表
     getDCList(platform_Id:string): Promise<any> {

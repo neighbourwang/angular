@@ -35,7 +35,12 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "/uaa/oauth/token?grant_type=password&username=gavin@hpe.com&password=12345&client_id=ui&client_secret=12345"
     },
-
+    {
+        "desc": "登出",
+        "id": "uaa.logout",
+        "method": "GET",
+        "url": "uaa/logout"
+    },
     // 数据字典
     {
         "desc": "获取可订购配置数据",
