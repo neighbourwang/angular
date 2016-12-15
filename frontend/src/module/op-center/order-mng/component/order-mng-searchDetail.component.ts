@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Input} from '@angular/core';
 import { Router } from '@angular/router';
 import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 import { SearchOrderDetail } from '../model';
+import {DictService} from '../../../../architecture/core/service/dict-service';
 
 @Component({
   // moduleId: module.id,
@@ -18,7 +19,8 @@ export class OrderMngSearchDetailComponent implements OnInit {
     private layoutService: LayoutService,
     private router: Router,
     private restApiCfg:RestApiCfg,
-    private restApi:RestApi
+    private restApi:RestApi,
+    private _dictServ:DictService
   ) {
    
   }
