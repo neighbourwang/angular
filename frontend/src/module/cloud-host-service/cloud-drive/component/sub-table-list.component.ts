@@ -45,7 +45,7 @@ export class subTableListComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(changes) {
-		// if(!this.platformId) return;
+		if(!this.platformId) return;
 		this.platformId = changes.platformId.currentValue;
 		this.getList();
 	}

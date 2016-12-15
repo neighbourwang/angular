@@ -180,6 +180,7 @@ export class cloudHostComponentOrder implements OnInit {
 		if(storages.length) {   //如果有数据盘的数据
 			for( let storage of storages){
 				this.sendModule.storage = storage.storage;
+				this.sendModule.disksize = storage.storagesize;
 				this.sendModule.storagesize = storage.storagesize;
 
 				let sku = this.getSkuId("disk"),
