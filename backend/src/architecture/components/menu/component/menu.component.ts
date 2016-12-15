@@ -100,43 +100,6 @@ const menu: Array<Object> = [
       },
     ]
   },
-  {
-    "label" : "用户中心",
-    "isOpen" : false,
-    "icon": "icon-content-header-userCenterWhite",
-    "top2_menu" : [
-      {
-          "label": "账号管理",
-          "isOpen": false,
-          "isActive": false,
-          "routing": "user-center/account-mng/account-mng-list"
-      },
-      {
-          "label": "组织管理",
-          "isOpen": false,
-          "isActive": false,
-          "routing": "user-center/org-mng/org-mng-list"
-      },
-      {
-          "label": "角色管理",
-          "isOpen": false,
-          "isActive": false,
-          "routing": "user-center/role-mng/role-mng-list"
-      },
-      {
-          "label": "认证管理",
-          "isOpen": false,
-          "isActive": false,
-          "routing": "user-center/attest-mng/attest-mng"
-      },
-      {
-          "label": "个人账户管理",
-          "isOpen": false,
-          "isActive": false,
-          "routing": "user-center/person-acc-mng/person-acc-mng"
-      },
-    ]
-  },
     // {
     //     "label": "平台管理中心",
     //     "isOpen": true,
@@ -262,23 +225,61 @@ const menu: Array<Object> = [
              }
          ]
      },
-     {
-         "label": "审批中心",
-         "isOpen": true,
-         "icon": "icon-order-manage",
-         "top2_menu": [
-          {
-              "label": "待审批",
-                 "isOpen": false,
-                 "isActive": false,
-                 "routing": "check-center/check-mng-list"
-             }, {
-              "label": "已审批",
-                 "isOpen": false,
-                 "isActive": false,
-                 "routing": "check-center/check-mng-hascheck"
-             }
-         ]
-     },
+     // {
+     //     "label": "审批中心",
+     //     "isOpen": true,
+     //     "icon": "icon-order-manage",
+     //     "top2_menu": [
+     //      {
+     //          "label": "待审批",
+     //             "isOpen": false,
+     //             "isActive": false,
+     //             "routing": "check-center/check-mng-list"
+     //         }, {
+     //          "label": "已审批",
+     //             "isOpen": false,
+     //             "isActive": false,
+     //             "routing": "check-center/check-mng-hascheck"
+     //         }
+     //     ]
+     // },
+
+  {
+    "label" : "用户中心",
+    "isOpen" : false,
+    "icon": "icon-content-header-userCenterWhite",
+    "top2_menu" : [
+      {
+          "label": "账号管理",
+          "isOpen": false,
+          "isActive": false,
+          "routing": "user-center/account-mng/account-mng-list"
+      },
+      {
+          "label": "组织管理",
+          "isOpen": false,
+          "isActive": false,
+          "routing": "user-center/org-mng/org-mng-list"
+      },
+      {
+          "label": "角色管理",
+          "isOpen": false,
+          "isActive": false,
+          "routing": "user-center/role-mng/role-mng-list"
+      },
+      {
+          "label": "认证管理",
+          "isOpen": false,
+          "isActive": false,
+          "routing": "user-center/attest-mng/attest-mng"
+      },
+      {
+          "label": "个人账户管理",
+          "isOpen": false,
+          "isActive": false,
+          "routing": "user-center/person-acc-mng/person-acc-mng"
+      },
+    ]
+  }
     
 ];

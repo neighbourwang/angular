@@ -62,7 +62,7 @@ $("#submit-button").click(function(){
 	            success: function (response) {
 	                sessionStorage["userInfo"] = JSON.stringify(response.resultContent);
 	                sessionStorage["token"] = token;
-					location.href="/mng-console"
+					location.href="/cloud-host-service/cloud-host-list"
 					isChecked = 0;
 	            },
 	            error: function (xhr, status) {
