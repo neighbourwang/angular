@@ -36,10 +36,12 @@ export class SiteComponent implements OnInit{
     // this.userService.loginService();
   }
   logOut() {
-    this.service.logOut().then(res => {
+    this.service.logOut().then();
+    
+    setTimeout(() => {
       window.sessionStorage["token"] = "";
       window.sessionStorage["userInfo"] = "";
       window.location.href = "/login.html";
-    });
+    })
   }
 }
