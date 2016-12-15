@@ -212,17 +212,21 @@ export class AccountMngListComponent implements OnInit {
     edit(account) {
         console.log(account);
         this.isEdit = true;
-        this.editId = account.id;
         if (account.type == 0) { //0 本地  ,1 AD            
-            
             this.isActive = false;
             window.setTimeout(() => {
                 this.isActive = true;
+                this.editId = account.id;
                 this.createLocalAccountPopUp.open("编辑本地账号");
                 
             }, 0);
         } else {
-            this.editAdAccountPopUp.open("编辑AD账号");
+            this.editId = "";
+            window.setTimeout(() => {
+                this.editId = account.id;
+                this.editAdAccountPopUp.open("编辑AD账号");
+            }, 0);
+           
         }
     }
 
