@@ -23,7 +23,7 @@ class HandleDist {
     platformId: "88"
   };
   id:string;
-  uid:string;
+  serverId:string;
 }
 
 

@@ -83,7 +83,7 @@
             <th class="text-center">类型</th>
             <th class="text-center">操作</th> 
         </tr>
-        <tr *ngFor="let dist of distList;trackBy:dist?.expiryDate;">
+        <tr *ngFor="let dist of distList;">
             <td class="text-center"><input name="host-list" type="radio"></td>
             <td class="text-center active">{{dist.name}}</td>
             <td class="text-center">{{dist.type}}</td>
@@ -98,12 +98,12 @@
             <td class="text-center">{{dist.sourceType | dict:service.dictSourceType | async}}</td>
             <td class="text-center">
                 <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" [attr.id]="'dropdownMenu'+(index+3)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-default dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     更多操作
                     <span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu" [attr.aria-labelledby]="'dropdownMenu'+(index+3)">
-                        <li><a (click)="handleDist('mount', dist, '挂载云硬盘')" href="javascript:">挂载</a></li>
+                    <ul class="dropdown-menu">
+                        <li><a (click)="vmDialog.open(); mountDisk = dist" href="javascript:">挂载</a></li>
                         <li><a (click)="handleDist('unmount', dist, '卸载云硬盘')" href="javascript:">卸载</a></li>
                         <!-- <li><a (click)="handleDist('pause', vm, '暂停')" href="javascript:">暂停</a></li> -->
                         <!-- <li><a (click)="handleDist('unpause', vm , '开始')" href="javascript:">开始</a></li> -->
@@ -116,6 +116,12 @@
             </td> 
         </tr>
     </table>
+    <fc-popup #vmDialog ot="提交" ct="取消" title="挂载云主机" (of)="confirmVm()" (cf)="cancelVm();">
+        <table-list 
+            code="3" 
+            (onSelect)="vmListClick($event);" 
+            platformId=""></table-list>
+    </fc-popup>
     <fc-pagination tp={{list.pageParameter.totalPage}} (pf)="changePage($event)"></fc-pagination>
 </div>
 <fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
