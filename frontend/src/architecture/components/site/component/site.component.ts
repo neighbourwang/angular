@@ -41,6 +41,6 @@ export class SiteComponent implements OnInit{
       window.sessionStorage["token"] = "";
       window.sessionStorage["userInfo"] = "";
       window.location.href = "/login.html";
-    })
+    },200)
   }
 }
