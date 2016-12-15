@@ -35,10 +35,12 @@ export class SiteComponent implements OnInit{
     this.dictService.get();  //初始化获取所有的数据字典
   }
   logOut() {
-    this.service.logOut().then(res => {
+    this.service.logOut().then();
+
+    setTimeout(() => {
       window.sessionStorage["token"] = "";
       window.sessionStorage["userInfo"] = "";
       window.location.href = "/login.html";
-    });
+    })
   }
 }
