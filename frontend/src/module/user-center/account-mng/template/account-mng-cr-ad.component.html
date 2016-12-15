@@ -83,7 +83,7 @@
             <td>
                 <div>
                     <label class="checkbox-inline fix-width-140 mgt5" *ngFor="let org of service.orgs;" title="{{org.name}}"  >
-                        <input type="radio" name="department-cr-ad"  class="fox-cloud-radio" (change)="clearSelectedOrg();org.selected=true;">{{org.name}}
+                        <input type="radio" name="department-cr-ad"  class="fox-cloud-radio" [checked]="org.selected" (change)="clearSelectedOrg();org.selected=true;">{{org.name}}
                     </label>
                 </div>
             </td>

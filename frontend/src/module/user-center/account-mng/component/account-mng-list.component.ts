@@ -168,7 +168,6 @@ export class AccountMngListComponent implements OnInit {
     isActive: boolean = false;
     //创建
     create() {
-
         if (this.service.userInfo && this.service.userInfo.isAD) {
             this.crAd.clearData();
             this.createAdAccountPopUp.open("创建AD账号");
