@@ -194,11 +194,11 @@ const menu: Array<any> = [
         "isOpen": false,
         "icon": "icon-user",
         "top2_menu": [
-            // {
-            //     "label": "账号管理",
-            //     "isOpen": false,
-            //     "routing": "user-center/account-mng/account-mng-list"
-            // },
+            {
+                "label": "账号管理",
+                "isOpen": false,
+                "routing": "user-center/account-mng/account-mng-list"
+            },
             {
                 "label": "组织管理",
                 "isOpen": false,
