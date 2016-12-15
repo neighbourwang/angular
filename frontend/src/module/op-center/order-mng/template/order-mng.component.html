@@ -129,27 +129,27 @@
 						<button class="mgr5 pull-right button-gray-gradient" (click)="showDetail(orderItem)">详情</button>
 					</td>	
 				</tr>
-				<tr>
+				<tr *ngFor="let prodItem of orderItem.itemList">
 					<td class="order-title">
-						<ul *ngIf="orderItem.serviceType>1">
-							<li *ngFor="let detailItem of orderItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
+						<ul *ngIf="prodItem.serviceType>1">
+							<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 						</ul>
-						<vm-view [values]="orderItem.specList" *ngIf="orderItem.serviceType==0"></vm-view><!-- 显示云主机 -->
-						<disk-view [values]="orderItem.specList" *ngIf="orderItem.serviceType==1"></disk-view><!-- 显示云硬盘 -->
+						<vm-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==0"></vm-view><!-- 显示云主机 -->
+						<disk-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==1"></disk-view><!-- 显示云硬盘 -->
 					</td>
-					<td>{{orderItem.serviceTypeName}}</td>
-					<td>{{orderItem.billingModeName}}</td>
-					<td>{{orderItem.period}}</td>
-					<td>{{orderItem.quantity}}</td>
+					<td>{{prodItem.serviceTypeName}}</td>
+					<td>{{prodItem.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}</td>
+					<td>{{prodItem.period}}</td>
+					<td>{{prodItem.quantity}}</td>
 					<td style="width: 100px;">
-						一次性价格：{{orderItem.oneTimePrice}}<br/>
-						价格:{{orderItem.price}}
+						一次性价格：{{prodItem.oneTimePrice}}<br/>
+						价格:{{prodItem.price}}
 					</td>	
-					<td class="font-green">{{orderItem.statusName}}</td>
-					<td>{{orderItem.createDate}}</td>
-					<td>{{orderItem.expireDate}}</td>
-					<td>{{orderItem.submiter}}</td>
-					<td>{{orderItem.departmentName}}</td>
+					<td class="font-green">{{prodItem.statusName}}</td>
+					<td>{{prodItem.createDate}}</td>
+					<td>{{prodItem.expireDate}}</td>
+					<td>{{prodItem.buyer}}</td>
+					<td>{{prodItem.departmentName}}</td>
 				</tr>
 			</table>
 		</div>

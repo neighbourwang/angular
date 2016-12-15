@@ -32,42 +32,22 @@ export enum SearchScope{
   department = 1
 }
 /*
-OrderSearchCondtion {
-approverId (string, optional): 审批人,在审批查询已审批订单时使用 ,
-createTime (string, optional): 创建时间 ,
-enterpriseId (string, optional): 企业ID ,
-expireTime (string, optional): 到期时间 ,
-orderId (string, optional): 订单ID ,
-orderType (string, optional): 订单类型,在审批查询订单时使用 ,
-organization (string, optional): 机构ID ,
-pageParameter (PageParameter, optional),
-region (string, optional): 区域ID ,
-serviceId (string, optional): 产品类型ID-后端叫产品目录 ,
-status (string, optional): 订单状态，注意是数字，不是字符,4已删除的订单，1正常的订单 ,
-userId (string, optional): 用户ID,在审批查询订单时使用 ,
-zoneId (string, optional): 可用区ID
-}
-PageParameter {
-currentPage (integer, optional),
-offset (integer, optional),
-size (integer, optional),
-sort (object, optional),
-totalPage (integer, optional)
-}
+createDate (string, optional): 创建时间 ,
+enterpriseId (string, optional): ADM中的所属企业，MKP从当前登录用户中获取 ,
+expireDate (string, optional): 过期时间 ,
+organization (string, optional): 所在部门, 只回传ID即可, 为空则代表所有 ,
+pageParameter (PageParameter, optional): 分页信息 ,
+platformId (string, optional): UI中的区域，回传ID即可, 为空则代表所有平台 ,
+searchText (string, optional): 搜索内容，目前仅支持订购实例单号查询 ,
+serviceType (string, optional): 产品类型，只回传value即可, 为空则代表所有状态 ,
+status (string, optional): 状态值，只回传value即可, 为空则代表所有状态 ,
+zoneId (string, optional): UI中的可用区，回传ID即可, 为空则代表所有可用区
 
 {
-  "approverId": "string",
-  "createTime": "2016-11-02T01:53:24.140Z",
+  "createDate": "2016-12-15T02:43:54.588Z",
   "enterpriseId": "string",
-  "expireTime": "2016-11-02T01:53:24.140Z",
-  "orderId": "string",
-  "orderType": "string",
+  "expireDate": "2016-12-15T02:43:54.588Z",
   "organization": "string",
-  "region": "string",
-  "serviceId": "string",
-  "status": "string",
-  "userId": "string",
-  "zoneId": "string"
   "pageParameter": {
     "currentPage": 0,
     "offset": 0,
@@ -75,5 +55,10 @@ totalPage (integer, optional)
     "sort": {},
     "totalPage": 0
   },
+  "platformId": "string",
+  "searchText": "string",
+  "serviceType": "string",
+  "status": "string",
+  "zoneId": "string"
 }
 */

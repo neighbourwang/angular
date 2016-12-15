@@ -1,8 +1,10 @@
 ﻿import { Component, OnInit } from '@angular/core';
+import { DictService} from '../../../core/service/dict-service';
 
 @Component({
     selector: 'fc-menu',
     templateUrl: '../template/menu.component.html'
+    ,providers:[DictService]
 })
 
 export class MenuComponent implements OnInit {

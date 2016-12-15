@@ -36,6 +36,7 @@ export class cloudDriveListComponent implements OnInit {
 
 	serverId : string = '';
 	mountDisk : DistList;
+	diskPlatformId : string = '';
 
 	areaConfig = [];   //区域
 	superSearch: boolean = false;   //高级搜索开关
@@ -89,7 +90,7 @@ export class cloudDriveListComponent implements OnInit {
 		this.layoutService.show();
 
 		this.handleData.id = dist.id;
-		this.handleData.serverId = key === "mount" ? this.serverId : dist.uid;
+		this.handleData.serverId = key === "mount" ? this.serverId : key === "unmount" ? dist.relyId : "";
 		this.handleData.actions = key;
 		this.handleData.enterpriseIds.platformId = dist.platformId;
 

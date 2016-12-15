@@ -7,6 +7,7 @@ import { RestApiCfg } from './service/restapicfg.service';
 import { RestApi } from './service/restapi.service';
 import { ValidationService } from './service/validation.service';
 import { SystemDictionaryService } from './service/system.dictionary.service';
+import { DictService } from './service/dict-service';
 @NgModule({
     imports: [
         CommonModule,
@@ -26,7 +27,8 @@ import { SystemDictionaryService } from './service/system.dictionary.service';
         RestApiCfg,
         RestApi,
         ValidationService,
-        SystemDictionaryService
+        SystemDictionaryService,
+        DictService
     ]
 })
 export class CoreModule {

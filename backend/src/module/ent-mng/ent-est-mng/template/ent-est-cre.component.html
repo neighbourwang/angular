@@ -141,14 +141,6 @@
 					</div>
 					<div class="row row-line-height">
 						<div class="form-group">
-							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建快照数量：</div>
-							<div class="col-sm-8">
-								<input type="number" class="form-control input-control" placeholder="可创建快照数量" [(ngModel)]="entEst.ResourceQuota.snapQuota"><span class=" form-control-title">个</span>
-							</div>
-						</div>
-					</div>
-					<div class="row row-line-height">
-						<div class="form-group">
 							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可使用存储额度：</div>
 							<div class="col-sm-8">
 								<input type="number" class="form-control input-control" placeholder="可使用存储额度" [(ngModel)]="entEst.ResourceQuota.storageQuota"><span class=" form-control-title" >GB</span>
@@ -219,7 +211,7 @@
 </div>
 
 <div class="text-center mgt20 mgb20 pdb20">
-	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel()" style="margin-right: 30px;">
+	<button class="fox-cloud-button-lg fox-cloud-button-white mgt20" (click)="cancel()" style="margin-right: 30px;margin-top:60px;">
 		<span class="icon-button-label">取消</span>
 	</button>
 	<button class="fox-cloud-button-lg  fox-cloud-button-green mgl20" (click)="create()">

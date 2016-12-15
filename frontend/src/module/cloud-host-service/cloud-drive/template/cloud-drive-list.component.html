@@ -103,7 +103,7 @@
                     <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a (click)="vmDialog.open(); mountDisk = dist" href="javascript:">挂载</a></li>
+                        <li><a (click)="mountDisk = dist;diskPlatformId = dist.platformId;vmDialog.open(); " href="javascript:">挂载</a></li>
                         <li><a (click)="handleDist('unmount', dist, '卸载云硬盘')" href="javascript:">卸载</a></li>
                         <!-- <li><a (click)="handleDist('pause', vm, '暂停')" href="javascript:">暂停</a></li> -->
                         <!-- <li><a (click)="handleDist('unpause', vm , '开始')" href="javascript:">开始</a></li> -->
@@ -120,7 +120,7 @@
         <table-list 
             code="3" 
             (onSelect)="vmListClick($event);" 
-            platformId=""></table-list>
+            [platformId]="diskPlatformId"></table-list>
     </fc-popup>
     <fc-pagination tp={{list.pageParameter.totalPage}} (pf)="changePage($event)"></fc-pagination>
 </div>

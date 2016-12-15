@@ -14,7 +14,7 @@
 					</tr>
 					<tr>
 						<td>产品类型</td>
-						<td>{{_orderDetail.productTypeName}}</td>	
+						<td>{{_orderDetail.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>	
 						<td>区域/可用区</td>
 						<td>{{_orderDetail.platform}} {{_orderDetail.zone}}</td>
 					</tr>
@@ -26,7 +26,7 @@
 					</tr>
 					<tr>
 						<td>计费模式</td>
-						<td>{{_orderDetail.billingModeName}}</td>	
+						<td>{{_orderDetail.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') | async}}</td>	
 						<td>到期时间</td>
 						<td>{{_orderDetail.expireDate}}</td>
 					</tr>
@@ -68,9 +68,9 @@
 					<tr *ngFor="let item of _orderDetail.relatedSubInstanceList">
 						<td>{{item.instanceCode}}</td>
 						<td>{{item.instanceName}}</td>
-						<td>{{item.productTypeName}}</td>
+						<td>{{item.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
 						<td>{{item.specification}}</td>
-						<td>{{item.billingModeName}}</td>
+						<td>{{item.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') | async}}</td>
 						<td class="font-green">{{item.statusName}}</td>
 						<td>
 							<ul>
@@ -101,13 +101,13 @@
 					<tr *ngFor="let item of _orderDetail.relatedOrderList">
 						<td>{{item.createDate}}</td>
 						<td>{{item.instanceName}}</td>
-						<td>{{item.productTypeName}}</td>
+						<td>{{item.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
 						<td>{{item.specification}}</td>
 						<td>{{item.buyer}}</td>
 						<td>{{item.department}}</td>
 						<td>{{item.expireDate}}
 						</td>
-						<td>{{item.typeName}}</td>
+						<td>{{item.type | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
 					</tr>
 				</tbody>
 			</table>
