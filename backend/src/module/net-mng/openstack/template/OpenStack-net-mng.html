@@ -4,7 +4,7 @@
 <div class="page-content">
     <div class="mgb20" style="margin-top:10px">
         <div class="pull-left mgr20">
-            <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedDc=defaultDc;selectedPfi = defaultPlatform" style="line-height:34px;padding:6px 12px;width:80px">
+            <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedDc=defaultDc;selectedPfi = defaultPlatform" style="line-height:34px;padding:6px 12px;width:100px">
                 <option [ngValue]="defaultRegion">地域</option>
                 <option *ngFor="let region of regionList" [ngValue]="region">{{region.region}}</option>
             </select>

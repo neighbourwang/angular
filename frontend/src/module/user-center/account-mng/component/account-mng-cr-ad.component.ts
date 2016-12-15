@@ -43,6 +43,7 @@ export class AccountMngCrAdComponent implements OnInit {
         this.filterStr = "";
         this.clearSelectedOrg();
         this.clearSelectedRole();
+        this.clearAdUser();
     }
 
     //获取ad用户
@@ -70,7 +71,7 @@ export class AccountMngCrAdComponent implements OnInit {
 
         this.account.roles = this.service.roles.filter((r) => { return r.selected });
         this.account.organizations = this.service.orgs.filter((o) => { return o.selected });
-
+        this.account.tenantId = this.service.userInfo.enterpriseId;
 
         if (this.validationService.isBlank(this.account.userName)) {
             this.showAlert("请输入管理员姓名");
@@ -122,6 +123,10 @@ export class AccountMngCrAdComponent implements OnInit {
         this.service.roles.forEach((r) => {
             r.selected = false;
         });
+    }
+
+    clearAdUser() {
+        this.adUsers = [];
     }
 
 
