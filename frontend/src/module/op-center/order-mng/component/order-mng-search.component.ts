@@ -183,12 +183,34 @@ export class OrderMngSearchComponent implements OnInit{
 	search(pageNumber:number = 1){
 		this.layoutService.show();
 
-		let param = _.extend({}, this._param);
-
-		param.pageParameter = {
-			currentPage:pageNumber
-			,size:10
+		let param = {
+			status:this._param.status
+			,serviceId:this._param.serviceType
+			,pageParameter:{
+				currentPage:pageNumber
+				,size:10
+			}
 		};
+// 		{
+//   "approverId": "",
+//   "createTime": "",
+//   "enterpriseId": "",
+//   "expireTime": "",
+//   "orderCode": "",
+//   "orderType": "",
+//   "organization": "",
+//   "pageParameter": {
+//     "currentPage": 1,
+//     "offset": 0,
+//     "size": 1,
+//     "sort": {},
+//     "totalPage": 0
+//   },
+//   "serviceId": "",
+//   "status": "",
+//   "userId": ""
+// }
+
 		this._orderLoader.Go(pageNumber, null, param)
 		.then(success=>{
 			this.layoutService.hide();

@@ -275,9 +275,9 @@ export class OrderMngComponent implements OnInit{
 		.then(success=>{
 			return this._typeDic.Go();
 		})
-		.then(success=>{
-			return this._platformLoader.Go();
-		})
+		// .then(success=>{
+		// 	return this._platformLoader.Go();
+		// })
 		.then(success=>{
 			return this._billinModeDic.Go();
 		})
