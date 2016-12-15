@@ -316,6 +316,12 @@ export let RestApis: RestApiModel[] = [
     },
     //账号管理
     {
+        "desc" : "验证账号的唯一性",
+        "id" : "user-center.account-mng.loginNameValid",
+        "method" : "GET",
+        "url" : "basis/authsec/mpp/user/{_loginName}/validation"
+    },
+    {
         "desc" : "用户中心，帐号管理，帐号创建，获取所有角色",
         "id" : "user-center.account-mng.create.roleList",
         "method" : "GET",

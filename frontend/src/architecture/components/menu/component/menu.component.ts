@@ -90,11 +90,11 @@ const menu: Array<any> = [
                 "isOpen": true,
                 "routing": "cloud-host-service/cloud-drive-list"
             },
-            {
-                "label": "镜像",
-                "isOpen": true,
-                "routing": "image-mng/image-mng"
-            }
+            // {
+            //     "label": "镜像",
+            //     "isOpen": true,
+            //     "routing": "image-mng/image-mng"
+            // }
         ]
     },
     // {
@@ -173,11 +173,11 @@ const menu: Array<any> = [
         "isOpen": false,
         "icon": "icon-cost",
         "top2_menu": [
-            {
-                "label": "账号管理",
-                "isOpen": false,
-                "routing": ""
-            },
+            // {
+            //     "label": "账号管理",
+            //     "isOpen": false,
+            //     "routing": ""
+            // },
             {
                 "label": "已购服务管理",
                 "isOpen": false,

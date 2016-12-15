@@ -2,15 +2,15 @@
 	<div class="page-content-header icon-content-header-platform-manage">个人账户管理</div>
 	<div class="page-content fix-page-content">
 		<div class="row" style="padding-top: 30px;">
-			<div class="col-md-2 touxiang">
+			<!--<div class="col-md-2 touxiang">
 				<div class="img">
 					<img src="" alt="">
 				</div>
 				<p class="title font-green">修改头像</p>
-			</div>
+			</div>-->
 			<div class="col-md-7 detail">
 				<div class="row mgb15">
-					<div class="col-md-1 pcTitle">姓名：</div>
+					<div class="col-md-2 pcTitle">姓名：</div>
 					<div class="col-md-3 pcContent">
 						<span *ngIf="name" class="pcDisplay">{{personAcc.userName}}</span>
 						<div class="has-feedback" *ngIf="nameEdit">
@@ -26,13 +26,13 @@
 					</div>
 				</div>
 				<div class="row mgb15">
-					<div class="col-md-1 pcTitle">账号：</div>
+					<div class="col-md-2 pcTitle">账号：</div>
 					<div class="col-md-3 pcContent">
 						<span class="pcDisplay dd">{{personAcc.loginName}}</span>
 					</div>
 				</div>
 				<div class="row mgb15">
-					<div class="col-md-1 pcTitle">电话：</div>
+					<div class="col-md-2 pcTitle">电话：</div>
 					<div class="col-md-3 pcContent">
 						<span *ngIf="phone" class="pcDisplay">{{personAcc.phone}}</span>
 						<div class="has-feedback" *ngIf="phoneEdit">
@@ -48,22 +48,23 @@
 					</div>
 				</div>
 				<div class="row mgb15">
-					<div class="col-md-1 pcTitle">类型：</div>
+					<div class="col-md-2 pcTitle">类型：</div>
 					<div class="col-md-3 pcContent">
-						<span class="pcDisplay dd">本地</span>
+						<span *ngIf="!personAcc.isAD" class="pcDisplay dd">本地</span>
+						<span *ngIf="personAcc.isAD" class="pcDisplay dd">AD</span>
 					</div>
 				</div>
 				<div class="row mgb15">
-					<div class="col-md-1 pcTitle">密码：</div>
+					<div class="col-md-2 pcTitle">密码：</div>
 					<div class="col-md-3 pcContent">
 						<span class="pcDisplay">********</span>
 					</div>
-					<div class="col-md-1 font-green paOrder" *ngIf="personAcc.type==0">
+					<div class="col-md-1 font-green paOrder" *ngIf="!personAcc.isAD">
 						<span (click)="editPwd()">修改</span>
 					</div>
 				</div>
 				<div class="row mgb15">
-					<div class="col-md-1 pcTitle">描述：</div>
+					<div class="col-md-2 pcTitle">描述：</div>
 					<div class="col-md-3 pcContent">
 						<span *ngIf="desc" class="pcDisplay">{{personAcc.description}}</span>
 						<div class="has-feedback" *ngIf="descEdit">

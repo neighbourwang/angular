@@ -40,7 +40,7 @@ export class AccountMngCrLocalComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-         this.service.roles.forEach(ele => {
+        this.service.roles.forEach(ele => {
             ele.selected = false;
         });
         this.service.orgs.forEach(ele => {
@@ -50,34 +50,50 @@ export class AccountMngCrLocalComponent implements OnInit, OnChanges {
         if (this.isEdit) {
             this.service.getLocalAcc(this.editId)
                 .then(
-                    res => {
-                        console.log("账号", res);
-                        this.account = res.resultContent;
-                        this.account.roles.forEach(ele=>{
-                            this.service.roles.forEach(e=>{
-                                if(ele.id==e.id){
-                                    e.selected=true;
-                                }
-                            })
-                        })
-                        this.service.orgs.forEach((ele)=>{
-                            if(ele.id==this.account.organizations[0].id){
-                                ele.selected=true;
+                res => {
+                    console.log("账号", res);
+                    this.account = res.resultContent;
+                    this.account.roles.forEach(ele => {
+                        this.service.roles.forEach(e => {
+                            if (ele.id == e.id) {
+                                e.selected = true;
                             }
                         })
-                    }
+                    })
+                    this.service.orgs.forEach((ele) => {
+                        if (ele.id == this.account.organizations[0].id) {
+                            ele.selected = true;
+                        }
+                    })
+                }
                 )
                 .catch(err => {
                     console.error(err);
                 });
         }
     }
-
+    //验证账号唯一性
+    loginNameIsOnly: boolean = true;
+    checkOnly(value) {
+        console.log(value);
+        if (value) {
+            this.service.loginNameValid(value).then(res => {
+                console.log(res);
+                if (res.resultCode == '10001001') {
+                    this.loginNameIsOnly = false;
+                } else {
+                    this.loginNameIsOnly = true;
+                }
+            }).catch(err => {
+                console.error(err);
+            })
+        }
+    }
 
     //选择角色
     selectRole(idx) {
         console.log(idx);
-       
+
         this.service.roles[idx].selected = !this.service.roles[idx].selected;
         this.account.roles = this.service.roles.filter(ele => {
             if (ele.selected) {
@@ -104,7 +120,7 @@ export class AccountMngCrLocalComponent implements OnInit, OnChanges {
 
     save() {
         console.log(this.account);
-        if (this.accountForm.invalid) {
+        if (this.accountForm.invalid || !this.loginNameIsOnly) {
             return Promise.reject("error");
         } else if (this.isEdit) {
             return this.service.editAccount(this.editId, this.account);
