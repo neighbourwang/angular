@@ -12,11 +12,16 @@ export class TableEditNameComponent implements OnInit{
 
     }
     @Input() value:string;
-    @Output() output=new EventEmitter();
+    @Output() onChange=new EventEmitter();
 
     show : boolean = false;
+    inputValue : string = "";
 
     ngOnInit (){
-
+        this.inputValue = this.value;
+    }
+    change() {
+        this.value = this.inputValue;
+        this.onChange.emit(this.value);
     }
 }

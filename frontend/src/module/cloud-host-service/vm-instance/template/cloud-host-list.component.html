@@ -128,8 +128,8 @@
         </tr>
         <tr *ngFor="let vm of vmList;trackBy:vm?.expiryDate;" style="line-height: 65px;">
             <td class="text-center"><input name="host-list" type="radio"></td>
-         <!--    <td class="text-center active" style="position: relative;width: 220px;">
-                <table-edit-name [value]="vm.instanceName"></table-edit-name>
+            <!-- <td class="text-center active" style="position: relative;width: 220px;">
+                <table-edit-name [value]="vm.instanceName" (onChange)="changeName()"></table-edit-name>
             </td> -->
             <td class="text-center active">{{vm.instanceName}}</td>
             <td class="text-center">{{vm.specification}}</td>

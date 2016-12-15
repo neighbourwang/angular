@@ -79,6 +79,24 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/subinstance/itemlist/vm/action"
     },
     {
+        "desc": "云主机操作",
+        "method": "POST",
+        "id": "hosts.instance.action",
+        "url": "marketplace/authsec/subinstance/itemlist/vm/action"
+    },
+    {
+        "desc": "更改云主机名称",
+        "method": "POST",
+        "id": "change.vm.info",
+        "url": "marketplace/authsec/instance/vm/{id}"
+    },
+    {
+        "desc": "更改云硬盘名称",
+        "method": "POST",
+        "id": "change.disk.info",
+        "url": "marketplace/authsec/instance/disk/{id}"
+    },
+    {
         "desc": "云硬盘操作",
         "method": "POST",
         "id": "hosts.vm.action",
