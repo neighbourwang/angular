@@ -188,7 +188,7 @@ export class OpenstackNetMngComponent implements OnInit {
             this.showAlert("请先选中一个网络");
         }else{
             this.noticeTitle = "启用网络";
-            this.noticeMsg = `您选择启用 '${this.selectedNetwork.subnetName}?'网络，其网段为'${this.selectedNetwork.segmentCIDR}?' ， 
+            this.noticeMsg = `您选择启用 '${this.selectedNetwork.subnetName}' 网络，其网段为'${this.selectedNetwork.segmentCIDR}' ， 
                         请确认；如果确认，用户将能够在订购中选择此网络。`
          
             //如果运行状态不是运行中的，则不能启用此网络
@@ -228,7 +228,7 @@ export class OpenstackNetMngComponent implements OnInit {
             this.showAlert("请先选中一个网络");
         }else{
             this.noticeTitle = "禁用网络";
-            this.noticeMsg = `您选择禁用 '${this.selectedNetwork.subnetName}?'网络，其网段为'${this.selectedNetwork.segmentCIDR}?' ， 
+            this.noticeMsg = `您选择禁用 '${this.selectedNetwork.subnetName}' 网络，其网段为'${this.selectedNetwork.segmentCIDR}' ， 
                             请确认；如果确认，用户将不能够在订购中选择此网络。`
             if(this.selectedNetwork.status!='3'){
                 this.confirm.ccf = () => {

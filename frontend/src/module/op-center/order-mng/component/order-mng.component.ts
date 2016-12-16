@@ -160,7 +160,7 @@ export class OrderMngComponent implements OnInit{
 		};
 
 		//配置订单加载
-		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
+		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "已订购列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
 		this._orderLoader.Trait = (target:Array<SubInstanceResp>)=>{
 
 			let canRenew:(item:SubInstanceItemResp)=>boolean = (item:SubInstanceItemResp):boolean=>{
