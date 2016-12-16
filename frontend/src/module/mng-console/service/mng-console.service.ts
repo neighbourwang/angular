@@ -13,4 +13,6 @@ export class MngConsoleService {
         private dict: SystemDictionaryService,
         private restApi: RestApi) {
     }
+
+    getUserInfo = this.restApi.getLoginInfo().userInfo;
 }

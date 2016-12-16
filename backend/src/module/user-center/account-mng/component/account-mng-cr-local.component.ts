@@ -7,7 +7,7 @@ import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from
 import { AccountMngService } from "../service/account-mng-list.service";
 
 //model
-import {Account}  from "../model/account"
+import { Account } from "../model/account"
 
 @Component({
     selector: "account-mng-cr-local",
@@ -18,14 +18,14 @@ import {Account}  from "../model/account"
 export class AccountMngCrLocal implements OnInit {
     constructor(
         private service: AccountMngService,
-        private layoutservice:LayoutService,
+        private layoutservice: LayoutService,
         private router: Router,
         private route: ActivatedRoute
     ) {
     }
 
     @ViewChild('notice')
-    notice :NoticeComponent;
+    notice: NoticeComponent;
     //判断是否是创建 还是 编辑
     isCreate = false;
     // 标题 根据 isCreate 修改
@@ -42,7 +42,7 @@ export class AccountMngCrLocal implements OnInit {
     loadMode = true;
 
     accountId: string;
-    account: Account=new Account();
+    account: Account = new Account();
     ngOnInit() {
         // this.role=[
         //     {displayValue:'bt1',selected:false},
@@ -63,54 +63,54 @@ export class AccountMngCrLocal implements OnInit {
                 this.layoutservice.show();
                 this.service.getRole()
                     .then(
-                        role => {
-                            this.role = role.resultContent;                            
-                            this.role.forEach(ele=>ele.selected=false)
-                            console.log('role',this.role);
-                        }
+                    role => {
+                        this.role = role.resultContent;
+                        this.role.forEach(ele => ele.selected = false)
+                        console.log('role', this.role);
+                    }
                     )
                     .then(
-                        role => {
-                            return this.service.getOrg(this.page, this.size)
-                                .then(org => {
-                                    this.org = org.resultContent;
-                                });
-                        }
+                    role => {
+                        return this.service.getOrg(this.page, this.size)
+                            .then(org => {
+                                this.org = org.resultContent;
+                            });
+                    }
                     )
                     .then(
-                        res => {
-                            this.service.getAccountById(params["id"])
-                                .then(
-                                    res => {
-                                        this.account = res.resultContent;
-                                        console.log(this.account);
-                                        for (let role of this.role) {
-                                            for (let account of this.account.roles) {
-                                                if (role.id == account.id) {
-                                                    role.selected = true;
-                                                    continue;                                                    
-                                                }
-                                            }
-                                        }
-                                        console.log('role',this.role);
-                                        for (let org of this.org) {
-                                            for (let organizations of this.account.organizations) {
-                                                if (org.id == organizations.id) {
-                                                    org.selected = true;
-                                                    break;
-                                                }
-                                            }
+                    res => {
+                        this.service.getAccountById(params["id"])
+                            .then(
+                            res => {
+                                this.account = res.resultContent;
+                                console.log(this.account);
+                                for (let role of this.role) {
+                                    for (let account of this.account.roles) {
+                                        if (role.id == account.id) {
+                                            role.selected = true;
+                                            continue;
                                         }
                                     }
-                                );
-                                this.layoutservice.hide();
-                        }                        
+                                }
+                                console.log('role', this.role);
+                                for (let org of this.org) {
+                                    for (let organizations of this.account.organizations) {
+                                        if (org.id == organizations.id) {
+                                            org.selected = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            );
+                        this.layoutservice.hide();
+                    }
                     )
                     .catch(
-                        err => {
-                            console.error(err);
-                            this.layoutservice.hide();
-                        }
+                    err => {
+                        console.error(err);
+                        this.layoutservice.hide();
+                    }
                     );
             } else {
                 //创建
@@ -120,79 +120,93 @@ export class AccountMngCrLocal implements OnInit {
                 this.layoutservice.show();
                 this.service.getRole()
                     .then(
-                        role => {
-                            this.role = role.resultContent;
-                        }
+                    role => {
+                        this.role = role.resultContent;
+                    }
                     )
                     .then(
-                        role => {
-                            return this.service.getOrg(this.page, this.size)
-                                .then(org => {
-                                    this.org = org.resultContent;
-                                    this.layoutservice.hide();
-                                });
-                        }
+                    role => {
+                        return this.service.getOrg(this.page, this.size)
+                            .then(org => {
+                                this.org = org.resultContent;
+                                this.layoutservice.hide();
+                            });
+                    }
                     )
                     .catch(
-                        err => {
-                            console.error(err);
-                            this.layoutservice.hide();
+                    err => {
+                        console.error(err);
+                        this.layoutservice.hide();
 
-                        }
+                    }
                     );
             }
         });
     }
-
+    //验证账号唯一性
+    loginNameIsOnly: boolean = true;
+    accountOnlyValid(phone) {
+        console.log(phone);
+        this.service.loginNameValid(phone).then(res => {
+            console.log(res);
+            if (res.resultCode == '10001001') {
+                this.loginNameIsOnly = false;
+            } else {
+                this.loginNameIsOnly = true;
+            }
+        }).catch(err => {
+            console.error(err);
+        })
+    }
 
     //创建
     create() {
         console.log(this.account);
-        if(!this.account.userName){
-            this.notice.open('操作错误','请输入姓名');
+        // if(!this.account.userName){
+        //     this.notice.open('操作错误','请输入姓名');
+        //     return
+        // }
+        // if(!this.account.loginName){
+        //     this.notice.open('操作错误','请输入账号');
+        //     return
+        // }
+        //  if(!this.account.phone){
+        //     this.notice.open('操作错误','请输入电话');
+        //     return
+        // }        
+        if (this.account.roles.length < 1) {
+            this.notice.open('操作错误', '请选择角色');
             return
         }
-        if(!this.account.loginName){
-            this.notice.open('操作错误','请输入账号');
-            return
-        }
-         if(!this.account.phone){
-            this.notice.open('操作错误','请输入电话');
-            return
-        }
-        if(this.account.roles.length<1){
-            this.notice.open('操作错误','请选择角色');
-            return
-        }
-         if(this.account.organizations.length<1){
-            this.notice.open('操作错误','请选择组织机构');
+        if (this.account.organizations.length < 1) {
+            this.notice.open('操作错误', '请选择组织机构');
             return
         }
         if (!this.isCreate) {
             this.service.editAccount(this.accountId, this.account)
                 .then(
-                    res => {
-                        console.log(res);
-                        this.router.navigateByUrl('user-center/account-mng/account-mng-list');
-                    }
+                res => {
+                    console.log(res);
+                    this.router.navigateByUrl('user-center/account-mng/account-mng-list');
+                }
                 )
                 .catch(
-                    err => {
-                        console.error(err);
-                    }
+                err => {
+                    console.error(err);
+                }
                 );
         } else {
             this.service.createAccount(this.account)
                 .then(
-                    res => {
-                        console.log(res);
-                        this.router.navigateByUrl('user-center/account-mng/account-mng-list');
-                    }
+                res => {
+                    console.log(res);
+                    this.router.navigateByUrl('user-center/account-mng/account-mng-list');
+                }
                 )
                 .catch(
-                    err => {
-                        console.error(err);
-                    }
+                err => {
+                    console.error(err);
+                }
                 );
         }
     }
@@ -203,20 +217,20 @@ export class AccountMngCrLocal implements OnInit {
             this.size += 10;
             this.service.getOrg(this.page, this.size)
                 .then(
-                    org => {
-                        this.org = org.resultContent;
-                        for (let org of this.org) {
-                            for (let organizations of this.account.organizations) {
-                                if (org.id == organizations.id) {
-                                    org.selected = true;
-                                    break;
-                                }
+                org => {
+                    this.org = org.resultContent;
+                    for (let org of this.org) {
+                        for (let organizations of this.account.organizations) {
+                            if (org.id == organizations.id) {
+                                org.selected = true;
+                                break;
                             }
                         }
-                        if (org.pageInfo.totalRecords <= this.size) {
-                            this.loadMode = false;
-                        }
                     }
+                    if (org.pageInfo.totalRecords <= this.size) {
+                        this.loadMode = false;
+                    }
+                }
                 );
         } else {
             console.error("没有更多");
@@ -225,8 +239,8 @@ export class AccountMngCrLocal implements OnInit {
     }
 
     isLeader() {
-        this.account.isLeader=
-            this.account.isLeader==true?false:true;
+        this.account.isLeader =
+            this.account.isLeader == true ? false : true;
         // if (this.account.isLeader == 0) {
         //     this.account.isLeader = 1;
         // } else {
@@ -234,9 +248,9 @@ export class AccountMngCrLocal implements OnInit {
         // }
     }
 
-    addRole(item,idx) {
-        
-        item.selected=!item.selected
+    addRole(item, idx) {
+
+        item.selected = !item.selected
         // this.role[idx].selected=!this.role[idx].selected;
         console.log(item);
         // const obj = {
@@ -247,8 +261,8 @@ export class AccountMngCrLocal implements OnInit {
         // } else {
         //     this.account.roles.push(obj);
         // }
-        this.account.roles=this.role.filter((ele)=>{
-            if(ele.selected==true){
+        this.account.roles = this.role.filter((ele) => {
+            if (ele.selected == true) {
                 return ele;
             }
         })
@@ -263,11 +277,11 @@ export class AccountMngCrLocal implements OnInit {
         // if (!(this.account.organizations.includes(obj))) {
         //     this.account.organizations[0] = obj;
         // }
-        this.org.forEach(ele=>ele.selected=false)
-        item.selected=true;
+        this.org.forEach(ele => ele.selected = false)
+        item.selected = true;
         // item.selected=!item.selected;
-         this.account.organizations=this.org.filter((ele)=>{
-            if(ele.selected==true){
+        this.account.organizations = this.org.filter((ele) => {
+            if (ele.selected == true) {
                 return ele;
             }
         })
@@ -289,8 +303,8 @@ export class AccountMngCrLocal implements OnInit {
         }
     }
     //取消
-    cancel(){
+    cancel() {
         this.router.navigateByUrl('user-center/account-mng/account-mng-list');
     }
-    nof(){}
+    nof() { }
 }

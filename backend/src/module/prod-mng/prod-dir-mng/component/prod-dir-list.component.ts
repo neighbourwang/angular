@@ -273,13 +273,21 @@ export class ProdDirListComponent implements OnInit {
     }
     otcreate() {
         let id = this.prodDirTypeId;
+        if (this.spec.vcpu == 0) {
+            this.vcpuValueError = true;
+            return
+        }
+        if (this.spec.mem == 0) {
+            this.memValueError = true;
+            return
+        }
         console.log(this.spec);
         if (this.prodDirTypeId == '33f23ade-a0f8-11e6-a18b-0050568a49fd') {
             if (this.spec.mem > 0 && this.spec.vcpu > 0) {
                 this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre", { vcpu: this.spec.vcpu, mem: this.spec.mem, startupDisk: this.spec.startupDisk }]);
             } else {
                 this.notice.open('操作错误', '云主机产品目录规格输入错误')
-            }            
+            }
         } else {
             this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre"]);
         }
@@ -357,8 +365,16 @@ export class ProdDirListComponent implements OnInit {
     }
     //
     spec: specification = new specification();
+    vcpuValueError: boolean = false;
+    memValueError: boolean = false;
     outputValue(e, arg) {
         console.log(e, arg);
+        if (arg == 'vcpu') {
+            (e != 0) && (this.vcpuValueError = false)
+        }
+        if (arg == 'mem') {
+            (e != 0) && (this.memValueError = false)
+        }
         this.spec[arg] = e;
     }
 }

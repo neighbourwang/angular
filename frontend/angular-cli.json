@@ -26,7 +26,8 @@
       "environments": {
         "source": "./architecture/environments/environment.ts",
         "dev": "./architecture/environments/environment.dev.ts",
-        "custom": "./architecture/environments/environment.custom.ts",
+        "boe": "./architecture/environments/environment.boe.ts",
+        "boeprod": "./architecture/environments/environment.boeprod.ts",
         "prod": "./architecture/environments/environment.prod.ts",
         "test": "./architecture/environments/environment.test.ts"
       }

@@ -94,7 +94,14 @@ export class AccountMngService {
         return this.restApi.request(api.method , api.url , [{key : "id" ,value : id}],undefined);
     }
 
+    
+    //验证账号唯一性
+    
+    loginNameValid(name:string) {
+        let api = this.restApiCfg.getRestApi("user-center.account-mng.loginNameValid");
 
+        return this.restApi.request(api.method, api.url,[{key:'_loginName',value:name}],undefined);
+    }
 
     
 

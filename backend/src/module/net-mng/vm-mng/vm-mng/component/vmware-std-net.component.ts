@@ -329,7 +329,10 @@ export class VmwareStdNetComponent implements OnInit {
                     if (response && 100 == response["resultCode"]) {
                         this.showAlert("禁用成功");
                         this.getData();
-                    } else {
+                    } else if (10002001 == response["resultCode"]) {
+                        this.showAlert("IP占用状态下不能禁用！");
+                    }
+                    else {
                         alert("Res sync error");
                     }
                 }
@@ -366,7 +369,10 @@ export class VmwareStdNetComponent implements OnInit {
                     if (response && 100 == response["resultCode"]) {
                         this.showAlert("删除成功");
                         this.getData();
-                    } else {
+                    } else if(10002001==response["resultCode"]){
+                        this.showAlert("IP占用状态下不能删除！");
+                    }
+                    else {
                         alert("Res sync error");
                     }
                 }

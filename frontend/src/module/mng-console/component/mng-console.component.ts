@@ -22,7 +22,7 @@ export class MngConsoleComponent implements OnInit {
 
     @ViewChild('platformZone') platformZone;
 
-
+    userInfo : any;
 
     constructor(
         private layoutService: LayoutService,
@@ -32,7 +32,7 @@ export class MngConsoleComponent implements OnInit {
 
     }
     ngOnInit() {
-
+        this.userInfo = this.service.getUserInfo;
 
     }
 
