@@ -157,7 +157,7 @@ export class cloudHostListComponent implements OnInit {
 	}
 	// 警告框相关结束
 
-	changeName() {
+	changeName(name) {
 		
 	}
 
