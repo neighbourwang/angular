@@ -3,7 +3,7 @@
  */
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
+import { RestApiCfg, RestApi, RestApiModel, SystemDictionaryService } from '../../../../architecture';
 
 
 import 'rxjs/add/operator/toPromise';
@@ -13,6 +13,7 @@ export class ClMngListService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
+        private dict:SystemDictionaryService,
         private restApi: RestApi
     ) { }
 
@@ -57,4 +58,9 @@ export class ClMngListService {
     //             value: "STATUS"
     //         }],undefined);
     // }
+
+    // region = this.dict.get({    //所属地域
+    //     owner : "REGION",
+    //     field : "TYPE"
+    // });
 }

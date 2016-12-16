@@ -1,10 +1,25 @@
-# 如何启动
+# 项目目录
 
-1. 进入backend（后台）或者frontend（前台）文件夹
+```
+四个子项目
+
+|--backend   //foxcloud后台
+|--backend-portal   //后台的登录页面
+|--frontend   //foxcloud前台
+|--frontend-portal   //前台的首页与登录页
+```
+
+# 启动
+
+1. 分别进入四个目录
 2. npm install （安装所有依赖） 
 3. npm start   （启动项目）
-4. 打开http://localhost:4200/
+4. 打开http://localhost:4200/(后台)http://localhost:4201/(后台登录)http://localhost:4000/(前台)http://localhost:4001/(前台首页登陆页)
 
+
+# 项目发布
+
+[点击进入项目发布页面](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/assets/README/dist.md)
 
 # 项目公共组件
 
