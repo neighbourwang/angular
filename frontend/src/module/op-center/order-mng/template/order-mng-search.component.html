@@ -93,7 +93,7 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let item of _orderLoader.Items;let i = index;">
-						<td>{{i}}</td>
+						<td>{{i + 1}}</td>
 						<td>{{item.orderNo}}</td>
 						<td>{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
 						<td>{{item.orderType | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
