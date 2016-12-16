@@ -222,7 +222,10 @@ export class VmDisIndexComponent implements OnInit {
                     if (response && 100 == response["resultCode"]) {
                         this.showAlert("禁用成功");
                         this.getData();
-                    } else {
+                    } else if(10002001==response["resultCode"]){
+                        this.showAlert("IP占用状态下不能禁用！");
+                    }
+                    else {
                         alert("Res sync error");
                     }
                 }
