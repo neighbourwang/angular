@@ -12,7 +12,7 @@
 		<div class="table-container">
 			<div class="">
 				<div class="input-group col-md-2 float-left mgr20">
-   					 <input class="form-control" placeholder="请输入订单号模糊查询" type="email" [(ngModel)]="_param.searchText">
+   					 <input class="form-control" placeholder="请输入编号查询" type="email" [(ngModel)]="_param.searchText">
     				 <div class="input-group-addon pointer"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div>
 				<div  class="input-group float-left">
@@ -55,7 +55,7 @@
 						
 					</tr>
  -->					<tr class="none-border">
-						<td>
+						<td style="width:250px;">
 							<span class="float-left " >
 							状态:</span>
 							<div class="dropdown float-left">
@@ -75,18 +75,18 @@
 								</select>
 							</div>
 						</td>
-						<td style="width:257px;">
-							<span class="float-left " >
+						<!--<td style="width:257px;">
+							 <span class="float-left " >
 							区域:</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.platformId" (ngModelChange)="onPlatformChanged()">
 									<option class="hands" [value]="null">所有区域</option>
 									<option class="hands" *ngFor="let item of _platformLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
-							</div>
+							</div> 
 						</td>
 						<td>
-							<span class="float-left" >
+						<span class="float-left" >
 							可用区:</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.zoneId">
@@ -94,7 +94,7 @@
 									<option class="hands" *ngFor="let item of _regionLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
-						</td>
+					</td> -->	
 					</tr>
 					
 				</tbody>
@@ -129,27 +129,27 @@
 						<button class="mgr5 pull-right button-gray-gradient" (click)="showDetail(orderItem)">详情</button>
 					</td>	
 				</tr>
-				<tr>
+				<tr *ngFor="let prodItem of orderItem.itemList">
 					<td class="order-title">
-						<ul *ngIf="orderItem.serviceType>1">
-							<li *ngFor="let detailItem of orderItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
+						<ul *ngIf="prodItem.serviceType>1">
+							<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 						</ul>
-						<vm-view [values]="orderItem.specList" *ngIf="orderItem.serviceType==0"></vm-view><!-- 显示云主机 -->
-						<disk-view [values]="orderItem.specList" *ngIf="orderItem.serviceType==1"></disk-view><!-- 显示云硬盘 -->
+						<vm-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==0"></vm-view><!-- 显示云主机 -->
+						<disk-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==1"></disk-view><!-- 显示云硬盘 -->
 					</td>
-					<td>{{orderItem.serviceTypeName}}</td>
-					<td>{{orderItem.billingModeName}}</td>
-					<td>{{orderItem.period}}</td>
-					<td>{{orderItem.quantity}}</td>
+					<td>{{prodItem.serviceTypeName}}</td>
+					<td>{{prodItem.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}</td>
+					<td>{{prodItem.period}}</td>
+					<td>{{prodItem.quantity}}</td>
 					<td style="width: 100px;">
-						一次性价格：{{orderItem.oneTimePrice}}<br/>
-						价格:{{orderItem.price}}
+						一次性价格：{{prodItem.oneTimePrice}}<br/>
+						价格:{{prodItem.price}}
 					</td>	
-					<td class="font-green">{{orderItem.statusName}}</td>
-					<td>{{orderItem.createDate}}</td>
-					<td>{{orderItem.expireDate}}</td>
-					<td>{{orderItem.submiter}}</td>
-					<td>{{orderItem.departmentName}}</td>
+					<td class="font-green">{{prodItem.statusName}}</td>
+					<td>{{prodItem.createDate}}</td>
+					<td>{{prodItem.expireDate}}</td>
+					<td>{{prodItem.buyer}}</td>
+					<td>{{prodItem.departmentName}}</td>
 				</tr>
 			</table>
 		</div>

@@ -5,6 +5,7 @@ import { CoreModule } from './architecture/core/core.module';
 import { CommonComponentModule } from './architecture/components/common.module';
 import { MenuComponent } from './architecture/components/menu/component/menu.component';
 import { SiteComponent } from './architecture/components/site/component/site.component';
+import { SiteService } from './architecture/components/site/service/site.service';
 
 //mng-console
 import {MngConsoleModule} from './module/mng-console/mng-console.module';
@@ -37,7 +38,7 @@ import { routing } from './app.routing';
         routing
     ],
     declarations: [MenuComponent, SiteComponent],
-    providers: [],
+    providers: [ SiteService ],
     bootstrap: [SiteComponent]
 })
 

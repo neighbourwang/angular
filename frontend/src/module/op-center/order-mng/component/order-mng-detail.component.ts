@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Input} from '@angular/core';
 import { Router } from '@angular/router';
 import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 import { OrderDetailItem } from '../model';
+import {DictService} from '../../../../architecture/core/service/dict-service';
 
 @Component({
   // moduleId: module.id,
@@ -18,13 +19,14 @@ export class OrderMngDetailComponent implements OnInit {
     private layoutService: LayoutService,
     private router: Router,
     private restApiCfg:RestApiCfg,
-    private restApi:RestApi
+    private restApi:RestApi,
+    private _dictServ:DictService
   ) {
    
   }
 
   ngOnInit() {
-   
+   console.log('_dictServ ngOnInit', this._dictServ);
   }
 
 }

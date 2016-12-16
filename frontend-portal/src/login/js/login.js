@@ -2,21 +2,40 @@ require("../less/login.less");                  //引入css
 
 const C    = require("../../common/const.js");          //引入全局配置
 
+const key = "$a6dd4ac4-c1d1-11e6-80e4-0050568a49fd$";
+let isAd = false;
 
 $("#l-username").blur(function(){
 	$.get(`http://${C.baseIp}:${C.basePort}/basis/noauth/ldaps?login=${$(this).val()}`, res => {
-		console.log(res)
+		if (res.resultContent.length > 0) {
+			isAd = true;
+			$("#account-box").html(require("../ejs/account.ejs")({lists : res.resultContent}));
+		}else{
+			isAd = false;
+			$("#account-box").html("");
+		}
 	})
 });
 
+$("#l-password").keyup(function(e) {
+	let code = e.which; 
+    if(code==13) e.preventDefault();
+    if(code==32||code==13||code==188||code==186){
+        $("#submit-button").click();
+    } 
+});
 
 $("#submit-button").click(function(){
-	let username = $("#l-username").val();
-	let password = $("#l-password").val();
+	let username = $("#l-username").val().trim(),
+		password = $("#l-password").val().trim(),
+		adId = $("#account-select").val() || "";
 
 	if($("#l-username").val() === "") return alert("请输入用户名");
 	if($("#l-password").val() === "") return alert("请输入密码");
+	if (isAd && adId === "") return alert("请选择认证源");
 	if(isChecked) return;
+
+	if (adId) password  = password + key + adId; //把adid加在密码后面
 
 	let isChecked = 1;
 	$("#submit-button").val("正在登录...");
@@ -43,7 +62,7 @@ $("#submit-button").click(function(){
 	            success: function (response) {
 	                sessionStorage["userInfo"] = JSON.stringify(response.resultContent);
 	                sessionStorage["token"] = token;
-					location.href="/mng-console"
+					location.href="/cloud-host-service/cloud-host-list"
 					isChecked = 0;
 	            },
 	            error: function (xhr, status) {

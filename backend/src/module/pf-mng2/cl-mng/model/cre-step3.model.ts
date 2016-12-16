@@ -13,8 +13,9 @@ export class CreStep3Model {
     dcOrRegion: string;
     //   "displayName": "nova",
     //   "hostNum": 1,
-    exceedPercentage: string;
-    quotaPercentage: string;
+    exceedPercentage: number;
+    quotaPercentage: number;
+    quotaPercentDisplay:number;
     //   "status": 0,
     constructor() {
     }

@@ -62,12 +62,13 @@ class Account {
     "id": string;
     "isLeader": boolean;
     "loginName": string;
+    "tenantId":string;
     "organizations": Array<Organization>;
     "phone": string;
     "roles": Array<Role>;
     "userName": string;
     status:number;
-    type: string;//0 ���� �� 1 AD
+    type: string;//0 本地 1 AD
     ldapId: string = "";
     ldapName: string;
     constructor() {

@@ -11,6 +11,7 @@ import { NoticeComponent } from './dialog/component/notice.component';
 import { ConfirmComponent } from './dialog/component/confirm.component';
 import { PopupComponent } from './dialog/component/popup.component';
 import { CountBarComponent } from './countBar/component/count-bar.component';
+import { TableEditNameComponent } from './tableEditName/component/tableEditName.component';
 import { PopoverModule } from './popover/index';
 import { MyDatePickerModule } from './date-picker/my-date-picker.module';
 
@@ -38,6 +39,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
         ConfirmComponent,
         PopupComponent,
         CountBarComponent,
+        TableEditNameComponent
         // OrderByPipe
         // DonutChart,
         // LineChart
@@ -54,7 +56,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
         CountBarComponent,
         ClickOutsideModule,
         PopoverModule,
-        ChartsModule
+        ChartsModule,
+        TableEditNameComponent
         // OrderByPipe
         // DonutChart,
         // LineChart

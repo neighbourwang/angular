@@ -59,8 +59,11 @@ export class AccountMngEditAdComponent implements OnInit {
     }
 
     clearData() {
+        this.clearSelectedRole();
+        this.clearSelectedOrg();
         this.account = new Account();
         this.setDefaultSelect();
+     
     }
 
     setDefaultSelect() {
@@ -84,7 +87,7 @@ export class AccountMngEditAdComponent implements OnInit {
 
         this.account.roles = this.service.roles.filter((r) => { return r.selected });
         this.account.organizations = this.service.orgs.filter((o) => { return o.selected });
-
+        this.account.tenantId = this.service.userInfo.enterpriseId;
         if (this.validationService.isBlank(this.account.userName)) {
             this.showAlert("请输入管理员姓名");
             return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
@@ -119,12 +122,16 @@ export class AccountMngEditAdComponent implements OnInit {
         }).catch((e) => {this.onRejected(e);});
     }
 
-    clearSelectedOrg(org: Organization) {
+    clearSelectedOrg() {
         this.service.orgs.forEach((o) => {
             o.selected = false;
         });
     }
-
+    clearSelectedRole() {
+        this.service.roles.forEach((r) => {
+            r.selected = false;
+        });
+    }
 
     showAlert(msg: string): void {
         this.layoutService.hide();

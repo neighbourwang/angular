@@ -1,8 +1,10 @@
 ﻿import { Component, OnInit } from '@angular/core';
+import { DictService} from '../../../core/service/dict-service';
 
 @Component({
     selector: 'fc-menu',
     templateUrl: '../template/menu.component.html'
+    ,providers:[DictService]
 })
 
 export class MenuComponent implements OnInit {
@@ -88,94 +90,94 @@ const menu: Array<any> = [
                 "isOpen": true,
                 "routing": "cloud-host-service/cloud-drive-list"
             },
-            {
-                "label": "镜像",
-                "isOpen": true,
-                "routing": "image-mng/image-mng"
-            }
+            // {
+            //     "label": "镜像",
+            //     "isOpen": true,
+            //     "routing": "image-mng/image-mng"
+            // }
         ]
     },
-    {
-        "label": "物理机服务",
-        "isOpen": false,
-        "icon": "icon-machine",
-        "top2_menu": [
-            {
-                "label": "账号管理",
-                "isOpen": false,
-                "routing": ""
-            },
-            {
-                "label": "费用中心",
-                "isOpen": false,
-                "routing": ""
-            }
-        ]
-    },
-    {
-        "label": "负载均衡服务器",
-        "isOpen": false,
-        "icon": "icon-loadbalance",
-        "top2_menu": [
-            {
-                "label": "账户管理",
-                "isOpen": false,
-                "routing": ""
-            },
-            {
-                "label": "部门管理",
-                "isOpen": false,
-                "routing": ""
-            },
-            {
-                "label": "权限管理",
-                "isOpen": false,
-                "routing": ""
-            },
-            {
-                "label": "价格设置",
-                "isOpen": false,
-                "routing": ""
-            },
-            {
-                "label": "配额管理",
-                "isOpen": false,
-                "routing": ""
-            },
-            {
-                "label": "费用中心",
-                "isOpen": false,
-                "routing": ""
-            }
-        ]
-    },
-    {
-        "label": "审批中心",
-        "isOpen": false,
-        "icon": "icon-check",
-        "top2_menu": [
-            {
-                "label": "未审批",
-                "isOpen": false,
-                "routing": "check-center/check-mng-list"
-            },
-            {
-                "label": "已审批",
-                "isOpen": false,
-                "routing": "check-center/check-mng-hascheck"
-            }
-        ]
-    },
+    // {
+    //     "label": "物理机服务",
+    //     "isOpen": false,
+    //     "icon": "icon-machine",
+    //     "top2_menu": [
+    //         {
+    //             "label": "账号管理",
+    //             "isOpen": false,
+    //             "routing": ""
+    //         },
+    //         {
+    //             "label": "费用中心",
+    //             "isOpen": false,
+    //             "routing": ""
+    //         }
+    //     ]
+    // },
+    // {
+    //     "label": "负载均衡服务器",
+    //     "isOpen": false,
+    //     "icon": "icon-loadbalance",
+    //     "top2_menu": [
+    //         {
+    //             "label": "账户管理",
+    //             "isOpen": false,
+    //             "routing": ""
+    //         },
+    //         {
+    //             "label": "部门管理",
+    //             "isOpen": false,
+    //             "routing": ""
+    //         },
+    //         {
+    //             "label": "权限管理",
+    //             "isOpen": false,
+    //             "routing": ""
+    //         },
+    //         {
+    //             "label": "价格设置",
+    //             "isOpen": false,
+    //             "routing": ""
+    //         },
+    //         {
+    //             "label": "配额管理",
+    //             "isOpen": false,
+    //             "routing": ""
+    //         },
+    //         {
+    //             "label": "费用中心",
+    //             "isOpen": false,
+    //             "routing": ""
+    //         }
+    //     ]
+    // },
+    // {
+    //     "label": "审批中心",
+    //     "isOpen": false,
+    //     "icon": "icon-check",
+    //     "top2_menu": [
+    //         {
+    //             "label": "未审批",
+    //             "isOpen": false,
+    //             "routing": "check-center/check-mng-list"
+    //         },
+    //         {
+    //             "label": "已审批",
+    //             "isOpen": false,
+    //             "routing": "check-center/check-mng-hascheck"
+    //         }
+    //     ]
+    // },
     {
         "label": "费用中心",
         "isOpen": false,
         "icon": "icon-cost",
         "top2_menu": [
-            {
-                "label": "账号管理",
-                "isOpen": false,
-                "routing": ""
-            },
+            // {
+            //     "label": "账号管理",
+            //     "isOpen": false,
+            //     "routing": ""
+            // },
             {
                 "label": "已购服务管理",
                 "isOpen": false,

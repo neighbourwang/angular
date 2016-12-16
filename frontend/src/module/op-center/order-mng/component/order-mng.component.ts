@@ -2,9 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import {DictService} from '../../../../architecture/core/service/dict-service';
 import { ListItem
 	, OrderMngParam
 	, SubInstanceResp
+	,SubInstanceItemResp
 	,SubInstanceAttrPair
 	,ProductBillingItem
 	, RenewSetting
@@ -76,7 +78,8 @@ export class OrderMngComponent implements OnInit{
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
-		private restApi:RestApi){
+		private restApi:RestApi,
+		private _dictServ:DictService){
 
 		//类型
 		this._typeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
@@ -157,12 +160,45 @@ export class OrderMngComponent implements OnInit{
 		};
 
 		//配置订单加载
-		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "订单列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
+		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "已订购列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
 		this._orderLoader.Trait = (target:Array<SubInstanceResp>)=>{
+
+			let canRenew:(item:SubInstanceItemResp)=>boolean = (item:SubInstanceItemResp):boolean=>{
+				if (item.serviceType == 1)
+			      return false;
+
+			    if(item.billingInfo && item.billingInfo.billingMode == 1)//按流量计费
+			      return false;
+
+			    return true;
+			};
+
+			let reloadstruct:(items:Array<SubInstanceItemResp>)=>void = (items:Array<SubInstanceItemResp>)=>{
+				for(let i = 0; i < items.length; i++){
+					items[i] = _.extendOwn(new SubInstanceItemResp(), items[i]);
+				}
+			};
+
 
 			for(let i = 0; i < target.length; i++)
 			{
-				target[i] = _.extendOwn(new SubInstanceResp(), target[i]);
+				let orderItem = target[i];
+
+				reloadstruct(orderItem.itemList);
+
+				if(orderItem.itemList && orderItem.itemList.length > 0)
+				{
+					if(orderItem.itemList.find(n=>!canRenew(n)) != null)
+						orderItem.canRenew = false;
+					else
+						orderItem.canRenew = true;
+				}
+				else{
+					orderItem.canRenew = true;
+				}
+
+				this._billinModeDic.UpdateWithDic(orderItem.itemList, "billingModeName", "billingMode");
+				
 			}
 		};
 /*
@@ -239,14 +275,14 @@ export class OrderMngComponent implements OnInit{
 		.then(success=>{
 			return this._typeDic.Go();
 		})
+		// .then(success=>{
+		// 	return this._platformLoader.Go();
+		// })
 		.then(success=>{
 			return this._billinModeDic.Go();
 		})
 		.then(success=>{
 			return this._periodTypeDic.Go();
-		})
-		.then(success=>{
-			return this._platformLoader.Go();
 		})
 		// .then(success=>{
 		// 	return this.loadDepartment();
@@ -295,7 +331,8 @@ export class OrderMngComponent implements OnInit{
 	//选择续订	
 	renewSelect(orderItem:SubInstanceResp){
 		// 成功、即将过期:7的订单可以  续订
-		if(orderItem.status == "7")
+		if(!_.isEmpty(orderItem.itemList)
+			&& orderItem.itemList.filter(n=>n.status == "7").length > 0)
 		{
 			$('#renewOrder').modal('show');
 			this.selectedOrderItem = orderItem;
@@ -315,7 +352,9 @@ export class OrderMngComponent implements OnInit{
 			.then(success=>{
 				this.layoutService.hide();
 
-				orderItem.renewPrice = getRenewPrice();
+				orderItem.itemList.map(n=>{
+					n.renewPrice = getRenewPrice();
+				});
 			})
 			.catch(err=>{
 				this.layoutService.hide();
@@ -333,7 +372,8 @@ export class OrderMngComponent implements OnInit{
 	cancelSelect(orderItem:SubInstanceResp)
 	{
 		// 成功、即将过期:7的订单可以  续订
-		if(orderItem.status == "7")
+		if(!_.isEmpty(orderItem.itemList)
+			&& orderItem.itemList.filter(n=>n.status == "7").length > 0)
 		{
 			$('#cancelOrder').modal('show');
 
@@ -361,7 +401,7 @@ export class OrderMngComponent implements OnInit{
 
 
 		param.pageParameter = {
-			currentPage:pageNumber
+			currentPage:pageNumber - 1
 			,size:10
 		};
 
@@ -380,10 +420,12 @@ export class OrderMngComponent implements OnInit{
 
 	//翻译订单状态
 	updateStatusName(){
-		this._orderStatusDic.UpdateWithDic(this._orderLoader.Items, "statusName","status");
-		this._productTypeLoader.UpdateWithDic(this._orderLoader.Items, "serviceTypeName", "serviceType");
-		console.log('this._orderLoader.Items', this._orderLoader.Items);
-		this._billinModeDic.UpdateWithDic(this._orderLoader.Items, "billingModeName", "billingMode");
+		let list:Array<SubInstanceItemResp> = []
+		this._orderLoader.Items.map(n=>list = list.concat(n.itemList));
+		this._orderStatusDic.UpdateWithDic(list, "statusName", "status");
+		this._productTypeLoader.UpdateWithDic(list, "serviceTypeName", "serviceType");
+		this._billinModeDic.UpdateWithDic(list, "billingModeName", "billingMode");
+
 	}
 
 	changePage(pageNumber:number)
@@ -465,8 +507,9 @@ export class OrderMngComponent implements OnInit{
 
 	get selectedPeriodTypeName():string{
 		if(this.selectedOrderItem 
-			&& this.selectedOrderItem.billingInfo){
-			let item = this._periodTypeDic.Items.find(n=>n.value == this.selectedOrderItem.billingInfo.periodType.toString());
+			&& !_.isEmpty(this.selectedOrderItem.itemList)
+			&& this.selectedOrderItem.itemList[0].billingInfo){
+			let item = this._periodTypeDic.Items.find(n=>n.value == this.selectedOrderItem.itemList[0].billingInfo.periodType.toString());
 			if(item)
 				return item.displayValue as string;
 			else
@@ -486,11 +529,12 @@ export class OrderMngComponent implements OnInit{
 		PACKAGE_BILLING PERIOD_TYPE 5 YEARLY 按年
 		*/
 		if(this.selectedOrderItem
-			&& this.selectedOrderItem.billingInfo
-			&& _.isNumber([0,1,2,3,5].find(n=>n==this.selectedOrderItem.billingInfo.periodType)))
+			&& !_.isEmpty(this.selectedOrderItem.itemList)
+			&& this.selectedOrderItem.itemList[0].billingInfo
+			&& _.isNumber([0,1,2,3,5].find(n=>n==this.selectedOrderItem.itemList[0].billingInfo.periodType)))
 		{
-			this._renewSetting.renewDate = this.calRenewDate(this.selectedOrderItem.billingInfo.periodType.toString(), this._renewSetting.value);
-			this._renewSetting.unit = this.selectedOrderItem.billingInfo.periodType;
+			this._renewSetting.renewDate = this.calRenewDate(this.selectedOrderItem.itemList[0].billingInfo.periodType.toString(), this._renewSetting.value);
+			this._renewSetting.unit = this.selectedOrderItem.itemList[0].billingInfo.periodType;
 		}
 		else{
 			console.log("续订计算前提发生错误", this.selectedOrderItem, this._renewSetting);
@@ -546,7 +590,7 @@ export class OrderMngComponent implements OnInit{
 
 		
 
-		return toDate(handlerObj[renewMode](renewLen)(this.selectedOrderItem.expireDate));
+		return toDate(handlerObj[renewMode](renewLen)(this.selectedOrderItem.itemList[0].expireDate));
 	}
 	
 

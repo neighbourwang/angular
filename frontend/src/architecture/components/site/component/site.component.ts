@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../../../core/service/layout.service';
 import { SystemDictionaryService, RestApi } from '../../../../architecture';
 import { Router } from '@angular/router';
+import { SiteService } from '../service/site.service';
+
 
 @Component({
   selector: 'fc-root',
@@ -17,6 +19,7 @@ export class SiteComponent implements OnInit{
     private layoutService: LayoutService,
 		private router: Router,
     private restApi : RestApi,
+    private service : SiteService,
     private dictService: SystemDictionaryService,
   ) { }
   
@@ -30,5 +33,14 @@ export class SiteComponent implements OnInit{
   }
   preLoad(){
     this.dictService.get();  //初始化获取所有的数据字典
+  }
+  logOut() {
+    this.service.logOut().then();
+
+    setTimeout(() => {
+      window.sessionStorage["token"] = "";
+      window.sessionStorage["userInfo"] = "";
+      window.location.href = "/login.html";
+    },200)
   }
 }

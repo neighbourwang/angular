@@ -157,6 +157,10 @@ export class cloudHostListComponent implements OnInit {
 	}
 	// 警告框相关结束
 
+	changeName() {
+		
+	}
+
 	//分页
 	changePage(page: number) {
 

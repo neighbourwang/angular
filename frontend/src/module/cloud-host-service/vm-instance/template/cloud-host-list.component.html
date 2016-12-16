@@ -121,36 +121,29 @@
             <th class="text-center">到期时间</th>
             <!--<th class="text-center">云硬盘数</th> -->
             <!--<th class="text-center">快照数</th>-->
-            <th class="text-center">附加服务</th>
-            <th class="text-center">类型</th>
-            <th class="text-center">服务类别</th>
+            <!-- <th class="text-center">附加服务</th> -->
+            <!-- <th class="text-center">类型</th> -->
+            <!-- <th class="text-center">服务类别</th> -->
             <th class="text-center">操作</th> 
         </tr>
-        <tr *ngFor="let vm of vmList;trackBy:vm?.expiryDate;">
+        <tr *ngFor="let vm of vmList;trackBy:vm?.expiryDate;" style="line-height: 65px;">
             <td class="text-center"><input name="host-list" type="radio"></td>
-           <!--  <td class="text-center active" style="position: relative;width: 220px;line-height: 65px;"><span style="top: -1px;position: absolute;left: -1px;bottom: -1px;right: -1px;border: 1px solid #01a982;">{{vm.instanceName}}
-            <button 
-                            [popover]="mypopover" 
-                            [ngClass]="{'active': mypopover.popover?.visible}" 
-                            [disabled]="!isAttachVm" 
-            style="position: absolute;right: 0;bottom: 0;height: 20px;line-height: 20px;border: 0;background: #01a982;color: #fff;font-size: 12px;">编辑</button></span>
-                <popover-content #mypopover [closeOnClickOutside]="true" >
-                    啊实打实的
-                </popover-content>
+            <!-- <td class="text-center active" style="position: relative;width: 220px;">
+                <table-edit-name [value]="vm.instanceName" (onChange)="changeName()"></table-edit-name>
             </td> -->
             <td class="text-center active">{{vm.instanceName}}</td>
             <td class="text-center">{{vm.specification}}</td>
             <td class="text-center">{{vm.osInfo}}</td>
-            <td class="text-center">{{vm.privateIp}}</td> 
+            <td class="text-center">{{vm.privateIP}}</td> 
             <td class="text-center">{{vm.publicIP}}</td>
             <td class="text-center">{{vm.regionZone}}</td>
             <td class="text-center">{{vm.vmState | dict:service.computeStatus | async}}</td>
             <td class="text-center">{{vm.expiryDate}}</td>
             <!--<td class="text-center">{{vm.diskCount}}</td> -->
             <!--<td class="text-center">{{vm.snapshotCount}}</td>-->
-            <td class="text-center">无</td>
-            <td class="text-center">生产</td>
-            <td class="text-center">关键</td>
+            <!-- <td class="text-center">无</td> -->
+            <!-- <td class="text-center">生产</td> -->
+            <!-- <td class="text-center">关键</td> -->
             <td class="text-center">
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" [attr.id]="'dropdownMenu'+(index+3)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

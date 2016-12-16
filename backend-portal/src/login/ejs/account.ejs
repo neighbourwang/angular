@@ -1,0 +1,6 @@
+<h3 class="account-title  pdb10">请选择认证源</h3>
+<select id="account-select" class="account-select" class="form-control input-sm">
+	<% data.lists.forEach(function(list){  %>
+	<option value="<%= list.id %>"><%= list.name %></option>
+	<% }) %>
+</select>

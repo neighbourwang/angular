@@ -1,0 +1,10 @@
+<div class="table-box" (mouseleave) ="show = false">
+	<div class="edit-box">
+		<span class="table-name" *ngIf="!show">{{value}}</span>
+	    <div class="input-group float-left" *ngIf="show">
+	        <input [(ngModel)]="inputValue" class="form-control edit-name-input" type="text">
+	        <button (click)="show=false;change()" class="btn button-gray-gradient edit-name-button"><span class="glyphicon glyphicon-ok"></span></button>
+	    </div>
+	    <button *ngIf="!show" (click)="show = !show" class="edit-button">编辑</button>
+	</div>
+</div>

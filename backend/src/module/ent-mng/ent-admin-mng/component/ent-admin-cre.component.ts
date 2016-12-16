@@ -119,7 +119,7 @@ export class EntAdminCreComponent implements OnInit {
                     if (response && 100 == response["resultCode"]) {
                         this.showAlert("创建成功");
                         this.router.navigateByUrl("ent-mng/ent-admin-mng/ent-admin-mng/" + this.eid);
-                    } else if (response && "10051101" == response["resultCode"]) {
+                    } else if (response && "10001001" == response["resultCode"]) {
                         this.showAlert("该账户已经被占用");
                     }else {
                         this.showAlert("Res sync error");

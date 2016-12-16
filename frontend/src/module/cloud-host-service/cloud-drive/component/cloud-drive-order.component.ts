@@ -194,6 +194,7 @@ export class cloudDriveComponentOrder implements OnInit {
 
 	addCart() {   //加入购物车
 		this.layoutService.show();
+		this.checkInput();
 		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
 		this.service.addCart(payLoadArr).then(res => {
 			this.layoutService.hide();
@@ -224,7 +225,7 @@ export class cloudDriveComponentOrder implements OnInit {
 
 	vmListClick(vm) {
 		if(this.isAttachVm && vm) {
-			this.sendModule.diskmounthostid.attrValue = vm.itemId;
+			this.sendModule.diskmounthostid.attrValue = vm.uuid;
 			this.sendModule.diskmounthostname.attrValue = vm.instanceName;
 		}else {
 			this.sendModule.diskmounthostid.attrValue = "";

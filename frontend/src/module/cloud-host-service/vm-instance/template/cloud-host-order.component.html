@@ -35,7 +35,7 @@
 					<div class="col-md-10">
 						<select [(ngModel)]="sendModule.networktype" class="form-control">
 							<option
-							 *ngFor="let value of configs.networktype.valueList;"
+							 *ngFor="let value of rely('networktype')"
 							 [ngValue]="value" >{{ value.attrDisplayValue }}</option>
 						</select>
 					</div>

@@ -35,7 +35,12 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "/uaa/oauth/token?grant_type=password&username=gavin@hpe.com&password=12345&client_id=ui&client_secret=12345"
     },
-
+    {
+        "desc": "登出",
+        "id": "uaa.logout",
+        "method": "GET",
+        "url": "uaa/logout"
+    },
     // 数据字典
     {
         "desc": "获取可订购配置数据",
@@ -72,6 +77,24 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "id": "hosts.instance.action",
         "url": "marketplace/authsec/subinstance/itemlist/vm/action"
+    },
+    {
+        "desc": "云主机操作",
+        "method": "POST",
+        "id": "hosts.instance.action",
+        "url": "marketplace/authsec/subinstance/itemlist/vm/action"
+    },
+    {
+        "desc": "更改云主机名称",
+        "method": "POST",
+        "id": "change.vm.info",
+        "url": "marketplace/authsec/instance/vm/{id}"
+    },
+    {
+        "desc": "更改云硬盘名称",
+        "method": "POST",
+        "id": "change.disk.info",
+        "url": "marketplace/authsec/instance/disk/{id}"
     },
     {
         "desc": "云硬盘操作",
@@ -199,7 +222,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "订单列表查询",
         "method": "POST",
         "id": "op-center.order-mng.order-list.post",
-        "url": "marketplace/authsec/order/search/paging"        
+        "url": "marketplace/authsec/subinstance/subscription/orderlist"        
     }
     ,{
         "desc": "订单详情查询",
@@ -229,8 +252,8 @@ export let RestApis: RestApiModel[] = [
         "desc": "查询订单",
         "method": "POST",
         "id": "op-center.order-search.list.post",
-        "url": "marketplace/authsec/subinstance/subscription/orderlist"        
-        // "url":"marketplace/authsec/order/search/paging"
+        // "url": "marketplace/authsec/subinstance/subscription/orderlist"        
+        "url":"marketplace/authsec/order/search/paging"
     },
     {
         "desc": "查询订单详情",
@@ -292,6 +315,12 @@ export let RestApis: RestApiModel[] = [
         "url" : "basis/authsec/mpp/user/{id}"
     },
     //账号管理
+    {
+        "desc" : "验证账号的唯一性",
+        "id" : "user-center.account-mng.loginNameValid",
+        "method" : "GET",
+        "url" : "basis/authsec/mpp/user/{_loginName}/validation"
+    },
     {
         "desc" : "用户中心，帐号管理，帐号创建，获取所有角色",
         "id" : "user-center.account-mng.create.roleList",

@@ -2,7 +2,7 @@
 import { Component,ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent, dictPipe } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, dictPipe, PopupComponent } from '../../../../architecture';
 import { cloudDriveServiceList } from '../service/cloud-drive-list.service'
 
 import { QuiryDistList,HandleDist , DistList } from '../model/dist-list.model';
@@ -21,6 +21,8 @@ export class cloudDriveListComponent implements OnInit {
 	@ViewChild('notice')
 	private noticeDialog: NoticeComponent;
 
+	@ViewChild("vmDialog") vmDialog: PopupComponent;
+
 	@ViewChild('platformZone') platformZone;
 
 	list : QuiryDistList = new QuiryDistList();
@@ -31,6 +33,10 @@ export class cloudDriveListComponent implements OnInit {
 	modalTitle: string = '';
 	modalMessage: string = '';
 	modalOKTitle: string = '';
+
+	serverId : string = '';
+	mountDisk : DistList;
+	diskPlatformId : string = '';
 
 	areaConfig = [];   //区域
 	superSearch: boolean = false;   //高级搜索开关
@@ -84,7 +90,7 @@ export class cloudDriveListComponent implements OnInit {
 		this.layoutService.show();
 
 		this.handleData.id = dist.id;
-		this.handleData.uid = dist.uid;
+		this.handleData.serverId = key === "mount" ? this.serverId : key === "unmount" ? dist.relyId : "";
 		this.handleData.actions = key;
 		this.handleData.enterpriseIds.platformId = dist.platformId;
 
@@ -99,6 +105,17 @@ export class cloudDriveListComponent implements OnInit {
 		}).catch(error => {
 			this.layoutService.hide();
 		})
+	}
+
+	vmListClick(vm) {
+		this.serverId = vm.uuid;
+	};
+	confirmVm() {
+		this.handleDist("mount", this.mountDisk, "挂载云主机");
+		this.vmDialog.close();
+	}
+	cancelVm() {
+		this.serverId = "";
 	}
 
 	resetSearch(){   //重置搜索

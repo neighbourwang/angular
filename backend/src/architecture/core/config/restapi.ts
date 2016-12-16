@@ -26,6 +26,12 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "basis/authsec/sysdic/{_owner}/{_field}/{_code}"
     },
+    {
+        "desc": "登出",
+        "id": "uaa.logout",
+        "method": "GET",
+        "url": "uaa/logout"
+    },
     // 数据字典
     // 平台接入管理
     {

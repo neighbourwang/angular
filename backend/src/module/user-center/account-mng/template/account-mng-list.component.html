@@ -47,8 +47,8 @@
                     <td>{{item.userName}}</td>
                     <td>{{item.loginName}}</td>
                     <td>{{item.phone}}</td>
-                    <td>平台管理</td>
-                    <td>一级管理员</td>
+                    <td>{{item.organizationName}}</td>
+                    <td>{{item.roleName}}</td>
                     <td>{{item.type==1?"AD":"本地"}}</td>
                     <td>
                         <span [ngSwitch]="item.status">
