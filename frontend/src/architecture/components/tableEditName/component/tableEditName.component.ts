@@ -21,6 +21,7 @@ export class TableEditNameComponent implements OnInit{
         this.inputValue = this.value;
     }
     change() {
+        if(!this.inputValue) return ;
         this.value = this.inputValue;
         this.onChange.emit(this.value);
     }
