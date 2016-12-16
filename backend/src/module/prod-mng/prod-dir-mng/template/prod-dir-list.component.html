@@ -104,7 +104,7 @@
 				<div class="col-sm-8">
 					<span class="form-line-height font-gray" style="float:left;padding:5px 10px; width:100px;">cpu</span>
 					<span style="float:left; width:120px;">
-								<count-bar [default]=0 [step]=1 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
+								<count-bar [valueError]="vcpuValueError" #cpu  [default]=0 [step]=1 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
 							</span>
 					<span class="form-line-height font-gray" style="float:left;padding:5px 10px;">核(vCPU)</span>
 				</div>
@@ -116,7 +116,7 @@
 				<div class="col-sm-8">
 					<span class="form-line-height font-gray" style="float:left;padding:5px 10px; width:100px;">内存</span>
 					<span style="float:left; width:120px;">
-								<count-bar [default]=0 [step]=100 [max]=100000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'mem')"></count-bar>
+								<count-bar [valueError]="memValueError" #mem  [default]=0 [step]=100 [max]=100000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'mem')"></count-bar>
 							</span>
 					<span class="form-line-height font-gray" style="float:left;padding:5px 10px;">兆(MB)</span>
 				</div>

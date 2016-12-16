@@ -6,7 +6,7 @@
 import {Component, Input, Output,EventEmitter,OnChanges,SimpleChange,OnInit} from '@angular/core';
 @Component({
     selector: 'count-bar',
-    template: `<div class="countBar">
+    template: `<div class="countBar " [ngClass]="{valueError:valueError}">
                <span class="glyphicon glyphicon-minus font-gray" [ngClass]="{gray:disabled || value == min}" (click)="subtract()"></span>
                <input type="text" class="font-gray "  [(ngModel)]="value" name="editValue" #box (change)="valueChange($event)" [disabled]="disabled">
                <span class="glyphicon glyphicon-plus font-gray" (click)="add()" [ngClass]="{gray:disabled || value == max}"></span>
@@ -32,6 +32,8 @@ export class CountBarComponent implements OnInit{
     value:number = 0;
     @Input()
     stepCheck:boolean = false;   //强制开启step检测 手动输入的时候不允许输入不是step倍数的数字
+    @Input()
+    valueError:boolean=false; //数据非法样式
     @Output()
     output=new EventEmitter();
 
