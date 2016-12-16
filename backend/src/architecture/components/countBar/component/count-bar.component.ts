@@ -60,10 +60,9 @@ export class CountBarComponent implements OnInit{
         this.value = +this.value > +this.max ? +this.max : +this.value < +this.min ? +this.min : +this.value;
         if(!this.value){
             this.value = this.min;
-            this.unValid=true;
+            this.output.emit(this.value);
         }else{
             this.output.emit(this.value);
-            this.unValid=false;
         }    //检测是否非法
         
     }
