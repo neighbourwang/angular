@@ -320,7 +320,7 @@ export class ProdDirListComponent implements OnInit {
                     let pageInfo = response.pageInfo;
 
                     this.tp = pageInfo.totalPage;
-
+                                
                     this.prodDirList = backend;
 
                 } else {

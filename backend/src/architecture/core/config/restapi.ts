@@ -770,6 +770,13 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "basis/authsec/adm/user"
     },
+    //账号管理
+    {
+        "desc" : "验证账号的唯一性",
+        "id" : "user-center.account-mng.loginNameValid",
+        "method" : "GET",
+        "url" : "basis/authsec/adm/user/{_loginName}/validation"
+    },
     {
         "desc": "编辑帐号（本地）",
         "id": "user-center.account-mng.local.edit",
