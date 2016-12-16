@@ -137,9 +137,9 @@
 						<vm-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==0"></vm-view><!-- 显示云主机 -->
 						<disk-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==1"></disk-view><!-- 显示云硬盘 -->
 					</td>
-					<td>{{prodItem.serviceTypeName}}</td>
+					<td>{{prodItem.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') |async}}</td>
 					<td>{{prodItem.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}</td>
-					<td>{{prodItem.period}}</td>
+					<td>{{prodItem.period}} {{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async |slice:1}}</td>
 					<td>{{prodItem.quantity}}</td>
 					<td style="width: 100px;">
 						一次性价格：{{prodItem.oneTimePrice}}<br/>

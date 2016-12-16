@@ -23,6 +23,10 @@ export class SubInstanceItemResp {
   get billingMode():number{//包装计费模式
     return this.billingInfo ? this.billingInfo.billingMode : null;
   }
+
+  get periodType():number{
+    return this.billingInfo ? this.billingInfo.periodType : null;
+  }
   
   get oneTimePrice():number{
     return this.billingInfo ? this.billingInfo.basePrice : 0;
