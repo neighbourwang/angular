@@ -273,16 +273,16 @@ export class ProdDirListComponent implements OnInit {
     }
     otcreate() {
         let id = this.prodDirTypeId;
+        if (this.spec.vcpu == 0) {
+            this.vcpuValueError = true;
+            return
+        }
+        if (this.spec.mem == 0) {
+            this.memValueError = true;
+            return
+        }
         console.log(this.spec);
         if (this.prodDirTypeId == '33f23ade-a0f8-11e6-a18b-0050568a49fd') {
-            if (this.spec.vcpu == 0) {
-                this.vcpuValueError = true;
-                return
-            }
-            if (this.spec.mem == 0) {
-                this.memValueError = true;
-                return
-            }
             if (this.spec.mem > 0 && this.spec.vcpu > 0) {
                 this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre", { vcpu: this.spec.vcpu, mem: this.spec.mem, startupDisk: this.spec.startupDisk }]);
             } else {
