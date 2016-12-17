@@ -25,7 +25,7 @@ export class cloudDriveComponentOrder implements OnInit {
 	payLoad: PayLoad;
 	payLoadArr : PayLoad[];  //最后提交的是个PayLoad数组
 	sendModule: SendModule;
-	setPassword: boolean = true;
+	setPassword: boolean = false;
 
 	// timeForever : boolean = false;
 
@@ -40,7 +40,7 @@ export class cloudDriveComponentOrder implements OnInit {
 	diskTotalPrice : number = 0; //云硬盘费用
 	diskUnitType : number = 0; //云硬盘类型
 
-	isAttachVm: boolean = true;
+	isAttachVm: boolean = false;
 
 	constructor(
 		private layoutService: LayoutService,

@@ -221,7 +221,7 @@ console.log(`[${sku}, ${this.sendModule.timelineunit.attrValueCode}]`, "云主�
 		const price = this.proMap[`[${sku}, ${this.sendModule.timelineunit.attrValueCode}]`];
 
 		if(!price) return;  //如果没获取到价格
-		this.vmBasePrice = price.billingInfo.basePrice * timeline * this.payLoad.quality;  //一次性费用
+		this.vmBasePrice = price.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
 		this.vmTotalPrice = (price.billingInfo.basicPrice+price.billingInfo.cyclePrice) * timeline * this.payLoad.quality;   //周期费用
 	}
 	setDiskPrice(): void {  //设置数据盘的价格
@@ -240,7 +240,7 @@ console.log(`[${sku}, ${this.sendModule.timelineunit.attrValueCode}]`, "云主�
 
 console.log(`[${sku.skuId}]`, "云硬盘")
 			if(!price) return; //如果没获取到价格
-			basePrice += price.billingInfo.basePrice * timeline * this.payLoad.quality;  //一次性费用
+			basePrice += price.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
 			totalPrice += price.billingInfo.unitPrice * data.storagesize.attrValue * timeline * this.payLoad.quality;   //周期费用
 
 			this.diskUnitType = price.billingInfo.unitType;
