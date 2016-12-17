@@ -10,17 +10,17 @@
         <div style="padding : 30px 20px;border : 1px solid #ddd;">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{entResourceObj.cpuQuota||0}}</span>(核)
+                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.cpuQuota||0}}</span>(核)
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{entResourceObj.cpuQuota-entResourceObj.usedCpuQuota||0}}</span>(核)
+                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.cpuQuota-service.entResourceObj.usedCpuQuota||0}}</span>(核)
                 </div>
                 <div style="clear : both">
                 </div>
             </div>
 
             <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="entResourceObj.usedVCpuRate" aria-valuemin="0" aria-valuemax="entResourceObj.vcpuQuota" style="background-color:#2bd2ca" [ngStyle]="setPercent('usedCpuRate')">
+                <div class="progress-bar" role="progressbar" aria-valuenow="service.entResourceObj.usedVCpuRate" aria-valuemin="0" aria-valuemax="service.entResourceObj.vcpuQuota" style="background-color:#2bd2ca" [ngStyle]="setPercent('usedCpuRate')">
                     <span class="sr-only">60% Complete</span>
                 </div>
             </div>
@@ -34,10 +34,10 @@
         <div style="padding : 30px 20px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{entResourceObj.memQuota||0}}</span>(GB)
+                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.memQuota||0}}</span>(GB)
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{entResourceObj.memQuota-entResourceObj.usedMemQuota||0}}</span>(GB)
+                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.memQuota-service.entResourceObj.usedMemQuota||0}}</span>(GB)
                 </div>
                 <div style="clear : both">
                 </div>
@@ -56,10 +56,10 @@
         <div style="padding : 30px 20px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{entResourceObj.physicalMachineQuota||0}}</span>(台)
+                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.physicalMachineQuota||0}}</span>(台)
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{entResourceObj.physicalMachineQuota-entResourceObj.usedPhysicalMachineQuota||0}}</span>(台)
+                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.physicalMachineQuota-service.entResourceObj.usedPhysicalMachineQuota||0}}</span>(台)
                 </div>
                 <div style="clear : both">
                 </div>
@@ -77,10 +77,10 @@
         <div style="padding : 30px 20px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{entResourceObj.storageQuota||0}}</span>(GB)
+                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.storageQuota||0}}</span>(GB)
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{entResourceObj.storageQuota-entResourceObj.usedStorageQuota||0}}</span>(GB)
+                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.storageQuota-service.entResourceObj.usedStorageQuota||0}}</span>(GB)
                 </div>
                 <div style="clear : both">
                 </div>
@@ -98,10 +98,10 @@
         <div style="padding : 30px 20px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{entResourceObj.snapshotQuota||0}}</span>(个)
+                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.snapshotQuota||0}}</span>(个)
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{entResourceObj.snapshotQuota-entResourceObj.usedSnapshotQuota||0}}</span>(个)
+                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.snapshotQuota-service.entResourceObj.usedSnapshotQuota||0}}</span>(个)
                 </div>
                 <div style="clear : both">
                 </div>
@@ -119,10 +119,10 @@
         <div style="padding : 30px 20px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{entResourceObj.imageQuota||0}}</span>(个)
+                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.imageQuota||0}}</span>(个)
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{entResourceObj.memQuota-entResourceObj.usedImageQuota||0}}</span>(个)
+                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.memQuota-service.entResourceObj.usedImageQuota||0}}</span>(个)
                 </div>
                 <div style="clear : both">
                 </div>
@@ -140,10 +140,10 @@
         <div style="padding : 30px 20px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{entResourceObj.floatIpQuota||0}}</span>(个)
+                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.floatIpQuota||0}}</span>(个)
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{entResourceObj.floatIpQuota-entResourceObj.usedFloatIpQuota||0}}</span>(个)
+                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.floatIpQuota-service.entResourceObj.usedFloatIpQuota||0}}</span>(个)
                 </div>
                 <div style="clear : both">
                 </div>

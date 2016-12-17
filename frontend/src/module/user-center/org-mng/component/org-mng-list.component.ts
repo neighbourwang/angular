@@ -57,9 +57,7 @@ export class OrgMngListComponent implements OnInit {
   percent:string='20%';
   
   //企业资源对象
-  entResourceObj:EntResource;
   ngOnInit() {
-    this.entResourceObj=new EntResource();
     this.service.getCurEntId().then(()=>{
         this.getOrgs(0, this.pp);
         this.service.getNoMngUser();
@@ -74,8 +72,6 @@ export class OrgMngListComponent implements OnInit {
         let pageInfo = res.pageInfo;
         this.tp = pageInfo.totalPage;
         console.log(this.orgs);
-        this.entResourceObj=this.service.entResourceObj;
-         console.log('qiyeresource',this.entResourceObj);
         //  this.entResourceObj.usedCpuRate='0.8';
         //  this.entResourceObj.usedCpuRate=(parseFloat(this.entResourceObj.usedCpuRate)*100)+'%';
         //  console.log(this.entResourceObj);
@@ -88,8 +84,8 @@ export class OrgMngListComponent implements OnInit {
   }
   //百分比进度条
   setPercent(arg){
-    this.entResourceObj[arg]=(parseFloat(this.entResourceObj[arg])*100)+'%';
-    let styles={width:this.entResourceObj[arg]}        
+    this.service.entResourceObj[arg]=(parseFloat(this.service.entResourceObj[arg])*100)+'%';
+    let styles={width:this.service.entResourceObj[arg]}        
       return styles;
   }
   paging(page) {
