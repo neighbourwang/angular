@@ -99,6 +99,7 @@ export class cloudHostListComponent implements OnInit {
 		this.handleData.id = vm.uuid;
 		this.handleData.actions = key;
 		this.handleData.enterpriseIds.platformId = vm.platformId;
+		this.handleData.enterpriseIds.enterpriseId = this.service.userInfo.enterpriseId;
 
 		this.service.handleVm(this.handleData).then(res => {
 			this.layoutService.hide();
@@ -121,7 +122,7 @@ export class cloudHostListComponent implements OnInit {
             },
             {
                 key: 'enterpriseId',
-                value: "100"
+                value: this.service.userInfo.enterpriseId
             },
             {
                 key: 'uuid',

@@ -53,8 +53,6 @@ export class cloudDriveListComponent implements OnInit {
 		// this.setArea();
 		this.setDistList();
 		this.initSelect();
-		
-		this.dictPipe.transform("1",this.service.computeStatus).then(res => console.log(res))
 	}
 
 	setDistList(): void {
@@ -93,6 +91,7 @@ export class cloudDriveListComponent implements OnInit {
 		this.handleData.serverId = key === "mount" ? this.serverId : key === "unmount" ? dist.relyId : "";
 		this.handleData.actions = key;
 		this.handleData.enterpriseIds.platformId = dist.platformId;
+		this.handleData.enterpriseIds.enterpriseId = this.service.userInfo.enterpriseId;
 
 		this.service.handleDist(this.handleData).then(res => {
 			this.layoutService.hide();
