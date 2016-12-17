@@ -59,6 +59,7 @@ export class ProdDirDiskCreComponent implements OnInit {
                     // let resultContent = response.resultContent;
                     this._platformlist = response.resultContent;
                     for (let plate of this._platformlist) {
+                        if(!plate.platformInfo) return;
                         for (let zone of plate.platformInfo) {
                             zone.storageId = zone.storageItem[0].storageId;
                             // console.log(zone.storageList);
@@ -113,6 +114,7 @@ export class ProdDirDiskCreComponent implements OnInit {
         this.selectAllZone = !this.selectAllZone;
         console.log(this.selectAllZone);
         for (let plate of this._platformlist) {
+            if(!plate.platformInfo) return;
             for (let zone of plate.platformInfo) {
                 zone.selected = this.selectAllZone;
                 // console.log(zone.storageList);
@@ -133,6 +135,7 @@ export class ProdDirDiskCreComponent implements OnInit {
         this._platformlist[idx].platformInfo[idxx].selected = !this._platformlist[idx].platformInfo[idxx].selected;
         console.log(this._platformlist[idx]);
         this.prodDir.platformList = this._platformlist.filter(function (ele) {
+            if(!ele.platformInfo) return;
             for (let zone of ele.platformInfo) {
                 if (zone.selected == true) {
                     return ele;
