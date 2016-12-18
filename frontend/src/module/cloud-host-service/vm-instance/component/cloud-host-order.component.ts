@@ -155,6 +155,8 @@ export class cloudHostComponentOrder implements OnInit {
 	 * @return {PayLoad[]} [description]
 	 */
 	private payLoadFormat(): PayLoad[] {
+		//临时处理 演示用
+		this.sendModule.bootsize.attrValue = "20";
 
 		/****下面开始处云主机订单的逻辑****/
 		let payloadList = this.sendModuleToPay(),
