@@ -74,8 +74,9 @@
 					</div>
 					<div class="col-md-12 no-padding mgb15">
 						<div class="col-md-2 content-title">云硬盘实例名称</div>
-						<div class="col-md-4 no-padding mgr15">
-							<input type="text" [(ngModel)]="sendModule.diskinsname.attrValue" class="form-control" placeholder="如不填写，则系统自动生成">
+						<div class="col-md-4 no-padding mgr15"
+							[ngClass]="{'has-error': check.diskinsname === false }">
+							<input type="text" (keyup)="checkValue('diskinsname')" [(ngModel)]="sendModule.diskinsname.attrValue" class="form-control" placeholder="如不填写，则系统自动生成">
 						</div>
 						<div class="col-md-5 disk-tip no-padding">2-68个字符，以大小写字母或者中文开头，可包含数字，“.”, "-", "_"</div>
 					</div>	

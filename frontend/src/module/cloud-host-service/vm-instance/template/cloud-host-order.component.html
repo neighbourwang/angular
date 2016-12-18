@@ -133,14 +133,11 @@
 							</div>
 							<div class="col-md-1 content-title2">容量</div>
 							<div class="col-md-2 no-padding">
-								<select class="form-control">
-									<option selected>20</option>>
-								</select>
-								<!-- <select [(ngModel)]="sendModule.bootsize" (change)="sendModule.bootsize = value" class="form-control">
+								 <select [(ngModel)]="sendModule.bootsize" disabled="true" class="form-control">
 									<option
-									*ngFor="let value of configs.bootsize.valueList;"
+									*ngFor="let value of rely('bootsize')"
 									[ngValue]="value" >{{ value.attrDisplayValue }}</option>
-								</select> -->
+								</select> 
 							</div>
 							<div class="col-md-6 content-title2">GB</div>
 						</div>
@@ -173,25 +170,29 @@
 
 					<div class="col-md-12 no-padding mb20" *ngIf="setPassword">
 						<div class="col-md-2 content-title">登录密码</div>
-						<div class="col-md-4 no-padding">
-							<input type="password" [(ngModel)]="sendModule.password.attrValue" class="form-control" placeholder="请输入主机密码">
+						<div class="col-md-4 no-padding" [ngClass]="{'has-error': check.password === false}">
+							<input type="password" 
+								(keyup) = "checkValue('password')"
+								[(ngModel)]="sendModule.password.attrValue" class="form-control" placeholder="请输入主机密码">
 						</div>
-						<div class="col-md-5 no-padding text-tip">建议复杂度：8-30个字符，且同时包括三项（大写字母，小写字母，数字和特殊符号）</div>
+						<div class="col-md-5 no-padding text-tip">密码复杂度：8-30个字符，且同时包括三项（大写字母，小写字母，数字和特殊符号）</div>
 					</div>
 
 					<div class="col-md-12 no-padding mb20" *ngIf="setPassword">
 						<div class="col-md-2 content-title">确认密码</div>
 						<div class="col-md-4 no-padding"
-							[ngClass]="{'has-error': passwordShadow !== sendModule.password.attrValue}">
+							[ngClass]="{'has-error': check.passwordShadow === false }">
 
-							<input type="password" class="form-control"  [(ngModel)]="passwordShadow"  placeholder="请再次输入主机密码">
+							<input type="password" class="form-control" (keyup)="checkValue('passwordShadow')"  [(ngModel)]="passwordShadow"  placeholder="请再次输入主机密码">
 						</div>
 					</div>
 
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">实例名称</div>
-						<div class="col-md-4 no-padding">
-							<input type="text" [(ngModel)]="sendModule.instancename.attrValue" class="form-control" placeholder="如不填写，则系统自动生成">
+						<div class="col-md-4 no-padding"
+							[ngClass]="{'has-error': check.instancename === false }">
+							
+							<input type="text" [(ngModel)]="sendModule.instancename.attrValue" (keyup)="checkValue('instancename')" class="form-control" placeholder="如不填写，则系统自动生成">
 						</div>
 						<div class="col-md-5 no-padding text-tip">2-68个字符，以大小写字母或者中文开头，可包含数字，“.”, "-", "_"</div>
 					</div>
@@ -211,9 +212,9 @@
 								[ngValue]="value" >{{ value.attrDisplayValue }}</option>
 							</select>
 						</div>
-						<div class="col-md-2 no-padding mr10">
+						<div class="col-md-2 no-padding mr10" [ngClass]="{'has-error': check.timeline === false }">
 							<input [disabled]="timeForever" 
-								   (keyup)="setVmPrice();setDiskPrice();" 
+								   (keyup)="checkValue('timeline');setVmPrice();setDiskPrice();" 
 								   [(ngModel)]="sendModule.timeline.attrValue" type="text" class="form-control">
 						</div>
 						<div class="col-md-2 no-padding">

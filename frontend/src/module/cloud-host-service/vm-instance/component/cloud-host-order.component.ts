@@ -44,6 +44,8 @@ export class cloudHostComponentOrder implements OnInit {
 	diskTotalPrice : number = 0; //云硬盘费用
 	diskUnitType : number = 0; //云硬盘类型
 
+	check = {};
+
 
 	@ViewChild('cartButton') cartButton;
 	@ViewChild('storage') storage;
@@ -153,8 +155,6 @@ export class cloudHostComponentOrder implements OnInit {
 	 * @return {PayLoad[]} [description]
 	 */
 	private payLoadFormat(): PayLoad[] {
-		//临时处理 演示用
-		this.sendModule.bootsize.attrValue = "20";
 
 		/****下面开始处云主机订单的逻辑****/
 		let payloadList = this.sendModuleToPay(),
@@ -330,12 +330,63 @@ console.log(`[${sku.skuId}]`, "云硬盘")
 		return parseInt(value);
 	}
 
+	checkValue(value?:string){ //动态验证
+		const regs = { 
+			platform : () => !!this.sendModule.platform.attrValue,
+			zone : () => !!this.sendModule.zone.attrValue,
+			cpu : () => !!this.sendModule.cpu.attrValue,
+			mem : () => !!this.sendModule.mem.attrValue,
+			networktype : () => !!this.sendModule.networktype.attrValue,
+			securitygroup : () => !!this.sendModule.securitygroup.attrValue,
+			startupsource : () => !!this.sendModule.startupsource.attrValue,
+			imagetype : () => !!this.sendModule.imagetype.attrValue,
+			os : () => !!this.sendModule.os.attrValue,
+			password : () => /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^\sA-Za-z0-9])\S{8,20}$/.test(this.sendModule.password.attrValue),
+			passwordShadow : () => this.passwordShadow === this.sendModule.password.attrValue,
+			instancename : () => !this.sendModule.instancename.attrValue || /^[a-zA-Z\u4e00-\u9fa5].{1,67}/.test(this.sendModule.instancename.attrValue),
+			timeline : () => this.sendModule.timeline.attrValue && /^\d*$/.test(this.sendModule.timeline.attrValue.trim()) && +this.sendModule.timeline.attrValue.trim() <= 999,
+			timelineunit : () => !!this.sendModule.timelineunit.attrValue
+		};
+
+		const alertValue = {
+			password : "密码格式不正确",
+			passwordShadow : "两次密码输入不一致",
+			instancename : "主机名称格式不正确",
+			timeline : "请输入购买时长为最大不超过999的数字",
+			platform : "请选择云平台",
+			zone : "请选择可用区",
+			cpu : "请选择cpu",
+			mem : "请选择内存",
+			networktype : "请选择网络类型",
+			securitygroup : "请选择安全组",
+			startupsource : "请选择启动源",
+			imagetype : "请选择镜像类型",
+			os : "请选择镜像名称",
+			timelineunit : "请选择网络类型"
+		}
+
+		const check = value => {
+			this.check[value] = regs[value]();
+			if(!this.check[value]) return alertValue[value];
+		} 
+
+		if(!value){
+			for(let reg in regs){
+				let is = check(reg);
+				if(is) return is;
+			}
+		}else {
+			return check(value);
+		}
+	}
 
 	checkInput():boolean {
 		const al = value => !!alert(value);
 
-		if(!this.vmSku.skuId) return al("sku不正确")
-		if(!this.sendModule.timeline.attrValue) return al("请选择购买时长");
+		// if(!this.vmSku.skuId) return al("sku不正确");
+
+		const value = this.checkValue();
+		if(value) return al(value);
 		return true;
 	}
 
