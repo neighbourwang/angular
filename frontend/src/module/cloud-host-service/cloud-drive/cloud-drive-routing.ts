@@ -2,18 +2,27 @@ import { ModuleWithProviders } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 //component
-import { cloudDriveListComponent } from './component/cloud-drive-list.component';
-
-import { cloudDriveComponentOrder } from './component/cloud-drive-order.component';
+import { osDiskOrderComponent } from './component/os-disk-order.component';
+import { vwDiskOrderComponent } from './component/vw-disk-order.component';
+import { osDiskListComponent } from './component/os-disk-list.component';
+import { vwDiskListComponent } from './component/vw-disk-list.component';
 
 
 export const CloudDriveRouting: ModuleWithProviders = RouterModule.forChild([
     {
         path: 'cloud-host-service/cloud-drive-list',
-        component: cloudDriveListComponent
+        component: osDiskListComponent
+    },
+    {
+        path: 'cloud-host-service/vw-disk-list',
+        component: vwDiskListComponent
     },
     {
         path: 'cloud-host-service/cloud-drive-order',
-        component: cloudDriveComponentOrder
+        component: osDiskOrderComponent
+    },
+    {
+        path: 'cloud-host-service/vw-disk-order',
+        component: vwDiskOrderComponent
     },
 ]);
