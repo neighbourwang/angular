@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService, PopupComponent, PaginationComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../../architecture';
+import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService, PopupComponent, 
+    PaginationComponent, ConfirmComponent, SystemDictionary } from '../../../../../architecture';
 
 //model
 import { VmwareImgModel, VmwareEntModel, CriteriaQuery, TenantModel } from '../model/vmware-img-list.model';
@@ -59,17 +60,11 @@ export class VmwareImgListComponent implements OnInit {
     pageSize = 5;
     totalPage = 2;
 
-    //*
-    typeDict: Array<SystemDictionary>;//镜像类型
-    statusDict: Array<SystemDictionary>;//镜像状态
-    bitDict: Array<SystemDictionary>;//os位数
-    osDict: Array<SystemDictionary>; //os类型
-    //*/
-    
+    typeDictArray: Array<SystemDictionary> = [];    
     statusDictArray: Array<SystemDictionary> = [];
     bitDictArray: Array<SystemDictionary> = [];
     osDictArray: Array<SystemDictionary> = [];
-
+    
     platformId: string = "";
     platformName: string = "";
     queryOpt: CriteriaQuery = new CriteriaQuery();
@@ -101,7 +96,12 @@ export class VmwareImgListComponent implements OnInit {
             this.platformName = params['platformName'] ? params['platformName']:"上海HPE VMware云平台";
             console.log("接收的platformName:" + this.platformName);
 		});
-        /*
+
+        this.dictService.typeDict
+        .then((items) => {
+            this.typeDictArray = items;
+            console.log(this.typeDictArray, "this.typeDictArray");
+        });        
         this.dictService.statusDict
         .then((items) => {
             this.statusDictArray = items;
@@ -117,32 +117,7 @@ export class VmwareImgListComponent implements OnInit {
             this.osDictArray = items;
             console.log(this.osDictArray, "this.osDictArray");
         });
-        */
-/*
-        this.dicService.getItems("IMAGES", "TYPE")
-            .then(
-            (dic) => {
-                this.typeDict = dic;
-                console.log(this.typeDict, "typeDict!!!");
-                return this.dicService.getItems("IMAGES", "BITS_TYPE");
-            })
-            .then((dic) => {
-                this.bitDict = dic;
-                console.log(this.bitDict, "bitDict!!!");
-                return this.dicService.getItems("IMAGES", "ADM_STATUS");
-            })
-            .then((dic) => {
-                this.statusDict = dic;
-                console.log(this.statusDict, "statusDict!!!");
-                return this.dicService.getItems("IMAGES", "OS");
-            })
-            .then((dic) => {
-                this.osDict = dic;
-                console.log(this.osDict, "osDict!!!");
-                this.getEntList();
-                this.getVmwareImgList();
-            });
-*/
+
         this.getEntList();
         this.getVmwareImgList();
 
@@ -266,7 +241,7 @@ export class VmwareImgListComponent implements OnInit {
         let image = this.getSelected();
         if (image) {
             this.selectedimg = image;
-            if(this.selectedimg.status == this.statusDict.find(n => n.code === "ENABLE").value){
+            if(this.selectedimg.status == this.statusDictArray.find(n => n.code === "ENABLE").value){
                 this.showMsg("镜像已启用");
                 return; 
             }
@@ -281,11 +256,11 @@ export class VmwareImgListComponent implements OnInit {
         console.log('clicked acceptVmwareImageEnableModify');        
         if (this.selectedimg) {
             this.layoutService.show();
-            this.service.enableImage(this.selectedimg.id, this.statusDict.find(n => n.code === "ENABLE").value)
+            this.service.enableImage(this.selectedimg.id, this.statusDictArray.find(n => n.code === "ENABLE").value)
                 .then(res => {
                     this.layoutService.hide();
                     if (res && res.resultCode == "100") {                        
-                        this.selectedimg.status = <string>this.statusDict.find(n => n.code === "ENABLE").value;
+                        this.selectedimg.status = <string>this.statusDictArray.find(n => n.code === "ENABLE").value;
                         console.log(res, "镜像启用成功")
                     } else {
                         this.enableimagebox.close();
@@ -316,7 +291,7 @@ export class VmwareImgListComponent implements OnInit {
         let image = this.getSelected();
         if (image) {
             this.selectedimg = image;
-            if(this.selectedimg.status == this.statusDict.find(n => n.code === "FORBIDDEN").value){
+            if(this.selectedimg.status == this.statusDictArray.find(n => n.code === "FORBIDDEN").value){
                 this.showMsg("镜像已被禁用");
                 return; 
             }
@@ -332,11 +307,11 @@ export class VmwareImgListComponent implements OnInit {
         if (this.selectedimg) {
             this.layoutService.show();
             console.log(this.selectedimg.id);
-            this.service.disableImage(this.selectedimg.id, this.statusDict.find(n => n.code === "FORBIDDEN").value)
+            this.service.disableImage(this.selectedimg.id, this.statusDictArray.find(n => n.code === "FORBIDDEN").value)
                 .then(res => {
                     this.layoutService.hide();
                     if (res && res.resultCode == "100") {                        
-                        this.selectedimg.status = <string>this.statusDict.find(n => n.code === "FORBIDDEN").value;
+                        this.selectedimg.status = <string>this.statusDictArray.find(n => n.code === "FORBIDDEN").value;
                         console.log(res, "镜像禁用成功")
                     } else {
                         this.disableimagebox.close();
@@ -491,7 +466,7 @@ export class VmwareImgListComponent implements OnInit {
     VmwareImgEntSetup(): void {
         let image = this.getSelected();
         if (image) {
-            if (image.type == this.typeDict.find(n => n.code === "ENT_IMAGE").value) {
+            if (image.type == this.typeDictArray.find(n => n.code === "ENT_IMAGE").value) {
                 this.router.navigate([`host-mng/img-mng/vmware-img-ent-setup/${this.platformId}`,
                 {
                     "imageId": image.id,

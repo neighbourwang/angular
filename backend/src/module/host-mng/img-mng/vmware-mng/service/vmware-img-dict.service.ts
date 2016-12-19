@@ -18,23 +18,23 @@ export class VmwareImgDictService{
         this.restApiCfg.loadCfgData();
     }
     
-    typeDict = this.dict.get({
+    typeDict = this.dict.get({  //镜像类型
         owner: "IMAGES",
         field: "TYPE"
     });
-    statusDict = this.dict.get({
+    statusDict = this.dict.get({  //镜像状态
         owner: "IMAGES",
         field: "ADM_STATUS"
     });
-    bitDict = this.dict.get({
+    bitDict = this.dict.get({  //os位数
         owner: "IMAGES",
         field: "BITS_TYPE"
     });
-    osDict = this.dict.get({
+    osDict = this.dict.get({  //os类型
         owner: "IMAGES",
         field: "OS"
     });
-    syncReslDic = this.dict.get({
+    syncReslDict = this.dict.get({   //同步结果
         owner: "IMAGES",
         field: "SYNC_RESULT"
     });

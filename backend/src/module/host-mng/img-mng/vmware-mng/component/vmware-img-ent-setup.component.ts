@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService, PaginationComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../../architecture';
+import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService, 
+    PaginationComponent, ConfirmComponent, SystemDictionary } from '../../../../../architecture';
 
 //model
 import { EnterpriseModel } from '../model/vmware-img-list.model';
@@ -46,10 +47,6 @@ export class VmwareImgEntSetupComponent implements OnInit {
     noticeTitle = "";
     noticeMsg = "";
 
-    //字典
-    bitDict: Array<SystemDictionary>;//os位数
-    osDict: Array<SystemDictionary>;
-
     //路由参数
     platformId: string;
     imageId: string;
@@ -61,9 +58,7 @@ export class VmwareImgEntSetupComponent implements OnInit {
     //
     selectedEnts: Array<EnterpriseModel>;
     unselectedEnts: Array<EnterpriseModel>;
-
-
-
+    
     ngOnInit() {
         this.activatedRouter.params.forEach((params: Params) => {
             if (params["imageId"] != null) {
@@ -88,22 +83,6 @@ export class VmwareImgEntSetupComponent implements OnInit {
             }
         });
         this.getAllEnts();
-        /*
-        this.dicService.getItems("IMAGES", "BITS_TYPE")
-            .then(
-                (dic) => {
-                this.bitDict = dic;
-                console.log(this.bitDict, "bitDict!!!");
-                return this.dicService.getItems("IMAGES", "OS");
-            })
-            .then(
-                (dic) => {
-                this.osDict = dic;
-                console.log(this.osDict, "osDict!!!");
-                this.getAllEnts();
-            });
-        */
-
     }
 
 

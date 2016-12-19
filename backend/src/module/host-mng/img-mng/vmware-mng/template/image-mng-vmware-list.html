@@ -81,7 +81,7 @@
                         </div>
                     </td>
                     <td>{{img.os | dict:this.dictService.osDict | async}}</td>
-                    <td>{{img.bitsType | dict:this.dictService.bitsType | async}}</td>
+                    <td>{{img.bitsType | dict:this.dictService.bitDict | async}}</td>
                     <td>{{img.capacity | formatCapacity}}</td>
                     <td>{{img.type | dict:this.dictService.typeDict | async}}</td>
                     <td [ngSwitch]="displayIt(img.tenants)">
