@@ -7,7 +7,7 @@ import { VmwareImgModel, VmwareEntModel, CriteriaQuery, TenantModel } from '../m
 
 //service
 import { VmwareImgListService } from '../service/vmware-img-list.service';
-import { VmwareEntListService } from '../service/enterprise-list.service';
+//import { VmwareEntListService } from '../service/enterprise-list.service';
 
 @Component({
     selector: "vmware-img-list",
@@ -22,7 +22,7 @@ export class VmwareImgListComponent implements OnInit {
         private router: Router,
         private dicService: SystemDictionaryService,
         private service: VmwareImgListService,
-        private entService: VmwareEntListService,
+        //private entService: VmwareEntListService,
         private layoutService: LayoutService,
         private validationService: ValidationService,
         private activatedRouter : ActivatedRoute
@@ -194,7 +194,7 @@ export class VmwareImgListComponent implements OnInit {
 
     getEntList(): void {
         this.layoutService.show();
-        this.entService.getEntList(this.platformId)
+        this.service.getEntList(this.platformId)
             .then(
             response => {   
                 this.layoutService.hide();             
