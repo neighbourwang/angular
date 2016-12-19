@@ -7,7 +7,7 @@ import { VmwareImgModel, VmwareEntModel, CriteriaQuery, TenantModel } from '../m
 
 //service
 import { VmwareImgListService } from '../service/vmware-img-list.service';
-//import { VmwareEntListService } from '../service/enterprise-list.service';
+import { VmwareImgDictService } from '../service/vmware-img-dict.service';
 
 @Component({
     selector: "vmware-img-list",
@@ -20,9 +20,8 @@ export class VmwareImgListComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private dicService: SystemDictionaryService,
+        private dictService: VmwareImgDictService,
         private service: VmwareImgListService,
-        //private entService: VmwareEntListService,
         private layoutService: LayoutService,
         private validationService: ValidationService,
         private activatedRouter : ActivatedRoute
@@ -60,10 +59,16 @@ export class VmwareImgListComponent implements OnInit {
     pageSize = 5;
     totalPage = 2;
 
+    //*
     typeDict: Array<SystemDictionary>;//镜像类型
     statusDict: Array<SystemDictionary>;//镜像状态
     bitDict: Array<SystemDictionary>;//os位数
     osDict: Array<SystemDictionary>; //os类型
+    //*/
+    
+    statusDictArray: Array<SystemDictionary> = [];
+    bitDictArray: Array<SystemDictionary> = [];
+    osDictArray: Array<SystemDictionary> = [];
 
     platformId: string = "";
     platformName: string = "";
@@ -96,7 +101,24 @@ export class VmwareImgListComponent implements OnInit {
             this.platformName = params['platformName'] ? params['platformName']:"上海HPE VMware云平台";
             console.log("接收的platformName:" + this.platformName);
 		});
-
+        /*
+        this.dictService.statusDict
+        .then((items) => {
+            this.statusDictArray = items;
+            console.log(this.statusDictArray, "this.statusDictArray");
+        });
+        this.dictService.bitDict
+        .then((items) => {
+            this.bitDictArray = items;
+            console.log(this.bitDictArray, "this.bitDictArray");
+        });
+        this.dictService.osDict
+        .then((items) => {
+            this.osDictArray = items;
+            console.log(this.osDictArray, "this.osDictArray");
+        });
+        */
+/*
         this.dicService.getItems("IMAGES", "TYPE")
             .then(
             (dic) => {
@@ -120,6 +142,10 @@ export class VmwareImgListComponent implements OnInit {
                 this.getEntList();
                 this.getVmwareImgList();
             });
+*/
+        this.getEntList();
+        this.getVmwareImgList();
+
     }
 
     showMsg(msg: string) {
@@ -472,7 +498,7 @@ export class VmwareImgListComponent implements OnInit {
                     "imageName": image.name,
                     "imagedisplayName": image.displayName,
                     "imageOs": image.os,
-                    "imagebitsTyep": image.bitsType,
+                    "imagebitsType": image.bitsType,
                 }
                 ]);
             } else {

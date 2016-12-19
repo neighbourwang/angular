@@ -7,6 +7,7 @@ import { EnterpriseModel } from '../model/vmware-img-list.model';
 
 //service
 import { VmwareImgEntSetupService } from '../service/vmware-img-ent-setup.service';
+import { VmwareImgDictService } from '../service/vmware-img-dict.service';
 
 @Component({
     selector: "vmware-img-ent-setup",
@@ -20,7 +21,7 @@ export class VmwareImgEntSetupComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private dicService: SystemDictionaryService,
+        private dictService: VmwareImgDictService,
         private entService: VmwareImgEntSetupService,
         private layoutService: LayoutService,
         private validationService: ValidationService,
@@ -55,7 +56,7 @@ export class VmwareImgEntSetupComponent implements OnInit {
     imageName: string;
     imagedisplayName: string;
     imageOs: string;
-    imagebitsTyep: string;
+    imagebitsType: string;
 
     //
     selectedEnts: Array<EnterpriseModel>;
@@ -81,11 +82,13 @@ export class VmwareImgEntSetupComponent implements OnInit {
                 this.imageOs = params["imageOs"];                
                 console.log(this.imageOs, "this.imageOs");
             }
-            if (params["imagebitsTyep"] != null) {
-                this.imagebitsTyep = params["imagebitsTyep"];                
-                console.log(this.imagebitsTyep, "this.imagebitsTyep");
+            if (params["imagebitsType"] != null) {
+                this.imagebitsType = params["imagebitsType"];                
+                console.log(this.imagebitsType, "this.imagebitsType");
             }
         });
+        this.getAllEnts();
+        /*
         this.dicService.getItems("IMAGES", "BITS_TYPE")
             .then(
                 (dic) => {
@@ -99,6 +102,7 @@ export class VmwareImgEntSetupComponent implements OnInit {
                 console.log(this.osDict, "osDict!!!");
                 this.getAllEnts();
             });
+        */
 
     }
 

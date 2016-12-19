@@ -15,6 +15,7 @@ import { VmwareImgEntSetupComponent } from './component/vmware-img-ent-setup.com
 import { VmwareImgListService } from './service/vmware-img-list.service';
 import { VmwareImgEntSetupService } from './service/vmware-img-ent-setup.service';
 import { VmwareImgSyncService } from './service/vmware-img-sync.service';
+import { VmwareImgDictService } from './service/vmware-img-dict.service';
 
 
 
@@ -37,7 +38,8 @@ import { VmwareImgSyncService } from './service/vmware-img-sync.service';
     providers: [
         VmwareImgListService,
         VmwareImgEntSetupService,
-        VmwareImgSyncService
+        VmwareImgSyncService,
+        VmwareImgDictService
     ]
 
 })

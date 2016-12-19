@@ -7,6 +7,7 @@ import { VmwareImgSyncModel, TenantModel } from '../model/vmware-img-list.model'
 
 //service
 import { VmwareImgSyncService } from '../service/vmware-img-sync.service';
+import { VmwareImgDictService } from '../service/vmware-img-dict.service';
 
 @Component({
     selector: "vmware-img-sync",
@@ -20,7 +21,7 @@ export class VmwareImgSyncComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private dicService: SystemDictionaryService,
+        private dictService: VmwareImgDictService,
         private syncService: VmwareImgSyncService,
         private layoutService: LayoutService,
         private validationService: ValidationService,
@@ -46,10 +47,12 @@ export class VmwareImgSyncComponent implements OnInit {
     noticeMsg = "";
 
     typeDict: Array<SystemDictionary>;//镜像类型
-    statusDict: Array<SystemDictionary>;//镜像状态
     bitDict: Array<SystemDictionary>;//os位数
     osDict: Array<SystemDictionary>;//os类型
     syncReslDict: Array<SystemDictionary>;//同步结果
+
+    bitDictArray: Array<SystemDictionary>;
+    osDictArray: Array<SystemDictionary>;
 
     platformId: string;
     platformName: string;
@@ -64,6 +67,18 @@ export class VmwareImgSyncComponent implements OnInit {
             console.log("接收的platformName:" + this.platformName);
 		});
 
+        this.dictService.bitDict
+        .then((items) => {
+            this.bitDictArray = items;
+        });
+        this.dictService.osDict
+        .then((items) => {
+            this.osDictArray = items;
+        });
+
+        this.getVmwareImgSyncList();
+        
+        /*
         this.dicService.getItems("IMAGES", "TYPE")
             .then(
             (dic) => {
@@ -91,6 +106,7 @@ export class VmwareImgSyncComponent implements OnInit {
                 console.log(this.osDict, "osDict!!!");
                 this.getVmwareImgSyncList();
             });
+        */
 
     }
 
