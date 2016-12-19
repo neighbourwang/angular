@@ -2,15 +2,22 @@
 <html>
 <head>
 	<title>本地开发模式登录</title>
+	<style type="text/css">
+		.box {width: 300px; margin: 200px auto 0; font-family: "微软雅黑"}
+		input,select {width: 300px}
+	</style>
 </head>
 <body>
-<h2>本地开发模式登录</h2>
-<div class="login-box">
-	<div class="main-center l-box">
-		<div class="l-block float-right">
-			<input id="l-username" placeholder="用户名" value="gavin@hpe.com" class="l-input" type="text" name="">
-			<input id="l-password" placeholder="密码" value="12345" class="l-input" type="password" name="">
-			<input id="submit-button" class="l-submit" type="submit" value="登录" name="">
+<div class="box">
+	<h2 style="text-align: center;">本地开发模式登录 - 后台</h2>
+	<div class="login-box">
+		<div class="main-center l-box">
+			<div class="l-block float-right">
+				<p><input id="l-username" placeholder="用户名" value="gavin@hpe.com" class="l-input" type="text" name=""></p>
+				<p><input id="l-password" placeholder="密码" value="12345" class="l-input" type="password" name=""></p>
+				<div id="account-box" style="margin-bottom: 20px"></div>
+				<input id="submit-button" class="l-submit" type="submit" value="登录" name="">
+			</div>
 		</div>
 	</div>
 </div>
@@ -29,20 +36,52 @@ const C = {
 	basePort : "30072"
 }
 
+const key = "$a6dd4ac4-c1d1-11e6-80e4-0050568a49fd$";
+let isAd = false;
+let isChecked = 0;
+
 $("#l-username").blur(function(){
 	$.get(`http://${C.baseIp}:${C.basePort}/basis/noauth/ldaps?login=${$(this).val()}`, res => {
-		console.log(res)
+		if (res.resultContent.length > 0) {
+			isAd = true;
+			
+			let options = "";
+			res.resultContent.forEach(list => {
+				options += `<option value="${list.id}">${list.name}</option>`;
+			})
+			let html = `
+				<p class="account-title pdt10 pdb10">请选择认证源</p>
+				<select id="account-select" class="form-control input-sm">
+					${options}
+				</select>`;
+
+			$("#account-box").html(html);
+		}else{
+			isAd = false;
+			$("#account-box").html("");
+		}
 	})
 });
 
-let isChecked = 0;
+$("#l-password").keyup(function(e) {
+	let code = e.which; 
+    if(code==13) e.preventDefault();
+    if(code==32||code==13||code==188||code==186){
+        $("#submit-button").click();
+    } 
+});
+
 $("#submit-button").click(function(){
-	let username = $("#l-username").val();
-	let password = $("#l-password").val();
+	let username = $("#l-username").val().trim(),
+		password = $("#l-password").val().trim(),
+		adId = $("#account-select").val() || "";
 
 	if($("#l-username").val() === "") return alert("请输入用户名");
 	if($("#l-password").val() === "") return alert("请输入密码");
+	if (isAd && adId === "") return alert("请选择认证源");
 	if(isChecked) return;
+
+	if (adId) password  = password + key + adId; //把adid加在密码后面
 
 	isChecked = 1;
 	$("#submit-button").val("正在登录...");
@@ -69,7 +108,7 @@ $("#submit-button").click(function(){
 	            success: function (response) {
 	                sessionStorage["userInfo"] = JSON.stringify(response.resultContent);
 	                sessionStorage["token"] = token;
-					location.href="/"
+					location.href="/pf-mng2/cl-mng/cl-mng"
 					isChecked = 0;
 	            },
 	            error: function (xhr, status) {
@@ -84,6 +123,7 @@ $("#submit-button").click(function(){
         }
     }); 
 })
+
 </script>
 </body>
 </html>
