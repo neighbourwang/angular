@@ -5,7 +5,7 @@ import { RestApiCfg, RestApi } from '../../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
 //model
-import { VmwareImgModel, CriteriaQuery } from '../model/vmware-img-list.model';
+import { VmwareImgModel, CriteriaQuery, VmwareEntModel } from '../model/vmware-img-list.model';
 
 //mock
 import { VmwareImgModel_mock } from '../model/vmware-img-list.mock';
@@ -113,6 +113,27 @@ export class VmwareImgListService{
         //*/
 
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });
+    }
+
+    getEntList( platformId: string ): Promise<any>{
+        //*
+        const pathParams = [
+            {
+                key: "platformId",
+                value: platformId
+
+            }
+        ];
+        //const obj = {
+        //        "platformId": criteriaQuery.platformId,
+        //        "type": criteriaQuery.type,
+        //        "tenantId": criteriaQuery.tenantId
+        //};
+        console.log(platformId, "platformId in getEntList()");
+        const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.dropdown-ent.list");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //*/
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return EnterpriseModel_mock });
     }
     
 }
