@@ -25,9 +25,12 @@ export class CheckMngHascheckComponent implements OnInit{
 	
 	private _param:CheckCenterParam = new CheckCenterParam();
 	private _departmentLoader:ItemLoader<{id:string;name:string}> = null; //部门列表
+	private _submiterLoader:ItemLoader<{id:string;name:string}> = null;//提交者列表
 	private _serviceTypeDic:DicLoader = null; //产品类型
 	private _isAdvSearch:boolean = false;//高级查询
 	private _orderTypeDic : DicLoader =null;//订单类型
+	
+	private _checkerLoader:ItemLoader<{id:string;name:string}> = null;//审批人列表
 
 	private _entId:string = "191af465-b5dc-4992-a5c9-459e339dc719";
 
@@ -84,11 +87,19 @@ export class CheckMngHascheckComponent implements OnInit{
 		//部门列表配置
 		this._departmentLoader = new ItemLoader<{id:string;name:string}>(false, "部门列表", "op-center.order-mng.department-list.get", _restApiCfg, _restApi);
 
+
+		//提交者列表配置
+		this._submiterLoader = new ItemLoader<{id:string;name:string}>(false, "提交者列表", "check-center.submiter-list.get", _restApiCfg, _restApi);//无API接口
+	
+
+		//审批人列表配置
+		this._checkerLoader = new ItemLoader<{id:string;name:string}>(false, "提交者列表", "check-center.checker-list.get", _restApiCfg, _restApi);//无API接口
+	
 		//产品类型配置
 		this._serviceTypeDic = new DicLoader(_restApiCfg, _restApi, "GLOBAL", "SERVICE_TYPE");//²úÆ·ÀàÐÍÁÐ±í', "op-center.order-mng.product-type-list.get", _restApiCfg, _restApi);
 
         //订单类型
-		this._orderTypeDic = new DicLoader(_restApiCfg, _restApi, "ORDER", "SERVICE_TYPE");
+		this._orderTypeDic = new DicLoader(_restApiCfg, _restApi, "ORDER", "ORDER_TYPE");
 
 
 	}

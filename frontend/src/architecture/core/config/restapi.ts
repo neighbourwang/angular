@@ -464,6 +464,24 @@ export let RestApis: RestApiModel[] = [
     },
     
     // 审批中心
+     {
+        "desc": "提交者列表",
+        "id": "check-center.submiter-list.get",
+        "method": "GET",
+        "url": ""
+    },
+    {
+        "desc": "审批人列表",
+        "id": "check-center.checker-list.get",
+        "method": "GET",
+        "url": ""
+    },
+    {
+        "desc": "订单类型列表",
+        "id": "check-center.orderType-list.get",
+        "method": "GET",
+        "url": ""
+    },
     {
         "desc": "获取审批列表",
         "id": "check-center.get-list.post",
