@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi } from '../../../../../architecture';
+import { RestApiCfg, RestApi, SystemDictionaryService} from '../../../../../architecture';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -12,14 +12,19 @@ export class ImgIndexService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private dict: SystemDictionaryService
     ) {
     }
 
     init(): void {
         this.restApiCfg.loadCfgData();
     }
-
+     //平台类型
+    typeDic = this.dict.get({
+        owner: "PLATFORM",
+        field: "TYPE"
+    });
     getPlatforms(pageIndex: number, pageSize: number): Promise<any> {
         const pathParams = [
             {

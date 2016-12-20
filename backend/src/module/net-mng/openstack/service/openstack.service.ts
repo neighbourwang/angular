@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi } from '../../../../architecture';
+import { RestApiCfg, RestApi , SystemDictionaryService} from '../../../../architecture';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -15,7 +15,8 @@ export class OpenstackService{
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private dict: SystemDictionaryService
     ) {
     }
 
@@ -137,4 +138,31 @@ export class OpenstackService{
         return this.restApi.request(api.method, api.url, pathParams, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return Tenants_mock});
     }
+
+     //数据字典
+     ////网络类型
+    typeDic = this.dict.get({
+        owner: "NETWORK", 
+        field: "TYPE"
+    });
+    //是否共享
+    sharedDic  = this.dict.get({
+        owner: "NETWORK", 
+        field: "SHARED"
+    });
+    //运行状态
+    stateDic = this.dict.get({
+        owner: "NETWORK", 
+        field: "STATE"
+    });
+    //状态
+    statusDic = this.dict.get({
+        owner: "NETWORK", 
+        field: "STATUS"
+    });
+    //同步结果
+    synDic = this.dict.get({
+        owner: "NETWORK", 
+        field: "SYNC"
+    })
 }

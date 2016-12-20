@@ -44,19 +44,24 @@
                     <td >{{network.subnetName}}</td>
                     <td >
                         <div *ngIf="network.syncResult==1">
-                            <input type="text" class="" [(ngModel)]="network.subnetDisplayName" />
+                            <input type="text"  style="padding:1px;text-align:center" class="" [(ngModel)]="network.subnetDisplayName" />
                         </div>
                         <div *ngIf="network.syncResult!=1">
                             {{network.subnetDisplayName}}
                         </div>
                         </td>
                     <td >{{network.segmentCIDR}}</td>
-                    <!--<td class="text-center">{{network.gateway}}</td>-->
                     <td>{{network.tenantName}}</td>
-                    <td>{{getDicText(network.networkType,this.typeDic)}}</td>
+                    
+                    <!--<td>{{getDicText(network.networkType,this.typeDic)}}</td>
                     <td>{{getDicText(network.shared,this.sharedDic)}}</td>
                     <td>{{getDicText(network.state,this.stateDic)}}</td>
-                    <td>{{getDicText(network.syncResult,this.synDic)}}</td>
+                    <td >{{getDicText(network.syncResult,this.synDic)}}</td>-->
+
+                    <td >{{network.networkType | dict:this.service.typeDic | async }}</td>
+                    <td >{{network.shared | dict:this.service.sharedDic | async }}</td>
+                    <td >{{network.state | dict:this.service.stateDic | async }}</td>
+                    <td >{{network.syncResult | dict:this.service.synDic | async}}</td>
                     <td ><span [(ngSwitch)]="network.syncResult">
                         <span *ngSwitchCase="'1'">
                             <button class="fox-cloud-button-md fox-cloud-button-white" (click)="addOne(network)">添加</button>

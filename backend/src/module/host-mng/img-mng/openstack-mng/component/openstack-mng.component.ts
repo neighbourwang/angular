@@ -19,7 +19,7 @@ export class OpenstackMngComponent implements OnInit{
     constructor(
         private router: ActivatedRoute,
         private router2: Router,
-        private dicService: SystemDictionaryService,
+        //private dicService: SystemDictionaryService,
         private service: OpenstackMngService,
         private layoutService: LayoutService,
         private validationService: ValidationService,
@@ -54,11 +54,12 @@ export class OpenstackMngComponent implements OnInit{
     noticeTitle = "";
     noticeMsg = "";
 
-    typeDic: Array<SystemDictionary>;//镜像类型
-    bits_typeDic: Array<SystemDictionary>;//系统位数
-    ownerDic: Array<SystemDictionary>;//归属
-    statusDic: Array<SystemDictionary>;//状态
-    osDic:Array<SystemDictionary>;//os
+    // typeDic: Array<SystemDictionary>;//镜像类型
+    // bits_typeDic: Array<SystemDictionary>;//系统位数
+    // ownerDic: Array<SystemDictionary>;//归属
+    // statusDic: Array<SystemDictionary>;//状态
+    // osDic:Array<SystemDictionary>;//os
+
     selectedImage:Image = null;
     tempEditImage:Image = new Image();
     temp2:Image = new Image();
@@ -70,30 +71,31 @@ export class OpenstackMngComponent implements OnInit{
 			console.log("接收的platformId:" + this.platformId);
             console.log("接收的platformName:" + this.platformName);
 		});
-        this.dicService.getItems("IMAGES", "TYPE")
-            .then(
-            (dic) => {
-                this.typeDic = dic;
-                return this.dicService.getItems("IMAGES", "BITS_TYPE");
-            })
-            .then((dic) => {
-                this.bits_typeDic = dic;
-                return this.dicService.getItems("IMAGES", "OWNER");
-            })
-            .then((dic) => {
-                this.ownerDic = dic;
-                return this.dicService.getItems("IMAGES", "ADM_STATUS");
-            })
-            .then((dic) => {
-                this.statusDic = dic;
-                return this.dicService.getItems("IMAGES","OS");
-            })
-            .then((dic)=>{
-                this.osDic = dic;
-                this.getTenants();
+        // this.dicService.getItems("IMAGES", "TYPE")
+        //     .then(
+        //     (dic) => {
+        //         this.typeDic = dic;
+        //         return this.dicService.getItems("IMAGES", "BITS_TYPE");
+        //     })
+        //     .then((dic) => {
+        //         this.bits_typeDic = dic;
+        //         return this.dicService.getItems("IMAGES", "OWNER");
+        //     })
+        //     .then((dic) => {
+        //         this.ownerDic = dic;
+        //         return this.dicService.getItems("IMAGES", "ADM_STATUS");
+        //     })
+        //     .then((dic) => {
+        //         this.statusDic = dic;
+        //         return this.dicService.getItems("IMAGES","OS");
+        //     })
+        //     .then((dic)=>{
+        //         this.osDic = dic;
+        //         this.getTenants();
+        //         this.getImages();
+        //     });
+            this.getTenants();
                 this.getImages();
-                
-            });
     }
 
     getTenants(){
@@ -131,37 +133,37 @@ export class OpenstackMngComponent implements OnInit{
             .catch((e) => this.onRejected(e));
     }
     
-    //根据value获取字典的txt
-    getDicText(value: string, dic: Array<SystemDictionary>): String {
-        if (!$.isArray(dic)) {
-            return value;
-        }
-        const d = dic.find((e) => {
-            return e.value == value;
-        });
-        if (d) {
-            return d.displayValue;
-        } else {
-            return value;
-        }
+    // //根据value获取字典的txt
+    // getDicText(value: string, dic: Array<SystemDictionary>): String {
+    //     if (!$.isArray(dic)) {
+    //         return value;
+    //     }
+    //     const d = dic.find((e) => {
+    //         return e.value == value;
+    //     });
+    //     if (d) {
+    //         return d.displayValue;
+    //     } else {
+    //         return value;
+    //     }
 
-    }
-    //根据value获取字典的txt
-    getDicTextforBit(value: string): String {
-        let dic = this.bits_typeDic;
-        if (!$.isArray(dic)) {
-            return value;
-        }
-        const d = dic.find((e) => {
-            return e.value == value;
-        });
-        if (d) {
-            return d.displayValue;
-        } else {
-            return value;
-        }
+    // }
+    // //根据value获取字典的txt
+    // getDicTextforBit(value: string): String {
+    //     let dic = this.bits_typeDic;
+    //     if (!$.isArray(dic)) {
+    //         return value;
+    //     }
+    //     const d = dic.find((e) => {
+    //         return e.value == value;
+    //     });
+    //     if (d) {
+    //         return d.displayValue;
+    //     } else {
+    //         return value;
+    //     }
 
-    }
+    // }
     selectImage(image:Image){
         this.images.forEach((e)=>{e.selected = false});
         image.selected = true;
