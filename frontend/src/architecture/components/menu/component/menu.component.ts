@@ -150,24 +150,24 @@ const menu: Array<any> = [
     //             "routing": ""
     //         }
     //     ]
-    // },
-    // {
-    //     "label": "审批中心",
-    //     "isOpen": false,
-    //     "icon": "icon-check",
-    //     "top2_menu": [
-    //         {
-    //             "label": "未审批",
-    //             "isOpen": false,
-    //             "routing": "check-center/check-mng-list"
-    //         },
-    //         {
-    //             "label": "已审批",
-    //             "isOpen": false,
-    //             "routing": "check-center/check-mng-hascheck"
-    //         }
-    //     ]
-    // },
+   // },
+    {
+        "label": "审批中心",
+        "isOpen": false,
+        "icon": "icon-check",
+        "top2_menu": [
+            {
+                "label": "未审批",
+                "isOpen": false,
+                "routing": "check-center/check-mng-list"
+            },
+            {
+                "label": "已审批",
+                "isOpen": false,
+                "routing": "check-center/check-mng-hascheck"
+            }
+        ]
+    },
     {
         "label": "费用中心",
         "isOpen": false,
