@@ -18,7 +18,7 @@ export class ImgIndexComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private dicService: SystemDictionaryService,
+        //private dicService: SystemDictionaryService,
         private service: ImgIndexService,
         private layoutService: LayoutService,
         private validationService: ValidationService
@@ -45,13 +45,13 @@ export class ImgIndexComponent implements OnInit {
     
     ngOnInit() {
        
-        this.dicService.getItems("PLATFORM", "TYPE")
-            .then(
-            dic => {
-                this.typeDic = dic;
-                this.getPlatforms();
-            });
-       
+        // this.dicService.getItems("PLATFORM", "TYPE")
+        //     .then(
+        //     dic => {
+        //         this.typeDic = dic;
+        //         this.getPlatforms();
+        //     });
+       this.getPlatforms();
     }
 
 

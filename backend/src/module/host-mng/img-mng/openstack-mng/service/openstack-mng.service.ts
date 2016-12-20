@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi } from '../../../../../architecture';
+import { RestApiCfg, RestApi, SystemDictionaryService} from '../../../../../architecture';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -16,9 +16,40 @@ export class OpenstackMngService{
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private dict:SystemDictionaryService
     ) {
     }
+    //镜像类型
+    typeDic = this.dict.get({
+        owner: "IMAGES",
+        field: "TYPE"
+    });
+    //系统位数
+    bits_typeDic = this.dict.get({
+        owner: "IMAGES",
+        field: "BITS_TYPE"
+    });
+    //归属
+    ownerDic = this.dict.get({
+        owner: "IMAGES",
+        field: "OWNER"
+    });
+    //状态
+    statusDic = this.dict.get({
+        owner: "IMAGES",
+        field: "ADM_STATUS"
+    });
+    //同步结果
+    syncDic = this.dict.get({
+        owner: "IMAGES",
+        field: "SYNC_RESULT"
+    });
+    //操作系统
+    osDic = this.dict.get({
+        owner: "IMAGES",
+        field: "OS"
+    });
 
     getImages(criteriaQuery: CriteriaQuery, platformId:string, pageIndex: number, pageSize: number): Promise<any>{
         const pathParams = [
