@@ -29,7 +29,7 @@ export class CheckMngListComponent implements OnInit{
 	private _serviceTypeDic:DicLoader = null; //产品类型
 	private _orderTypeDic:DicLoader = null; //订单类型
 	private _isAdvSearch:boolean = false;//高级查询
-	private _userListLoader:ItemLoader<{id:string;name:string}> = null;//用户列表
+	private _userListLoader:ItemLoader<{id:string;name:string}> = null;//提交者列表
 	private _listLoader:ItemLoader<CheckListItem> = null;//列表数据加载
 	private _refuseHandler:ItemLoader<any> = null;//拒绝
 	private _selectedItem:CheckListItem = null;//当前选择的数据
@@ -70,7 +70,7 @@ export class CheckMngListComponent implements OnInit{
 				obj.orderTypeName = item.orderType;//订单类型
 				obj.userStr = item.submiter;// 用户,提交者
 				obj.departmentStr = item.departmentName;// 部门
-				obj.entStr = item.enterpriszeName;// 企业
+				obj.entStr = item.enterpriseName;// 企业
 				//费用
 				obj.billingModeNum =item.billingInfo ? item.billingInfo.billingMode: null; //计费模式
 				obj.billingDurationStr = item.period;//订单周期
@@ -111,8 +111,8 @@ export class CheckMngListComponent implements OnInit{
 			this._billinModeDic.UpdateWithDic(target, "billingModeName", "billingModeNum")
 		};
 
-		//用户列表
-		this._userListLoader = new ItemLoader<{id:string;name:string}>(false, "用户列表", "check-center.user-list.get", _restApiCfg, _restApi);
+		//提交者列表
+		this._userListLoader = new ItemLoader<{id:string;name:string}>(false, "提交者列表", "check-center.user-list.get", _restApiCfg, _restApi);
 		this._userListLoader.MapFunc = (source:Array<any>,target:Array<{id:string;name:string}>)=>{
 			target = target.concat(source.map(n=>{
 				return {id:n.key, name:n.value};
@@ -165,7 +165,7 @@ export class CheckMngListComponent implements OnInit{
 
 		
         //匹配后台搜索框参数/authsec/backend/approval/orders/search/paging 
-		param.status = 0;//approvalStatus代表未审批
+		param.approverStatus = 0;//approvalStatus代表未审批
         param.orderCode = this._param.quickSearchStr;//输入订单号快速查询 ？
  		param.enterpriseId = this._param.entIdStr; //企业enterpriseId
 		param.organization = this._param.departmentIdNum; //部门organization？

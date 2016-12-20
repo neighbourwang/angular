@@ -116,7 +116,7 @@ export class CheckMngListComponent implements OnInit{
 		//产品类型配置
 		this._serviceTypeDic = new DicLoader(_restApiCfg, _restApi, "GLOBAL", "SERVICE_TYPE");
         //订单类型
-		this._orderTypeDic = new DicLoader(_restApiCfg, _restApi, "ORDER", "ORRDER_TYPE");
+		this._orderTypeDic = new DicLoader(_restApiCfg, _restApi, "ORDER", "TYPE");
 	}
 	
 	ngOnInit(){

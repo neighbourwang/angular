@@ -99,13 +99,16 @@ export class CheckMngHascheckComponent implements OnInit{
 		this._serviceTypeDic = new DicLoader(_restApiCfg, _restApi, "GLOBAL", "SERVICE_TYPE");//²úÆ·ÀàÐÍÁÐ±í', "op-center.order-mng.product-type-list.get", _restApiCfg, _restApi);
 
         //订单类型
-		this._orderTypeDic = new DicLoader(_restApiCfg, _restApi, "ORDER", "ORDER_TYPE");
+		this._orderTypeDic = new DicLoader(_restApiCfg, _restApi, "ORDER", "TYPE");
 
 
 	}
 	ngOnInit(){
 		this._layoutService.show();
 		this._serviceTypeDic.Go()
+		.then(success =>{
+			return this._orderTypeDic.Go();
+		})
 		.then(success=>{
 			return this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._entId}])
 		})
