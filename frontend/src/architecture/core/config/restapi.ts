@@ -204,7 +204,8 @@ export let RestApis: RestApiModel[] = [
         "desc": "部门列表获取",
         "method": "GET",
         "id": "op-center.order-mng.department-list.get",
-        "url": "basis/authsec/adm/organization/enterprise/{enterpriseId}"        
+        "url": "/basis/authsec/mpp/organizations/page/0/size/10" 
+        //"url": "basis/authsec/adm/organization/enterprise/{enterpriseId}"        
     }
     ,{
         "desc": "区域获取",
@@ -468,13 +469,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "提交者列表",
         "id": "check-center.submiter-list.get",
         "method": "GET",
-        "url": ""
+        "url": "adminui/authsec/approval/department/{departmentId}/users"
     },
     {
         "desc": "审批人列表",
         "id": "check-center.checker-list.get",
         "method": "GET",
-        "url": ""
+        "url": "adminui/authsec/approval/department/{departmentId}/approver"
     },
     {
         "desc": "订单类型列表",

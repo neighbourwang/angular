@@ -192,6 +192,19 @@ export class CheckMngListComponent implements OnInit{
 		});
 		
 	}
+	//根据部门加载提交者,审批人
+	loadSubmiter(){
+		this._layoutService.show();
+		this._departmentLoader.Go(null, [{key:"departmentId", value:this._param.departmentIdNum}])
+		.then(success=>{
+			this._layoutService.hide();
+		})
+		.catch(err=>{
+			this._layoutService.hide();
+			this.showMsg(err);
+		});
+		
+	}
 
 	//拒绝
 	refuse(item:CheckListItem){

@@ -176,6 +176,22 @@ export class CheckMngHascheckComponent implements OnInit{
 		
 	}
 
+   //根据部门加载提交者
+	loadSubmiter(){
+		this._layoutService.show();
+		this._departmentLoader.Go(null, [{key:"departmentId", value:this._param.departmentIdNum}])
+		.then(success=>{
+			this._checkerLoader.Go(null, [{key:"departmentId", value:this._param.departmentIdNum}])
+		})
+		.then(success=>{
+			this._layoutService.hide();
+		})
+		.catch(err=>{
+			this._layoutService.hide();
+			this.showMsg(err);
+		});
+		
+	}
 	onStartDateChange(date:string)
 	{
 		this._param.startDateStr = date;

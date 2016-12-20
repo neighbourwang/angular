@@ -291,9 +291,9 @@ export class OrderMngComponent implements OnInit{
 		.then(success=>{
 			return this._periodTypeDic.Go();
 		})
-		// .then(success=>{
-		// 	return this.loadDepartment();
-		// })
+		.then(success=>{
+			return this._departmentLoader.Go();
+		})
 		.then(success=>{
 			this.layoutService.hide();
 		})
@@ -307,18 +307,18 @@ export class OrderMngComponent implements OnInit{
 
 	}
 
-	//加载部门数据，使用的是临时企业id
-	loadDepartment():Promise<any>{
-		//测试企业1
-		return new Promise((resovle, reject)=>{
-			this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._entId}])
-			.then(success=>{
-				resovle(success);
-			},err=>{
-				reject(err);
-			})
-		});
-	}
+	// //加载部门数据，使用的是临时企业id
+	// loadDepartment():Promise<any>{
+	// 	//测试企业1
+	// 	return new Promise((resovle, reject)=>{
+	// 		this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._entId}])
+	// 		.then(success=>{
+	// 			resovle(success);
+	// 		},err=>{
+	// 			reject(err);
+	// 		})
+	// 	});
+	// }
 
 		loadBuyer(){
 		this._buyerLoader.Go(null, [{key:"departmentId", value:this._param.organization}])
