@@ -7,16 +7,38 @@ const commonModel = [
 		"cm-slide",
 	];   //定义公共的组件
 
-commonModel.forEach(function(modelName) {
-	const obj = $("." + modelName);
-	if (!obj.length) return;   //如果没有模块 return出去
+const pageModel = [
+		"page-portal",
+		"page-login",
+		"page-products",
+	];   //定义page的组建
 
-	require("bundle!./"+modelName+"/"+modelName+".js")(function(model){
-			model.template && obj.html(model.template);   //先注入html
-			model.controller && model.controller();       //再执行js
-		});
-})
+// window.localStorage["languageCode"] = "en";
 
+const languageCode = window.localStorage["languageCode"] || "cn";  
+
+require("bundle!../language/"+languageCode+".js")(function(lang){    //第一步获取语言包
+
+	window.C = require("./const.js");
+	window.T = value => lang[value];
+
+	commonModel.concat(pageModel).forEach(function(modelName) {    //第二步加载模块
+		const obj = $("." + modelName);
+		if (!obj.length) return;   //如果没有模块 return出去
+
+		const name = modelName.split("-"); 
+		name[0] === "cm"      //区分cm和page的路径
+			? require("bundle!./"+`${name[1]}/${name[1]}.js`)(requireFn)
+			: name[0] === "page" 
+				? require("bundle!../"+`${name[1]}/js/${name[1]}.js`)(requireFn) 
+				: "";
+
+		function requireFn(model){
+				model.template && obj.html(model.template);   //先注入html
+				model.controller && model.controller();       //再执行js
+			}
+	});
+});
 
 //路由
 window.Routes = (function() {

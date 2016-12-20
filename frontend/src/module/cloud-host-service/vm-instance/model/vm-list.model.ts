@@ -1,7 +1,7 @@
 class pageParameter{
     currentPage: number = 0;
     offset: number = 0;
-    size: number = 5;
+    size: number = 20;
     sort: {};
     totalPage: number = 0;
 }

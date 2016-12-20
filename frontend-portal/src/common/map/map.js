@@ -1,11 +1,10 @@
-require("./cm-map.less");                  //引入css
-const html = require("./cm-map.ejs");      //引入html 
-const C    = require("../const.js");          //引入全局配置
+require("./map.less");                  //引入css
+const html = require("./map.ejs");      //引入html 
 
 const pointHtml = require("./point.ejs");
 
 module.exports = {
-	template: html(C),
+	template: html(),
 	controller : function() {
 		var serveDots = `
 [

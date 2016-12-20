@@ -1,9 +1,8 @@
-require("./cm-header.less");                  //引入css
-const html = require("./cm-header.ejs");      //引入html
-const C    = require("../const.js");          //引入全局配置
+require("./header.less");                  //引入css
+const html = require("./header.ejs");      //引入html
 
 module.exports = {
-	template: html(C),
+	template: html(),
 	controller : function() {
 	    const userInfo = sessionStorage["userInfo"] && JSON.parse(sessionStorage["userInfo"]);
 

@@ -1,9 +1,8 @@
-require("./cm-slide.less");                  //引入css
-const html = require("./cm-slide.ejs");      //引入html 
-const C    = require("../const.js");          //引入全局配置
+require("./slide.less");                  //引入css
+const html = require("./slide.ejs");      //引入html 
 
 module.exports = {
-	template: html(C),
+	template: html(),
 	controller : function() {
 		$(".cm-slide").each(function(){
 			const slide = $(this).find(".slide-block"),

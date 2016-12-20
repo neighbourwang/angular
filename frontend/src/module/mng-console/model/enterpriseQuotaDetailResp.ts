@@ -1,0 +1,40 @@
+interface EnterpriseQuotaDetailResp {
+	cpuQuota : number; 	// (integer, optional): 虚拟CPU配额 ,
+	dbQuota : number; 	// (integer, optional): 数据库配额，此数据暂不提供内容只提供接口 ,
+	diskQuota : number; 	// (integer, optional): 磁盘配额 ,
+	enterpriseId : string; 	// (string, optional): 企业ID ,
+	floatIpQuota : number; 	// (integer, optional): 浮动IP配额 ,
+	imageQuota : number; 	// (integer, optional): 镜像配额 ,
+	memQuota : number; 	// (integer, optional): 内存配额 ,
+	networkQuota : number; 	// (integer, optional): 网络配额 ,
+	physicalMachineQuota : number; 	// (integer, optional): 物理机配额 ,
+	snapshotQuota : number; 	// (integer, optional): 快照配额 ,
+	storageQuota : number; 	// (integer, optional): 储存配额 ,
+	usedCpuQuota : number; 	// (integer, optional): 已使用的虚拟CPU配额 ,
+	usedCpuRate : number; 	// (integer, optional): 虚拟CPU配额使用率 ,
+	usedDbQuota : number; 	// (integer, optional): 已使用的数据库配额，此数据暂不提供内容只提供接口 ,
+	usedDbRate : number; 	// (integer, optional): 数据库配额使用率，此数据暂不提供内容只提供接口 ,
+	usedDiskQuota : number; 	// (integer, optional): 已使用的磁盘配额 ,
+	usedDiskRate : number; 	// (integer, optional): 磁盘配额配额使用率 ,
+	usedFloatIpQuota : number; 	// (integer, optional): 已使用的浮动IP配额 ,
+	usedFloatIpRate : number; 	// (integer, optional): 浮动IP配额配额 ,
+	usedImageQuota : number; 	// (integer, optional): 已使用镜像配额 ,
+	usedImageRate : number; 	// (integer, optional): 镜像配额使用率 ,
+	usedMemQuota : number; 	// (integer, optional): 已使用的内存配额 ,
+	usedMemRate : number; 	// (integer, optional): 内存使用率 ,
+	usedNetworkQuota : number; 	// (integer, optional): 已使用的网络配额 ,
+	usedNetworkRate : number; 	// (integer, optional): 网络配额使用率 ,
+	usedPhysicalMachineQuota : number; 	// (integer, optional): 已使用物理机配额 ,
+	usedPhysicalMachineRate : number; 	// (integer, optional): 物理机配额使用率 ,
+	usedSnapshotQuota : number; 	// (integer, optional): 已用快照配额 ,
+	usedSnapshotRate : number; 	// (integer, optional): 快照配额使用率 ,
+	usedStorageQuota : number; 	// (integer, optional): 已使用的储存 ,
+	usedStorageRate : number; 	// (integer, optional): 储存使用率 ,
+	usedVmQuota : number; 	// (integer, optional): 云主机（以创建的） ,
+	usedVmRate : number; 	// (integer, optional): 云主机配额使用率 ,
+	vmQuota : number; 	// (integer, optional): 云主机配额
+}
+
+export {
+	EnterpriseQuotaDetailResp
+}
