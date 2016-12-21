@@ -150,45 +150,24 @@ const menu: Array<any> = [
     //             "routing": ""
     //         }
     //     ]
-<<<<<<< HEAD
     // },
-    // {
-    //     "label": "MENU.APPROVAL_CENTER",
-    //     "isOpen": false,
-    //     "icon": "icon-check",
-    //     "top2_menu": [
-    //         {
-    //             "label": "MENU.NOT_APPROVED",
-    //             "isOpen": false,
-    //             "routing": "check-center/check-mng-list"
-    //         },
-    //         {
-    //             "label": "MENU.APPROVED",
-    //             "isOpen": false,
-    //             "routing": "check-center/check-mng-hascheck"
-    //         }
-    //     ]
-    // },
-=======
-   // },
     {
-        "label": "审批中心",
+        "label": "MENU.APPROVAL_CENTER",
         "isOpen": false,
         "icon": "icon-check",
         "top2_menu": [
             {
-                "label": "未审批",
+                "label": "MENU.NOT_APPROVED",
                 "isOpen": false,
                 "routing": "check-center/check-mng-list"
             },
             {
-                "label": "已审批",
+                "label": "MENU.APPROVED",
                 "isOpen": false,
                 "routing": "check-center/check-mng-hascheck"
             }
         ]
     },
->>>>>>> e07c434a722e1dee6484f6a8979183933af4f5fc
     {
         "label": "MENU.EXPENSE_CENTER",
         "isOpen": false,
