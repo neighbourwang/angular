@@ -25,7 +25,8 @@ export class PersonAccMngComponent implements OnInit {
         private router: Router,
         private getPersonAcc: GetPersonAccService,
         private putPersonAcc: PutPersonAccService,
-        private putPersonAccPwd:EditPersonAccPwdService
+        private putPersonAccPwd:EditPersonAccPwdService,
+        private validationService:ValidationService
     ) { }
     @ViewChild('editPassWord')
     editPassWord: PopupComponent;
@@ -146,6 +147,19 @@ export class PersonAccMngComponent implements OnInit {
     }
     //submit edit
     onSubmit() {
+        if(this.personAcc.phone){
+            if(!this.validationService.isMoblie(this.personAcc.phone)){
+            this.notice.open('操作错误','手机号码输入错误');
+            return;
+        }
+        }else{
+            this.notice.open('操作错误','手机号码不能为空');
+            return;
+        }
+        if(!this.personAcc.userName){
+            this.notice.open('操作错误','姓名不能为空');
+            return;
+        }
         console.log(this.personAcc);
         this.putPersonAcc.putPersonAcc(this.personAcc.id, this.personAcc).then(response => {
             console.log(response);

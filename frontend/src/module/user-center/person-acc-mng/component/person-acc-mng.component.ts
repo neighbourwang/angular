@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, ValidationService, PopupComponent,NoticeComponent } from '../../../../architecture';
+import { LayoutService, ValidationService, PopupComponent, NoticeComponent } from '../../../../architecture';
 
 //service
 import { GetPersonAccService } from '../service/person-acc-get.service';
@@ -23,7 +23,8 @@ export class PersonAccMngComponent implements OnInit {
         private router: Router,
         private getPersonAcc: GetPersonAccService,
         private putPersonAcc: PutLocalAccService,
-        private putPersonAccPwd: EditPersonAccPwdService
+        private putPersonAccPwd: EditPersonAccPwdService,
+        private validService: ValidationService,
     ) { }
     @ViewChild('editPassWord')
     editPassWord: PopupComponent;
@@ -77,6 +78,7 @@ export class PersonAccMngComponent implements OnInit {
             });
         } else {
             this.userNameValid = false;
+            this.notice.open('操作错误', '姓名不能为空')
         }
     }
     cancelName() {
@@ -86,6 +88,7 @@ export class PersonAccMngComponent implements OnInit {
     }
 
     //编辑电话
+    //验证手机号    
     phone: boolean = true;
     phoneEdit: boolean = false;
     editPhone() {
@@ -96,12 +99,16 @@ export class PersonAccMngComponent implements OnInit {
     }
     savePhone() {
         if (this.personAcc.phone) {
-            this.saveEditPerAcc().then(() => {
-                this.phone = true;
-                this.phoneEdit = false;
-            });
+            if (this.validService.isMoblie(this.personAcc.phone)) {
+                this.saveEditPerAcc().then(() => {
+                    this.phone = true;
+                    this.phoneEdit = false;
+                });
+            } else {
+                this.notice.open('操作错误', '手机号码输入错误,请输入正确的手机号')
+            }
         } else {
-
+            this.notice.open('操作错误', '手机号码不能为空')
         }
     }
     cancelPhone() {
@@ -133,66 +140,66 @@ export class PersonAccMngComponent implements OnInit {
     accPwd: PersonAccPwd = new PersonAccPwd();
     passwordValid: boolean = true;
     newPasswordValid: boolean = true;
-    sameNewPassword:boolean=false;
+    sameNewPassword: boolean = false;
     samePassword: boolean = true;
-    active:boolean=true;
-    editPwd() {        
-        this.accPwd= new PersonAccPwd();
-        this.active=false;
-        setTimeout(()=>{
-            this.active=true;
-        },0)
-        this.samePassword=true;
-        this.passwordValid= true;
-        this.newPasswordValid= true;
-        this.sameNewPassword=false;
-        this.accPwd.password='';
-        this.accPwd.newPassword='';
-        this.accPwd.confirmPwd='';
+    active: boolean = true;
+    editPwd() {
+        this.accPwd = new PersonAccPwd();
+        this.active = false;
+        setTimeout(() => {
+            this.active = true;
+        }, 0)
+        this.samePassword = true;
+        this.passwordValid = true;
+        this.newPasswordValid = true;
+        this.sameNewPassword = false;
+        this.accPwd.password = '';
+        this.accPwd.newPassword = '';
+        this.accPwd.confirmPwd = '';
         this.editPassWord.open('修改密码')
     }
     otEditPwd() {
         console.log(this.accPwd);
-        if(this.accPwd.password&&this.accPwd.password.trim()!=''){            
-            this.passwordValid=true;
-        }else{
-            this.passwordValid=false;
+        if (this.accPwd.password && this.accPwd.password.trim() != '') {
+            this.passwordValid = true;
+        } else {
+            this.passwordValid = false;
             return;
         }
-        if(this.accPwd.newPassword&&this.accPwd.newPassword.trim()!=''){
-            this.newPasswordValid=true;            
-        }else{
-            this.newPasswordValid=false; 
+        if (this.accPwd.newPassword && this.accPwd.newPassword.trim() != '') {
+            this.newPasswordValid = true;
+        } else {
+            this.newPasswordValid = false;
             return;
         }
-        if(this.accPwd.password==this.accPwd.newPassword){
-            this.sameNewPassword=true; 
+        if (this.accPwd.password == this.accPwd.newPassword) {
+            this.sameNewPassword = true;
             return;
-        }     
+        }
 
-        if(this.accPwd.newPassword == this.accPwd.confirmPwd){
+        if (this.accPwd.newPassword == this.accPwd.confirmPwd) {
             this.accPwd.id = this.personAcc.id;
             console.log(this.accPwd);
             this.putPersonAccPwd.putPersonAccPwd(this.accPwd).then(
-            response => {
-                if (response && 100 == response.resultCode) {
-                    console.log(response);
+                response => {
+                    if (response && 100 == response.resultCode) {
+                        console.log(response);
+                        this.editPassWord.close();
+                        this.notice.open('操作成功', '新密码已生效');
+                    }
+                }).catch((err) => {
                     this.editPassWord.close();
-                    this.notice.open('操作成功','新密码已生效');
-                } 
-            }).catch((err) => {
-                this.editPassWord.close();
-                this.notice.open('操作错误','you have input wrong password')
-            });
-        }else{
-            this.samePassword=false;
-        }        
+                    this.notice.open('操作错误', 'you have input wrong password')
+                });
+        } else {
+            this.samePassword = false;
+        }
     }
     ccf() {
 
     }
-    nof(){
-        
+    nof() {
+
     }
     saveEditPerAcc() {
         return this.putPersonAcc.putLocalAcc(this.personAcc.id, this.personAcc).then(response => {
