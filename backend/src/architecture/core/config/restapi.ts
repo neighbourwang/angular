@@ -124,7 +124,13 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminui/authsec/platform/{pf-id}/images/synchronize"        
     },
-   
+   //platform   add
+   {
+        "desc": "取得特定平台信息",
+        "id": "pf-mng-detail.get",
+        "method": "GET",
+        "url": "platformaccess/noauth/platforms/{id}"
+    },
 
 
     //update镜像同步

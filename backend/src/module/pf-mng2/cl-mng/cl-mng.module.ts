@@ -51,6 +51,8 @@ import { ClMngCreStep6Service } from './service/cl-mng-cre-step-6.service';
 
 import { ClMngCommonService } from './service/cl-mng-common.service';
 
+import { PlatformDetailService } from './service/pf-mng-detail.service';
+
 
 @NgModule({
     imports: [
@@ -82,7 +84,8 @@ import { ClMngCommonService } from './service/cl-mng-common.service';
         ClMngCreStep4Service,
         ClMngCreStep5Service,
         ClMngCreStep6Service,
-        ClMngCommonService
+        ClMngCommonService,
+        PlatformDetailService
     ]
 
 })
