@@ -45,6 +45,7 @@ export class PersonAccMngComponent implements OnInit {
                     console.log(response);
                     this.personAcc = Object.assign({}, response.resultContent)
                     this.temPersonAcc = response.resultContent;
+                    console.log(this.personAcc);
                 } else {
 
                 }
