@@ -19,6 +19,9 @@ import { ClickOutsideModule } from 'ng2-click-outside';
 
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
+import { HttpModule } from '@angular/http';
+import { TranslateModule } from 'ng2-translate';
+
 // import { DonutChart } from './donutChart/component/chart.component';
 // import { LineChart } from './lineChart/component/chart.component';
 
@@ -29,7 +32,9 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
         CommonModule,
         Ng2Bs3ModalModule,
         FormsModule,
-        ClickOutsideModule
+        ClickOutsideModule,
+        HttpModule,
+        TranslateModule.forRoot()
         // ChartsModule
     ],
     declarations: [
@@ -57,7 +62,9 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
         ClickOutsideModule,
         PopoverModule,
         ChartsModule,
-        TableEditNameComponent
+        TableEditNameComponent,
+        HttpModule,
+        TranslateModule
         // OrderByPipe
         // DonutChart,
         // LineChart

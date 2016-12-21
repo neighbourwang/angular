@@ -71,141 +71,141 @@ export class MenuComponent implements OnInit {
 // Frontend Menu Definition
 const menu: Array<any> = [
     {
-        "label": "云主机服务",
+        "label": "MENU.CLOUD_HOSTING_SERVICES",
         "isOpen": true,
         "icon": "icon-cloudhost",
         "top2_menu": [
             // {
-            //     "label": "虚拟机实例",
+            //     "label": "MENU.VIRTUAL_MACHINE_INSTANCE",
             //     "isOpen": true,
             //     "routing": "cloud-host-service/cloud-host-detail"
             // },
             {
-                "label": "云主机实例",
+                "label": "MENU.CLOUD_HOSTING_INSTANCE",
                 "isOpen": true,
                 "routing": "cloud-host-service/cloud-host-list"
             },
             {
-                "label": "云硬盘",
+                "label": "MENU.CLOUD_HARD_DISK",
                 "isOpen": true,
                 "routing": "cloud-host-service/cloud-drive-list"
             },
             // {
-            //     "label": "镜像",
+            //     "label": "MENU.MIRROR",
             //     "isOpen": true,
             //     "routing": "image-mng/image-mng"
             // }
         ]
     },
     // {
-    //     "label": "物理机服务",
+    //     "label": "MENU.PHYSICAL_SERVERS",
     //     "isOpen": false,
     //     "icon": "icon-machine",
     //     "top2_menu": [
     //         {
-    //             "label": "账号管理",
+    //             "label": "MENU.ACCOUNT_MANAGEMENT",
     //             "isOpen": false,
     //             "routing": ""
     //         },
     //         {
-    //             "label": "费用中心",
+    //             "label": "MENU.EXPENSE_CENTER",
     //             "isOpen": false,
     //             "routing": ""
     //         }
     //     ]
     // },
     // {
-    //     "label": "负载均衡服务器",
+    //     "label": "MENU.LOAD_BALANCER",
     //     "isOpen": false,
     //     "icon": "icon-loadbalance",
     //     "top2_menu": [
     //         {
-    //             "label": "账户管理",
+    //             "label": "MENU.ACCOUNT_MANAGEMENT",
     //             "isOpen": false,
     //             "routing": ""
     //         },
     //         {
-    //             "label": "部门管理",
+    //             "label": "MENU.DEPARTMENT_MANAGENMENT",
     //             "isOpen": false,
     //             "routing": ""
     //         },
     //         {
-    //             "label": "权限管理",
+    //             "label": "MENU.AUTHORITY_MANAGEMENT",
     //             "isOpen": false,
     //             "routing": ""
     //         },
     //         {
-    //             "label": "价格设置",
+    //             "label": "MENU.PRICE_SET",
     //             "isOpen": false,
     //             "routing": ""
     //         },
     //         {
-    //             "label": "配额管理",
+    //             "label": "MENU.QUOTA_MANAGEMENT",
     //             "isOpen": false,
     //             "routing": ""
     //         },
     //         {
-    //             "label": "费用中心",
+    //             "label": "MENU.EXPENSE_CENTER",
     //             "isOpen": false,
     //             "routing": ""
     //         }
     //     ]
     // },
     // {
-    //     "label": "审批中心",
+    //     "label": "MENU.APPROVAL_CENTER",
     //     "isOpen": false,
     //     "icon": "icon-check",
     //     "top2_menu": [
     //         {
-    //             "label": "未审批",
+    //             "label": "MENU.NOT_APPROVED",
     //             "isOpen": false,
     //             "routing": "check-center/check-mng-list"
     //         },
     //         {
-    //             "label": "已审批",
+    //             "label": "MENU.APPROVED",
     //             "isOpen": false,
     //             "routing": "check-center/check-mng-hascheck"
     //         }
     //     ]
     // },
     {
-        "label": "费用中心",
+        "label": "MENU.EXPENSE_CENTER",
         "isOpen": false,
         "icon": "icon-cost",
         "top2_menu": [
             // {
-            //     "label": "账号管理",
+            //     "label": "MENU.ACCOUNT_MANAGEMENT",
             //     "isOpen": false,
             //     "routing": ""
             // },
             {
-                "label": "已购服务管理",
+                "label": "MENU.PURCHASED_SERVICE_MANAGEMENT",
                 "isOpen": false,
                 "routing": "op-center/order-mng/order-mng"
             }, {
-                "label": "订单查询",
+                "label": "MENU.ORDER_INQUIRY",
                 "isOpen": false,
                 "routing": "op-center/order-mng/order-mng-search"
             }
         ]
     },
     {
-        "label": "用户中心",
+        "label": "MENU.ACCOUNT_CENTER",
         "isOpen": false,
         "icon": "icon-user",
         "top2_menu": [
             {
-                "label": "账号管理",
+                "label": "MENU.ACCOUNT_MANAGEMENT",
                 "isOpen": false,
                 "routing": "user-center/account-mng/account-mng-list"
             },
             {
-                "label": "组织管理",
+                "label": "MENU.ORGANIZATION_MANAGENMENT",
                 "isOpen": false,
                 "routing": "user-center/org-mng/org-mng-list"
             },
             {
-                "label": "个人账户管理",
+                "label": "MENU.PERSONAL_ACCOUNT_MANAGEMENT",
                 "isOpen": false,
                 "routing": "user-center/person-acc-mng/person-acc-mng"
             }
@@ -213,31 +213,31 @@ const menu: Array<any> = [
         ]
     }
     // {
-    //     "label": "产品与服务",
+    //     "label": "MENU.PRODUCTS_SERVICES",
     //     "isOpen": true,
     //     "icon": "icon-product-and-service",
     //     "top2_menu": [
     //         {
-    //             "label": "云主机",
+    //             "label": "MENU.CLOUD_HOSTING",
     //             "isOpen": true,
     //             "routing": "",
     //             "top3_menu": [
     //                 {
-    //                     "label": "概览",
+    //                     "label": "MENU.OVERVIEW",
     //                     "routing": "prod-and-svc/cloud-host/cloud-host-general-view"
     //                 },
     //                 {
-    //                     "label": "订购",
+    //                     "label": "MENU.ORDER",
     //                     "routing": "prod-and-svc/cloud-host/cloud-host-order"
     //                 },
     //                 {
-    //                     "label": "实例列表",
+    //                     "label": "MENU.INSTANCE_LIST",
     //                     "routing": "prod-and-svc/cloud-host/cloud-host-ins-list"
     //                 },
     //             ]
     //         },
     //         {
-    //             "label": "云硬盘",
+    //             "label": "MENU.CLOUD_HARD_DISK",
     //             "isOpen": false,
     //             "routing": ""
     //         }
