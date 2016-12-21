@@ -39,7 +39,8 @@ export class CheckMngHascheckComponent implements OnInit{
 	constructor(
 		private _restApiCfg:RestApiCfg
 		,private _restApi:RestApi
-		,private _layoutService:LayoutService){
+		,private _layoutService:LayoutService
+		,private _dictServ:SystemDictionaryService){
 
 		//计费模式字典
 		this._billinModeDic = new DicLoader(_restApiCfg, _restApi, "BILLING_MODE", "TYPE");
@@ -99,19 +100,39 @@ export class CheckMngHascheckComponent implements OnInit{
 
 		//审批人列表
 		this._approverListLoader = new ItemLoader<{id:string;name:string}>(false, "审批人列表", "check-center.approver-list.get", _restApiCfg, _restApi);
-		this._approverListLoader.MapFunc = (source:Array<any>,target:Array<{id:string;name:string}>)=>{
-			target = target.concat(source.map(n=>{
-				return {id:n.key, name:n.value};
-			}));
-		};
+		// this._approverListLoader.MapFunc = (source:Array<any>,target:Array<{id:string;name:string}>)=>{
+		// 	target = target.concat(source.map(n=>{
+		// 		return {id:n.key, name:n.value};
+		// 	}));
+		// };
+
+		this._approverListLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
+			for(let item of source)
+			{
+				let obj=_.extend({}, item) ;
+				target.push(obj);
+				obj.id = item.key;
+				obj.name = item.value;
+			}
+		}
 
 		//提交者列表
 		this._userListLoader = new ItemLoader<{id:string;name:string}>(false, "用户列表", "check-center.user-list.get", _restApiCfg, _restApi);
-		this._userListLoader.MapFunc = (source:Array<any>,target:Array<{id:string;name:string}>)=>{
-			target = target.concat(source.map(n=>{
-				return {id:n.key, name:n.value};
-			}));
-		};
+		// this._userListLoader.MapFunc = (source:Array<any>,target:Array<{id:string;name:string}>)=>{
+		// 	target = target.concat(source.map(n=>{
+		// 		return {id:n.key, name:n.value};
+		// 	}));
+		// };
+		this._userListLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
+			for(let item of source)
+			{
+				let obj=_.extend({}, item) ;
+				target.push(obj);
+				obj.id = item.key;
+				obj.name = item.value;
+			}
+		}
+
 		//订单类型
 		this._orderTypeDic = new DicLoader(_restApiCfg, _restApi, "ORDER", "TYPE");
 

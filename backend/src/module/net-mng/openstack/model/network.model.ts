@@ -22,6 +22,7 @@ export class Network {
     id: string;
     tenantName: string; //所属企业名
     networkName: string; //网络名
+    networkDisplayName: string; //网络显示名
     subnetName: string; //子网名
     subnetDisplayName: string; //子网显示名
     segmentCIDR: string; //网段信息

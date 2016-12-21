@@ -22,6 +22,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { HttpModule } from '@angular/http';
 import { TranslateModule } from 'ng2-translate';
 
+
 // import { DonutChart } from './donutChart/component/chart.component';
 // import { LineChart } from './lineChart/component/chart.component';
 
@@ -68,6 +69,7 @@ import { TranslateModule } from 'ng2-translate';
         // OrderByPipe
         // DonutChart,
         // LineChart
-    ]
+    ],
+    providers : []
 })
 export class CommonComponentModule { }

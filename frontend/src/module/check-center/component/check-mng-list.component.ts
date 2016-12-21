@@ -113,6 +113,16 @@ export class CheckMngListComponent implements OnInit{
 		
 		//提交者列表配置
 		this._submiterLoader = new ItemLoader<{id:string;name:string}>(false, "提交者列表", "check-center.submiter-list.get", _restApiCfg, _restApi);
+		
+		this._submiterLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
+			for(let item of source)
+			{
+				let obj=_.extend({}, item) ;
+				target.push(obj);
+				obj.id = item.key;
+				obj.name = item.value;
+			}
+		}
 		//产品类型配置
 		this._serviceTypeDic = new DicLoader(_restApiCfg, _restApi, "GLOBAL", "SERVICE_TYPE");
         //订单类型
@@ -192,10 +202,10 @@ export class CheckMngListComponent implements OnInit{
 		});
 		
 	}
-	//根据部门加载提交者,审批人
+	//根据部门加载提交者
 	loadSubmiter(){
 		this._layoutService.show();
-		this._departmentLoader.Go(null, [{key:"departmentId", value:this._param.departmentIdNum}])
+		this._submiterLoader.Go(null, [{key:"departmentId", value:this._param.departmentIdNum}])
 		.then(success=>{
 			this._layoutService.hide();
 		})

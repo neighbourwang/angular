@@ -24,8 +24,8 @@
                         <div class="col-sm-4 form-control-title">
                             <span class="asterisk">*</span> 帐号
                         </div>
-                        <div class="col-sm-4" [ngClass]="{'has-error': (loginName.errors && (loginName.dirty || loginName.touched))||!loginNameIsOnly}">
-                            <input type="text" class="form-control" placeholder="请输入姓名" [disabled]="!isCreate" [(ngModel)]="account.loginName" id="loginName" required name="loginName" (blur)="accountOnlyValid(account.loginName)" #loginName="ngModel">
+                        <div class="col-sm-4" [ngClass]="{'has-error': (loginName.errors && (loginName.dirty || loginName.touched))||!loginNameIsOnly||!isEmail}">
+                            <input type="text" class="form-control" placeholder="请输入姓名" [disabled]="!isCreate" [(ngModel)]="account.loginName" id="loginName" required name="loginName" (blur)="accountOnlyValid(account.loginName)" (focus)="isEmail=true" #loginName="ngModel">
                             <div *ngIf="loginName.errors && (loginName.dirty || loginName.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                 <div [hidden]="!loginName.errors.required">
                                     账号不能为空
@@ -34,6 +34,11 @@
                             <div *ngIf="!loginNameIsOnly" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                 <div>
                                     账号{{account.loginName}}已注册，请重新输入账号
+                                </div>
+                            </div>
+                            <div *ngIf="!isEmail" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
+                                <div >
+                                    账号格式输入错误，请输入正确邮箱地址
                                 </div>
                             </div>
                         </div>
@@ -48,11 +53,16 @@
                         <div class="col-sm-4 form-control-title">
                             <span class="asterisk">*</span> 联系电话
                         </div>
-                        <div class="col-sm-4" [ngClass]="{'has-error': phone.errors && (phone.dirty || phone.touched)}">
-                            <input type="text" class="form-control" placeholder="请输入姓名" [(ngModel)]="account.phone" id="phone" required name="phone" #phone="ngModel" >
+                        <div class="col-sm-4" [ngClass]="{'has-error': phone.errors && (phone.dirty || phone.touched)||!isPhone}">
+                            <input type="text" class="form-control" placeholder="请输入姓名" [(ngModel)]="account.phone" id="phone" required name="phone" #phone="ngModel" (blur)="phoneValid(account.phone)" (focus)='isPhone=true'>
                             <div *ngIf="phone.errors && (phone.dirty || phone.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                 <div [hidden]="!phone.errors.required">
                                     电话不能为空
+                                </div>
+                            </div>
+                            <div *ngIf="!isPhone" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
+                                <div >
+                                    手机号格式输入错误，请输入正确手机号
                                 </div>
                             </div>
                         </div>
@@ -139,7 +149,7 @@
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel()">
             <span class="icon-button-label">取消</span>
         </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px" (click)="create()"  [disabled]="!accountForm.form.valid||!loginNameIsOnly">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px" (click)="create()"  [disabled]="!accountForm.form.valid||!loginNameIsOnly||!isEmail||!isPhone">
             <span class="icon-button-label" >{{btnTitle}}</span>
         </button>
 </div>

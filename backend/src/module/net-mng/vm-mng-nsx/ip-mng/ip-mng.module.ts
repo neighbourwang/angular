@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 // Common Components
 import { CommonComponentModule, PipeModule } from '../../../../architecture';
 
-/*
 //Components
 import { IpMngListComponent } from './component/ip-mng-list.component';
 import { IpUsageMngListComponent } from './component/ipusage-mng-list.component';
@@ -14,25 +13,24 @@ import { IpMngRouting } from './ip-mng.routing';
 //Service
 import { IpMngListService } from './service/ip-mng-list.service';
 import { IpUsageMngListService } from './service/ipusage-mng-list.service';
-*/
 
 @NgModule({
     imports: [
         CommonComponentModule,
-        //IpMngRouting,
+        IpMngRouting,
         PipeModule
     ],
     declarations: [
-        //IpMngListComponent,
-        //IpUsageMngListComponent
+        IpMngListComponent,
+        IpUsageMngListComponent
     ],
     exports: [
-        //IpMngListComponent,
-        //IpUsageMngListComponent
+        IpMngListComponent,
+        IpUsageMngListComponent
     ],
     providers: [
-        //IpMngListService,
-        //IpUsageMngListService
+        IpMngListService,
+        IpUsageMngListService
     ]
 
 })
