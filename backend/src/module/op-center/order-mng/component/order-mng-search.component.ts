@@ -17,6 +17,7 @@ export class OrderMngSearchComponent implements OnInit{
   	private _notice: NoticeComponent;
 
 	private _param:OrderMngParam = new OrderMngParam();
+	private _adminLoader:ItemLoader<AdminListItem> = null;//企业
 	
 	private _departmentLoader:ItemLoader<DepartmentItem> = null;
 
@@ -37,11 +38,24 @@ export class OrderMngSearchComponent implements OnInit{
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
+
+		//配置企业列表加载
+		this._adminLoader = new ItemLoader<AdminListItem>(false, "企业列表", "op-center.order-mng.ent-list.get", this.restApiCfg, this.restApi);
+
 			//配置部门列表加载
 		this._departmentLoader = new ItemLoader<DepartmentItem>(false, '部门列表', "op-center.order-mng.department-list.get", this.restApiCfg, this.restApi);
 
 			//订购人加载
-		this._buyerLoader = new ItemLoader<DepartmentItem>(false, '部门列表', "op-center.order-mng.booker-list.get", this.restApiCfg, this.restApi);
+		this._buyerLoader = new ItemLoader<DepartmentItem>(false, '订购人列表', "check-center.user-list.get", this.restApiCfg, this.restApi);
+		this._buyerLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
+			for(let item of source)
+			{
+				let obj=_.extend({}, item) ;
+				target.push(obj);
+				obj.id = item.key;
+				obj.name = item.value;
+			}
+		}
 
 		//产品类型配置
 		this._productTypeLoader = new DicLoader(restApiCfg, restApi, "GLOBAL", "SERVICE_TYPE");
@@ -167,6 +181,9 @@ export class OrderMngSearchComponent implements OnInit{
 			return this._productTypeLoader.Go();
 		})
 		.then(success=>{
+			return this._adminLoader.Go();
+		})
+		.then(success=>{
 			return this.loadDepartment();
 		})
 		.then(success=>{
@@ -182,18 +199,18 @@ export class OrderMngSearchComponent implements OnInit{
 	}
 
 	loadDepartment(){
-		this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._entId}])
+		this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._param.enterpriseId}])
 		.then(success=>{
-			this._param.organization = null;
+			//this._param.organization = null;
 		}, err=>{
 			this._param.organization = null;
 		});
 	}
 
 	loadBuyer(){
-		this._buyerLoader.Go(null, [{key:"enterpriseId", value:this._entId}])
+		this._buyerLoader.Go(null, [{key:"departmentId", value:this._param.organization}])
 		.then(success=>{
-			this._param.organization = null;
+			//this._param.organization = null;
 		}, err=>{
 			this._param.organization = null;
 		});

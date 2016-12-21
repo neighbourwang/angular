@@ -12,6 +12,7 @@ export class ConfirmComponent implements OnInit {
     @Output() of = new EventEmitter<any>();
     @Output() cf = new EventEmitter<any>();
 
+    param = { value: '' };
     title: String;
     msg: String;
 
@@ -19,6 +20,10 @@ export class ConfirmComponent implements OnInit {
     dialog: ModalComponent;
 
     ngOnInit() {
+
+    }
+
+    ngOnChanges() {
     }
 
     cof() {
@@ -32,7 +37,6 @@ export class ConfirmComponent implements OnInit {
     open(title?: String, msg?: String) {
         title && (this.title = title);
         msg && (this.msg = msg);
-
         this.dialog.open();
     }
 

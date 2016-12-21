@@ -101,12 +101,12 @@ export class OrgMngListComponent implements OnInit {
       case 'start':
         console.log('启用');
         if (org.status == 1) {
-                this.notice.open('操作错误', '组织状态已启用')
+                this.notice.open('ORG_MNG_LIST.OPERATION_ERROR', 'ORG_MNG_LIST.ORGANIZATIONAL_STATUS_IS_ENABLED')
                 return;
         }
-        this.confirmTitle = "启用部门";
-        this.confirmMessage = "您选择启用"+org.name+"，请确认";
-        this.confirmDialog.open();
+        this.confirmTitle = "ORG_MNG_LIST.ENABLE_DEPARTMENT";
+        this.confirmMessage = "ORG_MNG_LIST.YOU_CHOOSE_TO_ENABLE_VALUE_PLEASE_CONFIRM^^^" + org.name;
+        this.confirmDialog.open('123');
         this.confirmType = type;
         break;
       case 'edit':
