@@ -27,7 +27,7 @@
                     <th>编号</th>
                     <th>网络名</th>
                     <th>子网名</th>
-                    <th>子网显示名称</th>
+                    <!--<th>子网显示名称</th>-->
                     <th>网段</th>
                     <th>所属企业</th>
                     <th>类型</th>
@@ -42,22 +42,17 @@
                     <td>{{i+1}}</td>
                     <td >{{network.networkName}}</td>
                     <td >{{network.subnetName}}</td>
-                    <td >
+                    <!--<td >
                         <div *ngIf="network.syncResult==1">
                             <input type="text"  style="padding:1px;text-align:center" class="" [(ngModel)]="network.subnetDisplayName" />
                         </div>
                         <div *ngIf="network.syncResult!=1">
                             {{network.subnetDisplayName}}
                         </div>
-                        </td>
+                    </td>-->
                     <td >{{network.segmentCIDR}}</td>
                     <td>{{network.tenantName}}</td>
                     
-                    <!--<td>{{getDicText(network.networkType,this.typeDic)}}</td>
-                    <td>{{getDicText(network.shared,this.sharedDic)}}</td>
-                    <td>{{getDicText(network.state,this.stateDic)}}</td>
-                    <td >{{getDicText(network.syncResult,this.synDic)}}</td>-->
-
                     <td >{{network.networkType | dict:this.service.typeDic | async }}</td>
                     <td >{{network.shared | dict:this.service.sharedDic | async }}</td>
                     <td >{{network.state | dict:this.service.stateDic | async }}</td>
