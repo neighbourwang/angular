@@ -49,13 +49,13 @@ https://github.com/ocombe/ng2-translate
 ## 3.使用
 ### 1.在 src/architecture/translate 中添加和编辑 语言映射文件
 
-### 2.html文件添加语言映射的代码方式   {{ '<key>' | translate }}   如下：
+### 2.html文件添加语言映射的代码方式   {{ 'key' | translate }}   如下：
 
     <div>{{'DIALOG.CONFIRM' | translate }}</div>
 
 （其中'DIALOG.CONFIRM'相当于映射文件中的key值。）
 
-### 3.ts文件添加语言映射的代码方式    '<ket>^^^<param>'  ,'^^^'前为要翻译的字段，后为需要带的参数  如下：（可以参考 org-mng-list.component.ts）
+### 3.ts文件添加语言映射的代码方式    'key^^^param'  ,'^^^'前为要翻译的字段，后为需要带的参数  如下：（可以参考 org-mng-list.component.ts）
 
 
     //这个为不带参数直接传值。
@@ -64,7 +64,7 @@ https://github.com/ocombe/ng2-translate
     //这个为参数传值，变量跟在 '^^^' 后面。
     this.confirmMessage = "ORG_MNG_LIST.YOU_CHOOSE_TO_ENABLE_VALUE_PLEASE_CONFIRM^^^" + org.name;
 
-### 4.translateXXX.ts的写法   <key>: 'xxxx{{value}}xxxxxx'  ,{{value}}为传入的参数，在如下
+### 4.translateXXX.ts的写法   key: 'xxxx{{value}}xxxxxx'  ,{{value}}为传入的参数，在如下
 
     ORG_MNG_LIST: {
 
