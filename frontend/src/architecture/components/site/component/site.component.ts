@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../../../core/service/layout.service';
 import { SystemDictionaryService, RestApi } from '../../../../architecture';
 import { Router } from '@angular/router';
@@ -10,7 +10,6 @@ import { TranslateCN } from '../../../../architecture/translate/translateCN';
 
 @Component({
   selector: 'fc-root',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: '../template/site.component.html',
   styleUrls: ['../style/site.component.css']
 })
