@@ -54,7 +54,17 @@ export class OrderMngComponent implements OnInit{
 
 		this._billinModeDic = new DicLoader(restApiCfg, restApi, "BILLING_MODE", "TYPE");
 
-		this._buyerListLoader = new ItemLoader<{id:string;name:string}>(false,"订购人列表","op-center.order-mng.buyer-list.get",restApiCfg,restApi);
+		this._buyerListLoader = new ItemLoader<{id:string;name:string}>(false,"订购人列表","check-center.user-list.get",restApiCfg,restApi);
+
+		this._buyerListLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
+			for(let item of source)
+			{
+				let obj=_.extend({}, item) ;
+				target.push(obj);
+				obj.id = item.key;
+				obj.name = item.value;
+			}
+		}
 		//退订
 		this._cancelHandler = new ItemLoader<any>(false, "退订", "op-center.order-mng.order-cancel.get", restApiCfg, restApi);
 

@@ -565,11 +565,6 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.department-list.get",
         "method": "GET",
         "url": "basis/authsec/adm/organization/enterprise/{enterpriseId}"
-    },{
-        "desc": "部门列表",
-        "id": "op-center.order-mng.booker-list.get",
-        "method": "GET",
-        "url": ""
     }, {
         "desc": "区域列表",
         "id": "op-center.order-mng.region-list.get",
@@ -580,12 +575,14 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.avail-region-list.get",
         "method": "GET",
         "url": "adminui/authsec/platform/{_id}/zone"
-    },{
-        "desc": "订购人列表",
-        "id": "op-center.order-mng.buyer-list.get",
-        "method": "GET",
-        "url": "adminui/authsec/approval/department/{departmentId}/users"
-    }, {
+    }
+    // ,{
+    //     "desc": "订购人列表",
+    //     "id": "op-center.order-mng.buyer-list.get",
+    //     "method": "GET",
+    //     "url": "adminui/authsec/approval/department/{departmentId}/users"
+    // }
+    , {
         "desc": "订单列表",
         "id": "op-center.order-mng.order-list.post",
         "method": "POST",
@@ -1192,7 +1189,7 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/backend/approval/orders/search/paging"     
     }
     ,{
-        "desc": "获取提交者列表",
+        "desc": "获取订购人、提交者列表",
         "id": "check-center.user-list.get",
         "method": "GET",
         "url": "adminui/authsec/approval/department/{departmentId}/users"        
