@@ -91,10 +91,27 @@ export class CheckMngHascheckComponent implements OnInit{
 		//提交者列表配置
 		this._submiterLoader = new ItemLoader<{id:string;name:string}>(false, "提交者列表", "check-center.submiter-list.get", _restApiCfg, _restApi);//无API接口
 	
-
+         this._submiterLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
+			for(let item of source)
+			{
+				let obj=_.extend({}, item) ;
+				target.push(obj);
+				obj.id = item.key;
+				obj.name = item.value;
+			}
+		}
 		//审批人列表配置
 		this._checkerLoader = new ItemLoader<{id:string;name:string}>(false, "提交者列表", "check-center.checker-list.get", _restApiCfg, _restApi);//无API接口
 	
+	    this._checkerLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
+			for(let item of source)
+			{
+				let obj=_.extend({}, item) ;
+				target.push(obj);
+				obj.id = item.key;
+				obj.name = item.value;
+			}
+		}
 		//产品类型配置
 		this._serviceTypeDic = new DicLoader(_restApiCfg, _restApi, "GLOBAL", "SERVICE_TYPE");//²úÆ·ÀàÐÍÁÐ±í', "op-center.order-mng.product-type-list.get", _restApiCfg, _restApi);
 
@@ -176,10 +193,10 @@ export class CheckMngHascheckComponent implements OnInit{
 		
 	}
 
-   //根据部门加载提交者
+   //根据部门加载提交者,审批人
 	loadSubmiter(){
 		this._layoutService.show();
-		this._departmentLoader.Go(null, [{key:"departmentId", value:this._param.departmentIdNum}])
+		this._submiterLoader.Go(null, [{key:"departmentId", value:this._param.departmentIdNum}])
 		.then(success=>{
 			this._checkerLoader.Go(null, [{key:"departmentId", value:this._param.departmentIdNum}])
 		})

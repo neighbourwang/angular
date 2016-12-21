@@ -25,7 +25,7 @@ export class OrderMngSearchComponent implements OnInit{
 	
 	private _departmentLoader:ItemLoader<DepartmentItem> = null;
 
-	private _buyerLoader:ItemLoader<{id:string; name:string}> = null //订购人
+	private _buyerLoader:ItemLoader<{id:string; name:string}> = null //提交者
 
 	private _orderStatusDic:DicLoader = null;
 
@@ -75,9 +75,18 @@ export class OrderMngSearchComponent implements OnInit{
 		//配置部门列表加载
 		this._departmentLoader = new ItemLoader<DepartmentItem>(false, '部门列表', "op-center.order-mng.department-list.get", this.restApiCfg, this.restApi);
 
-		//订购人加载
-		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, '部门列表', "op-center.order-mng.buyer-list.get", this.restApiCfg, this.restApi);
-
+		//提交者加载
+		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, '提交者列表', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
+		this._buyerLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
+			for(let item of source)
+			{
+				let obj=_.extend({}, item) ;
+				target.push(obj);
+				obj.id = item.key;
+				obj.name = item.value;
+			}
+		}
+ 
 		//产品类型配置
 		this._productTypeDic = new DicLoader(restApiCfg, restApi, "GLOBAL", "SERVICE_TYPE");
 
@@ -159,7 +168,7 @@ export class OrderMngSearchComponent implements OnInit{
 	loadBuyer(){
 		this._buyerLoader.Go(null, [{key:"departmentId", value:this._param.organization}])
 		.then(success=>{
-			this._param.organization = null;
+			//this._param.organization = null;
 		}, err=>{
 			this._param.organization = null;
 		});

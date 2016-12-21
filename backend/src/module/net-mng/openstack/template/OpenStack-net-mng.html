@@ -59,8 +59,8 @@
                     <th>选择</th>
                     <th>所属企业</th>
                     <th>网络名</th>
+                    <th>网络显示名称</th>
                     <th>子网名</th>
-                    <th>子网显示名称</th>
                     <th>网段信息</th>
                     <th>网关信息</th>
                     <th>类型</th>
@@ -77,27 +77,27 @@
 
                     <td >{{network.tenantName}}</td>
                     <td >{{network.networkName}}</td>
-                    <td >{{network.subnetName}}</td>
-                    <td style="position:relative">{{network.subnetDisplayName}}
+                    <td style="position:relative">{{network.networkDisplayName}}
                         <span class="icon-edit2 pull-right" (click)="openEidtPanel(network);network.nameEditing=true;"></span>
                             <div *ngIf="network.nameEditing" class="popover fade bottom in" role="tooltip" style="z-index:50;position:absolute;top:30px; left:30px; width:370px; max-width:1100px; display: block;">
                                 <div class="arrow" style="left: 30%;"></div>
                                 <div class="popover-content">
                                     <form class="form-horizontal" role="form">
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label">子网显示名称:</label>
+                                            <label class="col-sm-4 control-label">网络显示名称:</label>
                                             <div class="col-sm-8 float-left">
-                                            <input type="text" rows="1" class="form-control"[(ngModel)]="editNetwork.subnetDisplayName" name="subDisplay"/>
+                                            <input type="text" rows="1" class="form-control"[(ngModel)]="editNetwork.networkDisplayName" name="networkDisplay"/>
                                             </div>
                                         </div>
                                     </form>
                                 <div class="pull-right" style="margin-bottom:10px;">
-                                    <button class=" fox-cloud-button fox-cloud-button-white"style="background-color:#00a982;color:white" (click)="updateSubnetDisplayName(network)">保存</button>
+                                    <button class=" fox-cloud-button fox-cloud-button-white"style="background-color:#00a982;color:white" (click)="updateNetworkDisplayName(network)">保存</button>
                                     <button class=" fox-cloud-button fox-cloud-button-white"(click)="network.nameEditing=false">取消</button>
                                 </div>
                             </div>
                              </div>
                     </td>
+                    <td >{{network.subnetName}}</td>
                     <td >{{network.segmentCIDR}}</td>
                     <td >{{network.gateway}}</td>
                     <!--<td >{{getDicText(network.networkType,this.typeDic)}}</td>
