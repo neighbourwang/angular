@@ -1,21 +1,21 @@
 ﻿
 <div class="page-content">
     <div>
-        <h1 class="page-content-header float-left">云主机详情</h1>
-        <div class="float-left mgt5 mgl10"><span class="icon-back"></span>返回云主机列表</div>
+        <h1 class="page-content-header float-left">{{'VM_INSTANCE.CLOUD_HOST_DETAILS' | translate}}</h1>
+        <div class="float-left mgt5 mgl10"><span class="icon-back"></span>{{'VM_INSTANCE.RETURNS_THE_CLOUD_HOST_LIST' | translate}}</div>
         <div class="dropdown float-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                更多操作
+                {{'VM_INSTANCE.MORE_ACTIONS' | translate}}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><a href="javascript:">编辑云主机</a></li>
-                <li><a href="javascript:">删除云主机</a></li>
+                <li><a href="javascript:">{{'VM_INSTANCE.EDIT_THE_CLOUD_HOST' | translate}}</a></li>
+                <li><a href="javascript:">{{'VM_INSTANCE.DELETE_THE_CLOUD_HOST' | translate}}</a></li>
                 
             </ul>
         </div>
         <button class="btn button-gray-gradient float-right mgr5">
-        <span class="icon-controller"></span>控制台
+        <span class="icon-controller"></span>{{'VM_INSTANCE.CONSOLE' | translate}}
         </button>
     </div>
     <div style="clear:both;"></div>
@@ -24,31 +24,31 @@
             <table>
                 <thead>
                  <tr>
-                     <th >
-                     <span class="icon-basic mgl10"></span>基本信息
+                     <th colspan=2>
+                     <span class="icon-basic mgl10"></span>{{'VM_INSTANCE.BASIC_INFORMATION' | translate}}
                      </th>
                      <th style="position:relative;"><span class="glyphicon glyphicon-chevron-down" data-toggle="collapse" data-target="#basic"></span></th>
                  </tr>
                 </thead>
                 <tbody class="collapse in" id="basic">
                     <tr>
-                        <td>实例名称：</td>
+                        <td>{{'VM_INSTANCE.INSTANCE_NAME' | translate}}</td>
                         <td>df</td>
                     </tr>
                     <tr>
-                        <td>所在可用区：</td>
+                        <td>{{'VM_INSTANCE.AVAILABLE_AREA' | translate}}</td>
                         <td>ergfhg</td>
                     </tr>
                     <tr>
-                        <td>运行时间：</td>
+                        <td>{{'VM_INSTANCE.OPERATION_HOURS' | translate}}</td>
                         <td>ddfgfds</td>
                     </tr>
                     <tr>
-                        <td>状态：</td>
+                        <td>{{'VM_INSTANCE.STATUS' | translate}}</td>
                         <td></td>
                     </tr>
                      <tr>
-                        <td>来源：</td>
+                        <td>{{'VM_INSTANCE.RESOURCE' | translate}}</td>
                         <td></td>
                     </tr>
                 </tbody>
@@ -56,8 +56,8 @@
             <table >
                 <thead>
                  <tr>
-                     <th >
-                     <span class="icon-attachment mgl10"></span>附加信息
+                     <th colspan=2>
+                     <span class="icon-attachment mgl10"></span>{{'VM_INSTANCE.EXTRA_INFORMATION' | translate}}
                      </th>
                      <th style="position:relative;">
                      <span class="glyphicon glyphicon-chevron-down" data-toggle="collapse" data-target="#additional"></span>              
@@ -66,23 +66,23 @@
                 </thead>
                 <tbody class="collapse in" id="additional">
                     <tr>
-                        <td>附加服务：</td>
+                        <td>{{'VM_INSTANCE.EXTRA_SERVICES' | translate}}</td>
                         <td>rf</td>
                     </tr>
                     <tr>
-                        <td>类型：</td>
+                        <td>{{'VM_INSTANCE.TYPE' | translate}}</td>
                         <td>dffg</td>
                     </tr>
                     <tr>
-                        <td>服务级别：</td>
+                        <td>{{'VM_INSTANCE.SERVICE_LEVEL' | translate}}</td>
                         <td>ddff</td>
                     </tr>
                     <tr>
-                        <td>标签：</td>
+                        <td>{{'VM_INSTANCE.LABEL' | translate}}</td>
                         <td>ddf</td>
                     </tr>
                     <tr>
-                        <td>描述：</td>
+                        <td>{{'VM_INSTANCE.DESCRIPTION' | translate}}</td>
                         <td></td>
                     </tr>
                 </tbody>
@@ -90,8 +90,8 @@
             <table >
                 <thead>
                  <tr>
-                     <th >
-                     <span class="icon-setting mgl10"></span>配置信息
+                     <th colspan=2>
+                     <span class="icon-setting mgl10"></span>{{'VM_INSTANCE.CONFIGURATION_INFORMATION' | translate}}
                      </th>
                      <th style="position:relative;">
                          <span class="glyphicon glyphicon-chevron-down" data-toggle="collapse" data-target="#setting"></span>
@@ -100,23 +100,23 @@
                 </thead>
                 <tbody class="collapse in" id="setting">
                     <tr>
-                        <td>CPU：</td>
+                        <td>{{'VM_INSTANCE.CPU' | translate}}</td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>内存：</td>
+                        <td>{{'VM_INSTANCE.RAM' | translate}}</td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>镜像：</td>
+                        <td>{{'VM_INSTANCE.MIRROR' | translate}}</td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>内部IP：</td>
+                        <td>{{'VM_INSTANCE.INTERNAL_IP' | translate}}</td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>外部IP：</td>
+                        <td>{{'VM_INSTANCE.EXTERNA_IP' | translate}}</td>
                         <td></td>
                     </tr>
                 </tbody>
@@ -127,23 +127,23 @@
             <table >
                 <thead>
                  <tr>
-                     <th>
-                     <span class="icon-storage mgl10"></span>磁盘信息
+                     <th colspan=2>
+                     <span class="icon-storage mgl10"></span>{{'VM_INSTANCE.DISK_INFORMATION' | translate}}
                      </th>
                      <th style="position:relative;"><span class="glyphicon glyphicon-chevron-down" data-toggle="collapse" data-target="#storage"></span></th>
                  </tr>
                 </thead>
                 <tbody  class="collapse in" id="storage">
                     <tr>
-                        <td>启动盘：</td>
+                        <td>{{'VM_INSTANCE.STARTUP_DISK' | translate}}</td>
                         <td>2</td>
                     </tr>
                     <tr>
-                        <td>数据盘：</td>
+                        <td>{{'VM_INSTANCE.DATA_DISK' | translate}}</td>
                         <td>2hjjkllshdhjskskls</td>
                     </tr>
                     <tr>
-                        <td>快照：</td>
+                        <td>{{'VM_INSTANCE.SNAPSHOT' | translate}}</td>
                         <td>2</td>
                     </tr>                 
                 </tbody>
@@ -151,15 +151,15 @@
             <table >
                 <thead>
                  <tr>
-                     <th >
-                     <span class="icon-safety mgl10"></span>安全信息
+                     <th colspan=2>
+                     <span class="icon-safety mgl10"></span>{{'VM_INSTANCE.SECURITY_INFORMATION' | translate}}
                      </th>
                      <th style="position:relative;"><span class="glyphicon glyphicon-chevron-down" data-toggle="collapse" data-target="#safety"></span></th>
                  </tr>
                 </thead>
                 <tbody class="collapse in" id="safety">
                     <tr>
-                        <td>安全组：</td>
+                        <td>{{'VM_INSTANCE.SECURITY_GROUP' | translate}}</td>
                         <td></td>
                     </tr>
                  
@@ -168,31 +168,31 @@
             <table >
                 <thead>
                  <tr>
-                     <th >
-                     <span class="icon-payment mgl10"></span>付费信息
+                     <th colspan=2>
+                     <span class="icon-payment mgl10"></span>{{'VM_INSTANCE.PAID_INFORMATION' | translate}}
                      </th>
                      <th style="position:relative;"><span class="glyphicon glyphicon-chevron-down" data-toggle="collapse" data-target="#payment"></span></th>
                  </tr>
                 </thead>
                 <tbody class="collapse in" id="payment">
                     <tr>
-                        <td>订单编号：</td>
+                        <td>{{'VM_INSTANCE.ORDER_NUMBER' | translate}}</td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>付费方式：</td>
+                        <td>{{'VM_INSTANCE.PAYMENT_METHODS' | translate}}</td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>创建时间：</td>
+                        <td>{{'VM_INSTANCE.CREATED_DATE' | translate}}</td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>到期时间：</td>
+                        <td>{{'VM_INSTANCE.EXPIRE_DATE' | translate}}</td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>释放时间：</td>
+                        <td>{{'VM_INSTANCE.RELEASE_DATE' | translate}}</td>
                         <td></td>
                     </tr>
                 </tbody>

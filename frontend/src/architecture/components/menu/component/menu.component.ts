@@ -1,5 +1,6 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { DictService} from '../../../core/service/dict-service';
+import { MenuService } from '../service/menu.service';
 
 @Component({
     selector: 'fc-menu',
@@ -12,16 +13,32 @@ export class MenuComponent implements OnInit {
 
     active: Array<number> = new Array<number>();
 
+    constructor(
+        private service:MenuService,
+        private chRef: ChangeDetectorRef
+        ) {}
+
     ngOnInit() {
-        this.endMenu = menu;
+        this.setMenu();
     }
 
+    setMenu() {
+        console.log(1)
+        this.service.getMenuList().then(menu => {
+        console.log(2, menu)
+            this.endMenu = menu;
+            this.chRef.detectChanges();
+        })
+    }
     // 一级菜单事件处理, 切换菜单的展开/关闭
     top1MenuClick(top1Idx: number) {
         if (this.endMenu[top1Idx]["isOpen"]) {
             this.endMenu[top1Idx]["isOpen"] = false;
         } else {
             this.endMenu[top1Idx]["isOpen"] = true;
+        }
+        for (let i = 0; i < this.endMenu.length; ++i) {
+            if(top1Idx !== i && this.endMenu[i]["isOpen"])  this.endMenu[i]["isOpen"] = false;
         }
     }
 
@@ -67,180 +84,3 @@ export class MenuComponent implements OnInit {
     }
 
 }
-
-// Frontend Menu Definition
-const menu: Array<any> = [
-    {
-        "label": "云主机服务",
-        "isOpen": true,
-        "icon": "icon-cloudhost",
-        "top2_menu": [
-            // {
-            //     "label": "虚拟机实例",
-            //     "isOpen": true,
-            //     "routing": "cloud-host-service/cloud-host-detail"
-            // },
-            {
-                "label": "云主机实例",
-                "isOpen": true,
-                "routing": "cloud-host-service/cloud-host-list"
-            },
-            {
-                "label": "云硬盘",
-                "isOpen": true,
-                "routing": "cloud-host-service/cloud-drive-list"
-            },
-            // {
-            //     "label": "镜像",
-            //     "isOpen": true,
-            //     "routing": "image-mng/image-mng"
-            // }
-        ]
-    },
-    // {
-    //     "label": "物理机服务",
-    //     "isOpen": false,
-    //     "icon": "icon-machine",
-    //     "top2_menu": [
-    //         {
-    //             "label": "账号管理",
-    //             "isOpen": false,
-    //             "routing": ""
-    //         },
-    //         {
-    //             "label": "费用中心",
-    //             "isOpen": false,
-    //             "routing": ""
-    //         }
-    //     ]
-    // },
-    // {
-    //     "label": "负载均衡服务器",
-    //     "isOpen": false,
-    //     "icon": "icon-loadbalance",
-    //     "top2_menu": [
-    //         {
-    //             "label": "账户管理",
-    //             "isOpen": false,
-    //             "routing": ""
-    //         },
-    //         {
-    //             "label": "部门管理",
-    //             "isOpen": false,
-    //             "routing": ""
-    //         },
-    //         {
-    //             "label": "权限管理",
-    //             "isOpen": false,
-    //             "routing": ""
-    //         },
-    //         {
-    //             "label": "价格设置",
-    //             "isOpen": false,
-    //             "routing": ""
-    //         },
-    //         {
-    //             "label": "配额管理",
-    //             "isOpen": false,
-    //             "routing": ""
-    //         },
-    //         {
-    //             "label": "费用中心",
-    //             "isOpen": false,
-    //             "routing": ""
-    //         }
-    //     ]
-   // },
-    {
-        "label": "审批中心",
-        "isOpen": false,
-        "icon": "icon-check",
-        "top2_menu": [
-            {
-                "label": "未审批",
-                "isOpen": false,
-                "routing": "check-center/check-mng-list"
-            },
-            {
-                "label": "已审批",
-                "isOpen": false,
-                "routing": "check-center/check-mng-hascheck"
-            }
-        ]
-    },
-    {
-        "label": "费用中心",
-        "isOpen": false,
-        "icon": "icon-cost",
-        "top2_menu": [
-            // {
-            //     "label": "账号管理",
-            //     "isOpen": false,
-            //     "routing": ""
-            // },
-            {
-                "label": "已购服务管理",
-                "isOpen": false,
-                "routing": "op-center/order-mng/order-mng"
-            }, {
-                "label": "订单查询",
-                "isOpen": false,
-                "routing": "op-center/order-mng/order-mng-search"
-            }
-        ]
-    },
-    {
-        "label": "用户中心",
-        "isOpen": false,
-        "icon": "icon-user",
-        "top2_menu": [
-            {
-                "label": "账号管理",
-                "isOpen": false,
-                "routing": "user-center/account-mng/account-mng-list"
-            },
-            {
-                "label": "组织管理",
-                "isOpen": false,
-                "routing": "user-center/org-mng/org-mng-list"
-            },
-            {
-                "label": "个人账户管理",
-                "isOpen": false,
-                "routing": "user-center/person-acc-mng/person-acc-mng"
-            }
-            
-        ]
-    }
-    // {
-    //     "label": "产品与服务",
-    //     "isOpen": true,
-    //     "icon": "icon-product-and-service",
-    //     "top2_menu": [
-    //         {
-    //             "label": "云主机",
-    //             "isOpen": true,
-    //             "routing": "",
-    //             "top3_menu": [
-    //                 {
-    //                     "label": "概览",
-    //                     "routing": "prod-and-svc/cloud-host/cloud-host-general-view"
-    //                 },
-    //                 {
-    //                     "label": "订购",
-    //                     "routing": "prod-and-svc/cloud-host/cloud-host-order"
-    //                 },
-    //                 {
-    //                     "label": "实例列表",
-    //                     "routing": "prod-and-svc/cloud-host/cloud-host-ins-list"
-    //                 },
-    //             ]
-    //         },
-    //         {
-    //             "label": "云硬盘",
-    //             "isOpen": false,
-    //             "routing": ""
-    //         }
-    //     ]
-    // },
-];

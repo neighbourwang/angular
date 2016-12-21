@@ -21,7 +21,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
         private router2: Router,
 		private service: OpenstackService ,
 		private layoutService: LayoutService,
-		private dicService: SystemDictionaryService,
+		//private dicService: SystemDictionaryService,
         private tenantService: SelectedTenantListService
 	){
 
@@ -53,26 +53,26 @@ export class OpenstackSynchrNetComponent implements OnInit{
             console.log("接收的platformName:" + this.platformName);
 			
 		});
-		this.dicService.getItems("NETWORK", "TYPE")
-            .then(
-            (dic) => {
-                this.typeDic = dic;
-                return this.dicService.getItems("NETWORK", "SHARED");
-            })
-            .then((dic) => {
-                this.sharedDic = dic;
-                return this.dicService.getItems("NETWORK", "STATE");
-            })
-            .then((dic) => {
-                this.stateDic = dic;
-                return this.dicService.getItems("NETWORK","SYNC");
-            })
-            .then((dic) => {
-                this.synDic = dic;
-                this.getSynList(this.platform_id);
+		// this.dicService.getItems("NETWORK", "TYPE")
+        //     .then(
+        //     (dic) => {
+        //         this.typeDic = dic;
+        //         return this.dicService.getItems("NETWORK", "SHARED");
+        //     })
+        //     .then((dic) => {
+        //         this.sharedDic = dic;
+        //         return this.dicService.getItems("NETWORK", "STATE");
+        //     })
+        //     .then((dic) => {
+        //         this.stateDic = dic;
+        //         return this.dicService.getItems("NETWORK","SYNC");
+        //     })
+        //     .then((dic) => {
+        //         this.synDic = dic;
+        //         this.getSynList(this.platform_id);
                 
-            });
-		
+        //     });
+		this.getSynList(this.platform_id);
         
 		
 	}
@@ -123,21 +123,21 @@ export class OpenstackSynchrNetComponent implements OnInit{
         this.notice.open();
     }
 
-	//根据value获取字典的txt
-    getDicText(value: string, dic: Array<SystemDictionary>): String {
-        if (!$.isArray(dic)) {
-            return value;
-        }
-        const d = dic.find((e) => {
-            return e.value == value;
-        });
-        if (d) {
-            return d.displayValue;
-        } else {
-            return value;
-        }
+	// //根据value获取字典的txt
+    // getDicText(value: string, dic: Array<SystemDictionary>): String {
+    //     if (!$.isArray(dic)) {
+    //         return value;
+    //     }
+    //     const d = dic.find((e) => {
+    //         return e.value == value;
+    //     });
+    //     if (d) {
+    //         return d.displayValue;
+    //     } else {
+    //         return value;
+    //     }
 
-    }
+    // }
     //添加一个
     addOne(selected: Network_Syn){
         this.layoutService.show();

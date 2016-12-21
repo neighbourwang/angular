@@ -64,7 +64,8 @@ interface UserInfo {
     roles: Roles[];
     status: string;
     userId: string;
-    userName: string
+    userName: string;
+    isRoot : boolean;
 }
 
 export {

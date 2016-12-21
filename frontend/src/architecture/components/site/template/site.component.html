@@ -8,10 +8,21 @@
             <!-- <li routerLink="mng-console" routerLinkActive="active">管理控制台</li> -->
             <!-- <li>产品与服务</li> -->
         </ul>
+
+        <!--选择页面语言框-测试用-->
+        <label  style="left: 280px; top:30px;position: absolute">
+            <span style="color: #fff">{{ 'LANG' | translate }}</span>
+            <select #langSelect (change)="translate.use(langSelect.value)">
+            <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+            </select>
+        </label>
+
         <div class="col-md-3 header-right">
             <!-- <span class="header-right-line"><span class="tip-number">8</span><span class="icon-notice"></span></span> -->
             <!-- <span class="header-right-line"><span class="icon-user2"></span></span> -->
-            <span class="header-right-line"><span class="icon-user2"></span> <span class="user-name">{{username}}</span><a class="cm-container-logout" href="javascript:" (click)="logOut()">退出</a></span>
+            <span class="header-right-line"><span class="icon-user2"></span> <span class="user-name">{{username}}</span>
+            <a class="cm-container-logout" href="javascript:" (click)="logOut()">{{ 'SITE.EXIT' | translate }}</a>
+            </span>
         </div>
     </div>
 

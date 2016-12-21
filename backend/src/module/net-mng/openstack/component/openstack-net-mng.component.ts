@@ -374,6 +374,7 @@ export class OpenstackNetMngComponent implements OnInit {
     openEidtPanel(network:Network): void {
         this.closeEditPanel();
         let cNetwork = new Network();
+        cNetwork.networkDisplayName = network.networkDisplayName;
         cNetwork.subnetDisplayName = network.subnetDisplayName;
         cNetwork.selected = true;//network.selected;
         cNetwork.id = network.id;
@@ -398,18 +399,19 @@ export class OpenstackNetMngComponent implements OnInit {
             net.nameEditing = false;
         });
     }
-    updateSubnetDisplayName(network:Network){
+    updateNetworkDisplayName(network:Network){
         this.layoutService.show();
-        if (this.validationService.isBlank(this.editNetwork.subnetDisplayName)) {
+        if (this.validationService.isBlank(this.editNetwork.networkDisplayName)) {
             this.showAlert("名称不能为空");
             return;
         }
-        this.service.updateSubName(this.editNetwork)
+        this.service.updateNetworkDisplayName(this.editNetwork)
             .then(
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     let cNetwork = this.editNetwork;
+                    network.networkDisplayName = cNetwork.networkDisplayName;
                     network.subnetDisplayName = cNetwork.subnetDisplayName;
                     network.selected = cNetwork.selected;
                     network.id = cNetwork.id;
