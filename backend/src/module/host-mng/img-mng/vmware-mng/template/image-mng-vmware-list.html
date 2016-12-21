@@ -9,7 +9,7 @@
             <div class="float-left pdr20">
                 <select class="pdl10 form-control" [(ngModel)]="queryOpt.type">
                     <option [value]="" value="">选择镜像</option>
-                    <option *ngFor="let td of typeDict" [value]="td.value">{{td.displayValue}}</option>
+                    <option *ngFor="let td of typeDictArray" [value]="td.value">{{td.displayValue}}</option>
                 </select>
             </div>          
             <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >所属企业：</span>
@@ -52,6 +52,7 @@
                     <th>状态</th>
                 </tr>
             </thead>
+            
             <tbody>
                 <tr *ngFor="let img of vmwareimgs; let i=index">
                     <td><input type="radio" name="image" class="fox-cloud-radio" [checked]="img.checked" (change)="selectItem(i)" value="{{i}}"></td>
@@ -79,10 +80,10 @@
                             
                         </div>
                     </td>
-                    <td>{{getDicText(img.os, this.osDict)}}</td>
-                    <td>{{getDicText(img.bitsType, this.bitDict)}}</td>
-                    <td>{{ img.capacity | formatCapacity}}</td>
-                    <td>{{getDicText(img.type, this.typeDict)}}</td>
+                    <td>{{img.os | dict:this.dictService.osDict | async}}</td>
+                    <td>{{img.bitsType | dict:this.dictService.bitDict | async}}</td>
+                    <td>{{img.capacity | formatCapacity}}</td>
+                    <td>{{img.type | dict:this.dictService.typeDict | async}}</td>
                     <td [ngSwitch]="displayIt(img.tenants)">
                         <div *ngSwitchCase="'some'" class="tenants-c">详细>>
                         <div class="table-container" style=" border-left: 1px solid #cfd8e7;border-right: 1px solid #cfd8e7">
@@ -102,10 +103,12 @@
                         <div *ngSwitchCase="'special'">{{img.tenants[0].name}}</div>
                         
                     </td>
-                    <td [ngClass]="{'font-green':img.status=='1','font-orange':img.status=='0'}">{{getDicText(img.status, this.statusDict)}}</td>                   
+                    <td [ngClass]="{'font-green':img.status=='1','font-orange':img.status=='0'}">{{img.status | dict:this.dictService.statusDict | async}}</td>                   
                 </tr>
             </tbody>
+            
         </table>
+        
 <!--
     {{queryOpt.toString()}}
 -->
@@ -167,7 +170,7 @@
 					<div class="col-sm-8">
 						<!--<input type="string" class="form-control input-control" [(ngModel)]="changedimg.os">  -->
                         <select [(ngModel)]="changedimg.os">
-                            <option *ngFor="let os of this.osDict" [value]="os.value">{{os.displayValue}}</option>
+                            <option *ngFor="let os of this.osDictArray" [value]="os.value">{{os.displayValue}}</option>
                         </select>
 					</div>
 				</div>
@@ -177,7 +180,7 @@
 					<div class="col-sm-4 form-control-title">系统位数：</div>
 					<div class="col-sm-8">                        
                         <select [(ngModel)]="changedimg.bitsType">
-                            <option *ngFor="let bit of this.bitDict" [value]="bit.value">{{bit.displayValue}}</option>
+                            <option *ngFor="let bit of this.bitDictArray" [value]="bit.value">{{bit.displayValue}}</option>
                         </select>
 					</div>
 				</div>

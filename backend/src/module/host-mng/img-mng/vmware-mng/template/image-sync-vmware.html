@@ -45,21 +45,21 @@
                         <div *ngIf="syncimg.syncResult==0">
                             <!--<input type="text" class="form-control" [(ngModel)]="syncimg.os" /> -->
                             <select [(ngModel)]="syncimg.os">
-                                <option *ngFor="let os of this.osDict" [value]="os.value">{{os.displayValue}}</option>
+                                <option *ngFor="let os of this.osDictArray" [value]="os.value">{{os.displayValue}}</option>
                             </select>
                         </div>
                         <div *ngIf="syncimg.syncResult!=0">
-                            {{getDicText(syncimg.os, this.osDict)}}
+                            {{syncimg.os | dict:this.dictService.osDict | async}}
                         </div>
                     </td>
                     <td>
                         <div *ngIf="syncimg.syncResult==0" style="padding-top:2px">
                         <select [(ngModel)]="syncimg.bitsType">
-                            <option *ngFor="let bit of this.bitDict" [value]="bit.value">{{bit.displayValue}}</option>
+                            <option *ngFor="let bit of this.bitDictArray" [value]="bit.value">{{bit.displayValue}}</option>
                         </select>
                         </div>
                         <div  *ngIf="syncimg.syncResult!=0">
-                        {{getDicText(syncimg.bitsType, this.bitDict)}}
+                        {{syncimg.bitsType | dict:this.dictService.bitDict | async}}
                         </div>
                     </td>
                     <td>{{ syncimg.capacity | formatCapacity}}</td>
@@ -72,10 +72,10 @@
                         </select>
                         </div>
                         <div  *ngIf="syncimg.syncResult!=0">
-                        {{getDicText(syncimg.type, this.typeDict)}}
+                        {{syncimg.type | dict:this.dictService.typeDict | async}}
                         </div>
                     </td>
-                    <td class="font-green">{{getDicText(syncimg.syncResult, this.syncReslDict)}}</td>
+                    <td class="font-green">{{syncimg.syncResult | dict:this.dictService.syncReslDict | async}}</td>
                 </tr>
             </tbody>
         </table>

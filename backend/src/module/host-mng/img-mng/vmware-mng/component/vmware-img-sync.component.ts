@@ -1,12 +1,14 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService, PaginationComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../../architecture';
+import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService, 
+    PaginationComponent, ConfirmComponent, SystemDictionary } from '../../../../../architecture';
 
 //model
 import { VmwareImgSyncModel, TenantModel } from '../model/vmware-img-list.model';
 
 //service
 import { VmwareImgSyncService } from '../service/vmware-img-sync.service';
+import { VmwareImgDictService } from '../service/vmware-img-dict.service';
 
 @Component({
     selector: "vmware-img-sync",
@@ -20,7 +22,7 @@ export class VmwareImgSyncComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private dicService: SystemDictionaryService,
+        private dictService: VmwareImgDictService,
         private syncService: VmwareImgSyncService,
         private layoutService: LayoutService,
         private validationService: ValidationService,
@@ -45,11 +47,8 @@ export class VmwareImgSyncComponent implements OnInit {
     noticeTitle = "";
     noticeMsg = "";
 
-    typeDict: Array<SystemDictionary>;//镜像类型
-    statusDict: Array<SystemDictionary>;//镜像状态
-    bitDict: Array<SystemDictionary>;//os位数
-    osDict: Array<SystemDictionary>;//os类型
-    syncReslDict: Array<SystemDictionary>;//同步结果
+    bitDictArray: Array<SystemDictionary>;
+    osDictArray: Array<SystemDictionary>;
 
     platformId: string;
     platformName: string;
@@ -64,34 +63,16 @@ export class VmwareImgSyncComponent implements OnInit {
             console.log("接收的platformName:" + this.platformName);
 		});
 
-        this.dicService.getItems("IMAGES", "TYPE")
-            .then(
-            (dic) => {
-                this.typeDict = dic;
-                console.log(this.typeDict, "typeDict!!!");
-                return this.dicService.getItems("IMAGES", "BITS_TYPE");
-            })
-            .then((dic) => {
-                this.bitDict = dic;
-                console.log(this.bitDict, "bitDict!!!");
-                return this.dicService.getItems("IMAGES", "SYNC_RESULT");
-            })
-            .then((dic) => {
-                this.syncReslDict = dic;
-                console.log(this.syncReslDict, "syncResDict!!!");
-                return this.dicService.getItems("IMAGES", "STATUS");
-            })
-            .then((dic) => {
-                this.statusDict = dic;
-                console.log(this.statusDict, "statusDict!!!");
-                return this.dicService.getItems("IMAGES", "OS");                
-            })
-            .then((dic) => {
-                this.osDict = dic;
-                console.log(this.osDict, "osDict!!!");
-                this.getVmwareImgSyncList();
-            });
+        this.dictService.bitDict
+        .then((items) => {
+            this.bitDictArray = items;
+        });
+        this.dictService.osDict
+        .then((items) => {
+            this.osDictArray = items;
+        });
 
+        this.getVmwareImgSyncList();
     }
 
     showMsg(msg: string) {

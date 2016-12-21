@@ -23,7 +23,7 @@ export class OpenstackNetMngComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private dicService: SystemDictionaryService,
+        //private dicService: SystemDictionaryService,
         private service: OpenstackService,
         private layoutService: LayoutService,
         private validationService: ValidationService,
@@ -49,12 +49,12 @@ export class OpenstackNetMngComponent implements OnInit {
     pageSize = 10;
     totalPage = 1;
 
-    typeDic: Array<SystemDictionary>;//网络类型
-    sharedDic: Array<SystemDictionary>;//是否共享
-    stateDic: Array<SystemDictionary>;//运行状态
-    statusDic: Array<SystemDictionary>;//状态
-    regionDic: Array<SystemDictionary>;//地域
-    dcDic: Array<SystemDictionary>;//数据中心
+    // typeDic: Array<SystemDictionary>;//网络类型
+    // sharedDic: Array<SystemDictionary>;//是否共享
+    // stateDic: Array<SystemDictionary>;//运行状态
+    // statusDic: Array<SystemDictionary>;//状态
+    // regionDic: Array<SystemDictionary>;//地域
+    // dcDic: Array<SystemDictionary>;//数据中心
 
     queryOpt: CriteriaQuery = new CriteriaQuery();
     networks: Array<Network>;
@@ -80,32 +80,33 @@ export class OpenstackNetMngComponent implements OnInit {
     //选择的要同步的企业
     selectedEntList:Array<string>;
     ngOnInit() {
-        this.dicService.getItems("NETWORK", "TYPE")
-            .then(
-            (dic) => {
-                this.typeDic = dic;
-                return this.dicService.getItems("NETWORK", "SHARED");
-            })
-            .then((dic) => {
-                this.sharedDic = dic;
-                return this.dicService.getItems("NETWORK", "STATE");
-            })
-            .then((dic) => {
-                this.stateDic = dic;
-                return this.dicService.getItems("NETWORK", "STATUS");
-            })
-            .then((dic) => {
-                this.statusDic = dic;
-                return this.dicService.getItems("NETWORK", "");
-            })
-            .then((dic) => {
-                this.regionDic = dic;
-                return this.dicService.getItems("NETWORK", "");
-            })
-            .then((dic) => {
-                this.dcDic = dic;
-                this.getOptionInfo();
-            });
+        // this.dicService.getItems("NETWORK", "TYPE")
+        //     .then(
+        //     (dic) => {
+        //         this.typeDic = dic;
+        //         return this.dicService.getItems("NETWORK", "SHARED");
+        //     })
+        //     .then((dic) => {
+        //         this.sharedDic = dic;
+        //         return this.dicService.getItems("NETWORK", "STATE");
+        //     })
+        //     .then((dic) => {
+        //         this.stateDic = dic;
+        //         return this.dicService.getItems("NETWORK", "STATUS");
+        //     })
+        //     .then((dic) => {
+        //         this.statusDic = dic;
+        //         return this.dicService.getItems("NETWORK", "");
+        //     })
+        //     .then((dic) => {
+        //         this.regionDic = dic;
+        //         return this.dicService.getItems("NETWORK", "");
+        //     })
+        //     .then((dic) => {
+        //         this.dcDic = dic;
+        //         this.getOptionInfo();
+        //     });
+            this.getOptionInfo();
     }
 
     getNetworkList(pageIndex?): void {
@@ -259,20 +260,20 @@ export class OpenstackNetMngComponent implements OnInit {
     }
 
     //根据value获取字典的txt
-    getDicText(value: string, dic: Array<SystemDictionary>): String {
-        if (!$.isArray(dic)) {
-            return value;
-        }
-        const d = dic.find((e) => {
-            return e.value == value;
-        });
-        if (d) {
-            return d.displayValue;
-        } else {
-            return value;
-        }
+    // getDicText(value: string, dic: Array<SystemDictionary>): String {
+    //     if (!$.isArray(dic)) {
+    //         return value;
+    //     }
+    //     const d = dic.find((e) => {
+    //         return e.value == value;
+    //     });
+    //     if (d) {
+    //         return d.displayValue;
+    //     } else {
+    //         return value;
+    //     }
 
-    }
+    // }
 
 
     onRejected(reason: any) {

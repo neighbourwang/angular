@@ -1,11 +1,13 @@
+// ***********子组件 云硬盘列表*************
 
-import { Component,ViewChild, OnInit } from '@angular/core';
+import { Component,ViewChild, OnInit, Input , Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent, dictPipe, PopupComponent } from '../../../../architecture';
 import { cloudDriveServiceList } from '../service/cloud-drive-list.service'
 
 import { QuiryDistList,HandleDist , DistList } from '../model/dist-list.model';
+import { ListOptions } from '../model/options.model';
 
 @Component({
 	selector: 'cloud-drive-list',
@@ -24,6 +26,8 @@ export class cloudDriveListComponent implements OnInit {
 	@ViewChild("vmDialog") vmDialog: PopupComponent;
 
 	@ViewChild('platformZone') platformZone;
+
+	@Input() options:ListOptions;
 
 	list : QuiryDistList = new QuiryDistList();
 	saveList : QuiryDistList = new QuiryDistList();   //储存点，重置搜索时会返回到这个点
@@ -53,8 +57,6 @@ export class cloudDriveListComponent implements OnInit {
 		// this.setArea();
 		this.setDistList();
 		this.initSelect();
-		
-		this.dictPipe.transform("1",this.service.computeStatus).then(res => console.log(res))
 	}
 
 	setDistList(): void {
@@ -93,6 +95,7 @@ export class cloudDriveListComponent implements OnInit {
 		this.handleData.serverId = key === "mount" ? this.serverId : key === "unmount" ? dist.relyId : "";
 		this.handleData.actions = key;
 		this.handleData.enterpriseIds.platformId = dist.platformId;
+		this.handleData.enterpriseIds.enterpriseId = this.service.userInfo.enterpriseId;
 
 		this.service.handleDist(this.handleData).then(res => {
 			this.layoutService.hide();

@@ -98,7 +98,7 @@
 												<td class="text-center">{{item.operator}}</td>
 												<td class="text-center">{{item.departmentName}}</td>
 												<td class="text-center">{{item.operation}}</td>
-												<td class="text-center">{{item.status | dict:_dictServ.getDic("SUBINSTANCE", "STATUS") | async}}</td>
+												<td class="text-center">{{item.status | dict:_dictServ.getDic("ORDER", "STATUS") | async}}</td>
 												<td class="text-center">{{item.desc}}</td>
 											</tr>
 										</tbody>

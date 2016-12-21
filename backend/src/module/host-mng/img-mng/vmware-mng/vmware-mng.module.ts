@@ -13,8 +13,10 @@ import { VmwareImgEntSetupComponent } from './component/vmware-img-ent-setup.com
 
 //Service
 import { VmwareImgListService } from './service/vmware-img-list.service';
-import { VmwareEntListService } from './service/enterprise-list.service';
 import { VmwareImgEntSetupService } from './service/vmware-img-ent-setup.service';
+import { VmwareImgSyncService } from './service/vmware-img-sync.service';
+import { VmwareImgDictService } from './service/vmware-img-dict.service';
+
 
 
 @NgModule({
@@ -35,8 +37,9 @@ import { VmwareImgEntSetupService } from './service/vmware-img-ent-setup.service
     ],
     providers: [
         VmwareImgListService,
-        VmwareEntListService,
-        VmwareImgEntSetupService
+        VmwareImgEntSetupService,
+        VmwareImgSyncService,
+        VmwareImgDictService
     ]
 
 })

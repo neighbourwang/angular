@@ -23,6 +23,7 @@ import * as _ from 'underscore';
 export class CheckMngListComponent implements OnInit{ 
 	private _param:CheckCenterParam = new CheckCenterParam();
 	private _departmentLoader:ItemLoader<{id:string;name:string}> = null; //部门列表
+	private _submiterLoader:ItemLoader<{id:string;name:string}> = null;//提交者列表
 	private _serviceTypeDic:DicLoader = null; //产品类型
 	private _orderTypeDic : DicLoader =null;//订单类型
 	private _isAdvSearch:boolean = false;//高级查询
@@ -109,10 +110,13 @@ export class CheckMngListComponent implements OnInit{
 
 		//部门列表配置
 		this._departmentLoader = new ItemLoader<{id:string;name:string}>(false, "部门列表", "op-center.order-mng.department-list.get", _restApiCfg, _restApi);
+		
+		//提交者列表配置
+		this._submiterLoader = new ItemLoader<{id:string;name:string}>(false, "提交者列表", "check-center.submiter-list.get", _restApiCfg, _restApi);
 		//产品类型配置
 		this._serviceTypeDic = new DicLoader(_restApiCfg, _restApi, "GLOBAL", "SERVICE_TYPE");
         //订单类型
-		this._orderTypeDic = new DicLoader(_restApiCfg, _restApi, "ORDER", "SERVICE_TYPE");
+		this._orderTypeDic = new DicLoader(_restApiCfg, _restApi, "ORDER", "TYPE");
 	}
 	
 	ngOnInit(){
@@ -179,6 +183,19 @@ export class CheckMngListComponent implements OnInit{
 	entChanged(){
 		this._layoutService.show();
 		this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._param.entIdStr}])
+		.then(success=>{
+			this._layoutService.hide();
+		})
+		.catch(err=>{
+			this._layoutService.hide();
+			this.showMsg(err);
+		});
+		
+	}
+	//根据部门加载提交者,审批人
+	loadSubmiter(){
+		this._layoutService.show();
+		this._departmentLoader.Go(null, [{key:"departmentId", value:this._param.departmentIdNum}])
 		.then(success=>{
 			this._layoutService.hide();
 		})

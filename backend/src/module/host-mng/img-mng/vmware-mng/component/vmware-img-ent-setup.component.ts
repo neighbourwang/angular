@@ -1,12 +1,14 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService, PaginationComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../../architecture';
+import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService, 
+    PaginationComponent, ConfirmComponent, SystemDictionary } from '../../../../../architecture';
 
 //model
 import { EnterpriseModel } from '../model/vmware-img-list.model';
 
 //service
 import { VmwareImgEntSetupService } from '../service/vmware-img-ent-setup.service';
+import { VmwareImgDictService } from '../service/vmware-img-dict.service';
 
 @Component({
     selector: "vmware-img-ent-setup",
@@ -20,7 +22,7 @@ export class VmwareImgEntSetupComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private dicService: SystemDictionaryService,
+        private dictService: VmwareImgDictService,
         private entService: VmwareImgEntSetupService,
         private layoutService: LayoutService,
         private validationService: ValidationService,
@@ -45,24 +47,18 @@ export class VmwareImgEntSetupComponent implements OnInit {
     noticeTitle = "";
     noticeMsg = "";
 
-    //字典
-    bitDict: Array<SystemDictionary>;//os位数
-    osDict: Array<SystemDictionary>;
-
     //路由参数
     platformId: string;
     imageId: string;
     imageName: string;
     imagedisplayName: string;
     imageOs: string;
-    imagebitsTyep: string;
+    imagebitsType: string;
 
     //
     selectedEnts: Array<EnterpriseModel>;
     unselectedEnts: Array<EnterpriseModel>;
-
-
-
+    
     ngOnInit() {
         this.activatedRouter.params.forEach((params: Params) => {
             if (params["imageId"] != null) {
@@ -81,25 +77,12 @@ export class VmwareImgEntSetupComponent implements OnInit {
                 this.imageOs = params["imageOs"];                
                 console.log(this.imageOs, "this.imageOs");
             }
-            if (params["imagebitsTyep"] != null) {
-                this.imagebitsTyep = params["imagebitsTyep"];                
-                console.log(this.imagebitsTyep, "this.imagebitsTyep");
+            if (params["imagebitsType"] != null) {
+                this.imagebitsType = params["imagebitsType"];                
+                console.log(this.imagebitsType, "this.imagebitsType");
             }
         });
-        this.dicService.getItems("IMAGES", "BITS_TYPE")
-            .then(
-                (dic) => {
-                this.bitDict = dic;
-                console.log(this.bitDict, "bitDict!!!");
-                return this.dicService.getItems("IMAGES", "OS");
-            })
-            .then(
-                (dic) => {
-                this.osDict = dic;
-                console.log(this.osDict, "osDict!!!");
-                this.getAllEnts();
-            });
-
+        this.getAllEnts();
     }
 
 

@@ -129,9 +129,9 @@ export class OrderMngSearchComponent implements OnInit{
 		.then(success=>{
 			return this._productTypeDic.Go();
 		})
-		// .then(success=>{
-		// 	return this.loadDepartment();
-		// })
+		.then(success=>{
+			return this._departmentLoader.Go();
+		})
 		// .then(success=>{
 		// 	return this.loadBuyer();
 		// })
@@ -147,14 +147,14 @@ export class OrderMngSearchComponent implements OnInit{
 		});
 	}
 
-	loadDepartment(){
-		this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._entId}])
-		.then(success=>{
-			this._param.organization = null;
-		}, err=>{
-			this._param.organization = null;
-		});
-	}
+	// loadDepartment(){
+	// 	this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._entId}])
+	// 	.then(success=>{
+	// 		this._param.organization = null;
+	// 	}, err=>{
+	// 		this._param.organization = null;
+	// 	});
+	// }
 
 	loadBuyer(){
 		this._buyerLoader.Go(null, [{key:"departmentId", value:this._param.organization}])

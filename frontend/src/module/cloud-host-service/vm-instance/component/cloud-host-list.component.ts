@@ -1,10 +1,11 @@
 
-import { Component,ViewChild, OnInit } from '@angular/core';
+import { Component,ViewChild,Input , Output,  OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 import { cloudHostServiceList } from '../service/cloud-host-list.service'
 
+import { ListOptions } from '../model/options.model';
 import { VmList, HandleVm, QuiryVmList } from '../model/vm-list.model';
 import { VMInstanceLabelItem } from '../model/labe-iItem.model';
 
@@ -23,6 +24,8 @@ export class cloudHostListComponent implements OnInit {
 	private noticeDialog: NoticeComponent;
 
 	@ViewChild('platformZone') platformZone;
+
+	@Input() options:ListOptions;
 
 	list : QuiryVmList = new QuiryVmList();
 	saveList : QuiryVmList = new QuiryVmList();   //储存点，重置搜索时会返回到这个点
@@ -99,6 +102,7 @@ export class cloudHostListComponent implements OnInit {
 		this.handleData.id = vm.uuid;
 		this.handleData.actions = key;
 		this.handleData.enterpriseIds.platformId = vm.platformId;
+		this.handleData.enterpriseIds.enterpriseId = this.service.userInfo.enterpriseId;
 
 		this.service.handleVm(this.handleData).then(res => {
 			this.layoutService.hide();
@@ -121,7 +125,7 @@ export class cloudHostListComponent implements OnInit {
             },
             {
                 key: 'enterpriseId',
-                value: "100"
+                value: this.service.userInfo.enterpriseId
             },
             {
                 key: 'uuid',

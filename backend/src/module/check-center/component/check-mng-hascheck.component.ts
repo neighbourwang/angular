@@ -30,7 +30,7 @@ export class CheckMngHascheckComponent implements OnInit{
 	private _serviceTypeDic:DicLoader = null; //产品类型
 	private _orderTypeDic:DicLoader = null; //订单类型
 	private _isAdvSearch:boolean = false;//高级查询
-	private _userListLoader:ItemLoader<{id:string;name:string}> = null;//用户列表
+	private _userListLoader:ItemLoader<{id:string;name:string}> = null;//提交者列表
 	private _approverListLoader:ItemLoader<{id:string;name:string}> = null;//审批人列表
 	private _approveInfoLoader:ItemLoader<ApproveItem> = null;//审批意见
 	private _listLoader:ItemLoader<CheckListItem> = null;//列表数据加载
@@ -62,7 +62,7 @@ export class CheckMngHascheckComponent implements OnInit{
 				obj.orderTypeName = item.orderType;//订单类型
 				obj.userStr = item.submiter;// 用户,提交者
 				obj.departmentStr = item.departmentName;// 部门
-				obj.entStr = item.enterpriszeName;// 企业
+				obj.entStr = item.enterpriseName;// 企业
 				//费用
 				obj.billingModeNum =item.billingInfo ? item.billingInfo.billingMode: null; //计费模式
 				obj.billingDurationStr = item.period;//订单周期
@@ -105,7 +105,7 @@ export class CheckMngHascheckComponent implements OnInit{
 			}));
 		};
 
-		//用户列表
+		//提交者列表
 		this._userListLoader = new ItemLoader<{id:string;name:string}>(false, "用户列表", "check-center.user-list.get", _restApiCfg, _restApi);
 		this._userListLoader.MapFunc = (source:Array<any>,target:Array<{id:string;name:string}>)=>{
 			target = target.concat(source.map(n=>{
@@ -170,8 +170,27 @@ export class CheckMngHascheckComponent implements OnInit{
 
 		let param = _.extend({}, this._param);
 
+//   "approverId": "string",
+//   "approverStatus": "string",
+//   "createTime": "2016-12-20T07:01:23.499Z",
+//   "enterpriseId": "string",
+//   "expireTime": "2016-12-20T07:01:23.499Z",
+//   "orderCode": "string",
+//   "orderType": "string",
+//   "organization": "string",
+//   "pageParameter": {
+//     "currentPage": 0,
+//     "offset": 0,
+//     "size": 0,
+//     "sort": {},
+//     "totalPage": 0
+//   },
+//   "serviceId": "string",
+//   "status": "string",
+//   "userId": "string"
+// }
 		//匹配后台搜索框参数
-		param.status = 1;//approvalStatus代表已审批
+		param.approverStatus = 1;//approvalStatus代表已审批
         param.orderCode = this._param.quickSearchStr;//输入订单号快速查询 ？
  		param.enterpriseId = this._param.entIdStr; //企业enterpriseId
 		param.organization = this._param.departmentIdNum; //部门organization？
@@ -179,7 +198,7 @@ export class CheckMngHascheckComponent implements OnInit{
 		param.serviceId = this._param.serviceTypeNum;//产品类型serviceId
 		param.createTime = this._param.startDateStr;//创建时间
 		param.expireTime = this._param.endDateStr; //结束时间
-		param.userId = this._param.submitUserId;		//提交者？
+		param.userId = this._param.submitUserId;		//提交者
 		param.approverId = this._param.checkUserIdStr;// 审批人
 			
 		param.pageParameter = {

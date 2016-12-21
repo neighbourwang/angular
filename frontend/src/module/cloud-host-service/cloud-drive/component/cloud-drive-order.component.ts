@@ -1,15 +1,17 @@
 /**
+***********子组件*************
  * [订购逻辑]
  * 参考订购云主机的逻辑
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Input , Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService } from '../../../../architecture';
 import { cloudDriveServiceOrder } from '../service/cloud-drive-order.service'
 
 import { AttrList, PayLoad } from '../model/attr-list.model';
+import { OrderOptions } from '../model/options.model';
 import { OrderList, OrderService, SendModule,TimeLineData, VlueList, SkuMap, ProMap, BillingInfo } from '../model/services.model';
 
 @Component({
@@ -20,6 +22,8 @@ import { OrderList, OrderService, SendModule,TimeLineData, VlueList, SkuMap, Pro
 export class cloudDriveComponentOrder implements OnInit {
 
 	@ViewChild('cartButton') cartButton;
+
+	@Input() options:OrderOptions;
 
 	configs: OrderList;
 	payLoad: PayLoad;
@@ -193,8 +197,8 @@ export class cloudDriveComponentOrder implements OnInit {
 	}
 
 	addCart() {   //加入购物车
+		if(!this.checkInput()) return;
 		this.layoutService.show();
-		this.checkInput();
 		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
 		this.service.addCart(payLoadArr).then(res => {
 			this.layoutService.hide();
@@ -215,11 +219,46 @@ export class cloudDriveComponentOrder implements OnInit {
 		return parseInt(value);
 	}
 
+	check = {};
+	checkValue(value?:string){ //动态验证
+		const regs = {
+			platform : () => !!this.sendModule.platform.attrValue,
+			zone : () => !!this.sendModule.zone.attrValue,
+			disktype : () => !!this.sendModule.disktype.attrValue,
+			storage : () => !!this.sendModule.storage.attrValue,
+			diskinsname : () =>  !this.sendModule.diskinsname.attrValue || /^[a-zA-Z\u4e00-\u9fa5].{1,67}/.test(this.sendModule.diskinsname.attrValue)
+		};
+
+		const alertValue = {
+			platform : "请选择云平台",
+			zone : "请选择可用区",
+			disktype : "请选择云硬盘",
+			storage : "请选择云硬盘类型",
+			diskinsname : "云硬盘名称格式不正确",
+		}
+
+		const check = value => {
+			this.check[value] = regs[value]();
+			if(!this.check[value]) return alertValue[value];
+		} 
+
+		if(!value){
+			for(let reg in regs){
+				let is = check(reg);
+				if(is) return is;
+			}
+		}else {
+			return check(value);
+		}
+	}
 
 	checkInput() {
 		const al = value => !!alert(value);
 
 		if(!this.sku) return al("sku不正确");
+
+		const value = this.checkValue();
+		if(value) return al(value);
 		return true;
 	}
 
@@ -237,8 +276,8 @@ export class cloudDriveComponentOrder implements OnInit {
 		this.router.navigateByUrl(url);
 	}
 	buyNow() {
+		if(!this.checkInput()) return;
 		this.layoutService.show();
-		this.checkInput();
 		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
 		console.log(this.sendModule, payLoadArr)
 		console.log(JSON.stringify(payLoadArr))

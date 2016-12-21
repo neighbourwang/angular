@@ -1192,7 +1192,7 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/backend/approval/orders/search/paging"     
     }
     ,{
-        "desc": "获取用户列表",
+        "desc": "获取提交者列表",
         "id": "check-center.user-list.get",
         "method": "GET",
         "url": "adminui/authsec/approval/department/{departmentId}/users"        

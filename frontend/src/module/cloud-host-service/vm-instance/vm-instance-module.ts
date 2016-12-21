@@ -19,6 +19,10 @@ import { cloudHostDetailComponent } from './component/cloud-host-detail.componen
 
 import { CloudHostComponents } from '../components/cloud-host-components.module';
 
+import { osVmOrderComponent } from './component/os-vm-order.component';
+import { vwVmOrderComponent } from './component/vw-vm-order.component';
+import { osVmListComponent } from './component/os-vm-list.component';
+import { vwVmListComponent } from './component/vw-vm-list.component';
 //service
 import { cloudHostServiceOrder } from './service/cloud-host-order.service'; 
 import { cloudHostServiceList } from './service/cloud-host-list.service'; 
@@ -41,7 +45,11 @@ import {cloudHostDetailService} from './service/cloud-host-detail.service';
         cloudHostListComponent,
         cloudHostComponentOrder,
         cloudHostDetailComponent,
-        subAddStorageComponent
+        subAddStorageComponent,
+        osVmOrderComponent,
+        vwVmOrderComponent,
+        osVmListComponent,
+        vwVmListComponent
     ],
     exports: [
     ],

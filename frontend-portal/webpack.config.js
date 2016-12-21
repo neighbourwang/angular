@@ -6,9 +6,6 @@ var path = require("path");
 module.exports = {
 	entry: {
 		common : [rootPath+"/src/common/common.js","webpack-dev-server/client?http://0.0.0.0:4001/", "webpack/hot/dev-server"],
-		login  : [rootPath+"/src/login/js/login.js"],
-		products  : [rootPath+"/src/products/js/products.js"],
-		portal  : [rootPath+"/src/portal/js/portal.js"]
 	},
 	output: {
 		path: rootPath+'/dist/',
@@ -36,22 +33,22 @@ module.exports = {
 		new webpack.HotModuleReplacementPlugin(),
 		new HtmlWebpackPlugin({
 		    filename: 'portal.html',
-		    chunks: ['common','portal'],
-		    template: 'src/portal/portal.ejs',
+		    chunks: ['common'],
+		    template: 'src/portal/index.ejs',
 		    chunksSortMode : 'none',
 		    hash: false
 		}),
 		new HtmlWebpackPlugin({
 		    filename: 'login.html',
-		    chunks: ['common','login'],
-		    template: 'src/login/login.ejs',
+		    chunks: ['common'],
+		    template: 'src/login/index.ejs',
 		    chunksSortMode : 'none',
 		    hash: false
 		}),
 		new HtmlWebpackPlugin({
 		    filename: 'products.html',
-		    chunks: ['common','products'],
-		    template: 'src/products/products.ejs',
+		    chunks: ['common'],
+		    template: 'src/products/index.ejs',
 		    chunksSortMode : 'none',
 		    hash: false
 		}),

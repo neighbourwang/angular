@@ -81,11 +81,16 @@ class SendModule {
     os : VlueList = new VlueList();
 }
 
+interface CommonServiceAttrValue{
+    bootStorageSize : number;
+}
+
 class SkuMap {
     productId:string = "";
     serviceName:string = "";
     serviceType:number = 0;
     skuId:string = "";
+    commonServiceAttrValue : CommonServiceAttrValue;
 }
 
 class TimeLineData {

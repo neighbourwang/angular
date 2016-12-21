@@ -100,12 +100,19 @@
                     </td>
                     <td >{{network.segmentCIDR}}</td>
                     <td >{{network.gateway}}</td>
-                    <td >{{getDicText(network.networkType,this.typeDic)}}</td>
+                    <!--<td >{{getDicText(network.networkType,this.typeDic)}}</td>
                     <td >{{getDicText(network.shared,this.sharedDic)}}</td>
                     <td >{{getDicText(network.state,this.stateDic)}}</td>
                     <td  [ngClass]="{'font-gray':network.status==1,'font-orange':network.status==3,'font-green':network.status==2}">
                         {{getDicText(network.status,this.statusDic)}}
+                    </td>-->
+                    <td >{{network.networkType | dict:this.service.typeDic | async }}</td>
+                    <td >{{network.shared |dict:this.service.sharedDic | async }}</td>
+                    <td >{{network.state | dict:this.service.stateDic | async }}</td>
+                    <td  [ngClass]="{'font-gray':network.status==1,'font-orange':network.status==3,'font-green':network.status==2}">
+                        {{network.status | dict:this.service.statusDic | async }}
                     </td>
+
 
                 </tr>
 

@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">操作系统:</div>
                     <div class="col-md-4">
-                        <span style="line-height:34px">{{getDicText(imageOs, this.osDict)}}</span>
+                        <span style="line-height:34px">{{imageOs | dict:this.dictService.osDict | async}}</span>
                     </div>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                     <div class="col-sm-4 form-control-title">系统位数:</div>
                     <div class="col-md-4">
                         <span style="line-height:34px">
-                            {{getDicText(imagebitsTyep, this.bitDict)}}
+                            {{imagebitsType | dict:this.dictService.bitDict | async}}
                         </span>
                     </div>
                 </div>
