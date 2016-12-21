@@ -181,9 +181,10 @@
 		<td class="text-center">
              <span [ngSwitch]="organ.status">
                             <template [ngSwitchCase]="1">启用</template>
-                            <template [ngSwitchCase]="5">禁用</template>
+                            <template [ngSwitchCase]="3">禁用</template>
+                            <template [ngSwitchCase]="2">挂起</template>
                             <template [ngSwitchCase]="0">未启用</template>
-                            <template [ngSwitchCase]="4">4</template>
+                            <template [ngSwitchCase]="4">已删除</template>
                             <template ngSwitchDefault>Unknown</template>
             </span>
         </td> 

@@ -1,7 +1,7 @@
 ﻿import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from "../../../../architecture";
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent ,ValidationService } from "../../../../architecture";
 
 //service
 import { AccountMngService } from "../service/account-mng-list.service";
@@ -20,7 +20,8 @@ export class AccountMngCrLocal implements OnInit {
         private service: AccountMngService,
         private layoutservice: LayoutService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private validService: ValidationService,
     ) {
     }
 
@@ -145,9 +146,17 @@ export class AccountMngCrLocal implements OnInit {
     }
     //验证账号唯一性
     loginNameIsOnly: boolean = true;
-    accountOnlyValid(phone) {
-        console.log(phone);
-        this.service.loginNameValid(phone).then(res => {
+    isEmail: boolean=true;
+    accountOnlyValid(val) {
+        console.log(val);
+       if(val){
+            if (this.validService.isEmail(val)) {
+                this.isEmail = true;
+                return;
+            } else {
+                this.isEmail = false;
+            }
+        this.service.loginNameValid(val).then(res => {
             console.log(res);
             if (res.resultCode == '10001001') {
                 this.loginNameIsOnly = false;
@@ -157,8 +166,17 @@ export class AccountMngCrLocal implements OnInit {
         }).catch(err => {
             console.error(err);
         })
+       }
     }
-
+    //验证手机号
+    isPhone: boolean=true;
+    phoneValid(val) {
+        if (val) {
+            this.isPhone =
+                this.validService.isMoblie(val) ? true : false;
+        }
+        console.log('phone', this.isPhone)
+    }
     //创建
     create() {
         console.log(this.account);
