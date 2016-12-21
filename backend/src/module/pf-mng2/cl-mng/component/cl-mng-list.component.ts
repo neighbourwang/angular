@@ -322,7 +322,7 @@ export class ClMngListComponent implements OnInit {
     //去详情
     godetail(item){
         console.log(item);
-        // this.router.navigate(["pf-mng2/pf-mng-detail", {id:item.id,type:item.platformType,name:item.name}]);
+        this.router.navigate(["pf-mng2/pf-mng-detail", {id:item.id,type:item.platformType,name:item.name}]);
     }
 
     //管理启动盘

@@ -20,8 +20,7 @@ import { MngConsoleService } from './service/mng-console.service'
 @NgModule({
     imports: [
         MngConsoleRouting,
-        CommonComponentModule
-      
+        CommonComponentModule,
     ],
     declarations: [
         MngConsoleComponent
