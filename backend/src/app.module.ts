@@ -7,6 +7,7 @@ import {CommonComponentModule} from './architecture/components/common.module';
 import {MenuComponent} from './architecture/components/menu/component/menu.component';
 import {SiteComponent} from './architecture/components/site/component/site.component';
 import { SiteService } from './architecture/components/site/service/site.service';
+import { MenuService } from './architecture/components/menu/service/menu.service';
 
 
 // pf-mng
@@ -58,7 +59,7 @@ import {routing} from './app.routing';
         routing
     ],
     declarations: [MenuComponent, SiteComponent],
-    providers: [SiteService],
+    providers: [SiteService, MenuService],
     bootstrap: [SiteComponent]
 })
 

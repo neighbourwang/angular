@@ -1,5 +1,6 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { DictService} from '../../../core/service/dict-service';
+import { MenuService } from '../service/menu.service';
 
 @Component({
     selector: 'fc-menu',
@@ -12,16 +13,32 @@ export class MenuComponent implements OnInit {
 
     active: Array<number> = new Array<number>();
 
+    constructor(
+        private service:MenuService,
+        private chRef: ChangeDetectorRef
+        ) {}
+
     ngOnInit() {
-        this.endMenu = menu;
+        this.setMenu();
     }
 
+    setMenu() {
+        console.log(1)
+        this.service.getMenuList().then(menu => {
+        console.log(2, menu)
+            this.endMenu = menu;
+            this.chRef.detectChanges();
+        })
+    }
     // 一级菜单事件处理, 切换菜单的展开/关闭
     top1MenuClick(top1Idx: number) {
         if (this.endMenu[top1Idx]["isOpen"]) {
             this.endMenu[top1Idx]["isOpen"] = false;
         } else {
             this.endMenu[top1Idx]["isOpen"] = true;
+        }
+        for (let i = 0; i < this.endMenu.length; ++i) {
+            if(top1Idx !== i && this.endMenu[i]["isOpen"])  this.endMenu[i]["isOpen"] = false;
         }
     }
 
@@ -67,180 +84,3 @@ export class MenuComponent implements OnInit {
     }
 
 }
-
-// Frontend Menu Definition
-const menu: Array<any> = [
-    {
-        "label": "MENU.CLOUD_HOSTING_SERVICES",
-        "isOpen": true,
-        "icon": "icon-cloudhost",
-        "top2_menu": [
-            // {
-            //     "label": "MENU.VIRTUAL_MACHINE_INSTANCE",
-            //     "isOpen": true,
-            //     "routing": "cloud-host-service/cloud-host-detail"
-            // },
-            {
-                "label": "MENU.CLOUD_HOSTING_INSTANCE",
-                "isOpen": true,
-                "routing": "cloud-host-service/cloud-host-list"
-            },
-            {
-                "label": "MENU.CLOUD_HARD_DISK",
-                "isOpen": true,
-                "routing": "cloud-host-service/cloud-drive-list"
-            },
-            // {
-            //     "label": "MENU.MIRROR",
-            //     "isOpen": true,
-            //     "routing": "image-mng/image-mng"
-            // }
-        ]
-    },
-    // {
-    //     "label": "MENU.PHYSICAL_SERVERS",
-    //     "isOpen": false,
-    //     "icon": "icon-machine",
-    //     "top2_menu": [
-    //         {
-    //             "label": "MENU.ACCOUNT_MANAGEMENT",
-    //             "isOpen": false,
-    //             "routing": ""
-    //         },
-    //         {
-    //             "label": "MENU.EXPENSE_CENTER",
-    //             "isOpen": false,
-    //             "routing": ""
-    //         }
-    //     ]
-    // },
-    // {
-    //     "label": "MENU.LOAD_BALANCER",
-    //     "isOpen": false,
-    //     "icon": "icon-loadbalance",
-    //     "top2_menu": [
-    //         {
-    //             "label": "MENU.ACCOUNT_MANAGEMENT",
-    //             "isOpen": false,
-    //             "routing": ""
-    //         },
-    //         {
-    //             "label": "MENU.DEPARTMENT_MANAGENMENT",
-    //             "isOpen": false,
-    //             "routing": ""
-    //         },
-    //         {
-    //             "label": "MENU.AUTHORITY_MANAGEMENT",
-    //             "isOpen": false,
-    //             "routing": ""
-    //         },
-    //         {
-    //             "label": "MENU.PRICE_SET",
-    //             "isOpen": false,
-    //             "routing": ""
-    //         },
-    //         {
-    //             "label": "MENU.QUOTA_MANAGEMENT",
-    //             "isOpen": false,
-    //             "routing": ""
-    //         },
-    //         {
-    //             "label": "MENU.EXPENSE_CENTER",
-    //             "isOpen": false,
-    //             "routing": ""
-    //         }
-    //     ]
-    // },
-    {
-        "label": "MENU.APPROVAL_CENTER",
-        "isOpen": false,
-        "icon": "icon-check",
-        "top2_menu": [
-            {
-                "label": "MENU.NOT_APPROVED",
-                "isOpen": false,
-                "routing": "check-center/check-mng-list"
-            },
-            {
-                "label": "MENU.APPROVED",
-                "isOpen": false,
-                "routing": "check-center/check-mng-hascheck"
-            }
-        ]
-    },
-    {
-        "label": "MENU.EXPENSE_CENTER",
-        "isOpen": false,
-        "icon": "icon-cost",
-        "top2_menu": [
-            // {
-            //     "label": "MENU.ACCOUNT_MANAGEMENT",
-            //     "isOpen": false,
-            //     "routing": ""
-            // },
-            {
-                "label": "MENU.PURCHASED_SERVICE_MANAGEMENT",
-                "isOpen": false,
-                "routing": "op-center/order-mng/order-mng"
-            }, {
-                "label": "MENU.ORDER_INQUIRY",
-                "isOpen": false,
-                "routing": "op-center/order-mng/order-mng-search"
-            }
-        ]
-    },
-    {
-        "label": "MENU.ACCOUNT_CENTER",
-        "isOpen": false,
-        "icon": "icon-user",
-        "top2_menu": [
-            {
-                "label": "MENU.ACCOUNT_MANAGEMENT",
-                "isOpen": false,
-                "routing": "user-center/account-mng/account-mng-list"
-            },
-            {
-                "label": "MENU.ORGANIZATION_MANAGENMENT",
-                "isOpen": false,
-                "routing": "user-center/org-mng/org-mng-list"
-            },
-            {
-                "label": "MENU.PERSONAL_ACCOUNT_MANAGEMENT",
-                "isOpen": false,
-                "routing": "user-center/person-acc-mng/person-acc-mng"
-            }
-            
-        ]
-    }
-    // {
-    //     "label": "MENU.PRODUCTS_SERVICES",
-    //     "isOpen": true,
-    //     "icon": "icon-product-and-service",
-    //     "top2_menu": [
-    //         {
-    //             "label": "MENU.CLOUD_HOSTING",
-    //             "isOpen": true,
-    //             "routing": "",
-    //             "top3_menu": [
-    //                 {
-    //                     "label": "MENU.OVERVIEW",
-    //                     "routing": "prod-and-svc/cloud-host/cloud-host-general-view"
-    //                 },
-    //                 {
-    //                     "label": "MENU.ORDER",
-    //                     "routing": "prod-and-svc/cloud-host/cloud-host-order"
-    //                 },
-    //                 {
-    //                     "label": "MENU.INSTANCE_LIST",
-    //                     "routing": "prod-and-svc/cloud-host/cloud-host-ins-list"
-    //                 },
-    //             ]
-    //         },
-    //         {
-    //             "label": "MENU.CLOUD_HARD_DISK",
-    //             "isOpen": false,
-    //             "routing": ""
-    //         }
-    //     ]
-    // },
-];

@@ -1163,10 +1163,11 @@ export let RestApis: RestApiModel[] = [
     
     },
     {
-        "desc": "更改子网显示名称",
+        "desc": "更改网络显示名称",
         "id": "net-mng.openstack.net.updatename",
         "method": "PUT",
-        "url": "openstacknetworkmgmt/authsec/openstack/network/subnetDisplayName"
+        "url": "openstacknetworkmgmt/authsec/openstack/network/displayName"
+        
     },{
         "desc": "openstack启用网络",
         "id": "net-mng.openstack.net.networkStart",
