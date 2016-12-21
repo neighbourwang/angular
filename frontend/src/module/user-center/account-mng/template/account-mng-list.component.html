@@ -23,8 +23,8 @@
             <td class="text-center active">{{account.userName}}</td>
             <td class="text-center">{{account.loginName}}</td>
             <td class="text-center">{{account.phone}}</td>
-            <td class="text-center">销售</td>
-            <td class="text-center">部门负责人</td>
+            <td class="text-center">{{account.organizationName}}</td>
+            <td class="text-center">{{account.roleName}}</td>
             <td class="text-center">
                  <span [ngSwitch]="account.status">
                             <template [ngSwitchCase]="1">启用</template>

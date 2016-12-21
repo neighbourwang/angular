@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild } from "@
 import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 
-import { LayoutService, NoticeComponent, ConfirmComponent } from "../../../../architecture";
+import { LayoutService, NoticeComponent, ConfirmComponent, ValidationService } from "../../../../architecture";
 //service
 import { AccountMngService } from "../service/account-mng.service";
 import { PutLocalAccService } from "../../person-acc-mng/service/person-acc-put.service";
@@ -21,7 +21,8 @@ export class AccountMngCrLocalComponent implements OnInit, OnChanges {
         private layoutService: LayoutService,
         private router: Router,
         private service: AccountMngService,
-        private putLocalAccService: PutLocalAccService
+        private putLocalAccService: PutLocalAccService,
+        private validService: ValidationService,
     ) {
     }
 
@@ -74,9 +75,16 @@ export class AccountMngCrLocalComponent implements OnInit, OnChanges {
     }
     //验证账号唯一性
     loginNameIsOnly: boolean = true;
+    isEmail: boolean=true;
     checkOnly(value) {
-        console.log(value);
+        console.log(this.validService.isEmail(value));
         if (value) {
+            if (this.validService.isEmail(value)) {
+                this.isEmail = true;
+                return;
+            } else {
+                this.isEmail = false;
+            }
             this.service.loginNameValid(value).then(res => {
                 console.log(res);
                 if (res.resultCode == '10001001') {
@@ -89,7 +97,15 @@ export class AccountMngCrLocalComponent implements OnInit, OnChanges {
             })
         }
     }
-
+    //验证手机号
+    isPhone: boolean=true;
+    phoneValid(val) {
+        if (val) {
+            this.isPhone =
+                this.validService.isMoblie(val) ? true : false;
+        }
+        console.log('phone', this.isPhone)
+    }
     //选择角色
     selectRole(idx) {
         console.log(idx);
@@ -120,7 +136,7 @@ export class AccountMngCrLocalComponent implements OnInit, OnChanges {
 
     save() {
         console.log(this.account);
-        if (this.accountForm.invalid || !this.loginNameIsOnly) {
+        if (this.accountForm.invalid || !this.loginNameIsOnly || !this.isEmail || !this.isPhone) {
             return Promise.reject("error");
         } else if (this.isEdit) {
             return this.service.editAccount(this.editId, this.account);
