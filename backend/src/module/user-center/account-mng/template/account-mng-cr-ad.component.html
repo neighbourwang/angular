@@ -8,19 +8,20 @@
                         <span class="asterisk">*</span>
                         姓名
                     </div>
-                    <!--
+                    
                     <div class="col-sm-4">
                         <input type="text" class="form-control" [(ngModel)]="account.userName" placeholder="请输入姓名">
                     </div>
-                    -->
+                    <!--
                     <div class="col-sm-4" [ngClass]="{'has-error': userName.errors && (userName.dirty || userName.touched)}">
-                            <input type="text" class="form-control" placeholder="请输入姓名" [(ngModel)]="account.userName" id="userName" required name="userName" #userName="ngModel">
+                            <input type="text" class="form-control" placeholder="请输入姓名" [(ngModel)]="account.userName" id="userName" required name="userName" #userName>
                             <div *ngIf="userName.errors && (userName.dirty || userName.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                 <div [hidden]="!userName.errors.required">
                                     姓名不能为空
                                 </div>
                             </div>
                     </div>
+                    -->
 
                 </div>
             </div>
@@ -31,11 +32,11 @@
                         <span class="asterisk">*</span>
                         联系电话
                     </div>
-                    <!--
+                    
                     <div class="col-sm-4">
                         <input type="text" class="form-control" [(ngModel)]="account.phone" placeholder="请输入联系电话">
                     </div>
-                    -->
+                    <!--
                     <div class="col-sm-4" [ngClass]="{'has-error': Phone.errors && (Phone.dirty || Phone.touched)}">
                             <input type="text" class="form-control" placeholder="请输入联系电话" [(ngModel)]="account.phone" id="Phone" required name="Phone" #Phone="ngModel">
                             <div *ngIf="Phone.errors && (Phone.dirty || Phone.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
@@ -44,6 +45,7 @@
                                 </div>
                             </div>
                     </div>
+                    -->
 
                 </div>
             </div>
