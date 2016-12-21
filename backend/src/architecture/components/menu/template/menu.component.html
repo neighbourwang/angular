@@ -1,5 +1,5 @@
 <ng-container *ngFor="let top1_menu of endMenu; let top1_idx = index">
-<divz [ngClass]="{'top1-menu': true, 'top-menu-open': top1_menu.isOpen}">
+<div [ngClass]="{'top1-menu': true, 'top-menu-open': top1_menu.isOpen}">
     <div class="top1-menu-trigger" *ngIf="top1_menu.isShow" (click)="top1MenuClick(top1_idx)">
         <span class="{{top1_menu.icon}}">{{top1_menu.label}}</span>
         <span [ngClass]="{'glyphicon': true, 'glyphicon-chevron-right': !top1_menu.isOpen, 'glyphicon-chevron-down': top1_menu.isOpen}"></span>
