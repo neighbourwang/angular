@@ -39,7 +39,8 @@ export class CheckMngHascheckComponent implements OnInit{
 	constructor(
 		private _restApiCfg:RestApiCfg
 		,private _restApi:RestApi
-		,private _layoutService:LayoutService){
+		,private _layoutService:LayoutService
+		,private _dictServ:SystemDictionaryService){
 
 		//计费模式字典
 		this._billinModeDic = new DicLoader(_restApiCfg, _restApi, "BILLING_MODE", "TYPE");

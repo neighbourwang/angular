@@ -20,7 +20,7 @@ export class SiteComponent implements OnInit{
 		private router: Router,
     private restApi : RestApi,
     private service : SiteService,
-    private dictService: SystemDictionaryService,
+    private dictService: SystemDictionaryService
   ) { }
   
   ngOnInit() {
