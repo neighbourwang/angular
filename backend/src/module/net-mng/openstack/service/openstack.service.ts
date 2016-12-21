@@ -120,10 +120,10 @@ export class OpenstackService{
 
 
 
-    updateSubName(network:Network):Promise<any>{
+    updateNetworkDisplayName(network:Network):Promise<any>{
         
         const api = this.restApiCfg.getRestApi("net-mng.openstack.net.updatename");
-        return this.restApi.request(api.method, api.url, null, null, {"id":network.id, "subnetDisplayName":network.subnetDisplayName});
+        return this.restApi.request(api.method, api.url, null, null, {"id":network.id, "subnetDisplayName":network.networkDisplayName});
     }
 
     //企业下拉列表
