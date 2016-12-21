@@ -17,7 +17,7 @@
 						<td>
 							<span class="float-left ">订单归属：</span>
 							<div class="float-left">
-								<select class="form-control" [(ngModel)]="_param.departmentIdNum">
+								<select class="form-control" [(ngModel)]="_param.departmentIdNum" (ngModelChange)="loadSubmiter()">
 									<option class="hands" [value]="null">所有部门</option>
 									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
@@ -28,9 +28,7 @@
 							<div class="float-left">
 								<select class="form-control" [(ngModel)]="_param.submitUserId">
 									<option class="hands">所有提交者</option>
-									<option class="hands">关羽</option>
-									<option class="hands">张飞</option>
-									<option class="hands">刘备</option>
+									<option class="hands" *ngFor="let item of _submiterLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 								</div>
 						</td>
@@ -47,9 +45,7 @@
 							<div class="float-left">
 								<select class="form-control" [(ngModel)]="_param.checkUserIdStr">
 									<option class="hands">所有审批人</option>
-									<option class="hands">关羽</option>
-									<option class="hands">张飞</option>
-									<option class="hands">刘备</option>
+									<option class="hands" *ngFor="let item of _checkerLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>

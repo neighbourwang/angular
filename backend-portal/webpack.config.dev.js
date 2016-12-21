@@ -7,8 +7,7 @@ var CleanWebpackPlugin = require('clean-webpack-plugin');  //发布前删除目�
 
 module.exports = {
 	entry: {
-		common : [rootPath+"/src/common/common.js"],
-		login  : [rootPath+"/src/login/js/login.js"],
+		common : [rootPath+"/src/common/common.js"]
 	},
 	output: {
 		path: rootPath+'/dist/',
@@ -35,8 +34,8 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 		    filename: 'login.html',
-		    chunks: ['common','login'],
-		    template: 'src/login/login.ejs',
+		    chunks: ['common'],
+		    template: 'src/login/index.ejs',
 		    chunksSortMode : 'none',
 		    hash: false
 		}),

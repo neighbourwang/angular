@@ -1,6 +1,6 @@
 <fc-notice #notice ot="确认"></fc-notice>
 <div class="CheckMngList">
-	<div class="page-content-header icon-order-manage" style="border-bottom: 3px solid  #01a982;margin: 10px 0px;padding: 0;">已审批列表</div>
+	<div class="page-content-header icon-order-manageOn">已审批列表</div>
 	<div class="page-content">
 		<div class="table-container">
 			<div class="search-container">
@@ -119,6 +119,7 @@
 								[animation]="true" 
 								[closeOnClickOutside]="true" >
 								<ul>
+									<li>testing1！</li>
 									<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}:{{spec.attrDisplayValue}}</li>
 								</ul>
 						</popover-content>
@@ -126,7 +127,7 @@
 						<td>{{item.serviceTypeName}}</td>
 						<td>{{item.platformStr}}<br/>
 						    {{item.zoneStr}}</td>
-						<td>{{item.orderTypeName}}</td>
+						<td>{{item.orderTypeName | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
 						<td>{{item.description}}</td>
 						<td>{{item.userStr}}</td>
 						<td>{{item.departmentStr}}</td>

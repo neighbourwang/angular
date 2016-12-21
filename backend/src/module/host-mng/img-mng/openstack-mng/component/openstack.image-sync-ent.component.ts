@@ -17,7 +17,7 @@ export class OpenstackImageSyncEntComponent implements OnInit{
     constructor(
         private router: ActivatedRoute,
         private router2: Router,
-        private dicService: SystemDictionaryService,
+        //private dicService: SystemDictionaryService,
         private service: OpenstackMngService,
         private layoutService: LayoutService,
         private validationService: ValidationService,
@@ -49,41 +49,42 @@ export class OpenstackImageSyncEntComponent implements OnInit{
     
 
 
-    typeDic: Array<SystemDictionary>;//镜像类型
-    bits_typeDic: Array<SystemDictionary>;//系统位数
-    ownerDic: Array<SystemDictionary>;//归属
-    statusDic: Array<SystemDictionary>;//状态
-    syncDic: Array<SystemDictionary>;//同步结果
-    osDic: Array<SystemDictionary>;//操作系统
+    // typeDic: Array<SystemDictionary>;//镜像类型
+    // bits_typeDic: Array<SystemDictionary>;//系统位数
+    // ownerDic: Array<SystemDictionary>;//归属
+    // statusDic: Array<SystemDictionary>;//状态
+    // syncDic: Array<SystemDictionary>;//同步结果
+    // osDic: Array<SystemDictionary>;//操作系统
+
     ngOnInit(){
         this.selectedTenantList = this.tenantService.getList();
         this.postTenants = this.selectedTenantList;
 
-        this.dicService.getItems("IMAGES", "TYPE")
-            .then(
-            (dic) => {
-                this.typeDic = dic;
-                return this.dicService.getItems("IMAGES", "BITS_TYPE");
-            })
-            .then((dic) => {
-                this.bits_typeDic = dic;
-                return this.dicService.getItems("IMAGES", "OWNER");
-            })
-            .then((dic) => {
-                this.ownerDic = dic;
-                return this.dicService.getItems("IMAGES", "ADM_STATUS");
-            })
-            .then((dic) => {
-                this.statusDic = dic;
-                return this.dicService.getItems("IMAGES", "SYNC_RESULT");
-            })
-            .then((dic)=>{
-                this.syncDic = dic;
-                return this.dicService.getItems("IMAGES","OS");
-            })
-            .then((dic)=>{
-                this.osDic = dic;
-            });
+        // this.dicService.getItems("IMAGES", "TYPE")
+        //     .then(
+        //     (dic) => {
+        //         this.typeDic = dic;
+        //         return this.dicService.getItems("IMAGES", "BITS_TYPE");
+        //     })
+        //     .then((dic) => {
+        //         this.bits_typeDic = dic;
+        //         return this.dicService.getItems("IMAGES", "OWNER");
+        //     })
+        //     .then((dic) => {
+        //         this.ownerDic = dic;
+        //         return this.dicService.getItems("IMAGES", "ADM_STATUS");
+        //     })
+        //     .then((dic) => {
+        //         this.statusDic = dic;
+        //         return this.dicService.getItems("IMAGES", "SYNC_RESULT");
+        //     })
+        //     .then((dic)=>{
+        //         this.syncDic = dic;
+        //         return this.dicService.getItems("IMAGES","OS");
+        //     })
+        //     .then((dic)=>{
+        //         this.osDic = dic;
+        //     });
 
         this.router.params.forEach((params: Params) => {
 			this.platformId = params['platformId'];
@@ -204,29 +205,29 @@ export class OpenstackImageSyncEntComponent implements OnInit{
     back(){
         this.router2.navigate(['host-mng/img-mng/openstack-mng', {"platformId": this.platformId,"platformName":this.platformName}]);
     }
-    //编辑时 默认系统位数选项
-    setDefaultBits(type:SystemDictionary, value:string){
-        if(value == type.value){
-            let classes =  {
-                selected:"selected"
-            };
-            return classes;
-        }
-    }
-    //编辑时 默认操作系统选项
-    setDefaultOs(type:SystemDictionary, value:string){
-        // if(value == type.value){
-        //     let classes =  {
-        //         selected:"selected"
-        //     };
-        //     return classes;
-        // }
-        let classes =  {
-                disabled:"disabled"
-            };
-        return classes;
+    // //编辑时 默认系统位数选项
+    // setDefaultBits(type:SystemDictionary, value:string){
+    //     if(value == type.value){
+    //         let classes =  {
+    //             selected:"selected"
+    //         };
+    //         return classes;
+    //     }
+    // }
+    // //编辑时 默认操作系统选项
+    // setDefaultOs(type:SystemDictionary, value:string){
+    //     // if(value == type.value){
+    //     //     let classes =  {
+    //     //         selected:"selected"
+    //     //     };
+    //     //     return classes;
+    //     // }
+    //     let classes =  {
+    //             disabled:"disabled"
+    //         };
+    //     return classes;
         
-    }
+    // }
       
 
    

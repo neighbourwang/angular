@@ -1,15 +1,17 @@
 /**
+***********子组件*************
  * [订购逻辑]
  * 参考订购云主机的逻辑
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Input , Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService } from '../../../../architecture';
 import { cloudDriveServiceOrder } from '../service/cloud-drive-order.service'
 
 import { AttrList, PayLoad } from '../model/attr-list.model';
+import { OrderOptions } from '../model/options.model';
 import { OrderList, OrderService, SendModule,TimeLineData, VlueList, SkuMap, ProMap, BillingInfo } from '../model/services.model';
 
 @Component({
@@ -20,6 +22,8 @@ import { OrderList, OrderService, SendModule,TimeLineData, VlueList, SkuMap, Pro
 export class cloudDriveComponentOrder implements OnInit {
 
 	@ViewChild('cartButton') cartButton;
+
+	@Input() options:OrderOptions;
 
 	configs: OrderList;
 	payLoad: PayLoad;

@@ -21,7 +21,7 @@
                     <td><a href="javascript:void(0);" (click)="choosePage(plf);">{{plf.name}}</a></td>
                     <td>{{plf.dataCenter}}</td>
                     <td>{{plf.region}}</td>
-                    <td>{{getDicText(plf.type,this.typeDic)}}</td>           
+                    <td>{{plf.type | dict:this.service.typeDic | async }}</td>           
                     <td>{{plf.imagesNum}}</td>
                     <td [ngClass]="plf.syncDate==null?'font-green':'font-blue'">{{plf.syncDate||"未同步"}}</td>                  
                 </tr> 

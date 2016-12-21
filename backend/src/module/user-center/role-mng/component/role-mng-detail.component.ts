@@ -1,7 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { RoleMngService } from "../service/role-mng.service";
-
+import { Location } from "@angular/common";
 @Component({
     selector: 'role-mng-detail',
     templateUrl: '../template/role-mng-detail.component.html',
@@ -13,7 +13,8 @@ export class RoleMngDetailComponent implements OnInit{
     constructor(
         private router : Router,
         private route : ActivatedRoute,
-        private service : RoleMngService
+        private service : RoleMngService,
+        private location : Location
     ){}
 
     roleTree : any;
@@ -56,6 +57,8 @@ export class RoleMngDetailComponent implements OnInit{
             )
         });
     }
-
-    
+    //
+    back() {
+        this.location.back();
+    }
 } 

@@ -124,7 +124,13 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminui/authsec/platform/{pf-id}/images/synchronize"        
     },
-   
+   //platform   add
+   {
+        "desc": "取得特定平台信息",
+        "id": "pf-mng-detail.get",
+        "method": "GET",
+        "url": "platformaccess/noauth/platforms/{id}"
+    },
 
 
     //update镜像同步
@@ -1186,7 +1192,7 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/backend/approval/orders/search/paging"     
     }
     ,{
-        "desc": "获取用户列表",
+        "desc": "获取提交者列表",
         "id": "check-center.user-list.get",
         "method": "GET",
         "url": "adminui/authsec/approval/department/{departmentId}/users"        

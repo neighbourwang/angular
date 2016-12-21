@@ -12,13 +12,14 @@
  * 4. 提交的时候根据sendModule转换成PayLoad
  */
 
-import { Component,ViewChild, OnInit } from '@angular/core';
+import { Component,ViewChild,Input , Output,  OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService } from '../../../../architecture';
 import { cloudHostServiceOrder } from '../service/cloud-host-order.service';
 
 import { AttrList, PayLoad } from '../model/attr-list.model';
+import { OrderOptions } from '../model/options.model';
 import { OrderList, OrderService, SendModule, TimeLineData, VlueList, SkuMap, ProMap, BillingInfo } from '../model/services.model';
 
 @Component({
@@ -33,6 +34,8 @@ export class cloudHostComponentOrder implements OnInit {
 	payLoadArr : PayLoad[];  //最后提交的是个PayLoad数组
 	sendModule: SendModule;
 	setPassword: boolean = true;
+	
+	@Input() options:OrderOptions;
 
 	totalPrice : number = 0;
 	vmSku : SkuMap = new SkuMap;
@@ -155,8 +158,6 @@ export class cloudHostComponentOrder implements OnInit {
 	 * @return {PayLoad[]} [description]
 	 */
 	private payLoadFormat(): PayLoad[] {
-		//临时处理 演示用
-		this.sendModule.bootsize.attrValue = "20";
 
 		/****下面开始处云主机订单的逻辑****/
 		let payloadList = this.sendModuleToPay(),
@@ -305,6 +306,7 @@ console.log(`[${sku.skuId}]`, "云硬盘")
 
 		if(this.vmSku.skuId) {
 			this.setTimeUnit();   // 设置购买时长
+			if(this.vmSku.commonServiceAttrValue) this.sendModule.bootsize.attrValue = this.vmSku.commonServiceAttrValue.bootStorageSize;  //设置启动盘大小
 		}
 	}
 

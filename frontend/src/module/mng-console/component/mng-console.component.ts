@@ -28,12 +28,17 @@ export class MngConsoleComponent implements OnInit {
         private layoutService: LayoutService,
         private router: Router,
         private service: MngConsoleService 
-    ) {
+    ) {}
 
-    }
     ngOnInit() {
         this.userInfo = this.service.getUserInfo;
+        this.setEntResoure();
+    }
 
+    public setEntResoure():void {   //设置资源的利用率
+        this.service.getEntResoure().then(res => {
+            console.log(res);
+        })
     }
 
     public quotaDtasets = [{ data: [ 30, 70 ], backgroundColor: [ "#00CC99","#E7E9ED" ], borderWidth:[  0,0  ] }]

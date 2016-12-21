@@ -60,9 +60,7 @@ export class OrgMngCrComponent implements OnInit {
     
   }
   ngOnInit() {    
-      if(this.isEdit){
-        
-      }
+      
   }
   //获取机构用户for leader列表
   getUserList(){    
@@ -103,11 +101,22 @@ export class OrgMngCrComponent implements OnInit {
   }
   //保存 给父组件调用
   save() {
-    console.log(this.org);
     this.org.resource=this.resource;
-    return this.service.createOrg(this.org)
+    if(this.orgForm.valid){
+      if(!this.isEdit){
+        console.log('new',this.org)
+        return this.service.createOrg(this.org)
+      }else{
+        console.log('edit',this.org)
+        return this.service.editOrg(this.editId, this.org);
+      }
+    }else{
+       return Promise.reject("error");
+    }
+    // 
+    
     //  if (this.orgForm.invalid) {
-    //         return Promise.reject("error");
+           
     //     } else if (this.isEdit) {
     //         return this.service.editOrg(this.editId, this.org);
     //     } else {
@@ -117,10 +126,8 @@ export class OrgMngCrComponent implements OnInit {
 
   //同步countBar数据
   outputValue(e, arg) {
-    console.log(arg);
-    console.log(e);
-    this.org.resource[arg]=e;
+    this.resource[arg]=e;
   }
   /////////////////////edit   getUserByOrg
-
+  
 }

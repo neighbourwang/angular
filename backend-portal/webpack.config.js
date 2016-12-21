@@ -6,8 +6,7 @@ var path = require("path");
 
 module.exports = {
 	entry: {
-		common : [rootPath+"/src/common/common.js","webpack-dev-server/client?http://0.0.0.0:4201/", "webpack/hot/dev-server"],
-		login  : [rootPath+"/src/login/js/login.js"],
+		common : [rootPath+"/src/common/common.js","webpack-dev-server/client?http://0.0.0.0:4201/", "webpack/hot/dev-server"]
 	},
 	output: {
 		path: rootPath+'/dist/',
@@ -35,8 +34,8 @@ module.exports = {
 		new webpack.HotModuleReplacementPlugin(),
 		new HtmlWebpackPlugin({
 		    filename: 'login.html',
-		    chunks: ['common','login'],
-		    template: 'src/login/login.ejs',
+		    chunks: ['common'],
+		    template: 'src/login/index.ejs',
 		    chunksSortMode : 'none',
 		    hash: false
 		})

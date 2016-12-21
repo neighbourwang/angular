@@ -23,7 +23,18 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-4 form-control-title">
+                            <span class="asterisk">*</span> 所属地域：
+                        </div>
+                        <div class="col-sm-4">
+                            <select class="form-control" [(ngModel)]="regionId">
+                            <option *ngFor="let item of regions;" [value]="item.id">{{item.name}}</option>
+                        </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="row row-line-height">
                     <div class="form-group">
 
@@ -35,19 +46,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row row-line-height">
-                    <div class="form-group">
-
-                        <div class="col-sm-4 form-control-title">
-                            <span class="asterisk">*</span> 所属地域：
-                        </div>
-                        <div class="col-sm-4">
-                            <select class="form-control" [(ngModel)]="regionId">
-                            <option *ngFor="let item of regions;" [value]="item.id">{{item.name}}</option>
-                        </select>
-                        </div>
-                    </div>
-                </div>
+                
 
                 <div class="row row-line-height">
                     <div class="form-group">

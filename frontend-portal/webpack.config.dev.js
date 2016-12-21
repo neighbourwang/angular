@@ -6,10 +6,7 @@ var CleanWebpackPlugin = require('clean-webpack-plugin');  //发布前删除目�
 
 module.exports = {
 	entry: {
-		common : [rootPath+"/src/common/common.js"],
-		login  : [rootPath+"/src/login/js/login.js"],
-		products  : [rootPath+"/src/products/js/products.js"],
-		portal  : [rootPath+"/src/portal/js/portal.js"]
+		common : [rootPath+"/src/common/common.js"]
 	},
 	output: {
 		path: rootPath+'/dist/',
@@ -37,22 +34,22 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			title: 'Custom template',
 		    filename: 'portal.html',
-		    chunks: ['common','portal'],
-		    template: 'src/portal/portal.ejs',
+		    chunks: ['common'],
+		    template: 'src/portal/index.ejs',
 		    chunksSortMode : 'none',
 		    hash: false
 		}),
 		new HtmlWebpackPlugin({
 		    filename: 'login.html',
-		    chunks: ['common','login'],
-		    template: 'src/login/login.ejs',
+		    chunks: ['common'],
+		    template: 'src/login/index.ejs',
 		    chunksSortMode : 'none',
 		    hash: false
 		}),
 		new HtmlWebpackPlugin({
 		    filename: 'products.html',
-		    chunks: ['common','products'],
-		    template: 'src/products/products.ejs',
+		    chunks: ['common'],
+		    template: 'src/products/index.ejs',
 		    chunksSortMode : 'none',
 		    hash: false
 		}),

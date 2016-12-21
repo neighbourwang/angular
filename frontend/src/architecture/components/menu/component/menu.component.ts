@@ -150,6 +150,7 @@ const menu: Array<any> = [
     //             "routing": ""
     //         }
     //     ]
+<<<<<<< HEAD
     // },
     // {
     //     "label": "MENU.APPROVAL_CENTER",
@@ -168,6 +169,26 @@ const menu: Array<any> = [
     //         }
     //     ]
     // },
+=======
+   // },
+    {
+        "label": "审批中心",
+        "isOpen": false,
+        "icon": "icon-check",
+        "top2_menu": [
+            {
+                "label": "未审批",
+                "isOpen": false,
+                "routing": "check-center/check-mng-list"
+            },
+            {
+                "label": "已审批",
+                "isOpen": false,
+                "routing": "check-center/check-mng-hascheck"
+            }
+        ]
+    },
+>>>>>>> e07c434a722e1dee6484f6a8979183933af4f5fc
     {
         "label": "MENU.EXPENSE_CENTER",
         "isOpen": false,

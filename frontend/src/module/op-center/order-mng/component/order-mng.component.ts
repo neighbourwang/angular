@@ -43,6 +43,10 @@ export class OrderMngComponent implements OnInit{
 	private _param:OrderMngParam = new OrderMngParam();
 	//部门
 	private _departmentLoader:ItemLoader<ListItem> = null;
+
+    //订购人
+	private _buyerLoader:ItemLoader<{id:string; name:string}> = null 
+
 	//订单状态
 	private _orderStatusDic:DicLoader = null;
 	//产品类型
@@ -138,6 +142,9 @@ export class OrderMngComponent implements OnInit{
 		//部门配置
 		this._departmentLoader = new ItemLoader<ListItem>(false, "部门列表", "op-center.order-mng.department-list.get", restApiCfg, restApi);
 		
+		//订购人加载
+		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, '部门列表', "op-center.order-mng.buyer-list.get", this.restApiCfg, this.restApi);
+
 		//订单状态配置
 		this._orderStatusDic = new DicLoader(restApiCfg, restApi, "SUBINSTANCE", "STATUS");
 
@@ -284,9 +291,9 @@ export class OrderMngComponent implements OnInit{
 		.then(success=>{
 			return this._periodTypeDic.Go();
 		})
-		// .then(success=>{
-		// 	return this.loadDepartment();
-		// })
+		.then(success=>{
+			return this._departmentLoader.Go();
+		})
 		.then(success=>{
 			this.layoutService.hide();
 		})
@@ -300,18 +307,28 @@ export class OrderMngComponent implements OnInit{
 
 	}
 
-	//加载部门数据，使用的是临时企业id
-	loadDepartment():Promise<any>{
-		//测试企业1
-		return new Promise((resovle, reject)=>{
-			this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._entId}])
-			.then(success=>{
-				resovle(success);
-			},err=>{
-				reject(err);
-			})
+	// //加载部门数据，使用的是临时企业id
+	// loadDepartment():Promise<any>{
+	// 	//测试企业1
+	// 	return new Promise((resovle, reject)=>{
+	// 		this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._entId}])
+	// 		.then(success=>{
+	// 			resovle(success);
+	// 		},err=>{
+	// 			reject(err);
+	// 		})
+	// 	});
+	// }
+
+		loadBuyer(){
+		this._buyerLoader.Go(null, [{key:"departmentId", value:this._param.organization}])
+		.then(success=>{
+			this._param.organization = null;
+		}, err=>{
+			this._param.organization = null;
 		});
 	}
+	
 	
 	//显示详情
 	showDetail(orderItem:SubInstanceResp){
