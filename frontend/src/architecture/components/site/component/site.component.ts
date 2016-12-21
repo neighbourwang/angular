@@ -24,8 +24,8 @@ export class SiteComponent implements OnInit {
     private router: Router,
     private restApi: RestApi,
     private service: SiteService,
-    private dictService: SystemDictionaryService
-    public translate: TranslateService,
+    private dictService: SystemDictionaryService,
+    public translate: TranslateService
   ) {
     translate.setTranslation('EN',  TranslateEN);
     translate.setTranslation('CN',  TranslateCN);
