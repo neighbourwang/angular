@@ -20,7 +20,7 @@ import { cloudHostServiceOrder } from '../service/cloud-host-order.service';
 
 import { AttrList, PayLoad } from '../model/attr-list.model';
 import { OrderOptions } from '../model/options.model';
-import { OrderList, OrderService, SendModule, TimeLineData, VlueList, SkuMap, ProMap, BillingInfo } from '../model/services.model';
+import { OrderList, OrderService, SendModule, TimeLineData, VlueList, SkuMap, ProMap, BillingInfo, Network, Image } from '../model/services.model';
 
 @Component({
 	selector: 'cloud-host-order',
@@ -40,6 +40,9 @@ export class cloudHostComponentOrder implements OnInit {
 	totalPrice : number = 0;
 	vmSku : SkuMap = new SkuMap;
 	diskSku : SkuMap[];
+
+	networkList : VlueList[];
+	imageList : VlueList[];
 
 	vmBasePrice : number = 0; //云主机一次性费用
 	vmTotalPrice : number = 0; //云主机费用
@@ -266,18 +269,6 @@ console.log(`[${sku.skuId}]`, "云硬盘")
 		isValueLength ? this.sendModule[attrName] = config.valueList[0] : 0;   //默认第一个
 	}
 
-	setTimeLineType(): void {   //设置购买时长
-		this.service.getTimeLineType().then(datas => {  //从数据词典里获取
-			datas.map(data => {
-				this.configs.timelineunit.valueList.push({
-					attrValue: data.code,
-					attrDisplayValue: data.displayValue
-				})
-			});
-		});
-		this.setSenModule(this.configs.timelineunit);  //设置默认选择
-	}
-
 	getRelyName(relyAttrId): string {
 		for (let config in this.configs) {
 			if (this.configs[config].attrId === relyAttrId) {
@@ -292,22 +283,53 @@ console.log(`[${sku.skuId}]`, "云硬盘")
 		const list = (this.configs[attrName].mapValueList && this.configs[attrName].mapValueList[this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId]) || [];
 
 		const attrid = this.sendModule[attrName].attrValueId;   //获取当前的sendmoudle的attrid
-		const isHas = attrid && list && list.length && !!list.filter(l => l.attrValueId === attrid).length;   //列表里面是否有以选择的senModule
+		const isHas = (attrid && list && list.length && !!list.filter(l => l.attrValueId === attrid).length) || (!list.length && !attrid);   //列表里面是否有以选择的senModule
 		 //设置sendmodule使它选择第一个
-		if(list.length && (!attrid || !isHas)) this.sendModule[attrName] = list[0];   //当没有选择sendmoudle的attrid时候，说明该模块还没有选择过，如果list里面没有这个attrid说明，他的父级已经有变动，需要重新选择
+		if(!isHas) {
+			this.sendModule[attrName] = list.length ? list[0] : new VlueList;   //当没有选择sendmoudle的attrid时候，说明该模块还没有选择过，如果list里面没有这个attrid说明，他的父级已经有变动，需要重新选择
+			this.relyChanges(attrName);     //上面的一步说明页面上有变化的 进行一些改变
+		}
 
-		this.changes();
 		return list;
 	}
 
-	changes() { 
-		this.vmSku = this.getSkuId("vm");     //确定sku
-		// this.diskSku = this.getSkuId("disk");   //确定sku 
+	onChange(newValue) {
+	    console.log(newValue);
+	    // ... do other stuff here ...
+	} 
 
+	relyChanges(attrName) {   //当依赖的元素有改变的时候执行
+		/******获取并设置网络******/
+		if(attrName === "zone") {   //这里捕捉不到平台，侧面的，当zone改变的时候说明 自己依赖的云平台已经改变
+			this.setNetwork(this.sendModule.platform.attrValue);   //获取网络
+		}
+		/******获取并设置镜像列表******/
+		if(attrName === "imagetype") {   //镜像有改变的时候，从rely函数里传进来的是父层的改变，从html里面捕捉click也会执行到这里
+			this.setImage(this.sendModule.platform.attrValue, this.sendModule.imagetype.attrValue, this.sendModule.startupsource.attrValue);   //获取镜像列表
+		}
+
+		this.vmSku = this.getSkuId("vm");     //确定sku
 		if(this.vmSku.skuId) {
 			this.setTimeUnit();   // 设置购买时长
 			if(this.vmSku.commonServiceAttrValue) this.sendModule.bootsize.attrValue = this.vmSku.commonServiceAttrValue.bootStorageSize;  //设置启动盘大小
 		}
+	}
+
+	setNetwork(platformId:string) {  //设置可用网络
+		this.service.getNetwork(platformId).then(res => {
+			if(!res.length) return;
+
+			this.networkList = res;
+			this.sendModule.networktype = res[0];
+		})
+	}
+	setImage(platformId:string,imageType:string,startupResouce:string){ //获取镜像列表
+		this.service.getImage(platformId, imageType, startupResouce).then(res => {
+			if(!res.length) return;
+
+			this.imageList = res;
+			this.sendModule.os = res[0];
+		})
 	}
 
 	addCart() {   //加入购物车

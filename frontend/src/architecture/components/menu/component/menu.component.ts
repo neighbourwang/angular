@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { DictService} from '../../../core/service/dict-service';
 import { MenuService } from '../service/menu.service';
 
@@ -15,7 +15,6 @@ export class MenuComponent implements OnInit {
 
     constructor(
         private service:MenuService,
-        private chRef: ChangeDetectorRef
         ) {}
 
     ngOnInit() {
@@ -23,11 +22,8 @@ export class MenuComponent implements OnInit {
     }
 
     setMenu() {
-        console.log(1)
         this.service.getMenuList().then(menu => {
-        console.log(2, menu)
             this.endMenu = menu;
-            this.chRef.detectChanges();
         })
     }
     // 一级菜单事件处理, 切换菜单的展开/关闭

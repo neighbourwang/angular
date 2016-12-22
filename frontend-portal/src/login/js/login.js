@@ -9,7 +9,7 @@ module.exports = {
 		let isAd = false;
 
 		$("#l-username").blur(function(){
-			$.get(`http://${C.baseIp}:${C.basePort}/basis/noauth/ldaps?login=${$(this).val()}`, res => {
+			$.get(`http://${C.baseIp}:${C.basePort}/basis/noauth/enterprise/ldaps?login=${$(this).val()}`, res => {
 				if (res.resultContent.length > 0) {
 					isAd = true;
 					$("#account-box").html(require("../ejs/account.ejs")({lists : res.resultContent}));

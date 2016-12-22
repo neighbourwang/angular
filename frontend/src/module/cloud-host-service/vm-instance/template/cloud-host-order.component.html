@@ -9,7 +9,7 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">云平台</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label *ngFor="let value of configs.platform.valueList;" (click)="sendModule.platform = value" class="btn btn-default" [ngClass]="{'active': sendModule.platform.attrValueId === value.attrValueId}">
+						<label *ngFor="let value of configs.platform.valueList;" (click)="sendModule.platform = value;" class="btn btn-default" [ngClass]="{'active': sendModule.platform.attrValueId === value.attrValueId}">
 							<input type="radio" name="location" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
@@ -35,7 +35,7 @@
 					<div class="col-md-10">
 						<select [(ngModel)]="sendModule.networktype" class="form-control">
 							<option
-							 *ngFor="let value of rely('networktype')"
+							 *ngFor="let value of networkList"
 							 [ngValue]="value" >{{ value.attrDisplayValue }}</option>
 						</select>
 					</div>
@@ -99,7 +99,7 @@
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label
 							*ngFor="let value of rely('imagetype')"
-							(click)="sendModule.imagetype = value;" class="btn btn-default" [ngClass]="{'active': sendModule.imagetype.attrValueId === value.attrValueId}">
+							(click)="sendModule.imagetype = value;relyChanges('imagetype')" class="btn btn-default" [ngClass]="{'active': sendModule.imagetype.attrValueId === value.attrValueId}">
 							<input type="radio" name="imagetype" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
@@ -108,7 +108,7 @@
 						<p style="display: none" *ngFor="let value of rely('os')"></p> <!-- 这一行必须加上 否则造成切父层时候的显示错误 -->
 						<select [(ngModel)]="sendModule.os"  class="form-control">
 							<option
-							 *ngFor="let value of rely('os')"
+							 *ngFor="let value of imageList"
 							 [ngValue]="value" >{{ value.attrDisplayValue }}</option>
 						</select>
 					</div>
@@ -302,4 +302,3 @@
 		</div>
 	</div>
 </div>
-
