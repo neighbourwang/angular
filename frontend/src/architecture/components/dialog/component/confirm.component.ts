@@ -6,7 +6,8 @@ import { DialogTranslate } from '../service/dialog-translate.service';
 @Component({
     selector: 'fc-confirm',
     templateUrl: '../template/confirm.component.html',
-    inputs: ["title", "msg", "ot", "ct"]
+    inputs: ["title", "msg", "ot", "ct"],
+    providers: [DialogTranslate]
 })
 
 export class ConfirmComponent implements OnInit {
@@ -28,8 +29,8 @@ export class ConfirmComponent implements OnInit {
     }
 
     ngOnChanges() {
-        this.msg = this.dialogTranslate.getText(this.msg);
         this.param.value = this.dialogTranslate.getParam(this.msg);
+        this.msg = this.dialogTranslate.getText(this.msg);
     }
 
     cof() {
@@ -43,8 +44,8 @@ export class ConfirmComponent implements OnInit {
     open(title?: String, msg?: String) {
         title && (this.title = title);
         msg && (this.msg = msg);
-        this.msg = this.dialogTranslate.getText(this.msg);
         this.param.value = this.dialogTranslate.getParam(this.msg);
+        this.msg = this.dialogTranslate.getText(this.msg);
 
         this.dialog.open();
     }
