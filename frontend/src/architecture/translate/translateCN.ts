@@ -3,6 +3,11 @@ export const TranslateCN = {
     SITE: {
         EXIT: '退出'
     },
+    DIALOG: {
+        PROMPT: '提示',
+        CONFIRM: '确认',
+        CANCEL: '取消'
+    },
     MENU: {
         CLOUD_HOSTING_SERVICES: '云主机服务',
         CLOUD_HOSTING_INSTANCE: '云主机实例',
@@ -93,5 +98,13 @@ export const TranslateCN = {
         EXPENSE_$: '费用：￥',
         DETAILS: '详 情',
         ORDER_NUMBER_: '订单号：'
+    },
+    ORG_MNG_LIST: {
+        OPERATION_ERROR: '操作错误',
+        ORGANIZATIONAL_STATUS_IS_ENABLED: '组织状态已启用',
+        ENABLE_DEPARTMENT: '启用部门',
+        YOU_CHOOSE_TO_ENABLE_VALUE_PLEASE_CONFIRM: '您选择启用{{value}}，请确认',
+        EDIT_DEPARTMENT: '编辑部门',
+        YOU_CAN_NOT_DELETE_ORGANIZATIONS_THAT_ARE_ENABLED: '不能删除启用状态下的组织'
     }
 }

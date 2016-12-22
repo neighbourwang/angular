@@ -5,7 +5,7 @@
 			<div class="col-md-12">
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title">姓名：</div>
+						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>姓名：</div>
 						<div class="col-sm-4">
 							<input type="text" class="form-control font-gray" [disabled]="!edit" [(ngModel)]="personAcc.userName">
 						</div>
@@ -13,7 +13,7 @@
 				</div>
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title">账号：</div>
+						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>账号：</div>
 						<div class="col-sm-4">
 							<input type="text" class="form-control font-gray" [disabled]="true" [(ngModel)]="personAcc.loginName">
 						</div>
@@ -21,7 +21,7 @@
 				</div>
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title">联系电话：</div>
+						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>联系电话：</div>
 						<div class="col-sm-4">
 							<input type="text" class="form-control font-gray" [disabled]="!edit" [(ngModel)]="personAcc.phone">
 						</div>

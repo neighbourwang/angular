@@ -84,7 +84,9 @@ export class OrgMngListComponent implements OnInit {
   }
   //百分比进度条
   setPercent(arg){
-    this.service.entResourceObj[arg]=(parseFloat(this.service.entResourceObj[arg])*100)+'%';
+    console.log(arg,this.service.entResourceObj[arg])
+    // this.service.entResourceObj[arg]=(parseFloat(this.service.entResourceObj[arg])*100)+'%';
+    // console.log(arg,this.service.entResourceObj[arg])
     let styles={width:this.service.entResourceObj[arg]}        
       return styles;
   }
@@ -99,11 +101,11 @@ export class OrgMngListComponent implements OnInit {
       case 'start':
         console.log('启用');
         if (org.status == 1) {
-                this.notice.open('操作错误', '组织状态已启用')
+                this.notice.open('ORG_MNG_LIST.OPERATION_ERROR', 'ORG_MNG_LIST.ORGANIZATIONAL_STATUS_IS_ENABLED')
                 return;
         }
-        this.confirmTitle = "启用部门";
-        this.confirmMessage = "您选择启用"+org.name+"，请确认";
+        this.confirmTitle = "ORG_MNG_LIST.ENABLE_DEPARTMENT";
+        this.confirmMessage = "ORG_MNG_LIST.YOU_CHOOSE_TO_ENABLE_VALUE_PLEASE_CONFIRM^^^" + org.name;
         this.confirmDialog.open();
         this.confirmType = type;
         break;
@@ -111,14 +113,14 @@ export class OrgMngListComponent implements OnInit {
         this.isEdit = true;
         this.temporary=false;
         window.setTimeout(()=>{
-          this.creOrgPop.open('编辑部门');
+          this.creOrgPop.open('ORG_MNG_LIST.EDIT_DEPARTMENT');
           this.temporary=true;          
         },0);
         this.editId=org.id;
         break;
       case 'delete':
        if (org.status == 1) {
-                this.notice.open('操作错误', '不能删除启用状态下的组织')
+                this.notice.open('ORG_MNG_LIST.OPERATION_ERROR', 'ORG_MNG_LIST.YOU_CAN_NOT_DELETE_ORGANIZATIONS_THAT_ARE_ENABLED')
                 return;
         }
         console.log('删除');

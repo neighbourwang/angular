@@ -3,6 +3,11 @@ export const TranslateEN = {
     SITE: {
         EXIT: 'exit'
     },
+    DIALOG: {
+        PROMPT: 'Prompt',
+        CONFIRM: 'Confirm',
+        CANCEL: 'Cancel'
+    },
     MENU: {
         CLOUD_HOSTING_SERVICES: 'Cloud hosting services',
         CLOUD_HOSTING_INSTANCE: 'Cloud hosting instance',
@@ -94,4 +99,12 @@ export const TranslateEN = {
         DETAILS: 'details',
         ORDER_NUMBER_: 'ORDER_NUMBER:'
     },
+    ORG_MNG_LIST: {
+        OPERATION_ERROR: 'Opeartion error',
+        ORGANIZATIONAL_STATUS_IS_ENABLED: 'Organizational status is enabled',
+        ENABLE_DEPARTMENT: 'enable department',
+        YOU_CHOOSE_TO_ENABLE_VALUE_PLEASE_CONFIRM: 'You choose to enable {{value}},please confirm',
+        EDIT_DEPARTMENT: 'edit department',
+        YOU_CAN_NOT_DELETE_ORGANIZATIONS_THAT_ARE_ENABLED: 'You can not delete organizations that are enabled'
+    }
 }

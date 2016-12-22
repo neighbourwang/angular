@@ -10,7 +10,7 @@
 			</div>-->
 			<div class="col-md-7 detail">
 				<div class="row mgb15">
-					<div class="col-md-2 pcTitle">姓名：</div>
+					<div class="col-md-2 pcTitle"><span class="asterisk">*</span>姓名：</div>
 					<div class="col-md-3 pcContent">
 						<span *ngIf="name" class="pcDisplay">{{personAcc.userName}}</span>
 						<div class="has-feedback" *ngIf="nameEdit">
@@ -32,11 +32,11 @@
 					</div>
 				</div>
 				<div class="row mgb15">
-					<div class="col-md-2 pcTitle">电话：</div>
+					<div class="col-md-2 pcTitle"><span class="asterisk">*</span>电话：</div>
 					<div class="col-md-3 pcContent">
 						<span *ngIf="phone" class="pcDisplay">{{personAcc.phone}}</span>
 						<div class="has-feedback" *ngIf="phoneEdit">
-							<input type="text" class="form-control" #phone [(ngModel)]="personAcc.phone">
+							<input type="text" class="form-control" #phone [(ngModel)]="personAcc.phone" >
 							<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 							<span class="cancel" (click)="clear('phone')"></span>
 						</div>
