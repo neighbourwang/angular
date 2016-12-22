@@ -53,5 +53,10 @@ module.exports = {
 	SELECT_AD : "请选择认证源",
 	SAVEUSERNAME : "记住用户名",
 	USERLOGIN : "用户登录",
+	PLEASEUSERNAME : "请输入用户名",
+	PLEASEPASSWORD : "请输入密码",
+	PLEASEAD : "请选择认证源",
+	LOGINING : "正在登录",
+	LOGINERROE : "获取用户信息失败",
 
 }
