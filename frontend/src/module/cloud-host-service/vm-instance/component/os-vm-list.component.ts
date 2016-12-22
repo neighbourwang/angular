@@ -14,6 +14,6 @@ import { ListOptions } from '../model/options.model';
 export class osVmListComponent {
 
 	options : ListOptions = {
-		title : "OpenStack云主机列表"
+		title : "云主机列表"
 	}
 }
