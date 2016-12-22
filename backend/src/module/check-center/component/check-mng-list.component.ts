@@ -292,4 +292,10 @@ export class CheckMngListComponent implements OnInit{
 	{
 		this.search(pageNum);
 	}
+
+	resetParam(){
+		this._param.reset();
+		this._departmentLoader.clear();		
+		this._userListLoader.clear();
+	}
 }
