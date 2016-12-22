@@ -1,22 +1,25 @@
 ﻿import { Component, ViewChild, EventEmitter, Input, Output, OnInit } from '@angular/core';
 
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { DialogTranslate } from '../service/dialog-translate.service';
 
 @Component({
     selector: 'fc-notice',
     templateUrl: '../template/notice.component.html',
-    inputs: ["title", "msg", "ot"]
+    inputs: ["title", "msg", "ot"],
+    providers: [DialogTranslate]
 })
 
 export class NoticeComponent implements OnInit {
     @Output() of = new EventEmitter<any>();
 
-    param = { value: '' };
+    param = { value: <String>'' };
     title: String;
     msg: String;
-    msgText: String;
-    msgParam: any;
 
+    constructor(private dialogTranslate: DialogTranslate) {
+    }
+    
     @ViewChild('dialog')
     dialog: ModalComponent;
 
@@ -24,10 +27,8 @@ export class NoticeComponent implements OnInit {
     }
 
     ngOnChanges() {
-        this.msgText = this.msg.split('^^^')[0];
-        this.msgParam = this.msg.split('^^^')[1];
-        this.msg = this.msgText;
-        this.param.value = this.msgParam;
+        this.msg = this.dialogTranslate.getText(this.msg);
+        this.param.value = this.dialogTranslate.getParam(this.msg);
     }
 
     nof() {
@@ -37,10 +38,8 @@ export class NoticeComponent implements OnInit {
     open(title?: String, msg?: String) {
         title && (this.title = title);
         msg && (this.msg = msg);
-        this.msgText = this.msg.split('^^^')[0];
-        this.msgParam = this.msg.split('^^^')[1];
-        this.msg = this.msgText;
-        this.param.value = this.msgParam;
+        this.msg = this.dialogTranslate.getText(this.msg);
+        this.param.value = this.dialogTranslate.getParam(this.msg);
 
         this.dialog.open();
     }
