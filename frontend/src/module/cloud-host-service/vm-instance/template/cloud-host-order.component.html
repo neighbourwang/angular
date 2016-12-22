@@ -105,7 +105,6 @@
 					</div>
 					<div class="col-md-2 content-title">镜像列表</div>
 					<div class="col-md-10">
-						<p style="display: none" *ngFor="let value of rely('os')"></p> <!-- 这一行必须加上 否则造成切父层时候的显示错误 -->
 						<select [(ngModel)]="sendModule.os"  class="form-control">
 							<option
 							 *ngFor="let value of imageList"

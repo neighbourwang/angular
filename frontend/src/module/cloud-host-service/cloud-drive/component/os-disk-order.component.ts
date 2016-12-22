@@ -14,6 +14,6 @@ import { OrderOptions } from '../model/options.model';
 export class osDiskOrderComponent {
 
 	options : OrderOptions = {
-		title : "订购OpenStack云硬盘"
+		title : "订购云硬盘"
 	}
 }

@@ -18,6 +18,7 @@ export class NoticeComponent implements OnInit {
     msg: String;
 
     constructor(private dialogTranslate: DialogTranslate) {
+        
     }
     
     @ViewChild('dialog')
@@ -27,8 +28,8 @@ export class NoticeComponent implements OnInit {
     }
 
     ngOnChanges() {
-        this.msg = this.dialogTranslate.getText(this.msg);
         this.param.value = this.dialogTranslate.getParam(this.msg);
+        this.msg = this.dialogTranslate.getText(this.msg);
     }
 
     nof() {
@@ -38,9 +39,8 @@ export class NoticeComponent implements OnInit {
     open(title?: String, msg?: String) {
         title && (this.title = title);
         msg && (this.msg = msg);
-        this.msg = this.dialogTranslate.getText(this.msg);
         this.param.value = this.dialogTranslate.getParam(this.msg);
-
+        this.msg = this.dialogTranslate.getText(this.msg);
         this.dialog.open();
     }
 
