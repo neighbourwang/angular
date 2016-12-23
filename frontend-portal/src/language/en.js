@@ -1,4 +1,5 @@
 module.exports = {
+	lang : "en",
 	/********公共组件部分*********/
 	//header
 	HEADER_T1 : "Products and services",
