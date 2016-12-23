@@ -103,7 +103,7 @@ export class PersonAccMngComponent implements OnInit {
         }     
 
         if(this.accPwd.newPassword == this.accPwd.confirmPwd){
-            this.accPwd.id = this.personAcc.id;
+            this.accPwd.id = this.personAcc.userId;
             console.log(this.accPwd);
             this.putPersonAccPwd.putPersonAccPwd(this.accPwd).then(
             response => {
@@ -147,6 +147,10 @@ export class PersonAccMngComponent implements OnInit {
     }
     //submit edit
     onSubmit() {
+        if(!this.personAcc.userName){
+            this.notice.open('操作错误','姓名不能为空');
+            return;
+        }
         if(this.personAcc.phone){
             if(!this.validationService.isMoblie(this.personAcc.phone)){
             this.notice.open('操作错误','手机号码输入错误');
@@ -155,13 +159,9 @@ export class PersonAccMngComponent implements OnInit {
         }else{
             this.notice.open('操作错误','手机号码不能为空');
             return;
-        }
-        if(!this.personAcc.userName){
-            this.notice.open('操作错误','姓名不能为空');
-            return;
-        }
+        }        
         console.log(this.personAcc);
-        this.putPersonAcc.putPersonAcc(this.personAcc.id, this.personAcc).then(response => {
+        this.putPersonAcc.putPersonAcc(this.personAcc.userId, this.personAcc).then(response => {
             console.log(response);
             if (response && 100 == response.resultCode) {
                 this.edit = false;

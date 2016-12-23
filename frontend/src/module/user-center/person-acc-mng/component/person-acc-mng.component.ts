@@ -158,26 +158,31 @@ export class PersonAccMngComponent implements OnInit {
         this.accPwd.confirmPwd = '';
         this.editPassWord.open('修改密码')
     }
-    otEditPwd() {
-        console.log(this.accPwd);
+    pwdValid(val){
         if (this.accPwd.password && this.accPwd.password.trim() != '') {
             this.passwordValid = true;
         } else {
             this.passwordValid = false;
-            return;
-        }
+        }    
+    }
+    newPwdValid(val){
         if (this.accPwd.newPassword && this.accPwd.newPassword.trim() != '') {
             this.newPasswordValid = true;
         } else {
             this.newPasswordValid = false;
-            return;
         }
-        if (this.accPwd.password == this.accPwd.newPassword) {
-            this.sameNewPassword = true;
-            return;
+        if(this.accPwd.newPassword==this.accPwd.password){
+            this.sameNewPassword=true;
+        }else{
+            this.sameNewPassword=false;
         }
+    }
 
-        if (this.accPwd.newPassword == this.accPwd.confirmPwd) {
+    otEditPwd() {
+        console.log(this.accPwd);
+        if (!this.passwordValid||!this.newPasswordValid||this.sameNewPassword) 
+        {return;} 
+     if (this.accPwd.newPassword == this.accPwd.confirmPwd) {
             this.accPwd.id = this.personAcc.id;
             console.log(this.accPwd);
             this.putPersonAccPwd.putPersonAccPwd(this.accPwd).then(

@@ -203,9 +203,13 @@ export class OrgMngListComponent implements OnInit {
                     if (res == false)
                         return;
                     // $('#crModel').modal('hide');
-
+                    //刷新企业资源
+                    this.service.curEntId='';
+                    this.service.entResourceObj=new EntResource ();
+                    this.service.getCurEntId();
                     this.creOrgPop.close();
                     this.getOrgs(0, 10);
+                    
                 }
             ).catch(err=>{
                 console.error(err);

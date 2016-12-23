@@ -1,7 +1,7 @@
 class PersonAcc {
     "description": string;
     "email": string;
-    "id": string;
+    "userId": string;
     "loginName": string;
     "phone": string;
     "userName": string;
