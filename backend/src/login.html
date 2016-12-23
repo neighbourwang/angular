@@ -32,7 +32,7 @@ void 0!==c?null===c?void r.removeAttr(a,b):e&&"set"in e&&void 0!==(d=e.set(a,c,b
 const C = {
 	publicPath : "/public",
 	imgPath : "/public/images",
-	baseIp : "15.114.100.55",
+	baseIp : "15.114.102.32",
 	basePort : "30072"
 }
 
@@ -87,7 +87,7 @@ $("#submit-button").click(function(){
 	$("#submit-button").val("正在登录...");
 
 	$.ajax({
-        url: `http://${C.baseIp}:${C.basePort}/uaa/oauth/token?grant_type=password&username=${username}&password=${password}&client_id=backend-ui&client_secret=12345`,
+        url: `http://${C.baseIp}:${C.basePort}/uaa/oauth/token?grant_type=password&username=${username}&password=${password}&client_id=ui&client_secret=12345`,
         type: "POST",
         beforeSend: function (request)
         {
