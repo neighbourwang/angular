@@ -37,7 +37,7 @@ export const TranslateCN = {
         URL_ADDRESS: 'URL地址',
         AUTH_TYPE: '认证类型',
 
-        USER_NAME: '用户名',        
+        USER_NAME: '用户名',
         PWD: '密码',
         AUTHENTICATION: '认证源',
         TEST: '测 试',
@@ -62,5 +62,55 @@ export const TranslateCN = {
         REQUIRED_LOGIN_USER_PROPERTY: '必须先填写登录账户名属性！',
         SAVE_SUCCESS: '保存成功！',
 
+    },
+    ACCOUNT_MNG: {
+        ENSURE: '确定',
+        CONFIRM: '确认',
+        SAVE: '保存',
+        CANCEL: '取消',
+        RETURN: '返回',
+        SYNC: '同步',
+        CREATE: '创建',
+        CHOOSE: '选择',
+        EDIT: '编辑',
+        ENABLE: '启用',
+        DISABLE: '禁用',
+        DELETE: '删除',
+
+        STATUS: '状态',
+        DESCRIPTION: '描述',
+        PROMPT: '提示',
+        ALERT: '警告',
+        GETTING_DATA_FAILED: '获取数据失败！',
+        QUERY: '查询',
+
+
+        CREATE_AD_USER: '创建AD用户',
+        EDIT_AD_USER: '编辑AD用户',
+        NAME: '姓名',
+        PLEASE_INPUT_NAME: '请输入姓名',
+        PHONE: '联系电话',
+        PLEASE_INPUT_PHONE: '请输入联系电话',        
+        PLEASE_INPUT_DESCRIPTION: '请输入联系描述',
+
+        AUTHENTICATION: '认证源',
+        PLEASE_CHOOSE: '请选择',
+        AD_USER_ACCOUNT: 'AD用户帐号',
+        ACCOUNT: '账号',
+        USER_NAME: '用户名',
+        EMAIL: '邮箱地址',
+        ROLE: '绑定角色',
+        ORGANIZATION: '绑定机构',
+
+        PLEASE_INPUT_ADMIN_NAME: '请输入管理员姓名',
+        PLEASE_INPUT_ADMIN_ACCOUNT: '请输入管理员账户',
+        PLEASE_INPUT_VALID_PHONE: '请输入合法的联系电话',
+        PLEASE_CHOOSE_AD_USER: '请选择ad用户',
+        AT_LEAST_ONE_ROLE: '至少选择一个角色',
+        PLEASE_CHOOSE_ORGANIZATION: '请选择所属机构',
+
+        ACCOUNT_EXISTS: '该账户已经被占用', 
+
     }
+
 }
