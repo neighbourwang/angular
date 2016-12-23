@@ -412,6 +412,7 @@ export class OrderMngComponent implements OnInit{
 			currentPage:pageNumber - 1
 			,size:10
 		};
+		param.enterpriseId = this.restApi.getLoginInfo().userInfo.enterpriseId;
 
 
 		this.layoutService.show();
