@@ -45,78 +45,78 @@
                 <div class="quota-box ">
                     <canvas baseChart
                           width="100" height="100"
-                          [datasets]="quotaDtasets"
+                          [datasets]="epcpu"
                           chartType="doughnut"
                           (chartHover)="chartHovered($event)"
                           [options]="quotaOptions"
                           (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">30<sup>%</sup></div>
+                    <div class="percent-num">{{eplist.usedCpuRate}}<sup>%</sup></div>
                     <div class="quota-name">vCPU</div>
                 </div>
                 <div class="quota-box ">
                     <canvas baseChart
                           width="100" height="100"
-                          [datasets]="quotaDtasets"
+                          [datasets]="epmem"
                           chartType="doughnut"
                           (chartHover)="chartHovered($event)"
                           [options]="quotaOptions"
                           (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">70<sup>%</sup></div>
+                    <div class="percent-num">{{eplist.usedMemRate}}<sup>%</sup></div>
                     <div class="quota-name">内存</div>
                 </div>
                 <div class="quota-box ">
                     <canvas baseChart
                           width="100" height="100"
-                          [datasets]="quotaDtasets"
+                          [datasets]="epdisk"
                           chartType="doughnut"
                           (chartHover)="chartHovered($event)"
                           [options]="quotaOptions"
                           (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">30<sup>%</sup></div>
+                    <div class="percent-num">{{eplist.usedStorageRate}}<sup>%</sup></div>
                     <div class="quota-name">存储</div>
                 </div>
                 <div class="quota-box ">
                     <canvas baseChart
                           width="100" height="100"
-                          [datasets]="quotaDtasets"
+                          [datasets]="ephost"
                           chartType="doughnut"
                           (chartHover)="chartHovered($event)"
                           [options]="quotaOptions"
                           (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">50<sup>%</sup></div>
+                    <div class="percent-num">{{eplist.usedPhysicalMachineRate}}<sup>%</sup></div>
                     <div class="quota-name">物理机</div>
                 </div>
                 <div class="quota-box ">
                     <canvas baseChart
                           width="100" height="100"
-                          [datasets]="quotaDtasets"
+                          [datasets]="epsnapshot"
                           chartType="doughnut"
                           (chartHover)="chartHovered($event)"
                           [options]="quotaOptions"
                           (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">20<sup>%</sup></div>
+                    <div class="percent-num">{{eplist.usedSnapshotRate}}<sup>%</sup></div>
                     <div class="quota-name">快照</div>
                 </div>
                 <div class="quota-box ">
                     <canvas baseChart
                           width="100" height="100"
-                          [datasets]="quotaDtasets"
+                          [datasets]="epimage"
                           chartType="doughnut"
                           (chartHover)="chartHovered($event)"
                           [options]="quotaOptions"
                           (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">30<sup>%</sup></div>
+                    <div class="percent-num">{{eplist.usedImageRate}}<sup>%</sup></div>
                     <div class="quota-name">镜像</div>
                 </div>
                 <div class="quota-box ">
                     <canvas baseChart
                           width="100" height="100"
-                          [datasets]="quotaDtasets"
+                          [datasets]="epfloatIp"
                           chartType="doughnut"
                           (chartHover)="chartHovered($event)"
                           [options]="quotaOptions"
                           (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">20<sup>%</sup></div>
+                    <div class="percent-num">{{eplist.usedFloatIpRate}}<sup>%</sup></div>
                     <div class="quota-name">浮动IP</div>
                 </div>
 
@@ -126,11 +126,11 @@
                     <p class="resource-name">vCPU</p>
                     <div class="resource-state">
                         <span>已启用</span>
-                        <span class="color-a mgl5">22</span>
+                        <span class="color-a mgl5">{{quotalist.usedCpuQuota}}</span>
                     </div>
                     <div class="resource-state">
                         <span>未启用</span>
-                        <span class="color-b mgl5">32</span>
+                        <span class="color-b mgl5">{{quotalist.cpuQuota - quotalist.usedCpuQuota}}</span>
                     </div>
                 </div>
                 <div class="resource-box">
@@ -138,11 +138,11 @@
                     <p class="resource-name">内存</p>
                     <div class="resource-state">
                         <span>已启用</span>
-                        <span class="color-a mgl5">22</span>
+                        <span class="color-a mgl5">{{quotalist.usedMemQuota}}</span>
                     </div>
                     <div class="resource-state">
                         <span>未启用</span>
-                        <span class="color-b mgl5">312</span>
+                        <span class="color-b mgl5">{{quotalist.memQuota - quotalist.usedMemQuota}}</span>
                     </div>
                 </div>
                 <div class="resource-box">
@@ -150,11 +150,11 @@
                     <p class="resource-name">存储</p>
                     <div class="resource-state">
                         <span>已启用</span>
-                        <span class="color-a mgl5">22</span>
+                        <span class="color-a mgl5">{{quotalist.usedStorageQuota}}</span>
                     </div>
                     <div class="resource-state">
                         <span>未启用</span>
-                        <span class="color-b mgl5">32</span>
+                        <span class="color-b mgl5">{{quotalist.storageQuota - quotalist.usedStorageQuota}}</span>
                     </div>
                 </div>
                 <div class="resource-box">
@@ -162,11 +162,11 @@
                     <p class="resource-name">物理机</p>
                     <div class="resource-state">
                         <span>已启用</span>
-                        <span class="color-a mgl5">22</span>
+                        <span class="color-a mgl5">{{quotalist.usedPhysicalMachineQuota}}</span>
                     </div>
                     <div class="resource-state">
                         <span>未启用</span>
-                        <span class="color-b mgl5">32</span>
+                        <span class="color-b mgl5">{{quotalist.physicalMachineQuota - quotalist.usedPhysicalMachineQuota}}</span>
                     </div>
                 </div>
                 <div class="resource-box">
@@ -174,11 +174,11 @@
                     <p class="resource-name">快照</p>
                     <div class="resource-state">
                         <span>已启用</span>
-                        <span class="color-a mgl5">22</span>
+                        <span class="color-a mgl5">{{quotalist.usedSnapshotQuota}}</span>
                     </div>
                     <div class="resource-state">
                         <span>未启用</span>
-                        <span class="color-b mgl5">32</span>
+                        <span class="color-b mgl5">{{quotalist.snapshotQuota - quotalist.usedSnapshotQuota}}</span>
                     </div>
                 </div>
                 <div class="resource-box">
@@ -186,11 +186,11 @@
                     <p class="resource-name">镜像</p>
                     <div class="resource-state">
                         <span>已启用</span>
-                        <span class="color-a mgl5">22</span>
+                        <span class="color-a mgl5">{{quotalist.usedImageQuota}}</span>
                     </div>
                     <div class="resource-state">
                         <span>未启用</span>
-                        <span class="color-b mgl5">32</span>
+                        <span class="color-b mgl5">{{quotalist.imageQuota - quotalist.usedImageQuota}}</span>
                     </div>
                 </div>
                 <div class="resource-box">
@@ -198,16 +198,16 @@
                     <p class="resource-name">浮动IP地址</p>
                     <div class="resource-state">
                         <span>已启用</span>
-                        <span class="color-a mgl5">22</span>
+                        <span class="color-a mgl5">{{quotalist.usedFloatIpQuota}}</span>
                     </div>
                     <div class="resource-state">
                         <span>未启用</span>
-                        <span class="color-b mgl5">32</span>
+                        <span class="color-b mgl5">{{quotalist.floatIpQuota - quotalist.usedFloatIpQuota}}</span>
                     </div>
                 </div>
 
-                <div class="console-title next-title">我的资源<span class="icon-shopping "></span></div>
-                <div class="col-sm-6">
+                <!-- <div class="console-title next-title">我的资源<span class="icon-shopping "></span></div> -->
+                <!-- <div class="col-sm-6">
                     <div class="console-box">
                         <div class="console-title">上海A区</div>
                         <div class="host-shell">
@@ -432,7 +432,7 @@
                     </div>
                 </div>
                 <div class="space-10"></div>
-            </div>
+            </div> -->
         </div>
         <!--<div class="col-sm-4">
             <div class="console-box ">

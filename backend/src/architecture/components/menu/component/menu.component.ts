@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../service/menu.service';
 
 @Component({
@@ -12,8 +12,7 @@ export class MenuComponent implements OnInit {
 	active: Array<number> = new Array<number>();
 
 	constructor(
-		private service: MenuService,
-        private chRef: ChangeDetectorRef) { }
+		private service: MenuService) { }
 
 	ngOnInit() {
 		this.setMenu();
@@ -22,7 +21,6 @@ export class MenuComponent implements OnInit {
 	setMenu() {
 		this.service.getMenuList().then(menu => {
 			this.endMenu = menu;
-            this.chRef.detectChanges();
 		})
 	}
 

@@ -291,9 +291,9 @@ export class OrderMngComponent implements OnInit{
 		.then(success=>{
 			return this._typeDic.Go();
 		})
-		// .then(success=>{
-		// 	return this._platformLoader.Go();
-		// })
+		.then(success=>{
+			return this._platformLoader.Go(null, [{key:"enterpriseId", value:this.restApi.getLoginInfo().userInfo.enterpriseId}]);
+		})
 		.then(success=>{
 			return this._departmentLoader.Go();
 		})
@@ -314,28 +314,8 @@ export class OrderMngComponent implements OnInit{
 			this.showMsg(err);
 		});
 
-	}
+		this._param.enterpriseId = this.restApi.getLoginInfo().userInfo.enterpriseId;
 
-	// //加载部门数据，使用的是临时企业id
-	// loadDepartment():Promise<any>{
-	// 	//测试企业1
-	// 	return new Promise((resovle, reject)=>{
-	// 		this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._entId}])
-	// 		.then(success=>{
-	// 			resovle(success);
-	// 		},err=>{
-	// 			reject(err);
-	// 		})
-	// 	});
-	// }
-
-		loadBuyer(){
-		this._buyerLoader.Go(null, [{key:"departmentId", value:this._param.organization}])
-		.then(success=>{
-			//this._param.organization = null;
-		}, err=>{
-			this._param.organization = null;
-		});
 	}
 	
 	
@@ -419,8 +399,10 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	search(pageNumber:number = 1){
-		//this._param.enterpriseId = this._entId;
+
+		
 		let param = _.extend({}, this._param);
+
 
 		//搜索框参数匹配后台API
 
@@ -619,5 +601,9 @@ export class OrderMngComponent implements OnInit{
 		return toDate(handlerObj[renewMode](renewLen)(this.selectedOrderItem.itemList[0].expireDate));
 	}
 	
+	resetParam(){
+		this._param.reset();
+		this._buyerLoader.clear();
+	}
 
 }

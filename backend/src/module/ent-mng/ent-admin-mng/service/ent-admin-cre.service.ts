@@ -111,9 +111,9 @@ export class EntAdminCreService {
     getAdUser(ldapid: string, pageIndex: number, pageSize: number, filterStr: string) {
         let api = this.restApiCfg.getDataRestApi("user-center.account-mng.aduser.get");
         let opt = {
-            "filter": filterStr
+            "filter": "cn=" + filterStr
         }
         return this.restApi.request(api.method, api.url, [{ key: "ldapid", value: ldapid }, { key: "page", value: pageIndex }, { key: "size", value: pageSize }], undefined, opt);
     }
-  
+
 }

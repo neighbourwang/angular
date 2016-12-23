@@ -281,5 +281,12 @@ export class CheckMngHascheckComponent implements OnInit{
 		})
 	}
 
+	resetParam(){
+		this._param.reset();
+		this._departmentLoader.clear();
+		this._userListLoader.clear();
+		this._approverListLoader.clear();		
+	}
+
 
 }

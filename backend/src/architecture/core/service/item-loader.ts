@@ -220,4 +220,8 @@ export class ItemLoader<T>{
 			
 		}
 	}
+
+	clear(){
+		this._items.splice(0, this._items.length);
+	}
 }

@@ -81,19 +81,19 @@
             <input class="form-control" [(ngModel)]="list.queryFieldValue" type="email" placeholder="输入云主机信息搜索">
             <div class="input-group-addon"  (click)="search()"><span class="glyphicon glyphicon-search"></span></div>
         </div>
-        <div class="input-group float-left mgr10">
+        <!-- <div class="input-group float-left mgr10">
             <label class="btn btn-default button-gray-gradient" (click)="superSearch = !superSearch" [ngClass]="{'active': superSearch}">
                 高级搜索
             </label>
-        </div>
+        </div> -->
         <div class="input-group float-left">
             <button (click)="resetSearch()" class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span> 重置搜索</button>
         </div>
     </div>
     <div class="col-md-12 no-padding mgb20">
         <button class="btn float-left mgr5 btn-primary" (click)="goTo('cloud-host-service/cloud-host-order')"><i class="glyphicon glyphicon-plus"></i> 创建云主机</button>
-        <button class="btn float-left mgr5 btn-success"><i class="glyphicon glyphicon-edit"></i> 编辑云主机</button>
-        <button class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> 删除云主机</button>
+        <!-- <button class="btn float-left mgr5 btn-success"><i class="glyphicon glyphicon-edit"></i> 编辑云主机</button> -->
+        <button class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> 退订云主机</button>
 
         <!--<div class="dropdown float-left  mgr5">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
