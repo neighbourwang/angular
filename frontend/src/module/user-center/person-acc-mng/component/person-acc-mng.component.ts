@@ -183,7 +183,7 @@ export class PersonAccMngComponent implements OnInit {
         if (!this.passwordValid||!this.newPasswordValid||this.sameNewPassword) 
         {return;} 
      if (this.accPwd.newPassword == this.accPwd.confirmPwd) {
-            this.accPwd.id = this.personAcc.id;
+            this.accPwd.id = this.personAcc.userId;
             console.log(this.accPwd);
             this.putPersonAccPwd.putPersonAccPwd(this.accPwd).then(
                 response => {
@@ -207,7 +207,7 @@ export class PersonAccMngComponent implements OnInit {
 
     }
     saveEditPerAcc() {
-        return this.putPersonAcc.putLocalAcc(this.personAcc.id, this.personAcc).then(response => {
+        return this.putPersonAcc.putLocalAcc(this.personAcc.userId, this.personAcc).then(response => {
             console.log(response);
             this.getCurrentAccount();
         }).catch(err => {
