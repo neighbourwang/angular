@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 // common
 
 import { CommonComponentModule } from '../../architecture';
+import { PipeModule } from '../../architecture';
 
 //routing
 
@@ -21,6 +22,7 @@ import { MngConsoleService } from './service/mng-console.service'
     imports: [
         MngConsoleRouting,
         CommonComponentModule,
+        PipeModule
     ],
     declarations: [
         MngConsoleComponent

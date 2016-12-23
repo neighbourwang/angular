@@ -16,11 +16,11 @@
                 <div class="work-box col-sm-3">
                     <div class="console-title">已购买服务</div>
                     <div class="work-data col-sm-6">
-                        <p class="number">5</p>
+                        <p class="number">{{vmTotal}}</p>
                         <p class="description">云主机</p>
                     </div>
                     <div class="work-data col-sm-6">
-                        <p class="number color-b">4</p>
+                        <p class="number color-b">{{diskTotal}}</p>
                         <p class="description">云硬盘</p>
                     </div>
                 </div>
@@ -47,10 +47,8 @@
                           width="100" height="100"
                           [datasets]="epcpu"
                           chartType="doughnut"
-                          (chartHover)="chartHovered($event)"
-                          [options]="quotaOptions"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">{{eplist.usedCpuRate}}<sup>%</sup></div>
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{!eplist.cpuQuota ? 0 : eplist.usedCpuQuota/eplist.cpuQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
                     <div class="quota-name">vCPU</div>
                 </div>
                 <div class="quota-box ">
@@ -58,10 +56,8 @@
                           width="100" height="100"
                           [datasets]="epmem"
                           chartType="doughnut"
-                          (chartHover)="chartHovered($event)"
-                          [options]="quotaOptions"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">{{eplist.usedMemRate}}<sup>%</sup></div>
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{!eplist.memQuota ? 0 : eplist.usedMemQuota/eplist.memQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
                     <div class="quota-name">内存</div>
                 </div>
                 <div class="quota-box ">
@@ -69,10 +65,8 @@
                           width="100" height="100"
                           [datasets]="epdisk"
                           chartType="doughnut"
-                          (chartHover)="chartHovered($event)"
-                          [options]="quotaOptions"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">{{eplist.usedStorageRate}}<sup>%</sup></div>
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{!eplist.storageQuota ? 0 : eplist.usedStorageQuota/eplist.storageQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
                     <div class="quota-name">存储</div>
                 </div>
                 <div class="quota-box ">
@@ -80,10 +74,8 @@
                           width="100" height="100"
                           [datasets]="ephost"
                           chartType="doughnut"
-                          (chartHover)="chartHovered($event)"
-                          [options]="quotaOptions"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">{{eplist.usedPhysicalMachineRate}}<sup>%</sup></div>
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{!eplist.physicalMachineQuota ? 0 : eplist.usedPhysicalMachineQuota/eplist.physicalMachineQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
                     <div class="quota-name">物理机</div>
                 </div>
                 <div class="quota-box ">
@@ -91,10 +83,8 @@
                           width="100" height="100"
                           [datasets]="epsnapshot"
                           chartType="doughnut"
-                          (chartHover)="chartHovered($event)"
-                          [options]="quotaOptions"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">{{eplist.usedSnapshotRate}}<sup>%</sup></div>
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{!eplist.snapshotQuota ? 0 : eplist.usedSnapshotQuota/eplist.snapshotQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
                     <div class="quota-name">快照</div>
                 </div>
                 <div class="quota-box ">
@@ -102,10 +92,8 @@
                           width="100" height="100"
                           [datasets]="epimage"
                           chartType="doughnut"
-                          (chartHover)="chartHovered($event)"
-                          [options]="quotaOptions"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">{{eplist.usedImageRate}}<sup>%</sup></div>
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{!eplist.imageQuota ? 0 : eplist.usedImageQuota/eplist.imageQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
                     <div class="quota-name">镜像</div>
                 </div>
                 <div class="quota-box ">
@@ -113,10 +101,8 @@
                           width="100" height="100"
                           [datasets]="epfloatIp"
                           chartType="doughnut"
-                          (chartHover)="chartHovered($event)"
-                          [options]="quotaOptions"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">{{eplist.usedFloatIpRate}}<sup>%</sup></div>
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{!eplist.floatIpQuota ? 0 : eplist.usedFloatIpQuota/eplist.floatIpQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
                     <div class="quota-name">浮动IP</div>
                 </div>
 
