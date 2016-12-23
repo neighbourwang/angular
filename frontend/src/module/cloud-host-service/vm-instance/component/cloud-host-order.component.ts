@@ -224,16 +224,24 @@ export class cloudHostComponentOrder implements OnInit {
 			timeline = +(this.sendModule.timeline.attrValue || "0");
 		if (!this.sendModule.timelineunit.attrValueCode || !sku) return;
 		console.log(`[${sku}, ${this.sendModule.timelineunit.attrValueCode}]`, "云主机")
-		const price = this.proMap[`[${sku}, ${this.sendModule.timelineunit.attrValueCode}]`];
+		const product = this.proMap[`[${sku}, ${this.sendModule.timelineunit.attrValueCode}]`];  //获取产品信息
 
-		if (!price) return;  //如果没获取到价格
-		this.vmBasePrice = price.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
-		this.vmTotalPrice = (price.billingInfo.basicPrice + price.billingInfo.cyclePrice) * timeline * this.payLoad.quality;   //周期费用
+		if (!product) return;  //如果没获取到价格
+
+		if (product.commonServiceAttrValue) {
+			this.sendModule.bootsize.attrValue = product.commonServiceAttrValue.bootStorageSize;  //设置启动盘大小
+			this.sendModule.bootsize.attrDisplayValue = product.commonServiceAttrValue.bootStorageSize + "GB";  
+		}else{
+			this.sendModule.bootsize.attrValue = "50"; 
+			this.sendModule.bootsize.attrDisplayValue = "50G"; 
+		}
+
+		this.vmBasePrice = product.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
+		this.vmTotalPrice = (product.billingInfo.basicPrice + product.billingInfo.cyclePrice) * timeline * this.payLoad.quality;   //周期费用
 	}
 	setDiskPrice(): void {  //设置数据盘的价格
 		const timeline = +(this.sendModule.timeline.attrValue || "0"),
 			storages = this.storage.getData();   //获取数据盘
-		console.log(storages)
 		this.diskSku = [];
 		let basePrice = 0, totalPrice = 0;
 		for (let data of storages) {
@@ -304,14 +312,16 @@ export class cloudHostComponentOrder implements OnInit {
 		}
 
 		this.vmSku = this.getSkuId("vm");     //确定sku
+
 		if (this.vmSku.skuId) {
 			this.setTimeUnit();   // 设置购买时长
-			if (this.vmSku.commonServiceAttrValue) this.sendModule.bootsize.attrValue = this.vmSku.commonServiceAttrValue.bootStorageSize;  //设置启动盘大小
 		}
 	}
 
 	private setNetwork(platformId: string) {  //设置可用网络
+		this.layoutService.show();
 		this.service.getNetwork(platformId).then(res => {
+			this.layoutService.hide();
 			if (!res.length) return;
 			let list: VlueList[] = [];
 
@@ -327,10 +337,12 @@ export class cloudHostComponentOrder implements OnInit {
 			this.networkList = list;
 			this.sendModule.networktype = list[0];
 			console.log(this.sendModule)
-		})
+		}).catch(e => {this.layoutService.hide()})
 	}
 	private setImage(platformId: string, imageType: string, startupResouce: string) { //获取镜像列表
+		this.layoutService.show();
 		this.service.getImage(platformId, imageType, startupResouce).then(res => {
+			this.layoutService.hide();
 			if (!res.length) return;
 			let list: VlueList[] = [];
 
@@ -345,7 +357,7 @@ export class cloudHostComponentOrder implements OnInit {
 
 			this.imageList = list;
 			this.sendModule.os = list[0];
-		})
+		}).catch(error => {this.layoutService.hide()})
 	}
 
 	addCart() {   //加入购物车

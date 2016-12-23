@@ -23,17 +23,20 @@ export class MngConsoleComponent implements OnInit {
     @ViewChild('platformZone') platformZone;
 
     eplist : any = {};
-    epcpu: any;
-    epmem: any;
-    epdisk: any;
-    ephost: any;
-    epsnapshot: any;
-    epimage: any;
-    epfloatIp: any;
+    epcpu: any = [{ data: [0,10]}];
+    epmem: any = [{ data: [0,10]}];
+    epdisk: any = [{ data: [0,10]}];
+    ephost: any = [{ data: [0,10]}];
+    epsnapshot: any = [{ data: [0,10]}];
+    epimage: any = [{ data: [0,10]}];
+    epfloatIp: any = [{ data: [0,10]}];
+
+    vmTotal : number = 0;
+    diskTotal : number = 0;
 
     quotalist : any = {};
 
-    userInfo : any;
+    userInfo : any = {};
 
     constructor(
         private layoutService: LayoutService,
@@ -58,6 +61,7 @@ export class MngConsoleComponent implements OnInit {
         const bgc = [ "#E7E9ED", "#00CC99" ];
         const bgw = [  0,0  ];
         this.service.getEntResoure().then(res => {
+            console.log(res,123123123)
             if(!res.length) return;
             this.eplist = res[0];
             const list = this.eplist;
@@ -69,7 +73,6 @@ export class MngConsoleComponent implements OnInit {
             this.epsnapshot = [{ data: [ list.usedSnapshotQuota, list.snapshotQuota - list.usedSnapshotQuota ], backgroundColor: bgc, borderWidth:bgw }];
             this.epimage = [{ data: [ list.usedImageQuota, list.imageQuota - list.usedImageQuota ], backgroundColor: bgc, borderWidth:bgw }];
             this.epfloatIp = [{ data: [ list.usedFloatIpQuota, list.floatIpQuota - list.usedFloatIpQuota ], backgroundColor: bgc, borderWidth:bgw }];
-            console.log(res);
         })
     }
 
@@ -82,12 +85,12 @@ export class MngConsoleComponent implements OnInit {
 
     public setHostLength():void {
         this.service.getHostList({}).then(res => {
-            console.log(res, "云主机")
+            this.vmTotal = res.length
         })
     }
     public setDiskLength():void {
         this.service.getHostList({}).then(res => {
-            console.log(res, "云硬盘")
+            this.diskTotal = res.length
         })
     }
 
