@@ -295,13 +295,13 @@ export class OrderMngComponent implements OnInit{
 		// 	return this._platformLoader.Go();
 		// })
 		.then(success=>{
+			return this._departmentLoader.Go();
+		})
+		.then(success=>{
 			return this._billinModeDic.Go();
 		})
 		.then(success=>{
 			return this._periodTypeDic.Go();
-		})
-		.then(success=>{
-			return this._departmentLoader.Go();
 		})
 		.then(success=>{
 			this.layoutService.hide();

@@ -219,6 +219,12 @@ export class MenuService {
 							"isActive": false,
 							"isShow": !isRoot,
 							"routing": "check-center/check-mng-hascheck"
+						}, {
+							"label": "审批设置",
+							"isOpen": false,
+							"isActive": false,
+							"isShow": !isRoot,
+							"routing": "check-center/check-mng-set"
 						}
 					]
 				},
