@@ -127,7 +127,7 @@ export class CheckMngHascheckComponent implements OnInit{
 			return this._orderTypeDic.Go();
 		})
 		.then(success=>{
-			return this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._entId}])
+			return this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._restApi.getLoginInfo().userInfo.enterpriseId}])
 		})
 		.then(success=>{
 			this._layoutService.hide();
@@ -219,4 +219,8 @@ export class CheckMngHascheckComponent implements OnInit{
 		this._param.endDateStr = date;
 	}
 
+	resetParam(){
+		this._param.reset();
+		this._submiterLoader.clear();
+	}
 }

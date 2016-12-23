@@ -5,12 +5,12 @@
     <div *ngIf="layoutService.showHeader" class="cm-header">
         <a href="/" class="col-md-2 header-logo"></a>
         <ul class="col-md-7 header-menu no-padding">
-            <!-- <li routerLink="mng-console" routerLinkActive="active">管理控制台</li> -->
+            <li routerLink="mng-console" routerLinkActive="active">管理控制台</li>
             <!-- <li>产品与服务</li> -->
         </ul>
 
         <!--选择页面语言框-测试用-->
-        <label  style="left: 280px; top:30px;position: absolute">
+        <label  style="left: 480px; top:30px;position: absolute">
             <span style="color: #fff">{{ 'LANG' | translate }}</span>
             <select #langSelect (change)="translate.use(langSelect.value)">
             <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>

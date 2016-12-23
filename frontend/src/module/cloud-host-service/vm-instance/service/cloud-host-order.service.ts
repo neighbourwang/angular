@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../architecture';
 
 import { PayLoad } from '../model/attr-list.model';
-import { TimeLineData } from '../model/services.model';
+import { TimeLineData, Network, Image } from '../model/services.model';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -15,12 +15,26 @@ export class cloudHostServiceOrder {
                 private restApi:RestApi) {
     }
 
+    userInfo = this.restApi.getLoginInfo().userInfo;
     getHostConfigList() : Promise<any>{
         const api = this.restApiCfg.getRestApi("hosts.services.get");
-        // const api = this.restApiCfg.getRestApi("oauth.token");
-        // this.restApi.request(api.method, api.url, undefined, undefined).then(res => {
-        //   console.log(res,2313123)
-        // })
+
+        let pathParams = [
+            {
+                key: 'id',
+                value: "0"
+            }
+        ];
+        const request = this.restApi.request(api.method, api.url, pathParams, undefined)
+                            .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "";
+                                }
+                                console.log(JSON.stringify(res.resultContent))
+                                return res.resultContent;
+                            });
+        return request;
+
 
 // return new Promise((next) => {
 //     next(
@@ -87,7 +101,7 @@ export class cloudHostServiceOrder {
 //           {
 //             "attrValueId": "2167aa03-a1b3-11e6-a18b-0050568a49fd",
 //             "attrValueCode": null,
-//             "attrDisplayValue": "HOS2",
+//             "attrDisplayValue": "HOS32",
 //             "attrValue": "88"
 //           }
 //         ],
@@ -679,6 +693,12 @@ export class cloudHostServiceOrder {
 //             "attrValueId": "2167aa03-a1b3-11e6-a18b-0050568a49fd",
 //             "attrValueCode": null,
 //             "attrDisplayValue": "HOS2",
+//             "attrValue": "88"
+//           },
+//           {
+//             "attrValueId": "45-a1b3-11e6-a18b-0050568a49fd",
+//             "attrValueCode": null,
+//             "attrDisplayValue": "eeeS2",
 //             "attrValue": "88"
 //           }
 //         ],
@@ -1783,24 +1803,6 @@ export class cloudHostServiceOrder {
 
 //         )
 // })
-
-
-
-        let pathParams = [
-            {
-                key: 'id',
-                value: "0"
-            }
-        ];
-        const request = this.restApi.request(api.method, api.url, pathParams, undefined)
-                            .then(res => {
-                                if(res.resultCode !== "100"){
-                                    throw "";
-                                }
-                                console.log(JSON.stringify(res.resultContent))
-                                return res.resultContent;
-                            });
-        return request;
     }
 
     saveOrder(payload: PayLoad[]): Promise<any> {
@@ -1811,29 +1813,48 @@ export class cloudHostServiceOrder {
         let api = this.restApiCfg.getRestApi('shopping.cart.add');
         return this.restApi.request(api.method, api.url, undefined, undefined, payload);
     }
-
-    getTimeLineType() : Promise<TimeLineData[]> {
-        let api = this.restApiCfg.getRestApi('sysdic.owner.field');
+    
+    getNetwork(platformId:string) : Promise<Network[]> {
+        const api = this.restApiCfg.getRestApi("enterprise.network.get");
 
         let pathParams = [
             {
-                key: '_owner',
-                value: "PACKAGE_BILLING"
-            },
-            {
-                key: '_field',
-                value: "PERIOD_TYPE"
+                key: 'platformId',
+                value: platformId
+            },{
+                key : 'enterPriseId',
+                value: "868a8d22-0976-48c3-b080-e03481ca1c43"
+                // value: this.userInfo.enterpriseId
             }
         ];
         const request = this.restApi.request(api.method, api.url, pathParams, undefined, undefined)
                             .then(res => {
                                 if(res.resultCode !== "100"){
-                                    throw "";
+                                    throw "获取网络失败";
                                 }
-                                return res.resultContent;
+                                return res.resultContent.networkItems;
                             });
-
         return request;
+    }
+
+    getImage(platformId:string,imageType:string,startupResouce:string): Promise<Image[]> {
+
+        const api = this.restApiCfg.getRestApi("platform.image.post");
+
+        let pathParams = {
+            imageType: imageType,
+            enterPriseId: this.userInfo.enterpriseId,
+            platformId: platformId,
+            startupResouce: startupResouce,
+        }
+        
+        return this.restApi.request(api.method, api.url, undefined, undefined, pathParams)
+                    .then(res => {
+                            if(res.resultCode !== "100"){
+                                throw "获取镜像失败";
+                            }
+                            return res.resultContent.imageItems;
+                        });
     }
 
     unitType = this.dict.get({ 

@@ -5,7 +5,7 @@ export const TranslateCN = {
     },
     DIALOG: {
         PROMPT: '提示',
-        CONFIRM: '确定',
+        CONFIRM: '确认',
         CANCEL: '取消'
     },
     MENU: {
@@ -103,6 +103,8 @@ export const TranslateCN = {
         OPERATION_ERROR: '操作错误',
         ORGANIZATIONAL_STATUS_IS_ENABLED: '组织状态已启用',
         ENABLE_DEPARTMENT: '启用部门',
-        YOU_CHOOSE_TO_ENABLE_VALUE_PLEASE_CONFIRM: '您选择启用 {{value}} ，请确认',
+        YOU_CHOOSE_TO_ENABLE_VALUE_PLEASE_CONFIRM: '您选择启用{{value}}，请确认',
+        EDIT_DEPARTMENT: '编辑部门',
+        YOU_CAN_NOT_DELETE_ORGANIZATIONS_THAT_ARE_ENABLED: '不能删除启用状态下的组织'
     }
 }

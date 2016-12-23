@@ -106,21 +106,21 @@ export class OrgMngListComponent implements OnInit {
         }
         this.confirmTitle = "ORG_MNG_LIST.ENABLE_DEPARTMENT";
         this.confirmMessage = "ORG_MNG_LIST.YOU_CHOOSE_TO_ENABLE_VALUE_PLEASE_CONFIRM^^^" + org.name;
-        this.confirmDialog.open('123');
+        this.confirmDialog.open();
         this.confirmType = type;
         break;
       case 'edit':
         this.isEdit = true;
         this.temporary=false;
         window.setTimeout(()=>{
-          this.creOrgPop.open('编辑部门');
+          this.creOrgPop.open('ORG_MNG_LIST.EDIT_DEPARTMENT');
           this.temporary=true;          
         },0);
         this.editId=org.id;
         break;
       case 'delete':
        if (org.status == 1) {
-                this.notice.open('操作错误', '不能删除启用状态下的组织')
+                this.notice.open('ORG_MNG_LIST.OPERATION_ERROR', 'ORG_MNG_LIST.YOU_CAN_NOT_DELETE_ORGANIZATIONS_THAT_ARE_ENABLED')
                 return;
         }
         console.log('删除');

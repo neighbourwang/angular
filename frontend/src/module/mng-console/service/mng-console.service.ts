@@ -33,5 +33,32 @@ export class MngConsoleService {
 							});
 
 		return request;
-	}
+	};
+	getQuotaResoure() : Promise<EnterpriseQuotaDetailResp[]> {
+		let api = this.restApiCfg.getRestApi('user-center.org-mng.currEntResoure.get');
+
+		let pathParams = [{
+			key: 'id',
+            value: this.getUserInfo.organizationId
+		}];
+
+		const request = this.restApi.request(api.method, api.url, pathParams, undefined, undefined)
+							.then(res => {
+								if(res.resultCode !== "100"){
+									throw "";
+								}
+								return res.resultContent;
+							});
+
+		return request;
+	};
+
+    getHostList(quiry) : Promise<any>{
+        const api = this.restApiCfg.getRestApi("vm.search.page");
+        return this.restApi.request(api.method, api.url, undefined, undefined, quiry);
+    }
+    getDistList(quiry) : Promise<any>{
+        const api = this.restApiCfg.getRestApi("disk.search.page");
+        return this.restApi.request(api.method, api.url, undefined, undefined, quiry);
+    }
 };

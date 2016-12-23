@@ -13,7 +13,7 @@
 	<div class="login-box">
 		<div class="main-center l-box">
 			<div class="l-block float-right">
-				<p><input id="l-username" placeholder="用户名" value="michaelwang@hpe.com" class="l-input" type="text" name=""></p>
+				<p><input id="l-username" placeholder="用户名" value="front@hpe.com" class="l-input" type="text" name=""></p>
 				<p><input id="l-password" placeholder="密码" value="12345" class="l-input" type="password" name=""></p>
 				<div id="account-box" style="margin-bottom: 20px"></div>
 				<input id="submit-button" class="l-submit" type="submit" value="登录" name="">
@@ -32,7 +32,7 @@ void 0!==c?null===c?void r.removeAttr(a,b):e&&"set"in e&&void 0!==(d=e.set(a,c,b
 const C = {
 	publicPath : "/public",
 	imgPath : "/public/images",
-	baseIp : "15.114.100.55",
+	baseIp : "15.114.102.32",
 	basePort : "30072"
 }
 
@@ -41,7 +41,7 @@ let isAd = false;
 let isChecked = 0;
 
 $("#l-username").blur(function(){
-	$.get(`http://${C.baseIp}:${C.basePort}/basis/noauth/ldaps?login=${$(this).val()}`, res => {
+	$.get(`http://${C.baseIp}:${C.basePort}/basis/noauth/enterprise/ldaps?login=${$(this).val()}`, res => {
 		if (res.resultContent.length > 0) {
 			isAd = true;
 			
@@ -88,6 +88,7 @@ $("#submit-button").click(function(){
 
 	$.ajax({
         url: `http://${C.baseIp}:${C.basePort}/uaa/oauth/token?grant_type=password&username=${username}&password=${password}&client_id=ui&client_secret=12345`,
+        // url: `http://${C.baseIp}:${C.basePort}/uaa/oauth/token?grant_type=password&username=${username}&password=${password}&client_id=frontend-ui&client_secret=12345`,
         type: "POST",
         beforeSend: function (request)
         {

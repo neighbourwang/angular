@@ -132,7 +132,7 @@ export class CheckMngListComponent implements OnInit{
 	ngOnInit(){
 
 		this._layoutService.show();
-		this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._entId}])
+		this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._restApi.getLoginInfo().userInfo.enterpriseId}])
 		.then(success=>{
 			return this._serviceTypeDic.Go();
 		})
@@ -288,6 +288,11 @@ export class CheckMngListComponent implements OnInit{
 
 	changePage(pageNum:number){
 		this.search(pageNum);
+	}
+
+	resetParam(){
+		this._param.reset();
+		this._submiterLoader.clear();
 	}
 
 }

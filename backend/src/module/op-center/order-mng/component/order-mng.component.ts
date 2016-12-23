@@ -557,5 +557,11 @@ export class OrderMngComponent implements OnInit{
 		}
 	}
 
+	resetParam(){
+		this._param.reset();
+		this._departmentLoader.clear();
+		this._buyerListLoader.clear();
+		this._subregionLoader.clear();
+	}
 	
 }

@@ -118,6 +118,26 @@ interface ProMap {
     serviceType:number;
 }
 
+interface Network{
+    cidr: string;
+    enableDhcp: string;
+    gateway: string;
+    ipVersion: boolean;
+    networkDisplayName: string;
+    networkId: string;
+    networkName: string;
+    networkType: string;
+    networkcode: string;
+}
+interface Image{
+    imageCode: string;
+    imageDisplayName: string;
+    imageId: string;
+    imageName: string;
+    imageType: string;
+    osType: string;
+}
+
 export {
     VlueList,
     OrderService,
@@ -126,5 +146,7 @@ export {
     SkuMap,
     ProMap,
     BillingInfo,
-    OrderList
+    OrderList,
+    Network,
+    Image
 }

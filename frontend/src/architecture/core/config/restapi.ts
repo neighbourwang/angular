@@ -73,6 +73,18 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/subinstance/itemlist/vm/page/{page}/size/{size}"
     },
     {
+        "desc": "获取某个平台下的所有可用镜像",
+        "method": "POST",
+        "id": "platform.image.post",
+        "url": "marketplace/authsec/platform/image"
+    },
+    {
+        "desc": "获取某个平台下的所有可用网络",
+        "method": "GET",
+        "id": "enterprise.network.get",
+        "url": "marketplace/authsec/platform/{platformId}/enterprise/{enterPriseId}/network"
+    },
+    {
         "desc": "云主机操作",
         "method": "POST",
         "id": "hosts.instance.action",

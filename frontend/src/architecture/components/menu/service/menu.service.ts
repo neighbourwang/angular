@@ -132,6 +132,12 @@ export class MenuService {
 							"isOpen": false,
 							"isShow": true,
 							"routing": "check-center/check-mng-hascheck"
+						},
+						{
+							"label": "审批设置",
+							"isOpen": false,
+							"isShow": true,
+							"routing": "check-center/check-mng-set"
 						}
 					]
 				},

@@ -139,11 +139,11 @@ export class OrderMngSearchComponent implements OnInit{
 			return this._productTypeDic.Go();
 		})
 		.then(success=>{
-			return this._departmentLoader.Go();
+			return this._departmentLoader.Go(null, [{key:"enterpriseId", value:this.restApi.getLoginInfo().userInfo.enterpriseId}]);
 		})
-		// .then(success=>{
-		// 	return this.loadBuyer();
-		// })
+		.then(success=>{
+			return this._buyerLoader.Go(null, [{key:"departmentId", value:this._param.organization}])
+		})
 		.then(success=>{
 			this.layoutService.hide();
 		})
@@ -154,26 +154,10 @@ export class OrderMngSearchComponent implements OnInit{
 			this.layoutService.hide();
 			this.showMsg(err);
 		});
+
+
 	}
 
-	// loadDepartment(){
-	// 	this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._entId}])
-	// 	.then(success=>{
-	// 		this._param.organization = null;
-	// 	}, err=>{
-	// 		this._param.organization = null;
-	// 	});
-	// }
-
-	loadBuyer(){
-		this._buyerLoader.Go(null, [{key:"departmentId", value:this._param.organization}])
-		.then(success=>{
-			//this._param.organization = null;
-		}, err=>{
-			this._param.organization = null;
-		});
-	}
-	
 
 	search(pageNumber:number = 1){
 		this.layoutService.show();
@@ -257,6 +241,12 @@ export class OrderMngSearchComponent implements OnInit{
 	changePage(pageNumber:number)
 	{
 		this.search(pageNumber);
+	}
+
+	resetParam(){
+		this._param.reset();
+		this._buyerLoader.clear();
+		
 	}
 	
 }

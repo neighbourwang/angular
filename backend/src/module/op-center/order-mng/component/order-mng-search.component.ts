@@ -298,5 +298,12 @@ export class OrderMngSearchComponent implements OnInit{
     }
 */
 	}
+
+	resetParam(){
+		this._param.reset();
+		this._departmentLoader.clear();
+		this._buyerLoader.clear();
+		
+	}
 	
 }

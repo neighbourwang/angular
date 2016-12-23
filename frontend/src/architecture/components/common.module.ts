@@ -21,6 +21,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { HttpModule } from '@angular/http';
 import { TranslateModule } from 'ng2-translate';
+import { DialogTranslate } from './dialog/service/dialog-translate.service';
 
 
 // import { DonutChart } from './donutChart/component/chart.component';
@@ -70,6 +71,6 @@ import { TranslateModule } from 'ng2-translate';
         // DonutChart,
         // LineChart
     ],
-    providers : []
+    providers : [DialogTranslate]
 })
 export class CommonComponentModule { }
