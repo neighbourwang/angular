@@ -1,6 +1,8 @@
 require("../less/login.less");                  //引入css
 const html = require("../ejs/login.ejs");      //引入html 
 
+document.title = T("LOGIN");
+
 module.exports = {
 	template: html(),
 	controller : function() {
@@ -69,12 +71,12 @@ module.exports = {
 							isChecked = 0;
 			            },
 			            error: function (xhr, status) {
-			                alert(T("LOGINERROE"))
+			                alert(T("LOGINERROR"))
 			            }
 			        }); 
 		        },
 		        error: function (xhr, status) {
-		            alert(T("LOGINERROE"))
+		            alert(T("LOGINERROR1"))
 					$("#submit-button").val(T("LOGIN"));
 					isChecked = 0;
 		        }
