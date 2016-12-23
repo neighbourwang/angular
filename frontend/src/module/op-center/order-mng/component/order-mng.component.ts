@@ -292,9 +292,6 @@ export class OrderMngComponent implements OnInit{
 			return this._typeDic.Go();
 		})
 		.then(success=>{
-			return this._platformLoader.Go(null, [{key:"enterpriseId", value:this.restApi.getLoginInfo().userInfo.enterpriseId}]);
-		})
-		.then(success=>{
 			return this._departmentLoader.Go();
 		})
 		.then(success=>{
@@ -302,6 +299,9 @@ export class OrderMngComponent implements OnInit{
 		})
 		.then(success=>{
 			return this._periodTypeDic.Go();
+		})
+		.then(success=>{
+			return this._platformLoader.Go(null, [{key:"enterpriseId", value:this.restApi.getLoginInfo().userInfo.enterpriseId}]);
 		})
 		.then(success=>{
 			this.layoutService.hide();
@@ -412,6 +412,7 @@ export class OrderMngComponent implements OnInit{
 			currentPage:pageNumber - 1
 			,size:10
 		};
+		param.enterpiseId = this.restApi.getLoginInfo().userInfo.enterpriseId;
 
 
 		this.layoutService.show();

@@ -169,6 +169,7 @@ export class OrderMngSearchComponent implements OnInit{
 				currentPage:pageNumber
 				,size:10
 			}
+			,enterpiseId:this.restApi.getLoginInfo().userInfo.enterpriseId
 		};
 // 		{
 //   "approverId": "",
