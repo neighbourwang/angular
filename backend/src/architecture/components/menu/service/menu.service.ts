@@ -15,7 +15,7 @@ export class MenuService {
 	userInfo = this.restApi.getLoginInfo().userInfo;
 
 	getMenuList(): Promise<any> {
-		const isRoot: boolean = !this.userInfo.isRoot;   //临时判断如果是管理员就不隐藏了
+		const isRoot: boolean = this.userInfo.isRoot;   //临时判断如果是管理员就不隐藏了
 
 		return new Promise(resolve => {
 			resolve([
