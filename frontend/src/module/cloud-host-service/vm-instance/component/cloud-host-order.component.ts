@@ -385,21 +385,23 @@ export class cloudHostComponentOrder implements OnInit {
 	}
 
 	checkValue(value?: string) { //动态验证
+		const isinv = value => value === "";
+
 		const regs = {
-			platform: () => !!this.sendModule.platform.attrValue,
-			zone: () => !!this.sendModule.zone.attrValue,
-			cpu: () => !!this.sendModule.cpu.attrValue,
-			mem: () => !!this.sendModule.mem.attrValue,
-			networktype: () => !!this.sendModule.networktype.attrValue,
-			securitygroup: () => !!this.sendModule.securitygroup.attrValue,
-			startupsource: () => !!this.sendModule.startupsource.attrValue,
-			imagetype: () => !!this.sendModule.imagetype.attrValue,
-			os: () => !!this.sendModule.os.attrValue,
+			platform: () => !isinv(this.sendModule.platform.attrValue),
+			zone: () => !isinv(this.sendModule.zone.attrValue),
+			cpu: () => !isinv(this.sendModule.cpu.attrValue),
+			mem: () => !isinv(this.sendModule.mem.attrValue),
+			networktype: () => !isinv(this.sendModule.networktype.attrValue),
+			securitygroup: () => !isinv(this.sendModule.securitygroup.attrValue),
+			startupsource: () => !isinv(this.sendModule.startupsource.attrValue),
+			imagetype: () => !isinv(this.sendModule.imagetype.attrValue),
+			os: () => !isinv(this.sendModule.os.attrValueCode),
 			password: () => /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^\sA-Za-z0-9])\S{8,20}$/.test(this.sendModule.password.attrValue),
 			passwordShadow: () => this.passwordShadow === this.sendModule.password.attrValue,
 			instancename: () => !this.sendModule.instancename.attrValue || /^[a-zA-Z\u4e00-\u9fa5].{1,67}/.test(this.sendModule.instancename.attrValue),
 			timeline: () => this.sendModule.timeline.attrValue && /^\d*$/.test(this.sendModule.timeline.attrValue.trim()) && +this.sendModule.timeline.attrValue.trim() <= 999,
-			timelineunit: () => !!this.sendModule.timelineunit.attrValue
+			timelineunit: () => !isinv(this.sendModule.timelineunit.attrValue)
 		};
 
 		const alertValue = {
