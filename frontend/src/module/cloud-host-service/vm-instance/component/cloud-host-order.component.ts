@@ -349,9 +349,9 @@ export class cloudHostComponentOrder implements OnInit {
 			for (let r of res) {
 				list.push({
 					attrValueId: "",
-					attrValueCode: r.imageCode,
+					attrValueCode: r.imageId,
 					attrDisplayValue: r.imageDisplayName,
-					attrValue: r.imageId,
+					attrValue: r.imageCode,
 				})
 			}
 
