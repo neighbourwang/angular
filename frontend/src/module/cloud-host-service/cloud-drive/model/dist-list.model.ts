@@ -23,6 +23,7 @@ class HandleDist {
     platformId: "88"
   };
   id:string;
+  uuid:string;
   serverId:string;
 }
 
@@ -44,6 +45,7 @@ class DistList {
     sourceType: number;
     uid:string;
     platformId: string;
+    uuid : string;
 }
 
 export {
