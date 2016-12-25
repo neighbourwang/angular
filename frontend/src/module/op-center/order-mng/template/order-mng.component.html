@@ -124,7 +124,7 @@
 				<tr>
 					<td class=" font-green leftAlign pdl20" colspan="9" (click)="showDetail(orderItem)"><span>{{orderItem.purchaseDate}}</span><span class="pointer mgl10 float-none">已购服务编号：{{orderItem.orderNo}}</span></td>
 					<td colspan="2">
-						<button *ngIf="orderItem.canRenew" class="mgr5 pull-right button-gray-gradient" (click)="renewSelect(orderItem)">续订</button>
+						<!-- <button *ngIf="orderItem.canRenew" class="mgr5 pull-right button-gray-gradient" (click)="renewSelect(orderItem)">续订</button> -->
 						<button class="mgr5 pull-right button-gray-gradient" (click)="cancelSelect(orderItem)">退订</button>
 						<button class="mgr5 pull-right button-gray-gradient" (click)="showDetail(orderItem)">详情</button>
 					</td>	
