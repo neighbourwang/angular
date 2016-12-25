@@ -301,7 +301,7 @@ export class OrderMngComponent implements OnInit{
 			return this._periodTypeDic.Go();
 		})
 		.then(success=>{
-			return this._platformLoader.Go(null, [{key:"enterpriseId", value:this.restApi.getLoginInfo().userInfo.enterpriseId}]);
+			//return this._platformLoader.Go(null, [{key:"enterpriseId", value:this.restApi.getLoginInfo().userInfo.enterpriseId}]);
 		})
 		.then(success=>{
 			this.layoutService.hide();
