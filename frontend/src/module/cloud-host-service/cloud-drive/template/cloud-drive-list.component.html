@@ -33,7 +33,7 @@
          
          <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
             <select class="form-control"  [(ngModel)]="list.status"> 
-                <option disabled selected value class="hideoption">{{'CLOUD_DRIVE_LIST.STATUS' | translate}}</option>
+                <option disabled selected value class="hideoption">{{'COMMON.STATUS' | translate}}</option>
                 <option
                  *ngFor="let v of service.computeStatus | async; let i = index;"
                  [value]="v.code" >{{ v.displayValue }}</option>
@@ -74,13 +74,13 @@
             <th class="text-center">{{'COMMON.STORAGE_TYPE' | translate}}</th>
             <th class="text-center">{{'COMMON.CAPACITY_GB'| translate}}</th>
             <th class="text-center">{{'CLOUD_DRIVE_LIST.MOUNT_LOCATION_CLOUD_HOST_NAME' | translate}}</th> 
-            <th class="text-center">{{'CLOUD_DRIVE_LIST.STATUS' | translate}}</th>
-            <th class="text-center">{{'CLOUD_DRIVE_LIST.EXPIRE_DATE' | translate}}</th>
+            <th class="text-center">{{'COMMON.STATUS' | translate}}</th>
+            <th class="text-center">{{'COMMON.EXPIRE_DATE' | translate}}</th>
             <!--<th class="text-center">可卸载</th> -->
             <th class="text-center">{{'CLOUD_DRIVE_LIST.REGION' | translate}}</th>
             <th class="text-center">{{'CLOUD_DRIVE_LIST.AVAILABLE_AREA' | translate}}</th>
             <th class="text-center">{{'CLOUD_DRIVE_LIST.ATTRIBUTE' | translate}}</th>
-            <th class="text-center">{{'CLOUD_DRIVE_LIST.TYPE' | translate}}</th>
+            <th class="text-center">{{'COMMON.TYPE' | translate}}</th>
             <th class="text-center">{{'CLOUD_DRIVE_LIST.OPERATE' | translate}}</th> 
         </tr>
         <tr *ngFor="let dist of distList;">

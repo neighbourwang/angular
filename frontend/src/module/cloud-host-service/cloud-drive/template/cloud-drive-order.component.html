@@ -15,7 +15,7 @@
 							<input type="radio" name="location" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
-					<div class="col-md-2 content-title">{{'COMMON.AVAILABLE_AREA'| translate}}</div>
+					<div class="col-md-2 content-title">{{'COMMON.AVAILABLE_ZONE'| translate}}</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label 
 							*ngFor="let value of rely('zone')"
@@ -134,7 +134,7 @@
 			<h3 class="boder-gray-bottom-title">{{'CLOUD_DRIVE_ORDER.CURRENT_CONFIGURATION'| translate}}</h3>
 			<h4 class="cloud-title font-green">{{'CLOUD_DRIVE_ORDER.AREA'| translate}}</h4>
 			<p class="cloud-p">{{'COMMON.CLOUD_PLATFORM'| translate}}:{{ sendModule.platform?.attrDisplayValue}}</p>
-			<p class="cloud-p">{{'COMMON.AVAILABLE_AREA'| translate}}:{{ sendModule.zone?.attrDisplayValue}}</p>
+			<p class="cloud-p">{{'COMMON.AVAILABLE_ZONE'| translate}}:{{ sendModule.zone?.attrDisplayValue}}</p>
 			<h4 class="cloud-title font-green">{{'CLOUD_DRIVE_ORDER.CONFIGURATION_OPTIONS'| translate}}</h4>
 			<p class="cloud-p">{{'COMMON.CLOUD_HARD_DISK'| translate}}:{{sendModule.disktype?.attrDisplayValue}}</p>
 			<p class="cloud-p">{{'CLOUD_DRIVE_ORDER.CLOUD_HRAD_DISK_TYPE'| translate}}:{{sendModule.storage?.attrDisplayValue}}</p>
@@ -145,7 +145,7 @@
 			<p class="cloud-p">{{'COMMON.PURCHASE_AMOUNT'| translate}}:{{payLoad.quality}}</p>
 			<div class="cloud-line"></div>
 			<div class="cloud-p">
-				<p class="cloud-title">{{'COMMON.TOTAL_COSTS'| translate}}:</p>
+				<p class="cloud-title">{{'COMMON.TOTAL_COST'| translate}}:</p>
 	            <table style="width: 90%;line-height: 26px;">
 	                <tr>
 	                    <td>{{'COMMON.ONE_TIME_COSTS'| translate}}:</td>

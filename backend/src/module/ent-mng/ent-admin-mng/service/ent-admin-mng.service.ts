@@ -22,13 +22,13 @@ export class EntAdminMngService {
         this.restApiCfg.loadCfgData();
     }
 
-    //Êý¾Ý×Öµä
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½
     statusDic = this.dict.get({
         owner: "USER",
         field: "STATUS"
     });
 
-    //Êý¾Ý×Öµä
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½
     authDic = this.dict.get({
         owner: "AUTHENTICATION",
         field: "MODE"

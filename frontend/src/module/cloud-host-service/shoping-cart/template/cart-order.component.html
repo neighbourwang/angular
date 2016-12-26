@@ -1,22 +1,22 @@
 <div class="page-content cart_list">
-	<h1 class="page-content-header mgb20">订单完成</h1>
+	<h1 class="page-content-header mgb20">{{'SHOPPING_CART.ORDER_FINISHED' | translate}}</h1>
     <table class="table table-all-boder mgb20">
         <tr class="table-title">
-            <td class="text-center">产品信息</td>
-            <td class="text-center">产品类型</td>
-            <td class="text-center">计费模式</td>
-            <td class="text-center">购买周期</td> 
-            <td class="text-center">费用</td>
-            <td class="text-center">状态</td>
-            <td class="text-center">创建时间</td>
-            <td class="text-center">到期时间</td>
-            <td class="text-center">数量</td>
+            <td class="text-center">{{'SHOPPING_CART.PRODUCT_INFORMATION' | translate}}</td>
+            <td class="text-center">{{'SHOPPING_CART.PRODUCT_TYPE' | translate}}</td>
+            <td class="text-center">{{'COMMON.BILLING_MODE'| translate}}</td>
+            <td class="text-center">{{'SHOPPING_CART.PURCHASE_CYCLE' | translate}}</td> 
+            <td class="text-center">{{'COMMON.EXPENSE' | translate}}</td>
+            <td class="text-center">{{'COMMON.STATUS' | translate}}</td>
+            <td class="text-center">{{'COMMON.CREATED_TIME' | translate}}</td>
+            <td class="text-center">{{'COMMON.EXPIRE_DATE' | translate}}</td>
+            <td class="text-center">{{'SHOPPING_CART.QUANTITY' | translate}}</td>
         </tr>
         <tr colspan="9" class="table-gap"></tr>
         <ng-container *ngFor="let order of orderList | orderBy : 'createDate'; ">
         <tr>
             <td colspan="9" class="table-line-head">
-                <font class="font-green">订单号：{{order.itemNo}} 订单ID：{{order.id}} 创建时间：{{order.createDate}}</font>
+                <font class="font-green">{{'COMMON.ORDER_NUMBER' | translate}}：{{order.itemNo}} {{'COMMON.ORDER_ID' | translate}}：{{order.id}} {{'COMMON.CREATED_TIME' | translate}}：{{order.createDate}}</font>
             </td>
         </tr>
         <tr *ngFor="let items of order.itemList;">
@@ -34,14 +34,14 @@
             <td class="text-center table-text-middle">
                 <table class="cart-info">
                     <tr>
-                        <td>一次性费用： </td>
-                        <td><font class="font-orange">¥{{items.billingInfo.basePrice}} 元</font></td>
+                        <td>{{'COMMON.ONE_TIME_COSTS' | translate}}： </td>
+                        <td><font class="font-orange">{{'COMMON.$' | translate}}{{items.billingInfo.basePrice}} {{'COMMON.YUAN' | translate}}</font></td>
                     </tr>
                     <tr>
-                        <td>费用： </td>
+                        <td>{{'COMMON.EXPENSE' | translate}}: </td>
                         <td>
                             <font class="font-orange">
-                            ¥{{items.billingInfo.basicPrice}}/{{items.billingInfo.billingMode | dict:service.dictPriceModel | async}}
+                            {{'COMMON.$' | translate}}{{items.billingInfo.basicPrice}}/{{items.billingInfo.billingMode | dict:service.dictPriceModel | async}}
                             </font>
                         </td>
                     </tr>
@@ -50,26 +50,26 @@
             <td class="text-center table-text-middle"><font class="font-green">{{items.status | dict:service.orderStatus | async}}</font></td> 
             <td class="text-center table-text-middle">{{items.createDate}}</td> 
             <td class="text-center table-text-middle">{{items.expireDate}}</td> 
-            <td class="text-center table-text-middle">{{items.quantity}}台</td>
+            <td class="text-center table-text-middle">{{items.quantity}}{{'SHOPPING_CART.SET' | translate}}</td>
         </tr>
         </ng-container>
     </table>
     <div class="shoping-bottom clear-float">
     	<span class="float-left pdt10 text-tip">您的订单已生成，可以进入管理控制台查看订单状态及使用相关资源<br>如需审批，则需要订单审批通过后，才能正式生效。</span>
-        <button (click)="goTo('cloud-host-service/cloud-host-list')" class="btn button-confirm button-size-big float-right mgt20">管理控制台</button>
+        <button (click)="goTo('cloud-host-service/cloud-host-list')" class="btn button-confirm button-size-big float-right mgt20">{{'SHOPPING_CART.MNG_CONSOLE' | translate}}</button>
         <span class="float-right mgr50">
             <table>
                 <tr>
-                    <td>一次性费用： </td>
-                    <td><font class="font-orange">¥{{totalPrice.oncePrice | decimalPlaces}} 元</font></td>
+                    <td>{{'COMMON.ONE_TIME_COSTS' | translate}}:</td>
+                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{totalPrice.oncePrice | decimalPlaces}} {{'COMMON.YUAN' | translate}}</font></td>
                 </tr>
                 <tr *ngFor="let key of totalPrice.billingArr | objectToArr; let i = index">
-                    <td><font *ngIf="i == 0">费用： </font></td>
-                    <td><font class="font-orange">¥{{totalPrice.billingArr[key]}}/{{key | dict:service.dictPriceModel | async}}</font></td>
+                    <td><font *ngIf="i == 0">{{'COMMON.EXPENSE' | translate}}:  </font></td>
+                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{totalPrice.billingArr[key]}}/{{key | dict:service.dictPriceModel | async}}</font></td>
                 </tr>
             </table>
         </span>
-        <span class="float-right mgr50 pdt20">( 费用合计 )</span>
+        <span class="float-right mgr50 pdt20">{{'SHOPPING_CART.TOTAL_COST' | translate}}</span>
     </div>
 </div>
 <fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>

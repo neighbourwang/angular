@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent ,PopupComponent} from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
 
 import { OrgMngCrComponent } from './org-mng-cr.component';
 //service
@@ -53,16 +53,16 @@ export class OrgMngListComponent implements OnInit {
   confirmType: string;
   confirmOrg: OrgPer;
   isEdit: boolean = false;
-  editId:string;
-  percent:string='20%';
-  
+  editId: string;
+  percent: string = '20%';
+
   //企业资源对象
   ngOnInit() {
-    this.service.getCurEntId().then(()=>{
-        this.getOrgs(0, this.pp);
-        this.service.getNoMngUser();
-    });   
-        
+    this.service.getCurEntId().then(() => {
+      this.getOrgs(0, this.pp);
+      this.service.getNoMngUser();
+    });
+
   }
   //获取组织列表
   getOrgs(page: number, size: number) {
@@ -83,16 +83,16 @@ export class OrgMngListComponent implements OnInit {
       )
   }
   //百分比进度条
-  setPercent(arg){
-    // console.log(arg,this.service.entResourceObj[arg])
-    this.service.entResourceObj[arg]=(parseFloat(this.service.entResourceObj[arg])*100)+'%';
-    // console.log(arg,this.service.entResourceObj[arg])
-    let styles={width:this.service.entResourceObj[arg]}        
-      return styles;
-  }
+  // setPercent(arg) {
+  //   if (this.service.entResourceObj[arg]) {
+  //     this.service.entResourceObj[arg] += '%';
+  //     let styles = { width: this.service.entResourceObj[arg] }
+  //     return styles;
+  //   }
+  // }
   paging(page) {
     this.getOrgs(page, 10);
-  } 
+  }
   statusChange(org, type) {
     console.log(org)
     console.log(type)
@@ -101,8 +101,8 @@ export class OrgMngListComponent implements OnInit {
       case 'start':
         console.log('启用');
         if (org.status == 1) {
-                this.notice.open('ORG_MNG_LIST.OPERATION_ERROR', 'ORG_MNG_LIST.ORGANIZATIONAL_STATUS_IS_ENABLED')
-                return;
+          this.notice.open('ORG_MNG_LIST.OPERATION_ERROR', 'ORG_MNG_LIST.ORGANIZATIONAL_STATUS_IS_ENABLED')
+          return;
         }
         this.confirmTitle = "ORG_MNG_LIST.ENABLE_DEPARTMENT";
         this.confirmMessage = "ORG_MNG_LIST.YOU_CHOOSE_TO_ENABLE_VALUE_PLEASE_CONFIRM^^^" + org.name;
@@ -111,32 +111,32 @@ export class OrgMngListComponent implements OnInit {
         break;
       case 'edit':
         this.isEdit = true;
-        this.temporary=false;
-        window.setTimeout(()=>{
+        this.temporary = false;
+        window.setTimeout(() => {
           this.creOrgPop.open('ORG_MNG_LIST.EDIT_DEPARTMENT');
-          this.temporary=true;          
-        },0);
-        this.editId=org.id;
+          this.temporary = true;
+        }, 0);
+        this.editId = org.id;
         break;
       case 'delete':
-       if (org.status == 1) {
-                this.notice.open('ORG_MNG_LIST.OPERATION_ERROR', 'ORG_MNG_LIST.YOU_CAN_NOT_DELETE_ORGANIZATIONS_THAT_ARE_ENABLED')
-                return;
+        if (org.status == 1) {
+          this.notice.open('ORG_MNG_LIST.OPERATION_ERROR', 'ORG_MNG_LIST.YOU_CAN_NOT_DELETE_ORGANIZATIONS_THAT_ARE_ENABLED')
+          return;
         }
         console.log('删除');
         this.confirmTitle = "删除部门";
-        this.confirmMessage = "您选择删除"+org.name+"，请确认。如果确认，部门将删除且该部门中的用户将被移除";
+        this.confirmMessage = "您选择删除" + org.name + "，请确认。如果确认，部门将删除且该部门中的用户将被移除";
         this.confirmDialog.open();
         this.confirmType = type;
         break;
       case 'disabled':
-      if (org.status == 5) {
-                this.notice.open('操作错误', '该组织状态已禁用');
-                return;
-            }
+        if (org.status == 5) {
+          this.notice.open('操作错误', '该组织状态已禁用');
+          return;
+        }
         console.log('禁用');
         this.confirmTitle = "禁用部门";
-        this.confirmMessage = "您选择禁用"+org.name+"，请确认。如果确认，机构成员将无法操作相关资源";
+        this.confirmMessage = "您选择禁用" + org.name + "，请确认。如果确认，机构成员将无法操作相关资源";
         this.confirmDialog.open();
         this.confirmType = type;
     }
@@ -183,43 +183,43 @@ export class OrgMngListComponent implements OnInit {
   }
 
   //创建
-   temporary:boolean=false//刷新弹出框组件
+  temporary: boolean = false//刷新弹出框组件
   openCreate() {
     console.log('create');
-    
+
     this.isEdit = false;
-    this.temporary=false;
-        window.setTimeout(()=>{
-          this.creOrgPop.open('创建部门');
-          this.temporary=true;          
-        },0);
+    this.temporary = false;
+    window.setTimeout(() => {
+      this.creOrgPop.open('创建部门');
+      this.temporary = true;
+    }, 0);
     // $('#crModel').modal('show');
-   
+
   };
   //弹出框 点击确认
   createOrg() {
     this.crModel.save().then(res => {
-                    console.log(res);
-                    if (res == false)
-                        return;
-                    // $('#crModel').modal('hide');
-                    //刷新企业资源
-                    this.service.curEntId='';
-                    this.service.entResourceObj=new EntResource ();
-                    this.service.getCurEntId();
-                    this.creOrgPop.close();
-                    this.getOrgs(0, 10);
-                    
-                }
-            ).catch(err=>{
-                console.error(err);
-            });;
+      console.log(res);
+      if (res == false)
+        return;
+      // $('#crModel').modal('hide');
+      //刷新企业资源
+      this.service.curEntId = '';
+      this.service.entResourceObj = new EntResource();
+      this.service.getCurEntId();
+      this.creOrgPop.close();
+      this.getOrgs(0, 10);
+
+    }
+    ).catch(err => {
+      console.error(err);
+    });;
     if (this.isEdit) {
       console.log('edit');
     } else {
       console.log('create');
     }
-    
+
   }
-  ccf(){}
+  ccf() { }
 }

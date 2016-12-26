@@ -75,7 +75,7 @@
 								</select>
 							</div>
 						</td>
-						<!--<td style="width:257px;">
+						<td style="width:257px;">
 							 <span class="float-left " >
 							区域:</span>
 							<div class="dropdown float-left">
@@ -94,7 +94,7 @@
 									<option class="hands" *ngFor="let item of _regionLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
-					</td> 	-->
+						</td> 	
 					</tr>
 					
 				</tbody>
@@ -261,26 +261,16 @@
 						<h4 class="modal-title" id="myModalLabel">订单退订</h4>
 				  	</div>
 				 	<div class="modal-body"> 
- 						<order-mng-cancel [orderItem]="selectedOrderItem"></order-mng-cancel>
- 						<!-- 退订 -->
-						<div *ngIf="!_isCanceled" class="OrderRenew"> 
-							<div class="page-content">
-								<div class="mgb20">
-									<span class="font-red mgb20">你的订单一旦退订，所有相关的资源和数据都会被删除，无法恢复！请谨慎选择退订服务。</span>
-								</div>
-							</div>
-					   	</div>
-					   	<!-- 退订完成 -->
-			        	<div *ngIf="_isCanceled" class="OrderRenew"> 
-							<div class="page-content">
-								<div class="page-second-container">
-											<span class="font-red float-left mgb20">你的订单已申请退订，资源将会被立刻删除！<br>如需审批，则要等待退订审批通过后，系统才会开始删除资源。<br>您可以登录管理控制台，查看退订状态。</span>
-											<button class="button-size-big button-confirm pull-right" data-dismiss="modal" (click)="search();">管理控制台</button>
-											<div style="height: 40px;"></div>
-								</div>
-							</div>
-						</div>
-
+			 			<div *ngIf="cancelObj.isMachine">
+			 				<input type="checkbox" [(ngModel)]="cancelObj.removeDisk"/>
+			 				<div>一起退订该云主机挂载的云硬盘</div>
+			 			</div><!-- 云主机 -->
+			 			<div *ngIf="cancelObj.isDisk && cancelObj.isNotInuse">
+			 				是否确认删除该云硬盘. 如果选"确认", 则卸载该云硬盘并删除. 如果选"取消", 则退出流程.
+			 			</div><!-- 云硬盘:空闲 -->
+			 			<div *ngIf="cancelObj.isDisk && cancelObj.isInuse">
+			 				是否强制删除. 如果选"确认", 则卸载该云硬盘并删除。 如果选"取消", 则退出流程. 
+			 			</div><!-- 云硬盘：挂载 -->
 					</div>
 			      	
 			      	<!-- 退订 -->
@@ -288,11 +278,6 @@
 						<button type="button" class="btn button-confirm button-size-big" (click)="cancel()" >确认退订</button>
 		                <button type="button" class="btn  button-size-big button-white" data-dismiss="modal">取消</button>
 				  	</div>
-					
-					<!-- 退订完成 -->
-				  	<div *ngIf="_isCanceled" class="modal-footer">
-				  	</div>
-
 		  	</div>
 		</div>
 	</div>
