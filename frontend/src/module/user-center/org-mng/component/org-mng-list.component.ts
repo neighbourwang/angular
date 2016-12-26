@@ -83,13 +83,13 @@ export class OrgMngListComponent implements OnInit {
       )
   }
   //百分比进度条
-  setPercent(arg) {
-    if (this.service.entResourceObj[arg]) {
-      this.service.entResourceObj[arg] += '%';
-      let styles = { width: this.service.entResourceObj[arg] }
-      return styles;
-    }
-  }
+  // setPercent(arg) {
+  //   if (this.service.entResourceObj[arg]) {
+  //     this.service.entResourceObj[arg] += '%';
+  //     let styles = { width: this.service.entResourceObj[arg] }
+  //     return styles;
+  //   }
+  // }
   paging(page) {
     this.getOrgs(page, 10);
   }

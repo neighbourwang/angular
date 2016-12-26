@@ -5,7 +5,8 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent , SystemDictionary,
+    dictPipe} from '../../../../architecture';
 //service
 import { ProdDirListService } from '../service/prod-dir-list.service';
 import { ProdSeriesService } from '../service/prod.series.service';
@@ -35,7 +36,7 @@ export class ProdDirListComponent implements OnInit {
         private ProdDirPublishService: ProdDirPublishService,
         private CcProdDirPublishService: CcProdDirPublishService,
         private ProdDirDeleteService: ProdDirDeleteService,
-
+        private dictPipe: dictPipe,
         private router: Router
     ) { }
 

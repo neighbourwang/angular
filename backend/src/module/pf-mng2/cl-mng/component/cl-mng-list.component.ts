@@ -2,7 +2,8 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent , SystemDictionary,
+    dictPipe} from '../../../../architecture';
 
 import { ClMngListService } from '../service/cl-mgn-list.service';
 
@@ -26,7 +27,8 @@ export class ClMngListComponent implements OnInit {
         private service: ClMngListService,
         private router: Router,
         private platFormTypeService: ClMngCreStep1Service,
-        private commonService: ClMngCommonService
+        private commonService: ClMngCommonService,
+        private dictPipe: dictPipe,
     ) {
     }
 
