@@ -31,7 +31,7 @@ export class VmwareImgListComponent implements OnInit {
         if (activatedRouter.snapshot.params["platformId"]) {
             this.platformId = activatedRouter.snapshot.params["platformId"];
         } else {
-            this.showMsg("必须指定相关的平台");
+            this.showMsg("HOST_VMWARE_MNG.MUST_CHOOSE_PLATFORM");
         }
 
     }
@@ -93,7 +93,7 @@ export class VmwareImgListComponent implements OnInit {
 
     ngOnInit() {
        this.activatedRouter.params.forEach((params: Params) => {
-            this.platformName = params['platformName'] ? params['platformName']:"上海HPE VMware云平台";
+            this.platformName = params['platformName'] ? params['platformName']:'HOST_VMWARE_MNG.HPE_VMWARE_PLATFORM';
             console.log("接收的platformName:" + this.platformName);
 		});
 
@@ -124,18 +124,18 @@ export class VmwareImgListComponent implements OnInit {
     }
 
     showMsg(msg: string) {
-        this.notice.open("系统提示", msg);
+        this.notice.open("HOST_VMWARE_MNG.SYSTEM_PROMPT", msg);
     }
 
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("HOST_VMWARE_MNG.GETTING_DATA_FAILED");
     }
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "HOST_VMWARE_MNG.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -152,7 +152,7 @@ export class VmwareImgListComponent implements OnInit {
             return d.displayValue;
         } else {
             //return value;
-            return "未设置";
+            return "HOST_VMWARE_MNG.UNSET";
         }
 
     }
@@ -188,7 +188,7 @@ export class VmwareImgListComponent implements OnInit {
             return item;
         }
         else {
-            this.showMsg("请选择相应的镜像");
+            this.showMsg("HOST_VMWARE_MNG.PLEASE_CHOOSE_IMAGE");
             return null;
         }
     }
@@ -242,12 +242,12 @@ export class VmwareImgListComponent implements OnInit {
         if (image) {
             this.selectedimg = image;
             if(this.selectedimg.status == this.statusDictArray.find(n => n.code === "ENABLE").value){
-                this.showMsg("镜像已启用");
+                this.showMsg("HOST_VMWARE_MNG.IMAGE_ENABLED");
                 return; 
             }
             this.enableimagebox.open();
         } else {
-            this.showMsg("请选择镜像");
+            this.showMsg("HOST_VMWARE_MNG.PLEASE_CHOOSE_IMAGE");
             return; 
         }
     }
@@ -264,7 +264,7 @@ export class VmwareImgListComponent implements OnInit {
                         console.log(res, "镜像启用成功")
                     } else {
                         this.enableimagebox.close();
-                        this.showMsg("镜像启用失败");
+                        this.showMsg("HOST_VMWARE_MNG.IMAGE_ENABLE_FAILED");
                         return;
                     }
                 })
@@ -275,7 +275,7 @@ export class VmwareImgListComponent implements OnInit {
                     console.log('镜像启用异常', err);
                     this.layoutService.hide();
                     this.enableimagebox.close();
-                    this.showMsg("镜像启用异常");
+                    this.showMsg("HOST_VMWARE_MNG.IMAGE_ENABLE_EXCEPTION");
                     this.okCallback = () => { this.enableimagebox.open(); };
                 })
         }
@@ -292,12 +292,12 @@ export class VmwareImgListComponent implements OnInit {
         if (image) {
             this.selectedimg = image;
             if(this.selectedimg.status == this.statusDictArray.find(n => n.code === "FORBIDDEN").value){
-                this.showMsg("镜像已被禁用");
+                this.showMsg("HOST_VMWARE_MNG.IMAGE_DISABLED");
                 return; 
             }
             this.disableimagebox.open();
         } else {
-            this.showMsg("请选择镜像");
+            this.showMsg("HOST_VMWARE_MNG.PLEASE_CHOOSE_IMAGE");
             return; 
         }
     }
@@ -315,7 +315,7 @@ export class VmwareImgListComponent implements OnInit {
                         console.log(res, "镜像禁用成功")
                     } else {
                         this.disableimagebox.close();
-                        this.showMsg("镜像禁用失败");
+                        this.showMsg("HOST_VMWARE_MNG.IMAGE_DISABLE_FAILED");
                         return;
                     }
                 })
@@ -326,7 +326,7 @@ export class VmwareImgListComponent implements OnInit {
                     console.log('镜像禁用异常', err);
                     this.layoutService.hide();
                     this.disableimagebox.close();
-                    this.showMsg("镜像禁用异常");
+                    this.showMsg("HOST_VMWARE_MNG.IMAGE_DISABLE_EXCEPTION");
                     this.okCallback = () => { this.disableimagebox.open(); };
                 })
         }
@@ -352,7 +352,7 @@ export class VmwareImgListComponent implements OnInit {
             this.changedimg.description = this.selectedimg.description;
             this.editimagebox.open();
         } else {
-                this.showMsg("请选择镜像");
+                this.showMsg("HOST_VMWARE_MNG.PLEASE_CHOOSE_IMAGE");
                 return; 
         }
     }
@@ -369,7 +369,7 @@ export class VmwareImgListComponent implements OnInit {
                             console.log(res, "镜像更新成功")
                         } else {
                             this.editimagebox.close();
-                            this.showMsg("镜像更新失败");
+                            this.showMsg("HOST_VMWARE_MNG.IMAGE_UPDATE_FAILED");
                             return;
                         }
                     })
@@ -387,7 +387,7 @@ export class VmwareImgListComponent implements OnInit {
                         console.log('镜像更新异常', err);
                         this.layoutService.hide();
                         this.editimagebox.close();
-                        this.showMsg("镜像更新异常");
+                        this.showMsg("HOST_VMWARE_MNG.IMAGE_UPDATE_EXCEPTION");
                         this.okCallback = () => { this.editimagebox.open();};
                     })
             } else {
@@ -402,11 +402,11 @@ export class VmwareImgListComponent implements OnInit {
         let map: any = {
             "*": {
                 "func": this.validationService.isBlank,
-                "msg": "不能为空"
+                "msg": "HOST_VMWARE_MNG.NO_EMPTY" //不能为空
             },
              "email": {
                 "func": val => !this.validationService.isEmail(val),
-                "msg": "邮箱地址无效"
+                "msg": "HOST_VMWARE_MNG.EMAIL_INVALID"  //邮箱地址无效
             }
         }
 
@@ -421,17 +421,17 @@ export class VmwareImgListComponent implements OnInit {
         let notValid = null;
         notValid = [
             {
-                "name": "镜像名称"
+                "name": "HOST_VMWARE_MNG.IMAGE_NAME"  //镜像名称
                 , 'value': this.changedimg.name
                 , "op": "*"
             },
             {
-                "name": "镜像显示名称"
+                "name": "HOST_VMWARE_MNG.IMAGE_DISPLAY_NAME"  //镜像显示名称
                 , 'value': this.changedimg.displayName
                 , "op": "*"
             },
             {
-                "name": "镜像类型"
+                "name": "HOST_VMWARE_MNG.IMAGE_TYPE"  //镜像类型
                 , 'value': this.changedimg.type
                 , "op": "*"
             }
@@ -477,7 +477,7 @@ export class VmwareImgListComponent implements OnInit {
                 }
                 ]);
             } else {
-                this.showMsg("只有企业镜像才能设置企业，其他类型的镜像不能设置")
+                this.showMsg("HOST_VMWARE_MNG.ONLY_ENT_IMAGE_CAN_SET_ENT")
             }
         }
 
@@ -506,7 +506,7 @@ export class VmwareImgListComponent implements OnInit {
 
     onSave(img: VmwareImgModel): void {        
         if (this.validationService.isBlank(this.selectedimg.displayName)) {
-            this.showAlert("镜像名称不能为空");
+            this.showAlert("HOST_VMWARE_MNG.IMAGE_NAME_ENFORCED");
             return;
         }
         this.layoutService.show();
@@ -527,7 +527,7 @@ export class VmwareImgListComponent implements OnInit {
                     img.nameEditing = false;
                     console.log(res, "镜像更新成功")
                 } else {
-                    this.showMsg("镜像更新失败");
+                    this.showMsg("HOST_VMWARE_MNG.IMAGE_UPDATE_FAILED");
                     return;
                 }
             })

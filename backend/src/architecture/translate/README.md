@@ -1,9 +1,9 @@
-# 前端国际化使用的是基于 angular2 的 ng2-translate。
+# 前端国际化使用的是基于 angular2 的 ng2-translate。 
 https://github.com/ocombe/ng2-translate
 
 
-## 1.安装
-在项目目录下执行 npm --save install ng2-translate
+## 1.安装 (必须安装 4.2.0版本,不然要报错)
+在项目目录下执行 npm --save install ng2-translate@4.2.0
 
 ## 2.引入 
 
