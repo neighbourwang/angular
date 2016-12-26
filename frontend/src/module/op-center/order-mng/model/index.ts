@@ -1,4 +1,5 @@
 export * from './admin-list-item';
+export * from './cancel-param';
 export * from './department-item';
 export * from './list-item';
 export * from './order-detail';

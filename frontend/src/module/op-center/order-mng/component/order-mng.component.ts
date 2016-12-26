@@ -12,6 +12,7 @@ import { ListItem
 	, RenewSetting
 	, PurchaseUnit
 	, OrderDetailItem
+	, CancelParam
 } from '../model'
 import * as _ from 'underscore';
 
@@ -63,7 +64,7 @@ export class OrderMngComponent implements OnInit{
 	private _renewHandler:ItemLoader<any> = null;
 
 	//退订
-	private _isCanceled:boolean = false;
+	private cancelObj:CancelParam = new CancelParam();
 	private _cancelHandler:ItemLoader<any> = null;
 
 	private _entId:string = "191af465-b5dc-4992-a5c9-459e339dc719";
@@ -292,7 +293,7 @@ export class OrderMngComponent implements OnInit{
 			return this._typeDic.Go();
 		})
 		.then(success=>{
-			return this._departmentLoader.Go();
+			return this._departmentLoader.Go(null, [{key:"enterpriseId", value:this.restApi.getLoginInfo().userInfo.enterpriseId}]);
 		})
 		.then(success=>{
 			return this._billinModeDic.Go();
@@ -301,7 +302,7 @@ export class OrderMngComponent implements OnInit{
 			return this._periodTypeDic.Go();
 		})
 		.then(success=>{
-			//return this._platformLoader.Go(null, [{key:"enterpriseId", value:this.restApi.getLoginInfo().userInfo.enterpriseId}]);
+			return this._platformLoader.Go();
 		})
 		.then(success=>{
 			this.layoutService.hide();
@@ -394,7 +395,8 @@ export class OrderMngComponent implements OnInit{
 		{
 			$('#cancelOrder').modal('show');
 
-			this._isCanceled = false;
+			// todo: set the cancelObj here
+
 			this.selectedOrderItem = orderItem;
 		}
 		else
@@ -506,7 +508,6 @@ export class OrderMngComponent implements OnInit{
 	cancel(){
 		this._cancelHandler.Go(null, [{key:"_subId", value:this.selectedOrderItem.orderId}])
 		.then(success=>{
-			this._isCanceled = true;
 			this.search();
 		})
 		.catch(err=>{
