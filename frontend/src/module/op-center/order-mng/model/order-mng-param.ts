@@ -24,6 +24,7 @@ export class OrderMngParam{
     this.status = null;
     this.zoneId = null;
     this.searchText = null;//快速搜索
+    this.buyerId = null;
   }
 }
 

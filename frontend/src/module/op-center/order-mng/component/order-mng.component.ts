@@ -317,7 +317,15 @@ export class OrderMngComponent implements OnInit{
 		this._param.enterpriseId = this.restApi.getLoginInfo().userInfo.enterpriseId;
 
 	}
-	
+
+	loadBuyer(){
+		this._buyerLoader.Go(null, [{key:"departmentId", value:this._param.organization}])
+		.then(success=>{
+			//this._param.organization = null;
+		}, err=>{
+			this._param.organization = null;
+		});
+	}
 	
 	//显示详情
 	showDetail(orderItem:SubInstanceResp){
@@ -603,8 +611,8 @@ export class OrderMngComponent implements OnInit{
 	}
 	
 	resetParam(){
-		this._param.reset();
 		this._buyerLoader.clear();
+		this._param.reset();
 	}
 
 }
