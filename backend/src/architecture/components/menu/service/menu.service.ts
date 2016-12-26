@@ -16,6 +16,7 @@ export class MenuService {
 
 	getMenuList(): Promise<any> {
 		const isRoot: boolean = this.userInfo.isRoot;   //临时判断如果是管理员就不隐藏了
+		const isOrgin: boolean = this.userInfo.roles.join(",").indexOf('"机构管理员"') > -1;   //临时判断如果是机构管理员就显示审批设置
 
 		return new Promise(resolve => {
 			resolve([
@@ -223,7 +224,7 @@ export class MenuService {
 							"label": "审批设置",
 							"isOpen": false,
 							"isActive": false,
-							"isShow": !isRoot,
+							"isShow": isOrgin,
 							"routing": "check-center/check-mng-set"
 						}
 					]
