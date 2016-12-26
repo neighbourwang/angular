@@ -26,8 +26,8 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
         CommonModule,
         Ng2Bs3ModalModule,
         FormsModule,
-        // HttpModule,
-        // TranslateModule.forRoot()
+        HttpModule,
+        TranslateModule.forRoot()
     ],
     declarations: [
         SpinnerComponent,
@@ -51,9 +51,9 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
         BootstrapPopoverDirective,
         ClickOutsideModule,
         PopoverModule,
-        // HttpModule,
-        // TranslateModule
-    ]
-    // providers : [DialogTranslate]
+        HttpModule,
+        TranslateModule
+    ],
+    providers : [DialogTranslate]
 })
 export class CommonComponentModule { }
