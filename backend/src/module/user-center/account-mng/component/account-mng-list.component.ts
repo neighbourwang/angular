@@ -1,7 +1,7 @@
 ﻿import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from "../../../../architecture";
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent ,dictPipe} from "../../../../architecture";
 
 //service
 import { AccountMngService } from "../service/account-mng-list.service";
@@ -19,7 +19,8 @@ export class AccountMngComponent implements OnInit {
     constructor(
         private service: AccountMngService,
         private router: Router,
-        private layoutService: LayoutService
+        private layoutService: LayoutService,
+        private dictPipe: dictPipe,
     ) {
     }
 

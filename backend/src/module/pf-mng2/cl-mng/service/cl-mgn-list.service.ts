@@ -16,6 +16,11 @@ export class ClMngListService {
         private dict:SystemDictionaryService,
         private restApi: RestApi
     ) { }
+     //版本字典
+    versionDic = this.dict.get({
+        "owner":"OPENSTACK",
+        "field":"VERSION"
+    });
 
     // 取得全部平台信息
     getPlatforms(page: number, size: number) {

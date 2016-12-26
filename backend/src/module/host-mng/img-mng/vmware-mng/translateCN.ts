@@ -50,6 +50,7 @@ export const TranslateCN = {
         RETURN_IMAGE_MANAGEMENT: '返回镜像管理列表',
         IMAGE_TYPE: '镜像类型',
         SELECT_IMAGE: '选择镜像',
+        
         PUBLIC_IMAGE: '公共镜像',
         ENTERPRISE_IMAGE: '企业镜像',
         CUSTOMED_IMAGE: '自定义镜像',

@@ -2,7 +2,7 @@
 	<h1 class="page-content-header">{{options.title}}</h1>
     <table class="cm-table-left top-table mgb20">
         <tr>
-            <th class="col-md-1 col-xs-3 text-center">区域列表</th>
+            <th class="col-md-1 col-xs-3 text-center">{{'CLOUD_DRIVE_LIST.AREA_LIST' | translate}}</th>
             <td>
                 <platform-zone #platformZone (onClick)="platformClick($event)"></platform-zone>
             </td>
@@ -33,26 +33,26 @@
          
          <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
             <select class="form-control"  [(ngModel)]="list.status"> 
-                <option disabled selected value class="hideoption">状态</option>
+                <option disabled selected value class="hideoption">{{'COMMON.STATUS' | translate}}</option>
                 <option
                  *ngFor="let v of service.computeStatus | async; let i = index;"
                  [value]="v.code" >{{ v.displayValue }}</option>
             </select>
          </div>
         <div class="input-group col-md-2 float-left mgr10">
-            <input class="form-control" type="email" [(ngModel)]="list.queryFieldValue" placeholder="输入云硬盘信息搜索">
+            <input class="form-control" type="email" [(ngModel)]="list.queryFieldValue" placeholder="{{'COMMON.ENTER_CLOUD_HARD_DISK_INFORMATION_TO_SEARCH' | translate}}">
             <div class="input-group-addon" (click)="search()"><span class="glyphicon glyphicon-search"></span></div>
         </div>
         <div class="input-group float-left mgr10">
             <label class="btn btn-default button-gray-gradient" (click)="superSearch = !superSearch" [ngClass]="{'active': superSearch}">
-                高级搜索
+               {{'CLOUD_DRIVE_LIST.ADVANCED_SEARCH' | translate}} 
             </label>
         </div>
         <div class="input-group float-left">
-            <button (click)="resetSearch()" class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span> 重置搜索</button>
+            <button (click)="resetSearch()" class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span> {{'CLOUD_DRIVE_LIST.RESET_SEARCH' | translate}} </button>
         </div>
         <div class="float-right">
-            <button class="btn float-left mgr5 btn-success" (click)="goTo('cloud-host-service/cloud-drive-order')"><i class="glyphicon glyphicon-plus"></i> 创建云硬盘</button>
+            <button class="btn float-left mgr5 btn-success" (click)="goTo('cloud-host-service/cloud-drive-order')"><i class="glyphicon glyphicon-plus"></i>{{'CLOUD_DRIVE_LIST.CREATE_CLOUD_HRAD_DISK' | translate}}</button>
 
             <!--<div class="dropdown float-left  mgr5">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -70,18 +70,18 @@
     <table class="table table-hover">
         <tr>
             <th class="text-center"></th>
-            <th class="text-center">云硬盘名称</th>
-            <th class="text-center">储存类型</th>
-            <th class="text-center">容量（GB）</th>
-            <th class="text-center">挂载位置（云主机名称）</th> 
-            <th class="text-center">状态</th>
-            <th class="text-center">到期时间</th>
+            <th class="text-center">{{'CLOUD_DRIVE_LIST.CLOUD_HRAD_DISK_NAME' | translate}}</th>
+            <th class="text-center">{{'COMMON.STORAGE_TYPE' | translate}}</th>
+            <th class="text-center">{{'COMMON.CAPACITY_GB'| translate}}</th>
+            <th class="text-center">{{'CLOUD_DRIVE_LIST.MOUNT_LOCATION_CLOUD_HOST_NAME' | translate}}</th> 
+            <th class="text-center">{{'COMMON.STATUS' | translate}}</th>
+            <th class="text-center">{{'COMMON.EXPIRE_DATE' | translate}}</th>
             <!--<th class="text-center">可卸载</th> -->
-            <th class="text-center">所在地区</th>
-            <th class="text-center">可用区</th>
-            <th class="text-center">属性</th>
-            <th class="text-center">类型</th>
-            <th class="text-center">操作</th> 
+            <th class="text-center">{{'CLOUD_DRIVE_LIST.REGION' | translate}}</th>
+            <th class="text-center">{{'CLOUD_DRIVE_LIST.AVAILABLE_AREA' | translate}}</th>
+            <th class="text-center">{{'CLOUD_DRIVE_LIST.ATTRIBUTE' | translate}}</th>
+            <th class="text-center">{{'COMMON.TYPE' | translate}}</th>
+            <th class="text-center">{{'CLOUD_DRIVE_LIST.OPERATE' | translate}}</th> 
         </tr>
         <tr *ngFor="let dist of distList;">
             <td class="text-center"><input class="fox-cloud-radio" name="host-list" type="radio"></td>
@@ -99,12 +99,12 @@
             <td class="text-center">
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    更多操作
+                    {{'CLOUD_DRIVE_LIST.MORE_ACTIONS' | translate}}
                     <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a (click)="mountDisk = dist;diskPlatformId = dist.platformId;vmDialog.open(); " href="javascript:">挂载</a></li>
-                        <li><a (click)="handleDist('unmount', dist, '卸载云硬盘')" href="javascript:">卸载</a></li>
+                        <li><a (click)="mountDisk = dist;diskPlatformId = dist.platformId;vmDialog.open(); " href="javascript:">{{'CLOUD_DRIVE_LIST.MOUNT' | translate}}</a></li>
+                        <li><a (click)="handleDist('unmount', dist, '卸载云硬盘')" href="javascript:">{{'CLOUD_DRIVE_LIST.UNINSTALL' | translate}}</a></li>
                         <!-- <li><a (click)="handleDist('pause', vm, '暂停')" href="javascript:">暂停</a></li> -->
                         <!-- <li><a (click)="handleDist('unpause', vm , '开始')" href="javascript:">开始</a></li> -->
                         <!-- <li><a (click)="handleDist('resume', vm)" href="javascript:">恢复</a></li> -->
@@ -116,7 +116,7 @@
             </td> 
         </tr>
     </table>
-    <fc-popup #vmDialog ot="提交" ct="取消" title="挂载云主机" (of)="confirmVm()" (cf)="cancelVm();">
+    <fc-popup #vmDialog ot="{{'DIALOG.COMMMIT'| translate}}" ct="{{'DIALOG.CANCLE'| translate}}" title="{{'CLOUD_DRIVE_LIST.MOUNT_CLOUD_HOST' | translate}}" (of)="confirmVm()" (cf)="cancelVm();">
         <table-list 
             code="3" 
             (onSelect)="vmListClick($event);" 

@@ -6,10 +6,10 @@ import * as _ from 'underscore';
 	selector:'disk-view'
 	,template:`
 	<ul>
-		<li>云硬盘实例名称:{{_obj.diskInstanceName}}</li>
-		<li>可用区:{{_obj.zone}}</li>
-		<li>容量:{{_obj.capacity}}</li>
-		<li>挂载云主机名称：{{_obj.vmName}}</li>
+		<li>{{ COMMON.CLOUD_HARD_DISK | translate }}{{ COMMON.INSTANCE | translate }}{{ COMMON.NAME | translate }}:{{_obj.diskInstanceName}}</li>
+		<li>{{ COMMON.AVAILABLE_ZONE | translate }}:{{_obj.zone}}</li>
+		<li>{{ COMMON.CAPCTITY | translate }}容量:{{_obj.capacity}}</li>
+		<li>{{ COMMON.MOUNT | translate }}{{ COMMON.CLOUD_HOSTING | translate }}{{ COMMON.NAME | translate }}：{{_obj.vmName}}</li>
 	</ul>
 	`
 })
@@ -28,7 +28,7 @@ export class DiskViewComponent implements OnInit{
 		this._obj = {
 			diskInstanceName: getProperty(this.values.find(n=>n.attrCode == "DISKINSNAME"))
 			,capacity: getProperty(this.values.find(n=>n.attrCode == 'DISKINITIALSIZE'))
-			,vmName: getProperty(this.values.find(n=>n.attrCode == 'DISKMOUNTHOSTNAME')) || '无'
+			,vmName: getProperty(this.values.find(n=>n.attrCode == 'DISKMOUNTHOSTNAME')) || 'COMMON.NONE'
 			,zone:getProperty(this.values.find(n=>n.attrCode == 'ZONE'))
 		};
 

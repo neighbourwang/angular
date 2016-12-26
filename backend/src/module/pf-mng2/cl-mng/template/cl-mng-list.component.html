@@ -53,7 +53,10 @@
                 <td>{{item.regionId}}</td>
                 <td>{{item.platformType}}</td>
                 <td>{{item.uri}}</td>
-                <td>{{item.version}}</td>
+                <td>
+                    <!--{{item.version}}-->
+                    {{item.version| dict:this.service.versionDic | async}}
+                </td>
                 <td [ngClass]="{'font-green':item.status == '已启用' ,'font-orange':item.status == '未启用'}">{{item.status}}</td>
                 <td>{{item.healthFlag}}</td>
             </tr>

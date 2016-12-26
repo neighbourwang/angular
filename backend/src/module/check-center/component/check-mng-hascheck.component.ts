@@ -10,6 +10,9 @@ import { RestApi
 	, SystemDictionary
 	, DicLoader
 	, ItemLoader } from '../../../architecture';
+import {DictService} from '../../../architecture/core/service/dict-service';
+
+
 
 import { CheckCenterParam
 	, CheckListItem,ApproveItem } from './../model';
@@ -55,15 +58,17 @@ export class CheckMngHascheckComponent implements OnInit{
 			{
 				let obj = new CheckListItem();
 				target.push(obj);
-				
+				obj.orderId = item.orderId;
 				obj.orderCodeStr = item.orderNo;//订单编号
 				obj.serviceTypeIdStr = item.serviceType;//产品类型
-				// obj.platformStr = ?? 区域
-				// obj.zoneStr = ?? 可用区
+				obj.platformStr = item.platformName;//区域
+				obj.zoneStr = item.zoneName;// 可用区
 				obj.orderTypeName = item.orderType;//订单类型
 				obj.userStr = item.submiter;// 用户,提交者
 				obj.departmentStr = item.departmentName;// 部门
 				obj.entStr = item.enterpriseName;// 企业
+				//obj.checkResultName = item.operation;//审批结果
+				obj.checkResultName = '同意';
 				//费用
 				obj.billingModeNum =item.billingInfo ? item.billingInfo.billingMode: null; //计费模式
 				obj.billingDurationStr = item.period;//订单周期
@@ -221,7 +226,7 @@ export class CheckMngHascheckComponent implements OnInit{
 		param.expireTime = this._param.endDateStr; //结束时间
 		param.userId = this._param.submitUserId;		//提交者
 		param.approverId = this._param.checkUserIdStr;// 审批人
-			
+		
 		param.pageParameter = {
 			currentPage:pageNum
 			,size:10
@@ -242,9 +247,15 @@ export class CheckMngHascheckComponent implements OnInit{
 		this._layoutService.show();
 		this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._param.entIdStr}])
 		.then(success=>{
-			this._layoutService.hide();
+			this._param.departmentIdNum = null;
+			this._param.submitUserId = null;
+			this._param.checkUserIdStr = null;
+			this._layoutService.hide();	
 		})
-		.catch(err=>{
+		.catch(err=>{	
+			this._param.departmentIdNum = null;
+			this._param.submitUserId = null;
+			this._param.checkUserIdStr = null;
 			this._layoutService.hide();
 			this.showMsg(err);
 		});
@@ -255,13 +266,18 @@ export class CheckMngHascheckComponent implements OnInit{
 		this._layoutService.show();
 		this._userListLoader.Go(null, [{key:"departmentId", value:this._param.departmentIdNum}])
 		.then(success=>{
+			this._param.submitUserId = null;
 			return this._approverListLoader.Go(null, [{key:"departmentId", value:this._param.departmentIdNum }])
 		})
 		.then(success=>{
+			this._param.checkUserIdStr = null;
 			this._layoutService.hide();
 		})
 		.catch(err=>{
+			this._param.submitUserId = null;
+			this._param.checkUserIdStr = null;
 			this._layoutService.hide();
+
 		});
 	}
 
@@ -274,7 +290,7 @@ export class CheckMngHascheckComponent implements OnInit{
 	getApproveInfo(orderId:string){
 		this._approveInfoLoader.Go(null,[{key:"orderId",value:orderId}])
 		.then(success=>{
-			//this._layoutService.hide();
+			this._layoutService.hide();
 		})
 		.catch(err=>{
 			this._layoutService.hide();

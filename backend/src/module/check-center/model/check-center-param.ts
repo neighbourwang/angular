@@ -22,6 +22,7 @@ export class CheckCenterParam{
 		this.startDateStr = null;//开始时间
 		this.endDateStr = null;//结束时间
 		this.checkUserIdStr = null; //审批人
+		this.submitUserId = null; //提交者
 	}
 }
 

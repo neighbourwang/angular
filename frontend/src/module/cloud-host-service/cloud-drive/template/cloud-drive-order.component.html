@@ -6,16 +6,16 @@
 		<ul class="left-box">
 			<li>
 				<div class="col-md-1 li-title">
-					<p><span class="icon-location"></span><br>区域</p>
+					<p><span class="icon-location"></span><br>{{'CLOUD_DRIVE_ORDER.AREA'| translate}}</p>
 				</div>
 				<div class="col-md-12 li-content">
-					<div class="col-md-2 content-title">云平台</div>
+					<div class="col-md-2 content-title">{{'COMMON.CLOUD_PLATFORM'| translate}}</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label *ngFor="let value of configs.platform.valueList;" (click)="sendModule.platform = value" class="btn btn-default" [ngClass]="{'active': sendModule.platform.attrValueId === value.attrValueId}">
 							<input type="radio" name="location" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
-					<div class="col-md-2 content-title">可用区</div>
+					<div class="col-md-2 content-title">{{'COMMON.AVAILABLE_ZONE'| translate}}</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label 
 							*ngFor="let value of rely('zone')"
@@ -31,13 +31,13 @@
 			
 			<li>
 				<div class="col-md-1 li-title">
-					<p><span class="icon-configure"></span><br>配置选项</p>
+					<p><span class="icon-configure"></span><br>{{'CLOUD_DRIVE_ORDER.CONFIGURATION_OPTIONS'| translate}}</p>
 				</div>
 				<div class="col-md-12 li-content" >
-					<div class="col-md-2 content-title">云硬盘</div>
+					<div class="col-md-2 content-title">{{'COMMON.CLOUD_HARD_DISK'| translate}}</div>
 					<div class="col-md-10 btn-group" id="cloud-desk">
 						
-						<button class="btn btn-default active">空白盘</button>
+						<button class="btn btn-default active">{{'CLOUD_DRIVE_ORDER.BLANK_DISK'| translate}}</button>
 						<!-- <ng-container *ngFor="let value of configs.disktype.valueList;">
 							<button 
 								[popover]="value.attrValue=='0' ? null : myPopover"
@@ -51,7 +51,7 @@
 							</popover-content>
 						</ng-container> -->
 					</div>	
-					<div class="col-md-2 content-title">云硬盘类型</div>	
+					<div class="col-md-2 content-title">{{'CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_TYPE'| translate}}</div>	
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label 
 							*ngFor="let value of rely('storage')" 
@@ -61,7 +61,7 @@
 						</label>
 					</div>	
 					<div class="col-md-12 no-padding mgb20">
-						<div class="col-md-2 content-title">容量(GB)</div>	
+						<div class="col-md-2 content-title">{{'COMMON.CAPACITY_GB'| translate}}</div>	
 						<div class="col-md-2 no-padding">  
 							<count-bar 
 					            [step]="sendModule.diskstepsize.attrValue" 
@@ -73,7 +73,7 @@
 						<div class="col-md-7 disk-tip">可以购买容量 {{sendModule.diskinitialsize.attrValue}}~{{sendModule.diskmaxsize.attrValue}}GB的云硬盘。{{sendModule.diskinitialsize.attrValue}}GB起，增加按照每{{sendModule.diskstepsize.attrValue}}GB一档。</div>
 					</div>
 					<div class="col-md-12 no-padding mgb15">
-						<div class="col-md-2 content-title">云硬盘实例名称</div>
+						<div class="col-md-2 content-title">{{'CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_INSTANCE_NAME'| translate}}</div>
 						<div class="col-md-4 no-padding mgr15"
 							[ngClass]="{'has-error': check.diskinsname === false }">
 							<input type="text" (keyup)="checkValue('diskinsname')" [(ngModel)]="sendModule.diskinsname.attrValue" class="form-control" placeholder="如不填写，则系统自动生成">
@@ -83,13 +83,13 @@
 					<div class="col-md-12 content-title btn-group">
 						<span class="float-left mgr20 lh34">
 							<input type="checkbox" [(ngModel)]="isAttachVm" (click)="vmListClick()" name=""> 
-							是否挂载到云主机 
+							{{'CLOUD_DRIVE_ORDER.WHETHER_TO_AMOUNT_ON_CLOUD_HOST'| translate}}
 						</span>
 				        <button 
 				        	[popover]="popover_host" 
 				        	[ngClass]="{'active': popover_host.popover?.visible}" 
 				        	[disabled]="!isAttachVm" 
-				        	class="btn btn-default button-gray-gradient mgr20">云主机实例列表</button>
+				        	class="btn btn-default button-gray-gradient mgr20">{{'CLOUD_DRIVE_ORDER.CLOUD_HOST_INSTANCE_LIST'| translate}}</button>
 
 				        <popover-content #popover_host [closeOnClickOutside]="true" >
 							<table-list 
@@ -99,7 +99,7 @@
 						</popover-content>
 						
 						<span class="float-left mgr20 lh34" *ngIf="sendModule.diskmounthostname.attrValue">
-							<span class="float-left">云主机名称：</span>
+							<span class="float-left">{{'COMMON.CLOUD_HOST_NAME'| translate}}:</span>
 							<input type="text" style="width: 220px;" class="form-control float-left" disabled="ture" [(ngModel)]="sendModule.diskmounthostname.attrValue" name="" />
 						</span>
 					</div>
@@ -107,19 +107,19 @@
 			</li>
 			<li>
 				<div class="col-md-1 li-title">
-					<p><span class="icon-amount"></span><br>购买量</p>
+					<p><span class="icon-amount"></span><br>{{'COMMON.PURCHASE_AMOUNT'| translate}}</p>
 				</div>
 				<div class="col-md-12 li-content">
 					
 					<div class="col-md-12 no-padding mb20">
-						<div class="col-md-2 content-title">购买量</div>
+						<div class="col-md-2 content-title">{{'COMMON.PURCHASE_AMOUNT'| translate}}</div>
 						<div class="col-md-2 no-padding mr10">
 							<select [(ngModel)]="payLoad.quality" class="form-control">
-								<option [ngValue]="1">1台</option>
-								<option [ngValue]="2">2台</option>
-								<option [ngValue]="3">3台</option>
-								<option [ngValue]="4">4台</option>
-								<option [ngValue]="5">5台</option>
+								<option [ngValue]="1">{{'CLOUD_DRIVE_ORDER.ONE_SET'| translate}}</option>
+								<option [ngValue]="2">{{'CLOUD_DRIVE_ORDER.TWO_SET'| translate}}</option>
+								<option [ngValue]="3">{{'CLOUD_DRIVE_ORDER.THREE_SET'| translate}}</option>
+								<option [ngValue]="4">{{'CLOUD_DRIVE_ORDER.FOUR_SET'| translate}}</option>
+								<option [ngValue]="5">{{'CLOUD_DRIVE_ORDER.FIVE_SET'| translate}}</option>
 							</select>
 						</div>
 					</div>
@@ -131,35 +131,35 @@
 	<div class="col-md-3 no-padding right-box">
 		<cart-button #cartButton></cart-button>
 		<div class="col-md-12 content-box">
-			<h3 class="boder-gray-bottom-title">当前配置</h3>
-			<h4 class="cloud-title font-green">区域</h4>
-			<p class="cloud-p">云平台: {{ sendModule.platform?.attrDisplayValue}}</p>
-			<p class="cloud-p">可用区: {{ sendModule.zone?.attrDisplayValue}}</p>
-			<h4 class="cloud-title font-green">配置选项</h4>
-			<p class="cloud-p">云硬盘: {{sendModule.disktype?.attrDisplayValue}}</p>
-			<p class="cloud-p">云硬盘类型: {{sendModule.storage?.attrDisplayValue}}</p>
-			<p class="cloud-p">容量(GB): {{sendModule.disksize?.attrDisplayValue}}</p>
-			<p class="cloud-p">云硬盘实例名称: {{sendModule.diskinsname?.attrValue}}</p>
-			<p class="cloud-p">挂载到云主机: {{sendModule.diskmounthostname?.attrValue}}</p>
-			<h4 class="cloud-title font-green">购买量:</h4>
-			<p class="cloud-p">购买量: {{payLoad.quality}}</p>
+			<h3 class="boder-gray-bottom-title">{{'CLOUD_DRIVE_ORDER.CURRENT_CONFIGURATION'| translate}}</h3>
+			<h4 class="cloud-title font-green">{{'CLOUD_DRIVE_ORDER.AREA'| translate}}</h4>
+			<p class="cloud-p">{{'COMMON.CLOUD_PLATFORM'| translate}}:{{ sendModule.platform?.attrDisplayValue}}</p>
+			<p class="cloud-p">{{'COMMON.AVAILABLE_ZONE'| translate}}:{{ sendModule.zone?.attrDisplayValue}}</p>
+			<h4 class="cloud-title font-green">{{'CLOUD_DRIVE_ORDER.CONFIGURATION_OPTIONS'| translate}}</h4>
+			<p class="cloud-p">{{'COMMON.CLOUD_HARD_DISK'| translate}}:{{sendModule.disktype?.attrDisplayValue}}</p>
+			<p class="cloud-p">{{'CLOUD_DRIVE_ORDER.CLOUD_HRAD_DISK_TYPE'| translate}}:{{sendModule.storage?.attrDisplayValue}}</p>
+			<p class="cloud-p">{{'COMMON.CAPACITY_GB'| translate}}:{{sendModule.disksize?.attrDisplayValue}}</p>
+			<p class="cloud-p">{{'CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_INSTANCE_NAME'| translate}}:{{sendModule.diskinsname?.attrValue}}</p>
+			<p class="cloud-p">{{'CLOUD_DRIVE_ORDER.MOUNT_TO_CLOUD_HOST'| translate}}:{{sendModule.diskmounthostname?.attrValue}}</p>
+			<h4 class="cloud-title font-green">{{'COMMON.PURCHASE_AMOUNT'| translate}}:</h4>
+			<p class="cloud-p">{{'COMMON.PURCHASE_AMOUNT'| translate}}:{{payLoad.quality}}</p>
 			<div class="cloud-line"></div>
 			<div class="cloud-p">
-				<p class="cloud-title">费用总计：</p>
+				<p class="cloud-title">{{'COMMON.TOTAL_COST'| translate}}:</p>
 	            <table style="width: 90%;line-height: 26px;">
 	                <tr>
-	                    <td>一次性费用： </td>
+	                    <td>{{'COMMON.ONE_TIME_COSTS'| translate}}:</td>
 	                    <td><font class="font-orange">¥{{diskBasePrice}} 元</font></td>
 	                </tr>
 	                <tr>
-	                    <td><font>费用： </font></td>
-	                    <td><font class="font-orange">¥{{diskTotalPrice}}</font><span class="float-right">按量</span></td>
+	                    <td><font>{{'COMMON.EXPENSE'| translate}}:</font></td>
+	                    <td><font class="font-orange">¥{{diskTotalPrice}}</font><span class="float-right">{{'COMMON.BY_VOLUMN'| translate}}</span></td>
 	                </tr>
 	            </table>
 			</div>
 			<div class="col-md-12 colud-order-button">
-				<div class="col-md-6"><button (click)="buyNow()" class="btn button-orange-deep">立即购买</button></div>
-				<div class="col-md-6"><button (click)="addCart()" class="btn button-orange-light">加入购物车</button></div>
+				<div class="col-md-6"><button (click)="buyNow()" class="btn button-orange-deep">{{'COMMON.BUY_NOW'| translate}}</button></div>
+				<div class="col-md-6"><button (click)="addCart()" class="btn button-orange-light">{{'COMMON.ADD_TO_SHOPPING_CART'| translate}}</button></div>
 			</div>
 		</div>
 	</div>

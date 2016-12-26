@@ -1,20 +1,24 @@
 
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
+import { RestApiCfg, RestApi, RestApiModel ,SystemDictionaryService} from '../../../../architecture';
 
 @Injectable()
 export class AccountMngService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private dict:SystemDictionaryService
     ) { }
-
+    //获取状态字典表
+    accStatusList=this.dict.get({
+        "owner":"USER",
+        "field":"STATUS"
+    });   
 
     // 获取组织管理 所有机构
     getOrg(page: number, size: number) {
-
         let api = this.restApiCfg.getRestApi("user-center.org-mng.list");
 
         return this.restApi.request(api.method, api.url,[{ key: "page", value: page }, { key: "size", value: size }], undefined);

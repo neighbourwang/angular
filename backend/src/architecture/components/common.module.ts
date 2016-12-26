@@ -11,17 +11,24 @@ import { ConfirmComponent } from './dialog/component/confirm.component';
 import { PopupComponent } from './dialog/component/popup.component';
 import { CountBarComponent} from './countBar/component/count-bar.component'
 import { PopoverModule } from './popover/index';
+import { SelectboxComponent } from './selectbox/component/selectbox.component';
 
 import { MyDatePickerModule } from './date-picker/my-date-picker.module';
 import { BootstrapPopoverDirective } from './popover/bootstrap-popover.directive';
 
 import { ClickOutsideModule } from 'ng2-click-outside';
 
+import { HttpModule } from '@angular/http';
+import { TranslateModule } from 'ng2-translate';
+import { DialogTranslate } from './dialog/service/dialog-translate.service';
+
 @NgModule({
     imports: [
         CommonModule,
         Ng2Bs3ModalModule,
-        FormsModule
+        FormsModule,
+        HttpModule,
+        TranslateModule.forRoot()
     ],
     declarations: [
         SpinnerComponent,
@@ -30,7 +37,8 @@ import { ClickOutsideModule } from 'ng2-click-outside';
         ConfirmComponent,
         PopupComponent,
         CountBarComponent,
-        BootstrapPopoverDirective
+        BootstrapPopoverDirective,
+        SelectboxComponent
     ],
     exports: [
         CommonModule,
@@ -44,7 +52,11 @@ import { ClickOutsideModule } from 'ng2-click-outside';
         MyDatePickerModule,
         BootstrapPopoverDirective,
         ClickOutsideModule,
-        PopoverModule
-    ]
+        PopoverModule,
+        HttpModule,
+        TranslateModule,
+		SelectboxComponent
+    ],
+    providers : [DialogTranslate]
 })
 export class CommonComponentModule { }

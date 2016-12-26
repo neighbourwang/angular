@@ -50,14 +50,15 @@
                     <td>{{item.organizationName}}</td>
                     <td>{{item.roleName}}</td>
                     <td>{{item.type==1?"AD":"本地"}}</td>
-                    <td>
-                        <span [ngSwitch]="item.status">
+                    <td [ngClass]="{'font-green':item.status =='1' ,'font-orange':item.status == '3'}">
+                        {{item.status| dict:this.service.accStatusList | async}}
+                        <!--<span [ngSwitch]="item.status">
                             <template [ngSwitchCase]="1">启用</template>
                             <template [ngSwitchCase]="3">禁用</template>
                             <template [ngSwitchCase]="0">未启用</template>
                             <template [ngSwitchCase]="4">4</template>
                             <template ngSwitchDefault>Unknown</template>
-                    	</span>
+                    	</span>-->
                     </td>
                     <td>{{item.description}}</td>
                 </tr>
