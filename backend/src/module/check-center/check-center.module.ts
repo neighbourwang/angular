@@ -10,6 +10,8 @@ import { CheckCenterRouting } from './check-center.routing';
 //component
 import { CheckMngListComponent } from './component/check-mng-list.component';
 import { CheckMngHascheckComponent } from './component/check-mng-hascheck.component';
+import { CheckMngSetComponent } from './component/check-mng-set.component';
+
 
 @NgModule({
     imports: [
@@ -19,7 +21,8 @@ import { CheckMngHascheckComponent } from './component/check-mng-hascheck.compon
     ],
     declarations: [
          CheckMngListComponent,
-         CheckMngHascheckComponent
+         CheckMngHascheckComponent,
+         CheckMngSetComponent
     ],
     exports: [],
     providers: []

@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../service/menu.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'fc-menu',
@@ -12,10 +13,12 @@ export class MenuComponent implements OnInit {
 	active: Array<number> = new Array<number>();
 
 	constructor(
+		private router: Router,
 		private service: MenuService) { }
 
 	ngOnInit() {
 		this.setMenu();
+		// this.router.navigateByUrl("user-center/account-mng/account-mng-list");
 	}
 
 	setMenu() {

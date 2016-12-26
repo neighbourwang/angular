@@ -16,7 +16,7 @@ module.exports = {
 			if (!userInfo) {
 				$(".prdouct-bunner .button-orange-deep").attr("href", "/login.html")
 			}
-			document.title = "云主机（ECS）介绍_产品与服务";
+			document.title = T("PRODUCT_ESC_T");
 		});
 
 		Routes("evs",params => {
@@ -24,7 +24,7 @@ module.exports = {
 			if (!userInfo) {
 				$(".prdouct-bunner .button-orange-deep").attr("href", "/login.html")
 			}
-			document.title = "云硬盘（EVS）介绍_产品与服务";
+			document.title = T("PRODUCT_EVS_T");
 		});
 
 	}

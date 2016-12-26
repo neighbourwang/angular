@@ -158,6 +158,18 @@ export class OrderMngSearchComponent implements OnInit{
 
 	}
 
+	loadBuyer(){
+		this.layoutService.show();
+		this._buyerLoader.Go(null, [{key:"departmentId", value:this._param.organization}])
+		.then(success=>{	
+			this.layoutService.hide();		
+			this._param.buyerId = null;		
+			
+		}, err=>{
+			this.layoutService.hide();
+			this._param.buyerId = null;	
+		});
+	}
 
 	search(pageNumber:number = 1){
 		this.layoutService.show();
@@ -169,6 +181,7 @@ export class OrderMngSearchComponent implements OnInit{
 				currentPage:pageNumber
 				,size:10
 			}
+			,enterpiseId:this.restApi.getLoginInfo().userInfo.enterpriseId
 		};
 // 		{
 //   "approverId": "",
@@ -244,8 +257,8 @@ export class OrderMngSearchComponent implements OnInit{
 	}
 
 	resetParam(){
-		this._param.reset();
 		this._buyerLoader.clear();
+		this._param.reset();
 		
 	}
 	

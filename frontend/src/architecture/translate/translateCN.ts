@@ -69,7 +69,7 @@ export const TranslateCN = {
     DIALOG: {
         PROMPT: '提示',
         CONFIRM: '确认',
-        CANCEL: '取消',
+        CANCEL: '取消'
         COMMIT: '提交'
     },
     MENU: {
@@ -171,6 +171,13 @@ export const TranslateCN = {
         EDIT_DEPARTMENT: '编辑部门',
         YOU_CAN_NOT_DELETE_ORGANIZATIONS_THAT_ARE_ENABLED: '不能删除启用状态下的组织'
     },
+    MNG_CONSOLE: {
+        OVERVIEW_OF_MANAGEMENT_CONTROL: '管理控制概览',
+        PURCHASED_SERVICE: '已购买服务',
+        WORK_ORDER_STATISTICS: '工单统计',
+        TOTAL_QUOTA_USAGE: '总配额使用率',
+        DEPARTMENT_RESOURCES: '部门资源'
+       },
     CHECK_CENTER: {
         //check-mng-list.html
         PENDING_LIST: '待审批列表',

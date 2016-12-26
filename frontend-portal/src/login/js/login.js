@@ -1,6 +1,8 @@
 require("../less/login.less");                  //引入css
 const html = require("../ejs/login.ejs");      //引入html 
 
+document.title = T("LOGIN");
+
 module.exports = {
 	template: html(),
 	controller : function() {
@@ -44,7 +46,7 @@ module.exports = {
 			$("#submit-button").val(T("LOGINING") + "...");
 
 			$.ajax({
-		        url: `http://${C.baseIp}:${C.basePort}/uaa/oauth/token?grant_type=password&username=${username}&password=${password}&client_id=frontend-ui&client_secret=12345`,
+		        url: `http://${C.baseIp}:${C.basePort}/uaa/oauth/token?grant_type=password&username=${username}&password=${password}&client_id=ui&client_secret=12345&login_type=frontend`,
 		        type: "POST",
 		        beforeSend: function (request)
 		        {
@@ -69,12 +71,12 @@ module.exports = {
 							isChecked = 0;
 			            },
 			            error: function (xhr, status) {
-			                alert(T("LOGINERROE"))
+			                alert(T("LOGINERROR"))
 			            }
 			        }); 
 		        },
 		        error: function (xhr, status) {
-		            alert(T("LOGINERROE"))
+		            alert(T("LOGINERROR1"))
 					$("#submit-button").val(T("LOGIN"));
 					isChecked = 0;
 		        }

@@ -34,8 +34,8 @@
 						<td>
 							<span class="float-left mgl15">订购人:</span>
 							<div class="dropdown float-left">
-								<select class="form-control fix-width-120">
-									<option class="hands" [value]=null>所有用户</option>
+								<select class="form-control fix-width-120" [(ngModel)]="_param.buyerId">
+									<option class="hands" [value]="null">所有用户</option>
 									<option class="hands" *ngFor = "let item of _buyerLoader.Items" [value] = "item.id">{{item.name}}</option>
 								</select>
 							</div>
@@ -75,7 +75,7 @@
 								</select>
 							</div>
 						</td>
-						<td style="width:257px;">
+						<!--<td style="width:257px;">
 							 <span class="float-left " >
 							区域:</span>
 							<div class="dropdown float-left">
@@ -94,7 +94,7 @@
 									<option class="hands" *ngFor="let item of _regionLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
-					</td> 	
+					</td> 	-->
 					</tr>
 					
 				</tbody>
@@ -124,7 +124,7 @@
 				<tr>
 					<td class=" font-green leftAlign pdl20" colspan="9" (click)="showDetail(orderItem)"><span>{{orderItem.purchaseDate}}</span><span class="pointer mgl10 float-none">已购服务编号：{{orderItem.orderNo}}</span></td>
 					<td colspan="2">
-						<button *ngIf="orderItem.canRenew" class="mgr5 pull-right button-gray-gradient" (click)="renewSelect(orderItem)">续订</button>
+						<!-- <button *ngIf="orderItem.canRenew" class="mgr5 pull-right button-gray-gradient" (click)="renewSelect(orderItem)">续订</button> -->
 						<button class="mgr5 pull-right button-gray-gradient" (click)="cancelSelect(orderItem)">退订</button>
 						<button class="mgr5 pull-right button-gray-gradient" (click)="showDetail(orderItem)">详情</button>
 					</td>	

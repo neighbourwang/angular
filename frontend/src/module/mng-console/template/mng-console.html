@@ -1,6 +1,6 @@
 ﻿<div class="page-content">
     <div>
-        <h1 class="page-content-header float-left">管理控制概览</h1>
+        <h1 class="page-content-header float-left">{{ 'MNG_CONSOLE.OVERVIEW_OF_MANAGEMENT_CONTROL' | translate }}</h1>
     </div>
     <div style="clear:both;"></div>
     <div class="row">
@@ -14,43 +14,41 @@
                     </div>
                 </div>
                 <div class="work-box col-sm-3">
-                    <div class="console-title">已购买服务</div>
+                    <div class="console-title">{{ 'MNG_CONSOLE.PURCHASED_SERVICE' | translate }}</div>
                     <div class="work-data col-sm-6">
-                        <p class="number">5</p>
-                        <p class="description">云主机</p>
+                        <p class="number">{{vmTotal}}</p>
+                        <p class="description">{{ 'COMMON.CLOUD_HOSTING' | translate }}</p>
                     </div>
                     <div class="work-data col-sm-6">
-                        <p class="number color-b">4</p>
-                        <p class="description">云硬盘</p>
+                        <p class="number color-b">{{diskTotal}}</p>
+                        <p class="description">{{ 'COMMON.CLOUD_HARD_DISK' | translate }}</p>
                     </div>
                 </div>
                 <div class="work-box col-sm-5">
-                    <div class="console-title">工单统计</div>
+                    <div class="console-title">{{ 'MNG_CONSOLE.WORK_ORDER_STATISTICS' | translate }}</div>
                     <div class="work-data col-sm-4">
                         <p class="number">0</p>
-                        <p class="description">新创建</p>
+                        <p class="description">{{ 'COMMON.NEWLY_CREATED' | translate }}</p>
                     </div>
                     <div class="work-data col-sm-4">
                         <p class="number color-c">0</p>
-                        <p class="description">处理中</p>
+                        <p class="description">{{ 'COMMON.IN_PROCESS' | translate }}</p>
                     </div>
                     <div class="work-data col-sm-4">
                         <p class="number color-a">0</p>
-                        <p class="description">已完成</p>
+                        <p class="description">{{ 'COMMON.COMPLETED' | translate }}</p>
                     </div>
                 </div>
             </div>
             <div class="console-box ">
-                <div class="console-title">总配额使用率</div>
+                <div class="console-title">{{ 'MNG_CONSOLE.TOTAL_QUOTA_USAGE' | translate }}</div>
                 <div class="quota-box ">
                     <canvas baseChart
                           width="100" height="100"
                           [datasets]="epcpu"
                           chartType="doughnut"
-                          (chartHover)="chartHovered($event)"
-                          [options]="quotaOptions"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">{{eplist.usedCpuRate}}<sup>%</sup></div>
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{!eplist.cpuQuota ? 0 : eplist.usedCpuQuota/eplist.cpuQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
                     <div class="quota-name">vCPU</div>
                 </div>
                 <div class="quota-box ">
@@ -58,150 +56,138 @@
                           width="100" height="100"
                           [datasets]="epmem"
                           chartType="doughnut"
-                          (chartHover)="chartHovered($event)"
-                          [options]="quotaOptions"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">{{eplist.usedMemRate}}<sup>%</sup></div>
-                    <div class="quota-name">内存</div>
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{!eplist.memQuota ? 0 : eplist.usedMemQuota/eplist.memQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
+                    <div class="quota-name">{{ 'COMMON.RAM' | translate }}</div>
                 </div>
                 <div class="quota-box ">
                     <canvas baseChart
                           width="100" height="100"
                           [datasets]="epdisk"
                           chartType="doughnut"
-                          (chartHover)="chartHovered($event)"
-                          [options]="quotaOptions"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">{{eplist.usedStorageRate}}<sup>%</sup></div>
-                    <div class="quota-name">存储</div>
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{!eplist.storageQuota ? 0 : eplist.usedStorageQuota/eplist.storageQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
+                    <div class="quota-name">{{ 'COMMON.STORAGE' | translate }}</div>
                 </div>
                 <div class="quota-box ">
                     <canvas baseChart
                           width="100" height="100"
                           [datasets]="ephost"
                           chartType="doughnut"
-                          (chartHover)="chartHovered($event)"
-                          [options]="quotaOptions"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">{{eplist.usedPhysicalMachineRate}}<sup>%</sup></div>
-                    <div class="quota-name">物理机</div>
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{!eplist.physicalMachineQuota ? 0 : eplist.usedPhysicalMachineQuota/eplist.physicalMachineQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
+                    <div class="quota-name">{{ 'COMMON.PHYSICAL_MACHINE' | translate }}</div>
                 </div>
                 <div class="quota-box ">
                     <canvas baseChart
                           width="100" height="100"
                           [datasets]="epsnapshot"
                           chartType="doughnut"
-                          (chartHover)="chartHovered($event)"
-                          [options]="quotaOptions"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">{{eplist.usedSnapshotRate}}<sup>%</sup></div>
-                    <div class="quota-name">快照</div>
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{!eplist.snapshotQuota ? 0 : eplist.usedSnapshotQuota/eplist.snapshotQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
+                    <div class="quota-name">{{ 'COMMON.SNAPSHOT' | translate }}</div>
                 </div>
                 <div class="quota-box ">
                     <canvas baseChart
                           width="100" height="100"
                           [datasets]="epimage"
                           chartType="doughnut"
-                          (chartHover)="chartHovered($event)"
-                          [options]="quotaOptions"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">{{eplist.usedImageRate}}<sup>%</sup></div>
-                    <div class="quota-name">镜像</div>
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{!eplist.imageQuota ? 0 : eplist.usedImageQuota/eplist.imageQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
+                    <div class="quota-name">{{ 'COMMON.MIRROR' | translate }}</div>
                 </div>
                 <div class="quota-box ">
                     <canvas baseChart
                           width="100" height="100"
                           [datasets]="epfloatIp"
                           chartType="doughnut"
-                          (chartHover)="chartHovered($event)"
-                          [options]="quotaOptions"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">{{eplist.usedFloatIpRate}}<sup>%</sup></div>
-                    <div class="quota-name">浮动IP</div>
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{!eplist.floatIpQuota ? 0 : eplist.usedFloatIpQuota/eplist.floatIpQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
+                    <div class="quota-name">{{ 'COMMON.FLOAT' | translate }}IP</div>
                 </div>
 
-                <div class="console-title next-title">部门资源</div>
+                <div class="console-title next-title">{{ 'MNG_CONSOLE.DEPARTMENT_RESOURCES' | translate }}</div>
                 <div class="resource-box">
                     <div class="resource-icon icon-resource-vcpu"></div>
                     <p class="resource-name">vCPU</p>
                     <div class="resource-state">
-                        <span>已启用</span>
+                        <span>{{ 'COMMON.ENABLED' | translate }}</span>
                         <span class="color-a mgl5">{{quotalist.usedCpuQuota}}</span>
                     </div>
                     <div class="resource-state">
-                        <span>未启用</span>
+                        <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
                         <span class="color-b mgl5">{{quotalist.cpuQuota - quotalist.usedCpuQuota}}</span>
                     </div>
                 </div>
                 <div class="resource-box">
                     <div class="resource-icon icon-resource-memory"></div>
-                    <p class="resource-name">内存</p>
+                    <p class="resource-name">{{ 'COMMON.RAM' | translate }}</p>
                     <div class="resource-state">
-                        <span>已启用</span>
+                        <span>{{ 'COMMON.ENABLED' | translate }}</span>
                         <span class="color-a mgl5">{{quotalist.usedMemQuota}}</span>
                     </div>
                     <div class="resource-state">
-                        <span>未启用</span>
+                        <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
                         <span class="color-b mgl5">{{quotalist.memQuota - quotalist.usedMemQuota}}</span>
                     </div>
                 </div>
                 <div class="resource-box">
                     <div class="resource-icon icon-resource-storage"></div>
-                    <p class="resource-name">存储</p>
+                    <p class="resource-name">{{ 'COMMON.STORAGE' | translate }}</p>
                     <div class="resource-state">
-                        <span>已启用</span>
+                        <span>{{ 'COMMON.ENABLED' | translate }}</span>
                         <span class="color-a mgl5">{{quotalist.usedStorageQuota}}</span>
                     </div>
                     <div class="resource-state">
-                        <span>未启用</span>
+                        <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
                         <span class="color-b mgl5">{{quotalist.storageQuota - quotalist.usedStorageQuota}}</span>
                     </div>
                 </div>
                 <div class="resource-box">
                     <div class="resource-icon icon-resource-machine"></div>
-                    <p class="resource-name">物理机</p>
+                    <p class="resource-name">{{ 'COMMON.PHYSICAL_MACHINE' | translate }}</p>
                     <div class="resource-state">
-                        <span>已启用</span>
+                        <span>{{ 'COMMON.ENABLED' | translate }}</span>
                         <span class="color-a mgl5">{{quotalist.usedPhysicalMachineQuota}}</span>
                     </div>
                     <div class="resource-state">
-                        <span>未启用</span>
+                        <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
                         <span class="color-b mgl5">{{quotalist.physicalMachineQuota - quotalist.usedPhysicalMachineQuota}}</span>
                     </div>
                 </div>
                 <div class="resource-box">
                     <div class="resource-icon icon-resource-snapshot"></div>
-                    <p class="resource-name">快照</p>
+                    <p class="resource-name">{{ 'COMMON.SNAPSHOT' | translate }}</p>
                     <div class="resource-state">
-                        <span>已启用</span>
+                        <span>{{ 'COMMON.ENABLED' | translate }}</span>
                         <span class="color-a mgl5">{{quotalist.usedSnapshotQuota}}</span>
                     </div>
                     <div class="resource-state">
-                        <span>未启用</span>
+                        <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
                         <span class="color-b mgl5">{{quotalist.snapshotQuota - quotalist.usedSnapshotQuota}}</span>
                     </div>
                 </div>
                 <div class="resource-box">
                     <div class="resource-icon icon-resource-image"></div>
-                    <p class="resource-name">镜像</p>
+                    <p class="resource-name">{{ 'COMMON.MIRROR' | translate }}</p>
                     <div class="resource-state">
-                        <span>已启用</span>
+                        <span>{{ 'COMMON.ENABLED' | translate }}</span>
                         <span class="color-a mgl5">{{quotalist.usedImageQuota}}</span>
                     </div>
                     <div class="resource-state">
-                        <span>未启用</span>
+                        <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
                         <span class="color-b mgl5">{{quotalist.imageQuota - quotalist.usedImageQuota}}</span>
                     </div>
                 </div>
                 <div class="resource-box">
                     <div class="resource-icon icon-resource-ip"></div>
-                    <p class="resource-name">浮动IP地址</p>
+                    <p class="resource-name">{{ 'COMMON.FLOAT' | translate }}IP{{ 'COMMON.PATH' | translate }}</p>
                     <div class="resource-state">
-                        <span>已启用</span>
+                        <span>{{ 'COMMON.ENABLED' | translate }}</span>
                         <span class="color-a mgl5">{{quotalist.usedFloatIpQuota}}</span>
                     </div>
                     <div class="resource-state">
-                        <span>未启用</span>
+                        <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
                         <span class="color-b mgl5">{{quotalist.floatIpQuota - quotalist.usedFloatIpQuota}}</span>
                     </div>
                 </div>

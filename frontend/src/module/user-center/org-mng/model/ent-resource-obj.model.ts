@@ -1,5 +1,4 @@
 export class EntResource {
-    // authMode: 0
     "cpuQuota": number;
     "dbQuota": number;
     "diskQuota": number;
@@ -9,30 +8,41 @@ export class EntResource {
     "memQuota": number;
     "networkQuota": number;
     "physicalMachineQuota": number;
+    "realUsedCpuQuota": number;
+    "realUsedDbQuota": number;
+    "realUsedDiskQuota": number;
+    "realUsedFloatIpQuota": number;
+    "realUsedImageQuota": number;
+    "realUsedMemQuota": number;
+    "realUsedNetworkQuota": number;
+    "realUsedPhysicalMachineQuota": number;
+    "realUsedSnapshotQuota": number;
+    "realUsedStorageQuota": number;
+    "realUsedVmQuota": number;
     "snapshotQuota": number;
     "storageQuota": number;
     "usedCpuQuota": number;
-    "usedCpuRate":string;
+    "usedCpuRate": string;
     "usedDbQuota": number;
-    "usedDbRate":string;
+    "usedDbRate": string;
     "usedDiskQuota": number;
-    "usedDiskRate":string;
+    "usedDiskRate": string;
     "usedFloatIpQuota": number;
-    "usedFloatIpRate":string;
+    "usedFloatIpRate": string;
     "usedImageQuota": number;
-    "usedImageRate":string;
+    "usedImageRate": string;
     "usedMemQuota": number;
-    "usedMemRate":string;
+    "usedMemRate": string;
     "usedNetworkQuota": number;
-    "usedNetworkRate":string;
+    "usedNetworkRate": string;
     "usedPhysicalMachineQuota": number;
     "usedPhysicalMachineRate": number;
     "usedSnapshotQuota": number;
-    "usedSnapshotRate":string;
+    "usedSnapshotRate": string;
     "usedStorageQuota": number;
-    "usedStorageRate":string;
+    "usedStorageRate": string;
     "usedVmQuota": number;
-    "usedVmRate":string;
+    "usedVmRate": string;
     "vmQuota": number;
     constructor() {
         this.cpuQuota = 0;
@@ -68,6 +78,17 @@ export class EntResource {
         this.usedVmQuota = 0;
         this.usedVmRate = '';
         this.vmQuota = 0;
+        this.realUsedCpuQuota = 0;
+        this.realUsedDbQuota = 0;
+        this.realUsedDiskQuota = 0;
+        this.realUsedFloatIpQuota = 0;
+        this.realUsedImageQuota = 0;
+        this.realUsedMemQuota = 0;
+        this.realUsedNetworkQuota = 0;
+        this.realUsedPhysicalMachineQuota = 0;
+        this.realUsedSnapshotQuota = 0;
+        this.realUsedStorageQuota = 0;
+        this.realUsedVmQuota = 0;
     }
 
 }
