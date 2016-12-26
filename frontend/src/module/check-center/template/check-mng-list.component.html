@@ -53,7 +53,7 @@
 					<tr>		
 						<td colspan="4">
 							<div>
-								<span class="float-left mgt15">{{'CHECK_CENTER.CREATED_TIME' | translate}}:</span>
+								<span class="float-left mgt15">{{'COMMON.CREATED_TIME' | translate}}:</span>
 								<div class="dropdown float-left">			
 									<date-picker (dateChanged)="onStartDateChange($event)"></date-picker>
 								</div>
@@ -83,7 +83,7 @@
 				<thead>	
 					<tr >
 						<th>{{'CHECK_CENTER.NUMBER' | translate}}</th>
-						<th>{{'CHECK_CENTER.ORDER_NUMBER' | translate}}</th>
+						<th>{{'COMMON.ORDER_NUMBER' | translate}}</th>
 						<th>{{'CHECK_CENTER.PRODUCT_TYPE' | translate}}</th>
 						<th>{{'CHECK_CENTER.REGION_AND_AVAIABLE_AREA' | translate}}</th>
 						<th>{{'CHECK_CENTER.ORDER_TYPE' | translate}}</th>
@@ -92,7 +92,7 @@
 						<th>{{'CHECK_CENTER.DEPARTMENT' | translate}}</th>
 						<th>{{'CHECK_CENTER.ENTERPRISE' | translate}}</th>
 						<th>{{'CHECK_CENTER.COST' | translate}}</th>
-						<th>{{'CHECK_CENTER.CREATED_TIME' | translate}}</th>
+						<th>{{'COMMON.CREATED_TIME' | translate}}</th>
 						<th>{{'CHECK_CENTER.APPROVAL_RESULTS' | translate}}</th>
 					</tr>			
 				</thead>
@@ -118,7 +118,7 @@
 						<td>{{item.userStr}}</td>
 						<td>{{item.departmentStr}}</td>
 						<td>{{item.entStr}}</td>
-						<td>{{'CHECK_CENTER.BILLING_MODE' | translate}}:{{item.billingModeName}}<br>
+						<td>{{'COMMON.BILLING_MODE' | translate}}:{{item.billingModeName}}<br>
 						 	{{'CHECK_CENTER.ORDER_CYCLE' | translate}}:{{item.billingDurationStr}}<br>
 						 	{{'CHECK_CENTER.ONE_TIME_COSTS' | translate}}:<span class="font-red">{{item.oneTimePriceNum}}</span><br>
 						 	{{'CHECK_CENTER.COST' | translate}}:<span class="font-red">{{item.priceNum}}</span></td>
