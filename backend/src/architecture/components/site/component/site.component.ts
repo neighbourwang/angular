@@ -3,6 +3,9 @@ import { LayoutService } from '../../../core/service/layout.service';
 import { SystemDictionaryService, RestApi } from '../../../../architecture';
 import { UserService } from '../../../core/service/user.service';
 import { SiteService } from '../service/site.service';
+import { TranslateService } from 'ng2-translate';
+import { TranslateEN } from '../../../../architecture/translate/translateEN';
+import { TranslateCN } from '../../../../architecture/translate/translateCN';
 
 
 @Component({
@@ -20,8 +23,16 @@ export class SiteComponent implements OnInit{
     private dictService: SystemDictionaryService,
     private restApi : RestApi,
     private service : SiteService,
-    private userService: UserService
-  ) { }
+    private userService: UserService,
+    public translate: TranslateService
+  ) {
+    
+    translate.setTranslation('EN',  TranslateEN);
+    translate.setTranslation('CN',  TranslateCN);
+
+    translate.addLangs(["EN", "CN"]);
+    translate.setDefaultLang('CN');
+   }
   
   ngOnInit() {
     this.layoutService.hide();
