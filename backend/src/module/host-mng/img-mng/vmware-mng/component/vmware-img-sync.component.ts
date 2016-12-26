@@ -31,7 +31,7 @@ export class VmwareImgSyncComponent implements OnInit {
         if (activatedRouter.snapshot.params["platformId"]) {
             this.platformId = activatedRouter.snapshot.params["platformId"];
         } else {
-            this.showMsg("必须指定相关的平台");
+            this.showMsg("HOST_VMWARE_MNG.MUST_CHOOSE_PLATFORM");
         }
 
     }
@@ -76,18 +76,18 @@ export class VmwareImgSyncComponent implements OnInit {
     }
 
     showMsg(msg: string) {
-        this.notice.open("系统提示", msg);
+        this.notice.open("HOST_VMWARE_MNG.SYSTEM_PROMPT", msg);
     }
 
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("HOST_VMWARE_MNG.GETTING_DATA_FAILED");
     }
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "HOST_VMWARE_MNG.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -103,7 +103,7 @@ export class VmwareImgSyncComponent implements OnInit {
             return d.displayValue;
         } else {
             //return value;
-            return "未设置";
+            return "HOST_VMWARE_MNG.UNSET";
         }
 
     }
@@ -147,7 +147,7 @@ export class VmwareImgSyncComponent implements OnInit {
             return this.selectedsyncvmimgs;
         }
         else {
-            this.showMsg("请选择相应的镜像");
+            this.showMsg("HOST_VMWARE_MNG.PLEASE_CHOOSE_IMAGE");
             return null;
         }
     }
@@ -194,7 +194,7 @@ export class VmwareImgSyncComponent implements OnInit {
             ).then( n =>
                 {
                     this.getVmwareImgSyncList();
-                    this.showAlert("镜像同步成功");
+                    this.showAlert("HOST_VMWARE_MNG.IMAGE_SYNC_SUCCESS");
                     /*
                     //this.getUnSelectedItems();
                     for (var i = this.vmwaresyncimgs.length - 1; i >= 0; i--) {
@@ -211,7 +211,7 @@ export class VmwareImgSyncComponent implements OnInit {
             )
             .catch((e) => this.onRejected(e));
         } else {
-            this.showAlert("没有镜像需要同步");
+            this.showAlert("HOST_VMWARE_MNG.NO_MORE_IMAGE_NEED_TO_SYNC");
             console.log("No image need to be synced.");
         }
     }

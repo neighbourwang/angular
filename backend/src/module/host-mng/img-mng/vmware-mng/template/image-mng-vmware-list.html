@@ -1,39 +1,39 @@
-﻿<div class="page-content-header icon-content-header-purchasing"> 镜像管理----{{platformName}}
+﻿<div class="page-content-header icon-content-header-purchasing"> {{ 'HOST_VMWARE_MNG.IMAGE_MANAGEMENT' | translate }}----{{platformName | translate}}
     <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" key="boe/image-mng.html" (click)="ImgMngPage()">
-        返回镜像管理列表
+        {{'HOST_VMWARE_MNG.RETURN_IMAGE_MANAGEMENT' | translate}}
     </button>
 </div>
 <div class="page-content">
     <div class="mgt15 ">      
-            <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >镜像类型：</span>
+            <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >{{'HOST_VMWARE_MNG.IMAGE_TYPE' | translate}}：</span>
             <div class="float-left pdr20">
                 <select class="pdl10 form-control" [(ngModel)]="queryOpt.type">
-                    <option [value]="" value="">选择镜像</option>
+                    <option [value]="" value="">{{'HOST_VMWARE_MNG.SELECT_IMAGE' | translate}}</option>
                     <option *ngFor="let td of typeDictArray" [value]="td.value">{{td.displayValue}}</option>
                 </select>
             </div>          
-            <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >所属企业：</span>
+            <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >{{'HOST_VMWARE_MNG.AFFILIATED_ENTERPRISE' | translate}}：</span>
             <div class="float-left">
                 <select class="pdl10 form-control" [(ngModel)]="queryOpt.tenantId">
-                    <option [value]="" value="">选择企业</option>
+                    <option [value]="" value="">{{'HOST_VMWARE_MNG.SELECT_ENTERPRISE' | translate}}</option>
                     <option *ngFor="let ent of vmwareents" [value]="ent.id">{{ent.name}}</option>
                 </select>
             </div>  
-            <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10" (click)="filter(); queryOpt.tenantId=''; queryOpt.type='';"><span class="icon-button-label">确定 </span> </button>                                                             
+            <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10" (click)="filter(); queryOpt.tenantId=''; queryOpt.type='';"><span class="icon-button-label">{{'HOST_VMWARE_MNG.ENSURE' | translate}} </span> </button>                                                             
     </div>         
     <div style="clear:both"></div>
     <div class="mgb20 " style="margin-top:20px">
-        <button class="fox-cloud-button fox-cloud-button-green mgr10" key="boe/image-sync-vmware.html" (click)="VmwareImgSyncPage()">同步镜像</button>
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/image-ent-set-vmware.html" (click)="VmwareImgEntSetup()">设置企业</button>
+        <button class="fox-cloud-button fox-cloud-button-green mgr10" key="boe/image-sync-vmware.html" (click)="VmwareImgSyncPage()">{{'HOST_VMWARE_MNG.SYNC_IMAGE' | translate}}</button>
+        <button class="fox-cloud-button fox-cloud-button-green" key="boe/image-ent-set-vmware.html" (click)="VmwareImgEntSetup()">{{'HOST_VMWARE_MNG.SET_ENTERPRISE' | translate}}</button>
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             更多操作
+             {{'HOST_VMWARE_MNG.MORE_OPERATION' | translate}}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><a href="#myModal" data-toggle="modal" (click)="editImage()">编辑</a></li>
-                <li><a href="javascript:" (click)="enableImage()">启用</a></li>
-                <li><a href="javascript:" (click)="disableImage()">禁用</a></li>
+                <li><a href="#myModal" data-toggle="modal" (click)="editImage()">{{'HOST_VMWARE_MNG.EDIT' | translate}}</a></li>
+                <li><a href="javascript:" (click)="enableImage()">{{'HOST_VMWARE_MNG.ENABLE' | translate}}</a></li>
+                <li><a href="javascript:" (click)="disableImage()">{{'HOST_VMWARE_MNG.DISABLE' | translate}}</a></li>
             </ul>
         </div>
     </div>
@@ -41,15 +41,15 @@
         <table class="table table-hover">
              <thead>
                 <tr>
-                    <th>选择</th>
-                    <th>镜像名</th>
-                    <th>镜像显示名称</th>
-                    <th>操作系统</th>
-                    <th>系统位数</th>
-                    <th>镜像容量</th>
-                    <th>镜像类型</th>
-                    <th>所属企业</th>
-                    <th>状态</th>
+                    <th>{{'HOST_VMWARE_MNG.SELECT' | translate}}</th>
+                    <th>{{'HOST_VMWARE_MNG.IMAGE_NAME' | translate}}</th>
+                    <th>{{'HOST_VMWARE_MNG.IMAGE_DISPLAY_NAME' | translate}}</th>
+                    <th>{{'HOST_VMWARE_MNG.OS' | translate}}</th>
+                    <th>{{'HOST_VMWARE_MNG.BIT' | translate}}</th>
+                    <th>{{'HOST_VMWARE_MNG.CAPACITY' | translate}}</th>
+                    <th>{{'HOST_VMWARE_MNG.IMAGE_TYPE' | translate}}</th>
+                    <th>{{'HOST_VMWARE_MNG.AFFILIATED_ENTERPRISE' | translate}}</th>
+                    <th>{{'HOST_VMWARE_MNG.STATUS' | translate}}</th>
                 </tr>
             </thead>
             
@@ -66,15 +66,15 @@
                             <div class="popover-content">
                                 <form class="form-horizontal" role="form">
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label">镜像显示名称:</label>
+                                            <label class="col-sm-4 control-label">{{'HOST_VMWARE_MNG.IMAGE_DISPLAY_NAME' | translate}}:</label>
                                             <div class="col-sm-8 float-left">
                                             <input type="text" class="form-control"[(ngModel)]="selectedimg.displayName" name="name">
                                             </div>
                                         </div>
                                 </form>
                                 <div class="pull-right" style="margin-bottom:10px;">
-                                    <button class=" fox-cloud-button fox-cloud-button-white" (click)="onSave(img)">保存</button>
-                                    <button class="fox-cloud-button fox-cloud-button-white" (click)="onCancel(); img.nameEditing=false;">取消</button>
+                                    <button class=" fox-cloud-button fox-cloud-button-white" (click)="onSave(img)">{{'HOST_VMWARE_MNG.SAVE' | translate}}</button>
+                                    <button class="fox-cloud-button fox-cloud-button-white" (click)="onCancel(); img.nameEditing=false;">{{'HOST_VMWARE_MNG.CANCEL' | translate}}</button>
                                 </div>
                             </div>
                             
@@ -85,11 +85,11 @@
                     <td>{{img.capacity | formatCapacity}}</td>
                     <td>{{img.type | dict:this.dictService.typeDict | async}}</td>
                     <td [ngSwitch]="displayIt(img.tenants)">
-                        <div *ngSwitchCase="'some'" class="tenants-c">详细>>
+                        <div *ngSwitchCase="'some'" class="tenants-c">{{'HOST_VMWARE_MNG.DETAIL' | translate}}>>
                         <div class="table-container" style=" border-left: 1px solid #cfd8e7;border-right: 1px solid #cfd8e7">
                             <table class="table table-hover" >
                                 <thead>
-                                    <th style="background-color:#00a982;color:white">所有企业</th>
+                                    <th style="background-color:#00a982;color:white">{{'HOST_VMWARE_MNG.ALL_ENTERPRISE' | translate}}</th>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let tenant of img.tenants">
@@ -99,7 +99,7 @@
                             </table>
                         </div>
                         </div>
-                        <div *ngSwitchCase="'all'">所有</div>
+                        <div *ngSwitchCase="'all'">{{'HOST_VMWARE_MNG.ALL' | translate}}</div>
                         <div *ngSwitchCase="'special'">{{img.tenants[0].name}}</div>
                         
                     </td>
@@ -121,7 +121,7 @@
     <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
 </div>
 
-<fc-popup #enableimagebox ot="确认" ct="取消" title="启用镜像" (of)="acceptVmwareImageEnableModify()" (cf)="cancelVmwareImageEnableModify()">
+<fc-popup #enableimagebox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'HOST_VMWARE_MNG.ENABLE_IMAGE' | translate}}" (of)="acceptVmwareImageEnableModify()" (cf)="cancelVmwareImageEnableModify()">
 	<div class="dialogContent">
 			<div class="row row-line-height">
 				<div class="form-group">
@@ -133,7 +133,7 @@
 	</div>
 </fc-popup>
 
-<fc-popup #disableimagebox ot="确认" ct="取消" title="禁用镜像" (of)="acceptVmwareImageDisableModify()" (cf)="cancelVmwareImageEnableModify()">
+<fc-popup #disableimagebox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'HOST_VMWARE_MNG.DISABLE_IMAGE' | translate}}" (of)="acceptVmwareImageDisableModify()" (cf)="cancelVmwareImageEnableModify()">
 	<div class="dialogContent">
 			<div class="row row-line-height">
 				<div class="form-group">
@@ -145,12 +145,12 @@
 	</div>
 </fc-popup>
 
-<fc-popup #editimagebox ot="确认" ct="取消" title="编辑镜像" (of)="acceptVmwareImageModify()" (cf)="cancelVmwareImageModify()">
+<fc-popup #editimagebox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'HOST_VMWARE_MNG.EDIT_IMAGE' | translate}}" (of)="acceptVmwareImageModify()" (cf)="cancelVmwareImageModify()">
 	
 	<div class="dialogContent">
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像名：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.IMAGE_NAME' | translate}}：</div>
 					<div class="col-sm-8">
 					    {{changedimg.name}}
 					</div>
@@ -158,7 +158,7 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像显示名称：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.IMAGE_DISPLAY_NAME' | translate}}：</div>
 					<div class="col-sm-8">
 					    <input type="string" class="form-control input-control" [(ngModel)]="changedimg.displayName">
 					</div>
@@ -166,7 +166,7 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">操作系统：</div>
+					<div class="col-sm-4 form-control-title">{{'HOST_VMWARE_MNG.OS' | translate}}：</div>
 					<div class="col-sm-8">
 						<!--<input type="string" class="form-control input-control" [(ngModel)]="changedimg.os">  -->
                         <select [(ngModel)]="changedimg.os">
@@ -177,7 +177,7 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">系统位数：</div>
+					<div class="col-sm-4 form-control-title">{{'HOST_VMWARE_MNG.BIT' | translate}}：</div>
 					<div class="col-sm-8">                        
                         <select [(ngModel)]="changedimg.bitsType">
                             <option *ngFor="let bit of this.bitDictArray" [value]="bit.value">{{bit.displayValue}}</option>
@@ -187,7 +187,7 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">镜像容量：</div>
+					<div class="col-sm-4 form-control-title">{{'HOST_VMWARE_MNG.CAPACITY' | translate}}：</div>
 					<div class="col-sm-8">
 						<!-- <input type="string" class="form-control input-control" [(ngModel)]="selectedimg.dnsAlt"> -->
                         <span>{{ changedimg.capacity | formatCapacity}}</span>
@@ -196,11 +196,11 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像类型：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.IMAGE_TYPE' | translate}}：</div>
 					<div class="col-sm-8">
                         <select [(ngModel)]="changedimg.type">
-                            <option [value]="'0'">公共镜像</option>
-                            <option [value]="'2'">企业镜像</option>
+                            <option [value]="'0'">{{'HOST_VMWARE_MNG.PUBLIC_IMAGE' | translate}}</option>
+                            <option [value]="'2'">{{'HOST_VMWARE_MNG.ENTERPRISE_IMAGE' | translate}}</option>
                             <!-- <option *ngFor="let type of this.typeDict" [value]="type.value">{{type.displayValue}}</option> -->
                         </select>
 					</div>
@@ -208,7 +208,7 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">描述：</div>
+					<div class="col-sm-4 form-control-title">{{'HOST_VMWARE_MNG.DESCRIPTION' | translate}}：</div>
 					<div class="col-sm-8">
 						<input type="string" class="form-control input-control" [(ngModel)]="changedimg.description">
 					</div>

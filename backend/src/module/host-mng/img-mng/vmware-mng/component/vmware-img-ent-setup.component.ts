@@ -31,7 +31,7 @@ export class VmwareImgEntSetupComponent implements OnInit {
         if (activatedRouter.snapshot.params["platformId"]) {
             this.platformId = activatedRouter.snapshot.params["platformId"];
         } else {
-            this.showMsg("必须指定相关的平台");
+            this.showMsg('HOST_VMWARE_MNG.MUST_CHOOSE_PLATFORM');
         }
 
     }
@@ -87,19 +87,19 @@ export class VmwareImgEntSetupComponent implements OnInit {
 
 
     showMsg(msg: string) {
-        this.notice.open("系统提示", msg);
+        this.notice.open("HOST_VMWARE_MNG.SYSTEM_PROMPT", msg);
     }
 
 
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("HOST_VMWARE_MNG.GETTING_DATA_FAILED");
     }
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "HOST_VMWARE_MNG.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -115,7 +115,7 @@ export class VmwareImgEntSetupComponent implements OnInit {
             return d.displayValue;
         } else {
             //return value;
-            return "未设置";
+            return "HOST_VMWARE_MNG.UNSET";
         }
 
     }
@@ -152,7 +152,7 @@ export class VmwareImgEntSetupComponent implements OnInit {
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.showAlert("保存成功！");
+                    this.showAlert("HOST_VMWARE_MNG.SAVE_SUCCESS");
                     this.VmwareImgListPage();
                 } else {
                     this.showAlert("Res sync error");
