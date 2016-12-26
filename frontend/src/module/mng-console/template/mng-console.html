@@ -56,102 +56,54 @@
                           width="100" height="100"
                           [datasets]="epmem"
                           chartType="doughnut"
-<<<<<<< HEAD
-                          (chartHover)="chartHovered($event)"
-                          [options]="quotaOptions"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">{{eplist.usedMemRate}}<sup>%</sup></div>
-                    <div class="quota-name">{{ 'COMMON.RAM' | translate }}</div>
-=======
                           [options]="quotaOptions"></canvas>
                     <div class="percent-num">{{!eplist.memQuota ? 0 : eplist.usedMemQuota/eplist.memQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
-                    <div class="quota-name">内存</div>
->>>>>>> 4899d94ed41e69fee791f4ec2347c416857ffc4e
+                    <div class="quota-name">{{ 'COMMON.RAM' | translate }}</div>
                 </div>
                 <div class="quota-box ">
                     <canvas baseChart
                           width="100" height="100"
                           [datasets]="epdisk"
                           chartType="doughnut"
-<<<<<<< HEAD
-                          (chartHover)="chartHovered($event)"
-                          [options]="quotaOptions"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">{{eplist.usedStorageRate}}<sup>%</sup></div>
-                    <div class="quota-name">{{ 'COMMON.STORAGE' | translate }}</div>
-=======
                           [options]="quotaOptions"></canvas>
                     <div class="percent-num">{{!eplist.storageQuota ? 0 : eplist.usedStorageQuota/eplist.storageQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
-                    <div class="quota-name">存储</div>
->>>>>>> 4899d94ed41e69fee791f4ec2347c416857ffc4e
+                    <div class="quota-name">{{ 'COMMON.STORAGE' | translate }}</div>
                 </div>
                 <div class="quota-box ">
                     <canvas baseChart
                           width="100" height="100"
                           [datasets]="ephost"
                           chartType="doughnut"
-<<<<<<< HEAD
-                          (chartHover)="chartHovered($event)"
-                          [options]="quotaOptions"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">{{eplist.usedPhysicalMachineRate}}<sup>%</sup></div>
-                    <div class="quota-name">{{ 'COMMON.PHYSICAL_MACHINE' | translate }}</div>
-=======
                           [options]="quotaOptions"></canvas>
                     <div class="percent-num">{{!eplist.physicalMachineQuota ? 0 : eplist.usedPhysicalMachineQuota/eplist.physicalMachineQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
-                    <div class="quota-name">物理机</div>
->>>>>>> 4899d94ed41e69fee791f4ec2347c416857ffc4e
+                    <div class="quota-name">{{ 'COMMON.PHYSICAL_MACHINE' | translate }}</div>
                 </div>
                 <div class="quota-box ">
                     <canvas baseChart
                           width="100" height="100"
                           [datasets]="epsnapshot"
                           chartType="doughnut"
-<<<<<<< HEAD
-                          (chartHover)="chartHovered($event)"
-                          [options]="quotaOptions"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">{{eplist.usedSnapshotRate}}<sup>%</sup></div>
-                    <div class="quota-name">{{ 'COMMON.SNAPSHOT' | translate }}</div>
-=======
                           [options]="quotaOptions"></canvas>
                     <div class="percent-num">{{!eplist.snapshotQuota ? 0 : eplist.usedSnapshotQuota/eplist.snapshotQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
-                    <div class="quota-name">快照</div>
->>>>>>> 4899d94ed41e69fee791f4ec2347c416857ffc4e
+                    <div class="quota-name">{{ 'COMMON.SNAPSHOT' | translate }}</div>
                 </div>
                 <div class="quota-box ">
                     <canvas baseChart
                           width="100" height="100"
                           [datasets]="epimage"
                           chartType="doughnut"
-<<<<<<< HEAD
-                          (chartHover)="chartHovered($event)"
-                          [options]="quotaOptions"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">{{eplist.usedImageRate}}<sup>%</sup></div>
-                    <div class="quota-name">{{ 'COMMON.MIRROR' | translate }}</div>
-=======
                           [options]="quotaOptions"></canvas>
                     <div class="percent-num">{{!eplist.imageQuota ? 0 : eplist.usedImageQuota/eplist.imageQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
-                    <div class="quota-name">镜像</div>
->>>>>>> 4899d94ed41e69fee791f4ec2347c416857ffc4e
+                    <div class="quota-name">{{ 'COMMON.MIRROR' | translate }}</div>
                 </div>
                 <div class="quota-box ">
                     <canvas baseChart
                           width="100" height="100"
                           [datasets]="epfloatIp"
                           chartType="doughnut"
-<<<<<<< HEAD
-                          (chartHover)="chartHovered($event)"
-                          [options]="quotaOptions"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="percent-num">{{eplist.usedFloatIpRate}}<sup>%</sup></div>
-                    <div class="quota-name">{{ 'COMMON.FLOAT' | translate }}IP</div>
-=======
                           [options]="quotaOptions"></canvas>
                     <div class="percent-num">{{!eplist.floatIpQuota ? 0 : eplist.usedFloatIpQuota/eplist.floatIpQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
-                    <div class="quota-name">浮动IP</div>
->>>>>>> 4899d94ed41e69fee791f4ec2347c416857ffc4e
+                    <div class="quota-name">{{ 'COMMON.FLOAT' | translate }}IP</div>
                 </div>
 
                 <div class="console-title next-title">{{ 'MNG_CONSOLE.DEPARTMENT_RESOURCES' | translate }}</div>
