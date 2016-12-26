@@ -20,5 +20,6 @@ export class CheckCenterParam{
 		this.startDateStr = null;//开始时间
 		this.endDateStr = null;//结束时间
 		this.checkUserIdStr = null;
+		this.submitUserId = null;
 	}
 }
