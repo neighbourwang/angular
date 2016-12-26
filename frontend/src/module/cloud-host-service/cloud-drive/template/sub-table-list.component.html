@@ -6,15 +6,15 @@
          [ngValue]="v.code" >{{ v.displayValue }}</option>
     </select>
     <div class="input-group float-left drive-search">
-        <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="输入云硬盘信息搜索">
+        <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="{{'COMMON.ENTER_CLOUD_HARD_DISK_INFORMATION_TO_SEARCH' | translate}}">
         <div (click)="setUnmountList()" class="input-group-addon cup"><span class="glyphicon glyphicon-search"></span></div>
     </div>
 </div>
 <table *ngIf="code==='1'" class="table table-hover">
     <tr>
-        <th class="text-center">云硬盘名称</th>
-        <th class="text-center">储存类型</th>
-        <th class="text-center">容量(GB)</th>
+        <th class="text-center">{{'COMMON.CLOUD_HRAD_DISK_NAME'| translate}}</th>
+        <th class="text-center">{{'COMMON.STORAGE_TYPE' | translate}}</th>
+        <th class="text-center">{{'COMMON.CAPACITY_GB' | translate}}</th>
     </tr>
     <tr *ngFor="let unmount of unmountList; let i = index;" [ngClass]="{'active':activeNum === i}" class="cup" (click)="emit(unmount);activeNum = i">
         <td class="text-center">{{unmount.name}}</td>
@@ -31,16 +31,16 @@
          [ngValue]="v.code" >{{ v.displayValue }}</option>
     </select>
     <div class="input-group float-left drive-search">
-        <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="输入云硬盘信息搜索">
+        <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="{{'COMMON.ENTER_CLOUD_HARD_DISK_INFORMATION_TO_SEARCH' | translate}}">
         <div (click)="setBackupList()" class="input-group-addon cup"><span class="glyphicon glyphicon-search"></span></div>
     </div>
 </div>
 <table *ngIf="code==='2'" class="table table-hover">
     <tr>
-        <th class="text-center">备份名称</th>
-        <th class="text-center">源云硬盘名称</th>
-        <th class="text-center">源虚拟机名称</th>
-        <th class="text-center">容量(GB)</th>
+        <th class="text-center">{{'SUB_TABLE_LIST.BACKUP_NAME' | translate}}</th>
+        <th class="text-center">{{'SUB_TABLE_LIST.SOURCE_CLOUD_HARD_DISK_NAME' | translate}}</th>
+        <th class="text-center">{{'SUB_TABLE_LIST.SOURCE_VIRTUAL_MACHINE_NAME' | translate}}</th>
+        <th class="text-center">{{'COMMON.CAPACITY_GB' | translate}}</th>
     </tr>
     <tr *ngFor="let backup of backupList; let i = index;" class="cup" [ngClass]="{'active':activeNum === i}" (click)="emit(backup); activeNum = i">
         <td class="text-center">{{backup.id}}</td>
@@ -58,17 +58,17 @@
          [ngValue]="v.code" >{{ v.displayValue }}</option>
     </select>
     <div class="input-group float-left drive-search">
-        <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="输入信息搜索">
+        <input class="form-control" [(ngModel)]="list.queryFieldValue" placeholder="{{'SUB_TABLE_LIST.ENTER_INFORMATION_TO_SEARCH' | translate}}">
         <div (click)="setVmList()" class="input-group-addon cup"><span class="glyphicon glyphicon-search"></span></div>
     </div>
 </div>
 <table *ngIf="code==='3'" class="table table-hover">
     <tr>
-        <th class="text-center">云主机名称</th>
-        <th class="text-center">配置</th>
-        <th class="text-center">镜像</th>
-        <th class="text-center">内部IP</th>
-        <th class="text-center">外部IP</th>
+        <th class="text-center">{{'COMMON.CLOUD_HOST_NAME' | translate}}</th>
+        <th class="text-center">{{'COMMON.CONFIGURATION' | translate}}</th>
+        <th class="text-center">{{'COMMON.MIRROR' | translate}}</th>
+        <th class="text-center">{{'SUB_TABLE_LIST.INTERNAL_IP' | translate}}</th>
+        <th class="text-center">{{'SUB_TABLE_LIST.EXTERNAL_IP' | translate}}</th>
     </tr>
     <tr *ngFor="let vm of vmList; let i = index;" class="cup" [ngClass]="{'active':activeNum === i}" (click)="emit(vm);activeNum = i">
         <td class="text-center">{{vm.instanceName}}</td>
