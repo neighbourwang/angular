@@ -200,6 +200,7 @@ export const TranslateCN = {
         REGION_AND_AVAIABLE_AREA: '所在区域及可用区',
         ORDER_DESCRIPTION: '订单描述',
         DEPARTMENT: '部门',
+        ENTERPRISE:'企业',
         COST: '费用',
         APPROVAL_RESULTS: '审批结果',
         BILLING_MODE: '计费模式',
@@ -214,7 +215,7 @@ export const TranslateCN = {
         //check-mng-hascheck.html
         APPROVED_LIST: '已审批列表',
         APPROVER: '审批人',
-        ALL_APPPOVERS: '所有审批人',
+        ALL_APPROVERS: '所有审批人',
         APPROVAL_TIME: '审批时间',
         APPROVAL_COMMENTS: '审批意见'
     },

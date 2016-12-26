@@ -11,6 +11,7 @@ import { ConfirmComponent } from './dialog/component/confirm.component';
 import { PopupComponent } from './dialog/component/popup.component';
 import { CountBarComponent} from './countBar/component/count-bar.component'
 import { PopoverModule } from './popover/index';
+import { SelectboxComponent } from './selectbox/component/selectbox.component';
 
 import { MyDatePickerModule } from './date-picker/my-date-picker.module';
 import { BootstrapPopoverDirective } from './popover/bootstrap-popover.directive';
@@ -36,7 +37,8 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
         ConfirmComponent,
         PopupComponent,
         CountBarComponent,
-        BootstrapPopoverDirective
+        BootstrapPopoverDirective,
+        SelectboxComponent
     ],
     exports: [
         CommonModule,
@@ -52,7 +54,8 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
         ClickOutsideModule,
         PopoverModule,
         HttpModule,
-        TranslateModule
+        TranslateModule,
+		SelectboxComponent
     ],
     providers : [DialogTranslate]
 })
