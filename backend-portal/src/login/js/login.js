@@ -2,6 +2,8 @@ require("../less/login.less");                  //引入css
 
 const html = require("../ejs/login.ejs");      //引入html 
 
+document.title = T("LOGIN");
+
 module.exports = {
 	template: html(),
 	controller : function() {
@@ -34,18 +36,18 @@ module.exports = {
 				password = $("#l-password").val().trim(),
 				adId = $("#account-select").val() || "";
 
-			if($("#l-username").val() === "") return alert("请输入用户名");
-			if($("#l-password").val() === "") return alert("请输入密码");
-			if (isAd && adId === "") return alert("请选择认证源");
+			if($("#l-username").val() === "") return alert(T("PLEASEUSERNAME"));
+			if($("#l-password").val() === "") return alert(T("PLEASEPASSWORD"));
+			if (isAd && adId === "") return alert(T("SELECT_AD"));
 			if(isChecked) return;
 
 			if (adId) password  = password + key + adId; //把adid加在密码后面
 
 			let isChecked = 1;
-			$("#submit-button").val("正在登录...");
+			$("#submit-button").val(T("LOGINING") + "...");
 
 			$.ajax({
-		        url: `http://${C.baseIp}:${C.basePort}/uaa/oauth/token?grant_type=password&username=${username}&password=${password}&client_id=ui&client_secret=12345`,
+		        url: `http://${C.baseIp}:${C.basePort}/uaa/oauth/token?grant_type=password&username=${username}&password=${password}&client_id=ui&client_secret=12345&login_type=backend`,
 		        type: "POST",
 		        beforeSend: function (request)
 		        {
@@ -70,13 +72,13 @@ module.exports = {
 							isChecked = 0;
 			            },
 			            error: function (xhr, status) {
-			                alert("获取用户信息失败")
+			                alert(T("LOGINERROR"))
 			            }
 			        }); 
 		        },
 		        error: function (xhr, status) {
-		            alert("登录失败！请检查用户名和密码")
-					$("#submit-button").val("登录");
+		            alert(T("LOGINERROR1"))
+					$("#submit-button").val(T("LOGIN"));
 					isChecked = 0;
 		        }
 		    }); 

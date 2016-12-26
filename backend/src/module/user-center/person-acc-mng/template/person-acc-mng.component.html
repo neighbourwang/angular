@@ -99,47 +99,55 @@
 					</div>-->
 					<form *ngIf="active">
 						<div class="row row-line-height">
-							<div class="form-group" [class.has-error]="!passwordValid">
+							<div class="form-group" >
 								<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> 当前密码：</div>
-								<div class="col-sm-6">
-									<input type="text" class="form-control font-gray" type="password" [(ngModel)]="accPwd.password" required #password="ngModel"
-										name=password>
-									<label *ngIf="!passwordValid" class="control-label" for="inputError1">密码格式错误</label>
+								<div class="col-sm-6" [ngClass]="{'has-error':!passwordValid||(password.errors && (password.dirty || password.touched))}">
+									<input type="text" class="form-control font-gray" type="password" [(ngModel)]="accPwd.password" required  #password="ngModel" name=password (blur)="pwdValid(accPwd.password)" (focus)="passwordValid=true">
 									<div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
 										<div [hidden]="!password.errors.required">
 											password is required
-										</div>
+										</div>																		
+									</div>
+									<div *ngIf="!passwordValid&&!password.errors" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
+										<div >
+											密码格式错误
+										</div>																		
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="row row-line-height">
-							<div class="form-group" [class.has-error]="!newPasswordValid" [class.has-error]="sameNewPassword">
+							<div class="form-group">
 								<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> 新密码：</div>
-								<div class="col-sm-6">
-									<input type="text" class="form-control font-gray" type="password" [(ngModel)]="accPwd.newPassword" required #newPassword="ngModel"
-										name="newPassword">
-									<label *ngIf="!newPasswordValid" class="control-label" for="inputError1">新密码格式错误</label>
-									<label *ngIf="sameNewPassword" class="control-label" for="inputError1">新密码不能与原密码相同</label>
+								<div class="col-sm-6" [ngClass]="{'has-error':newPassword.errors && (newPassword.dirty || newPassword.touched)||!newPasswordValid||sameNewPassword}">
+									<input type="text" class="form-control font-gray" type="password" [(ngModel)]="accPwd.newPassword" required  #newPassword="ngModel" name="newPassword" (blur)="newPwdValid(accPwd.newPassword)" (focus)="newPasswordValid=true;sameNewPassword=false">
 									<div *ngIf="newPassword.errors && (newPassword.dirty || newPassword.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
 										<div [hidden]="!newPassword.errors.required">
 											new password is required
-										</div>
+										</div>																		
+									</div>
+									<div *ngIf="!newPasswordValid&&!newPassword.errors&&!sameNewPassword " class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
+										<div >
+											新密码格式错误
+										</div>																		
+									</div>
+									<div *ngIf="sameNewPassword&&!newPassword.errors&&newPasswordValid" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
+										<div >
+											新密码不能与原密码相同
+										</div>																		
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="row row-line-height">
-							<div class="form-group" [class.has-error]="!samePassword">
+							<div class="form-group" >
 								<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> 确认新密码：</div>
-								<div class="col-sm-6">
-									<input type="text" class="form-control font-gray" type="password" [(ngModel)]="accPwd.confirmPwd" required #confirmPwd="ngModel"
-										id="inputError1" name="confirmPwd">
-									<label *ngIf="!samePassword" class="control-label" for="inputError1">密码输入不一致</label>
-									<div *ngIf="confirmPwd.errors && (confirmPwd.dirty || confirmPwd.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
-										<div [hidden]="!confirmPwd.errors.required">
-											comfirm password is required
-										</div>
+								<div class="col-sm-6" [ngClass]="{'has-error':!samePassword}">
+									<input type="text" class="form-control font-gray" type="password" [(ngModel)]="accPwd.confirmPwd" required  #confirmPwd="ngModel" id="inputError1" name="confirmPwd" (focus)="samePassword=true">
+									<div *ngIf="!samePassword" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
+										<div>
+											密码输入不一致
+										</div>																		
 									</div>
 								</div>
 							</div>

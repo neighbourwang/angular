@@ -292,7 +292,7 @@ export class OrderMngComponent implements OnInit{
 			return this._typeDic.Go();
 		})
 		.then(success=>{
-			return this._platformLoader.Go(null, [{key:"enterpriseId", value:this.restApi.getLoginInfo().userInfo.enterpriseId}]);
+			return this._departmentLoader.Go();
 		})
 		.then(success=>{
 			return this._billinModeDic.Go();
@@ -301,7 +301,7 @@ export class OrderMngComponent implements OnInit{
 			return this._periodTypeDic.Go();
 		})
 		.then(success=>{
-			return this._departmentLoader.Go();
+			//return this._platformLoader.Go(null, [{key:"enterpriseId", value:this.restApi.getLoginInfo().userInfo.enterpriseId}]);
 		})
 		.then(success=>{
 			this.layoutService.hide();
@@ -317,7 +317,18 @@ export class OrderMngComponent implements OnInit{
 		this._param.enterpriseId = this.restApi.getLoginInfo().userInfo.enterpriseId;
 
 	}
-	
+
+	loadBuyer(){
+		this.layoutService.show();
+		this._buyerLoader.Go(null, [{key:"departmentId", value:this._param.organization}])
+		.then(success=>{
+			this.layoutService.hide();
+			this._param.buyerId = null;
+		}, err=>{
+			this.layoutService.hide();
+			this._param.buyerId = null;
+		});
+	}
 	
 	//显示详情
 	showDetail(orderItem:SubInstanceResp){
@@ -412,6 +423,7 @@ export class OrderMngComponent implements OnInit{
 			currentPage:pageNumber - 1
 			,size:10
 		};
+		param.enterpiseId = this.restApi.getLoginInfo().userInfo.enterpriseId;
 
 
 		this.layoutService.show();
@@ -602,8 +614,8 @@ export class OrderMngComponent implements OnInit{
 	}
 	
 	resetParam(){
-		this._param.reset();
 		this._buyerLoader.clear();
+		this._param.reset();
 	}
 
 }

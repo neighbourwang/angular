@@ -150,7 +150,7 @@ export class AccountMngService {
     getAdUser(ldapid: string, pageIndex: number, pageSize: number, filterStr: string) {
         let api = this.restApiCfg.getRestApi("user-center.account-mng.aduser.get");
         let opt = {
-            "filter": filterStr
+            "filter": "cn=" + filterStr
         }
         return this.restApi.request(api.method, api.url, [{ key: "ldapid", value: ldapid }, { key: "page", value: pageIndex }, { key: "size", value: pageSize }], undefined, opt);
     }
@@ -183,11 +183,11 @@ export class AccountMngService {
     }
 
     //验证账号唯一性
-    
-    loginNameValid(name:string) {
+
+    loginNameValid(name: string) {
         let api = this.restApiCfg.getRestApi("user-center.account-mng.loginNameValid");
 
-        return this.restApi.request(api.method, api.url,[{key:'_loginName',value:name}],undefined);
+        return this.restApi.request(api.method, api.url, [{ key: '_loginName', value: name }], undefined);
     }
 
 

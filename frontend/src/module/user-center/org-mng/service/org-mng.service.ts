@@ -106,6 +106,7 @@ export class OrgMngService {
                     if (res.resultContent) {
                         this.curEntId = res.resultContent;
                         this.getCurEntResource(res.resultContent);
+                        return this.curEntId
                     }
                 }
             ).catch(
@@ -114,7 +115,10 @@ export class OrgMngService {
                 }
                 );
         } else {
-            return new Promise(resovle => setTimeout(resovle, 10)).then(() => this.getCurEntResource(this.curEntId));
+            return new Promise(resovle => setTimeout(resovle, 10)).then(() => {
+                this.getCurEntResource(this.curEntId);
+                // return this.curEntId
+            });
         }
     }
     //获得当前登陆人企业资源
@@ -143,6 +147,9 @@ export class OrgMngService {
             );
         }
     }
-
+    // getCurEntResource(id: string) {
+    //      let api = this.restApiCfg.getRestApi("user-center.org-mng.currEntResoure.get");
+    //      return  this.restApi.request(api.method, api.url, [{ key: "id", value: id }, { key: "page", value: 1 }, { key: "size", value: 9999 }], undefined)
+    // }
     //user-center.org-mng.currOrgUser.get
 }

@@ -1,0 +1,72 @@
+<div class="CheckMngSet">
+	<div class="page-content-header icon-order-manageOne">审批设置</div>
+		<div class="page-content">
+			<div class="table-container noBorder">
+				<table class="table table-hover"> 
+					<thead>
+						<tr >
+							<th  class="ht50">编号</th>
+							<th>企业（租户）名称</th>
+							<th>审批是否开启</th>
+							<th>自动审批时间(分钟)</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr >
+							<td>
+								1
+							</td>
+							<td>上海有限公司</td>
+							<td>开启</td>
+							<td>480</td>
+							<td><button class="fox-cloud-button fox-cloud-button-white" (click)="set()" ><span>设置审批</span></button></td>
+						</tr>
+						<tr >
+							<td>
+								1
+							</td>
+							<td>上海有限公司</td>
+							<td>开启</td>
+							<td>480</td>
+							<td><button class="fox-cloud-button fox-cloud-button-white"><span>设置审批</span></button></td>
+						</tr>
+						<tr >
+							<td>
+								1
+							</td>
+							<td>上海有限公司</td>
+							<td>开启</td>
+							<td>480</td>
+							<td><button class="fox-cloud-button fox-cloud-button-white"><span>设置审批</span></button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!--<fc-pagination tp={{entEstMng.TotalPages}} (pf)="changePage($event)"></fc-pagination>-->
+		</div>
+
+		<!-- 设置 -->
+		<fc-popup #setPoup ot="确认" ct="取消" title="审批设置" (of)="acceptEntModify()" (cf)="cancelEntModify()">
+		<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4"><span class="asterisk">*</span>审批：</div>
+					<div class="col-sm-4">
+						<input type="radio" class="fox-cloud-radio">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4">自动审批时间设置：</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control">分钟
+					</div>
+				</div>
+			</div>
+		</div>
+		</fc-popup>
+	</div>
+
+

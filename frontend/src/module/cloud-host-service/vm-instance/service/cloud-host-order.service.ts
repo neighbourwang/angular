@@ -1823,8 +1823,8 @@ export class cloudHostServiceOrder {
                 value: platformId
             },{
                 key : 'enterPriseId',
-                value: "868a8d22-0976-48c3-b080-e03481ca1c43"
-                // value: this.userInfo.enterpriseId
+                // value: "868a8d22-0976-48c3-b080-e03481ca1c43"
+                value: this.userInfo.enterpriseId
             }
         ];
         const request = this.restApi.request(api.method, api.url, pathParams, undefined, undefined)

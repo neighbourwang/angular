@@ -39,7 +39,7 @@ export class MngConsoleService {
 
 		let pathParams = [{
 			key: 'id',
-            value: this.getUserInfo.organizationId
+            value: this.getUserInfo.enterpriseId
 		}];
 
 		const request = this.restApi.request(api.method, api.url, pathParams, undefined, undefined)
@@ -55,10 +55,22 @@ export class MngConsoleService {
 
     getHostList(quiry) : Promise<any>{
         const api = this.restApiCfg.getRestApi("vm.search.page");
-        return this.restApi.request(api.method, api.url, undefined, undefined, quiry);
+        return this.restApi.request(api.method, api.url, undefined, undefined, quiry)
+        			.then(res => {
+								if(res.resultCode !== "100"){
+									throw "";
+								}
+								return res.resultContent;
+							});
     }
     getDistList(quiry) : Promise<any>{
         const api = this.restApiCfg.getRestApi("disk.search.page");
-        return this.restApi.request(api.method, api.url, undefined, undefined, quiry);
+        return this.restApi.request(api.method, api.url, undefined, undefined, quiry)
+        			.then(res => {
+								if(res.resultCode !== "100"){
+									throw "";
+								}
+								return res.resultContent;
+							});
     }
 };
