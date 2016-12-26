@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import {  Router,ActivatedRoute,Params  } from '@angular/router';
-import { RestApi, RestApiCfg, LayoutService, NoticeComponent,PopupComponent, ValidationService, PaginationComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../../architecture';
+import { RestApi, RestApiCfg, LayoutService, NoticeComponent,PopupComponent,
+     ValidationService, PaginationComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary, SelectboxComponent } from '../../../../../architecture';
 
 import { Image } from '../model/image.model';
 import { CriteriaQuery} from '../model/criteria-query.model';
@@ -28,6 +29,9 @@ export class OpenstackMngComponent implements OnInit{
     }
     images:Array<Image>;
     tenants:Array<Tenant>;
+    
+    
+
     queryOpt: CriteriaQuery = new CriteriaQuery();
     pageIndex = 1;
     pageSize = 10;
@@ -50,6 +54,11 @@ export class OpenstackMngComponent implements OnInit{
 
     @ViewChild("synTeImage")
     synTeImage: PopupComponent;
+
+    // allList:Array<Tenant>;
+    // selectedList:Array<Tenant> = new Array<Tenant>();
+    // @ViewChild("testbox")
+    // testbox: SelectboxComponent;
 
     noticeTitle = "";
     noticeMsg = "";
@@ -104,6 +113,7 @@ export class OpenstackMngComponent implements OnInit{
                 response =>{
                     if(response && 100 == response["resultCode"]){
                         this.tenants = response.resultContent;
+                        //this.allList = this.tenants.slice(0);
                     } else{
                         alert("Res.sync error");
                     }

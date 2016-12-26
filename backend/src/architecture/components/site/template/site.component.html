@@ -4,11 +4,11 @@
     <!--Header-->
     <div *ngIf="layoutService.showHeader" class="cm-header">
         <div class="col-md-2 logo"></div>
-        <div class="col-md-8 console">控制台</div>
+        <div class="col-md-8 console">{{ 'COMMON.CONSOLE' | translate}}</div>
         <div class="col-md-2">
             <div class="row header-group">
 
-                <div class=" account">{{username}} <a class="cm-container-logout" href="javascript:" (click)="logOut()">退出</a></div>
+                <div class=" account">{{username}} <a class="cm-container-logout" href="javascript:" (click)="logOut()">{{ 'COMMON.EXIT' | translate}}</a></div>
             </div>
         </div>
     </div>

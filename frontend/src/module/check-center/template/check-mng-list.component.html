@@ -6,7 +6,7 @@
 		<div class="table-container">
 			<div class="search-container">
 				<div class="input-group col-md-2 float-left mgr20">
-					<input class="form-control" placeholder="{{CHECK_CENTER.ENTER_THE_ORDER_NUMBER_OR_DEPARTMENT_FOR_QUICK_INQUIRY' | translate}}" type="email">
+					<input class="form-control" placeholder="{{'CHECK_CENTER.ENTER_THE_ORDER_NUMBER_OR_DEPARTMENT_FOR_QUICK_INQUIRY' | translate}}" type="email">
 					<div class="input-group-addon"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div> 
 				<button class="btn btn-default button-gray-gradient float-left mgl20" [ngClass]="{'button-gray-gradient':_isAdvSearch!=1,'fox-cloud-button-white':_isAdvSearch==1}"  (click)="_isAdvSearch=!_isAdvSearch">{{'CHECK_CENTER.ADVANCED_SEARCH' | translate}}</button>
@@ -28,7 +28,7 @@
 							<span class="float-left mgl20">{{'CHECK_CENTER.SUBMITTER' | translate}}:</span>
 							<div class="float-left">
 								<select class="form-control" [(ngModel)]="_param.submitUserId">
-									<option class="hands">{{'CHECK_CENTER.ALL_SUBMITTER' | translate}}</option>
+									<option class="hands">{{'CHECK_CENTER.ALL_SUBMITTERS' | translate}}</option>
 									<option class="hands" *ngFor="let item of _submiterLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 								</div>
