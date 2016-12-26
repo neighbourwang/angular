@@ -2,7 +2,7 @@
 
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent ,SelectboxComponent} from '../../../../../architecture';
 
 //model 
 import { Enterprise } from '../model/enterprise.model';
@@ -43,6 +43,8 @@ export class PortMngSetComponent implements OnInit {
     @ViewChild("notice")
     notice: NoticeComponent;
 
+    @ViewChild("selectbox")
+    selectbox: SelectboxComponent;
 
     ngOnInit() {
         this.activatedRouter.params.forEach((params: Params) => {
@@ -71,27 +73,27 @@ export class PortMngSetComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    moveToRight() {
-        //将选中的企业加入到右边
-        for (var i = this.unselectedEnterprise.length - 1; i >= 0; i--) {
-            if (this.unselectedEnterprise[i].selected) {
-                let e = this.unselectedEnterprise.splice(i, 1);
-                e[0].selected = false;
-                this.selectedEnterprise.push(e[0]);
-            }
-        }
-    }
+    // moveToRight() {
+    //     //将选中的企业加入到右边
+    //     for (var i = this.unselectedEnterprise.length - 1; i >= 0; i--) {
+    //         if (this.unselectedEnterprise[i].selected) {
+    //             let e = this.unselectedEnterprise.splice(i, 1);
+    //             e[0].selected = false;
+    //             this.selectedEnterprise.push(e[0]);
+    //         }
+    //     }
+    // }
 
-    moveToLeft() {
-        //将选中的企业加入到左边
-        for (var i = this.selectedEnterprise.length - 1; i >= 0; i--) {
-            if (this.selectedEnterprise[i].selected) {
-                let e = this.selectedEnterprise.splice(i, 1);
-                e[0].selected = false;
-                this.unselectedEnterprise.push(e[0]);
-            }
-        }
-    }
+    // moveToLeft() {
+    //     //将选中的企业加入到左边
+    //     for (var i = this.selectedEnterprise.length - 1; i >= 0; i--) {
+    //         if (this.selectedEnterprise[i].selected) {
+    //             let e = this.selectedEnterprise.splice(i, 1);
+    //             e[0].selected = false;
+    //             this.unselectedEnterprise.push(e[0]);
+    //         }
+    //     }
+    // }
 
     saveEnterpriseGroup() {
         this.layoutService.show();
