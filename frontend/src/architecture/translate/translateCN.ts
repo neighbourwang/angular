@@ -69,7 +69,7 @@ export const TranslateCN = {
     DIALOG: {
         PROMPT: '提示',
         CONFIRM: '确认',
-        CANCEL: '取消'
+        CANCEL: '取消',
         COMMIT: '提交'
     },
     MENU: {
