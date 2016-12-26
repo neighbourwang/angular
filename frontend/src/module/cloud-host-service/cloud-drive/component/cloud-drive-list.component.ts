@@ -91,7 +91,7 @@ export class cloudDriveListComponent implements OnInit {
 	handleDist(key:string ,dist:DistList, msg:string) {
 		this.layoutService.show();
 
-		this.handleData.id = dist.id;
+		this.handleData.id = dist.uuid;
 		this.handleData.serverId = key === "mount" ? this.serverId : key === "unmount" ? dist.relyId : "";
 		this.handleData.actions = key;
 		this.handleData.enterpriseIds.platformId = dist.platformId;
