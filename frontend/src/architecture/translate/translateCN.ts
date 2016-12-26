@@ -1,5 +1,69 @@
 export const TranslateCN = {
     LANG: '中文',
+    COMMON: {
+        PROMPT: '提示',
+        CONFIRM: '确认',
+        CANCEL: '取消',
+        EXIT: '退出',
+        RESET: '重置',
+        NUMBER: '编号',
+        OPERATION: '操作',
+        TYPE: '类型',
+        DESCRIPTION: '描述',
+        ORDER: '订购',
+        OVERVIEW: '概览',
+        LABEL: '标签',
+        EXPENSE: '费用',
+        ONE_TIME_COSTS: '一次性费用',
+        TOTAL_COST: '费用总计',
+        BY_VOLUMN:'按量',
+        DETAILS: '详情',
+        BUY_NOW: '立即购买',
+        SHOPPING_CART:'购物车',
+        ADD_TO_SHOPPING_CART: '加入购物车',
+        CHECK_SHOPPING_CART: '查看购物车',
+        EMPTY_SHOPPING_CART: '清空购物车',
+        NAME: '名称',
+        NONE: '无',
+        ALL:'所有',
+        
+        //单位
+        $:"￥",
+
+        //状态名词
+        ENABLED: '已启用',
+        NOT_ENABLED: '未启用',
+        NOT_APPROVED: '未审批',
+        APPROVED: '已审批',
+        NEWLY_CREATED: '新创建',
+        IN_PROCESS: '处理中',
+        COMPLETED: '已完成',
+
+        //专业术语
+        MIRROR: '镜像',
+        CLOUD_HOSTING: '云主机',
+        CLOUD_HOST_NAME:'云主机名称',
+        CLOUD_HARD_DISK: '云硬盘',
+        CLOUD_HRAD_DISK_NAME: '云硬盘名称',
+        ENTER_CLOUD_HARD_DISK_INFORMATION_TO_SEARCH:'输入云硬盘信息搜索',
+        CLOUD_PLATFORM:'云平台',     
+        RAM: '内存',
+        CONFIGURATION:'配置',
+        STORAGE: '存储',
+        STORAGE_TYPE: '储存类型',
+        SNAPSHOT: '快照',
+        CONSOLE: '控制台',
+        PHYSICAL_MACHINE: '物理机',
+        FLOAT: '浮动',
+        PATH: '地址',
+        SERVICES: '服务',
+        INSTANCE: '实例',
+        CAPATITY: '容量',
+        CAPACITY_GB:'容量(GB)',
+        MOUNT: '挂载',
+        AVAILABLE_ZONE: '可用区',
+        PURCHASE_AMOUNT:'购买量',
+    },
     SITE: {
         EXIT: '退出'
     },
@@ -106,5 +170,12 @@ export const TranslateCN = {
         YOU_CHOOSE_TO_ENABLE_VALUE_PLEASE_CONFIRM: '您选择启用{{value}}，请确认',
         EDIT_DEPARTMENT: '编辑部门',
         YOU_CAN_NOT_DELETE_ORGANIZATIONS_THAT_ARE_ENABLED: '不能删除启用状态下的组织'
+    },
+    MNG_CONSOLE: {
+        OVERVIEW_OF_MANAGEMENT_CONTROL: '管理控制概览',
+        PURCHASED_SERVICE: '已购买服务',
+        WORK_ORDER_STATISTICS: '工单统计',
+        TOTAL_QUOTA_USAGE: '总配额使用率',
+        DEPARTMENT_RESOURCES: '部门资源',
     }
 }

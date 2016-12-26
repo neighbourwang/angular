@@ -17,11 +17,17 @@ import { BootstrapPopoverDirective } from './popover/bootstrap-popover.directive
 
 import { ClickOutsideModule } from 'ng2-click-outside';
 
+import { HttpModule } from '@angular/http';
+import { TranslateModule } from 'ng2-translate';
+import { DialogTranslate } from './dialog/service/dialog-translate.service';
+
 @NgModule({
     imports: [
         CommonModule,
         Ng2Bs3ModalModule,
-        FormsModule
+        FormsModule,
+        // HttpModule,
+        // TranslateModule.forRoot()
     ],
     declarations: [
         SpinnerComponent,
@@ -44,7 +50,10 @@ import { ClickOutsideModule } from 'ng2-click-outside';
         MyDatePickerModule,
         BootstrapPopoverDirective,
         ClickOutsideModule,
-        PopoverModule
+        PopoverModule,
+        // HttpModule,
+        // TranslateModule
     ]
+    // providers : [DialogTranslate]
 })
 export class CommonComponentModule { }
