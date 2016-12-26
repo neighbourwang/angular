@@ -319,11 +319,14 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	loadBuyer(){
+		this.layoutService.show();
 		this._buyerLoader.Go(null, [{key:"departmentId", value:this._param.organization}])
 		.then(success=>{
-			//this._param.organization = null;
+			this.layoutService.hide();
+			this._param.buyerId = null;
 		}, err=>{
-			this._param.organization = null;
+			this.layoutService.hide();
+			this._param.buyerId = null;
 		});
 	}
 	
