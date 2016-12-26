@@ -31,7 +31,11 @@
 
     <div style="margin-left:13%;font-size:16px;"><span class="asterisk">*</span>选择企业：</div>
 
-    <div class="row mgb20" style="margin-left:20%;">
+    <fc-selectbox #testbox [selectedList]="selectedEnterprise" [unSelectedList]="unselectedEnterprise" 
+                titleL="可选企业" titleR="选中企业" displayKey="com">
+
+    </fc-selectbox>
+    <!--<div class="row mgb20" style="margin-left:20%;">
 
         <div class="col-md-4 ">
             <div class="mgb10" style="text-align: center;font-size:16px;">可选企业</div>
@@ -83,7 +87,7 @@
             </div>
     </div>
     </div>
-</div>
+</div>-->
 <div class="text-center" style="margin-top:50px">
     <button (click) ="gotoPortMng()"  class="fox-cloud-button-lg fox-cloud-button-white" >
         <span class="icon-button-label">返回</span>

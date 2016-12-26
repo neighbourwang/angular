@@ -206,9 +206,13 @@ export class CheckMngListComponent implements OnInit{
 		this._layoutService.show();
 		this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._param.entIdStr}])
 		.then(success=>{
+			this._param.departmentIdNum = null;
+			this._param.submitUserId = null;		
 			this._layoutService.hide();
 		})
 		.catch(err=>{
+			this._param.departmentIdNum = null;
+			this._param.submitUserId = null;	
 			this._layoutService.hide();
 			this.showMsg(err);
 		});
@@ -281,9 +285,11 @@ export class CheckMngListComponent implements OnInit{
 		this._layoutService.show();
 		this._userListLoader.Go(null, [{key:"departmentId", value:this._param.departmentIdNum}])
 		.then(success=>{
+			this._param.submitUserId = null;
 			this._layoutService.hide();
 		})
 		.catch(err=>{
+			this._param.submitUserId = null;
 			this._layoutService.hide();
 		});
 	}	

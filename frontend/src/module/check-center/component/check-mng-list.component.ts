@@ -208,9 +208,11 @@ export class CheckMngListComponent implements OnInit{
 		this._submiterLoader.Go(null, [{key:"departmentId", value:this._param.departmentIdNum}])
 		.then(success=>{
 			this._layoutService.hide();
+			this._param.submitUserId = null;
 		})
 		.catch(err=>{
 			this._layoutService.hide();
+			this._param.submitUserId = null;
 			this.showMsg(err);
 		});
 		
