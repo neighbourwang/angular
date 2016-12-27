@@ -494,6 +494,16 @@ export let RestApis: RestApiModel[] = [
         "id": "check-center.orderType-list.get",
         "method": "GET",
         "url": ""
+    },{
+        "desc": "审批设置",
+        "id": "check-center.approve-set.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/audit"
+    },{
+        "desc": "审批设置获取",
+        "id": "check-center.approve-set.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprise/{_enterpriseId}/simple "
     }
     // 审批中心
 ]
