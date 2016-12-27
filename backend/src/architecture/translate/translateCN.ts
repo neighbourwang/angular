@@ -238,4 +238,10 @@ export const TranslateCN = {
         IP_RELEASED_FAILED: 'IP释放失败',
         IP_RELEASED_EXCEPTION: 'IP释放异常',
     },
+    CHECK_CENTER: {
+        //check-mng-set
+        APPROVE_SET_LIST_LOAD_ERROR:"审批设置列表加载错误"
+        ,APPROVE_SET_NEED_APPROVE_TIME:"请设置有效自动审批时间"
+        ,APPROVE_SET_ERROR: "审批数据保存失败"
+    }
 }
