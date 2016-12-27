@@ -132,8 +132,13 @@
 							</div>
 							<div class="col-md-1 content-title2">容量</div>
 							<div class="col-md-2 no-padding">
-								<input disabled="true" [(ngModel)]="sendModule.bootsize.attrValue" type="text" class="form-control">
+								<select [(ngModel)]="sendModule.bootsize" (ngModelChange)="bootSizeChange()" class="form-control">
+									<option
+									*ngFor="let value of bootsizeList;"
+									[ngValue]="value" >{{ value.attrDisplayValue }}</option>
+								</select>
 							</div>
+					
 							<div class="col-md-6 content-title2">GB</div>
 						</div>
 					</div>

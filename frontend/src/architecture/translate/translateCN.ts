@@ -186,7 +186,7 @@ export const TranslateCN = {
         OVERVIEW_OF_MANAGEMENT_CONTROL: '管理控制概览',
         PURCHASED_SERVICE: '已购买服务',
         WORK_ORDER_STATISTICS: '工单统计',
-        TOTAL_QUOTA_USAGE: '总配额使用率',
+        TOTAL_QUOTA_USAGE: '部门配额使用率',
         DEPARTMENT_RESOURCES: '部门资源'
        },
     CHECK_CENTER: {
