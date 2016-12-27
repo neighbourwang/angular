@@ -50,6 +50,7 @@ export class OrgMngCrComponent implements OnInit {
         .then(
         res => {
           console.log("部门资源", res);
+          res.resultContent.usedMem/=1024;
           this.resource = res.resultContent;
         }
         )
@@ -103,6 +104,7 @@ export class OrgMngCrComponent implements OnInit {
   save() {
     this.org.resource=this.resource;
     if(this.orgForm.valid){
+      this.org.resource.mem*=1024;
       if(!this.isEdit){
         console.log('new',this.org)
         return this.service.createOrg(this.org)

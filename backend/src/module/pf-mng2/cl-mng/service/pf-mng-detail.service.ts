@@ -20,8 +20,11 @@ export class PlatformDetailService {
     //获取platform详情
     
     getPlatform (id:string){
-        let api = this.restApiCfg.getDataRestApi("pf-mng-detail.get");
+        let api = this.restApiCfg.getRestApi("pf-mng-detail.get");
 
-        return this.restApi.request(api.method , api.url,[{key:id,value:id}],undefined );
+        return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
+        // let api = this.restApiCfg.getRestApi("pf.cre.paltform.delete");
+
+        // return this.restApi.request(api.method, api.url, [{ key: "pf-id", value: pid }], undefined, undefined);
     }
 }

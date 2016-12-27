@@ -9,6 +9,7 @@
     description : string; //说明
     version : string; //版本
     regionId : string; //地域
+    regionName:string;//地域name
     dataCenter : string; //所属数据中心
     healthFlag : string; //健康状况
     status : string; //状态
