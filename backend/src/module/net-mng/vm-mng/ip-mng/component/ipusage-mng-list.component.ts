@@ -99,7 +99,8 @@ export class IpUsageMngListComponent implements OnInit{
     //根据value显示
     displayIt(value: string): String {
         if(this.validationService.isBlank(value)){
-            return "未设置";
+            //return "未设置";
+            return "NET_MNG_VM_IP_MNG.UNSET";
         } else {
             return value;
         }
@@ -137,11 +138,11 @@ export class IpUsageMngListComponent implements OnInit{
 	onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
     }
 
 	showAlert(msg: string): void {
-        this.noticeTitle = "提示";
+        this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -161,7 +162,7 @@ export class IpUsageMngListComponent implements OnInit{
 
     getIpUsageMngList( pg_id: string ): void {
         if (this.validationService.isBlank(pg_id)){
-            this.showAlert("请选择相应的dataCenter");
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PG");
             return;
         }
         this.layoutService.show();
@@ -171,7 +172,7 @@ export class IpUsageMngListComponent implements OnInit{
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.rawipusagemngs = response.resultContent;
-                    console.log(this.rawipusagemngs.length, "--- IP数量");
+                    console.log(this.rawipusagemngs.length, "--- IP numbers");
                     if(this.rawipusagemngs.length > 1)
                     {
                         this.rawipusagemngs.sort(function(a,b){
@@ -214,13 +215,13 @@ export class IpUsageMngListComponent implements OnInit{
         }            
         else {
             //console.log(item, "this.getSelected 2");
-            this.showMsg("请选择相应的行");
+            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
             return null;
         }
     }
 
     showMsg(msg: string) {
-        this.notice.open("系统提示", msg);
+        this.notice.open("NET_MNG_VM_IP_MNG.SYSTEM_PROMPT", msg);
     }
 
     enable(): void {
@@ -239,12 +240,12 @@ export class IpUsageMngListComponent implements OnInit{
                         console.log(item, "dict!!!");
                         this.status = <string>item.value;
                         if (this.selectedip.status == this.status) {
-                            this.showMsg("IP已被占用");
+                            this.showMsg("NET_MNG_VM_IP_MNG.IP_OCCUPIED");
                             return;
                         }
                         this.enableipbox.open();
                     } else {
-                        this.showMsg("数据字典出错！");
+                        this.showMsg("NET_MNG_VM_IP_MNG.DICTIONARY_FAILED");
                         return;
                     }
                 }).catch((e) => this.onRejected(e));
@@ -254,7 +255,7 @@ export class IpUsageMngListComponent implements OnInit{
     acceptEnableIPModify(): void {
         console.log('clicked acceptEnableIPModify');
         if (this.validationService.isBlank(this.changedip.description)) {
-            this.showMsg("请填写说明");
+            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_INPUT_DESCRIPTION");
             this.enableipbox.close();
             this.okCallback = () => {
                 this.enableipbox.open(); 
@@ -270,7 +271,7 @@ export class IpUsageMngListComponent implements OnInit{
                         console.log(res, "IP占用成功")
                     } else {
                         this.enableipbox.close();
-                        this.showMsg("IP占用失败");
+                        this.showMsg("NET_MNG_VM_IP_MNG.IP_OCCUPIED_FAILED");
                         return;
                     }
                 })
@@ -282,10 +283,10 @@ export class IpUsageMngListComponent implements OnInit{
                 })
                 .catch(err => {
                     console.log('clicked acceptEnableIPModify 6');
-                    console.log('IP占用失败', err);
+                    console.log('IP占用异常', err);
                     this.layoutService.hide();
                     this.enableipbox.close();
-                    this.showMsg("IP占用失败");
+                    this.showMsg("NET_MNG_VM_IP_MNG.IP_OCCUPIED_EXCEPTION");
                     this.okCallback = () => { this.enableipbox.open(); };
                 })
         }
@@ -313,12 +314,12 @@ export class IpUsageMngListComponent implements OnInit{
                         console.log(item, "dict!!!");
                         this.status = <string>item.value;
                         if (this.selectedip.status == this.status) {
-                            this.showMsg("IP未被占用，无法释放");
+                            this.showMsg("NET_MNG_VM_IP_MNG.IP_RELEASED");
                             return;
                         }
                         this.disableipbox.open();
                     } else {
-                        this.showMsg("数据字典出错！");
+                        this.showMsg("NET_MNG_VM_IP_MNG.DICTIONARY_FAILED");
                         return;
                     }
                 }).catch((e) => this.onRejected(e));
@@ -338,7 +339,7 @@ export class IpUsageMngListComponent implements OnInit{
                     console.log(res, "IP释放成功")
                 } else {
                     this.disableipbox.close();
-                    this.showMsg("IP释放失败");
+                    this.showMsg("NET_MNG_VM_IP_MNG.IP_RELEASED_FAILED");
                     return;
                 }
             })
@@ -350,10 +351,10 @@ export class IpUsageMngListComponent implements OnInit{
             })
             .catch(err => {
                 console.log('clicked acceptDisableIPModify 6');
-                console.log('IP释放失败', err);
+                console.log('IP释放异常', err);
                 this.layoutService.hide();
                 this.disableipbox.close();
-                this.showMsg("IP释放失败");
+                this.showMsg("NET_MNG_VM_IP_MNG.IP_RELEASED_EXCEPTION");
                 this.okCallback = () => { this.disableipbox.open(); };
             })
     }

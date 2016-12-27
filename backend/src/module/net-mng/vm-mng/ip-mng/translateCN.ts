@@ -70,14 +70,14 @@ export const TranslateCN = {
         DC: '数据中心(DC)',
         PORTGROUP_NAME: '标准端口组名称',
         PORTGROUP_DISPLAY_NAME: '标准端口组显示名称',
+        VDS_PORTGROUP_NAME: '分布式虚拟端口组名称',
+        VDS_PORTGROUP_DISPLAY_NAME: '分布式端口组显示名称',
+        VLAN_ID: 'VLAN ID',
         SUBNET_INFORMATION: '子网信息',
         GATEWAY_ADDRESS: '网关地址',
         IP_NUMBER: 'IP地址池数量',
         USED_IP_NUMBER: '已使用IP地址数量',
         REST_IP_NUMBER: '剩余IP地址数量',
-
-        VDS_DISPLAY_NAME: '分布式虚拟端口端口组名称',
-        VDS_PORTGROUP_DISPLAY_NAME: '分布式端口组显示名称',
 
         SUBNET_MASK: '子网掩码',
         GATEWAY: '网关',
@@ -113,6 +113,5 @@ export const TranslateCN = {
         IP_RELEASED_SUCCESS: 'IP释放成功',
         IP_RELEASED_FAILED: 'IP释放失败',
         IP_RELEASED_EXCEPTION: 'IP释放异常',
-
     }
 }

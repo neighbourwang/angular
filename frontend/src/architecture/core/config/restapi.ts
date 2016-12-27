@@ -216,20 +216,20 @@ export let RestApis: RestApiModel[] = [
         "desc": "部门列表获取",
         "method": "GET",
         "id": "op-center.order-mng.department-list.get",
-        "url": "/basis/authsec/mpp/organizations/page/0/size/10" 
-        //"url": "basis/authsec/adm/organization/enterprise/{enterpriseId}"        
+        // "url": "/basis/authsec/mpp/organizations/page/0/size/10" 
+        "url": "basis/authsec/adm/organization/enterprise/{enterpriseId}"        
     }
     ,{
         "desc": "区域获取",
         "method": "GET",
         "id": "op-center.order-mng.platform-list.get",
-        "url": "marketplace/authsec/platforms/status/activation"        
+        "url": "adminui/authsec/platforms/status/activation"        
     }
     ,{
         "desc": "可用区获取",
         "method": "GET",
         "id": "op-center.order-mng.region-list.get",
-        "url": "marketplace/authsec/platform/{_id}/zone"        
+        "url": "adminui/authsec/platform/{_id}/zone"        
     }
     ,{
         "desc": "订单列表查询",

@@ -7,7 +7,10 @@ export const TranslateCN = {
         EXIT: '退出',
         RESET: '重置',
         NUMBER: '编号',
+        ORDER_NUMBER: '订单号',
+        ORDER_ID:'订单ID',
         OPERATION: '操作',
+        STATUS: '状态',
         TYPE: '类型',
         DESCRIPTION: '描述',
         ORDER: '订购',
@@ -16,6 +19,7 @@ export const TranslateCN = {
         EXPENSE: '费用',
         ONE_TIME_COSTS: '一次性费用',
         TOTAL_COST: '费用总计',
+        BILLING_MODE: '计费模式',
         BY_VOLUMN: '按量',
         DETAILS: '详情',
         BUY_NOW: '立即购买',
@@ -28,6 +32,7 @@ export const TranslateCN = {
         ALL: '所有',
         //单位
         $: "￥",
+        YUAN:'元',
 
         //状态名词
         ENABLED: '已启用',
@@ -62,6 +67,8 @@ export const TranslateCN = {
         MOUNT: '挂载',
         AVAILABLE_ZONE: '可用区',
         PURCHASE_AMOUNT: '购买量',
+        CREATED_TIME: '创建时间',
+        EXPIRE_DATE: '到期时间',
     },
     SITE: {
         EXIT: '退出'
@@ -190,13 +197,13 @@ export const TranslateCN = {
         ORDER_TYPE: '订单类型',
         ALL_TYPES: '所有类型',
         PRODUCT_TYPE: '产品类型',
-        CREATED_TIME: '创建时间',
+        
         QUERY: '查  询',
         RESET: '重置',
         CURRENT_QUERY_IS: '当前查询到',
         THE_QUERY_RESULTS_OF_PENDING_ORDERS: '个订单需要审批，查询结果如下',
         NUMBER: '编号',
-        ORDER_NUMBER: '订单号',
+        
         REGION_AND_AVAIABLE_AREA: '所在区域及可用区',
         ORDER_DESCRIPTION: '订单描述',
         DEPARTMENT: '部门',
@@ -223,18 +230,14 @@ export const TranslateCN = {
     //cloud-drive文件夹下
     CLOUD_DRIVE_LIST: {
         AREA_LIST: '区域列表',
-        STATUS: '状态',
-
-        ADVANECD_SEARCH: '高级搜索',
+        ADVANCED_SEARCH: '高级搜索',
         RESET_SEARCH: '重置搜索',
         CREATE_CLOUD_HRAD_DISK: '创建云硬盘',
         CLOUD_HRAD_DISK_NAME: '云硬盘名称',
         MOUNT_LOCATION_CLOUD_HOST_NAME: '挂载位置（云主机名称）',
-        EXPIRE_DATE: '到期时间',
-        REGION: '所在地区',
-        AVAILABLE_AREA: '可用区',
+        
+        REGION: '所在地区',        
         ATTRIBUTE: '属性',
-        TYPE: '类型',
         OPERATE: '操作',
         MORE_ACTIONS: '更多操作',
         MOUNT: '挂载',
@@ -272,7 +275,24 @@ export const TranslateCN = {
 
     //shopping-cart文件夹下
     SHOPPING_CART: {
+        //cart-list.html
         PRODUCT_INFORMATION: '产品信息',
-        PRODUCT_TYPE:'产品类型',
+        PRODUCT_TYPE: '产品类型',
+        PURCHASE_CYCLE: '购买周期',
+        CHARGE_DETAIL: '费用明细',
+        QUANTITY: '数量',
+        NOTE:'小记',
+        REMOVE_FROM_CART: '从购物车中移除',
+        INCREMENTAL_CYCLE_COST: '增量周期费用',
+        UNIT_PRICE: '单价费用',
+        SET: '台',
+        BACK_TO_PRODUCT_PURCHASE: '<返回产品购买',
+        SETTLE_ACCOUNTS: '下单结算',
+        TOTAL_COST: '( 费用合计 )',
+
+        //cart-order.html
+        ORDER_FINISHED: '订单完成',
+        //58行
+        MNG_CONSOLE:'管理控制台'
     }
 }

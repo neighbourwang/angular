@@ -123,7 +123,8 @@ export class IpMngListComponent implements OnInit{
                         this.dcList = response["resultContent"];
                         console.log(this.dcList, "this.dcList--------------------");
                     } else {
-                        alert("Res sync error");
+                        //alert("Res sync error");
+                        this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
                     }
                 }
             )
@@ -183,13 +184,14 @@ export class IpMngListComponent implements OnInit{
                     this.subn.dnsAlt = this.subnetInfo.dnsAlt;
                     console.log(this.subn, "subn------");
                 } else {
-                    alert("Res sync error");
+                    //alert("Res sync error");
+                    this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
                 }
             })
             .catch((e) => this.onRejected(e));
             this.subnetbox.open();            
         } else {          
-            this.showAlert("请选择相应的PortGroup");
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PG");
             return;
         }
     }
@@ -223,13 +225,14 @@ export class IpMngListComponent implements OnInit{
                     console.log(this.ippool.ips, this.ippool.ipstr, this.ippool, "ips, ipstr, and ippool object");
                 } else {
                     console.log("========== setupIPs [if]else=============");
-                    alert("Res sync error");
+                    //alert("Res sync error");
+                    this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
                 }
             })
             .catch((e) => this.onRejected(e));
             this.ipsbox.open();
         } else {          
-            this.showAlert("请选择相应的PortGroup");
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PG");
             return;
         }
 
@@ -268,7 +271,7 @@ export class IpMngListComponent implements OnInit{
                     } else {
                         console.log('clicked acceptIPsModify 4');
                         this.ipsbox.close();
-                        this.showMsg("设置IP地址范围失败");
+                        this.showMsg("NET_MNG_VM_IP_MNG.SET_IP_POOL_FAILED");
                         return;
                     }
                 })
@@ -282,7 +285,7 @@ export class IpMngListComponent implements OnInit{
                     this.layoutService.hide();
                     console.log('设置IP地址范围异常', err);
                     this.ipsbox.close();
-                    this.showMsg("设置IP地址范围异常");
+                    this.showMsg("NET_MNG_VM_IP_MNG.SET_IP_POOL_EXCEPTION");
                     this.okCallback = () => { this.ipsbox.open(); };
                 })
         }
@@ -309,7 +312,7 @@ export class IpMngListComponent implements OnInit{
                     } else {
                         console.log('clicked acceptSubnetModify 4');
                         this.subnetbox.close();
-                        this.showMsg("设置IP子网失败");
+                        this.showMsg("NET_MNG_VM_IP_MNG.SET_SUBNET_FAILED");
                         return;
                     }
                 })
@@ -325,7 +328,7 @@ export class IpMngListComponent implements OnInit{
                     console.log('设置IP子网异常', err);
                     this.layoutService.hide();
                     this.subnetbox.close();
-                    this.showMsg("设置IP子网异常");
+                    this.showMsg("NET_MNG_VM_IP_MNG.SET_SUBNET_EXCEPTION");
                     this.okCallback = () => { this.subnetbox.open(); };
                 })
         }        
@@ -343,16 +346,16 @@ export class IpMngListComponent implements OnInit{
 	onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
     }
 
     showMsg(msg: string) {
-        this.notice.open("系统提示", msg);
+        this.notice.open("NET_MNG_VM_IP_MNG.SYSTEM_PROMPT", msg);
     }
 
 	showAlert(msg: string): void {
         //this.layoutService.hide();
-        this.noticeTitle = "提示";
+        this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";
         this.noticeMsg = msg;
         console.log(this.noticeTitle, this.noticeMsg);
         this.notice.open();
@@ -365,9 +368,9 @@ export class IpMngListComponent implements OnInit{
     //根据value显示
     displayIt(value: string): String {
         if(this.validationService.isBlank(value)){
-            return "未设置";
+            return "NET_MNG_VM_IP_MNG.UNSET";
         } else {
-            return value;
+            return value.toString();
         }
     }
 
@@ -391,7 +394,7 @@ export class IpMngListComponent implements OnInit{
         }
         else {
             //console.log("==========getSelected 2=============");
-            this.showMsg("请选择相应的PortGroup");
+            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PG");
             return null;
         }
     }
@@ -402,7 +405,7 @@ export class IpMngListComponent implements OnInit{
         let notValid = null;
         notValid = [
             {
-                "name": "IP地址范围"
+                "name": "NET_MNG_VM_IP_MNG.IP_SCOPE"
                 , 'value': this.ippool.ipstr
                 , "op": "*"
             },
@@ -413,7 +416,7 @@ export class IpMngListComponent implements OnInit{
                 , "op": "ipscope"
             },*/
             {
-                "name": "IP地址范围"
+                "name": "NET_MNG_VM_IP_MNG.IP_SCOPE"
                 , 'value': [this.ippool.ipstr, this.ippool.subnetCIDR, this.ippool.subnetMask]
                 , "op": "ipscopepermask"
             }
@@ -438,27 +441,27 @@ export class IpMngListComponent implements OnInit{
         let notValid = null;
         notValid = [
             {
-                "name": "子网信息"
+                "name": "NET_MNG_VM_IP_MNG.SUBNET_INFORMATION"
                 , 'value': this.subn.subnetCIDR
                 , "op": "*"
             },
             {
-                "name": "子网掩码"
+                "name": "NET_MNG_VM_IP_MNG.SUBNET_MASK"
                 , 'value': this.subn.subnetMask
                 , "op": "*"
             },
             {
-                "name": "网关地址"
+                "name": "NET_MNG_VM_IP_MNG.GATEWAY_ADDRESS"
                 , 'value': this.subn.gateway
                 , "op": "*"
             },
             {
-                "name": "子网掩码"
+                "name": "NET_MNG_VM_IP_MNG.SUBNET_MASK"
                 , 'value': this.subn.subnetMask
                 , "op": "ipmask"
             },            
             {
-                "name": "网关地址"
+                "name": "NET_MNG_VM_IP_MNG.GATEWAY_ADDRESS"
                 , 'value': this.subn.gateway
                 , "op": "ip"
             },
@@ -475,7 +478,7 @@ export class IpMngListComponent implements OnInit{
             //1: 子网信息正确，2：netmask和gateway在子网信息中
             //*
             {
-                "name": "子网信息"
+                "name": "NET_MNG_VM_IP_MNG.SUBNET_INFORMATION"
                 , 'value': this.subn.subnetCIDR
                 , "op": "ip"
                 //, "op": "cidr"
@@ -493,7 +496,7 @@ export class IpMngListComponent implements OnInit{
             },
             */
             {
-                "name": "网关地址"
+                "name": "NET_MNG_VM_IP_MNG.GATEWAY_ADDRESS"
                 , 'value': [this.subn.gateway, this.subn.subnetCIDR, this.subn.subnetMask]
                 , "op": "gatewayinsubnetandmask"
             },
