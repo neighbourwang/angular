@@ -2,160 +2,219 @@ export const IpMngModel_mock = {
     resultCode: "100",
     detailDescription: "IP地址管理",
     resultContent: [
-    {
-        "id": "ef349044-3bfb-4b09-b804-30954b084e01", 
-        "dcId": "77557b4d-9004-4118-807f-c9d6bffcbbd3", 
-        "dcName": "DC1", 
-        "switchId": "792a37ea-2443-4ae5-8ad9-32f7ddce8a31", 
-        "switchName": "VDS1",
-        "dvPortGroupName": "dv pg 1",
-        "distPortGroupDisplayName": null,
-        "vlanId": "100", 
-        "subnetCIDR": "10.10.0.0/24", 
-        "gateway": "10.10.0.1", 
-        "ipCount": 24, 
-        "usedIPCount": 20, 
-        "freeIPCount": 4      
-    },
-    {
-        "id": "ef349044-3bfb-4b09-b804-30954b084e02", 
-        "dcId": "77557b4d-9004-4118-807f-c9d6bffcbbd3", 
-        "dcName": "DC1", 
-        "switchId": "ed44ca12-721c-4da3-8b5a-a2a040442f32", 
-        "switchName": "VDS2",
-        "dvPortGroupName": "dv pg 1",
-        "distPortGroupDisplayName": null,
-        "vlanId": "100", 
-        "subnetCIDR": "10.10.0.0/24", 
-        "gateway": "10.10.0.1", 
-        "ipCount": 24, 
-        "usedIPCount": 20, 
-        "freeIPCount": 4       
-    },
-    {
-        "id": "ef349044-3bfb-4b09-b804-30954b084e03", 
-        "dcId": "77557b4d-9004-4118-807f-c9d6bffcbbd3", 
-        "dcName": "DC1", 
-        "switchId": "792a37ea-2443-4ae5-8ad9-32f7ddce8a35", 
-        "switchName": "VDS5",
-        "dvPortGroupName": "dv pg 1",
-        "distPortGroupDisplayName": null,
-        "vlanId": "100", 
-        "subnetCIDR": "10.10.0.0/24", 
-        "gateway": "10.10.0.1", 
-        "ipCount": 24, 
-        "usedIPCount": 20, 
-        "freeIPCount": 4      
-    },
+        {
+            "dlrPortId": "mkgroup1-3bfb-4b09-b804-30954b084e01",
+            "dlrRouteName": "DLR1",
+            "dlrId": "77557b4d-9004-4118-807f-c9d6bffc0001",
+            "dlrInterfaceName": "app test 1",
+            "drlSubnetDisplayName": null,
+            "dlrInterfaceIPaddress": null,
+            "dlrSubnet": null,
+            "dlrInterfaceType": null,
+            "lswName": "LSW01",
+            "lswId": null,
+            "lswTransportZone": null,
+            "status": 1,
+            "lastUpdate": "2016-10-1 15:35:50",
+            "platformId": "100",
+            "gateway" : null,
 
+            "dnsPre": null,
+            "dnsAlt": null,
 
-    {
-        "id": "ef349044-3bfb-4b09-b804-30954b084e04", 
-        "dcId": "8121c33b-a698-48cf-abc4-fa68a8bed2e9", 
-        "dcName": "DC2", 
-        "switchId": "792a37ea-2443-4ae5-8ad9-32f7ddce8a25", 
-        "switchName": "VDS5",
-        "dvPortGroupName": "dv pg 1",
-        "distPortGroupDisplayName": null,
-        "vlanId": "100", 
-        "subnetCIDR": "10.10.0.0/24", 
-        "gateway": "10.10.0.1", 
-        "ipCount": 24, 
-        "usedIPCount": 20, 
-        "freeIPCount": 4      
-    },
-    {
-        "id": "ef349044-3bfb-4b09-b804-30954b084e05", 
-        "dcId": "8121c33b-a698-48cf-abc4-fa68a8bed2e9", 
-        "dcName": "DC2", 
-        "switchId": "c04e2749-6d72-4671-8a14-a92d6abdcb26", 
-        "switchName": "VDS6",
-        "dvPortGroupName": "dv pg 1",
-        "distPortGroupDisplayName": null,
-        "vlanId": "100", 
-        "subnetCIDR": "10.10.0.0/24", 
-        "gateway": "10.10.0.1", 
-        "ipCount": 24, 
-        "usedIPCount": 20, 
-        "freeIPCount": 4      
-    },
-    {
-        "id": "ef349044-3bfb-4b09-b804-30954b084e06", 
-        "dcId": "8121c33b-a698-48cf-abc4-fa68a8bed2e9", 
-        "dcName": "DC2", 
-        "switchId": "ea083c37-8c26-427a-9806-aaf1319ed327", 
-        "switchName": "VDS7",
-        "dvPortGroupName": "dv pg 1",
-        "distPortGroupDisplayName": null,
-        "vlanId": "100", 
-        "subnetCIDR": "10.10.0.0/24", 
-        "gateway": "10.10.0.1", 
-        "ipCount": 24, 
-        "usedIPCount": 20, 
-        "freeIPCount": 4      
-    },
-    {
-        "id": "ef349044-3bfb-4b09-b804-30954b084e07", 
-        "dcId": "8121c33b-a698-48cf-abc4-fa68a8bed2e9", 
-        "dcName": "DC2", 
-        "switchId": "69123d27-ab54-45d6-a1eb-15b1be22b82a", 
-        "switchName": "VDSa",
-        "dvPortGroupName": "dv pg 1",
-        "distPortGroupDisplayName": null,
-        "vlanId": "100", 
-        "subnetCIDR": "10.10.0.0/24", 
-        "gateway": "10.10.0.1", 
-        "ipCount": 24, 
-        "usedIPCount": 20, 
-        "freeIPCount": 4      
-    }
+            "ipCount": null,
+            "usedIPCount": null,
+            "freeIPCount": null,
+            "range": [ ]
+        },
+        {
+            "dlrPortId": "mkgroup1-3bfb-4b09-b804-30954b084e02",
+            "dlrRouteName": "DLR1",
+            "dlrId": "77557b4d-9004-4118-807f-c9d6bffc0001",
+            "dlrInterfaceName": "app test 2",
+            "drlSubnetDisplayName": null,
+            "dlrInterfaceIPaddress": "172.16.1.1",
+            "dlrSubnet": "24",
+            "dlrInterfaceType": "uplink",
+            "lswName": "LSW01",
+            "lswId": "5000",
+            "lswTransportZone": "A",
+            "status": 1,
+            "lastUpdate": "2016-10-1 15:35:50",
+            "platformId": "100",
+            "gateway" : "172.16.1.1",
+
+            "dnsPre": null,
+            "dnsAlt": null,
+
+            "ipCount": null,
+            "usedIPCount": null,
+            "freeIPCount": null,
+            "range": []
+        },
+        {
+            "dlrPortId": "mkgroup1-3bfb-4b09-b804-30954b084e03",
+            "dlrRouteName": "DLR2",
+            "dlrId": "77557b4d-9004-4118-807f-c9d6bffc0002",
+            "dlrInterfaceName": "app test 3",
+            "drlSubnetDisplayName": null,
+            "dlrInterfaceIPaddress": "172.16.1.1",
+            "dlrSubnet": "24",
+            "dlrInterfaceType": "uplink",
+            "lswName": "LSW01",
+            "lswId": "5000",
+            "lswTransportZone": "A",
+            "status": 1,
+            "lastUpdate": "2016-10-1 15:35:50",
+            "platformId": "100",
+            "gateway" : "172.16.1.1",
+
+            "dnsPre": "16.187.145.120",
+            "dnsAlt": "16.187.145.119",
+
+            "ipCount": 24,
+            "usedIPCount": 20,
+            "freeIPCount": 4,
+            "range": [
+                "172.16.1.55,172.16.1.60",
+                "172.16.1.61,172.16.1.61"
+            ]
+        },
+        {
+            "dlrPortId": "mkgroup1-3bfb-4b09-b804-30954b084e04",
+            "dlrRouteName": "DLR4",
+            "dlrId": "77557b4d-9004-4118-807f-c9d6bffc0004",
+            "dlrInterfaceName": "app test 4",
+            "drlSubnetDisplayName": null,
+            "dlrInterfaceIPaddress": "172.16.1.1",
+            "dlrSubnet": "24",
+            "dlrInterfaceType": "uplink",
+            "lswName": "LSW01",
+            "lswId": "5000",
+            "lswTransportZone": "A",
+            "status": 1,
+            "lastUpdate": "2016-10-1 15:35:50",
+            "platformId": "100",
+            "gateway" : "172.16.1.1",
+
+            "dnsPre": "16.187.145.120",
+            "dnsAlt": "16.187.145.119",
+
+            "ipCount": 10,
+            "usedIPCount": 6,
+            "freeIPCount": 4,
+            "range": [
+                "172.16.1.55,172.16.1.60",
+                "172.16.1.61,172.16.1.61"
+            ]
+        },
+        {
+            "dlrPortId": "mkgroup1-3bfb-4b09-b804-30954b084e05",
+            "dlrRouteName": "DLR2",
+            "dlrId": "77557b4d-9004-4118-807f-c9d6bffc0002",
+            "dlrInterfaceName": "app test 5",
+            "drlSubnetDisplayName": "APP TEST 5",
+            "dlrInterfaceIPaddress": "172.16.1.1",
+            "dlrSubnet": "24",
+            "dlrInterfaceType": "uplink",
+            "lswName": "LSW01",
+            "lswId": "5000",
+            "lswTransportZone": "A",
+            "status": 1,
+            "lastUpdate": "2016-10-1 15:35:50",
+            "platformId": "100",
+            "gateway" : null,
+
+            "dnsPre": "16.187.145.120",
+            "dnsAlt": "16.187.145.119",
+
+            "ipCount": 24,
+            "usedIPCount": 20,
+            "freeIPCount": 4,
+            "range": [
+                "172.16.1.55,172.16.1.60",
+                "172.16.1.61,172.16.1.61"
+            ]
+        },
+        {
+            "dlrPortId": "mkgroup1-3bfb-4b09-b804-30954b084e06",
+            "dlrRouteName": "DLR1",
+            "dlrId": "77557b4d-9004-4118-807f-c9d6bffc0001",
+            "dlrInterfaceName": "app test 6",
+            "drlSubnetDisplayName": null,
+            "dlrInterfaceIPaddress": "172.16.1.1",
+            "dlrSubnet": "24",
+            "dlrInterfaceType": "uplink",
+            "lswName": "LSW01",
+            "lswId": "5000",
+            "lswTransportZone": "A",
+            "status": 1,
+            "lastUpdate": "2016-10-1 15:35:50",
+            "platformId": "100",
+            "gateway" : "172.16.1.1",
+
+            "dnsPre": "16.187.145.120",
+            "dnsAlt": "16.187.145.119",
+
+            "ipCount": 24,
+            "usedIPCount": 20,
+            "freeIPCount": 4,
+            "range": [
+                "172.16.1.55,172.16.1.60",
+                "172.16.1.61,172.16.1.61"
+            ]
+        },
+        {
+            "dlrPortId": "mkgroup1-3bfb-4b09-b804-30954b084e07",
+            "dlrRouteName": "DLR3",
+            "dlrId": "77557b4d-9004-4118-807f-c9d6bffc0003",
+            "dlrInterfaceName": "app test 7",
+            "drlSubnetDisplayName": null,
+            "dlrInterfaceIPaddress": "172.16.1.1",
+            "dlrSubnet": "24",
+            "dlrInterfaceType": "uplink",
+            "lswName": "LSW01",
+            "lswId": "5000",
+            "lswTransportZone": "A",
+            "status": 1,
+            "lastUpdate": "2016-10-1 15:35:50",
+            "platformId": "100",
+            "gateway" : null,
+
+            "dnsPre": "16.187.145.120",
+            "dnsAlt": "16.187.145.119",
+
+            "ipCount": 24,
+            "usedIPCount": 20,
+            "freeIPCount": 4,
+            "range": [
+                "172.16.1.55,172.16.1.60",
+                "172.16.1.61,172.16.1.61"
+            ]
+        }
     ]
 }
 
-export const net_dc_list_mock = {
+export const net_dlr_list_mock = {
     "resultCode": "100",
     "detailDescription": null,
     "resultContent": [
         {
-            "dcName": "DC1",
-            "dcId": "77557b4d-9004-4118-807f-c9d6bffcbbd3",
-            "switchList": [
-                {
-                    "switchId": "792a37ea-2443-4ae5-8ad9-32f7ddce8a31",
-                    "switchName": "VDS1"
-                },
-                {
-                    "switchId": "ed44ca12-721c-4da3-8b5a-a2a040442f32",
-                    "switchName": "VDS2"
-                },
-                {
-                    "switchId": "792a37ea-2443-4ae5-8ad9-32f7ddce8a35",
-                    "switchName": "VDS5"
-                }
-            ]
+            "dlrId": "77557b4d-9004-4118-807f-c9d6bffc0001",
+            "dlrName": "DLR1"
         },
         {
-            "dcName": "DC2",
-            "dcId": "8121c33b-a698-48cf-abc4-fa68a8bed2e9",
-            "switchList": [
-                {
-                    "switchId": "792a37ea-2443-4ae5-8ad9-32f7ddce8a25",
-                    "switchName": "VDS5"
-                },
-                {
-                    "switchId": "c04e2749-6d72-4671-8a14-a92d6abdcb26",
-                    "switchName": "VDS6"
-                },
-                {
-                    "switchId": "ea083c37-8c26-427a-9806-aaf1319ed327",
-                    "switchName": "VDS7"
-                },
-                {
-                    "switchId": "69123d27-ab54-45d6-a1eb-15b1be22b82a",
-                    "switchName": "VDSa"
-                }
-            ]
-        } 
+            "dlrId": "77557b4d-9004-4118-807f-c9d6bffc0002",
+            "dlrName": "DLR2"
+        },
+        {
+            "dlrId": "77557b4d-9004-4118-807f-c9d6bffc0003",
+            "dlrName": "DLR3"
+        },
+        {
+            "dlrId": "77557b4d-9004-4118-807f-c9d6bffc0004",
+            "dlrName": "DLR4"
+        }
     ]
 }
 
@@ -216,21 +275,27 @@ export const subnetInfoModel_mock = {
     resultCode: "100",
     detailDescription: "IP地址管理",
     resultContent: {
-            "id": "ef349044-3bfb-4b09-b804-30954b084e01",
-            "dcId": "77557b4d-9004-4118-807f-c9d6bffcbbd3",
-            "dcName": "DC1",
-            "switchId": "792a37ea-2443-4ae5-8ad9-32f7ddce8a31",
-            "switchName": "VDS1",
-            "dvPortGroupName": "dv pg 1",
-            "distPortGroupDisplayName": null,
-            "subnetCIDR": "10.10.0.0/24",
-            "gateway": "10.10.0.1",
-            "subnetMask": "255.255.255.0",
-            "dnsPre": "16.187.145.120",
-            "dnsAlt": "16.187.145.119",
-            "range": [
-                "10.10.0.5,10.10.0.10",
-                "10.10.0.15,10.10.0.30"
-            ]
-        }
+        "dlrPortId": "mkgroup1-3bfb-4b09-b804-30954b084e0c",
+        "dlrId": "mkgroup1-3bfb-4b09-b804-30954b084e0c",
+        "dlrRouteName": "DLR1",
+        "dlrInterfaceName": "app test",
+        "drlSubnetDisplayName": null,
+        "dlrInterfaceIPaddress": "172.16.1.1",
+        "dlrSubnet": "24",
+        "dlrInterfaceType": "uplink",
+        "lswName": "LSW01",
+        "lswId": "5000",
+        "lswTransportZone": "A",
+        "status": 1,
+        "lastUpdate": "2016-10-1 15:35:50",
+        "platformId": "100",
+        "gateway" : "172.16.1.1",
+
+        "dnsPre": "16.187.145.120",
+        "dnsAlt": "16.187.145.119",
+        "range": [
+            "172.16.1.55,172.16.1.60",
+            "172.16.1.61,172.16.1.61"
+        ]
+    }
 }

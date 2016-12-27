@@ -261,7 +261,7 @@
 						<h4 class="modal-title" id="myModalLabel">订单退订</h4>
 				  	</div>
 				 	<div class="modal-body"> 
-			 			<div *ngIf="cancelObj.isMachine">
+			 			<div *ngIf="cancelObj.isMachine && cancelObj.hasDisk">
 			 				<input type="checkbox" [(ngModel)]="cancelObj.removeDisk"/>
 			 				<div>一起退订该云主机挂载的云硬盘</div>
 			 			</div><!-- 云主机 -->

@@ -42,7 +42,7 @@
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="setupIPs()">设置IP地址范围</button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="ipUsageMngPage()">管理IP地址</button>
 		-->
-        <button class="fox-cloud-button fox-cloud-button-green" (click)="setupIPs()" [disabled]="!selectedipmng.subnetCIDR">设置IP地址范围</button>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="setupIPs()">设置IP地址范围</button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="ipUsageMngPage()" [disabled]="!selectedipmng.subnetCIDR || !selectedipmng.ipCount || selectedipmng.ipCount == '0'">管理IP地址</button>
 
     </div>

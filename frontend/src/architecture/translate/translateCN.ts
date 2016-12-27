@@ -15,6 +15,7 @@ export const TranslateCN = {
         STATUS: '状态',
         TYPE: '类型',
         DESCRIPTION: '描述',
+        ORDERS: '订单',
         ORDER: '订购',
         OVERVIEW: '概览',
         LABEL: '标签',
@@ -199,6 +200,9 @@ export const TranslateCN = {
         //sub-add-storage
         ADD_DATA_DISK:'增加数据盘'
         
+    },
+    ORDER_MNG: {
+
     },
     ORDER_MNG_SEARCH: {
         CONFIRM: '确定',

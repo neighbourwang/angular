@@ -246,7 +246,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "订单退订",
         "method": "GET",
         "id": "op-center.order-mng.order-cancel.get",
-        "url": "marketplace/authsec/subscription/instance/{_subId}/cancel"        
+        "url": "marketplace/authsec/subscription/instance/{_subId}/cascadeFlag/{_cascadeFlag}/cancel"        
     },{
         "desc": "订单续订",
         "method": "POST",
@@ -494,17 +494,16 @@ export let RestApis: RestApiModel[] = [
         "id": "check-center.orderType-list.get",
         "method": "GET",
         "url": ""
-    },
-    {
-        "desc": "获取审批列表",
-        "id": "check-center.get-list.post",
-        "method": "POST",
-        "url": "marketplace/authsec/front/approval/order/search/paging"
     },{
-        "desc": "更新审批状态",
-        "id": "check-center.approve-refust.post",
+        "desc": "审批设置",
+        "id": "check-center.approve-set.post",
         "method": "POST",
-        "url": "marketplace/authsec/front/approval/order/{orderId}/operation/{operation}"
+        "url": "adminui/authsec/enterprise/audit"
+    },{
+        "desc": "审批设置获取",
+        "id": "check-center.approve-set.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprise/{_enterpriseId}/simple "
     }
     // 审批中心
 ]
