@@ -123,7 +123,7 @@ export class VmwareStdNetComponent implements OnInit {
     create() {
         console.log('create');
         this.tempEditNet = new StdNet();
-        this.editStdNet.open('创建标准网络');
+        this.editStdNet.open('NET_MNG_VM_IP_MNG.CREATE_STD_NET');
     }
 
     selectStdNet(stdNet: StdNet) {
@@ -151,11 +151,11 @@ export class VmwareStdNetComponent implements OnInit {
         console.log('edit');
         const selectedNet = this.filternets.find((stdnet) => { return stdnet.selected });
         if (!selectedNet) {
-            this.showAlert("请选择网络");
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_NET");
             return false;
         }
         if (selectedNet.status == "1") {
-            this.showAlert("启用状态下不能编辑！");
+            this.showAlert("NET_MNG_VM_IP_MNG.CANT_EDIT_WHEN_ENABLED");
             return;
         }
         let cstdnet = new StdNet();
@@ -175,7 +175,7 @@ export class VmwareStdNetComponent implements OnInit {
         cstdnet.lastUpdate = selectedNet.lastUpdate;
 
         this.tempEditNet = cstdnet;
-        this.editStdNet.open('编辑标准网络');
+        this.editStdNet.open('NET_MNG_VM_IP_MNG.EDIT_STD_NET');
     }
 
     cancelEdit() { }
@@ -188,29 +188,29 @@ export class VmwareStdNetComponent implements OnInit {
         this.tempEditNet.clusterId = this.selectedCluster4Popup.clusterId;
         this.tempEditNet.clusterName = this.selectedCluster4Popup.clusterName;
         if (this.validationService.isBlank(this.tempEditNet.dcName)) {
-            this.showAlert("请选择数据中心.");
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_DATACENTER");
             return;
         }
         if (this.validationService.isBlank(this.tempEditNet.clusterName)) {
-            this.showAlert("请选择可用区.");
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_CLUSTER");
             return;
         }
         if (this.validationService.isBlank(this.tempEditNet.clusterDisplayName)) {
-            this.showAlert("可用区显示名称不能为空.");
+            this.showAlert("NET_MNG_VM_IP_MNG.CLS_DIS_NAME_CANT_NULL");
             return;
         }
         if (this.validationService.isBlank(this.tempEditNet.portGroupName)) {
-            this.showAlert("端口组名称不能为空.");
+            this.showAlert("NET_MNG_VM_IP_MNG.PG_NAME_CANT_NULL");
             return;
         }
         if (this.validationService.isBlank(this.tempEditNet.vlanId)) {
-            this.showAlert("VLAN ID不能为空.");
+            this.showAlert("NET_MNG_VM_IP_MNG.VLAN_ID_CANT_NULL");
             return;
         }
         if (!(this.validationService.isNumber(this.tempEditNet.vlanId)
              &&parseInt(this.tempEditNet.vlanId) >= 0 && parseInt(this.tempEditNet.vlanId) <= 4096))
            {
-            this.showAlert("VLAN ID必须是0~4096的数字.");
+            this.showAlert("NET_MNG_VM_IP_MNG.VLAN_ID_SCOPE");
             return;
         }
         
@@ -251,7 +251,7 @@ export class VmwareStdNetComponent implements OnInit {
     updatePort(stdnet: StdNet) {
         this.layoutService.show();
         if (this.validationService.isBlank(this.editPort.portDisplayName)) {
-            this.showAlert("标准端口组显示名称不能为空.");
+            this.showAlert("NET_MNG_VM_IP_MNG.PG_DIS_NAME_CANT_NULL");
             return;
         }
         this.service.saveEditNet(this.platformId, this.editPort)
@@ -273,13 +273,13 @@ export class VmwareStdNetComponent implements OnInit {
     netEnable() {
         const selectedNet = this.filternets.find((stdnet) => { return stdnet.selected });
         if (!selectedNet) {
-            this.showAlert(`请先选择需要启用的标准网络！`);
+            this.showAlert(`NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_NET_TO_ENABLE`);
             return;
         }
-        this.noticeTitle = "启用网络";
+        this.noticeTitle = "NET_MNG_VM_IP_MNG.ENABLE_NET";
 
         if (selectedNet.status == "1") {
-            this.showAlert("该网络已处于启用状态");
+            this.showAlert("NET_MNG_VM_IP_MNG.NET_ALREADY_ENABLED");
             return;
         }
         this.noticeMsg = `您选择启用 '${selectedNet.portGroupName}'端口组，其VLAN ID为'${selectedNet.vlanId}' ， 
@@ -292,7 +292,7 @@ export class VmwareStdNetComponent implements OnInit {
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
-                        this.showAlert("启用成功");
+                        this.showAlert("NET_MNG_VM_IP_MNG.ENABLE_NET_SUCCESS");
                         this.getData();
                     } else {
                         alert("Res sync error");
@@ -308,13 +308,13 @@ export class VmwareStdNetComponent implements OnInit {
     netDisable() {
         const selectedNet = this.filternets.find((stdnet) => { return stdnet.selected });
         if (!selectedNet) {
-            this.showAlert(`请先选择需要禁用的标准网络！`);
+            this.showAlert(`NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_NET_TO_DISABLE`);
             return;
         }
-        this.noticeTitle = "禁用网络";
+        this.noticeTitle = "NET_MNG_VM_IP_MNG.DISABLE_NET";
 
         if (selectedNet.status == "2") {
-            this.showAlert("该网络已处于禁用状态");
+            this.showAlert("NET_MNG_VM_IP_MNG.NET_ALREADY_DISABLED");
             return;
         }
         this.noticeMsg = `您选择禁用 '${selectedNet.portGroupName}'端口组，其VLAN ID为'${selectedNet.vlanId}' ， 
@@ -327,10 +327,10 @@ export class VmwareStdNetComponent implements OnInit {
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
-                        this.showAlert("禁用成功");
+                        this.showAlert("NET_MNG_VM_IP_MNG.DISABLE_NET_SUCCESS");
                         this.getData();
                     } else if (10002001 == response["resultCode"]) {
-                        this.showAlert("IP占用状态下不能禁用！");
+                        this.showAlert("NET_MNG_VM_IP_MNG.CANT_DISABLE_AS_ENABLED_IP");
                     }
                     else {
                         alert("Res sync error");
@@ -347,14 +347,14 @@ export class VmwareStdNetComponent implements OnInit {
     netRemove() {
         const selectedNet = this.filternets.find((stdnet) => { return stdnet.selected });
         if (!selectedNet) {
-            this.showAlert(`请先选择需要删除的标准网络！`);
+            this.showAlert(`NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_NET_TO_DELETE`);
             return;
         }
         if (selectedNet.status == "1") {
-            this.showAlert("启用状态下不能删除！");
+            this.showAlert("NET_MNG_VM_IP_MNG.CANT_DELETE_WHEN_ENABLED");
             return;
         }
-        this.noticeTitle = "删除网络";
+        this.noticeTitle = "NET_MNG_VM_IP_MNG.DELETE_NET";
 
 
         this.noticeMsg = `您选择删除 '${selectedNet.portGroupName}'端口组，其VLAN ID为'${selectedNet.vlanId}' ， 
@@ -367,10 +367,10 @@ export class VmwareStdNetComponent implements OnInit {
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
-                        this.showAlert("删除成功");
+                        this.showAlert("DELETE_NET_SUCCESS删除成功");
                         this.getData();
                     } else if(10002001==response["resultCode"]){
-                        this.showAlert("IP占用状态下不能删除！");
+                        this.showAlert("NET_MNG_VM_IP_MNG.CANT_DELETE_AS_ENABLED_IP");
                     }
                     else {
                         alert("Res sync error");
@@ -416,12 +416,12 @@ export class VmwareStdNetComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
     }
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }

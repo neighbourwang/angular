@@ -261,7 +261,7 @@
 						<h4 class="modal-title" id="myModalLabel">{{ 'COMMON.ORDERS' | translate }}{{ 'COMMON.UNSUBSCRIBE' | translate }}<</h4>
 				  	</div>
 				 	<div class="modal-body"> 
-			 			<div *ngIf="cancelObj.isMachine">
+			 			<div *ngIf="cancelObj.isMachine && cancelObj.hasDisk">
 			 				<input type="checkbox" [(ngModel)]="cancelObj.removeDisk"/>
 			 				<div>{{ 'ORDER_MNG.UNSUBSCRIBE_FROM___HARD_DRIVE' | translate }}</div>
 			 			</div><!-- 云主机 -->

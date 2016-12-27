@@ -387,25 +387,6 @@ export class OrderMngComponent implements OnInit{
 
 	}
 
-	cancelSelect(orderItem:SubInstanceResp)
-	{
-		// 成功、即将过期:7的订单可以  续订
-		if(!_.isEmpty(orderItem.itemList)
-			&& orderItem.itemList.filter(n=>n.status == "7").length > 0)
-		{
-			$('#cancelOrder').modal('show');
-
-			// todo: set the cancelObj here
-
-			this.selectedOrderItem = orderItem;
-		}
-		else
-		{
-			this.showMsg(`ORDER_MNG.ONLY_SUCCESS_OR_EXPIRING_ORDERS_CAN_BE_UNSUBSCRIBE`);
-		}
-	}
-	
-
 	showMsg(msg: string)
 	{
 		this._notice.open("COMMON.SYSTEM_PROMPT", msg);
@@ -506,13 +487,31 @@ export class OrderMngComponent implements OnInit{
 
 	//退订
 	cancel(){
-		this._cancelHandler.Go(null, [{key:"_subId", value:this.selectedOrderItem.orderId}])
+		this._cancelHandler.Go(null, [{key:"_subId", value:this.cancelObj.subId},
+			{key:"_subId", value:this.cancelObj.cascadeFlag}])
 		.then(success=>{
 			this.search();
 		})
 		.catch(err=>{
 			this.showMsg(err);
 		})
+	}
+
+	cancelSelect(orderItem:SubInstanceResp)
+	{
+		// 成功、即将过期:7的订单可以  续订
+		if(!_.isEmpty(orderItem.itemList)
+			&& orderItem.itemList.filter(n=>n.status == "7").length > 0)
+		{
+			$('#cancelOrder').modal('show');
+
+			// todo: set the cancelObj here
+			this.cancelObj.subId = orderItem.orderId;
+		}
+		else
+		{
+			this.showMsg(`ORDER_MNG.ONLY_SUCCESS_OR_EXPIRING_ORDERS_CAN_BE_UNSUBSCRIBE`);
+		}
 	}
 
 	selectForever(){
