@@ -13,6 +13,7 @@ export const TranslateCN = {
         STATUS: '状态',
         TYPE: '类型',
         DESCRIPTION: '描述',
+        ORDERS: '订单',
         ORDER: '订购',
         OVERVIEW: '概览',
         LABEL: '标签',
@@ -144,6 +145,9 @@ export const TranslateCN = {
         CREATED_DATE: '创建时间：',
         EXPIRE_DATE: '到期时间：',
         RELEASE_DATE: '释放时间：',
+    },
+    ORDER_MNG: {
+
     },
     ORDER_MNG_SEARCH: {
         CONFIRM: '确定',
