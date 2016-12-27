@@ -145,7 +145,7 @@ export class IpUsageMngListComponent implements OnInit{
     }
 
     ipMngPage() {
-        this.router.navigate([`net-mng/vm-mng-dbt/ip-mng-list`, {"pid": this.platformId}]);
+        this.router.navigate([`net-mng/vm-mng-nsx/ip-mng-list`, {"pid": this.platformId}]);
     }
 
     filter(query?): void {
