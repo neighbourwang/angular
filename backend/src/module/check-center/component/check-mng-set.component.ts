@@ -12,6 +12,7 @@ import { RestApi
 	, DicLoader
 	, ItemLoader } from '../../../architecture';
 import {CheckSetListItem} from '../model'
+import * as _ from 'underscore';
 
 @Component({
 	selector: 'order-mng-cancel',
@@ -65,7 +66,7 @@ export class CheckMngSetComponent implements OnInit{
 
 	 //编辑
 	set(item:CheckSetListItem){
-		this._selectedItem = item;
+		this._selectedItem =_.extend({}, item);
 
 		this.setPoup.open();
 		console.log('ent-est-mng/edit');
@@ -76,6 +77,13 @@ export class CheckMngSetComponent implements OnInit{
 		if(!this._selectedItem.backAutoApprovalTime || this._selectedItem.backAutoApprovalTime < 0)
 		{
 			this.showMsg('CHECK_CENTER.APPROVE_SET_NEED_APPROVE_TIME')
+			return;
+		}
+
+		if(this._selectedItem.backAuditEnable == null)
+		{
+			this.showMsg('CHECK_CENTER.APPROVE_SET_NEED_APPROVE_ENABLE')
+			return;
 		}
 
 		this.layoutService.show();
@@ -85,6 +93,7 @@ export class CheckMngSetComponent implements OnInit{
 		})
 		.then(success=>{
 			this.layoutService.hide();
+			this.setPoup.close();
 			this.loadList();
 		})
 		.catch(err=>{

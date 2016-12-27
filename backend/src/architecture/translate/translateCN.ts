@@ -243,5 +243,6 @@ export const TranslateCN = {
         APPROVE_SET_LIST_LOAD_ERROR:"审批设置列表加载错误"
         ,APPROVE_SET_NEED_APPROVE_TIME:"请设置有效自动审批时间"
         ,APPROVE_SET_ERROR: "审批数据保存失败"
+        ,APPROVE_SET_NEED_APPROVE_ENABLE: "必须设置审批选项"
     }
 }
