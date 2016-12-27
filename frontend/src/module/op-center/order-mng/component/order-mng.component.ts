@@ -90,7 +90,7 @@ export class OrderMngComponent implements OnInit{
 		this._typeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
 
 		//订单详情加载
-		this._orderDetailLoader = new ItemLoader<OrderDetailItem>(false, "订购详情", "op-center.order-mng.order-detail.get", restApiCfg, restApi);
+		this._orderDetailLoader = new ItemLoader<OrderDetailItem>(false, "ORDER_MNG.ORDER_DETAILS", "op-center.order-mng.order-detail.get", restApiCfg, restApi);
 		this._orderDetailLoader.MapFunc = (source:Array<any>, target:Array<OrderDetailItem>)=>{
 			for(let item of source)
 			{
@@ -122,7 +122,7 @@ export class OrderMngComponent implements OnInit{
 		this._orderDetailLoader.FirstItem = new OrderDetailItem();
 
 		//续订费用
-		this._renewPriceLoader = new ItemLoader<ProductBillingItem>(false, "续订费用", "op-center.order-mng.order-renew-price.get", restApiCfg, restApi);
+		this._renewPriceLoader = new ItemLoader<ProductBillingItem>(false, "ORDER_MNG.RENEWAL_FEE", "op-center.order-mng.order-renew-price.get", restApiCfg, restApi);
 
 		//续费模式
 		this._periodTypeDic = new DicLoader(restApiCfg, restApi, "PACKAGE_BILLING", "PERIOD_TYPE");
@@ -131,20 +131,20 @@ export class OrderMngComponent implements OnInit{
 		this._billinModeDic = new DicLoader(restApiCfg, restApi, "BILLING_MODE", "TYPE");
 
 		//退订
-		this._cancelHandler = new ItemLoader<any>(false, "退订", "op-center.order-mng.order-cancel.get", restApiCfg, restApi);
+		this._cancelHandler = new ItemLoader<any>(false, "COMMON.UNSUBSCRIBE", "op-center.order-mng.order-cancel.get", restApiCfg, restApi);
 
 		//续订
-		this._renewHandler = new ItemLoader<any>(false, "续订", "op-center.order-mng.order-renew.get", restApiCfg, restApi);
+		this._renewHandler = new ItemLoader<any>(false, "COMMON.RENEW", "op-center.order-mng.order-renew.get", restApiCfg, restApi);
 
 		//初始化单项order数据
 		this.selectedOrderItem = new SubInstanceResp();
 
 
 		//部门配置
-		this._departmentLoader = new ItemLoader<ListItem>(false, "部门列表", "op-center.order-mng.department-list.get", restApiCfg, restApi);
+		this._departmentLoader = new ItemLoader<ListItem>(false, "ORDER_MNG.DEPARTMENT_LIST", "op-center.order-mng.department-list.get", restApiCfg, restApi);
 		
 		//订购人加载
-		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, '订购人列表', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
+		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, 'ORDER_MNG.SUBSCRIBER_LIST', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
 
         this._buyerLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
 			for(let item of source)
@@ -161,10 +161,10 @@ export class OrderMngComponent implements OnInit{
 		//产品类型配置
 		this._productTypeLoader = new DicLoader(restApiCfg, restApi, "GLOBAL", "SERVICE_TYPE")
 		//区域配置
-		this._platformLoader = new ItemLoader<ListItem>(false, "区域", "op-center.order-mng.platform-list.get", restApiCfg, restApi);
+		this._platformLoader = new ItemLoader<ListItem>(false, "COMMON.ZONE", "op-center.order-mng.platform-list.get", restApiCfg, restApi);
 		
 		//可用区配置
-		this._regionLoader = new ItemLoader<ListItem>(false, "可用区", "op-center.order-mng.region-list.get", restApiCfg, restApi);
+		this._regionLoader = new ItemLoader<ListItem>(false, "COMMON.AVAILABLE_ZONE", "op-center.order-mng.region-list.get", restApiCfg, restApi);
 		this._regionLoader.MapFunc = (source:Array<any>, target:Array<ListItem>)=>{
 			for(let item of source)
 			{
@@ -177,7 +177,7 @@ export class OrderMngComponent implements OnInit{
 		};
 
 		//配置订单加载
-		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "已订购列表", "op-center.order-mng.order-list.post", restApiCfg, restApi);
+		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "ORDER_MNG.ORDERED_LSIT", "op-center.order-mng.order-list.post", restApiCfg, restApi);
 		this._orderLoader.Trait = (target:Array<SubInstanceResp>)=>{
 
 			let canRenew:(item:SubInstanceItemResp)=>boolean = (item:SubInstanceItemResp):boolean=>{
@@ -381,7 +381,7 @@ export class OrderMngComponent implements OnInit{
 			
 		}
 		else{
-			this.showMsg(`只有个“成功”或“即将过期”的订单可以续订`);
+			this.showMsg(`ORDER_MNG.ONLY_SUCCESS_OR_EXPIRING_ORDERS_CAN_BE_RENEWED`);
 		}
 
 
@@ -401,14 +401,14 @@ export class OrderMngComponent implements OnInit{
 		}
 		else
 		{
-			this.showMsg(`只有个“成功”或“即将过期”的订单可以退订`);
+			this.showMsg(`ORDER_MNG.ONLY_SUCCESS_OR_EXPIRING_ORDERS_CAN_BE_UNSUBSCRIBE`);
 		}
 	}
 	
 
 	showMsg(msg: string)
 	{
-		this._notice.open("系统提示", msg);
+		this._notice.open("COMMON.SYSTEM_PROMPT", msg);
 	}
 
 	search(pageNumber:number = 1){
@@ -480,7 +480,7 @@ export class OrderMngComponent implements OnInit{
 		console.log('renew start');
 		let param = [{
 			attrCode: "TIMELINE",
-			attrDisplayName: "购买时长",
+			attrDisplayName: "ORDER_MNG.PURCHASE_TIME",
 			attrDisplayValue: this._renewSetting.value,//界面上获取的的值
 			attrId: "de227a98-a0f7-11e6-a18b-0050568a49fd",
 			attrValue: this._renewSetting.value,//界面上获取的值
