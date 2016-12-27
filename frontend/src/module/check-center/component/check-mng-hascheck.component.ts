@@ -130,6 +130,9 @@ export class CheckMngHascheckComponent implements OnInit{
 			return this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._restApi.getLoginInfo().userInfo.enterpriseId}])
 		})
 		.then(success=>{
+			this.search();
+		})
+		.then(success=>{
 			this._layoutService.hide();
 		})
 		.catch(err=>{

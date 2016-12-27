@@ -142,6 +142,9 @@ export class CheckMngListComponent implements OnInit{
 		.then(success=>{
 			this._layoutService.hide();
 		})
+		.then(success=>{
+			this.search();
+		})
 		.catch(err=>{
 			this._layoutService.hide();
 			this.showMsg(err);
