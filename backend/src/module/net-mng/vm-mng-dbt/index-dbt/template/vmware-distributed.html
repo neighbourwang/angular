@@ -1,51 +1,51 @@
 <div class="page-content-header icon-cloud-network-mngOn">
-    VMware网络
+    VMware{{'NET_MNG_VM_IP_MNG.NET_MNG' | translate}}
 </div>
 <div class="page-content">
     <table class="table table-hover ">
         <thead>
             <tr>
-                <th style="text-align:left;line-height: 30px;">VMware网络管理--管理分布式网络&nbsp;&nbsp; "地区" "数据中心"平台显示名称+连接URL https://192.168.1.1:43</th>
+                <th style="text-align:left;line-height: 30px;">VMware{{'NET_MNG_VM_IP_MNG.NET_MNG' | translate}}--{{'NET_MNG_VM_IP_MNG.MANAGE_DBT_NET' | translate}}&nbsp;&nbsp; "地区" "数据中心"平台显示名称+连接URL https://192.168.1.1:43</th>
             </tr>
         </thead>
     </table>
     <div class="mgt15 ">
-        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 数据中心(DC)名称：</span>
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> {{'NET_MNG_VM_IP_MNG.DC_NAME' | translate}}：</span>
         <div class="float-left pdr20">
              <select  class="pdl20 pdr20 form-control"  [(ngModel)]="selectedDC" (change)="selectSwitch=this.defaultSwitch;">
-                <option [ngValue]="defaultDc">所有</option>
+                <option [ngValue]="defaultDc">{{'NET_MNG_VM_IP_MNG.ALL' | translate}}</option>
                 <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
              </select>
         </div>
-        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 分布式交换机名称(VDS)：</span>
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> DBT_SWITCH_NAME分布式交换机名称(VDS)：</span>
         <div class="float-left">
             <select class="pdl20 pdr20 form-control" [(ngModel)]="selectSwitch">
-                <option [ngValue]="defaultSwitch">所有</option>
+                <option [ngValue]="defaultSwitch">{{'NET_MNG_VM_IP_MNG.ALL' | translate}}</option>
                 <option *ngFor="let sw of selectedDC.switchList" [ngValue]="sw">{{sw.switchName}}</option >
             </select>
         </div>
-        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl15 " (click)="filter();"><span class="icon-button-label">确定 </span> </button>
+        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl15 " (click)="filter();"><span class="icon-button-label">{{'NET_MNG_VM_IP_MNG.ENSURE' | translate}}</span> </button>
     </div>
 <div class="mgt15" style="clear:both"></div>
 
     <div class="mgb20 ">
         <button class="fox-cloud-button fox-cloud-button-green" data-toggle="modal" data-target="#myModal" (click)="createPopor()">
-            <span class="icon-button-label icon-left-button-label">同步分布式网络</span> <!--请添加创建的弹出框-->
+            <span class="icon-button-label icon-left-button-label">SYNC_DBT_NETWORK同步分布式网络</span> <!--请添加创建的弹出框-->
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoPortMng();">
-            <span class="icon-button-label icon-left-button-label">端口组资源分配</span>
+            <span class="icon-button-label icon-left-button-label">{{'NET_MNG_VM_IP_MNG.PORTGROUP_ALLOCATION' | translate}}</span>
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoIpMng()">
-            <span class="icon-button-label icon-left-button-label">IP地址管理</span>
+            <span class="icon-button-label icon-left-button-label">{{'NET_MNG_VM_IP_MNG.IP_ADDRESS_MNG' | translate}}</span>
         </button>
         <div class="dropdown pull-right" >
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                选择操作
+                {{'NET_MNG_VM_IP_MNG.SELECT_OPERATION' | translate}}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="javascript:void(0);" (click)="portEnable();">启用</a></li>
-                <li><a href="javascript:void(0);" (click)="portDisable();">禁用</a></li>
+                <li><a href="javascript:void(0);" (click)="portEnable();">{{'NET_MNG_VM_IP_MNG.ENABLE' | translate}}</a></li>
+                <li><a href="javascript:void(0);" (click)="portDisable();">{{'NET_MNG_VM_IP_MNG.DISABLE' | translate}}</a></li>
             </ul>
             </div>
     </div>
@@ -53,14 +53,14 @@
         <table class="table table-hover" >
             <thead>
                 <tr>
-                    <th>选择 </th>
-                    <th>数据中心(DC) </th>
-                    <th>分布式交换机名称(VDS) </th>
-                    <th>分布式虚拟端口端口组名称(dv Port-group)</th>
-                    <th >分布式端口组显示名称</th>
-                    <th>VLAN ID </th>
-                    <th>状态 </th>
-                    <th>最后更新时间 </th>
+                    <th>{{'NET_MNG_VM_IP_MNG.SELECT' | translate}}</th>
+                    <th>{{'NET_MNG_VM_IP_MNG.DC' | translate}}</th>
+                    <th>{{'NET_MNG_VM_IP_MNG.DBT_SWITCH_NAME' | translate}} </th>
+                    <th>{{'NET_MNG_VM_IP_MNG.DBT_PORTGROUP_NAME' | translate}}</th>
+                    <th>{{'NET_MNG_VM_IP_MNG.DBT_PORTGROUP_DISPLAY_NAME' | translate}}</th>
+                    <th>{{'NET_MNG_VM_IP_MNG.VLAN_ID' | translate}}</th>
+                    <th>{{'NET_MNG_VM_IP_MNG.STATUS' | translate}}</th>
+                    <th>{{'NET_MNG_VM_IP_MNG.LAST_UPDATE_DATE' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -70,22 +70,22 @@
                     <td>{{port.switchName}}</td>
                     <td>{{port.dvPortGroupName}}</td>
                     <td style="position:relative;">
-                        {{port.distPortGroupDisplayName||"未设置"}}
+                        {{port.distPortGroupDisplayName||'NET_MNG_VM_IP_MNG.UNSET' | translate}}
                         <span class="icon-edit2 pull-right" (click)="openEdit(port);port.isOpen=true;" style="display:inline-block"></span>
                          <div *ngIf="port.isOpen" class="popover fade bottom in" role="tooltip" style="z-index:50;position:absolute;top:30px; right:150px; width:420px; max-width:1100px; display: block;">
                                 <div class="arrow" style="left: 30%;"></div>
                                 <div class="popover-content">
                                     <form class="form-horizontal" role="form">
                                         <div class="form-group">
-                                            <label class="col-sm-6 control-label">分布式端口组显示名称:</label>
+                                            <label class="col-sm-6 control-label">{{'NET_MNG_VM_IP_MNG.DBT_PORTGROUP_DISPLAY_NAME' | translate}}:</label>
                                             <div class="col-sm-6 float-left">
                                             <input type="text" class="form-control"[(ngModel)]="editPort.distPortGroupDisplayName" name="portname"/>
                                             </div>
                                         </div>
                                     </form>
                                 <div class="pull-right" style="margin-bottom:10px;">
-                                    <button class=" fox-cloud-button fox-cloud-button-white" (click)="saveEdit(port)">保存</button>
-                                    <button class="fox-cloud-button fox-cloud-button-white" (click)="port.isOpen = false;">取消</button>
+                                    <button class=" fox-cloud-button fox-cloud-button-white" (click)="saveEdit(port)">{{'NET_MNG_VM_IP_MNG.SAVE' | translate}}</button>
+                                    <button class="fox-cloud-button fox-cloud-button-white" (click)="port.isOpen = false;">{{'NET_MNG_VM_IP_MNG.CNACLE' | translate}}</button>
                                 </div>
                             </div>
                           </div>
@@ -102,20 +102,20 @@
 </div>
 <div style="height:150px"> </div>
 
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
-<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}"></fc-confirm>
 
 <!--同步弹出框内容-->
-<fc-popup #synDbt title="{{title}}" ot="同步" (of)="doSynDbt()" ct="关闭" (cf)="closeSynDbt()">
+<fc-popup #synDbt title="{{title}}" ot="{{'NET_MNG_VM_IP_MNG.SYNC' | translate}}" (of)="doSynDbt()" ct="{{'COMMON.CLOSE' | translate}}" (cf)="closeSynDbt()">
        <div class="table-container">
            <div style="max-height: 400px; overflow: auto;">
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>选择</th>
-                        <th>数据中心(DC)</th>
-                        <th>分布式交换机名称(VDS)</th>
-                        <th>状态</th>
+                        <th>{{'NET_MNG_VM_IP_MNG.SELECT' | translate}}</th>
+                        <th>{{'NET_MNG_VM_IP_MNG.DC' | translate}}</th>
+                        <th>{{'NET_MNG_VM_IP_MNG.DBT_SWITCH_NAME' | translate}}</th>
+                        <th>{{'NET_MNG_VM_IP_MNG.STATUS' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
