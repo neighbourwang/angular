@@ -82,9 +82,10 @@ export class cloudDriveListComponent implements OnInit {
 	
 	platformClick(data) {   //选择区域列表
 		this.list.platformId = data.area.id;
-		// this.list.zoneId = data.zone.zoneId;
+		this.list.zoneId = data.zone.zoneId;
 		this.saveList.platformId = data.area.id;
-		// this.saveList.zoneId =  data.zone.zoneId;
+		this.saveList.zoneId =  data.zone.zoneId;
+		this.setDistList();
 	}
 
 	//云硬盘的操作相关
@@ -123,7 +124,6 @@ export class cloudDriveListComponent implements OnInit {
 
 	resetSearch(){   //重置搜索
 		this.list = Object.assign({}, this.saveList);
-		this.platformZone.reset();
 		this.initSelect();
 	}
 	search() {    //搜索

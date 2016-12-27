@@ -4,7 +4,7 @@ class VlueList {
     attrValueCode?: string = "";
     attrDisplayValue?: string = "";
     attrValue?: any;
-    value?:string;
+    sku?:SkuMap;
 }
 
 class OrderService {

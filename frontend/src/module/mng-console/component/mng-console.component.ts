@@ -60,19 +60,19 @@ export class MngConsoleComponent implements OnInit {
     public setEntResoure():void {   //设置资源的利用率
         const bgc = [ "#E7E9ED", "#00CC99" ];
         const bgw = [  0,0  ];
-        this.service.getEntResoure().then(res => {
+        this.service.getQuotaResoure().then(res => {
             console.log(res,123123123)
             if(!res.length) return;
             this.eplist = res[0];
             const list = this.eplist;
 
-            this.epcpu = [{ data: [ list.usedCpuQuota, list.cpuQuota - list.usedCpuQuota ], backgroundColor: bgc, borderWidth:bgw }];
-            this.epmem = [{ data: [ list.usedMemQuota, list.memQuota - list.usedMemQuota ], backgroundColor: bgc, borderWidth:bgw }];
-            this.epdisk = [{ data: [ list.usedStorageQuota, list.storageQuota - list.usedStorageQuota ], backgroundColor: bgc, borderWidth:bgw }];
-            this.ephost = [{ data: [ list.usedPhysicalMachineQuota, list.physicalMachineQuota - list.usedPhysicalMachineQuota ], backgroundColor: bgc, borderWidth:bgw }];
-            this.epsnapshot = [{ data: [ list.usedSnapshotQuota, list.snapshotQuota - list.usedSnapshotQuota ], backgroundColor: bgc, borderWidth:bgw }];
-            this.epimage = [{ data: [ list.usedImageQuota, list.imageQuota - list.usedImageQuota ], backgroundColor: bgc, borderWidth:bgw }];
-            this.epfloatIp = [{ data: [ list.usedFloatIpQuota, list.floatIpQuota - list.usedFloatIpQuota ], backgroundColor: bgc, borderWidth:bgw }];
+            this.epcpu = [{ data: [ list.usedCpu, list.vcpu - list.usedCpu ], backgroundColor: bgc, borderWidth:bgw }];
+            this.epmem = [{ data: [ list.usedMem, list.mem - list.usedMem ], backgroundColor: bgc, borderWidth:bgw }];
+            this.epdisk = [{ data: [ list.usedStorage, list.storage - list.usedStorage ], backgroundColor: bgc, borderWidth:bgw }];
+            this.ephost = [{ data: [ list.usedPhysical, list.physical - list.usedPhysical ], backgroundColor: bgc, borderWidth:bgw }];
+            this.epsnapshot = [{ data: [ list.usedSnapshot, list.snapshot - list.usedSnapshot ], backgroundColor: bgc, borderWidth:bgw }];
+            this.epimage = [{ data: [ list.usedImage, list.image - list.usedImage ], backgroundColor: bgc, borderWidth:bgw }];
+            this.epfloatIp = [{ data: [ list.usedIpaddress, list.ipaddress - list.usedIpaddress ], backgroundColor: bgc, borderWidth:bgw }];
         })
     }
 
