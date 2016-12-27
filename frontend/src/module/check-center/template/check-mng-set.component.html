@@ -7,15 +7,15 @@
 			<span>是否需要审批</span>
 			<div class="secondPanel">
 				<ul>
-					<li><input type="radio" class="fox-cloud-radio mgr10 ">开启</li>
-					<li class="pdl20"><span class="pdl5">自动审批时间设置：</span><input type="text" class="form-control">分钟</li>
-					<li><input type="radio" class="fox-cloud-radio mgr10 ">关闭</li>
+					<li><input type="radio" class="fox-cloud-radio mgr10"  [ngClass]="{'active':isOpen}"   (click)="selectOpen()">开启</li>
+					<li class="pdl20"><span class="pdl5">自动审批时间设置：</span ><span *ngIf="isEdit">10</span><input *ngIf="!isEdit" type="text" class="form-control">分钟</li>
+					<li><input type="radio" class="fox-cloud-radio mgr10 " [ngClass]="{'active':!isOpen}"  (click)="selectClose()">关闭</li>
 				</ul>
 				
 			</div>
 			
-			<button class="btn button-gray-gradient" style="display: none;"><span class="pdl10 pdr10">编&nbsp;&nbsp;辑</span></button>
-			<button class="btn fox-cloud-button-green"><span class="pdl10 pdr10">保&nbsp;&nbsp;存</span></button>
+			<button class="btn button-gray-gradient" *ngIf="isEdit" (click)="edit();"><span class="pdl10 pdr10">编&nbsp;&nbsp;辑</span></button>
+			<button class="btn fox-cloud-button-green" *ngIf="!isEdit" (click)="save();"><span class="pdl10 pdr10">保&nbsp;&nbsp;存</span></button>
 		</div>
 			<!--<fc-pagination tp={{entEstMng.TotalPages}} (pf)="changePage($event)"></fc-pagination>-->
 		</div>
