@@ -1120,7 +1120,51 @@ export let RestApis: RestApiModel[] = [
         "id": "net-mng.vmware.dbt.subnetip.release",
         "method": "PUT",
         "url": "adminboe/authsec/vmware/network/dist/ip/{id}/release"
-    },    
+    },  
+    //IP地址管理[NSX网络]
+    {
+        "desc": "获取IP地址管理列表",
+        "id": "net-mng.vmware.nsx.ipmng.list",
+        "method": "GET",
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/portlist"
+    },
+    {
+        "desc": "获取DLR值",
+        "id": "net-mng.vmware.nsx.dclist.get",
+        "method": "GET",
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/dlrlist"
+
+    },
+    {
+        "desc": "获取IP子网信息及IP范围",
+        "id": "net-mng.vmware.nsx.subnetinfo.ips.get",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/nsx/getport/{port_id}"
+    },
+    {
+        "desc": "设置子网IP范围",
+        "id": "net-mng.vmware.nsx.subnetips.setup",
+        "method": "PUT",
+        "url": "adminboe/authsec/vmware/network/nsx/{id}/subnetRange"
+    },
+    {
+        "desc": "获取IP使用情况列表",
+        "id": "net-mng.vmware.nsx.ipusagemng.list",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/nsx/{id}/ipmgmlist"
+    },
+    {
+        "desc": "IP地址占用",
+        "id": "net-mng.vmware.nsx.subnetip.occupy",
+        "method": "PUT",
+        "url": "adminboe/authsec/vmware/network/nsx/ip/{id}/occupy"
+    },
+    {
+        "desc": "IP地址释放",
+        "id": "net-mng.vmware.nsx.subnetip.release",
+        "method": "PUT",
+        "url": "adminboe/authsec/vmware/network/nsx/ip/{id}/release"
+    },   
       //云网络管理
         //openstack
     {
@@ -1212,6 +1256,16 @@ export let RestApis: RestApiModel[] = [
         "id": "check-center.approve-info.get",
         "method": "GET",
         "url": "adminui/authsec/backend/approval/history/order/{orderId}"        
+    },{
+        "desc": "获取审批设置列表",
+        "id": "check-center.approval-set-list.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/simple/page/{_page}/size/{_size}"
+    },{
+        "desc": "设置自动审批时间",
+        "id": "check-center.approval.auto-set",
+        "method": "PUT",
+        "url": "adminui/authsec/enterprise/audit"
     }
     // 审批中心    
     //云网络管理

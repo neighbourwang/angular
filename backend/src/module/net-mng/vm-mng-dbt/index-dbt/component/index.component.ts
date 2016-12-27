@@ -142,7 +142,7 @@ export class VmDisIndexComponent implements OnInit {
     saveEdit(Port: port) {
         this.layoutService.show();
         if (this.validationService.isBlank(this.editPort.distPortGroupDisplayName)) {
-            this.showAlert("标准端口组显示名称不能为空.");
+            this.showAlert("NET_MNG_VM_IP_MNG.PG_DIS_NAME_CANT_NULL");
             return;
         }
         this.service.saveEdit(this.editPort)
@@ -164,13 +164,13 @@ export class VmDisIndexComponent implements OnInit {
     portEnable() {
         const selectedPort = this.filterports.find((port) => { return port.selected });
         if (!selectedPort) {
-            this.showAlert(`请先选择需要启用的分布式网络！`);
+            this.showAlert(`NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_DBT_NET_TO_ENABLE`);
             return;
         }
-        this.noticeTitle = "启用网络";
+        this.noticeTitle = "NET_MNG_VM_IP_MNG.ENABLE_NET";
 
         if (selectedPort.status == "1") {
-            this.showAlert("该网络已处于启用状态");
+            this.showAlert("NET_MNG_VM_IP_MNG.NET_ALREADY_ENABLED");
             return;
         }
         this.noticeMsg = `您选择启用 '${selectedPort.distPortGroupDisplayName}'分布式端口组，其VLAN ID为'${selectedPort.vlanId}' ， 
@@ -183,7 +183,7 @@ export class VmDisIndexComponent implements OnInit {
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
-                        this.showAlert("启用成功");
+                        this.showAlert("NET_MNG_VM_IP_MNG.ENABLE_NET_SUCCESS");
                         this.getData();
                     } else {
                         alert("Res sync error");
@@ -201,13 +201,13 @@ export class VmDisIndexComponent implements OnInit {
     portDisable() {
         const selectedPort = this.filterports.find((port) => { return port.selected });
         if (!selectedPort) {
-            this.showAlert(`请先选择需要禁用的分布式网络！`);
+            this.showAlert(`NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_DBT_NET_TO_DISABLE`);
             return;
         }
-        this.noticeTitle = "禁用网络";
+        this.noticeTitle = "NET_MNG_VM_IP_MNG.DISABLE_NET";
 
         if (selectedPort.status == "2") {
-            this.showAlert("该网络已处于禁用状态");
+            this.showAlert("NET_MNG_VM_IP_MNG.NET_ALREADY_DISABLED");
             return;
         }
         this.noticeMsg = `您选择禁用 '${selectedPort.distPortGroupDisplayName}'分布式端口组，其VLAN ID为'${selectedPort.vlanId}' ， 
@@ -220,10 +220,10 @@ export class VmDisIndexComponent implements OnInit {
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
-                        this.showAlert("禁用成功");
+                        this.showAlert("NET_MNG_VM_IP_MNG.DISABLE_NET_SUCCESS");
                         this.getData();
                     } else if(10002001==response["resultCode"]){
-                        this.showAlert("IP占用状态下不能禁用！");
+                        this.showAlert("NET_MNG_VM_IP_MNG.CANT_DISABLE_AS_ENABLED_IP");
                     }
                     else {
                         alert("Res sync error");
@@ -267,12 +267,12 @@ export class VmDisIndexComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
     }
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -289,7 +289,7 @@ export class VmDisIndexComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {
 
                     this.infoListForSyn = response["resultContent"];
-                    this.synDbt.open('同步分布式网络信息-网络信息');
+                    this.synDbt.open('NET_MNG_VM_IP_MNG.SYNC_DBT_NET');
                 } else {
                     alert("Res sync error");
                 }
@@ -315,7 +315,7 @@ export class VmDisIndexComponent implements OnInit {
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
-                        this.showAlert("同步成功");
+                        this.showAlert("NET_MNG_VM_IP_MNG.SYNC_SUCCESS");
                         this.synDbt.close();
                         // //  刷新列表
                         // this.service.getSynInfolist(this.platformId)
@@ -338,7 +338,7 @@ export class VmDisIndexComponent implements OnInit {
             )
             .catch((e) => this.onRejected(e));
         }else{
-            this.showAlert("请选择一个");
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ONE");
         }
         
     }
