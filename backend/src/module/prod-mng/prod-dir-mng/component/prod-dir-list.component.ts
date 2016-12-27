@@ -53,11 +53,6 @@ export class ProdDirListComponent implements OnInit {
     platformId: string;
     prodDirTypeId: string;;
     queryProDirTypeId: string;
-
-    //mokup
-
-
-
     ngOnInit() {
         console.log(this.pp);
         //获得激活云平台数据
@@ -89,20 +84,6 @@ export class ProdDirListComponent implements OnInit {
         }).catch(err => {
             console.error(err);
         })
-
-        // this.prodDirTypeList=[
-        //     {
-        //         "id": "1",
-        //         "code": "VITRUALMACHINE_SERVICE",
-        //         "name": "云主机服务"
-        //     },
-        //     {
-        //         "id": "2",
-        //         "code": "VITRUALMACHINE_SERVICE",
-        //         "name": "云硬盘服务"
-        //     },
-        // ]
-
         this.backend({
             "categoryId": '',
             "page": 1,
@@ -111,14 +92,18 @@ export class ProdDirListComponent implements OnInit {
         });
     }
     data: any = {
-        "categoryId": "string",
+        "categoryId": "",
         "page": 1,
-        "platformId": "string",
-        "size": 0,
+        "platformId": "",
+        "size": 10,
     };
     onQuery() {
         // console.log(this.platformId);
         // console.log(this.queryProDirTypeId);
+        this.queryProDirTypeId=
+            this.queryProDirTypeId?this.queryProDirTypeId:'';
+        this.platformId=
+            this.platformId?this.platformId:'';
         this.data = {
             "categoryId": this.queryProDirTypeId,
             "platformId": this.platformId,
@@ -197,18 +182,24 @@ export class ProdDirListComponent implements OnInit {
             console.log(message);
             message = message.substring(0, message.length - 1);
             switch (order) {
-                case 'delete': this.deleteConfirm.open('删除产品目录', '您选择删除 ' + "'" + message + "'" + '产品,请确认；如果确认，此产品目录的数据将不能恢复。')
+                case 'delete': 
+                if (prodDirList[0].status == '1') {
+                     this.notice.open('操作错误', '不能删除状态为已发布的产品目录')
+                }else{
+                    this.deleteConfirm.open('删除产品目录', '您选择删除 ' + "'" + message + "'" + '产品,请确认；如果确认，此产品目录的数据将不能恢复。')
+                }
+                
                     break;
                 case 'publish':
                     if (prodDirList[0].status == '1') {
-                        this.notice.open('操作错误', '不可以再次发布已发布状态的产品目录')
+                        this.notice.open('操作错误', '产品目录状态为已发布')
                     } else {
                         this.publishConfirm.open('发布产品目录', '您选择发布 ' + "'" + message + "'" + '产品,请确认。')
                     }
                     break;
                 case 'ccPublish':
                     if (prodDirList[0].status == '3') {
-                        this.notice.open('操作错误', '不可以再次取消发布未发布状态的产品目录')
+                        this.notice.open('操作错误', '产品目录状态为取消发布')
                     } else {
                         this.ccPublishConfirm.open('取消发布产品目录', '您选择取消发布' + "'" + message + "'" + '产品,请确认。如果确认，此产品目录将不能用来创建产品。')
                     }

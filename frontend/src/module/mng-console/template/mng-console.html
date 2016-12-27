@@ -48,7 +48,7 @@
                           [datasets]="epcpu"
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
-                    <div class="percent-num">{{!eplist.cpuQuota ? 0 : eplist.usedCpuQuota/eplist.cpuQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
+                    <div class="percent-num">{{!eplist.vcpu ? 0 : eplist.usedCpu/eplist.vcpu*100 | decimalPlaces : 0}}<sup>%</sup></div>
                     <div class="quota-name">vCPU</div>
                 </div>
                 <div class="quota-box ">
@@ -57,7 +57,7 @@
                           [datasets]="epmem"
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
-                    <div class="percent-num">{{!eplist.memQuota ? 0 : eplist.usedMemQuota/eplist.memQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
+                    <div class="percent-num">{{!eplist.mem ? 0 : eplist.usedMem/eplist.mem*100 | decimalPlaces : 0}}<sup>%</sup></div>
                     <div class="quota-name">{{ 'COMMON.RAM' | translate }}</div>
                 </div>
                 <div class="quota-box ">
@@ -66,7 +66,7 @@
                           [datasets]="epdisk"
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
-                    <div class="percent-num">{{!eplist.storageQuota ? 0 : eplist.usedStorageQuota/eplist.storageQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
+                    <div class="percent-num">{{!eplist.storage ? 0 : eplist.usedStorage/eplist.storage*100 | decimalPlaces : 0}}<sup>%</sup></div>
                     <div class="quota-name">{{ 'COMMON.STORAGE' | translate }}</div>
                 </div>
                 <div class="quota-box ">
@@ -75,7 +75,7 @@
                           [datasets]="ephost"
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
-                    <div class="percent-num">{{!eplist.physicalMachineQuota ? 0 : eplist.usedPhysicalMachineQuota/eplist.physicalMachineQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
+                    <div class="percent-num">{{!eplist.physical ? 0 : eplist.usedPhysical/eplist.physical*100 | decimalPlaces : 0}}<sup>%</sup></div>
                     <div class="quota-name">{{ 'COMMON.PHYSICAL_MACHINE' | translate }}</div>
                 </div>
                 <div class="quota-box ">
@@ -84,7 +84,7 @@
                           [datasets]="epsnapshot"
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
-                    <div class="percent-num">{{!eplist.snapshotQuota ? 0 : eplist.usedSnapshotQuota/eplist.snapshotQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
+                    <div class="percent-num">{{!eplist.snapshot ? 0 : eplist.usedSnapshot/eplist.snapshot*100 | decimalPlaces : 0}}<sup>%</sup></div>
                     <div class="quota-name">{{ 'COMMON.SNAPSHOT' | translate }}</div>
                 </div>
                 <div class="quota-box ">
@@ -93,7 +93,7 @@
                           [datasets]="epimage"
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
-                    <div class="percent-num">{{!eplist.imageQuota ? 0 : eplist.usedImageQuota/eplist.imageQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
+                    <div class="percent-num">{{!eplist.image ? 0 : eplist.usedImage/eplist.image*100 | decimalPlaces : 0}}<sup>%</sup></div>
                     <div class="quota-name">{{ 'COMMON.MIRROR' | translate }}</div>
                 </div>
                 <div class="quota-box ">
@@ -102,7 +102,7 @@
                           [datasets]="epfloatIp"
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
-                    <div class="percent-num">{{!eplist.floatIpQuota ? 0 : eplist.usedFloatIpQuota/eplist.floatIpQuota*100 | decimalPlaces : 0}}<sup>%</sup></div>
+                    <div class="percent-num">{{!eplist.ipaddress ? 0 : eplist.usedIpaddress/eplist.ipaddress*100 | decimalPlaces : 0}}<sup>%</sup></div>
                     <div class="quota-name">{{ 'COMMON.FLOAT' | translate }}IP</div>
                 </div>
 
@@ -112,11 +112,11 @@
                     <p class="resource-name">vCPU</p>
                     <div class="resource-state">
                         <span>{{ 'COMMON.ENABLED' | translate }}</span>
-                        <span class="color-a mgl5">{{quotalist.usedCpuQuota}}</span>
+                        <span class="color-a mgl5">{{quotalist.usedCpu}}</span>
                     </div>
                     <div class="resource-state">
                         <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
-                        <span class="color-b mgl5">{{quotalist.cpuQuota - quotalist.usedCpuQuota}}</span>
+                        <span class="color-b mgl5">{{quotalist.vcpu - quotalist.usedCpu}}</span>
                     </div>
                 </div>
                 <div class="resource-box">
@@ -124,11 +124,11 @@
                     <p class="resource-name">{{ 'COMMON.RAM' | translate }}</p>
                     <div class="resource-state">
                         <span>{{ 'COMMON.ENABLED' | translate }}</span>
-                        <span class="color-a mgl5">{{quotalist.usedMemQuota}}</span>
+                        <span class="color-a mgl5">{{quotalist.usedMem}}</span>
                     </div>
                     <div class="resource-state">
                         <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
-                        <span class="color-b mgl5">{{quotalist.memQuota - quotalist.usedMemQuota}}</span>
+                        <span class="color-b mgl5">{{quotalist.mem - quotalist.usedMem}}</span>
                     </div>
                 </div>
                 <div class="resource-box">
@@ -136,11 +136,11 @@
                     <p class="resource-name">{{ 'COMMON.STORAGE' | translate }}</p>
                     <div class="resource-state">
                         <span>{{ 'COMMON.ENABLED' | translate }}</span>
-                        <span class="color-a mgl5">{{quotalist.usedStorageQuota}}</span>
+                        <span class="color-a mgl5">{{quotalist.usedStorage}}</span>
                     </div>
                     <div class="resource-state">
                         <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
-                        <span class="color-b mgl5">{{quotalist.storageQuota - quotalist.usedStorageQuota}}</span>
+                        <span class="color-b mgl5">{{quotalist.storage - quotalist.usedStorage}}</span>
                     </div>
                 </div>
                 <div class="resource-box">
@@ -148,11 +148,11 @@
                     <p class="resource-name">{{ 'COMMON.PHYSICAL_MACHINE' | translate }}</p>
                     <div class="resource-state">
                         <span>{{ 'COMMON.ENABLED' | translate }}</span>
-                        <span class="color-a mgl5">{{quotalist.usedPhysicalMachineQuota}}</span>
+                        <span class="color-a mgl5">{{quotalist.usedPhysical}}</span>
                     </div>
                     <div class="resource-state">
                         <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
-                        <span class="color-b mgl5">{{quotalist.physicalMachineQuota - quotalist.usedPhysicalMachineQuota}}</span>
+                        <span class="color-b mgl5">{{quotalist.physical - quotalist.usedPhysical}}</span>
                     </div>
                 </div>
                 <div class="resource-box">
@@ -160,11 +160,11 @@
                     <p class="resource-name">{{ 'COMMON.SNAPSHOT' | translate }}</p>
                     <div class="resource-state">
                         <span>{{ 'COMMON.ENABLED' | translate }}</span>
-                        <span class="color-a mgl5">{{quotalist.usedSnapshotQuota}}</span>
+                        <span class="color-a mgl5">{{quotalist.usedSnapshot}}</span>
                     </div>
                     <div class="resource-state">
                         <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
-                        <span class="color-b mgl5">{{quotalist.snapshotQuota - quotalist.usedSnapshotQuota}}</span>
+                        <span class="color-b mgl5">{{quotalist.snapshot - quotalist.usedSnapshot}}</span>
                     </div>
                 </div>
                 <div class="resource-box">
@@ -172,11 +172,11 @@
                     <p class="resource-name">{{ 'COMMON.MIRROR' | translate }}</p>
                     <div class="resource-state">
                         <span>{{ 'COMMON.ENABLED' | translate }}</span>
-                        <span class="color-a mgl5">{{quotalist.usedImageQuota}}</span>
+                        <span class="color-a mgl5">{{quotalist.usedImage}}</span>
                     </div>
                     <div class="resource-state">
                         <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
-                        <span class="color-b mgl5">{{quotalist.imageQuota - quotalist.usedImageQuota}}</span>
+                        <span class="color-b mgl5">{{quotalist.image - quotalist.usedImage}}</span>
                     </div>
                 </div>
                 <div class="resource-box">
@@ -184,11 +184,11 @@
                     <p class="resource-name">{{ 'COMMON.FLOAT' | translate }}IP{{ 'COMMON.PATH' | translate }}</p>
                     <div class="resource-state">
                         <span>{{ 'COMMON.ENABLED' | translate }}</span>
-                        <span class="color-a mgl5">{{quotalist.usedFloatIpQuota}}</span>
+                        <span class="color-a mgl5">{{quotalist.usedIpaddress}}</span>
                     </div>
                     <div class="resource-state">
                         <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
-                        <span class="color-b mgl5">{{quotalist.floatIpQuota - quotalist.usedFloatIpQuota}}</span>
+                        <span class="color-b mgl5">{{quotalist.ipaddress - quotalist.usedIpaddress}}</span>
                     </div>
                 </div>
 

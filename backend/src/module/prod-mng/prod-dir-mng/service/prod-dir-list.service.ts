@@ -19,7 +19,7 @@ export class ProdDirListService {
 
     //�����ֵ�
     versionDic = this.dict.get({
-        "owner":"USER",
+        "owner":"SERVICE",
         "field":"STATUS"
     });
 

@@ -4,6 +4,7 @@ export const TranslateCN = {
         PROMPT: '提示',
         CONFIRM: '确认',
         CANCEL: '取消',
+        CLOSE: '关闭',
         EXIT: '退出',
         RESET: '重置',
         NUMBER: '编号',
@@ -114,8 +115,8 @@ export const TranslateCN = {
         DISABLE_IMAGE: '禁用镜像',
         EDIT_IMAGE: '编辑镜像',
 
-        ENABLE_IMAGE_MSG: '您选择启用 {{selectedimg.displayName || "image"}}, 请确认; 如果确认，用户将能够在订购中选择此镜像.',
-        DISABLE_IMAGE_MSG: '您选择禁用 {{selectedimg.displayName || "image"}}, 请确认; 如果确认, 用户将不能在订购中选择此镜像.',
+        ENABLE_IMAGE_MSG: '您选择启用{{value}}, 请确认; 如果确认，用户将能够在订购中选择此镜像.',
+        DISABLE_IMAGE_MSG: '您选择禁用{{value}}, 请确认; 如果确认, 用户将不能在订购中选择此镜像.',
 
         UNSELECTED_ENTERPRISE: '未选择企业',
         SELECTED_ENTERPRISE: '已选择企业',
@@ -169,6 +170,12 @@ export const TranslateCN = {
 
         OCCUPY: '占用',
         RELEASE: '释放',
+        ENABLE: '启用',
+        DISABLE: '禁用',
+        DELETE: '删除',
+        SAVE: '保存',
+        CREATE: '创建',
+        SYNC: '同步',
 
         NETWORK: '网络',
         NET_MNG: '网络管理',
@@ -190,6 +197,7 @@ export const TranslateCN = {
         SELECT: '选择',
 
         DC: '数据中心(DC)',
+        PG_NAME: '端口组名称',
         PORTGROUP_NAME: '标准端口组名称',
         PORTGROUP_DISPLAY_NAME: '标准端口组显示名称',
         VDS_PORTGROUP_NAME: '分布式虚拟端口组名称',
@@ -237,6 +245,54 @@ export const TranslateCN = {
         IP_RELEASED_SUCCESS: 'IP释放成功',
         IP_RELEASED_FAILED: 'IP释放失败',
         IP_RELEASED_EXCEPTION: 'IP释放异常',
+
+
+        CREATE_STD_NET: '创建标准网络',
+        EDIT_STD_NET: '编辑标准网络',
+        PORTGROUP_ALLOCATION: '端口资源组分配',
+
+        CLUSTER_DISPLAY_NAME: '可用区显示名称',
+
+        LAST_UPDATE_DATE: '最后更新时间',
+        DISPLAY_NAME: '显示名称',
+        PLEASE_CHOOSE: '请选择',
+        PLEASE_CHOOSE_NET: '请选择网络',
+        CANT_EDIT_WHEN_ENABLED: '启用状态下不能编辑！',
+        CANT_DELETE_WHEN_ENABLED: '启用状态下不能删除！',
+        PLEASE_CHOOSE_DATACENTER: '请选择数据中心.',
+        PLEASE_CHOOSE_CLUSTER: '请选择可用区.',
+        CLS_DIS_NAME_CANT_NULL: '可用区显示名称不能为空.',
+        PG_NAME_CANT_NULL: '端口组名称不能为空.',
+        VLAN_ID_CANT_NULL: 'VLAN ID不能为空.',
+        VLAN_ID_SCOPE: 'VLAN ID必须是0~4096的数字.',
+        PG_DIS_NAME_CANT_NULL: '端口组显示名称不能为空.',
+
+        PLEASE_CHOOSE_NET_TO_ENABLE: '请先选择需要启用的标准网络！',
+        PLEASE_CHOOSE_DBT_NET_TO_ENABLE: '请先选择需要启用的分布式网络！',
+        NET_ALREADY_ENABLED: '该网络已处于启用状态',
+        PLEASE_CHOOSE_NET_TO_DISABLE: '请先选择需要禁用的标准网络！',
+        PLEASE_CHOOSE_DBT_NET_TO_DISABLE: '请先选择需要禁用的分布式网络！',
+        NET_ALREADY_DISABLED: '该网络已处于禁用状态',
+        CANT_DISABLE_AS_ENABLED_IP: 'IP占用状态下不能禁用！',
+        PLEASE_CHOOSE_NET_TO_DELETE: '请先选择需要删除的标准网络！',
+        
+        CANT_DELETE_AS_ENABLED_IP: 'IP占用状态下不能删除！',
+
+        ENABLE_NET: '启用网络',
+        ENABLE_NET_SUCCESS: '启用成功',
+        DISABLE_NET: '禁用网络',
+        DISABLE_NET_SUCCESS: '禁用成功',
+        DELETE_NET: '删除网络',
+        DELETE_NET_SUCCESS: '删除成功',
+
+        SYNC_DBT_NET: '同步分布式网络信息-网络信息',
+        SYNC_SUCCESS: '同步成功',
+        PLEASE_CHOOSE_ONE: '请选择一个',
+
+        DBT_SWITCH_NAME: '分布式交换机名称(VDS)',
+        SYNC_DBT_NETWORK: '同步分布式网络',
+        DBT_PORTGROUP_NAME: '分布式虚拟端口组名称(dv Port-group)',
+        DBT_PORTGROUP_DISPLAY_NAME: '分布式端口组显示名称',
     },
     CHECK_CENTER: {
         //check-mng-set
