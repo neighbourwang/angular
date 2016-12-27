@@ -59,7 +59,7 @@ export class VmwareImgSyncComponent implements OnInit {
 
     ngOnInit() {
        this.activatedRouter.params.forEach((params: Params) => {
-            this.platformName = params['platformName'] ? params['platformName']:"上海HPE VMware云平台";
+            this.platformName = params['platformName'] ? params['platformName']:'HOST_VMWARE_MNG.HPE_VMWARE_PLATFORM';
             console.log("接收的platformName:" + this.platformName);
 		});
 

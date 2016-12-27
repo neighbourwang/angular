@@ -17,7 +17,7 @@
                 <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
              </select>
         </div>
-        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> DBT_SWITCH_NAME分布式交换机名称(VDS)：</span>
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> {{'NET_MNG_VM_IP_MNG.DBT_SWITCH_NAME' | translate}}：</span>
         <div class="float-left">
             <select class="pdl20 pdr20 form-control" [(ngModel)]="selectSwitch">
                 <option [ngValue]="defaultSwitch">{{'NET_MNG_VM_IP_MNG.ALL' | translate}}</option>
@@ -30,7 +30,7 @@
 
     <div class="mgb20 ">
         <button class="fox-cloud-button fox-cloud-button-green" data-toggle="modal" data-target="#myModal" (click)="createPopor()">
-            <span class="icon-button-label icon-left-button-label">SYNC_DBT_NETWORK同步分布式网络</span> <!--请添加创建的弹出框-->
+            <span class="icon-button-label icon-left-button-label">{{'NET_MNG_VM_IP_MNG.SYNC_DBT_NETWORK' | translate}}</span> <!--请添加创建的弹出框-->
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoPortMng();">
             <span class="icon-button-label icon-left-button-label">{{'NET_MNG_VM_IP_MNG.PORTGROUP_ALLOCATION' | translate}}</span>

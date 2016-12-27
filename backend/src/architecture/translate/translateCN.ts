@@ -115,8 +115,8 @@ export const TranslateCN = {
         DISABLE_IMAGE: '禁用镜像',
         EDIT_IMAGE: '编辑镜像',
 
-        ENABLE_IMAGE_MSG: '您选择启用 {{selectedimg.displayName || "image"}}, 请确认; 如果确认，用户将能够在订购中选择此镜像.',
-        DISABLE_IMAGE_MSG: '您选择禁用 {{selectedimg.displayName || "image"}}, 请确认; 如果确认, 用户将不能在订购中选择此镜像.',
+        ENABLE_IMAGE_MSG: '您选择启用{{value}}, 请确认; 如果确认，用户将能够在订购中选择此镜像.',
+        DISABLE_IMAGE_MSG: '您选择禁用{{value}}, 请确认; 如果确认, 用户将不能在订购中选择此镜像.',
 
         UNSELECTED_ENTERPRISE: '未选择企业',
         SELECTED_ENTERPRISE: '已选择企业',
