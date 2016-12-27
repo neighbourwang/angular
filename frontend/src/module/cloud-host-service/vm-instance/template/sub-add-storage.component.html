@@ -10,7 +10,7 @@
 					[ngValue]="value" >{{ value.attrDisplayValue }}</option>
 				</select>
 			</div>
-			<div class="col-md-1 content-title2">容量</div>
+			<div class="col-md-1 content-title2">{{'COMMON.CAPACITY'|translate}}</div>
 			<div class="col-md-2 no-padding">
 				<count-bar
 		            [step]="sendModule.diskstepsize.attrValue" 
@@ -19,9 +19,9 @@
 		            [stepCheck]=true
 		            [value]="sendModule.diskinitialsize.attrValue" (output)="outputValue($event, i)"></count-bar>
 			</div>
-			<div class="col-md-1 content-title2">GB</div>
+			<div class="col-md-1 content-title2">{{'COMMON.GB'|translate}}</div>
 			<div class="col-md-3 text-right">
-				<button (click)="delete(i)" class="btn button-gray-gradient"><span class="glyphicon glyphicon-remove"></span> 删除</button>
+				<button (click)="delete(i)" class="btn button-gray-gradient"><span class="glyphicon glyphicon-remove"></span>{{'COMMON.DELETE'|translate}} </button>
 			</div>
 		</div>
 	</div>
@@ -29,7 +29,7 @@
 	<div class="col-md-2 content-title">{{!this.forArr.length ? "数据盘" : ""}}</div>
 	<div class="col-md-10 add-disk-box">
 		<div class="col-md-3 content-title2 no-padding">
-			<button (click)="addDisk()" [disabled]="this.forArr.length === this.maxLenght" class="btn button-gray-gradient button-icon"><span class="glyphicon glyphicon-plus"></span> 增加数据盘</button>
+			<button (click)="addDisk()" [disabled]="this.forArr.length === this.maxLenght" class="btn button-gray-gradient button-icon"><span class="glyphicon glyphicon-plus"></span>{{'VM_INSTANCE.ADD_DATA_DISK'|translate}}</button>
 		</div>
 		<div class="col-md-7 no-padding disk-tip">一共可以增加<span class="font-green">{{maxLenght}}</span>块，还可以增加<span class="font-orange">{{maxLenght - forArr.length}}</span>块</div>
 	</div>

@@ -1,10 +1,11 @@
+<fc-notice #notice ot="{{'COMMON.CONFIRM'|translate}}"></fc-notice>
 <div class="CheckMngSet">
 	<div class="page-content-header icon-order-manageOne">审批设置</div>
 		<div class="page-content">
 			<div class="table-container noBorder">
 				<table class="table table-hover"> 
 					<thead>
-						<tr >
+						<tr>
 							<th  class="ht50">编号</th>
 							<th>企业（租户）名称</th>
 							<th>审批是否开启</th>
@@ -13,32 +14,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr >
+						<tr *ngFor="let item of _itemLoader.Items;let i=index" >
 							<td>
-								1
+								{{i}}
 							</td>
-							<td>上海有限公司</td>
-							<td>开启</td>
-							<td>480</td>
-							<td><button class="fox-cloud-button fox-cloud-button-white" (click)="set()" ><span>设置审批</span></button></td>
-						</tr>
-						<tr >
-							<td>
-								1
-							</td>
-							<td>上海有限公司</td>
-							<td>开启</td>
-							<td>480</td>
-							<td><button class="fox-cloud-button fox-cloud-button-white"><span>设置审批</span></button></td>
-						</tr>
-						<tr >
-							<td>
-								1
-							</td>
-							<td>上海有限公司</td>
-							<td>开启</td>
-							<td>480</td>
-							<td><button class="fox-cloud-button fox-cloud-button-white"><span>设置审批</span></button></td>
+							<td>{{item.name}}</td>
+							<td><span *ngIf="item.backAuditEnable">开启</span><span *ngIf="!item.backAuditEnable">关闭</span></td>
+							<td>{{item.backAutoApprovalTime}}</td>
+							<td><button class="fox-cloud-button fox-cloud-button-white" (click)="set(item)" ><span>设置审批</span></button></td>
 						</tr>
 					</tbody>
 				</table>
@@ -48,24 +31,25 @@
 
 		<!-- 设置 -->
 		<fc-popup #setPoup ot="确认" ct="取消" title="审批设置" (of)="acceptEntModify()" (cf)="cancelEntModify()">
-		<div class="dialogContent">
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-4"><span class="asterisk">*</span>审批：</div>
-					<div class="col-sm-4">
-						<input type="radio" class="fox-cloud-radio">
+			<div class="dialogContent">
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4"><span class="asterisk">*</span>审批：</div>
+						<div class="col-sm-4">
+							<input type="radio" class="fox-cloud-radio" [ngClass]="{'active':_selectedItem.backAuditEnable}" [checked]="_selectedItem.backAuditEnable" value="1" (change)="_selectedItem.backAuditEnable = $event.target.checked">
+							<input type="radio" class="fox-cloud-radio" [ngClass]="{'active':!_selectedItem.backAuditEnable}" [checked]="!_selectedItem.backAuditEnable" value="0" (change)="_selectedItem.backAuditEnable = !$event.target.checked">
+						</div>
+					</div>
+				</div>
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4">自动审批时间设置：</div>
+						<div class="col-sm-4">
+							<input type="number" class="form-control" [(ngModel)]="_selectedItem.backAutoApprovalTime">分钟
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-4">自动审批时间设置：</div>
-					<div class="col-sm-4">
-						<input type="text" class="form-control">分钟
-					</div>
-				</div>
-			</div>
-		</div>
 		</fc-popup>
 	</div>
 

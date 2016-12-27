@@ -6,7 +6,7 @@
 		<ul class="left-box">
 			<li>
 				<div class="col-md-1 li-title">
-					<p><span class="icon-location"></span><br>{{'CLOUD_DRIVE_ORDER.AREA'| translate}}</p>
+					<p><span class="icon-location"></span><br>{{'COMMON.AREA'| translate}}</p>
 				</div>
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">{{'COMMON.CLOUD_PLATFORM'| translate}}</div>
@@ -115,11 +115,11 @@
 						<div class="col-md-2 content-title">{{'COMMON.PURCHASE_AMOUNT'| translate}}</div>
 						<div class="col-md-2 no-padding mr10">
 							<select [(ngModel)]="payLoad.quality" class="form-control">
-								<option [ngValue]="1">{{'CLOUD_DRIVE_ORDER.ONE_SET'| translate}}</option>
-								<option [ngValue]="2">{{'CLOUD_DRIVE_ORDER.TWO_SET'| translate}}</option>
-								<option [ngValue]="3">{{'CLOUD_DRIVE_ORDER.THREE_SET'| translate}}</option>
-								<option [ngValue]="4">{{'CLOUD_DRIVE_ORDER.FOUR_SET'| translate}}</option>
-								<option [ngValue]="5">{{'CLOUD_DRIVE_ORDER.FIVE_SET'| translate}}</option>
+								<option [ngValue]="1">{{'COMMON.ONE_SET'| translate}}</option>
+								<option [ngValue]="2">{{'COMMON.TWO_SET'| translate}}</option>
+								<option [ngValue]="3">{{'COMMON.THREE_SET'| translate}}</option>
+								<option [ngValue]="4">{{'COMMON.FOUR_SET'| translate}}</option>
+								<option [ngValue]="5">{{'COMMON.FIVE_SET'| translate}}</option>
 							</select>
 						</div>
 					</div>
@@ -131,8 +131,8 @@
 	<div class="col-md-3 no-padding right-box">
 		<cart-button #cartButton></cart-button>
 		<div class="col-md-12 content-box">
-			<h3 class="boder-gray-bottom-title">{{'CLOUD_DRIVE_ORDER.CURRENT_CONFIGURATION'| translate}}</h3>
-			<h4 class="cloud-title font-green">{{'CLOUD_DRIVE_ORDER.AREA'| translate}}</h4>
+			<h3 class="boder-gray-bottom-title">{{'COMMON.CURRENT_CONFIGURATION'| translate}}</h3>
+			<h4 class="cloud-title font-green">{{'COMMON.AREA'| translate}}</h4>
 			<p class="cloud-p">{{'COMMON.CLOUD_PLATFORM'| translate}}:{{ sendModule.platform?.attrDisplayValue}}</p>
 			<p class="cloud-p">{{'COMMON.AVAILABLE_ZONE'| translate}}:{{ sendModule.zone?.attrDisplayValue}}</p>
 			<h4 class="cloud-title font-green">{{'CLOUD_DRIVE_ORDER.CONFIGURATION_OPTIONS'| translate}}</h4>

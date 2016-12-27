@@ -1,0 +1,116 @@
+<div class="page-content-header icon-cloud-network-mngOn">
+    VMware{{'NET_MNG_VM_IP_MNG.NETWORK' | translate}}
+</div>
+<div class="page-content">
+
+    <table class="table table-hover ">
+        <thead>
+        <tr>
+            <th style="text-align:left;">
+                VMware{{'NET_MNG_VM_IP_MNG.NET_MNG' | translate}} -- {{'NET_MNG_VM_IP_MNG.MANAGE_NSX_NET' | translate}} -- {{'NET_MNG_VM_IP_MNG.IP_ADDRESS_MNG' | translate}}  &nbsp; &nbsp; &nbsp;"地区" "数据中心" 平台显示名称 + 连接URL https://192.168.1.1:443
+            </th>
+            <th style="text-align:right;">
+                <button class=" fox-cloud-button fox-cloud-button-white ">
+                    <span class="icon-button-label" (click)="vmwareNetworkPage()">{{'NET_MNG_VM_IP_MNG.RETURN' | translate}}</span>
+                </button>
+            </th>
+        </tr>
+        </thead>
+    </table>
+
+    <div class="mgt15 ">
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">逻辑路由器(DLR)名称：</span>
+        <div class="float-left pdr20">
+            <select class="pdl10 form-control" [(ngModel)]="selectedDLR">
+                <option [ngValue]="defaultDLR">{{'NET_MNG_VM_IP_MNG.ALL' | translate}}</option>
+                <option *ngFor="let dlr of DLRList" [ngValue]="dlr">{{dlr.dlrName}}</option>
+            </select>
+        </div>
+        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="filter(); selectedDLR=defaultDLR; selectedDLR.dlrId='';"> 确定</button>
+    </div>
+    <div class="mgt15" style="clear:both"></div>
+    <div class="mgb20">
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="setupIPs()">{{'NET_MNG_VM_IP_MNG.SET_IP_POOL' | translate}}</button>
+        <button class="fox-cloud-button fox-cloud-button-green" key="boe/vmware-nsx-mng_ip_addr.html" (click)="ipUsageMngPage()" [disabled]="!selectedipmng.dlrInterfaceIPaddress || !selectedipmng.ipCount || selectedipmng.ipCount == '0'">{{'NET_MNG_VM_IP_MNG.MANAGE_IP_ADDRESS' | translate}}</button>
+    </div>
+
+    <div class="table-container">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>选择</th>
+                <th>逻辑路由器名称(DLR)</th>
+                <th>DLR接口名称</th>
+                <th>DLR子网显示名称</th>
+                <th>子网信息</th>
+                <th>DLR接口IP地址</th>
+                <th>IP地址池数量</th>
+                <th>已使用IP地址数量</th>
+                <th>剩余IP地址数量</th>
+                <th>连接逻辑交换机(LSW)名称</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let ipmng of ipmngs; let i=index;">
+                <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="ipmng.checked" (change)="selectItem(i); selectedipmng = ipmng;" value="{{i}}"></td>
+                <td>{{ipmng.dlrRouteName}}</td>
+                <td>{{ipmng.dlrInterfaceName}}</td>
+                <td>{{displayIt(ipmng.drlSubnetDisplayName)}}</td>
+                <td>{{displayIt(ipmng.dlrInterfaceIPaddress)}}/{{displayIt(ipmng.dlrSubnet)}}</td>
+                <td>{{displayIt(ipmng.dlrInterfaceIPaddress)}}</td>
+                <td>{{displayIt(ipmng.ipCount)}}</td>
+                <td>{{displayIt(ipmng.usedIPCount)}}</td>
+                <td>{{displayIt(ipmng.freeIPCount)}}</td>
+                <td>{{ipmng.lswName}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" (of)="okClicked()"></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" (of)="onConfirmed()"></fc-confirm>
+
+
+<fc-popup #ipsbox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'NET_MNG_VM_IP_MNG.SET_IP_POOL' | translate}}" (of)="acceptIPsModify()" (cf)="cancelIPsModify()">
+
+	<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">{{'NET_MNG_VM_IP_MNG.SUBNET_INFORMATION' | translate}}：</div>
+					<div class="col-sm-8">
+						<span>{{ippool.dlrInterfaceIPaddress}}/{{ippool.dlrSubnet}}</span>
+					    <!-- <input type="string" class="form-control input-control" [(ngModel)]="ippool.subnetCIDR"></span> -->
+					</div>
+				</div>
+			</div>
+            <!--
+            <div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">子网掩码：</div>
+					<div class="col-sm-8">
+                        <span>{{ippool.subnetMask}}</span>					    
+					</div>
+				</div>
+			</div>
+            -->
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">{{'NET_MNG_VM_IP_MNG.GATEWAY' | translate}}：</div>
+					<div class="col-sm-8">
+						<span>{{ippool.gateway}}</span>
+					    <!-- <input type="string" class="form-control input-control" [(ngModel)]="ippool.gateway">  -->
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">{{'NET_MNG_VM_IP_MNG.IP_SCOPE' | translate}}：</div>
+					<div class="col-sm-8">
+					<!-- <input type="string" class="form-control input-control" [(ngModel)]="ippool.ips">  -->
+					<textarea class="form-control input-control" placeholder="" rows="4" [(ngModel)]="ippool.ipstr"></textarea>
+					</div>
+				</div>
+			</div>
+	</div>
+</fc-popup>
