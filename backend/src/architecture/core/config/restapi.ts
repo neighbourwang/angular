@@ -1256,6 +1256,16 @@ export let RestApis: RestApiModel[] = [
         "id": "check-center.approve-info.get",
         "method": "GET",
         "url": "adminui/authsec/backend/approval/history/order/{orderId}"        
+    },{
+        "desc": "获取审批设置列表",
+        "id": "check-center.approval-set-list.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/simple/page/{_page}/size/{_size}"
+    },{
+        "desc": "设置自动审批时间",
+        "id": "check-center.approval.auto-set",
+        "method": "PUT",
+        "url": "adminui/authsec/enterprise/audit"
     }
     // 审批中心    
     //云网络管理
