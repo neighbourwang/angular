@@ -272,6 +272,7 @@ export class ClMngListComponent implements OnInit {
                         platform.description = content.description;
                         platform.version = content.version;
                         platform.regionId = content.regionId;
+                        platform.regionName = content.regionName;
                         platform.dataCenter = content.dataCenter;
                         for (let item of platFormStatus) {
                             if (content.status == item.value) {

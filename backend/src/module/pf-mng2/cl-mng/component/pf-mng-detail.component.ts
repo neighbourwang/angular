@@ -13,6 +13,7 @@ import { ClMngCommonService } from '../service/cl-mng-common.service';
 //model
 import { Platform } from '../model/platform.model';
 
+
 @Component({
     templateUrl: '../template/pf-mng-detail.component.html',
     styleUrls: [
@@ -65,6 +66,7 @@ export class PfDetailComponent implements OnInit {
     platformTypes: Array<any> = new Array<any>();
     platformVersion: Array<any> = new Array<any>();
     regions: Array<any> = new Array<any>();
+    platform:Platform=new Platform();
     //初始化
     ngOnInit() {
         let id: string;
@@ -74,10 +76,7 @@ export class PfDetailComponent implements OnInit {
             type = params['type'];
             this.platformName = params['name'];
             console.log(id, type, name)
-            //  (type=='0')&&(this.vmProdDir=true);
-            //  (type=='1')&&(this.vmProdDir=false);             
         })
-
         //获取云平台类型
         this.commonService.getPlatFormTypes()
             .then(
@@ -105,10 +104,9 @@ export class PfDetailComponent implements OnInit {
             )
         this.platformDetailService.getPlatform(id)
             .then(
-
             res => {
                 console.log('platform basic', res);
-                // this.regions = res;
+                this.platform=res.resiltContent;
             }
             ).catch(
             err => {

@@ -128,7 +128,10 @@ export class OrgMngService {
         console.log(this.entResourceObj.enterpriseId);
         if (!this.entResourceObj.enterpriseId) {
              this.restApi.request(api.method, api.url, [{ key: "id", value: id }, { key: "page", value: 1 }, { key: "size", value: 9999 }], undefined).then(
-                res => {
+                res => {                    
+                    res.resultContent[0].memQuota=res.resultContent[0].memQuota/1024;
+                    res.resultContent[0].usedMemQuota=res.resultContent[0].usedMemQuota/1024;
+                    res.resultContent[0].realUsedMemQuota=res.resultContent[0].realUsedMemQuota/1024;
                     console.log('获取企业资源信息', res);
                     this.entResourceObj = res.resultContent[0];
                     console.log(this.entResourceObj);
