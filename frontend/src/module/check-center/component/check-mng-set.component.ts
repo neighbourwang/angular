@@ -39,7 +39,7 @@ export class CheckMngSetComponent implements OnInit{
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
-			this.loadHandler = new  ItemLoader<CheckCenterSet>(false, "审批设置", "op-center.order-mng.department-list.get", restApiCfg, restApi);
+			this.loadHandler = new  ItemLoader<CheckCenterSet>(false, "审批设置", "check-center.approve-set.post", restApiCfg, restApi);
 			this.loadHandler.MapFunc=(source:Array<any>,target:Array<CheckCenterSet>)=>{
 					for(let item of source){
 						let obj = new CheckCenterSet();
