@@ -297,6 +297,7 @@ export class CheckMngListComponent implements OnInit{
 	}
 
 	confirmAccept(){
+		this.refuseReason = "同意";
 		this.approveOrder(1, this._selectedItem.orderId);
 	}
 
