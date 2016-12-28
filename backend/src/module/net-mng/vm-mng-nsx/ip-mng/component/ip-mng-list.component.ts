@@ -205,7 +205,7 @@ export class IpMngListComponent implements OnInit{
             .catch((e) => this.onRejected(e));
             this.ipsbox.open();
         } else {          
-            this.showAlert("请选择相应的PortGroup");
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PG");
             return;
         }
 
@@ -226,7 +226,7 @@ export class IpMngListComponent implements OnInit{
                     } else {
                         console.log('clicked acceptIPsModify 4');
                         this.ipsbox.close();
-                        this.showMsg("设置IP地址范围失败");
+                        this.showMsg("NET_MNG_VM_IP_MNG.SET_IP_POOL_FAILED");
                         return;
                     }
                 })
@@ -240,7 +240,7 @@ export class IpMngListComponent implements OnInit{
                     this.layoutService.hide();
                     console.log('设置IP地址范围异常', err);
                     this.ipsbox.close();
-                    this.showMsg("设置IP地址范围异常");
+                    this.showMsg("NET_MNG_VM_IP_MNG.SET_IP_POOL_EXCEPTION");
                     this.okCallback = () => { this.ipsbox.open(); };
                 })
         }
@@ -262,15 +262,15 @@ export class IpMngListComponent implements OnInit{
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
     }
 
     showMsg(msg: string) {
-        this.notice.open("系统提示", msg);
+        this.notice.open("NET_MNG_VM_IP_MNG.SYSTEM_PROMPT", msg);
     }
 
 	showAlert(msg: string): void {
-        this.noticeTitle = "提示";
+        this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";
         this.noticeMsg = msg;
         console.log(this.noticeTitle, this.noticeMsg);
         this.notice.open();
@@ -283,9 +283,9 @@ export class IpMngListComponent implements OnInit{
     //根据value显示
     displayIt(value: string): String {
         if(this.validationService.isBlank(value)){
-            return "未设置";
+            return "NET_MNG_VM_IP_MNG.UNSET";
         } else {
-            return value;
+            return value.toString();
         }
     }
 
@@ -306,7 +306,7 @@ export class IpMngListComponent implements OnInit{
             return item;
         }
         else {
-            this.showMsg("请选择相应的PortGroup");
+            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PG");
             return null;
         }
     }
