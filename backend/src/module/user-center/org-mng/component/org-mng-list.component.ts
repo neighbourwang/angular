@@ -16,7 +16,8 @@ import { Org } from '../model/org';
 export class OrgMngListComponent implements OnInit {
     constructor(
         private router: Router,
-        private service: OrgMngService
+        private service: OrgMngService,
+        private layoutService:LayoutService
     ) { }
 
     @ViewChild('confirm')
@@ -52,16 +53,19 @@ export class OrgMngListComponent implements OnInit {
 
     getOrg(page: number, size: number) {
         this.org=new Org();
+        this.layoutService.show();
         this.service.getOrg(page, size).then(
             res => {
                 this.orgs = res.resultContent;
                 let pageInfo = res.pageInfo;
                 this.tp = pageInfo.totalPage;
                 console.log(this.orgs);
+                this.layoutService.hide();
             }
         ).catch(
             err => {
                 console.error(err);
+                this.layoutService.hide();
             }
             )
     }
@@ -70,8 +74,12 @@ export class OrgMngListComponent implements OnInit {
         this.curPage=page;
         this.getOrg(this.curPage, 10);
     }
-
-    chooseItem(index: number) {
+    chooseItem(index: number) {        
+        if(this.orgs[index].isDefault){
+            this.orgs[index].selected=false;
+            this.notice.open('操作错误','禁止操作系统默认机构');            
+            return
+        };
         console.log(index);
         this.orgs.forEach((ele)=>{
             ele.selected=false;
@@ -83,25 +91,31 @@ export class OrgMngListComponent implements OnInit {
     delete() {
         console.log(this.org);
         if (this.org.id) {
-            if (this.org.status == 1) {
-                this.notice.open('操作错误', '不能删除启用状态下的组织')
+            if(this.org.status == 0){
+                this.deleteOrg();
                 return;
             }
+            if (this.org.status == 1) {
+                this.notice.open('操作错误', '禁止删除启用状态下的机构');
+                return;
+            }
+            if(this.org.headCount>0){
+                this.notice.open('操作错误', '禁止删除机构下成员不为0的机构');
+                return;
+            }            
             this.confirmTitle = "删除机构";
             this.confirmMessage = "您选择删除" + this.org.name + "，请确认。如果确认，机构将被删除且该机构中的用户将被移除";
             this.confirmType = 3;
             this.confirm.open(this.confirmTitle, this.confirmMessage);
-
         } else {
-            this.notice.open('操作错误', '请选择一个组织');            
+            this.notice.open('操作错误', '请选择一个机构');            
         }
     }
-
     enable() {
         console.log(this.org);
         if (this.org.id) {
             if (this.org.status == 1) {
-                this.notice.open('操作错误', '不能启用已启用状态下的组织')
+                this.notice.open('操作错误', '不能启用已启用状态下的机构')
                 return;
             }
             this.confirmTitle = "启用机构";
@@ -110,13 +124,13 @@ export class OrgMngListComponent implements OnInit {
             this.confirm.open(this.confirmTitle, this.confirmMessage);
 
         } else {
-            this.notice.open('操作错误', '请选择一个组织');
+            this.notice.open('操作错误', '请选择一个机构');
         }
     }
 
     disable() {
         if (this.org.status == 5) {
-                this.notice.open('操作错误', '组织状态已禁用')
+                this.notice.open('操作错误', '机构状态已禁用')
                 return;
             }
         if (this.org.id) {
@@ -125,7 +139,7 @@ export class OrgMngListComponent implements OnInit {
             this.confirmType = 2;
             this.confirm.open(this.confirmTitle, this.confirmMessage);
         } else {
-            this.notice.open('操作错误', '请选择一个组织');
+            this.notice.open('操作错误', '请选择一个机构');
         }
     }
 
@@ -133,7 +147,7 @@ export class OrgMngListComponent implements OnInit {
         if(this.org.id){
             this.router.navigateByUrl("user-center/org-mng/org-mng-cr/" + this.org.id);
         }else{
-            this.notice.open('操作错误', '请选择一个组织');
+            this.notice.open('操作错误', '请选择一个机构');
         }        
     }
     of() {

@@ -10,7 +10,7 @@ export class AdUser {
     isLeader: boolean;
     loginName: string;
     ldapId: string;
-
+    isRoot:boolean;
     constructor() {
     }
 }

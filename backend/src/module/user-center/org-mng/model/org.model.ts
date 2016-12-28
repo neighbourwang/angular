@@ -26,6 +26,7 @@ class Platform{
 }
 class  Org{
   "description": string;
+  isDefault:boolean;
   "id": string;
   "leaderId": string;
   "members": Array<Member>;

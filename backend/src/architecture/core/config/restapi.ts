@@ -107,6 +107,12 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/platform/{pf-id}/storages/synchronize"
     },
     {
+        "desc": "volumetype同步",
+        "id": "pf.cre.step.04.volumetype.synchronize.get",
+        "method": "GET",
+        "url": "adminui/authsec/platforms/{id}/volumetype/synchronize"
+    },
+    {
         "desc": "云主机类型同步",
         "id": "pf.cre.step.02.flavors.synchronize.get",
         "method": "GET",

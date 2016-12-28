@@ -236,7 +236,7 @@ export class ProdMngComponent implements OnInit {
     }
 
     backend(page: number, size: number, data: any) {
-        // this.layoutService.show();
+        this.layoutService.show();
         this.tp = 0;
         // console.log(page);
         // console.log(size);        
@@ -252,6 +252,7 @@ export class ProdMngComponent implements OnInit {
         ).catch(
             err => {
                 console.log(err);
+                this.layoutService.hide();
             }
             );
     }
