@@ -159,6 +159,12 @@ export class OrderMngComponent implements OnInit{
 
 		//配置订单加载
 		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "ORDER_MNG.ORDERED_LSIT", "op-center.order-mng.order-list.post", restApiCfg, restApi);
+		this._orderLoader.MapFunc = (source:Array<any>, target:Array<SubInstanceResp>)=>{
+			for(let item of source)
+			{
+				target.push(_.extendOwn(new SubInstanceResp(), item));
+			}
+		};
 		this._orderLoader.Trait = (target:Array<SubInstanceResp>)=>{
 
 			let canRenew:(item:SubInstanceItemResp)=>boolean = (item:SubInstanceItemResp):boolean=>{
@@ -455,9 +461,13 @@ export class OrderMngComponent implements OnInit{
 
 	//退订
 	cancel(){
+		this.layoutService.show();
 		this._cancelHandler.Go(null, [{key:"_subId", value:this.cancelObj.subId},
-			{key:"_subId", value:this.cancelObj.cascadeFlag}])
+			{key:"_cascadeFlag", value:this.cancelObj.cascadeFlag}])
 		.then(success=>{
+			this.layoutService.hide();
+			$('#cancelOrder').modal('hide');
+
 			this.search();
 		})
 		.catch(err=>{
@@ -468,13 +478,16 @@ export class OrderMngComponent implements OnInit{
 	cancelSelect(orderItem:SubInstanceResp)
 	{
 		// 成功、即将过期:7的订单可以  续订
-		if(!_.isEmpty(orderItem.itemList)
-			&& orderItem.itemList.filter(n=>n.status == "7").length > 0)
+		if (!_.isEmpty(orderItem.itemList)
+			&& orderItem.itemList.filter(n=>n.status == "2").length > 0)
 		{
+			// console.log('cancel select', orderItem);
 			$('#cancelOrder').modal('show');
 
 			// todo: set the cancelObj here
+			this.cancelObj = new CancelParam(orderItem.isDisk, orderItem.isMachine, orderItem.isInUse);
 			this.cancelObj.subId = orderItem.orderId;
+			console.log('cancelObj', this.cancelObj);
 		}
 		else
 		{

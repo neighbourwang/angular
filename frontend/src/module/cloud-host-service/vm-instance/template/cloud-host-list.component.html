@@ -127,7 +127,7 @@
             <th class="text-center">{{'COMMON.OPERATION'| translate}}</th> 
         </tr>
         <tr *ngFor="let vm of vmList;let i = index;" style="line-height: 65px;">
-            <td class="text-center"> <input type="radio" class="fox-cloud-radio" value="{{i}}" (change)="radioSelected=vm;"  name="host-list"></td>
+            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;"  name="host-list"></td>
             <!-- <td class="text-center active" style="position: relative;width: 220px;">
                 <table-edit-name [value]="vm.instanceName" (onChange)="changeName($event)"></table-edit-name>
             </td> -->
