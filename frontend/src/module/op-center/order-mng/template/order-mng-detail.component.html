@@ -10,7 +10,7 @@
 						<td>已购服务编号</td>	
 						<td>{{_orderDetail.instanceCode}}</td>
 						<td>状态</td>
-						<td>{{_orderDetail.statusName}}</td>
+						<td>{{_orderDetail.status | dict:_dictServ.getDic('SUBINSTANCE', 'STATUS') | async}}</td>
 					</tr>
 					<tr>
 						<td>产品类型</td>
