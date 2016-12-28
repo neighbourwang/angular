@@ -7,8 +7,8 @@
 				<input type="text" class="form-control searchbox gray-searchbox" placeholder="输入订单信息快速查询"/>
 				<span class="glyphicon glyphicon-search searchbox-incon" (click)="search()"></span>
 						
-				<button class="fox-cloud-button float-left"  [ngClass]="{'fox-cloud-button-white':_isAdvSearch==1,'fox-cloud-button-grey':_isAdvSearch!=1}" (click)="_isAdvSearch = !_isAdvSearch">
-					  <span class="icon-button-label">高级查询</span>
+				<button class="fox-cloud-button float-left "  [ngClass]="{'fox-cloud-button-white':_isAdvSearch==1,'fox-cloud-button-grey':_isAdvSearch!=1}" (click)="_isAdvSearch = !_isAdvSearch">
+					  <span class="icon-button-label pointer">高级查询</span>
 				</button>
 		</div>
 			<table class="table" *ngIf="_isAdvSearch">
@@ -92,9 +92,9 @@
 		</div>
 		<div class="mgb10 float-left">当前查询到{{_listLoader.TotalRecords}}个订单需要审批，查询结果如下：</div>
 			<div class="table-container">
-			<table class="table">
+			<table class="table table-hover border-gray">
 				<thead>	
-					<tr class="">
+					<tr class="border-gray">
 						<th>编号</th>
 						<th>订单号</th>
 						<th>产品类型</th>
@@ -110,7 +110,7 @@
 					</tr>			
 				</thead>
 				<tbody>
-					<tr *ngFor="let item of _listLoader.Items;let i=index;">
+					<tr class="border-gray" *ngFor="let item of _listLoader.Items;let i=index;">
 						<td>{{i}}</td>
 						<td>{{item.orderCodeStr}}<br>
 							<a [popover]="myPopover" class="hands">详细信息>>>></a>

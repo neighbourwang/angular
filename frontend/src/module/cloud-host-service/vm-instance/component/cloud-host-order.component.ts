@@ -141,7 +141,8 @@ export class cloudHostComponentOrder implements OnInit {
 		let payloadList = [];
 
 		for (let v in this.sendModule) {
-			if(this.sendModule[v].attrValue === "" && this.sendModule[v].attrValueCode === "")  return;
+			console.log(this.sendModule[v], v)
+			if(this.sendModule[v].attrValueCode === "" && this.sendModule[v].attrValue === "")  continue;
 
 			payloadList.push({
 				attrId: this.configs[v].attrId,   	//服务属性ID
@@ -214,7 +215,7 @@ export class cloudHostComponentOrder implements OnInit {
 				this.payLoadArr.push(payLoad);  //加入云硬盘
 			}
 		}
-		console.log("发送的订单数据：" + this.payLoadArr)
+		console.log("发送的订单数据：" , this.payLoadArr)
 		return this.payLoadArr;
 	}
 

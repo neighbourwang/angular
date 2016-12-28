@@ -1,43 +1,43 @@
 <link src="image-mng-openStack.less">
-<div class="page-content-header icon-content-header-purchasing"> 镜像管理-{{platformName}}
+<div class="page-content-header icon-content-header-purchasing"> {{'HOST_OPENSTACK_MNG.IMAGE_MANAGEMENT' | translate}}-{{platformName}}
     <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" (click)="back()"style="padding:2px 15px;font-size:14px" key="boe/image-mng.html">
-        返回镜像管理列表
+        {{'HOST_OPENSTACK_MNG.RETURN_IMAGE_MANAGEMENT' | translate}}
     </button>
 </div>
 <div class="page-content">
     <div class="mgt15 ">
-            <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >镜像类型：</span>
+            <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >{{'HOST_OPENSTACK_MNG.IMAGE_TYPE' | translate}}：</span>
             <div class="float-left pdr20">
                 <select class="pdl10 form-control" [(ngModel)]="queryOpt.type" >
-                    <option value="">所有镜像类型</option>
+                    <option value="">{{'HOST_OPENSTACK_MNG.ALL_IMAGE' | translate}}</option>
                     <option *ngFor = "let type of this.service.typeDic | async" [ngValue]="type.value">{{type.displayValue}}</option>
                 </select>
             </div>
-            <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >所属企业：</span>
+            <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >{{'HOST_OPENSTACK_MNG.AFFILIATED_ENTERPRISE' | translate}}：</span>
             <div class="float-left">
                 <select class="pdl10 form-control" [(ngModel)]="queryOpt.tenantId" >
-                    <option value="">所有企业</option>
+                    <option value="">{{'HOST_OPENSTACK_MNG.ALL_ENTERPRISE' | translate}}</option>
                     <option *ngFor = "let tenant of tenants" [ngValue]="tenant.id">{{tenant.name}}</option>
                 </select>
             </div>
             <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10 "(click)="search()">
-                <span class="icon-button-label">确定 </span>
+                <span class="icon-button-label">{{'HOST_OPENSTACK_MNG.ENSURE' | translate}} </span>
                 </button>
     </div>
     <div style="clear:both"></div>
     <div class="mgb20 " style="margin-top:20px">
-        <button class="fox-cloud-button fox-cloud-button-green mgr10" key="boe/image-public-sync-poenStack.html" (click)="syncPublic()">同步公共镜像</button>
-        <button type="button" class="fox-cloud-button fox-cloud-button-green" data-toggle="modal" data-target="#my" (click)="createSynTeOption()">同步企业镜像</button>
+        <button class="fox-cloud-button fox-cloud-button-green mgr10" key="boe/image-public-sync-poenStack.html" (click)="syncPublic()">{{'HOST_OPENSTACK_MNG.SYNC_IMAGE_PUBLIC' | translate}}</button>
+        <button type="button" class="fox-cloud-button fox-cloud-button-green" data-toggle="modal" data-target="#my" (click)="createSynTeOption()">{{'HOST_OPENSTACK_MNG.SYNC_IMAGE_ENT' | translate}}</button>
 
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             更多操作
+             {{'HOST_OPENSTACK_MNG.MORE_OPERATION' | translate}}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li (click)="createEdit()"><a>编辑</a></li>
-                <li (click)="imageEnableOrDisable('1')"><a>启用</a></li>
-                <li (click)="imageEnableOrDisable('0')"><a>禁用</a></li>
+                <li (click)="createEdit()"><a>{{'HOST_OPENSTACK_MNG.EDIT' | translate}}</a></li>
+                <li (click)="imageEnableOrDisable('1')"><a>{{'HOST_OPENSTACK_MNG.ENABLE' | translate}}</a></li>
+                <li (click)="imageEnableOrDisable('0')"><a>{{'HOST_OPENSTACK_MNG.DISABLE' | translate}}</a></li>
             </ul>
         </div>
     </div>
@@ -46,15 +46,15 @@
         <table class="table table-hover">
              <thead>
                  <tr>
-                    <th>选择</th>
-                    <th>镜像名</th>
-                    <th>镜像显示名称</th>
-                    <th>操作系统</th>
-                    <th>系统位数</th>
-                    <th>镜像容量</th>
-                    <th>镜像类型</th>
-                    <th>所属企业</th>
-                    <th>状态</th>
+                    <th>{{'HOST_OPENSTACK_MNG.SELECT' | translate}}</th>
+                    <th>{{'HOST_OPENSTACK_MNG.IMAGE_NAME' | translate}}</th>
+                    <th>{{'HOST_OPENSTACK_MNG.IMAGE_DISPLAY_NAME' | translate}}</th>
+                    <th>{{'HOST_OPENSTACK_MNG.OS' | translate}}</th>
+                    <th>{{'HOST_OPENSTACK_MNG.BIT' | translate}}</th>
+                    <th>{{'HOST_OPENSTACK_MNG.CAPACITY' | translate}}</th>
+                    <th>{{'HOST_OPENSTACK_MNG.IMAGE_TYPE' | translate}}</th>
+                    <th>{{'HOST_OPENSTACK_MNG.AFFILIATED_ENTERPRISE' | translate}}</th>
+                    <th>{{'HOST_OPENSTACK_MNG.STATUS' | translate}}</th>
                  </tr>
             </thead>
             <tbody>
@@ -71,15 +71,15 @@
                                 <div class="popover-content">
                                     <form class="form-horizontal" role="form">
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label">镜像显示名称:</label>
+                                            <label class="col-sm-4 control-label">{{'HOST_OPENSTACK_MNG.IMAGE_DISPLAY_NAME' | translate}}:</label>
                                             <div class="col-sm-8 float-left">
                                             <input type="text"  class="form-control"[(ngModel)]="temp2.displayName" name ="displayName">
                                             </div>
                                         </div>
                                     </form>
                                 <div class="pull-right" style="margin-bottom:10px;">
-                                    <button class=" fox-cloud-button fox-cloud-button-white"(click)="updateEditDisplayName(image)">保存</button>
-                                    <button class="fox-cloud-button fox-cloud-button-white"(click)="image.nameEditing=false;">取消</button>
+                                    <button class=" fox-cloud-button fox-cloud-button-white"(click)="updateEditDisplayName(image)">{{'HOST_OPENSTACK_MNG.SAVE' | translate}}</button>
+                                    <button class="fox-cloud-button fox-cloud-button-white"(click)="image.nameEditing=false;">{{'HOST_OPENSTACK_MNG.CANCEL' | translate}}</button>
                                 </div>
                             </div>
                     </div>
@@ -88,7 +88,7 @@
                     <td >{{image.bitsType | dict:this.service.bits_typeDic | async }}</td>
                     <td >{{image.capacity | formatCapacity}}</td>
                     <td >{{image.type | dict:this.service.typeDic | async }}</td>
-                    <td >{{getImageTenant(image.tenants,image.type)}}</td>
+                    <td >{{getImageTenant(image.tenants,image.type) | translate}}</td>
                     <td [ngClass]="{'font-green':image.status=='1','font-orange':image.status==0}">{{image.status | dict:this.service.statusDic | async }}</td>
 
                 </tr>
@@ -110,13 +110,13 @@
 
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">镜像名：</div>
+                <div class="col-sm-4 form-control-title">{{'HOST_OPENSTACK_MNG.IMAGE_NAME' | translate}}：</div>
                 <div class="col-sm-6"><span style="line-height:34px">{{tempEditImage.name}}</span> </div>
             </div>
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像显示名称:</div>
+                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'HOST_OPENSTACK_MNG.IMAGE_DISPLAY_NAME' | translate}}:</div>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="tempEditImage.displayName" />
                     </div>
@@ -124,7 +124,7 @@
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">系统位数:</div>
+                <div class="col-sm-4 form-control-title">{{'HOST_OPENSTACK_MNG.BIT' | translate}}:</div>
                 <div class="col-sm-6">
                     <select class="form-control" [(ngModel)]="tempEditImage.bitsType">
                         <option *ngFor = "let type of service.bits_typeDic | async" [ngValue]="type.value" [ngClass]="setDefaultBits(type,tempEditImage.bitsType)">{{type.displayValue}}</option>
@@ -135,7 +135,7 @@
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">操作系统:</div>
+                <div class="col-sm-4 form-control-title">{{'HOST_OPENSTACK_MNG.OS' | translate}}:</div>
                 <div class="col-sm-6">
                     <select class="form-control" [(ngModel)]="tempEditImage.os">
                         <option *ngFor = "let os of service.osDic | async" [ngValue]="os.value" [ngClass]="setDefaultOs(os,tempEditImage.os)">{{os.displayValue}}</option>
@@ -145,7 +145,7 @@
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">镜像类型:</div>
+                <div class="col-sm-4 form-control-title">{{'HOST_OPENSTACK_MNG.IMAGE_TYPE' | translate}}:</div>
                 <div class="col-sm-6">
                     <span style="line-height:34px">{{tempEditImage.type | dict:this.service.typeDic | async }}</span>
                     </div>
@@ -153,7 +153,7 @@
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">描述:</div>
+                <div class="col-sm-4 form-control-title">{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}:</div>
                 <div class="col-sm-6"><textarea class="form-control" rows="3"[(ngModel)]="tempEditImage.description"></textarea></div>
             </div>
         </div>
@@ -166,8 +166,8 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>选择</th>
-                        <th>企业</th>
+                        <th>{{'HOST_OPENSTACK_MNG.SELECT' | translate}}</th>
+                        <th>{{'HOST_OPENSTACK_MNG.AFFILIATED_ENTERPRISE' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -183,8 +183,8 @@
 
 
 
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
-<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'HOST_OPENSTACK_MNG.CONFIRM' | translate}}"></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'HOST_OPENSTACK_MNG.CONFIRM' | translate}}" ct="{{'HOST_OPENSTACK_MNG.CANCEL' | translate}}"></fc-confirm>
 
 
 <!--<fc-selectbox #testbox [selectedList]="selectedList" [unSelectedList]="allList" titleL="可选" titleR="已选" displayKey="name"></fc-selectbox>-->

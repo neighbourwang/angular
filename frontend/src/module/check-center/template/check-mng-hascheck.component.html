@@ -121,14 +121,14 @@
 							</popover-content>
 						</td>
 						<td>{{item.serviceTypeName}}</td>
-						<td>{{item.platformStr}}
-						     {{item.zoneStr}}</td>
-						<td>{{item.orderTypeName}}</td>
+						<td>{{item.platformName}}<br/>
+						     {{item.zoneName}}</td>
+						<td>{{item.orderType | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
 						<td>{{item.description}}</td>
 						<td>{{item.userStr}}</td>
 						<td>{{item.departmentStr}}</td>
 						<td>{{item.entStr}}</td>
-						<td>{{'COMMON.BILLING_MODE' | translate}}:{{item.billingModeName}}<br>
+						<td>{{'COMMON.BILLING_MODE' | translate}}:{{item.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}<br>
 						 	{{'CHECK_CENTER.ORDER_CYCLE' | translate}}:{{item.billingDurationStr}}<br>
 						 	{{'CHECK_CENTER.ONE_TIME_COSTS' | translate}}:<span class="font-red">{{item.oneTimePriceNum}}</span><br>
 						 	{{'CHECK_CENTER.COST' | translate}}:<span class="font-red">{{item.priceNum}}</span></td>

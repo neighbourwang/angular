@@ -65,8 +65,8 @@ export class CheckMngListComponent implements OnInit{
 				obj.orderId = item.orderId;//订单id				
 				obj.orderCodeStr = item.orderNo;//订单编号
 				obj.serviceTypeIdStr = item.serviceType;//产品类型
-				// obj.platformStr = ?? 区域
-				// obj.zoneStr = ?? 可用区
+				obj.platformStr = item.platformName;//区域
+				obj.zoneStr = item.zoneName;// 可用区
 				obj.orderTypeName = item.orderType;//订单类型
 				obj.userStr = item.submiter;// 用户,提交者
 				obj.departmentStr = item.departmentName;// 部门
@@ -151,6 +151,9 @@ export class CheckMngListComponent implements OnInit{
 		})
 		.then(success=>{
 			return this._orderTypeDic.Go();
+		})
+		.then(success=>{
+			this.search();
 		})
 		.then(success=>{
 			this._layoutService.hide();

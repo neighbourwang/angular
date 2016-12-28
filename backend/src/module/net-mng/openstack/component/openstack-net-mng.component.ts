@@ -132,7 +132,7 @@ export class OpenstackNetMngComponent implements OnInit {
     }
     search1() {
         if(this.selectedPfi==this.defaultPlatform || !this.selectedPfi.platformId || this.selectedPfi.platformId == ""){
-            this.showAlert("请先选择平台");
+            this.showAlert("NET_MNG_OPENSTACK.PLEASE_CHOOSE_PF");
         }else{
             this.queryOpt = new CriteriaQuery();
             this.queryOpt.region = this.selectedRegion.region;
@@ -144,7 +144,7 @@ export class OpenstackNetMngComponent implements OnInit {
     }
     search2() {
         if(this.selectedPfi==this.defaultPlatform || !this.selectedPfi.platformId || this.selectedPfi.platformId == ""){
-            this.showAlert("请先选择平台");
+            this.showAlert("NET_MNG_OPENSTACK.PLEASE_CHOOSE_PF");
         }else{
             let tenantName = this.queryOpt.tenantName;
             this.queryOpt = new CriteriaQuery();
@@ -186,11 +186,11 @@ export class OpenstackNetMngComponent implements OnInit {
 
        
         if(!this.selectedNetwork || !this.selectedNetwork.id){
-            this.showAlert("请先选中一个网络");
+            this.showAlert("NET_MNG_OPENSTACK.PLEASE_CHOOSE_NET");
         }else{
-            this.noticeTitle = "启用网络";
+            this.noticeTitle = "NET_MNG_OPENSTACK.TITLE_ENABLE_NET";
             this.noticeMsg = `您选择启用 '${this.selectedNetwork.subnetName}' 网络，其网段为'${this.selectedNetwork.segmentCIDR}' ， 
-                        请确认；如果确认，用户将能够在订购中选择此网络。`
+                            请确认；如果确认，用户将能够在订购中选择此网络。`;
          
             //如果运行状态不是运行中的，则不能启用此网络
             //检测是否是运行中
@@ -204,7 +204,7 @@ export class OpenstackNetMngComponent implements OnInit {
                             response => {
                                 //this.layoutService.hide();
                                 if (response && 100 == response["resultCode"]) {
-                                    this.showAlert("启用成功");
+                                    this.showAlert("NET_MNG_OPENSTACK.ENABLE_SUCCESS");
                                     this.getNetworkList();
                                     //this.selectedNetwork= new Network();
                                 } else {
@@ -218,7 +218,7 @@ export class OpenstackNetMngComponent implements OnInit {
                 }
                 this.confirm.open();
             }else{
-                this.showAlert("未处于运行状态不能启用");
+                this.showAlert("NET_MNG_OPENSTACK.CANNOT_ENABLE");
             }
         }
     }
@@ -226,9 +226,9 @@ export class OpenstackNetMngComponent implements OnInit {
     networkStop(){
         //console.log("this.selectedNetwork.id="+this.selectedNetwork.id);
         if(!this.selectedNetwork || !this.selectedNetwork.id){
-            this.showAlert("请先选中一个网络");
+            this.showAlert("NET_MNG_OPENSTACK.PLEASE_CHOOSE_NET");
         }else{
-            this.noticeTitle = "禁用网络";
+            this.noticeTitle = "NET_MNG_OPENSTACK.TITLE_DISABLE_NET";
             this.noticeMsg = `您选择禁用 '${this.selectedNetwork.subnetName}' 网络，其网段为'${this.selectedNetwork.segmentCIDR}' ， 
                             请确认；如果确认，用户将不能够在订购中选择此网络。`
             if(this.selectedNetwork.status!='3'){
@@ -240,7 +240,7 @@ export class OpenstackNetMngComponent implements OnInit {
                             response => {
                                 //this.layoutService.hide();
                                 if (response && 100 == response["resultCode"]) {
-                                    this.showAlert("禁用成功");
+                                    this.showAlert("NET_MNG_OPENSTACK.DISABLE_SUCCESS");
                                     this.getNetworkList();
                                    // this.selectedNetwork= new Network();
                                 } else {
@@ -254,7 +254,7 @@ export class OpenstackNetMngComponent implements OnInit {
                 }
                 this.confirm.open();
             }else{
-                this.showAlert("该网络已处于禁用状态");
+                this.showAlert("NET_MNG_OPENSTACK.HASBEEN_DISABLE");
             }
         }
     }
@@ -279,12 +279,12 @@ export class OpenstackNetMngComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("NET_MNG_OPENSTACK.GETTING_DATA_FAILED");
     }
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "NET_MNG_OPENSTACK.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -314,7 +314,7 @@ export class OpenstackNetMngComponent implements OnInit {
         console.log("选中的platform_id：" + platform_id);
         
         if(this.selectedPfi==this.defaultPlatform || !platform_id || platform_id == ""){
-            this.showAlert("请先选择平台");
+            this.showAlert("NET_MNG_OPENSTACK.PLEASE_CHOOSE_PF");
         }else{
            
             this.service.getTenants( this.selectedPfi.platformId)
@@ -323,7 +323,7 @@ export class OpenstackNetMngComponent implements OnInit {
                         this.layoutService.hide();
                         if(response && 100 == response["resultCode"]){
                             this.tenants = response.resultContent;
-                            this.synEnts.open("请选择需要同步的企业");
+                            this.synEnts.open("NET_MNG_OPENSTACK.TITLE_CHOOSE_ENT");
                         } else{
                             alert("Res.sync error");
                         }
@@ -402,7 +402,7 @@ export class OpenstackNetMngComponent implements OnInit {
     updateNetworkDisplayName(network:Network){
         this.layoutService.show();
         if (this.validationService.isBlank(this.editNetwork.networkDisplayName)) {
-            this.showAlert("名称不能为空");
+            this.showAlert("NET_MNG_OPENSTACK.NAME_EMPTY");
             return;
         }
         this.service.updateNetworkDisplayName(this.editNetwork)
