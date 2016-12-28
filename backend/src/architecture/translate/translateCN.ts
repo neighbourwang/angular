@@ -301,7 +301,7 @@ export const TranslateCN = {
         ,APPROVE_SET_NEED_APPROVE_TIME:"请设置有效自动审批时间"
         ,APPROVE_SET_ERROR: "审批数据保存失败"
         ,APPROVE_SET_NEED_APPROVE_ENABLE: "必须设置审批选项"
-    }
+    },
     NET_MNG_OPENSTACK:{
         GETTING_DATA_FAILED: '获取数据失败！',
         COMFIRM: '确认',
