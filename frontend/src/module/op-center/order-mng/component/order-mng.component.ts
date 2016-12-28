@@ -397,6 +397,7 @@ export class OrderMngComponent implements OnInit{
 		
 		let param = _.extend({}, this._param);
 
+		console.log('search param', param, this._param);
 
 		//搜索框参数匹配后台API
 
@@ -406,8 +407,6 @@ export class OrderMngComponent implements OnInit{
 			currentPage:pageNumber - 1
 			,size:10
 		};
-		param.enterpiseId = this.restApi.getLoginInfo().userInfo.enterpriseId;
-
 
 		this.layoutService.show();
 		this._orderLoader.Go(null, null, param)
