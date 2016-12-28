@@ -103,7 +103,10 @@ export const TranslateCN = {
         REGION_AND_AVAILABLE_AREA: '所在区域及可用区',
         CREATED_TIME: '创建时间',
         EXPIRE_DATE: '到期时间',
-        SYSTEM_PROMPT: '系统提示'
+        SYSTEM_PROMPT: '系统提示',
+
+        //长句子
+        SET_NAME_FORMAT:'2-68个字符，以大小写字母或中文开头，可包含数字，"."，"-"，"_"'
     },
     SITE: {
         EXIT: '退出'
@@ -112,7 +115,9 @@ export const TranslateCN = {
         PROMPT: '提示',
         CONFIRM: '确认',
         CANCEL: '取消',
-        COMMIT: '提交'
+        COMMIT: '提交',
+        SAVE: '保存',
+        CLOSE:'关闭'
     },
     MENU: {
         CLOUD_HOSTING_SERVICES: '云主机服务',
@@ -210,7 +215,9 @@ export const TranslateCN = {
         BY_VOLUMN_COSTS: '按量费用',
         TOTAL_COST: '费用总计',
         ANNUAL_SUBSCRIPTION: '包年包月',
-
+        PRODUCT_ORDER_DESCRIPTION: '不同区域之间的产品内网不互通；订购后不支持更换区域，请谨慎选择！',
+        DEFINITION_OF_PUBLIC_IMAGE_AND_CUSTOM_IMAGE: '公共镜像即基础操作系统，自定义镜像为企业根据基础操作系统做过额外配置或优化后的操作系统',
+        PASSWARD_COMPLEXITY_DESCRIPTION:'密码复杂度：8-30个字符，且同时包括三项（大写字母，小写字母，数字和特殊符号）',
         //sub-add-storage
         ADD_DATA_DISK:'增加数据盘'
         
@@ -317,7 +324,17 @@ export const TranslateCN = {
         APPROVER: '审批人',
         ALL_APPROVERS: '所有审批人',
         APPROVAL_TIME: '审批时间',
-        APPROVAL_COMMENTS: '审批意见'
+        APPROVAL_COMMENTS: '审批意见',
+
+        //check-mng-set
+        APPROVAL_SETTINGS: '审批设置',
+        IS_APPROVAL_REQUIRED: '是否需要审批',
+        OPEN: '开启',
+        CLOSE: '关闭',
+        MINUTE: '分钟',
+        AUTO_APPROVAL_TIME_SET: '自动审批时间设置',
+        EDIT:'编 辑',
+        SAVE:'保 存'
     },
 
     //cloud-drive文件夹下
@@ -337,7 +354,7 @@ export const TranslateCN = {
     },
     CLOUD_DRIVE_ORDER: {
        
-        //28行：云硬盘只能挂载到同一可用区下的云主机实例，订购成功后不支持更换云硬盘的区域和可用区；请谨慎选择
+        CLOUD_HARD_DISK_ORDER_DESCRIPTION:'云硬盘只能挂载到同一可用区下的云主机实例，订购成功后不支持更换云硬盘的区域和可用区；请谨慎选择',
         CONFIGURATION_OPTIONS: '配置选项',
         BLANK_DISK: '空白盘',
         CLOUD_HARD_DISK_TYPE: '云硬盘类型',
@@ -380,6 +397,28 @@ export const TranslateCN = {
         //cart-order.html
         ORDER_FINISHED: '订单完成',
         //58行
-        MNG_CONSOLE: '管理控制台'
+        MNG_CONSOLE: '管理控制台',
+        ORDER_HAS_BEEN_GENERATED: '您的订单已生成，可以进入管理控制台查看订单状态及使用相关资源',
+        ORDER_IS_EFFECTIVE_AFTER_APPROVED:'如需审批，则需要订单审批通过后，才能正式生效。'
+    },
+    IMAGE: {
+        AREA_LIST: '区域列表',
+        IMAGE_ATTRIBUTION: '镜像归属',
+        IMAGE_NAME: '镜像名称',
+        ENETR_IMAGE_NAME_TO_SEARCH: '输入镜像名称搜索',
+        OPERATING_SYSTEM: '操作系统',
+        IMAGE_TYPE: '镜像类型',
+        SIMPLE_SEARCH: '简单搜索',
+        RESET_OPTIONS: '重置选项',
+        CHOOSE: '选择',
+        SYSTEM_BITS: '系统位数',
+        IMAGE_CAPACITY: '镜像容量',
+        FOUNDER: '创建人',
+        CREATED_DEPARTMENT: '创建部门',
+        PROGRESS_RATE: '进度',
+        CUSTOM_IMAGE_NAME: '自定义镜像名',
+        CUSTOM_IMAGE_APPLICATION_RANGE: '自定义镜像应用范围',
+        CUSTOM_IMAGE_DESCRIPTION:'自定义镜像描述'
+        
     }
 }
