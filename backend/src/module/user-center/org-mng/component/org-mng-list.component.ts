@@ -16,7 +16,8 @@ import { Org } from '../model/org';
 export class OrgMngListComponent implements OnInit {
     constructor(
         private router: Router,
-        private service: OrgMngService
+        private service: OrgMngService,
+        private layoutService:LayoutService
     ) { }
 
     @ViewChild('confirm')
@@ -52,16 +53,19 @@ export class OrgMngListComponent implements OnInit {
 
     getOrg(page: number, size: number) {
         this.org=new Org();
+        this.layoutService.show();
         this.service.getOrg(page, size).then(
             res => {
                 this.orgs = res.resultContent;
                 let pageInfo = res.pageInfo;
                 this.tp = pageInfo.totalPage;
                 console.log(this.orgs);
+                this.layoutService.hide();
             }
         ).catch(
             err => {
                 console.error(err);
+                this.layoutService.hide();
             }
             )
     }
