@@ -293,6 +293,13 @@ export const TranslateCN = {
         SYNC_DBT_NETWORK: '同步分布式网络',
         DBT_PORTGROUP_NAME: '分布式虚拟端口组名称(dv Port-group)',
         DBT_PORTGROUP_DISPLAY_NAME: '分布式端口组显示名称',
+
+        ENABLE_PORTGROUP_WARNING: '您选择启用{{value_1}}端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，用户将能够在订购中选择此网络。',
+        DISABLE_PORTGROUP_WARNING:'您选择禁用{{value_1}}端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，用户将不能够在订购中选择此网络。',
+        DELETE_PORTGROUP_WARNING:'您选择删除{{value_1}}端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，此网络将被删除。',
+        
+        ENABLE_DBT_PORTGROUP_WARNING: '您选择启用{{value_1}}分布式端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，用户将能够在订购中选择此网络。',
+        DISABLE_DBT_PORTGROUP_WARNING:'您选择禁用{{value_1}}分布式端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，用户将不能够在订购中选择此网络。',
     },
     CHECK_CENTER: {
         //check-mng-set
