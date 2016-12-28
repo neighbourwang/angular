@@ -1,8 +1,8 @@
 export class CheckCenterSet{
 
-    private isOpen : string;//开启或关闭
+     auditEnable : boolean;//开启1或关闭0
 
-    private time : number ;//分钟
+     time : number ;//分钟
 
 }
 
