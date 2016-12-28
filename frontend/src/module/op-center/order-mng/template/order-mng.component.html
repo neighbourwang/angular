@@ -262,8 +262,8 @@
 				  	</div>
 				 	<div class="modal-body"> 
 			 			<div *ngIf="cancelObj.isMachine">
-			 				<input type="checkbox" [(ngModel)]="cancelObj.removeDisk"/>
-			 				<div>{{ 'ORDER_MNG.UNSUBSCRIBE_FROM___HARD_DRIVE' | translate }}</div>
+			 				<input type="checkbox" class="float-left mgr20  fox-cloud-checkbox" [(ngModel)]="cancelObj.removeDisk"/>
+			 				<span style="display: block;padding-top: 4px;">{{ 'ORDER_MNG.UNSUBSCRIBE_FROM___HARD_DRIVE' | translate }}</span>
 			 			</div><!-- 云主机 -->
 			 			<div *ngIf="cancelObj.isDisk && !cancelObj.isInUse">
 			 				{{ 'ORDER_MNG.WHETHER_TO_CONFIRM___EXIT_THE_PROCESS' | translate }}.
