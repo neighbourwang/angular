@@ -183,13 +183,13 @@ export class OpenstackMngComponent implements OnInit{
     imageEnableOrDisable(status:string){
 
         if(!this.selectedImage || ''== this.selectedImage.id){
-            this.showAlert("请先选中一个镜像");
+            this.showAlert("HOST_OPENSTACK_MNG.PLEASE_CHOOSE_IMAGE");
         }else{
             if("0" == this.selectedImage.status){
                 //选择的image当前是禁用状态
                 if(status == "0"){
                     //选择禁用
-                    this.showAlert("该镜像已是禁用状态");
+                    this.showAlert("HOST_OPENSTACK_MNG.IMAGE_DISABLED");
                 }else{
                     //选择启用
                      this.enableImage(this.selectedImage.id);
@@ -199,7 +199,7 @@ export class OpenstackMngComponent implements OnInit{
                 //选择的image当前是启用状态
                 if(status == "1"){
                      //选择启用
-                    this.showAlert("该镜像已是启用状态");
+                    this.showAlert("HOST_OPENSTACK_MNG.IMAGE_ENABLED");
                 }else{
                     //选择禁用
                      this.disableImage(this.selectedImage.id);
@@ -218,9 +218,8 @@ export class OpenstackMngComponent implements OnInit{
     }
     //启用镜像
     enableImage(id:string){
-        this.noticeTitle = "启用镜像";
-        this.noticeMsg = `您选择启用 '${this.selectedImage.displayName}?' , 
-                            请确认;如果确认,用户将能够在订购中选择此镜像.`
+        this.noticeTitle = "HOST_OPENSTACK_MNG.ENABLE_IMAGE";
+        this.noticeMsg = 'HOST_OPENSTACK_MNG.ENABLE_IMAGE_MSG^^^'+this.selectedImage.displayName;
         
         this.confirm.ccf = () => {
         };
@@ -232,7 +231,7 @@ export class OpenstackMngComponent implements OnInit{
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
                             this.getImages();
-                            this.showAlert("启用成功");
+                            this.showAlert("HOST_OPENSTACK_MNG.IMAGE_ENABLE_SUCCESS");
                         } else {
                             alert("Res sync error");
                         }
@@ -245,9 +244,8 @@ export class OpenstackMngComponent implements OnInit{
         
     //禁用镜像
     disableImage(id:string){
-        this.noticeTitle = "禁用镜像";
-        this.noticeMsg = `您选择禁用 '${this.selectedImage.displayName}?' , 
-                            请确认;如果确认,用户将不能够在订购中选择此镜像.`
+        this.noticeTitle = "HOST_OPENSTACK_MNG.DISABLE_IMAGE";
+        this.noticeMsg = 'HOST_OPENSTACK_MNG.DISABLE_IMAGE_MSG^^^'+this.selectedImage.displayName;
         
         this.confirm.ccf = () => {
         };
@@ -259,7 +257,7 @@ export class OpenstackMngComponent implements OnInit{
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
                             this.getImages();
-                            this.showAlert("禁用成功");
+                            this.showAlert("HOST_OPENSTACK_MNG.IMAGE_DISABLE_SUCCESS");
                         } else {
                             alert("Res sync error");
                         }
@@ -297,7 +295,7 @@ export class OpenstackMngComponent implements OnInit{
     //更新显示名称
     updateEditDisplayName(image:Image){
         if (this.validationService.isBlank(this.temp2.displayName)) {
-            this.showAlert("镜像显示名称不能为空");
+            this.showAlert("HOST_OPENSTACK_MNG.IMAGE_NAME_ENFORCED");
             return;
         }
         this.layoutService.show();
@@ -335,7 +333,7 @@ export class OpenstackMngComponent implements OnInit{
     createEdit(){
         this.closeEditDisplayName();
         if(!this.selectedImage){
-            this.showAlert("请先选择要编辑的镜像");
+            this.showAlert("HOST_OPENSTACK_MNG.PLEASE_CHOOSE_IMAGE");
         }else{
             let temp:Image = new Image();
             temp.id = this.selectedImage.id;
@@ -351,12 +349,12 @@ export class OpenstackMngComponent implements OnInit{
             temp.nameEditing = this.selectedImage.nameEditing;
             temp.selected = this.selectedImage.selected;
             this.tempEditImage= temp;
-            this.editImage.open('编辑镜像');
+            this.editImage.open('HOST_OPENSTACK_MNG.EDIT_IMAGE');
         }
     }
     saveEdit(){
         if (this.validationService.isBlank(this.tempEditImage.displayName)) {
-            this.showAlert("镜像显示名称不能为空");
+            this.showAlert("HOST_OPENSTACK_MNG.IMAGE_NAME_ENFORCED");
             return;
         }
         this.layoutService.show();
@@ -367,7 +365,7 @@ export class OpenstackMngComponent implements OnInit{
                 if (response && 100 == response["resultCode"]) {
                     this.getImages();
                     this.editImage.close();
-                    this.showAlert("编辑成功");
+                    this.showAlert("HOST_OPENSTACK_MNG.SAVE_SUCCESS");
                 } else {
                     this.selectedImage = null;
                     alert("Res sync error");
@@ -381,7 +379,7 @@ export class OpenstackMngComponent implements OnInit{
     }
     //同步企业选择弹出框
     createSynTeOption(){
-        this.synTeImage.open("请选择企业");
+        this.synTeImage.open("HOST_OPENSTACK_MNG.PLEASE_CHOOSE_ENTERPRISE");
     }
     //进入同步企业页面
     commitSynTe(){
@@ -413,19 +411,19 @@ export class OpenstackMngComponent implements OnInit{
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("HOST_OPENSTACK_MNG.GETTING_DATA_FAILED");
     }
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "HOST_OPENSTACK_MNG.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
 
     getImageTenant(ts:Array<Tenant>,type:string): String {
         if(type=="0"){
-            return "所有"
+            return "HOST_OPENSTACK_MNG.ALL";
         }else {
             let t: Tenant = ts[0];
             if(t){
@@ -469,7 +467,7 @@ export class OpenstackMngComponent implements OnInit{
         const Mn = 1048576.0;
         const Kn = 1024.0;
         if(capacity==undefined){
-            return "未知"
+            return "HOST_OPENSTACK_MNG.UNKNOWN"
         }else{
             let c = capacity;
             if(c==0){

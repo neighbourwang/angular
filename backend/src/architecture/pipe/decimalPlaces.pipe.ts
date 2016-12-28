@@ -1,6 +1,7 @@
 /**** 保留小数点的位数 
 	{{22.1122232323 | decimalPlaces}} ===> 22.11   //默认保留两位
 	{{22.1122232323 | decimalPlaces : 4}} ===> 22.1122   //手动设置保留的位数
+	{{22.00000 | decimalPlaces : 2}} ===> 22   //与toFixed的区别
 *****/
 
 import { Pipe, PipeTransform } from "@angular/core";

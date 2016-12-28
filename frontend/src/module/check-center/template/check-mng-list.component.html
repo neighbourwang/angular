@@ -82,10 +82,10 @@
 			<table class="table ">
 				<thead>	
 					<tr >
-						<th>{{'CHECK_CENTER.NUMBER' | translate}}</th>
+						<th>{{'COMMON.NUMBER' | translate}}</th>
 						<th>{{'COMMON.ORDER_NUMBER' | translate}}</th>
 						<th>{{'CHECK_CENTER.PRODUCT_TYPE' | translate}}</th>
-						<th>{{'CHECK_CENTER.REGION_AND_AVAIABLE_AREA' | translate}}</th>
+						<th>{{'COMMON.REGION_AND_AVAILABLE_AREA' | translate}}</th>
 						<th>{{'CHECK_CENTER.ORDER_TYPE' | translate}}</th>
 						<th>{{'CHECK_CENTER.ORDER_DESCRIPTION' | translate}}</th>
 						<th>{{'CHECK_CENTER.SUBMITTER' | translate}}</th>
@@ -111,14 +111,14 @@
 							</popover-content>
 						</td>
 						<td>{{item.serviceTypeName}}</td>
-						<td>{{item.platformStr}}
-						     {{item.zoneStr}}</td>
-						<td>{{item.orderTypeName}}</td>
+						<td>{{item.platformName}}<br/>
+						     {{item.zoneName}}</td>
+						<td>{{item.orderType | dict:_dictServ.getDic('ORDER', 'TYPE') |async}}</td>
 						<td>{{item.description}}</td>
 						<td>{{item.userStr}}</td>
 						<td>{{item.departmentStr}}</td>
 						<td>{{item.entStr}}</td>
-						<td>{{'COMMON.BILLING_MODE' | translate}}:{{item.billingModeName}}<br>
+						<td>{{'COMMON.BILLING_MODE' | translate}}:{{item.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}<br>
 						 	{{'CHECK_CENTER.ORDER_CYCLE' | translate}}:{{item.billingDurationStr}}<br>
 						 	{{'CHECK_CENTER.ONE_TIME_COSTS' | translate}}:<span class="font-red">{{item.oneTimePriceNum}}</span><br>
 						 	{{'CHECK_CENTER.COST' | translate}}:<span class="font-red">{{item.priceNum}}</span></td>

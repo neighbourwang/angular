@@ -65,12 +65,12 @@
 					<td>{{item.specification}}</td>
 					<td>{{item.productNum}}</td>
 					<td [ngClass]="{'font-green':item.status =='1' ,'font-orange':item.status == '3'}">
-						<!--{{item.status| dict:this.service.versionDic | async}}-->
-						<span [ngSwitch]="item.status">
+						{{item.status| dict:this.service.versionDic | async}}
+						<!--<span [ngSwitch]="item.status">
                             <template [ngSwitchCase]="1">已发布</template>
                             <template [ngSwitchCase]="3">未发布</template>
                             <template ngSwitchDefault>Unknown</template>
-                        </span>
+                        </span>-->
 					</td>
 					<td>{{item.description}}</td>
 				</tr>

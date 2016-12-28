@@ -15,7 +15,6 @@ export class MenuService {
 	userInfo = this.restApi.getLoginInfo().userInfo;
 
 	getMenuList(): Promise<any> {
-		const isAdmin: boolean = this.userInfo.organizationName === "管理员部门";   //临时判断如果是管理员就不隐藏了
 		const isOrgin: boolean = this.userInfo.roles.map(role => JSON.stringify(role)).join(",").indexOf('"企业管理员"') > -1; ;   //临时判断如果是机构管理员就显示审批设置
 
 		return new Promise(resolve => {
@@ -119,19 +118,19 @@ export class MenuService {
 				{
 					"label": "MENU.APPROVAL_CENTER",
 					"isOpen": false,
-					"isShow": true,
+					"isShow": isOrgin,
 					"icon": "icon-check",
 					"top2_menu": [
 						{
 							"label": "MENU.NOT_APPROVED",
 							"isOpen": false,
-							"isShow": true,
+							"isShow": isOrgin,
 							"routing": "check-center/check-mng-list"
 						},
 						{
 							"label": "MENU.APPROVED",
 							"isOpen": false,
-							"isShow": true,
+							"isShow": isOrgin,
 							"routing": "check-center/check-mng-hascheck"
 						},
 						{
@@ -176,13 +175,13 @@ export class MenuService {
 						{
 							"label": "MENU.ACCOUNT_MANAGEMENT",
 							"isOpen": false,
-							"isShow": isAdmin,
+							"isShow": isOrgin,
 							"routing": "user-center/account-mng/account-mng-list"
 						},
 						{
 							"label": "MENU.ORGANIZATION_MANAGENMENT",
 							"isOpen": false,
-							"isShow": isAdmin,
+							"isShow": isOrgin,
 							"routing": "user-center/org-mng/org-mng-list"
 						},
 						{

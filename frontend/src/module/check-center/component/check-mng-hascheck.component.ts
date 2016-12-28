@@ -10,7 +10,7 @@ import { RestApi
 	, SystemDictionary
 	, DicLoader
 	, ItemLoader } from '../../../architecture';
-
+import {DictService} from '../../../architecture/core/service/dict-service';
 import { CheckCenterParam,CheckListItem } from './../model';
 import * as _ from 'underscore';
 
@@ -38,7 +38,8 @@ export class CheckMngHascheckComponent implements OnInit{
 	constructor(
 		private _restApiCfg:RestApiCfg
 		,private _restApi:RestApi
-		,private _layoutService:LayoutService){
+		,private _layoutService:LayoutService
+		,private _dictServ:DictService){
 
 
 		//列表数据加载
@@ -47,32 +48,28 @@ export class CheckMngHascheckComponent implements OnInit{
 
 			for(let item of source)
 			{
-				let obj = new CheckListItem();
+				let obj = _.extendOwn(new CheckListItem(), item) as CheckListItem;
 				target.push(obj);
 				
 				obj.orderCodeStr = item.orderNo;//订单编号
 				obj.serviceTypeIdStr = item.serviceType;//产品类型
-				// obj.platformStr = ?? 区域
-				// obj.zoneStr = ?? 可用区
-				obj.orderTypeName = item.orderType;//订单类型
 				obj.userStr = item.submiter;// 用户,提交者
 				obj.departmentStr = item.departmentName;// 部门
 				obj.entStr = item.enterpriszeName;// 企业
 				//费用
-				obj.billingModeNum =item.billingInfo ? item.billingInfo.billingMode: null; //计费模式
 				obj.billingDurationStr = item.period;//订单周期
 				obj.oneTimePriceNum = item.billingInfo ? item.billingInfo.basePrice: "";//一次性费用
 				if(item.billingInfo)
 				{
-					if(obj.billingModeNum == 0)//包年包月
+					obj.billingMode = item.billingInfo.billingMode;
+					if(item.billingInfo.billingMode == 0)//包年包月
 					{
 						obj.priceNum = item.billingInfo.basicPrice + item.billingInfo.cyclePrice
 					}
-					else if(obj.billingModeNum == 1)//按量
+					else if(item.billingInfo.billingMode == 1)//按量
 					{
 						obj.priceNum = item.billingInfo.unitPrice;
 					}
-					
 				}
 
 				obj.createTimeStr = item.createDate;// 创建时间
@@ -128,6 +125,9 @@ export class CheckMngHascheckComponent implements OnInit{
 		})
 		.then(success=>{
 			return this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._restApi.getLoginInfo().userInfo.enterpriseId}])
+		})
+		.then(success=>{
+			this.search();
 		})
 		.then(success=>{
 			this._layoutService.hide();

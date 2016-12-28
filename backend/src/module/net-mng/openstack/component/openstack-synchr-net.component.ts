@@ -113,12 +113,12 @@ export class OpenstackSynchrNetComponent implements OnInit{
 	onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("NET_MNG_OPENSTACK.GETTING_DATA_FAILED");
     }
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "NET_MNG_OPENSTACK.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -148,7 +148,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
             response=>{
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.showAlert("添加成功");
+                    this.showAlert("NET_MNG_OPENSTACK.ADD_SUCCESS");
                     this.getSynList(this.platform_id);
                     //this.filter();
                 }else{
@@ -173,17 +173,14 @@ export class OpenstackSynchrNetComponent implements OnInit{
         if(!network_syns || network_syns.length==0){
             //没有需要添加的
             this.layoutService.hide();
-            this.showAlert("没有需要添加的网络");
+            this.showAlert("NET_MNG_OPENSTACK.NONEED_ADD");
         }else {
 
             this.service.synNetworkAdd( network_syns ).then(
                 response=>{
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
-                        this.showAlert("全部添加成功");
-                        // network_syns.forEach((n)=>{
-                        //     n.syncResult = "2";
-                        // })
+                        this.showAlert("NET_MNG_OPENSTACK.ADDALL_SUCCESS");
                         this.getSynList(this.platform_id);
                         //this.filter();
                     }else{
@@ -203,7 +200,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
             response=>{
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.showAlert("更新成功");
+                    this.showAlert("NET_MNG_OPENSTACK.UPDATE_SUCCESS");
                     this.getSynList(this.platform_id);
                     //this.filter();
                 }else{
@@ -224,13 +221,13 @@ export class OpenstackSynchrNetComponent implements OnInit{
         if(!network_syns || network_syns.length==0){
             //没有需要更新的
             this.layoutService.hide();
-            this.showAlert("没有需要更新的网络");
+            this.showAlert("NET_MNG_OPENSTACK.NONEED_UPDATE");
         }else {
             this.service.synNetworkUpdate( network_syns ).then(
                 response=>{
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
-                        this.showAlert("全部更新成功");
+                        this.showAlert("NET_MNG_OPENSTACK.UPDATEALL_SUCCESS");
                         this.getSynList(this.platform_id);
                         //this.filter();
                     }else{
@@ -250,7 +247,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
             response=>{
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.showAlert("禁用成功");
+                    this.showAlert("NET_MNG_OPENSTACK.DISABLE_SUCCESS");
                     this.getSynList(this.platform_id);
                     //this.filter();
                 }else{
@@ -272,7 +269,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
             response=>{
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.showAlert("全部禁用成功");
+                    this.showAlert("NET_MNG_OPENSTACK.DISABLEALL_SUCCESS");
                     this.getSynList(this.platform_id);
                     //this.filter();
                 }else{

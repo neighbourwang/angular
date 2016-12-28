@@ -6,10 +6,10 @@ import * as _ from 'underscore';
 	selector:'vm-view'
 	,template:`
 	<ul>
-		<li>实例名称:{{_obj.instanceName}}</li>
-		<li>可用区:{{_obj.zone}}</li>
+		<li>{{ 'COMMON.INSTANCE' | translate }}{{ 'COMMON.NAME' | translate }}:{{_obj.instanceName}}</li>
+		<li>{{ 'COMMON.AVAILABLE_ZONE' | translate }}:{{_obj.zone}}</li>
 		<li>CPU:{{_obj.cpu}}</li>
-		<li>内存:{{_obj.mem}}</li>
+		<li>{{ 'COMMON.RAM' | translate }}:{{_obj.mem}}</li>
 
 	</ul>
 	`

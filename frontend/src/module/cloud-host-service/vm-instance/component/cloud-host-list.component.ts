@@ -80,7 +80,7 @@ export class cloudHostListComponent implements OnInit {
 
 	resetSearch(){   //重置搜索
 		this.list = Object.assign({}, this.saveList);
-		this.platformZone.reset();
+		this.initSelect();
 	}
 	search() {    //搜索
 		console.log(this.list)
@@ -93,6 +93,7 @@ export class cloudHostListComponent implements OnInit {
 		this.list.zoneId = data.zone.zoneId;
 		this.saveList.platformId = data.area.id;
 		this.saveList.zoneId =  data.zone.zoneId;
+		this.setHostList();
 	}
 
 	//云主机的操作相关

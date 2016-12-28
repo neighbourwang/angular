@@ -16,30 +16,12 @@ export class MngConsoleService {
 
 	getUserInfo = this.restApi.getLoginInfo().userInfo;
 	
-	getEntResoure() : Promise<EnterpriseQuotaDetailResp[]> {
-		let api = this.restApiCfg.getRestApi('user-center.org-mng.currEntResoure.get');
+	getQuotaResoure() : Promise<EnterpriseQuotaDetailResp> {
+		let api = this.restApiCfg.getRestApi('user-center.org-mng.resource.get');
 
 		let pathParams = [{
 			key: 'id',
-            value: this.getUserInfo.enterpriseId
-		}];
-
-		const request = this.restApi.request(api.method, api.url, pathParams, undefined, undefined)
-							.then(res => {
-								if(res.resultCode !== "100"){
-									throw "";
-								}
-								return res.resultContent;
-							});
-
-		return request;
-	};
-	getQuotaResoure() : Promise<EnterpriseQuotaDetailResp[]> {
-		let api = this.restApiCfg.getRestApi('user-center.org-mng.currEntResoure.get');
-
-		let pathParams = [{
-			key: 'id',
-            value: this.getUserInfo.enterpriseId
+            value: this.getUserInfo.organizationId
 		}];
 
 		const request = this.restApi.request(api.method, api.url, pathParams, undefined, undefined)

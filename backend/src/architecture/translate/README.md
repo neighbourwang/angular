@@ -55,7 +55,7 @@ https://github.com/ocombe/ng2-translate
 
 （其中'DIALOG.CONFIRM'相当于映射文件中的key值。）
 
-### 3.ts文件添加语言映射的代码方式    'key^^^param'  ,'^^^'前为要翻译的字段，后为需要带的参数  如下：（可以参考 org-mng-list.component.ts）
+### 3.ts文件添加语言映射的代码方式    'key^^^param^^^param^^^param^^^param.....'  ,'^^^'前为要翻译的字段，后为需要带的参数,可以传递多个参数  如下：（可以参考 org-mng-list.component.ts）
 
 
     //这个为不带参数直接传值。
@@ -64,7 +64,7 @@ https://github.com/ocombe/ng2-translate
     //这个为参数传值，变量跟在 '^^^' 后面。
     this.confirmMessage = "ORG_MNG_LIST.YOU_CHOOSE_TO_ENABLE_VALUE_PLEASE_CONFIRM^^^" + org.name;
 
-### 4.translateXXX.ts的写法   key: 'xxxx{{value}}xxxxxx'  ,{{value}}为传入的参数，在如下
+### 4.translateXXX.ts的写法   key: 'xxxx{{value_1}}xxxxxx{{value_2}}{{value_3}}'  ,{{value}}为传入的参数，在如下
 
     ORG_MNG_LIST: {
 
@@ -75,4 +75,15 @@ https://github.com/ocombe/ng2-translate
         
     }
 
-    
+   
+### 5.translate 在html template中的写法   key: 'xxxx{{value_1}}xxxxxx{{value_2}}{{value_3}}'  ,{{value}}为传入的参数，在如下
+ 
+ 字典中定义为
+        MY_MSG: '您选择启用{{value}}, 请确认; 如果{{value}}确认，用户{{value2}}将能够在订购中选择此镜像.',
+ 
+ html中代码：{{'MY_MSG' | translate:{value:"hee",value2:"3333"} }}
+
+ html呈现结果：VMware您选择启用hee, 请确认; 如果hee确认，用户3333将能够在订购中选择此镜像.
+
+
+ 注意 参数中最后三个“}}}”必须写成“} }}”，否则会编译错误

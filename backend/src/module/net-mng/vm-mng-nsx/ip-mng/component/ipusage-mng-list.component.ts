@@ -13,7 +13,7 @@ import { IpUsageMngListService } from '../service/ipusage-mng-list.service';
 
 @Component({
     selector: 'ipusage-mng-list',
-    templateUrl: '../template/vmware-dis-ipAddr-mng.html',
+    templateUrl: '../template/vmware-nsx-mng_ip_addr.html',
     styleUrls: [],
     providers: []
 })
@@ -145,7 +145,7 @@ export class IpUsageMngListComponent implements OnInit{
     }
 
     ipMngPage() {
-        this.router.navigate([`net-mng/vm-mng-dbt/ip-mng-list`, {"pid": this.platformId}]);
+        this.router.navigate([`net-mng/vm-mng-nsx/ip-mng-list`, {"pid": this.platformId}]);
     }
 
     filter(query?): void {

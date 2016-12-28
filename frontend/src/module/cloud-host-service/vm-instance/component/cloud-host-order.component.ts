@@ -6,10 +6,12 @@
  * 3. sendModule是和页面绑定的数据，最终是要转换成PayLoad
  *
  * 流程介绍：
- * 1. 每个订单根据所选来确定产品，也就是sku
- * 2. 根据sku的id 来获取时长单位
- * 3. 根据sku id与时长单位获取来获取价格 
- * 4. 提交的时候根据sendModule转换成PayLoad
+ * 1. 每个订单根据所选来获取一个产品的列表
+ * 2. 根据产品的列表获取到启动盘的列表
+ * 3. 根据启动盘的列表确定最终的sku
+ * 4. 根据sku的id 来获取时长单位
+ * 5. 根据sku id与时长单位获取来获取价格 
+ * 6. 提交的时候根据sendModule转换成PayLoad
  */
 
 import { Component, ViewChild, Input, Output, OnInit } from '@angular/core';
@@ -39,8 +41,10 @@ export class cloudHostComponentOrder implements OnInit {
 
 	totalPrice: number = 0;
 	vmSku: SkuMap = new SkuMap;
+	vmSkuMap: SkuMap[];
 	diskSku: SkuMap[];
 
+	bootsizeList : VlueList[] = [];
 	networkList: VlueList[];
 	imageList: VlueList[];
 
@@ -101,29 +105,31 @@ export class cloudHostComponentOrder implements OnInit {
 		})
 	}
 
-	private getSkuId(code: "vm" | "disk"): SkuMap {   //获取skuID和productId
+	private getSkuMap(code: "vm" | "disk"): SkuMap[] {   //获取根据参数获取的sku数组 因为云主机的sku不止一个
 
 		let list = code === "vm" ? ["zone", "platform", "cpu", "mem"].map(v => this.sendModule[v].attrValueId)   //vm主机订单的sku匹配的选项 需要匹配可用区 平台 cpu 内存
 			: code === "disk" ? ["zone", "platform", "storage"].map(v => this.sendModule[v].attrValueId) : [];  //云硬盘订单的sku匹配的选项 需要匹配 平台 可用区 （还有一个硬盘类型 由下面添加）
 
 		const trim = val => val.replace("[", "").replace("]", "");
 
-		for (let v of list) if (!v || !list.length) return new SkuMap;  //如果列表存在空值 直接return出去 不再匹配
+		for (let v of list) if (!v || !list.length) return [];  //如果列表存在空值 直接return出去 不再匹配
 
 		let totalId = list.join(","),
 			nub = 0, 	//验证sku成功的个数
-			skuValue = {};
+			skuValue = {},
+			skuMap = [];
 
 		for (let sku in this.skuMap) {
 			sku.split(", ").forEach(skuString => {
 				if (totalId.indexOf(trim(skuString)) > -1) nub++;
 			});
 			if (nub === list.length) {
-				return this.skuMap[sku];
+				skuMap.push(this.skuMap[sku]);
 			}
 			nub = 0;
 		}
-		return new SkuMap;
+		console.log("匹配的sku列表：" ,skuMap)
+		return skuMap;
 	}
 
 	private itemNum: number = 0;
@@ -133,7 +139,10 @@ export class cloudHostComponentOrder implements OnInit {
 
 	private sendModuleToPay(): AttrList[] {   //把sendModule转换成数组
 		let payloadList = [];
+
 		for (let v in this.sendModule) {
+			if(this.sendModule[v].attrValue === "" && this.sendModule[v].attrValueCode === "")  return;
+
 			payloadList.push({
 				attrId: this.configs[v].attrId,   	//服务属性ID
 				attrCode: this.configs[v].attrCode,  	//服务属性CODE
@@ -189,7 +198,7 @@ export class cloudHostComponentOrder implements OnInit {
 				this.sendModule.disksize = storage.storagesize;
 				this.sendModule.storagesize = storage.storagesize;
 
-				let sku = this.getSkuId("disk"),
+				let sku = this.getSkuMap("disk")[0],
 					payloadList = this.sendModuleToPay();
 				payLoad = {
 					skuId: sku.skuId,
@@ -209,32 +218,14 @@ export class cloudHostComponentOrder implements OnInit {
 		return this.payLoadArr;
 	}
 
-	setTimeUnit(): void {
-		if (!this.vmSku.skuId) return;
-
-		const timeUnit = this.configs.timelineunit.mapValueList[this.vmSku.skuId];
-		if (timeUnit && timeUnit.length && this.sendModule.timelineunit.attrValueCode !== timeUnit[0].attrValueCode) {
-			this.sendModule.timelineunit = timeUnit[0];    //设置一下时长为第一位
-			this.setVmPrice();   //拿到时长就可以设置主机价格了  
-		}
-	}
-
 	setVmPrice(): void {   //设置主机的价格
 		const sku = this.vmSku.skuId,
 			timeline = +(this.sendModule.timeline.attrValue || "0");
 		if (!this.sendModule.timelineunit.attrValueCode || !sku) return;
-		console.log(`[${sku}, ${this.sendModule.timelineunit.attrValueCode}]`, "云主机")
 		const product = this.proMap[`[${sku}, ${this.sendModule.timelineunit.attrValueCode}]`];  //获取产品信息
 
+		console.log("匹配到的云主机：", product)		
 		if (!product) return;  //如果没获取到价格
-
-		if (product.commonServiceAttrValue) {
-			this.sendModule.bootsize.attrValue = product.commonServiceAttrValue.bootStorageSize;  //设置启动盘大小
-			this.sendModule.bootsize.attrDisplayValue = product.commonServiceAttrValue.bootStorageSize + "GB";  
-		}else{
-			this.sendModule.bootsize.attrValue = "50"; 
-			this.sendModule.bootsize.attrDisplayValue = "50G"; 
-		}
 
 		this.vmBasePrice = product.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
 		this.vmTotalPrice = (product.billingInfo.basicPrice + product.billingInfo.cyclePrice) * timeline * this.payLoad.quality;   //周期费用
@@ -245,14 +236,17 @@ export class cloudHostComponentOrder implements OnInit {
 		this.diskSku = [];
 		let basePrice = 0, totalPrice = 0;
 		for (let data of storages) {
-			let sku = this.getSkuId("disk");
+			let skuMap = this.getSkuMap("disk");
 
+			if(!skuMap.length) return;  //如果没有获取到sku
+
+			let sku = skuMap[0];
 			this.sendModule.storage = data.storage;
 			this.diskSku.push(sku); //获取sku
 
 			let price = this.proMap[`[${sku.skuId}]`];  //计算价格
 
-			console.log(`[${sku.skuId}]`, "云硬盘")
+			console.log("匹配到的云硬盘：", price)
 			if (!price) return; //如果没获取到价格
 			basePrice += price.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
 			totalPrice += price.billingInfo.unitPrice * data.storagesize.attrValue * timeline * this.payLoad.quality;   //周期费用
@@ -311,11 +305,38 @@ export class cloudHostComponentOrder implements OnInit {
 			this.setImage(this.sendModule.platform.attrValue, this.sendModule.imagetype.attrValue, this.sendModule.startupsource.attrValue);   //获取镜像列表
 		}
 
-		this.vmSku = this.getSkuId("vm");     //确定sku
+		this.vmSkuMap = this.getSkuMap("vm");     //确定sku
 
-		if (this.vmSku.skuId) {
-			this.setTimeUnit();   // 设置购买时长
+		if (this.vmSkuMap.length) {
+			this.setBootsize();   // 设置启动盘大小
 		}
+	}
+
+	private setTimeUnit(): void {
+		if (!this.vmSku.skuId) return;
+
+		const timeUnit = this.configs.timelineunit.mapValueList[this.vmSku.skuId];
+		if (timeUnit && timeUnit.length) {
+			this.sendModule.timelineunit = timeUnit[0];    //设置一下时长为第一位
+			this.setVmPrice();   //拿到时长就可以设置主机价格了  
+		}
+	}
+
+	private setBootsize() {
+		this.bootsizeList = this.vmSkuMap.map(vmsku => {
+			let bootsize = this.configs.bootsize.mapValueList[vmsku.skuId];
+			
+			if(!bootsize && !bootsize.length) return;
+
+			bootsize[0].sku = vmsku;
+			return bootsize[0];
+		});
+		this.sendModule.bootsize = this.bootsizeList[0];   //设置一下启动盘为第一位
+		this.bootSizeChange();
+	}
+	bootSizeChange() {   //监听启动盘大小列表的改变， 只有启动盘大小列表的改变才能确定vm的skuid
+		this.vmSku = this.sendModule.bootsize.sku;
+		this.setTimeUnit(); //确定了真正的skuid后 再去确定购买时长
 	}
 
 	private setNetwork(platformId: string) {  //设置可用网络
@@ -336,7 +357,6 @@ export class cloudHostComponentOrder implements OnInit {
 
 			this.networkList = list;
 			this.sendModule.networktype = list[0];
-			console.log(this.sendModule)
 		}).catch(e => {this.layoutService.hide()})
 	}
 	private setImage(platformId: string, imageType: string, startupResouce: string) { //获取镜像列表
@@ -376,13 +396,6 @@ export class cloudHostComponentOrder implements OnInit {
 		})
 	}
 
-
-	con(value) {
-		console.log(value)
-	}
-	parseInt(value) {
-		return parseInt(value);
-	}
 
 	checkValue(value?: string) { //动态验证
 		const isinv = value => value === "";
