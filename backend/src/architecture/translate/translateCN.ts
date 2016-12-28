@@ -301,6 +301,12 @@ export const TranslateCN = {
         
         ENABLE_DBT_PORTGROUP_WARNING: '您选择启用{{value_1}}分布式端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，用户将能够在订购中选择此网络。',
         DISABLE_DBT_PORTGROUP_WARNING:'您选择禁用{{value_1}}分布式端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，用户将不能够在订购中选择此网络。',
+
+        DLR_NAME: '逻辑路由器(DLR)名称',
+        DLR_PORT_NAME: 'DLR接口名称',
+        DLR_SUBNET_DISPLAY_NAME: 'DLR子网显示名称',
+        DLR_PORT_IP_ADDRESS: 'DLR接口IP地址',
+        LINKED_LSW_NAME: '连接逻辑交换机(LSW)名称',
     },
     CHECK_CENTER: {
         //check-mng-set
