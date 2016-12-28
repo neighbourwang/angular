@@ -115,8 +115,8 @@ export const TranslateCN = {
         DISABLE_IMAGE: '禁用镜像',
         EDIT_IMAGE: '编辑镜像',
 
-        ENABLE_IMAGE_MSG: '您选择启用{{value}}, 请确认; 如果确认，用户将能够在订购中选择此镜像.',
-        DISABLE_IMAGE_MSG: '您选择禁用{{value}}, 请确认; 如果确认, 用户将不能在订购中选择此镜像.',
+        ENABLE_IMAGE_MSG: '您选择启用{{value_1}}, 请确认; 如果确认，用户将能够在订购中选择此镜像.',
+        DISABLE_IMAGE_MSG: '您选择禁用{{value_1}}, 请确认; 如果确认, 用户将不能在订购中选择此镜像.',
 
         UNSELECTED_ENTERPRISE: '未选择企业',
         SELECTED_ENTERPRISE: '已选择企业',
@@ -250,7 +250,7 @@ export const TranslateCN = {
 
         CREATE_STD_NET: '创建标准网络',
         EDIT_STD_NET: '编辑标准网络',
-        PORTGROUP_ALLOCATION: '端口资源组分配',
+        PORTGROUP_ALLOCATION: '端口组资源分配',
 
         CLUSTER_DISPLAY_NAME: '可用区显示名称',
 
@@ -356,6 +356,9 @@ export const TranslateCN = {
         TITLE_DISABLE_NET:'禁用网络',
         DISABLE_SUCCESS:'禁用成功',
 
+        NOTICE_ENABLE:'您选择启用 {{value_1}} 网络,其网段为 {{value_2}} ,请确认;如果确认,用户将能够在订购中选择此网络.',
+        NOTICE_DISABLE:'您选择禁用 {{value_1}} 网络,其网段为 {{value_2}} ,请确认;如果确认,用户将不能够在订购中选择此网络.',
+
         TITLE_CHOOSE_ENT:'请选择需要同步的企业',
 
         NAME_EMPTY:'名称不能为空',
@@ -434,8 +437,8 @@ export const TranslateCN = {
         DISABLE_IMAGE: '禁用镜像',
         EDIT_IMAGE: '编辑镜像',
 
-        ENABLE_IMAGE_MSG: '您选择启用 {{value}}, 请确认; 如果确认，用户将能够在订购中选择此镜像.',
-        DISABLE_IMAGE_MSG: '您选择禁用 {{value}}, 请确认; 如果确认, 用户将不能在订购中选择此镜像.',
+        ENABLE_IMAGE_MSG: '您选择启用 {{value_1}}, 请确认; 如果确认，用户将能够在订购中选择此镜像.',
+        DISABLE_IMAGE_MSG: '您选择禁用 {{value_1}}, 请确认; 如果确认, 用户将不能在订购中选择此镜像.',
 
         UNSELECTED_ENTERPRISE: '未选择企业',
         SELECTED_ENTERPRISE: '已选择企业',
@@ -472,5 +475,90 @@ export const TranslateCN = {
         SAVE_SUCCESS: '保存成功！',
         UNKNOWN:'未知',
         ALL:'所有'
+    },
+
+    NET_MNG_VM_DBT_PORT:{
+        ENSURE: '确定',
+        COMFIRM: '确认',
+        CNACLE: '取消',
+        RETURN: '返回上一级',
+
+        ALL: '所有',
+        
+
+        NETWORK: '网络',
+        NET_MNG: '网络管理',
+        MANAGE_DBT_NET: '管理分布式网络',
+        PORTGROUP_ALLOCATION: '端口组资源分配',
+        
+        DC_NAME: '数据中心(DC)名称',
+        DBT_SWITCH_NAME: '分布式交换机名称(VDS)',
+        DBT_PORTGROUP_NAME: '分布式虚拟端口组名称(dv Port-group)',
+        ENTERPRISE_LIST:'企业列表',
+
+        SET_ENTERPRISE: '设置企业',
+        SELECT: '选择',
+
+        GETTING_DATA_FAILED: '获取数据失败！',
+        DICTIONARY_FAILED: '数据字典出错！',
+        SYSTEM_PROMPT: '系统提示',
+        PROMPT: '提示',
+        UNSET: '未设置',
+
+        PLEASE_CHOOSE_PORT_NEEDSET:'请先选择需要设置的企业的端口组',
+
+        PORTGROUP_DISPLAY_NAME: '端口组显示名称',
+        SELECT_ENTERPRISE:'选择企业',
+
+        ENTERPRISE_FOR_SELECT:'可选企业',
+        SELECTED_ENTERPRISE:'选中企业',
+
+        BACK:'返回',
+        SAVE:'保存',
+        SAVE_SUCCESS:'保存成功！'
+
+    },
+
+    NET_MNG_VM_PORT:{
+        ENSURE: '确定',
+        COMFIRM: '确认',
+        CNACLE: '取消',
+        RETURN: '返回上一级',
+
+        ALL: '所有',
+        
+
+        NETWORK: '网络',
+        NET_MNG: '网络管理',
+        MANAGE_STD_NET: '管理标准网络',
+        PORTGROUP_ALLOCATION: '端口组资源分配',
+        
+        DC_NAME: '数据中心(DC)名称',
+        CLUSTER_NAME: '可用区(集群)名称',
+        CLUSTER_DISPLAY_NAME: '可用区显示名称',
+        PORTGROUP_NAME: '标准端口组名称',
+        ENTERPRISE_LIST:'企业列表',
+
+        SET_ENTERPRISE: '设置企业',
+        SELECT: '选择',
+
+        GETTING_DATA_FAILED: '获取数据失败！',
+        DICTIONARY_FAILED: '数据字典出错！',
+        SYSTEM_PROMPT: '系统提示',
+        PROMPT: '提示',
+        UNSET: '未设置',
+
+        PLEASE_CHOOSE_PORT_NEEDSET:'请先选择需要设置的企业的端口组',
+
+        PORTGROUP_DISPLAY_NAME: '端口组显示名称',
+        SELECT_ENTERPRISE:'选择企业',
+
+        ENTERPRISE_FOR_SELECT:'可选企业',
+        SELECTED_ENTERPRISE:'选中企业',
+
+        BACK:'返回',
+        SAVE:'保存',
+        SAVE_SUCCESS:'保存成功！'
+
     }
 }

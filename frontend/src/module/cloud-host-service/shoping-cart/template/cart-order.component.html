@@ -55,7 +55,7 @@
         </ng-container>
     </table>
     <div class="shoping-bottom clear-float">
-    	<span class="float-left pdt10 text-tip">您的订单已生成，可以进入管理控制台查看订单状态及使用相关资源<br>如需审批，则需要订单审批通过后，才能正式生效。</span>
+    	<span class="float-left pdt10 text-tip">{{'SHOPPING_CART.ORDER_HAS_BEEN_GENERATED' | translate}}<br>{{'SHOPPING_CART.ORDER_IS_EFFECTIVE_AFTER_APPROVED' | translate}}</span>
         <button (click)="goTo('cloud-host-service/cloud-host-list')" class="btn button-confirm button-size-big float-right mgt20">{{'SHOPPING_CART.MNG_CONSOLE' | translate}}</button>
         <span class="float-right mgr50">
             <table>

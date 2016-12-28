@@ -93,7 +93,7 @@
     <div class="col-md-12 no-padding mgb20">
         <button class="btn float-left mgr5 btn-primary" (click)="goTo('cloud-host-service/cloud-host-order')"><i class="glyphicon glyphicon-plus"></i> {{'VM_INSTANCE.CREATE_CLOUD_HOST' | translate}}</button>
         <!-- <button class="btn float-left mgr5 btn-success"><i class="glyphicon glyphicon-edit"></i> 编辑云主机</button> -->
-        <button class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'VM_INSTANCE.UNSUBSCRIBE_CLOUD_HOST' | translate}}</button>
+        <button (click)="delectVm()" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'VM_INSTANCE.UNSUBSCRIBE_CLOUD_HOST' | translate}}</button>
 
         <!--<div class="dropdown float-left  mgr5">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -116,7 +116,7 @@
             <th class="text-center">{{'VM_INSTANCE.MIRROR' | translate}}</th>
             <th class="text-center">{{'VM_INSTANCE.INTERNAL_IP' | translate}}</th> 
             <th class="text-center">{{'VM_INSTANCE.EXTERNA_IP' | translate}}</th>
-            <th class="text-center">{{'COMMON.REGION_AND_AVAIABLE_AREA' | translate}}</th>
+            <th class="text-center">{{'COMMON.REGION_AND_AVAILABLE_AREA' | translate}}</th>
             <th class="text-center">{{'COMMON.STATUS'| translate}}</th>
             <th class="text-center">{{'COMMON.EXPIRE_DATE'| translate}}</th>
             <!--<th class="text-center">云硬盘数</th> -->
@@ -126,8 +126,8 @@
             <!-- <th class="text-center">服务类别</th> -->
             <th class="text-center">{{'COMMON.OPERATION'| translate}}</th> 
         </tr>
-        <tr *ngFor="let vm of vmList;trackBy:vm?.expiryDate;" style="line-height: 65px;">
-            <td class="text-center"><input class="fox-cloud-radio" name="host-list" type="radio"></td>
+        <tr *ngFor="let vm of vmList;let i = index;" style="line-height: 65px;">
+            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;"  name="host-list"></td>
             <!-- <td class="text-center active" style="position: relative;width: 220px;">
                 <table-edit-name [value]="vm.instanceName" (onChange)="changeName($event)"></table-edit-name>
             </td> -->
@@ -172,3 +172,6 @@
 </div>
 <fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
+<fc-popup #popup (cf)="popupCf()" (of)="popupOf()">
+    <div style="text-align: center;"><input [(ngModel)]="forceDelect" type="checkbox" name=""> 是否要一起退订"{{radioSelected.instanceName}}"云主机挂载的云硬盘?</div>
+</fc-popup>

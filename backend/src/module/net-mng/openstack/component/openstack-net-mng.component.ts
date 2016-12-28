@@ -189,8 +189,9 @@ export class OpenstackNetMngComponent implements OnInit {
             this.showAlert("NET_MNG_OPENSTACK.PLEASE_CHOOSE_NET");
         }else{
             this.noticeTitle = "NET_MNG_OPENSTACK.TITLE_ENABLE_NET";
-            this.noticeMsg = `您选择启用 '${this.selectedNetwork.subnetName}' 网络，其网段为'${this.selectedNetwork.segmentCIDR}' ， 
-                            请确认；如果确认，用户将能够在订购中选择此网络。`;
+            this.noticeMsg = "NET_MNG_OPENSTACK.NOTICE_ENABLE^^^"
+                +"'"+this.selectedNetwork.subnetName+"'"
+                +"^^^"+"'"+this.selectedNetwork.segmentCIDR+"'";
          
             //如果运行状态不是运行中的，则不能启用此网络
             //检测是否是运行中
@@ -229,8 +230,9 @@ export class OpenstackNetMngComponent implements OnInit {
             this.showAlert("NET_MNG_OPENSTACK.PLEASE_CHOOSE_NET");
         }else{
             this.noticeTitle = "NET_MNG_OPENSTACK.TITLE_DISABLE_NET";
-            this.noticeMsg = `您选择禁用 '${this.selectedNetwork.subnetName}' 网络，其网段为'${this.selectedNetwork.segmentCIDR}' ， 
-                            请确认；如果确认，用户将不能够在订购中选择此网络。`
+            this.noticeMsg ="NET_MNG_OPENSTACK.NOTICE_DISABLE^^^"
+                +"'"+this.selectedNetwork.subnetName +"'"
+                +"^^^"+ "'" + this.selectedNetwork.segmentCIDR +"'";
             if(this.selectedNetwork.status!='3'){
                 this.confirm.ccf = () => {
                 };
