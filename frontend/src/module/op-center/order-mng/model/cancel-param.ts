@@ -8,10 +8,7 @@ export class CancelParam{
 	get cascadeFlag():string{
 		return this.removeDisk ? "1":"0";
 	};
-	get isNotInUse():boolean{
-		return !this.isInUse;
-	}
-
+	
 	constructor(isdisk:boolean = false, ismachine:boolean = false, isinuse:boolean = false, hasDisk:boolean = false)
 	{
 		this.isDisk = isdisk;

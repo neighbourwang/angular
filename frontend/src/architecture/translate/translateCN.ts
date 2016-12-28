@@ -225,7 +225,7 @@ export const TranslateCN = {
         ORDERS_LSIT: '订单列表',
         ORDERED_LSIT: '已订购列表',
         ONLY_SUCCESS_OR_EXPIRING_ORDERS_CAN_BE_RENEWED: '只有个“成功”或“即将过期”的订单可以续订',
-        ONLY_SUCCESS_OR_EXPIRING_ORDERS_CAN_BE_UNSUBSCRIBE: '只有个“成功”或“即将过期”的订单可以退订',
+        ONLY_SUCCESS_OR_EXPIRING_ORDERS_CAN_BE_UNSUBSCRIBE: '只有个“已激活”的订单可以退订',
         PURCHASE_TIME: '购买时长',
         PLEASE_ENTER_A_NUMBER_QUERY: '请输入编号查询',
         DUE_DATE: '到期时间',
@@ -237,6 +237,7 @@ export const TranslateCN = {
         YOUR_ORDER_HAS_BEEN_RENEWED___AND_THE_ASSOCIATED_RESOURCES: '你的订单续订已完成，可以进入管理控制台查看订单状态及使用相关资源',
         FOR_APPROVAL___TO_TAKE_EFFECT: '如需审批，则需要订单审批通过后，才能正式生效',
         UNSUBSCRIBE_FROM___HARD_DRIVE: '一起退订该云主机挂载的云硬盘',
+        UNSUBSCRIBE_FROM___NO_DRIVE: '你确认要退订该云主机吗',
         WHETHER_TO_CONFIRM___EXIT_THE_PROCESS: '是否确认删除该云硬盘. 如果选"确认", 则卸载该云硬盘并删除. 如果选"取消", 则退出流程',
         WHETHER_TO_CONFIRM_FORCE___EXIT_THE_PROCESS: '是否强制删除. 如果选"确认", 则卸载该云硬盘并删除。 如果选"取消", 则退出流程',
        
