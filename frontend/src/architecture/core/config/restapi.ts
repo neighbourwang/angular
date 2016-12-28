@@ -509,6 +509,11 @@ export let RestApis: RestApiModel[] = [
         "id": "check-center.get-list.post",
         "method": "POST",
         "url": "marketplace/authsec/order/approval/orders/search/paging "
+    },{
+        "desc": "审批同意/拒绝",
+        "id": "check-center.approve-refust.post",
+        "method": "POST",
+        "url": "marketplace/authsec/order/approval/order/{orderId}/operation/{operation}"
     }
     // 审批中心
 ]
