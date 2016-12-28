@@ -75,4 +75,15 @@ https://github.com/ocombe/ng2-translate
         
     }
 
-    
+   
+### 5.translate 在html template中的写法   key: 'xxxx{{value_1}}xxxxxx{{value_2}}{{value_3}}'  ,{{value}}为传入的参数，在如下
+ 
+ 字典中定义为
+        MY_MSG: '您选择启用{{value}}, 请确认; 如果{{value}}确认，用户{{value2}}将能够在订购中选择此镜像.',
+ 
+ html中代码：{{'MY_MSG' | translate:{value:"hee",value2:"3333"} }}
+
+ html呈现结果：VMware您选择启用hee, 请确认; 如果hee确认，用户3333将能够在订购中选择此镜像.
+
+
+ 注意 参数中最后三个“}}}”必须写成“} }}”，否则会编译错误

@@ -61,10 +61,11 @@ export class MngConsoleComponent implements OnInit {
         const bgc = [ "#E7E9ED", "#00CC99" ];
         const bgw = [  0,0  ];
         this.service.getQuotaResoure().then(res => {
-            console.log(res,123123123)
-            if(!res.length) return;
-            this.eplist = res[0];
+           
+            for(let l in res) res[l] = res[l] === null ? 0 : res[l];
+            this.eplist = res;
             const list = this.eplist;
+             console.log(res,123123123)
 
             this.epcpu = [{ data: [ list.usedCpu, list.vcpu - list.usedCpu ], backgroundColor: bgc, borderWidth:bgw }];
             this.epmem = [{ data: [ list.usedMem, list.mem - list.usedMem ], backgroundColor: bgc, borderWidth:bgw }];
@@ -78,8 +79,8 @@ export class MngConsoleComponent implements OnInit {
 
     public quotaEntResoure():void {
         this.service.getQuotaResoure().then(res => { 
-            if(!res.length) return;
-            this.quotalist = res[0];
+            for(let l in res) res[l] = res[l] === null ? 0 : res[l];
+            this.quotalist = res;
         });
     }
 

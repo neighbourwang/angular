@@ -9,9 +9,9 @@
  * 1. 每个订单根据所选来获取一个产品的列表
  * 2. 根据产品的列表获取到启动盘的列表
  * 3. 根据启动盘的列表确定最终的sku
- * 2. 根据sku的id 来获取时长单位
- * 3. 根据sku id与时长单位获取来获取价格 
- * 4. 提交的时候根据sendModule转换成PayLoad
+ * 4. 根据sku的id 来获取时长单位
+ * 5. 根据sku id与时长单位获取来获取价格 
+ * 6. 提交的时候根据sendModule转换成PayLoad
  */
 
 import { Component, ViewChild, Input, Output, OnInit } from '@angular/core';
@@ -316,7 +316,7 @@ export class cloudHostComponentOrder implements OnInit {
 		if (!this.vmSku.skuId) return;
 
 		const timeUnit = this.configs.timelineunit.mapValueList[this.vmSku.skuId];
-		if (timeUnit && timeUnit.length && this.sendModule.timelineunit.attrValue !== timeUnit[0].attrValue) {
+		if (timeUnit && timeUnit.length) {
 			this.sendModule.timelineunit = timeUnit[0];    //设置一下时长为第一位
 			this.setVmPrice();   //拿到时长就可以设置主机价格了  
 		}
