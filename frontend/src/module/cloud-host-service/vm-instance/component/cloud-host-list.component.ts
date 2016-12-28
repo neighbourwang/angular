@@ -111,7 +111,11 @@ export class cloudHostListComponent implements OnInit {
 	}
 	popupCf(){}
 	popupOf(){
-		console.log(this.forceDelect)
+		this.service.deleteVm(this.radioSelected.subInstanceId, this.forceDelect?1:0).then(res => {
+			this.showNotice("退订云主机", "退订成功！");
+		}).catch(e => {
+			this.showNotice("退订云主机", "退订失败！");
+		})
 		this.popup.close();
 	}
 

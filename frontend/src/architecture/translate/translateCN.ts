@@ -345,6 +345,7 @@ export const TranslateCN = {
         CLOUD_HRAD_DISK_NAME: '云硬盘名称',
         MOUNT_LOCATION_CLOUD_HOST_NAME: '挂载位置（云主机名称）',
         AVAILABLE_AREA: "所在可用区",
+        UNSUBSCRIBE_DISK: '退订云硬盘',
 
         REGION: '所在地区',
         ATTRIBUTE: '属性',
