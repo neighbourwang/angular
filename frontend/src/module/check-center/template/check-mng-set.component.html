@@ -7,9 +7,9 @@
 			<span>{{'CHECK_CENTER.IS_APPROVAL_REQUIRED' | translate}}</span>
 			<div class="secondPanel">
 				<ul>
-					<li><input type="radio" class="fox-cloud-radio mgr10"  [disabled]="isEdit" [ngClass]="{'active':isOpen}" [(ngModel)]="isOpen" value="true">{{'CHECK_CENTER.OPEN' | translate}}</li>
-					<li class="pdl20"><span class="pdl5">{{'CHECK_CENTER.AUTO_APPROVAL_TIME_SET' | translate}}：</span ><span class="mgr5" *ngIf="isEdit"  > {{loadHandler.FirstItem.time}}</span><input *ngIf="!isEdit" type="number" class="form-control">{{'CHECK_CENTER.MINUTE' | translate}}</li>
-					<li><input type="radio" class="fox-cloud-radio mgr10 "  [disabled]="isEdit" [ngClass]="{'active':!isOpen}" [(ngModel)]="isOpen" value="false">{{'CHECK_CENTER.CLOSE' | translate}}</li>
+					<li><input type="radio" class="fox-cloud-radio mgr10"  [disabled]="isEdit" [ngClass]="{'active':isOpen}" [(ngModel)]="param.auditEnable" value="true">{{'CHECK_CENTER.OPEN' | translate}}</li>
+					<li class="pdl20"><span class="pdl5">{{'CHECK_CENTER.AUTO_APPROVAL_TIME_SET' | translate}}：</span ><span class="mgr5" *ngIf="isEdit"  > {{loadHandler.FirstItem.time}}</span><input *ngIf="!isEdit" type="number" class="form-control" [(ngModel)]="param.time">{{'CHECK_CENTER.MINUTE' | translate}}</li>
+					<li><input type="radio" class="fox-cloud-radio mgr10 "  [disabled]="isEdit" [ngClass]="{'active':!isOpen}" [(ngModel)]="param.auditEnable" value="false">{{'CHECK_CENTER.CLOSE' | translate}}</li>
 				</ul>
 				
 			</div>
