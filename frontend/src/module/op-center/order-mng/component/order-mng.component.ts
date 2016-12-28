@@ -485,7 +485,7 @@ export class OrderMngComponent implements OnInit{
 			$('#cancelOrder').modal('show');
 
 			// todo: set the cancelObj here
-			this.cancelObj = new CancelParam(orderItem.isDisk, orderItem.isMachine, orderItem.isInUse, orderItem.hasDisk);
+			this.cancelObj = new CancelParam(orderItem.isDisk, orderItem.isMachine, orderItem.isInUse);
 			this.cancelObj.subId = orderItem.orderId;
 			console.log('cancelObj', this.cancelObj);
 		}

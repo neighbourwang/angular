@@ -25,15 +25,6 @@ export class SubInstanceResp {
     else
       return void 0;
   }
-
-  get hasDisk():boolean{
-    if(this.isMachine)
-    {
-      return this.relySubinstanceId != null;
-    }
-    else
-      return void 0;
-  }
 }
 
 export class SubInstanceItemResp {
