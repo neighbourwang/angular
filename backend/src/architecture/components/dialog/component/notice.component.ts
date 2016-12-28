@@ -13,9 +13,10 @@ export class NoticeComponent implements OnInit {
     @Output()
     of = new EventEmitter<any>();
 
-    param = { value: <String>'' };
+    param: any;
     title: String;
     msg: String;
+    showMsg: String;
 
     constructor(private dialogTranslate: DialogTranslate) {
         
@@ -28,8 +29,8 @@ export class NoticeComponent implements OnInit {
     }
 
     ngOnChanges() {
-        this.param.value = this.dialogTranslate.getParam(this.msg);
-        this.msg = this.dialogTranslate.getText(this.msg);
+        this.param = this.dialogTranslate.getParam(this.msg);
+        this.showMsg = this.dialogTranslate.getText(this.msg);
     }
 
     nof() {
@@ -39,8 +40,8 @@ export class NoticeComponent implements OnInit {
     open(title?: String, msg?: String) {
         title && (this.title = title);
         msg && (this.msg = msg);
-        this.param.value = this.dialogTranslate.getParam(this.msg);
-        this.msg = this.dialogTranslate.getText(this.msg);
+        this.param = this.dialogTranslate.getParam(this.msg);
+        this.showMsg = this.dialogTranslate.getText(this.msg);
         this.dialog.open();
     }
 

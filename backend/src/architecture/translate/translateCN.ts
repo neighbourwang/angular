@@ -4,6 +4,7 @@ export const TranslateCN = {
         PROMPT: '提示',
         CONFIRM: '确认',
         CANCEL: '取消',
+        CLOSE: '关闭',
         EXIT: '退出',
         RESET: '重置',
         NUMBER: '编号',
@@ -114,8 +115,8 @@ export const TranslateCN = {
         DISABLE_IMAGE: '禁用镜像',
         EDIT_IMAGE: '编辑镜像',
 
-        ENABLE_IMAGE_MSG: '您选择启用 {{selectedimg.displayName || "image"}}, 请确认; 如果确认，用户将能够在订购中选择此镜像.',
-        DISABLE_IMAGE_MSG: '您选择禁用 {{selectedimg.displayName || "image"}}, 请确认; 如果确认, 用户将不能在订购中选择此镜像.',
+        ENABLE_IMAGE_MSG: '您选择启用{{value_1}}, 请确认; 如果确认，用户将能够在订购中选择此镜像.',
+        DISABLE_IMAGE_MSG: '您选择禁用{{value_1}}, 请确认; 如果确认, 用户将不能在订购中选择此镜像.',
 
         UNSELECTED_ENTERPRISE: '未选择企业',
         SELECTED_ENTERPRISE: '已选择企业',
@@ -156,6 +157,7 @@ export const TranslateCN = {
         SAVE_SUCCESS: '保存成功！'
 
     },
+    
     NET_MNG_VM_IP_MNG: {
         ENSURE: '确定',
         COMFIRM: '确认',
@@ -169,6 +171,12 @@ export const TranslateCN = {
 
         OCCUPY: '占用',
         RELEASE: '释放',
+        ENABLE: '启用',
+        DISABLE: '禁用',
+        DELETE: '删除',
+        SAVE: '保存',
+        CREATE: '创建',
+        SYNC: '同步',
 
         NETWORK: '网络',
         NET_MNG: '网络管理',
@@ -190,6 +198,7 @@ export const TranslateCN = {
         SELECT: '选择',
 
         DC: '数据中心(DC)',
+        PG_NAME: '端口组名称',
         PORTGROUP_NAME: '标准端口组名称',
         PORTGROUP_DISPLAY_NAME: '标准端口组显示名称',
         VDS_PORTGROUP_NAME: '分布式虚拟端口组名称',
@@ -237,6 +246,67 @@ export const TranslateCN = {
         IP_RELEASED_SUCCESS: 'IP释放成功',
         IP_RELEASED_FAILED: 'IP释放失败',
         IP_RELEASED_EXCEPTION: 'IP释放异常',
+
+
+        CREATE_STD_NET: '创建标准网络',
+        EDIT_STD_NET: '编辑标准网络',
+        PORTGROUP_ALLOCATION: '端口组资源分配',
+
+        CLUSTER_DISPLAY_NAME: '可用区显示名称',
+
+        LAST_UPDATE_DATE: '最后更新时间',
+        DISPLAY_NAME: '显示名称',
+        PLEASE_CHOOSE: '请选择',
+        PLEASE_CHOOSE_NET: '请选择网络',
+        CANT_EDIT_WHEN_ENABLED: '启用状态下不能编辑！',
+        CANT_DELETE_WHEN_ENABLED: '启用状态下不能删除！',
+        PLEASE_CHOOSE_DATACENTER: '请选择数据中心.',
+        PLEASE_CHOOSE_CLUSTER: '请选择可用区.',
+        CLS_DIS_NAME_CANT_NULL: '可用区显示名称不能为空.',
+        PG_NAME_CANT_NULL: '端口组名称不能为空.',
+        VLAN_ID_CANT_NULL: 'VLAN ID不能为空.',
+        VLAN_ID_SCOPE: 'VLAN ID必须是0~4096的数字.',
+        PG_DIS_NAME_CANT_NULL: '端口组显示名称不能为空.',
+
+        PLEASE_CHOOSE_NET_TO_ENABLE: '请先选择需要启用的标准网络！',
+        PLEASE_CHOOSE_DBT_NET_TO_ENABLE: '请先选择需要启用的分布式网络！',
+        NET_ALREADY_ENABLED: '该网络已处于启用状态',
+        PLEASE_CHOOSE_NET_TO_DISABLE: '请先选择需要禁用的标准网络！',
+        PLEASE_CHOOSE_DBT_NET_TO_DISABLE: '请先选择需要禁用的分布式网络！',
+        NET_ALREADY_DISABLED: '该网络已处于禁用状态',
+        CANT_DISABLE_AS_ENABLED_IP: 'IP占用状态下不能禁用！',
+        PLEASE_CHOOSE_NET_TO_DELETE: '请先选择需要删除的标准网络！',
+        
+        CANT_DELETE_AS_ENABLED_IP: 'IP占用状态下不能删除！',
+
+        ENABLE_NET: '启用网络',
+        ENABLE_NET_SUCCESS: '启用成功',
+        DISABLE_NET: '禁用网络',
+        DISABLE_NET_SUCCESS: '禁用成功',
+        DELETE_NET: '删除网络',
+        DELETE_NET_SUCCESS: '删除成功',
+
+        SYNC_DBT_NET: '同步分布式网络信息-网络信息',
+        SYNC_SUCCESS: '同步成功',
+        PLEASE_CHOOSE_ONE: '请选择一个',
+
+        DBT_SWITCH_NAME: '分布式交换机名称(VDS)',
+        SYNC_DBT_NETWORK: '同步分布式网络',
+        DBT_PORTGROUP_NAME: '分布式虚拟端口组名称(dv Port-group)',
+        DBT_PORTGROUP_DISPLAY_NAME: '分布式端口组显示名称',
+
+        ENABLE_PORTGROUP_WARNING: '您选择启用{{value_1}}端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，用户将能够在订购中选择此网络。',
+        DISABLE_PORTGROUP_WARNING:'您选择禁用{{value_1}}端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，用户将不能够在订购中选择此网络。',
+        DELETE_PORTGROUP_WARNING:'您选择删除{{value_1}}端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，此网络将被删除。',
+        
+        ENABLE_DBT_PORTGROUP_WARNING: '您选择启用{{value_1}}分布式端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，用户将能够在订购中选择此网络。',
+        DISABLE_DBT_PORTGROUP_WARNING:'您选择禁用{{value_1}}分布式端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，用户将不能够在订购中选择此网络。',
+
+        DLR_NAME: '逻辑路由器(DLR)名称',
+        DLR_PORT_NAME: 'DLR接口名称',
+        DLR_SUBNET_DISPLAY_NAME: 'DLR子网显示名称',
+        DLR_PORT_IP_ADDRESS: 'DLR接口IP地址',
+        LINKED_LSW_NAME: '连接逻辑交换机(LSW)名称',
     },
     CHECK_CENTER: {
         //check-mng-set
@@ -244,5 +314,251 @@ export const TranslateCN = {
         ,APPROVE_SET_NEED_APPROVE_TIME:"请设置有效自动审批时间"
         ,APPROVE_SET_ERROR: "审批数据保存失败"
         ,APPROVE_SET_NEED_APPROVE_ENABLE: "必须设置审批选项"
+    },
+    NET_MNG_OPENSTACK:{
+        GETTING_DATA_FAILED: '获取数据失败！',
+        COMFIRM: '确认',
+        CNACLE: '取消',
+        SAVE:'保存',
+        PROMPT: '提示',
+        
+        OPENSTACK_NEWWORK_MNG:'OpenStack网络管理',
+
+        REGION: '地域',
+        DATACENTER:'数据中心',
+        PLATFORM:'平台',
+        
+        AFFILIATED_ENTERPRISE: '所属企业',
+        INPUT_SEARCH:'输入企业/租户信息搜索',
+        RESET:'重置',
+
+        MORE_OPERATION: '更多操作',
+        SYNC_NET: '同步网络',
+        ENABLE:'启用',
+        DISABLE:'禁用',
+
+        SELECT: '选择',
+        NETNAME: '网络名',
+        NETNAME_DISPLAY: '网络显示名',
+        SUBNET_NAME:'子网名',
+        SEGMENT_CIDR:'网段信息',
+        GATEwAY:'网关信息',
+        NETWORK_TYPE:'类型',
+        SHARED:'是否共享',
+        STATE:'运行状态',
+        STATUS:'状态',
+
+
+        PLEASE_CHOOSE_PF:'请先选择平台',
+        PLEASE_CHOOSE_NET:'请先选择一个网络',
+        TITLE_ENABLE_NET:'启用网络',
+        ENABLE_SUCCESS:'启用成功',
+        TITLE_DISABLE_NET:'禁用网络',
+        DISABLE_SUCCESS:'禁用成功',
+
+        NOTICE_ENABLE:'您选择启用 {{value_1}} 网络,其网段为 {{value_2}} ,请确认;如果确认,用户将能够在订购中选择此网络.',
+        NOTICE_DISABLE:'您选择禁用 {{value_1}} 网络,其网段为 {{value_2}} ,请确认;如果确认,用户将不能够在订购中选择此网络.',
+
+        TITLE_CHOOSE_ENT:'请选择需要同步的企业',
+
+        NAME_EMPTY:'名称不能为空',
+
+        CANNOT_ENABLE:'未处于运行状态不能启用',
+        HASBEEN_DISABLE:'该网络已处于禁用状态',
+        
+        //同步页面
+        COULD:'云平台',
+        RETURN: '返回上一级',
+        
+        SELECT_OPERATION: '选择操作',
+        ADDALL:'全部添加',
+        UPDATEALL:'全部更新',
+        DISABLEALL:'全部禁用',
+
+        NUMBER:'编号',
+        SYNC_RESULT:'同步结果',
+        SYNC_OPERATION:'同步操作',
+
+        ADD:'添加',
+        UPDATE:'更新',
+        ADD_SUCCESS:'添加成功',
+        ADDALL_SUCCESS:'全部添加成功',
+        NONEED_ADD:'没有需要添加的网络',
+        UPDATE_SUCCESS:'更新成功',
+        NONEED_UPDATE:'没有需要更新的网络',
+        UPDATEALL_SUCCESS:'全部更新成功',
+        DISABLEALL_SUCCESS:'全部禁用成功'
+    },
+
+    HOST_OPENSTACK_MNG:{
+        ENSURE: '确定',
+        CONFIRM: '确认',
+        SAVE: '保存',
+        CANCEL: '取消',
+        RETURN: '返回',
+        SYNC: '同步',
+
+        TYPE: '类型',
+
+        COULD_PLATFORM:'云平台',
+        IMAGE_MANAGEMENT: '镜像管理',
+        RETURN_IMAGE_MANAGEMENT: '返回镜像管理列表',
+        IMAGE_TYPE: '镜像类型',
+        ALL_IMAGE: '所有镜像类型',
+        PUBLIC_IMAGE: '公共镜像',
+        ENTERPRISE_IMAGE: '企业镜像',
+        CUSTOMED_IMAGE: '自定义镜像',
+
+        AFFILIATED_ENTERPRISE: '所属企业',
+        ALL_ENTERPRISE: '所有企业',
+
+        SYNC_IMAGE_PUBLIC: '同步公共镜像',
+        SYNC_IMAGE_ENT: '同步企业镜像',
+
+        MORE_OPERATION: '更多操作',
+        EDIT: '编辑',
+        ENABLE: '启用',
+        DISABLE: '禁用',
+
+        SELECT: '选择',
+        IMAGE_NAME: '镜像名称',
+        IMAGE_DISPLAY_NAME: '镜像显示名称',
+        OS: '操作系统',
+        BIT: '系统位数',
+        CAPACITY: '镜像容量',
+        STATUS: '状态',
+
+        NUMBER: '编号',
+        SYNC_RESULT:'同步结果',
+
+        DESCRIPTION:'描述',
+        //ts
+        ENABLE_IMAGE: '启用镜像',
+        DISABLE_IMAGE: '禁用镜像',
+        EDIT_IMAGE: '编辑镜像',
+
+        ENABLE_IMAGE_MSG: '您选择启用 {{value_1}}, 请确认; 如果确认，用户将能够在订购中选择此镜像.',
+        DISABLE_IMAGE_MSG: '您选择禁用 {{value_1}}, 请确认; 如果确认, 用户将不能在订购中选择此镜像.',
+
+        UNSELECTED_ENTERPRISE: '未选择企业',
+        SELECTED_ENTERPRISE: '已选择企业',
+
+        PLEASE_CHOOSE_ENTERPRISE:'请选择企业',
+
+        //MUST_CHOOSE_PLATFORM: '必须指定相关的平台',
+        HPE_VMWARE_PLATFORM: '上海HPE OPENSATCK云平台',
+
+        PLEASE_CHOOSE_IMAGE:'请先选择一个镜像', 
+        
+        IMAGE_ENABLED: '该镜像已是启用状态',
+        IMAGE_ENABLE_SUCCESS: '镜像启用成功',
+        IMAGE_ENABLE_FAILED: '镜像启用失败',
+
+        IMAGE_DISABLED: '该镜像已是禁用状态',
+        IMAGE_DISABLE_SUCCESS: '镜像禁用成功',
+        IMAGE_DISABLE_FAILED: '镜像禁用失败',
+
+        IMAGE_UPDATE_SUCCESS: '镜像更新成功',
+        IMAGE_UPDATE_FAILED: '镜像更新失败',
+        IMAGE_UPDATE_EXCEPTION: '镜像更新异常',
+
+        PLEASE_CHOOSE_IMAGE_NEEDSYNC:'请选择要同步的镜像',
+        IMAGE_SYNC_SUCCESS: '镜像同步成功',
+        NO_MORE_IMAGE_NEED_TO_SYNC: '没有镜像需要同步',
+
+        IMAGE_NAME_ENFORCED: '镜像名称不能为空',
+
+        GETTING_DATA_FAILED: '获取数据失败！',
+        SYSTEM_PROMPT: '系统提示',
+        PROMPT: '提示',
+        UNSET: '未设置',
+        SAVE_SUCCESS: '保存成功！',
+        UNKNOWN:'未知',
+        ALL:'所有'
+    },
+
+    NET_MNG_VM_DBT_PORT:{
+        ENSURE: '确定',
+        COMFIRM: '确认',
+        CNACLE: '取消',
+        RETURN: '返回上一级',
+
+        ALL: '所有',
+        
+
+        NETWORK: '网络',
+        NET_MNG: '网络管理',
+        MANAGE_DBT_NET: '管理分布式网络',
+        PORTGROUP_ALLOCATION: '端口组资源分配',
+        
+        DC_NAME: '数据中心(DC)名称',
+        DBT_SWITCH_NAME: '分布式交换机名称(VDS)',
+        DBT_PORTGROUP_NAME: '分布式虚拟端口组名称(dv Port-group)',
+        ENTERPRISE_LIST:'企业列表',
+
+        SET_ENTERPRISE: '设置企业',
+        SELECT: '选择',
+
+        GETTING_DATA_FAILED: '获取数据失败！',
+        DICTIONARY_FAILED: '数据字典出错！',
+        SYSTEM_PROMPT: '系统提示',
+        PROMPT: '提示',
+        UNSET: '未设置',
+
+        PLEASE_CHOOSE_PORT_NEEDSET:'请先选择需要设置的企业的端口组',
+
+        PORTGROUP_DISPLAY_NAME: '端口组显示名称',
+        SELECT_ENTERPRISE:'选择企业',
+
+        ENTERPRISE_FOR_SELECT:'可选企业',
+        SELECTED_ENTERPRISE:'选中企业',
+
+        BACK:'返回',
+        SAVE:'保存',
+        SAVE_SUCCESS:'保存成功！'
+
+    },
+
+    NET_MNG_VM_PORT:{
+        ENSURE: '确定',
+        COMFIRM: '确认',
+        CNACLE: '取消',
+        RETURN: '返回上一级',
+
+        ALL: '所有',
+        
+
+        NETWORK: '网络',
+        NET_MNG: '网络管理',
+        MANAGE_STD_NET: '管理标准网络',
+        PORTGROUP_ALLOCATION: '端口组资源分配',
+        
+        DC_NAME: '数据中心(DC)名称',
+        CLUSTER_NAME: '可用区(集群)名称',
+        CLUSTER_DISPLAY_NAME: '可用区显示名称',
+        PORTGROUP_NAME: '标准端口组名称',
+        ENTERPRISE_LIST:'企业列表',
+
+        SET_ENTERPRISE: '设置企业',
+        SELECT: '选择',
+
+        GETTING_DATA_FAILED: '获取数据失败！',
+        DICTIONARY_FAILED: '数据字典出错！',
+        SYSTEM_PROMPT: '系统提示',
+        PROMPT: '提示',
+        UNSET: '未设置',
+
+        PLEASE_CHOOSE_PORT_NEEDSET:'请先选择需要设置的企业的端口组',
+
+        PORTGROUP_DISPLAY_NAME: '端口组显示名称',
+        SELECT_ENTERPRISE:'选择企业',
+
+        ENTERPRISE_FOR_SELECT:'可选企业',
+        SELECTED_ENTERPRISE:'选中企业',
+
+        BACK:'返回',
+        SAVE:'保存',
+        SAVE_SUCCESS:'保存成功！'
+
     }
 }

@@ -177,6 +177,13 @@ export class MenuService {
 							"isActive": false,
 							"isShow": !isRoot,
 							"routing": "net-mng/vm-mng-dbt/index/88"
+                        },
+                        {
+							"label": "VMware NSX网络",
+							"isOpen": false,
+							"isActive": false,
+							"isShow": !isRoot,
+							"routing": "net-mng/vm-mng-nsx/index/88"
 						}
 					]
 				},

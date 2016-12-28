@@ -1,4 +1,3 @@
-
 <div class="page-content-header icon-cloud-network-mngOn">
     VMware{{'NET_MNG_VM_IP_MNG.NETWORK' | translate}}
 </div>
@@ -6,20 +5,20 @@
 
     <table class="table table-hover">
         <thead>
-            <tr>
-                <th style="text-align:left;">VMware{{'NET_MNG_VM_IP_MNG.NET_MNG' | translate}} -- {{'NET_MNG_VM_IP_MNG.MANAGE_STD_NET' | translate}} -- {{'NET_MNG_VM_IP_MNG.IP_ADDRESS_MNG' | translate}} -- {{'NET_MNG_VM_IP_MNG.MANAGE_IP_ADDRESS' | translate}}</th>
-                <th style="text-align:right;">
-                    <button class=" fox-cloud-button fox-cloud-button-white ">
-                        <span class="icon-button-label" key="boe/ip_addr_mng.html" (click)="ipMngPage()">{{'NET_MNG_VM_IP_MNG.RETURN' | translate}}</span>
-                    </button>
-                </th>
-            </tr>
+        <tr>
+            <th style="text-align:left;">VMware{{'NET_MNG_VM_IP_MNG.NET_MNG' | translate}} -- {{'NET_MNG_VM_IP_MNG.MANAGE_NSX_NET' | translate}} -- {{'NET_MNG_VM_IP_MNG.IP_ADDRESS_MNG' | translate}} -- {{'NET_MNG_VM_IP_MNG.MANAGE_IP_ADDRESS' | translate}}</th>
+            <th style="text-align:right;">
+                <button class=" fox-cloud-button fox-cloud-button-white ">
+                    <span class="icon-button-label" (click)="ipMngPage()">{{'NET_MNG_VM_IP_MNG.RETURN' | translate}}</span>
+                </button>
+            </th>
+        </tr>
         </thead>
     </table>
 
     <div class="row mgb10" >
         <span class="pull-left mgt5 pdl15" style="display:inline-block;font-size:16px;padding:6px 0">
-            {{'NET_MNG_VM_IP_MNG.PORTGROUP_DISPLAY_NAME' | translate}} :
+            DLR子网显示名称：
         </span>
         <div class="col-md-2">
             <span class="pull-left mgt5 pdl15" style="display:inline-block;font-size:16px;padding:6px 0">{{pg_name}}</span>
@@ -56,23 +55,15 @@
             </thead>
             <tbody>
             <tr *ngFor="let ipusagemng of ipusagemngs; let i=index;">
-                <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="ipusagemng.checked" (change)="selectItem(i)" value="{{i}}"></td>
+                <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="ipusagemng.checked" (change)="selectItem(i);" value="{{i}}"></td>
                 <td>{{ipusagemng.addr}}</td>
                 <td>{{displayIt(ipusagemng.instanceName) | translate}}</td>
                 <td>{{displayIt(ipusagemng.tenantName) | translate}}</td>
-                <td [ngClass]="{'font-green':ipusagemng.status=='2','font-orange':ipusagemng.status=='1'}">
-                    {{ipusagemng.status | dict:this.service.statusDic | async}}
-                </td>
-                <!-- <td [ngClass]="{'font-green':ipusagemng.status=='2','font-orange':ipusagemng.status=='1'}">{{getDicText(ipusagemng.status,this.statusDic)}}</td> -->
+                <td [ngClass]="{'font-green':ipusagemng.status=='2','font-orange':ipusagemng.status=='1'}">{{ipusagemng.status | dict:this.service.statusDic | async}}</td>
                 <td>{{displayIt(ipusagemng.description) | translate}}</td>
             </tr>
             </tbody>
         </table>
-<!--
-        {{pg_id}}
-        {{pg_name}}
-        ( {{selectedip.id}} , {{selectedip.addr}} )
--->
     </div>
 </div>
 

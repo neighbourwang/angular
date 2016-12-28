@@ -1,4 +1,5 @@
 export const TranslateCN = {
+    test: 'abc{{value}}',
     LANG: '中文',
     COMMON: {
         PROMPT: '提示',
@@ -9,7 +10,7 @@ export const TranslateCN = {
         RESET: '重置',
         NUMBER: '编号',
         ORDER_NUMBER: '订单号',
-        ORDER_ID:'订单ID',
+        ORDER_ID: '订单ID',
         OPERATION: '操作',
         MORE_ACTIONS:'更多操作',
         STATUS: '状态',
@@ -35,6 +36,15 @@ export const TranslateCN = {
         NAME: '名称',
         NONE: '无',
         ALL: '所有',
+        DEPARTMENT: '部门',
+        PURCHASER: '订购人',
+        PRODUCT: '产品',
+        PURCHASED: '已购',
+        QUANTITY: '数量',
+        PRICE: '价格',
+        PERMANENCE: '永久',
+        MANAGEMENT: '管理',
+
         //单位
         $: "￥",
         YUAN: '元',
@@ -53,6 +63,8 @@ export const TranslateCN = {
         NEWLY_CREATED: '新创建',
         IN_PROCESS: '处理中',
         COMPLETED: '已完成',
+        UNSUBSCRIBE: '退订',
+        RENEW: '续订',
         START: '启动',
         SHUTDOWN: '关机',
         PAUSE: '暂停',
@@ -85,11 +97,16 @@ export const TranslateCN = {
         CAPATITY: '容量',
         CAPACITY_GB: '容量(GB)',
         MOUNT: '挂载',
+        ZONE: '区域',
         AVAILABLE_ZONE: '可用区',
         AREA: '区域',
-        REGION_AND_AVAIABLE_AREA: '所在区域及可用区',
+        REGION_AND_AVAILABLE_AREA: '所在区域及可用区',
         CREATED_TIME: '创建时间',
         EXPIRE_DATE: '到期时间',
+        SYSTEM_PROMPT: '系统提示',
+
+        //长句子
+        SET_NAME_FORMAT:'2-68个字符，以大小写字母或中文开头，可包含数字，"."，"-"，"_"'
     },
     SITE: {
         EXIT: '退出'
@@ -98,7 +115,9 @@ export const TranslateCN = {
         PROMPT: '提示',
         CONFIRM: '确认',
         CANCEL: '取消',
-        COMMIT: '提交'
+        COMMIT: '提交',
+        SAVE: '保存',
+        CLOSE:'关闭'
     },
     MENU: {
         CLOUD_HOSTING_SERVICES: '云主机服务',
@@ -196,13 +215,39 @@ export const TranslateCN = {
         BY_VOLUMN_COSTS: '按量费用',
         TOTAL_COST: '费用总计',
         ANNUAL_SUBSCRIPTION: '包年包月',
-
+        PRODUCT_ORDER_DESCRIPTION: '不同区域之间的产品内网不互通；订购后不支持更换区域，请谨慎选择！',
+        DEFINITION_OF_PUBLIC_IMAGE_AND_CUSTOM_IMAGE: '公共镜像即基础操作系统，自定义镜像为企业根据基础操作系统做过额外配置或优化后的操作系统',
+        PASSWARD_COMPLEXITY_DESCRIPTION:'密码复杂度：8-30个字符，且同时包括三项（大写字母，小写字母，数字和特殊符号）',
         //sub-add-storage
         ADD_DATA_DISK:'增加数据盘'
         
     },
     ORDER_MNG: {
-
+        ORDER_DETAILS: '订购详情',
+        ORDERS_DETAILS: '订单详情',
+        RENEWAL_FEE: '续订费用',
+        DEPARTMENT_LIST: '部门列表',
+        SUBSCRIBER_LIST: '订购人列表',
+        SUBMITTER_LIST: '提交者列表',
+        ORDERS_LSIT: '订单列表',
+        ORDERED_LSIT: '已订购列表',
+        ONLY_SUCCESS_OR_EXPIRING_ORDERS_CAN_BE_RENEWED: '只有个“成功”或“即将过期”的订单可以续订',
+        ONLY_SUCCESS_OR_EXPIRING_ORDERS_CAN_BE_UNSUBSCRIBE: '只有个“已激活”的订单可以退订',
+        PURCHASE_TIME: '购买时长',
+        PLEASE_ENTER_A_NUMBER_QUERY: '请输入编号查询',
+        DUE_DATE: '到期时间',
+        THE_CURRENT_QUERY_TO: '当前查询到',
+        PURCHASED_SERVICE_PURCHASED_SERVICE_ARE_LISTED_BELOW: '个已购服务，已购服务列表如下',
+        CHARGING_MODE: '计费模式',
+        PURCHASE_CYCLE: '购买周期',
+        RENEWAL_EXPIRATION_TIME: '续订后到期时间',
+        YOUR_ORDER_HAS_BEEN_RENEWED___AND_THE_ASSOCIATED_RESOURCES: '你的订单续订已完成，可以进入管理控制台查看订单状态及使用相关资源',
+        FOR_APPROVAL___TO_TAKE_EFFECT: '如需审批，则需要订单审批通过后，才能正式生效',
+        UNSUBSCRIBE_FROM___HARD_DRIVE: '一起退订该云主机挂载的云硬盘',
+        UNSUBSCRIBE_FROM___NO_DRIVE: '你确认要退订该云主机吗',
+        WHETHER_TO_CONFIRM___EXIT_THE_PROCESS: '是否确认删除该云硬盘. 如果选"确认", 则卸载该云硬盘并删除. 如果选"取消", 则退出流程',
+        WHETHER_TO_CONFIRM_FORCE___EXIT_THE_PROCESS: '是否强制删除. 如果选"确认", 则卸载该云硬盘并删除。 如果选"取消", 则退出流程',
+       
     },
     ORDER_MNG_SEARCH: {
         CONFIRM: '确定',
@@ -233,7 +278,7 @@ export const TranslateCN = {
         OPERATION_ERROR: '操作错误',
         ORGANIZATIONAL_STATUS_IS_ENABLED: '组织状态已启用',
         ENABLE_DEPARTMENT: '启用部门',
-        YOU_CHOOSE_TO_ENABLE_VALUE_PLEASE_CONFIRM: '您选择启用{{value}}，请确认',
+        YOU_CHOOSE_TO_ENABLE_VALUE_PLEASE_CONFIRM: '您选择启用{{value_1}}，请确认',
         EDIT_DEPARTMENT: '编辑部门',
         YOU_CAN_NOT_DELETE_ORGANIZATIONS_THAT_ARE_ENABLED: '不能删除启用状态下的组织'
     },
@@ -241,9 +286,9 @@ export const TranslateCN = {
         OVERVIEW_OF_MANAGEMENT_CONTROL: '管理控制概览',
         PURCHASED_SERVICE: '已购买服务',
         WORK_ORDER_STATISTICS: '工单统计',
-        TOTAL_QUOTA_USAGE: '总配额使用率',
+        TOTAL_QUOTA_USAGE: '部门配额使用率',
         DEPARTMENT_RESOURCES: '部门资源'
-       },
+    },
     CHECK_CENTER: {
         //check-mng-list.html
         PENDING_LIST: '待审批列表',
@@ -260,12 +305,10 @@ export const TranslateCN = {
         RESET: '重置',
         CURRENT_QUERY_IS: '当前查询到',
         THE_QUERY_RESULTS_OF_PENDING_ORDERS: '个订单需要审批，查询结果如下',
-        NUMBER: '编号',
-        
         
         ORDER_DESCRIPTION: '订单描述',
         DEPARTMENT: '部门',
-        ENTERPRISE:'企业',
+        ENTERPRISE: '企业',
         COST: '费用',
         APPROVAL_RESULTS: '审批结果',
         BILLING_MODE: '计费模式',
@@ -282,7 +325,17 @@ export const TranslateCN = {
         APPROVER: '审批人',
         ALL_APPROVERS: '所有审批人',
         APPROVAL_TIME: '审批时间',
-        APPROVAL_COMMENTS: '审批意见'
+        APPROVAL_COMMENTS: '审批意见',
+
+        //check-mng-set
+        APPROVAL_SETTINGS: '审批设置',
+        IS_APPROVAL_REQUIRED: '是否需要审批',
+        OPEN: '开启',
+        CLOSE: '关闭',
+        MINUTE: '分钟',
+        AUTO_APPROVAL_TIME_SET: '自动审批时间设置',
+        EDIT:'编 辑',
+        SAVE:'保 存'
     },
 
     //cloud-drive文件夹下
@@ -292,8 +345,10 @@ export const TranslateCN = {
         CREATE_CLOUD_HRAD_DISK: '创建云硬盘',
         CLOUD_HRAD_DISK_NAME: '云硬盘名称',
         MOUNT_LOCATION_CLOUD_HOST_NAME: '挂载位置（云主机名称）',
-        
-        REGION: '所在地区',        
+        AVAILABLE_AREA: "所在可用区",
+        UNSUBSCRIBE_DISK: '退订云硬盘',
+
+        REGION: '所在地区',
         ATTRIBUTE: '属性',
         OPERATE: '操作',        
         MOUNT: '挂载',
@@ -302,7 +357,7 @@ export const TranslateCN = {
     },
     CLOUD_DRIVE_ORDER: {
        
-        //28行：云硬盘只能挂载到同一可用区下的云主机实例，订购成功后不支持更换云硬盘的区域和可用区；请谨慎选择
+        CLOUD_HARD_DISK_ORDER_DESCRIPTION:'云硬盘只能挂载到同一可用区下的云主机实例，订购成功后不支持更换云硬盘的区域和可用区；请谨慎选择',
         CONFIGURATION_OPTIONS: '配置选项',
         BLANK_DISK: '空白盘',
         CLOUD_HARD_DISK_TYPE: '云硬盘类型',
@@ -333,7 +388,7 @@ export const TranslateCN = {
         PURCHASE_CYCLE: '购买周期',
         CHARGE_DETAIL: '费用明细',
         QUANTITY: '数量',
-        NOTE:'小记',
+        NOTE: '小记',
         REMOVE_FROM_CART: '从购物车中移除',
         INCREMENTAL_CYCLE_COST: '增量周期费用',
         UNIT_PRICE: '单价费用',
@@ -345,6 +400,28 @@ export const TranslateCN = {
         //cart-order.html
         ORDER_FINISHED: '订单完成',
         //58行
-        MNG_CONSOLE:'管理控制台'
+        MNG_CONSOLE: '管理控制台',
+        ORDER_HAS_BEEN_GENERATED: '您的订单已生成，可以进入管理控制台查看订单状态及使用相关资源',
+        ORDER_IS_EFFECTIVE_AFTER_APPROVED:'如需审批，则需要订单审批通过后，才能正式生效。'
+    },
+    IMAGE: {
+        AREA_LIST: '区域列表',
+        IMAGE_ATTRIBUTION: '镜像归属',
+        IMAGE_NAME: '镜像名称',
+        ENETR_IMAGE_NAME_TO_SEARCH: '输入镜像名称搜索',
+        OPERATING_SYSTEM: '操作系统',
+        IMAGE_TYPE: '镜像类型',
+        SIMPLE_SEARCH: '简单搜索',
+        RESET_OPTIONS: '重置选项',
+        CHOOSE: '选择',
+        SYSTEM_BITS: '系统位数',
+        IMAGE_CAPACITY: '镜像容量',
+        FOUNDER: '创建人',
+        CREATED_DEPARTMENT: '创建部门',
+        PROGRESS_RATE: '进度',
+        CUSTOM_IMAGE_NAME: '自定义镜像名',
+        CUSTOM_IMAGE_APPLICATION_RANGE: '自定义镜像应用范围',
+        CUSTOM_IMAGE_DESCRIPTION:'自定义镜像描述'
+        
     }
 }

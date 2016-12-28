@@ -68,6 +68,12 @@
     <div style="height:150px"></div>
 </div>
 
+<div class="text-center">
+    <button class="fox-cloud-button-lg fox-cloud-button-white">
+        <span class="icon-button-label" (click)="ipMngPage()">{{'COMMON.CLOSE' | translate}}</span>
+    </button>
+</div>
+
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" (of)="okClicked()"></fc-notice>
 <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" (of)="onConfirmed()"></fc-confirm>
 

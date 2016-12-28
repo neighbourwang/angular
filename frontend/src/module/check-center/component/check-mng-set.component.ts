@@ -12,6 +12,7 @@ import { RestApi
 	, DicLoader
 	, ItemLoader } from '../../../architecture';
 import {CheckCenterSet} from '../model';
+import * as _ from 'underscore';
 
 @Component({
 	selector: 'order-mng-cancel',
@@ -27,7 +28,6 @@ export class CheckMngSetComponent implements OnInit{
 	  @ViewChild("notice") private _notice:NoticeComponent;
 
 	  private isEdit : boolean = true;//编辑状态
-	  private isOpen : boolean ; //开启radia
 
 	  private loadHandler : ItemLoader<CheckCenterSet> ;//加载数据
 	  private saveHandler : ItemLoader<CheckCenterSet> ;//加载数据
@@ -39,25 +39,32 @@ export class CheckMngSetComponent implements OnInit{
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
-			this.loadHandler = new  ItemLoader<CheckCenterSet>(false, "审批设置", "check-center.approve-set.post", restApiCfg, restApi);
+			this.loadHandler = new  ItemLoader<CheckCenterSet>(false, "审批设置", "check-center.approve-set.get", restApiCfg, restApi);
 			this.loadHandler.MapFunc=(source:Array<any>,target:Array<CheckCenterSet>)=>{
 					for(let item of source){
 						let obj = new CheckCenterSet();
 						target.push(obj);
+						if(item.frontAuditEnable== '1'){
+							obj.auditEnable = true;//开启
+						}else{
+							obj.auditEnable = false;//关闭
+						}
 						// obj.isOpen= item.isOpen;
-						// obj.time = item.time;
+						 obj.time = item.frontAutoApprovalTime;
 					}
 			};
-	}
 
+			this.loadHandler.FirstItem = new CheckCenterSet();
+
+			this.saveHandler = new  ItemLoader<CheckCenterSet>(false, "审批设置", "check-center.approve-set.put", restApiCfg, restApi);
+		}
 	ngOnInit(){
-	
-
+		this.search();
 	}
 
   search(){
 	 this.layoutService.show();
-	 this.loadHandler.Go()
+	 this.loadHandler.Go(null, [{key:"_enterpriseId", value:this.restApi.getLoginInfo().userInfo.enterpriseId}])
 	.then(succeess=>{
 		this.layoutService.hide();
 	})
@@ -73,24 +80,41 @@ export class CheckMngSetComponent implements OnInit{
 
   //保存
   save(){
-	this.isEdit = !this.isEdit;
-	// this.layoutService.show();
-	// this.saveHandler.Go()
-	// .then(succeess=>{
-	// 	this.layoutService.hide();
-	// 	this.isEdit = !this.isEdit;
-	// })
-	// .catch(err=>{
-	// 		this.layoutService.hide();
-	// 		this.showMsg(err);
-	// 	});
-  }
+// 	  {
+//   "backAuditEnable": "string",
+//   "backendTime": 0,
+//   "enterpriseId": "string",
+//   "frontAuditEnable": "string",
+//   "frontTime": 0
+// }
 
-  selectOpen(){
-	  this.isOpen = !this.isOpen;
-  }
-  selectClose(){
-	this.isOpen = !this.isOpen;
+	this.layoutService.show();
+	let _param = _.extend({}, this.param);
+
+	 _param.frontTime = this.param.time;
+	 _param.enterpriseId  = this.restApi.getLoginInfo().userInfo.enterpriseId;
+	 _param.backAuditEnable = null;
+	 _param.backendTime = null;
+	
+
+	if(this.param.auditEnable){
+		_param.frontAuditEnable = '1';
+	}else{
+		 _param.frontAuditEnable = '0';
+	}
+
+	this.saveHandler.Go(null, null, _param)
+	.then(succeess=>{
+		this.search();
+	})
+	.then(succeess=>{
+		this.isEdit = !this.isEdit;
+		this.layoutService.hide();	
+	})
+	.catch(err=>{
+			this.layoutService.hide();
+			this.showMsg(err);
+		});
   }
 
   	showMsg(msg:string)

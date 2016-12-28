@@ -178,6 +178,9 @@ export class CheckMngHascheckComponent implements OnInit{
 			return this._orderTypeDic.Go();
 		})
 		.then(success=>{
+			this.search();
+		})
+		.then(success=>{
 			this._layoutService.hide();
 		})
 		.catch(err=>{
@@ -216,7 +219,7 @@ export class CheckMngHascheckComponent implements OnInit{
 //   "userId": "string"
 // }
 		//匹配后台搜索框参数
-		param.approverStatus = 1;//approvalStatus代表已审批
+		param.approverStatus = 3;//approvalStatus代表已审批
         param.orderCode = this._param.quickSearchStr;//输入订单号快速查询 ？
  		param.enterpriseId = this._param.entIdStr; //企业enterpriseId
 		param.organization = this._param.departmentIdNum; //部门organization？

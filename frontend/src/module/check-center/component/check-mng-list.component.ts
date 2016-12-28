@@ -12,6 +12,8 @@ import { RestApi
 	, ItemLoader } from '../../../architecture';
 
 import { CheckCenterParam,CheckListItem} from './../model';
+import {DictService} from '../../../architecture/core/service/dict-service';
+
 import * as _ from 'underscore';
 
 @Component({
@@ -45,7 +47,8 @@ export class CheckMngListComponent implements OnInit{
 	constructor(
 		private _restApiCfg:RestApiCfg
 		,private _restApi:RestApi
-		,private _layoutService:LayoutService){
+		,private _layoutService:LayoutService
+		,private _dictServ:DictService){
 
 		//拒绝
 		this._refuseHandler = new ItemLoader<any>(false, '拒绝', "check-center.approve-refust.post", _restApiCfg,_restApi);
@@ -56,33 +59,29 @@ export class CheckMngListComponent implements OnInit{
 
 			for(let item of source)
 			{
-				let obj = new CheckListItem();
+				let obj = _.extendOwn(new CheckListItem(), item) as CheckListItem;
 				target.push(obj);
 
 				obj.orderId = item.orderId;
 				obj.orderCodeStr = item.orderNo;//订单编号
 				obj.serviceTypeIdStr = item.serviceType;//产品类型
-				// obj.platformStr = ?? 区域
-				// obj.zoneStr = ?? 可用区
-				obj.orderTypeName = item.orderType;//订单类型
 				obj.userStr = item.submiter;// 用户,提交者
 				obj.departmentStr = item.departmentName;// 部门
 				obj.entStr = item.enterpriszeName;// 企业
 				//费用
-				obj.billingModeNum =item.billingInfo ? item.billingInfo.billingMode: null; //计费模式
 				obj.billingDurationStr = item.period;//订单周期
 				obj.oneTimePriceNum = item.billingInfo ? item.billingInfo.basePrice: null;//一次性费用
 				if(item.billingInfo)
 				{
-					if(obj.billingModeNum == 0)//包年包月
+					obj.billingMode = item.billingInfo.billingMode;
+					if(item.billingInfo.billingMode == 0)//包年包月
 					{
 						obj.priceNum = item.billingInfo.basicPrice + item.billingInfo.cyclePrice
 					}
-					else if(obj.billingModeNum == 1)//按量
+					else if(item.billingInfo.billingMode == 1)//按量
 					{
 						obj.priceNum = item.billingInfo.unitPrice;
 					}
-					
 				}
 
 				obj.createTimeStr = item.createDate;// 创建时间
@@ -159,26 +158,48 @@ export class CheckMngListComponent implements OnInit{
 	
 	//搜索
 	search(pageNum:number = 1){
+		/*
+		{
+  "approverId": "string",
+  "approverStatus": "string",
+  "createTime": "2016-12-28T02:22:56.512Z",
+  "enterpriseId": "string",
+  "expireTime": "2016-12-28T02:22:56.512Z",
+  "orderCode": "string",
+  "orderType": "string",
+  "organization": "string",
+  "pageParameter": {
+    "currentPage": 0,
+    "offset": 0,
+    "size": 0,
+    "sort": {},
+    "totalPage": 0
+  },
+  "serviceType": "string",
+  "status": "string",
+  "userId": "string"
+}
+*/
 
-		let param = _.extend({}, this._param);
+		let param = {
+			approverStatus: null//'0';//approvalStatus代表未审批
+	        ,quickSearchStr: this._param.quickSearchStr//输入订单号快速查询 ？
+			,organization :this._param.departmentIdNum //部门organization？
+			,orderType:this._param.orderTypeNum//订单类型orderType
+			,serviceType:this._param.serviceTypeNum//产品类型serviceId
+			,createTime:this._param.startDateStr//创建时间
+			,expireTime:this._param.endDateStr //结束时间
+			,userId:this._param.submitUserId//提交者？
+			,enterpriseId:this._restApi.getLoginInfo().userInfo.enterpriseId
+			,pageParameter: {
+				currentPage:pageNum
+				,size:10
+			}
+			
+		};
 
 		
         //匹配后台搜索框参数/authsec/backend/approval/orders/search/paging 
-		param.approvalStatus = 0;//approvalStatus代表未审批
-        param.quickSearchStr = this._param.quickSearchStr;//输入订单号快速查询 ？
- 	
-		param.organization = this._param.departmentIdNum; //部门organization？
-		param.orderType = this._param.orderTypeNum;//订单类型orderType
-		param.serviceId = this._param.serviceTypeNum;//产品类型serviceId
-		param.createTime = this._param.startDateStr;//创建时间
-		param.expireTime = this._param.endDateStr; //结束时间
-		 param.serviceId = this._param.submitUserId;//提交者？
-
-		
-		param.pageParameter = {
-			currentPage:pageNum
-			,size:10
-		};
 		this._layoutService.show();
 		this._listLoader.Go(pageNum, null, param)
 		.then(success=>{
@@ -276,6 +297,7 @@ export class CheckMngListComponent implements OnInit{
 	}
 
 	confirmAccept(){
+		this.refuseReason = "同意";
 		this.approveOrder(1, this._selectedItem.orderId);
 	}
 
@@ -283,12 +305,12 @@ export class CheckMngListComponent implements OnInit{
 		this.clearApproveData();
 	}
 
-	onStartDateChange(date:string){
-		this._param.startDateStr = date;
+	onStartDateChange($event){
+		this._param.startDateStr = $event.formatted;
 	}
 
-	onEndDateChange(date:string){
-		this._param.endDateStr = date;
+	onEndDateChange($event){
+		this._param.endDateStr = $event.formatted;
 	}
 
 	changePage(pageNum:number){

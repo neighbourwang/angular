@@ -1,56 +1,56 @@
 ﻿<div class="page-content-header icon-cloud-network-mngOn">
-    VMware网络管理
+    VMware{{'NET_MNG_VM_IP_MNG.NET_MNG' | translate}}
 </div>
 <div class="page-content">
         <table class="table table-hover ">
             <thead>
             <tr>
-                <th style="text-align:left;line-height: 30px;"> VMware网络管理--管理标准网络"地区" "数据中心"平台显示名称+URL连接https://192.168.1.1:443</th>
+                <th style="text-align:left;line-height: 30px;"> VMware{{'NET_MNG_VM_IP_MNG.NET_MNG' | translate}}--{{'NET_MNG_VM_IP_MNG.MANAGE_STD_NET' | translate}} "地区" "数据中心"平台显示名称+URL连接https://192.168.1.1:443</th>
             </tr>
             </thead>
         </table>
 
     <div class="mgt15">
-        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 数据中心(DC)名称：</span>
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> {{'NET_MNG_VM_IP_MNG.DC_NAME' | translate}}：</span>
         <div class="float-left pdr20">
             <select class="pdl20 pdr20 form-control" [(ngModel)]="selectedDC" (change)="selectCluster=defaultCluster;">
-                <option [ngValue]="defaultDc">所有</option>
+                <option [ngValue]="defaultDc">{{'NET_MNG_VM_IP_MNG.ALL' | translate}}</option>
                 <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
             </select>
         </div>
-        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 可用区名称：</span>
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> {{'NET_MNG_VM_IP_MNG.CLUSTER_NAME' | translate}}：</span>
         <div class="float-left">
             <select class="pdl20 pdr20 form-control" [(ngModel)]="selectCluster">
-                <option [ngValue]="defaultCluster">所有</option>
+                <option [ngValue]="defaultCluster">{{'NET_MNG_VM_IP_MNG.ALL' | translate}}</option>
                 <option *ngFor="let vds of selectedDC.clusters" [ngValue]="vds">{{vds.clusterName}}</option>
             </select>
         </div>
-        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px;" (click)="filter();"> 确定</button>
+        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px;" (click)="filter();">{{'NET_MNG_VM_IP_MNG.ENSURE' | translate}}</button>
     </div>
     <div class="mgt15" style="clear:both"></div>
     <div class="mgb20">
         <button class="fox-cloud-button fox-cloud-button-green" (click)="create();">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建标准网络</span> <!--请添加创建的弹出框-->
+            <span class="icon-button-label icon-left-button-label">{{'NET_MNG_VM_IP_MNG.CREATE_STD_NET' | translate}}</span> <!--请添加创建的弹出框-->
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="edit();">
-            <span class="icon-button-label icon-left-button-label">编辑标准网络</span>
+            <span class="icon-button-label icon-left-button-label">{{'NET_MNG_VM_IP_MNG.EDIT_STD_NET' | translate}}</span>
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoPortMng();">
-            <span class="icon-button-label icon-left-button-label">端口资源组分配</span>
+            <span class="icon-button-label icon-left-button-label">{{'NET_MNG_VM_IP_MNG.PORTGROUP_ALLOCATION' | translate}}</span>
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoIpMng();">
-            <span class="icon-button-label icon-left-button-label">IP地址管理</span>
+            <span class="icon-button-label icon-left-button-label">{{'NET_MNG_VM_IP_MNG.IP_ADDRESS_MNG' | translate}}</span>
         </button>
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                选择操作
+                {{'NET_MNG_VM_IP_MNG.SELECT_OPERATION' | translate}}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li ><a href="javascript:void(0);" (click)="netEnable();">启用</a></li>
-                <li ><a href="javascript:void(0);" (click)="netDisable();">禁用</a></li>
-                <li ><a href="javascript:void(0);" (click)="netRemove();">删除</a></li>
+                <li ><a href="javascript:void(0);" (click)="netEnable();">{{'NET_MNG_VM_IP_MNG.ENABLE' | translate}}</a></li>
+                <li ><a href="javascript:void(0);" (click)="netDisable();">{{'NET_MNG_VM_IP_MNG.DISABLE' | translate}}</a></li>
+                <li ><a href="javascript:void(0);" (click)="netRemove();">{{'NET_MNG_VM_IP_MNG.DELETE' | translate}}</a></li>
             </ul>
         </div>
     </div>
@@ -58,15 +58,15 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>选择 </th>
-                    <th>数据中心(DC) </th>
-                    <th>可用区(集群)名称 </th>
-                    <th> 可用区显示名称</th>
-                    <th> 标准端口组显示名称</th>
-                    <th> 标准端口组名称</th>
-                    <th>VLAN ID </th>
-                    <th>状态 </th>
-                    <th>最后更新时间 </th>
+                    <th>{{'NET_MNG_VM_IP_MNG.SELECT' | translate}} </th>
+                    <th>{{'NET_MNG_VM_IP_MNG.DC' | translate}}</th>
+                    <th>{{'NET_MNG_VM_IP_MNG.CLUSTER_NAME' | translate}}</th>
+                    <th>{{'NET_MNG_VM_IP_MNG.CLUSTER_DISPLAY_NAME' | translate}}</th>
+                    <th>{{'NET_MNG_VM_IP_MNG.PORTGROUP_DISPLAY_NAME' | translate}}</th>
+                    <th>{{'NET_MNG_VM_IP_MNG.PORTGROUP_NAME' | translate}}</th>
+                    <th>{{'NET_MNG_VM_IP_MNG.VLAN_ID' | translate}}</th>
+                    <th>{{'NET_MNG_VM_IP_MNG.STATUS' | translate}}</th>
+                    <th>{{'NET_MNG_VM_IP_MNG.LAST_UPDATE_DATE' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -77,21 +77,21 @@
                     <td>{{stdnet.clusterName}}</td>
                     <td>{{stdnet.clusterDisplayName}}</td>
                     <td style="position:relative;">
-                        {{stdnet.portDisplayName||"未设置"}}<span class="icon-edit2 pull-right" (click)="openEditPort(stdnet);stdnet.nameEditing=true;" style="display:inline-block"></span>
+                        {{stdnet.portDisplayName|| 'NET_MNG_VM_IP_MNG.UNSET' | translate}}<span class="icon-edit2 pull-right" (click)="openEditPort(stdnet);stdnet.nameEditing=true;" style="display:inline-block"></span>
                         <div *ngIf="stdnet.nameEditing" class="popover fade bottom in" role="tooltip" style="z-index:50;position:absolute;top: 35px; left: 8.5px; width:420px;max-width:1000px; display: block;">
                             <div class="arrow" style="left: 20%;"></div>
                             <div class="popover-content">
                                 <form class="form-horizontal" role="form">
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label pull-left">显示名称:</label>
+                                        <label class="col-sm-3 control-label pull-left">{{'NET_MNG_VM_IP_MNG.DISPLAY_NAME' | translate}}:</label>
                                         <div class="col-sm-9 float-left">
                                             <input type="text" class="form-control" [(ngModel)]="editPort.portDisplayName" rows="3" name="stdnetName"/>
                                         </div>
                                     </div>
                                 </form>
                                 <div class="pull-right" style="margin-bottom:10px;">
-                                    <button class="fox-cloud-button fox-cloud-button-white" (click)="updatePort(stdnet)">保存</button>
-                                    <button class="fox-cloud-button fox-cloud-button-white" (click)="stdnet.nameEditing=false;">取消</button>
+                                    <button class="fox-cloud-button fox-cloud-button-white" (click)="updatePort(stdnet)">{{'NET_MNG_VM_IP_MNG.SAVE' | translate}}</button>
+                                    <button class="fox-cloud-button fox-cloud-button-white" (click)="stdnet.nameEditing=false;">{{'NET_MNG_VM_IP_MNG.CNACLE' | translate}}</button>
                                 </div>
                             </div>
                         </div>
@@ -113,17 +113,17 @@
     <div style="height:300px;width:100%;"></div>
 </div>
 
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
-<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}"></fc-confirm>
 
 
-<fc-popup #editStdNet title="{{title}}" ot="{{tempEditNet.id==''?'创建':'保存'}}" (of)="saveEditNet(stdnet);" ct="关闭" (cf)="cancelEdit();">
+<fc-popup #editStdNet title="{{title}}" ot="{{tempEditNet.id==''? 'NET_MNG_VM_IP_MNG.CREATE':'NET_MNG_VM_IP_MNG.SAVE' | translate }}" (of)="saveEditNet(stdnet);" ct="{{'COMMON.CLOSE' | translate}}" (cf)="cancelEdit();">
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>DC：</div>
             <div class="col-sm-6">
                 <select class="form-control" [(ngModel)]="selectedDC4Popup" (change)="selectedCluster4Popup = defaultCluster;">
-                    <option [ngValue]="defaultDc">请选择</option>
+                    <option [ngValue]="defaultDc">{{'NET_MNG_VM_IP_MNG.PLEASE_CHOOSE' | translate}}</option>
                     <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
                 </select>
             </div>
@@ -131,10 +131,10 @@
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可用区名称：</div>
+            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.CLUSTER_NAME' | translate}}：</div>
             <div class="col-sm-6">
                 <select class="form-control" [(ngModel)]="selectedCluster4Popup">
-                    <option [ngValue]="defaultCluster">请选择</option>
+                    <option [ngValue]="defaultCluster">{{'NET_MNG_VM_IP_MNG.PLEASE_CHOOSE' | translate}}</option>
                     <option *ngFor="let vds of selectedDC4Popup.clusters" [ngValue]="vds">{{vds.clusterName}}</option>
                 </select>
             </div>
@@ -142,7 +142,7 @@
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>显示名称：</div>
+            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.DISPLAY_NAME' | translate}}：</div>
             <div class="col-sm-6">
                 <input type="text" class="form-control" [(ngModel)]="tempEditNet.clusterDisplayName" />
             </div>
@@ -150,7 +150,7 @@
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>端口组名称：</div>
+            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.PG_NAME' | translate}}：</div>
             <div class="col-sm-6">
                 <input type="text" class="form-control" [(ngModel)]="tempEditNet.portGroupName" />
             </div>
@@ -158,7 +158,7 @@
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>VLAN ID：</div>
+            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.VLAN_ID' | translate}}：</div>
             <div class="col-sm-6">
                 <input type="text" class="form-control" [(ngModel)]="tempEditNet.vlanId" />
             </div>

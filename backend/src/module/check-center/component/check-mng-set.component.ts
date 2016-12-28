@@ -1,4 +1,4 @@
-	
+
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { RestApi
@@ -68,6 +68,8 @@ export class CheckMngSetComponent implements OnInit{
 	set(item:CheckSetListItem){
 		this._selectedItem =_.extend({}, item);
 
+		console.log('set ', this._selectedItem);
+
 		this.setPoup.open();
 		console.log('ent-est-mng/edit');
 	}
@@ -87,9 +89,11 @@ export class CheckMngSetComponent implements OnInit{
 		}
 
 		this.layoutService.show();
-		this._setHandler.Go(null, [], {backAuditEnable:this._selectedItem.backAuditEnable
+		this._setHandler.Go(null, [], {backAuditEnable:this._selectedItem.backAuditEnable ? 1 : 0
 			,backendTime:this._selectedItem.backAutoApprovalTime
 			,enterpriseId: this._selectedItem.id
+			,frontAuditEnable:null
+			,frontTime:null
 		})
 		.then(success=>{
 			this.layoutService.hide();

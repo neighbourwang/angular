@@ -26,6 +26,9 @@ export class cloudDriveListComponent implements OnInit {
 	@ViewChild("vmDialog") vmDialog: PopupComponent;
 
 	@ViewChild('platformZone') platformZone;
+	
+	@ViewChild('popup')
+	private popup: PopupComponent;
 
 	@Input() options:ListOptions;
 
@@ -37,6 +40,8 @@ export class cloudDriveListComponent implements OnInit {
 	modalTitle: string = '';
 	modalMessage: string = '';
 	modalOKTitle: string = '';
+
+	radioSelected:DistList = new DistList; //选择的disk
 
 	serverId : string = '';
 	mountDisk : DistList;
@@ -82,9 +87,25 @@ export class cloudDriveListComponent implements OnInit {
 	
 	platformClick(data) {   //选择区域列表
 		this.list.platformId = data.area.id;
-		// this.list.zoneId = data.zone.zoneId;
+		this.list.zoneId = data.zone.zoneId;
 		this.saveList.platformId = data.area.id;
-		// this.saveList.zoneId =  data.zone.zoneId;
+		this.saveList.zoneId =  data.zone.zoneId;
+		this.setDistList();
+	}
+
+	delectDisk() {  //退订云硬盘
+		if( !this.radioSelected.id )  return this.showNotice("退订云硬盘", "请选择要退订的硬盘");
+
+		this.popup.open("退订云硬盘");
+	}
+	popupCf(){}
+	popupOf(){
+		this.service.deleteDisk(this.radioSelected.id).then(res => {
+			this.showNotice("退订云硬盘", "退订成功！");
+		}).catch(e => {
+			this.showNotice("退订云硬盘", "退订失败！");
+		})
+		this.popup.close();
 	}
 
 	//云硬盘的操作相关
@@ -100,7 +121,7 @@ export class cloudDriveListComponent implements OnInit {
 		this.service.handleDist(this.handleData).then(res => {
 			this.layoutService.hide();
 			// alert(msg+"成功！");
-			this.showNotice("云主机操作" ,msg+"成功！");
+			this.showNotice("云硬盘操作" ,msg+"成功！");
 
 			setTimeout(() => {   //延迟4秒执行 因为后端4秒同步一次状态
 				this.setDistList();
@@ -123,7 +144,6 @@ export class cloudDriveListComponent implements OnInit {
 
 	resetSearch(){   //重置搜索
 		this.list = Object.assign({}, this.saveList);
-		this.platformZone.reset();
 		this.initSelect();
 	}
 	search() {    //搜索

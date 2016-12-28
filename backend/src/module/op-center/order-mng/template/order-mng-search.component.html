@@ -6,7 +6,7 @@
 			<div class="">
 				<div class="input-group col-md-2 float-left mgr20">
    					 <input class="form-control ht40" placeholder="输入云主机信息搜索" [(ngModel)]="_param.queryParam">
-    				 <div class="input-group-addon"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
+    				 <div class="input-group-addon pointer"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div>
 						
 				<button class="fox-cloud-button-green fox-cloud-button reset-buttont pdl20 pdr20 pdt5" (click)="resetParam()" >
@@ -32,7 +32,7 @@
 								<select class="form-control" [(ngModel)]="_param.organization" (ngModelChange)="loadBuyer()">
 									<option class="hands" [value]="null">所有部门</option>
 									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
-								</select>
+							</select>
 							</div>
 						</td>
 						<td class="none-border">

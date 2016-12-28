@@ -117,8 +117,8 @@
     <div class="fox-cloud-pagination-container">
         <fc-pagination #pager tp={{totalPage}} (pf)="getVmwareImgList($event)"></fc-pagination>
     </div>
-    <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
-    <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
+    <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>
+    <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}"></fc-confirm>
 </div>
 
 <fc-popup #enableimagebox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'HOST_VMWARE_MNG.ENABLE_IMAGE' | translate}}" (of)="acceptVmwareImageEnableModify()" (cf)="cancelVmwareImageEnableModify()">
@@ -126,7 +126,8 @@
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-12">
-					    您选择启用 ' {{selectedimg.displayName || "image"}} ' ， 请确认；如果确认，用户将能够在订购中选择此镜像。
+                        {{'HOST_VMWARE_MNG.ENABLE_IMAGE_MSG' | translate:{value: (selectedimg.displayName || "image")} }}
+                        <!--您选择启用 ' {{selectedimg.displayName || "image"}} ' ， 请确认；如果确认，用户将能够在订购中选择此镜像。 -->
 					</div>
 				</div>
 			</div>
@@ -138,7 +139,8 @@
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-12">
-                        您选择禁用 ' {{selectedimg.displayName || "image"}} ' ， 请确认；如果确认，用户将不能在订购中选择此镜像。
+                        {{'HOST_VMWARE_MNG.DISABLE_IMAGE_MSG' | translate:{value: (selectedimg.displayName || "image")} }}
+                        <!-- 您选择禁用 ' {{selectedimg.displayName || "image"}} ' ， 请确认；如果确认，用户将不能在订购中选择此镜像。 -->
 					</div>
 				</div>
 			</div>

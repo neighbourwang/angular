@@ -65,8 +65,8 @@ export class CheckMngListComponent implements OnInit{
 				obj.orderId = item.orderId;//订单id				
 				obj.orderCodeStr = item.orderNo;//订单编号
 				obj.serviceTypeIdStr = item.serviceType;//产品类型
-				// obj.platformStr = ?? 区域
-				// obj.zoneStr = ?? 可用区
+				obj.platformStr = item.platformName;//区域
+				obj.zoneStr = item.zoneName;// 可用区
 				obj.orderTypeName = item.orderType;//订单类型
 				obj.userStr = item.submiter;// 用户,提交者
 				obj.departmentStr = item.departmentName;// 部门
@@ -153,6 +153,9 @@ export class CheckMngListComponent implements OnInit{
 			return this._orderTypeDic.Go();
 		})
 		.then(success=>{
+			this.search();
+		})
+		.then(success=>{
 			this._layoutService.hide();
 		})
 		.catch(err=>{
@@ -174,7 +177,7 @@ export class CheckMngListComponent implements OnInit{
 
 		
         //匹配后台搜索框参数/authsec/backend/approval/orders/search/paging 
-		param.approverStatus = 0;//approvalStatus代表未审批
+		param.approverStatus = 2;//approvalStatus代表未审批
         param.orderCode = this._param.quickSearchStr;//输入订单号快速查询 ？
  		param.enterpriseId = this._param.entIdStr; //企业enterpriseId
 		param.organization = this._param.departmentIdNum; //部门organization？

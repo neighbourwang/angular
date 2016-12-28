@@ -47,6 +47,29 @@ export class cloudDriveServiceList {
         return request;
     }
 
+    deleteDisk(subId, cascadeFlag?) : Promise<any>{  //退订
+        const api = this.restApiCfg.getRestApi("op-center.order-mng.order-cancel.get");
+
+        let pathParams = [
+            {
+                key: '_subId',
+                value: subId
+            },
+            {
+                key: '_cascadeFlag',
+                value: 0
+            }
+        ];
+        const request = this.restApi.request(api.method, api.url, pathParams, undefined)
+                            .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "";
+                                }
+                                return res.resultContent;
+                            });
+        return request;
+    }
+
     handleDist(senData:HandleDist) : Promise<any> { 
         const api = this.restApiCfg.getRestApi("hosts.vm.action");
 

@@ -7,6 +7,24 @@ export class SubInstanceResp {
   orderNo: string = null;//, optional): 对应UI界面中的订单编号 ,
   purchaseDate: string = null;//, optional): 对应UI界面中的下单时间, 映射到后端的createDate
   canRenew:boolean = true;
+  relySubinstanceId : number = null; //是否挂载了主机的标识
+
+  get isMachine():boolean{//云主机
+    return this.itemList && this.itemList[0].serviceType == 0;
+  }
+
+  get isDisk():boolean{//云硬盘
+    return this.itemList && this.itemList[0].serviceType == 1;
+  }
+
+  get isInUse():boolean{//是否处于挂载状态
+    if(this.isDisk)
+    {
+      return this.relySubinstanceId != null;
+    }
+    else
+      return void 0;
+  }
 }
 
 export class SubInstanceItemResp {

@@ -108,7 +108,7 @@ export class PortMngComponent implements OnInit {
     gotoSetPage() {
         const port = this.filterPorts.find((p) => { return p.selected; });
         if (!port) {
-            this.showAlert("请先选择需要设置的企业的端口组");
+            this.showAlert("NET_MNG_VM_PORT.PLEASE_CHOOSE_PORT_NEEDSET");
             return;
         }
         this.router.navigate([`net-mng/vm-mng/port-mng-set/${port.clusterId}`, { platform_id: this.pid }]);
@@ -121,7 +121,7 @@ export class PortMngComponent implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "NET_MNG_VM_PORT.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -133,6 +133,6 @@ export class PortMngComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("NET_MNG_VM_PORT.GETTING_DATA_FAILED");
     }
 }

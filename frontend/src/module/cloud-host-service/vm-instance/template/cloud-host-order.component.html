@@ -14,7 +14,7 @@
 						</label>
 					</div>
 					<div class="col-md-2"></div>
-					<div class="col-md-10 text-tip">不同区域之间的产品内网不互通；订购后不支持更换区域，请谨慎选择！</div>
+					<div class="col-md-10 text-tip">{{'VM_INSTANCE.PRODUCT_ORDER_DESCRIPTION'| translate}}</div>
 					<div class="col-md-2 content-title">{{'COMMON.AVAILABLE_ZONE'| translate}}</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label
@@ -58,7 +58,7 @@
 					<p><span class="icon-specifications"></span><br>{{'VM_INSTANCE.INSTANCE_CONFIGURATION'| translate}}</p>
 				</div>
 				<div class="col-md-12 li-content">
-					<div class="col-md-2 content-title">CPU</div>
+					<div class="col-md-2 content-title">{{'VM_INSTANCE.CPU'| translate}}</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 
 						<label
@@ -94,7 +94,7 @@
 						</select>
 					</div>
 					<div class="col-md-2"></div>
-					<div class="col-md-10 text-tip">公共镜像即基础操作系统，自定义镜像为企业根据基础操作系统做过额外配置或优化后的操作系统</div>
+					<div class="col-md-10 text-tip">{{'VM_INSTANCE.DEFINITION_OF_PUBLIC_IMAGE_AND_CUSTOM_IMAGE'| translate}}</div>
 					<div class="col-md-2 content-title">{{'VM_INSTANCE.MIRROR_TYPE'| translate}}</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label
@@ -132,7 +132,11 @@
 							</div>
 							<div class="col-md-1 content-title2">{{'COMMON.CAPATITY'| translate}}</div>
 							<div class="col-md-2 no-padding">
-								<input disabled="true" [(ngModel)]="sendModule.bootsize.attrValue" type="text" class="form-control">
+								<select [(ngModel)]="sendModule.bootsize" (ngModelChange)="bootSizeChange()" class="form-control">
+									<option
+									*ngFor="let value of bootsizeList;"
+									[ngValue]="value" >{{ value.attrDisplayValue }}</option>
+								</select>
 							</div>
 							<div class="col-md-6 content-title2">{{'COMMON.GB'| translate}}</div>
 						</div>
@@ -170,7 +174,7 @@
 								(keyup) = "checkValue('password')"
 								[(ngModel)]="sendModule.password.attrValue" class="form-control" placeholder="{{'VM_INSTANCE.PLEASE_ENTER_HOST_PASSWARD'| translate}}">
 						</div>
-						<div class="col-md-5 no-padding text-tip">密码复杂度：8-30个字符，且同时包括三项（大写字母，小写字母，数字和特殊符号）</div>
+						<div class="col-md-5 no-padding text-tip">{{'VM_INSTANCE.PASSWARD_COMPLEXITY_DESCRIPTION'| translate}}</div>
 					</div>
 
 					<div class="col-md-12 no-padding mb20" *ngIf="setPassword">
@@ -189,7 +193,7 @@
 							
 							<input type="text" [(ngModel)]="sendModule.instancename.attrValue" (keyup)="checkValue('instancename')" class="form-control" placeholder="如不填写，则系统自动生成">
 						</div>
-						<div class="col-md-5 no-padding text-tip">2-68个字符，以大小写字母或者中文开头，可包含数字，“.”, "-", "_"</div>
+						<div class="col-md-5 no-padding text-tip">{{'COMMON.SET_NAME_FORMAT'| translate}}</div>
 					</div>
 				</div>
 			</li>
