@@ -1,10 +1,10 @@
 <div class="page-content cloud_mirror">
     <div class="col-md-12">
-        <h1 class="page-content-header">镜像</h1>
+        <h1 class="page-content-header">{{'COMMON.MIRROR' | translate}}</h1>
         <ul class="left-box-mirror" style="margin-bottom:20px;">
             <li>
                 <div class="col-md-2 li-title">
-                    <p><br>区域列表</p>
+                    <p><br>{{'IMAGE.AREA_LIST' | translate}}</p>
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12 btn-group" data-toggle="buttons">
@@ -19,12 +19,12 @@
             </li>
             <li>
                 <div class="col-md-2 li-title">
-                    <p><br>镜像归属</p>
+                    <p><br>{{'IMAGE.IMAGE_ATTRIBUTION' | translate}}</p>
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12 btn-group" data-toggle="buttons">
                         <label class="btn btn-default fix-width-140 mgt5" [ngClass]="{'active':queryOpt.imageOwner == ''}" (click)="queryOpt.imageOwner=''">
-                            <input type="radio" name="location" checked="checked" autocomplete="off"> 所有
+                            <input type="radio" name="location" checked="checked" autocomplete="off"> {{'COMMON.ALL' | translate}}
                         </label>
                         <label *ngFor="let o of this.service.ownerDic | async;" class="btn btn-default fix-width-140 mgt5" title="{{o.displayValue}}" [ngClass]="{'active':queryOpt.imageOwner == o.value}" (click)="queryOpt.imageOwner = o.value">
                             <input type="radio" name="owner" autocomplete="off" [checked]="queryOpt.imageOwner == o.value" /> {{o.displayValue}}
@@ -36,20 +36,20 @@
 
         <div class="pull-left row" style="margin-bottom:20px;">
             <div class="col-md-1 text-right pdt10">
-                <span>镜像名称 :</span>
+                <span>{{'IMAGE.IMAGE_NAME' | translate}} :</span>
             </div>
             <div class="input-group col-md-2 float-left">
-                <input class="form-control" placeholder="输入镜像名称搜索" [(ngModel)]="queryOpt.imageName">
+                <input class="form-control" placeholder="{{'IMAGE.ENETR_IMAGE_NAME_TO_SEARCH' | translate}}" [(ngModel)]="queryOpt.imageName">
                 <div class="input-group-addon">
                     <span class="glyphicon glyphicon-search"></span>
                 </div>
             </div>
             <div class="col-md-1  text-right pdt10">
-                <span >操作系统 :</span>
+                <span >{{'IMAGE.OPERATING_SYSTEM' | translate}} :</span>
             </div>
             <div class="col-md-2">
                 <select class="form-control" [(ngModel)]="queryOpt.os">
-                    <option [value]="" value="">所有</option>
+                    <option [value]="" value="">{{'COMMON.ALL' | translate}}</option>
                     <option *ngFor="let os of this.service.osDic | async;" [value]="os.value">{{os.displayValue}}</option>
                 </select>
             </div>
@@ -61,17 +61,17 @@
                     </select>
                 </div>-->
             <div class="col-md-1  text-right pdt10">
-                <span>镜像类型 :</span>
+                <span>{{'IMAGE.IMAGE_TYPE' | translate}} :</span>
             </div>
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="queryOpt.imageType">
-                        <option [value]="" value="">所有</option>
+                        <option [value]="" value="">{{'COMMON.ALL' | translate}}</option>
                         <option *ngFor="let type of this.service.typeDic | async;" [value]="type.value">{{type.displayValue}}</option>
                     </select>
                 </div>
 
-                <button class="btn button-gray-gradient" (click)="search()"><span class="glyphicon glyphicon-search"></span> 简单搜索</button>
-                <button class="btn button-gray-gradient" (click)="resetQueryOpt()"><span class="glyphicon glyphicon-repeat"></span> 重置选项</button>
+                <button class="btn button-gray-gradient" (click)="search()"><span class="glyphicon glyphicon-search"></span> {{'IMAGE.SIMPLE_SEARCH' | translate}}</button>
+                <button class="btn button-gray-gradient" (click)="resetQueryOpt()"><span class="glyphicon glyphicon-repeat"></span> {{'IMAGE.RESET_OPTIONS' | translate}}</button>
                 <!--<button class="btn button-gray-gradient pull-right" style="margin-right:15px;">
                     <span class="icon icon-link"></span> 相关实例
                 </button>
@@ -80,18 +80,18 @@
         <table class="table table-hover mgb20" style="table-layout:fixed">
             <thead>
                 <tr>
-                    <th class="text-center" style="width:47px">选择</th>
-                    <th class="text-center">镜像名称</th>
-                    <th class="text-center">镜像类型</th>
-                    <th class="text-center">操作系统</th>
-                    <th class="text-center">系统位数</th>
-                    <th class="text-center">镜像容量</th>  <!--新增镜像容量，删除状态列-->
-                    <th class="text-center">创建人</th>
-                    <th class="text-center">创建部门</th>
-                    <th class="text-center">创建时间</th>
-                    <th class="text-center">进度</th>
-                    <th class="text-center">描述</th>
-                    <th class="text-center">操作</th>
+                    <th class="text-center" style="width:47px">{{'IMAGE.CHOOSE' | translate}}</th>
+                    <th class="text-center">{{'IMAGE.IMAGE_NAME' | translate}}</th>
+                    <th class="text-center">{{'IMAGE.IMAGE_TYPE' | translate}}</th>
+                    <th class="text-center">{{'IMAGE.OPERATING_SYSTEM' | translate}}</th>
+                    <th class="text-center">{{'IMAGE.SYSTEM_BITS' | translate}}</th>
+                    <th class="text-center">{{'IMAGE.IMAGE_CAPACITY'| translate}}</th>  <!--新增镜像容量，删除状态列-->
+                    <th class="text-center">{{'IMAGE.FOUNDER'| translate}}</th>
+                    <th class="text-center">{{'IMAGE.CREATED_DEPARTMENT'| translate}}</th>
+                    <th class="text-center">{{'COMMON.CREATED_TIME'| translate}}</th>
+                    <th class="text-center">{{'IMAGE.PROGRESS_RATE'| translate}}</th>
+                    <th class="text-center">{{'COMMON.DESCRIPTION'| translate}}</th>
+                    <th class="text-center">{{'COMMON.OPERATION'| translate}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -126,25 +126,25 @@
         <div class="fox-cloud-pagination-container">
             <fc-pagination #pager tp={{totalPage}} (pf)="getImageList($event)"></fc-pagination>
         </div>
-        <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
-        <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
+        <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'DIALOG.CONFIRM'|translate}}"></fc-notice>
+        <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'DIALOG.CONFIRM'|translate}}" ct="{{'DIALOG.CANCLE'|translate}}"></fc-confirm>
 
     </div>
 </div>
 
-<fc-popup #editPopup title="{{title}}" ot="保存" (of)="updateImage();" ct="关闭" (cf)="ccf()">
+<fc-popup #editPopup title="{{title}}" ot="{{'DIALOG.SAVE'|translate}}" (of)="updateImage();" ct="{{'DIALOG.CLOSE'|translate}}" (cf)="ccf()">
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>自定义镜像名:</div>
+            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'IMAGE.CUSTOM_IMAGE_NAME'| translate}}:</div>
             <div class="col-sm-7">
                 <input type="text" class="form-control" placeholder="" [(ngModel)]="editImage.name">
-                <div>2-68个字符，以大小写字母或中文开头，可包含数字，"."，"-"，"_"</div>
+                <div>{{'COMMON.SET_NAME_FORMAT'| translate}}</div>
             </div>
         </div>
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>自定义镜像应用范围:</div>
+            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'IMAGE.CUSTOM_IMAGE_APPLICATION_RANGE'| translate}}:</div>
             <div class="col-sm-7 " style="line-height:34px">
                 <label *ngFor="let o of ownerDic;" class="pdr10">
                     <input class="fox-cloud-radio" [checked]="editImage.imageOwner==o.value" type="radio" name="editImage.imageOwner" (change)="editImage.imageOwner = o.value">
@@ -155,7 +155,7 @@
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title">自定义镜像描述:</div>
+            <div class="col-sm-4 form-control-title">{{'IMAGE.CUSTOM_IMAGE_DESCRIPTION'| translate}}:</div>
             <div class="col-sm-7">
                 <textarea class="form-control" rows="3" [(ngModel)]="editImage.description"></textarea>
                 <div>长度为2-256个字符 </div>

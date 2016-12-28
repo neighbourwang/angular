@@ -113,7 +113,7 @@ export class PortMngComponent implements OnInit {
         if(this.filterPorts){
             const port = this.filterPorts.find((p) => { return p.selected; });
             if (!port) {
-                this.showAlert("请先选择需要设置的企业的端口组");
+                this.showAlert("NET_MNG_VM_DBT_PORT.PLEASE_CHOOSE_PORT_NEEDSET");
                 return;
             }
             //this.router.navigate([`net-mng/vm-mng-dbt/port-mng-set/${port.switchId}`]);
@@ -124,7 +124,7 @@ export class PortMngComponent implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "NET_MNG_VM_DBT_PORT.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -136,7 +136,7 @@ export class PortMngComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("NET_MNG_VM_DBT_PORT.GETTING_DATA_FAILED");
     }
     back(){
         this.router.navigateByUrl(`/net-mng/vm-mng-dbt/index/${this.platformId}`);

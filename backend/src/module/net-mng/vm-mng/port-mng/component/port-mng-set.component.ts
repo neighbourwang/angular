@@ -102,7 +102,7 @@ export class PortMngSetComponent implements OnInit {
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.showAlert("保存成功！");
+                    this.showAlert("NET_MNG_VM_PORT.SAVE_SUCCESS");
                     this.gotoPortMng();
                 } else {
                     alert("Res sync error");
@@ -119,7 +119,7 @@ export class PortMngSetComponent implements OnInit {
 
     showAlert(msg: string): void {
         this.layoutService.hide();
-        this.noticeTitle = "提示";
+        this.noticeTitle = "NET_MNG_VM_PORT.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -135,6 +135,6 @@ export class PortMngSetComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("NET_MNG_VM_PORT.GETTING_DATA_FAILED");
     }
 }

@@ -181,25 +181,25 @@ export class CheckMngListComponent implements OnInit{
 }
 */
 
-		let param = _.extend({}, this._param);
+		let param = {
+			approverStatus: null//'0';//approvalStatus代表未审批
+	        ,quickSearchStr: this._param.quickSearchStr//输入订单号快速查询 ？
+			,organization :this._param.departmentIdNum //部门organization？
+			,orderType:this._param.orderTypeNum//订单类型orderType
+			,serviceType:this._param.serviceTypeNum//产品类型serviceId
+			,createTime:this._param.startDateStr//创建时间
+			,expireTime:this._param.endDateStr //结束时间
+			,userId:this._param.submitUserId//提交者？
+			,enterpriseId:this._restApi.getLoginInfo().userInfo.enterpriseId
+			,pageParameter: {
+				currentPage:pageNum
+				,size:10
+			}
+			
+		};
 
 		
         //匹配后台搜索框参数/authsec/backend/approval/orders/search/paging 
-		param.approvalStatus = 0;//approvalStatus代表未审批
-        param.quickSearchStr = this._param.quickSearchStr;//输入订单号快速查询 ？
- 	
-		param.organization = this._param.departmentIdNum; //部门organization？
-		param.orderType = this._param.orderTypeNum;//订单类型orderType
-		param.serviceId = this._param.serviceTypeNum;//产品类型serviceId
-		param.createTime = this._param.startDateStr;//创建时间
-		param.expireTime = this._param.endDateStr; //结束时间
-		 param.serviceId = this._param.submitUserId;//提交者？
-
-		
-		param.pageParameter = {
-			currentPage:pageNum
-			,size:10
-		};
 		this._layoutService.show();
 		this._listLoader.Go(pageNum, null, param)
 		.then(success=>{
@@ -304,12 +304,12 @@ export class CheckMngListComponent implements OnInit{
 		this.clearApproveData();
 	}
 
-	onStartDateChange(date:string){
-		this._param.startDateStr = date;
+	onStartDateChange($event){
+		this._param.startDateStr = $event.formatted;
 	}
 
-	onEndDateChange(date:string){
-		this._param.endDateStr = date;
+	onEndDateChange($event){
+		this._param.endDateStr = $event.formatted;
 	}
 
 	changePage(pageNum:number){

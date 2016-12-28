@@ -7,6 +7,7 @@ export class SubInstanceResp {
   orderNo: string = null;//, optional): 对应UI界面中的订单编号 ,
   purchaseDate: string = null;//, optional): 对应UI界面中的下单时间, 映射到后端的createDate
   canRenew:boolean = true;
+  relySubinstanceId : number = null; //是否挂载了主机的标识
 }
 
 export class SubInstanceItemResp {
