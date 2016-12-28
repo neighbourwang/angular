@@ -87,7 +87,7 @@ export const TranslateCN = {
         MOUNT: '挂载',
         AVAILABLE_ZONE: '可用区',
         AREA: '区域',
-        REGION_AND_AVAIABLE_AREA: '所在区域及可用区',
+        REGION_AND_AVAILABLE_AREA: '所在区域及可用区',
         CREATED_TIME: '创建时间',
         EXPIRE_DATE: '到期时间',
     },
@@ -260,8 +260,6 @@ export const TranslateCN = {
         RESET: '重置',
         CURRENT_QUERY_IS: '当前查询到',
         THE_QUERY_RESULTS_OF_PENDING_ORDERS: '个订单需要审批，查询结果如下',
-        NUMBER: '编号',
-        
         
         ORDER_DESCRIPTION: '订单描述',
         DEPARTMENT: '部门',
