@@ -103,8 +103,8 @@
                     <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a (click)="mountDisk = dist;diskPlatformId = dist.platformId;vmDialog.open(); " href="javascript:">{{'CLOUD_DRIVE_LIST.MOUNT' | translate}}</a></li>
-                        <li><a (click)="handleDist('unmount', dist, '卸载云硬盘')" href="javascript:">{{'CLOUD_DRIVE_LIST.UNINSTALL' | translate}}</a></li>
+                        <li><a (click)="mountDisk = dist;diskPlatformId = dist.platformId;vmDialog.open(); " *ngIf="!dist.relyId" href="javascript:">{{'CLOUD_DRIVE_LIST.MOUNT' | translate}}</a></li>
+                        <li><a (click)="handleDist('unmount', dist, '卸载云硬盘')" *ngIf="dist.relyId" href="javascript:">{{'CLOUD_DRIVE_LIST.UNINSTALL' | translate}}</a></li>
                         <!-- <li><a (click)="handleDist('pause', vm, '暂停')" href="javascript:">暂停</a></li> -->
                         <!-- <li><a (click)="handleDist('unpause', vm , '开始')" href="javascript:">开始</a></li> -->
                         <!-- <li><a (click)="handleDist('resume', vm)" href="javascript:">恢复</a></li> -->
