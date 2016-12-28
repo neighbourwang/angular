@@ -7,9 +7,9 @@
 			<span>是否需要审批</span>
 			<div class="secondPanel">
 				<ul>
-					<li><input type="radio" class="fox-cloud-radio mgr10"  [ngClass]="{'active':isOpen}" [(ngModel)]="isOpen" value="true">开启</li>
-					<li class="pdl20"><span class="pdl5">自动审批时间设置：</span ><span *ngIf="isEdit">10</span><input *ngIf="!isEdit" type="text" class="form-control">分钟</li>
-					<li><input type="radio" class="fox-cloud-radio mgr10 " [ngClass]="{'active':!isOpen}" [(ngModel)]="isOpen" value="false">关闭</li>
+					<li><input type="radio" class="fox-cloud-radio mgr10" [disabled]="isEdit" [(ngModel)]="param.auditEnable" value="true">开启</li>
+					<li class="pdl20"><span class="pdl5">自动审批时间设置：</span ><span class="mgr5" *ngIf="isEdit"  > {{loadHandler.FirstItem.time}}</span><input *ngIf="!isEdit" type="number" class="form-control"  [(ngModel)]="param.time">分钟</li>
+					<li><input type="radio" class="fox-cloud-radio mgr10" [disabled]="isEdit" [(ngModel)]="param.auditEnable" value="false">关闭</li>
 				</ul>
 				
 			</div>

@@ -56,7 +56,7 @@
                 <td>{{ipmng.dlrRouteName}}</td>
                 <td>{{ipmng.dlrInterfaceName}}</td>
                 <td>{{displayIt(ipmng.drlSubnetDisplayName)}}</td>
-                <td>{{displayIt(ipmng.dlrInterfaceIPaddress)}}/{{displayIt(ipmng.dlrSubnet)}}</td>
+                <td>{{displayIt(ipmng.subnetCIDR)}}</td>
                 <td>{{displayIt(ipmng.dlrInterfaceIPaddress)}}</td>
                 <td>{{displayIt(ipmng.ipCount)}}</td>
                 <td>{{displayIt(ipmng.usedIPCount)}}</td>
@@ -79,7 +79,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">{{'NET_MNG_VM_IP_MNG.SUBNET_INFORMATION' | translate}}：</div>
 					<div class="col-sm-8">
-						<span>{{ippool.dlrInterfaceIPaddress}}/{{ippool.dlrSubnet}}</span>
+						<span>{{ippool.subnetCIDR}}</span>
 					    <!-- <input type="string" class="form-control input-control" [(ngModel)]="ippool.subnetCIDR"></span> -->
 					</div>
 				</div>
@@ -109,6 +109,22 @@
 					<div class="col-sm-8">
 					<!-- <input type="string" class="form-control input-control" [(ngModel)]="ippool.ips">  -->
 					<textarea class="form-control input-control" placeholder="" rows="4" [(ngModel)]="ippool.ipstr"></textarea>
+					</div>
+				</div>
+			</div>
+            <div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">DNS1：</div>
+					<div class="col-sm-8">
+						<input type="string" class="form-control input-control" [(ngModel)]="ippool.dnsPre">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">DNS2：</div>
+					<div class="col-sm-8">
+						<input type="string" class="form-control input-control" [(ngModel)]="ippool.dnsAlt">
 					</div>
 				</div>
 			</div>

@@ -9,7 +9,9 @@ export const IpMngModel_mock = {
             "dlrInterfaceName": "app test 1",
             "drlSubnetDisplayName": null,
             "dlrInterfaceIPaddress": null,
-            "dlrSubnet": null,
+            "gateway": "172.16.1.1",
+            "dlrSubnet": "24",
+            "subnetCIDR": "172.16.1.0/24",
             "dlrInterfaceType": null,
             "lswName": "LSW01",
             "lswId": null,
@@ -17,7 +19,6 @@ export const IpMngModel_mock = {
             "status": 1,
             "lastUpdate": "2016-10-1 15:35:50",
             "platformId": "100",
-            "gateway" : null,
 
             "dnsPre": null,
             "dnsAlt": null,
@@ -25,7 +26,7 @@ export const IpMngModel_mock = {
             "ipCount": null,
             "usedIPCount": null,
             "freeIPCount": null,
-            "range": [ ]
+            "range": []
         },
         {
             "dlrPortId": "mkgroup1-3bfb-4b09-b804-30954b084e02",
@@ -34,7 +35,9 @@ export const IpMngModel_mock = {
             "dlrInterfaceName": "app test 2",
             "drlSubnetDisplayName": null,
             "dlrInterfaceIPaddress": "172.16.1.1",
+            "gateway": "172.16.1.1",
             "dlrSubnet": "24",
+            "subnetCIDR": "172.16.1.0/24",
             "dlrInterfaceType": "uplink",
             "lswName": "LSW01",
             "lswId": "5000",
@@ -42,7 +45,6 @@ export const IpMngModel_mock = {
             "status": 1,
             "lastUpdate": "2016-10-1 15:35:50",
             "platformId": "100",
-            "gateway" : "172.16.1.1",
 
             "dnsPre": null,
             "dnsAlt": null,
@@ -59,7 +61,9 @@ export const IpMngModel_mock = {
             "dlrInterfaceName": "app test 3",
             "drlSubnetDisplayName": null,
             "dlrInterfaceIPaddress": "172.16.1.1",
+            "gateway": "172.16.1.1",
             "dlrSubnet": "24",
+            "subnetCIDR": "172.16.1.0/24",
             "dlrInterfaceType": "uplink",
             "lswName": "LSW01",
             "lswId": "5000",
@@ -67,7 +71,6 @@ export const IpMngModel_mock = {
             "status": 1,
             "lastUpdate": "2016-10-1 15:35:50",
             "platformId": "100",
-            "gateway" : "172.16.1.1",
 
             "dnsPre": "16.187.145.120",
             "dnsAlt": "16.187.145.119",
@@ -87,7 +90,9 @@ export const IpMngModel_mock = {
             "dlrInterfaceName": "app test 4",
             "drlSubnetDisplayName": null,
             "dlrInterfaceIPaddress": "172.16.1.1",
+            "gateway": "172.16.1.1",
             "dlrSubnet": "24",
+            "subnetCIDR": "172.16.1.0/24",
             "dlrInterfaceType": "uplink",
             "lswName": "LSW01",
             "lswId": "5000",
@@ -95,7 +100,6 @@ export const IpMngModel_mock = {
             "status": 1,
             "lastUpdate": "2016-10-1 15:35:50",
             "platformId": "100",
-            "gateway" : "172.16.1.1",
 
             "dnsPre": "16.187.145.120",
             "dnsAlt": "16.187.145.119",
@@ -115,7 +119,9 @@ export const IpMngModel_mock = {
             "dlrInterfaceName": "app test 5",
             "drlSubnetDisplayName": "APP TEST 5",
             "dlrInterfaceIPaddress": "172.16.1.1",
+            "gateway": "172.16.1.1",
             "dlrSubnet": "24",
+            "subnetCIDR": "172.16.1.0/24",
             "dlrInterfaceType": "uplink",
             "lswName": "LSW01",
             "lswId": "5000",
@@ -123,7 +129,6 @@ export const IpMngModel_mock = {
             "status": 1,
             "lastUpdate": "2016-10-1 15:35:50",
             "platformId": "100",
-            "gateway" : null,
 
             "dnsPre": "16.187.145.120",
             "dnsAlt": "16.187.145.119",
@@ -143,7 +148,9 @@ export const IpMngModel_mock = {
             "dlrInterfaceName": "app test 6",
             "drlSubnetDisplayName": null,
             "dlrInterfaceIPaddress": "172.16.1.1",
+            "gateway": "172.16.1.1",
             "dlrSubnet": "24",
+            "subnetCIDR": "172.16.1.0/24",
             "dlrInterfaceType": "uplink",
             "lswName": "LSW01",
             "lswId": "5000",
@@ -151,7 +158,6 @@ export const IpMngModel_mock = {
             "status": 1,
             "lastUpdate": "2016-10-1 15:35:50",
             "platformId": "100",
-            "gateway" : "172.16.1.1",
 
             "dnsPre": "16.187.145.120",
             "dnsAlt": "16.187.145.119",
@@ -171,7 +177,9 @@ export const IpMngModel_mock = {
             "dlrInterfaceName": "app test 7",
             "drlSubnetDisplayName": null,
             "dlrInterfaceIPaddress": "172.16.1.1",
+            "gateway": "172.16.1.1",
             "dlrSubnet": "24",
+            "subnetCIDR": "172.16.1.0/24",
             "dlrInterfaceType": "uplink",
             "lswName": "LSW01",
             "lswId": "5000",
@@ -179,7 +187,6 @@ export const IpMngModel_mock = {
             "status": 1,
             "lastUpdate": "2016-10-1 15:35:50",
             "platformId": "100",
-            "gateway" : null,
 
             "dnsPre": "16.187.145.120",
             "dnsAlt": "16.187.145.119",
@@ -224,46 +231,46 @@ export const IpUsageMngModel_mock = {
     resultCode: "100",
     detailDescription: "IP地址使用情况",
     resultContent: [
-    {
-        "id": "ef349044-3bfb-4b09-b804-30954b084001", //IP地址ID
-        "addr": "10.20.0.1", //IP地址
-        "instanceName": "测试集群001号机", //占用IP的主机名
-        "tenantName": "BOE - CIO企", //企业名称
-        "status": "1", //状态, 来源于数据字典
-        "description": null //说明
-    },
-    {
-        "id": "ef349044-3bfb-4b09-b804-30954b084002",
-        "addr": "10.20.0.2",
-        "instanceName": "",
-        "tenantName": "",
-        "status": "2",
-        "description": null
-    },
-    {
-        "id": "ef349044-3bfb-4b09-b804-30954b084003",
-        "addr": "10.20.0.3",
-        "instanceName": "测试集群009号机",
-        "tenantName": "HPE",
-        "status": "1",
-        "description": null
-    },
-    {
-        "id": "ef349044-3bfb-4b09-b804-30954b084004",
-        "addr": "10.20.0.4",
-        "instanceName": "",
-        "tenantName": "",
-        "status": "2",
-        "description": null
-    },
-    {
-        "id": "ef349044-3bfb-4b09-b804-30954b084005",
-        "addr": "10.20.0.5",
-        "instanceName": "",
-        "tenantName": "",
-        "status": "2",
-        "description": null
-    }
+        {
+            "id": "ef349044-3bfb-4b09-b804-30954b084001", //IP地址ID
+            "addr": "10.20.0.1", //IP地址
+            "instanceName": "测试集群001号机", //占用IP的主机名
+            "tenantName": "BOE - CIO企", //企业名称
+            "status": "1", //状态, 来源于数据字典
+            "description": null //说明
+        },
+        {
+            "id": "ef349044-3bfb-4b09-b804-30954b084002",
+            "addr": "10.20.0.2",
+            "instanceName": "",
+            "tenantName": "",
+            "status": "2",
+            "description": null
+        },
+        {
+            "id": "ef349044-3bfb-4b09-b804-30954b084003",
+            "addr": "10.20.0.3",
+            "instanceName": "测试集群009号机",
+            "tenantName": "HPE",
+            "status": "1",
+            "description": null
+        },
+        {
+            "id": "ef349044-3bfb-4b09-b804-30954b084004",
+            "addr": "10.20.0.4",
+            "instanceName": "",
+            "tenantName": "",
+            "status": "2",
+            "description": null
+        },
+        {
+            "id": "ef349044-3bfb-4b09-b804-30954b084005",
+            "addr": "10.20.0.5",
+            "instanceName": null,
+            "tenantName": null,
+            "status": "2",
+            "description": null
+        }
 
     ]
 }
@@ -281,7 +288,9 @@ export const subnetInfoModel_mock = {
         "dlrInterfaceName": "app test",
         "drlSubnetDisplayName": null,
         "dlrInterfaceIPaddress": "172.16.1.1",
+        "gateway": "172.16.1.1",
         "dlrSubnet": "24",
+        "subnetCIDR": "172.16.1.0/24",
         "dlrInterfaceType": "uplink",
         "lswName": "LSW01",
         "lswId": "5000",
@@ -289,7 +298,6 @@ export const subnetInfoModel_mock = {
         "status": 1,
         "lastUpdate": "2016-10-1 15:35:50",
         "platformId": "100",
-        "gateway" : "172.16.1.1",
 
         "dnsPre": "16.187.145.120",
         "dnsAlt": "16.187.145.119",
