@@ -2,7 +2,7 @@
 import { Component,ViewChild,Input , Output,  OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
 import { cloudHostServiceList } from '../service/cloud-host-list.service'
 
 import { ListOptions } from '../model/options.model';
@@ -23,6 +23,10 @@ export class cloudHostListComponent implements OnInit {
 	@ViewChild('notice')
 	private noticeDialog: NoticeComponent;
 
+	@ViewChild('popup')
+	private popup: PopupComponent;
+
+
 	@ViewChild('platformZone') platformZone;
 
 	@Input() options:ListOptions;
@@ -33,6 +37,9 @@ export class cloudHostListComponent implements OnInit {
 	modalTitle: string = '';
 	modalMessage: string = '';
 	modalOKTitle: string = '';
+
+	radioSelected:VmList = new VmList; //选择的vm主机
+	forceDelect: boolean = false;  //是否强制删除
 
 	areaConfig = [];   //区域
 	superSearch: boolean = false;   //高级搜索开关
@@ -96,6 +103,18 @@ export class cloudHostListComponent implements OnInit {
 		this.setHostList();
 	}
 
+	delectVm() {  //退订云主机
+		if( !this.radioSelected.subInstanceId )  return this.showNotice("退订云主机", "请选择要退订的主机");
+		this.forceDelect = false;
+
+		this.popup.open("退订云主机");
+	}
+	popupCf(){}
+	popupOf(){
+		console.log(this.forceDelect)
+		this.popup.close();
+	}
+
 	//云主机的操作相关
 	handleVm(key: string, vm: VmList ,msg) {
 		this.layoutService.show();
@@ -137,6 +156,7 @@ export class cloudHostListComponent implements OnInit {
 			window.open(res)
 		})
 	}
+
 
 	goTo(url : string) {
 		this.router.navigateByUrl(url);
