@@ -153,6 +153,9 @@ export class CheckMngListComponent implements OnInit{
 			return this._orderTypeDic.Go();
 		})
 		.then(success=>{
+			this.search();
+		})
+		.then(success=>{
 			this._layoutService.hide();
 		})
 		.catch(err=>{
