@@ -38,7 +38,9 @@ export class IpMngModel {
     dlrInterfaceName: string = "";
     drlSubnetDisplayName: string = "";
     dlrInterfaceIPaddress: string = "";
+    gateway: string = "";
     dlrSubnet: string = "";
+    subnetCIDR: string = "";
     dlrInterfaceType: string = "";
     lswName: string = "";
     lswId: string = "";
@@ -173,7 +175,9 @@ export class subnetInfoModel {
     dlrInterfaceName: string = "";
     drlSubnetDisplayName: string = "";
     dlrInterfaceIPaddress: string = "";
+    gateway: string = "";
     dlrSubnet: string = "";
+    subnetCIDR: string = "";
     dlrInterfaceType: string = "";
     lswName: string = "";
     lswId: string = "";
@@ -181,7 +185,6 @@ export class subnetInfoModel {
     status: string = "";
     lastUpdate: string = "";
     platformId: string = "";
-    gateway: string = "";
 
     dnsPre: string = "";
     dnsAlt: string = "";
@@ -206,6 +209,7 @@ export class subnetIpModel {
 
     dlrInterfaceIPaddress: string = "";
     dlrSubnet: string = "";
+    subnetCIDR: string = "";
     gateway: string = "";
     dnsPre: string = "";
     dnsAlt: string = "";

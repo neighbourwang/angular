@@ -1,12 +1,15 @@
-<div class="page-content-header icon-content-header-purchasing"> 镜像管理</div>
+<div class="page-content-header icon-content-header-purchasing"> {{'HOST_OPENSTACK_MNG.IMAGE_MANAGEMENT' | translate}}</div>
 <div class="page-content" style="min-height:300px">
     <table class="table table-hover ">
         <thead>
             <tr>
-                <th style="text-align:left;">同步企业镜像：{{platformName}}云平台(类型：OpenStack)</th>
+                <th style="text-align:left;">
+                    {{'HOST_OPENSTACK_MNG.SYNC_IMAGE_ENT' | translate}}：
+                    {{platformName}}
+                    {{'HOST_OPENSTACK_MNG.COULD_PLATFORM' | translate}}(OpenStack)</th>
                 <th style="text-align:right;">
                     <button class=" fox-cloud-button fox-cloud-button-white "(click)="back()">
-                        <span class="icon-button-label" >返回镜像管理列表</span>
+                        <span class="icon-button-label" >{{'HOST_OPENSTACK_MNG.RETURN_IMAGE_MANAGEMENT' | translate}}</span>
                     </button>
                 </th>
             </tr>
@@ -29,16 +32,16 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>选择</th>
-                    <th>编号</th>
-                    <th>镜像名</th>
-                    <th>镜像显示名称</th>
-                    <th>操作系统</th>
-                    <th>系统位数</th>
-                    <th>镜像容量</th>
-                    <th>镜像类型</th>
-                    <th>所属企业</th>
-                    <th>同步结果</th>
+                    <th>{{'HOST_OPENSTACK_MNG.SELECT' | translate}}</th>
+                    <th>{{'HOST_OPENSTACK_MNG.NUMBER' | translate}}</th>
+                    <th>{{'HOST_OPENSTACK_MNG.IMAGE_NAME' | translate}}</th>
+                    <th>{{'HOST_OPENSTACK_MNG.IMAGE_DISPLAY_NAME' | translate}}</th>
+                    <th>{{'HOST_OPENSTACK_MNG.OS' | translate}}</th>
+                    <th>{{'HOST_OPENSTACK_MNG.BIT' | translate}}</th>
+                    <th>{{'HOST_OPENSTACK_MNG.CAPACITY' | translate}}</th>
+                    <th>{{'HOST_OPENSTACK_MNG.IMAGE_TYPE' | translate}}</th>
+                    <th>{{'HOST_OPENSTACK_MNG.AFFILIATED_ENTERPRISE' | translate}}</th>
+                    <th>{{'HOST_OPENSTACK_MNG.SYNC_RESULT' | translate}}</th>
                 </tr>               
             </thead>
             <tbody>
@@ -83,7 +86,7 @@
                         </div>
                     </td>
                     <td >{{image.capacity | formatCapacity}}</td>
-                    <td >企业镜像</td>
+                    <td >{{'HOST_OPENSTACK_MNG.ENTERPRISE_IMAGE' | translate}}</td>
                     <td >{{image.tenants[0].name}}</td>
                     <td [ngClass]="{'font-green':image.status!='2','font-orange':image.status=='2'}">{{image.syncResult | dict:this.service.syncDic |async}}</td>
 
@@ -100,13 +103,13 @@
 <div class="text-center " style="margin-top:50px">       
     
     <button class="fox-cloud-button-lg fox-cloud-button-white"(click)="back()">
-        <span class="icon-button-label">返回</span>
+        <span class="icon-button-label">{{'HOST_OPENSTACK_MNG.RETURN' | translate}}</span>
     </button> 
     <button class="fox-cloud-button-lg fox-cloud-button-white"(click)="doSync()">
-        <span class="icon-button-label">同步</span>
+        <span class="icon-button-label">{{'HOST_OPENSTACK_MNG.SYNC' | translate}}</span>
     </button>
 </div>
 <div style="height:50px"></div>
 
 
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'HOST_OPENSTACK_MNG.CONFIRM' | translate}}"></fc-notice>

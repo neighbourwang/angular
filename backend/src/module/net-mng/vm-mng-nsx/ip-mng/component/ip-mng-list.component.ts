@@ -57,11 +57,6 @@ export class IpMngListComponent implements OnInit{
 
     platformId: string = "";
 
-    //defaultDC: DCModel = new DCModel();
-    //selectedDC: DCModel = this.defaultDC; //当前选中的DC
-    //defaultVDS: SwitchModel = new SwitchModel();
-    //selectedVDS: SwitchModel = this.defaultVDS;//当前选中的可用区
-    //dcList: Array<DCModel>;
     defaultDLR: DLRModel = new DLRModel();
     selectedDLR: DLRModel = this.defaultDLR;
     DLRList: Array<DLRModel>;
@@ -71,8 +66,7 @@ export class IpMngListComponent implements OnInit{
     ipmngs: Array<IpMngModel>;
     selectedipmng: IpMngModel = new IpMngModel();
     pg: IpMngModel = new IpMngModel();
-
-    //subn: subnetModel = new subnetModel();
+    
     ippool: subnetIpModel = new subnetIpModel();
     subnetInfo: subnetInfoModel = new subnetInfoModel();
 
@@ -190,9 +184,10 @@ export class IpMngListComponent implements OnInit{
                 if (response && 100 == response["resultCode"]) {                    
                     this.subnetInfo = response.resultContent;
                     console.log(this.subnetInfo, "this.subnetInfo");
-                    this.ippool.dlrInterfaceIPaddress = this.subnetInfo.dlrInterfaceIPaddress;
-                    this.ippool.dlrSubnet = this.subnetInfo.dlrSubnet;
+                    this.ippool.subnetCIDR = this.subnetInfo.subnetCIDR;
                     this.ippool.gateway = this.subnetInfo.gateway;
+                    this.ippool.dnsPre = this.subnetInfo.dnsPre;
+                    this.ippool.dnsAlt = this.subnetInfo.dnsAlt;
                     this.ippool.ips = this.subnetInfo.range;
                     if(!this.ippool.ips){
                         console.log("No ips from response!");
@@ -257,7 +252,11 @@ export class IpMngListComponent implements OnInit{
         this.ippool.ipstr = "";
         this.ippool.dlrInterfaceIPaddress = "";
         this.ippool.dlrSubnet = "";
+        this.ippool.subnetCIDR = "";
         this.ippool.gateway = "";
+        this.ippool.dnsPre = "";
+        this.ippool.dnsAlt = "";
+
     }
 
     onRejected(reason: any) {
@@ -299,17 +298,14 @@ export class IpMngListComponent implements OnInit{
 
     UnselectItem(): void {
         this.ipmngs.map(n=> {n.checked = false;});
-        //console.log(this.ipmngs, "=== Please see all items are Unselected ===");
     }
 
     getSelected() {
         let item = this.ipmngs.find((n) => n.checked) as IpMngModel;
         if (item){
-            //console.log("==========getSelected 1=============");
             return item;
         }
         else {
-            //console.log("==========getSelected 2=============");
             this.showMsg("请选择相应的PortGroup");
             return null;
         }
