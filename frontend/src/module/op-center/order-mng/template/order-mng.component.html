@@ -145,7 +145,7 @@
 						{{ 'COMMON.ONE_TIME_COSTS' | translate }}:{{prodItem.oneTimePrice}}<br/>
 						{{ 'COMMON.PRICE' | translate }}:{{prodItem.price}}
 					</td>	
-					<td class="font-green">{{prodItem.statusName}}</td>
+					<td class="font-green">{{prodItem.status | dict:_dictServ.getDic('SUBINSTANCE', 'STATUS') |async}}</td>
 					<td>{{prodItem.createDate}}</td>
 					<td>{{prodItem.expireDate}}</td>
 					<td>{{prodItem.buyer}}</td>

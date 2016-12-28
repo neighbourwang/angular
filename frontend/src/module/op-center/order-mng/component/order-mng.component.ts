@@ -98,26 +98,7 @@ export class OrderMngComponent implements OnInit{
 				target.push(obj);
 			}
 		};
-		this._orderDetailLoader.Trait = (items:Array<OrderDetailItem>)=>{
-			let firstItem = this._orderDetailLoader.FirstItem;
-			console.log('firstitem', firstItem,  'billingMode');
-			this._billinModeDic.UpdateWithDic([firstItem], "billingModeName", "billingMode");
-			this._billinModeDic.UpdateWithDic(firstItem.relatedSubInstanceList, "billingModeName", "billingMode");
-			this._billinModeDic.UpdateWithDic(firstItem.relatedOrderList, "billingModeName", "billingMode");
 
-			this._periodTypeDic.UpdateWithDic([firstItem], "productTypeName", "productType");
-			this._periodTypeDic.UpdateWithDic(firstItem.relatedSubInstanceList, "productTypeName", "productType");
-			this._periodTypeDic.UpdateWithDic(firstItem.relatedOrderList, "productTypeName", "productType");
-
-			this._orderStatusDic.UpdateWithDic([firstItem], "statusName", "status");
-			this._orderStatusDic.UpdateWithDic(firstItem.relatedSubInstanceList, "statusName", "status");
-			this._orderStatusDic.UpdateWithDic(firstItem.relatedOrderList, "statusName", "status");
-
-			this._typeDic.UpdateWithDic([firstItem], 'typeName', 'type');
-			this._typeDic.UpdateWithDic(firstItem.relatedSubInstanceList, 'typeName', 'type');
-			this._typeDic.UpdateWithDic(firstItem.relatedOrderList, 'typeName', 'type');
-			console.log('firstitem done', firstItem);
-		};
 
 		this._orderDetailLoader.FirstItem = new OrderDetailItem();
 
@@ -214,7 +195,6 @@ export class OrderMngComponent implements OnInit{
 					orderItem.canRenew = true;
 				}
 
-				this._billinModeDic.UpdateWithDic(orderItem.itemList, "billingModeName", "billingMode");
 				
 			}
 		};
@@ -412,22 +392,11 @@ export class OrderMngComponent implements OnInit{
 		this._orderLoader.Go(null, null, param)
 		.then(success=>{
 			this.layoutService.hide();
-			this.updateStatusName();
 		})
 		.catch(err=>{
 			this.layoutService.hide();
 			this.showMsg(err);
 		})
-	}
-
-	//翻译订单状态
-	updateStatusName(){
-		let list:Array<SubInstanceItemResp> = []
-		this._orderLoader.Items.map(n=>list = list.concat(n.itemList));
-		this._orderStatusDic.UpdateWithDic(list, "statusName", "status");
-		this._productTypeLoader.UpdateWithDic(list, "serviceTypeName", "serviceType");
-		this._billinModeDic.UpdateWithDic(list, "billingModeName", "billingMode");
-
 	}
 
 	changePage(pageNumber:number)
