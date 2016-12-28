@@ -143,6 +143,8 @@ export class cloudDriveComponentOrder implements OnInit {
 		this.payLoadArr = [];
 		this.payLoadArr.push(this.payLoad);
 
+		console.log("发送的数据：", this.payLoad)
+
 		return this.payLoadArr;
 	}
 

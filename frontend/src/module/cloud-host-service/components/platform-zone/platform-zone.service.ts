@@ -12,7 +12,7 @@ export class PlatformZoneServiceList {
     }
 
     getAreaList() : Promise<Platform[]>{
-        const api = this.restApiCfg.getRestApi("image.mng.area.list");
+        const api = this.restApiCfg.getRestApi("op-center.order-mng.platform-list.get");
 
         const request = this.restApi.request(api.method, api.url, undefined, undefined)
                             .then(res => {
