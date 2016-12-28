@@ -10,7 +10,7 @@ import { RestApi
 	, SystemDictionary
 	, DicLoader
 	, ItemLoader } from '../../../architecture';
-
+import {DictService} from '../../../architecture/core/service/dict-service';
 import { CheckCenterParam,CheckListItem } from './../model';
 import * as _ from 'underscore';
 
@@ -38,7 +38,8 @@ export class CheckMngHascheckComponent implements OnInit{
 	constructor(
 		private _restApiCfg:RestApiCfg
 		,private _restApi:RestApi
-		,private _layoutService:LayoutService){
+		,private _layoutService:LayoutService
+		,private _dictServ:DictService){
 
 
 		//列表数据加载
@@ -47,32 +48,28 @@ export class CheckMngHascheckComponent implements OnInit{
 
 			for(let item of source)
 			{
-				let obj = new CheckListItem();
+				let obj = _.extendOwn(new CheckListItem(), item) as CheckListItem;
 				target.push(obj);
 				
 				obj.orderCodeStr = item.orderNo;//订单编号
 				obj.serviceTypeIdStr = item.serviceType;//产品类型
-				// obj.platformStr = ?? 区域
-				// obj.zoneStr = ?? 可用区
-				obj.orderTypeName = item.orderType;//订单类型
 				obj.userStr = item.submiter;// 用户,提交者
 				obj.departmentStr = item.departmentName;// 部门
 				obj.entStr = item.enterpriszeName;// 企业
 				//费用
-				obj.billingModeNum =item.billingInfo ? item.billingInfo.billingMode: null; //计费模式
 				obj.billingDurationStr = item.period;//订单周期
 				obj.oneTimePriceNum = item.billingInfo ? item.billingInfo.basePrice: "";//一次性费用
 				if(item.billingInfo)
 				{
-					if(obj.billingModeNum == 0)//包年包月
+					obj.billingMode = item.billingInfo.billingMode;
+					if(item.billingInfo.billingMode == 0)//包年包月
 					{
 						obj.priceNum = item.billingInfo.basicPrice + item.billingInfo.cyclePrice
 					}
-					else if(obj.billingModeNum == 1)//按量
+					else if(item.billingInfo.billingMode == 1)//按量
 					{
 						obj.priceNum = item.billingInfo.unitPrice;
 					}
-					
 				}
 
 				obj.createTimeStr = item.createDate;// 创建时间
@@ -149,24 +146,21 @@ export class CheckMngHascheckComponent implements OnInit{
 	//搜索
 	search(pageNum:number = 1){
 
-		let param = _.extend({}, this._param);
-
-		
-        //匹配后台搜索框参数/authsec/backend/approval/orders/search/paging 
-		param.approvalStatus = 1;//approvalStatus代表已审批
-        param.quickSearchStr = this._param.quickSearchStr;//输入订单号快速查询 ？
- 	
-		param.organization = this._param.departmentIdNum; //部门organization？
-		param.orderType = this._param.orderTypeNum;//订单类型orderType
-		param.serviceId = this._param.serviceTypeNum;//产品类型serviceId
-		param.createTime = this._param.startDateStr;//创建时间
-		param.expireTime = this._param.endDateStr; //结束时间
-		param.serviceId = this._param.submitUserId;//提交者？
-
-		
-		param.pageParameter = {
-			currentPage:pageNum
-			,size:10
+		let param = {
+			approverStatus: '1'//'0';//approvalStatus代表未审批
+	        ,quickSearchStr: this._param.quickSearchStr//输入订单号快速查询 ？
+			,organization :this._param.departmentIdNum //部门organization？
+			,orderType:this._param.orderTypeNum//订单类型orderType
+			,serviceType:this._param.serviceTypeNum//产品类型serviceId
+			,createTime:this._param.startDateStr//创建时间
+			,expireTime:this._param.endDateStr //结束时间
+			,userId:this._param.submitUserId//提交者？
+			,enterpriseId:this._restApi.getLoginInfo().userInfo.enterpriseId
+			,pageParameter: {
+				currentPage:pageNum
+				,size:10
+			}
+			
 		};
 		this._layoutService.show();
 		this._listLoader.Go(pageNum, null, param)
@@ -217,14 +211,14 @@ export class CheckMngHascheckComponent implements OnInit{
 		});
 		
 	}
-	onStartDateChange(date:string)
+	onStartDateChange($event)
 	{
-		this._param.startDateStr = date;
+		this._param.startDateStr = $event.formatted;
 	}
 
-	onEndDateChange(date:string)
+	onEndDateChange($event)
 	{
-		this._param.endDateStr = date;
+		this._param.endDateStr = $event.formatted;
 	}
 
 	resetParam(){

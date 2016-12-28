@@ -2,17 +2,18 @@
 <div class="page-content">
     <div class="row mgb5" >
         <span class="pull-left pdl15" style="display:inline-block;font-size:16px;padding:6px 0">
-            端口组资源分配——设置企业
+            {{'NET_MNG_VM_DBT_PORT.PORTGROUP_ALLOCATION' | translate}}
+            ——{{'NET_MNG_VM_DBT_PORT.SET_ENTERPRISE' | translate}}
         </span>
     </div>
     <div class="table-container mgt5 mgb20">
         <table class="table table-hover" >
             <thead>
                 <tr>
-                    <th>数据中心(DC)名称</th>
-                    <th>分布式交换机名称(VDS)</th>
-                    <th>分布式虚拟端口端口组名称(dv Port-group)</th>
-                    <th>端口组显示名称</th>
+                    <th>{{'NET_MNG_VM_DBT_PORT.DC_NAME' | translate}}</th>
+                    <th>{{'NET_MNG_VM_DBT_PORT.DBT_SWITCH_NAME' | translate}}</th>
+                    <th>{{'NET_MNG_VM_DBT_PORT.DBT_PORTGROUP_NAME' | translate}}</th>
+                    <th>{{'NET_MNG_VM_DBT_PORT.PORTGROUP_DISPLAY_NAME' | translate}}</th>
                     <th>VLANID</th>
                 </tr>
             </thead>
@@ -21,7 +22,7 @@
                     <td>{{port.dcName}}</td>
                     <td>{{port.switchName}}</td>
                     <td>{{port.dvPortGroupName}}</td>
-                    <td>{{port.distPortGroupDisplayName||"未设置"}}</td>
+                    <td>{{port.distPortGroupDisplayName||'NET_MNG_VM_DBT_PORT.UNSET' | translate}}</td>
                     <td>{{port.vlanId}}</td>
                 </tr>
             </tbody>
@@ -29,10 +30,12 @@
     </div>
 
 
-    <div style="margin-left:13%;font-size:16px;"><span class="asterisk">*</span>选择企业：</div>
+    <div style="margin-left:13%;font-size:16px;"><span class="asterisk">*</span>
+            {{'NET_MNG_VM_DBT_PORT.SELECT_ENTERPRISE' | translate}}：</div>
 
     <fc-selectbox #testbox [selectedList]="selectedEnterprise" [unSelectedList]="unselectedEnterprise" 
-                titleL="可选企业" titleR="选中企业" displayKey="com">
+                titleL="{{'NET_MNG_VM_DBT_PORT.ENTERPRISE_FOR_SELECT' | translate}}" 
+                titleR="{{'NET_MNG_VM_DBT_PORT.SELECTED_ENTERPRISE' | translate}}" displayKey="com">
 
     </fc-selectbox>
     <!--<div class="row mgb20" style="margin-left:20%;">
@@ -90,11 +93,11 @@
 </div>-->
 <div class="text-center" style="margin-top:50px">
     <button (click) ="gotoPortMng()"  class="fox-cloud-button-lg fox-cloud-button-white" >
-        <span class="icon-button-label">返回</span>
+        <span class="icon-button-label">{{'NET_MNG_VM_DBT_PORT.BACK' | translate}}</span>
     </button>
     <button   (click) ="saveEnterpriseGroup()" class="fox-cloud-button-lg fox-cloud-button-white">
-        <span class="icon-button-label">保存</span>
+        <span class="icon-button-label">{{'NET_MNG_VM_DBT_PORT.SAVE' | translate}}</span>
     </button>
 </div>
 <div style="height:50px"></div>
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'NET_MNG_VM_DBT_PORT.COMFIRM' | translate}}"></fc-notice>

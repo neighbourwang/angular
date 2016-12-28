@@ -16,7 +16,7 @@ export class MngConsoleService {
 
 	getUserInfo = this.restApi.getLoginInfo().userInfo;
 	
-	getQuotaResoure() : Promise<EnterpriseQuotaDetailResp[]> {
+	getQuotaResoure() : Promise<EnterpriseQuotaDetailResp> {
 		let api = this.restApiCfg.getRestApi('user-center.org-mng.resource.get');
 
 		let pathParams = [{

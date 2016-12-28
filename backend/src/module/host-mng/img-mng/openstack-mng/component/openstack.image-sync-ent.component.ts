@@ -150,7 +150,7 @@ export class OpenstackImageSyncEntComponent implements OnInit{
             });
 
             if(this.images_needsync.length == 0){
-                this.showAlert("请勾选要同步的镜像");
+                this.showAlert("HOST_OPENSTACK_MNG.PLEASE_CHOOSE_IMAGE_NEEDSYNC");
             }else{
                 this.layoutService.show();
                 this.service.doSynImages_ent(this.platformId, this.images_needsync)
@@ -160,7 +160,7 @@ export class OpenstackImageSyncEntComponent implements OnInit{
                         if(response && 100 == response["resultCode"]){
                             this.layoutService.hide();
                             this.getSynImages();
-                            this.showAlert("同步成功");
+                            this.showAlert("HOST_OPENSTACK_MNG.IMAGE_SYNC_SUCCESS");
                         } else{
                             alert("Res.sync error");
                         }
@@ -192,12 +192,12 @@ export class OpenstackImageSyncEntComponent implements OnInit{
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("HOST_OPENSTACK_MNG.GETTING_DATA_FAILED");
     }
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "HOST_OPENSTACK_MNG.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }

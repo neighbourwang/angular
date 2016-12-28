@@ -130,7 +130,7 @@ export class OrderMngSearchComponent implements OnInit{
 			this._orderStatusDic.UpdateWithDic(items, "statusName", "status");
 			this._productTypeDic.UpdateWithDic(items, "serviceTypeName", "serviceType");
 		};
-      
+
 	}
 	ngOnInit(){
 		this.layoutService.show();
@@ -155,6 +155,7 @@ export class OrderMngSearchComponent implements OnInit{
 			this.showMsg(err);
 		});
 
+		this._param.enterpriseId = this.restApi.getLoginInfo().userInfo.enterpriseId;
 
 	}
 
@@ -174,33 +175,34 @@ export class OrderMngSearchComponent implements OnInit{
 	search(pageNumber:number = 1){
 		this.layoutService.show();
 
-		let param = {
-			status:this._param.status
-			,serviceId:this._param.serviceType
-			,pageParameter:{
-				currentPage:pageNumber
-				,size:10
-			}
-			,enterpiseId:this.restApi.getLoginInfo().userInfo.enterpriseId
+		let param = _.extend({}, this._param);
+		param.pageParameter = {
+			currentPage:pageNumber
+			,size:10
 		};
-// 		{
-//   "approverId": "",
-//   "createTime": "",
-//   "enterpriseId": "",
-//   "expireTime": "",
-//   "orderCode": "",
-//   "orderType": "",
-//   "organization": "",
+		param.createTime = param.createDate;
+		param.expireTime = param.expireDate;
+		param.approverId = param.buyerId;
+		//没有定义快速搜索字段
+// {
+//   "approverId": "string",
+//   "approverStatus": "string",
+//   "createTime": "2016-12-28T02:22:56.527Z",
+//   "enterpriseId": "string",
+//   "expireTime": "2016-12-28T02:22:56.527Z",
+//   "orderCode": "string",
+//   "orderType": "string",
+//   "organization": "string",
 //   "pageParameter": {
-//     "currentPage": 1,
+//     "currentPage": 0,
 //     "offset": 0,
-//     "size": 1,
+//     "size": 0,
 //     "sort": {},
 //     "totalPage": 0
 //   },
-//   "serviceId": "",
-//   "status": "",
-//   "userId": ""
+//   "serviceType": "string",
+//   "status": "string",
+//   "userId": "string"
 // }
 
 		this._orderLoader.Go(pageNumber, null, param)

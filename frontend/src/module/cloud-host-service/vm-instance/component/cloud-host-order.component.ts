@@ -9,9 +9,9 @@
  * 1. 每个订单根据所选来获取一个产品的列表
  * 2. 根据产品的列表获取到启动盘的列表
  * 3. 根据启动盘的列表确定最终的sku
- * 2. 根据sku的id 来获取时长单位
- * 3. 根据sku id与时长单位获取来获取价格 
- * 4. 提交的时候根据sendModule转换成PayLoad
+ * 4. 根据sku的id 来获取时长单位
+ * 5. 根据sku id与时长单位获取来获取价格 
+ * 6. 提交的时候根据sendModule转换成PayLoad
  */
 
 import { Component, ViewChild, Input, Output, OnInit } from '@angular/core';
@@ -141,7 +141,8 @@ export class cloudHostComponentOrder implements OnInit {
 		let payloadList = [];
 
 		for (let v in this.sendModule) {
-			if(this.sendModule[v].attrValue === "" && this.sendModule[v].attrValueCode === "")  return;
+			console.log(this.sendModule[v], v)
+			if(this.sendModule[v].attrValueCode === "" && this.sendModule[v].attrValue === "")  continue;
 
 			payloadList.push({
 				attrId: this.configs[v].attrId,   	//服务属性ID
@@ -214,7 +215,7 @@ export class cloudHostComponentOrder implements OnInit {
 				this.payLoadArr.push(payLoad);  //加入云硬盘
 			}
 		}
-		console.log("发送的订单数据：" + this.payLoadArr)
+		console.log("发送的订单数据：" , this.payLoadArr)
 		return this.payLoadArr;
 	}
 
@@ -316,7 +317,7 @@ export class cloudHostComponentOrder implements OnInit {
 		if (!this.vmSku.skuId) return;
 
 		const timeUnit = this.configs.timelineunit.mapValueList[this.vmSku.skuId];
-		if (timeUnit && timeUnit.length && this.sendModule.timelineunit.attrValue !== timeUnit[0].attrValue) {
+		if (timeUnit && timeUnit.length) {
 			this.sendModule.timelineunit = timeUnit[0];    //设置一下时长为第一位
 			this.setVmPrice();   //拿到时长就可以设置主机价格了  
 		}
