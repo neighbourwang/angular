@@ -166,12 +166,12 @@
 <table class="table table-hover mgb20">
 	<tbody><tr>
 		<th class="text-center" style="width : 10%">选择</th>
-		<th class="text-center" style="width : 10%">部门名称</th>
+		<th class="text-center" style="width : 15%">部门名称</th>
 		<th class="text-center" style="width : 15%">部门人员数量</th>
-		<th class="text-center" style="width : 10%">部门负责人</th>
+		<th class="text-center" style="width : 15%">部门负责人</th>
 		<th class="text-center" style="width : 10%">状态</th> 
-		<th class="text-center" style="width : 10%">描述</th>
-		<th class="text-center" style="width : 25%">操作</th>
+		<th class="text-center" style="width : 20%">描述</th>
+		<th class="text-center" style="width : 15%">操作</th>
 	</tr>
 	<tr *ngFor='let organ of orgs;let idx=index'>
 		<td class="text-center"><input name="host-list" type="radio" class="fox-cloud-radio"></td>
@@ -188,13 +188,15 @@
                             <template ngSwitchDefault>Unknown</template>
             </span>
         </td> 
-		<td class="text-center">{{organ.describtion}}</td>
-		<td class="text-center">
-            <span class="glyphicon glyphicon-edit font-green" (click)="statusChange(organ,'edit')" style="margin-right : 10px ; cursor:pointer"></span><!-- 编辑 -->
+		<td class="text-center">{{organ.description}}</td>
+		<td >
+            <div style="margin:0 anto" class="text-left" *ngIf="!(organ.isDefault||organ.isDefault)">
+                <span class="glyphicon glyphicon-edit font-green" (click)="statusChange(organ,'edit')" style="margin-right : 10px ; cursor:pointer"></span><!-- 编辑 -->
             <!--<span class="glyphicon glyphicon-lock font-green" style="margin-right : 10px"></span>-->
-            <span *ngIf="organ.name!='普通用户部门'&&organ.name!='管理员部门'" class="glyphicon glyphicon-ok-circle font-green" (click)="statusChange(organ,'start')" style="margin-right : 10px; cursor:pointer"></span> <!-- 启用 -->
-            <span *ngIf="organ.name!='普通用户部门'&&organ.name!='管理员部门'" class="glyphicon glyphicon-ban-circle font-orange" (click)="statusChange(organ,'disabled')" style="margin-right : 10px; cursor:pointer"></span> <!-- 禁用 -->
-            <span *ngIf="organ.name!='普通用户部门'&&organ.name!='管理员部门'" class="glyphicon glyphicon-trash font-orange" (click)="statusChange(organ,'delete')" style="cursor:pointer"></span> <!-- 删除 -->
+            <span  class="glyphicon glyphicon-ok-circle font-green" (click)="statusChange(organ,'start')" style="margin-right : 10px; cursor:pointer"></span> <!-- 启用 -->
+            <span  class="glyphicon glyphicon-ban-circle font-orange" (click)="statusChange(organ,'disabled')" style="margin-right : 10px; cursor:pointer"></span> <!-- 禁用 -->
+            <span *ngIf="(organ.headCount==0&&organ.status=='3')||organ.status=='0'" class="glyphicon glyphicon-trash font-orange" (click)="statusChange(organ,'delete')" style="cursor:pointer"></span> <!-- 删除 -->
+            </div>            
         </td>
 	</tr>
 </tbody></table>

@@ -14,6 +14,7 @@ export class Account {
     ldapName: string;
     roles: Array<Role> = [];
     status:number;
+    isRoot:boolean;
     organizations: Array<Organization> = [];
     constructor() {
     }

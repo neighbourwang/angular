@@ -10,13 +10,13 @@
     <tbody>
         <tr>
             <!--<th class="text-center" style="width : 5%">选择</th>-->
-            <th class="text-center" style="width : 10%">姓名</th>
-            <th class="text-center" style="width : 15%">帐号</th>
-            <th class="text-center" style="width : 10%">联系电话</th>
-            <th class="text-center" style="width : 10%">所属部门</th>
-            <th class="text-center" style="width : 10%">角色</th>
+            <th class="text-center" style="width : 15%">姓名</th>
+            <th class="text-center" style="width : 20%">帐号</th>
+            <th class="text-center" style="width : 15%">联系电话</th>
+            <th class="text-center" style="width : 15%">所属部门</th>
+            <th class="text-center" style="width : 15%">角色</th>
             <th class="text-center" style="width : 10%">状态</th>
-            <th class="text-center" style="width : 25%">操作</th>
+            <th class="text-center" style="width : 10%">操作</th>
         </tr>
         <tr *ngFor="let account of accounts;let idx = index">
             <!--<td class="text-center"><input name="host-list" type="radio"></td>-->
@@ -37,9 +37,9 @@
             <td class="text-center">
                 <span class="glyphicon glyphicon-edit font-green" (click)="edit(account,idx)" style="margin-right : 10px ;cursor:pointer"></span>
                 <!--<span class="glyphicon glyphicon-lock font-green" style="margin-right : 10px"></span>-->
-                <span class="glyphicon glyphicon-ok-circle font-green" (click)="enable(account,idx)" style="margin-right : 10px;cursor:pointer"></span>
-                <span class="glyphicon glyphicon-ban-circle font-orange" (click)="disable(account,idx)" style="margin-right : 10px;cursor:pointer"></span>
-                <span class="glyphicon glyphicon-trash font-orange" (click)="delete(account,idx)" style="cursor:pointer"></span>
+                <span *ngIf="!account.isRoot" class="glyphicon glyphicon-ok-circle font-green" (click)="enable(account,idx)" style="margin-right : 10px;cursor:pointer"></span>
+                <span *ngIf="!account.isRoot" class="glyphicon glyphicon-ban-circle font-orange" (click)="disable(account,idx)" style="margin-right : 10px;cursor:pointer"></span>
+                <span *ngIf="!account.isRoot" class="glyphicon glyphicon-trash font-orange" (click)="delete(account,idx)" style="cursor:pointer"></span>
             </td>
         </tr>
     </tbody>

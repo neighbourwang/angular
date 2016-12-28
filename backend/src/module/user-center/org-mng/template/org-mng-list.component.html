@@ -1,4 +1,4 @@
-<div class="page-content-header icon-content-header-userCenterOn">组织管理</div>
+<div class="page-content-header icon-content-header-userCenterOn">机构管理</div>
 <div style="margin-top: 10px;">
 		
         <div class="dropdown pull-right">
@@ -16,7 +16,7 @@
 
         <button class="fox-cloud-button fox-cloud-button-green" (click)="create()">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建组织</span>
+            <span class="icon-button-label icon-left-button-label">创建机构</span>
         </button>
 </div>
 <div class="table-container" style="margin-top : 10px;min-height:300px;">
@@ -34,7 +34,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let item of orgs;let idx = index">
-                <td (click)="chooseItem(idx)"><input class="fox-cloud-radio" type="radio" name="isSelected"  [checked]="item.selected"/></td>
+                <td (click)="chooseItem(idx)"><input class="fox-cloud-radio" type="radio" name="isSelected" [disabled]="item.isDefault" title="禁止操作默认机构" [checked]="item.selected"/></td>
                 <td>{{idx+1}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.headCount}}</td>

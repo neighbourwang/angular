@@ -66,30 +66,23 @@ export class OrgMngListComponent implements OnInit {
   }
   //获取组织列表
   getOrgs(page: number, size: number) {
+    this.layoutService.show();
     this.service.getOrg(page, size).then(
       res => {
         this.orgs = res.resultContent;
         let pageInfo = res.pageInfo;
         this.tp = pageInfo.totalPage;
         console.log(this.orgs);
-        //  this.entResourceObj.usedCpuRate='0.8';
-        //  this.entResourceObj.usedCpuRate=(parseFloat(this.entResourceObj.usedCpuRate)*100)+'%';
-        //  console.log(this.entResourceObj);
+        this.layoutService.hide();
       }
     ).catch(
       err => {
         console.error(err);
+        this.layoutService.hide();
       }
       )
   }
-  //百分比进度条
-  // setPercent(arg) {
-  //   if (this.service.entResourceObj[arg]) {
-  //     this.service.entResourceObj[arg] += '%';
-  //     let styles = { width: this.service.entResourceObj[arg] }
-  //     return styles;
-  //   }
-  // }
+  
   paging(page) {
     this.getOrgs(page, 10);
   }

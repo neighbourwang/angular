@@ -244,7 +244,7 @@ export class MenuService {
 							"routing": "user-center/account-mng/account-mng-list"
 						},
 						{
-							"label": "组织管理",
+							"label": "机构管理",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": isRoot,
