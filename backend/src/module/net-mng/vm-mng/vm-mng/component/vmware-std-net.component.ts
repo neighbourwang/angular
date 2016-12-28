@@ -282,8 +282,9 @@ export class VmwareStdNetComponent implements OnInit {
             this.showAlert("NET_MNG_VM_IP_MNG.NET_ALREADY_ENABLED");
             return;
         }
-        this.noticeMsg = `您选择启用 '${selectedNet.portGroupName}'端口组，其VLAN ID为'${selectedNet.vlanId}' ， 
-                        请确认；如果确认，用户将能够在订购中选择此网络。`;
+        //this.noticeMsg = `您选择启用 '${selectedNet.portGroupName}'端口组，其VLAN ID为'${selectedNet.vlanId}' ， 
+        //                请确认；如果确认，用户将能够在订购中选择此网络。`;
+        this.noticeMsg = 'NET_MNG_VM_IP_MNG.ENABLE_PORTGROUP_WARNING^^^'+selectedNet.portGroupName+'^^^'+selectedNet.vlanId;
         this.confirm.ccf = () => { };
         this.confirm.cof = () => {
             this.layoutService.show();
@@ -317,8 +318,9 @@ export class VmwareStdNetComponent implements OnInit {
             this.showAlert("NET_MNG_VM_IP_MNG.NET_ALREADY_DISABLED");
             return;
         }
-        this.noticeMsg = `您选择禁用 '${selectedNet.portGroupName}'端口组，其VLAN ID为'${selectedNet.vlanId}' ， 
-                        请确认；如果确认，用户将不能够在订购中选择此网络。`;
+        //this.noticeMsg = `您选择禁用 '${selectedNet.portGroupName}'端口组，其VLAN ID为'${selectedNet.vlanId}' ， 
+        //                请确认；如果确认，用户将不能够在订购中选择此网络。`;
+        this.noticeMsg = 'NET_MNG_VM_IP_MNG.DISABLE_PORTGROUP_WARNING^^^'+selectedNet.portGroupName+'^^^'+selectedNet.vlanId;
         this.confirm.ccf = () => { };
         this.confirm.cof = () => {
             this.layoutService.show();
@@ -357,8 +359,9 @@ export class VmwareStdNetComponent implements OnInit {
         this.noticeTitle = "NET_MNG_VM_IP_MNG.DELETE_NET";
 
 
-        this.noticeMsg = `您选择删除 '${selectedNet.portGroupName}'端口组，其VLAN ID为'${selectedNet.vlanId}' ， 
-                        请确认；如果确认，此网络将被删除。`;
+        //this.noticeMsg = `您选择删除 '${selectedNet.portGroupName}'端口组，其VLAN ID为'${selectedNet.vlanId}' ， 
+        //                请确认；如果确认，此网络将被删除。`;
+        this.noticeMsg = 'NET_MNG_VM_IP_MNG.DELETE_PORTGROUP_WARNING^^^'+selectedNet.portGroupName+'^^^'+selectedNet.vlanId;
         this.confirm.ccf = () => { };
         this.confirm.cof = () => {
             this.layoutService.show();

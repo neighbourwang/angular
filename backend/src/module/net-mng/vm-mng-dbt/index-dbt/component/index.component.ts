@@ -173,8 +173,9 @@ export class VmDisIndexComponent implements OnInit {
             this.showAlert("NET_MNG_VM_IP_MNG.NET_ALREADY_ENABLED");
             return;
         }
-        this.noticeMsg = `您选择启用 '${selectedPort.distPortGroupDisplayName}'分布式端口组，其VLAN ID为'${selectedPort.vlanId}' ， 
-                        请确认；如果确认，用户将能够在订购中选择此网络。`;
+        //this.noticeMsg = `您选择启用 '${selectedPort.distPortGroupDisplayName}'分布式端口组，其VLAN ID为'${selectedPort.vlanId}' ， 
+        //                请确认；如果确认，用户将能够在订购中选择此网络。`;
+        this.noticeMsg = 'NET_MNG_VM_IP_MNG.ENABLE_DBT_PORTGROUP_WARNING^^^'+selectedPort.distPortGroupDisplayName+'^^^'+selectedPort.vlanId;
         this.confirm.ccf = () => { };
         this.confirm.cof = () => {
             this.layoutService.show();
@@ -210,8 +211,9 @@ export class VmDisIndexComponent implements OnInit {
             this.showAlert("NET_MNG_VM_IP_MNG.NET_ALREADY_DISABLED");
             return;
         }
-        this.noticeMsg = `您选择禁用 '${selectedPort.distPortGroupDisplayName}'分布式端口组，其VLAN ID为'${selectedPort.vlanId}' ， 
-                        请确认；如果确认，用户将不能够在订购中选择此网络。`;
+        //this.noticeMsg = `您选择禁用 '${selectedPort.distPortGroupDisplayName}'分布式端口组，其VLAN ID为'${selectedPort.vlanId}' ， 
+        //                请确认；如果确认，用户将不能够在订购中选择此网络。`;
+        this.noticeMsg = 'NET_MNG_VM_IP_MNG.DISABLE_DBT_PORTGROUP_WARNING^^^'+selectedPort.distPortGroupDisplayName+'^^^'+selectedPort.vlanId;
         this.confirm.ccf = () => { };
         this.confirm.cof = () => {
             this.layoutService.show();
