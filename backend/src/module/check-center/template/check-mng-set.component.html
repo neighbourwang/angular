@@ -36,8 +36,8 @@
 					<div class="form-group">
 						<div class="col-sm-4"><span class="asterisk">*</span>审批：</div>
 						<div class="col-sm-4">
-							<input type="radio" class="fox-cloud-radio" [ngClass]="{'active':_selectedItem.backAuditEnable}" [checked]="_selectedItem.backAuditEnable" value="1" (change)="_selectedItem.backAuditEnable = $event.target.checked">
-							<input type="radio" class="fox-cloud-radio" [ngClass]="{'active':!_selectedItem.backAuditEnable}" [checked]="!_selectedItem.backAuditEnable" value="0" (change)="_selectedItem.backAuditEnable = !$event.target.checked">
+							<input type="radio" class="fox-cloud-radio" name="approve_set" [ngClass]="{'active':_selectedItem.backAuditEnable}" [value]="1" [(ngModel)]="_selectedItem.backAuditEnable"><span>开启</span>
+							<input type="radio" class="fox-cloud-radio" name="approve_set" [ngClass]="{'active':!_selectedItem.backAuditEnable}" [value]="0" [(ngModel)]="_selectedItem.backAuditEnable"><span>关闭</span>
 						</div>
 					</div>
 				</div>

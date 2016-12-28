@@ -1,4 +1,5 @@
 export const TranslateCN = {
+    test: 'abc{{value}}',
     LANG: '中文',
     COMMON: {
         PROMPT: '提示',
@@ -9,7 +10,7 @@ export const TranslateCN = {
         RESET: '重置',
         NUMBER: '编号',
         ORDER_NUMBER: '订单号',
-        ORDER_ID:'订单ID',
+        ORDER_ID: '订单ID',
         OPERATION: '操作',
         MORE_ACTIONS:'更多操作',
         STATUS: '状态',
@@ -35,6 +36,15 @@ export const TranslateCN = {
         NAME: '名称',
         NONE: '无',
         ALL: '所有',
+        DEPARTMENT: '部门',
+        PURCHASER: '订购人',
+        PRODUCT: '产品',
+        PURCHASED: '已购',
+        QUANTITY: '数量',
+        PRICE: '价格',
+        PERMANENCE: '永久',
+        MANAGEMENT: '管理',
+
         //单位
         $: "￥",
         YUAN: '元',
@@ -53,6 +63,8 @@ export const TranslateCN = {
         NEWLY_CREATED: '新创建',
         IN_PROCESS: '处理中',
         COMPLETED: '已完成',
+        UNSUBSCRIBE: '退订',
+        RENEW: '续订',
         START: '启动',
         SHUTDOWN: '关机',
         PAUSE: '暂停',
@@ -85,11 +97,13 @@ export const TranslateCN = {
         CAPATITY: '容量',
         CAPACITY_GB: '容量(GB)',
         MOUNT: '挂载',
+        ZONE: '区域',
         AVAILABLE_ZONE: '可用区',
         AREA: '区域',
         REGION_AND_AVAILABLE_AREA: '所在区域及可用区',
         CREATED_TIME: '创建时间',
         EXPIRE_DATE: '到期时间',
+        SYSTEM_PROMPT: '系统提示'
     },
     SITE: {
         EXIT: '退出'
@@ -202,7 +216,30 @@ export const TranslateCN = {
         
     },
     ORDER_MNG: {
-
+        ORDER_DETAILS: '订购详情',
+        ORDERS_DETAILS: '订单详情',
+        RENEWAL_FEE: '续订费用',
+        DEPARTMENT_LIST: '部门列表',
+        SUBSCRIBER_LIST: '订购人列表',
+        SUBMITTER_LIST: '提交者列表',
+        ORDERS_LSIT: '订单列表',
+        ORDERED_LSIT: '已订购列表',
+        ONLY_SUCCESS_OR_EXPIRING_ORDERS_CAN_BE_RENEWED: '只有个“成功”或“即将过期”的订单可以续订',
+        ONLY_SUCCESS_OR_EXPIRING_ORDERS_CAN_BE_UNSUBSCRIBE: '只有个“成功”或“即将过期”的订单可以退订',
+        PURCHASE_TIME: '购买时长',
+        PLEASE_ENTER_A_NUMBER_QUERY: '请输入编号查询',
+        DUE_DATE: '到期时间',
+        THE_CURRENT_QUERY_TO: '当前查询到',
+        PURCHASED_SERVICE_PURCHASED_SERVICE_ARE_LISTED_BELOW: '个已购服务，已购服务列表如下',
+        CHARGING_MODE: '计费模式',
+        PURCHASE_CYCLE: '购买周期',
+        RENEWAL_EXPIRATION_TIME: '续订后到期时间',
+        YOUR_ORDER_HAS_BEEN_RENEWED___AND_THE_ASSOCIATED_RESOURCES: '你的订单续订已完成，可以进入管理控制台查看订单状态及使用相关资源',
+        FOR_APPROVAL___TO_TAKE_EFFECT: '如需审批，则需要订单审批通过后，才能正式生效',
+        UNSUBSCRIBE_FROM___HARD_DRIVE: '一起退订该云主机挂载的云硬盘',
+        WHETHER_TO_CONFIRM___EXIT_THE_PROCESS: '是否确认删除该云硬盘. 如果选"确认", 则卸载该云硬盘并删除. 如果选"取消", 则退出流程',
+        WHETHER_TO_CONFIRM_FORCE___EXIT_THE_PROCESS: '是否强制删除. 如果选"确认", 则卸载该云硬盘并删除。 如果选"取消", 则退出流程',
+       
     },
     ORDER_MNG_SEARCH: {
         CONFIRM: '确定',
@@ -233,7 +270,7 @@ export const TranslateCN = {
         OPERATION_ERROR: '操作错误',
         ORGANIZATIONAL_STATUS_IS_ENABLED: '组织状态已启用',
         ENABLE_DEPARTMENT: '启用部门',
-        YOU_CHOOSE_TO_ENABLE_VALUE_PLEASE_CONFIRM: '您选择启用{{value}}，请确认',
+        YOU_CHOOSE_TO_ENABLE_VALUE_PLEASE_CONFIRM: '您选择启用{{value_1}}，请确认',
         EDIT_DEPARTMENT: '编辑部门',
         YOU_CAN_NOT_DELETE_ORGANIZATIONS_THAT_ARE_ENABLED: '不能删除启用状态下的组织'
     },
@@ -243,7 +280,7 @@ export const TranslateCN = {
         WORK_ORDER_STATISTICS: '工单统计',
         TOTAL_QUOTA_USAGE: '部门配额使用率',
         DEPARTMENT_RESOURCES: '部门资源'
-       },
+    },
     CHECK_CENTER: {
         //check-mng-list.html
         PENDING_LIST: '待审批列表',
@@ -263,7 +300,7 @@ export const TranslateCN = {
         
         ORDER_DESCRIPTION: '订单描述',
         DEPARTMENT: '部门',
-        ENTERPRISE:'企业',
+        ENTERPRISE: '企业',
         COST: '费用',
         APPROVAL_RESULTS: '审批结果',
         BILLING_MODE: '计费模式',
@@ -290,8 +327,8 @@ export const TranslateCN = {
         CREATE_CLOUD_HRAD_DISK: '创建云硬盘',
         CLOUD_HRAD_DISK_NAME: '云硬盘名称',
         MOUNT_LOCATION_CLOUD_HOST_NAME: '挂载位置（云主机名称）',
-        
-        REGION: '所在地区',        
+
+        REGION: '所在地区',
         ATTRIBUTE: '属性',
         OPERATE: '操作',        
         MOUNT: '挂载',
@@ -331,7 +368,7 @@ export const TranslateCN = {
         PURCHASE_CYCLE: '购买周期',
         CHARGE_DETAIL: '费用明细',
         QUANTITY: '数量',
-        NOTE:'小记',
+        NOTE: '小记',
         REMOVE_FROM_CART: '从购物车中移除',
         INCREMENTAL_CYCLE_COST: '增量周期费用',
         UNIT_PRICE: '单价费用',
@@ -343,6 +380,6 @@ export const TranslateCN = {
         //cart-order.html
         ORDER_FINISHED: '订单完成',
         //58行
-        MNG_CONSOLE:'管理控制台'
+        MNG_CONSOLE: '管理控制台'
     }
 }

@@ -45,7 +45,7 @@ export class OrderMngSearchComponent implements OnInit{
 		private _dictServ:DictService){
 
 		//获取订单详情
-		this._orderDetailLoader = new ItemLoader<SearchOrderDetail>(false, "订单详情", "op-center.order-search.detail.get", restApiCfg, restApi);
+		this._orderDetailLoader = new ItemLoader<SearchOrderDetail>(false, "ORDER_MNG.ORDERS_DETAILS", "op-center.order-search.detail.get", restApiCfg, restApi);
 		this._orderDetailLoader.MapFunc = (source:Array<any>, target:Array<SearchOrderDetail>)=>{
 			for(let item of source)
 			{
@@ -73,7 +73,7 @@ export class OrderMngSearchComponent implements OnInit{
 
 
 		//配置部门列表加载
-		this._departmentLoader = new ItemLoader<DepartmentItem>(false, '部门列表', "op-center.order-mng.department-list.get", this.restApiCfg, this.restApi);
+		this._departmentLoader = new ItemLoader<DepartmentItem>(false, 'ORDER_MNG.DEPARTMENT_LIST', "op-center.order-mng.department-list.get", this.restApiCfg, this.restApi);
 
 		//提交者加载
 		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, '提交者列表', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
@@ -95,7 +95,7 @@ export class OrderMngSearchComponent implements OnInit{
 		this._orderStatusDic = new DicLoader(this.restApiCfg, this.restApi, "ORDER", "STATUS");
 
 		//配置订单加载
-		this._orderLoader = new ItemLoader<SearchOrderItem>(true, "订单列表", "op-center.order-search.list.post", restApiCfg, restApi);
+		this._orderLoader = new ItemLoader<SearchOrderItem>(true, "ORDERS_LSIT", "op-center.order-search.list.post", restApiCfg, restApi);
 		this._orderLoader.MapFunc = (source:Array<any>, target:Array<SearchOrderItem>)=>{
 
 			for(let item of source)
@@ -223,7 +223,7 @@ export class OrderMngSearchComponent implements OnInit{
 	}
 	showMsg(msg: string)
 	{
-		this._notice.open("系统提示", msg);
+		this._notice.open("COMMON.SYSTEM_PROMPT", msg);
 	}
 	cancel(){
 /*

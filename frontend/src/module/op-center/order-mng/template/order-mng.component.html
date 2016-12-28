@@ -1,6 +1,6 @@
-﻿<fc-notice #notice ot="确认"></fc-notice>
+﻿<fc-notice #notice ot="{{ 'COMMON.CONFIRM' | translate }}"></fc-notice>
 <div class="OrderManage">	
-	<div class="page-content-header">已购服务管理</div>
+	<div class="page-content-header">{{ 'MENU.PURCHASED_SERVICE_MANAGEMENT' | translate }}</div>
 	<div class="page-content">
 		<!--<div class="mgb20">
 			<ul class="nav nav-tabs" id="myTabs" role="tablist">
@@ -12,37 +12,37 @@
 		<div class="table-container">
 			<div class="">
 				<div class="input-group col-md-2 float-left mgr20">
-   					 <input class="form-control" placeholder="请输入编号查询" type="email" [(ngModel)]="_param.searchText">
+   					 <input class="form-control" placeholder="{{ 'ORDER_MNG.PLEASE_ENTER_A_NUMBER_QUERY' | translate }}" type="email" [(ngModel)]="_param.searchText">
     				 <div class="input-group-addon pointer"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div>
 				<div  class="input-group float-left">
-               		<button class="btn button-gray-gradient" (click)="resetParam()"><span class="glyphicon glyphicon-repeat"></span> 重置</button>
+               		<button class="btn button-gray-gradient" (click)="resetParam()"><span class="glyphicon glyphicon-repeat"></span> {{ 'COMMON.RESET' | translate }}</button>
         		</div>
 			</div>
 			<table class="table">
 				<tbody>
  					<tr class="none-border">				
 						<td>
-							<span class="float-left">部门:</span>
+							<span class="float-left">{{ 'COMMON.DEPARTMENT' | translate }}:</span>
 							<div class="dropdown float-left">
 								<select class="form-control fix-width-120" [(ngModel)]="_param.organization" (ngModelChange)="loadBuyer()">
-									<option class="hands" [value]="null">所有部门</option>
+									<option class="hands" [value]="null">{{ 'COMMON.ALL' | translate }}{{ 'COMMON.DEPARTMENT' | translate }}</option>
 									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
 						<td>
-							<span class="float-left mgl15">订购人:</span>
+							<span class="float-left mgl15">{{ 'COMMON.PURCHASER' | translate }}:</span>
 							<div class="dropdown float-left">
 								<select class="form-control fix-width-120" [(ngModel)]="_param.buyerId">
-									<option class="hands" [value]="null">所有用户</option>
+									<option class="hands" [value]="null">{{ 'COMMON.ALL' | translate }}{{ 'COMMON.PURCHASER' | translate }}</option>
 									<option class="hands" *ngFor = "let item of _buyerLoader.Items" [value] = "item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
 						<td colspan="3">
 							<div class="mgt-10">
-								<span class="mgt10 float-left">到期时间：</span>
+								<span class="mgt10 float-left">{{ 'ORDER_MNG.DUE_DATE' | translate }}：</span>
 								<div class="dropdown float-left">			
 									<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
 								</div>
@@ -57,40 +57,40 @@
 					<tr class="none-border">
 						<td style="width:250px;">
 							<span class="float-left " >
-							状态:</span>
+							{{ 'COMMON.STATUS' | translate }}:</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.status">
-									<option class="hands" [value]=null>所有状态</option>
+									<option class="hands" [value]=null>{{ 'COMMON.ALL' | translate }}{{ 'COMMON.STATUS' | translate }}</option>
 									<option class="hands" *ngFor="let item of _orderStatusDic.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
 						</td>
 						<td>
 							<span class="float-left" >
-							产品类型:</span>
+							{{ 'COMMON.PRODUCT' | translate }}{{ 'COMMON.TYPE' | translate }}:</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.serviceType">
-									<option class="hands" [value]=null>所有类型</option>
+									<option class="hands" [value]=null>{{ 'COMMON.ALL' | translate }}{{ 'COMMON.TYPE' | translate }}</option>
 									<option class="hands" *ngFor="let item of _productTypeLoader.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
 						</td>
 						<td style="width:257px;">
 							 <span class="float-left " >
-							区域:</span>
+							{{ 'COMMON.ZONE' | translate }}:</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.platformId" (ngModelChange)="onPlatformChanged()">
-									<option class="hands" [value]="null">所有区域</option>
+									<option class="hands" [value]="null">{{ 'COMMON.ALL' | translate }}{{ 'COMMON.ZONE' | translate }}</option>
 									<option class="hands" *ngFor="let item of _platformLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div> 
 						</td>
 						<td>
 						<span class="float-left" >
-							可用区:</span>
+							{{ 'COMMON.AVAILABLE_ZONE' | translate }}:</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.zoneId">
-									<option class="hands" [value]=null>所有区</option>
+									<option class="hands" [value]=null>{{ 'COMMON.ALL' | translate }}{{ 'COMMON.AVAILABLE_ZONE' | translate }}</option>
 									<option class="hands" *ngFor="let item of _regionLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
@@ -100,33 +100,33 @@
 				</tbody>
 			</table>	
 		</div>
-		<div class="mgb10 float-left">当前查询到<span class="font-green">{{_orderLoader.TotalRecords}}</span>个已购服务，已购服务列表如下：</div>
+		<div class="mgb10 float-left">{{ 'ORDER_MNG.THE_CURRENT_QUERY_TO' | translate }}<span class="font-green">{{_orderLoader.TotalRecords}}</span>{{ 'ORDER_MNG.PURCHASED_SERVICE_PURCHASED_SERVICE_ARE_LISTED_BELOW' | translate }}:</div>
 			<div class="table-container">
 			<table class="table">
 				<thead>	
 					<tr>
-						<th class="order-title"> 已购服务详情</th>
-						<th  class="text-center">产品类型</th>
-						<th class="text-center">计费模式</th>
-						<th class="text-center">购买周期</th>
-						<th class="text-center">数量</th>
-						<th class="text-center">费用</th>		
-						<th class="text-center">状态</th>
-						<th class="text-center">创建时间</th>
-						<th class="text-center">到期时间</th>
-						<th>订购人</th>
-						<th>所属部门</th>
+						<th class="order-title"> {{ 'COMMON.PURCHASED' | translate }}{{ 'COMMON.SERVICES' | translate }}{{ 'COMMON.DETAILS' | translate }}</th>
+						<th  class="text-center">{{ 'COMMON.PRODUCT' | translate }}{{ 'COMMON.TYPE' | translate }}</th>
+						<th class="text-center">{{ 'ORDER_MNG.CHARGING_MODE' | translate }}</th>
+						<th class="text-center">{{ 'ORDER_MNG.PURCHASE_CYCLE' | translate }}</th>
+						<th class="text-center">{{ 'COMMON.QUANTITY' | translate }}</th>
+						<th class="text-center">{{ 'COMMON.EXPENSE' | translate }}</th>		
+						<th class="text-center">{{ 'COMMON.STATUS' | translate }}</th>
+						<th class="text-center">{{ 'COMMON.CREATED_TIME' | translate }}</th>
+						<th class="text-center">{{ 'COMMON.EXPIRE_DATE' | translate }}</th>
+						<th>{{ 'COMMON.PURCHASER' | translate }}</th>
+						<th>{{ 'COMMON.DEPARTMENT' | translate }}</th>
 					</tr>			
 				</thead>
 			</table>
 
 			<table class="table _table" *ngFor="let orderItem of _orderLoader.Items">
 				<tr>
-					<td class=" font-green leftAlign pdl20" colspan="9" (click)="showDetail(orderItem)"><span>{{orderItem.purchaseDate}}</span><span class="pointer mgl10 float-none">已购服务编号：{{orderItem.orderNo}}</span></td>
+					<td class=" font-green leftAlign pdl20" colspan="9" (click)="showDetail(orderItem)"><span>{{orderItem.purchaseDate}}</span><span class="pointer mgl10 float-none">{{ 'COMMON.PURCHASED' | translate }}{{ 'COMMON.SERVICES' | translate }}{{ 'COMMON.NUMBER' | translate }}:{{orderItem.orderNo}}</span></td>
 					<td colspan="2">
 						<!-- <button *ngIf="orderItem.canRenew" class="mgr5 pull-right button-gray-gradient" (click)="renewSelect(orderItem)">续订</button> -->
-						<button class="mgr5 pull-right button-gray-gradient" (click)="cancelSelect(orderItem)">退订</button>
-						<button class="mgr5 pull-right button-gray-gradient" (click)="showDetail(orderItem)">详情</button>
+						<button class="mgr5 pull-right button-gray-gradient" (click)="cancelSelect(orderItem)">{{ 'COMMON.UNSUBSCRIBE' | translate }}</button>
+						<button class="mgr5 pull-right button-gray-gradient" (click)="showDetail(orderItem)">{{ 'COMMON.DETAILS' | translate }}</button>
 					</td>	
 				</tr>
 				<tr *ngFor="let prodItem of orderItem.itemList">
@@ -142,8 +142,8 @@
 					<td>{{prodItem.period}} {{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async |slice:1}}</td>
 					<td>{{prodItem.quantity}}</td>
 					<td style="width: 100px;">
-						一次性价格：{{prodItem.oneTimePrice}}<br/>
-						价格:{{prodItem.price}}
+						{{ 'COMMON.ONE_TIME_COSTS' | translate }}:{{prodItem.oneTimePrice}}<br/>
+						{{ 'COMMON.PRICE' | translate }}:{{prodItem.price}}
 					</td>	
 					<td class="font-green">{{prodItem.statusName}}</td>
 					<td>{{prodItem.createDate}}</td>
@@ -166,7 +166,7 @@
 				<div class="modal-content">
 				  	<div class="modal-header">
 					 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">已购服务编号：{{_orderDetailLoader.FirstItem.instanceCode}}</h4>
+						<h4 class="modal-title" id="myModalLabel">{{ 'COMMON.PURCHASED' | translate }}{{ 'COMMON.SERVICES' | translate }}{{ 'COMMON.NUMBER' | translate }}{{_orderDetailLoader.FirstItem.instanceCode}}</h4>
 				  	</div>
 				 	<div class="modal-body"> 
 						<order-mng-detail [orderDetail]="_orderDetailLoader.FirstItem"></order-mng-detail>
@@ -187,7 +187,7 @@
 				<div class="modal-content">
 				  	<div class="modal-header">
 					 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">订单续订</h4>
+						<h4 class="modal-title" id="myModalLabel">{{ 'COMMON.ORDERS' | translate }}{{ 'COMMON.RENEW' | translate }}</h4>
 				  	</div>
 				 	<div class="modal-body"> 
 			          <!--<account-mng-cr-local></account-mng-cr-local>
@@ -198,15 +198,15 @@
 							<div class="page-content">
 								<div class="page-second-container mgb20">
 									<div class="float-left">
-										<span class="float-left mgr20" style="margin-top: 8px;">购买时长:</span>
+										<span class="float-left mgr20" style="margin-top: 8px;">{{ 'ORDER_MNG.PURCHASE_TIME' | translate }}:</span>
 										<div class="float-left mgr20">
 											<input class="float-left" type="text" [ngModel]="selectedPeriodTypeName" disabled="true">
 											<input *ngIf="!_renewSetting.isForever" class="float-left" type="number" name="" (change)="renewValueChange()" [(ngModel)]="_renewSetting.value">
 										</div>
-										<button class="btn  mgr20" [ngClass]="{'button-confirm':!_renewSetting.isForever!=1,'button-gray-gradient':!_renewSetting.isForever==1}" (click)="selectForever();">永&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;久</button>
+										<button class="btn  mgr20" [ngClass]="{'button-confirm':!_renewSetting.isForever!=1,'button-gray-gradient':!_renewSetting.isForever==1}" (click)="selectForever();">{{ 'COMMON.PERMANENCE' | translate }}</button>
 									</div>
 									<div class="float-right">
-										续订后到期时间：<span class="font-red">{{_renewSetting.renewDate}}</span>
+										{{ 'ORDER_MNG.RENEWAL_EXPIRATION_TIME' | translate }}:<span class="font-red">{{_renewSetting.renewDate}}</span>
 									</div>	
 								</div>
 							</div>
@@ -214,8 +214,8 @@
 					</div>
 			      
 				  	<div *ngIf="!_renewSetting.completed" class="modal-footer" style="text-align: center;">
-						<button  type="button" class="btn button-confirm button-size-big " data-toggle="modal" data-target="#renewOrderOk" (click)="renew()" >确认续订</button>
-		                <button type="button" class="btn  button-size-big button-white" data-dismiss="modal">取消</button>
+						<button  type="button" class="btn button-confirm button-size-big " data-toggle="modal" data-target="#renewOrderOk" (click)="renew()" >{{ 'COMMON.CONFIRM' | translate }}{{ 'COMMON.RENEW' | translate }}</button>
+		                <button type="button" class="btn  button-size-big button-white" data-dismiss="modal">{{ 'COMMON.CANCEL' | translate }}</button>
 				  	</div>
 
 				  	<!-- 订单续订完成 -->
@@ -223,7 +223,7 @@
 							<div class="page-content">
 								<div class="page-second-container mgb20">
 									<div class="float-left">
-										<span class="font-red float-left mgb20">你的订单续订已完成，可以进入管理控制台查看订单状态及使用相关资源<br>如需审批，则需要订单审批通过后，才能正式生效。</span>
+										<span class="font-red float-left mgb20">{{ 'ORDER_MNG.YOUR_ORDER_HAS_BEEN_RENEWED___AND_THE_ASSOCIATED_RESOURCES' | translate }}<br>{{ 'ORDER_MNG.FOR_APPROVAL___TO_TAKE_EFFECT' | translate }}.</span>
 								    </div>
 									<div class="float-right">
 										<!--<span  class="float-left">（费用合计）</span>
@@ -234,7 +234,7 @@
 														</span>
 											</li>
 										</ul>-->
-										<button class="button-size-big button-confirm pull-right" data-dismiss="modal" (click)="search()">管理控制台</button>
+										<button class="button-size-big button-confirm pull-right" data-dismiss="modal" (click)="search()">{{ 'COMMON.MANAGEMENT' | translate }}{{ 'COMMON.CONSOLE' | translate }}</button>
 									</div>	
 									<div style="height: 40px;"></div>
 								</div>
@@ -258,25 +258,25 @@
 				<div class="modal-content">
 				  	<div class="modal-header">
 					 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">订单退订</h4>
+						<h4 class="modal-title" id="myModalLabel">{{ 'COMMON.ORDERS' | translate }}{{ 'COMMON.UNSUBSCRIBE' | translate }}<</h4>
 				  	</div>
 				 	<div class="modal-body"> 
 			 			<div *ngIf="cancelObj.isMachine && cancelObj.hasDisk">
 			 				<input type="checkbox" [(ngModel)]="cancelObj.removeDisk"/>
-			 				<div>一起退订该云主机挂载的云硬盘</div>
+			 				<div>{{ 'ORDER_MNG.UNSUBSCRIBE_FROM___HARD_DRIVE' | translate }}</div>
 			 			</div><!-- 云主机 -->
 			 			<div *ngIf="cancelObj.isDisk && cancelObj.isNotInuse">
-			 				是否确认删除该云硬盘. 如果选"确认", 则卸载该云硬盘并删除. 如果选"取消", 则退出流程.
+			 				{{ 'ORDER_MNG.WHETHER_TO_CONFIRM___EXIT_THE_PROCESS' | translate }}.
 			 			</div><!-- 云硬盘:空闲 -->
 			 			<div *ngIf="cancelObj.isDisk && cancelObj.isInuse">
-			 				是否强制删除. 如果选"确认", 则卸载该云硬盘并删除。 如果选"取消", 则退出流程. 
+			 				{{ 'ORDER_MNG.WHETHER_TO_CONFIRM_FORCE___EXIT_THE_PROCESS' | translate }}. 
 			 			</div><!-- 云硬盘：挂载 -->
 					</div>
 			      	
 			      	<!-- 退订 -->
 				  	<div *ngIf="!_isCanceled" class="modal-footer" style="text-align: center;">
-						<button type="button" class="btn button-confirm button-size-big" (click)="cancel()" >确认退订</button>
-		                <button type="button" class="btn  button-size-big button-white" data-dismiss="modal">取消</button>
+						<button type="button" class="btn button-confirm button-size-big" (click)="cancel()" >{{ 'COMMON.CONFIRM' | translate }}{{ 'COMMON.UNSUBSCRIBE' | translate }}</button>
+		                <button type="button" class="btn  button-size-big button-white" data-dismiss="modal">{{ 'COMMON.CANCEL' | translate }}</button>
 				  	</div>
 		  	</div>
 		</div>

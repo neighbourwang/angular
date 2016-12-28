@@ -43,11 +43,11 @@
             <input class="form-control" type="email" [(ngModel)]="list.queryFieldValue" placeholder="{{'COMMON.ENTER_CLOUD_HARD_DISK_INFORMATION_TO_SEARCH' | translate}}">
             <div class="input-group-addon" (click)="search()"><span class="glyphicon glyphicon-search"></span></div>
         </div>
-        <div class="input-group float-left mgr10">
+<!--         <div class="input-group float-left mgr10">
             <label class="btn btn-default button-gray-gradient" (click)="superSearch = !superSearch" [ngClass]="{'active': superSearch}">
                {{'CLOUD_DRIVE_LIST.ADVANCED_SEARCH' | translate}} 
             </label>
-        </div>
+        </div> -->
         <div class="input-group float-left">
             <button (click)="resetSearch()" class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span> {{'COMMON.RESET_SEARCH' | translate}} </button>
         </div>
