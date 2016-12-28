@@ -108,7 +108,7 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let item of _listLoader.Items;let i = index;">
-						<td >{{i}}</td>
+						<td >{{i + 1}}</td>
 						<td class="font-green">
 							<a class="hands" [popover]="popover">{{item.orderCodeStr}}</a>
 							<popover-content #popover 
