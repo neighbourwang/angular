@@ -34,7 +34,7 @@
 			<div class="dialogContent">
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4"><span class="asterisk float-right">*</span><span class="float-right">审批：<span></div>
+						<div class="col-sm-4"><span class="float-right">审批：</span><span class="asterisk float-right">*</span></div>
 						<div class="col-sm-4">
 							<input type="radio" class="fox-cloud-radio" name="approve_set" [ngClass]="{'active':_selectedItem.backAuditEnable}" [value]="1" [(ngModel)]="_selectedItem.backAuditEnable"><span>开启</span>
 							<input type="radio" class="fox-cloud-radio" name="approve_set" [ngClass]="{'active':!_selectedItem.backAuditEnable}" [value]="0" [(ngModel)]="_selectedItem.backAuditEnable"><span>关闭</span>
@@ -43,9 +43,9 @@
 				</div>
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4">自动审批时间设置：</div>
+						<div class="col-sm-4 float-right">自动审批时间设置：</div>
 						<div class="col-sm-4">
-							<input type="number" class="form-control" [(ngModel)]="_selectedItem.backAutoApprovalTime">分钟
+							<input type="number" class="form-control number-input" [(ngModel)]="_selectedItem.backAutoApprovalTime">分钟
 						</div>
 					</div>
 				</div>
