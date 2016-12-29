@@ -51,10 +51,12 @@ export class CheckMngListComponent implements OnInit{
 		,private _dictServ:DictService){
 
 		//拒绝
+
 		this._refuseHandler = new ItemLoader<any>(false, '同意/拒绝', "check-center.approve-refust.post", _restApiCfg,_restApi);
 
+
 		//列表数据加载
-		this._listLoader = new ItemLoader<CheckListItem>(true, "待审批列表加载失败", "check-center.get-list.post", _restApiCfg, _restApi);
+		this._listLoader = new ItemLoader<CheckListItem>(true, "CHECK_CENTER.PENDING_LIST", "check-center.get-list.post", _restApiCfg, _restApi);
 		this._listLoader.MapFunc = (source:Array<any>, target:Array<CheckListItem>)=>{
 
 			for(let item of source)
@@ -108,10 +110,10 @@ export class CheckMngListComponent implements OnInit{
 		};
 
 		//部门列表配置
-		this._departmentLoader = new ItemLoader<{id:string;name:string}>(false, "部门列表加载失败", "op-center.order-mng.department-list.get", _restApiCfg, _restApi);
+		this._departmentLoader = new ItemLoader<{id:string;name:string}>(false, "CHECK_CENTER.DEPARTMENTS_LIST", "op-center.order-mng.department-list.get", _restApiCfg, _restApi);
 		
 		//提交者列表配置
-		this._submiterLoader = new ItemLoader<{id:string;name:string}>(false, "提交者列表加载失败", "check-center.submiter-list.get", _restApiCfg, _restApi);
+		this._submiterLoader = new ItemLoader<{id:string;name:string}>(false, "CHECK_CENTER.SUBMITTERS_LIST", "check-center.submiter-list.get", _restApiCfg, _restApi);
 		
 		this._submiterLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
 			for(let item of source)
@@ -152,7 +154,7 @@ export class CheckMngListComponent implements OnInit{
 
 	showMsg(msg:string)
 	{
-		this._notice.open("系统", msg);
+		this._notice.open("CHECK_CENTER.SYSTEM", msg);
 	}
 
 	
@@ -252,7 +254,7 @@ export class CheckMngListComponent implements OnInit{
 	confirmRefuse(){
 		if(!(this.refuseReason && this.refuseReason.length <= 200))
 		{
-			this.showMsg('必须填写拒绝原因，且不能超出200字');
+			this.showMsg('CHECK_CENTER.REFUSE_REASON_DESCRIPTION');
 			return;
 		}
 
@@ -297,7 +299,7 @@ export class CheckMngListComponent implements OnInit{
 	accept(item:CheckListItem)
 	{
 		this._selectedItem = item;
-		this._confirmAccept.open('审批同意', '你确认要审批同意该订单吗？');
+		this._confirmAccept.open('CHECK_CENTER.APPROVAL_CONSENT', 'CHECK_CENTER.CONFIRM_TO_APPROVE_THE_ORDER');
 	}
 
 	confirmAccept(){

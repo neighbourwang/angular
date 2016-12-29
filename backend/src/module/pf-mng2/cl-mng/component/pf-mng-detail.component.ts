@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Location } from '@angular/common';
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent ,dictPipe} from '../../../../architecture';
 
 import { PlatformDetailService } from '../service/pf-mng-detail.service';
 
@@ -12,6 +12,7 @@ import { ClMngCommonService } from '../service/cl-mng-common.service';
 
 //model
 import { Platform } from '../model/platform.model';
+import { ZoneListModel } from '../model/cre-step3.model';
 
 
 @Component({
@@ -22,19 +23,15 @@ import { Platform } from '../model/platform.model';
     providers: []
 })
 export class PfDetailComponent implements OnInit {
-
-
     constructor(private layoutService: LayoutService,
         private route: Router,
         private router: ActivatedRoute,
         private platformDetailService: PlatformDetailService,
         private commonService: ClMngCommonService,
         private location: Location,
+        private dictPipe: dictPipe,
     ) {
     }
-
-
-
     @ViewChild('removeConfirm')
     removeConfirm: ConfirmComponent;
 
@@ -45,14 +42,12 @@ export class PfDetailComponent implements OnInit {
     disableConfirm: ConfirmComponent;
 
     @ViewChild('notice')
-    notice: ConfirmComponent;
+    notice: NoticeComponent;
 
     // 确认Box/通知Box的标题
     title: String = "";
     // 确认Box/通知Box的内容
     msg: String = "";
-    // 云平台类型
-    platFormType: Array<any> = new Array<any>();
     // 云平台状态
     platFormStatus: Array<any> = new Array<any>();
 
@@ -63,29 +58,65 @@ export class PfDetailComponent implements OnInit {
         { name: '存储区与配额', active: false }
     ]
     platformName: string;
+    platformType: string;
     platformTypes: Array<any> = new Array<any>();
     platformVersion: Array<any> = new Array<any>();
     regions: Array<any> = new Array<any>();
-    platform:Platform=new Platform();
+    platform: Platform = new Platform();
+    //可用区列表
+    zoneList: Array<ZoneListModel>;
     //初始化
     ngOnInit() {
         let id: string;
-        let type: string;
         this.router.params.forEach((params: Params) => {
             id = params['id'];
-            type = params['type'];
+            this.platformType = params['type'];
             this.platformName = params['name'];
-            console.log(id, type, name)
+            console.log(this.platformType);
         })
-        //获取云平台类型
+        //获取云平台类型列表
+        this.layoutService.show();
         this.commonService.getPlatFormTypes()
             .then(
-            res => this.platformTypes = res
-            )
+            res => {
+                console.log(res);
+                this.platformTypes = res;
+            }
+            ).then(() => {
+                this.platformDetailService.getPlatform(id)
+                    .then(
+                    res => {
+                        console.log('platform basic', res);
+                        this.platform = res.resultContent;
+                        this.platformTypes.forEach(ele => {
+                            if (ele.value == this.platform.platformType) {
+                                ele.isSelected = true;
+                                this.getVersion(ele.code);
+                            }
+                        })
+
+                    }
+                    )
+            })
+            .then(() => {
+                this.platformDetailService.getZoneList(id).then(
+                    res => {
+                        this.zoneList = res.resultContent;
+                        this.zoneList.forEach(ele => {
+                            if (ele.quotaPercentage) {
+                                ele.quotaPercentDisplay = ele.quotaPercentage * 100;
+                            }
+                        })
+                        console.log(res);
+                        this.layoutService.hide();
+                    }
+                )
+            })
             .catch(
             err => {
                 console.error('err');
-                this.notice.open('错误', '获取类型信息错误');
+                this.layoutService.hide();
+                this.notice.open('错误', '获取信息错误');
             }
             )
         //获取区域列表
@@ -102,30 +133,25 @@ export class PfDetailComponent implements OnInit {
                 this.notice.open('错误', '获取区域信息错误');
             }
             )
-        this.platformDetailService.getPlatform(id)
-            .then(
-            res => {
-                console.log('platform basic', res);
-                this.platform=res.resultContent;
-            }
-            ).catch(
-            err => {
-                console.error('err');
-                this.notice.open('错误', '获取信息错误');
-            }
-            )
+
     }
+
     //选择平台类型
     choosePlatFormType(item, index) {
         for (let i = 0; i < this.platformTypes.length; i++) {
             this.platformTypes[i].isSelected = false;
         }
         this.platformTypes[index].isSelected = true;
-        // this.creStep1Model.platformType = item.value;
+        this.platform.platformType = item.value;
         console.log(item);
-        // this.creStep1Model.version = '';
-        this.commonService.getVersion(item.code).then(
+        this.platform.version = '';
+        this.getVersion(item.code);
+    }
+    //获取版本版本
+    getVersion(code) {
+        this.commonService.getVersion(code).then(
             res => {
+                console.log(res);
                 this.platformVersion = res
                 // this.creStep1Model.version = this.platformVersion[0].value;
             }
@@ -150,6 +176,26 @@ export class PfDetailComponent implements OnInit {
     goList() {
         this.route.navigate(['pf-mng2/cl-mng/cl-mng'])
     }
-    save() { }
+    save() {
+        console.log(this.platform);
+        if (!this.platform.name) {
+            return this.notice.open('操作错误', '请输入云平台名称');
+        }
+        if (!this.platform.dataCenter) {
+            return this.notice.open('操作错误', '请输入所属数据中心');
+        }
+        if (!this.platform.uri) {
+            return this.notice.open('操作错误', '请输入地址');
+        }
+        this.layoutService.show();
+        this.platformDetailService.putPlatform(this.platform).then(res => {
+            console.log(res);
+            this.layoutService.hide();
+            this.location.back();
+        }).catch(err => {
+            console.error(err);
+            this.layoutService.hide();
+        })
+    }
 
 }
