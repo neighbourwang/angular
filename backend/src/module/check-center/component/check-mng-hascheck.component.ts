@@ -237,6 +237,14 @@ export class CheckMngHascheckComponent implements OnInit{
 		this._layoutService.show();
 		this._listLoader.Go(pageNum, null, param)
 		.then(success=>{
+			let orderId ;
+			for(let item of this._listLoader.Items){
+				orderId = item.orderId;
+				this.getApproveInfo(orderId);
+			}	
+			this._layoutService.hide();
+		})
+		.then(success=>{
 			this._layoutService.hide();
 		})
 		.catch(err=>{

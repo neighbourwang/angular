@@ -135,7 +135,7 @@ export class cloudDriveListComponent implements OnInit {
 		this.serverId = vm.uuid;
 	};
 	confirmVm() {
-		this.handleDist("mount", this.mountDisk, "挂载云主机");
+		this.handleDist("mount", this.mountDisk, "CLOUD_DRIVE_LIST.MOUNT_CLOUD_HOST");
 		this.vmDialog.close();
 	}
 	cancelVm() {

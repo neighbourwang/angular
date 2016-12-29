@@ -76,14 +76,14 @@ export class cartListComponent implements OnInit {
 	    	this.layoutService.show();
 			this.service.deleteCartList(itemId).then(res => {
 	    		this.layoutService.hide();
-				this.noticeDialog.open("","删除成功！");
+				this.noticeDialog.open("","SHOPPING_CART.SUCCESSFULLY_DELETED");
 				this.getCartList();
 			}).catch(e =>{
 	    		this.layoutService.hide();
-				this.noticeDialog.open("删除失败",e);
+				this.noticeDialog.open("SHOPPING_CART.DELETE_FAILED",e);
 			})
 		}
-		this.confirmDialog.open("","你确定要删除吗？");
+		this.confirmDialog.open("","SHOPPING_CART.CONFIRM_TO_DELETE");
 	}
 
 	buyNow():void {
@@ -94,9 +94,9 @@ export class cartListComponent implements OnInit {
 			this.noticeconfirm = function(){
 				this.goTo("cloud-host-service/cart-order");
 			}
-			this.noticeDialog.open("","购买成功！");
+			this.noticeDialog.open("","SHOPPING_CART.PURCHASE_SUCCESS");
 		}).catch(e => {
-			this.noticeDialog.open("购买失败",e);
+			this.noticeDialog.open("SHOPPING_CART.PURCHASE_FAILED",e);
 		})
 	}
 
