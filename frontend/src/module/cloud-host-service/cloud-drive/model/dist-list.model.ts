@@ -58,6 +58,7 @@ class DistList {
     uid:string;
     platformId: string;
     uuid : string;
+    subInstanceId : string;
 }
 
 export {

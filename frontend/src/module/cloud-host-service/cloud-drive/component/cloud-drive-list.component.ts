@@ -94,13 +94,13 @@ export class cloudDriveListComponent implements OnInit {
 	}
 
 	delectDisk() {  //退订云硬盘
-		if( !this.radioSelected.id )  return this.showNotice("退订云硬盘", "请选择要退订的硬盘");
+		if( !this.radioSelected.subInstanceId )  return this.showNotice("退订云硬盘", "请选择要退订的硬盘");
 
 		this.popup.open("退订云硬盘");
 	}
 	popupCf(){}
 	popupOf(){
-		this.service.deleteDisk(this.radioSelected.id).then(res => {
+		this.service.deleteDisk(this.radioSelected.subInstanceId).then(res => {
 			this.showNotice("退订云硬盘", "退订成功！");
 		}).catch(e => {
 			this.showNotice("退订云硬盘", "退订失败！");
