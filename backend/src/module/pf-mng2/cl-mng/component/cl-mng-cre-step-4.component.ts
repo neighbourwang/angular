@@ -53,6 +53,17 @@ export class ClMngCreStep4Component implements OnInit {
                         ele.quotaPercentDisplay = ele.quotaPercentage * 100;
                     }
                 })
+                //Openstack类型同步volumeType信息
+                if (this.platformType == 'OpenStack') {
+                    this.service.getvolumeType(platFormId).then(
+                        res => {
+                            console.log(res);
+                        }
+                    ).catch(err => {
+                        console.error(err);
+                    });
+                }
+
             }
         ).catch(
             error => {

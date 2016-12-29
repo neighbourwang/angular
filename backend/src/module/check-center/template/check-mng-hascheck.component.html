@@ -111,7 +111,7 @@
 				</thead>
 				<tbody>
 					<tr class="border-gray" *ngFor="let item of _listLoader.Items;let i=index;">
-						<td>{{i}}</td>
+						<td>{{i + 1}}</td>
 						<td>{{item.orderCodeStr}}<br>
 							<a [popover]="myPopover" class="hands">详细信息>>>></a>
 							<popover-content #myPopover 
@@ -137,14 +137,14 @@
 							<br/>费用：{{item.priceNum}}
 						</td>
 						<td>{{item.createTimeStr}}<br>
-							<a class="hands" [popover]="checkPopover" (click)="getApproveInfo(item.orderId);">审批详细>>>></a>
+							<a class="hands" [popover]="checkPopover">审批详细>>>></a>
 
 							<popover-content #checkPopover 
 							placement="left"
 							[animation]="true" 
 							[closeOnClickOutside]="true" >
 
-								<ul *ngFor="let approveItem of _approveInfoLoader.Items">
+								<ul *ngFor="let approveItem of item.checkResult | async">
 									<li>审批人：&nbsp;&nbsp;{{approveItem.approver}}</li>
 									<li>审批时间：&nbsp;&nbsp;{{approveItem.operateTime}}</li>
 									<li>审批意见：&nbsp;&nbsp;{{approveItem.reason}}</li>			
@@ -153,7 +153,12 @@
 						</popover-content>
 
 						</td>
-						<td>{{item.checkResultName}}</td>
+						<td>
+							<ul>
+								<li *ngFor="let approveItem of item.checkResult | async">{{approveItem.reason}}</li>
+							</ul>
+						</td>
+						<!-- <td>{{item.checkResultName}}</td> -->
 					</tr>
 				</tbody>
 			</table>

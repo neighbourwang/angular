@@ -370,7 +370,7 @@ export class VmwareStdNetComponent implements OnInit {
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
-                        this.showAlert("DELETE_NET_SUCCESS删除成功");
+                        this.showAlert("NET_MNG_VM_IP_MNG.DELETE_NET_SUCCESS");
                         this.getData();
                     } else if(10002001==response["resultCode"]){
                         this.showAlert("NET_MNG_VM_IP_MNG.CANT_DELETE_AS_ENABLED_IP");

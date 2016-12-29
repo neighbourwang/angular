@@ -6,13 +6,13 @@ export const TranslateCN = {
         CONFIRM: '确认',
         CANCEL: '取消',
         EXIT: '退出',
-        DELETE:'删除',
+        DELETE: '删除',
         RESET: '重置',
         NUMBER: '编号',
         ORDER_NUMBER: '订单号',
         ORDER_ID: '订单ID',
         OPERATION: '操作',
-        MORE_ACTIONS:'更多操作',
+        MORE_ACTIONS: '更多操作',
         STATUS: '状态',
         TYPE: '类型',
         DESCRIPTION: '描述',
@@ -29,7 +29,7 @@ export const TranslateCN = {
         BUY_NOW: '立即购买',
         SHOPPING_CART: '购物车',
         PURCHASE_AMOUNT: '购买量',
-        PURCHASE_DURATION:'购买时长',
+        PURCHASE_DURATION: '购买时长',
         ADD_TO_SHOPPING_CART: '加入购物车',
         CHECK_SHOPPING_CART: '查看购物车',
         EMPTY_SHOPPING_CART: '清空购物车',
@@ -55,7 +55,7 @@ export const TranslateCN = {
         //单位
         $: "￥",
         YUAN: '元',
-        GB:'GB',
+        GB: 'GB',
         ONE_SET: '1台',
         TWO_SET: '2台',
         THREE_SET: '3台',
@@ -72,12 +72,13 @@ export const TranslateCN = {
         COMPLETED: '已完成',
         UNSUBSCRIBE: '退订',
         RENEW: '续订',
+        RENEW_DATA_FAILED: '续订失败',
         START: '启动',
         SHUTDOWN: '关机',
         PAUSE: '暂停',
         RESTORE: '恢复',
         HARD_REBOOT: '硬重启',
-        SOFT_RESTART:'软重启',
+        SOFT_RESTART: '软重启',
 
         //专业术语
         MIRROR: '镜像',
@@ -105,7 +106,9 @@ export const TranslateCN = {
         CAPACITY_GB: '容量(GB)',
         MOUNT: '挂载',
         ZONE: '区域',
+        ZONE_DATA_FAILED: '区域加载失败',
         AVAILABLE_ZONE: '可用区',
+        AVAILABLE_ZONE_DATA_ERROR: '可用区数据加载错误',
         AREA: '区域',
         REGION_AND_AVAILABLE_AREA: '所在区域及可用区',
         CREATED_TIME: '创建时间',
@@ -114,8 +117,12 @@ export const TranslateCN = {
         OPERATOR: '操作者',
         EXECUTOR: '执行者',
 
+        //ts
+        CLOUD_HOST_OPERATION: '云主机操作',
+        SUCCESS:'成功！',
+        FAILED_TO_GET_DATA:'获取数据失败！',
         //长句子
-        SET_NAME_FORMAT:'2-68个字符，以大小写字母或中文开头，可包含数字，"."，"-"，"_"'
+        SET_NAME_FORMAT: '2-68个字符，以大小写字母或中文开头，可包含数字，"."，"-"，"_"'
     },
     SITE: {
         EXIT: '退出'
@@ -126,7 +133,7 @@ export const TranslateCN = {
         CANCEL: '取消',
         COMMIT: '提交',
         SAVE: '保存',
-        CLOSE:'关闭'
+        CLOSE: '关闭'
     },
     MENU: {
         CLOUD_HOSTING_SERVICES: '云主机服务',
@@ -202,7 +209,7 @@ export const TranslateCN = {
         UNBIND_FLOATING_IP: '解绑浮动IP',
         VIEW_CONSOLE: '查看控制台',
 
-        //cloud-host-order
+        //cloud-host-order.html
         NET: '网络',
         NET_TYPE: '网络类型',
         PLEASE_SELECT_SUBNET_YOU_NEED: '请选择您需要的子网网段',
@@ -226,22 +233,44 @@ export const TranslateCN = {
         ANNUAL_SUBSCRIPTION: '包年包月',
         PRODUCT_ORDER_DESCRIPTION: '不同区域之间的产品内网不互通；订购后不支持更换区域，请谨慎选择！',
         DEFINITION_OF_PUBLIC_IMAGE_AND_CUSTOM_IMAGE: '公共镜像即基础操作系统，自定义镜像为企业根据基础操作系统做过额外配置或优化后的操作系统',
-        PASSWARD_COMPLEXITY_DESCRIPTION:'密码复杂度：8-30个字符，且同时包括三项（大写字母，小写字母，数字和特殊符号）',
+        PASSWARD_COMPLEXITY_DESCRIPTION: '密码复杂度：8-30个字符，且同时包括三项（大写字母，小写字母，数字和特殊符号）',
+
+        //cloud-host-order.ts
+        PASSWARD_FORMAT_IS_NOT_CORRECT: '密码格式不正确',
+        TWO_PASSWARD_ENTRIES_ARE_INCONSISTENT: '两次密码输入不一致',
+        HOST_NAME_FORMAT_IS_NOT_CORRECT: '主机名称格式不正确',
+        PURCHASE_DURATION_DESCRIPTION: '请输入购买时长为最大不超过999的数字',
+        PLEASE_SELECT_CLOUD_PALTFORM: '请选择云平台',
+        PLEASE_SELECT_AVAILABLE_ZONE: '请选择可用区',
+        PLEASE_SELECT_CPU: '请选择cpu',
+        PLEASE_SELECT_RAM: '请选择内存',
+        PLEASE_SELECT_NET_TYPE: '请选择网络类型',
+        PLEASE_SELECT_SECURITY_GROUP: '请选择安全组',
+        PLEASE_SELECT_STARTUP_SOURCE: '请选择启动源',
+        PLEASE_SELECT_IMAGE_TYPE: '请选择镜像类型',
+        PLEASE_SELECT_IMAGE_NAME: '请选择镜像名称', 
+       
+
         //sub-add-storage
-        ADD_DATA_DISK:'增加数据盘'
-        
+        ADD_DATA_DISK: '增加数据盘'
+
     },
-    ORDER_MNG: {
+    ORDER_MNG: {//_DATA_FAILED
         ORDER_DETAILS: '订购详情',
         ORDERS_DETAILS: '订单详情',
+        ORDERS_DETAILS_DATA_FAILED: '订单详情加载失败',
         RENEWAL_FEE: '续订费用',
+        RENEWAL_FEE_DATA_FAILED: '续订费用加载失败',
         DEPARTMENT_LIST: '部门列表',
+        DEPARTMENT_LIST_DATA_FAILED: '部门列表加载失败',
         SUBSCRIBER_LIST: '订购人列表',
+        SUBSCRIBER_LIST_DATA_FAILED: '订购人列表加载失败',
         SUBMITTER_LIST: '提交者列表',
         ORDERS_LSIT: '订单列表',
         ORDERED_LSIT: '已订购列表',
+        ORDERED_LSIT_DATA_FAILED: '已订购列表加载失败',
         ONLY_SUCCESS_OR_EXPIRING_ORDERS_CAN_BE_RENEWED: '只有个“成功”或“即将过期”的订单可以续订',
-        ONLY_SUCCESS_OR_EXPIRING_ORDERS_CAN_BE_UNSUBSCRIBE: '只有个“成功”或“即将过期”的订单可以退订',
+        ONLY_SUCCESS_OR_EXPIRING_ORDERS_CAN_BE_UNSUBSCRIBE: '只有个“已激活”的订单可以退订',
         PURCHASE_TIME: '购买时长',
         PLEASE_ENTER_A_NUMBER_QUERY: '请输入编号查询',
         DUE_DATE: '到期时间',
@@ -253,6 +282,7 @@ export const TranslateCN = {
         YOUR_ORDER_HAS_BEEN_RENEWED___AND_THE_ASSOCIATED_RESOURCES: '你的订单续订已完成，可以进入管理控制台查看订单状态及使用相关资源',
         FOR_APPROVAL___TO_TAKE_EFFECT: '如需审批，则需要订单审批通过后，才能正式生效',
         UNSUBSCRIBE_FROM___HARD_DRIVE: '一起退订该云主机挂载的云硬盘',
+        UNSUBSCRIBE_FROM___NO_DRIVE: '你确认要退订该云主机吗',
         WHETHER_TO_CONFIRM___EXIT_THE_PROCESS: '是否确认删除该云硬盘. 如果选"确认", 则卸载该云硬盘并删除. 如果选"取消", 则退出流程',
         WHETHER_TO_CONFIRM_FORCE___EXIT_THE_PROCESS: '是否强制删除. 如果选"确认", 则卸载该云硬盘并删除。 如果选"取消", 则退出流程',
         UNIT_PRICE: '单价费用',
@@ -308,12 +338,12 @@ export const TranslateCN = {
         ALL_SUBMITTERS: '所有提交者',
         ORDER_TYPE: '订单类型',
         ALL_TYPES: '所有类型',
-        PRODUCT_TYPE: '产品类型',        
+        PRODUCT_TYPE: '产品类型',
         QUERY: '查  询',
         RESET: '重置',
         CURRENT_QUERY_IS: '当前查询到',
         THE_QUERY_RESULTS_OF_PENDING_ORDERS: '个订单需要审批，查询结果如下',
-        
+
         ORDER_DESCRIPTION: '订单描述',
         DEPARTMENT: '部门',
         ENTERPRISE: '企业',
@@ -327,6 +357,14 @@ export const TranslateCN = {
         THE_ORDER_REQUEST_WAS_REJECTED: '订单请求被拒绝',
         REASON: '原因',
         INPUT_CHINESE_OR_CHARACTERS_NOT_MORE_THAN_200_WORDS: '可以输入中文与字符,最大不能超过200个字',
+
+        //check-mng-list.ts
+        DEPARTMENTS_LIST: '部门列表',
+        SUBMITTERS_LIST: '提交者列表',
+        SYSTEM: '系统',
+        REFUSE_REASON_DESCRIPTION: '必须填写拒绝原因，且不能超出200字',
+        APPROVAL_CONSENT: '审批同意',
+        CONFIRM_TO_APPROVE_THE_ORDER: '你确认要审批同意该订单吗？',
 
         //check-mng-hascheck.html
         APPROVED_LIST: '已审批列表',
@@ -343,7 +381,8 @@ export const TranslateCN = {
         MINUTE: '分钟',
         AUTO_APPROVAL_TIME_SET: '自动审批时间设置',
         EDIT:'编 辑',
-        SAVE:'保 存'
+        SAVE: '保 存'
+ 
     },
 
     //cloud-drive文件夹下
@@ -354,6 +393,7 @@ export const TranslateCN = {
         CLOUD_HRAD_DISK_NAME: '云硬盘名称',
         MOUNT_LOCATION_CLOUD_HOST_NAME: '挂载位置（云主机名称）',
         AVAILABLE_AREA: "所在可用区",
+        UNSUBSCRIBE_DISK: '退订云硬盘',
 
         REGION: '所在地区',
         ATTRIBUTE: '属性',
@@ -361,6 +401,8 @@ export const TranslateCN = {
         MOUNT: '挂载',
         UNINSTALL: '卸载',
         MOUNT_CLOUD_HOST: '挂载云主机',
+
+        
     },
     CLOUD_DRIVE_ORDER: {
        
@@ -373,10 +415,17 @@ export const TranslateCN = {
         //81行
         WHETHER_TO_AMOUNT_ON_CLOUD_HOST: '是否挂载到云主机',
         CLOUD_HOST_INSTANCE_LIST: '云主机实例列表',
-        
-        
         CLOUD_HRAD_DISK_TYPE: '云硬盘类型',
         MOUNT_TO_CLOUD_HOST: '挂载到云主机',
+
+        //TS
+        SUCCESSFULLY_ADDED_TO_SHOPPING_CART: '加入购物车成功!',
+        PLEASE_SELECT_CLOUD_PLATFORM: '请选择云平台',
+        PLEASE_SELECT_AVAILABLE_ZONE: '请选择可用区',
+        PLEASE_SELECT_CLOUD_HARD_DISK: '请选择云硬盘',
+        PLEASE_SELECT_CLOUD_HARD_DISK_TYPE: '请选择云硬盘类型',
+        CLOUD_HARD_DISK_NAME_FORMAT_IS_NOT_CORRECT: '云硬盘名称格式不正确',
+        SKU_IS_NOT_CORRECT:'sku不正确'
     },
     SUB_TABLE_LIST: {
         BACKUP_NAME: '备份名称',
@@ -386,7 +435,16 @@ export const TranslateCN = {
         INTERNAL_IP: '内部IP',
         EXTERNAL_IP: '外部IP'
     },
-
+    OS_DISK: {
+        //os-disk-list.ts  and  os-disk-order.ts
+        CLOUD_HARD_DISK_LIST: '云硬盘列表',
+        ORDER_CLOUD_HARD_DISK:'订购云硬盘'
+    },
+    VM_DISK: {
+        //vw-disk-list.ts  and  vw-disk-order.ts
+        VMWARE_CLOUD_HARD_DISK_LIST: 'VMware云硬盘列表',
+        ORDER_VMWARE_CLOUD_HARD_DISK:'订购VMware云硬盘'
+    },
     //shopping-cart文件夹下
     SHOPPING_CART: {
         //cart-list.html
@@ -405,11 +463,19 @@ export const TranslateCN = {
         TOTAL_COST: '( 费用合计 )',
 
         //cart-order.html
-        ORDER_FINISHED: '订单完成',
-        //58行
+        ORDER_FINISHED: '订单完成',      
         MNG_CONSOLE: '管理控制台',
         ORDER_HAS_BEEN_GENERATED: '您的订单已生成，可以进入管理控制台查看订单状态及使用相关资源',
-        ORDER_IS_EFFECTIVE_AFTER_APPROVED:'如需审批，则需要订单审批通过后，才能正式生效。'
+        ORDER_IS_EFFECTIVE_AFTER_APPROVED: '如需审批，则需要订单审批通过后，才能正式生效。',
+
+        //ts
+        SUCCESSFULLY_EMPTY_SHOPPING_CART: '清空购物车成功!',
+        SURE_TO_EMPTY_EMPTY_SHOPPING_CART: '你确定要清空购物车吗？',
+        SUCCESSFULLY_DELETED: '删除成功!',
+        DELETE_FAILED: '删除失败',
+        CONFIRM_TO_DELETE: '你确定要删除吗？',
+        PURCHASE_SUCCESS: '购买成功！',
+        PURCHASE_FAILED:'购买失败',
     },
     IMAGE: {
         AREA_LIST: '区域列表',
@@ -428,7 +494,11 @@ export const TranslateCN = {
         PROGRESS_RATE: '进度',
         CUSTOM_IMAGE_NAME: '自定义镜像名',
         CUSTOM_IMAGE_APPLICATION_RANGE: '自定义镜像应用范围',
-        CUSTOM_IMAGE_DESCRIPTION:'自定义镜像描述'
+        CUSTOM_IMAGE_DESCRIPTION:'自定义镜像描述',
+
+        //TS
+        IMAGE_NAME_CAN_NOT_BE_BLANK: '镜像名称不能为空',
+        EDIT_IMAGE: '编辑镜像'
         
     }
 }

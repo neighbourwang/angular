@@ -155,6 +155,10 @@ export class AccountMngComponent implements OnInit {
 
     //启用
     enable() {
+        if(this.chooseAccount.isRoot){
+            this.notice.open('操作错误','禁止操作Root账号');
+            return
+        }
         if(this.chooseAccount.status==1){
             this.notice.open('操作错误','账号状态为已启用')
             return
@@ -170,6 +174,10 @@ export class AccountMngComponent implements OnInit {
 
     //禁用
     disable() {
+        if(this.chooseAccount.isRoot){
+            this.notice.open('操作错误','禁止操作Root账号');
+            return
+        }
         if(this.chooseAccount.status==5){
             this.notice.open('操作错误','账户状态为已禁用');
             return ;
@@ -185,6 +193,10 @@ export class AccountMngComponent implements OnInit {
 
     //删除
     delete() {
+        if(this.chooseAccount.isRoot){
+            this.notice.open('操作错误','禁止操作Root账号');
+            return
+        }
 
         if(this.chooseAccount.status==1){
             this.notice.open('操作错误','不能删除启用状态的账户');

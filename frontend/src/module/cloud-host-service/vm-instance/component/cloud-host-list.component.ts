@@ -53,6 +53,10 @@ export class cloudHostListComponent implements OnInit {
 		private service: cloudHostServiceList
 	) {
 		this.handleData = new HandleVm();
+
+		this.service.computeStatus.then(res => {
+			console.log(res,  2222)
+		})
 	}
 	ngOnInit() {
 		
@@ -111,7 +115,11 @@ export class cloudHostListComponent implements OnInit {
 	}
 	popupCf(){}
 	popupOf(){
-		console.log(this.forceDelect)
+		this.service.deleteVm(this.radioSelected.subInstanceId, this.forceDelect?1:0).then(res => {
+			this.showNotice("退订云主机", "退订成功！");
+		}).catch(e => {
+			this.showNotice("退订云主机", "退订失败！");
+		})
 		this.popup.close();
 	}
 
@@ -127,7 +135,7 @@ export class cloudHostListComponent implements OnInit {
 		this.service.handleVm(this.handleData).then(res => {
 			this.layoutService.hide();
 			// alert(msg+"成功！");
-			this.showNotice("云主机操作" ,msg+"成功！");
+			this.showNotice("COMMON.CLOUD_HOST_OPERATION" ,msg+"成功！");
 
 			setTimeout(() => {   //延迟4秒执行 因为后端4秒同步一次状态
 				this.setHostList();

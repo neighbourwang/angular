@@ -159,14 +159,12 @@ export class ClMngListComponent implements OnInit {
     // 删除弹出框确认按钮
     removeCof() {
         //调用接口
-        this.layoutService.show();
         let platForm: Platform = this.getPlatForm();
 
         //调用接口
         this.service.deletePlatform(platForm.id).then(
             response => {
                 if (response && 100 == response.resultCode) {
-                    this.layoutService.hide();
                     this.backend(1, 10);
                     //this.deleteAryByIndex(this.platforms , platForm.id)
                 }
@@ -185,15 +183,13 @@ export class ClMngListComponent implements OnInit {
     // 启用弹出框确认按钮
     enableCof() {
         //调用接口
-        this.layoutService.show();
         let platForm: Platform = this.getPlatForm();
         this.service.activePlatform(platForm.id).then(
             response => {
                 if (response && 100 == response.resultCode) {
-                    this.notice.open('确认', "启用成功");
+                    // this.notice.open('确认', "启用成功");
                     this.backend(1, 10);
                 }
-                this.layoutService.hide();
             }
         ).catch(
             err => {
@@ -205,15 +201,13 @@ export class ClMngListComponent implements OnInit {
 
     // 禁用弹出框确认按钮
     disableCof() {
-        this.layoutService.show();
         let platForm: Platform = this.getPlatForm();
         this.service.disablePlatform(platForm.id).then(
             response => {
                 if (response && 100 == response.resultCode) {
-                    this.notice.open('确认', "禁用成功");
+                    // this.notice.open('确认', "禁用成功");
                     this.backend(1, 10);
                 }
-                this.layoutService.hide();
             }
         ).catch(
             err => {
@@ -239,7 +233,6 @@ export class ClMngListComponent implements OnInit {
             }
         }
         return platForm;
-
     }
 
 

@@ -295,7 +295,7 @@ export class ProdDirListComponent implements OnInit {
 
     //获取列表数据
     backend(data) {
-        // this.layoutService.show();
+        this.layoutService.show();
         this.tp = 0;
         this.service.getProdDirList(data).then(
             response => {
@@ -331,6 +331,7 @@ export class ProdDirListComponent implements OnInit {
         ).catch(
             err => {
                 console.error('err');
+                this.layoutService.hide();
             }
             );
     }

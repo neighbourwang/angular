@@ -107,6 +107,12 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/platform/{pf-id}/storages/synchronize"
     },
     {
+        "desc": "volumetype同步",
+        "id": "pf.cre.step.04.volumetype.synchronize.get",
+        "method": "GET",
+        "url": "adminui/authsec/platforms/{id}/volumetype/synchronize"
+    },
+    {
         "desc": "云主机类型同步",
         "id": "pf.cre.step.02.flavors.synchronize.get",
         "method": "GET",
@@ -131,8 +137,18 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "platformaccess/noauth/platforms/{id}"
     },
-
-
+    {
+        "desc": "UPdate平台信息",
+        "id": "pf-mng-update.put",
+        "method": "PUT",
+        "url": "platformaccess/noauth/platform"
+    },
+    {
+        "desc": "取得特定平台可用区信息",
+        "id": "pf-mng-zonelist.get",
+        "method": "GET",
+        "url": "platformaccess/noauth/platforms/{id}/zoneQuotas"
+    },
     //update镜像同步
     {
         "desc": "镜像同步",
@@ -1249,7 +1265,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "审批拒绝/通过",
         "id": "check-center.approve-refust.post",
         "method": "POST",
-        "url": "adminui/authsec/backend/approval/order/{orderId}/operation/{operation}"        
+        "url": "adminui/authsec/backend/approval/order/{orderId}/operation/{operation}/reason/{reason} "        
     }
     ,{
         "desc": "获取审批意见",

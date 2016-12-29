@@ -165,6 +165,13 @@ export class MenuService {
 							"routing": "net-mng/openstack/openstack-net-mng"
 						},
 						{
+							"label": "VMware网络",
+							"isOpen": false,
+							"isActive": false,
+							"isShow": !isRoot,
+							"routing": "net-mng/vm-mng-index/vmware-net-index"
+						},
+						{
 							"label": "VMware标准网络",
 							"isOpen": false,
 							"isActive": false,
@@ -251,7 +258,7 @@ export class MenuService {
 							"routing": "user-center/account-mng/account-mng-list"
 						},
 						{
-							"label": "组织管理",
+							"label": "机构管理",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": isRoot,

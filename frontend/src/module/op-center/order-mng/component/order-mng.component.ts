@@ -90,7 +90,7 @@ export class OrderMngComponent implements OnInit{
 		this._typeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
 
 		//订单详情加载
-		this._orderDetailLoader = new ItemLoader<OrderDetailItem>(false, "ORDER_MNG.ORDER_DETAILS", "op-center.order-mng.order-detail.get", restApiCfg, restApi);
+		this._orderDetailLoader = new ItemLoader<OrderDetailItem>(false, "ORDER_MNG.ORDER_DETAILS_DATA_FAILED", "op-center.order-mng.order-detail.get", restApiCfg, restApi);
 		this._orderDetailLoader.MapFunc = (source:Array<any>, target:Array<OrderDetailItem>)=>{
 			for(let item of source)
 			{
@@ -103,7 +103,7 @@ export class OrderMngComponent implements OnInit{
 		this._orderDetailLoader.FirstItem = new OrderDetailItem();
 
 		//续订费用
-		this._renewPriceLoader = new ItemLoader<ProductBillingItem>(false, "ORDER_MNG.RENEWAL_FEE", "op-center.order-mng.order-renew-price.get", restApiCfg, restApi);
+		this._renewPriceLoader = new ItemLoader<ProductBillingItem>(false, "ORDER_MNG.RENEWAL_FEE_DATA_FAILED", "op-center.order-mng.order-renew-price.get", restApiCfg, restApi);
 
 		//续费模式
 		this._periodTypeDic = new DicLoader(restApiCfg, restApi, "PACKAGE_BILLING", "PERIOD_TYPE");
@@ -112,20 +112,20 @@ export class OrderMngComponent implements OnInit{
 		this._billinModeDic = new DicLoader(restApiCfg, restApi, "BILLING_MODE", "TYPE");
 
 		//退订
-		this._cancelHandler = new ItemLoader<any>(false, "COMMON.UNSUBSCRIBE", "op-center.order-mng.order-cancel.get", restApiCfg, restApi);
+		this._cancelHandler = new ItemLoader<any>(false, "COMMON.UNSUBSCRIBE_DATA_FAILED", "op-center.order-mng.order-cancel.get", restApiCfg, restApi);
 
 		//续订
-		this._renewHandler = new ItemLoader<any>(false, "COMMON.RENEW", "op-center.order-mng.order-renew.get", restApiCfg, restApi);
+		this._renewHandler = new ItemLoader<any>(false, "COMMON.RENEW_DATA_FAILED", "op-center.order-mng.order-renew.get", restApiCfg, restApi);
 
 		//初始化单项order数据
 		this.selectedOrderItem = new SubInstanceResp();
 
 
 		//部门配置
-		this._departmentLoader = new ItemLoader<ListItem>(false, "ORDER_MNG.DEPARTMENT_LIST", "op-center.order-mng.department-list.get", restApiCfg, restApi);
+		this._departmentLoader = new ItemLoader<ListItem>(false, "ORDER_MNG.DEPARTMENT_LIST_DATA_FAILED", "op-center.order-mng.department-list.get", restApiCfg, restApi);
 		
 		//订购人加载
-		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, 'ORDER_MNG.SUBSCRIBER_LIST', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
+		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
 
         this._buyerLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
 			for(let item of source)
@@ -142,10 +142,10 @@ export class OrderMngComponent implements OnInit{
 		//产品类型配置
 		this._productTypeLoader = new DicLoader(restApiCfg, restApi, "GLOBAL", "SERVICE_TYPE")
 		//区域配置
-		this._platformLoader = new ItemLoader<ListItem>(false, "COMMON.ZONE", "op-center.order-mng.platform-list.get", restApiCfg, restApi);
+		this._platformLoader = new ItemLoader<ListItem>(false, "COMMON.ZONE_DATA_FAILED", "op-center.order-mng.platform-list.get", restApiCfg, restApi);
 		
 		//可用区配置
-		this._regionLoader = new ItemLoader<ListItem>(false, "COMMON.AVAILABLE_ZONE", "op-center.order-mng.region-list.get", restApiCfg, restApi);
+		this._regionLoader = new ItemLoader<ListItem>(false, "COMMON.AVAILABLE_ZONE_DATA_ERROR", "op-center.order-mng.region-list.get", restApiCfg, restApi);
 		this._regionLoader.MapFunc = (source:Array<any>, target:Array<ListItem>)=>{
 			for(let item of source)
 			{
@@ -158,7 +158,13 @@ export class OrderMngComponent implements OnInit{
 		};
 
 		//配置订单加载
-		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "ORDER_MNG.ORDERED_LSIT", "op-center.order-mng.order-list.post", restApiCfg, restApi);
+		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "ORDER_MNG.ORDERED_LSIT_DATA_FAILED", "op-center.order-mng.order-list.post", restApiCfg, restApi);
+		this._orderLoader.MapFunc = (source:Array<any>, target:Array<SubInstanceResp>)=>{
+			for(let item of source)
+			{
+				target.push(_.extendOwn(new SubInstanceResp(), item));
+			}
+		};
 		this._orderLoader.Trait = (target:Array<SubInstanceResp>)=>{
 
 			let canRenew:(item:SubInstanceItemResp)=>boolean = (item:SubInstanceItemResp):boolean=>{
@@ -374,7 +380,27 @@ export class OrderMngComponent implements OnInit{
 
 	search(pageNumber:number = 1){
 
-		
+/*
+参数
+{
+  "createDate": "2016-12-29T02:00:32.511Z",
+  "enterpriseId": "string",
+  "expireDate": "2016-12-29T02:00:32.511Z",
+  "organization": "string",
+  "pageParameter": {
+    "currentPage": 0,
+    "offset": 0,
+    "size": 0,
+    "sort": {},
+    "totalPage": 0
+  },
+  "platformId": "string",
+  "searchText": "string",
+  "serviceType": "string",
+  "status": "string",
+  "zoneId": "string"
+}
+*/		
 		let param = _.extend({}, this._param);
 
 		console.log('search param', param, this._param);
@@ -455,9 +481,13 @@ export class OrderMngComponent implements OnInit{
 
 	//退订
 	cancel(){
+		this.layoutService.show();
 		this._cancelHandler.Go(null, [{key:"_subId", value:this.cancelObj.subId},
-			{key:"_subId", value:this.cancelObj.cascadeFlag}])
+			{key:"_cascadeFlag", value:this.cancelObj.cascadeFlag}])
 		.then(success=>{
+			this.layoutService.hide();
+			$('#cancelOrder').modal('hide');
+
 			this.search();
 		})
 		.catch(err=>{
@@ -468,13 +498,16 @@ export class OrderMngComponent implements OnInit{
 	cancelSelect(orderItem:SubInstanceResp)
 	{
 		// 成功、即将过期:7的订单可以  续订
-		if(!_.isEmpty(orderItem.itemList)
-			&& orderItem.itemList.filter(n=>n.status == "7").length > 0)
+		if (!_.isEmpty(orderItem.itemList)
+			&& orderItem.itemList.filter(n=>n.status == "2").length > 0)
 		{
+			// console.log('cancel select', orderItem);
 			$('#cancelOrder').modal('show');
 
 			// todo: set the cancelObj here
+			this.cancelObj = new CancelParam(orderItem.isDisk, orderItem.isMachine, orderItem.isInUse);
 			this.cancelObj.subId = orderItem.orderId;
+			console.log('cancelObj', this.cancelObj);
 		}
 		else
 		{

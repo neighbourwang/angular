@@ -43,7 +43,7 @@ export class CheckMngHascheckComponent implements OnInit{
 
 
 		//列表数据加载
-		this._listLoader = new ItemLoader<CheckListItem>(true, "已审批列表", "check-center.get-list.post", _restApiCfg, _restApi);
+		this._listLoader = new ItemLoader<CheckListItem>(true, "CHECK_CENTER.APPROVED_LIST", "check-center.get-list.post", _restApiCfg, _restApi);
 		this._listLoader.MapFunc = (source:Array<any>, target:Array<CheckListItem>)=>{
 
 			for(let item of source)
@@ -82,11 +82,11 @@ export class CheckMngHascheckComponent implements OnInit{
 		};
 	
 		//部门列表配置
-		this._departmentLoader = new ItemLoader<{id:string;name:string}>(false, "部门列表", "op-center.order-mng.department-list.get", _restApiCfg, _restApi);
+		this._departmentLoader = new ItemLoader<{id:string;name:string}>(false, "CHECK_CENTER.DEPARTMENTS_LIST", "op-center.order-mng.department-list.get", _restApiCfg, _restApi);
 
 
 		//提交者列表配置
-		this._submiterLoader = new ItemLoader<{id:string;name:string}>(false, "提交者列表", "check-center.submiter-list.get", _restApiCfg, _restApi);//无API接口
+		this._submiterLoader = new ItemLoader<{id:string;name:string}>(false, "CHECK_CENTER.SUBMITTERS_LIST", "check-center.submiter-list.get", _restApiCfg, _restApi);//无API接口
 	
          this._submiterLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
 			for(let item of source)
@@ -98,7 +98,7 @@ export class CheckMngHascheckComponent implements OnInit{
 			}
 		}
 		//审批人列表配置
-		this._checkerLoader = new ItemLoader<{id:string;name:string}>(false, "提交者列表", "check-center.checker-list.get", _restApiCfg, _restApi);//无API接口
+		this._checkerLoader = new ItemLoader<{id:string;name:string}>(false, "CHECK_CENTER.SUBMITTERS_LIST", "check-center.checker-list.get", _restApiCfg, _restApi);//无API接口
 	
 	    this._checkerLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
 			for(let item of source)
@@ -140,12 +140,34 @@ export class CheckMngHascheckComponent implements OnInit{
 
 	showMsg(msg:string)
 	{
-		this._notice.open("系统", msg);
+		this._notice.open("CHECK_CENTER.SYSTEM", msg);
 	}
 
 	//搜索
 	search(pageNum:number = 1){
 
+/*
+{
+  "approverId": "string",
+  "approverStatus": "string",
+  "createTime": "2016-12-29T02:00:32.480Z",
+  "enterpriseId": "string",
+  "expireTime": "2016-12-29T02:00:32.480Z",
+  "orderCode": "string",
+  "orderType": "string",
+  "organization": "string",
+  "pageParameter": {
+    "currentPage": 0,
+    "offset": 0,
+    "size": 0,
+    "sort": {},
+    "totalPage": 0
+  },
+  "serviceType": "string",
+  "status": "string",
+  "userId": "string"
+}
+*/
 		let param = {
 			approverStatus: '1'//'0';//approvalStatus代表未审批
 	        ,quickSearchStr: this._param.quickSearchStr//输入订单号快速查询 ？
@@ -155,6 +177,7 @@ export class CheckMngHascheckComponent implements OnInit{
 			,createTime:this._param.startDateStr//创建时间
 			,expireTime:this._param.endDateStr //结束时间
 			,userId:this._param.submitUserId//提交者？
+			,approverId: this._param.checkUserIdStr //审批人
 			,enterpriseId:this._restApi.getLoginInfo().userInfo.enterpriseId
 			,pageParameter: {
 				currentPage:pageNum

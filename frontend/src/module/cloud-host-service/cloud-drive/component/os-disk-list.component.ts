@@ -14,6 +14,6 @@ import { ListOptions } from '../model/options.model';
 export class osDiskListComponent {
 
 	options : ListOptions = {
-		title : "云硬盘列表"
+		title : "云硬盘列表"  //OS_DISK.CLOUD_HARD_DISK_LIST
 	}
 }
