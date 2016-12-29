@@ -37,8 +37,8 @@
         </span>
     </div>
     <div class="mgb20">
-        <button class="fox-cloud-button fox-cloud-button-green">设置NSX管理信息</button>
-        <button class="fox-cloud-button fox-cloud-button-green">设置网络类型</button>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="setNsxMngInfo()">设置NSX管理信息</button>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="setNetworkType()">设置网络类型</button>
         <button class="fox-cloud-button fox-cloud-button-green pull-right mgr5" (click)="gotoVMStdNetMng()">管理标准网络</button>
         <button class="fox-cloud-button fox-cloud-button-green pull-right mgr5" (click)="gotoVMDbtNetMng()">管理分布式网络</button>
         <button class="fox-cloud-button fox-cloud-button-green pull-right mgr5" (click)="gotoVMNsxNetMng()">管理NSX网络</button>
@@ -78,53 +78,68 @@
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" (of)="okClicked()"></fc-notice>
 <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" (of)="onConfirmed()"></fc-confirm>
 
-<!--
-<fc-popup #subnetbox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'NET_MNG_VM_IP_MNG.SET_IP_SUBNET' | translate}}" (of)="acceptSubnetModify()" (cf)="cancelSubnetModify()">
+
+<fc-popup #setnsxmnginfo ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="设置NSX管理信息{{'NET_MNG_VM_IP_MNG.SET_IP_SUBNET' | translate}}" (of)="acceptNsxMngInfoModify()" (cf)="cancelNsxMngInfoModify()">
 
 	<div class="dialogContent">
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.SUBNET_INFORMATION' | translate}}：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>NSX版本：</div>
 					<div class="col-sm-8">
-					    <input type="string" class="form-control input-control" [(ngModel)]="subn.subnetCIDR">
+					    <input type="string" class="form-control input-control" [(ngModel)]="changedNsxMngInfo.nsxVer">
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.SUBNET_MASK' | translate}}：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>NSX管理地址：</div>
 					<div class="col-sm-8">
-					    <input type="string" class="form-control input-control" [(ngModel)]="subn.subnetMask">
+					    <input type="string" class="form-control input-control" [(ngModel)]="changedNsxMngInfo.nsxAddress">
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.GATEWAY' | translate}}：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>管理用户名：</div>
 					<div class="col-sm-8">
-					<input type="string" class="form-control input-control" [(ngModel)]="subn.gateway">
+					<input type="string" class="form-control input-control" [(ngModel)]="changedNsxMngInfo.userName">
 					</div>
 				</div>
 			</div>
-			<div class="row row-line-height">
+            <div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">DNS1：</div>
-					<div class="col-sm-8">
-						<input type="string" class="form-control input-control" [(ngModel)]="subn.dnsPre">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>管理密码：</div>
+					<div class="col-sm-6">
+					<input type="string" class="form-control input-control" [(ngModel)]="changedNsxMngInfo.adminPassword">
 					</div>
-				</div>
-			</div>
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-4 form-control-title">DNS2：</div>
-					<div class="col-sm-8">
-						<input type="string" class="form-control input-control" [(ngModel)]="subn.dnsAlt">
-					</div>
+                    <div class="col-sm-2">
+                        <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" (click)="search()"> 确定</button>
+                    </div>
 				</div>
 			</div>
 	</div>
 </fc-popup>
 
--->
+<fc-popup #setnettype ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="为可用区(集群)设置网络类型{{'NET_MNG_VM_IP_MNG.SET_IP_SUBNET' | translate}}" (of)="acceptNetworkTypeModify()" (cf)="cancelNetworkTypeModify()">
+
+	<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+                    <!-- <input type="radio" class="fox-cloud-radio" name="radio" [checked]="net.checked" (change)="selectItem(i); selectedNet = net;" value="{{i}}"> -->
+                    <input type="radio" class="fox-cloud-radio" name="radio"> NSX网络
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<input type="radio" class="fox-cloud-radio" name="radio"> 分布式网络
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<input type="radio" class="fox-cloud-radio" name="radio"> 标准网络
+				</div>
+			</div>
+	</div>
+</fc-popup>
 
 
