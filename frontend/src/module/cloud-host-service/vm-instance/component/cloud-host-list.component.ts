@@ -108,7 +108,7 @@ export class cloudHostListComponent implements OnInit {
 		this.service.handleVm(this.handleData).then(res => {
 			this.layoutService.hide();
 			// alert(msg+"成功！");
-			this.showNotice("云主机操作" ,msg+"成功！");
+			this.showNotice("COMMON.CLOUD_HOST_OPERATION" ,msg+"COMMON.SUCCESS");
 
 			setTimeout(() => {   //延迟4秒执行 因为后端4秒同步一次状态
 				this.setHostList();
