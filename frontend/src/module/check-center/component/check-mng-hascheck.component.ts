@@ -177,6 +177,7 @@ export class CheckMngHascheckComponent implements OnInit{
 			,createTime:this._param.startDateStr//创建时间
 			,expireTime:this._param.endDateStr //结束时间
 			,userId:this._param.submitUserId//提交者？
+			,approverId: this._param.checkUserIdStr //审批人
 			,enterpriseId:this._restApi.getLoginInfo().userInfo.enterpriseId
 			,pageParameter: {
 				currentPage:pageNum

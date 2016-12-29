@@ -182,7 +182,6 @@ export class OrderMngSearchComponent implements OnInit{
 		};
 		param.createTime = param.createDate;
 		param.expireTime = param.expireDate;
-		param.approverId = param.buyerId;
 		param.userId = param.buyerId;
 		//没有定义快速搜索字段
 // {
