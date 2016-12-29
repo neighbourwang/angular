@@ -96,8 +96,8 @@ export class VmwareMngIndexComponent implements OnInit {
     }
 
     getNsxInfo(platformId:string): void {        
-        this.layoutService.show(platformId);
-        this.service.getNsxInfo()
+        this.layoutService.show();
+        this.service.getNsxInfo(platformId)
             .then(response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {                    
