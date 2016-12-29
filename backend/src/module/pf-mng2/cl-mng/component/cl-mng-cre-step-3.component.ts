@@ -5,7 +5,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router ,Params ,ActivatedRoute} from '@angular/router';
 
-import { CreStep3Model }  from '../model/cre-step3.model';
+import { ZoneListModel }  from '../model/cre-step3.model';
 
 
 
@@ -26,7 +26,7 @@ import { ClMngIdService } from '../service/cl-mng-id.service';
 
 export class ClMngCreStep3Component implements OnInit{
 
-    creStep3Model : Array<CreStep3Model> = new Array<CreStep3Model>();
+    creStep3Model : Array<ZoneListModel> = new Array<ZoneListModel>();
 
     constructor(
         private route:ActivatedRoute,

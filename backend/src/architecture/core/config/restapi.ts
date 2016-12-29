@@ -137,8 +137,18 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "platformaccess/noauth/platforms/{id}"
     },
-
-
+    {
+        "desc": "UPdate平台信息",
+        "id": "pf-mng-update.put",
+        "method": "PUT",
+        "url": "platformaccess/noauth/platform"
+    },
+    {
+        "desc": "取得特定平台可用区信息",
+        "id": "pf-mng-zonelist.get",
+        "method": "GET",
+        "url": "platformaccess/noauth/platforms/{id}/zoneQuotas"
+    },
     //update镜像同步
     {
         "desc": "镜像同步",

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
+import { RestApiCfg, RestApi, RestApiModel ,SystemDictionaryService} from '../../../../architecture';
 import { CreStep1Model } from '../model/cre-step1.model'
 
 
@@ -10,7 +10,8 @@ import 'rxjs/add/operator/toPromise';
 export class ClMngCommonService {
     constructor(private http:Http,
                 private restApiCfg:RestApiCfg,
-                private restApi:RestApi) {
+                private restApi:RestApi,
+                private dict:SystemDictionaryService) {
     }
 
     // 类型数据字典
@@ -22,6 +23,10 @@ export class ClMngCommonService {
     // 平台状态
     private status : Array<any> = new Array<any>();
 
+    globalStatus=this.dict.get({
+        "owner":"GLOBAL",
+        "field":"STATUS"
+    })
     // 获取云平台类型的数据字典
     private platFormType() {
         let api = this.restApiCfg.getDataRestApi("sysdic.owner.field");
@@ -44,6 +49,7 @@ export class ClMngCommonService {
 
     //根据平台类型获得版本列表
     private platFormVersion (owner : string){
+        console.log(this.globalStatus)
         let api = this.restApiCfg.getDataRestApi("sysdic.owner.field");
         return this.restApi.request(api.method,api.url,[{key : "_owner",value : owner},{key : "_field", value : "VERSION"}],undefined);
     }
@@ -52,7 +58,7 @@ export class ClMngCommonService {
     //     let api = this.restApiCfg.getDataRestApi("sysdic.owner.field");
     //     return this.restApi.request(api.method,api.url,[{key : "_owner",value : owner},{key : "_field", value : "VERSION"}],undefined);
     // }
-
+    
     //获取平台状态
     private platFormStatus(){
         let api = this.restApiCfg.getDataRestApi("sysdic.owner.field");
