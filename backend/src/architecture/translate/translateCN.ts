@@ -210,7 +210,14 @@ export const TranslateCN = {
         USED_IP_NUMBER: '已使用IP地址数量',
         REST_IP_NUMBER: '剩余IP地址数量',
 
-        
+        CANT_NULL:'不能为空',
+        EMAIL_INVALID: '邮箱地址无效',
+        IP_INVALID: '不符合IP规范',
+        MASK_INVALID: '不符合IP mask规范',
+        IP_INVALID_OR_NULL: '不符合IP规范或不为空',
+        INVALID: '不合规',
+        NOT_IN_SUBNET: '不在子网中',
+        NOT_FIX_SUBNET: '不符合该子网信息',
 
         SUBNET_MASK: '子网掩码',
         GATEWAY: '网关',
@@ -246,7 +253,6 @@ export const TranslateCN = {
         IP_RELEASED_SUCCESS: 'IP释放成功',
         IP_RELEASED_FAILED: 'IP释放失败',
         IP_RELEASED_EXCEPTION: 'IP释放异常',
-
 
         CREATE_STD_NET: '创建标准网络',
         EDIT_STD_NET: '编辑标准网络',
