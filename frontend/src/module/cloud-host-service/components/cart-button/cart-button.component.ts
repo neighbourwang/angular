@@ -48,10 +48,10 @@ export class CartButtonComponent implements OnInit {
 			const promiseList = this.cartList.map(cart => this.cartService.deleteCartList(cart.id));
 			Promise.all(promiseList).then(arr => {
 				this.setCartList();
-				this.noticeDialog.open("","清空购物车成功！");
+				this.noticeDialog.open("","SHOPPING_CART.SUCCESSFULLY_EMPTY_SHOPPING_CART");
 			});
 		}
-		this.confirmDialog.open("","你确定要清空购物车吗？");
+		this.confirmDialog.open("","SHOPPING_CART.SURE_TO_EMPTY_EMPTY_SHOPPING_CART");
 	}
 
 
