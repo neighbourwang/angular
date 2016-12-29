@@ -190,7 +190,7 @@ export class VmNSXIndexComponent implements OnInit {
         this.confirm.ccf = () => { };
         this.confirm.cof = () => {
             this.layoutService.show();
-            this.service.portEnable(selectedPort.dlrPortId)
+            this.service.portEnable(selectedPort.dlrPortId)  
                 .then(
                 response => {
                     this.layoutService.hide();
