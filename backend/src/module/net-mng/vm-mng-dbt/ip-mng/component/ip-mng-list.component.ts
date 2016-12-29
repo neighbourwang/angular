@@ -2,6 +2,8 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+import { TranslateService } from 'ng2-translate';
+
 import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, ValidationService } from '../../../../../architecture';
 
 //model 
@@ -30,7 +32,8 @@ export class IpMngListComponent implements OnInit{
         private layoutService : LayoutService,
         private validationService: ValidationService,
         private ipService: IPValidationService,
-        private activatedRouter: ActivatedRoute
+        private activatedRouter: ActivatedRoute,
+        private translateService: TranslateService
     ){
 /*
         if (activatedRouter.snapshot.params["pg_id"]) {
@@ -425,7 +428,12 @@ export class IpMngListComponent implements OnInit{
         if (notValid !== void 0) {
             console.log("validateIPModify Failed!!!");
             this.ipsbox.close();
-            this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));            
+            //this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));
+            let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
+            let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];
+            let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
+                      + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
+            this.showMsg(con); 
             this.okCallback = () => {
                 this.ipsbox.open();                
             };            
@@ -506,7 +514,12 @@ export class IpMngListComponent implements OnInit{
         if (notValid !== void 0) {
             console.log("validateSubnetModify Failed!!!");
             this.subnetbox.close();
-            this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));            
+            //this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));
+            let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
+            let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];
+            let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
+                      + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
+            this.showMsg(con);                        
             this.okCallback = () => {
                 this.subnetbox.open();                
             };            
