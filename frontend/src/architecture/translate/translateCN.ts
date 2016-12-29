@@ -51,6 +51,8 @@ export const TranslateCN = {
         HISTORY: '历史',
         EXPLAIN: '说明',
         USERS: '用户',
+        WARNING: '警告',
+        PLEASE_WAIT: '请等待',
 
         //单位
         $: "￥",
@@ -116,11 +118,13 @@ export const TranslateCN = {
         SYSTEM_PROMPT: '系统提示',
         OPERATOR: '操作者',
         EXECUTOR: '执行者',
+        DARA_ACQUISITION_FAILURE: '数据获取失败',
+        UPDATE_FAILED: '更新失败',
 
         //ts
         CLOUD_HOST_OPERATION: '云主机操作',
-        SUCCESS:'成功！',
-        FAILED_TO_GET_DATA:'获取数据失败！',
+        SUCCESS: '成功！',
+        FAILED_TO_GET_DATA: '获取数据失败！',
         //长句子
         SET_NAME_FORMAT: '2-68个字符，以大小写字母或中文开头，可包含数字，"."，"-"，"_"'
     },
@@ -248,8 +252,8 @@ export const TranslateCN = {
         PLEASE_SELECT_SECURITY_GROUP: '请选择安全组',
         PLEASE_SELECT_STARTUP_SOURCE: '请选择启动源',
         PLEASE_SELECT_IMAGE_TYPE: '请选择镜像类型',
-        PLEASE_SELECT_IMAGE_NAME: '请选择镜像名称', 
-       
+        PLEASE_SELECT_IMAGE_NAME: '请选择镜像名称',
+
 
         //sub-add-storage
         ADD_DATA_DISK: '增加数据盘'
@@ -380,15 +384,15 @@ export const TranslateCN = {
         CLOSE: '关闭',
         MINUTE: '分钟',
         AUTO_APPROVAL_TIME_SET: '自动审批时间设置',
-        EDIT:'编 辑',
+        EDIT: '编 辑',
         SAVE: '保 存'
- 
+
     },
 
     //cloud-drive文件夹下
     CLOUD_DRIVE_LIST: {
         AREA_LIST: '区域列表',
-        ADVANCED_SEARCH: '高级搜索',      
+        ADVANCED_SEARCH: '高级搜索',
         CREATE_CLOUD_HRAD_DISK: '创建云硬盘',
         CLOUD_HRAD_DISK_NAME: '云硬盘名称',
         MOUNT_LOCATION_CLOUD_HOST_NAME: '挂载位置（云主机名称）',
@@ -397,16 +401,16 @@ export const TranslateCN = {
 
         REGION: '所在地区',
         ATTRIBUTE: '属性',
-        OPERATE: '操作',        
+        OPERATE: '操作',
         MOUNT: '挂载',
         UNINSTALL: '卸载',
         MOUNT_CLOUD_HOST: '挂载云主机',
 
-        
+
     },
     CLOUD_DRIVE_ORDER: {
-       
-        CLOUD_HARD_DISK_ORDER_DESCRIPTION:'云硬盘只能挂载到同一可用区下的云主机实例，订购成功后不支持更换云硬盘的区域和可用区；请谨慎选择',
+
+        CLOUD_HARD_DISK_ORDER_DESCRIPTION: '云硬盘只能挂载到同一可用区下的云主机实例，订购成功后不支持更换云硬盘的区域和可用区；请谨慎选择',
         CONFIGURATION_OPTIONS: '配置选项',
         BLANK_DISK: '空白盘',
         CLOUD_HARD_DISK_TYPE: '云硬盘类型',
@@ -425,7 +429,7 @@ export const TranslateCN = {
         PLEASE_SELECT_CLOUD_HARD_DISK: '请选择云硬盘',
         PLEASE_SELECT_CLOUD_HARD_DISK_TYPE: '请选择云硬盘类型',
         CLOUD_HARD_DISK_NAME_FORMAT_IS_NOT_CORRECT: '云硬盘名称格式不正确',
-        SKU_IS_NOT_CORRECT:'sku不正确'
+        SKU_IS_NOT_CORRECT: 'sku不正确'
     },
     SUB_TABLE_LIST: {
         BACKUP_NAME: '备份名称',
@@ -438,12 +442,12 @@ export const TranslateCN = {
     OS_DISK: {
         //os-disk-list.ts  and  os-disk-order.ts
         CLOUD_HARD_DISK_LIST: '云硬盘列表',
-        ORDER_CLOUD_HARD_DISK:'订购云硬盘'
+        ORDER_CLOUD_HARD_DISK: '订购云硬盘'
     },
     VM_DISK: {
         //vw-disk-list.ts  and  vw-disk-order.ts
         VMWARE_CLOUD_HARD_DISK_LIST: 'VMware云硬盘列表',
-        ORDER_VMWARE_CLOUD_HARD_DISK:'订购VMware云硬盘'
+        ORDER_VMWARE_CLOUD_HARD_DISK: '订购VMware云硬盘'
     },
     //shopping-cart文件夹下
     SHOPPING_CART: {
@@ -463,7 +467,7 @@ export const TranslateCN = {
         TOTAL_COST: '( 费用合计 )',
 
         //cart-order.html
-        ORDER_FINISHED: '订单完成',      
+        ORDER_FINISHED: '订单完成',
         MNG_CONSOLE: '管理控制台',
         ORDER_HAS_BEEN_GENERATED: '您的订单已生成，可以进入管理控制台查看订单状态及使用相关资源',
         ORDER_IS_EFFECTIVE_AFTER_APPROVED: '如需审批，则需要订单审批通过后，才能正式生效。',
@@ -475,7 +479,7 @@ export const TranslateCN = {
         DELETE_FAILED: '删除失败',
         CONFIRM_TO_DELETE: '你确定要删除吗？',
         PURCHASE_SUCCESS: '购买成功！',
-        PURCHASE_FAILED:'购买失败',
+        PURCHASE_FAILED: '购买失败',
     },
     IMAGE: {
         AREA_LIST: '区域列表',
@@ -494,11 +498,20 @@ export const TranslateCN = {
         PROGRESS_RATE: '进度',
         CUSTOM_IMAGE_NAME: '自定义镜像名',
         CUSTOM_IMAGE_APPLICATION_RANGE: '自定义镜像应用范围',
-        CUSTOM_IMAGE_DESCRIPTION:'自定义镜像描述',
+        CUSTOM_IMAGE_DESCRIPTION: '自定义镜像描述',
 
         //TS
         IMAGE_NAME_CAN_NOT_BE_BLANK: '镜像名称不能为空',
         EDIT_IMAGE: '编辑镜像'
-        
+
+    },
+    CLOUD_HOST: {
+        FAILED_TO_RETRIEVE_INSTANCE_DETAILS: '实例详细信息获取失败',
+        PLEASE_SELECT_A_SERVICE_DIRECTORY: '请选择一个服务目录',
+        PLEASE_SELECT_ONLY_ONE_SERVICE_DIRECTORY: '请只选择一个服务目录',
+        INSTANCE_STATUS_UPDATE_FAILED: '实例状态更新失败',
+        FAILED_TO_GET_THE_ORDER_LIST_DATA: '可订购列表数据获取失败',
+        CONFIGURATION_SUBMISSION_FAILED___CONTACT_ADMINISTRATOR: '配置申请提交失败，请重新尝试或者联络管理员',
+        CONFIGURATION_APPLICATION_SUBMITTED_SUCCESSFULLY: '配置申请提交成功'.
     }
 }
