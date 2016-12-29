@@ -90,7 +90,7 @@ export class OrderMngComponent implements OnInit{
 		this._typeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
 
 		//订单详情加载
-		this._orderDetailLoader = new ItemLoader<OrderDetailItem>(false, "ORDER_MNG.ORDER_DETAILS", "op-center.order-mng.order-detail.get", restApiCfg, restApi);
+		this._orderDetailLoader = new ItemLoader<OrderDetailItem>(false, "ORDER_MNG.ORDER_DETAILS_DATA_FAILED", "op-center.order-mng.order-detail.get", restApiCfg, restApi);
 		this._orderDetailLoader.MapFunc = (source:Array<any>, target:Array<OrderDetailItem>)=>{
 			for(let item of source)
 			{
@@ -103,7 +103,7 @@ export class OrderMngComponent implements OnInit{
 		this._orderDetailLoader.FirstItem = new OrderDetailItem();
 
 		//续订费用
-		this._renewPriceLoader = new ItemLoader<ProductBillingItem>(false, "ORDER_MNG.RENEWAL_FEE", "op-center.order-mng.order-renew-price.get", restApiCfg, restApi);
+		this._renewPriceLoader = new ItemLoader<ProductBillingItem>(false, "ORDER_MNG.RENEWAL_FEE_DATA_FAILED", "op-center.order-mng.order-renew-price.get", restApiCfg, restApi);
 
 		//续费模式
 		this._periodTypeDic = new DicLoader(restApiCfg, restApi, "PACKAGE_BILLING", "PERIOD_TYPE");
@@ -112,20 +112,20 @@ export class OrderMngComponent implements OnInit{
 		this._billinModeDic = new DicLoader(restApiCfg, restApi, "BILLING_MODE", "TYPE");
 
 		//退订
-		this._cancelHandler = new ItemLoader<any>(false, "COMMON.UNSUBSCRIBE", "op-center.order-mng.order-cancel.get", restApiCfg, restApi);
+		this._cancelHandler = new ItemLoader<any>(false, "COMMON.UNSUBSCRIBE_DATA_FAILED", "op-center.order-mng.order-cancel.get", restApiCfg, restApi);
 
 		//续订
-		this._renewHandler = new ItemLoader<any>(false, "COMMON.RENEW", "op-center.order-mng.order-renew.get", restApiCfg, restApi);
+		this._renewHandler = new ItemLoader<any>(false, "COMMON.RENEW_DATA_FAILED", "op-center.order-mng.order-renew.get", restApiCfg, restApi);
 
 		//初始化单项order数据
 		this.selectedOrderItem = new SubInstanceResp();
 
 
 		//部门配置
-		this._departmentLoader = new ItemLoader<ListItem>(false, "ORDER_MNG.DEPARTMENT_LIST", "op-center.order-mng.department-list.get", restApiCfg, restApi);
+		this._departmentLoader = new ItemLoader<ListItem>(false, "ORDER_MNG.DEPARTMENT_LIST_DATA_FAILED", "op-center.order-mng.department-list.get", restApiCfg, restApi);
 		
 		//订购人加载
-		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, 'ORDER_MNG.SUBSCRIBER_LIST', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
+		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
 
         this._buyerLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
 			for(let item of source)
@@ -142,7 +142,7 @@ export class OrderMngComponent implements OnInit{
 		//产品类型配置
 		this._productTypeLoader = new DicLoader(restApiCfg, restApi, "GLOBAL", "SERVICE_TYPE")
 		//区域配置
-		this._platformLoader = new ItemLoader<ListItem>(false, "COMMON.ZONE", "op-center.order-mng.platform-list.get", restApiCfg, restApi);
+		this._platformLoader = new ItemLoader<ListItem>(false, "COMMON.ZONE_DATA_FAILED", "op-center.order-mng.platform-list.get", restApiCfg, restApi);
 		
 		//可用区配置
 		this._regionLoader = new ItemLoader<ListItem>(false, "COMMON.AVAILABLE_ZONE_DATA_ERROR", "op-center.order-mng.region-list.get", restApiCfg, restApi);
@@ -158,7 +158,7 @@ export class OrderMngComponent implements OnInit{
 		};
 
 		//配置订单加载
-		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "ORDER_MNG.ORDERED_LSIT", "op-center.order-mng.order-list.post", restApiCfg, restApi);
+		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "ORDER_MNG.ORDERED_LSIT_DATA_FAILED", "op-center.order-mng.order-list.post", restApiCfg, restApi);
 		this._orderLoader.MapFunc = (source:Array<any>, target:Array<SubInstanceResp>)=>{
 			for(let item of source)
 			{

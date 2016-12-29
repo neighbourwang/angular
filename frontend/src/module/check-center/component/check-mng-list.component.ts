@@ -291,7 +291,7 @@ export class CheckMngListComponent implements OnInit{
 
 	//清除提交数据
 	clearApproveData(){
-		this.refuseReason = null;
+		this.refuseReason = '同意';
 		this._selectedItem = null;
 	}
 

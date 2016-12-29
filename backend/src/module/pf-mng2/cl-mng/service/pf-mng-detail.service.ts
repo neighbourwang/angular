@@ -10,21 +10,21 @@ export class PlatformDetailService {
     constructor(private http:Http,
                 private restApiCfg:RestApiCfg,
                 private restApi:RestApi) {
-    }
-    //下一步
-    // crPlatForm (creStep1Model : CreStep1Model){
-    //     let api = this.restApiCfg.getDataRestApi("");
-
-    //     return this.restApi.request(api.method , api.url,undefined , undefined , creStep1Model);
-    // }
-    //获取platform详情
-    
+    }    
+    //获取platform详情    
     getPlatform (id:string){
         let api = this.restApiCfg.getRestApi("pf-mng-detail.get");
-
         return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
-        // let api = this.restApiCfg.getRestApi("pf.cre.paltform.delete");
-
-        // return this.restApi.request(api.method, api.url, [{ key: "pf-id", value: pid }], undefined, undefined);
     }
+    //更新平台基本信息
+     putPlatform (data:any){
+        let api = this.restApiCfg.getRestApi("pf-mng-update.put");
+        return this.restApi.request(api.method, api.url,[],undefined,data);
+    }
+    //获取平台可用区信息    
+    getZoneList (id:string){
+        let api = this.restApiCfg.getRestApi("pf-mng-zonelist.get");
+        return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
+    }
+   
 }

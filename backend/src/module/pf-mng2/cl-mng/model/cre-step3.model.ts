@@ -1,4 +1,4 @@
-export class CreStep3Model {
+export class ZoneListModel {
 
 
     name : String; //名称

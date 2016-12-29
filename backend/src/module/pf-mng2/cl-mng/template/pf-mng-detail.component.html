@@ -117,8 +117,8 @@
                             <span class="asterisk">*</span> 是否支持云主机变更：
                         </div>
                         <div class="col-sm-4">
-                            <input type="radio" class="fox-cloud-radio" [(ngModel)]="passwd" style="margin-right:10px;">支持
-                            <input type="radio" class="fox-cloud-radio" [(ngModel)]="passwd" style="margin:0 10px 0 20px;">不支持
+                            <input type="radio" class="fox-cloud-radio" [checked]="platform.support==0" (click)="platform.support=0" style="margin-right:10px;">支持
+                            <input type="radio" class="fox-cloud-radio" [checked]="platform.support==1" (click)="platform.support=1" style="margin:0 10px 0 20px;">不支持
                         </div>
                     </div>
                 </div>
@@ -129,7 +129,7 @@
         <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="back();" style="margin-right:40px;">
             <span class="icon-button-label">取消</span>
         </button>
-        <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="save();">
+        <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="save()">
             <span class="icon-button-label">保存</span>
          </button>
     </div>
@@ -146,17 +146,70 @@
             <div style="clear:both"></div>
         </div>
         <div class="table-container" >
-            <table class="table table-hover">
+            <table class="table table-hover" *ngIf="platformType=='OpenStack'">
                 <thead>
                     <tr>
                         <th>#</th>                        
-                        <th class="check-box-col">DC/Region</th>
+                        <th class="check-box-col">Region</th>
+                        <th>名称</th>
+                        <th>显示名称</th>
+                        <th style="width:16%">宿主机</th>
+                        <th>物理CPU核数</th>
+                        <th>物理内存总数(GB)</th>
+                        <th style="width:6%">CPU超分比</th>
+                        <th style="width:5%">配额%</th>
+                        <th>状态</th>
+                        <th>说明</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let zone of zoneList;let idx=index">
+                        <td>{{idx+1}}</td>
+                        <td>{{zone.dcOrRegion}}</td>
+                        <td>{{zone.name}}</td>
+                        <td><input type="text" [(ngModel)]="zone.displayName" name="displayName"></td>
+                        <td>
+                            <p *ngFor="let host of zone.hosts">{{host}}</p>
+                        </td>
+                        <td>{{zone.vcpunum}}</td>
+                        <td>{{zone.memSize/1024}}</td>                        
+                        <td>
+                            <input type="number" class="form-control" [(ngModel)]="zone.exceedPercentage" style="display: inline;" name="exceedPercentage">
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" [(ngModel)]="zone.quotaPercentDisplay" style="width: 100px; display: inline;" name="quotaPercentDisplay">
+                        </td>
+                        <td>
+                            <!--<span [ngSwitch]="zone.status">
+                                <template [ngSwitchCase]="0">未发布</template>
+                                <template [ngSwitchCase]="1">已启用</template>
+                                <template [ngSwitchCase]="3">已禁用</template>
+                                <template ngSwitchDefault>Unknown</template>
+                    	    </span>-->
+                            {{zone.status|dict:this.commonService.globalStatus|async}}
+                        </td>
+                        <td >
+                            <input type="text" class="form-control" [(ngModel)]="zone.description" style="display: inline;" name="description">
+                        </td> 
+                        <td>
+                            <button class="fox-cloud-button-md fox-cloud-button-white">启用</button>
+                            <button class="fox-cloud-button-md fox-cloud-button-white">禁用</button> 
+                        </td>                                               
+                    </tr>
+                </tbody>
+            </table>
+             <table class="table table-hover" *ngIf="platformType=='VMware'">
+                <thead>
+                    <tr>
+                        <th>#</th>                        
+                        <th class="check-box-col">DC</th>
                         <th>名称</th>
                         <th>显示名称</th>
                         <th>宿主机</th>
                         <th>物理CPU核数</th>
                         <th>物理内存总数(GB)</th>
-                        <th>CPU超百分比</th>
+                        <th>CPU超分比</th>
                         <th>配额%</th>
                         <th>状态</th>
                         <th>说明</th>
@@ -179,7 +232,10 @@
                         <td>
                             <input type="number" class="form-control" [(ngModel)]="item" style="display: inline;" value="85">
                         </td>
-                        <td>已启用</td>
+                        <td>
+                            <!--{{zone.status|disc:this.commonService.globalStatus|async}}-->
+
+                        </td>
                         <td >
                             <input type="text" class="form-control" [(ngModel)]="item" style="display: inline;" value="高速I/O存储后端">
                         </td> 

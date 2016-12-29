@@ -137,14 +137,14 @@
 							<br/>费用：{{item.priceNum}}
 						</td>
 						<td>{{item.createTimeStr}}<br>
-							<a class="hands" [popover]="checkPopover" (click)="getApproveInfo(item.orderId);">审批详细>>>></a>
+							<a class="hands" [popover]="checkPopover">审批详细>>>></a>
 
 							<popover-content #checkPopover 
 							placement="left"
 							[animation]="true" 
 							[closeOnClickOutside]="true" >
 
-								<ul *ngFor="let approveItem of _approveInfoLoader.Items">
+								<ul *ngFor="let approveItem of item.checkResult | async">
 									<li>审批人：&nbsp;&nbsp;{{approveItem.approver}}</li>
 									<li>审批时间：&nbsp;&nbsp;{{approveItem.operateTime}}</li>
 									<li>审批意见：&nbsp;&nbsp;{{approveItem.reason}}</li>			
@@ -153,7 +153,12 @@
 						</popover-content>
 
 						</td>
-						<td *ngFor="let approveItem of _approveInfoLoader.Items">{{approveItem.reason}}</td>
+						<td>
+							<ul>
+								<li *ngFor="let approveItem of item.checkResult | async">{{approveItem.reason}}</li>
+							</ul>
+						</td>
+						<!-- <td>{{item.checkResultName}}</td> -->
 					</tr>
 				</tbody>
 			</table>

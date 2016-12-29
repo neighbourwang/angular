@@ -4,7 +4,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
-import { CreStep3Model } from '../model/cre-step3.model';
+import { ZoneListModel } from '../model/cre-step3.model';
 
 
 import 'rxjs/add/operator/toPromise';
@@ -32,7 +32,7 @@ export class ClMngCreStep3Service {
     }
     
     //更新可用区配置 pf.cre.step.03.zone.put
-    putZone(id : String , zone : Array<CreStep3Model>){
+    putZone(id : String , zone : Array<ZoneListModel>){
         let api = this.restApiCfg.getRestApi("pf.cre.step.03.zone.put");
 
         return this.restApi.request(api.method , api.url ,[{key : 'pf-id',value : id }],undefined , zone)

@@ -250,6 +250,7 @@ export class CheckMngListComponent implements OnInit{
 			])
 		.then(success=>{
 			this.clearApproveData();
+			this.search();
 			this.refuseDialog.close();
 		})
 		.catch(err=>{
@@ -278,6 +279,7 @@ export class CheckMngListComponent implements OnInit{
 	}
 
 	confirmAccept(){
+		this.refuseReason='同意';
 		this.approveOrder(1, this._selectedItem.orderId);
 	}
 
