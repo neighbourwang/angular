@@ -191,3 +191,8 @@ export const NsxInfo_mock = {
  "platformId":"123123123-12312-11"
     }
 }
+
+export const Success_mock = {
+    resultCode: "100",
+    detailDescription: "",
+}

@@ -5,10 +5,10 @@ import { RestApiCfg, RestApi , SystemDictionaryService} from '../../../../archit
 import 'rxjs/add/operator/toPromise';
 
 //Mock
-import { RegionInfo_mock, NetworkInfo_mock, NsxInfo_mock } from '../model/vmware-net.mock';
+import { RegionInfo_mock, NetworkInfo_mock, NsxInfo_mock, Success_mock } from '../model/vmware-net.mock';
 
 //Model
-import { RegionModel, VmwareNetModel } from '../model/vmware-net.model';
+import { RegionModel, VmwareNetModel, NsxNetModel } from '../model/vmware-net.model';
 
 @Injectable()
 export class VmwareMngIndexService{
@@ -67,6 +67,25 @@ export class VmwareMngIndexService{
         const api = this.restApiCfg.getRestApi("net-mng.vmware-index.clusterlist.get");
         //return this.restApi.request(api.method, api.url, pathParams, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return NetworkInfo_mock });
+    }
+
+    updateNsxMngInfo(platformId:string, nsxnet: NsxNetModel):Promise<any>{
+        const pathParams = [
+            {
+                key: "platform_id",
+                value: platformId
+            }
+        ];
+        const body = {
+    "nsxVer": nsxnet.nsxVer,
+    "nsxAddress": nsxnet.nsxAddress,
+    "userName": nsxnet.userName,
+    "adminPassword": nsxnet.adminPassword,
+    "platformId": nsxnet.platformId
+            };
+        const api = this.restApiCfg.getRestApi("net-mng.vmware-index.nsxinfo.save");
+        //return this.restApi.request(api.method, api.url, pathParams, null, body);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
     }
     
 }
