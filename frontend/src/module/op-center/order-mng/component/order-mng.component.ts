@@ -380,7 +380,27 @@ export class OrderMngComponent implements OnInit{
 
 	search(pageNumber:number = 1){
 
-		
+/*
+参数
+{
+  "createDate": "2016-12-29T02:00:32.511Z",
+  "enterpriseId": "string",
+  "expireDate": "2016-12-29T02:00:32.511Z",
+  "organization": "string",
+  "pageParameter": {
+    "currentPage": 0,
+    "offset": 0,
+    "size": 0,
+    "sort": {},
+    "totalPage": 0
+  },
+  "platformId": "string",
+  "searchText": "string",
+  "serviceType": "string",
+  "status": "string",
+  "zoneId": "string"
+}
+*/		
 		let param = _.extend({}, this._param);
 
 		console.log('search param', param, this._param);
