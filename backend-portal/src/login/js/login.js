@@ -66,9 +66,10 @@ module.exports = {
 			            },
 			            crossDomain: true,
 			            success: function (response) {
-			                sessionStorage["userInfo"] = JSON.stringify(response.resultContent);
+			            	var userInfo = response.resultContent;
+			                sessionStorage["userInfo"] = JSON.stringify(userInfo);
 			                sessionStorage["token"] = token;
-							location.href="/pf-mng2/cl-mng/cl-mng";
+							location.href=userInfo.isRoot ? "/user-center/account-mng/account-mng-list" : "/pf-mng2/cl-mng/cl-mng";
 							isChecked = 0;
 			            },
 			            error: function (xhr, status) {
