@@ -21,7 +21,7 @@ export class ClMngListService {
         "owner":"OPENSTACK",
         "field":"VERSION"
     });
-
+    
     // 取得全部平台信息
     getPlatforms(page: number, size: number) {
 
