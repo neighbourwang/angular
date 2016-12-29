@@ -37,7 +37,7 @@ export class CheckMngSetComponent implements OnInit{
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
-			this.loadHandler = new  ItemLoader<CheckCenterSet>(false, "审批设置", "check-center.approve-set.get", restApiCfg, restApi);
+			this.loadHandler = new  ItemLoader<CheckCenterSet>(false, "审批设置加载失败", "check-center.approve-set.get", restApiCfg, restApi);
 			this.loadHandler.MapFunc=(source:Array<any>,target:Array<CheckCenterSet>)=>{
 					for(let item of source){
 						let obj = new CheckCenterSet();
@@ -54,7 +54,7 @@ export class CheckMngSetComponent implements OnInit{
 
 			this.loadHandler.FirstItem = new CheckCenterSet();
 
-			this.saveHandler = new  ItemLoader<CheckCenterSet>(false, "审批设置", "check-center.approve-set.put", restApiCfg, restApi);
+			this.saveHandler = new  ItemLoader<CheckCenterSet>(false, "审批设置保存失败", "check-center.approve-set.put", restApiCfg, restApi);
 		}
 	ngOnInit(){
 		this.search();

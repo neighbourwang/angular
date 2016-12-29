@@ -43,7 +43,7 @@ export class CheckMngHascheckComponent implements OnInit{
 
 
 		//列表数据加载
-		this._listLoader = new ItemLoader<CheckListItem>(true, "已审批列表", "check-center.get-list.post", _restApiCfg, _restApi);
+		this._listLoader = new ItemLoader<CheckListItem>(true, "已审批列表加载失败", "check-center.get-list.post", _restApiCfg, _restApi);
 		this._listLoader.MapFunc = (source:Array<any>, target:Array<CheckListItem>)=>{
 
 			for(let item of source)
@@ -82,11 +82,11 @@ export class CheckMngHascheckComponent implements OnInit{
 		};
 	
 		//部门列表配置
-		this._departmentLoader = new ItemLoader<{id:string;name:string}>(false, "部门列表", "op-center.order-mng.department-list.get", _restApiCfg, _restApi);
+		this._departmentLoader = new ItemLoader<{id:string;name:string}>(false, "部门列表加载失败", "op-center.order-mng.department-list.get", _restApiCfg, _restApi);
 
 
 		//提交者列表配置
-		this._submiterLoader = new ItemLoader<{id:string;name:string}>(false, "提交者列表", "check-center.submiter-list.get", _restApiCfg, _restApi);//无API接口
+		this._submiterLoader = new ItemLoader<{id:string;name:string}>(false, "提交者列表加载失败", "check-center.submiter-list.get", _restApiCfg, _restApi);//无API接口
 	
          this._submiterLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
 			for(let item of source)
@@ -98,7 +98,7 @@ export class CheckMngHascheckComponent implements OnInit{
 			}
 		}
 		//审批人列表配置
-		this._checkerLoader = new ItemLoader<{id:string;name:string}>(false, "提交者列表", "check-center.checker-list.get", _restApiCfg, _restApi);//无API接口
+		this._checkerLoader = new ItemLoader<{id:string;name:string}>(false, "提交者列表失败", "check-center.checker-list.get", _restApiCfg, _restApi);//无API接口
 	
 	    this._checkerLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
 			for(let item of source)

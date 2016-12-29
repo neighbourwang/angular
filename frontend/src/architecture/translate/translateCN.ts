@@ -65,6 +65,7 @@ export const TranslateCN = {
         COMPLETED: '已完成',
         UNSUBSCRIBE: '退订',
         RENEW: '续订',
+        RENEW_DATA_FAILED: '续订失败',
         START: '启动',
         SHUTDOWN: '关机',
         PAUSE: '暂停',
@@ -98,6 +99,7 @@ export const TranslateCN = {
         CAPACITY_GB: '容量(GB)',
         MOUNT: '挂载',
         ZONE: '区域',
+        ZONE_DATA_FAILED: '区域加载失败',
         AVAILABLE_ZONE: '可用区',
         AVAILABLE_ZONE_DATA_ERROR: '可用区数据加载错误',
         AREA: '区域',
@@ -223,15 +225,20 @@ export const TranslateCN = {
         ADD_DATA_DISK:'增加数据盘'
         
     },
-    ORDER_MNG: {
+    ORDER_MNG: {//_DATA_FAILED
         ORDER_DETAILS: '订购详情',
         ORDERS_DETAILS: '订单详情',
+        ORDERS_DETAILS_DATA_FAILED: '订单详情加载失败',
         RENEWAL_FEE: '续订费用',
+        RENEWAL_FEE_DATA_FAILED: '续订费用加载失败',
         DEPARTMENT_LIST: '部门列表',
+        DEPARTMENT_LIST_DATA_FAILED: '部门列表加载失败',
         SUBSCRIBER_LIST: '订购人列表',
+        SUBSCRIBER_LIST_DATA_FAILED: '订购人列表加载失败',
         SUBMITTER_LIST: '提交者列表',
         ORDERS_LSIT: '订单列表',
         ORDERED_LSIT: '已订购列表',
+        ORDERED_LSIT_DATA_FAILED: '已订购列表加载失败',
         ONLY_SUCCESS_OR_EXPIRING_ORDERS_CAN_BE_RENEWED: '只有个“成功”或“即将过期”的订单可以续订',
         ONLY_SUCCESS_OR_EXPIRING_ORDERS_CAN_BE_UNSUBSCRIBE: '只有个“已激活”的订单可以退订',
         PURCHASE_TIME: '购买时长',

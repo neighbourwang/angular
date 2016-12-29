@@ -54,7 +54,7 @@ export class CheckMngListComponent implements OnInit{
 		this._refuseHandler = new ItemLoader<any>(false, '同意/拒绝', "check-center.approve-refust.post", _restApiCfg,_restApi);
 
 		//列表数据加载
-		this._listLoader = new ItemLoader<CheckListItem>(true, "待审批列表", "check-center.get-list.post", _restApiCfg, _restApi);
+		this._listLoader = new ItemLoader<CheckListItem>(true, "待审批列表加载失败", "check-center.get-list.post", _restApiCfg, _restApi);
 		this._listLoader.MapFunc = (source:Array<any>, target:Array<CheckListItem>)=>{
 
 			for(let item of source)
@@ -108,10 +108,10 @@ export class CheckMngListComponent implements OnInit{
 		};
 
 		//部门列表配置
-		this._departmentLoader = new ItemLoader<{id:string;name:string}>(false, "部门列表", "op-center.order-mng.department-list.get", _restApiCfg, _restApi);
+		this._departmentLoader = new ItemLoader<{id:string;name:string}>(false, "部门列表加载失败", "op-center.order-mng.department-list.get", _restApiCfg, _restApi);
 		
 		//提交者列表配置
-		this._submiterLoader = new ItemLoader<{id:string;name:string}>(false, "提交者列表", "check-center.submiter-list.get", _restApiCfg, _restApi);
+		this._submiterLoader = new ItemLoader<{id:string;name:string}>(false, "提交者列表加载失败", "check-center.submiter-list.get", _restApiCfg, _restApi);
 		
 		this._submiterLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
 			for(let item of source)
@@ -289,7 +289,7 @@ export class CheckMngListComponent implements OnInit{
 
 	//清除提交数据
 	clearApproveData(){
-		this.refuseReason = null;
+		this.refuseReason = '同意';
 		this._selectedItem = null;
 	}
 
