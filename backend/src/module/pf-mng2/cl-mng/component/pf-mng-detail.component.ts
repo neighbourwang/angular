@@ -29,7 +29,7 @@ export class PfDetailComponent implements OnInit {
         private router: ActivatedRoute,
         private platformDetailService: PlatformDetailService,
         private commonService: ClMngCommonService,
-        private location: Location
+        private location: Location,
     ) {
     }
 
@@ -85,7 +85,7 @@ export class PfDetailComponent implements OnInit {
             .catch(
             err => {
                 console.error('err');
-                this.notice.open('错误', '获取信息错误');
+                this.notice.open('错误', '获取类型信息错误');
             }
             )
         //获取区域列表
@@ -99,14 +99,14 @@ export class PfDetailComponent implements OnInit {
             ).catch(
             err => {
                 console.error('err');
-                this.notice.open('错误', '获取信息错误');
+                this.notice.open('错误', '获取区域信息错误');
             }
             )
         this.platformDetailService.getPlatform(id)
             .then(
             res => {
                 console.log('platform basic', res);
-                this.platform=res.resiltContent;
+                this.platform=res.resultContent;
             }
             ).catch(
             err => {

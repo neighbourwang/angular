@@ -146,6 +146,28 @@ export class CheckMngHascheckComponent implements OnInit{
 	//搜索
 	search(pageNum:number = 1){
 
+/*
+{
+  "approverId": "string",
+  "approverStatus": "string",
+  "createTime": "2016-12-29T02:00:32.480Z",
+  "enterpriseId": "string",
+  "expireTime": "2016-12-29T02:00:32.480Z",
+  "orderCode": "string",
+  "orderType": "string",
+  "organization": "string",
+  "pageParameter": {
+    "currentPage": 0,
+    "offset": 0,
+    "size": 0,
+    "sort": {},
+    "totalPage": 0
+  },
+  "serviceType": "string",
+  "status": "string",
+  "userId": "string"
+}
+*/
 		let param = {
 			approverStatus: '1'//'0';//approvalStatus代表未审批
 	        ,quickSearchStr: this._param.quickSearchStr//输入订单号快速查询 ？

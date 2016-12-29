@@ -188,55 +188,55 @@ export class IPValidationService {
         let map: any = {
             "*": {
                 "func": this.validationService.isBlank,
-                "msg": "不能为空"
+                "msg": "NET_MNG_VM_IP_MNG.CANT_NULL"
             },
              "email": {
                 "func": val => !this.validationService.isEmail(val),
-                "msg": "邮箱地址无效"
+                "msg": "NET_MNG_VM_IP_MNG.EMAIL_INVALID"
             },
             "ip": {
                 "func": val => !this.isIP(val),
-                "msg": "不符合IP规范"
+                "msg": "NET_MNG_VM_IP_MNG.IP_INVALID"
             },
             "ipmask": {
                 "func": val => !this.isIPMask(val),
-                "msg": "不符合IP mask规范"
+                "msg": "NET_MNG_VM_IP_MNG.MASK_INVALID"
             },
             "iporempty":{
                 "func": val => !this.isIPorEmpty(val),
-                "msg": "不符合IP规范或不为空"
+                "msg": "NET_MNG_VM_IP_MNG.IP_INVALID_OR_NULL"
             },
             //*
             "cidr":{
                 "func": val => !this.isCIDR(val),
-                "msg": "不合规"
+                "msg": "NET_MNG_VM_IP_MNG.INVALID"
             },
             "gatewayinsubnet":{
                 "func": val => !this.isGatewayInSubnet(val),
-                "msg": "不在子网中"
+                "msg": "NET_MNG_VM_IP_MNG.NOT_IN_SUBNET"
             },
             "gatewayinsubnetandmask":{
                 "func": val => !this.isGatewayInSubnetAndMask(val),
-                "msg": "不在子网中"
+                "msg": "NET_MNG_VM_IP_MNG.NOT_IN_SUBNET"
             },
             "maskinsubnet":{
                 "func": val => !this.isMaskInSubnet(val),
-                "msg": "不符合该子网信息"
+                "msg": "NET_MNG_VM_IP_MNG.NOT_FIX_SUBNET"
             },
             "ipscope":{
                 "func": val => !this.isIpScope(val[0], val[1]),
-                "msg": "不在子网中"
+                "msg": "NET_MNG_VM_IP_MNG.NOT_IN_SUBNET"
             },
             "ipscopepermask":{
                 "func": val => !this.isIpScopePerMask(val[0], val[1], val[2]),
-                "msg": "不在子网中"
+                "msg": "NET_MNG_VM_IP_MNG.NOT_IN_SUBNET"
             },
             //*/
 
         }
 
         if (map[op].func(val)) {
-            return name + map[op].msg;
+            return [name, map[op].msg];
         }
         else
             return undefined;

@@ -177,7 +177,7 @@ export class CheckMngListComponent implements OnInit{
 
 		
         //匹配后台搜索框参数/authsec/backend/approval/orders/search/paging 
-		param.approverStatus = 0;//approvalStatus代表未审批
+		param.approverStatus = 2;//approvalStatus代表未审批
         param.orderCode = this._param.quickSearchStr;//输入订单号快速查询 ？
  		param.enterpriseId = this._param.entIdStr; //企业enterpriseId
 		param.organization = this._param.departmentIdNum; //部门organization？
@@ -244,9 +244,10 @@ export class CheckMngListComponent implements OnInit{
 	//1:同意
 	private approveOrder(status:number, orderId:string)
 	{
+		
 		this._refuseHandler.Go(null, [{key:"orderId",value:orderId}
-			,{key:"operation", value:status}
-			], {reason:this.refuseReason})
+			,{key:"operation", value:status},{key:"reason", value:this.refuseReason}
+			])
 		.then(success=>{
 			this.clearApproveData();
 			this.refuseDialog.close();

@@ -40,19 +40,22 @@ export class PersonAccMngComponent implements OnInit {
     }
     //获取当前登录信息
     getCurrentAccount() {
-        this.getPersonAcc.getPersonAcc().then(
-            response => {
-                if (response && 100 == response.resultCode) {
-                    console.log(response);
-                    this.personAcc = Object.assign({}, response.resultContent)
-                    this.temPersonAcc = response.resultContent;
-                    console.log(this.personAcc);
-                } else {
+        console.log(this.getPersonAcc.userInfo);
+        this.personAcc = Object.assign({}, this.getPersonAcc.userInfo)
+        this.temPersonAcc = this.getPersonAcc.userInfo;
+        // this.getPersonAcc.getPersonAcc().then(
+        //     response => {
+        //         if (response && 100 == response.resultCode) {
+        //             console.log(response);
+        //             this.personAcc = Object.assign({}, response.resultContent)
+        //             this.temPersonAcc = response.resultContent;
+        //             console.log(this.personAcc);
+        //         } else {
 
-                }
-            }).catch((err) => {
-                console.error(err);
-            });
+        //         }
+        //     }).catch((err) => {
+        //         console.error(err);
+        //     });
     }
     //编辑账号
     onEdit() {

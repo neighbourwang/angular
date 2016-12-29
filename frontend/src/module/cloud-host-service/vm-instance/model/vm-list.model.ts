@@ -36,6 +36,7 @@ class VmList{
     diskCount : number; //磁盘数量
     snapshotCount : number; //快照数量
     platformId : string;
+    subInstanceId: string;
 }
 
 class HandleVm {

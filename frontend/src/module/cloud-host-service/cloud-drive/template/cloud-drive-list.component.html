@@ -53,6 +53,8 @@
         </div>
         <div class="float-right">
             <button class="btn float-left mgr5 btn-success" (click)="goTo('cloud-host-service/cloud-drive-order')"><i class="glyphicon glyphicon-plus"></i>{{'CLOUD_DRIVE_LIST.CREATE_CLOUD_HRAD_DISK' | translate}}</button>
+            <button (click)="delectDisk()" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK' | translate}}</button>
+
 
             <!--<div class="dropdown float-left  mgr5">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -84,7 +86,7 @@
             <th class="text-center">{{'CLOUD_DRIVE_LIST.OPERATE' | translate}}</th> 
         </tr>
         <tr *ngFor="let dist of distList;">
-            <td class="text-center"><input class="fox-cloud-radio" name="host-list" type="radio"></td>
+            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=dist;"  name="disk-list"></td>
             <td class="text-center active">{{dist.name}}</td>
             <td class="text-center">{{dist.type}}</td>
             <td class="text-center">{{dist.size}}</td>
@@ -126,3 +128,6 @@
 </div>
 <fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
+<fc-popup #popup (cf)="popupCf()" (of)="popupOf()">
+    <div style="text-align: center;">{{radioSelected.relyId ? "该云硬盘处于挂载状态，是否强制删除?" : "是否确认删除该云硬盘?"}}</div>
+</fc-popup>

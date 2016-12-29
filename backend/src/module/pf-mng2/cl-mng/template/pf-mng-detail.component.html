@@ -14,12 +14,11 @@
             <div class="col-md-12">
                 <div class="row row-line-height">
                     <div class="form-group">
-
                         <div class="col-sm-4 form-control-title">
                             <span class="asterisk">*</span> 云平台名称：
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" [(ngModel)]="name" placeholder="请输入云平台名称">
+                            <input type="text" class="form-control" [(ngModel)]="platform.name" placeholder="请输入云平台名称">
                         </div>
                     </div>
                 </div>
@@ -29,7 +28,7 @@
                             <span class="asterisk">*</span> 所属地域：
                         </div>
                         <div class="col-sm-4">
-                            <select class="form-control" [(ngModel)]="regionId">
+                            <select class="form-control" [(ngModel)]="platform.regionId">
                             <option *ngFor="let item of regions;" [value]="item.id">{{item.name}}</option>
                         </select>
                         </div>
@@ -42,7 +41,7 @@
                             <span class="asterisk">*</span> 所属数据中心：
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" [(ngModel)]="dataCenter" placeholder="请输入所属数据中心">
+                            <input type="text" class="form-control" [(ngModel)]="platform.dataCenter" placeholder="请输入所属数据中心">
                         </div>
                     </div>
                 </div>
@@ -69,7 +68,7 @@
                             <span class="asterisk">*</span> 地址：
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" [(ngModel)]="uri" placeholder="请输入地址">
+                            <input type="text" class="form-control" [(ngModel)]="platform.uri" placeholder="请输入地址">
                         </div>
                     </div>
                 </div>
@@ -81,7 +80,7 @@
                             <span class="asterisk">*</span> 版本：
                         </div>
                         <div class="col-sm-4">
-                            <select class="form-control" [(ngModel)]="version">
+                            <select class="form-control" [(ngModel)]="platform.version">
                             <option *ngFor="let item of platformVersion;" [value]="item.value">{{item.displayValue}}</option>
                         </select>
                         </div>
@@ -95,7 +94,7 @@
                             <span class="asterisk">*</span> 用户名：
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" [(ngModel)]="userName" placeholder="请输入用户名">
+                            <input type="text" class="form-control" disabled [(ngModel)]="platform.username" placeholder="请输入用户名">
                         </div>
                     </div>
                 </div>
@@ -107,7 +106,7 @@
                             <span class="asterisk">*</span> 密码：
                         </div>
                         <div class="col-sm-4">
-                            <input type="password" class="form-control" [(ngModel)]="passwd" placeholder="请输入密码">
+                            <input type="password" class="form-control" disabled [(ngModel)]="platform.password" placeholder="请输入密码">
                         </div>
                     </div>
                 </div>

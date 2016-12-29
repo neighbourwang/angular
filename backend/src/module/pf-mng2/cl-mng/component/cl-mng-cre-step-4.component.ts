@@ -53,6 +53,13 @@ export class ClMngCreStep4Component implements OnInit {
                         ele.quotaPercentDisplay = ele.quotaPercentage * 100;
                     }
                 })
+                this.service.getvolumeType(platFormId).then(
+                    res=>{
+                        console.log(res);
+                    }
+                ).catch(err=>{
+                    console.error(err);
+                });
             }
         ).catch(
             error => {

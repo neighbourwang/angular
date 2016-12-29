@@ -387,7 +387,7 @@ export class EntEstCreService{
 		"quotaList": {
 			"enterpriseId":entEst.ResourceQuota.enterpriseId,
 			"physicalMachineQuota":entEst.ResourceQuota.physicalQuota,
-			"memQuota":entEst.ResourceQuota.memroyQuota,
+			"memQuota":entEst.ResourceQuota.memroyQuota * 1024,
 			"floatIpQuota":entEst.ResourceQuota.floatIpQuota,
 			"imageQuota":entEst.ResourceQuota.imageQuota,
 			"snapShotQuota":entEst.ResourceQuota.snapShotQuota,

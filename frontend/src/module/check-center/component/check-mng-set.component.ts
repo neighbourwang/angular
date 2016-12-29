@@ -32,8 +32,6 @@ export class CheckMngSetComponent implements OnInit{
 	  private loadHandler : ItemLoader<CheckCenterSet> ;//加载数据
 	  private saveHandler : ItemLoader<CheckCenterSet> ;//加载数据
 	
-	   private param :CheckCenterSet =new CheckCenterSet() ;//传递参数
-
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -44,7 +42,7 @@ export class CheckMngSetComponent implements OnInit{
 					for(let item of source){
 						let obj = new CheckCenterSet();
 						target.push(obj);
-						if(item.frontAuditEnable== '1'){
+						if(item.frontAuditEnable== 1){
 							obj.auditEnable = true;//开启
 						}else{
 							obj.auditEnable = false;//关闭
@@ -89,19 +87,14 @@ export class CheckMngSetComponent implements OnInit{
 // }
 
 	this.layoutService.show();
-	let _param = _.extend({}, this.param);
+	let _param = _.extend({}, this.loadHandler.FirstItem);
 
-	 _param.frontTime = this.param.time;
+	 _param.frontTime = _param.time;
+	 _param.frontAuditEnable = _param.auditEnable ? 1:0;
 	 _param.enterpriseId  = this.restApi.getLoginInfo().userInfo.enterpriseId;
 	 _param.backAuditEnable = null;
 	 _param.backendTime = null;
 	
-
-	if(this.param.auditEnable){
-		_param.frontAuditEnable = '1';
-	}else{
-		 _param.frontAuditEnable = '0';
-	}
 
 	this.saveHandler.Go(null, null, _param)
 	.then(succeess=>{

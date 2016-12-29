@@ -6,4 +6,5 @@ export class Org {
     status : number ;//状态
     description : string;//描述
     selected:boolean;
+    isDefault:boolean;
 }

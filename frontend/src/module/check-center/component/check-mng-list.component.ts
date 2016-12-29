@@ -51,7 +51,9 @@ export class CheckMngListComponent implements OnInit{
 		,private _dictServ:DictService){
 
 		//拒绝
-		this._refuseHandler = new ItemLoader<any>(false, 'CHECK_CENTER.REFUSE', "check-center.approve-refust.post", _restApiCfg,_restApi);
+
+		this._refuseHandler = new ItemLoader<any>(false, '同意/拒绝', "check-center.approve-refust.post", _restApiCfg,_restApi);
+
 
 		//列表数据加载
 		this._listLoader = new ItemLoader<CheckListItem>(true, "CHECK_CENTER.PENDING_LIST", "check-center.get-list.post", _restApiCfg, _restApi);
@@ -182,7 +184,7 @@ export class CheckMngListComponent implements OnInit{
 */
 
 		let param = {
-			approverStatus: null//'0';//approvalStatus代表未审批
+			approverStatus: '0'//'0';//approvalStatus代表未审批
 	        ,quickSearchStr: this._param.quickSearchStr//输入订单号快速查询 ？
 			,organization :this._param.departmentIdNum //部门organization？
 			,orderType:this._param.orderTypeNum//订单类型orderType
@@ -264,14 +266,18 @@ export class CheckMngListComponent implements OnInit{
 	//1:同意
 	private approveOrder(status:number, orderId:string)
 	{
+		this._layoutService.show();
 		this._refuseHandler.Go(null, [{key:"orderId",value:orderId}
-			,{key:"operation", value:status}
-			], {reason:this.refuseReason})
+			,{key:"operation", value:status},{key:"reason", value:this.refuseReason}
+			])
 		.then(success=>{
+			this._layoutService.hide();
 			this.clearApproveData();
 			this.refuseDialog.close();
+			this.search();
 		})
 		.catch(err=>{
+			this._layoutService.hide();
 			this.showMsg(err);
 		});
 		
@@ -297,6 +303,7 @@ export class CheckMngListComponent implements OnInit{
 	}
 
 	confirmAccept(){
+		this.refuseReason = "同意";
 		this.approveOrder(1, this._selectedItem.orderId);
 	}
 

@@ -7,7 +7,7 @@
 			<div class="search-container">
 				<div class="input-group col-md-2 float-left mgr20">
 					<input class="form-control" placeholder="{{'CHECK_CENTER.ENTER_THE_ORDER_NUMBER_OR_DEPARTMENT_FOR_QUICK_INQUIRY' | translate}}" type="email">
-					<div class="input-group-addon"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
+					<div class="input-group-addon pointer"><span class="glyphicon glyphicon-search " (click)="search()"></span></div>
 				</div> 
 				<button class="btn btn-default button-gray-gradient float-left mgl20" [ngClass]="{'button-gray-gradient':_isAdvSearch!=1,'fox-cloud-button-white':_isAdvSearch==1}"  (click)="_isAdvSearch=!_isAdvSearch">{{'CHECK_CENTER.ADVANCED_SEARCH' | translate}}</button>
 			</div>
@@ -98,7 +98,7 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let item of _listLoader.Items;let i = index;">
-						<td>{{i}}</td>
+						<td>{{i + 1}}</td>
 						<td>
 							<a class="hands" [popover]="popover">{{item.orderCodeStr}}</a>
 							<popover-content #popover 
