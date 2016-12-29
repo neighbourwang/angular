@@ -11,7 +11,7 @@ const releaseToLocal = (name, path, reg) =>    //发布到本地
 	  	})
 	});
 
-const releaseServer = (name, path, reg) =>    //发布到本地
+const releaseServer = (name, path, reg) =>    //发布到服务器
 	fis.media(name).match(reg, {
 		release: '/$1$2$3',
 	  	deploy: fis.plugin('http-push', {
@@ -36,41 +36,3 @@ releaseToLocal("frontendBoeProd", '../foxcloud-dist/boeprod/frontend', RegFronte
 //boe演示环境发布到本地
 releaseToLocal("backendBoe", '../foxcloud-dist/boe/backend', RegBackend);
 releaseToLocal("frontendBoe", '../foxcloud-dist/boe/frontend', RegFrontend);
-
-
-
-
-// fis.media('backendDev').match(RegBackend, {
-// 	release: '/$1$2$3',
-// 	deploy: fis.plugin('http-push', {
-// 		receiver: 'http://16.187.145.52:8999/receiver',
-// 		to: '/etc/nginx/foxcloud/adm'
-// 	})
-// });
-
-//前台发布到开发环境
-// fis.media('frontendDev').match(RegFrontend, {
-// 	release: '/$1$2$3',
-// 	deploy: fis.plugin('http-push', {
-// 		receiver: 'http://16.187.145.52:8999/receiver',
-// 		to: '/etc/nginx/foxcloud/mpp'
-// 	})
-// });
-
-//后台发布到测试环境
-// fis.media('backendTest').match(RegBackend, {
-// 	release: '/$1$2$3',
-// 	deploy: fis.plugin('http-push', {
-// 		receiver: 'http://16.187.145.52:8999/receiver',
-// 		to: '/etc/nginx/foxcloud/backend'
-// 	})
-// });
-
-//前台发布到测试环境
-// fis.media('frontendTest').match(RegFrontend, {
-// 	release: '/$1$2$3',
-// 	deploy: fis.plugin('http-push', {
-// 		receiver: 'http://16.187.145.52:8999/receiver',
-// 		to: '/etc/nginx/foxcloud/frontend'
-// 	})
-// });
