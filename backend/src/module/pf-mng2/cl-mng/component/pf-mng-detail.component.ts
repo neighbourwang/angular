@@ -93,25 +93,13 @@ export class PfDetailComponent implements OnInit {
                                 ele.isSelected = true;
                                 this.getVersion(ele.code);
                             }
+                            
                         })
-
-                    }
-                    )
-            })
-            .then(() => {
-                this.platformDetailService.getZoneList(id).then(
-                    res => {
-                        this.zoneList = res.resultContent;
-                        this.zoneList.forEach(ele => {
-                            if (ele.quotaPercentage) {
-                                ele.quotaPercentDisplay = ele.quotaPercentage * 100;
-                            }
-                        })
-                        console.log(res);
+                        this.getZoneList();
                         this.layoutService.hide();
                     }
-                )
-            })
+                    )
+            })            
             .catch(
             err => {
                 console.error('err');
@@ -162,6 +150,23 @@ export class PfDetailComponent implements OnInit {
             }
             )
     }
+    //获取可用区列表
+    getZoneList(){
+        this.platformDetailService.getZoneList(this.platform.id).then(
+                    res => {
+                        this.zoneList = res.resultContent;
+                        this.zoneList.forEach(ele => {
+                            if (ele.quotaPercentage) {
+                                ele.quotaPercentDisplay = ele.quotaPercentage * 100;
+                            }
+                        })
+                        console.log(res);
+                        
+                    }
+                ).catch(err=>{
+                    console.error('获取可用区列表出错',err)
+                })
+    }
     //切换TAB
     changeTab(item, index) {
         this.Tabels.forEach((ele) => {
@@ -170,6 +175,31 @@ export class PfDetailComponent implements OnInit {
         item.active = true;
 
     }
+    //启用可用区
+    enableZone(id:string){
+        console.log(id);
+        this.layoutService.show();
+        this.platformDetailService.enableZone(id).then(res=>{
+            console.log(res)
+            this.getZoneList();
+            this.layoutService.hide();
+        }).catch(err=>{
+            console.error('启用可用区失败',err);
+        })
+    }
+    //禁用可用区
+    suspendZone(id:string){
+        console.log(id);
+        this.layoutService.show();
+        this.platformDetailService.suspendZone(id).then(res=>{
+            console.log(res)
+            this.getZoneList();
+            this.layoutService.hide();
+        }).catch(err=>{
+            console.error('禁用可用区失败',err);
+        })
+    }
+    //返回
     back() {
         this.location.back();
     }

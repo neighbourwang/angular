@@ -193,8 +193,8 @@
                             <input type="text" class="form-control" [(ngModel)]="zone.description" style="display: inline;" name="description">
                         </td> 
                         <td>
-                            <button class="fox-cloud-button-md fox-cloud-button-white">启用</button>
-                            <button class="fox-cloud-button-md fox-cloud-button-white">禁用</button> 
+                            <button class="fox-cloud-button-md fox-cloud-button-white" (click)="enableZone(zone.id)">启用</button>
+                            <button class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendZone(zone.id)">禁用</button> 
                         </td>                                               
                     </tr>
                 </tbody>

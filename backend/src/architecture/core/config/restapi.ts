@@ -149,6 +149,18 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "platformaccess/noauth/platforms/{id}/zoneQuotas"
     },
+    {
+        "desc": "启用平台可用区信息",
+        "id": "pf-mng-zone.enable",
+        "method": "GET",
+        "url": "platformaccess/authsec/platform/zone/{id}/enable"
+    },
+    {
+        "desc": "禁用平台可用区信息",
+        "id": "pf-mng-zone.suspend",
+        "method": "GET",
+        "url": "platformaccess/authsec/platform/zone/{id}/suspend"
+    },
     //update镜像同步
     {
         "desc": "镜像同步",
