@@ -108,7 +108,7 @@ export class ImgMngComponent implements OnInit {
     updateImage() {
         this.layoutService.show();
         if (this.validationService.isBlank(this.editImage.name)) {
-            this.showAlert("镜像名称不能为空.");
+            this.showAlert("IMAGE.IMAGE_NAME_CAN_NOT_BE_BLANK");
             return;
         }
         this.service.updateImage(this.editImage)
@@ -178,7 +178,7 @@ export class ImgMngComponent implements OnInit {
         cimage.description = image.description;
         cimage.imageOwner = image.imageOwner;
         this.editImage = cimage;
-        this.editPopup.open("编辑镜像");
+        this.editPopup.open("IMAGE.EDIT_IMAGE");
     }
 
     resetQueryOpt() {
@@ -188,7 +188,7 @@ export class ImgMngComponent implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "IMAGE.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -200,7 +200,7 @@ export class ImgMngComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("COMMON.FAILED_TO_GET_DATA");
     }
 
     nof() { }

@@ -195,7 +195,7 @@ export class cloudDriveComponentOrder implements OnInit {
 
 	outputValue(value) {
 		this.sendModule.disksize.attrValue = value;
-		this.sendModule.disksize.attrDisplayValue = value + "GB";
+		this.sendModule.disksize.attrDisplayValue = value + "COMMON.GB";
 	}
 
 	addCart() {   //加入购物车
@@ -204,7 +204,7 @@ export class cloudDriveComponentOrder implements OnInit {
 		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
 		this.service.addCart(payLoadArr).then(res => {
 			this.layoutService.hide();
-			alert("加入购物车成功！");
+			alert("CLOUD_DRIVE_ORDER.SUCCESSFULLY_ADDED_TO_SHOPPING_CART");
 			this.cartButton.setCartList();
 			// this.router.navigateByUrl("cloud-host-service/cloud-host-list");
 		}).catch(res => {
@@ -232,11 +232,11 @@ export class cloudDriveComponentOrder implements OnInit {
 		};
 
 		const alertValue = {
-			platform : "请选择云平台",
-			zone : "请选择可用区",
-			disktype : "请选择云硬盘",
-			storage : "请选择云硬盘类型",
-			diskinsname : "云硬盘名称格式不正确",
+			platform : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_PLATFORM",
+			zone : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_AVAILABLE_ZONE",
+			disktype : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK",
+			storage : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK_TYPE",
+			diskinsname : "CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_NAME_FORMAT_IS NOT_CORRECT",
 		}
 
 		const check = value => {
@@ -257,7 +257,7 @@ export class cloudDriveComponentOrder implements OnInit {
 	checkInput() {
 		const al = value => !!alert(value);
 
-		if(!this.sku) return al("sku不正确");
+		if(!this.sku) return al("CLOUD_DRIVE_ORDER.SKU_IS_NOT_CORRECT");
 
 		const value = this.checkValue();
 		if(value) return al(value);

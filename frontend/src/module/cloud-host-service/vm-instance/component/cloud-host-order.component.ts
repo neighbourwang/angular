@@ -419,20 +419,20 @@ export class cloudHostComponentOrder implements OnInit {
 		};
 
 		const alertValue = {
-			password: "密码格式不正确",
-			passwordShadow: "两次密码输入不一致",
-			instancename: "主机名称格式不正确",
-			timeline: "请输入购买时长为最大不超过999的数字",
-			platform: "请选择云平台",
-			zone: "请选择可用区",
-			cpu: "请选择cpu",
-			mem: "请选择内存",
-			networktype: "请选择网络类型",
-			securitygroup: "请选择安全组",
-			startupsource: "请选择启动源",
-			imagetype: "请选择镜像类型",
-			os: "请选择镜像名称",
-			timelineunit: "请选择网络类型"
+			password: "密码格式不正确", //VM_INSTANCE.PASSWARD_FORMAT_IS_NOT_CORRECT
+			passwordShadow: "两次密码输入不一致", //VM_INSTANCE.TWO_PASSWARD_ENTRIES_ARE_INCONSISTENT
+			instancename: "主机名称格式不正确", //VM_INSTANCE.HOST_NAME_FORMAT_IS_NOT_CORRECT
+			timeline: "请输入购买时长为最大不超过999的数字", //VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION
+			platform: "请选择云平台", //VM_INSTANCE.PLEASE_SELECT_CLOUD_PALTFORM
+			zone: "请选择可用区", //VM_INSTANCE.PLEASE_SELECT_AVAILABLE_ZONE
+			cpu: "请选择cpu", //VM_INSTANCE.PLEASE_SELECT_CPU
+			mem: "请选择内存",//VM_INSTANCE.PLEASE_SELECT_RAM
+			networktype: "请选择网络类型",//VM_INSTANCE.PLEASE_SELECT_NET_TYPE
+			securitygroup: "请选择安全组",//VM_INSTANCE.PLEASE_SELECT_SECURITY_GROUP
+			startupsource: "请选择启动源",//VM_INSTANCE.PLEASE_SELECT_STARTUP_SOURCE
+			imagetype: "请选择镜像类型", //VM_INSTANCE.PLEASE_SELECT_IMAGE_TYPE
+			os: "请选择镜像名称",   //VM_INSTANCE.PLEASE_SELECT_IMAGE_NAME
+			timelineunit: "请选择网络类型"//VM_INSTANCE.PLEASE_SELECT_NET_TYPE
 		}
 
 		const check = value => {

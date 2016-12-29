@@ -3,7 +3,7 @@ import { RestApiCfg, RestApi, RestApiModel } from './../../../architecture';
 
 @Injectable()
 export class ItemLoader<T>{
-	private _name:string = "";//对象名称
+	private _errorMsg:string = "";//对象名称
 	PageSize:number = 10;//每一页的数量
 	private _items:Array<T> = [];
 	TotalPages: number = 1;
@@ -18,13 +18,13 @@ export class ItemLoader<T>{
 	private _hasPaging:boolean = false;
 
 	constructor(hasPaging:boolean
-				,name:string
+				,errorMsg:string
 				,private _apiId:string
 				,private restApiCfg:RestApiCfg
 				,private restApi:RestApi)
 	{
 		this._hasPaging = hasPaging;
-		this._name = name;
+		this._errorMsg = errorMsg;
 	}
 	get Items():Array<T>{
 
@@ -79,7 +79,7 @@ export class ItemLoader<T>{
 			.then(ret=>{
 				if(!ret)
 				{
-					reject("数据获取失败");
+					reject(this._errorMsg);
 				}
 				else{
 					if(ret.resultContent)
@@ -107,7 +107,7 @@ export class ItemLoader<T>{
 							this.Trait(this._items);
 						}
 
-						console.log(`${this._name}:分页信息`, ret.pageInfo);
+						console.log(`${this._errorMsg}:分页信息`, ret.pageInfo);
 
 						if(ret.pageInfo)
 						{
@@ -119,7 +119,7 @@ export class ItemLoader<T>{
 							this.TotalPages = 1;
 						}
 
-						console.log(`${this._name} is:`, this._items);
+						console.log(`${this._errorMsg} is:`, this._items);
 
 						resolve(this._items);
 					}
@@ -131,8 +131,8 @@ export class ItemLoader<T>{
 			})
 			.catch(err=>{
 
-				console.log(`${this._name}加载错误:${this.restApiCfg.getRestApi(this._apiId).url}`, err);
-				reject(`${this._name}数据加载错误`);
+				console.log(`${this._errorMsg}:${this.restApiCfg.getRestApi(this._apiId).url}`, err);
+				reject(`${this._errorMsg}`);
 			});
 
 

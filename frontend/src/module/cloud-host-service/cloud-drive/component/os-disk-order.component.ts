@@ -14,6 +14,6 @@ import { OrderOptions } from '../model/options.model';
 export class osDiskOrderComponent {
 
 	options : OrderOptions = {
-		title : "订购云硬盘"
+		title : " 订购云硬盘" //OS_DISK.ORDER_CLOUD_HARD_DISK
 	}
 }

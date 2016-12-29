@@ -244,9 +244,10 @@ export class CheckMngListComponent implements OnInit{
 	//1:同意
 	private approveOrder(status:number, orderId:string)
 	{
+		
 		this._refuseHandler.Go(null, [{key:"orderId",value:orderId}
-			,{key:"operation", value:status}
-			], {reason:this.refuseReason})
+			,{key:"operation", value:status},{key:"reason", value:this.refuseReason}
+			])
 		.then(success=>{
 			this.clearApproveData();
 			this.refuseDialog.close();

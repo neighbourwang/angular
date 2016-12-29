@@ -182,14 +182,14 @@ export class OrderMngSearchComponent implements OnInit{
 		};
 		param.createTime = param.createDate;
 		param.expireTime = param.expireDate;
-		param.approverId = param.buyerId;
+		param.userId = param.buyerId;
 		//没有定义快速搜索字段
 // {
 //   "approverId": "string",
 //   "approverStatus": "string",
-//   "createTime": "2016-12-28T02:22:56.527Z",
+//   "createTime": "2016-12-29T02:00:32.480Z",
 //   "enterpriseId": "string",
-//   "expireTime": "2016-12-28T02:22:56.527Z",
+//   "expireTime": "2016-12-29T02:00:32.480Z",
 //   "orderCode": "string",
 //   "orderType": "string",
 //   "organization": "string",
