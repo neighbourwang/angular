@@ -44,6 +44,13 @@ export const TranslateCN = {
         PRICE: '价格',
         PERMANENCE: '永久',
         MANAGEMENT: '管理',
+        INFORMATION: '信息',
+        BASIC: '基本',
+        ENTERPRISE: '企业',
+        DATE: '日期',
+        HISTORY: '历史',
+        EXPLAIN: '说明',
+        USERS: '用户',
 
         //单位
         $: "￥",
@@ -104,6 +111,8 @@ export const TranslateCN = {
         CREATED_TIME: '创建时间',
         EXPIRE_DATE: '到期时间',
         SYSTEM_PROMPT: '系统提示',
+        OPERATOR: '操作者',
+        EXECUTOR: '执行者',
 
         //长句子
         SET_NAME_FORMAT:'2-68个字符，以大小写字母或中文开头，可包含数字，"."，"-"，"_"'
@@ -246,17 +255,17 @@ export const TranslateCN = {
         UNSUBSCRIBE_FROM___HARD_DRIVE: '一起退订该云主机挂载的云硬盘',
         WHETHER_TO_CONFIRM___EXIT_THE_PROCESS: '是否确认删除该云硬盘. 如果选"确认", 则卸载该云硬盘并删除. 如果选"取消", 则退出流程',
         WHETHER_TO_CONFIRM_FORCE___EXIT_THE_PROCESS: '是否强制删除. 如果选"确认", 则卸载该云硬盘并删除。 如果选"取消", 则退出流程',
-       
-    },
-    ORDER_MNG_SEARCH: {
+        UNIT_PRICE: '单价费用',
+        ASSOCIATED_LIST_OF_SUBSCRIBED_SERVICES: '关联的已订购服务列表',
+        ORIGINAL_EXPIRATION_TIME: '原到期时间',
         CONFIRM: '确定',
         ORDER_TRACKING: '订单查询',
         PLEASE_ENTER_THE_ORDER_NUMBER_FUZZY_QUERY: '请输入订单号模糊查询',
         RESET: '重置',
-        ORDER_STATUS: '订单状态：',
-        ALL_STATUS: '所有状态：',
-        PRODUCT_TYPE: '产品类型：',
-        ALL_TYPES: '所有类型：',
+        ORDER_STATUS: '订单状态',
+        ALL_STATUS: '所有状态',
+        PRODUCT_TYPE: '产品类型',
+        ALL_TYPES: '所有类型',
         CURRENT_QUERY_TO: '当前查询到',
         ORDER_ORDER_LIST_IS_AS_FOLLOWS: '订单，订单列表如下：',
         NUMBER: '编号',
@@ -268,8 +277,8 @@ export const TranslateCN = {
         SUBMITTER: '提交者',
         DEPARTMENT: '所属部门',
         OPERATION: '操作',
-        NONRECURRING_EXPENSE: '一次性费用：￥',
-        EXPENSE_$: '费用：￥',
+        NONRECURRING_EXPENSE: '一次性费用',
+        EXPENSE_$: '费用',
         DETAILS: '详 情',
         ORDER_NUMBER_: '订单号：'
     },
