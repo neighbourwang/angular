@@ -99,6 +99,7 @@ export const TranslateCN = {
         MOUNT: '挂载',
         ZONE: '区域',
         AVAILABLE_ZONE: '可用区',
+        AVAILABLE_ZONE_DATA_ERROR: '可用区数据加载错误',
         AREA: '区域',
         REGION_AND_AVAILABLE_AREA: '所在区域及可用区',
         CREATED_TIME: '创建时间',

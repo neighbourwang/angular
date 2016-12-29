@@ -145,7 +145,7 @@ export class OrderMngComponent implements OnInit{
 		this._platformLoader = new ItemLoader<ListItem>(false, "COMMON.ZONE", "op-center.order-mng.platform-list.get", restApiCfg, restApi);
 		
 		//可用区配置
-		this._regionLoader = new ItemLoader<ListItem>(false, "COMMON.AVAILABLE_ZONE", "op-center.order-mng.region-list.get", restApiCfg, restApi);
+		this._regionLoader = new ItemLoader<ListItem>(false, "COMMON.AVAILABLE_ZONE_DATA_ERROR", "op-center.order-mng.region-list.get", restApiCfg, restApi);
 		this._regionLoader.MapFunc = (source:Array<any>, target:Array<ListItem>)=>{
 			for(let item of source)
 			{
