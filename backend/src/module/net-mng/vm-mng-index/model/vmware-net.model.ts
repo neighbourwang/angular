@@ -96,3 +96,8 @@ export class NsxNetModel{
     adminPassword: string = "";
     platformId: string = "";
 }
+
+export class VmNetStatusModel{
+    checkResult: string = ""; //nsx checking status
+    vmNetStatus: string = "";
+}

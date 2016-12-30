@@ -26,7 +26,7 @@ export const RegionInfo_mock = {
                 },
                 {
                         "dcId":"12",
-                        "dcName":"dc1",
+                        "dcName":"dc12",
                         "platformList":[
                                 {"platformName":"platform121",
                                 "platformUrl":"http://",
@@ -192,7 +192,21 @@ export const NsxInfo_mock = {
     }
 }
 
+export const NsxStatus_mock = {
+    resultCode: "100",
+    detailDescription: "NetworkList",
+    resultContent: 
+    {
+        "checkResult":1
+    }
+}
+
 export const Success_mock = {
     resultCode: "100",
+    detailDescription: "",
+}
+
+export const Failure_mock = {
+    resultCode: "200",
     detailDescription: "",
 }

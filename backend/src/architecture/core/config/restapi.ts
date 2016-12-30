@@ -1078,6 +1078,12 @@ export let RestApis: RestApiModel[] = [
         "id": "net-mng.vmware-index.network.changetype",
         "method": "PUT",
         "url": "adminboe/authsec/vmware/network/main/changetype/clusterid/{cluster_id}"
+    },    
+    {
+        "desc": "验证NSX管理信息",
+        "id": "net-mng.vmware-index.nsxstatus.validate",
+        "method": "GET",
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/main/nsxinfo/validate"
     },
     //IP地址管理[标准网络]
     {

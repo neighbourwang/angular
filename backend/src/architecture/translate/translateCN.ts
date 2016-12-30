@@ -229,6 +229,8 @@ export const TranslateCN = {
         STATUS: '状态',
         DESCRIPTION: '说明',
 
+        PLEASE_CHOOSE_PF:'请先选择平台',
+        PLEASE_CHOOSE_NET_TYPE: '请选择相应的网络类型',
         GETTING_DATA_FAILED: '获取数据失败！',
         DICTIONARY_FAILED: '数据字典出错！',
         PLEASE_CHOOSE_PG: '请选择相应的PortGroup',
@@ -308,11 +310,38 @@ export const TranslateCN = {
         ENABLE_DBT_PORTGROUP_WARNING: '您选择启用{{value_1}}分布式端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，用户将能够在订购中选择此网络。',
         DISABLE_DBT_PORTGROUP_WARNING:'您选择禁用{{value_1}}分布式端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，用户将不能够在订购中选择此网络。',
 
+        //vmware-nsx-net
         DLR_NAME: '逻辑路由器(DLR)名称',
         DLR_PORT_NAME: 'DLR接口名称',
         DLR_SUBNET_DISPLAY_NAME: 'DLR子网显示名称',
         DLR_PORT_IP_ADDRESS: 'DLR接口IP地址',
         LINKED_LSW_NAME: '连接逻辑交换机(LSW)名称',
+
+        //vmware-navigation-page
+        SET_NSX_MNG_INFO: '设置NSX管理信息',
+        SET_NETWORK_TYPE: '为可用区(集群)设置网络类型',
+
+        SET_NSX_MNG_INFO_SUCCESS: '设置NSX管理信息成功',
+        SET_NSX_MNG_INFO_FAILED: '设置NSX管理信息失败',
+        SET_NSX_MNG_INFO_EXCEPTION: '设置NSX管理信息异常',
+
+        TEST_NSX_MNG_INFO_SUCCESS: '测试NSX管理信息成功',
+        TEST_NSX_MNG_INFO_FAILED: '测试NSX管理信息失败',
+        TEST_NSX_MNG_INFO_EXCEPTION: '测试NSX管理信息异常',
+
+        GET_NXS_STATUS_SUCCESS: '获取NXS状态成功',
+        GET_NXS_STATUS_FAILED: '获取NXS状态失败',
+        GET_NXS_STATUS_EXCEPTION: '获取NXS状态异常',
+        
+        SET_NETWORK_TYPE_SUCCESS: '设置网络类型成功',
+        SET_NETWORK_TYPE_FAILED: '设置网络类型失败',
+        SET_NETWORK_TYPE_EXCEPTION: '设置网络类型异常',
+
+        NSX_VERSION: 'NSX版本',
+        NSX_MNG_ADDRESS: 'NSX管理地址',
+        NSX_MNG_USERNAME: '管理用户名',
+        NSX_MNG_PASSWORD: '管理密码',
+
     },
     CHECK_CENTER: {
         //check-mng-set

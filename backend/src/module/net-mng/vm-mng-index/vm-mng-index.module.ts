@@ -12,6 +12,7 @@ import { VmwareMngIndexComponent } from './component/vm-mng-index.component';
 
 //Service
 import { VmwareMngIndexService } from './service/vm-mng-index.service';
+import { UtilValidationService } from './service/validation.service';
 @NgModule({
     imports: [
         CommonComponentModule,
@@ -25,7 +26,8 @@ import { VmwareMngIndexService } from './service/vm-mng-index.service';
         VmwareMngIndexComponent
     ],
     providers: [
-        VmwareMngIndexService
+        VmwareMngIndexService,
+        UtilValidationService
     ]
 })
 
