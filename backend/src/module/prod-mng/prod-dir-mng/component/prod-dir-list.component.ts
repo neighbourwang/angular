@@ -58,11 +58,11 @@ export class ProdDirListComponent implements OnInit {
         //获得激活云平台数据
         this.PlatformsActiveService.getPlatformsActive().then(response => {
             console.log('激活云平台数据', response);
-            if (response && 100 == response.resultCode) {
+            // if (response && 100 == response.resultCode) {
                 this.platformsList = response.resultContent;
-            } else {
+            // } else {
 
-            }
+            // }
         }).catch(err => {
             console.error(err)
         })

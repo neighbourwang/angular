@@ -33,42 +33,73 @@ export class OrgMngCrComponent implements OnInit {
 
   org: Org = new Org();
   members: Array<Member>;
-  users:Array<Member>;
-  curEntResource:EntResource;
-  resource:Resource=new Resource();
+  users: Array<Member>;
+  curEntResource: EntResource;
+
+  countAvailable: EntResource;
+  maxAvailable: Resource;
+  resource: Resource = new Resource();
   ngOnChanges(changes: SimpleChanges) {
-    this.curEntResource=this.service.entResourceObj;
+    this.curEntResource = this.service.entResourceObj;
+    this.countAvailable = new EntResource();
+    this.maxAvailable = new Resource();
+    //计算可分配额度
+    this.countAvailable.cpuQuota = this.curEntResource.cpuQuota - this.curEntResource.usedCpuQuota;
+    this.countAvailable.memQuota = this.curEntResource.memQuota - this.curEntResource.usedMemQuota;
+    this.countAvailable.physicalMachineQuota = this.curEntResource.physicalMachineQuota - this.curEntResource.usedPhysicalMachineQuota;
+    this.countAvailable.storageQuota = this.curEntResource.storageQuota - this.curEntResource.usedStorageQuota;
+    this.countAvailable.snapshotQuota = this.curEntResource.snapshotQuota - this.curEntResource.usedSnapshotQuota;
+    this.countAvailable.imageQuota = this.curEntResource.imageQuota - this.curEntResource.usedImageQuota;
+    this.countAvailable.floatIpQuota = this.curEntResource.floatIpQuota - this.curEntResource.usedFloatIpQuota;
+    //计算MAX额度
+    this.maxAvailable.vcpu = this.curEntResource.cpuQuota - this.curEntResource.usedCpuQuota + this.resource.vcpu
+    this.maxAvailable.mem = this.curEntResource.memQuota - this.curEntResource.usedMemQuota + this.resource.mem
+    this.maxAvailable.physical = this.curEntResource.physicalMachineQuota - this.curEntResource.usedPhysicalMachineQuota + this.resource.physical
+    this.maxAvailable.storage = this.curEntResource.storageQuota - this.curEntResource.usedStorageQuota + this.resource.storage
+    this.maxAvailable.snapshot = this.curEntResource.snapshotQuota - this.curEntResource.usedSnapshotQuota + this.resource.snapshot
+    this.maxAvailable.image = this.curEntResource.imageQuota - this.curEntResource.usedImageQuota + this.resource.image
+    this.maxAvailable.ipaddress = this.curEntResource.floatIpQuota - this.curEntResource.usedFloatIpQuota + this.resource.ipaddress
     console.log(this.curEntResource);
+    console.log(this.countAvailable);
     this.org = new Org();
-    this.org.resource=new Resource();
-    console.log(this.editId);    
+    this.org.resource = new Resource();
+    console.log(this.editId);
     if (this.isEdit) {
       this.getUserList();
       this.getOrgDetail();
-      this.org.resource=new Resource();      
+      this.org.resource = new Resource();
       this.service.getOrgResourceById(this.editId)
         .then(
         res => {
           console.log("部门资源", res);
-          res.resultContent.usedMem/=1024;
+          res.resultContent.usedMem /= 1024;
+          res.resultContent.mem /= 1024;
           this.resource = res.resultContent;
+          //计算MAX额度
+          this.maxAvailable.vcpu = this.curEntResource.cpuQuota - this.curEntResource.usedCpuQuota + this.resource.vcpu
+          this.maxAvailable.mem = this.curEntResource.memQuota - this.curEntResource.usedMemQuota + this.resource.mem
+          this.maxAvailable.physical = this.curEntResource.physicalMachineQuota - this.curEntResource.usedPhysicalMachineQuota + this.resource.physical
+          this.maxAvailable.storage = this.curEntResource.storageQuota - this.curEntResource.usedStorageQuota + this.resource.storage
+          this.maxAvailable.snapshot = this.curEntResource.snapshotQuota - this.curEntResource.usedSnapshotQuota + this.resource.snapshot
+          this.maxAvailable.image = this.curEntResource.imageQuota - this.curEntResource.usedImageQuota + this.resource.image
+          this.maxAvailable.ipaddress = this.curEntResource.floatIpQuota - this.curEntResource.usedFloatIpQuota + this.resource.ipaddress
         }
         )
         .catch(err => {
           console.error(err);
         });
     }
-    
+
   }
-  ngOnInit() {    
-      
+  ngOnInit() {
+
   }
   //获取机构用户for leader列表
-  getUserList(){    
+  getUserList() {
     this.service.getUserByOrg(this.editId).then(
       res => {
         console.log('getNoMngUser', res);
-         this.users = res.resultContent;
+        this.users = res.resultContent;
       }
     ).catch(
       err => {
@@ -88,37 +119,38 @@ export class OrgMngCrComponent implements OnInit {
     console.log(this.org.members)
   }
   获取部门详情
-  getOrgDetail(){
+  getOrgDetail() {
     this.service.getOrgById(this.editId)
-        .then(
-        res => {
-          console.log("部门基本", res);
-          this.org = res.resultContent;
-        }
-        )
-        .catch(err => {
-          console.error(err);
-        });
+      .then(
+      res => {
+        console.log("部门基本", res);
+        this.org = res.resultContent;
+      }
+      )
+      .catch(err => {
+        console.error(err);
+      });
   }
   //保存 给父组件调用
   save() {
-    this.org.resource=this.resource;
-    if(this.orgForm.valid){
-      this.org.resource.mem*=1024;
-      if(!this.isEdit){
-        console.log('new',this.org)
+    this.org.resource = this.resource;
+    if (this.orgForm.valid) {
+      this.org.resource.mem *= 1024;
+      this.org.resource.usedMem*=1024;
+      if (!this.isEdit) {
+        console.log('new', this.org)
         return this.service.createOrg(this.org)
-      }else{
-        console.log('edit',this.org)
+      } else {
+        console.log('edit', this.org)
         return this.service.editOrg(this.editId, this.org);
       }
-    }else{
-       return Promise.reject("error");
+    } else {
+      return Promise.reject("error");
     }
     // 
-    
+
     //  if (this.orgForm.invalid) {
-           
+
     //     } else if (this.isEdit) {
     //         return this.service.editOrg(this.editId, this.org);
     //     } else {
@@ -127,9 +159,12 @@ export class OrgMngCrComponent implements OnInit {
   }
 
   //同步countBar数据
-  outputValue(e, arg) {
-    this.resource[arg]=e;
+  outputValue(e, arg1, arg2) {
+    this.resource[arg1] = e;
+    if (this.maxAvailable[arg1] - e >= 0) {
+      this.countAvailable[arg2] = this.maxAvailable[arg1] - e;
+    }
   }
   /////////////////////edit   getUserByOrg
-  
+
 }
