@@ -16,7 +16,7 @@
 				<tbody>
 					<tr class="none-border">				
 						<td class="none-border">
-							<span class="float-left mgt7" style="margin-left:30px">部门:</span>
+							<span class="float-left mgt7" style="margin-left:30px">部门</span>
 							<div class="dropdown float-left">
 								<select class="form-control  fix-width-120" [(ngModel)]="_param.organization" (ngModelChange)="loadBuyer()">
 									<option class="hands" [value]=null>所有部门</option>
@@ -25,7 +25,7 @@
 							</div>
 						</td>
 					 	<td class="none-border">
-							<span class="float-left mgl15 mgt7">提交者:</span>
+							<span class="float-left mgl15 mgt7">提交者</span>
 							<div class="dropdown float-left">
 								<select class="form-control  fix-width-120" [(ngModel)]="_param.buyerId">
 									<option class="hands" [value]="null">所有用户</option>
@@ -35,7 +35,7 @@
 						</td>
 						<td class="none-border">
 							<div class="mgt-10">
-								<span class="mgt15 float-left mgt7">提交时间：</span>
+								<span class="mgt15 float-left mgt7">提交时间</span>
 								<div class="dropdown float-left">			
 									<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
 								</div>
