@@ -1,41 +1,41 @@
-<fc-notice #notice ot="{{ 'ORDER_MNG_SEARCH.CONFIRM' | translate }}"></fc-notice>
+<fc-notice #notice ot="{{ 'ORDER_MNG.CONFIRM' | translate }}"></fc-notice>
 <div class="OrderSearch">	
-	<div class="page-content-header "> {{ 'ORDER_MNG_SEARCH.ORDER_TRACKING' | translate }}</div>
+	<div class="page-content-header "> {{ 'ORDER_MNG.ORDER_TRACKING' | translate }}</div>
 	<div class="page-content">
 		<div class="table-container">
 			<div class="">
 				<div class="input-group col-md-2 float-left mgr20">
-   					 <input class="form-control" placeholder="{{ 'ORDER_MNG_SEARCH.PLEASE_ENTER_THE_ORDER_NUMBER_FUZZY_QUERY' | translate }}" type="email" [(ngModel)]="_param.searchText">
+   					 <input class="form-control" placeholder="{{ 'ORDER_MNG.PLEASE_ENTER_THE_ORDER_NUMBER_FUZZY_QUERY' | translate }}" type="email" [(ngModel)]="_param.searchText">
     				 <div class="input-group-addon pointer"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div>
 				<div  class="input-group float-left">
-					   <button class="btn button-gray-gradient" (click)="resetParam()"><span class="glyphicon glyphicon-repeat"></span> {{ 'ORDER_MNG_SEARCH.RESET' | translate}}</button>
+					   <button class="btn button-gray-gradient" (click)="resetParam()"><span class="glyphicon glyphicon-repeat"></span> {{ 'ORDER_MNG.RESET' | translate}}</button>
         		</div>
 			</div>
 			<table class="table">
 				<tbody>
 					<tr class="none-border">				
 						<td class="none-border">
-							<span class="float-left mgt7" style="margin-left:30px">部门</span>
+							<span class="float-left mgt7" style="margin-left:30px">{{ 'COMMON.DEPARTMENT' | translate }}:</span>
 							<div class="dropdown float-left">
 								<select class="form-control  fix-width-120" [(ngModel)]="_param.organization" (ngModelChange)="loadBuyer()">
-									<option class="hands" [value]=null>所有部门</option>
+									<option class="hands" [value]=null>{{ 'COMMON.ALL' | translate }}{{ 'COMMON.DEPARTMENT' | translate }}</option>
 									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
 					 	<td class="none-border">
-							<span class="float-left mgl15 mgt7">提交者</span>
+							<span class="float-left mgl15 mgt7">{{ 'ORDER_MNG.SUBMITTER' | translate }}:</span>
 							<div class="dropdown float-left">
 								<select class="form-control  fix-width-120" [(ngModel)]="_param.buyerId">
-									<option class="hands" [value]="null">所有用户</option>
+									<option class="hands" [value]="null">{{ 'COMMON.ALL' | translate }}{{ 'COMMON.USERS' | translate }}</option>
 									<option class="hands" *ngFor = "let item of _buyerLoader.Items" [value] = "item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
 						<td class="none-border">
 							<div class="mgt-10">
-								<span class="mgt15 float-left mgt7">提交时间</span>
+								<span class="mgt15 float-left mgt7">{{ 'ORDER_MNG.SUBMISSION_TIME' | translate }}:</span>
 								<div class="dropdown float-left">			
 									<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
 								</div>
@@ -50,20 +50,20 @@
 					<tr class="none-border">
 						<td class="none-border " width="250px">
 							<span class="float-left mgt7" >
-							{{ 'ORDER_MNG_SEARCH.ORDER_STATUS' | translate }}</span>
+							{{ 'ORDER_MNG.ORDER_STATUS' | translate }}</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.status">
-									<option class="hands" [value]=null>{{ 'ORDER_MNG_SEARCH.ALL_STATUS' | translate }}</option>
+									<option class="hands" [value]=null>{{ 'ORDER_MNG.ALL_STATUS' | translate }}:</option>
 									<option class="hands" *ngFor="let item of _orderStatusDic.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
 						</td>
 						<td class="none-border ">
 							<span class="float-left mgt7" >
-							{{ 'ORDER_MNG_SEARCH.PRODUCT_TYPE' | translate }}</span>
+							{{ 'ORDER_MNG.PRODUCT_TYPE' | translate }}:</span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.serviceType">
-									<option class="hands" [value]=null>{{'ORDER_MNG_SEARCH.ALL_TYPES' | translate }}</option>
+									<option class="hands" [value]=null>{{'ORDER_MNG.ALL_TYPES' | translate }}:</option>
 									<option class="hands" *ngFor="let item of _productTypeDic.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
@@ -72,23 +72,23 @@
 				</tbody>
 			</table>	
 		</div>
-		<div class="mgb10 float-left">{{ 'ORDER_MNG_SEARCH.CURRENT_QUERY_TO' | translate }}<span class="font-green">{{_orderLoader.TotalRecords}}</span>{{ 'ORDER_MNG_SEARCH.ORDER_ORDER_LIST_IS_AS_FOLLOWS' | translate }}</div>
+		<div class="mgb10 float-left">{{ 'ORDER_MNG.CURRENT_QUERY_TO' | translate }}<span class="font-green">{{_orderLoader.TotalRecords}}</span>{{ 'ORDER_MNG.ORDER_ORDER_LIST_IS_AS_FOLLOWS' | translate }}</div>
 			<div class="table-container">
 			<table class="table table-all-boder">
 				<thead>	
 					<tr>
-						<th>{{ 'ORDER_MNG_SEARCH.NUMBER' | translate }}</th>
-						<th>{{ 'ORDER_MNG_SEARCH.ORDER_NUMBER' | translate }}</th>
-						<th>{{ 'ORDER_MNG_SEARCH.PRODUCT_TYPE' | translate }}</th>
-						<th>{{ 'ORDER_MNG_SEARCH.ORDER_TYPE' | translate }}</th>
-						<th>{{ 'ORDER_MNG_SEARCH.ORDER_STATUS' | translate }}</th>
-						<th>{{ 'ORDER_MNG_SEARCH.EXPENSE' | translate }}</th>
+						<th>{{ 'ORDER_MNG.NUMBER' | translate }}</th>
+						<th>{{ 'ORDER_MNG.ORDER_NUMBER' | translate }}</th>
+						<th>{{ 'ORDER_MNG.PRODUCT_TYPE' | translate }}</th>
+						<th>{{ 'ORDER_MNG.ORDER_TYPE' | translate }}</th>
+						<th>{{ 'ORDER_MNG.ORDER_STATUS' | translate }}</th>
+						<th>{{ 'ORDER_MNG.EXPENSE' | translate }}</th>
 						
-						<th>{{ 'ORDER_MNG_SEARCH.SUBMISSION_TIME' | translate }}</th>
-						<th>{{ 'ORDER_MNG_SEARCH.COMPLETION_TIME' | translate }}</th>
-						<th>{{ 'ORDER_MNG_SEARCH.SUBMITTER' | translate }}</th>
-						<th>{{ 'ORDER_MNG_SEARCH.DEPARTMENT' | translate }}</th>
-						<th>{{ 'ORDER_MNG_SEARCH.OPERATION' | translate }}</th>
+						<th>{{ 'ORDER_MNG.SUBMISSION_TIME' | translate }}</th>
+						<th>{{ 'ORDER_MNG.COMPLETION_TIME' | translate }}</th>
+						<th>{{ 'ORDER_MNG.SUBMITTER' | translate }}</th>
+						<th>{{ 'ORDER_MNG.DEPARTMENT' | translate }}</th>
+						<th>{{ 'ORDER_MNG.OPERATION' | translate }}</th>
 					</tr>			
 				</thead>
 				<tbody>
@@ -98,14 +98,14 @@
 						<td>{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
 						<td>{{item.orderType | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
 						<td>{{item.statusName}}</td>
-						<td>{{ 'ORDER_MNG_SEARCH.NONRECURRING_EXPENSE' | translate }}{{item.oncePrice}}<br>{{ 'ORDER_MNG_SEARCH.EXPENSE_$' | translate }}{{item.price}}
+						<td>{{ 'ORDER_MNG.NONRECURRING_EXPENSE' | translate }}:{{ 'COMMON.$' | translate }}{{item.oncePrice}}<br>{{ 'ORDER_MNG.EXPENSE_$' | translate }}:{{ 'COMMON.$' | translate }}{{item.price}}
 						</td>
 						<td>{{item.submitTime}}</td>
 						<td>{{item.EndTime}}</td>
 						<td>{{item.submitPeople}}</td>
 						<td>{{item.departmentName}}</td>
 						<td>
-							<button class="mgr20  button-gray-gradient" (click)="showDetail(item)">{{ 'ORDER_MNG_SEARCH.DETAILS' | translate }}</button>
+							<button class="mgr20  button-gray-gradient" (click)="showDetail(item)">{{ 'ORDER_MNG.DETAILS' | translate }}</button>
 							<!-- <button class="button-gray-gradient" data-toggle="modal" data-target="#cancelOrder">撤&nbsp;&nbsp;&nbsp;单</button> -->
 							
 						</td>
@@ -123,7 +123,7 @@
 				<div class="modal-content">
 				  	<div class="modal-header">
 					 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">{{ 'ORDER_MNG_SEARCH.ORDER_NUMBER_' | translate }}2370537538484773</h4>
+						<h4 class="modal-title" id="myModalLabel">{{ 'ORDER_MNG.ORDER_NUMBER_' | translate }}2370537538484773</h4>
 				  	</div>
 				 	<div class="modal-body"> 
 			          <!--<account-mng-cr-local></account-mng-cr-local>-->

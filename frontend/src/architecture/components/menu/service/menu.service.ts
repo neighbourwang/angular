@@ -15,8 +15,8 @@ export class MenuService {
 	userInfo = this.restApi.getLoginInfo().userInfo;
 
 	getMenuList(): Promise<any> {
-		const isOrgin: boolean = this.userInfo.roles.map(role => JSON.stringify(role)).join(",").indexOf('"企业管理员"') > -1; ;   //临时判断如果是机构管理员就显示审批设置
-
+		const isOrgin: boolean = this.userInfo.roles.map(role => JSON.stringify(role)).join(",").indexOf('"ENTERPRISE_ADMIN"') > -1; ;   //临时判断如果是机构管理员就显示审批设置
+// NORMAL_USER
 		return new Promise(resolve => {
 			resolve([
 				{

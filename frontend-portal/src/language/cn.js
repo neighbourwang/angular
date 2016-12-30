@@ -13,6 +13,7 @@ module.exports = {
 	PASSWORD : "密码",
 	BUYNOW: "立即购买",
 	PRODUCTPRICE: "产品价格",
+	LOGINOUT: "退出",
 	//header
 	HEADER_T1 : "产品与服务",
 	HEADER_T1_1 : "云主机服务",
@@ -34,7 +35,7 @@ module.exports = {
 	HEADER_T2 : "解决方案",
 	HEADER_T3 : "大数据",
 	//footer
-	FOOTERTEXT : "Copyright @ 2016京东方科技股份有限公司",
+	FOOTERTEXT : "Copyright @ 2016京东方科技集团股份有限公司",
 	//map
 	MAPTITLE : "超大规模数据中心遍布全国",
 	MAPNAME1 : "北京",
