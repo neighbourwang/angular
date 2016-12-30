@@ -26,5 +26,16 @@ export class PlatformDetailService {
         let api = this.restApiCfg.getRestApi("pf-mng-zonelist.get");
         return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
     }
+    //禁用平台可用区信息    
+    suspendZone (id:string){
+        let api = this.restApiCfg.getRestApi("pf-mng-zone.suspend");
+        return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
+    }
+    //启用平台可用区信息    
+    enableZone (id:string){
+        let api = this.restApiCfg.getRestApi("pf-mng-zone.enable");
+        return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
+    }
+     
    
 }

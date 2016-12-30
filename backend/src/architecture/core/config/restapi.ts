@@ -149,6 +149,18 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "platformaccess/noauth/platforms/{id}/zoneQuotas"
     },
+    {
+        "desc": "启用平台可用区信息",
+        "id": "pf-mng-zone.enable",
+        "method": "GET",
+        "url": "platformaccess/authsec/platform/zone/{id}/enable"
+    },
+    {
+        "desc": "禁用平台可用区信息",
+        "id": "pf-mng-zone.suspend",
+        "method": "GET",
+        "url": "platformaccess/authsec/platform/zone/{id}/suspend"
+    },
     //update镜像同步
     {
         "desc": "镜像同步",
@@ -1029,6 +1041,43 @@ export let RestApis: RestApiModel[] = [
         "id": "net-mng.vmware.port.enterprise.save",
         "method": "POST",
         "url": "adminboe/authsec/vmware/network/{id}/save/ent"
+    },
+    //VMware最外层导航页
+    {
+        "desc": "区域联动列表",
+        "id": "net-mng.vmware-index.regionlist.get",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/main/regionlist"
+    },
+    {
+        "desc": "集群列表",
+        "id": "net-mng.vmware-index.clusterlist.get",
+        "method": "GET",
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/main/clusterlist"
+    },
+    {
+        "desc": "NSX管理信息",
+        "id": "net-mng.vmware-index.nsxinfo.get",
+        "method": "GET",
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/main/nsxinfo/get"
+    },
+    {
+        "desc": "保存NSX管理信息",
+        "id": "net-mng.vmware-index.nsxinfo.save",
+        "method": "PUT",
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/main/nsxinfo/save"
+    },
+    {
+        "desc": "测试NSX管理信息",
+        "id": "net-mng.vmware-index.nsxinfo.test",
+        "method": "POST",
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/main/nsxinfo/test"
+    },
+    {
+        "desc": "更改网络类型",
+        "id": "net-mng.vmware-index.network.changetype",
+        "method": "PUT",
+        "url": "adminboe/authsec/vmware/network/main/changetype/clusterid/{cluster_id}"
     },
     //IP地址管理[标准网络]
     {
