@@ -248,8 +248,7 @@ export class cloudDriveComponentOrder implements OnInit {
 		};
         const alertValue = {
             
-			//platform : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_PLATFORM",
-            platform :plat,
+			platform : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_PLATFORM",
 			zone : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_AVAILABLE_ZONE",
 			disktype : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK",
 			storage : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK_TYPE",
