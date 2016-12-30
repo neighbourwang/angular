@@ -70,7 +70,7 @@
 					            [stepCheck]=true
 					            [value]="sendModule.diskinitialsize.attrValue" (output)="outputValue($event)"></count-bar>
 						</div>	
-						<div class="col-md-7 disk-tip">可以购买容量 {{sendModule.diskinitialsize.attrValue}}~{{sendModule.diskmaxsize.attrValue}}GB的云硬盘。{{sendModule.diskinitialsize.attrValue}}GB起，增加按照每{{sendModule.diskstepsize.attrValue}}GB一档。</div>
+						<div class="col-md-7 disk-tip">{{'CLOUD_DRIVE_ORDER.BUY_HEAD'| translate}} {{sendModule.diskinitialsize.attrValue}}~{{sendModule.diskmaxsize.attrValue}}{{'CLOUD_DRIVE_ORDER.BUY_MID_FIRST'| translate}}{{sendModule.diskinitialsize.attrValue}}{{'CLOUD_DRIVE_ORDER.BUY_MID_SECOND'| translate}}{{sendModule.diskstepsize.attrValue}}{{'CLOUD_DRIVE_ORDER.BUY_TAIL'| translate}}</div>
 					</div>
 					<div class="col-md-12 no-padding mgb15">
 						<div class="col-md-2 content-title">{{'CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_INSTANCE_NAME'| translate}}</div>
@@ -149,11 +149,11 @@
 	            <table style="width: 90%;line-height: 26px;">
 	                <tr>
 	                    <td>{{'COMMON.ONE_TIME_COSTS'| translate}}:</td>
-	                    <td><font class="font-orange">¥{{diskBasePrice}} 元</font></td>
+	                    <td><font class="font-orange">{{'COMMON.$'|translate}}{{diskBasePrice}} {{'COMMON.YUAN'|translate}}</font></td>
 	                </tr>
 	                <tr>
 	                    <td><font>{{'COMMON.EXPENSE'| translate}}:</font></td>
-	                    <td><font class="font-orange">¥{{diskTotalPrice}}</font><span class="float-right">{{'COMMON.BY_VOLUMN'| translate}}</span></td>
+	                    <td><font class="font-orange">{{'COMMON.$'|translate}}{{diskTotalPrice}}</font><span class="float-right">{{'COMMON.BY_VOLUMN'| translate}}</span></td>
 	                </tr>
 	            </table>
 			</div>

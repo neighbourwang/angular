@@ -256,7 +256,10 @@ export const TranslateCN = {
 
 
         //sub-add-storage
-        ADD_DATA_DISK: '增加数据盘'
+        ADD_DATA_DISK: '增加数据盘',
+        ADD_HEAD: '一共可以增加',
+        ADD_MIDDLE: '块，还可以增加',
+        ADD_TAIL:'块'
 
     },
     ORDER_MNG: {//_DATA_FAILED
@@ -421,6 +424,10 @@ export const TranslateCN = {
         CLOUD_HOST_INSTANCE_LIST: '云主机实例列表',
         CLOUD_HRAD_DISK_TYPE: '云硬盘类型',
         MOUNT_TO_CLOUD_HOST: '挂载到云主机',
+        BUY_HEAD: '可以购买容量',
+        BUY_MID_FIRST: 'GB的云硬盘。',
+        BUY_MID_SECOND: 'GB起，增加按照每',
+        BUY_TAIL:'GB一档。',
 
         //TS
         SUCCESSFULLY_ADDED_TO_SHOPPING_CART: '加入购物车成功!',
