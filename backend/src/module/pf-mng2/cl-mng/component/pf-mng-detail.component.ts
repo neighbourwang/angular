@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent ,dictPipe} from '../../../../architecture';
 
 import { PlatformDetailService } from '../service/pf-mng-detail.service';
+import { ZoneListService } from '../service/cl-mng-cre-step-3.service';
 
 import { ClMngCommonService } from '../service/cl-mng-common.service';
 
@@ -26,6 +27,7 @@ export class PfDetailComponent implements OnInit {
     constructor(private layoutService: LayoutService,
         private route: Router,
         private router: ActivatedRoute,
+        private zoneListService:ZoneListService,
         private platformDetailService: PlatformDetailService,
         private commonService: ClMngCommonService,
         private location: Location,
@@ -43,6 +45,8 @@ export class PfDetailComponent implements OnInit {
 
     @ViewChild('notice')
     notice: NoticeComponent;
+    @ViewChild('updateZone')
+    updateZone:PopupComponent;
 
     // 确认Box/通知Box的标题
     title: String = "";
@@ -50,8 +54,6 @@ export class PfDetailComponent implements OnInit {
     msg: String = "";
     // 云平台状态
     platFormStatus: Array<any> = new Array<any>();
-
-
     Tabels = [
         { name: '基本信息', active: true },
         { name: '可用区与配额', active: false },
@@ -65,6 +67,7 @@ export class PfDetailComponent implements OnInit {
     platform: Platform = new Platform();
     //可用区列表
     zoneList: Array<ZoneListModel>;
+    updateZoneList: Array<ZoneListModel>;
     //初始化
     ngOnInit() {
         let id: string;
@@ -92,8 +95,7 @@ export class PfDetailComponent implements OnInit {
                             if (ele.value == this.platform.platformType) {
                                 ele.isSelected = true;
                                 this.getVersion(ele.code);
-                            }
-                            
+                            }                            
                         })
                         this.getZoneList();
                         this.layoutService.hide();
@@ -152,7 +154,7 @@ export class PfDetailComponent implements OnInit {
     }
     //获取可用区列表
     getZoneList(){
-        this.platformDetailService.getZoneList(this.platform.id).then(
+        this.zoneListService.getZone(this.platform.id).then(
                     res => {
                         this.zoneList = res.resultContent;
                         this.zoneList.forEach(ele => {
@@ -165,6 +167,20 @@ export class PfDetailComponent implements OnInit {
                     }
                 ).catch(err=>{
                     console.error('获取可用区列表出错',err)
+                })
+        this.platformDetailService.getZoneList(this.platform.id).then(
+                    res => {
+                        this.updateZoneList = res.resultContent;
+                        this.updateZoneList.forEach(ele => {
+                            if (ele.quotaPercentage) {
+                                ele.quotaPercentDisplay = ele.quotaPercentage * 100;
+                            }
+                        })
+                        console.log('同步',res);
+                        
+                    }
+                ).catch(err=>{
+                    console.error('获取更新可用区列表出错',err)
                 })
     }
     //切换TAB

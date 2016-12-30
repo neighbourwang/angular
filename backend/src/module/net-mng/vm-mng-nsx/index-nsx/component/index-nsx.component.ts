@@ -57,7 +57,7 @@ export class VmNSXIndexComponent implements OnInit {
     noticeMsg = "";
 
     defaultDlr: dlr = new dlr();
-    selectedDlr: dlr = new dlr(); //当前选中的dlr
+    selectedDlr: dlr = this.defaultDlr; //当前选中的dlr
     
 
     platformId: string;
@@ -167,8 +167,8 @@ export class VmNSXIndexComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    viewDetail() {
-        this.detail.open('传输区域详细信息');
+    viewDetail(port:port) {
+        this.detail.open('NET_VM_NSX_INDEX.TRANSPORT_DETAIL');
     }
 
     //启用标准网络
@@ -277,6 +277,9 @@ export class VmNSXIndexComponent implements OnInit {
         }
     }
 
+    goBack() {
+        this.router.navigate([`net-mng/vm-mng-index/vmware-net-index`]);
+    }
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);

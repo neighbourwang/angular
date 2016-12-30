@@ -54,7 +54,8 @@ export class ClMngCreStep4Component implements OnInit {
                     }
                 })
                 //Openstack类型同步volumeType信息
-                if (this.platformType == 'OpenStack') {
+                console.log(this.platformType);
+                if (this.platformType == '0') {
                     this.service.getvolumeType(platFormId).then(
                         res => {
                             console.log(res);

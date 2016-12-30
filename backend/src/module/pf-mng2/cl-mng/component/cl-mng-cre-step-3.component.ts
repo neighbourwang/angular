@@ -12,7 +12,7 @@ import { ZoneListModel }  from '../model/cre-step3.model';
 
 import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../architecture';
 
-import { ClMngCreStep3Service } from '../service/cl-mng-cre-step-3.service'; 
+import { ZoneListService } from '../service/cl-mng-cre-step-3.service'; 
 
 import { ClMngIdService } from '../service/cl-mng-id.service';
 
@@ -31,7 +31,7 @@ export class ClMngCreStep3Component implements OnInit{
     constructor(
         private route:ActivatedRoute,
         private router : Router,
-        private service : ClMngCreStep3Service,
+        private service : ZoneListService,
         private layoutService : LayoutService,
         private idService : ClMngIdService
     ) {}

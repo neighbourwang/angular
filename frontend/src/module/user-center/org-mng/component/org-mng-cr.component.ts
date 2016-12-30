@@ -134,7 +134,8 @@ export class OrgMngCrComponent implements OnInit {
   //保存 给父组件调用
   save() {
     this.org.resource = this.resource;
-    if (this.orgForm.valid) {
+    console.log(this.org);
+    if (this.orgForm.valid||this.org.isDefault) {
       this.org.resource.mem *= 1024;
       this.org.resource.usedMem*=1024;
       if (!this.isEdit) {

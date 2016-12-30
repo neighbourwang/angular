@@ -1,4 +1,4 @@
-fis.set('project.ignore', ['*/node_modules/**','node_modules/**','fis-conf.js', '*/e2e/**', '*/src/**']);
+fis.set('project.ignore', ['*/node_modules/**','node_modules/**','fis-conf.js', '*/e2e/**', '*/src/**', '*/foxcloud-dist/**']);
 
 const RegBackend = /(?:backend\/dist\/(.*)\.*)|(?:backend-portal\/dist\/(.*)\.*)|(?:backend-portal(\/public\/.*)?\.*)/i;
 const RegFrontend = /(?:frontend\/dist\/(.*)\.*)|(?:frontend-portal\/dist\/(.*)\.*)|(?:frontend-portal(\/public\/.*)?\.*)/i;
