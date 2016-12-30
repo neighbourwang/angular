@@ -135,9 +135,9 @@
 						<td>{{item.createTimeStr}}</td>
 						<td>
 							<ul>
-								<li class="hands" [popover]="popover_result" *ngFor="let approveItem of item.checkResult | async">{{approveItem.reason}}</li>
+								<li class="hands" [popover]="popover_result" *ngFor="let approveItem of item.checkResult | async">{{approveItem.operation}}</li>
 							</ul>
-							<popover-content #popover_result [closeOnClickOutside]="true" placement="right" [animation]="true">
+							<popover-content #popover_result [closeOnClickOutside]="true" placement="bottom" [animation]="true">
 								<ul *ngFor="let approveItem of item.checkResult | async">
 									<li>{{'CHECK_CENTER.APPROVER' | translate}}:{{approveItem.approver}}</li>
 									<li>{{'CHECK_CENTER.APPROVAL_TIME' | translate}}:{{approveItem.operateTime}}</li>

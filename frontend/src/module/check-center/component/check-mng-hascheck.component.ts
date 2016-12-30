@@ -79,21 +79,19 @@ export class CheckMngHascheckComponent implements OnInit{
 				
 				obj.specList = item.specList; //获取产品信息
 
-				this._listLoader.Trait = (target:Array<CheckListItem>)=>{
+			}
+		};
+		this._listLoader.Trait = (target:Array<CheckListItem>)=>{
 			//处理字典
-			this._serviceTypeDic.UpdateWithDic(target, "serviceTypeName", "serviceTypeIdStr");
-			this._orderTypeDic.UpdateWithDic(target, "orderTypeNum", "orderTypeName");
-			this._billinModeDic.UpdateWithDic(target, "billingModeName", "billingModeNum")
+			// this._serviceTypeDic.UpdateWithDic(target, "serviceTypeName", "serviceTypeIdStr");
+			// this._orderTypeDic.UpdateWithDic(target, "orderTypeNum", "orderTypeName");
+			// this._billinModeDic.UpdateWithDic(target, "billingModeName", "billingModeNum")
 
 			for(let i = 0; i < target.length; i++)
 			{
 				this.getApproveReason(target[i]);
 			}
 		};
-
-			}
-		};
-	
 		//部门列表配置
 		this._departmentLoader = new ItemLoader<{id:string;name:string}>(false, "CHECK_CENTER.DEPARTMENTS_LIST", "op-center.order-mng.department-list.get", _restApiCfg, _restApi);
 

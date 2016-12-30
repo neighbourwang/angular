@@ -519,7 +519,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取审批意见",
         "id": "check-center.approve-info.get",
         "method": "GET",
-        "url": "marketplace/authsec/backend/approval/history/order/{orderId}"        
+        "url": "marketplace//authsec/order/approval/history/order/{orderId}"        
     }
     // 审批中心
 ]
