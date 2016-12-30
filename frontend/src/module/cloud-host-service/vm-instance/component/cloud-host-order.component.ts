@@ -73,8 +73,6 @@ export class cloudHostComponentOrder implements OnInit {
 	@ViewChild('cartButton') cartButton;
     @ViewChild('storage') storage;
 
-    @ViewChild('notice')
-	private noticeDialog: NoticeComponent;
 	// timeForever : boolean = false;
 
 	// rightFixed : boolean = false;   //让右侧配置起飞

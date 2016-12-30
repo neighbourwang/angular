@@ -35,9 +35,6 @@ export class cloudDriveComponentOrder implements OnInit {
 
 	@Input() options:OrderOptions;
 
-    @ViewChild('notice')
-	private noticeDialog: NoticeComponent;
-
 	configs: OrderList;
 	payLoad: PayLoad;
 	payLoadArr : PayLoad[];  //最后提交的是个PayLoad数组
