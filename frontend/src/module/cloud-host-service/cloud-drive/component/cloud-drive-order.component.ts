@@ -7,7 +7,11 @@
 import { Component, OnInit, Input , Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService } from '../../../../architecture';
+import { TranslateService } from 'ng2-translate'; 
+
+ 
+
+import { LayoutService,NoticeComponent } from '../../../../architecture';
 import { cloudDriveServiceOrder } from '../service/cloud-drive-order.service'
 
 import { AttrList, PayLoad } from '../model/attr-list.model';
@@ -23,7 +27,10 @@ export class cloudDriveComponentOrder implements OnInit {
 
 	@ViewChild('cartButton') cartButton;
 
-	@Input() options:OrderOptions;
+    @Input() options: OrderOptions;
+
+    @ViewChild('notice')
+	private noticeDialog: NoticeComponent;
 
 	configs: OrderList;
 	payLoad: PayLoad;
@@ -46,7 +53,8 @@ export class cloudDriveComponentOrder implements OnInit {
 
 	isAttachVm: boolean = false;
 
-	constructor(
+    constructor(
+        private translateService: TranslateService,
 		private layoutService: LayoutService,
 		private router: Router,
 		private service:cloudDriveServiceOrder
@@ -203,8 +211,9 @@ export class cloudDriveComponentOrder implements OnInit {
 		this.layoutService.show();
 		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
 		this.service.addCart(payLoadArr).then(res => {
-			this.layoutService.hide();
-			alert("CLOUD_DRIVE_ORDER.SUCCESSFULLY_ADDED_TO_SHOPPING_CART");
+            this.layoutService.hide();
+          
+            this.noticeDialog.open("","CLOUD_DRIVE_ORDER.SUCCESSFULLY_ADDED_TO_SHOPPING_CART");
 			this.cartButton.setCartList();
 			// this.router.navigateByUrl("cloud-host-service/cloud-host-list");
 		}).catch(res => {
@@ -230,9 +239,14 @@ export class cloudDriveComponentOrder implements OnInit {
 			storage : () => !!this.sendModule.storage.attrValue,
 			diskinsname : () =>  !this.sendModule.diskinsname.attrValue || /^[a-zA-Z\u4e00-\u9fa5].{1,67}/.test(this.sendModule.diskinsname.attrValue)
 		};
-
-		const alertValue = {
-			platform : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_PLATFORM",
+        let plat = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(),
+            'CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_PLATFORM', null);
+              
+        console.log(plat);
+        const alertValue = {
+            
+			//platform : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_PLATFORM",
+            platform :plat,
 			zone : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_AVAILABLE_ZONE",
 			disktype : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK",
 			storage : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK_TYPE",

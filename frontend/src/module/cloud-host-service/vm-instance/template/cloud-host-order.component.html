@@ -3,7 +3,7 @@
 		<h1 (click)="payLoadFormat()" class="page-content-header">{{options.title}}</h1>
 		<ul class="left-box">
 			<li>
-				<div class="col-md-1 li-title">
+				<div class="col-md-1 li-title">                  
 					<p><span class="icon-location"></span><br>{{'COMMON.AREA'| translate}}</p>
 				</div>
 				<div class="col-md-12 li-content">
@@ -301,3 +301,5 @@
 		</div>
 	</div>
 </div>
+
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalnotice()"></fc-notice>

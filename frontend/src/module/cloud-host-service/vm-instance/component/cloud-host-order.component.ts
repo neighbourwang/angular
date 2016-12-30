@@ -17,7 +17,7 @@
 import { Component, ViewChild, Input, Output, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService } from '../../../../architecture';
+import { LayoutService,NoticeComponent } from '../../../../architecture';
 import { cloudHostServiceOrder } from '../service/cloud-host-order.service';
 
 import { AttrList, PayLoad } from '../model/attr-list.model';
@@ -58,7 +58,10 @@ export class cloudHostComponentOrder implements OnInit {
 
 
 	@ViewChild('cartButton') cartButton;
-	@ViewChild('storage') storage;
+    @ViewChild('storage') storage;
+
+    @ViewChild('notice')
+	private noticeDialog: NoticeComponent;
 	// timeForever : boolean = false;
 
 	// rightFixed : boolean = false;   //让右侧配置起飞
@@ -389,7 +392,7 @@ export class cloudHostComponentOrder implements OnInit {
 		this.layoutService.show();
 		this.service.addCart(payLoadArr).then(res => {
 			this.layoutService.hide();
-			alert("加入购物车成功！");
+			this.noticeDialog.open("","CLOUD_DRIVE_ORDER.SUCCESSFULLY_ADDED_TO_SHOPPING_CART");
 			this.cartButton.setCartList();
 			// this.router.navigateByUrl("cloud-host-service/cloud-host-list");
 		}).catch(res => {
