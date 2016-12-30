@@ -10,7 +10,7 @@ import { ZoneListModel } from '../model/cre-step3.model';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class ClMngCreStep3Service {
+export class ZoneListService {
     constructor(private http:Http,
                 private restApiCfg:RestApiCfg,
                 private restApi:RestApi) {

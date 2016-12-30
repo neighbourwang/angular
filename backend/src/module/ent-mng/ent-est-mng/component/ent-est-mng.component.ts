@@ -65,7 +65,7 @@ export class EntEstMngComponent implements OnInit {
         target.push(obj);
 
         _.extendOwn(obj, item);
-        obj.memroyQuota = item.memQuota;// : number = null;//": 0,//可用内存数量
+        obj.memroyQuota = item.memQuota/1024;// : number = null;//": 0,//可用内存数量
         obj.physicalQuota = item.physicalMachineQuota;// : number = null;//": 0,//可创建物理机数量
         obj.snapShotQuota = item.snapshotQuota;// : number = null;//": 0,//可创建快照数量
         obj.enterpriseId = obj.enterpriseId || this.getSelected().enterpriseId;
@@ -373,6 +373,7 @@ export class EntEstMngComponent implements OnInit {
     if(this.validateQuotaModify())
     {
       this.editQuota.close();
+      this.entEstResource.FirstItem.memroyQuota = this.entEstResource.FirstItem.memroyQuota*1024;
       this.service.updateEntQuota(this.entEstResource.FirstItem)
       .then(ret=>{
         this.search(null);//刷新
