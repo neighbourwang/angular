@@ -17,7 +17,7 @@
 import { Component, ViewChild, Input, Output, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService,NoticeComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
 import { cloudHostServiceOrder } from '../service/cloud-host-order.service';
 
 import { AttrList, PayLoad } from '../model/attr-list.model';
@@ -37,7 +37,20 @@ export class cloudHostComponentOrder implements OnInit {
 	sendModule: SendModule;
 	setPassword: boolean = true;
 
+	@ViewChild('confirm')
+	private confirmDialog: ConfirmComponent;
+
+	@ViewChild('notice')
+	private noticeDialog: NoticeComponent;
+
+	@ViewChild('popup')
+	private popup: PopupComponent;
+
 	@Input() options: OrderOptions;
+
+	modalTitle: string = '';
+	modalMessage: string = '';
+	modalOKTitle: string = '';
 
 	totalPrice: number = 0;
 	vmSku: SkuMap = new SkuMap;
@@ -454,7 +467,7 @@ export class cloudHostComponentOrder implements OnInit {
 	}
 
 	checkInput(): boolean {
-		const al = value => !!alert(value);
+		const al = value => !!this.showNotice("提示",value);
 
 		// if(!this.vmSku.skuId) return al("sku不正确");
 
@@ -478,4 +491,14 @@ export class cloudHostComponentOrder implements OnInit {
 			this.layoutService.hide();
 		})
 	}
+
+
+	// 警告框相关
+	showNotice(title: string, msg: string) {
+	    this.modalTitle = title;
+	    this.modalMessage = msg;
+
+	    this.noticeDialog.open();
+	}
+	modalAction() {}
 }

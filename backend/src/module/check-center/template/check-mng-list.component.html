@@ -123,7 +123,7 @@
 						<td>{{item.serviceTypeName}}</td>
 						<td>{{item.platformStr}}<br/>
 						    {{item.zoneStr}}</td>
-						<td>{{item.orderTypeName}}</td>
+						<td>{{item.orderTypeNum}}</td>
 						<td>{{item.description}}</td>
 						<td>{{item.userStr}}</td>
 						<td>{{item.departmentStr}}</td>
@@ -134,7 +134,7 @@
 							<br/>费用：{{item.priceNum}}
 						</td>
 						<td>{{item.createTimeStr}}</td>
-						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white mgb5" (click)="accept(item)">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white" (click)="refuse(item)">拒绝</button></td>
+						<td><button class=" fox-cloud-button-sm  fox-cloud-button-white mgb5 mgr5" (click)="accept(item)">同意</button><button class=" fox-cloud-button-sm fox-cloud-button-white" (click)="refuse(item)">拒绝</button></td>
 					</tr>					
 				</tbody>
 			</table>

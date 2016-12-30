@@ -101,7 +101,8 @@ export class cloudDriveListComponent implements OnInit {
 	popupCf(){}
 	popupOf(){
 		this.service.deleteDisk(this.radioSelected.subInstanceId).then(res => {
-			this.showNotice("退订云硬盘", "已发起退订流程（系统处理需要一定的时间，请勿重复退订）！");
+			this.showNotice("退订云硬盘", "退订成功！");
+			this.setDistList();
 		}).catch(e => {
 			this.showNotice("退订云硬盘", "退订失败！");
 		})
