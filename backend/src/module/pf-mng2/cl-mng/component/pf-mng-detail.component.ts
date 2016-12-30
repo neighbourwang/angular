@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent ,dictPipe} from '../../../../architecture';
 
 import { PlatformDetailService } from '../service/pf-mng-detail.service';
+import { ZoneListService } from '../service/cl-mng-cre-step-3.service';
 
 import { ClMngCommonService } from '../service/cl-mng-common.service';
 
@@ -26,6 +27,7 @@ export class PfDetailComponent implements OnInit {
     constructor(private layoutService: LayoutService,
         private route: Router,
         private router: ActivatedRoute,
+        private zoneListService:ZoneListService,
         private platformDetailService: PlatformDetailService,
         private commonService: ClMngCommonService,
         private location: Location,
@@ -152,7 +154,7 @@ export class PfDetailComponent implements OnInit {
     }
     //获取可用区列表
     getZoneList(){
-        this.platformDetailService.getZoneList(this.platform.id).then(
+        this.zoneListService.getZone(this.platform.id).then(
                     res => {
                         this.zoneList = res.resultContent;
                         this.zoneList.forEach(ele => {
@@ -165,6 +167,20 @@ export class PfDetailComponent implements OnInit {
                     }
                 ).catch(err=>{
                     console.error('获取可用区列表出错',err)
+                })
+        this.platformDetailService.getZoneList(this.platform.id).then(
+                    res => {
+                        this.zoneList = res.resultContent;
+                        this.zoneList.forEach(ele => {
+                            if (ele.quotaPercentage) {
+                                ele.quotaPercentDisplay = ele.quotaPercentage * 100;
+                            }
+                        })
+                        console.log(res);
+                        
+                    }
+                ).catch(err=>{
+                    console.error('获取更新可用区列表出错',err)
                 })
     }
     //切换TAB

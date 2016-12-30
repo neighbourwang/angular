@@ -41,7 +41,7 @@ import { ClMngIdService } from './service/cl-mng-id.service';
 
 import { ClMngCreStep2Service } from './service/cl-mng-cre-step-2.service';
 
-import { ClMngCreStep3Service } from './service/cl-mng-cre-step-3.service'; 
+import { ZoneListService } from './service/cl-mng-cre-step-3.service'; 
 
 import { ClMngCreStep4Service } from './service/cl-mng-cre-step-4.service'; 
 
@@ -80,7 +80,7 @@ import { PlatformDetailService } from './service/pf-mng-detail.service';
         ClMngCreStep1Service,
         ClMngIdService,
         ClMngCreStep2Service,
-        ClMngCreStep3Service,
+        ZoneListService,
         ClMngCreStep4Service,
         ClMngCreStep5Service,
         ClMngCreStep6Service,
