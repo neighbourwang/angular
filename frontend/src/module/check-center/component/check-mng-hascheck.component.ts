@@ -11,7 +11,7 @@ import { RestApi
 	, DicLoader
 	, ItemLoader } from '../../../architecture';
 import {DictService} from '../../../architecture/core/service/dict-service';
-import { CheckCenterParam,CheckListItem } from './../model';
+import { CheckCenterParam,CheckListItem,ApproveItem } from './../model';
 import * as _ from 'underscore';
 
 @Component({
@@ -33,6 +33,7 @@ export class CheckMngHascheckComponent implements OnInit{
 	private _checkerLoader:ItemLoader<{id:string;name:string}> = null;//审批人列表
 
 	private _entId:string = "191af465-b5dc-4992-a5c9-459e339dc719";
+	private _billinModeDic:DicLoader = null; //计费模式
 
 	private _listLoader:ItemLoader<CheckListItem> = null;//列表数据加载
 	constructor(
@@ -78,6 +79,18 @@ export class CheckMngHascheckComponent implements OnInit{
 				
 				obj.specList = item.specList; //获取产品信息
 
+				this._listLoader.Trait = (target:Array<CheckListItem>)=>{
+			//处理字典
+			this._serviceTypeDic.UpdateWithDic(target, "serviceTypeName", "serviceTypeIdStr");
+			this._orderTypeDic.UpdateWithDic(target, "orderTypeNum", "orderTypeName");
+			this._billinModeDic.UpdateWithDic(target, "billingModeName", "billingModeNum")
+
+			for(let i = 0; i < target.length; i++)
+			{
+				this.getApproveReason(target[i]);
+			}
+		};
+
 			}
 		};
 	
@@ -117,6 +130,8 @@ export class CheckMngHascheckComponent implements OnInit{
 
 
 	}
+
+	
 	ngOnInit(){
 		this._layoutService.show();
 		this._serviceTypeDic.Go()
@@ -247,5 +262,12 @@ export class CheckMngHascheckComponent implements OnInit{
 	resetParam(){
 		this._param.reset();
 		this._submiterLoader.clear();
+	}
+
+	
+
+	getApproveReason(orderItem:CheckListItem){
+		let itemLoader = new ItemLoader<ApproveItem>(false, "审批结果加载出错", "check-center.approve-info.get", this._restApiCfg, this._restApi);
+		orderItem.checkResult = itemLoader.Go(null, [{key:"orderId", value:orderItem.orderId}]);
 	}
 }

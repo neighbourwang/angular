@@ -92,76 +92,77 @@
 		</div>
 		<div class="mgb10 float-left">当前查询到{{_listLoader.TotalRecords}}个订单需要审批，查询结果如下：</div>
 			<div class="table-container">
-			<table class="table table-hover border-gray">
-				<thead>	
-					<tr class="border-gray">
-						<th>编号</th>
-						<th>订单号</th>
-						<th>产品类型</th>
-						<th>所在区域及可用区</th>
-						<th>订单类型</th>
-						<th>订单描述</th>
-						<th>提交者</th>
-						<th>部门</th>
-						<th>企业</th>
-						<th>费用</th>
-						<th>创建时间</th>
-						<th>审批结果</th>
-					</tr>			
-				</thead>
-				<tbody>
-					<tr class="border-gray" *ngFor="let item of _listLoader.Items;let i=index;">
-						<td>{{i + 1}}</td>
-						<td>{{item.orderCodeStr}}<br>
-							<a [popover]="myPopover" class="hands">详细信息>>>></a>
-							<popover-content #myPopover 
-								placement="right"
+				<table class="table table-hover border-gray">
+					<thead>	
+						<tr class="border-gray">
+							<th>编号</th>
+							<th>订单号</th>
+							<th>产品类型</th>
+							<th>所在区域及可用区</th>
+							<th>订单类型</th>
+							<th>订单描述</th>
+							<th>提交者</th>
+							<th>部门</th>
+							<th>企业</th>
+							<th>费用</th>
+							<th>创建时间</th>
+							<th>审批结果</th>
+						</tr>			
+					</thead>
+					<tbody>
+						<tr class="border-gray" *ngFor="let item of _listLoader.Items;let i=index;">
+							<td>{{i + 1}}</td>
+							<td>{{item.orderCodeStr}}<br>
+								<a [popover]="myPopover" class="hands">详细信息>>>></a>
+								<popover-content #myPopover 
+									placement="right"
+									[animation]="true" 
+									[closeOnClickOutside]="true" >
+									<ul>
+										<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}:{{spec.attrDisplayValue}}</li>
+									</ul>
+							</popover-content>
+							</td>
+							<td>{{item.serviceTypeName}}</td>
+							<td>{{item.platformStr}}<br/>
+								{{item.zoneStr}}</td>
+							<td>{{item.orderTypeName}}</td>
+							<td>{{item.description}}</td>
+							<td>{{item.userStr}}</td>
+							<td>{{item.departmentStr}}</td>
+							<td>{{item.entStr}}</td>
+							<td>计费模式：{{item.billingModeName}}
+								<br/>订单周期：{{item.billingDurationStr}}
+								<br/>一次性费用：{{item.oneTimePriceNum}}
+								<br/>费用：{{item.priceNum}}
+							</td>
+							<td>{{item.createTimeStr}}<br>
+								<a class="hands" [popover]="checkPopover">审批详细>>>></a>
+
+								<popover-content #checkPopover 
+								placement="left"
 								[animation]="true" 
 								[closeOnClickOutside]="true" >
+
+									<ul *ngFor="let approveItem of item.checkResult | async">
+										<li>审批人：&nbsp;&nbsp;{{approveItem.approver}}</li>
+										<li>审批时间：&nbsp;&nbsp;{{approveItem.operateTime}}</li>
+										<li>审批意见：&nbsp;&nbsp;{{approveItem.reason}}</li>			
+									</ul>
+
+							</popover-content>
+
+							</td>
+							<td>
 								<ul>
-									<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}:{{spec.attrDisplayValue}}</li>
+									<li *ngFor="let approveItem of item.checkResult | async">{{approveItem.reason}}</li>
 								</ul>
-						</popover-content>
-					    </td>
-						<td>{{item.serviceTypeName}}</td>
-						<td>{{item.platformStr}}<br/>
-						    {{item.zoneStr}}</td>
-						<td>{{item.orderTypeName}}</td>
-						<td>{{item.description}}</td>
-						<td>{{item.userStr}}</td>
-						<td>{{item.departmentStr}}</td>
-						<td>{{item.entStr}}</td>
-						<td>计费模式：{{item.billingModeName}}
-							<br/>订单周期：{{item.billingDurationStr}}
-							<br/>一次性费用：{{item.oneTimePriceNum}}
-							<br/>费用：{{item.priceNum}}
-						</td>
-						<td>{{item.createTimeStr}}<br>
-							<a class="hands" [popover]="checkPopover">审批详细>>>></a>
-
-							<popover-content #checkPopover 
-							placement="left"
-							[animation]="true" 
-							[closeOnClickOutside]="true" >
-
-								<ul *ngFor="let approveItem of item.checkResult | async">
-									<li>审批人：&nbsp;&nbsp;{{approveItem.approver}}</li>
-									<li>审批时间：&nbsp;&nbsp;{{approveItem.operateTime}}</li>
-									<li>审批意见：&nbsp;&nbsp;{{approveItem.reason}}</li>			
-								</ul>
-
-						</popover-content>
-
-						</td>
-						<td>
-							<ul>
-								<li *ngFor="let approveItem of item.checkResult | async">{{approveItem.reason}}</li>
-							</ul>
-						</td>
-						<!-- <td>{{item.checkResultName}}</td> -->
-					</tr>
-				</tbody>
-			</table>
-		</div>
+							</td>
+							<!-- <td>{{item.checkResultName}}</td> -->
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<fc-pagination tp={{_listLoader.TotalPages}} (pf)="changePage($event)"></fc-pagination>
 	</div>
 </div>
