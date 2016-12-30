@@ -2,40 +2,43 @@
     VMware网络管理
 </div>
 <div class="page-content">
+
     <div class="mgb20" style="margin-top:10px">
         <div class="pull-left mgr20">
-            <select class="form-control">
-                <option >选择地域</option>
-                <option>地域</option>
-                <option>所有</option>
+            <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedDC=defaultDC;selectedPlatform=defaultPlatform">
+                <option [ngValue]="defaultRegion">选择地域</option>
+                <option *ngFor="let region of regionList" [ngValue]="region">{{region.regionName}}</option>
+            </select>
+        </div>        
+        <div class="pull-left  mgr20">
+            <select class="form-control" [(ngModel)]="selectedDC" (change)="selectedPlatform=defaultPlatform">
+                <option [ngValue]="defaultDC">选择数据中心</option>
+                <option *ngFor="let dc of selectedRegion.dcList" [ngValue]="dc">{{dc.dcName}}</option>
             </select>
         </div>
-        <div class="pull-left  mgr20" >
-            <select class="form-control">
-                <option >选择数据中心</option>
-                <option>数据中心1</option>
-                <option>数据中心2</option>
+        
+        <div class="pull-left mgr20">
+            <select class="form-control" [(ngModel)]="selectedPlatform" (click)="queryOpt.platformId = selectedPlatform.platformId; queryOpt.platformName = selectedPlatform.platformName; queryOpt.platformUrl = selectedPlatform.platformUrl;">
+                <option [ngValue]="defaultPlatform">平台显示名称+连接URL https://192.168.1.1:443</option>
+                <option *ngFor="let pf of selectedDC.platformList" [ngValue]="pf">{{pf.platformName}}</option>
             </select>
         </div>
-        <div class="pull-left mgr20" >
-            <select class="form-control">
-                <option >平台显示名称+连接URL https://192.168.1.1:443</option>
-                <option></option>
-            </select>
-        </div>
+        
         <div class="pull-left  mgr20 ">
-            <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px"> 确定</button>
+            <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" (click)="search()"> 确定</button>
         </div>
     </div>
+
+    
     <div class="clear"></div>
     <div class="row mgb10 mgt10" >
-        <span class="pull-left pdl15" style="display:inline-block;font-size:16px;padding:6px 0">
+        <span class="pull-left pdl15" style="display:inline-block;font-size:16px;padding:6px 0" >
             NSX管理信息:http://xxx.xxxx.xxx.xx:8080
         </span>
     </div>
     <div class="mgb20">
-        <button class="fox-cloud-button fox-cloud-button-green">设置NSX管理信息</button>
-        <button class="fox-cloud-button fox-cloud-button-green">设置网络类型</button>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="setNsxMngInfo()">设置NSX管理信息</button>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="setNetworkType()">设置网络类型</button>
         <button class="fox-cloud-button fox-cloud-button-green pull-right mgr5" (click)="gotoVMStdNetMng()">管理标准网络</button>
         <button class="fox-cloud-button fox-cloud-button-green pull-right mgr5" (click)="gotoVMDbtNetMng()">管理分布式网络</button>
         <button class="fox-cloud-button fox-cloud-button-green pull-right mgr5" (click)="gotoVMNsxNetMng()">管理NSX网络</button>
@@ -52,20 +55,91 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                <td>DC1</td>
-                <td>Cluster1</td>
-                <td>生产区1</td>
-                <td>NSX网络</td>
+            <tr *ngFor="let net of networkList; let i=index;">
+                <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="net.checked" (change)="selectItem(i); selectedNet = net;" value="{{i}}"></td>
+                <td>{{net.dcName}}</td>
+                <td>{{net.clusterName}}</td>
+                <td>{{net.clusterDisplayName}}</td>
+                <td>{{net.networkType}}</td>
+                
             </tr>
             </tbody>
         </table>
     </div>
     <div style="height:200px"></div>
-    <!--{{queryOpt.toString()}}-->
+    {{queryOpt.toString()}}
+    <br />
+    {{queryOpt.toString()}}
 </div>
 
+<!-- <td>{{net.networkType | dict:this.service.typeDict | async}}</td> -->
 
+
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" (of)="okClicked()"></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" (of)="onConfirmed()"></fc-confirm>
+
+
+<fc-popup #setnsxmnginfo ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="设置NSX管理信息{{'NET_MNG_VM_IP_MNG.SET_IP_SUBNET' | translate}}" (of)="acceptNsxMngInfoModify()" (cf)="cancelNsxMngInfoModify()">
+
+	<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>NSX版本：</div>
+					<div class="col-sm-8">
+					    <input type="string" class="form-control input-control" [(ngModel)]="changedNsxMngInfo.nsxVer">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>NSX管理地址：</div>
+					<div class="col-sm-8">
+					    <input type="string" class="form-control input-control" [(ngModel)]="changedNsxMngInfo.nsxAddress">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>管理用户名：</div>
+					<div class="col-sm-8">
+					<input type="string" class="form-control input-control" [(ngModel)]="changedNsxMngInfo.userName">
+					</div>
+				</div>
+			</div>
+            <div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>管理密码：</div>
+					<div class="col-sm-6">
+					<input type="string" class="form-control input-control" [(ngModel)]="changedNsxMngInfo.adminPassword">
+					</div>
+                    <div class="col-sm-2">
+                        <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" (click)="search()"> 确定</button>
+                    </div>
+				</div>
+			</div>
+	</div>
+</fc-popup>
+
+<fc-popup #setnettype ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="为可用区(集群)设置网络类型{{'NET_MNG_VM_IP_MNG.SET_IP_SUBNET' | translate}}" (of)="acceptNetworkTypeModify()" (cf)="cancelNetworkTypeModify()">
+
+	<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+                    <!-- <input type="radio" class="fox-cloud-radio" name="radio" [checked]="net.checked" (change)="selectItem(i); selectedNet = net;" value="{{i}}"> -->
+                    <input type="radio" class="fox-cloud-radio" name="radio"> NSX网络
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<input type="radio" class="fox-cloud-radio" name="radio"> 分布式网络
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<input type="radio" class="fox-cloud-radio" name="radio"> 标准网络
+				</div>
+			</div>
+	</div>
+</fc-popup>
 
 
