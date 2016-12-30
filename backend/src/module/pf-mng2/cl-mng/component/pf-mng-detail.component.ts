@@ -45,6 +45,8 @@ export class PfDetailComponent implements OnInit {
 
     @ViewChild('notice')
     notice: NoticeComponent;
+    @ViewChild('updateZone')
+    updateZone:PopupComponent;
 
     // 确认Box/通知Box的标题
     title: String = "";
@@ -52,8 +54,6 @@ export class PfDetailComponent implements OnInit {
     msg: String = "";
     // 云平台状态
     platFormStatus: Array<any> = new Array<any>();
-
-
     Tabels = [
         { name: '基本信息', active: true },
         { name: '可用区与配额', active: false },
@@ -67,6 +67,7 @@ export class PfDetailComponent implements OnInit {
     platform: Platform = new Platform();
     //可用区列表
     zoneList: Array<ZoneListModel>;
+    updateZoneList: Array<ZoneListModel>;
     //初始化
     ngOnInit() {
         let id: string;
@@ -94,8 +95,7 @@ export class PfDetailComponent implements OnInit {
                             if (ele.value == this.platform.platformType) {
                                 ele.isSelected = true;
                                 this.getVersion(ele.code);
-                            }
-                            
+                            }                            
                         })
                         this.getZoneList();
                         this.layoutService.hide();
@@ -170,13 +170,13 @@ export class PfDetailComponent implements OnInit {
                 })
         this.platformDetailService.getZoneList(this.platform.id).then(
                     res => {
-                        this.zoneList = res.resultContent;
-                        this.zoneList.forEach(ele => {
+                        this.updateZoneList = res.resultContent;
+                        this.updateZoneList.forEach(ele => {
                             if (ele.quotaPercentage) {
                                 ele.quotaPercentDisplay = ele.quotaPercentage * 100;
                             }
                         })
-                        console.log(res);
+                        console.log('同步',res);
                         
                     }
                 ).catch(err=>{

@@ -566,5 +566,8 @@ export const TranslateCN = {
         SAVE:'保存',
         SAVE_SUCCESS:'保存成功！'
 
+    },
+    NET_VM_NSX_INDEX: {
+        TRANSPORT_DETAIL:'传输区域详细信息'
     }
 }

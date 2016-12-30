@@ -51,13 +51,13 @@ export class CheckMngHascheckComponent implements OnInit{
 		//列表数据加载
 		this._listLoader = new ItemLoader<CheckListItem>(true, "已审批列表", "check-center.not-checked.list", _restApiCfg, _restApi);
 		this._listLoader.MapFunc = (source:Array<any>, target:Array<CheckListItem>)=>{
-			let obj = new CheckListItem();
-			target.push(obj);
 
 			for(let item of source)
 			{
 				let obj = new CheckListItem();
 				target.push(obj);
+				_.extendOwn(obj, item);
+				
 				obj.orderId = item.orderId;
 				obj.orderCodeStr = item.orderNo;//订单编号
 				obj.serviceTypeIdStr = item.serviceType;//产品类型
@@ -68,7 +68,7 @@ export class CheckMngHascheckComponent implements OnInit{
 				obj.departmentStr = item.departmentName;// 部门
 				obj.entStr = item.enterpriseName;// 企业
 				//obj.checkResultName = item.operation;//审批结果
-				obj.checkResultName = '同意';
+				//obj.checkResultName = '同意';
 				//费用
 				obj.billingModeNum =item.billingInfo ? item.billingInfo.billingMode: null; //计费模式
 				obj.billingDurationStr = item.period;//订单周期
@@ -91,7 +91,7 @@ export class CheckMngHascheckComponent implements OnInit{
 				obj.description = item.orderDesc; //描述	
 
 				obj.specList = item.specList; //获取产品信息
-
+				
 
 			}
 		};

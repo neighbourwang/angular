@@ -416,6 +416,9 @@ export class VmwareStdNetComponent implements OnInit {
         }
     }
 
+    goBack() {
+        this.router.navigate([`net-mng/vm-mng-index/vmware-net-index`]);
+    }
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);

@@ -96,7 +96,7 @@ export const TranslateCN = {
         CONFIGURATION: '配置',
         CURRENT_CONFIGURATION: '当前配置',
         STORAGE: '存储',
-        STORAGE_TYPE: '储存类型',
+        STORAGE_TYPE: '存储类型',
         SNAPSHOT: '快照',
         CONSOLE: '控制台',
         PHYSICAL_MACHINE: '物理机',

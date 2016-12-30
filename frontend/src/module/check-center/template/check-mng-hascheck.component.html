@@ -1,6 +1,6 @@
 <fc-notice #notice ot="{{'DIALOG.CONFIRM'|translate}}"></fc-notice>
 <div class="CheckMngList">
-	<div class="page-content-header icon-order-manage header-title">{{'CHECK_CENTER.APPROVED_LIST' | translate}}</div>
+	<div class="page-content-header icon-order-manage">{{'CHECK_CENTER.APPROVED_LIST' | translate}}</div>
 	<div class="page-content">
 		<div class="table-container">
 			<div class="search-container">
@@ -133,13 +133,15 @@
 						 	{{'CHECK_CENTER.ONE_TIME_COSTS' | translate}}:<span class="font-red">{{item.oneTimePriceNum}}</span><br>
 						 	{{'CHECK_CENTER.COST' | translate}}:<span class="font-red">{{item.priceNum}}</span></td>
 						<td>{{item.createTimeStr}}</td>
-						<td class="font-green">
-							<a class="hands" [popover]="popover_result">{{item.checkResultName}}</a>
-							<popover-content #popover_result [closeOnClickOutside]="true" placement="right" [animation]="true">
-								<ul>
-									<li>{{'CHECK_CENTER.APPROVER' | translate}}:李四</li>
-									<li>{{'CHECK_CENTER.APPROVAL_TIME' | translate}}:{{'CHECK_CENTER.APPROVAL_TIME' | translate}}</li>
-									<li>{{'CHECK_CENTER.APPROVAL_COMMENTS' | translate}}：{{item.checkResultName}}</li>
+						<td>
+							<ul>
+								<li class="hands" [popover]="popover_result" *ngFor="let approveItem of item.checkResult | async">{{approveItem.operation}}</li>
+							</ul>
+							<popover-content #popover_result [closeOnClickOutside]="true" placement="bottom" [animation]="true">
+								<ul *ngFor="let approveItem of item.checkResult | async">
+									<li>{{'CHECK_CENTER.APPROVER' | translate}}:{{approveItem.approver}}</li>
+									<li>{{'CHECK_CENTER.APPROVAL_TIME' | translate}}:{{approveItem.operateTime}}</li>
+									<li>{{'CHECK_CENTER.APPROVAL_COMMENTS' | translate}}：{{approveItem.reason}}</li>
 								</ul>
 							</popover-content>
 						</td>
