@@ -99,7 +99,7 @@ export class OrgMngService {
     curEntId: string;
     getCurEntId() {
         let api = this.restApiCfg.getRestApi("user-center.org-mng.currentEnterpriseID.get");
-        if (!this.curEntId) {
+        // if (!this.curEntId) {
             return this.restApi.request(api.method, api.url, [], undefined).then(
                 res => {
                     console.log('当前账户企业ID', res);
@@ -114,19 +114,19 @@ export class OrgMngService {
                     console.error('获取当前切ID失败');
                 }
                 );
-        } else {
-            return new Promise(resovle => setTimeout(resovle, 10)).then(() => {
-                this.getCurEntResource(this.curEntId);
-                // return this.curEntId
-            });
-        }
+        // } else {
+        //     return new Promise(resovle => setTimeout(resovle, 10)).then(() => {
+        //         this.getCurEntResource(this.curEntId);
+        //         // return this.curEntId
+        //     });
+        // }
     }
     //获得当前登陆人企业资源
     entResourceObj: EntResource=new EntResource();
     getCurEntResource(id: string) {
         let api = this.restApiCfg.getRestApi("user-center.org-mng.currEntResoure.get");
         console.log(this.entResourceObj.enterpriseId);
-        if (!this.entResourceObj.enterpriseId) {
+        // if (!this.entResourceObj.enterpriseId) {
              this.restApi.request(api.method, api.url, [{ key: "id", value: id }, { key: "page", value: 1 }, { key: "size", value: 9999 }], undefined).then(
                 res => {                    
                     res.resultContent[0].memQuota=res.resultContent[0].memQuota/1024;
@@ -143,12 +143,12 @@ export class OrgMngService {
                     console.error('获取企业资源信息失败');
                 }
                 );
-        } else {
-            return new Promise(resovle => setTimeout(resovle, 10)).then(() =>{
-                this.entResourceObj
-            } 
-            );
-        }
+        // } else {
+        //     return new Promise(resovle => setTimeout(resovle, 10)).then(() =>{
+        //         this.entResourceObj
+        //     } 
+        //     );
+        // }
     }
     // getCurEntResource(id: string) {
     //      let api = this.restApiCfg.getRestApi("user-center.org-mng.currEntResoure.get");
