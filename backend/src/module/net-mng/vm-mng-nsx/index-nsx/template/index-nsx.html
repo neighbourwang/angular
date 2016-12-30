@@ -17,12 +17,12 @@
     <div class="mgt15 ">      
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 逻辑路由器(DLR)名称：</span>
         <div class="float-left pdr20">
-            <select class="pdl10 form-control">
-                <option value="1">所有</option>
-                <option value="1">DLR1</option>              
+            <select class="pdl10 form-control" [(ngModel)]="selectedDlr">
+                <option [ngValue]="defaultDlr">所有</option>
+                <option *ngFor="let dlr of dlrList" [ngValue]="dlr">{{dlr.dlrRouteName}}</option>              
             </select>
         </div>              
-        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl15 "><span class="icon-button-label">确定 </span> </button>                                                              
+        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl15 " (click)="filter();"><span class="icon-button-label">确定 </span> </button>                                                              
     </div>
 <div class="mgt15" style="clear:both"></div> 
    
@@ -34,7 +34,7 @@
             <span class="icon-button-label icon-left-button-label">DLR资源分配</span>
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" key="boe/vmware-nsx-ip-addr-mng.html">
-            <span class="icon-button-label icon-left-button-label">IP地址管理</span>
+            <span class="icon-button-label icon-left-button-label" click="gotoIpMng()">IP地址管理</span>
         </button>
         <div class="dropdown pull-right" >
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -42,8 +42,8 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#">启用</a></li>
-                <li><a href="#">禁用</a></li>              
+                <li><a href="javascript:void(0);" (click)="portEnable();">启用</a></li>
+                <li><a href="javascript:void(0);" (click)="portDisable();">禁用</a></li>              
             </ul>
         </div>
        
@@ -67,39 +67,39 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><input type="checkbox" class="fox-cloud-checkbox" name="checkbox"> </td>
-                    <td> DLR1 </td>
-                    <td>app prd </td>                   
+                <tr *ngFor="let port of filterports">
+                    <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="port.selected" (change)="selectPort(port)"> </td>
+                    <td>{{port.dlrRouteName}}</td>
+                    <td>{{port.dlrInterfaceName}}</td>                   
                     <td style="position:relative">
-                        未设置
-                        <span class="pull-right icon-edit2"></span>
-                        <div class="popover fade bottom in" role="tooltip" style="position:absolute;top:28px;left:-50px;width:460px;max-width:1100px;display: block;">
+                        {{port.drlSubnetDisplayName||"未设置"}}
+                        <span class="pull-right icon-edit2" (click)="openEdit(port);port.isOpen=true;"></span>
+                        <div *ngIf="port.isOpen" class="popover fade bottom in" role="tooltip" style="position:absolute;top:28px;left:-50px;width:460px;max-width:1100px;display: block;">
                             <div class="arrow" style="left: 30%;"></div>
                             <div class="popover-content">
                                 <form class="form-horizontal" role="form">
                                     <div class="form-group">
                                         <label class="col-sm-4 control-label">DLR子网显示名称:</label>
                                         <div class="col-sm-8 float-left"> 
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" [(ngModel)]="editPort.drlSubnetDisplayName" name="portname">
                                         </div>
                                     </div>
                                 </form>
                                 <div class="pull-right" style="margin-bottom:10px;">
-                                    <button class=" fox-cloud-button fox-cloud-button-white">保存</button>
-                                    <button class="fox-cloud-button fox-cloud-button-white">取消</button>
+                                    <button class=" fox-cloud-button fox-cloud-button-white" (click)="saveEdit(port)">保存</button>
+                                    <button class="fox-cloud-button fox-cloud-button-white" (click)="port.isOpen = false;">取消</button>
                                 </div>
                             </div>                              
                         </div>
                     </td>
-                    <td> 172.16.1.1</td>  
-                    <td> 24</td>
-                    <td>internal </td>
-                    <td>LSW01 </td>              
-                    <td> 5000 </td>
-                    <td  data-toggle="modal" data-target="#myModal1" >A</td>
-                    <td class="font-green"> 启用 </td>
-                    <td>2016-10-1 15:35:50  </td>
+                    <td>{{port.dlrInterfaceIPaddress}}</td>  
+                    <td>{{port.dlrSubnet}}</td>
+                    <td>{{port.dlrInterfaceType}}</td>
+                    <td>{{port.lswName}}</td>              
+                    <td>{{port.lswId}}</td>
+                    <td (click)="viewDetail();" >{{port.lswTransportZone}}</td>
+                    <td class="font-green">{{port.status}}</td>
+                    <td>{{port.lastUpdate}}</td>
                 </tr>
                  
             </tbody>
@@ -107,4 +107,31 @@
     </div>
 </div>
 <div style="height:150px"> </div>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>
+<fc-popup #detail title="{{title}}"   ct="{{'COMMON.CLOSE' | translate}}" (cf)="cancelEdit();">
+    <div style="mgb10">  Replication mode：  Multicast/Unicast/Hybrid</div>
+    <div class="table-container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>可用区(集群)名称 </th>
+                    <th>显示名称 </th>
+                    <th>VDS(分布式交换机) </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>cluster1</td>
+                    <td>计算机集群1</td>
+                    <td>VDS1</td>
+                </tr>
+                <tr>
+                    <td>cluster1</td>
+                    <td>计算机集群1</td>
+                    <td>VDS1</td>
+                </tr>
 
+            </tbody>
+        </table>
+    </div>            
+</fc-popup>

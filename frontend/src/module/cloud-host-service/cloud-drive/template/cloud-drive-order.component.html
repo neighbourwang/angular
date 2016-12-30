@@ -1,6 +1,6 @@
 <div class="page-content cloud_host_order cloud_drive_order">
 	<div class="col-md-9">
-		<h1 class="page-content-header">{{options.title}}</h1>
+		<h1 class="page-content-header" (click)="payLoadFormat()">{{options.title}}</h1>
 		<!-- <my-date-picker [options]="myDatePickerOptions" -->
                <!-- (dateChanged)="onDateChanged($event)"></my-date-picker> -->
 		<ul class="left-box">
@@ -25,7 +25,7 @@
 						</label>
 					</div>
 					<div class="col-md-2"></div>
-					<div class="col-md-10 text-tip">云硬盘只能挂载到同一可用区下的云主机实例，订购成功后不支持更换云硬盘的区域和可用区；请谨慎选择</div>
+					<div class="col-md-10 text-tip">{{'CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_ORDER_DESCRIPTION'| translate}}</div>
 				</div>
 			</li>
 			
@@ -78,7 +78,7 @@
 							[ngClass]="{'has-error': check.diskinsname === false }">
 							<input type="text" (keyup)="checkValue('diskinsname')" [(ngModel)]="sendModule.diskinsname.attrValue" class="form-control" placeholder="如不填写，则系统自动生成">
 						</div>
-						<div class="col-md-5 disk-tip no-padding">2-68个字符，以大小写字母或者中文开头，可包含数字，“.”, "-", "_"</div>
+						<div class="col-md-5 disk-tip no-padding">{{'COMMON.SET_NAME_FORMAT'| translate}}</div>
 					</div>	
 					<div class="col-md-12 content-title btn-group">
 						<span class="float-left mgr20 lh34">

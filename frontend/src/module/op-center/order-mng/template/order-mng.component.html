@@ -258,18 +258,18 @@
 				<div class="modal-content">
 				  	<div class="modal-header">
 					 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">{{ 'COMMON.ORDERS' | translate }}{{ 'COMMON.UNSUBSCRIBE' | translate }}<</h4>
+						<h4 class="modal-title" id="myModalLabel">{{ 'COMMON.ORDERS' | translate }}{{ 'COMMON.UNSUBSCRIBE' | translate }}</h4>
 				  	</div>
 				 	<div class="modal-body"> 
-			 			<div *ngIf="cancelObj.isMachine && cancelObj.hasDisk">
-			 				<input type="checkbox" [(ngModel)]="cancelObj.removeDisk"/>
-			 				<div>{{ 'ORDER_MNG.UNSUBSCRIBE_FROM___HARD_DRIVE' | translate }}</div>
+			 			<div *ngIf="cancelObj.isMachine">
+			 				<input type="checkbox" class="float-left mgr20  fox-cloud-checkbox" [(ngModel)]="cancelObj.removeDisk"/>
+			 				<span style="display: block;padding-top: 4px;">{{ 'ORDER_MNG.UNSUBSCRIBE_FROM___HARD_DRIVE' | translate }}</span>
 			 			</div><!-- 云主机 -->
-			 			<div *ngIf="cancelObj.isDisk && cancelObj.isNotInuse">
+			 			<div *ngIf="cancelObj.isDisk && !cancelObj.isInUse">
 			 				{{ 'ORDER_MNG.WHETHER_TO_CONFIRM___EXIT_THE_PROCESS' | translate }}.
 			 			</div><!-- 云硬盘:空闲 -->
-			 			<div *ngIf="cancelObj.isDisk && cancelObj.isInuse">
-			 				{{ 'ORDER_MNG.WHETHER_TO_CONFIRM_FORCE___EXIT_THE_PROCESS' | translate }}. 
+			 			<div *ngIf="cancelObj.isDisk && cancelObj.isInUse">
+			 				{{ 'ORDER_MNG.WHETHER_TO_CONFIRM_FORCE___EXIT_THE_PROCESS' | translate }}.
 			 			</div><!-- 云硬盘：挂载 -->
 					</div>
 			      	

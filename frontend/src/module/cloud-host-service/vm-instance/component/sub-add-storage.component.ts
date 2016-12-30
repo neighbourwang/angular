@@ -41,7 +41,7 @@ export class subAddStorageComponent implements OnChanges {
 		let storagesize = new VlueList;
 
 		storagesize.attrValue = value;
-		storagesize.attrDisplayValue = value + "GB";
+		storagesize.attrDisplayValue = value + "COMMON.GB";
 
 		this.forArr[i].storagesize = storagesize;
 		this.onChanges.emit("storagesize");
@@ -56,7 +56,7 @@ export class subAddStorageComponent implements OnChanges {
 		if(this.forArr.length === this.maxLenght) return;
 
 		this.defaultStorageSize.attrValue = this.sendModule.diskinitialsize.attrValue;
-		this.defaultStorageSize.attrDisplayValue = this.sendModule.diskinitialsize.attrValue + "GB";
+		this.defaultStorageSize.attrDisplayValue = this.sendModule.diskinitialsize.attrValue + "COMMON.GB";
 
 		this.forArr.push({
 			storage : this.defaultStorage,

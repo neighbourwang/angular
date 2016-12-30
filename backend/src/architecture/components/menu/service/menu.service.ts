@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../architecture';
+import { Router } from '@angular/router';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -9,6 +10,7 @@ export class MenuService {
 	constructor(private http: Http,
 		private restApiCfg: RestApiCfg,
 		private dict: SystemDictionaryService,
+		private router: Router,
 		private restApi: RestApi) {
 	}
 
@@ -16,7 +18,7 @@ export class MenuService {
 
 	getMenuList(): Promise<any> {
 		const isRoot: boolean = this.userInfo.isRoot;   //临时判断如果是管理员就不隐藏了
-		const isOrgin: boolean = this.userInfo.roles.map(role => JSON.stringify(role)).join(",").indexOf('"机构管理员"') > -1;   //临时判断如果是机构管理员就显示审批设置
+		const isOrgin: boolean = this.userInfo.roles.map(role => JSON.stringify(role)).join(",").indexOf('"LEVEL1M"') > -1;   //临时判断如果是机构管理员就显示审批设置
 
 		return new Promise(resolve => {
 			resolve([
@@ -165,6 +167,13 @@ export class MenuService {
 							"routing": "net-mng/openstack/openstack-net-mng"
 						},
 						{
+							"label": "VMware网络",
+							"isOpen": false,
+							"isActive": false,
+							"isShow": !isRoot,
+							"routing": "net-mng/vm-mng-index/vmware-net-index"
+						},
+						{
 							"label": "VMware标准网络",
 							"isOpen": false,
 							"isActive": false,
@@ -251,7 +260,7 @@ export class MenuService {
 							"routing": "user-center/account-mng/account-mng-list"
 						},
 						{
-							"label": "组织管理",
+							"label": "机构管理",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": isRoot,

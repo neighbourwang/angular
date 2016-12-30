@@ -101,6 +101,11 @@ export class CheckMngHascheckComponent implements OnInit{
 			this._serviceTypeDic.UpdateWithDic(target, "serviceTypeName", "serviceTypeIdStr");
 			this._orderTypeDic.UpdateWithDic(target, "orderTypeNum", "orderTypeName");
 			this._billinModeDic.UpdateWithDic(target, "billingModeName", "billingModeNum")
+
+			for(let i = 0; i < target.length; i++)
+			{
+				this.getApproveReason(target[i]);
+			}
 		};
 
 		//审批人列表
@@ -219,7 +224,7 @@ export class CheckMngHascheckComponent implements OnInit{
 //   "userId": "string"
 // }
 		//匹配后台搜索框参数
-		param.approverStatus = 1;//approvalStatus代表已审批
+		param.approverStatus = 3;//approvalStatus代表已审批
         param.orderCode = this._param.quickSearchStr;//输入订单号快速查询 ？
  		param.enterpriseId = this._param.entIdStr; //企业enterpriseId
 		param.organization = this._param.departmentIdNum; //部门organization？
@@ -236,6 +241,9 @@ export class CheckMngHascheckComponent implements OnInit{
 		};
 		this._layoutService.show();
 		this._listLoader.Go(pageNum, null, param)
+		.then(success=>{
+			this._layoutService.hide();
+		})
 		.then(success=>{
 			this._layoutService.hide();
 		})
@@ -289,15 +297,9 @@ export class CheckMngHascheckComponent implements OnInit{
 		this.search(pageNum);
 	}
 
-	//审批意见
-	getApproveInfo(orderId:string){
-		this._approveInfoLoader.Go(null,[{key:"orderId",value:orderId}])
-		.then(success=>{
-			this._layoutService.hide();
-		})
-		.catch(err=>{
-			this._layoutService.hide();
-		})
+	getApproveReason(orderItem:CheckListItem){
+		let itemLoader = new ItemLoader<ApproveItem>(false, "审批结果加载出错", "check-center.approve-info.get", this._restApiCfg, this._restApi);
+		orderItem.checkResult = itemLoader.Go(null, [{key:"orderId", value:orderItem.orderId}]);
 	}
 
 	resetParam(){

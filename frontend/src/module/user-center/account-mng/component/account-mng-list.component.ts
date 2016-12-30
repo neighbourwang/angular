@@ -85,17 +85,20 @@ export class AccountMngListComponent implements OnInit {
 
     //获取账户列表
     getAccountList(page: number, size: number) {
+        this.layoutService.show();
         this.service.getAccountList(page, size)
             .then(
             res => {
                 console.log(res);
                 this.accounts = res.resultContent;
                 this.tp = res.pageInfo.totalPage;
+                this.layoutService.hide();
             }
             )
             .catch(
             err => {
                 console.error(err);
+                this.layoutService.hide();
             }
             );
     }

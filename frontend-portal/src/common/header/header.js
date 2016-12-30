@@ -7,7 +7,14 @@ module.exports = {
 	    const userInfo = sessionStorage["userInfo"] && JSON.parse(sessionStorage["userInfo"]);
 
 	    if(userInfo) {  //如果登录了
-	    	$(".cm-header .h-login-box").html(T("WELCOME") + "，" + userInfo.loginName);
+	    	$(".cm-header .h-login-box").html(T("WELCOME") + "，" + userInfo.loginName + " " + "<a class='login-out' href='javascript:'>"+T("LOGINOUT")+"</a>");
+	    	$(".cm-header .login-out").click(() => {
+	    		setTimeout(() => {
+					window.sessionStorage["token"] = "";
+					window.sessionStorage["userInfo"] = "";
+					window.location.reload();
+			    }, 200)
+	    	})
 	    }else {
 	   		$(".cm-header .box-ul3 a,.h-console").attr("href","/login.html");
 	    }

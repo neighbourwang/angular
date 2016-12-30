@@ -45,6 +45,7 @@ class Org {
   "name": string;
   "platforms": Array<Platform>;
   "resource": Resource;
+  isDefault:boolean;
   constructor() {
     this.resource = new Resource;
   }

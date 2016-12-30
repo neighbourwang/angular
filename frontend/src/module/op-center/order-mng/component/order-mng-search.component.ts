@@ -45,7 +45,7 @@ export class OrderMngSearchComponent implements OnInit{
 		private _dictServ:DictService){
 
 		//获取订单详情
-		this._orderDetailLoader = new ItemLoader<SearchOrderDetail>(false, "ORDER_MNG.ORDERS_DETAILS", "op-center.order-search.detail.get", restApiCfg, restApi);
+		this._orderDetailLoader = new ItemLoader<SearchOrderDetail>(false, "ORDER_MNG.ORDERS_DETAILS_DATA_FAILED", "op-center.order-search.detail.get", restApiCfg, restApi);
 		this._orderDetailLoader.MapFunc = (source:Array<any>, target:Array<SearchOrderDetail>)=>{
 			for(let item of source)
 			{
@@ -73,7 +73,7 @@ export class OrderMngSearchComponent implements OnInit{
 
 
 		//配置部门列表加载
-		this._departmentLoader = new ItemLoader<DepartmentItem>(false, 'ORDER_MNG.DEPARTMENT_LIST', "op-center.order-mng.department-list.get", this.restApiCfg, this.restApi);
+		this._departmentLoader = new ItemLoader<DepartmentItem>(false, 'ORDER_MNG.DEPARTMENT_LIST_DATA_FAILED', "op-center.order-mng.department-list.get", this.restApiCfg, this.restApi);
 
 		//提交者加载
 		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, '提交者列表', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
@@ -95,7 +95,7 @@ export class OrderMngSearchComponent implements OnInit{
 		this._orderStatusDic = new DicLoader(this.restApiCfg, this.restApi, "ORDER", "STATUS");
 
 		//配置订单加载
-		this._orderLoader = new ItemLoader<SearchOrderItem>(true, "ORDERS_LSIT", "op-center.order-search.list.post", restApiCfg, restApi);
+		this._orderLoader = new ItemLoader<SearchOrderItem>(true, "ORDERED_LSIT_DATA_FAILED", "op-center.order-search.list.post", restApiCfg, restApi);
 		this._orderLoader.MapFunc = (source:Array<any>, target:Array<SearchOrderItem>)=>{
 
 			for(let item of source)
@@ -182,14 +182,14 @@ export class OrderMngSearchComponent implements OnInit{
 		};
 		param.createTime = param.createDate;
 		param.expireTime = param.expireDate;
-		param.approverId = param.buyerId;
+		param.userId = param.buyerId;
 		//没有定义快速搜索字段
 // {
 //   "approverId": "string",
 //   "approverStatus": "string",
-//   "createTime": "2016-12-28T02:22:56.527Z",
+//   "createTime": "2016-12-29T02:00:32.480Z",
 //   "enterpriseId": "string",
-//   "expireTime": "2016-12-28T02:22:56.527Z",
+//   "expireTime": "2016-12-29T02:00:32.480Z",
 //   "orderCode": "string",
 //   "orderType": "string",
 //   "organization": "string",

@@ -164,6 +164,7 @@ export class ClMngCreStep1Component implements OnInit {
         this.creStep1Model.version = '';
         this.commonService.getVersion(item.code).then(
             res => {
+                console.log(res);
                 this.platformVersion = res
                 this.creStep1Model.version = this.platformVersion[0].value;
             }

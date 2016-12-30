@@ -2,7 +2,7 @@
 import { Component,ViewChild,Input , Output,  OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
 import { cloudHostServiceList } from '../service/cloud-host-list.service'
 
 import { ListOptions } from '../model/options.model';
@@ -23,6 +23,10 @@ export class cloudHostListComponent implements OnInit {
 	@ViewChild('notice')
 	private noticeDialog: NoticeComponent;
 
+	@ViewChild('popup')
+	private popup: PopupComponent;
+
+
 	@ViewChild('platformZone') platformZone;
 
 	@Input() options:ListOptions;
@@ -33,6 +37,9 @@ export class cloudHostListComponent implements OnInit {
 	modalTitle: string = '';
 	modalMessage: string = '';
 	modalOKTitle: string = '';
+
+	radioSelected:VmList = new VmList; //选择的vm主机
+	forceDelect: boolean = false;  //是否强制删除
 
 	areaConfig = [];   //区域
 	superSearch: boolean = false;   //高级搜索开关
@@ -46,6 +53,10 @@ export class cloudHostListComponent implements OnInit {
 		private service: cloudHostServiceList
 	) {
 		this.handleData = new HandleVm();
+
+		this.service.computeStatus.then(res => {
+			console.log(res,  2222)
+		})
 	}
 	ngOnInit() {
 		
@@ -96,6 +107,22 @@ export class cloudHostListComponent implements OnInit {
 		this.setHostList();
 	}
 
+	delectVm() {  //退订云主机
+		if( !this.radioSelected.subInstanceId )  return this.showNotice("退订云主机", "请选择要退订的主机");
+		this.forceDelect = false;
+
+		this.popup.open("退订云主机");
+	}
+	popupCf(){}
+	popupOf(){
+		this.service.deleteVm(this.radioSelected.subInstanceId, this.forceDelect?1:0).then(res => {
+			this.showNotice("退订云主机", "退订成功！");
+		}).catch(e => {
+			this.showNotice("退订云主机", "退订失败！");
+		})
+		this.popup.close();
+	}
+
 	//云主机的操作相关
 	handleVm(key: string, vm: VmList ,msg) {
 		this.layoutService.show();
@@ -108,7 +135,7 @@ export class cloudHostListComponent implements OnInit {
 		this.service.handleVm(this.handleData).then(res => {
 			this.layoutService.hide();
 			// alert(msg+"成功！");
-			this.showNotice("云主机操作" ,msg+"成功！");
+			this.showNotice("COMMON.CLOUD_HOST_OPERATION" ,msg+"成功！");
 
 			setTimeout(() => {   //延迟4秒执行 因为后端4秒同步一次状态
 				this.setHostList();
@@ -137,6 +164,7 @@ export class cloudHostListComponent implements OnInit {
 			window.open(res)
 		})
 	}
+
 
 	goTo(url : string) {
 		this.router.navigateByUrl(url);

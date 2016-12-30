@@ -50,7 +50,7 @@ export class HostOrderComponent implements OnInit {
           .getServices()
           .then(ret => {
               if (!ret) {
-                  this.showError('', '可订购列表数据获取失败。');
+                  this.showError('', 'CLOUD_HOST.FAILED_TO_GET_THE_ORDER_LIST_DATA' + '.');
               } else {
                 this.services = this.fmtServicesData(ret);
                 this.fmtDefaultOrder();
@@ -58,7 +58,7 @@ export class HostOrderComponent implements OnInit {
               this.layoutService.hide();
           })
           .catch(error => {
-              this.showError('', '可订购列表数据获取失败。');
+              this.showError('', 'CLOUD_HOST.FAILED_TO_GET_THE_ORDER_LIST_DATA' + '.');
               this.layoutService.hide();
           });
   }
@@ -426,15 +426,15 @@ export class HostOrderComponent implements OnInit {
         .saveOrder(this.payload)
         .then(ret => {
             if (!ret) {
-                this.showError('', '配置申请提交失败，请重新尝试或者联络管理员。');
+                this.showError('', 'CLOUD_HOST.CONFIGURATION_SUBMISSION_FAILED___CONTACT_ADMINISTRATOR' + '.');
             } else {
               this.fmtDefaultOrder();
-              this.showError('', '配置申请提交成功，请等待。');
+              this.showError('', 'CLOUD_HOST.CONFIGURATION_APPLICATION_SUBMITTED_SUCCESSFULLY'+ ',' +'COMMON.PLEASE_WAIT' + '.');
             }
             this.layoutService.hide();
         })
         .catch(error => {
-            this.showError('', '配置申请提交失败，请重新尝试或者联络管理员。');
+            this.showError('', 'CLOUD_HOST.CONFIGURATION_SUBMISSION_FAILED___CONTACT_ADMINISTRATOR' + '.');
             this.layoutService.hide();
         });
   }
@@ -447,7 +447,7 @@ export class HostOrderComponent implements OnInit {
     this.payload.quality = this.order.count;
     this.payload.totalPrice = this.order.totalPrice;
     this.payload.serviceCode = 'VM';
-    this.payload.serviceName = "云主机";
+    this.payload.serviceName = "COMMON.CLOUD_HOSTING";
 
     // region
     let region = {

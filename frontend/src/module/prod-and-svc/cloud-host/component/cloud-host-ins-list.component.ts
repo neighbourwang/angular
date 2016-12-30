@@ -60,14 +60,14 @@ export class InstanceListComponent implements OnInit {
           .getInstances(page, size)
           .then(ret => {
               if (!ret) {
-                  this.showNotice('数据获取失败', '实例数据获取失败。');
+                  this.showNotice('COMMON.DARA_ACQUISITION_FAILURE', 'CLOUD_HOST.FAILED_TO_RETRIEVE_INSTANCE_DETAILS'+ '.');
               } else {
                   this.fmtInstancesData(ret);
               }
               this.layoutService.hide();
           })
           .catch(error => {
-              this.showNotice('数据获取失败', '实例数据获取失败。');
+              this.showNotice('COMMON.DARA_ACQUISITION_FAILURE', 'CLOUD_HOST.FAILED_TO_RETRIEVE_INSTANCE_DETAILS'+ '.');
               this.layoutService.hide();
           });
   }
@@ -154,10 +154,10 @@ export class InstanceListComponent implements OnInit {
     if (!instance) {
       let selectedData = this.getAllSelectedData();
       if (selectedData.length < 1) {
-        this.showNotice('警告', '请选择一个服务目录');
+        this.showNotice('COMMON.WARNING', 'CLOUD_HOST.PLEASE_SELECT_A_SERVICE_DIRECTORY');
         return;
       } else if (selectedData.length > 1) {
-        this.showNotice('警告', '请只选择一个服务目录');
+        this.showNotice('COMMON.WARNING', 'CLOUD_HOST.PLEASE_SELECT_ONLY_ONE_SERVICE_DIRECTORY');
         return;
       } else {
         instance = selectedData[0];
@@ -174,14 +174,14 @@ export class InstanceListComponent implements OnInit {
         .updateInstanceStatus(instanceAction)
         .then(ret => {
             if (!ret) {
-                this.showNotice('更新失败', '实例状态更新失败。');
+                this.showNotice('COMMON.UPDATE_FAILED', 'CLOUD_HOST.INSTANCE_STATUS_UPDATE_FAILED' + '.');
             } else {
                 this.getInstances(this.currPage, this.pageSize);
             }
             this.layoutService.hide();
         })
         .catch(error => {
-            this.showNotice('更新失败', '实例状态更新失败');
+            this.showNotice('COMMON.UPDATE_FAILED', 'CLOUD_HOST.INSTANCE_STATUS_UPDATE_FAILED' + '.');
             this.layoutService.hide();
         });
     

@@ -7,13 +7,13 @@
         <div class="table-line-head" >
             vCPU数量
         </div>
-        <div style="padding : 30px 20px;border : 1px solid #ddd;">
+        <div style="padding : 30px 10px;border : 1px solid #ddd;">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.cpuQuota||0}}</span>(核)
+                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.cpuQuota||0}}</span>核
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.cpuQuota-service.entResourceObj.realUsedCpuQuota||0}}</span>(核)
+                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.cpuQuota-service.entResourceObj.realUsedCpuQuota||0}}</span>核
                 </div>
                 <div style="clear : both">
                 </div>
@@ -31,13 +31,13 @@
         <div class="table-line-head" style="border-left:none">
             内存数量
         </div>
-        <div style="padding : 30px 20px;border : 1px solid #ddd;border-left:none">
+        <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.memQuota||0}}</span>(GB)
+                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.memQuota||0}}</span>GB
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.memQuota-service.entResourceObj.realUsedMemQuota||0}}</span>(GB)
+                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.memQuota-service.entResourceObj.realUsedMemQuota||0}}</span>GB
                 </div>
                 <div style="clear : both">
                 </div>
@@ -53,13 +53,13 @@
         <div class="table-line-head" style="border-left:none">
             物理机数量
         </div>
-        <div style="padding : 30px 20px;border : 1px solid #ddd;border-left:none">
+        <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.physicalMachineQuota||0}}</span>(台)
+                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.physicalMachineQuota||0}}</span>台
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.physicalMachineQuota-service.entResourceObj.realUsedPhysicalMachineQuota||0}}</span>(台)
+                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.physicalMachineQuota-service.entResourceObj.realUsedPhysicalMachineQuota||0}}</span>台
                 </div>
                 <div style="clear : both">
                 </div>
@@ -74,13 +74,13 @@
         <div class="table-line-head" style="border-left:none">
             存储额度
         </div>
-        <div style="padding : 30px 20px;border : 1px solid #ddd;border-left:none">
+        <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.storageQuota||0}}</span>(GB)
+                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.storageQuota||0}}</span>GB
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.storageQuota-service.entResourceObj.realUsedStorageQuota||0}}</span>(GB)
+                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.storageQuota-service.entResourceObj.realUsedStorageQuota||0}}</span>GB
                 </div>
                 <div style="clear : both">
                 </div>
@@ -95,13 +95,13 @@
         <div class="table-line-head" style="border-left:none">
             快照数量
         </div>
-        <div style="padding : 30px 20px;border : 1px solid #ddd;border-left:none">
+        <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.snapshotQuota||0}}</span>(个)
+                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.snapshotQuota||0}}</span>个
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.snapshotQuota-service.entResourceObj.realUsedSnapshotQuota||0}}</span>(个)
+                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.snapshotQuota-service.entResourceObj.realUsedSnapshotQuota||0}}</span>个
                 </div>
                 <div style="clear : both">
                 </div>
@@ -116,13 +116,13 @@
         <div class="table-line-head" style="border-left:none">
             镜像数量
         </div>
-        <div style="padding : 30px 20px;border : 1px solid #ddd;border-left:none">
+        <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.imageQuota||0}}</span>(个)
+                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.imageQuota||0}}</span>个
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.imageQuota-service.entResourceObj.realUsedImageQuota||0}}</span>(个)
+                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.imageQuota-service.entResourceObj.realUsedImageQuota||0}}</span>个
                 </div>
                 <div style="clear : both">
                 </div>
@@ -137,13 +137,13 @@
         <div class="table-line-head" style="border-left:none">
             浮动IP地址
         </div>
-        <div style="padding : 30px 20px;border : 1px solid #ddd;border-left:none">
+        <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.floatIpQuota||0}}</span>(个)
+                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.floatIpQuota||0}}</span>个
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.floatIpQuota-service.entResourceObj.realUsedFloatIpQuota||0}}</span>(个)
+                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.floatIpQuota-service.entResourceObj.realUsedFloatIpQuota||0}}</span>个
                 </div>
                 <div style="clear : both">
                 </div>
@@ -166,12 +166,12 @@
 <table class="table table-hover mgb20">
 	<tbody><tr>
 		<th class="text-center" style="width : 10%">选择</th>
-		<th class="text-center" style="width : 10%">部门名称</th>
+		<th class="text-center" style="width : 15%">部门名称</th>
 		<th class="text-center" style="width : 15%">部门人员数量</th>
-		<th class="text-center" style="width : 10%">部门负责人</th>
+		<th class="text-center" style="width : 15%">部门负责人</th>
 		<th class="text-center" style="width : 10%">状态</th> 
-		<th class="text-center" style="width : 10%">描述</th>
-		<th class="text-center" style="width : 25%">操作</th>
+		<th class="text-center" style="width : 20%">描述</th>
+		<th class="text-center" style="width : 15%">操作</th>
 	</tr>
 	<tr *ngFor='let organ of orgs;let idx=index'>
 		<td class="text-center"><input name="host-list" type="radio" class="fox-cloud-radio"></td>
@@ -188,13 +188,15 @@
                             <template ngSwitchDefault>Unknown</template>
             </span>
         </td> 
-		<td class="text-center">{{organ.describtion}}</td>
-		<td class="text-center">
-            <span class="glyphicon glyphicon-edit font-green" (click)="statusChange(organ,'edit')" style="margin-right : 10px ; cursor:pointer"></span><!-- 编辑 -->
+		<td class="text-center">{{organ.description}}</td>
+		<td >
+            <div style="margin:0 anto" class="text-left" *ngIf="!(organ.isDefault||organ.isDefault)">
+                <span class="glyphicon glyphicon-edit font-green" (click)="statusChange(organ,'edit')" style="margin-right : 10px ; cursor:pointer"></span><!-- 编辑 -->
             <!--<span class="glyphicon glyphicon-lock font-green" style="margin-right : 10px"></span>-->
-            <span *ngIf="organ.name!='普通用户部门'&&organ.name!='管理员部门'" class="glyphicon glyphicon-ok-circle font-green" (click)="statusChange(organ,'start')" style="margin-right : 10px; cursor:pointer"></span> <!-- 启用 -->
-            <span *ngIf="organ.name!='普通用户部门'&&organ.name!='管理员部门'" class="glyphicon glyphicon-ban-circle font-orange" (click)="statusChange(organ,'disabled')" style="margin-right : 10px; cursor:pointer"></span> <!-- 禁用 -->
-            <span *ngIf="organ.name!='普通用户部门'&&organ.name!='管理员部门'" class="glyphicon glyphicon-trash font-orange" (click)="statusChange(organ,'delete')" style="cursor:pointer"></span> <!-- 删除 -->
+            <span  class="glyphicon glyphicon-ok-circle font-green" (click)="statusChange(organ,'start')" style="margin-right : 10px; cursor:pointer"></span> <!-- 启用 -->
+            <span  class="glyphicon glyphicon-ban-circle font-orange" (click)="statusChange(organ,'disabled')" style="margin-right : 10px; cursor:pointer"></span> <!-- 禁用 -->
+            <span *ngIf="(organ.headCount==0&&organ.status=='3')||organ.status=='0'" class="glyphicon glyphicon-trash font-orange" (click)="statusChange(organ,'delete')" style="cursor:pointer"></span> <!-- 删除 -->
+            </div>            
         </td>
 	</tr>
 </tbody></table>
