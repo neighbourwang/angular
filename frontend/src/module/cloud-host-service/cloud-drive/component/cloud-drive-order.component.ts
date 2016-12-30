@@ -246,10 +246,6 @@ export class cloudDriveComponentOrder implements OnInit {
 			storage : () => !!this.sendModule.storage.attrValue,
 			diskinsname : () =>  !this.sendModule.diskinsname.attrValue || /^[a-zA-Z\u4e00-\u9fa5].{1,67}/.test(this.sendModule.diskinsname.attrValue)
 		};
-        let plat = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(),
-            'CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_PLATFORM', null);
-              
-        console.log(plat);
         const alertValue = {
             
 			//platform : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_PLATFORM",
