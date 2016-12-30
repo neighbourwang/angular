@@ -7,7 +7,7 @@
 import { Component, OnInit, Input , Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent  } from '../../../../architecture';
 import { cloudDriveServiceOrder } from '../service/cloud-drive-order.service'
 
 import { AttrList, PayLoad } from '../model/attr-list.model';
@@ -23,6 +23,15 @@ export class cloudDriveComponentOrder implements OnInit {
 
 	@ViewChild('cartButton') cartButton;
 
+	@ViewChild('confirm')
+	private confirmDialog: ConfirmComponent;
+
+	@ViewChild('notice')
+	private noticeDialog: NoticeComponent;
+
+	@ViewChild('popup')
+	private popup: PopupComponent;
+
 	@Input() options:OrderOptions;
 
 	configs: OrderList;
@@ -30,6 +39,10 @@ export class cloudDriveComponentOrder implements OnInit {
 	payLoadArr : PayLoad[];  //最后提交的是个PayLoad数组
 	sendModule: SendModule;
 	setPassword: boolean = false;
+
+	modalTitle: string = '';
+	modalMessage: string = '';
+	modalOKTitle: string = '';
 
 	// timeForever : boolean = false;
 
@@ -232,11 +245,11 @@ export class cloudDriveComponentOrder implements OnInit {
 		};
 
 		const alertValue = {
-			platform : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_PLATFORM",
-			zone : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_AVAILABLE_ZONE",
-			disktype : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK",
-			storage : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK_TYPE",
-			diskinsname : "CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_NAME_FORMAT_IS NOT_CORRECT",
+			platform : "请选择云平台", //CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_PLATFORM
+			zone : "请选择可用区", //CLOUD_DRIVE_ORDER.PLEASE_SELECT_AVAILABLE_ZONE
+			disktype : "请选择云硬盘类型",  //CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK
+			storage : "请选择云硬盘类型",  //CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK_TYPE
+			diskinsname : "云硬盘名称格式不正确", //CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_NAME_FORMAT_IS_NOT_CORRECT
 		}
 
 		const check = value => {
@@ -255,9 +268,9 @@ export class cloudDriveComponentOrder implements OnInit {
 	}
 
 	checkInput() {
-		const al = value => !!alert(value);
+		const al = value => !!this.showNotice("提示",value);
 
-		if(!this.sku) return al("CLOUD_DRIVE_ORDER.SKU_IS_NOT_CORRECT");
+		if(!this.sku) return al("sku不正确");  //CLOUD_DRIVE_ORDER.SKU_IS_NOT_CORRECT
 
 		const value = this.checkValue();
 		if(value) return al(value);
@@ -290,5 +303,16 @@ export class cloudDriveComponentOrder implements OnInit {
 			this.layoutService.hide();
 		})
 	}
+
+
+
+	// 警告框相关
+	showNotice(title: string, msg: string) {
+	    this.modalTitle = title;
+	    this.modalMessage = msg;
+
+	    this.noticeDialog.open();
+	}
+	modalAction() {}
 
 }
