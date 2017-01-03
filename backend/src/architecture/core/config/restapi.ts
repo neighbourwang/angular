@@ -1504,7 +1504,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "设置端口组显示名称",
         "id": "net-mng.vm-mng-dbt.index.setportname",
         "method": "PUT",
-        "url": "/adminboe/authsec/vmware/network/dist/{id}/setportname"
+        "url": "adminboe/authsec/vmware/network/dist/{id}/setportname"
     }
     , {
         "desc": "启用分布式网络",
@@ -1555,5 +1555,37 @@ export let RestApis: RestApiModel[] = [
         "id": "net-mng.vm-mng-dbt.port.ent-save",
         "method": "POST",
         "url": "adminboe/authsec/vmware/network/dist/portres/{id}/save/ent"
+    },
+
+    //Vmware NSX导航页
+    {
+        "desc": "NSX网络列表",
+        "id": "net-mng.vm-mng-nsx.index.portlist",
+        "method": "GET",
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/portlist"
+    },
+    {
+        "desc": "NSX DLR列表",
+        "id": "net-mng.vm-mng-nsx.index.dlrlist",
+        "method": "GET",
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/dlrlist"
+    },
+    {
+        "desc": "启用网络",
+        "id": "net-mng.vm-mng-nsx.index.enable",
+        "method": "PUT",
+        "url": "adminboe/authsec/vmware/network/nsx/{id}/enable"
+    },
+    {
+        "desc": "禁用网络",
+        "id": "net-mng.vm-mng-nsx.index.disable",
+        "method": "PUT",
+        "url": "adminboe/authsec/vmware/network/nsx/{id}/disable"
+    },
+    {
+        "desc": "设置dlr子网显示名称",
+        "id": "net-mng.vm-mng-nsx.index.setdlrname",
+        "method": "PUT",
+        "url": "adminboe/authsec/vmware/network/nsx/{id}/setdlrname"
     }
 ]

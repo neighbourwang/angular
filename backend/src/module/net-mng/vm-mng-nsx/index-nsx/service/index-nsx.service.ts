@@ -29,7 +29,7 @@ export class VmNSXIndexService {
                 value: platform_Id
             }
         ];
-        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.dclist");
+        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-nsx.index.dlrlist");
         //return this.restApi.request(api.method, api.url, pathParams, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => dlr_mock);
     }
@@ -42,7 +42,7 @@ export class VmNSXIndexService {
                 value: platform_Id
             }
         ];
-        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.portlist");
+        //const api = this.restApiCfg.getRestApi("net-mng.vm-mng-nsx.index.portlist");
         //return this.restApi.request(api.method, api.url, pathParams, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => port_mock);
     }
@@ -55,8 +55,8 @@ export class VmNSXIndexService {
                 value: Port.dlrPortId
             }
         ];
-       // const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.setportname");
-       // return this.restApi.request(api.method, api.url, pathParams, null,[Port.distPortGroupDisplayName]);
+       // const api = this.restApiCfg.getRestApi("net-mng.vm-mng-nsx.index.setdlrname");
+       // return this.restApi.request(api.method, api.url, pathParams, null,[Port.drlSubnetDisplayName]);
         
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
     }
@@ -71,7 +71,7 @@ export class VmNSXIndexService {
             }
         ];
 
-        // const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.enable");
+        // const api = this.restApiCfg.getRestApi("net-mng.vm-mng-nsx.index.enable");
        //  return this.restApi.request(api.method, api.url, pathParams, null, null);
        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
     }
@@ -85,7 +85,7 @@ export class VmNSXIndexService {
             }
         ];
 
-        // const api = this.restApiCfg.getRestApi("net-mng.vm-mng-dbt.index.disable");
+        // const api = this.restApiCfg.getRestApi("net-mng.vm-mng-nsx.index.disable");
        //  return this.restApi.request(api.method, api.url, pathParams, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
     }
