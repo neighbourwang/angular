@@ -149,7 +149,7 @@ export const NetworkInfo_mock = {
         "clusterName": "cluster1",
         "clusterId": "cluster1-123-123-111",
         "clusterDisplayName": "area1",
-        "networkType": 1
+        "networkType": 2
     },
     {
         "dcName": "DC1",
@@ -165,7 +165,7 @@ export const NetworkInfo_mock = {
         "clusterName": "cluster3",
         "clusterId": "cluster1-123-123-123",
         "clusterDisplayName": "area3",
-        "networkType": 1
+        "networkType": 3
     },
     {
         "dcName": "DC2",
@@ -197,7 +197,7 @@ export const NsxStatus_mock = {
     detailDescription: "NetworkList",
     resultContent: 
     {
-        "checkResult":1
+        "checkResult":'2'
     }
 }
 

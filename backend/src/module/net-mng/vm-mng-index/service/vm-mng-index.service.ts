@@ -25,9 +25,13 @@ export class VmwareMngIndexService{
     }
 
     //数据字典
-    typeDic = this.dict.get({
-        owner: "NETWORK", 
+    typeDict = this.dict.get({
+        owner: "VMNETWORK", 
         field: "TYPE"
+    });
+    nsxresDict = this.dict.get({
+        owner: "VMNETWORK", 
+        field: "NSXRES"
     });
 
     getRegionInfo():Promise<any>{        
@@ -136,7 +140,7 @@ export class VmwareMngIndexService{
         const body = {
             "networkTye": vmnetstatus.vmNetStatus
         };
-        console.log(body, "body");
+        console.log(pathParams, "pathParams", body, "body");
         const api = this.restApiCfg.getRestApi("net-mng.vmware-index.network.changetype");
         //return this.restApi.request(api.method, api.url, pathParams, null, body);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });

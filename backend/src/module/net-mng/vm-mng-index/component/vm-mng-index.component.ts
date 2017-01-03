@@ -52,6 +52,9 @@ export class VmwareMngIndexComponent implements OnInit {
     pageSize = 10;
     totalPage = 1;
 
+    typeDictArray: Array<SystemDictionary> = [];
+    nsxresDictArray: Array<SystemDictionary> = [];
+
     nsxTestFlag: string = "";
 
     regionList: Array<RegionModel> = [];
@@ -97,6 +100,17 @@ export class VmwareMngIndexComponent implements OnInit {
     
     ngOnInit() {
         this.getRegionInfo();
+
+        this.service.typeDict
+        .then((items) => {
+            this.typeDictArray = items;
+            console.log(this.typeDictArray, "this.typeDictArray");
+        });
+        this.service.nsxresDict
+        .then((items) => {
+            this.nsxresDictArray = items;
+            console.log(this.nsxresDictArray, "this.nsxresDictArray");
+        });
     }
 
     getRegionInfo(): void {
@@ -109,6 +123,7 @@ export class VmwareMngIndexComponent implements OnInit {
                     console.log(this.regionList, "this.regionList");
                 } else {
                     this.showMsg("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
+                    return;
                 }
             }
             ) .catch((e) => this.onRejected(e));
@@ -124,6 +139,7 @@ export class VmwareMngIndexComponent implements OnInit {
                     console.log(this.NsxInfo, "this.NsxInfo");
                 } else {
                     this.showMsg("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
+                    return;
                 }
             }
             ) .catch((e) => this.onRejected(e));
@@ -143,6 +159,7 @@ export class VmwareMngIndexComponent implements OnInit {
                     console.log(this.networkList, "this.networkList");
                 } else {
                     this.showMsg("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
+                    return;
                 }
             }
             )
@@ -156,6 +173,7 @@ export class VmwareMngIndexComponent implements OnInit {
             this.getNsxInfo(this.queryOpt.platformId);
         } else {
             this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PF");
+            return;
         }
         this.UnselectItem();
     }
@@ -321,7 +339,7 @@ export class VmwareMngIndexComponent implements OnInit {
                     response => {
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
-                            this.VmNetStatus.checkResult = response.resultContent;
+                            this.VmNetStatus.checkResult = response.resultContent.checkResult;
                             console.log(this.VmNetStatus, "this.VmNetStatus before");
                             this.changedNet.dcName = this.selectedNet.dcName;
                             this.changedNet.dcId = this.selectedNet.dcId;
@@ -407,7 +425,7 @@ export class VmwareMngIndexComponent implements OnInit {
         }
         } else {
             this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PF");
-
+            return;
         }
     }
 
@@ -427,7 +445,7 @@ export class VmwareMngIndexComponent implements OnInit {
         }
         } else {
             this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PF");
-
+            return;
         }
     }
 
@@ -447,7 +465,7 @@ export class VmwareMngIndexComponent implements OnInit {
         }
         } else {
             this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PF");
-
+            return;
         }
     }
     
@@ -474,8 +492,7 @@ export class VmwareMngIndexComponent implements OnInit {
         if(this.validationService.isBlank(value)){
             return "NET_MNG_VM_IP_MNG.UNSET";
         } else {
-            return value.toString();
-            
+            return value.toString();            
         }
     }
 

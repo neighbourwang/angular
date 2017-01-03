@@ -164,6 +164,8 @@ export const TranslateCN = {
         CNACLE: '取消',
         RETURN: '返回上一级',
         SELECT_OPERATION: '选择操作',
+        SELECT_LOCATION: '选择地域',
+        PLATFORM_URL: '平台显示名称+连接URL https://192.168.1.1:443',
 
         FREE: '空闲',
         OCCUPIED: '已占用',
@@ -177,6 +179,7 @@ export const TranslateCN = {
         SAVE: '保存',
         CREATE: '创建',
         SYNC: '同步',
+        TEST: '测试',
 
         NETWORK: '网络',
         NET_MNG: '网络管理',
@@ -320,6 +323,14 @@ export const TranslateCN = {
         //vmware-navigation-page
         SET_NSX_MNG_INFO: '设置NSX管理信息',
         SET_NETWORK_TYPE: '为可用区(集群)设置网络类型',
+        NSX_MNG_INFO: 'NSX管理信息',
+        SET_NET_TYPE: '设置网络类型',
+        STD_NET: '标准网络',
+        DBT_NET: '分布式网络',
+        NSX_NET: 'NSX网络',
+        
+        NETWORK_TYPE: '网络类型',
+
 
         SET_NSX_MNG_INFO_SUCCESS: '设置NSX管理信息成功',
         SET_NSX_MNG_INFO_FAILED: '设置NSX管理信息失败',
@@ -328,6 +339,8 @@ export const TranslateCN = {
         TEST_NSX_MNG_INFO_SUCCESS: '测试NSX管理信息成功',
         TEST_NSX_MNG_INFO_FAILED: '测试NSX管理信息失败',
         TEST_NSX_MNG_INFO_EXCEPTION: '测试NSX管理信息异常',
+        TEST_NSX_PASSED: 'NSX测试通过',
+        TEST_NSX_FAILED: 'NSX测试失败',
 
         GET_NXS_STATUS_SUCCESS: '获取NXS状态成功',
         GET_NXS_STATUS_FAILED: '获取NXS状态失败',
