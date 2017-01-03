@@ -51,9 +51,9 @@ export class ClMngCreStep3Component implements OnInit{
                 console.log(res);
                 this.creStep3Model = res.resultContent;
                 this.creStep3Model.forEach(ele => {
-                    if (ele.quotaPercentage) {
-                        ele.quotaPercentDisplay = ele.quotaPercentage * 100;
-                    }
+                    ele.quotaPercentage=
+                            ele.quotaPercentage?ele.quotaPercentage:0;
+                    ele.quotaPercentDisplay = ele.quotaPercentage * 100;
                 })
             }
         ).catch(

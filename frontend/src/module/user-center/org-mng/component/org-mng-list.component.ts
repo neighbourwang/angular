@@ -8,9 +8,6 @@ import { OrgMngCrComponent } from './org-mng-cr.component';
 import { OrgMngService } from '../service/org-mng.service';
 //model
 import { Org, OrgPer } from '../model/org-mng.org.model';
-import { EntResource } from '../model/ent-resource-obj.model';
-
-
 @Component({
   selector: 'org-mng-list',
   templateUrl: '../template/org-mng-list.component.html',
@@ -55,14 +52,14 @@ export class OrgMngListComponent implements OnInit {
   isEdit: boolean = false;
   editId: string;
   percent: string = '20%';
-
+  curEntId: string;
+  // entResourceObj: EntResource=new EntResource();
   //企业资源对象
   ngOnInit() {
     this.service.getCurEntId().then(() => {
       this.getOrgs(0, this.pp);
-      this.service.getNoMngUser();
     });
-
+    
   }
   //获取组织列表
   getOrgs(page: number, size: number) {
@@ -179,15 +176,12 @@ export class OrgMngListComponent implements OnInit {
   temporary: boolean = false//刷新弹出框组件
   openCreate() {
     console.log('create');
-
     this.isEdit = false;
     this.temporary = false;
     window.setTimeout(() => {
       this.creOrgPop.open('创建部门');
       this.temporary = true;
     }, 0);
-    // $('#crModel').modal('show');
-
   };
   //弹出框 点击确认
   createOrg() {
@@ -195,11 +189,8 @@ export class OrgMngListComponent implements OnInit {
       console.log(res);
       if (res == false)
         return;
-      // $('#crModel').modal('hide');
       //刷新企业资源
-      this.service.curEntId = '';
-      this.service.entResourceObj = new EntResource();
-      this.service.getCurEntId();
+      this.service.getCurEntResource(this.service.curEntId);
       this.creOrgPop.close();
       this.getOrgs(0, 10);
 
@@ -207,12 +198,7 @@ export class OrgMngListComponent implements OnInit {
     ).catch(err => {
       console.error(err);
     });;
-    if (this.isEdit) {
-      console.log('edit');
-    } else {
-      console.log('create');
-    }
-
+    
   }
   ccf() { }
 }

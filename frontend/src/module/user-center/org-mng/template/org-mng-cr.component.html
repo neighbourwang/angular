@@ -17,23 +17,23 @@
                             </div>
                         </div>
 
-                        <div *ngIf="false" class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
+                        <!--<div *ngIf="false" class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
                             <div class="col-md-3 content-title" style="text-align : center"><span class="asterisk">*</span>部门负责人</div>
                             <div class="col-md-8 no-padding">
                                 <select class="form-control" [(ngModel)]="org.leaderId" name="leaderId">
                                 <option *ngFor="let item of users;" [value]="item.id">{{item.userName}}</option>
                             </select>
                             </div>
-                        </div>
+                        </div>-->
                     </form>
-                    <div class="col-md-12 no-padding" *ngIf="false" style=" line-height : 35px">
+                    <!--<div class="col-md-12 no-padding" *ngIf="false" style=" line-height : 35px">
                         <div class="col-md-3 content-title" style="text-align : center">部门成员</div>
                         <div class="col-md-8 no-padding">
                             <label class="checkbox-inline" style="margin-left : 0;margin-right : 20px;margin-bottom : 10px" *ngFor="let member of service.members">
                                 <input type="checkbox"  class="fox-cloud-checkbox" id="inlineCheckbox1" value="membe.id"  (click)="selectMember(member)"/> {{member.userName}}
                             </label>
                         </div>
-                    </div>
+                    </div>-->
 
                     <!--<div class="col-md-12 no-padding mgb15" style="height : 35px ; line-height : 35px">
                     <div class="col-md-2 content-title" style="text-align : center"></div>
@@ -42,80 +42,7 @@
                     </div>
                 </div>-->
                 </td>
-            </tr>
-            <tr *ngIf="false">
-                <th class="col-md-1 col-xs-3 text-center">配额设置</th>
-                <td>
-                    <div style="border:1px solid #ddd;border-bottom:none">
-                        <div class="col-md-12 no-padding bg-gray " style="height : 50px ; line-height : 50px; border-bottom:1px solid #ddd">
-                            <div class="col-md-3 content-title" style="text-align : center"></div>
-                            <div class="col-md-3 content-title" style="text-align : center">
-                                部门配置
-                            </div>
-                            <div class="col-md-3 content-title" style="text-align : center">部门已使用额度</div>
-                            <div class="col-md-3 content-title" style="text-align : center">企业可分配额度</div>
-                        </div>
-
-                        <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
-                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">vCPU数量(核)</div>
-                            <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=1 [max]="curEntResource.cpuQuota-curEntResource.usedCpuQuota+resource.vcpu" [min]="resource.usedCpu||0" [disabled]=false [value]="resource.vcpu||0" (output)="outputValue($event,'vcpu','cpuQuota','usedCpuQuota')"></count-bar>
-                            </div>
-                            <div class="col-md-3 content-title" style="text-align : center">{{resource.usedCpu||0}}</div>
-                            <div class="col-md-3 content-title" style="text-align : center">{{curEntResource.cpuQuota-curEntResource.usedCpuQuota||0}}</div>
-                        </div>
-                        <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
-                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">内存数量(GB)</div>
-                            <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=1 [max]="curEntResource.memQuota-curEntResource.usedMemQuota+resource.mem" [min]="resource.usedMem||0" [disabled]=false [value]="resource.mem||0" (output)="outputValue($event,'mem','memQuota','usedMemQuota')"></count-bar>
-                            </div>
-                            <div class="col-md-3 content-title" style="text-align : center">{{resource.usedMem||0}}</div>
-                            <div class="col-md-3 content-title" style="text-align : center">{{curEntResource.memQuota-curEntResource.usedMemQuota||0}}</div>
-                        </div>
-                        <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
-                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">物理机数量(台)</div>
-                            <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=1 [max]="curEntResource.physicalMachineQuota-curEntResource.usedPhysicalMachineQuota+resource.physical" [min]="resource.usedPhysical||0" [disabled]=false [value]="resource.physical||0" (output)="outputValue($event,'physical','physicalMachineQuota','usedPhysicalMachineQuota')"></count-bar>
-                            </div>
-                            <div class="col-md-3 content-title" style="text-align : center">{{resource.usedPhysical||0}}</div>
-                            <div class="col-md-3 content-title" style="text-align : center">{{curEntResource.physicalMachineQuota-curEntResource.usedPhysicalMachineQuota||0}}</div>
-                        </div>
-                        <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
-                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">存储额度(GB)</div>
-                            <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=1 [max]="curEntResource.storageQuota-curEntResource.usedStorageQuota+resource.storage" [min]="resource.usedStorage||0" [disabled]=false [value]="resource.storage||0" (output)="outputValue($event,'storage','storageQuota','usedStorageQuota')"></count-bar>
-                            </div>
-                            <div class="col-md-3 content-title" style="text-align : center">{{resource.usedStorage||0}}</div>
-                            <div class="col-md-3 content-title" style="text-align : center">{{curEntResource.storageQuota-curEntResource.usedStorageQuota||0}}</div>
-                        </div>
-                        <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
-                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">快照数量(个)</div>
-                            <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=1 [max]="curEntResource.snapshotQuota-curEntResource.usedSnapshotQuota+resource.snapshot" [min]="resource.usedSnapshot||0" [disabled]=false [value]="resource.snapshot||0" (output)="outputValue($event,'snapshot','snapshotQuota','usedSnapshotQuota')"></count-bar>
-                            </div>
-                            <div class="col-md-3 content-title" style="text-align : center">{{resource.usedSnapshot||0}}</div>
-                            <div class="col-md-3 content-title" style="text-align : center">{{curEntResource.snapshotQuota-curEntResource.usedSnapshotQuota||0}}</div>
-                        </div>
-                        <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
-                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">镜像数量(个)</div>
-                            <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=1 [max]="curEntResource.imageQuota-curEntResource.usedImageQuota+resource.image" [min]="resource.usedImage||0" [disabled]=false [value]="resource.image||0" (output)="outputValue($event,'image','imageQuota','usedImageQuota')"></count-bar>
-                            </div>
-                            <div class="col-md-3 content-title" style="text-align : center">{{resource.usedImage||0}}</div>
-                            <div class="col-md-3 content-title" style="text-align : center">{{curEntResource.imageQuota-curEntResource.usedImageQuota||0}}</div>
-                        </div>
-                        <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
-                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">浮动IP地址(个)</div>
-                            <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=1 [max]="curEntResource.floatIpQuota-curEntResource.usedFloatIpQuota+resource.ipaddress" [min]="resource.usedIpaddress||0" [disabled]=false [value]="resource.ipaddress||0" (output)="outputValue($event,'ipaddress','floatIpQuota','floatIpQuota')"></count-bar>
-                            </div>
-                            <div class="col-md-3 content-title" style="text-align : center">{{resource.usedIpaddress||0}}</div>
-                            <div class="col-md-3 content-title" style="text-align : center">{{curEntResource.floatIpQuota-curEntResource.usedFloatIpQuota||0}}</div>
-                        </div>
-                        <div style="clear:both"></div>
-                    </div>
-                </td>
-            </tr>
+            </tr>           
             <tr>
                     <th class="col-md-1 col-xs-3 text-center">配额设置</th>
                 <td>
@@ -140,9 +67,9 @@
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">内存数量(GB)</div>
                             <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=0.5 [max]="maxAvailable.mem" [min]="resource.usedMem||0" [disabled]=false [value]="resource.mem||0" (output)="outputValue($event,'mem','memQuota')"></count-bar>
+                                <count-bar [default]=0 [step]=0.5 [max]="maxAvailable.mem" [min]="resource.transforUsedMem||0" [disabled]=false [value]="resource.transforMem||0" (output)="outputValue($event,'transforMem','memQuota')"></count-bar>
                             </div>
-                            <div class="col-md-3 content-title" style="text-align : center">{{resource.usedMem||0}}</div>
+                            <div class="col-md-3 content-title" style="text-align : center">{{resource.transforUsedMem||0}}</div>
                             <div class="col-md-3 content-title" style="text-align : center">{{countAvailable.memQuota||0}}</div>
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
