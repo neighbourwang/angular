@@ -24,9 +24,10 @@ export class IpMngListService {
                 value: platform_id
             }
         ];
+        console.log(pathParams, "pathParams in getIpMngList!");
         const api = this.restApiCfg.getRestApi("net-mng.vmware.nsx.ipmng.list");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return IpMngModel_mock });
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return IpMngModel_mock });
     }
     
     getDLRList(platform_id: any): Promise<any> {
@@ -37,21 +38,21 @@ export class IpMngListService {
             }
         ];
         const api = this.restApiCfg.getRestApi("net-mng.vmware.nsx.dclist.get");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => net_dlr_list_mock);
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => net_dlr_list_mock);
     }
 
     getSubnetInfoIps(portGroup: any): Promise<any> {
         const pathParams = [
             {
-                key: "id",
+                key: "port_id",
                 value: portGroup
             }
         ];
         console.log(pathParams, "pathParams in getSubnetInfoIps!");
         const api = this.restApiCfg.getRestApi("net-mng.vmware.nsx.subnetinfo.ips.get");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return subnetInfoModel_mock });
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return subnetInfoModel_mock });
     }
 
 	updateSubnetIPs(portGroup:any, ippool: subnetIpModel): Promise <any> {
@@ -65,10 +66,14 @@ export class IpMngListService {
         ippool.ips = ippool.ipstr.replace(/\s+/g, "").replace(/\n\r/g, "").split(';');
         let ips: Array<String> = ippool.ips.filter(item => {return item != ""});
         console.log(ips, "(((((((((((((((ips)))))))))))))))");
-        const body = ips;
+        const body = {
+            "dnsAlt": ippool.dnsAlt || "",
+            "dnsPre": ippool.dnsPre || "",
+            "subnetRange": ips
+        }
         console.log(pathParams, body, "pathParams and body");
         const api = this.restApiCfg.getRestApi("net-mng.vmware.nsx.subnetips.setup");
-        //return this.restApi.request(api.method, api.url, pathParams, null, body);
-		return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+		//return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
 	}
 }
