@@ -1197,7 +1197,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取IP地址管理列表",
         "id": "net-mng.vmware.nsx.ipmng.list",
         "method": "GET",
-        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/portlist"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/iplist"
     },
     {
         "desc": "获取DLR值",

@@ -33,6 +33,10 @@ export class VmwareMngIndexService{
         owner: "VMNETWORK", 
         field: "NSXRES"
     });
+    nsxverDict = this.dict.get({
+        owner: "VMNETWORK", 
+        field: "NSXVER"
+    });
 
     getRegionInfo():Promise<any>{        
         const api = this.restApiCfg.getRestApi("net-mng.vmware-index.regionlist.get");
