@@ -4,7 +4,7 @@
 	<div class="page-content">
 		<div class="table-container">
 			<div class="search-container">
-				<input type="text" class="form-control searchbox gray-searchbox" placeholder="输入订单信息快速查询"/>
+				<input type="text" class="form-control searchbox gray-searchbox" placeholder="输入订单信息快速查询" [(ngModel)]="_param.quickSearchStr"/>
 				<span class="glyphicon glyphicon-search searchbox-incon" (click)="search()"></span>
 						
 				<button class="fox-cloud-button float-left "  [ngClass]="{'fox-cloud-button-white':_isAdvSearch==1,'fox-cloud-button-grey':_isAdvSearch!=1}" (click)="_isAdvSearch = !_isAdvSearch">
