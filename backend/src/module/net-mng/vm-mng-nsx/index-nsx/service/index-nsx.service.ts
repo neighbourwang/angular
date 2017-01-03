@@ -89,4 +89,40 @@ export class VmNSXIndexService {
        //  return this.restApi.request(api.method, api.url, pathParams, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
     }
+
+    //获取分布式同步网络信息
+    getSynInfolist(platform_id:string):Promise<any>{
+         const pathParams = [
+            {
+                key:"platform_id",
+                value: platform_id
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("net-mng.vm-mng-nsx.index.synclist");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock });
+    }
+    
+    doSyn(id:string, platform_id:string):Promise<any>{
+        const pathParams = [
+            {
+                key: "dlr_id",
+                value: id
+            },
+            {
+                key:"platform_id",
+                value: platform_id
+            }
+        ];
+
+        const api = this.restApiCfg.getRestApi("net-mng.vm-mng-nsx.index.dosync");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return port_mock_changed });
+
+    }
+
+    synDic = this.dict.get({
+        owner: "VMDIST",
+        field: "SYNC"
+    });
 }

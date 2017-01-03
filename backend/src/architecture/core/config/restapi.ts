@@ -1587,5 +1587,18 @@ export let RestApis: RestApiModel[] = [
         "id": "net-mng.vm-mng-nsx.index.setdlrname",
         "method": "PUT",
         "url": "adminboe/authsec/vmware/network/nsx/{id}/setdlrname"
+    },
+{
+        "desc": "NSX网络引导页同步获取列表",
+        "id": "net-mng.vm-mng-nsx.index.synclist",
+        "method": "GET",
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/synclist"
+    },
+    {
+        "desc": "NSX网络引导页同步操作",
+        "id": "net-mng.vm-mng-nsx.index.dosync",
+        "method": "PUT",
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/{dlr_id}/sync"
     }
 ]
+
