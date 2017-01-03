@@ -8,6 +8,7 @@ import {
 
 import { dlr} from "../model/dlr.model"
 import { port } from '../model/port.model';
+import {transport} from '../model/transport.model';
 import { port_mock } from '../model/port.mock.model';
 import { VmNSXIndexService } from '../service/index-nsx.service';
 
@@ -66,9 +67,9 @@ export class VmNSXIndexComponent implements OnInit {
 
     allports: Array<port>;
     filterports: Array<port>;
-
+    transportList: Array<transport>;
     editPort: port = new port();
-
+    
     statusDic: Array<SystemDictionary>;//状态
     synDic: Array<SystemDictionary>;
 
@@ -167,8 +168,23 @@ export class VmNSXIndexComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    viewDetail(port:port) {
-        this.detail.open('NET_VM_NSX_INDEX.TRANSPORT_DETAIL');
+    viewDetail(Port: port) {
+        this.layoutService.show();
+        this.service.getTransportZone(Port.dlrPortId)
+        .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+
+                    this.transportList = response["resultContent"];
+                    this.detail.open('NET_VM_NSX_INDEX.TRANSPORT_DETAIL');
+                } else {
+                    alert("Res sync error");
+                }
+            }
+        )
+            .catch((e) => this.onRejected(e));
+        
     }
 
     //启用标准网络
