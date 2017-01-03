@@ -31,7 +31,7 @@
             <span class="icon-button-label icon-left-button-label">同步NSX网络信息</span> <!--请添加创建的弹出框-->
         </button>       
         <button class="fox-cloud-button fox-cloud-button-green" key="boe/vmware-nsx-dlr-res.html">       
-            <span class="icon-button-label icon-left-button-label">DLR资源分配</span>
+            <span class="icon-button-label icon-left-button-label" click="gotoPortMng()">DLR资源分配</span>
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" key="boe/vmware-nsx-ip-addr-mng.html">
             <span class="icon-button-label icon-left-button-label" click="gotoIpMng()">IP地址管理</span>
@@ -134,4 +134,28 @@
             </tbody>
         </table>
     </div>            
+</fc-popup>
+
+<!--同步弹出框内容-->
+<fc-popup #sync title="{{title}}" ot="{{'NET_MNG_VM_IP_MNG.SYNC' | translate}}" (of)="doSyn()" ct="{{'COMMON.CLOSE' | translate}}" (cf)="closeSyn()">
+       <div class="table-container">
+           <div style="max-height: 400px; overflow: auto;">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{'NET_MNG_VM_IP_MNG.SELECT' | translate}}</th>
+                        <th>逻辑路由器名称(DLR)</th>
+                        <th>{{'NET_MNG_VM_IP_MNG.STATUS' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let dlr of infoListForSyn">
+                   <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="port.selected" (change)="selectSyn(dlr)"> </td>
+                    <td>{{dlr.dlrName}}</td>
+                    <td [ngClass]="dlr.status==1?'font-green':'font-orange'">{{dlr.status | dict:this.service.synDic | async}}</td>
+                </tr>
+                </tbody>
+            </table>
+           </div>
+            </div>
 </fc-popup>
