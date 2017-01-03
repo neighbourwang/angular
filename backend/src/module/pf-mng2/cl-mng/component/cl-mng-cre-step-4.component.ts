@@ -54,7 +54,7 @@ export class ClMngCreStep4Component implements OnInit {
                     }
                 })
                 //Openstack类型同步volumeType信息
-                if (this.platformType == 'OpenStack') {
+                if (this.platformType == '0') {
                     this.service.getvolumeType(platFormId).then(
                         res => {
                             console.log(res);
@@ -63,7 +63,6 @@ export class ClMngCreStep4Component implements OnInit {
                         console.error(err);
                     });
                 }
-
             }
         ).catch(
             error => {
@@ -71,9 +70,6 @@ export class ClMngCreStep4Component implements OnInit {
             }
             )
     }
-
-
-
     next() {
         let platFormId: String = this.idService.getPlatformId();
         this.creStep4Model.forEach(ele => {

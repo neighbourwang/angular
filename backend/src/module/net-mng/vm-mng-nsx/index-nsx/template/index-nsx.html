@@ -7,7 +7,7 @@
             <tr>
                 <th style="text-align:left;">VMware网络管理--管理NSX网络&nbsp;&nbsp; "地区" "数据中心"平台显示名称+连接URL https://192.168.1.1:43</th>
                 <th style="text-align:right;">
-                    <button class=" fox-cloud-button fox-cloud-button-white ">
+                    <button class=" fox-cloud-button fox-cloud-button-white " (click)="goBack();">
                         <span class="icon-button-label">返回上一级</span>
                     </button>
                 </th>
@@ -30,11 +30,11 @@
         <button class="fox-cloud-button fox-cloud-button-green" data-toggle="modal" data-target="#myModal" >          
             <span class="icon-button-label icon-left-button-label">同步NSX网络信息</span> <!--请添加创建的弹出框-->
         </button>       
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/vmware-nsx-dlr-res.html">       
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoPortMng()">       
             <span class="icon-button-label icon-left-button-label" click="gotoPortMng()">DLR资源分配</span>
         </button>
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/vmware-nsx-ip-addr-mng.html">
-            <span class="icon-button-label icon-left-button-label" click="gotoIpMng()">IP地址管理</span>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoIpMng()">
+            <span class="icon-button-label icon-left-button-label" >IP地址管理</span>
         </button>
         <div class="dropdown pull-right" >
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -97,7 +97,7 @@
                     <td>{{port.dlrInterfaceType}}</td>
                     <td>{{port.lswName}}</td>              
                     <td>{{port.lswId}}</td>
-                    <td (click)="viewDetail();" >{{port.lswTransportZone}}</td>
+                    <td><a (click)="viewDetail(port);">{{port.lswTransportZone}}</a></td>
                     <td class="font-green">{{port.status}}</td>
                     <td>{{port.lastUpdate}}</td>
                 </tr>
@@ -108,8 +108,10 @@
 </div>
 <div style="height:150px"> </div>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>
-<fc-popup #detail title="{{title}}"   ct="{{'COMMON.CLOSE' | translate}}" (cf)="cancelEdit();">
-    <div style="mgb10">  Replication mode：  Multicast/Unicast/Hybrid</div>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}"></fc-confirm>
+
+<fc-popup #detail title="{{title}}"   ot="" ct="{{'COMMON.CLOSE' | translate}}" (cf)="cancelEdit();">
+    <div class="mgb10">  Replication mode：  Multicast/Unicast/Hybrid</div>
     <div class="table-container">
         <table class="table table-hover">
             <thead>

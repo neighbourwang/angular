@@ -7,7 +7,8 @@
 import { Component, OnInit, Input , Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent  } from '../../../../architecture';
+import { TranslateService } from 'ng2-translate';
 import { cloudDriveServiceOrder } from '../service/cloud-drive-order.service'
 
 import { AttrList, PayLoad } from '../model/attr-list.model';
@@ -23,6 +24,15 @@ export class cloudDriveComponentOrder implements OnInit {
 
 	@ViewChild('cartButton') cartButton;
 
+	@ViewChild('confirm')
+	private confirmDialog: ConfirmComponent;
+
+	@ViewChild('notice')
+	private noticeDialog: NoticeComponent;
+
+	@ViewChild('popup')
+	private popup: PopupComponent;
+
 	@Input() options:OrderOptions;
 
 	configs: OrderList;
@@ -30,6 +40,10 @@ export class cloudDriveComponentOrder implements OnInit {
 	payLoadArr : PayLoad[];  //最后提交的是个PayLoad数组
 	sendModule: SendModule;
 	setPassword: boolean = false;
+
+	modalTitle: string = '';
+	modalMessage: string = '';
+	modalOKTitle: string = '';
 
 	// timeForever : boolean = false;
 
@@ -46,7 +60,8 @@ export class cloudDriveComponentOrder implements OnInit {
 
 	isAttachVm: boolean = false;
 
-	constructor(
+    constructor(
+        private translateService: TranslateService,
 		private layoutService: LayoutService,
 		private router: Router,
 		private service:cloudDriveServiceOrder
@@ -54,7 +69,7 @@ export class cloudDriveComponentOrder implements OnInit {
 		this.configs = new OrderList();
 		this.sendModule = new SendModule();
 		this.payLoad = new PayLoad();
-	};
+	}
 
 	ngOnInit() {
 		this.setConfigList();
@@ -203,8 +218,9 @@ export class cloudDriveComponentOrder implements OnInit {
 		this.layoutService.show();
 		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
 		this.service.addCart(payLoadArr).then(res => {
-			this.layoutService.hide();
-			alert("CLOUD_DRIVE_ORDER.SUCCESSFULLY_ADDED_TO_SHOPPING_CART");
+            this.layoutService.hide();
+          
+            this.noticeDialog.open("","CLOUD_DRIVE_ORDER.SUCCESSFULLY_ADDED_TO_SHOPPING_CART");
 			this.cartButton.setCartList();
 			// this.router.navigateByUrl("cloud-host-service/cloud-host-list");
 		}).catch(res => {
@@ -230,8 +246,8 @@ export class cloudDriveComponentOrder implements OnInit {
 			storage : () => !!this.sendModule.storage.attrValue,
 			diskinsname : () =>  !this.sendModule.diskinsname.attrValue || /^[a-zA-Z\u4e00-\u9fa5].{1,67}/.test(this.sendModule.diskinsname.attrValue)
 		};
-
-		const alertValue = {
+        const alertValue = {
+            
 			platform : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_PLATFORM",
 			zone : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_AVAILABLE_ZONE",
 			disktype : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK",
@@ -255,9 +271,9 @@ export class cloudDriveComponentOrder implements OnInit {
 	}
 
 	checkInput() {
-		const al = value => !!alert(value);
+		const al = value => !!this.showNotice("提示",value);
 
-		if(!this.sku) return al("CLOUD_DRIVE_ORDER.SKU_IS_NOT_CORRECT");
+		if(!this.sku) return al("sku不正确");  //CLOUD_DRIVE_ORDER.SKU_IS_NOT_CORRECT
 
 		const value = this.checkValue();
 		if(value) return al(value);
@@ -290,5 +306,16 @@ export class cloudDriveComponentOrder implements OnInit {
 			this.layoutService.hide();
 		})
 	}
+
+
+
+	// 警告框相关
+	showNotice(title: string, msg: string) {
+	    this.modalTitle = title;
+	    this.modalMessage = msg;
+
+	    this.noticeDialog.open();
+	}
+	modalAction() {}
 
 }

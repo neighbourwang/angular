@@ -17,7 +17,7 @@
 import { Component, ViewChild, Input, Output, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
 import { cloudHostServiceOrder } from '../service/cloud-host-order.service';
 
 import { AttrList, PayLoad } from '../model/attr-list.model';
@@ -37,7 +37,20 @@ export class cloudHostComponentOrder implements OnInit {
 	sendModule: SendModule;
 	setPassword: boolean = true;
 
+	@ViewChild('confirm')
+	private confirmDialog: ConfirmComponent;
+
+	@ViewChild('notice')
+	private noticeDialog: NoticeComponent;
+
+	@ViewChild('popup')
+	private popup: PopupComponent;
+
 	@Input() options: OrderOptions;
+
+	modalTitle: string = '';
+	modalMessage: string = '';
+	modalOKTitle: string = '';
 
 	totalPrice: number = 0;
 	vmSku: SkuMap = new SkuMap;
@@ -58,7 +71,8 @@ export class cloudHostComponentOrder implements OnInit {
 
 
 	@ViewChild('cartButton') cartButton;
-	@ViewChild('storage') storage;
+    @ViewChild('storage') storage;
+
 	// timeForever : boolean = false;
 
 	// rightFixed : boolean = false;   //让右侧配置起飞
@@ -389,7 +403,7 @@ export class cloudHostComponentOrder implements OnInit {
 		this.layoutService.show();
 		this.service.addCart(payLoadArr).then(res => {
 			this.layoutService.hide();
-			alert("加入购物车成功！");
+			this.noticeDialog.open("","CLOUD_DRIVE_ORDER.SUCCESSFULLY_ADDED_TO_SHOPPING_CART");
 			this.cartButton.setCartList();
 			// this.router.navigateByUrl("cloud-host-service/cloud-host-list");
 		}).catch(res => {
@@ -419,20 +433,20 @@ export class cloudHostComponentOrder implements OnInit {
 		};
 
 		const alertValue = {
-			password: "密码格式不正确", //VM_INSTANCE.PASSWARD_FORMAT_IS_NOT_CORRECT
-			passwordShadow: "两次密码输入不一致", //VM_INSTANCE.TWO_PASSWARD_ENTRIES_ARE_INCONSISTENT
-			instancename: "主机名称格式不正确", //VM_INSTANCE.HOST_NAME_FORMAT_IS_NOT_CORRECT
-			timeline: "请输入购买时长为最大不超过999的数字", //VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION
-			platform: "请选择云平台", //VM_INSTANCE.PLEASE_SELECT_CLOUD_PALTFORM
-			zone: "请选择可用区", //VM_INSTANCE.PLEASE_SELECT_AVAILABLE_ZONE
-			cpu: "请选择cpu", //VM_INSTANCE.PLEASE_SELECT_CPU
-			mem: "请选择内存",//VM_INSTANCE.PLEASE_SELECT_RAM
-			networktype: "请选择网络类型",//VM_INSTANCE.PLEASE_SELECT_NET_TYPE
-			securitygroup: "请选择安全组",//VM_INSTANCE.PLEASE_SELECT_SECURITY_GROUP
-			startupsource: "请选择启动源",//VM_INSTANCE.PLEASE_SELECT_STARTUP_SOURCE
-			imagetype: "请选择镜像类型", //VM_INSTANCE.PLEASE_SELECT_IMAGE_TYPE
-			os: "请选择镜像名称",   //VM_INSTANCE.PLEASE_SELECT_IMAGE_NAME
-			timelineunit: "请选择网络类型"//VM_INSTANCE.PLEASE_SELECT_NET_TYPE
+			password: "VM_INSTANCE.PASSWARD_FORMAT_IS_NOT_CORRECT", //
+			passwordShadow: "VM_INSTANCE.TWO_PASSWARD_ENTRIES_ARE_INCONSISTENT两次密码输入不一致", //两次密码输入不一致
+			instancename: "VM_INSTANCE.HOST_NAME_FORMAT_IS_NOT_CORRECT", //主机名称格式不正确
+			timeline: "VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION", //VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION
+			platform: "VM_INSTANCE.PLEASE_SELECT_CLOUD_PALTFORM", //VM_INSTANCE.PLEASE_SELECT_CLOUD_PALTFORM
+			zone: "VM_INSTANCE.PLEASE_SELECT_AVAILABLE_ZONE", //VM_INSTANCE.PLEASE_SELECT_AVAILABLE_ZONE
+			cpu: "VM_INSTANCE.PLEASE_SELECT_CPU", //VM_INSTANCE.PLEASE_SELECT_CPU
+			mem: "VM_INSTANCE.PLEASE_SELECT_RAM",//VM_INSTANCE.PLEASE_SELECT_RAM
+			networktype: "VM_INSTANCE.PLEASE_SELECT_NET_TYPE",//VM_INSTANCE.PLEASE_SELECT_NET_TYPE
+			securitygroup: "VM_INSTANCE.PLEASE_SELECT_SECURITY_GROUP",//VM_INSTANCE.PLEASE_SELECT_SECURITY_GROUP
+			startupsource: "VM_INSTANCE.PLEASE_SELECT_STARTUP_SOURCE",//VM_INSTANCE.PLEASE_SELECT_STARTUP_SOURCE
+			imagetype: "VM_INSTANCE.PLEASE_SELECT_IMAGE_TYPE", //VM_INSTANCE.PLEASE_SELECT_IMAGE_TYPE
+			os: "VM_INSTANCE.PLEASE_SELECT_IMAGE_NAME",   //VM_INSTANCE.PLEASE_SELECT_IMAGE_NAME
+			timelineunit: "VM_INSTANCE.PLEASE_SELECT_NET_TYPE"//VM_INSTANCE.PLEASE_SELECT_NET_TYPE
 		}
 
 		const check = value => {
@@ -451,7 +465,7 @@ export class cloudHostComponentOrder implements OnInit {
 	}
 
 	checkInput(): boolean {
-		const al = value => !!alert(value);
+		const al = value => !!this.showNotice("提示",value);
 
 		// if(!this.vmSku.skuId) return al("sku不正确");
 
@@ -475,4 +489,14 @@ export class cloudHostComponentOrder implements OnInit {
 			this.layoutService.hide();
 		})
 	}
+
+
+	// 警告框相关
+	showNotice(title: string, msg: string) {
+	    this.modalTitle = title;
+	    this.modalMessage = msg;
+
+	    this.noticeDialog.open();
+	}
+	modalAction() {}
 }

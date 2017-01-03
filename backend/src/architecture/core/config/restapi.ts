@@ -149,18 +149,30 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "platformaccess/noauth/platforms/{id}/zoneQuotas"
     },
+    {
+        "desc": "启用平台可用区信息",
+        "id": "pf-mng-zone.enable",
+        "method": "GET",
+        "url": "platformaccess/authsec/platform/zone/{id}/enable"
+    },
+    {
+        "desc": "禁用平台可用区信息",
+        "id": "pf-mng-zone.suspend",
+        "method": "GET",
+        "url": "platformaccess/authsec/platform/zone/{id}/suspend"
+    },
     //update镜像同步
     {
         "desc": "镜像同步",
         "id": "pf.cre.step.images.synchronize.get",
         "method": "GET",
-        "url": "adminboe/authsec/images/openstack/pub/{id}" 
+        "url": "adminboe/authsec/images/sync/pub/{id}" 
     },
     {
         "desc": "镜像同步",
         "id": "pf.cre.step.images.synchronize.post",
         "method": "POST",
-        "url": "adminboe/authsec/images/openstack/pub/{id}/sync" 
+        "url": "adminboe/authsec/images/sync/pub/{id}/sync" 
     },
     {
         "desc": "宿主机同步",
@@ -1066,6 +1078,12 @@ export let RestApis: RestApiModel[] = [
         "id": "net-mng.vmware-index.network.changetype",
         "method": "PUT",
         "url": "adminboe/authsec/vmware/network/main/changetype/clusterid/{cluster_id}"
+    },    
+    {
+        "desc": "验证NSX管理信息",
+        "id": "net-mng.vmware-index.nsxstatus.validate",
+        "method": "GET",
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/main/nsxinfo/validate"
     },
     //IP地址管理[标准网络]
     {

@@ -36,7 +36,6 @@
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-
                         <div class="col-sm-4 form-control-title">
                             <span class="asterisk">*</span> 所属数据中心：
                         </div>
@@ -44,8 +43,7 @@
                             <input type="text" class="form-control" [(ngModel)]="platform.dataCenter" placeholder="请输入所属数据中心">
                         </div>
                     </div>
-                </div>
-                
+                </div>            
 
                 <div class="row row-line-height">
                     <div class="form-group">
@@ -138,7 +136,7 @@
     <div class="page-content">
         <div style="padding-bottom: 10px;">
              <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
-                <span class="icon-button-label" (click)='goList()'>同步存储后端</span>
+                <span class="icon-button-label" (click)='goList()'>同步可用区</span>
              </button>
              <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right;margin-right:20px">
                 <span class="icon-button-label" (click)='goList()'>同步存储空间</span>
@@ -155,7 +153,7 @@
                         <th>显示名称</th>
                         <th style="width:16%">宿主机</th>
                         <th>物理CPU核数</th>
-                        <th>物理内存总数(GB)</th>
+                        <th>物理内存总数(MB)</th>
                         <th style="width:6%">CPU超分比</th>
                         <th style="width:5%">配额%</th>
                         <th>状态</th>
@@ -173,7 +171,7 @@
                             <p *ngFor="let host of zone.hosts">{{host}}</p>
                         </td>
                         <td>{{zone.vcpunum}}</td>
-                        <td>{{zone.memSize/1024}}</td>                        
+                        <td>{{zone.memSize}}</td>                        
                         <td>
                             <input type="number" class="form-control" [(ngModel)]="zone.exceedPercentage" style="display: inline;" name="exceedPercentage">
                         </td>
@@ -193,8 +191,8 @@
                             <input type="text" class="form-control" [(ngModel)]="zone.description" style="display: inline;" name="description">
                         </td> 
                         <td>
-                            <button class="fox-cloud-button-md fox-cloud-button-white">启用</button>
-                            <button class="fox-cloud-button-md fox-cloud-button-white">禁用</button> 
+                            <button class="fox-cloud-button-md fox-cloud-button-white" (click)="enableZone(zone.id)">启用</button>
+                            <button class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendZone(zone.id)">禁用</button> 
                         </td>                                               
                     </tr>
                 </tbody>
@@ -208,7 +206,7 @@
                         <th>显示名称</th>
                         <th>宿主机</th>
                         <th>物理CPU核数</th>
-                        <th>物理内存总数(GB)</th>
+                        <th>物理内存总数(MB)</th>
                         <th>CPU超分比</th>
                         <th>配额%</th>
                         <th>状态</th>
@@ -417,3 +415,13 @@
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认"></fc-notice>
 
 <fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-popup #updateZone title="{{title}}" ot="创建" (of)="otcreate()" ct="取消" (cf)="ccf()">
+	<div class="row row-line-height">
+		<div class="form-group">
+			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>Region名称：</div>
+			<div class="col-sm-6">
+			
+			</div>
+		</div>
+	</div>
+</fc-popup>

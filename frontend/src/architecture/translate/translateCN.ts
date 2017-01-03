@@ -96,7 +96,7 @@ export const TranslateCN = {
         CONFIGURATION: '配置',
         CURRENT_CONFIGURATION: '当前配置',
         STORAGE: '存储',
-        STORAGE_TYPE: '储存类型',
+        STORAGE_TYPE: '存储类型',
         SNAPSHOT: '快照',
         CONSOLE: '控制台',
         PHYSICAL_MACHINE: '物理机',
@@ -256,7 +256,10 @@ export const TranslateCN = {
 
 
         //sub-add-storage
-        ADD_DATA_DISK: '增加数据盘'
+        ADD_DATA_DISK: '增加数据盘',
+        ADD_HEAD: '一共可以增加',
+        ADD_MIDDLE: '块，还可以增加',
+        ADD_TAIL:'块'
 
     },
     ORDER_MNG: {//_DATA_FAILED
@@ -421,6 +424,10 @@ export const TranslateCN = {
         CLOUD_HOST_INSTANCE_LIST: '云主机实例列表',
         CLOUD_HRAD_DISK_TYPE: '云硬盘类型',
         MOUNT_TO_CLOUD_HOST: '挂载到云主机',
+        BUY_HEAD: '可以购买容量',
+        BUY_MID_FIRST: 'GB的云硬盘。',
+        BUY_MID_SECOND: 'GB起，增加按照每',
+        BUY_TAIL:'GB一档。',
 
         //TS
         SUCCESSFULLY_ADDED_TO_SHOPPING_CART: '加入购物车成功!',
@@ -512,6 +519,6 @@ export const TranslateCN = {
         INSTANCE_STATUS_UPDATE_FAILED: '实例状态更新失败',
         FAILED_TO_GET_THE_ORDER_LIST_DATA: '可订购列表数据获取失败',
         CONFIGURATION_SUBMISSION_FAILED___CONTACT_ADMINISTRATOR: '配置申请提交失败，请重新尝试或者联络管理员',
-        CONFIGURATION_APPLICATION_SUBMITTED_SUCCESSFULLY: '配置申请提交成功'
-    }
+        CONFIGURATION_APPLICATION_SUBMITTED_SUCCESSFULLY: '配置申请提交成功',
+    },
 }
