@@ -13,6 +13,6 @@ import { ListOptions } from '../model/options.model';
 export class vwDiskListComponent {
 
 	options : ListOptions = {
-		title : "VMware云硬盘列表" //VM_DISK.VMWARE_CLOUD_HARD_DISK_LIST
+		title : "VM_DISK.VMWARE_CLOUD_HARD_DISK_LIST" //VM_DISK.VMWARE_CLOUD_HARD_DISK_LIST
 	}  
 }

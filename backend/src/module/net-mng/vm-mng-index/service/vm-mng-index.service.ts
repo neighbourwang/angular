@@ -5,10 +5,10 @@ import { RestApiCfg, RestApi , SystemDictionaryService} from '../../../../archit
 import 'rxjs/add/operator/toPromise';
 
 //Mock
-import { RegionInfo_mock, NetworkInfo_mock, NsxInfo_mock, Success_mock } from '../model/vmware-net.mock';
+import { RegionInfo_mock, NetworkInfo_mock, NsxInfo_mock, NsxStatus_mock, Success_mock, Failure_mock } from '../model/vmware-net.mock';
 
 //Model
-import { RegionModel, VmwareNetModel, NsxNetModel } from '../model/vmware-net.model';
+import { RegionModel, VmwareNetModel, NsxNetModel, VmNetStatusModel } from '../model/vmware-net.model';
 
 @Injectable()
 export class VmwareMngIndexService{
@@ -25,9 +25,17 @@ export class VmwareMngIndexService{
     }
 
     //数据字典
-    typeDic = this.dict.get({
-        owner: "NETWORK", 
+    typeDict = this.dict.get({
+        owner: "VMNETWORK", 
         field: "TYPE"
+    });
+    nsxresDict = this.dict.get({
+        owner: "VMNETWORK", 
+        field: "NSXRES"
+    });
+    nsxverDict = this.dict.get({
+        owner: "VMNETWORK", 
+        field: "NSXVER"
     });
 
     getRegionInfo():Promise<any>{        
@@ -69,7 +77,7 @@ export class VmwareMngIndexService{
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return NetworkInfo_mock });
     }
 
-    updateNsxMngInfo(platformId:string, nsxnet: NsxNetModel):Promise<any>{
+    updateNsxMngInfo(platformId: string, nsxnet: NsxNetModel): Promise<any> {
         const pathParams = [
             {
                 key: "platform_id",
@@ -77,13 +85,67 @@ export class VmwareMngIndexService{
             }
         ];
         const body = {
-    "nsxVer": nsxnet.nsxVer,
-    "nsxAddress": nsxnet.nsxAddress,
-    "userName": nsxnet.userName,
-    "adminPassword": nsxnet.adminPassword,
-    "platformId": nsxnet.platformId
-            };
+            "nsxVer": nsxnet.nsxVer,
+            "nsxAddress": nsxnet.nsxAddress,
+            "userName": nsxnet.userName,
+            "adminPassword": nsxnet.adminPassword,
+            "platformId": platformId
+        };
+        console.log(body, "body");
         const api = this.restApiCfg.getRestApi("net-mng.vmware-index.nsxinfo.save");
+        //return this.restApi.request(api.method, api.url, pathParams, null, body);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
+    }
+
+    testNsxMngInfo(platformId: string, nsxnet: NsxNetModel): Promise<any> {
+        const pathParams = [
+            {
+                key: "platform_id",
+                value: platformId
+            }
+        ];
+        const body = {
+            "nsxVer": nsxnet.nsxVer,
+            "nsxAddress": nsxnet.nsxAddress,
+            "userName": nsxnet.userName,
+            "adminPassword": nsxnet.adminPassword,
+            "platformId": platformId
+        };
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("net-mng.vmware-index.nsxinfo.test");
+        //return this.restApi.request(api.method, api.url, pathParams, null, body);
+
+        if (nsxnet.adminPassword == "12345") {
+            return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
+        } else {
+            return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Failure_mock });
+        }
+    }
+
+    getNsxStatus(platformId:string):Promise<any>{
+        const pathParams = [
+            {
+                key: "platform_id",
+                value: platformId
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("net-mng.vmware-index.nsxstatus.validate");
+        //return this.restApi.request(api.method, api.url, pathParams, null, body);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return NsxStatus_mock });
+    }
+
+    updateNetworkType(vmnetstatus: VmNetStatusModel, vmnet: VmwareNetModel): Promise<any> {
+        const pathParams = [
+            {
+                key: "cluster_id",
+                value: vmnet.clusterId
+            }
+        ];
+        const body = {
+            "networkTye": vmnetstatus.vmNetStatus
+        };
+        console.log(pathParams, "pathParams", body, "body");
+        const api = this.restApiCfg.getRestApi("net-mng.vmware-index.network.changetype");
         //return this.restApi.request(api.method, api.url, pathParams, null, body);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
     }

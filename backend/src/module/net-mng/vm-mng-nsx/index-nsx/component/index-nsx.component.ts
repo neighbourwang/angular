@@ -8,6 +8,7 @@ import {
 
 import { dlr} from "../model/dlr.model"
 import { port } from '../model/port.model';
+import {transport} from '../model/transport.model';
 import { port_mock } from '../model/port.mock.model';
 import { VmNSXIndexService } from '../service/index-nsx.service';
 
@@ -46,8 +47,8 @@ export class VmNSXIndexComponent implements OnInit {
     @ViewChild("confirm")
     confirm: ConfirmComponent;
 
-    @ViewChild("synDbt")
-    synDbt: PopupComponent;
+    @ViewChild("sync")
+    sync: PopupComponent;
 
     @ViewChild('detail')
     detail: PopupComponent;
@@ -66,9 +67,9 @@ export class VmNSXIndexComponent implements OnInit {
 
     allports: Array<port>;
     filterports: Array<port>;
-
+    transportList: Array<transport>;
     editPort: port = new port();
-
+    
     statusDic: Array<SystemDictionary>;//状态
     synDic: Array<SystemDictionary>;
 
@@ -167,8 +168,23 @@ export class VmNSXIndexComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    viewDetail(port:port) {
-        this.detail.open('NET_VM_NSX_INDEX.TRANSPORT_DETAIL');
+    viewDetail(Port: port) {
+        this.layoutService.show();
+        this.service.getTransportZone(Port.dlrPortId)
+        .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+
+                    this.transportList = response["resultContent"];
+                    this.detail.open('NET_VM_NSX_INDEX.TRANSPORT_DETAIL');
+                } else {
+                    alert("Res sync error");
+                }
+            }
+        )
+            .catch((e) => this.onRejected(e));
+        
     }
 
     //启用标准网络
@@ -249,10 +265,10 @@ export class VmNSXIndexComponent implements OnInit {
         this.confirm.open();
     }
 
-    //gotoPortMng() {
-    //    this.router.navigate([`net-mng/vm-mng-dbt/port-mng`, {"pid":this.platformId}]);
-    //    //this.router.navigate([`net-mng/vm-mng-dbt/port-mng/${this.platformId}`]);
-    //}
+    gotoPortMng() {
+       this.router.navigate([`net-mng/vm-mng-nsx/dlr-mng`, {"pid":this.platformId}]);
+       //this.router.navigate([`net-mng/vm-mng-dbt/port-mng/${this.platformId}`]);
+    }
 
     gotoIpMng() {
         const selectedPort = this.filterports.find((port) => { return port.selected });
@@ -291,5 +307,82 @@ export class VmNSXIndexComponent implements OnInit {
         this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
+    }
+
+
+//同步列表弹出框
+    
+    infoListForSyn:Array<dlr>;
+    createPopor(){
+        //获取信息
+        this.layoutService.show();
+        this.service.getSynInfolist(this.platformId)
+        .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+
+                    this.infoListForSyn = response["resultContent"];
+                    this.sync.open('NET_MNG_VM_IP_MNG.SYNC_DBT_NET');
+                } else {
+                    alert("Res sync error");
+                }
+            }
+        )
+            .catch((e) => this.onRejected(e));
+        
+    }
+    //同步
+    doSyn(){
+        let id:string;
+        this.infoListForSyn.forEach(
+            (p)=>{
+                if(p.selected){
+                    id = p.dlrId ;
+                }
+            }
+        )
+        if(id && id!=""){
+            this.layoutService.show();
+            this.service.doSyn(id, this.platformId)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.showAlert("NET_MNG_VM_IP_MNG.SYNC_SUCCESS");
+                        this.sync.close();
+                        // //  刷新列表
+                        // this.service.getSynInfolist(this.platformId)
+                        // .then(
+                        //     response => {
+                        //         this.layoutService.hide();
+                        //         if (response && 100 == response["resultCode"]) {
+
+                        //             this.infoListForSyn = response["resultContent"];
+                        //         } else {
+                        //             alert("Res sync error");
+                        //         }
+                        //     }
+                        //  ).catch((e) => this.onRejected(e));
+
+                    } else {
+                        alert("Res sync error");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+        }else{
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ONE");
+        }
+        
+    }
+    closeSyn(){
+        this.sync.close();
+    }
+    selectSyn(dlr: dlr) {
+        this.infoListForSyn.forEach((port) => {
+            dlr.selected = false;
+        });
+        dlr.selected = true;
     }
 }

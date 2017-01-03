@@ -33,8 +33,8 @@ export class IpUsageMngListService {
         ];
         console.log(pathParams, "pathParams");
         const api = this.restApiCfg.getRestApi("net-mng.vmware.nsx.ipusagemng.list");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);        
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return IpUsageMngModel_mock });
+        return this.restApi.request(api.method, api.url, pathParams, null, null);        
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return IpUsageMngModel_mock });
     }
 
     enableIP(ipusage: IpUsageMngModel): Promise <any>  {
@@ -48,10 +48,8 @@ export class IpUsageMngListService {
         const body = [ipusage.description];
         console.log(pathParams, body, "pathParams and body");
         const api = this.restApiCfg.getRestApi("net-mng.vmware.nsx.subnetip.occupy");
-        //return this.restApi.request(api.method, api.url, pathParams, null, body);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
-
-
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
     }
 
     disableIP(ipusage: IpUsageMngModel): Promise <any>  {
@@ -65,9 +63,8 @@ export class IpUsageMngListService {
         const body = [""]; 
         console.log(pathParams, body, "pathParams and body");
         const api = this.restApiCfg.getRestApi("net-mng.vmware.nsx.subnetip.release");
-        //return this.restApi.request(api.method, api.url, pathParams, null, body);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
-
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
     }
 
 }

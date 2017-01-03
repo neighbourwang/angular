@@ -3,14 +3,17 @@ import { Router } from '@angular/router';
 import { RestApi, RestApiCfg, LayoutService, PopupComponent, NoticeComponent, ValidationService, 
     ConfirmComponent, SystemDictionary } from '../../../../architecture';
 
+import { TranslateService } from 'ng2-translate';
+
 //Mock
 import { RegionInfo_mock } from '../model/vmware-net.mock';
 
 //Model
-import { PlatformModel, DCModel, RegionModel, VmwareNetModel, NsxNetModel } from '../model/vmware-net.model';
+import { PlatformModel, DCModel, RegionModel, VmwareNetModel, NsxNetModel, VmNetStatusModel } from '../model/vmware-net.model';
 
 //Service
 import { VmwareMngIndexService } from '../service/vm-mng-index.service';
+import { UtilValidationService } from '../service/validation.service';
 
 @Component({
     selector: "vmware-net-mng-index",
@@ -25,7 +28,9 @@ export class VmwareMngIndexComponent implements OnInit {
         private router: Router,
         private layoutService: LayoutService,
         private validationService: ValidationService,
-        private service: VmwareMngIndexService
+        private service: VmwareMngIndexService,
+        private utilCheckService: UtilValidationService,
+        private translateService: TranslateService
     ) {
     }
     @ViewChild("notice")
@@ -47,6 +52,12 @@ export class VmwareMngIndexComponent implements OnInit {
     pageSize = 10;
     totalPage = 1;
 
+    typeDictArray: Array<SystemDictionary> = [];
+    nsxresDictArray: Array<SystemDictionary> = [];
+    nsxverDictArray: Array<SystemDictionary> = [];
+
+    nsxTestFlag: string = "";
+
     regionList: Array<RegionModel> = [];
 
     defaultRegion: RegionModel = new RegionModel(); 
@@ -58,13 +69,16 @@ export class VmwareMngIndexComponent implements OnInit {
 
     queryOpt: PlatformModel = new PlatformModel();
 
-    NsxInfo: NsxNetModel = new NsxNetModel();
+    NsxInfo: NsxNetModel = new NsxNetModel();  //fiter下面的显示行
 
-    networkList: Array<VmwareNetModel> = [];
-    selectedNet: VmwareNetModel = new VmwareNetModel();
+    networkList: Array<VmwareNetModel> = [];   //表格里的内容
+    selectedNet: VmwareNetModel = new VmwareNetModel();   //选择后的表格行
+    changedNet: VmwareNetModel = new VmwareNetModel();   //选择的表格行的变化值
 
-    NsxMngInfo: NsxNetModel = new NsxNetModel();
-    changedNsxMngInfo: NsxNetModel = new NsxNetModel();
+    NsxMngInfo: NsxNetModel = new NsxNetModel();   //设置NSX网络管理信息的弹出框的后台数据
+    changedNsxMngInfo: NsxNetModel = new NsxNetModel();//设置NSX网络管理信息的弹出框的展示数据
+
+    VmNetStatus: VmNetStatusModel = new VmNetStatusModel();  //设置网络类型所需的nsx状态
 
     private okCallback: Function = null;
     okClicked() {
@@ -87,6 +101,22 @@ export class VmwareMngIndexComponent implements OnInit {
     
     ngOnInit() {
         this.getRegionInfo();
+
+        this.service.typeDict
+        .then((items) => {
+            this.typeDictArray = items;
+            console.log(this.typeDictArray, "this.typeDictArray");
+        });
+        this.service.nsxresDict
+        .then((items) => {
+            this.nsxresDictArray = items;
+            console.log(this.nsxresDictArray, "this.nsxresDictArray");
+        });
+        this.service.nsxverDict
+        .then((items) => {
+            this.nsxverDictArray = items;
+            console.log(this.nsxverDictArray, "this.nsxverDictArray");
+        });
     }
 
     getRegionInfo(): void {
@@ -98,7 +128,8 @@ export class VmwareMngIndexComponent implements OnInit {
                     this.regionList = response.resultContent;
                     console.log(this.regionList, "this.regionList");
                 } else {
-                    alert("Res sync error");
+                    this.showMsg("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
+                    return;
                 }
             }
             ) .catch((e) => this.onRejected(e));
@@ -113,7 +144,8 @@ export class VmwareMngIndexComponent implements OnInit {
                     this.NsxInfo = response.resultContent;
                     console.log(this.NsxInfo, "this.NsxInfo");
                 } else {
-                    alert("Res sync error");
+                    this.showMsg("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
+                    return;
                 }
             }
             ) .catch((e) => this.onRejected(e));
@@ -132,21 +164,22 @@ export class VmwareMngIndexComponent implements OnInit {
                     //this.totalPage = response.pageInfo.totalPage;
                     console.log(this.networkList, "this.networkList");
                 } else {
-                    alert("Res sync error");
-
+                    this.showMsg("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
+                    return;
                 }
             }
             )
             .catch((e) => this.onRejected(e));
     }
 
-    search(): void {
+    showNetAndNxsInfo(): void {
         if (this.queryOpt && !this.validationService.isBlank(this.queryOpt.platformId)){
             console.log(this.queryOpt.platformId, "this.queryOpt.platformId");
             this.getNetworkList(this.queryOpt.platformId);
             this.getNsxInfo(this.queryOpt.platformId);
         } else {
-            this.showMsg("请选择相应的平台");
+            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PF");
+            return;
         }
         this.UnselectItem();
     }
@@ -167,51 +200,51 @@ export class VmwareMngIndexComponent implements OnInit {
                     this.changedNsxMngInfo.adminPassword = this.NsxMngInfo.adminPassword;
                     this.changedNsxMngInfo.platformId = this.NsxMngInfo.platformId;
                     console.log(this.changedNsxMngInfo, "this.changedNsxMngInfo");
+                    this.setnsxmnginfo.open();
                 } else {
-                    console.log("========== setupIPs [if]else=============");
-                    this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
+                    this.showMsg("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
+                    return;
                 }
             })
             .catch((e) => this.onRejected(e));
-            this.setnsxmnginfo.open();
-
         } else {          
-            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PG");
+            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PF");
             return;
         }
 
     }
 
     acceptNsxMngInfoModify(): void {
-        console.log('clicked acceptNsxMngInfoModify');
-        this.layoutService.show();
+        console.log('clicked acceptNsxMngInfoModify');        
         if (this.validateNsxMngInfoModify()) {
+            this.layoutService.show();
             this.service.updateNsxMngInfo(this.queryOpt.platformId, this.changedNsxMngInfo)
                 .then(res => {
                     this.layoutService.hide();
                     if (res && res.resultCode == "100") {                        
-                        console.log(res, "设置IP地址范围成功")
+                        console.log(res, "设置NSX管理信息成功")
                     } else {
                         this.setnsxmnginfo.close();
-                        this.showMsg("NET_MNG_VM_IP_MNG.SET_IP_POOL_FAILED");
+                        this.showMsg("NET_MNG_VM_IP_MNG.SET_NSX_MNG_INFO_FAILED");
                         return;
                     }
                 })
                 .then(()=>{
-                    this.getNsxInfo(this.queryOpt.platformId);   //************ */
+                    //this.getNsxInfo(this.queryOpt.platformId);
                     //this.getIpMngList(); // Need to get list since we need to get ipcount after setting up ipscope.
+                    this.NsxInfo.nsxAddress = this.changedNsxMngInfo.nsxAddress;
                     this.setnsxmnginfo.close();
                 })
                 .catch(err => {
-                    console.log('设置IP地址范围异常', err);
+                    console.log('设置NSX管理信息异常', err);
                     this.layoutService.hide();
                     this.setnsxmnginfo.close();
-                    this.showMsg("NET_MNG_VM_IP_MNG.SET_IP_POOL_EXCEPTION");
+                    this.showMsg("NET_MNG_VM_IP_MNG.SET_NSX_MNG_INFO_EXCEPTION");
                     this.okCallback = () => { 
                         this.setnsxmnginfo.open();  };
                 })
         } else {
-            this.layoutService.hide();
+            console.log("validateNsxMngInfoModify failed!");
         }
     }
 
@@ -225,83 +258,161 @@ export class VmwareMngIndexComponent implements OnInit {
     }
 
     validateNsxMngInfoModify(): boolean {
-        return true;
+        let notValid = null;
+        notValid = [
+            {
+                "name": "NET_MNG_VM_IP_MNG.NSX_VERSION"
+                , 'value': this.changedNsxMngInfo.nsxVer
+                , "op": "*"
+            },
+            {
+                "name": "NET_MNG_VM_IP_MNG.NSX_MNG_ADDRESS"
+                , 'value': this.changedNsxMngInfo.nsxAddress
+                , "op": "*"
+            },
+            {
+                "name": "NET_MNG_VM_IP_MNG.NSX_MNG_USERNAME"
+                , 'value': this.changedNsxMngInfo.userName
+                , "op": "*"
+            },
+            {
+                "name": "NET_MNG_VM_IP_MNG.NSX_MNG_PASSWORD"
+                , 'value': this.changedNsxMngInfo.adminPassword
+                , "op": "*"
+            },
+            /*
+            {
+                "name": "NET_MNG_VM_IP_MNG.NSX_MNG_ADDRESS"
+                , 'value': this.changedNsxMngInfo.nsxAddress
+                , "op": "http"
+            },
+            */
+            ].find(n => this.utilCheckService.validate(n.name, n.value, n.op) !== undefined)        
+        //console.log(notValid, "notValid!!!")
+        if (notValid !== void 0) {
+            console.log("validateIPModify Failed!!!");
+            this.setnsxmnginfo.close();
+            //this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));  
+            let name = this.utilCheckService.validate(notValid.name, notValid.value, notValid.op)[0];
+            let msg = this.utilCheckService.validate(notValid.name, notValid.value, notValid.op)[1];            
+            let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
+                      + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
+            console.log(con, "con");
+            this.showMsg(con);
+            this.okCallback = () => {
+                this.setnsxmnginfo.open();                
+            };            
+            return false;
+        } else {
+            console.log("validateIPModify OK!!!");
+            return true;
+        }
+    }
+
+    testNsxMngInfo(): any {
+        if (this.validateNsxMngInfoModify()) {
+            this.layoutService.show();
+            this.service.testNsxMngInfo(this.queryOpt.platformId, this.changedNsxMngInfo)
+                .then(res => {
+                    this.layoutService.hide();
+                    if (res && res.resultCode == "100") {                        
+                        console.log(res, "测试NSX管理信息成功");
+                        this.nsxTestFlag = "success";
+                    } else {
+                        this.showMsg("NET_MNG_VM_IP_MNG.TEST_NSX_MNG_INFO_FAILED");
+                        this.nsxTestFlag = "failure";
+                    }
+                })
+                .catch(err => {
+                    console.log('测试NSX管理信息异常', err);
+                    this.layoutService.hide();
+                    this.showMsg("NET_MNG_VM_IP_MNG.TEST_NSX_MNG_INFO_EXCEPTION");
+                    this.nsxTestFlag = "failure";
+                })
+        } else {
+            console.log("validateNsxMngInfoModify failed!");
+            this.nsxTestFlag = "";
+        }
     }
 
     setNetworkType(): void {
         if (this.queryOpt && !this.validationService.isBlank(this.queryOpt.platformId)) {
-            this.layoutService.show();
-            this.service.getNsxInfo(this.queryOpt.platformId)
-            .then(
-            response => {
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) { 
-                    this.NsxMngInfo = response.resultContent;
-                    console.log(this.NsxMngInfo, "this.NsxMngInfo");
-                    this.changedNsxMngInfo.nsxVer = this.NsxMngInfo.nsxVer;
-                    this.changedNsxMngInfo.nsxAddress = this.NsxMngInfo.nsxAddress;
-                    this.changedNsxMngInfo.userName = this.NsxMngInfo.userName;
-                    this.changedNsxMngInfo.adminPassword = this.NsxMngInfo.adminPassword;
-                    this.changedNsxMngInfo.platformId = this.NsxMngInfo.platformId;
-                    console.log(this.changedNsxMngInfo, "this.changedNsxMngInfo");
-                } else {
-                    console.log("========== setupIPs [if]else=============");
-                    this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
-                }
-            })
-            .catch((e) => this.onRejected(e));
-            this.setnettype.open();
-        } else {          
-            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PG");
+            this.selectedNet = this.getSelected();
+            if (this.selectedNet) {
+                this.layoutService.show();
+                this.service.getNsxStatus(this.queryOpt.platformId)
+                    .then(
+                    response => {
+                        this.layoutService.hide();
+                        if (response && 100 == response["resultCode"]) {
+                            this.VmNetStatus.checkResult = response.resultContent.checkResult;
+                            console.log(this.VmNetStatus, "this.VmNetStatus before");
+                            this.changedNet.dcName = this.selectedNet.dcName;
+                            this.changedNet.dcId = this.selectedNet.dcId;
+                            this.changedNet.clusterName = this.selectedNet.clusterName;
+                            this.changedNet.clusterId = this.selectedNet.clusterId;
+                            this.changedNet.clusterDisplayName = this.selectedNet.clusterDisplayName;
+                            this.changedNet.networkType = this.selectedNet.networkType;
+                            console.log(this.changedNet, "this.changedNet");
+                            this.setnettype.open();
+                        } else {
+                            this.showMsg("NET_MNG_VM_IP_MNG.GET_NXS_STATUS_FAILED");
+                            return;
+                        }
+                    })
+                    .catch((e) => this.onRejected(e));
+            } else {
+                this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_NET");
+                return;
+            }
+        } else {
+            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PF");
             return;
         }
 
     }
 
     acceptNetworkTypeModify(): void {
-        console.log('clicked acceptNsxMngInfoModify');
-        this.layoutService.show();
-        if (this.validateNsxMngInfoModify()) {
-            this.service.updateNsxMngInfo(this.queryOpt.platformId, this.changedNsxMngInfo)
+        console.log('clicked acceptNetworkTypeModify');
+        if (!this.validationService.isBlank(this.VmNetStatus.vmNetStatus)) {
+            this.layoutService.show();
+            this.service.updateNetworkType(this.VmNetStatus, this.changedNet)
                 .then(res => {
                     this.layoutService.hide();
-                    if (res && res.resultCode == "100") {                        
-                        console.log(res, "设置IP地址范围成功")
+                    if (res && res.resultCode == "100") {
+                        console.log(res, "设置网络类型成功")
                     } else {
                         this.setnettype.close();
-                        this.showMsg("NET_MNG_VM_IP_MNG.SET_IP_POOL_FAILED");
+                        this.showMsg("NET_MNG_VM_IP_MNG.SET_NETWORK_TYPE_FAILED");
                         return;
                     }
                 })
-                .then(()=>{
-                    this.getNsxInfo(this.queryOpt.platformId);   //************ */
-                    //this.getIpMngList(); // Need to get list since we need to get ipcount after setting up ipscope.
+                .then(() => {
+                    this.selectedNet.networkType = this.VmNetStatus.vmNetStatus; //更新数据回页面展示
                     this.setnettype.close();
                 })
                 .catch(err => {
-                    console.log('设置IP地址范围异常', err);
+                    console.log('设置网络类型异常', err);
                     this.layoutService.hide();
                     this.setnettype.close();
-                    this.showMsg("NET_MNG_VM_IP_MNG.SET_IP_POOL_EXCEPTION");
-                    this.okCallback = () => { 
-                        this.setnettype.open();  };
+                    this.showMsg("NET_MNG_VM_IP_MNG.SET_NETWORK_TYPE_EXCEPTION");
+                    this.okCallback = () => {
+                        this.setnettype.open();
+                    };
                 })
         } else {
-            this.layoutService.hide();
+            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_NET_TYPE");
         }
     }
 
     cancelNetworkTypeModify(): void {
-        console.log('clicked cancelNsxMngInfoModify');
-        this.changedNsxMngInfo.nsxVer = "";
-        this.changedNsxMngInfo.nsxAddress = "";
-        this.changedNsxMngInfo.userName = "";
-        this.changedNsxMngInfo.adminPassword = "";
-        this.changedNsxMngInfo.platformId = "";
-    }
-
-    validateNetworkTypeModify(): boolean {
-        return true;
+        console.log('clicked cancelNetworkTypeModify');
+        this.changedNet.dcName = "";
+        this.changedNet.dcId = "";
+        this.changedNet.clusterName = "";
+        this.changedNet.clusterId = "";
+        this.changedNet.clusterDisplayName = "";
+        this.changedNet.networkType = "";
     }
 
     gotoVMStdNetMng() {
@@ -319,8 +430,8 @@ export class VmwareMngIndexComponent implements OnInit {
             this.router.navigate([`net-mng/vm-mng/${this.queryOpt.platformId}`]);
         }
         } else {
-            this.showMsg("请选择相应的平台");
-
+            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PF");
+            return;
         }
     }
 
@@ -339,8 +450,8 @@ export class VmwareMngIndexComponent implements OnInit {
             this.router.navigate([`net-mng/vm-mng-dbt/index/${this.queryOpt.platformId}`]);
         }
         } else {
-            this.showMsg("请选择相应的平台");
-
+            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PF");
+            return;
         }
     }
 
@@ -359,8 +470,8 @@ export class VmwareMngIndexComponent implements OnInit {
             this.router.navigate([`net-mng/vm-mng-nsx/index/${this.queryOpt.platformId}`]);
         }
         } else {
-            this.showMsg("请选择相应的平台");
-
+            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PF");
+            return;
         }
     }
     
@@ -387,8 +498,7 @@ export class VmwareMngIndexComponent implements OnInit {
         if(this.validationService.isBlank(value)){
             return "NET_MNG_VM_IP_MNG.UNSET";
         } else {
-            return value.toString();
-            
+            return value.toString();            
         }
     }
 
@@ -409,7 +519,7 @@ export class VmwareMngIndexComponent implements OnInit {
             return item;
         }
         else {
-            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PG");
+            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_NET");
             return null;
         }
     }
