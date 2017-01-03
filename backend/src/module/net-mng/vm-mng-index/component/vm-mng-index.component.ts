@@ -54,6 +54,7 @@ export class VmwareMngIndexComponent implements OnInit {
 
     typeDictArray: Array<SystemDictionary> = [];
     nsxresDictArray: Array<SystemDictionary> = [];
+    nsxverDictArray: Array<SystemDictionary> = [];
 
     nsxTestFlag: string = "";
 
@@ -110,6 +111,11 @@ export class VmwareMngIndexComponent implements OnInit {
         .then((items) => {
             this.nsxresDictArray = items;
             console.log(this.nsxresDictArray, "this.nsxresDictArray");
+        });
+        this.service.nsxverDict
+        .then((items) => {
+            this.nsxverDictArray = items;
+            console.log(this.nsxverDictArray, "this.nsxverDictArray");
         });
     }
 

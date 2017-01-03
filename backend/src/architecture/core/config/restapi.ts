@@ -1197,7 +1197,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取IP地址管理列表",
         "id": "net-mng.vmware.nsx.ipmng.list",
         "method": "GET",
-        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/portlist"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/iplist"
     },
     {
         "desc": "获取DLR值",
@@ -1571,22 +1571,28 @@ export let RestApis: RestApiModel[] = [
         "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/dlrlist"
     },
     {
+        "desc": "获取TransportZone信息",
+        "id": "net-mng.vm-mng-nsx.index.getzone",
+        "method": "PUT",
+        "url": "adminboe/authsec/vmware/network/nsx/{port_id}/getzone"
+    },
+    {
         "desc": "启用网络",
         "id": "net-mng.vm-mng-nsx.index.enable",
         "method": "PUT",
-        "url": "adminboe/authsec/vmware/network/nsx/{id}/enable"
+        "url": "adminboe/authsec/vmware/network/nsx/{port_id}/enable"
     },
     {
         "desc": "禁用网络",
         "id": "net-mng.vm-mng-nsx.index.disable",
         "method": "PUT",
-        "url": "adminboe/authsec/vmware/network/nsx/{id}/disable"
+        "url": "adminboe/authsec/vmware/network/nsx/{port_id}/disable"
     },
     {
         "desc": "设置dlr子网显示名称",
         "id": "net-mng.vm-mng-nsx.index.setdlrname",
         "method": "PUT",
-        "url": "adminboe/authsec/vmware/network/nsx/{id}/setdlrname"
+        "url": "adminboe/authsec/vmware/network/nsx/{port_id}/setdlrname"
     },
 {
         "desc": "NSX网络引导页同步获取列表",
