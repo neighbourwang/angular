@@ -1,31 +1,31 @@
 <div class="page-content-header icon-cloud-network-mngOn">
-    VMware网络管理
+    VMware{{'NET_MNG_VM_IP_MNG.NET_MNG' | translate}}
 </div>
 <div class="page-content">
 
     <div class="mgb20" style="margin-top:10px">
         <div class="pull-left mgr20">
             <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedDC=defaultDC;selectedPlatform=defaultPlatform;EnableButton=0;"> 
-                <option [ngValue]="defaultRegion">选择地域</option>
+                <option [ngValue]="defaultRegion">{{'NET_MNG_VM_IP_MNG.SELECT_LOCATION' | translate}}</option>
                 <option *ngFor="let region of regionList" [ngValue]="region">{{region.regionName}}</option>
             </select>
         </div>        
         <div class="pull-left  mgr20">
             <select class="form-control" [(ngModel)]="selectedDC" (change)="selectedPlatform=defaultPlatform;EnableButton=0;"> 
-                <option [ngValue]="defaultDC">选择数据中心</option>
+                <option [ngValue]="defaultDC">{{'NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_DATACENTER' | translate}}</option>
                 <option *ngFor="let dc of selectedRegion.dcList" [ngValue]="dc">{{dc.dcName}}</option>
             </select>
         </div>
         
         <div class="pull-left mgr20">
-            <select class="form-control" [(ngModel)]="selectedPlatform" (click)="(selectedPlatform==defaultPlatform)?EnableButton=0:EnableButton=1;" (change)="queryOpt.platformId = ''; queryOpt.platformName = ''; queryOpt.platformUrl = ''; networkList = []; NsxInfo.nsxAddress = '无';">
-                <option [ngValue]="defaultPlatform">平台显示名称+连接URL https://192.168.1.1:443</option>
+            <select class="form-control" [(ngModel)]="selectedPlatform" (click)="(selectedPlatform==defaultPlatform)?EnableButton=0:EnableButton=1;" (change)="queryOpt.platformId = ''; queryOpt.platformName = ''; queryOpt.platformUrl = ''; networkList = []; NsxInfo = null;">
+                <option [ngValue]="defaultPlatform">{{'NET_MNG_VM_IP_MNG.PLATFORM_URL' | translate}}</option>
                 <option *ngFor="let pf of selectedDC.platformList" [ngValue]="pf">{{pf.platformName}}</option>
             </select>
         </div>
         
         <div class="pull-left  mgr20 ">
-            <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" [disabled]="!EnableButton" (click)="queryOpt.platformId = selectedPlatform.platformId; queryOpt.platformName = selectedPlatform.platformName; queryOpt.platformUrl = selectedPlatform.platformUrl; networkList = []; showNetAndNxsInfo();"> 确定</button>
+            <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" [disabled]="!EnableButton" (click)="queryOpt.platformId = selectedPlatform.platformId; queryOpt.platformName = selectedPlatform.platformName; queryOpt.platformUrl = selectedPlatform.platformUrl; networkList = []; showNetAndNxsInfo();"> {{'NET_MNG_VM_IP_MNG.ENSURE' | translate}}</button>
         </div>
     </div>
 
@@ -33,25 +33,25 @@
     <div class="clear"></div>
     <div class="row mgb10 mgt10" *ngIf="NsxInfo">
         <span class="pull-left pdl15" style="display:inline-block;font-size:16px;padding:6px 0" >
-            NSX管理信息: {{NsxInfo.nsxAddress || "无"}}
+            {{'NET_MNG_VM_IP_MNG.NSX_MNG_INFO' | translate}}: {{NsxInfo.nsxAddress || ""}}
         </span>
     </div>
     <div class="mgb20">
-        <button class="fox-cloud-button fox-cloud-button-green" (click)="setNsxMngInfo()">设置NSX管理信息</button>
-        <button class="fox-cloud-button fox-cloud-button-green" (click)="setNetworkType()">设置网络类型</button>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr5" (click)="gotoVMStdNetMng()">管理标准网络</button>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr5" (click)="gotoVMDbtNetMng()">管理分布式网络</button>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr5" (click)="gotoVMNsxNetMng()">管理NSX网络</button>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="setNsxMngInfo()">{{'NET_MNG_VM_IP_MNG.SET_NSX_MNG_INFO' | translate}}</button>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="setNetworkType()">{{'NET_MNG_VM_IP_MNG.SET_NET_TYPE' | translate}}</button>
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr5" (click)="gotoVMStdNetMng()">{{'NET_MNG_VM_IP_MNG.MANAGE_STD_NET' | translate}}</button>
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr5" (click)="gotoVMDbtNetMng()">{{'NET_MNG_VM_IP_MNG.MANAGE_DBT_NET' | translate}}</button>
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr5" (click)="gotoVMNsxNetMng()">{{'NET_MNG_VM_IP_MNG.MANAGE_NSX_NET' | translate}}</button>
     </div>
     <div class="table-container">
         <table class="table table-hover ">
             <thead>
             <tr>
-                <th>选择</th>
-                <th>DC名称</th>
-                <th>可用区(集群)名称</th>
-                <th>显示名称</th>
-                <th>网络类型</th>
+                <th>{{'NET_MNG_VM_IP_MNG.SELECT' | translate}}</th>
+                <th>{{'NET_MNG_VM_IP_MNG.DC' | translate}}</th>
+                <th>{{'NET_MNG_VM_IP_MNG.CLUSTER_NAME' | translate}}</th>
+                <th>{{'NET_MNG_VM_IP_MNG.DISPLAY_NAME' | translate}}</th>
+                <th>{{'NET_MNG_VM_IP_MNG.NETWORK_TYPE' | translate}}</th>
             </tr>
             </thead>
             <tbody>
@@ -60,7 +60,7 @@
                 <td>{{net.dcName}}</td>
                 <td>{{net.clusterName}}</td>
                 <td>{{net.clusterDisplayName}}</td>
-                <td>{{net.networkType}}</td>
+                <td>{{net.networkType | dict:this.service.typeDict | async}}</td>
                 
             </tr>
             </tbody>
@@ -82,11 +82,10 @@
 
 
 <fc-popup #setnsxmnginfo ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'NET_MNG_VM_IP_MNG.SET_NSX_MNG_INFO' | translate}}" (of)="acceptNsxMngInfoModify()" (cf)="cancelNsxMngInfoModify()">
-
 	<div class="dialogContent">
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>NSX版本：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.NSX_VERSION' | translate}}：</div>
 					<div class="col-sm-8">
 					    <input type="string" class="form-control input-control" [(ngModel)]="changedNsxMngInfo.nsxVer">
 					</div>
@@ -94,7 +93,7 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>NSX管理地址：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.NSX_MNG_ADDRESS' | translate}}：</div>
 					<div class="col-sm-8">
 					    <input type="string" class="form-control input-control" [(ngModel)]="changedNsxMngInfo.nsxAddress">
 					</div>
@@ -102,7 +101,7 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>管理用户名：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.NSX_MNG_USERNAME' | translate}}：</div>
 					<div class="col-sm-8">
 					<input type="string" class="form-control input-control" [(ngModel)]="changedNsxMngInfo.userName">
 					</div>
@@ -110,17 +109,17 @@
 			</div>
             <div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>管理密码：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.NSX_MNG_PASSWORD' | translate}}：</div>
 					<div class="col-sm-6">
 					<input type="password" class="form-control input-control" [(ngModel)]="changedNsxMngInfo.adminPassword">
 					</div>
                     <div class="col-sm-2">
-                        <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" (click)="testNsxMngInfo()"> 测试</button>
+                        <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" (click)="testNsxMngInfo()"> {{'NET_MNG_VM_IP_MNG.TEST' | translate}}</button>
                     </div>                    
 				</div>
                 <div [ngSwitch]="nsxTestFlag">
-                    <span class="validateInfo" class="font-green" *ngSwitchCase="'success'">NSX测试通过</span>
-                    <span class="validateInfo" class="font-orange" *ngSwitchCase="'failure'">NSX测试失败</span>
+                    <span class="validateInfo" class="font-green" *ngSwitchCase="'success'">{{'NET_MNG_VM_IP_MNG.TEST_NSX_PASSED' | translate}}</span>
+                    <span class="validateInfo" class="font-orange" *ngSwitchCase="'failure'">{{'NET_MNG_VM_IP_MNG.TEST_NSX_FAILED' | translate}}</span>
                 </div>
 			</div>
 	</div>
@@ -130,19 +129,19 @@
 
 	<div class="dialogContent">
 			<div class="row row-line-height">
-				<div class="form-group">
-                    <!-- <input type="radio" class="fox-cloud-radio" name="radio" [checked]="net.checked" (change)="selectItem(i); selectedNet = net;" value="{{i}}"> -->
-                    <input type="radio" class="fox-cloud-radio" name="radio"> NSX网络
+				<div class="form-group" [style.color] = "VmNetStatus.checkResult=='2' ? 'red': 'green'">
+                    <!-- <input type="radio" class="fox-cloud-radio" name="radio" [disabled]="VmNetStatus.checkResult=='2'" (click)="VmNetStatus.vmNetStatus='1'"> NSX网络   -->
+                    <input type="radio" class="fox-cloud-radio" name="radio" [class.hidden]="VmNetStatus.checkResult=='2'" [ngClass]="{'disabled':VmNetStatus.checkResult=='2'}" (change)="VmNetStatus.vmNetStatus='1'"> {{'NET_MNG_VM_IP_MNG.NSX_NET' | translate}}
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<input type="radio" class="fox-cloud-radio" name="radio"> 分布式网络
+					<input type="radio" class="fox-cloud-radio" name="radio" (click)="VmNetStatus.vmNetStatus='2'"> {{'NET_MNG_VM_IP_MNG.DBT_NET' | translate}}
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<input type="radio" class="fox-cloud-radio" name="radio"> 标准网络
+					<input type="radio" class="fox-cloud-radio" name="radio" (click)="VmNetStatus.vmNetStatus='3'"> {{'NET_MNG_VM_IP_MNG.STD_NET' | translate}}
 				</div>
 			</div>
 	</div>
