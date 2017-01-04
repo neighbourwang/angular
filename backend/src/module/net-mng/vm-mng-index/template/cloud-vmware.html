@@ -13,7 +13,7 @@
         <div class="pull-left  mgr20">
             <select class="form-control" [(ngModel)]="selectedDC" (change)="selectedPlatform=defaultPlatform; EnableButton=0; NsxInfo=null; queryOpt.platformId = ''; queryOpt.platformName = ''; queryOpt.platformUrl = '';"> 
                 <option [ngValue]="defaultDC">{{'NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_DATACENTER' | translate}}</option>
-                <option *ngFor="let dc of selectedRegion.dcList" [ngValue]="dc">{{dc.dcName}}</option>
+                <option *ngFor="let dc of selectedRegion.dcList" [ngValue]="dc">{{dc.datacenterName}}</option>
             </select>
         </div>
         

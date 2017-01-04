@@ -6,7 +6,9 @@
         <tr>
             <th style="text-align:left;">VMware{{'NET_MNG_VM_PORT.NET_MNG' | translate}}
                 --{{'NET_MNG_VM_PORT.MANAGE_STD_NET' | translate}}
-                --{{'NET_MNG_VM_PORT.PORTGROUP_ALLOCATION' | translate}}</th>
+                --{{'NET_MNG_VM_PORT.PORTGROUP_ALLOCATION' | translate}}
+                &nbsp;&nbsp;&nbsp;&nbsp; {{selectedPlatform.regionName}} {{selectedPlatform.dcName}} {{selectedPlatform.platformName}} {{selectedPlatform.platformUrl}}
+                </th>
             <th style="text-align:right;">
                 <button class="fox-cloud-button fox-cloud-button-white" (click)="gotoVm();">
                     <span class="icon-button-label">{{'NET_MNG_VM_PORT.RETURN' | translate}}</span>

@@ -430,7 +430,7 @@ export class VmwareMngIndexComponent implements OnInit {
                 ]);
         } else {
             selectedPlatform.regionName = this.selectedRegion.regionName;
-            selectedPlatform.dcName = this.selectedDC.dcName;
+            selectedPlatform.dcName = this.selectedDC.datacenterName;
             selectedPlatform.platformName = this.selectedPlatform.platformName;
             selectedPlatform.platformUrl = this.selectedPlatform.platformUrl;
             this.router.navigate([`net-mng/vm-mng/${this.queryOpt.platformId}`]);
@@ -454,7 +454,7 @@ export class VmwareMngIndexComponent implements OnInit {
                 ]);
         } else {
             selectedPlatform.regionName = this.selectedRegion.regionName;
-            selectedPlatform.dcName = this.selectedDC.dcName;
+            selectedPlatform.dcName = this.selectedDC.datacenterName;
             selectedPlatform.platformName = this.selectedPlatform.platformName;
             selectedPlatform.platformUrl = this.selectedPlatform.platformUrl;
             this.router.navigate([`net-mng/vm-mng-dbt/index/${this.queryOpt.platformId}`]);
@@ -478,7 +478,7 @@ export class VmwareMngIndexComponent implements OnInit {
                 ]);
         } else {
             selectedPlatform.regionName = this.selectedRegion.regionName;
-            selectedPlatform.dcName = this.selectedDC.dcName;
+            selectedPlatform.dcName = this.selectedDC.datacenterName;
             selectedPlatform.platformName = this.selectedPlatform.platformName;
             selectedPlatform.platformUrl = this.selectedPlatform.platformUrl;
             this.router.navigate([`net-mng/vm-mng-nsx/index/${this.queryOpt.platformId}`]);
