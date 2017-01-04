@@ -182,13 +182,13 @@ export const NetworkInfo_mock = {
 export const NsxInfo_mock = {
     resultCode: "100",
     detailDescription: "NetworkList",
-    resultContent: 
+    resultContent:
     {
-        "nsxVer":1,
- "nsxAddress":"htto://",
- "userName":"admin",
- "adminPassword":"adminpass",
- "platformId":"123123123-12312-11"
+        "nsxVer": 1,
+        "nsxAddress": "http://123.com",
+        "userName": "admin",
+        "adminPassword": "adminpass",
+        "platformId": "123123123-12312-11"
     }
 }
 
