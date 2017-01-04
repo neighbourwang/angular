@@ -35,6 +35,9 @@ import {CheckCenterModule } from './module/check-center/check-center.module';
 //net-mng
 import { NetMngModule } from './module/net-mng/net-mng.module';
 
+//phy-pool
+import { PhyMngModule } from './module/phy-mng/phy-mng.module';
+
 //host-mng
 import { HostMngModule } from './module/host-mng/host-mng.module';
 
@@ -56,6 +59,7 @@ import {routing} from './app.routing';
         CheckCenterModule,
         NetMngModule,
         HostMngModule,
+        PhyMngModule,
         routing
     ],
     declarations: [MenuComponent, SiteComponent],
