@@ -143,14 +143,15 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "url": "platformaccess/noauth/platform"
     },
+    /////////////////////////////////////////可用区
     {
-        "desc": "get同步可用区信息",
+        "desc": "get同步可添加可用区信息",
         "id": "pf-mng-zonelist.get",
         "method": "GET",
         "url": "platformaccess/authsec/sync/platform/{id}/zones"
     },
     {
-        "desc": "post同步可用区信息",
+        "desc": "post同步可添加可用区信息",
         "id": "pf-mng-zonelist.post",
         "method": "POST",
         "url": "platformaccess/authsec/sync/platform/zones"
@@ -168,16 +169,53 @@ export let RestApis: RestApiModel[] = [
         "url": "platformaccess/authsec/sync/platform/zones/spec"
     },
     {
-        "desc": "启用平台可用区信息",
+        "desc": "启用平台可用区",
         "id": "pf-mng-zone.enable",
         "method": "GET",
         "url": "platformaccess/authsec/platform/zone/{id}/enable"
     },
     {
-        "desc": "禁用平台可用区信息",
+        "desc": "禁用平台可用区",
         "id": "pf-mng-zone.suspend",
         "method": "GET",
         "url": "platformaccess/authsec/platform/zone/{id}/suspend"
+    },
+    /////////////////////////////////存储区
+    {
+        "desc": "get同步可添加存储区信息",
+        "id": "pf-mng-storagelist.get",
+        "method": "GET",
+        "url": "platformaccess/authsec/sync/platform/{id}/storages"
+    },
+    {
+        "desc": "post同步可添加存储区信息",
+        "id": "pf-mng-storagelist.post",
+        "method": "POST",
+        "url": "platformaccess/authsec/sync/platform/storages"
+    },
+    {
+        "desc": "get存储区同步计算资源信息",
+        "id": "pf-mng-storageUpdate.get",
+        "method": "GET",
+        "url": "platformaccess/authsec/sync/platform/storages/{storageId}/spec"
+    },
+    {
+        "desc": "存储区同步计算资源信息",
+        "id": "pf-mng-storageUpdate.put",
+        "method": "PUT",
+        "url": "platformaccess/authsec/sync/platform/storages/spec"
+    },
+    {
+        "desc": "启用平台存储区",
+        "id": "pf-mng-storage.enable",
+        "method": "GET",
+        "url": "platformaccess/authsec/platform/storage/{id}/enable"
+    },
+    {
+        "desc": "禁用平台存储区",
+        "id": "pf-mng-storage.suspend",
+        "method": "GET",
+        "url": "platformaccess/authsec/platform/storage/{id}/suspend"
     },
     //update镜像同步
     {

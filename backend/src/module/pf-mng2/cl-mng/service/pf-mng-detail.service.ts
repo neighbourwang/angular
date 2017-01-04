@@ -16,6 +16,7 @@ export class PlatformDetailService {
         let api = this.restApiCfg.getRestApi("pf-mng-detail.get");
         return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
     }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////可用区
     //更新平台基本信息
      putPlatform (data:any){
         let api = this.restApiCfg.getRestApi("pf-mng-update.put");
@@ -51,6 +52,36 @@ export class PlatformDetailService {
         let api = this.restApiCfg.getRestApi("pf-mng-zone.enable");
         return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
     }
-     
+    //////////////////////////////////////////////////////////////////////////////////////////////存储区
+    //获取平台存储区信息    
+    getUpdateStorageList (id:string){
+        let api = this.restApiCfg.getRestApi("pf-mng-storagelist.get");
+        return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
+    }
+    //平台存储区信息    
+    putUpdateStorageList (storgeList:any){
+        let api = this.restApiCfg.getRestApi("pf-mng-storagelist.post");
+        return this.restApi.request(api.method , api.url,[],undefined ,storgeList);
+    }     
+    //get同步计算信息
+    getUpdateStorage (storageId:string){
+        let api = this.restApiCfg.getRestApi("pf-mng-storageUpdate.get");
+        return this.restApi.request(api.method , api.url,[{key:'zoneId',value:storageId}],undefined );
+    }    
+    //put同步计算信息
+    putUpdateStorage (storageList:any){
+        let api = this.restApiCfg.getRestApi("pf-mng-storageUpdate.put");
+        return this.restApi.request(api.method , api.url,[],undefined,storageList );
+    }
+    //禁用平台存储区信息    
+    suspendStorage (id:string){
+        let api = this.restApiCfg.getRestApi("pf-mng-storage.suspend");
+        return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
+    }
+    //启用平台存储区信息    
+    enableStorage (id:string){
+        let api = this.restApiCfg.getRestApi("pf-mng-storage.enable");
+        return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
+    } 
    
 }

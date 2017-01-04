@@ -1,4 +1,4 @@
-export class CreStep4Model {
+export class StorageModel {
 
     // "description": "string",
     // "displayName": "string",
@@ -21,6 +21,7 @@ export class CreStep4Model {
     typeDisplayName: string//存储类型显示名称
     //   "status": 0,
     //   "uuid": null,
+    isEdit:boolean;
     constructor() {
     }
 }

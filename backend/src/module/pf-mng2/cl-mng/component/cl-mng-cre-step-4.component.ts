@@ -5,7 +5,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router, Params, ActivatedRoute } from '@angular/router';
 
-import { CreStep4Model } from '../model/cre-step4.model';
+import { StorageModel } from '../model/cre-step4.model';
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 
@@ -33,7 +33,7 @@ export class ClMngCreStep4Component implements OnInit {
         private service: StorageListService
     ) { }
 
-    creStep4Model: Array<CreStep4Model> = new Array<CreStep4Model>();
+    creStep4Model: Array<StorageModel> = new Array<StorageModel>();
 
     platformType: string;
     ngOnInit() {
