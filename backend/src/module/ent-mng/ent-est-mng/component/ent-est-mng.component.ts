@@ -52,12 +52,12 @@ export class EntEstMngComponent implements OnInit {
   ) {
 
     //认证数据更新
-    this._certUpdateHandler = new ItemLoader<any>(false, "认证更新", "ent-mng.ent-est-mng.enterprise.updateauth", restApiCfg, restApi);
+    this._certUpdateHandler = new ItemLoader<any>(false, "ENT_MNG.ENT_CERT_UPDATE_FAILED", "ent-mng.ent-est-mng.enterprise.updateauth", restApiCfg, restApi);
 
-    this.entEstMng = new ItemLoader<EntEstItem>(true, "企业管理列表", "ent-mng.ent-est-mng.enterprise.get", restApiCfg, restApi);
+    this.entEstMng = new ItemLoader<EntEstItem>(true, "ENT_MNG.ENT_MNG_LIST_DATA_ERROR", "ent-mng.ent-est-mng.enterprise.get", restApiCfg, restApi);
     
     //配置企业配额加载
-    this.entEstResource = new ItemLoader<EntEstCreResourceQuota>(true, "企业配额", "ent-mng.ent-est-mng.enterprise.resourcequota.get", restApiCfg, restApi);
+    this.entEstResource = new ItemLoader<EntEstCreResourceQuota>(true, "ENT_MNG.ENT_QUOTA_DATA_ERROR", "ent-mng.ent-est-mng.enterprise.resourcequota.get", restApiCfg, restApi);
     this.entEstResource.MapFunc = (source:Array<any>, target:Array<EntEstCreResourceQuota>)=>{
       for(let item of source)
       {

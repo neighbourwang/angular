@@ -51,10 +51,10 @@ export class CheckMngListComponent implements OnInit{
 		this._billinModeDic = new DicLoader(_restApiCfg, _restApi, "BILLING_MODE", "TYPE");
 
 		//拒绝
-		this._refuseHandler = new ItemLoader<any>(false, '拒绝', "check-center.approve-refust.post", _restApiCfg,_restApi);
+		this._refuseHandler = new ItemLoader<any>(false, 'COMMON.REFUSE_FAILED', "check-center.approve-refust.post", _restApiCfg,_restApi);
 
 		//列表数据加载
-		this._listLoader = new ItemLoader<CheckListItem>(true, "待审批列表", "check-center.not-checked.list", _restApiCfg, _restApi);
+		this._listLoader = new ItemLoader<CheckListItem>(true, "CHECK_CENTER.NOT_APPROVED_LIST_DATA_ERROR", "check-center.not-checked.list", _restApiCfg, _restApi);
 		this._listLoader.MapFunc = (source:Array<any>, target:Array<CheckListItem>)=>{
 
 			for(let item of source)

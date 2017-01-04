@@ -46,7 +46,7 @@ export class OrderMngSearchComponent implements OnInit{
 		this._departmentLoader = new ItemLoader<DepartmentItem>(false, 'COMMON.DEPARTMENT_OPTIONS_DATA_ERROR', "op-center.order-mng.department-list.get", this.restApiCfg, this.restApi);
 
 			//订购人加载
-		this._buyerLoader = new ItemLoader<DepartmentItem>(false, '订购人列表', "check-center.user-list.get", this.restApiCfg, this.restApi);
+		this._buyerLoader = new ItemLoader<DepartmentItem>(false, 'ORDER_MNG.BUYER_DATA_ERROR', "check-center.user-list.get", this.restApiCfg, this.restApi);
 		this._buyerLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
 			for(let item of source)
 			{
@@ -65,7 +65,7 @@ export class OrderMngSearchComponent implements OnInit{
 		this._orderStatusDic = new DicLoader(this.restApiCfg, this.restApi, "SUBINSTANCE", "STATUS");
 
 		//配置订单加载
-		this._orderLoader = new ItemLoader<SearchOrderItem>(true, "订单查询列表", "op-center.order-mng.search-list.post", restApiCfg, restApi);
+		this._orderLoader = new ItemLoader<SearchOrderItem>(true, "ORDER_MNG.ORDER_LIST_DATA_ERROR", "op-center.order-mng.search-list.post", restApiCfg, restApi);
 		this._orderLoader.MapFunc = (source:Array<any>, target:Array<SearchOrderItem>)=>{
 		for(let item of source)
 		{

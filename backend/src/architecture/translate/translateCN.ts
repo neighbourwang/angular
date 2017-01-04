@@ -66,7 +66,9 @@ export const TranslateCN = {
         PURCHASE_AMOUNT:'购买量',
         ENTPRISE_OPTIONS_DATA_ERROR: "企业列表加载错误"
         ,DEPARTMENT_OPTIONS_DATA_ERROR :"部门列表加载错误"
-
+        ,PLATFORM_DATA_ERROR:"区域加载错误"
+        ,AVAILABLE_ZONE_DATA_ERROR:"可用区加载错误"
+        ,REFUSE_FAILED:"拒绝处理失败"
     },
     HOST_VMWARE_MNG: {
         ENSURE: '确定',
@@ -369,6 +371,22 @@ export const TranslateCN = {
         ,APPROVE_USER_DATA_ERROR: "审批人列表加载错误"
         ,APPROVE_SUBMITTER_DATRA_ERROR : "提交者列表加载错误"
         ,APPROVE_RESULT_DATA_ERROR : "审批结果加载错误"
+        ,NOT_APPROVED_LIST_DATA_ERROR:"待审批列表加载错误"
+        ,APPROVE_SET_LIST: "审批设置列表加载错误"
+    },
+    ENT_MNG:{
+        ENT_OVERVIEW_DATA_ERROR:"企业统计数据加载错误"
+        ,ENT_MNG_LIST_DATA_ERROR:"企业管理列表加载错误"
+        ,ENT_CERT_UPDATE_FAILED:"认证更新失败"
+        ,ENT_QUOTA_DATA_ERROR:"企业配额加载错误"
+    },
+    ORDER_MNG:{
+        ORDER_DETAIL_DATA_ERROR:"订单详情加载错误"
+        ,ORDER_LIST_DATA_ERROR:"订单查询列表加载错误"
+        ,SUBINSTANCE_LIST_DATA_ERROR:"已购服务列表加载错误"
+        ,BUYER_DATA_ERROR:"订购人列表加载错误"
+        ,RENEW_FAILED:"订单续订失败"
+        ,RENEW_INFO_DATA_ERROR:"续订费用加载失败"
     },
     NET_MNG_OPENSTACK:{
         GETTING_DATA_FAILED: '获取数据失败！',
