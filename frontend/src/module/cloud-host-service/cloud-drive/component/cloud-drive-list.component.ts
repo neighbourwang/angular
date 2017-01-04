@@ -156,6 +156,11 @@ export class cloudDriveListComponent implements OnInit {
 		this.router.navigateByUrl(url);
 	}
 
+	changeName(name, disk:DistList) {
+		console.log(name);
+		this.service.changeDiskName(name, disk.id)
+	}
+
 
 	// 警告框相关
 	showNotice(title: string, msg: string) {

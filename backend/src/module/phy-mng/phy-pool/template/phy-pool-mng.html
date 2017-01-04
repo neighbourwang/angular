@@ -1,0 +1,77 @@
+﻿<div class="page-content-header icon-content-header-physical-mng" > 物理机资源池管理 </div>
+<div class="page-content">
+    <div style="margin-bottom:10px">
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="creat();"key="boe/physical_cre_res_pool.html">
+            <span class="glyphicon glyphicon-edit"></span>
+            <span class="icon-button-label icon-left-button-label">创建物理机资源池</span>
+        </button>
+        <button class="fox-cloud-button fox-cloud-button-green " style="margin-left:10px;" key="boe/physical-add.html">
+            <span class="glyphicon glyphicon-plus"></span>
+            <span class="icon-button-label icon-left-button-label">添加物理机</span>
+        </button>
+        <div class="dropdown pull-right" style="margin-left:10px;">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                选择操作
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a (click)="edit();">编辑</a></li>
+                <li><a (click)="phyEnable();">启用</a></li>
+                <li><a >禁用</a></li>
+                <li><a >删除</a></li>
+            </ul>
+        </div>
+
+        <div class="input-group col-md-2 pull-right mgl10" >
+            <input class="form-control " placeholder="输入云主机信息搜索" type="text">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+        </div>
+        <div class="dropdown pull-right" >
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                资源池名称
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="javascript:void(0);">所属地域</a></li>
+                <li><a href="javascript:void(0);">资源中心</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>选择</th>
+                <th>编号</th>
+                <th>物理机资源池名称</th>
+                <th>物理机类型</th>
+                <th>所属区域</th>
+                <th>所属数据中心</th>
+                <th>物理机总数量</th>
+                <th>已使用的物理机数量</th>
+                <th>状态</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of data">
+                <td><input type='radio' class="fox-cloud-radio" [checked]="item.selected" (change)="selectedPhy(item)"/></td>
+                <td>{{item.index}}</td>
+                <td><a href="#" key="boe/phy_list.html">{{item.pmPoolName}}</a></td>
+                <td>{{item.pmType}}</td>
+                <td>{{item.region}}</td>
+                <td>{{item.dataCenter}}</td>
+                <td>{{item.amount}}</td>
+                <td>{{item.usedAmount}}</td>
+                <td [ngClass]="{'font-green':item.status == '1','font-orange':item.status == '0'}">{{item.status}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="fox-cloud-pagination-container">
+        <fc-pagination #pager tp={{totalPage}} (pf)="getdata($event)"></fc-pagination>
+    </div>
+
+    <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+    <fc-confirm #enableConfirm title="{{noticeTitle}}" msg="{{msg}}" ot="确认" (of)="enableCof()" ct="取消" (cf)="ccf()"></fc-confirm>
+
+</div>

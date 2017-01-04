@@ -11,7 +11,7 @@ import { port } from '../model/port.model';
 import {transport} from '../model/transport.model';
 import { port_mock } from '../model/port.mock.model';
 import { VmNSXIndexService } from '../service/index-nsx.service';
-
+import { selectedPlatform } from "../../../vm-mng-index/service/platform.service";
 @Component({
     selector: "index",
     templateUrl: "../template/index-nsx.html",
@@ -37,7 +37,7 @@ export class VmNSXIndexComponent implements OnInit {
     }
 
     
-
+    selectedPlatform = selectedPlatform;
     @ViewChild("pager")
     pager: PaginationComponent;
 
@@ -276,8 +276,7 @@ export class VmNSXIndexComponent implements OnInit {
             this.router.navigate([
                     `net-mng/vm-mng-nsx/ip-mng-list`,
                     {
-                        //"dc_Id": selectedPort.dcId,
-                        //"switch_Id": selectedPort.switchId,
+                        "dlr_Id": selectedPort.dlrId,                       
                         "pid":this.platformId
                     }
                 ]

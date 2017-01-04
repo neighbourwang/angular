@@ -1611,6 +1611,76 @@ export let RestApis: RestApiModel[] = [
         "id": "net-mng.vm-mng-nsx.index.dosync",
         "method": "PUT",
         "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/{dlr_id}/sync"
-    }
+    },
+    {
+        "desc": "NSX云网络DLR资源分配保存企业",
+        "id": "net-mng.vm-mng-nsx.dlr.ent-save",
+        "method": "POST",
+        "url": "adminboe/authsec/vmware/network/nsx/portres/{id}/save/ent"
+    },
+    {
+       "desc": "NSX云网络DLR资源分配dlr设置企业",
+        "id": "net-mng.vm-mng-nsx.dlr.dlr-detail",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/nsx/portres/{id}/set/ent"
+    },
+//vmware-nsx网络
+    {
+        "desc": "获取nsxdlr网络列表",
+        "id": "net-mng.vm-mng-nsx.port.list",
+        "method": "GET",
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/portres/list"
+    },
+    {
+        "desc": "获取DLR列表",
+        "id": "net-mng.vm-mng-nsx.port.dlrlist",
+        "method": "GET",
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/dlrlist"
+    },
+	
+	//物理机资源池
+     {
+         "desc": "获取物理机列表",
+        "id": "physical-mng.physical.list.get",
+        "method": "POSt",
+        "url": " /boe/adminui/authsec/pmpools/pms/page/{page}/size/{size}"
+    },
+    {
+         "desc": "添加物理机",
+        "id": "physical-mng.physical.create",
+        "method": "POSt",
+        "url": "/boe/adminui/authsec/pmpool/pm"
+    },
+    {
+         "desc": "查看物理机",
+        "id": "physical-mng.physical.check",
+        "method": "GET",
+        "url": "/boe/adminui/authsec/pmpool/pm/{pm_id}"
+
+    },
+    {
+        "desc": "编辑物理机",
+        "id": "physical-mng.physical.edit",
+        "method": "PUT",
+        "url": "/boe/adminui/authsec/pmpool/{pmpool_id}"
+    },
+    {
+        "desc": "获取物理机硬件信息",
+        "id": "physical-mng.physical.hardwareinfo.get",
+        "method": "GET",
+        "url": " /boe/adminui/authsec/pmpool/pm/{ip_addr}/{username}/{password}"
+    },
+    {
+        "desc": "修改IPMI信息",
+        "id": "physical-mng.physical.ipmiInfo.put",
+        "method": "PUT",
+        "url": " /boe/adminui/authsec/pmpool/pm/ipmi"
+    },  
+    {
+        "desc": "删除/禁用/启用物理机",
+        "id": "physical-mng.physical.statusChange",
+        "method": "PUT",
+        "url": "/boe/adminui/authsec/pmpool/pm/{pm_id}/{status}"
+    },
 ]
 
