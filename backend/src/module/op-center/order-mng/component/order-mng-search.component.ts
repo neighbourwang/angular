@@ -40,10 +40,10 @@ export class OrderMngSearchComponent implements OnInit{
 		private restApi:RestApi){
 
 		//配置企业列表加载
-		this._adminLoader = new ItemLoader<AdminListItem>(false, "企业列表", "op-center.order-mng.ent-list.get", this.restApiCfg, this.restApi);
+		this._adminLoader = new ItemLoader<AdminListItem>(false, "COMMON.ENTPRISE_OPTIONS_DATA_ERROR", "op-center.order-mng.ent-list.get", this.restApiCfg, this.restApi);
 
 			//配置部门列表加载
-		this._departmentLoader = new ItemLoader<DepartmentItem>(false, '部门列表', "op-center.order-mng.department-list.get", this.restApiCfg, this.restApi);
+		this._departmentLoader = new ItemLoader<DepartmentItem>(false, 'COMMON.DEPARTMENT_OPTIONS_DATA_ERROR', "op-center.order-mng.department-list.get", this.restApiCfg, this.restApi);
 
 			//订购人加载
 		this._buyerLoader = new ItemLoader<DepartmentItem>(false, '订购人列表', "check-center.user-list.get", this.restApiCfg, this.restApi);

@@ -112,7 +112,7 @@ export class CheckMngListComponent implements OnInit{
 		};
 
 		//提交者列表
-		this._userListLoader = new ItemLoader<{id:string;name:string}>(false, "提交者列表", "check-center.user-list.get", _restApiCfg, _restApi);
+		this._userListLoader = new ItemLoader<{id:string;name:string}>(false, "CHECK_CENTER.APPROVE_SUBMITTER_DATRA_ERROR", "check-center.user-list.get", _restApiCfg, _restApi);
 		// this._userListLoader.MapFunc = (source:Array<any>,target:Array<{id:string;name:string}>)=>{
 		// 	target = target.concat(source.map(n=>{
 		// 		return {id:n.key, name:n.value};
@@ -132,10 +132,10 @@ export class CheckMngListComponent implements OnInit{
 		this._orderTypeDic = new DicLoader(_restApiCfg, _restApi, "ORDER", "TYPE");
 
 		//企业列表配置
-		this._entLoader = new ItemLoader<{id:string;name:string}>(false, "企业列表", "op-center.order-mng.ent-list.get", _restApiCfg, _restApi);
+		this._entLoader = new ItemLoader<{id:string;name:string}>(false, "COMMON.ENTPRISE_OPTIONS_DATA_ERROR", "op-center.order-mng.ent-list.get", _restApiCfg, _restApi);
 
 		//部门列表配置
-		this._departmentLoader = new ItemLoader<{id:string;name:string}>(false, "部门列表", "op-center.order-mng.department-list.get", _restApiCfg, _restApi);
+		this._departmentLoader = new ItemLoader<{id:string;name:string}>(false, "COMMON.DEPARTMENT_OPTIONS_DATA_ERROR", "op-center.order-mng.department-list.get", _restApiCfg, _restApi);
 
 		//产品类型配置
 		this._serviceTypeDic = new DicLoader(_restApiCfg, _restApi, "GLOBAL", "SERVICE_TYPE");//²úÆ·ÀàÐÍÁÐ±í', "op-center.order-mng.product-type-list.get", _restApiCfg, _restApi);
