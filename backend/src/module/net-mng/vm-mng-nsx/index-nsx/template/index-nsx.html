@@ -27,11 +27,11 @@
 <div class="mgt15" style="clear:both"></div> 
    
     <div class="mgb20 ">
-        <button class="fox-cloud-button fox-cloud-button-green" data-toggle="modal" data-target="#myModal" >          
+        <button class="fox-cloud-button fox-cloud-button-green" data-toggle="modal" data-target="#myModal" (click)="createPopor()" >          
             <span class="icon-button-label icon-left-button-label">同步NSX网络信息</span> <!--请添加创建的弹出框-->
         </button>       
         <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoPortMng()">       
-            <span class="icon-button-label icon-left-button-label" click="gotoPortMng()">DLR资源分配</span>
+            <span class="icon-button-label icon-left-button-label" >DLR资源分配</span>
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoIpMng()">
             <span class="icon-button-label icon-left-button-label" >IP地址管理</span>
@@ -152,7 +152,7 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let dlr of infoListForSyn">
-                   <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="port.selected" (change)="selectSyn(dlr)"> </td>
+                   <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="dlr.selected" (change)="selectSyn(dlr)"> </td>
                     <td>{{dlr.dlrName}}</td>
                     <td [ngClass]="dlr.status==1?'font-green':'font-orange'">{{dlr.status | dict:this.service.synDic | async}}</td>
                 </tr>
