@@ -274,6 +274,10 @@ export class ProdCreComponent implements OnInit, OnChanges {
 
     onSubmit() {
         console.log(this.product);
+        if(!this.vmProdDir){
+            this.selectAllStorages();
+            console.log(this.product);
+        }
         if (!this.product.name || this.product.name.trim() == "") {
             this.notice.open('操作错误', '请输入产品名称');
             return;
@@ -293,6 +297,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
 
         console.log("dd");
         this.LayoutService.show();
+        
         this.PostProduct.postProduct(this.product).then(response => {
             console.log('产品', response);
             this.LayoutService.hide();
