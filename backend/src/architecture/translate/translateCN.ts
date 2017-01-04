@@ -164,6 +164,8 @@ export const TranslateCN = {
         CNACLE: '取消',
         RETURN: '返回上一级',
         SELECT_OPERATION: '选择操作',
+        SELECT_LOCATION: '选择地域',
+        PLATFORM_URL: '平台显示名称+连接URL https://192.168.1.1:443',
 
         FREE: '空闲',
         OCCUPIED: '已占用',
@@ -177,6 +179,7 @@ export const TranslateCN = {
         SAVE: '保存',
         CREATE: '创建',
         SYNC: '同步',
+        TEST: '测试',
 
         NETWORK: '网络',
         NET_MNG: '网络管理',
@@ -320,6 +323,14 @@ export const TranslateCN = {
         //vmware-navigation-page
         SET_NSX_MNG_INFO: '设置NSX管理信息',
         SET_NETWORK_TYPE: '为可用区(集群)设置网络类型',
+        NSX_MNG_INFO: 'NSX管理信息',
+        SET_NET_TYPE: '设置网络类型',
+        STD_NET: '标准网络',
+        DBT_NET: '分布式网络',
+        NSX_NET: 'NSX网络',
+        
+        NETWORK_TYPE: '网络类型',
+
 
         SET_NSX_MNG_INFO_SUCCESS: '设置NSX管理信息成功',
         SET_NSX_MNG_INFO_FAILED: '设置NSX管理信息失败',
@@ -328,6 +339,8 @@ export const TranslateCN = {
         TEST_NSX_MNG_INFO_SUCCESS: '测试NSX管理信息成功',
         TEST_NSX_MNG_INFO_FAILED: '测试NSX管理信息失败',
         TEST_NSX_MNG_INFO_EXCEPTION: '测试NSX管理信息异常',
+        TEST_NSX_PASSED: 'NSX测试通过',
+        TEST_NSX_FAILED: 'NSX测试失败',
 
         GET_NXS_STATUS_SUCCESS: '获取NXS状态成功',
         GET_NXS_STATUS_FAILED: '获取NXS状态失败',
@@ -597,7 +610,30 @@ export const TranslateCN = {
 
     },
     NET_VM_NSX_INDEX: {
-        TRANSPORT_DETAIL:'传输区域详细信息'
+        VMWARE_NET: 'VMware网络',
+        RETURN: '返回上一级',
+        LOGICAL_ROUTER_NAME: '逻辑路由器(DLR)名称',
+        ALL: '所有',
+        ENSURE: '确定',
+        SYNC_NSX_NET_INFO: '同步NSX网络信息',
+        DLR_RESOURCE_ALLOCATION: 'DLR资源分配',
+        IP_ADDR_MNG: 'IP地址管理',
+        SELECT_OPERATION:'选择操作',
+        ENABLE: '启用',
+        DISABLE: '禁用',
+        SELECT: '选择',
+        ROUTER_NAME: '逻辑路由器名称(DLR)',
+        DLR_INTERFACE_NAME: 'DLR接口名称',
+        DLR_SUBNET_DISPLAY_NAME: 'DLR子网显示名称',
+        DLR_INTERFACE_IP: 'DLR接口IP地址',
+        SUBNET_MASK: '子网掩码',
+        DLR_INERFACE_TYPE: 'DLR接口类型',
+        LSW_NAME: '连接逻辑交换机(LSW)名称',
+        LSW_ID: 'LSW标示ID',
+        LSW_TRANSPORT_ZONE: 'LSW所属传输区域(Tansport Zone)',
+        STATUS: '状态',
+        LAST_UPDATE:'最后同步时间',
+        TRANSPORT_DETAIL:'传输区域{{value_1}}详细信息'
     }
     ,
     NET_MNG_VM_NSX_DLR:{

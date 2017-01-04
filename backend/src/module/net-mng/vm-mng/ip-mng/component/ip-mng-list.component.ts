@@ -12,11 +12,10 @@ import { subnetModel, subnetInfoModel } from '../model/subnet.model';
 import { subnetIpModel } from '../model/subnet-ip.model';
 import { DCModel, ClusterModel } from '../model/dccluster.model';
 
-
-
 //service
 import { IpMngListService } from '../service/ip-mng-list.service';
 import { IPValidationService } from '../service/ip-mng.validation.service';
+import { selectedPlatform } from "../../../vm-mng-index/service/platform.service";
 
 @Component({
     selector: 'ip-mng-list',
@@ -62,6 +61,8 @@ export class IpMngListComponent implements OnInit{
 	
 	noticeTitle = "";
     noticeMsg = "";
+
+    selectedPlatform = selectedPlatform;
 
     platformId: string = "";
 
@@ -441,9 +442,7 @@ export class IpMngListComponent implements OnInit{
         if (notValid !== void 0) {
             console.log("validateIPModify Failed!!!");
             this.ipsbox.close();
-
             let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
-
             let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];            
             //let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
             //          + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);

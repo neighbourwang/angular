@@ -136,10 +136,10 @@
     <div class="page-content">
         <div style="padding-bottom: 10px;">
              <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
-                <span class="icon-button-label" (click)='goList()'>同步可用区</span>
+                <span class="icon-button-label" (click)='updateResourcePop()'>同步计算资源</span>
              </button>
              <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right;margin-right:20px">
-                <span class="icon-button-label" (click)='goList()'>同步存储空间</span>
+                <span class="icon-button-label" (click)='updateZonePop()'>同步可用区</span>
             </button>
             <div style="clear:both"></div>
         </div>
@@ -147,36 +147,41 @@
             <table class="table table-hover" *ngIf="platformType=='OpenStack'">
                 <thead>
                     <tr>
-                        <th>#</th>                        
-                        <th class="check-box-col">Region</th>
-                        <th>名称</th>
-                        <th>显示名称</th>
-                        <th style="width:16%">宿主机</th>
-                        <th>物理CPU核数</th>
-                        <th>物理内存总数(MB)</th>
+                        <th style="width:4%">#</th>                        
+                        <th class="check-box-col" style="width:6%">Region</th>
+                        <th style="width:6%">名称</th>
+                        <th style="width:8%">显示名称</th>
+                        <th style="width:18%">宿主机</th>
+                        <th style="width:8%">物理CPU核数</th>
+                        <th style="width:10%">物理内存总数(MB)</th>
                         <th style="width:6%">CPU超分比</th>
-                        <th style="width:5%">配额%</th>
-                        <th>状态</th>
-                        <th>说明</th>
-                        <th>操作</th>
+                        <th style="width:4%">配额%</th>
+                        <th style="width:4%">状态</th>
+                        <th style="width:14%">说明</th>
+                        <th style="width:12%">操作</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let zone of zoneList;let idx=index">
                         <td>{{idx+1}}</td>
-                        <td>{{zone.dcOrRegion}}</td>
-                        <td>{{zone.name}}</td>
-                        <td><input type="text" [(ngModel)]="zone.displayName" name="displayName"></td>
+                        <td>{{zone.dcOrRegion||0}}</td>
+                        <td>{{zone.name||0}}</td>
                         <td>
-                            <p *ngFor="let host of zone.hosts">{{host}}</p>
+                            <span *ngIf="!zone.isEdit">{{zone.displayName||0}}</span>
+                            <input *ngIf="zone.isEdit" type="text" [(ngModel)]="zone.displayName" name="displayName">
+                        </td>
+                        <td>
+                            <p *ngFor="let host of zone.hosts">{{host||0}}</p>
                         </td>
                         <td>{{zone.vcpunum}}</td>
                         <td>{{zone.memSize}}</td>                        
                         <td>
-                            <input type="number" class="form-control" [(ngModel)]="zone.exceedPercentage" style="display: inline;" name="exceedPercentage">
+                            <span *ngIf="!zone.isEdit">{{zone.exceedPercentage||0}}</span>
+                            <input *ngIf="zone.isEdit" type="number" class="form-control" [(ngModel)]="zone.exceedPercentage" style="display: inline;" name="exceedPercentage">
                         </td>
                         <td>
-                            <input type="number" class="form-control" [(ngModel)]="zone.quotaPercentDisplay" style="width: 100px; display: inline;" name="quotaPercentDisplay">
+                            <span *ngIf="!zone.isEdit">{{zone.quotaPercentDisplay}}</span>
+                            <input *ngIf="zone.isEdit" type="number" class="form-control" [(ngModel)]="zone.quotaPercentDisplay" style="width: 100px; display: inline;" name="quotaPercentDisplay">
                         </td>
                         <td>
                             <!--<span [ngSwitch]="zone.status">
@@ -188,11 +193,21 @@
                             {{zone.status|dict:this.commonService.globalStatus|async}}
                         </td>
                         <td >
-                            <input type="text" class="form-control" [(ngModel)]="zone.description" style="display: inline;" name="description">
+                            <span *ngIf="!zone.isEdit">{{zone.description}}</span>
+                            <input *ngIf="zone.isEdit" type="text" class="form-control" [(ngModel)]="zone.description" style="display: inline;" name="description">
                         </td> 
                         <td>
-                            <button class="fox-cloud-button-md fox-cloud-button-white" (click)="enableZone(zone.id)">启用</button>
-                            <button class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendZone(zone.id)">禁用</button> 
+                            <div *ngIf="!zone.isEdit">
+                                <button *ngIf="zone.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableZone(zone)">启用</button>
+                                <button *ngIf="zone.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendZone(zone)">禁用</button> 
+                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="editZone(zone,idx)">编辑</button>
+                            </div>
+                            
+                            <div *ngIf="zone.isEdit">
+                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="saveZone(zone,idx)">保存</button> 
+                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEdit(zone,idx)">取消</button> 
+                            </div> 
+                            
                         </td>                                               
                     </tr>
                 </tbody>
@@ -251,10 +266,10 @@
     <div class="page-content">
         <div style="padding-bottom: 10px;">
              <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
-                <span class="icon-button-label" (click)='goList()'>同步存储后端</span>
+                <span class="icon-button-label" (click)='updateZonePop()'>同步存储空间</span>
              </button>
              <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right;margin-right:20px">
-                <span class="icon-button-label" (click)='goList()'>同步存储空间</span>
+                <span class="icon-button-label" (click)='goList()'>同步计算资源</span>
             </button>
             <div style="clear:both"></div>
         </div>
@@ -415,12 +430,22 @@
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认"></fc-notice>
 
 <fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-popup #updateZone title="{{title}}" ot="创建" (of)="otcreate()" ct="取消" (cf)="ccf()">
+<fc-popup #updateZone title="{{title}}" ot="创建" (of)="otUpdateZone()" ct="取消" (cf)="ccf()">
 	<div class="row row-line-height">
 		<div class="form-group">
-			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>Region名称：</div>
+			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>同步可用区：</div>
 			<div class="col-sm-6">
-			
+                     待开发。。。   
+			</div>
+		</div>
+	</div>
+</fc-popup>
+<fc-popup #updateResource title="{{title}}" ot="创建" (of)="otUpdateResource()" ct="取消" (cf)="ccf()">
+	<div class="row row-line-height">
+		<div class="form-group">
+			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>同步计算资源：</div>
+			<div class="col-sm-6">
+                     待开发。。。   
 			</div>
 		</div>
 	</div>

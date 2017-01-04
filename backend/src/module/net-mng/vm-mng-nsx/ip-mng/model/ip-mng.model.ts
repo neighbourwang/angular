@@ -38,13 +38,16 @@ export class IpMngModel {
     dlrInterfaceName: string = "";
     drlSubnetDisplayName: string = "";
     dlrInterfaceIPaddress: string = "";
+    
     gateway: string = "";
     dlrSubnet: string = "";
     subnetCIDR: string = "";
     dlrInterfaceType: string = "";
+
     lswName: string = "";
     lswId: string = "";
     lswTransportZone: string = "";
+
     status: string = "";
     lastUpdate: string = "";
     platformId: string = "";

@@ -99,13 +99,13 @@ export class OrgMngService {
     curEntId: string;
     getCurEntId() {
         let api = this.restApiCfg.getRestApi("user-center.org-mng.currentEnterpriseID.get");
-        // if (!this.curEntId) {
+        if (!this.curEntId) {
             return this.restApi.request(api.method, api.url, [], undefined).then(
                 res => {
                     console.log('当前账户企业ID', res);
                     if (res.resultContent) {
                         this.curEntId = res.resultContent;
-                        this.getCurEntResource(res.resultContent);
+                        this.getCurEntResource(this.curEntId);
                         return this.curEntId
                     }
                 }
@@ -114,45 +114,32 @@ export class OrgMngService {
                     console.error('获取当前切ID失败');
                 }
                 );
-        // } else {
-        //     return new Promise(resovle => setTimeout(resovle, 10)).then(() => {
-        //         this.getCurEntResource(this.curEntId);
-        //         // return this.curEntId
-        //     });
-        // }
+        } else {
+            return new Promise(resovle => setTimeout(resovle, 10)).then(() => {
+                this.getCurEntResource(this.curEntId);
+                return this.curEntId
+            });
+        }
     }
     //获得当前登陆人企业资源
-    entResourceObj: EntResource=new EntResource();
+    entResourceObj: EntResource = new EntResource();
     getCurEntResource(id: string) {
         let api = this.restApiCfg.getRestApi("user-center.org-mng.currEntResoure.get");
         console.log(this.entResourceObj.enterpriseId);
-        // if (!this.entResourceObj.enterpriseId) {
-             this.restApi.request(api.method, api.url, [{ key: "id", value: id }, { key: "page", value: 1 }, { key: "size", value: 9999 }], undefined).then(
-                res => {                    
-                    res.resultContent[0].memQuota=res.resultContent[0].memQuota/1024;
-                    res.resultContent[0].usedMemQuota=res.resultContent[0].usedMemQuota/1024;
-                    res.resultContent[0].realUsedMemQuota=res.resultContent[0].realUsedMemQuota/1024;
-                    console.log('获取企业资源信息', res);
-                    this.entResourceObj = res.resultContent[0];
-                    console.log(this.entResourceObj);
-                    return this.entResourceObj;
-
-                }
-            ).catch(
-                err => {
-                    console.error('获取企业资源信息失败');
-                }
-                );
-        // } else {
-        //     return new Promise(resovle => setTimeout(resovle, 10)).then(() =>{
-        //         this.entResourceObj
-        //     } 
-        //     );
-        // }
+        this.restApi.request(api.method, api.url, [{ key: "id", value: id }, { key: "page", value: 1 }, { key: "size", value: 9999 }], undefined).then(
+            res => {
+                res.resultContent[0].memQuota = res.resultContent[0].memQuota / 1024;
+                res.resultContent[0].usedMemQuota = res.resultContent[0].usedMemQuota / 1024;
+                res.resultContent[0].realUsedMemQuota = res.resultContent[0].realUsedMemQuota / 1024;
+                console.log('获取企业资源信息', res);
+                this.entResourceObj = res.resultContent[0];
+                console.log(this.entResourceObj);
+                return this.entResourceObj;
+            }
+        ).catch(
+            err => {
+                console.error('获取企业资源信息失败');
+            }
+            );
     }
-    // getCurEntResource(id: string) {
-    //      let api = this.restApiCfg.getRestApi("user-center.org-mng.currEntResoure.get");
-    //      return  this.restApi.request(api.method, api.url, [{ key: "id", value: id }, { key: "page", value: 1 }, { key: "size", value: 9999 }], undefined)
-    // }
-    //user-center.org-mng.currOrgUser.get
 }

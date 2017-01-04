@@ -1,49 +1,49 @@
 <div class="page-content-header icon-cloud-network-mngOn">
-    VMware网络	  
+    {{'NET_VM_NSX_INDEX.VMWARE_NET'| translate}}	  
 </div>
 <div class="page-content">
     <table class="table table-hover ">
         <thead>
             <tr>
-                <th style="text-align:left;">VMware网络管理--管理NSX网络&nbsp;&nbsp; "地区" "数据中心"平台显示名称+连接URL https://192.168.1.1:43</th>
+                <th style="text-align:left;">VMware{{'NET_MNG_VM_IP_MNG.NET_MNG' | translate}}--{{'NET_MNG_VM_IP_MNG.MANAGE_NSX_NET' | translate}}&nbsp;&nbsp; {{selectedPlatform.regionName}} {{selectedPlatform.dcName}} {{selectedPlatform.platformName}} {{selectedPlatform.platformUrl}}</th>
                 <th style="text-align:right;">
                     <button class=" fox-cloud-button fox-cloud-button-white " (click)="goBack();">
-                        <span class="icon-button-label">返回上一级</span>
+                        <span class="icon-button-label">{{'NET_VM_NSX_INDEX.RETURN'| translate}}</span>
                     </button>
                 </th>
             </tr>
         </thead>
     </table> 
     <div class="mgt15 ">      
-        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0"> 逻辑路由器(DLR)名称：</span>
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">{{'NET_VM_NSX_INDEX.LOGICAL_ROUTER_NAME'| translate}}：</span>
         <div class="float-left pdr20">
             <select class="pdl10 form-control" [(ngModel)]="selectedDlr">
-                <option [ngValue]="defaultDlr">所有</option>
-                <option *ngFor="let dlr of dlrList" [ngValue]="dlr">{{dlr.dlrRouteName}}</option>              
+                <option [ngValue]="defaultDlr">{{'NET_VM_NSX_INDEX.ALL'| translate}}</option>
+                <option *ngFor="let dlr of dlrList" [ngValue]="dlr">{{dlr.dlrName}}</option>              
             </select>
         </div>              
-        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl15 " (click)="filter();"><span class="icon-button-label">确定 </span> </button>                                                              
+        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl15 " (click)="filter();"><span class="icon-button-label">{{'NET_VM_NSX_INDEX.ENSURE'| translate}} </span> </button>                                                              
     </div>
 <div class="mgt15" style="clear:both"></div> 
    
     <div class="mgb20 ">
         <button class="fox-cloud-button fox-cloud-button-green" data-toggle="modal" data-target="#myModal" (click)="createPopor()" >          
-            <span class="icon-button-label icon-left-button-label">同步NSX网络信息</span> <!--请添加创建的弹出框-->
+            <span class="icon-button-label icon-left-button-label">{{'NET_VM_NSX_INDEX.SYNC_NSX_NET_INFO'| translate}}</span> <!--请添加创建的弹出框-->
         </button>       
         <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoPortMng()">       
-            <span class="icon-button-label icon-left-button-label" >DLR资源分配</span>
+            <span class="icon-button-label icon-left-button-label" >{{'NET_VM_NSX_INDEX.DLR_RESOURCE_ALLOCATION'| translate}}</span>
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoIpMng()">
-            <span class="icon-button-label icon-left-button-label" >IP地址管理</span>
+            <span class="icon-button-label icon-left-button-label" >{{'NET_VM_NSX_INDEX.IP_ADDR_MNG'| translate}}</span>
         </button>
         <div class="dropdown pull-right" >
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                选择操作
+                {{'NET_VM_NSX_INDEX.SELECT_OPERATION'| translate}}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="javascript:void(0);" (click)="portEnable();">启用</a></li>
-                <li><a href="javascript:void(0);" (click)="portDisable();">禁用</a></li>              
+                <li><a href="javascript:void(0);" (click)="portEnable();">{{'NET_VM_NSX_INDEX.ENABLE'| translate}}</a></li>
+                <li><a href="javascript:void(0);" (click)="portDisable();">{{'NET_VM_NSX_INDEX.DISABLE'| translate}}</a></li>              
             </ul>
         </div>
        
@@ -52,18 +52,18 @@
         <table class="table table-hover" >
             <thead style="vertical-align:top">
                 <tr>
-                    <th style="vertical-align:top">选择 </th>
-                    <th style="width:120px;vertical-align:top">逻辑路由器名称(DLR) </th>
-                    <th style="vertical-align:top">DLR接口名称 </th>
-                    <th style="vertical-align:top">DLR子网显示名称</th>
-                    <th style="vertical-align:top">DLR接口IP地址</th>
-                    <th style="vertical-align:top">子网掩码 </th>
-                    <th style="vertical-align:top">DLR接口类型 </th>
-                    <th style="width:120px;vertical-align:top"> 连接逻辑交换机(LSW)名称</th>
-                    <th style="vertical-align:top">LSW标示ID </th>
-                    <th style="width:150px;vertical-align:top">LSW所属传输区域(Tansport Zone)</th>
-                    <th style="vertical-align:top">状态</th>
-                    <th style="vertical-align:top">最后同步时间 </th>                   
+                    <th style="vertical-align:top">{{'NET_VM_NSX_INDEX.SELECT'| translate}}</th>
+                    <th style="width:120px;vertical-align:top">{{'NET_VM_NSX_INDEX.ROUTER_NAME'| translate}}</th>
+                    <th style="vertical-align:top">{{'NET_VM_NSX_INDEX.DLR_INTERFACE_NAME'| translate}}</th>
+                    <th style="vertical-align:top">{{'NET_VM_NSX_INDEX.DLR_SUBNET_DISPLAY_NAME'| translate}}</th>
+                    <th style="vertical-align:top">{{'NET_VM_NSX_INDEX.DLR_INTERFACE_IP'| translate}}</th>
+                    <th style="vertical-align:top">{{'NET_VM_NSX_INDEX.SUBNET_MASK'| translate}}</th>
+                    <th style="vertical-align:top">{{'NET_VM_NSX_INDEX.DLR_INERFACE_TYPE'| translate}}</th>
+                    <th style="width:120px;vertical-align:top">{{'NET_VM_NSX_INDEX.LSW_NAME'| translate}}</th>
+                    <th style="vertical-align:top">{{'NET_VM_NSX_INDEX.LSW_ID'| translate}}</th>
+                    <th style="width:150px;vertical-align:top">{{'NET_VM_NSX_INDEX.LSW_TRANSPORT_ZONE'| translate}}</th>
+                    <th style="vertical-align:top">{{'NET_VM_NSX_INDEX.STATUS'| translate}}</th>
+                    <th style="vertical-align:top">{{'NET_VM_NSX_INDEX.LAST_UPDATE'| translate}}</th>                   
                 </tr>
             </thead>
             <tbody>
@@ -79,7 +79,7 @@
                             <div class="popover-content">
                                 <form class="form-horizontal" role="form">
                                     <div class="form-group">
-                                        <label class="col-sm-4 control-label">DLR子网显示名称:</label>
+                                        <label class="col-sm-4 control-label">{{'NET_VM_NSX_INDEX.DLR_SUBNET_DISPLAY_NAME'| translate}}:</label>
                                         <div class="col-sm-8 float-left"> 
                                             <input type="text" class="form-control" [(ngModel)]="editPort.drlSubnetDisplayName" name="portname">
                                         </div>
@@ -98,7 +98,9 @@
                     <td>{{port.lswName}}</td>              
                     <td>{{port.lswId}}</td>
                     <td><a (click)="viewDetail(port);">{{port.lswTransportZone}}</a></td>
-                    <td class="font-green">{{port.status}}</td>
+                    <td [ngClass]="port.status==1?'font-green':'font-orange'">
+                    {{port.status | dict:this.service.statusDic | async}}
+                    </td>
                     <td>{{port.lastUpdate}}</td>
                 </tr>
                  
@@ -122,16 +124,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>cluster1</td>
-                    <td>计算机集群1</td>
-                    <td>VDS1</td>
+                <tr *ngFor="let trsp of transportList">
+                    <td>{{trsp.clusterName}}</td>
+                    <td>{{trsp.displayName}}</td>
+                    <td>{{trsp.vdsSwitch}}</td>
                 </tr>
-                <tr>
-                    <td>cluster1</td>
-                    <td>计算机集群1</td>
-                    <td>VDS1</td>
-                </tr>
+                
 
             </tbody>
         </table>
@@ -146,7 +144,7 @@
                 <thead>
                     <tr>
                         <th>{{'NET_MNG_VM_IP_MNG.SELECT' | translate}}</th>
-                        <th>逻辑路由器名称(DLR)</th>
+                        <th>{{'NET_VM_NSX_INDEX.ROUTER_NAME'| translate}}</th>
                         <th>{{'NET_MNG_VM_IP_MNG.STATUS' | translate}}</th>
                     </tr>
                 </thead>

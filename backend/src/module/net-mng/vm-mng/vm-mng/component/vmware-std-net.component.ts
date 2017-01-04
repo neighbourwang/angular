@@ -10,7 +10,7 @@ import { DCModel } from "../model/dc.model";
 import {  ClusterMode } from "../model/cluster.model";
 import { StdNet_mock } from '../model/std-net.mock.model';
 import { VmwareService } from '../service/vmware.service';
-
+import { selectedPlatform } from "../../../vm-mng-index/service/platform.service";
 @Component({
     selector: "wmware-std-net",
     templateUrl: "../template/vmware-std-net.html",
@@ -65,7 +65,7 @@ export class VmwareStdNetComponent implements OnInit {
     allnets: Array<StdNet>;
     filternets: Array<StdNet>;
 
-
+    selectedPlatform = selectedPlatform;
     statusDic: Array<SystemDictionary>;//状态
 
     editPort: StdNet = new StdNet();

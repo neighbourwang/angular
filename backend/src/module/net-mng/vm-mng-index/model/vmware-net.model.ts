@@ -35,8 +35,8 @@ export class PlatformModel{
 }
 
 export class DCModel{
-    dcId: string = "";    
-    dcName: string = "";
+    datacenterId: string = "";    
+    datacenterName: string = "";
     platformList: Array<PlatformModel> = [];
     toString(){
         return JSON.stringify(this);

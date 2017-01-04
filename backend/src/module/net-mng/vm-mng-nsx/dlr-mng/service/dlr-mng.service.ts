@@ -55,7 +55,7 @@ export class DlrMngService {
                 value: id
             }
         ];
-        const api = this.restApiCfg.getRestApi("net-mng.vm-mng-nsx");
+        const api = this.restApiCfg.getRestApi("net-mng.vm-mng-nsx.dlr.dlr-detail");
         return this.restApi.request(api.method, api.url, pathParams, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => port_net_mock);
     }
@@ -71,7 +71,7 @@ export class DlrMngService {
             
             "enterpriseSelectedList": enterpirses
         };
-        const api = this.restApiCfg.getRestApi("net-mng.vm-mng-nsx");
+        const api = this.restApiCfg.getRestApi("net-mng.vm-mng-nsx.dlr.ent-save");
         return this.restApi.request(api.method, api.url, pathParams, null, obj);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => port_net_mock);
     }

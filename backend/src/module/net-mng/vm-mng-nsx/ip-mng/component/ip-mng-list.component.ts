@@ -4,12 +4,15 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, ValidationService } from '../../../../../architecture';
 
+import { TranslateService } from 'ng2-translate';
+
 //model 
 import { IpMngModel, DLRModel, subnetInfoModel, subnetIpModel, IpUsageMngModel } from '../model/ip-mng.model';
 
 //service
 import { IpMngListService } from '../service/ip-mng-list.service';
 import { IPValidationService } from '../service/ip-mng.validation.service';
+import { selectedPlatform } from "../../../vm-mng-index/service/platform.service";
 
 @Component({
     selector: 'ip-mng-list',
@@ -29,7 +32,8 @@ export class IpMngListComponent implements OnInit{
         private layoutService : LayoutService,
         private validationService: ValidationService,
         private ipService: IPValidationService,
-        private activatedRouter: ActivatedRoute
+        private activatedRouter: ActivatedRoute,
+        private translateService: TranslateService
     ){
 /*
         if (activatedRouter.snapshot.params["pg_id"]) {
@@ -54,6 +58,8 @@ export class IpMngListComponent implements OnInit{
 	
 	noticeTitle = "";
     noticeMsg = "";
+
+    selectedPlatform = selectedPlatform;
 
     platformId: string = "";
 
@@ -139,11 +145,10 @@ export class IpMngListComponent implements OnInit{
             .then(
             response => {
                 this.layoutService.hide();
-                console.log(response, "IPmngS!!!");
                 if (response && 100 == response["resultCode"]) {
-                    this.rawipmngs = response.resultContent;
+                    this.rawipmngs = response.resultContent;                    
+                    console.log(this.rawipmngs, "IPmngS --- getIpMngList");
                     this.filter();
-                    console.log(this.ipmngs, "IPmngS --- getIpMngList");
                 } else {
                     alert("Res sync error");
                 }
@@ -157,8 +162,8 @@ export class IpMngListComponent implements OnInit{
         if(pg){
             this.router.navigate([`net-mng/vm-mng-nsx/ipusage-mng-list`, 
             {
-                "pg_id": pg.dlrId,
-                "pg_name": pg.dlrRouteName,
+                "pg_id": pg.dlrPortId,
+                "pg_name": pg.drlSubnetDisplayName,
                 "pid": this.platformId
             }]);
         }        
@@ -313,43 +318,56 @@ export class IpMngListComponent implements OnInit{
 
 
     //验证设置IP地址范围内容
+    /*
     validateIPModify(): boolean {
         return true;
     }
-    /*
+    */
+    
     validateIPModify(): boolean {
         let notValid = null;
         notValid = [
             {
-                "name": "IP地址范围"
+                "name": "NET_MNG_VM_IP_MNG.SUBNET_INFORMATION"
+                , 'value': this.ippool.subnetCIDR
+                , "op": "cidr"
+            },
+            {
+                "name": "NET_MNG_VM_IP_MNG.IP_SCOPE"
                 , 'value': this.ippool.ipstr
                 , "op": "*"
             },
-            /?
             {
-                "name": "IP地址范围"
+                "name": "NET_MNG_VM_IP_MNG.IP_SCOPE"
                 , 'value': [this.ippool.ipstr, this.ippool.subnetCIDR]
                 , "op": "ipscope"
             },
-            ?/
             {
-                "name": "IP地址范围"
-                , 'value': [this.ippool.ipstr, this.ippool.subnetCIDR, this.ippool.subnetMask]
-                , "op": "ipscopepermask"
-            }
-            ].find(n => this.ipService.validate(n.name, n.value, n.op) !== undefined)        
-        //console.log(notValid, "notValid!!!")
+                "name": "DNS1"
+                , 'value': this.ippool.dnsPre
+                , "op": "iporempty"
+            },
+            {
+                "name": "DNS2"
+                , 'value': this.ippool.dnsAlt
+                , "op": "iporempty"
+            },
+            ].find(n => this.ipService.validate(n.name, n.value, n.op) !== undefined);
+
         if (notValid !== void 0) {
             console.log("validateIPModify Failed!!!");
             this.ipsbox.close();
-            //this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));
             let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
             let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];
-            let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
-                      + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
-            this.showMsg(con);            
+            //console.log(name, msg, "name and msg");
+            //let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
+            //          + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
+            //this.showMsg(con);
+            this.translateService.get([name,msg], null).subscribe((res) => {
+                this.showMsg(res[name] + res[msg]);
+            });
             this.okCallback = () => {
-                this.ipsbox.open();                
+                this.ipsbox.open();
             };            
             return false;
         } else {
@@ -357,91 +375,6 @@ export class IpMngListComponent implements OnInit{
             return true;
         }
     }
-
-    //验证设置子网内容
-    validateSubnetModify(): boolean {
-        let notValid = null;
-        notValid = [
-            {
-                "name": "子网信息"
-                , 'value': this.subn.subnetCIDR
-                , "op": "*"
-            },
-            {
-                "name": "子网掩码"
-                , 'value': this.subn.subnetMask
-                , "op": "*"
-            },
-            {
-                "name": "网关地址"
-                , 'value': this.subn.gateway
-                , "op": "*"
-            },
-            {
-                "name": "子网掩码"
-                , 'value': this.subn.subnetMask
-                , "op": "ipmask"
-            },            
-            {
-                "name": "网关地址"
-                , 'value': this.subn.gateway
-                , "op": "ip"
-            },
-            {
-                "name": "DNS1"
-                , 'value': this.subn.dnsPre
-                , "op": "iporempty"
-            },
-            {
-                "name": "DNS2"
-                , 'value': this.subn.dnsAlt
-                , "op": "iporempty"
-            },
-            //1: 子网信息正确，2：netmask和gateway在子网信息中
-            {
-                "name": "子网信息"
-                , 'value': this.subn.subnetCIDR
-                , "op": "ip"
-                //, "op": "cidr"
-            },
-            /?
-            {
-                "name": "网关地址"
-                , 'value': [this.subn.gateway, this.subn.subnetCIDR]
-                , "op": "gatewayinsubnet"
-            },
-            {
-                "name": "子网掩码"
-                , 'value': [this.subn.subnetMask, this.subn.subnetCIDR]
-                , "op": "maskinsubnet"
-            },
-            ?/
-            {
-                "name": "网关地址"
-                , 'value': [this.subn.gateway, this.subn.subnetCIDR, this.subn.subnetMask]
-                , "op": "gatewayinsubnetandmask"
-            },
-            //?/
-            ].find(n => this.ipService.validate(n.name, n.value, n.op) !== undefined)        
-        //console.log(notValid, "notValid!!!")
-        if (notValid !== void 0) {
-            console.log("validateSubnetModify Failed!!!");
-            this.subnetbox.close();
-            //this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));
-            let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
-            let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];
-            let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
-                      + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
-            this.showMsg(con);
-            this.okCallback = () => {
-                this.subnetbox.open();                
-            };            
-            return false;
-        } else {
-            console.log("validateSubnetModify OK!!!");
-            return true;
-        }
-    }
-    */
+   
 
 }

@@ -232,11 +232,10 @@ export class IPValidationService {
                 "msg": "NET_MNG_VM_IP_MNG.NOT_IN_SUBNET"
             },
             //*/
-
         }
 
         if (map[op].func(val)) {
-            return name + map[op].msg;
+            return [name, map[op].msg];
         }
         else
             return undefined;

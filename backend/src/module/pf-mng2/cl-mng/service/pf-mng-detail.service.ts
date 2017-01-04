@@ -22,7 +22,18 @@ export class PlatformDetailService {
         return this.restApi.request(api.method, api.url,[],undefined,data);
     }
     //获取平台可用区信息    
-    getZoneList (id:string){
+    getUpdateZone (id:string){
+        let api = this.restApiCfg.getRestApi("pf-mng-zonelist.get");
+        return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
+    }
+    //平台可用区信息    
+    putUpdateZone (zone:any){
+        let api = this.restApiCfg.getRestApi("pf-mng-zonelist.put");
+        return this.restApi.request(api.method , api.url,[],undefined ,zone);
+    }
+    
+    //更新平台可用区信息    
+    postUpdateZone (id:string){
         let api = this.restApiCfg.getRestApi("pf-mng-zonelist.get");
         return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
     }

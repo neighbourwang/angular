@@ -5,6 +5,9 @@ import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../..
 
 import { DlrMngService } from '../service/dlr-mng.service';
 import { DlrDetailModel } from "../model/dlr-detail.model";
+
+import { selectedPlatform } from "../../../vm-mng-index/service/platform.service";
+
 @Component({
     selector:'dlr-mng',
     templateUrl:'../template/vmware-nsx-dlr-res.html',
@@ -22,6 +25,8 @@ export class DlrMngComponent implements OnInit{
     }
     noticeTitle = "";
     noticeMsg = "";
+
+    selectedPlatform = selectedPlatform;
 
     @ViewChild("notice")
     notice: NoticeComponent;

@@ -199,20 +199,25 @@ export class OrderMngSearchComponent implements OnInit{
 	}
 
 	loadDepartment(){
+		this.layoutService.show();
+		this._param.organization = null;
+		this._param.buyerId = null;
 		this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._param.enterpriseId}])
 		.then(success=>{
-			//this._param.organization = null;
+			this.layoutService.hide();
 		}, err=>{
-			this._param.organization = null;
+			this.layoutService.hide();
 		});
 	}
 
 	loadBuyer(){
+		this.layoutService.show();
+		this._param.buyerId = null;
 		this._buyerLoader.Go(null, [{key:"departmentId", value:this._param.organization}])
 		.then(success=>{
-			//this._param.organization = null;
+			this.layoutService.hide();
 		}, err=>{
-			this._param.organization = null;
+			this.layoutService.hide();
 		});
 	}
 	//翻译订单状态及产品类型
@@ -230,6 +235,28 @@ export class OrderMngSearchComponent implements OnInit{
 	}
 
 	search(pageNumber:number = 1){
+		/*
+{
+  "approverId": "string",
+  "approverStatus": "string",
+  "createTime": "2017-01-03T07:29:47.768Z",
+  "enterpriseId": "string",
+  "expireTime": "2017-01-03T07:29:47.768Z",
+  "orderCode": "string",
+  "orderType": "string",
+  "organization": "string",
+  "pageParameter": {
+    "currentPage": 0,
+    "offset": 0,
+    "size": 0,
+    "sort": {},
+    "totalPage": 0
+  },
+  "serviceType": "string",
+  "status": "string",
+  "userId": "string"
+}
+		*/
 		this.layoutService.show();
 
 		let param = _.extend({}, this._param);
@@ -239,6 +266,8 @@ export class OrderMngSearchComponent implements OnInit{
          param.organization = this._param.organization;
 		 //param.serviceId = this._param.serviceType;
 		 param.status = this._param.status;
+		 param.createTime = this._param.createDate;
+		 param.expireTime = this._param.expireDate;
 		
 		param.userId = this._param.buyerId;
 		param.pageParameter = {

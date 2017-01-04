@@ -16,6 +16,7 @@ export class ZoneListModel {
     exceedPercentage: number;
     quotaPercentage: number;
     quotaPercentDisplay:number;
+    isEdit:boolean;
     //   "status": 0,
     constructor() {
     }

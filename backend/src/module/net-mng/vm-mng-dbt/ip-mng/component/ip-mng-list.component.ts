@@ -13,6 +13,7 @@ import { IpMngModel, DCModel, SwitchModel, subnetModel, subnetInfoModel, subnetI
 //service
 import { IpMngListService } from '../service/ip-mng-list.service';
 import { IPValidationService } from '../service/ip-mng.validation.service';
+import { selectedPlatform } from "../../../vm-mng-index/service/platform.service";
 
 @Component({
     selector: 'ip-mng-list',
@@ -58,6 +59,8 @@ export class IpMngListComponent implements OnInit{
 	
 	noticeTitle = "";
     noticeMsg = "";
+
+    selectedPlatform = selectedPlatform;
 
     platformId: string = "";
 
@@ -431,9 +434,12 @@ export class IpMngListComponent implements OnInit{
             //this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));
             let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
             let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];
-            let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
-                      + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
-            this.showMsg(con); 
+            //let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
+            //          + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
+            //this.showMsg(con);
+            this.translateService.get([name,msg], null).subscribe((res) => {
+                this.showMsg(res[name] + res[msg]);
+            }); 
             this.okCallback = () => {
                 this.ipsbox.open();                
             };            
@@ -517,9 +523,12 @@ export class IpMngListComponent implements OnInit{
             //this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));
             let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
             let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];
-            let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
-                      + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
-            this.showMsg(con);                        
+            //let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
+            //          + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
+            //this.showMsg(con);
+            this.translateService.get([name,msg], null).subscribe((res) => {
+                this.showMsg(res[name] + res[msg]);
+            });
             this.okCallback = () => {
                 this.subnetbox.open();                
             };            
