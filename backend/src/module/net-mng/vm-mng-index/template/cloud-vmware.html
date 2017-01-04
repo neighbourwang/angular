@@ -82,16 +82,16 @@
 
 
 <fc-popup #setnsxmnginfo ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'NET_MNG_VM_IP_MNG.SET_NSX_MNG_INFO' | translate}}" (of)="acceptNsxMngInfoModify()" (cf)="cancelNsxMngInfoModify()">
-	<div class="dialogContent">
+	<div class="dialogContent" >
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.NSX_VERSION' | translate}}：</div>
+					<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.NSX_VERSION' | translate}}：</div>
 					<!--
                     <div class="col-sm-8">
 					    <input type="string" class="form-control input-control" [(ngModel)]="changedNsxMngInfo.nsxVer">
 					</div>
                     -->
-                    <div class="col-sm-8">
+                    <div class="col-sm-7">
                         <select class="form-control" [(ngModel)]="changedNsxMngInfo.nsxVer"> 
                             <option [value]="'0'">{{'NET_MNG_VM_IP_MNG.PLEASE_CHOOSE' | translate}}</option>
                             <option *ngFor="let nsxver of nsxverDictArray" [value]="nsxver.value">{{nsxver.displayValue}}</option>
@@ -101,28 +101,28 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.NSX_MNG_ADDRESS' | translate}}：</div>
-					<div class="col-sm-8">
+					<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.NSX_MNG_ADDRESS' | translate}}：</div>
+					<div class="col-sm-7">
 					    <input type="string" class="form-control input-control" [(ngModel)]="changedNsxMngInfo.nsxAddress">
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.NSX_MNG_USERNAME' | translate}}：</div>
-					<div class="col-sm-8">
+					<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.NSX_MNG_USERNAME' | translate}}：</div>
+					<div class="col-sm-7">
 					<input type="string" class="form-control input-control" [(ngModel)]="changedNsxMngInfo.userName">
 					</div>
 				</div>
 			</div>
             <div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.NSX_MNG_PASSWORD' | translate}}：</div>
-					<div class="col-sm-6">
+					<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.NSX_MNG_PASSWORD' | translate}}：</div>
+					<div class="col-sm-4">
 					<input type="password" class="form-control input-control" [(ngModel)]="changedNsxMngInfo.adminPassword">
 					</div>
-                    <div class="col-sm-2">
-                        <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" (click)="testNsxMngInfo()"> {{'NET_MNG_VM_IP_MNG.TEST' | translate}}</button>
+                    <div class="col-sm-3">
+                        <button type="button" class="fox-cloud-button fox-cloud-button-white pull-right" style="height:34px" (click)="testNsxMngInfo()"> {{'NET_MNG_VM_IP_MNG.TEST' | translate}}</button>
                     </div>                    
 				</div>
                 <div [ngSwitch]="nsxTestFlag">
@@ -135,21 +135,28 @@
 
 <fc-popup #setnettype ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'NET_MNG_VM_IP_MNG.SET_NETWORK_TYPE' | translate}}" (of)="acceptNetworkTypeModify()" (cf)="cancelNetworkTypeModify()">
 
-	<div class="dialogContent">
+	<div class="dialogContent pdl20">
 			<div class="row row-line-height">
 				<div class="form-group" [style.color] = "VmNetStatus.checkResult=='2' ? 'red': 'green'">
-                    <!-- <input type="radio" class="fox-cloud-radio" name="radio" [disabled]="VmNetStatus.checkResult=='2'" (click)="VmNetStatus.vmNetStatus='1'"> NSX网络   -->
-                    <input type="radio" class="fox-cloud-radio" name="radio" [class.hidden]="VmNetStatus.checkResult=='2'" [ngClass]="{'disabled':VmNetStatus.checkResult=='2'}" (change)="VmNetStatus.vmNetStatus='1'"> {{'NET_MNG_VM_IP_MNG.NSX_NET' | translate}}
+                    <label class="pointer">
+                    <input type="radio" class="fox-cloud-radio" name="radio" [attr.disabled]="VmNetStatus.checkResult=='2'" (click)="VmNetStatus.vmNetStatus='1'"> NSX网络
+                    </label>
+                    <!-- <input type="radio" class="fox-cloud-radio" name="radio" [class.hidden]="VmNetStatus.checkResult=='2'" [ngClass]="{'disabled':VmNetStatus.checkResult=='2'}" (change)="VmNetStatus.vmNetStatus='1'"> {{'NET_MNG_VM_IP_MNG.NSX_NET' | translate}} -->
+                    <!-- <input type="radio" class="fox-cloud-radio" name="radio" [ng]="{'disabled':VmNetStatus.checkResult=='2'}" (change)="VmNetStatus.vmNetStatus='1'"> {{'NET_MNG_VM_IP_MNG.NSX_NET' | translate}}  -->
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
+                    <label class="pointer">
 					<input type="radio" class="fox-cloud-radio" name="radio" (click)="VmNetStatus.vmNetStatus='2'"> {{'NET_MNG_VM_IP_MNG.DBT_NET' | translate}}
+                    </label>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
+                    <label class="pointer">
 					<input type="radio" class="fox-cloud-radio" name="radio" (click)="VmNetStatus.vmNetStatus='3'"> {{'NET_MNG_VM_IP_MNG.STD_NET' | translate}}
+                    </label>
 				</div>
 			</div>
 	</div>
