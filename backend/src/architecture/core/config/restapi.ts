@@ -1581,4 +1581,16 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/{dlr_id}/sync"
     },
+    {
+        "desc": "NSX云网络DLR资源分配保存企业",
+        "id": "net-mng.vm-mng-nsx.dlr.ent-save",
+        "method": "POST",
+        "url": "adminboe/authsec/vmware/network/nsx/portres/{id}/save/ent"
+    },
+    {
+       "desc": "NSX云网络DLR资源分配dlr设置企业",
+        "id": "net-mng.vm-mng-nsx.dlr.dlr-detail",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/nsx/portres/{id}/set/ent"
+    }
 ]
