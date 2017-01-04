@@ -122,16 +122,19 @@ export class ClMngCreStep1Component implements OnInit {
         if (this.checkValue()) {
             this.notice.open('错误', message);
         } else if (this.creStep1Model.platformType == '0') {
+            this.layoutService.show();
             this.getPlatformRegionList()
                 .then(
                 res => {
                     console.log('platFormRegions', res);
                     this.platFormRegionList = res.resultContent;
+                    this.layoutService.hide();
                     this.regionSelect.open('创建云平台：选取Region')
                 }
                 ).catch(
                 err => {
                     console.error('err');
+                    this.layoutService.hide();
                     this.notice.open('错误', '获取Region信息错误');
                 }
                 )           

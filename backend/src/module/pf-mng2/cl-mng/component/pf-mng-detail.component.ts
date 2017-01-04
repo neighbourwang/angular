@@ -45,8 +45,13 @@ export class PfDetailComponent implements OnInit {
 
     @ViewChild('notice')
     notice: NoticeComponent;
+
     @ViewChild('updateZone')
     updateZone:PopupComponent;
+
+    @ViewChild('updateResource')
+    updateResource:PopupComponent;
+    
 
     // 确认Box/通知Box的标题
     title: String = "";
@@ -158,9 +163,9 @@ export class PfDetailComponent implements OnInit {
                     res => {
                         this.zoneList = res.resultContent;
                         this.zoneList.forEach(ele => {
-                            if (ele.quotaPercentage) {
-                                ele.quotaPercentDisplay = ele.quotaPercentage * 100;
-                            }
+                            ele.quotaPercentage=
+                            ele.quotaPercentage?ele.quotaPercentage:0;
+                            ele.quotaPercentDisplay = ele.quotaPercentage * 100;
                         })
                         console.log(res);
                         
@@ -168,20 +173,7 @@ export class PfDetailComponent implements OnInit {
                 ).catch(err=>{
                     console.error('获取可用区列表出错',err)
                 })
-        this.platformDetailService.getZoneList(this.platform.id).then(
-                    res => {
-                        this.updateZoneList = res.resultContent;
-                        this.updateZoneList.forEach(ele => {
-                            if (ele.quotaPercentage) {
-                                ele.quotaPercentDisplay = ele.quotaPercentage * 100;
-                            }
-                        })
-                        console.log('同步',res);
-                        
-                    }
-                ).catch(err=>{
-                    console.error('获取更新可用区列表出错',err)
-                })
+        
     }
     //切换TAB
     changeTab(item, index) {
@@ -214,6 +206,56 @@ export class PfDetailComponent implements OnInit {
         }).catch(err=>{
             console.error('禁用可用区失败',err);
         })
+    }
+    //更多操作
+    editZone(zone,idx){
+        this.zoneList[idx].isEdit=true;
+    }
+    saveZone(zone){
+        zone.isEdit=false;
+    }
+    cancelEdit(zone){
+        zone.isEdit=false;
+    }
+
+    //更新可用区弹出框
+    updateZonePop(){
+        this.platformDetailService.getUpdateZone(this.platform.id).then(
+                    res => {
+                        this.updateZoneList = res.resultContent;
+                        if(this.updateZoneList.length==0){
+                            this.notice.open('oo','暂时没有可同步可用区信息')
+                        }else{
+                            this.updateZoneList.forEach(ele => {
+                            if (ele.quotaPercentage) {
+                                ele.quotaPercentDisplay = ele.quotaPercentage * 100;
+                            }
+                        })
+                        console.log('同步',res);
+                        this.updateZone.open('同步可用区信息')
+                        }
+                    }
+                ).catch(err=>{
+                    console.error('获取更新可用区列表出错',err)
+                })
+    }
+    //同步可用区
+    otUpdateZone(){
+        this.platformDetailService.putUpdateZone(this.updateZoneList).then(
+                    res => {                        
+                        console.log('同步',res);
+                        this.getZoneList()
+                    }
+                ).catch(err=>{
+                    console.error('获取更新可用区列表出错',err)
+                })
+    }
+    //同步资源get
+    updateResourcePop(){
+        this.updateResource.open('同步计算资源')
+    }
+    otUpdateResource(){
+
     }
     //返回
     back() {

@@ -142,6 +142,10 @@ export class AccountMngComponent implements OnInit {
 
     //重置密码
     resetPassword() {
+        if(this.chooseAccount.type=='1'){
+            this.notice.open('操作错误','重置密码功能仅限本地账户');
+            return ;
+        }
         if (this.chooseAccount.id) {
             if (this.chooseAccount.id) {
                 this.confirmType = 1;

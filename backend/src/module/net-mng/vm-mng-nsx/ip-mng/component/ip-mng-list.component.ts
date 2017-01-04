@@ -160,7 +160,7 @@ export class IpMngListComponent implements OnInit{
             this.router.navigate([`net-mng/vm-mng-nsx/ipusage-mng-list`, 
             {
                 "pg_id": pg.dlrPortId,
-                "pg_name": pg.dlrInterfaceName,
+                "pg_name": pg.drlSubnetDisplayName,
                 "pid": this.platformId
             }]);
         }        
