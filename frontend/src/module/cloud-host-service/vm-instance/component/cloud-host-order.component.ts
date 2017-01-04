@@ -56,6 +56,8 @@ export class cloudHostComponentOrder implements OnInit {
 	vmSku: SkuMap = new SkuMap;
 	vmSkuMap: SkuMap[];
 	diskSku: SkuMap[];
+	vmProduct: ProMap; //最终匹配到的主机
+	diskProduct: ProMap[] = []; //最终匹配到的硬盘
 
 	bootsizeList : VlueList[] = [];
 	networkList: VlueList[];
@@ -155,7 +157,6 @@ export class cloudHostComponentOrder implements OnInit {
 		let payloadList = [];
 
 		for (let v in this.sendModule) {
-			console.log(this.sendModule[v], v)
 			if(this.sendModule[v].attrValueCode === "" && this.sendModule[v].attrValue === "")  continue;
 
 			payloadList.push({
@@ -185,13 +186,13 @@ export class cloudHostComponentOrder implements OnInit {
 	 * @return {PayLoad[]} [description]
 	 */
 	private payLoadFormat(): PayLoad[] {
-
+console.log(this.vmProduct)
 		/****下面开始处云主机订单的逻辑****/
 		let payloadList = this.sendModuleToPay(),
 			itemNo = this.makeItemNum(),
 			payLoad = {
 				skuId: this.vmSku.skuId,
-				productId: this.vmSku.productId,
+				productId: this.vmProduct.productId,
 				attrList: payloadList,
 				itemNo: itemNo,
 				totalPrice: this.vmTotalPrice,
@@ -214,10 +215,11 @@ export class cloudHostComponentOrder implements OnInit {
 				this.sendModule.storagesize = storage.storagesize;
 
 				let sku = this.getSkuMap("disk")[0],
+					pro = this.diskProduct[0],
 					payloadList = this.sendModuleToPay();
 				payLoad = {
 					skuId: sku.skuId,
-					productId: sku.productId,
+					productId: pro.productId,
 					attrList: payloadList,
 					itemNo: this.makeItemNum(),
 					totalPrice: this.diskTotalPrice,
@@ -236,14 +238,15 @@ export class cloudHostComponentOrder implements OnInit {
 	setVmPrice(): void {   //设置主机的价格
 		const sku = this.vmSku.skuId,
 			timeline = +(this.sendModule.timeline.attrValue || "0");
+		console.log(this.sendModule.timelineunit.attrValueCode)
 		if (!this.sendModule.timelineunit.attrValueCode || !sku) return;
-		const product = this.proMap[`[${sku}, ${this.sendModule.timelineunit.attrValueCode}]`];  //获取产品信息
+		this.vmProduct = this.proMap[`[${sku}, ${this.sendModule.timelineunit.attrValueCode}]`];  //获取产品信息
 
-		console.log("匹配到的云主机：", product)		
-		if (!product) return;  //如果没获取到价格
+		console.log("匹配到的云主机：", this.vmProduct)		
+		if (!this.vmProduct) return;  //如果没获取到价格
 
-		this.vmBasePrice = product.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
-		this.vmTotalPrice = (product.billingInfo.basicPrice + product.billingInfo.cyclePrice) * timeline * this.payLoad.quality;   //周期费用
+		this.vmBasePrice = this.vmProduct.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
+		this.vmTotalPrice = (this.vmProduct.billingInfo.basicPrice + this.vmProduct.billingInfo.cyclePrice) * timeline * this.payLoad.quality;   //周期费用
 	}
 	setDiskPrice(): void {  //设置数据盘的价格
 		const timeline = +(this.sendModule.timeline.attrValue || "0"),
@@ -260,9 +263,11 @@ export class cloudHostComponentOrder implements OnInit {
 			this.diskSku.push(sku); //获取sku
 
 			let price = this.proMap[`[${sku.skuId}]`];  //计算价格
+			this.diskProduct.push(price);
 
 			console.log("匹配到的云硬盘：", price)
 			if (!price) return; //如果没获取到价格
+
 			basePrice += price.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
 			totalPrice += price.billingInfo.unitPrice * data.storagesize.attrValue * timeline * this.payLoad.quality;   //周期费用
 

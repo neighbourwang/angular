@@ -1,8 +1,10 @@
-<div class="page-content-header icon-cloud-network-mngOn">VMvare网络</div>
+<div class="page-content-header icon-cloud-network-mngOn">
+    VMvare{{'NET_MNG_VM_NSX_DLR.NETWORK' | translate}}</div>
 <div class="page-content">
     <div class="row mgb5" >
         <span class="pull-left pdl15" style="display:inline-block;font-size:16px;padding:6px 0">
-            DLR资源分配——设置企业
+            {{'NET_MNG_VM_NSX_DLR.DLR_ALLOCATION' | translate}}
+            ——{{'NET_MNG_VM_NSX_DLR.SET_ENTERPRISE' | translate}}
         </span>
     </div>
     
@@ -10,43 +12,51 @@
         <table class="table table-hover" >
             <thead>
                 <tr>
-                    <th>逻辑路由器名称(DLR)</th>
-                    <th>DLR接口名称</th>
-                    <th>DLR子网显示名称</th>
-                    <th>DLR接口IP地址</th>
-                    <th>子网掩码 </th>
-                    <th>DLR接口类型 </th>
-                    <th>连接逻辑交换机(LSW)名称</th>
+                    <th>{{'NET_MNG_VM_NSX_DLR.DLR_NAME' | translate}}</th>
+                    <th>{{'NET_MNG_VM_NSX_DLR.DLR_PORT_NAME' | translate}}</th>
+                    <th>{{'NET_MNG_VM_NSX_DLR.DLR_SUBNET_DISPLAY_NAME' | translate}}</th>
+                    <th>{{'NET_MNG_VM_NSX_DLR.DLR_PORT_IP_ADDRESS' | translate}}</th>
+                    <th>{{'NET_MNG_VM_NSX_DLR.SUBNET_MASK' | translate}}</th>
+                    <th>{{'NET_MNG_VM_NSX_DLR.DLR_PORT_TYPE' | translate}}</th>
+                    <th>{{'NET_MNG_VM_NSX_DLR.LINKED_LSW_NAME' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>{{dlrs.dlrRouteName}}</td>
-                    <td>{{dlrs.dlrInterfaceName}} </td>                   
+                <tr *ngFor="let dlr of dlrs">
+                    <td>{{dlr.dlrRouteName}}</td>
+                    <td>{{dlr.dlrInterfaceName}} </td>                   
                     <td style="position:relative">
-                        {{dlrs.drlSubnetDisplayName || "未设置"}}                                                               
+                        {{dlr.drlSubnetDisplayName || 'NET_MNG_VM_NSX_DLR.UNSET' | translate}}                                                               
                     </td>
-                    <td>{{dlrs.dlrInterfaceIPaddress}}</td>  
-                    <td>{{dlrs.subnetCIDR}}</td>
-                    <td>{{dlrs.dlrInterfaceType}}</td>
-                    <td>{{dlrs.lswName}}</td>              
+                    <td>{{dlr.dlrInterfaceIPaddress}}</td>  
+                    <td>{{dlr.subnetCIDR}}</td>
+                    <td>{{dlr.dlrInterfaceType}}</td>
+                    <td>{{dlr.lswName}}</td>              
                 </tr>
                 
             </tbody>
         </table>
     </div>   
-    <div style="margin-left:13%;font-size:16px;"><span class="asterisk">*</span>选择企业：</div>
-        <fc-selectbox #testbox [selectedList]="selectedEnterprise" [unSelectedList]="unselectedEnterprise" 
-                titleL="{{'NET_MNG_VM_DBT_PORT.ENTERPRISE_FOR_SELECT' | translate}}" 
-                titleR="{{'NET_MNG_VM_DBT_PORT.SELECTED_ENTERPRISE' | translate}}" displayKey="com">
+    <div style="margin-left:13%;font-size:16px;">
+        <span class="asterisk">*</span>{{'NET_MNG_VM_NSX_DLR.SELECT_ENTERPRISE' | translate}}：
+    </div>
+    <fc-selectbox #testbox [selectedList]="selectedEnterprise" [unSelectedList]="unselectedEnterprise" 
+            titleL="{{'NET_MNG_VM_DBT_PORT.ENTERPRISE_FOR_SELECT' | translate}}" 
+            titleR="{{'NET_MNG_VM_DBT_PORT.SELECTED_ENTERPRISE' | translate}}" displayKey="com">
 
     </fc-selectbox>
     
 <div class="text-center">
-    <button class="fox-cloud-button-lg fox-cloud-button-white" >
-        <span class="icon-button-label">关闭</span>
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="gotoPortMng()">
+        <span class="icon-button-label">
+            {{'NET_MNG_VM_NSX_DLR.CLOSE' | translate}}
+            </span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white">
-        <span class="icon-button-label">保存</span>
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="saveEnterpriseGroup()">
+        <span class="icon-button-label">
+            {{'NET_MNG_VM_NSX_DLR.SAVE' | translate}}</span>
     </button>
 </div>
+
+
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'NET_MNG_VM_NSX_DLR.COMFIRM' | translate}}"></fc-notice>

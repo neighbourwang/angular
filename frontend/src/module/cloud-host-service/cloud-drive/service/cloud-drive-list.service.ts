@@ -70,6 +70,30 @@ export class cloudDriveServiceList {
         return request;
     }
 
+    changeDiskName(name:string, id:string) {
+        
+        const api = this.restApiCfg.getRestApi("change.disk.info");
+
+        let senData = {
+            instanceDisplayName : name,
+            instanceId : id
+        };
+        let pathParams = [
+            {
+                key: 'id',
+                value: id
+            }
+        ];
+        const request = this.restApi.request(api.method, api.url, pathParams, undefined, senData)
+                            .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "";
+                                }
+                                return res.resultContent;
+                            });
+        return request;
+    }
+
     handleDist(senData:HandleDist) : Promise<any> { 
         const api = this.restApiCfg.getRestApi("hosts.vm.action");
 
