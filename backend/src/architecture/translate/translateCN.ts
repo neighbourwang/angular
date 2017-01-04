@@ -561,7 +561,7 @@ export const TranslateCN = {
         ENTERPRISE_FOR_SELECT:'可选企业',
         SELECTED_ENTERPRISE:'选中企业',
 
-        BACK:'返回',
+        CLOSE:'关闭',
         SAVE:'保存',
         SAVE_SUCCESS:'保存成功！'
 
@@ -633,6 +633,42 @@ export const TranslateCN = {
         LSW_TRANSPORT_ZONE: 'LSW所属传输区域(Tansport Zone)',
         STATUS: '状态',
         LAST_UPDATE:'最后同步时间',
-        TRANSPORT_DETAIL:'传输区域详细信息'
+        TRANSPORT_DETAIL:'传输区域{{value_1}}详细信息'
+    }
+    ,
+    NET_MNG_VM_NSX_DLR:{
+        ENSURE: '确定',
+        COMFIRM: '确认',
+        CNACLE: '取消',
+        RETURN: '返回上一级',
+
+        ALL: '所有',
+        
+
+        NETWORK: '网络',
+        NET_MNG: '网络管理',
+        MANAGE_NSX_NET: '管理NSX网络',
+        DLR_ALLOCATION: 'DLR资源分配',
+        
+        DLR_NAME:'逻辑路由器名称(DLR)',
+
+        SET_ENTERPRISE: '设置企业',
+        SELECT: '选择',
+        ENTERPRISE_LIST:'企业列表',
+
+        PLEASE_CHOOSE_ONE_NETWORK: '请选择一个网络',
+        
+
+        DLR_PORT_NAME: 'DLR接口名称',
+        DLR_SUBNET_DISPLAY_NAME: 'DLR子网显示名称',
+        DLR_PORT_IP_ADDRESS: 'DLR接口IP地址',
+        SUBNET_MASK: '子网掩码',
+        DLR_PORT_TYPE: 'DLR接口类型',
+        LINKED_LSW_NAME: '连接逻辑交换机(LSW)名称',
+
+        UNSET: '未设置',
+        SELECT_ENTERPRISE:'选择企业',
+        SAVE:'保存',
+        CLOSE:'关闭'
     }
 }

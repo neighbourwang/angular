@@ -1,3 +1,4 @@
+import { Enterprise } from './enterprise.model';
 export class DlrDetailModel{
         dlrPortId:string;
         dlrId:string;
@@ -15,6 +16,9 @@ export class DlrDetailModel{
         status:string;
         lastUpdate:string;
         platformId:string;
+
+        selected:boolean;
+        enterpriseList:Array<Enterprise>;
 }
 
 

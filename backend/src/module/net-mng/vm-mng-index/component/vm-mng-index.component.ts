@@ -14,6 +14,7 @@ import { PlatformModel, DCModel, RegionModel, VmwareNetModel, NsxNetModel, VmNet
 //Service
 import { VmwareMngIndexService } from '../service/vm-mng-index.service';
 import { UtilValidationService } from '../service/validation.service';
+import { selectedPlatform } from "../service/platform.service";
 
 @Component({
     selector: "vmware-net-mng-index",
@@ -68,6 +69,7 @@ export class VmwareMngIndexComponent implements OnInit {
     selectedPlatform: PlatformModel = this.defaultPlatform;
 
     queryOpt: PlatformModel = new PlatformModel();
+    queryOpt2: PlatformModel = new PlatformModel();
 
     NsxInfo: NsxNetModel = new NsxNetModel();  //fiter下面的显示行
 
@@ -173,10 +175,10 @@ export class VmwareMngIndexComponent implements OnInit {
     }
 
     showNetAndNxsInfo(): void {
-        if (this.queryOpt && !this.validationService.isBlank(this.queryOpt.platformId)){
-            console.log(this.queryOpt.platformId, "this.queryOpt.platformId");
-            this.getNetworkList(this.queryOpt.platformId);
-            this.getNsxInfo(this.queryOpt.platformId);
+        if (this.queryOpt2 && !this.validationService.isBlank(this.queryOpt2.platformId)){
+            console.log(this.queryOpt2.platformId, "this.queryOpt2.platformId");
+            this.getNetworkList(this.queryOpt2.platformId);
+            //this.getNsxInfo(this.queryOpt2.platformId);
         } else {
             this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PF");
             return;
@@ -255,6 +257,7 @@ export class VmwareMngIndexComponent implements OnInit {
         this.changedNsxMngInfo.userName = "";
         this.changedNsxMngInfo.adminPassword = "";
         this.changedNsxMngInfo.platformId = "";
+        this.nsxTestFlag = "";
     }
 
     validateNsxMngInfoModify(): boolean {
@@ -280,13 +283,11 @@ export class VmwareMngIndexComponent implements OnInit {
                 , 'value': this.changedNsxMngInfo.adminPassword
                 , "op": "*"
             },
-            /*
             {
                 "name": "NET_MNG_VM_IP_MNG.NSX_MNG_ADDRESS"
                 , 'value': this.changedNsxMngInfo.nsxAddress
-                , "op": "http"
-            },
-            */
+                , "op": "url"
+            }
             ].find(n => this.utilCheckService.validate(n.name, n.value, n.op) !== undefined)        
         //console.log(notValid, "notValid!!!")
         if (notValid !== void 0) {
@@ -319,14 +320,15 @@ export class VmwareMngIndexComponent implements OnInit {
                         console.log(res, "测试NSX管理信息成功");
                         this.nsxTestFlag = "success";
                     } else {
-                        this.showMsg("NET_MNG_VM_IP_MNG.TEST_NSX_MNG_INFO_FAILED");
+                        console.log('测试NSX管理信息失败');
+                        //this.showMsg("NET_MNG_VM_IP_MNG.TEST_NSX_MNG_INFO_FAILED");
                         this.nsxTestFlag = "failure";
                     }
                 })
                 .catch(err => {
                     console.log('测试NSX管理信息异常', err);
                     this.layoutService.hide();
-                    this.showMsg("NET_MNG_VM_IP_MNG.TEST_NSX_MNG_INFO_EXCEPTION");
+                    //this.showMsg("NET_MNG_VM_IP_MNG.TEST_NSX_MNG_INFO_EXCEPTION");
                     this.nsxTestFlag = "failure";
                 })
         } else {
@@ -336,11 +338,11 @@ export class VmwareMngIndexComponent implements OnInit {
     }
 
     setNetworkType(): void {
-        if (this.queryOpt && !this.validationService.isBlank(this.queryOpt.platformId)) {
+        if (this.queryOpt2 && !this.validationService.isBlank(this.queryOpt2.platformId)) {
             this.selectedNet = this.getSelected();
             if (this.selectedNet) {
                 this.layoutService.show();
-                this.service.getNsxStatus(this.queryOpt.platformId)
+                this.service.getNsxStatus(this.queryOpt2.platformId)
                     .then(
                     response => {
                         this.layoutService.hide();
@@ -427,6 +429,10 @@ export class VmwareMngIndexComponent implements OnInit {
                 }
                 ]);
         } else {
+            selectedPlatform.regionName = this.selectedRegion.regionName;
+            selectedPlatform.dcName = this.selectedDC.datacenterName;
+            selectedPlatform.platformName = this.selectedPlatform.platformName;
+            selectedPlatform.platformUrl = this.selectedPlatform.platformUrl;
             this.router.navigate([`net-mng/vm-mng/${this.queryOpt.platformId}`]);
         }
         } else {
@@ -447,6 +453,10 @@ export class VmwareMngIndexComponent implements OnInit {
                 }
                 ]);
         } else {
+            selectedPlatform.regionName = this.selectedRegion.regionName;
+            selectedPlatform.dcName = this.selectedDC.datacenterName;
+            selectedPlatform.platformName = this.selectedPlatform.platformName;
+            selectedPlatform.platformUrl = this.selectedPlatform.platformUrl;
             this.router.navigate([`net-mng/vm-mng-dbt/index/${this.queryOpt.platformId}`]);
         }
         } else {
@@ -467,6 +477,10 @@ export class VmwareMngIndexComponent implements OnInit {
                 }
                 ]);
         } else {
+            selectedPlatform.regionName = this.selectedRegion.regionName;
+            selectedPlatform.dcName = this.selectedDC.datacenterName;
+            selectedPlatform.platformName = this.selectedPlatform.platformName;
+            selectedPlatform.platformUrl = this.selectedPlatform.platformUrl;
             this.router.navigate([`net-mng/vm-mng-nsx/index/${this.queryOpt.platformId}`]);
         }
         } else {
