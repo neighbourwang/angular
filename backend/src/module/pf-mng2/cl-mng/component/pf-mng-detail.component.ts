@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Location } from '@angular/common';
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent ,dictPipe} from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, dictPipe } from '../../../../architecture';
 
 import { PlatformDetailService } from '../service/pf-mng-detail.service';
 import { ZoneListService } from '../service/cl-mng-cre-step-3.service';
@@ -27,7 +27,7 @@ export class PfDetailComponent implements OnInit {
     constructor(private layoutService: LayoutService,
         private route: Router,
         private router: ActivatedRoute,
-        private zoneListService:ZoneListService,
+        private zoneListService: ZoneListService,
         private platformDetailService: PlatformDetailService,
         private commonService: ClMngCommonService,
         private location: Location,
@@ -47,11 +47,11 @@ export class PfDetailComponent implements OnInit {
     notice: NoticeComponent;
 
     @ViewChild('updateZone')
-    updateZone:PopupComponent;
+    updateZone: PopupComponent;
 
     @ViewChild('updateResource')
-    updateResource:PopupComponent;
-    
+    updateResource: PopupComponent;
+
 
     // 确认Box/通知Box的标题
     title: String = "";
@@ -100,13 +100,13 @@ export class PfDetailComponent implements OnInit {
                             if (ele.value == this.platform.platformType) {
                                 ele.isSelected = true;
                                 this.getVersion(ele.code);
-                            }                            
+                            }
                         })
                         this.getZoneList();
                         this.layoutService.hide();
                     }
                     )
-            })            
+            })
             .catch(
             err => {
                 console.error('err');
@@ -158,22 +158,24 @@ export class PfDetailComponent implements OnInit {
             )
     }
     //获取可用区列表
-    getZoneList(){
+    getZoneList() {
+        this.layoutService.show();
         this.zoneListService.getZone(this.platform.id).then(
-                    res => {
-                        this.zoneList = res.resultContent;
-                        this.zoneList.forEach(ele => {
-                            ele.quotaPercentage=
-                            ele.quotaPercentage?ele.quotaPercentage:0;
-                            ele.quotaPercentDisplay = ele.quotaPercentage * 100;
-                        })
-                        console.log(res);
-                        
-                    }
-                ).catch(err=>{
-                    console.error('获取可用区列表出错',err)
+            res => {
+                this.zoneList = res.resultContent;
+                this.zoneList.forEach(ele => {
+                    ele.quotaPercentage =
+                        ele.quotaPercentage ? ele.quotaPercentage : 0;
+                    ele.quotaPercentDisplay = ele.quotaPercentage * 100;
                 })
-        
+                console.log(res);
+                this.layoutService.hide();
+            }
+        ).catch(err => {
+            console.error('获取可用区列表出错', err)
+            this.layoutService.hide();
+        })
+
     }
     //切换TAB
     changeTab(item, index) {
@@ -184,77 +186,123 @@ export class PfDetailComponent implements OnInit {
 
     }
     //启用可用区
-    enableZone(id:string){
+    enableZone(id: string) {
         console.log(id);
         this.layoutService.show();
-        this.platformDetailService.enableZone(id).then(res=>{
+        this.platformDetailService.enableZone(id).then(res => {
             console.log(res)
             this.getZoneList();
             this.layoutService.hide();
-        }).catch(err=>{
-            console.error('启用可用区失败',err);
+        }).catch(err => {
+            console.error('启用可用区失败', err);
+            this.layoutService.hide();
         })
     }
     //禁用可用区
-    suspendZone(id:string){
+    suspendZone(id: string) {
         console.log(id);
         this.layoutService.show();
-        this.platformDetailService.suspendZone(id).then(res=>{
+        this.platformDetailService.suspendZone(id).then(res => {
             console.log(res)
             this.getZoneList();
             this.layoutService.hide();
-        }).catch(err=>{
-            console.error('禁用可用区失败',err);
+        }).catch(err => {
+            console.error('禁用可用区失败', err);
         })
     }
     //更多操作
-    editZone(zone,idx){
-        this.zoneList[idx].isEdit=true;
+    tempZoneList: Array<ZoneListModel>=new Array<ZoneListModel>();
+    editZone(zone, idx) {
+        console.log(zone);
+        console.log(this.tempZoneList);
+        this.tempZoneList[idx]=new ZoneListModel();
+        Object.assign(this.tempZoneList[idx], zone)
+        this.zoneList[idx].isEdit = true;
     }
-    saveZone(zone){
-        zone.isEdit=false;
+    saveZone(zone) {
+        console.log(this.zoneList);
+        this.zoneList.forEach(ele => {
+            ele.quotaPercentage = ele.quotaPercentDisplay / 100
+        })
+        this.zoneListService.putZone(this.platform.id,this.zoneList).then(res => {
+            console.log(res);
+            this.getZoneList();
+            zone.isEdit = false;
+        }).catch(err => {
+            console.error(err);
+        })
     }
-    cancelEdit(zone){
-        zone.isEdit=false;
+    cancelEdit(zone,idx) {
+        console.log(this.tempZoneList[idx]);
+        Object.assign(zone, this.tempZoneList[idx]);
+        this.tempZoneList[idx]=new ZoneListModel();
+        zone.isEdit = false;
     }
 
     //更新可用区弹出框
-    updateZonePop(){
-        this.platformDetailService.getUpdateZone(this.platform.id).then(
-                    res => {
-                        this.updateZoneList = res.resultContent;
-                        if(this.updateZoneList.length==0){
-                            this.notice.open('oo','暂时没有可同步可用区信息')
-                        }else{
-                            this.updateZoneList.forEach(ele => {
-                            if (ele.quotaPercentage) {
-                                ele.quotaPercentDisplay = ele.quotaPercentage * 100;
-                            }
-                        })
-                        console.log('同步',res);
-                        this.updateZone.open('同步可用区信息')
+    updateZonePop() {
+        this.platformDetailService.getUpdateZoneList(this.platform.id).then(
+            res => {
+                this.updateZoneList = res.resultContent;
+                if (this.updateZoneList.length == 0) {
+                    this.notice.open('oo', '暂时没有可同步可用区信息')
+                } else {
+                    this.updateZoneList.forEach(ele => {
+                        if (ele.quotaPercentage) {
+                            ele.quotaPercentDisplay = ele.quotaPercentage * 100;
                         }
-                    }
-                ).catch(err=>{
-                    console.error('获取更新可用区列表出错',err)
-                })
+                    })
+                    console.log('同步', res);
+                    this.updateZone.open('同步可用区信息')
+                }
+            }
+        ).catch(err => {
+            console.error('获取更新可用区列表出错', err)
+        })
     }
     //同步可用区
-    otUpdateZone(){
-        this.platformDetailService.putUpdateZone(this.updateZoneList).then(
-                    res => {                        
-                        console.log('同步',res);
-                        this.getZoneList()
-                    }
-                ).catch(err=>{
-                    console.error('获取更新可用区列表出错',err)
-                })
+    otUpdateZone() {
+        this.platformDetailService.putUpdateZoneList(this.updateZoneList).then(
+            res => {
+                console.log('同步', res);
+                this.getZoneList();
+            }
+        ).catch(err => {
+            console.error('获取更新可用区列表出错', err)
+        })
     }
     //同步资源get
-    updateResourcePop(){
-        this.updateResource.open('同步计算资源')
+    countZoneResource: Array<ZoneListModel>;
+    updateResourcePop(zoneId) {
+        console.log(zoneId);
+        this.platformDetailService.getUpdateZone(zoneId).then(
+            res => {
+                console.log('同步计算资源', res);
+                if (res.resultCode == 100) {
+                    if (res.resultContent && res.resultContent.length > 0) {
+                        this.countZoneResource = res.resultContent;
+                        this.updateResource.open('同步计算资源');
+                    } else {
+                        this.notice.open('oo', '暂时没有可同步计算资源信息')
+                    }
+
+                }
+            }
+        ).catch(err => {
+            console.error('获取同步计算资源出错', err)
+        })
     }
-    otUpdateResource(){
+    otUpdateResource() {
+        this.platformDetailService.putUpdateZone(this.countZoneResource).then(
+            res => {
+                console.log('put同步计算资源', res);
+                this.getZoneList();
+            }
+        ).catch(err => {
+            console.error('put同步计算资源出错', err)
+        })
+    }
+    ccf() {
 
     }
     //返回

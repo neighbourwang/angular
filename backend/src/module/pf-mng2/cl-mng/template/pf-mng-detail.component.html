@@ -135,9 +135,9 @@
 <div *ngIf="Tabels[1].active">
     <div class="page-content">
         <div style="padding-bottom: 10px;">
-             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
+             <!--<button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
                 <span class="icon-button-label" (click)='updateResourcePop()'>同步计算资源</span>
-             </button>
+             </button>-->
              <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right;margin-right:20px">
                 <span class="icon-button-label" (click)='updateZonePop()'>同步可用区</span>
             </button>
@@ -147,7 +147,7 @@
             <table class="table table-hover" *ngIf="platformType=='OpenStack'">
                 <thead>
                     <tr>
-                        <th style="width:4%">#</th>                        
+                        <!--<th >#</th>-->
                         <th class="check-box-col" style="width:6%">Region</th>
                         <th style="width:6%">名称</th>
                         <th style="width:8%">显示名称</th>
@@ -158,13 +158,13 @@
                         <th style="width:4%">配额%</th>
                         <th style="width:4%">状态</th>
                         <th style="width:14%">说明</th>
-                        <th style="width:12%">操作</th>
+                        <th style="width:16%">操作</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let zone of zoneList;let idx=index">
-                        <td>{{idx+1}}</td>
-                        <td>{{zone.dcOrRegion||0}}</td>
+                        <!--<td>{{idx+1}}</td>-->
+                        <td>{{zone.dcOrRegion||'NULL'}}</td>
                         <td>{{zone.name||0}}</td>
                         <td>
                             <span *ngIf="!zone.isEdit">{{zone.displayName||0}}</span>
@@ -198,9 +198,10 @@
                         </td> 
                         <td>
                             <div *ngIf="!zone.isEdit">
-                                <button *ngIf="zone.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableZone(zone)">启用</button>
-                                <button *ngIf="zone.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendZone(zone)">禁用</button> 
+                                <button *ngIf="zone.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableZone(zone.id)">启用</button>
+                                <button *ngIf="zone.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendZone(zone.id)">禁用</button> 
                                 <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="editZone(zone,idx)">编辑</button>
+                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="updateResourcePop(zone.id)">同步计算资源</button>
                             </div>
                             
                             <div *ngIf="zone.isEdit">
@@ -440,7 +441,7 @@
 		</div>
 	</div>
 </fc-popup>
-<fc-popup #updateResource title="{{title}}" ot="创建" (of)="otUpdateResource()" ct="取消" (cf)="ccf()">
+<fc-popup #updateResource title="{{title}}" ot="更新" (of)="otUpdateResource()" ct="取消" (cf)="ccf()">
 	<div class="row row-line-height">
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>同步计算资源：</div>

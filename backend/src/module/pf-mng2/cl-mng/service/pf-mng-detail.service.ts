@@ -22,20 +22,24 @@ export class PlatformDetailService {
         return this.restApi.request(api.method, api.url,[],undefined,data);
     }
     //获取平台可用区信息    
-    getUpdateZone (id:string){
+    getUpdateZoneList (id:string){
         let api = this.restApiCfg.getRestApi("pf-mng-zonelist.get");
         return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
     }
     //平台可用区信息    
-    putUpdateZone (zone:any){
-        let api = this.restApiCfg.getRestApi("pf-mng-zonelist.put");
-        return this.restApi.request(api.method , api.url,[],undefined ,zone);
-    }
-    
-    //更新平台可用区信息    
-    postUpdateZone (id:string){
-        let api = this.restApiCfg.getRestApi("pf-mng-zonelist.get");
-        return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
+    putUpdateZoneList (zoneList:any){
+        let api = this.restApiCfg.getRestApi("pf-mng-zonelist.post");
+        return this.restApi.request(api.method , api.url,[],undefined ,zoneList);
+    }     
+    //get同步计算信息
+    getUpdateZone (zoneId:string){
+        let api = this.restApiCfg.getRestApi("pf-mng-zoneUpdate.get");
+        return this.restApi.request(api.method , api.url,[{key:'zoneId',value:zoneId}],undefined );
+    }    
+    //put同步计算信息
+    putUpdateZone (zoneList:any){
+        let api = this.restApiCfg.getRestApi("pf-mng-zoneUpdate.put");
+        return this.restApi.request(api.method , api.url,[],undefined,zoneList );
     }
     //禁用平台可用区信息    
     suspendZone (id:string){

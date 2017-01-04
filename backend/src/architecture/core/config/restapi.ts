@@ -144,16 +144,28 @@ export let RestApis: RestApiModel[] = [
         "url": "platformaccess/noauth/platform"
     },
     {
-        "desc": "获取同步可用区信息",
+        "desc": "get同步可用区信息",
         "id": "pf-mng-zonelist.get",
         "method": "GET",
         "url": "platformaccess/authsec/sync/platform/{id}/zones"
     },
     {
-        "desc": "同步可用区信息",
-        "id": "pf-mng-zonelist.put",
-        "method": "PUT",
+        "desc": "post同步可用区信息",
+        "id": "pf-mng-zonelist.post",
+        "method": "POST",
         "url": "platformaccess/authsec/sync/platform/zones"
+    },
+    {
+        "desc": "get可用区同步计算资源信息",
+        "id": "pf-mng-zoneUpdate.get",
+        "method": "GET",
+        "url": "platformaccess/authsec/sync/platform/zones/{zoneId}/spec"
+    },
+    {
+        "desc": "可用区同步计算资源信息",
+        "id": "pf-mng-zoneUpdate.put",
+        "method": "PUT",
+        "url": "platformaccess/authsec/sync/platform/zones/spec"
     },
     {
         "desc": "启用平台可用区信息",
