@@ -138,6 +138,21 @@ export class MenuService {
 						// }
 					]
 				},
+                {
+                    "label": "物理机管理",
+                    "isOpen": false,
+                    "isShow": !isRoot,
+                    "icon": "icon-physical-mng",
+                    "top2_menu": [
+                        {
+                            "label": "物理机实例",
+                            "isOpen": false,
+                            "isActive": false,
+                            "isShow": !isRoot,
+                            "routing": "phy-mng/phy-pool/phy-pool-mng"
+                        }
+                    ]
+                },
 				{
 					"label": "云主机管理",
 					"isOpen": false,
