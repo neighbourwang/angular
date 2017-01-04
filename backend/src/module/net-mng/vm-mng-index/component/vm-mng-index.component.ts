@@ -68,6 +68,7 @@ export class VmwareMngIndexComponent implements OnInit {
     selectedPlatform: PlatformModel = this.defaultPlatform;
 
     queryOpt: PlatformModel = new PlatformModel();
+    queryOpt2: PlatformModel = new PlatformModel();
 
     NsxInfo: NsxNetModel = new NsxNetModel();  //fiter下面的显示行
 
@@ -173,10 +174,10 @@ export class VmwareMngIndexComponent implements OnInit {
     }
 
     showNetAndNxsInfo(): void {
-        if (this.queryOpt && !this.validationService.isBlank(this.queryOpt.platformId)){
-            console.log(this.queryOpt.platformId, "this.queryOpt.platformId");
-            this.getNetworkList(this.queryOpt.platformId);
-            this.getNsxInfo(this.queryOpt.platformId);
+        if (this.queryOpt2 && !this.validationService.isBlank(this.queryOpt2.platformId)){
+            console.log(this.queryOpt2.platformId, "this.queryOpt2.platformId");
+            this.getNetworkList(this.queryOpt2.platformId);
+            //this.getNsxInfo(this.queryOpt2.platformId);
         } else {
             this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PF");
             return;
@@ -336,11 +337,11 @@ export class VmwareMngIndexComponent implements OnInit {
     }
 
     setNetworkType(): void {
-        if (this.queryOpt && !this.validationService.isBlank(this.queryOpt.platformId)) {
+        if (this.queryOpt2 && !this.validationService.isBlank(this.queryOpt2.platformId)) {
             this.selectedNet = this.getSelected();
             if (this.selectedNet) {
                 this.layoutService.show();
-                this.service.getNsxStatus(this.queryOpt.platformId)
+                this.service.getNsxStatus(this.queryOpt2.platformId)
                     .then(
                     response => {
                         this.layoutService.hide();
