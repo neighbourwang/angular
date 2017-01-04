@@ -9,7 +9,7 @@ import { CreStep4Model } from '../model/cre-step4.model';
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 
-import { ClMngCreStep4Service } from '../service/cl-mng-cre-step-4.service';
+import { StorageListService } from '../service/cl-mng-cre-step-4.service';
 
 import { ClMngIdService } from '../service/cl-mng-id.service';
 
@@ -30,7 +30,7 @@ export class ClMngCreStep4Component implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private idService: ClMngIdService,
-        private service: ClMngCreStep4Service
+        private service: StorageListService
     ) { }
 
     creStep4Model: Array<CreStep4Model> = new Array<CreStep4Model>();

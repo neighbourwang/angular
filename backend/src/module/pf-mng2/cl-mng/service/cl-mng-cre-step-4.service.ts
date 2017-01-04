@@ -11,7 +11,7 @@ import { CreStep4Model } from '../model/cre-step4.model';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class ClMngCreStep4Service {
+export class StorageListService {
     constructor(private http:Http,
                 private restApiCfg:RestApiCfg,
                 private restApi:RestApi) {
