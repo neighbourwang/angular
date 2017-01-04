@@ -16,8 +16,8 @@ export class EntEstSetProdComponent implements OnInit {
   @ViewChild("notice")
   notice: NoticeComponent;
 
-  private entProdItems: Paging<EntProdItem> = new Paging<EntProdItem>();
-  private prodItems: Paging<EntProdItem> = new Paging<EntProdItem>();
+  private entProdItems: Paging<EntProdItem> = new Paging<EntProdItem>();//可用产品
+  private prodItems: Paging<EntProdItem> = new Paging<EntProdItem>();//所有产品
   private entName:string = "";
   private entId: string = "";
   private dic:SystemDictionary[];
@@ -140,8 +140,10 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
   }
 
   refreshData(){
+    //已选产品entProdItems
     this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId
-      ,()=>{this.updateWithDic();}); 
+      ,()=>{this.updateWithDic();});
+      //未选产品
     this.service.loadAvailProdItems(this.prodItems, this.showError, this, this.entId
       ,()=>{this.updateWithDic();}); 
 

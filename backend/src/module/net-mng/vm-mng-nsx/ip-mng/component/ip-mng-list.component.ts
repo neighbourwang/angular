@@ -11,7 +11,8 @@ import { IpMngModel, DLRModel, subnetInfoModel, subnetIpModel, IpUsageMngModel }
 
 //service
 import { IpMngListService } from '../service/ip-mng-list.service';
-import { IPValidationService } from '../service/ip-mng.validation.service';
+import { IPValidationService } from '../../../vm-mng-index/service/validation.service';
+import { selectedPlatform } from "../../../vm-mng-index/service/platform.service";
 
 @Component({
     selector: 'ip-mng-list',
@@ -57,6 +58,8 @@ export class IpMngListComponent implements OnInit{
 	
 	noticeTitle = "";
     noticeMsg = "";
+
+    selectedPlatform = selectedPlatform;
 
     platformId: string = "";
 
@@ -160,7 +163,7 @@ export class IpMngListComponent implements OnInit{
             this.router.navigate([`net-mng/vm-mng-nsx/ipusage-mng-list`, 
             {
                 "pg_id": pg.dlrPortId,
-                "pg_name": pg.dlrInterfaceName,
+                "pg_name": pg.drlSubnetDisplayName,
                 "pid": this.platformId
             }]);
         }        

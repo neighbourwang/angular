@@ -21,7 +21,7 @@ export class DlrMngSetComponent implements OnInit {
 
     }
 
-    switchId: string;
+    dlrId: string;
     platformId: string;
     selectedEnterprise: Array<Enterprise>;
     unselectedEnterprise: Array<Enterprise>;
@@ -40,9 +40,9 @@ export class DlrMngSetComponent implements OnInit {
         console.log('init');
          this.router2.params.forEach((params: Params) => {
 			this.platformId = params['platform_id'];
-            this.switchId = params['switchId'];
+            this.dlrId = params['DlrId'];
 			console.log("接收的platform_id:" + this.platformId);
-            console.log("接收的switchId:" + this.switchId);
+            console.log("接收的DlrId:" + this.dlrId);
 			
 		});
         this.getDrlDetailData();
@@ -51,7 +51,7 @@ export class DlrMngSetComponent implements OnInit {
     getDrlDetailData() {
         this.layoutService.show();
        
-        this.service.getData(this.switchId)
+        this.service.getData(this.dlrId)
             .then(
             response => {
                 this.layoutService.hide();
@@ -71,12 +71,12 @@ export class DlrMngSetComponent implements OnInit {
 
     saveEnterpriseGroup() {
         this.layoutService.show();
-        this.service.saveEnterpirseGroup(this.selectedEnterprise, this.switchId)
+        this.service.saveEnterpirseGroup(this.selectedEnterprise, this.dlrId)
             .then(
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.showAlert("{{'NET_MNG_VM_DBT_PORT.SAVE_SUCCESS' | translate}}");
+                    this.showAlert("NET_MNG_VM_DBT_PORT.SAVE_SUCCESS");
                     this.gotoPortMng();
                 } else {
                     alert("Res sync error");
@@ -94,7 +94,7 @@ export class DlrMngSetComponent implements OnInit {
 
     showAlert(msg: string): void {
         this.layoutService.hide();
-        this.noticeTitle = "{{'NET_MNG_VM_DBT_PORT.PROMPT' | translate}}";
+        this.noticeTitle = "NET_MNG_VM_DBT_PORT.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -110,6 +110,6 @@ export class DlrMngSetComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("{{'NET_MNG_VM_DBT_PORT.GETTING_DATA_FAILED' | translate}}");
+        this.showAlert("NET_MNG_VM_DBT_PORT.GETTING_DATA_FAILED");
     }
 }

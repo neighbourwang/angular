@@ -12,6 +12,7 @@ import { SwitchMode } from "../model/switch.model";
 
 //service
 import { PortMngService } from '../service/port-mng.service';
+import { selectedPlatform } from "../../../vm-mng-index/service/platform.service";
   
 
 @Component({
@@ -34,6 +35,8 @@ export class PortMngComponent implements OnInit {
     }
     noticeTitle = "";
     noticeMsg = "";
+
+    selectedPlatform = selectedPlatform;
 
     @ViewChild("notice")
     notice: NoticeComponent;

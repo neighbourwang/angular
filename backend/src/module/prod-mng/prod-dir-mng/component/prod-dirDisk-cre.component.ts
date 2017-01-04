@@ -10,7 +10,7 @@ import { LayoutService, ValidationService, NoticeComponent, CountBarComponent } 
 import { ProdDirDetailService } from '../service/prod-dir-detail.service';
 import { CreateProdDirService } from '../service/prod-dir-new.service';
 //model
-import { ProdDirDisk, platform } from '../model/prodDirDisk.model';
+import { ProdDirDisk, platform ,storageItem} from '../model/prodDirDisk.model';
 
 @Component({
     selector: 'prod-dirdisk-cre',
@@ -54,15 +54,19 @@ export class ProdDirDiskCreComponent implements OnInit {
     getPlateForm() {
         this.CreateProdDirService.getDiskPlateForms().then(
             response => {
-                console.log(response);
+                console.log('PINGTAI',response);
                 if (response && 100 == response.resultCode) {
                     // let resultContent = response.resultContent;
                     this._platformlist = response.resultContent;
                     for (let plate of this._platformlist) {
-                        if(!plate.platformInfo) return;
+                        if(!plate.platformInfo) continue;
                         for (let zone of plate.platformInfo) {
                             zone.storageId = zone.storageItem[0].storageId;
+                            for(let storage of zone.storageItem){
+                                storage.selected=false;
+                            }
                             // console.log(zone.storageList);
+                            zone.storageItem[0].selected=true;
                         }
                     }
                 } else {
@@ -76,15 +80,19 @@ export class ProdDirDiskCreComponent implements OnInit {
     }
 
     //获取启动盘信息
-    selectStorage(storage) {
-        console.log(storage);
+    selectStorage(id) {
+        for(let platform of this.prodDir.platformList){
+            for(let zone of platform.platformInfo){
+               for(let storage of zone.storageItem){
+                   if(storage.storageId==id){
+                       storage.selected=true;
+                   }else{
+                    storage.selected=false;
+                   }                   
+               }
+            }
+        }
     }
-
-
-
-
-
-
     getProdDirDetail(id) {
         // this.ProdDirDetailService.getVmProdDirDetail(id).then(
         //     response => {
@@ -157,6 +165,20 @@ export class ProdDirDiskCreComponent implements OnInit {
 
     onSubmit() {
         console.log(this.prodDir);
+        // let tempStorage:storageItem=new storageItem();
+        // for(let platform of this.prodDir.platformList){
+        //     for(let zone of platform.platformInfo){
+        //         tempStorage=zone.storageItem.filter(ele=>{
+        //             if(zone.storageId==ele.storageId){
+        //                 return ele
+        //             }
+        //         })                               
+        //     }
+        // }
+
+
+
+
         if (!this.prodDir.serviceName) {
             this.notice.open('操作错误', '请输入产品目录名称');
             return;

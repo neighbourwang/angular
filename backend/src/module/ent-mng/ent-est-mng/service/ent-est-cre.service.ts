@@ -186,7 +186,7 @@ export class EntEstCreService{
 		
 	}
 
-	//加载企业产品信息
+	//加载已选中企业产品信息
 	loadEntProdItems(entProdItems: Paging<EntProdItem>
 		,errorHandler:Function
 		,caller: any
@@ -195,16 +195,8 @@ export class EntEstCreService{
 	{
 		let localParams:Array<any> = [
 		{
-			key:"_enterpriseId"
+			key:"enterpriseId"
 			,value:entId
-		},
-		{
-			key:"_page"
-			,value:entProdItems.currentPage == 0? 1:entProdItems.currentPage
-		}
-		,{
-			key:"_size"
-			,value:10
 		}
 		];
 
@@ -248,7 +240,7 @@ export class EntEstCreService{
 			);
 	}
 
-	//加载可用产品信息
+	//加载未选中产品信息
 	loadAvailProdItems(prodItems: Paging<EntProdItem>
 		,errorHandler: Function
 		,caller: any

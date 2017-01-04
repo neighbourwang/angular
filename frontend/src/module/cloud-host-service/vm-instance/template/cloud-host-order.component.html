@@ -205,7 +205,7 @@
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">{{'COMMON.PURCHASE_DURATION'|translate}}</div>
 						<div class="col-md-2 no-padding mr10">
-							<select [disabled]="timeForever" [(ngModel)]="sendModule.timelineunit" class="form-control">
+							<select [disabled]="timeForever" [(ngModel)]="sendModule.timelineunit" (ngModelChange)="setVmPrice();" class="form-control">
 								<option
 								*ngFor="let value of this.configs.timelineunit.mapValueList[this.vmSku.skuId];"
 								[ngValue]="value" >{{ value.attrDisplayValue }}</option>

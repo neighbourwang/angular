@@ -246,21 +246,26 @@ export class OrderMngComponent implements OnInit{
 
 //根据企业加载部门
 	loadDepartment(){
+		this.layoutService.show();
+		this._param.organization = null;
+		this._param.buyerId = null;
 		this._departmentLoader.Go(null, [{key:"enterpriseId", value:this._param.enterpriseId}])
-		.then(success=>{
-			this._param.organization = null;
+		.then(success=>{	
+			this.layoutService.hide();
 		}, err=>{
-			this._param.organization = null;
+			this.layoutService.hide();
 		});
 	}
 //根据部门加载订购人
 	loadBuyer(){
+		this.layoutService.show();
+		this._param.buyerId = null;
 		this._buyerListLoader.Go(null,[{key:"departmentId",value:this._param.organization}])
 		.then(success=>{
-			this._param.buyerId = null;
+			this.layoutService.hide();
 		})
 		.catch(err=>{
-			this._param.buyerId = null;
+			this.layoutService.hide();
 			this.showMsg("加载订购人列表出错！");
 		})
 	}
@@ -279,11 +284,13 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	loadSubregion(){
+		this.layoutService.show();
+		this._param.zoneId = null;
 		this._subregionLoader.Go(null, [{key:'_id', value:this._param.platformId}])
 		.then(success=>{
-			this._param.zoneId = null;
+			this.layoutService.hide();
 		},err=>{
-			this._param.zoneId = null;
+			this.layoutService.hide();
 		});
 	}
 
