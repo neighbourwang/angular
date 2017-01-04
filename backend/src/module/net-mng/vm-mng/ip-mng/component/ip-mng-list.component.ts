@@ -14,7 +14,7 @@ import { DCModel, ClusterModel } from '../model/dccluster.model';
 
 //service
 import { IpMngListService } from '../service/ip-mng-list.service';
-import { IPValidationService } from '../service/ip-mng.validation.service';
+import { IPValidationService } from '../../../vm-mng-index/service/validation.service';
 import { selectedPlatform } from "../../../vm-mng-index/service/platform.service";
 
 @Component({
