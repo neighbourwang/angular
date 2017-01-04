@@ -177,7 +177,7 @@ export class VmNSXIndexComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {
 
                     this.transportList = response["resultContent"];
-                    this.detail.open('NET_VM_NSX_INDEX.TRANSPORT_DETAIL');
+                    this.detail.open('NET_VM_NSX_INDEX.TRANSPORT_DETAIL^^^'+Port.lswTransportZone);
                 } else {
                     alert("Res sync error");
                 }

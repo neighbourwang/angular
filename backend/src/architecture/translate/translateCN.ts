@@ -633,6 +633,6 @@ export const TranslateCN = {
         LSW_TRANSPORT_ZONE: 'LSW所属传输区域(Tansport Zone)',
         STATUS: '状态',
         LAST_UPDATE:'最后同步时间',
-        TRANSPORT_DETAIL:'传输区域详细信息'
+        TRANSPORT_DETAIL:'传输区域{{value_1}}详细信息'
     }
 }
