@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, Params} from '@angular/router';
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../../architecture';
 
 import { DlrMngService } from '../service/dlr-mng.service';
-import { DlrModel } from "../model/dlr.model";
+import { DlrDetailModel } from "../model/dlr-detail.model";
 
 import { selectedPlatform } from "../../../vm-mng-index/service/platform.service";
 
@@ -31,13 +31,13 @@ export class DlrMngComponent implements OnInit{
     @ViewChild("notice")
     notice: NoticeComponent;
 
-    defaultDlr: DlrModel = new DlrModel();
+    defaultDlr: DlrDetailModel = new DlrDetailModel();
     selectDlr = this.defaultDlr;//当前选中的DLR
 
-    dlrList: Array<DlrModel>;
+    dlrList: Array<DlrDetailModel>;
     
-    allPorts: Array<DlrModel>;
-    filterPorts: Array<DlrModel>;
+    allPorts: Array<DlrDetailModel>;
+    filterPorts: Array<DlrDetailModel>;
    
     platformId:string;
 
@@ -91,7 +91,7 @@ export class DlrMngComponent implements OnInit{
     }
 
 
-    selectPort(port: DlrModel) {
+    selectPort(port: DlrDetailModel) {
         this.filterPorts.forEach((port) => {
             port.selected = false;
         });
@@ -103,7 +103,7 @@ export class DlrMngComponent implements OnInit{
         if(this.filterPorts){
             const port = this.filterPorts.find((p) => { return p.selected; });
             if (!port) {
-                this.showAlert("请先选择一个网络");
+                this.showAlert("NET_MNG_VM_NSX_DLR.PLEASE_CHOOSE_ONE_NETWORK");
                 return;
             }
             //this.router.navigate([`net-mng/vm-mng-dbt/port-mng-set/${port.DlrId}`]);

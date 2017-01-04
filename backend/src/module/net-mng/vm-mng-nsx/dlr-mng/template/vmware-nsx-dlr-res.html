@@ -1,13 +1,18 @@
-<div class="page-content-header icon-cloud-network-mngOn">VMware网络</div>
+<div class="page-content-header icon-cloud-network-mngOn">VMware {{'NET_MNG_VM_NSX_DLR.NETWORK' | translate}}</div>
 <div class="page-content">  
 
     <table class="table table-hover">
         <thead>
             <tr>
-                <th style="text-align:left;">VMware网络管理 -- 管理NSX网络--DLR资源分配   &nbsp;&nbsp;&nbsp;&nbsp; {{selectedPlatform.regionName}} {{selectedPlatform.dcName}} {{selectedPlatform.platformName}} {{selectedPlatform.platformUrl}}</th>
+                <th style="text-align:left;">
+                    VMware {{'NET_MNG_VM_NSX_DLR.NET_MNG' | translate}}
+                    -- {{'NET_MNG_VM_NSX_DLR.MANAGE_NSX_NET' | translate}}
+                    -- {{'NET_MNG_VM_NSX_DLR.DLR_ALLOCATION' | translate}}   
+                      {{selectedPlatform.regionName}} {{selectedPlatform.dcName}} {{selectedPlatform.platformName}} {{selectedPlatform.platformUrl}}
+                    </th>
                 <th style="text-align:right;">
                     <button class=" fox-cloud-button fox-cloud-button-white ">
-                        <span class="icon-button-label" (click)="back()">返回上一级</span>
+                        <span class="icon-button-label" (click)="back()">{{'NET_MNG_VM_NSX_DLR.RETURN' | translate}}</span>
                     </button>
                 </th>
             </tr>
@@ -15,33 +20,37 @@
     </table>
    
    <div class="mgt15 ">               
-        <span class="float-left mgl10" style="display:inline-block;font-size:16px;padding:6px 0">逻辑路由器(DLR)名称：</span>
+        <span class="float-left mgl10" style="display:inline-block;font-size:16px;padding:6px 0">
+            {{'NET_MNG_VM_NSX_DLR.DLR_NAME' | translate}}：</span>
         <div class="float-left">
             <select class="pdl10 form-control" [(ngModel)]="selectDlr">
-                <option [ngValue]="defaultDlr">所有</option>
+                <option [ngValue]="defaultDlr">{{'NET_MNG_VM_NSX_DLR.ALL' | translate}}</option>
                 <option *ngFor="let dlr of dlrList" [ngValue]="dlr">{{dlr.dlrName}}</option>
             </select>
         </div> 
-        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl15 "><span class="icon-button-label">确定 </span> </button>                                                              
+        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl15 ">
+            <span class="icon-button-label">{{'NET_MNG_VM_NSX_DLR.ENSURE' | translate}}</span> 
+        </button>                                                              
     </div>
     
     <button class="fox-cloud-button fox-cloud-button-green mgb10 mgt15"
             (click)="gotoSetPage();">
-            设置企业
+            {{'NET_MNG_VM_NSX_DLR.SET_ENTERPRISE' | translate}}
     </button>
     <div class="table-container port-res">
         <table class="table table-hover" >
             <thead>
                 <tr>
-                   <th>选择</th>
-                   <th>逻辑路由器名称(DLR) </th>                 
-                   <th>企业列表</th>
+                   <th>{{'NET_MNG_VM_NSX_DLR.SELECT' | translate}}</th>
+                   <th>{{'NET_MNG_VM_NSX_DLR.DLR_NAME' | translate}}</th>                 
+                   <th>{{'NET_MNG_VM_NSX_DLR.ENTERPRISE_LIST' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor = "let dlr of filterPorts">
-                    <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                    <td>{{dlr.dlrName}}</td>                   
+                    <td>
+                        <input type="radio" class="fox-cloud-radio" name="radio"[checked]="dlr.selected" (change)="selectPort(dlr);" ></td>
+                    <td>{{dlr.dlrRouteName}}</td>                   
                     <td>
                      <ol>
                         <li *ngFor="let e of dlr.enterpriseList"
@@ -57,4 +66,4 @@
     </div>
 </div>
 
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'NET_MNG_VM_NSX_DLR.COMFIRM' | translate}}"></fc-notice>
