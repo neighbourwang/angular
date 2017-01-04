@@ -14,6 +14,7 @@ import { PlatformModel, DCModel, RegionModel, VmwareNetModel, NsxNetModel, VmNet
 //Service
 import { VmwareMngIndexService } from '../service/vm-mng-index.service';
 import { UtilValidationService } from '../service/validation.service';
+import { selectedPlatform } from "../service/platform.service";
 
 @Component({
     selector: "vmware-net-mng-index",
@@ -428,6 +429,10 @@ export class VmwareMngIndexComponent implements OnInit {
                 }
                 ]);
         } else {
+            selectedPlatform.regionName = this.selectedRegion.regionName;
+            selectedPlatform.dcName = this.selectedDC.dcName;
+            selectedPlatform.platformName = this.selectedPlatform.platformName;
+            selectedPlatform.platformUrl = this.selectedPlatform.platformUrl;
             this.router.navigate([`net-mng/vm-mng/${this.queryOpt.platformId}`]);
         }
         } else {
@@ -448,6 +453,10 @@ export class VmwareMngIndexComponent implements OnInit {
                 }
                 ]);
         } else {
+            selectedPlatform.regionName = this.selectedRegion.regionName;
+            selectedPlatform.dcName = this.selectedDC.dcName;
+            selectedPlatform.platformName = this.selectedPlatform.platformName;
+            selectedPlatform.platformUrl = this.selectedPlatform.platformUrl;
             this.router.navigate([`net-mng/vm-mng-dbt/index/${this.queryOpt.platformId}`]);
         }
         } else {
@@ -468,6 +477,10 @@ export class VmwareMngIndexComponent implements OnInit {
                 }
                 ]);
         } else {
+            selectedPlatform.regionName = this.selectedRegion.regionName;
+            selectedPlatform.dcName = this.selectedDC.dcName;
+            selectedPlatform.platformName = this.selectedPlatform.platformName;
+            selectedPlatform.platformUrl = this.selectedPlatform.platformUrl;
             this.router.navigate([`net-mng/vm-mng-nsx/index/${this.queryOpt.platformId}`]);
         }
         } else {

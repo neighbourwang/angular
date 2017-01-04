@@ -10,7 +10,7 @@ import { switchMode} from "../model/switch.model"
 import { port } from '../model/port.model';
 //import { port_mock } from '../model/port.mock.model';
 import { VmDisIndexService } from '../service/index.service';
-
+import { selectedPlatform } from "../../../vm-mng-index/service/platform.service";
 @Component({
     selector: "index",
     templateUrl: "../template/vmware-distributed.html",
@@ -54,7 +54,7 @@ export class VmDisIndexComponent implements OnInit {
     selectedDC: DCModel = this.defaultDc; //当前选中的DC
     defaultSwitch: switchMode = new switchMode();
     selectSwitch = this.defaultSwitch;//当前选中的可用区
-
+    selectedPlatform = selectedPlatform;
     platformId: string;
 
     dcList: Array<DCModel>;
