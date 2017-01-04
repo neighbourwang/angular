@@ -1,9 +1,8 @@
+/*
 import { Injectable } from '@angular/core';
 import { ValidationService } from '../../../../../architecture';
 
-/*
-https://www.npmjs.com/package/ip
-*/
+//https://www.npmjs.com/package/ip
 const ip = require('ip');
 
 import 'rxjs/add/operator/toPromise';
@@ -32,33 +31,6 @@ export class IPValidationService {
         return reg.test(val);
     }
 
-/*
-    isIPpool(val: any): boolean {
-        if (val instanceof Array) val = val.join(';');
-        console.log(val, "val--------------------1");
-        let flag = 0;
-        const reg = /^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$/;
-        val = val.replace(/\s+/g, "");
-        let arrayips = val.split(';');
-        for (let i = 0; i < arrayips.length; i++) {
-            let lineips = arrayips[i].split(',');
-            for (let j = 0; j < lineips.length; j++) {
-                if (lineips[j] != "") {
-                    if (reg.test(lineips[j])) {
-                        flag = flag + 0;
-                    }
-                    else {
-                        flag = flag + 1;
-                    }
-                }
-            }
-        }
-        console.log(flag, "flag--------------------5")
-        if (flag == 0) return true;
-        else return false;
-    }
-*/
-    //
     //console.log("127.0.0.1 is private network?", ip.isPrivate('127.0.0.1'));
     //let str = ip.cidrSubnet('192.168.1.134/26');
     //console.log(str)
@@ -206,7 +178,6 @@ export class IPValidationService {
                 "func": val => !this.isIPorEmpty(val),
                 "msg": "NET_MNG_VM_IP_MNG.IP_INVALID_OR_NULL"
             },
-            //*
             "cidr":{
                 "func": val => !this.isCIDR(val),
                 "msg": "NET_MNG_VM_IP_MNG.INVALID"
@@ -231,7 +202,6 @@ export class IPValidationService {
                 "func": val => !this.isIpScopePerMask(val[0], val[1], val[2]),
                 "msg": "NET_MNG_VM_IP_MNG.NOT_IN_SUBNET"
             },
-            //*/
 
         }
 
@@ -242,3 +212,4 @@ export class IPValidationService {
             return undefined;
     }
 }
+*/

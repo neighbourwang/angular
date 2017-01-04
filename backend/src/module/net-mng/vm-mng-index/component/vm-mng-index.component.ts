@@ -13,7 +13,7 @@ import { PlatformModel, DCModel, RegionModel, VmwareNetModel, NsxNetModel, VmNet
 
 //Service
 import { VmwareMngIndexService } from '../service/vm-mng-index.service';
-import { UtilValidationService } from '../service/validation.service';
+import { IPValidationService } from '../service/validation.service';
 import { selectedPlatform } from "../service/platform.service";
 
 @Component({
@@ -30,7 +30,7 @@ export class VmwareMngIndexComponent implements OnInit {
         private layoutService: LayoutService,
         private validationService: ValidationService,
         private service: VmwareMngIndexService,
-        private utilCheckService: UtilValidationService,
+        private ipService: IPValidationService,
         private translateService: TranslateService
     ) {
     }
@@ -288,14 +288,14 @@ export class VmwareMngIndexComponent implements OnInit {
                 , 'value': this.changedNsxMngInfo.nsxAddress
                 , "op": "url"
             }
-            ].find(n => this.utilCheckService.validate(n.name, n.value, n.op) !== undefined)        
+            ].find(n => this.ipService.validate(n.name, n.value, n.op) !== undefined)        
         //console.log(notValid, "notValid!!!")
         if (notValid !== void 0) {
             console.log("validateIPModify Failed!!!");
             this.setnsxmnginfo.close();
             //this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));  
-            let name = this.utilCheckService.validate(notValid.name, notValid.value, notValid.op)[0];
-            let msg = this.utilCheckService.validate(notValid.name, notValid.value, notValid.op)[1];            
+            let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
+            let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];            
             let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
                       + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
             console.log(con, "con");
