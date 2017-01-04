@@ -186,7 +186,7 @@ export class EntEstCreService{
 		
 	}
 
-	//加载企业产品信息
+	//加载所有企业产品信息
 	loadEntProdItems(entProdItems: Paging<EntProdItem>
 		,errorHandler:Function
 		,caller: any
