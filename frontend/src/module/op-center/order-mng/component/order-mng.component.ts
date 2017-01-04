@@ -432,6 +432,7 @@ export class OrderMngComponent implements OnInit{
 
 	onPlatformChanged(){
 		this.layoutService.show();
+		this._param.zoneId = null;
 		this._regionLoader.Go(null, [{key:"_id", value:this._param.platformId}])
 		.then(success=>{
 			this.layoutService.hide();

@@ -140,11 +140,11 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
   }
 
   refreshData(){
-    //可用产品
-    this.service.loadAvailProdItems(this.entProdItems, this.showError, this, this.entId
+    //已选产品entProdItems
+    this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId
       ,()=>{this.updateWithDic();});
-      //所有产品
-    this.service.loadEntProdItems(this.prodItems, this.showError, this, this.entId
+      //未选产品
+    this.service.loadAvailProdItems(this.prodItems, this.showError, this, this.entId
       ,()=>{this.updateWithDic();}); 
 
   }
