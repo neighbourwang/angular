@@ -556,15 +556,15 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "url": "adminui/authsec/enterprise/{_enterpriseId}/status/{_status}"
     }, {
-        "desc": "获取企业产品",
+        "desc": "获取已选中企业产品",
         "id": "ent-mng.ent-est-mng.enterprise.products.get",
         "method": "POST",
-        "url": "adminui/authsec/enterprises/products/search/page/{_page}/size/{_size}"
+        "url": "adminui/authsec/enterprise/{enterpriseId}/product"
     }, {
-        "desc": "获取可用产品",
+        "desc": "获取未选中产品",
         "id": "ent-mng.ent-est-mng.enterprise.avail.products.get",
         "method": "POST",
-        "url": "adminui/authsec/enterprises/{enterpriseId}/products/search/paging"
+        "url": "adminui/authsec/enterprises/{enterpriseId}/products/search/paging" 
     }, {
         "desc": "所有平台配额参考",
         "id": "ent-mng.ent-est-mng.platforms.quotas.get",
