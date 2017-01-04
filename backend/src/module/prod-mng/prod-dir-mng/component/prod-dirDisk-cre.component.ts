@@ -59,7 +59,7 @@ export class ProdDirDiskCreComponent implements OnInit {
                     // let resultContent = response.resultContent;
                     this._platformlist = response.resultContent;
                     for (let plate of this._platformlist) {
-                        if(!plate.platformInfo) return;
+                        if(!plate.platformInfo) continue;
                         for (let zone of plate.platformInfo) {
                             zone.storageId = zone.storageItem[0].storageId;
                             // console.log(zone.storageList);
@@ -79,12 +79,6 @@ export class ProdDirDiskCreComponent implements OnInit {
     selectStorage(storage) {
         console.log(storage);
     }
-
-
-
-
-
-
     getProdDirDetail(id) {
         // this.ProdDirDetailService.getVmProdDirDetail(id).then(
         //     response => {

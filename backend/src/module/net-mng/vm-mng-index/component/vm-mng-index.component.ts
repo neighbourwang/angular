@@ -13,7 +13,7 @@ import { PlatformModel, DCModel, RegionModel, VmwareNetModel, NsxNetModel, VmNet
 
 //Service
 import { VmwareMngIndexService } from '../service/vm-mng-index.service';
-import { UtilValidationService } from '../service/validation.service';
+import { IPValidationService } from '../service/validation.service';
 import { selectedPlatform } from "../service/platform.service";
 
 @Component({
@@ -30,7 +30,7 @@ export class VmwareMngIndexComponent implements OnInit {
         private layoutService: LayoutService,
         private validationService: ValidationService,
         private service: VmwareMngIndexService,
-        private utilCheckService: UtilValidationService,
+        private ipService: IPValidationService,
         private translateService: TranslateService
     ) {
     }
@@ -257,6 +257,7 @@ export class VmwareMngIndexComponent implements OnInit {
         this.changedNsxMngInfo.userName = "";
         this.changedNsxMngInfo.adminPassword = "";
         this.changedNsxMngInfo.platformId = "";
+        this.nsxTestFlag = "";
     }
 
     validateNsxMngInfoModify(): boolean {
@@ -282,21 +283,19 @@ export class VmwareMngIndexComponent implements OnInit {
                 , 'value': this.changedNsxMngInfo.adminPassword
                 , "op": "*"
             },
-            /*
             {
                 "name": "NET_MNG_VM_IP_MNG.NSX_MNG_ADDRESS"
                 , 'value': this.changedNsxMngInfo.nsxAddress
-                , "op": "http"
-            },
-            */
-            ].find(n => this.utilCheckService.validate(n.name, n.value, n.op) !== undefined)        
+                , "op": "url"
+            }
+            ].find(n => this.ipService.validate(n.name, n.value, n.op) !== undefined)        
         //console.log(notValid, "notValid!!!")
         if (notValid !== void 0) {
             console.log("validateIPModify Failed!!!");
             this.setnsxmnginfo.close();
             //this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));  
-            let name = this.utilCheckService.validate(notValid.name, notValid.value, notValid.op)[0];
-            let msg = this.utilCheckService.validate(notValid.name, notValid.value, notValid.op)[1];            
+            let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
+            let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];            
             let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
                       + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
             console.log(con, "con");
@@ -321,14 +320,15 @@ export class VmwareMngIndexComponent implements OnInit {
                         console.log(res, "测试NSX管理信息成功");
                         this.nsxTestFlag = "success";
                     } else {
-                        this.showMsg("NET_MNG_VM_IP_MNG.TEST_NSX_MNG_INFO_FAILED");
+                        console.log('测试NSX管理信息失败');
+                        //this.showMsg("NET_MNG_VM_IP_MNG.TEST_NSX_MNG_INFO_FAILED");
                         this.nsxTestFlag = "failure";
                     }
                 })
                 .catch(err => {
                     console.log('测试NSX管理信息异常', err);
                     this.layoutService.hide();
-                    this.showMsg("NET_MNG_VM_IP_MNG.TEST_NSX_MNG_INFO_EXCEPTION");
+                    //this.showMsg("NET_MNG_VM_IP_MNG.TEST_NSX_MNG_INFO_EXCEPTION");
                     this.nsxTestFlag = "failure";
                 })
         } else {
@@ -430,7 +430,7 @@ export class VmwareMngIndexComponent implements OnInit {
                 ]);
         } else {
             selectedPlatform.regionName = this.selectedRegion.regionName;
-            selectedPlatform.dcName = this.selectedDC.dcName;
+            selectedPlatform.dcName = this.selectedDC.datacenterName;
             selectedPlatform.platformName = this.selectedPlatform.platformName;
             selectedPlatform.platformUrl = this.selectedPlatform.platformUrl;
             this.router.navigate([`net-mng/vm-mng/${this.queryOpt.platformId}`]);
@@ -454,7 +454,7 @@ export class VmwareMngIndexComponent implements OnInit {
                 ]);
         } else {
             selectedPlatform.regionName = this.selectedRegion.regionName;
-            selectedPlatform.dcName = this.selectedDC.dcName;
+            selectedPlatform.dcName = this.selectedDC.datacenterName;
             selectedPlatform.platformName = this.selectedPlatform.platformName;
             selectedPlatform.platformUrl = this.selectedPlatform.platformUrl;
             this.router.navigate([`net-mng/vm-mng-dbt/index/${this.queryOpt.platformId}`]);
@@ -478,7 +478,7 @@ export class VmwareMngIndexComponent implements OnInit {
                 ]);
         } else {
             selectedPlatform.regionName = this.selectedRegion.regionName;
-            selectedPlatform.dcName = this.selectedDC.dcName;
+            selectedPlatform.dcName = this.selectedDC.datacenterName;
             selectedPlatform.platformName = this.selectedPlatform.platformName;
             selectedPlatform.platformUrl = this.selectedPlatform.platformUrl;
             this.router.navigate([`net-mng/vm-mng-nsx/index/${this.queryOpt.platformId}`]);

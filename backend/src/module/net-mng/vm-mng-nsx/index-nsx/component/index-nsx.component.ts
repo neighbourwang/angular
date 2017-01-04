@@ -276,8 +276,7 @@ export class VmNSXIndexComponent implements OnInit {
             this.router.navigate([
                     `net-mng/vm-mng-nsx/ip-mng-list`,
                     {
-                        //"dc_Id": selectedPort.dcId,
-                        //"switch_Id": selectedPort.switchId,
+                        "dlr_Id": selectedPort.dlrId,                       
                         "pid":this.platformId
                     }
                 ]

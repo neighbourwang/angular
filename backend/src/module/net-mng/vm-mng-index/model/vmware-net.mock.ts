@@ -6,8 +6,8 @@ export const RegionInfo_mock = {
      "regionId":"1",
      "regionName":"上海",
      "dcList":[{
-                        "dcId":"11",
-                        "dcName":"dc11",
+                        "datacenterId":"11",
+                        "datacenterName":"dc11",
                         "platformList":[
                                 {"platformName":"platform111",
                                 "platformUrl":"http://",
@@ -25,8 +25,8 @@ export const RegionInfo_mock = {
                          ]
                 },
                 {
-                        "dcId":"12",
-                        "dcName":"dc12",
+                        "datacenterId":"12",
+                        "datacenterName":"dc12",
                         "platformList":[
                                 {"platformName":"platform121",
                                 "platformUrl":"http://",
@@ -50,8 +50,8 @@ export const RegionInfo_mock = {
      "regionId":"2",
      "regionName":"北京",
      "dcList":[{
-                        "dcId":"21",
-                        "dcName":"dc21",
+                        "datacenterId":"21",
+                        "datacenterName":"dc21",
                         "platformList":[
                                 {"platformName":"platform211",
                                 "platformUrl":"http://",
@@ -69,8 +69,8 @@ export const RegionInfo_mock = {
                          ]
                 },
                 {
-                        "dcId":"22",
-                        "dcName":"dc22",
+                        "datacenterId":"22",
+                        "datacenterName":"dc22",
                         "platformList":[
                                 {"platformName":"platform221",
                                 "platformUrl":"http://",
@@ -94,8 +94,8 @@ export const RegionInfo_mock = {
      "regionId":"3",
      "regionName":"武汉",
      "dcList":[{
-                        "dcId":"31",
-                        "dcName":"dc31",
+                        "datacenterId":"31",
+                        "datacenterName":"dc31",
                         "platformList":[
                                 {"platformName":"platform311",
                                 "platformUrl":"http://",
@@ -113,8 +113,8 @@ export const RegionInfo_mock = {
                          ]
                 },
                 {
-                        "dcId":"32",
-                        "dcName":"dc32",
+                        "datacenterId":"32",
+                        "datacenterName":"dc32",
                         "platformList":[
                                 {"platformName":"platform321",
                                 "platformUrl":"http://",
@@ -182,13 +182,13 @@ export const NetworkInfo_mock = {
 export const NsxInfo_mock = {
     resultCode: "100",
     detailDescription: "NetworkList",
-    resultContent: 
+    resultContent:
     {
-        "nsxVer":1,
- "nsxAddress":"htto://",
- "userName":"admin",
- "adminPassword":"adminpass",
- "platformId":"123123123-12312-11"
+        "nsxVer": 1,
+        "nsxAddress": "http://123.com",
+        "userName": "admin",
+        "adminPassword": "adminpass",
+        "platformId": "123123123-12312-11"
     }
 }
 

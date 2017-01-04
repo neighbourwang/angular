@@ -13,7 +13,7 @@
         <div class="pull-left  mgr20">
             <select class="form-control" [(ngModel)]="selectedDC" (change)="selectedPlatform=defaultPlatform; EnableButton=0; NsxInfo=null; queryOpt.platformId = ''; queryOpt.platformName = ''; queryOpt.platformUrl = '';"> 
                 <option [ngValue]="defaultDC">{{'NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_DATACENTER' | translate}}</option>
-                <option *ngFor="let dc of selectedRegion.dcList" [ngValue]="dc">{{dc.dcName}}</option>
+                <option *ngFor="let dc of selectedRegion.dcList" [ngValue]="dc">{{dc.datacenterName}}</option>
             </select>
         </div>
         
@@ -97,7 +97,7 @@
                     -->
                     <div class="col-sm-7">
                         <select class="form-control" [(ngModel)]="changedNsxMngInfo.nsxVer"> 
-                            <option [value]="'0'">{{'NET_MNG_VM_IP_MNG.PLEASE_CHOOSE' | translate}}</option>
+                            <option [value]="''">{{'NET_MNG_VM_IP_MNG.PLEASE_CHOOSE' | translate}}</option>
                             <option *ngFor="let nsxver of nsxverDictArray" [value]="nsxver.value">{{nsxver.displayValue}}</option>
                         </select>
                     </div>
@@ -129,11 +129,18 @@
                         <button type="button" class="fox-cloud-button fox-cloud-button-white pull-right" style="height:34px" (click)="testNsxMngInfo()"> {{'NET_MNG_VM_IP_MNG.TEST' | translate}}</button>
                     </div>                    
 				</div>
-                <div [ngSwitch]="nsxTestFlag">
-                    <span class="validateInfo" class="font-green" *ngSwitchCase="'success'">{{'NET_MNG_VM_IP_MNG.TEST_NSX_PASSED' | translate}}</span>
-                    <span class="validateInfo" class="font-orange" *ngSwitchCase="'failure'">{{'NET_MNG_VM_IP_MNG.TEST_NSX_FAILED' | translate}}</span>
-                </div>
+                
 			</div>
+            <div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-5 form-control-title"></div>
+					<div class="col-sm-7" [ngSwitch]="nsxTestFlag">
+                        <span class="validateInfo" class="font-green" *ngSwitchCase="'success'">{{'NET_MNG_VM_IP_MNG.TEST_NSX_PASSED' | translate}}</span>
+                        <span class="validateInfo" class="font-orange" *ngSwitchCase="'failure'">{{'NET_MNG_VM_IP_MNG.TEST_NSX_FAILED' | translate}}</span>
+                    </div>
+				</div>
+			</div>
+
 	</div>
 </fc-popup>
 
@@ -143,7 +150,7 @@
 			<div class="row row-line-height">
 				<div class="form-group" [style.color] = "VmNetStatus.checkResult=='2' ? 'grey': 'black'">
                     <label class="pointer">
-                    <input type="radio" class="fox-cloud-radio" name="radio" [attr.disabled]="VmNetStatus.checkResult=='2'" (click)="VmNetStatus.vmNetStatus='1'"> NSX网络
+                    <input type="radio" class="fox-cloud-radio" name="radio" [attr.disabled]="VmNetStatus.checkResult=='2'" (click)="VmNetStatus.vmNetStatus='1'"> {{'NET_MNG_VM_IP_MNG.NSX_NET' | translate}}
                     </label>
                     <!-- <input type="radio" class="fox-cloud-radio" name="radio" [class.hidden]="VmNetStatus.checkResult=='2'" [ngClass]="{'disabled':VmNetStatus.checkResult=='2'}" (change)="VmNetStatus.vmNetStatus='1'"> {{'NET_MNG_VM_IP_MNG.NSX_NET' | translate}} -->
                     <!-- <input type="radio" class="fox-cloud-radio" name="radio" [ng]="{'disabled':VmNetStatus.checkResult=='2'}" (change)="VmNetStatus.vmNetStatus='1'"> {{'NET_MNG_VM_IP_MNG.NSX_NET' | translate}}  -->

@@ -5,13 +5,13 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
-import { CreStep4Model } from '../model/cre-step4.model';
+import { StorageModel } from '../model/cre-step4.model';
 
 
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class ClMngCreStep4Service {
+export class StorageListService {
     constructor(private http:Http,
                 private restApiCfg:RestApiCfg,
                 private restApi:RestApi) {
@@ -33,7 +33,7 @@ export class ClMngCreStep4Service {
     }
 
     //更新资源区配置 pf.cre.step.04.storage.put
-    putStorage(id : String , item : Array<CreStep4Model>){
+    putStorage(id : String , item : Array<StorageModel>){
         let api = this.restApiCfg.getRestApi("pf.cre.step.04.storage.put");
 
         return this.restApi.request(api.method , api.url , [{key : 'pf-id',value : id}],undefined,item )

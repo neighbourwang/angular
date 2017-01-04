@@ -143,29 +143,79 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "url": "platformaccess/noauth/platform"
     },
+    /////////////////////////////////////////可用区
     {
-        "desc": "获取同步可用区信息",
+        "desc": "get同步可添加可用区信息",
         "id": "pf-mng-zonelist.get",
         "method": "GET",
         "url": "platformaccess/authsec/sync/platform/{id}/zones"
     },
     {
-        "desc": "同步可用区信息",
-        "id": "pf-mng-zonelist.put",
-        "method": "PUT",
+        "desc": "post同步可添加可用区信息",
+        "id": "pf-mng-zonelist.post",
+        "method": "POST",
         "url": "platformaccess/authsec/sync/platform/zones"
     },
     {
-        "desc": "启用平台可用区信息",
+        "desc": "get可用区同步计算资源信息",
+        "id": "pf-mng-zoneUpdate.get",
+        "method": "GET",
+        "url": "platformaccess/authsec/sync/platform/zones/{zoneId}/spec"
+    },
+    {
+        "desc": "可用区同步计算资源信息",
+        "id": "pf-mng-zoneUpdate.put",
+        "method": "PUT",
+        "url": "platformaccess/authsec/sync/platform/zones/spec"
+    },
+    {
+        "desc": "启用平台可用区",
         "id": "pf-mng-zone.enable",
         "method": "GET",
         "url": "platformaccess/authsec/platform/zone/{id}/enable"
     },
     {
-        "desc": "禁用平台可用区信息",
+        "desc": "禁用平台可用区",
         "id": "pf-mng-zone.suspend",
         "method": "GET",
         "url": "platformaccess/authsec/platform/zone/{id}/suspend"
+    },
+    /////////////////////////////////存储区
+    {
+        "desc": "get同步可添加存储区信息",
+        "id": "pf-mng-storagelist.get",
+        "method": "GET",
+        "url": "platformaccess/authsec/sync/platform/{id}/storages"
+    },
+    {
+        "desc": "post同步可添加存储区信息",
+        "id": "pf-mng-storagelist.post",
+        "method": "POST",
+        "url": "platformaccess/authsec/sync/platform/storages"
+    },
+    {
+        "desc": "get存储区同步计算资源信息",
+        "id": "pf-mng-storageUpdate.get",
+        "method": "GET",
+        "url": "platformaccess/authsec/sync/platform/storages/{storageId}/spec"
+    },
+    {
+        "desc": "存储区同步计算资源信息",
+        "id": "pf-mng-storageUpdate.put",
+        "method": "PUT",
+        "url": "platformaccess/authsec/sync/platform/storages/spec"
+    },
+    {
+        "desc": "启用平台存储区",
+        "id": "pf-mng-storage.enable",
+        "method": "GET",
+        "url": "platformaccess/authsec/platform/storage/{id}/enable"
+    },
+    {
+        "desc": "禁用平台存储区",
+        "id": "pf-mng-storage.suspend",
+        "method": "GET",
+        "url": "platformaccess/authsec/platform/storage/{id}/suspend"
     },
     //update镜像同步
     {
@@ -556,15 +606,15 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "url": "adminui/authsec/enterprise/{_enterpriseId}/status/{_status}"
     }, {
-        "desc": "获取企业产品",
+        "desc": "获取已选中企业产品",
         "id": "ent-mng.ent-est-mng.enterprise.products.get",
         "method": "POST",
-        "url": "adminui/authsec/enterprises/products/search/page/{_page}/size/{_size}"
+        "url": "adminui/authsec/enterprise/{enterpriseId}/product"
     }, {
-        "desc": "获取可用产品",
+        "desc": "获取未选中产品",
         "id": "ent-mng.ent-est-mng.enterprise.avail.products.get",
         "method": "POST",
-        "url": "adminui/authsec/enterprises/{enterpriseId}/products/search/paging"
+        "url": "adminui/authsec/enterprises/{enterpriseId}/products/search/paging" 
     }, {
         "desc": "所有平台配额参考",
         "id": "ent-mng.ent-est-mng.platforms.quotas.get",
@@ -1611,6 +1661,76 @@ export let RestApis: RestApiModel[] = [
         "id": "net-mng.vm-mng-nsx.index.dosync",
         "method": "PUT",
         "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/{dlr_id}/sync"
-    }
+    },
+    {
+        "desc": "NSX云网络DLR资源分配保存企业",
+        "id": "net-mng.vm-mng-nsx.dlr.ent-save",
+        "method": "POST",
+        "url": "adminboe/authsec/vmware/network/nsx/portres/{id}/save/ent"
+    },
+    {
+       "desc": "NSX云网络DLR资源分配dlr设置企业",
+        "id": "net-mng.vm-mng-nsx.dlr.dlr-detail",
+        "method": "GET",
+        "url": "adminboe/authsec/vmware/network/nsx/portres/{id}/set/ent"
+    },
+//vmware-nsx网络
+    {
+        "desc": "获取nsxdlr网络列表",
+        "id": "net-mng.vm-mng-nsx.port.list",
+        "method": "GET",
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/portres/list"
+    },
+    {
+        "desc": "获取DLR列表",
+        "id": "net-mng.vm-mng-nsx.port.dlrlist",
+        "method": "GET",
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/dlrlist"
+    },
+	
+	//物理机资源池
+     {
+         "desc": "获取物理机列表",
+        "id": "physical-mng.physical.list.get",
+        "method": "POSt",
+        "url": " /boe/adminui/authsec/pmpools/pms/page/{page}/size/{size}"
+    },
+    {
+         "desc": "添加物理机",
+        "id": "physical-mng.physical.create",
+        "method": "POSt",
+        "url": "/boe/adminui/authsec/pmpool/pm"
+    },
+    {
+         "desc": "查看物理机",
+        "id": "physical-mng.physical.check",
+        "method": "GET",
+        "url": "/boe/adminui/authsec/pmpool/pm/{pm_id}"
+
+    },
+    {
+        "desc": "编辑物理机",
+        "id": "physical-mng.physical.edit",
+        "method": "PUT",
+        "url": "/boe/adminui/authsec/pmpool/{pmpool_id}"
+    },
+    {
+        "desc": "获取物理机硬件信息",
+        "id": "physical-mng.physical.hardwareinfo.get",
+        "method": "GET",
+        "url": " /boe/adminui/authsec/pmpool/pm/{ip_addr}/{username}/{password}"
+    },
+    {
+        "desc": "修改IPMI信息",
+        "id": "physical-mng.physical.ipmiInfo.put",
+        "method": "PUT",
+        "url": " /boe/adminui/authsec/pmpool/pm/ipmi"
+    },  
+    {
+        "desc": "删除/禁用/启用物理机",
+        "id": "physical-mng.physical.statusChange",
+        "method": "PUT",
+        "url": "/boe/adminui/authsec/pmpool/pm/{pm_id}/{status}"
+    },
 ]
 
