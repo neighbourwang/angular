@@ -288,14 +288,14 @@ export class ClMngListComponent implements OnInit {
 
                     this.platforms = backend;
                 } else {
-                    this.notice.open('COMMON.ERROR', '获取信息错误');
+                    this.notice.open('COMMON.ERROR', 'PF_MNG2.GET_INFO_ERROR');
                     console.log(response);
                 }
                 this.layoutService.hide();
             }
         ).catch(
             // function () {
-            //     // this.notice.open('COMMON.ERROR','获取信息错误');
+            //     // this.notice.open('COMMON.ERROR','PF_MNG2.GET_INFO_ERROR');
             //     console.error('error');
             // }
             err => {

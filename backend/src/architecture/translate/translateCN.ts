@@ -1,7 +1,7 @@
 export const TranslateCN = {
     LANG: '中文',
     COMMON: {
-        OPERATION_ERROR:'操作错误'
+        OPERATION_ERROR:'操作错误',
         ERROR:'错误',
         PROMPT: '提示',
         CONFIRM: '确认',
@@ -706,5 +706,10 @@ export const TranslateCN = {
         SELECT_ENTERPRISE:'选择企业',
         SAVE:'保存',
         CLOSE:'关闭'
+    }
+    ,PF_MNG2:{
+        GET_INFO_ERROR:"获取信息错误"
+        ,CREATE_PLATFORM_ERROR:"创建云平台错误"
+        ,GET_VERSION_ERROR:"获取版本错误"
     }
 }

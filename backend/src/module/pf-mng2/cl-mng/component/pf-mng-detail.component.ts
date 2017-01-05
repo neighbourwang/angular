@@ -122,7 +122,7 @@ export class PfDetailComponent implements OnInit {
             err => {
                 console.error('err');
                 this.layoutService.hide();
-                this.notice.open('COMMON.ERROR', '获取信息错误');
+                this.notice.open('COMMON.ERROR', 'PF_MNG2.GET_INFO_ERROR');
             }
             )
         //获取区域列表
@@ -170,7 +170,7 @@ export class PfDetailComponent implements OnInit {
         ).catch(
             err => {
                 console.error('err');
-                this.notice.open('COMMON.ERROR', '获取版本错误');
+                this.notice.open('COMMON.ERROR', 'PF_MNG2.GET_VERSION_ERROR');
             }
             )
     }

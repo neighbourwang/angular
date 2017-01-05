@@ -69,7 +69,7 @@ export class ClMngCreStep1Component implements OnInit {
             .catch(
             err => {
                 console.error('err');
-                this.notice.open('COMMON.ERROR', '获取信息错误');
+                this.notice.open('COMMON.ERROR', 'PF_MNG2.GET_INFO_ERROR');
             }
             )
         this.commonService.getRegion()
@@ -82,7 +82,7 @@ export class ClMngCreStep1Component implements OnInit {
             ).catch(
             err => {
                 console.error('err');
-                this.notice.open('COMMON.ERROR', '获取信息错误');
+                this.notice.open('COMMON.ERROR', 'PF_MNG2.GET_INFO_ERROR');
             }
             )
         // this.layoutService.hide();
@@ -113,7 +113,7 @@ export class ClMngCreStep1Component implements OnInit {
         ).catch(
             err => {
                 console.error('error');
-                this.notice.open('COMMON.ERROR', '创建云平台错误');
+                this.notice.open('COMMON.ERROR', 'PF_MNG2.CREATE_PLATFORM_ERROR');
             }
             )
     }
@@ -147,7 +147,7 @@ export class ClMngCreStep1Component implements OnInit {
             ).catch(
                 err => {
                     console.error('error');
-                    this.notice.open('COMMON.ERROR', '创建云平台错误');
+                    this.notice.open('COMMON.ERROR', 'PF_MNG2.CREATE_PLATFORM_ERROR');
                 }
                 )
         }
@@ -174,7 +174,7 @@ export class ClMngCreStep1Component implements OnInit {
         ).catch(
             err => {
                 console.error('err');
-                this.notice.open('COMMON.ERROR', '获取版本错误');
+                this.notice.open('COMMON.ERROR', 'PF_MNG2.GET_VERSION_ERROR');
             }
             )
     }
