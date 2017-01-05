@@ -126,21 +126,21 @@ export class ClMngCreStep2Component implements OnInit {
     private images() {
         let platFormId: String = this.idService.getPlatformId();
 
-        this.service.images(platFormId).then(
-            res => {
-                console.log(res);
-                this.creStep2Model.images = 'ok';
-                this.creStep2Model.imagesStatus = true;
-                this.creStep2Model.message = '同步镜像成功，正在同步宿主机';
-                this.creStep2Model.percentage = 80;
-                this.hosts();
-            }
-        ).catch(
-            error => {
-                this.creStep2Model.images = 'fail';
-                this.creStep2Model.message = '同步镜像失败';
-            }
-            )
+        // this.service.images(platFormId).then(
+        //     res => {
+        //         console.log(res);
+        //         this.creStep2Model.images = 'ok';
+        //         this.creStep2Model.imagesStatus = true;
+        //         this.creStep2Model.message = '同步镜像成功，正在同步宿主机';
+        //         this.creStep2Model.percentage = 80;
+        //         this.hosts();
+        //     }
+        // ).catch(
+        //     error => {
+        //         this.creStep2Model.images = 'fail';
+        //         this.creStep2Model.message = '同步镜像失败';
+        //     }
+        //     )
         this.service.getImages(platFormId).then(
             res => {
                 console.log(res.resultContent);

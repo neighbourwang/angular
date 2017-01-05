@@ -85,26 +85,26 @@ export class ClMngListComponent implements OnInit {
         //     }
         // )
 
-        this.commonService.getPlatFormTypes().then(
-            res => {
-                this.platFormType = res;
-            }
-        ).then(
-            res => {
-                this.commonService.getPlatFormStatus().then(
-                    res => {
-                        this.platFormStatus = res;
-                        this.backend(1, this.pp);
-                    }
-                )
-            }
-            ).catch(
-            err => {
-                console.error(err);
-                this.notice.open('错误提示', '获取云平台列表错误');
-            }
-            )
-
+        // this.commonService.getPlatFormTypes().then(
+        //     res => {
+        //         this.platFormType = res;
+        //     }
+        // ).then(
+        //     res => {
+        //         this.commonService.getPlatFormStatus().then(
+        //             res => {
+        //                 this.platFormStatus = res;
+        //                 this.backend(1, this.pp);
+        //             }
+        //         )
+        //     }
+        //     ).catch(
+        //     err => {
+        //         console.error(err);
+        //         this.notice.open('错误提示', '获取云平台列表错误');
+        //     }
+        //     )
+        this.backend(1, this.pp);
     }
 
     //删除按钮
@@ -238,27 +238,31 @@ export class ClMngListComponent implements OnInit {
 
     // 获得云平台list
     backend(page: number, size: number) {
+        console.log('type',this.commonService.platformTypeDic)
+        console.log('status',this.commonService.globalStatus)
+        console.log('vmwareversion',this.commonService.openStackVersionDic)
         this.layoutService.show();
         this.tp = 0;
         this.service.getPlatforms(page, size).then(
             response => {
+                console.log(response);
                 if (response && 100 == response.resultCode) {
                     let resultContent = response.resultContent;
                     let backend = new Array<Platform>();
-                    let platFormTypes = this.platFormType;
-                    let platFormStatus = this.platFormStatus;
+                    // let platFormTypes = this.platFormType;
+                    // let platFormStatus = this.platFormStatus;
                     for (let content of resultContent) {
                         let platform = new Platform();
 
                         platform.id = content.id;
                         // platform. = content.
                         platform.name = content.name;
-                        // platform.platformType = content.platformType;
-                        for (let item of platFormTypes) {
-                            if (content.platformType == item.value) {
-                                platform.platformType = item.displayValue
-                            }
-                        }
+                        platform.platformType = content.platformType;
+                        // for (let item of platFormTypes) {
+                        //     if (content.platformType == item.value) {
+                        //         platform.platformType = item.displayValue
+                        //     }
+                        // }
                         platform.uri = content.uri;
                         platform.userName = content.userName;
                         platform.passwd = content.passwd;
@@ -267,11 +271,12 @@ export class ClMngListComponent implements OnInit {
                         platform.regionId = content.regionId;
                         platform.regionName = content.regionName;
                         platform.dataCenter = content.dataCenter;
-                        for (let item of platFormStatus) {
-                            if (content.status == item.value) {
-                                platform.status = item.displayValue
-                            }
-                        }
+                        platform.status=content.status;
+                        // for (let item of platFormStatus) {
+                        //     if (content.status == item.value) {
+                        //         platform.status = item.displayValue
+                        //     }
+                        // }
                         platform.healthFlag = content.healthFlag;
                         platform.isSelected = false;
 
