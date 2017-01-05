@@ -33,7 +33,8 @@ export class ClMngCreStep6Component implements OnInit {
         private router: Router,
         private service: ClMngCreStep6Service,
         private idService: ClMngIdService,
-        private operationService: ClMngListService
+        private operationService: ClMngListService,
+        private layoutService:LayoutService
     ) { }
 
 
@@ -49,15 +50,17 @@ export class ClMngCreStep6Component implements OnInit {
         })
 
         let id: String = this.idService.getPlatformId();
-        // id = "4f565fe7-09fc-4b8b-8227-a0b5b8b1eb6c";
-        this.service.getImages(id).then(
+        this.layoutService.show();
+        this.service.getImageList(id).then(
             res => {
                 console.log(res);
                 this.creStep6Model = res.resultContent;
+                this.layoutService.hide();
             }
         ).catch(
             err => {
                 console.error('error');
+                this.layoutService.hide();
             }
             )
     }
@@ -75,9 +78,8 @@ export class ClMngCreStep6Component implements OnInit {
     next() {
         console.log('next');
         let id: String = this.idService.getPlatformId();
-        // id = "4f565fe7-09fc-4b8b-8227-a0b5b8b1eb6c";
-
-        this.service.putImages(id, this.creStep6Model).then(
+        // id = "4f565fe7-09fc-4b8b-8227-a0b5b8b1eb6c";        
+        this.service.putImageList(this.creStep6Model).then(
             res => {
                 this.activePlatform();
             }
@@ -90,13 +92,15 @@ export class ClMngCreStep6Component implements OnInit {
     // 启用云平台
     private activePlatform() {
         let id: String = this.idService.getPlatformId();
-
+        this.layoutService.show();
         this.operationService.activePlatform(id).then(
             res => {
+                this.layoutService.hide();
                 this.router.navigateByUrl('pf-mng2/cl-mng/cl-mng');
             }
         ).catch(
             err => {
+                this.layoutService.hide();
                 console.error('err');
             }
             )

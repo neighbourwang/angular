@@ -29,7 +29,8 @@ export class ClMngCreStep5Component implements OnInit{
         private route:ActivatedRoute,
         private router : Router,
         private service : ClMngCreStep5Service,
-        private idService : ClMngIdService
+        private idService : ClMngIdService,
+        private layoutService:LayoutService
     ) {}
 
     creStep5Model : Array<CreStep5Model> = new Array<CreStep5Model>();
@@ -44,33 +45,32 @@ export class ClMngCreStep5Component implements OnInit{
 
         let platFormId : String = this.idService.getPlatformId();
         // platFormId = "4f565fe7-09fc-4b8b-8227-a0b5b8b1eb6c";
+        this.layoutService.show();
         this.service.getFlavors(platFormId).then(
             res => {
                 // console.log(res);
                 this.creStep5Model = res.resultContent;
-
+                this.layoutService.hide();
             }
         ).catch(
             error => {
                 console.error('error');
+                 this.layoutService.hide();
             }
         )
     }
 
     next (){
-
         let platFormId : String = this.idService.getPlatformId();
-        // platFormId = "4f565fe7-09fc-4b8b-8227-a0b5b8b1eb6c";
-        
-        // console.log(this.creStep5Model);
-
         this.service.putFlavors(platFormId ,this.creStep5Model).then(
             res => {
                 // console.log(res);
+                 this.layoutService.hide();
                 this.router.navigate(["pf-mng2/cl-mng/cre-step6",{type:this.platformType}]);
             }
         ).catch(
             error => {
+                 this.layoutService.hide();
                 console.error('error');
             }
         )

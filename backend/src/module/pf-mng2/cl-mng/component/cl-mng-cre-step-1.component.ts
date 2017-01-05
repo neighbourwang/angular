@@ -105,13 +105,16 @@ export class ClMngCreStep1Component implements OnInit {
     }
     //
     otcreate() {
+        this.layoutService.show();
         this.service.crPlatForm(this.creStep1Model).then(
             res => {
                 this.idService.setPlatformId(res.resultContent);
+                this.layoutService.hide();
                 this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);
             }
         ).catch(
             err => {
+                this.layoutService.hide();
                 console.error('error');
                 this.notice.open('COMMON.ERROR', 'PF_MNG2.CREATE_PLATFORM_ERROR');
             }
@@ -139,13 +142,16 @@ export class ClMngCreStep1Component implements OnInit {
                 }
                 )           
         } else {
+            this.layoutService.show();
             this.service.crPlatForm(this.creStep1Model).then(
                 res => {
                     this.idService.setPlatformId(res.resultContent);
+                    this.layoutService.hide();
                     this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);
                 }
             ).catch(
                 err => {
+                    this.layoutService.hide();
                     console.error('error');
                     this.notice.open('COMMON.ERROR', 'PF_MNG2.CREATE_PLATFORM_ERROR');
                 }
