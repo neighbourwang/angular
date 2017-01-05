@@ -8,7 +8,7 @@ export class ValidationService {
     }
     //非负整数
     isInteger(val: string):boolean{
-       const reg =/^[1-9]\d*|0$/;
+       const reg =/^\d+$/;
        return reg.test(val);
     }
 
