@@ -609,7 +609,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取已选中企业产品",
         "id": "ent-mng.ent-est-mng.enterprise.products.get",
         "method": "POST",
-        "url": "adminui/authsec/enterprise/{enterpriseId}/product"
+        "url": "adminui/authsec/enterprise/{enterpriseId}/products/list"
     }, {
         "desc": "获取未选中产品",
         "id": "ent-mng.ent-est-mng.enterprise.avail.products.get",
