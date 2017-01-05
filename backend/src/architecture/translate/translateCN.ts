@@ -64,6 +64,11 @@ export const TranslateCN = {
         MOUNT: '挂载',
         AVAILABLE_ZONE: '可用区',
         PURCHASE_AMOUNT:'购买量',
+        ENTPRISE_OPTIONS_DATA_ERROR: "企业列表加载错误"
+        ,DEPARTMENT_OPTIONS_DATA_ERROR :"部门列表加载错误"
+        ,PLATFORM_DATA_ERROR:"区域加载错误"
+        ,AVAILABLE_ZONE_DATA_ERROR:"可用区加载错误"
+        ,REFUSE_FAILED:"拒绝处理失败"
     },
     HOST_VMWARE_MNG: {
         ENSURE: '确定',
@@ -278,12 +283,15 @@ export const TranslateCN = {
         VLAN_ID_CANT_NULL: 'VLAN ID不能为空.',
         VLAN_ID_SCOPE: 'VLAN ID必须是0~4096的数字.',
         PG_DIS_NAME_CANT_NULL: '端口组显示名称不能为空.',
+        DLR_SUBNET_DIS_NAME_CANT_NULL:'DLR子网显示名称不能为空.',
 
         PLEASE_CHOOSE_NET_TO_ENABLE: '请先选择需要启用的标准网络！',
         PLEASE_CHOOSE_DBT_NET_TO_ENABLE: '请先选择需要启用的分布式网络！',
+        PLEASE_CHOOSE_NSX_NET_TO_ENABLE: '请先选择需要启用的NSX网络！',
         NET_ALREADY_ENABLED: '该网络已处于启用状态',
         PLEASE_CHOOSE_NET_TO_DISABLE: '请先选择需要禁用的标准网络！',
         PLEASE_CHOOSE_DBT_NET_TO_DISABLE: '请先选择需要禁用的分布式网络！',
+        PLEASE_CHOOSE_NSX_NET_TO_DISABLE: '请先选择需要禁用的NSX网络！',
         NET_ALREADY_DISABLED: '该网络已处于禁用状态',
         CANT_DISABLE_AS_ENABLED_IP: 'IP占用状态下不能禁用！',
         PLEASE_CHOOSE_NET_TO_DELETE: '请先选择需要删除的标准网络！',
@@ -312,6 +320,9 @@ export const TranslateCN = {
         
         ENABLE_DBT_PORTGROUP_WARNING: '您选择启用{{value_1}}分布式端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，用户将能够在订购中选择此网络。',
         DISABLE_DBT_PORTGROUP_WARNING:'您选择禁用{{value_1}}分布式端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，用户将不能够在订购中选择此网络。',
+
+        ENABLE_NSX_PORTGROUP_WARNING: '您选择启用{{value_1}}DLR接口，其lswId为{{value_2}} ，请确认；如果确认，用户将能够在订购中选择此网络。',
+        DISABLE_NSX_PORTGROUP_WARNING:'您选择禁用{{value_1}}DLR接口，其lswId为{{value_2}} ，请确认；如果确认，用户将不能够在订购中选择此网络。',
 
         //vmware-nsx-net
         DLR_NAME: '逻辑路由器(DLR)名称',
@@ -362,6 +373,26 @@ export const TranslateCN = {
         ,APPROVE_SET_NEED_APPROVE_TIME:"请设置有效自动审批时间"
         ,APPROVE_SET_ERROR: "审批数据保存失败"
         ,APPROVE_SET_NEED_APPROVE_ENABLE: "必须设置审批选项"
+        ,APPROVE_LIST_DATA_ERRO: "已审批列表加载错误"
+        ,APPROVE_USER_DATA_ERROR: "审批人列表加载错误"
+        ,APPROVE_SUBMITTER_DATRA_ERROR : "提交者列表加载错误"
+        ,APPROVE_RESULT_DATA_ERROR : "审批结果加载错误"
+        ,NOT_APPROVED_LIST_DATA_ERROR:"待审批列表加载错误"
+        ,APPROVE_SET_LIST: "审批设置列表加载错误"
+    },
+    ENT_MNG:{
+        ENT_OVERVIEW_DATA_ERROR:"企业统计数据加载错误"
+        ,ENT_MNG_LIST_DATA_ERROR:"企业管理列表加载错误"
+        ,ENT_CERT_UPDATE_FAILED:"认证更新失败"
+        ,ENT_QUOTA_DATA_ERROR:"企业配额加载错误"
+    },
+    ORDER_MNG:{
+        ORDER_DETAIL_DATA_ERROR:"订单详情加载错误"
+        ,ORDER_LIST_DATA_ERROR:"订单查询列表加载错误"
+        ,SUBINSTANCE_LIST_DATA_ERROR:"已购服务列表加载错误"
+        ,BUYER_DATA_ERROR:"订购人列表加载错误"
+        ,RENEW_FAILED:"订单续订失败"
+        ,RENEW_INFO_DATA_ERROR:"续订费用加载失败"
     },
     NET_MNG_OPENSTACK:{
         GETTING_DATA_FAILED: '获取数据失败！',
@@ -633,7 +664,10 @@ export const TranslateCN = {
         LSW_TRANSPORT_ZONE: 'LSW所属传输区域(Tansport Zone)',
         STATUS: '状态',
         LAST_UPDATE:'最后同步时间',
-        TRANSPORT_DETAIL:'传输区域{{value_1}}详细信息'
+        TRANSPORT_DETAIL: '传输区域{{value_1}}详细信息',
+        CLUSTER_NAME: '可用区(集群)名称',
+        DISPLAY_NAME: '显示名称',
+        DISTRIBUTED_SWITCH:'VDS(分布式交换机)'
     }
     ,
     NET_MNG_VM_NSX_DLR:{
