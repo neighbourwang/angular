@@ -250,7 +250,7 @@ export class VmwareImgListComponent implements OnInit {
             this.selectedimg = image;
             if(this.selectedimg.status == this.statusDictArray.find(n => n.code === "ENABLE").value){
                 this.showMsg("HOST_VMWARE_MNG.IMAGE_ENABLED");
-                return; 
+                return;
             }
             this.enableimagebox.open();
         } else {
@@ -366,7 +366,7 @@ export class VmwareImgListComponent implements OnInit {
 
     acceptVmwareImageModify(): void {
         console.log('clicked acceptVmwareImageModify');        
-        //if (this.selectedimg) {
+        if (this.selectedimg) {
             if (this.validateImgModify()) {
                 this.layoutService.show();
                 this.service.updateImage(this.changedimg)
@@ -397,13 +397,12 @@ export class VmwareImgListComponent implements OnInit {
                         this.showMsg("HOST_VMWARE_MNG.IMAGE_UPDATE_EXCEPTION");
                         this.okCallback = () => { this.editimagebox.open();};
                     });
-            }
-            /* else {
+            } else {
                 console.log('镜像更新验证失败');
             }
         } else {
             console.log('this.selectedimg wrong!');
-        }*/
+        }
     }
 
     validate(name: string, val: any, op: string) {
@@ -449,13 +448,14 @@ export class VmwareImgListComponent implements OnInit {
 
         if (notValid !== void 0) {
             this.editimagebox.close();
-            //this.showMsg(this.validate(notValid.name, notValid.value, notValid.op));
             let name = this.validate(notValid.name, notValid.value, notValid.op)[0];
             let msg = this.validate(notValid.name, notValid.value, notValid.op)[1];
             this.translateService.get([name,msg], null).subscribe((res) => {
                 this.showMsg(res[name] + res[msg]);
             });
-            this.okCallback = () => { this.editimagebox.open();};
+            this.okCallback = () => {
+                this.editimagebox.open();
+            };
             return false;
         } else {
             console.log("validateImgModify OK!!!");
