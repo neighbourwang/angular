@@ -3,6 +3,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService, PopupComponent, 
     PaginationComponent, ConfirmComponent, SystemDictionary } from '../../../../../architecture';
 
+import { TranslateService } from 'ng2-translate';
+
 //model
 import { VmwareImgModel, VmwareEntModel, CriteriaQuery, TenantModel } from '../model/vmware-img-list.model';
 
@@ -25,7 +27,8 @@ export class VmwareImgListComponent implements OnInit {
         private service: VmwareImgListService,
         private layoutService: LayoutService,
         private validationService: ValidationService,
-        private activatedRouter : ActivatedRoute
+        private activatedRouter : ActivatedRoute,
+        private translateService: TranslateService
     ) {
 
         if (activatedRouter.snapshot.params["platformId"]) {
@@ -58,7 +61,7 @@ export class VmwareImgListComponent implements OnInit {
     noticeMsg = "";
 
     pageIndex = 1;
-    pageSize = 5;
+    pageSize = 10;
     totalPage = 1;
 
     typeDictArray: Array<SystemDictionary> = [];    
@@ -233,7 +236,7 @@ export class VmwareImgListComponent implements OnInit {
 
     filter(): void {
         this.pageIndex = 1;
-        this.pageSize = 5;
+        this.pageSize = 10;
         this.totalPage = 1;
         this.pager.render(1);
         this.getVmwareImgList(1);
@@ -247,7 +250,7 @@ export class VmwareImgListComponent implements OnInit {
             this.selectedimg = image;
             if(this.selectedimg.status == this.statusDictArray.find(n => n.code === "ENABLE").value){
                 this.showMsg("HOST_VMWARE_MNG.IMAGE_ENABLED");
-                return; 
+                return;
             }
             this.enableimagebox.open();
         } else {
@@ -393,7 +396,7 @@ export class VmwareImgListComponent implements OnInit {
                         this.editimagebox.close();
                         this.showMsg("HOST_VMWARE_MNG.IMAGE_UPDATE_EXCEPTION");
                         this.okCallback = () => { this.editimagebox.open();};
-                    })
+                    });
             } else {
                 console.log('镜像更新验证失败');
             }
@@ -415,7 +418,7 @@ export class VmwareImgListComponent implements OnInit {
         }
 
         if (map[op].func(val)) {
-            return name + map[op].msg;
+            return [name, map[op].msg];
         }
         else
             return undefined;
@@ -444,15 +447,18 @@ export class VmwareImgListComponent implements OnInit {
         console.log(notValid, "notValid!!!");
 
         if (notValid !== void 0) {
-            this.showMsg(this.validate(notValid.name, notValid.value, notValid.op));
             this.editimagebox.close();
+            let name = this.validate(notValid.name, notValid.value, notValid.op)[0];
+            let msg = this.validate(notValid.name, notValid.value, notValid.op)[1];
+            this.translateService.get([name,msg], null).subscribe((res) => {
+                this.showMsg(res[name] + res[msg]);
+            });
             this.okCallback = () => {
-                this.editimagebox.open();                
+                this.editimagebox.open();
             };
-            console.log('镜像更新验证失败 in ', "validateImgModify");
             return false;
         } else {
-            console.log('镜像更新验证成功 in ', "validateImgModify");
+            console.log("validateImgModify OK!!!");
             return true;
         }
     }
