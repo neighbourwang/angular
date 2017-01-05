@@ -262,6 +262,7 @@ export class OrderMngSearchComponent implements OnInit{
 		let param = _.extend({}, this._param);
 
 		//匹配后台搜索框参数
+		param.orderCode = this._param.queryParam;
         // param.searchText = this._param.queryParam;
          param.organization = this._param.organization;
 		 //param.serviceId = this._param.serviceType;
