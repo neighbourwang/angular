@@ -1,17 +1,17 @@
 <fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
-	<div class="page-content-header icon-instance">实例列表</div>
+	<div class="page-content-header icon-instance">{{ 'COMMON.INSTANCE' | transalet }}{{ 'COMMON.LIST' | transalet }}</div>
 	<div class="page-content">
 		<div style="padding-bottom: 10px;">
 			<div class="btn-group pull-right">
 				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				更多操作
+				{{ 'COMMON.MORE_ACTIONS' | transalet }}
 				<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-					<li><a href="#">查看详情</a></li>
+					<li><a href="#">{{ 'COMMON.VIEW' | transalet }}{{ 'COMMON.DETAILS' | transalet }}</a></li>
 					<li role="separator" class="divider"></li>
-					<li><a href="#">查看控制台</a></li>
+					<li><a href="#">{{ 'COMMON.VIEW' | transalet }}{{ 'COMMON.CONSOLE' | transalet }}</a></li>
 					<li role="separator" class="divider"></li>
 					<li><a href="#">编辑云主机</a></li>
 					<li role="separator" class="divider"></li>
