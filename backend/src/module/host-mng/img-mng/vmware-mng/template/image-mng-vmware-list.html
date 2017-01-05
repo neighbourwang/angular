@@ -19,7 +19,7 @@
                     <option *ngFor="let ent of vmwareents" [value]="ent.id">{{ent.name}}</option>
                 </select>
             </div>  
-            <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10" (click)="filter(); queryOpt.tenantId=''; queryOpt.type='';"><span class="icon-button-label">{{'HOST_VMWARE_MNG.ENSURE' | translate}} </span> </button>                                                             
+            <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10" (click)="realQueryOpt.type = queryOpt.type; realQueryOpt.tenantId = queryOpt.tenantId; filter();"><span class="icon-button-label">{{'HOST_VMWARE_MNG.ENSURE' | translate}} </span> </button>                                                             
     </div>         
     <div style="clear:both"></div>
     <div class="mgb20 " style="margin-top:20px">
@@ -80,10 +80,10 @@
                             
                         </div>
                     </td>
-                    <td>{{(img.os | dict:this.dictService.osDict | async) || "未设置"}}</td>
-                    <td>{{(img.bitsType | dict:this.dictService.bitDict | async) || "未设置"}}</td>
-                    <td>{{(img.capacity | formatCapacity) || "未设置"}}</td>
-                    <td>{{(img.type | dict:this.dictService.typeDict | async) || "未设置"}}</td>
+                    <td>{{(img.os | dict:this.dictService.osDict | async) || ('HOST_VMWARE_MNG.UNSET' | translate)}}</td>
+                    <td>{{(img.bitsType | dict:this.dictService.bitDict | async) || ('HOST_VMWARE_MNG.UNSET' | translate)}}</td>
+                    <td>{{(img.capacity | formatCapacity) || ('HOST_VMWARE_MNG.UNSET' | translate)}}</td>
+                    <td>{{(img.type | dict:this.dictService.typeDict | async) || ('HOST_VMWARE_MNG.UNSET' | translate)}}</td>
                     <td [ngSwitch]="displayIt(img.tenants)">
                         <div *ngSwitchCase="'some'" class="tenants-c">{{'HOST_VMWARE_MNG.DETAIL' | translate}}>>
                         <div class="table-container" style=" border-left: 1px solid #cfd8e7;border-right: 1px solid #cfd8e7">
@@ -103,7 +103,7 @@
                         <div *ngSwitchCase="'special'">{{img.tenants[0].name}}</div>
                         
                     </td>
-                    <td [ngClass]="{'font-green':img.status=='1','font-orange':img.status=='0'}">{{(img.status | dict:this.dictService.statusDict | async) || "未设置"}}</td>                   
+                    <td [ngClass]="{'font-green':img.status=='1','font-orange':img.status=='0'}">{{(img.status | dict:this.dictService.statusDict | async) || ('HOST_VMWARE_MNG.UNSET' | translate)}}</td>                   
                 </tr>
             </tbody>
             
@@ -117,7 +117,7 @@
     <div class="fox-cloud-pagination-container">
         <fc-pagination #pager tp={{totalPage}} (pf)="getVmwareImgList($event)"></fc-pagination>
     </div>
-    <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>
+    <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" (of)="okClicked()"></fc-notice>
     <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}"></fc-confirm>
 </div>
 

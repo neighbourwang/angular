@@ -69,7 +69,7 @@ export class ClMngCreStep1Component implements OnInit {
             .catch(
             err => {
                 console.error('err');
-                this.notice.open('错误', '获取信息错误');
+                this.notice.open('COMMON.ERROR', 'PF_MNG2.GET_INFO_ERROR');
             }
             )
         this.commonService.getRegion()
@@ -82,7 +82,7 @@ export class ClMngCreStep1Component implements OnInit {
             ).catch(
             err => {
                 console.error('err');
-                this.notice.open('错误', '获取信息错误');
+                this.notice.open('COMMON.ERROR', 'PF_MNG2.GET_INFO_ERROR');
             }
             )
         // this.layoutService.hide();
@@ -116,15 +116,16 @@ export class ClMngCreStep1Component implements OnInit {
             err => {
                 this.layoutService.hide();
                 console.error('error');
-                this.notice.open('错误', '创建云平台错误');
+                this.notice.open('COMMON.ERROR', 'PF_MNG2.CREATE_PLATFORM_ERROR');
             }
             )
     }
     next() {
         let message: String = this.checkValue();
         if (this.checkValue()) {
-            this.notice.open('错误', message);
-        } else if (this.creStep1Model.platformType == '0') {            
+            this.notice.open('COMMON.ERROR', message);
+        } else if (this.creStep1Model.platformType == '0') {
+            this.layoutService.show();
             this.getPlatformRegionList()
                 .then(
                 res => {
@@ -137,7 +138,7 @@ export class ClMngCreStep1Component implements OnInit {
                 err => {
                     console.error('err');
                     this.layoutService.hide();
-                    this.notice.open('错误', '获取Region信息错误');
+                    this.notice.open('COMMON.ERROR', '获取Region信息错误');
                 }
                 )           
         } else {
@@ -152,7 +153,7 @@ export class ClMngCreStep1Component implements OnInit {
                 err => {
                     this.layoutService.hide();
                     console.error('error');
-                    this.notice.open('错误', '创建云平台错误');
+                    this.notice.open('COMMON.ERROR', 'PF_MNG2.CREATE_PLATFORM_ERROR');
                 }
                 )
         }
@@ -179,7 +180,7 @@ export class ClMngCreStep1Component implements OnInit {
         ).catch(
             err => {
                 console.error('err');
-                this.notice.open('错误', '获取版本错误');
+                this.notice.open('COMMON.ERROR', 'PF_MNG2.GET_VERSION_ERROR');
             }
             )
     }
