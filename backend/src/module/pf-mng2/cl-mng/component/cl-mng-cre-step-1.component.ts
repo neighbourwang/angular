@@ -183,28 +183,28 @@ export class ClMngCreStep1Component implements OnInit {
     checkValue(): String {
         console.log(this.creStep1Model);
         if (!this.creStep1Model.name) {
-            return '请输入云平台名称';
+            return 'PF_MNG2.PLATFORM_NAME_REQUIRED';
         }
         if (!this.creStep1Model.dataCenter) {
-            return '请输入所属数据中心';
+            return 'PF_MNG2.DATA_CENTER_REQUIRED';
         }
         if (!this.creStep1Model.regionId) {
-            return '请选择所属地域';
+            return 'PF_MNG2.REGION_REQUIRED';
         }
         if (!this.creStep1Model.platformType) {
-            return '请选择云平台类型';
+            return 'PF_MNG2.PLATFORM_TYPE_REQUIRED';
         }
         if (!this.creStep1Model.uri) {
-            return '请输入地址';
+            return 'PF_MNG2.ADDRESS_REQUIRED';
         }
         if (!this.creStep1Model.version) {
-            return '请选择版本';
+            return 'PF_MNG2.VERSION_REQUIRED';
         }
         if (!this.creStep1Model.userName) {
-            return '请输入用户名';
+            return 'PF_MNG2.USERNAME_REQUIRED';
         }
         if (!this.creStep1Model.passwd) {
-            return '请输入密码';
+            return 'PF_MNG2.PASSWORD_REQUIRED';
         }
         return '';
     }

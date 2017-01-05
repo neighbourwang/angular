@@ -473,13 +473,13 @@ export class PfDetailComponent implements OnInit {
     save() {
         console.log(this.platform);
         if (!this.platform.name) {
-            return this.notice.open('COMMON.OPERATION_ERROR', '请输入云平台名称');
+            return this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.PLATFORM_NAME_REQUIRED');
         }
         if (!this.platform.dataCenter) {
-            return this.notice.open('COMMON.OPERATION_ERROR', '请输入所属数据中心');
+            return this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.DATA_CENTER_REQUIRED');
         }
         if (!this.platform.uri) {
-            return this.notice.open('COMMON.OPERATION_ERROR', '请输入地址');
+            return this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.ADDRESS_REQUIRED');
         }
         this.layoutService.show();
         this.platformDetailService.putPlatform(this.platform).then(res => {

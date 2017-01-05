@@ -28,7 +28,7 @@ export class ClMngCreStep2Component implements OnInit {
         private service: ClMngCreStep2Service
     ) { }
 
-    creStep2Model: CreStep2Model = new CreStep2Model('正在同步可用区', 0);
+    creStep2Model: CreStep2Model = new CreStep2Model('PF_MNG2.SYNC_ZONE', 0);
 
     platformType: string;
     ngOnInit() {
@@ -45,18 +45,18 @@ export class ClMngCreStep2Component implements OnInit {
     //             console.log(res);
     //             this.creStep2Model.zones = 'ok';
     //             this.creStep2Model.zonesStatus = true;
-    //             this.creStep2Model.message = '同步可用区成功，正在同步存储区';
+    //             this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_COMP_SYNC_STORAGE';
     //             this.creStep2Model.percentage = 20;
     //             this.storages();
     //         }
     //     ).catch(
     //         error => {
     //             this.creStep2Model.zones = 'fail';
-    //             this.creStep2Model.message = '同步可用区失败';
+    //             this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_FAILED';
     //         }
     //         //     function(){
     //         //     this.creStep2Model.synchronize = 'fail';
-    //         //     this.creStep2Model.message = '同步可用区失败';
+    //         //     this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_FAILED';
     //         // }
     //         )
     // }
@@ -67,18 +67,18 @@ export class ClMngCreStep2Component implements OnInit {
                 console.log(res);
                 this.creStep2Model.zones = 'ok';
                 this.creStep2Model.zonesStatus = true;
-                this.creStep2Model.message = '同步可用区成功，正在同步存储区';
+                this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_COMP_SYNC_STORAGE';
                 this.creStep2Model.percentage = 20;
                 this.storages();
             }
         ).catch(
             error => {
                 this.creStep2Model.zones = 'fail';
-                this.creStep2Model.message = '同步可用区失败';
+                this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_FAILED';
             }
             //     function(){
             //     this.creStep2Model.synchronize = 'fail';
-            //     this.creStep2Model.message = '同步可用区失败';
+            //     this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_FAILED';
             // }
             )
     }
@@ -91,14 +91,14 @@ export class ClMngCreStep2Component implements OnInit {
                 console.log(res);
                 this.creStep2Model.storages = 'ok';
                 this.creStep2Model.storagesStatus = true;
-                this.creStep2Model.message = '同步存储区成功，正在同步云主机规格';
+                this.creStep2Model.message = 'PF_MNG2.SYNC_STORAGE_COMP_SYNC_SPEC';
                 this.creStep2Model.percentage = 40;
                 this.flavors();
             }
         ).catch(
             error => {
                 this.creStep2Model.storages = 'fail';
-                this.creStep2Model.message = '同步存储失败';
+                this.creStep2Model.message = 'PF_MNG2.SYNC_STORAGE_FAILED';
             }
             )
     }
@@ -111,14 +111,14 @@ export class ClMngCreStep2Component implements OnInit {
                 console.log(res);
                 this.creStep2Model.flavors = 'ok';
                 this.creStep2Model.flavorsStatus = true;
-                this.creStep2Model.message = '同步云主机规格成功，正在同步镜像';
+                this.creStep2Model.message = 'PF_MNG2.SYNC_SPEC_COM_SYNC_IMG';
                 this.creStep2Model.percentage = 60;
                 this.images();
             }
         ).catch(
             error => {
                 this.creStep2Model.flavors = 'fail';
-                this.creStep2Model.message = '同步云主机规格失败';
+                this.creStep2Model.message = 'PF_MNG2.SYNC_SPEC_FAILED';
             }
             )
     }
@@ -131,14 +131,14 @@ export class ClMngCreStep2Component implements OnInit {
         //         console.log(res);
         //         this.creStep2Model.images = 'ok';
         //         this.creStep2Model.imagesStatus = true;
-        //         this.creStep2Model.message = '同步镜像成功，正在同步宿主机';
+        //         this.creStep2Model.message = 'PF_MNG2.SYNC_IMG_COMP_SYNC_HOST';
         //         this.creStep2Model.percentage = 80;
         //         this.hosts();
         //     }
         // ).catch(
         //     error => {
         //         this.creStep2Model.images = 'fail';
-        //         this.creStep2Model.message = '同步镜像失败';
+        //         this.creStep2Model.message = 'PF_MNG2.SYNC_IMG_FAILED';
         //     }
         //     )
         this.service.getImages(platFormId).then(
@@ -153,14 +153,14 @@ export class ClMngCreStep2Component implements OnInit {
                         console.log(res);
                         this.creStep2Model.images = 'ok';
                         this.creStep2Model.imagesStatus = true;
-                        this.creStep2Model.message = '同步镜像成功，正在同步宿主机';
+                        this.creStep2Model.message = 'PF_MNG2.SYNC_IMG_COMP_SYNC_HOST';
                         this.creStep2Model.percentage = 80;
                         this.hosts();
                     }
                 ).catch(
                     error => {
                         this.creStep2Model.images = 'fail';
-                        this.creStep2Model.message = '同步镜像失败';
+                        this.creStep2Model.message = 'PF_MNG2.SYNC_IMG_FAILED';
                     }
                     )
 
@@ -168,7 +168,7 @@ export class ClMngCreStep2Component implements OnInit {
         ).catch(
             error => {
                 this.creStep2Model.images = 'fail';
-                this.creStep2Model.message = '获取镜像失败';
+                this.creStep2Model.message = 'PF_MNG2.GET_IMG_FAILED';
             }
             )
     }
@@ -188,7 +188,7 @@ export class ClMngCreStep2Component implements OnInit {
         ).catch(
             error => {
                 this.creStep2Model.hosts = 'fail';
-                this.creStep2Model.message = '同步宿主机失败';
+                this.creStep2Model.message = 'PF_MNG2.SYNC_HOST_FAILED';
             }
             )
     }
