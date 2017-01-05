@@ -51,13 +51,18 @@
                 <td (click)="godetail(item)" style="cursor:pointer">{{item.name}}</td>
                 <td>{{item.dataCenter}}</td>
                 <td>{{item.regionName}}</td>
-                <td>{{item.platformType}}</td>
+                <td>
+                    {{item.platformType| dict:this.commonService.platformTypeDic | async}}
+                </td>
                 <td>{{item.uri}}</td>
                 <td>
-                    <!--{{item.version}}-->
-                    {{item.version| dict:this.service.versionDic | async}}
+                    <span *ngIf="item.platformType=='0'">{{item.version| dict:this.commonService.openStackVersionDic | async}}</span>
+                    <span *ngIf="item.platformType=='2'">{{item.version| dict:this.commonService.vmWareVersionDic | async}}</span>
+                    
                 </td>
-                <td [ngClass]="{'font-green':item.status == '已启用' ,'font-orange':item.status == '未启用'}">{{item.status}}</td>
+                <td [ngClass]="{'font-green':item.status == '1' ,'font-orange':item.status == '3'}">
+                    {{item.status| dict:this.commonService.globalStatus | async}}
+                    </td>
                 <td>{{item.healthFlag}}</td>
             </tr>
             </tbody>
