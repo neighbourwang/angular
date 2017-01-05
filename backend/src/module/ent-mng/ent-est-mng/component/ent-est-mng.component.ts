@@ -428,7 +428,7 @@ export class EntEstMngComponent implements OnInit {
       ,"op":"*"
     }].find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
 
-    if(notValid !== void 0 &&notValid>0)
+    if(notValid !== void 0)
     {
       this.okCallback = ()=>{
         this.editQuota.open();
