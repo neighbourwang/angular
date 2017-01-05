@@ -49,9 +49,9 @@ export class ClMngCreStep4Component implements OnInit {
             res => {
                 this.creStep4Model = res.resultContent;
                 this.creStep4Model.forEach(ele => {
-                    if (ele.quotaPercentage) {
-                        ele.quotaPercentDisplay = ele.quota * 100;
-                    }
+                    ele.quota=
+                        ele.quota?ele.quota:0;
+                    ele.quotaPercentDisplay = ele.quota * 100;
                 })
                 //Openstack类型同步volumeType信息
                 if (this.platformType == '0') {

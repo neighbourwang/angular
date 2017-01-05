@@ -373,7 +373,7 @@ export const TranslateCN = {
         ,APPROVE_SET_NEED_APPROVE_TIME:"请设置有效自动审批时间"
         ,APPROVE_SET_ERROR: "审批数据保存失败"
         ,APPROVE_SET_NEED_APPROVE_ENABLE: "必须设置审批选项"
-        ,APPROVE_LIST_DATA_ERRO: "已审批列表加载错误"
+        ,APPROVE_LIST_DATA_ERROR: "已审批列表加载错误"
         ,APPROVE_USER_DATA_ERROR: "审批人列表加载错误"
         ,APPROVE_SUBMITTER_DATRA_ERROR : "提交者列表加载错误"
         ,APPROVE_RESULT_DATA_ERROR : "审批结果加载错误"
