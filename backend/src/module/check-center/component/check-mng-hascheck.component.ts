@@ -49,7 +49,7 @@ export class CheckMngHascheckComponent implements OnInit{
 		this._billinModeDic = new DicLoader(_restApiCfg, _restApi, "BILLING_MODE", "TYPE");
 
 		//列表数据加载
-		this._listLoader = new ItemLoader<CheckListItem>(true, "已审批列表", "check-center.not-checked.list", _restApiCfg, _restApi);
+		this._listLoader = new ItemLoader<CheckListItem>(true, "CHECK_CENTER.APPROVE_LIST_DATA_ERROR", "check-center.not-checked.list", _restApiCfg, _restApi);
 		this._listLoader.MapFunc = (source:Array<any>, target:Array<CheckListItem>)=>{
 
 			for(let item of source)
@@ -109,7 +109,7 @@ export class CheckMngHascheckComponent implements OnInit{
 		};
 
 		//审批人列表
-		this._approverListLoader = new ItemLoader<{id:string;name:string}>(false, "审批人列表", "check-center.approver-list.get", _restApiCfg, _restApi);
+		this._approverListLoader = new ItemLoader<{id:string;name:string}>(false, "CHECK_CENTER.APPROVE_USER_DATA_ERROR", "check-center.approver-list.get", _restApiCfg, _restApi);
 		// this._approverListLoader.MapFunc = (source:Array<any>,target:Array<{id:string;name:string}>)=>{
 		// 	target = target.concat(source.map(n=>{
 		// 		return {id:n.key, name:n.value};
@@ -127,7 +127,7 @@ export class CheckMngHascheckComponent implements OnInit{
 		}
 
 		//提交者列表
-		this._userListLoader = new ItemLoader<{id:string;name:string}>(false, "用户列表", "check-center.user-list.get", _restApiCfg, _restApi);
+		this._userListLoader = new ItemLoader<{id:string;name:string}>(false, "CHECK_CENTER.APPROVE_SUBMITTER_DATRA_ERROR", "check-center.user-list.get", _restApiCfg, _restApi);
 		// this._userListLoader.MapFunc = (source:Array<any>,target:Array<{id:string;name:string}>)=>{
 		// 	target = target.concat(source.map(n=>{
 		// 		return {id:n.key, name:n.value};
@@ -147,17 +147,17 @@ export class CheckMngHascheckComponent implements OnInit{
 		this._orderTypeDic = new DicLoader(_restApiCfg, _restApi, "ORDER", "TYPE");
 
 		//企业列表配置
-		this._entLoader = new ItemLoader<{id:string;name:string}>(false, "企业列表", "op-center.order-mng.ent-list.get", _restApiCfg, _restApi);
+		this._entLoader = new ItemLoader<{id:string;name:string}>(false, "COMMON.ENTPRISE_OPTIONS_DATA_ERROR", "op-center.order-mng.ent-list.get", _restApiCfg, _restApi);
 
 		//部门列表配置
-		this._departmentLoader = new ItemLoader<{id:string;name:string}>(false, "部门列表", "op-center.order-mng.department-list.get", _restApiCfg, _restApi);
+		this._departmentLoader = new ItemLoader<{id:string;name:string}>(false, "COMMON.DEPARTMENT_OPTIONS_DATA_ERROR", "op-center.order-mng.department-list.get", _restApiCfg, _restApi);
 
 		//产品类型配置
 		this._serviceTypeDic = new DicLoader(_restApiCfg, _restApi, "GLOBAL", "SERVICE_TYPE");//²úÆ·ÀàÐÍÁÐ±í', "op-center.order-mng.product-type-list.get", _restApiCfg, _restApi);
 
 
 		//审批意见
-		this._approveInfoLoader = new ItemLoader<ApproveItem>(false, "审批人列表", "check-center.approve-info.get", _restApiCfg, _restApi);
+		this._approveInfoLoader = new ItemLoader<ApproveItem>(false, "CHECK_CENTER.APPROVE_USER_DATA_ERROR", "check-center.approve-info.get", _restApiCfg, _restApi);
 
 	// 	this._approverListLoader.MapFunc = (source:Array<any>, target:Array<ApproveItem>)=>{
 	// 	for(let item of source)
@@ -299,7 +299,7 @@ export class CheckMngHascheckComponent implements OnInit{
 	}
 
 	getApproveReason(orderItem:CheckListItem){
-		let itemLoader = new ItemLoader<ApproveItem>(false, "审批结果加载出错", "check-center.approve-info.get", this._restApiCfg, this._restApi);
+		let itemLoader = new ItemLoader<ApproveItem>(false, "CHECK_CENTER.APPROVE_RESULT_DATA_ERROR", "check-center.approve-info.get", this._restApiCfg, this._restApi);
 		orderItem.checkResult = itemLoader.Go(null, [{key:"orderId", value:orderItem.orderId}]);
 	}
 

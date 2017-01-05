@@ -258,9 +258,9 @@
 						<div class="col-sm-3 ">
 							存储后端
 						</div>
-						<div class="col-sm-2" style="text-align: left">
+						<!--<div class="col-sm-2" style="text-align: left">
 							<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllStorages()" [(ngModel)]="selectAllStorage">
-						</div>
+						</div>-->
 					</div>
 					<div class="row tabBody" *ngFor="let plateform of prodDir.platformList; let idx=index">
 						<div class="col-sm-4 oneChild">
@@ -276,14 +276,14 @@
 								<div class="col-sm-12" ><span style="overflow:hidden">{{storage.storageName}}</span></div>
 							</div>
 						</div>
-						<div class="col-sm-2 thirdChild">
+						<!--<div class="col-sm-2 thirdChild">
 							<div class="row row-line-height inputLeft" *ngFor="let storage of plateform.storages; let idxx=index">
 								<div class="col-sm-12">
 									<input type="checkbox" class="fox-cloud-checkbox" selected="storage.selected" [(ngModel)]="storage.selected" name="storageSelected"
 										(click)="selectStorage(idx,idxx)">
 								</div>
 							</div>
-						</div>
+						</div>-->
 					</div>
 				</div>
 				<div class="col-sm-3"></div>

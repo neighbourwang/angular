@@ -37,7 +37,7 @@ export class EntEstCheckComponent implements OnInit {
   ) { 
 
     //加载企业统计图
-    this.resourceQuotaSvg = new ItemLoader<EntEstCreResourceQuota>(true, "查看企业统计图", "ent-mng.ent-est-mng.enterprise.quota.detail", restApiCfg, restApi);
+    this.resourceQuotaSvg = new ItemLoader<EntEstCreResourceQuota>(true, "ENT_MNG.ENT_OVERVIEW_DATA_ERROR", "ent-mng.ent-est-mng.enterprise.quota.detail", restApiCfg, restApi);
     // this.resourceQuotaSvg.MapFunc = (source:Array<any>, target:Array<EntEstCreResourceQuota>)=>{
     //   for(let item of source)
     //   {

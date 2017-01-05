@@ -3,8 +3,9 @@ class storageItem {
     "storageId": string;
     "storageName": string;
     "displayName": string;
-    "selected": true;
-    "serviceSKUId": string;
+    "selected": boolean;
+    // "serviceSKUId": string;
+    skuId:string;
 }
 class platformInfo {
     "storageId": string;
@@ -46,5 +47,6 @@ class ProdDirDisk {
 }
 export {
     ProdDirDisk,
-    platform
+    platform,
+    storageItem
 }

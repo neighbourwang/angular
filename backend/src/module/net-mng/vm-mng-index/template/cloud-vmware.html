@@ -150,7 +150,7 @@
 			<div class="row row-line-height">
 				<div class="form-group" [style.color] = "VmNetStatus.checkResult=='2' ? 'grey': 'black'">
                     <label class="pointer">
-                    <input type="radio" class="fox-cloud-radio" name="radio" [attr.disabled]="VmNetStatus.checkResult=='2'" (click)="VmNetStatus.vmNetStatus='1'"> NSX网络
+                    <input type="radio" class="fox-cloud-radio" name="radio" [attr.disabled]="VmNetStatus.checkResult=='2'" (click)="VmNetStatus.vmNetStatus='1'"> {{'NET_MNG_VM_IP_MNG.NSX_NET' | translate}}
                     </label>
                     <!-- <input type="radio" class="fox-cloud-radio" name="radio" [class.hidden]="VmNetStatus.checkResult=='2'" [ngClass]="{'disabled':VmNetStatus.checkResult=='2'}" (change)="VmNetStatus.vmNetStatus='1'"> {{'NET_MNG_VM_IP_MNG.NSX_NET' | translate}} -->
                     <!-- <input type="radio" class="fox-cloud-radio" name="radio" [ng]="{'disabled':VmNetStatus.checkResult=='2'}" (change)="VmNetStatus.vmNetStatus='1'"> {{'NET_MNG_VM_IP_MNG.NSX_NET' | translate}}  -->
