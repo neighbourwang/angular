@@ -30,6 +30,7 @@ export class VmwareImgListComponent implements OnInit {
 
         if (activatedRouter.snapshot.params["platformId"]) {
             this.platformId = activatedRouter.snapshot.params["platformId"];
+            console.log("接收的platformId:" + this.platformId);
         } else {
             this.showMsg("HOST_VMWARE_MNG.MUST_CHOOSE_PLATFORM");
         }
@@ -57,8 +58,8 @@ export class VmwareImgListComponent implements OnInit {
     noticeMsg = "";
 
     pageIndex = 1;
-    pageSize = 5;
-    totalPage = 2;
+    pageSize = 10;
+    totalPage = 1;
 
     typeDictArray: Array<SystemDictionary> = [];    
     statusDictArray: Array<SystemDictionary> = [];
@@ -231,7 +232,8 @@ export class VmwareImgListComponent implements OnInit {
 
     filter(): void {
         this.pageIndex = 1;
-        this.pageSize = 5;
+        this.pageSize = 10;
+        this.totalPage = 1;
         this.getVmwareImgList();
     }
 
