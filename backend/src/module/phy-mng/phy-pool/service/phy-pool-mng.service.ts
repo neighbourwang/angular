@@ -32,17 +32,17 @@ export class PhyPoolMngService {
                 value: pageSize
             }
         ];
-        //const api= this.restApiCfg.getRestApi("phy-mng.phy-pool.phylist.data");
-       /* return this.restApi.request(api.method, api.url, pathParams, null,
+        const api= this.restApiCfg.getRestApi("phy-mng.phy-pool.phylist.data");
+        return this.restApi.request(api.method, api.url, pathParams, null,
             {
                 "poolName": criteria.poolName,
                 "region": criteria.region,
                 "dataCenter": criteria.dataCenter
-            });*/
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => Phylist_mock);
+            });
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => Phylist_mock);
     }
 
-    phyEnable(pmpoolId: string, status: string, criteriaQuery: CriteriaQuery){
+    phyIfEnable(pmpoolId: string, status: string){
         const pathParams=[
             {
                 key:"pmpool_id",
@@ -54,10 +54,10 @@ export class PhyPoolMngService {
             }
         ];
         const api= this.restApiCfg.getRestApi("phy-mng.phy-pool.phylist.enable");
-        return this.restApi.request(api.method, api.url, pathParams, null, criteriaQuery);
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
     }
 
-    edit(pmpoolId: string){
+    edit(criteria: Criteria, pmpoolId: string){
         const pathParams=[
             {
                 key:"pmpool_id",
@@ -65,7 +65,13 @@ export class PhyPoolMngService {
             }
         ];
         const api= this.restApiCfg.getRestApi("phy-mng.phy-pool.phylist.edit");
-        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        return this.restApi.request(api.method, api.url, pathParams, null,
+            {
+                "poolName": criteria.poolName,
+                "region": criteria.region,
+                "dataCenter": criteria.dataCenter,
+                "description": criteria.description,
+            });
     }
 
 }

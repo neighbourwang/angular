@@ -128,7 +128,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "镜像同步",
         "id": "pf.cre.step.02.images.synchronize.get",
         "method": "GET",
-        "url": "adminui/authsec/platform/{pf-id}/images/synchronize"        
+        "url": "adminui/authsec/platform/{pf-id}/images/synchronize"
     },
    //platform   add
    {
@@ -222,13 +222,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "镜像同步",
         "id": "pf.cre.step.images.synchronize.get",
         "method": "GET",
-        "url": "adminboe/authsec/images/sync/pub/{id}" 
+        "url": "adminboe/authsec/images/sync/pub/{id}"
     },
     {
         "desc": "镜像同步",
         "id": "pf.cre.step.images.synchronize.post",
         "method": "POST",
-        "url": "adminboe/authsec/images/sync/pub/{id}/sync" 
+        "url": "adminboe/authsec/images/sync/pub/{id}/sync"
     },
     {
         "desc": "宿主机同步",
@@ -614,7 +614,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取未选中产品",
         "id": "ent-mng.ent-est-mng.enterprise.avail.products.get",
         "method": "POST",
-        "url": "adminui/authsec/enterprises/{enterpriseId}/products/search/paging" 
+        "url": "adminui/authsec/enterprises/{enterpriseId}/products/search/paging"
     }, {
         "desc": "所有平台配额参考",
         "id": "ent-mng.ent-est-mng.platforms.quotas.get",
@@ -694,7 +694,7 @@ export let RestApis: RestApiModel[] = [
     },
 
     //<!--后台-运营中心-订单管理-->
-    // 
+    //
     //产品管理
     {
         "desc": "分页获取所有产品目录",
@@ -924,7 +924,7 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "basis/authsec/adm/users/organization/{id}"
     },
-    
+
     {
         "desc": "禁用帐号",
         "id": "user-center.org-mng.user.disable",
@@ -973,7 +973,7 @@ export let RestApis: RestApiModel[] = [
         "method" : "GET",
         "url" : "basis/authsec/adm/menu/tree"
     },
-    
+
     //个人账户管理
     {
         "desc": "获取当前登录账户信息",
@@ -1072,7 +1072,7 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "basis/authsec/enterprise/{enterpriseId}/ldaps/simple"
     },
-    
+
     //Vmware 端口
     {
         "desc": "获取端口组资源分配列表",
@@ -1121,20 +1121,22 @@ export let RestApis: RestApiModel[] = [
         "desc": "保存NSX管理信息",
         "id": "net-mng.vmware-index.nsxinfo.save",
         "method": "PUT",
-        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/main/nsxinfo/save"
+        "url": "adminboe/authsec/vmware/network/main/nsxinfo/save"
+        //"url": "adminboe/authsec/platform/{platform_id}/vmware/network/main/nsxinfo/save"
     },
     {
         "desc": "测试NSX管理信息",
         "id": "net-mng.vmware-index.nsxinfo.test",
         "method": "POST",
-        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/main/nsxinfo/test"
+        "url": "adminboe/authsec/vmware/network/main/nsxinfo/test"
+        //"url": "adminboe/authsec/platform/{platform_id}/vmware/network/main/nsxinfo/test"
     },
     {
         "desc": "更改网络类型",
         "id": "net-mng.vmware-index.network.changetype",
         "method": "PUT",
         "url": "adminboe/authsec/vmware/network/main/changetype/clusterid/{cluster_id}"
-    },    
+    },
     {
         "desc": "验证NSX管理信息",
         "id": "net-mng.vmware-index.nsxstatus.validate",
@@ -1247,7 +1249,7 @@ export let RestApis: RestApiModel[] = [
         "id": "net-mng.vmware.dbt.subnetip.release",
         "method": "PUT",
         "url": "adminboe/authsec/vmware/network/dist/ip/{id}/release"
-    },  
+    },
     //IP地址管理[NSX网络]
     {
         "desc": "获取IP地址管理列表",
@@ -1291,7 +1293,7 @@ export let RestApis: RestApiModel[] = [
         "id": "net-mng.vmware.nsx.subnetip.release",
         "method": "PUT",
         "url": "adminboe/authsec/vmware/network/nsx/ip/{id}/release"
-    },   
+    },
       //云网络管理
         //openstack
     {
@@ -1324,65 +1326,65 @@ export let RestApis: RestApiModel[] = [
         "id": "net-mng.openstack.net.syn.update",
         "method": "PUT",
         "url": "openstacknetworkmgmt/authsec/openstack/network/sync"
-    
+
     },
     {
         "desc": "同步网络（单个、多个）网络禁用",
         "id": "net-mng.openstack.net.syn.disable",
         "method": "PUT",
         "url": "openstacknetworkmgmt/authsec/openstack/network/disable"
-    
+
     },
     {
         "desc": "更改网络显示名称",
         "id": "net-mng.openstack.net.updatename",
         "method": "PUT",
         "url": "openstacknetworkmgmt/authsec/openstack/network/displayName"
-        
+
     },{
         "desc": "openstack启用网络",
         "id": "net-mng.openstack.net.networkStart",
         "method": "PUT",
         "url": "openstacknetworkmgmt/authsec/openstack/network/{id}/enable"
-    
+
     },{
         "desc": "openstack禁用网络",
         "id": "net-mng.openstack.net.networkStop",
         "method": "PUT",
         "url": "openstacknetworkmgmt/authsec/openstack/network/{id}/disable"
-    
+
     }
     // 审批中心
-   
+
     ,{
         "desc": "查询待审批/已审批订单",
         "id": "check-center.not-checked.list",
         "method": "POST",
-        "url": "adminui/authsec/backend/approval/orders/search/paging" 
+        "url": "adminui/authsec/backend/approval/orders/search/paging"
     }
     ,{
         "desc": "获取订购人、提交者列表",
         "id": "check-center.user-list.get",
         "method": "GET",
-        "url": "adminui/authsec/approval/department/{departmentId}/users"        
+        "url": "adminui/authsec/approval/department/{departmentId}/users"
     }
     ,{
         "desc": "获取审批人列表",
         "id": "check-center.approver-list.get",
         "method": "GET",
-        "url": "adminui/authsec/approval/department/{departmentId}/approvers"        
+        "url": "adminui/authsec/approval/department/{departmentId}/approvers"
     }
     ,{
         "desc": "审批拒绝/通过",
         "id": "check-center.approve-refust.post",
         "method": "POST",
-        "url": "adminui/authsec/backend/approval/order/{orderId}/operation/{operation}/reason/{reason} "        
+        "url": "adminui/authsec/backend/approval/order/{orderId}/operation/{operation}/reason/{reason} "
     }
     ,{
         "desc": "获取审批意见",
         "id": "check-center.approve-info.get",
         "method": "GET",
-        "url": "adminui/authsec/backend/approval/history/order/{orderId}"        
+        "url": "adminui/authsec/backend/approval/history/order/{orderId}"
     },{
         "desc": "获取审批设置列表",
         "id": "check-center.approval-set-list.get",
@@ -1394,9 +1396,9 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "url": "adminui/authsec/enterprise/audit"
     }
-    // 审批中心    
+    // 审批中心
     //云网络管理
-    // vmware标准网络   
+    // vmware标准网络
     , {
         "desc": "获取标准网络列表",
         "id": "net-img.vm-mng.network.list",
@@ -1433,8 +1435,8 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "adminboe/authsec/platform/{platform_id}/vmware/network/update"
     },
-    
-    
+
+
 
     ////云主机管理-镜像管理-
     //镜像管理导航页
@@ -1687,7 +1689,34 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/dlrlist"
     },
-	
+
+
+    //物理机资源池fhd
+    {
+        "desc": "获取物理机资源池列表",
+        "id": "phy-mng.phy-pool.phylist.data",
+        "method": "POST",
+        "url": "pmresourcemgmt/noauth/pmpools/page/{page}/size/{size}"
+    },
+    {
+        "desc": "删除/禁用/启用物理机资源池",
+        "id": "phy-mng.phy-pool.phylist.enable",
+        "method": "PUT",
+        "url": "pmresourcemgmt/noauth/pmpool/{pmpool_id}/{status}"
+    },
+    {
+        "desc": "创建物理机资源池",
+        "id": "phy-mng.phy-pool.phylist.creat",
+        "method": "POST",
+        "url": "boe/adminui/authsec/pmpool"
+    },
+    {
+        "desc": "编辑物理机资源池",
+        "id": "phy-mng.phy-pool.phylist.edit",
+        "method": "PUT",
+        "url": "pmresourcemgmt/noauth/pmpool/{pmpool_id}"
+    },
+
 	//物理机资源池
      {
          "desc": "获取物理机列表",
@@ -1725,12 +1754,13 @@ export let RestApis: RestApiModel[] = [
         "id": "physical-mng.physical.ipmiInfo.put",
         "method": "PUT",
         "url": " /boe/adminui/authsec/pmpool/pm/ipmi"
-    },  
+    },
     {
         "desc": "删除/禁用/启用物理机",
         "id": "physical-mng.physical.statusChange",
         "method": "PUT",
         "url": "/boe/adminui/authsec/pmpool/pm/{pm_id}/{status}"
     },
+
 ]
 

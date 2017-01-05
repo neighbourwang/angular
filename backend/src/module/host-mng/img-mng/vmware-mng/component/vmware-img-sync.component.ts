@@ -91,7 +91,8 @@ export class VmwareImgSyncComponent implements OnInit {
         this.noticeMsg = msg;
         this.notice.open();
     }
-    //根据value获取字典的txt
+
+    /*/根据value获取字典的txt
     getDicText(value: string, dic: Array<SystemDictionary>): String {
         if (!$.isArray(dic)) {
             return value;
@@ -105,8 +106,8 @@ export class VmwareImgSyncComponent implements OnInit {
             //return value;
             return "HOST_VMWARE_MNG.UNSET";
         }
-
     }
+    */
 
     displayIt(tenants: Array<TenantModel>): String {
         if (tenants.length == 0)
@@ -115,9 +116,7 @@ export class VmwareImgSyncComponent implements OnInit {
             return "special";
         else
             return "some";
-    }
-
-    
+    }    
 
     //选择行
     selectItem(index:number): void {

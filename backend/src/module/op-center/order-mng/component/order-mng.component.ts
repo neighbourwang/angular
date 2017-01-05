@@ -330,9 +330,10 @@ export class OrderMngComponent implements OnInit{
 	search(pageNumber:number = 1){
 		/*
 {
-  "createDate": "2017-01-03T07:29:47.815Z",
+  "createDate": "2017-01-05T06:05:54.900Z",
+  "creatorId": "string",
   "enterpriseId": "string",
-  "expireDate": "2017-01-03T07:29:47.815Z",
+  "expireDate": "2017-01-05T06:05:54.900Z",
   "organization": "string",
   "pageParameter": {
     "currentPage": 0,
@@ -354,6 +355,7 @@ export class OrderMngComponent implements OnInit{
 
 		//匹配后台搜索框参数
         param.searchText = this._param.queryParam;
+        param.creatorId = this._param.buyerId;
 
 		
 		param.pageParameter = {

@@ -1,6 +1,8 @@
 export const TranslateCN = {
     LANG: '中文',
     COMMON: {
+        OPERATION_ERROR:'操作错误',
+        ERROR:'错误',
         PROMPT: '提示',
         CONFIRM: '确认',
         CANCEL: '取消',
@@ -123,8 +125,6 @@ export const TranslateCN = {
         ENABLE_IMAGE_MSG: '您选择启用{{value_1}}, 请确认; 如果确认，用户将能够在订购中选择此镜像.',
         DISABLE_IMAGE_MSG: '您选择禁用{{value_1}}, 请确认; 如果确认, 用户将不能在订购中选择此镜像.',
 
-        UNSELECTED_ENTERPRISE: '未选择企业',
-        SELECTED_ENTERPRISE: '已选择企业',
         MOVE_IN: '移入',
         MOVE_OUT: '移出',
 
@@ -159,7 +159,11 @@ export const TranslateCN = {
         SYSTEM_PROMPT: '系统提示',
         PROMPT: '提示',
         UNSET: '未设置',
-        SAVE_SUCCESS: '保存成功！'
+        SAVE_SUCCESS: '保存成功！',
+
+        UNSELECTED_ENTERPRISE: '未选择企业',
+        SELECTED_ENTERPRISE: '已选择企业',
+        ENTERPRISE_FOR_SELECT:'可选企业',
 
     },
     
@@ -373,7 +377,7 @@ export const TranslateCN = {
         ,APPROVE_SET_NEED_APPROVE_TIME:"请设置有效自动审批时间"
         ,APPROVE_SET_ERROR: "审批数据保存失败"
         ,APPROVE_SET_NEED_APPROVE_ENABLE: "必须设置审批选项"
-        ,APPROVE_LIST_DATA_ERRO: "已审批列表加载错误"
+        ,APPROVE_LIST_DATA_ERROR: "已审批列表加载错误"
         ,APPROVE_USER_DATA_ERROR: "审批人列表加载错误"
         ,APPROVE_SUBMITTER_DATRA_ERROR : "提交者列表加载错误"
         ,APPROVE_RESULT_DATA_ERROR : "审批结果加载错误"

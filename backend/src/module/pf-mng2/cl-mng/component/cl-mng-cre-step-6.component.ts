@@ -63,11 +63,11 @@ export class ClMngCreStep6Component implements OnInit {
     }
     previous() {
         // this.router.navigateByUrl('pf-mng2/cl-mng/cre-step5');
-        if (this.platformType == '0') {
+        // if (this.platformType == '0') {
             this.router.navigate(["pf-mng2/cl-mng/cre-step5", { type: this.platformType }]);
-        } else if (this.platformType == '2') {
-            this.router.navigate(["pf-mng2/cl-mng/cre-step4", { type: this.platformType }]);
-        }
+        // } else if (this.platformType == '2') {
+        //     this.router.navigate(["pf-mng2/cl-mng/cre-step4", { type: this.platformType }]);
+        // }
     }
     cancel() {
         this.router.navigateByUrl("pf-mng2/cl-mng/cl-mng");
