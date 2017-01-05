@@ -6,7 +6,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">{{'HOST_VMWARE_MNG.IMAGE_NAME' | translate}}:</div>
                     <div class="col-md-4">
-                        <span style="line-height:34px">{{imageName}}</span>
+                        <span style="line-height:34px">{{imageName || ('HOST_VMWARE_MNG.UNSET' | translate)}}</span>
                     </div>
                 </div>
             </div>
@@ -14,7 +14,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">{{'HOST_VMWARE_MNG.IMAGE_DISPLAY_NAME' | translate}}:</div>
                     <div class="col-md-4">
-                        <span style="line-height:34px">{{imagedisplayName}}</span>
+                        <span style="line-height:34px">{{imagedisplayName || ('HOST_VMWARE_MNG.UNSET' | translate)}}</span>
                     </div>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">{{'HOST_VMWARE_MNG.OS' | translate}}:</div>
                     <div class="col-md-4">
-                        <span style="line-height:34px">{{imageOs | dict:this.dictService.osDict | async}}</span>
+                        <span style="line-height:34px">{{(imageOs | dict:this.dictService.osDict | async) || ('HOST_VMWARE_MNG.UNSET' | translate)}}</span>
                     </div>
                 </div>
             </div>
@@ -31,13 +31,14 @@
                     <div class="col-sm-4 form-control-title">{{'HOST_VMWARE_MNG.BIT' | translate}}:</div>
                     <div class="col-md-4">
                         <span style="line-height:34px">
-                            {{imagebitsType | dict:this.dictService.bitDict | async}}
+                            {{(imagebitsType | dict:this.dictService.bitDict | async) || ('HOST_VMWARE_MNG.UNSET' | translate)}}
                         </span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="row mgb20 mgt20" style="margin-left:25%;">
         <div class="col-md-3">
             <table class="table table-hover" style="border: 1px solid #cfd8e7;">
@@ -86,7 +87,9 @@
             </table>
         </div>
     </div>
+
 </div>
+
 <div class="text-center " style="margin-top:40px">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="VmwareImgListPage()">
         <span class="icon-button-label">{{'HOST_VMWARE_MNG.CANCEL' | translate}}</span>

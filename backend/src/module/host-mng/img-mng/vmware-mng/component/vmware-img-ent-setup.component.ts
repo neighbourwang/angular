@@ -103,7 +103,8 @@ export class VmwareImgEntSetupComponent implements OnInit {
         this.noticeMsg = msg;
         this.notice.open();
     }
-    //根据value获取字典的txt
+    
+    /*/根据value获取字典的txt
     getDicText(value: string, dic: Array<SystemDictionary>): String {
         if (!$.isArray(dic)) {
             return value;
@@ -117,8 +118,8 @@ export class VmwareImgEntSetupComponent implements OnInit {
             //return value;
             return "HOST_VMWARE_MNG.UNSET";
         }
-
     }
+    */
 
     getAllEnts(): void {
         this.layoutService.show();
