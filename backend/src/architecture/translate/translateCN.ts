@@ -283,12 +283,15 @@ export const TranslateCN = {
         VLAN_ID_CANT_NULL: 'VLAN ID不能为空.',
         VLAN_ID_SCOPE: 'VLAN ID必须是0~4096的数字.',
         PG_DIS_NAME_CANT_NULL: '端口组显示名称不能为空.',
+        DLR_SUBNET_DIS_NAME_CANT_NULL:'DLR子网显示名称不能为空.',
 
         PLEASE_CHOOSE_NET_TO_ENABLE: '请先选择需要启用的标准网络！',
         PLEASE_CHOOSE_DBT_NET_TO_ENABLE: '请先选择需要启用的分布式网络！',
+        PLEASE_CHOOSE_NSX_NET_TO_ENABLE: '请先选择需要启用的NSX网络！',
         NET_ALREADY_ENABLED: '该网络已处于启用状态',
         PLEASE_CHOOSE_NET_TO_DISABLE: '请先选择需要禁用的标准网络！',
         PLEASE_CHOOSE_DBT_NET_TO_DISABLE: '请先选择需要禁用的分布式网络！',
+        PLEASE_CHOOSE_NSX_NET_TO_DISABLE: '请先选择需要禁用的NSX网络！',
         NET_ALREADY_DISABLED: '该网络已处于禁用状态',
         CANT_DISABLE_AS_ENABLED_IP: 'IP占用状态下不能禁用！',
         PLEASE_CHOOSE_NET_TO_DELETE: '请先选择需要删除的标准网络！',
@@ -317,6 +320,9 @@ export const TranslateCN = {
         
         ENABLE_DBT_PORTGROUP_WARNING: '您选择启用{{value_1}}分布式端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，用户将能够在订购中选择此网络。',
         DISABLE_DBT_PORTGROUP_WARNING:'您选择禁用{{value_1}}分布式端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，用户将不能够在订购中选择此网络。',
+
+        ENABLE_NSX_PORTGROUP_WARNING: '您选择启用{{value_1}}DLR接口，其lswId为{{value_2}} ，请确认；如果确认，用户将能够在订购中选择此网络。',
+        DISABLE_NSX_PORTGROUP_WARNING:'您选择禁用{{value_1}}DLR接口，其lswId为{{value_2}} ，请确认；如果确认，用户将不能够在订购中选择此网络。',
 
         //vmware-nsx-net
         DLR_NAME: '逻辑路由器(DLR)名称',
@@ -658,7 +664,10 @@ export const TranslateCN = {
         LSW_TRANSPORT_ZONE: 'LSW所属传输区域(Tansport Zone)',
         STATUS: '状态',
         LAST_UPDATE:'最后同步时间',
-        TRANSPORT_DETAIL:'传输区域{{value_1}}详细信息'
+        TRANSPORT_DETAIL: '传输区域{{value_1}}详细信息',
+        CLUSTER_NAME: '可用区(集群)名称',
+        DISPLAY_NAME: '显示名称',
+        DISTRIBUTED_SWITCH:'VDS(分布式交换机)'
     }
     ,
     NET_MNG_VM_NSX_DLR:{
