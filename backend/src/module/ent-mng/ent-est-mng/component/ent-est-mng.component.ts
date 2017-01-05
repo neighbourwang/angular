@@ -370,7 +370,7 @@ export class EntEstMngComponent implements OnInit {
   }
   //修改配额
   acceptQuotaModify(){
-    if(this.validateQuotaModify())
+    if(this.validateQuotaModify()&&this.notInteger())
     {
       this.editQuota.close();
       this.entEstResource.FirstItem.memroyQuota = this.entEstResource.FirstItem.memroyQuota*1024;
@@ -389,7 +389,7 @@ export class EntEstMngComponent implements OnInit {
     }
   }
 
-  //验证修改配额
+  //验证修改配额不为空
   validateQuotaModify():boolean{
     let notValid = [
     {
@@ -439,6 +439,58 @@ export class EntEstMngComponent implements OnInit {
 
     return true;
   }
+ //验证修改配额非负
+  notInteger():boolean{
+    let notValid = [
+    {
+      "name":"可创建浮动IP数量"
+      ,"value":this.entEstResource.FirstItem.floatIpQuota
+      ,"op":"integer"
+    },
+    {
+      "name":"可创建镜像数量"
+      ,"value":this.entEstResource.FirstItem.imageQuota
+      ,"op":"integer"
+    },
+    {
+      "name":"可用内存数量"
+      ,"value":this.entEstResource.FirstItem.memroyQuota
+      ,"op":"integer"
+    },
+    {
+      "name":"可创建物理机数量"
+      ,"value":this.entEstResource.FirstItem.physicalQuota
+      ,"op":"integer"
+    },
+    {
+      "name":"可创建快照数量"
+      ,"value":this.entEstResource.FirstItem.snapShotQuota
+      ,"op":"integer"
+    },
+    {
+      "name":"可用存储额度"
+      ,"value":this.entEstResource.FirstItem.storageQuota
+      ,"op":"integer"
+    },
+    {
+      "name":" 可使用vCPU数量"
+      ,"value":this.entEstResource.FirstItem.vcpuQuota
+      ,"op":"integer"
+    }].find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
+
+    if(notValid !== void 0)
+    {
+      this.okCallback = ()=>{
+        this.editQuota.open();
+      }
+      this.showMsg(this.service.validate(notValid.name, notValid.value, notValid.op));
+      return false;
+    }
+
+    return true;
+  }
+
+  
 
   //取消配额
   cancelQuotaModify(){
