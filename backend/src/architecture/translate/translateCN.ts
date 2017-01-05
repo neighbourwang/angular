@@ -1,6 +1,8 @@
 export const TranslateCN = {
     LANG: '中文',
     COMMON: {
+        OPERATION_ERROR:'操作错误'
+        ERROR:'错误',
         PROMPT: '提示',
         CONFIRM: '确认',
         CANCEL: '取消',
@@ -123,8 +125,6 @@ export const TranslateCN = {
         ENABLE_IMAGE_MSG: '您选择启用{{value_1}}, 请确认; 如果确认，用户将能够在订购中选择此镜像.',
         DISABLE_IMAGE_MSG: '您选择禁用{{value_1}}, 请确认; 如果确认, 用户将不能在订购中选择此镜像.',
 
-        UNSELECTED_ENTERPRISE: '未选择企业',
-        SELECTED_ENTERPRISE: '已选择企业',
         MOVE_IN: '移入',
         MOVE_OUT: '移出',
 
@@ -159,7 +159,11 @@ export const TranslateCN = {
         SYSTEM_PROMPT: '系统提示',
         PROMPT: '提示',
         UNSET: '未设置',
-        SAVE_SUCCESS: '保存成功！'
+        SAVE_SUCCESS: '保存成功！',
+
+        UNSELECTED_ENTERPRISE: '未选择企业',
+        SELECTED_ENTERPRISE: '已选择企业',
+        ENTERPRISE_FOR_SELECT:'可选企业',
 
     },
     
@@ -283,12 +287,15 @@ export const TranslateCN = {
         VLAN_ID_CANT_NULL: 'VLAN ID不能为空.',
         VLAN_ID_SCOPE: 'VLAN ID必须是0~4096的数字.',
         PG_DIS_NAME_CANT_NULL: '端口组显示名称不能为空.',
+        DLR_SUBNET_DIS_NAME_CANT_NULL:'DLR子网显示名称不能为空.',
 
         PLEASE_CHOOSE_NET_TO_ENABLE: '请先选择需要启用的标准网络！',
         PLEASE_CHOOSE_DBT_NET_TO_ENABLE: '请先选择需要启用的分布式网络！',
+        PLEASE_CHOOSE_NSX_NET_TO_ENABLE: '请先选择需要启用的NSX网络！',
         NET_ALREADY_ENABLED: '该网络已处于启用状态',
         PLEASE_CHOOSE_NET_TO_DISABLE: '请先选择需要禁用的标准网络！',
         PLEASE_CHOOSE_DBT_NET_TO_DISABLE: '请先选择需要禁用的分布式网络！',
+        PLEASE_CHOOSE_NSX_NET_TO_DISABLE: '请先选择需要禁用的NSX网络！',
         NET_ALREADY_DISABLED: '该网络已处于禁用状态',
         CANT_DISABLE_AS_ENABLED_IP: 'IP占用状态下不能禁用！',
         PLEASE_CHOOSE_NET_TO_DELETE: '请先选择需要删除的标准网络！',
@@ -317,6 +324,9 @@ export const TranslateCN = {
         
         ENABLE_DBT_PORTGROUP_WARNING: '您选择启用{{value_1}}分布式端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，用户将能够在订购中选择此网络。',
         DISABLE_DBT_PORTGROUP_WARNING:'您选择禁用{{value_1}}分布式端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，用户将不能够在订购中选择此网络。',
+
+        ENABLE_NSX_PORTGROUP_WARNING: '您选择启用{{value_1}}DLR接口，其lswId为{{value_2}} ，请确认；如果确认，用户将能够在订购中选择此网络。',
+        DISABLE_NSX_PORTGROUP_WARNING:'您选择禁用{{value_1}}DLR接口，其lswId为{{value_2}} ，请确认；如果确认，用户将不能够在订购中选择此网络。',
 
         //vmware-nsx-net
         DLR_NAME: '逻辑路由器(DLR)名称',
@@ -367,7 +377,7 @@ export const TranslateCN = {
         ,APPROVE_SET_NEED_APPROVE_TIME:"请设置有效自动审批时间"
         ,APPROVE_SET_ERROR: "审批数据保存失败"
         ,APPROVE_SET_NEED_APPROVE_ENABLE: "必须设置审批选项"
-        ,APPROVE_LIST_DATA_ERRO: "已审批列表加载错误"
+        ,APPROVE_LIST_DATA_ERROR: "已审批列表加载错误"
         ,APPROVE_USER_DATA_ERROR: "审批人列表加载错误"
         ,APPROVE_SUBMITTER_DATRA_ERROR : "提交者列表加载错误"
         ,APPROVE_RESULT_DATA_ERROR : "审批结果加载错误"
@@ -658,7 +668,10 @@ export const TranslateCN = {
         LSW_TRANSPORT_ZONE: 'LSW所属传输区域(Tansport Zone)',
         STATUS: '状态',
         LAST_UPDATE:'最后同步时间',
-        TRANSPORT_DETAIL:'传输区域{{value_1}}详细信息'
+        TRANSPORT_DETAIL: '传输区域{{value_1}}详细信息',
+        CLUSTER_NAME: '可用区(集群)名称',
+        DISPLAY_NAME: '显示名称',
+        DISTRIBUTED_SWITCH:'VDS(分布式交换机)'
     }
     ,
     NET_MNG_VM_NSX_DLR:{

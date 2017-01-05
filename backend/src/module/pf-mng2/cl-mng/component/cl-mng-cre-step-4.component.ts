@@ -49,9 +49,9 @@ export class ClMngCreStep4Component implements OnInit {
             res => {
                 this.creStep4Model = res.resultContent;
                 this.creStep4Model.forEach(ele => {
-                    if (ele.quotaPercentage) {
-                        ele.quotaPercentDisplay = ele.quotaPercentage * 100;
-                    }
+                    ele.quota=
+                        ele.quota?ele.quota:0;
+                    ele.quotaPercentDisplay = ele.quota * 100;
                 })
                 //Openstack类型同步volumeType信息
                 if (this.platformType == '0') {
@@ -79,11 +79,11 @@ export class ClMngCreStep4Component implements OnInit {
         this.service.putStorage(platFormId, this.creStep4Model).then(
             res => {
                 console.log(res);
-                if (this.platformType == '0') {
+                // if (this.platformType == '0') {
                     this.router.navigate(["pf-mng2/cl-mng/cre-step5", { type: this.platformType }]);
-                } else if (this.platformType == '2') {
-                    this.router.navigate(["pf-mng2/cl-mng/cre-step6", { type: this.platformType }]);
-                }
+                // } else if (this.platformType == '2') {
+                //     this.router.navigate(["pf-mng2/cl-mng/cre-step6", { type: this.platformType }]);
+                // }
 
             }
         ).catch(

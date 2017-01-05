@@ -85,26 +85,26 @@ export class ClMngListComponent implements OnInit {
         //     }
         // )
 
-        this.commonService.getPlatFormTypes().then(
-            res => {
-                this.platFormType = res;
-            }
-        ).then(
-            res => {
-                this.commonService.getPlatFormStatus().then(
-                    res => {
-                        this.platFormStatus = res;
-                        this.backend(1, this.pp);
-                    }
-                )
-            }
-            ).catch(
-            err => {
-                console.error(err);
-                this.notice.open('错误提示', '获取云平台列表错误');
-            }
-            )
-
+        // this.commonService.getPlatFormTypes().then(
+        //     res => {
+        //         this.platFormType = res;
+        //     }
+        // ).then(
+        //     res => {
+        //         this.commonService.getPlatFormStatus().then(
+        //             res => {
+        //                 this.platFormStatus = res;
+        //                 this.backend(1, this.pp);
+        //             }
+        //         )
+        //     }
+        //     ).catch(
+        //     err => {
+        //         console.error(err);
+        //         this.notice.open('错误提示', '获取云平台列表错误');
+        //     }
+        //     )
+        this.backend(1, this.pp);
     }
 
     //删除按钮
@@ -112,7 +112,7 @@ export class ClMngListComponent implements OnInit {
         console.log('remove');
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
-            this.notice.open('操作错误', '请选择云平台');
+            this.notice.open('COMMON.OPERATION_ERROR', '请选择云平台');
         } else {
             this.removeConfirm.open('删除云平台', '您选择删除 ' + platForm.name + '云平台,请确认；如果确认，此云平台的数据将不能恢复。')
         }
@@ -123,7 +123,7 @@ export class ClMngListComponent implements OnInit {
         console.log('enable');
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
-            this.notice.open('操作错误', '请选择云平台');
+            this.notice.open('COMMON.OPERATION_ERROR', '请选择云平台');
         } else {
             this.enableConfirm.open('启用云平台', '您选择启用 ' + platForm.name + '云平台,请确认；如果确认，用户将能够订购此云平台的资源。')
         }
@@ -134,7 +134,7 @@ export class ClMngListComponent implements OnInit {
         console.log('disable');
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
-            this.notice.open('操作错误', '请选择云平台');
+            this.notice.open('COMMON.OPERATION_ERROR', '请选择云平台');
         } else {
             this.disableConfirm.open('禁用云平台', '您选择禁用 ' + platForm.name + '云平台,请确认；如果确认，用户将不能够订购此云平台的资源。。')
         }
@@ -238,27 +238,31 @@ export class ClMngListComponent implements OnInit {
 
     // 获得云平台list
     backend(page: number, size: number) {
+        console.log('type',this.commonService.platformTypeDic)
+        console.log('status',this.commonService.globalStatus)
+        console.log('vmwareversion',this.commonService.openStackVersionDic)
         this.layoutService.show();
         this.tp = 0;
         this.service.getPlatforms(page, size).then(
             response => {
+                console.log(response);
                 if (response && 100 == response.resultCode) {
                     let resultContent = response.resultContent;
                     let backend = new Array<Platform>();
-                    let platFormTypes = this.platFormType;
-                    let platFormStatus = this.platFormStatus;
+                    // let platFormTypes = this.platFormType;
+                    // let platFormStatus = this.platFormStatus;
                     for (let content of resultContent) {
                         let platform = new Platform();
 
                         platform.id = content.id;
                         // platform. = content.
                         platform.name = content.name;
-                        // platform.platformType = content.platformType;
-                        for (let item of platFormTypes) {
-                            if (content.platformType == item.value) {
-                                platform.platformType = item.displayValue
-                            }
-                        }
+                        platform.platformType = content.platformType;
+                        // for (let item of platFormTypes) {
+                        //     if (content.platformType == item.value) {
+                        //         platform.platformType = item.displayValue
+                        //     }
+                        // }
                         platform.uri = content.uri;
                         platform.userName = content.userName;
                         platform.passwd = content.passwd;
@@ -267,11 +271,12 @@ export class ClMngListComponent implements OnInit {
                         platform.regionId = content.regionId;
                         platform.regionName = content.regionName;
                         platform.dataCenter = content.dataCenter;
-                        for (let item of platFormStatus) {
-                            if (content.status == item.value) {
-                                platform.status = item.displayValue
-                            }
-                        }
+                        platform.status=content.status;
+                        // for (let item of platFormStatus) {
+                        //     if (content.status == item.value) {
+                        //         platform.status = item.displayValue
+                        //     }
+                        // }
                         platform.healthFlag = content.healthFlag;
                         platform.isSelected = false;
 
@@ -283,19 +288,19 @@ export class ClMngListComponent implements OnInit {
 
                     this.platforms = backend;
                 } else {
-                    this.notice.open('错误', '获取信息错误');
+                    this.notice.open('COMMON.ERROR', '获取信息错误');
                     console.log(response);
                 }
                 this.layoutService.hide();
             }
         ).catch(
             // function () {
-            //     // this.notice.open('错误','获取信息错误');
+            //     // this.notice.open('COMMON.ERROR','获取信息错误');
             //     console.error('error');
             // }
             err => {
                 this.layoutService.hide();
-                this.notice.open('错误', '获取云平台错误');
+                this.notice.open('COMMON.ERROR', '获取云平台错误');
             }
             );
     }
@@ -326,7 +331,7 @@ export class ClMngListComponent implements OnInit {
          console.log('bootDisk');
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
-            this.notice.open('操作错误', '请选择云平台');
+            this.notice.open('COMMON.OPERATION_ERROR', '请选择云平台');
         } else {
             this.router.navigate(["pf-mng2/pf-mng-bootDisk", {id:platForm.id,type:platForm.platformType,name:platForm.name}]);
         }
@@ -337,9 +342,9 @@ export class ClMngListComponent implements OnInit {
          console.log('vmConfig');
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
-            this.notice.open('操作错误', '请选择云平台');
+            this.notice.open('COMMON.OPERATION_ERROR', '请选择云平台');
         } else if(platForm.platformType!="OpenStack"){
-            this.notice.open('操作错误','配置规格只适用openStack类型平台');
+            this.notice.open('COMMON.OPERATION_ERROR','配置规格只适用openStack类型平台');
         }else {
             this.router.navigate(["pf-mng2/pf-mng-cloudHostSpec", {id:platForm.id,type:platForm.platformType,name:platForm.name}]);
         }

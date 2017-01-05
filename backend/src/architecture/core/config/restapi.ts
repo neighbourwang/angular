@@ -1121,13 +1121,15 @@ export let RestApis: RestApiModel[] = [
         "desc": "保存NSX管理信息",
         "id": "net-mng.vmware-index.nsxinfo.save",
         "method": "PUT",
-        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/main/nsxinfo/save"
+        "url": "adminboe/authsec/vmware/network/main/nsxinfo/save"
+        //"url": "adminboe/authsec/platform/{platform_id}/vmware/network/main/nsxinfo/save"
     },
     {
         "desc": "测试NSX管理信息",
         "id": "net-mng.vmware-index.nsxinfo.test",
         "method": "POST",
-        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/main/nsxinfo/test"
+        "url": "adminboe/authsec/vmware/network/main/nsxinfo/test"
+        //"url": "adminboe/authsec/platform/{platform_id}/vmware/network/main/nsxinfo/test"
     },
     {
         "desc": "更改网络类型",
