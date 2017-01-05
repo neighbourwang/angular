@@ -58,7 +58,7 @@ export class VmwareImgListComponent implements OnInit {
     noticeMsg = "";
 
     pageIndex = 1;
-    pageSize = 10;
+    pageSize = 5;
     totalPage = 1;
 
     typeDictArray: Array<SystemDictionary> = [];    
@@ -69,6 +69,7 @@ export class VmwareImgListComponent implements OnInit {
     platformId: string = "";
     platformName: string = "";
     queryOpt: CriteriaQuery = new CriteriaQuery();
+    realQueryOpt: CriteriaQuery = new CriteriaQuery();
     vmwareimgs: Array<VmwareImgModel>;
     selectedimg: VmwareImgModel = new VmwareImgModel();
     changedimg: VmwareImgModel = new VmwareImgModel();
@@ -214,7 +215,7 @@ export class VmwareImgListComponent implements OnInit {
     getVmwareImgList(pageIndex?): void {
         this.pageIndex = pageIndex || this.pageIndex;
         this.layoutService.show();
-        this.service.getVmwareImgList(this.platformId, this.queryOpt, this.pageIndex, this.pageSize)
+        this.service.getVmwareImgList(this.platformId, this.realQueryOpt, this.pageIndex, this.pageSize)
             .then(
             response => {
                 this.layoutService.hide();
@@ -232,9 +233,10 @@ export class VmwareImgListComponent implements OnInit {
 
     filter(): void {
         this.pageIndex = 1;
-        this.pageSize = 10;
+        this.pageSize = 5;
         this.totalPage = 1;
-        this.getVmwareImgList();
+        this.pager.render(1);
+        this.getVmwareImgList(1);
     }
 
     //Menu: 启用镜像

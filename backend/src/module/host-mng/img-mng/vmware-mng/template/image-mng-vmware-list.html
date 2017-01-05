@@ -19,7 +19,7 @@
                     <option *ngFor="let ent of vmwareents" [value]="ent.id">{{ent.name}}</option>
                 </select>
             </div>  
-            <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10" (click)="filter();"><span class="icon-button-label">{{'HOST_VMWARE_MNG.ENSURE' | translate}} </span> </button>                                                             
+            <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10" (click)="realQueryOpt.type = queryOpt.type; realQueryOpt.tenantId = queryOpt.tenantId; filter();"><span class="icon-button-label">{{'HOST_VMWARE_MNG.ENSURE' | translate}} </span> </button>                                                             
     </div>         
     <div style="clear:both"></div>
     <div class="mgb20 " style="margin-top:20px">
