@@ -1,7 +1,7 @@
 export const TranslateCN = {
     LANG: '中文',
     COMMON: {
-        OPERATION_ERROR:'操作错误'
+        OPERATION_ERROR:'操作错误',
         ERROR:'错误',
         PROMPT: '提示',
         CONFIRM: '确认',
