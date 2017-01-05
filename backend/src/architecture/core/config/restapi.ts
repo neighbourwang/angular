@@ -273,7 +273,7 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "url": "adminui/authsec/platform/{pf-id}/flavors"
     },
-
+/////////////////////镜像guofeng接口
     {
         "desc": "取得镜像",
         "id": "pf.cre.images.get",
@@ -286,6 +286,19 @@ export let RestApis: RestApiModel[] = [
         "id": "pf.cre.images.put",
         "method": "PUT",
         "url": "adminui/authsec/platform/{pf-id}/images"
+    },
+//////镜像xiayang接口
+    {
+        "desc": "取得镜像",
+        "id": "pf.cre.imageList.get",
+        "method": "POST",
+        "url": "adminboe/authsec/images/marketplace"
+    },
+    {
+        "desc": "更新镜像",
+        "id": "pf.cre.imageList.put",
+        "method": "PUT",
+        "url": "adminboe/authsec/platform/images"
     },
 
     {

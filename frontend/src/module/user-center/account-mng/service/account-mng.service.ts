@@ -93,7 +93,7 @@ export class AccountMngService {
     }
     //获取部门列表
     getOrgList(index, size) {
-        if (this.orgs.length == 0) {
+        // if (this.orgs.length == 0) {
             let api = this.restApiCfg.getRestApi("user-center.account-mng.create.orgList");
 
             return this.restApi.request(api.method,
@@ -108,9 +108,9 @@ export class AccountMngService {
                         throw "error";
                     }
                 });
-        } else {
-            return new Promise(resovle => setTimeout(resovle, 10)).then(() => this.orgs);
-        }
+        // } else {
+        //     return new Promise(resovle => setTimeout(resovle, 10)).then(() => this.orgs);
+        // }
     }
 
     //获取认证源列表

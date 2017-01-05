@@ -30,7 +30,8 @@ export class ClMngCreStep4Component implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private idService: ClMngIdService,
-        private service: StorageListService
+        private service: StorageListService,
+        private layoutService:LayoutService
     ) { }
 
     creStep4Model: Array<StorageModel> = new Array<StorageModel>();
@@ -44,7 +45,7 @@ export class ClMngCreStep4Component implements OnInit {
         })
 
         let platFormId: String = this.idService.getPlatformId();
-
+        this.layoutService.show();
         this.service.getStorage(platFormId).then(
             res => {
                 this.creStep4Model = res.resultContent;
@@ -54,6 +55,7 @@ export class ClMngCreStep4Component implements OnInit {
                     ele.quotaPercentDisplay = ele.quota * 100;
                 })
                 //Openstack类型同步volumeType信息
+
                 if (this.platformType == '0') {
                     this.service.getvolumeType(platFormId).then(
                         res => {
@@ -63,10 +65,12 @@ export class ClMngCreStep4Component implements OnInit {
                         console.error(err);
                     });
                 }
+                this.layoutService.hide();
             }
         ).catch(
             error => {
                 console.error('error');
+                this.layoutService.hide();
             }
             )
     }
@@ -76,10 +80,12 @@ export class ClMngCreStep4Component implements OnInit {
             ele.quotaPercentage = ele.quotaPercentDisplay * 0.01
         }
         );
+        this.layoutService.show();
         this.service.putStorage(platFormId, this.creStep4Model).then(
             res => {
                 console.log(res);
                 // if (this.platformType == '0') {
+                    this.layoutService.hide();
                     this.router.navigate(["pf-mng2/cl-mng/cre-step5", { type: this.platformType }]);
                 // } else if (this.platformType == '2') {
                 //     this.router.navigate(["pf-mng2/cl-mng/cre-step6", { type: this.platformType }]);
@@ -89,6 +95,7 @@ export class ClMngCreStep4Component implements OnInit {
         ).catch(
             error => {
                 console.error('error');
+                this.layoutService.hide();
             }
             )
         // this.router.navigateByUrl("pf-mng2/cl-mng/cre-step5");
