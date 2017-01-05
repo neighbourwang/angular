@@ -38,7 +38,15 @@
             </div>
         </div>
     </div>
+    <div style="margin-left:13%;font-size:16px;"><span class="asterisk">*</span>
+            {{'HOST_VMWARE_MNG.SELECT_ENTERPRISE' | translate}}：</div>
 
+    <fc-selectbox #testbox [selectedList]="selectedEnts" [unSelectedList]="unselectedEnts" 
+                titleL="{{'HOST_VMWARE_MNG.ENTERPRISE_FOR_SELECT' | translate}}" 
+                titleR="{{'HOST_VMWARE_MNG.SELECTED_ENTERPRISE' | translate}}" displayKey="name">
+
+    </fc-selectbox>
+    <!--
     <div class="row mgb20 mgt20" style="margin-left:25%;">
         <div class="col-md-3">
             <table class="table table-hover" style="border: 1px solid #cfd8e7;">
@@ -86,7 +94,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </div> -->
 
 </div>
 

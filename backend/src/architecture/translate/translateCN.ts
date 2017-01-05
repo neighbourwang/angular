@@ -123,8 +123,6 @@ export const TranslateCN = {
         ENABLE_IMAGE_MSG: '您选择启用{{value_1}}, 请确认; 如果确认，用户将能够在订购中选择此镜像.',
         DISABLE_IMAGE_MSG: '您选择禁用{{value_1}}, 请确认; 如果确认, 用户将不能在订购中选择此镜像.',
 
-        UNSELECTED_ENTERPRISE: '未选择企业',
-        SELECTED_ENTERPRISE: '已选择企业',
         MOVE_IN: '移入',
         MOVE_OUT: '移出',
 
@@ -159,7 +157,11 @@ export const TranslateCN = {
         SYSTEM_PROMPT: '系统提示',
         PROMPT: '提示',
         UNSET: '未设置',
-        SAVE_SUCCESS: '保存成功！'
+        SAVE_SUCCESS: '保存成功！',
+
+        UNSELECTED_ENTERPRISE: '未选择企业',
+        SELECTED_ENTERPRISE: '已选择企业',
+        ENTERPRISE_FOR_SELECT:'可选企业',
 
     },
     
