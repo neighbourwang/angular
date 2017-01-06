@@ -160,9 +160,14 @@ export class cloudHostListComponent implements OnInit {
                 value: vm.uuid
             }
         ];
-		this.service.getConsoleUrl(pathParams).then(res => {
-			window.open(res)
-		})
+		this.service.getConsoleUrl(pathParams).then(res => {  
+			if(this.options.type === "os") {    //openstract直接打开
+				window.open(res)
+			}else if(this.options.type === "vw") {  //vmware 需要打开一个页面穿进去url
+				window.localStorage["vmwControlUrl"] = res;
+				window.open("/control.html");
+			}
+		});
 	}
 
 

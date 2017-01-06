@@ -330,7 +330,7 @@ export class EntEstCreService{
 				,"msg": "邮箱地址无效"
 			},"integer":{ 
 				"func": val=>!this.validation.isInteger(val)
-				,"msg": "不能为负数"
+				,"msg": "不正确"
 			}
 		}
 

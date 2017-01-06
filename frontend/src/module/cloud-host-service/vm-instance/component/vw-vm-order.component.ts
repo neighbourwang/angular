@@ -14,6 +14,7 @@ import { OrderOptions } from '../model/options.model';
 export class vwVmOrderComponent {
 
 	options : OrderOptions = {
-		title : "订购VMware云主机"
+		title : "订购VMware云主机",
+		type : "vw",
 	}
 }

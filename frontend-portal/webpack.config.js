@@ -52,5 +52,12 @@ module.exports = {
 		    chunksSortMode : 'none',
 		    hash: false
 		}),
+		new HtmlWebpackPlugin({
+		    filename: 'control.html',
+		    chunks: ['common'],
+		    template: 'src/control/index.ejs',
+		    chunksSortMode : 'none',
+		    hash: false
+		}),
 	]
 }
