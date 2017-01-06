@@ -53,6 +53,8 @@ export class VmwareMngIndexComponent implements OnInit {
     pageSize = 10;
     totalPage = 1;
 
+    EnableButton:number = 0;
+
     typeDictArray: Array<SystemDictionary> = [];
     nsxresDictArray: Array<SystemDictionary> = [];
     nsxverDictArray: Array<SystemDictionary> = [];
@@ -66,7 +68,7 @@ export class VmwareMngIndexComponent implements OnInit {
     defaultPlatform: PlatformModel = new PlatformModel();
     selectedRegion: RegionModel = this.defaultRegion;
     selectedDC: DCModel = this.defaultDC;
-    selectedPlatform: PlatformModel = this.defaultPlatform;
+    chosenPlatform: PlatformModel = this.defaultPlatform;
 
     queryOpt: PlatformModel = new PlatformModel();
     queryOpt2: PlatformModel = new PlatformModel();
@@ -137,20 +139,36 @@ export class VmwareMngIndexComponent implements OnInit {
             ) .catch((e) => this.onRejected(e));
     }
 
-    getNsxInfo(platformId:string): void {        
+    platformChanged(): void {
+        window.setTimeout(() => {
+            (this.chosenPlatform == this.defaultPlatform) ? this.EnableButton = 0 : this.EnableButton = 1;
+            this.queryOpt.platformId = this.chosenPlatform.platformId;
+            this.queryOpt.platformName = this.chosenPlatform.platformName;
+            this.queryOpt.platformUrl = this.chosenPlatform.platformUrl;
+            this.getNsxInfo();
+        }, 50); //window内的代码要延后50ms执行
+    }
+
+    getNsxInfo(): void {
+        console.log(this.queryOpt, "this.queryOpt");
+        if (this.queryOpt && !this.validationService.isBlank(this.queryOpt.platformId)) {        
         this.layoutService.show();
-        this.service.getNsxInfo(platformId)
+        this.service.getNsxInfo(this.queryOpt.platformId)
             .then(response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {                    
                     this.NsxInfo = response.resultContent;
                     console.log(this.NsxInfo, "this.NsxInfo");
                 } else {
+                    this.NsxInfo = null;
                     this.showMsg("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
                     return;
                 }
             }
             ) .catch((e) => this.onRejected(e));
+        } else {
+            this.NsxInfo = null;
+        }
     }
 
     getNetworkList(platformId:string): void {
@@ -440,8 +458,8 @@ export class VmwareMngIndexComponent implements OnInit {
         } else {
             selectedPlatform.regionName = this.selectedRegion.regionName;
             selectedPlatform.dcName = this.selectedDC.datacenterName;
-            selectedPlatform.platformName = this.selectedPlatform.platformName;
-            selectedPlatform.platformUrl = this.selectedPlatform.platformUrl;
+            selectedPlatform.platformName = this.chosenPlatform.platformName;
+            selectedPlatform.platformUrl = this.chosenPlatform.platformUrl;
             this.router.navigate([`net-mng/vm-mng/${this.queryOpt.platformId}`]);
         }
         } else {
@@ -464,8 +482,8 @@ export class VmwareMngIndexComponent implements OnInit {
         } else {
             selectedPlatform.regionName = this.selectedRegion.regionName;
             selectedPlatform.dcName = this.selectedDC.datacenterName;
-            selectedPlatform.platformName = this.selectedPlatform.platformName;
-            selectedPlatform.platformUrl = this.selectedPlatform.platformUrl;
+            selectedPlatform.platformName = this.chosenPlatform.platformName;
+            selectedPlatform.platformUrl = this.chosenPlatform.platformUrl;
             this.router.navigate([`net-mng/vm-mng-dbt/index/${this.queryOpt.platformId}`]);
         }
         } else {
@@ -488,8 +506,8 @@ export class VmwareMngIndexComponent implements OnInit {
         } else {
             selectedPlatform.regionName = this.selectedRegion.regionName;
             selectedPlatform.dcName = this.selectedDC.datacenterName;
-            selectedPlatform.platformName = this.selectedPlatform.platformName;
-            selectedPlatform.platformUrl = this.selectedPlatform.platformUrl;
+            selectedPlatform.platformName = this.chosenPlatform.platformName;
+            selectedPlatform.platformUrl = this.chosenPlatform.platformUrl;
             this.router.navigate([`net-mng/vm-mng-nsx/index/${this.queryOpt.platformId}`]);
         }
         } else {
