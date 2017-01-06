@@ -238,9 +238,6 @@ export class ClMngListComponent implements OnInit {
 
     // 获得云平台list
     backend(page: number, size: number) {
-        console.log('type',this.commonService.platformTypeDic)
-        console.log('status',this.commonService.globalStatus)
-        console.log('vmwareversion',this.commonService.openStackVersionDic)
         this.layoutService.show();
         this.tp = 0;
         this.service.getPlatforms(page, size).then(
