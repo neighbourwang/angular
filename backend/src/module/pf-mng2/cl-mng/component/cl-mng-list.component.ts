@@ -81,7 +81,7 @@ export class ClMngListComponent implements OnInit {
         // ).catch(
         //     err => {
         //         console.error(err);
-        //         this.notice.open('错误提示','获取云平台列表错误');
+        //         this.notice.open('PF_MNG2.ERROR_PROMPT','获取云平台列表错误');
         //     }
         // )
 
@@ -101,7 +101,7 @@ export class ClMngListComponent implements OnInit {
         //     ).catch(
         //     err => {
         //         console.error(err);
-        //         this.notice.open('错误提示', '获取云平台列表错误');
+        //         this.notice.open('PF_MNG2.ERROR_PROMPT', '获取云平台列表错误');
         //     }
         //     )
         this.backend(1, this.pp);
@@ -112,7 +112,7 @@ export class ClMngListComponent implements OnInit {
         console.log('remove');
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
-            this.notice.open('COMMON.OPERATION_ERROR', '请选择云平台');
+            this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
         } else {
             this.removeConfirm.open('删除云平台', '您选择删除 ' + platForm.name + '云平台,请确认；如果确认，此云平台的数据将不能恢复。')
         }
@@ -123,7 +123,7 @@ export class ClMngListComponent implements OnInit {
         console.log('enable');
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
-            this.notice.open('COMMON.OPERATION_ERROR', '请选择云平台');
+            this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
         } else {
             this.enableConfirm.open('启用云平台', '您选择启用 ' + platForm.name + '云平台,请确认；如果确认，用户将能够订购此云平台的资源。')
         }
@@ -134,7 +134,7 @@ export class ClMngListComponent implements OnInit {
         console.log('disable');
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
-            this.notice.open('COMMON.OPERATION_ERROR', '请选择云平台');
+            this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
         } else {
             this.disableConfirm.open('禁用云平台', '您选择禁用 ' + platForm.name + '云平台,请确认；如果确认，用户将不能够订购此云平台的资源。。')
         }
@@ -173,7 +173,7 @@ export class ClMngListComponent implements OnInit {
         ).catch(
             err => {
                 console.error('error');
-                this.notice.open('错误提示', '删除云平台异常，请稍后再试');
+                this.notice.open('PF_MNG2.ERROR_PROMPT', '删除云平台异常，请稍后再试');
             }
             );
 
@@ -194,7 +194,7 @@ export class ClMngListComponent implements OnInit {
         ).catch(
             err => {
                 console.error('error');
-                this.notice.open('错误提示', '启用云平台异常，请稍候再试');
+                this.notice.open('PF_MNG2.ERROR_PROMPT', '启用云平台异常，请稍候再试');
             }
             )
     }
@@ -211,7 +211,7 @@ export class ClMngListComponent implements OnInit {
             }
         ).catch(
             err => {
-                this.notice.open('错误提示', '禁用云平台异常，请稍候再试');
+                this.notice.open('PF_MNG2.ERROR_PROMPT', '禁用云平台异常，请稍候再试');
             }
             )
     }
@@ -331,7 +331,7 @@ export class ClMngListComponent implements OnInit {
          console.log('bootDisk');
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
-            this.notice.open('COMMON.OPERATION_ERROR', '请选择云平台');
+            this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
         } else {
             this.router.navigate(["pf-mng2/pf-mng-bootDisk", {id:platForm.id,type:platForm.platformType,name:platForm.name}]);
         }
@@ -342,7 +342,7 @@ export class ClMngListComponent implements OnInit {
          console.log('vmConfig');
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
-            this.notice.open('COMMON.OPERATION_ERROR', '请选择云平台');
+            this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
         } else if(platForm.platformType!="OpenStack"){
             this.notice.open('COMMON.OPERATION_ERROR','配置规格只适用openStack类型平台');
         }else {

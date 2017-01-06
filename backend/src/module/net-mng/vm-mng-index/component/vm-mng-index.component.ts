@@ -142,7 +142,7 @@ export class VmwareMngIndexComponent implements OnInit {
         this.service.getNsxInfo(platformId)
             .then(response => {
                 this.layoutService.hide();
-                if (response && 90041 == response["resultCode"]) {                    
+                if (response && 100 == response["resultCode"]) {                    
                     this.NsxInfo = response.resultContent;
                     console.log(this.NsxInfo, "this.NsxInfo");
                 } else {
@@ -193,7 +193,7 @@ export class VmwareMngIndexComponent implements OnInit {
             .then(
             response => {
                 this.layoutService.hide();
-                if (response && 90041 == response["resultCode"]) {
+                if (response && 100 == response["resultCode"]) {
                     this.NsxMngInfo = response.resultContent;
                     console.log(this.NsxMngInfo, "this.NsxMngInfo");
                     /*
