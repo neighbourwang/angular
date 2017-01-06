@@ -30,6 +30,7 @@
         "CLOUD_HOST_NAME": "云主机名称",
         "CLOUD_HRAD_DISK_NAME": "云硬盘名称",
         "CLOUD_PLATFORM": "云平台",
+        "COMMENT": "说明文字",
         "COMPLETED": "已完成",
         "CONFIGURATION": "配置",
         "CONFIRM": "确认",
@@ -573,6 +574,7 @@
     "PF_MNG2": {
         "ADDRESS_REQUIRED": "请输入地址",
         "BASIC_INFO": "基本信息",
+        "CREATE_PLATFORM": "创建平台",
         "CREATE_PLATFORM_ERROR": "创建云平台错误",
         "DATA_CENTER_REQUIRED": "请输入所属数据中心",
         "DELETE_PLATEFORM": "删除云平台",
@@ -593,6 +595,7 @@
         "PLATFORM_NAME_REQUIRED": "请输入云平台名称",
         "PLATFORM_TYPE_REQUIRED": "请选择云平台类型",
         "REGION_REQUIRED": "请选择所属地域",
+        "RESOURCE_SYNC": "资源同步",
         "SELECT_PLATFORM": "请选择云平台",
         "STOARGE_QUOTA": "存储区与配额",
         "SYNC_COMPUTING_SOURCE": "同步计算资源",
@@ -609,6 +612,7 @@
         "SYNC_ZONE_FAILED": "同步可用区失败",
         "USERNAME_REQUIRED": "请输入用户名",
         "VERSION_REQUIRED": "请选择版本",
-        "ZONES_QUOTA": "可用区与配额"
+        "ZONES_QUOTA": "可用区与配额",
+        "PLATFORM_REQUIRED":"请输入云平台名称"
     }
 }

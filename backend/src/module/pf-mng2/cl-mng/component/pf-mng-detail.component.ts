@@ -50,17 +50,17 @@ export class PfDetailComponent implements OnInit {
     @ViewChild('notice')
     notice: NoticeComponent;
 
-    @ViewChild('updateZone')
-    updateZone: PopupComponent;
+    @ViewChild('updateZonePop')
+    updateZonePop: PopupComponent;
 
-    @ViewChild('updateResource')
-    updateResource: PopupComponent;
+    @ViewChild('updateZoneResourcePop')
+    updateZoneResourcePop: PopupComponent;
 
-    @ViewChild('updateStorage')
-    updateStorage: PopupComponent;
+    @ViewChild('updateStoragePop')
+    updateStoragePop: PopupComponent;
 
-    @ViewChild('updateStorageList')
-    updateStorageList: PopupComponent;
+    @ViewChild('updateStoraeResourcePop')
+    updateStoraeResourcePop: PopupComponent;
 
 
     // 确认Box/通知Box的标题
@@ -165,7 +165,7 @@ export class PfDetailComponent implements OnInit {
             res => {
                 console.log(res);
                 this.platformVersion = res
-                // this.creStep1Model.version = this.platformVersion[0].value;
+                this.platform.platformType = this.platformVersion[0].value;
             }
         ).catch(
             err => {
@@ -186,7 +186,7 @@ export class PfDetailComponent implements OnInit {
                         ele.quotaPercentage ? ele.quotaPercentage : 0;
                     ele.quotaPercentDisplay = ele.quotaPercentage * 100;
                 })
-                console.log(res);
+                console.log('zoneList',res);
                 this.layoutService.hide();
             }
         ).catch(err => {
@@ -250,7 +250,7 @@ export class PfDetailComponent implements OnInit {
     }
 
     //更新可用区弹出框
-    updateZonePop() {
+    updateZone() {
         this.platformDetailService.getUpdateZoneList(this.platform.id).then(
             res => {
                 this.updateZoneList = res.resultContent;
@@ -263,7 +263,7 @@ export class PfDetailComponent implements OnInit {
                         }
                     })
                     console.log('同步', res);
-                    this.updateZone.open('PF_MNG2.SYNC_ZONES')
+                    this.updateZonePop.open('PF_MNG2.SYNC_ZONES')
                 }
             }
         ).catch(err => {
@@ -291,7 +291,7 @@ export class PfDetailComponent implements OnInit {
                 if (res.resultCode == 100) {
                     if (res.resultContent && res.resultContent.length > 0) {
                         this.countZoneResource = res.resultContent;
-                        this.updateResource.open('PF_MNG2.SYNC_COMPUTING_SOURCE');
+                        this.updateZoneResourcePop.open('PF_MNG2.SYNC_COMPUTING_SOURCE');
                     } else {
                         this.notice.open('oo', 'PF_MNG2.NO_SYNC_COMPUTING_SOURCE')
                     }
@@ -319,13 +319,14 @@ export class PfDetailComponent implements OnInit {
     //获取存储区列表
     storageList: Array<StorageModel> = new Array<StorageModel>();
     getStorageList(){
+        this.layoutService.show();
          this.storageListService.getStorage(this.platform.id).then(
             res => {
                 this.storageList = res.resultContent;
                 this.storageList.forEach(ele => {
-                    if (ele.quotaPercentage) {
-                        ele.quotaPercentDisplay = ele.quotaPercentage * 100;
-                    }
+                    ele.quota=
+                        ele.quota?ele.quota:0;
+                    ele.quotaPercentDisplay = ele.quota * 100;                    
                 })
                 //Openstack类型同步volumeType信息
                 // if (this.platformType == '0') {
@@ -337,15 +338,17 @@ export class PfDetailComponent implements OnInit {
                 //         console.error(err);
                 //     });
                 // }
-                console.log(this.storageList);
+                console.log('sorageList',this.storageList);
+                this.layoutService.hide();
             }
         ).catch(
             error => {
                 console.error('error');
+                this.layoutService.hide();
             }
             )
     }
-    //启用可用区
+    //启用存储区
     enableStorage(id: string) {
         console.log(id);
         this.layoutService.show();
@@ -384,13 +387,16 @@ export class PfDetailComponent implements OnInit {
         this.storageList.forEach(ele => {
             ele.quotaPercentage = ele.quotaPercentDisplay / 100
         })
-        // this.zoneListService.putZone(this.platform.id,this.zoneList).then(res => {
-        //     console.log(res);
-        //     this.getStorageList();
-        //     storage.isEdit = false;
-        // }).catch(err => {
-        //     console.error(err);
-        // })
+        this.layoutService.show();
+        this.storageListService.putStorage(this.platform.id,this.storageList).then(res => {
+            console.log(res);
+            this.getStorageList();
+            storage.isEdit = false;
+            this.layoutService.hide();
+        }).catch(err => {
+            console.error(err);
+            this.layoutService.hide();
+        })
     }
     cancelEditStorage(storage,idx) {
         console.log(this.tempStorageList[idx]);
@@ -400,25 +406,26 @@ export class PfDetailComponent implements OnInit {
     }
 
     //更新存储区弹出框
+    updateStorageList:Array<StorageModel>
     updateStorageListPop() {
-        // this.platformDetailService.getUpdateZoneList(this.platform.id).then(
-        //     res => {
-        //         this.updateZoneList = res.resultContent;
-        //         if (this.updateZoneList.length == 0) {
-        //             this.notice.open('oo', 'PF_MNG2.NO_SYNC_ZONES')
-        //         } else {
-        //             this.updateZoneList.forEach(ele => {
-        //                 if (ele.quotaPercentage) {
-        //                     ele.quotaPercentDisplay = ele.quotaPercentage * 100;
-        //                 }
-        //             })
-        //             console.log('同步', res);
-        //             this.updateZone.open('PF_MNG2.SYNC_ZONES')
-        //         }
-        //     }
-        // ).catch(err => {
-        //     console.error('获取更新可用区列表出错', err)
-        // })
+        this.platformDetailService.getUpdateStorageList(this.platform.id).then(
+            res => {
+                this.updateStorageList = res.resultContent;
+                if (this.updateStorageList.length == 0) {
+                    this.notice.open('oo', '暂时没有可同步可用区信息')
+                } else {
+                    this.updateStorageList.forEach(ele => {
+                        // if (ele.quotaPercentage) {
+                        //     ele.quotaPercentDisplay = ele.quotaPercentage * 100;
+                        // }
+                    })
+                    console.log('同步', res);
+                    this.updateStoragePop.open('同步可用区信息')
+                }
+            }
+        ).catch(err => {
+            console.error('获取更新可用区列表出错', err)
+        })
     }
     //同步存储区
     otUpdateStorageList() {
@@ -433,7 +440,7 @@ export class PfDetailComponent implements OnInit {
     }
     //同步存储后端get
     countStorageResource: Array<StorageModel>;
-    updateStoragePop(zoneId) {
+    updateStorage(zoneId) {
         console.log(zoneId);
         // this.platformDetailService.getUpdateZone(zoneId).then(
         //     res => {

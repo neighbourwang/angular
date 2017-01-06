@@ -185,7 +185,7 @@ export class CheckMngListComponent implements OnInit{
 
 		let param = {
 			approverStatus: '0'//'0';//approvalStatus代表未审批
-	        ,quickSearchStr: this._param.quickSearchStr//输入订单号快速查询 ？
+	        ,orderCode: this._param.quickSearchStr//输入订单号快速查询 ？
 			,organization :this._param.departmentIdNum //部门organization？
 			,orderType:this._param.orderTypeNum//订单类型orderType
 			,serviceType:this._param.serviceTypeNum//产品类型serviceId

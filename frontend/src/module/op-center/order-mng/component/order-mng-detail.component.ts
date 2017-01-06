@@ -15,6 +15,7 @@ export class OrderMngDetailComponent implements OnInit {
   @Input('orderDetail')
   private _orderDetail:OrderDetailItem;
 
+
   constructor(
     private layoutService: LayoutService,
     private router: Router,
@@ -28,5 +29,4 @@ export class OrderMngDetailComponent implements OnInit {
   ngOnInit() {
    console.log('_dictServ ngOnInit', this._dictServ);
   }
-
 }
