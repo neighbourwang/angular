@@ -6,7 +6,7 @@
 </div>
 <div class="mgt20" style="border-bottom:1px solid #ddd;padding-bottom:5px">
     <button type="button" class="btn btn-default grayTab noBorder" *ngFor="let item of Tabels;let idx = index" (click)="changeTab(item,idx)"
-        [ngClass]="{'btn-active': item.active}" style="margin-right:2px;">{{item.name}}</button>
+        [ngClass]="{'btn-active': item.active}" style="margin-right:2px;">{{item.name | translate}}</button>
 </div>
 <div *ngIf="Tabels[0].active">
     <div class="page-content fix-page-content">
