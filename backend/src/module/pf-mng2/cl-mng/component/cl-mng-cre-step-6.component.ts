@@ -89,7 +89,7 @@ export class ClMngCreStep6Component implements OnInit {
             }
             )
     }
-    // 启用云平台
+    // PF_MNG2.ENABLE_PLATFORM
     private activePlatform() {
         let id: String = this.idService.getPlatformId();
         this.layoutService.show();

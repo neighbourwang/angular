@@ -3,15 +3,18 @@
 import { PhyPoolModule } from './phy-pool/phy-pool.module';
 import { PhyCreatModule } from './phy-creat/phy-creat.module';
 
+//import { PhysicalMngModule } from './physical-mng/physical-mng.module';
 @NgModule({
     imports: [
         PhyPoolModule,
-        PhyCreatModule
+        PhyCreatModule,
+	//	PhysicalMngModule
     ],
     declarations: [],
     exports: [
         PhyPoolModule,
-        PhyCreatModule
+        PhyCreatModule,
+		//PhysicalMngModule
     ],
     providers: []
 })
