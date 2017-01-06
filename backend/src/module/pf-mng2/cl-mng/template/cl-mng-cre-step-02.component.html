@@ -84,6 +84,6 @@
     </button>
 </div>
 
-<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认"></fc-notice>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL"></fc-notice>
 
-<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>

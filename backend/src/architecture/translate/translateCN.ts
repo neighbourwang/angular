@@ -30,6 +30,7 @@
         "CLOUD_HOST_NAME": "云主机名称",
         "CLOUD_HRAD_DISK_NAME": "云硬盘名称",
         "CLOUD_PLATFORM": "云平台",
+        "COMMENT": "说明文字",
         "COMPLETED": "已完成",
         "CONFIGURATION": "配置",
         "CONFIRM": "确认",

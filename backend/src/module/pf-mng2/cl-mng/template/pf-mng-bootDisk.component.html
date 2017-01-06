@@ -129,8 +129,8 @@
         </table>
     </div>
 </div>
-<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="nof()"></fc-notice>
 
-<fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="deleteCof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-confirm #publishConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="publishCof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-confirm #ccPublishConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="ccPublishCof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="deleteCof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+<fc-confirm #publishConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="publishCof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+<fc-confirm #ccPublishConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="ccPublishCof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
