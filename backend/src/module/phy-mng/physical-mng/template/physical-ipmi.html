@@ -1,0 +1,59 @@
+<div class="page-content-header icon-content-header-physical-mng">
+    设置ILO访问信息   	  
+</div>
+<div class="page-content " style="height:550px">
+   <div class="row" style="margin-top:30px;">
+        <div class="col-md-12">
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>ILO IP地址:</div>
+                    <div class="col-md-4">
+                        <input  type="text" class="form-control" [(ngModel)]="ipmi.ILOIPAddr">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>ILO用户名:</div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" [(ngModel)]="ipmi.ILOUserName">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>ILO密码:</div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" [(ngModel)]="ipmi.ILOPwd">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>ILO确认密码:</div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <input class="form-control" type="password" [(ngModel)]="ipmi.ILOConfirmPwd">
+                            </div>
+                            <div class="col-md-3">
+                                <button class="fox-cloud-button-md fox-cloud-button-white mgr20" style="width:100%" onclick="testIpmi();">
+                                    <span class="icon-button-label">测试 </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>          
+        </div >
+    </div >    
+</div>
+<div class="text-center">
+        <button class="fox-cloud-button-lg fox-cloud-button-white" onclick="cancel();">
+            <span class="icon-button-label">取消</span>
+        </button>
+        <button class="fox-cloud-button-lg fox-cloud-button-white" onclick="saveIpmi();">
+            <span class="icon-button-label">保存</span>
+        </button>
+</div>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
