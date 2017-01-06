@@ -114,7 +114,7 @@ export class ClMngListComponent implements OnInit {
         if (!platForm) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
         } else {
-            this.removeConfirm.open('删除云平台', '您选择删除 ' + platForm.name + '云平台,请确认；如果确认，此云平台的数据将不能恢复。')
+            this.removeConfirm.open('PF_MNG2.DELETE_PLATEFORM', '您选择删除 ' + platForm.name + '云平台,请确认；如果确认，此云平台的数据将不能恢复。')
         }
     }
 
