@@ -5,28 +5,28 @@
 
     <div class="mgb20" style="margin-top:10px">
         <div class="pull-left mgr20">
-            <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedDC=defaultDC;selectedPlatform=defaultPlatform; EnableButton=0; NsxInfo=null; queryOpt.platformId = ''; queryOpt.platformName = ''; queryOpt.platformUrl = '';"> 
+            <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedDC=defaultDC;chosenPlatform=defaultPlatform; EnableButton=0; NsxInfo=null; queryOpt.platformId = ''; queryOpt.platformName = ''; queryOpt.platformUrl = '';">
                 <option [ngValue]="defaultRegion">{{'NET_MNG_VM_IP_MNG.SELECT_LOCATION' | translate}}</option>
                 <option *ngFor="let region of regionList" [ngValue]="region">{{region.regionName}}</option>
             </select>
         </div>        
         <div class="pull-left  mgr20">
-            <select class="form-control" [(ngModel)]="selectedDC" (change)="selectedPlatform=defaultPlatform; EnableButton=0; NsxInfo=null; queryOpt.platformId = ''; queryOpt.platformName = ''; queryOpt.platformUrl = '';"> 
+            <select class="form-control" [(ngModel)]="selectedDC" (change)="chosenPlatform=defaultPlatform; EnableButton=0; NsxInfo=null; queryOpt.platformId = ''; queryOpt.platformName = ''; queryOpt.platformUrl = '';">
                 <option [ngValue]="defaultDC">{{'NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_DATACENTER' | translate}}</option>
                 <option *ngFor="let dc of selectedRegion.dcList" [ngValue]="dc">{{dc.datacenterName}}</option>
             </select>
         </div>
         
         <div class="pull-left mgr20">
-            <!-- <select class="form-control" [(ngModel)]="selectedPlatform" (click)="(selectedPlatform==defaultPlatform)?EnableButton=0:EnableButton=1;" (change)="queryOpt.platformId = ''; queryOpt.platformName = ''; queryOpt.platformUrl = ''; networkList = []; NsxInfo = null;"> -->
-            <select class="form-control" [(ngModel)]="selectedPlatform" (click)="(selectedPlatform==defaultPlatform)?EnableButton=0:EnableButton=1; queryOpt.platformId = selectedPlatform.platformId; queryOpt.platformName = selectedPlatform.platformName; queryOpt.platformUrl = selectedPlatform.platformUrl;" (change)="getNsxInfo();">
+            <!-- <select class="form-control" [(ngModel)]="chosenPlatform" (change)="(chosenPlatform==defaultPlatform)?EnableButton=0:EnableButton=1; queryOpt.platformId = chosenPlatform.platformId; queryOpt.platformName = chosenPlatform.platformName; queryOpt.platformUrl = chosenPlatform.platformUrl; getNsxInfo(chosenPlatform.platformId);"  #platform> -->
+            <select class="form-control" [(ngModel)]="chosenPlatform" (change)="platformChanged();">
                 <option [ngValue]="defaultPlatform">{{'NET_MNG_VM_IP_MNG.PLATFORM_URL' | translate}}</option>
                 <option *ngFor="let pf of selectedDC.platformList" [ngValue]="pf">{{pf.platformName}}</option>
             </select>
         </div>
         
         <div class="pull-left  mgr20 ">
-            <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" [disabled]="!EnableButton" (click)="queryOpt2.platformId = queryOpt.platformId; queryOpt2.platformName = queryOpt.platformName; queryOpt2.platformUrl = queryOpt.platformUrl; networkList = []; showNetAndNxsInfo();"> {{'NET_MNG_VM_IP_MNG.ENSURE' | translate}}</button>
+            <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" [disabled]="!EnableButton" (click)="queryOpt2.platformId = chosenPlatform.platformId; queryOpt2.platformName = chosenPlatform.platformName; queryOpt2.platformUrl = chosenPlatform.platformUrl; networkList = []; showNetAndNxsInfo();"> {{'NET_MNG_VM_IP_MNG.ENSURE' | translate}}</button>
         </div>
     </div>
 
@@ -71,15 +71,14 @@
         </table>
     </div>
     <div style="height:200px"></div>
-    
+<!--    
+    chosenPlatform: {{chosenPlatform.toString()}}
+    <br />
     queryOpt: {{queryOpt.toString()}}
     <br />
     queryOpt2: {{queryOpt2.toString()}}
-    <!-- -->
+ -->
 </div>
-
-<!-- <td>{{net.networkType | dict:this.service.typeDict | async}}</td> -->
-
 
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" (of)="okClicked()"></fc-notice>
 <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" (of)="onConfirmed()"></fc-confirm>
@@ -150,10 +149,10 @@
 			<div class="row row-line-height">
 				<div class="form-group" [style.color] = "VmNetStatus.checkResult=='2' ? 'grey': 'black'">
                     <label class="pointer">
-                    <input type="radio" class="fox-cloud-radio" name="radio" [attr.disabled]="VmNetStatus.checkResult=='2'" (click)="VmNetStatus.vmNetStatus='1'"> {{'NET_MNG_VM_IP_MNG.NSX_NET' | translate}}
+                    <input type="radio" class="fox-cloud-radio" name="radio" [disabled]="VmNetStatus.checkResult=='2'" (click)="VmNetStatus.vmNetStatus='1'"> {{'NET_MNG_VM_IP_MNG.NSX_NET' | translate}}
                     </label>
                     <!-- <input type="radio" class="fox-cloud-radio" name="radio" [class.hidden]="VmNetStatus.checkResult=='2'" [ngClass]="{'disabled':VmNetStatus.checkResult=='2'}" (change)="VmNetStatus.vmNetStatus='1'"> {{'NET_MNG_VM_IP_MNG.NSX_NET' | translate}} -->
-                    <!-- <input type="radio" class="fox-cloud-radio" name="radio" [ng]="{'disabled':VmNetStatus.checkResult=='2'}" (change)="VmNetStatus.vmNetStatus='1'"> {{'NET_MNG_VM_IP_MNG.NSX_NET' | translate}}  -->
+                    <!-- <input type="radio" class="fox-cloud-radio" name="radio" [attr.disabled]="VmNetStatus.checkResult=='2'" [ng]="{'disabled':VmNetStatus.checkResult=='2'}" (change)="VmNetStatus.vmNetStatus='1'"> {{'NET_MNG_VM_IP_MNG.NSX_NET' | translate}}  -->
 				</div>
 			</div>
 			<div class="row row-line-height">

@@ -193,9 +193,9 @@
             <div style="margin:0 anto" class="text-left">
                 <span class="glyphicon glyphicon-edit font-green" (click)="statusChange(organ,'edit')" style="margin-right : 10px ; cursor:pointer"></span><!-- 编辑 -->
             <!--<span class="glyphicon glyphicon-lock font-green" style="margin-right : 10px"></span>-->
-            <span  *ngIf="!(organ.isDefault||organ.isDefault)" class="glyphicon glyphicon-ok-circle font-green" (click)="statusChange(organ,'start')" style="margin-right : 10px; cursor:pointer"></span> <!-- 启用 -->
-            <span   *ngIf="!(organ.isDefault||organ.isDefault)" class="glyphicon glyphicon-ban-circle font-orange" (click)="statusChange(organ,'disabled')" style="margin-right : 10px; cursor:pointer"></span> <!-- 禁用 -->
-            <span *ngIf="(organ.headCount!=0&&organ.status=='3')||organ.status=='0'||!(organ.isDefault||organ.isDefault)" class="glyphicon glyphicon-trash font-orange" (click)="statusChange(organ,'delete')" style="cursor:pointer"></span> <!-- 删除 -->
+            <span  *ngIf="!organ.isDefault" class="glyphicon glyphicon-ok-circle font-green" (click)="statusChange(organ,'start')" style="margin-right : 10px; cursor:pointer"></span> <!-- 启用 -->
+            <span   *ngIf="!organ.isDefault" class="glyphicon glyphicon-ban-circle font-orange" (click)="statusChange(organ,'disabled')" style="margin-right : 10px; cursor:pointer"></span> <!-- 禁用 -->
+            <span *ngIf="((organ.headCount==0&&organ.status=='3')||organ.status=='0')&&!organ.isDefault" class="glyphicon glyphicon-trash font-orange" (click)="statusChange(organ,'delete')" style="cursor:pointer"></span> <!-- 删除 -->
             </div>            
         </td>
 	</tr>
