@@ -7,7 +7,7 @@ import { PhysicalEditService } from "../service/physical-edit.service";
 
 import { PhysicalModel } from "../model/physical.model";
 import { ServerType } from "../model/serverType.model";
-import { Brand } from "../model/brand.model";
+import { Brand, Model } from "../model/brand.model";
 
 @Component({
     selector: "physical-edit",
@@ -27,88 +27,92 @@ export class PhysicalEditComponent implements OnInit {
 
     noticeTitle = "";
     noticeMsg = "";
-   
+
     @ViewChild("notice")
     notice: NoticeComponent;
 
-    physical: PhysicalModel;
-    edit = false;
-    check = false;
-    create=false;
-    read=false;
-    type: string;
-    pmId:string;
-    title: string;
-    serverTypes:ServerType;
-    brands:Brand;
-   
+    physical: PhysicalModel = new PhysicalModel(); //物理机实力
+    eidtMode: string = "create"; //页面显示状态 create / eidt / view
+    read = false;
+    title: string; //编辑或添加的title
+    serverTypes: ServerType[]; // 服务器类型列表
+    brands: Brand[]; //品牌列表
+    defaultBrand = new Brand(); //空品牌
+    selectedBrand: Brand = this.defaultBrand;
+    poolId:string;
     ngOnInit() {
-        
         this.activeRoute.params.forEach((params: Params) => {
             const id = params["id"];
-            this.pmId=id;
-            this.type = params["type"];
-            console.log(this.type);
-            switch (this.type) {
+            this.physical.id = id;
+            this.eidtMode = params["type"]||"create";
+            this.poolId = params["poolId"];
+            if (!this.poolId) {
+                alert("缺少参数");
+                return;
+            }
+            console.log(this.eidtMode);
+            switch (this.eidtMode) {
                 case "edit":
                     this.title = "编辑物理机";
-                    this.edit = true;
                     break;
-                case "check":
+                case "view":
                     this.title = "查看物理机";
-                    this.check = true;
-                    break;  
+                    break;
                 case "create":
                     this.title = "添加物理机";
-                    this.create = true;
-                    break;             
+                    break;
             }
-             if (id) {
-             this.getPhysicalById(id);
-             }
-        });
-        this.getServerInfo();
-    }
-    
-    //获取物理机信息
-   getPhysicalById(id:string):void{
-       this.layoutService.show();
-       this.service.getPhysical(id)
-       .then(
-           response=>{
-               this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
-                    this.layoutService.hide();
-                    this.physical = response["resultContent"];
-                } else {
-                    alert("Res sync error");
-                }
-       }
-       )
-   }
 
-   //获取物理机服务器的品牌、型号、类型
-   getServerInfo(){
+        });
+        this.getServerInfo()
+            .then(() => {
+                if (this.physical.id) {
+                    this.getPhysicalById(this.physical.id);
+                }
+            });
+    }
+
+    //获取物理机信息
+    getPhysicalById(id: string): void {
         this.layoutService.show();
-        this.service.getServer()
-       .then(
-           response=>{
-               this.layoutService.hide();
+        this.service.getPhysical(id)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                        var physical: PhysicalModel = response["resultContent"];
+                        this.selectedBrand = this.brands.find((brand) => { return brand.id == physical.brandId });
+                        this.physical = physical;
+                    } else {
+                        alert("Res sync error");
+                    }
+                }
+            );
+    }
+
+    //获取物理机服务器的品牌、型号、类型
+    getServerInfo(): Promise<any> {
+        this.layoutService.show();
+        return this.service.getServer()
+            .then(
+            response => {
+                this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
                     this.serverTypes = response["resultContent"].serverTypeList;
-                    this.brands =response["resultContent"].brandList;
+                    this.brands = response["resultContent"].brandList;
                 } else {
                     alert("Res sync error");
                 }
-       }
-       )
-   }
+            }
+            );
+    }
 
-   //编辑物理机
-    editPhysical() {       
+    //编辑物理机
+    editPhysical() {
         this.layoutService.show();
-        this.service.editPhysical(this.physical,this.pmId)
+        this.service.editPhysical(this.physical, this.physical.id)
             .then(
             response => {
                 this.layoutService.hide();
@@ -125,8 +129,9 @@ export class PhysicalEditComponent implements OnInit {
     }
 
     //添加物理机
-    createPhysical(){
-         if (!this.physical.pmName) {
+    createPhysical() {
+
+        if (!this.physical.pmName) {
             this.showAlert("请填写物理机名称！");
             return false;
         }
@@ -144,57 +149,59 @@ export class PhysicalEditComponent implements OnInit {
             this.showAlert("请填写密码！");
             return false;
         }
-        if (!this.physical.serverType) {
+        if (!this.physical.serverTypeId) {
             this.showAlert("请选择服务器类型！");
             return false;
         }
-        if (!this.physical.brand) {
+        this.physical.brandId = this.selectedBrand.id;
+
+        if (!this.physical.brandId) {
             this.showAlert("请选择服务器品牌！");
             return false;
         }
-        if (!this.physical.model) {
+        if (!this.physical.modelId) {
             this.showAlert("请选择服务器型号！");
             return false;
         }
         this.layoutService.show();
         this.service.createPhysical(this.physical)
-        .then(
-        response => {
-            this.layoutService.hide();
-            if (response && 100 == response["resultCode"]) {
+            .then(
+            response => {
                 this.layoutService.hide();
-                this.showAlert("添加物理机成功");
-                this.gotoList();
-            } else {
-                alert("Res sync error");
+                if (response && 100 == response["resultCode"]) {
+                    this.layoutService.hide();
+                    this.showAlert("添加物理机成功");
+                    this.gotoList();
+                } else {
+                    alert("Res sync error");
+                }
             }
-        }
-        )
-        .catch((e) => this.onRejected(e));
+            )
+            .catch((e) => this.onRejected(e));
     }
 
     //读取物理机信息
-    readHardwareInfo(){
-        this.read=true;
+    readHardwareInfo() {
+        this.read = true;
         this.layoutService.show();
         this.service.getPhysicalHardwareInfo(this.physical)
-         .then(
-             response=>{
+            .then(
+            response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                this.layoutService.hide();
-            } else {
-                alert("Res sync error");
+                    this.layoutService.hide();
+                } else {
+                    alert("Res sync error");
+                }
             }
-             }
-         )       
+            )
     }
 
     cancel() {
         this.gotoList();
     }
 
-    gotoList(){       
+    gotoList() {
         this.route.navigate(["physical-mng/physical-mng"]);
 
     }
@@ -217,5 +224,5 @@ export class PhysicalEditComponent implements OnInit {
         this.showAlert("获取数据失败！");
     }
 
-    
+
 }

@@ -21,10 +21,8 @@ import { PhysicalListService} from "./service/physical-list.service";
 @NgModule({
     imports: [
         CommonComponentModule,
-        PhysicalEditComponent,
-        PhysicalListComponent,
-        PhysicalIpmiComponent,
-        PipeModule
+        PipeModule,
+        PhysicalMngRouting
     ],
     declarations: [
         PhysicalEditComponent,
