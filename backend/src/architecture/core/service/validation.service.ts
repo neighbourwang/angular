@@ -9,7 +9,9 @@ export class ValidationService {
     //非负整数
     isInteger(val: string):boolean{
        const reg =/^\d+$/;
-       return reg.test(val);
+       if(!this.isBlank(val))
+           return reg.test(val);
+       return false;
     }
 
     // 邮件地址验证
