@@ -214,21 +214,12 @@ export class VmwareMngIndexComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {
                     this.NsxMngInfo = response.resultContent;
                     console.log(this.NsxMngInfo, "this.NsxMngInfo");
-                    /*
-                    this.changedNsxMngInfo.nsxVer = '';
-                    this.changedNsxMngInfo.nsxAddress = '';
-                    this.changedNsxMngInfo.userName = '';
-                    this.changedNsxMngInfo.adminPassword = '';
-                    this.changedNsxMngInfo.platformId = '';
-                    */
-                    //*这里只是为了调试workarround
                     this.changedNsxMngInfo.nsxVer = this.NsxMngInfo.nsxVer;
                     this.changedNsxMngInfo.nsxAddress = this.NsxMngInfo.nsxAddress;
                     this.changedNsxMngInfo.userName = this.NsxMngInfo.userName;
                     this.changedNsxMngInfo.adminPassword = this.NsxMngInfo.adminPassword;
                     this.changedNsxMngInfo.platformId = this.NsxMngInfo.platformId;
                     console.log(this.changedNsxMngInfo, "this.changedNsxMngInfo");
-                    //*/
                     this.setnsxmnginfo.open();
                 } else {
                     this.showMsg("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
@@ -374,6 +365,7 @@ export class VmwareMngIndexComponent implements OnInit {
                     response => {
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
+                            console.log(response.resultContent, "response.resultContent");
                             this.VmNetStatus.checkResult = response.resultContent.checkResult;
                             console.log(this.VmNetStatus, "this.VmNetStatus before");
                             this.changedNet.dcName = this.selectedNet.dcName;
