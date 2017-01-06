@@ -10,6 +10,7 @@ const commonModel = [
 const pageModel = [
 		"page-portal",
 		"page-login",
+		"page-control",
 		"page-products",
 	];   //定义page的组建
 

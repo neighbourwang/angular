@@ -14,6 +14,7 @@ module.exports = {
 	BUYNOW: "立即购买",
 	PRODUCTPRICE: "产品价格",
 	LOGINOUT: "退出",
+	SEND: "发送",
 	//header
 	HEADER_T1 : "产品与服务",
 	HEADER_T1_1 : "云主机服务",
@@ -117,6 +118,9 @@ module.exports = {
 	PRODUCT_EVS_TABLE_P8: "规格固定，新增规格需要重新采购或升级。",
 	PRODUCT_EVS_TABLE_P9: "简单易用，对操作者技术水平要求低。",
 	PRODUCT_EVS_TABLE_P10: "需具备LUN、启动器、映射等存储专业知识，操作繁杂。",
+
+	CONTROL_TITLE: "云主机控制台",
+	FULL_SCREEN: "全屏",
 
 
 }
