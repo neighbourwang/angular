@@ -70,9 +70,9 @@ export class PfDetailComponent implements OnInit {
     // 云平台状态
     platFormStatus: Array<any> = new Array<any>();
     Tabels = [
-        { name: '基本信息', active: true },
-        { name: '可用区与配额', active: false },
-        { name: '存储区与配额', active: false }
+        { name: 'PF_MNG2.BASIC_INFO', active: true },
+        { name: 'PF_MNG2.ZONES_QUOTA', active: false },
+        { name: 'PF_MNG2.STOARGE_QUOTA', active: false }
     ]
     platformName: string;
     platformType: string;
@@ -263,7 +263,7 @@ export class PfDetailComponent implements OnInit {
                         }
                     })
                     console.log('同步', res);
-                    this.updateZone.open('同步可用区信息')
+                    this.updateZone.open('PF_MNG2.SYNC_ZONES')
                 }
             }
         ).catch(err => {
@@ -413,7 +413,7 @@ export class PfDetailComponent implements OnInit {
         //                 }
         //             })
         //             console.log('同步', res);
-        //             this.updateZone.open('同步可用区信息')
+        //             this.updateZone.open('PF_MNG2.SYNC_ZONES')
         //         }
         //     }
         // ).catch(err => {

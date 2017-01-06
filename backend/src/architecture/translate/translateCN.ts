@@ -572,6 +572,7 @@
     },
     "PF_MNG2": {
         "ADDRESS_REQUIRED": "请输入地址",
+        "BASIC_INFO": "基本信息",
         "CREATE_PLATFORM_ERROR": "创建云平台错误",
         "DATA_CENTER_REQUIRED": "请输入所属数据中心",
         "DELETE_PLATEFORM": "删除云平台",
@@ -593,6 +594,7 @@
         "PLATFORM_TYPE_REQUIRED": "请选择云平台类型",
         "REGION_REQUIRED": "请选择所属地域",
         "SELECT_PLATFORM": "请选择云平台",
+        "STOARGE_QUOTA": "存储区与配额",
         "SYNC_COMPUTING_SOURCE": "同步计算资源",
         "SYNC_HOST_FAILED": "同步宿主机失败",
         "SYNC_IMG_COMP_SYNC_HOST": "同步镜像成功，正在同步宿主机",
@@ -602,9 +604,11 @@
         "SYNC_STORAGE_COMP_SYNC_SPEC": "同步存储区成功，正在同步云主机规格",
         "SYNC_STORAGE_FAILED": "同步存储失败",
         "SYNC_ZONE": "正在同步可用区",
+        "SYNC_ZONES": "同步可用区信息",
         "SYNC_ZONE_COMP_SYNC_STORAGE": "同步可用区成功，正在同步存储区",
         "SYNC_ZONE_FAILED": "同步可用区失败",
         "USERNAME_REQUIRED": "请输入用户名",
-        "VERSION_REQUIRED": "请选择版本"
+        "VERSION_REQUIRED": "请选择版本",
+        "ZONES_QUOTA": "可用区与配额"
     }
 }
