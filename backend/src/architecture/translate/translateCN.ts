@@ -612,6 +612,7 @@
         "SYNC_ZONE_FAILED": "同步可用区失败",
         "USERNAME_REQUIRED": "请输入用户名",
         "VERSION_REQUIRED": "请选择版本",
-        "ZONES_QUOTA": "可用区与配额"
+        "ZONES_QUOTA": "可用区与配额",
+        "PLATFORM_REQUIRED":"请输入云平台名称"
     }
 }

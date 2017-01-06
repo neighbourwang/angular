@@ -1,8 +1,8 @@
-<div class="page-content-header icon-content-header-platform-manage">{{PF_MNG2.CREATE_PLATFORM | translate}}<!--创建平台--></div>
+<div class="page-content-header icon-content-header-platform-manage">{{"PF_MNG2.CREATE_PLATFORM" | translate}}<!--创建平台--></div>
 <div class="page-content fix-page-content">
     <div class="row navigator-progress">
-        <div class="col-md-2 active"><span class="mark">1</span><span>{{PF_MNG2.BASIC_INFO | translate}}<!--基本信息--></span></div>
-        <div class="col-md-2"><span class="mark">2</span><span>{{PF_MNG2.RESOURCE_SYNC | translate}}<!--资源同步--></span></div>
+        <div class="col-md-2 active"><span class="mark">1</span><span>{{"PF_MNG2.BASIC_INFO" | translate}}<!--基本信息--></span></div>
+        <div class="col-md-2"><span class="mark">2</span><span>{{"PF_MNG2.RESOURCE_SYNC" | translate}}<!--资源同步--></span></div>
         <div class="col-md-2"><span class="mark">3</span><span>可用区配置</span></div>
         <div class="col-md-2"><span class="mark">4</span><span>存储区配置</span></div>
         <div class="col-md-2"><span class="mark">5</span><span>云主机规格</span></div>
@@ -26,7 +26,7 @@
                         云平台名称：
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.name"  placeholder="{{PF_MNG2.PLATFORM_REQUIRED|translate}}">
+                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.name"  placeholder="{{'PF_MNG2.PLATFORM_REQUIRED'|translate}}">
                     </div>
                 </div>
             </div>          
@@ -53,7 +53,7 @@
                         所属数据中心：
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.dataCenter"  placeholder="{{PF_MNG2.DATA_CENTER_REQUIRED | translate}}">
+                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.dataCenter"  placeholder="{{'PF_MNG2.DATA_CENTER_REQUIRED' | translate}}">
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                         地址：
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.uri"  placeholder="{{PF_MNG2.ADDRESS_REQUIRED | translate}}">
+                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.uri"  placeholder="{{'PF_MNG2.ADDRESS_REQUIRED' | translate}}">
                     </div>
                 </div>
             </div>
@@ -113,7 +113,7 @@
                         用户名：
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.userName" placeholder="{{PF_MNG2.USERNAME_REQUIRED | translate}}">
+                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.userName" placeholder="{{'PF_MNG2.USERNAME_REQUIRED' | translate}}">
                     </div>
                 </div>
             </div>
@@ -126,7 +126,7 @@
                         密码：
                     </div>
                     <div class="col-sm-4">
-                        <input type="password" class="form-control" [(ngModel)]="creStep1Model.passwd" placeholder="{{PF_MNG2.PASSWORD_REQUIRED | translate}}">
+                        <input type="password" class="form-control" [(ngModel)]="creStep1Model.passwd" placeholder="{{'PF_MNG2.PASSWORD_REQUIRED' | translate}}">
                     </div>
                 </div>
             </div>
