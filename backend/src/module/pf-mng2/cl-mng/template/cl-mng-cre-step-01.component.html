@@ -26,7 +26,7 @@
                         云平台名称：
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.name"  placeholder="请输入云平台名称">
+                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.name"  placeholder="{{PF_MNG2.PLATFORM_REQUIRED|translate}}">
                     </div>
                 </div>
             </div>          
@@ -53,7 +53,7 @@
                         所属数据中心：
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.dataCenter"  placeholder="请输入所属数据中心">
+                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.dataCenter"  placeholder="{{PF_MNG2.DATA_CENTER_REQUIRED | translate}}">
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                         地址：
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.uri"  placeholder="请输入地址">
+                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.uri"  placeholder="{{PF_MNG2.ADDRESS_REQUIRED | translate}}">
                     </div>
                 </div>
             </div>
@@ -113,7 +113,7 @@
                         用户名：
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.userName" placeholder="请输入用户名">
+                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.userName" placeholder="{{PF_MNG2.USERNAME_REQUIRED | translate}}">
                     </div>
                 </div>
             </div>
@@ -126,7 +126,7 @@
                         密码：
                     </div>
                     <div class="col-sm-4">
-                        <input type="password" class="form-control" [(ngModel)]="creStep1Model.passwd" placeholder="请输入密码">
+                        <input type="password" class="form-control" [(ngModel)]="creStep1Model.passwd" placeholder="{{PF_MNG2.PASSWORD_REQUIRED | translate}}">
                     </div>
                 </div>
             </div>
@@ -145,10 +145,10 @@
     </button>
 </div>
 
-<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认"></fc-notice>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL"></fc-notice>
 
-<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-popup #regionSelect title="{{title}}" ot="创建" (of)="otcreate()" ct="取消" (cf)="ccf()">
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+<fc-popup #regionSelect title="{{title}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()">
 	<div class="row row-line-height">
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>Region名称：</div>

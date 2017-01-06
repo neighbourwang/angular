@@ -6,7 +6,7 @@
 </div>
 <div class="mgt20" style="border-bottom:1px solid #ddd;padding-bottom:5px">
     <button type="button" class="btn btn-default grayTab noBorder" *ngFor="let item of Tabels;let idx = index" (click)="changeTab(item,idx)"
-        [ngClass]="{'btn-active': item.active}" style="margin-right:2px;">{{item.name}}</button>
+        [ngClass]="{'btn-active': item.active}" style="margin-right:2px;">{{item.name | translate}}</button>
 </div>
 <div *ngIf="Tabels[0].active">
     <div class="page-content fix-page-content">
@@ -18,7 +18,7 @@
                             <span class="asterisk">*</span> 云平台名称：
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" [(ngModel)]="platform.name" placeholder="请输入云平台名称">
+                            <input type="text" class="form-control" [(ngModel)]="platform.name" placeholder="{{PF_MNG2.PLATFORM_REQUIRED|translate}}">
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                             <span class="asterisk">*</span> 所属数据中心：
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" [(ngModel)]="platform.dataCenter" placeholder="请输入所属数据中心">
+                            <input type="text" class="form-control" [(ngModel)]="platform.dataCenter" placeholder="{{PF_MNG2.DATA_CENTER_REQUIRED | translate}}">
                         </div>
                     </div>
                 </div>            
@@ -67,7 +67,7 @@
                             <span class="asterisk">*</span> 地址：
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" disabled class="form-control" [(ngModel)]="platform.uri" placeholder="请输入地址">
+                            <input type="text" class="form-control" disabled [(ngModel)]="platform.uri" placeholder="{{PF_MNG2.ADDRESS_REQUIRED | translate}}">
                         </div>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
                             <span class="asterisk">*</span> 用户名：
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" disabled [(ngModel)]="platform.username" placeholder="请输入用户名">
+                            <input type="text" class="form-control" disabled [(ngModel)]="platform.username" placeholder="{{PF_MNG2.USERNAME_REQUIRED | translate}}">
                         </div>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
                             <span class="asterisk">*</span> 密码：
                         </div>
                         <div class="col-sm-4">
-                            <input type="password" class="form-control" disabled [(ngModel)]="platform.password" placeholder="请输入密码">
+                            <input type="password" class="form-control" disabled [(ngModel)]="platform.password" placeholder="{{PF_MNG2.PASSWORD_REQUIRED | translate}}">
                         </div>
                     </div>
                 </div>
@@ -360,10 +360,10 @@
     </div>
 </div>
 
-<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认"></fc-notice>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL"></fc-notice>
 
-<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-popup #updateZonePop title="{{title}}" ot="添加" (of)="otUpdateZone()" ct="取消" (cf)="ccf()">
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+<fc-popup #updateZonePop title="{{title}}" ot="NET_MNG_OPENSTACK.ADD" (of)="otUpdateZone()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()">
 	<div class="row row-line-height">
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>同步可用区：</div>
@@ -373,7 +373,7 @@
 		</div>
 	</div>
 </fc-popup>
-<fc-popup #updateZoneResourcePop title="{{title}}" ot="更新" (of)="otUpdateResource()" ct="取消" (cf)="ccf()">
+<fc-popup #updateZoneResourcePop title="{{title}}" ot="NET_MNG_OPENSTACK.UPDATE" (of)="otUpdateResource()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()">
 	<div class="row row-line-height">
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>同步计算资源：</div>
@@ -383,7 +383,8 @@
 		</div>
 	</div>
 </fc-popup>
-<fc-popup #updateStoragePop title="{{title}}" ot="添加" (of)="otUpdateStorageList()" ct="取消" (cf)="ccf()">
+
+<fc-popup ##updateStoragePop title="{{title}}" ot="NET_MNG_OPENSTACK.ADD" (of)="otUpdateStorageList()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()">
 	<div class="row row-line-height">
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>同步存储后端：</div>
@@ -393,7 +394,8 @@
 		</div>
 	</div>
 </fc-popup>
-<fc-popup #updateStorageResourcePop title="{{title}}" ot="更新" (of)="otUpdateStorage()" ct="取消" (cf)="ccf()">
+
+<fc-popup #updateStorageResourcePop title="{{title}}" ot="NET_MNG_OPENSTACK.UPDATE" (of)="otUpdateStorage()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()">
 	<div class="row row-line-height">
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>同步计算资源：</div>
