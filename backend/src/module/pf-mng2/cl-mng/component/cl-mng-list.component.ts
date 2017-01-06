@@ -125,7 +125,7 @@ export class ClMngListComponent implements OnInit {
         if (!platForm) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
         } else {
-            this.enableConfirm.open('启用云平台', '您选择启用 ' + platForm.name + '云平台,请确认；如果确认，用户将能够订购此云平台的资源。')
+            this.enableConfirm.open('PF_MNG2.ENABLE_PLATFORM', '您选择启用 ' + platForm.name + '云平台,请确认；如果确认，用户将能够订购此云平台的资源。')
         }
     }
 
@@ -136,7 +136,7 @@ export class ClMngListComponent implements OnInit {
         if (!platForm) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
         } else {
-            this.disableConfirm.open('禁用云平台', '您选择禁用 ' + platForm.name + '云平台,请确认；如果确认，用户将不能够订购此云平台的资源。。')
+            this.disableConfirm.open('PF_MNG2.DISABLE_PLATFORM', '您选择禁用 ' + platForm.name + '云平台,请确认；如果确认，用户将不能够订购此云平台的资源。。')
         }
     }
 
@@ -173,7 +173,7 @@ export class ClMngListComponent implements OnInit {
         ).catch(
             err => {
                 console.error('error');
-                this.notice.open('PF_MNG2.ERROR_PROMPT', '删除云平台异常，请稍后再试');
+                this.notice.open('PF_MNG2.ERROR_PROMPT', 'PF_MNG2.DLETE_PLATFORM_EXCEPTION_TRY_AGAIN');
             }
             );
 
@@ -194,7 +194,7 @@ export class ClMngListComponent implements OnInit {
         ).catch(
             err => {
                 console.error('error');
-                this.notice.open('PF_MNG2.ERROR_PROMPT', '启用云平台异常，请稍候再试');
+                this.notice.open('PF_MNG2.ERROR_PROMPT', 'PF_MNG2.ENABLE_PLATFORM_EXCEPTION_TRY_AGAIN');
             }
             )
     }
@@ -211,7 +211,7 @@ export class ClMngListComponent implements OnInit {
             }
         ).catch(
             err => {
-                this.notice.open('PF_MNG2.ERROR_PROMPT', '禁用云平台异常，请稍候再试');
+                this.notice.open('PF_MNG2.ERROR_PROMPT', 'PF_MNG2.DIABLE_PLATFORM_EXCEPTION_TRY_AGAIN');
             }
             )
     }
@@ -300,7 +300,7 @@ export class ClMngListComponent implements OnInit {
             // }
             err => {
                 this.layoutService.hide();
-                this.notice.open('COMMON.ERROR', '获取云平台错误');
+                this.notice.open('COMMON.ERROR', 'PF_MNG2.GET_PLATFORM_ERROR');
             }
             );
     }

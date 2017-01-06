@@ -136,7 +136,7 @@ export class PfDetailComponent implements OnInit {
             ).catch(
             err => {
                 console.error('err');
-                this.notice.open('COMMON.ERROR', '获取区域信息错误');
+                this.notice.open('COMMON.ERROR', 'PF_MNG2.GET_REGION_ERROR');
             }
             )
 
@@ -255,7 +255,7 @@ export class PfDetailComponent implements OnInit {
             res => {
                 this.updateZoneList = res.resultContent;
                 if (this.updateZoneList.length == 0) {
-                    this.notice.open('oo', '暂时没有可同步可用区信息')
+                    this.notice.open('oo', 'PF_MNG2.NO_SYNC_ZONES')
                 } else {
                     this.updateZoneList.forEach(ele => {
                         if (ele.quotaPercentage) {
@@ -291,9 +291,9 @@ export class PfDetailComponent implements OnInit {
                 if (res.resultCode == 100) {
                     if (res.resultContent && res.resultContent.length > 0) {
                         this.countZoneResource = res.resultContent;
-                        this.updateResource.open('同步计算资源');
+                        this.updateResource.open('PF_MNG2.SYNC_COMPUTING_SOURCE');
                     } else {
-                        this.notice.open('oo', '暂时没有可同步计算资源信息')
+                        this.notice.open('oo', 'PF_MNG2.NO_SYNC_COMPUTING_SOURCE')
                     }
 
                 }
@@ -405,7 +405,7 @@ export class PfDetailComponent implements OnInit {
         //     res => {
         //         this.updateZoneList = res.resultContent;
         //         if (this.updateZoneList.length == 0) {
-        //             this.notice.open('oo', '暂时没有可同步可用区信息')
+        //             this.notice.open('oo', 'PF_MNG2.NO_SYNC_ZONES')
         //         } else {
         //             this.updateZoneList.forEach(ele => {
         //                 if (ele.quotaPercentage) {
@@ -443,7 +443,7 @@ export class PfDetailComponent implements OnInit {
         //                 this.countZoneResource = res.resultContent;
         //                 this.updateResource.open('同步计算资源');
         //             } else {
-        //                 this.notice.open('oo', '暂时没有可同步计算资源信息')
+        //                 this.notice.open('oo', 'PF_MNG2.NO_SYNC_COMPUTING_SOURCE')
         //             }
 
         //         }
