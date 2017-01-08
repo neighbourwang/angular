@@ -32,6 +32,9 @@ export class PlatformModel{
     toString(){
         return JSON.stringify(this);
     }
+    revertString(){
+        console.log(this.platformId + ' ' + this.platformName + ' ' + this.platformUrl);
+    }
 }
 
 export class DCModel{

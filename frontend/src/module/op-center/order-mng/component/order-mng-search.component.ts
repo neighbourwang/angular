@@ -183,6 +183,8 @@ export class OrderMngSearchComponent implements OnInit{
 		param.createTime = param.createDate;
 		param.expireTime = param.expireDate;
 		param.userId = param.buyerId;
+		param.orderCode = param.searchText;//快速查询只支持搜索输入订单编号
+		
 		//没有定义快速搜索字段
 // {
 //   "approverId": "string",

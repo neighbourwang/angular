@@ -45,7 +45,7 @@ export class ClMngCreStep3Component implements OnInit{
         })
 
         let platFormId : String = this.idService.getPlatformId();
-        
+        this.layoutService.show();
         this.service.getZone(platFormId).then(
             res => {
                 console.log(res);
@@ -54,11 +54,13 @@ export class ClMngCreStep3Component implements OnInit{
                     ele.quotaPercentage=
                             ele.quotaPercentage?ele.quotaPercentage:0;
                     ele.quotaPercentDisplay = ele.quotaPercentage * 100;
-                })
+                });
+                this.layoutService.hide();
             }
         ).catch(
             error => {
                 console.error('error');
+                this.layoutService.hide();
             }
         )
     }
@@ -74,13 +76,16 @@ export class ClMngCreStep3Component implements OnInit{
         );
 
         //等待接口
+        this.layoutService.show();
         this.service.putZone( platFormId , this.creStep3Model).then(
             res => {
                 console.log(res);
+                this.layoutService.hide();
                 this.router.navigate(["pf-mng2/cl-mng/cre-step4",{type:this.platformType}]);
             }
         ).catch(
             error => {
+                this.layoutService.hide();
                 console.error('error');
             }
         )

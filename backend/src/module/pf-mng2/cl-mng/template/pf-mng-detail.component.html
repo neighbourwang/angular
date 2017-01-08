@@ -6,7 +6,7 @@
 </div>
 <div class="mgt20" style="border-bottom:1px solid #ddd;padding-bottom:5px">
     <button type="button" class="btn btn-default grayTab noBorder" *ngFor="let item of Tabels;let idx = index" (click)="changeTab(item,idx)"
-        [ngClass]="{'btn-active': item.active}" style="margin-right:2px;">{{item.name}}</button>
+        [ngClass]="{'btn-active': item.active}" style="margin-right:2px;">{{item.name | translate}}</button>
 </div>
 <div *ngIf="Tabels[0].active">
     <div class="page-content fix-page-content">
@@ -18,7 +18,7 @@
                             <span class="asterisk">*</span> 云平台名称：
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" [(ngModel)]="platform.name" placeholder="请输入云平台名称">
+                            <input type="text" class="form-control" [(ngModel)]="platform.name" placeholder="{{'PF_MNG2.PLATFORM_REQUIRED'|translate}}">
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                             <span class="asterisk">*</span> 所属数据中心：
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" [(ngModel)]="platform.dataCenter" placeholder="请输入所属数据中心">
+                            <input type="text" class="form-control" [(ngModel)]="platform.dataCenter" placeholder="{{'PF_MNG2.DATA_CENTER_REQUIRED' | translate}}">
                         </div>
                     </div>
                 </div>            
@@ -53,7 +53,8 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-default" *ngFor="let item of platformTypes;let idx = index" (click)="choosePlatFormType(item,idx)"
+                                <!--<button type="button" class="btn btn-default" disabled *ngFor="let item of platformTypes;let idx = index" (click)="choosePlatFormType(item,idx)"-->
+                                <button type="button" class="btn btn-default" *ngFor="let item of platformTypes;let idx = index" 
                                     [ngClass]="{'btn-active': item.isSelected}">{{item.displayValue}}</button>
                             </div>
                         </div>
@@ -66,7 +67,7 @@
                             <span class="asterisk">*</span> 地址：
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" [(ngModel)]="platform.uri" placeholder="请输入地址">
+                            <input type="text" class="form-control" disabled [(ngModel)]="platform.uri" placeholder="{{'PF_MNG2.ADDRESS_REQUIRED' | translate}}">
                         </div>
                     </div>
                 </div>
@@ -92,7 +93,7 @@
                             <span class="asterisk">*</span> 用户名：
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" disabled [(ngModel)]="platform.username" placeholder="请输入用户名">
+                            <input type="text" class="form-control" disabled [(ngModel)]="platform.username" placeholder="{{'PF_MNG2.USERNAME_REQUIRED' | translate}}">
                         </div>
                     </div>
                 </div>
@@ -104,7 +105,7 @@
                             <span class="asterisk">*</span> 密码：
                         </div>
                         <div class="col-sm-4">
-                            <input type="password" class="form-control" disabled [(ngModel)]="platform.password" placeholder="请输入密码">
+                            <input type="password" class="form-control" disabled [(ngModel)]="platform.password" placeholder="{{'PF_MNG2.PASSWORD_REQUIRED' | translate}}">
                         </div>
                     </div>
                 </div>
@@ -139,12 +140,12 @@
                 <span class="icon-button-label" (click)='updateResourcePop()'>同步计算资源</span>
              </button>-->
              <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right;margin-right:20px">
-                <span class="icon-button-label" (click)='updateZonePop()'>同步可用区</span>
+                <span class="icon-button-label" (click)='updateZone()'>同步可用区</span>
             </button>
             <div style="clear:both"></div>
         </div>
         <div class="table-container" >
-            <table class="table table-hover" *ngIf="platformType=='OpenStack'">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <!--<th >#</th>-->
@@ -212,54 +213,7 @@
                         </td>                                               
                     </tr>
                 </tbody>
-            </table>
-             <table class="table table-hover" *ngIf="platformType=='VMware'">
-                <thead>
-                    <tr>
-                        <th>#</th>                        
-                        <th class="check-box-col">DC</th>
-                        <th>名称</th>
-                        <th>显示名称</th>
-                        <th>宿主机</th>
-                        <th>物理CPU核数</th>
-                        <th>物理内存总数(MB)</th>
-                        <th>CPU超分比</th>
-                        <th>配额%</th>
-                        <th>状态</th>
-                        <th>说明</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td style="cursor:pointer">Region1</td>
-                        <td>AZ1</td>
-                        <td><input type="text" value='高性能区1'></td>
-                        <td>vSAN</td>
-                        <td>1200</td>
-                        <td>12800</td>
-                        <td>
-                            <input type="number" class="form-control" [(ngModel)]="item" style="width: 100px; display: inline;" value="2">
-                            <!--<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
-                        </td>
-                        <td>
-                            <input type="number" class="form-control" [(ngModel)]="item" style="display: inline;" value="85">
-                        </td>
-                        <td>
-                            <!--{{zone.status|disc:this.commonService.globalStatus|async}}-->
-
-                        </td>
-                        <td >
-                            <input type="text" class="form-control" [(ngModel)]="item" style="display: inline;" value="高速I/O存储后端">
-                        </td> 
-                        <td>
-                            <button class="fox-cloud-button-md fox-cloud-button-white">启用</button>
-                            <button class="fox-cloud-button-md fox-cloud-button-white">禁用</button> 
-                        </td>                                               
-                    </tr>
-                </tbody>
-            </table>
+            </table>            
         </div>       
     </div>
 </div>
@@ -267,11 +221,11 @@
     <div class="page-content">
         <div style="padding-bottom: 10px;">
              <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
-                <span class="icon-button-label" (click)='updateStorageListPop()'>同步存储后端</span>
+                <span class="icon-button-label" (click)='updateStorageList()'>同步存储后端</span>
              </button>             
             <div style="clear:both"></div>
         </div>
-        <div class="table-container"  *ngIf="true">
+        <div class="table-container"  *ngIf="platformType==0">
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -330,7 +284,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="table-container"  *ngIf="false">
+        <div class="table-container"  *ngIf="platformType==2">
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -406,10 +360,10 @@
     </div>
 </div>
 
-<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认"></fc-notice>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL"></fc-notice>
 
-<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-popup #updateZone title="{{title}}" ot="添加" (of)="otUpdateZone()" ct="取消" (cf)="ccf()">
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+<fc-popup #updateZonePop title="{{title}}" ot="NET_MNG_OPENSTACK.ADD" (of)="otUpdateZone()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()">
 	<div class="row row-line-height">
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>同步可用区：</div>
@@ -419,7 +373,7 @@
 		</div>
 	</div>
 </fc-popup>
-<fc-popup #updateResource title="{{title}}" ot="更新" (of)="otUpdateResource()" ct="取消" (cf)="ccf()">
+<fc-popup #updateZoneResourcePop title="{{title}}" ot="NET_MNG_OPENSTACK.UPDATE" (of)="otUpdateResource()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()">
 	<div class="row row-line-height">
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>同步计算资源：</div>
@@ -429,7 +383,8 @@
 		</div>
 	</div>
 </fc-popup>
-<fc-popup #updateStorageList title="{{title}}" ot="添加" (of)="otUpdateStorageList()" ct="取消" (cf)="ccf()">
+
+<fc-popup ##updateStoragePop title="{{title}}" ot="NET_MNG_OPENSTACK.ADD" (of)="otUpdateStorageList()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()">
 	<div class="row row-line-height">
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>同步存储后端：</div>
@@ -439,7 +394,8 @@
 		</div>
 	</div>
 </fc-popup>
-<fc-popup #updateStorage title="{{title}}" ot="更新" (of)="otUpdateStorage()" ct="取消" (cf)="ccf()">
+
+<fc-popup #updateStorageResourcePop title="{{title}}" ot="NET_MNG_OPENSTACK.UPDATE" (of)="otUpdateStorage()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()">
 	<div class="row row-line-height">
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>同步计算资源：</div>

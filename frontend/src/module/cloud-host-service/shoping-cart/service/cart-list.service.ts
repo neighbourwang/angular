@@ -66,4 +66,16 @@ export class cartListService {
         owner : "PACKAGE_BILLING",
         field : "PERIOD_TYPE"
     })
+    packageBilling = this.dict.get({  //计费周期
+        owner : "BILLING_MODE",
+        field : "TYPE"
+    })
+    weekly = this.dict.get({  //计费周期
+        owner : "PACKAGE_BILLING",
+        field : "PERIOD_TYPE"
+    })
+    
+    
+    
+    
 }

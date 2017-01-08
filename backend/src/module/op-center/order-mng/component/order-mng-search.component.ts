@@ -40,13 +40,13 @@ export class OrderMngSearchComponent implements OnInit{
 		private restApi:RestApi){
 
 		//配置企业列表加载
-		this._adminLoader = new ItemLoader<AdminListItem>(false, "企业列表", "op-center.order-mng.ent-list.get", this.restApiCfg, this.restApi);
+		this._adminLoader = new ItemLoader<AdminListItem>(false, "COMMON.ENTPRISE_OPTIONS_DATA_ERROR", "op-center.order-mng.ent-list.get", this.restApiCfg, this.restApi);
 
 			//配置部门列表加载
-		this._departmentLoader = new ItemLoader<DepartmentItem>(false, '部门列表', "op-center.order-mng.department-list.get", this.restApiCfg, this.restApi);
+		this._departmentLoader = new ItemLoader<DepartmentItem>(false, 'COMMON.DEPARTMENT_OPTIONS_DATA_ERROR', "op-center.order-mng.department-list.get", this.restApiCfg, this.restApi);
 
 			//订购人加载
-		this._buyerLoader = new ItemLoader<DepartmentItem>(false, '订购人列表', "check-center.user-list.get", this.restApiCfg, this.restApi);
+		this._buyerLoader = new ItemLoader<DepartmentItem>(false, 'ORDER_MNG.BUYER_DATA_ERROR', "check-center.user-list.get", this.restApiCfg, this.restApi);
 		this._buyerLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
 			for(let item of source)
 			{
@@ -65,7 +65,7 @@ export class OrderMngSearchComponent implements OnInit{
 		this._orderStatusDic = new DicLoader(this.restApiCfg, this.restApi, "SUBINSTANCE", "STATUS");
 
 		//配置订单加载
-		this._orderLoader = new ItemLoader<SearchOrderItem>(true, "订单查询列表", "op-center.order-mng.search-list.post", restApiCfg, restApi);
+		this._orderLoader = new ItemLoader<SearchOrderItem>(true, "ORDER_MNG.ORDER_LIST_DATA_ERROR", "op-center.order-mng.search-list.post", restApiCfg, restApi);
 		this._orderLoader.MapFunc = (source:Array<any>, target:Array<SearchOrderItem>)=>{
 		for(let item of source)
 		{
@@ -262,12 +262,13 @@ export class OrderMngSearchComponent implements OnInit{
 		let param = _.extend({}, this._param);
 
 		//匹配后台搜索框参数
+		param.orderCode = this._param.queryParam
         // param.searchText = this._param.queryParam;
-         param.organization = this._param.organization;
-		 //param.serviceId = this._param.serviceType;
-		 param.status = this._param.status;
-		 param.createTime = this._param.createDate;
-		 param.expireTime = this._param.expireDate;
+		param.organization = this._param.organization;
+		//param.serviceId = this._param.serviceType;
+		param.status = this._param.status;
+		param.createTime = this._param.createDate;
+		param.expireTime = this._param.expireDate;
 		
 		param.userId = this._param.buyerId;
 		param.pageParameter = {

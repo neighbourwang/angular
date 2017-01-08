@@ -120,7 +120,7 @@ export class OrgMngListComponent implements OnInit {
         this.confirmType = type;
         break;
       case 'disabled':
-        if (org.status == 5) {
+        if (org.status == 3) {
           this.notice.open('操作错误', '该组织状态已禁用');
           return;
         }

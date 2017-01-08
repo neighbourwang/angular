@@ -38,10 +38,10 @@ export class CheckMngSetComponent implements OnInit{
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
 		//加载审设置列表
-		this._itemLoader = new ItemLoader<CheckSetListItem>(true, "审批设置列表", "check-center.approval-set-list.get", restApiCfg, restApi);
+		this._itemLoader = new ItemLoader<CheckSetListItem>(true, "CHECK_CENTER.APPROVE_SET_LIST", "check-center.approval-set-list.get", restApiCfg, restApi);
 
 		//审批设置
-		this._setHandler = new ItemLoader<any>(false, "审批设置", "check-center.approval.auto-set", restApiCfg, restApi);
+		this._setHandler = new ItemLoader<any>(false, "CHECK_CENTER.APPROVE_SET_ERROR", "check-center.approval.auto-set", restApiCfg, restApi);
  	
 	}
 	ngOnInit(){
