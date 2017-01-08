@@ -21,6 +21,7 @@ export const TranslateCN = {
         OVERVIEW: '概览',
         LABEL: '标签',
         EXPENSE: '费用',
+        TOTAL_EXPENSE: '总费用',
         ONE_TIME_COSTS: '一次性费用',
         TOTAL_COST: '费用总计',
         BILLING_MODE: '计费模式',
@@ -253,6 +254,7 @@ export const TranslateCN = {
         PLEASE_SELECT_STARTUP_SOURCE: '请选择启动源',
         PLEASE_SELECT_IMAGE_TYPE: '请选择镜像类型',
         PLEASE_SELECT_IMAGE_NAME: '请选择镜像名称',
+        PLEASE_SELECT_TIMELINE_UNIT: '请选择时长类型',
 
 
         //sub-add-storage

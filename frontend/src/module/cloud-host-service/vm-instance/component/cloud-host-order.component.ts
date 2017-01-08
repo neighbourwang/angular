@@ -316,6 +316,7 @@ console.log(this.vmProduct)
 	}
 
 	relyChanges(attrName) {   //当依赖的元素有改变的时候执行
+		console.log(attrName)
 		/******获取并设置网络******/
 		if (attrName === "zone") {   //这里捕捉不到平台，侧面的，当zone改变的时候说明 自己依赖的云平台已经改变
 			this.setNetwork(this.sendModule.platform.attrValue);   //获取网络
@@ -451,7 +452,7 @@ console.log(this.vmProduct)
 			startupsource: "VM_INSTANCE.PLEASE_SELECT_STARTUP_SOURCE",//VM_INSTANCE.PLEASE_SELECT_STARTUP_SOURCE
 			imagetype: "VM_INSTANCE.PLEASE_SELECT_IMAGE_TYPE", //VM_INSTANCE.PLEASE_SELECT_IMAGE_TYPE
 			os: "VM_INSTANCE.PLEASE_SELECT_IMAGE_NAME",   //VM_INSTANCE.PLEASE_SELECT_IMAGE_NAME
-			timelineunit: "VM_INSTANCE.PLEASE_SELECT_NET_TYPE"//VM_INSTANCE.PLEASE_SELECT_NET_TYPE
+			timelineunit: "VM_INSTANCE.PLEASE_SELECT_TIMELINE_UNIT"//VM_INSTANCE.PLEASE_SELECT_NET_TYPE
 		}
 
 		const check = value => {
