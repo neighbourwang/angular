@@ -110,36 +110,16 @@
 					<p><span class="icon-amount"></span><br>{{'COMMON.PURCHASE_AMOUNT'| translate}}</p>
 				</div>
 				<div class="col-md-12 li-content">
-					<div class="col-md-12 no-padding mb20">
-						<div class="col-md-2 content-title">{{'COMMON.PURCHASE_DURATION'|translate}}</div>
-						<div class="col-md-2 no-padding mr10">
-							<select [disabled]="timeForever" [(ngModel)]="sendModule.timelineunit" (ngModelChange)="setDiskPrice();" class="form-control">
-								<option
-								*ngFor="let value of this.configs.timelineunit.mapValueList[this.sku.skuId];"
-								[ngValue]="value" >{{ value.attrDisplayValue }}</option>
-							</select>
-						</div>
-						<div class="col-md-2 no-padding mr10" [ngClass]="{'has-error': check.timeline === false }">
-							<input [disabled]="timeForever" 
-								   (keyup)="checkValue('timeline');setDiskPrice();" 
-								   [(ngModel)]="sendModule.timeline.attrValue" type="text" class="form-control">
-						</div>
-						<div class="col-md-2 no-padding">
-							<!-- <label class="btn btn-default" (click)="timeForever = timeForever ? false : true" [ngClass]="{'active': timeForever}">
-								永久
-							</label> -->
-						</div>
-					</div>
 					
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">{{'COMMON.PURCHASE_AMOUNT'| translate}}</div>
 						<div class="col-md-2 no-padding mr10">
 							<select [(ngModel)]="payLoad.quality" class="form-control">
-								<option [ngValue]="1">{{'COMMON.ONE_SET'| translate}}</option>
-								<option [ngValue]="2">{{'COMMON.TWO_SET'| translate}}</option>
-								<option [ngValue]="3">{{'COMMON.THREE_SET'| translate}}</option>
-								<option [ngValue]="4">{{'COMMON.FOUR_SET'| translate}}</option>
-								<option [ngValue]="5">{{'COMMON.FIVE_SET'| translate}}</option>
+								<option [ngValue]="1">1</option>
+								<option [ngValue]="2">2</option>
+								<option [ngValue]="3">3</option>
+								<option [ngValue]="4">4</option>
+								<option [ngValue]="5">5</option>
 							</select>
 						</div>
 					</div>
@@ -172,10 +152,11 @@
 	                    <td><font class="font-orange">{{'COMMON.$'|translate}}{{diskBasePrice}} </font>{{'COMMON.YUAN'|translate}}</td>
 	                </tr>
 	                <tr>
-	                    <td><font>{{'COMMON.TOTAL_EXPENSE'| translate}}:</font></td>
+	                    <td><font>总周期费用:</font></td>
 	                    <td><font class="font-orange">{{'COMMON.$'|translate}}{{diskTotalPrice}} </font>{{'COMMON.YUAN'|translate}} / {{ sendModule.timelineunit.attrDisplayValue }}<span class="float-right">{{'COMMON.BY_VOLUMN'| translate}}</span></td>
 	                </tr>
 	            </table>
+	            <p class="mgt20">云硬盘产品将根据您购买的容量按周期计费，实际支付金额，请以每月账单为准。</p>
 			</div>
 			<div class="col-md-12 colud-order-button">
 				<div class="col-md-6"><button (click)="buyNow()" class="btn button-orange-deep">{{'COMMON.BUY_NOW'| translate}}</button></div>

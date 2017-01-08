@@ -264,40 +264,43 @@
 			<p class="cloud-p">{{'VM_INSTANCE.MIRROR_TYPE'| translate}}: {{ sendModule.imagetype?.attrDisplayValue}}</p>
 			<p class="cloud-p">{{'VM_INSTANCE.MIRROR_NAME'| translate}}: {{ sendModule.os?.attrDisplayValue}}</p>
 			<h4 class="cloud-title font-green">{{'VM_INSTANCE.STORE'| translate}}</h4>
-			<p class="cloud-p">{{'VM_INSTANCE.BOOT_DISK'| translate}}: {{ sendModule.bootstorage?.attrDisplayValue}} / {{sendModule.bootsize?.attrDisplayValue}}GB</p>
+
+			<p class="cloud-p">{{'VM_INSTANCE.BOOT_DISK'| translate}}: {{ sendModule.bootstorage?.attrDisplayValue}} / {{ sendModule.bootsize?.attrValue}}GB</p>
 			<!-- <p class="cloud-p">数据盘: {{ sendModule.stroage ? sendModule.stroage.attrDisplayValue : "" }} / {{ sendModule.storagesize ? sendModule.storagesize.attrDisplayValue : "" }}</p> -->
 			<h4 class="cloud-title font-green">{{'COMMON.PURCHASE_AMOUNT'|translate}}</h4>
-			<p class="cloud-p">{{'COMMON.PURCHASE_DURATION'|translate}}: {{ sendModule.timeline?.attrValue}} / {{ sendModule.timelineunit.attrDisplayValue}}</p>
+			<p class="cloud-p">{{'COMMON.PURCHASE_DURATION'|translate}}: {{ sendModule.timelineunit.attrDisplayValue}} / {{ sendModule.timeline?.attrValue}}</p>
+
 			<p class="cloud-p">{{'COMMON.PURCHASE_AMOUNT'|translate}}: {{payLoad.quality}}台</p>
 			<div class="cloud-line"></div>
 
-			<h4 class="cloud-title font-green">{{'VM_INSTANCE.CLOUD_HOST_COSTS'| translate}}</h4>
-			<p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}: <font class="font-orange">{{'COMMON.$' | translate}}{{ vmBasePrice }}</font></p>
-			<p class="cloud-p">{{'COMMON.EXPENSE'|translate}}: <font class="font-orange">{{'COMMON.$' | translate}}{{vmTotalPrice}} / {{ sendModule.timelineunit.attrDisplayValue }}</font></p>
-			<h4 class="cloud-title font-green">{{'VM_INSTANCE.CLOUD_HARD_DISK_COSTS'| translate}}</h4>
+			<h4 class="cloud-title font-green">云主机单价</h4>
+			<p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}: <font class="font-orange">{{'COMMON.$' | translate}}{{ vmBasePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
+			<p class="cloud-p">周期费用: <font class="font-orange">{{'COMMON.$' | translate}}{{vmProduct?.billingInfo.basicPrice}} / {{ sendModule.timelineunit.attrDisplayValue }}</font></p>
+			<!-- <h4 class="cloud-title font-green">{{'VM_INSTANCE.CLOUD_HARD_DISK_COSTS'| translate}}</h4>
 			<p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{ diskBasePrice }}</font></p>
-			<p class="cloud-p">{{'VM_INSTANCE.BY_VOLUMN_COSTS'| translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{diskTotalPrice}} / {{ diskUnitType | dict:service.unitType | async }}</font></p>
+			<p class="cloud-p">{{'VM_INSTANCE.BY_VOLUMN_COSTS'| translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{diskTotalPrice}} / {{ diskUnitType | dict:service.unitType | async }}</font></p> -->
 			<div class="cloud-p">
 				<p class="cloud-title">{{'VM_INSTANCE.TOTAL_COST'| translate}}：</p>
 	            <table style="width: 90%;line-height: 26px;">
 	                <tr>
 	                    <td>{{'COMMON.ONE_TIME_COSTS'|translate}}： </td>
-	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{vmBasePrice + diskBasePrice}} {{'COMMON.YUAN' | translate}}</font></td>
+	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{vmBasePrice + diskBasePrice}}</font>{{'COMMON.YUAN' | translate}}</td>
 	                </tr>
-	                <tr>
-<<<<<<< HEAD
+<!-- 	                <tr>
 	                    <td><font>{{'COMMON.TOTAL_EXPENSE'|translate}}： </font></td>
 	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{diskTotalPrice}}</font>{{'COMMON.YUAN'|translate}} / {{ diskUnitType | dict:service.unitType | async }} <span class="float-right">{{'COMMON.BY_VOLUMN' | translate}}</span></td>
-=======
-	                    <td><font>{{'COMMON.EXPENSE'|translate}}： </font></td>
-	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{diskTotalPrice}}</font> / {{ diskUnitType | dict:service.unitType | async }} / GB <span class="float-right">{{'COMMON.BY_VOLUMN' | translate}}</span></td>
->>>>>>> 34e20e09cebb45db7900cb3e60a55dcc07322255
+	                </tr> -->
+	                <tr>
+	                    <td><font>{{'COMMON.TOTAL_EXPENSE'|translate}}： </font></td>
+	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{diskTotalPrice}}</font>{{'COMMON.YUAN'|translate}} / {{ diskUnitType | dict:service.unitType | async }} <span class="float-right">{{'COMMON.BY_VOLUMN' | translate}}</span></td>
 	                </tr>
 	                <tr>
-	                    <td></td>
-	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{vmTotalPrice}}</font>{{'COMMON.YUAN'|translate}} / {{ sendModule.timelineunit.attrDisplayValue }} <span class="float-right">{{'VM_INSTANCE.ANNUAL_SUBSCRIPTION'| translate}}</span></td>
+	                    <td><font>总周期费用： </font></td>
+	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{vmTotalPrice}}</font>{{'COMMON.YUAN'|translate}}<span class="float-right">{{'VM_INSTANCE.ANNUAL_SUBSCRIPTION'| translate}}</span></td>
 	                </tr>
 	            </table>
+	                
+	            <p class="mgt20">以上为总费用估算，实际支付金额，请以每月账单为准。</p>
 			</div>
 			<div class="col-md-12 colud-order-button">
 				<div class="col-md-6"><button (click)="buyNow()" class="btn button-orange-deep">{{'COMMON.BUY_NOW'|translate}}</button></div>

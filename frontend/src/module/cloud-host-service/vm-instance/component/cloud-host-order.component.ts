@@ -246,7 +246,7 @@ console.log(this.vmProduct)
 		if (!this.vmProduct) return;  //如果没获取到价格
 
 		this.vmBasePrice = this.vmProduct.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
-		this.vmTotalPrice = (this.vmProduct.billingInfo.basicPrice + this.vmProduct.billingInfo.cyclePrice) * timeline * this.payLoad.quality;   //周期费用
+		this.vmTotalPrice = (this.vmProduct.billingInfo.basicPrice) * timeline * this.payLoad.quality;   //周期费用
 	}
 	setDiskPrice(): void {  //设置数据盘的价格
 		const timeline = +(this.sendModule.timeline.attrValue || "0"),

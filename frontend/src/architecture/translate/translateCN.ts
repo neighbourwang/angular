@@ -240,7 +240,7 @@ export const TranslateCN = {
         START_SOURCE: '启动源',
         MIRROR_TYPE: '镜像类型',
         MIRROR_LIST: '镜像列表',
-        STORE: '储存',
+        STORE: '存储',
         PASSWARD_SETTING: '密码设置',
         USER_NAME: '用户名',
         LOGIN_PASSWARD: '登录密码',
