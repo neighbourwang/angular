@@ -11,7 +11,7 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">{{'COMMON.CLOUD_PLATFORM'| translate}}</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label *ngFor="let value of configs.platform.valueList;" (click)="sendModule.platform = value" class="btn btn-default" [ngClass]="{'active': sendModule.platform.attrValueId === value.attrValueId}">
+						<label *ngFor="let value of configs.platform.valueList;" (click)="sendModule.platform = value;setDiskPrice();" class="btn btn-default" [ngClass]="{'active': sendModule.platform.attrValueId === value.attrValueId}">
 							<input type="radio" name="location" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
@@ -19,7 +19,7 @@
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label 
 							*ngFor="let value of rely('zone')"
-							(click)="sendModule.zone = value" 
+							(click)="sendModule.zone = value;setDiskPrice();" 
 							class="btn btn-default" [ngClass]="{'active': sendModule.zone.attrValueId === value.attrValueId}">
 							<input type="radio" name="zone" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
@@ -55,7 +55,7 @@
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label 
 							*ngFor="let value of rely('storage')" 
-							(click)="sendModule.storage = value" 
+							(click)="sendModule.storage = value;setDiskPrice();" 
 							class="btn btn-default" [ngClass]="{'active': sendModule.storage.attrValueId === value.attrValueId}">
 							<input type="radio" name="storage" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
@@ -110,6 +110,26 @@
 					<p><span class="icon-amount"></span><br>{{'COMMON.PURCHASE_AMOUNT'| translate}}</p>
 				</div>
 				<div class="col-md-12 li-content">
+					<div class="col-md-12 no-padding mb20">
+						<div class="col-md-2 content-title">{{'COMMON.PURCHASE_DURATION'|translate}}</div>
+						<div class="col-md-2 no-padding mr10">
+							<select [disabled]="timeForever" [(ngModel)]="sendModule.timelineunit" (ngModelChange)="setDiskPrice();" class="form-control">
+								<option
+								*ngFor="let value of this.configs.timelineunit.mapValueList[this.sku.skuId];"
+								[ngValue]="value" >{{ value.attrDisplayValue }}</option>
+							</select>
+						</div>
+						<div class="col-md-2 no-padding mr10" [ngClass]="{'has-error': check.timeline === false }">
+							<input [disabled]="timeForever" 
+								   (keyup)="checkValue('timeline');setDiskPrice();" 
+								   [(ngModel)]="sendModule.timeline.attrValue" type="text" class="form-control">
+						</div>
+						<div class="col-md-2 no-padding">
+							<!-- <label class="btn btn-default" (click)="timeForever = timeForever ? false : true" [ngClass]="{'active': timeForever}">
+								永久
+							</label> -->
+						</div>
+					</div>
 					
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">{{'COMMON.PURCHASE_AMOUNT'| translate}}</div>
@@ -149,11 +169,11 @@
 	            <table style="width: 90%;line-height: 26px;">
 	                <tr>
 	                    <td>{{'COMMON.ONE_TIME_COSTS'| translate}}:</td>
-	                    <td><font class="font-orange">{{'COMMON.$'|translate}}{{diskBasePrice}} {{'COMMON.YUAN'|translate}}</font></td>
+	                    <td><font class="font-orange">{{'COMMON.$'|translate}}{{diskBasePrice}} </font>{{'COMMON.YUAN'|translate}}</td>
 	                </tr>
 	                <tr>
-	                    <td><font>{{'COMMON.EXPENSE'| translate}}:</font></td>
-	                    <td><font class="font-orange">{{'COMMON.$'|translate}}{{diskTotalPrice}}</font><span class="float-right">{{'COMMON.BY_VOLUMN'| translate}}</span></td>
+	                    <td><font>{{'COMMON.TOTAL_EXPENSE'| translate}}:</font></td>
+	                    <td><font class="font-orange">{{'COMMON.$'|translate}}{{diskTotalPrice}} </font>{{'COMMON.YUAN'|translate}} / {{ sendModule.timelineunit.attrDisplayValue }}<span class="float-right">{{'COMMON.BY_VOLUMN'| translate}}</span></td>
 	                </tr>
 	            </table>
 			</div>

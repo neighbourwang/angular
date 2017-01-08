@@ -9,7 +9,7 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">{{'COMMON.CLOUD_PLATFORM'| translate}}</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label *ngFor="let value of configs.platform.valueList;" (click)="sendModule.platform = value;" class="btn btn-default" [ngClass]="{'active': sendModule.platform.attrValueId === value.attrValueId}">
+						<label *ngFor="let value of configs.platform.valueList;" (click)="sendModule.platform = value;relyChanges('platform')" class="btn btn-default" [ngClass]="{'active': sendModule.platform.attrValueId === value.attrValueId}">
 							<input type="radio" name="location" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
@@ -19,7 +19,7 @@
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label
 							*ngFor="let value of rely('zone')"
-							(click)="sendModule.zone = value"
+							(click)="sendModule.zone = value;relyChanges('zone')"
 							class="btn btn-default" [ngClass]="{'active': sendModule.zone.attrValueId === value.attrValueId}">
 							<input type="radio" name="zone" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
@@ -62,8 +62,8 @@
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 
 						<label
-							*ngFor="let value of rely('cpu')"
-							(click)="sendModule.cpu = value"
+							*ngFor="let value of rely('cpu');"
+							(click)="sendModule.cpu = value;relyChanges('cpu');"
 							class="btn btn-default" [ngClass]="{'active': sendModule.cpu.attrValueId === value.attrValueId}">
 							<input type="radio" name="cpu" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
@@ -72,7 +72,7 @@
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label
 							*ngFor="let value of rely('mem')"
-							(click)="sendModule.mem = value"
+							(click)="sendModule.mem = value;relyChanges('mem')"
 							class="btn btn-default" [ngClass]="{'active': sendModule.mem.attrValueId === value.attrValueId}">
 							<input type="radio" name="mem" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
@@ -141,7 +141,7 @@
 							<div class="col-md-6 content-title2">{{'COMMON.GB'| translate}}</div>
 						</div>
 					</div>
-					<!-- <add-storage #storage (onChanges)="storageChange()" [sendModule]="sendModule" [configs]="rely('storage')"></add-storage> -->
+					<div style="display: none"><add-storage #storage (onChanges)="storageChange()" [sendModule]="sendModule" [configs]="rely('storage')"></add-storage></div>
 				</div>
 			</li>
 			<li>
@@ -285,12 +285,17 @@
 	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{vmBasePrice + diskBasePrice}} {{'COMMON.YUAN' | translate}}</font></td>
 	                </tr>
 	                <tr>
+<<<<<<< HEAD
+	                    <td><font>{{'COMMON.TOTAL_EXPENSE'|translate}}： </font></td>
+	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{diskTotalPrice}}</font>{{'COMMON.YUAN'|translate}} / {{ diskUnitType | dict:service.unitType | async }} <span class="float-right">{{'COMMON.BY_VOLUMN' | translate}}</span></td>
+=======
 	                    <td><font>{{'COMMON.EXPENSE'|translate}}： </font></td>
 	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{diskTotalPrice}}</font> / {{ diskUnitType | dict:service.unitType | async }} / GB <span class="float-right">{{'COMMON.BY_VOLUMN' | translate}}</span></td>
+>>>>>>> 34e20e09cebb45db7900cb3e60a55dcc07322255
 	                </tr>
 	                <tr>
 	                    <td></td>
-	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{vmTotalPrice}}</font> / {{ sendModule.timelineunit.attrDisplayValue }} <span class="float-right">{{'VM_INSTANCE.ANNUAL_SUBSCRIPTION'| translate}}</span></td>
+	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{vmTotalPrice}}</font>{{'COMMON.YUAN'|translate}} / {{ sendModule.timelineunit.attrDisplayValue }} <span class="float-right">{{'VM_INSTANCE.ANNUAL_SUBSCRIPTION'| translate}}</span></td>
 	                </tr>
 	            </table>
 			</div>

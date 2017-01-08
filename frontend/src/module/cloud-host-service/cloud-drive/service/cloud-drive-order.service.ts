@@ -1155,6 +1155,7 @@ export class cloudDriveServiceOrder {
                                 if(res.resultCode !== "100"){
                                     throw "";
                                 }
+                                console.log(JSON.stringify(res.resultContent))
                                 return res.resultContent;
                             });
         return request;
