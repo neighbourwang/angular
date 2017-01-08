@@ -197,10 +197,11 @@ export class cloudDriveComponentOrder implements OnInit {
 
 	setDiskPrice(): void {  //设置数据盘的价格
 		const sku = this.getSkuId();
-		const timeline = +(this.sendModule.timeline.attrValue || "0");
-		console.log(sku, timeline);
+		console.log(sku);
 		if(!sku.skuId) return;
 		this.sku = sku;
+
+		this.setTimeUnit();  //设置购买时长
 
 		let price = this.proMap[`[${sku.skuId}, ${this.sendModule.timelineunit.attrValueCode}]`];  //计算价格
 		if(!price) return;
@@ -208,7 +209,7 @@ export class cloudDriveComponentOrder implements OnInit {
 		this.product = price;
 
 		this.diskBasePrice = price.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
-		this.diskTotalPrice = price.billingInfo.unitPrice * +this.sendModule.disksize.attrValue * timeline * this.payLoad.quality;   //周期费用
+		this.diskTotalPrice = price.billingInfo.unitPrice * +this.sendModule.disksize.attrValue * this.payLoad.quality;   //周期费用
 
 		this.diskUnitType = price.billingInfo.unitType;
 	}
@@ -298,6 +299,15 @@ export class cloudDriveComponentOrder implements OnInit {
 		}else {
 			this.sendModule.diskmounthostid.attrValue = "";
 			this.sendModule.diskmounthostname.attrValue = "";
+		}
+	}
+
+	private setTimeUnit(): void {
+		if (!this.sku.skuId) return;
+
+		const timeUnit = this.configs.timelineunit.mapValueList[this.sku.skuId];
+		if (timeUnit && timeUnit.length) {
+			this.sendModule.timelineunit = timeUnit[0];    //设置一下时长为第一位
 		}
 	}
 
