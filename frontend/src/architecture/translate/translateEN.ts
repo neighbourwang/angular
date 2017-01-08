@@ -2,8 +2,8 @@ export const TranslateEN = {
     LANG: 'English',
     SITE: {
         EXIT: 'exit'
-    },
-    DIALOG: {
+    }
+    ,DIALOG: {
         PROMPT: 'Prompt',
         CONFIRM: 'Confirm',
         CANCEL: 'Cancel'

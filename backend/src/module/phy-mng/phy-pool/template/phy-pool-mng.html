@@ -16,26 +16,25 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <li><a (click)="edit();">编辑</a></li>
-                <li><a (click)="phyEnable();">启用</a></li>
-                <li><a >禁用</a></li>
-                <li><a >删除</a></li>
+                <li><a (click)="phyIfEnable('1');">启用</a></li>
+                <li><a (click)="phyIfEnable('0');">禁用</a></li>
+                <li><a (click)="phyIfEnable('2');">删除</a></li>
             </ul>
         </div>
 
         <div class="input-group col-md-2 pull-right mgl10" >
-            <input class="form-control " placeholder="输入云主机信息搜索" type="text">
-            <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+            <input class="form-control " [(ngModel)]="search" placeholder="输入云主机信息搜索" type="text">
+            <div class="input-group-addon" (click)="searchphy()"><span class="glyphicon glyphicon-search"></span></div>
         </div>
-        <div class="dropdown pull-right" >
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                资源池名称
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="javascript:void(0);">所属地域</a></li>
-                <li><a href="javascript:void(0);">资源中心</a></li>
-            </ul>
+        <div class="pull-right mgl10">
+            <select  class="pdl20 pdr20 form-control" [(ngModel)]="select">
+                <option >资源池名称</option>
+                <option >所属地域</option>
+                <option >资源中心</option>
+            </select>
         </div>
+        {{select}} {{search}}
+
     </div>
     <div class="table-container">
         <table class="table table-hover">
@@ -54,7 +53,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let item of data">
-                <td><input type='radio' class="fox-cloud-radio" [checked]="item.selected" (change)="selectedPhy(item)"/></td>
+                <td><input type='radio' class="fox-cloud-radio" [checked]="item.selected" (change)="selected(item)"/></td>
                 <td>{{item.index}}</td>
                 <td><a href="#" key="boe/phy_list.html">{{item.pmPoolName}}</a></td>
                 <td>{{item.pmType}}</td>
@@ -72,6 +71,6 @@
     </div>
 
     <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
-    <fc-confirm #enableConfirm title="{{noticeTitle}}" msg="{{msg}}" ot="确认" (of)="enableCof()" ct="取消" (cf)="ccf()"></fc-confirm>
+    <fc-confirm #enableConfirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消" ></fc-confirm>
 
 </div>

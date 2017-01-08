@@ -38,7 +38,7 @@
                             <input type="text"  [(ngModel)]="syncimg.displayName" />
                         </div>
                         <div *ngIf="syncimg.syncResult!=0">
-                            {{syncimg.displayName || syncimg.name}}
+                            {{(syncimg.displayName || syncimg.name) || ('HOST_VMWARE_MNG.UNSET' | translate)}}
                         </div>
                     </td>
                     <td>
@@ -49,7 +49,7 @@
                             </select>
                         </div>
                         <div *ngIf="syncimg.syncResult!=0">
-                            {{syncimg.os | dict:this.dictService.osDict | async}}
+                            {{(syncimg.os | dict:this.dictService.osDict | async) || ('HOST_VMWARE_MNG.UNSET' | translate)}}
                         </div>
                     </td>
                     <td>
@@ -59,10 +59,10 @@
                         </select>
                         </div>
                         <div  *ngIf="syncimg.syncResult!=0">
-                        {{syncimg.bitsType | dict:this.dictService.bitDict | async}}
+                        {{(syncimg.bitsType | dict:this.dictService.bitDict | async) || ('HOST_VMWARE_MNG.UNSET' | translate)}}
                         </div>
                     </td>
-                    <td>{{ syncimg.capacity | formatCapacity}}</td>
+                    <td>{{(syncimg.capacity | formatCapacity) || ('HOST_VMWARE_MNG.UNSET' | translate)}}</td>
                     <td>
                         <div *ngIf="syncimg.syncResult==0" style="padding-top:2px">
                         <select [(ngModel)]="syncimg.type">
@@ -72,10 +72,10 @@
                         </select>
                         </div>
                         <div  *ngIf="syncimg.syncResult!=0">
-                        {{syncimg.type | dict:this.dictService.typeDict | async}}
+                            {{(syncimg.type | dict:this.dictService.typeDict | async) || ('HOST_VMWARE_MNG.UNSET' | translate)}}
                         </div>
                     </td>
-                    <td class="font-green">{{syncimg.syncResult | dict:this.dictService.syncReslDict | async}}</td>
+                    <td class="font-green">{{(syncimg.syncResult | dict:this.dictService.syncReslDict | async) || ('HOST_VMWARE_MNG.UNSET' | translate)}}</td>
                 </tr>
             </tbody>
         </table>

@@ -14,6 +14,7 @@ import {DictService} from '../../../../architecture/core/service/dict-service';
 export class OrderMngSearchDetailComponent implements OnInit {
   @Input('detail')
   private _detail:SearchOrderDetail;
+  private showInstance : boolean = true;
 
   constructor(
     private layoutService: LayoutService,
@@ -26,7 +27,11 @@ export class OrderMngSearchDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-   
+      for(let item of this._detail.subInstanceList){
+        if(item.serviceType = "1"){
+          this.showInstance = false;
+        }
+      }
   }
 
 }

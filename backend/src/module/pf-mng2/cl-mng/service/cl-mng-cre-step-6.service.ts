@@ -12,9 +12,9 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class ClMngCreStep6Service {
-    constructor(private http:Http,
-                private restApiCfg:RestApiCfg,
-                private restApi:RestApi) {
+    constructor(private http: Http,
+        private restApiCfg: RestApiCfg,
+        private restApi: RestApi) {
     }
 
     // 取得全部平台信息
@@ -26,17 +26,37 @@ export class ClMngCreStep6Service {
     //}
 
     //获取镜像 pf.cre.images.get
-    getImages(id : String){
-        let api = this.restApiCfg.getRestApi("pf.cre.images.get");
+    // getImages(id : String){
+    //     let api = this.restApiCfg.getRestApi("pf.cre.images.get");
 
-        return this.restApi.request(api.method , api.url , [{key : 'pf-id' , value : id}],undefined);
+    //     return this.restApi.request(api.method , api.url , [{key : 'pf-id' , value : id}],undefined);
+    // }
+
+    //更新镜像 pf.cre.images.put
+    // putImages(id : String , creStep6Model : Array<CreStep6Model>){
+    //     let api = this.restApiCfg.getRestApi("pf.cre.images.put");
+
+    //     return this.restApi.request(api.method , api.url , [{key : 'pf-id' , value : id}],undefined,creStep6Model);
+    // }
+
+    //获取镜像 pf.cre.images.get
+    getImageList(id: String) {
+        let data = {
+            "enterpriseId": null,
+            "imageType": null,
+            "platformId": id,
+            "startupResouce": null
+        }
+        let api = this.restApiCfg.getRestApi("pf.cre.imageList.get");
+
+        return this.restApi.request(api.method, api.url, [], undefined, data);
     }
 
     //更新镜像 pf.cre.images.put
-    putImages(id : String , creStep6Model : Array<CreStep6Model>){
-        let api = this.restApiCfg.getRestApi("pf.cre.images.put");
+    putImageList(creStep6Model: Array<CreStep6Model>) {
+        let api = this.restApiCfg.getRestApi("pf.cre.imageList.put");
 
-        return this.restApi.request(api.method , api.url , [{key : 'pf-id' , value : id}],undefined,creStep6Model);
+        return this.restApi.request(api.method, api.url, [], undefined, creStep6Model);
     }
 
 }

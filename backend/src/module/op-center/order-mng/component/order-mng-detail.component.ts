@@ -30,7 +30,7 @@ export class OrderMngDetailComponent implements OnInit {
     private restApi:RestApi
   ) {
     //配置订单详情加载信息
-    this._orderDetail = new ItemLoader<DetaiItem>(false, "订单详情", "op-center.order-mng.order-detail.get", this.restApiCfg, this.restApi);
+    this._orderDetail = new ItemLoader<DetaiItem>(false, "ORDER_MNG.ORDER_DETAIL_DATA_ERROR", "op-center.order-mng.order-detail.get", this.restApiCfg, this.restApi);
     this._orderDetail.MapFunc = (source:Array<any>, target:Array<DetaiItem>):void=>{
           let obj = new DetaiItem();
           for(let item of source){

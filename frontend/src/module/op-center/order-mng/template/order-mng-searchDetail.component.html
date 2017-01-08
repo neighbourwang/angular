@@ -22,7 +22,7 @@
 											
 											<tr>
 											   <td class="text-center">{{ 'ORDER_MNG.SUBMISSION_TIME' | translate }}</td><td class="leftAlign">{{_detail.createDate}}</td>
-												<td class="text-center">{{ 'COMMON.ENTERPIRSE' | translate }}</td><td class="leftAlign">{{_detail.enterpirse}}</td>
+												<td class="text-center">{{ 'COMMON.ENTERPRISE' | translate }}</td><td class="leftAlign">{{_detail.enterpirse}}</td>
 													
 											</tr>
 											<tr>
@@ -54,7 +54,7 @@
 													<vm-view [values]="item.specList" *ngIf="item.serviceType==0"></vm-view>
 													<disk-view [values]="item.specList" *ngIf="item.serviceType==1"></disk-view>
 												</td>
-												<td class="text-center">{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}<br>{{ 'COMMON.INSTANCE' | translate }}{{ 'COMMON.NAME' | translate }}:{{item.instanceName}}</td>
+												<td class="text-center">{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}<br><span *ngIf="showInstance">{{ 'COMMON.INSTANCE' | translate }}{{ 'COMMON.NAME' | translate }}:{{item.instanceName}}</span></td>
 												<td class="text-center">{{item.quantity}}</td>
 												<td class="text-center">{{item.period}}</td>
 												<td style="width: 200px;" class="text-center">{{ 'ORDER_MNG.NONRECURRING_EXPENSE' | translate }}:{{ 'COMMON.$' | translate }}{{item.oneTimePrice}}<br>{{ 'ORDER_MNG.EXPENSE_$' | translate }}:{{ 'COMMON.$' | translate }}{{item.price}}</td>
@@ -87,7 +87,7 @@
 												<th class="text-center">{{ 'COMMON.EXECUTOR' | translate }}</th>
 												<th class="text-center">{{ 'COMMON.DEPARTMENT' | translate }}</th>
 												<th class="text-center">{{ 'COMMON.OPERATION' | translate }}</th>
-												<th class="text-center">{{ 'COMMON.ORDERS' | translate }}{{ 'COMMON.status' | translate }}</th>
+												<th class="text-center">{{ 'COMMON.ORDERS' | translate }}{{ 'COMMON.STATUS' | translate }}</th>
 												<th class="text-center">{{ 'COMMON.EXPLAIN' | translate }}</th>
 											</tr>
 											

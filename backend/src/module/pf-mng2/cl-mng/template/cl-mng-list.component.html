@@ -51,13 +51,18 @@
                 <td (click)="godetail(item)" style="cursor:pointer">{{item.name}}</td>
                 <td>{{item.dataCenter}}</td>
                 <td>{{item.regionName}}</td>
-                <td>{{item.platformType}}</td>
+                <td>
+                    {{item.platformType| dict:this.commonService.platformTypeDic | async}}
+                </td>
                 <td>{{item.uri}}</td>
                 <td>
-                    <!--{{item.version}}-->
-                    {{item.version| dict:this.service.versionDic | async}}
+                    <span *ngIf="item.platformType=='0'">{{item.version| dict:this.commonService.openStackVersionDic | async}}</span>
+                    <span *ngIf="item.platformType=='2'">{{item.version| dict:this.commonService.vmWareVersionDic | async}}</span>
+                    
                 </td>
-                <td [ngClass]="{'font-green':item.status == '已启用' ,'font-orange':item.status == '未启用'}">{{item.status}}</td>
+                <td [ngClass]="{'font-green':item.status == '1' ,'font-orange':item.status == '3'}">
+                    {{item.status| dict:this.commonService.globalStatus | async}}
+                    </td>
                 <td>{{item.healthFlag}}</td>
             </tr>
             </tbody>
@@ -66,8 +71,8 @@
 </div>
 <fc-pagination #pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
 
-<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="nof()"></fc-notice>
 
-<fc-confirm #removeConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="removeCof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-confirm #enableConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="enableCof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-confirm #disableConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="disableCof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-confirm #removeConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="removeCof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+<fc-confirm #enableConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="enableCof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+<fc-confirm #disableConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="disableCof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>

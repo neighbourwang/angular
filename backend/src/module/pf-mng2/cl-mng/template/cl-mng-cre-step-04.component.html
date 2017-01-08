@@ -1,8 +1,8 @@
-<div class="page-content-header icon-content-header-platform-manage">创建平台</div>
+<div class="page-content-header icon-content-header-platform-manage">{{"PF_MNG2.CREATE_PLATFORM" | translate}}<!--创建平台--></div>
 <div class="page-content fix-page-content">
     <div class="row navigator-progress">
-        <div class="col-md-2 active"><span class="mark">1</span><span>基本信息</span><span class="icon-tick"></span></div>
-        <div class="col-md-2 active"><span class="mark">2</span><span>资源同步</span><span class="icon-tick"></span></div>
+        <div class="col-md-2 active"><span class="mark">1</span><span>{{"PF_MNG2.BASIC_INFO" | translate}}<!--基本信息--></span><span class="icon-tick"></span></div>
+        <div class="col-md-2 active"><span class="mark">2</span><span>{{"PF_MNG2.RESOURCE_SYNC" | translate}}<!--资源同步--></span><span class="icon-tick"></span></div>
         <div class="col-md-2 active"><span class="mark">3</span><span>可用区配置</span><span class="icon-tick"></span></div>
         <div class="col-md-2 active"><span class="mark">4</span><span>存储区配置</span></div>
         <div class="col-md-2"><span class="mark">5</span><span>云主机规格</span></div>
@@ -128,6 +128,6 @@
     </button>
 </div>
 
-<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认"></fc-notice>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL"></fc-notice>
 
-<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>

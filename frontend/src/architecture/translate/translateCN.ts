@@ -54,6 +54,13 @@ export const TranslateCN = {
         USERS: '用户',
         WARNING: '警告',
         PLEASE_WAIT: '请等待',
+        ADD: '增加',
+        UPDATE: '修改',
+        QUERY: '查询',
+        PUBLIC: '公',
+        PRIVATE: '私',
+        LIST: '列表',
+        VIEW: '查看',
 
         //单位
         $: "￥",
@@ -64,6 +71,7 @@ export const TranslateCN = {
         THREE_SET: '3台',
         FOUR_SET: '4台',
         FIVE_SET: '5台',
+        CORE: '核',
 
         //状态名词
         ENABLED: '已启用',
@@ -82,6 +90,8 @@ export const TranslateCN = {
         RESTORE: '恢复',
         HARD_REBOOT: '硬重启',
         SOFT_RESTART: '软重启',
+        RUNNING: '运行中',
+
 
         //专业术语
         MIRROR: '镜像',
@@ -105,6 +115,7 @@ export const TranslateCN = {
         PATH: '地址',
         SERVICES: '服务',
         INSTANCE: '实例',
+        INSTANCE_CONFIGURATION: '实例规格',
         CAPATITY: '容量',
         CAPACITY_GB: '容量(GB)',
         MOUNT: '挂载',
@@ -116,11 +127,16 @@ export const TranslateCN = {
         REGION_AND_AVAILABLE_AREA: '所在区域及可用区',
         CREATED_TIME: '创建时间',
         EXPIRE_DATE: '到期时间',
+        SYSTEM: '系统',
         SYSTEM_PROMPT: '系统提示',
         OPERATOR: '操作者',
         EXECUTOR: '执行者',
         DARA_ACQUISITION_FAILURE: '数据获取失败',
         UPDATE_FAILED: '更新失败',
+        NETWORK: '网络',
+        CLASSIC: '经典',
+        DISK: '磁盘',
+        MONITORING: '监控',
 
         //ts
         CLOUD_HOST_OPERATION: '云主机操作',
@@ -261,7 +277,7 @@ export const TranslateCN = {
         ADD_DATA_DISK: '增加数据盘',
         ADD_HEAD: '一共可以增加',
         ADD_MIDDLE: '块，还可以增加',
-        ADD_TAIL:'块'
+        ADD_TAIL: '块'
 
     },
     ORDER_MNG: {//_DATA_FAILED
@@ -429,7 +445,7 @@ export const TranslateCN = {
         BUY_HEAD: '可以购买容量',
         BUY_MID_FIRST: 'GB的云硬盘。',
         BUY_MID_SECOND: 'GB起，增加按照每',
-        BUY_TAIL:'GB一档。',
+        BUY_TAIL: 'GB一档。',
 
         //TS
         SUCCESSFULLY_ADDED_TO_SHOPPING_CART: '加入购物车成功!',
@@ -466,7 +482,10 @@ export const TranslateCN = {
         PURCHASE_CYCLE: '购买周期',
         CHARGE_DETAIL: '费用明细',
         QUANTITY: '数量',
-        NOTE: '小记',
+        NOTE: '小计',
+        BASICPRICE : '基础周期费用',
+        UNITARR: "按量费用",
+        BILLINGARR: "周期费用",
         REMOVE_FROM_CART: '从购物车中移除',
         INCREMENTAL_CYCLE_COST: '增量周期费用',
         UNIT_PRICE: '单价费用',
@@ -522,5 +541,12 @@ export const TranslateCN = {
         FAILED_TO_GET_THE_ORDER_LIST_DATA: '可订购列表数据获取失败',
         CONFIGURATION_SUBMISSION_FAILED___CONTACT_ADMINISTRATOR: '配置申请提交失败，请重新尝试或者联络管理员',
         CONFIGURATION_APPLICATION_SUBMITTED_SUCCESSFULLY: '配置申请提交成功',
+        LINK_MANAGEMENT_TERMINAL: '链接管理终端',
+        INSTANCE_CONFIGURATION_FAMILY: '实例规格族',
+        REPLACE_SYSTEM_DISK: '更换系统盘',
+        BROADBAND_BILLING_MODE: '宽带计费方式',
+        CURRENT_USE_BANDWIDTH: '当前使用带宽',
+        ACCORDING_TO_BROADBAND: '按宽带',
+        SET_ALARM_RULES: '设置报警规则'
     },
 }

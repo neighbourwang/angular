@@ -193,12 +193,19 @@ export class EntEstCreService{
 		,entId: string
 		,successHandler:()=>void):void
 	{
-		let localParams:Array<any> = [
-		{
+		let localParams:Array<any> = [{
 			key:"enterpriseId"
-			,value:entId
-		}
-		];
+			,value: entId
+		}];
+
+		let pageParameter = {
+		  "currentPage": entProdItems.currentPage == 0? 0: entProdItems.currentPage,
+		  "offset": 0,
+		  "size": 5,
+		  "sort": {},
+		  "totalPage": 0
+		};
+
 
 		this.loadItems(entProdItems
 			, errorHandler
@@ -232,11 +239,7 @@ export class EntEstCreService{
 			}
 			,null
 			,successHandler
-			,{
-				"enterpriseId": entId,
-				"platformId": null,
-				"serviceId": null
-			}
+			,pageParameter
 			);
 	}
 
@@ -255,7 +258,7 @@ export class EntEstCreService{
 		let pageParameter = {
 		  "currentPage": prodItems.currentPage == 0? 1: prodItems.currentPage,
 		  "offset": 0,
-		  "size": 10,
+		  "size": 5,
 		  "sort": {},
 		  "totalPage": 0
 		};
@@ -325,6 +328,9 @@ export class EntEstCreService{
 			,"email":{ 
 				"func": val=>!this.validation.isEmail(val)
 				,"msg": "邮箱地址无效"
+			},"integer":{ 
+				"func": val=>!this.validation.isInteger(val)
+				,"msg": "不正确"
 			}
 		}
 

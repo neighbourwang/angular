@@ -6,6 +6,13 @@ export class ValidationService {
     isBlank(val: any): boolean {
         return val === undefined || val === "" || val === null;
     }
+    //非负整数
+    isInteger(val: string):boolean{
+       const reg =/^\d+$/;
+       if(!this.isBlank(val))
+           return reg.test(val);
+       return false;
+    }
 
     // 邮件地址验证
     isEmail(val: string): boolean {
