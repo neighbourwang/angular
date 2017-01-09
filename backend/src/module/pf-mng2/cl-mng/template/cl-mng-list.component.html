@@ -73,6 +73,6 @@
 
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="nof()"></fc-notice>
 
-<fc-confirm #removeConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="removeCof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
-<fc-confirm #enableConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="enableCof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
-<fc-confirm #disableConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="disableCof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+<fc-confirm #removeConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="removeCof()" ct="HOST_VMWARE_MNG.CONFIRM" (cf)="ccf()"></fc-confirm>
+<fc-confirm #enableConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="enableCof()" ct="HOST_VMWARE_MNG.CONFIRM" (cf)="ccf()"></fc-confirm>
+<fc-confirm #disableConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="disableCof()" ct="HOST_VMWARE_MNG.CONFIRM" (cf)="ccf()"></fc-confirm>
