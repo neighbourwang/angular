@@ -3,11 +3,11 @@ import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
 
 //model
-import { Phylist_mock } from '../model/phy-list.mock.model';
-import { CriteriaQuery } from '../model/criteria-query.model';
+import {Criteria} from "../model/criteria.model";
+import {PhyCreat} from "../model/phy-creat.model";
 
 import 'rxjs/add/operator/toPromise';
-import {Criteria} from "../model/criteria.model";
+
 
 @Injectable()
 export class PhyPoolMngService {
@@ -70,7 +70,20 @@ export class PhyPoolMngService {
                 "poolName": criteria.poolName,
                 "region": criteria.region,
                 "dataCenter": criteria.dataCenter,
-                "description": criteria.description,
+                "description": criteria.description
+
+            });
+    }
+
+    creat(phy: PhyCreat){
+        const api= this.restApiCfg.getRestApi("phy-mng.phy-pool.phylist.creat");
+        return this.restApi.request(api.method, api.url, null, null,
+            {
+                "dataCenter": "string",
+                "description": "string",
+                "poolName": "string",
+                "region": "string"
+
             });
     }
 
