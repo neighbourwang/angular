@@ -149,7 +149,7 @@
                 <thead>
                     <tr>
                         <!--<th >#</th>-->
-                        <th class="check-box-col" style="width:6%">Region</th>
+                        <th class="check-box-col" style="width:6%">DC/Region</th>
                         <th style="width:6%">名称</th>
                         <th style="width:8%">显示名称</th>
                         <th style="width:18%">宿主机</th>
@@ -171,7 +171,7 @@
                         </td>
                         <td>{{zone.name||'NULL'}}</td>
                         <td>
-                            <span *ngIf="!zone.isEdit">{{zone.displayName||0}}</span>
+                            <span *ngIf="!zone.isEdit">{{zone.displayName||'NULL'}}</span>
                             <input *ngIf="zone.isEdit" type="text" [(ngModel)]="zone.displayName" name="displayName">
                         </td>
                         <td>
@@ -291,7 +291,7 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>#</th>                        
+                        <th>可用区</th>                        
                         <th>名称</th>
                         <th>显示名称</th>
                         <th>存储类型</th>
@@ -303,59 +303,44 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>cinder1</td>
-                        <td><input type="text" value='高速I/O-1'></td>
-                        <td>vSAN</td>
-                        <td>12800</td>
+                         <tr *ngFor="let storage of storageList;let idx=index">
+                        <!--<td>1</td>-->
+                        <td>{{storage.displayName}}</td>
+                        <td>{{storage.name}}</td>
                         <td>
-                            <input type="number" class="form-control" [(ngModel)]="item" style="width: 100px; display: inline;" value="2">
-                            <!--<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
+                            <span *ngIf="!storage.isEdit">{{storage.displayName||'NULL'}}</span>
+                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.displayName">
+
+                        </td>
+                        <td>{{storage.typeDisplayName}}</td>
+                        <td>{{storage.maximum||0}}</td>
+                        <td>
+                            <span *ngIf="!storage.isEdit">{{storage.replica||0}}</span>
+                            <input *ngIf="storage.isEdit" type="number" class="form-control" [(ngModel)]="storage.replica" style="width: 100px; display: inline;">
                         </td>
                         <td>
-                            <input type="number" class="form-control" [(ngModel)]="item" style="display: inline;" value="85">
+                            <span *ngIf="!storage.isEdit">{{storage.quotaPercentDisplay||0}}</span>
+                            <input *ngIf="storage.isEdit" type="number" class="form-control" [(ngModel)]="storage.quotaPercentDisplay" style=" display: inline;">
                         </td>
-                        <td>已启用</td>
+                        <td>
+                            {{storage.status|dict:this.commonService.globalStatus|async}}
+                        </td>
                         <td >
-                            <input type="text" class="form-control" [(ngModel)]="item" style="display: inline;" value="高速I/O存储后端">
-                        </td>                        
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>cinder1</td>
-                        <td><input type="text" value='高速I/O-1'></td>
-                        <td>vSAN</td>
-                        <td>12800</td>
-                        <td>
-                            <input type="number" class="form-control" [(ngModel)]="item" style="width: 100px; display: inline;" value="2">
-                            <!--<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
+                            <span *ngIf="!storage.isEdit">{{storage.description||'NULL'}}</span>
+                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.description" style=" display: inline;" >
                         </td>
                         <td>
-                            <input type="number" class="form-control" [(ngModel)]="item" style="display: inline;" value="85">
-                        </td>
-                        <td>已启用</td>
-                        <td >
-                            <input type="text" class="form-control" [(ngModel)]="item" style="display: inline;" value="高速I/O存储后端">
-                        </td>                        
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>cinder1</td>
-                        <td><input type="text" value='高速I/O-1'></td>
-                        <td>vSAN</td>
-                        <td>12800</td>
-                        <td>
-                            <input type="number" class="form-control" [(ngModel)]="item" style="width: 100px; display: inline;" value="2">
-                            <!--<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
-                        </td>
-                        <td>
-                            <input type="number" class="form-control" [(ngModel)]="item" style="display: inline;" value="85">
-                        </td>
-                        <td>已启用</td>
-                        <td >
-                            <input type="text" class="form-control" [(ngModel)]="item" style="display: inline;" value="高速I/O存储后端">
-                        </td>                        
+                            <div *ngIf="!storage.isEdit">
+                                <button *ngIf="storage.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage.id)">启用</button>
+                                <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage.id)">禁用</button> 
+                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)">编辑</button>
+                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)">同步计算资源</button>
+                            </div>                            
+                            <div *ngIf="storage.isEdit">
+                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="saveStorage(storage,idx)">保存</button> 
+                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditStorage(storage,idx)">取消</button> 
+                            </div>                            
+                        </td> 
                     </tr>
                 </tbody>
             </table>
