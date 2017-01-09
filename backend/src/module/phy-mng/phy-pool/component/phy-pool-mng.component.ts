@@ -7,11 +7,11 @@ import { LayoutService, NoticeComponent , ConfirmComponent, PaginationComponent 
 //model
 import { PhyPoolList } from '../model/phy-pool-list.model.ts';
 import {CriteriaQuery} from "../model/criteria-query.model";
+import { Criteria } from "../model/criteria.model";
 import {PhyCreat} from "../model/phy-creat.model";
 
 //service
 import { PhyPoolMngService } from '../service/phy-pool-mng.service';
-import {Criteria} from "../model/criteria.model";
 
 
 @Component({
@@ -51,7 +51,9 @@ export class PhyPoolMngComponent implements OnInit{
     criteriaQuery: CriteriaQuery= new CriteriaQuery();
     phy: PhyCreat= new PhyCreat();
     criteria: Criteria= new Criteria();
-    // selected: string;
+    default: string;
+    search: string;
+    query: string;
     selectedPhy: PhyPoolList= new PhyPoolList();
 
     ngOnInit (){
@@ -173,33 +175,6 @@ export class PhyPoolMngComponent implements OnInit{
         }
     }
 
-    edit(){
-        const selectedPhy= this.data.find((p) =>{
-            return p.selected;
-        });
-        if(!selectedPhy){
-            this.showAlert("请选择资源池");
-        }else if(selectedPhy.status == "1"){
-            this.showAlert("启用状态下不能编辑！");
-        }else{
-            this.phy.pmpoolId= selectedPhy.pmPoolId;
-            this.layoutService.show();
-            this.service.edit(this.criteria, selectedPhy.pmPoolId)
-                .then(
-                    response => {
-                        this.layoutService.hide();
-                        if (response && 100 == response["resultCode"]) {
-                            this.showAlert("启用成功");
-                            this.getData();
-                        } else {
-                            alert("Res sync error");
-                        }
-                    }
-                )
-                .catch((e) => this.onRejected(e));
-        }
-    }
-
     selected(item: PhyPoolList){
         this.data.forEach((p) =>{
             p.selected= false;
@@ -211,8 +186,39 @@ export class PhyPoolMngComponent implements OnInit{
         this.router.navigate([`phy-mng/phy-pool/phy-creat`]);
     }
 
-    searchphy(){
+    gotoCreat(){
+        const selectedphy= this.data.find((p) =>{
+            return p.selected;
+        });
+        if(!selectedphy){
+            this.showAlert("请选择资源池");
+        }else if(selectedphy.status == "1"){
+            this.showAlert("启用状态下不能编辑！");
+        }else{
+            this.router.navigate([`phy-mng/phy-pool/phy-creat`,
+                {   "poolName": selectedphy.pmPoolName,
+                    "region": selectedphy.region,
+                    "dataCenter": selectedphy.dataCenter,
+                    "description": selectedphy.description,
+                    "pmpoolId": selectedphy.pmPoolId
+                }
+            ]);
+        }
+    }
 
+    searchphy(){
+        this.criteria= new Criteria();
+        console.log(this.criteria,"criteria");
+        if(this.search == "资源池名称"){
+            this.criteria.poolName= this.query;
+        }else if(this.search == "所属地域"){
+            this.criteria.region= this.query;
+        }else{
+            this.criteria.dataCenter= this.query;
+        }
+        console.log(this.criteria,"criteria");
+        this.getData();
+        this.pager.render(1);
     }
 
     showAlert(msg: string): void {
