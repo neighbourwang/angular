@@ -169,7 +169,7 @@
                             <p *ngFor="let dcOrRegion of zone.dcOrRegion" style="padding:0;margin-bottom: 0">{{dcOrRegion}}</p>
                             <!--{{zone.dcOrRegion||'NULL'}}-->
                         </td>
-                        <td>{{zone.name||0}}</td>
+                        <td>{{zone.name||'NULL'}}</td>
                         <td>
                             <span *ngIf="!zone.isEdit">{{zone.displayName||0}}</span>
                             <input *ngIf="zone.isEdit" type="text" [(ngModel)]="zone.displayName" name="displayName">
@@ -282,7 +282,7 @@
                                 <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditStorage(storage,idx)">取消</button> 
                             </div>                            
                         </td> 
-                    </tr>                   
+                    </tr>                  
                     
                 </tbody>
             </table>
