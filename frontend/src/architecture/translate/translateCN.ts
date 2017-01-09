@@ -237,7 +237,7 @@ export const TranslateCN = {
         DATA_DISK: '数据盘',
         SNAPSHOT: '快照：',
         SECURITY_INFORMATION: '安全信息',
-        SECURITY_GROUP: '安全组：',
+        SECURITY_GROUP: '安全组',
         PAID_INFORMATION: '付费信息',
         ORDER_NUMBER: '订单编号：',
         PAYMENT_METHODS: '付费方式：',

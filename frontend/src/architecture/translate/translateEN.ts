@@ -77,8 +77,8 @@ export const TranslateEN = {
         PASSWORD: 'password',
 
         //单位
-        $: "$",
-        YUAN: 'yuan',
+        $: "$ ",
+        YUAN: '',
         GB: 'GB',
         ONE_SET: 'one set',
         TWO_SET: 'two set',
