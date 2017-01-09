@@ -221,7 +221,7 @@
     <div class="page-content">
         <div style="padding-bottom: 10px;">
              <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
-                <span class="icon-button-label" (click)='updateStorageList()'>同步存储后端</span>
+                <span class="icon-button-label" (click)='updateStorageListPop()'>同步存储后端</span>
              </button>             
             <div style="clear:both"></div>
         </div>
@@ -272,7 +272,7 @@
                                 <button *ngIf="storage.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage.id)">启用</button>
                                 <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage.id)">禁用</button> 
                                 <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)">编辑</button>
-                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStoragePop(storage.id)">同步计算资源</button>
+                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)">同步计算资源</button>
                             </div>                            
                             <div *ngIf="storage.isEdit">
                                 <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="saveStorage(storage,idx)">保存</button> 
