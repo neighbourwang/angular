@@ -150,7 +150,7 @@ export class VmNSXIndexComponent implements OnInit {
     saveEdit(Port: port) {
         this.layoutService.show();
         if (this.validationService.isBlank(this.editPort.drlSubnetDisplayName)) {
-            this.showAlert("NET_MNG_VM_IP_MNG.PG_DIS_NAME_CANT_NULL");
+            this.showAlert("NET_MNG_VM_IP_MNG.DLR_SUBNET_DIS_NAME_CANT_NULL");
             return;
         }
         this.service.saveEdit(this.editPort)
@@ -191,7 +191,7 @@ export class VmNSXIndexComponent implements OnInit {
     portEnable() {
         const selectedPort = this.filterports.find((port) => { return port.selected });
         if (!selectedPort) {
-            this.showAlert(`NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_DBT_NET_TO_ENABLE`);
+            this.showAlert(`NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_NSX_NET_TO_ENABLE`);
             return;
         }
         this.noticeTitle = "NET_MNG_VM_IP_MNG.ENABLE_NET";
@@ -202,7 +202,7 @@ export class VmNSXIndexComponent implements OnInit {
         }
         //this.noticeMsg = `您选择启用 '${selectedPort.distPortGroupDisplayName}'分布式端口组，其VLAN ID为'${selectedPort.vlanId}' ， 
         //                请确认；如果确认，用户将能够在订购中选择此网络。`;
-        this.noticeMsg = 'NET_MNG_VM_IP_MNG.ENABLE_DBT_PORTGROUP_WARNING^^^'+selectedPort.dlrInterfaceName+'^^^'+selectedPort.lswId;
+        this.noticeMsg = 'NET_MNG_VM_IP_MNG.ENABLE_NSX_PORTGROUP_WARNING^^^'+selectedPort.dlrInterfaceName+'^^^'+selectedPort.lswId;
         this.confirm.ccf = () => { };
         this.confirm.cof = () => {
             this.layoutService.show();
@@ -229,7 +229,7 @@ export class VmNSXIndexComponent implements OnInit {
     portDisable() {
         const selectedPort = this.filterports.find((port) => { return port.selected });
         if (!selectedPort) {
-            this.showAlert(`NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_DBT_NET_TO_DISABLE`);
+            this.showAlert(`NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_NSX_NET_TO_DISABLE`);
             return;
         }
         this.noticeTitle = "NET_MNG_VM_IP_MNG.DISABLE_NET";
@@ -240,7 +240,7 @@ export class VmNSXIndexComponent implements OnInit {
         }
         //this.noticeMsg = `您选择禁用 '${selectedPort.distPortGroupDisplayName}'分布式端口组，其VLAN ID为'${selectedPort.vlanId}' ， 
         //                请确认；如果确认，用户将不能够在订购中选择此网络。`;
-        this.noticeMsg = 'NET_MNG_VM_IP_MNG.DISABLE_DBT_PORTGROUP_WARNING^^^'+selectedPort.dlrInterfaceName+'^^^'+selectedPort.lswId;
+        this.noticeMsg = 'NET_MNG_VM_IP_MNG.DISABLE_NSX_PORTGROUP_WARNING^^^'+selectedPort.dlrInterfaceName+'^^^'+selectedPort.lswId;
         this.confirm.ccf = () => { };
         this.confirm.cof = () => {
             this.layoutService.show();
@@ -351,6 +351,8 @@ export class VmNSXIndexComponent implements OnInit {
                         this.showAlert("NET_MNG_VM_IP_MNG.SYNC_SUCCESS");
                         this.sync.close();
                         // //  刷新列表
+                        this.getDlrList();
+                        this.getData();
                         // this.service.getSynInfolist(this.platformId)
                         // .then(
                         //     response => {

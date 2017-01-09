@@ -120,7 +120,7 @@ export class OrgMngListComponent implements OnInit {
         this.confirmType = type;
         break;
       case 'disabled':
-        if (org.status == 5) {
+        if (org.status == 3) {
           this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.THE_STATE_OF_THE_ORGANIZATION_HAS_BEEN_DISABLED');
           return;
         }

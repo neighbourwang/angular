@@ -7,7 +7,7 @@
  
 export const environment = {
     production: true ,
-    baseIp : '10.80.25.120',
+    baseIp : '10.80.25.11',
     basePort : '30072',
     jwt : promise
 };

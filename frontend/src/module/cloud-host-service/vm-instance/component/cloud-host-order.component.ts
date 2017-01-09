@@ -206,7 +206,7 @@ console.log(this.vmProduct)
 		this.payLoadArr.push(payLoad);   //加入云主机的订单
 
 		/****下面开始处理数据盘订单的逻辑****/
-		const storages = this.storage.getData();   //获取数据盘
+		const storages = this.storage ? this.storage.getData() : [];   //获取数据盘
 
 		if (storages.length) {   //如果有数据盘的数据
 			for (let storage of storages) {
@@ -246,11 +246,11 @@ console.log(this.vmProduct)
 		if (!this.vmProduct) return;  //如果没获取到价格
 
 		this.vmBasePrice = this.vmProduct.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
-		this.vmTotalPrice = (this.vmProduct.billingInfo.basicPrice + this.vmProduct.billingInfo.cyclePrice) * timeline * this.payLoad.quality;   //周期费用
+		this.vmTotalPrice = (this.vmProduct.billingInfo.basicPrice) * timeline * this.payLoad.quality;   //周期费用
 	}
 	setDiskPrice(): void {  //设置数据盘的价格
 		const timeline = +(this.sendModule.timeline.attrValue || "0"),
-			storages = this.storage.getData();   //获取数据盘
+			storages = this.storage ? this.storage.getData() : [];   //获取数据盘
 		this.diskSku = [];
 		let basePrice = 0, totalPrice = 0;
 		for (let data of storages) {
@@ -316,6 +316,7 @@ console.log(this.vmProduct)
 	}
 
 	relyChanges(attrName) {   //当依赖的元素有改变的时候执行
+		console.log(attrName)
 		/******获取并设置网络******/
 		if (attrName === "zone") {   //这里捕捉不到平台，侧面的，当zone改变的时候说明 自己依赖的云平台已经改变
 			this.setNetwork(this.sendModule.platform.attrValue);   //获取网络
@@ -451,7 +452,7 @@ console.log(this.vmProduct)
 			startupsource: "VM_INSTANCE.PLEASE_SELECT_STARTUP_SOURCE",//VM_INSTANCE.PLEASE_SELECT_STARTUP_SOURCE
 			imagetype: "VM_INSTANCE.PLEASE_SELECT_IMAGE_TYPE", //VM_INSTANCE.PLEASE_SELECT_IMAGE_TYPE
 			os: "VM_INSTANCE.PLEASE_SELECT_IMAGE_NAME",   //VM_INSTANCE.PLEASE_SELECT_IMAGE_NAME
-			timelineunit: "VM_INSTANCE.PLEASE_SELECT_NET_TYPE"//VM_INSTANCE.PLEASE_SELECT_NET_TYPE
+			timelineunit: "VM_INSTANCE.PLEASE_SELECT_TIMELINE_UNIT"//VM_INSTANCE.PLEASE_SELECT_NET_TYPE
 		}
 
 		const check = value => {

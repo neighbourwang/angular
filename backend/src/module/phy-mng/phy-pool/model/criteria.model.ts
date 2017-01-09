@@ -2,6 +2,7 @@ export class Criteria{
     poolName: string;
     region: string;
     dataCenter: string;
+    description: string;
 }
 /*
 {

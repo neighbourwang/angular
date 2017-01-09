@@ -45,19 +45,26 @@ export class cartListComponent implements OnInit {
 
 	private setTotalPrice(orderList:any[]) {   //设置价格总价
 		let billingArr = {},
+			unitArr = {},
 			oncePrice:number = 0;
 
 		// orderList.forEach(order => {
 			orderList.forEach(item => {
 				oncePrice += item.billingInfo.basePrice;
-				if(!billingArr[item.billingInfo.billingMode]) {   //计算周期价格
-					billingArr[item.billingInfo.billingMode] = 0;
+				if(item.billingInfo.periodType) {
+					if(!billingArr[item.billingInfo.periodType]) billingArr[item.billingInfo.periodType] = 0;  //计算周期价格
+					billingArr[item.billingInfo.periodType] += item.billingInfo.basicPrice + item.billingInfo.cyclePrice; 
 				}
-				billingArr[item.billingInfo.billingMode] += item.billingInfo.basicPrice; 
+				if(item.billingInfo.unitType){
+					if(!unitArr[item.billingInfo.unitType]) unitArr[item.billingInfo.unitType] = 0;  //计算周期价格
+					unitArr[item.billingInfo.unitType] += item.billingInfo.unitPrice; 
+				}
 			})
 		// });
 		this.totalPrice.oncePrice = oncePrice;
 		this.totalPrice.billingArr = billingArr;
+		this.totalPrice.unitArr = unitArr;
+		console.log(this.totalPrice)
 	}
 
 	getCartList():void {

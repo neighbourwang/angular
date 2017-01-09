@@ -40,8 +40,8 @@ export class VmwareMngIndexService{
 
     getRegionInfo():Promise<any>{        
         const api = this.restApiCfg.getRestApi("net-mng.vmware-index.regionlist.get");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return RegionInfo_mock });
+        return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return RegionInfo_mock });
     }
 
     getNsxInfo(platformId:string):Promise<any>{
@@ -52,8 +52,8 @@ export class VmwareMngIndexService{
             }
         ];
         const api = this.restApiCfg.getRestApi("net-mng.vmware-index.nsxinfo.get");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return NsxInfo_mock });
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return NsxInfo_mock });
     }
 
     getNetworkList(platformId:string):Promise<any>{
@@ -73,17 +73,19 @@ export class VmwareMngIndexService{
             };
             */
         const api = this.restApiCfg.getRestApi("net-mng.vmware-index.clusterlist.get");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return NetworkInfo_mock });
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return NetworkInfo_mock });
     }
 
     updateNsxMngInfo(platformId: string, nsxnet: NsxNetModel): Promise<any> {
+        /*
         const pathParams = [
             {
                 key: "platform_id",
                 value: platformId
             }
         ];
+        */
         const body = {
             "nsxVer": nsxnet.nsxVer,
             "nsxAddress": nsxnet.nsxAddress,
@@ -93,17 +95,19 @@ export class VmwareMngIndexService{
         };
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("net-mng.vmware-index.nsxinfo.save");
-        //return this.restApi.request(api.method, api.url, pathParams, null, body);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
+        return this.restApi.request(api.method, api.url, null, null, body);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
     }
 
     testNsxMngInfo(platformId: string, nsxnet: NsxNetModel): Promise<any> {
+        /*
         const pathParams = [
             {
                 key: "platform_id",
                 value: platformId
             }
         ];
+        */
         const body = {
             "nsxVer": nsxnet.nsxVer,
             "nsxAddress": nsxnet.nsxAddress,
@@ -113,13 +117,14 @@ export class VmwareMngIndexService{
         };
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("net-mng.vmware-index.nsxinfo.test");
-        //return this.restApi.request(api.method, api.url, pathParams, null, body);
-
+        return this.restApi.request(api.method, api.url, null, null, body);
+        /*
         if (nsxnet.adminPassword == "12345") {
             return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
         } else {
             return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Failure_mock });
         }
+        */
     }
 
     getNsxStatus(platformId:string):Promise<any>{
@@ -130,7 +135,7 @@ export class VmwareMngIndexService{
             }
         ];
         const api = this.restApiCfg.getRestApi("net-mng.vmware-index.nsxstatus.validate");
-        //return this.restApi.request(api.method, api.url, pathParams, null, body);
+        //return this.restApi.request(api.method, api.url, pathParams, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return NsxStatus_mock });
     }
 
@@ -142,53 +147,13 @@ export class VmwareMngIndexService{
             }
         ];
         const body = {
-            "networkTye": vmnetstatus.vmNetStatus
+            "networkType": vmnetstatus.vmNetStatus
+            //"checkResult": vmnetstatus.vmNetStatus
         };
         console.log(pathParams, "pathParams", body, "body");
         const api = this.restApiCfg.getRestApi("net-mng.vmware-index.network.changetype");
-        //return this.restApi.request(api.method, api.url, pathParams, null, body);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
     }
     
 }
-
-
-
-/*
-{
-        "desc": "区域联动列表",
-        "id": "net-mng.vmware-index.regionlist.get",
-        "method": "GET",
-        "url": "adminboe/authsec/vmware/network/main/regionlist"
-    },
-    {
-        "desc": "集群列表",
-        "id": "net-mng.vmware-index.clusterlist.get",
-        "method": "GET",
-        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/main/clusterlist"
-    },
-    {
-        "desc": "NSX管理信息",
-        "id": "net-mng.vmware-index.nsxinfo.get",
-        "method": "GET",
-        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/main/nsxinfo/get"
-    },
-    {
-        "desc": "保存NSX管理信息",
-        "id": "net-mng.vmware-index.nsxinfo.save",
-        "method": "PUT",
-        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/main/nsxinfo/save"
-    },
-    {
-        "desc": "测试NSX管理信息",
-        "id": "net-mng.vmware-index.nsxinfo.test",
-        "method": "POST",
-        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/main/nsxinfo/test"
-    },
-    {
-        "desc": "更改网络类型",
-        "id": "net-mng.vmware-index.network.changetype",
-        "method": "PUT",
-        "url": "adminboe/authsec/vmware/network/main/changetype/clusterid/{cluster_id}"
-    },
-*/

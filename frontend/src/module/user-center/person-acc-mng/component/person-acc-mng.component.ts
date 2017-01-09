@@ -25,6 +25,7 @@ export class PersonAccMngComponent implements OnInit {
         private putPersonAcc: PutLocalAccService,
         private putPersonAccPwd: EditPersonAccPwdService,
         private validService: ValidationService,
+        private layoutService:LayoutService
     ) { }
     @ViewChild('editPassWord')
     editPassWord: PopupComponent;
@@ -40,22 +41,27 @@ export class PersonAccMngComponent implements OnInit {
     }
     //获取当前登录信息
     getCurrentAccount() {
-        console.log(this.getPersonAcc.userInfo);
-        this.personAcc = Object.assign({}, this.getPersonAcc.userInfo)
-        this.temPersonAcc = this.getPersonAcc.userInfo;
-        // this.getPersonAcc.getPersonAcc().then(
-        //     response => {
-        //         if (response && 100 == response.resultCode) {
-        //             console.log(response);
-        //             this.personAcc = Object.assign({}, response.resultContent)
-        //             this.temPersonAcc = response.resultContent;
-        //             console.log(this.personAcc);
-        //         } else {
+        // console.log(this.getPersonAcc.userInfo);
+        // this.personAcc = Object.assign({}, this.getPersonAcc.userInfo)
+        // this.temPersonAcc = this.getPersonAcc.userInfo;
+        this.layoutService.show();
+        this.getPersonAcc.getPersonAcc().then(
+            response => {
+                if (response && 100 == response.resultCode) {
+                    console.log(response);
+                    this.personAcc = Object.assign({}, response.resultContent)
+                    this.temPersonAcc = response.resultContent;
+                    //更新缓存用户信息
+                    sessionStorage.removeItem('userInfo');
+                    sessionStorage["userInfo"] = JSON.stringify(response.resultContent);
+                    this.layoutService.hide();
+                } else {
 
-        //         }
-        //     }).catch((err) => {
-        //         console.error(err);
-        //     });
+                }
+            }).catch((err) => {
+                console.error(err);
+                this.layoutService.hide();
+            });
     }
     //编辑账号
     onEdit() {
@@ -209,12 +215,16 @@ export class PersonAccMngComponent implements OnInit {
     nof() {
 
     }
+    
     saveEditPerAcc() {
+        this.layoutService.show();
         return this.putPersonAcc.putLocalAcc(this.personAcc.userId, this.personAcc).then(response => {
             console.log(response);
             this.getCurrentAccount();
+            this.layoutService.hide();
         }).catch(err => {
             console.error(err);
+            this.layoutService.hide();
         })
     }
     clear(val) {

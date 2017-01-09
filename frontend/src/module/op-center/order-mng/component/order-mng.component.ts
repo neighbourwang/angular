@@ -168,7 +168,7 @@ export class OrderMngComponent implements OnInit{
 		this._orderLoader.Trait = (target:Array<SubInstanceResp>)=>{
 
 			let canRenew:(item:SubInstanceItemResp)=>boolean = (item:SubInstanceItemResp):boolean=>{
-				if (item.serviceType == 1)
+				if (item.serviceType == 1)//云主机
 			      return false;
 
 			    if(item.billingInfo && item.billingInfo.billingMode == 1)//按流量计费
@@ -334,9 +334,9 @@ export class OrderMngComponent implements OnInit{
 
 	//选择续订	
 	renewSelect(orderItem:SubInstanceResp){
-		// 成功、即将过期:7的订单可以  续订
+		// 成功、即将过期:7的订单可以  续订  成功指已激活
 		if(!_.isEmpty(orderItem.itemList)
-			&& orderItem.itemList.filter(n=>n.status == "7").length > 0)
+			&& orderItem.itemList.filter(n=>n.status == "2"||n.status == "7").length > 0)
 		{
 			$('#renewOrder').modal('show');
 			this.selectedOrderItem = orderItem;

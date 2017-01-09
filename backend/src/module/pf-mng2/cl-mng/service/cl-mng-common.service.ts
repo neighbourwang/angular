@@ -27,6 +27,21 @@ export class ClMngCommonService {
         "owner":"GLOBAL",
         "field":"STATUS"
     })
+    //版本字典
+    openStackVersionDic = this.dict.get({
+        "owner":"OPENSTACK",
+        "field":"VERSION"
+    });
+    vmWareVersionDic = this.dict.get({
+        "owner":"VMWARE",
+        "field":"VERSION"
+    });
+    //平台类型
+    platformTypeDic=this.dict.get({
+        "owner":"PLATFORM",
+        "field":"TYPE"
+    });
+    
     // 获取云平台类型的数据字典
     private platFormType() {
         let api = this.restApiCfg.getDataRestApi("sysdic.owner.field");
@@ -49,7 +64,10 @@ export class ClMngCommonService {
 
     //根据平台类型获得版本列表
     private platFormVersion (owner : string){
-        console.log(this.globalStatus)
+        console.log('status',this.globalStatus)
+        console.log('type',this.platformTypeDic)
+        console.log('vmware',this.vmWareVersionDic)
+        console.log('openstack',this.openStackVersionDic)
         let api = this.restApiCfg.getDataRestApi("sysdic.owner.field");
         return this.restApi.request(api.method,api.url,[{key : "_owner",value : owner},{key : "_field", value : "VERSION"}],undefined);
     }

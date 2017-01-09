@@ -1,0 +1,87 @@
+
+    <div class="page-content-header icon-content-header-physical-mng">
+        物理机列表：XXXXXX（这里显示资源池名称）--上海（地域）--数据中心	
+        <button class="fox-cloud-button fox-cloud-button-white" (click)="gotoPool();">
+                    <span class="icon-button-label">返回资源池列表</span>
+        </button>  
+    </div>
+    <div class="page-content"> 
+        <div style="margin-bottom:10px">  
+            <button class="fox-cloud-button fox-cloud-button-green" >
+                <span class="glyphicon glyphicon-plus"></span>
+                <span class="icon-button-label icon-left-button-label">添加物理机</span>
+            </button>
+            <div class="dropdown pull-right" style="margin-left:10px">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    更多操作
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="#" key="boe/physical_edit.html"> 编辑</a></li>            
+                    <li><a href="#" key="boe/physical_editIpmiInfo.html">修改IPMI信息</a></li>
+                    <li><a href="#startPhy" data-toggle="modal">启用</a></li>
+                    <li><a href="#forbidePhy" data-toggle="modal">禁用</a></li>
+                    <li><a href="#deletePhy" data-toggle="modal">删除</a></li>
+                </ul>
+           </div>                  
+           <div class="input-group col-md-2 pull-right mgl10">
+            <input class="form-control " placeholder="输入云主机信息搜索" type="text">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+            </div> 
+             <div class="pull-right" >
+                <select class="form-control">
+				    <option>物理机名称</option>
+                    <option>品牌</option>            
+                    <option>型号</option>
+                    <option>私网IP地址</option>
+                    <option>公网IP地址</option>
+                    <option>IPMI地址</option>
+                </select>
+           </div>           
+        </div > 
+        <div class="table-container ">
+                <table class="table table-hover "  >
+                        <thead>
+                            <tr>
+                                <th>编号</th>                                       
+                                <th>物理机名称</th>									
+                                <th>品牌</th>
+                                <th>型号</th>
+                                <th>CPU数量</th>
+                                <th>内存（G）</th>
+                                <th>磁盘信息</th>  
+                                <th>私网IP地址</th> 
+                                <th>公网IP地址</th>
+                                <th>IPMI地址</th> 
+                                <th>位置信息</th> 
+                                <th>电源状态</th> 
+                                <th>使用状态</th>  
+                                <th>运维状态</th> 
+                                <th>健康检查</th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let physical of physicalList; let idex=index;">
+                                <td>{{idex+1}}</td>
+                                <td><a href="#" >{{physical.pmName}}</a></td>                                 
+                                <td>{{physical.pmBrand}}</td>
+                                <td>{{physical.pmModel}}</td>
+                                <td>{{physical.pmCPUCores}}</td>	
+                                <td>{{physical.pmRAM}}</td>
+                                <td>{{physical.pmDiskInfo}}</td>
+                                <td>{{physical.pmPriIPAddr}}</td>	
+                                <td>{{physical.pmPubIPAddr}}</td>
+                                <td>{{physical.pmIPMIAddr}}</td>
+                                <td>{{physical.pmLocation}}</td>
+                                <td>{{physical.pmPowerStatus}}</td>
+                                <td>{{physical.UseageStatus}}</td>
+                                <td class="font-green">{{physical.pmMainStatus}}</td>
+                                <td class="font-orange">{{physical.pmHealthExam}}</td>														
+                            </tr>                                                             
+                        </tbody>
+                </table>             
+        </div>                             
+     </div>
+<fc-pagination #pager tp={{totalPage}} (pf)="getPhysicalList($event)"></fc-pagination>     
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice> 
+                
