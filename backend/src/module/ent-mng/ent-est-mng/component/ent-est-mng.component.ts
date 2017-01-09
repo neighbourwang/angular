@@ -52,12 +52,12 @@ export class EntEstMngComponent implements OnInit {
   ) {
 
     //认证数据更新
-    this._certUpdateHandler = new ItemLoader<any>(false, "认证更新", "ent-mng.ent-est-mng.enterprise.updateauth", restApiCfg, restApi);
+    this._certUpdateHandler = new ItemLoader<any>(false, "ENT_MNG.ENT_CERT_UPDATE_FAILED", "ent-mng.ent-est-mng.enterprise.updateauth", restApiCfg, restApi);
 
-    this.entEstMng = new ItemLoader<EntEstItem>(true, "企业管理列表", "ent-mng.ent-est-mng.enterprise.get", restApiCfg, restApi);
+    this.entEstMng = new ItemLoader<EntEstItem>(true, "ENT_MNG.ENT_MNG_LIST_DATA_ERROR", "ent-mng.ent-est-mng.enterprise.get", restApiCfg, restApi);
     
     //配置企业配额加载
-    this.entEstResource = new ItemLoader<EntEstCreResourceQuota>(true, "企业配额", "ent-mng.ent-est-mng.enterprise.resourcequota.get", restApiCfg, restApi);
+    this.entEstResource = new ItemLoader<EntEstCreResourceQuota>(true, "ENT_MNG.ENT_QUOTA_DATA_ERROR", "ent-mng.ent-est-mng.enterprise.resourcequota.get", restApiCfg, restApi);
     this.entEstResource.MapFunc = (source:Array<any>, target:Array<EntEstCreResourceQuota>)=>{
       for(let item of source)
       {
@@ -389,43 +389,43 @@ export class EntEstMngComponent implements OnInit {
     }
   }
 
-  //验证修改配额
+  //验证修改配额不为空也不能为负数
   validateQuotaModify():boolean{
     let notValid = [
     {
       "name":"可创建浮动IP数量"
       ,"value":this.entEstResource.FirstItem.floatIpQuota
-      ,"op":"*"
+      ,"op":"integer"
     },
     {
       "name":"可创建镜像数量"
       ,"value":this.entEstResource.FirstItem.imageQuota
-      ,"op":"*"
+      ,"op":"integer"
     },
     {
       "name":"可用内存数量"
       ,"value":this.entEstResource.FirstItem.memroyQuota
-      ,"op":"*"
+      ,"op":"integer"
     },
     {
       "name":"可创建物理机数量"
       ,"value":this.entEstResource.FirstItem.physicalQuota
-      ,"op":"*"
+      ,"op":"integer"
     },
     {
       "name":"可创建快照数量"
       ,"value":this.entEstResource.FirstItem.snapShotQuota
-      ,"op":"*"
+      ,"op":"integer"
     },
     {
       "name":"可用存储额度"
       ,"value":this.entEstResource.FirstItem.storageQuota
-      ,"op":"*"
+      ,"op":"integer"
     },
     {
       "name":" 可使用vCPU数量"
       ,"value":this.entEstResource.FirstItem.vcpuQuota
-      ,"op":"*"
+      ,"op":"integer"
     }].find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
 
     if(notValid !== void 0)

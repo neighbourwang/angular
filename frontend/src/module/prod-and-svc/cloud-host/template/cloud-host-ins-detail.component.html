@@ -1,98 +1,98 @@
 <fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
-<div class="page-content-header icon-instance">实例明细</div>
+<div class="page-content-header icon-instance">{{ 'COMMON.INSTANCE' | transalet }}{{ 'COMMON.DETAILS' | transalet }}</div>
 <div class="page-content">
     <div class="row">
         <div class="col-md-4">
             <div class="instanceInfoCon">
                 <div class="thisTitle">
-                    <div class="dropdown pull-right">链接管理终端<a href="#" class="dropdown-toggle" data-toggle="dropdown"> 更多操作 <b class="caret"></b> </a>
+                    <div class="dropdown pull-right">{{ 'CLOUD_HOST.LINK_MANAGEMENT_TERMINAL' | transalet }}<a href="#" class="dropdown-toggle" data-toggle="dropdown"> {{ 'COMMON.MORE_ACTIONS' | transalet }} <b class="caret"></b> </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">增</a></li>
-                            <li><a href="#">删</a></li>
-                            <li><a href="#">改</a></li>
-                            <li><a href="#">查</a></li>
+                            <li><a href="#">{{ 'COMMON.ADD' | transalet }}</a></li>
+                            <li><a href="#">{{ 'COMMON.DELETE' | transalet }}</a></li>
+                            <li><a href="#">{{ 'COMMON.UPDATE' | transalet }}</a></li>
+                            <li><a href="#">{{ 'COMMON.QUERY' | transalet }}</a></li>
                         </ul>
                     </div>
-                    <i class="glyphicon glyphicon-pause"></i> 基本信息</div>
+                    <i class="glyphicon glyphicon-pause"></i>{{ 'COMMON.BASIC' | transalet }}{{ 'COMMON.INFORMATION' | transalet }}</div>
                 <div class="instanceInfoBox">
                     <table>
                         <tr>
-                            <th>ID：</th>
+                            <th>ID:</th>
                             <td>{{instanceDetail.id}}</td>
                         </tr>
                         <tr>
-                            <th>所有可用区：</th>
+                            <th>{{ 'COMMON.ALL' | transalet }}{{ 'COMMON.AVAILABLE_ZONE' | transalet }}:</th>
                             <td>{{instanceDetail.availabilityZone}}</td>
                         </tr>
                         <tr>
-                            <th>名称：</th>
+                            <th>{{ 'COMMON.NAME' | transalet }}:</th>
                             <td>{{instanceDetail.displayName}}</td>
                         </tr>
                         <tr>
-                            <th>描述：</th>
+                            <th>{{ 'COMMON.DESCRIPTION' | transalet }}:</th>
                             <td>{{instanceDetail.description}}</td>
                         </tr>
                         <tr>
-                            <th>区域：</th>
+                            <th>{{ 'COMMON.ZONE' | transalet }}:</th>
                             <td>TBD</td>
                         </tr>
                         <tr>
-                            <th>实例规格：</th>
+                            <th>{{ 'COMMON.INSTANCE_CONFIGURATION' | transalet }}:</th>
                             <td>{{instanceDetail.flavorId}}TBD</td>
                         </tr>
                         <tr>
-                            <th>实例规格族：</th>
+                            <th>{{ 'CLOUD_HOST.INSTANCE_CONFIGURATION_FAMILY' | transalet }}:</th>
                             <td>{{instanceDetail.flavorId}}TBD</td>
                         </tr>
                         <tr>
-                            <th>镜像ID：</th>
+                            <th>{{ 'COMMON.MIRROR' | transalet }}ID:</th>
                             <td>{{instanceDetail.imageRef}}TBD</td>
                         </tr>
                         <tr>
-                            <th>标签：</th>
+                            <th>{{ 'COMMON.LABEL' | transalet }}:</th>
                             <td>TBD</td>
                         </tr>
                     </table>
                 </div>
                 <div class="thisTitle marginTop">
-                    <div class="dropdown pull-right">更换系统盘<a href="#" class="dropdown-toggle" data-toggle="dropdown"> 更多操作 <b class="caret"></b> </a>
+                    <div class="dropdown pull-right">{{ 'CLOUD_HOST.REPLACE_SYSTEM_DISK' | transalet }}<a href="#" class="dropdown-toggle" data-toggle="dropdown">  {{ 'COMMON.MORE_ACTIONS' | transalet }} <b class="caret"></b> </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">增</a></li>
-                            <li><a href="#">删</a></li>
-                            <li><a href="#">改</a></li>
-                            <li><a href="#">查</a></li>
+                            <li><a href="#">{{ 'COMMON.ADD' | transalet }}</a></li>
+                            <li><a href="#">{{ 'COMMON.DELETE' | transalet }}</a></li>
+                            <li><a href="#">{{ 'COMMON.UPDATE' | transalet }}</a></li>
+                            <li><a href="#">{{ 'COMMON.QUERY' | transalet }}</a></li>
                         </ul>
                     </div>
-                    <i class="glyphicon glyphicon-pause"></i> 配置信息</div>
+                    <i class="glyphicon glyphicon-pause"></i> {{ 'COMMON.CONFIGURATION' | transalet }}{{ 'COMMON.INFORMATION' | transalet }}</div>
                 <div class="instanceInfoBox">
                     <table>
                         <tr>
-                            <th>CPU：</th>
-                            <td>{{instanceDetail.vcpus}}核</td>
+                            <th>CPU:</th>
+                            <td>{{instanceDetail.vcpus}}{{ 'COMMON.CORE' | transalet }}</td>
                         </tr>
                         <tr>
-                            <th>内存：</th>
+                            <th>{{ 'COMMON.RAM' | transalet }}:</th>
                             <td>{{instanceDetail.memoryMbDisplay}}</td>
                         </tr>
                         <tr>
-                            <th>系统：</th>
+                            <th>{{ 'COMMON.SYSTEM' | transalet }}:</th>
                             <td>{{instanceDetail.osType}}</td>
                         </tr>
                         <tr>
-                            <th>公网IP：</th>
+                            <th>{{ 'COMMON.PUBLIC' | transalet }}{{ 'COMMON.NETWORK' | transalet }}IP:</th>
                             <td>{{instanceDetail.accessIpV4}}TBD</td>
                         </tr>
                         <tr>
-                            <th>私网IP：</th>
+                            <th>{{ 'COMMON.PRIVATE' | transalet }}{{ 'COMMON.NETWORK' | transalet }}IP:</th>
                             <td>{{instanceDetail.accessIpV4}}TBD</td>
                         </tr>
                         <tr>
-                            <th>宽带计费方式：</th>
-                            <td>按宽带TBD</td>
+                            <th>{{ 'CLOUD_HOST.BROADBAND_BILLING_MODE' | transalet }}:</th>
+                            <td>{{ 'CLOUD_HOST.ACCORDING_TO_BROADBAND' | transalet }}TBD</td>
                         </tr>
                         <tr>
-                            <th>当前使用带宽：</th>
+                            <th>{{ 'CLOUD_HOST.CURRENT_USE_BANDWIDTH' | transalet }}:</th>
                             <td>1MbpsTBD</td>
                         </tr>
                     </table>
@@ -105,17 +105,17 @@
                     <div class="col-md-3">
                         <table class="yTable">
                             <tr>
-                                <th style="width: 80px;">网络类型：</th>
-                                <td>经典网络TBD</td>
+                                <th style="width: 80px;">{{ 'COMMON.NETWORK' | transalet }}{{ 'COMMON.TYPE' | transalet }}:</th>
+                                <td>{{ 'COMMON.CLASSIC' | transalet }}{{ 'COMMON.NETWORK' | transalet }}TBD</td>
                             </tr>
                             <tr>
-                                <th>状态：</th>
+                                <th>{{ 'COMMON.STATUS' | transalet }}:</th>
                                 <td>
                                     <div *ngIf="instanceDetail && instanceDetail.powerState == 1">
-                                        <span class="statusCir bg-success"></span>运行中
+                                        <span class="statusCir bg-success"></span>{{ 'COMMON.RUNNING' | transalet }}
                                     </div>
                                     <div *ngIf="instanceDetail && instanceDetail.powerState == 0">
-                                        <span class="statusCir bg-danger"></span>关机
+                                        <span class="statusCir bg-danger"></span>{{ 'COMMON.SHUTDOWN' | transalet }}
                                     </div>
                                 </td>
                             </tr>
@@ -135,9 +135,9 @@
                                 <div class="col-md-6">
                                     <div class="infoItems">
                                         <ul>
-                                            <li><span>磁盘：<b>1TBD</b></span></li>
-                                            <li><span>快照：<b>1TBD</b></span></li>
-                                            <li><span>镜像：<b>CentOS 7.0 64位TBD</b></span></li>
+                                            <li><span>{{ 'COMMON.DISK' | transalet }}:<b>1TBD</b></span></li>
+                                            <li><span>{{ 'COMMON.SNAPSHOT' | transalet }}:<b>1TBD</b></span></li>
+                                            <li><span>{{ 'COMMON.MIRROR' | transalet }}:<b>CentOS 7.0 64位TBD</b></span></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -148,15 +148,15 @@
             </div>
             <div class="lineChartsCon">
                 <div class="thisTitle">
-                    <i class="glyphicon glyphicon-pause"></i> 监控信息
+                    <i class="glyphicon glyphicon-pause"></i> {{ 'COMMON.MONITORING' | transalet }}{{ 'COMMON.INFORMATION' | transalet }}
                     <div class="pull-right">
-                        设置报警规则
+                        {{ 'CLOUD_HOST.SET_ALARM_RULES' | transalet }}
                         <label>2016-08-23 09:13 - 2016-08-23 10:13</label>
                     </div>
                 </div>
                 <div>
                     <fc-line-chart title="CPU" [data]="cpuData" >CPU</fc-line-chart>
-                    <fc-line-chart title="网络" [data]="networkData" >网络</fc-line-chart>
+                    <fc-line-chart title="{{ 'COMMON.NETWORK' | transalet }}" [data]="networkData" >{{ 'COMMON.NETWORK' | transalet }}</fc-line-chart>
                 </div>
             </div>
         </div>

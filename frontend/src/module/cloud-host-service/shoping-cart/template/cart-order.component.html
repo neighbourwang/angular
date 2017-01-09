@@ -29,7 +29,7 @@
                 </table>
             </td>
             <td class="text-center table-text-middle">{{items.serviceType | dict:service.dictProductType | async}}</td>
-            <td class="text-center table-text-middle">{{items.billingMode | dict:service.dictPriceModel | async}}</td>
+            <td class="text-center table-text-middle">{{items.billingMode | dict:service.packageBilling | async}}</td>
             <td class="text-center table-text-middle">{{items.billingPeriod}}</td>
             <td class="text-center table-text-middle">
                 <table class="cart-info">
@@ -37,11 +37,27 @@
                         <td>{{'COMMON.ONE_TIME_COSTS' | translate}}： </td>
                         <td><font class="font-orange">{{'COMMON.$' | translate}}{{items.billingInfo.basePrice}} {{'COMMON.YUAN' | translate}}</font></td>
                     </tr>
-                    <tr>
-                        <td>{{'COMMON.EXPENSE' | translate}}: </td>
+                    <tr *ngIf="items.billingInfo.basicPrice">
+                        <td>{{'SHOPPING_CART.BASICPRICE' | translate}}:</td>
                         <td>
                             <font class="font-orange">
-                            {{'COMMON.$' | translate}}{{items.billingInfo.basicPrice}}/{{items.billingInfo.billingMode | dict:service.dictPriceModel | async}}
+                            {{'COMMON.$' | translate}}{{items.billingInfo.basicPrice}} / {{items.billingInfo.periodType | dict:service.weekly | async}}
+                            </font>
+                        </td>
+                    </tr>
+                    <tr *ngIf="items.billingInfo.cyclePrice">
+                        <td>{{'SHOPPING_CART.INCREMENTAL_CYCLE_COST' | translate}}:</td>
+                        <td>
+                            <font class="font-orange">
+                            {{'COMMON.$' | translate}}{{items.billingInfo.cyclePrice}}}} / {{items.billingInfo.periodType | dict:service.weekly | async}}
+                            </font>
+                        </td>
+                    </tr>
+                    <tr *ngIf="items.billingInfo.unitPrice">
+                        <td>{{'SHOPPING_CART.UNIT_PRICE' | translate}}</td>
+                        <td>
+                            <font class="font-orange">
+                            {{'COMMON.$' | translate}}{{items.billingInfo.unitPrice}}}} / {{items.billingInfo.unitType}}
                             </font>
                         </td>
                     </tr>
@@ -60,12 +76,16 @@
         <span class="float-right mgr50">
             <table>
                 <tr>
-                    <td>{{'COMMON.ONE_TIME_COSTS' | translate}}:</td>
+                    <td>{{'COMMON.ONE_TIME_COSTS' | translate}}: </td>
                     <td><font class="font-orange">{{'COMMON.$' | translate}}{{totalPrice.oncePrice | decimalPlaces}} {{'COMMON.YUAN' | translate}}</font></td>
                 </tr>
                 <tr *ngFor="let key of totalPrice.billingArr | objectToArr; let i = index">
-                    <td><font *ngIf="i == 0">{{'COMMON.EXPENSE' | translate}}:  </font></td>
-                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{totalPrice.billingArr[key]}}/{{key | dict:service.dictPriceModel | async}}</font></td>
+                    <td><font *ngIf="i == 0">{{'SHOPPING_CART.BILLINGARR' | translate}}:</font></td>
+                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{totalPrice.billingArr[key]}}/{{key | dict:service.weekly | async}}</font></td>
+                </tr>
+                <tr *ngFor="let key of totalPrice.unitArr | objectToArr; let i = index">
+                    <td><font *ngIf="i == 0">{{'SHOPPING_CART.UNITARR' | translate}}:</font></td>
+                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{totalPrice.unitArr[key]}}/{{key | dict:service.weekly | async}}/GB</font></td>
                 </tr>
             </table>
         </span>

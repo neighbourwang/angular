@@ -18,11 +18,11 @@ export class GetPersonAccService {
     ) { }
 
     // 获取当前登录账户信息
-    // getPersonAcc() {
-    //     let api = this.restApiCfg.getRestApi("user-center.person-acc.mng");
+    getPersonAcc() {
+        let api = this.restApiCfg.getRestApi("user-center.person-acc.mng");
 
-    //     return this.restApi.request(api.method, api.url, undefined, undefined);
-    // }
+        return this.restApi.request(api.method, api.url, undefined, undefined);
+    }
     //用户信息
     userInfo = this.restApi.getLoginInfo().userInfo
 }

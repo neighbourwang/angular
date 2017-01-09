@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService, 
-    PaginationComponent, ConfirmComponent, SystemDictionary } from '../../../../../architecture';
+    PaginationComponent, ConfirmComponent, SystemDictionary, SelectboxComponent } from '../../../../../architecture';
 
 //model
 import { EnterpriseModel } from '../model/vmware-img-list.model';
@@ -43,6 +43,9 @@ export class VmwareImgEntSetupComponent implements OnInit {
 
     @ViewChild("confirm")
     confirm: ConfirmComponent;
+    
+    @ViewChild("testbox")
+    testbox: SelectboxComponent;
 
     noticeTitle = "";
     noticeMsg = "";
@@ -103,7 +106,8 @@ export class VmwareImgEntSetupComponent implements OnInit {
         this.noticeMsg = msg;
         this.notice.open();
     }
-    //根据value获取字典的txt
+    
+    /*/根据value获取字典的txt
     getDicText(value: string, dic: Array<SystemDictionary>): String {
         if (!$.isArray(dic)) {
             return value;
@@ -117,8 +121,8 @@ export class VmwareImgEntSetupComponent implements OnInit {
             //return value;
             return "HOST_VMWARE_MNG.UNSET";
         }
-
     }
+    */
 
     getAllEnts(): void {
         this.layoutService.show();
@@ -162,6 +166,7 @@ export class VmwareImgEntSetupComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
+    /*
     moveToRight() {
         //将选中的企业加入到右边
         for (var i = this.unselectedEnts.length - 1; i >= 0; i--) {
@@ -183,5 +188,6 @@ export class VmwareImgEntSetupComponent implements OnInit {
             }
         }
     }
+    */
 
 }

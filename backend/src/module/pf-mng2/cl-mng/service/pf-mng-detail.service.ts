@@ -63,12 +63,12 @@ export class PlatformDetailService {
         let api = this.restApiCfg.getRestApi("pf-mng-storagelist.post");
         return this.restApi.request(api.method , api.url,[],undefined ,storgeList);
     }     
-    //get同步计算信息
+    //get存储区同步计算信息
     getUpdateStorage (storageId:string){
         let api = this.restApiCfg.getRestApi("pf-mng-storageUpdate.get");
         return this.restApi.request(api.method , api.url,[{key:'zoneId',value:storageId}],undefined );
     }    
-    //put同步计算信息
+    //put存储区同步计算信息
     putUpdateStorage (storageList:any){
         let api = this.restApiCfg.getRestApi("pf-mng-storageUpdate.put");
         return this.restApi.request(api.method , api.url,[],undefined,storageList );

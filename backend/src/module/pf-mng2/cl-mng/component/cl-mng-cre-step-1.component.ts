@@ -69,7 +69,7 @@ export class ClMngCreStep1Component implements OnInit {
             .catch(
             err => {
                 console.error('err');
-                this.notice.open('错误', '获取信息错误');
+                this.notice.open('COMMON.ERROR', 'PF_MNG2.GET_INFO_ERROR');
             }
             )
         this.commonService.getRegion()
@@ -82,7 +82,7 @@ export class ClMngCreStep1Component implements OnInit {
             ).catch(
             err => {
                 console.error('err');
-                this.notice.open('错误', '获取信息错误');
+                this.notice.open('COMMON.ERROR', 'PF_MNG2.GET_INFO_ERROR');
             }
             )
         // this.layoutService.hide();
@@ -105,22 +105,25 @@ export class ClMngCreStep1Component implements OnInit {
     }
     //
     otcreate() {
+        this.layoutService.show();
         this.service.crPlatForm(this.creStep1Model).then(
             res => {
                 this.idService.setPlatformId(res.resultContent);
+                this.layoutService.hide();
                 this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);
             }
         ).catch(
             err => {
+                this.layoutService.hide();
                 console.error('error');
-                this.notice.open('错误', '创建云平台错误');
+                this.notice.open('COMMON.ERROR', 'PF_MNG2.CREATE_PLATFORM_ERROR');
             }
             )
     }
     next() {
         let message: String = this.checkValue();
         if (this.checkValue()) {
-            this.notice.open('错误', message);
+            this.notice.open('COMMON.ERROR', message);
         } else if (this.creStep1Model.platformType == '0') {
             this.layoutService.show();
             this.getPlatformRegionList()
@@ -135,19 +138,22 @@ export class ClMngCreStep1Component implements OnInit {
                 err => {
                     console.error('err');
                     this.layoutService.hide();
-                    this.notice.open('错误', '获取Region信息错误');
+                    this.notice.open('COMMON.ERROR', '获取Region信息错误');
                 }
                 )           
         } else {
+            this.layoutService.show();
             this.service.crPlatForm(this.creStep1Model).then(
                 res => {
                     this.idService.setPlatformId(res.resultContent);
+                    this.layoutService.hide();
                     this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);
                 }
             ).catch(
                 err => {
+                    this.layoutService.hide();
                     console.error('error');
-                    this.notice.open('错误', '创建云平台错误');
+                    this.notice.open('COMMON.ERROR', 'PF_MNG2.CREATE_PLATFORM_ERROR');
                 }
                 )
         }
@@ -174,7 +180,7 @@ export class ClMngCreStep1Component implements OnInit {
         ).catch(
             err => {
                 console.error('err');
-                this.notice.open('错误', '获取版本错误');
+                this.notice.open('COMMON.ERROR', 'PF_MNG2.GET_VERSION_ERROR');
             }
             )
     }
@@ -183,28 +189,28 @@ export class ClMngCreStep1Component implements OnInit {
     checkValue(): String {
         console.log(this.creStep1Model);
         if (!this.creStep1Model.name) {
-            return '请输入云平台名称';
+            return 'PF_MNG2.PLATFORM_NAME_REQUIRED';
         }
         if (!this.creStep1Model.dataCenter) {
-            return '请输入所属数据中心';
+            return 'PF_MNG2.DATA_CENTER_REQUIRED';
         }
         if (!this.creStep1Model.regionId) {
-            return '请选择所属地域';
+            return 'PF_MNG2.REGION_REQUIRED';
         }
         if (!this.creStep1Model.platformType) {
-            return '请选择云平台类型';
+            return 'PF_MNG2.PLATFORM_TYPE_REQUIRED';
         }
         if (!this.creStep1Model.uri) {
-            return '请输入地址';
+            return 'PF_MNG2.ADDRESS_REQUIRED';
         }
         if (!this.creStep1Model.version) {
-            return '请选择版本';
+            return 'PF_MNG2.VERSION_REQUIRED';
         }
         if (!this.creStep1Model.userName) {
-            return '请输入用户名';
+            return 'PF_MNG2.USERNAME_REQUIRED';
         }
         if (!this.creStep1Model.passwd) {
-            return '请输入密码';
+            return 'PF_MNG2.PASSWORD_REQUIRED';
         }
         return '';
     }

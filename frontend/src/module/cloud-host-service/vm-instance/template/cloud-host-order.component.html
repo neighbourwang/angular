@@ -264,10 +264,12 @@
 			<p class="cloud-p">{{'VM_INSTANCE.MIRROR_TYPE'| translate}}: {{ sendModule.imagetype?.attrDisplayValue}}</p>
 			<p class="cloud-p">{{'VM_INSTANCE.MIRROR_NAME'| translate}}: {{ sendModule.os?.attrDisplayValue}}</p>
 			<h4 class="cloud-title font-green">{{'VM_INSTANCE.STORE'| translate}}</h4>
-			<p class="cloud-p">{{'VM_INSTANCE.BOOT_DISK'| translate}}: {{ sendModule.bootstorage?.attrDisplayValue}} / {{ sendModule.bootsize?.attrValue}}</p>
+
+			<p class="cloud-p">{{'VM_INSTANCE.BOOT_DISK'| translate}}: {{ sendModule.bootstorage?.attrDisplayValue}} / {{ sendModule.bootsize?.attrValue}}GB</p>
 			<!-- <p class="cloud-p">数据盘: {{ sendModule.stroage ? sendModule.stroage.attrDisplayValue : "" }} / {{ sendModule.storagesize ? sendModule.storagesize.attrDisplayValue : "" }}</p> -->
 			<h4 class="cloud-title font-green">{{'COMMON.PURCHASE_AMOUNT'|translate}}</h4>
 			<p class="cloud-p">{{'COMMON.PURCHASE_DURATION'|translate}}: {{ sendModule.timelineunit.attrDisplayValue}} / {{ sendModule.timeline?.attrValue}}</p>
+
 			<p class="cloud-p">{{'COMMON.PURCHASE_AMOUNT'|translate}}: {{payLoad.quality}}台</p>
 			<div class="cloud-line"></div>
 
@@ -288,6 +290,10 @@
 	                    <td><font>{{'COMMON.TOTAL_EXPENSE'|translate}}： </font></td>
 	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{diskTotalPrice}}</font>{{'COMMON.YUAN'|translate}} / {{ diskUnitType | dict:service.unitType | async }} <span class="float-right">{{'COMMON.BY_VOLUMN' | translate}}</span></td>
 	                </tr> -->
+	                <tr>
+	                    <td><font>{{'COMMON.TOTAL_EXPENSE'|translate}}： </font></td>
+	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{diskTotalPrice}}</font>{{'COMMON.YUAN'|translate}} / {{ diskUnitType | dict:service.unitType | async }} <span class="float-right">{{'COMMON.BY_VOLUMN' | translate}}</span></td>
+	                </tr>
 	                <tr>
 	                    <td><font>总周期费用： </font></td>
 	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{vmTotalPrice}}</font>{{'COMMON.YUAN'|translate}}<span class="float-right">{{'VM_INSTANCE.ANNUAL_SUBSCRIPTION'| translate}}</span></td>
