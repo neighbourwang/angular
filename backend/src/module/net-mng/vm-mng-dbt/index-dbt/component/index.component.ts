@@ -324,6 +324,8 @@ export class VmDisIndexComponent implements OnInit {
                         this.showAlert("NET_MNG_VM_IP_MNG.SYNC_SUCCESS");
                         this.synDbt.close();
                         // //  刷新列表
+                        this.getDcList();
+                        this.getData();
                         // this.service.getSynInfolist(this.platformId)
                         // .then(
                         //     response => {
