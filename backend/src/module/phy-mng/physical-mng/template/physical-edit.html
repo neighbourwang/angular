@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title"><span [ngClass]="{asterisk: eidtMode=='create' }">*</span>物理机名称:</div>
+                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" classasterisk>*</span>物理机名称:</div>
                     <div class="col-md-4">
                         <input type="text" class="form-control" [(ngModel)]="physical.pmName" [disabled]="eidtMode=='view'">
                     </div>
@@ -14,7 +14,7 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title"><span [ngClass]="{asterisk: eidtMode=='create' }">*</span>IPMI IP地址:</div>
+                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" classasterisk>*</span>IPMI IP地址:</div>
                     <div class="col-md-4">
                         <input type="text" class="form-control" [(ngModel)]="physical.ipAddr" [disabled]="eidtMode !='create'">
                     </div>
@@ -22,7 +22,7 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title"><span [ngClass]="{asterisk: eidtMode=='create' }">*</span>IPMI用户名:</div>
+                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" classasterisk>*</span>IPMI用户名:</div>
                     <div class="col-md-4">
                         <input type="text" class="form-control" [(ngModel)]="physical.username" [disabled]="eidtMode !='create'">
                     </div>
@@ -30,7 +30,7 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title"><span [ngClass]="{asterisk: eidtMode=='create' }">*</span>IPMI密码:</div>
+                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" classasterisk>*</span>IPMI密码:</div>
                     <div class="col-md-4">
                         <div class="row">
                             <div [ngClass]="{'col-sm-9':eidtMode=='create','col-sm-12':eidtMode!='create'}">
@@ -47,7 +47,7 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title"><span [ngClass]="{asterisk: eidtMode=='create' }">*</span>服务器类型:</div>
+                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" classasterisk>*</span>服务器类型:</div>
                     <div class="col-md-4">
                         <select class="form-control" [(ngModel)]="physical.serverTypeId" [disabled]="eidtMode !='create'">
                             <option value="">请选择</option>
@@ -58,7 +58,7 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title"><span [ngClass]="{asterisk: eidtMode=='create' }">*</span>品牌:</div>
+                    <div class="col-sm-4 form-control-title"><span <span *ngIf="eidtMode=='create'" classasterisk>*</span>品牌:</div>
                     <div class="col-md-4">
                         <select class="form-control" [(ngModel)]="selectedBrand" (change)="physical.modelId=''" [disabled]="eidtMode !='create'">
                             <option [ngValue]="defaultBrand">请选择</option>
@@ -69,7 +69,7 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title"><span [ngClass]="{asterisk: eidtMode=='create' }">*</span>型号:</div>
+                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" classasterisk>*</span>型号:</div>
                     <div class="col-md-4">
                         <select class="form-control" [(ngModel)]="physical.modelId" [disabled]="eidtMode !='create'">
                             <option value="">请选择</option>
