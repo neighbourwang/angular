@@ -17,7 +17,7 @@
         </div>
 
         <div class="dropdown pull-right" style="padding-right : 20px">
-            <input type="text" placeholder="输入帐号信息快速搜索" style="height : 35px ; padding : 5px" placeholder="输入姓名回车搜索" [(ngModel)]="keyup" (keyup.enter)="search()" />
+            <input type="text" placeholder="{{'USER_CENTER.INPUT_ACC_QUICK_SEARCH' | translate}}" style="height : 35px ; padding : 5px" placeholder="{{'USER_CENTER.INPUT_USERNAME_SEARCH' | translate}}" [(ngModel)]="keyup" (keyup.enter)="search()" />
         </div>
 
         <button class="fox-cloud-button fox-cloud-button-green" (click)="openCrAccountPop()">
