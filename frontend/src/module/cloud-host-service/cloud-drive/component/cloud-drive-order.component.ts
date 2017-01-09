@@ -53,6 +53,7 @@ export class cloudDriveComponentOrder implements OnInit {
 	passwordShadow: string;
 	skuMap: SkuMap[];  //skuMap
 	proMap: ProMap[];  //skuMap
+	product: ProMap; //最终匹配到的硬盘
 
 	diskBasePrice : number = 0; //云硬盘一次性费用
 	diskTotalPrice : number = 0; //云硬盘费用
@@ -149,7 +150,7 @@ export class cloudDriveComponentOrder implements OnInit {
 		};
 
 		this.payLoad.skuId = this.sku.skuId;
-		this.payLoad.productId = this.sku.productId;
+		this.payLoad.productId = this.product.productId;
 		this.payLoad.attrList = payloadList;
 		this.payLoad.itemNo = this.makeItemNum();
 		this.payLoad.serviceType = "1";  //云硬盘的type
@@ -195,22 +196,27 @@ export class cloudDriveComponentOrder implements OnInit {
 	}
 
 	setDiskPrice(): void {  //设置数据盘的价格
-		let sku = this.getSkuId();
+		const sku = this.getSkuId();
+		console.log(sku);
 		if(!sku.skuId) return;
 		this.sku = sku;
 
-		let price = this.proMap[`[${sku.skuId}]`];  //计算价格
+		this.setTimeUnit();  //设置购买时长
+
+		let price = this.proMap[`[${sku.skuId}, ${this.sendModule.timelineunit.attrValueCode}]`];  //计算价格
 		if(!price) return;
 
+		this.product = price;
+
 		this.diskBasePrice = price.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
-		this.diskTotalPrice = price.billingInfo.unitPrice * this.sendModule.disksize.attrValue * this.payLoad.quality;   //周期费用
+		this.diskTotalPrice = price.billingInfo.unitPrice * +this.sendModule.disksize.attrValue * this.payLoad.quality;   //周期费用
 
 		this.diskUnitType = price.billingInfo.unitType;
 	}
 
 	outputValue(value) {
 		this.sendModule.disksize.attrValue = value;
-		this.sendModule.disksize.attrDisplayValue = value + "COMMON.GB";
+		this.sendModule.disksize.attrDisplayValue = value + "GB";
 	}
 
 	addCart() {   //加入购物车
@@ -239,12 +245,16 @@ export class cloudDriveComponentOrder implements OnInit {
 
 	check = {};
 	checkValue(value?:string){ //动态验证
+		const isinv = value => value === "";
+
 		const regs = {
-			platform : () => !!this.sendModule.platform.attrValue,
-			zone : () => !!this.sendModule.zone.attrValue,
-			disktype : () => !!this.sendModule.disktype.attrValue,
-			storage : () => !!this.sendModule.storage.attrValue,
-			diskinsname : () =>  !this.sendModule.diskinsname.attrValue || /^[a-zA-Z\u4e00-\u9fa5].{1,67}/.test(this.sendModule.diskinsname.attrValue)
+			platform : () => !isinv(this.sendModule.platform.attrValue),
+			zone : () => !isinv(this.sendModule.zone.attrValue),
+			disktype : () => !isinv(this.sendModule.disktype.attrValue),
+			storage : () => !isinv(this.sendModule.storage.attrValue),
+			diskinsname : () =>  !this.sendModule.diskinsname.attrValue || /^[a-zA-Z\u4e00-\u9fa5].{1,67}/.test(this.sendModule.diskinsname.attrValue),
+			timeline: () => this.sendModule.timeline.attrValue && /^\d*$/.test(this.sendModule.timeline.attrValue.trim()) && +this.sendModule.timeline.attrValue.trim() <= 999,
+			timelineunit: () => !isinv(this.sendModule.timelineunit.attrValue)
 		};
         const alertValue = {
             
@@ -253,6 +263,8 @@ export class cloudDriveComponentOrder implements OnInit {
 			disktype : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK",
 			storage : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK_TYPE",
 			diskinsname : "CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_NAME_FORMAT_IS NOT_CORRECT",
+			timeline: "VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION", //VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION
+			timelineunit: "VM_INSTANCE.PLEASE_SELECT_TIMELINE_UNIT"//VM_INSTANCE.PLEASE_SELECT_NET_TYPE
 		}
 
 		const check = value => {
@@ -287,6 +299,15 @@ export class cloudDriveComponentOrder implements OnInit {
 		}else {
 			this.sendModule.diskmounthostid.attrValue = "";
 			this.sendModule.diskmounthostname.attrValue = "";
+		}
+	}
+
+	private setTimeUnit(): void {
+		if (!this.sku.skuId) return;
+
+		const timeUnit = this.configs.timelineunit.mapValueList[this.sku.skuId];
+		if (timeUnit && timeUnit.length) {
+			this.sendModule.timelineunit = timeUnit[0];    //设置一下时长为第一位
 		}
 	}
 
