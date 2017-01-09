@@ -368,6 +368,7 @@ console.log(this.vmProduct)
 			let list: VlueList[] = [];
 
 			for (let r of res) {
+				if(r.networkType != "2") continue;
 				list.push({
 					attrValueId: "",
 					attrValueCode: r.networkcode,
