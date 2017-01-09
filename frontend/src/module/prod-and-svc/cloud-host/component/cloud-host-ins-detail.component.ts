@@ -114,14 +114,14 @@ export class InstantceDetailComponent implements OnInit {
         .getInstanceDetail(uuid)
         .then(ret => {
             if (!ret) {
-                this.showNotice('COMMON.DARA_ACQUISITION_FAILURE', 'CLOUD_HOST.FAILED_TO_RETRIEVE_INSTANCE_DETAILS'+ '.');
+                this.showNotice('COMMON.DATA_ACQUISITION_FAILURE', 'CLOUD_HOST.FAILED_TO_RETRIEVE_INSTANCE_DETAILS'+ '.');
             } else {
                 this.fmtInstanceData(ret);
             }
             this.layoutService.hide();
         })
         .catch(error => {
-            this.showNotice('COMMON.DARA_ACQUISITION_FAILURE', 'CLOUD_HOST.FAILED_TO_RETRIEVE_INSTANCE_DETAILS'+ '.');
+            this.showNotice('COMMON.DATA_ACQUISITION_FAILURE', 'CLOUD_HOST.FAILED_TO_RETRIEVE_INSTANCE_DETAILS'+ '.');
             this.layoutService.hide();
         });
   }

@@ -179,7 +179,7 @@ export class MenuService {
 							"routing": "user-center/account-mng/account-mng-list"
 						},
 						{
-							"label": "MENU.ORGANIZATION_MANAGENMENT",
+							"label": "MENU.ORGANIZATION_MANAGEMENT",
 							"isOpen": false,
 							"isShow": isOrgin,
 							"routing": "user-center/org-mng/org-mng-list"
