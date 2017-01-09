@@ -8,6 +8,7 @@ export class PhyPoolList{
     amount: string;
     usedAmount: string;
     status: string;
+    description: string;
     
     selected: boolean;
 }

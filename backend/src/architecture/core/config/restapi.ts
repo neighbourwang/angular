@@ -1729,6 +1729,12 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "url": "pmresourcemgmt/noauth/pmpool/{pmpool_id}"
     },
+    {
+        "desc": "获取物理机地域列表",
+        "id": "phy-mng.phy-pool.phylist.region",
+        "method": "GET",
+        "url": "pmresourcemgmt/noauth/pmpool/regionlist"
+    },
 
 	//物理机资源池
      {

@@ -55,7 +55,6 @@ export class ClMngCreStep4Component implements OnInit {
                     ele.quotaPercentDisplay = ele.quota * 100;
                 })
                 //Openstack类型同步volumeType信息
-
                 if (this.platformType == '0') {
                     this.service.getvolumeType(platFormId).then(
                         res => {

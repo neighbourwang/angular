@@ -1,5 +1,5 @@
 export class PhyCreat{
-    pmpoolId: string;
+   // pmPoolId: string;
     poolName: string;
     region: string;
     dataCenter: string;
