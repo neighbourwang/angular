@@ -1,5 +1,5 @@
 <div class="personAccMng">
-	<div class="page-content-header icon-content-header-platform-manage">个人账户管理</div>
+	<div class="page-content-header icon-content-header-platform-manage">{{ 'MENU.PERSONAL_ACCOUNT_MANAGEMENT' | translate}}</div>
 	<div class="page-content fix-page-content">
 		<div class="row" style="padding-top: 30px;">
 			<!--<div class="col-md-2 touxiang">
@@ -10,7 +10,7 @@
 			</div>-->
 			<div class="col-md-7 detail">
 				<div class="row mgb15">
-					<div class="col-md-2 pcTitle"><span class="asterisk">*</span>姓名：</div>
+					<div class="col-md-2 pcTitle"><span class="asterisk">*</span>{{ 'COMMON.NAME' | translate}}:</div>
 					<div class="col-md-3 pcContent">
 						<span *ngIf="name" class="pcDisplay">{{personAcc.userName}}</span>
 						<div class="has-feedback" *ngIf="nameEdit">
@@ -20,51 +20,51 @@
 						</div>
 					</div>
 					<div class="col-md-2 font-green paOrder">
-						<span (click)="editName()" *ngIf="name">修改</span>
-						<span *ngIf="nameEdit" (click)="saveName()">保存</span>
-						<span *ngIf="nameEdit" (click)="cancelName()">取消</span>
+						<span (click)="editName()" *ngIf="name">{{ 'COMMON.UPDATE' | translate}}</span>
+						<span *ngIf="nameEdit" (click)="saveName()">{{ 'COMMON.SAVE' | translate}}</span>
+						<span *ngIf="nameEdit" (click)="cancelName()">{{ 'COMMON.CANCEL' | translate}}</span>
 					</div>
 				</div>
 				<div class="row mgb15">
-					<div class="col-md-2 pcTitle">账号：</div>
+					<div class="col-md-2 pcTitle">{{ 'COMMON.ACCOUNT' | translate}}:</div>
 					<div class="col-md-3 pcContent">
 						<span class="pcDisplay dd">{{personAcc.loginName}}</span>
 					</div>
 				</div>
 				<div class="row mgb15">
-					<div class="col-md-2 pcTitle"><span class="asterisk">*</span>电话：</div>
+					<div class="col-md-2 pcTitle"><span class="asterisk">*</span>{{ 'COMMON.PHONE' | translate}}</div>
 					<div class="col-md-3 pcContent">
 						<span *ngIf="phone" class="pcDisplay">{{personAcc.phone}}</span>
 						<div class="has-feedback" *ngIf="phoneEdit">
-							<input type="text" class="form-control" #phone [(ngModel)]="personAcc.phone" >
+							<input type="text" class="form-control" # phone [(ngModel)]="personAcc.phone" >
 							<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 							<span class="cancel" (click)="clear('phone')"></span>
 						</div>
 					</div>
 					<div class="col-md-2 font-green paOrder">
-						<span (click)="editPhone()" *ngIf="phone">修改</span>
-						<span *ngIf="phoneEdit" (click)="savePhone()">保存</span>
-						<span *ngIf="phoneEdit" (click)="cancelPhone()">取消</span>
+						<span (click)="editPhone()" *ngIf="phone">{{ 'COMMON.UPDATE' | translate}}</span>
+						<span *ngIf="phoneEdit" (click)="savePhone()">{{ 'COMMON.SAVE' | translate}}</span>
+						<span *ngIf="phoneEdit" (click)="cancelPhone()">{{ 'COMMON.CANCEL' | translate}}</span>
 					</div>
 				</div>
 				<div class="row mgb15">
-					<div class="col-md-2 pcTitle">类型：</div>
+					<div class="col-md-2 pcTitle">{{ 'COMMON.TYPE' | translate}}:</div>
 					<div class="col-md-3 pcContent">
-						<span *ngIf="!personAcc.isAD" class="pcDisplay dd">本地</span>
+						<span *ngIf="!personAcc.isAD" class="pcDisplay dd">{{ 'COMMON.LOCAL' | translate}}</span>
 						<span *ngIf="personAcc.isAD" class="pcDisplay dd">AD</span>
 					</div>
 				</div>
 				<div class="row mgb15">
-					<div class="col-md-2 pcTitle">密码：</div>
+					<div class="col-md-2 pcTitle">{{ 'COMMON.PASSWORD' | translate}}:</div>
 					<div class="col-md-3 pcContent">
 						<span class="pcDisplay">********</span>
 					</div>
 					<div class="col-md-1 font-green paOrder" *ngIf="!personAcc.isAD">
-						<span (click)="editPwd()">修改</span>
+						<span (click)="editPwd()">{{ 'COMMON.UPDATE' | translate}}</span>
 					</div>
 				</div>
 				<div class="row mgb15">
-					<div class="col-md-2 pcTitle">描述：</div>
+					<div class="col-md-2 pcTitle">{{ 'COMMON.DESCRIPTION' | translate}}</div>
 					<div class="col-md-3 pcContent">
 						<span *ngIf="desc" class="pcDisplay">{{personAcc.description}}</span>
 						<div class="has-feedback" *ngIf="descEdit">
@@ -72,9 +72,9 @@
 						</div>
 					</div>
 					<div class="col-md-2 font-green paOrder">
-						<span (click)="editDesc()" *ngIf="desc">修改</span>
-						<span *ngIf="descEdit" (click)="saveDesc()">保存</span>
-						<span *ngIf="descEdit" (click)="cancelDesc()">取消</span>
+						<span (click)="editDesc()" *ngIf="desc">{{ 'COMMON.UPDATE' | translate}}</span>
+						<span *ngIf="descEdit" (click)="saveDesc()">{{ 'COMMON.SAVE' | translate}}</span>
+						<span *ngIf="descEdit" (click)="cancelDesc()">{{ 'COMMON.CANCEL' | translate}}</span>
 					</div>
 				</div>
 				<!--<div class="row">
@@ -124,15 +124,15 @@
 			</div>
 		</div>
 	</div>
-	<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
-	<fc-popup #editPassWord title="{{title}}" ot="保存" (of)="otEditPwd()" ct="取消" (cf)="ccf()">
+	<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="{{ 'COMMON.CONFIRM' | translate}}" (of)="nof()"></fc-notice>
+	<fc-popup #editPassWord title="{{title}}" ot="{{ 'COMMON.SAVE' | translate}}" (of)="otEditPwd()" ct="{{ 'COMMON.CANCEL' | translate}}" (cf)="ccf()">
 		<div class="page-content">
 			<div class="row" style="padding-top: 10px;">
 				<div class="col-md-12">
 					<form *ngIf="active">
 						<div class="row row-line-height">
 							<div class="form-group" >
-								<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> 当前密码：</div>
+								<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> {{ 'USER_CENTER.CURRENT_PASSWORD' | translate}}:</div>
 								<div class="col-sm-6" [ngClass]="{'has-error':!passwordValid||(password.errors && (password.dirty || password.touched))}">
 									<input type="text" class="form-control font-gray" type="password" [(ngModel)]="accPwd.password" required  #password="ngModel" name=password (blur)="pwdValid(accPwd.password)" (focus)="passwordValid=true">
 									<div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
@@ -142,7 +142,7 @@
 									</div>
 									<div *ngIf="!passwordValid&&!password.errors" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
 										<div >
-											密码格式错误
+											{{ 'USER_CENTER.PASSWORD_FORMAT_ERROR' | translate}}
 										</div>																		
 									</div>
 								</div>
@@ -150,7 +150,7 @@
 						</div>
 						<div class="row row-line-height">
 							<div class="form-group">
-								<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> 新密码：</div>
+								<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> {{ 'USER_CENTER.NEW_PASSWORD' | translate}}:</div>
 								<div class="col-sm-6" [ngClass]="{'has-error':newPassword.errors && (newPassword.dirty || newPassword.touched)||!newPasswordValid||sameNewPassword}">
 									<input type="text" class="form-control font-gray" type="password" [(ngModel)]="accPwd.newPassword" required  #newPassword="ngModel" name="newPassword" (blur)="newPwdValid(accPwd.newPassword)" (focus)="newPasswordValid=true;sameNewPassword=false">
 									<div *ngIf="newPassword.errors && (newPassword.dirty || newPassword.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
@@ -160,12 +160,12 @@
 									</div>
 									<div *ngIf="!newPasswordValid&&!newPassword.errors&&!sameNewPassword " class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
 										<div >
-											新密码格式错误
+											{{ 'USER_CENTER.NEW_PASSWORD_FORMAT_ERROR' | translate}}
 										</div>																		
 									</div>
 									<div *ngIf="sameNewPassword&&!newPassword.errors&&newPasswordValid" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
 										<div >
-											新密码不能与原密码相同
+											{{ 'USER_CENTER.THE_NEW_PASSWORD_CANNOT_BE_THE_SAME_AS_THE_ORIGINAL_PASSWORD' | translate}}
 										</div>																		
 									</div>
 								</div>
@@ -173,12 +173,12 @@
 						</div>
 						<div class="row row-line-height">
 							<div class="form-group" >
-								<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> 确认新密码：</div>
+								<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> {{ 'COMMON.CONFIRM' | translate}} {{ 'USER_CENTER.NEW_PASSWORD' | translate}}:</div>
 								<div class="col-sm-6" [ngClass]="{'has-error':!samePassword}">
 									<input type="text" class="form-control font-gray" type="password" [(ngModel)]="accPwd.confirmPwd" required  #confirmPwd="ngModel" id="inputError1" name="confirmPwd" (focus)="samePassword=true">
 									<div *ngIf="!samePassword" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
 										<div>
-											密码输入不一致
+											{{ 'USER_CENTER.PASSWORD_INPUT_IS_NOT_CONSISTENT' | translate}}
 										</div>																		
 									</div>
 								</div>

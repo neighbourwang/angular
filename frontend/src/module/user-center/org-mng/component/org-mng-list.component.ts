@@ -114,19 +114,19 @@ export class OrgMngListComponent implements OnInit {
           return;
         }
         console.log('删除');
-        this.confirmTitle = "删除部门";
-        this.confirmMessage = "您选择删除" + org.name + "，请确认。如果确认，部门将删除且该部门中的用户将被移除";
+        this.confirmTitle = "USER_CENTER.DELETE_DEPARTMENT";
+        this.confirmMessage = "USER_CENTER.YOU_SELECT_DELETE_USER_WILL_BE_DELETE^^^" + org.name;
         this.confirmDialog.open();
         this.confirmType = type;
         break;
       case 'disabled':
         if (org.status == 5) {
-          this.notice.open('操作错误', '该组织状态已禁用');
+          this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.THE_STATE_OF_THE_ORGANIZATION_HAS_BEEN_DISABLED');
           return;
         }
         console.log('禁用');
-        this.confirmTitle = "禁用部门";
-        this.confirmMessage = "您选择禁用" + org.name + "，请确认。如果确认，机构成员将无法操作相关资源";
+        this.confirmTitle = "COMMON.DISENABLE_DEPARTMENT";
+        this.confirmMessage = "USER_CENTER.YOU_SELECT_DISENABLE_PLEASE_CONFIRM" + org.name ;
         this.confirmDialog.open();
         this.confirmType = type;
     }
@@ -179,7 +179,7 @@ export class OrgMngListComponent implements OnInit {
     this.isEdit = false;
     this.temporary = false;
     window.setTimeout(() => {
-      this.creOrgPop.open('创建部门');
+      this.creOrgPop.open('USER_CENTER.CREATE_DEPARTMENT');
       this.temporary = true;
     }, 0);
   };

@@ -81,7 +81,7 @@ export class PersonAccMngComponent implements OnInit {
             });
         } else {
             this.userNameValid = false;
-            this.notice.open('操作错误', '姓名不能为空')
+            this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.NAME_CANNOT_BE_EMPTY')
         }
     }
     cancelName() {
@@ -108,10 +108,10 @@ export class PersonAccMngComponent implements OnInit {
                     this.phoneEdit = false;
                 });
             } else {
-                this.notice.open('操作错误', '手机号码输入错误,请输入正确的手机号')
+                this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.PHONE_ACC_ERRO_ENTER_PHONE')
             }
         } else {
-            this.notice.open('操作错误', '手机号码不能为空')
+            this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.PHONE_CANNOT_BE_EMPTY')
         }
     }
     cancelPhone() {
@@ -159,7 +159,7 @@ export class PersonAccMngComponent implements OnInit {
         this.accPwd.password = '';
         this.accPwd.newPassword = '';
         this.accPwd.confirmPwd = '';
-        this.editPassWord.open('修改密码')
+        this.editPassWord.open('USER_CENTER.MODIFY_PASSWORD')
     }
     pwdValid(val){
         if (this.accPwd.password && this.accPwd.password.trim() != '') {
@@ -193,11 +193,11 @@ export class PersonAccMngComponent implements OnInit {
                     if (response && 100 == response.resultCode) {
                         console.log(response);
                         this.editPassWord.close();
-                        this.notice.open('操作成功', '新密码已生效');
+                        this.notice.open('COMMON.OPERATION_SUC', 'USER_CENTER.NEW_PASSWORD_HAS_COME_INTO_EFFECT');
                     }
                 }).catch((err) => {
                     this.editPassWord.close();
-                    this.notice.open('操作错误', 'you have input wrong password')
+                    this.notice.open('COMMON.OPERATION_ERROR', 'you have input wrong password')
                 });
         } else {
             this.samePassword = false;

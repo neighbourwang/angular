@@ -1,19 +1,19 @@
-<h1 class="page-content-header mgb20">组织管理</h1>
+<h1 class="page-content-header mgb20">{{ 'MENU.ORGANIZATION_MANAGENMENT' | translate }}</h1>
 <div class="mgb20" style="overflow : hidden">
-    企业配额信息：最大配额/可用额度
+    {{ 'USER_CENTER.ENTERPRISE_QUOTA_INFORMATION' | translate }}
 </div>
 <div class="mgb20">
     <div style="width : 14.28%;float:left">
         <div class="table-line-head" >
-            vCPU数量
+            vCPU {{ 'COMMON.QUANTITY' | translate }}
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.cpuQuota||0}}</span>核
+                    {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.cpuQuota||0}}</span>{{ 'COMMON.CORE' | translate }}
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.cpuQuota-service.entResourceObj.realUsedCpuQuota||0}}</span>核
+                    {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.cpuQuota-service.entResourceObj.realUsedCpuQuota||0}}</span>{{ 'COMMON.CORE' | translate }}
                 </div>
                 <div style="clear : both">
                 </div>
@@ -29,15 +29,15 @@
 
     <div style="width : 14.28%;float:left">
         <div class="table-line-head" style="border-left:none">
-            内存数量
+            {{ 'COMMON.RAM' | translate }} {{ 'COMMON.QUANTITY' | translate }}
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.memQuota||0}}</span>GB
+                    {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.memQuota||0}}</span>GB
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.memQuota-service.entResourceObj.realUsedMemQuota||0}}</span>GB
+                    {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.memQuota-service.entResourceObj.realUsedMemQuota||0}}</span>GB
                 </div>
                 <div style="clear : both">
                 </div>
@@ -51,15 +51,16 @@
     </div>
     <div style="width : 14.28%;float:left">
         <div class="table-line-head" style="border-left:none">
-            物理机数量
+            {{ 'COMMON.PHYSICAL_MACHINE' | translate }} {{ 'COMMON.QUANTITY' | translate }}
+        </div>
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.physicalMachineQuota||0}}</span>台
+                    {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.physicalMachineQuota||0}}</span>
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.physicalMachineQuota-service.entResourceObj.realUsedPhysicalMachineQuota||0}}</span>台
+                    {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.physicalMachineQuota-service.entResourceObj.realUsedPhysicalMachineQuota||0}}</span>
                 </div>
                 <div style="clear : both">
                 </div>
@@ -72,15 +73,15 @@
         </div>
     </div><div style="width : 14.28%;float:left">
         <div class="table-line-head" style="border-left:none">
-            存储额度
+             {{ 'USER_CENTER.STORAGE_LIMIT' | translate }}
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.storageQuota||0}}</span>GB
+                     {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.storageQuota||0}}</span>GB
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.storageQuota-service.entResourceObj.realUsedStorageQuota||0}}</span>GB
+                    {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.storageQuota-service.entResourceObj.realUsedStorageQuota||0}}</span>GB
                 </div>
                 <div style="clear : both">
                 </div>
@@ -93,15 +94,15 @@
         </div>
     </div><div style="width : 14.28%;float:left">
         <div class="table-line-head" style="border-left:none">
-            快照数量
+            {{ 'COMMON.SNAPSHOT' | translate }} {{ 'COMMON.QUANTITY' | translate }}
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.snapshotQuota||0}}</span>个
+                    {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.snapshotQuota||0}}</span>
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.snapshotQuota-service.entResourceObj.realUsedSnapshotQuota||0}}</span>个
+                     {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.snapshotQuota-service.entResourceObj.realUsedSnapshotQuota||0}}</span>
                 </div>
                 <div style="clear : both">
                 </div>
@@ -114,15 +115,15 @@
         </div>
     </div><div style="width : 14.28%;float:left">
         <div class="table-line-head" style="border-left:none">
-            镜像数量
+            {{ 'COMMON.MIRROR' | translate }} {{ 'COMMON.QUANTITY' | translate }}
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.imageQuota||0}}</span>个
+                    {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.imageQuota||0}}</span>
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.imageQuota-service.entResourceObj.realUsedImageQuota||0}}</span>个
+                    {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.imageQuota-service.entResourceObj.realUsedImageQuota||0}}</span>
                 </div>
                 <div style="clear : both">
                 </div>
@@ -135,15 +136,15 @@
         </div>
     </div><div style="width : 14.28%;float:left">
         <div class="table-line-head" style="border-left:none">
-            浮动IP地址
+            {{ 'COMMON.FLOAT' | translate }} IP {{ 'COMMON.PATH' | translate }}
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="float : left"> 
-                    共<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.floatIpQuota||0}}</span>个
+                    {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.floatIpQuota||0}}</span>
                 </div>
                 <div style="float : right">
-                    剩余<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.floatIpQuota-service.entResourceObj.realUsedFloatIpQuota||0}}</span>个
+                    {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.floatIpQuota-service.entResourceObj.realUsedFloatIpQuota||0}}</span>
                 </div>
                 <div style="clear : both">
                 </div>
@@ -160,18 +161,18 @@
 </div>
 
 <div class="mgb20" style="overflow : hidden">
-    <button class="btn button-confirm float-right" (click)="openCreate()">创建部门</button>
+    <button class="btn button-confirm float-right" (click)="openCreate()">{{ 'COMMON.CREATE' | translate }} {{ 'COMMON.DEPARTMENT' | translate }}</button>
 </div>
 
 <table class="table table-hover mgb20">
 	<tbody><tr>
-		<th class="text-center" style="width : 10%">选择</th>
-		<th class="text-center" style="width : 15%">部门名称</th>
-		<th class="text-center" style="width : 15%">部门人员数量</th>
-		<th class="text-center" style="width : 15%">部门负责人</th>
-		<th class="text-center" style="width : 10%">状态</th> 
-		<th class="text-center" style="width : 20%">描述</th>
-		<th class="text-center" style="width : 15%">操作</th>
+		<th class="text-center" style="width : 10%">{{ 'COMMON.SELECT' | translate }}</th>
+		<th class="text-center" style="width : 15%">{{ 'COMMON.DEPARTMENT' | translate }}{{ 'COMMON.NAME' | translate }}</th>
+		<th class="text-center" style="width : 15%">{{ 'USER_CENTER.NUMBER_OF_DEPARTMENT_PERSONNEL' | translate }}</th>
+		<th class="text-center" style="width : 15%">{{ 'USER_CENTER.DEPARTMENT_HEAD' | translate }}</th>
+		<th class="text-center" style="width : 10%">{{ 'COMMON.STATUS' | translate }}</th> 
+		<th class="text-center" style="width : 20%">{{ 'COMMON.DESCRIPTION' | translate }}</th>
+		<th class="text-center" style="width : 15%">{{ 'COMMON.OPERATION' | translate }}</th>
 	</tr>
 	<tr *ngFor='let organ of orgs;let idx=index'>
 		<td class="text-center"><input name="host-list" type="radio" class="fox-cloud-radio"></td>
@@ -180,11 +181,11 @@
 		<td class="text-center">{{organ.leaderName}}</td>
 		<td class="text-center">
              <span [ngSwitch]="organ.status">
-                            <template [ngSwitchCase]="1">启用</template>
-                            <template [ngSwitchCase]="3">禁用</template>
-                            <template [ngSwitchCase]="2">挂起</template>
-                            <template [ngSwitchCase]="0">未启用</template>
-                            <template [ngSwitchCase]="4">已删除</template>
+                            <template [ngSwitchCase]="1">{{ 'COMMON.ENABLE' | translate }}<</template>
+                            <template [ngSwitchCase]="3">{{ 'COMMON.DISENABLED' | translate }}<</template>
+                            <template [ngSwitchCase]="2">{{ 'COMMON.PENDING' | translate }}<</template>
+                            <template [ngSwitchCase]="0">{{ 'COMMON.NOT_ENABLED' | translate }}<</template>
+                            <template [ngSwitchCase]="4">{{ 'COMMON.DELETED' | translate }}<</template>
                             <template ngSwitchDefault>Unknown</template>
             </span>
         </td> 
@@ -219,12 +220,12 @@
 
   </div>
 </div>-->
-<fc-popup  #creOrgPop title="{{title}}" ot="{{isEdit==false?'创建':'保存'}}" (of)="createOrg();" ct="取消" (cf)="ccf()">
+<fc-popup  #creOrgPop title="{{title}}" ot="{{isEdit==false?'COMMON.CREATE':'DIALOG.SAVE' | translate }}" (of)="createOrg();" ct="{{ 'COMMON.CANCEL' | translate }}" (cf)="ccf()">
     <div class="row row-line-height">
          <org-mng-cr *ngIf="temporary" #crModel [isEdit]="isEdit" [editId]="editId"></org-mng-cr>    
     </div>
 </fc-popup>
 
 <fc-confirm  #confirm   title="{{confirmTitle}}"  msg="{{confirmMessage}}"  (cf)="confirmOk()"></fc-confirm>
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate }}"></fc-notice>
 
