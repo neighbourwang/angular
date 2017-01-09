@@ -64,7 +64,10 @@
                 <tbody>
                      <tr *ngFor="let item of creStep3Model; let idx = index;">
                         <td>{{idx + 1}}</td>
-                        <td >{{item.dcOrRegion}}</td>
+                        <td >
+                            <p *ngFor="let dcOrRegion of item.dcOrRegion" style="padding:0;margin-bottom: 0">{{dcOrRegion}}</p>
+                            <!--{{item.dcOrRegion}}-->
+                            </td>
                         <td>{{item.name}}</td>
                         <td><input type="text" class="form-control" [(ngModel)]="item.displayName" value="高性能区1"></td>
                         <td>{{item.hostNum||0}}</td>
