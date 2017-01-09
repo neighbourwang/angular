@@ -152,24 +152,24 @@
 	<div class="dialogContent">
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.IMAGE_NAME' | translate}}：</div>
-					<div class="col-sm-8">
+					<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.IMAGE_NAME' | translate}}：</div>
+					<div class="col-sm-7">
 					    {{changedimg.name}}
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.IMAGE_DISPLAY_NAME' | translate}}：</div>
-					<div class="col-sm-8">
+					<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.IMAGE_DISPLAY_NAME' | translate}}：</div>
+					<div class="col-sm-7">
 					    <input type="string" class="form-control input-control" [(ngModel)]="changedimg.displayName">
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">{{'HOST_VMWARE_MNG.OS' | translate}}：</div>
-					<div class="col-sm-8">
+					<div class="col-sm-5 form-control-title">{{'HOST_VMWARE_MNG.OS' | translate}}：</div>
+					<div class="col-sm-7">
 						<!--<input type="string" class="form-control input-control" [(ngModel)]="changedimg.os">  -->
                         <select [(ngModel)]="changedimg.os">
                             <option *ngFor="let os of this.osDictArray" [value]="os.value">{{os.displayValue}}</option>
@@ -179,8 +179,8 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">{{'HOST_VMWARE_MNG.BIT' | translate}}：</div>
-					<div class="col-sm-8">                        
+					<div class="col-sm-5 form-control-title">{{'HOST_VMWARE_MNG.BIT' | translate}}：</div>
+					<div class="col-sm-7">                        
                         <select [(ngModel)]="changedimg.bitsType">
                             <option *ngFor="let bit of this.bitDictArray" [value]="bit.value">{{bit.displayValue}}</option>
                         </select>
@@ -189,8 +189,8 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">{{'HOST_VMWARE_MNG.CAPACITY' | translate}}：</div>
-					<div class="col-sm-8">
+					<div class="col-sm-5 form-control-title">{{'HOST_VMWARE_MNG.CAPACITY' | translate}}：</div>
+					<div class="col-sm-7">
 						<!-- <input type="string" class="form-control input-control" [(ngModel)]="selectedimg.dnsAlt"> -->
                         <span>{{ changedimg.capacity | formatCapacity}}</span>
 					</div>
@@ -198,8 +198,8 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.IMAGE_TYPE' | translate}}：</div>
-					<div class="col-sm-8">
+					<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.IMAGE_TYPE' | translate}}：</div>
+					<div class="col-sm-7">
                         <select [(ngModel)]="changedimg.type">
                             <option [value]="'0'">{{'HOST_VMWARE_MNG.PUBLIC_IMAGE' | translate}}</option>
                             <option [value]="'2'">{{'HOST_VMWARE_MNG.ENTERPRISE_IMAGE' | translate}}</option>
@@ -210,8 +210,8 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">{{'HOST_VMWARE_MNG.DESCRIPTION' | translate}}：</div>
-					<div class="col-sm-8">
+					<div class="col-sm-5 form-control-title">{{'HOST_VMWARE_MNG.DESCRIPTION' | translate}}：</div>
+					<div class="col-sm-7">
 						<input type="string" class="form-control input-control" [(ngModel)]="changedimg.description">
 					</div>
 				</div>
