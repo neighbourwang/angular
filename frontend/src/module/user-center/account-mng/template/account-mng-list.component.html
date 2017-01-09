@@ -1,22 +1,22 @@
-<h1 class="page-content-header mgb20">帐号管理</h1>
+<h1 class="page-content-header mgb20">{{ 'MENU.ACCOUNT_MANAGEMENT' | translate }}</h1>
 <div class="mgb20" style="overflow : hidden">
     <div class="input-group col-md-2 float-left">
-        <input class="form-control" [(ngModel)]="keyword" (keyup.enter)="search()" placeholder="输入帐号信息快速搜索" type="text">
+        <input class="form-control" [(ngModel)]="keyword" (keyup.enter)="search()" placeholder="{{ 'USER_CENTER.ENTER_ACCOUNT_INFORMATION_TO_SEARCH_QUICKLY' | translate }}" type="text">
         <div class="input-group-addon" (click)="search()"><span class="glyphicon glyphicon-search" style="cursor:pointer"></span></div>
     </div>
-    <button class="btn button-confirm float-right" data-toggle="modal" (click)="create()">创建帐号</button>
+    <button class="btn button-confirm float-right" data-toggle="modal" (click)="create()">{{ 'COMMON.CREATE' | translate }}{{ 'COMMON.ACCOUNT' | translate }}</button>
 </div>
 <table class="table table-hover mgb20">
     <tbody>
         <tr>
             <!--<th class="text-center" style="width : 5%">选择</th>-->
-            <th class="text-center" style="width : 15%">姓名</th>
-            <th class="text-center" style="width : 20%">帐号</th>
-            <th class="text-center" style="width : 15%">联系电话</th>
-            <th class="text-center" style="width : 15%">所属部门</th>
-            <th class="text-center" style="width : 15%">角色</th>
-            <th class="text-center" style="width : 10%">状态</th>
-            <th class="text-center" style="width : 10%">操作</th>
+            <th class="text-center" style="width : 15%">{{ 'COMMON.NAME' | translate }}</th>
+            <th class="text-center" style="width : 20%">{{ 'COMMON.ACCOUNT' | translate }}</th>
+            <th class="text-center" style="width : 15%">{{ 'USER_CENTER.CONTECT_NUMBER' | translate }}</th>
+            <th class="text-center" style="width : 15%">{{ 'COMMON.DEPARTMENT' | translate }}</th>
+            <th class="text-center" style="width : 15%">{{ 'USER_CENTER.ROLE' | translate }}</th>
+            <th class="text-center" style="width : 10%">{{ 'COMMON.STATUS' | translate }}</th>
+            <th class="text-center" style="width : 10%">{{ 'COMMON.OPERATION' | translate }}</th>
         </tr>
         <tr *ngFor="let account of accounts;let idx = index">
             <!--<td class="text-center"><input name="host-list" type="radio"></td>-->
@@ -27,10 +27,10 @@
             <td class="text-center">{{account.roleName}}</td>
             <td class="text-center">
                  <span [ngSwitch]="account.status">
-                            <template [ngSwitchCase]="1">启用</template>
-                            <template [ngSwitchCase]="3">禁用</template>
-                            <template [ngSwitchCase]="0">未启用</template>
-                            <template [ngSwitchCase]="4">已删除</template>
+                            <template [ngSwitchCase]="1">{{ 'COMMON.ENABLED' | translate }}</template>
+                            <template [ngSwitchCase]="3">{{ 'COMMON.DISENABLED' | translate }}</template>
+                            <template [ngSwitchCase]="0">{{ 'COMMON.NOT_ENABLED' | translate }}</template>
+                            <template [ngSwitchCase]="4">{{ 'COMMON.DELETED' | translate }}</template>
                             <template ngSwitchDefault>Unknown</template>
                     	</span>
             </td>
@@ -47,7 +47,7 @@
 
 <fc-pagination #pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
 <fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMessage}}" (cf)="confirmOk()"></fc-confirm>
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" (of)="nof()"></fc-notice>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate }}" (of)="nof()"></fc-notice>
 <!--<fc-popup #creAccount title="{{title}}" ot="创建" (of)="otCreate()" ct="取消" (cf)="ccf()">
     <div class="row row-line-height">
         <div class="form-group">
@@ -62,18 +62,18 @@
     </div>
 </fc-popup>-->
 
-<fc-popup  #crLocalAccount title="{{title}}" ot="{{isEdit==false?'创建':'保存'}}" (of)="save();" ct="取消" (cf)="ccf()">
+<fc-popup  #crLocalAccount title="{{title}}" ot="{{isEdit==false?'COMMON.CREATE':'DIALOG.SAVE' | translate}}" (of)="save();" ct="{{ 'COMMON.CONFIRM' | translate }}" (cf)="ccf()">
     <div class="row row-line-height">
         <account-mng-cr-local  *ngIf="isActive" #crLocal [isEdit]="isEdit" [editId]="editId"></account-mng-cr-local>
     </div>
 </fc-popup>
 
-<fc-popup #crAdAccount title="{{title}}" ot="创建" (of)="createAdAccount();" ct="取消" (cf)="ccf()">
+<fc-popup #crAdAccount title="{{title}}" ot="{{ 'COMMON.CREATE' | translate }}" (of)="createAdAccount();" ct="{{ 'COMMON.CANCEL' | translate }}" (cf)="ccf()">
     <div class="row row-line-height">
         <account-mng-cr-ad #crAdCount></account-mng-cr-ad>
     </div>
 </fc-popup>
-<fc-popup #editAdAccount title="{{title}}" ot="保存" (of)="editAdAccountM();" ct="取消" (cf)="ccf()">
+<fc-popup #editAdAccount title="{{title}}" ot="{{ 'DIALOG.SAVE' | translate }}" (of)="editAdAccountM();" ct="{{ 'COMMON.CANCEL' | translate }}" (cf)="ccf()">
     <div class="row row-line-height">
         <account-mng-edit-ad #editAd [accountId]="editId"></account-mng-edit-ad>
     </div>

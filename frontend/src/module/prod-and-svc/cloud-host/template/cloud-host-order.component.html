@@ -1,9 +1,9 @@
-	<div class="page-content-header icon-purchasing">订购</div>
+	<div class="page-content-header icon-purchasing">{{ 'COMMON.ORDER' | transalet }}</div>
 	<div class="page-content">
 		<div class="row no-padding">
-			<div class="col-md-2 text-right radio-group-title">订购 ：</div>
+			<div class="col-md-2 text-right radio-group-title">{{ 'COMMON.ORDER' | transalet }}:</div>
 			<div class="col-md-10 radio-group">
-				<input type="radio" name="" value="1" checked /><label for="">云主机</label>
+				<input type="radio" name="" value="1" checked /><label for="">{{ 'COMMON.CLOUD_HOSTING' | transalet }}</label>
 			</div>
 		</div>
 		<div class="row no-padding">
@@ -25,9 +25,9 @@
 			</div>
 		</div>
 		<div class="row no-padding">
-			<div class="col-md-2 text-right radio-group-title">网络类型 ：</div>
+			<div class="col-md-2 text-right radio-group-title">{{ 'COMMON.NETWORK' | transalet }}{{ 'COMMON.TYPE' | transalet }}:</div>
 			<div class="col-md-10 radio-group">
-				<input type="radio" name="network" value="1" checked /><label for="network">经典网络</label>
+				<input type="radio" name="network" value="1" checked /><label for="network">{{ 'COMMON.CLASSIC' | transalet }}{{ 'COMMON.NETWORK' | transalet }}</label>
 			</div>
 		</div>
 		<div class="row no-padding">
@@ -98,23 +98,23 @@
 			</div>
 		</div>
 		<div class="row no-padding">
-			<div class="col-md-2 text-right radio-group-title">购买数量 ：</div>
+			<div class="col-md-2 text-right radio-group-title">{{ 'CLOUD_HOST.PURCHASE_QUANTITY' | transalet }}:</div>
 			<div class="col-md-10 radio-group">
 				<div class="purching-adjust" id="s" (click)="purching_adjust(-1)">-</div>
-				<div id="purching-adjust" value="1" class="purching-count"><span>{{order.count}}</span>台</div>
+				<div id="purching-adjust" value="1" class="purching-count"><span>{{order.count}}</span></div>
 				<div class="purching-adjust" id="a" (click)="purching_adjust(1)">+</div>
 			</div>
 		</div>
 		<div class="row purching-estimation">
-			<div class="col-md-3 text-right purching-estimation-label">预购价：</div>
-			<div class="col-md-4 purching-estimation-value">￥{{order.totalPrice}}</div>
+			<div class="col-md-3 text-right purching-estimation-label">{{ 'CLOUD_HOST.PURCHASE_PRICE' | transalet }}:</div>
+			<div class="col-md-4 purching-estimation-value">{{ 'COMMON.$' | transalet}} {{order.totalPrice}}</div>
 			<div class="col-md-5 text-right purching-estimation-button-group">
 				<button class="fox-cloud-button fox-cloud-button-grey" (click)="reset()">
 					<span class="glyphicon glyphicon-refresh"></span>
-					<span class="icon-button-label icon-left-button-label">重置</span>
+					<span class="icon-button-label icon-left-button-label">{{ 'COMMON.RESET' | transalet}}</span>
 				</button>
 				<button class="fox-cloud-button fox-cloud-button-grey" (click)="save()">
-					<span class="icon-button-label">加入购物车&gt;</span>
+					<span class="icon-button-label">{{ 'CLOUD_HOST.ADD_TO_CART' | transalet}}&gt;</span>
 				</button>
 			</div>
 		</div>
@@ -122,11 +122,11 @@
 	<div class="cart-price" style="display:none;">
 		<div class="item-cart">
 			<div class="icon-cart"></div>
-			<div class="title">购物车</div>
+			<div class="title">{{ 'COMMON.SHOPPING_CART' | transalet}}</div>
 		</div>
 		<div class="item-price">
 			<div class="icon-price"></div>
-			<div class="title">价格表</div>
+			<div class="title">{{ 'CLOUD_HOST.PRICE_LIST' | transalet}}</div>
 		</div>
 	</div>
 	<div class="cart" style="display:none;">

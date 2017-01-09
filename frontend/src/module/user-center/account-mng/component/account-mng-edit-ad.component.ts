@@ -89,29 +89,29 @@ export class AccountMngEditAdComponent implements OnInit {
         this.account.organizations = this.service.orgs.filter((o) => { return o.selected });
         this.account.tenantId = this.service.userInfo.enterpriseId;
         if (this.validationService.isBlank(this.account.userName)) {
-            this.showAlert("请输入管理员姓名");
+            this.showAlert("COMMON.PLEASE_ENTER_YOUR_ADMINISTRATOR_NAME");
             return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
         if (this.validationService.isBlank(this.account.phone)) {
-            this.showAlert("请输入电话");
+            this.showAlert("COMMON.PLEASE_ENTER_A_PHONE");
             return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
         if (!this.validationService.isMoblie(this.account.phone) &&
             !this.validationService.isTel(this.account.phone)) {
-            this.showAlert("请输入合法的联系电话;");
+            this.showAlert("COMMON.PLEASE_ENTER_A_VALID_PHONE_NUMBER");
             return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
 
         if (this.account.roles.length === 0) {
-            this.showAlert("至少选择一个角色");
+            this.showAlert("COMMON.SELECT_AT_LEAST_ONE_ROLE");
             return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
         if (this.account.organizations.length === 0) {
-            this.showAlert("请选择所属机构");
+            this.showAlert("COMMON.PLEASE_SELECT_THE_INSTITUTION");
             return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
@@ -136,7 +136,7 @@ export class AccountMngEditAdComponent implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "COMMON.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -148,7 +148,7 @@ export class AccountMngEditAdComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("COMMON.FAILED_TO_GET_DATA");
     }
 
 }

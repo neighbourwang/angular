@@ -60,14 +60,14 @@ export class InstanceListComponent implements OnInit {
           .getInstances(page, size)
           .then(ret => {
               if (!ret) {
-                  this.showNotice('COMMON.DARA_ACQUISITION_FAILURE', 'CLOUD_HOST.FAILED_TO_RETRIEVE_INSTANCE_DETAILS'+ '.');
+                  this.showNotice('COMMON.DATA_ACQUISITION_FAILURE', 'CLOUD_HOST.FAILED_TO_RETRIEVE_INSTANCE_DETAILS'+ '.');
               } else {
                   this.fmtInstancesData(ret);
               }
               this.layoutService.hide();
           })
           .catch(error => {
-              this.showNotice('COMMON.DARA_ACQUISITION_FAILURE', 'CLOUD_HOST.FAILED_TO_RETRIEVE_INSTANCE_DETAILS'+ '.');
+              this.showNotice('COMMON.DATA_ACQUISITION_FAILURE', 'CLOUD_HOST.FAILED_TO_RETRIEVE_INSTANCE_DETAILS'+ '.');
               this.layoutService.hide();
           });
   }
