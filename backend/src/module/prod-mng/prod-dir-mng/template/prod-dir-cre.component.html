@@ -83,7 +83,7 @@
 				<div class="form-group">
 					<div for="firstname" class="col-sm-4 form-control-title">描述：</div>
 					<div class="col-sm-4">
-						<textarea class="form-control font-gray" rows="4" [(ngModel)]="prodDir.description" placeholder="描述"></textarea>
+						<textarea class="form-control font-gray" rows="4" [(ngModel)]="prodDir.description" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"></textarea>
 					</div>
 				</div>
 			</div>
@@ -145,4 +145,4 @@
         <span class="icon-button-label">创建</span>
     </button>
 </div>
-<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认"></fc-notice>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM"></fc-notice>
