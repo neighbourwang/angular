@@ -1,7 +1,7 @@
 export class Pool{
     
   dataCenter: string;
-  description: string
+  description: string;
   poolName: string;
   region: string;
 }

@@ -1,10 +1,10 @@
 export class Model{
-    id: number;
+    id: string;
     model: string;
 }
 
 export class Brand{
-    id: number;
+    id: string;
     brand: string;
-    models:Array<Model>;
+    models:Array<Model> = [];
 }

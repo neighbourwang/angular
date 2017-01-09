@@ -3,8 +3,8 @@ class VlueList {
     attrValueId?: string = "";
     attrValueCode?: string = "";
     attrDisplayValue?: string = "";
-    attrValue?: any;
-    value?:string;
+    attrValue?: string = "";
+    sku?:SkuMap;
 }
 
 class OrderService {
@@ -31,6 +31,8 @@ class OrderList {
     storage : OrderService = new OrderService();
     diskinsname : OrderService = new OrderService();
     diskmounthostname : OrderService = new OrderService();
+    timelineunit : OrderService = new OrderService();
+    timeline  : OrderService = new OrderService();
 }
 
 class SendModule {
@@ -45,6 +47,8 @@ class SendModule {
     storage : VlueList = new VlueList();
     diskinsname : VlueList = new VlueList();
     diskmounthostname : VlueList = new VlueList();
+    timelineunit : VlueList = new VlueList();
+    timeline  : VlueList = new VlueList();
 }
 
 class SkuMap {

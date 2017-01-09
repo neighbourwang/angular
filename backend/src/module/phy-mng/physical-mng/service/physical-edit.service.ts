@@ -3,8 +3,8 @@ import { Http, Response } from "@angular/http";
 import { RestApiCfg, RestApi } from "../../../../architecture";
 
  import { PhysicalModel } from "../model/physical.model";
- import {  IpmiInfo } from "../model/physical-ipmi.model"
-// import { adusers, attestDetail, attests } from "../model/attest-mock";
+ import { IpmiInfo } from "../model/physical-ipmi.model"
+ import { serverTypeListAndbrandList_mock, physicalMachine_mock } from "../model/mock";
 import "rxjs/add/operator/toPromise";
 
 @Injectable()
@@ -30,8 +30,8 @@ export class PhysicalEditService {
             }
         ];
         const api = this.restApiCfg.getRestApi("physical-mng.physical.check");
-        return this.restApi.request(api.method, api.url, pathParams, null, null);
-        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => attestDetail);
+       // return this.restApi.request(api.method, api.url, pathParams, null, null);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => physicalMachine_mock);
     }
 
     //编辑物理机
@@ -78,9 +78,9 @@ export class PhysicalEditService {
 
     //获取物理机服务器的品牌、型号、类型
     getServer():Promise<any>{
-        
         const api = this.restApiCfg.getRestApi("physical-mng.physical.serverInfo.get");
-        return this.restApi.request(api.method, api.url, null, null, null);
+        //return this.restApi.request(api.method, api.url, null, null, null);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => serverTypeListAndbrandList_mock);
     }
 
     //修改ipmi信息
