@@ -82,7 +82,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取某个平台下的所有可用网络",
         "method": "GET",
         "id": "enterprise.network.get",
-        "url": "marketplace/authsec/platform/{platformId}/enterprise/{enterPriseId}/network"
+        "url": "marketplace//authsec/platform/{platformId}/enterprise/{enterPriseId}/zoneId/{zoneId}/network"
     },
     {
         "desc": "云主机操作",
