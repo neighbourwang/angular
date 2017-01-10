@@ -170,6 +170,7 @@ export class VmwareMngIndexComponent implements OnInit {
         } else {
             this.NsxInfo = null;
         }
+        this.UnselectItem();
     }
 
     getNetworkList(platformId:string): void {
@@ -193,7 +194,7 @@ export class VmwareMngIndexComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    showNetAndNxsInfo(): void {
+    showNets(): void {
         if (this.queryOpt2 && !this.validationService.isBlank(this.queryOpt2.platformId)){
             console.log(this.queryOpt2.platformId, "this.queryOpt2.platformId");
             this.getNetworkList(this.queryOpt2.platformId);
@@ -213,6 +214,7 @@ export class VmwareMngIndexComponent implements OnInit {
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
+                    this.enablepopbutton = false;
                     this.NsxMngInfo = response.resultContent;
                     console.log(this.NsxMngInfo, "this.NsxMngInfo");
                     this.changedNsxMngInfo.nsxVer = this.NsxMngInfo.nsxVer;
@@ -417,6 +419,7 @@ export class VmwareMngIndexComponent implements OnInit {
                 .then(() => {
                     this.selectedNet.networkType = this.VmNetStatus.vmNetStatus; //更新数据回页面展示
                     this.setnettype.close();
+                    this.UnselectItem();
                 })
                 .catch(err => {
                     console.log('设置网络类型异常', err);
@@ -440,6 +443,7 @@ export class VmwareMngIndexComponent implements OnInit {
         this.changedNet.clusterId = "";
         this.changedNet.clusterDisplayName = "";
         this.changedNet.networkType = "";
+        this.UnselectItem();
     }
 
     gotoVMStdNetMng() {
