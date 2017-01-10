@@ -97,7 +97,7 @@ export class PhyPoolMngComponent implements OnInit{
                 }else if(status == "0"){
                     this.disable(this.selectedPhy.pmPoolId);
                 }else{
-                    this.remove(this.selectedPhy.pmPoolId);
+                    this.showAlert("启用状态下不能删除");
                 }
             }else{
                 if(status == "1"){

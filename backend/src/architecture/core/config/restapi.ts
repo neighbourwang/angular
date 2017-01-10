@@ -1721,7 +1721,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建物理机资源池",
         "id": "phy-mng.phy-pool.phylist.creat",
         "method": "POST",
-        "url": "boe/adminui/authsec/pmpool"
+        "url": "pmresourcemgmt/noauth/pmpool"
     },
     {
         "desc": "编辑物理机资源池",
