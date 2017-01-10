@@ -9,7 +9,10 @@
         "APPROVE_SET_NEED_APPROVE_TIME": "请设置有效自动审批时间",
         "APPROVE_SUBMITTER_DATRA_ERROR": "提交者列表加载错误",
         "APPROVE_USER_DATA_ERROR": "审批人列表加载错误",
-        "NOT_APPROVED_LIST_DATA_ERROR": "待审批列表加载错误"
+        "NOT_APPROVED_LIST_DATA_ERROR": "待审批列表加载错误",
+        "YOU_MUST_FILL_IN_THE_REASONS": "必须填写拒绝原因，且不能超出200字",
+        "APPROVAL":"审批同意",
+        "ARE_YOU_SURE_YOU_WANT_TO_APPROVE":"你确认要审批同意该订单吗",
     },
     "COMMON": {
         "$": "￥",
@@ -76,7 +79,9 @@
         "STORAGE": "存储",
         "STORAGE_TYPE": "储存类型",
         "TOTAL_COST": "费用总计",
-        "TYPE": "类型"
+        "TYPE": "类型",
+        "SYSTEM": "系统",
+        "AGREE": "同意",
     },
     "ENT_MNG": {
         "ENT_CERT_UPDATE_FAILED": "认证更新失败",
@@ -613,6 +618,6 @@
         "USERNAME_REQUIRED": "请输入用户名",
         "VERSION_REQUIRED": "请选择版本",
         "ZONES_QUOTA": "可用区与配额",
-        "PLATFORM_REQUIRED":"请输入云平台名称"
+        "PLATFORM_REQUIRED": "请输入云平台名称"
     }
 }
