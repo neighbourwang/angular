@@ -3,6 +3,13 @@ export class Criteria{
     region: string;
     dataCenter: string;
     description: string;
+
+    constructor() {
+    }
+
+    toString() {
+        return JSON.stringify(this);
+    }
 }
 /*
 {

@@ -64,7 +64,7 @@ export class ClMngCreStep2Component implements OnInit {
 
         this.service.zones(platFormId).then(
             res => {
-                console.log(res);
+                console.log('zone',res);
                 this.creStep2Model.zones = 'ok';
                 this.creStep2Model.zonesStatus = true;
                 this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_COMP_SYNC_STORAGE';
@@ -88,7 +88,7 @@ export class ClMngCreStep2Component implements OnInit {
         let platFormId: String = this.idService.getPlatformId();
         this.service.storages(platFormId).then(
             res => {
-                console.log(res);
+                console.log('storage',res);
                 this.creStep2Model.storages = 'ok';
                 this.creStep2Model.storagesStatus = true;
                 this.creStep2Model.message = 'PF_MNG2.SYNC_STORAGE_COMP_SYNC_SPEC';
@@ -108,7 +108,7 @@ export class ClMngCreStep2Component implements OnInit {
 
         this.service.flavors(platFormId).then(
             res => {
-                console.log(res);
+                console.log('flavors',res);
                 this.creStep2Model.flavors = 'ok';
                 this.creStep2Model.flavorsStatus = true;
                 this.creStep2Model.message = 'PF_MNG2.SYNC_SPEC_COM_SYNC_IMG';
@@ -143,7 +143,7 @@ export class ClMngCreStep2Component implements OnInit {
         //     )
         this.service.getImages(platFormId).then(
             res => {
-                console.log(res.resultContent);
+                // console.log(res.resultContent);
                 let data = {
                     imageList: []
                 }
@@ -178,7 +178,7 @@ export class ClMngCreStep2Component implements OnInit {
 
         this.service.hosts(platFormId).then(
             res => {
-                console.log(res);
+                // console.log(res);
                 this.creStep2Model.hosts = 'ok';
                 this.creStep2Model.hostsStatus = true;
                 this.creStep2Model.message = '同步宿主机成功,同步完成';

@@ -5,12 +5,14 @@ import { CommonComponentModule, PipeModule} from '../../../architecture';
 
 //Components
 import { PhyPoolMngComponent } from './component/phy-pool-mng.component';
+import { PhyCreatComponent } from './component/phy-creat.component.ts';
 
 // Routing
 import { PhyPoolRouting } from './phy-pool.routing';
 
 //service
 import { PhyPoolMngService} from './service/phy-pool-mng.service'
+import { PhyCreatMngService} from './service/phy-creat-mng.service.ts'
 
 
 @NgModule({
@@ -20,13 +22,16 @@ import { PhyPoolMngService} from './service/phy-pool-mng.service'
         PipeModule
     ],
     declarations: [
-        PhyPoolMngComponent
+        PhyPoolMngComponent,
+        PhyCreatComponent
     ],
     exports: [
-        PhyPoolMngComponent
+        PhyPoolMngComponent,
+        PhyCreatComponent
     ],
     providers: [
-        PhyPoolMngService
+        PhyPoolMngService,
+        PhyCreatMngService
     ]
 
 })

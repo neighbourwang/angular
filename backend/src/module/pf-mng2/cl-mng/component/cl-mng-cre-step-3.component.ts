@@ -68,7 +68,7 @@ export class ClMngCreStep3Component implements OnInit{
     next (){
 
         let platFormId : String = this.idService.getPlatformId();
-
+        console.log(this.creStep3Model)
         // this.router.navigateByUrl("pf-mng2/cl-mng/cre-step4");
         this.creStep3Model.forEach(ele => {
             ele.quotaPercentage = ele.quotaPercentDisplay * 0.01

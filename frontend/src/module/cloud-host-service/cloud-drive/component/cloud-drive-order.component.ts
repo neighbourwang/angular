@@ -253,8 +253,8 @@ export class cloudDriveComponentOrder implements OnInit {
 			disktype : () => !isinv(this.sendModule.disktype.attrValue),
 			storage : () => !isinv(this.sendModule.storage.attrValue),
 			diskinsname : () =>  !this.sendModule.diskinsname.attrValue || /^[a-zA-Z\u4e00-\u9fa5].{1,67}/.test(this.sendModule.diskinsname.attrValue),
-			timeline: () => this.sendModule.timeline.attrValue && /^\d*$/.test(this.sendModule.timeline.attrValue.trim()) && +this.sendModule.timeline.attrValue.trim() <= 999,
-			timelineunit: () => !isinv(this.sendModule.timelineunit.attrValue)
+			// timeline: () => this.sendModule.timeline.attrValue && /^\d*$/.test(this.sendModule.timeline.attrValue.trim()) && +this.sendModule.timeline.attrValue.trim() <= 999,
+			// timelineunit: () => !isinv(this.sendModule.timelineunit.attrValue)
 		};
         const alertValue = {
             
@@ -263,8 +263,8 @@ export class cloudDriveComponentOrder implements OnInit {
 			disktype : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK",
 			storage : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK_TYPE",
 			diskinsname : "CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_NAME_FORMAT_IS NOT_CORRECT",
-			timeline: "VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION", //VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION
-			timelineunit: "VM_INSTANCE.PLEASE_SELECT_TIMELINE_UNIT"//VM_INSTANCE.PLEASE_SELECT_NET_TYPE
+			// timeline: "VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION", //VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION
+			// timelineunit: "VM_INSTANCE.PLEASE_SELECT_TIMELINE_UNIT"//VM_INSTANCE.PLEASE_SELECT_NET_TYPE
 		}
 
 		const check = value => {

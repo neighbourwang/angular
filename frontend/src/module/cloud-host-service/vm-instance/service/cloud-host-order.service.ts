@@ -45,14 +45,19 @@ export class cloudHostServiceOrder {
         return this.restApi.request(api.method, api.url, undefined, undefined, payload);
     }
     
-    getNetwork(platformId:string) : Promise<Network[]> {
+    getNetwork(platformId:string, zoneId:string) : Promise<Network[]> {
         const api = this.restApiCfg.getRestApi("enterprise.network.get");
 
         let pathParams = [
             {
                 key: 'platformId',
                 value: platformId
-            },{
+            },
+            {
+                key: 'zoneId',
+                value: zoneId
+            },
+            {
                 key : 'enterPriseId',
                 // value: "868a8d22-0976-48c3-b080-e03481ca1c43"
                 value: this.userInfo.enterpriseId
