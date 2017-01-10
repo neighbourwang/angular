@@ -327,7 +327,8 @@ export class PfDetailComponent implements OnInit {
                 this.storageList.forEach(ele => {
                     ele.quota=
                         ele.quota?ele.quota:0;
-                    ele.quotaPercentDisplay = ele.quota * 100;                    
+                    ele.quotaPercentDisplay = ele.quota * 100;
+                    ele.valid=true;                    
                 })
                 //Openstack类型同步volumeType信息
                 // if (this.platformType == '0') {
@@ -375,19 +376,46 @@ export class PfDetailComponent implements OnInit {
         })
     }
     //更多操作
+    
     tempStorageList: Array<StorageModel>=new Array<StorageModel>();
     editStorage(storage, idx) {
-        console.log(storage);
-        console.log(this.tempStorageList);
         this.tempStorageList[idx]=new StorageModel();
         Object.assign(this.tempStorageList[idx], storage)
         this.storageList[idx].isEdit = true;
     }
+
+    keepSame(item) {
+        // if (this.platformType == '2') {
+            let sum:number=0;
+            for (let storage of this.storageList) {
+                if (storage.id == item.id) {
+                    // storage.displayName = item.displayName;
+                    // storage.description = item.description;
+                    storage.replica = item.replica;
+                    sum+=storage.quotaPercentDisplay;
+                }
+            }
+            item.valid=
+                sum>100?false:true;
+            console.log(sum);
+            console.log(item.valid);
+        // }
+    }
+
     saveStorage(storage) {
-        console.log(this.tempStorageList);
+        console.log(this.tempStorageList);        
+        let valid:boolean=true;
         this.storageList.forEach(ele => {
+            if(ele.valid==false){
+               return valid=false;
+            }
             ele.quotaPercentage = ele.quotaPercentDisplay / 100
         })
+        console.log(valid);
+        if(!valid){
+            this.notice.open('操作错误','存储区配额设置错误，同一存储区配额总额设置超额')
+            return;
+        }
         this.layoutService.show();
         this.storageListService.putStorage(this.platform.id,this.storageList).then(res => {
             console.log(res);

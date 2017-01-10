@@ -261,7 +261,7 @@
                         </td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.quotaPercentDisplay||0}}</span>
-                            <input *ngIf="storage.isEdit" type="number" class="form-control" [(ngModel)]="storage.quotaPercentDisplay" style=" display: inline;">
+                            <input *ngIf="storage.isEdit" type="number"  class="form-control" [(ngModel)]="storage.quotaPercentDisplay" style=" display: inline;">
                         </td>
                         <td>
                             {{storage.status|dict:this.commonService.globalStatus|async}}
@@ -310,25 +310,25 @@
                         <td>{{storage.name}}</td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.displayName||'NULL'}}</span>
-                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.displayName">
+                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.displayName" (blur)="keepSame(storage)">
 
                         </td>
                         <td>{{storage.typeDisplayName}}</td>
                         <td>{{storage.maximum||0}}</td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.replica||0}}</span>
-                            <input *ngIf="storage.isEdit" type="number" class="form-control" [(ngModel)]="storage.replica" style="width: 100px; display: inline;">
+                            <input *ngIf="storage.isEdit" type="number" class="form-control" [(ngModel)]="storage.replica" style="width: 100px; display: inline;" (blur)="keepSame(storage)">
                         </td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.quotaPercentDisplay||0}}</span>
-                            <input *ngIf="storage.isEdit" type="number" class="form-control" [(ngModel)]="storage.quotaPercentDisplay" style=" display: inline;">
+                            <input *ngIf="storage.isEdit" [class.border-error]="!storage.valid" type="number" class="form-control" [(ngModel)]="storage.quotaPercentDisplay" style=" display: inline;" (blur)="keepSame(storage)">
                         </td>
                         <td>
                             {{storage.status|dict:this.commonService.globalStatus|async}}
                         </td>
                         <td >
                             <span *ngIf="!storage.isEdit">{{storage.description||'NULL'}}</span>
-                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.description" style=" display: inline;" >
+                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.description" style=" display: inline;" (blur)="keepSame(storage)">
                         </td>
                         <td>
                             <div *ngIf="!storage.isEdit">
