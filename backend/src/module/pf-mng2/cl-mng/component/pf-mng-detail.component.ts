@@ -388,6 +388,7 @@ export class PfDetailComponent implements OnInit {
         // if (this.platformType == '2') {
             let sum:number=0;
             for (let storage of this.storageList) {
+                storage.valid=true;
                 if (storage.id == item.id) {
                     // storage.displayName = item.displayName;
                     // storage.description = item.description;
@@ -399,6 +400,9 @@ export class PfDetailComponent implements OnInit {
                 sum>100?false:true;
             console.log(sum);
             console.log(item.valid);
+            // for(){
+
+            // }
         // }
     }
 

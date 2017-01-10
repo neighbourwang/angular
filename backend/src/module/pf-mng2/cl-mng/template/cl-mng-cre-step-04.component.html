@@ -96,7 +96,7 @@
                         <td>{{idx + 1}}</td>
                         <td>{{item.clusterName}}</td>
                         <td>{{item.name}}</td>
-                        <td><input type="text" class="form-control" [(ngModel)]="item.displayName" (blur)="keepSame(item)"></td>
+                        <td><input type="text" class="form-control" [(ngModel)]="item.displayName"></td>
                         <td>{{item.typeDisplayName}}</td>
                         <td>{{item.maximum||0}}</td>
                         <td>
@@ -107,7 +107,7 @@
                             <input type="number" class="form-control" [(ngModel)]="item.quotaPercentDisplay" [class.border-error]="!item.valid" (blur)="keepSame(item)" style=" display: inline;">
                         </td>
                         <td >
-                            <input type="text" class="form-control" [(ngModel)]="item.description" style=" display: inline;"  (blur)="keepSame(item)">
+                            <input type="text" class="form-control" [(ngModel)]="item.description" style=" display: inline;" >
                         </td>
                     </tr>
                 </tbody>

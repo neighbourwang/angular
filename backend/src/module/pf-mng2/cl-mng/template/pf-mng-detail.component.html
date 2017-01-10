@@ -310,7 +310,7 @@
                         <td>{{storage.name}}</td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.displayName||'NULL'}}</span>
-                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.displayName" (blur)="keepSame(storage)">
+                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.displayName">
 
                         </td>
                         <td>{{storage.typeDisplayName}}</td>
@@ -328,7 +328,7 @@
                         </td>
                         <td >
                             <span *ngIf="!storage.isEdit">{{storage.description||'NULL'}}</span>
-                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.description" style=" display: inline;" (blur)="keepSame(storage)">
+                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.description" style=" display: inline;" >
                         </td>
                         <td>
                             <div *ngIf="!storage.isEdit">

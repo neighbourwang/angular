@@ -80,8 +80,9 @@ export class ClMngCreStep4Component implements OnInit {
     }
     keepSame(item) {
         // if (this.platformType == '2') {
-             let sum:number=0;
+            let sum:number=0;
             for (let storage of this.creStep4Model) {
+                storage.valid=true;
                 if (storage.id == item.id) {
                     // storage.displayName = item.displayName;
                     // storage.description = item.description;
@@ -93,6 +94,9 @@ export class ClMngCreStep4Component implements OnInit {
             item.valid=
                 sum>100?false:true;
             console.log(sum);
+            // for(let storage of this.creStep4Model){
+
+            // }
         // }
     }
     next() {
