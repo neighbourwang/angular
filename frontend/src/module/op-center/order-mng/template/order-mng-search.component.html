@@ -98,7 +98,7 @@
 						<td>{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
 						<td>{{item.orderType | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
 						<td>{{item.statusName}}</td>
-						<td>{{ 'ORDER_MNG.NONRECURRING_EXPENSE' | translate }}:{{ 'COMMON.$' | translate }}{{item.oncePrice}}<br>{{ 'ORDER_MNG.EXPENSE_$' | translate }}:{{ 'COMMON.$' | translate }}{{item.price}}
+						<td>{{ 'ORDER_MNG.NONRECURRING_EXPENSE' | translate }}:{{ 'COMMON.$' | translate }}{{item.oncePrice}}<br>{{ 'ORDER_MNG.EXPENSE_$' | translate }}:{{ 'COMMON.$' | translate }}{{item.price}}/G/小时
 						</td>
 						<td>{{item.submitTime}}</td>
 						<td>{{item.EndTime}}</td>
@@ -123,7 +123,7 @@
 				<div class="modal-content">
 				  	<div class="modal-header">
 					 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">{{ 'ORDER_MNG.ORDER_NUMBER_' | translate }}2370537538484773</h4>
+						<h4 class="modal-title" id="myModalLabel">{{ 'ORDER_MNG.ORDER_NUMBER_' | translate }}{{_orderDetailLoader.FirstItem.orderCode}}</h4>
 				  	</div>
 				 	<div class="modal-body"> 
 			          <!--<account-mng-cr-local></account-mng-cr-local>-->

@@ -218,6 +218,9 @@ export class OrderMngComponent implements OnInit{
 			return this.loadAdmin();
 		})
 		.then(success=>{
+			return this.search();
+		})
+		.then(success=>{
 			this.layoutService.hide();
 		})
 		.catch(err=>{
