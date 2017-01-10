@@ -167,7 +167,7 @@ export class PfDetailComponent implements OnInit {
             res => {
                 console.log(res);
                 this.platformVersion = res
-                this.platform.platformType = this.platformVersion[0].value;
+                // this.platform.platformType = this.platformVersion[0].value;
             }
         ).catch(
             err => {
