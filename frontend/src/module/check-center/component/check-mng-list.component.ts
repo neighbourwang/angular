@@ -203,6 +203,7 @@ export class CheckMngListComponent implements OnInit{
 		
         //匹配后台搜索框参数/authsec/backend/approval/orders/search/paging 
 		this._layoutService.show();
+		this._listLoader.clear();
 		this._listLoader.Go(pageNum, null, param)
 		.then(success=>{
 			this._layoutService.hide();

@@ -275,6 +275,7 @@ export class OrderMngSearchComponent implements OnInit{
 			currentPage:pageNumber
 			,size:10
 		};
+		this._orderLoader.clear();
 		this._orderLoader.Go(pageNumber, null, param)
 		.then(success=>{
 			this.layoutService.hide();
