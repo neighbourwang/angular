@@ -181,6 +181,7 @@ export class CheckMngHascheckComponent implements OnInit{
   "userId": "string"
 }
 */
+		this._layoutService.show();
 		let param = {
 			approverStatus: '1'//'0';//approvalStatus代表未审批
 	        ,orderCode: this._param.quickSearchStr//输入订单号快速查询 ？
@@ -198,7 +199,8 @@ export class CheckMngHascheckComponent implements OnInit{
 			}
 			
 		};
-		this._layoutService.show();
+		
+		this._listLoader.clear();
 		this._listLoader.Go(pageNum, null, param)
 		.then(success=>{
 			this._layoutService.hide();
