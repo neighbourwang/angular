@@ -60,6 +60,7 @@ export class VmwareMngIndexComponent implements OnInit {
     nsxverDictArray: Array<SystemDictionary> = [];
 
     nsxTestFlag: string = "";
+    enablepopbutton:boolean = false;
 
     regionList: Array<RegionModel> = [];
 
@@ -337,10 +338,12 @@ export class VmwareMngIndexComponent implements OnInit {
                     if (res && res.resultCode == "100") {                        
                         console.log(res, "测试NSX管理信息成功");
                         this.nsxTestFlag = "success";
+                        this.enablepopbutton = true;
                     } else {
                         console.log('测试NSX管理信息失败');
                         //this.showMsg("NET_MNG_VM_IP_MNG.TEST_NSX_MNG_INFO_FAILED");
                         this.nsxTestFlag = "failure";
+                        this.enablepopbutton = false;
                     }
                 })
                 .catch(err => {
@@ -348,10 +351,12 @@ export class VmwareMngIndexComponent implements OnInit {
                     this.layoutService.hide();
                     //this.showMsg("NET_MNG_VM_IP_MNG.TEST_NSX_MNG_INFO_EXCEPTION");
                     this.nsxTestFlag = "failure";
+                    this.enablepopbutton = false;
                 })
         } else {
             console.log("validateNsxMngInfoModify failed!");
             this.nsxTestFlag = "";
+            this.enablepopbutton = false;
         }
     }
 
