@@ -319,10 +319,10 @@ console.log(this.vmProduct)
 		console.log(attrName)
 		/******获取并设置网络******/
 		if (attrName === "zone") {   //这里捕捉不到平台，侧面的，当zone改变的时候说明 自己依赖的云平台已经改变
-			this.setNetwork(this.sendModule.platform.attrValue);   //获取网络
+			this.setNetwork(this.sendModule.platform.attrValue, this.sendModule.zone.attrValue);   //获取网络
 		}
 		/******获取并设置镜像列表******/
-		if (attrName === "imagetype") {   //镜像有改变的时候，从rely函数里传进来的是父层的改变，从html里面捕捉click也会执行到这里
+		if (attrName === "imagetype" || attrName === "zone") {   //镜像有改变的时候，从rely函数里传进来的是父层的改变，从html里面捕捉click也会执行到这里
 			this.setImage(this.sendModule.platform.attrValue, this.sendModule.imagetype.attrValue, this.sendModule.startupsource.attrValue);   //获取镜像列表
 		}
 
@@ -360,14 +360,15 @@ console.log(this.vmProduct)
 		this.setTimeUnit(); //确定了真正的skuid后 再去确定购买时长
 	}
 
-	private setNetwork(platformId: string) {  //设置可用网络
+	private setNetwork(platformId: string, zoneId: string) {  //设置可用网络
 		this.layoutService.show();
-		this.service.getNetwork(platformId).then(res => {
+		this.service.getNetwork(platformId,zoneId).then(res => {
 			this.layoutService.hide();
 			if (!res.length) return;
 			let list: VlueList[] = [];
 
 			for (let r of res) {
+				if(r.networkType != "2") continue;
 				list.push({
 					attrValueId: "",
 					attrValueCode: r.networkcode,
@@ -378,7 +379,10 @@ console.log(this.vmProduct)
 
 			this.networkList = list;
 			this.sendModule.networktype = list[0];
-		}).catch(e => {this.layoutService.hide()})
+		}).catch(e => {
+			this.networkList = [];
+			this.layoutService.hide();
+		})
 	}
 	private setImage(platformId: string, imageType: string, startupResouce: string) { //获取镜像列表
 		this.layoutService.show();
@@ -398,7 +402,10 @@ console.log(this.vmProduct)
 
 			this.imageList = list;
 			this.sendModule.os = list[0];
-		}).catch(error => {this.layoutService.hide()})
+		}).catch(error => {
+			this.imageList = [];
+			this.layoutService.hide()
+		})
 	}
 
 	addCart() {   //加入购物车

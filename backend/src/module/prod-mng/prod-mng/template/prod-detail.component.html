@@ -1,18 +1,18 @@
-<div class="page-content-header icon-create-product">查看产品</div>
+<div class="page-content-header icon-create-product">{{'COMMON.VIEW' | translate}}{{'COMMON.PRUDOCT' | translate}}</div>
 <div class="page-content fix-page-content">
 	<div class="row" style="padding-top: 30px;">
 		<div class="col-md-12">
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品名称：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'COMMON.PRUDOCT' | translate}}{{'COMMON.NAME' | translate}}：</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control font-gray" [(ngModel)]="product.name" placeholder="产品名称" disabled>
+						<input type="text" class="form-control font-gray" [(ngModel)]="product.name" placeholder="{{'PROD_MNG.PROD_NAME' | translate}}" disabled>
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品目录：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT' | translate}}：</div>
 					<div class="col-sm-4 font-gray">
 						<select class="form-control" disabled>
                             <option>{{prodDir.serviceName}}</option>
@@ -28,7 +28,7 @@
 						<div class="col-sm-4 row-line-child font-gray">
 							<div class="font-gray">CPU</div>
 							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.vcpu||0}}</div>
-							<div class="last-line-child font-gray">核（vCPU）</div>
+							<div class="last-line-child font-gray">{{'COMMON.CORE' | translate}}（vCPU）</div>
 						</div>
 					</div>
 				</div>
@@ -36,9 +36,9 @@
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"></div>
 						<div class="col-sm-4 row-line-child font-gray">
-							<div class="font-gray">内存</div>
+							<div class="font-gray">{{'COMMON.RAM' | translate}}</div>
 							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.mem||0}}</div>
-							<div class="last-line-child font-gray">兆（MB）</div>
+							<div class="last-line-child font-gray">{{'COMMON.MB' | translate}}（MB）</div>
 						</div>
 					</div>
 				</div>
@@ -46,7 +46,7 @@
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"></div>
 						<div class="col-sm-4 row-line-child font-gray">
-							<div class="font-gray">启动盘大小</div>
+							<div class="font-gray">{{'COMMON.ROOT_DISK' | translate}}{{'COMMON.SIZE' | translate}}</div>
 							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.startupDisk||0}}</div>
 							<div class="last-line-child font-gray">GB</div>
 						</div>
@@ -58,7 +58,7 @@
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"></div>
 						<div class="col-sm-4 row-line-child font-gray">
-							<div class="font-gray">初始大小</div>
+							<div class="font-gray">{{'COMMON.INIT' | translate}}{{'COMMON.SIZE' | translate}}</div>
 							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.initialSize||0}}</div>
 							<div class="last-line-child font-gray">GB</div>
 						</div>
@@ -68,7 +68,7 @@
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"></div>
 						<div class="col-sm-4 row-line-child font-gray">
-							<div class="font-gray">步长</div>
+							<div class="font-gray">{{'COMMON.STEP' | translate}}</div>
 							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.stepSize||0}}</div>
 							<div class="last-line-child font-gray">GB</div>
 						</div>
@@ -78,7 +78,7 @@
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"></div>
 						<div class="col-sm-4 row-line-child font-gray">
-							<div class="font-gray">最大</div>
+							<div class="font-gray">{{'COMMON.MAX' | translate}}</div>
 							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.maxSize||0}}</div>
 							<div class="last-line-child font-gray">GB</div>
 						</div>
@@ -87,52 +87,52 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">描述：</div>
+					<div class="col-sm-4 form-control-title">{{'COMMON.DESCRIPTION' | translate}}：</div>
 					<div class="col-sm-4">
-						<textarea class="form-control font-gray" rows="4" placeholder="描述" [(ngModel)]="product.description" disabled></textarea>
+						<textarea class="form-control font-gray" rows="4" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}" [(ngModel)]="product.description" disabled></textarea>
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">计费模式：</div>
+					<div class="col-sm-4 form-control-title">{{'PROD_MNG.COUNT_MODE' | translate}}：</div>
 					<div class="col-sm-4 row-inline-radio">
 						<label class="radio-inline row-inline-radio2 font-gray">
-                            <input type="radio"   class="fox-cloud-radio" disabled  [checked]="product.billingType=='0'"> 包年包月
+                            <input type="radio"   class="fox-cloud-radio" disabled  [checked]="product.billingType=='0'"> {{'COMMON.BY_YEAR' | translate}}{{'COMMON.BY_MONTH' | translate}}
                         </label>
 						<label class="radio-inline row-inline-radio2 font-gray">
-                            <input type="radio"   class="fox-cloud-radio" disabled  [checked]="product.billingType=='1'"> 按量
+                            <input type="radio"   class="fox-cloud-radio" disabled  [checked]="product.billingType=='1'"> {{'COMMON.BY_VOLUMN' | translate}}
                         </label>
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">计费周期：</div>
+					<div class="col-sm-4 form-control-title">{{'COMMON.COUNT' | translate}}{{'COMMON.CYCLE' | translate}}：</div>
 					<div class="col-sm-4 row-inline-radio">
 						<label class="radio-inline row-inline-radio4 font-gray">
-                            <input type="radio" value="5"  class="fox-cloud-radio" disabled [checked]="product.billingCycle=='5'"> 包年
+                            <input type="radio" value="5"  class="fox-cloud-radio" disabled [checked]="product.billingCycle=='5'"> {{'COMMON.BY_YEAR' | translate}}
                         </label>
 						<label class="radio-inline row-inline-radio4 font-gray">
-                            <input type="radio"  disabled  class="fox-cloud-radio" [checked]="product.billingCycle=='3'"> 包月
+                            <input type="radio"  disabled  class="fox-cloud-radio" [checked]="product.billingCycle=='3'"> {{'COMMON.BY_MONTH' | translate}}
                         </label>
 						<label class="radio-inline row-inline-radio4 font-gray">
-                            <input type="radio" value="1" disabled class="fox-cloud-radio" [checked]="product.billingCycle=='1'"> 按天
+                            <input type="radio" value="1" disabled class="fox-cloud-radio" [checked]="product.billingCycle=='1'"> {{'COMMON.BY_DAY' | translate}}
                         </label>
 						<label class="radio-inline row-inline-radio4 font-gray">
-                            <input type="radio"  disabled  class="fox-cloud-radio" [checked]="product.billingCycle=='0'" > 按小时
+                            <input type="radio"  disabled  class="fox-cloud-radio" [checked]="product.billingCycle=='0'" > {{'COMMON.BY_HOUR' | translate}}
                         </label>
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">基础周期价格：</div>
+					<div class="col-sm-4 form-control-title">{{'COMMON.BASIC' | translate}}{{'COMMON.CYCLE' | translate}}{{'COMMON.PRICE' | translate}}：</div>
 					<div class="col-sm-2 ">
 						<count-bar [default]="0" [step]=100 [max]=2000000 [min]=0 [disabled]=true [value]="product?.basicCyclePrice||0" #basicCyclePrice
 							(output)="outputValue($event,'basicCyclePrice')"></count-bar>
 					</div>
-					<div class="col-sm-2 form-control-title">单位价格：</div>
+					<div class="col-sm-2 form-control-title">{{'COMMON.UNIT' | translate}}{{'COMMON.PRICE' | translate}}：</div>
 					<div class="col-sm-1 ">
 						<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=true [value]="product?.unitPrice||0" #unitPrice (output)="outputValue($event,'unitPrice')"></count-bar>
 					</div>
@@ -140,12 +140,12 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">增量周期价格：</div>
+					<div class="col-sm-4 form-control-title">{{'COMMON.INCREMENT' | translate}}{{'COMMON.CYCLE' | translate}}{{'COMMON.PRICE' | translate}}：</div>
 					<div class="col-sm-2">
 						<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=true [value]="product.extendCyclePrice||0" #extendCyclePrice
 							(output)="outputValue($event,'extendCyclePrice')"></count-bar>
 					</div>
-					<div class="col-sm-2 form-control-title">一次性价格：</div>
+					<div class="col-sm-2 form-control-title">{{'COMMON.ONE_TIME' | translate}}{{'COMMON.PRICE' | translate}}：</div>
 					<div class="col-sm-1">
 						<count-bar [step]=100 [max]=2000000 [min]=0 [disabled]=true [value]="product.oneTimePrice||0" #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
 					</div>
@@ -157,13 +157,13 @@
 					<div class="row row-line-height entup">
 						<div class="col-sm-5 entHeader">
 							<div class="">
-								<div class="col-sm-6">平台名称</div>
-								<div class="col-sm-6">可用区</div>								
+								<div class="col-sm-6">{{'NET_MNG_OPENSTACK.PLATFORM' | translate}}{{'COMMON.NAME' | translate}}</div>
+								<div class="col-sm-6">{{'COMMON.AVAILABLE_ZONE' | translate}}</div>								
 							</div>
 						</div>
 						<div class="col-sm-2"></div>
 						<div class="col-sm-5 entHeader">
-							企业列表
+							{{'COMMON.ENTERPRISE' | translate}}{{'COMMON.LIST' | translate}}
 						</div>
 					</div>
 					<div class="row row-line-height entdown" style="">
@@ -212,13 +212,13 @@
 </div>
 <div class="text-center">
 	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
-        <span class="icon-button-label">返回</span>
+        <span class="icon-button-label">{{'NET_MNG_VM_PORT.BACK' | translate}}</span>
     </button>
 	<button class="fox-cloud-button-lg fox-cloud-button-white" disabled (click)="onSubmit();" style="margin-left:40px;">
-        <span class="icon-button-label">编辑</span>
+        <span class="icon-button-label">{{'HOST_VMWARE_MNG.EDIT' | translate}}</span>
     </button>
 </div>
 
-<!--<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认"></fc-notice>-->
+<!--<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM"></fc-notice>-->
 
-<!--<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消"></fc-confirm>-->
+<!--<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="cof()" ct="HOST_OPENSTACK_MNG.CANCEL"></fc-confirm>-->

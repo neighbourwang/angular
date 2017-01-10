@@ -86,7 +86,6 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">{{'VM_INSTANCE.START_SOURCE'| translate}}</div>
 					<div class="col-md-10">
-						<p *ngFor="let value of rely('startupsource')"></p> <!-- 这一行必须加上 否则造成切换父层时候的显示错误 -->
 						<select [(ngModel)]="sendModule.startupsource" class="form-control">
 							<option
 							 *ngFor="let value of rely('startupsource')"

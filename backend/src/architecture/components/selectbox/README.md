@@ -2,7 +2,6 @@
 ### 使用方法
 
 html:
-例子：
 <fc-selectbox #selectbox [selectedList]="selectedEnterprise" [unSelectedList]="unselectedEnterprise" 
                 titleL="可选企业" 
                 titleR="选中企业" 
@@ -24,3 +23,6 @@ html:
                             }
                         要在box中显示的是公司名称，
                         则需设置  displayKey="com"
+
+例子：
+    请参考 src/module/net-mng/vm-mng-dbt/port-mng/component/port-mng-set.component.ts与../template/port-mng-set.html的对本组件的实际应用

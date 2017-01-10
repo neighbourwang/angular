@@ -113,7 +113,9 @@ export class ClMngListComponent implements OnInit {
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
-        } else {
+        } else if(platForm.status!='0'){
+            this.notice.open('COMMON.OPERATION_ERROR','只能删除初始化状态的云平台');
+        }else{
             this.removeConfirm.open('PF_MNG2.DELETE_PLATEFORM', '您选择删除 ' + platForm.name + '云平台,请确认；如果确认，此云平台的数据将不能恢复。')
         }
     }
@@ -124,7 +126,9 @@ export class ClMngListComponent implements OnInit {
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
-        } else {
+        } else if(platForm.status=='1'){
+            this.notice.open('COMMON.OPERATION_ERROR','云平台状态已启用');
+        }else{
             this.enableConfirm.open('PF_MNG2.ENABLE_PLATFORM', '您选择启用 ' + platForm.name + '云平台,请确认；如果确认，用户将能够订购此云平台的资源。')
         }
     }
@@ -135,7 +139,9 @@ export class ClMngListComponent implements OnInit {
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
-        } else {
+        } else if(platForm.status=='2'){
+            this.notice.open('COMMON.OPERATION_ERROR','云平台状态已禁用')
+        }else {
             this.disableConfirm.open('PF_MNG2.DISABLE_PLATFORM', '您选择禁用 ' + platForm.name + '云平台,请确认；如果确认，用户将不能够订购此云平台的资源。。')
         }
     }
