@@ -87,7 +87,7 @@ export class ClMngCreStep4Component implements OnInit {
                     // storage.description = item.description;
                     storage.replica = item.replica;
                     sum+=storage.quotaPercentDisplay;
-                    item.valid=sum>100?false:true;
+                    // item.valid=sum>100?false:true;
                 }
             }
             item.valid=
