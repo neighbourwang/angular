@@ -277,6 +277,7 @@ export class VmwareMngIndexComponent implements OnInit {
         this.changedNsxMngInfo.adminPassword = "";
         this.changedNsxMngInfo.platformId = "";
         this.nsxTestFlag = "";
+        this.enablepopbutton = false;
     }
 
     validateNsxMngInfoModify(): boolean {
@@ -444,21 +445,21 @@ export class VmwareMngIndexComponent implements OnInit {
     gotoVMStdNetMng() {
         this.selectedNet = this.getSelected();
         if (this.queryOpt && !this.validationService.isBlank(this.queryOpt.platformId)) {
-        if (this.selectedNet) {
-            this.router.navigate([
-                `net-mng/vm-mng/${this.queryOpt.platformId}`,
-                {
-                    "dc_Id": this.selectedNet.dcId,
-                    "cls_Id": this.selectedNet.clusterId
-                }
+            if (this.selectedNet) {
+                this.router.navigate([
+                    `net-mng/vm-mng/${this.queryOpt.platformId}`,
+                    {
+                        "dc_Id": this.selectedNet.dcId,
+                        "cls_Id": this.selectedNet.clusterId
+                    }
                 ]);
-        } else {
-            selectedPlatform.regionName = this.selectedRegion.regionName;
-            selectedPlatform.dcName = this.selectedDC.datacenterName;
-            selectedPlatform.platformName = this.chosenPlatform.platformName;
-            selectedPlatform.platformUrl = this.chosenPlatform.platformUrl;
-            this.router.navigate([`net-mng/vm-mng/${this.queryOpt.platformId}`]);
-        }
+            } else {
+                selectedPlatform.regionName = this.selectedRegion.regionName;
+                selectedPlatform.dcName = this.selectedDC.datacenterName;
+                selectedPlatform.platformName = this.chosenPlatform.platformName;
+                selectedPlatform.platformUrl = this.chosenPlatform.platformUrl;
+                this.router.navigate([`net-mng/vm-mng/${this.queryOpt.platformId}`]);
+            }
         } else {
             this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PF");
             return;
@@ -468,21 +469,21 @@ export class VmwareMngIndexComponent implements OnInit {
     gotoVMDbtNetMng() {
         this.selectedNet = this.getSelected();
         if (this.queryOpt && !this.validationService.isBlank(this.queryOpt.platformId)) {
-        if (this.selectedNet) {
-            this.router.navigate([
-                `net-mng/vm-mng-dbt/index/${this.queryOpt.platformId}`,
-                {
-                    "dc_Id": this.selectedNet.dcId,
-                    "cls_Id": this.selectedNet.clusterId
-                }
+            if (this.selectedNet) {
+                this.router.navigate([
+                    `net-mng/vm-mng-dbt/index/${this.queryOpt.platformId}`,
+                    {
+                        "dc_Id": this.selectedNet.dcId,
+                        "cls_Id": this.selectedNet.clusterId
+                    }
                 ]);
-        } else {
-            selectedPlatform.regionName = this.selectedRegion.regionName;
-            selectedPlatform.dcName = this.selectedDC.datacenterName;
-            selectedPlatform.platformName = this.chosenPlatform.platformName;
-            selectedPlatform.platformUrl = this.chosenPlatform.platformUrl;
-            this.router.navigate([`net-mng/vm-mng-dbt/index/${this.queryOpt.platformId}`]);
-        }
+            } else {
+                selectedPlatform.regionName = this.selectedRegion.regionName;
+                selectedPlatform.dcName = this.selectedDC.datacenterName;
+                selectedPlatform.platformName = this.chosenPlatform.platformName;
+                selectedPlatform.platformUrl = this.chosenPlatform.platformUrl;
+                this.router.navigate([`net-mng/vm-mng-dbt/index/${this.queryOpt.platformId}`]);
+            }
         } else {
             this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PF");
             return;
@@ -492,21 +493,21 @@ export class VmwareMngIndexComponent implements OnInit {
     gotoVMNsxNetMng() {
         this.selectedNet = this.getSelected();
         if (this.queryOpt && !this.validationService.isBlank(this.queryOpt.platformId)) {
-        if (this.selectedNet) {
-            this.router.navigate([
-                `net-mng/vm-mng-nsx/index/${this.queryOpt.platformId}`,
-                {
-                    "dc_Id": this.selectedNet.dcId,
-                    "cls_Id": this.selectedNet.clusterId
-                }
+            if (this.selectedNet) {
+                this.router.navigate([
+                    `net-mng/vm-mng-nsx/index/${this.queryOpt.platformId}`,
+                    {
+                        "dc_Id": this.selectedNet.dcId,
+                        "cls_Id": this.selectedNet.clusterId
+                    }
                 ]);
-        } else {
-            selectedPlatform.regionName = this.selectedRegion.regionName;
-            selectedPlatform.dcName = this.selectedDC.datacenterName;
-            selectedPlatform.platformName = this.chosenPlatform.platformName;
-            selectedPlatform.platformUrl = this.chosenPlatform.platformUrl;
-            this.router.navigate([`net-mng/vm-mng-nsx/index/${this.queryOpt.platformId}`]);
-        }
+            } else {
+                selectedPlatform.regionName = this.selectedRegion.regionName;
+                selectedPlatform.dcName = this.selectedDC.datacenterName;
+                selectedPlatform.platformName = this.chosenPlatform.platformName;
+                selectedPlatform.platformUrl = this.chosenPlatform.platformUrl;
+                this.router.navigate([`net-mng/vm-mng-nsx/index/${this.queryOpt.platformId}`]);
+            }
         } else {
             this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PF");
             return;
