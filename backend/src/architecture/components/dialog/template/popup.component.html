@@ -4,10 +4,10 @@
         <ng-content></ng-content>
     </modal-body>
     <modal-footer class="fox-cloud-modal-footer">
-        <button  *ngIf="ct !=''" class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal" (click)="ccf()">
+        <button *ngIf="ct !=''" class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal" (click)="ccf()">
             <span class="icon-button-label">{{ct | translate}}</span><!-- 取消 -->
         </button>
-        <button *ngIf="ot != ''" class="fox-cloud-button-lg fox-cloud-button-white" (click)="cof()" style="margin-left: 30px">
+        <button *ngIf="ot != ''" class="fox-cloud-button-lg fox-cloud-button-white" [disabled]="!enableOKButton" (click)="cof()" style="margin-left: 30px">
             <span class="icon-button-label">{{ot | translate}}</span><!-- 确认 -->
         </button>
     </modal-footer>
