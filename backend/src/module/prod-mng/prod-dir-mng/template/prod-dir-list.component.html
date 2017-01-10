@@ -79,12 +79,12 @@
 	</div>
 </div>
 <fc-pagination #pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
-<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="nof()"></fc-notice>
 
-<fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="deleteCof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-confirm #publishConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="publishCof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-confirm #ccPublishConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="ccPublishCof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-popup #createProdDir title="{{title}}" ot="创建" (of)="otcreate()" ct="取消" (cf)="ccf()">
+<fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="deleteCof()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+<fc-confirm #publishConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="publishCof()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+<fc-confirm #ccPublishConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="ccPublishCof()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+<fc-popup #createProdDir title="{{title}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()">
 	<div class="row row-line-height">
 		<div class="form-group">
 			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品目录类别:</div>

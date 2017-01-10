@@ -593,6 +593,7 @@
         "NO_SYNC_ZONES": "暂时没有可同步可用区信息",
         "PASSWORD_REQUIRED": "请输入密码",
         "PLATFORM_NAME_REQUIRED": "请输入云平台名称",
+        "PLATFORM_REQUIRED": "请输入云平台名称",
         "PLATFORM_TYPE_REQUIRED": "请选择云平台类型",
         "REGION_REQUIRED": "请选择所属地域",
         "RESOURCE_SYNC": "资源同步",
@@ -612,7 +613,20 @@
         "SYNC_ZONE_FAILED": "同步可用区失败",
         "USERNAME_REQUIRED": "请输入用户名",
         "VERSION_REQUIRED": "请选择版本",
-        "ZONES_QUOTA": "可用区与配额",
-        "PLATFORM_REQUIRED":"请输入云平台名称"
+        "ZONES_QUOTA": "可用区与配额"
+    },
+    "PROD_MNG": {
+        "PROD_NAME": "产品名称"
+    },
+    "USER_CENTER": {
+        "INPUTNAME": "请输入姓名",
+        "INPUT_ACC": "请输入帐号",
+        "INPUT_ACC_QUICK_SEARCH": "输入帐号信息快速搜索",
+        "INPUT_CONTACT_DESC": "请输入联系描述",
+        "INPUT_EMAIL_ACC": "请输入邮箱账号",
+        "INPUT_MOBILE_PHONE": "请输入手机号码",
+        "INPUT_ORG_NAME": "请输入机构名称",
+        "INPUT_PHONE": "请输入联系电话",
+        "INPUT_USERNAME_SEARCH": "输入姓名回车搜索"
     }
 }
