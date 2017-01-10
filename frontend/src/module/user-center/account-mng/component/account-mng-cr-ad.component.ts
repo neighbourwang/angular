@@ -49,7 +49,7 @@ export class AccountMngCrAdComponent implements OnInit {
     //获取ad用户
     searchAdUser() {
         if (this.account.ldapId == "" || !this.filterStr || this.filterStr == "") {
-            this.showAlert("请选择认证源并且输入查询字符串");
+            this.showAlert("USER_CENTER.SELECT_THE_AUTHENTICATION_SOURCE_AND_ENTER_THE_QUERY_STRING");
             return;
         }
 
@@ -74,33 +74,33 @@ export class AccountMngCrAdComponent implements OnInit {
         this.account.tenantId = this.service.userInfo.enterpriseId;
 
         if (this.validationService.isBlank(this.account.userName)) {
-            this.showAlert("请输入管理员姓名");
+            this.showAlert("USER_CENTER.PLEASE_ENTER_YOUR_ADMINISTRATOR_NAME");
             return new Promise(resovle => setTimeout(resovle, 10)).then(()=>false);
         }
 
         if (this.validationService.isBlank(this.account.phone)) {
-            this.showAlert("请输入电话");
+            this.showAlert("USER_CENTER.PLEASE_ENTER_YOUR_PHONE");
             return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
         if (!this.validationService.isMoblie(this.account.phone) &&
             !this.validationService.isTel(this.account.phone)) {
-            this.showAlert("请输入合法的联系电话;");
+            this.showAlert("USER_CENTER.PLEASE_ENTER_A_VALID_PHONE_NUMBER");
             return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
         if (!this.account.loginName || this.account.loginName == "") {
-            this.showAlert("请选择ad用户");
+            this.showAlert("USER_CENTER.PLEASE_SELECT_A_ADMINISTRATOR");
             return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
         if (this.account.roles.length === 0) {
-            this.showAlert("至少选择一个角色");
+            this.showAlert("USER_CENTER.SELECT_AT_LEAST_ONE_ROLE");
             return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
         if (this.account.organizations.length === 0) {
-            this.showAlert("请选择所属机构");
+            this.showAlert("USER_CENTER.PLEASE_SELECT_THE_INSTITUTION");
             return new Promise(resovle => setTimeout(resovle, 10)).then(() => false);
         }
 
@@ -133,7 +133,7 @@ export class AccountMngCrAdComponent implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "COMMON.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -145,7 +145,7 @@ export class AccountMngCrAdComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("COMMON.FAILED_TO_GET_DATA");
     }
 
 }

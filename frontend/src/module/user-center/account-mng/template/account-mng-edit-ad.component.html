@@ -1,21 +1,21 @@
 <table class="cm-table-left">
     <tbody>
         <tr>
-            <th class="col-md-1 col-xs-3 text-center">基本信息</th>
+            <th class="col-md-1 col-xs-3 text-center">{{ 'COMMON.BASIC' | translate }}{{ 'COMMON.INFORMATION' | translate }}</th>
             <td>
                 <div class="col-md-12">
                     <div class="row row-line-height">
                         <div class="form-group">
-                            <div class="col-sm-2 form-control-title" style="padding:0"><span class="asterisk">*</span>姓名:</div>
+                            <div class="col-sm-2 form-control-title" style="padding:0"><span class="asterisk">*</span>{{ 'COMMON.NAME' | translate }}:</div>
                             <!--
                             <div class="col-md-6">
                                 <input type="text" class="form-control" placeholder="" [(ngModel)]="account.userName">
                             </div>
                             -->
                             <div class="col-sm-4" [ngClass]="{'has-error': userName.errors && (userName.dirty || userName.touched)}">
-                                <input type="text" class="form-control" placeholder="请输入姓名" [(ngModel)]="account.userName" id="userName" required name="userName" #userName>
+                                <input type="text" class="form-control" placeholder="{{ 'USER_CENTER.PLEASE_ENTER_A_NAME' | translate }}" [(ngModel)]="account.userName" id="userName" required name="userName" #userName>
                                 <div *ngIf="userName.errors && (userName.dirty || userName.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
-                                    <div [hidden]="!userName.errors.required">姓名不能为空
+                                    <div [hidden]="!userName.errors.required">{{ 'USER_CENTER.NAME_CANNOT_BE_EMPTY' | translate }}
                                     </div>
                                 </div>
                             </div>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="row row-line-height">
                         <div class="form-group">
-                            <div class="col-sm-2 form-control-title" style="padding:0"><span class="asterisk">*</span>账号:</div>
+                            <div class="col-sm-2 form-control-title" style="padding:0"><span class="asterisk">*</span>{{ 'COMMON.ACCOUNT' | translate }}:</div>
                             <div class="col-md-6">
                                 <span style="line-height:34px">{{account.loginName}}</span>
                             </div>
@@ -32,7 +32,7 @@
                     </div>
                     <div class="row row-line-height">
                         <div class="form-group">
-                            <div class="col-sm-2 form-control-title" style="padding:0"><span class="asterisk">*</span>认证源:</div>
+                            <div class="col-sm-2 form-control-title" style="padding:0"><span class="asterisk">*</span>{{ 'USER_CENTER.AUTHENTICATION_SOURCE' | translate }}:</div>
                             <div class="col-md-6">
                                 <span style="line-height:34px">{{account.ldapName}}</span>
                             </div>
@@ -40,16 +40,16 @@
                     </div>
                     <div class="row row-line-height">
                         <div class="form-group">
-                            <div class="col-sm-2 form-control-title" style="padding:0"><span class="asterisk">*</span>电话:</div>
+                            <div class="col-sm-2 form-control-title" style="padding:0"><span class="asterisk">*</span>{{ 'COMMON.PHONE' | translate }}:</div>
                             <!--
                             <div class="col-md-6">
                                 <input type="text" class="form-control" placeholder="" [(ngModel)]="account.phone">
                             </div>
                             -->
                             <div class="col-sm-4" [ngClass]="{'has-error': Phone.errors && (Phone.dirty || Phone.touched)}">
-                                <input type="text" class="form-control" placeholder="请输入电话" [(ngModel)]="account.phone" id="Phone" required name="Phone" #Phone="ngModel">
+                                <input type="text" class="form-control" placeholder="{{ 'USER_CENTER.PLEASE_ENTER_A_PHONE' | translate }}" [(ngModel)]="account.phone" id="Phone" required name="Phone" #Phone="ngModel">
                                 <div *ngIf="Phone.errors && (Phone.dirty || Phone.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
-                                    <div [hidden]="!Phone.errors.required">电话不能为空
+                                    <div [hidden]="!Phone.errors.required">{{ 'USER_CENTER.PHONE_CANNOT_BE_EMPTY' | translate }}
                                     </div>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                     </div>
                     <div class="row row-line-height">
                         <div class="form-group">
-                            <div class="col-sm-2 form-control-title" style="padding:0">描述:</div>
+                            <div class="col-sm-2 form-control-title" style="padding:0">{{ 'COMMON.DESCRIPTION' | translate }}:</div>
                             <div class="col-md-6">
                                 <textarea class="form-control" rows="5" placeholder="" [(ngModel)]="account.description"></textarea>
                             </div>
@@ -67,7 +67,7 @@
             </td>
         </tr>
         <tr>
-            <th class="col-md-1 col-xs-3 text-center">绑定角色</th>
+            <th class="col-md-1 col-xs-3 text-center">{{ 'USER_CENTER.BINDING_ROLE' | translate }}</th>
             <td>
                 <div>
                     <label class="radio-inline" *ngFor="let role of service.roles;">
@@ -77,7 +77,7 @@
             </td>
         </tr>
         <tr>
-            <th class="col-md-1 col-xs-3 text-center">绑定部门</th>
+            <th class="col-md-1 col-xs-3 text-center">{{ 'USER_CENTER.BINDING_DEPARTMENT' | translate }}</th>
             <td>
                 <div>
                     <label class="checkbox-inline" *ngFor="let org of service.orgs;" (click)="clearSelectedOrg();org.selected=true;">
@@ -88,4 +88,4 @@
         </tr>
     </tbody>
 </table>
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate }}"></fc-notice>

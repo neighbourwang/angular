@@ -86,7 +86,6 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">{{'VM_INSTANCE.START_SOURCE'| translate}}</div>
 					<div class="col-md-10">
-						<p *ngFor="let value of rely('startupsource')"></p> <!-- 这一行必须加上 否则造成切换父层时候的显示错误 -->
 						<select [(ngModel)]="sendModule.startupsource" class="form-control">
 							<option
 							 *ngFor="let value of rely('startupsource')"
@@ -146,7 +145,7 @@
 			</li>
 			<li>
 				<div class="col-md-1 li-title">
-					<p><span class="icon-password"></span><br>{{'VM_INSTANCE.PASSWARD_SETTING'| translate}}</p>
+					<p><span class="icon-password"></span><br>{{'VM_INSTANCE.PASSWORD_SETTING'| translate}}</p>
 				</div>
 				<div class="col-md-12 li-content li-password">
 					<!-- <div class="col-md-12 no-padding mb15">
@@ -168,17 +167,17 @@
 					</div>
 
 					<div class="col-md-12 no-padding mb20" *ngIf="setPassword">
-						<div class="col-md-2 content-title">{{'VM_INSTANCE.LOGIN_PASSWARD'| translate}}</div>
+						<div class="col-md-2 content-title">{{'VM_INSTANCE.LOGIN_PASSWORD'| translate}}</div>
 						<div class="col-md-4 no-padding" [ngClass]="{'has-error': check.password === false}">
 							<input type="password" 
 								(keyup) = "checkValue('password')"
-								[(ngModel)]="sendModule.password.attrValue" class="form-control" placeholder="{{'VM_INSTANCE.PLEASE_ENTER_HOST_PASSWARD'| translate}}">
+								[(ngModel)]="sendModule.password.attrValue" class="form-control" placeholder="{{'VM_INSTANCE.PLEASE_ENTER_HOST_PASSWORD'| translate}}">
 						</div>
-						<div class="col-md-5 no-padding text-tip">{{'VM_INSTANCE.PASSWARD_COMPLEXITY_DESCRIPTION'| translate}}</div>
+						<div class="col-md-5 no-padding text-tip">{{'VM_INSTANCE.PASSWORD_COMPLEXITY_DESCRIPTION'| translate}}</div>
 					</div>
 
 					<div class="col-md-12 no-padding mb20" *ngIf="setPassword">
-						<div class="col-md-2 content-title">{{'VM_INSTANCE.CONFIRM_PASSWARD'| translate}}</div>
+						<div class="col-md-2 content-title">{{'VM_INSTANCE.CONFIRM_PASSWORD'| translate}}</div>
 						<div class="col-md-4 no-padding"
 							[ngClass]="{'has-error': check.passwordShadow === false }">
 

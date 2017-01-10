@@ -158,7 +158,7 @@ export class OrderMngComponent implements OnInit{
 		};
 
 		//配置订单加载
-		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "ORDER_MNG.ORDERED_LSIT_DATA_FAILED", "op-center.order-mng.order-list.post", restApiCfg, restApi);
+		this._orderLoader = new ItemLoader<SubInstanceResp>(true, "ORDER_MNG.ORDERED_LIST_DATA_FAILED", "op-center.order-mng.order-list.post", restApiCfg, restApi);
 		this._orderLoader.MapFunc = (source:Array<any>, target:Array<SubInstanceResp>)=>{
 			for(let item of source)
 			{
@@ -415,6 +415,7 @@ export class OrderMngComponent implements OnInit{
 		};
 
 		this.layoutService.show();
+		this._orderLoader.clear();
 		this._orderLoader.Go(null, null, param)
 		.then(success=>{
 			this.layoutService.hide();
@@ -453,7 +454,22 @@ export class OrderMngComponent implements OnInit{
 
 	//续订
 	renew(){
-		console.log('renew start');
+// 		[
+//   {
+//     "attrCode": "string",
+//     "attrDisplayName": "string",
+//     "attrDisplayValue": "string",
+//     "attrId": "string",
+//     "attrValue": "string",
+//     "attrValueCode": "string",
+//     "attrValueId": "string",
+//     "description": "string",
+//     "valueType": "string",
+//     "valueUnit": "string"
+//   }
+// ]
+// 		console.log('renew start');
+
 		let param = [{
 			attrCode: "TIMELINE",
 			attrDisplayName: "ORDER_MNG.PURCHASE_TIME",
@@ -463,9 +479,10 @@ export class OrderMngComponent implements OnInit{
 			attrValueCode: "",//可以为空
 			attrValueId: "",//可以为空
 			description: "",
-			valueType: "",
+			valueType: 0,
 			valueUnit: this._renewSetting.unit //可以为空
 		}];
+
 
 		this.layoutService.show();
 		this._renewHandler.Go(null, [{key:"_subId", value:this.selectedOrderItem.orderId}], param)

@@ -2,16 +2,16 @@
     <table class="cm-table-left">
         <tbody>
             <tr>
-                <th class="col-md-1 col-xs-3 text-center">基本信息</th>
+                <th class="col-md-1 col-xs-3 text-center">{{ 'COMMON.BASIC' | translate }}{{ 'COMMON.INFORMATION' | translate }}</th>
                 <td>
                     <form #orgForm="ngForm"  (ngSubmit)="save(heroForm)">
                         <div class="col-md-12 no-padding mgb15" style="line-height : 35px">
-                            <div class="col-md-3 content-title" style="text-align : center"><span class="asterisk">*</span>部门名称</div>
+                            <div class="col-md-3 content-title" style="text-align : center"><span class="asterisk">*</span>{{ 'COMMON.DEPARTMENT' | translate }}{{ 'COMMON.NAME' | translate }}</div>
                             <div class="col-md-8 no-padding" [ngClass]="{'has-error': name.errors && (name.dirty || name.touched)}">
-                                <input class="form-control" [disabled]="org.isDefault" placeholder="请输入部门名称" type="text" [(ngModel)]="org.name" required name="name" id="name" #name='ngModel'>
+                                <input class="form-control" [disabled]="org.isDefault" placeholder="{{ 'USER_CENTER.PLEASE_ENTER_THE_DEPARTMENT_NAME' | translate }}" type="text" [(ngModel)]="org.name" required name="name" id="name" #name='ngModel'>
                                 <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                     <div [hidden]="!name.errors.required">
-                                        部门名称不能为空
+                                        {{ 'USER_CENTER.DEPARTMENT_NAME_CANNOT_BE_EMPTY' | translate }}
                                     </div>
                                 </div>
                             </div>
@@ -43,20 +43,20 @@
                 </td>
             </tr>           
             <tr>
-                    <th class="col-md-1 col-xs-3 text-center">配额设置</th>
+                    <th class="col-md-1 col-xs-3 text-center"> {{ 'USER_CENTER.QUOTA_SETTING' | translate }}</th>
                 <td>
                     <div style="border:1px solid #ddd;border-bottom:none">
                         <div class="col-md-12 no-padding bg-gray " style="height : 50px ; line-height : 50px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title" style="text-align : center"></div>
                             <div class="col-md-3 content-title" style="text-align : center">
-                                部门配置
+                                {{ 'USER_CENTER.DEPARTMENTAL_QUOTA' | translate }}
                             </div>
-                            <div class="col-md-3 content-title" style="text-align : center">部门已使用额度</div>
-                            <div class="col-md-3 content-title" style="text-align : center">企业可分配额度</div>
+                            <div class="col-md-3 content-title" style="text-align : center">{{ 'USER_CENTER.DEPARTMENT_HAS_USED_THE_AMOUNT' | translate }}</div>
+                            <div class="col-md-3 content-title" style="text-align : center">{{ 'USER_CENTER.ENTERPRISES_CAN_ALLOCATE_THE_AMOUNT' | translate }}</div>
                         </div>
 
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
-                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">vCPU数量(核)</div>
+                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">vCPU {{ 'COMMON.QUANTITY' | translate }}( {{ 'COMMON.CORE' | translate }} )</div>
                             <div class="col-md-3 content-title" style="text-align : center">
                                 <count-bar [default]=0 [step]=1 [max]="maxAvailable.vcpu" [min]="resource.usedCpu||0" [disabled]=false [value]="resource.vcpu||0" (output)="outputValue($event,'vcpu','cpuQuota')"></count-bar>
                             </div>
@@ -64,7 +64,7 @@
                             <div class="col-md-3 content-title" style="text-align : center">{{countAvailable.cpuQuota||0}}</div>
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
-                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">内存数量(GB)</div>
+                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">{{ 'COMMON.RAM' | translate }}{{ 'COMMON.QUANTITY' | translate }}(GB)</div>
                             <div class="col-md-3 content-title" style="text-align : center">
                                 <count-bar [default]=0 [step]=0.5 [max]="maxAvailable.mem" [min]="resource.transforUsedMem||0" [disabled]=false [value]="resource.transforMem||0" (output)="outputValue($event,'transforMem','memQuota')"></count-bar>
                             </div>
@@ -72,7 +72,7 @@
                             <div class="col-md-3 content-title" style="text-align : center">{{countAvailable.memQuota||0}}</div>
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
-                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">物理机数量(台)</div>
+                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">{{ 'COMMON.PHYSICAL_MACHINE' | translate }} {{ 'COMMON.QUANTITY' | translate }}</div>
                             <div class="col-md-3 content-title" style="text-align : center">
                                 <count-bar [default]=0 [step]=1 [max]="maxAvailable.physical" [min]="resource.usedPhysical||0" [disabled]=false [value]="resource.physical||0" (output)="outputValue($event,'physical','physicalMachineQuota')"></count-bar>
                             </div>
@@ -80,7 +80,7 @@
                             <div class="col-md-3 content-title" style="text-align : center">{{countAvailable.physicalMachineQuota||0}}</div>
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
-                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">存储额度(GB)</div>
+                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">{{ 'USER_CENTER.STORAGE_LIMIT' | translate }}(GB)</div>
                             <div class="col-md-3 content-title" style="text-align : center">
                                 <count-bar [default]=0 [step]=1 [max]="maxAvailable.storage" [min]="resource.usedStorage||0" [disabled]=false [value]="resource.storage||0" (output)="outputValue($event,'storage','storageQuota')"></count-bar>
                             </div>
@@ -88,7 +88,7 @@
                             <div class="col-md-3 content-title" style="text-align : center">{{countAvailable.storageQuota||0}}</div>
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
-                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">快照数量(个)</div>
+                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">{{ 'COMMON.SNAPSHOT' | translate }} {{ 'COMMON.QUANTITY' | translate }}</div>
                             <div class="col-md-3 content-title" style="text-align : center">
                                 <count-bar [default]=0 [step]=1 [max]="maxAvailable.snapshot" [min]="resource.usedSnapshot||0" [disabled]=false [value]="resource.snapshot||0" (output)="outputValue($event,'snapshot','snapshotQuota')"></count-bar>
                             </div>
@@ -96,7 +96,7 @@
                             <div class="col-md-3 content-title" style="text-align : center">{{countAvailable.snapshotQuota||0}}</div>
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
-                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">镜像数量(个)</div>
+                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">{{ 'COMMON.MIRROR' | translate }} {{ 'COMMON.QUANTITY' | translate }}</div>
                             <div class="col-md-3 content-title" style="text-align : center">
                                 <count-bar [default]=0 [step]=1 [max]="maxAvailable.image" [min]="resource.usedImage||0" [disabled]=false [value]="resource.image||0" (output)="outputValue($event,'image','imageQuota')"></count-bar>
                             </div>
@@ -104,7 +104,7 @@
                             <div class="col-md-3 content-title" style="text-align : center">{{countAvailable.imageQuota||0}}</div>
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
-                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">浮动IP地址(个)</div>
+                            <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">{{ 'COMMON.FLOAT' | translate }} IP {{ 'COMMON.PATH' | translate }}</div>
                             <div class="col-md-3 content-title" style="text-align : center">
                                 <count-bar [default]=0 [step]=1 [max]="maxAvailable.ipaddress" [min]="resource.usedIpaddress||0" [disabled]=false [value]="resource.ipaddress||0" (output)="outputValue($event,'ipaddress','floatIpQuota')"></count-bar>
                             </div>

@@ -173,7 +173,7 @@ export class AccountMngListComponent implements OnInit {
     create() {
         if (this.service.userInfo && this.service.userInfo.isAD) {
             this.crAd.clearData();
-            this.createAdAccountPopUp.open("创建AD账号");
+            this.createAdAccountPopUp.open("USER_CENTER.CREATE_MANAGER_ACCOUNT");
         } else {
             this.isEdit = false;            
             
@@ -181,7 +181,7 @@ export class AccountMngListComponent implements OnInit {
             window.setTimeout(() => {
                 
                 this.isActive = true;
-                this.createLocalAccountPopUp.open("创建本地账号");
+                this.createLocalAccountPopUp.open("USER_CENTER.CREAT_A_LOCAL_ACCOUNT");
             }, 0);
         }
         //this.createAccountPopUp.open("创建帐号");
@@ -220,14 +220,14 @@ export class AccountMngListComponent implements OnInit {
             window.setTimeout(() => {
                 this.isActive = true;
                 this.editId = account.id;
-                this.createLocalAccountPopUp.open("编辑本地账号");
+                this.createLocalAccountPopUp.open("USER_CENTER.EDIT_LOCAL_ACCOUNT");
                 
             }, 0);
         } else {
             this.editId = "";
             window.setTimeout(() => {
                 this.editId = account.id;
-                this.editAdAccountPopUp.open("编辑AD账号");
+                this.editAdAccountPopUp.open("USER_CENTER.EDIT_MANAGER_ACCOUNT");
             }, 0);
            
         }
@@ -236,13 +236,13 @@ export class AccountMngListComponent implements OnInit {
     //启用
     enable(account, index) {
         if(account.status==1){
-            this.notice.open('操作错误','账号状态已启用');
+            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.ACCOUNT_STATUS_IS_ENABLED');
             return;
         }
-        this.confirmTitle = "启用帐号";
+        this.confirmTitle = "USER_CENTER.ENABLE_ACCOUNT";
         const accountName = account.userName;
         this.accountId = account.id;
-        this.confirmMessage = `您选择启用${accountName}，请确认`;
+        this.confirmMessage = `USER_CENTER.YOU_SELECT_ENABLE_PLEASE_CONFIRM^^^${accountName}`;
         this.confirmType = 1;
         this.confirm.open();
     }
@@ -250,13 +250,13 @@ export class AccountMngListComponent implements OnInit {
     //禁用
     disable(account, index) {
         if(account.status==5){
-            this.notice.open('操作错误','账号状态已禁用');
+            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.ACCOUNT_STATUS_IS_DISABKED');
             return;
         }
-        this.confirmTitle = "禁用帐号";
+        this.confirmTitle = "USER_CENTER.DISABKE_ACCOUNT";
         const accountName = account.userName;
         this.accountId = account.id;
-        this.confirmMessage = `您选择禁用${accountName}，请确认。如果确认，机构成员将无法操作相关资源`;
+        this.confirmMessage = `USER_CENTER.YOU_SELECT_DISENABLE_PLEASE_CONFIRM_INSTITUTIONAL_MEMBERS_WILL_NOT_BE_ABLE_TO_OPERATE_RELATED_RESOURCES^^^${accountName}`;
         this.confirmType = 2;
         this.confirm.open();
 
@@ -265,13 +265,13 @@ export class AccountMngListComponent implements OnInit {
     //删除
     delete(account, index) {
         if(account.status==1){
-            this.notice.open('操作错误','不能删除启用状态下的账号');
+            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.UNABLE_TO_DELETE_ENABLED_ACCOUNT');
             return;
         }
-        this.confirmTitle = "删除帐号";
+        this.confirmTitle = "USER_CENTER.DELETE_ACCOUNT";
         const accountName = account.userName;
         this.accountId = account.id;
-        this.confirmMessage = `您选择删除${accountName}，请确认。如果确认，部门将被删除且该部门中的用户将被移除。`;
+        this.confirmMessage = `USER_CENTER.YOU_SELECT_DELETE_USER_WILL_BE_DELETE${accountName}`;
         this.confirmType = 3;
         this.confirm.open();
     }
@@ -346,7 +346,7 @@ export class AccountMngListComponent implements OnInit {
                     this.createAdAccountPopUp.close();
                     this.getAccountList(1, this.pp);
                 } else if (response && "10051101" == response["resultCode"]) {
-                    this.showAlert("该账户已经被占用");
+                    this.showAlert("USER_CENTER.THE_ACCOUNT_HAS_BEEN_OCCUPIED");
                 }
             });
     }
@@ -359,7 +359,7 @@ export class AccountMngListComponent implements OnInit {
                     this.editAdAccountPopUp.close();
                     this.getAccountList(1, this.pp);
                 } else if (response && "10051101" == response["resultCode"]) {
-                    this.showAlert("该账户已经被占用");
+                    this.showAlert("USER_CENTER.THE_ACCOUNT_HAS_BEEN_OCCUPIED");
                 } else {
                 }
             }
@@ -382,7 +382,7 @@ export class AccountMngListComponent implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "COMMON.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -394,7 +394,7 @@ export class AccountMngListComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("COMMON.FAILED_TO_GET_DATA");
     }
     nof(){}
 

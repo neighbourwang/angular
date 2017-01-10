@@ -13,39 +13,39 @@
 					<li role="separator" class="divider"></li>
 					<li><a href="#">{{ 'COMMON.VIEW' | transalet }}{{ 'COMMON.CONSOLE' | transalet }}</a></li>
 					<li role="separator" class="divider"></li>
-					<li><a href="#">编辑云主机</a></li>
+					<li><a href="#">{{ 'COMMON.EDIT' | transalet }}{{ 'COMMON.CLOUD_HOSTING' | transalet }}</a></li>
 					<li role="separator" class="divider"></li>
-					<li><a href="#">删除云主机</a></li>
+					<li><a href="#">{{ 'COMMON.DELETE' | transalet }}{{ 'COMMON.CLOUD_HOSTING' | transalet }}</a></li>
 					<li role="separator" class="divider"></li>
-					<li><a href="#">创建快照</a></li>
+					<li><a href="#">{{ 'COMMON.CREATE' | transalet }}{{ 'COMMON.SNAPSHOT' | transalet }}</a></li>
 					<li role="separator" class="divider"></li>
-					<li><a class="clickable" (click)="updateInstanceStatus(item, 'softReboot', $event);">软重启</a></li>
+					<li><a class="clickable" (click)="updateInstanceStatus(item, 'softReboot', $event);">{{ 'CLOUD_HOST.SOFT_RESTART' | transalet }}</a></li>
 					<li role="separator" class="divider"></li>
-					<li><a class="clickable" (click)="updateInstanceStatus(item, 'hardReboot', $event);">硬重启</a></li>
+					<li><a class="clickable" (click)="updateInstanceStatus(item, 'hardReboot', $event);">{{ 'CLOUD_HOST.HARD_RESTART' | transalet }}<</a></li>
 					<li role="separator" class="divider"></li>
-					<li><a class="clickable" (click)="updateInstanceStatus(item, 'softShutdown', $event);">软关机</a></li>
+					<li><a class="clickable" (click)="updateInstanceStatus(item, 'softShutdown', $event);">{{ 'CLOUD_HOST.SOFT_OFF' | transalet }}<</a></li>
 					<li role="separator" class="divider"></li>
-					<li><a class="clickable" (click)="updateInstanceStatus(item, 'hardShutdown', $event);">硬关机</a></li>
+					<li><a class="clickable" (click)="updateInstanceStatus(item, 'hardShutdown', $event);">{{ 'CLOUD_HOST.HARD_OFF' | transalet }}<</a></li>
 				</ul>
 			</div>
 			<div class="pull-right" style="position: relative;">
 				<span class="glyphicon glyphicon-search form-control-feedback"></span>
-				<input type="text" class="form-control" placeholder="搜索" [(ngModel)]="filterText">
+				<input type="text" class="form-control" placeholder="{{ 'COMMON.SEARCH' | transalet }}" [(ngModel)]="filterText">
 			</div>
 			<div class="btn-group">
 				<button class="fox-cloud-button fox-cloud-button-white" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 					<span class="glyphicon glyphicon-edit"></span>
-					<span class="icon-button-label icon-left-button-label">更多创建</span>
+					<span class="icon-button-label icon-left-button-label">{{ 'CLOUD_HOST.MORE_CREATING' | transalet }}</span>
 					<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-					<li><a href="#">从镜像创建</a></li>
+					<li><a href="#">{{ 'CLOUD_HOST.MORE_CREATING' | transalet }}</a></li>
 					<li role="separator" class="divider"></li>
-					<li><a href="#">从快照创建</a></li>
+					<li><a href="#">{{ 'CLOUD_HOST.CREATE_snapshot_IMAGE' | transalet }}</a></li>
 					<li role="separator" class="divider"></li>
-					<li><a href="#">从卷创建</a></li>
+					<li><a href="#">{{ 'CLOUD_HOST.CREATE_FROM_VOLUME' | transalet }}</a></li>
 					<li role="separator" class="divider"></li>
-					<li><a href="#">从卷模板创建</a></li>
+					<li><a href="#">{{ 'CLOUD_HOST.CREATE_FROM_VOLUME_TEMPLATE' | transalet }}</a></li>
 				</ul>
 			</div>
 		</div>
@@ -53,14 +53,14 @@
 		<table class="table table-hover"> 
 			<thead>
 				<tr>
-					<th class="fristTh"><input type="checkbox" (click)="checkAll()"> 全选</th>
-					<th>实例名称</th>
-					<th>镜像</th>
-					<th>规格</th>
-					<th>网络类型</th>
-					<th>付费方式</th>
-					<th>IP地址</th>
-					<th>操作</th>
+					<th class="fristTh"><input type="checkbox" (click)="checkAll()"> {{ 'COMMON.SELECT_ALL' | transalet }}</th>
+					<th>{{ 'COMMON.INSTANCE' | transalet }}{{ 'COMMON.NAME' | transalet }}</th>
+					<th>{{ 'COMMON.MIRROR' | transalet }}</th>
+					<th>{{ 'COMMON.SPECIFICATION' | transalet }}</th>
+					<th>{{ 'COMMON.NETWORK' | transalet }}{{ 'COMMON.TYPE' | transalet }}</th>
+					<th>{{ 'COMMON.PAYMENT_METHODS' | transalet }}</th>
+					<th>IP {{ 'COMMON.PATH' | transalet }}</th>
+					<th>{{ 'COMMON.OPERATION' | transalet }}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -74,13 +74,13 @@
 					<td>{{item.ipAddress}}</td>
 					<td>
 						<button class="fox-cloud-button-sm fox-cloud-button-white" (click)="updateInstanceStatus(item, 'pause', $event);">
-							<span class="icon-button-label">暂停</span>
+							<span class="icon-button-label">{{ 'COMMON.PAUSE' | transalet }}</span>
 						</button>
 						<button class="fox-cloud-button-sm fox-cloud-button-white" (click)="updateInstanceStatus(item, 'suspend', $event);">
-							<span class="icon-button-label">挂起</span>
+							<span class="icon-button-label">{{ 'COMMON.PENDING' | transalet }}</span>
 						</button>
 						<button class="fox-cloud-button-sm fox-cloud-button-grey" (click)="updateInstanceStatus(item, 'resume', $event)">
-							<span class="icon-button-label">恢复</span>
+							<span class="icon-button-label">{{ 'COMMON.RESTORE' | transalet }}</span>
 						</button>
 					</td>
 				</tr>

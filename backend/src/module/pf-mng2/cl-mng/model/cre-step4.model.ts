@@ -2,7 +2,7 @@ export class StorageModel {
 
     // "description": "string",
     // "displayName": "string",
-    // "id": "string",
+    "id": "string";
     // "name": "string",
     // "quota": 0
     clusterName:String; //可用区名称

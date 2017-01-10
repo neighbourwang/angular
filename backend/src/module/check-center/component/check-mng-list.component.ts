@@ -166,7 +166,7 @@ export class CheckMngListComponent implements OnInit{
 
 	showMsg(msg:string)
 	{
-		 this._notice.open("系统", msg);
+		 this._notice.open("COMMON.SYSTEM", msg);
 		
 	}
 
@@ -253,7 +253,7 @@ export class CheckMngListComponent implements OnInit{
 	confirmRefuse(){
 		if(!(this.refuseReason && this.refuseReason.length <= 200))
 		{
-			this.showMsg('必须填写拒绝原因，且不能超出200字');
+			this.showMsg('CHECK_CENTER.YOU_MUST_FILL_IN_THE_REASONS');
 			return;
 		}
 
@@ -296,11 +296,11 @@ export class CheckMngListComponent implements OnInit{
 	accept(item:CheckListItem)
 	{
 		this._selectedItem = item;
-		this._confirmAccept.open('审批同意', '你确认要审批同意该订单吗？');
+		this._confirmAccept.open('COMMON.APPROVAL', 'COMMON.ARE_YOU_SURE_YOU_WANT_TO_APPROVE' + '?');
 	}
 
 	confirmAccept(){
-		this.refuseReason='同意';
+		this.refuseReason='COMMON.AGREE';
 		this.approveOrder(1, this._selectedItem.orderId);
 	}
 

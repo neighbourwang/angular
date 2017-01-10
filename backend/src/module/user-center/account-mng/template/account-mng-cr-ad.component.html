@@ -10,11 +10,11 @@
                     </div>
                     
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="account.userName" placeholder="请输入姓名">
+                        <input type="text" class="form-control" [(ngModel)]="account.userName" placeholder="{{'USER_CENTER.INPUTNAME' | translate}}">
                     </div>
                     <!--
                     <div class="col-sm-4" [ngClass]="{'has-error': userName.errors && (userName.dirty || userName.touched)}">
-                            <input type="text" class="form-control" placeholder="请输入姓名" [(ngModel)]="account.userName" id="userName" required name="userName" #userName="ngModel">
+                            <input type="text" class="form-control" placeholder="{{'USER_CENTER.INPUTNAME' | translate}}" [(ngModel)]="account.userName" id="userName" required name="userName" #userName="ngModel">
                             <div *ngIf="userName.errors && (userName.dirty || userName.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                 <div [hidden]="!userName.errors.required">
                                     姓名不能为空
@@ -34,11 +34,11 @@
                     </div>
                     
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="account.phone" placeholder="请输入联系电话">
+                        <input type="text" class="form-control" [(ngModel)]="account.phone" placeholder="{{'USER_CENTER.INPUT_PHONE' | translate}}">
                     </div>
                     <!--
                     <div class="col-sm-4" [ngClass]="{'has-error': Phone.errors && (Phone.dirty || Phone.touched)}">
-                            <input type="text" class="form-control" placeholder="请输入联系电话" [(ngModel)]="account.phone" id="Phone" required name="Phone" #Phone="ngModel">
+                            <input type="text" class="form-control" placeholder="{{'USER_CENTER.INPUT_PHONE' | translate}}" [(ngModel)]="account.phone" id="Phone" required name="Phone" #Phone="ngModel">
                             <div *ngIf="Phone.errors && (Phone.dirty || Phone.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                 <div [hidden]="!Phone.errors.required">联系电话不能为空
                                 </div>
@@ -55,7 +55,7 @@
                         描述
                     </div>
                     <div class="col-sm-4">
-                        <textarea type="text" class="form-control" [(ngModel)]="account.description" placeholder="请输入联系描述" rows="3"></textarea>
+                        <textarea type="text" class="form-control" [(ngModel)]="account.description" placeholder="{{'USER_CENTER.INPUT_CONTACT_DESC' | translate}}" rows="3"></textarea>
                     </div>
                 </div>
             </div>

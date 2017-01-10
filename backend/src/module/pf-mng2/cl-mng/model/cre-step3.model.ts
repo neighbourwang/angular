@@ -1,3 +1,4 @@
+
 export class ZoneListModel {
 
 
@@ -10,7 +11,7 @@ export class ZoneListModel {
     description : String ;//说明
     // "id": "678eb96e-2593-4bbc-80aa-14910bff5df8",
     //   "platformId": "8b99ce42-6b42-4757-9b21-7a190ce14972",
-    dcOrRegion: string;
+    dcOrRegion: Array<any>;
     //   "displayName": "nova",
     //   "hostNum": 1,
     exceedPercentage: number;

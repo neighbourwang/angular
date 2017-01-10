@@ -59,8 +59,8 @@ export class PfDetailComponent implements OnInit {
     @ViewChild('updateStoragePop')
     updateStoragePop: PopupComponent;
 
-    @ViewChild('updateStoraeResourcePop')
-    updateStoraeResourcePop: PopupComponent;
+    @ViewChild('updateStorageResourcePop')
+    updateStorageResourcePop: PopupComponent;
 
 
     // 确认Box/通知Box的标题
@@ -110,6 +110,8 @@ export class PfDetailComponent implements OnInit {
                             if (ele.value == this.platform.platformType) {
                                 ele.isSelected = true;
                                 this.getVersion(ele.code);
+                            }else{
+                                ele.isSelected = false;
                             }
                         })
                         this.getZoneList();
@@ -165,7 +167,6 @@ export class PfDetailComponent implements OnInit {
             res => {
                 console.log(res);
                 this.platformVersion = res
-                this.platform.platformType = this.platformVersion[0].value;
             }
         ).catch(
             err => {
@@ -281,7 +282,7 @@ export class PfDetailComponent implements OnInit {
             console.error('获取更新可用区列表出错', err)
         })
     }
-    //同步资源get
+    //同步可用区资源get
     countZoneResource: Array<ZoneListModel>;
     updateResourcePop(zoneId) {
         console.log(zoneId);
@@ -429,46 +430,46 @@ export class PfDetailComponent implements OnInit {
     }
     //同步存储区
     otUpdateStorageList() {
-        // this.platformDetailService.putUpdateZoneList(this.updateZoneList).then(
-        //     res => {
-        //         console.log('同步', res);
-        //         this.getZoneList();
-        //     }
-        // ).catch(err => {
-        //     console.error('获取更新可用区列表出错', err)
-        // })
+        this.platformDetailService.putUpdateStorageList(this.updateStorageList).then(
+            res => {
+                console.log('同步', res);
+                this.getStorageList();
+            }
+        ).catch(err => {
+            console.error('获取更新存储区列表出错', err)
+        })
     }
     //同步存储后端get
-    countStorageResource: Array<StorageModel>;
-    updateStorage(zoneId) {
-        console.log(zoneId);
-        // this.platformDetailService.getUpdateZone(zoneId).then(
-        //     res => {
-        //         console.log('同步计算资源', res);
-        //         if (res.resultCode == 100) {
-        //             if (res.resultContent && res.resultContent.length > 0) {
-        //                 this.countZoneResource = res.resultContent;
-        //                 this.updateResource.open('同步计算资源');
-        //             } else {
-        //                 this.notice.open('oo', 'PF_MNG2.NO_SYNC_COMPUTING_SOURCE')
-        //             }
+    countStorageResourceList: Array<StorageModel>;
+    updateStorage(StorageId) {
+        console.log(StorageId);
+        this.platformDetailService.getUpdateStorageCount(StorageId).then(
+            res => {
+                console.log('同步计算资源', res);
+                if (res.resultCode == 100) {
+                    if (res.resultContent && res.resultContent.length > 0) {
+                        this.countStorageResourceList = res.resultContent;
+                        this.updateStorageResourcePop.open('同步存储区计算资源');
+                    } else {
+                        this.notice.open('oo', 'PF_MNG2.NO_SYNC_COMPUTING_SOURCE')
+                    }
 
-        //         }
-        //     }
-        // ).catch(err => {
-        //     console.error('获取同步计算资源出错', err)
-        // })
+                }
+            }
+        ).catch(err => {
+            console.error('获取同步计算资源出错', err)
+        })
     }
     //同步存储后端put
     otUpdateStorage() {
-        // this.platformDetailService.putUpdateZone(this.countZoneResource).then(
-        //     res => {
-        //         console.log('put同步计算资源', res);
-        //         this.getZoneList();
-        //     }
-        // ).catch(err => {
-        //     console.error('put同步计算资源出错', err)
-        // })
+        this.platformDetailService.putUpdateStorageCount(this.countStorageResourceList).then(
+            res => {
+                console.log('put同步存储区计算资源', res);
+                this.getStorageList();
+            }
+        ).catch(err => {
+            console.error('put同步存储区计算资源出错', err)
+        })
     }
     //返回
     back() {

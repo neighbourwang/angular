@@ -95,7 +95,7 @@ export class OrderMngSearchComponent implements OnInit{
 		this._orderStatusDic = new DicLoader(this.restApiCfg, this.restApi, "ORDER", "STATUS");
 
 		//配置订单加载
-		this._orderLoader = new ItemLoader<SearchOrderItem>(true, "ORDERED_LSIT_DATA_FAILED", "op-center.order-search.list.post", restApiCfg, restApi);
+		this._orderLoader = new ItemLoader<SearchOrderItem>(true, "ORDERED_LIST_DATA_FAILED", "op-center.order-search.list.post", restApiCfg, restApi);
 		this._orderLoader.MapFunc = (source:Array<any>, target:Array<SearchOrderItem>)=>{
 
 			for(let item of source)
@@ -206,7 +206,7 @@ export class OrderMngSearchComponent implements OnInit{
 //   "status": "string",
 //   "userId": "string"
 // }
-
+		this._orderLoader.clear();
 		this._orderLoader.Go(pageNumber, null, param)
 		.then(success=>{
 			this.layoutService.hide();

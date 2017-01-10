@@ -196,7 +196,7 @@ export class CheckMngHascheckComponent implements OnInit{
 
 	showMsg(msg:string)
 	{
-		this._notice.open("系统", msg);
+		this._notice.open("COMMON.SYSTEM", msg);
 	}
 
 	//搜索
