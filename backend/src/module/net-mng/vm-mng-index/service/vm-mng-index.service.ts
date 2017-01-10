@@ -117,14 +117,14 @@ export class VmwareMngIndexService{
         };
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("net-mng.vmware-index.nsxinfo.test");
-        return this.restApi.request(api.method, api.url, null, null, body);
-        /*
+        //return this.restApi.request(api.method, api.url, null, null, body);
+        //*
         if (nsxnet.adminPassword == "12345") {
             return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Success_mock });
         } else {
             return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return Failure_mock });
         }
-        */
+        //*/
     }
 
     getNsxStatus(platformId:string):Promise<any>{

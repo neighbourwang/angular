@@ -218,6 +218,9 @@ export class OrderMngComponent implements OnInit{
 			return this.loadAdmin();
 		})
 		.then(success=>{
+			return this.search();
+		})
+		.then(success=>{
 			this.layoutService.hide();
 		})
 		.catch(err=>{
@@ -362,6 +365,7 @@ export class OrderMngComponent implements OnInit{
 			currentPage:pageNumber
 			,size:10
 		};
+		this._orderLoader.clear();
 		this._orderLoader.Go(pageNumber, null, param)
 		.then(success=>{
 			this.layoutService.hide();

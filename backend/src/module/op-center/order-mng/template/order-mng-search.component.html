@@ -116,14 +116,13 @@
 						<td>{{item.departmentName}}</td>
 						<td class="left-td">
 							<button class="mgr20  fox-cloud-button-green" data-toggle="modal" data-target="#searchDetail">详&nbsp;&nbsp;&nbsp;情</button>
-							<button class="fox-cloud-button-green" data-toggle="modal" data-target="#cancelOrder">撤&nbsp;&nbsp;&nbsp;单</button>
-							
-						</td>
-						
+							<button class="fox-cloud-button-green" data-toggle="modal" data-target="#cancelOrder">撤&nbsp;&nbsp;&nbsp;单</button>			
+						</td>		
 					</tr>
 				</tbody>
 			</table>
 		</div>
+			<fc-pagination tp={{_orderLoader.TotalPages}} (pf)="changePage($event)"></fc-pagination>
 	</div>
 
 
