@@ -41,7 +41,11 @@ export class ClMngCommonService {
         "owner":"PLATFORM",
         "field":"TYPE"
     });
-    
+    //镜像格式列表
+    imageFormatList=this.dict.get({
+         "owner":"IMAGES",
+        "field":"FORMAT"
+    })
     // 获取云平台类型的数据字典
     private platFormType() {
         let api = this.restApiCfg.getDataRestApi("sysdic.owner.field");
@@ -64,10 +68,6 @@ export class ClMngCommonService {
 
     //根据平台类型获得版本列表
     private platFormVersion (owner : string){
-        console.log('status',this.globalStatus)
-        console.log('type',this.platformTypeDic)
-        console.log('vmware',this.vmWareVersionDic)
-        console.log('openstack',this.openStackVersionDic)
         let api = this.restApiCfg.getDataRestApi("sysdic.owner.field");
         return this.restApi.request(api.method,api.url,[{key : "_owner",value : owner},{key : "_field", value : "VERSION"}],undefined);
     }
@@ -90,6 +90,20 @@ export class ClMngCommonService {
                 value: "STATUS"
             }],undefined);
     }
+    //获取镜像格式列表
+    // private platFormStatus(){
+    //     let api = this.restApiCfg.getDataRestApi("sysdic.owner.field");
+
+    //     return this.restApi.request(api.method, api.url, [
+    //         {
+    //             key: "_owner",
+    //             value: 'GLOBAL'
+    //         }, {
+    //             key: "_field",
+    //             value: "STATUS"
+    //         }],undefined);
+    // }
+
 
     getPlatFormStatus() : Promise<Array<any>>{
         if(this.status.length == 0){
