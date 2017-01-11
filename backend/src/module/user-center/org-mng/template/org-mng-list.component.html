@@ -34,7 +34,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let item of orgs;let idx = index">
-                <td (click)="chooseItem(idx)"><input class="fox-cloud-radio" type="radio" name="isSelected" [disabled]="item.isDefault" title="禁止操作默认机构" [checked]="item.selected"/></td>
+                <td (click)="chooseItem(idx)"><input class="fox-cloud-radio" type="radio" name="isSelected" [disabled]="item.isDefault" title="USER_CENTER.DONOT_TOUCH_DEFAULT_ORG" [checked]="item.selected"/></td>
                 <td>{{idx+1}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.headCount}}</td>
@@ -55,5 +55,5 @@
     </div>
 
     <fc-pagination #pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
-    <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
-    <fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="of()" ct="取消" (cf)="ccf()"></fc-confirm>
+    <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="nof()"></fc-notice>
+    <fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="of()" ct="NET_MNG_VM_IP_MNG.CNACLE" (cf)="ccf()"></fc-confirm>
