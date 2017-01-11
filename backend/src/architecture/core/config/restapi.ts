@@ -1746,7 +1746,7 @@ export let RestApis: RestApiModel[] = [
     {
          "desc": "添加物理机",
         "id": "physical-mng.physical.create",
-        "method": "POSt",
+        "method": "POST",
         "url": "/pmresourcemgmt/noauth/pmpool/pm"
     },
     {
@@ -1773,12 +1773,18 @@ export let RestApis: RestApiModel[] = [
         "id": "physical-mng.physical.ipmiInfo.put",
         "method": "PUT",
         "url": " /pmresourcemgmt/noauth/pmpool/pm/ilo/{pm_id}"
+    },   
+     {
+        "desc": "修改IPMI信息",
+        "id": "physical-mng.physical.ipmiInfo.test.put",
+        "method": "PUT",
+        "url": " /pmresourcemgmt/noauth/pmpool/pm/ilo/verify"
     },
     {
         "desc": "删除/禁用/启用物理机",
         "id": "physical-mng.physical.statusChange",
         "method": "PUT",
-        "url": "/pmresourcemgmt/noauth/pmpool/{pmpool_id}/{status}"
+        "url": "/pmresourcemgmt/noauth/pmpool/pm/{pm_id}/{status}"
     },
     {
         "desc": "获取物理机品牌、型号、服务器类型",
