@@ -669,6 +669,13 @@
         "STORAGE_BACKEND": "存储后端"
     },
     "USER_CENTER": {
+        "ACCOUNT_FORMAT_ERROR": "账号格式输入错误，请输入正确邮箱地址",
+        "ACCOUNT_NOT_NULL": "账号不能为空",
+        "AD_SOURCE": "认证源",
+        "AD_USER_ACCOUNT": "AD用户帐号",
+        "CONTACT_PHONE": "联系电话",
+        "CONTACT_PHONE_NOT_NULL": "联系电话不能为空",
+        "CREATE_AD_USER": "创建AD用户",
         "DONOT_TOUCH_DEFAULT_ORG": "禁止操作默认机构",
         "INPUTNAME": "请输入姓名",
         "INPUT_ACC": "请输入帐号",
@@ -679,6 +686,10 @@
         "INPUT_ORG_NAME": "请输入机构名称",
         "INPUT_PHONE": "请输入联系电话",
         "INPUT_USERNAME_SEARCH": "输入姓名回车搜索",
+        "MOBILE_PHONE_FORMAT_ERROR": "手机号格式输入错误，请输入正确手机号",
+        "NAME": "姓名",
+        "NAME_NOT_NULL": "姓名不能为空",
+        "PHONE_NOT_NULL": "电话不能为空",
         "SELECT_AD_SOURCE": "认证源选择"
     }
 }
