@@ -1736,49 +1736,55 @@ export let RestApis: RestApiModel[] = [
         "url": "pmresourcemgmt/noauth/pmpool/regionlist"
     },
 
-	//物理机资源池
+	//物理机资源池---物理机
      {
-         "desc": "获取物理机列表",
+        "desc": "获取物理机列表",
         "id": "physical-mng.physical.list.get",
         "method": "POSt",
-        "url": " /boe/adminui/authsec/pmpools/pms/page/{page}/size/{size}"
+        "url": "/pmresourcemgmt/noauth/pmpools/pms/{pmpool_id}/page/{page}/size/{size}"
     },
     {
          "desc": "添加物理机",
         "id": "physical-mng.physical.create",
         "method": "POSt",
-        "url": "/boe/adminui/authsec/pmpool/pm"
+        "url": "/pmresourcemgmt/noauth/pmpool/pm"
     },
     {
          "desc": "查看物理机",
         "id": "physical-mng.physical.check",
         "method": "GET",
-        "url": "/boe/adminui/authsec/pmpool/pm/{pm_id}"
+        "url": "/pmresourcemgmt/noauth/pmpool/pm/view/{pm_id}"
 
     },
     {
         "desc": "编辑物理机",
         "id": "physical-mng.physical.edit",
         "method": "PUT",
-        "url": "/boe/adminui/authsec/pmpool/{pmpool_id}"
+        "url": "/pmresourcemgmt/noauth/pmpool/pm/edit"
     },
     {
         "desc": "获取物理机硬件信息",
         "id": "physical-mng.physical.hardwareinfo.get",
-        "method": "GET",
-        "url": " /boe/adminui/authsec/pmpool/pm/{ip_addr}/{username}/{password}"
+        "method": "POST",
+        "url": " /pmresourcemgmt/noauth/pmpool/pm/ilo/readpminfo"
     },
     {
         "desc": "修改IPMI信息",
         "id": "physical-mng.physical.ipmiInfo.put",
         "method": "PUT",
-        "url": " /boe/adminui/authsec/pmpool/pm/ipmi"
+        "url": " /pmresourcemgmt/noauth/pmpool/pm/ilo/{pm_id}"
     },
     {
         "desc": "删除/禁用/启用物理机",
         "id": "physical-mng.physical.statusChange",
         "method": "PUT",
-        "url": "/boe/adminui/authsec/pmpool/pm/{pm_id}/{status}"
+        "url": "/pmresourcemgmt/noauth/pmpool/{pmpool_id}/{status}"
+    },
+    {
+        "desc": "获取物理机品牌、型号、服务器类型",
+        "id": "physical-mng.physical.serverInfo.get",
+        "method": "GET ",
+        "url": "/pmresourcemgmt/noauth/pmpool/pm/modellist"
     },
 
 ]

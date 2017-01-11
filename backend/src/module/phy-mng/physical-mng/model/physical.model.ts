@@ -6,10 +6,11 @@ export class PhysicalModel {
     password: string;
     serverTypeId: string="";
     brandId: string;
+    model: string;
     modelId: string="";
     locale: string;
     description: string;
-    hardwareInfo: HardwareInfo;
+    hardwareInfo: HardwareInfo;  
     enterprise: string;
     department: string;
     startDate: string;
@@ -19,6 +20,7 @@ export class PhysicalModel {
     pubIPAddr: string;
     image: string;
 }
+
 
 export class HardwareInfo {
     cpu: CPU;
@@ -37,4 +39,6 @@ export class Memory {
 export class Disk {
     spec: string;
     specValue: number;
+}
+
 }
