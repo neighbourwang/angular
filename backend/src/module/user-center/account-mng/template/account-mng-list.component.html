@@ -67,8 +67,8 @@
     </div>
 </div>
 <fc-pagination #pager tp={{tp}} (pf)="getAccount($event)"></fc-pagination>
-<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="nof()"></fc-notice>
-<fc-popup #crAccountModel title="USER_CENTER.SELECT_AD_SOURCE" ot="NET_MNG_VM_IP_MNG.CREATE" ct="NET_MNG_VM_IP_MNG.CNACLE" (of)="crAccount()">
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="NET_MNG_VM_DBT_PORT.COMFIRM" (of)="nof()"></fc-notice>
+<fc-popup #crAccountModel title="USER_CENTER.SELECT_AD_SOURCE" ot="NET_MNG_VM_IP_MNG.CREATE" ct="NET_MNG_VM_DBT_PORT.CNACLE" (of)="crAccount()">
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>认证源：</div>
@@ -82,4 +82,4 @@
 </fc-popup>
 
 
-<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="ok()" ct="NET_MNG_VM_IP_MNG.CNACLE"></fc-confirm>
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="NET_MNG_VM_DBT_PORT.COMFIRM" (of)="ok()" ct="NET_MNG_VM_DBT_PORT.CNACLE"></fc-confirm>
