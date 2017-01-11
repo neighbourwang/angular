@@ -263,7 +263,8 @@
         "SYSTEM_PROMPT": "系统提示",
         "TYPE": "类型",
         "UNSELECTED_ENTERPRISE": "未选择企业",
-        "UNSET": "未设置"
+        "UNSET": "未设置",
+        "FORMAT":"镜像格式"
     },
     "LANG": "中文",
     "NET_MNG_OPENSTACK": {
