@@ -9,8 +9,8 @@ import {  IpmiInfo} from "../model/physical-ipmi.model";
 import { PhysicalModel } from "../model/physical.model";
 
 @Component({
-    selector: "physical-list",
-    templateUrl: "../template/physical-list.html",
+    selector: "physical-ipmi",
+    templateUrl: "../template/physical-ipmi.html",
     styleUrls: [],
     providers: []
 })
