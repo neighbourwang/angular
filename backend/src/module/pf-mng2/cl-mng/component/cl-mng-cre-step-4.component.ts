@@ -34,6 +34,9 @@ export class ClMngCreStep4Component implements OnInit {
         private layoutService: LayoutService
     ) { }
 
+    @ViewChild('notice')
+    notice:NoticeComponent
+
     creStep4Model: Array<StorageModel> = new Array<StorageModel>();
 
     platformType: string;
@@ -50,6 +53,7 @@ export class ClMngCreStep4Component implements OnInit {
             res => {
                 this.creStep4Model = res.resultContent;
                 this.creStep4Model.forEach(ele => {
+                    ele.valid=true;
                     ele.quota =
                         ele.quota ? ele.quota : 0;
                     ele.quotaPercentDisplay = ele.quota * 100;
@@ -75,17 +79,39 @@ export class ClMngCreStep4Component implements OnInit {
             )
     }
     keepSame(item) {
-        if (this.platformType == '2') {
+        // if (this.platformType == '2') {
+            let sum:number=0;
             for (let storage of this.creStep4Model) {
+                storage.valid=true;
                 if (storage.id == item.id) {
-                    storage.displayName = item.displayName;
-                    storage.description = item.description;
+                    // storage.displayName = item.displayName;
+                    // storage.description = item.description;
                     storage.replica = item.replica;
+                    sum+=storage.quotaPercentDisplay;
+                    // item.valid=sum>100?false:true;
                 }
             }
-        }
+            item.valid=
+                sum>100?false:true;
+            console.log(sum);
+            // for(let storage of this.creStep4Model){
+
+            // }
+        // }
     }
     next() {
+        let valid:boolean=true;
+        this.creStep4Model.forEach(ele => {
+            if(ele.valid==false){
+               return valid=false;
+            }
+            ele.quotaPercentage = ele.quotaPercentDisplay / 100
+        })
+        console.log(valid);
+        if(!valid){
+            this.notice.open('操作错误','存储区配额设置错误，同一存储区配额总额设置超额')
+            return;
+        }
         let platFormId: String = this.idService.getPlatformId();
         this.creStep4Model.forEach(ele => {
             ele.quotaPercentage = ele.quotaPercentDisplay * 0.01

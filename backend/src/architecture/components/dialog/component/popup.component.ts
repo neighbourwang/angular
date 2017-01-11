@@ -19,7 +19,7 @@ export class PopupComponent implements OnInit {
     param: any;
     title: String;
     showTitle: String;
-    enableOKButton:boolean =true;
+    enableOKButton: boolean =true;
 
 
     constructor(private dialogTranslate: DialogTranslate) {
@@ -30,7 +30,7 @@ export class PopupComponent implements OnInit {
     private dialog: ModalComponent;
 
     ngOnInit() {
-        this.enableOKButton = true;
+        //this.enableOKButton = true;
     }
 
     ngOnChanges() {

@@ -22,6 +22,8 @@ export class StorageModel {
     //   "status": 0,
     //   "uuid": null,
     isEdit:boolean;
+    valid:boolean;
     constructor() {
+        this.valid=true;
     }
 }
