@@ -54,7 +54,7 @@
             <tr *ngFor="let item of data">
                 <td><input type='radio' class="fox-cloud-radio" [checked]="item.selected" (change)="selected(item)"/></td>
                 <td>{{item.index}}</td>
-                <td><a href="#" key="boe/phy_list.html">{{item.pmPoolName}}</a></td>
+                <td><a href="javascript:void(0);" (click)="gotoPhyList(item);">{{item.pmPoolName}}</a></td>
                 <td>{{item.pmType}}</td>
                 <td>{{item.region}}</td>
                 <td>{{item.dataCenter}}</td>

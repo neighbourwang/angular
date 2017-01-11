@@ -27,11 +27,7 @@ export class OrderMngSearchDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-      for(let item of this._detail.subInstanceList){
-        if(item.serviceType = "1"){
-          this.showInstance = false;
-        }
-      }
+     
   }
 
 }

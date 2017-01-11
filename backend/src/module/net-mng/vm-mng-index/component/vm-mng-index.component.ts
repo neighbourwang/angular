@@ -60,6 +60,7 @@ export class VmwareMngIndexComponent implements OnInit {
     nsxverDictArray: Array<SystemDictionary> = [];
 
     nsxTestFlag: string = "";
+    enablepopbutton:boolean = false;
 
     regionList: Array<RegionModel> = [];
 
@@ -169,6 +170,7 @@ export class VmwareMngIndexComponent implements OnInit {
         } else {
             this.NsxInfo = null;
         }
+        this.UnselectItem();
     }
 
     getNetworkList(platformId:string): void {
@@ -192,7 +194,7 @@ export class VmwareMngIndexComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    showNetAndNxsInfo(): void {
+    showNets(): void {
         if (this.queryOpt2 && !this.validationService.isBlank(this.queryOpt2.platformId)){
             console.log(this.queryOpt2.platformId, "this.queryOpt2.platformId");
             this.getNetworkList(this.queryOpt2.platformId);
@@ -212,6 +214,7 @@ export class VmwareMngIndexComponent implements OnInit {
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
+                    this.enablepopbutton = false;
                     this.NsxMngInfo = response.resultContent;
                     console.log(this.NsxMngInfo, "this.NsxMngInfo");
                     this.changedNsxMngInfo.nsxVer = this.NsxMngInfo.nsxVer;
@@ -276,6 +279,7 @@ export class VmwareMngIndexComponent implements OnInit {
         this.changedNsxMngInfo.adminPassword = "";
         this.changedNsxMngInfo.platformId = "";
         this.nsxTestFlag = "";
+        this.enablepopbutton = false;
     }
 
     validateNsxMngInfoModify(): boolean {
@@ -337,10 +341,12 @@ export class VmwareMngIndexComponent implements OnInit {
                     if (res && res.resultCode == "100") {                        
                         console.log(res, "测试NSX管理信息成功");
                         this.nsxTestFlag = "success";
+                        this.enablepopbutton = true;
                     } else {
                         console.log('测试NSX管理信息失败');
                         //this.showMsg("NET_MNG_VM_IP_MNG.TEST_NSX_MNG_INFO_FAILED");
                         this.nsxTestFlag = "failure";
+                        this.enablepopbutton = false;
                     }
                 })
                 .catch(err => {
@@ -348,10 +354,12 @@ export class VmwareMngIndexComponent implements OnInit {
                     this.layoutService.hide();
                     //this.showMsg("NET_MNG_VM_IP_MNG.TEST_NSX_MNG_INFO_EXCEPTION");
                     this.nsxTestFlag = "failure";
+                    this.enablepopbutton = false;
                 })
         } else {
             console.log("validateNsxMngInfoModify failed!");
             this.nsxTestFlag = "";
+            this.enablepopbutton = false;
         }
     }
 
@@ -411,6 +419,7 @@ export class VmwareMngIndexComponent implements OnInit {
                 .then(() => {
                     this.selectedNet.networkType = this.VmNetStatus.vmNetStatus; //更新数据回页面展示
                     this.setnettype.close();
+                    this.UnselectItem();
                 })
                 .catch(err => {
                     console.log('设置网络类型异常', err);
@@ -434,26 +443,27 @@ export class VmwareMngIndexComponent implements OnInit {
         this.changedNet.clusterId = "";
         this.changedNet.clusterDisplayName = "";
         this.changedNet.networkType = "";
+        this.UnselectItem();
     }
 
     gotoVMStdNetMng() {
         this.selectedNet = this.getSelected();
         if (this.queryOpt && !this.validationService.isBlank(this.queryOpt.platformId)) {
-        if (this.selectedNet) {
-            this.router.navigate([
-                `net-mng/vm-mng/${this.queryOpt.platformId}`,
-                {
-                    "dc_Id": this.selectedNet.dcId,
-                    "cls_Id": this.selectedNet.clusterId
-                }
+            if (this.selectedNet) {
+                this.router.navigate([
+                    `net-mng/vm-mng/${this.queryOpt.platformId}`,
+                    {
+                        "dc_Id": this.selectedNet.dcId,
+                        "cls_Id": this.selectedNet.clusterId
+                    }
                 ]);
-        } else {
-            selectedPlatform.regionName = this.selectedRegion.regionName;
-            selectedPlatform.dcName = this.selectedDC.datacenterName;
-            selectedPlatform.platformName = this.chosenPlatform.platformName;
-            selectedPlatform.platformUrl = this.chosenPlatform.platformUrl;
-            this.router.navigate([`net-mng/vm-mng/${this.queryOpt.platformId}`]);
-        }
+            } else {
+                selectedPlatform.regionName = this.selectedRegion.regionName;
+                selectedPlatform.dcName = this.selectedDC.datacenterName;
+                selectedPlatform.platformName = this.chosenPlatform.platformName;
+                selectedPlatform.platformUrl = this.chosenPlatform.platformUrl;
+                this.router.navigate([`net-mng/vm-mng/${this.queryOpt.platformId}`]);
+            }
         } else {
             this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PF");
             return;
@@ -463,21 +473,21 @@ export class VmwareMngIndexComponent implements OnInit {
     gotoVMDbtNetMng() {
         this.selectedNet = this.getSelected();
         if (this.queryOpt && !this.validationService.isBlank(this.queryOpt.platformId)) {
-        if (this.selectedNet) {
-            this.router.navigate([
-                `net-mng/vm-mng-dbt/index/${this.queryOpt.platformId}`,
-                {
-                    "dc_Id": this.selectedNet.dcId,
-                    "cls_Id": this.selectedNet.clusterId
-                }
+            if (this.selectedNet) {
+                this.router.navigate([
+                    `net-mng/vm-mng-dbt/index/${this.queryOpt.platformId}`,
+                    {
+                        "dc_Id": this.selectedNet.dcId,
+                        "cls_Id": this.selectedNet.clusterId
+                    }
                 ]);
-        } else {
-            selectedPlatform.regionName = this.selectedRegion.regionName;
-            selectedPlatform.dcName = this.selectedDC.datacenterName;
-            selectedPlatform.platformName = this.chosenPlatform.platformName;
-            selectedPlatform.platformUrl = this.chosenPlatform.platformUrl;
-            this.router.navigate([`net-mng/vm-mng-dbt/index/${this.queryOpt.platformId}`]);
-        }
+            } else {
+                selectedPlatform.regionName = this.selectedRegion.regionName;
+                selectedPlatform.dcName = this.selectedDC.datacenterName;
+                selectedPlatform.platformName = this.chosenPlatform.platformName;
+                selectedPlatform.platformUrl = this.chosenPlatform.platformUrl;
+                this.router.navigate([`net-mng/vm-mng-dbt/index/${this.queryOpt.platformId}`]);
+            }
         } else {
             this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PF");
             return;
@@ -487,21 +497,21 @@ export class VmwareMngIndexComponent implements OnInit {
     gotoVMNsxNetMng() {
         this.selectedNet = this.getSelected();
         if (this.queryOpt && !this.validationService.isBlank(this.queryOpt.platformId)) {
-        if (this.selectedNet) {
-            this.router.navigate([
-                `net-mng/vm-mng-nsx/index/${this.queryOpt.platformId}`,
-                {
-                    "dc_Id": this.selectedNet.dcId,
-                    "cls_Id": this.selectedNet.clusterId
-                }
+            if (this.selectedNet) {
+                this.router.navigate([
+                    `net-mng/vm-mng-nsx/index/${this.queryOpt.platformId}`,
+                    {
+                        "dc_Id": this.selectedNet.dcId,
+                        "cls_Id": this.selectedNet.clusterId
+                    }
                 ]);
-        } else {
-            selectedPlatform.regionName = this.selectedRegion.regionName;
-            selectedPlatform.dcName = this.selectedDC.datacenterName;
-            selectedPlatform.platformName = this.chosenPlatform.platformName;
-            selectedPlatform.platformUrl = this.chosenPlatform.platformUrl;
-            this.router.navigate([`net-mng/vm-mng-nsx/index/${this.queryOpt.platformId}`]);
-        }
+            } else {
+                selectedPlatform.regionName = this.selectedRegion.regionName;
+                selectedPlatform.dcName = this.selectedDC.datacenterName;
+                selectedPlatform.platformName = this.chosenPlatform.platformName;
+                selectedPlatform.platformUrl = this.chosenPlatform.platformUrl;
+                this.router.navigate([`net-mng/vm-mng-nsx/index/${this.queryOpt.platformId}`]);
+            }
         } else {
             this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PF");
             return;

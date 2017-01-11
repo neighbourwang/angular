@@ -152,11 +152,11 @@
 	                    <td><font class="font-orange">{{'COMMON.$'|translate}}{{diskBasePrice}} </font>{{'COMMON.YUAN'|translate}}</td>
 	                </tr>
 	                <tr>
-	                    <td><font>总周期费用:</font></td>
+	                    <td><font>{{'VM_INSTANCE.TOTAL_BILLINGARR'|translate}}<!-- 总周期费用 -->:</font></td>
 	                    <td><font class="font-orange">{{'COMMON.$'|translate}}{{diskTotalPrice}} </font>{{'COMMON.YUAN'|translate}} / {{ sendModule.timelineunit.attrDisplayValue }}<span class="float-right">{{'COMMON.BY_VOLUMN'| translate}}</span></td>
 	                </tr>
 	            </table>
-	            <p class="mgt20">云硬盘产品将根据您购买的容量按周期计费，实际支付金额，请以每月账单为准。</p>
+	            <p class="mgt20">{{'CLOUD_DRIVE_ORDER.ORDER_TEXT'| translate}}<!-- 云硬盘产品将根据您购买的容量按周期计费，实际支付金额，请以每月账单为准。 --></p>
 			</div>
 			<div class="col-md-12 colud-order-button">
 				<div class="col-md-6"><button (click)="buyNow()" class="btn button-orange-deep">{{'COMMON.BUY_NOW'| translate}}</button></div>

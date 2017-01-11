@@ -1,4 +1,4 @@
-<div class="page-content-header icon-content-header-userCenterOn">创建AD用户</div>
+<div class="page-content-header icon-content-header-userCenterOn">{{'USER_CENTER.CREATE_AD_USER' | translate}}<!--创建AD用户--></div>
 <div class="page-content">
     <div class="row" style="padding-top: 30px;">
         <div class="col-md-12">
@@ -6,7 +6,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
                         <span class="asterisk">*</span>
-                        姓名
+                        {{'USER_CENTER.NAME' | translate}}<!--姓名-->
                     </div>
                     
                     <div class="col-sm-4">
@@ -17,7 +17,7 @@
                             <input type="text" class="form-control" placeholder="{{'USER_CENTER.INPUTNAME' | translate}}" [(ngModel)]="account.userName" id="userName" required name="userName" #userName="ngModel">
                             <div *ngIf="userName.errors && (userName.dirty || userName.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                 <div [hidden]="!userName.errors.required">
-                                    姓名不能为空
+                                    {{'USER_CENTER.NAME_NOT_NULL' | translate}}
                                 </div>
                             </div>
                     </div>
@@ -30,7 +30,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
                         <span class="asterisk">*</span>
-                        联系电话
+                        {{'USER_CENTER.CONTACT_PHONE' | translate}}<!--联系电话-->
                     </div>
                     
                     <div class="col-sm-4">
@@ -40,7 +40,7 @@
                     <div class="col-sm-4" [ngClass]="{'has-error': Phone.errors && (Phone.dirty || Phone.touched)}">
                             <input type="text" class="form-control" placeholder="{{'USER_CENTER.INPUT_PHONE' | translate}}" [(ngModel)]="account.phone" id="Phone" required name="Phone" #Phone="ngModel">
                             <div *ngIf="Phone.errors && (Phone.dirty || Phone.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
-                                <div [hidden]="!Phone.errors.required">联系电话不能为空
+                                <div [hidden]="!Phone.errors.required">{{'USER_CENTER.CONTACT_PHONE_NOT_NULL' | translate}}
                                 </div>
                             </div>
                     </div>
@@ -52,7 +52,7 @@
             <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
-                        描述
+                        {{'COMMON.DESCRIPTION' | translate}}<!--描述-->
                     </div>
                     <div class="col-sm-4">
                         <textarea type="text" class="form-control" [(ngModel)]="account.description" placeholder="{{'USER_CENTER.INPUT_CONTACT_DESC' | translate}}" rows="3"></textarea>
@@ -73,11 +73,11 @@
             <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
-                        认证源
+                        {{'USER_CENTER.AD_SOURCE' | translate}}<!--认证源-->
                     </div>
                     <div class="col-sm-4">
                         <select class="form-control" [(ngModel)]="account.ldapId">
-                            <option value="">请选择</option>
+                            <option value="">{{'NET_MNG_VM_IP_MNG.PLEASE_CHOOSE' | translate}}<!--请选择--></option>
                             <option *ngFor="let attest of attests" [value]="attest.id">{{attest.name}}</option>
                         </select>
                     </div>
@@ -87,13 +87,13 @@
             <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
-                        AD用户帐号
+                        {{'USER_CENTER.AD_USER_ACCOUNT' | translate}}<!--AD用户帐号-->
                     </div>
                     <div class="col-sm-4">
                         <input type="text" class="form-control" [(ngModel)]="filterStr" placeholder="">
                     </div>
                     <div class="col-sm-4">
-                        <button class="fox-cloud-button fox-cloud-button-white"  (click)="searchAdUser();">查询</button>
+                        <button class="fox-cloud-button fox-cloud-button-white"  (click)="searchAdUser();">{{'COMMON.SEARCH' | translate}}<!--查询--></button>
                     </div>
                 </div>
             </div>
@@ -102,12 +102,12 @@
                     <table class="table table-hover" >
                         <thead>
                         <tr>
-                            <th style="width: 10%;" class="check-box-col">选择</th>
+                            <th style="width: 10%;" class="check-box-col">{{'NET_VM_NSX_INDEX.SELECT' | translate}}<!--选择--></th>
                             <th style="width: 15%;">用户名</th>
-                            <th style="width: 15%;">姓名</th>
+                            <th style="width: 15%;">{{'USER_CENTER.NAME' | translate}}<!--姓名--></th>
                             <th style="width: 15%;">邮箱地址</th>
-                            <th style="width: 15%;">联系电话</th>
-                            <th style="width: 30%;">描述</th>
+                            <th style="width: 15%;">{{'USER_CENTER.CONTACT_PHONE' | translate}}<!--联系电话--></th>
+                            <th style="width: 30%;">{{'COMMON.DESCRIPTION' | translate}}<!--描述--></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -165,8 +165,8 @@
                 <span class="icon-button-label" >取消</span>
             </button>
             <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="createAccount()" style="margin-left : 10px">
-                <span class="icon-button-label" >创建</span>
+                <span class="icon-button-label" >{{'NET_MNG_VM_IP_MNG.CREATE' | translate}}<!--创建--></span>
             </button>
 </div>
 <div style="height:50px"></div>
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="NET_MNG_VM_DBT_PORT.COMFIRM"></fc-notice>

@@ -206,7 +206,7 @@ export class OrderMngSearchComponent implements OnInit{
 //   "status": "string",
 //   "userId": "string"
 // }
-
+		this._orderLoader.clear();
 		this._orderLoader.Go(pageNumber, null, param)
 		.then(success=>{
 			this.layoutService.hide();

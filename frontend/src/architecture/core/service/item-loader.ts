@@ -62,12 +62,34 @@ export class ItemLoader<T>{
 
 	private convertNull(param:any):any
 	{
-		return _.mapObject(param,(val:any,key:string)=>{
-			if(val === "null")
-				return null;
-			else
-				return val;
-		});
+		if(_.isArray(param))
+		{
+			let newArr = [];
+
+			for(let item of param)
+			{
+				if(item === "null")
+					newArr.push(null);
+				else if(_.isObject(item))
+				{
+					newArr.push(this.convertNull(item));
+				}
+				else
+					newArr.push(item);
+			}
+
+			return newArr;
+		}
+		else
+		{
+			return _.mapObject(param,(val:any,key:string)=>{
+				if(val === "null")
+					return null;
+				else
+					return val;
+			});
+			
+		}
 	}
 
 	Go(pageNumber?:number, queryParams?:Array<any>, postParam?:any):Promise<any>{

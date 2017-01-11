@@ -79,6 +79,8 @@ export class OrderMngComponent implements OnInit{
 	//类型
 	private _typeDic:DicLoader = null;
 
+	private showInstance:boolean = true;
+
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -176,13 +178,21 @@ export class OrderMngComponent implements OnInit{
 
 			    return true;
 			};
+			
 
 			let reloadstruct:(items:Array<SubInstanceItemResp>)=>void = (items:Array<SubInstanceItemResp>)=>{
 				for(let i = 0; i < items.length; i++){
 					items[i] = _.extendOwn(new SubInstanceItemResp(), items[i]);
 				}
 			};
+           
+		   
+			let showInstance:(item:SubInstanceItemResp)=>boolean = (item:SubInstanceItemResp):boolean=>{
+				if (item.instanceName == null||item.instanceName == undefined ||item.serviceType == 1)//云硬盘
+			      return false;
 
+			    return true;
+			};
 
 			for(let i = 0; i < target.length; i++)
 			{
@@ -196,13 +206,20 @@ export class OrderMngComponent implements OnInit{
 						orderItem.canRenew = false;
 					else
 						orderItem.canRenew = true;
+					if(orderItem.itemList.find(n=>showInstance(n)!=null))
+						orderItem.showInstance = false;
+					else
+						orderItem.showInstance = true;
 				}
 				else{
 					orderItem.canRenew = true;
+					orderItem.showInstance = true;
 				}
 
 				
 			}
+
+
 		};
 /*
 		this._orderLoader.FakeDataFunc = (target:Array<SubInstanceResp>)=>{
@@ -415,6 +432,7 @@ export class OrderMngComponent implements OnInit{
 		};
 
 		this.layoutService.show();
+		this._orderLoader.clear();
 		this._orderLoader.Go(null, null, param)
 		.then(success=>{
 			this.layoutService.hide();
@@ -453,7 +471,22 @@ export class OrderMngComponent implements OnInit{
 
 	//续订
 	renew(){
-		console.log('renew start');
+// 		[
+//   {
+//     "attrCode": "string",
+//     "attrDisplayName": "string",
+//     "attrDisplayValue": "string",
+//     "attrId": "string",
+//     "attrValue": "string",
+//     "attrValueCode": "string",
+//     "attrValueId": "string",
+//     "description": "string",
+//     "valueType": "string",
+//     "valueUnit": "string"
+//   }
+// ]
+// 		console.log('renew start');
+
 		let param = [{
 			attrCode: "TIMELINE",
 			attrDisplayName: "ORDER_MNG.PURCHASE_TIME",
@@ -463,9 +496,10 @@ export class OrderMngComponent implements OnInit{
 			attrValueCode: "",//可以为空
 			attrValueId: "",//可以为空
 			description: "",
-			valueType: "",
+			valueType: 0,
 			valueUnit: this._renewSetting.unit //可以为空
 		}];
+
 
 		this.layoutService.show();
 		this._renewHandler.Go(null, [{key:"_subId", value:this.selectedOrderItem.orderId}], param)

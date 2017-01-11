@@ -2,7 +2,7 @@ export class StorageModel {
 
     // "description": "string",
     // "displayName": "string",
-    // "id": "string",
+    "id": "string";
     // "name": "string",
     // "quota": 0
     clusterName:String; //可用区名称
@@ -22,6 +22,8 @@ export class StorageModel {
     //   "status": 0,
     //   "uuid": null,
     isEdit:boolean;
+    valid:boolean;
     constructor() {
+        this.valid=true;
     }
 }

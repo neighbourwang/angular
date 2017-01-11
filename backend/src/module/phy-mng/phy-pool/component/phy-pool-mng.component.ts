@@ -97,7 +97,7 @@ export class PhyPoolMngComponent implements OnInit{
                 }else if(status == "0"){
                     this.disable(this.selectedPhy.pmPoolId);
                 }else{
-                    this.remove(this.selectedPhy.pmPoolId);
+                    this.showAlert("启用状态下不能删除");
                 }
             }else{
                 if(status == "1"){
@@ -184,6 +184,10 @@ export class PhyPoolMngComponent implements OnInit{
 
     creat(){
         this.router.navigate([`phy-mng/phy-pool/phy-creat`]);
+    }
+
+    gotoPhyList(item){
+        this.router.navigate([`physical-mng/physical-mng/physical-list`,{"pmpoolId": item.pmPoolId}]);
     }
 
     gotoCreat(){

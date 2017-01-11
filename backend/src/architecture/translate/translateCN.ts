@@ -2,6 +2,7 @@
     "COMMON": {
         "$": "￥",
         "ADD_TO_SHOPPING_CART": "加入购物车",
+        "AGREE": "同意",
         "ALL": "所有",
         "ALL1": "全部",
         "AMOUNT": "数量",
@@ -100,10 +101,9 @@
         "STORAGE": "存储",
         "STORAGE_DEVICE": "存储设备",
         "STORAGE_TYPE": "储存类型",
+        "SYSTEM": "系统",
         "TOTAL_COST": "费用总计",
         "TYPE": "类型",
-        "SYSTEM": "系统",
-        "AGREE": "同意",
         "UNIT": "单位",
         "VIEW": "查看",
         "DEPARTMENT": "部门",
@@ -213,6 +213,7 @@
         "ENSURE": "确定",
         "ENTERPRISE_FOR_SELECT": "可选企业",
         "ENTERPRISE_IMAGE": "企业镜像",
+        "FORMAT": "镜像格式",
         "GETTING_DATA_FAILED": "获取数据失败！",
         "HPE_VMWARE_PLATFORM": "上海HPE VMware云平台",
         "IMAGE_DISABLED": "镜像已被禁用",
@@ -654,7 +655,7 @@
         "SYNC_ZONE_FAILED": "同步可用区失败",
         "USERNAME_REQUIRED": "请输入用户名",
         "VERSION_REQUIRED": "请选择版本",
-        "ZONES_QUOTA": "可用区与配额",
+        "ZONES_QUOTA": "可用区与配额"
     },
     "PROD_MNG": {
         "COUNT_MODE": "计费模式",
@@ -665,6 +666,14 @@
         "STORAGE_BACKEND": "存储后端"
     },
     "USER_CENTER": {
+        "ACCOUNT_FORMAT_ERROR": "账号格式输入错误，请输入正确邮箱地址",
+        "ACCOUNT_NOT_NULL": "账号不能为空",
+        "AD_SOURCE": "认证源",
+        "AD_USER_ACCOUNT": "AD用户帐号",
+        "CONTACT_PHONE": "联系电话",
+        "CONTACT_PHONE_NOT_NULL": "联系电话不能为空",
+        "CREATE_AD_USER": "创建AD用户",
+        "DONOT_TOUCH_DEFAULT_ORG": "禁止操作默认机构",
         "INPUTNAME": "请输入姓名",
         "INPUT_ACC": "请输入帐号",
         "INPUT_ACC_QUICK_SEARCH": "输入帐号信息快速搜索",
@@ -673,7 +682,12 @@
         "INPUT_MOBILE_PHONE": "请输入手机号码",
         "INPUT_ORG_NAME": "请输入机构名称",
         "INPUT_PHONE": "请输入联系电话",
-        "INPUT_USERNAME_SEARCH": "输入姓名回车搜索"
+        "INPUT_USERNAME_SEARCH": "输入姓名回车搜索",
+        "MOBILE_PHONE_FORMAT_ERROR": "手机号格式输入错误，请输入正确手机号",
+        "NAME": "姓名",
+        "NAME_NOT_NULL": "姓名不能为空",
+        "PHONE_NOT_NULL": "电话不能为空",
+        "SELECT_AD_SOURCE": "认证源选择"
     },
     "CHECK_CENTER": {
         "APPROVE_LIST": "已审批列表",
@@ -700,5 +714,5 @@
         "APPROVE_DETAILS": "审批详细",
         "APPROVE_TIME": "审批时间",
         "APPROVE_OPINIONS": "审批意见",
-    },
+    }
 }

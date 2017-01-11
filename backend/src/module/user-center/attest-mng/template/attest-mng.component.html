@@ -24,12 +24,12 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-				    <th >选择</th>
+				    <th >{{'NET_VM_NSX_INDEX.SELECT' | translate}}<!--选择--></th>
 					<th>认证源名称</th>
 					<th>URL地址</th>
 					<th>认证类型</th>
 					<th>状态</th>
-					<th>描述</th>
+					<th>{{'COMMON.DESCRIPTION' | translate}}<!--描述--></th>
 				</tr>
 			</thead>
 			 <tbody>
@@ -47,6 +47,6 @@
 	</div>
 </div>
 <fc-pagination #pager tp={{totalPage}} (pf)="getAttests($event)"></fc-pagination>
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"  ></fc-notice>
-<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"  ></fc-confirm>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="NET_MNG_VM_DBT_PORT.COMFIRM"  ></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="NET_MNG_VM_DBT_PORT.COMFIRM" ct="NET_MNG_VM_DBT_PORT.CNACLE"  ></fc-confirm>
  

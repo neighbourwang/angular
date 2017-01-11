@@ -190,6 +190,9 @@ export class OrderMngSearchComponent implements OnInit{
 			return this.loadBuyer();
 		})
 		.then(success=>{
+			return this.search();
+		})
+		.then(success=>{
 			this.layoutService.hide();
 		})
 		.catch(err=>{
@@ -275,6 +278,7 @@ export class OrderMngSearchComponent implements OnInit{
 			currentPage:pageNumber
 			,size:10
 		};
+		this._orderLoader.clear();
 		this._orderLoader.Go(pageNumber, null, param)
 		.then(success=>{
 			this.layoutService.hide();
@@ -335,5 +339,9 @@ export class OrderMngSearchComponent implements OnInit{
 		this._buyerLoader.clear();
 		
 	}
-	
+	//翻页
+	changePage(pageNumber:number)
+	{
+		this.search(pageNumber);
+	}
 }
