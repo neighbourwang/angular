@@ -79,10 +79,6 @@ export class PhyCreatComponent implements OnInit{
             this.showAlert("请输入资源池名称");
             return;
         }
-/*        if(this.validationService.isBlank(this.selectedlist.region)){
-            this.showAlert("请输入所属地域");
-            return;
-        }*/
         if(this.validationService.isBlank(this.selectedlist.dataCenter)){
             this.showAlert("请输入数据中心");
             return;
