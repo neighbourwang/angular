@@ -118,6 +118,14 @@
         "COST": "费用",
         "COUNT_MODE": "计费模式",
         "ORDER_CYCLE": "订单周期",
+        "REFUSE": "拒绝",
+        "CANCLE": "取消",
+        "SUBMIT": "提交",
+        "REASON": "原因",
+        "TURN_ON":"开启",
+        "TURN_OFF":"关闭",
+        "APPROVE": "审批",
+        "MIN":"分钟",
     },
     "ENT_MNG": {
         "ENT_CERT_UPDATE_FAILED": "认证更新失败",
@@ -691,6 +699,7 @@
     },
     "CHECK_CENTER": {
         "APPROVE_LIST": "已审批列表",
+        "PENDING_APPROVE_LIST": "待审批列表",
         "APPROVE_RESULT": "审批结果",
         "APPROVE_LIST_DATA_ERROR": "已审批列表加载错误",
         "APPROVE_RESULT_DATA_ERROR": "审批结果加载错误",
@@ -714,5 +723,13 @@
         "APPROVE_DETAILS": "审批详细",
         "APPROVE_TIME": "审批时间",
         "APPROVE_OPINIONS": "审批意见",
+        "ORDER_REQUESTS_REJECTED":"订单请求被拒绝",
+        "CAN_ENTER_CHINESE_AND_CHARACTERS":"可以输入中文与字符，最大不能超过200个字",
+        "APPROVE_SET": "审批设置",
+        "ENTERPRISE_TENANT_NAME": "企业（租户）名称",
+        "APPROVAL_IS_OPEN":"审批是否开启",
+        "AUTO_APPROVAL_TIME_MIN":"自动审批时间(分钟)",
+        "SET_APPROVE": "设置审批",
+        "AUTO_APPROVAL_TIME_SET":"自动审批时间设置",
     }
 }

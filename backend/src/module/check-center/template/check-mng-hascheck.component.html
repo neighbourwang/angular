@@ -147,7 +147,7 @@
 									<ul *ngFor="let approveItem of item.checkResult | async">
 										<li>{{ 'CHECK_CENTER.APPROVER' | translate }}: &nbsp;&nbsp;{{approveItem.approver}}</li>
 										<li>{{ 'CHECK_CENTER.APPROVE_TIME' | translate }}: &nbsp;&nbsp;{{approveItem.operateTime}}</li>
-										<li>审批意见{{ 'CHECK_CENTER.APPROVER' | translate }}: &nbsp;&nbsp;{{approveItem.reason}}</li>			
+										<li>{{ 'CHECK_CENTER.APPROVE_OPINIONS' | translate }}: &nbsp;&nbsp;{{approveItem.reason}}</li>			
 									</ul>
 
 							</popover-content>
