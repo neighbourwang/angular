@@ -1,5 +1,6 @@
 ﻿export const TranslateCN = {
     "CHECK_CENTER": {
+        "APPROVAL": "审批同意",
         "APPROVE_LIST_DATA_ERROR": "已审批列表加载错误",
         "APPROVE_RESULT_DATA_ERROR": "审批结果加载错误",
         "APPROVE_SET_ERROR": "审批数据保存失败",
@@ -9,14 +10,14 @@
         "APPROVE_SET_NEED_APPROVE_TIME": "请设置有效自动审批时间",
         "APPROVE_SUBMITTER_DATRA_ERROR": "提交者列表加载错误",
         "APPROVE_USER_DATA_ERROR": "审批人列表加载错误",
+        "ARE_YOU_SURE_YOU_WANT_TO_APPROVE": "你确认要审批同意该订单吗",
         "NOT_APPROVED_LIST_DATA_ERROR": "待审批列表加载错误",
-        "YOU_MUST_FILL_IN_THE_REASONS": "必须填写拒绝原因，且不能超出200字",
-        "APPROVAL":"审批同意",
-        "ARE_YOU_SURE_YOU_WANT_TO_APPROVE":"你确认要审批同意该订单吗",
+        "YOU_MUST_FILL_IN_THE_REASONS": "必须填写拒绝原因，且不能超出200字"
     },
     "COMMON": {
         "$": "￥",
         "ADD_TO_SHOPPING_CART": "加入购物车",
+        "AGREE": "同意",
         "ALL": "所有",
         "ALL1": "全部",
         "AMOUNT": "数量",
@@ -115,10 +116,9 @@
         "STORAGE": "存储",
         "STORAGE_DEVICE": "存储设备",
         "STORAGE_TYPE": "储存类型",
+        "SYSTEM": "系统",
         "TOTAL_COST": "费用总计",
         "TYPE": "类型",
-        "SYSTEM": "系统",
-        "AGREE": "同意",
         "UNIT": "单位",
         "VIEW": "查看"
     },
@@ -216,6 +216,7 @@
         "ENSURE": "确定",
         "ENTERPRISE_FOR_SELECT": "可选企业",
         "ENTERPRISE_IMAGE": "企业镜像",
+        "FORMAT": "镜像格式",
         "GETTING_DATA_FAILED": "获取数据失败！",
         "HPE_VMWARE_PLATFORM": "上海HPE VMware云平台",
         "IMAGE_DISABLED": "镜像已被禁用",
@@ -263,8 +264,7 @@
         "SYSTEM_PROMPT": "系统提示",
         "TYPE": "类型",
         "UNSELECTED_ENTERPRISE": "未选择企业",
-        "UNSET": "未设置",
-        "FORMAT":"镜像格式"
+        "UNSET": "未设置"
     },
     "LANG": "中文",
     "NET_MNG_OPENSTACK": {
@@ -658,7 +658,7 @@
         "SYNC_ZONE_FAILED": "同步可用区失败",
         "USERNAME_REQUIRED": "请输入用户名",
         "VERSION_REQUIRED": "请选择版本",
-        "ZONES_QUOTA": "可用区与配额",
+        "ZONES_QUOTA": "可用区与配额"
     },
     "PROD_MNG": {
         "COUNT_MODE": "计费模式",
@@ -669,6 +669,7 @@
         "STORAGE_BACKEND": "存储后端"
     },
     "USER_CENTER": {
+        "DONOT_TOUCH_DEFAULT_ORG": "禁止操作默认机构",
         "INPUTNAME": "请输入姓名",
         "INPUT_ACC": "请输入帐号",
         "INPUT_ACC_QUICK_SEARCH": "输入帐号信息快速搜索",
@@ -677,6 +678,7 @@
         "INPUT_MOBILE_PHONE": "请输入手机号码",
         "INPUT_ORG_NAME": "请输入机构名称",
         "INPUT_PHONE": "请输入联系电话",
-        "INPUT_USERNAME_SEARCH": "输入姓名回车搜索"
+        "INPUT_USERNAME_SEARCH": "输入姓名回车搜索",
+        "SELECT_AD_SOURCE": "认证源选择"
     }
 }
