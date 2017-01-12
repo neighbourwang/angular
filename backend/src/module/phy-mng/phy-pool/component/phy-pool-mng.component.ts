@@ -200,10 +200,7 @@ export class PhyPoolMngComponent implements OnInit{
             this.showAlert("启用状态下不能编辑！");
         }else{
             this.router.navigate([`phy-mng/phy-pool/phy-creat`,
-                {   "poolName": selectedphy.pmPoolName,
-                    "region": selectedphy.region,
-                    "dataCenter": selectedphy.dataCenter,
-                    "description": selectedphy.description,
+                {
                     "pmpoolId": selectedphy.pmPoolId
                 }
             ]);

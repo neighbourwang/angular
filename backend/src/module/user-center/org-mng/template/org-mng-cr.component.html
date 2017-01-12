@@ -72,12 +72,12 @@
                 <thead>
                     <tr>
                         <th>{{'NET_VM_NSX_INDEX.SELECT' | translate}}<!--选择--></th>
-                        <th>编号</th>
+                        <th>{{'HOST_OPENSTACK_MNG.NUMBER' | translate}}<!--编号--></th>
                         <th>云平台名称</th>
                         <th>所属数据中心</th>
                         <th>所属地域</th>
                         <th>云平台类型</th>
-                        <th>状态</th>
+                        <th>{{'NET_MNG_OPENSTACK.STATUS' | translate}}<!--状态--></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -96,7 +96,7 @@
 
         <div class="text-center" style="margin-top : 30px">
             <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel()">
-                <span class="icon-button-label">取消</span>
+                <span class="icon-button-label">{{'NET_MNG_VM_PORT.CNACLE' | translate}}<!--取消--></span>
             </button>
             <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px" (click)="create()">
                 <span class="icon-button-label">{{btnName}}</span>

@@ -3,6 +3,8 @@ export class Criteria{
     region: string;
     dataCenter: string;
     description: string;
+    pmPoolId: string;
+    regionId: string;
 
     constructor() {
     }
@@ -12,10 +14,12 @@ export class Criteria{
     }
 }
 /*
-{
-    "criteriaQuery": {
-    "poolName": "北京地区-物理资源池1",
-        "region": "北京",
-        "dataCenter": "朝阳数据中心"
-}
+ {
+ "dataCenter": "string",
+ "description": "string",
+ "pmPoolId": "string",
+ "poolName": "string",
+ "region": "string",
+ "regionId": "string"
+ }
 }*/

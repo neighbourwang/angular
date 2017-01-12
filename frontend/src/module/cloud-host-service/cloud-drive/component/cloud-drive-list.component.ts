@@ -125,7 +125,7 @@ export class cloudDriveListComponent implements OnInit {
 
 			setTimeout(() => {   //延迟4秒执行 因为后端4秒同步一次状态
 				this.setDistList();
-			},4000)
+			},5000)
 		}).catch(error => {
 			this.layoutService.hide();
 		})

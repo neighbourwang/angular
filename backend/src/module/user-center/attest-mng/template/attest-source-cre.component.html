@@ -20,7 +20,7 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>用户名(Full DN)：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'USER_CENTER.USERNAME' | translate}}<!--用户名-->(Full DN)：</div>
 					<div class="col-sm-4">
 						<input type="text" class="form-control  font-gray" [(ngModel)]="attest.userName" [disabled]="edit">
 					</div>
@@ -88,10 +88,10 @@
         <span class="icon-button-label">{{'NET_MNG_VM_IP_MNG.CREATE' | translate}}<!--创建--></span>
     </button>
     <button *ngIf="edit" class="fox-cloud-button-lg fox-cloud-button-white" (click)="onEdit();">
-        <span class="icon-button-label">保存</span>
+        <span class="icon-button-label">{{'HOST_VMWARE_MNG.SAVE' | translate}}<!--保存--></span>
     </button>
     <button *ngIf="editAcc" class="fox-cloud-button-lg fox-cloud-button-white" (click)="onEditAcc();">
-        <span class="icon-button-label">保存</span>
+        <span class="icon-button-label">{{'HOST_VMWARE_MNG.SAVE' | translate}}<!--保存--></span>
     </button>
 </div>
 <div style="height:50px"></div>
