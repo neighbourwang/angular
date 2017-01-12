@@ -48,7 +48,7 @@ export class PhysicalListComponent implements OnInit {
 
     physicalList:Array< PhysicalListModel>;
     pmQuery:PmQuery;
-    physical:PhysicalModel;
+   // physical:PhysicalModel;
     type: string;
     poolId:string;
     poolName:string;
@@ -75,7 +75,7 @@ export class PhysicalListComponent implements OnInit {
      getPhysicalList(index?: number) {
         this.pageIndex = index || this.pageIndex;
         this.layoutService.show();
-         console.log("物理机",this.pmQuery);
+         console.log("物理机查询参数",this.pmQuery);
         this.service.getPhysicals(this.pageIndex, this.pageSize,this.pmQuery)
             .then(
                 response => {
@@ -95,21 +95,34 @@ export class PhysicalListComponent implements OnInit {
     
     //删除、修改物理机的状态 0禁用 1启用 2删除
     changePhysicalStatusAndDelete(status:string){
-        const physical=this.getSelectPhysical();
-        console.log("选择的物理机",physical.pmName);
+         const physical = this.physicalList.find((physical) => { return physical.isSelect });
+        
         if(!physical){
-            this.showAlert("请选择需要编辑的物理机");
-            return;
+            if(status=="0"){
+               this.showAlert(`请选择需要禁用的物理机`);
+                return;
+            }
+            if(status=="1"){
+               this.showAlert(`请选择需要启用的物理机`);
+                return;
+            }
+            if(status=="2"){
+               this.showAlert(`请选择需要删除的物理机`);
+                return;
+            }                   
         }
+         console.log("选择的物理机",physical.pmName);
         if(physical.pmMainStatus==status){
-            this.showAlert(`该物理机已经是${this.dictPipe.transform("physical.pmMainStatus",this.service.dictProductType)}状态！`);
+            //this.showAlert(`该物理机已经是'${this.dictPipe.transform("physical.pmMainStatus",this.service.dictProductType)}'状态！`);
+            this.showAlert(`该物理机已经是'${physical.pmMainStatus}'状态！`);
             return;
         }
          switch (status) {
                 case "0":
-                   this.noticeMsg = `确认禁用'${physical.pmName}' ?`;
+                   {this.noticeMsg = `确认禁用'${physical.pmName}' ?`;
                    this.noticeTitle=`禁用物理机`;
                     break;
+                   }
                 case "1":
                    this.noticeMsg = `确认启用'${physical.pmName}' ?`;
                    this.noticeTitle=`启用物理机`;
@@ -147,25 +160,25 @@ export class PhysicalListComponent implements OnInit {
     //添加物理机
     createPhysical(){
         this.type="create";
-        this.route.navigate(['physical-mng/physical-mng/physical-edit',{type:this.type}])
+        this.route.navigate(['physical-mng/physical-mng/physical-edit',{type:this.type,poolId:this.poolId}])
 
     }
 
     //跳转查看物理机
     gotoPhysicalView(){
         this.type="view";
-        const physical=this.getSelectPhysical();
+          const physical = this.physicalList.find((physical) => { return physical.isSelect });
         if(!physical){
             this.showAlert("请选择需要查看的物理机");
             return;
         }
-        this.route.navigate(['physical-mng/physical-mng/physical-edit',{type:this.type,id:physical.pmId}])
+        this.route.navigate(['physical-mng/physical-mng/physical-edit',{type:this.type,id:physical.pmId,poolId:this.poolId}])
     }
 
     //跳转编辑物理机
     editPhysical(){
         this.type="edit";
-        const physical=this.getSelectPhysical();
+          const physical = this.physicalList.find((physical) => { return physical.isSelect });
         if(!physical){
             this.showAlert("请选择需要编辑的物理机");
             return;
@@ -175,7 +188,8 @@ export class PhysicalListComponent implements OnInit {
 
     //跳转编辑ipmi信息
     changeIpmiInfo(){
-        const physical=this.getSelectPhysical();
+         const physical = this.physicalList.find((physical) => { return physical.isSelect });
+
         if(!physical){
             this.showAlert("请选择需要编辑的物理机");
             return;
@@ -186,10 +200,16 @@ export class PhysicalListComponent implements OnInit {
 
 
     //选择物理机
-    getSelectPhysical(): PhysicalListModel{
-        const physical = this.physicalList.find((o) => { return o.isSelect });
-        return physical;
+    getSelectPhysical(physical: PhysicalListModel) {
+        this.physicalList.forEach((physical) => {
+            physical.isSelect = false;
+        });
+        physical.isSelect= true;
     }
+    // getSelectPhysical(): PhysicalListModel{
+    //     const physical = this.physicalList.find((o) => { return o.isSelect });
+    //     return physical;
+    // }
 
     //搜索
     search(){      
