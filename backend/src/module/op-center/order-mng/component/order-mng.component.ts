@@ -332,26 +332,26 @@ export class OrderMngComponent implements OnInit{
 
 	search(pageNumber:number = 1){
 		/*
-{
-  "createDate": "2017-01-05T06:05:54.900Z",
-  "creatorId": "string",
-  "enterpriseId": "string",
-  "expireDate": "2017-01-05T06:05:54.900Z",
-  "organization": "string",
-  "pageParameter": {
-    "currentPage": 0,
-    "offset": 0,
-    "size": 0,
-    "sort": {},
-    "totalPage": 0
-  },
-  "platformId": "string",
-  "searchText": "string",
-  "serviceType": "string",
-  "status": "string",
-  "zoneId": "string"
-}
-		*/
+		{
+		"createDate": "2017-01-05T06:05:54.900Z",
+		"creatorId": "string",
+		"enterpriseId": "string",
+		"expireDate": "2017-01-05T06:05:54.900Z",
+		"organization": "string",
+		"pageParameter": {
+			"currentPage": 0,
+			"offset": 0,
+			"size": 0,
+			"sort": {},
+			"totalPage": 0
+		},
+		"platformId": "string",
+		"searchText": "string",
+		"serviceType": "string",
+		"status": "string",
+		"zoneId": "string"
+		}
+				*/
 		this.layoutService.show();
 
 		let param = _.extend({}, this._param);

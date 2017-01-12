@@ -135,7 +135,7 @@ export const PhysicalList_mock = {
         "pmLocation": "1F-1-1",
         "pmPowerStatus": 1,
         "pmUseageStatus": 1,
-        "pmMainStatus": 1,
+        "pmMainStatus": 0,
         "pmHealthExam": 1
         
     },
@@ -168,6 +168,36 @@ export const PhysicalList_mock = {
         "totalRecords": 1
   }  
 }
+
+export const Hardware_mock = {
+    "resultCode":"100",
+  "detailDescription": null,
+  "resultContent": {
+    "model": "DL380 G9",
+    "sn": "ABC124ABC",
+    "pmHardwareCPU": {
+      "version": "Xeon E5 2560",
+      "value": 8
+    },
+    "pmHardwareMemory": {
+      "version": "32GB X4 PC3L-10600",
+      "value": 128
+    },
+    "pmHardwareDiskList": [
+      {
+        "version": "4*SSD",
+        "value": null
+      },
+      {
+        "version": "4*SAS",
+        "value": null
+      }
+    ]
+  }
+}
+
+
+  
 
 
   
