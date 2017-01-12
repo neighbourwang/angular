@@ -71,11 +71,11 @@ export class AccountMngEditAd implements OnInit {
             return;
         }
 
-        if (!this.validationService.isMoblie(this.account.phone) &&
-            !this.validationService.isTel(this.account.phone)) {
-            this.showAlert("请输入合法的联系电话;");
-            return;
-        }
+        //if (!this.validationService.isMoblie(this.account.phone) &&
+        //    !this.validationService.isTel(this.account.phone)) {
+        //    this.showAlert("请输入合法的联系电话;");
+        //    return;
+        //}
 
         if (this.account.roles.length === 0) {
             this.showAlert("至少选择一个角色");
