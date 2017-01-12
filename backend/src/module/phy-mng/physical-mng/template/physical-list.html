@@ -65,7 +65,7 @@
                         <tbody>
                             <tr *ngFor="let physical of physicalList; let idex=index;">
                                 <td ><input type="radio" name="physical" class="fox-cloud-radio" 
-                                            [checked]="physical.isSelect" (change)="physical.isSelect = $event.target.checked" ></td>
+                                          (change)="getSelectPhysical(physical);"[checked]="physical.isSelect" ></td>                                      
                                 <td>{{idex+1}}</td>
                                 <td class="font-blue" (click)="gotoPhysicalView(physical);">{{physical.pmName}}</td> 
                                 <td>{{physical.pmSN}}                                
@@ -79,9 +79,9 @@
                                 <td>{{physical.pmIPMIAddr}}</td>
                                 <td>{{physical.pmLocation}}</td>
                                 <td>{{physical.pmPowerStatus}}</td>
-                                <td>{{physical.UseageStatus}}</td>
-                                <td >{{physical.pmMainStatus}}</td>
-                                <td >{{physical.pmHealthExam}}</td>														
+                                <td>{{physical.UseageStatus }}</td>
+                                <td >{{physical.pmMainStatus| dict:service.dictProductType | async}}</td>
+                                <td >{{physical.pmHealthExam }}</td>														
                             </tr>                                                             
                         </tbody>
                 </table>             

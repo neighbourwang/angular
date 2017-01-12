@@ -76,7 +76,7 @@ export class EntEstMngComponent implements OnInit {
 
 
       //字典配置
-      this.statusDic = new DicLoader(restApiCfg, restApi, "GLOBAL", "STATUS");
+      this.statusDic = new DicLoader(restApiCfg, restApi, "TENANT", "STATUS");
       this.statusDic.SourceName = "status";
       this.statusDic.TargetName = "statusName";
   }
@@ -305,7 +305,13 @@ export class EntEstMngComponent implements OnInit {
   setupAdmin(){
     if(this.getSelected())
     {
-      this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-mng/${this.getSelected().enterpriseId}`);
+      if(this.getSelected().status=="1"){
+         this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-mng/${this.getSelected().enterpriseId}`);
+      }
+      else{
+        this.showMsg("只有启用的企业才能设置管理员！");
+      }
+
     }
   }
 
@@ -313,7 +319,11 @@ export class EntEstMngComponent implements OnInit {
   enable(){
     if(this.getSelected())
     {
-      this.confirmedHandler = ()=>{
+      if(this.getSelected().status=="1"){
+        this.showMsg("已启用的企业不能再次启用，请重新选择企业！");
+      }
+      else {
+        this.confirmedHandler = ()=>{
         this.service.updateEntStatus(this.getSelected().enterpriseId, Status.Active)
         .then(ret=>{
           this.search(null);
@@ -324,6 +334,8 @@ export class EntEstMngComponent implements OnInit {
         })
       };
       this.confirm.open("启用企业", `选择启用"${this.getSelected().enterpriseName}"企业，请确认`);
+      }
+      
     }
   }
 
@@ -331,7 +343,14 @@ export class EntEstMngComponent implements OnInit {
   disable(){
     if(this.getSelected())
     {
-      this.confirmedHandler = ()=>{
+       if(this.getSelected().status=="2") {
+        this.showMsg("已禁用的企业不能再禁用，请重新选择企业！");
+      }
+       else if(this.getSelected().status=="0"){
+        this.showMsg("未启用的企业不能再禁用，请重新选择企业！");
+       }
+      else{
+        this.confirmedHandler = ()=>{
         this.service.updateEntStatus(this.getSelected().enterpriseId, Status.Suspend)
         .then(ret=>{
           this.search(null);
@@ -342,6 +361,7 @@ export class EntEstMngComponent implements OnInit {
         })
       };
       this.confirm.open("禁用企业", `您选择禁用"${this.getSelected().enterpriseName}"企业，请确认；如果确认，企业用户将不能进入云管理平台自助服务门户。`);
+      }
     }
   }
 
@@ -349,7 +369,14 @@ export class EntEstMngComponent implements OnInit {
   delete(){
     if(this.getSelected())
     {
-      this.confirmedHandler = ()=>{
+      if(this.getSelected().status=="4"){
+        this.showMsg("已删除的企业无法删除，请重新选择企业！");
+      }
+      else if(this.getSelected().status=="1"){
+        this.showMsg("已启用的企业无法删除，请重新选择企业！");
+      }
+      else{
+        this.confirmedHandler = ()=>{
         this.service.updateEntStatus(this.getSelected().enterpriseId, Status.Deleted)
         .then(ret=>{
           this.search(null);
@@ -360,6 +387,7 @@ export class EntEstMngComponent implements OnInit {
         })
       };
       this.confirm.open("删除企业", `您选择删除"${this.getSelected().enterpriseName}"企业，请确认；如果确认，此企业数据将不能恢复。`);
+      }
     }
   }
 

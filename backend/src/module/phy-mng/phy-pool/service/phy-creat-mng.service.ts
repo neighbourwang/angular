@@ -3,11 +3,10 @@ import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
 
 //model
-import { PhyCreat } from '../model/phy-creat-list.model.ts';
-import { PhyPoolList } from '../model/phy-pool-list.model.ts';
+import {Criteria} from "../model/criteria.model";
+import { Region_mock } from '../model/phy-list.mock.model';
 
 import 'rxjs/add/operator/toPromise';
-import {Criteria} from "../model/criteria.model";
 
 @Injectable()
 export class PhyCreatMngService {
@@ -28,7 +27,9 @@ export class PhyCreatMngService {
                 "dataCenter": phyC.dataCenter,
                 "description": phyC.description,
                 "poolName": phyC.poolName,
-                "region": phyC.region
+                "region": phyC.region,
+                "pmPoolId": phyC.pmPoolId,
+                "regionId": phyC.regionId
 
             });
     }
@@ -46,14 +47,28 @@ export class PhyCreatMngService {
                 "poolName": phyP.poolName,
                 "region": phyP.region,
                 "dataCenter": phyP.dataCenter,
-                "description": phyP.description
+                "description": phyP.description,
+                "pmPoolId": phyP.pmPoolId,
+                "regionId": phyP.regionId
 
             });
     }
 
-    regionList(){
+    getRegionList(){
         const api= this.restApiCfg.getRestApi("phy-mng.phy-pool.phylist.region");
         return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => Region_mock);
+    }
+
+    getData(pmpoolId: string){
+        const pathParams=[
+            {
+                key:"pmpool_id",
+                value: pmpoolId
+            }
+        ];
+        const api= this.restApiCfg.getRestApi("phy-mng.phy-pool.phylist.view");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
     }
 
 }

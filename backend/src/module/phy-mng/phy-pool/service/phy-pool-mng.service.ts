@@ -4,7 +4,6 @@ import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
 
 //model
 import {Criteria} from "../model/criteria.model";
-import {PhyCreat} from "../model/phy-creat.model";
 
 import 'rxjs/add/operator/toPromise';
 
@@ -56,35 +55,5 @@ export class PhyPoolMngService {
         const api= this.restApiCfg.getRestApi("phy-mng.phy-pool.phylist.enable");
         return this.restApi.request(api.method, api.url, pathParams, null, null);
     }
-
-    edit(criteria: Criteria, pmpoolId: string){
-        const pathParams=[
-            {
-                key:"pmpool_id",
-                value: pmpoolId
-            }
-        ];
-        const api= this.restApiCfg.getRestApi("phy-mng.phy-pool.phylist.edit");
-        return this.restApi.request(api.method, api.url, pathParams, null,
-            {
-                "poolName": criteria.poolName,
-                "region": criteria.region,
-                "dataCenter": criteria.dataCenter,
-                "description": criteria.description
-
-            });
-    }
-
-    creat(phy: PhyCreat){
-        const api= this.restApiCfg.getRestApi("phy-mng.phy-pool.phylist.creat");
-        return this.restApi.request(api.method, api.url, null, null,
-            {
-                "dataCenter": "string",
-                "description": "string",
-                "poolName": "string",
-                "region": "string"
-
-            });
-    }
-
+    
 }

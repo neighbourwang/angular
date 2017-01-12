@@ -6,9 +6,7 @@ import { LayoutService, NoticeComponent , ConfirmComponent, PaginationComponent 
 
 //model
 import { PhyPoolList } from '../model/phy-pool-list.model.ts';
-import {CriteriaQuery} from "../model/criteria-query.model";
 import { Criteria } from "../model/criteria.model";
-import {PhyCreat} from "../model/phy-creat.model";
 
 //service
 import { PhyPoolMngService } from '../service/phy-pool-mng.service';
@@ -48,8 +46,6 @@ export class PhyPoolMngComponent implements OnInit{
     totalPage= 1;
 
     data: Array<PhyPoolList>;
-    criteriaQuery: CriteriaQuery= new CriteriaQuery();
-    phy: PhyCreat= new PhyCreat();
     criteria: Criteria= new Criteria();
     default: string;
     search: string;
@@ -187,7 +183,13 @@ export class PhyPoolMngComponent implements OnInit{
     }
 
     gotoPhyList(item){
-        this.router.navigate([`physical-mng/physical-mng/physical-list`,{"pmpoolId": item.pmPoolId}]);
+        this.router.navigate([`physical-mng/physical-mng/physical-list`,
+            {   "pmpoolId": item.pmPoolId,
+                "poolName": item.pmPoolName,
+                "region": item.region,
+                "dataCenter":item.dataCenter
+            }
+        ]);
     }
 
     gotoCreat(){
@@ -200,10 +202,7 @@ export class PhyPoolMngComponent implements OnInit{
             this.showAlert("启用状态下不能编辑！");
         }else{
             this.router.navigate([`phy-mng/phy-pool/phy-creat`,
-                {   "poolName": selectedphy.pmPoolName,
-                    "region": selectedphy.region,
-                    "dataCenter": selectedphy.dataCenter,
-                    "description": selectedphy.description,
+                {
                     "pmpoolId": selectedphy.pmPoolId
                 }
             ]);
