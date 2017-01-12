@@ -139,7 +139,7 @@ export class cloudHostListComponent implements OnInit {
 
 			setTimeout(() => {   //延迟4秒执行 因为后端4秒同步一次状态
 				this.setHostList();
-			},4000)
+			},5000)
 		}).catch(error => {
 			this.layoutService.hide();
 		})
@@ -161,9 +161,9 @@ export class cloudHostListComponent implements OnInit {
             }
         ];
 		this.service.getConsoleUrl(pathParams).then(res => {  
-			if(this.options.type === "os") {    //openstract直接打开
+			if(vm.platformType === "0") {    //openstract直接打开
 				window.open(res)
-			}else if(this.options.type === "vw") {  //vmware 需要打开一个页面穿进去url
+			}else if(vm.platformType === "2") {  //vmware 需要打开一个页面穿进去url
 				window.localStorage["vmwControlUrl"] = res;
 				window.open("/control.html");
 			}

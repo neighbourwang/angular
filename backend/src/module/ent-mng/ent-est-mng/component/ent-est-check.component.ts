@@ -123,6 +123,7 @@ export class EntEstCheckComponent implements OnInit {
         , null
         , this
         , this.entId);
+  
 
     //加载产品信息
     this.loadEntProdItems();
@@ -159,6 +160,7 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
 
 
   getCertMethod(){
+      console.log("测试认证方式"+this.entEst.BasicInfo.certMethod);
     return {
       0:"本地"
       ,1:"AD"

@@ -56,13 +56,13 @@ export class ProdMngComponent implements OnInit {
 
     //平台
     platformsList = new Array();
-    platformId: string;
+    platformId: string='';
     //企业
     enterpriseList = new Array();
-    enterpriseId: string;
+    enterpriseId: string='';
     //产品目录列表
     prodDirList = new Array();
-    prodDirId: string;
+    prodDirId: string='';
     //初始化
     ngOnInit() {
         console.log('init');

@@ -115,7 +115,7 @@ export class OrgMngListComponent implements OnInit {
         console.log(this.org);
         if (this.org.id) {
             if (this.org.status == 1) {
-                this.notice.open('操作错误', '不能启用已启用状态下的机构')
+                this.notice.open('操作错误', '机构状态已启用')
                 return;
             }
             this.confirmTitle = "启用机构";
@@ -129,7 +129,7 @@ export class OrgMngListComponent implements OnInit {
     }
 
     disable() {
-        if (this.org.status == 5) {
+        if (this.org.status == 3) {
                 this.notice.open('操作错误', '机构状态已禁用')
                 return;
             }
