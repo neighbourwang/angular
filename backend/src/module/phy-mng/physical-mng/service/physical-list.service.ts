@@ -40,7 +40,7 @@ export class PhysicalListService {
                 value: pageSize
             }
         ];
-        // const api = this.restApiCfg.getRestApi("physical-mng.physical.list.get");
+        const api = this.restApiCfg.getRestApi("physical-mng.physical.list.get");
         // return this.restApi.request(api.method, api.url, pathParams, null,
         //     {
         //         "brand": pmQuery.brand,
@@ -52,6 +52,18 @@ export class PhysicalListService {
         //         }
         // );
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => PhysicalList_mock);
+    }
+
+    //根据资源池id获取资源池信息
+    getPoolInfo(poolId:string){
+         const pathParams = [
+            {
+                key: "pmpool_id",
+                value:poolId
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("phy-mng.phy-pool.phylist.view");
+        return this.restApi.request(api.method, api.url, pathParams, null,null);
     }
 
     //修改物理机的状态

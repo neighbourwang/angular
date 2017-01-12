@@ -32,3 +32,28 @@ export const Phylist_mock= {
             "totalRecords": 2
     }
 }
+
+export const Region_mock= {
+    "resultCode": 100,
+    "detailDescription": null,
+    "resultContent": [
+        {
+            "id": "2",
+            "code": "BeiJing",
+            "name": "北京",
+            "parentId": null
+        },
+        {
+            "id": "1",
+            "code": "ShangHai",
+            "name": "上海",
+            "parentId": null
+        },
+        {
+            "id": "3",
+            "code": "GuangZhou",
+            "name": "广州",
+            "parentId": null
+        }
+    ]
+}

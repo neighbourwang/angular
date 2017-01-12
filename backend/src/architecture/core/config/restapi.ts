@@ -1735,12 +1735,18 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "pmresourcemgmt/noauth/pmpool/regionlist"
     },
+    {
+        "desc": "根据poolId获取资源池信息",
+        "id": "phy-mng.phy-pool.phylist.view",
+        "method": "GET",
+        "url": "pmresourcemgmt/noauth/pmpool/view/{pmpool_id}"
+    },
 
 	//物理机资源池---物理机
      {
         "desc": "获取物理机列表",
         "id": "physical-mng.physical.list.get",
-        "method": "POSt",
+        "method": "POST",
         "url": "/pmresourcemgmt/noauth/pmpools/pms/{pmpool_id}/page/{page}/size/{size}"
     },
     {
@@ -1773,7 +1779,7 @@ export let RestApis: RestApiModel[] = [
         "id": "physical-mng.physical.ipmiInfo.put",
         "method": "PUT",
         "url": " /pmresourcemgmt/noauth/pmpool/pm/ilo/{pm_id}"
-    },   
+    },
      {
         "desc": "修改IPMI信息",
         "id": "physical-mng.physical.ipmiInfo.test.put",

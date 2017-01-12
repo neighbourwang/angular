@@ -1,11 +1,11 @@
-﻿<div class="page-content-header icon-content-header-purchasing">创建/编辑企业管理员</div>
+﻿<div class="page-content-header icon-content-header-purchasing">{{ 'ENT_MNG.CREATE_EDIT_ENTERPRISE_ADMINISTRATOR' | translate }}</div>
 <div class="page-content fix-page-content">
     <div class="row" style="padding-top: 30px;">
         <div class="col-md-12">
             <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span>企业：
+                        <span class="asterisk">*</span>{{ 'COMMON.ENTERPRISE' | translate }}:
                     </div>
                     <div class="col-sm-4">
                         <input type="text" disabled="disabled" class="form-control" [value]="enterprise.name||''" placeholder="">
@@ -15,7 +15,7 @@
             <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span>账号：
+                        <span class="asterisk">*</span>{{ 'COMMON.ACCOUNT' | translate }}:
                     </div>
                     <div class="col-sm-4">
                         <input type="text" [disabled]="aid!=''" class="form-control" [(ngModel)]="admin.loginName" placeholder="">
@@ -25,7 +25,7 @@
             <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span>管理员姓名：
+                        <span class="asterisk">*</span>{{ 'ENT_MNG.ADMINISTRATOR_NAME' | translate }}:
                     </div>
                     <div class="col-sm-4">
                         <input type="text" class="form-control" [(ngModel)]="admin.userName" placeholder="">
@@ -35,7 +35,7 @@
             <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span>联系电话：
+                        <span class="asterisk">*</span>{{ 'COMMON.CONTACT_PHONE' | translate }}:
                     </div>
                     <div class="col-sm-4">
                         <input type="text" class="form-control" [(ngModel)]="admin.contactPhone" placeholder="">
@@ -44,7 +44,7 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">描述：</div>
+                    <div class="col-sm-4 form-control-title">{{ 'COMMON.DESCRIPTION' | translate }}:</div>
                     <div class="col-sm-4">
                         <textarea class="form-control" rows="8" [(ngModel)]="admin.description" placeholder=""></textarea>
                     </div>
@@ -55,12 +55,12 @@
 </div>
 <div class="text-center">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
-        <span class="icon-button-label">取消</span>
+        <span class="icon-button-label">{{ 'COMMON.CANCEL' | translate }}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="createAndUpdate();">
-        <span class="icon-button-label">{{ isEdit?"更新管理员":"新增管理员"}}</span>
+        <span class="icon-button-label">{{ isEdit?"ENT_MNG.UPDATE_ADMINISTRATOR":"ENT_MNG.ADD_ADMINISTRATOR" | translate }}</span>
     </button>
 </div>
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" (of)="nof()"></fc-notice>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate }}" (of)="nof()"></fc-notice>
 
-<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate }}" (of)="cof()" ct="{{ 'COMMON.CANCEL' | translate }}" (cf)="ccf()"></fc-confirm>

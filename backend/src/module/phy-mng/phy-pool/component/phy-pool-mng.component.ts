@@ -2,13 +2,11 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent , ConfirmComponent, PaginationComponent  } from '../../../../architecture';
+import { LayoutService, NoticeComponent , ConfirmComponent, PaginationComponent, SystemDictionary  } from '../../../../architecture';
 
 //model
 import { PhyPoolList } from '../model/phy-pool-list.model.ts';
-import {CriteriaQuery} from "../model/criteria-query.model";
 import { Criteria } from "../model/criteria.model";
-import {PhyCreat} from "../model/phy-creat.model";
 
 //service
 import { PhyPoolMngService } from '../service/phy-pool-mng.service';
@@ -47,9 +45,9 @@ export class PhyPoolMngComponent implements OnInit{
     pageSize= 20;
     totalPage= 1;
 
+    statusDic: Array<SystemDictionary>;
+
     data: Array<PhyPoolList>;
-    criteriaQuery: CriteriaQuery= new CriteriaQuery();
-    phy: PhyCreat= new PhyCreat();
     criteria: Criteria= new Criteria();
     default: string;
     search: string;
@@ -87,23 +85,23 @@ export class PhyPoolMngComponent implements OnInit{
             return p.selected;
         });
         if(!selectedphy){
-            this.showAlert("请选择资源池");
+            this.showAlert("PHY_MNG_POOL.PLEASE_CHOOSE_POOL");
         }else{
             this.selectedPhy= selectedphy;
             console.log(this.selectedPhy,"selectedPhy");
             if(this.selectedPhy.status == "1"){
                 if(status == "1"){
-                    this.showAlert("该资源池已处于启用状态");
+                    this.showAlert("PHY_MNG_POOL.POOL_ALREADY_ENABLE");
                 }else if(status == "0"){
                     this.disable(this.selectedPhy.pmPoolId);
                 }else{
-                    this.showAlert("启用状态下不能删除");
+                    this.showAlert("PHY_MNG_POOL.ENABLE_CANNOT_DELETE");
                 }
             }else{
                 if(status == "1"){
                     this.enable(this.selectedPhy.pmPoolId);
                 }else if(status == "0"){
-                    this.showAlert("该资源池已处于禁用状态");
+                    this.showAlert("PHY_MNG_POOL.POOL_ALREADY_DISABLE");
                 }else{
                     this.remove(this.selectedPhy.pmPoolId);
                 }
@@ -113,7 +111,9 @@ export class PhyPoolMngComponent implements OnInit{
     }
 
     enable(id: string){
-        this.enableConfirm.open('启用资源池','您选择启用'+this.selectedPhy.pmPoolName+'资源池，请确认；如果确认，用户将能够订购此资源池的资源。');
+        //this.noticeTitle= "启用";
+        //this.noticeMsg= "启用"+this.selectedPhy.pmPoolName;
+        this.enableConfirm.open('PHY_MNG_POOL.ENABLE_POOL','PHY_MNG_POOL.ENABLE_POOL_WARNING^^^'+this.selectedPhy.pmPoolName);
         this.enableConfirm.cof =() =>{
             this.layoutService.show();
             this.service.phyIfEnable(this.selectedPhy.pmPoolId, '1')
@@ -123,7 +123,7 @@ export class PhyPoolMngComponent implements OnInit{
                         if (response && 100 == response["resultCode"]) {
                             console.log(response,"======");
                             this.getData();
-                            this.showAlert("启用成功");
+                            this.showAlert("PHY_MNG_POOL.ENABLE_SUCCESS");
                         } else {
                             alert("Res sync error");
                         }
@@ -134,7 +134,7 @@ export class PhyPoolMngComponent implements OnInit{
     }
 
     disable (id: string){
-        this.enableConfirm.open('禁用资源池','您选择禁用'+this.selectedPhy.pmPoolName+'资源池，请确认；如果确认，用户将不能够订购此资源池的资源。');
+        this.enableConfirm.open('PHY_MNG_POOL.DISABLE_POOL','PHY_MNG_POOL.DISABLE_POOL_WARNING^^^'+this.selectedPhy.pmPoolName);
         this.enableConfirm.cof =() =>{
             this.layoutService.show();
             this.service.phyIfEnable(this.selectedPhy.pmPoolId, '0')
@@ -144,7 +144,7 @@ export class PhyPoolMngComponent implements OnInit{
                         if (response && 100 == response["resultCode"]) {
                             console.log(response,"======");
                             this.getData();
-                            this.showAlert("禁用成功");
+                            this.showAlert("PHY_MNG_POOL.DISABLE_SUCCESS");
                         } else {
                             alert("Res sync error");
                         }
@@ -154,8 +154,8 @@ export class PhyPoolMngComponent implements OnInit{
         }
     }
 
-    remove (id: string){
-        this.enableConfirm.open('删除资源池','您选择删除'+this.selectedPhy.pmPoolName+'资源池，请确认；如果确认，此资源池的数据将不能恢复。');
+    remove (id: string){;
+        this.enableConfirm.open("PHY_MNG_POOL.DELETE_POOL","PHY_MNG_POOL.DELETE_POOL_WARNING^^^"+this.selectedPhy.pmPoolName);
         this.enableConfirm.cof =() =>{
             this.layoutService.show();
             this.service.phyIfEnable(this.selectedPhy.pmPoolId, '2')
@@ -165,7 +165,7 @@ export class PhyPoolMngComponent implements OnInit{
                         if (response && 100 == response["resultCode"]) {
                             console.log(response,"======");
                             this.getData();
-                            this.showAlert("删除成功");
+                            this.showAlert("PHY_MNG_POOL.DELETE_SUCCESS");
                         } else {
                             alert("Res sync error");
                         }
@@ -187,23 +187,23 @@ export class PhyPoolMngComponent implements OnInit{
     }
 
     gotoPhyList(item){
-        this.router.navigate([`physical-mng/physical-mng/physical-list`,{"pmpoolId": item.pmPoolId}]);
+        this.router.navigate([`physical-mng/physical-mng/physical-list`,
+            {   "pmpoolId": item.pmPoolId
+            }
+        ]);
     }
 
-    gotoCreat(){
+    gotoEdit(){
         const selectedphy= this.data.find((p) =>{
             return p.selected;
         });
         if(!selectedphy){
-            this.showAlert("请选择资源池");
+            this.showAlert("PHY_MNG_POOL.PLEASE_CHOOSE_POOL");
         }else if(selectedphy.status == "1"){
-            this.showAlert("启用状态下不能编辑！");
+            this.showAlert("PHY_MNG_POOL.ENABLE_CANNOT_EDIT");
         }else{
             this.router.navigate([`phy-mng/phy-pool/phy-creat`,
-                {   "poolName": selectedphy.pmPoolName,
-                    "region": selectedphy.region,
-                    "dataCenter": selectedphy.dataCenter,
-                    "description": selectedphy.description,
+                {
                     "pmpoolId": selectedphy.pmPoolId
                 }
             ]);
@@ -213,9 +213,9 @@ export class PhyPoolMngComponent implements OnInit{
     searchphy(){
         this.criteria= new Criteria();
         console.log(this.criteria,"criteria");
-        if(this.search == "资源池名称"){
+        if(this.search == "PHY_MNG_POOL.POOL_NAME"){
             this.criteria.poolName= this.query;
-        }else if(this.search == "所属地域"){
+        }else if(this.search == "PHY_MNG_POOL.REGION_OWNER"){
             this.criteria.region= this.query;
         }else{
             this.criteria.dataCenter= this.query;
@@ -228,15 +228,19 @@ export class PhyPoolMngComponent implements OnInit{
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "PHY_MNG_POOL.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
+    }
+
+    showConfirm(msg: string): void {
+
     }
 
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败");
+        this.showAlert("PHY_MNG_POOL.GETTING_DATA_FAILED");
     }
 
 }
