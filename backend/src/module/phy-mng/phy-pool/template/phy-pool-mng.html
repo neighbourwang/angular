@@ -60,7 +60,7 @@
                 <td>{{item.dataCenter}}</td>
                 <td>{{item.amount}}</td>
                 <td>{{item.usedAmount}}</td>
-                <td [ngClass]="{'font-green':item.status == '1','font-orange':item.status == '0'}">{{item.status}}</td>
+                <td [ngClass]="{'font-green':item.status == '1','font-orange':item.status == '0'}">{{item.status | dict: this.service.statusDic | async}}</td>
             </tr>
             </tbody>
         </table>

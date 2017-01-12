@@ -135,7 +135,7 @@ export const PhysicalList_mock = {
         "pmLocation": "1F-1-1",
         "pmPowerStatus": 1,
         "pmUseageStatus": 1,
-        "pmMainStatus": 1,
+        "pmMainStatus": 0,
         "pmHealthExam": 1
         
     },

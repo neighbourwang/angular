@@ -40,7 +40,6 @@ export class PhyCreatComponent implements OnInit{
     pmPoolId: string;
 
     regions: Array<Region>= new Array<Region>();
-    regionlist: Region= new Region();
 
     ngOnInit (){
         console.log('init');
@@ -122,7 +121,7 @@ export class PhyCreatComponent implements OnInit{
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.regions = response["resultContent"];
-                        this.data.regionId= this.regions[1].id;
+                        this.data.regionId= this.regions[0].id;
                         console.log(response.resultContent, "response");
                         console.log( this.data.regionId, " this.data.regionId");
                     } else {

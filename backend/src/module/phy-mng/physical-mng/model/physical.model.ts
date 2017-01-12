@@ -11,8 +11,9 @@ export class PhysicalModel {
     serverTypeName:string;
     brandId: string;
     brandName:string;
-    model: string;
+    modelName: string;
     modelId: string="";
+    model:string;
     sn:string;
     locale: string;
     description: string;
