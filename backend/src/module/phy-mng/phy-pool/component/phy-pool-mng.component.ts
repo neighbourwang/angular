@@ -191,7 +191,7 @@ export class PhyPoolMngComponent implements OnInit{
         ]);
     }
 
-    gotoCreat(){
+    gotoEdit(){
         const selectedphy= this.data.find((p) =>{
             return p.selected;
         });
