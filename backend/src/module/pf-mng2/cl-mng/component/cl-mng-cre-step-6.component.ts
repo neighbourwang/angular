@@ -17,6 +17,8 @@ import { CreStep6Model } from '../model/cre-step6.model';
 
 import { ClMngIdService } from '../service/cl-mng-id.service';
 
+import { ClMngCommonService } from '../service/cl-mng-common.service';
+
 @Component({
     selector: 'cl-mng-cre-step-6',
     templateUrl: '../template/cl-mng-cre-step-06.component.html',
@@ -32,28 +34,26 @@ export class ClMngCreStep6Component implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private service: ClMngCreStep6Service,
+        private commonService:ClMngCommonService,
         private idService: ClMngIdService,
         private operationService: ClMngListService,
         private layoutService:LayoutService
     ) { }
 
-
     creStep6Model: Array<CreStep6Model> = new Array<CreStep6Model>();
-
-
     platformType: string;
     ngOnInit() {
         //获取平台类型
         this.route.params.forEach((params: Params) => {
             this.platformType = params['type'];
             console.log(this.platformType);
-        })
-
+        })       
+        console.log(this.commonService.imageFormatList);
         let id: String = this.idService.getPlatformId();
         this.layoutService.show();
         this.service.getImageList(id).then(
             res => {
-                console.log(res);
+                console.log('image',res);
                 this.creStep6Model = res.resultContent;
                 this.layoutService.hide();
             }
@@ -76,7 +76,7 @@ export class ClMngCreStep6Component implements OnInit {
         this.router.navigateByUrl("pf-mng2/cl-mng/cl-mng");
     }
     next() {
-        console.log('next');
+        console.log('next',this.creStep6Model);
         let id: String = this.idService.getPlatformId();
         // id = "4f565fe7-09fc-4b8b-8227-a0b5b8b1eb6c";        
         this.service.putImageList(this.creStep6Model).then(

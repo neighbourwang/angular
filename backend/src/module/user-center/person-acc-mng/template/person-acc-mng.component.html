@@ -40,7 +40,7 @@
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title">描述：</div>
 						<div class="col-sm-4">
-							<textarea class="form-control font-gray" rows="4" placeholder="描述" [disabled]="!edit" [(ngModel)]="personAcc.description"></textarea>
+							<textarea class="form-control font-gray" rows="4" placeholder="{{'COMMON.DESCRIPTION' | translate}}<!--描述-->" [disabled]="!edit" [(ngModel)]="personAcc.description"></textarea>
 						</div>
 					</div>
 				</div>
@@ -67,8 +67,8 @@
         </button>
 	</div>
 	<div style="height:50px"></div>
-	<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
-	<fc-popup #editPassWord title="{{title}}" ot="保存" (of)="otEditPwd()" ct="取消" (cf)="ccf()">
+	<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="NET_MNG_VM_DBT_PORT.COMFIRM" (of)="nof()"></fc-notice>
+	<fc-popup #editPassWord title="{{title}}" ot="NET_MNG_OPENSTACK.SAVE" (of)="otEditPwd()" ct="NET_MNG_VM_DBT_PORT.CNACLE" (cf)="ccf()">
 		<div class="page-content">
 			<div class="row" style="padding-top: 10px;">
 				<div class="col-md-12">

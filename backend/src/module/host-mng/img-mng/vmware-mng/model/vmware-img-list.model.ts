@@ -24,6 +24,8 @@ export class VmwareImgSyncModel {
     capacity: string;
     type: string;
     syncResult: string;
+    guestId: string;
+    format: string;
 
     nameEditing: boolean;
     checked: boolean;

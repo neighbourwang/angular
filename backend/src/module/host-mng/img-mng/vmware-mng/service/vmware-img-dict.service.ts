@@ -38,4 +38,8 @@ export class VmwareImgDictService{
         owner: "IMAGES",
         field: "SYNC_RESULT"
     });
+    formatDict = this.dict.get({   //镜像格式
+        owner: "IMAGES",
+        field: "FORMAT"
+    });
 }
