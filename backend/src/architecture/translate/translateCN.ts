@@ -818,5 +818,6 @@
         "POOL_ALREADY_ENABLE":"该资源池已处于启用状态",
         "ENABLE_CANNOT_DELETE":"启用状态下不能删除！",
         "POOL_ALREADY_DISABLE":"该资源池已处于禁用状态",
+        "DESCRIPTION":"描述"
     }
 }
