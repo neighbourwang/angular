@@ -1,9 +1,9 @@
 	
 import { Input,Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { NoticeComponent, DicLoader,ItemLoader,RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
+import { NoticeComponent, DicLoader,ItemLoader,RestApi, RestApiCfg, LayoutService, ConfirmComponent} from '../../../../architecture';
 import { AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam,SubInstanceResp,SubInstanceItemResp,SearchOrderItem} from '../model'
-
+import {DictService} from '../../../../architecture/core/service/dict-service';
 import * as _ from 'underscore';
 @Component({
 	selector: 'order-mng-search',
@@ -27,7 +27,6 @@ export class OrderMngSearchComponent implements OnInit{
 
 	private _productTypeLoader: DicLoader = null;
 	
-	//private _orderStatusDic:DicLoader = null;
 	private _orderLoader:ItemLoader<SearchOrderItem> = null;
 
 	private _entId:string = "191af465-b5dc-4992-a5c9-459e339dc719";
@@ -223,19 +222,19 @@ export class OrderMngSearchComponent implements OnInit{
 			this.layoutService.hide();
 		});
 	}
-	//翻译订单状态及产品类型
-	updateStatusName(){
-		let list:Array<SubInstanceItemResp> = []
+	// //翻译订单状态及产品类型
+	// updateStatusName(){
+	// 	let list:Array<SubInstanceItemResp> = []
 		
-		list.map(n=>{
-			let item = this._orderStatusDic.Items.find(m=>m.value == n.status);
-			if(item) n.statusName = item.displayValue as string;
+	// 	list.map(n=>{
+	// 		let item = this._orderStatusDic.Items.find(m=>m.value == n.status);
+	// 		if(item) n.statusName = item.displayValue as string;
 
-			item = this._productTypeLoader.Items.find(m=>m.value == n.serviceType.toString());
-			if(item) n.serviceTypeName = item.displayValue as string;
-		});
+	// 		item = this._productTypeLoader.Items.find(m=>m.value == n.serviceType.toString());
+	// 		if(item) n.serviceTypeName = item.displayValue as string;
+	// 	});
 
-	}
+	// }
 
 	search(pageNumber:number = 1){
 		/*
@@ -282,9 +281,6 @@ export class OrderMngSearchComponent implements OnInit{
 		this._orderLoader.Go(pageNumber, null, param)
 		.then(success=>{
 			this.layoutService.hide();
-
-			//翻译状态
-			this.updateStatusName();
 		},err=>{
 			this.layoutService.hide();
 		});

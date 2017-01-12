@@ -8,7 +8,7 @@ import { PhysicalListService } from "../service/physical-list.service";
 import { PhysicalListModel } from "../model/physicalList.model";
 import { PhysicalModel } from "../model/physical.model";
 import { PmQuery } from "../model/pmQuery.model";
-
+import { Pool } from "../model/pool.model";
 
 
 
@@ -48,6 +48,7 @@ export class PhysicalListComponent implements OnInit {
 
     physicalList:Array< PhysicalListModel>;
     pmQuery:PmQuery;
+    pool:Pool;
    // physical:PhysicalModel;
     type: string;
     poolId:string;
@@ -55,17 +56,20 @@ export class PhysicalListComponent implements OnInit {
     region:string;
     dataCenter:string;
     //gotopage:string;
-    selectedQuery:string;
+    selectedQuery:string=this.defaultQuery;
+    defaultQuery:string;
     queryParam:string;
+
     //title: string;
 
     ngOnInit() {
         this.activeRoute.params.forEach((params: Params) => {
             const id = params["id"];
             this.poolId=id;    
-            this.poolName = params['name'];  
-            this.region = params['region'];  
-            this.dataCenter = params['dataCenter'];   
+            // this.poolName = params['poolName'];  
+            // this.region = params['region'];  
+            // this.dataCenter = params['dataCenter'];   
+            this.getPoolInfo();
             this.getPhysicalList();
 
         });
@@ -92,6 +96,29 @@ export class PhysicalListComponent implements OnInit {
             )
             .catch((e) => this.onRejected(e));
     }
+
+    //获取资源池信息
+    getPoolInfo(){
+        this.layoutService.show();    
+        this.service.getPoolInfo(this.poolId)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                        this.pool = response["resultContent"];
+                        console.log("物理机资源池信息",this.pool.poolName,this.pool.region,this.pool.dataCenter); 
+                        this.poolName=this.pool.poolName;
+                        this.region=this.pool.region;
+                        this.dataCenter=this.pool.dataCenter;
+                    } else {
+                        alert("Res sync error");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
     
     //删除、修改物理机的状态 0禁用 1启用 2删除
     changePhysicalStatusAndDelete(status:string){
@@ -117,12 +144,26 @@ export class PhysicalListComponent implements OnInit {
             this.showAlert(`该物理机已经是'${physical.pmMainStatus}'状态！`);
             return;
         }
-         switch (status) {
+        // else if(status=="0"){
+        //     this.noticeMsg = `确认禁用'${physical.pmName}' ?`;
+        //      this.noticeTitle=`禁用物理机`;
+             
+        // }
+        // else if(status=="1"){
+        //    this.noticeMsg = `确认启用'${physical.pmName}' ?`;
+        //          this.noticeTitle=`启用物理机`;
+        // }
+        // else{
+        //     this.noticeMsg = `确认删除'${physical.pmName}' ?`;
+        //    this.noticeTitle=`删除物理机`;
+        // }
+        
+        switch (status) {
                 case "0":
-                   {this.noticeMsg = `确认禁用'${physical.pmName}' ?`;
+                   this.noticeMsg = `确认禁用'${physical.pmName}' ?`;
                    this.noticeTitle=`禁用物理机`;
                     break;
-                   }
+                   
                 case "1":
                    this.noticeMsg = `确认启用'${physical.pmName}' ?`;
                    this.noticeTitle=`启用物理机`;
@@ -132,6 +173,8 @@ export class PhysicalListComponent implements OnInit {
                     this.noticeTitle=`删除物理机`;
                     break;
             }
+
+        
         this.confirm.ccf = () => {
         };
         this.confirm.cof = () => {
