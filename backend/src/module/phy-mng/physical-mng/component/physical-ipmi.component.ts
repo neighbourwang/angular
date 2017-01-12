@@ -30,7 +30,7 @@ export class PhysicalIpmiComponent implements OnInit {
     @ViewChild("notice")
     notice: NoticeComponent;
 
-   ipmi: IpmiInfo;
+   //ipmi: IpmiInfo;
    pmId:string;
    physical:PhysicalModel;
 
@@ -57,10 +57,10 @@ export class PhysicalIpmiComponent implements OnInit {
                     this.layoutService.hide();
                     this.physical = response["resultContent"];
                     
-                    this.ipmi.iloIPAddress=this.physical.iloIPAddress;
-                    this.ipmi.iloUserName=this.physical.iloUserName;
-                    this.ipmi.iloPwd=this.physical.iloPwd;
-                   console.log("获取的ILO信息",this.ipmi.iloIPAddress,"username", this.ipmi.iloUserName,"password",  this.ipmi.iloPwd);
+                    // this.ipmi.iloIPAddress=this.physical.iloIPAddress;
+                    // this.ipmi.iloUserName=this.physical.iloUserName;
+                    // this.ipmi.iloPwd=this.physical.iloPwd;
+                   console.log("获取物理机的ILO信息","IP",this.physical.iloIPAddress,"username", this.physical.iloUserName,"password",  this.physical.iloPwd);
                 } else {
                     alert("Res sync error");
                 }
@@ -93,7 +93,7 @@ export class PhysicalIpmiComponent implements OnInit {
         }
        
        this.layoutService.show();
-       this.service.updateIpmiInfo(this.ipmi,this.pmId)
+       this.service.updateIpmiInfo(this.physical,this.pmId)
        .then(
            response=>{
                this.layoutService.hide();
@@ -125,7 +125,7 @@ export class PhysicalIpmiComponent implements OnInit {
             return false;
         }
         this.layoutService.show();
-        this.service.testIomiInfo(this.ipmi)
+        this.service.testIomiInfo(this.physical)
         .then(
             response=>{
                 this.layoutService.hide();
