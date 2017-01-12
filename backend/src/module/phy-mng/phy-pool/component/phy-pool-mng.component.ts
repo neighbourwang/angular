@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent , ConfirmComponent, PaginationComponent  } from '../../../../architecture';
+import { LayoutService, NoticeComponent , ConfirmComponent, PaginationComponent, SystemDictionary  } from '../../../../architecture';
 
 //model
 import { PhyPoolList } from '../model/phy-pool-list.model.ts';
@@ -44,6 +44,8 @@ export class PhyPoolMngComponent implements OnInit{
     pageIndex= 1;
     pageSize= 20;
     totalPage= 1;
+
+    statusDic: Array<SystemDictionary>;
 
     data: Array<PhyPoolList>;
     criteria: Criteria= new Criteria();
@@ -184,15 +186,12 @@ export class PhyPoolMngComponent implements OnInit{
 
     gotoPhyList(item){
         this.router.navigate([`physical-mng/physical-mng/physical-list`,
-            {   "pmpoolId": item.pmPoolId,
-                "poolName": item.pmPoolName,
-                "region": item.region,
-                "dataCenter":item.dataCenter
+            {   "pmpoolId": item.pmPoolId
             }
         ]);
     }
 
-    gotoCreat(){
+    gotoEdit(){
         const selectedphy= this.data.find((p) =>{
             return p.selected;
         });

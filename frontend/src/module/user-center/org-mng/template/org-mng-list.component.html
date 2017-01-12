@@ -180,11 +180,11 @@
 		<td class="text-center">{{organ.leaderName}}</td>
 		<td class="text-center">
              <span [ngSwitch]="organ.status">
-                            <template [ngSwitchCase]="1">{{ 'COMMON.ENABLE' | translate }}<</template>
-                            <template [ngSwitchCase]="3">{{ 'COMMON.DISENABLED' | translate }}<</template>
-                            <template [ngSwitchCase]="2">{{ 'COMMON.PENDING' | translate }}<</template>
-                            <template [ngSwitchCase]="0">{{ 'COMMON.NOT_ENABLED' | translate }}<</template>
-                            <template [ngSwitchCase]="4">{{ 'COMMON.DELETED' | translate }}<</template>
+                            <template [ngSwitchCase]="1">{{ 'COMMON.ENABLE' | translate }}</template>
+                            <template [ngSwitchCase]="3">{{ 'COMMON.DISENABLED' | translate }}</template>
+                            <template [ngSwitchCase]="2">{{ 'COMMON.PENDING' | translate }}</template>
+                            <template [ngSwitchCase]="0">{{ 'COMMON.NOT_ENABLED' | translate }}</template>
+                            <template [ngSwitchCase]="4">{{ 'COMMON.DELETED' | translate }}</template>
                             <template ngSwitchDefault>Unknown</template>
             </span>
         </td> 
