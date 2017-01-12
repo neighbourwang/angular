@@ -22,7 +22,7 @@
                 <div class="row row-line-height">
                     <div class="form-group">
                         <div class="col-sm-4 form-control-title">
-                            <span class="asterisk">*</span> 帐号
+                            <span class="asterisk">*</span> {{'USER_CENTER.ACCOUNT' | translate}}<!--{{'USER_CENTER.ACCOUNT' | translate}}<!--帐号-->-->
                         </div>
                         <div class="col-sm-4" [ngClass]="{'has-error': (loginName.errors && (loginName.dirty || loginName.touched))||!loginNameIsOnly||!isEmail}">
                             <input type="text" class="form-control" placeholder="{{'USER_CENTER.INPUT_EMAIL_ACC' | translate}}" [disabled]="!isCreate" [(ngModel)]="account.loginName" id="loginName" required name="loginName" (blur)="accountOnlyValid(account.loginName)" (focus)="isEmail=true;loginNameIsOnly=true;" #loginName="ngModel">

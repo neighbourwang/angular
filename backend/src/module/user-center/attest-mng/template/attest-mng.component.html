@@ -4,15 +4,15 @@
 		<div class="dropdown pull-right" style="margin-left: 20px">
 			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
 				aria-expanded="true">
-                更多操作
+                {{'HOST_VMWARE_MNG.MORE_OPERATION' | translate}}<!--更多操作-->
                 <span class="caret"></span>
             </button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 				<li><a (click)="onEdit();">{{'HOST_VMWARE_MNG.EDIT' | translate}}<!--编辑--></a></li>
 				<li><a (click)="onEditAcc();">修改认证账户</a></li>				
-				<li><a (click)="updateStatus('1');">启用</a></li>                
-				<li><a (click)="updateStatus('3');">禁用</a></li>
-				<li><a (click)="onDelete('delete');">删除</a></li>
+				<li><a (click)="updateStatus('1');">{{'NET_MNG_VM_IP_MNG.ENABLE' | translate}}<!--启用--></a></li>                
+				<li><a (click)="updateStatus('3');">{{'HOST_VMWARE_MNG.DISABLE' | translate}}<!--禁用--></a></li>
+				<li><a (click)="onDelete('delete');">{{'NET_MNG_VM_IP_MNG.DELETE' | translate}}<!--删除--></a></li>
 			</ul>
 		</div>		
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="onCreate();">

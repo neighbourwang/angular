@@ -3,14 +3,14 @@
 		
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                更多操作
+                {{'HOST_VMWARE_MNG.MORE_OPERATION' | translate}}<!--更多操作-->
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
                 <li (click)="edit()" style="cursor:pointer"><a>{{'HOST_VMWARE_MNG.EDIT' | translate}}<!--编辑--></a></li>
-                <li (click)="enable()" style="cursor:pointer"><a>启用</a></li>
-                <li (click)="disable()" style="cursor:pointer"><a>禁用</a></li>
-				<li (click)="delete()" style="cursor:pointer"><a>删除</a></li>
+                <li (click)="enable()" style="cursor:pointer"><a>{{'NET_MNG_VM_IP_MNG.ENABLE' | translate}}<!--启用--></a></li>
+                <li (click)="disable()" style="cursor:pointer"><a>{{'HOST_VMWARE_MNG.DISABLE' | translate}}<!--禁用--></a></li>
+				<li (click)="delete()" style="cursor:pointer"><a>{{'NET_MNG_VM_IP_MNG.DELETE' | translate}}<!--删除--></a></li>
             </ul>
         </div>
 
@@ -41,8 +41,8 @@
                 <!--<td>{{item.leaderName}}</td>-->
                 <td [ngClass]="{'font-green':item.status =='1' ,'font-orange':item.status == '3'}">
                     <span [ngSwitch]="item.status">
-                            <template [ngSwitchCase]="1">启用</template>
-                            <template [ngSwitchCase]="3">禁用</template>
+                            <template [ngSwitchCase]="1">{{'NET_MNG_VM_IP_MNG.ENABLE' | translate}}<!--启用--></template>
+                            <template [ngSwitchCase]="3">{{'HOST_VMWARE_MNG.DISABLE' | translate}}<!--禁用--></template>
                             <template [ngSwitchCase]="0">未启用</template>
                             <template [ngSwitchCase]="4">4</template>
                             <template ngSwitchDefault>Unknown</template>
