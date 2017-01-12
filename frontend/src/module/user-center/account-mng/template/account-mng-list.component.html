@@ -62,7 +62,7 @@
     </div>
 </fc-popup>-->
 
-<fc-popup  #crLocalAccount title="{{title}}" ot="{{isEdit==false?'COMMON.CREATE':'DIALOG.SAVE' | translate}}" (of)="save();" ct="{{ 'COMMON.CONFIRM' | translate }}" (cf)="ccf()">
+<fc-popup  #crLocalAccount title="{{title}}" ot="{{isEdit==false?'COMMON.CREATE':'DIALOG.SAVE' | translate}}" (of)="save();" ct="{{ 'COMMON.CANCEL' | translate }}" (cf)="ccf()">
     <div class="row row-line-height">
         <account-mng-cr-local  *ngIf="isActive" #crLocal [isEdit]="isEdit" [editId]="editId"></account-mng-cr-local>
     </div>

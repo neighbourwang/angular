@@ -159,9 +159,9 @@
                         <!-- <li><a (click)="handleVm('resume', vm)" href="javascript:">恢复</a></li> -->
                         <li><a *ngIf="['0','14'].indexOf(vm.vmState) > -1" (click)="handleVm('hardReboot', vm , '硬重启')" href="javascript:">{{'COMMON.HARD_REBOOT'| translate}}</a></li>
                         <li><a *ngIf="['0','14'].indexOf(vm.vmState) > -1" (click)="handleVm('softReboot', vm , '软重启')" href="javascript:">{{'COMMON.SOFT_RESTART'| translate}}</a></li>
-                        <li><a *ngIf="['0'].indexOf(vm.vmState) > -1 && vm.publicIP" (click)="handleVm('unbindFloatingIp', vm, '解绑浮动IP')" href="javascript:">{{'VM_INSTANCE.UNBIND_FLOATING_IP'| translate}}</a></li>
+                        <li><a *ngIf="['0'].indexOf(vm.vmState) > -1 && vm.publicIP && vm.platformType === '0'" (click)="handleVm('unbindFloatingIp', vm, '解绑浮动IP')" href="javascript:">{{'VM_INSTANCE.UNBIND_FLOATING_IP'| translate}}</a></li>
                         <!-- <li><a (click)="handleVm('suspend', vm)" href="javascript:">挂起</a></li> -->
-                        <li><a *ngIf="['0','14','7'].indexOf(vm.vmState) > -1 && !vm.publicIP" (click)="handleVm('bindFloatingIp', vm, '绑定浮动IP')" href="javascript:">{{'VM_INSTANCE.BIND_FLOATING_IP'| translate}}</a></li>
+                        <li><a *ngIf="['0','14','7'].indexOf(vm.vmState) > -1 && !vm.publicIP && vm.platformType === '0'" (click)="handleVm('bindFloatingIp', vm, '绑定浮动IP')" href="javascript:">{{'VM_INSTANCE.BIND_FLOATING_IP'| translate}}</a></li>
                         <li><a *ngIf="['0','14','7'].indexOf(vm.vmState) > -1" (click)="openConsole(vm)" href="javascript:">{{'VM_INSTANCE.VIEW_CONSOLE'| translate}}</a></li>
                     </ul>
                 </div>

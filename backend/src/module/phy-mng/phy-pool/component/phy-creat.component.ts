@@ -10,7 +10,6 @@ import { Region } from '../model/region.model.ts';
 
 //service
 import { PhyCreatMngService } from '../service/phy-creat-mng.service.ts';
-import {PhyPoolMngService} from "../service/phy-pool-mng.service";
 
 @Component({
     selector: 'phy-pool-creat',
@@ -24,7 +23,6 @@ export class PhyCreatComponent implements OnInit{
     constructor(
         private router : Router,
         private service : PhyCreatMngService,
-        private Poolservice : PhyPoolMngService,
         private layoutService : LayoutService,
         private validationService: ValidationService,
         private activatedRouter : ActivatedRoute
@@ -38,54 +36,61 @@ export class PhyCreatComponent implements OnInit{
     @ViewChild("notice")
     notice: NoticeComponent;
 
-    phy: Criteria= new Criteria();
-    selectedlist: Criteria= new Criteria();
-    dataCenter: string;
-    description: string;
-    poolName: string;
-    region: string;
+    data: Criteria= new Criteria();
     pmPoolId: string;
+    title: string;
+    save: string;
 
-    regions: Array<Region>;
+    regions: Array<Region>= new Array<Region>();
 
     ngOnInit (){
         console.log('init');
-        //this.layoutService.show();
         this.activatedRouter.params.forEach((params: Params) =>{
-            this.dataCenter= params["dataCenter"];
-            this.description= params["description"];
-            this.poolName= params["poolName"];
-            this.region= params["region"];
             this.pmPoolId= params["pmpoolId"];
         });
-        console.log(this.dataCenter,"this.dataCenter");
-        console.log(this.description,"this.description");
-        console.log(this.poolName,"this.poolName");
-        console.log(this.region,"this.region");
         console.log(this.pmPoolId,"this.pmPoolId");
 
+        this.getRegionList();
         if(this.pmPoolId){
-            this.selectedlist.dataCenter= this.dataCenter;
-            this.selectedlist.description= this.description;
-            this.selectedlist.poolName= this.poolName;
-            this.selectedlist.region= this.region;
+            this.getData();
+            this.title= "编辑资源池";
+            this.save= "保存";
+        }else{
+            this.title= "创建资源池";
+            this.save= "创建";
         }
-        this.regionList();
+    }
+
+    getData(){
+        this.layoutService.show();
+        this.service.getData(this.pmPoolId)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.data= response.resultContent;
+                        console.log(response.resultContent, "data");
+                    } else {
+                        alert("Res sync error");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
     }
 
 
     creatOredit(){
-        if(this.validationService.isBlank(this.selectedlist.poolName)){
+        if(this.validationService.isBlank(this.data.poolName)){
             this.showAlert("请输入资源池名称");
             return;
         }
-        if(this.validationService.isBlank(this.selectedlist.dataCenter)){
+        if(this.validationService.isBlank(this.data.dataCenter)){
             this.showAlert("请输入数据中心");
             return;
         }
         if(!this.pmPoolId){
             this.layoutService.show();
-            this.service.creat(this.selectedlist)
+            this.service.creat(this.data)
                 .then(
                     response => {
                         this.layoutService.hide();
@@ -99,7 +104,7 @@ export class PhyCreatComponent implements OnInit{
                 .catch((e) => this.onRejected(e));
         }else{
             this.layoutService.show();
-            this.service.edit(this.selectedlist,this.pmPoolId)
+            this.service.edit(this.data,this.pmPoolId)
                 .then(
                     response => {
                         this.layoutService.hide();
@@ -115,15 +120,17 @@ export class PhyCreatComponent implements OnInit{
         this.gotoPoolMng();
     }
 
-    regionList(){
+    getRegionList() {
         this.layoutService.show();
-        this.service.regionList()
+        this.service.getRegionList()
             .then(
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.regions = response["resultContent"];
+                        this.data.regionId= this.regions[0].id;
                         console.log(response.resultContent, "response");
+                        console.log( this.data.regionId, " this.data.regionId");
                     } else {
                         alert("Res sync error");
                     }
@@ -138,7 +145,6 @@ export class PhyCreatComponent implements OnInit{
 
     showAlert(msg: string): void {
         this.layoutService.hide();
-
         this.noticeTitle = "提示";
         this.noticeMsg = msg;
         this.notice.open();

@@ -1,7 +1,8 @@
 export class Pool{
-    
-  dataCenter: string;
-  description: string;
-  poolName: string;
-  region: string;
+    pmPoolId: string;
+    poolName: string;
+    regionId: string;
+    region:string;
+    dataCenter: string;
+    description: string;
 }

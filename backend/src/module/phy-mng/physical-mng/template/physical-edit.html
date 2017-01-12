@@ -17,7 +17,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>IPMI IP地址:</div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" [(ngModel)]="physical.ipAddr" [disabled]="eidtMode !='create'">
+                        <input type="text" class="form-control" [(ngModel)]="physical.iloIPAddress" [disabled]="eidtMode !='create'">
                     </div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>IPMI用户名:</div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" [(ngModel)]="physical.username" [disabled]="eidtMode !='create'">
+                        <input type="text" class="form-control" [(ngModel)]="physical.iloUserName" [disabled]="eidtMode !='create'">
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div [ngClass]="{'col-sm-9':eidtMode=='create','col-sm-12':eidtMode!='create'}">
-                                <input class="form-control" type="password" [(ngModel)]="physical.password" [disabled]="eidtMode !='create'">
+                                <input class="form-control" type="password" [(ngModel)]="physical.iloPwd" [disabled]="eidtMode !='create'">
                             </div>
                             <div *ngIf="eidtMode=='create'" class="col-md-3">
                                 <button class="fox-cloud-button-md fox-cloud-button-white mgr20" style="width:100%" onclick="readHardwareInfo();">
@@ -46,22 +46,20 @@
                     </div>
                 </div>
             </div>
-            <!--
+            
             <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>MAC地址:</div>
                     <div class="col-md-4">
                         <input type="text" class="form-control" [(ngModel)]="physical.sn" [disabled]="eidtMode !='create'">
-                    </div>
-                    </div>
+                    </div>                   
                 </div>
             </div>
-            -->
             <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>服务器类型:</div>
                     <div class="col-md-4">
-                        <select class="form-control" [(ngModel)]="physical.serverTypeId" [disabled]="eidtMode !='create'">
+                        <select class="form-control" [(ngModel)]="physical.sererTypeId" [disabled]="eidtMode !='create'">
                             <option value="">请选择</option>
                             <option *ngFor="let type of serverTypes" [value]="type.id">{{type.serverType}}</option>
                         </select>
@@ -83,7 +81,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>型号:</div>
                     <div class="col-md-4">
-                        <select class="form-control" [(ngModel)]="physical.modelId" [disabled]="eidtMode !='create'">
+                        <select class="form-control" [(ngModel)]="physical.modleId" [disabled]="eidtMode !='create'">
                             <option value="">请选择</option>
                             <option *ngFor="let mode of selectedBrand.modelList" [value]="mode.id">{{mode.model}}</option>
                         </select>
@@ -123,18 +121,18 @@
                                     <tbody>
                                         <tr>
                                             <td>CPU</td>
-                                            <td>{{physical.hardwareInfo && physical.hardwareInfo.cpu && physical.hardwareInfo.cpu.spec||""}}</td>
-                                            <td>{{physical.hardwareInfo && physical.hardwareInfo.cpu && physical.hardwareInfo.cpu.specValue||""}}</td>
+                                             <td>{{physical.pmHardwareCPU && physical.pmHardwareCPU.version||""}}</td>  
+                                            <td>{{physical.pmHardwareCPU && physical.pmHardwareCPU.value||""}}</td>
                                         </tr>
                                         <tr>
                                             <td>内存</td>
-                                            <td>{{physical.hardwareInfo && physical.hardwareInfo.memory && physical.hardwareInfo.memory.spec}}</td>
-                                            <td>{{physical.hardwareInfo && physical.hardwareInfo.memory && physical.hardwareInfo.memory.specValue}}</td>
+                                            <td>{{physical.pmHardwareMemory && physical.pmHardwareMemory.version||""}}</td>
+                                            <td>{{physical.pmHardwareMemory&&physical.pmHardwareMemory.value||""}}</td>
                                         </tr>
-                                        <tr *ngFor="let disks of (physical.hardwareInfo && physical.hardwareInfo.disk ||[]);let idex=index">
-                                            <td [attr.rowspan]="physical.hardwareInfo.disk.length" *ngIf="idex===0">硬盘</td>
-                                            <td>{{disks.spec}}</td>
-                                            <td><input type="number" class="form-control" [(ngModel)]="disks.specValue" style="display:inline;width:90px;"> G</td>
+                                        <tr *ngFor="let disks of( physical.pmHardwareDiskList ||[]);let idex=index">
+                                            <td [attr.rowspan]="physical.pmHardwareDiskList.length" *ngIf="idex===0">硬盘</td>
+                                            <td>{{disks.version}}</td>
+                                            <td><input type="number" class="form-control" [(ngModel)]="disks.value" style="display:inline;width:90px;"> G</td>
                                         </tr>
                                     </tbody>
                                 </table>

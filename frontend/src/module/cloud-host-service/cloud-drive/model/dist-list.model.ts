@@ -51,6 +51,7 @@ class DistList {
     status: number;
     expireDate: number;
     unloadAble: string;
+    platformType : "0" | "1" | "2";
     platformName: string;
     zoneName: string;
     useType: string;

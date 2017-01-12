@@ -140,6 +140,12 @@ export class EntAdminMngComponent implements OnInit {
             return;
         }
 
+        if (selectAdmin[0].status != 1) {
+            //只有禁用状态才可以被删除
+            this.showAlert("只能删除禁用状态的管理员！");
+            return;
+        } 
+
         this.noticeTitle = "警告";
         const names: string[] = [];
         const ids: string[] = [];
@@ -255,6 +261,7 @@ export class EntAdminMngComponent implements OnInit {
             this.showAlert("请先选择需要编辑的管理员！");
             return;
         }
+        
         if (selectAdmin.authMode == "1") {
             this.router
                 .navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-cre-ad/enterprise/${this.eid}/id/${selectAdmin.id}`);
@@ -282,6 +289,12 @@ export class EntAdminMngComponent implements OnInit {
             this.showAlert("请先选择需要重置密码的管理员！");
             return;
         }
+        if (selectAdmin.status == 1) {
+            //只有启用状态才可以重置密码
+            this.showAlert("只有启用的管理员才可以重置密码！");
+            return;
+        }
+
         this.service.resetPassword(selectAdmin)
             .then(
             response => {

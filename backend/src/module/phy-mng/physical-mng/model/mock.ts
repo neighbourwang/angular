@@ -69,42 +69,107 @@ export const physicalMachine_mock = {
     "detailDescription": null,
     "resultContent": {
         id:"123",
-        "pmName": "北京地区-物理资源池1",
-        "ipAddr": "北京",
-        "username": "朝阳数据中心",
-        "password": "朝阳数据中心描述",
-        "serverTypeId": "2",
-        "brandId": "3",
-        "modelId": "6",
-        "locale": "朝阳数据中心描述",
-        "description": "北京地区-物理资源池1",
-        "hardwareInfo": {
-            "cpu": {
-                "spec": "Xeon E5 2560",
-                "specValue": 2
-            },
-            "memory": {
-                "spec": "32GB X4 PC3L-10600",
-                "specValue": 128
-            },
-            "disk": [
-                {
-                    "spec": "4*SSD",
-                    "specValue": 10240
-                },
-                {
-                    "spec": "4*SAS",
-                    "specValue": 10240
-                }
-            ]
-        },
-        "enterprise": "BOE",
-        "department": "BOE",
-        "startDate": "2016-11-1",
-        "endDate": "2016-11-2",
-        "applicant": "张三",
-        "priIPAddr": "10.0.0.1",
-        "pubIPAddr": "127.1.1.1",
-        "image": "windows2016"
+        "model": "DL380 G9",
+    "sn": "ABC124ABC",
+    "pmHardwareCPU": {
+      "version": "Xeon E5 2560",
+      "value": 8
+    },
+    "pmHardwareMemory": {
+      "version": "32GB X4 PC3L-10600",
+      "value": 128
+    },
+    "pmHardwareDiskList": [
+      {
+        "version": "4*SSD",
+        "value": null
+      },
+      {
+        "version": "4*SAS",
+        "value": null
+      }
+    ],
+    "pmPoolId": "ID_POOL_ljllllljsldfjkl",
+    "pmName": "HP DL380 G9",
+    "macAddress": "A3-3B-22-F4-21-22",
+    "iloIPAddress": "10.135.22.98",
+    "iloUserName": "root",
+    "iloPwd": "!QAZ&UJM",
+    "sererTypeId": 1,
+    "serverTypeName": "X86",
+    "brandId": 2,
+    "brandName": "华为",
+    "modleId": 3,
+    "modleName": "G5",
+    "locale": "北京朝阳区",
+    "description": "此物理机是2017年最新到货的机型",
+    "pmId": "ID_PM_xxlkjflkjslkj",
+    "enterprise": "BOE",
+    "department": "BOE",
+    "startDate": "2016-10-01",
+    "endDate": "2017-12-11",
+    "applicant": "张三",
+    "priIPAddr": "10.0.0.1",
+    "pubIPAddr": "127.1.1.1",
+    "image": "windows2016"
     }
 }
+export const PhysicalList_mock = {
+    "resultCode": "100",
+    "detailDescription": null,
+    "resultContent": [
+        {
+        "index": 1,
+        "pmId": "IDljijfeixis001",
+        "pmName": "HP DL380 G7-001",
+        "pmSN": "ABC124ABC",
+        "macAddress": "B3-2A-12-2B-F6-4D",
+        "pmBrand": "HP",
+        "pmModel": "G7",
+        "pmCPUCores": 4,
+        "pmRAM": 128,
+        "pmDiskInfo": "4*SSD  10240G,4*SAS 10240G",
+        "pmPriIPAddr": "16.19.65.30",
+        "pmPubIPAddr": null,
+        "pmILOAddr": "16.179.5.3",
+        "pmLocation": "1F-1-1",
+        "pmPowerStatus": 1,
+        "pmUseageStatus": 1,
+        "pmMainStatus": 0,
+        "pmHealthExam": 1
+        
+    },
+    {
+        "index": 2,
+        "pmId": "IDljijfeixis002",
+        "pmName": "HP DL380 G7-002",
+        "pmSN": "ABC124ABC",
+        "macAddress": "B3-2A-12-2B-F6-4D",
+        "pmBrand": "HP",
+        "pmModel": "G7",
+        "pmCPUCores": 4,
+        "pmRAM": 128,
+        "pmDiskInfo": "4*SSD  10240G,4*SAS 10240G",
+        "pmPriIPAddr": "16.19.65.30",
+        "pmPubIPAddr": null,
+        "pmILOAddr": "16.179.5.3",
+        "pmLocation": "1F-1-1",
+        "pmPowerStatus": 1,
+        "pmUseageStatus": 1,
+        "pmMainStatus": 1,
+        "pmHealthExam": 1
+        
+    },
+    ],
+    "pageInfo":{
+        "currentPage": 1,
+        "totalPage": 1,
+        "pageSize": 10,
+        "totalRecords": 1
+  }  
+}
+
+
+  
+ 
+
