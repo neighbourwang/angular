@@ -1,18 +1,18 @@
-<div class="page-content-header icon-content-header-userCenterOn">账号管理</div>
+<div class="page-content-header icon-content-header-userCenterOn">{{'USER_CENTER.ACCOUNT_MANAGEMENT' | translate}}<!--账号管理--></div>
 <div class="page-content" style="min-height:300px;">
     <div style="padding-bottom: 10px;">
 
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                更多操作
+                {{'HOST_VMWARE_MNG.MORE_OPERATION' | translate}}<!--更多操作-->
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
                 <li (click)="edit()"><a>{{'HOST_VMWARE_MNG.EDIT' | translate}}<!--编辑--></a></li>
-                <li (click)="resetPassword()"><a>重置密码</a></li>
-                <li (click)="enable()"><a>启用</a></li>
-                <li (click)="disable()"><a>禁用</a></li>
-                <li (click)="delete()"><a>删除</a></li>
+                <li (click)="resetPassword()"><a>{{'USER_CENTER.RESET_PASSWORD' | translate}}<!--重置密码--></a></li>
+                <li (click)="enable()"><a>{{'NET_MNG_VM_IP_MNG.ENABLE' | translate}}<!--启用--></a></li>
+                <li (click)="disable()"><a>{{'HOST_VMWARE_MNG.DISABLE' | translate}}<!--禁用--></a></li>
+                <li (click)="delete()"><a>{{'NET_MNG_VM_IP_MNG.DELETE' | translate}}<!--删除--></a></li>
             </ul>
         </div>
 
@@ -22,7 +22,7 @@
 
         <button class="fox-cloud-button fox-cloud-button-green" (click)="openCrAccountPop()">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建帐号</span>
+            <span class="icon-button-label icon-left-button-label">{{'USER_CENTER.CREATE_ACCOUNT' | translate}}<!--创建帐号--></span>
         </button>
     </div>
 
@@ -32,7 +32,7 @@
                 <tr>
                     <th class="check-box-col">{{'NET_VM_NSX_INDEX.SELECT' | translate}}<!--选择--></th>
                     <th>{{'USER_CENTER.NAME' | translate}}<!--姓名--></th>
-                    <th>帐号</th>
+                    <th>{{'USER_CENTER.ACCOUNT' | translate}}<!--帐号-->--></th>
                     <th>{{'USER_CENTER.CONTACT_PHONE' | translate}}<!--联系电话--></th>
                     <th>所属机构</th>
                     <th>角色</th>
@@ -53,8 +53,8 @@
                     <td [ngClass]="{'font-green':item.status =='1' ,'font-orange':item.status == '3'}">
                         {{item.status| dict:this.service.accStatusList | async}}
                         <!--<span [ngSwitch]="item.status">
-                            <template [ngSwitchCase]="1">启用</template>
-                            <template [ngSwitchCase]="3">禁用</template>
+                            <template [ngSwitchCase]="1">{{'NET_MNG_VM_IP_MNG.ENABLE' | translate}}</template>
+                            <template [ngSwitchCase]="3">{{'HOST_VMWARE_MNG.DISABLE' | translate}}</template>
                             <template [ngSwitchCase]="0">未启用</template>
                             <template [ngSwitchCase]="4">4</template>
                             <template ngSwitchDefault>Unknown</template>
