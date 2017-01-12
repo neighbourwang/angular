@@ -1,5 +1,5 @@
 export class PmQuery{
-    brand: string;
+  brand: string;
   iloAddr: string;
   model: string;
   pmName: string;
