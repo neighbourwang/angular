@@ -126,12 +126,30 @@
         "TURN_OFF":"关闭",
         "APPROVE": "审批",
         "MIN":"分钟",
+        "CONTACT_PHONE": "联系电话",
+        "EMAIL_ADDRESS": "邮箱地址",
+        "ACCOUNT": "账号",
+        "AD_SOURCE": "认证源",
+        "PLEASE_CHOOSE": "请选择",
+        "USERNAME":"用户名",
+        "CHOOSE": "选择",
+        "CREATE": "创建",
+        "INPUT_NAME": "请输入姓名",
+        "INPUT_ACC": "请输入帐号",
+        "INPUT_CONTACT_DESC": "请输入联系描述",
+        "INPUT_PHONE": "请输入联系电话",
     },
     "ENT_MNG": {
         "ENT_CERT_UPDATE_FAILED": "认证更新失败",
         "ENT_MNG_LIST_DATA_ERROR": "企业管理列表加载错误",
         "ENT_OVERVIEW_DATA_ERROR": "企业统计数据加载错误",
-        "ENT_QUOTA_DATA_ERROR": "企业配额加载错误"
+        "ENT_QUOTA_DATA_ERROR": "企业配额加载错误",
+        "CREATE_EDIT_ENTERPRISE_ADMINISTRATOR":"创建/编辑企业管理员",
+        "ADMINISTRATOR_NAME":"管理员姓名",
+        "UPDATE_ADMINISTRATOR":"更新管理员",
+        "ADD_ADMINISTRATOR":"新增管理员",
+        "CREATE_AD_USER":"创建AD用户",
+        "AD_USER_ACCOUNT": "AD用户帐号",
     },
     "HOST_OPENSTACK_MNG": {
         "AFFILIATED_ENTERPRISE": "所属企业",
@@ -731,5 +749,5 @@
         "AUTO_APPROVAL_TIME_MIN":"自动审批时间(分钟)",
         "SET_APPROVE": "设置审批",
         "AUTO_APPROVAL_TIME_SET":"自动审批时间设置",
-    }
+    },
 }
