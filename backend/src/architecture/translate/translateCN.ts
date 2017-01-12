@@ -804,9 +804,9 @@
         "PLEASE_INPUT_DIGIT_CENTER":"请输入数据中心",
         "PROMPT":"提示",
         "GETTING_DATA_FAILED": "获取数据失败！",
-        "DELETE_POOL_WARNING":"您选择删除{{value1}}资源池，请确认；如果确认，此资源池的数据将不能恢复。",
-        "DISABLE_POOL_WARNING":"您选择禁用{{value1}}资源池，请确认；如果确认，用户将不能够订购此资源池的资源。",
-        "ENABLE_POOL_WARNING":"您选择启用'+this.selectedPhy.pmPoolName+'资源池，请确认；如果确认，用户将能够订购此资源池的资源。",
+        "DELETE_POOL_WARNING":"您选择删除{{value_1}}资源池，请确认；如果确认，此资源池的数据将不能恢复。",
+        "DISABLE_POOL_WARNING":"您选择禁用{{value_1}}资源池，请确认；如果确认，用户将不能够订购此资源池的资源。",
+        "ENABLE_POOL_WARNING":"您选择启用{{value_1}}资源池，请确认；如果确认，用户将能够订购此资源池的资源。",
         "DELETE_POOL":"删除资源池",
         "DISABLE_POOL":"禁用资源池",
         "ENABLE_POOL":"启用资源池",
@@ -817,6 +817,6 @@
         "ENABLE_CANNOT_EDIT":"启用状态下不能编辑！",
         "POOL_ALREADY_ENABLE":"该资源池已处于启用状态",
         "ENABLE_CANNOT_DELETE":"启用状态下不能删除！",
-        "POOL_ALREADY_DISABLE":"该资源池已处于启用状态",
+        "POOL_ALREADY_DISABLE":"该资源池已处于禁用状态",
     }
 }

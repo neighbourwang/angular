@@ -111,7 +111,9 @@ export class PhyPoolMngComponent implements OnInit{
     }
 
     enable(id: string){
-        this.enableConfirm.open('PHY_MNG_POOL.ENABLE','PHY_MNG_POOL.ENABLE_POOL_WARNING^^^'+this.selectedPhy.pmPoolName);
+        //this.noticeTitle= "启用";
+        //this.noticeMsg= "启用"+this.selectedPhy.pmPoolName;
+        this.enableConfirm.open('PHY_MNG_POOL.ENABLE_POOL','PHY_MNG_POOL.ENABLE_POOL_WARNING^^^'+this.selectedPhy.pmPoolName);
         this.enableConfirm.cof =() =>{
             this.layoutService.show();
             this.service.phyIfEnable(this.selectedPhy.pmPoolId, '1')
@@ -153,7 +155,7 @@ export class PhyPoolMngComponent implements OnInit{
     }
 
     remove (id: string){;
-        this.enableConfirm.open('PHY_MNG_POOL.DELETE_POOL','PHY_MNG_POOL.DELETE_POOL_WARNING^^^'+this.selectedPhy.pmPoolName);
+        this.enableConfirm.open("PHY_MNG_POOL.DELETE_POOL","PHY_MNG_POOL.DELETE_POOL_WARNING^^^"+this.selectedPhy.pmPoolName);
         this.enableConfirm.cof =() =>{
             this.layoutService.show();
             this.service.phyIfEnable(this.selectedPhy.pmPoolId, '2')
@@ -229,6 +231,10 @@ export class PhyPoolMngComponent implements OnInit{
         this.noticeTitle = "PHY_MNG_POOL.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
+    }
+
+    showConfirm(msg: string): void {
+
     }
 
     onRejected(reason: any) {
