@@ -34,8 +34,10 @@
                     <th>{{'USER_CENTER.NAME' | translate}}<!--姓名--></th>
                     <th>{{'USER_CENTER.ACCOUNT' | translate}}<!--帐号-->--></th>
                     <th>{{'USER_CENTER.CONTACT_PHONE' | translate}}<!--联系电话--></th>
-                    <th>所属机构</th>
-                    <th>角色</th>
+                    <th>{{'USER_CENTER.ORG_WHICH_BELONG_TO' | translate}}</th><--所属机构-->
+
+                    <th>{{'COMMON.ROLE' | translate}}</th><--角色-->
+
                     <th>{{'USER_CENTER.AD_SOURCE' | translate}}<!--认证源--></th>
                     <th>{{'NET_MNG_OPENSTACK.STATUS' | translate}}<!--状态--></th>
                     <th>{{'COMMON.DESCRIPTION' | translate}}<!--描述--></th>
@@ -49,13 +51,15 @@
                     <td>{{item.phone}}</td>
                     <td>{{item.organizationName}}</td>
                     <td>{{item.roleName}}</td>
-                    <td>{{item.type==1?"AD":"本地"}}</td>
+                    <td>{{item.type==1?"AD":"COMMON.LOCAL" | translate}}</td><--本地-->
+
                     <td [ngClass]="{'font-green':item.status =='1' ,'font-orange':item.status == '3'}">
                         {{item.status| dict:this.service.accStatusList | async}}
                         <!--<span [ngSwitch]="item.status">
                             <template [ngSwitchCase]="1">{{'NET_MNG_VM_IP_MNG.ENABLE' | translate}}</template>
                             <template [ngSwitchCase]="3">{{'HOST_VMWARE_MNG.DISABLE' | translate}}</template>
-                            <template [ngSwitchCase]="0">未启用</template>
+                            <template [ngSwitchCase]="0">{{'COMMON.NOT_ENABLED' | translate}}</template>
+
                             <template [ngSwitchCase]="4">4</template>
                             <template ngSwitchDefault>Unknown</template>
                     	</span>-->
