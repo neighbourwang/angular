@@ -64,7 +64,8 @@ export class PhysicalListComponent implements OnInit {
 
     ngOnInit() {
         this.activeRoute.params.forEach((params: Params) => {
-            const id = params["id"];
+            const id = params["pmpoolId"];
+            console.log("获取的资源池id",id)
             this.poolId=id;    
             // this.poolName = params['poolName'];  
             // this.region = params['region'];  
