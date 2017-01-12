@@ -106,6 +106,7 @@ export class AccountMngComponent implements OnInit {
     //关键得搜索
     search() {
         console.log(this.keyup);
+        this.layoutService.show();
         this.service.searchAccountByName(0, this.pp, this.keyup).then(
             res => {
                 this.layoutService.hide();

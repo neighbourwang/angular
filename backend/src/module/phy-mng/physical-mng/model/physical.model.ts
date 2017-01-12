@@ -1,16 +1,22 @@
 export class PhysicalModel {
     id:string;
     pmName: string;
-    ipAddr: string;
-    username: string;
-    password: string;
-    serverTypeId: string="";
+    pmId:string;
+    iloIPAddress: string;
+    pmPoolId:string;
+    macAddress:string;
+    iloUserName: string;
+    iloPwd: string;
+    sererTypeId: string="";
+    serverTypeName:string;
     brandId: string;
+    brandName:string;
     model: string;
     modelId: string="";
+    sn:string;
     locale: string;
     description: string;
-    hardwareInfo: HardwareInfo;  
+   // hardwareInfo: HardwareInfo;  
     enterprise: string;
     department: string;
     startDate: string;
@@ -19,26 +25,24 @@ export class PhysicalModel {
     priIPAddr: string;
     pubIPAddr: string;
     image: string;
-}
+    pmHardwareCPU:CPU;
+    pmHardwareMemory:Memory;
+    pmHardwareDiskList:Array<Disk>;
 
-
-export class HardwareInfo {
-    cpu: CPU;
-    memory: Memory;
-    disk: Array<Disk>;
 }
+ 
 export class CPU {
-    spec: string;
-    specValue: number;
+    version: string;
+    value: number;
 }
 export class Memory {
-    spec: string;
-    specValue: number;
+    version: string;
+    value: number;
 }
 
 export class Disk {
-    spec: string;
-    specValue: number;
+    version: string;
+    value: number;
 }
 
 

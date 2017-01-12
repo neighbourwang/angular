@@ -50,9 +50,9 @@ export class ProdDirListComponent implements OnInit {
 
     prodDirTypeList = new Array();
     platformsList = new Array();
-    platformId: string;
+    platformId: string='';
     prodDirTypeId: string;;
-    queryProDirTypeId: string;
+    queryProDirTypeId: string='';
     ngOnInit() {
         console.log(this.pp);
         //获得激活云平台数据

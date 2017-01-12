@@ -8,7 +8,7 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                <li (click)="edit()"><a>编辑</a></li>
+                <li (click)="edit()"><a>{{'HOST_VMWARE_MNG.EDIT' | translate}}<!--编辑--></a></li>
                 <li (click)="resetPassword()"><a>重置密码</a></li>
                 <li (click)="enable()"><a>启用</a></li>
                 <li (click)="disable()"><a>禁用</a></li>
@@ -37,7 +37,7 @@
                     <th>所属机构</th>
                     <th>角色</th>
                     <th>{{'USER_CENTER.AD_SOURCE' | translate}}<!--认证源--></th>
-                    <th>状态</th>
+                    <th>{{'NET_MNG_OPENSTACK.STATUS' | translate}}<!--状态--></th>
                     <th>{{'COMMON.DESCRIPTION' | translate}}<!--描述--></th>
                 </tr>
             </thead>

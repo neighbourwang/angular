@@ -8,7 +8,7 @@
                 <span class="caret"></span>
             </button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-				<li><a (click)="onEdit();">编辑</a></li>
+				<li><a (click)="onEdit();">{{'HOST_VMWARE_MNG.EDIT' | translate}}<!--编辑--></a></li>
 				<li><a (click)="onEditAcc();">修改认证账户</a></li>				
 				<li><a (click)="updateStatus('1');">启用</a></li>                
 				<li><a (click)="updateStatus('3');">禁用</a></li>
@@ -28,7 +28,7 @@
 					<th>认证源名称</th>
 					<th>URL地址</th>
 					<th>认证类型</th>
-					<th>状态</th>
+					<th>{{'NET_MNG_OPENSTACK.STATUS' | translate}}<!--状态--></th>
 					<th>{{'COMMON.DESCRIPTION' | translate}}<!--描述--></th>
 				</tr>
 			</thead>

@@ -99,7 +99,7 @@
             <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span>绑定角色
+                        <span class="asterisk">*</span>{{'USER_CENTER.BINDING_ROLE' | translate}}<!--绑定角色-->
                     </div>
                     <div class="col-sm-6">
 
@@ -120,7 +120,7 @@
             <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span>绑定机构
+                        <span class="asterisk">*</span>{{'USER_CENTER.BINDING_ORG' | translate}}<!--{{'USER_CENTER.BINDING_ORG' | translate}}<!--绑定机构-->-->
                     </div>
                     <div class="col-sm-5">
                         <!--<div style="height:40px;line-hight:36px;font-size:16px" *ngIf="account.organizations.length > 0">
@@ -147,7 +147,7 @@
 </div>
 <div class="text-center" style="margin-top:50px">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel()">
-            <span class="icon-button-label">取消</span>
+            <span class="icon-button-label">{{'NET_MNG_VM_PORT.CNACLE' | translate}}<!--取消--></span>
         </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px" (click)="create()"  [disabled]="!accountForm.form.valid||!loginNameIsOnly||!isEmail||!isPhone">
             <span class="icon-button-label" >{{btnTitle}}</span>
