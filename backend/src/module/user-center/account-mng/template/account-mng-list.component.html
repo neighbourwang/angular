@@ -32,7 +32,7 @@
                 <tr>
                     <th class="check-box-col">{{'NET_VM_NSX_INDEX.SELECT' | translate}}<!--选择--></th>
                     <th>{{'USER_CENTER.NAME' | translate}}<!--姓名--></th>
-                    <th>{{'USER_CENTER.ACCOUNT' | translate}}<!--{{'USER_CENTER.ACCOUNT' | translate}}<!--帐号-->--></th>
+                    <th>{{'USER_CENTER.ACCOUNT' | translate}}<!--帐号-->--></th>
                     <th>{{'USER_CENTER.CONTACT_PHONE' | translate}}<!--联系电话--></th>
                     <th>所属机构</th>
                     <th>角色</th>
@@ -53,8 +53,8 @@
                     <td [ngClass]="{'font-green':item.status =='1' ,'font-orange':item.status == '3'}">
                         {{item.status| dict:this.service.accStatusList | async}}
                         <!--<span [ngSwitch]="item.status">
-                            <template [ngSwitchCase]="1">{{'NET_MNG_VM_IP_MNG.ENABLE' | translate}}<!--启用--></template>
-                            <template [ngSwitchCase]="3">{{'HOST_VMWARE_MNG.DISABLE' | translate}}<!--禁用--></template>
+                            <template [ngSwitchCase]="1">{{'NET_MNG_VM_IP_MNG.ENABLE' | translate}}</template>
+                            <template [ngSwitchCase]="3">{{'HOST_VMWARE_MNG.DISABLE' | translate}}</template>
                             <template [ngSwitchCase]="0">未启用</template>
                             <template [ngSwitchCase]="4">4</template>
                             <template ngSwitchDefault>Unknown</template>
