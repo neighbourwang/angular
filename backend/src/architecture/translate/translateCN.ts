@@ -709,7 +709,9 @@
         "STORAGE_BACKEND": "存储后端"
     },
     "USER_CENTER": {
+        "ACCOUNT": "帐号",
         "ACCOUNT_FORMAT_ERROR": "账号格式输入错误，请输入正确邮箱地址",
+        "ACCOUNT_MANAGEMENT": "账号管理",
         "ACCOUNT_NOT_NULL": "账号不能为空",
         "AD_SOURCE": "认证源",
         "AD_USER_ACCOUNT": "AD用户帐号",
@@ -719,6 +721,7 @@
         "CONFIRM_NEW_PASSWORD": "确认新密码",
         "CONTACT_PHONE": "联系电话",
         "CONTACT_PHONE_NOT_NULL": "联系电话不能为空",
+        "CREATE_ACCOUNT": "创建帐号",
         "CREATE_AD_USER": "创建AD用户",
         "CURRENT_PASSWORD": "当前密码",
         "DONOT_TOUCH_DEFAULT_ORG": "禁止操作默认机构",
@@ -744,13 +747,12 @@
         "PASSWORD_NOT_CONSISTENT": "密码输入不一致",
         "PERMISSION_TREE": "权限树",
         "PHONE_NOT_NULL": "电话不能为空",
+        "RESET_PASSWORD": "重置密码",
         "RETURN_TO_ROLE_MANAGEMENT": "返回角色管理",
         "ROLE_MANAGEMENT": "角色管理",
         "SELECT_AD_SOURCE": "认证源选择",
         "USERNAME": "用户名",
-        "VIEW_ROLE": "查看角色"
-    },
-    "USER_CENTRE": {
+        "VIEW_ROLE": "查看角色",
         "ROLE_NAME": "角色名称"
     }
 }
