@@ -358,6 +358,7 @@ export class OrderMngComponent implements OnInit{
 
 		//匹配后台搜索框参数
         param.searchText = this._param.queryParam;
+		//param.orderCode = this._param.queryParam;
         param.creatorId = this._param.buyerId;
 
 		
