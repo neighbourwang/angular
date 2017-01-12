@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
+import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../architecture';
 
 //model
 import {Criteria} from "../model/criteria.model";
@@ -13,12 +13,18 @@ export class PhyPoolMngService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private dict:SystemDictionaryService
     ) { }
 
     init(): void {
         this.restApiCfg.loadCfgData();
     }
+
+    statusDic = this.dict.get({
+        owner: "PMRESOURCE",
+        field: "STATUS"
+    });
 
     getData(criteria: Criteria, pageIndex: number, pageSize: number): Promise<any>{
         const pathParams=[
