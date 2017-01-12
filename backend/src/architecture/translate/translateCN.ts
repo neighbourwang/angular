@@ -772,5 +772,29 @@
         "USERNAME": "用户名",
         "VIEW_ROLE": "查看角色",
         "ROLE_NAME": "角色名称"
+    },
+    "PHY_MNG_POOL":{
+        "PHY_POOL_MNG":"物理机资源池管理",
+        "CREATE_PHY_POOL":"创建物理机资源池",
+        "ADD_PHY":"添加物理机",
+        "SELECT_OPERATION":"选择操作",
+        "EDIT":"编辑",
+        "ACTIVE":"启用",
+        "DISABLE":"禁用",
+        "DELETE":"删除",
+        "POOL_NAME":"资源池名称",
+        "REGION_OWNER":"所属地域",
+        "RESOURCE_CENTER":"资源中心",
+        "SELECT":"选择",
+        "NUMBER":"编号",
+        "PHY_POOL_NAME":"物理机资源池名称",
+        "PHY_TYPE":"物理机类型",
+        "AREA_OWNER":"所属区域",
+        "DIGIT_CENTER_OWNER":"所属数据中心",
+        "PHY_TOTAL_AMOUNT":"物理机总数量",
+        "USED_PHY_AMOUNT":"已使用的物理机数量",
+        "STATUS":"状态",
+        "CONFIRM":"确认",
+        "CANCEL":"取消"
     }
 }
