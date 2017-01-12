@@ -6,7 +6,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>资源池名称:</div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" placeholder="北京地区-物理资源池1" [(ngModel)]="selectedlist.poolName"/>
+                        <input type="text" class="form-control" placeholder="北京地区-物理资源池1" [(ngModel)]="data.poolName"/>
                     </div>
                 </div>
             </div>
@@ -14,20 +14,17 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>所属地域:</div>
                     <div class="col-sm-4">
-                        <select class="form-control" placeholder="北京" [(ngModel)]="selectedlist.region">
-                            <option *ngFor="let item of regions">{{item.region}}</option>
+                        <select class="form-control"  [(ngModel)]="data.regionId">
+                            <option *ngFor="let item of regions" [value]="item.id">{{item.name}}</option>
                         </select>
                     </div>
-<!--                    <div class="col-md-4">
-                        <input type="text" class="form-control" placeholder="北京" [(ngModel)]="selectedlist.region"/>
-                    </div>-->
                 </div>
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>所属数据中心:</div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" placeholder="朝阳数据中心" [(ngModel)]="selectedlist.dataCenter"/>
+                        <input type="text" class="form-control" placeholder="朝阳数据中心" [(ngModel)]="data.dataCenter"/>
                     </div>
                 </div>
             </div>
