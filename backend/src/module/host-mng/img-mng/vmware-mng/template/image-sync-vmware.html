@@ -23,7 +23,7 @@
                     <th>{{'HOST_VMWARE_MNG.OS' | translate}}</th>
                     <th>{{'HOST_VMWARE_MNG.BIT' | translate}}</th>
                     <th>{{'HOST_VMWARE_MNG.CAPACITY' | translate}}</th>
-                    <th>{{'HOST_VMWARE_MNG.FORMAT' | translate}}</th>
+                    <!-- <th>{{'HOST_VMWARE_MNG.FORMAT' | translate}}</th> -->
                     <th>{{'HOST_VMWARE_MNG.IMAGE_TYPE' | translate}}</th>
                     <th>{{'HOST_VMWARE_MNG.SYNC_RESULT' | translate}}</th>          
                 </tr>             
@@ -64,8 +64,8 @@
                         </div>
                     </td>
                     <td>{{(syncimg.capacity | formatCapacity) || ('HOST_VMWARE_MNG.UNSET' | translate)}}</td>
-                    <td>{{(syncimg.format | dict:this.dictService.formatDict | async) || ('HOST_VMWARE_MNG.UNSET' | translate)}}</td>
-                    <!-- 
+                    <!--
+                    <td>{{(syncimg.format | dict:this.dictService.formatDict | async) || ('HOST_VMWARE_MNG.UNSET' | translate)}}</td> 
                     <td>
                         <div *ngIf="syncimg.syncResult==0" style="padding-top:2px">
                         <select [(ngModel)]="syncimg.format">
