@@ -147,7 +147,7 @@
 </div>
 <div class="text-center" style="margin-top:50px">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel()">
-            <span class="icon-button-label">取消</span>
+            <span class="icon-button-label">{{'NET_MNG_VM_PORT.CNACLE' | translate}}<!--取消--></span>
         </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px" (click)="create()"  [disabled]="!accountForm.form.valid||!loginNameIsOnly||!isEmail||!isPhone">
             <span class="icon-button-label" >{{btnTitle}}</span>
