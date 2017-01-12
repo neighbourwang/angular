@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
-import { RestApiCfg, RestApi } from "../../../../architecture";
+import { RestApiCfg, RestApi ,SystemDictionaryService} from "../../../../architecture";
 
- import { PhysicalModel } from "../model/physical.model";
-// import { AdUser } from "../model/aduser.model"
-// import { adusers, attestDetail, attests } from "../model/attest-mock";
+ import { PhysicalListModel } from "../model/physicalList.model";
+ import { PmQuery} from "../model/pmQuery.model"
+ import {  PhysicalList_mock  } from "../model/mock";
+
 import "rxjs/add/operator/toPromise";
 
 @Injectable()
@@ -12,7 +13,8 @@ export class PhysicalListService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private dict:SystemDictionaryService
     ) {
     }
 
@@ -20,9 +22,14 @@ export class PhysicalListService {
         this.restApiCfg.loadCfgData();
     }
 
+    dictProductType = this.dict.get({      
+      owner : "PM",
+      field : "STATUS"    
+   });
+
 
     //获取物理机列表
-    getPhysicals(pageIndex: number, pageSize:number): Promise<any> {
+    getPhysicals(pageIndex: number, pageSize:number,pmQuery:PmQuery): Promise<any> {
         const pathParams = [
             {
                 key: "page",
@@ -32,11 +39,36 @@ export class PhysicalListService {
                 key: "size",
                 value: pageSize
             }
-
         ];
+        // const api = this.restApiCfg.getRestApi("physical-mng.physical.list.get");
+        // return this.restApi.request(api.method, api.url, pathParams, null,
+        //     {
+        //         "brand": pmQuery.brand,
+        //         "iloAddr": pmQuery.iloAddr,
+        //         "model": pmQuery.model,
+        //         "pmName": pmQuery.pmName,
+        //         "privateIpAddr": pmQuery.privateIpAddr,
+        //         "publicIpAddr": pmQuery.publicIpAddr
+        //         }
+        // );
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => PhysicalList_mock);
+    }
+
+    //修改物理机的状态
+    updateStatusAndDelete(pmId:string,status:string):Promise<any>{
+         const pathParams = [
+            {
+                key: "pm_id",
+                value: pmId
+            },
+            {
+                key: "status",
+                value: status
+            }
+        ];
+
         const api = this.restApiCfg.getRestApi("physical-mng.physical.list.get");
-        return this.restApi.request(api.method, api.url, pathParams, null, null);
-        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => attestDetail);
+        return this.restApi.request(api.method, api.url, pathParams, null,null);
     }
 
     

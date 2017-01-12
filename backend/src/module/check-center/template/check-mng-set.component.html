@@ -1,16 +1,16 @@
 <fc-notice #notice ot="{{'COMMON.CONFIRM'|translate}}"></fc-notice>
 <div class="CheckMngSet">
-	<div class="page-content-header icon-order-manageOne">审批设置</div>
+	<div class="page-content-header icon-order-manageOne">{{ 'CHECK_CENTER.APPROVE_SET' | translate }}</div>
 		<div class="page-content">
 			<div class="table-container noBorder">
 				<table class="table table-hover"> 
 					<thead>
 						<tr>
-							<th  class="ht50">编号</th>
-							<th>企业（租户）名称</th>
-							<th>审批是否开启</th>
-							<th>自动审批时间(分钟)</th>
-							<th>操作</th>
+							<th  class="ht50">{{ 'COMMON.NUMBER' | translate }}</th>
+							<th>{{ 'CHECK_CENTER.ENTERPRISE_TENANT_NAME' | translate }}</th>
+							<th>{{ 'CHECK_CENTER.APPROVAL_IS_OPEN' | translate }}</th>
+							<th>{{ 'CHECK_CENTER.AUTO_APPROVAL_TIME_MIN' | translate }}</th>
+							<th>{{ 'CHECK_CENTER.OPERATION' | translate }}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -19,9 +19,9 @@
 								{{i}}
 							</td>
 							<td>{{item.name}}</td>
-							<td><span *ngIf="item.backAuditEnable">开启</span><span *ngIf="!item.backAuditEnable">关闭</span></td>
+							<td><span *ngIf="item.backAuditEnable">{{ 'COMMON.TURN_ON' | translate }}</span><span *ngIf="!item.backAuditEnable">{{ 'COMMON.TURN_OFF' | translate }}</span></td>
 							<td>{{item.backAutoApprovalTime}}</td>
-							<td><button class="fox-cloud-button fox-cloud-button-white" (click)="set(item)" ><span>设置审批</span></button></td>
+							<td><button class="fox-cloud-button fox-cloud-button-white" (click)="set(item)" ><span>{{ 'CHECK_CENTER.SET_APPROVE' | translate }}</span></button></td>
 						</tr>
 					</tbody>
 				</table>
@@ -30,22 +30,22 @@
 		</div>
 
 		<!-- 设置 -->
-		<fc-popup #setPoup ot="确认" ct="取消" title="审批设置" (of)="acceptEntModify()" (cf)="cancelEntModify()">
+		<fc-popup #setPoup ot="{{ 'COMMON.CONFIRM' | translate }}" ct="{{ 'COMMON.CANCEL' | translate }}" title="{{ 'CHECK_CENTER.APPROVE_SET' | translate }}" (of)="acceptEntModify()" (cf)="cancelEntModify()">
 			<div class="dialogContent">
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4"><span class="float-right">审批：</span><span class="asterisk float-right">*</span></div>
+						<div class="col-sm-4"><span class="float-right">{{ 'COMMON.APPROVE' | translate }}: </span><span class="asterisk float-right">*</span></div>
 						<div class="col-sm-4">
-							<input type="radio" class="fox-cloud-radio" name="approve_set" [ngClass]="{'active':_selectedItem.backAuditEnable}" [value]="1" [(ngModel)]="_selectedItem.backAuditEnable"><span>开启</span>
-							<input type="radio" class="fox-cloud-radio" name="approve_set" [ngClass]="{'active':!_selectedItem.backAuditEnable}" [value]="0" [(ngModel)]="_selectedItem.backAuditEnable"><span>关闭</span>
+							<input type="radio" class="fox-cloud-radio" name="approve_set" [ngClass]="{'active':_selectedItem.backAuditEnable}" [value]="1" [(ngModel)]="_selectedItem.backAuditEnable"><span>{{ 'COMMON.TURN_ON' | translate }}</span>
+							<input type="radio" class="fox-cloud-radio" name="approve_set" [ngClass]="{'active':!_selectedItem.backAuditEnable}" [value]="0" [(ngModel)]="_selectedItem.backAuditEnable"><span>{{ 'COMMON.TURN_OFF' | translate }}</span>
 						</div>
 					</div>
 				</div>
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 "><span class="float-right">自动审批时间设置：</span></div>
+						<div class="col-sm-4 "><span class="float-right">{{ 'CHECK_CENTER.AUTO_APPROVAL_TIME_SET' | translate }}:</span></div>
 						<div class="col-sm-4">
-							<input type="number" class="form-control number-input" [(ngModel)]="_selectedItem.backAutoApprovalTime">分钟
+							<input type="number" class="form-control number-input" [(ngModel)]="_selectedItem.backAutoApprovalTime">{{ 'COMMON.MIN' | translate }}
 						</div>
 					</div>
 				</div>

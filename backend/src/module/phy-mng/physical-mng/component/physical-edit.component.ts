@@ -137,20 +137,20 @@ export class PhysicalEditComponent implements OnInit {
             return false;
         }
 
-        if (!this.physical.ipAddr) {
+        if (!this.physical.iloIPAddress) {
             this.showAlert("请填写IP地址！");
             return false;
         }
 
-        if (!this.physical.username) {
+        if (!this.physical.iloUserName) {
             this.showAlert("请填写用户名！");
             return false;
         }
-        if (!this.physical.password) {
+        if (!this.physical.iloPwd) {
             this.showAlert("请填写密码！");
             return false;
         }
-        if (!this.physical.serverTypeId) {
+        if (!this.physical.sererTypeId) {
             this.showAlert("请选择服务器类型！");
             return false;
         }

@@ -59,15 +59,16 @@ export class PhysicalEditService {
         const pathParams = [
             {
                 key: "ip_addr",
-                value: physical.ipAddr
+                value: physical.iloIPAddress
+
             },
             {
                 key: "username",
-                value: physical.username
+                value: physical.iloUserName
             },
             {
                 key: "password",
-                value: physical.password
+                value: physical.iloPwd
             },
             
         ];
