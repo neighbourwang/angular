@@ -15,7 +15,7 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a (click)="gotoCreat();">编辑</a></li>
+                <li><a (click)="gotoEdit();">编辑</a></li>
                 <li><a (click)="phyIfEnable('1');">启用</a></li>
                 <li><a (click)="phyIfEnable('0');">禁用</a></li>
                 <li><a (click)="phyIfEnable('2');">删除</a></li>
@@ -23,7 +23,7 @@
         </div>
 
         <div class="input-group col-md-2 pull-right mgl10" >
-            <input class="form-control " [(ngModel)]="query" placeholder="输入云主机信息搜索" type="text">
+            <input class="form-control " [(ngModel)]="query" type="text">
             <div class="input-group-addon" (click)="searchphy()"><span class="glyphicon glyphicon-search"></span></div>
         </div>
         <div class="pull-right mgl10">

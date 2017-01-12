@@ -186,15 +186,12 @@ export class PhyPoolMngComponent implements OnInit{
 
     gotoPhyList(item){
         this.router.navigate([`physical-mng/physical-mng/physical-list`,
-            {   "pmpoolId": item.pmPoolId,
-                "poolName": item.pmPoolName,
-                "region": item.region,
-                "dataCenter":item.dataCenter
+            {   "pmpoolId": item.pmPoolId
             }
         ]);
     }
 
-    gotoCreat(){
+    gotoEdit(){
         const selectedphy= this.data.find((p) =>{
             return p.selected;
         });

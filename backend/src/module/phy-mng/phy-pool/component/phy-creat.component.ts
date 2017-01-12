@@ -38,6 +38,8 @@ export class PhyCreatComponent implements OnInit{
 
     data: Criteria= new Criteria();
     pmPoolId: string;
+    title: string;
+    save: string;
 
     regions: Array<Region>= new Array<Region>();
 
@@ -51,6 +53,11 @@ export class PhyCreatComponent implements OnInit{
         this.getRegionList();
         if(this.pmPoolId){
             this.getData();
+            this.title= "编辑资源池";
+            this.save= "保存";
+        }else{
+            this.title= "创建资源池";
+            this.save= "创建";
         }
     }
 
