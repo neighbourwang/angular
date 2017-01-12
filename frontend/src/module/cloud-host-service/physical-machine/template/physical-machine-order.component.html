@@ -51,11 +51,19 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">选择物理资源</div>
 					<div class="col-md-10" data-toggle="buttons">
-						<select [(ngModel)]="sendModule.networktype" class="form-control">
+						<select [(ngModel)]="sendModule.networktype" class="form-control float-left mgr10">
 							<option
 							 *ngFor="let value of networkList"
 							 [ngValue]="value" >{{ value.attrDisplayValue }}</option>
 						</select>
+						<button 
+				        	[popover]="popover_host" 
+				        	[ngClass]="{'active': popover_host.popover?.visible}" 
+				        	class="btn btn-default button-gray-gradient mgr20">从物理资源池中选取</button>
+
+				        <popover-content #popover_host [closeOnClickOutside]="true" >
+							666
+						</popover-content>
 					</div>
 				</div>
 			</li>
