@@ -715,6 +715,7 @@
         "AD_USER_ACCOUNT": "AD用户帐号",
         "BINDING_ORG": "绑定机构",
         "BINDING_ROLE": "绑定角色",
+        "CONFIRM_NEW_PASSWORD": "确认新密码",
         "CONTACT_PHONE": "联系电话",
         "CONTACT_PHONE_NOT_NULL": "联系电话不能为空",
         "CREATE_AD_USER": "创建AD用户",
@@ -730,12 +731,20 @@
         "INPUT_ORG_NAME": "请输入机构名称",
         "INPUT_PHONE": "请输入联系电话",
         "INPUT_USERNAME_SEARCH": "输入姓名回车搜索",
+        "LEVEL_ONE_ADMIN": "一级管理员",
         "MOBILE_PHONE_FORMAT_ERROR": "手机号格式输入错误，请输入正确手机号",
         "NAME": "姓名",
         "NAME_NOT_NULL": "姓名不能为空",
+        "NEW_PASSWORD_FORMAT_ERROR": "新密码格式错误",
+        "NEW_PASSWORD_SHOULD_NOT_EQUAL_TO_OLD": "新密码不能与原密码相同",
+        "PASSWORD_NOT_CONSISTENT": "密码输入不一致",
+        "PERMISSION_TREE": "权限树",
         "PHONE_NOT_NULL": "电话不能为空",
+        "RETURN_TO_ROLE_MANAGEMENT": "返回角色管理",
+        "ROLE_MANAGEMENT": "角色管理",
         "SELECT_AD_SOURCE": "认证源选择",
-        "USERNAME": "用户名"
+        "USERNAME": "用户名",
+        "VIEW_ROLE": "查看角色"
     },
     "USER_CENTRE": {
         "ROLE_NAME": "角色名称"

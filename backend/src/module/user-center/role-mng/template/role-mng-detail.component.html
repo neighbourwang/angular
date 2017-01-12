@@ -1,8 +1,8 @@
 
 <div class="page-content-header icon-content-header-userCenterOn" style="padding-bottom:10px;height:45px;">
-    查看角色
+    {{'USER_CENTER.VIEW_ROLE' | translate}}<!--查看角色-->
     <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
-        <span class="icon-button-label" (click)='back()'>返回角色管理</span>
+        <span class="icon-button-label" (click)='back()'>{{'USER_CENTER.RETURN_TO_ROLE_MANAGEMENT' | translate}}<!--返回角色管理--></span>
     </button>
 </div>
 
@@ -15,7 +15,7 @@
                     {{'USER_CENTRE.ROLE_NAME' | translate}}<!--角色名称--> :
                 </div>
                 <div class="col-sm-4" style="line-height : 34px">
-                    一级管理员
+                    {{'USER_CENTER.LEVEL_ONE_ADMIN' | translate}}<!--一级管理员-->
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
-                    权限树 :
+                    {{'USER_CENTER.PERMISSION_TREE' | translate}}<!--权限树--> :
                 </div>
                 <div class="col-sm-4" style="line-height : 34px;border : 1px solid #A9A9A9">
                     <Tree [nodes]="nodes" [options]="options">
