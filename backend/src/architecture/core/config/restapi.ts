@@ -1733,7 +1733,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取物理机地域列表",
         "id": "phy-mng.phy-pool.phylist.region",
         "method": "GET",
-        "url": "pmresourcemgmt/noauth/pmpool/regionlist"
+        "url": "basis/authsec/regions"
     },
     {
         "desc": "根据poolId获取资源池信息",
