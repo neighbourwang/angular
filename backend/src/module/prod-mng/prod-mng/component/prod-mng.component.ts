@@ -154,7 +154,9 @@ export class ProdMngComponent implements OnInit {
         this.prodList = this.getProduct();
         console.log(this.prodList);
         if (this.prodList.length < 1) {
-            this.notice.open('操作错误', '请选择产品目录');
+            this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.SELECT_PRODUCT_CAT'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.SELECT_PRODUCT_CAT=>请选择产品目录 
+
+
         } else {
             let message: string = '';
             for (let dir of this.prodList) {
@@ -164,20 +166,25 @@ export class ProdMngComponent implements OnInit {
             // console.log(message);
             message = message.substring(0, message.length - 1);
             switch (order) {
-                case 'delete': this.deleteConfirm.open('删除产品', '您选择删除 ' + "'" + message + "'" + '产品,请确认；如果确认，此产品将不能恢复。')
+                case 'delete': this.deleteConfirm.open('PROD_MNG.DELETE_PRODUCT', '您选择删除 ' + "'" + message + "'" + '产品,请确认；如果确认，此产品将不能恢复。') //PROD_MNG.DELETE_PRODUCT=>删除产品 
+
                     break;
                 case 'publish':
                     if (this.prodList.find(v => v.status == 1)) {
-                        this.notice.open('操作错误', '不可以再次发布已发布状态的产品');
+                        this.notice.open('COMMON.OPERATION_ERROR', '不可以再次发布已发布状态的产品'); //COMMON.OPERATION_ERROR=>操作错误 
+
                     } else {
-                        this.publishConfirm.open('发布产品', '您选择发布 ' + "'" + message + "'" + '产品,请确认。')
+                        this.publishConfirm.open('PROD_MNG.PUBLISH_PRODUCT', '您选择发布 ' + "'" + message + "'" + '产品,请确认。') //PROD_MNG.PUBLISH_PRODUCT=>发布产品 
+
                     }
                     break;
                 case 'ccPublish':
                     if (this.prodList.find(v => v.status == 3)) {
-                        this.notice.open('操作错误', '不可以再次取消发布未发布状态的产品');
+                        this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.DONOT_CANCEL_PUBLISH_FOR_PUBLISHED_PRODUCT'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.DONOT_CANCEL_PUBLISH_FOR_PUBLISHED_PRODUCT=>不可以再次取消发布未发布状态的产品 
+
+
                     } else {
-                        this.ccPublishConfirm.open('取消发布产品', '您选择取消发布' + "'" + message + "'" + '产品,请确认。如果确认，用户将不能够订购此产品。')
+                        this.ccPublishConfirm.open('PROD_MNG.CANCEL_PUBLISH_PRODUCT', '您选择取消发布' + "'" + message + "'" + '产品,请确认。如果确认，用户将不能够订购此产品。') //PROD_MNG.CANCEL_PUBLISH_PRODUCT=>取消发布产品 
                     } break;
             }
         }

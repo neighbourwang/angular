@@ -13,7 +13,7 @@ export class Image {
     capacity:number;
     selected:boolean;
     syncResult:string;
-       
+    format:string;
     nameEditing:boolean;
 
    
