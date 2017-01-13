@@ -136,7 +136,9 @@ export class AccountMngComponent implements OnInit {
                 this.router.navigate([`/user-center/account-mng/account-mng-edit-ad/${this.chooseAccount.id}`]);
             }
         } else {
-            this.notice.open('操作错误', '请选择账号')
+            this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ACCOUNT') //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ACCOUNT=>请选择账号 
+
+
         }
 
     }
@@ -144,7 +146,8 @@ export class AccountMngComponent implements OnInit {
     //重置密码
     resetPassword() {
         if(this.chooseAccount.type=='1'){
-            this.notice.open('操作错误','重置密码功能仅限本地账户');
+            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.PASSWORD_RESET_LIMITTED_TO_LOCAL_ACCOUNT'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.PASSWORD_RESET_LIMITTED_TO_LOCAL_ACCOUNT=>重置密码功能仅限本地账户 
+
             return ;
         }
         if (this.chooseAccount.id) {
@@ -153,7 +156,9 @@ export class AccountMngComponent implements OnInit {
                 this.confirm.open("重置密码", "您选择重置账号 "+this.chooseAccount.loginName+"的密码,请确认");
             }
         } else {
-            this.notice.open('操作错误', '请选择账号')
+            this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ACCOUNT') //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ACCOUNT=>请选择账号 
+
+
         }
 
     }
@@ -161,18 +166,22 @@ export class AccountMngComponent implements OnInit {
     //启用
     enable() {
         if(this.chooseAccount.isRoot){
-            this.notice.open('操作错误','禁止操作Root账号');
+            this.notice.open('COMMON.OPERATION_ERROR','禁止操作Root账号'); //COMMON.OPERATION_ERROR=>操作错误 
+
             return
         }
         if(this.chooseAccount.status==1){
-            this.notice.open('操作错误','账号状态为已启用')
+            this.notice.open('COMMON.OPERATION_ERROR','账号状态为已启用') //COMMON.OPERATION_ERROR=>操作错误 
+
             return
         }
         if (this.chooseAccount.id) {
             this.confirmType = 2;
             this.confirm.open("启用帐号", "您选择启用帐号 "+this.chooseAccount.loginName+"，请确认");
         } else {
-            this.notice.open('操作错误', '请选择账号')
+            this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ACCOUNT') //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ACCOUNT=>请选择账号 
+
+
         }
 
     }
@@ -180,18 +189,22 @@ export class AccountMngComponent implements OnInit {
     //禁用
     disable() {
         if(this.chooseAccount.isRoot){
-            this.notice.open('操作错误','禁止操作Root账号');
+            this.notice.open('COMMON.OPERATION_ERROR','禁止操作Root账号'); //COMMON.OPERATION_ERROR=>操作错误 
+
             return
         }
         if(this.chooseAccount.status==5){
-            this.notice.open('操作错误','账户状态为已禁用');
+            this.notice.open('COMMON.OPERATION_ERROR','账户状态为已禁用'); //COMMON.OPERATION_ERROR=>操作错误 
+
             return ;
         }
         if (this.chooseAccount.id) {
             this.confirmType = 3;
             this.confirm.open("禁用帐号", "您选择禁用帐号 "+this.chooseAccount.loginName+"，请确认");
         } else {
-            this.notice.open('操作错误', '请选择账号')
+            this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ACCOUNT') //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ACCOUNT=>请选择账号 
+
+
         }
 
     }
@@ -199,19 +212,23 @@ export class AccountMngComponent implements OnInit {
     //删除
     delete() {
         if(this.chooseAccount.isRoot){
-            this.notice.open('操作错误','禁止操作Root账号');
+            this.notice.open('COMMON.OPERATION_ERROR','禁止操作Root账号'); //COMMON.OPERATION_ERROR=>操作错误 
+
             return
         }
 
         if(this.chooseAccount.status==1){
-            this.notice.open('操作错误','不能删除启用状态的账户');
+            this.notice.open('COMMON.OPERATION_ERROR','不能删除启用状态的账户'); //COMMON.OPERATION_ERROR=>操作错误 
+
             return;
         }
         if (this.chooseAccount.id) {
             this.confirmType = 4;
             this.confirm.open("删除帐号", "您选择删除帐号 "+this.chooseAccount.loginName+"，请确认");
         } else {
-            this.notice.open('操作错误', '请选择账号')
+            this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ACCOUNT') //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ACCOUNT=>请选择账号 
+
+
         }
 
     }

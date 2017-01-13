@@ -86,7 +86,8 @@ export class AccountMngCrAd implements OnInit {
     //获取ad用户
     searchAdUser() {
         if (this.account.ldapId == "" || !this.filterStr || this.filterStr == "") {
-            this.showAlert("请选择认证源并且输入查询字符串");
+            this.showAlert("USER_CENTER.PLEASE_SELECT_AD_SOURCE_AND_INPUT_QUERY"); //USER_CENTER.PLEASE_SELECT_AD_SOURCE_AND_INPUT_QUERY=>请选择认证源并且输入查询字符串 
+
             return;
         }
 
@@ -110,12 +111,14 @@ export class AccountMngCrAd implements OnInit {
         this.account.organizations = this.organizations.filter((o) => { return o.selected });
 
         if (this.validationService.isBlank(this.account.userName)) {
-            this.showAlert("请输入管理员姓名");
+            this.showAlert("USER_CENTER.INPUT_ADMIN_USERNAME"); //USER_CENTER.INPUT_ADMIN_USERNAME=>请输入管理员姓名 
+
             return;
         }
 
         if (this.validationService.isBlank(this.account.phone)) {
-            this.showAlert("请输入电话");
+            this.showAlert("USER_CENTER.INPUT_PHONE_NUMBER"); //USER_CENTER.INPUT_PHONE_NUMBER=>请输入电话 
+
             return;
         }
 
@@ -126,17 +129,20 @@ export class AccountMngCrAd implements OnInit {
         //}
 
         if (!this.account.loginName || this.account.loginName == "") {
-            this.showAlert("请选择ad用户");
+            this.showAlert("USER_CENTER.SELECT_AD_USER"); //USER_CENTER.SELECT_AD_USER=>请选择ad用户 
+
             return;
         }
 
         if (this.account.roles.length === 0) {
-            this.showAlert("至少选择一个角色");
+            this.showAlert("USER_CENTER.SELECT_AT_LEAST_ONE_ROLE"); //USER_CENTER.SELECT_AT_LEAST_ONE_ROLE=>至少选择一个角色 
+
             return;
         }
 
         if (this.account.organizations.length === 0) {
-            this.showAlert("请选择所属机构");
+            this.showAlert("USER_CENTER.SELECT_ORG_WHICH_BELONG_TO"); //USER_CENTER.SELECT_ORG_WHICH_BELONG_TO=>请选择所属机构 
+
             return;
         }
 
@@ -149,7 +155,8 @@ export class AccountMngCrAd implements OnInit {
                     //this.showAlert("success");
                     this.router.navigateByUrl('user-center/account-mng/account-mng-list');
                 } else if (response && "10051101" == response["resultCode"]) {
-                    this.showAlert("该账户已经被占用");
+                    this.showAlert("USER_CENTER.ACCOUNT_IS_USED"); //USER_CENTER.ACCOUNT_IS_USED=>该账户已经被占用 
+
                 } else {
                     this.showAlert("Res sync error");
                 }
@@ -170,7 +177,7 @@ export class AccountMngCrAd implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "NET_MNG_VM_PORT.PROMPT"; //NET_MNG_VM_PORT.PROMPT=>提示 
         this.noticeMsg = msg;
         this.notice.open();
     }
