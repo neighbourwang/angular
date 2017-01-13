@@ -1,41 +1,41 @@
 <div class="page-content-header icon-content-header-enterprise-manage">
     <span>
-        企业管理员设置：{{enterprise.name}}
+        {{ 'ENT_MNG.ENTERPRISE_ADMINSTRATOR_SET' | translate }}: {{enterprise.name}}
     </span>
     <button class="fox-cloud-button-sm fox-cloud-button-grey pull-right font-weight-normal" (click)="gotoEnterpriseList()">
-        <span class="button-label">返回企业管理列表</span>
+        <span class="button-label">{{ 'ENT_MNG.BACK_ENTERPRISE_MANAGEMENT_LIST' | translate }}</span>
     </button>
 </div>
 <div class="page-content">
     <div style="padding-bottom: 10px;">
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                更多操作
+                {{ 'COMMON.MORE_OPERATION' | translate }}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="margin-left: 10px;">
                 <li>
-                    <a href="javascript:void(0);" (click)="editAdmin();">编辑</a>
+                    <a href="javascript:void(0);" (click)="editAdmin();">{{ 'COMMON.EDIT' | translate }}</a>
                 </li>
                 <li *ngIf="enterprise && enterprise.authMode =='0'">
-                    <a href="javascript:void(0);" (click)="resetPassword();">重置密码</a>
+                    <a href="javascript:void(0);" (click)="resetPassword();">{{ 'ENT_MNG.RESET_PASSWORD' | translate }}</a>
                 </li>
                 <li role="separator" class="divider"></li>
                 <li>
-                    <a href="javascript:void(0);" (click)="change2Status(1);">启用</a>
+                    <a href="javascript:void(0);" (click)="change2Status(1);">{{ 'COMMON.ENABLE' | translate }}</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" (click)="change2Status(3);">禁用</a>
+                    <a href="javascript:void(0);" (click)="change2Status(3);">{{ 'COMMON.DISABLE' | translate }}</a>
                 </li>
                 <li role="separator" class="divider"></li>
                 <li>
-                    <a href="javascript:void(0);" (click)="deleteAdmins();">删除</a>
+                    <a href="javascript:void(0);" (click)="deleteAdmins();">{{ 'COMMON.DELETE' | translate }}</a>
                 </li>
             </ul>
         </div>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="openCrAccountPop()">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建管理员</span>
+            <span class="icon-button-label icon-left-button-label">{{ 'ENT_MNG.CREATE_ADMINISTRATOR' | translate }}</span>
         </button>
     </div>
     <div class="table-container">
@@ -43,14 +43,14 @@
             <thead>
                 <tr>
                     <th class="fristTh">
-                        选择
+                        {{ 'COMMON.CHOOSE' | translate }}
                     </th>
-                    <th>管理员</th>
-                    <th>账号</th>
-                    <th>联系电话</th>
-                    <th>类型</th>
-                    <th>账号状态</th>
-                    <th>描述</th>
+                    <th>{{ 'COMMON.ADMINISTRATOR' | translate }}</th>
+                    <th>{{ 'COMMON.ACCOUNT' | translate }}</th>
+                    <th>{{ 'COMMON.CONTACT_PHONE' | translate }}</th>
+                    <th>{{ 'COMMON.TYPE' | translate }}</th>
+                    <th>{{ 'ENT_MNG.ACCOUNT_STATUS' | translate }}</th>
+                    <th>{{ 'COMMON.DESCRIPTION' | translate }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -76,10 +76,10 @@
     </div>
     <div style="height:160px"></div>
 </div>
-<fc-popup #crAccountModel title="认证源选择" ot="创建" ct="取消" (of)="crAccount()">
+<fc-popup #crAccountModel title="{{ 'ENT_MNG.AD_SOURCE_CHOOSE' | translate }}" ot="{{ 'COMMON.CREATE' | translate }}" ct="{{ 'COMMON.CANCEL' | translate }}" (of)="crAccount()">
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>认证源：</div>
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{ 'COMMON.AD_SOURCE' | translate }}:</div>
             <div class="col-sm-6">
                 <select class="form-control" [(ngModel)]="authenticationSource">
                     <option *ngFor="let item of authenticationSourceList;" [value]="item.id">{{item.name}}</option>
@@ -89,5 +89,5 @@
     </div>
 </fc-popup>
 <fc-pagination #pager tp={{tp}} (pf)="getData($event)"></fc-pagination>
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" (of)="nof()"></fc-notice>
-<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate }}" (of)="nof()"></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate }}" (of)="cof()" ct="{{ 'COMMON.CANCEL' | translate }}" (cf)="ccf()"></fc-confirm>

@@ -1,14 +1,14 @@
-<div class="page-content-header icon-content-header-platform-manage">编辑AD用户</div>
+<div class="page-content-header icon-content-header-platform-manage">{{ 'ENT_MNG.EDIT_AD_USER' | translate }}</div>
 <div class="row" style="padding-top: 30px;">
     <div class="col-md-12">
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
                     <span class="asterisk">*</span>
-                    姓名
+                    {{ 'COMMON.NAME' | translate }}
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" [(ngModel)]="admin.userName" placeholder="请输入姓名">
+                    <input type="text" class="form-control" [(ngModel)]="admin.userName" placeholder="{{ 'COMMON.INPUT_NAME' | translate }}">
                 </div>
             </div>
         </div>
@@ -16,7 +16,7 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
                     <span class="asterisk">*</span>
-                    账号
+                    {{ 'COMMON.ACCOUNT' | translate }}
                 </div>
                 <div class="col-sm-4">
                     {{admin.loginName}}
@@ -27,7 +27,7 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
                     <span class="asterisk">*</span>
-                    认证源
+                    {{ 'COMMON.AD_SOURCE' | translate }}
                 </div>
                 <div class="col-sm-4">
                     {{admin.ldapName}}
@@ -38,10 +38,10 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
                     <span class="asterisk">*</span>
-                    联系电话
+                    {{ 'COMMON.CONTACT_PHONE' | translate }}
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" [(ngModel)]="admin.contactPhone" placeholder="请输入联系电话">
+                    <input type="text" class="form-control" [(ngModel)]="admin.contactPhone" placeholder="{{ 'COMMON.INPUT_PHONE' | translate }}">
                 </div>
             </div>
         </div>
@@ -49,22 +49,22 @@
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
-                    描述
+                    {{ 'COMMON.DESCRIPTION' | translate }}
                 </div>
                 <div class="col-sm-4">
-                    <textarea type="text" class="form-control" [(ngModel)]="admin.description" placeholder="请输入联系描述" rows="3"></textarea>
+                    <textarea type="text" class="form-control" [(ngModel)]="admin.description" placeholder="{{ 'COMMON.INPUT_CONTACT_DESC' | translate }}" rows="3"></textarea>
                 </div>
             </div>
         </div>
      
         <div class="text-center">
             <button class="fox-cloud-button-lg fox-cloud-button-white"  (click)="cancel()">
-                <span class="icon-button-label">取消</span>
+                <span class="icon-button-label"> {{ 'COMMON.CANCEL' | translate }}</span>
             </button>
             <button class="fox-cloud-button-lg fox-cloud-button-white"  (click)="saveAccount()" style="margin-left : 10px">
-                <span class="icon-button-label">保存</span>
+                <span class="icon-button-label"> {{ 'COMMON.SAVE' | translate }}</span>
             </button>
         </div>
     </div>
 </div>
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate }}"></fc-notice>

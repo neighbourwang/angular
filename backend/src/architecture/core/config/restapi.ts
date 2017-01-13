@@ -646,10 +646,10 @@ export let RestApis: RestApiModel[] = [
     },// 企业管理 -->
     //<!--后台-运营中心-订单管理
     {
-        "desc": "获取订单详情",
+        "desc": "订单查询详情",
         "id": "op-center.order-mng.order-detail.get",
         "method": "GET",
-        "url": "adminui/authsec/order/{orderId}"
+        "url": "adminui//authsec/backend/order/{orderNo}/detail"
     },
     {
         "desc": "企业列表",
@@ -680,11 +680,16 @@ export let RestApis: RestApiModel[] = [
     //     "url": "adminui/authsec/approval/department/{departmentId}/users"
     // }
     , {
-        "desc": "订单列表",
+        "desc": "已购服务管理列表",
         "id": "op-center.order-mng.order-list.post",
         "method": "POST",
         "url": "adminui/authsec/subinstance/subscription/list"
-    }, {
+    },{
+        "desc": "已购服务管理详情",
+        "id": "op-center.order-mng.subinstance-detail.post",
+        "method": "POST",
+        "url": "adminui//authsec/subinstance/{subinstanceCode}/detail"
+    },{
         "desc": "订单续订",
         "id": "op-center.order-mng.order-renew.get",
         "method": "POST",
@@ -1733,7 +1738,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取物理机地域列表",
         "id": "phy-mng.phy-pool.phylist.region",
         "method": "GET",
-        "url": "pmresourcemgmt/noauth/pmpool/regionlist"
+        "url": "basis/authsec/regions"
     },
     {
         "desc": "根据poolId获取资源池信息",

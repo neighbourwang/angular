@@ -5,7 +5,8 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
                     <span class="asterisk">*</span>
-                    {{'USER_CENTER.ORG_NAME' | translate}}<--机构名称-->
+                    {{'USER_CENTER.ORG_NAME' | translate}}<--机构名称-->
+
                 </div>
                 <div class="col-sm-4">
                     <input type="text" class="form-control"  placeholder="{{'USER_CENTER.INPUT_ORG_NAME' | translate}}" [(ngModel)]="org.name">
@@ -53,7 +54,7 @@
                         </label>
                 </div>
                     <div style="float : right ; margin-right : 20px" (click)="loadMoreAccount()">
-                        <button class="fox-cloud-button-md fox-cloud-button-white">更多>>></button>
+                        <button class="fox-cloud-button-md fox-cloud-button-white">{{'COMMON.MORE' | translate}}>>></button><!--更多-->
                     </div>
                 </div>
             </div>
