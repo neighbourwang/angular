@@ -132,7 +132,8 @@ export class AttestMngComponent implements OnInit {
     onDelete() {
         var attest = this.getSelectAttest();
         if (!attest) {
-            this.showAlert("USER_CENTER.SELECT_AD_SOURCE_TO_DELETE"); //USER_CENTER.SELECT_AD_SOURCE_TO_DELETE=>请先选择需要删除的认证源 
+            this.showAlert("USER_CENTER.SELECT_AD_SOURCE_TO_DELETE"); //USER_CENTER.SELECT_AD_SOURCE_TO_DELETE=>请先选择需要删除的认证源 
+
             return;
         }
 
@@ -194,6 +195,6 @@ export class AttestMngComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("NET_MNG_VM_DBT_PORT.GETTING_DATA_FAILED"); //NET_MNG_VM_DBT_PORT.GETTING_DATA_FAILED=>获取数据失败！ 
     }
 }

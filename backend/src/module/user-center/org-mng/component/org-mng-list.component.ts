@@ -109,7 +109,8 @@ export class OrgMngListComponent implements OnInit {
 
                 return;
             }            
-            this.confirmTitle = "删除机构";
+            this.confirmTitle = "USER_CENTER.DELETE_ORG"; //USER_CENTER.DELETE_ORG=>删除机构 
+
             this.confirmMessage = "您选择删除" + this.org.name + "，请确认。如果确认，机构将被删除且该机构中的用户将被移除";
             this.confirmType = 3;
             this.confirm.open(this.confirmTitle, this.confirmMessage);
@@ -127,7 +128,7 @@ export class OrgMngListComponent implements OnInit {
 
                 return;
             }
-            this.confirmTitle = "启用机构";
+            this.confirmTitle = "USER_CENTER.ENABLE_ORG"; //USER_CENTER.ENABLE_ORG=>启用机构 
             this.confirmMessage = "您选择启用" + this.org.name + "，请确认";
             this.confirmType = 1;
             this.confirm.open(this.confirmTitle, this.confirmMessage);
@@ -146,7 +147,8 @@ export class OrgMngListComponent implements OnInit {
                 return;
             }
         if (this.org.id) {
-            this.confirmTitle = "USER_CENTER.DISABLE_ORG"; //USER_CENTER.DISABLE_ORG=>禁用机构 
+            this.confirmTitle = "USER_CENTER.DISABLE_ORG"; //USER_CENTER.DISABLE_ORG=>禁用机构 
+
             this.confirmMessage = "您选择禁用 '" + this.org.name + "'，请确认。如果确认，机构内成员将无法操作相关资源";
             this.confirmType = 2;
             this.confirm.open(this.confirmTitle, this.confirmMessage);
