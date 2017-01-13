@@ -1103,13 +1103,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取端口资源企业列表",
         "id": "net-mng.vmware.port.enterprise.list",
         "method": "GET",
-        "url": "adminboe/authsec/vmware/network/{id}/set/ent"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/{cluster_id}/set/ent"
     },
     {
         "desc": "获取端口资源设置企业保存",
         "id": "net-mng.vmware.port.enterprise.save",
         "method": "POST",
-        "url": "adminboe/authsec/vmware/network/{id}/save/ent"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/{cluster_id}/save/ent"
     },
     //VMware最外层导航页
     {
@@ -1325,7 +1325,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取地域数据中心数据平台选项",
         "id": "net-mng.openstack.net.region_option",
         "method": "GET",
-        //"url": "/adminboe/authsec/openstack/network/queryCondition"
+        //"url": "adminboe/authsec/openstack/network/queryCondition"
         "url": "openstacknetworkmgmt/authsec/openstack/network/queryCondition "
     },
     {
@@ -1613,7 +1613,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "设置企业",
         "id": "net-mng.vm-mng-dbt.port.set-ent",
         "method": "GET",
-        "url": "adminboe/authsec/vmware/network/dist/portres/{id}/set/ent"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dist/portres/{switch_id}/set/ent"
     },
     {
         "desc": "数据中心联动列表",
@@ -1625,7 +1625,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "保存企业",
         "id": "net-mng.vm-mng-dbt.port.ent-save",
         "method": "POST",
-        "url": "adminboe/authsec/vmware/network/dist/portres/{id}/save/ent"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dist/portres/{switch_id}/save/ent"
     },
 
     //Vmware NSX导航页
@@ -1681,13 +1681,14 @@ export let RestApis: RestApiModel[] = [
         "desc": "NSX云网络DLR资源分配保存企业",
         "id": "net-mng.vm-mng-nsx.dlr.ent-save",
         "method": "POST",
-        "url": "adminboe/authsec/vmware/network/nsx/portres/{id}/save/ent"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/portres/{dlr_id}/save/ent"
+        
     },
     {
        "desc": "NSX云网络DLR资源分配dlr设置企业",
         "id": "net-mng.vm-mng-nsx.dlr.dlr-detail",
         "method": "GET",
-        "url": "adminboe/authsec/vmware/network/nsx/portres/{id}/set/ent"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/portres/{dlr_id}/set/ent"
     },
 //vmware-nsx网络
     {
