@@ -1,4 +1,5 @@
-<div class="page-content-header icon-content-header-userCenterOn">认证管理</div>
+<div class="page-content-header icon-content-header-userCenterOn">{{'USER_CENTER.CERT_MANAGEMENT' | translate}}</div><!--认证管理-->
+
 <div class="page-content">
 	<div style="padding-bottom: 10px;">
 		<div class="dropdown pull-right" style="margin-left: 20px">
@@ -18,7 +19,8 @@
 		</div>		
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="onCreate();">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建认证源</span>
+            <span class="icon-button-label icon-left-button-label">{{'USER_CENTER.CREATE_AD_SOURCE' | translate}}</span><!--创建认证源-->
+
         </button>
 	</div>
 	<div class="table-container">
@@ -28,8 +30,9 @@
 				    <th >{{'NET_VM_NSX_INDEX.SELECT' | translate}}<!--选择--></th>
 					<th>{{'USER_CENTER.AD_SOURCE_NAME' | translate}}</th><--认证源名称-->
 
-					<th>URL地址</th>
-					<th>{{'USER_CENTER.CERT_TYPE' | translate}}</th><--认证类型-->
+					<th>URL{{'COMMON.PATH' | translate}}</th><!--地址-->
+					<th>{{'USER_CENTER.CERT_TYPE' | translate}}</th><--认证类型-->
+
 					<th>{{'NET_MNG_OPENSTACK.STATUS' | translate}}<!--状态--></th>
 					<th>{{'COMMON.DESCRIPTION' | translate}}<!--描述--></th>
 				</tr>

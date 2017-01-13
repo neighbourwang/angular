@@ -1,4 +1,5 @@
-<div class="page-content-header icon-content-header-userCenterOn">机构管理</div>
+<div class="page-content-header icon-content-header-userCenterOn">{{'USER_CENTER.ORG_MANAGEMENT' | translate}}</div><!--机构管理-->
+
 <div style="margin-top: 10px;">
 		
         <div class="dropdown pull-right">
@@ -16,7 +17,7 @@
 
         <button class="fox-cloud-button fox-cloud-button-green" (click)="create()">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建机构</span>
+            <span class="icon-button-label icon-left-button-label">{{'USER_CENTER.CREATE_ORG' | translate}}</span><!--创建机构-->
         </button>
 </div>
 <div class="table-container" style="margin-top : 10px;min-height:300px;">
@@ -25,10 +26,12 @@
             <tr>
                 <th class="check-box-col">{{'NET_VM_NSX_INDEX.SELECT' | translate}}<!--选择--></th>
                 <th>{{'HOST_OPENSTACK_MNG.NUMBER' | translate}}<!--编号--></th>
-                <th>{{'USER_CENTER.ORG_NAME' | translate}}</th><--机构名称-->
+                <th>{{'USER_CENTER.ORG_NAME' | translate}}</th><--机构名称-->
+
                 <th>{{'USER_CENTER.ORG_USER_NUMBER' | translate}}</th><--机构人员数量-->
 
-                <!--<th>机构负责人</th>-->
+                <!--<th>{{'USER_CENTER.ONE_IN_CHARGE_IN_ORG' | translate}}</th>--><!--机构负责人-->
+
                 <th>{{'NET_MNG_OPENSTACK.STATUS' | translate}}<!--状态--></th>
                 <th>{{'COMMON.DESCRIPTION' | translate}}<!--描述--></th>
             </tr>
