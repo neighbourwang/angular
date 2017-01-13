@@ -75,7 +75,7 @@
 <fc-popup #crAccountModel title="USER_CENTER.SELECT_AD_SOURCE" ot="NET_MNG_VM_IP_MNG.CREATE" ct="NET_MNG_VM_DBT_PORT.CNACLE" (of)="crAccount()">
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>认证源：</div>
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'COMMON.AD_SOURCE' | translate}}：</div><!--认证源-->
             <div class="col-sm-6">
                 <select class="form-control" [(ngModel)]="authenticationSource">
                     <option *ngFor="let item of authenticationSourceList;" [value]="item.id">{{item.name}}</option>
