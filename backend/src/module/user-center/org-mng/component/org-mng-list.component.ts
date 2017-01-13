@@ -77,7 +77,9 @@ export class OrgMngListComponent implements OnInit {
     chooseItem(index: number) {        
         if(this.orgs[index].isDefault){
             this.orgs[index].selected=false;
-            this.notice.open('操作错误','禁止操作系统默认机构');            
+            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.NOT_ALLOW_TO_TOUCH_DEFAULT_ORG');             //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.NOT_ALLOW_TO_TOUCH_DEFAULT_ORG=>禁止操作系统默认机构 
+
+
             return
         };
         console.log(index);
@@ -96,11 +98,15 @@ export class OrgMngListComponent implements OnInit {
                 return;
             }
             if (this.org.status == 1) {
-                this.notice.open('操作错误', '禁止删除启用状态下的机构');
+                this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.NOT_ALLOW_TO_DELETE_ENABLED_ORG'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.NOT_ALLOW_TO_DELETE_ENABLED_ORG=>禁止删除启用状态下的机构 
+
+
                 return;
             }
             if(this.org.headCount>0){
-                this.notice.open('操作错误', '禁止删除机构下成员不为0的机构');
+                this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.NOT_ALLOW_TO_DELETE_NOT_EMPTY_ORG'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.NOT_ALLOW_TO_DELETE_NOT_EMPTY_ORG=>禁止删除机构下成员不为0的机构 
+
+
                 return;
             }            
             this.confirmTitle = "删除机构";
@@ -108,14 +114,17 @@ export class OrgMngListComponent implements OnInit {
             this.confirmType = 3;
             this.confirm.open(this.confirmTitle, this.confirmMessage);
         } else {
-            this.notice.open('操作错误', '请选择一个机构');            
+            this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.PLEASE_SELECT_ORG');             //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.PLEASE_SELECT_ORG=>请选择一个机构 
+
+
         }
     }
     enable() {
         console.log(this.org);
         if (this.org.id) {
             if (this.org.status == 1) {
-                this.notice.open('操作错误', '机构状态已启用')
+                this.notice.open('COMMON.OPERATION_ERROR', '机构状态已启用') //COMMON.OPERATION_ERROR=>操作错误 
+
                 return;
             }
             this.confirmTitle = "启用机构";
@@ -124,22 +133,27 @@ export class OrgMngListComponent implements OnInit {
             this.confirm.open(this.confirmTitle, this.confirmMessage);
 
         } else {
-            this.notice.open('操作错误', '请选择一个机构');
+            this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.PLEASE_SELECT_ORG'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.PLEASE_SELECT_ORG=>请选择一个机构 
+
+
         }
     }
 
     disable() {
         if (this.org.status == 3) {
-                this.notice.open('操作错误', '机构状态已禁用')
+                this.notice.open('COMMON.OPERATION_ERROR', '机构状态已禁用') //COMMON.OPERATION_ERROR=>操作错误 
+
                 return;
             }
         if (this.org.id) {
-            this.confirmTitle = "禁用机构";
+            this.confirmTitle = "USER_CENTER.DISABLE_ORG"; //USER_CENTER.DISABLE_ORG=>禁用机构 
             this.confirmMessage = "您选择禁用 '" + this.org.name + "'，请确认。如果确认，机构内成员将无法操作相关资源";
             this.confirmType = 2;
             this.confirm.open(this.confirmTitle, this.confirmMessage);
         } else {
-            this.notice.open('操作错误', '请选择一个机构');
+            this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.PLEASE_SELECT_ORG'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.PLEASE_SELECT_ORG=>请选择一个机构 
+
+
         }
     }
 
@@ -147,7 +161,9 @@ export class OrgMngListComponent implements OnInit {
         if(this.org.id){
             this.router.navigateByUrl("user-center/org-mng/org-mng-cr/" + this.org.id);
         }else{
-            this.notice.open('操作错误', '请选择一个机构');
+            this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.PLEASE_SELECT_ORG'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.PLEASE_SELECT_ORG=>请选择一个机构 
+
+
         }        
     }
     of() {

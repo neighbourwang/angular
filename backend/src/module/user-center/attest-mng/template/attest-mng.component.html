@@ -10,7 +10,7 @@
             </button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 				<li><a (click)="onEdit();">{{'HOST_VMWARE_MNG.EDIT' | translate}}<!--编辑--></a></li>
-				<li><a (click)="onEditAcc();">{{'USER_CENTER.MODIFY_AD_ACCOUNT' | translate}}</a></li>				<--修改认证账户-->
+				<li><a (click)="onEditAcc();">{{'USER_CENTER.MODIFY_AD_ACCOUNT' | translate}}</a></li>				<!--修改认证账户-->
 
 				<li><a (click)="updateStatus('1');">{{'NET_MNG_VM_IP_MNG.ENABLE' | translate}}<!--启用--></a></li>                
 				<li><a (click)="updateStatus('3');">{{'HOST_VMWARE_MNG.DISABLE' | translate}}<!--禁用--></a></li>
@@ -28,10 +28,11 @@
 			<thead>
 				<tr>
 				    <th >{{'NET_VM_NSX_INDEX.SELECT' | translate}}<!--选择--></th>
-					<th>{{'USER_CENTER.AD_SOURCE_NAME' | translate}}</th><--认证源名称-->
+					<th>{{'USER_CENTER.AD_SOURCE_NAME' | translate}}</th><!--认证源名称-->
 
-					<th>URL{{'COMMON.PATH' | translate}}</th><!--地址-->
-					<th>{{'USER_CENTER.CERT_TYPE' | translate}}</th><--认证类型-->
+					<th>URL{{'COMMON.PATH' | translate}}</th><!--地址-->
+
+					<th>{{'USER_CENTER.CERT_TYPE' | translate}}</th><!--认证类型-->
 
 					<th>{{'NET_MNG_OPENSTACK.STATUS' | translate}}<!--状态--></th>
 					<th>{{'COMMON.DESCRIPTION' | translate}}<!--描述--></th>

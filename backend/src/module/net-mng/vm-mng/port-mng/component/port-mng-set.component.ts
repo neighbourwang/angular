@@ -56,7 +56,7 @@ export class PortMngSetComponent implements OnInit {
 
     getData() {
         this.layoutService.show();
-        this.service.getData(this.pid)
+        this.service.getData(this.pid, this.platform_id)
             .then(
             response => {
                 this.layoutService.hide();
@@ -97,7 +97,7 @@ export class PortMngSetComponent implements OnInit {
 
     saveEnterpriseGroup() {
         this.layoutService.show();
-        this.service.saveEnterpirseGroup(this.selectedEnterprise, this.pid)
+        this.service.saveEnterpirseGroup(this.selectedEnterprise, this.pid,this.platform_id)
             .then(
             response => {
                 this.layoutService.hide();

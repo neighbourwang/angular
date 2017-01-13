@@ -1,3 +1,4 @@
+//订单查询详情
 export class SearchOrderDetail{
 	billingPerson: string = null;//, optional): 提交者 ,
 	billingPersonId: string = null;//, optional): 提交者ID ,

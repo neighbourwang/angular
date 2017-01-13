@@ -9,5 +9,5 @@ export * from './product-item';
 export * from './product-type';
 export * from './renew-setting';
 export * from './sub-region';
-export * from './search-order-item';
-export * from './order-detail-item';
+export * from './search-order-item';//订单查询列表
+export * from './search-order-detail';//订单查询详情

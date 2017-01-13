@@ -73,7 +73,8 @@ export class AttestMngComponent implements OnInit {
     onEdit() {
         const attest = this.getSelectAttest();
         if (!attest) {
-            this.showAlert("请先选择需要编辑的认证源");
+            this.showAlert("USER_CENTER.SELECT_AD_SOURCE_NEED_TO_EDIT"); //USER_CENTER.SELECT_AD_SOURCE_NEED_TO_EDIT=>请先选择需要编辑的认证源 
+
             return;
         }
         this.gotoEditPage("edit", attest);
@@ -82,7 +83,8 @@ export class AttestMngComponent implements OnInit {
     onEditAcc() {
         const attest = this.getSelectAttest();
         if (!attest) {
-            this.showAlert("请先选择需要编辑的认证源");
+            this.showAlert("USER_CENTER.SELECT_AD_SOURCE_NEED_TO_EDIT"); //USER_CENTER.SELECT_AD_SOURCE_NEED_TO_EDIT=>请先选择需要编辑的认证源 
+
             return;
         }
         this.gotoEditPage("editAcc", attest);
@@ -97,7 +99,8 @@ export class AttestMngComponent implements OnInit {
 
         var attest = this.getSelectAttest();
         if (!attest) {
-            this.showAlert("请先选择需要启用或者禁用的认证源");
+            this.showAlert("USER_CENTER.SELECT_AD_SOURCE_FOR_ENABLE_DISABLE"); //USER_CENTER.SELECT_AD_SOURCE_FOR_ENABLE_DISABLE=>请先选择需要启用或者禁用的认证源 
+
             return;
         }
 
@@ -129,7 +132,7 @@ export class AttestMngComponent implements OnInit {
     onDelete() {
         var attest = this.getSelectAttest();
         if (!attest) {
-            this.showAlert("请先选择需要删除的认证源");
+            this.showAlert("USER_CENTER.SELECT_AD_SOURCE_TO_DELETE"); //USER_CENTER.SELECT_AD_SOURCE_TO_DELETE=>请先选择需要删除的认证源 
             return;
         }
 
@@ -178,7 +181,8 @@ export class AttestMngComponent implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "NET_MNG_VM_PORT.PROMPT"; //NET_MNG_VM_PORT.PROMPT=>提示 
+
         this.noticeMsg = msg;
         this.notice.open();
     }

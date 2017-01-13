@@ -51,7 +51,7 @@ export class DlrMngSetComponent implements OnInit {
     getDrlDetailData() {
         this.layoutService.show();
        
-        this.service.getData(this.dlrId)
+        this.service.getDrlDetailData(this.dlrId, this.platformId)
             .then(
             response => {
                 this.layoutService.hide();
@@ -71,7 +71,7 @@ export class DlrMngSetComponent implements OnInit {
 
     saveEnterpriseGroup() {
         this.layoutService.show();
-        this.service.saveEnterpirseGroup(this.selectedEnterprise, this.dlrId)
+        this.service.saveEnterpirseGroup(this.selectedEnterprise, this.dlrId, this.platformId)
             .then(
             response => {
                 this.layoutService.hide();

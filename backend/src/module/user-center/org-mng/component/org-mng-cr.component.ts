@@ -261,7 +261,8 @@ export class OrgMngCrComponent implements OnInit{
 
     create(){
         if(!this.org.name){
-            this.notice.open('操作错误','机构名称不能为空');
+            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.ORG_NAME_NOT_NULL'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.ORG_NAME_NOT_NULL=>机构名称不能为空 
+
             return;
         }
          this.layoutService.show();
