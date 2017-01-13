@@ -28,11 +28,15 @@ export class SiteComponent implements OnInit{
     public translate: TranslateService
   ) {
     
+
     translate.setTranslation('EN',  TranslateEN);
     translate.setTranslation('CN',  TranslateCN);
 
     translate.addLangs(["EN", "CN"]);
     translate.setDefaultLang('CN');
+
+    let browserLang: string = translate.getBrowserLang();
+    translate.use(browserLang.match(/EN|CN/) ? browserLang : 'CN');
    }
   
   ngOnInit() {
