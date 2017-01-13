@@ -62,12 +62,14 @@ export class AccountMngEditAd implements OnInit {
         this.account.organizations = this.organizations.filter((o) => { return o.selected });
 
         if (this.validationService.isBlank(this.account.userName)) {
-            this.showAlert("请输入管理员姓名");
+            this.showAlert("USER_CENTER.INPUT_ADMIN_USERNAME"); //USER_CENTER.INPUT_ADMIN_USERNAME=>请输入管理员姓名 
+
             return;
         }
 
         if (this.validationService.isBlank(this.account.phone)) {
-            this.showAlert("请输入电话");
+            this.showAlert("USER_CENTER.INPUT_PHONE_NUMBER"); //USER_CENTER.INPUT_PHONE_NUMBER=>请输入电话 
+
             return;
         }
 
@@ -78,12 +80,14 @@ export class AccountMngEditAd implements OnInit {
         //}
 
         if (this.account.roles.length === 0) {
-            this.showAlert("至少选择一个角色");
+            this.showAlert("USER_CENTER.SELECT_AT_LEAST_ONE_ROLE"); //USER_CENTER.SELECT_AT_LEAST_ONE_ROLE=>至少选择一个角色 
+
             return;
         }
 
         if (this.account.organizations.length === 0) {
-            this.showAlert("请选择所属机构");
+            this.showAlert("USER_CENTER.SELECT_ORG_WHICH_BELONG_TO"); //USER_CENTER.SELECT_ORG_WHICH_BELONG_TO=>请选择所属机构 
+
             return;
         }
 
@@ -133,7 +137,7 @@ export class AccountMngEditAd implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "NET_MNG_VM_PORT.PROMPT"; //NET_MNG_VM_PORT.PROMPT=>提示 
         this.noticeMsg = msg;
         this.notice.open();
     }

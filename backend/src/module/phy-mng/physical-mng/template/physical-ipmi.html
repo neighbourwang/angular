@@ -28,7 +28,7 @@
                               <input type="text" class="form-control" [(ngModel)]="physical.iloPwd">
                         </div>
                         <div class="col-md-3">
-                            <button class="fox-cloud-button-md fox-cloud-button-white mgr20" style="width:100%" onclick="testIpmi();">
+                            <button class="fox-cloud-button-md fox-cloud-button-white mgr20" style="width:100%" (click)="testIpmi();">
                                 <span class="icon-button-label">测试 </span>
                             </button>
                         </div>                       
@@ -58,10 +58,10 @@
     </div >    
 </div>
 <div class="text-center">
-        <button class="fox-cloud-button-lg fox-cloud-button-white" onclick="cancel();">
+        <button class="fox-cloud-button-lg fox-cloud-button-white"(click)="cancel();">
             <span class="icon-button-label">取消</span>
         </button>
-        <button class="fox-cloud-button-lg fox-cloud-button-white" onclick="saveIpmi();">
+        <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="saveIpmi();">
             <span class="icon-button-label">保存</span>
         </button>
 </div>

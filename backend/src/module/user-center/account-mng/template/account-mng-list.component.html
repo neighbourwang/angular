@@ -34,9 +34,9 @@
                     <th>{{'USER_CENTER.NAME' | translate}}<!--姓名--></th>
                     <th>{{'USER_CENTER.ACCOUNT' | translate}}<!--帐号-->--></th>
                     <th>{{'USER_CENTER.CONTACT_PHONE' | translate}}<!--联系电话--></th>
-                    <th>{{'USER_CENTER.ORG_WHICH_BELONG_TO' | translate}}</th><--所属机构-->
+                    <th>{{'USER_CENTER.ORG_WHICH_BELONG_TO' | translate}}</th><!--所属机构-->
 
-                    <th>{{'COMMON.ROLE' | translate}}</th><--角色-->
+                    <th>{{'COMMON.ROLE' | translate}}</th><!--角色-->
 
                     <th>{{'USER_CENTER.AD_SOURCE' | translate}}<!--认证源--></th>
                     <th>{{'NET_MNG_OPENSTACK.STATUS' | translate}}<!--状态--></th>
@@ -51,7 +51,7 @@
                     <td>{{item.phone}}</td>
                     <td>{{item.organizationName}}</td>
                     <td>{{item.roleName}}</td>
-                    <td>{{item.type==1?"AD":"COMMON.LOCAL" | translate}}</td><--本地-->
+                    <td>{{item.type==1?"AD":"COMMON.LOCAL" | translate}}</td><!--本地-->
 
                     <td [ngClass]="{'font-green':item.status =='1' ,'font-orange':item.status == '3'}">
                         {{item.status| dict:this.service.accStatusList | async}}
@@ -75,7 +75,8 @@
 <fc-popup #crAccountModel title="USER_CENTER.SELECT_AD_SOURCE" ot="NET_MNG_VM_IP_MNG.CREATE" ct="NET_MNG_VM_DBT_PORT.CNACLE" (of)="crAccount()">
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>认证源：</div>
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'COMMON.AD_SOURCE' | translate}}：</div><!--认证源-->
+
             <div class="col-sm-6">
                 <select class="form-control" [(ngModel)]="authenticationSource">
                     <option *ngFor="let item of authenticationSourceList;" [value]="item.id">{{item.name}}</option>

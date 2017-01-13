@@ -118,11 +118,11 @@ export class PersonAccMngComponent implements OnInit {
                         this.notice.open('操作成功', '新密码已生效');
                     }else if(response &&response.resultCode==10001001){
                         this.editPassWord.close();
-                        this.notice.open('操作错误', 'you have input wrong password')
+                        this.notice.open('COMMON.OPERATION_ERROR', 'you have input wrong password') //COMMON.OPERATION_ERROR=>操作错误 
                     }
                 }).catch((err) => {
                     this.editPassWord.close();
-                    this.notice.open('操作错误', 'you have input wrong password')
+                    this.notice.open('COMMON.OPERATION_ERROR', 'you have input wrong password') //COMMON.OPERATION_ERROR=>操作错误 
                 });
         } else {
             this.samePassword = false;
@@ -156,16 +156,16 @@ export class PersonAccMngComponent implements OnInit {
     //submit edit
     onSubmit() {
         if(!this.personAcc.userName){
-            this.notice.open('操作错误','姓名不能为空');
+            this.notice.open('COMMON.OPERATION_ERROR','姓名不能为空'); //COMMON.OPERATION_ERROR=>操作错误 
             return;
         }
         if(this.personAcc.phone){
             if(!this.validationService.isMoblie(this.personAcc.phone)){
-            this.notice.open('操作错误','手机号码输入错误');
+            this.notice.open('COMMON.OPERATION_ERROR','手机号码输入错误'); //COMMON.OPERATION_ERROR=>操作错误 
             return;
         }
         }else{
-            this.notice.open('操作错误','手机号码不能为空');
+            this.notice.open('COMMON.OPERATION_ERROR','手机号码不能为空'); //COMMON.OPERATION_ERROR=>操作错误 
             return;
         }        
         console.log(this.personAcc);

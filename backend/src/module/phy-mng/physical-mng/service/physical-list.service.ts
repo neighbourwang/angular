@@ -22,14 +22,32 @@ export class PhysicalListService {
         this.restApiCfg.loadCfgData();
     }
 
-    dictProductType = this.dict.get({      
-      owner : "PM",
-      field : "STATUS"    
-   });
+    dictProductType = this.dict.get(
+        [
+            {      
+                owner : "PM",
+                field : "STATUS"    
+            },
+            {      
+                    owner : "PM",
+                    field : "HEALTH_STATUS"    
+            },
+            {      
+                    owner : "PM",
+                    field : "MAIN_STATUS"    
+            },
+             {      
+                    owner : "PM",
+                    field : "SPOWER_STATUS"    
+            },
+           
+        ]
+       
+   );
 
 
     //获取物理机列表
-    getPhysicals(pageIndex: number, pageSize:number,pmQuery:PmQuery): Promise<any> {
+    getPhysicals(pageIndex: number, pageSize:number,pmQuery:PmQuery,poolId:string): Promise<any> {
         const pathParams = [
             {
                 key: "page",
@@ -38,20 +56,24 @@ export class PhysicalListService {
             {
                 key: "size",
                 value: pageSize
+            },
+             {
+                key: "pmpool_id",
+                value: poolId
             }
         ];
         const api = this.restApiCfg.getRestApi("physical-mng.physical.list.get");
-        // return this.restApi.request(api.method, api.url, pathParams, null,
-        //     {
-        //         "brand": pmQuery.brand,
-        //         "iloAddr": pmQuery.iloAddr,
-        //         "model": pmQuery.model,
-        //         "pmName": pmQuery.pmName,
-        //         "privateIpAddr": pmQuery.privateIpAddr,
-        //         "publicIpAddr": pmQuery.publicIpAddr
-        //         }
-        // );
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => PhysicalList_mock);
+        return this.restApi.request(api.method, api.url, pathParams, null,
+            {
+                "brand": pmQuery.brand,
+                "iloAddr": pmQuery.iloAddr,
+                "model": pmQuery.model,
+                "pmName": pmQuery.pmName,
+                "privateIpAddr": pmQuery.privateIpAddr,
+                "publicIpAddr": pmQuery.publicIpAddr
+                }
+        );
+       // return new Promise(resovle => setTimeout(resovle, 200)).then(() => PhysicalList_mock);
     }
 
     //根据资源池id获取资源池信息

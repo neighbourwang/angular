@@ -5,7 +5,8 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
                     <span class="asterisk">*</span>
-                    {{'USER_CENTER.ORG_NAME' | translate}}<--机构名称-->
+                    {{'USER_CENTER.ORG_NAME' | translate}}<!--机构名称-->
+
                 </div>
                 <div class="col-sm-4">
                     <input type="text" class="form-control"  placeholder="{{'USER_CENTER.INPUT_ORG_NAME' | translate}}" [(ngModel)]="org.name">
@@ -16,7 +17,7 @@
         <div  *ngIf="false" class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
-                    {{'USER_CENTER.ONE_IN_CHARGE_IN_ORG' | translate}}<--机构负责人-->
+                    {{'USER_CENTER.ONE_IN_CHARGE_IN_ORG' | translate}}<!--机构负责人-->
 
                 </div>
                 <div class="col-sm-4">
@@ -41,7 +42,7 @@
         <div class="row row-line-height" *ngIf="false">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
-                    {{'USER_CENTER.ORG_MEMBER_LIST' | translate}}<--机构成员列表-->
+                    {{'USER_CENTER.ORG_MEMBER_LIST' | translate}}<!--机构成员列表-->
 
                 </div>
                 <div class="col-sm-7">
@@ -53,7 +54,8 @@
                         </label>
                 </div>
                     <div style="float : right ; margin-right : 20px" (click)="loadMoreAccount()">
-                        <button class="fox-cloud-button-md fox-cloud-button-white">更多>>></button>
+                        <button class="fox-cloud-button-md fox-cloud-button-white">{{'COMMON.MORE' | translate}}>>></button><!--更多-->
+
                     </div>
                 </div>
             </div>
@@ -62,7 +64,7 @@
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
-                    {{'USER_CENTER.ORG_PLATFORM_LIST' | translate}}<--机构可管理平台列表-->
+                    {{'USER_CENTER.ORG_PLATFORM_LIST' | translate}}<!--机构可管理平台列表-->
 
                 </div>
                 <div class="col-sm-4">
@@ -76,13 +78,13 @@
                     <tr>
                         <th>{{'NET_VM_NSX_INDEX.SELECT' | translate}}<!--选择--></th>
                         <th>{{'HOST_OPENSTACK_MNG.NUMBER' | translate}}<!--编号--></th>
-                        <th>{{'USER_CENTER.PLATFORM_NAME' | translate}}</th><--云平台名称-->
+                        <th>{{'USER_CENTER.PLATFORM_NAME' | translate}}</th><!--云平台名称-->
 
-                        <th>{{'USER_CENTER.DATA_CENTER_FOR' | translate}}</th><--所属数据中心-->
+                        <th>{{'USER_CENTER.DATA_CENTER_FOR' | translate}}</th><!--所属数据中心-->
 
-                        <th>{{'USER_CENTER.REGION_WHICH_BELONG_TO' | translate}}</th><--所属地域-->
+                        <th>{{'USER_CENTER.REGION_WHICH_BELONG_TO' | translate}}</th><!--所属地域-->
 
-                        <th>{{'USER_CENTER.PLATFORM_TYPE' | translate}}</th><--云平台类型-->
+                        <th>{{'USER_CENTER.PLATFORM_TYPE' | translate}}</th><!--云平台类型-->
 
                         <th>{{'NET_MNG_OPENSTACK.STATUS' | translate}}<!--状态--></th>
                     </tr>

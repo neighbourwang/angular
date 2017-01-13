@@ -44,7 +44,7 @@ export class OrderMngSearchComponent implements OnInit{
 		private restApi:RestApi,
 		private _dictServ:DictService){
 
-		//获取订单详情
+		//获取订单查询详情
 		this._orderDetailLoader = new ItemLoader<SearchOrderDetail>(false, "ORDER_MNG.ORDERS_DETAILS_DATA_FAILED", "op-center.order-search.detail.get", restApiCfg, restApi);
 		this._orderDetailLoader.MapFunc = (source:Array<any>, target:Array<SearchOrderDetail>)=>{
 			for(let item of source)
