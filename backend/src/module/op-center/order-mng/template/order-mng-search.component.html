@@ -105,11 +105,9 @@
 					<tr *ngFor="let item of _orderLoader.Items;let i=index;">
 						<td>{{i}}</td>
 						<td>{{item.orderNo}}</td>
-						<td></td>
-						<td></td>
-						<!--<td>{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
-						<td>{{item.orderType | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>-->
-						<td>{{item.statusName}}</td>
+						<td>{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
+						<td>{{item.orderType | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
+						<td>{{item.status| dict:_dictServ.getDic('SUBINSTANCE', 'STATUS') | async}}</td>
 						<td>一次性费用：￥{{item.oncePrice}}<br>费用：￥{{item.price}}
 						</td>
 						<td>{{item.submitTime}}</td>

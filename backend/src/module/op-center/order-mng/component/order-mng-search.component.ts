@@ -36,7 +36,8 @@ export class OrderMngSearchComponent implements OnInit{
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
-		private restApi:RestApi){
+		private restApi:RestApi,
+		private _dictServ:DictService){
 
 		//配置企业列表加载
 		this._adminLoader = new ItemLoader<AdminListItem>(false, "COMMON.ENTPRISE_OPTIONS_DATA_ERROR", "op-center.order-mng.ent-list.get", this.restApiCfg, this.restApi);
