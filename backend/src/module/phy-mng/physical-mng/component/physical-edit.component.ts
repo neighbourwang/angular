@@ -45,7 +45,7 @@ export class PhysicalEditComponent implements OnInit {
     ngOnInit() {
         this.activeRoute.params.forEach((params: Params) => {
             const id = params["id"];
-            this.physical.id = id;
+            this.physical.pmId = id;
             this.eidtMode = params["type"]||"create";
             this.poolId = params["poolId"];
             if (!this.poolId) {
@@ -68,8 +68,8 @@ export class PhysicalEditComponent implements OnInit {
         });
         this.getServerInfo()
             .then(() => {
-                if (this.physical.id) {
-                    this.getPhysicalById(this.physical.id);
+                if (this.physical.pmId) {
+                    this.getPhysicalById(this.physical.pmId);
                 }
                 else this.physical=new PhysicalModel();
             });
@@ -87,7 +87,7 @@ export class PhysicalEditComponent implements OnInit {
                         var physical: PhysicalModel = response["resultContent"];
                         this.selectedBrand = this.brands.find((brand) => { return brand.id == physical.brandId });
                         this.physical = physical;
-                        console.log("编辑物理机", this.physical.pmHardwareCPU);
+                        console.log("编辑物理机", this.physical.pmHardwareCPU,this.physical.iloIPAddress);
                     } else {
                         alert("Res sync error");
                     }
@@ -116,7 +116,7 @@ export class PhysicalEditComponent implements OnInit {
     //编辑物理机
     editPhysical() {
         this.layoutService.show();
-        this.service.editPhysical(this.physical, this.physical.id)
+        this.service.editPhysical(this.physical)
             .then(
             response => {
                 this.layoutService.hide();
@@ -153,6 +153,10 @@ export class PhysicalEditComponent implements OnInit {
             this.showAlert("请填写密码！");
             return false;
         }
+        if (!this.physical.macAddress) {
+            this.showAlert("请填写MAC地址！");
+            return false;
+        }
         if (!this.physical.sererTypeId) {
             this.showAlert("请选择服务器类型！");
             return false;
@@ -163,7 +167,7 @@ export class PhysicalEditComponent implements OnInit {
             this.showAlert("请选择服务器品牌！");
             return false;
         }
-        if (!this.physical.modelId) {
+        if (!this.physical.modleId) {
             this.showAlert("请选择服务器型号！");
             return false;
         }
@@ -186,16 +190,21 @@ export class PhysicalEditComponent implements OnInit {
 
     //读取物理机信息
     readHardwareInfo() {
-        this.read = true;
         this.layoutService.show();
         this.service.getPhysicalHardwareInfo(this.physical)
             .then(
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.layoutService.hide();
+                   this.physical.model=response["resultContent"].model;
+                   this.physical.sn=response["resultContent"].sn;
+                   this.physical.pmHardwareCPU=response["resultContent"].pmHardwareCPU;
+                    this.physical.pmHardwareMemory=response["resultContent"].pmHardwareMemory;
+                     this.physical.pmHardwareDiskList=response["resultContent"].pmHardwareDiskList;
+                     console.log( this.physical.model,this.physical.sn);
+                      this.read = true;
                 } else {
-                    alert("Res sync error");
+                     this.read = false;
                 }
             }
             )
@@ -206,7 +215,7 @@ export class PhysicalEditComponent implements OnInit {
     }
 
     gotoList() {
-        this.route.navigate(["physical-mng/physical-mng/physical-list"]);
+        this.route.navigate(["physical-mng/physical-mng/physical-list",{pmpoolId: this.poolId}]);
 
     }
 

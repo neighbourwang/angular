@@ -642,14 +642,14 @@ export let RestApis: RestApiModel[] = [
         "desc": "查看企业加载配额资源概率",
         "id": "ent-mng.ent-est-mng.enterprise.quota.detail",
         "method": "GET",
-        "url": "authsec/enterprise/{enterpriseId}/resource/quota/detail"
+        "url": "adminui/authsec/enterprise/{enterpriseId}/resource/quota/detail"
     },// 企业管理 -->
     //<!--后台-运营中心-订单管理
     {
-        "desc": "获取订单详情",
+        "desc": "订单查询详情",
         "id": "op-center.order-mng.order-detail.get",
         "method": "GET",
-        "url": "adminui/authsec/order/{orderId}"
+        "url": "adminui//authsec/backend/order/{orderNo}/detail"
     },
     {
         "desc": "企业列表",
@@ -680,11 +680,16 @@ export let RestApis: RestApiModel[] = [
     //     "url": "adminui/authsec/approval/department/{departmentId}/users"
     // }
     , {
-        "desc": "订单列表",
+        "desc": "已购服务管理列表",
         "id": "op-center.order-mng.order-list.post",
         "method": "POST",
         "url": "adminui/authsec/subinstance/subscription/list"
-    }, {
+    },{
+        "desc": "已购服务管理详情",
+        "id": "op-center.order-mng.subinstance-detail.post",
+        "method": "POST",
+        "url": "adminui//authsec/subinstance/{subinstanceCode}/detail"
+    },{
         "desc": "订单续订",
         "id": "op-center.order-mng.order-renew.get",
         "method": "POST",
@@ -1722,7 +1727,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建物理机资源池",
         "id": "phy-mng.phy-pool.phylist.creat",
         "method": "POST",
-        "url": "boe/adminui/authsec/pmpool"
+        "url": "pmresourcemgmt/noauth/pmpool"
     },
     {
         "desc": "编辑物理机资源池",
@@ -1734,52 +1739,70 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取物理机地域列表",
         "id": "phy-mng.phy-pool.phylist.region",
         "method": "GET",
-        "url": "pmresourcemgmt/noauth/pmpool/regionlist"
+        "url": "basis/authsec/regions"
+    },
+    {
+        "desc": "根据poolId获取资源池信息",
+        "id": "phy-mng.phy-pool.phylist.view",
+        "method": "GET",
+        "url": "pmresourcemgmt/noauth/pmpool/view/{pmpool_id}"
     },
 
-	//物理机资源池
+	//物理机资源池---物理机
      {
-         "desc": "获取物理机列表",
+        "desc": "获取物理机列表",
         "id": "physical-mng.physical.list.get",
-        "method": "POSt",
-        "url": " /boe/adminui/authsec/pmpools/pms/page/{page}/size/{size}"
+        "method": "POST",
+        "url": "pmresourcemgmt/noauth/pmpools/pms/{pmpool_id}/page/{page}/size/{size}"
     },
     {
          "desc": "添加物理机",
         "id": "physical-mng.physical.create",
-        "method": "POSt",
-        "url": "/boe/adminui/authsec/pmpool/pm"
+        "method": "POST",
+        "url": "pmresourcemgmt/noauth/pmpool/pm"
     },
     {
          "desc": "查看物理机",
         "id": "physical-mng.physical.check",
         "method": "GET",
-        "url": "/boe/adminui/authsec/pmpool/pm/{pm_id}"
+        "url": "pmresourcemgmt/noauth/pmpool/pm/view/{pm_id}"
 
     },
     {
         "desc": "编辑物理机",
         "id": "physical-mng.physical.edit",
         "method": "PUT",
-        "url": "/boe/adminui/authsec/pmpool/{pmpool_id}"
+        "url": "pmresourcemgmt/noauth/pmpool/pm/edit"
     },
     {
         "desc": "获取物理机硬件信息",
         "id": "physical-mng.physical.hardwareinfo.get",
-        "method": "GET",
-        "url": " /boe/adminui/authsec/pmpool/pm/{ip_addr}/{username}/{password}"
+        "method": "POST",
+        "url": "pmresourcemgmt/noauth/pmpool/pm/ilo/readpminfo"
     },
     {
         "desc": "修改IPMI信息",
         "id": "physical-mng.physical.ipmiInfo.put",
         "method": "PUT",
-        "url": " /boe/adminui/authsec/pmpool/pm/ipmi"
+        "url": "pmresourcemgmt/noauth/pmpool/pm/ilo/{pm_id}"
+    },
+     {
+        "desc": "测试IPMI信息",
+        "id": "physical-mng.physical.ipmiInfo.test.put",
+        "method": "PUT",
+        "url": "pmresourcemgmt/noauth/pmpool/pm/ilo/verify"
     },
     {
         "desc": "删除/禁用/启用物理机",
         "id": "physical-mng.physical.statusChange",
         "method": "PUT",
-        "url": "/boe/adminui/authsec/pmpool/pm/{pm_id}/{status}"
+        "url": "pmresourcemgmt/noauth/pmpool/pm/{pm_id}/{status}"
+    },
+    {
+        "desc": "获取物理机品牌、型号、服务器类型",
+        "id": "physical-mng.physical.serverInfo.get",
+        "method": "GET",
+        "url": "pmresourcemgmt/noauth/pmpool/pm/modellist"
     },
 
 ]

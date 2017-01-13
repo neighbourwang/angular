@@ -38,7 +38,7 @@
                                 <input class="form-control" type="password" [(ngModel)]="physical.iloPwd" [disabled]="eidtMode !='create'">
                             </div>
                             <div *ngIf="eidtMode=='create'" class="col-md-3">
-                                <button class="fox-cloud-button-md fox-cloud-button-white mgr20" style="width:100%" onclick="readHardwareInfo();">
+                                <button class="fox-cloud-button-md fox-cloud-button-white mgr20" style="width:100%" (click)="readHardwareInfo();">
                                     <span class="icon-button-label">读取</span>
                                 </button>
                             </div>
@@ -49,9 +49,9 @@
             
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>MAC地址:</div>
+                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>网卡MAC:</div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" [(ngModel)]="physical.sn" [disabled]="eidtMode !='create'">
+                        <input type="text" class="form-control" [(ngModel)]="physical.macAddress" [disabled]="eidtMode !='create'">
                     </div>                   
                 </div>
             </div>
@@ -119,6 +119,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                         <tr>
+                                            <td>物理机型号</td>
+                                            <td></td>  
+                                            <td>{{physical.model}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>序列号</td>
+                                            <td></td>  
+                                            <td>{{physical.sn}}</td>
+                                        </tr>
                                         <tr>
                                             <td>CPU</td>
                                              <td>{{physical.pmHardwareCPU && physical.pmHardwareCPU.version||""}}</td>  
@@ -129,8 +139,8 @@
                                             <td>{{physical.pmHardwareMemory && physical.pmHardwareMemory.version||""}}</td>
                                             <td>{{physical.pmHardwareMemory&&physical.pmHardwareMemory.value||""}}</td>
                                         </tr>
-                                        <tr *ngFor="let disks of( physical.pmHardwareDiskList ||[]);let idex=index">
-                                            <td [attr.rowspan]="physical.pmHardwareDiskList.length" *ngIf="idex===0">硬盘</td>
+                                        <tr *ngFor="let disks of( physical.pmHardwareDiskList ||[]);let idex=index" style="">
+                                            <td [attr.rowspan]="physical.pmHardwareDiskList.length" *ngIf="idex===0"  style="background-color:white;">硬盘</td>
                                             <td>{{disks.version}}</td>
                                             <td><input type="number" class="form-control" [(ngModel)]="disks.value" style="display:inline;width:90px;"> G</td>
                                         </tr>
