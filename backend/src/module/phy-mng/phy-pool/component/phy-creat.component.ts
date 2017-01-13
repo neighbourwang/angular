@@ -53,11 +53,11 @@ export class PhyCreatComponent implements OnInit{
         this.getRegionList();
         if(this.pmPoolId){
             this.getData();
-            this.title= "编辑资源池";
-            this.save= "保存";
+            this.title= "PHY_MNG_POOL.EDIT_POOL";
+            this.save= "PHY_MNG_POOL.SAVE";
         }else{
-            this.title= "创建资源池";
-            this.save= "创建";
+            this.title= "PHY_MNG_POOL.CREATE_POOL";
+            this.save= "PHY_MNG_POOL.CREATE";
         }
     }
 
@@ -81,11 +81,11 @@ export class PhyCreatComponent implements OnInit{
 
     creatOredit(){
         if(this.validationService.isBlank(this.data.poolName)){
-            this.showAlert("请输入资源池名称");
+            this.showAlert("PHY_MNG_POOL.PLEASE_INPUT_POOLNAME");
             return;
         }
         if(this.validationService.isBlank(this.data.dataCenter)){
-            this.showAlert("请输入数据中心");
+            this.showAlert("PHY_MNG_POOL.PLEASE_INPUT_DIGIT_CENTER");
             return;
         }
         if(!this.pmPoolId){
@@ -145,7 +145,7 @@ export class PhyCreatComponent implements OnInit{
 
     showAlert(msg: string): void {
         this.layoutService.hide();
-        this.noticeTitle = "提示";
+        this.noticeTitle = "PHY_MNG_POOL.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -157,7 +157,7 @@ export class PhyCreatComponent implements OnInit{
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败");
+        this.showAlert("PHY_MNG_POOL.GETTING_DATA_FAILED");
     }
 
 }

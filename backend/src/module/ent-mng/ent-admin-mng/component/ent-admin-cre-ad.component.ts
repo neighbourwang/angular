@@ -117,11 +117,11 @@ export class EntAdminCreADComponent implements OnInit {
             return;
         }
 
-        if (!this.validationService.isMoblie(this.admin.contactPhone) &&
-            !this.validationService.isTel(this.admin.contactPhone)) {
-            this.showAlert("请输入合法的联系电话;");
-            return;
-        }
+        //if (!this.validationService.isMoblie(this.admin.contactPhone) &&
+        //    !this.validationService.isTel(this.admin.contactPhone)) {
+        //    this.showAlert("请输入合法的联系电话;");
+        //    return;
+        //}
         if (!this.admin.loginName || this.admin.loginName == "") {
             this.showAlert("请选择ad用户");
             return;

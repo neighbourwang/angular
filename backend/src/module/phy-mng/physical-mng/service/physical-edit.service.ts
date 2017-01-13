@@ -3,8 +3,8 @@ import { Http, Response } from "@angular/http";
 import { RestApiCfg, RestApi } from "../../../../architecture";
 
  import { PhysicalModel } from "../model/physical.model";
- import { IpmiInfo } from "../model/physical-ipmi.model"
- import { serverTypeListAndbrandList_mock, physicalMachine_mock } from "../model/mock";
+// import { IpmiInfo } from "../model/physical-ipmi.model"
+ import { serverTypeListAndbrandList_mock, physicalMachine_mock,Hardware_mock } from "../model/mock";
 import "rxjs/add/operator/toPromise";
 
 @Injectable()
@@ -23,14 +23,14 @@ export class PhysicalEditService {
 
     //根据id获取物理机、查看物理机
     getPhysical(id: string): Promise<any> {
-        const pathParams = [
-            {
-                key: "id",
-                value: id
-            }
-        ];
-        const api = this.restApiCfg.getRestApi("physical-mng.physical.check");
-       // return this.restApi.request(api.method, api.url, pathParams, null, null);
+        // const pathParams = [
+        //     {
+        //         key: "id",
+        //         value: id
+        //     }
+        // ];
+        // const api = this.restApiCfg.getRestApi("physical-mng.physical.check");
+        // return this.restApi.request(api.method, api.url, pathParams, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => physicalMachine_mock);
     }
 
@@ -55,37 +55,47 @@ export class PhysicalEditService {
     }
     
     //获取物理机硬件信息
-    getPhysicalHardwareInfo(physical:PhysicalModel): Promise<any>{
-        const pathParams = [
-            {
-                key: "ip_addr",
-                value: physical.iloIPAddress
+    // getPhysicalHardwareInfo(physical:PhysicalModel): Promise<any>{
+        // const pathParams = [
+        //     {
+        //         key: "ip_addr",
+        //         value: physical.iloIPAddress
+        //     },
+        //     {
+        //         key: "username",
+        //         value: physical.iloUserName
+        //     },
+        //     {
+        //         key: "password",
+        //         value: physical.iloPwd
+        //     },        
+        // ];
+        //const api = this.restApiCfg.getRestApi("physical-mng.physical.hardwareinfo.get");
+        //return this.restApi.request(api.method, api.url, pathParams, null, null);     
+    // }
+    getPhysicalHardwareInfo(physical:PhysicalModel):Promise<any>{
 
-            },
-            {
-                key: "username",
-                value: physical.iloUserName
-            },
-            {
-                key: "password",
-                value: physical.iloPwd
-            },
-            
-        ];
         const api = this.restApiCfg.getRestApi("physical-mng.physical.hardwareinfo.get");
-        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        // return this.restApi.request(api.method, api.url, null, null, 
+        // {           
+        //     "iloIPAddress":physical.iloIPAddress,
+        //     "iloPwd": physical.iloPwd,
+        //     "iloUserName": physical.iloUserName
+        // }
+        // );
+         return new Promise(resovle => setTimeout(resovle, 200)).then(() => Hardware_mock);
 
     }
 
     //获取物理机服务器的品牌、型号、类型
     getServer():Promise<any>{
         const api = this.restApiCfg.getRestApi("physical-mng.physical.serverInfo.get");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => serverTypeListAndbrandList_mock);
+        return this.restApi.request(api.method, api.url, null, null, null);
+       // return new Promise(resovle => setTimeout(resovle, 200)).then(() => serverTypeListAndbrandList_mock);
     }
 
     //修改ipmi信息
-    updateIpmiInfo(ipmi:IpmiInfo,pmId:string):Promise<any>{
+    updateIpmiInfo(physical:PhysicalModel,pmId:string):Promise<any>{
         const pathParams = [
             {
                 key: "pm_id",
@@ -94,14 +104,26 @@ export class PhysicalEditService {
 
         ];
         const api = this.restApiCfg.getRestApi("physical-mng.physical.ipmiInfo.put");
-        return this.restApi.request(api.method, api.url, pathParams, null, ipmi);
+        return this.restApi.request(api.method, api.url, pathParams, null, 
+        {
+            "iloIPAddress":physical.iloIPAddress,
+            "iloPwd": physical.iloPwd,
+            "iloUserName": physical.iloUserName 
+        }
+        );
     }
 
     //测试ipmi信息
-    testIomiInfo(ipmi:IpmiInfo):Promise<any>{
+    testIomiInfo(physical:PhysicalModel):Promise<any>{
         
         const api = this.restApiCfg.getRestApi("physical-mng.physical.ipmiInfo.test.put");
-        return this.restApi.request(api.method, api.url, null, null, ipmi);
+        return this.restApi.request(api.method, api.url, null, null, 
+        {
+             "iloIPAddress":physical.iloIPAddress,
+            "iloPwd": physical.iloPwd,
+            "iloUserName": physical.iloUserName
+        }        
+       );
     }
 
 

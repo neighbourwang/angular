@@ -70,7 +70,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title"> <span *ngIf="eidtMode=='create'" class="asterisk">*</span>品牌:</div>
                     <div class="col-md-4">
-                        <select class="form-control" [(ngModel)]="selectedBrand" (change)="physical.modelId=''" [disabled]="eidtMode !='create'">
+                        <select class="form-control" [(ngModel)]="selectedBrand" (change)="physical.modleId=''" [disabled]="eidtMode !='create'">
                             <option [ngValue]="defaultBrand">请选择</option>
                             <option *ngFor="let brand of brands" [ngValue]="brand">{{brand.brand}}</option>
                         </select>
