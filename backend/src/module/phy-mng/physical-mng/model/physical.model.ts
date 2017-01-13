@@ -1,24 +1,34 @@
 export class PhysicalModel {
-    id:string;
-    pmName: string;
+   // id:string;
+    pmPoolId:string; //资源池id
+
+    pmName: string;  //物理机id name
     pmId:string;
-    iloIPAddress: string;
-    pmPoolId:string;
-    macAddress:string;
+
+    iloIPAddress: string;  //ilo信息
     iloUserName: string;
     iloPwd: string;
-    sererTypeId: string="";
+
+    macAddress:string; //MAC地址
+
+    sererTypeId: string="";//服务器类型
     serverTypeName:string;
+
     brandId: string;
-    brandName:string;
-    modelName: string;
-    modelId: string="";
-    model:string;
-    sn:string;
+    brandName:string;//服务器品牌
+
+    modleName: string; //服务器型号
+    modleId: string="";
+
+    model:string;  //物理机品牌
+
+    sn:string;  //物理机序列号
+
     locale: string;
     description: string;
    // hardwareInfo: HardwareInfo;  
-    enterprise: string;
+
+    enterprise: string;  //企业信息
     department: string;
     startDate: string;
     endDate: string;
@@ -26,7 +36,8 @@ export class PhysicalModel {
     priIPAddr: string;
     pubIPAddr: string;
     image: string;
-    pmHardwareCPU:CPU;
+
+    pmHardwareCPU:CPU; //硬件信息
     pmHardwareMemory:Memory;
     pmHardwareDiskList:Array<Disk>;
 

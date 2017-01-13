@@ -1108,13 +1108,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取端口资源企业列表",
         "id": "net-mng.vmware.port.enterprise.list",
         "method": "GET",
-        "url": "adminboe/authsec/vmware/network/{id}/set/ent"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/{cluster_id}/set/ent"
     },
     {
         "desc": "获取端口资源设置企业保存",
         "id": "net-mng.vmware.port.enterprise.save",
         "method": "POST",
-        "url": "adminboe/authsec/vmware/network/{id}/save/ent"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/{cluster_id}/save/ent"
     },
     //VMware最外层导航页
     {
@@ -1330,7 +1330,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取地域数据中心数据平台选项",
         "id": "net-mng.openstack.net.region_option",
         "method": "GET",
-        //"url": "/adminboe/authsec/openstack/network/queryCondition"
+        //"url": "adminboe/authsec/openstack/network/queryCondition"
         "url": "openstacknetworkmgmt/authsec/openstack/network/queryCondition "
     },
     {
@@ -1618,7 +1618,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "设置企业",
         "id": "net-mng.vm-mng-dbt.port.set-ent",
         "method": "GET",
-        "url": "adminboe/authsec/vmware/network/dist/portres/{id}/set/ent"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dist/portres/{switch_id}/set/ent"
     },
     {
         "desc": "数据中心联动列表",
@@ -1630,7 +1630,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "保存企业",
         "id": "net-mng.vm-mng-dbt.port.ent-save",
         "method": "POST",
-        "url": "adminboe/authsec/vmware/network/dist/portres/{id}/save/ent"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dist/portres/{switch_id}/save/ent"
     },
 
     //Vmware NSX导航页
@@ -1686,13 +1686,14 @@ export let RestApis: RestApiModel[] = [
         "desc": "NSX云网络DLR资源分配保存企业",
         "id": "net-mng.vm-mng-nsx.dlr.ent-save",
         "method": "POST",
-        "url": "adminboe/authsec/vmware/network/nsx/portres/{id}/save/ent"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/portres/{dlr_id}/save/ent"
+        
     },
     {
        "desc": "NSX云网络DLR资源分配dlr设置企业",
         "id": "net-mng.vm-mng-nsx.dlr.dlr-detail",
         "method": "GET",
-        "url": "adminboe/authsec/vmware/network/nsx/portres/{id}/set/ent"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/portres/{dlr_id}/set/ent"
     },
 //vmware-nsx网络
     {
@@ -1752,56 +1753,56 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取物理机列表",
         "id": "physical-mng.physical.list.get",
         "method": "POST",
-        "url": "/pmresourcemgmt/noauth/pmpools/pms/{pmpool_id}/page/{page}/size/{size}"
+        "url": "pmresourcemgmt/noauth/pmpools/pms/{pmpool_id}/page/{page}/size/{size}"
     },
     {
          "desc": "添加物理机",
         "id": "physical-mng.physical.create",
         "method": "POST",
-        "url": "/pmresourcemgmt/noauth/pmpool/pm"
+        "url": "pmresourcemgmt/noauth/pmpool/pm"
     },
     {
          "desc": "查看物理机",
         "id": "physical-mng.physical.check",
         "method": "GET",
-        "url": "/pmresourcemgmt/noauth/pmpool/pm/view/{pm_id}"
+        "url": "pmresourcemgmt/noauth/pmpool/pm/view/{pm_id}"
 
     },
     {
         "desc": "编辑物理机",
         "id": "physical-mng.physical.edit",
         "method": "PUT",
-        "url": "/pmresourcemgmt/noauth/pmpool/pm/edit"
+        "url": "pmresourcemgmt/noauth/pmpool/pm/edit"
     },
     {
         "desc": "获取物理机硬件信息",
         "id": "physical-mng.physical.hardwareinfo.get",
         "method": "POST",
-        "url": " /pmresourcemgmt/noauth/pmpool/pm/ilo/readpminfo"
+        "url": "pmresourcemgmt/noauth/pmpool/pm/ilo/readpminfo"
     },
     {
         "desc": "修改IPMI信息",
         "id": "physical-mng.physical.ipmiInfo.put",
         "method": "PUT",
-        "url": " /pmresourcemgmt/noauth/pmpool/pm/ilo/{pm_id}"
+        "url": "pmresourcemgmt/noauth/pmpool/pm/ilo/{pm_id}"
     },
      {
-        "desc": "修改IPMI信息",
+        "desc": "测试IPMI信息",
         "id": "physical-mng.physical.ipmiInfo.test.put",
         "method": "PUT",
-        "url": " /pmresourcemgmt/noauth/pmpool/pm/ilo/verify"
+        "url": "pmresourcemgmt/noauth/pmpool/pm/ilo/verify"
     },
     {
         "desc": "删除/禁用/启用物理机",
         "id": "physical-mng.physical.statusChange",
         "method": "PUT",
-        "url": "/pmresourcemgmt/noauth/pmpool/pm/{pm_id}/{status}"
+        "url": "pmresourcemgmt/noauth/pmpool/pm/{pm_id}/{status}"
     },
     {
         "desc": "获取物理机品牌、型号、服务器类型",
         "id": "physical-mng.physical.serverInfo.get",
-        "method": "GET ",
-        "url": "/pmresourcemgmt/noauth/pmpool/pm/modellist"
+        "method": "GET",
+        "url": "pmresourcemgmt/noauth/pmpool/pm/modellist"
     },
 
 ]

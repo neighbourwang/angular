@@ -47,7 +47,7 @@ export class PhysicalListComponent implements OnInit {
 
 
     physicalList:Array< PhysicalListModel>;
-    pmQuery:PmQuery;
+    pmQuery:PmQuery=new PmQuery();
     pool:Pool;
    // physical:PhysicalModel;
     type: string;
@@ -81,7 +81,7 @@ export class PhysicalListComponent implements OnInit {
         this.pageIndex = index || this.pageIndex;
         this.layoutService.show();
          console.log("物理机查询参数",this.pmQuery);
-        this.service.getPhysicals(this.pageIndex, this.pageSize,this.pmQuery)
+        this.service.getPhysicals(this.pageIndex, this.pageSize,this.pmQuery,this.poolId)
             .then(
                 response => {
                     this.layoutService.hide();
