@@ -6,7 +6,8 @@ import { DialogTranslate } from '../service/dialog-translate.service';
 @Component({
     selector: "fc-popup",
     templateUrl: "../template/popup.component.html",
-    inputs: ["title", "ot", "ct"],
+    inputs: ["title", "ot", "ct", "enableOKButton"],
+    styleUrls: ["../style/StyleSheet.less"],
     providers: [DialogTranslate]
 })
 export class PopupComponent implements OnInit {
@@ -18,6 +19,8 @@ export class PopupComponent implements OnInit {
     param: any;
     title: String;
     showTitle: String;
+    enableOKButton: boolean =true;
+
 
     constructor(private dialogTranslate: DialogTranslate) {
 
@@ -27,6 +30,7 @@ export class PopupComponent implements OnInit {
     private dialog: ModalComponent;
 
     ngOnInit() {
+        //this.enableOKButton = true;
     }
 
     ngOnChanges() {

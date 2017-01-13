@@ -9,8 +9,8 @@ import {  IpmiInfo} from "../model/physical-ipmi.model";
 import { PhysicalModel } from "../model/physical.model";
 
 @Component({
-    selector: "physical-list",
-    templateUrl: "../template/physical-list.html",
+    selector: "physical-ipmi",
+    templateUrl: "../template/physical-ipmi.html",
     styleUrls: [],
     providers: []
 })
@@ -30,7 +30,7 @@ export class PhysicalIpmiComponent implements OnInit {
     @ViewChild("notice")
     notice: NoticeComponent;
 
-   ipmi: IpmiInfo;
+   //ipmi: IpmiInfo;
    pmId:string;
    physical:PhysicalModel;
 
@@ -40,7 +40,8 @@ export class PhysicalIpmiComponent implements OnInit {
         // console.log(this.router.params);
         this.activeRoute.params.forEach((params: Params) => {
             const id = params["id"];
-            this.pmId=id;  
+            this.pmId=id; 
+            console.log("获取的物理机id",this.pmId) 
             this.getPhysicalById(id);       
         });       
     }
@@ -55,10 +56,11 @@ export class PhysicalIpmiComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
                     this.physical = response["resultContent"];
-                    this.ipmi.ILOIPAddr=this.physical.ipAddr;
-                    this.ipmi.ILOUserName=this.physical.username;
-                    this.ipmi.ILOPwd=this.physical.password;
-                    console.log("ip",this.ipmi.ILOIPAddr,"username", this.ipmi.ILOUserName,"password",  this.ipmi.ILOPwd);
+                    
+                    // this.ipmi.iloIPAddress=this.physical.iloIPAddress;
+                    // this.ipmi.iloUserName=this.physical.iloUserName;
+                    // this.ipmi.iloPwd=this.physical.iloPwd;
+                   console.log("获取物理机的ILO信息","IP",this.physical.iloIPAddress,"username", this.physical.iloUserName,"password",  this.physical.iloPwd);
                 } else {
                     alert("Res sync error");
                 }
@@ -73,32 +75,25 @@ export class PhysicalIpmiComponent implements OnInit {
 
    //保存IPMI信息
    saveIpmi(){
-       if (!this.ipmi.ILOIPAddr) {
+       if (!this.physical.iloIPAddress) {
             this.showAlert("请填写ILO IP地址！");
             return false;
         }
-        if(!this.isIP(this.ipmi.ILOIPAddr)){
+        if(!this.isIP(this.physical.iloIPAddress)){
             this.showAlert("IP不合要求,请重新填写ILO IP地址！");
             return false;
         }
-        if (!this.ipmi.ILOUserName) {
+        if (!this.physical.iloUserName) {
             this.showAlert("请填写ILO用户名！");
             return false;
         }
-        if (!this.ipmi.ILOPwd) {
+        if (!this.physical.iloPwd) {
             this.showAlert("请填写ILO密码！");
             return false;
         }
-        if (!this.ipmi.ILOConfirmPwd) {
-            this.showAlert("请填写ILO确认密码！");
-            return false;
-        } 
-        if(!(this.ipmi.ILOPwd === this.ipmi.ILOConfirmPwd)){
-            this.showAlert("确认密码与密码不一致，请确认！");
-            return false;
-        }     
+       
        this.layoutService.show();
-       this.service.updateIpmiInfo(this.ipmi,this.pmId)
+       this.service.updateIpmiInfo(this.physical,this.pmId)
        .then(
            response=>{
                this.layoutService.hide();
@@ -113,32 +108,24 @@ export class PhysicalIpmiComponent implements OnInit {
 
    //测试
    testIpmi(){
-        if (!this.ipmi.ILOIPAddr) {
+        if (!this.physical.iloIPAddress) {
             this.showAlert("请填写ILO IP地址！");
             return false;
         }
-        if(!this.isIP(this.ipmi.ILOIPAddr)){
+        if(!this.isIP(this.physical.iloIPAddress)){
             this.showAlert("IP不合要求,请重新填写ILO IP地址！");
             return false;
         }
-        if (!this.ipmi.ILOUserName) {
+        if (!this.physical.iloUserName) {
             this.showAlert("请填写ILO用户名！");
             return false;
         }
-        if (!this.ipmi.ILOPwd) {
+        if (!this.physical.iloPwd) {
             this.showAlert("请填写ILO密码！");
             return false;
         }
-        if (!this.ipmi.ILOConfirmPwd) {
-            this.showAlert("请填写ILO确认密码！");
-            return false;
-        } 
-        if(!(this.ipmi.ILOPwd === this.ipmi.ILOConfirmPwd)){
-            this.showAlert("确认密码与密码不一致，请确认！");
-            return false;
-        }     
         this.layoutService.show();
-        this.service.testIomiInfo(this.ipmi)
+        this.service.testIomiInfo(this.physical)
         .then(
             response=>{
                 this.layoutService.hide();

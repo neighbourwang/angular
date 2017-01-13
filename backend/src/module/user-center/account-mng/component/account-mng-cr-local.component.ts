@@ -1,7 +1,7 @@
 ﻿import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent ,ValidationService } from "../../../../architecture";
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, ValidationService } from "../../../../architecture";
 
 //service
 import { AccountMngService } from "../service/account-mng-list.service";
@@ -146,30 +146,29 @@ export class AccountMngCrLocal implements OnInit {
     }
     //验证账号唯一性
     loginNameIsOnly: boolean = true;
-    isEmail: boolean=true;
+    isEmail: boolean = true;
     accountOnlyValid(val) {
         console.log(val);
-       if(val){
+        if (val) {
             if (this.validService.isEmail(val)) {
                 this.isEmail = true;
-                return;
+                this.service.loginNameValid(val).then(res => {
+                    console.log(res);
+                    if (res.resultCode == '10001001') {
+                        this.loginNameIsOnly = false;
+                    } else {
+                        this.loginNameIsOnly = true;
+                    }
+                }).catch(err => {
+                    console.error(err);
+                })
             } else {
                 this.isEmail = false;
             }
-        this.service.loginNameValid(val).then(res => {
-            console.log(res);
-            if (res.resultCode == '10001001') {
-                this.loginNameIsOnly = false;
-            } else {
-                this.loginNameIsOnly = true;
-            }
-        }).catch(err => {
-            console.error(err);
-        })
-       }
+        }
     }
     //验证手机号
-    isPhone: boolean=true;
+    isPhone: boolean = true;
     phoneValid(val) {
         if (val) {
             this.isPhone =

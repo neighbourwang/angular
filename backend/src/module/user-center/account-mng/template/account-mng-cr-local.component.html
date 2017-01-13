@@ -6,13 +6,13 @@
                 <div class="row row-line-height">
                     <div class="form-group">
                         <div class="col-sm-4 form-control-title">
-                            <span class="asterisk">*</span> 姓名
+                            <span class="asterisk">*</span> {{'USER_CENTER.NAME' | translate}}<!--姓名-->
                         </div>
                         <div class="col-sm-4" [ngClass]="{'has-error': userName.errors && (userName.dirty || userName.touched)}">
                             <input type="text" class="form-control" placeholder="{{'USER_CENTER.INPUTNAME' | translate}}" [(ngModel)]="account.userName" id="userName" required name="userName" #userName="ngModel">
                             <div *ngIf="userName.errors && (userName.dirty || userName.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                 <div [hidden]="!userName.errors.required">
-                                    姓名不能为空
+                                    {{'USER_CENTER.NAME_NOT_NULL' | translate}}<!--姓名不能为空-->
                                 </div>
                             </div>
                         </div>
@@ -22,23 +22,24 @@
                 <div class="row row-line-height">
                     <div class="form-group">
                         <div class="col-sm-4 form-control-title">
-                            <span class="asterisk">*</span> 帐号
+                            <span class="asterisk">*</span> {{'USER_CENTER.ACCOUNT' | translate}}
                         </div>
                         <div class="col-sm-4" [ngClass]="{'has-error': (loginName.errors && (loginName.dirty || loginName.touched))||!loginNameIsOnly||!isEmail}">
-                            <input type="text" class="form-control" placeholder="{{'USER_CENTER.INPUT_EMAIL_ACC' | translate}}" [disabled]="!isCreate" [(ngModel)]="account.loginName" id="loginName" required name="loginName" (blur)="accountOnlyValid(account.loginName)" (focus)="isEmail=true" #loginName="ngModel">
+                            <input type="text" class="form-control" placeholder="{{'USER_CENTER.INPUT_EMAIL_ACC' | translate}}" [disabled]="!isCreate" [(ngModel)]="account.loginName" id="loginName" required name="loginName" (blur)="accountOnlyValid(account.loginName)" (focus)="isEmail=true;loginNameIsOnly=true;" #loginName="ngModel">
                             <div *ngIf="loginName.errors && (loginName.dirty || loginName.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                 <div [hidden]="!loginName.errors.required">
-                                    账号不能为空
+                                    {{'USER_CENTER.ACCOUNT_NOT_NULL' | translate}}<!--账号不能为空-->
                                 </div>
                             </div>
                             <div *ngIf="!loginNameIsOnly" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                 <div>
-                                    账号{{account.loginName}}已注册，请重新输入账号
+                                    {{'COMMON.ACCOUNT' | translate}}{{account.loginName}}已注册，请重新输入{{'COMMON.ACCOUNT' | translate}}<!--账号-->
+
                                 </div>
                             </div>
                             <div *ngIf="!isEmail" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                 <div >
-                                    账号格式输入错误，请输入正确邮箱地址
+                                    {{'USER_CENTER.ACCOUNT_FORMAT_ERROR' | translate}}<!--账号格式输入错误，请输入正确邮箱地址-->
                                 </div>
                             </div>
                         </div>
@@ -51,18 +52,18 @@
                 <div class="row row-line-height">
                     <div class="form-group">
                         <div class="col-sm-4 form-control-title">
-                            <span class="asterisk">*</span> 联系电话
+                            <span class="asterisk">*</span> {{'USER_CENTER.CONTACT_PHONE' | translate}}<!--联系电话-->
                         </div>
                         <div class="col-sm-4" [ngClass]="{'has-error': phone.errors && (phone.dirty || phone.touched)||!isPhone}">
                             <input type="text" class="form-control" placeholder="{{'USER_CENTER.INPUT_MOBILE_PHONE' | translate}}" [(ngModel)]="account.phone" id="phone" required name="phone" #phone="ngModel" (blur)="phoneValid(account.phone)" (focus)='isPhone=true'>
                             <div *ngIf="phone.errors && (phone.dirty || phone.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                 <div [hidden]="!phone.errors.required">
-                                    电话不能为空
+                                    {{'USER_CENTER.PHONE_NOT_NULL' | translate}}
                                 </div>
                             </div>
                             <div *ngIf="!isPhone" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                 <div >
-                                    手机号格式输入错误，请输入正确手机号
+                                    {{'USER_CENTER.MOBILE_PHONE_FORMAT_ERROR' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -75,7 +76,7 @@
                 <div class="row row-line-height">
                     <div class="form-group">
                         <div class="col-sm-4 form-control-title">
-                            描述
+                            {{'COMMON.DESCRIPTION' | translate}}<!--描述-->
                         </div>
                         <div class="col-sm-4">
                             <textarea type="text" class="form-control" placeholder="{{'USER_CENTER.INPUT_CONTACT_DESC' | translate}}" rows="3" [(ngModel)]="account.description" name="description">
@@ -90,7 +91,8 @@
                     </div>
                     <div class="col-sm-4 checkbox">
                         <label (click)="isLeader()">
-                                <input type="checkbox" > 是否机构负责人？
+                                <input type="checkbox" > {{'USER_CENTER.IS_ONE_IN_CHARGE_IN_ORG' | translate}}？
+
                             </label>
                     </div>
                 </div>
@@ -99,7 +101,7 @@
             <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span>绑定角色
+                        <span class="asterisk">*</span>{{'USER_CENTER.BINDING_ROLE' | translate}}<!--绑定角色-->
                     </div>
                     <div class="col-sm-6">
 
@@ -120,7 +122,7 @@
             <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span>绑定机构
+                        <span class="asterisk">*</span>{{'USER_CENTER.BINDING_ORG' | translate}}<!--绑定机构-->-->
                     </div>
                     <div class="col-sm-5">
                         <!--<div style="height:40px;line-hight:36px;font-size:16px" *ngIf="account.organizations.length > 0">
@@ -136,7 +138,7 @@
                         </div>
                     </div>
                     <div class="col-ms-1">
-                        <button class="fox-cloud-button-md fox-cloud-button-white" style="margin-top:5px" (click)="loadModeOrg()">更多>>></button>
+                        <button class="fox-cloud-button-md fox-cloud-button-white" style="margin-top:5px" (click)="loadModeOrg()">{{'COMMON.MORE' | translate}}>>></button><!--更多-->
                     </div>
                 </div>
             </div>
@@ -147,11 +149,11 @@
 </div>
 <div class="text-center" style="margin-top:50px">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel()">
-            <span class="icon-button-label">取消</span>
+            <span class="icon-button-label">{{'NET_MNG_VM_PORT.CNACLE' | translate}}<!--取消--></span>
         </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px" (click)="create()"  [disabled]="!accountForm.form.valid||!loginNameIsOnly||!isEmail||!isPhone">
             <span class="icon-button-label" >{{btnTitle}}</span>
         </button>
 </div>
 <div style="height:50px"></div>
-<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="NET_MNG_VM_DBT_PORT.COMFIRM" (of)="nof()"></fc-notice>

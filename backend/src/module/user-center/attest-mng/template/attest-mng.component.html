@@ -1,35 +1,40 @@
-<div class="page-content-header icon-content-header-userCenterOn">认证管理</div>
+<div class="page-content-header icon-content-header-userCenterOn">{{'USER_CENTER.CERT_MANAGEMENT' | translate}}</div><!--认证管理-->
+
 <div class="page-content">
 	<div style="padding-bottom: 10px;">
 		<div class="dropdown pull-right" style="margin-left: 20px">
 			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
 				aria-expanded="true">
-                更多操作
+                {{'HOST_VMWARE_MNG.MORE_OPERATION' | translate}}<!--更多操作-->
                 <span class="caret"></span>
             </button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-				<li><a (click)="onEdit();">编辑</a></li>
-				<li><a (click)="onEditAcc();">修改认证账户</a></li>				
-				<li><a (click)="updateStatus('1');">启用</a></li>                
-				<li><a (click)="updateStatus('3');">禁用</a></li>
-				<li><a (click)="onDelete('delete');">删除</a></li>
+				<li><a (click)="onEdit();">{{'HOST_VMWARE_MNG.EDIT' | translate}}<!--编辑--></a></li>
+				<li><a (click)="onEditAcc();">{{'USER_CENTER.MODIFY_AD_ACCOUNT' | translate}}</a></li>				<--修改认证账户-->
+
+				<li><a (click)="updateStatus('1');">{{'NET_MNG_VM_IP_MNG.ENABLE' | translate}}<!--启用--></a></li>                
+				<li><a (click)="updateStatus('3');">{{'HOST_VMWARE_MNG.DISABLE' | translate}}<!--禁用--></a></li>
+				<li><a (click)="onDelete('delete');">{{'NET_MNG_VM_IP_MNG.DELETE' | translate}}<!--删除--></a></li>
 			</ul>
 		</div>		
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="onCreate();">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建认证源</span>
+            <span class="icon-button-label icon-left-button-label">{{'USER_CENTER.CREATE_AD_SOURCE' | translate}}</span><!--创建认证源-->
+
         </button>
 	</div>
 	<div class="table-container">
 		<table class="table table-hover">
 			<thead>
 				<tr>
-				    <th >选择</th>
-					<th>认证源名称</th>
-					<th>URL地址</th>
-					<th>认证类型</th>
-					<th>状态</th>
-					<th>描述</th>
+				    <th >{{'NET_VM_NSX_INDEX.SELECT' | translate}}<!--选择--></th>
+					<th>{{'USER_CENTER.AD_SOURCE_NAME' | translate}}</th><--认证源名称-->
+
+					<th>URL{{'COMMON.PATH' | translate}}</th><!--地址-->
+					<th>{{'USER_CENTER.CERT_TYPE' | translate}}</th><--认证类型-->
+
+					<th>{{'NET_MNG_OPENSTACK.STATUS' | translate}}<!--状态--></th>
+					<th>{{'COMMON.DESCRIPTION' | translate}}<!--描述--></th>
 				</tr>
 			</thead>
 			 <tbody>
@@ -47,6 +52,6 @@
 	</div>
 </div>
 <fc-pagination #pager tp={{totalPage}} (pf)="getAttests($event)"></fc-pagination>
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"  ></fc-notice>
-<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"  ></fc-confirm>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="NET_MNG_VM_DBT_PORT.COMFIRM"  ></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="NET_MNG_VM_DBT_PORT.COMFIRM" ct="NET_MNG_VM_DBT_PORT.CNACLE"  ></fc-confirm>
  

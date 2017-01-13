@@ -49,6 +49,7 @@ export class VmwareImgSyncComponent implements OnInit {
 
     bitDictArray: Array<SystemDictionary>;
     osDictArray: Array<SystemDictionary>;
+    formatDictArray: Array<SystemDictionary>;
 
     platformId: string;
     platformName: string;
@@ -66,10 +67,17 @@ export class VmwareImgSyncComponent implements OnInit {
         this.dictService.bitDict
         .then((items) => {
             this.bitDictArray = items;
+            console.log(this.bitDictArray, "this.bitDictArray");
         });
         this.dictService.osDict
         .then((items) => {
             this.osDictArray = items;
+            console.log(this.osDictArray, "this.osDictArray");
+        });
+        this.dictService.formatDict
+        .then((items) => {
+            this.formatDictArray = items;
+            console.log(this.formatDictArray, "this.formatDictArray");
         });
 
         this.getVmwareImgSyncList();

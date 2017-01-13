@@ -46,7 +46,7 @@ export class ClMngCreStep1Component implements OnInit {
 
 
     @ViewChild('notice')
-    notice: ConfirmComponent;
+    notice: NoticeComponent;
 
     @ViewChild('regionSelect')
     regionSelect: PopupComponent;
@@ -74,10 +74,10 @@ export class ClMngCreStep1Component implements OnInit {
             )
         this.commonService.getRegion()
             .then(
-
             res => {
                 console.log('region', res);
                 this.regions = res;
+                this.creStep1Model.regionId=this.regions[0].id;
             }
             ).catch(
             err => {
@@ -131,6 +131,7 @@ export class ClMngCreStep1Component implements OnInit {
                 res => {
                     console.log('platFormRegions', res);
                     this.platFormRegionList = res.resultContent;
+                    this.creStep1Model.region=this.platFormRegionList[0].id;
                     this.layoutService.hide();
                     this.regionSelect.open('创建云平台：选取Region')
                 }

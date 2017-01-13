@@ -149,7 +149,6 @@ export class EntEstCreService{
 		,caller: any
 		,entId:string)
 	{
-		console.log('loadEntInfo');
 		let pageItem:Paging<EntEstBasicInfo> = new Paging<EntEstBasicInfo>();
 
 		this.loadItems(pageItem
@@ -164,6 +163,7 @@ export class EntEstCreService{
 			, null
 			, (source, target:EntEstBasicInfo[])=>{
 				let obj = new EntEstBasicInfo();
+
 				target.push(obj);
 
 				obj.code = source.code;
@@ -172,6 +172,7 @@ export class EntEstCreService{
 				obj.contactorName = source.loginName;
 				obj.description = source.description;
 				obj.certMethod = parseInt(source.authMode);
+				console.log("赋值前"+source.authMode+"赋值后："+obj.certMethod);
 			}
 			, (items:EntEstBasicInfo[])=>{
 				let item = items[0];
@@ -180,10 +181,11 @@ export class EntEstCreService{
 					entInfo.name = item.name;
 					entInfo.description = item.description;
 					entInfo.id = item.id;
+					entInfo.certMethod = item.certMethod;
 				}
 			},
 			successHandler);
-		
+		console.log("方法最后"+entInfo.certMethod);
 	}
 
 	//加载已选中企业产品信息
@@ -520,7 +522,7 @@ export class EntEstCreService{
 
 					if(ret.pageInfo)
 					{
-						items.totalPages = ret.pageInfo.totalPage || 100;
+						items.totalPages = ret.pageInfo.totalPage;
 					}
 					else
 					{

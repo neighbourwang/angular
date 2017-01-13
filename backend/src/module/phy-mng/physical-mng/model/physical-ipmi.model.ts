@@ -1,6 +1,6 @@
 export class IpmiInfo {
-    ILOIPAddr:string;
-    ILOUserName: string;
-    ILOPwd: string;
-    ILOConfirmPwd: string;
+    iloIPAddress:string;
+    iloUserName: string;
+    iloPwd: string;
+    
 }

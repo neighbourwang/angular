@@ -172,15 +172,18 @@ export class ProdDirCreComponent implements OnInit {
     onSubmit() {
         console.log(this.prodDir);
         if (!this.prodDir.serviceName) {
-            this.notice.open('操作错误', '请输入产品目录名称');
+            this.notice.open('COMMON.OPERATION_ERROR', '请输入产品目录名称'); //COMMON.OPERATION_ERROR=>操作错误 
+
             return;
         }
         if (this.prodDir.specification.vcpu == 0 || this.prodDir.specification.mem == 0) {
-            this.notice.open('操作错误', '产品规格数据设置错误');
+            this.notice.open('COMMON.OPERATION_ERROR', '产品规格数据设置错误'); //COMMON.OPERATION_ERROR=>操作错误 
+
             return;
         }
         if (this.prodDir.platformList.length == 0) {
-            this.notice.open('操作错误', '请选择可用平台');
+            this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.SELECT_PLATFORM'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.SELECT_PLATFORM=>请选择可用平台 
+
             return;
         }
         this.prodDir.serviceTemplateId = '';

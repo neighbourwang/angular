@@ -244,6 +244,7 @@ export const TranslateCN = {
         CREATED_DATE: '创建时间：',
         EXPIRE_DATE: '到期时间：',
         RELEASE_DATE: '释放时间：',
+        HOST_ONE_PRICE: '云主机单价',
 
         //cloud-host-list
         REGION_LIST: '区域列表',
@@ -274,6 +275,9 @@ export const TranslateCN = {
         CLOUD_HARD_DISK_COSTS: '云硬盘费用',
         BY_VOLUMN_COSTS: '按量费用',
         TOTAL_COST: '费用总计',
+        BILLINGARR: '周期费用',
+        TOTAL_BILLINGARR: '总周期费用',
+        BILLINGARR_TEXT: '以上为总费用估算，实际支付金额，请以每月账单为准。',
         ANNUAL_SUBSCRIPTION: '包年包月',
         PRODUCT_ORDER_DESCRIPTION: '不同区域之间的产品内网不互通；订购后不支持更换区域，请谨慎选择！',
         DEFINITION_OF_PUBLIC_IMAGE_AND_CUSTOM_IMAGE: '公共镜像即基础操作系统，自定义镜像为企业根据基础操作系统做过额外配置或优化后的操作系统',
@@ -469,6 +473,7 @@ export const TranslateCN = {
         BUY_MID_FIRST: 'GB的云硬盘。',
         BUY_MID_SECOND: 'GB起，增加按照每',
         BUY_TAIL: 'GB一档。',
+        ORDER_TEXT: '云硬盘产品将根据您购买的容量按周期计费，实际支付金额，请以每月账单为准。',
 
         //TS
         SUCCESSFULLY_ADDED_TO_SHOPPING_CART: '加入购物车成功!',

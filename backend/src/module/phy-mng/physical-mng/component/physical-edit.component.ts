@@ -5,9 +5,10 @@ import { LayoutService, ValidationService, NoticeComponent } from "../../../../a
 
 import { PhysicalEditService } from "../service/physical-edit.service";
 
-import { PhysicalModel } from "../model/physical.model";
+import { PhysicalModel,CPU,Memory,Disk } from "../model/physical.model";
 import { ServerType } from "../model/serverType.model";
 import { Brand, Model } from "../model/brand.model";
+//import { IpmiInfo } from "../model/physical-ipmi.model";
 
 @Component({
     selector: "physical-edit",
@@ -32,6 +33,7 @@ export class PhysicalEditComponent implements OnInit {
     notice: NoticeComponent;
 
     physical: PhysicalModel = new PhysicalModel(); //物理机实力
+ 
     eidtMode: string = "create"; //页面显示状态 create / eidt / view
     read = false;
     title: string; //编辑或添加的title
@@ -69,6 +71,7 @@ export class PhysicalEditComponent implements OnInit {
                 if (this.physical.id) {
                     this.getPhysicalById(this.physical.id);
                 }
+                else this.physical=new PhysicalModel();
             });
     }
 
@@ -84,6 +87,7 @@ export class PhysicalEditComponent implements OnInit {
                         var physical: PhysicalModel = response["resultContent"];
                         this.selectedBrand = this.brands.find((brand) => { return brand.id == physical.brandId });
                         this.physical = physical;
+                        console.log("编辑物理机", this.physical.pmHardwareCPU);
                     } else {
                         alert("Res sync error");
                     }
@@ -136,20 +140,20 @@ export class PhysicalEditComponent implements OnInit {
             return false;
         }
 
-        if (!this.physical.ipAddr) {
+        if (!this.physical.iloIPAddress) {
             this.showAlert("请填写IP地址！");
             return false;
         }
 
-        if (!this.physical.username) {
+        if (!this.physical.iloUserName) {
             this.showAlert("请填写用户名！");
             return false;
         }
-        if (!this.physical.password) {
+        if (!this.physical.iloPwd) {
             this.showAlert("请填写密码！");
             return false;
         }
-        if (!this.physical.serverTypeId) {
+        if (!this.physical.sererTypeId) {
             this.showAlert("请选择服务器类型！");
             return false;
         }
@@ -202,7 +206,7 @@ export class PhysicalEditComponent implements OnInit {
     }
 
     gotoList() {
-        this.route.navigate(["physical-mng/physical-mng"]);
+        this.route.navigate(["physical-mng/physical-mng/physical-list"]);
 
     }
 

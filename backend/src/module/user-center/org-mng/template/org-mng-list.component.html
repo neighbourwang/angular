@@ -1,49 +1,54 @@
-<div class="page-content-header icon-content-header-userCenterOn">机构管理</div>
+<div class="page-content-header icon-content-header-userCenterOn">{{'USER_CENTER.ORG_MANAGEMENT' | translate}}</div><!--机构管理-->
+
 <div style="margin-top: 10px;">
 		
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                更多操作
+                {{'HOST_VMWARE_MNG.MORE_OPERATION' | translate}}<!--更多操作-->
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                <li (click)="edit()" style="cursor:pointer"><a>编辑</a></li>
-                <li (click)="enable()" style="cursor:pointer"><a>启用</a></li>
-                <li (click)="disable()" style="cursor:pointer"><a>禁用</a></li>
-				<li (click)="delete()" style="cursor:pointer"><a>删除</a></li>
+                <li (click)="edit()" style="cursor:pointer"><a>{{'HOST_VMWARE_MNG.EDIT' | translate}}<!--编辑--></a></li>
+                <li (click)="enable()" style="cursor:pointer"><a>{{'NET_MNG_VM_IP_MNG.ENABLE' | translate}}<!--启用--></a></li>
+                <li (click)="disable()" style="cursor:pointer"><a>{{'HOST_VMWARE_MNG.DISABLE' | translate}}<!--禁用--></a></li>
+				<li (click)="delete()" style="cursor:pointer"><a>{{'NET_MNG_VM_IP_MNG.DELETE' | translate}}<!--删除--></a></li>
             </ul>
         </div>
 
         <button class="fox-cloud-button fox-cloud-button-green" (click)="create()">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建机构</span>
+            <span class="icon-button-label icon-left-button-label">{{'USER_CENTER.CREATE_ORG' | translate}}</span><!--创建机构-->
         </button>
 </div>
 <div class="table-container" style="margin-top : 10px;min-height:300px;">
         <table class="table table-hover">
             <thead>
             <tr>
-                <th class="check-box-col">选择</th>
-                <th>编号</th>
-                <th>机构名称</th>
-                <th>机构人员数量</th>
-                <!--<th>机构负责人</th>-->
-                <th>状态</th>
-                <th>描述</th>
+                <th class="check-box-col">{{'NET_VM_NSX_INDEX.SELECT' | translate}}<!--选择--></th>
+                <th>{{'HOST_OPENSTACK_MNG.NUMBER' | translate}}<!--编号--></th>
+                <th>{{'USER_CENTER.ORG_NAME' | translate}}</th><--机构名称-->
+
+                <th>{{'USER_CENTER.ORG_USER_NUMBER' | translate}}</th><--机构人员数量-->
+
+                <!--<th>{{'USER_CENTER.ONE_IN_CHARGE_IN_ORG' | translate}}</th>--><!--机构负责人-->
+
+                <th>{{'NET_MNG_OPENSTACK.STATUS' | translate}}<!--状态--></th>
+                <th>{{'COMMON.DESCRIPTION' | translate}}<!--描述--></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let item of orgs;let idx = index">
-                <td (click)="chooseItem(idx)"><input class="fox-cloud-radio" type="radio" name="isSelected" [disabled]="item.isDefault" title="禁止操作默认机构" [checked]="item.selected"/></td>
+                <td (click)="chooseItem(idx)"><input class="fox-cloud-radio" type="radio" name="isSelected" [disabled]="item.isDefault" title="USER_CENTER.DONOT_TOUCH_DEFAULT_ORG" [checked]="item.selected"/></td>
                 <td>{{idx+1}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.headCount}}</td>
                 <!--<td>{{item.leaderName}}</td>-->
                 <td [ngClass]="{'font-green':item.status =='1' ,'font-orange':item.status == '3'}">
                     <span [ngSwitch]="item.status">
-                            <template [ngSwitchCase]="1">启用</template>
-                            <template [ngSwitchCase]="3">禁用</template>
-                            <template [ngSwitchCase]="0">未启用</template>
+                            <template [ngSwitchCase]="1">{{'NET_MNG_VM_IP_MNG.ENABLE' | translate}}<!--启用--></template>
+                            <template [ngSwitchCase]="3">{{'HOST_VMWARE_MNG.DISABLE' | translate}}<!--禁用--></template>
+                            <template [ngSwitchCase]="0">{{'COMMON.NOT_ENABLED' | translate}}</template><--未启用-->
+
                             <template [ngSwitchCase]="4">4</template>
                             <template ngSwitchDefault>Unknown</template>
                     	</span>
@@ -55,5 +60,5 @@
     </div>
 
     <fc-pagination #pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
-    <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
-    <fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="of()" ct="取消" (cf)="ccf()"></fc-confirm>
+    <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="NET_MNG_VM_DBT_PORT.COMFIRM" (of)="nof()"></fc-notice>
+    <fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="NET_MNG_VM_DBT_PORT.COMFIRM" (of)="of()" ct="NET_MNG_VM_DBT_PORT.CNACLE" (cf)="ccf()"></fc-confirm>

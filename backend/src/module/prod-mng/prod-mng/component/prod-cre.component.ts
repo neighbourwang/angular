@@ -279,19 +279,26 @@ export class ProdCreComponent implements OnInit, OnChanges {
             console.log(this.product);
         }
         if (!this.product.name || this.product.name.trim() == "") {
-            this.notice.open('操作错误', '请输入产品名称');
+            this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.INPUT_PRODUCT_NAME'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.INPUT_PRODUCT_NAME=>请输入产品名称 
+
+
             return;
         }
         if (!this.product.billingType) {
-            this.notice.open('操作错误', '请选择计费模式');
+            this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.SELECT_COUNT_MODE'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.SELECT_COUNT_MODE=>请选择计费模式 
+
+
             return;
         }
         if (!this.product.billingCycle) {
-            this.notice.open('操作错误', '请选择计费周期');
+            this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.SELECT_COUNT_CYCLE'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.SELECT_COUNT_CYCLE=>请选择计费周期 
+
+
             return;
         }
         if (this.product.productPlatformReqs.length < 1) {
-            this.notice.open('操作错误', '请选择可用平台');
+            this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.SELECT_PLATFORM'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.SELECT_PLATFORM=>请选择可用平台 
+
             return;
         }
 

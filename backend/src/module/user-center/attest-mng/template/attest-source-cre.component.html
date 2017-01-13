@@ -4,7 +4,8 @@
 		<div class="col-md-12">
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>认证源：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'COMMON.AD_SOURCE' | translate}}：</div><!--认证源-->
+
 					<div class="col-sm-4">
 						<input type="text" class="form-control font-gray" [(ngModel)]="attest.name" [disabled]="editAcc">
 					</div>
@@ -12,7 +13,7 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>URL地址：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>URL{{'COMMON.PATH' | translate}}：</div><!--地址-->
 					<div class="col-sm-4">
 						<input type="text" class="form-control font-gray" [(ngModel)]="attest.url" [disabled]="edit||editAcc" >
 					</div>
@@ -20,7 +21,7 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>用户名(Full DN)：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'USER_CENTER.USERNAME' | translate}}<!--用户名-->(Full DN)：</div>
 					<div class="col-sm-4">
 						<input type="text" class="form-control  font-gray" [(ngModel)]="attest.userName" [disabled]="edit">
 					</div>
@@ -28,7 +29,8 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk" >*</span>密码：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk" >*</span>{{'USER_CENTER.PASSWORD' | translate}}：</div><!--密码-->
+
 					<div class="col-sm-4">
 						<div class="row">
 							<div class="form-group">
@@ -37,7 +39,8 @@
 								</div>
 								<div *ngIf="type=='create'||type=='editAcc'" class="col-sm-3">
 									<button class="fox-cloud-button-md fox-cloud-button-white mgr20" (click)="testSource();" style="width:100%">
-                                    <span class="icon-button-label">测 试</span>
+                                    <span class="icon-button-label">{{'NET_MNG_VM_IP_MNG.TEST' | translate}}</span><!--测试-->
+
                                     </button>
 								</div>
 							</div>
@@ -49,7 +52,8 @@
 		        <div class="form-group">
 		            <div class="col-sm-4"></div>
 		            <div class="col-sm-4">
-		                <span class="font-green">AD认证测试通过</span>
+		                <span class="font-green">AD{{'USER_CENTER.AD_CERT_PASSED' | translate}}</span><!--认证测试通过-->
+
 		            </div>
 		        </div>
 		    </div>
@@ -57,13 +61,15 @@
                 <div class="form-group">
                     <div class="col-sm-4"></div>
                     <div class="col-sm-4">
-                        <span class="font-red">AD认证测试未通过</span>
+                        <span class="font-red">AD{{'USER_CENTER.CERT_NOT_PASSED' | translate}}</span><!--认证测试未通过-->
+
                     </div>
                 </div>
             </div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>登录账户名属性：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'USER_CENTER.LOGIN_ACCOUNT_ATTR' | translate}}：</div><!--登录账户名属性-->
+
 					<div class="col-sm-4">
 						<input type="text" class="form-control font-gray" [(ngModel)]="attest.loginProp" [disabled]="edit||editAcc">
 					</div>
@@ -71,9 +77,10 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">描述：</div>
+					<div class="col-sm-4 form-control-title">{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}：</div><!--描述-->
+
 					<div class="col-sm-4">
-						<textarea class="form-control font-gray" rows="4" placeholder="描述" [(ngModel)]="attest.desc" [disabled]="editAcc"></textarea>
+						<textarea class="form-control font-gray" rows="4" placeholder="{{'COMMON.DESCRIPTION' | translate}}<!--描述-->" [(ngModel)]="attest.desc" [disabled]="editAcc"></textarea>
 					</div>
 				</div>
 			</div>
@@ -82,17 +89,18 @@
 </div>
 <div class="text-center" style="margin-top:20px">
     <button class="fox-cloud-button-lg fox-cloud-button-white mgr20" (click)="cancel();">
-        <span class="icon-button-label">返回</span>
+        <span class="icon-button-label">{{'HOST_OPENSTACK_MNG.RETURN' | translate}}</span><!--返回-->
+
     </button>
     <button *ngIf="type=='create' "class="fox-cloud-button-lg fox-cloud-button-white" (click)="onCreate();">
-        <span class="icon-button-label">创建</span>
+        <span class="icon-button-label">{{'NET_MNG_VM_IP_MNG.CREATE' | translate}}<!--创建--></span>
     </button>
     <button *ngIf="edit" class="fox-cloud-button-lg fox-cloud-button-white" (click)="onEdit();">
-        <span class="icon-button-label">保存</span>
+        <span class="icon-button-label">{{'HOST_VMWARE_MNG.SAVE' | translate}}<!--保存--></span>
     </button>
     <button *ngIf="editAcc" class="fox-cloud-button-lg fox-cloud-button-white" (click)="onEditAcc();">
-        <span class="icon-button-label">保存</span>
+        <span class="icon-button-label">{{'HOST_VMWARE_MNG.SAVE' | translate}}<!--保存--></span>
     </button>
 </div>
 <div style="height:50px"></div>
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="NET_MNG_VM_DBT_PORT.COMFIRM"></fc-notice>

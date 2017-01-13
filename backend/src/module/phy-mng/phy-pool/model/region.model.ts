@@ -3,5 +3,7 @@
  */
 export class Region {
     id: string;
-    region: string;
+    code: string;
+    name: string;
+    parentId: string;
 }

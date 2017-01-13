@@ -108,7 +108,6 @@
                         <td>{{item.vcpunum||0}}</td>
                         <td>{{item.memSize||0}}</td>
                         <td>
-                            <!--<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
                             <input type="number" class="form-control"  [(ngModel)]="item.exceedPercentage" style="width: 100px; display: inline;">
                         </td>
                         <td><input type="number" class="form-control" [(ngModel)]="item.quotaPercentDisplay"></td>

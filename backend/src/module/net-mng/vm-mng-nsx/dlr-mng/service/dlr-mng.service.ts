@@ -48,11 +48,15 @@ export class DlrMngService {
 
     /////////////////////
       //获取初始化数据
-    getDrlDetailData(id:string): Promise<any> {
+    getDrlDetailData(id:string, platform_id:string): Promise<any> {
         const pathParams = [
             {
-                key: "id",
+                key: "dlr_id",
                 value: id
+            },
+            {
+                key: "platform_id",
+                value: platform_id
             }
         ];
         const api = this.restApiCfg.getRestApi("net-mng.vm-mng-nsx.dlr.dlr-detail");
@@ -60,11 +64,15 @@ export class DlrMngService {
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => port_net_mock);
     }
 
-    saveEnterpirseGroup(enterpirses:Array<Enterprise>,id:string): Promise<any> {
+    saveEnterpirseGroup(enterpirses:Array<Enterprise>,id:string,platform_id:string): Promise<any> {
         const pathParams = [
             {
-                key: "id",
+                key: "dlr_id",
                 value: id
+            },
+            {
+                key:"platform_id",
+                value:platform_id
             }
         ];
         const obj = {

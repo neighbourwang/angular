@@ -1,4 +1,4 @@
-<div class="page-content-header icon-content-header-userCenterOn">编辑AD用户</div>
+<div class="page-content-header icon-content-header-userCenterOn">{{'HOST_VMWARE_MNG.EDIT' | translate}}<!--编辑-->AD{{'COMMON.USER' | translate}}</div><!--用户-->
 <div class="page-content">
 <div class="row" style="padding-top: 30px;">
     <div class="col-md-12">
@@ -6,7 +6,7 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
                     <span class="asterisk">*</span>
-                    姓名
+                    {{'USER_CENTER.NAME' | translate}}<!--姓名-->
                 </div>
                 
                 <div class="col-sm-4">
@@ -18,7 +18,7 @@
                             <input type="text" class="form-control" placeholder="{{'USER_CENTER.INPUTNAME' | translate}}" [(ngModel)]="account.userName" id="userName" required name="userName" #userName="ngModel">
                             <div *ngIf="userName.errors && (userName.dirty || userName.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                 <div [hidden]="!userName.errors.required">
-                                    姓名不能为空
+                                    {{'USER_CENTER.NAME_NOT_NULL' | translate}}
                                 </div>
                             </div>
                 </div>
@@ -31,7 +31,7 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
                     <span class="asterisk">*</span>
-                    账号
+                    {{'COMMON.ACCOUNT' | translate}}<!--账号-->
                 </div>
                 <div class="col-sm-4 mgt10">
                     {{account.loginName}}
@@ -42,7 +42,7 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
                     <span class="asterisk">*</span>
-                    认证源
+                    {{'USER_CENTER.AD_SOURCE' | translate}}<!--认证源-->
                 </div>
                 <div class="col-sm-4 mgt10">
                     {{account.ldapName}}
@@ -53,7 +53,7 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
                     <span class="asterisk">*</span>
-                    联系电话
+                    {{'USER_CENTER.CONTACT_PHONE' | translate}}<!--联系电话-->
                 </div>
                 
                 <div class="col-sm-4">
@@ -63,7 +63,7 @@
                 <div class="col-sm-4" [ngClass]="{'has-error': Phone.errors && (Phone.dirty || Phone.touched)}">
                     <input type="text" class="form-control" placeholder="{{'USER_CENTER.INPUT_PHONE' | translate}}" [(ngModel)]="account.phone" id="Phone" required name="Phone" #Phone="ngModel">
                     <div *ngIf="Phone.errors && (Phone.dirty || Phone.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
-                        <div [hidden]="!Phone.errors.required">联系电话不能为空</div>
+                        <div [hidden]="!Phone.errors.required">{{'USER_CENTER.CONTACT_PHONE_NOT_NULL' | translate}}</div>
                     </div>
                 </div>
                 -->
@@ -74,7 +74,7 @@
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
-                    描述
+                    {{'COMMON.DESCRIPTION' | translate}}<!--描述-->
                 </div>
                 <div class="col-sm-4">
                     <textarea type="text" class="form-control" [(ngModel)]="account.description" placeholder="{{'USER_CENTER.INPUT_CONTACT_DESC' | translate}}" rows="3"></textarea>
@@ -87,7 +87,8 @@
                 </div>
                 <div class="col-sm-4 checkbox">
                     <label>
-                        <input type="checkbox" [checked]="account.isLeader" (change)="account.isLeader=$event.target.checked"> 是否部门负责人？
+                        <input type="checkbox" [checked]="account.isLeader" (change)="account.isLeader=$event.target.checked"> {{'USER_CENTER.IF_ONE_IN_CHARGE' | translate}}？
+
                     </label>
                 </div>
             </div>
@@ -95,7 +96,8 @@
         <div class="row row-line-height" style="margin-top : 20px">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
-                    绑定角色
+                    {{'USER_CENTER.BINDING_ROLE' | translate}}<--绑定角色-->
+
                 </div>
                 <div class="col-sm-6">
                     <div class="btn-group pdl5">
@@ -111,7 +113,7 @@
         <div class="row row-line-height" style="margin-top : 20px">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
-                    绑定机构
+                    {{'USER_CENTER.BINDING_ORG' | translate}}<!--绑定机构-->
                 </div>
                 <div class="col-sm-6">
                     <div class="btn-group pdl5">
@@ -130,11 +132,11 @@
 </div>
  <div class="text-center" style="margin-top:50px">
             <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel()">
-                <span class="icon-button-label" >取消</span>
+                <span class="icon-button-label" >{{'NET_MNG_VM_PORT.CNACLE' | translate}}<!--取消--></span>
             </button>
             <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="saveAccount()" style="margin-left : 10px">
-                <span class="icon-button-label" >保存</span>
+                <span class="icon-button-label" >{{'HOST_VMWARE_MNG.SAVE' | translate}}<!--保存--></span>
             </button>
 </div>
 <div style="height:50px"></div>
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="NET_MNG_VM_DBT_PORT.COMFIRM"></fc-notice>

@@ -29,6 +29,7 @@ class VmList{
     paymentType: string;
     regionZone: string;
     specification: string;
+    platformType : "0" | "1" | "2";
     uuid: string;
     vmState: string;
     privateIp: string; //内部IP

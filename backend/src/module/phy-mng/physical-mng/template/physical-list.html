@@ -1,13 +1,13 @@
 
     <div class="page-content-header icon-content-header-physical-mng">
-        物理机列表：XXXXXX（这里显示资源池名称）--上海（地域）--数据中心	
-        <button class="fox-cloud-button fox-cloud-button-white" (click)="gotoPool();">
-                    <span class="icon-button-label">返回资源池列表</span>
+        物理机列表：{{poolName}}--{{region}}--{{dataCenter}}	
+        <button class="fox-cloud-button-md fox-cloud-button-white pull-right" style="font-size:14px;padding:2px 15px"(click)="gotoPool();">
+                    返回资源池列表
         </button>  
     </div>
     <div class="page-content"> 
         <div style="margin-bottom:10px">  
-            <button class="fox-cloud-button fox-cloud-button-green" >
+            <button class="fox-cloud-button fox-cloud-button-green" (click)="createPhysical();">
                 <span class="glyphicon glyphicon-plus"></span>
                 <span class="icon-button-label icon-left-button-label">添加物理机</span>
             </button>
@@ -17,20 +17,20 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#" key="boe/physical_edit.html"> 编辑</a></li>            
-                    <li><a href="#" key="boe/physical_editIpmiInfo.html">修改IPMI信息</a></li>
-                    <li><a href="#startPhy" data-toggle="modal">启用</a></li>
-                    <li><a href="#forbidePhy" data-toggle="modal">禁用</a></li>
-                    <li><a href="#deletePhy" data-toggle="modal">删除</a></li>
+                    <li><a (click)="editPhysical();" > 编辑</a></li>            
+                    <li><a (click)="changeIpmiInfo();">修改IPMI信息</a></li>
+                    <li><a (click)="changePhysicalStatusAndDelete('1');">启用</a></li>
+                    <li><a (click)="changePhysicalStatusAndDelete('0');">禁用</a></li>
+                    <li><a (click)="changePhysicalStatusAndDelete('2');">删除</a></li>
                 </ul>
            </div>                  
            <div class="input-group col-md-2 pull-right mgl10">
-            <input class="form-control " placeholder="输入云主机信息搜索" type="text">
-            <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+            <input class="form-control "  type="text" [(ngModel)]="queryParam">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-search" (click)="search();"></span></div>
             </div> 
              <div class="pull-right" >
-                <select class="form-control">
-				    <option>物理机名称</option>
+                <select class="form-control" [(ngModel)]="selectedQuery">
+				    <option [value]="defaultQuery">物理机名称</option>
                     <option>品牌</option>            
                     <option>型号</option>
                     <option>私网IP地址</option>
@@ -43,8 +43,10 @@
                 <table class="table table-hover "  >
                         <thead>
                             <tr>
+                                <th>选择</th> 
                                 <th>编号</th>                                       
-                                <th>物理机名称</th>									
+                                <th>物理机名称</th>	
+                                <th>S/N</th>									
                                 <th>品牌</th>
                                 <th>型号</th>
                                 <th>CPU数量</th>
@@ -62,8 +64,11 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let physical of physicalList; let idex=index;">
+                                <td ><input type="radio" name="physical" class="fox-cloud-radio" 
+                                          (change)="getSelectPhysical(physical);"[checked]="physical.isSelect" ></td>                                      
                                 <td>{{idex+1}}</td>
-                                <td><a href="#" >{{physical.pmName}}</a></td>                                 
+                                <td class="font-blue" (click)="gotoPhysicalView(physical);">{{physical.pmName}}</td> 
+                                <td>{{physical.pmSN}}                                
                                 <td>{{physical.pmBrand}}</td>
                                 <td>{{physical.pmModel}}</td>
                                 <td>{{physical.pmCPUCores}}</td>	
@@ -74,14 +79,14 @@
                                 <td>{{physical.pmIPMIAddr}}</td>
                                 <td>{{physical.pmLocation}}</td>
                                 <td>{{physical.pmPowerStatus}}</td>
-                                <td>{{physical.UseageStatus}}</td>
-                                <td class="font-green">{{physical.pmMainStatus}}</td>
-                                <td class="font-orange">{{physical.pmHealthExam}}</td>														
+                                <td>{{physical.UseageStatus }}</td>
+                                <td [ngClass]="{'font-orange': physical.pmMainStatus=='0','font-green': physical.pmMainStatus=='1'}">{{physical.pmMainStatus| dict:service.dictProductType | async}}</td>
+                                <td >{{physical.pmHealthExam }}</td>														
                             </tr>                                                             
                         </tbody>
                 </table>             
         </div>                             
      </div>
-<fc-pagination #pager tp={{totalPage}} (pf)="getPhysicalList($event)"></fc-pagination>     
+<fc-pagination #page tp={{totalPage}} (pf)="getPhysicalList($event)"></fc-pagination>     
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice> 
-                
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"  ></fc-confirm>               

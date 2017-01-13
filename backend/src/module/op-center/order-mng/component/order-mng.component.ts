@@ -218,6 +218,9 @@ export class OrderMngComponent implements OnInit{
 			return this.loadAdmin();
 		})
 		.then(success=>{
+			return this.search();
+		})
+		.then(success=>{
 			this.layoutService.hide();
 		})
 		.catch(err=>{
@@ -329,32 +332,33 @@ export class OrderMngComponent implements OnInit{
 
 	search(pageNumber:number = 1){
 		/*
-{
-  "createDate": "2017-01-05T06:05:54.900Z",
-  "creatorId": "string",
-  "enterpriseId": "string",
-  "expireDate": "2017-01-05T06:05:54.900Z",
-  "organization": "string",
-  "pageParameter": {
-    "currentPage": 0,
-    "offset": 0,
-    "size": 0,
-    "sort": {},
-    "totalPage": 0
-  },
-  "platformId": "string",
-  "searchText": "string",
-  "serviceType": "string",
-  "status": "string",
-  "zoneId": "string"
-}
-		*/
+		{
+		"createDate": "2017-01-05T06:05:54.900Z",
+		"creatorId": "string",
+		"enterpriseId": "string",
+		"expireDate": "2017-01-05T06:05:54.900Z",
+		"organization": "string",
+		"pageParameter": {
+			"currentPage": 0,
+			"offset": 0,
+			"size": 0,
+			"sort": {},
+			"totalPage": 0
+		},
+		"platformId": "string",
+		"searchText": "string",
+		"serviceType": "string",
+		"status": "string",
+		"zoneId": "string"
+		}
+				*/
 		this.layoutService.show();
 
 		let param = _.extend({}, this._param);
 
 		//匹配后台搜索框参数
         param.searchText = this._param.queryParam;
+		//param.orderCode = this._param.queryParam;
         param.creatorId = this._param.buyerId;
 
 		
@@ -362,6 +366,7 @@ export class OrderMngComponent implements OnInit{
 			currentPage:pageNumber
 			,size:10
 		};
+		this._orderLoader.clear();
 		this._orderLoader.Go(pageNumber, null, param)
 		.then(success=>{
 			this.layoutService.hide();

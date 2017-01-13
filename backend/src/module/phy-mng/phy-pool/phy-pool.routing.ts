@@ -2,7 +2,7 @@
  import { RouterModule } from '@angular/router';
 
  import { PhyPoolMngComponent } from './component/phy-pool-mng.component';
- import { PhyCreatComponent } from './component/phy-creat.component.ts';
+ import { PhyCreatComponent } from './component/phy-creat.component';
  
 
 export const PhyPoolRouting= RouterModule.forChild([
