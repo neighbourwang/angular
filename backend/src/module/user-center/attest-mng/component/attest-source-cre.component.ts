@@ -53,7 +53,8 @@ export class AttestSourceCreComponent implements OnInit {
                     this.editAcc = true;
                     break;
                 case "create":
-                    this.title = "USER_CENTER.CREATE_AD_SOURCE"; //USER_CENTER.CREATE_AD_SOURCE=>创建认证源 
+                    this.title = "USER_CENTER.CREATE_AD_SOURCE"; //USER_CENTER.CREATE_AD_SOURCE=>创建认证源 
+
                     break;
             }
             if (id) {
@@ -93,7 +94,7 @@ export class AttestSourceCreComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    this.showAlert("保存成功！");
+                    this.showAlert("NET_MNG_VM_PORT.SAVE_SUCCESS"); //NET_MNG_VM_PORT.SAVE_SUCCESS=>保存成功！ 
                     this.gotoList();
                 } else {
                     alert("Res sync error");
@@ -128,7 +129,7 @@ export class AttestSourceCreComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    this.showAlert("保存成功！");
+                    this.showAlert("NET_MNG_VM_PORT.SAVE_SUCCESS"); //NET_MNG_VM_PORT.SAVE_SUCCESS=>保存成功！ 
                     this.gotoList();
                 } else {
                     alert("Res sync error");
@@ -173,7 +174,7 @@ export class AttestSourceCreComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    this.showAlert("保存成功！");
+                    this.showAlert("NET_MNG_VM_PORT.SAVE_SUCCESS"); //NET_MNG_VM_PORT.SAVE_SUCCESS=>保存成功！ 
                     this.gotoList();
                 } else {
                     alert("Res sync error");
