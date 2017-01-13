@@ -1,4 +1,4 @@
-<div class="page-content-header icon-content-header-userCenterOn">{{'HOST_VMWARE_MNG.EDIT' | translate}}<!--编辑-->AD用户</div>
+<div class="page-content-header icon-content-header-userCenterOn">{{'HOST_VMWARE_MNG.EDIT' | translate}}<!--编辑-->AD{{'COMMON.USER' | translate}}</div><!--用户-->
 <div class="page-content">
 <div class="row" style="padding-top: 30px;">
     <div class="col-md-12">
@@ -31,7 +31,7 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
                     <span class="asterisk">*</span>
-                    账号
+                    {{'COMMON.ACCOUNT' | translate}}<!--账号-->
                 </div>
                 <div class="col-sm-4 mgt10">
                     {{account.loginName}}
@@ -87,7 +87,8 @@
                 </div>
                 <div class="col-sm-4 checkbox">
                     <label>
-                        <input type="checkbox" [checked]="account.isLeader" (change)="account.isLeader=$event.target.checked"> 是否部门负责人？
+                        <input type="checkbox" [checked]="account.isLeader" (change)="account.isLeader=$event.target.checked"> {{'USER_CENTER.IF_ONE_IN_CHARGE' | translate}}？
+
                     </label>
                 </div>
             </div>
@@ -95,7 +96,8 @@
         <div class="row row-line-height" style="margin-top : 20px">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">
-                    绑定角色
+                    {{'USER_CENTER.BINDING_ROLE' | translate}}<--绑定角色-->
+
                 </div>
                 <div class="col-sm-6">
                     <div class="btn-group pdl5">

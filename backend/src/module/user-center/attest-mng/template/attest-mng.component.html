@@ -1,4 +1,5 @@
-<div class="page-content-header icon-content-header-userCenterOn">认证管理</div>
+<div class="page-content-header icon-content-header-userCenterOn">{{'USER_CENTER.CERT_MANAGEMENT' | translate}}</div><!--认证管理-->
+
 <div class="page-content">
 	<div style="padding-bottom: 10px;">
 		<div class="dropdown pull-right" style="margin-left: 20px">
@@ -9,7 +10,8 @@
             </button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 				<li><a (click)="onEdit();">{{'HOST_VMWARE_MNG.EDIT' | translate}}<!--编辑--></a></li>
-				<li><a (click)="onEditAcc();">修改认证账户</a></li>				
+				<li><a (click)="onEditAcc();">{{'USER_CENTER.MODIFY_AD_ACCOUNT' | translate}}</a></li>				<--修改认证账户-->
+
 				<li><a (click)="updateStatus('1');">{{'NET_MNG_VM_IP_MNG.ENABLE' | translate}}<!--启用--></a></li>                
 				<li><a (click)="updateStatus('3');">{{'HOST_VMWARE_MNG.DISABLE' | translate}}<!--禁用--></a></li>
 				<li><a (click)="onDelete('delete');">{{'NET_MNG_VM_IP_MNG.DELETE' | translate}}<!--删除--></a></li>
@@ -17,7 +19,8 @@
 		</div>		
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="onCreate();">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建认证源</span>
+            <span class="icon-button-label icon-left-button-label">{{'USER_CENTER.CREATE_AD_SOURCE' | translate}}</span><!--创建认证源-->
+
         </button>
 	</div>
 	<div class="table-container">
@@ -25,9 +28,11 @@
 			<thead>
 				<tr>
 				    <th >{{'NET_VM_NSX_INDEX.SELECT' | translate}}<!--选择--></th>
-					<th>认证源名称</th>
-					<th>URL地址</th>
-					<th>认证类型</th>
+					<th>{{'USER_CENTER.AD_SOURCE_NAME' | translate}}</th><--认证源名称-->
+
+					<th>URL{{'COMMON.PATH' | translate}}</th><!--地址-->
+					<th>{{'USER_CENTER.CERT_TYPE' | translate}}</th><--认证类型-->
+
 					<th>{{'NET_MNG_OPENSTACK.STATUS' | translate}}<!--状态--></th>
 					<th>{{'COMMON.DESCRIPTION' | translate}}<!--描述--></th>
 				</tr>

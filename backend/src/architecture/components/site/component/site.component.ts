@@ -6,12 +6,13 @@ import { SiteService } from '../service/site.service';
 import { TranslateService } from 'ng2-translate';
 import { TranslateEN } from '../../../../architecture/translate/translateEN';
 import { TranslateCN } from '../../../../architecture/translate/translateCN';
-
+import { DictService} from '../../../core/service/dict-service';
 
 @Component({
   selector: 'fc-root',
   templateUrl: '../template/site.component.html',
-  styleUrls: ['../style/site.component.css']
+  styleUrls: ['../style/site.component.css'],
+  providers:[DictService]
 })
 export class SiteComponent implements OnInit{
   title: string = 'Fox Cloud Portal!';

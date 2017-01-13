@@ -1,7 +1,8 @@
-export class PhyCreat{
+export class Pool{
     pmPoolId: string;
     poolName: string;
-    region: string;
+    regionId: string;
+    region:string;
     dataCenter: string;
     description: string;
 }

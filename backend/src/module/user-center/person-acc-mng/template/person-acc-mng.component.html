@@ -1,11 +1,13 @@
 <div>
-	<div class="page-content-header icon-content-header-userCenterOn">个人账户管理</div>
+	<div class="page-content-header icon-content-header-userCenterOn">{{'USER_CENTER.ACCOUNT_MANAGMENT' | translate}}</div><!--个人账户管理-->
+
 	<div class="page-content ">
 		<div class="row" style="padding-top: 30px;">
 			<div class="col-md-12">
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>姓名：</div>
+						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'USER_CENTER.NAME' | translate}}：</div><!--姓名-->
+
 						<div class="col-sm-4">
 							<input type="text" class="form-control font-gray" [disabled]="!edit" [(ngModel)]="personAcc.userName">
 						</div>
@@ -13,7 +15,8 @@
 				</div>
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>账号：</div>
+						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'COMMON.ACCOUNT' | translate}}：</div><!--账号-->
+
 						<div class="col-sm-4">
 							<input type="text" class="form-control font-gray" [disabled]="true" [(ngModel)]="personAcc.loginName">
 						</div>
@@ -21,7 +24,8 @@
 				</div>
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>联系电话：</div>
+						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'COMMON.CONTACT_PHONE' | translate}}：</div><!--联系电话-->
+
 						<div class="col-sm-4">
 							<input type="text" class="form-control font-gray" [disabled]="!edit" [(ngModel)]="personAcc.phone">
 						</div>
@@ -29,18 +33,21 @@
 				</div>
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title">类型：</div>
+						<div class="col-sm-4 form-control-title">{{'HOST_OPENSTACK_MNG.TYPE' | translate}}：</div><!--类型-->
+
 						<div class="col-sm-4">
-							<span *ngIf="!personAcc.isAD" style="line-height:34px;">本地</span>
+							<span *ngIf="!personAcc.isAD" style="line-height:34px;">{{'COMMON.LOCAL' | translate}}</span><!--本地-->
+
 							<span *ngIf="personAcc.isAD" style="line-height:34px;">AD</span>
 						</div>
 					</div>
 				</div>
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title">描述：</div>
+						<div class="col-sm-4 form-control-title">{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}：</div><!--描述-->
+
 						<div class="col-sm-4">
-							<textarea class="form-control font-gray" rows="4" placeholder="{{'COMMON.DESCRIPTION' | translate}}<!--描述-->" [disabled]="!edit" [(ngModel)]="personAcc.description"></textarea>
+							<textarea class="form-control font-gray" rows="4" placeholder="{{'COMMON.DESCRIPTION' | translate}}" [disabled]="!edit" [(ngModel)]="personAcc.description"></textarea>
 						</div>
 					</div>
 				</div>
@@ -74,7 +81,8 @@
 				<div class="col-md-12">
 					<!--<div class="row row-line-height">
 						<div class="form-group">
-							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> 当前密码：</div>
+							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> {{'USER_CENTER.CURRENT_PASSWORD' | translate}}：</div>
+
 							<div class="col-sm-6">
 								<input type="text" class="form-control font-gray" type="password" [(ngModel)]="accPwd.password" required>
 							</div>
@@ -82,7 +90,8 @@
 					</div>
 					<div class="row row-line-height">
 						<div class="form-group has-error">
-							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> 新密码：</div>
+							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> {{'USER_CENTER.NEW_PASSWROD' | translate}}：</div>
+
 							<div class="col-sm-6">
 								<input type="text" class="form-control font-gray" type="password" [(ngModel)]="accPwd.newPassword" required>
 							</div>
@@ -90,7 +99,8 @@
 					</div>
 					<div class="row row-line-height">
 						<div class="form-group has-error">
-							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> 确认新密码：</div>
+							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> {{'USER_CENTER.CONFIRM_NEW_PASSWORD' | translate}}：</div>
+
 							<div class="col-sm-6">								
 								<input type="text" class="form-control font-gray" type="password" id="inputError1" [(ngModel)]="accPwd.confirmPwd" required>
 								<label class="control-label" for="inputError1">{{'USER_CENTER.PASSWORD_NOT_CONSISTENT' | translate}}</label>

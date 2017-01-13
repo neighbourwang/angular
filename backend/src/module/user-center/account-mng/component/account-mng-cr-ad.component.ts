@@ -119,11 +119,11 @@ export class AccountMngCrAd implements OnInit {
             return;
         }
 
-        if (!this.validationService.isMoblie(this.account.phone) &&
-            !this.validationService.isTel(this.account.phone)) {
-            this.showAlert("请输入合法的联系电话;");
-            return;
-        }
+        //if (!this.validationService.isMoblie(this.account.phone) &&
+        //    !this.validationService.isTel(this.account.phone)) {
+        //    this.showAlert("请输入合法的联系电话;");
+        //    return;
+        //}
 
         if (!this.account.loginName || this.account.loginName == "") {
             this.showAlert("请选择ad用户");

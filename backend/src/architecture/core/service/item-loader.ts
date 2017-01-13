@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RestApiCfg, RestApi, RestApiModel } from './../../../architecture';
+import * as _ from 'underscore';
 
 @Injectable()
 export class ItemLoader<T>{
@@ -59,6 +60,38 @@ export class ItemLoader<T>{
 		}
 	}
 
+	private convertNull(param:any):any
+	{
+		if(_.isArray(param))
+		{
+			let newArr = [];
+
+			for(let item of param)
+			{
+				if(item === "null")
+					newArr.push(null);
+				else if(_.isObject(item))
+				{
+					newArr.push(this.convertNull(item));
+				}
+				else
+					newArr.push(item);
+			}
+
+			return newArr;
+		}
+		else
+		{
+			return _.mapObject(param,(val:any,key:string)=>{
+				if(val === "null")
+					return null;
+				else
+					return val;
+			});
+			
+		}
+	}
+
 	Go(pageNumber?:number, queryParams?:Array<any>, postParam?:any):Promise<any>{
 		return new Promise((resolve, reject)=>{
 			if(this.FakeDataFunc)
@@ -71,7 +104,7 @@ export class ItemLoader<T>{
 
 			this.setPageNumber(pageNumber);
 			this.setQueryParams(queryParams);
-			this.PostParam = postParam;
+			this.PostParam = this.convertNull(postParam);
 
 			let apiModel = this.restApiCfg.getRestApi(this._apiId);
 

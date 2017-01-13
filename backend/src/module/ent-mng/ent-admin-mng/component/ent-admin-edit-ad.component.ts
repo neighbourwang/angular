@@ -98,11 +98,11 @@ export class EntAdminEditADComponent implements OnInit {
             return;
         }
          
-        if (!this.validationService.isMoblie(this.admin.contactPhone) &&
-            !this.validationService.isTel(this.admin.contactPhone)) {
-            this.showAlert("请输入合法的联系电话;");
-            return;
-        }
+        //if (!this.validationService.isMoblie(this.admin.contactPhone) &&
+        //    !this.validationService.isTel(this.admin.contactPhone)) {
+        //    this.showAlert("请输入合法的联系电话;");
+        //    return;
+        //}
        
         this.admin.authMode = "1";
         this.layoutService.show();
