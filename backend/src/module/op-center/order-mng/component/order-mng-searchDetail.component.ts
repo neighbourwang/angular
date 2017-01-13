@@ -2,7 +2,7 @@
 import { Input,Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import { AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam,SubInstanceResp} from '../model'
+import { AdminListItem, SearchOrderDetail,DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam,SubInstanceResp} from '../model'
 
 
 @Component({
@@ -13,10 +13,9 @@ import { AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderM
 	)
 export class OrderMngSearchDetailComponent implements OnInit{
 
-	@Input()
-	private orderItem : SubInstanceResp = new SubInstanceResp();
+      @Input('detail')
+      private _detail:SearchOrderDetail;
 
-	private _param:OrderMngParam = new OrderMngParam();
 	private _orderId:string = null;
 	
 	constructor(
