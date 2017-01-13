@@ -40,7 +40,7 @@ export class PhysicalListService {
                 value: pageSize
             }
         ];
-        // const api = this.restApiCfg.getRestApi("physical-mng.physical.list.get");
+        const api = this.restApiCfg.getRestApi("physical-mng.physical.list.get");
         // return this.restApi.request(api.method, api.url, pathParams, null,
         //     {
         //         "brand": pmQuery.brand,

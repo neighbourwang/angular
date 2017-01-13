@@ -1746,7 +1746,7 @@ export let RestApis: RestApiModel[] = [
      {
         "desc": "获取物理机列表",
         "id": "physical-mng.physical.list.get",
-        "method": "POSt",
+        "method": "POST",
         "url": "/pmresourcemgmt/noauth/pmpools/pms/{pmpool_id}/page/{page}/size/{size}"
     },
     {

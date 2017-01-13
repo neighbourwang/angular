@@ -22,7 +22,7 @@
                 <div class="row row-line-height">
                     <div class="form-group">
                         <div class="col-sm-4 form-control-title">
-                            <span class="asterisk">*</span> {{'USER_CENTER.ACCOUNT' | translate}}<!--{{'USER_CENTER.ACCOUNT' | translate}}<!--帐号-->-->
+                            <span class="asterisk">*</span> {{'USER_CENTER.ACCOUNT' | translate}}
                         </div>
                         <div class="col-sm-4" [ngClass]="{'has-error': (loginName.errors && (loginName.dirty || loginName.touched))||!loginNameIsOnly||!isEmail}">
                             <input type="text" class="form-control" placeholder="{{'USER_CENTER.INPUT_EMAIL_ACC' | translate}}" [disabled]="!isCreate" [(ngModel)]="account.loginName" id="loginName" required name="loginName" (blur)="accountOnlyValid(account.loginName)" (focus)="isEmail=true;loginNameIsOnly=true;" #loginName="ngModel">
@@ -90,7 +90,8 @@
                     </div>
                     <div class="col-sm-4 checkbox">
                         <label (click)="isLeader()">
-                                <input type="checkbox" > 是否机构负责人？
+                                <input type="checkbox" > {{'USER_CENTER.IS_ONE_IN_CHARGE_IN_ORG' | translate}}？
+
                             </label>
                     </div>
                 </div>

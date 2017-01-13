@@ -8,6 +8,7 @@ import { PhysicalEditService } from "../service/physical-edit.service";
 import { PhysicalModel,CPU,Memory,Disk } from "../model/physical.model";
 import { ServerType } from "../model/serverType.model";
 import { Brand, Model } from "../model/brand.model";
+//import { IpmiInfo } from "../model/physical-ipmi.model";
 
 @Component({
     selector: "physical-edit",
@@ -32,6 +33,7 @@ export class PhysicalEditComponent implements OnInit {
     notice: NoticeComponent;
 
     physical: PhysicalModel = new PhysicalModel(); //物理机实力
+ 
     eidtMode: string = "create"; //页面显示状态 create / eidt / view
     read = false;
     title: string; //编辑或添加的title

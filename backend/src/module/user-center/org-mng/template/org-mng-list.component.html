@@ -25,8 +25,9 @@
             <tr>
                 <th class="check-box-col">{{'NET_VM_NSX_INDEX.SELECT' | translate}}<!--选择--></th>
                 <th>{{'HOST_OPENSTACK_MNG.NUMBER' | translate}}<!--编号--></th>
-                <th>机构名称</th>
-                <th>机构人员数量</th>
+                <th>{{'USER_CENTER.ORG_NAME' | translate}}</th><--机构名称-->
+                <th>{{'USER_CENTER.ORG_USER_NUMBER' | translate}}</th><--机构人员数量-->
+
                 <!--<th>机构负责人</th>-->
                 <th>{{'NET_MNG_OPENSTACK.STATUS' | translate}}<!--状态--></th>
                 <th>{{'COMMON.DESCRIPTION' | translate}}<!--描述--></th>
@@ -43,7 +44,8 @@
                     <span [ngSwitch]="item.status">
                             <template [ngSwitchCase]="1">{{'NET_MNG_VM_IP_MNG.ENABLE' | translate}}<!--启用--></template>
                             <template [ngSwitchCase]="3">{{'HOST_VMWARE_MNG.DISABLE' | translate}}<!--禁用--></template>
-                            <template [ngSwitchCase]="0">未启用</template>
+                            <template [ngSwitchCase]="0">{{'COMMON.NOT_ENABLED' | translate}}</template><--未启用-->
+
                             <template [ngSwitchCase]="4">4</template>
                             <template ngSwitchDefault>Unknown</template>
                     	</span>

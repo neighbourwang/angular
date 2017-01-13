@@ -141,8 +141,8 @@ export class PhysicalListComponent implements OnInit {
         }
          console.log("选择的物理机",physical.pmName);
         if(physical.pmMainStatus==status){
-            //this.showAlert(`该物理机已经是'${this.dictPipe.transform("physical.pmMainStatus",this.service.dictProductType)}'状态！`);
-            this.showAlert(`该物理机已经是'${physical.pmMainStatus}'状态！`);
+            this.showAlert(`该物理机已经是'${this.dictPipe.transform("physical.pmMainStatus",this.service.dictProductType)}'状态！`);
+            //this.showAlert(`该物理机已经是'${physical.pmMainStatus}'状态！`);
             return;
         }
         // else if(status=="0"){
