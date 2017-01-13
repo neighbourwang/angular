@@ -189,7 +189,8 @@ export class ProdDirListComponent implements OnInit {
                      this.notice.open('COMMON.OPERATION_ERROR', '不能删除状态为已发布的产品目录') //COMMON.OPERATION_ERROR=>操作错误 
 
                 }else{
-                    this.deleteConfirm.open('删除产品目录', '您选择删除 ' + "'" + message + "'" + '产品,请确认；如果确认，此产品目录的数据将不能恢复。')
+                    this.deleteConfirm.open('PROD_MNG.REMOVE_PRODUCT_CAT', '您选择删除 ' + "'" + message + "'" + '产品,请确认；如果确认，此产品目录的数据将不能恢复。') //PROD_MNG.REMOVE_PRODUCT_CAT=>删除产品目录 
+
                 }
                 
                     break;
@@ -198,7 +199,8 @@ export class ProdDirListComponent implements OnInit {
                         this.notice.open('COMMON.OPERATION_ERROR', '产品目录状态为已发布') //COMMON.OPERATION_ERROR=>操作错误 
 
                     } else {
-                        this.publishConfirm.open('发布产品目录', '您选择发布 ' + "'" + message + "'" + '产品,请确认。')
+                        this.publishConfirm.open('PROD_MNG.PUBLISH_PRODUCT_CAT', '您选择发布 ' + "'" + message + "'" + '产品,请确认。') //PROD_MNG.PUBLISH_PRODUCT_CAT=>发布产品目录 
+
                     }
                     break;
                 case 'ccPublish':
@@ -206,7 +208,8 @@ export class ProdDirListComponent implements OnInit {
                         this.notice.open('COMMON.OPERATION_ERROR', '产品目录状态为取消发布') //COMMON.OPERATION_ERROR=>操作错误 
 
                     } else {
-                        this.ccPublishConfirm.open('取消发布产品目录', '您选择取消发布' + "'" + message + "'" + '产品,请确认。如果确认，此产品目录将不能用来创建产品。')
+                        this.ccPublishConfirm.open('PROD_MNG.CANCEL_PUBLISH_PRODUCT_CAT', '您选择取消发布' + "'" + message + "'" + '产品,请确认。如果确认，此产品目录将不能用来创建产品。') //PROD_MNG.CANCEL_PUBLISH_PRODUCT_CAT=>取消发布产品目录 
+
                     }
                     break;
             }
@@ -259,7 +262,7 @@ export class ProdDirListComponent implements OnInit {
     creation() {
         //跳转
         console.log('create');
-        this.createProdDir.open('创建产品目录');
+        this.createProdDir.open('PROD_MNG.CREATE_PRODUCT_CAT'); //PROD_MNG.CREATE_PRODUCT_CAT=>创建产品目录 
     }
     //选择产品目录类型
     showSpec: boolean = true;
@@ -283,7 +286,8 @@ export class ProdDirListComponent implements OnInit {
             if (this.spec.mem > 0 && this.spec.vcpu > 0) {
                 this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre", { vcpu: this.spec.vcpu, mem: this.spec.mem, startupDisk: this.spec.startupDisk }]);
             } else {
-                this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PLATFORM_PRODUCT_CAT_ERROR') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PLATFORM_PRODUCT_CAT_ERROR=>云主机产品目录规格输入错误 
+                this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PLATFORM_PRODUCT_CAT_ERROR') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PLATFORM_PRODUCT_CAT_ERROR=>云主机产品目录规格输入错误 
+
 
             }
         } else {
