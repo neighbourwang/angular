@@ -43,15 +43,17 @@ export class AttestSourceCreComponent implements OnInit {
             console.log(this.type);
             switch (this.type) {
                 case "edit":
-                    this.title = "编辑认证源";
+                    this.title = "USER_CENTER.EDIT_AD_SOURCE"; //USER_CENTER.EDIT_AD_SOURCE=>编辑认证源 
+
                     this.edit = true;
                     break;
                 case "editAcc":
-                    this.title = "编辑认证源";
+                    this.title = "USER_CENTER.EDIT_AD_SOURCE"; //USER_CENTER.EDIT_AD_SOURCE=>编辑认证源 
+
                     this.editAcc = true;
                     break;
                 case "create":
-                    this.title = "创建认证源";
+                    this.title = "USER_CENTER.CREATE_AD_SOURCE"; //USER_CENTER.CREATE_AD_SOURCE=>创建认证源 
                     break;
             }
             if (id) {
@@ -230,7 +232,8 @@ export class AttestSourceCreComponent implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "NET_MNG_VM_PORT.PROMPT"; //NET_MNG_VM_PORT.PROMPT=>提示 
+        this.noticeTitle = "NET_MNG_VM_PORT.PROMPT"; //NET_MNG_VM_PORT.PROMPT=>提示 
+
         this.noticeMsg = msg;
         this.notice.open();
     }
