@@ -173,7 +173,9 @@ export class ProdDirListComponent implements OnInit {
     action(order) {
         let prodDirList: Array<Proddir> = this.getProddir();
         if (prodDirList.length < 1) {
-            this.notice.open('操作错误', '请选择产品目录');
+            this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.SELECT_PRODUCT_CAT'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.SELECT_PRODUCT_CAT=>请选择产品目录 
+
+
         } else {
             let message: string = '';
             for (let dir of prodDirList) {
@@ -184,7 +186,8 @@ export class ProdDirListComponent implements OnInit {
             switch (order) {
                 case 'delete': 
                 if (prodDirList[0].status == '1') {
-                     this.notice.open('操作错误', '不能删除状态为已发布的产品目录')
+                     this.notice.open('COMMON.OPERATION_ERROR', '不能删除状态为已发布的产品目录') //COMMON.OPERATION_ERROR=>操作错误 
+
                 }else{
                     this.deleteConfirm.open('删除产品目录', '您选择删除 ' + "'" + message + "'" + '产品,请确认；如果确认，此产品目录的数据将不能恢复。')
                 }
@@ -192,14 +195,16 @@ export class ProdDirListComponent implements OnInit {
                     break;
                 case 'publish':
                     if (prodDirList[0].status == '1') {
-                        this.notice.open('操作错误', '产品目录状态为已发布')
+                        this.notice.open('COMMON.OPERATION_ERROR', '产品目录状态为已发布') //COMMON.OPERATION_ERROR=>操作错误 
+
                     } else {
                         this.publishConfirm.open('发布产品目录', '您选择发布 ' + "'" + message + "'" + '产品,请确认。')
                     }
                     break;
                 case 'ccPublish':
                     if (prodDirList[0].status == '3') {
-                        this.notice.open('操作错误', '产品目录状态为取消发布')
+                        this.notice.open('COMMON.OPERATION_ERROR', '产品目录状态为取消发布') //COMMON.OPERATION_ERROR=>操作错误 
+
                     } else {
                         this.ccPublishConfirm.open('取消发布产品目录', '您选择取消发布' + "'" + message + "'" + '产品,请确认。如果确认，此产品目录将不能用来创建产品。')
                     }
@@ -278,7 +283,8 @@ export class ProdDirListComponent implements OnInit {
             if (this.spec.mem > 0 && this.spec.vcpu > 0) {
                 this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre", { vcpu: this.spec.vcpu, mem: this.spec.mem, startupDisk: this.spec.startupDisk }]);
             } else {
-                this.notice.open('操作错误', '云主机产品目录规格输入错误')
+                this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PLATFORM_PRODUCT_CAT_ERROR') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PLATFORM_PRODUCT_CAT_ERROR=>云主机产品目录规格输入错误 
+
             }
         } else {
             this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre"]);
