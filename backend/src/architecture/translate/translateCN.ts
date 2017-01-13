@@ -172,7 +172,14 @@
         "INPUT_ACC": "请输入帐号",
         "INPUT_CONTACT_DESC": "请输入联系描述",
         "INPUT_PHONE": "请输入联系电话",
-        "VIEW": "查看"
+        "VIEW": "查看",
+        "SAVE": "保存",
+        "MORE_OPERATION": "更多操作",
+        "ENABLE": "启用",
+        "DISABLE": "禁用",
+        "DELETE": "删除",
+        "ADMINISTRATOR":"管理员",
+        "EDIT":"编辑",
     },
     "ENT_MNG": {
         "ENT_CERT_UPDATE_FAILED": "认证更新失败",
@@ -184,7 +191,14 @@
         "UPDATE_ADMINISTRATOR":"更新管理员",
         "ADD_ADMINISTRATOR":"新增管理员",
         "CREATE_AD_USER":"创建AD用户",
+        "EDIT_AD_USER":"编辑AD用户",
         "AD_USER_ACCOUNT": "AD用户帐号",
+        "ENTERPRISE_ADMINSTRATOR_SET":"企业管理员设置",
+        "BACK_ENTERPRISE_MANAGEMENT_LIST":"返回企业管理列表",
+        "RESET_PASSWORD": "重置密码",
+        "CREATE_ADMINISTRATOR":"创建管理员",
+        "ACCOUNT_STATUS":"账号状态",
+        "AD_SOURCE_CHOOSE": "认证源选择",
     },
     "HOST_OPENSTACK_MNG": {
         "AFFILIATED_ENTERPRISE": "所属企业",
@@ -322,7 +336,7 @@
         "SYSTEM_PROMPT": "系统提示",
         "TYPE": "类型",
         "UNSELECTED_ENTERPRISE": "未选择企业",
-        "UNSET": "未设置"
+        "UNSET": "未设置",
     },
     "LANG": "中文",
     "NET_MNG_OPENSTACK": {
