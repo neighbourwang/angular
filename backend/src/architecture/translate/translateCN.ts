@@ -174,8 +174,14 @@
         "TYPE": "类型",
         "UNIT": "单位",
         "USER": "用户",
-        "USERNAME": "用户名",
-        "VIEW": "查看"
+        "VIEW": "查看",
+        "SAVE": "保存",
+        "MORE_OPERATION": "更多操作",
+        "ENABLE": "启用",
+        "DISABLE": "禁用",
+        "DELETE": "删除",
+        "ADMINISTRATOR":"管理员",
+        "EDIT":"编辑",
     },
     "ENT_MNG": {
         "ADD_ADMINISTRATOR": "新增管理员",
@@ -187,7 +193,14 @@
         "ENT_MNG_LIST_DATA_ERROR": "企业管理列表加载错误",
         "ENT_OVERVIEW_DATA_ERROR": "企业统计数据加载错误",
         "ENT_QUOTA_DATA_ERROR": "企业配额加载错误",
-        "UPDATE_ADMINISTRATOR": "更新管理员"
+        "UPDATE_ADMINISTRATOR":"更新管理员",
+        "EDIT_AD_USER":"编辑AD用户",
+        "ENTERPRISE_ADMINSTRATOR_SET":"企业管理员设置",
+        "BACK_ENTERPRISE_MANAGEMENT_LIST":"返回企业管理列表",
+        "RESET_PASSWORD": "重置密码",
+        "CREATE_ADMINISTRATOR":"创建管理员",
+        "ACCOUNT_STATUS":"账号状态",
+        "AD_SOURCE_CHOOSE": "认证源选择",
     },
     "HOST_OPENSTACK_MNG": {
         "AFFILIATED_ENTERPRISE": "所属企业",
@@ -325,7 +338,7 @@
         "SYSTEM_PROMPT": "系统提示",
         "TYPE": "类型",
         "UNSELECTED_ENTERPRISE": "未选择企业",
-        "UNSET": "未设置"
+        "UNSET": "未设置",
     },
     "LANG": "中文",
     "NET_MNG_OPENSTACK": {
