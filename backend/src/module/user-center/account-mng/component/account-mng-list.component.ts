@@ -146,14 +146,16 @@ export class AccountMngComponent implements OnInit {
     //重置密码
     resetPassword() {
         if(this.chooseAccount.type=='1'){
-            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.PASSWORD_RESET_LIMITTED_TO_LOCAL_ACCOUNT'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.PASSWORD_RESET_LIMITTED_TO_LOCAL_ACCOUNT=>重置密码功能仅限本地账户 
+            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.PASSWORD_RESET_LIMITTED_TO_LOCAL_ACCOUNT'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.PASSWORD_RESET_LIMITTED_TO_LOCAL_ACCOUNT=>重置密码功能仅限本地账户 
+
 
             return ;
         }
         if (this.chooseAccount.id) {
             if (this.chooseAccount.id) {
                 this.confirmType = 1;
-                this.confirm.open("重置密码", "您选择重置账号 "+this.chooseAccount.loginName+"的密码,请确认");
+                this.confirm.open("ENT_MNG.RESET_PASSWORD", "您选择重置账号 "+this.chooseAccount.loginName+"的密码,请确认"); //ENT_MNG.RESET_PASSWORD=>重置密码 
+
             }
         } else {
             this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ACCOUNT') //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ACCOUNT=>请选择账号 
@@ -171,13 +173,15 @@ export class AccountMngComponent implements OnInit {
             return
         }
         if(this.chooseAccount.status==1){
-            this.notice.open('COMMON.OPERATION_ERROR','账号状态为已启用') //COMMON.OPERATION_ERROR=>操作错误 
+            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.ACCOUNT_HAS_ENABLED') //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.ACCOUNT_HAS_ENABLED=>账号状态为已启用 
+
 
             return
         }
         if (this.chooseAccount.id) {
             this.confirmType = 2;
-            this.confirm.open("启用帐号", "您选择启用帐号 "+this.chooseAccount.loginName+"，请确认");
+            this.confirm.open("USER_CENTER.ENABLE_ACCOUNT", "您选择启用帐号 "+this.chooseAccount.loginName+"，请确认"); //USER_CENTER.ENABLE_ACCOUNT=>启用帐号 
+
         } else {
             this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ACCOUNT') //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ACCOUNT=>请选择账号 
 
@@ -194,13 +198,15 @@ export class AccountMngComponent implements OnInit {
             return
         }
         if(this.chooseAccount.status==5){
-            this.notice.open('COMMON.OPERATION_ERROR','账户状态为已禁用'); //COMMON.OPERATION_ERROR=>操作错误 
+            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.ACCOUNT_HAS_DISABLED'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.ACCOUNT_HAS_DISABLED=>账户状态为已禁用 
+
 
             return ;
         }
         if (this.chooseAccount.id) {
             this.confirmType = 3;
-            this.confirm.open("禁用帐号", "您选择禁用帐号 "+this.chooseAccount.loginName+"，请确认");
+            this.confirm.open("USER_CENTER.DISABLE_ACCOUNT", "您选择禁用帐号 "+this.chooseAccount.loginName+"，请确认"); //USER_CENTER.DISABLE_ACCOUNT=>禁用帐号 
+
         } else {
             this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ACCOUNT') //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ACCOUNT=>请选择账号 
 
@@ -218,13 +224,14 @@ export class AccountMngComponent implements OnInit {
         }
 
         if(this.chooseAccount.status==1){
-            this.notice.open('COMMON.OPERATION_ERROR','不能删除启用状态的账户'); //COMMON.OPERATION_ERROR=>操作错误 
+            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.NOT_ALLOW_TO_DELETE_ENABLED_ACCOUNT'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.NOT_ALLOW_TO_DELETE_ENABLED_ACCOUNT=>不能删除启用状态的账户 
+
 
             return;
         }
         if (this.chooseAccount.id) {
             this.confirmType = 4;
-            this.confirm.open("删除帐号", "您选择删除帐号 "+this.chooseAccount.loginName+"，请确认");
+            this.confirm.open("USER_CENTER.DELETE_ACCOUNT", "您选择删除帐号 "+this.chooseAccount.loginName+"，请确认"); //USER_CENTER.DELETE_ACCOUNT=>删除帐号 
         } else {
             this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ACCOUNT') //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ACCOUNT=>请选择账号 
 
@@ -237,19 +244,22 @@ export class AccountMngComponent implements OnInit {
     ok() {
         switch (this.confirmType) {
             case 1:
-                console.log("重置密码");
+                console.log("ENT_MNG.RESET_PASSWORD"); //ENT_MNG.RESET_PASSWORD=>重置密码 
+
                 this.ressetPasswordAccount()
                 break;
             case 2:
-                console.log("启用帐号");
+                console.log("USER_CENTER.ENABLE_ACCOUNT"); //USER_CENTER.ENABLE_ACCOUNT=>启用帐号 
+
                 this.enableAccount();
                 break;
             case 3:
-                console.log("禁用帐号");
+                console.log("USER_CENTER.DISABLE_ACCOUNT"); //USER_CENTER.DISABLE_ACCOUNT=>禁用帐号 
+
                 this.disableAccount();
                 break;
             case 4:
-                console.log("删除帐号");
+                console.log("USER_CENTER.DELETE_ACCOUNT"); //USER_CENTER.DELETE_ACCOUNT=>删除帐号 
                 this.deleteAccount();
                 break;
         }
