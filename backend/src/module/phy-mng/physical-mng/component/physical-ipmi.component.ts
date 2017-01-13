@@ -32,7 +32,8 @@ export class PhysicalIpmiComponent implements OnInit {
 
    //ipmi: IpmiInfo;
    pmId:string;
-   physical:PhysicalModel;
+   poolId:string;
+   physical:PhysicalModel=new PhysicalModel();
 
    testIlo:boolean;
 
@@ -42,7 +43,8 @@ export class PhysicalIpmiComponent implements OnInit {
             const id = params["id"];
             this.pmId=id; 
             console.log("获取的物理机id",this.pmId) 
-            this.getPhysicalById(id);       
+            this.getPhysicalById(id); 
+                 
         });       
     }
 
@@ -56,10 +58,7 @@ export class PhysicalIpmiComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
                     this.physical = response["resultContent"];
-                    
-                    // this.ipmi.iloIPAddress=this.physical.iloIPAddress;
-                    // this.ipmi.iloUserName=this.physical.iloUserName;
-                    // this.ipmi.iloPwd=this.physical.iloPwd;
+                    this.poolId=this.physical.pmPoolId;
                    console.log("获取物理机的ILO信息","IP",this.physical.iloIPAddress,"username", this.physical.iloUserName,"password",  this.physical.iloPwd);
                 } else {
                     alert("Res sync error");
@@ -90,8 +89,7 @@ export class PhysicalIpmiComponent implements OnInit {
         if (!this.physical.iloPwd) {
             this.showAlert("请填写ILO密码！");
             return false;
-        }
-       
+        }      
        this.layoutService.show();
        this.service.updateIpmiInfo(this.physical,this.pmId)
        .then(
@@ -125,7 +123,7 @@ export class PhysicalIpmiComponent implements OnInit {
             return false;
         }
         this.layoutService.show();
-        this.service.testIomiInfo(this.physical)
+        this.service.testIpmiInfo(this.physical)
         .then(
             response=>{
                 this.layoutService.hide();
@@ -139,12 +137,12 @@ export class PhysicalIpmiComponent implements OnInit {
 
    //返回物理机列表
     gotoList() {
-        this.route.navigate(["physical-mng/physical-mng/physical-list"]);
+        this.route.navigate(["physical-mng/physical-mng/physical-list",{pmpoolId: this.poolId}]);
     }
     
     //取消
     cancel() {
-        this.gotoList();
+         this.gotoList();
     }
     
 

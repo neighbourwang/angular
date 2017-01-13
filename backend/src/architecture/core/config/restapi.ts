@@ -1747,56 +1747,56 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取物理机列表",
         "id": "physical-mng.physical.list.get",
         "method": "POST",
-        "url": "/pmresourcemgmt/noauth/pmpools/pms/{pmpool_id}/page/{page}/size/{size}"
+        "url": "pmresourcemgmt/noauth/pmpools/pms/{pmpool_id}/page/{page}/size/{size}"
     },
     {
          "desc": "添加物理机",
         "id": "physical-mng.physical.create",
         "method": "POST",
-        "url": "/pmresourcemgmt/noauth/pmpool/pm"
+        "url": "pmresourcemgmt/noauth/pmpool/pm"
     },
     {
          "desc": "查看物理机",
         "id": "physical-mng.physical.check",
         "method": "GET",
-        "url": "/pmresourcemgmt/noauth/pmpool/pm/view/{pm_id}"
+        "url": "pmresourcemgmt/noauth/pmpool/pm/view/{pm_id}"
 
     },
     {
         "desc": "编辑物理机",
         "id": "physical-mng.physical.edit",
         "method": "PUT",
-        "url": "/pmresourcemgmt/noauth/pmpool/pm/edit"
+        "url": "pmresourcemgmt/noauth/pmpool/pm/edit"
     },
     {
         "desc": "获取物理机硬件信息",
         "id": "physical-mng.physical.hardwareinfo.get",
         "method": "POST",
-        "url": " /pmresourcemgmt/noauth/pmpool/pm/ilo/readpminfo"
+        "url": "pmresourcemgmt/noauth/pmpool/pm/ilo/readpminfo"
     },
     {
         "desc": "修改IPMI信息",
         "id": "physical-mng.physical.ipmiInfo.put",
         "method": "PUT",
-        "url": " /pmresourcemgmt/noauth/pmpool/pm/ilo/{pm_id}"
+        "url": "pmresourcemgmt/noauth/pmpool/pm/ilo/{pm_id}"
     },
      {
-        "desc": "修改IPMI信息",
+        "desc": "测试IPMI信息",
         "id": "physical-mng.physical.ipmiInfo.test.put",
         "method": "PUT",
-        "url": " /pmresourcemgmt/noauth/pmpool/pm/ilo/verify"
+        "url": "pmresourcemgmt/noauth/pmpool/pm/ilo/verify"
     },
     {
         "desc": "删除/禁用/启用物理机",
         "id": "physical-mng.physical.statusChange",
         "method": "PUT",
-        "url": "/pmresourcemgmt/noauth/pmpool/pm/{pm_id}/{status}"
+        "url": "pmresourcemgmt/noauth/pmpool/pm/{pm_id}/{status}"
     },
     {
         "desc": "获取物理机品牌、型号、服务器类型",
         "id": "physical-mng.physical.serverInfo.get",
-        "method": "GET ",
-        "url": "/pmresourcemgmt/noauth/pmpool/pm/modellist"
+        "method": "GET",
+        "url": "pmresourcemgmt/noauth/pmpool/pm/modellist"
     },
 
 ]
