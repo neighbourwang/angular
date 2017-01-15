@@ -201,6 +201,9 @@
         "CREATE_ADMINISTRATOR":"创建管理员",
         "ACCOUNT_STATUS":"账号状态",
         "AD_SOURCE_CHOOSE": "认证源选择",
+        "ENTER_ADMINISTRATOR_NAME":"请输入管理员姓名",
+        "ENTER_ADMINISTRATOR_ACCOUNT":"请输入管理员账户",
+        "ENTER_EMAIL_IN_ACCOUNT":"请在账号处输入合法的邮箱",
     },
     "HOST_OPENSTACK_MNG": {
         "AFFILIATED_ENTERPRISE": "所属企业",

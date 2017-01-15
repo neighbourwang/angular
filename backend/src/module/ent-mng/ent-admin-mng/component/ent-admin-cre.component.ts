@@ -85,22 +85,22 @@ export class EntAdminCreComponent implements OnInit {
 
     createAndUpdate(): void {
         if (this.validationService.isBlank(this.admin.userName)) {
-            this.showAlert("请输入管理员姓名");
+            this.showAlert("ENT_MNG.ENTER_ADMINISTRATOR_NAME");
             return;
         }
 
         if (this.validationService.isBlank(this.admin.loginName)) {
-            this.showAlert("请输入管理员账户");
+            this.showAlert("ENT_MNG.ENTER_ADMINISTRATOR_ACCOUNT");
             return;
         }
 
         if (this.validationService.isBlank(this.admin.contactPhone)) {
-            this.showAlert("请输入电话");
+            this.showAlert("COMMON.INPUT_PHONE");
             return;
         }
 
         if (!this.validationService.isEmail(this.admin.loginName)) {
-            this.showAlert("请在账号输入合法的邮箱;");
+            this.showAlert("ENT_MNG.ENTER_EMAIL_IN_ACCOUNT");
             return;
         }
 
