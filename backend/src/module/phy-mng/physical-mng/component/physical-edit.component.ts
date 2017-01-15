@@ -132,6 +132,16 @@ export class PhysicalEditComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
+    isNumber(num:string){
+        const reg =  /[^\d]/g;
+        var isNumber= reg.test(num);
+        if(!isNumber){
+            this.showAlert("请输入数字！");
+            return false;
+      }
+
+    }
+
     //添加物理机
     createPhysical() {
 
@@ -236,6 +246,4 @@ export class PhysicalEditComponent implements OnInit {
         console.log(reason);
         this.showAlert("获取数据失败！");
     }
-
-
 }

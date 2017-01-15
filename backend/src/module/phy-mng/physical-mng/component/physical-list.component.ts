@@ -80,7 +80,7 @@ export class PhysicalListComponent implements OnInit {
      getPhysicalList(index?: number) {
         this.pageIndex = index || this.pageIndex;
         this.layoutService.show();
-         console.log("物理机查询参数",this.pmQuery);
+        
         this.service.getPhysicals(this.pageIndex, this.pageSize,this.pmQuery,this.poolId)
             .then(
                 response => {
@@ -89,6 +89,7 @@ export class PhysicalListComponent implements OnInit {
                         this.layoutService.hide();
                         this.physicalList = response["resultContent"];
                         console.log("物理机list",this.physicalList);
+                        console.log("物理机查询参数",this.pmQuery,this.queryParam);
                         this.totalPage = response.pageInfo.totalPage;
                     } else {
                         alert("Res sync error");
@@ -141,8 +142,8 @@ export class PhysicalListComponent implements OnInit {
         }
          console.log("选择的物理机",physical.pmName);
         if(physical.pmMainStatus==status){
-            this.showAlert(`该物理机已经是'${this.dictPipe.transform("physical.pmMainStatus",this.service.dictProductType)}'状态！`);
-            //this.showAlert(`该物理机已经是'${physical.pmMainStatus}'状态！`);
+            this.showAlert(`该物理机已经是'${this.dictPipe.transform("physical.UseageStatus",this.service.dictUseage)}'状态！`);
+            //this.showAlert(`该物理机已经是'${physical.UseageStatus}'状态！`);
             return;
         }
         // else if(status=="0"){
