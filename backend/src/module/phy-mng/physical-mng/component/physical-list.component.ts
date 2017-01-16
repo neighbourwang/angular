@@ -42,7 +42,7 @@ export class PhysicalListComponent implements OnInit {
     confirm: ConfirmComponent;
 
     totalPage = 1;
-    pageIndex =1;
+    pageIndex =0;
     pageSize = 20;
 
 
