@@ -1,49 +1,49 @@
 <div class="enterpriseManage">
-<div class="page-content-header icon-content-header-enterprise-manage">企业管理</div>
+<div class="page-content-header icon-content-header-enterprise-manage">{{ 'ENT_MNG.ENTERPRISE_MNG' | translate }}</div>
 <div class="page-content">
 	<div style="padding-bottom: 10px;">
 	
 		<div class="dropdown pull-right">			
 			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-			更多操作
+			{{ 'COMMON.MORE_OPERATION' | translate }}
 			<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-				<li class="hands"><a (click)="edit()">编辑</a></li>
-				<li class="hands"><a (click)="modifyQuota()">修改配额</a></li>
+				<li class="hands"><a (click)="edit()">{{ 'COMMON.EDIT' | translate }}</a></li>
+				<li class="hands"><a (click)="modifyQuota()">{{ 'ENT_MNG.MODIFY_QUOTA' | translate }}</a></li>
 <!-- 				<li class="hands"><a (click)="setupCertInfo()">设置认证</a></li>
- -->				<li class="hands"><a (click)="setupProduct()">设置产品</a></li>
-				<li class="hands"><a (click)="setupAdmin()">设置管理员</a></li>
-				<li class="hands"><a (click)="setupCerts()">管理认证源</a></li>
-				<li class="hands"><a (click)="enable()">启用</a></li>
-				<li class="hands"><a (click)="disable()">禁用</a></li>
-				<li class="hands"><a (click)="delete()">删除</a></li>
+ -->				<li class="hands"><a (click)="setupProduct()">{{ 'ENT_MNG.SET_PRODUCT' | translate }}</a></li>
+				<li class="hands"><a (click)="setupAdmin()">{{ 'ENT_MNG.SET_ADMIN' | translate }}</a></li>
+				<li class="hands"><a (click)="setupCerts()">{{ 'ENT_MNG.MNG_AD_SOURCE' | translate }}</a></li>
+				<li class="hands"><a (click)="enable()">{{ 'COMMON.ENABLE' | translate }}</a></li>
+				<li class="hands"><a (click)="disable()">{{ 'COMMON.DISABLE' | translate }}</a></li>
+				<li class="hands"><a (click)="delete()">{{ 'COMMON.DELETE' | translate }}</a></li>
 			</ul>
 		</div>
 		<div class="pull-right" style="display: none">
-			<input type="text" class="form-control searchbox" placeholder="搜索" [(ngModel)]="criteria" />
+			<input type="text" class="form-control searchbox" placeholder="{{ 'COMMON.SEARCH' | translate }}" [(ngModel)]="criteria" />
 			<span class="glyphicon glyphicon-search searchbox-incon" (click)="search()"></span>
 		</div>
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="create()">
 			<span class="glyphicon glyphicon-edit"></span>
-			<span class="icon-button-label icon-left-button-label">创建企业</span>
+			<span class="icon-button-label icon-left-button-label">{{ 'ENT_MNG.CREATE_ENTERPRISE' | translate }}</span>
 		</button>
 	</div>
 	<div class="table-container">
 		<table class="table table-hover"> 
 			<thead>
 				<tr>
-					<th class="fristTh">选择</th>
-					<th>企业（租户）名称</th>
-					<th>vCPU配额</th>
-					<th>快照数量</th>
-					<th>镜像数量</th>
-					<th>产品数量</th>
-					<th>订单数量</th>
-					<th>vCPU配额使用率</th>
-					<th>存储配额</th>
-					<th>存储配额使用率</th>				
-					<th>状态</th>
+					<th class="fristTh">{{ 'COMMON.CHOOSE' | translate }}</th>
+					<th>{{ 'CHECK_CENTER.ENTERPRISE_TENANT_NAME' | translate }}</th>
+					<th>vCPU {{ 'COMMON.QUOTA' | translate }}</th>
+					<th>{{ 'ENT_MNG.SNAPSHOT_NUM' | translate }}</th>
+					<th>{{ 'ENT_MNG.IMAGE_NUM' | translate }}</th>
+					<th>{{ 'ENT_MNG.PRODUCT_NUM' | translate }}</th>
+					<th>{{ 'ENT_MNG.ORDERS_NUM' | translate }}</th>
+					<th>{{ 'ENT_MNG.VCPU_QUOTA_PERCENT' | translate }}</th>
+					<th>{{ 'ENT_MNG.STORAGE_QUOTA' | translate }}</th>
+					<th>{{ 'ENT_MNG.STORAGE_QUOTA_PERCENT' | translate }}</th>				
+					<th>{{ 'COMMON.STATUS' | translate }}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -67,24 +67,24 @@
 	</div>
 	<fc-pagination tp={{entEstMng.TotalPages}} (pf)="changePage($event)"></fc-pagination>
 </div>
-<fc-notice #notice ot="确认" (of)="okClicked()"></fc-notice>
-<fc-confirm #confirm ot="确认" ct="取消" (of)="onConfirmed()"></fc-confirm>
+<fc-notice #notice ot="{{ 'COMMON.CONFIRM' | translate }}" (of)="okClicked()"></fc-notice>
+<fc-confirm #confirm ot="{{ 'COMMON.CONFIRM' | translate }}" ct="{{ 'COMMON.CANCEL' | translate }}" (of)="onConfirmed()"></fc-confirm>
 <!-- 编辑企业 -->
-<fc-popup #editEnt ot="确认" ct="取消" title="编辑企业" (of)="acceptEntModify()" (cf)="cancelEntModify()">
+<fc-popup #editEnt ot="{{ 'COMMON.CONFIRM' | translate }}" ct="{{ 'COMMON.CANCEL' | translate }}" title="{{ 'ENT_MNG.EDIT_ENTERPRISE' | translate }}" (of)="acceptEntModify()" (cf)="cancelEntModify()">
   <div class="dialogContent">
 	<div class="row row-line-height">
 		<div class="form-group">
-			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>名称：</div>
+			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'COMMON.NAME' | translate }}:</div>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" placeholder="名称" [(ngModel)]="entEst.BasicInfo.name">
+				<input type="text" class="form-control" placeholder="{{ 'COMMON.NAME' | translate }}" [(ngModel)]="entEst.BasicInfo.name">
 			</div>
 		</div>
 	</div>
 	<div class="row row-line-height">
 		<div class="form-group">
-			<div class="col-sm-4 form-control-title">描述：</div>
+			<div class="col-sm-4 form-control-title">{{ 'COMMON.DESCRIPTION' | translate }}:</div>
 			<div class="col-sm-4">
-				<textarea class="form-control input-control" placeholder="描述" rows="4" [(ngModel)]="entEst.BasicInfo.description"></textarea>
+				<textarea class="form-control input-control" placeholder="{{ 'COMMON.DESCRIPTION' | translate }}" rows="4" [(ngModel)]="entEst.BasicInfo.description"></textarea>
 			</div>
 		</div>
 	</div>
@@ -92,25 +92,25 @@
 </fc-popup>
 <!-- 修改配额 -->
 
-<fc-popup #editQuota ot="确认" ct="取消" title="修改配额" (of)="acceptQuotaModify()" (cf)="cancelQuotaModify()">
+<fc-popup #editQuota ot="{{ 'COMMON.CONFIRM' | translate }}" ct="{{ 'COMMON.CANCEL' | translate }}" title="{{ 'ENT_MNG.MODIFY_QUOTA' | translate }}" (of)="acceptQuotaModify()" (cf)="cancelQuotaModify()">
 	
 	<div class="dialogContent">
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>可使用vCPU数量：</div>
+					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.VAILABLE_VCPU_NUM' | translate }}:</div>
 					<div class="col-sm-5">
-					    <input type="number" class="form-control input-control wt280" placeholder="可使用vCPU数量" [(ngModel)]="entEstResource.FirstItem.vcpuQuota">
+					    <input type="number" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.VAILABLE_VCPU_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.vcpuQuota">
 					</div>
 					<div class="col-sm-1">
-					    <span class=" form-control-title mgl5">个</span>
+					    <span class=" form-control-title mgl5"></span>
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>可使用内存数量：</div>
+					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.VAILABLE_RAM_NUM' | translate }}:</div>
 					<div class="col-sm-5">
-					    <input type="number" class="form-control input-control wt280" placeholder="可使用内存数量" [(ngModel)]="entEstResource.FirstItem.memroyQuota">
+					    <input type="number" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.VAILABLE_RAM_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.memroyQuota">
 					</div>
 					<div class="col-sm-1">
 					    <span class=" form-control-title ">GB</span>
@@ -119,20 +119,20 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>可创建物理机数量：</div>
+					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.CAN_CREATE_PYH_NUM' | translate }}:</div>
 					<div class="col-sm-5">
-					<input type="number" class="form-control input-control wt280" placeholder="可创建物理机数量" [(ngModel)]="entEstResource.FirstItem.physicalQuota">
+					<input type="number" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.CAN_CREATE_PYH_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.physicalQuota">
 					</div>
 					<div class="col-sm-1">
-					    <span class=" form-control-title mgl5" >台</span>
+					    <span class=" form-control-title mgl5" ></span>
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>可使用存储额度：</div>
+					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.VAILABLE_STORAGE_QUOTA' | translate }}:</div>
 					<div class="col-sm-5">
-						<input type="number" class="form-control input-control wt280" placeholder="可使用存储额度" [(ngModel)]="entEstResource.FirstItem.storageQuota">
+						<input type="number" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.VAILABLE_STORAGE_QUOTA' | translate }}" [(ngModel)]="entEstResource.FirstItem.storageQuota">
 					</div>
 					<div class="col-sm-1">
 					    <span class=" form-control-title ">GB</span>
@@ -141,34 +141,34 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>可创建快照数量：</div>
+					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.CAN_CREATE_SNAPSHOT_NUM' | translate }}:</div>
 					<div class="col-sm-5">
-						<input type="number" class="form-control input-control wt280" placeholder="可创建快照数量" [(ngModel)]="entEstResource.FirstItem.snapShotQuota">
+						<input type="number" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.CAN_CREATE_SNAPSHOT_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.snapShotQuota">
 					</div>
 					<div class="col-sm-1">
-					    <span class=" form-control-title mgl5">个</span>
+					    <span class=" form-control-title mgl5"></span>
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>可创建镜像数量：</div>
+					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.CAN_CREATE_IMAGE_NUM' | translate }}:</div>
 					<div class="col-sm-5">
-						<input type="number" class="form-control input-control wt280" placeholder="可创建镜像数量" [(ngModel)]="entEstResource.FirstItem.imageQuota">
+						<input type="number" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.CAN_CREATE_IMAGE_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.imageQuota">
 					</div>
 					<div class="col-sm-1">
-					    <span class=" form-control-title mgl5" >台</span>
+					    <span class=" form-control-title mgl5" ></span>
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>可创建浮动IP数量：</div>
+					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.CAN_CREATE_FLOAT_IP_NUM' | translate }}:</div>
 					<div class="col-sm-5">
-						<input type="number" class="form-control input-control wt280" placeholder="可创建浮动IP数量：" [(ngModel)]="entEstResource.FirstItem.floatIpQuota">
+						<input type="number" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.CAN_CREATE_FLOAT_IP_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.floatIpQuota">
 					</div>
 					<div class="col-sm-1">
-					    <span class=" form-control-title mgl5" >个</span>
+					    <span class=" form-control-title mgl5" ></span>
 					</div>
 				</div>
 			</div>
@@ -177,40 +177,40 @@
 </fc-popup>
 
 <!-- 设置认证 -->
-<fc-popup #setupCert ot="确认" ct="取消" title="设置认证"  (of)="acceptCertModify()" (cf)="cancelCertModify()">
+<fc-popup #setupCert ot="{{ 'COMMON.CONFIRM' | translate }}" ct="{{ 'COMMON.CANCEL' | translate }}" title="{{ 'ENT_MNG.SET_AUTHENTICATION' | translate }}"  (of)="acceptCertModify()" (cf)="cancelCertModify()">
 	
  <div class="dialogContent">
 	<div class="row row-line-height">
 		<div class="form-group">
-			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>URL地址：</div>
+			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>URL {{ 'COMMON.PATH' | translate }}:</div>
 			<div class="col-sm-4">
-				<input type="text" class="form-control input-control" placeholder="URL地址" [(ngModel)]="entEst.BasicInfo.certUrl">
+				<input type="text" class="form-control input-control" placeholder="URL {{ 'COMMON.PATH' | translate }}" [(ngModel)]="entEst.BasicInfo.certUrl">
 			</div>
 		</div>
 	</div>
 	<div class="row row-line-height">
 		<div class="form-group">
-			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>用户名：</div>
+			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'COMMON.USERNAME' | translate }}:</div>
 			<div class="col-sm-4">
-				<input type="text" class="form-control input-control" placeholder="用户名" [(ngModel)]="entEst.BasicInfo.contactorName">
+				<input type="text" class="form-control input-control" placeholder="{{ 'COMMON.USERNAME' | translate }}" [(ngModel)]="entEst.BasicInfo.contactorName">
 			</div>
 		</div>
 	</div>
 	<div class="row row-line-height">
 		<div class="form-group">
-			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>密码：</div>
+			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'COMMON.PASSWORD' | translate }}:</div>
 			<div class="col-sm-4">
-				<input type="password" class="form-control input-control" placeholder="密码" [(ngModel)]="entEst.BasicInfo.password">
+				<input type="password" class="form-control input-control" placeholder="{{ 'COMMON.PASSWORD' | translate }}" [(ngModel)]="entEst.BasicInfo.password">
 			</div>
 		</div>
 	</div>
   <div class="testPanel">
       <button class="fox-cloud-button-lg fox-cloud-button-green" (click)="testAD()">
-		<span class="icon-button-label">测试</span>
+		<span class="icon-button-label">{{ 'COMMON.TEST' | translate }}</span>
 	</button>
 	<div [ngSwitch]="ADflag">
-		<span class="validateInfo" *ngSwitchCase="'true'">AD认证测试通过</span>
-		<span class="validateInfo" class="font-orange" *ngSwitchCase="'false'">AD认证测试失败</span>
+		<span class="validateInfo" *ngSwitchCase="'true'">{{ 'ENT_MNG.AD_TEST_PASS' | translate }}</span>
+		<span class="validateInfo" class="font-orange" *ngSwitchCase="'false'">{{ 'ENT_MNG.AD_TEST_NOT_PASS' | translate }}</span>
 	</div>
   </div>
 </div>

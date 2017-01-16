@@ -53,7 +53,7 @@ export class EntResQuotaMngComponent implements OnInit {
                     let resultContent = response.resultContent;
 
                     if (!resultContent) {
-                        this.showError("企业信息取得错误", "没有取得企业信息");
+                        this.showError("ENT_MNG.GET_ENTERPRISE_INFO_FAILURE", "ENT_MNG.NO_ENTERPRISE_INFO");
 
                         return;
                     }
@@ -76,11 +76,11 @@ export class EntResQuotaMngComponent implements OnInit {
 
                     this.layoutService.hide();
                 } else {
-                    this.showError("企业信息取得错误", "异常响应");
+                    this.showError("ENT_MNG.GET_ENTERPRISE_INFO_FAILURE", "ENT_MNG.ABNORMAL_RESPONSE");
                 }
             }
         ).catch(
-            reason => this.showError("系统错误", reason.statusText)
+            reason => this.showError("COMMON.SYSTEM_ERROR", reason.statusText)
         );
 
         this.backend(1, this.pp);
@@ -114,7 +114,7 @@ export class EntResQuotaMngComponent implements OnInit {
                     let resultContent = response.resultContent;
 
                     if (!resultContent) {
-                        this.showError("数据取得错误", "没有取得平台数据");
+                        this.showError("COMMON.GETTING_DATA_FAILED", "ENT_MNG.NO_PLATFORM_DATA");
 
                         return;
                     }
@@ -145,11 +145,11 @@ export class EntResQuotaMngComponent implements OnInit {
 
                     this.layoutService.hide();
                 } else {
-                    this.showError("数据取得错误", "异常响应");
+                    this.showError("COMMON.GETTING_DATA_FAILED", "ENT_MNG.ABNORMAL_RESPONSE");
                 }
               }
         ).catch(
-            reason => this.showError("数据取得错误", reason.statusText)
+            reason => this.showError("COMMON.GETTING_DATA_FAILED", reason.statusText)
         );
     }
 
@@ -214,22 +214,22 @@ export class EntResQuotaMngComponent implements OnInit {
 
     // 修改企业资源配额信息
     modifyEntResQuota() {
-        this.showError("待处理", "修改企业资源配额信息");
+        this.showError("COMMON.PENDING", "ENT_MNG.MODIFY_ENTERPRISE_QUOTA");
     }
 
     // 删除企业资源配额信息
     deleteEntResQuota() {
-        this.showError("待处理", "删除企业资源配额信息");
+        this.showError("COMMON.PENDING", "ENT_MNG.DELETE_ENTERPRISE_QUOTA");
     }
 
     // 激活企业资源配额信息
     activeEntResQuota() {
-        this.showError("待处理", "激活企业资源配额信息");
+        this.showError("COMMON.PENDING", "ENT_MNG.ACTIVATE_ENTERPRISE_QUOTA");
     }
 
     // 取消激活企业资源配额信息
     deactiveEntResQuota() {
-        this.showError("待处理", "取消激活企业资源配额信息");
+        this.showError("COMMON.PENDING", "ENT_MNG.DEACTIVATE_ENTERPRISE_QUOTA");
     }
 
     // 切换企业

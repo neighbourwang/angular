@@ -263,7 +263,7 @@ export class OrderMngComponent implements OnInit{
 		})
 		.catch(err=>{
 			this.layoutService.hide();
-			this.showMsg("加载订购人列表出错！");
+			this.showMsg("ORDER_MNG.BUYER_DATA_ERROR");
 		})
 	}
 
@@ -293,7 +293,7 @@ export class OrderMngComponent implements OnInit{
 
 	showMsg(msg: string)
 	{
-		this._notice.open("系统提示", msg);
+		this._notice.open("COMMON.SYSTEM_PROMPT", msg);
 	}
 
 	showDetail(orderItemId:string){
@@ -306,7 +306,7 @@ export class OrderMngComponent implements OnInit{
 		console.log('renew start');
 		let param = [{
 			attrCode: "TIMELINE",
-			attrDisplayName: "购买时长",
+			attrDisplayName: "ORDER_MNG.BUY_TIME",
 			attrDisplayValue: this._renewSetting.value,//界面上获取的的值
 			attrId: "de227a98-a0f7-11e6-a18b-0050568a49fd",
 			attrValue: this._renewSetting.value,//界面上获取的值
@@ -451,7 +451,7 @@ export class OrderMngComponent implements OnInit{
 		}
 		else
 		{
-			this.showMsg(`只有个“已激活”或“即将过期”的订单可以续订`);
+			this.showMsg(`ORDER_MNG.ONLY_ONE_CAN_RENEW`);
 		}
 	}
 

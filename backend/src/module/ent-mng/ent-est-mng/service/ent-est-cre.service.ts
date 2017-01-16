@@ -325,14 +325,14 @@ export class EntEstCreService{
 		let map:any = {
 			"*":{
 					"func":this.validation.isBlank
-					,"msg":"不能为空"
+					,"msg":"COMMON.CANNOT_BE_EMPTY"
 				}
 			,"email":{ 
 				"func": val=>!this.validation.isEmail(val)
-				,"msg": "邮箱地址无效"
+				,"msg": "ENT_MNG.INVALID_EMAIL"
 			},"integer":{ 
 				"func": val=>!this.validation.isInteger(val)
-				,"msg": "不正确"
+				,"msg": "COMMON.CANNOT_BE_INTEGER"
 			}
 		}
 
@@ -497,7 +497,7 @@ export class EntEstCreService{
 			{
 				if(errorHandler)
 				{
-					errorHandler.call(caller, {"title":errorTitle, "desc":errorTitle + "数据获取失败"});
+					errorHandler.call(caller, {"title":errorTitle, "desc":errorTitle + " getting data faied"});
 				}
 			}
 			else{
@@ -542,7 +542,7 @@ export class EntEstCreService{
 			console.log(errorTitle + '加载错误', err);
 			if(errorHandler)
 			{
-				errorHandler.call(caller, {"title":errorTitle, "desc":"服务器上" + errorTitle + "数据获取失败"});
+				errorHandler.call(caller, {"title":errorTitle, "desc":"server " + errorTitle + " getting data faied"});
 			}
 
 		});

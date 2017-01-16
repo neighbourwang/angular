@@ -1,12 +1,12 @@
 
-<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="确定" (of)="modalAction(0)"></fc-notice>
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{ 'COMMOM.CONFIRM' | translate }}" (of)="modalAction(0)"></fc-notice>
 
-<div class="page-content-header icon-content-header-purchasing">创建产品</div>
+<div class="page-content-header icon-content-header-purchasing">{{ 'PROD_MNG.CREATE_PRODUCT' | translate }}</div>
 <div class="page-content fix-page-content">
     <div class="row navigator-progress">
-        <div class="col-md-4 active"><span class="mark">1</span><span>填写产品信息</span><span class="icon-tick"></span></div>
-        <div class="col-md-4 active"><span class="mark">2</span><span>选择可用区</span></div>
-        <div class="col-md-4"><span class="mark">3</span><span>产品定价</span></div>
+        <div class="col-md-4 active"><span class="mark">1</span><span>{{ 'PROD_MNG.FILL_IN_PRODUCT_INFO' | translate }}</span><span class="icon-tick"></span></div>
+        <div class="col-md-4 active"><span class="mark">2</span><span>{{ 'NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_CLUSTER' | translate }}</span></div>
+        <div class="col-md-4"><span class="mark">3</span><span>{{ 'ENT_MNG.PRODUCT_PRICING' | translate }}</span></div>
     </div>
     <div class="step-progress">
         <div class="fox-cloud-progress-rectangle progress-striped">
@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="section-title h4">
-                                所有可用区：
+                                {{ 'ENT_MNG.ALL_AVAILABLE_ZONE' | translate }}:
                             </div>
                         </div>
                     </div>
@@ -32,16 +32,16 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>可用区</th>
-                                            <th>描述</th>
-                                            <th>所有启动盘</th>
+                                            <th>{{ 'COMMOM.AVAILABLE_ZONE' | translate }}</th>
+                                            <th>{{ 'COMMOM.DESCRIPTION' | translate }}</th>
+                                            <th>{{ 'ENT_MNG.ALL_BOOT_DISK' | translate }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let item of serviceDetail.flavors | direct:1; let idx = index;"  [ngClass]="{'selected': item.isSelected, 'clickable': true}"  (click)="selectAvailableFlavor(item.idx)">
 											<td>{{item.displayName}}</td>
 											<td>{{item.description}}</td>
-                                            <td>启动盘({{idx}})</td>
+                                            <td>{{ 'COMMOM.BOOT_DISK' | translate }} ({{idx}})</td>
 										</tr>
                                     </tbody>
                                 </table>
@@ -55,14 +55,14 @@
         <div class="col-md-2">
             <div class="col-md-12 text-center" style="padding: 0px 0px 20px 0px;">
                 <button class="fox-cloud-button fox-cloud-button-white">
-                    <span class="icon-button-label icon-left-button-label"  (click)="addFlavor()">加入</span>
+                    <span class="icon-button-label icon-left-button-label"  (click)="addFlavor()">{{ 'COMMOM.ADD' | translate }}</span>
                     <span class="glyphicon glyphicon-arrow-right"></span>
                 </button>
             </div>
             <div class="col-md-12 text-center">
                 <button class="fox-cloud-button fox-cloud-button-white">
                     <span class="glyphicon glyphicon-arrow-left"></span>
-                    <span class="icon-button-label icon-left-button-label"  (click)="removeFlavor()">移除</span>
+                    <span class="icon-button-label icon-left-button-label"  (click)="removeFlavor()">{{ 'COMMOM.REMOVE' | translate }}</span>
                 </button>
             </div>
         </div>
@@ -72,7 +72,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="section-title h4">
-                                已选择的可用区：
+                                {{ 'ENT_MNG.SELECTED_AVAILABLE_ZONE' | translate }}:
                             </div>
                         </div>
                     </div>
@@ -82,16 +82,16 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>可用区</th>
-                                            <th>描述</th>
-                                            <th>所有启动盘</th>
+                                            <th>{{ 'COMMOM.AVAILABLE_ZONE' | translate }}</th>
+                                            <th>{{ 'COMMOM.DESCRIPTION' | translate }}</th>
+                                            <th>{{ 'ENT_MNG.ALL_BOOT_DISK' | translate }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let item of serviceDetail.flavors | direct:2; let idx = index" [ngClass]="{'selected': item.isSelected, 'clickable': true}"  (click)="selectSelectedFlavor(item.idx)">
 											    <td>{{item.displayName}}</td>
 											    <td>{{item.description}}</td>
-                                                <td>启动盘({{idx}})</td>
+                                                <td>{{ 'COMMOM.BOOT_DISK' | translate }} ({{idx}})</td>
 									    </tr>
                                     </tbody>
                                 </table>
@@ -105,12 +105,12 @@
 </div>
 <div class="text-center">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
-        <span class="icon-button-label">取消</span>
+        <span class="icon-button-label">{{ 'COMMOM.CANCEL' | translate }}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="prev();">
-        <span class="icon-button-label">上一步</span>
+        <span class="icon-button-label">{{ 'COMMOM.PREVIOUS' | translate }}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="next();">
-        <span class="icon-button-label">下一步</span>
+        <span class="icon-button-label">{{ 'COMMOM.NEXT' | translate }}</span>
     </button>
 </div>

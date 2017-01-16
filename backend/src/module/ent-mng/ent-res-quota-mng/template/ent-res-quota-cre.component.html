@@ -1,10 +1,10 @@
-<div class="page-content-header icon-content-header-purchasing">创建资源配额</div>
+<div class="page-content-header icon-content-header-purchasing">{{ 'ENT_MNG.CREATE_QUOTA_RESOURCE' | translate }}</div>
 <div class="page-content fix-page-content">
     <div class="row" style="padding-top: 30px;">
         <div class="col-md-12">
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">企业名称：</div>
+                    <div class="col-sm-4 form-control-title">{{ 'NET_MNG_VM_IP_MNG.ENTERPRISE_NAME' | translate }}:</div>
                     <div class="col-sm-4">
                         <select class="form-control" [(ngModel)]="entResQuota.enterpriseId">
                             <option *ngFor="let item of enterprises;" [value]="item.id">{{item.name}}</option>
@@ -14,7 +14,7 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">区域：</div>
+                    <div class="col-sm-4 form-control-title">{{ 'COMMON.ZONE' | translate }}:</div>
                     <div class="col-sm-4">
                         <select class="form-control" [(ngModel)]="entResQuota.regionId">
                             <option *ngFor="let item of regions;" [value]="item.id">{{item.name}}</option>
@@ -24,33 +24,33 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">云主机数量：</div>
+                    <div class="col-sm-4 form-control-title">{{ 'ENT_MNG.CLOUD_HOST_NUM' | translate }}:</div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="entResQuota.vmQuota" placeholder="云主机数量">
+                        <input type="text" class="form-control" [(ngModel)]="entResQuota.vmQuota" placeholder="{{ 'ENT_MNG.CLOUD_HOST_NUM' | translate }}">
                     </div>
                 </div>
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">存储(GB)：</div>
+                    <div class="col-sm-4 form-control-title">{{ 'COMMON.STORAGE' | translate }} (GB):</div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="entResQuota.storageQuota" placeholder="存储">
+                        <input type="text" class="form-control" [(ngModel)]="entResQuota.storageQuota" placeholder="{{ 'COMMON.STORAGE' | translate }}">
                     </div>
                 </div>
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">网络数：</div>
+                    <div class="col-sm-4 form-control-title">{{ 'ENT_MNG.NETWORK_NUM' | translate }}:</div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="entResQuota.networkQuota" placeholder="网络数">
+                        <input type="text" class="form-control" [(ngModel)]="entResQuota.networkQuota" placeholder="{{ 'ENT_MNG.NETWORK_NUM' | translate }}">
                     </div>
                 </div>
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">描述：</div>
+                    <div class="col-sm-4 form-control-title">{{ 'COMMON.DESCRIPTION' | translate }}:</div>
                     <div class="col-sm-4">
-                        <textarea class="form-control" rows="4" placeholder="描述"></textarea>
+                        <textarea class="form-control" rows="4" placeholder="{{ 'COMMON.DESCRIPTION' | translate }}"></textarea>
                     </div>
                 </div>
             </div>
@@ -59,13 +59,13 @@
 </div>
 <div class="text-center">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
-        <span class="icon-button-label">取消</span>
+        <span class="icon-button-label">{{ 'COMMON.CANCEL' | translate }}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="next();">
-        <span class="icon-button-label">创建资源配额</span>
+        <span class="icon-button-label">{{ 'ENT_MNG.CREATE_QUOTA_RESOURCE' | translate }}</span>
     </button>
 </div>
 
-<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认"></fc-notice>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="{{ 'COMMON.CONFIRM' | translate }}"></fc-notice>
 
-<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消"></fc-confirm>
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="{{ 'COMMON.CONFIRM' | translate }}" (of)="cof()" ct="{{ 'COMMON.CANCEL' | translate }}"></fc-confirm>

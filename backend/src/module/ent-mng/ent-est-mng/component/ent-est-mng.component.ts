@@ -128,7 +128,7 @@ export class EntEstMngComponent implements OnInit {
       return item;
     else
     {
-      this.showMsg("请选择企业");
+      this.showMsg("ENT_MNG.PLEASE_CHOOSE_ENTERPRISE");
       return null;
     }
   }
@@ -171,7 +171,7 @@ export class EntEstMngComponent implements OnInit {
 
   showMsg(msg: string)
   {
-    this.notice.open("系统提示", msg);
+    this.notice.open("COMMON.SYSTEM_PROMPT", msg);
   }
 
   private okCallback:Function = null;
@@ -198,7 +198,7 @@ export class EntEstMngComponent implements OnInit {
       })
       .catch(err=>{
         console.log('保存企业基本信息出错', err);
-        this.showMsg("保存企业基本信息出错");
+        this.showMsg("ENT_MNG.FAIL_TO_SAVE_ENTERPRISE_INFO");
         this.okCallback = ()=>{this.editEnt.open();};
       })
     }
@@ -212,7 +212,7 @@ export class EntEstMngComponent implements OnInit {
   validateEntModify():boolean{
     let notValid = [
     {
-      "name":"名称"
+      "name":""
       ,'value':this.entEst.BasicInfo.name
       ,"op":"*"
     }].find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
@@ -267,7 +267,7 @@ export class EntEstMngComponent implements OnInit {
       console.log('setupCertInfo:', item);
       if(item.authMode == CertMethod.Local)
       {
-        this.showMsg("本地认证企业不能设置认证");
+        this.showMsg("ENT_MNG.LOCAL_ENTERPRISE_CANNOT_SET_AUTHENTICATION");
         return;
       }
 
@@ -309,7 +309,7 @@ export class EntEstMngComponent implements OnInit {
          this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-mng/${this.getSelected().enterpriseId}`);
       }
       else{
-        this.showMsg("只有启用的企业才能设置管理员！");
+        this.showMsg("ENT_MNG.ONLY_ENABLED_ENTERPRISE_CAN_SET_ADMIN");
       }
 
     }
@@ -320,7 +320,7 @@ export class EntEstMngComponent implements OnInit {
     if(this.getSelected())
     {
       if(this.getSelected().status=="1"){
-        this.showMsg("已启用的企业不能再次启用，请重新选择企业！");
+        this.showMsg("ENT_MNG.CANNOT_ENABLE_ENABLED_ENTERPRISE");
       }
       else {
         this.confirmedHandler = ()=>{
@@ -330,10 +330,10 @@ export class EntEstMngComponent implements OnInit {
         })
         .catch(err=>{
           console.log("企业启用失败", err);
-          this.showMsg("企业启用失败");
+          this.showMsg("ENT_MNG.FAIL_TO_ENABLE_ENTERPRISE");
         })
       };
-      this.confirm.open("启用企业", `选择启用"${this.getSelected().enterpriseName}"企业，请确认`);
+      this.confirm.open("ENT_MNG.ENABLE_ENTERPRISE", `ENT_MNG.CONFIRM_ENABLE_ENTERPRISE^^^${this.getSelected().enterpriseName}`);
       }
       
     }
@@ -344,10 +344,10 @@ export class EntEstMngComponent implements OnInit {
     if(this.getSelected())
     {
        if(this.getSelected().status=="2") {
-        this.showMsg("已禁用的企业不能再禁用，请重新选择企业！");
+        this.showMsg("ENT_MNG.CANNOT_DISENABLE_DISENABLED_ENTERPRISE");
       }
        else if(this.getSelected().status=="0"){
-        this.showMsg("未启用的企业不能再禁用，请重新选择企业！");
+        this.showMsg("ENT_MNG.CANNOT_DISENABLE_UNENABLED_ENTERPRISE");
        }
       else{
         this.confirmedHandler = ()=>{
@@ -357,10 +357,10 @@ export class EntEstMngComponent implements OnInit {
         })
         .catch(err=>{
           console.log("企业禁用失败", err);
-          this.showMsg("企业禁用失败");
+          this.showMsg("ENT_MNG.FAIL_TO_DISENABLE_ENTERPRISE");
         })
       };
-      this.confirm.open("禁用企业", `您选择禁用"${this.getSelected().enterpriseName}"企业，请确认；如果确认，企业用户将不能进入云管理平台自助服务门户。`);
+      this.confirm.open("ENT_MNG.DISENABLE_ENTERPRISE", `您选择禁用"${this.getSelected().enterpriseName}"企业，请确认；如果确认，企业用户将不能进入云管理平台自助服务门户。`);
       }
     }
   }
@@ -370,10 +370,10 @@ export class EntEstMngComponent implements OnInit {
     if(this.getSelected())
     {
       if(this.getSelected().status=="4"){
-        this.showMsg("已删除的企业无法删除，请重新选择企业！");
+        this.showMsg("ENT_MNG.CANNOT_DELETE_DELETED_ENTERPRISE");
       }
       else if(this.getSelected().status=="1"){
-        this.showMsg("已启用的企业无法删除，请重新选择企业！");
+        this.showMsg("ENT_MNG.CANNOT_DELETE_ENABLE_ENTERPRISE");
       }
       else{
         this.confirmedHandler = ()=>{
@@ -383,10 +383,10 @@ export class EntEstMngComponent implements OnInit {
         })
         .catch(err=>{
           console.log("企业删除失败", err);
-          this.showMsg("企业删除失败");
+          this.showMsg("ENT_MNG.FAIL_TO_DELETE_ENTERPRISE");
         })
       };
-      this.confirm.open("删除企业", `您选择删除"${this.getSelected().enterpriseName}"企业，请确认；如果确认，此企业数据将不能恢复。`);
+      this.confirm.open("ENT_MNG.DELETE_ENTERPRISE", `ENT_MNG.CONFIRM_DELETE_ENTERPRISE^^^${this.getSelected().enterpriseName}`);
       }
     }
   }
@@ -408,7 +408,7 @@ export class EntEstMngComponent implements OnInit {
       })
       .catch(err=>{
         console.log("修改配额失败", err);
-        this.showMsg("修改配额失败");
+        this.showMsg("ENT_MNG.FAIL_TO_MODIFY_QUOTA");
         this.okCallback = ()=>{this.editQuota.open();};
       });
     }
@@ -421,37 +421,37 @@ export class EntEstMngComponent implements OnInit {
   validateQuotaModify():boolean{
     let notValid = [
     {
-      "name":"可创建浮动IP数量"
+      "name":""//可创建浮动IP数量
       ,"value":this.entEstResource.FirstItem.floatIpQuota
       ,"op":"integer"
     },
     {
-      "name":"可创建镜像数量"
+      "name":""//可创建镜像数量
       ,"value":this.entEstResource.FirstItem.imageQuota
       ,"op":"integer"
     },
     {
-      "name":"可用内存数量"
+      "name":""//可用内存数量
       ,"value":this.entEstResource.FirstItem.memroyQuota
       ,"op":"integer"
     },
     {
-      "name":"可创建物理机数量"
+      "name":""//可创建物理机数量
       ,"value":this.entEstResource.FirstItem.physicalQuota
       ,"op":"integer"
     },
     {
-      "name":"可创建快照数量"
+      "name":""//可创建快照数量
       ,"value":this.entEstResource.FirstItem.snapShotQuota
       ,"op":"integer"
     },
     {
-      "name":"可用存储额度"
+      "name":""//可用存储额度
       ,"value":this.entEstResource.FirstItem.storageQuota
       ,"op":"integer"
     },
     {
-      "name":" 可使用vCPU数量"
+      "name":""//可使用vCPU数量
       ,"value":this.entEstResource.FirstItem.vcpuQuota
       ,"op":"integer"
     }].find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
@@ -503,17 +503,17 @@ export class EntEstMngComponent implements OnInit {
   validateCertModify():boolean{
     let notValid = [
     {
-      "name":"URL地址"
+      "name":""//URL地址
       ,'value':this.entEst.BasicInfo.certUrl
       ,"op":"*"
     },
     {
-      "name":"用户名"
+      "name":""//用户名
       ,'value':this.entEst.BasicInfo.contactorName
       ,"op":"*"
     },
     {
-      "name":"密码"
+      "name":""//密码
       ,'value':this.entEst.BasicInfo.password
       ,"op":"*"
     }].find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
@@ -556,11 +556,11 @@ export class EntEstMngComponent implements OnInit {
   setupCerts() {
       let selectItem = this.getSelected();
       if (!selectItem) {
-          this.showMsg("请选择企业");
+          this.showMsg("ENT_MNG.PLEASE_CHOOSE_ENTERPRISE");
           return;
       }
       if (selectItem.authMode != CertMethod.AD) { //caozhongying 这个地方需要增加一个属性
-          this.showMsg("只有AD认证企业才可以设置认证源");
+          this.showMsg("ENT_MNG.ONLY_AD_ENTERPRISE_CAN_SET_AD_SOURCE");
           return;
       }
       this.router.navigateByUrl(`ent-mng/attest-mng/attest-mng/${this.getSelected().enterpriseId}`);

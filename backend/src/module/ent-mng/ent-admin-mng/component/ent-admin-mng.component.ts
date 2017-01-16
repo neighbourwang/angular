@@ -136,24 +136,24 @@ export class EntAdminMngComponent implements OnInit {
     deleteAdmins() {
         const selectAdmin = this.admins.filter((admin) => { return admin.isSelect; });
         if (selectAdmin.length == 0) {
-            this.showAlert("请先选择需要删除的管理员！");
+            this.showAlert("ENT_MNG.SELECT_ADMIN_TO_DELETE");
             return;
         }
 
         if (selectAdmin[0].status != 1) {
             //只有禁用状态才可以被删除
-            this.showAlert("只能删除禁用状态的管理员！");
+            this.showAlert("ENT_MNG.ONLY_DELETE_DISABLED_ADMIN");
             return;
         } 
 
-        this.noticeTitle = "警告";
+        this.noticeTitle = "COMMON.WARNING";
         const names: string[] = [];
         const ids: string[] = [];
         selectAdmin.forEach(admin => {
             names.push(admin.userName);
             ids.push(admin.id);
         });
-        this.noticeMsg = `确认删除'${names.join("','")}' ?`;
+        this.noticeMsg = `ENT_MNG.CONFIRM_DELETE_VALUE^^^'${names.join("','")}' ?`;
         this.confirm.ccf = () => {
 
         };
@@ -194,20 +194,20 @@ export class EntAdminMngComponent implements OnInit {
     change2Status(status: number): void {
         const selectAdmin = this.admins.find((admin) => { return admin.isSelect });
         if (!selectAdmin) {
-            this.showAlert(`请先选择需要${status == 1 ? "启用" : "禁用"}的管理员！`);
+            this.showAlert(`${status == 1 ? "ENT_MNG.SELECT_ADMIN_TO_ENABLE" : "ENT_MNG.SELECT_ADMIN_TO_DISENABLE"}`);
             return;
         }
 
-        this.noticeTitle = "警告";
+        this.noticeTitle = "COMMON.WARNING";
 
         if (selectAdmin.status == status) {
             this.dictPipe.transform(selectAdmin.status, this.service.statusDic)
                 .then((x) => {
-                    this.showAlert(`该管理员已经是${x}状态！`);
+                    this.showAlert(`ENT_MNG.THE_ADMIN_STATUS_IS^^^${x}`);
                 });
             return;
         }
-        this.noticeMsg = `确认${status == 1 ? "启用" : "禁用"}'${selectAdmin.userName}' ?`;
+        this.noticeMsg = `${status == 1 ? "COMMON.ENABLE_VALUE^^^" : "COMMON.DISENABLE_VALUE^^^"}'${selectAdmin.userName}' ?`;
         this.confirm.ccf = () => {
         };
         this.confirm.cof = () => {
@@ -258,7 +258,7 @@ export class EntAdminMngComponent implements OnInit {
     editAdmin() {
         const selectAdmin = this.admins.find((admin) => { return admin.isSelect; });
         if (!selectAdmin) {
-            this.showAlert("请先选择需要编辑的管理员！");
+            this.showAlert("ENT_MNG.CHOOSE_ADMIN_TO_EDIT");
             return;
         }
         
@@ -286,12 +286,12 @@ export class EntAdminMngComponent implements OnInit {
         this.layoutService.show();
         const selectAdmin = this.admins.find((admin) => { return admin.isSelect; });
         if (!selectAdmin) {
-            this.showAlert("请先选择需要重置密码的管理员！");
+            this.showAlert("ENT_MNG.CHOOSE_ADMIN_TO_RESET_PASSWORD");
             return;
         }
         if (selectAdmin.status == 1) {
             //只有启用状态才可以重置密码
-            this.showAlert("只有启用的管理员才可以重置密码！");
+            this.showAlert("ENT_MNG.ONLY_ENABLED_ADMIN_CAN_RESET_PASSWORD");
             return;
         }
 
@@ -301,7 +301,7 @@ export class EntAdminMngComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && "100" == response["resultCode"]) {
                     this.layoutService.hide();
-                    this.showAlert("密码重置成功");
+                    this.showAlert("COMMON.RESET_PASSWORD_SUCCESS");
                 } else {
                     alert("Res sync error");
                 }
@@ -333,7 +333,7 @@ export class EntAdminMngComponent implements OnInit {
     authenticationSourceList = [
         {
             id: 0,
-            name: "本地"
+            name: "COMMON.LOCAL"
         },
         {
             id: 1,
@@ -345,7 +345,7 @@ export class EntAdminMngComponent implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "COMMON.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -357,7 +357,7 @@ export class EntAdminMngComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("COMMON.GETTING_DATA_FAILED");
     }
 
     nof() { }

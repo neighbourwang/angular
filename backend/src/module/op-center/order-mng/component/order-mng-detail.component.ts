@@ -39,7 +39,7 @@ export class OrderMngDetailComponent implements OnInit {
 
   showMsg(msg: string)
   {
-    this._notice.open("系统提示", msg);
+    this._notice.open("COMMON.SYSTEM_PROMPT", msg);
   }
 
   showDetail(orderId:string)
