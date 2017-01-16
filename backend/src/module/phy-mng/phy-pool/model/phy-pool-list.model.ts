@@ -2,14 +2,14 @@ export class PhyPoolList{
     index: string;
     pmPoolId: string;
     pmPoolName: string;
-    pmType: string;
     region: string;
+    regionId: string;
     dataCenter: string;
     amount: string;
     usedAmount: string;
     status: string;
     description: string;
-    
+
     selected: boolean;
 }
 

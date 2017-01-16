@@ -110,13 +110,13 @@ export class ImgIndexComponent implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "COMMON.PROMPY";
         this.noticeMsg = msg;
         this.notice.open();
     }
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败");
+        this.showAlert("COMMON.GETTING_DATA_FAILED");
     }
 }

@@ -56,11 +56,11 @@ export class EntProdMngComponent implements OnInit{
                 if (ret && 100 == ret.resultCode) {
                     this.enterprises = ret.resultContent;
                 } else {
-                    this.showNotice('数据获取失败', '企业数据获取失败。');
+                    this.showNotice('COMMON.GETTING_DATA_FAILED', 'ENT_MNG.GET_ENTERPRISE_DATA_FAILURE');
                 }
             }
         ).catch(
-            reason => this.showNotice("系统错误", reason.statusText)
+            reason => this.showNotice("COMMON.SYSTEM_ERROR", reason.statusText)
         );
         this.entProdCreService.getRegions().then(
             ret => {
@@ -80,11 +80,11 @@ export class EntProdMngComponent implements OnInit{
                         this.regions.push(region);
                     }
                 } else {
-                    this.showNotice('数据获取失败', '区域数据获取失败。');
+                    this.showNotice('COMMON.GETTING_DATA_FAILED', 'ENT_MNG.GET_ZONE_DATA_FAILURE');
                 }
             }
         ).catch(
-            reason => this.showNotice("系统错误", reason.statusText)
+            reason => this.showNotice("COMMON.SYSTEM_ERROR", reason.statusText)
         );
 
         this.getEntProds(1);
@@ -124,7 +124,7 @@ export class EntProdMngComponent implements OnInit{
                 }
             }
         ).catch(
-            reason => this.showNotice("系统错误", reason.statusText)
+            reason => this.showNotice("COMMON.SYSTEM_ERROR", reason.statusText)
         );
     }
 
@@ -134,7 +134,7 @@ export class EntProdMngComponent implements OnInit{
 
         this.entProdMngService.getEntProds(this.enterpriseId, this.regionId, page, 10).then(ret => {
             if (!ret) {
-                this.showNotice('数据获取失败', '产品数据获取失败。');
+                this.showNotice('COMMON.GETTING_DATA_FAILED', 'ENT_MNG.GET_PRODUCT_DATA_FAILURE');
             } else {
                 if (ret && ret.resultContent) {
                     this.datas = ret.resultContent;
@@ -148,7 +148,7 @@ export class EntProdMngComponent implements OnInit{
             this.layoutService.hide();
         })
         .catch(error => {
-            this.showNotice('数据获取失败', '产品数据获取失败。');
+            this.showNotice('COMMON.GETTING_DATA_FAILED', 'ENT_MNG.GET_PRODUCT_DATA_FAILURE');
             this.layoutService.hide();
         });
     }
