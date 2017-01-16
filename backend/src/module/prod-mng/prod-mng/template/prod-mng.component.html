@@ -21,7 +21,7 @@
 		<button class="pull-right fox-cloud-button-md fox-cloud-button-white " style="line-height:28px ;width:60px; margin-left: 20px" (click)="query()">{{'COMMON.SEARCH' | translate}}</button>
 		<div class="dropdown pull-right" style="margin-left: 20px;min-width: 120px">
 			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{'PROD_MNG.ALL_PLATFORM' | translate}}<!--所有平台-->
+                {{'PROD_MNG.ALL_PLATFORM' | translate}}
 
                 <span class="caret"></span>
             </button>-->
@@ -30,10 +30,11 @@
                  <option *ngFor="let item of platformsList;" [value]="item?.id">{{item?.name}}</option>
             </select>
 		</div>
-		<span class="pull-right" style="margin-left: 20px; line-height: 34px">{{'NET_MNG_OPENSTACK.PLATFORM' | translate}}：</span><!--平台-->
+		<span class="pull-right" style="margin-left: 20px; line-height: 34px">{{'NET_MNG_OPENSTACK.PLATFORM' | translate}}：</span><!--平台-->
+
 		<div class="dropdown pull-right" style="margin-left: 10px;min-width: 120px">
 			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{'HOST_VMWARE_MNG.ALL_ENTERPRISE' | translate}}<!--所有企业-->
+                {{'HOST_VMWARE_MNG.ALL_ENTERPRISE' | translate}}
 
                 <span class="caret"></span>
             </button>-->
@@ -47,7 +48,7 @@
 		<div class="dropdown pull-right" style="margin-left: 10px;min-width: 120px">
 			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true"
 				aria-expanded="true">
-                {{'PROD_MNG.ALL_PRODUCT_CAT' | translate}}<!--所有产品目录-->
+                {{'PROD_MNG.ALL_PRODUCT_CAT' | translate}}
 
                 <span class="caret"></span>
             </button>-->
