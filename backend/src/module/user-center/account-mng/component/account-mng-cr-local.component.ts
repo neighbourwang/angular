@@ -59,8 +59,10 @@ export class AccountMngCrLocal implements OnInit {
 
                 //编辑
                 this.isCreate = false;
-                this.title = "编辑帐号";
-                this.btnTitle = "编辑";
+                this.title = "USER_CENTER.EDIT_ACCOUNT"; //USER_CENTER.EDIT_ACCOUNT=>编辑帐号 
+
+                this.btnTitle = "HOST_OPENSTACK_MNG.EDIT"; //HOST_OPENSTACK_MNG.EDIT=>编辑 
+
                 this.layoutservice.show();
                 this.service.getRole()
                     .then(
@@ -116,8 +118,9 @@ export class AccountMngCrLocal implements OnInit {
             } else {
                 //创建
                 this.isCreate = true;
-                this.title = "创建帐号";
-                this.btnTitle = "创建";
+                this.title = "USER_CENTER.CREATE_ACCOUNT"; //USER_CENTER.CREATE_ACCOUNT=>创建帐号 
+
+                this.btnTitle = "NET_MNG_VM_IP_MNG.CREATE"; //NET_MNG_VM_IP_MNG.CREATE=>创建 
                 this.layoutservice.show();
                 this.service.getRole()
                     .then(
@@ -202,7 +205,8 @@ export class AccountMngCrLocal implements OnInit {
             return
         }
         if (this.account.organizations.length < 1) {
-            this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ORG'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ORG=>请选择组织机构 
+            this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ORG'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ORG=>请选择组织机构 
+
 
             return
         }

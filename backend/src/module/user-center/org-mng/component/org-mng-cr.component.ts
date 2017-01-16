@@ -51,8 +51,10 @@ export class OrgMngCrComponent implements OnInit{
         this.route.params.forEach((params: Params) => {
             if(params['id']){
                 //编辑
-                this.title = '编辑机构';
-                this.btnName = '编辑';
+                this.title = 'USER_CENTER.EDIT_ORG'; //USER_CENTER.EDIT_ORG=>编辑机构 
+
+                this.btnName = 'HOST_OPENSTACK_MNG.EDIT'; //HOST_OPENSTACK_MNG.EDIT=>编辑 
+
                 this.isCreate = false;
                 this.orgId = params['id'];
                 this.layoutService.show()
@@ -128,8 +130,9 @@ export class OrgMngCrComponent implements OnInit{
 
             }else{
                 //创建
-                this.title = '创建机构';
-                this.btnName = '创建';
+                this.title = 'USER_CENTER.CREATE_ORG'; //USER_CENTER.CREATE_ORG=>创建机构 
+
+                this.btnName = 'NET_MNG_VM_IP_MNG.CREATE'; //NET_MNG_VM_IP_MNG.CREATE=>创建 
                 this.isCreate = true;
 
                 // this.service.getNoMngUser(0,this.size).then(
@@ -261,7 +264,8 @@ export class OrgMngCrComponent implements OnInit{
 
     create(){
         if(!this.org.name){
-            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.ORG_NAME_NOT_NULL'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.ORG_NAME_NOT_NULL=>机构名称不能为空 
+            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.ORG_NAME_NOT_NULL'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.ORG_NAME_NOT_NULL=>机构名称不能为空 
+
 
             return;
         }

@@ -43,15 +43,18 @@ export class AttestSourceCreComponent implements OnInit {
             console.log(this.type);
             switch (this.type) {
                 case "edit":
-                    this.title = "编辑认证源";
+                    this.title = "USER_CENTER.EDIT_AD_SOURCE"; //USER_CENTER.EDIT_AD_SOURCE=>编辑认证源 
+
                     this.edit = true;
                     break;
                 case "editAcc":
-                    this.title = "编辑认证源";
+                    this.title = "USER_CENTER.EDIT_AD_SOURCE"; //USER_CENTER.EDIT_AD_SOURCE=>编辑认证源 
+
                     this.editAcc = true;
                     break;
                 case "create":
-                    this.title = "创建认证源";
+                    this.title = "USER_CENTER.CREATE_AD_SOURCE"; //USER_CENTER.CREATE_AD_SOURCE=>创建认证源 
+
                     break;
             }
             if (id) {
@@ -81,7 +84,8 @@ export class AttestSourceCreComponent implements OnInit {
     //编辑账号
     onEdit() {
         if ($.trim(this.attest.name) === "") {
-            this.showAlert("必须先填写认证源名称！");
+            this.showAlert("USER_CENTER.AD_SOURCE_NAME_FIRST"); //USER_CENTER.AD_SOURCE_NAME_FIRST=>必须先填写认证源名称！ 
+
             return false;
         }
         this.layoutService.show();
@@ -91,7 +95,8 @@ export class AttestSourceCreComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    this.showAlert("保存成功！");
+                    this.showAlert("NET_MNG_VM_PORT.SAVE_SUCCESS"); //NET_MNG_VM_PORT.SAVE_SUCCESS=>保存成功！ 
+
                     this.gotoList();
                 } else {
                     alert("Res sync error");
@@ -103,20 +108,24 @@ export class AttestSourceCreComponent implements OnInit {
 
     onEditAcc() {
         if ($.trim(this.attest.userName) === "") {
-            this.showAlert("必须先填写用户名！");
+            this.showAlert("USER_CENTER.USERNAME_IS_MUST"); //USER_CENTER.USERNAME_IS_MUST=>必须先填写用户名！ 
+
             return false;
         }
         if (!this.validationService.isEmail(this.attest.userName)) {
-            this.showAlert("用户名必须是邮箱！");
+            this.showAlert("USER_CENTER.USERNAME_MUST_BE_EMAIL"); //USER_CENTER.USERNAME_MUST_BE_EMAIL=>用户名必须是邮箱！ 
+
             return false;
         }
         if ($.trim(this.attest.password) === "") {
-            this.showAlert("必须先填写密码！");
+            this.showAlert("USER_CENTER.EMAIL_FIRST"); //USER_CENTER.EMAIL_FIRST=>必须先填写密码！ 
+
             return false;
         }
 
         if ($.trim(this.attest.loginProp) === "") {
-            this.showAlert("必须先填写登录账户名属性！");
+            this.showAlert("USER_CENTER.ACCOUNT_NAME_ATTR_FIRST"); //USER_CENTER.ACCOUNT_NAME_ATTR_FIRST=>必须先填写登录账户名属性！ 
+
             return false;
         }
         this.layoutService.show();
@@ -126,7 +135,8 @@ export class AttestSourceCreComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    this.showAlert("保存成功！");
+                    this.showAlert("NET_MNG_VM_PORT.SAVE_SUCCESS"); //NET_MNG_VM_PORT.SAVE_SUCCESS=>保存成功！ 
+
                     this.gotoList();
                 } else {
                     alert("Res sync error");
@@ -138,30 +148,36 @@ export class AttestSourceCreComponent implements OnInit {
 
     onCreate() {
         if ($.trim(this.attest.name) === "") {
-            this.showAlert("必须先填写认证源名称！");
+            this.showAlert("USER_CENTER.AD_SOURCE_NAME_FIRST"); //USER_CENTER.AD_SOURCE_NAME_FIRST=>必须先填写认证源名称！ 
+
             return false;
         }
 
         if ($.trim(this.attest.url) === "") {
-            this.showAlert("必须先填写URL地址！");
+            this.showAlert("USER_CENTER.URL_ADDRESS_FIRST"); //USER_CENTER.URL_ADDRESS_FIRST=>必须先填写URL地址！ 
+
             return false;
         }
 
         if ($.trim(this.attest.userName) === "") {
-            this.showAlert("必须先填写用户名！");
+            this.showAlert("USER_CENTER.USERNAME_IS_MUST"); //USER_CENTER.USERNAME_IS_MUST=>必须先填写用户名！ 
+
             return false;
         }
         if (!this.validationService.isEmail(this.attest.userName)) {
-            this.showAlert("用户名必须是邮箱！");
+            this.showAlert("USER_CENTER.USERNAME_MUST_BE_EMAIL"); //USER_CENTER.USERNAME_MUST_BE_EMAIL=>用户名必须是邮箱！ 
+
             return false;
         }
         if ($.trim(this.attest.password) === "") {
-            this.showAlert("必须先填写密码！");
+            this.showAlert("USER_CENTER.EMAIL_FIRST"); //USER_CENTER.EMAIL_FIRST=>必须先填写密码！ 
+
             return false;
         }
 
         if ($.trim(this.attest.loginProp) === "") {
-            this.showAlert("必须先填写登录账户名属性！");
+            this.showAlert("USER_CENTER.ACCOUNT_NAME_ATTR_FIRST"); //USER_CENTER.ACCOUNT_NAME_ATTR_FIRST=>必须先填写登录账户名属性！ 
+
             return false;
         }
         this.layoutService.show();
@@ -171,7 +187,8 @@ export class AttestSourceCreComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    this.showAlert("保存成功！");
+                    this.showAlert("NET_MNG_VM_PORT.SAVE_SUCCESS"); //NET_MNG_VM_PORT.SAVE_SUCCESS=>保存成功！ 
+
                     this.gotoList();
                 } else {
                     alert("Res sync error");
@@ -184,23 +201,27 @@ export class AttestSourceCreComponent implements OnInit {
     testSource() {
 
         if ($.trim(this.attest.url) === "") {
-            this.showAlert("必须先填写URL地址！");
+            this.showAlert("USER_CENTER.URL_ADDRESS_FIRST"); //USER_CENTER.URL_ADDRESS_FIRST=>必须先填写URL地址！ 
+
             return false;
         }
 
 
         if ($.trim(this.attest.userName) === "") {
-            this.showAlert("必须先填写用户名！");
+            this.showAlert("USER_CENTER.USERNAME_IS_MUST"); //USER_CENTER.USERNAME_IS_MUST=>必须先填写用户名！ 
+
             return false;
         }
 
         if (!this.validationService.isEmail(this.attest.userName)) {
-            this.showAlert("用户名必须是邮箱！");
+            this.showAlert("USER_CENTER.USERNAME_MUST_BE_EMAIL"); //USER_CENTER.USERNAME_MUST_BE_EMAIL=>用户名必须是邮箱！ 
+
             return false;
         }
 
         if ($.trim(this.attest.password) === "") {
-            this.showAlert("必须先填写密码！");
+            this.showAlert("USER_CENTER.EMAIL_FIRST"); //USER_CENTER.EMAIL_FIRST=>必须先填写密码！ 
+
             return false;
         }
 
@@ -230,7 +251,8 @@ export class AttestSourceCreComponent implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "NET_MNG_VM_PORT.PROMPT"; //NET_MNG_VM_PORT.PROMPT=>提示 
+        this.noticeTitle = "NET_MNG_VM_PORT.PROMPT"; //NET_MNG_VM_PORT.PROMPT=>提示 
+
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -242,6 +264,6 @@ export class AttestSourceCreComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("NET_MNG_VM_DBT_PORT.GETTING_DATA_FAILED"); //NET_MNG_VM_DBT_PORT.GETTING_DATA_FAILED=>获取数据失败！ 
     }
 }
