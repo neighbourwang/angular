@@ -42,13 +42,7 @@ export class PhysicalEditService {
 
     //编辑物理机
     editPhysical(physical: PhysicalModel): Promise<any> {
-        // const pathParams = [
-        //     {
-        //         key: "id",
-        //         value: id
-        //     }
-        // ];
-        const api = this.restApiCfg.getRestApi("user-center.attest-mng.ldap.edit");
+        const api = this.restApiCfg.getRestApi("physical-mng.physical.edit");
         return this.restApi.request(api.method, api.url, null, null, physical);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => attestDetail);
     }
@@ -61,24 +55,6 @@ export class PhysicalEditService {
     }
     
     //获取物理机硬件信息
-    // getPhysicalHardwareInfo(physical:PhysicalModel): Promise<any>{
-        // const pathParams = [
-        //     {
-        //         key: "ip_addr",
-        //         value: physical.iloIPAddress
-        //     },
-        //     {
-        //         key: "username",
-        //         value: physical.iloUserName
-        //     },
-        //     {
-        //         key: "password",
-        //         value: physical.iloPwd
-        //     },        
-        // ];
-        //const api = this.restApiCfg.getRestApi("physical-mng.physical.hardwareinfo.get");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);     
-    // }
     getPhysicalHardwareInfo(physical:PhysicalModel):Promise<any>{
 
         const api = this.restApiCfg.getRestApi("physical-mng.physical.hardwareinfo.get");

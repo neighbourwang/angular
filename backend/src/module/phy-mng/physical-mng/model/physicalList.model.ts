@@ -12,7 +12,7 @@ export class PhysicalListModel{
     pmIPMIAddr: string;
     pmLocation: string;
     pmPowerStatus: string;  //电源状态
-    UseageStatus: string;   //使用状态
+    pmUseageStatus: string;   //使用状态
     pmMainStatus: string;   //运维状态
     pmHealthExam: string;   //健康检查
     isSelect=false;

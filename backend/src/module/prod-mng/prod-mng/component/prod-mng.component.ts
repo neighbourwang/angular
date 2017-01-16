@@ -171,7 +171,7 @@ export class ProdMngComponent implements OnInit {
                     break;
                 case 'publish':
                     if (this.prodList.find(v => v.status == 1)) {
-                        this.notice.open('COMMON.OPERATION_ERROR', '不可以再次发布已发布状态的产品'); //COMMON.OPERATION_ERROR=>操作错误 
+                        this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.NOT_ALLOW_TO_PUBLISH_THE_PUBLISHED_PRODUCT'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.NOT_ALLOW_TO_PUBLISH_THE_PUBLISHED_PRODUCT=>不可以再次发布已发布状态的产品 
 
                     } else {
                         this.publishConfirm.open('PROD_MNG.PUBLISH_PRODUCT', '您选择发布 ' + "'" + message + "'" + '产品,请确认。') //PROD_MNG.PUBLISH_PRODUCT=>发布产品 
@@ -184,7 +184,8 @@ export class ProdMngComponent implements OnInit {
 
 
                     } else {
-                        this.ccPublishConfirm.open('PROD_MNG.CANCEL_PUBLISH_PRODUCT', '您选择取消发布' + "'" + message + "'" + '产品,请确认。如果确认，用户将不能够订购此产品。') //PROD_MNG.CANCEL_PUBLISH_PRODUCT=>取消发布产品 
+                        this.ccPublishConfirm.open('PROD_MNG.CANCEL_PUBLISH_PRODUCT', '您选择取消发布' + "'" + message + "'" + '产品,请确认。如果确认，用户将不能够订购此产品。') //PROD_MNG.CANCEL_PUBLISH_PRODUCT=>取消发布产品 
+
                     } break;
             }
         }
