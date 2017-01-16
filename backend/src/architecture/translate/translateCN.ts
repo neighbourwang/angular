@@ -22,7 +22,7 @@
         "ARE_YOU_SURE_YOU_WANT_TO_APPROVE": "你确认要审批同意该订单吗",
         "AUTO_APPROVAL_TIME_MIN": "自动审批时间(分钟)",
         "AUTO_APPROVAL_TIME_SET": "自动审批时间设置",
-        "CAN_ENTER_CHINESE_AND_CHARACTERS": "可以输入中文与字符，最大不能超过200个字",
+        "CAN_ENTER_CHINESE_AND_CHARACTERS": "可以输入中文字符，最大不能超过200个字",
         "ENTERPRISE_TENANT_NAME": "企业（租户）名称",
         "ENTER_ORDER_INFORMATION": "输入订单信息快速查询",
         "NOT_APPROVED_LIST_DATA_ERROR": "待审批列表加载错误",
