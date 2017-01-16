@@ -1037,7 +1037,9 @@
         "STANDARD_SMALL_CLOUD_HOST": "标准小型云主机",
         "STORAGE_BACKEND": "存储后端",
         "UNIT_PRICE": "单位价格",
-        "VIEW_PRODUCT": "查看产品"
+        "VIEW_PRODUCT": "查看产品",
+        "CANCEL_SELECTED_PRODUCT":"'您选择取消发布{{value_1}}产品,请确认。如果确认，此产品目录将不能用来创建产品。'",
+        "CANCEL_PUBLISH_PRODUCT_FOR_SELECTED":"您选择取消发布{{value_1}}产品,请确认。如果确认，用户将不能够订购此产品。"
     },
     "USER_CENTER": {
         "ACCOUNT": "帐号",
