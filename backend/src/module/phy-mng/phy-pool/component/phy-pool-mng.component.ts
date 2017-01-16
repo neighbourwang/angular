@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent , ConfirmComponent, PaginationComponent, SystemDictionary  } from '../../../../architecture';
 
 //model
-import { PhyPoolList } from '../model/phy-pool-list.model.ts';
+import { PhyPoolList } from '../model/phy-pool-list.model';
 import { Criteria } from "../model/criteria.model";
 
 //service

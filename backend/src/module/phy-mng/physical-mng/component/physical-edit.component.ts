@@ -70,8 +70,9 @@ export class PhysicalEditComponent implements OnInit {
             .then(() => {
                 if (this.physical.pmId) {
                     this.getPhysicalById(this.physical.pmId);
+                } else {
+                    this.physical=new PhysicalModel();
                 }
-                else this.physical=new PhysicalModel();
             });
     }
 
