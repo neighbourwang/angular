@@ -140,9 +140,9 @@ export class EntAdminMngComponent implements OnInit {
             return;
         }
 
-        if (selectAdmin[0].status != 1) {
+        if (selectAdmin[0].status == 1) {
             //只有禁用状态才可以被删除
-            this.showAlert("只能删除禁用状态的管理员！");
+            this.showAlert("启用状态的管理员不可以删除！");
             return;
         } 
 
@@ -289,7 +289,7 @@ export class EntAdminMngComponent implements OnInit {
             this.showAlert("请先选择需要重置密码的管理员！");
             return;
         }
-        if (selectAdmin.status == 1) {
+        if (selectAdmin.status != 1) {
             //只有启用状态才可以重置密码
             this.showAlert("只有启用的管理员才可以重置密码！");
             return;
