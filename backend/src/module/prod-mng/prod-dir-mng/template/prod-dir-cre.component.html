@@ -1,12 +1,12 @@
-<div class="page-content-header icon-create-product">{{'NET_MNG_VM_IP_MNG.CREATE' | translate}}{{'PROD_MNG.PRODUCT_CAT' | translate}}: {{'PROD_MNG.PLATFORM_SERVICE' | translate}}</div>
+<div class="page-content-header icon-create-product">创建产品目录: 云主机服务</div>
 <div class="page-content fix-page-content">
 	<div class="row" style="padding-top: 30px;">
 		<div class="col-md-12">
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT' | translate}}{{'COMMON.NAME' | translate}}:</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品目录名称:</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control font-gray" [(ngModel)]="prodDir.serviceName" placeholder="{{'PROD_MNG.PRODUCT_CAT' | translate}}{{'COMMON.NAME' | translate}}({{'COMMON.MUST' | translate}})">
+						<input type="text" class="form-control font-gray" [(ngModel)]="prodDir.serviceName" placeholder="产品目录名称(必须)">
 					</div>
 				</div>
 			</div>
@@ -61,14 +61,14 @@
 					<div class="col-sm-4 form-control-title"></div>
 					<div class="col-sm-4">
 						<div class="prodSpecific">
-							<span class="form-line-height font-gray" >{{'COMMON.ROOT_DISK' | translate}}{{'COMMON.SIZE' | translate}}</span>
+							<span class="form-line-height font-gray" >启动盘大小</span>
 							<span >
 								<count-bar [default]=0 [step]=100 [max]=100000 [min]=0 [disabled]=true [value]="prodDir.specification.startupDisk" (output)="outputValue($event,'startupDisk')"></count-bar>
 							</span>
 							<span class="form-line-height font-gray">GB</span>
 						</div>
 						<!--<div class="row">
-							<div class="col-sm-3 font-gray"><span class="form-line-height">{{'COMMON.ROOT_DISK' | translate}}{{'COMMON.SIZE' | translate}}</span></div>
+							<div class="col-sm-3 font-gray"><span class="form-line-height">启动盘大小</span></div>
 							<div class="col-sm-4">
 								<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'startupDisk')"></count-bar>
 							</div>
@@ -89,7 +89,7 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div for="firstname" class="col-sm-4 form-control-title" (click)='selectPlateForm()' style="cursor:pointer;">{{'NET_MNG_OPENSTACK.SELECT' | translate}}{{'COMMON.AVAILABLE' | translate}}{{'NET_MNG_OPENSTACK.PLATFORM' | translate}}:</div>
+					<div for="firstname" class="col-sm-4 form-control-title" (click)='selectPlateForm()' style="cursor:pointer;">选择可用平台:</div>
 					<div class="col-sm-4">
 					</div>
 				</div>
@@ -98,15 +98,15 @@
 				<div class="col-sm-3"></div>
 				<div class="col-sm-6 border selectPlateForm">
 					<div class="row  tabHeader row-line-height">
-						<div class="col-sm-4">{{'NET_MNG_OPENSTACK.PLATFORM' | translate}}{{'COMMON.NAME' | translate}}</div>
+						<div class="col-sm-4">平台名称</div>
 						<div class="col-sm-2 secondDiv">
-							{{'COMMON.AVAILABLE_ZONE' | translate}}
+							可用区
 						</div>
 						<div class="col-sm-2" style="text-align: left">
 							<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllZones()" [(ngModel)]="selectAllZone">
 						</div>
 						<div class="col-sm-4">
-							{{'COMMON.ROOT_DISK' | translate}}
+							启动盘
 						</div>
 					</div>
 					<div class="row tabBody" *ngFor="let plateform of _platformlist; let idx=index">
@@ -142,7 +142,7 @@
         <span class="icon-button-label">{{'NET_MNG_OPENSTACK.CNACLE' | translate}}</span>
     </button>
 	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();" style="margin-left:20px">
-        <span class="icon-button-label">{{'NET_MNG_VM_IP_MNG.CREATE' | translate}}</span>
+        <span class="icon-button-label">创建</span>
     </button>
 </div>
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM"></fc-notice>
