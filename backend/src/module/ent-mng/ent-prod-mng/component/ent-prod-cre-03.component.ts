@@ -62,14 +62,14 @@ export class EntProdCre03Component implements OnInit{
   
         this.entProdCreService.createProd(this.serviceDetail).then(ret => {
             if (!ret) {
-                this.showNotice('创建失败', '产品创建失败。');
+                this.showNotice('ENT_MNG.CREATE_FAILURE', 'ENT_MNG.CREATE_PRODUCT_FAILURE');
             } else {
                 this.router.navigateByUrl("ent-mng/ent-prod-mng/ent-prod-mng");
             }
 
             this.layoutService.hide();
         }).catch(error => {
-            this.showNotice('创建失败', '产品创建失败。');
+            this.showNotice('ENT_MNG.CREATE_FAILURE', 'ENT_MNG.CREATE_PRODUCT_FAILURE');
             this.layoutService.hide();
         });
         

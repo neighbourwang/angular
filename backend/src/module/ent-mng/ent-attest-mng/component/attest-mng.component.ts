@@ -80,7 +80,7 @@ export class AttestMngComponent implements OnInit {
     onEdit() {
         const attest = this.getSelectAttest();
         if (!attest) {
-            this.showAlert("请先选择需要编辑的认证源");
+            this.showAlert("ENT_MNG.SELECT_AD_SOURCE_TO_EDIT");
             return;
         }
         this.gotoEditPage("edit", attest);
@@ -89,7 +89,7 @@ export class AttestMngComponent implements OnInit {
     onEditAcc() {
         const attest = this.getSelectAttest();
         if (!attest) {
-            this.showAlert("请先选择需要编辑的认证源");
+            this.showAlert("ENT_MNG.SELECT_AD_SOURCE_TO_EDIT");
             return;
         }
         this.gotoEditPage("editAcc", attest);
@@ -104,7 +104,7 @@ export class AttestMngComponent implements OnInit {
 
         var attest = this.getSelectAttest();
         if (!attest) {
-            this.showAlert("请先选择需要启用或者禁用的认证源");
+            this.showAlert("ENT_MNG.SELECT_AD_SOURCE_FOR_ENABLE_DISABLE");
             return;
         }
 
@@ -112,12 +112,12 @@ export class AttestMngComponent implements OnInit {
             //${this.getDicText(status.toString(), this.statusDic) }
             this.dictPipe.transform(status, this.service.statusDic)
                 .then((x) => {
-                    this.showAlert(`该认证源已经是${x}状态！`);
+                    this.showAlert(`ENT_MNG.THE_AD_SOURCE_STATUS_IS^^^${x}`);
                 });
          
             return;
         }
-        this.noticeMsg = `确认${status == "1" ? "启用" : "禁用"}'${attest.name}' ?`;
+        this.noticeMsg = `${status == "1" ? "COMMON.ENABLE_VALUE^^^" : "COMMON.DISENABLE_VALUE^^^"}'${attest.name}' ?`;
         this.confirm.ccf = () => {
         };
         this.confirm.cof = () => {
@@ -141,11 +141,11 @@ export class AttestMngComponent implements OnInit {
     onDelete() {
         var attest = this.getSelectAttest();
         if (!attest) {
-            this.showAlert("请先选择需要删除的认证源");
+            this.showAlert("ENT_MNG.SELECT_AD_SOURCE");
             return;
         }
 
-        this.noticeMsg = `确认删除认证源'${attest.name}' ?`;
+        this.noticeMsg = `ENT_MNG.CONFIRM_DELETE_VALUE^^^'${attest.name}' ?`;
         this.confirm.ccf = () => {
         };
         this.confirm.cof = () => {
@@ -195,7 +195,7 @@ export class AttestMngComponent implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "COMMON.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -207,6 +207,6 @@ export class AttestMngComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("COMMON.GETTING_DATA_FAILED");
     }
 }

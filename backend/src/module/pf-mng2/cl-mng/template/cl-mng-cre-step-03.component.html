@@ -17,35 +17,6 @@
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10 table-container no-padding">
-            <!--<table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>编号</th>
-                        <th>名称</th>
-                        <th>显示名称</th>
-                        <th>宿主机数量</th>
-                        <th>物理cpu总核数</th>
-                        <th>总内存(GB)</th>
-                        <th>云主机数量配额</th>
-                        <th>说明</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of creStep3Model; let idx = index;">
-                        <td>{{idx + 1}}</td>
-                        <td>{{item.name}}</td>
-                        <td><input type="text" class="form-control" [(ngModel)]="item.displayName"></td>
-                        <td>{{item.hostnum}}</td>
-                        <td>{{item.vcpunum}}</td>
-                        <td>{{item.memSize}}</td>
-                        <td>
-                            <count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
-                            <!--<input type="number" class="form-control" [(ngModel)]="item.vmQuota" style="width: 100px; display: inline;">-->
-                            <!--</td>
-                        <td><input type="text" class="form-control" [(ngModel)]="item.description"></td>
-                    </tr>
-                </tbody>
-            </table>-->
             <table *ngIf="platformType=='2'" class="table table-hover mgt20" style="">
                 <thead>
                     <tr>
@@ -66,7 +37,6 @@
                         <td>{{idx + 1}}</td>
                         <td >
                             <p *ngFor="let dcOrRegion of item.dcOrRegion" style="padding:0;margin-bottom: 0">{{dcOrRegion}}</p>
-                            <!--{{item.dcOrRegion}}-->
                             </td>
                         <td>{{item.name}}</td>
                         <td><input type="text" class="form-control" [(ngModel)]="item.displayName" value="高性能区1"></td>
@@ -74,7 +44,6 @@
                         <td>{{item.vcpunum||0}}</td>
                         <td>{{item.memSize||0}}</td>
                         <td>
-                            <!--<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
                             <input type="number" class="form-control"  [(ngModel)]="item.exceedPercentage" style="width: 100px; display: inline;">
                         </td>
                         <td><input type="number" class="form-control" [(ngModel)]="item.quotaPercentDisplay"></td>
@@ -83,7 +52,7 @@
  
                 </tbody>
             </table>
-            <table *ngIf="platformType=='0'" class="table table-hover mgt20" style="">
+            <table *ngIf="platformType=='0'" class="table table-hover mgt20">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -108,7 +77,9 @@
                         <td>{{item.vcpunum||0}}</td>
                         <td>{{item.memSize||0}}</td>
                         <td>
-                            <input type="number" class="form-control"  [(ngModel)]="item.exceedPercentage" style="width: 100px; display: inline;">
+                            <!--<div class="has-error">-->
+                                <input type="number" class="form-control"  [(ngModel)]="item.exceedPercentage" style="width: 100px; display: inline;">
+                            <!--</div>-->
                         </td>
                         <td><input type="number" class="form-control" [(ngModel)]="item.quotaPercentDisplay"></td>
                         <td><input type="text" class="form-control" [(ngModel)]="item.description"></td>

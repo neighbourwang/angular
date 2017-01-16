@@ -65,26 +65,26 @@ export class EntProdCre01Component implements OnInit{
 
         // 产品名称必须输入
         if (this.validationService.isBlank(this.serviceDetail.entProdName)) {
-            msg.push("产品名称必须输入");
+            msg.push("ENT_MNG.INPUT_PRODUCT_NAME");
         }
 
         // 企业必须选择
         if (this.validationService.isBlank(this.serviceDetail.enterpriseId)) {
-            msg.push("企业必须选择");
+            msg.push("ENT_MNG.CHOOSE_ENTERPRISE");
         }
 
         // 区域必须选择
         if (this.validationService.isBlank(this.serviceDetail.regionId)) {
-            msg.push("区域必须选择");
+            msg.push("ENT_MNG.CHOOSE_ZONE");
         }
 
         // 服务目录必须选择
         if (this.validationService.isBlank(this.serviceDetail.serviceId)) {
-            msg.push("服务目录必须选择");
+            msg.push("ENT_MNG.CHOOSE_SERVICE_DIR");
         }
 
         if (msg.length > 0) {
-            this.noticeDialog.open("系统提示", msg.join("<br />"));
+            this.noticeDialog.open("COMMON.SYSTEM_PROMPT", msg.join("<br />"));
 
             return false;
         }
@@ -98,7 +98,7 @@ export class EntProdCre01Component implements OnInit{
   
     	this.entProdCreService.getEnterprises().then(ret => {
             if (!ret) {
-                this.showNotice('数据获取失败', '企业数据获取失败。');
+                this.showNotice('COMMON.GETTING_DATA_FAILED', 'ENT_MNG.GET_ENTERPRISE_DATA_FAILURE');
             } else {
                 if (ret && ret.resultContent) {
                   this.enterprises = ret.resultContent;
@@ -106,7 +106,7 @@ export class EntProdCre01Component implements OnInit{
             }
             this.layoutService.hide();
         }).catch(error => {
-            this.showNotice('数据获取失败', '企业数据获取失败。');
+            this.showNotice('COMMON.GETTING_DATA_FAILED', 'ENT_MNG.GET_ENTERPRISE_DATA_FAILURE');
             this.layoutService.hide();
         });
     }
@@ -117,7 +117,7 @@ export class EntProdCre01Component implements OnInit{
   
     	this.entProdCreService.getRegions().then(ret => {
             if (!ret) {
-                this.showNotice('数据获取失败', '区域数据获取失败。');
+                this.showNotice('COMMON.GETTING_DATA_FAILED', 'ENT_MNG.GET_ZONE_DATA_FAILURE');
             } else {
                 if (ret && ret.resultContent) {
                     let idx = 0;
@@ -139,7 +139,7 @@ export class EntProdCre01Component implements OnInit{
 
             this.layoutService.hide();
         }).catch(error => {
-            this.showNotice('数据获取失败', '区域数据获取失败。');
+            this.showNotice('COMMON.GETTING_DATA_FAILED', 'ENT_MNG.GET_ZONE_DATA_FAILURE');
             this.layoutService.hide();
         });
     }
@@ -158,7 +158,7 @@ export class EntProdCre01Component implements OnInit{
 
         this.entProdCreService.getDirectories(this.serviceDetail.regionId).then(ret => {
             if (!ret) {
-                this.showNotice('数据获取失败', '服务目录数据获取失败。');
+                this.showNotice('COMMON.GETTING_DATA_FAILED', 'ENT_MNG.GET_SERVER_DIR_FAILURE');
             } else {
                 if (ret && ret.resultContent) {
                   this.serviceItems = ret.resultContent;
@@ -167,7 +167,7 @@ export class EntProdCre01Component implements OnInit{
 
             this.layoutService.hide();
         }).catch(error => {
-            this.showNotice('数据获取失败', '服务目录数据获取失败。');
+            this.showNotice('COMMON.GETTING_DATA_FAILED', 'ENT_MNG.GET_SERVER_DIR_FAILURE');
             this.layoutService.hide();
         });
     }

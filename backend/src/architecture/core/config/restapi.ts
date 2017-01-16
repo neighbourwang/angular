@@ -647,7 +647,7 @@ export let RestApis: RestApiModel[] = [
     //<!--后台-运营中心-订单管理
     {
         "desc": "订单查询详情",
-        "id": "op-center.order-mng.order-detail.get",
+        "id": "op-center.order-search.detail.get",
         "method": "GET",
         "url": "adminui//authsec/backend/order/{orderNo}/detail"
     },

@@ -61,14 +61,14 @@ export class PfConnCreStep04Component implements OnInit {
                         this.storages.push(storage);
                     }
                 } else {
-                    this.showError("系统错误", "取得存储资源配置信息错误");
+                    this.showError("COMMON.SYSTEM_ERROR", "PF_MNG.GET_STORAGE_RESOURCE_FAILURE");
                 }
 
                 this.layoutService.hide();
             }
         ).catch(
             reason => {
-                this.showError("系统错误", reason.statusText);
+                this.showError("COMMON.SYSTEM_ERROR", reason.statusText);
             }
         );
     }
@@ -102,12 +102,12 @@ export class PfConnCreStep04Component implements OnInit {
                 if (response && 100 == response.resultCode) {
                     this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-05", { skipLocationChange: true });
                 } else {
-                    this.showError("系统错误", "更新存储资源配置信息错误");
+                    this.showError("COMMON.SYSTEM_ERROR", "PF_MNG.UPDATE_STORAGE_RESOURCE_ERROR");
                 }
             }
         ).catch(
             reason => {
-                this.showError("系统错误", reason.statusText);
+                this.showError("COMMON.SYSTEM_ERROR", reason.statusText);
             }
         );
     }

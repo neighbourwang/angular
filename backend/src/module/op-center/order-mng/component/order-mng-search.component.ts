@@ -48,6 +48,15 @@ export class OrderMngSearchComponent implements OnInit{
 			{
 				let obj = _.extendOwn(new SearchOrderDetail(), item) as SearchOrderDetail;
 				target.push(obj);
+				// obj.orderCode = item.orderCode;
+				// obj.type = item.productType;
+				// obj.productType = item.productType; 
+				// obj.status = item.status;
+				// obj.department = item.department;
+				// obj.departmentId = item.departmentId;
+				// obj.createDate = item.createDate;
+				// obj.completeDate = item.completeDate;
+				// obj.enterpirse = item.enterpirse;
 
 				for(let i = 0; i < obj.subInstanceList.length; i++)
 				{
@@ -346,7 +355,7 @@ export class OrderMngSearchComponent implements OnInit{
 	
 	showMsg(msg: string)
 	{
-		this._notice.open("系统提示", msg);
+		this._notice.open("COMMON.SYSTEM_PROMPT", msg);
 	}
 	cancel(){
 /*
