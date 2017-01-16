@@ -93,7 +93,7 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
     })
     .catch(err=>{
       console.log("保存企业产品变更失败", err);
-      this.showMsg("保存企业产品变更失败");
+      this.showMsg("ENT_MNG.SAVE_ENTERPRISE_PRODUCT_FAILURE");
     })
   }
   
@@ -108,7 +108,7 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
 
   showMsg(msg: string)
   {
-    this.notice.open("系统提示", msg);
+    this.notice.open("COMMON.SYSTEM_PROMPT", msg);
   }
 
   changePage_ProdItems(page: number) {

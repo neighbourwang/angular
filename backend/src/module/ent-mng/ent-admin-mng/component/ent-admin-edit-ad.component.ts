@@ -89,12 +89,12 @@ export class EntAdminEditADComponent implements OnInit {
     //创建或者更新管理员信息
     saveAccount(): void {
         if (this.validationService.isBlank(this.admin.userName)) {
-            this.showAlert("请输入管理员姓名");
+            this.showAlert("ENT_MNG.ENTER_ADMINISTRATOR_NAME");
             return;
         }
 
         if (this.validationService.isBlank(this.admin.contactPhone)) {
-            this.showAlert("请输入电话");
+            this.showAlert("COMMON.INPUT_PHONE");
             return;
         }
          
@@ -111,7 +111,7 @@ export class EntAdminEditADComponent implements OnInit {
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.showAlert("创建成功");
+                    this.showAlert("COMMON.CREATE_SUCCESS");
                     this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-mng/${this.eid}`);
                 } else {
                     this.showAlert("Res sync error");
@@ -129,11 +129,11 @@ export class EntAdminEditADComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("COMMON.GETTING_DATA_FAILED");
     }
 
     showAlert(msg: string): void {
-        this.noticeTitle = "提示";
+        this.noticeTitle = "COMMON.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }

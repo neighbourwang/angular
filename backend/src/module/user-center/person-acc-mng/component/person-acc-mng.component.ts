@@ -81,7 +81,7 @@ export class PersonAccMngComponent implements OnInit {
         this.accPwd.password='';
         this.accPwd.newPassword='';
         this.accPwd.confirmPwd='';
-        this.editPassWord.open('修改密码')
+        this.editPassWord.open('USER_CENTER.CHANGE_PASSWORD') //USER_CENTER.CHANGE_PASSWORD=>修改密码 
     }
     pwdValid(val){
         if (this.accPwd.password && this.accPwd.password.trim() != '') {
@@ -115,14 +115,18 @@ export class PersonAccMngComponent implements OnInit {
                     if (response && 100 == response.resultCode) {
                         console.log(response);
                         this.editPassWord.close();
-                        this.notice.open('操作成功', '新密码已生效');
+                        this.notice.open('USER_CENTER.OPERATION_SUCCESS', 'USER_CENTER.NEW_PASSWORD_WORKED'); //USER_CENTER.NEW_PASSWORD_WORKED=>新密码已生效  //USER_CENTER.OPERATION_SUCCESS=>操作成功 
+
+
                     }else if(response &&response.resultCode==10001001){
                         this.editPassWord.close();
-                        this.notice.open('操作错误', 'you have input wrong password')
+                        this.notice.open('COMMON.OPERATION_ERROR', 'you have input wrong password') //COMMON.OPERATION_ERROR=>操作错误 
+
                     }
                 }).catch((err) => {
                     this.editPassWord.close();
-                    this.notice.open('操作错误', 'you have input wrong password')
+                    this.notice.open('COMMON.OPERATION_ERROR', 'you have input wrong password') //COMMON.OPERATION_ERROR=>操作错误 
+
                 });
         } else {
             this.samePassword = false;
@@ -156,16 +160,22 @@ export class PersonAccMngComponent implements OnInit {
     //submit edit
     onSubmit() {
         if(!this.personAcc.userName){
-            this.notice.open('操作错误','姓名不能为空');
+            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.NAME_NOT_NULL'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.NAME_NOT_NULL=>姓名不能为空 
+
+
             return;
         }
         if(this.personAcc.phone){
             if(!this.validationService.isMoblie(this.personAcc.phone)){
-            this.notice.open('操作错误','手机号码输入错误');
+            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.MOBILE_PHONE_INPUT_ERROR'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.MOBILE_PHONE_INPUT_ERROR=>手机号码输入错误 
+
+
             return;
         }
         }else{
-            this.notice.open('操作错误','手机号码不能为空');
+            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.MOBILE_PHONE_NOT_NULL'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.MOBILE_PHONE_NOT_NULL=>手机号码不能为空 
+
+
             return;
         }        
         console.log(this.personAcc);

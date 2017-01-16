@@ -2,7 +2,8 @@
 import { Input,Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent, DicLoader,ItemLoader,RestApi, RestApiCfg, LayoutService, ConfirmComponent} from '../../../../architecture';
-import { AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam,SubInstanceResp,SubInstanceItemResp,SearchOrderItem} from '../model'
+import { SearchOrderDetail,SubInstanceItemResp1,AdminListItem, DepartmentItem, Platform, ProductType,
+	 SubRegion, OrderMngParam,SubInstanceResp,SubInstanceItemResp,SearchOrderItem} from '../model';
 import {DictService} from '../../../../architecture/core/service/dict-service';
 import * as _ from 'underscore';
 @Component({
@@ -23,6 +24,8 @@ export class OrderMngSearchComponent implements OnInit{
 
 	private _buyerLoader:ItemLoader<{id:string; name:string}> = null //订购人
 
+	private _orderDetailLoader:ItemLoader<SearchOrderDetail>=null;//订单查询详情
+
 	private _orderStatusDic:DicLoader = null;
 
 	private _productTypeLoader: DicLoader = null;
@@ -38,6 +41,32 @@ export class OrderMngSearchComponent implements OnInit{
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi,
 		private _dictServ:DictService){
+		//获取订单查询详情
+		this._orderDetailLoader = new ItemLoader<SearchOrderDetail>(false, "ORDER_MNG.ORDERS_DETAILS_DATA_FAILED", "op-center.order-search.detail.get", restApiCfg, restApi);
+		this._orderDetailLoader.MapFunc = (source:Array<any>, target:Array<SearchOrderDetail>)=>{
+			for(let item of source)
+			{
+				let obj = _.extendOwn(new SearchOrderDetail(), item) as SearchOrderDetail;
+				target.push(obj);
+
+				for(let i = 0; i < obj.subInstanceList.length; i++)
+				{
+					obj.subInstanceList[i] = _.extendOwn(new SubInstanceItemResp1(), item.subInstanceList[i]);
+				}
+			}
+		}
+		this._orderDetailLoader.Trait = (items:Array<SearchOrderDetail>)=>{
+			let firstItem = this._orderDetailLoader.FirstItem;
+
+			this._orderStatusDic.UpdateWithDic([firstItem], "statusName", "status");
+			this._orderStatusDic.UpdateWithDic(firstItem.orderInstanceItems, "statusName", "status");
+
+			this._productTypeLoader.UpdateWithDic([firstItem], 'productTypeName', 'productType');
+			this._productTypeLoader.UpdateWithDic(firstItem.subInstanceList, 'serviceTypeName', 'serviceType');
+
+		}
+		this._orderDetailLoader.FirstItem = new SearchOrderDetail();
+		this._orderDetailLoader.FirstItem.subInstanceList = [];
 
 		//配置企业列表加载
 		this._adminLoader = new ItemLoader<AdminListItem>(false, "COMMON.ENTPRISE_OPTIONS_DATA_ERROR", "op-center.order-mng.ent-list.get", this.restApiCfg, this.restApi);
@@ -317,7 +346,7 @@ export class OrderMngSearchComponent implements OnInit{
 	
 	showMsg(msg: string)
 	{
-		this._notice.open("系统提示", msg);
+		this._notice.open("COMMON.SYSTEM_PROMPT", msg);
 	}
 	cancel(){
 /*
@@ -341,4 +370,21 @@ export class OrderMngSearchComponent implements OnInit{
 	{
 		this.search(pageNumber);
 	}
+
+showDetail(item:SearchOrderItem)
+	{
+		this.layoutService.show();
+		this._orderDetailLoader.Go(null, [{key:"orderNo", value:item.orderNo}])
+		.then(success=>{
+			this._orderDetailLoader.FirstItem.type = item.orderType;
+			$('#searchDetail').modal('show');
+			this.layoutService.hide();
+		})
+		.catch(err=>{
+			this.layoutService.hide();
+			this.showMsg(err);
+		})
+	}
+
+
 }

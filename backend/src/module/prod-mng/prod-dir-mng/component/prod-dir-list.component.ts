@@ -186,7 +186,8 @@ export class ProdDirListComponent implements OnInit {
             switch (order) {
                 case 'delete': 
                 if (prodDirList[0].status == '1') {
-                     this.notice.open('COMMON.OPERATION_ERROR', '不能删除状态为已发布的产品目录') //COMMON.OPERATION_ERROR=>操作错误 
+                     this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.NOT_ALLOW_TO_DELETE_PUBLISHED_PRODUCT_CAT') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.NOT_ALLOW_TO_DELETE_PUBLISHED_PRODUCT_CAT=>不能删除状态为已发布的产品目录 
+
 
                 }else{
                     this.deleteConfirm.open('PROD_MNG.REMOVE_PRODUCT_CAT', '您选择删除 ' + "'" + message + "'" + '产品,请确认；如果确认，此产品目录的数据将不能恢复。') //PROD_MNG.REMOVE_PRODUCT_CAT=>删除产品目录 
@@ -196,7 +197,8 @@ export class ProdDirListComponent implements OnInit {
                     break;
                 case 'publish':
                     if (prodDirList[0].status == '1') {
-                        this.notice.open('COMMON.OPERATION_ERROR', '产品目录状态为已发布') //COMMON.OPERATION_ERROR=>操作错误 
+                        this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PRODUCT_CAT_HAS_BEEN_PUBLISHED') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PRODUCT_CAT_HAS_BEEN_PUBLISHED=>产品目录状态为已发布 
+
 
                     } else {
                         this.publishConfirm.open('PROD_MNG.PUBLISH_PRODUCT_CAT', '您选择发布 ' + "'" + message + "'" + '产品,请确认。') //PROD_MNG.PUBLISH_PRODUCT_CAT=>发布产品目录 
@@ -205,7 +207,7 @@ export class ProdDirListComponent implements OnInit {
                     break;
                 case 'ccPublish':
                     if (prodDirList[0].status == '3') {
-                        this.notice.open('COMMON.OPERATION_ERROR', '产品目录状态为取消发布') //COMMON.OPERATION_ERROR=>操作错误 
+                        this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PRODUCT_CAT_IS_CANCELLED') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PRODUCT_CAT_IS_CANCELLED=>产品目录状态为取消发布 
 
                     } else {
                         this.ccPublishConfirm.open('PROD_MNG.CANCEL_PUBLISH_PRODUCT_CAT', '您选择取消发布' + "'" + message + "'" + '产品,请确认。如果确认，此产品目录将不能用来创建产品。') //PROD_MNG.CANCEL_PUBLISH_PRODUCT_CAT=>取消发布产品目录 
@@ -262,7 +264,8 @@ export class ProdDirListComponent implements OnInit {
     creation() {
         //跳转
         console.log('create');
-        this.createProdDir.open('PROD_MNG.CREATE_PRODUCT_CAT'); //PROD_MNG.CREATE_PRODUCT_CAT=>创建产品目录 
+        this.createProdDir.open('PROD_MNG.CREATE_PRODUCT_CAT'); //PROD_MNG.CREATE_PRODUCT_CAT=>创建产品目录 
+
     }
     //选择产品目录类型
     showSpec: boolean = true;

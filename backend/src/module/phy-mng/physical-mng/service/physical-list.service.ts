@@ -22,28 +22,30 @@ export class PhysicalListService {
         this.restApiCfg.loadCfgData();
     }
 
-    dictProductType = this.dict.get(
-        [
-            {      
-                owner : "PM",
-                field : "STATUS"    
-            },
-            {      
-                    owner : "PM",
-                    field : "HEALTH_STATUS"    
-            },
-            {      
-                    owner : "PM",
-                    field : "MAIN_STATUS"    
-            },
+    dictUseage = this.dict.get(
              {      
+                owner : "PM",
+                field : "STATUS"             //使用
+            }             
+    );
+    dictHealth = this.dict.get(
+                {      
                     owner : "PM",
-                    field : "SPOWER_STATUS"    
-            },
-           
-        ]
-       
-   );
+                    field : "HEALTH_STATUS"    //健康
+                }             
+    );
+    dicMain = this.dict.get(
+                {      
+                    owner : "PM",
+                    field : "MAIN_STATUS"    //运维
+                }             
+    );
+    dicPower = this.dict.get(
+                {      
+                    owner : "PM",
+                    field : "POWER_STATUS"    //运维
+                }             
+    );
 
 
     //获取物理机列表
