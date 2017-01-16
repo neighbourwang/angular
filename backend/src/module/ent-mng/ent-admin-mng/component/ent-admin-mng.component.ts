@@ -140,7 +140,7 @@ export class EntAdminMngComponent implements OnInit {
             return;
         }
 
-        if (selectAdmin[0].status != 1) {
+        if (selectAdmin[0].status == 1) {
             //只有禁用状态才可以被删除
             this.showAlert("ENT_MNG.ONLY_DELETE_DISABLED_ADMIN");
             return;
@@ -289,7 +289,7 @@ export class EntAdminMngComponent implements OnInit {
             this.showAlert("ENT_MNG.CHOOSE_ADMIN_TO_RESET_PASSWORD");
             return;
         }
-        if (selectAdmin.status == 1) {
+        if (selectAdmin.status != 1) {
             //只有启用状态才可以重置密码
             this.showAlert("ENT_MNG.ONLY_ENABLED_ADMIN_CAN_RESET_PASSWORD");
             return;
