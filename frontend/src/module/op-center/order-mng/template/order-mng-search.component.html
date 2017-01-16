@@ -106,7 +106,7 @@
 						<td>{{item.departmentName}}</td>
 						<td>
 							<button class="mgr20  button-gray-gradient" (click)="showDetail(item)">{{ 'ORDER_MNG.DETAILS' | translate }}</button>
-							<!-- <button class="button-gray-gradient" data-toggle="modal" data-target="#cancelOrder">撤&nbsp;&nbsp;&nbsp;单</button> -->
+							<button class="button-gray-gradient" data-toggle="modal" data-target="#cancelOrder">撤&nbsp;&nbsp;&nbsp;单</button>
 							
 						</td>
 					</tr>
@@ -138,4 +138,32 @@
 		</div>
 	</div>
 
+	<!--撤单-->
+	<div class="modal fade" id="cancelOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="myModalLabel">撤销订单</h4>
+						</div>
+						<div class="modal-body"> 
+							<div class="row row-line-height">
+								<div class="form-group">
+									<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>原因</div>
+									<div class="col-sm-8">
+										<textarea class="form-control mgb20" rows="7" style="width: 370px;" [(ngModel)]="refuseReason"></textarea>
+										<span>可以输入中文字符，最大不能超过200个字</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					
+						<div class="modal-footer">
+							<button type="button" class="btn button-confirm button-size-big" (click)="cancel()"> 确定</button>
+							<button type="button" class="btn btn-default button-size-big" data-dismiss="modal">取消</button>
+						</div>
+					
+				</div>
+			</div>
+		</div>
 </div><!--ending-->

@@ -105,10 +105,10 @@ export class AttestMngComponent implements OnInit {
         }
 
         if (attest.status == status) {
-            this.showAlert(`该认证源已经是${this.getDicText(status.toString(), this.statusDic)}状态！`);
+            this.showAlert(`USER_CENTER.SHOW_AD_SOURCE_STATUS^^^${this.getDicText(status.toString(), this.statusDic)}`);
             return;
         }
-        this.noticeMsg = `确认${status == "1" ? "启用" : "禁用"}'${attest.name}' ?`;
+        this.noticeMsg = `${status == "1" ? "USER_CENTER.CONFIRM_TO_ENABLE_SOMETHING^^^" + attest.name : "USER_CENTER.CONFIRM_TO_DISABLE_SOMETHING^^^" + attest.name}`;
         this.confirm.ccf = () => {
         };
         this.confirm.cof = () => {
@@ -137,7 +137,7 @@ export class AttestMngComponent implements OnInit {
             return;
         }
 
-        this.noticeMsg = `确认删除认证源'${attest.name}' ?`;
+        this.noticeMsg = `USER_CENTER.CONFIRM_TO_REMOVE_AD_SOURCE^^^${attest.name}`;
         this.confirm.ccf = () => {
         };
         this.confirm.cof = () => {
@@ -195,6 +195,7 @@ export class AttestMngComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("NET_MNG_VM_DBT_PORT.GETTING_DATA_FAILED"); //NET_MNG_VM_DBT_PORT.GETTING_DATA_FAILED=>获取数据失败！ 
+        this.showAlert("NET_MNG_VM_DBT_PORT.GETTING_DATA_FAILED"); //NET_MNG_VM_DBT_PORT.GETTING_DATA_FAILED=>获取数据失败！ 
+
     }
 }
