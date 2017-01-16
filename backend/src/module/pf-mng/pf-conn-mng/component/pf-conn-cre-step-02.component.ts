@@ -26,7 +26,7 @@ export class PfConnCreStep02Component implements OnInit {
     // 确认/通知Box的内容
     msg: String = "";
 
-    resSync: ResSync = new ResSync("资源信息取得中....", 0);
+    resSync: ResSync = new ResSync("PF_MNG.INFO_IS_OBTAINED_IN", 0);
 
     constructor(
         private service: PfConnCreStep02Service,
@@ -53,15 +53,15 @@ export class PfConnCreStep02Component implements OnInit {
 
                     this.layoutService.hide();
 
-                    this.resSync.syncRes = "正在同步可用区....";
+                    this.resSync.syncRes = "PF_MNG2.SYNC_ZONE";
 
                     this.syncZones();
                 } else {
-                    this.showError("系统错误", "同步资源数据取得错误");
+                    this.showError("COMMON.SYSTEM_ERROR", "PF_MNG.GET_SYNC_RESOURCE_ERROR");
                 }
             }
         ).catch(reason => {
-            this.showError("系统错误", reason.statusText);
+            this.showError("COMMON.SYSTEM_ERROR", reason.statusText);
         });
     }
 
@@ -81,14 +81,14 @@ export class PfConnCreStep02Component implements OnInit {
                     this.resSync.synchronizedZones = true;
                 }
 
-                this.resSync.synchronized(syncCount, "正在同步存储....");
+                this.resSync.synchronized(syncCount, "PF_MNG.SYNC_STORAGE_NOW");
 
                 this.syncStorages();
             } else {
-                this.showError("系统错误", "可用区同步错误");
+                this.showError("COMMON.SYSTEM_ERROR", "PF_MNG.SYNC_AVAILABLE_ZONE_ERROR");
             }
             }).catch(reason => {
-                this.showError("系统错误", reason.statusText);
+                this.showError("COMMON.SYSTEM_ERROR", reason.statusText);
             });
     }
 
@@ -108,14 +108,14 @@ export class PfConnCreStep02Component implements OnInit {
                         this.resSync.synchronizedStorages = true;
                     }
 
-                    this.resSync.synchronized(syncCount, "正在同步云主机类型....");
+                    this.resSync.synchronized(syncCount, "PF_MNG.SYNC_STORAGE_ERROR");
 
                     this.syncFlavors();
                 } else {
-                    this.showError("系统错误", "存储同步错误");
+                    this.showError("COMMON.SYSTEM_ERROR", "PF_MNG.SYNC_STORAGE_ERROR");
                 }
             }).catch(reason => {
-                this.showError("系统错误", reason.statusText);
+                this.showError("COMMON.SYSTEM_ERROR", reason.statusText);
             });
     }
 
@@ -135,14 +135,14 @@ export class PfConnCreStep02Component implements OnInit {
                         this.resSync.synchronizedFlavors = true;
                     }
 
-                    this.resSync.synchronized(syncCount, "正在同步可用域....");
+                    this.resSync.synchronized(syncCount, "PF_MNG.SYNC_AVAILABLE_ZONE_NOW");
 
                     this.syncRegions();
                 } else {
-                    this.showError("系统错误", "云主机类型同步错误");
+                    this.showError("COMMON.SYSTEM_ERROR", "PF_MNG.SYNC_CLOUD_HOST_TYPE_ERROR");
                 }
             }).catch(reason => {
-                this.showError("系统错误", reason.statusText);
+                this.showError("COMMON.SYSTEM_ERROR", reason.statusText);
             });
     }
 
@@ -162,14 +162,14 @@ export class PfConnCreStep02Component implements OnInit {
                         this.resSync.synchronizedRegions = true;
                     }
 
-                    this.resSync.synchronized(syncCount, "正在同步镜像....");
+                    this.resSync.synchronized(syncCount, "PF_MNG.SYNC_IMAGE_NOW");
 
                     this.syncImages();
                 } else {
-                    this.showError("系统错误", "可用域同步错误");
+                    this.showError("COMMON.SYSTEM_ERROR", "PF_MNG.SYNC_AVAILABLE_REGION_ERROR");
                 }
             }).catch(reason => {
-                this.showError("系统错误", reason.statusText);
+                this.showError("COMMON.SYSTEM_ERROR", reason.statusText);
             });
     }
 
@@ -189,13 +189,13 @@ export class PfConnCreStep02Component implements OnInit {
                         this.resSync.synchronizedImages = true;
                     }
 
-                    this.resSync.synchronized(syncCount, "同步完成");
+                    this.resSync.synchronized(syncCount, "PF_MNG.SYNC_COMPLETE");
                     this.resSync.syncCompleted = true;
                 } else {
-                    this.showError("系统错误", "镜像同步错误");
+                    this.showError("COMMON.SYSTEM_ERROR", "PF_MNG.SYNC_IMAGE_ERROR");
                 }
             }).catch(reason => {
-                this.showError("系统错误", reason.statusText);
+                this.showError("COMMON.SYSTEM_ERROR", reason.statusText);
             });
     }
 
