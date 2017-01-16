@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
-import { LayoutService, ValidationService, NoticeComponent } from "../../../../architecture";
+import { LayoutService, ValidationService, NoticeComponent} from "../../../../architecture";
 
 import { PhysicalEditService } from "../service/physical-edit.service";
 
@@ -104,8 +104,8 @@ export class PhysicalEditComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    this.serverTypes = response["resultContent"].serverTypeList;
-                    this.brands = response["resultContent"].brandList;
+                   // this.serverTypes = response["resultContent"].serverTypeList;
+                    this.brands = response["resultContent"];
                 } else {
                     alert("Res sync error");
                 }
@@ -132,13 +132,8 @@ export class PhysicalEditComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    isNumber(num:string){
-        const reg =  /[^\d]/g;
-        var isNumber= reg.test(num);
-        if(!isNumber){
-            this.showAlert("请输入数字！");
-            return false;
-      }
+    isNumber(event:any){
+         event.target.value= event.target.value.replace(/[^(\d|.)]/g,"");
 
     }
 
