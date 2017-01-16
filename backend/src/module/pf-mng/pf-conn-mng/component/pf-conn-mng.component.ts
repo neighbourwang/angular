@@ -68,7 +68,7 @@ export class PfConnMngComponent implements OnInit {
                     let resultContent = response.resultContent;
 
                     if (!resultContent) {
-                        this.showError("数据取得错误", "没有取得平台数据");
+                        this.showError("COMMON.GETTING_DATA_FAILED", "ENT_MNG.NO_PLATFORM_DATA");
 
                         return;
                     }
@@ -100,13 +100,13 @@ export class PfConnMngComponent implements OnInit {
 
                     this.sysDicService.sysDicOF(this, this.sysDicCallback, "GLOBAL", "STATUS");
                 } else {
-                    this.showError("数据取得错误", "异常响应");
+                    this.showError("COMMON.GETTING_DATA_FAILED", "ENT_MNG.ABNORMAL_RESPONSE");
 
                     return;
                 }
             }
         ).catch(
-            reason => this.showError("数据取得错误", reason.statusText)
+            reason => this.showError("COMMON.GETTING_DATA_FAILED", reason.statusText)
         );
     }
 
@@ -152,12 +152,12 @@ export class PfConnMngComponent implements OnInit {
         let selectedPlatform = this.selectedPlatform();
 
         if (selectedPlatform.length != 1) {
-            this.notice.open("操作错误", "请选择单一平台");
+            this.notice.open("COMMON.OPERATION_ERROR", "PF_MNG.CHOOSE_ONE_PF");
 
             return;
         }
 
-        this.deleteCfm.open("确认删除", "您选择删除'" + selectedPlatform[0].name + "'平台，请确认；如果确认删除，此平台数据将不能恢复。");
+        this.deleteCfm.open("ENT_MNG.CONFIRM_DELETE", "PF_MNG.CONFIRM_DELETE_YOUR_PF^^^" + selectedPlatform[0].name );
     }
 
     deleteCof() {
@@ -166,17 +166,17 @@ export class PfConnMngComponent implements OnInit {
         this.service.deletePlatform(selectedPlatform[0].id).then(
             response => {
                 if (response && 100 == response.resultCode) {
-                    this.notice.open("确认删除", "删除成功");
+                    this.notice.open("ENT_MNG.CONFIRM_DELETE", "PHY_MNG_POOL.DELETE_SUCCESS");
 
                     this.backend(1, this.pp);
 
                     this.pagination.render(1);
                 } else {
-                    this.notice.open("确认删除", "删除失败");
+                    this.notice.open("ENT_MNG.CONFIRM_DELETE", "PF_MNG.DELETE_FAILURE");
                 }
             }
         ).catch(
-            reason => this.showError("系统错误", reason.statusText)
+            reason => this.showError("COMMON.SYSTEM_ERROR", reason.statusText)
             );
     }
 
@@ -185,18 +185,18 @@ export class PfConnMngComponent implements OnInit {
         let selectedPlatform = this.selectedPlatform();
 
         if (selectedPlatform.length > 1) {
-            this.notice.open("操作错误", "请选择单一平台");
+            this.notice.open("COMMON.OPERATION_ERROR", "PF_MNG.CHOOSE_ONE_PF");
 
             return;
         }
 
         if (selectedPlatform[0].status == 1) {
-            this.notice.open("操作错误", "不能启用处于'启用'状态的平台。");
+            this.notice.open("COMMON.OPERATION_ERROR", "不能启用处于'启用'状态的平台。");
 
             return;
         }
 
-        this.activeCfm.open("启用", "您选择启用'" + selectedPlatform[0].name + "'平台，请确认。");
+        this.activeCfm.open("COMMON.ENABLE", "PF_MNG.CONFIRM_ENABLE_VALUE_PF" + selectedPlatform[0].name);
     }
     
     activeCof() {
@@ -205,17 +205,17 @@ export class PfConnMngComponent implements OnInit {
         this.service.activePlatform(selectedPlatform[0].id).then(
             response => {
                 if (response && 100 == response.resultCode) {
-                    this.notice.open("启用", "启用成功");
+                    this.notice.open("COMMON.ENABLE", "PF_MNG.ENABLE_PF_SUCCESS");
 
                     this.backend(1, this.pp);
 
                     this.pagination.render(1);
                 } else {
-                    this.notice.open("启用", "启用失败");
+                    this.notice.open("COMMON.ENABLE", "PF_MNG.ENABLE_PF_FAILURE");
                 }
             }
         ).catch(
-            reason => this.showError("系统错误", reason.statusText)
+            reason => this.showError("COMMON.SYSTEM_ERROR", reason.statusText)
             );
     }
 
@@ -239,17 +239,17 @@ export class PfConnMngComponent implements OnInit {
         this.service.deletePlatform(selectedPlatform[0].id).then(
             response => {
                 if (response && 100 == response.resultCode) {
-                    this.notice.open("禁用", "禁用成功");
+                    this.notice.open("COMMON.DISABLE", "PHY_MNG_POOL.DISABLE_SUCCESS");
 
                     this.backend(1, this.pp);
 
                     this.pagination.render(1);
                 } else {
-                    this.notice.open("禁用", "禁用失败");
+                    this.notice.open("COMMON.DISABLE", "PF_MNG.DISABLE_FAILURE");
                 }
             }
         ).catch(
-            reason => this.showError("系统错误", reason.statusText)
+            reason => this.showError("COMMON.SYSTEM_ERROR", reason.statusText)
             );
     }
 

@@ -16,7 +16,7 @@ export class SearchOrderDetail{
 	statusName:string = null;
 	type:number = null;//订单类型??
 	typeName:string = null;//订单类型
-	orderInstanceItems:[{//订单中的产品信息
+	orderInstanceItems:[{//订单历史表格
 		departmentName: string;//, optional): 所属部门 ,
 		desc: string;//, optional): 说明 ,
 		operation: string;//, optional): 操作 ,
@@ -25,7 +25,7 @@ export class SearchOrderDetail{
 		statusName:string;
 
 	}]; //(Array[OrderHistoryItem], optional):  ,
-	subInstanceList:Array<SubInstanceItemResp1>;//已购服务
+	subInstanceList:Array<SubInstanceItemResp1>;//已购服务表格
 }
 
 export class SubInstanceItemResp1{
@@ -58,7 +58,7 @@ export class SubInstanceItemResp1{
 		valueUnit: string;//, optional): 服务属性值的单位
 	}];//[SubInstanceAttrPair], optional): 产品规格 ,
 	status: string;//, optional): UI订单状态，需要查询数据字典
-
+ 
   //一次性费用
   get oneTimePrice():number{
     if(this.billingInfo)

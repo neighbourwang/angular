@@ -70,7 +70,7 @@ export class PfConnCreStep01Component implements OnInit {
                 }
             ).catch(
                 reason => {
-                    this.showError("系统错误", reason.statusText)
+                    this.showError("COMMON.SYSTEM_ERROR", reason.statusText)
                 }
             );
         }
@@ -110,7 +110,7 @@ export class PfConnCreStep01Component implements OnInit {
             return;
         }
 
-        this.confirm.open("系统提示", "创建平台？");
+        this.confirm.open("COMMON.SYSTEM_PROMPT", "PF_MNG.OR_CREATE_PF");
     }
 
     // 画面输入值校验
@@ -119,16 +119,16 @@ export class PfConnCreStep01Component implements OnInit {
 
         // 平台名称必须输入
         if (this.validationService.isBlank(this.platform.name)) {
-             msg.push("平台名称必须输入");
+             msg.push("PF_MNG.INPUT_PF_NAME");
         }
 
         // 平台名称必须输入
         if (this.validationService.isBlank(this.platform.platformType)) {
-            msg.push("类型必须输入");
+            msg.push("PF_MNG.INPUT_TYPE");
         }
 
         if (msg.length > 0) {
-            this.notice.open("系统提示", msg.join("<br />"));
+            this.notice.open("COMMON.SYSTEM_PROMPT", msg.join("<br />"));
 
             return false;
         }
@@ -144,12 +144,12 @@ export class PfConnCreStep01Component implements OnInit {
                     this.stateService.setPlatformId(response.resultContent.platformId);
                     this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-02", { skipLocationChange: true });
                 } else {
-                    this.showError("系统错误", "平台创建错误");
+                    this.showError("COMMON.SYSTEM_ERROR", "PF_MNG.CREATE_PF_ERROR");
                 }
             }
         ).catch(
             reason => {
-                this.showError("系统错误", reason.statusText)
+                this.showError("COMMON.SYSTEM_ERROR", reason.statusText)
             }
         );
     }

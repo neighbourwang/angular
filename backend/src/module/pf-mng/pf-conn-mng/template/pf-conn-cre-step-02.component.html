@@ -1,12 +1,12 @@
-<div class="page-content-header icon-content-header-platform-manage">创建平台</div>
+<div class="page-content-header icon-content-header-platform-manage">{{ 'PF_MNG2.CREATE_PLATFORM' | translate}}</div>
 <div class="page-content fix-page-content">
     <div class="row navigator-progress">
-        <div class="col-md-2 active"><span class="mark">1</span><span>填写基本信息</span><span class="icon-tick"></span></div>
-        <div class="col-md-2 active"><span class="mark">2</span><span>平台资源同步</span></div>
-        <div class="col-md-2"><span class="mark">3</span><span>可用区资源配置</span></div>
-        <div class="col-md-2"><span class="mark">4</span><span>存储资源配置</span></div>
-        <div class="col-md-2"><span class="mark">5</span><span>云主机类型配置</span></div>
-        <div class="col-md-2"><span class="mark">6</span><span>总述</span></div>
+        <div class="col-md-2 active"><span class="mark">1</span><span>{{ 'PF_MNG.INPUT_BASIC_INFO' | translate}}</span><span class="icon-tick"></span></div>
+        <div class="col-md-2 active"><span class="mark">2</span><span>{{ 'PF_MNG.SYNC_PF_RESOURCE' | translate}}</span></div>
+        <div class="col-md-2"><span class="mark">3</span><span>{{ 'PF_MNG.AVAILABLE_ZONE_RESOURCE_SET' | translate}}</span></div>
+        <div class="col-md-2"><span class="mark">4</span><span>{{ 'PF_MNG.STORAGE_RESOURCE_SET' | translate}}</span></div>
+        <div class="col-md-2"><span class="mark">5</span><span>{{ 'PF_MNG.CLOUD_HOST_TYPE_SET' | translate}}</span></div>
+        <div class="col-md-2"><span class="mark">6</span><span>{{ 'PF_MNG.SUMMARY' | translate}}</span></div>
     </div>
     <div class="step-progress">
         <div class="fox-cloud-progress-rectangle progress-striped">
@@ -18,40 +18,40 @@
         <div class="col-md-3"></div>
         <div class="col-md-6" style="float: none; margin: 0px auto;">
             <div class="section-title h4">
-                同步资源统计：
+                {{ 'PF_MNG.SYNC_RESOURCE_STATISTICS' | translate}}:
             </div>
             <div class="table-container">
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>名称</th>
-                            <th>数量</th>
-                            <th>状态</th>
+                            <th>{{ 'COMMON.NAME' | translate}}</th>
+                            <th>{{ 'COMMON.AMOUNT' | translate}}</th>
+                            <th>{{ 'COMMON.STATUS' | translate}}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>可用区</td>
+                            <td>{{ 'COMMON.AVAILABLE_ZONE' | translate}}</td>
                             <td>{{resSync.zonesCount}}</td>
                             <td><span [ngClass]="{'icon-failed': !resSync.synchronizedZones, 'icon-successful': resSync.synchronizedZones}"></span></td>
                         </tr>
                         <tr>
-                            <td>存储</td>
+                            <td>{{ 'COMMON.STORAGE' | translate}}</td>
                             <td>{{resSync.storagesCount}}</td>
                             <td><span [ngClass]="{'icon-failed': !resSync.synchronizedStorages, 'icon-successful': resSync.synchronizedStorages}"></span></td>
                         </tr>
                         <tr>
-                            <td>云主机类型</td>
+                            <td>{{ 'PF_MNG.CLOUD_HOST_TYPE' | translate}}</td>
                             <td>{{resSync.flavorsCount}}</td>
                             <td><span [ngClass]="{'icon-failed': !resSync.synchronizedFlavors, 'icon-successful': resSync.synchronizedFlavors}"></span></td>
                         </tr>
                         <tr>
-                            <td>可用域</td>
+                            <td>{{ 'PF_MNG.AVAILABLE_REGION' | translate}}</td>
                             <td>{{resSync.regionsCount}}</td>
                             <td><span [ngClass]="{'icon-failed': !resSync.synchronizedRegions, 'icon-successful': resSync.synchronizedRegions}"></span></td>
                         </tr>
                         <tr>
-                            <td>镜像</td>
+                            <td>{{ 'COMMON.IMAGE' | translate}}</td>
                             <td>{{resSync.imagesCount}}</td>
                             <td><span [ngClass]="{'icon-failed': !resSync.synchronizedImages, 'icon-successful': resSync.synchronizedImages}"></span></td>
                         </tr>
@@ -74,16 +74,16 @@
 </div>
 <div class="text-center">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
-        <span class="icon-button-label">取消</span>
+        <span class="icon-button-label">{{ 'COMMON.CANCEL' | translate}}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="previous();">
-        <span class="icon-button-label">上一步</span>
+        <span class="icon-button-label">{{ 'COMMON.PREVIOUS' | translate}}</span>
     </button>
-    <button *ngIf="resSync.syncCompleted" class="fox-cloud-button-lg fox-cloud-button-white" (click)="next();">
-        <span class="icon-button-label">下一步</span>
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="next();">
+        <span class="icon-button-label">{{ 'COMMON.NEXT' | translate}}</span>
     </button>
 </div>
 
-<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认"></fc-notice>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="{{ 'COMMON.CONFIRM' | translate}}"></fc-notice>
 
-<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="cof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="{{ 'COMMON.CONFIRM' | translate}}" (of)="cof()" ct="{{ 'COMMON.CANCEL' | translate}}" (cf)="ccf()"></fc-confirm>
