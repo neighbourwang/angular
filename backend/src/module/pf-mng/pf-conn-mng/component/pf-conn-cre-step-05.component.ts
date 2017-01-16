@@ -56,20 +56,20 @@ export class PfConnCreStep05Component implements OnInit {
                         flavor.memSize = content.memSize;
                         flavor.diskSize = content.diskSize;
                         flavor.publicFlag = content.publicFlag;
-                        flavor.publicFlagText = content.publicFlag ? "是" : "否";
+                        flavor.publicFlagText = content.publicFlag ? "COMMON.YES" : "COMMON.NO";
                         flavor.description = content.description;
 
                         this.flavors.push(flavor);
                     }
                 } else {
-                    this.showError("系统错误", "取得云主机类型配置信息错误");
+                    this.showError("COMMON.SYSTEM_ERROR", "PF_MNG.GET_CLOUD_HOST_INFO_FAILURE");
                 }
 
                 this.layoutService.hide();
             }
         ).catch(
             reason => {
-                this.showError("系统错误", reason.statusText);
+                this.showError("COMMON.SYSTEM_ERROR", reason.statusText);
             }
         );
     }
@@ -104,12 +104,12 @@ export class PfConnCreStep05Component implements OnInit {
                 if (response && 100 == response.resultCode) {
                     this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-06", { skipLocationChange: true });
                 } else {
-                    this.showError("系统错误", "更新云主机类型配置信息错误");
+                    this.showError("COMMON.SYSTEM_ERROR", "PF_MNG.UPDATE_CLOUD_HOST_INFO_FAILURE");
                 }
             }
         ).catch(
             reason => {
-                this.showError("系统错误", reason.statusText);
+                this.showError("COMMON.SYSTEM_ERROR", reason.statusText);
             }
         );
     }

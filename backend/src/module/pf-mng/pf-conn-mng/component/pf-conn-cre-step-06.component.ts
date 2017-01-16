@@ -65,12 +65,12 @@ export class PfConnCreStep06Component implements OnInit {
                         this.zones.push(zone);
                     }
                 } else {
-                    this.showError("系统错误", "取得可用区资源错误");
+                    this.showError("COMMON.SYSTEM_ERROR", "PF_MNG.GET_AVAILABLE_ZONE_RESOURCE_FAILURE");
                 }
             }
         ).catch(
             reason => {
-                this.showError("系统错误", reason.statusText);
+                this.showError("COMMON.SYSTEM_ERROR", reason.statusText);
             }
         );
 
@@ -95,12 +95,12 @@ export class PfConnCreStep06Component implements OnInit {
                         this.storages.push(storage);
                     }
                 } else {
-                    this.showError("系统错误", "取得存储资源配置信息错误");
+                    this.showError("COMMON.SYSTEM_ERROR", "PF_MNG.GET_STORAGE_RESOURCE_FAILURE");
                 }
             }
         ).catch(
             reason => {
-                this.showError("系统错误", reason.statusText);
+                this.showError("COMMON.SYSTEM_ERROR", reason.statusText);
             }
         );
 
@@ -120,18 +120,18 @@ export class PfConnCreStep06Component implements OnInit {
                         flavor.memSize = content.memSize;
                         flavor.diskSize = content.diskSize;
                         flavor.publicFlag = content.publicFlag;
-                        flavor.publicFlagText = content.publicFlag ? "是" : "否";
+                        flavor.publicFlagText = content.publicFlag ? "COMMON.YES" : "COMMON.NO";
                         flavor.description = content.description;
 
                         this.flavors.push(flavor);
                     }
                 } else {
-                    this.showError("系统错误", "取得云主机类型配置信息错误");
+                    this.showError("COMMON.SYSTEM_ERROR", "PF_MNG.GET_CLOUD_HOST_INFO_FAILURE");
                 }
             }
         ).catch(
             reason => {
-                this.showError("系统错误", reason.statusText);
+                this.showError("COMMON.SYSTEM_ERROR", reason.statusText);
             }
         );
     }
@@ -173,7 +173,7 @@ export class PfConnCreStep06Component implements OnInit {
 
     // 启用平台
     next() {
-        this.confirm.open("启用", "确认启用此平台?");
+        this.confirm.open("COMMON.ENABLE", "PF_MNG.CONFIRM_ENABLE_THE_PF");
     }
 
     // 启用平台
@@ -183,15 +183,15 @@ export class PfConnCreStep06Component implements OnInit {
         promise.then(
             response => {
                 if (response && 100 == response.resultCode) {
-                    this.notice.open("启用", "平台启用成功");
+                    this.notice.open("COMMON.ENABLE", "PF_MNG.ENABLE_PF_SUCCESS");
 
                     this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-mng", { skipLocationChange: true });
                 } else {
-                    this.showError("系统错误", "平台启用失败");
+                    this.showError("COMMON.SYSTEM_ERROR", "PF_MNG.ENABLE_PF_FAILURE");
                 }
             }
         ).catch(
-            reason => this.showError("系统错误", reason.statusText)
+            reason => this.showError("COMMON.SYSTEM_ERROR", reason.statusText)
         );
     }
 }
