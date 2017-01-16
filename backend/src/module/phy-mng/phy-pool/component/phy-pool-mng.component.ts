@@ -41,8 +41,8 @@ export class PhyPoolMngComponent implements OnInit{
     noticeTitle = "";
     noticeMsg = "";
 
-    pageIndex= 1;
-    pageSize= 20;
+    pageIndex= 0;
+    pageSize= 10;
     totalPage= 1;
 
     statusDic: Array<SystemDictionary>;
@@ -50,6 +50,8 @@ export class PhyPoolMngComponent implements OnInit{
     data: Array<PhyPoolList>;
     criteria: Criteria= new Criteria();
     default: string;
+    region= "region";
+    dataCenter= "dataCenter";
     search: string;
     query: string;
     selectedPhy: PhyPoolList= new PhyPoolList();
@@ -111,8 +113,6 @@ export class PhyPoolMngComponent implements OnInit{
     }
 
     enable(id: string){
-        //this.noticeTitle= "启用";
-        //this.noticeMsg= "启用"+this.selectedPhy.pmPoolName;
         this.enableConfirm.open('PHY_MNG_POOL.ENABLE_POOL','PHY_MNG_POOL.ENABLE_POOL_WARNING^^^'+this.selectedPhy.pmPoolName);
         this.enableConfirm.cof =() =>{
             this.layoutService.show();
@@ -213,12 +213,12 @@ export class PhyPoolMngComponent implements OnInit{
     searchphy(){
         this.criteria= new Criteria();
         console.log(this.criteria,"criteria");
-        if(this.search == "PHY_MNG_POOL.POOL_NAME"){
-            this.criteria.poolName= this.query;
-        }else if(this.search == "PHY_MNG_POOL.REGION_OWNER"){
+        if(this.search == "dataCenter"){
+            this.criteria.dataCenter= this.query;
+        }else if(this.search == "region"){
             this.criteria.region= this.query;
         }else{
-            this.criteria.dataCenter= this.query;
+            this.criteria.poolName= this.query;
         }
         console.log(this.criteria,"criteria");
         this.getData();
