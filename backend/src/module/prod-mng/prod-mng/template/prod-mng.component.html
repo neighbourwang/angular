@@ -1,4 +1,5 @@
-<div class="page-content-header icon-create-product">{{'COMMON.PRODUCT' | translate}}{{'COMMON.MANAGEMENT' | translate}}</div>
+<div class="page-content-header icon-create-product">{{'PROD_MNG.PRODUCT_MANAGEMENT' | translate}}</div><!--产品管理-->
+
 <div class="page-content" style="min-height:300px;">
 	<div style="padding-bottom: 10px;">
 		<div class="dropdown pull-right" style="margin-left: 20px;">
@@ -10,15 +11,18 @@
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
 				<!--<li><a href="#">{{'COMMON.MODIFY' | translate}}</a></li>-->
 				<!--<li><a (click)="editProd();">{{'HOST_VMWARE_MNG.EDIT' | translate}}</a></li>-->
-				<li><a (click)="action('publish');">{{'COMMON.PUBLISH' | translate}}</a></li>
-				<li><a (click)="action('ccPublish');">{{'NET_MNG_VM_NSX_DLR.CNACLE' | translate}}{{'COMMON.PUBLISH' | translate}}</a></li>
+				<li><a (click)="action('publish');">{{'COMMON.PUBLISH' | translate}}</a></li><!--发布-->
+
+				<li><a (click)="action('ccPublish');">{{'PROD_MNG.CANCEL_PUBLISH' | translate}}</a></li><!--取消发布-->
+
 				<li><a (click)="action('delete');">{{'NET_MNG_VM_IP_MNG.DELETE' | translate}}</a></li>
 			</ul>
 		</div>
 		<button class="pull-right fox-cloud-button-md fox-cloud-button-white " style="line-height:28px ;width:60px; margin-left: 20px" (click)="query()">{{'COMMON.SEARCH' | translate}}</button>
 		<div class="dropdown pull-right" style="margin-left: 20px;min-width: 120px">
 			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{'COMMON.ALL' | translate}}{{'NET_MNG_OPENSTACK.PLATFORM' | translate}}
+                {{'PROD_MNG.ALL_PLATFORM' | translate}}
+
                 <span class="caret"></span>
             </button>-->
 			<select class="form-control" [(ngModel)]="platformId">
@@ -26,10 +30,12 @@
                  <option *ngFor="let item of platformsList;" [value]="item?.id">{{item?.name}}</option>
             </select>
 		</div>
-		<span class="pull-right" style="margin-left: 20px; line-height: 34px">{{'NET_MNG_OPENSTACK.PLATFORM' | translate}}：</span>
+		<span class="pull-right" style="margin-left: 20px; line-height: 34px">{{'NET_MNG_OPENSTACK.PLATFORM' | translate}}：</span><!--平台-->
+
 		<div class="dropdown pull-right" style="margin-left: 10px;min-width: 120px">
 			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{'COMMON.ALL' | translate}}{{'COMMON.ENTERPRISE' | translate}}
+                {{'HOST_VMWARE_MNG.ALL_ENTERPRISE' | translate}}
+
                 <span class="caret"></span>
             </button>-->
 			<select class="form-control" [(ngModel)]="enterpriseId">
@@ -37,11 +43,13 @@
                  <option *ngFor="let item of enterpriseList;" [value]="item?.id">{{item?.name}}</option>
             </select>
 		</div>
-		<span class="pull-right" style="margin-left: 20px;line-height: 34px">{{'COMMON.ENTERPRISE' | translate}}：</span>
+		<span class="pull-right" style="margin-left: 20px;line-height: 34px">{{'COMMON.ENTERPRISE' | translate}}：</span><!--企业-->
+
 		<div class="dropdown pull-right" style="margin-left: 10px;min-width: 120px">
 			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true"
 				aria-expanded="true">
-                {{'COMMON.ALL' | translate}}{{'PROD_MNG.PRODUCT_CAT' | translate}}
+                {{'PROD_MNG.ALL_PRODUCT_CAT' | translate}}
+
                 <span class="caret"></span>
             </button>-->
 			<select class="form-control" [(ngModel)]="prodDirId">
@@ -49,10 +57,12 @@
                  <option *ngFor="let item of prodDirList;" [value]="item?.id">{{item?.name}}</option>
             </select>
 		</div>
-		<span class="pull-right" style="line-height: 34px">{{'PROD_MNG.PRODUCT_CAT' | translate}}：</span>
+		<span class="pull-right" style="line-height: 34px">{{'PROD_MNG.PRODUCT_CAT' | translate}}：</span><!--产品目录-->
+
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">{{'NET_MNG_VM_IP_MNG.CREATE' | translate}}{{'COMMON.PRODUCT' | translate}}</span>
+            <span class="icon-button-label icon-left-button-label">{{'PROD_MNG.CREATE_PRODUCT' | translate}}</span><!--创建产品-->
+
         </button>
 	</div>
 	<div class="table-container">
@@ -60,13 +70,19 @@
 			<thead>
 				<tr>
 					<th class="check-box-col"><input type="checkbox" (click)="switchSelectAll();" class="fox-cloud-checkbox" />{{'COMMON.SELECT_ALL' | translate}}</th>
-					<th>{{'COMMON.PRODUCT' | translate}}{{'COMMON.NAME' | translate}}</th>
-					<th>{{'PROD_MNG.PRODUCT_CAT' | translate}}</th>
-					<th>{{'COMMON.PRODUCT' | translate}}{{'COMMON.CAT' | translate}}</th>
+					<th>{{'PROD_MNG.PROD_NAME' | translate}}</th><!--产品名称-->
+
+					<th>{{'PROD_MNG.PRODUCT_CAT' | translate}}</th><!--产品目录-->
+
+					<th>{{'PROD_MNG.PRODUCT_TYPE' | translate}}</th><!--产品类别-->
+
 					<th>{{'PROD_MNG.PRODUCT_SPEC' | translate}}</th>
-					<th>{{'COMMON.COUNT' | translate}}{{'COMMON.CYCLE' | translate}}</th>
-					<th>{{'COMMON.CYCLE' | translate}}{{'COMMON.PRICE' | translate}}</th>
-					<th>{{'COMMON.ONE_TIME' | translate}}{{'COMMON.PRICE' | translate}}</th>
+					<th>{{'COMMON.COUNT_CYCLE' | translate}}</th><!--计费周期-->
+
+					<th>{{'COMMON.CYCLE_COST' | translate}}</th><!--周期价格-->
+
+					<th>{{'PROD_MNG.ONE_TIME_PRICE' | translate}}</th><!--一次性价格-->
+
 					<th>{{'NET_MNG_OPENSTACK.STATUS' | translate}}</th>
 					<th>{{'COMMON.DESCRIPTION' | translate}}</th>
 				</tr>
@@ -81,7 +97,8 @@
 						<!--{{item.serviceType}}-->
 						<span [ngSwitch]="item.serviceType"> 
 							<template ngSwitchCase="0">{{'COMMON.CLOUD_HOSTING' | translate}}</template>
-							<template ngSwitchCase="1">{{'COMMON.CLOUD_HARD_DISK' | translate}}</template>
+							<template ngSwitchCase="1">{{'COMMON.CLOUD_HARD_DISK' | translate}}</template><!--云硬盘-->
+
 							<template ngSwitchDefault>Unknown</template>							
 						</span>
 					</td>
@@ -100,8 +117,10 @@
 					<td>{{item.onetimePrice}}</td>
 					<td>
 						<span [ngSwitch]="item.status">
-                            <template [ngSwitchCase]="1">{{'COMMON.HAVE' | translate}}{{'COMMON.PUBLISH' | translate}}</template>
-                            <template [ngSwitchCase]="3">{{'COMMON.NOT_YET' | translate}}{{'COMMON.PUBLISH' | translate}}</template>
+                            <template [ngSwitchCase]="1">{{'PROD_MNG.HAS_PUBLISHED' | translate}}</template><!--已发布-->
+
+                            <template [ngSwitchCase]="3">{{'PROD_MNG.NOT_PUBLISHED_YET' | translate}}</template><!--未发布-->
+
                             <template ngSwitchDefault>Unknown</template>
                     	</span>
 					</td>

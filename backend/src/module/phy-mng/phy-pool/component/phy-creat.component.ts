@@ -5,11 +5,11 @@ import { Router,ActivatedRoute, Params } from '@angular/router';
 import { LayoutService, NoticeComponent , ConfirmComponent, ValidationService  } from '../../../../architecture';
 
 //model
-import { Criteria } from '../model/criteria.model.ts';
-import { Region } from '../model/region.model.ts';
+import { Criteria } from '../model/criteria.model';
+import { Region } from '../model/region.model';
 
 //service
-import { PhyCreatMngService } from '../service/phy-creat-mng.service.ts';
+import { PhyCreatMngService } from '../service/phy-creat-mng.service';
 
 @Component({
     selector: 'phy-pool-creat',

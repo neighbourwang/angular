@@ -207,10 +207,11 @@ export class ProdDirListComponent implements OnInit {
                     break;
                 case 'ccPublish':
                     if (prodDirList[0].status == '3') {
-                        this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PRODUCT_CAT_IS_CANCELLED') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PRODUCT_CAT_IS_CANCELLED=>产品目录状态为取消发布 
+                        this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PRODUCT_CAT_IS_CANCELLED') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PRODUCT_CAT_IS_CANCELLED=>产品目录状态为取消发布 
+
 
                     } else {
-                        this.ccPublishConfirm.open('PROD_MNG.CANCEL_PUBLISH_PRODUCT_CAT', '您选择取消发布' + "'" + message + "'" + '产品,请确认。如果确认，此产品目录将不能用来创建产品。') //PROD_MNG.CANCEL_PUBLISH_PRODUCT_CAT=>取消发布产品目录 
+                        this.ccPublishConfirm.open('PROD_MNG.CANCEL_PUBLISH_PRODUCT_CAT', 'PROD_MNG.CANCEL_SELECTED_PRODUCT^^^' + message) //PROD_MNG.CANCEL_PUBLISH_PRODUCT_CAT=>取消发布产品目录 
 
                     }
                     break;

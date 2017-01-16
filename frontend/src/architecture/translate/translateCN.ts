@@ -408,7 +408,7 @@ export const TranslateCN = {
         REFUSE: '拒绝',
         THE_ORDER_REQUEST_WAS_REJECTED: '订单请求被拒绝',
         REASON: '原因',
-        INPUT_CHINESE_OR_CHARACTERS_NOT_MORE_THAN_200_WORDS: '可以输入中文与字符,最大不能超过200个字',
+        INPUT_CHINESE_OR_CHARACTERS_NOT_MORE_THAN_200_WORDS: '可以输入中文字符,最大不能超过200个字',
 
         //check-mng-list.ts
         DEPARTMENTS_LIST: '部门列表',

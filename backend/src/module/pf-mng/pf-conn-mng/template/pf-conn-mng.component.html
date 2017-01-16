@@ -1,33 +1,33 @@
-<div class="page-content-header icon-content-header-platform-manage">平台接入管理</div>
+<div class="page-content-header icon-content-header-platform-manage">{{ 'PF_MNG.PF_ACCESS_MNG' | translate}}</div>
 <div class="page-content">
     <div style="padding-bottom: 10px;">
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                更多操作
+               {{ 'COMMON.MORE_OPERATION' | translate}}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
                 <!--<li><a href="#">修改</a></li>-->
-                <li><a (click)="deletePlatform();">删除</a></li>
-                <li><a (click)="activePlatform();">启用</a></li>
-                <li><a (click)="disablePlatform();">禁用</a></li>
+                <li><a (click)="deletePlatform();">{{ 'COMMON.DELETE' | translate}}</a></li>
+                <li><a (click)="activePlatform();">{{ 'COMMON.ENABLE' | translate}}</a></li>
+                <li><a (click)="disablePlatform();">{{ 'COMMON.DISABLE' | translate}}</a></li>
             </ul>
         </div>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建平台</span>
+            <span class="icon-button-label icon-left-button-label">{{ 'PF_MNG2.CREATE_PLATFORM' | translate}}</span>
         </button>
     </div>
     <div class="table-container">
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th class="check-box-col"><input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="isSelectedAll" (click)="switchSelectAll();" />全选</th>
-                    <th>区域名称</th>
-                    <th>类型/厂商</th>
-                    <th>访问地址</th>
-                    <th>状态</th>
-                    <th>状态说明</th>
+                    <th class="check-box-col"><input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="isSelectedAll" (click)="switchSelectAll();" />{{ 'COMMON.SELECT_ALL' | translate}}</th>
+                    <th>{{ 'PF_MNG.ZONE_NAME' | translate}}</th>
+                    <th>{{ 'PF_MNG.TYPE_FIRM' | translate}}</th>
+                    <th>{{ 'PF_MNG.ACCESS_PATH' | translate}}</th>
+                    <th>{{ 'COMMON.STATUS' | translate}}</th>
+                    <th>{{ 'PF_MNG.STATUS_DESCRIPTION' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,8 +45,8 @@
 </div>
 <fc-pagination #pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
 
-<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="确认" (of)="nof()"></fc-notice>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="{{ 'COMMON.CONFIRM' | translate}}" (of)="nof()"></fc-notice>
 
-<fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="deleteCof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-confirm #activeConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="activeCof()" ct="取消" (cf)="ccf()"></fc-confirm>
-<fc-confirm #disableConfirm title="{{title}}" msg="{{msg}}" ot="确认" (of)="disableCof()" ct="取消" (cf)="ccf()"></fc-confirm>
+<fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="{{ 'COMMON.CONFIRM' | translate}}" (of)="deleteCof()" ct="{{ 'COMMON.CANCEL' | translate}}" (cf)="ccf()"></fc-confirm>
+<fc-confirm #activeConfirm title="{{title}}" msg="{{msg}}" ot="{{ 'COMMON.CONFIRM' | translate}}" (of)="activeCof()" ct="{{ 'COMMON.CANCEL' | translate}}" (cf)="ccf()"></fc-confirm>
+<fc-confirm #disableConfirm title="{{title}}" msg="{{msg}}" ot="{{ 'COMMON.CONFIRM' | translate}}" (of)="disableCof()" ct="{{ 'COMMON.CANCEL' | translate}}" (cf)="ccf()"></fc-confirm>

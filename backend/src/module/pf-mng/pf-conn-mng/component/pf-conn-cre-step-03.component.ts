@@ -62,14 +62,14 @@ export class PfConnCreStep03Component implements OnInit {
                         this.zones.push(zone);
                     }
                 } else {
-                    this.showError("系统错误", "取得可用区资源错误");
+                    this.showError("COMMON.SYSTEM_ERROR", "PF_MNG.GET_AVAILABLE_ZONE_RESOURCE_FAILURE");
                 }
 
                 this.layoutService.hide();
             }
         ).catch(
             reason => {
-                this.showError("系统错误", reason.statusText);
+                this.showError("COMMON.SYSTEM_ERROR", reason.statusText);
             }
         );
     }
@@ -103,12 +103,12 @@ export class PfConnCreStep03Component implements OnInit {
                 if (response && 100 == response.resultCode) {
                     this.router.navigateByUrl("pf-mng/pf-conn-mng/pf-conn-cre-step-04", { skipLocationChange: true });
                 } else {
-                    this.showError("系统错误", "更新可用区资源配置信息错误");
+                    this.showError("COMMON.SYSTEM_ERROR", "PF_MNG.UPDATE_RESOURCE_INFO_ERROR");
                 }
             }
         ).catch(
             reason => {
-                this.showError("系统错误", reason.statusText);
+                this.showError("COMMON.SYSTEM_ERROR", reason.statusText);
             }
         );
     }
