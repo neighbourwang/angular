@@ -229,16 +229,6 @@ export class OrderMngSearchComponent implements OnInit{
 	{
 		this._notice.open("COMMON.SYSTEM_PROMPT", msg);
 	}
-	cancel(){
-/*
-{
-        "desc": "订单退订",
-        "method": "GET",
-        "id": "op-center.order-mng.order-cancel.get",
-        "url": " /marketplace/authsec/subscription/instance/{_subId}/cancel"        
-    }
-*/
-	}
 
 	showDetail(item:SearchOrderItem)
 	{
@@ -264,6 +254,10 @@ export class OrderMngSearchComponent implements OnInit{
 		this._buyerLoader.clear();
 		this._param.reset();
 		
+	}
+	//撤单
+	cancel(){
+        
 	}
 	
 }
