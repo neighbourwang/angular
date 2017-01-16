@@ -1,10 +1,12 @@
-<div class="page-content-header icon-create-product">创建产品</div>
+<div class="page-content-header icon-create-product">{{'PROD_MNG.CREATE_PRODUCT' | translate}}</div><!--创建产品-->
+
 <div class="page-content fix-page-content">
 	<div class="row" style="padding-top: 30px;">
 		<div class="col-md-12">
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品名称：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PROD_NAME' | translate}}：</div><!--产品名称-->
+
 					<div class="col-sm-4">
 						<input type="text" class="form-control font-gray" [(ngModel)]="product.name" placeholder="{{'PROD_MNG.PROD_NAME' | translate}}">
 					</div>
@@ -12,7 +14,8 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品目录：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT' | translate}}：</div><!--产品目录-->
+
 					<div class="col-sm-4 font-gray">
 						<!--<select class="form-control" [(ngModel)]="prodDirId" (change)="selectProdDir($event.target.value,idx)">
                             <option *ngFor="let prodDir of prodDirList let idx=index;" [value]="prodDir.id">{{prodDir.name}}</option>
@@ -49,7 +52,8 @@
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"></div>
 						<div class="col-sm-4 row-line-child font-gray">
-							<div class="font-gray">启动盘大小</div>
+							<div class="font-gray">{{'PROD_MNG.ROOT_DISK_SIZE' | translate}}</div><!--启动盘大小-->
+
 							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.startupDisk||0}}</div>
 							<div class="last-line-child font-gray">GB</div>
 						</div>
@@ -61,7 +65,8 @@
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"></div>
 						<div class="col-sm-4 row-line-child font-gray">
-							<div class="font-gray">初始大小</div>
+							<div class="font-gray">{{'PROD_MNG.INIT_SIZE' | translate}}</div><!--初始大小-->
+
 							<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.initialSize||0}}</div>
 							<div class="last-line-child font-gray">GB</div>
 						</div>
@@ -103,7 +108,8 @@
 						<div class="row">
 							<div class="col-sm-6">
 								<label class="radio-inline row-inline-radio2 font-gray">
-                            		<input type="radio" name="billingTypeRadios"  class="fox-cloud-radio" (click)="product.billingType='0';unitPrice.unEdit();basicCyclePrice.editable();extendCyclePrice.editable(); oneTimePrice.editable()"> 包年包月
+                            		<input type="radio" name="billingTypeRadios"  class="fox-cloud-radio" (click)="product.billingType='0';unitPrice.unEdit();basicCyclePrice.editable();extendCyclePrice.editable(); oneTimePrice.editable()"> {{'PROD_MNG.BY_YEAR_BY_MONTH' | translate}}<!--包年包月-->
+
                        			</label>
 							</div>
 							<div class="col-sm-6">
@@ -117,19 +123,21 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>计费周期：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'COMMON.COUNT_CYCLE' | translate}}：</div><!--计费周期-->
+
 					<div class="col-sm-4 row-inline-radio">
 						<div class="row">
 							<div class="col-sm-6">
 								<div class="row">
 									<div class="col-sm-6">
 										<label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
-                           					 <input type="radio" name="inlineRadioOption"  value="5" class="fox-cloud-radio" [(ngModel)]="product.billingCycle"> 包年
+                           					 <input type="radio" name="inlineRadioOption"  value="5" class="fox-cloud-radio" [(ngModel)]="product.billingCycle"> {{'COMMON.BY_YEAR' | translate}}<!--包年-->
                        					</label>
 									</div>
 									<div class="col-sm-6">
 										<label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
-                           					 <input type="radio" name="inlineRadioOption"  value="3" class="fox-cloud-radio" [(ngModel)]="product.billingCycle"> 包月
+                           					 <input type="radio" name="inlineRadioOption"  value="3" class="fox-cloud-radio" [(ngModel)]="product.billingCycle"> {{'COMMON.BY_MONTH' | translate}}<!--包月-->
+
                        					</label>
 									</div>
 								</div>
@@ -161,14 +169,16 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">基础周期价格：</div>
+					<div class="col-sm-4 form-control-title">{{'PROD_MNG.BASIC_CYCLE_PRICE' | translate}}：</div><!--基础周期价格-->
+
 					<div class="col-sm-8">
 						<div class="row">
 							<div class="col-sm-2">
 								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]=0 #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
 							</div>
 							<div class="col-sm-2 form-control-title">
-								单位价格：
+								{{'PROD_MNG.UNIT_PRICE' | translate}}：<!--单位价格-->
+
 							</div>
 							<div class="col-sm-2">
 								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]=0 #unitPrice (output)="outputValue($event,'unitPrice')"></count-bar>
@@ -178,7 +188,8 @@
 					<!--<div class="col-sm-2 ">
 						<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
 					</div>
-					<div class="col-sm-2 form-control-title">单位价格：</div>
+					<div class="col-sm-2 form-control-title">{{'PROD_MNG.UNIT_PRICE' | translate}}：</div><!--单位价格-->
+
 					<div class="col-sm-1 ">
 						<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 #unitPrice (output)="outputValue($event,'unitPrice')"></count-bar>
 					</div>-->
@@ -186,14 +197,16 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">增量周期价格：</div>
+					<div class="col-sm-4 form-control-title">{{'PROD_MNG.INCREMENT_CYCLE_PRICE' | translate}}：</div><!--增量周期价格-->
+
 					<div class="col-sm-8">
 						<div class="row">
 							<div class="col-sm-2">
 								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]=0 #extendCyclePrice (output)="outputValue($event,'extendCyclePrice')"></count-bar>
 							</div>
 							<div class="col-sm-2 form-control-title">
-								一次性价格：
+								{{'PROD_MNG.ONE_TIME_PRICE' | translate}}：<!--一次性价格-->
+
 							</div>
 							<div class="col-sm-2">
 								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]=0 #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
@@ -203,7 +216,8 @@
 					<!--<div class="col-sm-2">
 						<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 #extendCyclePrice (output)="outputValue($event,'extendCyclePrice')"></count-bar>
 					</div>
-					<div class="col-sm-2 form-control-title">一次性价格：</div>
+					<div class="col-sm-2 form-control-title">{{'PROD_MNG.ONE_TIME_PRICE' | translate}}：</div><!--一次性价格-->
+
 					<div class="col-sm-1">
 						<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
 					</div>-->
@@ -211,16 +225,19 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>选择可用平台：</div>
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.SELECT_AVAIL_PLATFORM' | translate}}：</div><!--选择可用平台-->
+
 				</div>
 			</div>
 			<div class="row row-line-height" *ngIf="vmProdDir">
 				<div class="col-sm-3"></div>
 				<div class="col-sm-6 border selectPlateForm">
 					<div class="row  tabHeader row-line-height">
-						<div class="col-sm-4">平台名称</div>
+						<div class="col-sm-4">{{'PROD_MNG.PLATFORM_NAME' | translate}}</div><!--平台名称-->
+
 						<div class="col-sm-4 ">
-							可用区
+							{{'COMMON.AVAILABLE_ZONE' | translate}}<!--可用区-->
+
 						</div>
 						<div class="col-sm-4" style="text-align: left">
 							<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllZones()" [(ngModel)]="selectAllZone">
@@ -251,9 +268,11 @@
 				<div class="col-sm-3"></div>
 				<div class="col-sm-6 border selectPlateForm">
 					<div class="row  tabHeader row-line-height">
-						<div class="col-sm-4">平台名称</div>
+						<div class="col-sm-4">{{'PROD_MNG.PLATFORM_NAME' | translate}}</div><!--平台名称-->
+
 						<div class="col-sm-3 ">
-							可用区
+							{{'COMMON.AVAILABLE_ZONE' | translate}}<!--可用区-->
+
 						</div>
 						<div class="col-sm-3 ">
 							{{'PROD_MNG.STORAGE_BACKEND' | translate}}
@@ -268,7 +287,8 @@
 						</div>
 						<div class="col-sm-3 secondChild wyLine-height">
 							<div class="row" *ngFor="let zone of plateform.storages">
-								<div class="col-sm-12">所有可用区</div>
+								<div class="col-sm-12">{{'ENT_MNG.ALL_AVAILABLE_ZONE' | translate}}</div><!--所有可用区-->
+
 							</div>
 						</div>
 						<div class="col-sm-3 secondChild wyLine-height">
@@ -290,7 +310,8 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">选择企业：</div>
+					<div class="col-sm-4 form-control-title">{{'NET_MNG_VM_NSX_DLR.SELECT_ENTERPRISE' | translate}}：</div><!--选择企业-->
+
 				</div>
 			</div>
 			<div class="row row-line-height">
@@ -298,11 +319,13 @@
 				<div class="col-sm-6 selectEnt">
 					<div class="row row-line-height entup">
 						<div class="col-sm-5 entHeader">
-							全部企业
+							{{'PROD_MNG.ALL_ENTERPRISE' | translate}}<!--全部企业-->
+
 						</div>
 						<div class="col-sm-2"></div>
 						<div class="col-sm-5 entHeader">
-							选中的企业
+							{{'PROD_MNG.SELECTED_ENTERPRISE' | translate}}<!--选中的企业-->
+
 						</div>
 					</div>
 					<div class="row row-line-height entdown">
@@ -340,7 +363,8 @@
         <span class="icon-button-label">{{'NET_MNG_OPENSTACK.CNACLE' | translate}}</span>
     </button>
 	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();" style="margin-left:40px">
-        <span class="icon-button-label">创建产品</span>
+        <span class="icon-button-label">{{'PROD_MNG.CREATE_PRODUCT' | translate}}</span><!--创建产品-->
+
     </button>
 </div>
 

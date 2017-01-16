@@ -1,4 +1,5 @@
-<div class="page-content-header icon-create-product">产品管理</div>
+<div class="page-content-header icon-create-product">{{'PROD_MNG.PRODUCT_MANAGEMENT' | translate}}</div><!--产品管理-->
+
 <div class="page-content" style="min-height:300px;">
 	<div style="padding-bottom: 10px;">
 		<div class="dropdown pull-right" style="margin-left: 20px;">
@@ -10,15 +11,18 @@
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
 				<!--<li><a href="#">{{'COMMON.MODIFY' | translate}}</a></li>-->
 				<!--<li><a (click)="editProd();">{{'HOST_VMWARE_MNG.EDIT' | translate}}</a></li>-->
-				<li><a (click)="action('publish');">发布</a></li>
-				<li><a (click)="action('ccPublish');">取消发布</a></li>
+				<li><a (click)="action('publish');">{{'COMMON.PUBLISH' | translate}}</a></li><!--发布-->
+
+				<li><a (click)="action('ccPublish');">{{'PROD_MNG.CANCEL_PUBLISH' | translate}}</a></li><!--取消发布-->
+
 				<li><a (click)="action('delete');">{{'NET_MNG_VM_IP_MNG.DELETE' | translate}}</a></li>
 			</ul>
 		</div>
 		<button class="pull-right fox-cloud-button-md fox-cloud-button-white " style="line-height:28px ;width:60px; margin-left: 20px" (click)="query()">{{'COMMON.SEARCH' | translate}}</button>
 		<div class="dropdown pull-right" style="margin-left: 20px;min-width: 120px">
 			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                所有平台
+                {{'PROD_MNG.ALL_PLATFORM' | translate}}<!--所有平台-->
+
                 <span class="caret"></span>
             </button>-->
 			<select class="form-control" [(ngModel)]="platformId">
@@ -26,10 +30,11 @@
                  <option *ngFor="let item of platformsList;" [value]="item?.id">{{item?.name}}</option>
             </select>
 		</div>
-		<span class="pull-right" style="margin-left: 20px; line-height: 34px">平台：</span>
+		<span class="pull-right" style="margin-left: 20px; line-height: 34px">{{'NET_MNG_OPENSTACK.PLATFORM' | translate}}：</span><!--平台-->
 		<div class="dropdown pull-right" style="margin-left: 10px;min-width: 120px">
 			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                所有企业
+                {{'HOST_VMWARE_MNG.ALL_ENTERPRISE' | translate}}<!--所有企业-->
+
                 <span class="caret"></span>
             </button>-->
 			<select class="form-control" [(ngModel)]="enterpriseId">
@@ -37,11 +42,13 @@
                  <option *ngFor="let item of enterpriseList;" [value]="item?.id">{{item?.name}}</option>
             </select>
 		</div>
-		<span class="pull-right" style="margin-left: 20px;line-height: 34px">企业：</span>
+		<span class="pull-right" style="margin-left: 20px;line-height: 34px">{{'COMMON.ENTERPRISE' | translate}}：</span><!--企业-->
+
 		<div class="dropdown pull-right" style="margin-left: 10px;min-width: 120px">
 			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true"
 				aria-expanded="true">
-                所有产品目录
+                {{'PROD_MNG.ALL_PRODUCT_CAT' | translate}}<!--所有产品目录-->
+
                 <span class="caret"></span>
             </button>-->
 			<select class="form-control" [(ngModel)]="prodDirId">
@@ -49,10 +56,12 @@
                  <option *ngFor="let item of prodDirList;" [value]="item?.id">{{item?.name}}</option>
             </select>
 		</div>
-		<span class="pull-right" style="line-height: 34px">产品目录：</span>
+		<span class="pull-right" style="line-height: 34px">{{'PROD_MNG.PRODUCT_CAT' | translate}}：</span><!--产品目录-->
+
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建产品</span>
+            <span class="icon-button-label icon-left-button-label">{{'PROD_MNG.CREATE_PRODUCT' | translate}}</span><!--创建产品-->
+
         </button>
 	</div>
 	<div class="table-container">
@@ -60,13 +69,19 @@
 			<thead>
 				<tr>
 					<th class="check-box-col"><input type="checkbox" (click)="switchSelectAll();" class="fox-cloud-checkbox" />{{'COMMON.SELECT_ALL' | translate}}</th>
-					<th>产品名称</th>
-					<th>产品目录</th>
-					<th>产品类别</th>
+					<th>{{'PROD_MNG.PROD_NAME' | translate}}</th><!--产品名称-->
+
+					<th>{{'PROD_MNG.PRODUCT_CAT' | translate}}</th><!--产品目录-->
+
+					<th>{{'PROD_MNG.PRODUCT_TYPE' | translate}}</th><!--产品类别-->
+
 					<th>{{'PROD_MNG.PRODUCT_SPEC' | translate}}</th>
-					<th>计费周期</th>
-					<th>周期价格</th>
-					<th>一次性价格</th>
+					<th>{{'COMMON.COUNT_CYCLE' | translate}}</th><!--计费周期-->
+
+					<th>{{'COMMON.CYCLE_COST' | translate}}</th><!--周期价格-->
+
+					<th>{{'PROD_MNG.ONE_TIME_PRICE' | translate}}</th><!--一次性价格-->
+
 					<th>{{'NET_MNG_OPENSTACK.STATUS' | translate}}</th>
 					<th>{{'COMMON.DESCRIPTION' | translate}}</th>
 				</tr>
@@ -81,7 +96,8 @@
 						<!--{{item.serviceType}}-->
 						<span [ngSwitch]="item.serviceType"> 
 							<template ngSwitchCase="0">{{'COMMON.CLOUD_HOSTING' | translate}}</template>
-							<template ngSwitchCase="1">云硬盘</template>
+							<template ngSwitchCase="1">{{'COMMON.CLOUD_HARD_DISK' | translate}}</template><!--云硬盘-->
+
 							<template ngSwitchDefault>Unknown</template>							
 						</span>
 					</td>
@@ -100,8 +116,10 @@
 					<td>{{item.onetimePrice}}</td>
 					<td>
 						<span [ngSwitch]="item.status">
-                            <template [ngSwitchCase]="1">已发布</template>
-                            <template [ngSwitchCase]="3">未发布</template>
+                            <template [ngSwitchCase]="1">{{'PROD_MNG.HAS_PUBLISHED' | translate}}</template><!--已发布-->
+
+                            <template [ngSwitchCase]="3">{{'PROD_MNG.NOT_PUBLISHED_YET' | translate}}</template><!--未发布-->
+
                             <template ngSwitchDefault>Unknown</template>
                     	</span>
 					</td>
