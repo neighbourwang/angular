@@ -22,7 +22,7 @@
         "ARE_YOU_SURE_YOU_WANT_TO_APPROVE": "你确认要审批同意该订单吗",
         "AUTO_APPROVAL_TIME_MIN": "自动审批时间(分钟)",
         "AUTO_APPROVAL_TIME_SET": "自动审批时间设置",
-        "CAN_ENTER_CHINESE_AND_CHARACTERS": "可以输入中文与字符，最大不能超过200个字",
+        "CAN_ENTER_CHINESE_AND_CHARACTERS": "可以输入中文字符，最大不能超过200个字",
         "CONFIRM_TO_DELETE_ORG": "您选择删除{{value_1}}，请确认。如果确认，机构将被删除且该机构中的用户将被移除",
         "CONFIRM_TO_DISABLE_ACCOUNT": "您选择禁用帐号 {{value_1}}, 请确认",
         "CONFIRM_TO_DISABLE_ORG": "您选择禁用 '{{value_1}}'，请确认。如果确认，机构内成员将无法操作相关资源",
