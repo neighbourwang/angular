@@ -47,7 +47,7 @@ export class EntResQuotaCreComponent implements OnInit {
                     let resultContent = response.resultContent;
 
                     if (!resultContent) {
-                        this.showError("企业信息取得错误", "没有取得企业信息");
+                        this.showError("ENT_MNG.GET_ENTERPRISE_INFO_FAILURE", "ENT_MNG.NO_ENTERPRISE_INFO");
 
                         return;
                     }
@@ -70,11 +70,11 @@ export class EntResQuotaCreComponent implements OnInit {
 
                     this.layoutService.hide();
                 } else {
-                    this.showError("企业信息取得错误", "异常响应");
+                    this.showError("ENT_MNG.GET_ENTERPRISE_INFO_FAILURE", "ENT_MNG.ABNORMAL_RESPONSE");
                 }
             }
         ).catch(
-            reason => this.showError("系统错误", reason.statusText)
+            reason => this.showError("COMMON.SYSTEM_ERROR", reason.statusText)
         );
 
         this.service.virtualRegions().then(
@@ -83,7 +83,7 @@ export class EntResQuotaCreComponent implements OnInit {
                     let resultContent = response.resultContent;
 
                     if (!resultContent) {
-                        this.showError("区域信息取得错误", "没有取得区域信息");
+                        this.showError("PF_MNG2.GET_REGION_ERROR", "ENT_MNG.NO_ZONE_INFO");
 
                         return;
                     }
@@ -105,11 +105,11 @@ export class EntResQuotaCreComponent implements OnInit {
 
                     this.layoutService.hide();
                 } else {
-                    this.showError("区域信息取得错误", "异常响应");
+                    this.showError("PF_MNG2.GET_REGION_ERROR", "ENT_MNG.ABNORMAL_RESPONSE");
                 }
             }
         ).catch(
-            reason => this.showError("系统错误", reason.statusText)
+            reason => this.showError("COMMON.SYSTEM_ERROR", reason.statusText)
         );
     }
 
@@ -134,7 +134,7 @@ export class EntResQuotaCreComponent implements OnInit {
             return;
         }
 
-        this.confirm.open("创建企业资源配额", "确认创建企业资源配额？");
+        this.confirm.open("ENT_MNG.CREATE_ENTERPRISE_QUOTA", "ENT_MNG.CONFIRM_CREATE_ENTERPRISE_QUOTA");
     }
 
     // 画面输入值校验
@@ -143,16 +143,16 @@ export class EntResQuotaCreComponent implements OnInit {
 
         // 企业必须选择
         if (this.validationService.isBlank(this.entResQuota.enterpriseId)) {
-            msg.push("企业必须选择");
+            msg.push("ENT_MNG.CHOOSE_ENTERPRISE");
         }
 
         // 区域必须选择
         if (this.validationService.isBlank(this.entResQuota.regionId)) {
-            msg.push("区域必须选择");
+            msg.push("ENT_MNG.CHOOSE_ZONE");
         }
 
         if (msg.length > 0) {
-            this.notice.open("系统提示", msg.join("<br />"));
+            this.notice.open("COMMON.SYSTEM_PROMPT", msg.join("<br />"));
 
             return false;
         }
@@ -167,11 +167,11 @@ export class EntResQuotaCreComponent implements OnInit {
                 if (response && 100 == response.resultCode) {
                     this.router.navigateByUrl("ent-mng/ent-res-quota-mng/ent-res-quota-mng");
                 } else {
-                    this.showError("创建企业资源配额", "创建企业资源配额失败");
+                    this.showError("ENT_MNG.CREATE_ENTERPRISE_QUOTA", "ENT_MNG.CREATE_ENTERPRISE_QUOTA_FAILURE");
                 }
             }
         ).catch(
-            reason => this.showError("系统错误", reason.statusText)
+            reason => this.showError("COMMON.SYSTEM_ERROR", reason.statusText)
         );
     }
 }

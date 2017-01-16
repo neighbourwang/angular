@@ -78,12 +78,12 @@ export class EntEstCreComponent implements OnInit{
 	validate(){
 		let checkList:Array<any> = [
 		{
-			"name":"名称"
+			"name":"" //名称
 			,'value':this.entEst.BasicInfo.name
 			,"op":"*"
 		},
 		{
-			"name":"认证方式"
+			"name":""//认证方式
 			,"value":this.entEst.BasicInfo.certMethod
 			,"op":"*"
 		}
@@ -93,28 +93,28 @@ export class EntEstCreComponent implements OnInit{
 		{
 			checkList = checkList.concat([
 				{
-					"name":"URL地址"
+					"name":""//URL地址
 					,"value":this.entEst.BasicInfo.certUrl
 					,"op":"*"
 				},
 				{
-					"name":"AD名称"
+					"name":""//AD名称
 					,"value":this.entEst.BasicInfo.adname
 					,"op":"*"
 				},
 				{
-					"name":"用户名(Full DN)"
+					"name":""//用户名(Full DN)
 					,"value":this.entEst.BasicInfo.contactorName
 					,"op":"*"
 				},
 				{
-					"name":"密码"
+					"name":""//密码
 					,"value":this.entEst.BasicInfo.password
 					,"op":"*"
 				}
 				,
 				{
-					"name":"登录账户属性名称"
+					"name":""//登录账户属性名称
 					,"value":this.entEst.BasicInfo.loginProp
 					,"op":"*"
 				}]
@@ -123,37 +123,37 @@ export class EntEstCreComponent implements OnInit{
 
 		checkList = checkList.concat([
 		{
-			"name":"可创建浮动IP数量"
+			"name":""//可创建浮动IP数量
 			,"value":this.entEst.ResourceQuota.floatIpQuota
 			,"op":"*"
 		},
 		{
-			"name":"可创建镜像数量"
+			"name":""//可创建镜像数量
 			,"value":this.entEst.ResourceQuota.imageQuota
 			,"op":"*"
 		},
 		{
-			"name":"可用内存数量"
+			"name":""//可用内存数量
 			,"value":this.entEst.ResourceQuota.memroyQuota
 			,"op":"*"
 		},
 		{
-			"name":"可创建物理机数量"
+			"name":""//可创建物理机数量
 			,"value":this.entEst.ResourceQuota.physicalQuota
 			,"op":"*"
 		},
 		{
-			"name":"可创建快照数量"
+			"name":""//可创建快照数量
 			,"value":this.entEst.ResourceQuota.snapShotQuota
 			,"op":"*"
 		},
 		{
-			"name":"可用存储额度"
+			"name":""//可用存储额度
 			,"value":this.entEst.ResourceQuota.storageQuota
 			,"op":"*"
 		},
 		{
-			"name":" 可使用vCPU数量"
+			"name":""//可使用vCPU数量
 			,"value":this.entEst.ResourceQuota.vcpuQuota
 			,"op":"*"
 		}]);
@@ -168,7 +168,7 @@ export class EntEstCreComponent implements OnInit{
 
 		if(_.isEmpty(this.entEst.BasicInfo.platformIds))
 		{
-			this.showMsg('请选择平台');
+			this.showMsg('ENT_MNG.SELECT_PLATFORM');
 			return false;
 		}
 
@@ -178,7 +178,7 @@ export class EntEstCreComponent implements OnInit{
 
 	showMsg(msg: string)
 	{
-		this.notice.open("系统提示", msg);
+		this.notice.open("COMMON.SYSTEM_PROMPT", msg);
 	}
 
 	//创建企业
@@ -196,7 +196,7 @@ export class EntEstCreComponent implements OnInit{
 			.catch(err=>{
 				this.layoutService.hide();
 				console.log('创建企业失败', err);
-				this.notice.open("创建企业", "创建企业失败");
+				this.notice.open("COMMON.PROMPT", "ENT_MNG.FAIL_TO_CREATE_ENTERPRISE");
 			})
 		}
 	}
@@ -254,17 +254,17 @@ export class EntEstCreComponent implements OnInit{
   validateCertModify():boolean{
     let notValid = [
     {
-      "name":"URL地址"
+      "name":""//URL地址
       ,'value':this.entEst.BasicInfo.certUrl
       ,"op":"*"
     },
     {
-      "name":"用户名"
+      "name":""//用户名
       ,'value':this.entEst.BasicInfo.contactorName
       ,"op":"*"
     },
     {
-      "name":"密码"
+      "name":""//密码
       ,'value':this.entEst.BasicInfo.password
       ,"op":"*"
     }].find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)

@@ -29,8 +29,8 @@
         <div class="pull-right mgl10">
             <select  class="pdl20 pdr20 form-control" [(ngModel)]="search">
                 <option [value]="default">{{'PHY_MNG_POOL.POOL_NAME' | translate}}</option>
-                <option >{{'PHY_MNG_POOL.REGION_OWNER' | translate}}</option>
-                <option >{{'PHY_MNG_POOL.RESOURCE_CENTER' | translate}}</option>
+                <option [value]="region">{{'PHY_MNG_POOL.REGION_OWNER' | translate}}</option>
+                <option [value]="dataCenter">{{'PHY_MNG_POOL.RESOURCE_CENTER' | translate}}</option>
             </select>
         </div>
 
@@ -42,7 +42,6 @@
                 <th>{{'PHY_MNG_POOL.SELECT' | translate}}</th>
                 <th>{{'PHY_MNG_POOL.NUMBER' | translate}}</th>
                 <th>{{'PHY_MNG_POOL.PHY_POOL_NAME' | translate}}</th>
-                <th>{{'PHY_MNG_POOL.PHY_TYPE' | translate}}</th>
                 <th>{{'PHY_MNG_POOL.AREA_OWNER' | translate}}</th>
                 <th>{{'PHY_MNG_POOL.DIGIT_CENTER_OWNER' | translate}}</th>
                 <th>{{'PHY_MNG_POOL.PHY_TOTAL_AMOUNT' | translate}}</th>
@@ -55,7 +54,6 @@
                 <td><input type='radio' class="fox-cloud-radio" [checked]="item.selected" (change)="selected(item)"/></td>
                 <td>{{item.index}}</td>
                 <td><a href="javascript:void(0);" (click)="gotoPhyList(item);">{{item.pmPoolName}}</a></td>
-                <td>{{item.pmType}}</td>
                 <td>{{item.region}}</td>
                 <td>{{item.dataCenter}}</td>
                 <td>{{item.amount}}</td>

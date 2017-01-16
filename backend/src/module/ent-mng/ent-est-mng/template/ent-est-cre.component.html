@@ -1,20 +1,20 @@
-﻿<div class="page-content-header icon-content-header-enterprise-manage">创建企业</div>
+﻿<div class="page-content-header icon-content-header-enterprise-manage">{{ 'ENT_MNG.CREATE_ENTERPRISE' | translate }}</div>
 <div class="centerPanel">
-	<div class="page-second-title">基本信息</div>
+	<div class="page-second-title">{{ 'COMMON.BASIC_INFO' | translate }}</div>
 
 	<div class=" localPanel"  [ngClass]="{'localPanel':isLocal,'basePanel':!isLocal}">
 		<div class="infoContent left ">
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>名称：</div>
+						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'COMMON.NAME' | translate }}:</div>
 						<div class="col-sm-4">
-						    <input type="text" class="form-control input-control" placeholder="名称" [(ngModel)]="entEst.BasicInfo.name">
+						    <input type="text" class="form-control input-control" placeholder="{{ 'COMMON.NAME' | translate }}" [(ngModel)]="entEst.BasicInfo.name">
 						</div>
 					</div>
 				</div>
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>认证方式：</div>
+						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.AUTHENTICATION_MODE' | translate }}:</div>
 						<div class="col-sm-4">
 							<button [ngClass]="{'fox-cloud-button-sm':true, 'fox-cloud-button-gray':!isLocal, 'active':isLocal}" (click)="selectLocal()">
 			                  本地
@@ -27,58 +27,58 @@
 				</div>
 				<div class="row row-line-height" *ngIf="isADSelected();">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>URL地址：</div>
+						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>URL {{ 'COMMON.PATH' | translate }}:</div>
 						<div class="col-sm-4">
-							<input type="text" class="form-control input-control" placeholder="URL地址" [(ngModel)]="entEst.BasicInfo.certUrl">
+							<input type="text" class="form-control input-control" placeholder="URL {{ 'COMMON.PATH' | translate }}" [(ngModel)]="entEst.BasicInfo.certUrl">
 						</div>
 					</div>
 				</div>
 				<div class="row row-line-height" *ngIf="isADSelected();">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>AD名称：</div>
+						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>AD {{ 'COMMON.NAME' | translate }}:</div>
 						<div class="col-sm-4">
-							<input type="text" class="form-control input-control" placeholder="AD名称" [(ngModel)]="entEst.BasicInfo.adname">
+							<input type="text" class="form-control input-control" placeholder="AD {{ 'COMMON.NAME' | translate }}" [(ngModel)]="entEst.BasicInfo.adname">
 						</div>
 					</div>
 				</div>
 				<div class="row row-line-height" *ngIf="isADSelected();">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title">AD描述：</div>
+						<div class="col-sm-4 form-control-title">AD {{ 'COMMON.DESCRIPTION' | translate }}:</div>
 						<div class="col-sm-4">
-							<textarea class="form-control input-control" rows="4" placeholder="AD描述" [(ngModel)]="entEst.BasicInfo.adDescription"></textarea> 
+							<textarea class="form-control input-control" rows="4" placeholder="AD {{ 'COMMON.DESCRIPTION' | translate }}" [(ngModel)]="entEst.BasicInfo.adDescription"></textarea> 
 						</div>
 					</div>
 				</div>
 				<div class="row row-line-height" *ngIf="isADSelected();">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title"><span class="asterisk" >*</span>用户名(Full DN)：</div>
+						<div class="col-sm-4 form-control-title"><span class="asterisk" >*</span>{{ 'COMMON.USERNAME' | translate }}(Full DN)：</div>
 						<div class="col-sm-4">
-							<input type="text" class="form-control input-control" placeholder="用户名" [(ngModel)]="entEst.BasicInfo.contactorName">
+							<input type="text" class="form-control input-control" placeholder="{{ 'COMMON.USERNAME' | translate }}" [(ngModel)]="entEst.BasicInfo.contactorName">
 						</div>
 					</div>
 				</div>
 				<div class="row row-line-height" *ngIf="isADSelected();" style="position: relative;">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>密码：</div>
+						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'COMMON.PASSWORD' | translate }}:</div>
 						<div class="col-sm-6">
 							<input type="password" [ngClass]="{'wd320':!isLocal}"  class="form-control input-control" placeholder="******" [(ngModel)]="entEst.BasicInfo.password">
 						</div>
 						<div class="col-sm-2 form-control-title"  *ngIf="isLocal==false;">
 							<button class="fox-cloud-button fox-cloud-button-white float-left"  style="margin-left:-30px" (click)="testAD()">
-							<span class="icon-button-label">测试</span>
+							<span class="icon-button-label">{{ 'COMMON.TEST' | translate }}</span>
 							</button>
 						</div>
 					</div>
 					<div [ngSwitch]="ADflag" class="test-title form-control-title">
-							<span class="validateInfo" *ngSwitchCase="'true'">AD认证测试通过</span>
-							<span class="warnInfo" *ngSwitchCase="'false'">AD认证测试失败</span>
+							<span class="validateInfo" *ngSwitchCase="'true'">{{ 'ENT_MNG.AD_TEST_PASS' | translate }}</span>
+							<span class="warnInfo" *ngSwitchCase="'false'">{{ 'ENT_MNG.AD_TEST_NOT_PASS' | translate }}</span>
 						</div>
 				</div>
 				<div class="row row-line-height" *ngIf="isADSelected();">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title"><span class="asterisk" >*</span>登录账户属性名称：</div>
+						<div class="col-sm-4 form-control-title"><span class="asterisk" >*</span>{{ 'ENT_MNG.LOGIN_ACCOUNT_USERNAME_PRO' | translate }}:</div>
 						<div class="col-sm-4">
-							<input type="text" class="form-control input-control" placeholder="登录账户属性名称" [(ngModel)]="entEst.BasicInfo.loginProp">
+							<input type="text" class="form-control input-control" placeholder="{{ 'ENT_MNG.LOGIN_ACCOUNT_USERNAME_PRO' | translate }}" [(ngModel)]="entEst.BasicInfo.loginProp">
 						</div>
 					</div>
 				</div>
@@ -93,9 +93,9 @@
 				</div>-->
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title">描述：</div>
+						<div class="col-sm-4 form-control-title">{{ 'COMMON.DESCRIPTION' | translate }}:</div>
 						<div class="col-sm-4">
-							<textarea class="form-control input-control" rows="4" placeholder="描述" [(ngModel)]="entEst.BasicInfo.description"></textarea> 
+							<textarea class="form-control input-control" rows="4" placeholder="{{ 'COMMON.DESCRIPTION' | translate }}" [(ngModel)]="entEst.BasicInfo.description"></textarea> 
 						</div>
 					</div>
 				</div>
@@ -113,62 +113,62 @@
 </div>-->
 
 	<div class="secondPanel mgb20">
-		<div class="page-second-title">配额设置</div>
+		<div class="page-second-title">{{ 'COMMON.QUOTA_SET' | translate }}</div>
 			<div class="infoContent left">
 					<div class="row row-line-height">
 						<div class="form-group">
-							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建vCPU数量：</div>
+							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.CAN_CREATE_VCPU_NUM' | translate }}:</div>
 							<div class="col-sm-8">
-							    <input type="number" class="form-control input-control" placeholder="可创建vCPU数量" [(ngModel)]="entEst.ResourceQuota.vcpuQuota"><span class=" form-control-title">个</span>
+							    <input type="number" class="form-control input-control" placeholder="{{ 'ENT_MNG.CAN_CREATE_VCPU_NUM' | translate }}" [(ngModel)]="entEst.ResourceQuota.vcpuQuota"><span class=" form-control-title"></span>
 							</div>
 						</div>
 					</div>
 					<div class="row row-line-height">
 						<div class="form-group">
-							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可使用内存数量：</div>
+							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.VAILABLE_RAM_NUM' | translate }}:</div>
 							<div class="col-sm-8">
-							<input type="number" class="form-control input-control" placeholder="可使用内存数量" [(ngModel)]="entEst.ResourceQuota.memroyQuota"><span class=" form-control-title" >GB</span>
+							<input type="number" class="form-control input-control" placeholder="{{ 'ENT_MNG.VAILABLE_RAM_NUM' | translate }}" [(ngModel)]="entEst.ResourceQuota.memroyQuota"><span class=" form-control-title" >GB</span>
 							</div>
 						</div>
 					</div>
 					<div class="row row-line-height">
 						<div class="form-group">
-							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建物理机数量：</div>
+							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.CAN_CREATE_PYH_NUM' | translate }}:</div>
 							<div class="col-sm-8">
-								<input type="number" class="form-control input-control" placeholder="可创建物理机数量" [(ngModel)]="entEst.ResourceQuota.physicalQuota"><span class=" form-control-title">台</span>
+								<input type="number" class="form-control input-control" placeholder="{{ 'ENT_MNG.CAN_CREATE_PYH_NUM' | translate }}" [(ngModel)]="entEst.ResourceQuota.physicalQuota"><span class=" form-control-title"></span>
 							</div>
 						</div>
 					</div>
 					<div class="row row-line-height">
 						<div class="form-group">
-							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可使用存储额度：</div>
+							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.VAILABLE_STORAGE_QUOTA' | translate }}:</div>
 							<div class="col-sm-8">
-								<input type="number" class="form-control input-control" placeholder="可使用存储额度" [(ngModel)]="entEst.ResourceQuota.storageQuota"><span class=" form-control-title" >GB</span>
+								<input type="number" class="form-control input-control" placeholder="{{ 'ENT_MNG.VAILABLE_STORAGE_QUOTA' | translate }}" [(ngModel)]="entEst.ResourceQuota.storageQuota"><span class=" form-control-title" >GB</span>
 							</div>
 						</div>
 					</div>
 
 					<div class="row row-line-height">
 						<div class="form-group">
-							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建快照数量：</div>
+							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.CAN_CREATE_SNAPSHOT_NUM' | translate }}:</div>
 							<div class="col-sm-8">
-								<input type="number" class="form-control input-control" placeholder="可创建快照数量" [(ngModel)]="entEst.ResourceQuota.snapShotQuota"><span class=" form-control-title" >个</span>
+								<input type="number" class="form-control input-control" placeholder="{{ 'ENT_MNG.CAN_CREATE_SNAPSHOT_NUM' | translate }}" [(ngModel)]="entEst.ResourceQuota.snapShotQuota"><span class=" form-control-title" ></span>
 							</div>
 						</div>
 					</div>
 					<div class="row row-line-height">
 						<div class="form-group">
-							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建镜像数量：</div>
+							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.CAN_CREATE_IMAGE_NUM' | translate }}:</div>
 							<div class="col-sm-8">
-								<input type="number" class="form-control input-control" placeholder="可创建镜像数量" [(ngModel)]="entEst.ResourceQuota.imageQuota"><span class=" form-control-title" >个</span>
+								<input type="number" class="form-control input-control" placeholder="{{ 'ENT_MNG.CAN_CREATE_IMAGE_NUM' | translate }}" [(ngModel)]="entEst.ResourceQuota.imageQuota"><span class=" form-control-title" ></span>
 							</div>
 						</div>
 					</div>
 					<div class="row row-line-height">
 						<div class="form-group">
-							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>可创建浮动IP数量：</div>
+							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.CAN_CREATE_FLOAT_IP_NUM' | translate }}:</div>
 							<div class="col-sm-8">
-								<input type="number" class="form-control input-control" placeholder="可创建浮动IP数量" [(ngModel)]="entEst.ResourceQuota.floatIpQuota"><span class=" form-control-title" >个</span>
+								<input type="number" class="form-control input-control" placeholder="{{ 'ENT_MNG.CAN_CREATE_FLOAT_IP_NUM' | translate }}" [(ngModel)]="entEst.ResourceQuota.floatIpQuota"><span class=" form-control-title" ></span>
 							</div>
 						</div>
 					</div>
@@ -179,17 +179,17 @@
 	
 	<div class="mgt20">	
 	   		<div class="title page-second-title mgb20"><span class="glyphicon glyphicon-chevron-down cheron-icon"></span>
-	               <span  style="font-size:18px;color:#000;position:relative;top:0;left:0;" class="">所有平台配额参考</span>
+	               <span  style="font-size:18px;color:#000;position:relative;top:0;left:0;" class="">{{ 'ENT_MNG.ALL_PLATFORM_QUOTA' | translate }}</span>
 	   		</div>
 			<div style="height: 500px;overflow: auto;">
 	   		<table class="table table-hover" >
 	   			<thead>
 	   				<tr>
-	   				    <th>选择</th>
-	   					<th>区域</th>
-						<th>可分配vCPU数量</th>
-						<th>可分配内存(GB)</th>
-						<th>可分配存储(GB)</th>
+	   				    <th>{{ 'COMMON.CHOOSE' | translate }}</th>
+	   					<th>{{ 'COMMON.ZONE' | translate }}</th>
+						<th>{{ 'ENT_MNG.CAN_ALLOCATE_VCPU_NUME' | translate }}</th>
+						<th>{{ 'ENT_MNG.CAN_ALLOCATE_RAM' | translate }}(GB)</th>
+						<th>{{ 'ENT_MNG.CAN_ALLOCATE_STORAGE' | translate }}(GB)</th>
 						<!-- <th>可分配物理机数量</th> -->
 						<!--<th>平台配额</th>
 						<th>存储配额</th>-->
@@ -212,10 +212,10 @@
 
 <div class="text-center mgt20 mgb20 pdb20">
 	<button class="fox-cloud-button-lg fox-cloud-button-white mgt20" (click)="cancel()" style="margin-right: 30px;margin-top:60px;">
-		<span class="icon-button-label">取消</span>
+		<span class="icon-button-label">{{ 'COMMON.CANCEL' | translate }}</span>
 	</button>
 	<button class="fox-cloud-button-lg  fox-cloud-button-green mgl20" (click)="create()">
-		<span class="icon-button-label">创建企业</span>
+		<span class="icon-button-label">{{ 'ENT_MNG.CREATE_ENTERPRISE' | translate }}</span>
 	</button>
 </div>
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate }}"></fc-notice>

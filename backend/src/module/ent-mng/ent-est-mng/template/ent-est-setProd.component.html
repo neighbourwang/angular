@@ -1,17 +1,17 @@
-<div class="page-content-header icon-content-header-enterprise-manage">企业产品设置：{{entName}}
-<button class="pull-right fox-cloud-button fox-cloud-button-white" (click)="return()" style="margin-top: -10px;"><span>返回企业列表</span></button>
+<div class="page-content-header icon-content-header-enterprise-manage">{{ 'ENT_MNG.ENTERPRISE_PRODUCT_SET' | translate }}: {{entName}}
+<button class="pull-right fox-cloud-button fox-cloud-button-white" (click)="return()" style="margin-top: -10px;"><span>{{ 'ENT_MNG.BACK_ENTERPRISE_LIST' | translate }}</span></button>
 </div> 
 
 <div class="page-content">
 	<div class="setProdPanel green-border">
 		<div class="titlePanel">
-			<span class="form-control-title">已选中的产品</span>
+			<span class="form-control-title">{{ 'ENT_MNG.SELECTED_PRODUCTS' | translate }}</span>
 			<div class="pull-right chevron-down-bt" (click)="showEntProdList=!showEntProdList">
 				<span class="glyphicon glyphicon-chevron-down"></span>
 				<span class="glyphicon glyphicon-chevron-down chevron-down-bt-second"></span>
 			</div>
 			<div class="pull-right" style="display: none">
-				<input type="text" class="form-control searchbox gray-searchbox" placeholder="搜索" [(ngModel)]="criteria" />
+				<input type="text" class="form-control searchbox gray-searchbox" placeholder="{{ 'COMMON.SEARCH' | translate }}" [(ngModel)]="criteria" />
 				<span class="glyphicon glyphicon-search searchbox-incon" (click)="search()"></span>
 			</div>
 				
@@ -20,15 +20,15 @@
 			<table class="table table-hover center-table">
 				<thead class="table-thead">
 					<tr>
-						<td>产品名称</td>
-						<td>产品目录</td>
-						<td>产品类别</td>
-						<td>产品规格</td>                     
-						<td>计费周期</td>
-						<td>周期价格</td>
-						<td>一次性价格</td>
-						<td>状态</td>
-						<td>操作</td>
+						<td>{{ 'PROD_MNG.PROD_NAME' | translate }}</td>
+						<td>{{ 'PROD_MNG.PRODUCT_CAT' | translate }}</td>
+						<td>{{ 'PROD_MNG.PRODUCT_TYPE' | translate }}</td>
+						<td>{{ 'PROD_MNG.PRODUCT_SPEC' | translate }}</td>                     
+						<td>{{ 'COMMON.COUNT_CYCLE' | translate }}</td>
+						<td>{{ 'COMMON.CYCLE_COST' | translate }}</td>
+						<td>{{ 'COMMON.ONE_TIME_COSTS' | translate }}</td>
+						<td>{{ 'COMMON.STATUS' | translate }}</td>
+						<td>{{ 'COMMON.OPERATION' | translate }}</td>
 					</tr>
 				</thead>
 				<tbody *ngIf="showEntProdList">
@@ -50,13 +50,13 @@
 	</div>
 	<div class="setProdPanel green-border">
 		<div class="titlePanel">
-			<span class="form-control-title">所有产品列表</span>
+			<span class="form-control-title">{{ 'ENT_MNG.ALL_PRODUCTS_LIST' | translate }}</span>
 			<div class="pull-right chevron-down-bt" (click)="showProdList=!showProdList">
 				<span class="glyphicon glyphicon-chevron-down"></span>
 				<span class="glyphicon glyphicon-chevron-down chevron-down-bt-second"></span>
 			</div>
 			<div class="pull-right" style="display: none">
-				<input type="text" class="form-control searchbox gray-searchbox" placeholder="搜索" [(ngModel)]="criteria" />
+				<input type="text" class="form-control searchbox gray-searchbox" placeholder="{{ 'COMMON.SEARCH' | translate }}" [(ngModel)]="criteria" />
 				<span class="glyphicon glyphicon-search searchbox-incon" (click)="search()" ></span>
 			</div>
 				
@@ -65,15 +65,15 @@
 			<table class="table table-hover center-table">
 				<thead class="table-thead">
 					<tr>
-						<td>产品名称</td>
-						<td>产品目录</td>
-						<td>产品类别</td>
-						<td>产品规格</td>                     
-						<td>计费周期</td>
-						<td>周期价格</td>
-						<td>一次性价格</td>
-						<td>状态</td>
-						<td>操作</td>
+						<td>{{ 'PROD_MNG.PROD_NAME' | translate }}</td>
+						<td>{{ 'PROD_MNG.PRODUCT_CAT' | translate }}</td>
+						<td>{{ 'PROD_MNG.PRODUCT_TYPE' | translate }}</td>
+						<td>{{ 'PROD_MNG.PRODUCT_SPEC' | translate }}</td>                     
+						<td>{{ 'COMMON.COUNT_CYCLE' | translate }}</td>
+						<td>{{ 'COMMON.CYCLE_COST' | translate }}</td>
+						<td>{{ 'COMMON.ONE_TIME_COSTS' | translate }}</td>
+						<td>{{ 'COMMON.STATUS' | translate }}</td>
+						<td>{{ 'COMMON.OPERATION' | translate }}</td>
 					</tr>
 				</thead>
 				<tbody *ngIf="showProdList">
@@ -94,4 +94,4 @@
 		</div>
 	</div>
 </div>
-<fc-notice #notice ot="确认"></fc-notice>
+<fc-notice #notice ot="{{ 'COMMON.CONFIRM' | translate }}"></fc-notice>

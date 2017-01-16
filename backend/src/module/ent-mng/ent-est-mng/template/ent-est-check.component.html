@@ -1,23 +1,23 @@
-<div class="page-content-header icon-content-header-purchasing">查看企业
-	<button class="pull-right fox-cloud-button fox-cloud-button-white" style="margin-top:-10px;" (click)="return()"><span>返回企业列表</span></button>
+<div class="page-content-header icon-content-header-purchasing">{{ 'ENT_MNG.VIEW_ENTERPRISE' | translate }}
+	<button class="pull-right fox-cloud-button fox-cloud-button-white" style="margin-top:-10px;" (click)="return()"><span>{{ 'ENT_MNG.BACK_ENTERPRISE_LIST' | translate }}</span></button>
 </div>
 <div class="ChecEstkMng"> 
-<div class="info-title"><span  class="form-control-title">基本信息：</span></div>
+<div class="info-title"><span  class="form-control-title">{{ 'COMMON.BASIC_INFO' | translate }}:</span></div>
 
 <div class="ht300" style="width:1500px;">
 	<div class="infoContent left">
 		<fieldset disabled>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-3 form-control-title "><span class="asterisk">*</span>名称：</div>
+					<div class="col-sm-3 form-control-title "><span class="asterisk">*</span>{{ 'COMMON.NAME' | translate }}:</div>
 					<div class="col-sm-6">
-					    <input type="text" class="form-control" placeholder="名称" [(ngModel)]="entEst.BasicInfo.name">
+					    <input type="text" class="form-control" placeholder="{{ 'COMMON.NAME' | translate }}:" [(ngModel)]="entEst.BasicInfo.name">
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>认证方式：</div>
+					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.AUTHENTICATION_MODE' | translate }}:</div>
 					<div class="col-sm-6">				
                         <button class="smaller-bt disabled-smaller-bt" style="margin: -5px;">
 		                  {{getCertMethod()}}
@@ -27,7 +27,7 @@
 			</div>
 			<div class="row row-line-height" *ngIf="isAdCert()">
 				<div class="form-group">
-					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>URL地址：</div>
+					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>URL {{ 'COMMON.PATH' | translate }}:</div>
 					<div class="col-sm-6">
 						<input type="text" class="form-control" readonly [ngModel]="entEst.BasicInfo.certUrl">
 					</div>
@@ -35,7 +35,7 @@
 			</div>
 			<div class="row row-line-height" *ngIf="isAdCert()">
 				<div class="form-group">
-					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>用户名：</div>
+					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>{{ 'COMMON.USERNAME' | translate }}:</div>
 					<div class="col-sm-6">
 						<input type="text" class="form-control" readonly [ngModel]="entEst.BasicInfo.contractorName">
 					</div>
@@ -43,7 +43,7 @@
 			</div>
 			<div class="row row-line-height" *ngIf="isAdCert()">
 				<div class="form-group">
-					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>密码：</div>
+					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>{{ 'COMMON.PASSWORD' | translate }}:</div>
 					<div class="col-sm-6">
 						<input type="password" class="form-control" readonly [ngModel]="entEst.BasicInfo.password">
 					</div>
@@ -51,7 +51,7 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>描述：</div>
+					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>{{ 'COMMON.DESCRIPTION' | translate }}:</div>
 					<div class="col-sm-6">
 						<textarea class="form-control" rows="7" readonly [ngModel]="entEst.BasicInfo.description"></textarea> 
 					</div>
@@ -64,7 +64,7 @@
    		<div class="imgPanel icon-enterpriser-checkbg"></div>
 	</div>
 </div>           
-<div class="info-title" [ngStyle]="{'margin-top': isAdCert()?'170px':'30px'}"> <span  class="form-control-title">管理信息：</span></div>
+<div class="info-title" [ngStyle]="{'margin-top': isAdCert()?'170px':'30px'}"> <span  class="form-control-title">{{ 'ENT_MNG.MNG_INFO' | translate }}:</span></div>
 <div class="baseContainer mgt20">
 	<!--<div style="padding-left:65px;">
    		<div class="row">
@@ -101,7 +101,7 @@
 	</div>-->
 	<div class="checkProdPanel green-border">
 		<div class="titlePanel">
-		<span class="form-control-title float-left">企业资源配额使用率统计</span>
+		<span class="form-control-title float-left">{{ 'ENT_MNG.ENTERPRISE_RESOURCE_STATISTICS' | translate }}</span>
 		</div> 
 	<div class="contentPanel" style="padding-left: 8px;" >
 		<div class="float-left" width="150px">
@@ -113,7 +113,7 @@
 				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedCpuRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.vcpuQuota}}台)</span>
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.vcpuQuota}})</span>
 			    <span >VCPU</span>
 			</div>	  	
 		</div>
@@ -126,8 +126,8 @@
 				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedMemRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.memroyQuota}}台)</span>
-			    <span >内存</span>
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.memroyQuota}})</span>
+			    <span >{{ 'COMMON.RAM' | translate }}</span>
 			</div>	  	
 		</div>
 		<div class="float-left" width="150px">
@@ -139,8 +139,8 @@
 				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedStorageRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.storageQuota}}台)</span>
-			    <span >存储</span>
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.storageQuota}})</span>
+			    <span >{{ 'COMMON.STORAGE' | translate }}</span>
 			</div>	  	
 		</div>
 		<div class="float-left" width="150px">
@@ -152,8 +152,8 @@
 				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedPhysicalMachineRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.physicalQuota}}台)</span>
-			    <span >物理机</span>
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.physicalQuota}})</span>
+			    <span >{{ 'COMMON.PHYSICAL_MACHINE' | translate }}</span>
 			</div>	  	
 		</div>
 		<div class="float-left" width="150px">
@@ -165,8 +165,8 @@
 				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedSnapshotRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.snapShotQuota}}台)</span>
-			    <span >快照</span>
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.snapShotQuota}})</span>
+			    <span >{{ 'COMMON.SNAPSHOT' | translate }}</span>
 			</div>	  	
 		</div>
 		<div class="float-left" width="150px">
@@ -178,8 +178,8 @@
 				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedImageRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.imageQuota}}台)</span>
-			    <span >镜像</span>
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.imageQuota}})</span>
+			    <span >{{ 'COMMON.IMAGE' | translate }}</span>
 			</div>	  	
 		</div>
 		<div class="float-left" width="150px">
@@ -191,8 +191,8 @@
 				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedFloatIpRate|percent}}</span>
 			</div>
 			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.floatIpQuota}}台)</span>
-			    <span >浮动IP地址</span>
+				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.floatIpQuota}})</span>
+			    <span >{{ 'COMMON.FLOAT_IP_PATH' | translate }}</span>
 			</div>	  	
 		</div>
 		
@@ -200,21 +200,21 @@
 	</div>
 </div>
 
-<div class="info-title"><span  class="form-control-title">产品信息：</span></div>
+<div class="info-title"><span  class="form-control-title">{{ 'COMMON.PRODUCT_INFO' | translate }}:</span></div>
 <div class="contentPanel" style="width: 1240px;padding-left: 35px;padding-top: 30px;padding-bottom: 100px;">
 	<table class="table table-hover center-table  green-border">
 		<thead class="table-thead">
 			<tr>
-			    <td>编号</td>
-				<td>产品名称</td>
-				<td>产品目录</td>
-				<td>产品类别</td>
-				<td>产品规格</td>                     
-				<td>计费周期</td>
-				<td>周期价格</td>
-				<td>一次性价格</td>
-				<td>状态</td>
-				<td>描述</td>
+			    <td>{{ 'COMMON.NUMBER' | translate }}</td>
+				<td>{{ 'PROD_MNG.PROD_NAME' | translate }}</td>
+				<td>{{ 'PROD_MNG.PRODUCT_CAT' | translate }}</td>
+				<td>{{ 'PROD_MNG.PRODUCT_TYPE' | translate }}</td>
+				<td>{{ 'PROD_MNG.PRODUCT_SPEC' | translate }}</td>                     
+				<td>{{ 'COMMON.COUNT_CYCLE' | translate }}</td>
+				<td>{{ 'COMMON.CYCLE_COST' | translate }}</td>
+				<td>{{ 'COMMON.ONE_TIME_COSTS' | translate }}</td>
+				<td>{{ 'COMMON.STATUS' | translate }}</td>
+				<td>{{ 'COMMON.DESCRIPTION' | translate }}</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -237,4 +237,4 @@
 </div>
 
 
-<fc-notice #notice ot="确认"></fc-notice>
+<fc-notice #notice ot="{{ 'COMMON.CONFIRM' | translate }}"></fc-notice>

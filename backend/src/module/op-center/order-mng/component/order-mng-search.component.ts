@@ -355,7 +355,7 @@ export class OrderMngSearchComponent implements OnInit{
 	
 	showMsg(msg: string)
 	{
-		this._notice.open("系统提示", msg);
+		this._notice.open("COMMON.SYSTEM_PROMPT", msg);
 	}
 	cancel(){
 /*
