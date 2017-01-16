@@ -48,7 +48,7 @@ export class EntProdCre02Component implements OnInit {
   
         this.entProdCreService.getFlavors(platformId).then(ret => {
             if (!ret) {
-                this.showNotice('数据获取失败', '所有可用区数据获取失败。');
+                this.showNotice('COMMON.GETTING_DATA_FAILED', 'ENT_MNG.GET_AVAILABLE_ZONE_DATA_FAILURE');
             } else {
                 if (ret && ret.resultContent) {
                     let flavors: Array <Flavor> = new Array<Flavor>();
@@ -75,7 +75,7 @@ export class EntProdCre02Component implements OnInit {
 
             this.layoutService.hide();
         }).catch(error => {
-            this.showNotice('数据获取失败', '所有可用区数据获取失败。');
+            this.showNotice('COMMON.GETTING_DATA_FAILED', 'ENT_MNG.GET_AVAILABLE_ZONE_DATA_FAILURE');
             this.layoutService.hide();
         });
     }

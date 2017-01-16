@@ -1,11 +1,11 @@
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
 
-<div class="page-content-header icon-content-header-purchasing">创建产品</div>
+<div class="page-content-header icon-content-header-purchasing">{{ 'PROD_MNG.CREATE_PRODUCT' | translate }}</div>
 <div class="page-content fix-page-content">
     <div class="row navigator-progress">
-        <div class="col-md-4 active"><span class="mark">1</span><span>填写产品信息</span><span class="icon-tick"></span></div>
-        <div class="col-md-4 active"><span class="mark">2</span><span>选择可用区</span><span class="icon-tick"></span></div>
-        <div class="col-md-4 active"><span class="mark">3</span><span>产品定价</span></div>
+        <div class="col-md-4 active"><span class="mark">1</span><span>{{ 'PROD_MNG.FILL_IN_PRODUCT_INFO' | translate }}</span><span class="icon-tick"></span></div>
+        <div class="col-md-4 active"><span class="mark">2</span><span>{{ 'NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_CLUSTER' | translate }}</span><span class="icon-tick"></span></div>
+        <div class="col-md-4 active"><span class="mark">3</span><span>{{ 'ENT_MNG.PRODUCT_PRICING' | translate }}</span></div>
     </div>
     <div class="step-progress">
         <div class="fox-cloud-progress-rectangle progress-striped">
@@ -17,28 +17,28 @@
         <div style="padding-bottom: 10px;">
             <div class="dropdown pull-right">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    计价周期
+                    {{ 'COMMON.COUNT_CYCLE' | translate }}
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a (click)="periodType('3');">包月</a></li>
-                    <li><a (click)="periodType('5');">包年</a></li>
-                    <li><a (click)="periodType('1');">按日</a></li>
-                    <li><a (click)="periodType('0');">按小时</a></li>
+                    <li><a (click)="periodType('3');">{{ 'COMMON.BY_MONTH' | translate }}</a></li>
+                    <li><a (click)="periodType('5');">{{ 'COMMON.BY_YEAR' | translate }}</a></li>
+                    <li><a (click)="periodType('1');">{{ 'COMMON.BY_DAY' | translate }}</a></li>
+                    <li><a (click)="periodType('0');">{{ 'COMMON.BY_HOUR' | translate }}</a></li>
                 </ul>
             </div>
             <div class="section-title h4">
-                定价设置：
+                {{ 'ENT_MNG.PRICING_SET' | translate }}
             </div>
         </div>
         <div class="table-container">
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>可用区</th>
-                        <th>描述</th>
-                        <th>单位(台)</th>
-                        <th>定价</th>
+                        <th>{{ 'COMMOM.AVAILABLE_ZONE' | translate }}</th>
+                        <th>{{ 'COMMOM.DESCRIPTION' | translate }}</th>
+                        <th>{{ 'COMMOM.UNIT_SET' | translate }}</th>
+                        <th>{{ 'COMMOM.PRICING' | translate }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,13 +56,13 @@
     </div>
     <div class="text-center">
         <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
-            <span class="icon-button-label">取消</span>
+            <span class="icon-button-label">{{ 'COMMOM.CANCEL' | translate }}</span>
         </button>
         <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="prev();">
-        <span class="icon-button-label">上一步</span>
+        <span class="icon-button-label">{{ 'COMMOM.PREVIOUS' | translate }}</span>
     </button>
         <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="next();">
-            <span class="icon-button-label">创建产品</span>
+            <span class="icon-button-label">{{ 'PROD_MNG.CREATE_PRODUCT' | translate }}</span>
         </button>
     </div>
 </div>

@@ -1,17 +1,17 @@
-﻿<div class="page-content-header icon-content-header-purchasing"> 镜像管理</div>
+﻿<div class="page-content-header icon-content-header-purchasing">{{ 'HOST_OPENSTACK_MNG.IMAGE_MANAGEMENT' | translate }}</div>
 <div class="page-content">
     <div class="table-container mgt20">
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>序号</th>
+                    <th>{{ 'COMMON.NUMBER' | translate }}</th>
 
-                    <th>云平台名称</th>
-                    <th>所属数据中心</th>
-                    <th>所属地域</th>
-                    <th>云平台类型</th>
-                    <th>公共镜像数量</th>
-                    <th>最近一次同步时间</th>
+                    <th>{{ 'USER_CENTER.PLATFORM_NAME' | translate }}</th>
+                    <th>{{ 'PHY_MNG_POOL.DIGIT_CENTER_OWNER' | translate }}</th>
+                    <th>{{ 'PHY_MNG_POOL.REGION_OWNER' | translate }}</th>
+                    <th>{{ 'USER_CENTER.PLATFORM_TYPE' | translate }}</th>
+                    <th>{{ 'HOST_MNG.PUBLIC_IMAGE_NUM' | translate }}</th>
+                    <th>{{ 'HOST_MNG.LAST_SYNCHRONOUS_TIME' | translate }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,7 +23,7 @@
                     <td>{{plf.region}}</td>
                     <td>{{plf.type | dict:this.service.typeDic | async }}</td>           
                     <td>{{plf.imagesNum}}</td>
-                    <td [ngClass]="plf.syncDate==null?'font-green':'font-blue'">{{plf.syncDate||"未同步"}}</td>
+                    <td [ngClass]="plf.syncDate==null?'font-green':'font-blue'">{{plf.syncDate || "HOST_MNG.NOT_SYNCHRONOUS" | translate}}</td>
                 </tr> 
 
             </tbody>
@@ -33,5 +33,5 @@
         <fc-pagination #pager tp={{totalPage}} (pf)="getPlatforms($event)"></fc-pagination>
     </div>
 
-    <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+    <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate }}"></fc-notice>
 </div>

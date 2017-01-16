@@ -1,57 +1,57 @@
-<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="确定"></fc-notice>
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{ 'COMMOM.CONFIRM' | translate }}"></fc-notice>
 
 
-<div class="page-content-header icon-content-header-purchasing">企业产品管理</div>
+<div class="page-content-header icon-content-header-purchasing">{{ 'ENT_MNG.ENTERPRISE_PRODUCT_MNG' | translate }}</div>
 <div class="page-content">
     <div style="padding-bottom: 10px;">
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                选择操作
+                {{ 'NET_MNG_OPENSTACK.SELECT_OPERATION' | translate }}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a (click)="changeStatus('4');">删除</a></li>
-                <li><a (click)="changeStatus('1');">发布产品</a></li>
-                <li><a (click)="changeStatus('3');">取消发布</a></li>
+                <li><a (click)="changeStatus('4');">{{ 'COMMOM.DELETE' | translate }}</a></li>
+                <li><a (click)="changeStatus('1');">{{ 'COMMOM.PUBLISH_PRODUCT' | translate }}</a></li>
+                <li><a (click)="changeStatus('3');">{{ 'COMMOM.CANCEL_PUBLISH_PRODUCT' | translate }}</a></li>
             </ul>
         </div>
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                选择地区
+                {{ 'ENT_MNG.SELECT_REGION' | translate }}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a (click)="changeRegion(null);">全部地区</a></li>
+                <li><a (click)="changeRegion(null);">{{ 'ENT_MNG.ALL_REGION' | translate }}</a></li>
                 <li *ngFor="let item of regions;"><a (click)="changeRegion(item.id);">{{item.name}}</a></li>
             </ul>
         </div>
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                选择公司
+                {{ 'HOST_VMWARE_MNG.SELECT_ENTERPRISE' | translate }}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a (click)="changeEnt(null);">全部企业</a></li>
+                <li><a (click)="changeEnt(null);">{{ 'HOST_VMWARE_MNG.ALL_ENTERPRISE' | translate }}</a></li>
                 <li *ngFor="let item of enterprises;"><a (click)="changeEnt(item.id);">{{item.name}}</a></li>
             </ul>
         </div>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建产品</span>
+            <span class="icon-button-label icon-left-button-label">{{ 'PROD_MNG.CREATE_PRODUCT' | translate }}</span>
         </button>
     </div>
     <div class="table-container">
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th><input type="checkbox" class="fox-cloud-checkbox">选择</th>
-                    <th>企业名称</th>
-                    <th>区域</th>
-                    <th>产品名称</th>
-                    <th>服务目录</th>
-                    <th>计价方式</th>
-                    <th>状态</th>
-                    <th>描述</th>
+                    <th><input type="checkbox" class="fox-cloud-checkbox">{{ 'COMMON.CHOOSE' | translate }}</th>
+                    <th>{{ 'NET_MNG_VM_IP_MNG.ENTERPRISE_NAME' | translate }}</th>
+                    <th>{{ 'COMMON.ZONE' | translate }}</th>
+                    <th>{{ 'PROD_MNG.PROD_NAME' | translate }}</th>
+                    <th>{{ 'ENT_MNG.SERVICE_DIR' | translate }}</th>
+                    <th>{{ 'ENT_MNG.PRICING_MODE' | translate }}</th>
+                    <th>{{ 'COMMON.STATUS' | translate }}</th>
+                    <th>{{ 'COMMON.DESCRIPTION' | translate }}</th>
                 </tr>
             </thead>
             <tbody>

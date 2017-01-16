@@ -1,12 +1,12 @@
-<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="确认" (of)="modalAction(0)"></fc-notice>
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{ 'COMMOM.CONFIRM' | translate }}" (of)="modalAction(0)"></fc-notice>
 
 
-<div class="page-content-header icon-content-header-purchasing">创建产品</div>
+<div class="page-content-header icon-content-header-purchasing">{{ 'PROD_MNG.CREATE_PRODUCT' | translate }}</div>
 <div class="page-content fix-page-content">
     <div class="row navigator-progress">
-        <div class="col-md-4 active"><span class="mark">1</span><span>填写产品信息</span></div>
-        <div class="col-md-4"><span class="mark">2</span><span>选择可用区</span></div>
-        <div class="col-md-4"><span class="mark">3</span><span>产品定价</span></div>
+        <div class="col-md-4 active"><span class="mark">1</span><span>{{ 'PROD_MNG.FILL_IN_PRODUCT_INFO' | translate }}</span></div>
+        <div class="col-md-4"><span class="mark">2</span><span>{{ 'NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_CLUSTER' | translate }}</span></div>
+        <div class="col-md-4"><span class="mark">3</span><span>{{ 'ENT_MNG.PRODUCT_PRICING' | translate }}</span></div>
     </div>
     <div class="step-progress">
         <div class="fox-cloud-progress-rectangle progress-striped">
@@ -18,15 +18,15 @@
         <div class="col-md-12">
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div for="firstname" class="col-sm-4 form-control-title">产品名称：</div>
+                    <div for="firstname" class="col-sm-4 form-control-title">{{ 'PROD_MNG.PROD_NAME' | translate }}:</div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" placeholder="标准小型云主机" style="width:350px" [(ngModel)]="serviceDetail.entProdName" >
+                        <input type="text" class="form-control" placeholder="{{ 'PROD_MNG.STANDARD_SMALL_CLOUD_HOST' | translate }}" style="width:350px" [(ngModel)]="serviceDetail.entProdName" >
                     </div>
                 </div>
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div for="firstname" class="col-sm-4 form-control-title">企业：</div>
+                    <div for="firstname" class="col-sm-4 form-control-title">{{ 'COMMON.ENTERPRISE' | translate }}:</div>
                     <div class="col-sm-4">
                         <select class="form-control" [(ngModel)]="serviceDetail.enterpriseId" style="width:350px;color:#909090">
                            <option *ngFor="let item of enterprises" [value]="item.id">
@@ -38,7 +38,7 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div for="firstname" class="col-sm-4 form-control-title">区域：</div>
+                    <div for="firstname" class="col-sm-4 form-control-title">{{ 'COMMON.ZONE' | translate }}:</div>
                     <div class="col-sm-4">
                         <select class="form-control" style="width:350px;color:#909090" [(ngModel)]="serviceDetail.regionIdx" (ngModelChange)="regionChange($event);">
                             <option *ngFor="let item of regions; let idx = index" [value]="idx">
@@ -50,7 +50,7 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div for="firstname" class="col-sm-4 form-control-title">服务目录：</div>
+                    <div for="firstname" class="col-sm-4 form-control-title">{{ 'ENT_MNG.SERVICE_DIR' | translate }}:</div>
                     <div class="col-sm-4">
                         <select class="form-control" style="width:350px;color:#909090" [(ngModel)]="serviceDetail.serviceId" >
                              <option *ngFor="let item of serviceItems" [value]="item.serviceId">
@@ -62,7 +62,7 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div for="firstname" class="col-sm-4 form-control-title">描述：</div>
+                    <div for="firstname" class="col-sm-4 form-control-title">{{ 'COMMON.DESCRIPTION' | translate }}:</div>
                     <div class="col-sm-4">
                         <textarea class="form-control" rows="5" style="width:350px"  [(ngModel)]="serviceDetail.description"></textarea>
                     </div>
@@ -72,9 +72,9 @@
     </div>
     <div class="text-center">
         <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
-            <span class="icon-button-label">取消</span>
+            <span class="icon-button-label">{{ 'COMMON.CANCEL' | translate }}</span>
         </button>
         <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="next();">
-            <span class="icon-button-label">下一步</span>
+            <span class="icon-button-label">{{ 'COMMON.NEXT' | translate }}</span>
         </button>
     </div>

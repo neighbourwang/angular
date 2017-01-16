@@ -49,14 +49,14 @@ export class AttestSourceCreComponent implements OnInit {
             switch (this.type) {
                 case "edit":
                     this.edit = true;
-                    this.title = "编辑认证源";
+                    this.title = "ENT_MNG.EDIT_AD_SOURCE";
                     break;
                 case "editAcc":
                     this.editAcc = true;
-                    this.title = "编辑认证源";
+                    this.title = "ENT_MNG.EDIT_AD_SOURCE";
                     break;
                 case "create":
-                    this.title = "创建认证源";
+                    this.title = "ENT_MNG.EDIT_AD_SOURCE";
                     break;
             }
             if (id) {
@@ -85,7 +85,7 @@ export class AttestSourceCreComponent implements OnInit {
     //编辑账号
     onEdit() {
         if ($.trim(this.attest.name) === "") {
-            this.showAlert("必须先填写认证源名称！");
+            this.showAlert("ENT_MNG.INPUT_THE_AD_SOURCE_NAME");
             return false;
         }
         this.layoutService.show();
@@ -95,7 +95,7 @@ export class AttestSourceCreComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    this.showAlert("保存成功！");
+                    this.showAlert("COMMON.SAVE_SUCCESS");
                     this.gotoList();
                 } else {
                     alert("Res sync error");
@@ -107,21 +107,21 @@ export class AttestSourceCreComponent implements OnInit {
 
     onEditAcc() {
         if ($.trim(this.attest.userName) === "") {
-            this.showAlert("必须先填写用户名！");
+            this.showAlert("COMMON.INPUT_USERNAME");
             return false;
         }
         if (!this.validationService.isEmail(this.attest.userName)) {
-            this.showAlert("用户名必须是邮箱！");
+            this.showAlert("ENT_MNG.USERNAME_MUST_BE_EMAIL");
             return false;
         }
 
         if ($.trim(this.attest.password) === "") {
-            this.showAlert("必须先填写密码！");
+            this.showAlert("COMMON.INPUT_PASSWORD");
             return false;
         }
 
         if ($.trim(this.attest.loginProp) === "") {
-            this.showAlert("必须先填写登录账户名属性！");
+            this.showAlert("ENT_MNG.INPUT_ACCOUNT_NAME_PRO");
             return false;
         }
         this.layoutService.show();
@@ -131,7 +131,7 @@ export class AttestSourceCreComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    this.showAlert("保存成功！");
+                    this.showAlert("COMMON.SAVE_SUCCESS");
                     this.gotoList();
                 } else {
                     alert("Res sync error");
@@ -143,32 +143,32 @@ export class AttestSourceCreComponent implements OnInit {
 
     onCreate() {
         if ($.trim(this.attest.name) === "") {
-            this.showAlert("必须先填写认证源名称！");
+            this.showAlert("ENT_MNG.INPUT_THE_AD_SOURCE_NAME");
             return false;
         }
 
         if ($.trim(this.attest.url) === "") {
-            this.showAlert("必须先填写URL地址！");
+            this.showAlert("ENT_MNG.INPUT_URL_PATH");
             return false;
         }
 
         if ($.trim(this.attest.userName) === "") {
-            this.showAlert("必须先填写用户名！");
+            this.showAlert("COMMON.INPUT_USERNAME");
             return false;
         }
 
         if (!this.validationService.isEmail(this.attest.userName)) {
-            this.showAlert("用户名必须是邮箱！");
+            this.showAlert("ENT_MNG.USERNAME_MUST_BE_EMAIL");
             return false;
         }
 
         if ($.trim(this.attest.password) === "") {
-            this.showAlert("必须先填写密码！");
+            this.showAlert("COMMON.INPUT_PASSWORD");
             return false;
         }
 
         if ($.trim(this.attest.loginProp) === "") {
-            this.showAlert("必须先填写登录账户名属性！");
+            this.showAlert("ENT_MNG.INPUT_ACCOUNT_NAME_PRO");
             return false;
         }
         this.layoutService.show();
@@ -178,7 +178,7 @@ export class AttestSourceCreComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    this.showAlert("保存成功！");
+                    this.showAlert("COMMON.SUCCESS");
                     this.gotoList();
                 } else {
                     alert("Res sync error");
@@ -191,22 +191,22 @@ export class AttestSourceCreComponent implements OnInit {
     testSource() {
 
         if ($.trim(this.attest.url) === "") {
-            this.showAlert("必须先填写URL地址！");
+            this.showAlert("ENT_MNG.INPUT_URL_PATH");
             return false;
         }
 
         if ($.trim(this.attest.userName) === "") {
-            this.showAlert("必须先填写用户名！");
+            this.showAlert("COMMON.INPUT_USERNAME");
             return false;
         }
 
         if (!this.validationService.isEmail(this.attest.userName)) {
-            this.showAlert("用户名必须是邮箱！");
+            this.showAlert("ENT_MNG.USERNAME_MUST_BE_EMAIL");
             return false;
         }
 
         if ($.trim(this.attest.password) === "") {
-            this.showAlert("必须先填写密码！");
+            this.showAlert("COMMON.INPUT_PASSWORD");
             return false;
         }
 
@@ -236,7 +236,7 @@ export class AttestSourceCreComponent implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "COMMON.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -248,6 +248,6 @@ export class AttestSourceCreComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("COMMON.GETTING_DATA_FAILED");
     }
 }

@@ -205,8 +205,8 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
     this.resourceQuotaSvg.Go(1,[{key:"enterpriseId", value:this.entId}])
     .then(success=>{
     }, err=>{
-       this.msg.title='资源统计率加载';
-        this.msg.desc='资源统计率加载失败!';
+       this.msg.title='ENT_MNG.RESOURCE_STATISTICS_LOADING';
+        this.msg.desc='ENT_MNG.RESOURCE_STATISTICS_FAILED_TO_LOAD';
         this.showError(this.msg);
     })
  }
