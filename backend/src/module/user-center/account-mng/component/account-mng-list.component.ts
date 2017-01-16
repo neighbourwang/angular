@@ -180,7 +180,7 @@ export class AccountMngComponent implements OnInit {
         }
         if (this.chooseAccount.id) {
             this.confirmType = 2;
-            this.confirm.open("USER_CENTER.ENABLE_ACCOUNT", "您选择启用帐号 "+this.chooseAccount.loginName+"，请确认"); //USER_CENTER.ENABLE_ACCOUNT=>启用帐号 
+            this.confirm.open("USER_CENTER.ENABLE_ACCOUNT", "USER_CENTER.CONFIRM_TO_ENABLE_ACCOUNT^^^" + this.chooseAccount.loginName ); //USER_CENTER.ENABLE_ACCOUNT=>启用帐号 
 
         } else {
             this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ACCOUNT') //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ACCOUNT=>请选择账号 
@@ -205,7 +205,7 @@ export class AccountMngComponent implements OnInit {
         }
         if (this.chooseAccount.id) {
             this.confirmType = 3;
-            this.confirm.open("USER_CENTER.DISABLE_ACCOUNT", "您选择禁用帐号 "+this.chooseAccount.loginName+"，请确认"); //USER_CENTER.DISABLE_ACCOUNT=>禁用帐号 
+            this.confirm.open("USER_CENTER.DISABLE_ACCOUNT", "USER_CENTER.CONFIRM_TO_DISABLE_ACCOUNT^^^" + this.chooseAccount.loginName ); //USER_CENTER.DISABLE_ACCOUNT=>禁用帐号 
 
         } else {
             this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ACCOUNT') //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ACCOUNT=>请选择账号 
@@ -231,7 +231,8 @@ export class AccountMngComponent implements OnInit {
         }
         if (this.chooseAccount.id) {
             this.confirmType = 4;
-            this.confirm.open("USER_CENTER.DELETE_ACCOUNT", "您选择删除帐号 "+this.chooseAccount.loginName+"，请确认"); //USER_CENTER.DELETE_ACCOUNT=>删除帐号 
+            this.confirm.open("USER_CENTER.DELETE_ACCOUNT", "USER_CENTER.CONFIRM_TO_REMOVE_ACCOUNT" + this.chooseAccount.loginName); //USER_CENTER.DELETE_ACCOUNT=>删除帐号 
+
         } else {
             this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ACCOUNT') //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ACCOUNT=>请选择账号 
 
@@ -259,7 +260,8 @@ export class AccountMngComponent implements OnInit {
                 this.disableAccount();
                 break;
             case 4:
-                console.log("USER_CENTER.DELETE_ACCOUNT"); //USER_CENTER.DELETE_ACCOUNT=>删除帐号 
+                console.log("USER_CENTER.DELETE_ACCOUNT"); //USER_CENTER.DELETE_ACCOUNT=>删除帐号 
+
                 this.deleteAccount();
                 break;
         }

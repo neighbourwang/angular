@@ -111,7 +111,7 @@ export class OrgMngListComponent implements OnInit {
             }            
             this.confirmTitle = "USER_CENTER.DELETE_ORG"; //USER_CENTER.DELETE_ORG=>删除机构 
 
-            this.confirmMessage = "您选择删除" + this.org.name + "，请确认。如果确认，机构将被删除且该机构中的用户将被移除";
+            this.confirmMessage = `USER_CENTER.CONFIRM_TO_DELETE_ORG^^^${this.org.name}`;
             this.confirmType = 3;
             this.confirm.open(this.confirmTitle, this.confirmMessage);
         } else {
@@ -124,12 +124,14 @@ export class OrgMngListComponent implements OnInit {
         console.log(this.org);
         if (this.org.id) {
             if (this.org.status == 1) {
-                this.notice.open('COMMON.OPERATION_ERROR', '机构状态已启用') //COMMON.OPERATION_ERROR=>操作错误 
+                this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.ORG_STATUS_IS_ENABLED') //COMMON.OPERATION_ERROR=>操作错误 <!--机构状态已启用-->
+
 
                 return;
             }
-            this.confirmTitle = "USER_CENTER.ENABLE_ORG"; //USER_CENTER.ENABLE_ORG=>启用机构 
-            this.confirmMessage = "您选择启用" + this.org.name + "，请确认";
+            this.confirmTitle = "USER_CENTER.ENABLE_ORG"; //USER_CENTER.ENABLE_ORG=>启用机构 
+
+            this.confirmMessage = `USER_CENTER.CONFIRM_TO_ENABLE_ORG^^^${this.org.name}`;
             this.confirmType = 1;
             this.confirm.open(this.confirmTitle, this.confirmMessage);
 
@@ -142,14 +144,15 @@ export class OrgMngListComponent implements OnInit {
 
     disable() {
         if (this.org.status == 3) {
-                this.notice.open('COMMON.OPERATION_ERROR', '机构状态已禁用') //COMMON.OPERATION_ERROR=>操作错误 
+                this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.ORG_STATUS_IS_DISABLED') //COMMON.OPERATION_ERROR=>操作错误 <!--机构状态已禁用-->
+
 
                 return;
             }
         if (this.org.id) {
             this.confirmTitle = "USER_CENTER.DISABLE_ORG"; //USER_CENTER.DISABLE_ORG=>禁用机构 
 
-            this.confirmMessage = "您选择禁用 '" + this.org.name + "'，请确认。如果确认，机构内成员将无法操作相关资源";
+            this.confirmMessage = `USER_CENTER.CONFIRM_TO_DISABLE_ORG^^^${this.org.name}`;
             this.confirmType = 2;
             this.confirm.open(this.confirmTitle, this.confirmMessage);
         } else {
