@@ -48,7 +48,11 @@ export class PersonAccMngComponent implements OnInit {
                     console.log(response);
                     this.personAcc = Object.assign({}, response.resultContent)
                     this.temPersonAcc = response.resultContent;
+                    // console.log('1',sessionStorage['userInfo']);
+                    sessionStorage.removeItem('userInfo');
+                    sessionStorage["userInfo"] = JSON.stringify(response.resultContent);
                     console.log(this.personAcc);
+                    // console.log('2',sessionStorage['userInfo']);
                 } else {
 
                 }
@@ -81,7 +85,8 @@ export class PersonAccMngComponent implements OnInit {
         this.accPwd.password='';
         this.accPwd.newPassword='';
         this.accPwd.confirmPwd='';
-        this.editPassWord.open('USER_CENTER.CHANGE_PASSWORD') //USER_CENTER.CHANGE_PASSWORD=>修改密码 
+        this.editPassWord.open('USER_CENTER.CHANGE_PASSWORD') //USER_CENTER.CHANGE_PASSWORD=>修改密码 
+
     }
     pwdValid(val){
         if (this.accPwd.password && this.accPwd.password.trim() != '') {
@@ -161,8 +166,6 @@ export class PersonAccMngComponent implements OnInit {
     onSubmit() {
         if(!this.personAcc.userName){
             this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.NAME_NOT_NULL'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.NAME_NOT_NULL=>姓名不能为空 
-
-
             return;
         }
         if(this.personAcc.phone){
@@ -183,6 +186,7 @@ export class PersonAccMngComponent implements OnInit {
             console.log(response);
             if (response && 100 == response.resultCode) {
                 this.edit = false;
+                this.getCurrentAccount();
             } else {
 
             }

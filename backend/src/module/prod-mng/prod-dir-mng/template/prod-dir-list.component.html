@@ -1,4 +1,5 @@
-<div class="page-content-header icon-create-product">{{'PROD_MNG.PRODUCT_CAT' | translate}}{{'COMMON.MANAGEMENT' | translate}}</div>
+<div class="page-content-header icon-create-product">{{'PROD_MNG.PRODUCT_CAT_MANAGEMENT' | translate}}</div><!--产品目录管理-->
+
 <div class="page-content" style="min-height:300px;">
 	<div style="padding-bottom: 10px;">
 		<div class="dropdown pull-right" style="margin-left: 20px">
@@ -10,8 +11,10 @@
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 				<!--<li><a href="#">{{'COMMON.MODIFY' | translate}}</a></li>-->
 				<!--<li><a (click)="edit();">{{'HOST_VMWARE_MNG.EDIT' | translate}}</a></li>-->
-				<li><a (click)="action('publish');">{{'COMMON.PUBLISH' | translate}}</a></li>
-				<li><a (click)="action('ccPublish');">{{'NET_MNG_VM_NSX_DLR.CNACLE' | translate}}{{'COMMON.PUBLISH' | translate}}</a></li>
+				<li><a (click)="action('publish');">{{'COMMON.PUBLISH' | translate}}</a></li><!--发布-->
+
+				<li><a (click)="action('ccPublish');">{{'PROD_MNG.CANCEL_PUBLISH' | translate}}</a></li><!--取消发布-->
+
 				<li><a (click)="action('delete');">{{'NET_MNG_VM_IP_MNG.DELETE' | translate}}</a></li>
 			</ul>
 		</div>
@@ -19,7 +22,8 @@
 			(click)='onQuery()'>{{'COMMON.SEARCH' | translate}}</button>
 		<div class="dropdown pull-right" style="margin-left: 10px;min-width: 120px">
 			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{'COMMON.ALL' | translate}}{{'NET_MNG_OPENSTACK.PLATFORM' | translate}}
+                {{'PROD_MNG.ALL_PLATFORM' | translate}}
+
                 <span class="caret"></span>
             </button>-->
 			<select class="form-control" [(ngModel)]="platformId">
@@ -27,11 +31,13 @@
                  <option *ngFor="let item of platformsList;" [value]="item.id">{{item.name}}</option>
             </select>
 		</div>
-		<span class="pull-right" style="line-height: 34px;margin-left: 20px">{{'NET_MNG_OPENSTACK.PLATFORM' | translate}}：</span>
+		<span class="pull-right" style="line-height: 34px;margin-left: 20px">{{'NET_MNG_OPENSTACK.PLATFORM' | translate}}：</span><!--平台-->
+
 
 		<div class="dropdown pull-right" style="margin-left: 10px;min-width: 120px">
 			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{'NET_MNG_OPENSTACK.SELECT' | translate}}{{'PROD_MNG.PRODUCT_CAT' | translate}}{{'COMMON.CAT' | translate}}
+                选择{{'PROD_MNG.PRODUCT_CAT_CLASS' | translate}}
+
                 <span class="caret"></span>
             </button>-->
 			<select class="form-control" [(ngModel)]="queryProDirTypeId">
@@ -39,10 +45,12 @@
                  <option *ngFor="let item of prodDirTypeList;" [value]="item.id">{{item.name}}</option>
             </select>
 		</div>
-		<span class="pull-right" style="line-height: 34px">{{'PROD_MNG.PRODUCT_CAT' | translate}}{{'COMMON.CAT' | translate}}：</span>
+		<span class="pull-right" style="line-height: 34px">{{'PROD_MNG.PRODUCT_CAT_CLASS' | translate}}：</span><!--产品目录类别-->
+
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">{{'NET_MNG_VM_IP_MNG.CREATE' | translate}}{{'PROD_MNG.PRODUCT_CAT' | translate}}</span>
+            <span class="icon-button-label icon-left-button-label">{{'PROD_MNG.CREATE_PRODUCT_CAT' | translate}}</span><!--创建产品目录-->
+
         </button>
 	</div>
 	<div class="table-container">
@@ -50,10 +58,13 @@
 			<thead>
 				<tr>
 					<th class="check-box-col"><input class="fox-cloud-checkbox" type="checkbox" class="fox-cloud-checkbox" (click)="switchSelectAll();" />{{'COMMON.SELECT_ALL' | translate}}</th>
-					<th>{{'PROD_MNG.PRODUCT_CAT' | translate}}{{'COMMON.NAME' | translate}}</th>
-					<th>{{'PROD_MNG.PRODUCT_CAT' | translate}}{{'COMMON.CAT' | translate}}</th>
+					<th>{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}</th><!--产品目录名称-->
+
+					<th>{{'PROD_MNG.PRODUCT_CAT_CLASS' | translate}}</th><!--产品目录类别-->
+
 					<th>{{'PROD_MNG.PRODUCT_SPEC' | translate}}</th>
-					<th>{{'COMMON.PRODUCT' | translate}}{{'COMMON.AMOUNT' | translate}}</th>
+					<th>{{'ENT_MNG.PRODUCT_NUM' | translate}}</th><!--产品数量-->
+
 					<th>{{'NET_MNG_OPENSTACK.STATUS' | translate}}</th>
 					<th>{{'COMMON.DESCRIPTION' | translate}}</th>
 				</tr>
@@ -69,8 +80,10 @@
 					<td [ngClass]="{'font-green':item.status =='1' ,'font-orange':item.status == '3'}">
 						{{item.status| dict:this.service.versionDic | async}}
 						<!--<span [ngSwitch]="item.status">
-                            <template [ngSwitchCase]="1">{{'COMMON.HAVE' | translate}}{{'COMMON.PUBLISH' | translate}}</template>
-                            <template [ngSwitchCase]="3">{{'COMMON.NOT_YET' | translate}}{{'COMMON.PUBLISH' | translate}}</template>
+                            <template [ngSwitchCase]="1">{{'PROD_MNG.HAS_PUBLISHED' | translate}}</template>
+
+                            <template [ngSwitchCase]="3">{{'PROD_MNG.NOT_PUBLISHED_YET' | translate}}</template>
+
                             <template ngSwitchDefault>Unknown</template>
                         </span>-->
 					</td>
@@ -89,10 +102,12 @@
 <fc-popup #createProdDir title="{{title}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()">
 	<div class="row row-line-height">
 		<div class="form-group">
-			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT' | translate}}{{'COMMON.CAT' | translate}}:</div>
+			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT_CLASS' | translate}}:</div><!--产品目录类别-->
+
 			<div class="col-sm-7">
 				<!--<select class="form-control" [(ngModel)]="entResQuota">
                     <option *ngFor="let item of regions;" [value]="item.id">{{'PROD_MNG.PLATFORM_SERVICE' | translate}}</option>
+
                 </select>-->
 				<select class="form-control" [(ngModel)]="prodDirTypeId" (ngModelChange)="selectProDirType($event)">
                     <option *ngFor="let item of prodDirTypeList;" [value]="item.id">{{item.name}}</option>
@@ -129,7 +144,8 @@
 			<div class="form-group">
 				<div class="col-sm-4 form-control-title"></div>
 				<div class="col-sm-8">
-					<span class="form-line-height font-gray" style="float:left;padding:5px 10px; width:100px;">{{'COMMON.ROOT_DISK' | translate}}{{'COMMON.SIZE' | translate}}</span>
+					<span class="form-line-height font-gray" style="float:left;padding:5px 10px; width:100px;">{{'PROD_MNG.ROOT_DISK_SIZE' | translate}}</span><!--启动盘大小-->
+
 					<span style="float:left; width:120px;">
 								<count-bar [default]=0 [step]=100 [max]=100000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'startupDisk')"></count-bar>
 							</span>
