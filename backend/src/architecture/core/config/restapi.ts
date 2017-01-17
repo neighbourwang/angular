@@ -694,7 +694,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "已购服务管理详情",
         "id": "op-center.order-mng.subinstance-detail.post",
         "method": "POST",
-        "url": "adminui//authsec/subinstance/{subinstanceCode}/detail"
+        "url": "adminui/authsec/subinstance/{subinstanceCode}/detail"
     },{
         "desc": "订单续订",
         "id": "op-center.order-mng.order-renew.get",
