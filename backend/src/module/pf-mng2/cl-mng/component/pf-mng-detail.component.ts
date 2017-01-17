@@ -21,8 +21,12 @@ import { StorageModel } from '../model/cre-step4.model';
 
 @Component({
     templateUrl: '../template/pf-mng-detail.component.html',
-    styleUrls: [
-        '../style/cl-mng.less'
+    styles: [
+        // '../style/cl-mng.less'
+        `.btn-active{
+            background-color: #00a982;
+            color : #fff
+        }`
     ],
     providers: []
 })
