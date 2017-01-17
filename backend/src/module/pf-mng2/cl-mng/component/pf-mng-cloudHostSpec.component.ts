@@ -16,8 +16,12 @@ import { Platform } from '../model/platform.model';
 
 @Component({
     templateUrl: '../template/pf-mng-cloudHostSpec.component.html',
-    styleUrls: [
-        '../style/cl-mng.less'
+    styles: [
+        // '../style/cl-mng.less'
+        `.btn-active{
+            background-color: #00a982;
+            color : #fff
+        }`
     ],
     providers: []
 })
