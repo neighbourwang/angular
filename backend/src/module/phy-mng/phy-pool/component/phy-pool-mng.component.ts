@@ -41,7 +41,7 @@ export class PhyPoolMngComponent implements OnInit{
     noticeTitle = "";
     noticeMsg = "";
 
-    pageIndex= 0;
+    pageIndex= 1;
     pageSize= 10;
     totalPage= 1;
 

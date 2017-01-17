@@ -1049,23 +1049,63 @@
         "USED_PHY_AMOUNT": "已使用的物理机数量"
     },
     "PHYSICAL_MNG":{
+        "CONFIRM":"确认",
+        "CANCEL":"取消",
+        "NOTICE":"提示",
+        "SAVE":"保存",
+        "ERROR":"获取数据失败!",
         "PHYSICAL_lIST":"物理机列表",
         "RETURN":"返回资源池列表",
         "CREATE_PHYSICAL":"添加物理机",
+
         "SELECT_OPTION":"更多操作",
         "EDIT":"编辑",
         "EDIT_IPMI":"修改IPMI信息",
+        "SELECT_PHYSICAL":"请选择需要编辑的物理机",
+
         "ENABLE":"启用",
+        "SELECT_ENABLE_PHYSICAL":"请选择需要启用的物理机",
+        "ENABLE_PHYSICAL_MSG":"您选择启用物理服务器 '{{value_1}}'，请确认；如果确认，用户将能够订购此资源。",
+        "ENABLE_PHYSICAL_TITLE":"启用物理机",
+
         "DISABLE":"禁用",
+        "SELECT_DISABLE_PHYSICAL":"请选择需要禁用的物理机",
+        "DISABLE_PHYSICAL_MSG":"您选择禁用物理服务器 '{{value_1}}'，请确认；如果确认，用户将不能够订购此资源。",
+        "DISABLE_PHYSICAL_TITLE":"禁用物理机",
+
         "DELETE":"删除",
+        "SELECT_DELETE_PHYSICAL":"请选择需要删除的物理机",
+        "DELETE_PHYSICAL_MSG":"您选择删除物理服务器 '{{value_1}}'，请确认；如果确认，该资源所有相关信息都会被移除，且无法恢复。",
+        "DELETE_PHYSICAL_TITLE":"删除物理机",
+        "PHYSICAL_STATUS":"该物理机已经是{{value_1}}状态，请选择需要{{value_1}}的物理机。",
+
         "PHYSICAL_NAME" :"物理机名称",
         "BRAND":"品牌",
         "MODEL":"型号",
         "PRIVATE_IP":"私网IP地址",
         "PUBLIC_IP":"公网IP地址",
         "IPMI_IP":"IPMI地址",
+        "SELECT":"选择",
+        "INDEX":"编号",
+        "CPU_CORE":"CPU数量",
+        "RAM":"内存",
+        "DISK_INFO":"磁盘信息",
+        "LOCATION":"位置信息",
+        "POWER_STATUS":"电源状态",
+        "USEAGE_STATUS":"使用状态",
+        "MAINTAIN_STATUS":"维修状态",
+        "HEALTH_STATUS":"健康检查",
 
-
+        "SET_ILO_INFO":"设置ILO访问信息",
+        "ILO_IP":"ILO IP地址",
+        "ILO_USERNAME":"ILO用户名",
+        "ILO_PASSWORD":"ILO密码",
+        "TEST_ILO":"测试",
+        "PLEASE_INPUT_ILO_IP":"请填写ILO IP地址！",
+        "PLEASE_INPUT_ILO_USERNAME":"请填写ILO用户名！",
+        "PLEASE_INPUT_ILO_PASSWORD":"请填写ILO密码！",
+        "PLEASE_INPUT_LEGAL_ILO_IP":"IP不合要求,请重新填写ILO IP地址！",
+        "SUCCEED_TEST_ILO_INFO":"ILO信息测试成功！"
 
 
 
