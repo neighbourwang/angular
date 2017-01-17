@@ -42,7 +42,7 @@ export class PhysicalListComponent implements OnInit {
     confirm: ConfirmComponent;
 
     totalPage = 1;
-    pageIndex =0;
+    pageIndex =1;
     pageSize = 20;
 
 
@@ -58,6 +58,9 @@ export class PhysicalListComponent implements OnInit {
     //gotopage:string;
     selectedQuery:string=this.defaultQuery;
     defaultQuery:string;
+    brand:string;
+    model:string;
+    privateIp:string;
     queryParam:string;
     i="";
 
@@ -128,15 +131,15 @@ export class PhysicalListComponent implements OnInit {
         
         if(!physical){
             if(status=="0"){
-               this.showAlert(`请选择需要禁用的物理机`);
+               this.showAlert("PHYSICAL_MNG.SELECT_DISABLE_PHYSICAL");
                 return;
             }
             if(status=="1"){
-               this.showAlert(`请选择需要启用的物理机`);
+               this.showAlert("PHYSICAL_MNG.SELECT_ENABLE_PHYSICAL");
                 return;
             }
             if(status=="2"){
-               this.showAlert(`请选择需要删除的物理机`);
+               this.showAlert('PHYSICAL_MNG.SELECT_DELETE_PHYSICAL');
                 return;
             }                   
         }
@@ -149,26 +152,27 @@ export class PhysicalListComponent implements OnInit {
                     console.log(res);
                     this.i=res;
                     console.log(this.i);
+                    this.showAlert("PHYSICAL_MNG.PHYSICAL_STATUS^^^" + this.i);
                 }
             ) ;          
-            this.showAlert(`该物理机已经是'${this.i}'状态！`);
+           
             return;
         }
         
         
         switch (status) {
                 case "0":
-                   this.noticeMsg = `确认禁用'${physical.pmName}' ?`;
-                   this.noticeTitle=`禁用物理机`;
+                   this.noticeMsg ="PHYSICAL_MNG.DISABLE_PHYSICAL_MSG^^^" + physical.pmName;
+                   this.noticeTitle="PHYSICAL_MNG.DISABLE_PHYSICAL_TITLE";
                     break;
                    
                 case "1":
-                   this.noticeMsg = `确认启用'${physical.pmName}' ?`;
-                   this.noticeTitle=`启用物理机`;
+                   this.noticeMsg = "PHYSICAL_MNG.ENABLE_PHYSICAL_MSG^^^" + physical.pmName;
+                   this.noticeTitle="PHYSICAL_MNG.ENABLE_PHYSICAL_TITLE";
                     break;
                 case "2":
-                    this.noticeMsg = `确认删除'${physical.pmName}' ?`;
-                    this.noticeTitle=`删除物理机`;
+                    this.noticeMsg = "PHYSICAL_MNG.DELETE_PHYSICAL_MSG^^^" + physical.pmName;
+                    this.noticeTitle="PHYSICAL_MNG.DELETE_PHYSICAL_TITLE";
                     break;
             }
 
@@ -217,7 +221,7 @@ export class PhysicalListComponent implements OnInit {
         this.type="edit";
           const physical = this.physicalList.find((physical) => { return physical.isSelect });
         if(!physical){
-            this.showAlert("请选择需要编辑的物理机");
+            this.showAlert("PHYSICAL_MNG.SELECT_PHYSICAL");
             return;
         }
         this.route.navigate(['physical-mng/physical-mng/physical-edit',{type:this.type,id:physical.pmId,poolId:this.poolId}])
@@ -228,7 +232,7 @@ export class PhysicalListComponent implements OnInit {
          const physical = this.physicalList.find((physical) => { return physical.isSelect });
 
         if(!physical){
-            this.showAlert("请选择需要编辑的物理机");
+            this.showAlert("PHYSICAL_MNG.SELECT_PHYSICAL");
             return;
         }
         this.route.navigate(['physical-mng/physical-mng/physical-ipmiInfoChange',{id:physical.pmId}])
@@ -252,22 +256,22 @@ export class PhysicalListComponent implements OnInit {
     search(){      
         this.pmQuery= new PmQuery();
        
-        if(this.selectedQuery == "物理机名称"){
+        if(this.selectedQuery == "defaultQuery"){
             this.pmQuery.pmName= this.queryParam;
         }
-        else if(this.selectedQuery == "品牌"){
+        else if(this.selectedQuery == "brand"){
             this.pmQuery.brand= this.queryParam;
         }
-       else if(this.selectedQuery == "型号"){
+       else if(this.selectedQuery == "model"){
             this.pmQuery.model= this.queryParam;
         }
-        else if(this.selectedQuery == "私网IP地址"){
+        else if(this.selectedQuery == "privateIp"){
             this.pmQuery.privateIpAddr= this.queryParam;
         }
-        else if(this.selectedQuery == "公网IP地址"){
+        else if(this.selectedQuery == "publicIp"){
             this.pmQuery.publicIpAddr= this.queryParam;
         } 
-         else if(this.selectedQuery == "IPMI地址"){
+         else if(this.selectedQuery == "Ipmi"){
             this.pmQuery.iloAddr= this.queryParam;
         }    
         this.getPhysicalList();
@@ -278,7 +282,7 @@ export class PhysicalListComponent implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "PHYSICAL_MNG.NOTICE";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -289,6 +293,6 @@ export class PhysicalListComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("PHYSICAL_MNG.ERROR");
     }
 }
