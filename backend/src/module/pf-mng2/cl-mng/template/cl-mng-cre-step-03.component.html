@@ -39,14 +39,24 @@
                             <p *ngFor="let dcOrRegion of item.dcOrRegion" style="padding:0;margin-bottom: 0">{{dcOrRegion}}</p>
                             </td>
                         <td>{{item.name}}</td>
-                        <td><input type="text" class="form-control" [(ngModel)]="item.displayName" value="高性能区1"></td>
+                        <td>
+                             <div [ngClass]="{'has-error':!item.displayNameValid}">
+                                <input type="text" class="form-control" [(ngModel)]="item.displayName"  required (blur)="displayNameVa(item)" (focus)="item.displayNameValid=true"/>                               
+                            </div>
+                        </td>
                         <td>{{item.hostNum||0}}</td>
                         <td>{{item.vcpunum||0}}</td>
                         <td>{{item.memSize||0}}</td>
                         <td>
-                            <input type="number" class="form-control"  [(ngModel)]="item.exceedPercentage" style="width: 100px; display: inline;">
+                            <div [ngClass]="{'has-error':!item.exceedPercentageValid}">
+                                <input type="number" #exceedPercentage name="exceedPercentage" class="form-control" required min="0" [(ngModel)]="item.exceedPercentage" (blur)="exceedPercentageVa(item)" (focus)="item.exceedPercentageValid=true">
+                            </div>
                         </td>
-                        <td><input type="number" class="form-control" [(ngModel)]="item.quotaPercentDisplay"></td>
+                        <td>
+                            <div [ngClass]="{'has-error':!item.quotaPercentDisplayValid}">
+                                <input type="number" class="form-control" [(ngModel)]="item.quotaPercentDisplay" min="0" max="100" (blur)="quotaPercentDisplayVa(item)" (focus)="item.quotaPercentDisplayValid=true">
+                            </div>
+                        </td>
                         <td><input type="text" class="form-control" [(ngModel)]="item.description"></td>
                     </tr>
  
@@ -72,16 +82,24 @@
                         <td>{{idx + 1}}</td>
                         <td >{{item.dcOrRegion}}</td>
                         <td>{{item.name}}</td>
-                        <td><input type="text" class="form-control" [(ngModel)]="item.displayName" value="高性能区1"></td>
+                        <td>
+                            <div [ngClass]="{'has-error':!item.displayNameValid}">
+                                <input type="text" class="form-control" [(ngModel)]="item.displayName"  required (blur)="displayNameVa(item)" (focus)="item.displayNameValid=true"/>                               
+                            </div>
+                        </td> 
                         <td>{{item.hostNum||0}}</td>
                         <td>{{item.vcpunum||0}}</td>
                         <td>{{item.memSize||0}}</td>
                         <td>
-                            <!--<div class="has-error">-->
-                                <input type="number" class="form-control"  [(ngModel)]="item.exceedPercentage" style="width: 100px; display: inline;">
-                            <!--</div>-->
+                            <div [ngClass]="{'has-error':!item.exceedPercentageValid}">
+                                <input type="number" #exceedPercentage name="exceedPercentage" class="form-control" required min="0" [(ngModel)]="item.exceedPercentage" (blur)="exceedPercentageVa(item)" (focus)="item.exceedPercentageValid=true">
+                            </div>
                         </td>
-                        <td><input type="number" class="form-control" [(ngModel)]="item.quotaPercentDisplay"></td>
+                        <td>
+                            <div [ngClass]="{'has-error':!item.quotaPercentDisplayValid}">
+                                <input type="number" class="form-control" [(ngModel)]="item.quotaPercentDisplay" min="0" max="100" (blur)="quotaPercentDisplayVa(item)" (focus)="item.quotaPercentDisplayValid=true">
+                            </div>
+                        </td>
                         <td><input type="text" class="form-control" [(ngModel)]="item.description"></td>
                     </tr>                   
                 </tbody>
@@ -102,6 +120,6 @@
     </button>
 </div>
 
-<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL"></fc-notice>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM"></fc-notice>
 
-<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>

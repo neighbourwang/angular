@@ -1,27 +1,27 @@
 
     <div class="page-content-header icon-content-header-physical-mng">
-        物理机列表：{{poolName}}--{{region}}--{{dataCenter}}	
+        {{'PHYSICAL_MNG.PHYSICAL_lIST'|translate}}：{{poolName}}--{{region}}--{{dataCenter}}	
         <button class="fox-cloud-button-md fox-cloud-button-white pull-right" style="font-size:14px;padding:2px 15px"(click)="gotoPool();">
-                    返回资源池列表
+            {{'PHYSICAL_MNG.RETURN'|translate}}
         </button>  
     </div>
     <div class="page-content"> 
         <div style="margin-bottom:10px">  
             <button class="fox-cloud-button fox-cloud-button-green" (click)="createPhysical();">
                 <span class="glyphicon glyphicon-plus"></span>
-                <span class="icon-button-label icon-left-button-label">添加物理机</span>
+                <span class="icon-button-label icon-left-button-label">{{'PHYSICAL_MNG.CREATE_PHYSICAL'|translate}}</span>
             </button>
             <div class="dropdown pull-right" style="margin-left:10px">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    更多操作
+                    {{'PHYSICAL_MNG.SELECT_OPTION'|translate}}
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a (click)="editPhysical();" > 编辑</a></li>            
-                    <li><a (click)="changeIpmiInfo();">修改IPMI信息</a></li>
-                    <li><a (click)="changePhysicalStatusAndDelete('1');">启用</a></li>
-                    <li><a (click)="changePhysicalStatusAndDelete('0');">禁用</a></li>
-                    <li><a (click)="changePhysicalStatusAndDelete('2');">删除</a></li>
+                    <li><a (click)="editPhysical();" > {{'PHYSICAL_MNG.EDIT'|translate}}</a></li>            
+                    <li><a (click)="changeIpmiInfo();">{{'PHYSICAL_MNG.EDIT_IPMI'|translate}}</a></li>
+                    <li><a (click)="changePhysicalStatusAndDelete('1');">{{'PHYSICAL_MNG.ENABLE'|translate}}</a></li>
+                    <li><a (click)="changePhysicalStatusAndDelete('0');">{{'PHYSICAL_MNG.DISABLE'|translate}}</a></li>
+                    <li><a (click)="changePhysicalStatusAndDelete('2');">{{'PHYSICAL_MNG.DELETE'|translate}}</a></li>
                 </ul>
            </div>                  
            <div class="input-group col-md-2 pull-right mgl10">
@@ -30,28 +30,28 @@
             </div> 
              <div class="pull-right" >
                 <select class="form-control" [(ngModel)]="selectedQuery">
-				    <option [value]="defaultQuery">物理机名称</option>
-                    <option>品牌</option>            
-                    <option>型号</option>
-                    <option>私网IP地址</option>
-                    <option>公网IP地址</option>
-                    <option>IPMI地址</option>
+				    <option [value]="defaultQuery">{{'PHYSICAL_MNG.PHYSICAL_NAME'|translate}}</option>
+                    <option>{{'PHYSICAL_MNG.BRAND'|translate}}</option>            
+                    <option>{{'PHYSICAL_MNG.MODEL'|translate}}</option>
+                    <option>{{'PHYSICAL_MNG.PRIVATE_IP'|translate}}</option>
+                    <option>{{'PHYSICAL_MNG.PUBLIC_IP'|translate}}</option>
+                    <option>{{'PHYSICAL_MNG.IPMI_IP'|translate}}</option>
                 </select>
            </div>           
         </div > 
         <div class="table-container ">
-                <table class="table table-hover "  >
+                <table class="table table-hover "  style="table-layout:fixed;">
                         <thead>
                             <tr>
                                 <th>选择</th> 
                                 <th>编号</th>                                       
-                                <th>物理机名称</th>	
+                                <th style="width:90px">物理机名称</th>	
                                 <th>S/N</th>									
                                 <th>品牌</th>
                                 <th>型号</th>
                                 <th>CPU数量</th>
-                                <th>内存（G）</th>
-                                <th>磁盘信息</th>  
+                                <th>内存(G)</th>
+                                <th style="width:105px;">磁盘信息</th>  
                                 <th>私网IP地址</th> 
                                 <th>公网IP地址</th>
                                 <th>IPMI地址</th> 
@@ -67,7 +67,7 @@
                                 <td ><input type="radio" name="physical" class="fox-cloud-radio" 
                                           (change)="getSelectPhysical(physical);"[checked]="physical.isSelect" ></td>                                      
                                 <td>{{idex+1}}</td>
-                                <td class="font-blue" (click)="gotoPhysicalView(physical);">{{physical.pmName}}</td> 
+                                <td ><a href="javascript:void(0);" (click)="gotoPhysicalView(physical);">{{physical.pmName}}</a></td> 
                                 <td>{{physical.pmSN}}                                
                                 <td>{{physical.pmBrand}}</td>
                                 <td>{{physical.pmModel}}</td>

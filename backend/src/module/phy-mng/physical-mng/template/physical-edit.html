@@ -61,7 +61,7 @@
                     <div class="col-md-4">
                         <select class="form-control" [(ngModel)]="physical.sererTypeId" [disabled]="eidtMode !='create'">
                             <option value="">请选择</option>
-                            <option *ngFor="let type of serverTypes" [value]="type.id">{{type.serverType}}</option>
+                            <option *ngFor="let type of service.dictServerType | async" [value]="type.value">{{type.displayValue}}</option>
                         </select>
                     </div>
                 </div>
@@ -142,7 +142,7 @@
                                         <tr *ngFor="let disks of( physical.pmHardwareDiskList ||[]);let idex=index" style="">
                                             <td [attr.rowspan]="physical.pmHardwareDiskList.length" *ngIf="idex===0"  style="background-color:white;">硬盘</td>
                                             <td>{{disks.version}}</td>
-                                            <td><input type="number" class="form-control" [(ngModel)]="disks.value" style="display:inline;width:90px;" #box (keyup)="isNumbe(box.value);"> G</td>
+                                            <td><input type="number" class="form-control" [(ngModel)]="disks.value" style="display:inline;width:90px;" (keyup)="isNumber($event);"> G</td>
                                         </tr>
                                     </tbody>
                                 </table>

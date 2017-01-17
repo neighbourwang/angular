@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
-import { LayoutService, ValidationService, NoticeComponent,dictPipe,ConfirmComponent,PaginationComponent } from "../../../../architecture";
+import { LayoutService, ValidationService, NoticeComponent,dictPipe,ConfirmComponent,PaginationComponent,SystemDictionaryService} from "../../../../architecture";
 
 import { PhysicalListService } from "../service/physical-list.service";
 
@@ -42,7 +42,7 @@ export class PhysicalListComponent implements OnInit {
     confirm: ConfirmComponent;
 
     totalPage = 1;
-    pageIndex =1;
+    pageIndex =0;
     pageSize = 20;
 
 
@@ -59,6 +59,7 @@ export class PhysicalListComponent implements OnInit {
     selectedQuery:string=this.defaultQuery;
     defaultQuery:string;
     queryParam:string;
+    i="";
 
     //title: string;
 
@@ -72,7 +73,6 @@ export class PhysicalListComponent implements OnInit {
             // this.dataCenter = params['dataCenter'];   
             this.getPoolInfo();
             this.getPhysicalList();
-
         });
     }
 
@@ -141,24 +141,20 @@ export class PhysicalListComponent implements OnInit {
             }                   
         }
          console.log("选择的物理机",physical.pmName);
-        if(physical.pmMainStatus==status){
-            this.showAlert(`该物理机已经是'${this.dictPipe.transform("physical.UseageStatus",this.service.dictUseage)}'状态！`);
-            //this.showAlert(`该物理机已经是'${physical.UseageStatus}'状态！`);
+        if(physical.pmUseageStatus==status){
+          
+            this.dictPipe.transform(physical.pmUseageStatus,this.service.dictUseage)
+            .then(
+                res=> {
+                    console.log(res);
+                    this.i=res;
+                    console.log(this.i);
+                }
+            ) ;          
+            this.showAlert(`该物理机已经是'${this.i}'状态！`);
             return;
         }
-        // else if(status=="0"){
-        //     this.noticeMsg = `确认禁用'${physical.pmName}' ?`;
-        //      this.noticeTitle=`禁用物理机`;
-             
-        // }
-        // else if(status=="1"){
-        //    this.noticeMsg = `确认启用'${physical.pmName}' ?`;
-        //          this.noticeTitle=`启用物理机`;
-        // }
-        // else{
-        //     this.noticeMsg = `确认删除'${physical.pmName}' ?`;
-        //    this.noticeTitle=`删除物理机`;
-        // }
+        
         
         switch (status) {
                 case "0":
@@ -210,13 +206,9 @@ export class PhysicalListComponent implements OnInit {
     }
 
     //跳转查看物理机
-    gotoPhysicalView(){
+    gotoPhysicalView(physical:PhysicalModel){
         this.type="view";
-          const physical = this.physicalList.find((physical) => { return physical.isSelect });
-        if(!physical){
-            this.showAlert("请选择需要查看的物理机");
-            return;
-        }
+        
         this.route.navigate(['physical-mng/physical-mng/physical-edit',{type:this.type,id:physical.pmId,poolId:this.poolId}])
     }
 
@@ -292,7 +284,6 @@ export class PhysicalListComponent implements OnInit {
     }
 
     showConfirm(msg: string): void {
-
     }
 
     onRejected(reason: any) {

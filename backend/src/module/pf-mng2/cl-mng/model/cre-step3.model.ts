@@ -4,6 +4,7 @@ export class ZoneListModel {
 
     name : String; //名称
     displayName : String ; //显示名称
+    displayNameValid:boolean;
     hostnum : number;//宿主机 数量
     memSize : number;//总内存数
     vcpunum : number;//物理cpu总核数
@@ -15,10 +16,15 @@ export class ZoneListModel {
     //   "displayName": "nova",
     //   "hostNum": 1,
     exceedPercentage: number;
+    exceedPercentageValid:boolean;
     quotaPercentage: number;
     quotaPercentDisplay:number;
+    quotaPercentDisplayValid:boolean;
     isEdit:boolean;
     //   "status": 0,
     constructor() {
+        this.displayNameValid=true;
+        this.exceedPercentageValid=true;
+        this.quotaPercentDisplayValid=true;
     }
 }
