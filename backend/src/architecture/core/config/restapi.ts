@@ -649,7 +649,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "订单查询详情",
         "id": "op-center.order-search.detail.get",
         "method": "GET",
-        "url": "adminui//authsec/backend/order/{orderNo}/detail"
+        "url": "adminui/authsec/backend/order/{orderNo}/detail"
+    },
+     {
+        "desc": "订单查询撤单",
+        "id": "op-center.order-search.cencel.post",
+        "method": "POST",
+        "url": "adminui/authsec/order/withdraw/order/{orderId}"
     },
     {
         "desc": "企业列表",

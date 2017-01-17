@@ -1048,6 +1048,28 @@
         "STATUS": "状态",
         "USED_PHY_AMOUNT": "已使用的物理机数量"
     },
+    "PHYSICAL_MNG":{
+        "PHYSICAL_lIST":"物理机列表",
+        "RETURN":"返回资源池列表",
+        "CREATE_PHYSICAL":"添加物理机",
+        "SELECT_OPTION":"更多操作",
+        "EDIT":"编辑",
+        "EDIT_IPMI":"修改IPMI信息",
+        "ENABLE":"启用",
+        "DISABLE":"禁用",
+        "DELETE":"删除",
+        "PHYSICAL_NAME" :"物理机名称",
+        "BRAND":"品牌",
+        "MODEL":"型号",
+        "PRIVATE_IP":"私网IP地址",
+        "PUBLIC_IP":"公网IP地址",
+        "IPMI_IP":"IPMI地址",
+
+
+
+
+
+    },
     "PROD_MNG": {
         "ALL_ENTERPRISE": "全部企业",
         "ALL_PLATFORM": "所有平台",
@@ -1221,4 +1243,5 @@
         "USERNAME_MUST_BE_EMAIL": "用户名必须是邮箱！",
         "VIEW_ROLE": "查看角色"
     }
+    
 }

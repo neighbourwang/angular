@@ -93,30 +93,40 @@ export class ClMngCreStep3Component implements OnInit {
 
         // this.router.navigateByUrl("pf-mng2/cl-mng/cre-step4");
         for (let zone of this.creStep3Model) {
-            if (!zone.displayNameValid || !zone.exceedPercentageValid || !zone.quotaPercentDisplayValid) {
-                return;
+            this.displayNameVa(zone);
+            if (!zone.displayNameValid) {
+                return
             }
+            this.exceedPercentageVa(zone);
+            if (!zone.exceedPercentageValid) {
+                return
+            }
+            this.quotaPercentDisplayVa(zone);
+            if (!zone.quotaPercentDisplayValid) {
+                return
+            }
+            zone.quotaPercentage = 0;
+            zone.quotaPercentage = zone.quotaPercentDisplay * 0.01
         }
-        this.creStep3Model.forEach(ele => {
-            ele.quotaPercentage = 0;
-            ele.quotaPercentage = ele.quotaPercentDisplay * 0.01
-        }
-        );
+        // this.creStep3Model.forEach(ele => {
+
+        // }
+        // );
         console.log(this.creStep3Model);
         //等待接口
         this.layoutService.show();
-        this.service.putZone( platFormId , this.creStep3Model).then(
+        this.service.putZone(platFormId, this.creStep3Model).then(
             res => {
                 console.log(res);
                 this.layoutService.hide();
-                this.router.navigate(["pf-mng2/cl-mng/cre-step4",{type:this.platformType}]);
+                this.router.navigate(["pf-mng2/cl-mng/cre-step4", { type: this.platformType }]);
             }
         ).catch(
             error => {
                 this.layoutService.hide();
                 console.error('error');
             }
-        )        
+            )
     }
 
     previous() {

@@ -19,4 +19,6 @@ export class SearchOrderItem{//订单列表
 
     statusName: string = null;//用于界面显示
     serviceTypeName: string = null;//用于界面显示，产品类型名称
+
+    withDrawOrderFlag : number = 0;//撤单标志，默认0不能撤单，1可以撤单
 }
