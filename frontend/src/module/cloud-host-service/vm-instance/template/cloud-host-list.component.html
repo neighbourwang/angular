@@ -77,8 +77,8 @@
                  [ngValue]="v.code" >{{ v.displayValue }}</option>
             </select>
          </div>
-        <div class="input-group col-md-2 float-left mgr10">
-            <input class="form-control" [(ngModel)]="list.queryFieldValue" type="email" placeholder="{{'COMMON.ENTER_CLOUD_HOST_INFORMATION_TO_SEARCH' | translate}}">
+        <div class="input-group col-md-4 float-left mgr10">
+            <input class="form-control width-100" [(ngModel)]="list.queryFieldValue" type="email" placeholder="{{'COMMON.ENTER_CLOUD_HOST_INFORMATION_TO_SEARCH' | translate}}">
             <div class="input-group-addon"  (click)="search()"><span class="glyphicon glyphicon-search"></span></div>
         </div>
         <!-- <div class="input-group float-left mgr10">
@@ -87,7 +87,7 @@
             </label>
         </div> -->
         <div class="input-group float-left">
-            <button (click)="resetSearch()" class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span>{{'COMMON.RESET_SEARCH' | translate}}</button>
+            <button (click)="resetSearch()" class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span> {{'COMMON.RESET_SEARCH' | translate}}</button>
         </div>
     </div>
     <div class="col-md-12 no-padding mgb20">

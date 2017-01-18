@@ -108,17 +108,17 @@ export class cloudHostListComponent implements OnInit {
 	}
 
 	delectVm() {  //退订云主机
-		if( !this.radioSelected.subInstanceId )  return this.showNotice("退订云主机", "请选择要退订的主机");
+		if( !this.radioSelected.subInstanceId )  return this.showNotice("VM_INSTANCE.UNSUBSCRIBE_CLOUD_HOST", "VM_INSTANCE.CHOOSE_HOST_UN");
 		this.forceDelect = false;
 
-		this.popup.open("退订云主机");
+		this.popup.open("VM_INSTANCE.UNSUBSCRIBE_CLOUD_HOST");
 	}
 	popupCf(){}
 	popupOf(){
 		this.service.deleteVm(this.radioSelected.subInstanceId, this.forceDelect?1:0).then(res => {
-			this.showNotice("退订云主机", "已发起退订流程（系统处理需要一定的时间，请勿重复退订）！");
+			this.showNotice("VM_INSTANCE.UNSUBSCRIBE_CLOUD_HOST", "VM_INSTANCE.ALREADY_STARTED_UN_PROCESS");
 		}).catch(e => {
-			this.showNotice("退订云主机", "退订失败！");
+			this.showNotice("VM_INSTANCE.UNSUBSCRIBE_CLOUD_HOST", "COMMON.FAILED");
 		})
 		this.popup.close();
 	}
@@ -135,7 +135,7 @@ export class cloudHostListComponent implements OnInit {
 		this.service.handleVm(this.handleData).then(res => {
 			this.layoutService.hide();
 			// alert(msg+"成功！");
-			this.showNotice("COMMON.CLOUD_HOST_OPERATION" ,msg+"成功！");
+			this.showNotice("COMMON.CLOUD_HOST_OPERATION" ,"COMMON.SUCCESS");
 
 			setTimeout(() => {   //延迟4秒执行 因为后端4秒同步一次状态
 				this.setHostList();

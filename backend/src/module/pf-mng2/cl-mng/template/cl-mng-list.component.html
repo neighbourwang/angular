@@ -1,16 +1,16 @@
-<div class="page-content-header icon-content-header-platform-manage">云平台管理</div>
+<div class="page-content-header icon-content-header-platform-manage">{{ 'PF_MNG2.PF_CLOUD_MNG' | translate}}</div>
 <div class="page-content" style="min-height:300px;">
     <div style="padding-bottom: 10px;">
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                更多操作
+                {{ 'COMMON.MORE_OPERATION' | translate}}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
                 <!--<li><a href="#">修改</a></li>-->
-                <li><a (click)="remove();">删除</a></li>
-                <li><a (click)="enable();">启用</a></li>
-                <li><a (click)="disable();">禁用</a></li>
+                <li><a (click)="remove();"> {{ 'COMMON.DELETE' | translate}}</a></li>
+                <li><a (click)="enable();"> {{ 'COMMON.ENABLE' | translate}}</a></li>
+                <li><a (click)="disable();"> {{ 'COMMON.DISABLE' | translate}}</a></li>
             </ul>
         </div>
         <!--<button class="pull-right fox-cloud-button-md fox-cloud-button-white" style="line-height:28px ;padding:0 10px;margin-right: 20px"
@@ -24,23 +24,23 @@
         </button>-->
         <button class="fox-cloud-button fox-cloud-button-green" (click)="create();">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建云平台</span>
+            <span class="icon-button-label icon-left-button-label">{{ 'PF_MNG2.CREATE_CLOUD_PLATFORM' | translate}}</span>
         </button>
     </div>
     <div class="table-container">
         <table class="table table-hover">
             <thead>
             <tr>
-                <th class="check-box-col">选择</th>
-                <th>编号</th>
-                <th>云平台名称</th>
-                <th>所属数据中心</th>
-                <th>所属地域</th>
-                <th>云平台类型</th>
-                <th>访问地址</th>
-                <th>版本</th>
-                <th>状态</th>
-                <th>健康检查</th>
+                <th class="check-box-col">{{ 'COMMON.CHOOSE' | translate}}</th>
+                <th>{{ 'COMMON.NUMBER' | translate}}</th>
+                <th>{{ 'USER_CENTER.PLATFORM_NAME' | translate}}</th>
+                <th>{{ 'PHY_MNG_POOL.DIGIT_CENTER_OWNER' | translate}}</th>
+                <th>{{ 'PHY_MNG_POOL.REGION_OWNER' | translate}}</th>
+                <th>{{ 'USER_CENTER.PLATFORM_TYPE' | translate}}</th>
+                <th>{{ 'PF_MNG.PF_MNG' | translate}}</th>
+                <th>{{ 'PF_MNG.VERSION_NUM' | translate}}</th>
+                <th>{{ 'COMMON.STATUS' | translate}}</th>
+                <th>{{ 'PF_MNG2.HEALTH_EXAMINATION' | translate}}</th>
             </tr>
             </thead>
             <tbody>

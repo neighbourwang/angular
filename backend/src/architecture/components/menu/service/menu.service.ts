@@ -23,13 +23,13 @@ export class MenuService {
 		return new Promise(resolve => {
 			resolve([
 				{
-					"label": "平台管理",
+					"label": "PF_MNG2.PF_MNG",
 					"isOpen": true,
 					"isShow": !isRoot,
 					"icon": "icon-platform-manage",
 					"top2_menu": [
 						{
-							"label": "云平台",
+							"label": "COMMON.CLOUD_PLATFORM",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
@@ -38,20 +38,20 @@ export class MenuService {
 					]
 				},
 				{
-					"label": "产品管理",
+					"label": "PROD_MNG.PRODUCT_MANAGEMENT",
 					"isOpen": false,
 					"isShow": !isRoot,
 					"icon": "icon-product-and-service",
 					"top2_menu": [
 						{
-							"label": "产品目录管理",
+							"label": "PROD_MNG.PRODUCT_CAT_MANAGEMENT",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
 							// "routing": "pf-mng2/cl-mng/cl-mng"
 							"routing": "prod-mng/prod-dir-mng/prod-dir-mng"
 						}, {
-							"label": "产品管理",
+							"label": "PROD_MNG.PRODUCT_MANAGEMENT",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
@@ -103,13 +103,13 @@ export class MenuService {
 				// 	]
 				// },
 				{
-					"label": "企业管理",
+					"label": "ENT_MNG.ENTERPRISE_MNG",
 					"isOpen": false,
 					"isShow": !isRoot,
 					"icon": "icon-enterprise-manage",
 					"top2_menu": [
 						{
-							"label": "企业管理",
+							"label": "ENT_MNG.ENTERPRISE_MNG",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
@@ -139,13 +139,13 @@ export class MenuService {
 					]
 				},
                 {
-                    "label": "物理机管理",
+                    "label": "USER_CENTER.PHY_MNG",
                     "isOpen": false,
                     "isShow": !isRoot,
                     "icon": "icon-physical-mng",
                     "top2_menu": [
                         {
-                            "label": "物理机实例",
+                            "label": "USER_CENTER.PHY_INSTANCE",
                             "isOpen": false,
                             "isActive": false,
                             "isShow": !isRoot,
@@ -154,13 +154,13 @@ export class MenuService {
                     ]
                 },
 				{
-					"label": "云主机管理",
+					"label": "USER_CENTER.CLOUD_HOST_MNG",
 					"isOpen": false,
 					"isShow": !isRoot,
 					"icon": "icon-content-header-purchasingWhite",
 					"top2_menu": [
 						{
-							"label": "镜像管理",
+							"label": "USER_CENTER.IMAGE_MNG",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
@@ -169,41 +169,41 @@ export class MenuService {
 					]
 				},
 				{
-					"label": "云网络管理",
+					"label": "USER_CENTER.CLOUD_NETWORK_MNG",
 					"isOpen": false,
 					"isShow": !isRoot,
 					"icon": "icon-cloud-network-mng",
 					"top2_menu": [
 						{
-							"label": "OpenStack网络",
+							"label": "USER_CENTER.OPENSTACK_NEWWORK",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
 							"routing": "net-mng/openstack/openstack-net-mng"
 						},
 						{
-							"label": "VMware网络",
+							"label": "NET_VM_NSX_INDEX.VMWARE_NET",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
 							"routing": "net-mng/vm-mng-index/vmware-net-index"
 						},
 						{
-							"label": "VMware标准网络",
+							"label": "USER_CENTER.VMware_NETWORK",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
 							"routing": "net-mng/vm-mng/88"
 						},
 						{
-							"label": "VMware分布式网络",
+							"label": "USER_CENTER.VMware_E_NETWORK",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
 							"routing": "net-mng/vm-mng-dbt/index/88"
                         },
                         {
-							"label": "VMware NSX网络",
+							"label": "USER_CENTER.VMware_E_NETWORK",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
@@ -212,20 +212,20 @@ export class MenuService {
 					]
 				},
 				{
-					"label": "运营中心",
+					"label": "USER_CENTER.OP_CENTER",
 					"isOpen": false,
 					"isShow": !isRoot,
 					"icon": "icon-operator",
 					"top2_menu": [
 						{
-							"label": "已购服务管理",
+							"label": "ORDER_MNG.PURCHASED_SERVICE_MNG",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
 							"routing": "op-center/order-mng/order-mng"
 						},
 						{
-							"label": "订单查询",
+							"label": "USER_CENTER.ORDER_QUERY",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
@@ -234,25 +234,25 @@ export class MenuService {
 					]
 				},
 				{
-					"label": "审批中心",
+					"label": "USER_CENTER.AP_CENTER",
 					"isOpen": false,
 					"isShow": !isRoot,
 					"icon": "icon-order-manage",
 					"top2_menu": [
 						{
-							"label": "待审批",
+							"label": "USER_CENTER.PENDING",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
 							"routing": "check-center/check-mng-list"
 						}, {
-							"label": "已审批",
+							"label": "USER_CENTER.Approved_APPROVED",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
 							"routing": "check-center/check-mng-hascheck"
 						}, {
-							"label": "审批设置",
+							"label": "USER_CENTER.APPROVEL_SETTING",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": isOrgin,
@@ -262,41 +262,41 @@ export class MenuService {
 				},
 
 				{
-					"label": "用户中心",
+					"label": "USER_CENTER.USER_CENTER",
 					"isOpen": isRoot,
 					"isShow": true,
 					"icon": "icon-content-header-userCenterWhite",
 					"top2_menu": [
 						{
-							"label": "账号管理",
+							"label": "USER_CENTER.ACCOUNT_MNG",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": isRoot,
 							"routing": "user-center/account-mng/account-mng-list"
 						},
 						{
-							"label": "机构管理",
+							"label": "USER_CENTER.ORG_MNG",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": isRoot,
 							"routing": "user-center/org-mng/org-mng-list"
 						},
 						{
-							"label": "角色管理",
+							"label": "USER_CENTER.ROLE_MNG",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": isRoot,
 							"routing": "user-center/role-mng/role-mng-list"
 						},
 						{
-							"label": "认证管理",
+							"label": "USER_CENTER.AD_MNG",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": isRoot,
 							"routing": "user-center/attest-mng/attest-mng"
 						},
 						{
-							"label": "个人账户管理",
+							"label": "USER_CENTER.PERSONAL_MNG",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": true,
