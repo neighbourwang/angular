@@ -434,6 +434,7 @@ export class OrderMngComponent implements OnInit{
 
 		this.layoutService.show();
 		this._orderLoader.clear();
+		this._orderLoader.TotalPages = 1;//清空页码
 		this._orderLoader.Go(null, null, param)
 		.then(success=>{
 			this.layoutService.hide();
