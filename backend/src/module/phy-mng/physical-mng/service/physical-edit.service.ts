@@ -21,7 +21,7 @@ export class PhysicalEditService {
         this.restApiCfg.loadCfgData();
     }
 
-     dictProductType = this.dict.get({      
+     dictServerType = this.dict.get({      
       owner : "PM",
       field : "SERVER_TYPE"    
    });

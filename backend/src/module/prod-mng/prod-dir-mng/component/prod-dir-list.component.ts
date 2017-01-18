@@ -22,7 +22,11 @@ import { specification } from '../model/prodDir.model';
 @Component({
     selector: 'prod-dir-list',
     templateUrl: '../template/prod-dir-list.component.html',
-    styleUrls: [
+    styles: [
+        `.btn-active{
+            background-color: #00a982;
+            color : #fff
+        }`
     ],
     providers: []
 })
@@ -64,20 +68,18 @@ export class ProdDirListComponent implements OnInit {
 
             // }
         }).catch(err => {
-            console.error(err)
+            console.error(err);
+            this.notice.open('COMMON.OPERATION_ERROR','获取产品目录列表错误')
         })
         //获取产品目录类别
         this.ProdSeriesService.getProdSeries().then(response => {
             if (response && 100 == response.resultCode) {
-                this.prodDirTypeList = response.resultContent;
-                this.prodDirTypeId = this.prodDirTypeList[0].id
-                // this.queryProdDirTypeId =this.prodDirTypeList[0].id                
-                console.log('产品目录类别', this.prodDirTypeList)
-                // this.prodDirTypeList.push({
-                //     code: "VITRUALDISK_SERVICE",
-                //     id: "2",
-                //     name: "云硬盘服务"
-                // })
+                this.prodDirTypeList = response.resultContent;                
+                this.prodDirTypeList.forEach(ele=>{
+                    ele.isSelected=false;
+                })
+                this.prodDirTypeId = this.prodDirTypeList[0].id;
+                this.prodDirTypeList[0].isSelected=true;
             } else {
 
             }
@@ -207,10 +209,11 @@ export class ProdDirListComponent implements OnInit {
                     break;
                 case 'ccPublish':
                     if (prodDirList[0].status == '3') {
-                        this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PRODUCT_CAT_IS_CANCELLED') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PRODUCT_CAT_IS_CANCELLED=>产品目录状态为取消发布 
+                        this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PRODUCT_CAT_IS_CANCELLED') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PRODUCT_CAT_IS_CANCELLED=>产品目录状态为取消发布 
+
 
                     } else {
-                        this.ccPublishConfirm.open('PROD_MNG.CANCEL_PUBLISH_PRODUCT_CAT', '您选择取消发布' + "'" + message + "'" + '产品,请确认。如果确认，此产品目录将不能用来创建产品。') //PROD_MNG.CANCEL_PUBLISH_PRODUCT_CAT=>取消发布产品目录 
+                        this.ccPublishConfirm.open('PROD_MNG.CANCEL_PUBLISH_PRODUCT_CAT', 'PROD_MNG.CANCEL_SELECTED_PRODUCT^^^' + message) //PROD_MNG.CANCEL_PUBLISH_PRODUCT_CAT=>取消发布产品目录 
 
                     }
                     break;
@@ -269,10 +272,19 @@ export class ProdDirListComponent implements OnInit {
     }
     //选择产品目录类型
     showSpec: boolean = true;
-    selectProDirType(e) {
-        console.log(e);
+    // selectProDirType(e) {
+    //     console.log(e);
+    //     this.showSpec =
+    //         e == '33f23ade-a0f8-11e6-a18b-0050568a49fd' ? true : false;
+    // }
+    selectProDirType(item,index) {
+        this.prodDirTypeList.forEach(ele=>{
+                    ele.isSelected=false;
+                })
+        item.isSelected=true;
+        console.log(item);
         this.showSpec =
-            e == '33f23ade-a0f8-11e6-a18b-0050568a49fd' ? true : false;
+            item.id == '33f23ade-a0f8-11e6-a18b-0050568a49fd' ? true : false;
     }
     otcreate() {
         let id = this.prodDirTypeId;

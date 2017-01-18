@@ -34,6 +34,10 @@ export class OrderMngSearchComponent implements OnInit{
 
 	private _entId:string = "191af465-b5dc-4992-a5c9-459e339dc719";
 	
+	private _selectedItem:SearchOrderItem = new SearchOrderItem();　
+	
+	private _cancelLoader : ItemLoader<any> = null;//撤单
+	private cancelReason : string = null;//撤单原因
 	
 	constructor(
 		private layoutService: LayoutService,
@@ -95,6 +99,12 @@ export class OrderMngSearchComponent implements OnInit{
 			}
 		}
 
+
+      
+       //撤单
+	   this._cancelLoader = new ItemLoader<any>(false,"撤单失败","op-center.order-search.cencel.post",restApiCfg, restApi);
+
+	   
 		//产品类型配置
 		this._productTypeLoader = new DicLoader(restApiCfg, restApi, "GLOBAL", "SERVICE_TYPE");
 
@@ -357,16 +367,6 @@ export class OrderMngSearchComponent implements OnInit{
 	{
 		this._notice.open("COMMON.SYSTEM_PROMPT", msg);
 	}
-	cancel(){
-/*
-{
-        "desc": "订单退订",
-        "method": "GET",
-        "id": "op-center.order-mng.order-cancel.get",
-        "url": " /marketplace/authsec/subscription/instance/{_subId}/cancel"        
-    }
-*/
-	}
 
 	resetParam(){
 		this._param.reset();
@@ -395,5 +395,29 @@ showDetail(item:SearchOrderItem)
 		})
 	}
 
+//选中一行订单
+	selectItem(item:SearchOrderItem){
+		this._selectedItem = item;
+		if(item.withDrawOrderFlag == 1){
+			$('#cancelOrder').modal('show');
+		}
+		else{
+			this.showMsg("您选择的订单无法撤单，请重新选择！");
+		}
+
+	}
+	//撤单
+	cancel(){
+		this.layoutService.show();
+	
+        this._cancelLoader.Go(null,[{key:"orderId",value:this._selectedItem.orderId},{key:"reason",value:this.cancelReason}])
+		.then(succeuss=>{
+			this.layoutService.hide();
+		})
+		.catch(err=>{
+			this.layoutService.hide();
+			this.showMsg(err);
+		})
+	}
 
 }

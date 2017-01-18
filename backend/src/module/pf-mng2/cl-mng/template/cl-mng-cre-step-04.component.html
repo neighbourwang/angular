@@ -60,15 +60,15 @@
                     <tr *ngFor="let item of creStep4Model; let idx = index;">
                         <td>{{idx + 1}}</td>
                         <td>{{item.name}}</td>
-                        <td><input type="text" class="form-control" [(ngModel)]="item.displayName"></td>
+                        <td><input type="text" class="form-control" [(ngModel)]="item.displayName" required></td>
                         <td>{{item.typeDisplayName}}</td>
                         <td>{{item.maximum||0}}</td>
                         <td>
-                            <input type="number" class="form-control" [(ngModel)]="item.replica" style="width: 100px; display: inline;">
+                            <input type="number" class="form-control" required [(ngModel)]="item.replica" style="width: 100px; display: inline;" min="0">
                             <!--<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
                         </td>
                         <td>
-                            <input type="number" class="form-control"  [(ngModel)]="item.quotaPercentDisplay" style=" display: inline;">
+                            <input type="number" class="form-control"  required [(ngModel)]="item.quotaPercentDisplay" style=" display: inline;" min="0" max="100">
                         </td>
                         <td >
                             <input type="text" class="form-control" [(ngModel)]="item.description" style=" display: inline;" >
@@ -96,15 +96,15 @@
                         <td>{{idx + 1}}</td>
                         <td>{{item.clusterName}}</td>
                         <td>{{item.name}}</td>
-                        <td><input type="text" class="form-control" [(ngModel)]="item.displayName"></td>
+                        <td><input type="text" class="form-control" [(ngModel)]="item.displayName" required></td>
                         <td>{{item.typeDisplayName}}</td>
                         <td>{{item.maximum||0}}</td>
                         <td>
-                            <input type="number" class="form-control" [(ngModel)]="item.replica" style="width: 100px; display: inline;" (blur)="keepSame(item)">
+                            <input type="number" class="form-control" required min="0"    [(ngModel)]="item.replica" style="width: 100px; display: inline;" (blur)="keepSame(item)">
                             <!--<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
                         </td>
                         <td>
-                            <input type="number" class="form-control" [(ngModel)]="item.quotaPercentDisplay" [class.border-error]="!item.valid" (blur)="keepSame(item)" style=" display: inline;">
+                            <input type="number" class="form-control" required min="0" max="100" [(ngModel)]="item.quotaPercentDisplay" [class.border-error]="!item.valid" (blur)="keepSame(item)" style=" display: inline;">
                         </td>
                         <td >
                             <input type="text" class="form-control" [(ngModel)]="item.description" style=" display: inline;" >
@@ -129,3 +129,6 @@
 </div>
 
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM"></fc-notice>
+
+
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
