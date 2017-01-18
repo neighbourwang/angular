@@ -282,6 +282,7 @@ export class ProdDirListComponent implements OnInit {
                     ele.isSelected=false;
                 })
         item.isSelected=true;
+        this.prodDirTypeId=item.id;
         console.log(item);
         this.showSpec =
             item.id == '33f23ade-a0f8-11e6-a18b-0050568a49fd' ? true : false;
@@ -302,8 +303,6 @@ export class ProdDirListComponent implements OnInit {
                 this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre", { vcpu: this.spec.vcpu, mem: this.spec.mem, startupDisk: this.spec.startupDisk }]);
             } else {
                 this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PLATFORM_PRODUCT_CAT_ERROR') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PLATFORM_PRODUCT_CAT_ERROR=>云主机产品目录规格输入错误 
-
-
             }
         } else {
             this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre"]);
