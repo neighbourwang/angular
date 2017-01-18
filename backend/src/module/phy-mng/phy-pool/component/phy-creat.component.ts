@@ -43,7 +43,6 @@ export class PhyCreatComponent implements OnInit{
     pmPoolId: string;
     title: string;
     save: string;
-    id: number;
 
     regions: Array<Region>= new Array<Region>();
 
@@ -96,9 +95,12 @@ export class PhyCreatComponent implements OnInit{
             this.showAlert("PHY_MNG_POOL.PLEASE_INPUT_DIGIT_CENTER");
             return;
         }
-        this.id= parseInt(this.data.regionId);
-        this.data.region= this.regions[this.id-1].name;
-        console.log( this.data.region, this.id, " this.data.region & id");
+
+         let selectedTegion= this.regions.find((r)=>{
+            return r.id== this.data.regionId;
+        });
+        this.data.region =selectedTegion &&selectedTegion.name;
+        console.log( this.data.region, " this.data.region");
         if(!this.pmPoolId){
             this.layoutService.show();
             this.service.creat(this.data)
@@ -130,7 +132,6 @@ export class PhyCreatComponent implements OnInit{
         }
         this.phypoolmngService.getData(this.criteria,1,50);
         this.gotoPoolMng();
-        console.log(this.id,"id");
     }
 
     getRegionList() {
@@ -142,7 +143,6 @@ export class PhyCreatComponent implements OnInit{
                     if (response && 100 == response["resultCode"]) {
                         this.regions = response["resultContent"];
                         this.data.regionId= this.regions[0].id;
-                        console.log(response.resultContent, "getRegionList");
                     } else {
                         alert("Res sync error");
                     }
