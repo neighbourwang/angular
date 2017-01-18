@@ -248,7 +248,10 @@ export class CheckMngListComponent implements OnInit{
 	//拒绝
 	refuse(item:CheckListItem){
 		this._selectedItem = item;
-		this.refuseDialog.open();
+		if(this.isCheck)
+		    this.refuseDialog.open();
+		else
+			this.showMsg("请先审批订单"+item.relyOrderNo+"!");
 	}
 
 	//确认拒绝
@@ -298,7 +301,10 @@ export class CheckMngListComponent implements OnInit{
 	accept(item:CheckListItem)
 	{
 		this._selectedItem = item;
-		this._confirmAccept.open('COMMON.APPROVAL', 'COMMON.ARE_YOU_SURE_YOU_WANT_TO_APPROVE' + '?');
+		if(this.isCheck)
+			this._confirmAccept.open('COMMON.APPROVAL', 'COMMON.ARE_YOU_SURE_YOU_WANT_TO_APPROVE' + '?');
+		else
+			this.showMsg("请先审批订单"+item.relyOrderNo+"!");
 	}
 
 	confirmAccept(){
@@ -337,6 +343,16 @@ export class CheckMngListComponent implements OnInit{
 	onStartDateChange($event)
 	{
 		this._param.startDateStr = $event.formatted;
+	}
+    
+	//是否审批，如有父级订单则先审批父级订单
+	isCheck(item:CheckListItem){
+       if(item.relyOrderNo){
+		   return true;
+	   }
+	   else{
+		   return false;
+	   }
 	}
 
 	onEndDateChange($event)
