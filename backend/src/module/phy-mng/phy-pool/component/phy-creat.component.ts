@@ -93,7 +93,7 @@ export class PhyCreatComponent implements OnInit{
          let selectedRegion= this.regions.find((r)=>{
             return r.id== this.data.regionId;
         });
-        this.data.region =selectedRegion &&selectedRegion.name;
+        this.data.region =selectedRegion &&selectedRegion.name || "";
         if(!this.pmPoolId){
             this.layoutService.show();
             this.service.creat(this.data)
@@ -102,6 +102,7 @@ export class PhyCreatComponent implements OnInit{
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
                              console.log(response.resultContent, "response");
+                            this.gotoPoolMng();
                         } else {
                             alert("Res sync error");
                         }
@@ -116,6 +117,7 @@ export class PhyCreatComponent implements OnInit{
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
                             console.log(response.resultContent, "response");
+                            this.gotoPoolMng();
                         } else {
                             alert("Res sync error");
                         }
@@ -123,7 +125,7 @@ export class PhyCreatComponent implements OnInit{
                 )
                 .catch((e) => this.onRejected(e));
         }
-        this.gotoPoolMng();
+
     }
 
     getRegionList() {

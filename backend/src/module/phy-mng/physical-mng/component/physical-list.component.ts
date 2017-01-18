@@ -43,7 +43,7 @@ export class PhysicalListComponent implements OnInit {
 
     totalPage = 1;
     pageIndex =1;
-    pageSize = 20;
+    pageSize = 10;
 
 
     physicalList:Array< PhysicalListModel>;
@@ -58,9 +58,12 @@ export class PhysicalListComponent implements OnInit {
     //gotopage:string;
     selectedQuery:string=this.defaultQuery;
     defaultQuery:string;
-    brand:string;
-    model:string;
-    privateIp:string;
+    pmName:string="pmName";
+    brand:string="brand";
+    model:string="model";
+    privateIp:string="privateIp";
+    publicIp:string="publicIp";
+    ipmi:string="Ipmi";
     queryParam:string;
     i="";
 
@@ -255,11 +258,12 @@ export class PhysicalListComponent implements OnInit {
     //搜索
     search(){      
         this.pmQuery= new PmQuery();
-       
-        if(this.selectedQuery == "defaultQuery"){
+
+         if(this.selectedQuery == "pmName"){
             this.pmQuery.pmName= this.queryParam;
         }
-        else if(this.selectedQuery == "brand"){
+       
+         else if(this.selectedQuery == "brand"){
             this.pmQuery.brand= this.queryParam;
         }
        else if(this.selectedQuery == "model"){
@@ -273,7 +277,10 @@ export class PhysicalListComponent implements OnInit {
         } 
          else if(this.selectedQuery == "Ipmi"){
             this.pmQuery.iloAddr= this.queryParam;
-        }    
+        }   
+       
+        
+        console.log(this.pmQuery.pmName);
         this.getPhysicalList();
         this.page.render(1);
     }
