@@ -42,7 +42,7 @@ export class PhyPoolMngComponent implements OnInit{
     noticeMsg = "";
 
     pageIndex= 1;
-    pageSize= 50;
+    pageSize= 10;
     totalPage= 1;
 
     statusDic: Array<SystemDictionary>;
