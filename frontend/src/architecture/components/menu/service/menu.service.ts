@@ -134,7 +134,7 @@ export class MenuService {
 							"routing": "check-center/check-mng-hascheck"
 						},
 						{
-							"label": "审批设置",
+							"label": "CHECK_CENTER.APPROVAL_SETTINGS",
 							"isOpen": false,
 							"isShow": isOrgin,
 							"routing": "check-center/check-mng-set"

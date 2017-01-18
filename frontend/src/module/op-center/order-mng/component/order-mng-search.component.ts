@@ -215,6 +215,7 @@ export class OrderMngSearchComponent implements OnInit{
 //   "userId": "string"
 // }
 		this._orderLoader.clear();
+		this._orderLoader.TotalPages = 1;//清空页码
 		this._orderLoader.Go(pageNumber, null, param)
 		.then(success=>{
 			this.layoutService.hide();

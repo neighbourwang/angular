@@ -154,7 +154,7 @@ export class PhyPoolMngComponent implements OnInit{
         }
     }
 
-    remove (id: string){;
+    remove (id: string){
         this.enableConfirm.open("PHY_MNG_POOL.DELETE_POOL","PHY_MNG_POOL.DELETE_POOL_WARNING^^^"+this.selectedPhy.pmPoolName);
         this.enableConfirm.cof =() =>{
             this.layoutService.show();

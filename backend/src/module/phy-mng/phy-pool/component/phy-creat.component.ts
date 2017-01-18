@@ -93,7 +93,7 @@ export class PhyCreatComponent implements OnInit{
          let selectedRegion= this.regions.find((r)=>{
             return r.id== this.data.regionId;
         });
-        this.data.region =selectedRegion &&selectedRegion.name;
+        this.data.region =selectedRegion &&selectedRegion.name || "";
         if(!this.pmPoolId){
             this.layoutService.show();
             this.service.creat(this.data)
