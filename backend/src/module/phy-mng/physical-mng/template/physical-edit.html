@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>物理机名称:</div>
+                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>{{'PHYSICAL_MNG.PHYSICAL_NAME'|translate}}:</div>
                     <div class="col-md-4">
                         <input type="text" class="form-control" [(ngModel)]="physical.pmName" [disabled]="eidtMode=='view'">
                     </div>
@@ -15,7 +15,7 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>IPMI IP地址:</div>
+                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>{{'PHYSICAL_MNG.IPMI_IP_ADDRESS'|translate}}:</div>
                     <div class="col-md-4">
                         <input type="text" class="form-control" [(ngModel)]="physical.iloIPAddress" [disabled]="eidtMode !='create'">
                     </div>
@@ -23,7 +23,7 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>IPMI用户名:</div>
+                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>{{'PHYSICAL_MNG.IPMI_USERNAME'|translate}}:</div>
                     <div class="col-md-4">
                         <input type="text" class="form-control" [(ngModel)]="physical.iloUserName" [disabled]="eidtMode !='create'">
                     </div>
@@ -31,7 +31,7 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>IPMI密码:</div>
+                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>{{'PHYSICAL_MNG.IPMI_PASSWORD'|translate}}:</div>
                     <div class="col-md-4">
                         <div class="row">
                             <div [ngClass]="{'col-sm-9':eidtMode=='create','col-sm-12':eidtMode!='create'}">
@@ -39,7 +39,7 @@
                             </div>
                             <div *ngIf="eidtMode=='create'" class="col-md-3">
                                 <button class="fox-cloud-button-md fox-cloud-button-white mgr20" style="width:100%" (click)="readHardwareInfo();">
-                                    <span class="icon-button-label">读取</span>
+                                    <span class="icon-button-label">{{'PHYSICAL_MNG.READ_HARDWARE_INFO'|translate}}</span>
                                 </button>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
             
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>网卡MAC:</div>
+                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>{{'PHYSICAL_MNG.MAC_ADDRESS'|translate}}:</div>
                     <div class="col-md-4">
                         <input type="text" class="form-control" [(ngModel)]="physical.macAddress" [disabled]="eidtMode !='create'">
                     </div>                   
@@ -57,21 +57,21 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>服务器类型:</div>
+                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>{{'PHYSICAL_MNG.SERVER_TYPE'|translate}}:</div>
                     <div class="col-md-4">
                         <select class="form-control" [(ngModel)]="physical.sererTypeId" [disabled]="eidtMode !='create'">
-                            <option value="">请选择</option>
-                            <option *ngFor="let type of serverTypes" [value]="type.id">{{type.serverType}}</option>
+                            <option value="">{{'PHYSICAL_MNG.PLEASE_CHOOSE'|translate}}</option>
+                            <option *ngFor="let type of service.dictServerType | async" [value]="type.value">{{type.displayValue}}</option>
                         </select>
                     </div>
                 </div>
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title"> <span *ngIf="eidtMode=='create'" class="asterisk">*</span>品牌:</div>
+                    <div class="col-sm-4 form-control-title"> <span *ngIf="eidtMode=='create'" class="asterisk">*</span>{{'PHYSICAL_MNG.BRAND'|translate}}:</div>
                     <div class="col-md-4">
                         <select class="form-control" [(ngModel)]="selectedBrand" (change)="physical.modleId=''" [disabled]="eidtMode !='create'">
-                            <option [ngValue]="defaultBrand">请选择</option>
+                            <option [ngValue]="defaultBrand">{{'PHYSICAL_MNG.PLEASE_CHOOSE'|translate}}</option>
                             <option *ngFor="let brand of brands" [ngValue]="brand">{{brand.brand}}</option>
                         </select>
                     </div>
@@ -79,10 +79,10 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>型号:</div>
+                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>{{'PHYSICAL_MNG.MODEL'|translate}}:</div>
                     <div class="col-md-4">
                         <select class="form-control" [(ngModel)]="physical.modleId" [disabled]="eidtMode !='create'">
-                            <option value="">请选择</option>
+                            <option value="">{{'PHYSICAL_MNG.PLEASE_CHOOSE'|translate}}</option>
                             <option *ngFor="let mode of selectedBrand.modelList" [value]="mode.id">{{mode.model}}</option>
                         </select>
                     </div>
@@ -90,7 +90,7 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">位置信息:</div>
+                    <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.LOCATION'|translate}}:</div>
                     <div class="col-md-4">
                         <input type="text" class="form-control" [(ngModel)]="physical.locale" [disabled]="eidtMode =='view'">
                     </div>
@@ -98,7 +98,7 @@
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">描述:</div>
+                    <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.DESCRIPTION'|translate}}:</div>
                     <div class="col-md-4">
                         <textarea class="form-control" rows="3" [(ngModel)]="physical.description" [disabled]="eidtMode =='view'"></textarea>
                     </div>
@@ -107,25 +107,25 @@
             <div *ngIf="read || eidtMode =='view'||eidtMode =='edit'">
                 <div class="row row-line-height">
                     <div class="form-group">
-                        <div class="col-sm-4 form-control-title">硬件信息:</div>
+                        <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.HARDWARE_INFO'|translate}}:</div>
                         <div class="col-md-4">
                             <div class="table-container">
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>资质名称</th>
-                                            <th>规格</th>
-                                            <th>规格值</th>
+                                            <th>{{'PHYSICAL_MNG.APTITUDE_NAME'|translate}}</th>
+                                            <th>{{'PHYSICAL_MNG.SPEC'|translate}}</th>
+                                            <th>{{'PHYSICAL_MNG.SPEC_VALUE'|translate}}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                          <tr>
-                                            <td>物理机型号</td>
+                                            <td>{{'PHYSICAL_MNG.PHYSICAL_MODEL'|translate}}</td>
                                             <td></td>  
                                             <td>{{physical.model}}</td>
                                         </tr>
                                         <tr>
-                                            <td>序列号</td>
+                                            <td>{{'PHYSICAL_MNG.SN'|translate}}</td>
                                             <td></td>  
                                             <td>{{physical.sn}}</td>
                                         </tr>
@@ -135,14 +135,14 @@
                                             <td>{{physical.pmHardwareCPU && physical.pmHardwareCPU.value||""}}</td>
                                         </tr>
                                         <tr>
-                                            <td>内存</td>
+                                            <td>{{'PHYSICAL_MNG.MEMORY'|translate}}</td>
                                             <td>{{physical.pmHardwareMemory && physical.pmHardwareMemory.version||""}}</td>
                                             <td>{{physical.pmHardwareMemory&&physical.pmHardwareMemory.value||""}}</td>
                                         </tr>
                                         <tr *ngFor="let disks of( physical.pmHardwareDiskList ||[]);let idex=index" style="">
-                                            <td [attr.rowspan]="physical.pmHardwareDiskList.length" *ngIf="idex===0"  style="background-color:white;">硬盘</td>
+                                            <td [attr.rowspan]="physical.pmHardwareDiskList.length" *ngIf="idex===0"  style="background-color:white;">{{'PHYSICAL_MNG.DISK'|translate}}</td>
                                             <td>{{disks.version}}</td>
-                                            <td><input type="number" class="form-control" [(ngModel)]="disks.value" style="display:inline;width:90px;" #box (keyup)="isNumbe(box.value);"> G</td>
+                                            <td><input type="number" class="form-control" [(ngModel)]="disks.value" style="display:inline;width:90px;" (keyup)="isNumber($event);"> G</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -154,13 +154,13 @@
             <div *ngIf="eidtMode =='view'||eidtMode =='edit'">
                 <div class="row row-line-height">
                     <div class="form-group">
-                        <div class="col-sm-4 form-control-title">订购信息:</div>
+                        <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.ORDER_INFO'|translate}}:</div>
                         <div class="col-md-4"></div>
                     </div>
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-                        <div class="col-sm-4 form-control-title">使用企业:</div>
+                        <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.ENTERPRISE'|translate}}:</div>
                         <div class="col-md-4">
                             <input type="text" class="form-control" [(ngModel)]="physical.enterprise" disabled>
                         </div>
@@ -168,7 +168,7 @@
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-                        <div class="col-sm-4 form-control-title">使用部门:</div>
+                        <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.DEPARTMENT'|translate}}:</div>
                         <div class="col-md-4">
                             <input type="text" class="form-control" [(ngModel)]="physical.department" disabled>
                         </div>
@@ -176,7 +176,7 @@
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-                        <div class="col-sm-4 form-control-title">申请人:</div>
+                        <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.APPLICANT'|translate}}:</div>
                         <div class="col-md-4">
                             <input type="text" class="form-control" [(ngModel)]="physical.applicant " disabled>
                         </div>
@@ -184,7 +184,7 @@
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-                        <div class="col-sm-4 form-control-title">私网IP:</div>
+                        <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.PRIVATE_IP'|translate}}:</div>
                         <div class="col-md-4">
                             <input type="text" class="form-control" [(ngModel)]="physical.priIPAddr" disabled>
                         </div>
@@ -192,7 +192,7 @@
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-                        <div class="col-sm-4 form-control-title">公网IP:</div>
+                        <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.PUBLIC_IP'|translate}}:</div>
                         <div class="col-md-4">
                             <input type="text" class="form-control" [(ngModel)]="physical.pubIPAddr" disabled="disabled" />
                         </div>
@@ -200,7 +200,7 @@
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-                        <div class="col-sm-4 form-control-title">镜像:</div>
+                        <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.IMAGE'|translate}}:</div>
                         <div class="col-md-4">
                             <input type="text" class="form-control" [(ngModel)]="physical.image" disabled>
                         </div>
@@ -208,7 +208,7 @@
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-                        <div class="col-sm-4 form-control-title">开始时间:</div>
+                        <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.START_TIME'|translate}}:</div>
                         <div class="col-md-4">
                             <input type="text" class="form-control" [(ngModel)]="physical.startDate" disabled>
                         </div>
@@ -216,7 +216,7 @@
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-                        <div class="col-sm-4 form-control-title">到期时间:</div>
+                        <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.END_TIME'|translate}}:</div>
                         <div class="col-md-4">
                             <input type="text" class="form-control" [(ngModel)]="physical.endDate" disabled>
                         </div>
@@ -230,17 +230,18 @@
 
 <div class="text-center" style="margin-top:20px">
     <button *ngIf="eidtMode =='create'" class="fox-cloud-button-lg fox-cloud-button-white mgr20" (click)="cancel();">
-        <span class="icon-button-label">取消</span>
+        <span class="icon-button-label">{{'PHYSICAL_MNG.CANCEL'|translate}}</span>
     </button>
     <button *ngIf="eidtMode =='edit'" class="fox-cloud-button-lg fox-cloud-button-white" (click)="editPhysical();">
-        <span class="icon-button-label">保存</span>
+        <span class="icon-button-label">{{'PHYSICAL_MNG.SAVE'|translate}}</span>
     </button>
     <button *ngIf="eidtMode =='create'" class="fox-cloud-button-lg fox-cloud-button-white" (click)="createPhysical();">
-        <span class="icon-button-label">保存</span>
+        <span class="icon-button-label">{{'PHYSICAL_MNG.SAVE'|translate}}</span>
     </button>
     <button *ngIf="eidtMode =='view'" class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
-        <span class="icon-button-label">关闭</span>
+        <span class="icon-button-label">{{'PHYSICAL_MNG.CLOSE'|translate}}</span>
     </button>
 </div>
 <div style="height:50px"></div>
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}"></fc-notice>
+ {{ physical.toString() }}

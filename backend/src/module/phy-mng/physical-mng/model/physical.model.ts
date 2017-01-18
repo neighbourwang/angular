@@ -40,6 +40,9 @@ export class PhysicalModel {
     pmHardwareCPU:CPU; //硬件信息
     pmHardwareMemory:Memory;
     pmHardwareDiskList:Array<Disk>;
+      toString() {
+        return JSON.stringify(this);
+    }
 
 }
  

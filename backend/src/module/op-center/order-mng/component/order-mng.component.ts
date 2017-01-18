@@ -297,7 +297,6 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	showDetail(orderItemId:string){
-	
 		this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderItemId}`);
 	}
 	
@@ -366,7 +365,8 @@ export class OrderMngComponent implements OnInit{
 			currentPage:pageNumber
 			,size:10
 		};
-		this._orderLoader.clear();
+		this._orderLoader.clear();//清空列表
+		this._orderLoader.TotalPages = 1;//清空页码
 		this._orderLoader.Go(pageNumber, null, param)
 		.then(success=>{
 			this.layoutService.hide();

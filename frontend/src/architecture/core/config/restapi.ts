@@ -275,6 +275,12 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/subinstance/order/{orderNo}/detail"     
         // "url": "adminui/authsec/backend/order/{orderNo}/detail"    
     },
+    {
+        "desc": "查询订单撤单",
+        "method": "POST",
+        "id": "op-center.order-search.cencel.post",
+        "url": "marketplace/authsec/order/withdraw/order/{orderId}/reason/{reason}"        
+    },
     //订单查询
 
     //用户中心

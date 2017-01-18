@@ -5,11 +5,11 @@ import { Router,ActivatedRoute, Params } from '@angular/router';
 import { LayoutService, NoticeComponent , ConfirmComponent, ValidationService  } from '../../../../architecture';
 
 //model
-import { Criteria } from '../model/criteria.model.ts';
-import { Region } from '../model/region.model.ts';
+import { Criteria } from '../model/criteria.model';
+import { Region } from '../model/region.model';
 
 //service
-import { PhyCreatMngService } from '../service/phy-creat-mng.service.ts';
+import { PhyCreatMngService } from '../service/phy-creat-mng.service';
 
 @Component({
     selector: 'phy-pool-creat',
@@ -70,6 +70,7 @@ export class PhyCreatComponent implements OnInit{
                     if (response && 100 == response["resultCode"]) {
                         this.data= response.resultContent;
                         console.log(response.resultContent, "data");
+                        console.log(this.regions, "regions");
                     } else {
                         alert("Res sync error");
                     }
@@ -88,6 +89,11 @@ export class PhyCreatComponent implements OnInit{
             this.showAlert("PHY_MNG_POOL.PLEASE_INPUT_DIGIT_CENTER");
             return;
         }
+
+         let selectedRegion= this.regions.find((r)=>{
+            return r.id== this.data.regionId;
+        });
+        this.data.region =selectedRegion &&selectedRegion.name;
         if(!this.pmPoolId){
             this.layoutService.show();
             this.service.creat(this.data)
@@ -95,7 +101,7 @@ export class PhyCreatComponent implements OnInit{
                     response => {
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
-                            console.log(response.resultContent, "response");
+                             console.log(response.resultContent, "response");
                         } else {
                             alert("Res sync error");
                         }
@@ -129,8 +135,6 @@ export class PhyCreatComponent implements OnInit{
                     if (response && 100 == response["resultCode"]) {
                         this.regions = response["resultContent"];
                         this.data.regionId= this.regions[0].id;
-                        console.log(response.resultContent, "response");
-                        console.log( this.data.regionId, " this.data.regionId");
                     } else {
                         alert("Res sync error");
                     }

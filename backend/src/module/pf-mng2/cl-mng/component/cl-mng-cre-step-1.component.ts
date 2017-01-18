@@ -20,8 +20,12 @@ import { ClMngIdService } from '../service/cl-mng-id.service';
 @Component({
     selector: 'cl-mng-cre-step-1',
     templateUrl: '../template/cl-mng-cre-step-01.component.html',
-    styleUrls: [
-        '../style/cl-mng.less'
+    styles: [
+        // '../style/cl-mng.less'
+        `.btn-active{
+            background-color: #00a982;
+            color : #fff
+        }`
     ],
     providers: []
 })
@@ -77,7 +81,7 @@ export class ClMngCreStep1Component implements OnInit {
             res => {
                 console.log('region', res);
                 this.regions = res;
-                this.creStep1Model.regionId=this.regions[0].id;
+                this.creStep1Model.regionId = this.regions[0].id;
             }
             ).catch(
             err => {
@@ -131,7 +135,7 @@ export class ClMngCreStep1Component implements OnInit {
                 res => {
                     console.log('platFormRegions', res);
                     this.platFormRegionList = res.resultContent;
-                    this.creStep1Model.region=this.platFormRegionList[0].id;
+                    this.creStep1Model.region = this.platFormRegionList[0].id;
                     this.layoutService.hide();
                     this.regionSelect.open('创建云平台：选取Region')
                 }
@@ -141,7 +145,7 @@ export class ClMngCreStep1Component implements OnInit {
                     this.layoutService.hide();
                     this.notice.open('COMMON.ERROR', '获取Region信息错误');
                 }
-                )           
+                )
         } else {
             this.layoutService.show();
             this.service.crPlatForm(this.creStep1Model).then(
