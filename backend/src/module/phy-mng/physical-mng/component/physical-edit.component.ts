@@ -48,7 +48,7 @@ export class PhysicalEditComponent implements OnInit {
             this.physical.pmId = id;
             this.eidtMode = params["type"]||"create";
             this.poolId = params["poolId"];
-            this.physical.pmPoolId=this.poolId;
+            
             if (!this.poolId) {
                 alert("缺少参数");
                 return;
@@ -168,7 +168,8 @@ export class PhysicalEditComponent implements OnInit {
             this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_SERVER_TYPE");
             return false;
         }
-       
+        this.physical.brandId = this.selectedBrand.id;
+        this.physical.pmPoolId=this.poolId;
         if (!this.physical.brandId) {
             this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_SERVER_BRAND");
             return false;
@@ -177,7 +178,7 @@ export class PhysicalEditComponent implements OnInit {
             this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_SERVER_MODEL");
             return false;
         }
-         this.physical.brandId = this.selectedBrand.id;
+         
 
         this.layoutService.show();
         this.service.createPhysical(this.physical)

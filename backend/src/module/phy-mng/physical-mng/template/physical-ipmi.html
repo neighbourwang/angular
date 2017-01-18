@@ -24,10 +24,10 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PHYSICAL_MNG.ILO_PASSWORD'|translate}}:</div>
                     <div class="col-md-4">
-                        <div class="col-sm-9">
+                        <div class="col-sm-10" style="padding-left:0;">
                               <input type="password" class="form-control" [(ngModel)]="physical.iloPwd">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2" style="padding-right:0;padding-left:0;">
                             <button class="fox-cloud-button-md fox-cloud-button-white mgr20" style="width:100%" (click)="testIpmi();">
                                 <span class="icon-button-label">{{'PHYSICAL_MNG.TEST_ILO'|translate}} </span>
                             </button>
