@@ -999,7 +999,11 @@
         "SYNC_ZONE_FAILED": "同步可用区失败",
         "USERNAME_REQUIRED": "请输入用户名",
         "VERSION_REQUIRED": "请选择版本",
-        "ZONES_QUOTA": "可用区与配额"
+        "ZONES_QUOTA": "可用区与配额",
+        "PF_CLOUD_MNG":"云平台管理",
+        "PF_MNG":"平台管理",
+        "CREATE_CLOUD_PLATFORM": "创建云平台",
+        "HEALTH_EXAMINATION":"健康检查"
     },
     "PHY_MNG_POOL": {
         "ACTIVE": "启用",
@@ -1317,7 +1321,29 @@
         "USERNAME": "用户名",
         "USERNAME_IS_MUST": "必须先填写用户名！",
         "USERNAME_MUST_BE_EMAIL": "用户名必须是邮箱！",
-        "VIEW_ROLE": "查看角色"
+        "VIEW_ROLE": "查看角色",
+        "PHY_MNG":"物理机管理",
+        "PHY_INSTANCE":"物理机实例",
+        "CLOUD_HOST_MNG":"云主机管理",
+        "IMAGE_MNG":"镜像管理",
+
+        "CLOUD_NETWORK_MNG":"云网络管理",
+        "OPENSTACK_NEWWORK": "OpenStack网络",
+        "VMware_NETWORK":"VMware标准网络",
+        "VMware_E_NETWORK":"VMware分布式网络",
+        "VMware_NSX_NETWORK":"VMware NSX网络",
+        "OP_CENTER":"运营中心",
+        "ORDER_QUERY":"订单查询",
+        "AP_CENTER":"审批中心",
+        "PENDING":"待审批",
+        "Approved_APPROVED":"已审批",
+        "APPROVEL_SETTING":"审批设置",
+        "USER_CENTER":"用户中心",
+        "ACCOUNT_MNG":"账号管理",
+        "ORG_MNG":"机构管理",
+        "ROLE_MNG":"角色管理",
+        "AD_MNG":"认证管理",
+        "PERSONAL_MNG":"个人账户管理",
     }
     
 }
