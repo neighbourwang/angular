@@ -2,55 +2,55 @@
 
 <div class="OrderDetail"> 
 	<div class="page-content-header float-left" style="width:1300px;padding-left: 0;">  
-	<span>订单编号：5370537</span>
-	<button class="fox-cloud-button fox-cloud-button-green pull-right" style="margin-top:-10px;"><span>返回订购管理</span></button>
+	<span>订单编号：{{_detailLoader.FirstItem.instanceCode}}</span>
+	<button class="fox-cloud-button fox-cloud-button-green pull-right" style="margin-top:-10px;" (click)="back()"><span>返回订购管理</span></button>
 	</div>
 	<div class="page-content">
 		<div class="noborder form-control-title float-left mgb10">基本信息</div>
 		<div class="table-container mgb20 noBorder">
 			<table class="table table-bordered first-table mgb20 text-left ">
 				<tbody>
-					<tr  *ngFor="let item of _orderDetail.Items">
+					<tr>
 						<td>已购服务编号</td>	
-						<td>{{item.orderCode}}</td>
+						<td>{{_detailLoader.FirstItem.instanceCode}}</td>
 						<td>状态</td>
-						<td>{{item.status}}</td>
+						<td>{{_detailLoader.FirstItem.status | dict:_dictServ.getDic('SUBINSTANCE', 'STATUS') | async}}</td>
 					</tr>
 					<tr>
 						<td>产品类型</td>
-						<td>{{item.productType}}</td>	
+						<td>{{_detailLoader.FirstItem.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>	
 						<td>区域/可用区</td>
-						<td>{{item.region}}</td>
+						<td>{{_detailLoader.FirstItem.zone}}</td>
 					</tr>
 					<tr>
 						<td>当前配置</td>
-						<td></td>	
+						<td>{{_detailLoader.FirstItem.specification}}</td>	
 						<td>创建时间</td>
-						<td>{{item.createDate}}</td>
+						<td>{{_detailLoader.FirstItem.createDate}}</td>
 					</tr>
 					<tr>
 						<td>计费模式</td>
-						<td>{{item.billingMode}}</td>	
+						<td>{{_detailLoader.FirstItem.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') | async}}</td>	
 						<td>到期时间</td>
-						<td>{{item.exireDate}}</td>
+						<td>{{_detailLoader.FirstItem.expireDate}}</td>
 					</tr>
 					<tr>
 						<td>一次性费用</td>
-						<td>{{item.oneTimePrice}}</td>	
+						<td>{{_detailLoader.FirstItem.oneTimePrice}}</td>	
 						<td>订购人</td>
-						<td>{{item.billingPerson}}</td>
+						<td>{{_detailLoader.FirstItem.buyer}}</td>
 					</tr>
 					<tr>
 						<td>费用</td>	
-						<td>{{item.price}}</td>
+						<td>{{_detailLoader.FirstItem.price}}</td>
 						<td>部门</td>
-						<td>{{item.department}}</td>
+						<td>{{_detailLoader.FirstItem.department}}</td>
 					</tr>
 					<tr>
 						<td>实例名称</td>	
-						<td>{{item.instanceName}}</td>
+						<td>{{_detailLoader.FirstItem.instanceName}}</td>
 						<td>企业</td>
-						<td>{{item.enterpirse}}</td>
+						<td>{{_detailLoader.FirstItem.enterprise}}</td>
 					</tr>				
 				</tbody>
 			</table>
@@ -71,36 +71,20 @@
 							
 				</thead>
 				<tbody>
-					<!-- //orderCode,实例名称？？，productType,配置？？，productBillingItem.billingMode，orderStatus，productBillingItem.basePrice,.productBillingItem.basicPrice,completeDate-->
-					<tr *ngFor="let relatedOrder of _orderDetail.Items.relatedOrders">
+					<tr *ngFor="let relatedOrder of _detailLoader.FirstItem.relatedSubInstanceList">
 						<td>{{relatedOrder.orderCode}}</td>
-						<td>实例名称{{relatedOrder.orderCode}}</td>
+						<td>{{relatedOrder.instanceName}}</td>
 						<td>{{relatedOrder.productType}}</td>
-						<td>配置{{relatedOrder.productType}}</td>
-						<td>{{relatedOrder.billingMode}}</td>
+						<td>{{relatedOrder.specification}}</td>
+						<td>{{relatedOrder.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') | async}}</td>
 						<td class="font-green">{{relatedOrder.status}}</td>
 						<td>
 							<ul>
-								<li>一次性费用：￥30</li>
-								<li>费用：￥184/月</li>
+								<li>一次性费用：￥{{relatedOrder.oneTimePrice}}</li>
+								<li>费用：￥{{relatedOrder.price}}/G/小时</li>
 							</ul>
 						</td>
-						<td>2016-11-25 23:02:55</td>
-					</tr>
-					<tr>
-						<td>122222222222</td>
-						<td>win2008licensesrv-001</td>
-						<td>云硬盘</td>
-						<td>高性能I/O</td>
-						<td>按量</td>
-						<td class="font-green">使用中</td>
-						<td >
-							<ul>
-								<li>一次性费用：￥30</li>
-								<li>费用：￥184/月</li>
-							</ul>
-						</td>
-						<td></td>
+						<td>{{relatedOrder.expireDate}}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -122,27 +106,16 @@
 							
 				</thead>
 				<tbody>
-					<tr>
-						<td>2016-11-03</td>
-						<td>myCentOS-VM-001</td>
-						<td>云主机</td>
-						<td>cpu 4赫/内存 8GB/启动盘 70G</td>
-						<td>桃红</td>
-						<td>销售部</td>
-						<td>2016-12-20 23:01:01
+					<tr *ngFor="let historyItem of _detailLoader.FirstItem.relatedOrderList">
+						<td>{{historyItem.createDate}}</td>
+						<td>{{historyItem.instanceName}}</td>
+						<td>{{historyItem.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
+						<td>{{historyItem.specification}}</td>
+						<td>{{historyItem.buyer}}</td>
+						<td>{{historyItem.department}}</td>
+						<td>{{historyItem.expireDate}}
 						</td>
-						<td>配置变更</td>
-					</tr>
-					<tr>
-						<td>2016-11-03</td>
-						<td>myCentOS-VM-001</td>
-						<td>云主机</td>
-						<td>cpu 4赫/内存 8GB/启动盘 70G</td>
-						<td>桃红</td>
-						<td>销售部</td>
-						<td>2016-12-20 23:01:01
-						</td>
-						<td>配置变更</td>
+						<td>{{historyItem.description}}</td>
 					</tr>
 				</tbody>
 			</table>

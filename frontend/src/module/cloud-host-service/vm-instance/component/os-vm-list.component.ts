@@ -14,7 +14,7 @@ import { ListOptions } from '../model/options.model';
 export class osVmListComponent {
 
 	options : ListOptions = {
-		title : "云主机列表",
+		title : "CLOUD_HOST.CLOUD_HOST_LIST",
 		type : "os",
 	}
 }

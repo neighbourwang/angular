@@ -30,12 +30,13 @@
             </div> 
              <div class="pull-right" >
                 <select class="form-control" [(ngModel)]="selectedQuery">
-				    <option [value]="defaultQuery">{{'PHYSICAL_MNG.PHYSICAL_NAME'|translate}}</option>
+                    <option  [value]="defaultQuery">{{'PHYSICAL_MNG.PLEASE_CHOOSE'|translate}}</option>
+				    <option [value]="pmName">{{'PHYSICAL_MNG.PHYSICAL_NAME'|translate}}</option>
                     <option [value]="brand">{{'PHYSICAL_MNG.BRAND'|translate}}</option>            
                     <option [value]="model">{{'PHYSICAL_MNG.MODEL'|translate}}</option>
-                    <option [value]="privateIP">{{'PHYSICAL_MNG.PRIVATE_IP'|translate}}</option>
-                    <option [value]="publicIP">{{'PHYSICAL_MNG.PUBLIC_IP'|translate}}</option>
-                    <option [value]="Ipmi">{{'PHYSICAL_MNG.IPMI_IP'|translate}}</option>
+                    <option [value]="privateIP">{{'PHYSICAL_MNG.PRIVATE_IP_ADDRESS'|translate}}</option>
+                    <option [value]="publicIP">{{'PHYSICAL_MNG.PUBLIC_IP_ADDRESS'|translate}}</option>
+                    <option [value]="Ipmi">{{'PHYSICAL_MNG.IPMI_ADDRESS'|translate}}</option>
                 </select>
            </div>           
         </div > 
@@ -50,11 +51,11 @@
                                 <th>{{'PHYSICAL_MNG.BRAND'|translate}}</th>
                                 <th>{{'PHYSICAL_MNG.MODEL'|translate}}</th>
                                 <th>{{'PHYSICAL_MNG.CPU_CORE'|translate}}</th>
-                                <th>{{'PHYSICAL_MNG.RAM'|translate}}(G)</th>
+                                <th>{{'PHYSICAL_MNG.MEMORY'|translate}}(G)</th>
                                 <th style="width:105px;">{{'PHYSICAL_MNG.DISK_INFO'|translate}}</th>  
-                                <th>{{'PHYSICAL_MNG.PRIVATE_IP'|translate}}</th> 
-                                <th>{{'PHYSICAL_MNG.PUBLIC_IP'|translate}}</th>
-                                <th>{{'PHYSICAL_MNG.IPMI_IP'|translate}}</th> 
+                                <th>{{'PHYSICAL_MNG.PRIVATE_IP_ADDRESS'|translate}}</th> 
+                                <th>{{'PHYSICAL_MNG.PUBLIC_IP_ADDRESS'|translate}}</th>
+                                <th>{{'PHYSICAL_MNG.IPMI_ADDRESS'|translate}}</th> 
                                 <th>{{'PHYSICAL_MNG.LOCATION'|translate}}</th> 
                                 <th>{{'PHYSICAL_MNG.POWER_STATUS'|translate}}</th> 
                                 <th>{{'PHYSICAL_MNG.USEAGE_STATUS'|translate}}</th>  
@@ -66,7 +67,7 @@
                             <tr *ngFor="let physical of physicalList; let idex=index;">
                                 <td ><input type="radio" name="physical" class="fox-cloud-radio" 
                                           (change)="getSelectPhysical(physical);"[checked]="physical.isSelect" ></td>                                      
-                                <td>{{idex+1}}</td>
+                                <td>{{(pageIndex-1)*pageSize+idex+1}}</td>
                                 <td ><a href="javascript:void(0);" (click)="gotoPhysicalView(physical);">{{physical.pmName}}</a></td> 
                                 <td>{{physical.pmSN}}                                
                                 <td>{{physical.pmBrand}}</td>
@@ -85,8 +86,11 @@
                             </tr>                                                             
                         </tbody>
                 </table>             
-        </div>                             
-     </div>
-<fc-pagination #page tp={{totalPage}} (pf)="getPhysicalList($event)"></fc-pagination>     
+        </div>   
+        <div class="fox-cloud-pagination-container">
+             <fc-pagination #page tp={{totalPage}} (pf)="getPhysicalList($event)"></fc-pagination>  
+        </div>                          
+ </div>
+   
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}"></fc-notice> 
 <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}" ct="{{'PHYSICAL_MNG.CANCEL'|translate}}"  ></fc-confirm>               

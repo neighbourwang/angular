@@ -201,6 +201,7 @@ export class CheckMngHascheckComponent implements OnInit{
 		};
 		
 		this._listLoader.clear();
+		this._listLoader.TotalPages = 1;
 		this._listLoader.Go(pageNum, null, param)
 		.then(success=>{
 			this._layoutService.hide();

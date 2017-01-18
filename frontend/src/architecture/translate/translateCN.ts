@@ -75,6 +75,7 @@ export const TranslateCN = {
         REMAIN: '剩下',
         LOCAL: '本地',
         PASSWORD: '密码',
+        
 
         //单位
         $: "￥",
@@ -160,6 +161,7 @@ export const TranslateCN = {
         //ts
         CLOUD_HOST_OPERATION: '云主机操作',
         SUCCESS: '成功！',
+        FAILED: '失败！',
         FAILED_TO_GET_DATA: '获取数据失败！',
         OPERATION_ERROR: '操作错误',
         OPERATION_SUC: '操作成功',
@@ -208,6 +210,8 @@ export const TranslateCN = {
         INSTANCE_LIST: '实例列表'
     },
     VM_INSTANCE: {
+        CHOOSE_HOST_UN:"请选择要退订的主机",
+        ALREADY_STARTED_UN_PROCESS:"已发起退订流程（系统处理需要一定的时间，请勿重复退订）！",
         CLOUD_HOST_DETAILS: '云主机详情',
         RETURNS_THE_CLOUD_HOST_LIST: '返回云主机列表',
         MORE_ACTIONS: '更多操作',
@@ -406,6 +410,7 @@ export const TranslateCN = {
         ONE_TIME_COSTS: '一次性费用',
         AGREE: '同意',
         REFUSE: '拒绝',
+        AGREE_REFUSE:'同意/拒绝',
         THE_ORDER_REQUEST_WAS_REJECTED: '订单请求被拒绝',
         REASON: '原因',
         INPUT_CHINESE_OR_CHARACTERS_NOT_MORE_THAN_200_WORDS: '可以输入中文字符,最大不能超过200个字',
@@ -427,7 +432,7 @@ export const TranslateCN = {
 
         //check-mng-set
         APPROVAL_SETTINGS: '审批设置',
-        IS_APPROVAL_REQUIRED: '是否需要审批',
+        IS_APPROVAL_REQUIRED: '是否需要审批?',
         OPEN: '开启',
         CLOSE: '关闭',
         MINUTE: '分钟',
@@ -562,6 +567,7 @@ export const TranslateCN = {
 
     },
     CLOUD_HOST: {
+        CLOUD_HOST_LIST:"云主机列表",
         FAILED_TO_RETRIEVE_INSTANCE_DETAILS: '实例详细信息获取失败',
         PLEASE_SELECT_A_SERVICE_DIRECTORY: '请选择一个服务目录',
         PLEASE_SELECT_ONLY_ONE_SERVICE_DIRECTORY: '请只选择一个服务目录',
