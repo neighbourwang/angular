@@ -48,6 +48,7 @@ export class PhysicalEditComponent implements OnInit {
             this.physical.pmId = id;
             this.eidtMode = params["type"]||"create";
             this.poolId = params["poolId"];
+            this.physical.pmPoolId=this.poolId;
             if (!this.poolId) {
                 alert("缺少参数");
                 return;
@@ -167,8 +168,7 @@ export class PhysicalEditComponent implements OnInit {
             this.showAlert("请选择服务器类型！");
             return false;
         }
-        this.physical.brandId = this.selectedBrand.id;
-
+       
         if (!this.physical.brandId) {
             this.showAlert("请选择服务器品牌！");
             return false;
@@ -177,6 +177,8 @@ export class PhysicalEditComponent implements OnInit {
             this.showAlert("请选择服务器型号！");
             return false;
         }
+         this.physical.brandId = this.selectedBrand.id;
+
         this.layoutService.show();
         this.service.createPhysical(this.physical)
             .then(
@@ -184,7 +186,8 @@ export class PhysicalEditComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    this.showAlert("添加物理机成功");
+                    console.log(this.physical);
+                    //this.showAlert("添加物理机成功");
                     this.gotoList();
                 } else {
                     alert("Res sync error");
