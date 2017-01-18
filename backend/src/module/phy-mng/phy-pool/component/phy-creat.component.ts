@@ -10,6 +10,7 @@ import { Region } from '../model/region.model';
 
 //service
 import { PhyCreatMngService } from '../service/phy-creat-mng.service';
+import { PhyPoolMngService } from '../service/phy-pool-mng.service';
 
 @Component({
     selector: 'phy-pool-creat',
@@ -23,6 +24,7 @@ export class PhyCreatComponent implements OnInit{
     constructor(
         private router : Router,
         private service : PhyCreatMngService,
+        private phypoolmngService : PhyPoolMngService,
         private layoutService : LayoutService,
         private validationService: ValidationService,
         private activatedRouter : ActivatedRoute
@@ -37,9 +39,11 @@ export class PhyCreatComponent implements OnInit{
     notice: NoticeComponent;
 
     data: Criteria= new Criteria();
+    criteria: Criteria= new Criteria();
     pmPoolId: string;
     title: string;
     save: string;
+    id: number;
 
     regions: Array<Region>= new Array<Region>();
 
@@ -70,6 +74,10 @@ export class PhyCreatComponent implements OnInit{
                     if (response && 100 == response["resultCode"]) {
                         this.data= response.resultContent;
                         console.log(response.resultContent, "data");
+                      /*  let id= parseInt(this.data.regionId);
+                        this.data.region= this.regions[id-1].name;
+                        console.log( this.data.region, id, " this.data.region & id");*/
+                        console.log(this.regions, "regions");
                     } else {
                         alert("Res sync error");
                     }
@@ -88,6 +96,9 @@ export class PhyCreatComponent implements OnInit{
             this.showAlert("PHY_MNG_POOL.PLEASE_INPUT_DIGIT_CENTER");
             return;
         }
+        this.id= parseInt(this.data.regionId);
+        this.data.region= this.regions[this.id-1].name;
+        console.log( this.data.region, this.id, " this.data.region & id");
         if(!this.pmPoolId){
             this.layoutService.show();
             this.service.creat(this.data)
@@ -95,7 +106,7 @@ export class PhyCreatComponent implements OnInit{
                     response => {
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
-                            console.log(response.resultContent, "response");
+                             console.log(response.resultContent, "response");
                         } else {
                             alert("Res sync error");
                         }
@@ -117,7 +128,9 @@ export class PhyCreatComponent implements OnInit{
                 )
                 .catch((e) => this.onRejected(e));
         }
+        this.phypoolmngService.getData(this.criteria,1,50);
         this.gotoPoolMng();
+        console.log(this.id,"id");
     }
 
     getRegionList() {
@@ -129,8 +142,7 @@ export class PhyCreatComponent implements OnInit{
                     if (response && 100 == response["resultCode"]) {
                         this.regions = response["resultContent"];
                         this.data.regionId= this.regions[0].id;
-                        console.log(response.resultContent, "response");
-                        console.log( this.data.regionId, " this.data.regionId");
+                        console.log(response.resultContent, "getRegionList");
                     } else {
                         alert("Res sync error");
                     }
