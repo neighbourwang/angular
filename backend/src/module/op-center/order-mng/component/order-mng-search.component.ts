@@ -395,16 +395,11 @@ showDetail(item:SearchOrderItem)
 		})
 	}
 
-//选中一行订单
+    //选中一行订单
 	selectItem(item:SearchOrderItem){
 		this._selectedItem = item;
-		if(item.withDrawOrderFlag == 1){
-			$('#cancelOrder').modal('show');
-		}
-		else{
-			this.showMsg("您选择的订单无法撤单，请重新选择！");
-		}
-
+		this.cancelReason = "";
+		$('#cancelOrder').modal('show');
 	}
 	//撤单
 	cancel(){
@@ -413,11 +408,12 @@ showDetail(item:SearchOrderItem)
         this._cancelLoader.Go(null,[{key:"orderId",value:this._selectedItem.orderId},{key:"reason",value:this.cancelReason}])
 		.then(succeuss=>{
 			this.layoutService.hide();
+			$('#cancelOrder').modal('hide');
+			this.search();
 		})
 		.catch(err=>{
 			this.layoutService.hide();
 			this.showMsg(err);
 		})
 	}
-
 }

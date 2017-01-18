@@ -68,7 +68,7 @@ export class OrderDetailItem {
       return null;
   }
 
-  relatedSubInstanceList:Array<OrderDetailItem> = [];
+  relatedSubInstanceList:Array<OrderDetailItem> = [];//关联订单
 
   relatedOrderList:Array<OrderDetailItem> = [];
 }
