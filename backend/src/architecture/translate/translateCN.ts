@@ -1132,6 +1132,19 @@
         "IMAGE":"镜像",
         "START_TIME":"开始时间",
         "END_TIME":"到期时间",
+        "EDIT_PHYSICAL":"编辑物理机",
+        "VIEW_PHYSICAL":"查看物理机",
+        "PLEASE_INPUT_PHYSICAL_NAME":"请填写物理机名称！",
+        "PLEASE_INPUT_IPMI_IP":"请填写IPMI IP地址！",
+        "PLEASE_INPUT_IPMI_USERNAME":"请填写IPMI用户名！",
+        "PLEASE_INPUT_IPMI_PASSWORD":"请填写IPMI密码！",
+        "PLEASE_INPUT_MAC":"请填写网卡MAC！",
+        "PLEASE_INPUT_SERVER_TYPE":"请选择服务器类型！",
+        "PLEASE_INPUT_SERVER_BRAND":"请选择服务器品牌！",
+        "PLEASE_INPUT_SERVER_MODEL":"请选择服务器型号！",
+        "":"",
+
+
     },
     "PROD_MNG": {
         "ALL_ENTERPRISE": "全部企业",

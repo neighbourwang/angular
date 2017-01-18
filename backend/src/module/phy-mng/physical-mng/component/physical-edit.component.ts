@@ -56,13 +56,13 @@ export class PhysicalEditComponent implements OnInit {
             console.log(this.eidtMode);
             switch (this.eidtMode) {
                 case "edit":
-                    this.title = "编辑物理机";
+                    this.title = "PHYSICAL_MNG.EDIT_PHYSICAL";
                     break;
                 case "view":
-                    this.title = "查看物理机";
+                    this.title = "PHYSICAL_MNG.VIEW_PHYSICAL";
                     break;
                 case "create":
-                    this.title = "添加物理机";
+                    this.title = "PHYSICAL_MNG.CREATE_PHYSICAL";
                     break;
             }
 
@@ -124,7 +124,7 @@ export class PhysicalEditComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    this.showAlert("保存成功！");
+                    //this.showAlert("保存成功！");
                     this.gotoList();
                 } else {
                     alert("Res sync error");
@@ -143,38 +143,38 @@ export class PhysicalEditComponent implements OnInit {
     createPhysical() {
 
         if (!this.physical.pmName) {
-            this.showAlert("请填写物理机名称！");
+            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_PHYSICAL_NAME");
             return false;
         }
 
         if (!this.physical.iloIPAddress) {
-            this.showAlert("请填写IP地址！");
+            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_IPMI_IP");
             return false;
         }
 
         if (!this.physical.iloUserName) {
-            this.showAlert("请填写用户名！");
+            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_IPMI_USERNAME");
             return false;
         }
         if (!this.physical.iloPwd) {
-            this.showAlert("请填写密码！");
+            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_IPMI_PASSWORD");
             return false;
         }
         if (!this.physical.macAddress) {
-            this.showAlert("请填写MAC地址！");
+            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_MAC");
             return false;
         }
         if (!this.physical.sererTypeId) {
-            this.showAlert("请选择服务器类型！");
+            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_SERVER_TYPE");
             return false;
         }
        
         if (!this.physical.brandId) {
-            this.showAlert("请选择服务器品牌！");
+            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_SERVER_BRAND");
             return false;
         }
         if (!this.physical.modleId) {
-            this.showAlert("请选择服务器型号！");
+            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_SERVER_MODEL");
             return false;
         }
          this.physical.brandId = this.selectedBrand.id;
@@ -231,7 +231,7 @@ export class PhysicalEditComponent implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "PHYSICAL_MNG.NOTICE";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -243,6 +243,6 @@ export class PhysicalEditComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("PHYSICAL_MNG.ERROR");
     }
 }
