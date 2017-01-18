@@ -2,7 +2,7 @@
 
 <div class="OrderDetail"> 
 	<div class="page-content-header float-left" style="width:1300px;padding-left: 0;">  
-	<span>订单编号：5370537</span>
+	<span>订单编号：{{_detailLoader.FirstItem.instanceCode}}</span>
 	<button class="fox-cloud-button fox-cloud-button-green pull-right" style="margin-top:-10px;" (click)="back()"><span>返回订购管理</span></button>
 	</div>
 	<div class="page-content">
@@ -12,13 +12,13 @@
 				<tbody>
 					<tr>
 						<td>已购服务编号</td>	
-						<td>{{_detailLoader.FirstItem.orderCode}}</td>
+						<td>{{_detailLoader.FirstItem.instanceCode}}</td>
 						<td>状态</td>
-						<td>{{_detailLoader.FirstItem.status}}</td>
+						<td>{{_detailLoader.FirstItem.status | dict:_dictServ.getDic('SUBINSTANCE', 'STATUS') | async}}</td>
 					</tr>
 					<tr>
 						<td>产品类型</td>
-						<td>{{_detailLoader.FirstItem.productType}}</td>	
+						<td>{{_detailLoader.FirstItem.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>	
 						<td>区域/可用区</td>
 						<td>{{_detailLoader.FirstItem.zone}}</td>
 					</tr>
@@ -30,7 +30,7 @@
 					</tr>
 					<tr>
 						<td>计费模式</td>
-						<td>{{_detailLoader.FirstItem.billingMode}}</td>	
+						<td>{{_detailLoader.FirstItem.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') | async}}</td>	
 						<td>到期时间</td>
 						<td>{{_detailLoader.FirstItem.expireDate}}</td>
 					</tr>
@@ -76,7 +76,7 @@
 						<td>{{relatedOrder.instanceName}}</td>
 						<td>{{relatedOrder.productType}}</td>
 						<td>{{relatedOrder.specification}}</td>
-						<td>{{relatedOrder.billingMode}}</td>
+						<td>{{relatedOrder.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') | async}}</td>
 						<td class="font-green">{{relatedOrder.status}}</td>
 						<td>
 							<ul>
@@ -109,7 +109,7 @@
 					<tr *ngFor="let historyItem of _detailLoader.FirstItem.relatedOrderList">
 						<td>{{historyItem.createDate}}</td>
 						<td>{{historyItem.instanceName}}</td>
-						<td>{{historyItem.productType}}</td>
+						<td>{{historyItem.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
 						<td>{{historyItem.specification}}</td>
 						<td>{{historyItem.buyer}}</td>
 						<td>{{historyItem.department}}</td>
