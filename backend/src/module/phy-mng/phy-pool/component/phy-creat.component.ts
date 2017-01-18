@@ -102,6 +102,7 @@ export class PhyCreatComponent implements OnInit{
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
                              console.log(response.resultContent, "response");
+                            this.gotoPoolMng();
                         } else {
                             alert("Res sync error");
                         }
@@ -116,6 +117,7 @@ export class PhyCreatComponent implements OnInit{
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
                             console.log(response.resultContent, "response");
+                            this.gotoPoolMng();
                         } else {
                             alert("Res sync error");
                         }
@@ -123,7 +125,7 @@ export class PhyCreatComponent implements OnInit{
                 )
                 .catch((e) => this.onRejected(e));
         }
-        this.gotoPoolMng();
+
     }
 
     getRegionList() {
