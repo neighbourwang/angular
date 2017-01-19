@@ -10,7 +10,7 @@ import { LayoutService, ValidationService, NoticeComponent, CountBarComponent } 
 import { ProdDirDetailService } from '../service/prod-dir-detail.service';
 import { CreateProdDirService } from '../service/prod-dir-new.service';
 //model
-import { ProdDirDisk, platform ,storageItem} from '../model/prodDirDisk.model';
+import { ProdDirDisk, platform, storageItem } from '../model/prodDirDisk.model';
 
 @Component({
     selector: 'prod-dirdisk-cre',
@@ -54,19 +54,20 @@ export class ProdDirDiskCreComponent implements OnInit {
     getPlateForm() {
         this.CreateProdDirService.getDiskPlateForms().then(
             response => {
-                console.log('PINGTAI',response);
+                console.log('PINGTAI', response);
                 if (response && 100 == response.resultCode) {
                     // let resultContent = response.resultContent;
                     this._platformlist = response.resultContent;
                     for (let plate of this._platformlist) {
-                        if(!plate.platformInfo) continue;
+                        if (!plate.platformInfo) continue;
                         for (let zone of plate.platformInfo) {
+                            zone.selected = false;
                             zone.storageId = zone.storageItem[0].storageId;
-                            for(let storage of zone.storageItem){
-                                storage.selected=false;
+                            for (let storage of zone.storageItem) {
+                                storage.selected = false;
                             }
                             // console.log(zone.storageList);
-                            zone.storageItem[0].selected=true;
+                            zone.storageItem[0].selected = true;
                         }
                     }
                 } else {
@@ -76,20 +77,21 @@ export class ProdDirDiskCreComponent implements OnInit {
             }
         ).catch(err => {
             console.error(err);
+             this.LayoutService.hide();
         })
     }
 
     //获取启动盘信息
     selectStorage(id) {
-        for(let platform of this.prodDir.platformList){
-            for(let zone of platform.platformInfo){
-               for(let storage of zone.storageItem){
-                   if(storage.storageId==id){
-                       storage.selected=true;
-                   }else{
-                    storage.selected=false;
-                   }                   
-               }
+        for (let platform of this.prodDir.platformList) {
+            for (let zone of platform.platformInfo) {
+                for (let storage of zone.storageItem) {
+                    if (storage.storageId == id) {
+                        storage.selected = true;
+                    } else {
+                        storage.selected = false;
+                    }
+                }
             }
         }
     }
@@ -122,18 +124,21 @@ export class ProdDirDiskCreComponent implements OnInit {
         this.selectAllZone = !this.selectAllZone;
         console.log(this.selectAllZone);
         for (let plate of this._platformlist) {
-            if(!plate.platformInfo) return;
+            if (!plate.platformInfo) continue;
             for (let zone of plate.platformInfo) {
                 zone.selected = this.selectAllZone;
                 // console.log(zone.storageList);
             }
         }
         this.prodDir.platformList = this._platformlist.filter(function (ele) {
-            for (let zone of ele.platformInfo) {
-                if (zone.selected == true) {
-                    return ele;
+            if (ele.platformInfo) {
+                for (let zone of ele.platformInfo) {
+                    if (zone.selected == true) {
+                        return ele;
+                    }
                 }
             }
+
         })
     }
     //选择平台可用区
@@ -143,19 +148,21 @@ export class ProdDirDiskCreComponent implements OnInit {
         this._platformlist[idx].platformInfo[idxx].selected = !this._platformlist[idx].platformInfo[idxx].selected;
         console.log(this._platformlist[idx]);
         this.prodDir.platformList = this._platformlist.filter(function (ele) {
-            if(!ele.platformInfo) return;
-            for (let zone of ele.platformInfo) {
-                if (zone.selected == true) {
-                    return ele;
+            if (ele.platformInfo) {
+                for (let zone of ele.platformInfo) {
+                    if (zone.selected == true) {
+                        return ele;
+                    }
                 }
             }
+
         })
         console.log(this.prodDir.platformList);
-        if(this.prodDir.platformList.length==0){
-            this.selectAllZone=false;
+        if (this.prodDir.platformList.length == 0) {
+            this.selectAllZone = false;
         }
-        if(this.prodDir.platformList.length==this._platformlist.length){
-            this.selectAllZone=true;
+        if (this.prodDir.platformList.length == this._platformlist.length) {
+            this.selectAllZone = true;
         }
     }
 

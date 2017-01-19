@@ -282,19 +282,22 @@
 							<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllStorages()" [(ngModel)]="selectAllStorage">
 						</div>-->
 					</div>
-					<div class="row tabBody" *ngFor="let plateform of prodDir.platformList; let idx=index">
+					<!--<div class="row tabBody" *ngFor="let plateform of prodDir.platformList; let idx=index">-->
+						<div class="row tabBody" *ngFor="let plateform of prodDir.platformInfo; let idx=index">
 						<div class="col-sm-4 oneChild">
 							<p>{{plateform.platformName}}</p>
 						</div>
 						<div class="col-sm-3 secondChild wyLine-height">
-							<div class="row" *ngFor="let zone of plateform.storages">
+							<!--<div class="row" *ngFor="let zone of plateform.storages">-->
+								<div class="row" *ngFor="let zone of plateform.zoneList">
 								<div class="col-sm-12">{{'ENT_MNG.ALL_AVAILABLE_ZONE' | translate}}</div><!--所有可用区-->
 
 							</div>
 						</div>
 						<div class="col-sm-3 secondChild wyLine-height">
-							<div class="row" *ngFor="let storage of plateform.storages">
-								<div class="col-sm-12" ><span style="overflow:hidden">{{storage.storageName}}</span></div>
+							<!--<div class="row" *ngFor="let storage of plateform.storages">-->
+							<div class="row" *ngFor="let zone of plateform.zoneList">
+								<div class="col-sm-12" ><span style="overflow:hidden">{{zone.storageName}}</span></div>
 							</div>
 						</div>
 						<!--<div class="col-sm-2 thirdChild">
