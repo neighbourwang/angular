@@ -29,7 +29,7 @@ export class SubInstanceResp {
 }
 
 export class SubInstanceItemResp {
-  billingInfo: ProductBillingItem = new ProductBillingItem();//, optional): 产品计费详细信息 ,
+  billingInfo: ProductBillingItem = null;//, optional): 产品计费详细信息 ,
   createDate: string = null;//, optional): 创建时间 ,
   expireDate: string = null;//, optional): 过期时间 ,
   instanceName: string = null;//, optional): 实例名称 ,
@@ -43,7 +43,7 @@ export class SubInstanceItemResp {
     return this.billingInfo ? this.billingInfo.billingMode : null;
   }
 
-  get periodType():number{
+  get periodType():number{//单位
     return this.billingInfo ? this.billingInfo.periodType : null;
   }
   
@@ -52,9 +52,22 @@ export class SubInstanceItemResp {
   }
 
   get price():number{
-    return this.billingInfo ? this.billingInfo.price : 0;
+ 
+    if(this.billingInfo){
+      if(this.billingMode == 0)//包年包月
+      {
+      if(this.billingInfo){
+        return this.billingInfo.basicPrice + this.billingInfo.cyclePrice;
+      }
+      else if(this.billingMode == 1)//按量计费
+      {
+        return this.billingInfo.unitPrice;
+      }
+      else
+        return 0;
+      }
+    } 
   }
-
 
   statusName: string = null;//用于界面显示
   serviceTypeName: string = null;//产品类型名称
@@ -77,19 +90,6 @@ export class ProductBillingItem {
   unitPrice: number = null;//, optional): 流量计费-流量单价 ,
   unitType: number = null;//, optional): 流量计费-流量计费类型，需要查询数据字典
   periodType: number = null; //周期计费-周期类型，需要检索数据字典
-
-  get price():number{
-    if(this.billingMode == 0)//包年包月
-    {
-      return this.basicPrice + this.cyclePrice;
-    }
-    else if(this.billingMode == 1)//按量计费
-    {
-      return this.unitPrice;
-    }
-    else
-      return null;
-  }
 }
 
 

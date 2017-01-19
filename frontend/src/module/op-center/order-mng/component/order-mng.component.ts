@@ -165,7 +165,7 @@ export class OrderMngComponent implements OnInit{
 			for(let item of source)
 			{
 				let obj = new SubInstanceResp();
-				target.push(_.extendOwn(obj, item));	
+				target.push(_.extendOwn(obj, item));
 			}
 		};
 		
