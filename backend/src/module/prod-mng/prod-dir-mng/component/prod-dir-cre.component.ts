@@ -69,6 +69,7 @@ export class ProdDirCreComponent implements OnInit {
             }
         ).catch(err => {
             console.error(err);
+             this.LayoutService.hide();
         })
         console.log(this.prodDir);
     }
@@ -178,7 +179,8 @@ export class ProdDirCreComponent implements OnInit {
             return;
         }
         if (this.prodDir.specification.vcpu == 0 || this.prodDir.specification.mem == 0) {
-            this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PRODUCT_SPEC_ERROR'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PRODUCT_SPEC_ERROR=>产品规格数据设置错误 
+            this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PRODUCT_SPEC_ERROR'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PRODUCT_SPEC_ERROR=>产品规格数据设置错误 
+
 
             return;
         }

@@ -116,20 +116,19 @@
 						</div>
 						<div class="col-sm-4">
 							{{'COMMON.ROOT_DISK' | translate}}<!--启动盘-->
-
 						</div>
 					</div>
 					<div class="row tabBody" *ngFor="let plateform of _platformlist; let idx=index">
 						<div class="col-sm-4 oneChild">
 							<p>{{plateform.platformName}}</p>
 						</div>
-						<div class="col-sm-2 secondDiv" *ngFor='let zone of plateform.zoneList'>
-							<div class="row wyLine-height">
+						<div class="col-sm-2 secondDiv">
+							<div class="row wyLine-height"  *ngFor='let zone of plateform.zoneList'>
 								<div class="col-sm-12">{{zone.zoneName}}</div>
 							</div>
 						</div>
-						<div class="col-sm-2 thirdChild" *ngFor='let zone of plateform.zoneList;  let idxx=index;' >
-							<div class="row row-line-height inputLeft">
+						<div class="col-sm-2 thirdChild"  >
+							<div class="row row-line-height inputLeft" *ngFor='let zone of plateform.zoneList;  let idxx=index;'>
 								<div class="col-sm-12"><input type="checkbox" class="fox-cloud-checkbox" selected=zone.selected  [(ngModel)]="zone.selected" name="zoneSelected" (click)=selectZone(idx,idxx)></div>
 							</div>
 						</div>

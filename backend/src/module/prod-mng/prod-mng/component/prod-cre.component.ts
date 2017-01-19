@@ -27,8 +27,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
         private ProdDirDetailService: ProdDirDetailService,
         // private ProdListService : ProdListService,
         private ProdDirListService: ProdDirListService,
-        private LayoutService: LayoutService,
-        
+        private LayoutService: LayoutService,        
         private PostProduct: PostProduct
     ) { }
 
@@ -70,7 +69,8 @@ export class ProdCreComponent implements OnInit, OnChanges {
                 this.getVmProdDirDetail(this.prodDirId);
             } else if (response.resultContent[0].code == 'VITRUALDISK_SERVICE') {
                 this.vmProdDir = false;
-                this.getDiskProdDirDetail(this.prodDirId);
+                this.getVmProdDirDetail(this.prodDirId);
+                // this.getDiskProdDirDetail(this.prodDirId);
             }
             // } else {
 
@@ -78,6 +78,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
             this.LayoutService.hide();
         }).catch(err => {
             console.error(err)
+            this.LayoutService.hide();
         })
     }
     //获取VM产品目录详情
@@ -94,6 +95,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
             }
         }).catch(err => {
             console.error(err)
+            this.LayoutService.hide();
         })
     }
     //获取DISK产品目录详情
@@ -110,6 +112,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
             }
         }).catch(err => {
             console.error(err)
+            this.LayoutService.hide();
         })
     }
     //初始化产品信息
@@ -137,7 +140,8 @@ export class ProdCreComponent implements OnInit, OnChanges {
             this.getVmProdDirDetail(this.prodDirId);
         } else if (prodDir.code == 'VITRUALDISK_SERVICE') {
             this.vmProdDir = false;
-            this.getDiskProdDirDetail(this.prodDirId);
+            this.getVmProdDirDetail(this.prodDirId);
+            // this.getDiskProdDirDetail(this.prodDirId);
         }
     }
     //选择企业
@@ -275,8 +279,9 @@ export class ProdCreComponent implements OnInit, OnChanges {
     onSubmit() {
         console.log(this.product);
         if(!this.vmProdDir){
-            this.selectAllStorages();
+            // this.selectAllStorages();
             console.log(this.product);
+            this.product.productPlatformReqs=this.prodDir.platformInfo;
         }
         if (!this.product.name || this.product.name.trim() == "") {
             this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.INPUT_PRODUCT_NAME'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.INPUT_PRODUCT_NAME=>请输入产品名称 
@@ -297,7 +302,8 @@ export class ProdCreComponent implements OnInit, OnChanges {
             return;
         }
         if (this.product.productPlatformReqs.length < 1) {
-            this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.SELECT_PLATFORM'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.SELECT_PLATFORM=>请选择可用平台 
+            this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.SELECT_PLATFORM'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.SELECT_PLATFORM=>请选择可用平台 
+
 
             return;
         }

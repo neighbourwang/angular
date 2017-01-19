@@ -45,7 +45,9 @@
 					<div class="form-group">
 						<div class="col-sm-4 "><span class="float-right">{{ 'CHECK_CENTER.AUTO_APPROVAL_TIME_SET' | translate }}:</span></div>
 						<div class="col-sm-4">
-							<input type="number" class="form-control number-input" [(ngModel)]="_selectedItem.backAutoApprovalTime">{{ 'COMMON.MIN' | translate }}
+							<input *ngIf="!_selectedItem.backAuditEnable" type="number" class="form-control number-input" disabled="disabled" [(ngModel)]="_selectedItem.backAutoApprovalTime">
+						    <input *ngIf="_selectedItem.backAuditEnable" type="number" class="form-control number-input" [(ngModel)]="_selectedItem.backAutoApprovalTime">
+							{{ 'COMMON.MIN' | translate }}
 						</div>
 					</div>
 				</div>
