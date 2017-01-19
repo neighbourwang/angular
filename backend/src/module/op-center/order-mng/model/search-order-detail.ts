@@ -58,7 +58,8 @@ export class SubInstanceItemResp1{
 		valueUnit: string;//, optional): 服务属性值的单位
 	}];//[SubInstanceAttrPair], optional): 产品规格 ,
 	status: string;//, optional): UI订单状态，需要查询数据字典
- 
+    
+
   //一次性费用
   get oneTimePrice():number{
     if(this.billingInfo)
@@ -87,7 +88,44 @@ export class SubInstanceItemResp1{
     else
       return null;
   }
+	//总费用- 一次性费用
+	totalOncePrice : number = this.oneTimePrice*this.quantity;
+
+  //总费用- 费用
+  get totalPrice():number{
+    if(this.billingInfo)
+    {
+      if(this.billingInfo.billingMode == 0)//云主机
+      {
+        return this.billingInfo.basicPrice*this.quantity*this.period;
+      }
+      else if(this.billingInfo.billingMode == 1)//云硬盘
+      {
+        return this.billingInfo.unitPrice*this.quantity*this.size;
+      }
+      else
+        return null;
+    }
+    else
+      return null;
+  }
+	//云硬盘容量
+	get size():number{
+      if(this.specList){
+				for(let item of this.specList){
+					if(item.attrCode=='DISKSIZE'){
+							console.log(parseInt(item.attrDisplayValue));
+							return parseInt(item.attrDisplayValue);
+					}
+					
+					
+				}
+			}
+      return null;		
+	}
 }
+
+
 /*
 
 OrderDetailItem {
