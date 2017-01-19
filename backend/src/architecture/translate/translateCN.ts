@@ -1099,7 +1099,7 @@
         "POWER_STATUS":"电源状态",
         "USEAGE_STATUS":"使用状态",
         "MAINTAIN_STATUS":"维修状态",
-        "HEALTH_STATUS":"健康检查",
+        "HEALTH_STATUS":"健康  检查",
 
         "SET_ILO_INFO":"设置ILO访问信息",
         "ILO_IP":"ILO IP地址",
