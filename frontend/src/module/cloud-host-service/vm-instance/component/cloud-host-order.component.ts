@@ -269,7 +269,7 @@ console.log(this.vmProduct)
 			if (!price) return; //如果没获取到价格
 
 			basePrice += price.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
-			totalPrice += price.billingInfo.unitPrice * data.storagesize.attrValue * timeline * this.payLoad.quality;   //周期费用
+			totalPrice += price.billingInfo.unitPrice * data.storagesize.attrValue * this.payLoad.quality;   //周期费用
 
 			this.diskUnitType = price.billingInfo.unitType;
 		}

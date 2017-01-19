@@ -45,11 +45,11 @@
                             </font>
                         </td>
                     </tr>
-                    <tr *ngIf="items.billingInfo.cyclePrice">
+                    <tr *ngIf="items.billingInfo.unitPrice">
                         <td>{{'SHOPPING_CART.INCREMENTAL_CYCLE_COST' | translate}}:</td>
                         <td>
                             <font class="font-orange">
-                            {{'COMMON.$' | translate}}{{items.billingInfo.cyclePrice}}}} / {{items.billingInfo.periodType | dict:service.weekly | async}}
+                            {{'COMMON.$' | translate}}{{items.billingInfo.unitPrice}}/GB/{{items.billingInfo.periodType | dict:service.weekly | async}}
                             </font>
                         </td>
                     </tr>
@@ -57,7 +57,7 @@
                         <td>{{'SHOPPING_CART.UNIT_PRICE' | translate}}</td>
                         <td>
                             <font class="font-orange">
-                            {{'COMMON.$' | translate}}{{items.billingInfo.unitPrice}}}} / {{items.billingInfo.unitType}}
+                            {{'COMMON.$' | translate}}{{items.billingInfo.unitPrice}} / {{items.billingInfo.unitType}}
                             </font>
                         </td>
                     </tr>
