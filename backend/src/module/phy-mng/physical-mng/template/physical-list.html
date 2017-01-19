@@ -44,23 +44,23 @@
                 <table class="table table-hover "  style="table-layout:fixed;">
                         <thead>
                             <tr>
-                                <th>{{'PHYSICAL_MNG.SELECT'|translate}}</th> 
-                                <th>{{'PHYSICAL_MNG.INDEX'|translate}}</th>                                       
+                                <th style="width:50px">{{'PHYSICAL_MNG.SELECT'|translate}}</th> 
+                                <th style="width:50px">{{'PHYSICAL_MNG.INDEX'|translate}}</th>                                       
                                 <th style="width:90px">{{'PHYSICAL_MNG.PHYSICAL_NAME'|translate}}</th>	
-                                <th>S/N</th>									
-                                <th>{{'PHYSICAL_MNG.BRAND'|translate}}</th>
-                                <th>{{'PHYSICAL_MNG.MODEL'|translate}}</th>
-                                <th>{{'PHYSICAL_MNG.CPU_CORE'|translate}}</th>
+                                <th style="width:97px">S/N</th>									
+                                <th style="width:55px">{{'PHYSICAL_MNG.BRAND'|translate}}</th>
+                                <th style="width:50px">{{'PHYSICAL_MNG.MODEL'|translate}}</th>
+                                <th style="width:50px">{{'PHYSICAL_MNG.CPU_CORE'|translate}}</th>
                                 <th>{{'PHYSICAL_MNG.MEMORY'|translate}}(G)</th>
-                                <th style="width:105px;">{{'PHYSICAL_MNG.DISK_INFO'|translate}}</th>  
+                                <th style="width:105px;word-break:break-all;">{{'PHYSICAL_MNG.DISK_INFO'|translate}}</th>  
                                 <th>{{'PHYSICAL_MNG.PRIVATE_IP_ADDRESS'|translate}}</th> 
                                 <th>{{'PHYSICAL_MNG.PUBLIC_IP_ADDRESS'|translate}}</th>
                                 <th>{{'PHYSICAL_MNG.IPMI_ADDRESS'|translate}}</th> 
-                                <th>{{'PHYSICAL_MNG.LOCATION'|translate}}</th> 
-                                <th>{{'PHYSICAL_MNG.POWER_STATUS'|translate}}</th> 
-                                <th>{{'PHYSICAL_MNG.USEAGE_STATUS'|translate}}</th>  
-                                <th>{{'PHYSICAL_MNG.MAINTAIN_STATUS'|translate}}</th> 
-                                <th>{{'PHYSICAL_MNG.HEALTH_STATUS'|translate}}</th> 
+                                <th >{{'PHYSICAL_MNG.LOCATION'|translate}}</th> 
+                                <th style="width:50px">{{'PHYSICAL_MNG.POWER_STATUS'|translate}}</th> 
+                                <th  style="width:50px">{{'PHYSICAL_MNG.USEAGE_STATUS'|translate}}</th>  
+                                <th  style="width:50px">{{'PHYSICAL_MNG.MAINTAIN_STATUS'|translate}}</th> 
+                                <th  style="width:60px">{{'PHYSICAL_MNG.HEALTH_STATUS'|translate}}</th> 
                             </tr>
                         </thead>
                         <tbody>
@@ -77,7 +77,7 @@
                                 <td>{{physical.pmDiskInfo}}</td>
                                 <td>{{physical.pmPriIPAddr}}</td>	
                                 <td>{{physical.pmPubIPAddr}}</td>
-                                <td>{{physical.pmIPMIAddr}}</td>
+                                <td>{{physical.pmILOAddr}}</td>
                                 <td>{{physical.pmLocation}}</td>
                                 <td  [ngClass]="{'font-orange': physical.pmPowerStatus=='0','font-green': physical.pmPowerStatus=='1'}">{{physical.pmPowerStatus| dict:service.dicPower | async}}</td>
                                 <td [ngClass]="{'font-orange': physical.pmUseageStatus=='0','font-green': physical.pmUseageStatus=='1'}">{{physical.pmUseageStatus| dict:service.dictUseage | async}}</td>

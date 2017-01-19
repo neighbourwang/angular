@@ -9,7 +9,7 @@ export class PhysicalListModel{
     pmDiskInfo: string;  //硬盘
     pmPriIPAddr:string;
     pmPubIPAddr:string;
-    pmIPMIAddr: string;
+    pmILOAddr: string;
     pmLocation: string;
     pmPowerStatus: string;  //电源状态
     pmUseageStatus: string;   //使用状态
