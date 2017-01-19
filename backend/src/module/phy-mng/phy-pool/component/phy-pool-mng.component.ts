@@ -75,6 +75,7 @@ export class PhyPoolMngComponent implements OnInit{
                         console.log(response.resultContent, "response");
                         this.data = response["resultContent"];
                         this.totalPage= response.pageInfo.totalPage;
+                        console.log(this.pageIndex,"this.pageIndex");
                     } else {
                         alert("Res sync error");
                     }
@@ -222,10 +223,8 @@ export class PhyPoolMngComponent implements OnInit{
             this.criteria.poolName= this.query;
         }
         console.log(this.criteria,"criteria");
+        this.pageIndex= 1;
         this.pager.render(1);
-        if(!this.search){
-            this.pageIndex= 1;
-        }
         this.getData();
     }
 
