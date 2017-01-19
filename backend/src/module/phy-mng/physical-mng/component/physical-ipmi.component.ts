@@ -75,19 +75,19 @@ export class PhysicalIpmiComponent implements OnInit {
    //保存IPMI信息
    saveIpmi(){
        if (!this.physical.iloIPAddress) {
-            this.showAlert("请填写ILO IP地址！");
+            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_ILO_IP");
             return false;
         }
         if(!this.isIP(this.physical.iloIPAddress)){
-            this.showAlert("IP不合要求,请重新填写ILO IP地址！");
+            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_LEGAL_ILO_IP");
             return false;
         }
         if (!this.physical.iloUserName) {
-            this.showAlert("请填写ILO用户名！");
+            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_ILO_USERNAME");
             return false;
         }
         if (!this.physical.iloPwd) {
-            this.showAlert("请填写ILO密码！");
+            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_ILO_PASSWORD");
             return false;
         }      
        this.layoutService.show();
@@ -97,7 +97,7 @@ export class PhysicalIpmiComponent implements OnInit {
                this.layoutService.hide();
                if(response && 100 == response["resultCode"]){
                     this.layoutService.hide();
-                    this.showAlert("保存成功！");
+                    // this.showAlert("保存成功！");
                     this.gotoList();
                }
            }
@@ -107,19 +107,19 @@ export class PhysicalIpmiComponent implements OnInit {
    //测试
    testIpmi(){
         if (!this.physical.iloIPAddress) {
-            this.showAlert("请填写ILO IP地址！");
+            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_ILO_IP");
             return false;
         }
         if(!this.isIP(this.physical.iloIPAddress)){
-            this.showAlert("IP不合要求,请重新填写ILO IP地址！");
+            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_LEGAL_ILO_IP");
             return false;
         }
         if (!this.physical.iloUserName) {
-            this.showAlert("请填写ILO用户名！");
+            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_ILO_USERNAME");
             return false;
         }
         if (!this.physical.iloPwd) {
-            this.showAlert("请填写ILO密码！");
+            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_ILO_PASSWORD");
             return false;
         }
         this.layoutService.show();
@@ -129,7 +129,7 @@ export class PhysicalIpmiComponent implements OnInit {
                 this.layoutService.hide();
                if(response && 100 == response["resultCode"]){
                     this.layoutService.hide();
-                    this.showAlert("ILO信息测试成功！");
+                    this.showAlert("PHYSICAL_MNG.SUCCEED_TEST_ILO_INFO");
                }
             }
         )
@@ -149,7 +149,7 @@ export class PhysicalIpmiComponent implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "PHYSICAL_MNG.NOTICE";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -161,6 +161,6 @@ export class PhysicalIpmiComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败！");
+        this.showAlert("PHYSICAL_MNG.ERROR");
     }
 }

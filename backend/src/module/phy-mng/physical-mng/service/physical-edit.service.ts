@@ -51,7 +51,29 @@ export class PhysicalEditService {
     createPhysical(physical:PhysicalModel):Promise<any>{
 
         const api = this.restApiCfg.getRestApi("physical-mng.physical.create");
-        return this.restApi.request(api.method, api.url, null, null,physical);
+        return this.restApi.request(api.method, api.url, null, null,
+        {           
+            "brandId": physical.brandId,
+            "brandName": physical.brandName,
+            "description": physical.description,
+            "iloIPAddress": physical.iloIPAddress,
+            "iloPwd": physical.iloPwd,
+            "iloUserName": physical.iloUserName,
+            "locale": physical.locale,
+            "macAddress": physical.macAddress,
+            "model": physical.model,
+            "modleId": physical.modleId,
+            "modleName": physical.modleName,
+            "pmHardwareCPU":physical.pmHardwareCPU ,
+            "pmHardwareDiskList":physical.pmHardwareDiskList,             
+            "pmHardwareMemory":physical.pmHardwareMemory ,
+            "pmName": physical.pmName,
+            "pmPoolId": physical.pmPoolId,
+            "sererTypeId": physical.sererTypeId,
+            "serverTypeName": physical.serverTypeName,
+            "sn": physical.sn
+        }
+        );
     }
     
     //获取物理机硬件信息

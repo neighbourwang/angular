@@ -41,7 +41,7 @@ export class PhyPoolMngComponent implements OnInit{
     noticeTitle = "";
     noticeMsg = "";
 
-    pageIndex= 0;
+    pageIndex= 1;
     pageSize= 10;
     totalPage= 1;
 
@@ -49,9 +49,9 @@ export class PhyPoolMngComponent implements OnInit{
 
     data: Array<PhyPoolList>;
     criteria: Criteria= new Criteria();
-    default: string;
-    region= "region";
-    dataCenter= "dataCenter";
+    Default: string;
+    Region= "Region";
+    DataCenter= "DataCenter";
     search: string;
     query: string;
     selectedPhy: PhyPoolList= new PhyPoolList();
@@ -154,7 +154,7 @@ export class PhyPoolMngComponent implements OnInit{
         }
     }
 
-    remove (id: string){;
+    remove (id: string){
         this.enableConfirm.open("PHY_MNG_POOL.DELETE_POOL","PHY_MNG_POOL.DELETE_POOL_WARNING^^^"+this.selectedPhy.pmPoolName);
         this.enableConfirm.cof =() =>{
             this.layoutService.show();
@@ -213,9 +213,9 @@ export class PhyPoolMngComponent implements OnInit{
     searchphy(){
         this.criteria= new Criteria();
         console.log(this.criteria,"criteria");
-        if(this.search == "dataCenter"){
+        if(this.search == "DataCenter"){
             this.criteria.dataCenter= this.query;
-        }else if(this.search == "region"){
+        }else if(this.search == "Region"){
             this.criteria.region= this.query;
         }else{
             this.criteria.poolName= this.query;

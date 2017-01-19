@@ -165,28 +165,13 @@ export class ProdDirDiskCreComponent implements OnInit {
 
     onSubmit() {
         console.log(this.prodDir);
-        // let tempStorage:storageItem=new storageItem();
-        // for(let platform of this.prodDir.platformList){
-        //     for(let zone of platform.platformInfo){
-        //         tempStorage=zone.storageItem.filter(ele=>{
-        //             if(zone.storageId==ele.storageId){
-        //                 return ele
-        //             }
-        //         })                               
-        //     }
-        // }
-
-
-
-
         if (!this.prodDir.serviceName) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.INPUT_PRODUCT_CAT'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.INPUT_PRODUCT_CAT=>请输入产品目录名称 
-
-
             return;
         }
         if (this.prodDir.specification.maxSize == 0 || this.prodDir.specification.stepSize == 0) {
-            this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PRODUCT_SPEC_ERROR'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PRODUCT_SPEC_ERROR=>产品规格数据设置错误 
+            this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PRODUCT_SPEC_ERROR'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PRODUCT_SPEC_ERROR=>产品规格数据设置错误 
+
 
             return;
         }

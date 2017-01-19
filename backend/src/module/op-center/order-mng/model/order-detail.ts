@@ -1,6 +1,7 @@
 //订单详情
 export class OrderDetailItem {
-  instanceCode:string = null;//订单编号
+  instanceId:string = null;//订单ID
+  instanceCode:string = null;//订单编号，用于界面显示
   type:number = null;//订单类型
   typeName:string = null;//订单类型
   status:number = null;//订单状态
@@ -16,7 +17,7 @@ export class OrderDetailItem {
   zone:string = null;//可用区
   specification:string = null;//配置
   instanceName:string = null;//实例名称
-  description:string;//说明
+  description:string;//说明,接口里无字段，之前用已有字段代替的
   billingModeName:string = null;//计费模式
 
   get billingMode():number{
@@ -68,7 +69,7 @@ export class OrderDetailItem {
       return null;
   }
 
-  relatedSubInstanceList:Array<OrderDetailItem> = [];
+  relatedSubInstanceList:Array<OrderDetailItem> = [];//关联订单
 
   relatedOrderList:Array<OrderDetailItem> = [];
 }
