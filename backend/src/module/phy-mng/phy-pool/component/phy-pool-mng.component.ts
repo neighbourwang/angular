@@ -125,7 +125,7 @@ export class PhyPoolMngComponent implements OnInit{
                         if (response && 100 == response["resultCode"]) {
                             console.log(response,"======");
                             this.getData();
-                            this.showAlert("PHY_MNG_POOL.ENABLE_SUCCESS");
+                            //this.showAlert("PHY_MNG_POOL.ENABLE_SUCCESS");
                         } else {
                             alert("Res sync error");
                         }
@@ -146,7 +146,7 @@ export class PhyPoolMngComponent implements OnInit{
                         if (response && 100 == response["resultCode"]) {
                             console.log(response,"======");
                             this.getData();
-                            this.showAlert("PHY_MNG_POOL.DISABLE_SUCCESS");
+                            //this.showAlert("PHY_MNG_POOL.DISABLE_SUCCESS");
                         } else {
                             alert("Res sync error");
                         }
@@ -167,7 +167,7 @@ export class PhyPoolMngComponent implements OnInit{
                         if (response && 100 == response["resultCode"]) {
                             console.log(response,"======");
                             this.getData();
-                            this.showAlert("PHY_MNG_POOL.DELETE_SUCCESS");
+                            //this.showAlert("PHY_MNG_POOL.DELETE_SUCCESS");
                         } else {
                             alert("Res sync error");
                         }
