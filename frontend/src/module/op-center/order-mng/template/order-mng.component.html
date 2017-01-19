@@ -143,7 +143,7 @@
 					<td>{{prodItem.quantity}}</td>
 					<td style="width: 100px;">
 						{{ 'COMMON.ONE_TIME_COSTS' | translate }}:{{prodItem.oneTimePrice}}<br/>
-						{{ 'COMMON.PRICE' | translate }}:{{prodItem.price}}
+						{{ 'COMMON.PRICE' | translate }}:{{prodItem.price}}<span *ngIf="prodItem.serviceType==1">/GB</span><span *ngIf="prodItem.serviceType==0">/{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
 					</td>	
 					<td class="font-green">{{prodItem.status | dict:_dictServ.getDic('SUBINSTANCE', 'STATUS') |async}}</td>
 					<td>{{prodItem.createDate}}</td>

@@ -17,10 +17,12 @@ export class SearchOrderItem{
     departmentName: string = null;//所属部门
     oncePrice : string = null;//一次性费用
     price: string = null;//费用
-
+    periodType : number = null;//费用单位
 
     statusName: string = null;//用于界面显示
     serviceTypeName: string = null;//产品类型名称
 
     withDrawOrderFlag : number = 0;//撤单标志，默认0不能撤单，1可以撤单
+
+    
 }
