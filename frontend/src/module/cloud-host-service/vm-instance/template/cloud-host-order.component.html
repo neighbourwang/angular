@@ -273,7 +273,7 @@
 			<div class="cloud-line"></div>
 
 			<h4 class="cloud-title font-green">{{'VM_INSTANCE.HOST_ONE_PRICE'|translate}}<!-- 云主机单价 --></h4>
-			<p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}: <font class="font-orange">{{'COMMON.$' | translate}}{{ vmBasePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
+			<p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}: <font class="font-orange">{{'COMMON.$' | translate}}{{ vmProduct?.billingInfo.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
 			<p class="cloud-p">{{'VM_INSTANCE.BILLINGARR'|translate}}<!-- 周期费用 -->: <font class="font-orange">{{'COMMON.$' | translate}}{{vmProduct?.billingInfo.basicPrice}} / {{ sendModule.timelineunit.attrDisplayValue }}</font></p>
 			<!-- <h4 class="cloud-title font-green">{{'VM_INSTANCE.CLOUD_HARD_DISK_COSTS'| translate}}</h4>
 			<p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{ diskBasePrice }}</font></p>
