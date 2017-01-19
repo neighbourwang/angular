@@ -85,6 +85,7 @@ export class PhysicalListComponent implements OnInit {
    //获取物理机列表
      getPhysicalList(index?: number) {
         this.pageIndex = index || this.pageIndex;
+        
         this.layoutService.show();
         
         this.service.getPhysicals(this.pageIndex, this.pageSize,this.pmQuery,this.poolId)
@@ -277,10 +278,11 @@ export class PhysicalListComponent implements OnInit {
         } 
          else if(this.selectedQuery == "Ipmi"){
             this.pmQuery.iloAddr= this.queryParam;
-        }   
-       
+        }         
+       this.pageIndex=1;   
         
         console.log(this.pmQuery.pmName);
+        // this.page.render(1);
         this.getPhysicalList();
         this.page.render(1);
     }
