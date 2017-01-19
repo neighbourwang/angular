@@ -110,4 +110,13 @@ export class CheckMngSetComponent implements OnInit{
 	cancelEntModify(){
 		this.setPoup.close();
 	}
+
+	isClose(){
+		if(this._selectedItem.backAuditEnable){
+             return true;
+		}
+		else{
+			return false;
+		}
+	}
 }
