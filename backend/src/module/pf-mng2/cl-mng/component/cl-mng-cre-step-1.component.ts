@@ -57,7 +57,7 @@ export class ClMngCreStep1Component implements OnInit {
 
     ngOnInit() {
         console.log('init');
-        //this.layoutService.show();
+        // this.layoutService.show();
 
         //获取云平台类型列表
         this.commonService.getPlatFormTypes()
@@ -90,7 +90,7 @@ export class ClMngCreStep1Component implements OnInit {
             }
             )
         // this.layoutService.hide();
-
+        this.creStep1Model.supportChange=false;
     }
     // 下一步
     ccf() { }

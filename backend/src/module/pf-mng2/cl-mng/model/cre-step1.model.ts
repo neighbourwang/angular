@@ -9,6 +9,7 @@ export class CreStep1Model {
     passwd : string; //密码
     region : string;//region
     regionId : string; //所属地域
+    supportChange:boolean;
     constructor() {
     }
 }

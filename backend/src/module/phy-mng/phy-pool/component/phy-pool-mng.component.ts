@@ -63,7 +63,7 @@ export class PhyPoolMngComponent implements OnInit{
 
     }
 
-    getData(pageIndex?) {
+    getData(pageIndex?): void {
         this.pageIndex= pageIndex || this.pageIndex;
         this.layoutService.show();
         this.service.getData(this.criteria, this.pageIndex, this.pageSize)
@@ -71,9 +71,11 @@ export class PhyPoolMngComponent implements OnInit{
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
                         console.log(response.resultContent, "response");
                         this.data = response["resultContent"];
                         this.totalPage= response.pageInfo.totalPage;
+                        console.log(this.pageIndex,"this.pageIndex");
                     } else {
                         alert("Res sync error");
                     }
@@ -221,8 +223,9 @@ export class PhyPoolMngComponent implements OnInit{
             this.criteria.poolName= this.query;
         }
         console.log(this.criteria,"criteria");
-        this.getData();
+        this.pageIndex= 1;
         this.pager.render(1);
+        this.getData();
     }
 
     showAlert(msg: string): void {

@@ -111,13 +111,12 @@
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-
                         <div class="col-sm-4 form-control-title">
                             <span class="asterisk">*</span> 是否支持云主机变更：
                         </div>
                         <div class="col-sm-4">
-                            <input type="radio" class="fox-cloud-radio" [checked]="platform.support==0" (click)="platform.support=0" style="margin-right:10px;">支持
-                            <input type="radio" class="fox-cloud-radio" [checked]="platform.support==1" (click)="platform.support=1" style="margin:0 10px 0 20px;">不支持
+                            <input type="radio" class="fox-cloud-radio" [value]="1" [(ngModel)]="platform.support"  name="support" style="margin-right:10px;">支持
+                            <input type="radio" class="fox-cloud-radio" [value]="0" [(ngModel)]="platform.support"  name="support" style="margin:0 10px 0 20px;">不支持
                         </div>
                     </div>
                 </div>
