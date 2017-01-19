@@ -81,6 +81,9 @@ export class ClMngCreStep2Component implements OnInit {
             //     this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_FAILED';
             // }
             )
+
+    //控制下一步disabled
+    this.creStep2Model.isNext=false;
     }
 
 
@@ -184,6 +187,7 @@ export class ClMngCreStep2Component implements OnInit {
                 this.creStep2Model.message = '同步宿主机成功,同步完成';
                 this.creStep2Model.percentage = 100;
                 this.creStep2Model.isNext = true;
+
             }
         ).catch(
             error => {

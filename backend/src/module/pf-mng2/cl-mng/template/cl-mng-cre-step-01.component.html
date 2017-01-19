@@ -120,7 +120,6 @@
 
             <div class="row row-line-height">
                 <div class="form-group">
-
                     <div class="col-sm-4 form-control-title">
                         <span class="asterisk">*</span>
                         密码：
@@ -130,13 +129,21 @@
                     </div>
                 </div>
             </div>
-
-
-
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span> 是否支持云主机变更：
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="radio" class="fox-cloud-radio" [value]="true"   [(ngModel)]="creStep1Model.supportChange" name="supportChange"  style="margin-right:10px;">支持
+                        <input type="radio" class="fox-cloud-radio" [value]="false"   [(ngModel)]="creStep1Model.supportChange" name="supportChange"  style="margin:0 10px 0 20px;">不支持
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<div class="text-center">
+<div class="text-center mgt20">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
         <span class="icon-button-label">取消</span>
     </button>
