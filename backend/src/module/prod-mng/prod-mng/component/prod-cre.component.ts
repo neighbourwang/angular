@@ -281,6 +281,11 @@ export class ProdCreComponent implements OnInit, OnChanges {
         if(!this.vmProdDir){
             // this.selectAllStorages();
             console.log(this.product);
+            this.prodDir.platformInfo.forEach(ele=>{
+                ele.zoneList.forEach(e=>{
+                    e.selected=true;
+                })
+            })
             this.product.productPlatformReqs=this.prodDir.platformInfo;
         }
         if (!this.product.name || this.product.name.trim() == "") {
