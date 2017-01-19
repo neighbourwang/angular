@@ -29,7 +29,7 @@ export class SubInstanceResp {
 }
 
 export class SubInstanceItemResp {
-  billingInfo: ProductBillingItem = null;//, optional): 产品计费详细信息 ,
+  billingInfo: ProductBillingItem = new ProductBillingItem();//, optional): 产品计费详细信息 ,
   createDate: string = null;//, optional): 创建时间 ,
   expireDate: string = null;//, optional): 过期时间 ,
   instanceName: string = null;//, optional): 实例名称 ,
