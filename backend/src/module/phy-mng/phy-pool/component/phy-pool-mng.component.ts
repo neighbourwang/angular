@@ -196,12 +196,17 @@ export class PhyPoolMngComponent implements OnInit{
     }
 
     gotoPhyAdd(){
-        var type="create";
         const selectedphy= this.data.find((p) =>{
             return p.selected;
         });
-        this.router.navigate([`physical-mng/physical-mng/physical-edit`,{pmPoolId:selectedphy.pmPoolId,type:type}]);
+        if(!selectedphy) {
+            this.showAlert("PHY_MNG_POOL.PLEASE_CHOOSE_POOL");
+        }else{
+            let type= "create";
+            this.router.navigate([`physical-mng/physical-mng/physical-edit`,{pmPoolId: selectedphy.pmPoolId, type: type }]);
+        }
     }
+
 
     gotoEdit(){
         const selectedphy= this.data.find((p) =>{
