@@ -279,7 +279,7 @@ export class PhysicalListComponent implements OnInit {
         }         
        this.pageIndex=1;   
         
-        console.log(this.pmQuery.pmName);
+        console.log(this.pmQuery.iloAddr);
         // this.page.render(1);
         this.getPhysicalList();
         this.page.render(1);
