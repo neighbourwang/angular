@@ -304,7 +304,7 @@ export class CheckMngListComponent implements OnInit{
 		if(item.relyOrderNo)
 			this.showMsg("请先审批订单"+item.relyOrderNo+"!");		
 		else
-			this._confirmAccept.open('COMMON.APPROVAL', 'COMMON.ARE_YOU_SURE_YOU_WANT_TO_APPROVE' + '?');
+			this._confirmAccept.open('审批同意', '你确认要审批同意该订单吗?');
 	}
 
 	confirmAccept(){
