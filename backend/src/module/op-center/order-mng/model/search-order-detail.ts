@@ -88,8 +88,16 @@ export class SubInstanceItemResp1{
     else
       return null;
   }
-	//总费用- 一次性费用
-	totalOncePrice : number = this.oneTimePrice*this.quantity;
+	
+		//总费用- 一次性费用
+     get totalOncePrice():number{
+    if(this.billingInfo)
+    {
+      return this.billingInfo.basePrice*this.quantity;
+    }
+    else
+      return null;
+  }
 
   //总费用- 费用
   get totalPrice():number{
