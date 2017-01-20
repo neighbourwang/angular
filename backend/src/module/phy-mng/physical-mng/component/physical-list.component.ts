@@ -65,7 +65,7 @@ export class PhysicalListComponent implements OnInit {
     publicIp:string="publicIp";
     ipmi:string="Ipmi";
     queryParam:string;
-    i="";
+    
 
     //title: string;
 
@@ -153,10 +153,10 @@ export class PhysicalListComponent implements OnInit {
             this.dictPipe.transform(physical.pmUseageStatus,this.service.dictUseage)
             .then(
                 res=> {
-                    console.log(res);
-                    this.i=res;
-                    console.log(this.i);
-                    this.showAlert("PHYSICAL_MNG.PHYSICAL_STATUS^^^" + this.i);
+                    // console.log(res);
+                    // this.i=res;
+                    // console.log(this.i);
+                    this.showAlert("PHYSICAL_MNG.PHYSICAL_STATUS^^^" + res);
                 }
             ) ;          
            
