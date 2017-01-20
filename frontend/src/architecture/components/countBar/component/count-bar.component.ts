@@ -48,7 +48,7 @@ export class CountBarComponent implements OnInit{
     }
     valueChange(){
         const beyond = (this.value - this.min)%this.step;
-        if(this.stepCheck && beyond !== 0)  this.value = this.value - beyond;   //检测是否输入了非步长倍数的数字
+        if(this.stepCheck && beyond !== 0)  this.value = (this.step/2 <= beyond) ? this.value - beyond + this.step : this.value - beyond;   //检测是否输入了非步长倍数的数字
 
         this.value = +this.value > +this.max ? +this.max : +this.value < +this.min ? +this.min : +this.value;
         if(!this.value) this.value = this.min;   //检测是否非法
