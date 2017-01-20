@@ -1,4 +1,4 @@
-<div class="page-content-header icon-content-header-userCenterOn">{{title}}</div>
+<div class="page-content-header icon-content-header-userCenterOn">{{title|translate}}</div>
 <div class="page-content ">
 	<div class="row" style="padding-top: 30px;">
 		<div class="col-md-12">
@@ -13,7 +13,8 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>URL{{'COMMON.PATH' | translate}}：</div><!--地址-->
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>URL{{'COMMON.PATH' | translate}}：</div><!--地址-->
+
 					<div class="col-sm-4">
 						<input type="text" class="form-control font-gray" [(ngModel)]="attest.url" [disabled]="edit||editAcc" >
 					</div>

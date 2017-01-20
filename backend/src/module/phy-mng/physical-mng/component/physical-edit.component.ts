@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
-import { LayoutService, ValidationService, NoticeComponent} from "../../../../architecture";
+import { LayoutService, ValidationService, NoticeComponent,dictPipe} from "../../../../architecture";
 
 import { PhysicalEditService } from "../service/physical-edit.service";
 
@@ -22,7 +22,8 @@ export class PhysicalEditComponent implements OnInit {
         private route: Router,
         private service: PhysicalEditService,
         private layoutService: LayoutService,
-        private validationService: ValidationService
+        private validationService: ValidationService,
+        private dictPipe : dictPipe
     ) {
     }
 
@@ -42,6 +43,7 @@ export class PhysicalEditComponent implements OnInit {
     defaultBrand = new Brand(); //空品牌
     selectedBrand: Brand = this.defaultBrand;
     poolId:string;
+  
     ngOnInit() {
         this.activeRoute.params.forEach((params: Params) => {
             const id = params["id"];
@@ -168,6 +170,7 @@ export class PhysicalEditComponent implements OnInit {
             this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_SERVER_TYPE");
             return false;
         }
+              
         this.physical.brandId = this.selectedBrand.id;
         this.physical.pmPoolId=this.poolId;
         if (!this.physical.brandId) {
@@ -179,23 +182,32 @@ export class PhysicalEditComponent implements OnInit {
             return false;
         }
          
-
-        this.layoutService.show();
-        this.service.createPhysical(this.physical)
+        this.dictPipe.transform(this.physical.sererTypeId,this.service.dictServerType)
             .then(
-            response => {
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
-                    this.layoutService.hide();
-                    console.log(this.physical);
-                    //this.showAlert("添加物理机成功");
-                    this.gotoList();
-                } else {
-                    alert("Res sync error");
+                res=> {
+                    this.physical.serverTypeName=res;
                 }
-            }
-            )
-            .catch((e) => this.onRejected(e));
+            ) 
+            .then(
+                ()=>{
+                    this.layoutService.show();
+                    this.service.createPhysical(this.physical)
+                        .then(
+                        response => {
+                            this.layoutService.hide();
+                            if (response && 100 == response["resultCode"]) {
+                                this.layoutService.hide();
+                                console.log(this.physical);
+                                //this.showAlert("添加物理机成功");
+                                this.gotoList();
+                            } else {
+                                alert("Res sync error");
+                            }
+                        }
+                        )
+                        .catch((e) => this.onRejected(e));
+                            }
+                        );        
     }
 
     //读取物理机信息
