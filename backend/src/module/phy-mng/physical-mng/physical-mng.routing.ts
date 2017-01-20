@@ -7,17 +7,17 @@ import { PhysicalIpmiComponent } from "./component/physical-ipmi.component";
 
 export const PhysicalMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'physical-mng/physical-mng/physical-edit',
+        path: 'physical-mng/physical-mng/physical-edit/:id',
         component: PhysicalEditComponent
     },
      {
         path: 'physical-mng/physical-mng/physical-list',
         component: PhysicalListComponent
     },
-    
+
     {
         path: 'physical-mng/physical-mng/physical-ipmiInfoChange',
-        component:  PhysicalIpmiComponent 
+        component:  PhysicalIpmiComponent
     }
-    
+
 ]);
