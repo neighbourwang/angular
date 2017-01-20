@@ -147,7 +147,7 @@ export class PhysicalListComponent implements OnInit {
                 return;
             }                   
         }
-         console.log("选择的物理机",physical1.pmName);
+         console.log("选择的物理机",physical.pmName);
         if(physical.pmUseageStatus==status){
           
             this.dictPipe.transform(physical.pmUseageStatus,this.service.dictUseage)
