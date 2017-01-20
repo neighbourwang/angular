@@ -40,6 +40,7 @@
         "ORDER_REQUESTS_REJECTED": "订单请求被拒绝",
         "PENDING_APPROVE_LIST": "待审批列表",
         "SET_APPROVE": "设置审批",
+        "OPERATION":"操作",
         "SHOW_AD_SOURCE_STATUS": "该认证源已经是{{value_1}}状态！",
         "YOU_MUST_FILL_IN_THE_REASONS": "必须填写拒绝原因，且不能超出200字",
         "ZONE_AND_AVAILABLE_ZONE": "所在区域及可用区"
