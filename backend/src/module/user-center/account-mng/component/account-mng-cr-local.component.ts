@@ -59,9 +59,9 @@ export class AccountMngCrLocal implements OnInit {
 
                 //编辑
                 this.isCreate = false;
-                this.title = "USER_CENTER.EDIT_ACCOUNT"; //USER_CENTER.EDIT_ACCOUNT=>编辑帐号 
+                this.title = "编辑帐号"; //USER_CENTER.EDIT_ACCOUNT=>编辑帐号 
 
-                this.btnTitle = "HOST_OPENSTACK_MNG.EDIT"; //HOST_OPENSTACK_MNG.EDIT=>编辑 
+                this.btnTitle = "编辑"; //HOST_OPENSTACK_MNG.EDIT=>编辑 
 
                 this.layoutservice.show();
                 this.service.getRole()
@@ -118,9 +118,10 @@ export class AccountMngCrLocal implements OnInit {
             } else {
                 //创建
                 this.isCreate = true;
-                this.title = "USER_CENTER.CREATE_ACCOUNT"; //USER_CENTER.CREATE_ACCOUNT=>创建帐号 
+                this.title = "创建帐号"; //USER_CENTER.CREATE_ACCOUNT=>创建帐号 
 
-                this.btnTitle = "NET_MNG_VM_IP_MNG.CREATE"; //NET_MNG_VM_IP_MNG.CREATE=>创建 
+                this.btnTitle = "创建"; //NET_MNG_VM_IP_MNG.CREATE=>创建 
+
                 this.layoutservice.show();
                 this.service.getRole()
                     .then(
