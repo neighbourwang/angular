@@ -147,7 +147,7 @@ export class PhysicalListComponent implements OnInit {
                 return;
             }                   
         }
-         console.log("选择的物理机",physical.pmName);
+         console.log("选择的物理机",physical1.pmName);
         if(physical.pmUseageStatus==status){
           
             this.dictPipe.transform(physical.pmUseageStatus,this.service.dictUseage)
@@ -251,10 +251,6 @@ export class PhysicalListComponent implements OnInit {
         });
         physical.isSelect= true;
     }
-    // getSelectPhysical(): PhysicalListModel{
-    //     const physical = this.physicalList.find((o) => { return o.isSelect });
-    //     return physical;
-    // }
 
     //搜索
     search(){      

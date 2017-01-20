@@ -136,10 +136,10 @@ export class PhysicalEditComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    isNumber(event:any){
-         event.target.value= event.target.value.replace(/[^(\d|.)]/g,"");
+    // isNumber(event:any){
+    //      event.target.value= event.target.value.replace(/[^(\d|.)]/g,"");
 
-    }
+    // }
 
     //添加物理机
     createPhysical() {
