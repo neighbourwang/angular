@@ -51,7 +51,7 @@ export class PhysicalListComponent implements OnInit {
     pool:Pool;
    // physical:PhysicalModel;
     type: string;
-    poolId:string;
+    pmPoolId:string;
     poolName:string;
     region:string;
     dataCenter:string;
@@ -73,7 +73,7 @@ export class PhysicalListComponent implements OnInit {
         this.activeRoute.params.forEach((params: Params) => {
             const id = params["pmpoolId"];
             console.log("获取的资源池id",id)
-            this.poolId=id;    
+            this.pmPoolId=id;    
             // this.poolName = params['poolName'];  
             // this.region = params['region'];  
             // this.dataCenter = params['dataCenter'];   
@@ -88,7 +88,7 @@ export class PhysicalListComponent implements OnInit {
         
         this.layoutService.show();
         
-        this.service.getPhysicals(this.pageIndex, this.pageSize,this.pmQuery,this.poolId)
+        this.service.getPhysicals(this.pageIndex, this.pageSize,this.pmQuery,this.pmPoolId)
             .then(
                 response => {
                     this.layoutService.hide();
@@ -109,7 +109,7 @@ export class PhysicalListComponent implements OnInit {
     //获取资源池信息
     getPoolInfo(){
         this.layoutService.show();    
-        this.service.getPoolInfo(this.poolId)
+        this.service.getPoolInfo(this.pmPoolId)
             .then(
                 response => {
                     this.layoutService.hide();
@@ -209,15 +209,16 @@ export class PhysicalListComponent implements OnInit {
     //添加物理机
     createPhysical(){
         this.type="create";
-        this.route.navigate(['physical-mng/physical-mng/physical-edit',{type:this.type,poolId:this.poolId}])
-
+        this.route.navigate(['physical-mng/physical-mng/physical-edit',{type:this.type,pmPoolId:this.pmPoolId}])
+           //this.route.navigate(['physical-mng/physical-mng/physical-edit/${this.pmPoolId}',{type:this.type}])
     }
 
     //跳转查看物理机
     gotoPhysicalView(physical:PhysicalModel){
         this.type="view";
         
-        this.route.navigate(['physical-mng/physical-mng/physical-edit',{type:this.type,id:physical.pmId,poolId:this.poolId}])
+        this.route.navigate(['physical-mng/physical-mng/physical-edit',{type:this.type,id:physical.pmId,pmPoolId:this.pmPoolId}])
+        //this.route.navigate(['physical-mng/physical-mng/physical-edit/${physical.pmId}',{type:this.type,poolId:this.pmPoolId}])
     }
 
     //跳转编辑物理机
@@ -228,7 +229,8 @@ export class PhysicalListComponent implements OnInit {
             this.showAlert("PHYSICAL_MNG.SELECT_PHYSICAL");
             return;
         }
-        this.route.navigate(['physical-mng/physical-mng/physical-edit',{type:this.type,id:physical.pmId,poolId:this.poolId}])
+        this.route.navigate(['physical-mng/physical-mng/physical-edit',{type:this.type,id:physical.pmId,pmPoolId:this.pmPoolId}])
+        //this.route.navigate(['physical-mng/physical-mng/physical-edit/${physical.pmId}',{type:this.type,poolId:this.pmPoolId}])
     }
 
     //跳转编辑ipmi信息

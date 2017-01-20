@@ -49,7 +49,7 @@ export class PhysicalEditComponent implements OnInit {
             const id = params["id"];
             this.physical.pmId = id;
             this.eidtMode = params["type"]||"create";
-            this.poolId = params["poolId"];
+            this.poolId = params["pmPoolId"];
             
             if (!this.poolId) {
                 alert("缺少参数");
