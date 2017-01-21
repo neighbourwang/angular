@@ -10,12 +10,12 @@
         </ul>
 
         <!--选择页面语言框-测试用-->
-         <label  style="left: 480px; top:30px;position: absolute">
+         <!-- <label  style="left: 480px; top:30px;position: absolute">
             <span style="color: #fff">{{ 'LANG' | translate }}</span>
             <select #langSelect (change)="translate.use(langSelect.value)">
             <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
             </select>
-        </label> 
+        </label>  -->
 
         <div class="col-md-3 header-right">
             <!-- <span class="header-right-line"><span class="tip-number">8</span><span class="icon-notice"></span></span> -->

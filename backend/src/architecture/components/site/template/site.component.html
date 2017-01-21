@@ -6,11 +6,11 @@
         <div class="col-md-2 logo"></div>
         <div class="col-md-8 console">{{ 'COMMON.CONSOLE' | translate}}</div>
         <!--选择页面语言框-测试用-->
-         <label  style="left: 480px; top:30px;position: absolute">
+        <!--  <label  style="left: 480px; top:30px;position: absolute">
             <select #langSelect (change)="translate.use(langSelect.value)">
             <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
             </select>
-        </label> 
+        </label>  -->
         <div class="col-md-2">
             <div class="row header-group">
 

@@ -187,21 +187,21 @@ export class MenuService {
 							"isActive": false,
 							"isShow": !isRoot,
 							"routing": "net-mng/vm-mng-index/vmware-net-index"
-						},
-						{
-							"label": "USER_CENTER.VMware_NETWORK",
-							"isOpen": false,
-							"isActive": false,
-							"isShow": !isRoot,
-							"routing": "net-mng/vm-mng/88"
-						},
-						{
-							"label": "USER_CENTER.VMware_E_NETWORK",
-							"isOpen": false,
-							"isActive": false,
-							"isShow": !isRoot,
-							"routing": "net-mng/vm-mng-dbt/index/88"
-                        }
+						}
+						// {
+						// 	"label": "USER_CENTER.VMware_NETWORK",
+						// 	"isOpen": false,
+						// 	"isActive": false,
+						// 	"isShow": !isRoot,
+						// 	"routing": "net-mng/vm-mng/88"
+						// },
+						// {
+						// 	"label": "USER_CENTER.VMware_E_NETWORK",
+						// 	"isOpen": false,
+						// 	"isActive": false,
+						// 	"isShow": !isRoot,
+						// 	"routing": "net-mng/vm-mng-dbt/index/88"
+      //                   }
 					]
 				},
 				{
