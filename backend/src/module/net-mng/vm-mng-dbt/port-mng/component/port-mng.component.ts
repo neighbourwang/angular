@@ -120,7 +120,7 @@ export class PortMngComponent implements OnInit {
                 return;
             }
             //this.router.navigate([`net-mng/vm-mng-dbt/port-mng-set/${port.switchId}`]);
-            this.router.navigate(['net-mng/vm-mng-dbt/port-mng-set', {"platform_id": this.platformId,"switchId":port.switchId}]);
+            this.router.navigate(['net-mng/vm-mng-dbt/port-mng-set', {"platform_id": this.platformId,"switchId":port.id}]);
         }
     }
 
