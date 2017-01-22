@@ -237,6 +237,8 @@
         "UNIT_SET": "单位(台)",
         "UPDATE_SUCCESS": "更新成功",
         "USER": "用户",
+        "USERNAME": "用户名",
+        "PASSWORD": "密码",
         "VIEW": "查看",
         "WARNING": "警告",
         "YES": "是",
