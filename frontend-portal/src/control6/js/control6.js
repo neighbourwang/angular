@@ -141,8 +141,8 @@ module.exports = {
 		 })
 		 
 		 let url = window.localStorage["vmwControlUrl"] || "";
-		  url= "wss://10.1.2.221:9443/vsphere-client/webconsole/authd?vmId=vm-900&vmName=vm02_NQP&host=10.1.2.221:443&sessionTicket=cst-VCT-52cd0a4a-47fa-031a-e18b-7d0f8762dfaa--tp-6E-CE-38-DE-65-4B-E5-24-B6-CA-1F-B9-E5-4E-82-6B-A2-38-DB-34&thumbprint=6E:CE:38:DE:65:4B:E5:24:B6:CA:1F:B9:E5:4E:82:6B:A2:38:DB:34";
-		 console.log(url)
+		  // url= "wss://10.1.2.221:9443/vsphere-client/webconsole/authd?vmId=vm-900&vmName=vm02_NQP&host=10.1.2.221:443&sessionTicket=cst-VCT-52cd0a4a-47fa-031a-e18b-7d0f8762dfaa--tp-6E-CE-38-DE-65-4B-E5-24-B6-CA-1F-B9-E5-4E-82-6B-A2-38-DB-34&thumbprint=6E:CE:38:DE:65:4B:E5:24:B6:CA:1F:B9:E5:4E:82:6B:A2:38:DB:34";
+		 // console.log(url)
 		  _wmks.wmks("connect", url);
 
 		$("#sendCAD").click(function() {
