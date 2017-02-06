@@ -1402,7 +1402,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "审批拒绝/通过",
         "id": "check-center.approve-refust.post",
         "method": "POST",
-        "url": "adminui/authsec/backend/approval/order/{orderId}/operation/{operation}/reason/{reason} "
+        "url": "adminui/authsec/backend/approval/order/{orderId}/operation/{operation}/ reason /{reason} "
     }
     ,{
         "desc": "获取审批意见",
