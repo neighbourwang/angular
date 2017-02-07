@@ -31,7 +31,7 @@ export class CheckListItem{
 	specList:Array<{attrDisplayName:string;attrDisplayValue:string}> = null;//产品详细信息
 
 	checkResult:Promise<ApproveItem> = null;//审批结果
-	
+	relyOrderNo:string = null;//关联的父级订单编号
 }
 
 /*

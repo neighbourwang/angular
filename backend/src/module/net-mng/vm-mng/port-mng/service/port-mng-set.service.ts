@@ -24,7 +24,7 @@ export class PortMngSetService {
     getData(id:string, platform_id:string): Promise<any> {
         const pathParams = [
             {
-                key: "cluster_id",
+                key: "id",
                 value: id
             },
             {
@@ -40,7 +40,7 @@ export class PortMngSetService {
     saveEnterpirseGroup(enterpirses:Array<Enterprise>,id:string,platform_id:string): Promise<any> {
         const pathParams = [
             {
-                key: "cluster_id",
+                key: "id",
                 value: id
             },
             {

@@ -259,7 +259,10 @@ export class CheckMngListComponent implements OnInit {
 	//拒绝
 	refuse(item: CheckListItem) {
 		this._selectedItem = item;
-		this.refuseDialog.open();
+		if(item.relyOrderNo)
+			this.showMsg("请先审批订单"+item.relyOrderNo+"!");
+		else
+			this.refuseDialog.open();
 	}
 
 	//确认拒绝
@@ -308,7 +311,10 @@ export class CheckMngListComponent implements OnInit {
 	//同意
 	accept(item: CheckListItem) {
 		this._selectedItem = item;
-		this._confirmAccept.open('CHECK_CENTER.APPROVAL_CONSENT', 'CHECK_CENTER.CONFIRM_TO_APPROVE_THE_ORDER');
+		if(item.relyOrderNo)
+			this.showMsg("请先审批订单"+item.relyOrderNo+"!");		
+		else
+			this._confirmAccept.open('CHECK_CENTER.APPROVAL_CONSENT', 'CHECK_CENTER.CONFIRM_TO_APPROVE_THE_ORDER');
 	}
 
 	confirmAccept() {

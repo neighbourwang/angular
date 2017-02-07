@@ -53,7 +53,7 @@ export class PfConnCreStep02Component implements OnInit {
 
                     this.layoutService.hide();
 
-                    this.resSync.syncRes = "PF_MNG2.SYNC_ZONE";
+                    this.resSync.syncRes = "正在同步可用区";
 
                     this.syncZones();
                 } else {

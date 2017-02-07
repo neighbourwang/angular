@@ -14,10 +14,10 @@ export const PhysicalMngRouting: ModuleWithProviders = RouterModule.forChild([
         path: 'physical-mng/physical-mng/physical-list',
         component: PhysicalListComponent
     },
-    
+
     {
         path: 'physical-mng/physical-mng/physical-ipmiInfoChange',
-        component:  PhysicalIpmiComponent 
+        component:  PhysicalIpmiComponent
     }
-    
+
 ]);

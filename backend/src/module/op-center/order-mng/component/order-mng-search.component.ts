@@ -131,6 +131,7 @@ export class OrderMngSearchComponent implements OnInit{
 			if(item.billingInfo)
 			{
 				obj.oncePrice = item.billingInfo.basePrice;//一次性费用
+				obj.periodType = item.billingInfo.periodType;
 
 				if(item.billingInfo.billingMode == 0)//包月包年
 				{

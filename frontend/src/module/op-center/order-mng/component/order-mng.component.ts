@@ -164,9 +164,11 @@ export class OrderMngComponent implements OnInit{
 		this._orderLoader.MapFunc = (source:Array<any>, target:Array<SubInstanceResp>)=>{
 			for(let item of source)
 			{
-				target.push(_.extendOwn(new SubInstanceResp(), item));
+				let obj = new SubInstanceResp();
+				target.push(_.extendOwn(obj, item));
 			}
 		};
+		
 		this._orderLoader.Trait = (target:Array<SubInstanceResp>)=>{
 
 			let canRenew:(item:SubInstanceItemResp)=>boolean = (item:SubInstanceItemResp):boolean=>{

@@ -1114,13 +1114,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取端口资源企业列表",
         "id": "net-mng.vmware.port.enterprise.list",
         "method": "GET",
-        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/{cluster_id}/set/ent"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/{id}/set/ent"
     },
     {
         "desc": "获取端口资源设置企业保存",
         "id": "net-mng.vmware.port.enterprise.save",
         "method": "POST",
-        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/{cluster_id}/save/ent"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/{id}/save/ent"
     },
     //VMware最外层导航页
     {
@@ -1402,7 +1402,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "审批拒绝/通过",
         "id": "check-center.approve-refust.post",
         "method": "POST",
-        "url": "adminui/authsec/backend/approval/order/{orderId}/operation/{operation}/reason/{reason} "
+        "url": "adminui/authsec/backend/approval/order/{orderId}/operation/{operation}/reasons/{reason} "
     }
     ,{
         "desc": "获取审批意见",
@@ -1624,7 +1624,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "设置企业",
         "id": "net-mng.vm-mng-dbt.port.set-ent",
         "method": "GET",
-        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dist/portres/{switch_id}/set/ent"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dist/portres/{id}/set/ent"
     },
     {
         "desc": "数据中心联动列表",
@@ -1636,7 +1636,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "保存企业",
         "id": "net-mng.vm-mng-dbt.port.ent-save",
         "method": "POST",
-        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dist/portres/{switch_id}/save/ent"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/dist/portres/{id}/save/ent"
     },
 
     //Vmware NSX导航页

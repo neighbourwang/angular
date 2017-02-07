@@ -125,7 +125,7 @@
 					<td class=" font-green leftAlign pdl20" colspan="9" (click)="showDetail(orderItem)"><span>{{orderItem.purchaseDate}}</span><span class="pointer mgl10 float-none">{{ 'COMMON.PURCHASED' | translate }}{{ 'COMMON.SERVICES' | translate }}{{ 'COMMON.NUMBER' | translate }}:{{orderItem.orderNo}}</span></td>
 					<td colspan="2">
 						<button *ngIf="orderItem.canRenew" class="pull-right button-gray-gradient" (click)="renewSelect(orderItem)">续订</button>
-						<button class="mgr2 pull-right button-gray-gradient" (click)="cancelSelect(orderItem)">{{ 'COMMON.UNSUBSCRIBE' | translate }}</button>
+						<button *ngIf="orderItem.itemList[0]?.status != 6"  class="mgr2 pull-right button-gray-gradient" (click)="cancelSelect(orderItem)">{{ 'COMMON.UNSUBSCRIBE' | translate }}</button>
 						<button class="mgr2 pull-right button-gray-gradient" (click)="showDetail(orderItem)">{{ 'COMMON.DETAILS' | translate }}</button>
 					</td>	
 				</tr>
@@ -143,7 +143,7 @@
 					<td>{{prodItem.quantity}}</td>
 					<td style="width: 100px;">
 						{{ 'COMMON.ONE_TIME_COSTS' | translate }}:{{prodItem.oneTimePrice}}<br/>
-						{{ 'COMMON.PRICE' | translate }}:{{prodItem.price}}
+						<span>{{ 'COMMON.PRICE' | translate }}:{{prodItem.price}}</span><span *ngIf="prodItem.serviceType==1">/GB</span><span>/{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
 					</td>	
 					<td class="font-green">{{prodItem.status | dict:_dictServ.getDic('SUBINSTANCE', 'STATUS') |async}}</td>
 					<td>{{prodItem.createDate}}</td>

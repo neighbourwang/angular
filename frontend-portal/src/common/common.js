@@ -11,6 +11,7 @@ const pageModel = [
 		"page-portal",
 		"page-login",
 		"page-control",
+		"page-control6",
 		"page-products",
 	];   //定义page的组建
 

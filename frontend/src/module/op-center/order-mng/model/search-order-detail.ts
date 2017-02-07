@@ -87,6 +87,48 @@ export class SubInstanceItemResp1{
     else
       return null;
   }
+
+  	//总费用- 一次性费用
+     get totalOncePrice():number{
+    if(this.billingInfo)
+    {
+      return this.billingInfo.basePrice*this.quantity;
+    }
+    else
+      return null;
+  }
+  //总费用- 费用
+  get totalPrice():number{
+    if(this.billingInfo)
+    {
+      if(this.billingInfo.billingMode == 0)//云主机
+      {
+        return this.billingInfo.basicPrice*this.quantity*this.period;
+      }
+      else if(this.billingInfo.billingMode == 1)//云硬盘
+      {
+        return this.billingInfo.unitPrice*this.quantity*this.size;
+      }
+      else
+        return null;
+    }
+    else
+      return null;
+  }
+	//云硬盘容量
+	get size():number{
+      if(this.specList){
+				for(let item of this.specList){
+					if(item.attrCode=='DISKSIZE'){
+							console.log(parseInt(item.attrDisplayValue));
+							return parseInt(item.attrDisplayValue);
+					}
+					
+					
+				}
+			}
+      return null;		
+	}
 }
 /*
 

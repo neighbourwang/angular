@@ -57,7 +57,7 @@
 												<td class="text-center">{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}<br><span *ngIf="item.showInstance">{{ 'COMMON.INSTANCE' | translate }}{{ 'COMMON.NAME' | translate }}:{{item.instanceName}}</span></td>
 												<td class="text-center">{{item.quantity}}</td>
 												<td class="text-center">{{item.period}}</td>
-												<td style="width: 200px;" class="text-center">{{ 'ORDER_MNG.NONRECURRING_EXPENSE' | translate }}:{{ 'COMMON.$' | translate }}{{item.oneTimePrice}}<br>{{ 'ORDER_MNG.EXPENSE_$' | translate }}:{{ 'COMMON.$' | translate }}{{item.price}}/G/小时</td>
+												<td style="width: 200px;" class="text-center">{{ 'ORDER_MNG.NONRECURRING_EXPENSE' | translate }}:{{ 'COMMON.$' | translate }}{{item.oneTimePrice}}<br>{{ 'ORDER_MNG.EXPENSE_$' | translate }}:{{ 'COMMON.$' | translate }}{{item.price}}<span *ngIf="item.serviceType==1">/GB</span><span>/{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
 											</tr>
 										</tbody>
 									</table>
@@ -69,11 +69,11 @@
 										<tbody>
 											<tr class="noborder">
 												<td width="200px;" class="rightAlign noborder">{{ 'ORDER_MNG.NONRECURRING_EXPENSE' | translate }}:</td>
-												<td class="font-red leftAlign noborder" >{{ 'COMMON.$' | translate }}{{item.oneTimePrice}}</td>
+												<td class="font-red leftAlign noborder" >{{ 'COMMON.$' | translate }}{{item.totalOncePrice}}</td>
 											</tr>
 											<tr class="noborder">
 												<td class="rightAlign noborder">{{ 'ORDER_MNG.EXPENSE_$' | translate }}:</td>
-												<td class="font-red leftAlign noborder">{{ 'COMMON.$' | translate }}{{item.price}}/G/小时</td>
+												<td class="font-red leftAlign noborder">{{ 'COMMON.$' | translate }}{{item.totalPrice}}<span *ngIf="item.serviceType==1">/GB</span><span>/{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
 											</tr>
 										</tbody>
 									</table>

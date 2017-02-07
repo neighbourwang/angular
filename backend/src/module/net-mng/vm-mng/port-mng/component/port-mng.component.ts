@@ -114,7 +114,7 @@ export class PortMngComponent implements OnInit {
             this.showAlert("NET_MNG_VM_PORT.PLEASE_CHOOSE_PORT_NEEDSET");
             return;
         }
-        this.router.navigate([`net-mng/vm-mng/port-mng-set/${port.clusterId}`, { platform_id: this.pid }]);
+        this.router.navigate([`net-mng/vm-mng/port-mng-set/${port.id}`, { platform_id: this.pid }]);
     }
 
     gotoVm() {

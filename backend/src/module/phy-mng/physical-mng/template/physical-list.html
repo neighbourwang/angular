@@ -36,7 +36,7 @@
                     <option [value]="model">{{'PHYSICAL_MNG.MODEL'|translate}}</option>
                     <option [value]="privateIP">{{'PHYSICAL_MNG.PRIVATE_IP_ADDRESS'|translate}}</option>
                     <option [value]="publicIP">{{'PHYSICAL_MNG.PUBLIC_IP_ADDRESS'|translate}}</option>
-                    <option [value]="Ipmi">{{'PHYSICAL_MNG.IPMI_ADDRESS'|translate}}</option>
+                    <option [value]="ipmi">{{'PHYSICAL_MNG.IPMI_ADDRESS'|translate}}</option>
                 </select>
            </div>           
         </div > 
@@ -66,7 +66,7 @@
                         <tbody>
                             <tr *ngFor="let physical of physicalList; let idex=index;">
                                 <td ><input type="radio" name="physical" class="fox-cloud-radio" 
-                                          (change)="getSelectPhysical(physical);"[checked]="physical.isSelect" ></td>                                      
+                                          (change)="getSelectPhysical(physical);"[checked]="physical.isSelect" ></td>                                              
                                 <td>{{(pageIndex-1)*pageSize+idex+1}}</td>
                                 <td ><a href="javascript:void(0);" (click)="gotoPhysicalView(physical);">{{physical.pmName}}</a></td> 
                                 <td>{{physical.pmSN}}                                

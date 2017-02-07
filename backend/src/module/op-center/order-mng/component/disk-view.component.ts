@@ -27,7 +27,7 @@ export class DiskViewComponent implements OnInit{
 		let getProperty = _.property("attrDisplayValue");
 		this._obj = {
 			diskInstanceName: getProperty(this.values.find(n=>n.attrCode == "DISKINSNAME"))
-			,capacity: getProperty(this.values.find(n=>n.attrCode == 'DISKINITIALSIZE'))
+			,capacity: getProperty(this.values.find(n=>n.attrCode == 'DISKSIZE'))
 			,vmName: getProperty(this.values.find(n=>n.attrCode == 'DISKMOUNTHOSTNAME')) || 'COMMON.NONE'
 			,zone:getProperty(this.values.find(n=>n.attrCode == 'ZONE'))
 		};
