@@ -71,7 +71,17 @@
                     </div>
                 </div>
             </div>
-
+             <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span> 是否支持云主机变更：
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="radio" class="fox-cloud-radio" [value]="true"   [(ngModel)]="creStep1Model.supportChange" name="supportChange"  style="margin-right:10px;">支持
+                        <input type="radio" class="fox-cloud-radio" [value]="false"   [(ngModel)]="creStep1Model.supportChange" name="supportChange"  style="margin:0 10px 0 20px;">不支持
+                    </div>
+                </div>
+            </div>
 
             <div class="section-title h4" style="margin-left: 180px">
                 请输入云平台访问信息：
@@ -129,17 +139,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row row-line-height">
-                <div class="form-group">
-                    <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span> 是否支持云主机变更：
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="radio" class="fox-cloud-radio" [value]="true"   [(ngModel)]="creStep1Model.supportChange" name="supportChange"  style="margin-right:10px;">支持
-                        <input type="radio" class="fox-cloud-radio" [value]="false"   [(ngModel)]="creStep1Model.supportChange" name="supportChange"  style="margin:0 10px 0 20px;">不支持
-                    </div>
-                </div>
-            </div>
+           
         </div>
     </div>
 </div>
