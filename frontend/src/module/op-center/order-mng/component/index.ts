@@ -7,3 +7,4 @@ export * from './order-mng-searchDetail.component';
 export * from './order-mng.component';
 export * from './vm-view.component';
 export * from './disk-view.component';
+export * from './cost-pandect.component';

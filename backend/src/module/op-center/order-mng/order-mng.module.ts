@@ -9,13 +9,14 @@ import { OrderMngRouting } from './order-mng.routing';
 
 //component
 import {OrderMngDetailComponent
-    , OrderMngComponent
-    ,OrderMngRenewComponent
-    , OrderMngCancelComponent
-    ,OrderMngSearchComponent
-    ,OrderMngSearchDetailComponent
-    ,VmViewComponent
-    ,DiskViewComponent } from './component';
+        , OrderMngComponent
+        ,OrderMngRenewComponent
+        , OrderMngCancelComponent
+        ,OrderMngSearchComponent
+        ,OrderMngSearchDetailComponent
+        ,VmViewComponent
+        ,DiskViewComponent
+        ,CostPandectComponent } from './component';
 
 @NgModule({
     imports: [
@@ -32,6 +33,7 @@ import {OrderMngDetailComponent
         ,OrderMngSearchDetailComponent
         ,VmViewComponent
         ,DiskViewComponent
+        ,CostPandectComponent
     ],
     exports: [],
     providers: []
