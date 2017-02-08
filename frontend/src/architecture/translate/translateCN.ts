@@ -257,6 +257,9 @@ export const TranslateCN = {
         BIND_FLOATING_IP: '绑定浮动IP',
         UNBIND_FLOATING_IP: '解绑浮动IP',
         VIEW_CONSOLE: '查看控制台',
+        UNINSTALL_CLOUD_DISK:'卸载云硬盘',
+        FORCE_DELETE_CLOUD: '该云硬盘处于挂载状态，是否强制删除?',
+        SURE_DELETE_CLOUD: '是否确认删除该云硬盘?',
 
         //cloud-host-order.html
         NET: '网络',
@@ -308,7 +311,15 @@ export const TranslateCN = {
         ADD_DATA_DISK: '增加数据盘',
         ADD_HEAD: '一共可以增加',
         ADD_MIDDLE: '块，还可以增加',
-        ADD_TAIL: '块'
+        ADD_TAIL: '块',
+
+        PHYSICAL_MACHINE_ORDER: '物理机订购',
+        SELECT_PHYSICAL_RES: '选择物理资源',
+        SELECT_FROM_POOL: '从物理资源池中选取',
+        SYSTEM_AUTO_IN: '如不填写，则系统自动生成',
+        ENTER_PASSWORD_AGAIN: '请再次输入主机密码',
+        ORDER_CLOUD_HOSTING: '订购云主机',
+        UNSUBSRIBE_ALL_DISK: '是否要一起退订所有云硬盘，挂载它们的云主机为',
 
     },
     ORDER_MNG: {//_DATA_FAILED
@@ -451,6 +462,7 @@ export const TranslateCN = {
         MOUNT_LOCATION_CLOUD_HOST_NAME: '挂载位置（云主机名称）',
         AVAILABLE_AREA: "所在可用区",
         UNSUBSCRIBE_DISK: '退订云硬盘',
+        UNSUBSCRIBE_PROCESS:'已发起退订流程（系统处理需要一定的时间，请勿重复退订）！',
 
         REGION: '所在地区',
         ATTRIBUTE: '属性',
@@ -458,7 +470,7 @@ export const TranslateCN = {
         MOUNT: '挂载',
         UNINSTALL: '卸载',
         MOUNT_CLOUD_HOST: '挂载云主机',
-
+        CLOUD_DISK_OPERATION: '云硬盘操作',
 
     },
     CLOUD_DRIVE_ORDER: {
@@ -505,7 +517,9 @@ export const TranslateCN = {
     VM_DISK: {
         //vw-disk-list.ts  and  vw-disk-order.ts
         VMWARE_CLOUD_HARD_DISK_LIST: 'VMware云硬盘列表',
-        ORDER_VMWARE_CLOUD_HARD_DISK: '订购VMware云硬盘'
+        VMWARE_CLOUD_HOSTING_LIST: 'VMware云主机列表',
+        ORDER_VMWARE_CLOUD_HARD_DISK: '订购VMware云硬盘',
+        ORDER_VMWARE_CLOUD_HOSTING: '订购VMware云主机'
     },
     //shopping-cart文件夹下
     SHOPPING_CART: {
@@ -595,6 +609,8 @@ export const TranslateCN = {
         PURCHASE_PRICE: '预购价',
         ADD_TO_CART: '加入购物车',
         PRICE_LIST: '价格表',
+        GET_NETWORK_FAILURE: '获取网络失败',
+        GET_IMAGE_FAILURE: '获取镜像失败',
     },
     USER_CENTER:{
         SELECT_THE_AUTHENTICATION_SOURCE_AND_ENTER_THE_QUERY_STRING: '请选择认证源并且输入查询字符串',

@@ -475,7 +475,7 @@ console.log(this.vmProduct)
 	}
 
 	checkInput(): boolean {
-		const al = value => !!this.showNotice("提示",value);
+		const al = value => !!this.showNotice("COMMON.PROMPT",value);
 
 		// if(!this.vmSku.skuId) return al("sku不正确");
 

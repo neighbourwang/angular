@@ -26,7 +26,7 @@
 		</div>
 	</div>
 	</ng-container>
-	<div class="col-md-2 content-title">{{!this.forArr.length ? "数据盘" : ""}}</div>
+	<div class="col-md-2 content-title">{{!this.forArr.length ? "VM_INSTANCE.DATA_DISK" : "" | translate}}</div>
 	<div class="col-md-10 add-disk-box">
 		<div class="col-md-3 content-title2 no-padding">
 			<button (click)="addDisk()" [disabled]="this.forArr.length === this.maxLenght" class="btn button-gray-gradient button-icon"><span class="glyphicon glyphicon-plus"></span>{{'VM_INSTANCE.ADD_DATA_DISK'|translate}}</button>

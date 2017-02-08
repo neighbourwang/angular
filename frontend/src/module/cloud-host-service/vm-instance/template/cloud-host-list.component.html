@@ -173,5 +173,5 @@
 <fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
 <fc-popup #popup (cf)="popupCf()" (of)="popupOf()">
-    <div style="text-align: center;"><input [(ngModel)]="forceDelect" type="checkbox" name=""> 是否要一起退订"{{radioSelected.instanceName}}"云主机挂载的云硬盘?</div>
+    <div style="text-align: center;"><input [(ngModel)]="forceDelect" type="checkbox" name=""> {{'VM_INSTANCE.UNSUBSRIBE_ALL_DISK'| translate}} "{{radioSelected.instanceName}}"</div>
 </fc-popup>

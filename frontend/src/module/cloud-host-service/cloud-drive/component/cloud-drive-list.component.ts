@@ -94,16 +94,16 @@ export class cloudDriveListComponent implements OnInit {
 	}
 
 	delectDisk() {  //退订云硬盘
-		if( !this.radioSelected.subInstanceId )  return this.showNotice("退订云硬盘", "请选择要退订的硬盘");
+		if( !this.radioSelected.subInstanceId )  return this.showNotice("CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK", "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK");
 
-		this.popup.open("退订云硬盘");
+		this.popup.open("CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK");
 	}
 	popupCf(){}
 	popupOf(){
 		this.service.deleteDisk(this.radioSelected.subInstanceId).then(res => {
-			this.showNotice("退订云硬盘", "已发起退订流程（系统处理需要一定的时间，请勿重复退订）！");
+			this.showNotice("CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK", "CLOUD_DRIVE_LIST.UNSUBSCRIBE_PROCESS");
 		}).catch(e => {
-			this.showNotice("退订云硬盘", "退订失败！");
+			this.showNotice("CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK", "COMMON.FAILED");
 		})
 		this.popup.close();
 	}
@@ -121,7 +121,7 @@ export class cloudDriveListComponent implements OnInit {
 		this.service.handleDist(this.handleData).then(res => {
 			this.layoutService.hide();
 			// alert(msg+"成功！");
-			this.showNotice("云硬盘操作" ,msg+"成功！");
+			this.showNotice("CLOUD_DRIVE_LIST.CLOUD_DISK_OPERATION" ,"COMMON.SUCCESS");
 
 			setTimeout(() => {   //延迟4秒执行 因为后端4秒同步一次状态
 				this.setDistList();
@@ -135,7 +135,7 @@ export class cloudDriveListComponent implements OnInit {
 		this.serverId = vm.uuid;
 	};
 	confirmVm() {
-		this.handleDist("mount", this.mountDisk, "挂载云主机");
+		this.handleDist("mount", this.mountDisk, "CLOUD_DRIVE_LIST.MOUNT_CLOUD_HOST");
 		this.vmDialog.close();
 	}
 	cancelVm() {
