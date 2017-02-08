@@ -207,7 +207,7 @@
 							<select [disabled]="timeForever" [(ngModel)]="sendModule.timelineunit" (ngModelChange)="setVmPrice();" class="form-control">
 								<option
 								*ngFor="let value of this.configs.timelineunit.mapValueList[this.vmSku.skuId];"
-								[ngValue]="value" >{{ value.attrDisplayValue }}</option>
+								[ngValue]="value" >{{ value.attrDisplayValue | translate}}</option>
 							</select>
 						</div>
 						<div class="col-md-2 no-padding mr10" [ngClass]="{'has-error': check.timeline === false }">
