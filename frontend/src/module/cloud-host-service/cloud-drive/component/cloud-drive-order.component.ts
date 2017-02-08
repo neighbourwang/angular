@@ -283,9 +283,9 @@ export class cloudDriveComponentOrder implements OnInit {
 	}
 
 	checkInput() {
-		const al = value => !!this.showNotice("提示",value);
+		const al = value => !!this.showNotice("COMMON.PROMPT",value);
 
-		if(!this.sku) return al("sku不正确");  //CLOUD_DRIVE_ORDER.SKU_IS_NOT_CORRECT
+		if(!this.sku) return al("CLOUD_DRIVE_ORDER.SKU_IS_NOT_CORRECT");  //CLOUD_DRIVE_ORDER.SKU_IS_NOT_CORRECT
 
 		const value = this.checkValue();
 		if(value) return al(value);

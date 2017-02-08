@@ -14,7 +14,7 @@ import { ListOptions } from '../model/options.model';
 export class vwVmListComponent {
 
 	options : ListOptions = {
-		title : "VMware云主机列表",
+		title : "VM_DISK.VMWARE_CLOUD_HOSTING_LIST",
 		type : "vw",
 	}
 }

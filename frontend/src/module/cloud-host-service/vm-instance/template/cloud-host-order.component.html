@@ -181,7 +181,7 @@
 						<div class="col-md-4 no-padding"
 							[ngClass]="{'has-error': check.passwordShadow === false }">
 
-							<input type="password" class="form-control" (keyup)="checkValue('passwordShadow')"  [(ngModel)]="passwordShadow"  placeholder="请再次输入主机密码">
+							<input type="password" class="form-control" (keyup)="checkValue('passwordShadow')"  [(ngModel)]="passwordShadow"  placeholder="{{'VM_INSTANCE.ENTER_PASSWORD_AGAIN'| translate}}">
 						</div>
 					</div>
 
@@ -190,7 +190,7 @@
 						<div class="col-md-4 no-padding"
 							[ngClass]="{'has-error': check.instancename === false }">
 							
-							<input type="text" [(ngModel)]="sendModule.instancename.attrValue" (keyup)="checkValue('instancename')" class="form-control" placeholder="如不填写，则系统自动生成">
+							<input type="text" [(ngModel)]="sendModule.instancename.attrValue" (keyup)="checkValue('instancename')" class="form-control" placeholder="{{'VM_INSTANCE.SYSTEM_AUTO_IN'| translate}}">
 						</div>
 						<div class="col-md-5 no-padding text-tip">{{'COMMON.SET_NAME_FORMAT'| translate}}</div>
 					</div>

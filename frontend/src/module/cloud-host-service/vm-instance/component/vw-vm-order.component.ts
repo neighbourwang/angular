@@ -14,7 +14,7 @@ import { OrderOptions } from '../model/options.model';
 export class vwVmOrderComponent {
 
 	options : OrderOptions = {
-		title : "订购VMware云主机",
+		title : "VM_DISK.ORDER_VMWARE_CLOUD_HOSTING",
 		type : "vw",
 	}
 }

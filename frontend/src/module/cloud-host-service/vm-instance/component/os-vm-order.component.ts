@@ -14,7 +14,7 @@ import { OrderOptions } from '../model/options.model';
 export class osVmOrderComponent {
 
 	options : OrderOptions = {
-		title : "订购云主机",
+		title : "VM_INSTANCE.ORDER_CLOUD_HOSTING",
 		type : "os",
 	}
 }

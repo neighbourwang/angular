@@ -1,6 +1,6 @@
 <div class="page-content cloud_host_order">
 	<div class="col-md-9">
-		<h1 (click)="payLoadFormat()" class="page-content-header">物理机订购</h1>
+		<h1 (click)="payLoadFormat()" class="page-content-header">{{'VM_INSTANCE.PHYSICAL_MACHINE_ORDER'| translate}}</h1>
 		<ul class="left-box">
 			<li>
 				<div class="col-md-1 li-title">                  
@@ -49,7 +49,7 @@
 					<p><span class="icon-specifications"></span><br>{{'VM_INSTANCE.INSTANCE_CONFIGURATION'| translate}}</p>
 				</div>
 				<div class="col-md-12 li-content">
-					<div class="col-md-2 content-title">选择物理资源</div>
+					<div class="col-md-2 content-title">{{'VM_INSTANCE.SELECT_PHYSICAL_RES'| translate}}</div>
 					<div class="col-md-10" data-toggle="buttons">
 						<select [(ngModel)]="sendModule.networktype" class="form-control float-left mgr10">
 							<option
@@ -59,7 +59,7 @@
 						<button 
 				        	[popover]="popover_host" 
 				        	[ngClass]="{'active': popover_host.popover?.visible}" 
-				        	class="btn btn-default button-gray-gradient mgr20">从物理资源池中选取</button>
+				        	class="btn btn-default button-gray-gradient mgr20">{{'VM_INSTANCE.SELECT_FROM_POOL'| translate}}</button>
 
 				        <popover-content #popover_host [closeOnClickOutside]="true" >
 							666
@@ -69,7 +69,7 @@
 			</li>
 			<li>
 				<div class="col-md-1 li-title">
-					<p><span class="icon-host"></span><br>操作系统</p>
+					<p><span class="icon-host"></span><br>{{'IMAGE.OPERATING_SYSTEM'| translate}}</p>
 				</div>
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">{{'VM_INSTANCE.MIRROR_LIST'| translate}}</div>
@@ -120,7 +120,7 @@
 						<div class="col-md-4 no-padding"
 							[ngClass]="{'has-error': check.passwordShadow === false }">
 
-							<input type="password" class="form-control" (keyup)="checkValue('passwordShadow')"  [(ngModel)]="passwordShadow"  placeholder="请再次输入主机密码">
+							<input type="password" class="form-control" (keyup)="checkValue('passwordShadow')"  [(ngModel)]="passwordShadow"  placeholder="{{'VM_INSTANCE.ENTER_PASSWORD_AGAIN'| translate}}">
 						</div>
 					</div>
 
@@ -129,7 +129,7 @@
 						<div class="col-md-4 no-padding"
 							[ngClass]="{'has-error': check.instancename === false }">
 							
-							<input type="text" [(ngModel)]="sendModule.instancename.attrValue" (keyup)="checkValue('instancename')" class="form-control" placeholder="如不填写，则系统自动生成">
+							<input type="text" [(ngModel)]="sendModule.instancename.attrValue" (keyup)="checkValue('instancename')" class="form-control" placeholder="{{'VM_INSTANCE.SYSTEM_AUTO_IN'| translate}}">
 						</div>
 						<div class="col-md-5 no-padding text-tip">{{'COMMON.SET_NAME_FORMAT'| translate}}</div>
 					</div>
