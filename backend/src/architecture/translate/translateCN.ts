@@ -885,7 +885,7 @@
         "CONFIRM_RENEW": "确认续订",
         "CONFIRM_UNSUBSCRIBE": "确认退订",
         "CONSOLE_MNG": "管理控制台",
-        "KEY_WORD_SEARCH": "输入关键字搜索",
+        "KEY_WORD_SEARCH": "输入编号查询",
         "ONLY_ONE_CAN_RENEW": "只有个“已激活”或“即将过期”的订单可以续订",
         "ORDER_APPROVALED_CAN_BE_DELETE": "如需审批，则要等待退订审批通过后，系统才会开始删除资源",
         "ORDER_APPROVALED_CAN_BE_EFFECT": "如需审批，则需要订单审批通过后，才能正式生效",

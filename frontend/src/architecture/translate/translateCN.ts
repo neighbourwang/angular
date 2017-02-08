@@ -357,7 +357,7 @@ export const TranslateCN = {
         ORIGINAL_EXPIRATION_TIME: '原到期时间',
         CONFIRM: '确定',
         ORDER_TRACKING: '订单查询',
-        PLEASE_ENTER_THE_ORDER_NUMBER_FUZZY_QUERY: '请输入订单号模糊查询',
+        PLEASE_ENTER_THE_ORDER_NUMBER_FUZZY_QUERY: '请输入订单编号模糊查询',
         RESET: '重置',
         ORDER_STATUS: '订单状态',
         ALL_STATUS: '所有状态',
