@@ -21,5 +21,29 @@ export class CostPandectComponent implements OnInit{
 	ngOnInit(){
 	
 	}
+
+	//图表的数据
+public quotaDtasets = [{ data: [ 30, 70 ], backgroundColor: [ "#00CC99","#E7E9ED" ], borderWidth:[  0,0  ] }];
+
+public quotaOptions = {
+            legend: { display: false },
+            tooltips: {  enabled: false },
+            cutoutPercentage: 82
+        };
+
+public useDatasets = [{
+                    data: [25,57,173],
+                    backgroundColor: [ "#FFCC33","#FF6666","#00CC99"],
+                    borderWidth:[ 0,0,0]
+                }];
+
+//图表的事件
+public chartClicked(e:any):void {
+    console.log(e);
+}
+
+public chartHovered(e:any):void {
+    console.log(e);
+}
 	
 }
