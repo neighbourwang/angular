@@ -33,9 +33,9 @@ export const TranslateEN = {
         SHOPPING_CART: 'Shopping cart',
         PURCHASE_AMOUNT: 'Purchase amount',
         PURCHASE_DURATION: 'Purchase duration',
-        ADD_TO_SHOPPING_CART: 'Add to the shopping cart ',
-        CHECK_SHOPPING_CART: 'Check the shopping cart',
-        EMPTY_SHOPPING_CART: 'Empty the shopping cart',
+        ADD_TO_SHOPPING_CART: 'Add to cart ',
+        CHECK_SHOPPING_CART: 'View cart',
+        EMPTY_SHOPPING_CART: 'Empty cart',
         NAME: 'Name',
         NONE: 'None',
         ALL: 'All',
@@ -255,6 +255,9 @@ export const TranslateEN = {
         BIND_FLOATING_IP: 'Bind floating IP',
         UNBIND_FLOATING_IP: 'Unbind floating IP',
         VIEW_CONSOLE: 'View console',
+        UNINSTALL_CLOUD_DISK:'Uninstall cloud disk',
+        FORCE_DELETE_CLOUD: 'The cloud hard disk is mounted, is forced to delete?',
+        SURE_DELETE_CLOUD: 'Are you sure you want to delete this cloud hard disk?',
 
         //cloud-host-order.html
         NET: 'Network',
@@ -277,6 +280,9 @@ export const TranslateEN = {
         CLOUD_HARD_DISK_COSTS: 'Cloud hard disk cost',
         BY_VOLUMN_COSTS: 'By volumn cost',
         TOTAL_COST: 'Total cost',
+        BILLINGARR: 'Cycle cost',
+        TOTAL_BILLINGARR: 'Total cycle cost',
+        BILLINGARR_TEXT: 'The above is the total cost estimate, the actual amount of payment, please use the monthly bill.',
         ANNUAL_SUBSCRIPTION: 'Annual subscription',
         PRODUCT_ORDER_DESCRIPTION: 'The internal networks of different region prouducts cannot communicate each other; Once purchased, the region cannot be changed, please choose  carefully!',
         DEFINITION_OF_PUBLIC_IMAGE_AND_CUSTOM_IMAGE: "Public image is the basic operating system, customized image is the image with the additional configuration or optimization from the basic operating system, according to the enterprise's requirement",
@@ -303,8 +309,15 @@ export const TranslateEN = {
         ADD_DATA_DISK: 'Add data disk',
         ADD_HEAD: 'Total can increase',
         ADD_MIDDLE: 'Disks,also can increase',
-        ADD_TAIL: 'Disks'
+        ADD_TAIL: 'Disks',
 
+        PHYSICAL_MACHINE_ORDER: 'Physical machine ordering',
+        SELECT_PHYSICAL_RES: 'Select physical resources',
+        SELECT_FROM_POOL: 'Select from the physical resource pool',
+        SYSTEM_AUTO_IN: 'If you do not fill in, the system automatically generated',
+        ENTER_PASSWORD_AGAIN: 'Please enter the password again',
+        ORDER_CLOUD_HOSTING: 'Order cloud hosting',
+        UNSUBSRIBE_ALL_DISK: 'If want to unsubscribe the hard drive that is mounted on the cloud server',
     },
     ORDER_MNG: {//_DATA_FAILED
         ORDER_DETAILS: 'Order details',
@@ -364,19 +377,19 @@ export const TranslateEN = {
         ORDER_NUMBER_: 'Order number'
     },
     ORG_MNG_LIST: {
-        OPERATION_ERROR: 'operation error',
-        ORGANIZATIONAL_STATUS_IS_ENABLED: 'organizational status is enabled',
-        ENABLE_DEPARTMENT: 'enable department',
-        YOU_CHOOSE_TO_ENABLE_VALUE_PLEASE_CONFIRM: 'you have chosen to enable {{value_1}}, please confirm',
-        EDIT_DEPARTMENT: 'edit department',
-        YOU_CAN_NOT_DELETE_ORGANIZATIONS_THAT_ARE_ENABLED: 'you can not delete organizations that are enabled'
+        OPERATION_ERROR: 'Operation error',
+        ORGANIZATIONAL_STATUS_IS_ENABLED: 'Organizational status is enabled',
+        ENABLE_DEPARTMENT: 'Enable department',
+        YOU_CHOOSE_TO_ENABLE_VALUE_PLEASE_CONFIRM: 'You have chosen to enable {{value_1}}, please confirm',
+        EDIT_DEPARTMENT: 'Edit department',
+        YOU_CAN_NOT_DELETE_ORGANIZATIONS_THAT_ARE_ENABLED: 'You can not delete organizations that are enabled'
     },
     MNG_CONSOLE: {
-        OVERVIEW_OF_MANAGEMENT_CONTROL: 'overview of management control',
-        PURCHASED_SERVICE: 'purchased service',
-        WORK_ORDER_STATISTICS: 'work order statistics',
-        TOTAL_QUOTA_USAGE: 'total quota usage',
-        DEPARTMENT_RESOURCES: 'department resource'
+        OVERVIEW_OF_MANAGEMENT_CONTROL: 'Overview of management control',
+        PURCHASED_SERVICE: 'Purchased service',
+        WORK_ORDER_STATISTICS: 'Work order statistics',
+        TOTAL_QUOTA_USAGE: 'Total quota usage',
+        DEPARTMENT_RESOURCES: 'Department resource'
     },
     CHECK_CENTER: {
         //check-mng-list.html
@@ -440,20 +453,21 @@ export const TranslateEN = {
     //cloud-drive文件夹下
     CLOUD_DRIVE_LIST: {
         AREA_LIST: 'Region list',
-        ADVANCED_SEARCH: 'advanced search',
-        CREATE_CLOUD_HRAD_DISK: 'create cloud hard disk',
-        CLOUD_HRAD_DISK_NAME: 'cloud hard disk name',
-        MOUNT_LOCATION_CLOUD_HOST_NAME: 'the mount point (cloud host name)',
-        AVAILABLE_AREA: "available area",
-        UNSUBSCRIBE_DISK: 'unsubscribe disk',
-
-        REGION: 'region',
-        ATTRIBUTE: 'attribute',
-        OPERATE: 'operate',
-        MOUNT: 'mount',
-        UNINSTALL: 'unmount',
-        MOUNT_CLOUD_HOST: 'mount cloud host',
-
+        ADVANCED_SEARCH: 'Advanced search',
+        CREATE_CLOUD_HRAD_DISK: 'Create cloud hard disk',
+        CLOUD_HRAD_DISK_NAME: 'Cloud hard disk name',
+        MOUNT_LOCATION_CLOUD_HOST_NAME: 'The mount point (cloud host name)',
+        AVAILABLE_AREA: "Available area",
+        UNSUBSCRIBE_DISK: 'Unsubscribe disk',
+        UNSUBSCRIBE_PROCESS: 'Has launched the unsubscribe process(Processing system needs some time, do not repeat the unsubscribe)',
+        
+        REGION: 'Region',
+        ATTRIBUTE: 'Attribute',
+        OPERATE: 'Operate',
+        MOUNT: 'Mount',
+        UNINSTALL: 'Unmount',
+        MOUNT_CLOUD_HOST: 'Mount cloud host',
+        CLOUD_DISK_OPERATION: 'Cloud disk operation',
 
     },
     CLOUD_DRIVE_ORDER: {
@@ -493,13 +507,15 @@ export const TranslateEN = {
     },
     OS_DISK: {
         //os-disk-list.ts  and  os-disk-order.ts
-        CLOUD_HARD_DISK_LIST: 'cloud hard disk list',
-        ORDER_CLOUD_HARD_DISK: 'order cloud hard disk'
+        CLOUD_HARD_DISK_LIST: 'Cloud hard disk list',
+        ORDER_CLOUD_HARD_DISK: 'Order cloud hard disk'
     },
     VM_DISK: {
         //vw-disk-list.ts  and  vw-disk-order.ts
         VMWARE_CLOUD_HARD_DISK_LIST: 'VMware cloud hard disk list',
-        ORDER_VMWARE_CLOUD_HARD_DISK: 'order vwware cloud hard disk'
+        VMWARE_CLOUD_HOSTING_LIST: 'VMware cloud hosting list',
+        ORDER_VMWARE_CLOUD_HARD_DISK: 'Order VMware cloud hard disk',
+        ORDER_VMWARE_CLOUD_HOSTING: 'Order VMware cloud hosting'
     },
     //shopping-cart文件夹下
     SHOPPING_CART: {
@@ -589,6 +605,8 @@ export const TranslateEN = {
         PURCHASE_PRICE: 'Purchase price',
         ADD_TO_CART: 'Add to shopping cart',
         PRICE_LIST: 'Price list',
+        GET_NETWORK_FAILURE: 'Get network failure',
+        GET_IMAGE_FAILURE: 'Get image failure',
     },
     USER_CENTER:{
         SELECT_THE_AUTHENTICATION_SOURCE_AND_ENTER_THE_QUERY_STRING: 'select the authorization source and enter the query string',

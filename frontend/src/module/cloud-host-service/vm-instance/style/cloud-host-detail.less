@@ -1,31 +1,24 @@
 @import "../../../../architecture/assets/style/constant.less";
 
-.info-menu table{
-    width:100%;
-    border-top:1px solid #ddd;
-    border-left:1px solid #ddd;
-    border-right:1px solid #ddd;
+.info-menu {
+    .panel {
+        margin-bottom: -2px;
+    }
+    .panel-body {
+        padding: 0;
+        .line-box {
+            line-height: 46px;
+            height: 46px;
+            padding: 0 40px;
+            border-bottom: 1px solid #ddd;
+        }
+    }
+    .panel-heading {
+        position: relative;
+        padding: 13px 15px;
+    }
 }
 
-.info-menu table thead tr {
-   border-bottom:1px solid #ddd;
-    border-right:1px solid #ddd; 
-    
-   }
-
-.info-menu table thead th{
-    background:#f7f7f7;
-    height:40px; 
-}
-
-.info-menu table tbody tr{
-    height:40px;
-     border-bottom:1px solid #ddd;
-}
- .info-menu table > tbody > tr > td:first-child {
-     padding-left:40px;
-     width:30%;
- }
  .glyphicon-chevron-down{
      position:absolute;
      right:10px;
@@ -59,7 +52,7 @@
     }
     .switch{
         @on-icon: span;
-        width: 40px;
+        width: 46px;
         height: 20px;
         background-color: @mainColor;
         border: 0;
@@ -127,11 +120,12 @@
             left: 0;
             top: 0;
             width:( @tab-width + 1px );
+            margin-top: -1px;
             text-align: center;
             li{
-                font-size: 13px;
-                height: 40px;
-                line-height: 40px;
+                font-size: 14px;
+                height: 46px;
+                line-height: 46px;
                 &.active{
                     background-color: #fff;
                     border-bottom: 1px solid #ddd;

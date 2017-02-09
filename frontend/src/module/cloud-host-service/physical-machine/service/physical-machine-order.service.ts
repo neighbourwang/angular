@@ -66,7 +66,7 @@ export class PhysicalMachineOrderService {
         const request = this.restApi.request(api.method, api.url, pathParams, undefined, undefined)
                             .then(res => {
                                 if(res.resultCode !== "100"){
-                                    throw "获取网络失败";
+                                    throw "CLOUD_HOST.GET_NETWORK_FAILURE";
                                 }
                                 return res.resultContent.networkItems;
                             });
@@ -87,7 +87,7 @@ export class PhysicalMachineOrderService {
         return this.restApi.request(api.method, api.url, undefined, undefined, pathParams)
                     .then(res => {
                             if(res.resultCode !== "100"){
-                                throw "获取镜像失败";
+                                throw "CLOUD_HOST.GET_IMAGE_FAILURE";
                             }
                             return res.resultContent.imageItems;
                         });

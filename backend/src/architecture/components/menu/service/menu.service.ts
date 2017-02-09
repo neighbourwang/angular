@@ -223,6 +223,13 @@ export class MenuService {
 							"isActive": false,
 							"isShow": !isRoot,
 							"routing": "op-center/order-mng/order-mng-search"
+						},
+						{
+							"label": "费用管理",
+							"isOpen": false,
+							"isActive": false,
+							"isShow": !isRoot,
+							"routing": "op-center/order-mng/cost-pandect"
 						}
 					]
 				},

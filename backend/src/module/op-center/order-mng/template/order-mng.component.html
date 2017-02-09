@@ -125,7 +125,7 @@
 					<tr>
 						<td colspan="8" class="leftAlign font-green">{{orderItem.purchaseDate}} {{ 'COMMON.ORDER_NUM' | translate}}: {{orderItem.orderNo}}</td>
 						
-						<td> <button *ngIf="orderItem.canRenew" class="fox-cloud-button  fox-cloud-button-green pull-right" (click)="renewSelect(orderItem)">{{ 'COMMON.RENEW' | translate}}</button> </td>
+						<td><!--<button *ngIf="orderItem.canRenew" class="fox-cloud-button  fox-cloud-button-green pull-right" (click)="renewSelect(orderItem)">{{ 'COMMON.RENEW' | translate}}</button> --></td>
 						<td><!-- <button class="fox-cloud-button  fox-cloud-button-green pull-right" (click)="cancelSelect(orderItem)">退订</button> --></td>
 
 						<td><button class="fox-cloud-button  fox-cloud-button-green  pull-right"  (click)="showDetail(orderItem.orderId)">{{ 'COMMON.DETAILS' | translate}}</button></td>
