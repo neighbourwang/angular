@@ -1184,6 +1184,7 @@
         "PLATFORM_NAME": "平台名称",
         "PLATFORM_PRODUCT_CAT_ERROR": "云主机产品目录规格输入错误",
         "PLATFORM_SERVICE": "云主机服务",
+        "PHSICAL_SERVICE": "物理机服务",
         "PRODUCT_CAT": "产品目录",
         "PRODUCT_CAT_CLASS": "产品目录类别",
         "PRODUCT_CAT_HAS_BEEN_PUBLISHED": "产品目录状态为已发布",

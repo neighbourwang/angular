@@ -69,8 +69,8 @@ export class ProdCreComponent implements OnInit, OnChanges {
                 this.getVmProdDirDetail(this.prodDirId);
             } else if (response.resultContent[0].code == 'VITRUALDISK_SERVICE') {
                 this.vmProdDir = false;
-                this.getVmProdDirDetail(this.prodDirId);
-                // this.getDiskProdDirDetail(this.prodDirId);
+                // this.getVmProdDirDetail(this.prodDirId);
+                this.getDiskProdDirDetail(this.prodDirId);
             }
             // } else {
 
@@ -140,8 +140,8 @@ export class ProdCreComponent implements OnInit, OnChanges {
             this.getVmProdDirDetail(this.prodDirId);
         } else if (prodDir.code == 'VITRUALDISK_SERVICE') {
             this.vmProdDir = false;
-            this.getVmProdDirDetail(this.prodDirId);
-            // this.getDiskProdDirDetail(this.prodDirId);
+            // this.getVmProdDirDetail(this.prodDirId);
+            this.getDiskProdDirDetail(this.prodDirId);
         }
     }
     //选择企业

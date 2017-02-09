@@ -1,0 +1,131 @@
+<div class="page-content-header icon-create-product">{{'PROD_MNG.CREATE_PRODUCT_CAT' | translate}}: {{'PROD_MNG.PHSICAL_SERVICE' | translate}}</div><!--创建产品目录--><!--物理机服务-->
+<div class="page-content fix-page-content">
+	<div class="row" style="padding-top: 30px;">
+		<div class="col-md-12">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}:</div><!--产品目录名称-->
+
+					<div class="col-sm-4">
+						<input type="text" class="form-control font-gray" [(ngModel)]="prodDir.serviceName" placeholder="{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}(必须)"><!--产品目录名称-->
+
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_SPEC' | translate}}:</div>
+					<div class="col-sm-4">
+						<div class="prodSpecific">
+							<span class="form-line-height font-gray" >cpu</span>
+							<span >
+								<count-bar [default]=0 [step]=1 [max]=1000000 [min]=0 [disabled]=true [value]="prodDir.specification.vcpu" (output)="outputValue($event,'vcpu')"></count-bar>
+							</span>
+							<span class="form-line-height font-gray">{{'COMMON.CORE' | translate}}(vCPU)</span>
+						</div>
+						<!--<div class="row">
+							<div class="col-sm-3 font-gray"><span class="form-line-height">cpu</span></div>
+							<div class="col-sm-4">
+								<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
+							</div>
+							<div class="col-sm-3 font-gray">
+								<span class="form-line-height">{{'COMMON.CORE' | translate}}(vCPU)</span>
+							</div>
+						</div>-->
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"></div>
+					<div class="col-sm-4">
+						<div class="prodSpecific">
+							<span class="form-line-height font-gray" >{{'COMMON.RAM' | translate}}</span>
+							<span >
+								<count-bar [default]=0 [step]=100 [max]=100000 [min]=0 [disabled]=true [value]="prodDir.specification.mem" (output)="outputValue($event,'mem')"></count-bar>
+							</span>
+							<span class="form-line-height font-gray">{{'COMMON.MB' | translate}}(MB)</span>
+						</div>
+						<!--<div class="row">
+							<div class="col-sm-3 font-gray"><span class="form-line-height">{{'COMMON.RAM' | translate}}</span></div>
+							<div class="col-sm-4">
+								<count-bar [default]=0 [step]=100 [max]=2000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'mem')"></count-bar>
+							</div>
+							<div class="col-sm-3 font-gray">
+								<span class="form-line-height">{{'COMMON.MB' | translate}}(MB)</span>
+							</div>
+						</div>-->
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div for="firstname" class="col-sm-4 form-control-title">{{'COMMON.DESCRIPTION' | translate}}：</div>
+					<div class="col-sm-4">
+						<textarea class="form-control font-gray" rows="4" [(ngModel)]="prodDir.description" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div for="firstname" class="col-sm-4 form-control-title" (click)='selectPlateForm()' style="cursor:pointer;">{{'PROD_MNG.SELECT_AVAIL_PLATFORM' | translate}}:</div><!--选择可用平台-->
+
+					<div class="col-sm-4">
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="col-sm-3">选择可用资源池</div>
+				<div class="col-sm-6 border selectPlateForm">
+					<div class="row  tabHeader row-line-height">
+						<div class="col-sm-4">{{'PROD_MNG.PLATFORM_NAME' | translate}}</div><!--平台名称-->
+
+						<div class="col-sm-2 secondDiv">
+							{{'COMMON.AVAILABLE_ZONE' | translate}}<!--可用区-->
+
+						</div>
+						<div class="col-sm-2" style="text-align: left">
+							<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllZones()" [(ngModel)]="selectAllZone">
+						</div>
+						<div class="col-sm-4">
+							{{'COMMON.ROOT_DISK' | translate}}<!--启动盘-->
+						</div>
+					</div>
+					<!--<div class="row tabBody" *ngFor="let plateform of _platformlist; let idx=index">
+						<div class="col-sm-4 oneChild">
+							<p>{{plateform.platformName}}</p>
+						</div>
+						<div class="col-sm-2 secondDiv">
+							<div class="row wyLine-height"  *ngFor='let zone of plateform.zoneList'>
+								<div class="col-sm-12">{{zone.zoneName}}</div>
+							</div>
+						</div>
+						<div class="col-sm-2 thirdChild"  >
+							<div class="row row-line-height inputLeft" *ngFor='let zone of plateform.zoneList;  let idxx=index;'>
+								<div class="col-sm-12"><input type="checkbox" class="fox-cloud-checkbox" selected=zone.selected  [(ngModel)]="zone.selected" name="zoneSelected" (click)=selectZone(idx,idxx)></div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="row row-line-height inputLeft" *ngFor='let zone of plateform.zoneList'>
+								<select class="form-control" [(ngModel)]="zone.storageId" (ngModelChange)="selectStorage($event,idx)">
+                                    <option *ngFor="let storage of zone.storageList;let idx=index" [value]="storage.storageId">{{storage.displayName}}</option>
+                                </select>
+							</div>
+						</div>
+					</div>-->
+				</div>
+				<div class="col-sm-3"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="text-center">
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+        <span class="icon-button-label">{{'NET_MNG_OPENSTACK.CNACLE' | translate}}</span>
+    </button>
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();" style="margin-left:20px">
+        <span class="icon-button-label">{{'PHY_MNG_POOL.CREATE' | translate}}</span><!--创建-->
+
+    </button>
+</div>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM"></fc-notice>

@@ -39,7 +39,8 @@ export class ProductDir {
   platformList: Array<diskPlateform>;
   "serviceId": string;
   "serviceName": string;
-  "specification" = new specification()
+  "specification" = new specification();
+  serviceType:string;
   // constructor(){
   //     this.platformInfo= new Array<plateform>();
   // }

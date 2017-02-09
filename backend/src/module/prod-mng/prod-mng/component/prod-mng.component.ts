@@ -22,14 +22,12 @@ import { ProdList } from '../model/prodList.model'
     providers: []
 })
 export class ProdMngComponent implements OnInit {
-
-
     constructor(
         private layoutService: LayoutService,
         private router: Router,
         private PlatformsActiveService: PlatformsActiveService,
         private ProdListService: ProdListService,
-        private ProdDirListService: ProdDirListService
+        private ProdDirListService: ProdDirListService,
     ) { }
 
 
@@ -54,6 +52,9 @@ export class ProdMngComponent implements OnInit {
     @ViewChild('notice')
     notice: ConfirmComponent;
 
+    @ViewChild('createProdPop')
+    createPop:PopupComponent;
+
     //平台
     platformsList = new Array();
     platformId: string='';
@@ -63,6 +64,9 @@ export class ProdMngComponent implements OnInit {
     //产品目录列表
     prodDirList = new Array();
     prodDirId: string='';
+    //创建用产品目录
+    prodDirIdCre: string='';
+    prodDirTypeCre: string='';
     //初始化
     ngOnInit() {
         console.log('init');
@@ -93,7 +97,8 @@ export class ProdMngComponent implements OnInit {
             console.log('产品目录列表', response);
             // if (response && 100 == response.resultCode) {
             this.prodDirList = response.resultContent;
-            console.log(this.enterpriseList);
+            this.prodDirIdCre=response.resultContent[0].id;
+            this.prodDirTypeCre=response.resultContent[0].code;
             // } else {
 
             // }
@@ -275,5 +280,22 @@ export class ProdMngComponent implements OnInit {
     pageInfo(page) {
         console.log(page);
         this.backend(page, this.pp, {});
+    }
+
+    createProd(){
+        this.createPop.open('创建产品')
+    }
+    selectProDir(e){
+        console.log(e);
+        this.prodDirList.filter(ele=>{
+            if(ele.id==e){
+                console.log(ele);
+                this.prodDirTypeCre=ele.code;
+                return ele;
+            }
+        })
+    }
+    otcreate(){        
+         this.router.navigate(["prod-mng/prod-mng/prod-mng-cre-1", {'id':this.prodDirIdCre,'type':this.prodDirTypeCre}]);
     }
 }
