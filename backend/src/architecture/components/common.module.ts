@@ -18,6 +18,8 @@ import { BootstrapPopoverDirective } from './popover/bootstrap-popover.directive
 
 import { ClickOutsideModule } from 'ng2-click-outside';
 
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+
 import { HttpModule } from '@angular/http';
 import { TranslateModule } from 'ng2-translate';
 import { DialogTranslate } from './dialog/service/dialog-translate.service';
@@ -54,6 +56,7 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
         ClickOutsideModule,
         PopoverModule,
         HttpModule,
+        ChartsModule,
         TranslateModule,
 		SelectboxComponent
     ],

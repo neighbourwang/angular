@@ -25,10 +25,10 @@
 
         <div class="col-md-5 info-menu"  id="accordion">
             <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingOne">
+                <div class="panel-heading" role="tab" id="headingOne"  data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                   <h4 class="panel-title">
                     <span class="icon-basic mgl10"></span>{{'VM_INSTANCE.BASIC_INFORMATION' | translate}}
-                    <span class="glyphicon glyphicon-chevron-down" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"></span>
+                    <span class="glyphicon glyphicon-chevron-down"></span>
                   </h4>
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
@@ -52,10 +52,10 @@
                 </div>
               </div>
               <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingTwo">
+                <div class="panel-heading" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                   <h4 class="panel-title">
                     <span class="icon-attachment mgl10"></span>{{'VM_INSTANCE.EXTRA_INFORMATION' | translate}}
-                    <span class="glyphicon glyphicon-chevron-down" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"></span>
+                    <span class="glyphicon glyphicon-chevron-down"></span>
                   </h4>
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
@@ -80,10 +80,10 @@
                 </div>
               </div>
               <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingThree">
+                <div class="panel-heading" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
                   <h4 class="panel-title">
                     <span class="icon-setting mgl10"></span>{{'VM_INSTANCE.CONFIGURATION_INFORMATION' | translate}}
-                    <span class="glyphicon glyphicon-chevron-down" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree"></span>
+                    <span class="glyphicon glyphicon-chevron-down" ></span>
                   </h4>
                 </div>
                 <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
@@ -109,10 +109,10 @@
            </div>
            
               <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingFourth">
+                <div class="panel-heading" role="tab" id="headingFourth" data-toggle="collapse" data-parent="#accordion" href="#collapseFourth" aria-expanded="true" aria-controls="collapseFourth">
                   <h4 class="panel-title">
                     <span class="icon-storage mgl10"></span>{{'VM_INSTANCE.DISK_INFORMATION' | translate}}
-                    <span class="glyphicon glyphicon-chevron-down" data-toggle="collapse" data-parent="#accordion" href="#collapseFourth" aria-expanded="true" aria-controls="collapseFourth"></span>
+                    <span class="glyphicon glyphicon-chevron-down"></span>
                   </h4>
                 </div>
                 <div id="collapseFourth" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFourth">
@@ -132,10 +132,10 @@
            </div>
 
               <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingFifth">
+                <div class="panel-heading" role="tab" id="headingFifth" data-toggle="collapse" data-parent="#accordion" href="#collapseFifth" aria-expanded="true" aria-controls="collapseFifth">
                   <h4 class="panel-title">
                     <span class="icon-safety mgl10"></span>{{'VM_INSTANCE.SECURITY_INFORMATION' | translate}}
-                    <span class="glyphicon glyphicon-chevron-down" data-toggle="collapse" data-parent="#accordion" href="#collapseFifth" aria-expanded="true" aria-controls="collapseFifth"></span>
+                    <span class="glyphicon glyphicon-chevron-down"></span>
                   </h4>
                 </div>
                 <div id="collapseFifth" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFifth">
@@ -147,12 +147,12 @@
                   </div>
                 </div>
            </div>
-           
+
               <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingSixth">
+                <div class="panel-heading" role="tab" id="headingSixth" data-toggle="collapse" data-parent="#accordion" href="#collapseSixth" aria-expanded="true" aria-controls="collapseSixth">
                   <h4 class="panel-title">
                     <span class="icon-payment mgl10"></span>{{'VM_INSTANCE.PAID_INFORMATION' | translate}}
-                    <span class="glyphicon glyphicon-chevron-down" data-toggle="collapse" data-parent="#accordion" href="#collapseSixth" aria-expanded="true" aria-controls="collapseSixth"></span>
+                    <span class="glyphicon glyphicon-chevron-down"></span>
                   </h4>
                 </div>
                 <div id="collapseSixth" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSixth">
@@ -197,7 +197,7 @@
                     <span class="title float-right">实时数据</span>
                 </div>
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#detail_chart_a" role="tab" data-toggle="tab" aria-controls="detail_chart_a" aria-expanded="true">CUP使用率</a></li>
+                    <li role="presentation" class="active"><a href="#detail_chart_a" role="tab" data-toggle="tab" aria-controls="detail_chart_a" aria-expanded="true">CPU使用率</a></li>
                     <li role="presentation" class=""><a href="#detail_chart_b" role="tab" data-toggle="tab" aria-controls="detail_chart_b" aria-expanded="false">内存使用率</a></li>
                     <li role="presentation" class=""><a href="#detail_chart_c" role="tab" data-toggle="tab" aria-controls="detail_chart_c" aria-expanded="false">硬盘</a></li>
                     <li role="presentation" class=""><a href="#detail_chart_d" role="tab" data-toggle="tab" aria-controls="detail_chart_d" aria-expanded="false">网络流入/流出速率</a></li>
