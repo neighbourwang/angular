@@ -37,6 +37,7 @@ export class ProdMngCreStep1Component implements OnInit {
     prodDirId: string = "";
     ngOnInit() {
         this.router.params.forEach((params: Params) => {
+            console.log(this.service.productDir.serviceType);
             this.prodDirType =
                 params['type'] == 'VITRUALMACHINE_SERVICE' ? '0' :
                     params['type'] == 'VITRUALDISK_SERVICE' ? '1' : this.service.productDir.serviceType;

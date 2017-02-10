@@ -1,116 +1,125 @@
-<div class="page-content-header icon-create-product">创建产品</div><!--创建产品-->
+<div class="page-content-header icon-create-product">创建产品</div>
+<!--创建产品-->
 <div class="page-content fix-page-content">
-    <div class="row navigator-progress">
-        <div class="col-md-3"><span class="mark">1</span><span>基本信息<!--基本信息--></span></div>
-        <div class="col-md-3"><span class="mark">2</span><span>计价方式<!--资源同步--></span></div>
-        <div class="col-md-3 active"><span class="mark">3</span><span>选择平台</span></div>
-        <div class="col-md-3"><span class="mark">4</span><span>选择企业</span></div>
-    </div>
-    <div class="step-progress">
-        <div class="fox-cloud-progress-rectangle progress-striped">
-            <div class="progress-bar fox-cloud-progress-bar-rectangle" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">
-            </div>
-        </div>
-    </div>
-    <div class="row" style="padding-top: 30px;">
-        <div class="col-md-12">
-           <div class="row row-line-height" *ngIf="prodDirType=='0'">
-				<div class="col-sm-3"></div>
-				<div class="col-sm-6 border selectPlateForm">
-					<div class="row  tabHeader row-line-height">
-						<div class="col-sm-4">{{'PROD_MNG.PLATFORM_NAME' | translate}}</div><!--平台名称-->
-
-						<div class="col-sm-4 ">
-							{{'COMMON.AVAILABLE_ZONE' | translate}}<!--可用区-->
-
-						</div>
-						<div class="col-sm-4" style="text-align: left">
-							<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllZones()" [(ngModel)]="selectAllZone">
-						</div>
+	<div class="row navigator-progress">
+		<div class="col-md-3"><span class="mark">1</span><span>基本信息<!--基本信息--></span></div>
+		<div class="col-md-3"><span class="mark">2</span><span>计价方式<!--资源同步--></span></div>
+		<div class="col-md-3 active"><span class="mark">3</span><span>选择平台</span></div>
+		<div class="col-md-3"><span class="mark">4</span><span>选择企业</span></div>
+	</div>
+	<div class="step-progress">
+		<div class="fox-cloud-progress-rectangle progress-striped">
+			<div class="progress-bar fox-cloud-progress-bar-rectangle" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+				style="width: 75%;">
+		</div>
+	</div>
+</div>
+<div class="row" style="padding-top: 30px;">
+	<div class="col-md-12">
+		<div class="row row-line-height" *ngIf="this.service.productDir.serviceType=='0'">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8 border selectPlateForm">
+				<div class="row  tabHeader row-line-height">
+					<div class="col-sm-4">{{'PROD_MNG.PLATFORM_NAME' | translate}}</div>
+					<!--平台名称-->
+					<div class="col-sm-3 ">
+						{{'COMMON.AVAILABLE_ZONE' | translate}}
+						<!--可用区-->
 					</div>
-					<div class="row tabBody" *ngFor="let plateform of prodDir.platformInfo; let idx=index">
-						<div class="col-sm-4 oneChild">
-							<p>{{plateform.platformName}}</p>
-						</div>
-						<div class="col-sm-4 secondChild wyLine-height">
-							<div class="row" *ngFor="let zone of plateform.zoneList">
-								<div class="col-sm-12">{{zone.zoneName}}</div>
-							</div>
-						</div>
-						<div class="col-sm-4 thirdChild">
-							<div class="row row-line-height inputLeft" *ngFor="let zone of plateform.zoneList; let idxx=index">
-								<div class="col-sm-12">
-									<input type="checkbox" class="fox-cloud-checkbox" selected="zone.selected" [(ngModel)]="zone.selected" name="zoneSelected"
-										(click)="selectZone(idx,idxx)">
-								</div>
-							</div>
-						</div>
+					<div class="col-sm-2" style="text-align: left">
+						<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllZones()" [(ngModel)]="selectAllZone">
+					</div>
+					<div class="col-sm-3">
+						启动盘						
 					</div>
 				</div>
-				<div class="col-sm-3"></div>
+				<div class="row tabBody" *ngFor="let plateform of tempVmProdDirPlatformList; let idx=index">
+					<div class="col-sm-4 oneChild">
+						<p>{{plateform.platformName}}</p>
+					</div>
+					<div class="col-sm-3 secondChild wyLine-height">
+						<div class="row" *ngFor="let zone of plateform.zoneList">
+							<div class="col-sm-12">{{zone.zoneName}}</div>
+						</div>
+					</div>
+					<div class="col-sm-2 thirdChild">
+						<div class="row row-line-height inputLeft" *ngFor="let zone of plateform.zoneList; let idxx=index">
+							<div class="col-sm-12">
+								<input type="checkbox" class="fox-cloud-checkbox" selected="zone.selected" [(ngModel)]="zone.selected" name="zoneSelected"
+									(click)="selectZone(idx,idxx)">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-3 secondChild wyLine-height">
+						<div class="row" *ngFor="let bootDisk of plateform.zoneList">
+							<div class="col-sm-12">{{bootDisk.storageName}}</div>
+						</div>						
+					</div>
+				</div>
 			</div>
-			<div class="row row-line-height" *ngIf="this.prodDirType == '1'">
-				<div class="col-sm-3"></div>
-				<div class="col-sm-6 border selectPlateForm">
-					<div class="row  tabHeader row-line-height">
-						<div class="col-sm-4">{{'PROD_MNG.PLATFORM_NAME' | translate}}</div><!--平台名称-->
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="row row-line-height" *ngIf="this.service.productDir.serviceType == '1'">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-6 border selectPlateForm">
+				<div class="row  tabHeader row-line-height">
+					<div class="col-sm-4">{{'PROD_MNG.PLATFORM_NAME' | translate}}</div>
+					<!--平台名称-->
 
-						<div class="col-sm-3 ">
-							{{'COMMON.AVAILABLE_ZONE' | translate}}<!--可用区-->
+					<div class="col-sm-3 ">
+						{{'COMMON.AVAILABLE_ZONE' | translate}}
+						<!--可用区-->
 
-						</div>
-						<div class="col-sm-3 ">
-							{{'PROD_MNG.STORAGE_BACKEND' | translate}}
-						</div>
-						<!--<div class="col-sm-2" style="text-align: left">
-							<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllStorages()" [(ngModel)]="selectAllStorage">
-						</div>-->
 					</div>
-					<!--<div class="row tabBody" *ngFor="let plateform of prodDir.platformList; let idx=index">-->
-						<div class="row tabBody" *ngFor="let plateform of prodDir.platformInfo; let idx=index">
-						<div class="col-sm-4 oneChild">
-							<p>{{plateform.platformName}}</p>
-						</div>
-						<div class="col-sm-3 secondChild wyLine-height">
-							<!--<div class="row" *ngFor="let zone of plateform.storages">-->
-								<div class="row" *ngFor="let zone of plateform.zoneList">
-								<div class="col-sm-12">{{'ENT_MNG.ALL_AVAILABLE_ZONE' | translate}}</div><!--所有可用区-->
-
-							</div>
-						</div>
-						<div class="col-sm-3 secondChild wyLine-height">
-							<!--<div class="row" *ngFor="let storage of plateform.storages">-->
-							<div class="row" *ngFor="let zone of plateform.zoneList">
-								<div class="col-sm-12" ><span style="overflow:hidden">{{zone.storageName}}</span></div>
-							</div>
-						</div>
-						<!--<div class="col-sm-2 thirdChild">
-							<div class="row row-line-height inputLeft" *ngFor="let storage of plateform.storages; let idxx=index">
-								<div class="col-sm-12">
-									<input type="checkbox" class="fox-cloud-checkbox" selected="storage.selected" [(ngModel)]="storage.selected" name="storageSelected"
-										(click)="selectStorage(idx,idxx)">
-								</div>
-							</div>
-						</div>-->
+					<div class="col-sm-3 ">
+						{{'PROD_MNG.STORAGE_BACKEND' | translate}}
+					</div>
+					<div class="col-sm-2" style="text-align: left">
+						<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllStorages()" [(ngModel)]="selectAllStorage">
 					</div>
 				</div>
-				<div class="col-sm-3"></div>
-			</div> 
-        </div>
-    </div>
+				<div class="row tabBody" *ngFor="let plateform of tempDiskProdDirPlatformList; let idx=index">
+					<div class="col-sm-4 oneChild">
+						<p>{{plateform.platformName}}</p>
+					</div>
+					<div class="col-sm-3 secondChild wyLine-height">
+						<div class="row" *ngFor="let zone of plateform.zoneList">
+							<div class="col-sm-12">{{zone.zoneName}}</div>
+						</div>
+					</div>
+					<div class="col-sm-3 secondChild wyLine-height">
+						<div class="row" *ngFor="let storage of plateform.zoneList">
+							<div class="col-sm-12"><span style="overflow:hidden">{{storage.storageName}}</span></div>
+						</div>
+					</div>
+					<div class="col-sm-2 thirdChild">
+						<div class="row row-line-height inputLeft" *ngFor="let storage of plateform.zoneList; let idxx=index">
+							<div class="col-sm-12">
+								<input type="checkbox" class="fox-cloud-checkbox" selected="storage.selected" [(ngModel)]="storage.selected" name="storageSelected"
+									(click)="selectStorage(idx,idxx)">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-3"></div>
+		</div>
+	</div>
+</div>
 </div>
 <div class="text-center mgt20">
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
         <span class="icon-button-label">取消</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="previous();">
+	<button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="previous();">
         <span class="icon-button-label">上一步</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();">
+	<button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();">
         <span class="icon-button-label">下一步</span>
     </button>
 </div>
 
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM"></fc-notice>
 
-<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL"
+	(cf)="ccf()"></fc-confirm>

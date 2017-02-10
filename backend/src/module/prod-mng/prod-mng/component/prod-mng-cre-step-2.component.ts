@@ -30,8 +30,6 @@ export class ProdMngCreStep2Component implements OnInit {
     }
 
     outputValue(e, num) {
-        console.log(e);
-        console.log(num);
         this.service.product[num] = e;
     }
 
