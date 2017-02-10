@@ -40,6 +40,7 @@
                           width="200" height="70"
                           [datasets]="ent_dht"
                           chartType="doughnut"
+                          [colors]="lineChartColors"
                           [options]="d_options"
 						  [labels]="d_labels"></canvas>
 		                </div>
@@ -54,6 +55,8 @@
                           width="200" height="70"
                           [datasets]="ent_bar"
                           chartType="bar"
+                          [colors]="barColors"
+                          [labels]="bar_labels"
                           [options]="bar_options"></canvas>
                         </div>     
                     </div>
@@ -68,6 +71,8 @@
 							 <canvas baseChart
                           width="200" height="70"
                           [datasets]="ent_hbar"
+                          [labels]="hbar_labels"
+                          [colors]="hbarColors"
                           chartType="horizontalBar"
                           [options]="h_options"></canvas>
                         </div>
@@ -79,6 +84,8 @@
 						 <canvas baseChart
                           width="200" height="70"
                           [datasets]="ent_hbar2"
+                          [labels]="hbar_labels2"
+                          [colors]="hbarColors"
                           chartType="horizontalBar"
                           [options]="h_options2"></canvas>
                         <div class="ues-content">
