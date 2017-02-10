@@ -1,4 +1,4 @@
-<div class="page-content-header icon-content-header-userCenterOn">{{title}}</div>
+<div class="page-content-header icon-content-header-userCenterOn">{{title| translate}}</div>
 <div class="page-content" style=min-height:300px>
     <div class="row" style="padding-top: 30px;">
         <div class="col-md-12">
@@ -153,7 +153,7 @@
             <span class="icon-button-label">{{'NET_MNG_VM_PORT.CNACLE' | translate}}<!--取消--></span>
         </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px" (click)="create()"  [disabled]="!accountForm.form.valid||!loginNameIsOnly||!isEmail||!isPhone">
-            <span class="icon-button-label" >{{btnTitle}}</span>
+            <span class="icon-button-label" >{{btnTitle|translate}}</span>
         </button>
 </div>
 <div style="height:50px"></div>

@@ -43,7 +43,7 @@
 						</div>
 						<div class="col-sm-2"></div>
 						<div class="col-sm-5 entBody">
-							<div *ngFor="let ent2 of product.productEnterpiseReqs;let ii=index">
+							<div *ngFor="let ent2 of this.service.product.productEnterpiseReqs;let ii=index">
 								<span class="span2" (click)='unSelected(ent2,ii)'>{{ent2.name}}</span>
 							</div>
 						</div>
@@ -62,7 +62,7 @@
         <span class="icon-button-label">上一步</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();">
-        <span class="icon-button-label">下一步</span>
+        <span class="icon-button-label">发布</span>
     </button>
 </div>
 

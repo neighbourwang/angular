@@ -69,7 +69,7 @@ export class ProdDirListComponent implements OnInit {
             // }
         }).catch(err => {
             console.error(err);
-            this.notice.open('COMMON.OPERATION_ERROR','获取产品目录列表错误')
+            this.notice.open('COMMON.OPERATION_ERROR','.PROD_MNG.GET_PRODUCT_CAT_LIST_ERROR')
         })
         //获取产品目录类别
         this.ProdSeriesService.getProdSeries().then(response => {
@@ -191,8 +191,9 @@ export class ProdDirListComponent implements OnInit {
                      this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.NOT_ALLOW_TO_DELETE_PUBLISHED_PRODUCT_CAT') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.NOT_ALLOW_TO_DELETE_PUBLISHED_PRODUCT_CAT=>不能删除状态为已发布的产品目录 
 
 
-                }else{
-                    this.deleteConfirm.open('PROD_MNG.REMOVE_PRODUCT_CAT', '您选择删除 ' + "'" + message + "'" + '产品,请确认；如果确认，此产品目录的数据将不能恢复。') //PROD_MNG.REMOVE_PRODUCT_CAT=>删除产品目录 
+                } else {
+                    //PROD_MNG.DELETE_SELECTED_PRODUCT=>您选择删除{{value_1}}产品,请确认；如果确认，此产品目录的数据将不能恢复。
+                    this.deleteConfirm.open('PROD_MNG.REMOVE_PRODUCT_CAT', 'PROD_MNG.DELETE_SELECTED_PRODUCT^^^'+message) 
 
                 }
                 
@@ -203,7 +204,7 @@ export class ProdDirListComponent implements OnInit {
 
 
                     } else {
-                        this.publishConfirm.open('PROD_MNG.PUBLISH_PRODUCT_CAT', '您选择发布 ' + "'" + message + "'" + '产品,请确认。') //PROD_MNG.PUBLISH_PRODUCT_CAT=>发布产品目录 
+                        this.publishConfirm.open('PROD_MNG.PUBLISH_PRODUCT_CAT', 'PROD_MNG.PUBLISH_SELECTED_PRODUCT^^^'+message) //PROD_MNG.PUBLISH_SELECTED_PRODUCT=>您选择发布{{value1}}产品,请确认。
 
                     }
                     break;

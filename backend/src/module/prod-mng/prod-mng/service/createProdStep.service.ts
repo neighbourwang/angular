@@ -23,12 +23,19 @@ export class CreateProdStepService{
 
     // 取得VM产品目录详情
     getVmProdDirDetail(id:string) {
+        this.productDir=new ProductDir();
         let api = this.restApiCfg.getRestApi("prod-mng.prod-dir-vm.detail");
         this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined).then(response => {
             console.log('VM产品目录详情', response);
             if (response && 100 == response.resultCode) {                
                 this.productDir = response.resultContent;
+                // this.product.serviceId=response.resultContent.serviceId;
                 this.productDir.serviceType='0';
+                this.productDir.platformInfo.forEach(platform=>{
+                    platform.zoneList.forEach(zone=>{
+                        zone.selected=false;
+                    })
+                })
                 console.log(this.productDir);
                 this.product=new Product();
             } else {
@@ -40,12 +47,19 @@ export class CreateProdStepService{
     }
     // 取得Disk产品目录详情
     getDiskProdDirDetail(id:string) {
+        this.productDir=new ProductDir();
         let api = this.restApiCfg.getRestApi("prod-mng.prod-dir-disk.detail");
         this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined).then(response => {
-            console.log('VM产品目录详情', response);
+            console.log('DISK产品目录详情', response);
             if (response && 100 == response.resultCode) {                
                 this.productDir = response.resultContent;
-                this.productDir.serviceType='0';
+                // this.product.serviceId=response.resultContent.serviceId;
+                this.productDir.serviceType='1';
+                this.productDir.platformList.forEach(platform=>{
+                    platform.zoneList.forEach(zone=>{
+                        zone.selected=false;
+                    })
+                })
                 console.log(this.productDir);
                 this.product=new Product();
             } else {

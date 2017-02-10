@@ -57,8 +57,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
         })
         //获取产品目录下拉列表 
         this.LayoutService.show();       
-        this.ProdDirListService.getProdDirList().then(response => {
-            
+        this.ProdDirListService.getProdDirList().then(response => {            
             console.log('目录', response);
             // if (response && 100 == response.resultCode) {
             this.prodDirList = response.resultContent;
@@ -201,7 +200,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
     selectAllStorages() {
         this.selectAllStorage = !this.selectAllStorage;
         for (let plate of this.prodDir.platformList) {
-            for (let storage of plate.storages) {
+            for (let storage of plate.zoneList) {
                 storage.selected = this.selectAllStorage;
                 // console.log(zone.storageList);
             }
@@ -211,8 +210,8 @@ export class ProdCreComponent implements OnInit, OnChanges {
     //选择存储后端
     selectStorage(idx, idxx) {
         console.log(idx, idxx);
-        this.prodDir.platformList[idx].storages[idxx].selected = !this.prodDir.platformList[idx].storages[idxx].selected;
-        console.log(this.prodDir.platformList[idx].storages[idxx].selected);
+        this.prodDir.platformList[idx].zoneList[idxx].selected = !this.prodDir.platformList[idx].zoneList[idxx].selected;
+        console.log(this.prodDir.platformList[idx].zoneList[idxx].selected);
         this.getProductPlatformReqs();
     }
     //获取Post产品平台信息
@@ -220,7 +219,7 @@ export class ProdCreComponent implements OnInit, OnChanges {
         let findPlateform: boolean = false;
         for (let plateform of this.prodDir.platformList) {
             let list = [];
-            for (let storage of plateform.storages) {
+            for (let storage of plateform.zoneList) {
                 if (storage.selected == true) {
                     findPlateform = true;
                     list.push(storage);
@@ -338,8 +337,6 @@ export class ProdCreComponent implements OnInit, OnChanges {
 
 
     outputValue(e, num) {
-        console.log(e);
-        console.log(num);
         this.product[num] = e;
     }
 
