@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
 import { SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 
+import * as _ from 'underscore';
 
 @Component({
 	selector: 'cost-pandect',
@@ -11,7 +12,8 @@ import { SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, 
 	providers: []
 })
 export class CostPandectComponent implements OnInit{
-	ent_dht:any=[{
+	//企业消费概览
+    ent_dht:any=[{
                         data: [25,57,173,200],
                         backgroundColor: [
                             "#FFCC33","#2BD2CA","#00CC99","#2BD2CA"
@@ -19,15 +21,30 @@ export class CostPandectComponent implements OnInit{
                         borderWidth:[
                             0,0,0,0
                         ]
-                    }];//企业消费概览
+                    }];
 
 
-  d_labels=[
+    d_labels=[
                         '物理机：'+25,
                         '数据库：'+ 57,
                         '云硬盘：'+ 173,
                         '云主机：'+ 200,
                     ];
+    d_options={
+                        legend: {
+                            position: 'bottom',
+                            display: true,
+                            labels: {
+                                boxWidth: 12
+                            }
+                        },
+                        tooltips: {
+                            enabled: false,
+                        },
+                        cutoutPercentage: 82,
+                    }                   
+
+//消费趋势
 	ent_bar:any=[{
                         type: "bar",
                         label: "总消费",
@@ -49,8 +66,41 @@ export class CostPandectComponent implements OnInit{
                             'rgba(255, 159, 64, 1)'
                         ]
                          
-                    }
-                   ];//消费趋势
+                    },{   type: 'line',
+                            label: "新增消费",
+                            fill: false,
+                            lineTension: 0.1,
+                            backgroundColor: "rgba(75,192,192,0.4)",
+                            borderColor: "rgba(75,192,192,1)",
+                            borderCapStyle: 'butt',
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            borderJoinStyle: 'miter',
+                            pointBorderColor: "rgba(75,192,192,1)",
+                            pointBackgroundColor: "#fff",
+                            pointBorderWidth: 1,
+                            pointHoverRadius: 5,
+                            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                            pointHoverBorderColor: "rgba(220,220,220,1)",
+                            pointHoverBorderWidth: 2,
+                            pointRadius: 1,
+                            pointHitRadius: 10,
+                            data:[65, 59, 80, 81, 56, 55, 40],
+                            spanGaps: false,
+                        }
+                   ];
+    bar_options={
+                scales: {
+                    xAxes: [{
+                        display: false
+                    }],
+                    yAxes: [{
+                        stacked: true
+
+                    }]
+                }
+            };
+    //消费总额排名
 	ent_hbar:any=[{
                         label:'消费总额',
                         data: [65, 59, 80, 81, 56],
@@ -67,7 +117,8 @@ export class CostPandectComponent implements OnInit{
                             'rgba(75, 192, 192, 1)'
                         ]
                          
-                    }];//消费总额排名
+                    }];
+    //新增消费排名
 	ent_hbar2:any=[{
                         label:'消费总额',
                         data: [65, 59, 80, 81, 56],
@@ -84,32 +135,7 @@ export class CostPandectComponent implements OnInit{
                             'rgba(75, 192, 192, 1)'
                         ]
                          
-                    }];//新增消费排名
-
-d_options={
-                    legend: {
-                        position: 'bottom',
-                        display: true,
-                        labels: {
-                            boxWidth: 12
-                        }
-                    },
-                    tooltips: {
-                        enabled: false,
-                    },
-                    cutoutPercentage: 82,
-                }
-bar_options={
-                scales: {
-                    xAxes: [{
-                        display: false
-                    }],
-                    yAxes: [{
-                        stacked: true
-
-                    }]
-                }
-            };
+                    }];
 h_options={
                     scales: {
                         xAxes: [{
@@ -151,5 +177,12 @@ public chartClicked(e:any):void {
 public chartHovered(e:any):void {
     console.log(e);
 }
+
+	//显示详情
+	download(orderItem:SubInstanceResp){
+		this.layoutService.show();
+        $('#downloadDialog').modal('show');
+	}
+
 	
 }
