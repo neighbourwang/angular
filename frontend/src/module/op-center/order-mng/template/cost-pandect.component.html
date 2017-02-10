@@ -1,69 +1,386 @@
 <div class="CostPandect">	
 	<div class="page-content-header">消费总览</div>
 	<div class="page-content">
-	    <!--  下拉选项行 [(ngModel)]="_param.organization" (ngModelChange)="loadBuyer()
-		*ngFor="let item of _departmentLoader.Items" [value]="item.id""-->
+	    <!--  下拉选项行 -->
 		<div class="firstPanel">
-	        <div class="float-left">
+	       <div class="float-left"> <!--[(ngModel)]="_param.organization" (ngModelChange)="loadBuyer()"
+		    *ngFor="let item of _departmentLoader.Items" [value]="item.id"-->
 				<select class="form-control fix-width-120" >
-					<option class="hands" [value]="null"></option>
-					<option class="hands" >2016年</option>
+					<option class="hands" [value]="null">2016年</option>
+					<option class="hands">2016年</option>
 				</select>
 			</div>
 			<div  class="float-left mgr20">
-				<select class="form-control fix-width-120">
-					<option class="hands" [value]="null"></option>
+				<select class="form-control fix-width-120" >
+					<option class="hands" [value]="null">6月</option>
 					<option class="hands" >6月</option>
 				</select>
 			</div>
 			<div class="float-left mgt5">
-				<input type="checkbox" class="fox-cloud-checkbox mgr10">
+				<input type="checkbox" class="fox-cloud-checkbox mgr10" >
 				按出账日
 			</div>
 			<div class="float-right">
-				<button class="btn btn-default button-gray-gradient mgl5" >下载账单</button>
+				<button class="btn btn-default button-gray-gradient mgl5">下载账单</button>
 			</div>
 			<div class="float-right">
-				<button class="btn btn-default button-gray-gradient" [ngClass]="{'button-gray-gradient':_isAdvSearch!=1,'fox-cloud-button-white':_isAdvSearch==1}"  (click)="_isAdvSearch=!_isAdvSearch">导出</button>
+				<button class="btn btn-default button-gray-gradient">导出</button>
 			</div>
 		</div><!--  下拉选项行 ending-->
 
 		<!--  统计图行 -->
-		<div class="secondePanel mgt20">
-			<!-- <div class="row">
-				<div class="col-sm-6"> -->
-					<!--<div class="console-box float-left">
-		                <div class="console-title">云主机CPU利用率概览</div>
+	 	<div class="secondePanel">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="console-box">
+		                <div class="console-title">部门消费概览</div>
 		                <div class="ues-content">
-		                    <canvas id="use-chart-1" width="200" height="160"></canvas>
-		                    <div class="use-total">229</div>
-		                </div>
-		                </div>
-		            </div>-->
-
-					 <div class="quota-box ">
-                    	<canvas baseChart
-                          width="100" height="100"
-                          [datasets]="quotaDtasets"
+		                    <!--<canvas id="use-chart-1" width="200" height="70"></canvas>-->
+							 <canvas baseChart
+                          width="200" height="70"
+                          [datasets]="ent_dht"
                           chartType="doughnut"
-                          [options]="quotaOptions"></canvas>
-                    	<div class="percent-num">20<sup>%</sup></div>
-                    	<div class="quota-name">vCPU</div>
-					 </div>
-			<!-- 	</div>
-			</div> -->
+                          [options]="d_options"
+						  [labels]="d_labels"></canvas>
+		                </div>
+		            </div>
+				</div>
+                <div class="col-sm-6">
+                    <div class="console-box">
+                        <div class="console-title">部门消费趋势</div>
+                        <div class="ues-content">
+                            <!--<canvas id="bar_chart" width="200" height="70"></canvas>-->
+							 <canvas baseChart
+                          width="200" height="70"
+                          [datasets]="ent_bar"
+                          chartType="bar"
+                          [options]="bar_options"></canvas>
+                        </div>     
+                    </div>
+                </div>
+			</div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="console-box">
+                        <div class="console-title">TOP5部门消费总额排名</div>
+                        <div class="ues-content">
+                            <!--<canvas id="h_bar_chart" width="200" height="70"></canvas>-->
+							 <canvas baseChart
+                          width="200" height="70"
+                          [datasets]="ent_hbar"
+                          chartType="horizontalBar"
+                          [options]="h_options"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="console-box">
+                        <div class="console-title">TOP5部门新增总额排名</div>
+						 <canvas baseChart
+                          width="200" height="70"
+                          [datasets]="ent_hbar2"
+                          chartType="horizontalBar"
+                          [options]="h_options2"></canvas>
+                        <div class="ues-content">
+                            <!--<canvas id="h_bar_chart2" width="200" height="70"></canvas>-->
+                        </div>     
+                    </div>
+                </div>
+            </div>
 			
-		</div><!--  统计图行 ending-->
+		</div> <!--统计图行 ending-->
 
 		<!--  下拉选项行 -->
-		<div class="firstPanel">
+		<div class="firstPanel mgt20">
+
+            <div class="float-left mgr20">
+                <span>订单类型：</span>
+                <select class="form-control fix-width-120">
+                    <option class="hands" [value]="null">所有订单</option>
+                    <option class="hands"></option>
+                </select>
+            </div>
+            <div class="float-left">
+                <span>购买人：</span>
+                <select class="form-control fix-width-120">
+                    <option class="hands" [value]="null">所有人</option>
+                    <option class="hands" >张三</option>
+                </select>
+            </div>
 		</div><!--  下拉选项行 ending-->
 
 		<!--  表格行 -->
 		<div class="thirdPanel">
+            <div class="table-container">
+                <table class="table table-hover table-all-boder">
+                    <thead>
+                        <tr>
+                            <th class="text-center">编号</th>
+                            <th class="text-center">订单号</th>
+                            <th class="text-center">产品名称</th>
+                            <th class="text-center">付款方式</th>
+                            <th class="text-center">部门</th>
+                            <th class="text-center">购买人</th>
+                            <th class="text-center">应付金额</th>
+                            <th class="text-center">支付状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center">
+                            <td class="vertical-center">1</td>
+                            <td class="vertical-center">1111</td>
+                            <td class="vertical-center">云主机</td>
+                            <td class="vertical-center">后付费</td>
+                            <td class="vertical-center">IT</td>
+                            <td class="vertical-center">张三</td>
+                            <td class="vertical-center">￥100</td>
+                            <td class="vertical-center">未知</td>
+                        </tr>               
+                    </tbody>
+                </table>
+            </div>
 		</div><!--  表格<div class="row row-line-height">-->
 		
 	</div>	
+</div>
 
 
+ <!--<script>
+        $(function(){
+            //1.环形统计图生成配额使用率
+            //var quotaChart1 = new QuotaChart('use-chart-1',30);
+            
+             //1.环形统计图生成利用概率概览
+            var useChart1 = new useChart('use-chart-1',[25,57,173,200]);
 
+
+            //2.条形统计图
+            //var v_barChart = new barChart('bar_chart');
+            var v_barChart = new lineChart('bar_chart');
+            // var v_barChart = new barChart('h_bar_chart');
+            // var v_barChart = new barChart('h_bar_chart2');
+            //3.水平条形图
+             var h_barChart = new h_BarChart('h_bar_chart');
+             var h_barChart2 = new h_BarChart('h_bar_chart2');
+        });
+
+        //生成配额使用率函数
+        function QuotaChart(canvasId,percent){
+            var chart_a = document.getElementById(canvasId);
+            var theChart_a = new Chart(chart_a, {
+                type: 'doughnut',
+                data:  {
+                    datasets: [{
+                        data: [
+                            percent,100-percent
+                        ],
+                        backgroundColor: [
+                            "#00CC99","#E7E9ED"
+                        ],
+                        borderWidth:[
+                            0,0
+                        ]
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        enabled: false
+                    },
+                    cutoutPercentage: 82
+                }
+            });
+        }
+
+         //生成利用概率概览函数
+        function useChart(canvasId,useArray){
+            var chart_a = document.getElementById(canvasId);
+            var array = useArray;
+            var theChart_a = new Chart(chart_a, {
+                type: 'doughnut',
+                data:  {
+                    datasets: [{
+                        data: [
+                            array[0],array[1],array[2],array[3]
+                        ],
+                        backgroundColor: [
+                            "#FFCC33","#2BD2CA","#00CC99","#FF6666"
+                        ],
+                        borderWidth:[
+                            0,0,0,0
+                        ]
+                    }],
+                    labels:[
+                        '物理机：'+ array[0],
+                        '数据库：'+ array[1],
+                        '云硬盘：'+ array[2],
+                        '云主机：'+ array[2],
+                    ]
+                },
+                options: {
+                    legend: {
+                        position: 'bottom',
+                        display: true,
+                        labels: {
+                            boxWidth: 12
+                        }
+                    },
+                    tooltips: {
+                        enabled: false,
+                    },
+                    cutoutPercentage: 82,
+                }
+            });
+        }
+
+        function barChart(canvasId){
+            var bar_chart = document.getElementById(canvasId);
+            var theChart_b = new Chart(bar_chart, {
+            
+             data:  {
+                    datasets: [{
+                        type: "bar",
+                        data: [65, 59, 80, 81, 56, 55, 40],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                         borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ]
+                         
+                    }],
+                    labels: ["January", "February", "March", "April", "May", "June", "July"]
+                },
+            options: {
+                scales: {
+                    xAxes: [{
+                        stacked: true
+                    }],
+                    yAxes: [{
+                        stacked: true
+                    }]
+                }
+            }
+        });
+
+        }
+        
+        function h_BarChart(canvasId){
+            var bar_chart = document.getElementById(canvasId);
+            var theChart_b = new Chart(bar_chart, {
+            type: "horizontalBar",
+             data:  {
+                    datasets: [{
+                        label:'消费总额',
+                        data: [65, 59, 80, 81, 56],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                        ],
+                         borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ]
+                         
+                    }],
+                    labels: ["IT部门", "财务部门", "应用部门", "营销部门", "人事部门"]
+                },
+            options: {
+                scales: {
+                    xAxes: [{
+                        display: false
+                    }],
+                    yAxes: [{
+                        stacked: true
+
+                    }]
+                }
+            }
+        });
+
+        }
+
+        function lineChart(canvasId){
+            var line_chart = document.getElementById(canvasId);
+            var theChart_c = new Chart(line_chart, {
+                type: "bar",
+                data: {
+
+                    labels: ["2月", "3月", "4月", "5月", "6月", "7月", "8月"],
+                    datasets: [{
+                        type: "bar",
+                        label: "总消费",
+                        data: [65, 59, 80, 81, 56, 55, 40],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                         borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ]
+                         
+                    }
+                    ,{   type: 'line',
+                            label: "新增消费",
+                            fill: false,
+                            lineTension: 0.1,
+                            backgroundColor: "rgba(75,192,192,0.4)",
+                            borderColor: "rgba(75,192,192,1)",
+                            borderCapStyle: 'butt',
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            borderJoinStyle: 'miter',
+                            pointBorderColor: "rgba(75,192,192,1)",
+                            pointBackgroundColor: "#fff",
+                            pointBorderWidth: 1,
+                            pointHoverRadius: 5,
+                            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                            pointHoverBorderColor: "rgba(220,220,220,1)",
+                            pointHoverBorderWidth: 2,
+                            pointRadius: 1,
+                            pointHitRadius: 10,
+                            data:[65, 59, 80, 81, 56, 55, 40],
+                            spanGaps: false,
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                             stacked: true
+                        }],
+                        yAxes: [{
+                            stacked: true
+                        }]
+                    }
+                }
+            });
+
+        }
+
+    </script>-->
