@@ -130,19 +130,7 @@ hbarColors = [
     }
 ]
 
-d_options={
-                    legend: {
-                        position: 'bottom',
-                        display: true,
-                        labels: {
-                            boxWidth: 12
-                        }
-                    },
-                    tooltips: {
-                        enabled: false,
-                    },
-                    cutoutPercentage: 82,
-                }
+
 bar_options={
                 scales: {
                     xAxes: [{
