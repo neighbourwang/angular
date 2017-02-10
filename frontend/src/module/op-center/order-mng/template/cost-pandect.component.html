@@ -1,69 +1,212 @@
 <div class="CostPandect">	
 	<div class="page-content-header">消费总览</div>
 	<div class="page-content">
-	    <!--  下拉选项行 [(ngModel)]="_param.organization" (ngModelChange)="loadBuyer()
-		*ngFor="let item of _departmentLoader.Items" [value]="item.id""-->
+	    <!--  下拉选项行 -->
 		<div class="firstPanel">
-	        <div class="float-left">
+	       <div class="float-left"> <!--[(ngModel)]="_param.organization" (ngModelChange)="loadBuyer()"
+		    *ngFor="let item of _departmentLoader.Items" [value]="item.id"-->
 				<select class="form-control fix-width-120" >
-					<option class="hands" [value]="null"></option>
-					<option class="hands" >2016年</option>
+					<option class="hands" [value]="null">2016年</option>
+					<option class="hands">2016年</option>
 				</select>
 			</div>
 			<div  class="float-left mgr20">
-				<select class="form-control fix-width-120">
-					<option class="hands" [value]="null"></option>
+				<select class="form-control fix-width-120" >
+					<option class="hands" [value]="null">6月</option>
 					<option class="hands" >6月</option>
 				</select>
 			</div>
 			<div class="float-left mgt5">
-				<input type="checkbox" class="fox-cloud-checkbox mgr10">
+				<input type="checkbox" class="fox-cloud-checkbox mgr10" >
 				按出账日
 			</div>
 			<div class="float-right">
-				<button class="btn btn-default button-gray-gradient mgl5" >下载账单</button>
+				<button class="btn btn-default button-gray-gradient mgl5" (click)="download();">下载账单</button>
 			</div>
 			<div class="float-right">
-				<button class="btn btn-default button-gray-gradient" [ngClass]="{'button-gray-gradient':_isAdvSearch!=1,'fox-cloud-button-white':_isAdvSearch==1}"  (click)="_isAdvSearch=!_isAdvSearch">导出</button>
+				<button class="btn btn-default button-gray-gradient">导出</button>
 			</div>
 		</div><!--  下拉选项行 ending-->
 
 		<!--  统计图行 -->
-		<div class="secondePanel mgt20">
-			<!-- <div class="row">
-				<div class="col-sm-6"> -->
-					<!--<div class="console-box float-left">
-		                <div class="console-title">云主机CPU利用率概览</div>
+	 	<div class="secondePanel">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="console-box">
+		                <div class="console-title">部门消费概览</div>
 		                <div class="ues-content">
-		                    <canvas id="use-chart-1" width="200" height="160"></canvas>
-		                    <div class="use-total">229</div>
-		                </div>
-		                </div>
-		            </div>-->
-
-					 <div class="quota-box ">
-                    	<canvas baseChart
-                          width="100" height="100"
-                          [datasets]="quotaDtasets"
+		                    <!--<canvas id="use-chart-1" width="200" height="70"></canvas>-->
+							 <canvas baseChart
+                          width="200" height="70"
+                          [datasets]="ent_dht"
                           chartType="doughnut"
-                          [options]="quotaOptions"></canvas>
-                    	<div class="percent-num">20<sup>%</sup></div>
-                    	<div class="quota-name">vCPU</div>
-					 </div>
-			<!-- 	</div>
-			</div> -->
+                          [colors]="lineChartColors"
+                          [options]="d_options"
+						  [labels]="d_labels"></canvas>
+		                </div>
+		            </div>
+				</div>
+                <div class="col-sm-6">
+                    <div class="console-box">
+                        <div class="console-title">部门消费趋势</div>
+                        <div class="ues-content">
+                            <!--<canvas id="bar_chart" width="200" height="70"></canvas>-->
+							 <canvas baseChart
+                          width="200" height="70"
+                          [datasets]="ent_bar"
+                          chartType="bar"
+                          [colors]="barColors"
+                          [labels]="bar_labels"
+                          [options]="bar_options"></canvas>
+                        </div>     
+                    </div>
+                </div>
+			</div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="console-box">
+                        <div class="console-title">TOP5部门消费总额排名</div>
+                        <div class="ues-content">
+                            <!--<canvas id="h_bar_chart" width="200" height="70"></canvas>-->
+							 <canvas baseChart
+                          width="200" height="70"
+                          [datasets]="ent_hbar"
+                          [labels]="hbar_labels"
+                          [colors]="hbarColors"
+                          chartType="horizontalBar"
+                          [options]="h_options"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="console-box">
+                        <div class="console-title">TOP5部门新增总额排名</div>
+						 <canvas baseChart
+                          width="200" height="70"
+                          [datasets]="ent_hbar2"
+                          [labels]="hbar_labels2"
+                          [colors]="hbarColors"
+                          chartType="horizontalBar"
+                          [options]="h_options2"></canvas>
+                        <div class="ues-content">
+                            <!--<canvas id="h_bar_chart2" width="200" height="70"></canvas>-->
+                        </div>     
+                    </div>
+                </div>
+            </div>
 			
-		</div><!--  统计图行 ending-->
+		</div> <!--统计图行 ending-->
 
 		<!--  下拉选项行 -->
-		<div class="firstPanel">
+		<div class="firstPanel mgt20">
+
+            <div class="float-left mgr20">
+                <span>订单类型：</span>
+                <select class="form-control fix-width-120">
+                    <option class="hands" [value]="null">所有订单</option>
+                    <option class="hands"></option>
+                </select>
+            </div>
+            <div class="float-left">
+                <span>购买人：</span>
+                <select class="form-control fix-width-120">
+                    <option class="hands" [value]="null">所有人</option>
+                    <option class="hands" >张三</option>
+                </select>
+            </div>
 		</div><!--  下拉选项行 ending-->
 
 		<!--  表格行 -->
 		<div class="thirdPanel">
+            <div class="table-container">
+                <table class="table table-hover table-all-boder">
+                    <thead>
+                        <tr>
+                            <th class="text-center">编号</th>
+                            <th class="text-center">订单号</th>
+                            <th class="text-center">产品名称</th>
+                            <th class="text-center">付款方式</th>
+                            <th class="text-center">部门</th>
+                            <th class="text-center">购买人</th>
+                            <th class="text-center">应付金额</th>
+                            <th class="text-center">支付状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center">
+                            <td class="vertical-center">1</td>
+                            <td class="vertical-center">1111</td>
+                            <td class="vertical-center">云主机</td>
+                            <td class="vertical-center">后付费</td>
+                            <td class="vertical-center">IT</td>
+                            <td class="vertical-center">张三</td>
+                            <td class="vertical-center">￥100</td>
+                            <td class="vertical-center">未知</td>
+                        </tr>               
+                    </tbody>
+                </table>
+            </div>
 		</div><!--  表格<div class="row row-line-height">-->
 		
 	</div>	
+</div>
 
 
+<!--下载账单--> 
+	<div class="modal fade" id="downloadDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  	<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				  	<div class="modal-header">
+					 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">下载账单</h4>
+				  	</div>
+				 	<div class="modal-body"> 
+						<div class="CostDownload">	
+							<div class="page-content">
+								<!--  下拉选项行 -->
+								<div class="firstPanel mgt20" style="height: 50px;">
+									<div class="float-left">
+										<select class="form-control fix-width-120" [(ngModel)]="_param.organization" (ngModelChange)="loadBuyer()">
+											<option class="hands" [value]="null">2016年</option>
+											<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">2016年</option>
+										</select>
+									</div>
+								</div><!--  下拉选项行 ending-->
 
+								<!--  表格行 -->
+								<div class="secondePanel ">
+									<div class="table-container">
+										<table class="table table-hover table-all-boder">
+											<thead>
+												<tr>
+													<th class="text-center">账单</th>
+													<th class="text-center">记账周期</th>
+													<th class="text-center">账单金额</th>
+													<th class="text-center">出账日</th>
+													<th class="text-center">账单状态</th>
+													<th class="text-center">操作</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class="text-center">
+													<td class="vertical-center">2016年10月</td>
+													<td class="vertical-center">2016年10月1日-2016年10月30日</td>
+													<td class="vertical-center">￥1000000000.00</td>
+													<td class="vertical-center">2016年10月5日</td>
+													<td class="vertical-center">已出账</td>
+													<td class="vertical-center"><button class="btn btn-default button-gray-gradient">下载</button></td>
+												</tr>               
+											</tbody>
+										</table>
+									</div>
+								</div><!--  表格行 ending-->
+							</div>
+						</div>
+					</div>
+			      
+				  	<div class="modal-footer">
+				  	</div>
+				
+		  	</div>
+		</div>
+	</div>
