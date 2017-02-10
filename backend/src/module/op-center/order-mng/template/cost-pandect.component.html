@@ -5,19 +5,19 @@
 		<div class="firstPanel">
 	       <div class="float-left"> <!--[(ngModel)]="_param.organization" (ngModelChange)="loadBuyer()"
 		    *ngFor="let item of _departmentLoader.Items" [value]="item.id"-->
-				<select class="form-control fix-width-120" >
-					<option class="hands" [value]="null">2016年</option>
-					<option class="hands">2016年</option>
+				<select class="form-control fix-width-120" [(ngModel)]="_param.year">
+					<option class="hands" [value]="null" >2017年</option>
+					<option class="hands" *ngFor="let item of dateItem.years" >{{item}}</option>
 				</select>
 			</div>
 			<div  class="float-left mgr20">
-				<select class="form-control fix-width-120" >
+				<select class="form-control fix-width-120" [(ngModel)]="_param.month">
 					<option class="hands" [value]="null">6月</option>
-					<option class="hands" >6月</option>
+					<option class="hands"  *ngFor="let item of dateItem.months">{{item}}</option>
 				</select>
 			</div>
 			<div class="float-left mgt5">
-				<input type="checkbox" class="fox-cloud-checkbox mgr10" >
+				<input type="checkbox" class="fox-cloud-checkbox mgr10" [(ngModel)]="_param.isSelected">
 				按出账日
 			</div>
 			<div class="float-right">
@@ -40,6 +40,7 @@
                           width="200" height="70"
                           [datasets]="ent_dht"
                           chartType="doughnut"
+                          [colors]="lineChartColors"
                           [options]="d_options"
 						  [labels]="d_labels"></canvas>
 		                </div>
@@ -54,6 +55,8 @@
                           width="200" height="70"
                           [datasets]="ent_bar"
                           chartType="bar"
+                          [colors]="barColors"
+                          [labels]="bar_labels"
                           [options]="bar_options"></canvas>
                         </div>     
                     </div>
@@ -68,6 +71,8 @@
 							 <canvas baseChart
                           width="200" height="70"
                           [datasets]="ent_hbar"
+                          [labels]="hbar_labels"
+                          [colors]="hbarColors"
                           chartType="horizontalBar"
                           [options]="h_options"></canvas>
                         </div>
@@ -79,6 +84,8 @@
 						 <canvas baseChart
                           width="200" height="70"
                           [datasets]="ent_hbar2"
+                          [labels]="hbar_labels2"
+                          [colors]="hbarColors"
                           chartType="horizontalBar"
                           [options]="h_options2"></canvas>
                         <div class="ues-content">
@@ -95,16 +102,16 @@
 
             <div class="float-left mgr20">
                 <span>订单类型：</span>
-                <select class="form-control fix-width-120">
+                <select class="form-control fix-width-120" [(ngModel)]="_param.orderType">
                     <option class="hands" [value]="null">所有订单</option>
-                    <option class="hands"></option>
+                    <option class="hands" *ngFor="let item of _orderTypeLoader.Items" [value]="item.id">{{item.name}}</option>
                 </select>
             </div>
             <div class="float-left">
                 <span>购买人：</span>
-                <select class="form-control fix-width-120">
+                <select class="form-control fix-width-120" [(ngModel)]="_param.buyer">
                     <option class="hands" [value]="null">所有人</option>
-                    <option class="hands" >张三</option>
+                    <option class="hands"*ngFor="let item of _buyerLoader.Items" [value]="item.id" >{{item.name}}</option>
                 </select>
             </div>
 		</div><!--  下拉选项行 ending-->

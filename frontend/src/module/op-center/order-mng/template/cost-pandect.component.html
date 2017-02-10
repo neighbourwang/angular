@@ -5,19 +5,19 @@
 		<div class="firstPanel">
 	       <div class="float-left"> <!--[(ngModel)]="_param.organization" (ngModelChange)="loadBuyer()"
 		    *ngFor="let item of _departmentLoader.Items" [value]="item.id"-->
-				<select class="form-control fix-width-120" >
-					<option class="hands" [value]="null">2016年</option>
-					<option class="hands">2016年</option>
+				<select class="form-control fix-width-120" [(ngModel)]="_param.year">
+					<option class="hands" [value]="null" style="color: red;">2017年</option>
+					<option class="hands" *ngFor="let item of _years" [value]="item.id" style="color: red;">{{item.name}}</option>
 				</select>
 			</div>
 			<div  class="float-left mgr20">
-				<select class="form-control fix-width-120" >
-					<option class="hands" [value]="null">6月</option>
-					<option class="hands" >6月</option>
+				<select class="form-control fix-width-120" [(ngModel)]="_param.month">
+					<option class="hands" [value]="null" style="color: red;">6月</option>
+					<option class="hands"  *ngFor="let item of _months" [value]="item.id" style="color: red;">{{item.name}}</option>
 				</select>
 			</div>
 			<div class="float-left mgt5">
-				<input type="checkbox" class="fox-cloud-checkbox mgr10" >
+				<input type="checkbox" class="fox-cloud-checkbox mgr10" [(ngModel)]="_param.isSelected">
 				按出账日
 			</div>
 			<div class="float-right">
@@ -102,16 +102,16 @@
 
             <div class="float-left mgr20">
                 <span>订单类型：</span>
-                <select class="form-control fix-width-120">
+                <select class="form-control fix-width-120" [(ngModel)]="_param.orderType">
                     <option class="hands" [value]="null">所有订单</option>
-                    <option class="hands"></option>
+                    <!--<option class="hands" *ngFor="let item of _orderTypeLoader.Items" [value]="item.id">{{item.name}}</option>-->
                 </select>
             </div>
             <div class="float-left">
                 <span>购买人：</span>
-                <select class="form-control fix-width-120">
+                <select class="form-control fix-width-120" [(ngModel)]="_param.buyer">
                     <option class="hands" [value]="null">所有人</option>
-                    <option class="hands" >张三</option>
+                    <!--<option class="hands" *ngFor="let item of _buyerLoader.Items" [value]="item.id" >{{item.name}}</option>-->
                 </select>
             </div>
 		</div><!--  下拉选项行 ending-->

@@ -1,7 +1,7 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import { SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import { NoticeComponent,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
+import { Time,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 
 import * as _ from 'underscore';
 
@@ -33,19 +33,6 @@ export class CostPandectComponent implements OnInit{
                         '云硬盘：'+ 173,
                         '云主机：'+ 200,
                     ];
-    d_options={
-                        legend: {
-                            position: 'bottom',
-                            display: true,
-                            labels: {
-                                boxWidth: 12
-                            }
-                        },
-                        tooltips: {
-                            enabled: false,
-                        },
-                        cutoutPercentage: 82,
-                    }                   
 
 //消费趋势
 	ent_bar:any=[{
@@ -165,7 +152,7 @@ h_options={
                     }
                 };
 	
-	h_options2={
+h_options2={
                     scales: {
                         xAxes: [{
                              stacked: true
@@ -175,7 +162,15 @@ h_options={
                         }]
                     }
                 };
-	
+
+
+_param:CostPandectParam = new CostPandectParam();
+private _years:Array<Time>=[];
+private _months:Array<Time>=[];
+//订单类型
+private _orderTypeLoader:ItemLoader<{id:string; name:string}> = null;
+//订购人
+private _buyerLoader:ItemLoader<{id:string; name:string}> = null;
 	
 	constructor(
 		private layoutService: LayoutService,
@@ -185,7 +180,19 @@ h_options={
 	}
 	ngOnInit(){
 	
+        this.getTimeData();
 	}
+
+getTimeData(){
+    for(let i = 1999; i<=2017 ; i++){
+        let _year = new Time(i.toString(),i.toString());
+        this._years.push(_year);  
+    }
+     for(let i = 1; i<=12 ; i++){
+        let _month = new Time(i.toString(),i.toString());
+        this._months.push(_month);  
+    }
+}
 
 //图表的事件
 public chartClicked(e:any):void {
@@ -196,7 +203,7 @@ public chartHovered(e:any):void {
     console.log(e);
 }
 
-	//显示详情
+	//显示下载账单
 	download(orderItem:SubInstanceResp){
 		this.layoutService.show();
         $('#downloadDialog').modal('show');
