@@ -277,16 +277,16 @@ export class ProdCreComponent implements OnInit, OnChanges {
 
     onSubmit() {
         console.log(this.product);
-        if(!this.vmProdDir){
-            // this.selectAllStorages();
-            console.log(this.product);
-            this.prodDir.platformInfo.forEach(ele=>{
-                ele.zoneList.forEach(e=>{
-                    e.selected=true;
-                })
-            })
-            this.product.productPlatformReqs=this.prodDir.platformInfo;
-        }
+        // if(!this.vmProdDir){
+        //     // this.selectAllStorages();
+        //     console.log(this.product);
+        //     this.prodDir.platformList.forEach(ele=>{
+        //         ele.zoneList.forEach(e=>{
+        //             e.selected=true;
+        //         })
+        //     })
+        //     this.product.productPlatformReqs=this.prodDir.platformInfo;
+        // }
         if (!this.product.name || this.product.name.trim() == "") {
             this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.INPUT_PRODUCT_NAME'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.INPUT_PRODUCT_NAME=>请输入产品名称 
 
