@@ -171,7 +171,8 @@ export class ProdMngComponent implements OnInit {
             // console.log(message);
             message = message.substring(0, message.length - 1);
             switch (order) {
-                case 'delete': this.deleteConfirm.open('PROD_MNG.DELETE_PRODUCT', '您选择删除 ' + "'" + message + "'" + '产品,请确认；如果确认，此产品将不能恢复。') //PROD_MNG.DELETE_PRODUCT=>删除产品 
+                //PROD_MNG.DELETE_SELECTED_PRODUCT=>您选择删除{{value_1}}产品,请确认；如果确认，此产品目录的数据将不能恢复。
+                case 'delete': this.deleteConfirm.open('PROD_MNG.DELETE_PRODUCT', 'PROD_MNG.DELETE_SELECTED_PRODUCT^^^'+ message) //PROD_MNG.DELETE_PRODUCT=>删除产品 
 
                     break;
                 case 'publish':
@@ -180,7 +181,7 @@ export class ProdMngComponent implements OnInit {
 
 
                     } else {
-                        this.publishConfirm.open('PROD_MNG.PUBLISH_PRODUCT', '您选择发布 ' + "'" + message + "'" + '产品,请确认。') //PROD_MNG.PUBLISH_PRODUCT=>发布产品 
+                        this.publishConfirm.open('PROD_MNG.PUBLISH_PRODUCT', 'PROD_MNG.PUBLISH_SELECTED_PRODUCT^^^'+message) ////PROD_MNG.PUBLISH_SELECTED_PRODUCT=>您选择发布{{value_1}}产品,请确认。
 
                     }
                     break;
@@ -283,7 +284,7 @@ export class ProdMngComponent implements OnInit {
     }
 
     createProd(){
-        this.createPop.open('创建产品')
+        this.createPop.open('PROD_MNG.CREATE_PRODUCT')
     }
     selectProDir(e){
         console.log(e);
