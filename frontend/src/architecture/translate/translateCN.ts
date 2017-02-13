@@ -574,6 +574,7 @@ export const TranslateCN = {
         CUSTOM_IMAGE_NAME: '自定义镜像名',
         CUSTOM_IMAGE_APPLICATION_RANGE: '自定义镜像应用范围',
         CUSTOM_IMAGE_DESCRIPTION: '自定义镜像描述',
+        CONFIRM_DELETE_VALUE:'确认删除{{value_1}}?',
 
         //TS
         IMAGE_NAME_CAN_NOT_BE_BLANK: '镜像名称不能为空',
