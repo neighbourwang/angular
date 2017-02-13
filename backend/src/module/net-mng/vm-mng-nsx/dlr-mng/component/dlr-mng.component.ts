@@ -107,7 +107,7 @@ export class DlrMngComponent implements OnInit{
                 return;
             }
             //this.router.navigate([`net-mng/vm-mng-dbt/port-mng-set/${port.DlrId}`]);
-            this.router.navigate(['net-mng/vm-mng-nsx/dlr-mng-set', {"platform_id": this.platformId,"DlrId":port.dlrId}]);
+            this.router.navigate(['net-mng/vm-mng-nsx/dlr-mng-set', {"platform_id": this.platformId,"Id":port.dlrPortId}]);
         }
     }
 
