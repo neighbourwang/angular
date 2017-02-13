@@ -570,6 +570,7 @@ export const TranslateEN = {
         CUSTOM_IMAGE_NAME: 'custom image name',
         CUSTOM_IMAGE_APPLICATION_RANGE: 'custom image application range',
         CUSTOM_IMAGE_DESCRIPTION: 'custom image description',
+        CONFIRM_DELETE_VALUE:'Confirm delete {{value_1}}?',
 
         //TS
         IMAGE_NAME_CAN_NOT_BE_BLANK: 'image name can not be blank',

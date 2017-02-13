@@ -26,13 +26,13 @@
 							<span class="float-left">{{ 'COMMON.DEPARTMENT' | translate }}:</span>
 							<div class="dropdown float-left">
 								<select class="form-control fix-width-120" [(ngModel)]="_param.organization" (ngModelChange)="loadBuyer()">
-									<option class="hands" [value]="null">{{ 'COMMON.ALL' | translate }}{{ 'COMMON.DEPARTMENT' | translate }}</option>
+									<option class="hands" [value]="null">{{ 'COMMON.ALL' | translate }} {{ 'COMMON.DEPARTMENT' | translate }}</option>
 									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
 						<td>
-							<span class="float-left mgl15">{{ 'COMMON.PURCHASER' | translate }}:</span>
+							<span class="float-left mgl15">{{ 'COMMON.PURCHASER' | translate }}: </span>
 							<div class="dropdown float-left">
 								<select class="form-control fix-width-120" [(ngModel)]="_param.buyerId">
 									<option class="hands" [value]="null">{{ 'COMMON.ALL' | translate }}{{ 'COMMON.PURCHASER' | translate }}</option>
