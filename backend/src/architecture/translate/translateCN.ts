@@ -381,6 +381,7 @@
         "SET_ADMIN": "设置管理员",
         "SET_AUTHENTICATION": "设置认证",
         "SET_PRODUCT": "设置产品",
+        "MANAGE_AVILABLE_PLATFORM": "管理可用平台",
         "SNAPSHOT_NUM": "快照数量",
         "STORAGE_QUOTA": "存储配额",
         "STORAGE_QUOTA_PERCENT": "存储配额使用率",
