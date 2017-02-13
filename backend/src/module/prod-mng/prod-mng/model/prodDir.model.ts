@@ -9,7 +9,8 @@ class zone {
   "storageName": string;
   "zoneId": string;
   "zoneName": string;
-  "selected": boolean
+  "selected": boolean;
+  "displayName":string;  
 }
 class vmPlateform {
   "flavorId": string;
@@ -19,28 +20,34 @@ class vmPlateform {
   "zoneList": Array<zone>;
 }
 //for DISK plateform details 
-class storages {
-  "displayName": string;
-  "selected": boolean;
-  "serviceSKUId": string;
-  "storageId": string;
-  "storageName": string;
-}
+// class storages {
+//   "displayName": string;
+//   "selected": boolean;
+//   "serviceSKUId": string;
+//   "storageId": string;
+//   "storageName": string;
+// }
 class diskPlateform {
   "platformId": string;
   "platformName": string;
-  "storages": Array<storages>;
+  "zoneList": Array<zone>;
   "zoneId": "all";
   "zoneName": string;
 }
-export class ProductDir {
+class ProductDir {
   "description": string;
   platformInfo: Array<vmPlateform>;
   platformList: Array<diskPlateform>;
   "serviceId": string;
   "serviceName": string;
-  "specification" = new specification()
+  "specification" = new specification();
+  serviceType:string;
   // constructor(){
   //     this.platformInfo= new Array<plateform>();
   // }
 } 
+export {
+  ProductDir,
+  vmPlateform,
+  diskPlateform
+}

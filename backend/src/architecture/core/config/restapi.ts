@@ -814,6 +814,13 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/enterprises/simple "
     },
     {
+        "desc": "根据产品获取企业列表",
+        "id": "prod-mng.prod-enterprise.list",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/simple "
+    },
+
+    {
         "desc": "获取产品目录列表",
         "id": "prod-mng.prod-dir.list",
         "method": "GET",
@@ -1692,14 +1699,14 @@ export let RestApis: RestApiModel[] = [
         "desc": "NSX云网络DLR资源分配保存企业",
         "id": "net-mng.vm-mng-nsx.dlr.ent-save",
         "method": "POST",
-        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/portres/{dlr_id}/save/ent"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/portres/{id}/save/ent"
         
     },
     {
        "desc": "NSX云网络DLR资源分配dlr设置企业",
         "id": "net-mng.vm-mng-nsx.dlr.dlr-detail",
         "method": "GET",
-        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/portres/{dlr_id}/set/ent"
+        "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/portres/{id}/set/ent"
     },
 //vmware-nsx网络
     {

@@ -1,0 +1,153 @@
+<div class="page-content-header icon-create-product">创建产品</div>
+<!--创建产品-->
+<div class="page-content fix-page-content">
+    <div class="row navigator-progress">
+        <div class="col-md-3"><span class="mark">1</span><span>基本信息<!--基本信息--></span></div>
+        <div class="col-md-3 active"><span class="mark">2</span><span>计价方式<!--资源同步--></span></div>
+        <div class="col-md-3"><span class="mark">3</span><span>选择平台</span></div>
+        <div class="col-md-3"><span class="mark">4</span><span>选择企业</span></div>
+    </div>
+    <div class="step-progress">
+        <div class="fox-cloud-progress-rectangle progress-striped">
+            <div class="progress-bar fox-cloud-progress-bar-rectangle" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                style="width: 50%;">
+        </div>
+    </div>
+</div>
+<div class="row" style="padding-top: 30px;">
+    <div class="col-md-12">
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.COUNT_MODE' | translate}}：</div>
+                <div class="col-sm-6 row-inline-radio">
+                    <div class="row">
+                        <div class="col-sm-6" *ngIf="prodDirType=='0'">
+                            <label class="radio-inline row-inline-radio2 font-gray">
+                            		<input type="radio" name="billingTypeRadios" checked=true class="fox-cloud-radio" (click)="this.service.product.billingType='0';unitPrice.unEdit();basicCyclePrice.editable();extendCyclePrice.editable(); oneTimePrice.editable()"> {{'PROD_MNG.BY_YEAR_BY_MONTH' | translate}}<!--包年包月-->
+
+                       			</label>
+                        </div>
+                        <div class="col-sm-6" *ngIf="prodDirType=='1'">
+                            <label class="radio-inline row-inline-radio2 font-gray">
+                            		<input type="radio" name="billingTypeRadios" checked=true class="fox-cloud-radio" (click)="this.service.product.billingType='1';basicCyclePrice.unEdit();extendCyclePrice.unEdit();oneTimePrice.editable();unitPrice.editable()"> {{'COMMON.BY_VOLUMN' | translate}}
+                       			</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'COMMON.COUNT_CYCLE' | translate}}：</div>
+                <!--计费周期-->
+
+                <div class="col-sm-6 row-inline-radio">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
+                           				<input type="radio" name="inlineRadioOption"  value="5" class="fox-cloud-radio" [(ngModel)]="this.service.product.billingCycle"> {{'COMMON.BY_YEAR' | translate}}<!--包年-->
+                       				</label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
+                           				<input type="radio" name="inlineRadioOption"  value="3" class="fox-cloud-radio" [(ngModel)]="this.service.product.billingCycle"> {{'COMMON.BY_MONTH' | translate}}<!--包月-->
+                       				</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
+                           				<input type="radio" name="inlineRadioOption"  value="1" class="fox-cloud-radio" [(ngModel)]="this.service.product.billingCycle"> {{'COMMON.BY_DAY' | translate}}
+                       				</label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="radio-inline row-inline-radio4 font-gray" style="width:100%">
+                           				<input type="radio" name="inlineRadioOption"  value="0" class="fox-cloud-radio" [(ngModel)]="this.service.product.billingCycle"> {{'COMMON.BY_HOUR' | translate}}
+                       				</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div *ngIf="prodDirType=='0'">
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">{{'PROD_MNG.BASIC_CYCLE_PRICE' | translate}}：</div>
+                    <!--基础周期价格-->
+                    <div class="col-sm-6">
+                        <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="this.service.product.basicCyclePrice||0" #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">{{'PROD_MNG.INCREMENT_CYCLE_PRICE' | translate}}：</div>
+                    <div class="col-sm-6">
+                        <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="this.service.product.extendCyclePrice||0" #extendCyclePrice (output)="outputValue($event,'extendCyclePrice')"></count-bar>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        {{'PROD_MNG.ONE_TIME_PRICE' | translate}}：
+                        <!--一次性价格-->
+                    </div>
+                    <div class="col-sm-6">
+                        <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="this.service.product.oneTimePrice||0" #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="prodDirType=='1'">
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        {{'PROD_MNG.ONE_TIME_PRICE' | translate}}：
+                        <!--一次性价格-->
+                    </div>
+                    <div class="col-sm-6">
+                        <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="this.service.product.oneTimePrice||0" #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">{{'PROD_MNG.UNIT_PRICE' | translate}}：
+                        <!--单位价格-->
+                    </div>
+                    <div class="col-sm-6">
+                        <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="this.service.product.unitPrice||0" #unitPrice (output)="outputValue($event,'unitPrice')"></count-bar>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+<div class="text-center mgt20">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+        <span class="icon-button-label">取消</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="previous();">
+        <span class="icon-button-label">上一步</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();">
+        <span class="icon-button-label">下一步</span>
+    </button>
+</div>
+
+
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM"></fc-notice>
+
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL"
+    (cf)="ccf()"></fc-confirm>

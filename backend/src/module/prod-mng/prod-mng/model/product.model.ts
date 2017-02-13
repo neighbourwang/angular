@@ -4,9 +4,12 @@
 //新建产品model
 class zone{
     "skuId": string;
-    "storageId": string;
-    "storageName": string;
-    "zoneName": string
+  "storageId": string;
+  "storageName": string;
+  "zoneId": string;
+  "zoneName": string;
+  "selected": boolean;
+  "displayName":string;
 }
 class plateform {
      "platformId": string;
@@ -28,7 +31,7 @@ export class Product {
     "oneTimePrice": 0;
     "productEnterpiseReqs": Array<enterprise>;
     "productPlatformReqs": Array<plateform>;
-    "serviceId": "string";
+    "serviceId": string;
     "unitPrice": 0;
     "isSelected": boolean;
     "desc":string;

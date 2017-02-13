@@ -26,7 +26,7 @@
                 <span class="caret"></span>
             </button>-->
 			<select class="form-control" [(ngModel)]="platformId">
-				 <option value="">--选择查询条件--</option>
+				 <option value="">--{{'PROD_MNG.SELECT_QUERY_CONDITION'| translate}}--</option> <!--选择查询条件-->  
                  <option *ngFor="let item of platformsList;" [value]="item?.id">{{item?.name}}</option>
             </select>
 		</div>
@@ -39,7 +39,7 @@
                 <span class="caret"></span>
             </button>-->
 			<select class="form-control" [(ngModel)]="enterpriseId">
-					<option value="">--选择查询条件--</option>
+					<option value="">--{{'PROD_MNG.SELECT_QUERY_CONDITION'| translate}}--</option> <!--选择查询条件-->
                  <option *ngFor="let item of enterpriseList;" [value]="item?.id">{{item?.name}}</option>
             </select>
 		</div>
@@ -53,7 +53,7 @@
                 <span class="caret"></span>
             </button>-->
 			<select class="form-control" [(ngModel)]="prodDirId">
-				<option value="">--选择查询条件--</option>
+				<option value="">--{{'PROD_MNG.SELECT_QUERY_CONDITION'| translate}}--</option> <!--选择查询条件-->
                  <option *ngFor="let item of prodDirList;" [value]="item?.id">{{item?.name}}</option>
             </select>
 		</div>
@@ -62,7 +62,10 @@
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">{{'PROD_MNG.CREATE_PRODUCT' | translate}}</span><!--创建产品-->
-
+        </button>
+		<button class="fox-cloud-button fox-cloud-button-green" (click)="createProd()">
+            <span class="glyphicon glyphicon-edit"></span>
+            <span class="icon-button-label icon-left-button-label">创建产品2</span><!--创建产品2-->
         </button>
 	</div>
 	<div class="table-container">
@@ -137,3 +140,19 @@
 <fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="deleteCof()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
 <fc-confirm #publishConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="publishCof()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
 <fc-confirm #ccPublishConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="ccPublishCof()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+
+<fc-popup #createProdPop title="{{title}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()">
+	<div class="row row-line-height">
+		<div class="form-group">
+			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.SELECT_PRODUCT_LIST'| translate}}:</div> <!--选择产品目录-->
+			<div class="col-sm-7">
+				<select class="form-control" [(ngModel)]="prodDirIdCre" (ngModelChange)="selectProDir($event)">
+                    <option *ngFor="let item of prodDirList;" [value]="item.id">{{item.name}}</option>
+                </select>
+				<!--<select class="form-control" [(ngModel)]="prodDirId">
+                 <option *ngFor="let item of prodDirList;" [value]="item?.id">{{item?.name}}</option>
+            	</select>-->
+			</div>
+		</div>
+	</div>	 	
+</fc-popup>

@@ -288,20 +288,20 @@
 							<p>{{plateform.platformName}}</p>
 						</div>
 						<div class="col-sm-3 secondChild wyLine-height">
-							<!--<div class="row" *ngFor="let zone of plateform.storages">-->
+							<!--<div class="row" *ngFor="let zone of plateform.zonelist">-->
 								<div class="row" *ngFor="let zone of plateform.zoneList">
 								<div class="col-sm-12">{{'ENT_MNG.ALL_AVAILABLE_ZONE' | translate}}</div><!--所有可用区-->
 
 							</div>
 						</div>
 						<div class="col-sm-3 secondChild wyLine-height">
-							<!--<div class="row" *ngFor="let storage of plateform.storages">-->
+							<!--<div class="row" *ngFor="let storage of plateform.zonelist">-->
 							<div class="row" *ngFor="let zone of plateform.zoneList">
 								<div class="col-sm-12" ><span style="overflow:hidden">{{zone.storageName}}</span></div>
 							</div>
 						</div>
 						<!--<div class="col-sm-2 thirdChild">
-							<div class="row row-line-height inputLeft" *ngFor="let storage of plateform.storages; let idxx=index">
+							<div class="row row-line-height inputLeft" *ngFor="let storage of plateform.zonelist; let idxx=index">
 								<div class="col-sm-12">
 									<input type="checkbox" class="fox-cloud-checkbox" selected="storage.selected" [(ngModel)]="storage.selected" name="storageSelected"
 										(click)="selectStorage(idx,idxx)">

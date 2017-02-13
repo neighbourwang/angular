@@ -27,7 +27,7 @@
                 <span class="caret"></span>
             </button>-->
 			<select class="form-control" [(ngModel)]="platformId">
-				<option value="">--选择查询条件--</option>
+				<option value="">--{{'PROD_MNG.ALL_PLATFORM'|translate}}--</option>
                  <option *ngFor="let item of platformsList;" [value]="item.id">{{item.name}}</option>
             </select>
 		</div>
@@ -41,7 +41,7 @@
                 <span class="caret"></span>
             </button>-->
 			<select class="form-control" [(ngModel)]="queryProDirTypeId">
-					<option value="">--选择查询条件--</option>
+					<option value="">--{{'PROD_MNG.ALL_PRODUCT_TYPE'|translate}}--</option>
                  <option *ngFor="let item of prodDirTypeList;" [value]="item.id">{{item.name}}</option>
             </select>
 		</div>

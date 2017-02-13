@@ -12,3 +12,5 @@ export * from './renew-setting';
 export * from './search-order-detail';
 export * from './search-order-item';
 export * from './sub-region';
+export * from './cost-pandect-param';
+export * from './cost-pandect-item';

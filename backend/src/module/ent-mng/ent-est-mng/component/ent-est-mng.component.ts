@@ -300,7 +300,10 @@ export class EntEstMngComponent implements OnInit {
     }
   }
 
+//管理可用平台
+manageAviPlatform(){
 
+}
   //设置管理员
   setupAdmin(){
     if(this.getSelected())
