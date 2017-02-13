@@ -114,9 +114,9 @@ export class ClMngListComponent implements OnInit {
         if (!platForm) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
         } else if(platForm.status!='0'){
-            this.notice.open('COMMON.OPERATION_ERROR','只能删除初始化状态的云平台');
+            this.notice.open('COMMON.OPERATION_ERROR','PF_MNG2.CANT_DELETE_UNINITIALIZED_PF');//只能删除初始化状态的云平台
         }else{
-            this.removeConfirm.open('PF_MNG2.DELETE_PLATEFORM', '您选择删除 ' + platForm.name + '云平台,请确认；如果确认，此云平台的数据将不能恢复。')
+            this.removeConfirm.open('PF_MNG2.DELETE_PLATEFORM', 'PF_MNG2.CONFIRM_DELETE_PF^^^' + platForm.name ) //DELETE_PLATEFORM_WARNING=>删除警告
         }
     }
 
@@ -127,9 +127,9 @@ export class ClMngListComponent implements OnInit {
         if (!platForm) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
         } else if(platForm.status=='1'){
-            this.notice.open('COMMON.OPERATION_ERROR','云平台状态已启用');
+            this.notice.open('COMMON.OPERATION_ERROR','PF_MNG2.PLATFORM_ALEADRY_ENABLED');//云平台状态已启用
         }else{
-            this.enableConfirm.open('PF_MNG2.ENABLE_PLATFORM', '您选择启用 ' + platForm.name + '云平台,请确认；如果确认，用户将能够订购此云平台的资源。')
+            this.enableConfirm.open('PF_MNG2.ENABLE_PLATFORM', 'PF_MNG2.CONFIRM_ENABLE_PF^^^'+platForm.name)
         }
     }
 
@@ -140,9 +140,9 @@ export class ClMngListComponent implements OnInit {
         if (!platForm) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
         } else if(platForm.status=='2'){
-            this.notice.open('COMMON.OPERATION_ERROR','云平台状态已禁用')
+            this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.PLATFORM_ALEADRY_DISALED'); //云平台状态已禁用
         }else {
-            this.disableConfirm.open('PF_MNG2.DISABLE_PLATFORM', '您选择禁用 ' + platForm.name + '云平台,请确认；如果确认，用户将不能够订购此云平台的资源。。')
+            this.disableConfirm.open('PF_MNG2.DISABLE_PLATFORM', 'PF_MNG2.CONFIRM_DISABLE_PF^^^' + platForm.name)
         }
     }
 
@@ -347,7 +347,7 @@ export class ClMngListComponent implements OnInit {
         if (!platForm) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
         } else if(platForm.platformType!="OpenStack"){
-            this.notice.open('COMMON.OPERATION_ERROR','配置规格只适用openStack类型平台');
+            this.notice.open('COMMON.OPERATION_ERROR','PF_MNG2.ONLY_OPENSTACK_TYPE_AVAILABLE');//配置规格只适用openStack类型平台
         }else {
             this.router.navigate(["pf-mng2/pf-mng-cloudHostSpec", {id:platForm.id,type:platForm.platformType,name:platForm.name}]);
         }

@@ -37,7 +37,7 @@ export class OrderMngDetailComponent implements OnInit {
     private _dictServ:DictService,
     private restApi:RestApi
   ) {
-    this._detailLoader = new ItemLoader<OrderDetailItem>(null,"已购服务详情加载失败！","op-center.order-mng.subinstance-detail.post",restApiCfg,restApi);
+    this._detailLoader = new ItemLoader<OrderDetailItem>(null,"ORDER_MNG.PURCHASED_SERVICE_DETAILS_ERROR","op-center.order-mng.subinstance-detail.post",restApiCfg,restApi);
     
     this._detailLoader.MapFunc = (source:Array<any>, target:Array<OrderDetailItem>)=>{
 			for(let item of source)

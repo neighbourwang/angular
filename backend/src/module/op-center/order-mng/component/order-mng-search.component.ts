@@ -102,7 +102,7 @@ export class OrderMngSearchComponent implements OnInit{
 
       
        //撤单
-	   this._cancelLoader = new ItemLoader<any>(false,"撤单失败","op-center.order-search.cencel.post",restApiCfg, restApi);
+	   this._cancelLoader = new ItemLoader<any>(false,'ORDER_MNG.DEBIT_FAILED',"op-center.order-search.cencel.post",restApiCfg, restApi);
 
 	   
 		//产品类型配置
