@@ -2,18 +2,18 @@
 	<!--<div class="page-content-header icon-order-manage" style="border-bottom: 3px solid  #01a982;margin: 10px 0px;padding-left: 0; padding-bottom: 40px;">已订购服务编号：5370537<button class=" form-control-title button-gray-gradient pull-right">返回订购管理</button>
 	</div>-->
 	<div class="page-content">
-		<div class="noborder form-control-title float-left mgb10">{{ 'COMMON.BASIC' | translate}}{{ 'COMMON.INFORMATION' | translate}}</div>
+		<div class="noborder form-control-title float-left mgb10">{{ 'VM_INSTANCE.BASIC_INFORMATION' | translate}}</div>
 		<div class="table-container mgb20">
 			<table class="table table-bordered first-table mgb20">
 				<tbody>
 					<tr>
-						<td>{{ 'COMMON.PURCHASED' | translate}}{{ 'COMMON.SERVICES' | translate}}{{ 'COMMON.NUMBER' | translate}}</td>	
+						<td>{{ 'ORDER_MNG.PURCHASED_SERVICES_NUMBER' | translate}}</td>	
 						<td>{{_orderDetail.instanceCode}}</td>
 						<td>{{ 'COMMON.STATUS' | translate}}</td>
 						<td>{{_orderDetail.status | dict:_dictServ.getDic('SUBINSTANCE', 'STATUS') | async}}</td>
 					</tr>
 					<tr>
-						<td>{{ 'COMMON.PRODUCT' | translate}}{{ 'COMMON.TYPE' | translate}}</td>
+						<td>{{ 'ORDER_MNG.PRODUCT_TYPE' | translate}}</td>
 						<td>{{_orderDetail.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>	
 						<td>{{ 'COMMON.ZONE' | translate}}/{{ 'COMMON.AVAILABLE_ZONE' | translate}}</td>
 						<td>{{_orderDetail.platform}} {{_orderDetail.zone}}</td>
@@ -43,7 +43,7 @@
 						<td>{{_orderDetail.department}}</td>
 					</tr>
 					<tr>
-						<td>{{ 'COMMON.INSTANCE' | translate}}{{ 'COMMON.NAME' | translate}}</td>	
+						<td>{{ 'VM_INSTANCE.INSTANCE_NAME' | translate}}</td>	
 						<td>{{_orderDetail.instanceName}}</td>
 						<td>{{ 'COMMON.ENTERPRISE' | translate}}</td>
 						<td>{{_orderDetail.enterprise}}</td>
@@ -55,9 +55,9 @@
 		<div class="table-container mgb20">
 			<table class="table table-bordered mgb20 text-center">
 				<thead>			
-						<th>{{ 'COMMON.PURCHASED' | translate}}{{ 'COMMON.SERVICES' | translate}}{{ 'COMMON.NUMBER' | translate}}</th>
-						<th>{{ 'COMMON.INSTANCE' | translate}}{{ 'COMMON.NAME' | translate}}</th>
-						<th>{{ 'COMMON.PRODUCT' | translate}}{{ 'COMMON.TYPE' | translate}}</th>
+						<th>{{ 'ORDER_MNG.PURCHASED_SERVICES_NUMBER' | translate}}</th>
+						<th>{{ 'VM_INSTANCE.INSTANCE_NAME' | translate}}</th>
+						<th>{{ 'ORDER_MNG.PRODUCT_TYPE' | translate}}</th>
 						<th>{{ 'COMMON.CONFIGURATION' | translate}}</th>
 						<th>{{ 'COMMON.BILLING_MODE' | translate}}</th>
 						<th>{{ 'COMMON.STATUS' | translate}}</th>
@@ -74,8 +74,8 @@
 						<td class="font-green">{{item.statusName}}</td>
 						<td>
 							<ul>
-								<li>{{ 'COMMON.ONE_TIME_COSTS' | translate}}:{{item.oneTimePrice}}</li>
-								<li>{{ 'COMMON.EXPENSE' | translate}}:{{item.price}}</li>
+								<li>{{ 'COMMON.ONE_TIME_COSTS' | translate}}: {{item.oneTimePrice}}</li>
+								<li>{{ 'COMMON.EXPENSE' | translate}}: {{item.price}}</li>
 							</ul>
 						</td>
 						<td>{{item.expireDate}}</td>
@@ -83,13 +83,13 @@
 				</tbody>
 			</table>
 		</div>	
-		<div class="noborder  form-control-title float-left  mgb10">{{ 'COMMON.HISTORY' | translate}}{{ 'COMMON.INFORMATION' | translate}}</div>
+		<div class="noborder  form-control-title float-left  mgb10">{{ 'ORDER_MNG.HISTORY_INFORMATION' | translate}}</div>
 		<div class="table-container mgb20">
 			<table class="table table-bordered mgb20 text-center">
 				<thead>
 						<th>{{ 'COMMON.DATE' | translate}}</th>
-						<th>{{ 'COMMON.INSTANCE' | translate}}{{ 'COMMON.NAME' | translate}}</th>
-						<th>{{ 'COMMON.INSTANCE' | translate}}{{ 'COMMON.TYPE' | translate}}</th>
+						<th>{{ 'VM_INSTANCE.INSTANCE_NAME' | translate}}</th>
+						<th>{{ 'ORDER_MNG.INSTANCE_TYPE' | translate}}</th>
 						<th>{{ 'COMMON.CONFIGURATION' | translate}}</th>
 						<th>{{ 'COMMON.OPERATOR' | translate}}</th>
 						<th>{{ 'COMMON.DEPARTMENT' | translate}}</th>

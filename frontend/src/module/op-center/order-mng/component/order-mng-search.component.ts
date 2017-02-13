@@ -87,13 +87,13 @@ export class OrderMngSearchComponent implements OnInit{
 
 
        //撤单
-	   this._cancelLoader = new ItemLoader<any>(false,"撤单失败","op-center.order-search.cencel.post",restApiCfg, restApi);
+	   this._cancelLoader = new ItemLoader<any>(false,"ORDER_MNG.CANCELLATION_FAILED","op-center.order-search.cencel.post",restApiCfg, restApi);
 
 		//配置部门列表加载
 		this._departmentLoader = new ItemLoader<DepartmentItem>(false, 'ORDER_MNG.DEPARTMENT_LIST_DATA_FAILED', "op-center.order-mng.department-list.get", this.restApiCfg, this.restApi);
 
 		//提交者加载
-		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, '提交者列表', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
+		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, 'CHECK_CENTER.SUBMITTERS_LIST', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
 		this._buyerLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
 			for(let item of source)
 			{
