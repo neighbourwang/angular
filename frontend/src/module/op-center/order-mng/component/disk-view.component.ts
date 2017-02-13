@@ -6,10 +6,10 @@ import * as _ from 'underscore';
 	selector:'disk-view'
 	,template:`
 	<ul>
-		<li>{{ 'COMMON.CLOUD_HARD_DISK' | translate }}{{ 'COMMON.INSTANCE' | translate }}{{ 'COMMON.NAME' | translate }}:{{_obj.diskInstanceName | translate}}</li>
-		<li>{{ 'COMMON.AVAILABLE_ZONE' | translate }}:{{_obj.zone}}</li>
-		<li>{{ 'COMMON.CAPATITY' | translate }}:{{_obj.capacity}}</li>
-		<li>{{ 'COMMON.MOUNT' | translate }}{{ 'COMMON.CLOUD_HOSTING' | translate }}{{ 'COMMON.NAME' | translate }}：{{_obj.vmName | translate}}</li>
+		<li>{{ 'CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_INSTANCE_NAME' | translate }}: {{_obj.diskInstanceName | translate}}</li>
+		<li>{{ 'COMMON.AVAILABLE_ZONE' | translate }}: {{_obj.zone}}</li>
+		<li>{{ 'COMMON.CAPATITY' | translate }}: {{_obj.capacity}}</li>
+		<li>{{ 'ORDER_MNG.MOUNT_CLOUD_HOST_NAME' | translate }}：{{_obj.vmName | translate}}</li>
 	</ul>
 	`
 })

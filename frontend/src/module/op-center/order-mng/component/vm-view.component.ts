@@ -6,11 +6,10 @@ import * as _ from 'underscore';
 	selector:'vm-view'
 	,template:`
 	<ul>
-		<li>{{ 'COMMON.INSTANCE' | translate }}{{ 'COMMON.NAME' | translate }}:{{_obj.instanceName}}</li>
-		<li>{{ 'COMMON.AVAILABLE_ZONE' | translate }}:{{_obj.zone}}</li>
-		<li>CPU:{{_obj.cpu}}</li>
-		<li>{{ 'COMMON.RAM' | translate }}:{{_obj.mem}}</li>
-
+		<li>{{ 'VM_INSTANCE.INSTANCE_NAME' | translate }}: {{_obj.instanceName}}</li>
+		<li>{{ 'COMMON.AVAILABLE_ZONE' | translate }}: {{_obj.zone}}</li>
+		<li>CPU: {{_obj.cpu}}</li>
+		<li>{{ 'COMMON.RAM' | translate }}: {{_obj.mem}}</li>
 	</ul>
 	`
 })
