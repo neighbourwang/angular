@@ -51,7 +51,7 @@ export class DlrMngService {
     getDrlDetailData(id:string, platform_id:string): Promise<any> {
         const pathParams = [
             {
-                key: "dlr_id",
+                key: "id",
                 value: id
             },
             {
@@ -67,7 +67,7 @@ export class DlrMngService {
     saveEnterpirseGroup(enterpirses:Array<Enterprise>,id:string,platform_id:string): Promise<any> {
         const pathParams = [
             {
-                key: "dlr_id",
+                key: "id",
                 value: id
             },
             {

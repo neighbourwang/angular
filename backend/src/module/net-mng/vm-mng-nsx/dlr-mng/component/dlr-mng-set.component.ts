@@ -21,7 +21,7 @@ export class DlrMngSetComponent implements OnInit {
 
     }
 
-    dlrId: string;
+    dlrPortId: string;
     platformId: string;
     selectedEnterprise: Array<Enterprise>;
     unselectedEnterprise: Array<Enterprise>;
@@ -40,9 +40,9 @@ export class DlrMngSetComponent implements OnInit {
         console.log('init');
          this.router2.params.forEach((params: Params) => {
 			this.platformId = params['platform_id'];
-            this.dlrId = params['DlrId'];
+            this.dlrPortId = params['Id'];
 			console.log("接收的platform_id:" + this.platformId);
-            console.log("接收的DlrId:" + this.dlrId);
+            console.log("接收的dlrPortId:" + this.dlrPortId);
 			
 		});
         this.getDrlDetailData();
@@ -51,7 +51,7 @@ export class DlrMngSetComponent implements OnInit {
     getDrlDetailData() {
         this.layoutService.show();
        
-        this.service.getDrlDetailData(this.dlrId, this.platformId)
+        this.service.getDrlDetailData(this.dlrPortId, this.platformId)
             .then(
             response => {
                 this.layoutService.hide();
@@ -71,7 +71,7 @@ export class DlrMngSetComponent implements OnInit {
 
     saveEnterpriseGroup() {
         this.layoutService.show();
-        this.service.saveEnterpirseGroup(this.selectedEnterprise, this.dlrId, this.platformId)
+        this.service.saveEnterpirseGroup(this.selectedEnterprise, this.dlrPortId, this.platformId)
             .then(
             response => {
                 this.layoutService.hide();
