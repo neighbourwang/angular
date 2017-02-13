@@ -22,14 +22,12 @@ import { ProdList } from '../model/prodList.model'
     providers: []
 })
 export class ProdMngComponent implements OnInit {
-
-
     constructor(
         private layoutService: LayoutService,
         private router: Router,
         private PlatformsActiveService: PlatformsActiveService,
         private ProdListService: ProdListService,
-        private ProdDirListService: ProdDirListService
+        private ProdDirListService: ProdDirListService,
     ) { }
 
 
@@ -54,6 +52,9 @@ export class ProdMngComponent implements OnInit {
     @ViewChild('notice')
     notice: ConfirmComponent;
 
+    @ViewChild('createProdPop')
+    createPop:PopupComponent;
+
     //平台
     platformsList = new Array();
     platformId: string='';
@@ -63,6 +64,9 @@ export class ProdMngComponent implements OnInit {
     //产品目录列表
     prodDirList = new Array();
     prodDirId: string='';
+    //创建用产品目录
+    prodDirIdCre: string='';
+    prodDirTypeCre: string='';
     //初始化
     ngOnInit() {
         console.log('init');
@@ -93,7 +97,8 @@ export class ProdMngComponent implements OnInit {
             console.log('产品目录列表', response);
             // if (response && 100 == response.resultCode) {
             this.prodDirList = response.resultContent;
-            console.log(this.enterpriseList);
+            this.prodDirIdCre=response.resultContent[0].id;
+            this.prodDirTypeCre=response.resultContent[0].code;
             // } else {
 
             // }
@@ -166,7 +171,8 @@ export class ProdMngComponent implements OnInit {
             // console.log(message);
             message = message.substring(0, message.length - 1);
             switch (order) {
-                case 'delete': this.deleteConfirm.open('PROD_MNG.DELETE_PRODUCT', '您选择删除 ' + "'" + message + "'" + '产品,请确认；如果确认，此产品将不能恢复。') //PROD_MNG.DELETE_PRODUCT=>删除产品 
+                //PROD_MNG.DELETE_SELECTED_PRODUCT=>您选择删除{{value_1}}产品,请确认；如果确认，此产品目录的数据将不能恢复。
+                case 'delete': this.deleteConfirm.open('PROD_MNG.DELETE_PRODUCT', 'PROD_MNG.DELETE_SELECTED_PRODUCT^^^'+ message) //PROD_MNG.DELETE_PRODUCT=>删除产品 
 
                     break;
                 case 'publish':
@@ -175,7 +181,7 @@ export class ProdMngComponent implements OnInit {
 
 
                     } else {
-                        this.publishConfirm.open('PROD_MNG.PUBLISH_PRODUCT', '您选择发布 ' + "'" + message + "'" + '产品,请确认。') //PROD_MNG.PUBLISH_PRODUCT=>发布产品 
+                        this.publishConfirm.open('PROD_MNG.PUBLISH_PRODUCT', 'PROD_MNG.PUBLISH_SELECTED_PRODUCT^^^'+message) ////PROD_MNG.PUBLISH_SELECTED_PRODUCT=>您选择发布{{value_1}}产品,请确认。
 
                     }
                     break;
@@ -275,5 +281,22 @@ export class ProdMngComponent implements OnInit {
     pageInfo(page) {
         console.log(page);
         this.backend(page, this.pp, {});
+    }
+
+    createProd(){
+        this.createPop.open('PROD_MNG.CREATE_PRODUCT')
+    }
+    selectProDir(e){
+        console.log(e);
+        this.prodDirList.filter(ele=>{
+            if(ele.id==e){
+                console.log(ele);
+                this.prodDirTypeCre=ele.code;
+                return ele;
+            }
+        })
+    }
+    otcreate(){        
+         this.router.navigate(["prod-mng/prod-mng/prod-mng-cre-1", {'id':this.prodDirIdCre,'type':this.prodDirTypeCre}]);
     }
 }

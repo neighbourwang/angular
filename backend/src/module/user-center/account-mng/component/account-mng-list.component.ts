@@ -154,7 +154,7 @@ export class AccountMngComponent implements OnInit {
         if (this.chooseAccount.id) {
             if (this.chooseAccount.id) {
                 this.confirmType = 1;
-                this.confirm.open("ENT_MNG.RESET_PASSWORD", "您选择重置账号 "+this.chooseAccount.loginName+"的密码,请确认"); //ENT_MNG.RESET_PASSWORD=>重置密码 
+                this.confirm.open("ENT_MNG.RESET_PASSWORD", 'USER_CENTER.CONFIRM_TO_RESET_PASSWARD^^^'+this.chooseAccount.loginName); //ENT_MNG.RESET_PASSWORD=>重置密码 
 
             }
         } else {
@@ -168,7 +168,7 @@ export class AccountMngComponent implements OnInit {
     //启用
     enable() {
         if(this.chooseAccount.isRoot){
-            this.notice.open('COMMON.OPERATION_ERROR','禁止操作Root账号'); //COMMON.OPERATION_ERROR=>操作错误 
+            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.NOT_ALLOW_TO_OPERATE_ROOT_ACCOUNT'); //COMMON.OPERATION_ERROR=>操作错误 NOT_ALLOW_TO_OPERATE_ROOT_ACCOUNT=>禁止操作Root账号
 
             return
         }
@@ -180,7 +180,7 @@ export class AccountMngComponent implements OnInit {
         }
         if (this.chooseAccount.id) {
             this.confirmType = 2;
-            this.confirm.open("USER_CENTER.ENABLE_ACCOUNT", "USER_CENTER.CONFIRM_TO_ENABLE_ACCOUNT^^^" + this.chooseAccount.loginName ); //USER_CENTER.ENABLE_ACCOUNT=>启用帐号 
+            this.confirm.open("USER_CENTER.ENABLE_ACCOUNT", "CHECK_CENTER.CONFIRM_TO_ENABLE_ACCOUNT^^^" + this.chooseAccount.loginName ); //USER_CENTER.ENABLE_ACCOUNT=>启用帐号 
 
         } else {
             this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ACCOUNT') //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ACCOUNT=>请选择账号 
@@ -193,7 +193,7 @@ export class AccountMngComponent implements OnInit {
     //禁用
     disable() {
         if(this.chooseAccount.isRoot){
-            this.notice.open('COMMON.OPERATION_ERROR','禁止操作Root账号'); //COMMON.OPERATION_ERROR=>操作错误 
+            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.NOT_ALLOW_TO_OPERATE_ROOT_ACCOUNT'); //COMMON.OPERATION_ERROR=>操作错误 
 
             return
         }
@@ -205,7 +205,7 @@ export class AccountMngComponent implements OnInit {
         }
         if (this.chooseAccount.id) {
             this.confirmType = 3;
-            this.confirm.open("USER_CENTER.DISABLE_ACCOUNT", "USER_CENTER.CONFIRM_TO_DISABLE_ACCOUNT^^^" + this.chooseAccount.loginName ); //USER_CENTER.DISABLE_ACCOUNT=>禁用帐号 
+            this.confirm.open("USER_CENTER.DISABLE_ACCOUNT", "CHECK_CENTER.CONFIRM_TO_DISABLE_ACCOUNT^^^" + this.chooseAccount.loginName ); //USER_CENTER.DISABLE_ACCOUNT=>禁用帐号 
 
         } else {
             this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ACCOUNT') //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ACCOUNT=>请选择账号 
@@ -218,7 +218,7 @@ export class AccountMngComponent implements OnInit {
     //删除
     delete() {
         if(this.chooseAccount.isRoot){
-            this.notice.open('COMMON.OPERATION_ERROR','禁止操作Root账号'); //COMMON.OPERATION_ERROR=>操作错误 
+            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.NOT_ALLOW_TO_OPERATE_ROOT_ACCOUNT'); //COMMON.OPERATION_ERROR=>操作错误 
 
             return
         }
@@ -231,7 +231,7 @@ export class AccountMngComponent implements OnInit {
         }
         if (this.chooseAccount.id) {
             this.confirmType = 4;
-            this.confirm.open("USER_CENTER.DELETE_ACCOUNT", "USER_CENTER.CONFIRM_TO_REMOVE_ACCOUNT" + this.chooseAccount.loginName); //USER_CENTER.DELETE_ACCOUNT=>删除帐号 
+            this.confirm.open("USER_CENTER.DELETE_ACCOUNT", "CHECK_CENTER.CONFIRM_TO_REMOVE_ACCOUNT^^^" + this.chooseAccount.loginName); //USER_CENTER.DELETE_ACCOUNT=>删除帐号 
 
         } else {
             this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ACCOUNT') //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ACCOUNT=>请选择账号 

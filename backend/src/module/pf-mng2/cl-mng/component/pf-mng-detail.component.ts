@@ -421,7 +421,7 @@ export class PfDetailComponent implements OnInit {
         })
         console.log(valid);
         if(!valid){
-            this.notice.open('操作错误','存储区配额设置错误，同一存储区配额总额设置超额')
+            this.notice.open('COMMON.OPERATION_ERROR','存储区配额设置错误，同一存储区配额总额设置超额')
             return;
         }
         this.layoutService.show();
@@ -449,7 +449,7 @@ export class PfDetailComponent implements OnInit {
             res => {
                 this.updateStorageList = res.resultContent;
                 if (this.updateStorageList.length == 0) {
-                    this.notice.open('oo', '暂时没有可同步可用区信息')
+                    this.notice.open('oo', 'PF_MNG2.NO_SYNC_ZONES')  //暂时没有可同步可用区信息
                 } else {
                     this.updateStorageList.forEach(ele => {
                         // if (ele.quotaPercentage) {

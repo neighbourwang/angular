@@ -9,8 +9,9 @@ import { CommonComponentModule } from '../../../architecture';
 
 //Components
 import { ProdDirListComponent } from './component/prod-dir-list.component';
-import {ProdDirCreComponent} from "./component/prod-dir-cre.component";
-import {ProdDirDiskCreComponent} from "./component/prod-dirDisk-cre.component";
+import { ProdDirCreComponent } from "./component/prod-dir-cre.component";
+import { ProdDirDiskCreComponent } from "./component/prod-dirDisk-cre.component";
+import { PhsicalProdDirCreComponent } from "./component/prod-dirPhsical-cre.component";
 
 // Routing
 import { ProdDirMngRouting } from './prod-dir-mng.routing';
@@ -35,7 +36,8 @@ import { CreateProdDirService } from './service/prod-dir-new.service';
     declarations: [
         ProdDirListComponent,
         ProdDirCreComponent,
-        ProdDirDiskCreComponent
+        ProdDirDiskCreComponent,
+        PhsicalProdDirCreComponent
     ],
     exports: [
         ProdDirListComponent,
