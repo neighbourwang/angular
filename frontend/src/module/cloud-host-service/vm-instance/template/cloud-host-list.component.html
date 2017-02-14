@@ -163,6 +163,9 @@
                         <!-- <li><a (click)="handleVm('suspend', vm)" href="javascript:">挂起</a></li> -->
                         <li><a *ngIf="['0','14','7'].indexOf(vm.vmState) > -1 && !vm.publicIP && vm.platformType === '0'" (click)="handleVm('bindFloatingIp', vm, '绑定浮动IP')" href="javascript:">{{'VM_INSTANCE.BIND_FLOATING_IP'| translate}}</a></li>
                         <li><a *ngIf="['0','14','7'].indexOf(vm.vmState) > -1" (click)="openConsole(vm)" href="javascript:">{{'VM_INSTANCE.VIEW_CONSOLE'| translate}}</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a (click)="openConsole(vm)" href="javascript:">配置变更</a></li>
+                        <li><a (click)="openConsole(vm)" href="javascript:">创建自定义镜像</a></li>
                     </ul>
                 </div>
             </td> 
@@ -175,3 +178,4 @@
 <fc-popup #popup (cf)="popupCf()" (of)="popupOf()">
     <div style="text-align: center;"><input [(ngModel)]="forceDelect" type="checkbox" name=""> {{'VM_INSTANCE.UNSUBSRIBE_ALL_DISK'| translate}} "{{radioSelected.instanceName}}"</div>
 </fc-popup>
+<host-reconfig></host-reconfig>
