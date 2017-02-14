@@ -40,7 +40,6 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'COMMON.COUNT_CYCLE' | translate}}：</div>
                 <!--计费周期-->
-
                 <div class="col-sm-6 row-inline-radio">
                     <div class="row">
                         <div class="col-sm-6">
@@ -117,7 +116,6 @@
                         <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="this.service.product.oneTimePrice||0" #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
                     </div>
                 </div>
-
             </div>
             <div class="row row-line-height">
                 <div class="form-group">

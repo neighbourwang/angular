@@ -27,7 +27,7 @@ export class Product {
     "billingCycle": string;
     "billingType": string;
     "extendCyclePrice": 0;
-    "name": "string";
+    "name": string;
     "oneTimePrice": 0;
     "productEnterpiseReqs": Array<enterprise>;
     "productPlatformReqs": Array<plateform>;
