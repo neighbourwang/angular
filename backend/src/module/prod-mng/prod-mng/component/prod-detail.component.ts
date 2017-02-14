@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router ,ActivatedRoute, Params} from '@angular/router';
 import { Location } from '@angular/common';
 // import { Location }               from '@angular/common';
-import { LayoutService, NoticeComponent , ConfirmComponent ,PopupComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent , ConfirmComponent ,PopupComponent,CountBarComponent } from '../../../../architecture';
 //service
 import { GetProduct } from '../service/getProduct.service';
 import { ProdDirDetailService } from '../../prod-dir-mng/service/prod-dir-detail.service';
@@ -66,6 +66,12 @@ export class ProdDetailComponent implements OnInit{
         this.getProduct.getProduct(id).then((response)=>{
                 if (response && 100 == response.resultCode) {                    
                     this.product=response.resultContent;
+                    this.tempProductName=this.product.name;
+                    this.tempProductDesc=this.product.desc;
+                    this.tempBasicCyclePrice=this.product.basicCyclePrice;
+                    this.tempExtendCyclePrice=this.product.extendCyclePrice;
+                    this.tempOneTimePrice=this.product.oneTimePrice;
+                    this.tempUnitPrice=this.product.unitPrice;
                     console.log('产品',this.product);
                     if(this.vmProdDir){
                         this.getVmProdDirDetail(this.product.serviceId);
@@ -109,19 +115,21 @@ export class ProdDetailComponent implements OnInit{
 
     //编辑基本信息
     editBasicInfo:boolean=false;
-    tempProductName:string=this.product.name;
-    tempProductDesc:string=this.product.desc;
+    tempProductName:string;
+    tempProductDesc:string;
     saveBasic(){
         this.editBasicInfo=false;
+        this.product.name=this.tempProductName;
+        this.product.desc=this.tempProductDesc;
         console.log(this.product);
     }
 
     //编辑价格
     editPriceInfo:boolean=false;
-    tempBasicCyclePrice=this.product.basicCyclePrice;
-    tempExtendCyclePrice=this.product.extendCyclePrice;
-    tempOneTimePrice=this.product.oneTimePrice;
-    tempUnitPrice=this.product.unitPrice;
+    tempBasicCyclePrice:number;
+    tempExtendCyclePrice:number;
+    tempOneTimePrice:number;
+    tempUnitPrice:number;
     cancelPriceEdit(){
         this.tempBasicCyclePrice=this.product.basicCyclePrice;
         this.tempExtendCyclePrice=this.product.extendCyclePrice;
@@ -140,7 +148,7 @@ export class ProdDetailComponent implements OnInit{
     //编辑平台
 
     outputValue(e, num) {
-        this.product[num] = e;
+       this[num] = e;
     }
     //返回列表
     cancel(){

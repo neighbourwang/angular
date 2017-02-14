@@ -23,16 +23,16 @@ class enterprise {
     "code" :string;
 }
 export class Product {
-    "basicCyclePrice": 0;
+    "basicCyclePrice": number;
     "billingCycle": string;
     "billingType": string;
-    "extendCyclePrice": 0;
+    "extendCyclePrice": number;
     "name": string;
-    "oneTimePrice": 0;
+    "oneTimePrice": number;
     "productEnterpiseReqs": Array<enterprise>;
     "productPlatformReqs": Array<plateform>;
     "serviceId": string;
-    "unitPrice": 0;
+    "unitPrice": number;
     "isSelected": boolean;
     "desc":string;
     constructor() {
