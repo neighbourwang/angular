@@ -305,11 +305,11 @@ public chartHovered(e:any):void {
     console.log(e);
 }
 
-	//显示下载账单
-download(orderItem:SubInstanceResp){
-		this.layoutService.show();
-        $('#downloadDialog').modal('show');
-	}
+
+//进入账单管理页面
+costManage(){
+    this.router.navigateByUrl("op-center/order-mng/cost-manage");
+}
 
 
 
