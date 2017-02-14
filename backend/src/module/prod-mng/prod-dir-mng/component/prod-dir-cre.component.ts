@@ -34,32 +34,62 @@ export class ProdDirCreComponent implements OnInit {
 
     prodDir = new ProdDir();
     _platformlist: Array<platform> = new Array<platform>();
+    pageTitle:string;
     ngOnInit() {
         let prodDirId: string;
         let prodDirType: string;
-        console.log(this.route.params)
         this.route.params.forEach((params: Params) => {
             // let id=+params['id'];
             prodDirId = params['id'];
             prodDirType = params['type'];
-            if(params['vcpu']){
-                this.prodDir.specification.vcpu=params['vcpu'];
-                this.prodDir.specification.mem=params['mem'];
-                this.prodDir.specification.startupDisk=params['startupDisk'];
-            }           
-            this.selectPlateForm();
-        })
-        if (prodDirType == 'new') {
+            if (params['vcpu']) {
+                    this.pageTitle='创建产品目录'
+                    this.prodDir.specification.vcpu = params['vcpu'];
+                    this.prodDir.specification.mem = params['mem'];
+                    this.prodDir.specification.startupDisk = params['startupDisk'];
+                }
+            //获取可用平台
+            this.LayoutService.show();
+            this.CreateProdDirService.postCpuMmr(this.prodDir.specification.vcpu, this.prodDir.specification.mem).then(response => {
+                // console.log(response);
+                if (response && 100 == response.resultCode) {
+                    let resultContent = response.resultContent;
+                    this._platformlist = response.resultContent;
+                    console.log('pingtai',this._platformlist);
+                    for (let plate of this._platformlist) {
+                        if (!plate.zoneList) continue;
+                        for (let zone of plate.zoneList) {
+                            if (zone.storageList[0]) {
+                                zone.storageId = zone.storageList[0].storageId;
+                                zone.serviceSKUId = zone.storageList[0].serviceSKUId;
+                            }
+                            // console.log(zone.storageList);
+                        }
+                    }
+                    if (prodDirType == 'edit') {
+                        this.pageTitle='编辑产品目录'
+                        this.getProdDirDetail(prodDirId);
+                    }
 
-        } else {
-            // this.getProdDirDetail(prodDirId);
-        }
+
+                } else {
+
+                }
+                this.LayoutService.hide();
+                this.selectAllZone = false;
+            }).catch(err => {
+                console.error(err);
+                this.LayoutService.hide();
+            });            
+        })
+
     }
     getProdDirDetail(id) {
         this.ProdDirDetailService.getVmProdDirDetail(id).then(
             response => {
                 console.log(response);
                 if (response && 100 == response.resultCode) {
+                    console.log('vmdetail',response);
                     let resultContent = response.resultContent;
                     this.prodDir = response.resultContent;
                 } else {
@@ -69,7 +99,7 @@ export class ProdDirCreComponent implements OnInit {
             }
         ).catch(err => {
             console.error(err);
-             this.LayoutService.hide();
+            this.LayoutService.hide();
         })
         console.log(this.prodDir);
     }
@@ -83,50 +113,7 @@ export class ProdDirCreComponent implements OnInit {
         // console.log(this.prodDir.specification.vcpu);          
 
     }
-    testList = [
-        {
-            displayName: "高速I/O",
-            selected: false,
-            serviceSKUId:'sadasdasdas',
-            storageId: "88",
-            storageName: "高速I/O",
-        },
-        {
-            displayName: "高速I/O",
-            selected: false,
-            serviceSKUId:'sadasdasdas',
-            storageId: "77",
-            storageName: "高速I/O",
-        }
-    ]
-    //点击获取可用平台
-    selectPlateForm() {
-        console.log(this.prodDir.specification.vcpu);
-        console.log(this.prodDir.specification.mem);
-        this.LayoutService.show();
-        this.CreateProdDirService.postCpuMmr(this.prodDir.specification.vcpu, this.prodDir.specification.mem).then(response => {
-            // console.log(response);
-            if (response && 100 == response.resultCode) {
-                let resultContent = response.resultContent;
-                this._platformlist = response.resultContent;
-                console.log(this._platformlist);
-                for (let plate of this._platformlist) {
-                    for (let zone of plate.zoneList) {
-                        zone.storageId = zone.storageList[0].storageId;
-                        zone.serviceSKUId = zone.storageList[0].serviceSKUId;
-                        // console.log(zone.storageList);
-                    }
-                }
-            } else {
-
-            }
-            this.LayoutService.hide();
-            this.selectAllZone = false;
-        }).catch(err => {
-            console.error(err);
-            this.LayoutService.hide();
-        });
-    }
+    
     //选择全部可用区
     selectAllZone: boolean = false;
     selectAllZones() {
@@ -147,7 +134,7 @@ export class ProdDirCreComponent implements OnInit {
         })
     }
     //选择平台启动盘,this 
-    selectStorage(id,idx) {
+    selectStorage(id, idx) {
         console.log(id);
         console.log(idx);
     }
@@ -162,8 +149,8 @@ export class ProdDirCreComponent implements OnInit {
                 }
             }
         })
-        if(this.prodDir.platformList.length==0){this.selectAllZone=false}
-        if(this.prodDir.platformList.length==this._platformlist.length){this.selectAllZone=true}
+        if (this.prodDir.platformList.length == 0) { this.selectAllZone = false }
+        if (this.prodDir.platformList.length == this._platformlist.length) { this.selectAllZone = true }
     }
 
     cancel() {

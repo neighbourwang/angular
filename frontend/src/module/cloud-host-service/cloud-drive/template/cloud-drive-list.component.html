@@ -40,7 +40,7 @@
             </select>
         </div>
         <div class="input-group col-md-2 float-left mgr10">
-            <input class="form-control width-400" type="email" [(ngModel)]="list.queryFieldValue" placeholder="{{'COMMON.ENTER_CLOUD_HARD_DISK_INFORMATION_TO_SEARCH' | translate}}">
+            <input class="form-control" type="email" [(ngModel)]="list.queryFieldValue" placeholder="{{'COMMON.ENTER_CLOUD_HARD_DISK_INFORMATION_TO_SEARCH' | translate}}">
             <div class="input-group-addon" (click)="search()"><span class="glyphicon glyphicon-search"></span></div>
         </div>
         <!--         <div class="input-group float-left mgr10">
@@ -121,6 +121,8 @@
                         <!-- <li><a (click)="handleDist('hardReboot', vm , '硬重启')" href="javascript:">硬重启</a></li> -->
                         <!-- <li><a (click)="handleDist('softReboot', vm , '软重启')" href="javascript:">软重启</a></li> -->
                         <!-- <li><a (click)="handleDist('suspend', vm)" href="javascript:">挂起</a></li> -->
+                        <li role="separator" class="divider"></li>
+                        <li><a (click)="diskReconfig.open(dist)" href="javascript:">云硬盘扩容</a></li>
                     </ul>
                 </div>
             </td>
@@ -138,3 +140,5 @@
 <fc-popup #popup (cf)="popupCf()" (of)="popupOf()">
     <div style="text-align: center;">{{radioSelected.relyId ? "VM_INSTANCE.FORCE_DELETE_CLOUD" : "VM_INSTANCE.SURE_DELETE_CLOUD"  | translate}}</div>
 </fc-popup>
+<disk-reconfig #diskReconfig></disk-reconfig>
+

@@ -34,23 +34,29 @@ export class ProdDirDiskCreComponent implements OnInit {
 
     prodDir = new ProdDirDisk();
     _platformlist: Array<platform> = new Array<platform>();
+
+    pageTitle:string='';
     ngOnInit() {
-        // let prodDirId: string;
-        // let prodDirType: string;
-        // console.log(this.route.params)
-        // this.route.params.forEach((params: Params) => {
-        //     // let id=+params['id'];
-        //     prodDirId = params['id'];
-        //     prodDirType = params['type'];
+        let prodDirId: string;
+        let prodDirType: string;
+        this.route.params.forEach((params: Params) => {
+            // let id=+params['id'];
+            prodDirId = params['id'];
+            prodDirType = params['type'];
+            if (prodDirType == 'new') {
+                
+            } else {
+                this.pageTitle='编辑产品目录'
+                this.getProdDirDetail(prodDirId);
+                console.log(prodDirId);
+                console.log(prodDirType);
+            }
+            
+        })
 
-        // })
-        // if (prodDirType == 'new') {
-
-        // } else {
-        //     // this.getProdDirDetail(prodDirId);
-        // }
         this.getPlateForm();
     }
+    //获取平台列表;
     getPlateForm() {
         this.CreateProdDirService.getDiskPlateForms().then(
             response => {
@@ -96,21 +102,22 @@ export class ProdDirDiskCreComponent implements OnInit {
         }
     }
     getProdDirDetail(id) {
-        // this.ProdDirDetailService.getVmProdDirDetail(id).then(
-        //     response => {
-        //         console.log(response);
-        //         if (response && 100 == response.resultCode) {
-        //             let resultContent = response.resultContent;
-        //             this.prodDir = response.resultContent;
-        //         } else {
+        this.ProdDirDetailService.getVmProdDirDetail(id).then(
+            response => {
+                console.log(response);
+                if (response && 100 == response.resultCode) {
+                    console.log('diskdetail',response);
+                    let resultContent = response.resultContent;
+                    this.prodDir = response.resultContent;
+                } else {
 
-        //         }
-        //         this.LayoutService.hide();
-        //     }
-        // ).catch(err => {
-        //     console.error(err);
-        // })
-        // console.log(this.prodDir);
+                }
+                this.LayoutService.hide();
+            }
+        ).catch(err => {
+            console.error(err);
+        })
+        console.log(this.prodDir);
     }
     //同步countBar数据
     outputValue(e, arg) {

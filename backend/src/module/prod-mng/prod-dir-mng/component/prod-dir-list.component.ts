@@ -301,21 +301,24 @@ export class ProdDirListComponent implements OnInit {
                 return
             }
             if (this.spec.mem > 0 && this.spec.vcpu > 0) {
-                this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre", { vcpu: this.spec.vcpu, mem: this.spec.mem, startupDisk: this.spec.startupDisk }]);
+                this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre", { vcpu: this.spec.vcpu, mem: this.spec.mem, startupDisk: this.spec.startupDisk ,type:'new'}]);
             } else {
                 this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PLATFORM_PRODUCT_CAT_ERROR') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PLATFORM_PRODUCT_CAT_ERROR=>云主机产品目录规格输入错误 
             }
         } else {
-            this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre"]);
+            this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre",{type:'new'}]);
         }
 
     }
     //去编辑详情
     goDetail(item) {
         console.log(item);
-        // let id = item.serviceId;
-        // let type ="detail"
-        // this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre", id,type]);
+        if(item.serviceTemplateName=="云主机服务"){
+            this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre",{id:item.serviceId,type:'edit'}]);
+        }else{
+            this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre",{id:item.serviceId,type:'edit'}]);
+        }
+        
     }
 
     //获取列表数据

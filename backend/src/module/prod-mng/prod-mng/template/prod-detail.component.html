@@ -183,7 +183,7 @@
 										</div>
 										<div class="col-sm-6">
 											<label class="radio-inline row-inline-radio4 font-gray" style="width:100%">
-                           				<input type="radio" name="inlineRadioOption"  [checked]="product.billingCycle==0" disabled class="fox-cloud-radio"> {{'COMMON.BY_HOUR' | translate}}
+                           				<input type="radio" name="inlineRadioOption"  [checked]="product.billingCycle=='0'" disabled class="fox-cloud-radio"> {{'COMMON.BY_HOUR' | translate}}
                        				</label>
 										</div>
 									</div>
@@ -198,19 +198,25 @@
 						<div class="form-group">
 							<div class="col-sm-4 form-control-title">{{'PROD_MNG.BASIC_CYCLE_PRICE' | translate}}：</div>
 							<!--基础周期价格-->
-							<div class="col-sm-6">
-								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]="!editPriceInfo" [value]="tempbBasicCyclePrice||0" #basicCyclePrice
-									(output)="outputValue($event,'basicCyclePrice')"></count-bar>
+							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
+								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempBasicCyclePrice" >
 							</div>
+							<!--<div class="col-sm-6">
+								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0  [value]="tempbBasicCyclePrice||0" #basicCyclePrice
+									(output)="outputValue($event,'basicCyclePrice')"></count-bar>
+							</div>-->
 						</div>
 					</div>
 					<div class="row row-line-height">
 						<div class="form-group">
 							<div class="col-sm-4 form-control-title">{{'PROD_MNG.INCREMENT_CYCLE_PRICE' | translate}}：</div>
-							<div class="col-sm-6">
-								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]="!editPriceInfo" [value]="tempExtendCyclePrice||0" #extendCyclePrice
-									(output)="outputValue($event,'extendCyclePrice')"></count-bar>
+							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
+								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempExtendCyclePrice" >
 							</div>
+							<!--<div class="col-sm-6">
+								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0  [value]="tempExtendCyclePrice||0" #extendCyclePrice
+									(output)="outputValue($event,'tempExtendCyclePrice')"></count-bar>
+							</div>-->
 						</div>
 					</div>
 					<div class="row row-line-height">
@@ -219,10 +225,13 @@
 								{{'PROD_MNG.ONE_TIME_PRICE' | translate}}：
 								<!--一次性价格-->
 							</div>
-							<div class="col-sm-6">
-								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]="!editPriceInfo" [value]="tempOneTimePrice||0" #oneTimePrice
-									(output)="outputValue($event,'oneTimePrice')"></count-bar>
+							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
+								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempOneTimePrice" >
 							</div>
+							<!--<div class="col-sm-6">
+								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0  [value]="tempOneTimePrice||0" #oneTimePrice
+									(output)="outputValue($event,'tempOneTimePrice')"></count-bar>
+							</div>-->
 						</div>
 					</div>
 				</div>
@@ -233,10 +242,13 @@
 								{{'PROD_MNG.ONE_TIME_PRICE' | translate}}：
 								<!--一次性价格-->
 							</div>
-							<div class="col-sm-6">
-								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]="!editPriceInfo" [value]="tempOneTimePrice||0" #oneTimePrice
-									(output)="outputValue($event,'oneTimePrice')"></count-bar>
+							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
+								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempOneTimePrice" >
 							</div>
+							<!--<div class="col-sm-6">
+								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0  [value]="tempOneTimePrice||0" #oneTimePrice
+									(output)="outputValue($event,'tempOneTimePrice')"></count-bar>
+							</div>-->
 						</div>
 					</div>
 					<div class="row row-line-height">
@@ -244,9 +256,12 @@
 							<div class="col-sm-4 form-control-title">{{'PROD_MNG.UNIT_PRICE' | translate}}：
 								<!--单位价格-->
 							</div>
-							<div class="col-sm-6">
-								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]="!editPriceInfo" [value]="tempUnitPrice||0" #unitPrice (output)="outputValue($event,'unitPrice')"></count-bar>
+							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
+								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempUnitPrice" >
 							</div>
+							<!--<div class="col-sm-6">
+								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0  [value]="tempUnitPrice||0" #unitPrice (output)="outputValue($event,'tempUnitPrice')"></count-bar>
+							</div>-->
 						</div>
 					</div>
 				</div>
@@ -257,7 +272,7 @@
 		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
         <span class="icon-button-label">{{'NET_MNG_VM_PORT.BACK' | translate}}</span>
     </button>
-		<button class="fox-cloud-button-lg fox-cloud-button-white" disabled (click)="editPriceInfo=true;" style="margin-left:40px;">
+		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="editPriceInfo=true;" style="margin-left:40px;">
         <span class="icon-button-label">{{'HOST_VMWARE_MNG.EDIT' | translate}}</span>
     </button>
 	</div>
@@ -265,8 +280,8 @@
 		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancelPriceEdit();">
         <span class="icon-button-label">{{'COMMON.CANCEL' | translate}}</span>
     </button>
-		<button class="fox-cloud-button-lg fox-cloud-button-white" disabled (click)="savePrice();" style="margin-left:40px;">
-        <span class="icon-button-label">{{'COMMIN.SAVE' | translate}}</span>
+		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="savePrice();" style="margin-left:40px;">
+        <span class="icon-button-label">{{'COMMON.SAVE' | translate}}</span>
     </button>
 	</div>
 </div>
