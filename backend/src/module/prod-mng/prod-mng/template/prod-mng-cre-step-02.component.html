@@ -23,13 +23,13 @@
                     <div class="row">
                         <div class="col-sm-6" *ngIf="prodDirType=='0'">
                             <label class="radio-inline row-inline-radio2 font-gray">
-                            		<input type="radio" name="billingTypeRadios" checked=true class="fox-cloud-radio" (click)="this.service.product.billingType='0';unitPrice.unEdit();basicCyclePrice.editable();extendCyclePrice.editable(); oneTimePrice.editable()"> {{'PROD_MNG.BY_YEAR_BY_MONTH' | translate}}<!--包年包月-->
+                            		<input type="radio" name="billingTypeRadios" checked=true class="fox-cloud-radio" > {{'PROD_MNG.BY_YEAR_BY_MONTH' | translate}}<!--包年包月-->
 
                        			</label>
                         </div>
                         <div class="col-sm-6" *ngIf="prodDirType=='1'">
                             <label class="radio-inline row-inline-radio2 font-gray">
-                            		<input type="radio" name="billingTypeRadios" checked=true class="fox-cloud-radio" (click)="this.service.product.billingType='1';basicCyclePrice.unEdit();extendCyclePrice.unEdit();oneTimePrice.editable();unitPrice.editable()"> {{'COMMON.BY_VOLUMN' | translate}}
+                            		<input type="radio" name="billingTypeRadios" checked=true class="fox-cloud-radio" > {{'COMMON.BY_VOLUMN' | translate}}
                        			</label>
                         </div>
                     </div>
@@ -40,7 +40,6 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'COMMON.COUNT_CYCLE' | translate}}：</div>
                 <!--计费周期-->
-
                 <div class="col-sm-6 row-inline-radio">
                     <div class="row">
                         <div class="col-sm-6">
@@ -117,7 +116,6 @@
                         <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="this.service.product.oneTimePrice||0" #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
                     </div>
                 </div>
-
             </div>
             <div class="row row-line-height">
                 <div class="form-group">

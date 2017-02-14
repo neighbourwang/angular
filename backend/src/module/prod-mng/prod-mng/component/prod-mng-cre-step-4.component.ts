@@ -70,12 +70,14 @@ export class ProdMngCreStep4Component implements OnInit {
 
     next() {
         this.service.product.serviceId=this.service.productDir.serviceId;
+        this.service.product.billingType=
+            this.service.productDir.serviceType=='0'?'0':'1';
         console.log(this.service.product);
         this.PostProduct.postProduct(this.service.product).then(response => {
             console.log('产品', response);
             this.LayoutService.hide();
             // if (response && 100 == response.resultCode) {
-            this.route.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
+            // this.route.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
             // } else {
 
             // }

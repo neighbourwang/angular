@@ -30,6 +30,23 @@ export class ProdDetailComponent implements OnInit{
     product=new Product();
     prodDir=new ProductDir();
     vmProdDir:boolean;
+
+    Tabels = [
+        { name: '基本信息', active: true },
+        { name: '计价信息', active: false },
+        { name: '平台信息', active: false },
+        { name: '企业信息', active: false },
+        { name: '历史价格', active: false }
+    ]
+
+    //切换TAB
+    changeTab(item, index) {
+        this.Tabels.forEach((ele) => {
+            ele.active = false;
+        })
+        item.active = true;
+    }
+
     ngOnInit(){
         console.log(this.router.params);
         let id:string;
@@ -49,7 +66,7 @@ export class ProdDetailComponent implements OnInit{
         this.getProduct.getProduct(id).then((response)=>{
                 if (response && 100 == response.resultCode) {                    
                     this.product=response.resultContent;
-                    console.log(this.vmProdDir);
+                    console.log('产品',this.product);
                     if(this.vmProdDir){
                         this.getVmProdDirDetail(this.product.serviceId);
                     }else{
@@ -88,6 +105,42 @@ export class ProdDetailComponent implements OnInit{
         }).catch(err => {
             console.error(err)
         })
+    }
+
+    //编辑基本信息
+    editBasicInfo:boolean=false;
+    tempProductName:string=this.product.name;
+    tempProductDesc:string=this.product.desc;
+    saveBasic(){
+        this.editBasicInfo=false;
+        console.log(this.product);
+    }
+
+    //编辑价格
+    editPriceInfo:boolean=false;
+    tempBasicCyclePrice=this.product.basicCyclePrice;
+    tempExtendCyclePrice=this.product.extendCyclePrice;
+    tempOneTimePrice=this.product.oneTimePrice;
+    tempUnitPrice=this.product.unitPrice;
+    cancelPriceEdit(){
+        this.tempBasicCyclePrice=this.product.basicCyclePrice;
+        this.tempExtendCyclePrice=this.product.extendCyclePrice;
+        this.tempOneTimePrice=this.product.oneTimePrice;
+        this.tempUnitPrice=this.product.unitPrice;
+        this.editPriceInfo=false;
+    }
+    savePrice(){
+        this.product.basicCyclePrice=this.tempBasicCyclePrice;
+        this.product.extendCyclePrice=this.tempExtendCyclePrice;
+        this.product.oneTimePrice=this.tempOneTimePrice;
+        this.product.unitPrice=this.tempUnitPrice;
+        this.editPriceInfo=false;
+        console.log(this.product);
+    }
+    //编辑平台
+
+    outputValue(e, num) {
+        this.product[num] = e;
     }
     //返回列表
     cancel(){
