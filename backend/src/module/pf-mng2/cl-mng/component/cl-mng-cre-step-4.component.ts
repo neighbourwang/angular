@@ -109,7 +109,7 @@ export class ClMngCreStep4Component implements OnInit {
         })
         console.log(valid);
         if(!valid){
-            this.notice.open('操作错误','存储区配额设置错误，同一存储区配额总额设置超额')
+            this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.STOARGE_QUOTA_SET_ERROR');//存储区配额设置错误，同一存储区配额总额设置超额
             return;
         }
         let platFormId: String = this.idService.getPlatformId();

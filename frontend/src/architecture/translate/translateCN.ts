@@ -377,7 +377,23 @@ export const TranslateCN = {
         NONRECURRING_EXPENSE: '一次性费用',
         EXPENSE_$: '费用',
         DETAILS: '详 情',
-        ORDER_NUMBER_: '订单号：'
+        ORDER_NUMBER_: '订单号：',
+
+        MOUNT_CLOUD_HOST_NAME: '挂载云主机名称',
+        CANCELLATION_FAILED: '撤单失败',
+        ALL_PURCHASER: '所有订购人',
+        ALL_ZONE: '所有区',
+        ALL_AVAILABLE_ZONE: '所有可用区',
+        PURCHASED_SERVICES_DETAILS: '已购买服务详情',
+        PURCHASED_SERVICES_NUMBER: '已购买服务编号',
+        ORDERS_RENEW: '订单续订',
+        ORDERS_UNSUBSCRIBE: '订单退订',
+        HISTORY_INFORMATION: '历史信息',
+        INSTANCE_TYPE: '实例类型',
+        ALL_USERS: '所有用户',
+        CANCEL_THE_ORDER:'撤销订单',
+        ORDER_INFORMATION: '订单信息',
+        ORDER_HISTORY: '订单历史',
     },
     ORG_MNG_LIST: {
         OPERATION_ERROR: '操作错误',
@@ -574,6 +590,7 @@ export const TranslateCN = {
         CUSTOM_IMAGE_NAME: '自定义镜像名',
         CUSTOM_IMAGE_APPLICATION_RANGE: '自定义镜像应用范围',
         CUSTOM_IMAGE_DESCRIPTION: '自定义镜像描述',
+        CONFIRM_DELETE_VALUE:'确认删除{{value_1}}?',
 
         //TS
         IMAGE_NAME_CAN_NOT_BE_BLANK: '镜像名称不能为空',

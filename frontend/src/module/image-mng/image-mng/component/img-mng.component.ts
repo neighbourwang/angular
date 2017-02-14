@@ -134,7 +134,7 @@ export class ImgMngComponent implements OnInit {
         //    return;
         //}
 
-        this.noticeMsg = `确认删除'${image.name}'?`;
+        this.noticeMsg = `IMAGE.CONFIRM_DELETE_VALUE^^^${image.name}`;
 
         this.confirm.cof = () => {
             this.layoutService.show();

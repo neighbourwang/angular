@@ -374,7 +374,23 @@ export const TranslateEN = {
         NONRECURRING_EXPENSE: 'One time cost',
         EXPENSE_$: 'Cost',
         DETAILS: 'Details',
-        ORDER_NUMBER_: 'Order number'
+        ORDER_NUMBER_: 'Order number',
+
+        MOUNT_CLOUD_HOST_NAME: 'Mount cloud host name',
+        CANCELLATION_FAILED: 'Cancellation failed',
+        ALL_PURCHASER: 'All purchaser',
+        ALL_ZONE: 'All zone',
+        ALL_AVAILABLE_ZONE: 'All available zone',
+        PURCHASED_SERVICES_DETAILS: 'Purchased services details',
+        PURCHASED_SERVICES_NUMBER: 'Purchased services number',
+        ORDERS_RENEW: 'Renew orders',
+        ORDERS_UNSUBSCRIBE: 'Unsubscribe orders',
+        HISTORY_INFORMATION: 'History information',
+        INSTANCE_TYPE: 'Instance type',
+        ALL_USERS: 'All users',
+        CANCEL_THE_ORDER:'Cancel order',
+        ORDER_INFORMATION: 'Order information',
+        ORDER_HISTORY: 'Order history',
     },
     ORG_MNG_LIST: {
         OPERATION_ERROR: 'Operation error',
@@ -570,6 +586,7 @@ export const TranslateEN = {
         CUSTOM_IMAGE_NAME: 'custom image name',
         CUSTOM_IMAGE_APPLICATION_RANGE: 'custom image application range',
         CUSTOM_IMAGE_DESCRIPTION: 'custom image description',
+        CONFIRM_DELETE_VALUE:'Confirm delete {{value_1}}?',
 
         //TS
         IMAGE_NAME_CAN_NOT_BE_BLANK: 'image name can not be blank',

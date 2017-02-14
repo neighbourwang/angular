@@ -1,110 +1,110 @@
 <div class="SearchDetail">   
-						<div class="page-content">
-							<div class="noborder form-control-title float-left mgb10">{{ 'COMMON.ORDERS' | translate }}{{ 'COMMON.INFORMATION' | translate }}</div>
-							<div class="table-container mgb20">
-									<table class="table table-all-boder first-table mgb20">
-										<tbody>
-											<tr>
-												<td class="text-center">{{ 'COMMON.ORDER_ID' | translate }}</td><td class="leftAlign">{{_detail.orderCode}}</td>
+	<div class="page-content">
+		<div class="noborder form-control-title float-left mgb10">{{ 'ORDER_MNG.ORDER_INFORMATION' | translate }}</div>
+		<div class="table-container mgb20">
+				<table class="table table-all-boder first-table mgb20">
+					<tbody>
+						<tr>
+							<td class="text-center">{{ 'COMMON.ORDER_ID' | translate }}</td><td class="leftAlign">{{_detail.orderCode}}</td>
 
-												<td class="text-center">{{ 'COMMON.ORDERS' | translate }}{{ 'COMMON.TYPE' | translate }}</td><td class="leftAlign">{{_detail.type | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
-													
-											</tr>
-											<tr>
-												<td class="text-center">{{ 'COMMON.ORDERS' | translate }}{{ 'COMMON.STATUS' | translate }}</td><td class="leftAlign">{{_detail.status | dict:_dictServ.getDic("ORDER", "STATUS") | async}}</td>
-												
-												<td class="text-center">{{ 'ORDER_MNG.SUBMITTER' | translate }}</td><td class="leftAlign">{{_detail.billingPerson}}</td>	
-											</tr>
-											<tr>
-											<td class="text-center">{{ 'COMMON.PRODUCT' | translate }}{{ 'COMMON.TYPE' | translate }}</td><td class="leftAlign">{{_detail.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
-											<td class="text-center">{{ 'COMMON.DEPARTMENT' | translate }}</td><td class="leftAlign">{{_detail.department}}</td>
-											</tr>
-											
-											<tr>
-											   <td class="text-center">{{ 'ORDER_MNG.SUBMISSION_TIME' | translate }}</td><td class="leftAlign">{{_detail.createDate}}</td>
-												<td class="text-center">{{ 'COMMON.ENTERPRISE' | translate }}</td><td class="leftAlign">{{_detail.enterpirse}}</td>
-													
-											</tr>
-											<tr>
-											   <td class="text-center">{{ 'ORDER_MNG.COMPLETION_TIME' | translate }}</td><td class="leftAlign">{{_detail.completeDate}}</td>
-												<td class="text-center"></td><td class="leftAlign"></td>
-													
-											</tr>
-										</tbody>
-									</table>
-							</div>
-							<div class="noborder  form-control-title float-left  mgb10">已购服务编号{{ 'COMMON.PURCHASED' | translate }}{{ 'COMMON.SERVICES' | translate }}{{ 'COMMON.NUMBER' | translate }}:{{_detail.orderCode}}</div>
-							<div class="table-container mgb20">
-									<table class=" table table-all-boder mgb20">
-										<thead>
-											<tr>
-												<th class="text-center" >{{ 'COMMON.PRODUCT' | translate }}{{ 'COMMON.INFORMATION' | translate }}</th>
-												<th class="text-center">{{ 'COMMON.PRODUCT' | translate }}{{ 'COMMON.TYPE' | translate }}</th>
-												<th class="text-center">{{ 'COMMON.QUANTITY' | translate }}</th>
-												<th class="text-center">{{ 'ORDER_MNG.PURCHASE_CYCLE' | translate }}</th>
-												<th class="text-center">{{ 'COMMON.EXPENSE' | translate }}</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr *ngFor="let item of _detail.subInstanceList">
-												<td class="text-center" style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; width: 450px;">
-													<ul *ngIf="item.serviceType>1">
-														<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}：&nbsp;&nbsp;{{spec.attrDisplayValue}}</li>
-													</ul>
-													<vm-view [values]="item.specList" *ngIf="item.serviceType==0"></vm-view>
-													<disk-view [values]="item.specList" *ngIf="item.serviceType==1"></disk-view>
-												</td>
-												<td class="text-center">{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}<br><span *ngIf="item.showInstance">{{ 'COMMON.INSTANCE' | translate }}{{ 'COMMON.NAME' | translate }}:{{item.instanceName}}</span></td>
-												<td class="text-center">{{item.quantity}}</td>
-												<td class="text-center">{{item.period}}</td>
-												<td style="width: 200px;" class="text-center">{{ 'ORDER_MNG.NONRECURRING_EXPENSE' | translate }}:{{ 'COMMON.$' | translate }}{{item.oneTimePrice}}<br>{{ 'ORDER_MNG.EXPENSE_$' | translate }}:{{ 'COMMON.$' | translate }}{{item.price}}<span *ngIf="item.serviceType==1">/GB</span><span>/{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
-											</tr>
-										</tbody>
-									</table>
-							</div>
+							<td class="text-center">{{ 'CHECK_CENTER.ORDER_TYPE' | translate }}</td><td class="leftAlign">{{_detail.type | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
+								
+						</tr>
+						<tr>
+							<td class="text-center">{{ 'ORDER_MNG.ORDER_STATUS' | translate }}</td><td class="leftAlign">{{_detail.status | dict:_dictServ.getDic("ORDER", "STATUS") | async}}</td>
+							
+							<td class="text-center">{{ 'ORDER_MNG.SUBMITTER' | translate }}</td><td class="leftAlign">{{_detail.billingPerson}}</td>	
+						</tr>
+						<tr>
+						<td class="text-center">{{ 'ORDER_MNG.PRODUCT_TYPE' | translate }}</td><td class="leftAlign">{{_detail.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
+						<td class="text-center">{{ 'COMMON.DEPARTMENT' | translate }}</td><td class="leftAlign">{{_detail.department}}</td>
+						</tr>
+						
+						<tr>
+							<td class="text-center">{{ 'ORDER_MNG.SUBMISSION_TIME' | translate }}</td><td class="leftAlign">{{_detail.createDate}}</td>
+							<td class="text-center">{{ 'COMMON.ENTERPRISE' | translate }}</td><td class="leftAlign">{{_detail.enterpirse}}</td>
+								
+						</tr>
+						<tr>
+							<td class="text-center">{{ 'ORDER_MNG.COMPLETION_TIME' | translate }}</td><td class="leftAlign">{{_detail.completeDate}}</td>
+							<td class="text-center"></td><td class="leftAlign"></td>
+								
+						</tr>
+					</tbody>
+				</table>
+		</div>
+		<div class="noborder  form-control-title float-left  mgb10">{{ 'ORDER_MNG.PURCHASED_SERVICES_NUMBER' | translate }}: {{_detail.subinstanceNo}}</div>
+		<div class="table-container mgb20">
+				<table class=" table table-all-boder mgb20">
+					<thead>
+						<tr>
+							<th class="text-center" >{{ 'SHOPPING_CART.PRODUCT_INFORMATION' | translate }}</th>
+							<th class="text-center">{{ 'SHOPPING_CART.PRODUCT_INFORMATION' | translate }}</th>
+							<th class="text-center">{{ 'COMMON.QUANTITY' | translate }}</th>
+							<th class="text-center">{{ 'ORDER_MNG.PURCHASE_CYCLE' | translate }}</th>
+							<th class="text-center">{{ 'COMMON.EXPENSE' | translate }}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let item of _detail.subInstanceList">
+							<td class="text-center" style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; width: 450px;">
+								<ul *ngIf="item.serviceType>1">
+									<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}：&nbsp;&nbsp;{{spec.attrDisplayValue}}</li>
+								</ul>
+								<vm-view [values]="item.specList" *ngIf="item.serviceType==0"></vm-view>
+								<disk-view [values]="item.specList" *ngIf="item.serviceType==1"></disk-view>
+							</td>
+							<td class="text-center">{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}<br><span *ngIf="item.showInstance">{{ 'VM_INSTANCE.INSTANCE_NAME' | translate }}: {{item.instanceName}}</span></td>
+							<td class="text-center">{{item.quantity}}</td>
+							<td class="text-center">{{item.period}}</td>
+							<td style="width: 200px;" class="text-center">{{ 'ORDER_MNG.NONRECURRING_EXPENSE' | translate }}: {{ 'COMMON.$' | translate }}{{item.oneTimePrice}}<br>{{ 'ORDER_MNG.EXPENSE_$' | translate }}: {{ 'COMMON.$' | translate }}{{item.price}}<span *ngIf="item.serviceType==1">/GB</span><span>/{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
+						</tr>
+					</tbody>
+				</table>
+		</div>
 
-							<div class="noborder form-control-title float-left  mgb10">{{ 'COMMON.TOTAL_COST' | translate }}</div>
-							<div class="table-container table-border mgb20 ">
-									<table class="table"  style="border:1px solid #ddd;" *ngFor="let item of _detail.subInstanceList">
-										<tbody>
-											<tr class="noborder">
-												<td width="200px;" class="rightAlign noborder">{{ 'ORDER_MNG.NONRECURRING_EXPENSE' | translate }}:</td>
-												<td class="font-red leftAlign noborder" >{{ 'COMMON.$' | translate }}{{item.totalOncePrice}}</td>
-											</tr>
-											<tr class="noborder">
-												<td class="rightAlign noborder">{{ 'ORDER_MNG.EXPENSE_$' | translate }}:</td>
-												<td class="font-red leftAlign noborder">{{ 'COMMON.$' | translate }}{{item.totalPrice}}<span *ngIf="item.serviceType==1">/GB</span><span>/{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
-											</tr>
-										</tbody>
-									</table>
-							</div>
+		<div class="noborder form-control-title float-left  mgb10">{{ 'COMMON.TOTAL_COST' | translate }}</div>
+		<div class="table-container table-border mgb20 ">
+				<table class="table"  style="border:1px solid #ddd;" *ngFor="let item of _detail.subInstanceList">
+					<tbody>
+						<tr class="noborder">
+							<td width="200px;" class="rightAlign noborder">{{ 'ORDER_MNG.NONRECURRING_EXPENSE' | translate }}:</td>
+							<td class="font-red leftAlign noborder" >{{ 'COMMON.$' | translate }}{{item.totalOncePrice}}</td>
+						</tr>
+						<tr class="noborder">
+							<td class="rightAlign noborder">{{ 'ORDER_MNG.EXPENSE_$' | translate }}: </td>
+							<td class="font-red leftAlign noborder">{{ 'COMMON.$' | translate }}{{item.totalPrice}}<span *ngIf="item.serviceType==1">/GB</span><span>/{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
+						</tr>
+					</tbody>
+				</table>
+		</div>
 
-							<div class="noborder form-control-title float-left  mgb10">{{ 'COMMON.ORDERS' | translate }}{{ 'COMMON.HISTORY' | translate }}</div>
-							<div class="table-container mgb20">
-									<table class="table table-all-boder">
-										<thead>
-											<tr>
-												<th class="text-center">{{ 'COMMON.EXECUTOR' | translate }}</th>
-												<th class="text-center">{{ 'COMMON.DEPARTMENT' | translate }}</th>
-												<th class="text-center">{{ 'COMMON.OPERATION' | translate }}</th>
-												<th class="text-center">{{ 'COMMON.ORDERS' | translate }}{{ 'COMMON.STATUS' | translate }}</th>
-												<th class="text-center">{{ 'COMMON.EXPLAIN' | translate }}</th>
-											</tr>
-											
-										</thead>
+		<div class="noborder form-control-title float-left  mgb10">{{ 'ORDER_MNG.ORDER_HISTORY' | translate }}</div>
+		<div class="table-container mgb20">
+				<table class="table table-all-boder">
+					<thead>
+						<tr>
+							<th class="text-center">{{ 'COMMON.EXECUTOR' | translate }}</th>
+							<th class="text-center">{{ 'COMMON.DEPARTMENT' | translate }}</th>
+							<th class="text-center">{{ 'COMMON.OPERATION' | translate }}</th>
+							<th class="text-center">{{ 'ORDER_MNG.ORDER_STATUS' | translate }}</th>
+							<th class="text-center">{{ 'COMMON.EXPLAIN' | translate }}</th>
+						</tr>
+						
+					</thead>
 
-										<tbody>
-											<tr *ngFor="let item of _detail.orderInstanceItems">
-												<td class="text-center">{{item.operator}}</td>
-												<td class="text-center">{{item.departmentName}}</td>
-												<td class="text-center">{{item.operation}}</td>
-												<td class="text-center">{{item.status | dict:_dictServ.getDic("ORDER", "STATUS") | async}}</td>
-												<td class="text-center">{{item.desc}}</td>
-											</tr>
-										</tbody>
-									</table>
-							</div>
+					<tbody>
+						<tr *ngFor="let item of _detail.orderInstanceItems">
+							<td class="text-center">{{item.operator}}</td>
+							<td class="text-center">{{item.departmentName}}</td>
+							<td class="text-center">{{item.operation}}</td>
+							<td class="text-center">{{item.status | dict:_dictServ.getDic("ORDER", "STATUS") | async}}</td>
+							<td class="text-center">{{item.desc}}</td>
+						</tr>
+					</tbody>
+				</table>
+		</div>
 
 
-						</div>
-					</div><!--SearchDetail ending-->
+	</div>
+</div><!--SearchDetail ending-->
