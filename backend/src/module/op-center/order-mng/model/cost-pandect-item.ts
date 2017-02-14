@@ -5,17 +5,28 @@ export class CostPandectItem{
  
 }
 
-export class  DateItem{  
-    get years():Array<number>{
-        let years =[];
-        for(let i=2017;i>0;i--){
-            years[i]=i;
-        }
-        return years;
-    } 
-     get months():Array<number>{
-        let months =[1,2,3,4,5,6,7,8,9,10,11,12];
-        return months;
-    } 
+export class  Time{
+    constructor(id:string,name:string) {
+        this.id = id;
+        this.name = name;
+    }
+ 
+   id:string = null;
+   name:string = null;
+}
 
+export class  Chart{
+ 
+    datas:Array<number> = null;
+    colors:Array<any> = null;
+    labels:Array<any> = null;
+    options:any = null;
+    setAllDatas(datas:Array<number>,colors:Array<any>,labels:Array<any>,options?:any){
+        this.datas = datas;
+        this.colors = colors;
+        this.labels = labels;
+        if(options){
+            this.options = options;
+        }
+    }
 }

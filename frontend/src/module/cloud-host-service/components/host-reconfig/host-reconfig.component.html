@@ -1,0 +1,56 @@
+
+<!--详情-->
+<div class="modal fade" id="hostBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  	<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  	<div class="modal-header">
+				 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">云主机配置变更</h4>
+			  	</div>
+			 	<div class="modal-body"> 
+		        	<h4 class="title mgb20">变更云主机规格，系统会自动关闭虚拟机以进行操作，请在下单前，确认虚拟机无业务正在运行！</h4>
+		         	<table class="table table-hover table-all-boder mgb20">
+						<tr class="table-line-head">
+							<td class="text-center">云主机名称</td>
+							<td class="text-center">当前配置</td>
+							<td class="text-center">镜像</td>
+							<td class="text-center">内部IP</td> 
+							<td class="text-center">外部IP</td>
+							<td class="text-center">所在区域及可用区</td>
+							<td class="text-center">状态</td>
+							<td class="text-center">当前费用</td>
+							<td class="text-center">附加服务</td> 
+							<td class="text-center">类型</td>
+							<td class="text-center">服务级别</td>
+					    </tr>
+						<tr>
+							<td class="text-center">云主机名称</td>
+							<td class="text-center">当前配置</td>
+							<td class="text-center">镜像</td>
+							<td class="text-center">内部IP</td> 
+							<td class="text-center">外部IP</td>
+							<td class="text-center">所在区域及可用区</td>
+							<td class="text-center">状态</td>
+							<td class="text-center">当前费用</td>
+							<td class="text-center">附加服务</td> 
+							<td class="text-center">类型</td>
+							<td class="text-center">服务级别</td>
+						</tr>
+					</table>
+
+					<table class="cm-table-left mgb20">
+						<tr>
+							<th class="col-md-1 col-xs-3 text-center">区域列表</th>
+							<td>sssss</td>
+						</tr>
+					</table>
+				</div>
+		      
+			  	<div class="modal-footer">
+			        <button class="btn button-confirm button-size-big">{{ot || 'DIALOG.CONFIRM' | translate }}</button> <!-- 确认 -->
+			        <button class="btn btn-default button-size-big" data-dismiss="modal">{{ct || 'DIALOG.CANCEL' | translate }}</button> <!-- 取消 -->
+			  	</div>
+			
+	  	</div>
+	</div>
+</div>

@@ -29,6 +29,9 @@ import {UserCenterModule } from './module/user-center/user-center.module';
 //op-center
 import {OrderMngModule } from './module/op-center/order-mng/order-mng.module';
 
+//cost-set
+import {CostSetModule } from './module/op-center/cost-set/cost-set.module';
+
 //check center
 import {CheckCenterModule } from './module/check-center/check-center.module';
 
@@ -56,6 +59,7 @@ import {routing} from './app.routing';
         EntProdMngModule,
         FormsModule,
         OrderMngModule,
+        CostSetModule,
         CheckCenterModule,
         NetMngModule,
         HostMngModule,

@@ -30,7 +30,7 @@ export class CreateProdStepService{
             if (response && 100 == response.resultCode) {                
                 this.productDir = response.resultContent;
                 // this.product.serviceId=response.resultContent.serviceId;
-                this.productDir.serviceType='0';
+                this.productDir.serviceType='0';                
                 this.productDir.platformInfo.forEach(platform=>{
                     platform.zoneList.forEach(zone=>{
                         zone.selected=false;
@@ -53,7 +53,6 @@ export class CreateProdStepService{
             console.log('DISK产品目录详情', response);
             if (response && 100 == response.resultCode) {                
                 this.productDir = response.resultContent;
-                // this.product.serviceId=response.resultContent.serviceId;
                 this.productDir.serviceType='1';
                 this.productDir.platformList.forEach(platform=>{
                     platform.zoneList.forEach(zone=>{
