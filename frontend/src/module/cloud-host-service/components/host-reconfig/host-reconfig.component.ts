@@ -17,7 +17,7 @@ export class HostReconfigComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		// $('#hostBox').modal('show');
+		$('#hostBox').modal('show');
 	}
 
 
