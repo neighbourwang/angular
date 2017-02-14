@@ -1,0 +1,55 @@
+<div class="CostSet">	
+	<div class="page-content-header">费用设置</div>
+	<div class="page-content">
+		<div class="firstPanel mgt10">
+			<button (click)="entSet();" class="fox-cloud-button fox-cloud-button-green mgr10"><span class="icon-button-label icon-left-button-label" key="backend/cost-set-ent.html">企业费用设置</span></button>
+			<button (click)="defaultSet();" class="fox-cloud-button fox-cloud-button-green"><span class="icon-button-label icon-left-button-label" key="backend/cost-set-default.html">默认费用设置</span></button>
+		</div>
+		<div class="secondPanel mgt20">
+			<div class="table-container">
+			    <table class="table table-hover">
+			        <thead>
+			            <tr>
+			                <th>编号</th>
+			                <th>企业名称</th>
+			                <th>付费方式</th>
+			                <th>出账周期<br>(个)</th>
+			                <th>账单生成日</th>
+			                <th>账单发送日</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			            <tr>
+			                <td>1</td>
+			                <td>上海慧于</td>
+			                <td>现金</td>
+			                <td>1个月</td>
+			                <td>2017-2-13</td>
+			                <td>2017-2-13</td>
+			            </tr>               
+			        </tbody>
+			    </table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--系统默认设置--> 
+	<div class="modal fade" id="costSetList" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  	<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				  	<div class="modal-header">
+					 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">系统默认设置</h4>
+				  	</div>
+				 	<div class="modal-body">
+						 sssssssss
+						<cost-set-default></cost-set-default>
+					</div>
+			      
+				  	<div class="modal-footer">
+				  	</div>
+				
+		  	</div>
+		</div>
+	</div>

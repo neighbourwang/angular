@@ -79,7 +79,7 @@ export class cloudHostServiceOrder {
 
         let pathParams = {
             imageType: imageType,
-            enterPriseId: this.userInfo.enterpriseId,
+            enterpriseId: this.userInfo.enterpriseId,
             platformId: platformId,
             startupResouce: startupResouce,
         }
