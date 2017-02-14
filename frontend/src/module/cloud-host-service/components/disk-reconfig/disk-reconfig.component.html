@@ -1,41 +1,35 @@
 
 <!--详情-->
-<div class="modal fade" id="hostBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="diskBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	  	<div class="modal-dialog" role="document">
 	  		<!-- 配置变更 -->
 			<div class="modal-content" *ngIf="state === 'change'">
 			  	<div class="modal-header">
 				 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">云主机配置变更</h4>
+					<h4 class="modal-title" id="myModalLabel">云硬盘扩容</h4>
 			  	</div>
 			 	<div class="modal-body"> 
-		        	<h4 class="title mgb20">变更云主机规格，系统会自动关闭虚拟机以进行操作，请在下单前，确认虚拟机无业务正在运行！</h4>
+		        	<h4 class="title mgb20">云硬盘一旦扩容后，将不能缩减，请根据实际需求进行选购。</h4>
 		         	<table class="table table-all-boder mgb20">
 						<tr class="table-line-head">
-							<td class="text-center">云主机名称</td>
-							<td class="text-center">当前配置</td>
-							<td class="text-center">镜像</td>
-							<td class="text-center">内部IP</td> 
-							<td class="text-center">外部IP</td>
-							<td class="text-center">所在区域及可用区</td>
+							<td class="text-center">云硬盘名称</td>
+							<td class="text-center">存储类型</td>
+							<td class="text-center">容量(GB)</td>
+							<td class="text-center">挂载位置（云主机名称）</td> 
 							<td class="text-center">状态</td>
 							<td class="text-center">当前费用</td>
-							<td class="text-center">附加服务</td> 
-							<td class="text-center">类型</td>
-							<td class="text-center">服务级别</td>
+							<td class="text-center">所在区域及可用区</td>
+							<td class="text-center">属性</td>
 					    </tr>
 						<tr>
-							<td class="text-center">云主机名称</td>
-							<td class="text-center">当前配置</td>
-							<td class="text-center">镜像</td>
-							<td class="text-center">内部IP</td> 
-							<td class="text-center">外部IP</td>
-							<td class="text-center">所在区域及可用区</td>
+							<td class="text-center">云硬盘名称</td>
+							<td class="text-center">存储类型</td>
+							<td class="text-center">容量(GB)</td>
+							<td class="text-center">挂载位置（云主机名称）</td> 
 							<td class="text-center">状态</td>
 							<td class="text-center">当前费用</td>
-							<td class="text-center">附加服务</td> 
-							<td class="text-center">类型</td>
-							<td class="text-center">服务级别</td>
+							<td class="text-center">所在区域及可用区</td>
+							<td class="text-center">属性</td>
 						</tr>
 					</table>
 
@@ -44,33 +38,15 @@
 							<th class="col-md-1 col-xs-3 text-center">新规格</th>
 							<td>
 								<div class="col-md-8 no-padding ">
-									<div class="col-md-12 pdt15 pdb15">
-										<div class="col-md-1 line34 no-padding">CPU：</div>
-										<div class="col-md-10 no-padding btn-group" data-toggle="buttons">
-											<button class="btn btn-default active">
-												 立即设置
-											</button>
-											<button class="btn btn-default">
-												模板自带密码
-											</button>
-											<button class="btn btn-default">
-												自带密码
-											</button>
-										</div>
-									</div>
-									<div class="col-md-12 pdb15">
-										<div class="col-md-1 line34 no-padding">内存：</div>
-										<div class="col-md-10 no-padding btn-group" data-toggle="buttons">
-											<button class="btn btn-default active">
-												 立即设置
-											</button>
-											<button class="btn btn-default">
-												模板自带密码
-											</button>
-											<button class="btn btn-default">
-												自带密码
-											</button>
-										</div>
+									<div class="col-md-12 no-padding pdt15 mgt15">
+										容量(GB)：
+										<count-bar
+								            step="10" 
+								            max="200" 
+								            min="20" 
+								            [stepCheck]=true
+								            value="20" (output)="outputValue($event, i)"></count-bar>
+								        <span class="pdl10">增量按照每10GB一档，最大可扩容到 500GB</span>
 									</div>
 								</div>
 								<div class="col-md-4 no-padding">
@@ -100,7 +76,7 @@
 		<div class="modal-content" *ngIf="state === 'done'">
 		  	<div class="modal-header">
 			 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">订单完成：配置变更</h4>
+				<h4 class="modal-title" id="myModalLabel">订单完成：云硬盘扩容</h4>
 		  	</div>
 		 	<div class="modal-body"> 
 	         	<table class="table table-all-boder mgb20">
@@ -130,9 +106,9 @@
 
 				<div class="done-bottom">
 					<div class="left-text float-left">
-						<p>您的云主机已申请配置变更，系统将自动关闭云主机，并进行配置变更。</p>
-						<p>如需审批，则要等待审批通过后，系统才会开始执行配置变更。</p>
-						<p>您可以登陆管理控制台，查看云主机状态。</p>
+						<p>您的云硬盘已申请扩容，系统将自动进行配置变更。</p>
+						<p>如需审批，则要等待审批通过后，系统才会开始执行扩容。</p>
+						<p>您可以登陆管理控制台，查看云硬盘状态。</p>
 					</div>
 					<button class="btn button-confirm button-size-big float-right">管理控制台</button>
 				</div>

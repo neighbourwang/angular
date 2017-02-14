@@ -26,6 +26,8 @@ export class cloudDriveListComponent implements OnInit {
 	@ViewChild("vmDialog") vmDialog: PopupComponent;
 
 	@ViewChild('platformZone') platformZone;
+
+	@ViewChild('diskReconfig') diskReconfig;
 	
 	@ViewChild('popup')
 	private popup: PopupComponent;

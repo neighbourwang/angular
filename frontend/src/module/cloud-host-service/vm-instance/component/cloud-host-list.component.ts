@@ -29,6 +29,8 @@ export class cloudHostListComponent implements OnInit {
 
 	@ViewChild('platformZone') platformZone;
 
+	@ViewChild('hostReconfig') hostReconfig;
+
 	@Input() options:ListOptions;
 
 	list : QuiryVmList = new QuiryVmList();
