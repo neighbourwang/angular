@@ -1,0 +1,131 @@
+
+<div class="page-content-header icon-cloud-network-mngOn">
+    VMware{{'NET_MNG_VM_IP_MNG.NETWORK' | translate}}
+</div>
+<div class="page-content">
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th style="text-align:left;">VMware{{'NET_MNG_VM_IP_MNG.NET_MNG' | translate}} -- {{'NET_MNG_VM_IP_MNG.MANAGE_STD_NET' | translate}} -- {{'NET_MNG_VM_IP_MNG.IP_ADDRESS_MNG' | translate}} -- {{'NET_MNG_VM_IP_MNG.MANAGE_IP_ADDRESS' | translate}}</th>
+                <th style="text-align:right;">
+                    <button class=" fox-cloud-button fox-cloud-button-white ">
+                        <span class="icon-button-label" key="boe/ip_addr_mng.html" (click)="ipMngPage()">{{'NET_MNG_VM_IP_MNG.RETURN' | translate}}</span>
+                    </button>
+                </th>
+            </tr>
+        </thead>
+    </table>
+
+    <div class="row mgb10" >
+        <span class="pull-left mgt5 pdl15" style="display:inline-block;font-size:16px;padding:6px 0">
+            {{'NET_MNG_VM_IP_MNG.PORTGROUP_DISPLAY_NAME' | translate}} :
+        </span>
+        <div class="col-md-2">
+            <span class="pull-left mgt5 pdl15" style="display:inline-block;font-size:16px;padding:6px 0">{{pg_name}}</span>
+        </div>
+    </div>
+
+    <div class="mgb10">
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="filter('2')">{{'NET_MNG_VM_IP_MNG.FREE' | translate}}</button>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="filter('1')">{{'NET_MNG_VM_IP_MNG.OCCUPIED' | translate}}</button>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="filter('all')">{{'NET_MNG_VM_IP_MNG.ALL' | translate}}</button>
+        <div class="dropdown pull-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                {{'NET_MNG_VM_IP_MNG.SELECT_OPERATION' | translate}}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a (click)="enable()">{{'NET_MNG_VM_IP_MNG.OCCUPY' | translate}}IP</a></li>
+                <li><a (click)="disable()">{{'NET_MNG_VM_IP_MNG.RELEASE' | translate}}IP</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="table-container mgb10">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>{{'NET_MNG_VM_IP_MNG.SELECT' | translate}}</th>
+                <th>{{'NET_MNG_VM_IP_MNG.IP_ADDRESS' | translate}}</th>
+                <th>{{'NET_MNG_VM_IP_MNG.HOST_NAME' | translate}}</th>
+                <th>{{'NET_MNG_VM_IP_MNG.ENTERPRISE_NAME' | translate}}</th>
+                <th>{{'NET_MNG_VM_IP_MNG.STATUS' | translate}}</th>
+                <th>{{'NET_MNG_VM_IP_MNG.DESCRIPTION' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let ipusagemng of ipusagemngs; let i=index;">
+                <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="ipusagemng.checked" (change)="selectItem(i)" value="{{i}}"></td>
+                <td>{{addr}}</td>
+                <td>{{displayIt(instanceName) | translate}}</td>
+                <td>{{displayIt(tenantName) | translate}}</td>
+                <td [ngClass]="{'font-green':status=='2','font-orange':status=='1'}">
+                    {{status | dict:this.service.statusDic | async}}
+                </td>
+                <!-- <td [ngClass]="{'font-green':ipusagemng.status=='2','font-orange':ipusagemng.status=='1'}">{{getDicText(ipusagemng.status,this.statusDic)}}</td> -->
+                <td>{{displayIt(description) | translate}}</td>
+            </tr>
+            </tbody>
+        </table>
+<!--
+        {{pg_id}}
+        {{pg_name}}
+        ( {{selectedip.id}} , {{selectedip.addr}} )
+-->
+    </div>
+</div>
+
+<div class="text-center">
+    <button class="fox-cloud-button-lg fox-cloud-button-white">
+        <span class="icon-button-label" (click)="ipMngPage()">{{'COMMON.CLOSE' | translate}}</span>
+    </button>
+</div>
+
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" (of)="okClicked()"></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" (of)="onConfirmed()"></fc-confirm>
+
+<fc-popup #enableipbox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'NET_MNG_VM_IP_MNG.OCCUPY' | translate}}IP" (of)="acceptEnableIPModify()" (cf)="cancelEnableIPModify()">
+	<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">{{'NET_MNG_VM_IP_MNG.OCCUPY' | translate}}IP:</div>
+					<div class="col-sm-8">
+						<span>{{addr}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.DESCRIPTION' | translate}}：</div>
+					<div class="col-sm-8">
+					    <input type="string" class="form-control input-control" [(ngModel)]="description">
+					</div>
+				</div>
+			</div>
+	</div>
+</fc-popup>
+
+<fc-popup #disableipbox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'NET_MNG_VM_IP_MNG.RELEASE' | translate}}IP" (of)="acceptDisableIPModify()" (cf)="cancelDisableIPModify()">
+
+	<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">{{'NET_MNG_VM_IP_MNG.RELEASE' | translate}}IP:</div>
+					<div class="col-sm-8">
+						<span>{{addr}}</span>
+					</div>
+				</div>
+			</div>
+            <!--
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>说明：</div>
+					<div class="col-sm-8">
+					    <input type="string" class="form-control input-control" [(ngModel)]="changedip.description">
+					</div>
+				</div>
+			</div>
+            -->
+	</div>
+</fc-popup>
