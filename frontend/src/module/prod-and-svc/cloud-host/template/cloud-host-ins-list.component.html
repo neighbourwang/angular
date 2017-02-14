@@ -1,6 +1,6 @@
 <fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
-	<div class="page-content-header icon-instance">{{ 'COMMON.INSTANCE' | transalet }}{{ 'COMMON.LIST' | transalet }}</div>
+	<div class="page-content-header icon-instance">{{ 'MENU.INSTANCE_LIST' | transalet }}</div>
 	<div class="page-content">
 		<div style="padding-bottom: 10px;">
 			<div class="btn-group pull-right">
@@ -9,15 +9,15 @@
 				<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-					<li><a href="#">{{ 'COMMON.VIEW' | transalet }}{{ 'COMMON.DETAILS' | transalet }}</a></li>
+					<li><a href="#">{{ 'CLOUD_HOST.VIEW_DETAILS' | transalet }}</a></li>
 					<li role="separator" class="divider"></li>
-					<li><a href="#">{{ 'COMMON.VIEW' | transalet }}{{ 'COMMON.CONSOLE' | transalet }}</a></li>
+					<li><a href="#">{{ 'VM_INSTANCE.VIEW_CONSOLE' | transalet }}</a></li>
 					<li role="separator" class="divider"></li>
-					<li><a href="#">{{ 'COMMON.EDIT' | transalet }}{{ 'COMMON.CLOUD_HOSTING' | transalet }}</a></li>
+					<li><a href="#">{{ 'VM_INSTANCE.EDIT_THE_CLOUD_HOST' | transalet }}</a></li>
 					<li role="separator" class="divider"></li>
-					<li><a href="#">{{ 'COMMON.DELETE' | transalet }}{{ 'COMMON.CLOUD_HOSTING' | transalet }}</a></li>
+					<li><a href="#">{{ 'VM_INSTANCE.DELETE_THE_CLOUD_HOST' | transalet }}</a></li>
 					<li role="separator" class="divider"></li>
-					<li><a href="#">{{ 'COMMON.CREATE' | transalet }}{{ 'COMMON.SNAPSHOT' | transalet }}</a></li>
+					<li><a href="#">{{ 'CLOUD_HOST.CREATE_SNAPSHOT' | transalet }}</a></li>
 					<li role="separator" class="divider"></li>
 					<li><a class="clickable" (click)="updateInstanceStatus(item, 'softReboot', $event);">{{ 'CLOUD_HOST.SOFT_RESTART' | transalet }}</a></li>
 					<li role="separator" class="divider"></li>
@@ -54,10 +54,10 @@
 			<thead>
 				<tr>
 					<th class="fristTh"><input type="checkbox" (click)="checkAll()"> {{ 'COMMON.SELECT_ALL' | transalet }}</th>
-					<th>{{ 'COMMON.INSTANCE' | transalet }}{{ 'COMMON.NAME' | transalet }}</th>
+					<th>{{ 'VM_INSTANCE.INSTANCE_NAME' | transalet }}</th>
 					<th>{{ 'COMMON.MIRROR' | transalet }}</th>
 					<th>{{ 'COMMON.SPECIFICATION' | transalet }}</th>
-					<th>{{ 'COMMON.NETWORK' | transalet }}{{ 'COMMON.TYPE' | transalet }}</th>
+					<th>{{ 'VM_INSTANCE.NET_TYPE' | transalet }}</th>
 					<th>{{ 'COMMON.PAYMENT_METHODS' | transalet }}</th>
 					<th>IP {{ 'COMMON.PATH' | transalet }}</th>
 					<th>{{ 'COMMON.OPERATION' | transalet }}</th>
