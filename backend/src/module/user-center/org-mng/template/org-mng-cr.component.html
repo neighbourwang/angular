@@ -1,4 +1,6 @@
-<div class="page-content-header icon-content-header-userCenterOn">{{title | translate}}</div>
+<div class="page-content-header icon-content-header-userCenterOn" *ngIf="isCreate">{{'USER_CENTER.CREATE_ORG'|translate}}</div>
+<div class="page-content-header icon-content-header-userCenterOn" *ngIf="!isCreate">{{'USER_CENTER.EDIT_ORG'|translate}}</div>
+
 <div class="row" style="padding-top: 30px;">
     <div class="col-md-12">
         <div class="row row-line-height">
@@ -107,8 +109,9 @@
             <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel()">
                 <span class="icon-button-label">{{'NET_MNG_VM_PORT.CNACLE' | translate}}<!--取消--></span>
             </button>
-            <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px" (click)="create()">
-                <span class="icon-button-label">{{btnName | translate}}</span>
+            <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px" (click)="create()">                
+                <span class="icon-button-label" *ngIf="isCreate">{{'NET_MNG_VM_IP_MNG.CREATE'|translate}}</span>
+                <span class="icon-button-label" *ngIf="!isCreate">{{'HOST_OPENSTACK_MNG.EDIT'|translate}}</span>
             </button>
         </div>
         <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="NET_MNG_VM_DBT_PORT.COMFIRM" (of)="nof()"></fc-notice>

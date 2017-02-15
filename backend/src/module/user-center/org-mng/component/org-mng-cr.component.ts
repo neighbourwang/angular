@@ -30,8 +30,6 @@ export class OrgMngCrComponent implements OnInit{
     private notice: NoticeComponent;
 
 
-    title: string;
-    btnName : string;
     isCreate : boolean;
 
     size : number = 10;
@@ -51,9 +49,6 @@ export class OrgMngCrComponent implements OnInit{
         this.route.params.forEach((params: Params) => {
             if(params['id']){
                 //编辑
-                this.title = 'USER_CENTER.EDIT_ORG'; //USER_CENTER.EDIT_ORG=>编辑机构 
-
-                this.btnName = 'HOST_OPENSTACK_MNG.EDIT'; //HOST_OPENSTACK_MNG.EDIT=>编辑 
 
                 this.isCreate = false;
                 this.orgId = params['id'];
@@ -130,9 +125,6 @@ export class OrgMngCrComponent implements OnInit{
 
             }else{
                 //创建
-                this.title = 'USER_CENTER.CREATE_ORG'; //USER_CENTER.CREATE_ORG=>创建机构 
-
-                this.btnName = 'NET_MNG_VM_IP_MNG.CREATE'; //NET_MNG_VM_IP_MNG.CREATE=>创建 
                 this.isCreate = true;
 
                 // this.service.getNoMngUser(0,this.size).then(
