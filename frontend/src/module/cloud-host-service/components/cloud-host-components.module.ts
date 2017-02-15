@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { CommonComponentModule } from '../../../architecture';
+import { CommonComponentModule, PipeModule } from '../../../architecture';
 
 import { CartButtonComponent } from '../components/cart-button/cart-button.component';
 import { HostReconfigComponent } from '../components/host-reconfig/host-reconfig.component';
@@ -13,7 +13,8 @@ import { DiskReconfigService } from '../components/disk-reconfig/disk-reconfig.s
 
 @NgModule({
     imports: [
-        CommonComponentModule
+        CommonComponentModule,
+        PipeModule
     ],
     declarations: [
         CartButtonComponent,
