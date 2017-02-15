@@ -301,5 +301,9 @@ export class EntEstCreComponent implements OnInit{
 			this.ADflag = "false";
 		});
 	}
-	}
+}
+
+return(){
+    this.router.navigateByUrl('ent-mng/ent-est-mng/ent-est-mng');
+  }
 }

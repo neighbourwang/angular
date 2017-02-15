@@ -170,6 +170,34 @@
     height: 300px;
     border:1px solid #000;
 }
+.iconPanel{
+	width:120px;
+    height: 100px;
+    display: inline-block;
+}
+.iconPanel2{
+	width: 50px;
+    height: 50px;
+}
+._icon{
+    margin-left:50px;
+}
+._icon2{
+    margin-top: -30px;margin-left: 120px;
+}
+._span{
+    display: block;margin-top: -41px;margin-left: 100px;
+}
+._span2{
+    margin-top: -45px;
+    display: block;
+    margin-left: 165px;
+}
+._span3{
+        margin-left: 100px;
+    margin-top: 10px;
+    display: block;
+}
 
 .uploadImg span:first-child{
 	color:  #C1CACA;
@@ -268,12 +296,15 @@
 	margin-bottom:50px; 
 }
 .checkProdPanel{
-	height: 300px;
+	height: 500px;
     margin-bottom: 30px;
     margin-top: 30px;
     margin-left: 50px;
     margin-right: 90px;
     width: 1200px;
+}
+.icon-style{
+    margin-left:50px; 
 }
 .titlePanel{
 	width: 100%;

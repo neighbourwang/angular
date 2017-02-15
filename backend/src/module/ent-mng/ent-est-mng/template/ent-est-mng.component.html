@@ -13,10 +13,10 @@
 				<li class="hands"><a (click)="modifyQuota()">{{ 'ENT_MNG.MODIFY_QUOTA' | translate }}</a></li>
 <!-- 				<li class="hands"><a (click)="setupCertInfo()">设置认证</a></li>
  -->			
- 				<li class="hands"><a (click)="manageAviPlatform()">{{ 'MANAGE_AVILABLE_PLATFORM' | translate }}</a></li>
- 				<li class="hands"><a (click)="setupProduct()">{{ 'ENT_MNG.SET_PRODUCT' | translate }}</a></li>
-				<li class="hands"><a (click)="setupAdmin()">{{ 'ENT_MNG.SET_ADMIN' | translate }}</a></li>
-				<li class="hands"><a (click)="setupCerts()">{{ 'ENT_MNG.MNG_AD_SOURCE' | translate }}</a></li>
+ 				<!--<li class="hands"><a (click)="manageAviPlatform()">{{ 'ENT_MNG.MANAGE_AVILABLE_PLATFORM' | translate }}</a></li>-->
+ 				<!--<li class="hands"><a (click)="setupProduct()">{{ 'ENT_MNG.SET_PRODUCT' | translate }}</a></li>-->
+				<!--<li class="hands"><a (click)="setupAdmin()">{{ 'ENT_MNG.SET_ADMIN' | translate }}</a></li>-->
+				<!--<li class="hands"><a (click)="setupCerts()">{{ 'ENT_MNG.MNG_AD_SOURCE' | translate }}</a></li>-->
 				<li class="hands"><a (click)="enable()">{{ 'COMMON.ENABLE' | translate }}</a></li>
 				<li class="hands"><a (click)="disable()">{{ 'COMMON.DISABLE' | translate }}</a></li>
 				<li class="hands"><a (click)="delete()">{{ 'COMMON.DELETE' | translate }}</a></li>
@@ -30,6 +30,19 @@
 			<span class="glyphicon glyphicon-edit"></span>
 			<span class="icon-button-label icon-left-button-label">{{ 'ENT_MNG.CREATE_ENTERPRISE' | translate }}</span>
 		</button>
+		<button class="fox-cloud-button fox-cloud-button-green" (click)="manageAviPlatform()">
+			<span class="icon-button-label icon-left-button-label">{{ 'ENT_MNG.MANAGE_AVILABLE_PLATFORM' | translate }}</span>
+		</button>
+		<button class="fox-cloud-button fox-cloud-button-green" (click)="setupCerts()">
+			<span class="icon-button-label icon-left-button-label">{{ 'ENT_MNG.MNG_AD_SOURCE' | translate }}</span>
+		</button>
+		<button class="fox-cloud-button fox-cloud-button-green" (click)="setupProduct()">
+			<span class="icon-button-label icon-left-button-label">{{ 'ENT_MNG.SET_PRODUCT' | translate }}</span>
+		</button>
+		<button class="fox-cloud-button fox-cloud-button-green" (click)="setupAdmin()">
+			<span class="icon-button-label icon-left-button-label">{{ 'ENT_MNG.SET_ADMIN' | translate }}</span>
+		</button>
+		
 	</div>
 	<div class="table-container">
 		<table class="table table-hover"> 

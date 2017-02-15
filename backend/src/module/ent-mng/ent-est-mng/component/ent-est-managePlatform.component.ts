@@ -9,7 +9,7 @@ import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
   // moduleId: module.id,
   selector: 'ent-est-managePlatform',
   templateUrl: '../template/ent-est-managePlatform.component.html',
-  styleUrls: ['../style/ent-est-mng.component.css'],
+  styleUrls: ['../style/ent-est-managePlatform.less'],
   providers: [EntEstCreService]
 }) 
 export class EntEstManagePlatformComponent implements OnInit {
@@ -26,7 +26,9 @@ export class EntEstManagePlatformComponent implements OnInit {
   ngOnInit() {
 
   }
-
+return(){
+    this.router.navigateByUrl('ent-mng/ent-est-mng/ent-est-mng');
+  }
 
 
 }

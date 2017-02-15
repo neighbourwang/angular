@@ -1,14 +1,16 @@
 <div class="enterpriseManage">
-    <div class="page-content-header icon-content-header-enterprise-manage">{{ 'MANAGE_AVILABLE_PLATFORM' | translate }}</div>
+    <div class="page-content-header icon-content-header-enterprise-manage">{{ 'ENT_MNG.MANAGE_AVILABLE_PLATFORM' | translate }}
+		<button class="pull-right fox-cloud-button fox-cloud-button-white" style="margin-top:-10px;" (click)="return()"><span>{{ 'ENT_MNG.BACK_ENTERPRISE_LIST' | translate }}</span></button>
+	</div>
     <div class="page-content">
         <div class="firstPanel">
-            <span>已选择平台</span>
-            <div class="table-container">
+            <span class="form-control-title">已选择平台</span>
+            <div class="table-container mgt10">
 			    <table class="table table-hover">
 			        <thead>
 			            <tr>
 			                <th>平台名称</th>
-			                <th>平台类别</th>
+			                <th>平台类型</th>
 			            </tr>
 			        </thead>
 			        <tbody>
@@ -20,18 +22,22 @@
 			    </table>
 			</div>
 		</div>
-         <div class="firstPanel">
-            <span>未选择平台</span>
-            <div class="table-container">
+         <div class="firstPanel mgt20">
+            <span class="form-control-title">未选择平台</span>
+            <div class="table-container mgt10">
 			    <table class="table table-hover">
 			        <thead>
 			            <tr>
+							<th>选择</th>
 			                <th>平台名称</th>
-			                <th>平台类别</th>
+			                <th>平台类型</th>
+			                <th>状态</th>
 			            </tr>
 			        </thead>
 			        <tbody>
 			            <tr>
+							<td><input type="checkbox" class="fox-cloud-checkbox"/></td>
+			                <td>OpentStack</td>
 			                <td>上海A平台</td>
 			                <td>OpentStack</td>
 			            </tr>               
