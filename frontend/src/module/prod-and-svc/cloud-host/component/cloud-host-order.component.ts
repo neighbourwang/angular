@@ -50,7 +50,7 @@ export class HostOrderComponent implements OnInit {
           .getServices()
           .then(ret => {
               if (!ret) {
-                  this.showError('', 'CLOUD_HOST.FAILED_TO_GET_THE_ORDER_LIST_DATA' + '.');
+                  this.showError('', 'CLOUD_HOST.FAILED_TO_GET_THE_ORDER_LIST_DATA');
               } else {
                 this.services = this.fmtServicesData(ret);
                 this.fmtDefaultOrder();
@@ -58,7 +58,7 @@ export class HostOrderComponent implements OnInit {
               this.layoutService.hide();
           })
           .catch(error => {
-              this.showError('', 'CLOUD_HOST.FAILED_TO_GET_THE_ORDER_LIST_DATA' + '.');
+              this.showError('', 'CLOUD_HOST.FAILED_TO_GET_THE_ORDER_LIST_DATA');
               this.layoutService.hide();
           });
   }
@@ -426,15 +426,15 @@ export class HostOrderComponent implements OnInit {
         .saveOrder(this.payload)
         .then(ret => {
             if (!ret) {
-                this.showError('', 'CLOUD_HOST.CONFIGURATION_SUBMISSION_FAILED___CONTACT_ADMINISTRATOR' + '.');
+                this.showError('', 'CLOUD_HOST.CONFIGURATION_SUBMISSION_FAILED___CONTACT_ADMINISTRATOR');
             } else {
               this.fmtDefaultOrder();
-              this.showError('', 'CLOUD_HOST.CONFIGURATION_APPLICATION_SUBMITTED_SUCCESSFULLY'+ ',' +'COMMON.PLEASE_WAIT' + '.');
+              this.showError('', 'CLOUD_HOST.CONFIGURATION_APPLICATION_SUBMITTED_SUCCESSFULLY');
             }
             this.layoutService.hide();
         })
         .catch(error => {
-            this.showError('', 'CLOUD_HOST.CONFIGURATION_SUBMISSION_FAILED___CONTACT_ADMINISTRATOR' + '.');
+            this.showError('', 'CLOUD_HOST.CONFIGURATION_SUBMISSION_FAILED___CONTACT_ADMINISTRATOR');
             this.layoutService.hide();
         });
   }
