@@ -117,13 +117,14 @@
 							<th>{{ 'COMMON.DUE_TIME' | translate}}</th>
 							<th>{{ 'COMMON.PURCHASER' | translate}}</th>
 							<th>{{ 'COMMON.DEPARTMENT' | translate}}</th>
+							<th>所属企业</th>
 						</tr>			
 					</thead>
 				</table>
 
 				<table class="table _table" *ngFor="let orderItem of _orderLoader.Items">
 					<tr>
-						<td colspan="8" class="leftAlign font-green">{{orderItem.purchaseDate}} {{ 'COMMON.ORDER_NUM' | translate}}: {{orderItem.orderNo}}</td>
+						<td colspan="9" class="leftAlign font-green">{{orderItem.purchaseDate}} {{ 'COMMON.ORDER_NUM' | translate}}: {{orderItem.orderNo}}</td>
 						
 						<td><!--<button *ngIf="orderItem.canRenew" class="fox-cloud-button  fox-cloud-button-green pull-right" (click)="renewSelect(orderItem)">{{ 'COMMON.RENEW' | translate}}</button> --></td>
 						<td><!-- <button class="fox-cloud-button  fox-cloud-button-green pull-right" (click)="cancelSelect(orderItem)">退订</button> --></td>
@@ -152,6 +153,7 @@
 						<td>{{prodItem.expireDate}}
 						</td>
 						<td>{{prodItem.buyer}}</td>
+						<td>{{prodItem.departmentName}}</td>
 						<td>{{prodItem.departmentName}}</td>
 					</tr>
 				</table>

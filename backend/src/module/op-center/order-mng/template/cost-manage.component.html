@@ -1,0 +1,96 @@
+<div class="CostManage">	
+	<div class="page-content-header">账单管理</div>
+	<div class="page-content">
+		<div class="firstPanel mgt10">
+			<span class="float-left mgt5 mgr5">企业：</span> 
+			<select class="form-control fix-width-120">
+					<option class="hands" [value]="null">所有企业</option>
+					<option class="hands">上海慧于</option>
+			</select>
+			<span class="mgl20 mgr5">年份：</span> 
+			<select class="form-control fix-width-120">
+					<option class="hands" [value]="null">2016年</option>
+					<option class="hands">2015</option>
+			</select>
+			<button (click)="updateCost();" class="fox-cloud-button fox-cloud-button-green mgl20"><span class="icon-button-label icon-left-button-label">确&nbsp;&nbsp;定&nbsp;&nbsp;</span></button>
+		</div>
+		<div class="secondPanel mgt20">
+			<div class="table-container">
+			    <table class="table table-hover">
+			        <thead>
+			            <tr>
+			                <th>账单</th>
+			                <th>记账周期</th>
+			                <th>账单金额</th>
+			                <th>账单生成日</th>
+			                <th>账单发送日</th>
+			                <th>账单状态</th>
+							<th>操作</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			            <tr>
+			                <td>1</td>
+			                <td>上海慧于</td>
+			                <td>现金</td>
+			                <td>1个月</td>
+			                <td>2017-2-13</td>
+			                <td>2017-2-13</td>
+							<td>
+								<button class="fox-cloud-button-white" (click)="updateCost();">金额调整</button>
+								<!--<button class="fox-cloud-button-white">下载</button>-->
+							</td>
+			            </tr>               
+			        </tbody>
+			    </table>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- 金额调整 -->
+<fc-popup #costUpdate ot="{{ 'COMMON.CONFIRM' | translate }}" ct="{{ 'COMMON.CANCEL' | translate }}" title="金额调整" (of)="acceptCostUpdate()" (cf)="cancelCostUpdate()">
+  <div class="dialogContent">
+	<div class="row row-line-height">
+		<form class="form-horizontal" role="form">
+			<div class="form-group">
+				<label class="col-sm-6">本期账单金额</label>
+				<div class="col-sm-6">
+				<label class="col-sm-6" style="text-align:left!important;">*******元</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-6">调整项目</label>
+				<div class="col-sm-6">
+					<input type="text" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-6">调整金额</label>
+				<div class="col-sm-6">
+					<input type="text" />
+				</div>
+			</div>
+		</form>
+	</div>
+  </div>
+</fc-popup>
+
+	<!--<div class="modal fade" id="costUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  	<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				  	<div class="modal-header">
+					 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">金额调整</h4>
+				  	</div>
+				 	<div class="modal-body">
+						
+					</div>
+			      
+				  	<div class="modal-footer">
+				  	</div>
+				
+		  	</div>
+		</div>
+	</div>-->

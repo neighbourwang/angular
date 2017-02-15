@@ -1,0 +1,118 @@
+
+<!--详情-->
+<div class="modal fade" id="diskBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  	<div class="modal-dialog" role="document">
+	  		<!-- 配置变更 -->
+			<div class="modal-content" *ngIf="state === 'change'">
+			  	<div class="modal-header">
+				 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">云硬盘扩容</h4>
+			  	</div>
+			 	<div class="modal-body"> 
+		        	<h4 class="title mgb20">云硬盘一旦扩容后，将不能缩减，请根据实际需求进行选购。</h4>
+		         	<table class="table table-all-boder mgb20">
+						<tr class="table-line-head">
+							<td class="text-center">云硬盘名称</td>
+							<td class="text-center">存储类型</td>
+							<td class="text-center">容量(GB)</td>
+							<td class="text-center">挂载位置（云主机名称）</td> 
+							<td class="text-center">状态</td>
+							<td class="text-center">当前费用</td>
+							<td class="text-center">所在区域及可用区</td>
+							<td class="text-center">属性</td>
+					    </tr>
+						<tr>
+							<td class="text-center">云硬盘名称</td>
+							<td class="text-center">存储类型</td>
+							<td class="text-center">容量(GB)</td>
+							<td class="text-center">挂载位置（云主机名称）</td> 
+							<td class="text-center">状态</td>
+							<td class="text-center">当前费用</td>
+							<td class="text-center">所在区域及可用区</td>
+							<td class="text-center">属性</td>
+						</tr>
+					</table>
+
+					<table class="cm-table-left">
+						<tr>
+							<th class="col-md-1 col-xs-3 text-center">新规格</th>
+							<td>
+								<div class="col-md-8 no-padding ">
+									<div class="col-md-12 no-padding pdt15 mgt15">
+										容量(GB)：
+										<count-bar
+								            step="10" 
+								            max="200" 
+								            min="20" 
+								            [stepCheck]=true
+								            value="20" (output)="outputValue($event, i)"></count-bar>
+								        <span class="pdl10">增量按照每10GB一档，最大可扩容到 500GB</span>
+									</div>
+								</div>
+								<div class="col-md-4 no-padding">
+									<table class="price-table mgt20">
+										<tr>
+											<td class="text-r" rowspan=2>(费用合计)</td>
+											<td class="text-r">一次性费用：</td>
+											<td><font>¥0元</font></td>
+										</tr>
+										<tr>
+											<td class="text-r vertical-t">费用：</td>
+											<td><font>¥100元/月</font><br><font>¥0元</font></td>
+										</tr>
+									</table>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+		      
+			  	<div class="modal-footer">
+			        <button (click)="setConfig()" class="btn button-confirm button-size-big">{{ot || 'DIALOG.CONFIRM' | translate }}</button> <!-- 确认 -->
+			        <button class="btn btn-default button-size-big" data-dismiss="modal">{{ct || 'DIALOG.CANCEL' | translate }}</button> <!-- 取消 -->
+			  	</div>
+	  	</div>
+	  	<!-- 变更完成 -->
+		<div class="modal-content" *ngIf="state === 'done'">
+		  	<div class="modal-header">
+			 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">订单完成：云硬盘扩容</h4>
+		  	</div>
+		 	<div class="modal-body"> 
+	         	<table class="table table-all-boder mgb20">
+					<tr class="table-line-head">
+						<td class="text-center">产品信息</td>
+						<td class="text-center">产品类型</td>
+						<td class="text-center">计费模式</td>
+						<td class="text-center">购买周期</td> 
+						<td class="text-center">数量</td>
+						<td class="text-center">新费用</td>
+						<td class="text-center">状态</td>
+						<td class="text-center">新费用开始时间</td>
+						<td class="text-center">变更后到期时间</td> 
+				    </tr>
+					<tr>
+						<td class="text-center">产品信息</td>
+						<td class="text-center">产品类型</td>
+						<td class="text-center">计费模式</td>
+						<td class="text-center">购买周期</td> 
+						<td class="text-center">数量</td>
+						<td class="text-center">新费用</td>
+						<td class="text-center">状态</td>
+						<td class="text-center">新费用开始时间</td>
+						<td class="text-center">变更后到期时间</td> 
+					</tr>
+				</table>
+
+				<div class="done-bottom">
+					<div class="left-text float-left">
+						<p>您的云硬盘已申请扩容，系统将自动进行配置变更。</p>
+						<p>如需审批，则要等待审批通过后，系统才会开始执行扩容。</p>
+						<p>您可以登陆管理控制台，查看云硬盘状态。</p>
+					</div>
+					<button class="btn button-confirm button-size-big float-right">管理控制台</button>
+				</div>
+			</div>
+	  	</div>
+	</div>
+</div>

@@ -32,18 +32,36 @@ export class ProdMngCreStep4Component implements OnInit {
     @ViewChild('notice')
     notice:NoticeComponent;
 
-
+    platformIdList=new Array();
     enterpriseList = new Array();
     ngOnInit() {
        console.log(this.service.product);
        //获取企业列表        
-        this.ProdDirListService.getEnterpriseList().then(response => {
+        // this.ProdDirListService.getEnterpriseList().then(response => {
+        //     console.log('企业', response);            
+        //     // if (response && 100 == response.resultCode) {
+        //     this.enterpriseList = response.resultContent;
+        //     // } else {
+
+        //     // }
+        // }).catch(err => {
+        //     console.error(err)
+        // })
+
+        this.service.product.productPlatformReqs.forEach(ele=>{
+            this.platformIdList.push(ele.platformId)
+        });
+        console.log('idddd',this.platformIdList);
+        this.service.getEnterpriseList(this.platformIdList).then(response => {
             console.log('企业', response);            
             // if (response && 100 == response.resultCode) {
             this.enterpriseList = response.resultContent;
             // } else {
 
             // }
+            if(!this.enterpriseList||this.enterpriseList.length==0){
+                this.notice.open('企业列表为空','返回上一步重新选择平台')
+            }
         }).catch(err => {
             console.error(err)
         })

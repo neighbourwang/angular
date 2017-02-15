@@ -2,40 +2,42 @@ import { Component, OnInit,ViewChild, Input, EventEmitter, Output } from '@angul
 import { Router } from '@angular/router';
 
 import { LayoutService, PopupComponent } from '../../../../architecture';
-import { HostReconfigService} from './host-reconfig.service';
-import { VmList, HandleVm, QuiryVmList } from '../../vm-instance/model/vm-list.model';
+import { DiskReconfigService} from './disk-reconfig.service';
+import { QuiryDistList,HandleDist , DistList } from '../../cloud-drive/model/dist-list.model';
 
 @Component({
-	selector: 'host-reconfig',
-	templateUrl: './host-reconfig.component.html',
-	styleUrls: ['./host-reconfig.component.less'],
+	selector: 'disk-reconfig',
+	templateUrl: './disk-reconfig.component.html',
+	styleUrls: ['./disk-reconfig.component.less'],
 	providers: []
 })
-export class HostReconfigComponent implements OnInit {
+export class DiskReconfigComponent implements OnInit {
 
 	@Output() complete=new EventEmitter();
 
 	state:"change"|"done" = "change";
-	vm:VmList = new VmList;
 
 	constructor(
 		private layoutService: LayoutService,
-		private service : HostReconfigService
+		private service : DiskReconfigService
 	) { }
 
 	ngOnInit() {
 		
 	}
 
-	open(vm:VmList) {
-		$('#hostBox').modal('show');
-		this.vm = vm;
+	open(vm:DistList) {
+		$('#diskBox').modal('show');
 		this.state = "change";
 	}
 
 	setConfig() {
 		this.complete.emit();
 		this.state = "done";
+	}
+
+	outputValue() {
+		
 	}
 
 

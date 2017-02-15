@@ -351,6 +351,11 @@ export class OrderMngComponent implements OnInit{
 		})
 	}
 
+	//自动续订
+	autoRenew(orderItem:SubInstanceResp){
+
+	}
+
 	//选择续订	
 	renewSelect(orderItem:SubInstanceResp){
 		// 成功、即将过期:7的订单可以  续订  成功指已激活

@@ -814,10 +814,10 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/enterprises/simple "
     },
     {
-        "desc": "根据产品获取企业列表",
-        "id": "prod-mng.prod-enterprise.list",
-        "method": "GET",
-        "url": "adminui/authsec/enterprises/simple "
+        "desc": "根据平台获取企业列表",
+        "id": "prod-mng.prod-enterprise.post",
+        "method": "POST",
+        "url": "usermgmt/authsec/enterprises/items "
     },
 
     {

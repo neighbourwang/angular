@@ -2,16 +2,17 @@
 <!--详情-->
 <div class="modal fade" id="hostBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	  	<div class="modal-dialog" role="document">
-			<div class="modal-content">
+	  		<!-- 配置变更 -->
+			<div class="modal-content" *ngIf="state === 'change'">
 			  	<div class="modal-header">
 				 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<h4 class="modal-title" id="myModalLabel">云主机配置变更</h4>
 			  	</div>
 			 	<div class="modal-body"> 
 		        	<h4 class="title mgb20">变更云主机规格，系统会自动关闭虚拟机以进行操作，请在下单前，确认虚拟机无业务正在运行！</h4>
-		         	<table class="table table-hover table-all-boder mgb20">
+		         	<table class="table table-all-boder mgb20">
 						<tr class="table-line-head">
-							<td class="text-center">云主机名称</td>
+							<!-- <td class="text-center">云主机名称</td>
 							<td class="text-center">当前配置</td>
 							<td class="text-center">镜像</td>
 							<td class="text-center">内部IP</td> 
@@ -21,36 +22,126 @@
 							<td class="text-center">当前费用</td>
 							<td class="text-center">附加服务</td> 
 							<td class="text-center">类型</td>
-							<td class="text-center">服务级别</td>
+							<td class="text-center">服务级别</td> -->
+				            <th class="text-center">{{'COMMON.CLOUD_HOST_NAME'| translate}}</th>
+				            <th class="text-center">{{'COMMON.CONFIGURATION'| translate}}</th>
+				            <th class="text-center">{{'VM_INSTANCE.MIRROR' | translate}}</th>
+				            <th class="text-center">{{'VM_INSTANCE.INTERNAL_IP' | translate}}</th> 
+				            <th class="text-center">{{'VM_INSTANCE.EXTERNA_IP' | translate}}</th>
+				            <th class="text-center">{{'COMMON.REGION_AND_AVAILABLE_AREA' | translate}}</th>
+				            <th class="text-center">{{'COMMON.STATUS'| translate}}</th>
+				            <th class="text-center">{{'COMMON.EXPIRE_DATE'| translate}}</th>
 					    </tr>
 						<tr>
-							<td class="text-center">云主机名称</td>
-							<td class="text-center">当前配置</td>
-							<td class="text-center">镜像</td>
-							<td class="text-center">内部IP</td> 
-							<td class="text-center">外部IP</td>
-							<td class="text-center">所在区域及可用区</td>
-							<td class="text-center">状态</td>
-							<td class="text-center">当前费用</td>
-							<td class="text-center">附加服务</td> 
-							<td class="text-center">类型</td>
-							<td class="text-center">服务级别</td>
+				            <td class="text-center active">{{vm.instanceName}}</td>
+				            <td class="text-center">{{vm.specification}}</td>
+				            <td class="text-center">{{vm.osInfo}}</td>
+				            <td class="text-center">{{vm.privateIP}}</td> 
+				            <td class="text-center">{{vm.publicIP}}</td>
+				            <td class="text-center">{{vm.regionZone}}</td>
+				            <td class="text-center">{{vm.vmState | dict:service.computeStatus | async}}</td>
+				            <td class="text-center">{{vm.expiryDate}}</td>
 						</tr>
 					</table>
 
-					<table class="cm-table-left mgb20">
+					<table class="cm-table-left">
 						<tr>
-							<th class="col-md-1 col-xs-3 text-center">区域列表</th>
-							<td>sssss</td>
+							<th class="col-md-1 col-xs-3 text-center">新规格</th>
+							<td>
+								<div class="col-md-8 no-padding ">
+									<div class="col-md-12 pdt15 pdb15">
+										<div class="col-md-1 line34 no-padding">CPU：</div>
+										<div class="col-md-10 no-padding btn-group" data-toggle="buttons">
+											<button class="btn btn-default active">
+												 立即设置
+											</button>
+											<button class="btn btn-default">
+												模板自带密码
+											</button>
+											<button class="btn btn-default">
+												自带密码
+											</button>
+										</div>
+									</div>
+									<div class="col-md-12 pdb15">
+										<div class="col-md-1 line34 no-padding">内存：</div>
+										<div class="col-md-10 no-padding btn-group" data-toggle="buttons">
+											<button class="btn btn-default active">
+												 立即设置
+											</button>
+											<button class="btn btn-default">
+												模板自带密码
+											</button>
+											<button class="btn btn-default">
+												自带密码
+											</button>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-4 no-padding">
+									<table class="price-table mgt20">
+										<tr>
+											<td class="text-r" rowspan=2>(费用合计)</td>
+											<td class="text-r">一次性费用：</td>
+											<td><font>¥0元</font></td>
+										</tr>
+										<tr>
+											<td class="text-r vertical-t">费用：</td>
+											<td><font>¥100元/月</font><br><font>¥0元</font></td>
+										</tr>
+									</table>
+								</div>
+							</td>
 						</tr>
 					</table>
 				</div>
 		      
 			  	<div class="modal-footer">
-			        <button class="btn button-confirm button-size-big">{{ot || 'DIALOG.CONFIRM' | translate }}</button> <!-- 确认 -->
+			        <button (click)="setConfig()" class="btn button-confirm button-size-big">{{ot || 'DIALOG.CONFIRM' | translate }}</button> <!-- 确认 -->
 			        <button class="btn btn-default button-size-big" data-dismiss="modal">{{ct || 'DIALOG.CANCEL' | translate }}</button> <!-- 取消 -->
 			  	</div>
-			
+	  	</div>
+	  	<!-- 变更完成 -->
+		<div class="modal-content" *ngIf="state === 'done'">
+		  	<div class="modal-header">
+			 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">订单完成：配置变更</h4>
+		  	</div>
+		 	<div class="modal-body"> 
+	         	<table class="table table-all-boder mgb20">
+					<tr class="table-line-head">
+						<td class="text-center">产品信息</td>
+						<td class="text-center">产品类型</td>
+						<td class="text-center">计费模式</td>
+						<td class="text-center">购买周期</td> 
+						<td class="text-center">数量</td>
+						<td class="text-center">新费用</td>
+						<td class="text-center">状态</td>
+						<td class="text-center">新费用开始时间</td>
+						<td class="text-center">变更后到期时间</td> 
+				    </tr>
+					<tr>
+						<td class="text-center">产品信息</td>
+						<td class="text-center">产品类型</td>
+						<td class="text-center">计费模式</td>
+						<td class="text-center">购买周期</td> 
+						<td class="text-center">数量</td>
+						<td class="text-center">新费用</td>
+						<td class="text-center">状态</td>
+						<td class="text-center">新费用开始时间</td>
+						<td class="text-center">变更后到期时间</td> 
+					</tr>
+				</table>
+
+				<div class="done-bottom">
+					<div class="left-text float-left">
+						<p>您的云主机已申请配置变更，系统将自动关闭云主机，并进行配置变更。</p>
+						<p>如需审批，则要等待审批通过后，系统才会开始执行配置变更。</p>
+						<p>您可以登陆管理控制台，查看云主机状态。</p>
+					</div>
+					<button class="btn button-confirm button-size-big float-right">管理控制台</button>
+				</div>
+			</div>
 	  	</div>
 	</div>
 </div>
