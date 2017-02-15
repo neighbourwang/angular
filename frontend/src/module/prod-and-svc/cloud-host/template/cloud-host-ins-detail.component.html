@@ -1,12 +1,12 @@
 <fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
-<div class="page-content-header icon-instance">{{ 'COMMON.INSTANCE' | transalet }}{{ 'COMMON.DETAILS' | transalet }}</div>
+<div class="page-content-header icon-instance">{{ 'CLOUD_HOST.INSTANCE_DETAILS' | transalet }}</div>
 <div class="page-content">
     <div class="row">
         <div class="col-md-4">
             <div class="instanceInfoCon">
                 <div class="thisTitle">
-                    <div class="dropdown pull-right">{{ 'CLOUD_HOST.LINK_MANAGEMENT_TERMINAL' | transalet }}<a href="#" class="dropdown-toggle" data-toggle="dropdown"> {{ 'COMMON.MORE_ACTIONS' | transalet }} <b class="caret"></b> </a>
+                    <div class="dropdown pull-right">{{ 'CLOUD_HOST.LINK_MANAGEMENT_TERMINAL' | traWnsalet }}<a href="#" class="dropdown-toggle" data-toggle="dropdown"> {{ 'COMMON.MORE_ACTIONS' | transalet }} <b class="caret"></b> </a>
                         <ul class="dropdown-menu">
                             <li><a href="#">{{ 'COMMON.ADD' | transalet }}</a></li>
                             <li><a href="#">{{ 'COMMON.DELETE' | transalet }}</a></li>
@@ -14,7 +14,7 @@
                             <li><a href="#">{{ 'COMMON.QUERY' | transalet }}</a></li>
                         </ul>
                     </div>
-                    <i class="glyphicon glyphicon-pause"></i>{{ 'COMMON.BASIC' | transalet }}{{ 'COMMON.INFORMATION' | transalet }}</div>
+                    <i class="glyphicon glyphicon-pause"></i>{{ 'VM_INSTANCE.BASIC_INFORMATION' | transalet }}</div>
                 <div class="instanceInfoBox">
                     <table>
                         <tr>
@@ -22,35 +22,35 @@
                             <td>{{instanceDetail.id}}</td>
                         </tr>
                         <tr>
-                            <th>{{ 'COMMON.ALL' | transalet }}{{ 'COMMON.AVAILABLE_ZONE' | transalet }}:</th>
+                            <th>{{ 'ORDER_MNG.ALL_AVAILABLE_ZONE' | transalet }}: </th>
                             <td>{{instanceDetail.availabilityZone}}</td>
                         </tr>
                         <tr>
-                            <th>{{ 'COMMON.NAME' | transalet }}:</th>
+                            <th>{{ 'COMMON.NAME' | transalet }}: </th>
                             <td>{{instanceDetail.displayName}}</td>
                         </tr>
                         <tr>
-                            <th>{{ 'COMMON.DESCRIPTION' | transalet }}:</th>
+                            <th>{{ 'COMMON.DESCRIPTION' | transalet }}: </th>
                             <td>{{instanceDetail.description}}</td>
                         </tr>
                         <tr>
-                            <th>{{ 'COMMON.ZONE' | transalet }}:</th>
+                            <th>{{ 'COMMON.ZONE' | transalet }}: </th>
                             <td>TBD</td>
                         </tr>
                         <tr>
-                            <th>{{ 'COMMON.INSTANCE_CONFIGURATION' | transalet }}:</th>
+                            <th>{{ 'COMMON.INSTANCE_CONFIGURATION' | transalet }}: </th>
                             <td>{{instanceDetail.flavorId}}TBD</td>
                         </tr>
                         <tr>
-                            <th>{{ 'CLOUD_HOST.INSTANCE_CONFIGURATION_FAMILY' | transalet }}:</th>
+                            <th>{{ 'CLOUD_HOST.INSTANCE_CONFIGURATION_FAMILY' | transalet }}: </th>
                             <td>{{instanceDetail.flavorId}}TBD</td>
                         </tr>
                         <tr>
-                            <th>{{ 'COMMON.MIRROR' | transalet }}ID:</th>
+                            <th>{{ 'COMMON.MIRROR' | transalet }} ID: </th>
                             <td>{{instanceDetail.imageRef}}TBD</td>
                         </tr>
                         <tr>
-                            <th>{{ 'COMMON.LABEL' | transalet }}:</th>
+                            <th>{{ 'COMMON.LABEL' | transalet }}: </th>
                             <td>TBD</td>
                         </tr>
                     </table>
@@ -64,35 +64,35 @@
                             <li><a href="#">{{ 'COMMON.QUERY' | transalet }}</a></li>
                         </ul>
                     </div>
-                    <i class="glyphicon glyphicon-pause"></i> {{ 'COMMON.CONFIGURATION' | transalet }}{{ 'COMMON.INFORMATION' | transalet }}</div>
+                    <i class="glyphicon glyphicon-pause"></i> {{ 'VM_INSTANCE.CONFIGURATION_INFORMATION' | transalet }}</div>
                 <div class="instanceInfoBox">
                     <table>
                         <tr>
-                            <th>CPU:</th>
-                            <td>{{instanceDetail.vcpus}}{{ 'COMMON.CORE' | transalet }}</td>
+                            <th>CPU: </th>
+                            <td>{{instanceDetail.vcpus}} {{ 'COMMON.CORE' | transalet }}</td>
                         </tr>
                         <tr>
-                            <th>{{ 'COMMON.RAM' | transalet }}:</th>
+                            <th>{{ 'COMMON.RAM' | transalet }}: </th>
                             <td>{{instanceDetail.memoryMbDisplay}}</td>
                         </tr>
                         <tr>
-                            <th>{{ 'COMMON.SYSTEM' | transalet }}:</th>
+                            <th>{{ 'COMMON.SYSTEM' | transalet }}: </th>
                             <td>{{instanceDetail.osType}}</td>
                         </tr>
                         <tr>
-                            <th>{{ 'COMMON.PUBLIC' | transalet }}{{ 'COMMON.NETWORK' | transalet }}IP:</th>
+                            <th>{{ 'CLOUD_HOST.PUBLIC_NETWORK' | transalet }} IP: </th>
                             <td>{{instanceDetail.accessIpV4}}TBD</td>
                         </tr>
                         <tr>
-                            <th>{{ 'COMMON.PRIVATE' | transalet }}{{ 'COMMON.NETWORK' | transalet }}IP:</th>
+                            <th>{{ 'COMMON.PRIVATE_NETWORK' | transalet }} IP: </th>
                             <td>{{instanceDetail.accessIpV4}}TBD</td>
                         </tr>
                         <tr>
-                            <th>{{ 'CLOUD_HOST.BROADBAND_BILLING_MODE' | transalet }}:</th>
+                            <th>{{ 'CLOUD_HOST.BROADBAND_BILLING_MODE' | transalet }}: </th>
                             <td>{{ 'CLOUD_HOST.ACCORDING_TO_BROADBAND' | transalet }}TBD</td>
                         </tr>
                         <tr>
-                            <th>{{ 'CLOUD_HOST.CURRENT_USE_BANDWIDTH' | transalet }}:</th>
+                            <th>{{ 'CLOUD_HOST.CURRENT_USE_BANDWIDTH' | transalet }}: </th>
                             <td>1MbpsTBD</td>
                         </tr>
                     </table>
@@ -105,11 +105,11 @@
                     <div class="col-md-3">
                         <table class="yTable">
                             <tr>
-                                <th style="width: 80px;">{{ 'COMMON.NETWORK' | transalet }}{{ 'COMMON.TYPE' | transalet }}:</th>
-                                <td>{{ 'COMMON.CLASSIC' | transalet }}{{ 'COMMON.NETWORK' | transalet }}TBD</td>
+                                <th style="width: 80px;">{{ 'VM_INSTANCE.NET_TYPE' | transalet }}: </th>
+                                <td>{{ 'CLOUD_HOST.CLASSIC_NETWORK' | transalet }}TBD</td>
                             </tr>
                             <tr>
-                                <th>{{ 'COMMON.STATUS' | transalet }}:</th>
+                                <th>{{ 'COMMON.STATUS' | transalet }}: </th>
                                 <td>
                                     <div *ngIf="instanceDetail && instanceDetail.powerState == 1">
                                         <span class="statusCir bg-success"></span>{{ 'COMMON.RUNNING' | transalet }}
@@ -135,9 +135,9 @@
                                 <div class="col-md-6">
                                     <div class="infoItems">
                                         <ul>
-                                            <li><span>{{ 'COMMON.DISK' | transalet }}:<b>1TBD</b></span></li>
-                                            <li><span>{{ 'COMMON.SNAPSHOT' | transalet }}:<b>1TBD</b></span></li>
-                                            <li><span>{{ 'COMMON.MIRROR' | transalet }}:<b>CentOS 7.0 64位TBD</b></span></li>
+                                            <li><span>{{ 'COMMON.DISK' | transalet }}: <b>1TBD</b></span></li>
+                                            <li><span>{{ 'COMMON.SNAPSHOT' | transalet }}: <b>1TBD</b></span></li>
+                                            <li><span>{{ 'COMMON.MIRROR' | transalet }}: <b>CentOS 7.0 64位TBD</b></span></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -148,7 +148,7 @@
             </div>
             <div class="lineChartsCon">
                 <div class="thisTitle">
-                    <i class="glyphicon glyphicon-pause"></i> {{ 'COMMON.MONITORING' | transalet }}{{ 'COMMON.INFORMATION' | transalet }}
+                    <i class="glyphicon glyphicon-pause"></i> {{ 'CLOUD_HOST.MONITORING_INFO' | transalet }}
                     <div class="pull-right">
                         {{ 'CLOUD_HOST.SET_ALARM_RULES' | transalet }}
                         <label>2016-08-23 09:13 - 2016-08-23 10:13</label>

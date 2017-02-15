@@ -60,14 +60,14 @@ export class InstanceListComponent implements OnInit {
           .getInstances(page, size)
           .then(ret => {
               if (!ret) {
-                  this.showNotice('COMMON.DATA_ACQUISITION_FAILURE', 'CLOUD_HOST.FAILED_TO_RETRIEVE_INSTANCE_DETAILS'+ '.');
+                  this.showNotice('COMMON.DATA_ACQUISITION_FAILURE', 'CLOUD_HOST.FAILED_TO_RETRIEVE_INSTANCE_DETAILS');
               } else {
                   this.fmtInstancesData(ret);
               }
               this.layoutService.hide();
           })
           .catch(error => {
-              this.showNotice('COMMON.DATA_ACQUISITION_FAILURE', 'CLOUD_HOST.FAILED_TO_RETRIEVE_INSTANCE_DETAILS'+ '.');
+              this.showNotice('COMMON.DATA_ACQUISITION_FAILURE', 'CLOUD_HOST.FAILED_TO_RETRIEVE_INSTANCE_DETAILS');
               this.layoutService.hide();
           });
   }
@@ -174,14 +174,14 @@ export class InstanceListComponent implements OnInit {
         .updateInstanceStatus(instanceAction)
         .then(ret => {
             if (!ret) {
-                this.showNotice('COMMON.UPDATE_FAILED', 'CLOUD_HOST.INSTANCE_STATUS_UPDATE_FAILED' + '.');
+                this.showNotice('COMMON.UPDATE_FAILED', 'CLOUD_HOST.INSTANCE_STATUS_UPDATE_FAILED');
             } else {
                 this.getInstances(this.currPage, this.pageSize);
             }
             this.layoutService.hide();
         })
         .catch(error => {
-            this.showNotice('COMMON.UPDATE_FAILED', 'CLOUD_HOST.INSTANCE_STATUS_UPDATE_FAILED' + '.');
+            this.showNotice('COMMON.UPDATE_FAILED', 'CLOUD_HOST.INSTANCE_STATUS_UPDATE_FAILED');
             this.layoutService.hide();
         });
     

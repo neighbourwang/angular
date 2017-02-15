@@ -1,47 +1,8 @@
-<div class="page-content-header icon-cloud-network-mngOn">
+<div class="page-content-header icon-content-header-physical-mng"> <!--page-content-header icon-physical-mng">  icon-cloud-network-mngOn"> -->
     物理机网络管理	  
 </div>
 
 <div class="page-content">
-<!--    
-    <table class="table table-hover ">
-        <thead>
-            <tr>
-                <th style="text-align:left;">VMware网络管理---管理标准网络 "地区" "数据中心"平台显示名称+连接URL https://192.168.1.1:43</th>
-                <th style="text-align:right;">
-                    <button class=" fox-cloud-button fox-cloud-button-white ">
-                        <span class="icon-button-label">返回上一级</span>
-                    </button>
-                </th>
-            </tr>
-        </thead>
-    </table>
-
-
-    <div class="mgb20 mgt20">
-        <label  class="pdr10 ">
-            数据中心(DC)名称:
-        </label>   
-            <select class="pdl20 pdr20">
-                <option>所有</option>
-                <option>DC1</option>
-                <option>DC2</option>
-                <option>DC3</option>
-            </select>       
-        <label class="pdr10 pdl20">
-            可用区名称:
-        </label>      
-            <select class="pdl20 pdr20 mgr20">
-                <option  >所有</option>
-                <option >VDS1</option>
-                <option>VDS2</option>
-                <option>VDS3</option>
-                <option>VDS4</option>
-            </select>     
-    <button type="button" class="fox-cloud-button-md fox-cloud-button-white "> 确定</button>   
-    </div>
--->
-
     <div class="mgb20">
         <button class="fox-cloud-button fox-cloud-button-green" (click)="createPhyNet();">
             <span class="glyphicon glyphicon-edit"></span>
@@ -111,26 +72,7 @@
                     <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
                     <td> 北京 </td>
                     <td> X86 资源池1 </td>
-                    <td> 生产1 
-                        <span class=" icon-edit2" style="padding:1px 15px"></span> 
-                         <div class="popover fade bottom in" role="tooltip" style="z-index:50; top:300px; left:550px; width:400px; max-width:1100px; display: block;">
-                                <div class="arrow" style="left: 30%;"></div>
-                                <div class="popover-content">
-                                    <form class="form-horizontal" role="form">
-                                        <div class="form-group">
-                                            <label class="col-sm-5 control-label">网络名称:</label>
-                                            <div class="col-sm-7 float-left">
-                                            <input type="text" />
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <div class="pull-right" style="margin-bottom:10px;">
-                                        <button class=" fox-cloud-button fox-cloud-button-white">保存</button>
-                                        <button class="fox-cloud-button fox-cloud-button-white">取消</button>
-                                    </div>
-                                </div>
-                         </div>
-                    </td>
+                    <td> 生产1 </td>
                     <td> 172.16.1.0/24 </td>
                     <td> 172.16.1.1 </td>
                     <td> 24 </td>
@@ -154,7 +96,26 @@
                     <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
                     <td> 合肥 </td>
                     <td> X86 资源池3 </td>
-                    <td> 生产3 </td>
+                    <td style="position:relative"> 生产3 
+                        <span class="pull-right icon-edit2"></span> 
+                         <div class="popover fade bottom in" role="tooltip" style="top:25px; left:10px; width:320px; max-width:1100px; display: block; z-index: 50;">
+                                <div class="arrow" style="left: 30%;"></div>
+                                <div class="popover-content">
+                                    <form class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">网络名称:</label>
+                                            <div class="col-sm-8 float-left">
+                                            <input type="text" />
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="pull-right" style="margin-bottom:10px;">
+                                        <button class=" fox-cloud-button fox-cloud-button-white">保存</button>
+                                        <button class="fox-cloud-button fox-cloud-button-white">取消</button>
+                                    </div>
+                                </div>
+                         </div>
+                    </td>
                     <td> 172.16.1.0/24 </td>
                     <td> 172.16.1.1 </td>
                     <td> 24 </td>
