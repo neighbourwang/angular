@@ -136,7 +136,7 @@ export class PfDetailComponent implements OnInit {
             .then(
 
             res => {
-                console.log('region', res);
+                // console.log('region', res);
                 this.regions = res;
             }
             ).catch(
@@ -202,7 +202,10 @@ export class PfDetailComponent implements OnInit {
     }   
     //启用可用区
     enableZone(id: string) {
-        console.log(id);
+        if(this.platform.status!=1){
+            this.notice.open('操作错误','不支持对未启用状态平台下的可用区状态的更改');
+            return;
+        }
         this.layoutService.show();
         this.platformDetailService.enableZone(id).then(res => {
             console.log(res)
@@ -215,13 +218,17 @@ export class PfDetailComponent implements OnInit {
     }
     //禁用可用区
     suspendZone(id: string) {
-        console.log(id);
+        if(this.platform.status!=1){
+            this.notice.open('操作错误','不支持对未启用状态平台下的可用区状态的更改');
+            return;
+        }
         this.layoutService.show();
         this.platformDetailService.suspendZone(id).then(res => {
             console.log(res)
             this.getZoneList();
             this.layoutService.hide();
         }).catch(err => {
+            this.layoutService.hide();
             console.error('禁用可用区失败', err);
         })
     }

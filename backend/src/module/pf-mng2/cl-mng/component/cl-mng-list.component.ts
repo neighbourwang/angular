@@ -113,7 +113,7 @@ export class ClMngListComponent implements OnInit {
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
-        } else if(platForm.status!='0'){
+        } else if(platForm.status!=0){
             this.notice.open('COMMON.OPERATION_ERROR','PF_MNG2.CANT_DELETE_UNINITIALIZED_PF');//只能删除初始化状态的云平台
         }else{
             this.removeConfirm.open('PF_MNG2.DELETE_PLATEFORM', 'PF_MNG2.CONFIRM_DELETE_PF^^^' + platForm.name ) //DELETE_PLATEFORM_WARNING=>删除警告
@@ -126,7 +126,7 @@ export class ClMngListComponent implements OnInit {
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
-        } else if(platForm.status=='1'){
+        } else if(platForm.status==1){
             this.notice.open('COMMON.OPERATION_ERROR','PF_MNG2.PLATFORM_ALEADRY_ENABLED');//云平台状态已启用
         }else{
             this.enableConfirm.open('PF_MNG2.ENABLE_PLATFORM', 'PF_MNG2.CONFIRM_ENABLE_PF^^^'+platForm.name)
@@ -139,7 +139,7 @@ export class ClMngListComponent implements OnInit {
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
-        } else if(platForm.status=='2'){
+        } else if(platForm.status==2){
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.PLATFORM_ALEADRY_DISALED'); //云平台状态已禁用
         }else {
             this.disableConfirm.open('PF_MNG2.DISABLE_PLATFORM', 'PF_MNG2.CONFIRM_DISABLE_PF^^^' + platForm.name)
