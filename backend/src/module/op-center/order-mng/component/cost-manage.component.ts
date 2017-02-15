@@ -1,6 +1,6 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
+import { NoticeComponent,PopupComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
 import {} from '../model'
 
 import * as _ from 'underscore';
@@ -15,6 +15,9 @@ export class CostManageComponent implements OnInit{
 
 @ViewChild("notice")
   	private _notice: NoticeComponent;
+
+ @ViewChild("costUpdate")
+  costUpdate: PopupComponent;
 //订单类型
 private _orderTypeDic:DicLoader = null;
 //订购人
@@ -58,8 +61,17 @@ private _buyerLoader:ItemLoader<{id:string; name:string}> = null;
 
 //显示金额管理
 updateCost(){
-		this.layoutService.show();
-        $('#costUpdate').modal('show');
+		// this.layoutService.show();
+        // $('#costUpdate').modal('show');
+		this.costUpdate.open();
+}
+
+acceptCostUpdate()
+{
+
+}
+cancelCostUpdate(){
+	
 }
 
 showMsg(msg: string)
