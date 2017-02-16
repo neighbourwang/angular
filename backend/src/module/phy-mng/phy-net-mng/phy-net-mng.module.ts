@@ -6,6 +6,8 @@ import { CommonComponentModule, PipeModule} from '../../../architecture';
 //Components
 import { PhyNetMngComponent } from './component/phy-net-mng.component';
 import { PhyNetIpUsageMngListComponent } from './component/phy-ipusage-mng-list.component';
+import { PhyNetResourceSetupComponent } from './component/phy-setup-resource.component';
+import { PhyNetDetailsComponent  } from './component/phy-net-details.component';
 
 // Routing
 import { PhyNetRouting } from './phy-net-mng.routing';
@@ -24,10 +26,14 @@ import { PhyNetRouting } from './phy-net-mng.routing';
     declarations: [
         PhyNetMngComponent,
         PhyNetIpUsageMngListComponent,
+        PhyNetResourceSetupComponent,
+        PhyNetDetailsComponent
     ],
     exports: [
         PhyNetMngComponent,
         PhyNetIpUsageMngListComponent,
+        PhyNetResourceSetupComponent,
+        PhyNetDetailsComponent
     ],
     providers: [
         //PhyPoolMngService,
