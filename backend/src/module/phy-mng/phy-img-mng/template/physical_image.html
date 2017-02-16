@@ -1,30 +1,21 @@
 <div class="page-content-header icon-content-header-physical-mng"> <!--page-content-header icon-physical-mng">  icon-cloud-network-mngOn"> -->
-    物理机网络管理	  
+    物理机镜像管理	  
 </div>
 
 <div class="page-content">
     <div class="mgb20">
         <button class="fox-cloud-button fox-cloud-button-green" (click)="createPhyNet();">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建网络</span> <!--请添加创建的弹出框-->
+            <span class="icon-button-label icon-left-button-label">创建镜像源</span> <!--请添加创建的弹出框-->
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="editPhyNet();">       
-            <span class="icon-button-label icon-left-button-label">编辑标准网络</span>
-        </button>
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/phy-net-allocate.html">       
-            <span class="icon-button-label icon-left-button-label">网络资源分配</span>
-        </button>
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/ip_pool_mng.html" (click)="setupPhyNetIPs();">
-            <span class="icon-button-label icon-left-button-label">设置IP资源范围</span>
-        </button>
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/ip_addr_mng.html" (click)="ipUsageMngPage();">
-            <span class="icon-button-label icon-left-button-label">管理IP地址</span>
-        </button>
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/ip_addr_export.html" (click)="exportPhyIps();">
-            <span class="icon-button-label icon-left-button-label">导出IP地址信息</span>
+            <span class="icon-button-label icon-left-button-label">分配物理资源池</span>
         </button>
 
         <div class="dropdown pull-right" >
+        <button class="fox-cloud-button fox-cloud-button-green" key="boe/enable.html" (click)="enable();">
+            <span class="icon-button-label icon-left-button-label">编辑</span>
+        </button>
         <button class="fox-cloud-button fox-cloud-button-green" key="boe/enable.html" (click)="enable();">
             <span class="icon-button-label icon-left-button-label">启用</span>
         </button>
@@ -56,39 +47,34 @@
             <thead>
                 <tr>
                     <th>选择 </th>
-                    <th> 网络名称</th>
-                    <th> 子网信息</th>
-                    <th> 网关地址</th>
-                    <th>IP地址池数量</th>
-                    <th>已使用IP地址数量</th>
-                    <th>剩余IP地址数量</th>
+                    <th>镜像源名称</th>
+                    <th>镜像源地址</th>
+                    <th>资源池列表</th>
+                    <th>描述</th>
                     <th>状态</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                    <td><a href="#"> 生产1 </a></td>
-                    <td> 172.16.1.0/24 </td>
-                    <td> 172.16.1.1 </td>
-                    <td> 24 </td>
-                    <td> 50 </td>
-                    <td> 24 </td>
+                    <td><a href="#"> ABC&nbsp; 点击进入镜像列表 </a></td>
+                    <td> http://10.1.1.1 </td>
+                    <td> 资源池1 资源池2 </td>
+                    <td> XXXX </td>
                     <td class="font-green"> 启用 </td>
                 </tr>
                 <tr>
                     <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                    <td> 测试1 </td>
-                    <td> 172.16.1.0/24 </td>
-                    <td> 172.16.1.1 </td>
-                    <td> 24 </td>
-                    <td> 50 </td>
-                    <td> 24 </td>
+                    <td><a href="#"> ABC&nbsp; 点击进入镜像列表 </a></td>
+                    <td> http://10.1.1.2 </td>
+                    <td> 资源池1 资源池2 </td>
+                    <td> XXXX </td>
                     <td class="font-green"> 禁用 </td>
                 </tr>
                 <tr>
                     <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                    <td style="position:relative"> 生产3 
+                    <td style="position:relative"> <a href="#"> ABC&nbsp; 点击进入镜像列表 </a>
+                    <!--
                         <span class="pull-right icon-edit2"></span> 
                          <div class="popover fade bottom in" role="tooltip" style="top:25px; left:10px; width:320px; max-width:1100px; display: block; z-index: 50;">
                                 <div class="arrow" style="left: 30%;"></div>
@@ -107,12 +93,11 @@
                                     </div>
                                 </div>
                          </div>
+                    -->
                     </td>
-                    <td> 172.16.1.0/24 </td>
-                    <td> 172.16.1.1 </td>
-                    <td> 24 </td>
-                    <td> 50 </td>
-                    <td> 24 </td>
+                    <td> http://10.1.1.3 </td>
+                    <td> 资源池1 资源池2 </td>
+                    <td> XXXX </td>
                     <td class="font-green"> 启用 </td>
                 </tr>                
             </tbody>

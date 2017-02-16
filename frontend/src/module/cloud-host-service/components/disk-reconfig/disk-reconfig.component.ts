@@ -26,9 +26,10 @@ export class DiskReconfigComponent implements OnInit {
 		
 	}
 
-	open(vm:DistList) {
+	open(disk:DistList) {
 		$('#diskBox').modal('show');
 		this.state = "change";
+		console.log(disk)
 	}
 
 	setConfig() {

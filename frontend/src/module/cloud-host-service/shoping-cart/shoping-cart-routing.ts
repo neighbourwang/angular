@@ -13,7 +13,7 @@ export const ShopingCartRouting: ModuleWithProviders = RouterModule.forChild([
         component: cartListComponent
     },
     {
-        path: 'cloud-host-service/cart-order',
+        path: 'cloud-host-service/cart-order/:orderlist',
         component: cartOrderComponent
     },
 ]);

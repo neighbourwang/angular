@@ -1,4 +1,6 @@
-﻿<div class="page-content-header icon-content-header-enterprise-manage">{{ 'ENT_MNG.CREATE_ENTERPRISE' | translate }}</div>
+﻿<div class="page-content-header icon-content-header-enterprise-manage">{{ 'ENT_MNG.CREATE_ENTERPRISE' | translate }}
+	<button class="pull-right fox-cloud-button fox-cloud-button-white" style="margin-top:-10px;" (click)="return()"><span>{{ 'ENT_MNG.BACK_ENTERPRISE_LIST' | translate }}</span></button>
+</div>
 <div class="centerPanel">
 	<div class="page-second-title">{{ 'COMMON.BASIC_INFO' | translate }}</div>
 
@@ -186,7 +188,7 @@
 	   			<thead>
 	   				<tr>
 	   				    <th>{{ 'COMMON.CHOOSE' | translate }}</th>
-	   					<th>{{ 'COMMON.ZONE' | translate }}</th>
+	   					<th>平台名称</th>
 						<th>{{ 'ENT_MNG.CAN_ALLOCATE_VCPU_NUME' | translate }}</th>
 						<th>{{ 'ENT_MNG.CAN_ALLOCATE_RAM' | translate }}(GB)</th>
 						<th>{{ 'ENT_MNG.CAN_ALLOCATE_STORAGE' | translate }}(GB)</th>
