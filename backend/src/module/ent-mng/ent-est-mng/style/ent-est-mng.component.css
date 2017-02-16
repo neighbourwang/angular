@@ -180,22 +180,27 @@
     height: 50px;
 }
 ._icon{
-    margin-left:50px;
+    margin-left: 20px;
+    margin-top: 10px;
 }
 ._icon2{
-    margin-top: -30px;margin-left: 120px;
+    margin-top: -33px;
+    margin-left: 90px;
 }
 ._span{
-    display: block;margin-top: -41px;margin-left: 100px;
+          display: block;
+    margin-top: -38px;
+    margin-left: 67px;
 }
 ._span2{
-    margin-top: -45px;
+        margin-top: -38px;
     display: block;
-    margin-left: 165px;
+    margin-left: 135px;
 }
+
 ._span3{
-        margin-left: 100px;
-    margin-top: 10px;
+    margin-left: 80px;
+    margin-top: 20px;
     display: block;
 }
 
@@ -304,7 +309,7 @@
     width: 1200px;
 }
 .icon-style{
-    margin-left:50px; 
+    margin-left:30px; 
 }
 .titlePanel{
 	width: 100%;
