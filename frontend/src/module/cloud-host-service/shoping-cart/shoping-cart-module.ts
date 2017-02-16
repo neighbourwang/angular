@@ -18,13 +18,15 @@ import { cartOrderService } from './service/cart-order.service';
 import { cartListService } from './service/cart-list.service'; 
 
 
+import { CloudHostComponents } from '../components/cloud-host-components.module';
 // import { MyDatePickerModule } from 'mydatepicker';
 
 @NgModule({
     imports: [
         ShopingCartRouting,
         CommonComponentModule,
-        PipeModule
+        PipeModule,
+        CloudHostComponents
         // MyDatePickerModule
         // TabsModule
         // TreeModule
