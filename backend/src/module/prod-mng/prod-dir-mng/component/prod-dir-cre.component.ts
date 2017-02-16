@@ -63,6 +63,7 @@ export class ProdDirCreComponent implements OnInit {
                                 zone.storageId = zone.storageList[0].storageId;
                                 zone.serviceSKUId = zone.storageList[0].serviceSKUId;
                             }
+                            zone.selected=false;
                             // console.log(zone.storageList);
                         }
                     }
