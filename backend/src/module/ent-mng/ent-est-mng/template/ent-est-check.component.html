@@ -74,27 +74,27 @@
   					<!--<li>
                        进行中的订单数:<span class="validateInfo">300</span>
 				    </li>-->
- 				    <li>待审批订单:<span>{{orderCounterLoader.FirstItem.notApprveOrder}}</span></li>
- 					<li>即将过期（1个月内）的订单数:<span>{{orderCounterLoader.FirstItem.overdueOrder}}</span></li>
+ 				    <li>待审批订单:<span>{{extendDetailLoader.FirstItem.notApprveOrder}}</span></li>
+ 					<li>即将过期（1个月内）的订单数:<span>{{extendDetailLoader.FirstItem.overdueOrder}}</span></li>
 				</ul>
       		</div>
       		<div class="col-md-4 sm-container sm-container">
       			<h4>工单统计</h4>
 				<ul class="list-unstyled">
   					<li>
-                       新创建的工单数:<span>{{workCounterLoader.FirstItem.newOrder}}</span>
+                       新创建的工单数:<span>{{extendDetailLoader.FirstItem.newOrder}}</span>
 				    </li>
-					<li>处理中的工单数:<span >{{workCounterLoader.FirstItem.processOrder}}</span></li>
- 				    <li>已完成的工单数:<span>{{workCounterLoader.FirstItem.completedOrder}}</span></li>		
+					<li>处理中的工单数:<span >{{extendDetailLoader.FirstItem.processOrder}}</span></li>
+ 				    <li>已完成的工单数:<span>{{extendDetailLoader.FirstItem.completedOrder}}</span></li>		
 				</ul>
       		</div> 
       		<div class="col-md-4 sm-container">
 				<h4>账户统计</h4>
 				<ul class="list-unstyled">
   					<li>
-                       启用的用户数量:<span>{{accountCounterLoader.FirstItem.startAccount}}</span>
+                       启用的用户数量:<span>{{extendDetailLoader.FirstItem.startAccount}}</span>
 				    </li>
- 				    <li>禁用的用户数量:<span>{{accountCounterLoader.FirstItem.disabledAccount}}</span></li>
+ 				    <li>禁用的用户数量:<span>{{extendDetailLoader.FirstItem.disabledAccount}}</span></li>
 				</ul>
       		</div>     
    		</div>

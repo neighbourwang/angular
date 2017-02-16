@@ -16,7 +16,7 @@ export class EntEstManagePlatformComponent implements OnInit {
   @ViewChild("notice")
   notice: NoticeComponent;
 
-
+// ent-mng.ent-est-mng.enterprise.platform.save
   private platformLoader : ItemLoader<Platform> = null; //未选择可用平台 
 
   private selectedPlatformLoader : ItemLoader<Platform> = null; //已选择可用平台 
@@ -27,14 +27,15 @@ export class EntEstManagePlatformComponent implements OnInit {
     private restApiCfg:RestApiCfg,
     private restApi:RestApi
   ) {
-    this.platformLoader = new ItemLoader<Platform>(false,'加载未选择可用平台列表错误','',restApiCfg,restApi);
-    this.selectedPlatformLoader = new ItemLoader<Platform>(false,'加载已选择可用平台列表错误','',restApiCfg,restApi);
+    this.platformLoader = new ItemLoader<Platform>(false,'加载未选择可用平台列表错误','ent-mng.ent-est-mng.enterprise.platform',restApiCfg,restApi);
+    this.selectedPlatformLoader = new ItemLoader<Platform>(false,'加载已选择可用平台列表错误','ent-mng.ent-est-mng.enterprise.platform.selected',restApiCfg,restApi);
 
 
     // this.platformLoader.MapFunc = (source:Array<any>,target:Array<Platform>)=>{
     //   let obj = new Platform();
     //   for(let item of source){
-    //     obj.name = item.name;
+    //     obj.id = item.platformId;
+    //     obj.name = item.platformName;
     //     target.push(obj);
     //   }
     // }
