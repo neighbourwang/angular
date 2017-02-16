@@ -13,6 +13,7 @@ import { PfDetailComponent } from './component/pf-mng-detail.component';
 import { bootDiskMngComponent } from './component/pf-mng-bootDisk.component';
 import { bootDiskCreEditComponent } from './component/pf-mng-bootDisk-creEdit.component';
 import { CloudHostSpecComponent } from './component/pf-mng-cloudHostSpec.component';
+import { PlatformComponents } from '../components/platform-components.module';
 
 
 
@@ -53,12 +54,15 @@ import { ClMngCommonService } from './service/cl-mng-common.service';
 
 import { PlatformDetailService } from './service/pf-mng-detail.service';
 
+// import { ZoneSyncService } from '../components/zone-sync/zone-sync.service';
+
 
 @NgModule({
     imports: [
         CommonComponentModule,
         PipeModule,
-        ClMngRouting
+        ClMngRouting,
+        PlatformComponents
     ],
     declarations: [
         ClMngListComponent,
@@ -71,7 +75,8 @@ import { PlatformDetailService } from './service/pf-mng-detail.service';
         ClMngCreStep6Component,
         bootDiskMngComponent,
         bootDiskCreEditComponent,
-        CloudHostSpecComponent
+        CloudHostSpecComponent,
+        
     ],
     exports: [
     ],
@@ -85,7 +90,7 @@ import { PlatformDetailService } from './service/pf-mng-detail.service';
         ClMngCreStep5Service,
         ClMngCreStep6Service,
         ClMngCommonService,
-        PlatformDetailService
+        PlatformDetailService,
     ]
 
 })

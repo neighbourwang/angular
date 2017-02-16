@@ -5,10 +5,12 @@ import { NgModule } from '@angular/core';
 
 import { ClMnfModule } from './cl-mng/cl-mng.module';
 
+import { PlatformComponents } from './components/platform-components.module';
 
 @NgModule({
     imports: [
-        ClMnfModule
+        ClMnfModule,
+        PlatformComponents
     ],
     declarations: [],
     exports: [

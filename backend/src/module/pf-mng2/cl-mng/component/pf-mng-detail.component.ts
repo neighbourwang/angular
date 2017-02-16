@@ -54,8 +54,7 @@ export class PfDetailComponent implements OnInit {
     @ViewChild('notice')
     notice: NoticeComponent;
 
-    @ViewChild('updateZonePop')
-    updateZonePop: PopupComponent;
+    @ViewChild('zoneSync') zoneSync;
 
     @ViewChild('updateZoneResourcePop')
     updateZoneResourcePop: PopupComponent;
@@ -263,6 +262,7 @@ export class PfDetailComponent implements OnInit {
 
     //更新可用区弹出框
     updateZone() {
+        
         this.platformDetailService.getUpdateZoneList(this.platform.id).then(
             res => {
                 this.updateZoneList = res.resultContent;
@@ -275,7 +275,7 @@ export class PfDetailComponent implements OnInit {
                         }
                     })
                     console.log('同步', res);
-                    this.updateZonePop.open('PF_MNG2.SYNC_ZONES')
+                    this.zoneSync.open(this.updateZoneList);
                 }
             }
         ).catch(err => {

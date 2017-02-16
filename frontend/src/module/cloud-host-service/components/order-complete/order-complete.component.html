@@ -1,0 +1,70 @@
+<table class="table table-all-boder mgb20">
+    <tr class="table-title">
+        <td class="text-center">{{'SHOPPING_CART.PRODUCT_INFORMATION' | translate}}</td>
+        <td class="text-center">{{'SHOPPING_CART.PRODUCT_TYPE' | translate}}</td>
+        <td class="text-center">{{'COMMON.BILLING_MODE'| translate}}</td>
+        <td class="text-center">{{'SHOPPING_CART.PURCHASE_CYCLE' | translate}}</td> 
+        <td class="text-center">{{'COMMON.EXPENSE' | translate}}</td>
+        <td class="text-center">{{'COMMON.STATUS' | translate}}</td>
+        <td class="text-center">{{'COMMON.CREATED_TIME' | translate}}</td>
+        <td class="text-center">{{'COMMON.EXPIRE_DATE' | translate}}</td>
+        <td class="text-center">{{'SHOPPING_CART.QUANTITY' | translate}}</td>
+    </tr>
+    <tr colspan="9" class="table-gap"></tr>
+    <ng-container *ngFor="let order of orderList | orderBy : 'createDate'; ">
+    <tr>
+        <td colspan="9" class="table-line-head">
+            <font class="font-green">{{'COMMON.ORDER_NUMBER' | translate}}：{{order.itemNo}} {{'COMMON.ORDER_ID' | translate}}：{{order.id}} {{'COMMON.CREATED_TIME' | translate}}：{{order.createDate}}</font>
+        </td>
+    </tr>
+    <tr *ngFor="let items of order.itemList;">
+        <td style="width: 500px">
+            <table class="cart-info">
+                <tr *ngFor="let attr of items.attrList | formatInfo:items.serviceType;">
+                    <td style="width: 150px">{{attr.attrDisplayName}} : </td>
+                    <td>{{attr.attrDisplayValue}}</td>
+                </tr>
+            </table>
+        </td>
+        <td class="text-center table-text-middle">{{items.serviceType | dict:service.dictProductType | async}}</td>
+        <td class="text-center table-text-middle">{{items.billingMode | dict:service.packageBilling | async}}</td>
+        <td class="text-center table-text-middle">{{items.billingPeriod}}</td>
+        <td class="text-center table-text-middle">
+            <table class="cart-info">
+                <tr>
+                    <td>{{'COMMON.ONE_TIME_COSTS' | translate}}： </td>
+                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{items.billingInfo.basePrice}} {{'COMMON.YUAN' | translate}}</font></td>
+                </tr>
+                <tr *ngIf="items.billingInfo.basicPrice">
+                    <td>{{'SHOPPING_CART.BASICPRICE' | translate}}:</td>
+                    <td>
+                        <font class="font-orange">
+                        {{'COMMON.$' | translate}}{{items.billingInfo.basicPrice}} / {{items.billingInfo.periodType | dict:service.weekly | async}}
+                        </font>
+                    </td>
+                </tr>
+                <tr *ngIf="items.billingInfo.unitPrice">
+                    <td>{{'SHOPPING_CART.INCREMENTAL_CYCLE_COST' | translate}}:</td>
+                    <td>
+                        <font class="font-orange">
+                        {{'COMMON.$' | translate}}{{items.billingInfo.unitPrice}}/GB/{{items.billingInfo.periodType | dict:service.weekly | async}}
+                        </font>
+                    </td>
+                </tr>
+                <tr *ngIf="items.billingInfo.unitPrice">
+                    <td>{{'SHOPPING_CART.UNIT_PRICE' | translate}}</td>
+                    <td>
+                        <font class="font-orange">
+                        {{'COMMON.$' | translate}}{{items.billingInfo.unitPrice}} / {{items.billingInfo.unitType}}
+                        </font>
+                    </td>
+                </tr>
+            </table>
+        </td> 
+        <td class="text-center table-text-middle"><font class="font-green">{{items.status | dict:service.orderStatus | async}}</font></td> 
+        <td class="text-center table-text-middle">{{items.createDate}}</td> 
+        <td class="text-center table-text-middle">{{items.expireDate}}</td> 
+        <td class="text-center table-text-middle">{{items.quantity}}{{'SHOPPING_CART.SET' | translate}}</td>
+    </tr>
+    </ng-container>
+</table>
