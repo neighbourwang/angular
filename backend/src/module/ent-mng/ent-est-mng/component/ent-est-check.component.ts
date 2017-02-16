@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LayoutService, ItemLoader,RestApi, RestApiCfg,NoticeComponent, PopupComponent,SystemDictionaryService, SystemDictionary } from '../../../../architecture';
-import { CertMethod, EntProdItem, EntEstItem, EntEst,EntEstCreResourceQuota} from '../model';
+import { OrderCounter,WorkCounter,AccountCounter,CertMethod, EntProdItem, EntEstItem, EntEst,EntEstCreResourceQuota} from '../model';
 import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
 
 @Component({
@@ -19,10 +19,12 @@ export class EntEstCheckComponent implements OnInit {
   private entProdItems: Paging<EntProdItem> = new Paging<EntProdItem>();
   private entId:string = "";
   private dic:SystemDictionary[];
-   private resourceQuotaSvg : ItemLoader<EntEstCreResourceQuota>;
-   private msg ={title:'',desc:''};
+  private resourceQuotaSvg : ItemLoader<EntEstCreResourceQuota>;
+  private msg ={title:'',desc:''};
 
-
+ private orderCounterLoader : ItemLoader<OrderCounter> = null; //订单与审批
+ private workCounterLoader : ItemLoader<WorkCounter> = null;//工单
+ private accountCounterLoader : ItemLoader<AccountCounter> = null;//账户
   //[ngStyle]="{'stroke-dashoffset': '75.0401';'stroke-dasharray': 282.783;}"
 
 
@@ -35,6 +37,66 @@ export class EntEstCheckComponent implements OnInit {
     private restApiCfg:RestApiCfg,
     private restApi:RestApi
   ) { 
+
+
+
+     this.orderCounterLoader = new ItemLoader<OrderCounter>(false,'加载订单与审批系统错误','',restApiCfg,restApi);
+     this.workCounterLoader = new ItemLoader<WorkCounter>(false,'加载工单系统错误','',restApiCfg,restApi);
+     this.accountCounterLoader = new ItemLoader<AccountCounter>(false,'加载账户系统错误','',restApiCfg,restApi);
+
+    // this.orderCounterLoader.MapFunc = (source:Array<any>,target:Array<OrderCounter>)=>{
+    //   let obj = new OrderCounter();
+    //   for(let item of source){
+    //     obj.notApprveOrder =item.notApprveOrder;
+    //     target.push(obj);
+    //   }
+    // }
+
+  this.orderCounterLoader.FakeDataFunc = (target:Array<OrderCounter>)=>{
+      target.splice(0, target.length);
+
+      let _orderCount = new OrderCounter();
+      _orderCount.notApprveOrder = 123;
+      _orderCount.overdueOrder = 15;
+      target.push(_orderCount);  
+    }
+
+
+    //   this.workCounterLoader.MapFunc = (source:Array<any>,target:Array<WorkCounter>)=>{
+    //   let obj = new WorkCounter();
+    //   for(let item of source){
+    //     target.push(obj);
+    //   }
+    // }
+
+  this.workCounterLoader.FakeDataFunc = (target:Array<WorkCounter>)=>{
+      target.splice(0, target.length);
+
+      let _workCounter = new WorkCounter();
+      _workCounter.newOrder = 11;
+      _workCounter.processOrder = 11;
+      _workCounter.completedOrder = 11;
+      target.push(_workCounter);  
+    }
+
+    //    this.accountCounterLoader.MapFunc = (source:Array<any>,target:Array<AccountCounter>)=>{
+    //   let obj = new AccountCounter();
+    //   for(let item of source){
+    //     target.push(obj);
+    //   }
+    // }
+
+  this.accountCounterLoader.FakeDataFunc = (target:Array<AccountCounter>)=>{
+      target.splice(0, target.length);
+
+      let _accountCounter = new AccountCounter();
+      _accountCounter.startAccount = 11;
+      _accountCounter.disabledAccount = 11;
+      target.push(_accountCounter);  
+    }
+
+
+
 
     //加载企业统计图
     this.resourceQuotaSvg = new ItemLoader<EntEstCreResourceQuota>(true, "ENT_MNG.ENT_OVERVIEW_DATA_ERROR", "ent-mng.ent-est-mng.enterprise.quota.detail", restApiCfg, restApi);
@@ -131,6 +193,14 @@ export class EntEstCheckComponent implements OnInit {
 
     this.resourceQuotaSvg.FirstItem = new EntEstCreResourceQuota();
      this.loadResourceQuotaSvg();
+     this.layoutService.show();
+     this.orderCounterLoader.Go()
+     .then(success=>{
+      this.layoutService.hide();
+     })
+     .catch(err=>{
+        this.layoutService.hide();
+     })
   }
 
 sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) { 

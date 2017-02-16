@@ -1,7 +1,7 @@
 export enum Status{
-	Initial
-	,Active
+	Initial//0未启用
+	,Active//1已启用
 	,Suspend
 	,Cancelled
-	,Deleted
+	,Deleted//删除
 }

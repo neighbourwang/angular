@@ -146,7 +146,7 @@ export let RestApis: RestApiModel[] = [
     },
     {
         "desc": "购物车订单",
-        "method": "GET",
+        "method": "POST",
         "id": "shopping.orders.completion",
         "url": "marketplace/authsec/shopping/orders/completion"
     },
