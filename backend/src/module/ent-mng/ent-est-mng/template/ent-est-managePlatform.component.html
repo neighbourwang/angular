@@ -35,11 +35,11 @@
 			            </tr>
 			        </thead>
 			        <tbody>
-			            <tr *ngFor="let platformItem of platformLoader.Items">
-							<td><input type="checkbox" class="fox-cloud-checkbox"/></td>
+			            <tr *ngFor="let platformItem of platformLoader.Items;let i=index">
+							<td><input type="checkbox" class="fox-cloud-checkbox"  (change)="selectItem(i,platformItem)" /></td>
 			                <td>{{platformItem.name}}</td>
 			                <td>{{platformItem.type}}</td>
-			                <td>{{platformItem.status}}</td>
+			                <td [ngClass]="{'validateInfo':platformItem.status==1,'warnInfo':platformItem.status!=1}" ngClass="">{{platformItem.status}}</td>
 			            </tr>               
 			        </tbody>
 			    </table>

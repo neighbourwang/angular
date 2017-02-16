@@ -11,3 +11,4 @@ export * from './summary-work-order';
 export * from './ent-est-cre-resourcequota';
 
 export * from './platform';
+export * from './manageInfo';

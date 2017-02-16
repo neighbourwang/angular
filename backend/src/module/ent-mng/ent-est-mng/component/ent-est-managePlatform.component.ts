@@ -20,6 +20,7 @@ export class EntEstManagePlatformComponent implements OnInit {
   private platformLoader : ItemLoader<Platform> = null; //未选择可用平台 
 
   private selectedPlatformLoader : ItemLoader<Platform> = null; //已选择可用平台 
+  
   constructor(
     private layoutService: LayoutService,
     private router: Router,
@@ -49,8 +50,20 @@ export class EntEstManagePlatformComponent implements OnInit {
       let _platform = new Platform();
       _platform.name = '上海A平台';
       _platform.type = '777';
-      _platform.status = '启用';
+      _platform.status = '1';
       target.push(_platform);  
+
+      let _platform2 = new Platform();
+      _platform2.name = '上海B平台';
+      _platform2.type = '666';
+      _platform2.status = '1';
+       target.push(_platform2); 
+
+        let _platform3 = new Platform();
+       _platform3.name = '上海C平台';
+      _platform3.type = '888';
+      _platform3.status = '0';
+       target.push(_platform3); 
     }
 
     // this.selectedPlatformLoader.MapFunc = (source:Array<any>,target:Array<Platform>)=>{
@@ -69,7 +82,7 @@ export class EntEstManagePlatformComponent implements OnInit {
       let _platform = new Platform();
       _platform.name = '上海B平台';
       _platform.type = '888';
-      _platform.status = '禁用';
+      _platform.status = '1';
       target.push(_platform);  
     }
   }
@@ -87,6 +100,11 @@ export class EntEstManagePlatformComponent implements OnInit {
       this.layoutService.hide();
     })
 
+  }
+
+  selectItem(index:number,platform:Platform){
+    this.platformLoader.Items.splice(index);  
+    this.selectedPlatformLoader.Items.push(platform);
   }
 
 //返回/取消
