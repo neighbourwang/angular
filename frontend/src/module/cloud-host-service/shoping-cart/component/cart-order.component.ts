@@ -7,6 +7,8 @@ import { cartOrderService } from '../service/cart-order.service'
 import { CartOrder,itemList } from '../model/cart-order.model';
 import { TotalPrice } from '../model/cart-total-price.model';
 
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
 	selector: 'cart-order',
 	templateUrl: '../template/cart-order.component.html',
@@ -20,13 +22,17 @@ export class cartOrderComponent implements OnInit {
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
+		private route: ActivatedRoute,
 		private service : cartOrderService
 	) {
 	};
 
 	ngOnInit() {
-		this.setList();
 		this.layoutService.show();
+		this.route.params.subscribe(params => {
+			console.log(params)
+	       this.setList(params["orderlist"]);
+	    });
 	}
 
 	private setTotalPrice(orderList:any[]) {   //设置价格总价
@@ -53,8 +59,8 @@ export class cartOrderComponent implements OnInit {
 		console.log(this.totalPrice)
 	}
 
-	setList() {   //设置列表
-		this.service.getOrderList().then(orderList => {
+	setList(params:string) {   //设置列表
+		this.service.getOrderList(params).then(orderList => {
 			this.layoutService.hide();
 			this.orderList = orderList;
 			this.setTotalPrice(orderList);			

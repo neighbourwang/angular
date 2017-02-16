@@ -15,10 +15,10 @@ export class cartOrderService {
                 private restApi:RestApi) {
     }
 
-    getOrderList() : Promise<CartOrder[]>{
+    getOrderList(params) : Promise<CartOrder[]>{
         const api = this.restApiCfg.getRestApi("shopping.orders.completion");
 
-        const request = this.restApi.request(api.method, api.url, undefined, undefined)
+        const request = this.restApi.request(api.method, api.url,undefined,undefined, JSON.parse(params))
                             .then(res => {
                                 if(res.resultCode !== "100"){
                                     throw "";
