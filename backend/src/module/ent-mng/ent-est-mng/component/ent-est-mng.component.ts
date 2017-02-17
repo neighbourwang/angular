@@ -302,8 +302,7 @@ export class EntEstMngComponent implements OnInit {
 
 //管理可用平台
 manageAviPlatform(){
-
-  this.router.navigateByUrl('ent-mng/ent-est-mng/ent-est-managePlatform');
+  this.router.navigateByUrl(`ent-mng/ent-est-mng/ent-est-managePlatform/${this.getSelected().enterpriseId}`);
 }
   //设置管理员
   setupAdmin(){

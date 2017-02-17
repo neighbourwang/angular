@@ -23,7 +23,7 @@ export const EntEstMngRouting: ModuleWithProviders = RouterModule.forChild([
     	path: 'ent-mng/ent-est-mng/ent-est-check/:entId'
     	,component: EntEstCheckComponent
     },{
-    	path: 'ent-mng/ent-est-mng/ent-est-managePlatform'
+    	path: 'ent-mng/ent-est-mng/ent-est-managePlatform/:entId'
     	,component: EntEstManagePlatformComponent
     }
 ]);

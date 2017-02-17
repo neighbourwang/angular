@@ -16,29 +16,36 @@ export class EntEstManagePlatformComponent implements OnInit {
   @ViewChild("notice")
   notice: NoticeComponent;
 
-// ent-mng.ent-est-mng.enterprise.platform.save
+  entId : string = null;
+
   private platformLoader : ItemLoader<Platform> = null; //未选择可用平台 
 
   private selectedPlatformLoader : ItemLoader<Platform> = null; //已选择可用平台 
+
+    private saveLoader : ItemLoader<Platform> = null; //保存
   
   constructor(
     private layoutService: LayoutService,
     private router: Router,
+     private activatedRouter: ActivatedRoute,
     private restApiCfg:RestApiCfg,
     private restApi:RestApi
   ) {
     this.platformLoader = new ItemLoader<Platform>(false,'加载未选择可用平台列表错误','ent-mng.ent-est-mng.enterprise.platform',restApiCfg,restApi);
     this.selectedPlatformLoader = new ItemLoader<Platform>(false,'加载已选择可用平台列表错误','ent-mng.ent-est-mng.enterprise.platform.selected',restApiCfg,restApi);
 
+    this.saveLoader = new ItemLoader<Platform>(false,'保存数据错误','ent-mng.ent-est-mng.enterprise.platform.save',restApiCfg,restApi);
 
-    // this.platformLoader.MapFunc = (source:Array<any>,target:Array<Platform>)=>{
-    //   let obj = new Platform();
-    //   for(let item of source){
-    //     obj.id = item.platformId;
-    //     obj.name = item.platformName;
-    //     target.push(obj);
-    //   }
-    // }
+    this.platformLoader.MapFunc = (source:Array<any>,target:Array<Platform>)=>{
+      let obj = new Platform();
+      for(let item of source){
+        obj.id = item.id;
+        obj.name = item.name;
+        obj.type = item.platformType;
+        obj.status = item.status;
+        target.push(obj);
+      }
+    }
 
     //处理数据字典
     // this.platformLoader.Trait = (target:Array<Platform>)=>{
@@ -67,14 +74,17 @@ export class EntEstManagePlatformComponent implements OnInit {
        target.push(_platform3); 
     }
 
-    // this.selectedPlatformLoader.MapFunc = (source:Array<any>,target:Array<Platform>)=>{
-    //   let obj = new Platform();
+    this.selectedPlatformLoader.MapFunc = (source:Array<any>,target:Array<Platform>)=>{
+      let obj = new Platform();
 
-    //   for(let item of source){
-    //     obj.name = item.name;
-    //     target.push(obj);
-    //   }
-    // }
+      for(let item of source){
+        obj.id = item.id;
+        obj.name = item.name;
+        obj.type = item.platformType;
+        obj.status = item.status;
+        target.push(obj);
+      }
+    }
 
     this.selectedPlatformLoader.FakeDataFunc = (target:Array<Platform>)=>{
 
@@ -89,10 +99,15 @@ export class EntEstManagePlatformComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.entId = this.activatedRouter.snapshot.params["entId"] as string;
+
+
     this.layoutService.show();
-    this.platformLoader.Go()
+   
+    this.platformLoader.Go(null,[{key:'_enterpriseId',value:this.entId}])
     .then(success=>{
-      return this.selectedPlatformLoader.Go();
+      return this.selectedPlatformLoader.Go(null,[{key:'_enterpriseId',value:this.entId}]);
     })
     .then(success=>{
       this.layoutService.hide();
@@ -104,7 +119,7 @@ export class EntEstManagePlatformComponent implements OnInit {
   }
 
   selectItem(index:number,platform:Platform){
-    this.platformLoader.Items.splice(index);  
+    this.platformLoader.Items.splice(index,1);  
     this.selectedPlatformLoader.Items.push(platform);
   }
 
@@ -115,7 +130,22 @@ cancel(){
 
 //保存
 save(){
+  this.layoutService.show();
+  this.saveLoader.Go(null,[{key:'_enterpriseId',value:this.entId}],this.selectedPlatformLoader.Items)
+  .then(success=>{
+    this.layoutService.hide();
+  })
+  .catch(err=>{
+    this.showMsg(err);
+    this.layoutService.hide();
+  })
 
 }
+
+  showMsg(msg: string)
+  {
+    this.notice.open("COMMON.SYSTEM_PROMPT", msg);
+  }
+
 
 }
