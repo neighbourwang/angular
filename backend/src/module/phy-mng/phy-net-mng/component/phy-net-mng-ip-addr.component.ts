@@ -6,21 +6,20 @@ import { LayoutService, NoticeComponent , ConfirmComponent, ValidationService,
     SystemDictionary, PopupComponent, SystemDictionaryService, PaginationComponent
     } from '../../../../architecture';
 
-//model 
-//import { IpUsageMngModel } from '../model/ipusage-mng.model';
-
+//Model
+import { PhyNetListModel } from '../model/phy-net.model';
 
 //service
 //import { IpUsageMngListService } from '../../../service/ipusage-mng-list.service';
 
 @Component({
-    selector: 'ipusage-mng-list',
+    selector: 'phy_net_mng_ip_addr',
     templateUrl: '../template/phy_net_mng_ip_addr.html',
     styleUrls: [],
     providers: []
 })
 
-export class PhyNetIpUsageMngListComponent implements OnInit{
+export class PhyNetMngIpAddrComponent implements OnInit{
 
     constructor(
         private router : Router,
@@ -100,7 +99,7 @@ export class PhyNetIpUsageMngListComponent implements OnInit{
     displayIt(value: string): String {
         if(this.validationService.isBlank(value)){
             //return "未设置";
-            return "NET_MNG_VM_IP_MNG.UNSET";
+            return "COMMON.UNSET";
         } else {
             return value;
         }
@@ -134,6 +133,10 @@ export class PhyNetIpUsageMngListComponent implements OnInit{
         //console.log(this.service.statusDic, "statusDic!!!");
 
     }
+        
+    phyNetMngPage() {
+        this.router.navigate([`phy-mng/phy-net/phy-net-mng`]);
+    }
     /*
 
 	onRejected(reason: any) {
@@ -148,9 +151,7 @@ export class PhyNetIpUsageMngListComponent implements OnInit{
         this.notice.open();
     }
 
-    ipMngPage() {
-        this.router.navigate([`net-mng/vm-mng/ip-mng-list`, {"pid": this.platformId}]);
-    }
+
 
     filter(query?): void {
         this.ipusagequery = query || this.ipusagequery;

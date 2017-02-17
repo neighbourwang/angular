@@ -1,24 +1,35 @@
 
 export class ExtendDetailItem{
-    notApprveOrder : number = 0;//待审批订单
-    overdueOrder : number = 0;//即将过期订单
+    orderForAudit : number = 0;//待审批订单
+    orderToExpired : number = 0;//即将过期订单
 
-    newOrder : number = 0;//新创建工单数
-    processOrder : number = 0;//处理中工单数
-    completedOrder : number = 0;//已完成工单数
+    ticketNew : number = 0;//新创建工单数
+    ticketProcessing : number = 0;//处理中工单数
+    ticketDone : number = 0;//已完成工单数
 
-    startAccount : number = 0;//启用的用户数量
-    disabledAccount : number = 0;//禁用的用户数量
+    userEnabled : number = 0;//启用的用户数量
+    userDisabled : number = 0;//禁用的用户数量
 
     //云主机
-
+    vmRunning : number = 0; 
+    vmPaused : number = 0;
     //物理机
+
+    pcRunning : number = 0; 
+    pcPaused : number = 0;
 
     //存储
 
+    storageRunning : number = 0; 
+    storagePaused : number = 0;
+
     //数据库
+    dbRunning : number = 0; 
+    dbPaused : number = 0;
 
     //快照、镜像
+    snapshotRunning : number = 0; 
+    snapshotPaused : number = 0;
 }
 
 
