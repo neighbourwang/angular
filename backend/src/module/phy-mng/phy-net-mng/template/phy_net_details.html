@@ -1,16 +1,18 @@
 <div class="page-content-header icon-content-header-physical-mng">
-    网络资源查看
+    查看物理机网络网络
 </div>
 
 <div class="page-content">
     <div class="row" style="margin-top:30px;">
 
         <div class="col-md-12">
+            <!--
             <div class="row row-line-height">
                 <div class="col-sm-4  form-control-title">
                 <span class="float-left" style="line-height:34px;">查看物理机网络网络</span>
                 </div>
             </div>
+            -->
 
             <div class="row row-line-height">
                 <div class="form-group">
@@ -60,17 +62,20 @@
                         <span>{{imagedisplayName || ('HOST_VMWARE_MNG.UNSET' | translate)}}</span>
                     </div>
                 </div>
-            </div>
+            </div>  
 
-        
-
-        <div class="row row-line-height">
+        <!-- <div class="row row-line-height table-center">
             <div class="col-sm-4  form-control-title">
-            <span class="float-left" style="line-height:34px;">可用物理资源池列表</span>
+                <span class="float-left" style="line-height:34px;">可用物理资源池列表</span>
+            </div>
+        </div>-->
+        <div class="row row-line-height table-center">
+            <div class="form-group">
+                <span style="line-height:34px;">可用物理资源池列表</span>
             </div>
         </div>
 
-        <div class="table-container table-center" style="width: 40%">
+        <div class="table-container table-center" style="width: 60%">            
             <table class="table table-hover">
             <thead>
                 <tr>
@@ -95,10 +100,15 @@
                 </tr>               
             </tbody>
             </table>
-        </div>
+        </div>        
 
-        </div>
+        </div> <!-- col-md-12 -->
 
     </div>
+</div>
 
+<div class="text-center" style="margin-top:30px;">
+    <button class="fox-cloud-button-lg fox-cloud-button-white">
+        <span class="icon-button-label" (click)="phyNetMngPage()">{{'COMMON.CLOSE' | translate}}</span>
+    </button>
 </div>

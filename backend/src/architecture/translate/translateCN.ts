@@ -190,6 +190,7 @@
         "PRODUCT": "产品",
         "PRODUCT_INFO": "产品信息",
         "PROMPT": "提示",
+        "UNSET": "未设置",
         "PUBLISH": "发布",
         "PURCHASER": "订购人",
         "PURCHASE_AMOUNT": "购买量",

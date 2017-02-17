@@ -4,7 +4,7 @@ import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService,
     PaginationComponent, ConfirmComponent, SystemDictionary, SelectboxComponent } from '../../../../architecture';
 
 //model
-//import { EnterpriseModel } from '../model/vmware-img-list.model';
+import { PhyNetListModel } from '../model/phy-net.model';
 
 //service
 //import { VmwareImgEntSetupService } from '../service/vmware-img-ent-setup.service';
@@ -53,6 +53,10 @@ export class PhyNetDetailsComponent implements OnInit {
 
     
     ngOnInit() {
+    }
+
+    phyNetMngPage() {
+        this.router.navigate([`phy-mng/phy-net/phy-net-mng`]);
     }
 
 

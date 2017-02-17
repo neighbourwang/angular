@@ -1841,5 +1841,43 @@ export let RestApis: RestApiModel[] = [
         "url": "pmresourcemgmt/noauth/pmpool/pm/modellist"
     },
 
+    //物理机网络管理
+    {
+        "desc": "添加物理机网络",
+        "id": "phy-mng.phy-net-mng.network.create",
+        "method": "POST",
+        "url": "pmnetworkmgmt/noauth/pmnetwork"
+    },
+    {
+        "desc": "编辑物理机网络",
+        "id": "phy-mng.phy-net-mng.network.edit",
+        "method": "PUT",
+        "url": "pmnetworkmgmt/noauth/pmnetwork/edit"
+    },
+    {
+        "desc": "获取物理机网络列表",
+        "id": "phy-mng.phy-net-mng.network.list",
+        "method": "POST",
+        "url": "pmnetworkmgmt/noauth/pmnetwork/page/{page}/size/{size}"
+    },
+    {
+        "desc": "根据pmNetworkId获取网络信息",
+        "id": "phy-mng.phy-net-mng.network.info.get",
+        "method": "GET",
+        "url": "pmnetworkmgmt/noauth/pmnetwork/view/{pmNetworkId}"
+    },
+    {
+        "desc": "网络资源分配：根据pmNetworkId显示资源池的分配信息",
+        "id": "phy-mng.phy-net-mng.network.resource.list",
+        "method": "GET",
+        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/assign/pmpool"
+    },
+    {
+        "desc": "物理机网络状态修改:0:禁用 1:启用 2:删除",
+        "id": "phy-mng.phy-net-mng.network.status.set",
+        "method": "PUT",
+        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/{status}"
+    },
+
 ]
 
