@@ -1,7 +1,7 @@
 ﻿<div class="page-content-header icon-content-header-operation-center">
     计算资源容量管理： 
     <span style="font-size:16px;">云平台名称： ABCABC     平台类型：   XXXXXXX      访问地址： XXXXXXXXX</span>
-    <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" key="boe/platform-cap-mng.html">
+    <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" (click)="BacktoCapacityMng()">
         返回云平台容量管理
     </button>
 </div>
@@ -102,7 +102,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><a key="boe/host-detail.html">cmp-host01</a></td>
+                    <td><a (click)="gotoHostDtail()">cmp-host01</a></td>
                     <td>337</td>
                     <td>256</td>
                     <td></td>

@@ -113,7 +113,7 @@ export class MenuService {
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,							
-							"routing": ""
+							"routing": "mtc-center/capacity-mng/capacity-mng"
 						}, {
 							"label": "超分管理",
 							"isOpen": false,
