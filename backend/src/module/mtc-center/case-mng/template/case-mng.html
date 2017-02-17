@@ -1,0 +1,101 @@
+<div class="page-content-header icon-content-header-operation-center">
+    工单管理	  
+</div>
+
+
+<div class="page-content">
+    <div class="mgt15 ">      
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">所属企业：</span>
+        <div class="float-left pdr20">
+            <select class="pdl10 form-control">
+                <option value="1">所有企业</option>
+                <option value="1">上海惠普有限公司</option>
+            </select>
+        </div>          
+        <span class="float-left mgl10" style="display:inline-block;font-size:16px;padding:6px 0">类别：</span>
+        <div class="float-left">
+            <select class="pdl10 form-control">
+                <option value="1">所有类别</option>
+                <option value="1">云负载均衡</option>
+            </select>
+        </div> 
+        <span class="float-left mgl10" style="display:inline-block;font-size:16px;padding:6px 0">状态：</span>
+        <div class="float-left">
+            <select class="pdl10 form-control">
+                <option value="1">所有状态</option>
+                <option value="1">已关闭</option>
+            </select>
+        </div> 
+        <span class="float-left mgl10" style="display:inline-block;font-size:16px;padding:6px 0">紧急程度：</span>
+        <div class="float-left">
+            <select class="pdl10 form-control">
+                <option value="1">所有</option>
+                <option value="1">非常紧急</option>
+            </select>
+        </div> 
+        <div class="input-group col-md-2 pull-right mgl10 float-left">
+            <input class="form-control " placeholder="输入云主机信息搜索" type="text">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+        </div>                                                             
+     
+        <div class="dropdown pull-right" >
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                选择操作
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#" key="boe/case_operated.html">处理工单</a></li>
+                <li><a href="#" key="boe/case_closed.html">关闭工单</a></li>
+            </ul>
+        </div>
+    </div>
+   <div style="clear:both"></div>
+    <div class="table-container mgt15">
+        <table class="table table-hover" >
+            <thead>
+                <tr>
+                    <th >选择 </th>
+                    <th >工单号</th>
+                    <th >主题</th>
+                    <th >类别</th>
+                    <th >状态</th>
+                    <th>紧急程度</th>
+                    <th >联系人</th>
+                    <th >联系电话</th>
+                    <th >提交者</th>
+                    <th >所属企业</th>
+                    <th >创建时间</th>
+                    <th >更新时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="radio" class="fox-cloud-radio" name="case"> </td>
+                    <td>1</td>
+                    <td><a  href="#"  key="boe/case_detail.html">云硬盘订购成功，但不能使用</a> </td>
+                    <td>云主机</td>
+                    <td > 新建 </td>                  
+                    <td> 非常紧急 </td>
+                    <td > 顾晓燕</td>
+                    <td >02164223399 </td>  
+                    <td > 张三 </td>  
+                    <td > 上海惠普有限公司 </td>  
+                    <td >2016-10-1 15:35:50  </td>  
+                    <td>2016-10-1 15:35:50  </td>
+                </tr>
+            </tbody>
+        </table>    
+    </div>
+    <div style="height:50px"></div>
+    <div class="fox-cloud-pagination-container">
+        <ul class="fox-cloud-pagination">
+            <span>&lt;&lt;</span>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <span class="pagination-disabled">&gt;&gt;</span>
+        </ul>
+    </div>
+</div>

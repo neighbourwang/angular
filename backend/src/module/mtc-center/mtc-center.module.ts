@@ -2,18 +2,23 @@ import { NgModule } from '@angular/core';
 
 import { CapacityMngModule } from './capacity-mng/capacity-mng.module';
 import { AssignMngModule } from './assign-mng/assign-mng.module';
+import { CaseMngModule } from './case-mng/case-mng.module';
+
 @NgModule({
     imports: [
-        CapacityMngModule,
-        AssignMngModule
+       CaseMngModule,
+       CapacityMngModule,
+       AssignMngModule
     ],
     declarations: [],
     exports: [
-        
-    ],
-    providers: [
+        CaseMngModule,
         CapacityMngModule,
         AssignMngModule
+    ],
+    providers: [
+        
+        
     ]
 })
 
