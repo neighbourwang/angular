@@ -657,7 +657,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "管理可用平台保存",
         "id": "ent-mng.ent-est-mng.enterprise.platform.save",
         "method": "PUT",
-        "url": "adminui/authsec/enterprise/{enterpriseId}/platforms/ids"
+        "url": "adminui/authsec/enterprise/{_enterpriseId}/platforms/ids"
     },{
         "desc": "企业详情-扩展信息",
         "id": "ent-mng.ent-est-mng.enterprise.detail.ext",

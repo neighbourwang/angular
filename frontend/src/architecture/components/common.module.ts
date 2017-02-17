@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
-// import { ChartsModule } from 'ng2-charts/ng2-charts';
-
 import { SpinnerComponent } from './spinner/component/spinner.component';
 import { PaginationComponent } from './pagination/component/pagination.component';
 import { NoticeComponent } from './dialog/component/notice.component';
 import { ConfirmComponent } from './dialog/component/confirm.component';
 import { PopupComponent } from './dialog/component/popup.component';
 import { CountBarComponent } from './countBar/component/count-bar.component';
+import { BillingInfoComponent } from './billingInfo/billingInfo.component';
+import { BillingInfoService } from './billingInfo/billingInfo.service';
 import { TableEditNameComponent } from './tableEditName/component/tableEditName.component';
 import { PopoverModule } from './popover/index';
 import { MyDatePickerModule } from './date-picker/my-date-picker.module';
@@ -46,6 +46,7 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
         ConfirmComponent,
         PopupComponent,
         CountBarComponent,
+        BillingInfoComponent,
         TableEditNameComponent
         // OrderByPipe
         // DonutChart,
@@ -61,6 +62,7 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
         ConfirmComponent,
         PopupComponent,
         CountBarComponent,
+        BillingInfoComponent,
         ClickOutsideModule,
         PopoverModule,
         ChartsModule,
@@ -71,6 +73,9 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
         // DonutChart,
         // LineChart
     ],
-    providers : [DialogTranslate]
+    providers : [
+        DialogTranslate,
+        BillingInfoService
+    ]
 })
 export class CommonComponentModule { }

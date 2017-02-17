@@ -1,0 +1,208 @@
+<div class="page-content-header mgb20 ">
+    工单管理
+</div>
+<div class="mgb20" style="height:30px;">
+    <button class="btn button-confirm  pull-right" (click)="create()">
+        <span class="icon-create "></span>创建工单
+    </button>
+    <div class="input-group col-md-2 float-left">
+        <input class="form-control" placeholder="输入工单信息快速搜索" type="text">
+        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+    </div>
+    <div class="float-left mgl20">
+        <span>类别：</span>
+        <select class="form-control fix-width-120">
+            <option>所有类别</option>
+        </select>
+    </div>
+    <div class="float-left mgl20">
+        <span>状态：</span>
+        <select class="form-control fix-width-120">
+            <option>所有状态</option>
+        </select>
+    </div>
+    <div class="float-left mgl20">
+        <span>紧急程度：</span>
+        <select class="form-control fix-width-120">
+            <option>所有</option>
+        </select>
+    </div>
+</div>
+<table class="table table-hover" >
+    <thead>
+    <tr>
+        <th class="text-center">选择 </th>
+        <th class="text-center">工单号</th>
+        <th class="text-center">主题 </th>
+        <th class="text-center">类别 </th>
+        <th class="text-center">状态 </th>
+        <th class="text-center">紧急程度 </th>
+        <th class="text-center">联系人 </th>
+        <th class="text-center">联系电话 </th>
+        <th class="text-center">创建时间 </th>
+        <th class="text-center">更新时间 </th>
+        <th class="text-center">操作 </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="text-center"><input class="fox-cloud-radio" type="radio" ></td>
+        <td class="text-center">9</td>
+        <td class="text-center"><a href="javascript:void(0);" (click)="detail()"> 不能访问公司OA系统主机</a></td>
+        <td class="text-center">云主机</td>
+        <td class="text-center">新建</td>
+        <td class="text-center">非常紧急</td>
+        <td class="text-center">顾小燕</td>
+        <td class="text-center">02164223399</td>
+        <td class="text-center"></td>
+        <td class="text-center"></td>
+        <td class="text-center">
+            <span class="glyphicon glyphicon-edit font-green " style="margin-right : 10px ;cursor:pointer" (click)="edit()"></span>
+            <span class="glyphicon glyphicon-trash font-orange" (click)="delete()"></span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<fc-popup #creCase title="{{title}}" ot="{{isEdit== false?'创建':'保存'}}" ct="取消" (of)="creOredit();">
+    <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
+        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>主题:</div>
+        <div class="col-md-8 no-padding">
+            <textarea class="form-control" rows="2"></textarea>
+        </div>
+    </div>
+    <div class="col-md-offset-3 col-md-8 text-tip">最多只能输入50个文字</div>
+    <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
+        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>类别:</div>
+        <div class="col-md-8 float-left no-padding">
+            <select class="form-control">
+                <option>云主机</option>
+                <option>云硬盘</option>
+                <option>其他</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
+        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>紧急程度:</div>
+        <div class="col-md-8 float-left no-padding">
+            <select class="form-control">
+                <option>一般</option>
+                <option>紧急</option>
+                <option>非常紧急</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
+        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>联系人:</div>
+        <div class="col-md-8 no-padding form-group">
+            <input type="text" class="form-control">
+        </div>
+    </div>
+    <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
+        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>联系电话:</div>
+        <div class="col-md-8 no-padding form-group">
+            <input type="text" class="form-control">
+        </div>
+    </div>
+    <div class="col-md-offset-3 col-md-8 text-tip">"区号"+"电话号码"或"手机号"，例如：02160465223或13944238888</div>
+    <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
+        <div class="col-md-3 content-title" style="text-align : right">描述:</div>
+        <div class="col-md-8 no-padding">
+            <textarea class="form-control" rows="5"></textarea>
+        </div>
+    </div>
+    <div class="col-md-offset-3 col-md-8 text-tip">最多只能输入1000个文字</div>
+</fc-popup>
+
+<fc-popup #caseDetail title="{{title}}">
+    <div class="mgb10">基本信息</div>
+    <table class="cm-table-left table table-all-boder">
+        <tbody>
+        <tr>
+            <th class="col-md-2 text-center">主题</th>
+            <td colspan="3">不能访问公司OA系统主机</td>
+        </tr>
+        <tr>
+            <th class="col-md-2 text-center">状态</th>
+            <td>处理中</td>
+            <th class="col-md-2 text-center">类别</th>
+            <td>云主机</td>
+        </tr>
+        <tr>
+            <th class="col-md-2 text-center">联系人</th>
+            <td>管华</td>
+            <th class="col-md-2 text-center">联系电话</th>
+            <td>02164223399</td>
+        </tr>
+        <tr>
+            <th class="col-md-2 text-center">提交者</th>
+            <td>管华</td>
+            <th class="col-md-2 text-center">提交时间</th>
+            <td>2016-12-13 16:00:00</td>
+        </tr>
+        <tr>
+            <th class="col-md-2 text-center">所属部门</th>
+            <td>销售部</td>
+            <th class="col-md-2 text-center">所属企业</th>
+            <td>上海惠普有限公司</td>
+        </tr>
+        <tr>
+            <th class="col-md-2 text-center table-text-middle" height="80px">描述</th>
+            <td colspan="3" height="80px">不能访问</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="mgb10 mgt10">处理信息</div>
+    <table class="cm-table-left table table-all-boder">
+        <tbody>
+        <tr>
+            <th class="col-md-2 text-center">紧急程序</th>
+            <td>紧急（已升级）</td>
+            <th class="col-md-2 text-center">处理人</th>
+            <td>戴候华</td>
+            <th class="col-md-2 text-center">处理时间</th>
+            <td>2016-12-15 16:00:00</td>
+        </tr>
+        <tr>
+            <th class="col-md-2 text-center table-text-middle" height="80px">处理记录</th>
+            <td colspan="5" height="80px"></td>
+        </tr>
+        <tr>
+            <th class="col-md-2 text-center">紧急程序</th>
+            <td>紧急</td>
+            <th class="col-md-2 text-center">处理人</th>
+            <td>戴候华</td>
+            <th class="col-md-2 text-center">处理时间</th>
+            <td>2016-12-15 16:00:00</td>
+        </tr>
+        <tr>
+            <th class="col-md-2 text-center table-text-middle" height="80px">处理记录</th>
+            <td colspan="5" height="80px"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="mgb10 mgt10">关闭信息</div>
+    <table class="cm-table-left table table-all-boder">
+        <tbody>
+        <tr>
+            <th class="col-md-2 text-center">关闭类型</th>
+            <td>完成</td>
+            <th class="col-md-2 text-center">关闭人</th>
+            <td>戴候华</td>
+            <th class="col-md-2 text-center">关闭时间</th>
+            <td>2016-12-14 16:00:00</td>
+        </tr>
+        <tr>
+            <th class="col-md-2 text-center table-text-middle" height="80px">描述</th>
+            <td colspan="5" height="80px"></td>
+        </tr>
+        </tbody>
+    </table>
+</fc-popup>
+
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}"></fc-confirm>
+
+
+
+
+

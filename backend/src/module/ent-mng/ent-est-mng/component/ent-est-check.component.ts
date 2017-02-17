@@ -40,30 +40,45 @@ export class EntEstCheckComponent implements OnInit {
 
 
 
-     this.extendDetailLoader = new ItemLoader<ExtendDetailItem>(false,'加载数据错误','',restApiCfg,restApi);
+     this.extendDetailLoader = new ItemLoader<ExtendDetailItem>(false,'加载数据错误','ent-mng.ent-est-mng.enterprise.detail.ext',restApiCfg,restApi);
   
 
-    // this.orderCounterLoader.MapFunc = (source:Array<any>,target:Array<OrderCounter>)=>{
-    //   let obj = new OrderCounter();
+    // this.extendDetailLoader.MapFunc = (source:Array<any>,target:Array<ExtendDetailItem>)=>{
+    //   let obj = new ExtendDetailItem();
     //   for(let item of source){
-    //     obj.notApprveOrder =item.notApprveOrder;
     //     target.push(obj);
     //   }
     // }
 
-  this.extendDetailLoader.FakeDataFunc = (target:Array<ExtendDetailItem>)=>{
-      target.splice(0, target.length);
+  // this.extendDetailLoader.FakeDataFunc = (target:Array<ExtendDetailItem>)=>{
+  //     target.splice(0, target.length);
 
-      let _extend = new ExtendDetailItem();
-      _extend.notApprveOrder = 123;
-      _extend.overdueOrder = 15;
-      _extend.newOrder = 11;
-      _extend.processOrder = 11;
-      _extend.completedOrder = 11;
-       _extend.startAccount = 11;
-      _extend.disabledAccount = 11;
-      target.push(_extend);  
-    }
+  //     let _extend = new ExtendDetailItem();
+  //     _extend.orderForAudit = 123;
+  //     _extend.orderToExpired = 15;
+  //     _extend.ticketNew = 11;
+  //     _extend.ticketProcessing = 11;
+  //     _extend.ticketDone = 11;
+  //      _extend.userEnabled = 11;
+  //     _extend.userDisabled = 11;
+
+  //     _extend.vmRunning = 123;
+  //     _extend.vmPaused = 15;
+
+  //     _extend.pcRunning = 11;
+  //     _extend.pcPaused = 11;
+
+  //     _extend.storageRunning = 11;
+  //     _extend.storagePaused = 11;
+
+  //     _extend.dbRunning = 11;
+  //     _extend.dbPaused = 11;
+
+  //     _extend.snapshotRunning = 11;
+  //      _extend.snapshotPaused = 11;
+    
+  //     target.push(_extend);  
+  //   }
 
 
     //加载企业统计图
@@ -161,8 +176,9 @@ export class EntEstCheckComponent implements OnInit {
 
     this.resourceQuotaSvg.FirstItem = new EntEstCreResourceQuota();
      this.loadResourceQuotaSvg();
+
      this.layoutService.show();
-     this.extendDetailLoader.Go()
+     this.extendDetailLoader.Go(null,[{key:'_enterpriseId',value:this.entId}])
      .then(success=>{
       this.layoutService.hide();
      })

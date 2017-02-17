@@ -1,0 +1,128 @@
+﻿<div class="page-content-header icon-content-header-operation-center">
+    私有云主机容量管理
+</div>
+<div class="page-content">
+    <div class="mgt20" style="font-size:18px;font-weight:bold;">筛选条件：</div>
+    <div style="margin-right:30%;">
+    <div class="row row-line-height">
+        <div class="col-md-2 form-control-title" >企业：</div>
+        <div class="col-md-2">
+            <select class="form-control">
+                <option>所有企业</option>
+            </select>
+        </div>
+        <div class="col-md-2 form-control-title" >部门：</div>
+        <div class="col-md-2">
+            <select class="form-control">
+                <option>所有部门</option>
+            </select>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="col-md-2 form-control-title" >平台：</div>
+        <div class="col-md-2">
+            <select class="form-control">
+                <option>所有平台</option>
+            </select>
+        </div>
+        <div class="col-md-2 form-control-title" >Region/DC：</div>
+        <div class="col-md-2">
+            <select class="form-control">
+                <option>所有Region/DC</option>
+            </select>
+        </div>
+        <div class="col-md-2 form-control-title" >可用区：</div>
+        <div class="col-md-2">
+            <select class="form-control">
+                <option>所有可用区</option>
+            </select>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="col-md-2 form-control-title" >云主机状态：</div>
+        <div class="col-md-2">
+            <select class="form-control">
+                <option>运行</option>
+            </select>
+        </div>
+        <div class="col-md-2 form-control-title" >云主机规格：</div>
+        <div class="col-md-2">
+            <select class="form-control">
+                <option>规格1</option>
+            </select>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="col-md-2 form-control-title" >利用率排序：</div>
+        <div class="col-md-2">
+            <select class="form-control">
+                <option>从低到高</option>
+            </select>
+        </div>
+        <div class="col-md-2 form-control-title" >TOP：</div>
+        <div class="col-md-2">
+            <select class="form-control">
+                <option>TOP10</option>
+            </select>
+        </div>
+        <div class="col-md-2 form-control-title" >时间范围：</div>
+        <div class="col-md-2">
+            <select class="form-control">
+                <option>最近7天</option>
+            </select>
+        </div>
+    </div>
+    </div>
+    <div>
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15">导出所有数据</button>
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15">导出当前数据</button>
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15">重置</button>
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15">确认</button>
+    </div>
+    <div style="clear:both;"></div>
+    <div class="table-container mgt20">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>实例名称</th>
+                    <th>平台</th>
+                    <th>Region/DC</th>
+                    <th>可用区</th>
+                    <th>企业</th>
+                    <th>部门</th>
+                    <th>CPU平均利用率</th>
+                    <th>内存平均利用率</th>
+                    <th>CPU峰值利用率</th>
+                    <th>内存峰值利用率</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><a (click)="gotoAssignMng()">ABC</a></td>
+                    <td></td>
+                    <td>北京</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="fox-cloud-pagination-container">
+        <ul class="fox-cloud-pagination">
+            <span>&lt;&lt;</span>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <span class="pagination-disabled">&gt;&gt;</span>
+        </ul>
+    </div>
+</div>
