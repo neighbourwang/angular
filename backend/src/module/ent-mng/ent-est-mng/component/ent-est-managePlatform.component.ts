@@ -52,27 +52,27 @@ export class EntEstManagePlatformComponent implements OnInit {
       
     // }
 
-    this.platformLoader.FakeDataFunc = (target:Array<Platform>)=>{
-      target.splice(0, target.length);
+    // this.platformLoader.FakeDataFunc = (target:Array<Platform>)=>{
+    //   target.splice(0, target.length);
 
-      let _platform = new Platform();
-      _platform.name = '上海A平台';
-      _platform.type = '777';
-      _platform.status = '1';
-      target.push(_platform);  
+    //   let _platform = new Platform();
+    //   _platform.name = '上海A平台';
+    //   _platform.type = '777';
+    //   _platform.status = '1';
+    //   target.push(_platform);  
 
-      let _platform2 = new Platform();
-      _platform2.name = '上海B平台';
-      _platform2.type = '666';
-      _platform2.status = '1';
-       target.push(_platform2); 
+    //   let _platform2 = new Platform();
+    //   _platform2.name = '上海B平台';
+    //   _platform2.type = '666';
+    //   _platform2.status = '1';
+    //    target.push(_platform2); 
 
-        let _platform3 = new Platform();
-       _platform3.name = '上海C平台';
-      _platform3.type = '888';
-      _platform3.status = '0';
-       target.push(_platform3); 
-    }
+    //     let _platform3 = new Platform();
+    //    _platform3.name = '上海C平台';
+    //   _platform3.type = '888';
+    //   _platform3.status = '0';
+    //    target.push(_platform3); 
+    // }
 
     this.selectedPlatformLoader.MapFunc = (source:Array<any>,target:Array<Platform>)=>{
       let obj = new Platform();
@@ -86,16 +86,16 @@ export class EntEstManagePlatformComponent implements OnInit {
       }
     }
 
-    this.selectedPlatformLoader.FakeDataFunc = (target:Array<Platform>)=>{
+    // this.selectedPlatformLoader.FakeDataFunc = (target:Array<Platform>)=>{
 
-      target.splice(0, target.length);
+    //   target.splice(0, target.length);
 
-      let _platform = new Platform();
-      _platform.name = '上海B平台';
-      _platform.type = '888';
-      _platform.status = '1';
-      target.push(_platform);  
-    }
+    //   let _platform = new Platform();
+    //   _platform.name = '上海B平台';
+    //   _platform.type = '888';
+    //   _platform.status = '1';
+    //   target.push(_platform);  
+    // }
   }
 
   ngOnInit() {
@@ -130,8 +130,14 @@ cancel(){
 
 //保存
 save(){
+  let params:Array<string>= [];
+
+  for(let item of this.selectedPlatformLoader.Items){
+     let index = this.selectedPlatformLoader.Items.indexOf(item);
+     params[index] = item.id; 
+  }
   this.layoutService.show();
-  this.saveLoader.Go(null,[{key:'_enterpriseId',value:this.entId}],this.selectedPlatformLoader.Items)
+  this.saveLoader.Go(null,[{key:'_enterpriseId',value:this.entId}],params)
   .then(success=>{
     this.layoutService.hide();
   })
