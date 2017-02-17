@@ -119,7 +119,7 @@ export class MenuService {
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
-							"routing": ""
+							"routing": "mtc-center/assign-mng/assign-mng"
                         },
                         {
 							"label": "工单管理",
