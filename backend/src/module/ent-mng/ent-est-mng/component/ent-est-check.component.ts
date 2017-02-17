@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LayoutService, ItemLoader,RestApi, RestApiCfg,NoticeComponent, PopupComponent,SystemDictionaryService, SystemDictionary } from '../../../../architecture';
-import { CertMethod, EntProdItem, EntEstItem, EntEst,EntEstCreResourceQuota} from '../model';
+import { ExtendDetailItem,CertMethod, EntProdItem, EntEstItem, EntEst,EntEstCreResourceQuota} from '../model';
 import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
 
 @Component({
@@ -19,9 +19,11 @@ export class EntEstCheckComponent implements OnInit {
   private entProdItems: Paging<EntProdItem> = new Paging<EntProdItem>();
   private entId:string = "";
   private dic:SystemDictionary[];
-   private resourceQuotaSvg : ItemLoader<EntEstCreResourceQuota>;
-   private msg ={title:'',desc:''};
+  private resourceQuotaSvg : ItemLoader<EntEstCreResourceQuota>;
+  private msg ={title:'',desc:''};
 
+//查看企业：管理信息及新增图标（云主机、物理机、存储、数据库、快照/镜像）等数据
+ private extendDetailLoader : ItemLoader<ExtendDetailItem> = null; 
 
   //[ngStyle]="{'stroke-dashoffset': '75.0401';'stroke-dasharray': 282.783;}"
 
@@ -35,6 +37,34 @@ export class EntEstCheckComponent implements OnInit {
     private restApiCfg:RestApiCfg,
     private restApi:RestApi
   ) { 
+
+
+
+     this.extendDetailLoader = new ItemLoader<ExtendDetailItem>(false,'加载数据错误','',restApiCfg,restApi);
+  
+
+    // this.orderCounterLoader.MapFunc = (source:Array<any>,target:Array<OrderCounter>)=>{
+    //   let obj = new OrderCounter();
+    //   for(let item of source){
+    //     obj.notApprveOrder =item.notApprveOrder;
+    //     target.push(obj);
+    //   }
+    // }
+
+  this.extendDetailLoader.FakeDataFunc = (target:Array<ExtendDetailItem>)=>{
+      target.splice(0, target.length);
+
+      let _extend = new ExtendDetailItem();
+      _extend.notApprveOrder = 123;
+      _extend.overdueOrder = 15;
+      _extend.newOrder = 11;
+      _extend.processOrder = 11;
+      _extend.completedOrder = 11;
+       _extend.startAccount = 11;
+      _extend.disabledAccount = 11;
+      target.push(_extend);  
+    }
+
 
     //加载企业统计图
     this.resourceQuotaSvg = new ItemLoader<EntEstCreResourceQuota>(true, "ENT_MNG.ENT_OVERVIEW_DATA_ERROR", "ent-mng.ent-est-mng.enterprise.quota.detail", restApiCfg, restApi);
@@ -131,6 +161,14 @@ export class EntEstCheckComponent implements OnInit {
 
     this.resourceQuotaSvg.FirstItem = new EntEstCreResourceQuota();
      this.loadResourceQuotaSvg();
+     this.layoutService.show();
+     this.extendDetailLoader.Go()
+     .then(success=>{
+      this.layoutService.hide();
+     })
+     .catch(err=>{
+        this.layoutService.hide();
+     })
   }
 
 sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) { 

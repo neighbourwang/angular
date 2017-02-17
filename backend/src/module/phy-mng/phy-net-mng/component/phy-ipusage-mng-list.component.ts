@@ -15,7 +15,7 @@ import { LayoutService, NoticeComponent , ConfirmComponent, ValidationService,
 
 @Component({
     selector: 'ipusage-mng-list',
-    templateUrl: '../template/phy_mng_ip_addr.html',
+    templateUrl: '../template/phy_net_mng_ip_addr.html',
     styleUrls: [],
     providers: []
 })

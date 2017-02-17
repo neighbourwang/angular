@@ -54,8 +54,7 @@ export class PfDetailComponent implements OnInit {
     @ViewChild('notice')
     notice: NoticeComponent;
 
-    @ViewChild('updateZonePop')
-    updateZonePop: PopupComponent;
+    @ViewChild('zoneSync') zoneSync;
 
     @ViewChild('updateZoneResourcePop')
     updateZoneResourcePop: PopupComponent;
@@ -136,7 +135,7 @@ export class PfDetailComponent implements OnInit {
             .then(
 
             res => {
-                console.log('region', res);
+                // console.log('region', res);
                 this.regions = res;
             }
             ).catch(
@@ -202,7 +201,10 @@ export class PfDetailComponent implements OnInit {
     }   
     //启用可用区
     enableZone(id: string) {
-        console.log(id);
+        if(this.platform.status!=1){
+            this.notice.open('操作错误','不支持对未启用状态平台下的可用区状态的更改');
+            return;
+        }
         this.layoutService.show();
         this.platformDetailService.enableZone(id).then(res => {
             console.log(res)
@@ -215,13 +217,17 @@ export class PfDetailComponent implements OnInit {
     }
     //禁用可用区
     suspendZone(id: string) {
-        console.log(id);
+        if(this.platform.status!=1){
+            this.notice.open('操作错误','不支持对未启用状态平台下的可用区状态的更改');
+            return;
+        }
         this.layoutService.show();
         this.platformDetailService.suspendZone(id).then(res => {
             console.log(res)
             this.getZoneList();
             this.layoutService.hide();
         }).catch(err => {
+            this.layoutService.hide();
             console.error('禁用可用区失败', err);
         })
     }
@@ -256,6 +262,7 @@ export class PfDetailComponent implements OnInit {
 
     //更新可用区弹出框
     updateZone() {
+        
         this.platformDetailService.getUpdateZoneList(this.platform.id).then(
             res => {
                 this.updateZoneList = res.resultContent;
@@ -268,7 +275,7 @@ export class PfDetailComponent implements OnInit {
                         }
                     })
                     console.log('同步', res);
-                    this.updateZonePop.open('PF_MNG2.SYNC_ZONES')
+                    this.zoneSync.open(this.updateZoneList);
                 }
             }
         ).catch(err => {

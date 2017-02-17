@@ -212,29 +212,35 @@ export class AccountMngCrLocal implements OnInit {
             return
         }
         if (!this.isCreate) {
+            this.layoutservice.show()
             this.service.editAccount(this.accountId, this.account)
                 .then(
                 res => {
                     console.log(res);
+                    this.layoutservice.hide();
                     this.router.navigateByUrl('user-center/account-mng/account-mng-list');
                 }
                 )
                 .catch(
                 err => {
+                    this.layoutservice.hide();
                     console.error(err);
                 }
                 );
         } else {
+            this.layoutservice.show()
             this.service.createAccount(this.account)
                 .then(
                 res => {
                     console.log(res);
+                    this.layoutservice.hide();
                     this.router.navigateByUrl('user-center/account-mng/account-mng-list');
                 }
                 )
                 .catch(
                 err => {
                     console.error(err);
+                    this.layoutservice.hide();
                 }
                 );
         }

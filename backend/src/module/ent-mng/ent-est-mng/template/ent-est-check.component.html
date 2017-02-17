@@ -66,137 +66,191 @@
 </div>           
 <div class="info-title" [ngStyle]="{'margin-top': isAdCert()?'170px':'30px'}"> <span  class="form-control-title">{{ 'ENT_MNG.MNG_INFO' | translate }}:</span></div>
 <div class="baseContainer mgt20">
-	<!--<div style="padding-left:65px;">
+	<div style="padding-left:65px;">
    		<div class="row">
       		<div class="col-md-4 sm-container">
       			<h4>订单与审批统计</h4>
 				<ul class="list-unstyled">
-  					<li>
+  					<!--<li>
                        进行中的订单数:<span class="validateInfo">300</span>
-				    </li>
- 				    <li>待审批订单:<span>35</span></li>
- 					<li>即将过期（1个月内）的订单数:<span class="warnInfo">124</span></li>
+				    </li>-->
+ 				    <li>待审批订单:<span>{{extendDetailLoader.FirstItem.notApprveOrder}}</span></li>
+ 					<li>即将过期（1个月内）的订单数:<span>{{extendDetailLoader.FirstItem.overdueOrder}}</span></li>
 				</ul>
       		</div>
       		<div class="col-md-4 sm-container sm-container">
       			<h4>工单统计</h4>
 				<ul class="list-unstyled">
   					<li>
-                       新创建的工单数:<span class="validateInfo">30</span>
+                       新创建的工单数:<span>{{extendDetailLoader.FirstItem.newOrder}}</span>
 				    </li>
- 				    <li>已完成的工单数:<span>124</span></li>
- 					<li>处理中的工单数:<span class="warnInfo">200</span></li>
+					<li>处理中的工单数:<span >{{extendDetailLoader.FirstItem.processOrder}}</span></li>
+ 				    <li>已完成的工单数:<span>{{extendDetailLoader.FirstItem.completedOrder}}</span></li>		
 				</ul>
       		</div> 
       		<div class="col-md-4 sm-container">
 				<h4>账户统计</h4>
 				<ul class="list-unstyled">
   					<li>
-                       启用的用户数量:<span class="validateInfo">100</span>
+                       启用的用户数量:<span>{{extendDetailLoader.FirstItem.startAccount}}</span>
 				    </li>
- 				    <li>禁用的用户数量:<span span class="warnInfo">20</span></li>
+ 				    <li>禁用的用户数量:<span>{{extendDetailLoader.FirstItem.disabledAccount}}</span></li>
 				</ul>
       		</div>     
    		</div>
-	</div>-->
+	</div>
 	<div class="checkProdPanel green-border">
 		<div class="titlePanel">
 		<span class="form-control-title float-left">{{ 'ENT_MNG.ENTERPRISE_RESOURCE_STATISTICS' | translate }}</span>
 		</div> 
-	<div class="contentPanel" style="padding-left: 8px;" >
-		<div class="float-left" width="150px">
-			<div class="circle-graph mgr17 mgb10">
-				<svg class="chart-circle" viewBox="0 0 100 100">
-					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
-					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
-				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedCpuRate|percent}}</span>
+		<div class="contentPanel" style="padding-left: 8px;height: 200px;" >
+			<div class="float-left" width="150px">
+				<div class="circle-graph mgr17 mgb10">
+					<svg class="chart-circle" viewBox="0 0 100 100">
+						<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
+						<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
+					</svg>
+					<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedCpuRate|percent}}</span>
+				</div>
+				<div width="150px" style="text-align: center;">
+					<!--<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.vcpuQuota}})</span>-->
+					<span >VCPU</span>
+				</div>	  	
 			</div>
-			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.vcpuQuota}})</span>
-			    <span >VCPU</span>
-			</div>	  	
-		</div>
-	  	<div class="float-left" width="150px">
-			<div class="circle-graph mgr17 mgb10">
-				<svg class="chart-circle" viewBox="0 0 100 100">
-					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
-					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
-				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedMemRate|percent}}</span>
+			<div class="float-left" width="150px">
+				<div class="circle-graph mgr17 mgb10">
+					<svg class="chart-circle" viewBox="0 0 100 100">
+						<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
+						<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
+					</svg>
+					<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedMemRate|percent}}</span>
+				</div>
+				<div width="150px" style="text-align: center;">
+					<!--<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.memroyQuota}})</span>-->
+					<span >{{ 'COMMON.RAM' | translate }}</span>
+				</div>	  	
 			</div>
-			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.memroyQuota}})</span>
-			    <span >{{ 'COMMON.RAM' | translate }}</span>
-			</div>	  	
-		</div>
-		<div class="float-left" width="150px">
-			<div class="circle-graph mgr17 mgb10">
-				<svg class="chart-circle" viewBox="0 0 100 100">
-					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
-					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
-				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedStorageRate|percent}}</span>
+			<div class="float-left" width="150px">
+				<div class="circle-graph mgr17 mgb10">
+					<svg class="chart-circle" viewBox="0 0 100 100">
+						<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
+						<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
+					</svg>
+					<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedStorageRate|percent}}</span>
+				</div>
+				<div width="150px" style="text-align: center;">
+					<!--<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.storageQuota}})</span>-->
+					<span >{{ 'COMMON.STORAGE' | translate }}</span>
+				</div>	  	
 			</div>
-			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.storageQuota}})</span>
-			    <span >{{ 'COMMON.STORAGE' | translate }}</span>
-			</div>	  	
-		</div>
-		<div class="float-left" width="150px">
-			<div class="circle-graph mgr17 mgb10">
-				<svg class="chart-circle" viewBox="0 0 100 100">
-					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
-					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
-				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedPhysicalMachineRate|percent}}</span>
+			<div class="float-left" width="150px">
+				<div class="circle-graph mgr17 mgb10">
+					<svg class="chart-circle" viewBox="0 0 100 100">
+						<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
+						<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
+					</svg>
+					<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedPhysicalMachineRate|percent}}</span>
+				</div>
+				<div width="150px" style="text-align: center;">
+					<!--<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.physicalQuota}})</span>-->
+					<span >{{ 'COMMON.PHYSICAL_MACHINE' | translate }}</span>
+				</div>	  	
 			</div>
-			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.physicalQuota}})</span>
-			    <span >{{ 'COMMON.PHYSICAL_MACHINE' | translate }}</span>
-			</div>	  	
-		</div>
-		<div class="float-left" width="150px">
-			<div class="circle-graph mgr17 mgb10">
-				<svg class="chart-circle" viewBox="0 0 100 100">
-					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
-					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
-				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedSnapshotRate|percent}}</span>
+			<div class="float-left" width="150px">
+				<div class="circle-graph mgr17 mgb10">
+					<svg class="chart-circle" viewBox="0 0 100 100">
+						<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
+						<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
+					</svg>
+					<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedSnapshotRate|percent}}</span>
+				</div>
+				<div width="150px" style="text-align: center;">
+					<!--<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.snapShotQuota}})</span>-->
+					<span >{{ 'COMMON.SNAPSHOT' | translate }}</span>
+				</div>	  	
 			</div>
-			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.snapShotQuota}})</span>
-			    <span >{{ 'COMMON.SNAPSHOT' | translate }}</span>
-			</div>	  	
-		</div>
-		<div class="float-left" width="150px">
-			<div class="circle-graph mgr17 mgb10">
-				<svg class="chart-circle" viewBox="0 0 100 100">
-					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
-					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
-				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedImageRate|percent}}</span>
+			<div class="float-left" width="150px">
+				<div class="circle-graph mgr17 mgb10">
+					<svg class="chart-circle" viewBox="0 0 100 100">
+						<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
+						<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
+					</svg>
+					<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedImageRate|percent}}</span>
+				</div>
+				<div width="150px" style="text-align: center;">
+					<!--<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.imageQuota}})</span>-->
+					<span >{{ 'COMMON.IMAGE' | translate }}</span>
+				</div>	  	
 			</div>
-			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.imageQuota}})</span>
-			    <span >{{ 'COMMON.IMAGE' | translate }}</span>
-			</div>	  	
-		</div>
-		<div class="float-left" width="150px">
-			<div class="circle-graph mgr17 mgb10">
-				<svg class="chart-circle" viewBox="0 0 100 100">
-					<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
-					<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
-				</svg>
-				<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedFloatIpRate|percent}}</span>
+			<div class="float-left" width="150px">
+				<div class="circle-graph mgr17 mgb10">
+					<svg class="chart-circle" viewBox="0 0 100 100">
+						<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
+						<path class="underlay2" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" ></path>
+					</svg>
+					<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedFloatIpRate|percent}}</span>
+				</div>
+				<div width="150px" style="text-align: center;">
+					<!--<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.floatIpQuota}})</span>-->
+					<span >{{ 'COMMON.FLOAT_IP_PATH' | translate }}</span>
+				</div>	  	
 			</div>
-			<div width="150px" style="text-align: center;">
-				<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.floatIpQuota}})</span>
-			    <span >{{ 'COMMON.FLOAT_IP_PATH' | translate }}</span>
-			</div>	  	
+			
 		</div>
 		
-	</div>
+		<!--新增图标部分-->
+		<div>
+			<div class="float-left">
+				<div class="icon-ent-est-check-vcpu iconPanel icon-style" style="margin-left:60px;margin-top: 20px; ">
+				</div>
+				<div><span style="margin-left:80px;">云主机</span></div>
+				<div class="icon-ent-est-check-trag iconPanel2 pdt10 _icon">
+				</div>
+				<span class="_span" style="">66</span>
+				<div class="icon-ent-est-check-two iconPanel2 pdt10 _icon2" >
+				</div>
+				<span class="_span2">10</span>	
+			</div>
+			<div class="float-left">
+				<div class="icon-ent-est-check-physicalMachine iconPanel icon-style mgb20"></div>
+				<div><span style="margin-left:65px; ">物理机</span></div>
+				<div class="icon-ent-est-check-trag iconPanel2 pdt10 _icon">
+				</div>
+				<span class="_span" style="">66</span>
+				<div class="icon-ent-est-check-two iconPanel2 pdt10 _icon2" >
+				</div>
+				<span class="_span2">10</span>
+			</div>
+			<div class="float-left">
+				<div class="icon-ent-est-check-storage iconPanel icon-style mgb20" style="margin-left: 45px;"></div>
+				<div><span style="margin-left:90px; ">存储</span></div>
+				<div class="pdl20">
+					<div class="icon-ent-est-check-trag iconPanel2 pdt10 _icon">
+					</div>
+					<span class="_span" style="">66</span>
+					<div class="icon-ent-est-check-two iconPanel2 pdt10 _icon2" >
+					</div>
+					<span class="_span2">10</span>
+				</div>
+			</div>
+			<div class="float-left">
+				<div class="icon-ent-est-check-sql iconPanel icon-style mgb20"style="margin-left: 40px;" ></div>
+				<div><span style="margin-left:80px; ">数据库</span></div>
+				<div class="pdl20">
+					<div class="icon-ent-est-check-trag iconPanel2 pdt10 _icon">
+					</div>
+					<span class="_span" style="">66</span>
+					<div class="icon-ent-est-check-two iconPanel2 pdt10 _icon2" >
+					</div>
+					<span class="_span2">10</span>
+				</div>
+			</div>
+			<div class="float-left">
+				<div class="icon-ent-est-check-sql iconPanel icon-style mgb20"></div>
+				<div><span style="margin-left:60px; ">快照/镜像</span></div>
+				<span class="_span3">5/5</span>
+			</div>
+		</div>
 	</div>
 </div>
 

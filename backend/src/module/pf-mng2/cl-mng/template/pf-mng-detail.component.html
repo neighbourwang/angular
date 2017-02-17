@@ -149,11 +149,11 @@
                     <tr>
                         <!--<th >#</th>-->
                         <th class="check-box-col" style="width:6%">DC/Region</th>
-                        <th style="width:6%">名称</th>
+                        <th style="width:6%">可用区名称</th>
                         <th style="width:8%">显示名称</th>
                         <th style="width:18%">宿主机</th>
                         <th style="width:8%">物理CPU核数</th>
-                        <th style="width:10%">物理内存总数(MB)</th>
+                        <th style="width:10%">总内存数(MB)</th>
                         <th style="width:6%">CPU超分比</th>
                         <th style="width:4%">配额%</th>
                         <th style="width:4%">状态</th>
@@ -348,19 +348,10 @@
     </div>
 </div>
 
-<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL"></fc-notice>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM"></fc-notice>
 
 <fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
-<fc-popup #updateZonePop title="{{title}}" ot="NET_MNG_OPENSTACK.ADD" (of)="otUpdateZone()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()">
-	<div class="row row-line-height">
-		<div class="form-group">
-			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>同步可用区：</div>
-			<div class="col-sm-6">
-                     待开发。。。   
-			</div>
-		</div>
-	</div>
-</fc-popup>
+
 <fc-popup #updateZoneResourcePop title="{{title}}" ot="NET_MNG_OPENSTACK.UPDATE" (of)="otUpdateResource()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()">
 	<div class="row row-line-height">
 		<div class="form-group">
@@ -393,3 +384,4 @@
 		</div>
 	</div>
 </fc-popup>
+<zone-sync #zoneSync > </zone-sync>

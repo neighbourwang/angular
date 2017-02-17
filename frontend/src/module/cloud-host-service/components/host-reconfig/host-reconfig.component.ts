@@ -16,6 +16,7 @@ export class HostReconfigComponent implements OnInit {
 	@Output() complete=new EventEmitter();
 
 	state:"change"|"done" = "change";
+	vm:VmList = new VmList;
 
 	constructor(
 		private layoutService: LayoutService,
@@ -28,6 +29,7 @@ export class HostReconfigComponent implements OnInit {
 
 	open(vm:VmList) {
 		$('#hostBox').modal('show');
+		this.vm = vm;
 		this.state = "change";
 	}
 

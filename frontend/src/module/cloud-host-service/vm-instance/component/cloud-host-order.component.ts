@@ -497,7 +497,7 @@ console.log(this.vmProduct)
 		console.log(payLoadArr, JSON.stringify(payLoadArr))
 		this.service.saveOrder(payLoadArr).then(res => {
 			this.layoutService.hide();
-			this.router.navigateByUrl("cloud-host-service/cart-order");
+			this.router.navigate(['cloud-host-service/cart-order/', JSON.stringify(res.resultContent)]);
 		}).catch(res => {
 			this.layoutService.hide();
 		})
