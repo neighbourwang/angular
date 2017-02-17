@@ -643,7 +643,30 @@ export let RestApis: RestApiModel[] = [
         "id": "ent-mng.ent-est-mng.enterprise.quota.detail",
         "method": "GET",
         "url": "adminui/authsec/enterprise/{enterpriseId}/resource/quota/detail"
-    },// 企业管理 -->
+    },{
+        "desc": "管理可用平台已选择平台",
+        "id": "ent-mng.ent-est-mng.enterprise.platform.selected",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/{_enterpriseId}/platforms"
+    },{
+        "desc": "管理可用平台未选择平台",
+        "id": "ent-mng.ent-est-mng.enterprise.platform",
+        "method": "GET",
+        "url": "adminui/authsec/platforms/enterprises/{_enterpriseId}"
+    },{
+        "desc": "管理可用平台保存",
+        "id": "ent-mng.ent-est-mng.enterprise.platform.save",
+        "method": "PUT",
+        "url": "adminui/authsec/enterprise/{_enterpriseId}/platforms/ids"
+    },{
+        "desc": "企业详情-扩展信息",
+        "id": "ent-mng.ent-est-mng.enterprise.detail.ext",
+        "method": "GET",
+        "url": "adminui/authsec/enterprise/{_enterpriseId}/ext"
+    },
+    
+    
+    // 企业管理 -->
     //<!--后台-运营中心-订单管理
     {
         "desc": "订单查询详情",
