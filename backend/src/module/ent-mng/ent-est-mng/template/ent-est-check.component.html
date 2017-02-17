@@ -74,27 +74,27 @@
   					<!--<li>
                        进行中的订单数:<span class="validateInfo">300</span>
 				    </li>-->
- 				    <li>待审批订单:<span>{{extendDetailLoader.FirstItem.notApprveOrder}}</span></li>
- 					<li>即将过期（1个月内）的订单数:<span>{{extendDetailLoader.FirstItem.overdueOrder}}</span></li>
+ 				    <li>待审批订单:<span>{{extendDetailLoader.FirstItem.orderForAudit}}</span></li>
+ 					<li>即将过期（1个月内）的订单数:<span>{{extendDetailLoader.FirstItem.orderToExpired}}</span></li>
 				</ul>
       		</div>
       		<div class="col-md-4 sm-container sm-container">
       			<h4>工单统计</h4>
 				<ul class="list-unstyled">
   					<li>
-                       新创建的工单数:<span>{{extendDetailLoader.FirstItem.newOrder}}</span>
+                       新创建的工单数:<span>{{extendDetailLoader.FirstItem.ticketNew}}</span>
 				    </li>
-					<li>处理中的工单数:<span >{{extendDetailLoader.FirstItem.processOrder}}</span></li>
- 				    <li>已完成的工单数:<span>{{extendDetailLoader.FirstItem.completedOrder}}</span></li>		
+					<li>处理中的工单数:<span >{{extendDetailLoader.FirstItem.ticketProcessing}}</span></li>
+ 				    <li>已完成的工单数:<span>{{extendDetailLoader.FirstItem.ticketDone}}</span></li>		
 				</ul>
       		</div> 
       		<div class="col-md-4 sm-container">
 				<h4>账户统计</h4>
 				<ul class="list-unstyled">
   					<li>
-                       启用的用户数量:<span>{{extendDetailLoader.FirstItem.startAccount}}</span>
+                       启用的用户数量:<span>{{extendDetailLoader.FirstItem.userEnabled}}</span>
 				    </li>
- 				    <li>禁用的用户数量:<span>{{extendDetailLoader.FirstItem.disabledAccount}}</span></li>
+ 				    <li>禁用的用户数量:<span>{{extendDetailLoader.FirstItem.userDisabled}}</span></li>
 				</ul>
       		</div>     
    		</div>
@@ -206,20 +206,20 @@
 				<div><span style="margin-left:80px;">云主机</span></div>
 				<div class="icon-ent-est-check-trag iconPanel2 pdt10 _icon">
 				</div>
-				<span class="_span" style="">66</span>
+				<span class="_span" style="">{{extendDetailLoader.FirstItem.vmRunning}}</span>
 				<div class="icon-ent-est-check-two iconPanel2 pdt10 _icon2" >
 				</div>
-				<span class="_span2">10</span>	
+				<span class="_span2">{{extendDetailLoader.FirstItem.vmPaused}}</span>	
 			</div>
 			<div class="float-left">
 				<div class="icon-ent-est-check-physicalMachine iconPanel icon-style mgb20"></div>
 				<div><span style="margin-left:65px; ">物理机</span></div>
 				<div class="icon-ent-est-check-trag iconPanel2 pdt10 _icon">
 				</div>
-				<span class="_span" style="">66</span>
+				<span class="_span" style="">{{extendDetailLoader.FirstItem.pcRunning}}</span>
 				<div class="icon-ent-est-check-two iconPanel2 pdt10 _icon2" >
 				</div>
-				<span class="_span2">10</span>
+				<span class="_span2">{{extendDetailLoader.FirstItem.pcPaused}}</span>
 			</div>
 			<div class="float-left">
 				<div class="icon-ent-est-check-storage iconPanel icon-style mgb20" style="margin-left: 45px;"></div>
@@ -227,10 +227,10 @@
 				<div class="pdl20">
 					<div class="icon-ent-est-check-trag iconPanel2 pdt10 _icon">
 					</div>
-					<span class="_span" style="">66</span>
+					<span class="_span" style="">{{extendDetailLoader.FirstItem.storageRunning}}</span>
 					<div class="icon-ent-est-check-two iconPanel2 pdt10 _icon2" >
 					</div>
-					<span class="_span2">10</span>
+					<span class="_span2">{{extendDetailLoader.FirstItem.storagePaused}}</span>
 				</div>
 			</div>
 			<div class="float-left">
@@ -239,16 +239,16 @@
 				<div class="pdl20">
 					<div class="icon-ent-est-check-trag iconPanel2 pdt10 _icon">
 					</div>
-					<span class="_span" style="">66</span>
+					<span class="_span" style="">{{extendDetailLoader.FirstItem.dbRunning}}</span>
 					<div class="icon-ent-est-check-two iconPanel2 pdt10 _icon2" >
 					</div>
-					<span class="_span2">10</span>
+					<span class="_span2">{{extendDetailLoader.FirstItem.dbPaused}}</span>
 				</div>
 			</div>
 			<div class="float-left">
 				<div class="icon-ent-est-check-sql iconPanel icon-style mgb20"></div>
 				<div><span style="margin-left:60px; ">快照/镜像</span></div>
-				<span class="_span3">5/5</span>
+				<span class="_span3">{{extendDetailLoader.FirstItem.snapshotRunning}}/{{extendDetailLoader.FirstItem.snapshotPaused}}</span>
 			</div>
 		</div>
 	</div>
