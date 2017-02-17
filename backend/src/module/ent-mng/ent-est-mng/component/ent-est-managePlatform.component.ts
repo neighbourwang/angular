@@ -36,14 +36,16 @@ export class EntEstManagePlatformComponent implements OnInit {
 
     this.saveLoader = new ItemLoader<Platform>(false,'保存数据错误','ent-mng.ent-est-mng.enterprise.platform.save',restApiCfg,restApi);
 
-    // this.platformLoader.MapFunc = (source:Array<any>,target:Array<Platform>)=>{
-    //   let obj = new Platform();
-    //   for(let item of source){
-    //     obj.id = item.platformId;
-    //     obj.name = item.platformName;
-    //     target.push(obj);
-    //   }
-    // }
+    this.platformLoader.MapFunc = (source:Array<any>,target:Array<Platform>)=>{
+      let obj = new Platform();
+      for(let item of source){
+        obj.id = item.id;
+        obj.name = item.name;
+        obj.type = item.platformType;
+        obj.status = item.status;
+        target.push(obj);
+      }
+    }
 
     //处理数据字典
     // this.platformLoader.Trait = (target:Array<Platform>)=>{
@@ -72,14 +74,17 @@ export class EntEstManagePlatformComponent implements OnInit {
        target.push(_platform3); 
     }
 
-    // this.selectedPlatformLoader.MapFunc = (source:Array<any>,target:Array<Platform>)=>{
-    //   let obj = new Platform();
+    this.selectedPlatformLoader.MapFunc = (source:Array<any>,target:Array<Platform>)=>{
+      let obj = new Platform();
 
-    //   for(let item of source){
-    //     obj.name = item.name;
-    //     target.push(obj);
-    //   }
-    // }
+      for(let item of source){
+        obj.id = item.id;
+        obj.name = item.name;
+        obj.type = item.platformType;
+        obj.status = item.status;
+        target.push(obj);
+      }
+    }
 
     this.selectedPlatformLoader.FakeDataFunc = (target:Array<Platform>)=>{
 
@@ -99,6 +104,7 @@ export class EntEstManagePlatformComponent implements OnInit {
 
 
     this.layoutService.show();
+   
     this.platformLoader.Go(null,[{key:'_enterpriseId',value:this.entId}])
     .then(success=>{
       return this.selectedPlatformLoader.Go(null,[{key:'_enterpriseId',value:this.entId}]);
