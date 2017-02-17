@@ -6,7 +6,7 @@ import { CaseMngModule } from './case-mng/case-mng.module';
 
 @NgModule({
     imports: [
-       CapacityMngModule
+       CapacityMngModule,
         CaseMngModule,
        
     ],
