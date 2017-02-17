@@ -126,7 +126,7 @@ export class MenuService {
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
-							"routing": ""
+							"routing": "mtc-center/case-mng/case-list"
 						},
 					]
 				},
