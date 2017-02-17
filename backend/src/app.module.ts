@@ -44,6 +44,9 @@ import { PhyMngModule } from './module/phy-mng/phy-mng.module';
 //host-mng
 import { HostMngModule } from './module/host-mng/host-mng.module';
 
+//mtc-center
+import { MtcCenterModule } from './module/mtc-center/mtc-center.module';
+
 import {routing} from './app.routing';
 
 @NgModule({
@@ -64,6 +67,7 @@ import {routing} from './app.routing';
         NetMngModule,
         HostMngModule,
         PhyMngModule,
+        MtcCenterModule,
         routing
     ],
     declarations: [MenuComponent, SiteComponent],
