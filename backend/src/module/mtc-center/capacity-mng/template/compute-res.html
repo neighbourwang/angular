@@ -1,0 +1,116 @@
+﻿<div class="page-content-header icon-content-header-operation-center">
+    计算资源容量管理： 
+    <span style="font-size:16px;">云平台名称： ABCABC     平台类型：   XXXXXXX      访问地址： XXXXXXXXX</span>
+    <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" key="boe/platform-cap-mng.html">
+        返回云平台容量管理
+    </button>
+</div>
+<div class="page-content">
+   
+    <div class="row row-line-height" >
+        <div class="col-md-2 form-control-title">Region:</div>
+        <div class="col-md-10">
+            <button class="fox-cloud-button fox-cloud-button-green">Region1</button>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="col-md-2 form-control-title">可用区:</div>
+        <div class="col-md-10">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default active">
+                    <input type="radio" name="area" autocomplete="off" checked>可用区1（启用）
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="area" autocomplete="off">可用区2 (禁用)
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="area" autocomplete="off">可用区3
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height" >
+        <div class="col-md-2 form-control-title">可用区信息:</div>
+        <div class="col-md-8" style="letter-spacing:2px;font-size:16px;"> <!--style="letter-spacing:2px;font-size:16px;"-->
+            <div class="row row-line-height" >
+                <div class="col-md-3 text-right">物理CPU总核数：</div>
+                <div class="col-md-2">1348 核</div>               
+                <div class="col-md-2 text-right">CPU超分比：</div>
+                <div class="col-md-1">4 倍</div>
+                 <div class="col-md-2 text-right">可分配CPU：</div>
+                <div class="col-md-2">4583 核</div>
+            </div>
+            <div class="row row-line-height" >
+                 <div class="col-md-3 text-right">总内存：</div>
+                <div class="col-md-2">1024 GB</div>
+                <div class="col-md-2 text-right">可用配额：</div>
+                <div class="col-md-1">85%</div>
+                <div class="col-md-2 text-right">可分配内存：</div>
+                <div class="col-md-2">870 GB</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">可用区资源分配率 【云管平台产生资源】</h3>
+                </div>
+                <div class="panel-body">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">可用区资源分配率 【实际已分配资源】</h3>
+                </div>
+                <div class="panel-body">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">可用区资源利用率 【物理资源平均利用率%】</h3>
+                </div>
+                <div class="panel-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mgt10" style="font-size:18px;font-weight:bold;">
+        宿主机容量情况：
+    </div>
+    <div class="table-container mgt10">
+        <table class="table table-hover" >
+            <thead>
+                <tr>
+                    <th>宿主机名称</th>
+                    <th>物理CPU核数</th>
+                    <th>内存(GB)</th>
+                    <th>虚拟CPU（实际已分配）</th>
+                    <th>内存（实际已分配)</th>
+                    <th>状态</th>
+                    <th>状况</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a key="boe/host-detail.html">cmp-host01</a></td>
+                    <td>337</td>
+                    <td>256</td>
+                    <td></td>
+                    <td></td>
+                    <td>up</td>
+                    <td>Activated</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -102,6 +102,34 @@ export class MenuService {
 				// 		}
 				// 	]
 				// },
+                {
+					"label": "运维中心",
+					"isOpen": false,
+					"isShow": !isRoot,
+					"icon": "icon-operation-center ",
+					"top2_menu": [
+						{
+							"label": "容量管理",
+							"isOpen": false,
+							"isActive": false,
+							"isShow": !isRoot,							
+							"routing": ""
+						}, {
+							"label": "超分管理",
+							"isOpen": false,
+							"isActive": false,
+							"isShow": !isRoot,
+							"routing": ""
+                        },
+                        {
+							"label": "工单管理",
+							"isOpen": false,
+							"isActive": false,
+							"isShow": !isRoot,
+							"routing": ""
+						},
+					]
+				},
 				{
 					"label": "ENT_MNG.ENTERPRISE_MNG",
 					"isOpen": false,
