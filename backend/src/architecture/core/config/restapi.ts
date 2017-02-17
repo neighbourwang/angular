@@ -148,13 +148,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "get同步可添加可用区信息",
         "id": "pf-mng-zonelist.get",
         "method": "GET",
-        "url": "platformaccess/authsec/sync/platform/{id}/zones"
+        "url": "/adminui/authsec/sync/platform/{id}}/zones"
     },
     {
         "desc": "post同步可添加可用区信息",
         "id": "pf-mng-zonelist.post",
         "method": "POST",
-        "url": "platformaccess/authsec/sync/platform/zones"
+        "url": "adminui/authsec/sync/platform/zones"
     },
     {
         "desc": "get可用区同步计算资源信息",
@@ -760,6 +760,12 @@ export let RestApis: RestApiModel[] = [
         "id": "services.simple.get",
         "method": "GET",
         "url": "adminui/authsec/servicetemplate"
+    },
+    {
+        "desc": "获取所有产品目录规格，为下拉框准备",
+        "id": "services.flavors.get",
+        "method": "POST",
+        "url": "adminui/authsec/services/flavors"
     },
     {
         "desc": "发布产品目录",

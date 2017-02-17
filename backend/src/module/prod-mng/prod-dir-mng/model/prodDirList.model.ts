@@ -1,4 +1,9 @@
-﻿export class Proddir {
+﻿class ProdDirSpec{
+      "cpu": string;
+      "mem": string;
+      "bootStorageSize": string;
+    }
+ class Proddir {
     createrName: string;
     creatorId: string;
     description: string;
@@ -11,4 +16,8 @@
     isSelected : boolean;
     constructor() {
     }
+}
+export{
+    ProdDirSpec,
+    Proddir
 }

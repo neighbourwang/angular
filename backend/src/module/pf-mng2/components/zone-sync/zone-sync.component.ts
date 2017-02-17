@@ -13,22 +13,23 @@ import { ZoneListModel } from '../../cl-mng/model/cre-step3.model';
 })
 export class ZoneSyncComponent implements OnInit {
 
+	@Input('zoneList')zoneList:ZoneListModel;
+
 	@Output() complete=new EventEmitter();
 
-	zoneList:ZoneListModel = new ZoneListModel();
-
+	display:boolean=false;
 	constructor(
 		private layoutService: LayoutService,
 		private service : ZoneSyncService
 	) { }
 
 	ngOnInit() {
-		
+		console.log(this.zoneList);
 	}
 
-	open(zoneList:ZoneListModel) {
-		$('#hostBox').modal('show');
-		this.zoneList = zoneList;
+	open() {
+		console.log(this.zoneList);
+		$('#zoneBox').modal('show');		
 	}
 
 	setConfig() {

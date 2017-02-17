@@ -261,13 +261,12 @@ export class PfDetailComponent implements OnInit {
     }
 
     //更新可用区弹出框
-    updateZone() {
-        
+    updateZone() {        
         this.platformDetailService.getUpdateZoneList(this.platform.id).then(
             res => {
                 this.updateZoneList = res.resultContent;
                 if (this.updateZoneList.length == 0) {
-                    this.notice.open('oo', 'PF_MNG2.NO_SYNC_ZONES')
+                    this.notice.open('提示', 'PF_MNG2.NO_SYNC_ZONES')
                 } else {
                     this.updateZoneList.forEach(ele => {
                         if (ele.quotaPercentage) {
@@ -275,7 +274,7 @@ export class PfDetailComponent implements OnInit {
                         }
                     })
                     console.log('同步', res);
-                    this.zoneSync.open(this.updateZoneList);
+                    this.zoneSync.open();
                 }
             }
         ).catch(err => {
