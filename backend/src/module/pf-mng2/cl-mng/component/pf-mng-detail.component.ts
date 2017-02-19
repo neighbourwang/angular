@@ -274,7 +274,7 @@ export class PfDetailComponent implements OnInit {
                         }
                     })
                     console.log('同步', res);
-                    this.zoneSync.open();
+                    this.zoneSync.open(this.updateZoneList);
                 }
             }
         ).catch(err => {

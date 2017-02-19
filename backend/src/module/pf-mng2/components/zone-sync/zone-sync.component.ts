@@ -13,11 +13,10 @@ import { ZoneListModel } from '../../cl-mng/model/cre-step3.model';
 })
 export class ZoneSyncComponent implements OnInit {
 
-	@Input('zoneList')zoneList:ZoneListModel;
+	@Input('zoneList') zoneList:ZoneListModel;
 
 	@Output() complete=new EventEmitter();
 
-	display:boolean=false;
 	constructor(
 		private layoutService: LayoutService,
 		private service : ZoneSyncService
@@ -27,9 +26,10 @@ export class ZoneSyncComponent implements OnInit {
 		console.log(this.zoneList);
 	}
 
-	open() {
+	open(zoneList:ZoneListModel) {
+		$('#zoneBox').modal('show');
 		console.log(this.zoneList);
-		$('#zoneBox').modal('show');		
+				
 	}
 
 	setConfig() {
