@@ -82,7 +82,7 @@
                     <td> {{phynet.ipAllCount || "未设置"}} </td>
                     <td> {{phynet.ipUsedCount || "未设置"}} </td>
                     <td> {{phynet.ipFreeCount || "未设置"}} </td>
-                    <td [ngClass]="phynet.status==1?'font-green':'font-orange'"> {{phynet.status || "未设置"}} </td>
+                    <td [ngClass]="phynet.status==1?'font-green':'font-orange'"> {{(phynet.status | dict:this.dictService.statusDict | async) || "未设置"}} </td>
                 </tr>                
             </tbody>
         </table>
@@ -262,7 +262,7 @@
 				<div class="form-group">
 					<div class="col-sm-12">
                         <!-- {{'HOST_VMWARE_MNG.ENABLE_IMAGE_MSG' | translate:{value_1: (selectedimg.displayName || selectedimg.name)} }} -->
-                        您选择启用 ' {{selectedimg || "image"}} ' ， 请确认；如果确认，用户将能够在订购中选择此网络。
+                        您选择启用 ' {{selectedphynet.networkName || "phy_network"}} ' ， 请确认；如果确认，用户将能够在订购中选择此网络。
 					</div>
 				</div>
 			</div>
@@ -275,7 +275,7 @@
 				<div class="form-group">
 					<div class="col-sm-12">
                         <!-- {{'HOST_VMWARE_MNG.DISABLE_IMAGE_MSG' | translate:{value_1: (selectedimg.displayName || selectedimg.name)} }} -->
-                        您选择禁用 ' {{selectedimg || "image"}} ' ， 请确认；如果确认，用户将不能在订购中选择此网络。
+                        您选择禁用 ' {{selectedphynet.networkName || "phy_network"}} ' ， 请确认；如果确认，用户将不能在订购中选择此网络。
 					</div>
 				</div>
 			</div>
@@ -288,7 +288,7 @@
 				<div class="form-group">
 					<div class="col-sm-12">
                         <!-- {{'HOST_VMWARE_MNG.DISABLE_IMAGE_MSG' | translate:{value_1: (selectedimg.displayName || selectedimg.name)} }} -->
-                        您选择删除 ' {{selectedimg || "image"}} ' ， 请确认；如果确认，用户将不能在订购中选择此网络。
+                        您选择删除 ' {{selectedphynet.networkName || "phy_network"}} ' ， 请确认；如果确认，用户将不能在订购中选择此网络。
 					</div>
 				</div>
 			</div>

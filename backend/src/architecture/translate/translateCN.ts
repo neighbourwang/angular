@@ -881,6 +881,34 @@
         "TRANSPORT_DETAIL": "传输区域{{value_1}}详细信息",
         "VMWARE_NET": "VMware网络"
     },
+    "PHY_NET_MNG": {
+        "CANT_NULL": "不能为空",
+        "PHY_NET_NAME": "显示名称",
+        "GATEWAY_ADDRESS": "网关地址",
+        "SUBNET_INFORMATION": "子网信息",
+        "SUBNET_IP_INFORMATION": "网络IP信息",
+        "SUBNET_MASK": "子网掩码",
+
+        "PLEASE_CHOOSE_NETWORK": "请选择网络",
+
+        "CREATE_PHY_NET_FAILED": "创建物理机网络失败",
+        "CREATE_PHY_NET_EXCEPTION": "创建物理机网络异常",
+        "EDIT_PHY_NET_FAILED": "编辑物理机网络失败",
+        "EDIT_PHY_NET_EXCEPTION": "编辑物理机网络异常",
+
+        "ENABLE_PHY_NET_FAILED": "启用物理机网络失败",
+        "ENABLE_PHY_NET_EXCEPTION": "启用物理机网络异常",
+        "DISABLE_PHY_NET_FAILED": "禁用物理机网络失败",
+        "DISABLE_PHY_NET_EXCEPTION": "禁用物理机网络异常",
+        "DELETE_PHY_NET_FAILED": "删除物理机网络失败",
+        "DELETE_PHY_NET_EXCEPTION": "删除物理机网络异常",
+
+        "CREATE_PHY_NET_SUCCESS": "创建物理机网络成功",
+        "EDIT_PHY_NET_SUCCESS": "编辑物理机网络成功",
+        "ENABLE_PHY_NET_SUCCESS": "启用物理机网络成功",
+        "DISABLE_PHY_NET_SUCCESS": "禁用物理机网络成功",
+        "DELETE_PHY_NET_SUCCESS": "删除物理机网络成功"
+    },
     "ORDER_MNG": {
         "ALL_DEPARTMENT": "所有部门",
         "BUYER_DATA_ERROR": "订购人列表加载错误",
