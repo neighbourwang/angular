@@ -3,22 +3,22 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService, 
     PaginationComponent, ConfirmComponent, SystemDictionary, SelectboxComponent } from '../../../../architecture';
 
-//model
-//import { EnterpriseModel } from '../model/vmware-img-list.model';
+//Model
+import { PhyNetListModel } from '../model/phy-net.model';
 
 //service
 //import { VmwareImgEntSetupService } from '../service/vmware-img-ent-setup.service';
 //import { VmwareImgDictService } from '../service/vmware-img-dict.service';
 
 @Component({
-    selector: "phy-net-setup-resource",
+    selector: "phy_net_setup_resource",
     templateUrl: "../template/phy_net_setup_resource.html",
     styleUrls: [],
     //providers: [ VmwareImgEntSetupService
     //]
 }
 )
-export class PhyNetResourceSetupComponent implements OnInit {
+export class PhyNetSetupResourceComponent implements OnInit {
 
     constructor(
         private router: Router,

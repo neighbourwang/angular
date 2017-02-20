@@ -5,17 +5,18 @@ import { CommonComponentModule, PipeModule} from '../../../architecture';
 
 //Components
 import { PhyNetMngComponent } from './component/phy-net-mng.component';
-import { PhyNetIpUsageMngListComponent } from './component/phy-ipusage-mng-list.component';
-import { PhyNetResourceSetupComponent } from './component/phy-setup-resource.component';
+import { PhyNetMngIpAddrComponent } from './component/phy-net-mng-ip-addr.component';
+import { PhyNetSetupResourceComponent } from './component/phy-net-setup-resource.component';
 import { PhyNetDetailsComponent  } from './component/phy-net-details.component';
 
 // Routing
 import { PhyNetRouting } from './phy-net-mng.routing';
 
 //service
-//import { PhyPoolMngService} from './service/phy-pool-mng.service'
-//import { PhyCreatMngService} from './service/phy-creat-mng.service.ts'
-
+import { PhyNetMngService } from './service/phy-net-mng.service';
+import { PhyNetDictService } from './service/phy-net-dict.service';
+import { IPValidationService } from './service/ip-validation.service';
+import { PhyNetDetailsService } from './service/phy-net-details.service';
 
 @NgModule({
     imports: [
@@ -25,19 +26,21 @@ import { PhyNetRouting } from './phy-net-mng.routing';
     ],
     declarations: [
         PhyNetMngComponent,
-        PhyNetIpUsageMngListComponent,
-        PhyNetResourceSetupComponent,
+        PhyNetMngIpAddrComponent,
+        PhyNetSetupResourceComponent,
         PhyNetDetailsComponent
     ],
     exports: [
         PhyNetMngComponent,
-        PhyNetIpUsageMngListComponent,
-        PhyNetResourceSetupComponent,
+        PhyNetMngIpAddrComponent,
+        PhyNetSetupResourceComponent,
         PhyNetDetailsComponent
     ],
     providers: [
-        //PhyPoolMngService,
-        //PhyCreatMngService
+        PhyNetMngService,
+        PhyNetDictService,
+        IPValidationService,
+        PhyNetDetailsService
     ]
 
 })

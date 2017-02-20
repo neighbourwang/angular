@@ -1,24 +1,20 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { RestApi, RestApiCfg, LayoutService, PopupComponent, NoticeComponent, ValidationService, 
+import { RestApi, RestApiCfg, LayoutService, PaginationComponent, PopupComponent, NoticeComponent, ValidationService, 
     ConfirmComponent, SystemDictionary } from '../../../../architecture';
 
 import { TranslateService } from 'ng2-translate';
 
-/*/Mock
-import { RegionInfo_mock } from '../model/vmware-net.mock';
-
 //Model
-import { PlatformModel, DCModel, RegionModel, VmwareNetModel, NsxNetModel, VmNetStatusModel } from '../model/vmware-net.model';
+import { PhyNetListModel, PhyNetCreateModel, PhyNetEditModel, PhyResPoolModel, PhyNetDetailsModel } from '../model/phy-net.model';
 
 //Service
-import { VmwareMngIndexService } from '../service/vm-mng-index.service';
-import { IPValidationService } from '../service/validation.service';
-import { selectedPlatform } from "../service/platform.service";
-*/
+import { PhyNetMngService } from '../service/phy-net-mng.service';
+import { PhyNetDictService } from '../service/phy-net-dict.service';
+import { IPValidationService } from '../service/ip-validation.service';
 
 @Component({
-    selector: "phy-net-mng-list",
+    selector: "physical_network",
     templateUrl: "../template/physical_network.html",
     styleUrls: [],
     providers: []
@@ -30,38 +26,58 @@ export class PhyNetMngComponent implements OnInit {
         private router: Router,
         private layoutService: LayoutService,
         private validationService: ValidationService,
-        //private service: VmwareMngIndexService,
+        private service: PhyNetMngService,
+        private dictService: PhyNetDictService,
+        private ipService: IPValidationService,
         //private ipService: IPValidationService,
         private translateService: TranslateService
     ) {
     }
+    @ViewChild("pager")
+    pager: PaginationComponent;
+    
     @ViewChild("notice")
     notice: NoticeComponent;
 
     @ViewChild("confirm")
     confirm: ConfirmComponent;
     
-    @ViewChild("createphynet")
-    createphynet: PopupComponent;
+    @ViewChild("createphynetbox")
+    createphynetbox: PopupComponent;
+
+    @ViewChild("editphynetbox")
+    editphynetbox: PopupComponent;
 
     @ViewChild("ipsbox")
     ipsbox: PopupComponent;
+
+    @ViewChild("enablebox")
+    enablebox: PopupComponent;
+
+    @ViewChild("disablebox")
+    disablebox: PopupComponent;
+
+    @ViewChild("deletebox")
+    deletebox: PopupComponent;
 
     noticeTitle = "";
     noticeMsg = "";
 
     pageIndex = 1;
-    pageSize = 10;
+    pageSize = 3;
     totalPage = 1;
 
-    EnableButton:number = 0;
+    phynets: Array<PhyNetListModel> = [];  // 物理机网络首页list
 
-    typeDictArray: Array<SystemDictionary> = [];
-    nsxresDictArray: Array<SystemDictionary> = [];
-    nsxverDictArray: Array<SystemDictionary> = [];
+    selectedphynet: PhyNetListModel = new PhyNetListModel();  // 物理机网络首页选中的网络
 
-    nsxTestFlag: string = "";
-    enablepopbutton:boolean = false;    
+    phynet_create: PhyNetCreateModel = new PhyNetCreateModel();　// 创建物理机网络框
+
+    phynet_changed: PhyNetEditModel = new PhyNetEditModel();　// 编辑物理机网络框
+    phynet_edit: PhyNetEditModel = new PhyNetEditModel();
+
+
+    statusDictArray: Array<SystemDictionary> = [];
 
     private okCallback: Function = null;
     okClicked() {
@@ -83,99 +99,306 @@ export class PhyNetMngComponent implements OnInit {
 
     
     ngOnInit() {
-        //this.getRegionInfo();
+        this.getPhyNetList();
 
-        /*
-
-        this.service.typeDict
+        this.dictService.statusDict
         .then((items) => {
-            this.typeDictArray = items;
-            console.log(this.typeDictArray, "this.typeDictArray");
+            this.statusDictArray = items;
+            console.log(this.statusDictArray, "this.statusDictArray");
         });
-        this.service.nsxresDict
-        .then((items) => {
-            this.nsxresDictArray = items;
-            console.log(this.nsxresDictArray, "this.nsxresDictArray");
-        });
-        this.service.nsxverDict
-        .then((items) => {
-            this.nsxverDictArray = items;
-            console.log(this.nsxverDictArray, "this.nsxverDictArray");
-        });
-        */
     }
 
-    //Menu: 管理子网IP使用情况
-    ipUsageMngPage() {
-        this.router.navigate([`phy-mng/phy-net/phy-net-ips-mng`]);
-        /*
-        let pg = this.getSelected();
-        if(pg){
-            this.router.navigate([`phy-mng/phy-net/phy-net-ips-mng`,  
-            {
-                //"pg_id": pg.id,
-                //"pg_name": pg.clusterName,
-                //"pid": this.platformId
-            }]);
+    //获取物理机网络列表
+    getPhyNetList(pageIndex?): void {
+        this.pageIndex = pageIndex || this.pageIndex;
+        this.layoutService.show();
+        this.service.getPhyNetList(this.pageIndex, this.pageSize)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {                    
+                    this.phynets = response.resultContent;
+                    console.log(this.phynets, "PhyNets!!!");
+                    this.totalPage = response.pageInfo.totalPage;
+                } else {
+                    this.showAlert("COMMON.GETTING_DATA_FAILED");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    //Menu: 查看网络信息
+    showDetails() {
+        let pn = this.getSelected();
+        if(pn){
+            this.selectedphynet = pn;
+            this.router.navigate([`phy-mng/phy-net/phy-net-details`, {"pn_id": this.selectedphynet.id}]);
         }
-        */
     }
+    
 
-    //创建网络
+    //Menu: 创建网络
     createPhyNet(): void {
         this.layoutService.hide();
-        this.createphynet.open();
+        this.createphynetbox.open();
+    }
+
+    validatePhyNetCreateInfo(): boolean {
+        let notValid = null;
+        notValid = [
+            {
+                "name": "PHY_NET_MNG.PHY_NET_NAME"
+                , 'value': this.phynet_create.networkName
+                , "op": "*"
+            },
+            {
+                "name": "PHY_NET_MNG.SUBNET_IP_INFORMATION"
+                , 'value': this.phynet_create.subnetIP
+                , "op": "*"
+            },
+            {
+                "name": "PHY_NET_MNG.SUBNET_MASK"
+                , 'value': this.phynet_create.subnetMask
+                , "op": "*"
+            },
+            {
+                "name": "PHY_NET_MNG.GATEWAY_ADDRESS"
+                , 'value': this.phynet_create.gateway
+                , "op": "*"
+            },
+            {
+                "name": "PHY_NET_MNG.SUBNET_IP_INFORMATION"
+                , 'value': this.phynet_create.subnetIP
+                , "op": "ip"
+            },
+            {
+                "name": "PHY_NET_MNG.SUBNET_MASK"
+                , 'value': this.phynet_create.subnetMask
+                , "op": "ipmask"
+            },            
+            {
+                "name": "PHY_NET_MNG.GATEWAY_ADDRESS"
+                , 'value': this.phynet_create.gateway
+                , "op": "ip"
+            },
+            {
+                "name": "DNS1"
+                , 'value': this.phynet_create.dnsPre
+                , "op": "iporempty"
+            },
+            {
+                "name": "DNS2"
+                , 'value': this.phynet_create.dnsAlt
+                , "op": "iporempty"
+            },            
+            {
+                "name": "PHY_NET_MNG.GATEWAY_ADDRESS"
+                , 'value': [this.phynet_create.gateway, this.phynet_create.subnetIP, this.phynet_create.subnetMask]
+                , "op": "gatewayinsubnetandmask"
+            },
+            ].find(n => this.ipService.validate(n.name, n.value, n.op) !== undefined) 
+
+        if (notValid !== void 0) {
+            console.log("validateSubnetModify Failed!!!");
+            this.createphynetbox.close();
+            //this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));
+            let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
+            let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];
+            let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
+                      + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
+            this.showMsg(con);
+            this.okCallback = () => {
+                this.createphynetbox.open();                
+            };            
+            return false;
+        } else {
+            console.log("validateSubnetModify OK!!!");
+            return true;
+        }
     }
 
     acceptPhyNetCreateModify(): void {
-        /*
-        console.log('clicked acceptIPsModify');
+        console.log('clicked acceptPhyNetCreateModify');
         this.layoutService.show();
-        if (this.validateIPModify()) {
-            //console.log('clicked acceptIPsModify 2');
-            this.service.updateSubnetIPs(this.ippool.portGroup, this.ippool)
+        if (this.validatePhyNetCreateInfo()) {
+            this.service.createPhyNet(this.phynet_create)
                 .then(res => {
-                    //console.log('clicked acceptIPsModify 3');
                     this.layoutService.hide();
                     if (res && res.resultCode == "100") {                        
-                        console.log(res, "设置IP地址范围成功")
+                        console.log(res, "PHY_NET_MNG.CREATE_PHY_NET_SUCCESS")
                     } else {
-                        console.log('clicked acceptIPsModify 4');
-                        this.ipsbox.close();
-                        this.showMsg("NET_MNG_VM_IP_MNG.SET_IP_POOL_FAILED");
+                        this.createphynetbox.close();
+                        this.showMsg("PHY_NET_MNG.CREATE_PHY_NET_FAILED");
                         return;
                     }
                 })
-                .then(()=>{
-                    console.log('clicked acceptIPsModify 5');
-                    this.getIpMngList(); // Need to get list since we need to get ipcount after setting up ipscope.
-                    this.ipsbox.close();
+                .then(()=>{                    
+                    this.createphynetbox.close();
+                    this.getPhyNetList();
                 })
                 .catch(err => {
-                    console.log('clicked acceptIPsModify 6');
-                    console.log('设置IP地址范围异常', err);
+                    console.log('PHY_NET_MNG.CREATE_PHY_NET_EXCEPTION', err);
                     this.layoutService.hide();
-                    this.ipsbox.close();
-                    this.showMsg("NET_MNG_VM_IP_MNG.SET_IP_POOL_EXCEPTION");
+                    this.createphynetbox.close();
+                    this.showMsg("PHY_NET_MNG.CREATE_PHY_NET_EXCEPTION");
                     this.okCallback = () => { 
-                        this.ipsbox.open();  };
+                        this.createphynetbox.open();  };
                 })
         } else {
             this.layoutService.hide();
         }
-        */
     }
 
     cancelPhyNetCreateModify(): void {
-        /*
-        console.log('clicked cancelIPsModify');
-        this.ippool.ips = [];
-        this.ippool.ipstr = "";
-        this.ippool.subnetCIDR = "";
-        this.ippool.subnetMask = "";
-        this.ippool.gateway = "";
-        */
+        this.phynet_create.dnsAlt = "";
+        this.phynet_create.dnsPre = "";
+        this.phynet_create.gateway = "";
+        this.phynet_create.networkName = "";
+        this.phynet_create.subnetIP = "";
+        this.phynet_create.subnetMask = "";
     }
+
+    //Menu: 编辑网络
+    editPhyNet(): void {
+        let phynet = this.getSelected();
+        if (phynet) {
+            this.selectedphynet = phynet;
+            this.phynet_changed.dnsAlt = this.selectedphynet.dnsAlt;
+            this.phynet_changed.dnsPre = this.selectedphynet.dnsPre;
+            this.phynet_changed.gateway = this.selectedphynet.gateway;
+            this.phynet_changed.networkName = this.selectedphynet.networkName;
+            this.phynet_changed.subnetIP = this.selectedphynet.subnetIP;
+            this.phynet_changed.subnetMask = this.selectedphynet.subnetMask;
+            this.editphynetbox.open();
+        } else {
+            this.showMsg("PHY_NET_MNG.PLEASE_CHOOSE_NETWORK");
+            return;
+        }
+    }
+
+    validatePhyNetEditInfo(): boolean {
+        let notValid = null;
+        notValid = [
+            {
+                "name": "PHY_NET_MNG.PHY_NET_NAME"
+                , 'value': this.phynet_changed.networkName
+                , "op": "*"
+            },
+            {
+                "name": "PHY_NET_MNG.SUBNET_IP_INFORMATION"
+                , 'value': this.phynet_changed.subnetIP
+                , "op": "*"
+            },
+            {
+                "name": "PHY_NET_MNG.SUBNET_MASK"
+                , 'value': this.phynet_changed.subnetMask
+                , "op": "*"
+            },
+            {
+                "name": "PHY_NET_MNG.GATEWAY_ADDRESS"
+                , 'value': this.phynet_changed.gateway
+                , "op": "*"
+            },
+            {
+                "name": "PHY_NET_MNG.SUBNET_IP_INFORMATION"
+                , 'value': this.phynet_changed.subnetIP
+                , "op": "ip"
+            },
+            {
+                "name": "PHY_NET_MNG.SUBNET_MASK"
+                , 'value': this.phynet_changed.subnetMask
+                , "op": "ipmask"
+            },            
+            {
+                "name": "PHY_NET_MNG.GATEWAY_ADDRESS"
+                , 'value': this.phynet_changed.gateway
+                , "op": "ip"
+            },
+            {
+                "name": "DNS1"
+                , 'value': this.phynet_changed.dnsPre
+                , "op": "iporempty"
+            },
+            {
+                "name": "DNS2"
+                , 'value': this.phynet_changed.dnsAlt
+                , "op": "iporempty"
+            },            
+            {
+                "name": "PHY_NET_MNG.GATEWAY_ADDRESS"
+                , 'value': [this.phynet_changed.gateway, this.phynet_changed.subnetIP, this.phynet_changed.subnetMask]
+                , "op": "gatewayinsubnetandmask"
+            },
+            ].find(n => this.ipService.validate(n.name, n.value, n.op) !== undefined) 
+
+        if (notValid !== void 0) {
+            console.log("validateSubnetModify Failed!!!");
+            this.editphynetbox.close();
+            //this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));
+            let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
+            let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];
+            let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
+                      + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
+            this.showMsg(con);
+            this.okCallback = () => {
+                this.editphynetbox.open();                
+            };            
+            return false;
+        } else {
+            console.log("validateSubnetModify OK!!!");
+            return true;
+        }
+    }
+
+    acceptPhyNetEditModify(): void {
+        console.log('clicked acceptPhyNetCreateModify');
+        this.layoutService.show();
+        if (this.validatePhyNetEditInfo()) {
+            this.service.editPhyNet(this.phynet_changed)
+                .then(res => {
+                    this.layoutService.hide();
+                    if (res && res.resultCode == "100") {
+                        console.log(res, "PHY_NET_MNG.EDIT_PHY_NET_SUCCESS")
+                    } else {
+                        this.editphynetbox.close();
+                        this.showMsg("PHY_NET_MNG.EDIT_PHY_NET_FAILED");
+                        return;
+                    }
+                })
+                .then(() => {
+                    this.selectedphynet.dnsAlt = this.phynet_changed.dnsAlt;
+                    this.selectedphynet.dnsPre = this.phynet_changed.dnsPre;
+                    this.selectedphynet.gateway = this.phynet_changed.gateway;
+                    this.selectedphynet.networkName = this.phynet_changed.networkName;
+                    this.selectedphynet.subnetIP = this.phynet_changed.subnetIP;
+                    this.selectedphynet.subnetMask = this.phynet_changed.subnetMask;
+                    this.editphynetbox.close();
+                })
+                .catch(err => {
+                    console.log('PHY_NET_MNG.EDIT_PHY_NET_EXCEPTION', err);
+                    this.layoutService.hide();
+                    this.editphynetbox.close();
+                    this.showMsg("PHY_NET_MNG.EDIT_PHY_NET_EXCEPTION");
+                    this.okCallback = () => {
+                        this.editphynetbox.open();
+                    };
+                })
+        } else {
+            this.layoutService.hide();
+        }
+    }
+
+    cancelPhyNetEditModify(): void {
+        this.phynet_changed.dnsAlt = "";
+        this.phynet_changed.dnsPre = "";
+        this.phynet_changed.gateway = "";
+        this.phynet_changed.networkName = "";
+        this.phynet_changed.subnetIP = "";
+        this.phynet_changed.subnetMask = "";
+    }
+
+    //Menu: 网络资源分配
 
     //Menu: 设置子网IP地址范围
     setupPhyNetIPs(): void {
@@ -273,22 +496,43 @@ export class PhyNetMngComponent implements OnInit {
         this.ippool.gateway = "";
         */
     }
+
+    //Menu: 管理子网IP使用情况
+    ipUsageMngPage() {
+        let pg = this.getSelected();
+        if(pg){
+            this.router.navigate([`phy-mng/phy-net/phy-net-mng-ip-addr`]);
+        }
+        /*
+        let pg = this.getSelected();
+        if(pg){
+            this.router.navigate([`phy-mng/phy-net/phy-net-ips-mng`,  
+            {
+                //"pg_id": pg.id,
+                //"pg_name": pg.clusterName,
+                //"pid": this.platformId
+            }]);
+        }
+        */
+    }
+
+    //Menu: 导出IP地址信息
     
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason, "onRejected");
-        this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
+        this.showAlert("COMMON.GETTING_DATA_FAILED");
     }
 
     showMsg(msg: string) {
         console.log(msg, "showMsg");
-        this.notice.open("NET_MNG_VM_IP_MNG.SYSTEM_PROMPT", msg);
+        this.notice.open("COMMON.SYSTEM_PROMPT", msg);
     }
 
 	showAlert(msg: string): void {
         console.log(msg, "showAlert");
         this.layoutService.hide();
-        this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";
+        this.noticeTitle = "COMMON.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -302,34 +546,199 @@ export class PhyNetMngComponent implements OnInit {
         if(this.validationService.isBlank(value)){
             //console.log(value, "In dispalyIt()1")
             //return "未设置";
-            return "NET_MNG_VM_IP_MNG.UNSET";
+            return "COMMON.UNSET";
         } else {
             //console.log(value, "In dispalyIt()2")
-            return value.toString();
-            
+            return value.toString();            
         }
     }
 
     //选择行
     selectItem(index:number): void {
-        //this.ipmngs.map(n=> {n.checked = false;});
-        //this.ipmngs[index].checked = true;
-        //console.log(this.ipmngs, "=== Please see which one is selected ===");
+        this.phynets.map(n=> {n.checked = false;});
+        this.phynets[index].checked = true;
+        console.log(this.phynets, "=== Please see which one is selected ===");
     }
 
     UnselectItem(): void {
-        //this.ipmngs.map(n=> {n.checked = false;});
+        this.phynets.map(n=> {n.checked = false;});
     }
 
     getSelected() {
-        let item// = this.ipmngs.find((n) => n.checked) as IpMngModel;
+        let item = this.phynets.find((n) => n.checked) as PhyNetListModel;
         if (item){
             return item;
         }
         else {
-            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PG");
+            this.showMsg("PHY_NET_MNG.PLEASE_CHOOSE_NETWORK");
             return null;
         }
+    }
+
+    onSelect(phynet: PhyNetListModel): void {
+        let tmpphynet = new PhyNetListModel();
+        tmpphynet.id = phynet.id;
+        tmpphynet.gateway = phynet.gateway;
+        tmpphynet.ipAllCount = phynet.ipAllCount;
+        tmpphynet.ipFreeCount = phynet.ipFreeCount;
+        tmpphynet.ipUsedCount = phynet.ipUsedCount;
+        tmpphynet.networkName = phynet.networkName;
+        tmpphynet.status = phynet.status;
+        tmpphynet.subnetCIDR = phynet.subnetCIDR;
+        this.selectedphynet = tmpphynet;
+    }
+
+    //Menu: 启用网络
+    enablePhyNet(): void {
+        console.log('call enablePhyNet');
+        let pn = this.getSelected();
+        if (pn) {
+            this.selectedphynet = pn;
+            if (this.selectedphynet.status == this.statusDictArray.find(n => n.code === "enable").value) {
+                this.showMsg("PHY_NET_MNG.PHY_NET_ENABLED");
+                return;
+            }
+            this.enablebox.open();
+        } else {
+            this.showMsg("PHY_NET_MNG.PLEASE_CHOOSE_NETWORK");
+            return;
+        }
+    }
+
+    acceptPhyNetEnableModify(): void {
+        console.log('clicked acceptPhyNetEnableModify');        
+        if (this.selectedphynet) {
+            this.layoutService.show();
+            this.service.updateStatusPhyNet(this.selectedphynet.id, this.statusDictArray.find(n => n.code === "enable").value)
+                .then(res => {
+                    this.layoutService.hide();
+                    if (res && res.resultCode == "100") {                        
+                        this.selectedphynet.status = <string>this.statusDictArray.find(n => n.code === "enable").value;
+                        console.log(res, "PHY_NET_MNG.ENABLE_PHY_NET_SUCCESS")
+                    } else {
+                        this.enablebox.close();
+                        this.showMsg("PHY_NET_MNG.ENABLE_PHY_NET_FAILED");
+                        return;
+                    }
+                })
+                .then(() => {
+                    this.enablebox.close();
+                })
+                .catch(err => {
+                    console.log('PHY_NET_MNG.ENABLE_PHY_NET_EXCEPTION', err);
+                    this.layoutService.hide();
+                    this.enablebox.close();
+                    this.showMsg("PHY_NET_MNG.ENABLE_PHY_NET_EXCEPTION");
+                    this.okCallback = () => { this.enablebox.open(); };
+                })
+        }
+    }
+
+    cancelPhyNetEnableModify(): void {
+        console.log('clicked cancelPhyNetEnableModify');
+    }
+
+    //Menu: 禁用网络
+    disablePhyNet(): void {
+        console.log('call disablePhyNet');
+        let pn = this.getSelected();
+        if (pn) {
+            this.selectedphynet = pn;
+            if(this.selectedphynet.status == this.statusDictArray.find(n => n.code === "disable").value){
+                this.showMsg("PHY_NET_MNG.PHY_NET_DISABLED");
+                return; 
+            }
+            this.disablebox.open();
+        } else {
+            this.showMsg("PHY_NET_MNG.PLEASE_CHOOSE_NETWORK");
+            return; 
+        }
+    }
+
+    acceptPhyNetDisableModify(): void {
+        console.log('clicked acceptPhyNetDisableModify');        
+        if (this.selectedphynet) {
+            this.layoutService.show();
+            console.log(this.selectedphynet.id);
+            this.service.updateStatusPhyNet(this.selectedphynet.id, this.statusDictArray.find(n => n.code === "disable").value)
+                .then(res => {
+                    this.layoutService.hide();
+                    if (res && res.resultCode == "100") {                        
+                        this.selectedphynet.status = <string>this.statusDictArray.find(n => n.code === "disable").value;
+                        console.log(res, "PHY_NET_MNG.DISABLE_PHY_NET_SUCCESS")
+                    } else {
+                        this.disablebox.close();
+                        this.showMsg("PHY_NET_MNG.DISABLE_PHY_NET_FAILED");
+                        return;
+                    }
+                })
+                .then(() => {
+                    this.disablebox.close();
+                })
+                .catch(err => {
+                    console.log('PHY_NET_MNG.DISABLE_PHY_NET_EXCEPTION', err);
+                    this.layoutService.hide();
+                    this.disablebox.close();
+                    this.showMsg("PHY_NET_MNG.DISABLE_PHY_NET_EXCEPTION");
+                    this.okCallback = () => { this.disablebox.open(); };
+                })
+        }
+    }
+
+    cancelPhyNetDisableModify(): void {
+        console.log('clicked cancelPhyNetDisableModify');
+    }
+
+    //Menu: 删除网络
+    deletePhyNet(): void {
+        console.log('call deletePhyNet');
+        let pn = this.getSelected();
+        if (pn) {
+            this.selectedphynet = pn;
+            if(this.selectedphynet.status == this.statusDictArray.find(n => n.code === "delete").value){
+                this.showMsg("PHY_NET_MNG.PHY_NET_DISABLED");
+                return; 
+            }
+            this.deletebox.open();
+        } else {
+            this.showMsg("PHY_NET_MNG.PLEASE_CHOOSE_NETWORK");
+            return; 
+        }
+    }
+
+    acceptPhyNetDeleteModify(): void {
+        console.log('clicked acceptPhyNetDeleteModify');        
+        if (this.selectedphynet) {
+            this.layoutService.show();
+            console.log(this.selectedphynet.id);
+            this.service.updateStatusPhyNet(this.selectedphynet.id, this.statusDictArray.find(n => n.code === "delete").value)
+                .then(res => {
+                    this.layoutService.hide();
+                    if (res && res.resultCode == "100") {                        
+                        this.selectedphynet.status = <string>this.statusDictArray.find(n => n.code === "delete").value;
+                        console.log(res, "PHY_NET_MNG.DELETE_PHY_NET_SUCCESS")
+                    } else {
+                        this.deletebox.close();
+                        this.showMsg("PHY_NET_MNG.DELETE_PHY_NET_FAILED");
+                        return;
+                    }
+                })
+                .then(() => {
+                    this.deletebox.close();
+                    this.getPhyNetList();
+                })
+                .catch(err => {
+                    console.log('PHY_NET_MNG.DELETE_PHY_NET_EXCEPTION', err);
+                    this.layoutService.hide();
+                    this.deletebox.close();
+                    this.showMsg("PHY_NET_MNG.DELETE_PHY_NET_EXCEPTION");
+                    this.okCallback = () => { this.deletebox.open(); };
+                })
+        }
+    }
+
+    cancelPhyNetDeleteModify(): void {
+        console.log('clicked cancelPhyNetDeleteModify');
     }
 
 }
