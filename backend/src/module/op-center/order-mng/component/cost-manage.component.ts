@@ -18,9 +18,13 @@ export class CostManageComponent implements OnInit{
 
  @ViewChild("costUpdate")
   costUpdate: PopupComponent;
+
+//企业下拉列表
+private _enterpriseLoader:ItemLoader<{id:string; name:string}> = null;
+
 //订单类型
 private _orderTypeDic:DicLoader = null;
-//订购人
+//购买人
 private _buyerLoader:ItemLoader<{id:string; name:string}> = null;
 
 	
@@ -29,6 +33,9 @@ private _buyerLoader:ItemLoader<{id:string; name:string}> = null;
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
+
+		this._enterpriseLoader = new ItemLoader<{id:string; name:string}>(false, '企业列表加载错误', "op-center.order-mng.ent-list.get", this.restApiCfg, this.restApi);
+
         //订购人加载
 		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
 
@@ -46,17 +53,20 @@ private _buyerLoader:ItemLoader<{id:string; name:string}> = null;
 
 }
 	ngOnInit(){
-        //this.layoutService.show();
-        
-        // this._buyerLoader.Go(null, [{key:"departmentId", value:null}])
-        // .then(success=>{
-        //    this._orderTypeDic.Go();
-        // })
-        // .catch(err=>{
-		// 	this.layoutService.hide();
-		// 	this.showMsg(err);
-		// });
-		//this.layoutService.hide();
+        this.layoutService.show();
+
+		this._enterpriseLoader.Go(null, [{key:"userId", value:"37d3dfca-064c-4077-879c-75ecf9c6725c"}]) 
+		.then(success=>{
+           return this._buyerLoader.Go(null, [{key:"departmentId", value:null}])
+        })
+        .then(success=>{
+           return this._orderTypeDic.Go();
+        })
+        .catch(err=>{
+			this.layoutService.hide();
+			this.showMsg(err);
+		});
+		this.layoutService.hide();
 	}
 
 //显示金额管理

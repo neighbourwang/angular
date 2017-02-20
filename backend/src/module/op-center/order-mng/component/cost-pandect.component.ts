@@ -34,11 +34,17 @@ private _months:Array<Time>=[];
 private _orderTypeDic:DicLoader = null;
 //订购人
 private _buyerLoader:ItemLoader<{id:string; name:string}> = null;
-private _d_chartLoader:ItemLoader<Chart> = null;//消费概览
-private _b_chartLoader:ItemLoader<Chart> = null;//消费趋势
-private _h_chartLoader:ItemLoader<Chart> = null;//TOP5消费总额
-private _h_chartLoader2:ItemLoader<Chart> = null;//TOP5消费增长总额
 
+private consumeLoader:ItemLoader<Chart> = null;//消费概览
+
+private totalConsumeLoader:ItemLoader<Chart> = null;//消费趋势-总消费
+private increseConsumeLoader:ItemLoader<Chart> = null;//消费趋势-新增消费
+
+private topConsumeLoader:ItemLoader<Chart> = null;//TOP5消费总额-所有企业
+private topConsumeDepartmentLoader:ItemLoader<Chart> = null;//TOP5消费总额-某个企业
+
+private topIncreseConsumeLoader:ItemLoader<Chart> = null;//TOP5消费增长总额
+private topIncreseConsumeDepartmentLoader:ItemLoader<Chart> = null;//TOP5消费增长总额-某个企业
 	
 	constructor(
 		private layoutService: LayoutService,
@@ -61,9 +67,9 @@ private _h_chartLoader2:ItemLoader<Chart> = null;//TOP5消费增长总额
         this._orderTypeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
 
     
-       	this._d_chartLoader = new ItemLoader<Chart>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
+       	this.consumeLoader = new ItemLoader<Chart>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "op-center.order-mng.cost-pandect.consume.post", this.restApiCfg, this.restApi);
 
-        this._d_chartLoader.MapFunc = (source:Array<any>, target:Array<Chart>)=>{
+        this.consumeLoader.MapFunc = (source:Array<any>, target:Array<Chart>)=>{
 			for(let item of source)
 			{
 				let obj=_.extend({}, item) ;
@@ -71,20 +77,9 @@ private _h_chartLoader2:ItemLoader<Chart> = null;//TOP5消费增长总额
 				obj.id = item.key;
 			}
 		}
-        this._b_chartLoader = new ItemLoader<Chart>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
+        this.totalConsumeLoader = new ItemLoader<Chart>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "op-center.order-mng.cost-pandect.total.post", this.restApiCfg, this.restApi);
 
-        this._b_chartLoader.MapFunc = (source:Array<any>, target:Array<Chart>)=>{
-			for(let item of source)
-			{
-				let obj=_.extend({}, item) ;
-				target.push(obj);
-				obj.id = item.key;
-				obj.name = item.value;
-			}
-		}
-        this._h_chartLoader = new ItemLoader<Chart>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
-
-        this._h_chartLoader.MapFunc = (source:Array<any>, target:Array<Chart>)=>{
+        this.totalConsumeLoader.MapFunc = (source:Array<any>, target:Array<Chart>)=>{
 			for(let item of source)
 			{
 				let obj=_.extend({}, item) ;
@@ -93,17 +88,7 @@ private _h_chartLoader2:ItemLoader<Chart> = null;//TOP5消费增长总额
 				obj.name = item.value;
 			}
 		}
-        this._h_chartLoader2 = new ItemLoader<Chart>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
-
-        this._h_chartLoader2.MapFunc = (source:Array<any>, target:Array<Chart>)=>{
-			for(let item of source)
-			{
-				let obj=_.extend({}, item) ;
-				target.push(obj);
-				obj.id = item.key;
-				obj.name = item.value;
-			}
-		}
+       
 
 }
 	ngOnInit(){
