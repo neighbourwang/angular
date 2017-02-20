@@ -74,6 +74,7 @@ export class cloudHostListComponent implements OnInit {
 			}
 			this.list.pageParameter.totalPage = res.pageInfo.totalPage;
 			return res.resultContent;
+			
 		}).then(list => {
 			this.vmList = list;
 		}).catch(error => {

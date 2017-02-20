@@ -17,7 +17,7 @@ export const PhyNetRouting= RouterModule.forChild([
         component: PhyNetMngIpAddrComponent
     },
     {
-        path: "phy-mng/phy-net/phy-net-setup-resource",
+        path: "phy-mng/phy-net/phy-net-setup-resource-1",
         component: PhyNetSetupResourceComponent
     },
     {

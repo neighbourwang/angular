@@ -22,11 +22,6 @@ export class PhyNetMngService {
         this.restApiCfg.loadCfgData();
     }
 
-    statusDict = this.dict.get({  //镜像状态
-        owner: "PM_NETWORK",
-        field: "STATUS"
-    });
-
     getPhyNetList(pageIndex: number, pageSize: number): Promise<any> {        
         const pathParams = [
             {

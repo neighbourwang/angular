@@ -1,49 +1,41 @@
 <div class="page-content-header icon-content-header-physical-mng">
-    查看物理机网络网络
+    {{'PHY_NET_MNG.SHOW_PHY_NET' | translate}}
 </div>
 
 <div class="page-content">
     <div class="row" style="margin-top:30px;">
 
         <div class="col-md-12">
-            <!--
-            <div class="row row-line-height">
-                <div class="col-sm-4  form-control-title">
-                <span class="float-left" style="line-height:34px;">查看物理机网络网络</span>
-                </div>
-            </div>
-            -->
-
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">显示名称:</div>
+                    <div class="col-sm-4 form-control-title">{{'PHY_NET_MNG.PHY_NET_NAME' | translate}}:</div>
                     <div class="col-md-4">
-                        <span>{{imageName || ('HOST_VMWARE_MNG.UNSET' | translate)}}</span>
+                        <span>{{phynetdetailsinfo.phynet_info.networkName || ('COMMON.UNSET' | translate)}}</span>
                     </div>
                 </div>
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">子网信息:</div>
+                    <div class="col-sm-4 form-control-title">{{'PHY_NET_MNG.SUBNET_IP_INFORMATION' | translate}}:</div>
                     <div class="col-md-4">
-                        <span>{{imagedisplayName || ('HOST_VMWARE_MNG.UNSET' | translate)}}</span>
+                        <span>{{phynetdetailsinfo.phynet_info.subnetIP || ('COMMON.UNSET' | translate)}}</span>
                     </div>
                 </div>
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">子网掩码:</div>
+                    <div class="col-sm-4 form-control-title">{{'PHY_NET_MNG.SUBNET_MASK' | translate}}:</div>
                     <div class="col-md-4">
                         <!-- <span>{{(imageOs | dict:this.dictService.osDict | async) || ('HOST_VMWARE_MNG.UNSET' | translate)}}</span>-->
-                        <span>{{imagedisplayName || ('HOST_VMWARE_MNG.UNSET' | translate)}}</span>
+                        <span>{{phynetdetailsinfo.phynet_info.subnetMask || ('COMMON.UNSET' | translate)}}</span>
                     </div>
                 </div>
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">网关地址:</div>
+                    <div class="col-sm-4 form-control-title">{{'PHY_NET_MNG.GATEWAY_ADDRESS' | translate}}:</div>
                     <div class="col-md-4">
-                        <span>{{imagedisplayName || ('HOST_VMWARE_MNG.UNSET' | translate)}}</span>
+                        <span>{{phynetdetailsinfo.phynet_info.gateway || ('COMMON.UNSET' | translate)}}</span>
                     </div>
                 </div>
             </div>
@@ -51,7 +43,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">DNS 1:</div>
                     <div class="col-md-4">
-                        <span>{{imagedisplayName || ('HOST_VMWARE_MNG.UNSET' | translate)}}</span>
+                        <span>{{phynetdetailsinfo.phynet_info.dnsPre || ('COMMON.UNSET' | translate)}}</span>
                     </div>
                 </div>
             </div>
@@ -59,7 +51,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">DNS 2:</div>
                     <div class="col-md-4">
-                        <span>{{imagedisplayName || ('HOST_VMWARE_MNG.UNSET' | translate)}}</span>
+                        <span>{{phynetdetailsinfo.phynet_info.dnsAlt || ('COMMON.UNSET' | translate)}}</span>
                     </div>
                 </div>
             </div>  
@@ -71,7 +63,7 @@
         </div>-->
         <div class="row row-line-height table-center">
             <div class="form-group">
-                <span style="line-height:34px;">可用物理资源池列表</span>
+                <span style="line-height:34px;">{{'PHY_NET_MNG.AVALIABLE_PHY_RES_POOL' | translate}}</span>
             </div>
         </div>
 
@@ -79,15 +71,22 @@
             <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>物理机资源池名称 </th>
-                    <th>物理机类型</th>
-                    <th>所属地域</th>
-                    <th>所属数据中心</th>
+                    <th>{{'PHY_NET_MNG.PHY_HOST_RES_POOL_NAME' | translate}}</th>
+                    <th>{{'PHY_NET_MNG.PHY_HOST_TYPE' | translate}}</th>
+                    <th>{{'PHY_NET_MNG.REGION' | translate}}</th>
+                    <th>{{'PHY_NET_MNG.DATA_CENTER' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
+                <tr *ngFor="let phyres of phynetdetailsinfo.phyres_pools">
+                    <td>{{phyres.pmPoolName}}</td>
+                    <td>{{phyres.pmPoolName}}</td>
+                    <td>{{phyres.region}}</td>
+                    <td>{{phyres.dataCenter}}</td>
+                </tr>
+                <!--
                 <tr>
-                    <td>北京地区-物理资源池1</td>
+                    <td>{北京地区-物理资源池1}</td>
                     <td>X86</td>
                     <td>北京</td>
                     <td>朝阳数据中心</td>
@@ -97,7 +96,8 @@
                     <td>X86</td>
                     <td>北京</td>
                     <td>西城数据中心</td>
-                </tr>               
+                </tr> 
+                -->              
             </tbody>
             </table>
         </div>        

@@ -21,10 +21,11 @@
 			        </tbody>
 			    </table>
 			</div>
+			<!--<fc-pagination tp={{selectedPlatformLoader.TotalPages}} (pf)="changePage($event)"></fc-pagination>-->
 		</div>
          <div class="firstPanel mgt20">
             <span class="form-control-title">未选择平台</span>
-            <div class="table-container mgt10">
+            <div class="table-container mgt10"  style="height: 500px;overflow: auto;">
 			    <table class="table table-hover">
 			        <thead>
 			            <tr>
@@ -38,12 +39,14 @@
 			            <tr *ngFor="let platformItem of platformLoader.Items;let i=index">
 							<td><input type="checkbox" class="fox-cloud-checkbox"  (change)="selectItem(i,platformItem)" /></td>
 			                <td>{{platformItem.name}}</td>
-			                <td>{{platformItem.type}}</td>
-			                <td [ngClass]="{'validateInfo':platformItem.status==1,'warnInfo':platformItem.status!=1}" ngClass="">{{platformItem.status}}</td>
+			                <td>{{platformItem.typeName}}</td>
+			                <td [ngClass]="{'validateInfo':platformItem.status==1,'warnInfo':platformItem.status!=1}">
+								{{platformItem.statusName}}</td><!--{{platformItem.status| dict:_dictServ.getDic('SUBINSTANCE', 'STATUS') | async}}-->
 			            </tr>               
 			        </tbody>
 			    </table>
 			</div>
+			<!--<fc-pagination tp={{platformLoader.TotalPages}} (pf)="changePage($event)"></fc-pagination>-->
 		</div>
 
 		<div class="firstPanel mgt20" style="width:300px;">

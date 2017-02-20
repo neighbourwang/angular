@@ -17,19 +17,32 @@ export class DiskReconfigComponent implements OnInit {
 
 	state:"change"|"done" = "change";
 
+	oldStorage: number = 20;
+	maxStorage: number = 200;
+	step: number = 20;
+	currentStorage: number = 0;
+
+	disk:DistList = new DistList;
+
 	constructor(
 		private layoutService: LayoutService,
 		private service : DiskReconfigService
 	) { }
 
 	ngOnInit() {
-		
 	}
 
 	open(disk:DistList) {
 		$('#diskBox').modal('show');
 		this.state = "change";
+		this.disk = disk;
+
+
+		// this.service.getZoneList(disk.uuid, "1").then(res => {
+		// 	console.log(res)
+		// });
 		console.log(disk)
+
 	}
 
 	setConfig() {
@@ -37,8 +50,8 @@ export class DiskReconfigComponent implements OnInit {
 		this.state = "done";
 	}
 
-	outputValue() {
-		
+	outputValue(event) {
+		this.currentStorage = event;
 	}
 
 

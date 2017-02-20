@@ -126,7 +126,7 @@ export class OrgMngListComponent implements OnInit {
         }
         console.log('禁用');
         this.confirmTitle = "COMMON.DISENABLE_DEPARTMENT";
-        this.confirmMessage = "USER_CENTER.YOU_SELECT_DISENABLE_PLEASE_CONFIRM" + org.name ;
+        this.confirmMessage = "USER_CENTER.YOU_SELECT_DISENABLE_PLEASE_CONFIRM^^^" + org.name ;
         this.confirmDialog.open();
         this.confirmType = type;
     }

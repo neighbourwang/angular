@@ -31,7 +31,6 @@
 <table class="table table-hover" >
     <thead>
     <tr>
-        <th class="text-center">选择 </th>
         <th class="text-center">工单号</th>
         <th class="text-center">主题 </th>
         <th class="text-center">类别 </th>
@@ -39,14 +38,13 @@
         <th class="text-center">紧急程度 </th>
         <th class="text-center">联系人 </th>
         <th class="text-center">联系电话 </th>
-        <th class="text-center">创建时间 </th>
+        <th class="text-center">提交时间 </th>
         <th class="text-center">更新时间 </th>
         <th class="text-center">操作 </th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td class="text-center"><input class="fox-cloud-radio" type="radio" ></td>
         <td class="text-center">9</td>
         <td class="text-center"><a href="javascript:void(0);" (click)="detail()"> 不能访问公司OA系统主机</a></td>
         <td class="text-center">云主机</td>
@@ -114,7 +112,7 @@
     <div class="col-md-offset-3 col-md-8 text-tip">最多只能输入1000个文字</div>
 </fc-popup>
 
-<fc-popup #caseDetail title="{{title}}">
+<fc-popup #caseDetail title="{{title}}" ct="" ot="">
     <div class="mgb10">基本信息</div>
     <table class="cm-table-left table table-all-boder">
         <tbody>

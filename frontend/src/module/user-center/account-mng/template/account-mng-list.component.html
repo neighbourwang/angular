@@ -1,10 +1,10 @@
 <h1 class="page-content-header mgb20">{{ 'MENU.ACCOUNT_MANAGEMENT' | translate }}</h1>
 <div class="mgb20" style="overflow : hidden">
     <div class="input-group col-md-2 float-left">
-        <input class="form-control" [(ngModel)]="keyword" (keyup.enter)="search()" placeholder="{{ 'USER_CENTER.ENTER_ACCOUNT_INFORMATION_TO_SEARCH_QUICKLY' | translate }}" type="text">
+        <input class="form-control width-400" [(ngModel)]="keyword" (keyup.enter)="search()" placeholder="{{ 'USER_CENTER.ENTER_ACCOUNT_INFORMATION_TO_SEARCH_QUICKLY' | translate }}" type="text">
         <div class="input-group-addon" (click)="search()"><span class="glyphicon glyphicon-search" style="cursor:pointer"></span></div>
     </div>
-    <button class="btn button-confirm float-right" data-toggle="modal" (click)="create()">{{ 'COMMON.CREATE' | translate }}{{ 'COMMON.ACCOUNT' | translate }}</button>
+    <button class="btn button-confirm float-right" data-toggle="modal" (click)="create()">{{ 'USER_CENTER.CREATE_DEPARTMENT' | translate }}</button>
 </div>
 <table class="table table-hover mgb20">
     <tbody>
@@ -46,8 +46,8 @@
 </table>
 
 <fc-pagination #pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
-<fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMessage}}" (cf)="confirmOk()"></fc-confirm>
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate }}" (of)="nof()"></fc-notice>
+<fc-confirm #confirm title="{{confirmTitle | translate}}" msg="{{confirmMessage | translate}}" (cf)="confirmOk()"></fc-confirm>
+<fc-notice #notice title="{{noticeTitle | translate}}" msg="{{noticeMsg | translate}}" ot="{{ 'COMMON.CONFIRM' | translate }}" (of)="nof()"></fc-notice>
 <!--<fc-popup #creAccount title="{{title}}" ot="创建" (of)="otCreate()" ct="取消" (cf)="ccf()">
     <div class="row row-line-height">
         <div class="form-group">

@@ -41,9 +41,8 @@
 				            <td class="text-center">{{vm.regionZone}}</td>
 				            <td class="text-center">{{vm.vmState | dict:service.computeStatus | async}}</td>
 				            <td class="text-center">
-				            	<billing-info #bill>
-				            		
-				            	</billing-info>
+			            		<p>一次性费用：{{vm.billingInfo?.basePrice}}元</p>
+			            		<p>周期费用：{{vm.billingInfo?.basicPrice}}元 / {{vm.billingInfo?.periodType}}</p>
 				            </td>
 						</tr>
 					</table>
