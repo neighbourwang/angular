@@ -399,6 +399,13 @@ export class PhyNetMngComponent implements OnInit {
     }
 
     //Menu: 网络资源分配
+    setupPhyNetResource(): void {
+        let pg = this.getSelected();
+        if(pg){
+            this.router.navigate([`phy-mng/phy-net/phy-net-setup-resource-1`]);
+        }
+
+    }
 
     //Menu: 设置子网IP地址范围
     setupPhyNetIPs(): void {
@@ -696,7 +703,11 @@ export class PhyNetMngComponent implements OnInit {
         if (pn) {
             this.selectedphynet = pn;
             if(this.selectedphynet.status == this.statusDictArray.find(n => n.code === "delete").value){
-                this.showMsg("PHY_NET_MNG.PHY_NET_DISABLED");
+                this.showMsg("PHY_NET_MNG.PHY_NET_DELETED");
+                return; 
+            }
+            if(this.selectedphynet.status == this.statusDictArray.find(n => n.code === "enable").value){
+                this.showMsg("PHY_NET_MNG.PHY_NET_NEED_TO_DISABLED_FIRSTLY");
                 return; 
             }
             this.deletebox.open();

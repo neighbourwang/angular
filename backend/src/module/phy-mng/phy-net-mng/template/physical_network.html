@@ -1,38 +1,38 @@
 <div class="page-content-header icon-content-header-physical-mng"> <!--page-content-header icon-physical-mng">  icon-cloud-network-mngOn"> -->
-    物理机网络管理	  
+    {{'PHY_NET_MNG.PHY_NET_MNG' | translate}}
 </div>
 
 <div class="page-content">
     <div class="mgb20">
         <button class="fox-cloud-button fox-cloud-button-green" (click)="createPhyNet();">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建网络</span> <!--请添加创建的弹出框-->
+            <span class="icon-button-label icon-left-button-label">{{'PHY_NET_MNG.CREATE_PHY_NET' | translate}}</span> <!--请添加创建的弹出框-->
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="editPhyNet();">       
-            <span class="icon-button-label icon-left-button-label">编辑标准网络</span>
+            <span class="icon-button-label icon-left-button-label">{{'PHY_NET_MNG.EDIT_PHY_NET' | translate}}</span>
         </button>
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/phy-net-allocate.html">       
-            <span class="icon-button-label icon-left-button-label">网络资源分配</span>
+        <button class="fox-cloud-button fox-cloud-button-green" key="boe/phy-net-allocate.html" (click)="setupPhyNetResource();">       
+            <span class="icon-button-label icon-left-button-label">{{'PHY_NET_MNG.PHY_NET_RESOURCE_SETUP' | translate}}</span>
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" key="boe/ip_pool_mng.html" (click)="setupPhyNetIPs();">
-            <span class="icon-button-label icon-left-button-label">设置IP资源范围</span>
+            <span class="icon-button-label icon-left-button-label">{{'PHY_NET_MNG.SET_IP_SCOPE' | translate}}</span>
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" key="boe/ip_addr_mng.html" (click)="ipUsageMngPage();">
-            <span class="icon-button-label icon-left-button-label">管理IP地址</span>
+            <span class="icon-button-label icon-left-button-label">{{'PHY_NET_MNG.MNG_IP_ADDR' | translate}}</span>
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" key="boe/ip_addr_export.html" (click)="exportPhyIps();">
-            <span class="icon-button-label icon-left-button-label">导出IP地址信息</span>
+            <span class="icon-button-label icon-left-button-label">{{'PHY_NET_MNG.EXPORT_IP_ADDR' | translate}}</span>
         </button>
        
         <div class="dropdown pull-right" >
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                选择操作
+                {{'COMMON.SELECT_OPERATION' | translate}}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="javascript:void(0);" (click)="enablePhyNet();">启用</a></li>
-                <li><a href="javascript:void(0);" (click)="disablePhyNet();">禁用</a></li>
-                <li><a href="javascript:void(0);" (click)="deletePhyNet();">删除</a></li>
+                <li><a href="javascript:void(0);" (click)="enablePhyNet();">{{'COMMON.ENABLE' | translate}}</a></li>
+                <li><a href="javascript:void(0);" (click)="disablePhyNet();">{{'COMMON.DISABLE' | translate}}</a></li>
+                <li><a href="javascript:void(0);" (click)="deletePhyNet();">{{'COMMON.DELETE' | translate}}</a></li>
             </ul>
         </div>
 
@@ -42,10 +42,10 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>选择 </th>
-                    <th> 网络名称</th>
-                    <th> 子网信息</th>
-                    <th> 网关地址</th>
+                    <th>选择</th>
+                    <th>网络名称</th>
+                    <th>网段信息</th>
+                    <th>网关地址</th>
                     <th>IP地址池数量</th>
                     <th>已使用IP地址数量</th>
                     <th>剩余IP地址数量</th>
@@ -77,11 +77,11 @@
                          </div>
                          -->
                     </td>
-                    <td> {{phynet.subnetCIDR || "未设置"}} </td>
-                    <td> {{phynet.gateway || "未设置"}} </td>
-                    <td> {{phynet.ipAllCount || "未设置"}} </td>
-                    <td> {{phynet.ipUsedCount || "未设置"}} </td>
-                    <td> {{phynet.ipFreeCount || "未设置"}} </td>
+                    <td> {{phynet.subnetCIDR || ('COMMON.UNSET' | translate)}} </td>
+                    <td> {{phynet.gateway || ('COMMON.UNSET' | translate)}} </td>
+                    <td> {{phynet.ipAllCount || ('COMMON.UNSET' | translate)}} </td>
+                    <td> {{phynet.ipUsedCount || ('COMMON.UNSET' | translate)}} </td>
+                    <td> {{phynet.ipFreeCount || ('COMMON.UNSET' | translate)}} </td>
                     <td [ngClass]="phynet.status==1?'font-green':'font-orange'"> {{(phynet.status | dict:this.dictService.statusDict | async) || "未设置"}} </td>
                 </tr>                
             </tbody>

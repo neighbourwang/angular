@@ -12,7 +12,7 @@ import { PhyNetListModel } from '../model/phy-net.model';
 
 @Component({
     selector: "phy_net_setup_resource",
-    templateUrl: "../template/phy_net_setup_resource.html",
+    templateUrl: "../template/phy_net_setup_resource1.html",
     styleUrls: [],
     //providers: [ VmwareImgEntSetupService
     //]
