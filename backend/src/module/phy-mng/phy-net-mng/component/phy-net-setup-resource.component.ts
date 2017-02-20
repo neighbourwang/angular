@@ -12,7 +12,7 @@ import { PhyNetListModel } from '../model/phy-net.model';
 
 @Component({
     selector: "phy_net_setup_resource",
-    templateUrl: "../template/phy_net_setup_resource.html",
+    templateUrl: "../template/phy_net_setup_resource1.html",
     styleUrls: [],
     //providers: [ VmwareImgEntSetupService
     //]
@@ -51,8 +51,29 @@ export class PhyNetSetupResourceComponent implements OnInit {
     noticeTitle = "";
     noticeMsg = "";
 
+    first_step:boolean = true;
+    second_step:boolean = false;
+
     
     ngOnInit() {
+        this.first_step = true;
+        this.second_step = false;
+    }
+
+    close(): void {
+
+    }
+
+    next(): void {
+
+    }
+
+    previous(): void {
+
+    }
+
+    save(): void {
+
     }
 
 

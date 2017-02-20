@@ -15,7 +15,7 @@ const releaseServer = (name, path, reg) =>    //发布到服务器
 	fis.media(name).match(reg, {
 		release: '/$1$2$3',
 	  	deploy: fis.plugin('http-push', {
-			receiver: 'http://16.187.145.52:8999/receiver',
+			receiver: 'http://15.114.102.62:8999/receiver',
 			to: path
 		})
 	});

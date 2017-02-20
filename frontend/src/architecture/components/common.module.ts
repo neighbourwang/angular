@@ -9,8 +9,6 @@ import { NoticeComponent } from './dialog/component/notice.component';
 import { ConfirmComponent } from './dialog/component/confirm.component';
 import { PopupComponent } from './dialog/component/popup.component';
 import { CountBarComponent } from './countBar/component/count-bar.component';
-import { BillingInfoComponent } from './billingInfo/billingInfo.component';
-import { BillingInfoService } from './billingInfo/billingInfo.service';
 import { TableEditNameComponent } from './tableEditName/component/tableEditName.component';
 import { PopoverModule } from './popover/index';
 import { MyDatePickerModule } from './date-picker/my-date-picker.module';
@@ -46,7 +44,6 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
         ConfirmComponent,
         PopupComponent,
         CountBarComponent,
-        BillingInfoComponent,
         TableEditNameComponent
         // OrderByPipe
         // DonutChart,
@@ -62,7 +59,6 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
         ConfirmComponent,
         PopupComponent,
         CountBarComponent,
-        BillingInfoComponent,
         ClickOutsideModule,
         PopoverModule,
         ChartsModule,
@@ -75,7 +71,6 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
     ],
     providers : [
         DialogTranslate,
-        BillingInfoService
     ]
 })
 export class CommonComponentModule { }

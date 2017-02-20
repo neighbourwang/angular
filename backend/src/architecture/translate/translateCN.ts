@@ -244,7 +244,8 @@
         "VIEW": "查看",
         "WARNING": "警告",
         "YES": "是",
-        "ZONE": "区域"
+        "ZONE": "区域",
+        "SELECT_OPERATION": "选择操作",
     },
     "ENT_MNG": {
         "ABNORMAL_RESPONSE": "异常响应",
@@ -882,12 +883,28 @@
         "VMWARE_NET": "VMware网络"
     },
     "PHY_NET_MNG": {
+        "PHY_NET_MNG": "物理机网络管理",
+        "CREATE_PHY_NET": "创建网络",
+        "EDIT_PHY_NET": "编辑网络",
+        "PHY_NET_RESOURCE_SETUP": "网络资源分配",
+        "SET_IP_SCOPE": "设置IP资源范围",
+        "MNG_IP_ADDR": "管理IP地址",
+        "EXPORT_IP_ADDR": "导出IP地址信息",
+
+        "SHOW_PHY_NET": "查看物理机网络",
+        "AVALIABLE_PHY_RES_POOL": "可用物理资源池列表",
+
+        "PHY_HOST_RES_POOL_NAME": "物理机资源池名称",
+        "PHY_HOST_TYPE": "物理机类型",
+        "REGION": "所属地域",
+        "DATA_CENTER": "所属数据中心",
+
         "CANT_NULL": "不能为空",
         "PHY_NET_NAME": "显示名称",
         "GATEWAY_ADDRESS": "网关地址",
         "SUBNET_INFORMATION": "子网信息",
         "SUBNET_IP_INFORMATION": "网络IP信息",
-        "SUBNET_MASK": "子网掩码",
+        "SUBNET_MASK": "网络掩码",
 
         "PLEASE_CHOOSE_NETWORK": "请选择网络",
 
@@ -907,7 +924,12 @@
         "EDIT_PHY_NET_SUCCESS": "编辑物理机网络成功",
         "ENABLE_PHY_NET_SUCCESS": "启用物理机网络成功",
         "DISABLE_PHY_NET_SUCCESS": "禁用物理机网络成功",
-        "DELETE_PHY_NET_SUCCESS": "删除物理机网络成功"
+        "DELETE_PHY_NET_SUCCESS": "删除物理机网络成功",
+
+        "PHY_NET_ENABLED": "物理机网络已启用",
+        "PHY_NET_DISABLED": "物理机网络已禁用",
+        "PHY_NET_DELETED": "物理机网络已删除",
+        "PHY_NET_NEED_TO_DISABLED_FIRSTLY": "物理机网络需先被禁用后才能被删除",
     },
     "ORDER_MNG": {
         "ALL_DEPARTMENT": "所有部门",
