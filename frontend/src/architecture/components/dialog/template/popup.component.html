@@ -7,8 +7,8 @@
         <!-- <button class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal" (click)="ccf()">
             <span class="icon-button-label">{{ct}}</span>
         </button> -->
-        <button class="btn btn-default button-size-big" data-dismiss="modal" (click)="ccf()">{{ct || 'DIALOG.CANCEL' | translate }}</button> <!-- 取消 -->
-        <button class="btn button-confirm button-size-big"  (click)="cof()">{{ot || 'DIALOG.CONFIRM' | translate }}</button> <!-- 确认 -->
+        <button *ngIf="ct != ''" class="btn btn-default button-size-big" data-dismiss="modal" (click)="ccf()">{{ct || 'DIALOG.CANCEL' | translate }}</button> <!-- 取消 -->
+        <button *ngIf="ot != ''"class="btn button-confirm button-size-big"  (click)="cof()">{{ot || 'DIALOG.CONFIRM' | translate }}</button> <!-- 确认 -->
        <!--  <button class="fox-cloud-button-lg fox-cloud-button-white"  (click)="cof()" style="margin-left: 30px">
             <span class="icon-button-label">{{ot}}</span>
         </button> -->

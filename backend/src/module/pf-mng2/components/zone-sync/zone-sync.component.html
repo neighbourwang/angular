@@ -1,63 +1,60 @@
-<!--详情-->
-<div class="modal fade" id="hostBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
-		<!-- 配置变更 -->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">同步可用区</h4>
-			</div>
-			<div class="modal-body">
-				<div class="table-container" >
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <!--<th >#</th>-->
-                        <th class="check-box-col" style="width:6%">DC/Region</th>
-                        <th style="width:6%">可用区名称</th>
-                        <th style="width:8%">显示名称</th>
-                        <th style="width:18%">宿主机</th>
-                        <th style="width:8%">物理CPU核数</th>
-                        <th style="width:10%">总内存数(MB)</th>
-                        <th style="width:6%">CPU超分比</th>
-                        <th style="width:4%">配额%</th>
-                        <th style="width:16%">操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!--<tr *ngFor="let zone of zoneList;let idx=index">
-                        <td>
-                            <p *ngFor="let dcOrRegion of zone.dcOrRegion" style="padding:0;margin-bottom: 0">{{dcOrRegion.displayName}}</p>
-                        </td>
-                        <td>{{zone.name||'NULL'}}</td>
-                        <td>
-                            <input  type="text" [(ngModel)]="zone.displayName" name="displayName">
-                        </td>
-                        <td>
-                            <p *ngFor="let host of zone.hosts">{{host||0}}</p>
-                        </td>
-                        <td>{{zone.vcpunum}}</td>
-                        <td>{{zone.memSize}}</td>                        
-                        <td>
-                            <input  type="number" class="form-control" [(ngModel)]="zone.exceedPercentage" style="display: inline;" name="exceedPercentage">
-                        </td>
-                        <td>
-                            <input  type="number" class="form-control" [(ngModel)]="zone.quotaPercentDisplay" style="width: 100px; display: inline;" name="quotaPercentDisplay">
-                        </td>                       
-                        <td >
-                            <input  type="text" class="form-control" [(ngModel)]="zone.description" style="display: inline;" name="description">
-                        </td> 
-                    </tr>-->
-                </tbody>
-            </table>            
+<div class="modal fade" id="zoneBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">同步可用区</h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-container">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="check-box-col" style="width:6%">DC/Region</th>
+                                <th style="width:6%">可用区名称</th>
+                                <th style="width:8%">显示名称</th>
+                                <th style="width:18%">宿主机</th>
+                                <th style="width:8%">物理CPU核数</th>
+                                <th style="width:10%">总内存数(MB)</th>
+                                <th style="width:6%">CPU超分比</th>
+                                <th style="width:4%">配额%</th>
+                                <th style="width:16%">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let zone of zoneList;let idx=index">
+                                <td>
+                                    <p *ngFor="let dcOrRegion of zone.dcOrRegion" style="padding:0;margin-bottom: 0">{{dcOrRegion.displayName}}</p>
+                                </td>
+                                <td>{{zone.name||'NULL'}}</td>
+                                <td>
+                                    <input type="text" [(ngModel)]="zone.displayName" name="displayName">
+                                </td>
+                                <td>
+                                    <p *ngFor="let host of zone.hosts">{{host||0}}</p>
+                                </td>
+                                <td>{{zone.vcpunum}}</td>
+                                <td>{{zone.memSize}}</td>
+                                <td>
+                                    <input type="number" class="form-control" [(ngModel)]="zone.exceedPercentage" style="display: inline;" name="exceedPercentage">
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control" [(ngModel)]="zone.quotaPercentDisplay" style="width: 100px; display: inline;" name="quotaPercentDisplay">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" [(ngModel)]="zone.description" style="display: inline;" name="description">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default button-size-big" data-dismiss="modal">{{ct || 'COMMON.CANCEL' | translate }}</button>
+                <!-- 取消 -->
+                <button (click)="setConfig()" class="btn button-confirm button-size-big">{{ot || '添加' }}</button>
+                <!-- 确认 -->
+            </div>
         </div>
-			</div>
-			<div class="modal-footer">				
-				<button class="btn btn-default button-size-big" data-dismiss="modal">{{ct || 'COMMOM.CANCEL' | translate }}</button>
-				<!-- 取消 -->
-				<button (click)="setConfig()" class="btn button-confirm button-size-big">{{ot || '添加' }}</button>
-				<!-- 确认 -->
-			</div>
-		</div>
-	</div>
+    </div>
 </div>

@@ -30,7 +30,7 @@
 				            <th class="text-center">{{'VM_INSTANCE.EXTERNA_IP' | translate}}</th>
 				            <th class="text-center">{{'COMMON.REGION_AND_AVAILABLE_AREA' | translate}}</th>
 				            <th class="text-center">{{'COMMON.STATUS'| translate}}</th>
-				            <th class="text-center">{{'COMMON.EXPIRE_DATE'| translate}}</th>
+				            <th class="text-center">当前费用</th>
 					    </tr>
 						<tr>
 				            <td class="text-center active">{{vm.instanceName}}</td>
@@ -40,7 +40,10 @@
 				            <td class="text-center">{{vm.publicIP}}</td>
 				            <td class="text-center">{{vm.regionZone}}</td>
 				            <td class="text-center">{{vm.vmState | dict:service.computeStatus | async}}</td>
-				            <td class="text-center">{{vm.expiryDate}}</td>
+				            <td class="text-center">
+			            		<p>一次性费用：{{vm.billingInfo?.basePrice}}元</p>
+			            		<p>周期费用：{{vm.billingInfo?.basicPrice}}元 / {{vm.billingInfo?.periodType}}</p>
+				            </td>
 						</tr>
 					</table>
 

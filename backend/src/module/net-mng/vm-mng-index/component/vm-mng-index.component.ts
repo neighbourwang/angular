@@ -338,10 +338,17 @@ export class VmwareMngIndexComponent implements OnInit {
             this.service.testNsxMngInfo(this.queryOpt.platformId, this.changedNsxMngInfo)
                 .then(res => {
                     this.layoutService.hide();
-                    if (res && res.resultCode == "100") {                        
-                        console.log(res, "测试NSX管理信息成功");
-                        this.nsxTestFlag = "success";
-                        this.enablepopbutton = true;
+                    if (res && res.resultCode == "100") {
+                        if (res.resultContent.checkResult == "1") {  //"1"表示成功，"2"表示失败
+                            console.log(res, "测试NSX管理信息成功");
+                            this.nsxTestFlag = "success";
+                            this.enablepopbutton = true;
+                        } else {
+                            console.log('当返回100code时，测试NSX管理信息失败');
+                            //this.showMsg("NET_MNG_VM_IP_MNG.TEST_NSX_MNG_INFO_FAILED");
+                            this.nsxTestFlag = "failure";
+                            this.enablepopbutton = false;
+                        }
                     } else {
                         console.log('测试NSX管理信息失败');
                         //this.showMsg("NET_MNG_VM_IP_MNG.TEST_NSX_MNG_INFO_FAILED");

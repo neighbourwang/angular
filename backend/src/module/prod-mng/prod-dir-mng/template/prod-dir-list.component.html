@@ -100,17 +100,17 @@
 <fc-confirm #publishConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="publishCof()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
 <fc-confirm #ccPublishConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="ccPublishCof()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
 <fc-popup #createProdDir title="{{title}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()">
-	<!--<div class="row row-line-height">
+	<div class="row row-line-height">
 		<div class="form-group">
-			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT_CLASS' | translate}}:</div>
-			<div class="col-sm-7">
+			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT_CLASS' | translate}}:</div>
+			<div class="col-sm-6">
 				<select class="form-control" [(ngModel)]="prodDirTypeId" (ngModelChange)="selectProDirType($event)">
                     <option *ngFor="let item of prodDirTypeList;" [value]="item.id">{{item.name}}</option>
                 </select>
 			</div>
 		</div>
-	</div>-->
-	 <div class="row row-line-height">
+	</div>
+	 <!--<div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
                         <span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT_CLASS' | translate}}
@@ -121,45 +121,17 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
 	<div *ngIf="showSpec">
 		<div class="row row-line-height">
-			<div class="form-group">
-				<!--<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_SPEC' | translate}}:</div>-->
-				<div class="col-sm-4 form-control-title">CPU</div>
-				<div class="col-sm-8">
-					<!--<span class="form-line-height font-gray" style="float:left;padding:5px 10px; width:100px;">cpu</span>-->
-					<span style="float:left; width:120px;">
-								<count-bar [valueError]="vcpuValueError" #cpu  [default]=0 [step]=1 [max]=1000000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'vcpu')"></count-bar>
-					</span>
-					<span class="form-line-height font-gray" style="float:left;padding:5px 10px;">{{'COMMON.CORE' | translate}}(vCPU)</span>
-				</div>
+		<div class="form-group">
+			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>云主机规格选择:</div>
+			<div class="col-sm-6">
+				<select class="form-control" [(ngModel)]="prodDirSpecIdx" (ngModelChange)="selectProDirSpec(prodDirSpecIdx)">
+                    <option *ngFor="let item of vmProdDirSpecList; let idx=index" [value]="idx">{{'名称：'+item.cpu+' CPU,'+item.mem+' GB,'+item.bootStorageSize||0+' GB'}}</option>
+                </select>
 			</div>
 		</div>
-		<div class="row row-line-height">
-			<div class="form-group">
-				<div class="col-sm-4 form-control-title">{{'COMMON.RAM' | translate}}</div>
-				<div class="col-sm-8">
-					<!--<span class="form-line-height font-gray" style="float:left;padding:5px 10px; width:100px;">{{'COMMON.RAM' | translate}}</span>-->
-					<span style="float:left; width:120px;">
-								<count-bar [valueError]="memValueError" #mem  [default]=0 [step]=100 [max]=100000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'mem')"></count-bar>
-							</span>
-					<span class="form-line-height font-gray" style="float:left;padding:5px 10px;">{{'COMMON.MB' | translate}}(MB)</span>
-				</div>
-			</div>
-		</div>
-		<div class="row row-line-height">
-			<div class="form-group">
-				<div class="col-sm-4 form-control-title">{{'PROD_MNG.ROOT_DISK_SIZE' | translate}}</div>
-				<div class="col-sm-8">
-					<!--<span class="form-line-height font-gray" style="float:left;padding:5px 10px; width:100px;">{{'PROD_MNG.ROOT_DISK_SIZE' | translate}}</span>启动盘大小-->
-
-					<span style="float:left; width:120px;">
-								<count-bar [default]=0 [step]=100 [max]=100000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'startupDisk')"></count-bar>
-							</span>
-					<span class="form-line-height font-gray" style="float:left;padding:5px 10px;">GB</span>
-				</div>
-			</div>
-		</div>
+	</div>
 	</div>	
 </fc-popup>

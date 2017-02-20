@@ -16,7 +16,7 @@ import { CcProdDirPublishService } from '../service/prod-dir-ccPublish.service';
 import { ProdDirDeleteService } from '../service/prod-dir-delete.service';
 
 //model
-import { Proddir } from '../model/prodDirList.model';
+import { Proddir ,ProdDirSpec } from '../model/prodDirList.model';
 import { specification } from '../model/prodDir.model';
 // import {ProdDirModule} from '../prod-dir-mng.routing'
 @Component({
@@ -53,6 +53,8 @@ export class ProdDirListComponent implements OnInit {
     pp: number = 10;
 
     prodDirTypeList = new Array();
+    vmProdDirSpecList= new Array();
+    prodDirSpec:ProdDirSpec=new ProdDirSpec();
     platformsList = new Array();
     platformId: string='';
     prodDirTypeId: string;;
@@ -268,7 +270,23 @@ export class ProdDirListComponent implements OnInit {
     creation() {
         //跳转
         console.log('create');
-        this.createProdDir.open('PROD_MNG.CREATE_PRODUCT_CAT'); //PROD_MNG.CREATE_PRODUCT_CAT=>创建产品目录 
+        if(!this.prodDirSpec.cpu){
+            this.layoutService.show();
+            this.service.getProdDirSpecList().then(res => {
+            console.log(res);
+            this.vmProdDirSpecList=res.resultContent;
+            this.prodDirSpec=this.vmProdDirSpecList[0];
+            this.createProdDir.open('PROD_MNG.CREATE_PRODUCT_CAT'); //PROD_MNG.CREATE_PRODUCT_CAT=>创建产品目录
+            this.layoutService.hide();
+            }).catch(err => {
+                console.error(err);
+                this.layoutService.hide();
+            })
+        }else{
+            this.createProdDir.open('PROD_MNG.CREATE_PRODUCT_CAT'); //PROD_MNG.CREATE_PRODUCT_CAT=>创建产品目录
+        }
+        
+         
 
     }
     //选择产品目录类型
@@ -288,20 +306,19 @@ export class ProdDirListComponent implements OnInit {
         this.showSpec =
             item.id == '33f23ade-a0f8-11e6-a18b-0050568a49fd' ? true : false;
     }
+    //选择云主机产品目录规格
+    prodDirSpecIdx:number=0;
+    selectProDirSpec(e){
+        this.prodDirSpec=this.vmProdDirSpecList[e];
+        console.log(e);
+    }
     otcreate() {
         let id = this.prodDirTypeId;
-        console.log(this.spec);
-        if (this.prodDirTypeId == '33f23ade-a0f8-11e6-a18b-0050568a49fd') {
-            if (this.spec.vcpu == 0) {
-                this.vcpuValueError = true;
-                return
-            }
-            if (this.spec.mem == 0) {
-                this.memValueError = true;
-                return
-            }
-            if (this.spec.mem > 0 && this.spec.vcpu > 0) {
-                this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre", { vcpu: this.spec.vcpu, mem: this.spec.mem, startupDisk: this.spec.startupDisk ,type:'new'}]);
+        if (this.prodDirTypeId == '33f23ade-a0f8-11e6-a18b-0050568a49fd') {            
+            if (this.prodDirSpec.cpu) {
+                this.prodDirSpec.bootStorageSize=
+                    this.prodDirSpec.bootStorageSize?this.prodDirSpec.bootStorageSize:'0';
+                this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre", { vcpu: this.prodDirSpec.cpu, mem: this.prodDirSpec.mem, startupDisk: this.prodDirSpec.bootStorageSize ,type:'new'}]);
             } else {
                 this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PLATFORM_PRODUCT_CAT_ERROR') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PLATFORM_PRODUCT_CAT_ERROR=>云主机产品目录规格输入错误 
             }
@@ -384,18 +401,5 @@ export class ProdDirListComponent implements OnInit {
             size: this.pp
         });
     }
-    //
-    spec: specification = new specification();
-    vcpuValueError: boolean = false;
-    memValueError: boolean = false;
-    outputValue(e, arg) {
-        console.log(e, arg);
-        if (arg == 'vcpu') {
-            (e != 0) && (this.vcpuValueError = false)
-        }
-        if (arg == 'mem') {
-            (e != 0) && (this.memValueError = false)
-        }
-        this.spec[arg] = e;
-    }
+    
 }
