@@ -51,8 +51,29 @@ export class PhyNetSetupResourceComponent implements OnInit {
     noticeTitle = "";
     noticeMsg = "";
 
+    first_step:boolean = true;
+    second_step:boolean = false;
+
     
     ngOnInit() {
+        this.first_step = true;
+        this.second_step = false;
+    }
+
+    close(): void {
+
+    }
+
+    next(): void {
+
+    }
+
+    previous(): void {
+
+    }
+
+    save(): void {
+
     }
 
 
