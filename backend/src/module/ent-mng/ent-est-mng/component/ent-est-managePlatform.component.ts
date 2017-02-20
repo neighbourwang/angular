@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ItemLoader, RestApi, RestApiCfg,LayoutService, NoticeComponent, PopupComponent, SystemDictionaryService, SystemDictionary  } from '../../../../architecture';
+import { DicLoader,ItemLoader, RestApi, RestApiCfg,LayoutService, NoticeComponent, PopupComponent, SystemDictionaryService, SystemDictionary  } from '../../../../architecture';
 import { EntProdItem, EntEst,Platform} from '../model';
 
 import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
+import {DictService} from '../../../../architecture/core/service/dict-service';
 
 @Component({
   // moduleId: module.id,
@@ -18,19 +19,29 @@ export class EntEstManagePlatformComponent implements OnInit {
 
   entId : string = null;
 
+  private statusDic:DicLoader = null;//状态字典
+  private typeDic:DicLoader = null;//平台类型字典
   private platformLoader : ItemLoader<Platform> = null; //未选择可用平台 
 
   private selectedPlatformLoader : ItemLoader<Platform> = null; //已选择可用平台 
 
-    private saveLoader : ItemLoader<Platform> = null; //保存
+  private saveLoader : ItemLoader<Platform> = null; //保存
   
   constructor(
     private layoutService: LayoutService,
     private router: Router,
-     private activatedRouter: ActivatedRoute,
+    private activatedRouter: ActivatedRoute,
     private restApiCfg:RestApiCfg,
-    private restApi:RestApi
+    private restApi:RestApi,
+    private _dictServ:DictService
   ) {
+     //字典配置
+      this.statusDic = new DicLoader(restApiCfg, restApi, "SUBINSTANCE", "STATUS");
+      this.statusDic.SourceName = "status";
+      this.statusDic.TargetName = "statusName";
+      this.typeDic = new DicLoader(restApiCfg, restApi, "PLATFORM", "TYPE");
+      this.typeDic.SourceName = "type";
+      this.typeDic.TargetName = "typeName";
     this.platformLoader = new ItemLoader<Platform>(false,'加载未选择可用平台列表错误','ent-mng.ent-est-mng.enterprise.platform',restApiCfg,restApi);
     this.selectedPlatformLoader = new ItemLoader<Platform>(false,'加载已选择可用平台列表错误','ent-mng.ent-est-mng.enterprise.platform.selected',restApiCfg,restApi);
 
@@ -43,6 +54,7 @@ export class EntEstManagePlatformComponent implements OnInit {
         obj.name = item.name;
         obj.type = item.platformType;
         obj.status = item.status;
+        obj.isSelected = 0;
         target.push(obj);
       }
     }
@@ -82,6 +94,7 @@ export class EntEstManagePlatformComponent implements OnInit {
         obj.name = item.name;
         obj.type = item.platformType;
         obj.status = item.status;
+        obj.isSelected = 1;
         target.push(obj);
       }
     }
@@ -101,26 +114,44 @@ export class EntEstManagePlatformComponent implements OnInit {
   ngOnInit() {
 
     this.entId = this.activatedRouter.snapshot.params["entId"] as string;
+    this.statusDic.Go()
+    .then(succuss=>{
+      this.typeDic.Go();
+    })
+    this.searchSelectedPlatform(null);
+    this.searchPlatform(null);
+  }
 
-
+ searchPlatform(page:number){
     this.layoutService.show();
    
-    this.platformLoader.Go(null,[{key:'_enterpriseId',value:this.entId}])
+    this.platformLoader.Go(page,[{key:'_enterpriseId',value:this.entId}])
     .then(success=>{
-      return this.selectedPlatformLoader.Go(null,[{key:'_enterpriseId',value:this.entId}]);
+      this.statusDic.UpdateWithDic(success);
+      this.typeDic.UpdateWithDic(success);
+      this.layoutService.hide();
+    }) 
+    .catch(err=>{
+      this.layoutService.hide();
     })
+ }
+
+ searchSelectedPlatform(page:number){
+  this.layoutService.show();
+   
+    this.selectedPlatformLoader.Go(null,[{key:'_enterpriseId',value:this.entId}])
     .then(success=>{
+      this.statusDic.UpdateWithDic(success);
       this.layoutService.hide();
     })
     .catch(err=>{
       this.layoutService.hide();
     })
-
-  }
+ }
 
   selectItem(index:number,platform:Platform){
-    this.platformLoader.Items.splice(index,1);  
-    this.selectedPlatformLoader.Items.push(platform);
+    platform.isSelected = 1;
+    platform.index = index;
   }
 
 //返回/取消
@@ -132,6 +163,12 @@ cancel(){
 save(){
   let params:Array<string>= [];
 
+  for(let item of this.platformLoader.Items){
+    if(item.isSelected == 1){
+      this.platformLoader.Items.splice(item.index,1);  
+      this.selectedPlatformLoader.Items.push(item);
+    }
+  }
   for(let item of this.selectedPlatformLoader.Items){
      let index = this.selectedPlatformLoader.Items.indexOf(item);
      params[index] = item.id; 
@@ -139,6 +176,8 @@ save(){
   this.layoutService.show();
   this.saveLoader.Go(null,[{key:'_enterpriseId',value:this.entId}],params)
   .then(success=>{
+    this.searchPlatform(null);
+    this.searchSelectedPlatform(null);
     this.layoutService.hide();
   })
   .catch(err=>{
@@ -152,6 +191,14 @@ save(){
   {
     this.notice.open("COMMON.SYSTEM_PROMPT", msg);
   }
+	// //翻译订单状态
+	// updateStatusName(){
+	// 	let list:Array<Platform> = []
+	// 	list.map(n=>{
+	// 		let item = this.statusDic.Items.find(m=>m.value == n.status);
+	// 		if(item) n.statusName = item.displayValue as string;
+	// 	});
 
+	// }
 
 }
