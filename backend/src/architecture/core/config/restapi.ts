@@ -148,7 +148,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "get同步可添加可用区信息",
         "id": "pf-mng-zonelist.get",
         "method": "GET",
-        "url": "/adminui/authsec/sync/platform/{id}/zones"
+        "url": "adminui/authsec/sync/platform/{id}/zones"
     },
     {
         "desc": "post同步可添加可用区信息",
