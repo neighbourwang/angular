@@ -1,7 +1,7 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import { Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import { Consume,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 
 import * as _ from 'underscore';
 
@@ -30,27 +30,33 @@ export class CostPandectComponent implements OnInit{
 _param:CostPandectParam = new CostPandectParam();
 private _years:Array<Time>=[];
 private _months:Array<Time>=[];
+//企业下拉列表
+private enterpriseLoader : ItemLoader<{id:string;name:string}>= null;
+
 //订单类型
 private _orderTypeDic:DicLoader = null;
 //订购人
 private _buyerLoader:ItemLoader<{id:string; name:string}> = null;
 
-private consumeLoader:ItemLoader<Chart> = null;//消费概览
+private consumeLoader:ItemLoader<ConsumeSum> = null;//消费概览
 
-private totalConsumeLoader:ItemLoader<Chart> = null;//消费趋势-总消费
-private increseConsumeLoader:ItemLoader<Chart> = null;//消费趋势-新增消费
+private totalConsumeLoader:ItemLoader<Consume> = null;//消费趋势-总消费
+private increseConsumeLoader:ItemLoader<Consume> = null;//消费趋势-新增消费
 
-private topConsumeLoader:ItemLoader<Chart> = null;//TOP5消费总额-所有企业
-private topConsumeDepartmentLoader:ItemLoader<Chart> = null;//TOP5消费总额-某个企业
+private topConsumeLoader:ItemLoader<Consume> = null;//TOP5消费总额-所有企业
+private topConsumeDepartmentLoader:ItemLoader<Consume> = null;//TOP5消费总额-某个企业
 
-private topIncreseConsumeLoader:ItemLoader<Chart> = null;//TOP5消费增长总额
-private topIncreseConsumeDepartmentLoader:ItemLoader<Chart> = null;//TOP5消费增长总额-某个企业
+private topIncreseConsumeLoader:ItemLoader<Consume> = null;//TOP5消费增长总额
+private topIncreseConsumeDepartmentLoader:ItemLoader<Consume> = null;//TOP5消费增长总额-某个企业
 	
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
+        
+        this.enterpriseLoader = new ItemLoader<{id:string;name:string}> (false,'企业列表加载错误','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
+
         //订购人加载
 		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
 
@@ -67,33 +73,36 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<Chart> = null;//TOP5消费�
         this._orderTypeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
 
     
-       	this.consumeLoader = new ItemLoader<Chart>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "op-center.order-mng.cost-pandect.consume.post", this.restApiCfg, this.restApi);
+       	this.consumeLoader = new ItemLoader<ConsumeSum>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "op-center.order-mng.cost-pandect.consume.post", this.restApiCfg, this.restApi);
 
-        this.consumeLoader.MapFunc = (source:Array<any>, target:Array<Chart>)=>{
-			for(let item of source)
-			{
-				let obj=_.extend({}, item) ;
-				target.push(obj);
-				obj.id = item.key;
-			}
-		}
-        this.totalConsumeLoader = new ItemLoader<Chart>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "op-center.order-mng.cost-pandect.total.post", this.restApiCfg, this.restApi);
+        // this.consumeLoader.MapFunc = (source:Array<any>, target:Array<ConsumeSum>)=>{
+		// 	for(let item of source)
+		// 	{
+		// 		let obj=_.extend({}, item) ;
+		// 		target.push(obj);
+		// 	}
+		// }
+        this.totalConsumeLoader = new ItemLoader<Consume>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "op-center.order-mng.cost-pandect.total.post", this.restApiCfg, this.restApi);
 
-        this.totalConsumeLoader.MapFunc = (source:Array<any>, target:Array<Chart>)=>{
-			for(let item of source)
-			{
-				let obj=_.extend({}, item) ;
-				target.push(obj);
-				obj.id = item.key;
-				obj.name = item.value;
-			}
-		}
-       
+        // this.totalConsumeLoader.MapFunc = (source:Array<any>, target:Array<Consume>)=>{
+		// 	for(let item of source)
+		// 	{
+		// 		let obj=_.extend({}, item) ;
+		// 		target.push(obj);
+		// 	}
+		// }
+        this.increseConsumeLoader = new ItemLoader<Consume>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "op-center.order-mng.cost-pandect.increase.post", this.restApiCfg, this.restApi);
+        this.topConsumeLoader = new ItemLoader<Consume>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "op-center.order-mng.cost-pandect.enterprise-top.post", this.restApiCfg, this.restApi);
+        this.topConsumeDepartmentLoader = new ItemLoader<Consume>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "op-center.order-mng.cost-pandect.department-top.post", this.restApiCfg, this.restApi);
+        this.topIncreseConsumeLoader = new ItemLoader<Consume>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "op-center.order-mng.cost-pandect.increase-enterprise-top.post", this.restApiCfg, this.restApi);
+        this.topIncreseConsumeDepartmentLoader = new ItemLoader<Consume>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "op-center.order-mng.cost-pandect.increase-department-top.post", this.restApiCfg, this.restApi);
+
 
 }
 	ngOnInit(){
         this.layoutService.show();
         this.getTimeData();//时间下拉列表
+        this.loadEnterprise();
         this.search_chart();
         // this._buyerLoader.Go(null, [{key:"departmentId", value:null}])
         // .then(success=>{
@@ -114,6 +123,44 @@ getTimeData(){
      for(let i = 1; i<=12 ; i++){
         let _month = new Time(i.toString(),i.toString());
         this._months.push(_month);  
+    }
+}
+
+	loadEnterprise():Promise<any>{
+		return new Promise((resolve, reject)=>{
+			this.enterpriseLoader.Go()
+			.then(success=>{
+				resolve(success);
+			},err=>{
+				reject(err);
+			})
+		});
+	}
+
+loadChart(){
+    this.layoutService.show();
+    this.consumeLoader.Go()
+    .then(success=>{
+
+        this.totalConsumeLoader.Go();
+    })
+    .then(success=>{
+
+        this.increseConsumeLoader.Go();
+    })
+    .then(success=>{
+
+        this.layoutService.hide();
+    })
+    .catch(err=>{
+        this.layoutService.hide();
+        this.showMsg(err);
+    })
+}
+
+loadTopChart(){
+    if(this._param.enterprise = null){
+
     }
 }
 
@@ -211,7 +258,7 @@ this.h_chart3(_datas,_colors,_labels,_options);
 }
 
 //部门消费概览
-    dht_chart(datas:Array<number>,colors:Array<any>,lables:Array<any>,options?:any){
+ dht_chart(datas:Array<number>,colors:Array<any>,lables:Array<any>,options?:any){
          this.ent_dht=[{
                         data: datas,
                         borderWidth:[
