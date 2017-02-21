@@ -663,6 +663,11 @@ export let RestApis: RestApiModel[] = [
         "id": "ent-mng.ent-est-mng.enterprise.detail.ext",
         "method": "GET",
         "url": "adminui/authsec/enterprise/{_enterpriseId}/ext"
+    },{
+        "desc": "创建企业-判断名称是否存在",
+        "id": "ent-mng.ent-est-mng.ent-mng-cre.check-name.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/query"
     },
     
     
