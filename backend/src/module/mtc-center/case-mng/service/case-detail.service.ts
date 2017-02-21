@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
 
 //model
-// import {Criteria} from "../model/criteria.model";
+ import {CloseProfile} from "../model/closeProfile.model";
 // import { Region_mock } from '../model/phy-list.mock.model';
 
 import 'rxjs/add/operator/toPromise';
@@ -60,9 +60,9 @@ export class CaseDetailService {
     }
 
     //关闭工单
-     closeCase(): Promise<any>{          
+     closeCase(closeProfile:CloseProfile): Promise<any>{          
         const api = this.restApiCfg.getRestApi("case-mng.case.close");
-        return this.restApi.request(api.method, api.url, null, null,null  );
+        return this.restApi.request(api.method, api.url, null, null,closeProfile);
        // return new Promise(resovle => setTimeout(resovle, 200)).then(() => PhysicalList_mock);
     }
 

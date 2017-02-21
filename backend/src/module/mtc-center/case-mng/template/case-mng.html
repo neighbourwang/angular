@@ -91,3 +91,5 @@
              <fc-pagination #page tp={{totalPage}} (pf)="getCaseList($event)"></fc-pagination>  
     </div>   
 </div>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}"></fc-notice> 
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}" ct="{{'PHYSICAL_MNG.CANCEL'|translate}}"  ></fc-confirm>               

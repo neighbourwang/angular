@@ -3,12 +3,11 @@ import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { LayoutService, ValidationService, NoticeComponent,dictPipe} from "../../../../architecture";
 
-import { CaseClosedService} from "../service/case-closed.service";
+import { CaseDetailService} from "../service/case-detail.service";
 
-// import { PhysicalModel,CPU,Memory,Disk } from "../model/physical.model";
-// import { ServerType } from "../model/serverType.model";
-// import { Brand, Model } from "../model/brand.model";
-//import { IpmiInfo } from "../model/physical-ipmi.model";
+import { CaseListModel } from "../model/case-list.model";
+import { CloseInfo,HandleInfo } from "../model/closeInfo.model";
+ import {CloseProfile} from "../model/closeProfile.model";
 
 @Component({
     selector: "case-closed",
@@ -20,7 +19,7 @@ export class CaseClosedComponent implements OnInit {
     constructor(
         private activeRoute: ActivatedRoute,
         private route: Router,
-        //private service: PhysicalEditService,
+        private service: CaseDetailService,
         private layoutService: LayoutService,
         private validationService: ValidationService,
         private dictPipe : dictPipe
@@ -33,12 +32,79 @@ export class CaseClosedComponent implements OnInit {
     @ViewChild("notice")
     notice: NoticeComponent;
 
-   
+    caseId:string;
+    caseInfo:CaseListModel=new CaseListModel();
+    closeInfo:CloseInfo=new CloseInfo;
+    handleInfoes:Array<HandleInfo>;
+    closeProfile:CloseProfile=new CloseProfile();
   
     ngOnInit() {
+         this.activeRoute.params.forEach((params: Params) => {          
+            this.caseId = params["id"];            
+        });
+
+        this.getcaseHandleInfo();
+        this.getcaseInfo();
         
     }
+    //根据case id 获取工单的基本信息
+    getcaseInfo(){
+        this.layoutService.hide();
+        this.service.getcaseInfo(this.caseId)
+             .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                        this.caseInfo = response["resultContent"];
+                        console.log("工单基本信息",this.caseInfo);
+                    } else {
+                        alert("Res sync error");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+        }
+    
+    //根据case id 获取工单的处理信息
+    getcaseHandleInfo(){
+        this.layoutService.hide();
+        this.service.getcaseHandleInfo(this.caseId)
+             .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                        this.handleInfoes= response["resultContent"];
+                        console.log("工单处理信息",this.handleInfoes);
+                    } else {
+                        alert("Res sync error");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+        }
+    
 
+    //关闭工单
+    closeCase(){
+        this.closeProfile.closeType=this.closeInfo.closeType;
+        this.closeProfile.details=this.closeInfo.closeInfo;
+        this.layoutService.hide();
+        this.service.closeCase(this.closeProfile)
+             .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();                     
+                        console.log("关闭工单成功");
+                    } else {
+                        alert("Res sync error");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+        }
    
 
     showAlert(msg: string): void {

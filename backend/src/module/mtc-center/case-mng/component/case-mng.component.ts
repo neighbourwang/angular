@@ -30,7 +30,8 @@ export class CaseMngComponent implements OnInit {
 
     @ViewChild("notice")
     notice: NoticeComponent;
-
+    @ViewChild("confirm")
+    confirm: NoticeComponent;
     @ViewChild("page")
     page:PaginationComponent;
 
