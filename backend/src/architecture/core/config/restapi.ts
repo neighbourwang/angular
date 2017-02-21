@@ -1915,17 +1915,55 @@ export let RestApis: RestApiModel[] = [
         "url": "pmnetworkmgmt/noauth/pmnetwork/view/{pmNetworkId}"
     },
     {
-        "desc": "网络资源分配：根据pmNetworkId显示资源池的分配信息",
-        "id": "phy-mng.phy-net-mng.network.resource.list",
-        "method": "GET",
-        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/assign/pmpool"
-    },
-    {
         "desc": "物理机网络状态修改:0:禁用 1:启用 2:删除",
         "id": "phy-mng.phy-net-mng.network.status.set",
         "method": "PUT",
         "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/{status}"
     },
+
+    {
+        "desc": "网络资源分配：根据pmNetworkId显示资源池的分配信息",
+        "id": "phy-mng.phy-net-mng.network.pmpool.list",
+        "method": "GET",
+        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/assign/pmpool"
+    },
+    {
+        "desc": "网络资源分配：根据pmNetworkId和已选择的资源池ID(逗号分割)显示对应物理机信息",
+        "id": "phy-mng.phy-net-mng.network.pmhost.list",
+        "method": "GET",
+        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/assign/pmview/{pmPoolIds}"
+    },
+    {
+        "desc": "网络资源分配：根据pmNetworkId和已选择的物理机ID(逗号分割)保存网络资源分配信息",
+        "id": "phy-mng.phy-net-mng.network.pmres.set",
+        "method": "PUT",
+        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/assign/pm"
+    },
+    
+    {
+        "desc": "设置IP范围：保存划分的IP信息",
+        "id": "phy-mng.phy-net-mng.network.iprange.set",
+        "method": "PUT",
+        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/assign/iprange"
+    },
+    {
+        "desc": "设置IP范围：显示网络中划分的IP范围",
+        "id": "phy-mng.phy-net-mng.network.iprange.get",
+        "method": "GET",
+        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/assign/iprange/view"
+    },
+    {
+        "desc": "获取特定网络的IP列表-所有",
+        "id": "phy-mng.phy-net-mng.network.ips.get",
+        "method": "GET",
+        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/ipmgmt"
+    },
+    {
+        "desc": "物理机网络IP状态修改:0:空闲 1:已占用 2:预占",
+        "id": "phy-mng.phy-net-mng.network.ips.status.set",
+        "method": "PUT",
+        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/ipmgmt/changestatus/{status}"
+    },    
 
 ]
 

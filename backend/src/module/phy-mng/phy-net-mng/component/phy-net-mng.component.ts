@@ -402,7 +402,7 @@ export class PhyNetMngComponent implements OnInit {
     setupPhyNetResource(): void {
         let pg = this.getSelected();
         if(pg){
-            this.router.navigate([`phy-mng/phy-net/phy-net-setup-resource-1`]);
+            this.router.navigate([`phy-mng/phy-net/phy-net-setup-resource`]);
         }
 
     }

@@ -12,10 +12,9 @@ import { PhyNetListModel } from '../model/phy-net.model';
 
 @Component({
     selector: "phy_net_setup_resource",
-    templateUrl: "../template/phy_net_setup_resource1.html",
+    templateUrl: "../template/phy_net_setup_resource.html",
     styleUrls: [],
-    //providers: [ VmwareImgEntSetupService
-    //]
+    providers: []
 }
 )
 export class PhyNetSetupResourceComponent implements OnInit {
@@ -61,7 +60,7 @@ export class PhyNetSetupResourceComponent implements OnInit {
     }
 
     close(): void {
-
+        this.router.navigate([`phy-mng/phy-net/phy-net-mng`]);
     }
 
     next(): void {
@@ -73,7 +72,7 @@ export class PhyNetSetupResourceComponent implements OnInit {
     }
 
     save(): void {
-
+        this.router.navigate([`phy-mng/phy-net/phy-net-mng`]);
     }
 
 
