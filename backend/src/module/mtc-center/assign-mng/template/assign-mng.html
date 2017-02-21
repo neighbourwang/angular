@@ -127,9 +127,9 @@
     </div>
 </div>
 
-<fc-popup #exportAllData class="my" title="{{title}}"  ot="导出" of="acceptExport()" ct="取消" cf="" style="width:1000px;">
-    <div class="row row-line-height">
-        <div class="col-md-3 form-control-title">
+<fc-popup #exportAllData  title="{{title}}"  ot="导出" of="acceptExport()" ct="取消" cf=""  cssClass="minWidth900">
+    <div class="row row-line-height" >
+        <div class="col-md-3 form-control-title" style="line-height: 50px;">
         <input type="radio" name="chooseTime" class="fox-cloud-radio" />快速选择：
         </div>
         <div class="col-md-4">
@@ -144,15 +144,14 @@
         </div>
     </div>
     <div class="row row-line-height">
-        <div class="col-md-3 form-control-title test">
+        <div class="col-md-3 form-control-title" style="line-height: 50px;">
         <input type="radio" name="chooseTime" class="fox-cloud-radio"/>时间范围：
         </div>
         <div class="col-md-9">
-            <div style="float: left; line-height: 34px;">从</div>
             <div class="assign-mng float-left" >
                 <date-picker  (datechanged)="onEndDateChange($event)"></date-picker>
             </div>
-            <div style="float: left; line-height: 34px;">至</div>
+            <div style="float: left; line-height: 50px; width: 40px; text-align: center;">至</div>
             <div class="assign-mng float-left">
                 <date-picker (datechanged)="onEndDateChange($event)"></date-picker>
             </div>

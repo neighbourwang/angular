@@ -44,8 +44,8 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#" key="boe/case_operated.html">处理工单</a></li>
-                <li><a href="#" key="boe/case_closed.html">关闭工单</a></li>
+                <li><a href="javascript:void(0);" (click)="handleCase(case);">处理工单</a></li>
+                <li><a href="javascript:void(0);" (click)="closeCase(case);">关闭工单</a></li>
             </ul>
         </div>
     </div>
@@ -69,33 +69,25 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><input type="radio" class="fox-cloud-radio" name="case"> </td>
-                    <td>1</td>
-                    <td><a  href="#"  key="boe/case_detail.html">云硬盘订购成功，但不能使用</a> </td>
-                    <td>云主机</td>
-                    <td > 新建 </td>                  
-                    <td> 非常紧急 </td>
-                    <td > 顾晓燕</td>
-                    <td >02164223399 </td>  
-                    <td > 张三 </td>  
-                    <td > 上海惠普有限公司 </td>  
-                    <td >2016-10-1 15:35:50  </td>  
-                    <td>2016-10-1 15:35:50  </td>
+                <tr *ngFor="let case of caseList|orderBy:'case.updateDate'; let idex=index;">
+                    <td><input type="radio" class="fox-cloud-radio" name="case" (change)="getSelectCase(case);"[checked]="case.isSelect"> </td>
+                    <td>{{(pageIndex-1)*pageSize+idex+1}}</td>
+                    <td><a href="javascript:void(0);" (click)="gotoCaseView(case);">{{case.subject}}</a> </td>
+                    <td>{{case.typeName}}</td>
+                    <td > {{case.statusName}} </td>                  
+                    <td> {{case.emergencyName}} </td>
+                    <td > {{case.contact}}</td>
+                    <td >{{case.contactNo}} </td>  
+                    <td >{{case.creatorName}} </td>  
+                    <td > {{case.creatorTenant}} </td>  
+                    <td >{{case.createDate | formatDate}}  </td>  
+                    <td>{{case.updateDate | formatDate}}  </td>
                 </tr>
             </tbody>
         </table>    
     </div>
     <div style="height:50px"></div>
     <div class="fox-cloud-pagination-container">
-        <ul class="fox-cloud-pagination">
-            <span>&lt;&lt;</span>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <span class="pagination-disabled">&gt;&gt;</span>
-        </ul>
-    </div>
+             <fc-pagination #page tp={{totalPage}} (pf)="getCaseList($event)"></fc-pagination>  
+    </div>   
 </div>
