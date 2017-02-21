@@ -18,8 +18,13 @@ export class PhyNetDictService{
         this.restApiCfg.loadCfgData();
     }
     
-    statusDict = this.dict.get({  //镜像状态
+    statusDict = this.dict.get({  //网络状态
         owner: "PM_NETWORK",
         field: "STATUS"
+    });
+
+    ipstatusDict = this.dict.get({  //IP地址状态
+        owner: "PM_NETWORK",
+        field: "IP_STATUS"
     });
 }

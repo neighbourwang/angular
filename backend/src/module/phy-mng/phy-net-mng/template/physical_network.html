@@ -215,41 +215,32 @@
     </div>
 </fc-popup>
 
-<fc-popup #ipsbox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'NET_MNG_VM_IP_MNG.SET_IP_POOL' | translate}}" (of)="acceptIPsModify()" (cf)="cancelIPsModify()">
+<fc-popup #ipsbox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="设置IP资源范围" (of)="acceptPhyNetIPsModify()" (cf)="cancelPhyNetIPsModify()">
 	<div class="dialogContent">
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">{{'NET_MNG_VM_IP_MNG.SUBNET_INFORMATION' | translate}}：</div>
+					<div class="col-sm-4 form-control-title">{{'PHY_NET_MNG.SUBNET_INFORMATION' | translate}}：</div>
 					<div class="col-sm-8">
-						<span>{{subnetCIDR}}</span>
+						<span>{{ipscope_changed.subnetCIDR}}</span>
 					    <!-- <input type="string" class="form-control input-control" [(ngModel)]="ippool.subnetCIDR"></span> -->
 					</div>
 				</div>
 			</div>
-            <div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-4 form-control-title">{{'NET_MNG_VM_IP_MNG.SUBNET_MASK' | translate}}：</div>
-					<div class="col-sm-8">
-                        <span>{{subnetMask}}</span>
-					    <!-- <input type="string" class="form-control input-control" [(ngModel)]="ippool.subnetMask"> -->
-					</div>
-				</div>
-			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">{{'NET_MNG_VM_IP_MNG.GATEWAY' | translate}}：</div>
+					<div class="col-sm-4 form-control-title">{{'PHY_NET_MNG.GATEWAY_ADDRESS' | translate}}：</div>
 					<div class="col-sm-8">
-						<span>{{gateway}}</span>
+						<span>{{ipscope_changed.gateway}}</span>
 					    <!-- <input type="string" class="form-control input-control" [(ngModel)]="ippool.gateway">  -->
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">{{'NET_MNG_VM_IP_MNG.IP_SCOPE' | translate}}：</div>
+					<div class="col-sm-4 form-control-title">{{'PHY_NET_MNG.IP_ADDRESS_SCOPE' | translate}}：</div>
 					<div class="col-sm-8">
 					<!-- <input type="string" class="form-control input-control" [(ngModel)]="ippool.ips">  -->
-					<textarea class="form-control input-control" placeholder="" rows="4" [(ngModel)]="ipstr"></textarea>
+					<textarea class="form-control input-control" placeholder="" rows="4" [(ngModel)]="ipscope_changed.ipRange"></textarea>
 					</div>
 				</div>
 			</div>
