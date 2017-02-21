@@ -1927,5 +1927,60 @@ export let RestApis: RestApiModel[] = [
         "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/{status}"
     },
 
+    //工单管理
+    {
+        "desc": "获取机构管理员负责的机构下所有工单",
+        "id": "case-mng.case.list.get",
+        "method": "GET",
+        "url": "worklistmgmt/authsec/admworklist/{page}/{size}"
+    },
+    {
+        "desc": "机构管理员根据工单主题模糊查询工单",
+        "id": "case-mng.case.subject.search",
+        "method": "GET",
+        "url": "worklistmgmt/authsec/admworklist/bysubject/{page}/{size}"
+    },
+    {
+        "desc": "查询：企业/类别/状态/紧急程度",
+        "id": "case-mng.case.search",
+        "method": "GET",
+        "url": "worklistmgmt/authsec/admworklist/search/{page}/{size}"
+    },
+    {
+        "desc": "关闭工单",
+        "id": "case-mng.case.close",
+        "method": "POST",
+        "url": "worklistmgmt/authsec/admworklist/close"
+    },
+    {
+        "desc": "处理工单",
+        "id": "case-mng.case.handle",
+        "method": "POST",
+        "url": "worklistmgmt/authsec/admworklist/handle"
+    },
+    {
+        "desc": "获取所有企业基本信息，主要用于下拉框",
+        "id": "case-mng.case.enterprise.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/simple"
+    },
+    {
+        "desc": "获取某个工单基本信息",
+        "id": "case-mng.case.info.get",
+        "method": "GET",
+        "url": "worklistmgmt/authsec/worklist/{id}"
+    },
+    {
+        "desc": "获取工单关闭信息",
+        "id": "case-mng.case.closeinfo.get",
+        "method": "GET",
+        "url": "worklistmgmt/authsec/worklist/{id}/closeinfo"
+    },
+    {
+        "desc": "获取工单处理信息",
+        "id": "case-mng.case.handleinfo.get",
+        "method": "GET",
+        "url": "worklistmgmt/authsec/worklist/{id}/handle"
+    },
 ]
 
