@@ -13,7 +13,7 @@ import { ZoneListModel } from '../../cl-mng/model/cre-step3.model';
 })
 export class ZoneSyncComponent implements OnInit {
 
-	@Input('zoneList') zoneList:ZoneListModel;
+	@Input('zoneList') zoneList:Array<ZoneListModel>;
 
 	@Output() complete=new EventEmitter();
 
@@ -26,15 +26,24 @@ export class ZoneSyncComponent implements OnInit {
 		console.log(this.zoneList);
 	}
 
-	open(zoneList:ZoneListModel) {
+	open() {
 		$('#zoneBox').modal('show');
 		console.log(this.zoneList);
 				
 	}
 
-	setConfig() {
+	addZone() {
+		for (let zone of this.zoneList) {           
+            zone.quotaPercentage = 0;
+            zone.quotaPercentage = zone.quotaPercentDisplay * 0.01
+        }
 		console.log(this.zoneList);
-		this.complete.emit();
+		this.service.putUpdateZoneList(this.zoneList).then(res=>{
+			console.log(res);
+			this.complete.emit();
+		}).catch(err=>{
+			console.error(err)
+		})
 	}
 
 
