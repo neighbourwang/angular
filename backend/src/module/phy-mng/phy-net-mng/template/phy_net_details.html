@@ -63,16 +63,16 @@
         </div>-->
         <div class="row row-line-height table-center">
             <div class="form-group">
-                <span style="line-height:34px;">{{'PHY_NET_MNG.AVALIABLE_PHY_RES_POOL' | translate}}</span>
+                <span style="line-height:34px;font-size: 18px!important;letter-spacing:2px;">{{'PHY_NET_MNG.AVALIABLE_PHY_RES_POOL' | translate}}:</span>
             </div>
         </div>
 
-        <div class="table-container table-center" style="width: 60%">            
+        <div class="table-container-fullborder table-center" style="width: 60%">            
             <table class="table table-hover">
             <thead>
                 <tr>
                     <th>{{'PHY_NET_MNG.PHY_HOST_RES_POOL_NAME' | translate}}</th>
-                    <th>{{'PHY_NET_MNG.PHY_HOST_TYPE' | translate}}</th>
+                    <!-- <th>{{'PHY_NET_MNG.PHY_HOST_TYPE' | translate}}</th> -->
                     <th>{{'PHY_NET_MNG.REGION' | translate}}</th>
                     <th>{{'PHY_NET_MNG.DATA_CENTER' | translate}}</th>
                 </tr>
@@ -80,7 +80,7 @@
             <tbody>
                 <tr *ngFor="let phyres of phynetdetailsinfo.phyres_pools">
                     <td>{{phyres.pmPoolName}}</td>
-                    <td>{{phyres.pmPoolName}}</td>
+                    <!-- <td>{{phyres.pmPoolName}}</td> -->
                     <td>{{phyres.region}}</td>
                     <td>{{phyres.dataCenter}}</td>
                 </tr>

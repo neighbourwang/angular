@@ -883,6 +883,12 @@
         "VMWARE_NET": "VMware网络"
     },
     "PHY_NET_MNG": {
+        "SELECTED_PM_RES_POOL": "已选中资源池",
+        "UNSELECTED_PM_RES_POOL": "未选中资源池",
+        "SELECTED_PM_HOST": "已选中物理机",
+        "UNSELECTED_PM_HOST": "未选中物理机",
+
+
         "PHY_NET_MNG": "物理机网络管理",
         "CREATE_PHY_NET": "创建网络",
         "EDIT_PHY_NET": "编辑网络",
@@ -902,16 +908,23 @@
         "CANT_NULL": "不能为空",
         "PHY_NET_NAME": "显示名称",
         "GATEWAY_ADDRESS": "网关地址",
-        "SUBNET_INFORMATION": "子网信息",
+        "SUBNET_INFORMATION": "网段信息",
         "SUBNET_IP_INFORMATION": "网络IP信息",
         "SUBNET_MASK": "网络掩码",
+        "IP_ADDRESS_SCOPE": "IP地址范围",
 
         "PLEASE_CHOOSE_NETWORK": "请选择网络",
+        "PLEASE_CHOOSE_RES_POOL": "请选择资源池",
+        "PLEASE_CHOOSE_PM": "请选择物理机",
 
         "CREATE_PHY_NET_FAILED": "创建物理机网络失败",
         "CREATE_PHY_NET_EXCEPTION": "创建物理机网络异常",
         "EDIT_PHY_NET_FAILED": "编辑物理机网络失败",
         "EDIT_PHY_NET_EXCEPTION": "编辑物理机网络异常",
+
+        "SET_IP_SCOPE_SUCCESS": "设置IP地址范围成功",
+        "SET_IP_SCOPE_FAILED": "设置IP地址范围失败",
+        "SET_IP_SCOPE_EXCEPTION": "设置IP地址范围异常",
 
         "ENABLE_PHY_NET_FAILED": "启用物理机网络失败",
         "ENABLE_PHY_NET_EXCEPTION": "启用物理机网络异常",
@@ -929,6 +942,10 @@
         "PHY_NET_ENABLED": "物理机网络已启用",
         "PHY_NET_DISABLED": "物理机网络已禁用",
         "PHY_NET_DELETED": "物理机网络已删除",
+
+        "PHY_IP_ENABLED": "IP地址已占用",
+        "PHY_IP_DISABLED": "IP地址已释放",
+
         "PHY_NET_NEED_TO_DISABLED_FIRSTLY": "物理机网络需先被禁用后才能被删除",
     },
     "ORDER_MNG": {

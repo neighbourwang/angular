@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { LayoutService, NoticeComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
+import { ItemLoader,RestApiCfg,RestApi,LayoutService, NoticeComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { EntEst, ResourceQuota, CertMethod } from '../model'
 import { EntEstCreService, Paging } from '../service/ent-est-cre.service'
 import * as _ from 'underscore';
@@ -25,19 +25,24 @@ export class EntEstCreComponent implements OnInit{
 	private resourceQuotas: Paging<ResourceQuota> = new Paging<ResourceQuota>();
 	private isLocal:boolean = true;
 
+    private  nameCheckLoader: ItemLoader<{code:string;name:string}> = null;//重名判断
 	private ADflag: string = "";
+	private isSameName:number = 0;//0初始状态，1名称不相同，2名称相同
 
 	constructor(
 		private router: Router,
 		private service: EntEstCreService,
 		private layoutService: LayoutService,
-		private sysDicService: SystemDictionaryService
+		private sysDicService: SystemDictionaryService,
+		private restApiCfg:RestApiCfg,
+   		 private restApi:RestApi,
 		){
-
+			 this.nameCheckLoader = new ItemLoader<{code:string;name:string}>(false,'企业重名判断错误','ent-mng.ent-est-mng.ent-mng-cre.check-name.post',restApiCfg,restApi);
 	}
 	ngOnInit(){
 		this.entEst = new EntEst();
 		this.loadResourceQuotas();
+		
 	}
 
 	showError(msg:any) {
@@ -73,6 +78,26 @@ export class EntEstCreComponent implements OnInit{
 			  this.entEst.BasicInfo.platformIds = [];
 		}	
 	}
+
+	checkName(){
+		let param ={
+			name:this.entEst.BasicInfo.name
+		}
+		this.nameCheckLoader.Go(null,null,param)
+		.then(succeuss=>{
+			if(this.nameCheckLoader.code==100){
+				this.isSameName = 2;
+				// this.showMsg('该名称已存在！');
+			}else{
+				this.isSameName = 1;
+			}
+		})
+		.catch(err=>{
+			this.isSameName = 0;
+			this.showError(err);
+		})
+	}
+	
 
 	//数据验证
 	validate(){
@@ -185,8 +210,10 @@ export class EntEstCreComponent implements OnInit{
 	create(){
 		this.entEst.BasicInfo.platformIds
 			= this.resourceQuotas.items.filter(n=>n.checked).map(n=>n.platformId);
-		
-		if(this.validate())
+		if(this.isSameName!=1){
+			this.showMsg("名称不合法！");
+		}else{
+				if(this.validate())
 		{
 			this.layoutService.show();
 			this.service.createEnterpise(this.entEst).then(ret=>{
@@ -199,6 +226,8 @@ export class EntEstCreComponent implements OnInit{
 				this.notice.open("COMMON.PROMPT", "ENT_MNG.FAIL_TO_CREATE_ENTERPRISE");
 			})
 		}
+		}
+	
 	}
 
 	cancel(){

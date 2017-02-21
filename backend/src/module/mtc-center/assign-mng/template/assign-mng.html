@@ -74,7 +74,7 @@
     </div>
     </div>
     <div>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15">导出所有数据</button>
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="exportAll()">导出所有数据</button>
         <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15">导出当前数据</button>
         <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15">重置</button>
         <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15">确认</button>
@@ -126,3 +126,36 @@
         </ul>
     </div>
 </div>
+
+<fc-popup #exportAllData  title="{{title}}"  ot="导出" of="acceptExport()" ct="取消" cf=""  cssClass="minWidth900">
+    <div class="row row-line-height" >
+        <div class="col-md-3 form-control-title" style="line-height: 50px;">
+        <input type="radio" name="chooseTime" class="fox-cloud-radio" />快速选择：
+        </div>
+        <div class="col-md-4">
+            <select class="form-control">
+                <option value="1">最近24小时</option>
+                <option value="1">最近7天</option>
+                <option value="1">最近30天</option>
+                <option value="1">最近90天</option>
+                <option value="1">最近180天</option>
+                <option value="1">最近360天</option>
+            </select>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="col-md-3 form-control-title" style="line-height: 50px;">
+        <input type="radio" name="chooseTime" class="fox-cloud-radio"/>时间范围：
+        </div>
+        <div class="col-md-9">
+            <div class="assign-mng float-left" >
+                <date-picker  (datechanged)="onEndDateChange($event)"></date-picker>
+            </div>
+            <div style="float: left; line-height: 50px; width: 40px; text-align: center;">至</div>
+            <div class="assign-mng float-left">
+                <date-picker (datechanged)="onEndDateChange($event)"></date-picker>
+            </div>
+        </div>
+    </div>
+</fc-popup>
+

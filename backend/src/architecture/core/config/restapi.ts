@@ -669,6 +669,11 @@ export let RestApis: RestApiModel[] = [
         "id": "ent-mng.ent-est-mng.enterprise.detail.ext",
         "method": "GET",
         "url": "adminui/authsec/enterprise/{_enterpriseId}/ext"
+    },{
+        "desc": "创建企业-判断名称是否存在",
+        "id": "ent-mng.ent-est-mng.ent-mng-cre.check-name.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/query"
     },
     
     
@@ -1921,17 +1926,110 @@ export let RestApis: RestApiModel[] = [
         "url": "pmnetworkmgmt/noauth/pmnetwork/view/{pmNetworkId}"
     },
     {
-        "desc": "网络资源分配：根据pmNetworkId显示资源池的分配信息",
-        "id": "phy-mng.phy-net-mng.network.resource.list",
-        "method": "GET",
-        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/assign/pmpool"
-    },
-    {
         "desc": "物理机网络状态修改:0:禁用 1:启用 2:删除",
         "id": "phy-mng.phy-net-mng.network.status.set",
         "method": "PUT",
         "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/{status}"
     },
 
+    {
+        "desc": "网络资源分配：根据pmNetworkId显示资源池的分配信息",
+        "id": "phy-mng.phy-net-mng.network.pmpool.list",
+        "method": "GET",
+        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/assign/pmpool"
+    },
+    {
+        "desc": "网络资源分配：根据pmNetworkId和已选择的资源池ID(逗号分割)显示对应物理机信息",
+        "id": "phy-mng.phy-net-mng.network.pmhost.list",
+        "method": "GET",
+        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/assign/pmview/{pmPoolIds}"
+    },
+    {
+        "desc": "网络资源分配：根据pmNetworkId和已选择的物理机ID(逗号分割)保存网络资源分配信息",
+        "id": "phy-mng.phy-net-mng.network.pmres.set",
+        "method": "PUT",
+        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/assign/pm"
+    },
+    
+    {
+        "desc": "设置IP范围：保存划分的IP信息",
+        "id": "phy-mng.phy-net-mng.network.iprange.set",
+        "method": "PUT",
+        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/assign/iprange"
+    },
+    {
+        "desc": "设置IP范围：显示网络中划分的IP范围",
+        "id": "phy-mng.phy-net-mng.network.iprange.get",
+        "method": "GET",
+        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/assign/iprange/view"
+    },
+    {
+        "desc": "获取特定网络的IP列表-所有",
+        "id": "phy-mng.phy-net-mng.network.ips.get",
+        "method": "POST",
+        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/ipmgmt"
+    },
+    {
+        "desc": "物理机网络IP状态修改:0:空闲 1:已占用 2:预占",
+        "id": "phy-mng.phy-net-mng.network.ips.status.set",
+        "method": "PUT",
+        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/ipmgmt/changestatus/{status}"
+    },    
+
+    //工单管理
+    {
+        "desc": "获取机构管理员负责的机构下所有工单",
+        "id": "case-mng.case.list.get",
+        "method": "GET",
+        "url": "worklistmgmt/authsec/admworklist/{page}/{size}"
+    },
+    {
+        "desc": "机构管理员根据工单主题模糊查询工单",
+        "id": "case-mng.case.subject.search",
+        "method": "GET",
+        "url": "worklistmgmt/authsec/admworklist/bysubject/{page}/{size}"
+    },
+    {
+        "desc": "查询：企业/类别/状态/紧急程度",
+        "id": "case-mng.case.search",
+        "method": "GET",
+        "url": "worklistmgmt/authsec/admworklist/search/{page}/{size}"
+    },
+    {
+        "desc": "关闭工单",
+        "id": "case-mng.case.close",
+        "method": "POST",
+        "url": "worklistmgmt/authsec/admworklist/close"
+    },
+    {
+        "desc": "处理工单",
+        "id": "case-mng.case.handle",
+        "method": "POST",
+        "url": "worklistmgmt/authsec/admworklist/handle"
+    },
+    {
+        "desc": "获取所有企业基本信息，主要用于下拉框",
+        "id": "case-mng.case.enterprise.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/simple"
+    },
+    {
+        "desc": "获取某个工单基本信息",
+        "id": "case-mng.case.info.get",
+        "method": "GET",
+        "url": "worklistmgmt/authsec/worklist/{id}"
+    },
+    {
+        "desc": "获取工单关闭信息",
+        "id": "case-mng.case.closeinfo.get",
+        "method": "GET",
+        "url": "worklistmgmt/authsec/worklist/{id}/closeinfo"
+    },
+    {
+        "desc": "获取工单处理信息",
+        "id": "case-mng.case.handleinfo.get",
+        "method": "GET",
+        "url": "worklistmgmt/authsec/worklist/{id}/handle"
+    },
 ]
 

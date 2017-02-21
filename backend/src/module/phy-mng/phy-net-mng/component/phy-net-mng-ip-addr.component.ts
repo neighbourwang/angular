@@ -2,18 +2,18 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { LayoutService, NoticeComponent , ConfirmComponent, ValidationService, 
-    SystemDictionary, PopupComponent, SystemDictionaryService, PaginationComponent
-    } from '../../../../architecture';
+import { LayoutService, NoticeComponent , ConfirmComponent, ValidationService, SystemDictionary, 
+    PopupComponent, SystemDictionaryService, PaginationComponent  } from '../../../../architecture';
 
-//Model
-import { PhyNetListModel } from '../model/phy-net.model';
+//model 
+import { IpUsageMngModel } from '../model/phy-net.model';
 
 //service
-//import { IpUsageMngListService } from '../../../service/ipusage-mng-list.service';
+import { PhyNetMngIpAddrService } from '../service/ipusage-mng-list.service';
+import { PhyNetDictService } from '../service/phy-net-dict.service';
 
 @Component({
-    selector: 'phy_net_mng_ip_addr',
+    selector: 'ipusage-mng-list',
     templateUrl: '../template/phy_net_mng_ip_addr.html',
     styleUrls: [],
     providers: []
@@ -24,9 +24,9 @@ export class PhyNetMngIpAddrComponent implements OnInit{
     constructor(
         private router : Router,
         private activatedRouter : ActivatedRoute,
-        //private service : IpUsageMngListService,
+        private service : PhyNetMngIpAddrService,
         private layoutService : LayoutService,
-        private dicService: SystemDictionaryService,
+        private dictService: PhyNetDictService,
         private validationService: ValidationService,
     ) {
 /*
@@ -55,13 +55,14 @@ export class PhyNetMngIpAddrComponent implements OnInit{
 
     platformId: string;
 
-	statusDic: Array<SystemDictionary>;//状态
     status: string = "";
-    //ipusagemngs: Array<IpUsageMngModel>;
-    //rawipusagemngs: Array<IpUsageMngModel>;
-    //selectedip: IpUsageMngModel = new IpUsageMngModel(); //被选中的ipusage
-    //changedip: IpUsageMngModel = new IpUsageMngModel(); //前台绑定的ipusage
-    pg_id: string;
+    ipstatusDictArray: Array<SystemDictionary> = [];
+
+    ipusagemngs: Array<IpUsageMngModel>;
+    rawipusagemngs: Array<IpUsageMngModel>;
+    selectedip: IpUsageMngModel = new IpUsageMngModel(); //被选中的ipusage
+    changedip: IpUsageMngModel = new IpUsageMngModel(); //前台绑定的ipusage
+    pn_id: string;
     pg_name: string;
     ipusagequery: string = "all";
 
@@ -83,192 +84,124 @@ export class PhyNetMngIpAddrComponent implements OnInit{
         }
     }
 
-    //根据value获取字典的txt
-    getDicText(value: string, dic: Array<SystemDictionary>): String {
-        const d = dic.find((e) => {
-            return e.value == value;
-        });
-        if (d) {
-            return d.displayValue;
-        } else {
-            return value;
-        }
-    }
-
-    //根据value显示
-    displayIt(value: string): String {
-        if(this.validationService.isBlank(value)){
-            //return "未设置";
-            return "COMMON.UNSET";
-        } else {
-            return value;
-        }
-    }
-
     ngOnInit (){
-        /*
-        this.dicService.getItems("IP", "STATUS")
-        .then((dic) => {
-            this.statusDic = dic;
-            console.log(this.statusDic, "=== this.statusDic ===");
-        }).catch((e) => this.onRejected(e));
-        */
-
         this.activatedRouter.params.forEach((params: Params) => {
-            if (params["pg_id"] != null) {
-                this.pg_id = params["pg_id"];
-                console.log(this.pg_id);
-            }
-            if (params["pg_id"] != null) {
-                this.pg_name = params["pg_name"];
-                console.log(this.pg_name);
-            }
-            if (params["pid"] != null) {
-                this.platformId = params["pid"];
-                console.log(this.platformId, "this.platformId");
+            if (params["pn_id"] != null) {
+                this.pn_id = params["pn_id"];
+                console.log(this.pn_id);
             }
         });
 
-        //this.getIpUsageMngList(this.pg_id);
-        //console.log(this.service.statusDic, "statusDic!!!");
+        this.dictService.ipstatusDict
+        .then((items) => {
+            this.ipstatusDictArray = items;
+            console.log(this.ipstatusDictArray, "this.ipstatusDictArray");
+        });
+
+        this.getIpUsageMngList(this.pn_id);
 
     }
-        
-    phyNetMngPage() {
+
+    ipMngPage() {
+        //this.router.navigate([`phy-mng/phy-net/phy-net-mng`, {"pid": this.platformId}]);
         this.router.navigate([`phy-mng/phy-net/phy-net-mng`]);
     }
-    /*
-
-	onRejected(reason: any) {
-        this.layoutService.hide();
-        console.log(reason);
-        this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
-    }
-
-	showAlert(msg: string): void {
-        this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";
-        this.noticeMsg = msg;
-        this.notice.open();
-    }
-
-
 
     filter(query?): void {
         this.ipusagequery = query || this.ipusagequery;
         this.ipusagemngs = this.rawipusagemngs.filter((item)=>{
             return (this.ipusagequery == "all" || item.status == this.ipusagequery) 
         });
-        //console.log(this.ipusagemngs, "ipusagemngs!!!");
+        console.log(this.ipusagemngs, "ipusagemngs!!!");
         this.UnselectItem();
     }
 
-    getIpUsageMngList( pg_id: string ): void {
-        if (this.validationService.isBlank(pg_id)){
+    getIpUsageMngList( pn_id: string ): void {
+        if (this.validationService.isBlank(pn_id)){
             this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PG");
             return;
         }
         this.layoutService.show();
-        this.service.getIpUsageMngList( pg_id )
+        this.service.getIpUsageMngList( pn_id )
         .then(
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.rawipusagemngs = response.resultContent;
-                    console.log(this.rawipusagemngs.length, "--- IP numbers");
+                    console.log(this.rawipusagemngs.length, this.rawipusagemngs, "--- IP numbers");
                     if(this.rawipusagemngs.length > 1)
                     {
                         this.rawipusagemngs.sort(function(a,b){
-                            let ipa = a.addr.split(".");
+                            let ipa = a.ipAddress.split(".");
                             let numa = Number(ipa[0]) * 256 * 256 * 256 + Number(ipa[1]) * 256 * 256 + Number(ipa[2]) * 256 + Number(ipa[3]);
-                            let ipb = b.addr.split(".");
+                            let ipb = b.ipAddress.split(".");
                             let numb = Number(ipb[0]) * 256 * 256 * 256 + Number(ipb[1]) * 256 * 256 + Number(ipb[2]) * 256 + Number(ipb[3]);
                             return numa>numb?1:-1;
                         });
                     }
-                    //console.log(this.rawipusagemngs, "rawipusagemngs!!!");
                     this.filter();                    
                 } else {
-                    alert("Res sync error");                 
+                    alert("Res sync error");               
                 }
         }).catch((e) => this.onRejected(e));
 
     }
 
-    //选择行
-    selectItem(index:number): void {
-        this.ipusagemngs.map(n=> {n.checked = false;});
-        this.ipusagemngs[index].checked = true;
-        //console.log(this.ipusagemngs, "this.ipusagemngs");
-        this.selectedip = this.ipusagemngs[index];
-        console.log(this.selectedip, "this.selectedip");
-    }
-
-    UnselectItem(): void {
-        this.ipusagemngs.map(n=> {n.checked = false;});
-        if(this.selectedip) this.selectedip.checked = false;
-        //console.log(this.ipusagemngs, "=== Please see all items are Unselected ===");
-    }
-
-    getSelected() {
-        let item = this.ipusagemngs.find((n) => n.checked) as IpUsageMngModel;
-        if (item){
-            //console.log(item, "this.getSelected 1");
-            return item;
-        }            
-        else {
-            //console.log(item, "this.getSelected 2");
-            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
-            return null;
-        }
-    }
-
-    showMsg(msg: string) {
-        this.notice.open("NET_MNG_VM_IP_MNG.SYSTEM_PROMPT", msg);
-    }
-
-    enable(): void {
+    ocuppy(): void{
         this.selectedip = this.getSelected();
-        if (this.selectedip) {
+        if(this.selectedip){
             this.changedip.id = this.selectedip.id;
-            this.changedip.addr = this.selectedip.addr;
+            this.changedip.ipAddress = this.selectedip.ipAddress;
             this.changedip.description = this.selectedip.description;
-
-            this.service.statusDic
-                .then((items) => {
-                    return items.find(n => n.code == "OCCUPIED");
-                })
-                .then((item) => {
-                    if (item) {
-                        console.log(item, "dict!!!");
-                        this.status = <string>item.value;
-                        if (this.selectedip.status == this.status) {
-                            this.showMsg("NET_MNG_VM_IP_MNG.IP_OCCUPIED");
-                            return;
-                        }
-                        this.enableipbox.open();
-                    } else {
-                        this.showMsg("NET_MNG_VM_IP_MNG.DICTIONARY_FAILED");
-                        return;
-                    }
-                }).catch((e) => this.onRejected(e));
+            this.changedip.status = this.selectedip.status;
+            console.log(this.changedip, "ip_status need to be enabled!");
+            if(this.changedip.status == this.ipstatusDictArray.find(n => n.code === "used").value){
+                this.showMsg("PHY_NET_MNG.PHY_IP_ENABLED");
+                return; 
+            }
+            this.enableipbox.open();
+        } else {
+            this.showMsg("PHY_NET_MNG.PLEASE_CHOOSE_NETWORK");
+            return; 
         }
+    }
+
+    release(): void {
+        this.selectedip = this.getSelected();
+        if(this.selectedip){
+            this.changedip.id = this.selectedip.id;
+            this.changedip.ipAddress = this.selectedip.ipAddress;
+            this.changedip.description = this.selectedip.description;
+            this.changedip.status = this.selectedip.status;
+            console.log(this.changedip, "ip_status need to be disabled!");
+            if(this.changedip.status == this.ipstatusDictArray.find(n => n.code === "free").value){
+                this.showMsg("PHY_NET_MNG.PHY_IP_DISABLED");
+                return; 
+            }
+            this.disableipbox.open();
+        } else {
+            this.showMsg("PHY_NET_MNG.PLEASE_CHOOSE_NETWORK");
+            return; 
+        }
+
     }
 
     acceptEnableIPModify(): void {
         console.log('clicked acceptEnableIPModify');
+        this.layoutService.show();
         if (this.validationService.isBlank(this.changedip.description)) {
-            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_INPUT_DESCRIPTION");
+            this.layoutService.hide();
             this.enableipbox.close();
+            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_INPUT_DESCRIPTION");            
             this.okCallback = () => {
                 this.enableipbox.open(); 
             }
         } else {
-            this.layoutService.show();
-            this.service.enableIP(this.changedip)
+            this.service.updateIpStatus(this.changedip)
                 .then(res => {
                     this.layoutService.hide();
-                    if (res && res.resultCode == "100") {
-                        this.changedip.status = this.status;
+                    if (res && res.resultCode == "100") {                        
+                        this.changedip.status = <string>this.ipstatusDictArray.find(n => n.code === "used").value;
                         //this.changedip.status = '1';
                         console.log(res, "IP占用成功")
                     } else {
@@ -285,8 +218,8 @@ export class PhyNetMngIpAddrComponent implements OnInit{
                 })
                 .catch(err => {
                     console.log('clicked acceptEnableIPModify 6');
-                    console.log('IP占用异常', err);
                     this.layoutService.hide();
+                    console.log('IP占用异常', err);
                     this.enableipbox.close();
                     this.showMsg("NET_MNG_VM_IP_MNG.IP_OCCUPIED_EXCEPTION");
                     this.okCallback = () => { this.enableipbox.open(); };
@@ -300,43 +233,14 @@ export class PhyNetMngIpAddrComponent implements OnInit{
         this.changedip.description = this.selectedip.description;
     }
 
-    disable(): void {
-        this.selectedip = this.getSelected();
-        if(this.selectedip){
-            this.changedip.id = this.selectedip.id;
-            this.changedip.addr = this.selectedip.addr;
-            this.changedip.description = this.selectedip.description;
-            
-            this.service.statusDic
-                .then((items) => {
-                    return items.find(n => n.code == "FREE");
-                })
-                .then((item) => {
-                    if (item) {
-                        console.log(item, "dict!!!");
-                        this.status = <string>item.value;
-                        if (this.selectedip.status == this.status) {
-                            this.showMsg("NET_MNG_VM_IP_MNG.IP_RELEASED");
-                            return;
-                        }
-                        this.disableipbox.open();
-                    } else {
-                        this.showMsg("NET_MNG_VM_IP_MNG.DICTIONARY_FAILED");
-                        return;
-                    }
-                }).catch((e) => this.onRejected(e));
-        }
-
-    }
-
     acceptDisableIPModify(): void {
         console.log('clicked acceptDisableIPModify');
         this.layoutService.show();
-        this.service.disableIP(this.changedip)
+        this.service.updateIpStatus(this.changedip)
             .then(res => {
                 this.layoutService.hide();
                 if (res && res.resultCode == "100") {
-                    this.changedip.status = this.status;
+                    this.changedip.status = <string>this.ipstatusDictArray.find(n => n.code === "free").value;
                     //this.changedip.status = '2';
                     console.log(res, "IP释放成功")
                 } else {
@@ -353,8 +257,8 @@ export class PhyNetMngIpAddrComponent implements OnInit{
             })
             .catch(err => {
                 console.log('clicked acceptDisableIPModify 6');
-                console.log('IP释放异常', err);
                 this.layoutService.hide();
+                console.log('IP释放异常', err);
                 this.disableipbox.close();
                 this.showMsg("NET_MNG_VM_IP_MNG.IP_RELEASED_EXCEPTION");
                 this.okCallback = () => { this.disableipbox.open(); };
@@ -366,5 +270,66 @@ export class PhyNetMngIpAddrComponent implements OnInit{
         this.status = "";
         this.changedip.description = this.selectedip.description;
     }
-    */
+
+    onRejected(reason: any) {
+        this.layoutService.hide();
+        console.log(reason);
+        this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
+    }
+
+	showAlert(msg: string): void {
+        this.layoutService.hide();
+        this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";
+        this.noticeMsg = msg;
+        this.notice.open();
+    }
+
+    showMsg(msg: string) {
+        this.notice.open("NET_MNG_VM_IP_MNG.SYSTEM_PROMPT", msg);
+    }
+
+    //选择行
+    selectItem(index:number): void {
+        this.ipusagemngs.map(n=> {n.checked = false;});
+        this.ipusagemngs[index].checked = true;
+        this.selectedip = this.ipusagemngs[index];
+        console.log(this.selectedip, "this.selectedip");
+    }
+
+    UnselectItem(): void {
+        this.ipusagemngs.map(n=> {n.checked = false;});
+        if(this.selectedip) this.selectedip.checked = false;
+    }
+
+    getSelected() {
+        let item = this.ipusagemngs.find((n) => n.checked) as IpUsageMngModel;
+        if (item){
+            return item;
+        }            
+        else {
+            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            return null;
+        }
+    }
+
+    //根据value获取字典的txt
+    getDicText(value: string, dic: Array<SystemDictionary>): String {
+        const d = dic.find((e) => {
+            return e.value == value;
+        });
+        if (d) {
+            return d.displayValue;
+        } else {
+            return value;
+        }
+    }
+
+    //根据value显示
+    displayIt(value: string): String {
+        if(this.validationService.isBlank(value)){
+            return "NET_MNG_VM_IP_MNG.UNSET";
+        } else {
+            return value;
+        }
+    }
 }
