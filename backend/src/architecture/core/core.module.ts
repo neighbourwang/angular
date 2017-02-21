@@ -7,7 +7,7 @@ import { RestApiCfg } from './service/restapicfg.service';
 import { RestApi } from './service/restapi.service';
 import { SystemDictionaryService } from './service/system.dictionary.service';
 import { ValidationService } from './service/validation.service';
-
+import { DictService } from './service/dict-service';
 @NgModule({
     imports:[
         CommonModule,
@@ -25,6 +25,7 @@ import { ValidationService } from './service/validation.service';
         LayoutService,
         RestApiCfg,
         RestApi,
+        DictService,
         SystemDictionaryService,
         ValidationService
     ]

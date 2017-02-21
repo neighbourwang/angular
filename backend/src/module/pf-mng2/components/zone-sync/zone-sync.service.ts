@@ -10,8 +10,10 @@ export class ZoneSyncService {
                 private restApi:RestApi) {
     }
 
-	computeStatus = this.dict.get({    //获取状态列表
-        owner : "COMPUTE",
-        field : "STATUS"
-    });
+    //平台可用区信息    
+    putUpdateZoneList (zoneList:any){
+        let api = this.restApiCfg.getRestApi("pf-mng-zonelist.post");
+        return this.restApi.request(api.method , api.url,[],undefined ,zoneList);
+    }
+	
 }

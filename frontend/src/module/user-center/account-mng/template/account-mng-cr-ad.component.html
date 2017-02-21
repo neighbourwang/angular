@@ -1,19 +1,19 @@
 <table class="cm-table-left">
     <tbody>
         <tr>
-            <th class="col-md-1 col-xs-3 text-center">{{ 'COMMON.BASIC' | translate }}{{ 'COMMON.INFORMATION' | translate }}</th>
+            <th class="col-md-1 col-xs-3 text-center">{{ 'VM_INSTANCE.BASIC_INFORMATION' | translate }}</th>
             <td>
                 <div class="col-md-12">
                     <div class="row row-line-height">
                         <div class="form-group">
-                            <div class="col-sm-2 form-control-title" style="padding:0"><span class="asterisk">*</span>{{ 'COMMON.NAME' | translate }}:</div>
+                            <div class="col-sm-2 form-control-title" style="padding:0"><span class="asterisk">*</span>{{ 'COMMON.NAME' | translate }}: </div>
                             <!--
                             <div class="col-md-6">
                                 <input type="text" class="form-control" [(ngModel)]="account.userName" placeholder="">
                             </div>
                             -->
                             <div class="col-sm-4" [ngClass]="{'has-error': userName.errors && (userName.dirty || userName.touched)}">
-                                <input type="text" class="form-control" placeholder="{{ 'USER_CENTER.PLEASE_ENTER_A_NAME' | translate }}" [(ngModel)]="account.userName" id="userName" required name="userName" #userName="ngModel">
+                                <input type="text" class="form-control width-400" placeholder="{{ 'USER_CENTER.PLEASE_ENTER_A_NAME' | translate }}" [(ngModel)]="account.userName" id="userName" required name="userName" #userName="ngModel">
                                 <div *ngIf="userName.errors && (userName.dirty || userName.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                     <div [hidden]="!userName.errors.required">{{ 'USER_CENTER.NAME_CANNOT_BE_EMPTY' | translate }}
                                     </div>
@@ -23,7 +23,7 @@
                     </div>
                     <div class="row row-line-height">
                         <div class="form-group">
-                            <div class="col-sm-2 form-control-title" style="padding:0"><span class="asterisk">*</span>{{ 'COMMON.PHONE' | translate }}:</div>
+                            <div class="col-sm-2 form-control-title" style="padding:0"><span class="asterisk">*</span>{{ 'COMMON.PHONE' | translate }}: </div>
                             <!--
                             <div class="col-md-6">
                                 <input type="text" class="form-control" [(ngModel)]="account.phone" placeholder="">
@@ -40,7 +40,7 @@
                     </div>
                     <div class="row row-line-height">
                         <div class="form-group">
-                            <div class="col-sm-2 form-control-title" style="padding:0">{{ 'COMMON.DESCRIPTION' | translate }}:</div>
+                            <div class="col-sm-2 form-control-title" style="padding:0">{{ 'COMMON.DESCRIPTION' | translate }}: </div>
                             <div class="col-md-6">
                                 <textarea class="form-control" [(ngModel)]="account.description" rows="5" placeholder=""></textarea>
                             </div>

@@ -29,4 +29,9 @@ export class ProdDirListService {
         let api = this.restApiCfg.getRestApi("prod-mng.prod-dir-mng.list.get");
         return this.restApi.request(api.method, api.url, [], undefined, data);
     }
+    //获取云主机产品规格列表    
+     getProdDirSpecList() {
+        let api = this.restApiCfg.getRestApi("services.flavors.get");
+        return this.restApi.request(api.method, api.url, [], undefined);
+    }
 }

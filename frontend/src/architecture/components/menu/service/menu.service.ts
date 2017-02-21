@@ -194,7 +194,13 @@ export class MenuService {
 							"isOpen": false,
 							"isShow": true,
 							"routing": "user-center/person-acc-mng/person-acc-mng"
-						}
+						},
+                        {
+                            "label": "工单管理",
+                            "isOpen": false,
+                            "isShow": true,
+                            "routing": "user-center/case-mng/case-mng-list"
+                        }
 
 					]
 				}

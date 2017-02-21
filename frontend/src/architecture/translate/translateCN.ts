@@ -57,7 +57,8 @@ export const TranslateCN = {
         WARNING: '警告',
         PLEASE_WAIT: '请等待',
         ADD: '增加',
-        UPDATE: '修改',
+        UPDATE: '更新',
+        MODIFY: '修改',
         QUERY: '查询',
         PUBLIC: '公',
         PRIVATE: '私',
@@ -703,5 +704,11 @@ export const TranslateCN = {
         THE_NEW_PASSWORD_CANNOT_BE_THE_SAME_AS_THE_ORIGINAL_PASSWORD: '新密码不能与原密码相同',
         PASSWORD_INPUT_IS_NOT_CONSISTENT: '密码输入不一致',
 
+        RAM_QUANTITY: '内存数量',
+        PHYSICAL_QUANTITY: '物理机数量',
+        SNAPSHOT_QUANTITY: '快照数量',
+        MIRROR_QUANTITY: '镜像数量',
+        DEPARTMENT_NAME: '部门名称',
+        CONFIRM_NEW_PASSWORD: '确认新密码',
     }
 }

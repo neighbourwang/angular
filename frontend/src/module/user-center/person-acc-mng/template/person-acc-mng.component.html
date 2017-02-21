@@ -10,7 +10,7 @@
 			</div>-->
 			<div class="col-md-7 detail">
 				<div class="row mgb15">
-					<div class="col-md-2 pcTitle"><span class="asterisk">*</span>{{ 'COMMON.NAME' | translate}}:</div>
+					<div class="col-md-2 pcTitle"><span class="asterisk">*</span>{{ 'COMMON.NAME' | translate}}: </div>
 					<div class="col-md-3 pcContent">
 						<span *ngIf="name" class="pcDisplay">{{personAcc.userName}}</span>
 						<div class="has-feedback" *ngIf="nameEdit">
@@ -20,13 +20,13 @@
 						</div>
 					</div>
 					<div class="col-md-2 font-green paOrder">
-						<span (click)="editName()" *ngIf="name">{{ 'COMMON.UPDATE' | translate}}</span>
+						<span (click)="editName()" *ngIf="name">{{ 'COMMON.MODIFY' | translate}}</span>
 						<span *ngIf="nameEdit" (click)="saveName()">{{ 'COMMON.SAVE' | translate}}</span>
 						<span *ngIf="nameEdit" (click)="cancelName()">{{ 'COMMON.CANCEL' | translate}}</span>
 					</div>
 				</div>
 				<div class="row mgb15">
-					<div class="col-md-2 pcTitle">{{ 'COMMON.ACCOUNT' | translate}}:</div>
+					<div class="col-md-2 pcTitle">{{ 'COMMON.ACCOUNT' | translate}}: </div>
 					<div class="col-md-3 pcContent">
 						<span class="pcDisplay dd">{{personAcc.loginName}}</span>
 					</div>
@@ -36,31 +36,31 @@
 					<div class="col-md-3 pcContent">
 						<span *ngIf="phone" class="pcDisplay">{{personAcc.phone}}</span>
 						<div class="has-feedback" *ngIf="phoneEdit">
-							<input type="text" class="form-control" # phone [(ngModel)]="personAcc.phone" >
+							<input type="text" class="form-control" #phone [(ngModel)]="personAcc.phone" >
 							<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 							<span class="cancel" (click)="clear('phone')"></span>
 						</div>
 					</div>
 					<div class="col-md-2 font-green paOrder">
-						<span (click)="editPhone()" *ngIf="phone">{{ 'COMMON.UPDATE' | translate}}</span>
+						<span (click)="editPhone()" *ngIf="phone">{{ 'COMMON.MODIFY' | translate}}</span>
 						<span *ngIf="phoneEdit" (click)="savePhone()">{{ 'COMMON.SAVE' | translate}}</span>
 						<span *ngIf="phoneEdit" (click)="cancelPhone()">{{ 'COMMON.CANCEL' | translate}}</span>
 					</div>
 				</div>
 				<div class="row mgb15">
-					<div class="col-md-2 pcTitle">{{ 'COMMON.TYPE' | translate}}:</div>
+					<div class="col-md-2 pcTitle">{{ 'COMMON.TYPE' | translate}}: </div>
 					<div class="col-md-3 pcContent">
 						<span *ngIf="!personAcc.isAD" class="pcDisplay dd">{{ 'COMMON.LOCAL' | translate}}</span>
 						<span *ngIf="personAcc.isAD" class="pcDisplay dd">AD</span>
 					</div>
 				</div>
 				<div class="row mgb15">
-					<div class="col-md-2 pcTitle">{{ 'COMMON.PASSWORD' | translate}}:</div>
+					<div class="col-md-2 pcTitle">{{ 'COMMON.PASSWORD' | translate}}: </div>
 					<div class="col-md-3 pcContent">
 						<span class="pcDisplay">********</span>
 					</div>
-					<div class="col-md-1 font-green paOrder" *ngIf="!personAcc.isAD">
-						<span (click)="editPwd()">{{ 'COMMON.UPDATE' | translate}}</span>
+					<div class="col-md-2 font-green paOrder" *ngIf="!personAcc.isAD">
+						<span (click)="editPwd()">{{ 'COMMON.MODIFY' | translate}}</span>
 					</div>
 				</div>
 				<div class="row mgb15">
@@ -72,7 +72,7 @@
 						</div>
 					</div>
 					<div class="col-md-2 font-green paOrder">
-						<span (click)="editDesc()" *ngIf="desc">{{ 'COMMON.UPDATE' | translate}}</span>
+						<span (click)="editDesc()" *ngIf="desc">{{ 'COMMON.MODIFY' | translate}}</span>
 						<span *ngIf="descEdit" (click)="saveDesc()">{{ 'COMMON.SAVE' | translate}}</span>
 						<span *ngIf="descEdit" (click)="cancelDesc()">{{ 'COMMON.CANCEL' | translate}}</span>
 					</div>
@@ -132,7 +132,7 @@
 					<form *ngIf="active">
 						<div class="row row-line-height">
 							<div class="form-group" >
-								<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> {{ 'USER_CENTER.CURRENT_PASSWORD' | translate}}:</div>
+								<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> {{ 'USER_CENTER.CURRENT_PASSWORD' | translate}}: </div>
 								<div class="col-sm-6" [ngClass]="{'has-error':!passwordValid||(password.errors && (password.dirty || password.touched))}">
 									<input type="text" class="form-control font-gray" type="password" [(ngModel)]="accPwd.password" required  #password="ngModel" name=password (blur)="pwdValid(accPwd.password)" (focus)="passwordValid=true">
 									<div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
@@ -150,7 +150,7 @@
 						</div>
 						<div class="row row-line-height">
 							<div class="form-group">
-								<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> {{ 'USER_CENTER.NEW_PASSWORD' | translate}}:</div>
+								<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> {{ 'USER_CENTER.NEW_PASSWORD' | translate}}: </div>
 								<div class="col-sm-6" [ngClass]="{'has-error':newPassword.errors && (newPassword.dirty || newPassword.touched)||!newPasswordValid||sameNewPassword}">
 									<input type="text" class="form-control font-gray" type="password" [(ngModel)]="accPwd.newPassword" required  #newPassword="ngModel" name="newPassword" (blur)="newPwdValid(accPwd.newPassword)" (focus)="newPasswordValid=true;sameNewPassword=false">
 									<div *ngIf="newPassword.errors && (newPassword.dirty || newPassword.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
@@ -173,7 +173,7 @@
 						</div>
 						<div class="row row-line-height">
 							<div class="form-group" >
-								<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> {{ 'COMMON.CONFIRM' | translate}} {{ 'USER_CENTER.NEW_PASSWORD' | translate}}:</div>
+								<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> {{ 'USER_CENTER.CONFIRM_NEW_PASSWORD' | translate}}: </div>
 								<div class="col-sm-6" [ngClass]="{'has-error':!samePassword}">
 									<input type="text" class="form-control font-gray" type="password" [(ngModel)]="accPwd.confirmPwd" required  #confirmPwd="ngModel" id="inputError1" name="confirmPwd" (focus)="samePassword=true">
 									<div *ngIf="!samePassword" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">

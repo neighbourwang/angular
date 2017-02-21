@@ -261,21 +261,21 @@ export class PfDetailComponent implements OnInit {
     }
 
     //更新可用区弹出框
-    updateZone() {
-        
+    updateZone() { 
+        this.updateZoneList=new Array<ZoneListModel>();       
         this.platformDetailService.getUpdateZoneList(this.platform.id).then(
             res => {
                 this.updateZoneList = res.resultContent;
                 if (this.updateZoneList.length == 0) {
-                    this.notice.open('oo', 'PF_MNG2.NO_SYNC_ZONES')
+                    this.notice.open('提示', 'PF_MNG2.NO_SYNC_ZONES')
                 } else {
                     this.updateZoneList.forEach(ele => {
-                        if (ele.quotaPercentage) {
-                            ele.quotaPercentDisplay = ele.quotaPercentage * 100;
-                        }
+                        ele.quotaPercentage =
+                            ele.quotaPercentage ? ele.quotaPercentage : 0;
+                        ele.quotaPercentDisplay = ele.quotaPercentage * 100;
                     })
                     console.log('同步', res);
-                    this.zoneSync.open(this.updateZoneList);
+                    this.zoneSync.open();
                 }
             }
         ).catch(err => {
@@ -283,15 +283,16 @@ export class PfDetailComponent implements OnInit {
         })
     }
     //同步可用区
-    otUpdateZone() {
-        this.platformDetailService.putUpdateZoneList(this.updateZoneList).then(
-            res => {
-                console.log('同步', res);
-                this.getZoneList();
-            }
-        ).catch(err => {
-            console.error('获取更新可用区列表出错', err)
-        })
+    otUpdateZone(zoneList:ZoneListModel) {
+        console.log(zoneList)
+        // this.platformDetailService.putUpdateZoneList(this.updateZoneList).then(
+        //     res => {
+        //         console.log('同步', res);
+        //         this.getZoneList();
+        //     }
+        // ).catch(err => {
+        //     console.error('获取更新可用区列表出错', err)
+        // })
     }
     //同步可用区资源get
     countZoneResource: Array<ZoneListModel>;

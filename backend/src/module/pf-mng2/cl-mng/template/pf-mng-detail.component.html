@@ -43,7 +43,7 @@
                             <input type="text" class="form-control" [(ngModel)]="platform.dataCenter" placeholder="{{'PF_MNG2.DATA_CENTER_REQUIRED' | translate}}">
                         </div>
                     </div>
-                </div>            
+                </div>
 
                 <div class="row row-line-height">
                     <div class="form-group">
@@ -54,8 +54,7 @@
                         <div class="col-sm-4">
                             <div class="btn-group">
                                 <!--<button type="button" class="btn btn-default" disabled *ngFor="let item of platformTypes;let idx = index" (click)="choosePlatFormType(item,idx)"-->
-                                <button type="button" class="btn btn-default" *ngFor="let item of platformTypes;let idx = index" 
-                                    [ngClass]="{'btn-active': item.isSelected}">{{item.displayValue}}</button>
+                                <button type="button" class="btn btn-default" *ngFor="let item of platformTypes;let idx = index" [ngClass]="{'btn-active': item.isSelected}">{{item.displayValue}}</button>
                             </div>
                         </div>
                     </div>
@@ -115,8 +114,8 @@
                             <span class="asterisk">*</span> 是否支持云主机变更：
                         </div>
                         <div class="col-sm-4">
-                            <input type="radio" class="fox-cloud-radio" [value]="1" [(ngModel)]="platform.support"  name="support" style="margin-right:10px;">支持
-                            <input type="radio" class="fox-cloud-radio" [value]="0" [(ngModel)]="platform.support"  name="support" style="margin:0 10px 0 20px;">不支持
+                            <input type="radio" class="fox-cloud-radio" [value]="1" [(ngModel)]="platform.support" name="support" style="margin-right:10px;">支持
+                            <input type="radio" class="fox-cloud-radio" [value]="0" [(ngModel)]="platform.support" name="support" style="margin:0 10px 0 20px;">不支持
                         </div>
                     </div>
                 </div>
@@ -135,15 +134,15 @@
 <div *ngIf="Tabels[1].active">
     <div class="page-content">
         <div style="padding-bottom: 10px;">
-             <!--<button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
+            <!--<button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
                 <span class="icon-button-label" (click)='updateResourcePop()'>同步计算资源</span>
              </button>-->
-             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right;margin-right:20px">
+            <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right;margin-right:20px">
                 <span class="icon-button-label" (click)='updateZone()'>同步可用区</span>
             </button>
             <div style="clear:both"></div>
         </div>
-        <div class="table-container" >
+        <div class="table-container">
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -177,14 +176,16 @@
                             <p *ngFor="let host of zone.hosts">{{host||0}}</p>
                         </td>
                         <td>{{zone.vcpunum}}</td>
-                        <td>{{zone.memSize}}</td>                        
+                        <td>{{zone.memSize}}</td>
                         <td>
                             <span *ngIf="!zone.isEdit">{{zone.exceedPercentage||0}}</span>
-                            <input *ngIf="zone.isEdit" type="number" class="form-control" [(ngModel)]="zone.exceedPercentage" style="display: inline;" name="exceedPercentage">
+                            <input *ngIf="zone.isEdit" type="number" class="form-control" [(ngModel)]="zone.exceedPercentage" style="display: inline;"
+                                name="exceedPercentage">
                         </td>
                         <td>
                             <span *ngIf="!zone.isEdit">{{zone.quotaPercentDisplay}}</span>
-                            <input *ngIf="zone.isEdit" type="number" class="form-control" [(ngModel)]="zone.quotaPercentDisplay" style="width: 100px; display: inline;" name="quotaPercentDisplay">
+                            <input *ngIf="zone.isEdit" type="number" class="form-control" [(ngModel)]="zone.quotaPercentDisplay" style="width: 100px; display: inline;"
+                                name="quotaPercentDisplay">
                         </td>
                         <td>
                             <!--<span [ngSwitch]="zone.status">
@@ -195,39 +196,40 @@
                     	    </span>-->
                             {{zone.status|dict:this.commonService.globalStatus|async}}
                         </td>
-                        <td >
+                        <td>
                             <span *ngIf="!zone.isEdit">{{zone.description}}</span>
                             <input *ngIf="zone.isEdit" type="text" class="form-control" [(ngModel)]="zone.description" style="display: inline;" name="description">
-                        </td> 
+                        </td>
                         <td>
                             <div *ngIf="!zone.isEdit">
                                 <button *ngIf="zone.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableZone(zone.id)">启用</button>
-                                <button *ngIf="zone.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendZone(zone.id)">禁用</button> 
-                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="editZone(zone,idx)">编辑</button>
-                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="updateResourcePop(zone.id)">同步计算资源</button>
+                                <button *ngIf="zone.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendZone(zone.id)">禁用</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editZone(zone,idx)">编辑</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateResourcePop(zone.id)">同步宿主机</button>
                             </div>
-                            
+
                             <div *ngIf="zone.isEdit">
-                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="saveZone(zone,idx)">保存</button> 
-                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEdit(zone,idx)">取消</button> 
-                            </div> 
-                            
-                        </td>                                               
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveZone(zone,idx)">保存</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEdit(zone,idx)">取消</button>
+                            </div>
+
+                        </td>
                     </tr>
                 </tbody>
-            </table>            
-        </div>       
+            </table>
+        </div>
     </div>
+    <zone-sync #zoneSync [zoneList]="updateZoneList" (complete)=getZoneList()> </zone-sync>
 </div>
 <div *ngIf="Tabels[2].active">
     <div class="page-content">
         <div style="padding-bottom: 10px;">
-             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
+            <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
                 <span class="icon-button-label" (click)='updateStorageListPop()'>同步存储后端</span>
-             </button>             
+             </button>
             <div style="clear:both"></div>
         </div>
-        <div class="table-container"  *ngIf="platformType==0">
+        <div class="table-container" *ngIf="platformType==0">
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -260,37 +262,37 @@
                         </td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.quotaPercentDisplay||0}}</span>
-                            <input *ngIf="storage.isEdit" type="number"  class="form-control" [(ngModel)]="storage.quotaPercentDisplay" style=" display: inline;">
+                            <input *ngIf="storage.isEdit" type="number" class="form-control" [(ngModel)]="storage.quotaPercentDisplay" style=" display: inline;">
                         </td>
                         <td>
                             {{storage.status|dict:this.commonService.globalStatus|async}}
                         </td>
-                        <td >
+                        <td>
                             <span *ngIf="!storage.isEdit">{{storage.description||'NULL'}}</span>
-                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.description" style=" display: inline;" >
+                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.description" style=" display: inline;">
                         </td>
                         <td>
                             <div *ngIf="!storage.isEdit">
                                 <button *ngIf="storage.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage.id)">启用</button>
-                                <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage.id)">禁用</button> 
-                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)">编辑</button>
-                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)">同步计算资源</button>
-                            </div>                            
+                                <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage.id)">禁用</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)">编辑</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)">同步计算资源</button>
+                            </div>
                             <div *ngIf="storage.isEdit">
-                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="saveStorage(storage,idx)">保存</button> 
-                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditStorage(storage,idx)">取消</button> 
-                            </div>                            
-                        </td> 
-                    </tr>                  
-                    
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveStorage(storage,idx)">保存</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditStorage(storage,idx)">取消</button>
+                            </div>
+                        </td>
+                    </tr>
+
                 </tbody>
             </table>
         </div>
-        <div class="table-container"  *ngIf="platformType==2">
+        <div class="table-container" *ngIf="platformType==2">
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>可用区</th>                        
+                        <th>可用区</th>
                         <th>名称</th>
                         <th>显示名称</th>
                         <th>存储类型</th>
@@ -303,7 +305,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                         <tr *ngFor="let storage of storageList;let idx=index">
+                    <tr *ngFor="let storage of storageList;let idx=index">
                         <!--<td>1</td>-->
                         <td>{{storage.displayName}}</td>
                         <td>{{storage.name}}</td>
@@ -316,31 +318,33 @@
                         <td>{{storage.maximum||0}}</td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.replica||0}}</span>
-                            <input *ngIf="storage.isEdit" type="number" class="form-control" [(ngModel)]="storage.replica" style="width: 100px; display: inline;" (blur)="keepSame(storage)">
+                            <input *ngIf="storage.isEdit" type="number" class="form-control" [(ngModel)]="storage.replica" style="width: 100px; display: inline;"
+                                (blur)="keepSame(storage)">
                         </td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.quotaPercentDisplay||0}}</span>
-                            <input *ngIf="storage.isEdit" [class.border-error]="!storage.valid" type="number" class="form-control" [(ngModel)]="storage.quotaPercentDisplay" style=" display: inline;" (blur)="keepSame(storage)">
+                            <input *ngIf="storage.isEdit" [class.border-error]="!storage.valid" type="number" class="form-control" [(ngModel)]="storage.quotaPercentDisplay"
+                                style=" display: inline;" (blur)="keepSame(storage)">
                         </td>
                         <td>
                             {{storage.status|dict:this.commonService.globalStatus|async}}
                         </td>
-                        <td >
+                        <td>
                             <span *ngIf="!storage.isEdit">{{storage.description||'NULL'}}</span>
-                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.description" style=" display: inline;" >
+                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.description" style=" display: inline;">
                         </td>
                         <td>
                             <div *ngIf="!storage.isEdit">
                                 <button *ngIf="storage.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage.id)">启用</button>
-                                <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage.id)">禁用</button> 
-                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)">编辑</button>
-                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)">同步计算资源</button>
-                            </div>                            
+                                <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage.id)">禁用</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)">编辑</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)">同步计算资源</button>
+                            </div>
                             <div *ngIf="storage.isEdit">
-                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="saveStorage(storage,idx)">保存</button> 
-                                <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditStorage(storage,idx)">取消</button> 
-                            </div>                            
-                        </td> 
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveStorage(storage,idx)">保存</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditStorage(storage,idx)">取消</button>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -350,38 +354,9 @@
 
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM"></fc-notice>
 
-<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL"
+    (cf)="ccf()"></fc-confirm>
 
-<fc-popup #updateZoneResourcePop title="{{title}}" ot="NET_MNG_OPENSTACK.UPDATE" (of)="otUpdateResource()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()">
-	<div class="row row-line-height">
-		<div class="form-group">
-			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>同步计算资源：</div>
-			<div class="col-sm-6">
-                     待开发。。。   
-			</div>
-		</div>
-	</div>
-</fc-popup>
+    
 
-<fc-popup ##updateStoragePop title="{{title}}" ot="NET_MNG_OPENSTACK.ADD" (of)="otUpdateStorageList()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()">
-	<div class="row row-line-height">
-		<div class="form-group">
-			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>同步存储后端：</div>
-			<div class="col-sm-6">
-                     待开发。。。   
-			</div>
-		</div>
-	</div>
-</fc-popup>
-
-<fc-popup #updateStorageResourcePop title="{{title}}" ot="NET_MNG_OPENSTACK.UPDATE" (of)="otUpdateStorage()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()">
-	<div class="row row-line-height">
-		<div class="form-group">
-			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>同步计算资源：</div>
-			<div class="col-sm-6">
-                     待开发。。。   
-			</div>
-		</div>
-	</div>
-</fc-popup>
-<zone-sync #zoneSync > </zone-sync>
+       

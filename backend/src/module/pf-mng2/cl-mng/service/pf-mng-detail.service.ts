@@ -27,11 +27,7 @@ export class PlatformDetailService {
         let api = this.restApiCfg.getRestApi("pf-mng-zonelist.get");
         return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
     }
-    //平台可用区信息    
-    putUpdateZoneList (zoneList:any){
-        let api = this.restApiCfg.getRestApi("pf-mng-zonelist.post");
-        return this.restApi.request(api.method , api.url,[],undefined ,zoneList);
-    }     
+         
     //get同步计算信息
     getUpdateZone (zoneId:string){
         let api = this.restApiCfg.getRestApi("pf-mng-zoneUpdate.get");

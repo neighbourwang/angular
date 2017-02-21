@@ -1,64 +1,51 @@
 <div class="page-content-header icon-content-header-physical-mng"> <!--page-content-header icon-physical-mng">  icon-cloud-network-mngOn"> -->
-    物理机网络管理	  
+    {{'PHY_NET_MNG.PHY_NET_MNG' | translate}}
 </div>
 
 <div class="page-content">
     <div class="mgb20">
         <button class="fox-cloud-button fox-cloud-button-green" (click)="createPhyNet();">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建网络</span> <!--请添加创建的弹出框-->
+            <span class="icon-button-label icon-left-button-label">{{'PHY_NET_MNG.CREATE_PHY_NET' | translate}}</span> <!--请添加创建的弹出框-->
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="editPhyNet();">       
-            <span class="icon-button-label icon-left-button-label">编辑标准网络</span>
+            <span class="icon-button-label icon-left-button-label">{{'PHY_NET_MNG.EDIT_PHY_NET' | translate}}</span>
         </button>
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/phy-net-allocate.html">       
-            <span class="icon-button-label icon-left-button-label">网络资源分配</span>
+        <button class="fox-cloud-button fox-cloud-button-green" key="boe/phy-net-allocate.html" (click)="setupPhyNetResource();">       
+            <span class="icon-button-label icon-left-button-label">{{'PHY_NET_MNG.PHY_NET_RESOURCE_SETUP' | translate}}</span>
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" key="boe/ip_pool_mng.html" (click)="setupPhyNetIPs();">
-            <span class="icon-button-label icon-left-button-label">设置IP资源范围</span>
+            <span class="icon-button-label icon-left-button-label">{{'PHY_NET_MNG.SET_IP_SCOPE' | translate}}</span>
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" key="boe/ip_addr_mng.html" (click)="ipUsageMngPage();">
-            <span class="icon-button-label icon-left-button-label">管理IP地址</span>
+            <span class="icon-button-label icon-left-button-label">{{'PHY_NET_MNG.MNG_IP_ADDR' | translate}}</span>
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" key="boe/ip_addr_export.html" (click)="exportPhyIps();">
-            <span class="icon-button-label icon-left-button-label">导出IP地址信息</span>
+            <span class="icon-button-label icon-left-button-label">{{'PHY_NET_MNG.EXPORT_IP_ADDR' | translate}}</span>
         </button>
-
-        <div class="dropdown pull-right" >
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/enable.html" (click)="enable();">
-            <span class="icon-button-label icon-left-button-label">启用</span>
-        </button>
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/disable.html" (click)="disable();">
-            <span class="icon-button-label icon-left-button-label">禁用</span>
-        </button>
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/remove.html" (click)="remove();">
-            <span class="icon-button-label icon-left-button-label">删除</span>
-        </button>
-        </div>
-
-        <!--
+       
         <div class="dropdown pull-right" >
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                选择操作
+                {{'COMMON.SELECT_OPERATION' | translate}}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#">启用</a></li>
-                <li><a href="#">禁用</a></li>
-                <li><a href="#">删除</a></li>
+                <li><a href="javascript:void(0);" (click)="enablePhyNet();">{{'COMMON.ENABLE' | translate}}</a></li>
+                <li><a href="javascript:void(0);" (click)="disablePhyNet();">{{'COMMON.DISABLE' | translate}}</a></li>
+                <li><a href="javascript:void(0);" (click)="deletePhyNet();">{{'COMMON.DELETE' | translate}}</a></li>
             </ul>
         </div>
-        -->
+
     </div>
 
     <div class="table-container">
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>选择 </th>
-                    <th> 网络名称</th>
-                    <th> 子网信息</th>
-                    <th> 网关地址</th>
+                    <th>选择</th>
+                    <th>网络名称</th>
+                    <th>网段信息</th>
+                    <th>网关地址</th>
                     <th>IP地址池数量</th>
                     <th>已使用IP地址数量</th>
                     <th>剩余IP地址数量</th>
@@ -66,31 +53,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                    <td><a href="#"> 生产1 </a></td>
-                    <td> 172.16.1.0/24 </td>
-                    <td> 172.16.1.1 </td>
-                    <td> 24 </td>
-                    <td> 50 </td>
-                    <td> 24 </td>
-                    <td class="font-green"> 启用 </td>
-                </tr>
-                <tr>
-                    <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                    <td> 测试1 </td>
-                    <td> 172.16.1.0/24 </td>
-                    <td> 172.16.1.1 </td>
-                    <td> 24 </td>
-                    <td> 50 </td>
-                    <td> 24 </td>
-                    <td class="font-green"> 禁用 </td>
-                </tr>
-                <tr>
-                    <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                    <td style="position:relative"> 生产3 
-                        <span class="pull-right icon-edit2"></span> 
-                         <div class="popover fade bottom in" role="tooltip" style="top:25px; left:10px; width:320px; max-width:1100px; display: block; z-index: 50;">
+                <tr *ngFor="let phynet of phynets; let i = index;">
+                    <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="phynet.checked" (change)="selectItem(i);"></td>
+                    <td style="position:relative"><a href="javascript:void(0);" (click)="selectItem(i); showDetails();"> {{phynet.networkName}} </a>
+                        <!--
+                         <span class="pull-right icon-edit2" (click)="onSelect(phynet);phynet.nameEditing=true;" style="display:inline-block"></span> 
+                         <div *ngIf="phynet.nameEditing" class="popover fade bottom in" role="tooltip" style="top:25px; left:10px; width:320px; max-width:1100px; display: block; z-index: 50;">
                                 <div class="arrow" style="left: 30%;"></div>
                                 <div class="popover-content">
                                     <form class="form-horizontal" role="form">
@@ -107,22 +75,30 @@
                                     </div>
                                 </div>
                          </div>
+                         -->
                     </td>
-                    <td> 172.16.1.0/24 </td>
-                    <td> 172.16.1.1 </td>
-                    <td> 24 </td>
-                    <td> 50 </td>
-                    <td> 24 </td>
-                    <td class="font-green"> 启用 </td>
+                    <td> {{phynet.subnetCIDR || ('COMMON.UNSET' | translate)}} </td>
+                    <td> {{phynet.gateway || ('COMMON.UNSET' | translate)}} </td>
+                    <td> {{phynet.ipAllCount || ('COMMON.UNSET' | translate)}} </td>
+                    <td> {{phynet.ipUsedCount || ('COMMON.UNSET' | translate)}} </td>
+                    <td> {{phynet.ipFreeCount || ('COMMON.UNSET' | translate)}} </td>
+                    <td [ngClass]="phynet.status==1?'font-green':'font-orange'"> {{(phynet.status | dict:this.dictService.statusDict | async) || "未设置"}} </td>
                 </tr>                
             </tbody>
         </table>
     </div>
 
+    <div class="fox-cloud-pagination-container">
+        <fc-pagination #pager tp={{totalPage}} (pf)="getPhyNetList($event)"></fc-pagination>
+    </div>
+    <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" (of)="okClicked()"></fc-notice>
+    <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}"></fc-confirm>
+
 </div>
 
-<fc-popup #createphynet ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'NET_MNG_VM_IP_MNG.SET_NETWORK_TYPE' | translate}}" (of)="acceptPhyNetCreateModify()" (cf)="cancelPhyNetCreateModify()">
+<fc-popup #createphynetbox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="创建物理机网络" (of)="acceptPhyNetCreateModify()" (cf)="cancelPhyNetCreateModify()">
     <div class="dialogContent">
+    <!--
 	<div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>物理机资源池：</div>
@@ -134,27 +110,28 @@
             </div>
         </div>
     </div>
+    -->
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>显示名称：</div>
             <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="tempEditNet" />
+                <input type="text" class="form-control" [(ngModel)]="phynet_create.networkName" />
             </div>
         </div>
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>子网信息：</div>
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>网络IP信息：</div>
             <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="tempEditNet" />
+                <input type="text" class="form-control" [(ngModel)]="phynet_create.subnetIP" />
             </div>
         </div>
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>子网掩码：</div>
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>网络掩码：</div>
             <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="tempEditNet" />
+                <input type="text" class="form-control" [(ngModel)]="phynet_create.subnetMask" />
             </div>
         </div>
     </div>
@@ -162,7 +139,7 @@
         <div class="form-group">
             <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>网关地址：</div>
             <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="tempEditNet" />
+                <input type="text" class="form-control" [(ngModel)]="phynet_create.gateway" />
             </div>
         </div>
     </div>
@@ -170,7 +147,7 @@
         <div class="form-group">
             <div class="col-sm-5 form-control-title">DNS 1：</div>
             <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="tempEditNet" />
+                <input type="text" class="form-control" [(ngModel)]="phynet_create.dnsPre" />
             </div>
         </div>
     </div>
@@ -178,7 +155,60 @@
         <div class="form-group">
             <div class="col-sm-5 form-control-title">DNS 2：</div>
             <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="tempEditNet" />
+                <input type="text" class="form-control" [(ngModel)]="phynet_create.dnsAlt" />
+            </div>
+        </div>
+    </div>
+    </div>
+</fc-popup>
+
+<fc-popup #editphynetbox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="编辑物理机网络" (of)="acceptPhyNetEditModify()" (cf)="cancelPhyNetEditModify()">
+    <div class="dialogContent">
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>显示名称：</div>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" [(ngModel)]="phynet_changed.networkName" />
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>网络IP信息：</div>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" [(ngModel)]="phynet_changed.subnetIP" />
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>网络掩码：</div>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" [(ngModel)]="phynet_changed.subnetMask" />
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>网关地址：</div>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" [(ngModel)]="phynet_changed.gateway" />
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-5 form-control-title">DNS 1：</div>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" [(ngModel)]="phynet_changed.dnsPre" />
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-5 form-control-title">DNS 2：</div>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" [(ngModel)]="phynet_changed.dnsAlt" />
             </div>
         </div>
     </div>
@@ -220,6 +250,45 @@
 					<div class="col-sm-8">
 					<!-- <input type="string" class="form-control input-control" [(ngModel)]="ippool.ips">  -->
 					<textarea class="form-control input-control" placeholder="" rows="4" [(ngModel)]="ipstr"></textarea>
+					</div>
+				</div>
+			</div>
+	</div>
+</fc-popup>
+
+<fc-popup #enablebox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="启用物理机网络" (of)="acceptPhyNetEnableModify()" (cf)="cancelPhyNetEnableModify()">
+	<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-12">
+                        <!-- {{'HOST_VMWARE_MNG.ENABLE_IMAGE_MSG' | translate:{value_1: (selectedimg.displayName || selectedimg.name)} }} -->
+                        您选择启用 ' {{selectedphynet.networkName || "phy_network"}} ' ， 请确认；如果确认，用户将能够在订购中选择此网络。
+					</div>
+				</div>
+			</div>
+	</div>
+</fc-popup>
+
+<fc-popup #disablebox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="禁用物理机网络" (of)="acceptPhyNetDisableModify()" (cf)="cancelPhyNetDisableModify()">
+	<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-12">
+                        <!-- {{'HOST_VMWARE_MNG.DISABLE_IMAGE_MSG' | translate:{value_1: (selectedimg.displayName || selectedimg.name)} }} -->
+                        您选择禁用 ' {{selectedphynet.networkName || "phy_network"}} ' ， 请确认；如果确认，用户将不能在订购中选择此网络。
+					</div>
+				</div>
+			</div>
+	</div>
+</fc-popup>
+
+<fc-popup #deletebox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="删除物理机网络" (of)="acceptPhyNetDeleteModify()" (cf)="cancelPhyNetDeleteModify()">
+	<div class="dialogContent">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-12">
+                        <!-- {{'HOST_VMWARE_MNG.DISABLE_IMAGE_MSG' | translate:{value_1: (selectedimg.displayName || selectedimg.name)} }} -->
+                        您选择删除 ' {{selectedphynet.networkName || "phy_network"}} ' ， 请确认；如果确认，用户将不能在订购中选择此网络。
 					</div>
 				</div>
 			</div>

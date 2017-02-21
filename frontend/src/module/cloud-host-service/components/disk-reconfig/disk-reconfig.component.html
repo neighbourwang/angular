@@ -41,12 +41,12 @@
 									<div class="col-md-12 no-padding pdt15 mgt15">
 										容量(GB)：
 										<count-bar
-								            step="10" 
-								            max="200" 
-								            min="20" 
+								            [step]="step" 
+								            [max]="maxStorage" 
+								            [min]="oldStorage + step" 
 								            [stepCheck]=true
-								            value="20" (output)="outputValue($event, i)"></count-bar>
-								        <span class="pdl10">增量按照每10GB一档，最大可扩容到 500GB</span>
+								            [value]="oldStorage + step" (output)="outputValue($event, i)"></count-bar>
+								        <span class="pdl10">增量按照每{{step}}GB一档，最大可扩容到 {{maxStorage}}GB</span>
 									</div>
 								</div>
 								<div class="col-md-4 no-padding">
@@ -58,7 +58,7 @@
 										</tr>
 										<tr>
 											<td class="text-r vertical-t">费用：</td>
-											<td><font>¥100元/月</font><br><font>¥0元</font></td>
+											<td><font>¥{{disk.billingInfo?.unitPrice * currentStorage}}元/月</font></td>
 										</tr>
 									</table>
 								</div>
