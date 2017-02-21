@@ -6,7 +6,7 @@ import { DialogTranslate } from '../service/dialog-translate.service';
 @Component({
     selector: "fc-popup",
     templateUrl: "../template/popup.component.html",
-    inputs: ["title", "ot", "ct", "enableOKButton"],
+    inputs: ["title", "ot", "ct", "enableOKButton","cssClass"],
     styleUrls: ["../style/StyleSheet.less"],
     providers: [DialogTranslate]
 })
@@ -18,6 +18,7 @@ export class PopupComponent implements OnInit {
 
     param: any;
     title: String;
+    cssClass: string;
     showTitle: String;
     enableOKButton: boolean =true;
 
@@ -49,7 +50,7 @@ export class PopupComponent implements OnInit {
         title && (this.title = title);
         this.param = this.dialogTranslate.getParam(this.title);
         this.showTitle = this.dialogTranslate.getText(this.title);
-
+        this.dialog.cssClass = this.cssClass;
         this.dialog.open();
     }
 

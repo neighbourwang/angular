@@ -5,7 +5,7 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 @Component({
     selector: 'fc-popup',
     templateUrl: '../template/popup.component.html',
-    inputs: ["title", "ot", "ct"]
+    inputs: ["title", "ot", "ct", "sizeClass"]
 })
 
 export class PopupComponent implements OnInit {
@@ -13,6 +13,7 @@ export class PopupComponent implements OnInit {
     @Output() cf = new EventEmitter<any>();
 
     title: String;
+    sizeClass: String;
 
     @ViewChild('dialog')
     private dialog: ModalComponent;
@@ -30,7 +31,6 @@ export class PopupComponent implements OnInit {
 
     open(title?: String, msg?: String) {
         title && (this.title = title);
-
         this.dialog.open();
     }
 
