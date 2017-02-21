@@ -58,7 +58,7 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<Consume> = null;//TOP5消�
         this.enterpriseLoader = new ItemLoader<{id:string;name:string}> (false,'企业列表加载错误','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
 
         //订购人加载
-		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
+		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, 'ORDER_MNG.BUYER_DATA_ERROR', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
 
         this._buyerLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
 			for(let item of source)
@@ -73,7 +73,7 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<Consume> = null;//TOP5消�
         this._orderTypeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
 
     
-       	this.consumeLoader = new ItemLoader<ConsumeSum>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "op-center.order-mng.cost-pandect.consume.post", this.restApiCfg, this.restApi);
+       	this.consumeLoader = new ItemLoader<ConsumeSum>(false, '消费概览加载失败', "op-center.order-mng.cost-pandect.consume.post", this.restApiCfg, this.restApi);
 
         // this.consumeLoader.MapFunc = (source:Array<any>, target:Array<ConsumeSum>)=>{
 		// 	for(let item of source)
@@ -82,7 +82,7 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<Consume> = null;//TOP5消�
 		// 		target.push(obj);
 		// 	}
 		// }
-        this.totalConsumeLoader = new ItemLoader<Consume>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "op-center.order-mng.cost-pandect.total.post", this.restApiCfg, this.restApi);
+        this.totalConsumeLoader = new ItemLoader<Consume>(false, '消费趋势-总消费加载失败', "op-center.order-mng.cost-pandect.total.post", this.restApiCfg, this.restApi);
 
         // this.totalConsumeLoader.MapFunc = (source:Array<any>, target:Array<Consume>)=>{
 		// 	for(let item of source)
@@ -91,11 +91,11 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<Consume> = null;//TOP5消�
 		// 		target.push(obj);
 		// 	}
 		// }
-        this.increseConsumeLoader = new ItemLoader<Consume>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "op-center.order-mng.cost-pandect.increase.post", this.restApiCfg, this.restApi);
-        this.topConsumeLoader = new ItemLoader<Consume>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "op-center.order-mng.cost-pandect.enterprise-top.post", this.restApiCfg, this.restApi);
-        this.topConsumeDepartmentLoader = new ItemLoader<Consume>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "op-center.order-mng.cost-pandect.department-top.post", this.restApiCfg, this.restApi);
-        this.topIncreseConsumeLoader = new ItemLoader<Consume>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "op-center.order-mng.cost-pandect.increase-enterprise-top.post", this.restApiCfg, this.restApi);
-        this.topIncreseConsumeDepartmentLoader = new ItemLoader<Consume>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "op-center.order-mng.cost-pandect.increase-department-top.post", this.restApiCfg, this.restApi);
+        this.increseConsumeLoader = new ItemLoader<Consume>(false, '消费趋势-新增消费加载失败', "op-center.order-mng.cost-pandect.increase.post", this.restApiCfg, this.restApi);
+        this.topConsumeLoader = new ItemLoader<Consume>(false, 'TOP5消费排名加载失败', "op-center.order-mng.cost-pandect.enterprise-top.post", this.restApiCfg, this.restApi);
+        this.topConsumeDepartmentLoader = new ItemLoader<Consume>(false, 'TOP5消费排名加载失败', "op-center.order-mng.cost-pandect.department-top.post", this.restApiCfg, this.restApi);
+        this.topIncreseConsumeLoader = new ItemLoader<Consume>(false, 'TOP5新增消费排名加载失败', "op-center.order-mng.cost-pandect.increase-enterprise-top.post", this.restApiCfg, this.restApi);
+        this.topIncreseConsumeDepartmentLoader = new ItemLoader<Consume>(false, 'TOP5新增消费排名加载失败', "op-center.order-mng.cost-pandect.increase-department-top.post", this.restApiCfg, this.restApi);
 
 
 }
@@ -139,23 +139,48 @@ getTimeData(){
 
 loadChart(){
     this.layoutService.show();
-    this.consumeLoader.Go()
-    .then(success=>{
+     let param ={
+            endTime: "2017-02-21T04:48:43.275Z",
+            startTime:"2017-02-21T04:48:43.275Z",
+            ids:[]
+        }
+    let enterprises : Array<{key:string;}> =null;
 
-        this.totalConsumeLoader.Go();
-    })
-    .then(success=>{
+    if(this._param.enterpriseId==null){    
+            for(let item of this.enterpriseLoader.Items){
+                let ent = {key:item.id};
+                enterprises.push(ent);
+            }       
+    }
+    else{
+        enterprises.push({key:this._param.enterpriseId});
+    }
+     param.ids = enterprises;
 
-        this.increseConsumeLoader.Go();
-    })
-    .then(success=>{
+    this.consumeLoader.Go(null,null,param);
+    // .then(success=>{
+    //     this.totalConsumeLoader.Go(null,null,param);
+    // })
+    // .then(success=>{
 
-        this.layoutService.hide();
-    })
-    .catch(err=>{
-        this.layoutService.hide();
-        this.showMsg(err);
-    })
+    //     this.increseConsumeLoader.Go(null,null,param);
+    // })
+    // .then(success=>{   
+    //     //所有企业
+    //     if(this._param.enterpriseId == null){   
+    //         this.topConsumeLoader.Go(null,null,param);
+    //         this.topIncreseConsumeLoader.Go(null,null,param);
+    //     }
+    //     else{
+    //         this.topConsumeDepartmentLoader.Go(null,null,param);
+    //         this.topIncreseConsumeDepartmentLoader.Go(null,null,param);
+    //     }
+    //     this.layoutService.hide();
+    // })
+    // .catch(err=>{
+    //     this.layoutService.hide();
+    //     this.showMsg(err);
+    // })
 }
 
 loadTopChart(){
@@ -164,12 +189,16 @@ loadTopChart(){
     }
 }
 
+
+
 search_chart(){
     let _datas:Array<number> = null;
     let _colors:Array<any> = null;
     let _labels:Array<any> = null;
     let _options:any = null;
-    _datas = [25,57,173,200];
+    this.loadChart();
+    
+    _datas = [this.consumeLoader.FirstItem.physicalMachineOrderPriceSum,this.consumeLoader.FirstItem.dbOrderPriceSum,this.consumeLoader.FirstItem.diskOrderPriceSum,this.consumeLoader.FirstItem.vmOrderPriceSum];
     _colors = ["#08C895","#82B6B2","#6F7DC8","#2BD2C8"];
     _labels = [
                         '物理机：'+25,
