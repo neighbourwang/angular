@@ -26,6 +26,7 @@ import { ProdDirListService } from "./service/prodDirList.service";
 import { PostProduct } from './service/postProd.service';
 import { GetProduct } from './service/getProduct.service';
 import { CreateProdStepService } from './service/createProdStep.service';
+import { ProductEditService } from './service/product.edit.service';
 
 @NgModule({
     imports: [
@@ -49,7 +50,8 @@ import { CreateProdStepService } from './service/createProdStep.service';
         ProdDirListService,
         PostProduct,
         GetProduct,
-        CreateProdStepService
+        CreateProdStepService,
+        ProductEditService
     ]
 
 })

@@ -33,11 +33,7 @@ export class PlatformDetailService {
         let api = this.restApiCfg.getRestApi("pf-mng-zoneUpdate.get");
         return this.restApi.request(api.method , api.url,[{key:'zoneId',value:zoneId}],undefined );
     }    
-    //put同步计算信息
-    putUpdateZone (zoneList:any){
-        let api = this.restApiCfg.getRestApi("pf-mng-zoneUpdate.put");
-        return this.restApi.request(api.method , api.url,[],undefined,zoneList );
-    }
+    
     //禁用平台可用区信息    
     suspendZone (id:string){
         let api = this.restApiCfg.getRestApi("pf-mng-zone.suspend");

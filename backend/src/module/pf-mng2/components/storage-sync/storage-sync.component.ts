@@ -2,16 +2,16 @@ import { Component, OnInit,ViewChild, Input, EventEmitter, Output } from '@angul
 import { Router } from '@angular/router';
 
 import { LayoutService, PopupComponent } from '../../../../architecture';
-import { HostSyncService} from './host-sync.service';
+import { StorageSyncService} from './storage-sync.service';
 import { ZoneListModel } from '../../cl-mng/model/cre-step3.model';
 
 @Component({
-	selector: 'host-sync',
-	templateUrl: './host-sync.component.html',
-	styleUrls: ['./host-sync.component.less'],
+	selector: 'storage-sync',
+	templateUrl: './storage-sync.component.html',
+	styleUrls: ['./storage-sync.component.less'],
 	providers: []
 })
-export class HostSyncComponent implements OnInit {
+export class StorageSyncComponent implements OnInit {
 
 	@Input()zone:ZoneListModel;
 
@@ -19,14 +19,14 @@ export class HostSyncComponent implements OnInit {
 
 	constructor(
 		private layoutService: LayoutService,
-		private service : HostSyncService
+		private service : StorageSyncService
 	) { }
 
 	ngOnInit() {
 	}
 
 	open() {
-		$('#hostBox').modal('show');
+		$('#storageBox').modal('show');
 		console.log(this.zone);				
 	}
 
@@ -38,7 +38,7 @@ export class HostSyncComponent implements OnInit {
 		this.service.putUpdateZone(list).then(
             res => {
                 console.log('put同步计算资源', res);
-				$('#hostBox').modal('hide');
+				$('#storageBox').modal('hide');
 				this.complete.emit();
 				this.layoutService.hide()
             }			
