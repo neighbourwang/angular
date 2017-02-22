@@ -7,7 +7,7 @@ import { CaseDetailService} from "../service/case-detail.service";
 
 import { CaseListModel } from "../model/case-list.model";
 import { CloseInfo,HandleInfo } from "../model/closeInfo.model";
- import {CloseProfile} from "../model/closeProfile.model";
+
 
 @Component({
     selector: "case-closed",
@@ -36,7 +36,6 @@ export class CaseClosedComponent implements OnInit {
     caseInfo:CaseListModel=new CaseListModel();
     closeInfo:CloseInfo=new CloseInfo;
     handleInfoes:Array<HandleInfo>;
-    closeProfile:CloseProfile=new CloseProfile();
   
     ngOnInit() {
          this.activeRoute.params.forEach((params: Params) => {          
@@ -88,16 +87,15 @@ export class CaseClosedComponent implements OnInit {
 
     //关闭工单
     closeCase(){
-        this.closeProfile.closeType=this.closeInfo.closeType;
-        this.closeProfile.details=this.closeInfo.closeInfo;
         this.layoutService.hide();
-        this.service.closeCase(this.closeProfile)
+        this.service.closeCase(this.closeInfo,this.caseId)
              .then(
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.layoutService.hide();                     
                         console.log("关闭工单成功");
+                        this.backtoList();
                     } else {
                         alert("Res sync error");
                     }
@@ -105,7 +103,11 @@ export class CaseClosedComponent implements OnInit {
             )
             .catch((e) => this.onRejected(e));
         }
-   
+    
+    //返回工单列表
+     backtoList(){
+         this.route.navigate(['mtc-center/case-mng/case-list'])
+     }
 
     showAlert(msg: string): void {
         this.layoutService.hide();

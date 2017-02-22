@@ -44,7 +44,8 @@
             <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>关闭类型:</div>
             <div class="col-md-4">
                 <select class="form-control" [(ngModel)]="closeInfo.closeType">
-                    <option *ngFor="let v of service.dictProductType | async"></option>
+                    <option value=" ">所有</option>
+                    <option *ngFor="let v of service.dictClose | async" [value]="v.value">{{v.displayValue}}</option>
                 </select>
             </div>
         </div>
@@ -59,7 +60,7 @@
     </div>
 
     <div class="  mgt20" style="padding-left:27%;font-size:18px"> 处理信息</div> 
-    <div *ngFor="let handleInfo of handleInfoes|orderBy:'handleInfo.handleDate'" >      
+    <div *ngFor="let handleInfo of handleInfoes" style="padding-left:20.5%">      
         <div class="row row-line-height">  
             <div class="form-group">
                 <div class="col-sm-2 form-control-title" >紧急程度:</div>
