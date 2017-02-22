@@ -17,6 +17,8 @@ import { PhyNetMngService } from './service/phy-net-mng.service';
 import { PhyNetDictService } from './service/phy-net-dict.service';
 import { IPValidationService } from './service/ip-validation.service';
 import { PhyNetDetailsService } from './service/phy-net-details.service';
+import { PhyNetSetupResourceService } from './service/phy-net-setup-resource.service';
+import { PhyNetMngIpAddrService } from './service/ipusage-mng-list.service';
 
 @NgModule({
     imports: [
@@ -40,7 +42,9 @@ import { PhyNetDetailsService } from './service/phy-net-details.service';
         PhyNetMngService,
         PhyNetDictService,
         IPValidationService,
-        PhyNetDetailsService
+        PhyNetDetailsService,
+        PhyNetSetupResourceService,
+        PhyNetMngIpAddrService
     ]
 
 })

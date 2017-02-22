@@ -1,6 +1,7 @@
 class SerivceConfigChangeResp {
 	platformId : string; //, optional),
-	productId : string; //, optional),
+	productId : string; //, optional),\
+	instanceId: string;
 	serivceConfigChangeDiskItem : SerivceConfigChangeDiskItem; //, optional),
 	serivceConfigChangeVMitem : SerivceConfigChangeVMitem; //, optional),
 	serviceId : string; //, optional),
@@ -48,11 +49,31 @@ class ProductAttributeValueItem {
 	attrValueId : string; //, optional)
 }
 
+class ChangeOfferProfile {
+	attrList : ServiceResAttributePair[];  //[ServiceResAttributePair], optional): 订单属性列表 ,
+	productId : string;  //, optional): SKU所对应的产品ID，UI必回传字段 ,
+	skuId : string;  //, optional): 产品SKUID，UI必回传字段
+}
+class ServiceResAttributePair {
+	attrCode? : string;  //, optional): 服务属性Code ,
+	attrDisplayName? : string;  //, optional): 服务属性页面显示的名称 ,
+	attrDisplayValue? : string;  //, optional): 服务属性值显示值 ,
+	attrId? : string;  //, optional): 服务属性ID ,
+	attrValue? : string;  //, optional): 服务属性实际值 ,
+	attrValueCode : string;  //, optional): 服务属性值Code ,
+	attrValueId : string;  //, optional): 服务属性值ID ,
+	description? : string;  //, optional): 其他描述性内容，非不要 ,
+	valueType? : string;  //, optional): 0: Single Value -- 单值回传; 1: Multi Type --多值回传 ,
+	valueUnit? : string;  //, optional): 服务属性值的单位
+}
+
 export {
 	SerivceConfigChangeResp,
 	SerivceConfigChangeDiskItem,
 	SerivceConfigChangeVMitem,
 	ProductBillingItem,
 	ServiceRespAttributePair,
-	ProductAttributeValueItem
+	ProductAttributeValueItem,
+	ChangeOfferProfile,
+	ServiceResAttributePair
 }

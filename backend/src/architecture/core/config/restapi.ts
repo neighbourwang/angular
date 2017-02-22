@@ -157,16 +157,16 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/sync/platform/zones"
     },
     {
-        "desc": "get可用区同步计算资源信息",
+        "desc": "get可用区宿主机信息",
         "id": "pf-mng-zoneUpdate.get",
         "method": "GET",
-        "url": "platformaccess/authsec/sync/platform/zones/{zoneId}/spec"
+        "url": "adminui/authsec/sync/platform/zones/{zoneId}/spec"
     },
     {
-        "desc": "可用区同步计算资源信息",
+        "desc": "可用区宿主机信息",
         "id": "pf-mng-zoneUpdate.put",
         "method": "PUT",
-        "url": "platformaccess/authsec/sync/platform/zones/spec"
+        "url": "adminui/authsec/sync/platform/zones/spec"
     },
     {
         "desc": "启用平台可用区",
@@ -553,6 +553,12 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "adminui/authsec/enterprise/{enterpriseId}/product "
     },
+    {
+        "desc": "更改产品价格",
+        "id": "ent-mng.prod-mng/price-edit",
+        "method": "PUT",
+        "url": "adminui/authsec/product/billing "
+    },
     // <-- 企业管理
     {
         "desc": "获取企业开通配额",
@@ -663,6 +669,11 @@ export let RestApis: RestApiModel[] = [
         "id": "ent-mng.ent-est-mng.enterprise.detail.ext",
         "method": "GET",
         "url": "adminui/authsec/enterprise/{_enterpriseId}/ext"
+    },{
+        "desc": "创建企业-判断名称是否存在",
+        "id": "ent-mng.ent-est-mng.ent-mng-cre.check-name.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/query"
     },
     
     
@@ -1965,5 +1976,60 @@ export let RestApis: RestApiModel[] = [
         "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/ipmgmt/changestatus/{status}"
     },    
 
+    //工单管理
+    {
+        "desc": "获取机构管理员负责的机构下所有工单",
+        "id": "case-mng.case.list.get",
+        "method": "GET",
+        "url": "worklistmgmt/authsec/admworklist/{page}/{size}"
+    },
+    {
+        "desc": "机构管理员根据工单主题模糊查询工单",
+        "id": "case-mng.case.subject.search",
+        "method": "GET",
+        "url": "worklistmgmt/authsec/admworklist/bysubject/{page}/{size}"
+    },
+    {
+        "desc": "查询：企业/类别/状态/紧急程度",
+        "id": "case-mng.case.search",
+        "method": "GET",
+        "url": "worklistmgmt/authsec/admworklist/search/{page}/{size}"
+    },
+    {
+        "desc": "关闭工单",
+        "id": "case-mng.case.close",
+        "method": "POST",
+        "url": "worklistmgmt/authsec/admworklist/close"
+    },
+    {
+        "desc": "处理工单",
+        "id": "case-mng.case.handle",
+        "method": "POST",
+        "url": "worklistmgmt/authsec/admworklist/handle"
+    },
+    {
+        "desc": "获取所有企业基本信息，主要用于下拉框",
+        "id": "case-mng.case.enterprise.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/simple"
+    },
+    {
+        "desc": "获取某个工单基本信息",
+        "id": "case-mng.case.info.get",
+        "method": "GET",
+        "url": "worklistmgmt/authsec/worklist/{id}"
+    },
+    {
+        "desc": "获取工单关闭信息",
+        "id": "case-mng.case.closeinfo.get",
+        "method": "GET",
+        "url": "worklistmgmt/authsec/worklist/{id}/closeinfo"
+    },
+    {
+        "desc": "获取工单处理信息",
+        "id": "case-mng.case.handleinfo.get",
+        "method": "GET",
+        "url": "worklistmgmt/authsec/worklist/{id}/handle"
+    },
 ]
 

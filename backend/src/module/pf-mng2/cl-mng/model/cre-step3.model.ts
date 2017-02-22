@@ -6,6 +6,7 @@ class dcOrRegion {
     "platformId": string;
     "uuid": string;
 }
+
 export class ZoneListModel {
     name: String; //名称
     displayName: String; //显示名称
@@ -26,10 +27,12 @@ export class ZoneListModel {
     quotaPercentDisplay: number;
     quotaPercentDisplayValid: boolean;
     isEdit: boolean;
+    hosts:Array<string>;
     //   "status": 0,
     constructor() {
         this.displayNameValid = true;
         this.exceedPercentageValid = true;
         this.quotaPercentDisplayValid = true;
+        this.hosts=new Array<string>();
     }
 }

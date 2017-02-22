@@ -23,6 +23,8 @@ class enterprise {
     "code" :string;
 }
 export class Product {
+    "id":string;
+    "billingId":string;
     "basicCyclePrice": number;
     "billingCycle": string;
     "billingType": string;

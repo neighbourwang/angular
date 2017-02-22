@@ -6,12 +6,11 @@ import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../archit
 export class HostSyncService {
     constructor(private http:Http,
                 private restApiCfg:RestApiCfg,
-                private dict:SystemDictionaryService,
                 private restApi:RestApi) {
     }
-
-	computeStatus = this.dict.get({    //获取状态列表
-        owner : "COMPUTE",
-        field : "STATUS"
-    });
+    //put同步宿主机信息
+    putUpdateZone (zoneList:any){
+        let api = this.restApiCfg.getRestApi("pf-mng-zoneUpdate.put");
+        return this.restApi.request(api.method , api.url,[],undefined,zoneList );
+    }
 }

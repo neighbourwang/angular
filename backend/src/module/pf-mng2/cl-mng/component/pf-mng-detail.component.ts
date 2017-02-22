@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Location } from '@angular/common';
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, dictPipe } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, dictPipe } from '../../../../architecture';
 
 import { PlatformDetailService } from '../service/pf-mng-detail.service';
 import { ZoneListService } from '../service/cl-mng-cre-step-3.service';
@@ -55,15 +55,7 @@ export class PfDetailComponent implements OnInit {
     notice: NoticeComponent;
 
     @ViewChild('zoneSync') zoneSync;
-
-    @ViewChild('updateZoneResourcePop')
-    updateZoneResourcePop: PopupComponent;
-
-    @ViewChild('updateStoragePop')
-    updateStoragePop: PopupComponent;
-
-    @ViewChild('updateStorageResourcePop')
-    updateStorageResourcePop: PopupComponent;
+    @ViewChild('hostSync') hostSync;
 
 
     // 确认Box/通知Box的标题
@@ -86,6 +78,8 @@ export class PfDetailComponent implements OnInit {
     //可用区列表
     zoneList: Array<ZoneListModel>;
     updateZoneList: Array<ZoneListModel>;
+
+    hostList: ZoneListModel=new ZoneListModel();
     //初始化
     ngOnInit() {
         let id: string;
@@ -245,12 +239,15 @@ export class PfDetailComponent implements OnInit {
         this.zoneList.forEach(ele => {
             ele.quotaPercentage = ele.quotaPercentDisplay / 100
         })
+        this.layoutService.show();
         this.zoneListService.putZone(this.platform.id,this.zoneList).then(res => {
             console.log(res);
             this.getZoneList();
             zone.isEdit = false;
+            this.layoutService.hide();
         }).catch(err => {
             console.error(err);
+            this.layoutService.hide();            
         })
     }
     cancelEdit(zone,idx) {
@@ -262,7 +259,8 @@ export class PfDetailComponent implements OnInit {
 
     //更新可用区弹出框
     updateZone() { 
-        this.updateZoneList=new Array<ZoneListModel>();       
+        this.updateZoneList=new Array<ZoneListModel>(); 
+        this.layoutService.show();      
         this.platformDetailService.getUpdateZoneList(this.platform.id).then(
             res => {
                 this.updateZoneList = res.resultContent;
@@ -276,55 +274,43 @@ export class PfDetailComponent implements OnInit {
                     })
                     console.log('同步', res);
                     this.zoneSync.open();
+                    
                 }
+                this.layoutService.hide();
             }
         ).catch(err => {
-            console.error('获取更新可用区列表出错', err)
+            this.layoutService.hide();
+            console.error('获取更新可用区列表出错', err);
         })
     }
-    //同步可用区
-    otUpdateZone(zoneList:ZoneListModel) {
-        console.log(zoneList)
-        // this.platformDetailService.putUpdateZoneList(this.updateZoneList).then(
-        //     res => {
-        //         console.log('同步', res);
-        //         this.getZoneList();
-        //     }
-        // ).catch(err => {
-        //     console.error('获取更新可用区列表出错', err)
-        // })
-    }
-    //同步可用区资源get
-    countZoneResource: Array<ZoneListModel>;
-    updateResourcePop(zoneId) {
+    
+    //同步更新宿主机信息get
+    
+    updateHostPop(zoneId) {
         console.log(zoneId);
+        this.layoutService.show();              
         this.platformDetailService.getUpdateZone(zoneId).then(
             res => {
                 console.log('同步计算资源', res);
                 if (res.resultCode == 100) {
-                    if (res.resultContent && res.resultContent.length > 0) {
-                        this.countZoneResource = res.resultContent;
-                        this.updateZoneResourcePop.open('PF_MNG2.SYNC_COMPUTING_SOURCE');
+                    if (res.resultContent) {
+                        this.hostList = res.resultContent;
+                        this.hostSync.open(this.hostList);
                     } else {
-                        this.notice.open('oo', 'PF_MNG2.NO_SYNC_COMPUTING_SOURCE')
+                        this.notice.open('提示', 'PF_MNG2.NO_SYNC_COMPUTING_SOURCE')
                     }
 
                 }
+                this.layoutService.hide();
             }
         ).catch(err => {
             console.error('获取同步计算资源出错', err)
+            this.layoutService.hide();
         })
     }
-    otUpdateResource() {
-        this.platformDetailService.putUpdateZone(this.countZoneResource).then(
-            res => {
-                console.log('put同步计算资源', res);
-                this.getZoneList();
-            }
-        ).catch(err => {
-            console.error('put同步计算资源出错', err)
-        })
-    }
+    // otUpdateResource() {
+    
+    // }
     ccf() {
 
     }
@@ -465,7 +451,6 @@ export class PfDetailComponent implements OnInit {
                         // }
                     })
                     console.log('同步', res);
-                    this.updateStoragePop.open('同步可用区信息')
                 }
             }
         ).catch(err => {
@@ -493,7 +478,6 @@ export class PfDetailComponent implements OnInit {
                 if (res.resultCode == 100) {
                     if (res.resultContent && res.resultContent.length > 0) {
                         this.countStorageResourceList = res.resultContent;
-                        this.updateStorageResourcePop.open('同步存储区计算资源');
                     } else {
                         this.notice.open('oo', 'PF_MNG2.NO_SYNC_COMPUTING_SOURCE')
                     }

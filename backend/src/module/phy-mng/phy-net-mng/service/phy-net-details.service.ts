@@ -5,8 +5,6 @@ import { RestApiCfg, RestApi, RestApiModel, SystemDictionaryService } from '../.
 //model 
 import { PhyNetListModel, PhyNetCreateModel, PhyNetEditModel } from '../model/phy-net.model';
 
-import { PhyNetListModel_mock } from '../model/phy-net.mock';
-
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -17,10 +15,6 @@ export class PhyNetDetailsService {
         private restApi: RestApi,        
         private dict: SystemDictionaryService,
     ) { }
-
-    init(): void {
-        this.restApiCfg.loadCfgData();
-    }
 
     getPhyNetInfo(pn_id: string): Promise<any> { 
         const pathParams = [
@@ -40,6 +34,5 @@ export class PhyNetDetailsService {
         */
         const api = this.restApiCfg.getRestApi("phy-mng.phy-net-mng.network.info.get");
         return this.restApi.request(api.method, api.url, pathParams, null, null);
-        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => PhyNetListModel_mock);
     }
 }
