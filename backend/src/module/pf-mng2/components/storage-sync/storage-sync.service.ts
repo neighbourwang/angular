@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../architecture';
 
 @Injectable()
-export class HostSyncService {
+export class StorageSyncService {
     constructor(private http:Http,
                 private restApiCfg:RestApiCfg,
                 private restApi:RestApi) {

@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, RestApiModel, SystemDictionaryService } from '../../../../architecture';
 
 //model 
-import { PhyNetListModel, PhyNetCreateModel, PhyNetEditModel } from '../model/phy-net.model';
+import { PhyNetListModel, PhyNetCreateModel, PhyNetEditModel, IpScopeModel } from '../model/phy-net.model';
 
 import { PhyNetListModel_mock } from '../model/phy-net.mock';
 
@@ -17,10 +17,6 @@ export class PhyNetMngService {
         private restApi: RestApi,        
         private dict: SystemDictionaryService,
     ) { }
-
-    init(): void {
-        this.restApiCfg.loadCfgData();
-    }
 
     getPhyNetList(pageIndex: number, pageSize: number): Promise<any> {        
         const pathParams = [
@@ -89,6 +85,41 @@ export class PhyNetMngService {
         ];
         const api = this.restApiCfg.getRestApi("phy-mng.phy-net-mng.network.status.set");
         return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => PhyNetListModel_mock);
+    }
+
+    getPhyNetIpRange(pmNetworkId: string): Promise<any> {
+       const pathParams = [
+            {
+                key: "pmNetworkId",
+                value: pmNetworkId
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("phy-mng.phy-net-mng.network.iprange.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => PhyNetListModel_mock);
+    }
+
+    updatePhyNetIpRange(ipscope: IpScopeModel): Promise<any> {
+       const pathParams = [
+            {
+                key: "pmNetworkId",
+                value: ipscope.id
+            }
+        ];
+        const body = {
+            "id": ipscope.id,
+            "dnsAlt": ipscope.dnsAlt,
+            "dnsPre": ipscope.dnsPre,
+            "gateway": ipscope.gateway,
+            "networkName": ipscope.networkName,
+            "subnetIP": ipscope.subnetIP,
+            "subnetCIDR": ipscope.subnetCIDR,
+            "subnetMask": ipscope.subnetMask,
+            "ipRange": ipscope.ipRange
+        };
+        const api = this.restApiCfg.getRestApi("phy-mng.phy-net-mng.network.iprange.set");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => PhyNetListModel_mock);
     }
 

@@ -16,6 +16,9 @@ import { CreateProdStepService } from '../service/createProdStep.service';
 
 export class ProdMngCreStep2Component implements OnInit {
 
+    @ViewChild('notice')
+    notice:NoticeComponent;
+    
     constructor(
         private route: Router,
         private router: ActivatedRoute,
@@ -25,7 +28,7 @@ export class ProdMngCreStep2Component implements OnInit {
 
     prodDirType: string;
     ngOnInit() {
-        console.log(this.service.productDir);
+        console.log(this.service.product);
         this.prodDirType=this.service.productDir.serviceType;
     }
 
@@ -33,8 +36,11 @@ export class ProdMngCreStep2Component implements OnInit {
         this.service.product[num] = e;
     }
 
-
+    billingCycle:boolean=false;
     next() {
+        if(!this.billingCycle){
+            this.notice.open('操作错误','请选择计价周期')
+        }
         this.route.navigate(["prod-mng/prod-mng/prod-mng-cre-3"]);
     }
 

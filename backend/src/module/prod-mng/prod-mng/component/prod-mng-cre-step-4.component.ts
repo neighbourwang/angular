@@ -87,6 +87,10 @@ export class ProdMngCreStep4Component implements OnInit {
 
 
     next() {
+        if(this.service.product.productEnterpiseReqs.length==0){
+             this.notice.open('操作错误','企业列表为空'); 
+             return; 
+        }
         this.service.product.serviceId=this.service.productDir.serviceId;
         this.service.product.billingType=
             this.service.productDir.serviceType=='0'?'0':'1';

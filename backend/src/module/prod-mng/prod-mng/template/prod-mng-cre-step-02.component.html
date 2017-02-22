@@ -46,12 +46,12 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
-                           				<input type="radio" name="inlineRadioOption"  value="5" class="fox-cloud-radio" [(ngModel)]="this.service.product.billingCycle"> {{'COMMON.BY_YEAR' | translate}}<!--包年-->
+                           				<input type="radio" name="inlineRadioOption"  value="5" class="fox-cloud-radio" [(ngModel)]="this.service.product.billingCycle" (click)="billingCycle=true"> {{'COMMON.BY_YEAR' | translate}}<!--包年-->
                        				</label>
                                 </div>
                                 <div class="col-sm-6">
                                     <label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
-                           				<input type="radio" name="inlineRadioOption"  value="3" class="fox-cloud-radio" [(ngModel)]="this.service.product.billingCycle"> {{'COMMON.BY_MONTH' | translate}}<!--包月-->
+                           				<input type="radio" name="inlineRadioOption"  value="3" class="fox-cloud-radio" [(ngModel)]="this.service.product.billingCycle" (click)="billingCycle=true"> {{'COMMON.BY_MONTH' | translate}}<!--包月-->
                        				</label>
                                 </div>
                             </div>
@@ -60,12 +60,12 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
-                           				<input type="radio" name="inlineRadioOption"  value="1" class="fox-cloud-radio" [(ngModel)]="this.service.product.billingCycle"> {{'COMMON.BY_DAY' | translate}}
+                           				<input type="radio" name="inlineRadioOption"  value="1" class="fox-cloud-radio" [(ngModel)]="this.service.product.billingCycle" (click)="billingCycle=true"> {{'COMMON.BY_DAY' | translate}}
                        				</label>
                                 </div>
                                 <div class="col-sm-6">
                                     <label class="radio-inline row-inline-radio4 font-gray" style="width:100%">
-                           				<input type="radio" name="inlineRadioOption"  value="0" class="fox-cloud-radio" [(ngModel)]="this.service.product.billingCycle"> {{'COMMON.BY_HOUR' | translate}}
+                           				<input type="radio" name="inlineRadioOption"  value="0" class="fox-cloud-radio" [(ngModel)]="this.service.product.billingCycle" (click)="billingCycle=true"> {{'COMMON.BY_HOUR' | translate}}
                        				</label>
                                 </div>
                             </div>

@@ -18,10 +18,6 @@ export class PhyNetDetailsService {
         private dict: SystemDictionaryService,
     ) { }
 
-    init(): void {
-        this.restApiCfg.loadCfgData();
-    }
-
     getPhyNetInfo(pn_id: string): Promise<any> { 
         const pathParams = [
             {

@@ -157,16 +157,16 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/sync/platform/zones"
     },
     {
-        "desc": "get可用区同步计算资源信息",
+        "desc": "get可用区宿主机信息",
         "id": "pf-mng-zoneUpdate.get",
         "method": "GET",
-        "url": "platformaccess/authsec/sync/platform/zones/{zoneId}/spec"
+        "url": "adminui/authsec/sync/platform/zones/{zoneId}/spec"
     },
     {
-        "desc": "可用区同步计算资源信息",
+        "desc": "可用区宿主机信息",
         "id": "pf-mng-zoneUpdate.put",
         "method": "PUT",
-        "url": "platformaccess/authsec/sync/platform/zones/spec"
+        "url": "adminui/authsec/sync/platform/zones/spec"
     },
     {
         "desc": "启用平台可用区",
@@ -552,6 +552,12 @@ export let RestApis: RestApiModel[] = [
         "id": "ent-mng.ent-prod-cre.creation",
         "method": "POST",
         "url": "adminui/authsec/enterprise/{enterpriseId}/product "
+    },
+    {
+        "desc": "更改产品价格",
+        "id": "ent-mng.prod-mng/price-edit",
+        "method": "PUT",
+        "url": "adminui/authsec/product/billing "
     },
     // <-- 企业管理
     {
@@ -1960,7 +1966,7 @@ export let RestApis: RestApiModel[] = [
     {
         "desc": "获取特定网络的IP列表-所有",
         "id": "phy-mng.phy-net-mng.network.ips.get",
-        "method": "GET",
+        "method": "POST",
         "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/ipmgmt"
     },
     {

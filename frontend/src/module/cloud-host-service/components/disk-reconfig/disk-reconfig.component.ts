@@ -38,9 +38,9 @@ export class DiskReconfigComponent implements OnInit {
 		this.disk = disk;
 
 
-		// this.service.getZoneList(disk.uuid, "1").then(res => {
-		// 	console.log(res)
-		// });
+		this.service.getConfig(disk.subInstanceId, "1").then(res => {
+			console.log(res)
+		});
 		console.log(disk)
 
 	}

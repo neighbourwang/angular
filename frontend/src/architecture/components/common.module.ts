@@ -14,6 +14,7 @@ import { PopoverModule } from './popover/index';
 import { MyDatePickerModule } from './date-picker/my-date-picker.module';
 
 import { ClickOutsideModule } from 'ng2-click-outside';
+import { AfterNgForModule } from './afterNgFor';
 
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
@@ -33,6 +34,7 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
         Ng2Bs3ModalModule,
         FormsModule,
         ClickOutsideModule,
+        AfterNgForModule,
         HttpModule,
         TranslateModule.forRoot()
         // ChartsModule
@@ -63,6 +65,7 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
         PopoverModule,
         ChartsModule,
         TableEditNameComponent,
+        AfterNgForModule,
         HttpModule,
         TranslateModule
         // OrderByPipe
