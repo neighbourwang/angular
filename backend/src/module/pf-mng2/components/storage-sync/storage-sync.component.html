@@ -3,34 +3,78 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">同步可用区</h4>
+                <h4 class="modal-title" id="myModalLabel">同步存储后端</h4>
             </div>
             <div class="modal-body">
                 <div class="table-container">
-                    <table class="table table-hover">
+                <!--<p class="modal-title">以下存储为新增存储后端</p>                    -->
+                    <table class="table table-hover mgt20" *ngIf="type=='0'">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>可用区名称</th>
-                                <th>显示名称</th>
-                                <th>当前宿主机</th>
-                                <th>物理CPU总核数</th>
-                                <th >总内存数(MB)</th>
+                                <th>名称</th>
+                                <th style="width:25%">显示名称</th>
+                                <th>存储类型</th>
+                                <th>总容量(GB)</th>
+                                <th style="width:7%">副本数</th>
+                                <th style="width:7%">配额%</th>
+                                <th style="width:25%">说明</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!--<tr>
-                                <td>1</td>
-                                <td>{{zone?.name||'NULL'}}</td>
+                            <tr *ngFor="let item of storageList; let idx = index;">
+                                <td>{{idx + 1}}</td>
+                                <td>{{item.name}}</td>
+                                <td><input type="text" class="form-control" [(ngModel)]="item.displayName" required></td>
+                                <td>{{item.typeDisplayName}}</td>
+                                <td>{{item.maximum||0}}</td>
                                 <td>
-                                    {{zone?.displayName||'NULL'}}
+                                    <input type="number" class="form-control" required [(ngModel)]="item.replica" style="width: 100px; display: inline;" min="0">
                                 </td>
                                 <td>
-                                    <p *ngFor="let host of zone.hosts">{{host||0}}</p>
+                                    <input type="number" class="form-control" required [(ngModel)]="item.quotaPercentDisplay" style=" display: inline;" min="0"
+                                        max="100">
                                 </td>
-                                <td>{{zone?.vcpunum}}</td>
-                                <td>{{zone?.memSize}}</td>                                
-                            </tr>-->
+                                <td>
+                                    <input type="text" class="form-control" [(ngModel)]="item.description" style=" display: inline;">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-hover mgt20" *ngIf="type=='2'">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>名称</th>
+                                <th>显示名称</th>
+                                <th>DC/可用区信息</th>
+                                <th>存储类型</th>
+                                <th>总容量(GB)</th>
+                                <th>副本数</th>
+                                <th>配额%</th>
+                                <th style="width:25%">说明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of storageList; let idx = index;">
+                                <td>{{idx + 1}}</td>
+                                <td>{{item.name}}</td>
+                                <td><input type="text" class="form-control" [(ngModel)]="item.displayName" required></td>
+                                <td>
+                                    <p style="margin:0" *ngFor="let name of item.clusterAndDc">{{name.dcName+"--"+name.zoneName}}</p>
+                                </td>
+                                <td>{{item.typeDisplayName}}</td>
+                                <td>{{item.maximum||0}}</td>
+                                <td>
+                                    <input type="number" class="form-control" required min="0" [(ngModel)]="item.replica" style="width: 100px; display: inline;" >
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control" required min="0" max="100" [(ngModel)]="item.quotaPercentDisplay"  style=" display: inline;">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" [(ngModel)]="item.description" style=" display: inline;">
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
