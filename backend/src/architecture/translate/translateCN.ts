@@ -246,6 +246,9 @@
         "YES": "是",
         "ZONE": "区域",
         "SELECT_OPERATION": "选择操作",
+        "OCCUPY": "占用",
+        "RELEASE": "释放",
+        "SELECT": "选择",
     },
     "ENT_MNG": {
         "ABNORMAL_RESPONSE": "异常响应",
@@ -883,6 +886,15 @@
         "VMWARE_NET": "VMware网络"
     },
     "PHY_NET_MNG": {
+        "FREE": "空闲",
+        "OCCUPIED": "已占用",
+        "ALL": "所有",
+
+        "IP_ADDRESS": "IP地址",
+        "HOST_NAME": "主机名称",
+        "ENTERPRISE_NAME": "企业名称",
+        "DESCRIPTION": "说明",
+
         "SELECTED_PM_RES_POOL": "已选中资源池",
         "UNSELECTED_PM_RES_POOL": "未选中资源池",
         "SELECTED_PM_HOST": "已选中物理机",
@@ -893,9 +905,17 @@
         "CREATE_PHY_NET": "创建网络",
         "EDIT_PHY_NET": "编辑网络",
         "PHY_NET_RESOURCE_SETUP": "网络资源分配",
+        "ALLOCATE_RES_POOL": "分配资源池",
+        "ALLOCATE_PM_HOST": "分配物理机",
         "SET_IP_SCOPE": "设置IP资源范围",
         "MNG_IP_ADDR": "管理IP地址",
         "EXPORT_IP_ADDR": "导出IP地址信息",
+
+        "CREATE_PM_NET": "创建物理机网络",
+        "EDIT_PM_NET": "编辑物理机网络",
+        "ENABLE_PM_NET": "启用物理机网络",
+        "DISABLE_PM_NET": "禁用物理机网络",
+        "DELETE_PM_NET": "删除物理机网络",
 
         "SHOW_PHY_NET": "查看物理机网络",
         "AVALIABLE_PHY_RES_POOL": "可用物理资源池列表",
@@ -907,15 +927,19 @@
 
         "CANT_NULL": "不能为空",
         "PHY_NET_NAME": "显示名称",
+        "NET_NAME": "网络名称",
         "GATEWAY_ADDRESS": "网关地址",
         "SUBNET_INFORMATION": "网段信息",
         "SUBNET_IP_INFORMATION": "网络IP信息",
         "SUBNET_MASK": "网络掩码",
         "IP_ADDRESS_SCOPE": "IP地址范围",
+        "IP_NUMBER": "IP地址池数量",
+        "USED_IP_NUMBER": "已使用IP地址数量",
+        "REST_IP_NUMBER": "剩余IP地址数量",
 
         "PLEASE_CHOOSE_NETWORK": "请选择网络",
         "PLEASE_CHOOSE_RES_POOL": "请选择资源池",
-        "PLEASE_CHOOSE_PM": "请选择物理机",
+        "PLEASE_CHOOSE_PM": "请选择物理机",        
 
         "CREATE_PHY_NET_FAILED": "创建物理机网络失败",
         "CREATE_PHY_NET_EXCEPTION": "创建物理机网络异常",
@@ -943,10 +967,23 @@
         "PHY_NET_DISABLED": "物理机网络已禁用",
         "PHY_NET_DELETED": "物理机网络已删除",
 
+        "PLEASE_CHOOSE_IP": "请选择IP地址",
+
         "PHY_IP_ENABLED": "IP地址已占用",
         "PHY_IP_DISABLED": "IP地址已释放",
 
+        "IP_RELEASED_FAILED": "释放IP地址失败",
+        "IP_RELEASED_EXCEPTION": "释放IP地址异常",
+        "IP_OCCUPIED_FAILED": "占用IP地址失败",
+        "IP_OCCUPIED_EXCEPTION": "占用IP地址异常",
+        "PLEASE_INPUT_DESCRIPTION": "请输入说明",
+
         "PHY_NET_NEED_TO_DISABLED_FIRSTLY": "物理机网络需先被禁用后才能被删除",
+        
+        "ENABLE_PHY_NET": "您选择启用 {{value_1}}, 请确认; 如果确认，用户将能够在订购中选择此网络.",
+        "DISABLE_PHY_NET": "您选择禁用 {{value_1}}, 请确认; 如果确认，用户将不能在订购中选择此网络.",
+        "DELETE_PHY_NET": "您选择删除 {{value_1}}, 请确认; 如果确认，用户将不能在订购中选择此网络.",
+        "PHY_NET_RESOURCE_SETUP_SUCCESS": "网络资源分配成功",
     },
     "ORDER_MNG": {
         "ALL_DEPARTMENT": "所有部门",
