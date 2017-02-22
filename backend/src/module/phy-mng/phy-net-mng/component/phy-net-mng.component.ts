@@ -142,7 +142,6 @@ export class PhyNetMngComponent implements OnInit {
 
     //Menu: 创建网络
     createPhyNet(): void {
-        this.layoutService.hide();
         this.createphynetbox.open();
     }
 
@@ -204,12 +203,11 @@ export class PhyNetMngComponent implements OnInit {
         if (notValid !== void 0) {
             console.log("validateSubnetModify Failed!!!");
             this.createphynetbox.close();
-            //this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));
             let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
             let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];
-            let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
-                      + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
-            this.showMsg(con);
+            this.translateService.get([name,msg], null).subscribe((res) => {
+                this.showMsg(res[name] + res[msg]);
+            });
             this.okCallback = () => {
                 this.createphynetbox.open();                
             };            
@@ -221,9 +219,9 @@ export class PhyNetMngComponent implements OnInit {
     }
 
     acceptPhyNetCreateModify(): void {
-        console.log('clicked acceptPhyNetCreateModify');
-        this.layoutService.show();
+        console.log('clicked acceptPhyNetCreateModify');        
         if (this.validatePhyNetCreateInfo()) {
+            this.layoutService.show();
             this.service.createPhyNet(this.phynet_create)
                 .then(res => {
                     this.layoutService.hide();
@@ -247,8 +245,6 @@ export class PhyNetMngComponent implements OnInit {
                     this.okCallback = () => { 
                         this.createphynetbox.open();  };
                 })
-        } else {
-            this.layoutService.hide();
         }
     }
 
@@ -337,12 +333,11 @@ export class PhyNetMngComponent implements OnInit {
         if (notValid !== void 0) {
             console.log("validateSubnetModify Failed!!!");
             this.editphynetbox.close();
-            //this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));
             let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
             let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];
-            let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
-                      + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
-            this.showMsg(con);
+            this.translateService.get([name,msg], null).subscribe((res) => {
+                this.showMsg(res[name] + res[msg]);
+            });
             this.okCallback = () => {
                 this.editphynetbox.open();                
             };            
@@ -354,9 +349,9 @@ export class PhyNetMngComponent implements OnInit {
     }
 
     acceptPhyNetEditModify(): void {
-        console.log('clicked acceptPhyNetCreateModify');
-        this.layoutService.show();
+        console.log('clicked acceptPhyNetCreateModify');        
         if (this.validatePhyNetEditInfo()) {
+            this.layoutService.show();
             this.service.editPhyNet(this.phynet_changed)
                 .then(res => {
                     this.layoutService.hide();
@@ -386,8 +381,6 @@ export class PhyNetMngComponent implements OnInit {
                         this.editphynetbox.open();
                     };
                 })
-        } else {
-            this.layoutService.hide();
         }
     }
 
@@ -430,19 +423,6 @@ export class PhyNetMngComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) { 
                     this.ipscope_changed = response.resultContent;
                     console.log(this.ipscope_changed, "this.ipscope_changed");
-                    //this.ipscope_changed.subnetCIDR = this.subnetInfo.subnetCIDR;
-                    //this.ipscope_changed.gateway = this.subnetInfo.gateway;
-                    /*
-                    this.ippool.ips = this.subnetInfo.range;
-                    if(!this.ippool.ips){
-                        console.log("No ips from response!");
-                        this.ippool.ipstr = "";
-                    } else {
-                        console.log("Ips from response!");
-                        this.ippool.ipstr = this.ippool.ips.join('');
-                    }
-                    console.log(this.ippool.ips, this.ippool.ipstr, this.ippool, "ips, ipstr, and ippool object");
-                    */
                 } else {
                     this.showAlert("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -458,13 +438,47 @@ export class PhyNetMngComponent implements OnInit {
     }
 
     validatePhyNetIPModify(): boolean {
-        return true;
+        let notValid = null;
+        notValid = [
+            {
+                "name": "PHY_NET_MNG.SUBNET_IP_INFORMATION"
+                , 'value': this.ipscope_changed.subnetCIDR
+                , "op": "cidr"
+            },
+            {
+                "name": "PHY_NET_MNG.IP_ADDRESS_SCOPE"
+                , 'value': this.ipscope_changed.ipRange
+                , "op": "*"
+            },
+            {
+                "name": "PHY_NET_MNG.IP_ADDRESS_SCOPE"
+                , 'value': [this.ipscope_changed.ipRange, this.ipscope_changed.subnetCIDR]
+                , "op": "ipscope"
+            },
+            ].find(n => this.ipService.validate(n.name, n.value, n.op) !== undefined);
+
+        if (notValid !== void 0) {
+            console.log("validateIPModify Failed!!!");
+            this.ipsbox.close();
+            let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
+            let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];
+            this.translateService.get([name,msg], null).subscribe((res) => {
+                this.showMsg(res[name] + res[msg]);
+            });
+            this.okCallback = () => {
+                this.ipsbox.open();
+            };            
+            return false;
+        } else {
+            console.log("validateIPModify OK!!!")
+            return true;
+        }
     }
 
     acceptPhyNetIPsModify(): void {
-        //console.log('clicked acceptIPsModify');
-        this.layoutService.show();
+        //console.log('clicked acceptIPsModify');        
         if (this.validatePhyNetIPModify()) {
+            this.layoutService.show();
             this.service.updatePhyNetIpRange(this.ipscope_changed)
                 .then(res => {
                     this.layoutService.hide();
@@ -488,16 +502,20 @@ export class PhyNetMngComponent implements OnInit {
                     this.okCallback = () => { 
                         this.ipsbox.open();  };
                 })
-        } else {
-            this.layoutService.hide();
         }
     }
 
     cancelPhyNetIPsModify(): void {
         //console.log('clicked cancelIPsModify');
         this.ipscope_changed.ipRange = "";
-        this.ipscope_changed.subnetCIDR = "";
+        this.ipscope_changed.dnsAlt = "";
+        this.ipscope_changed.dnsPre = "";
         this.ipscope_changed.gateway = "";
+        this.ipscope_changed.networkName = "";
+        this.ipscope_changed.subnetIP = "";
+        this.ipscope_changed.subnetMask = "";
+        this.ipscope_changed.subnetCIDR = "";
+        this.ipscope_changed.id = "";
     }
 
     //Menu: 管理子网IP使用情况
@@ -507,7 +525,8 @@ export class PhyNetMngComponent implements OnInit {
             this.selectedphynet = pn;
             this.router.navigate([`phy-mng/phy-net/phy-net-mng-ip-addr`, 
             {
-                "pn_id": this.selectedphynet.id
+                "pn_id": this.selectedphynet.id,
+                "pn_name": this.selectedphynet.networkName
             }]);
         }
     }

@@ -29,13 +29,6 @@ export class PhyNetMngIpAddrComponent implements OnInit{
         private dictService: PhyNetDictService,
         private validationService: ValidationService,
     ) {
-/*
-        if (activatedRouter.snapshot.params["dc_id"]) {
-            this.dc = activatedRouter.snapshot.params["dc_id"] || "";
-        } else {
-            this.dc = "dc_all";
-        }
-*/
     }
 
     @ViewChild("notice")
@@ -63,7 +56,7 @@ export class PhyNetMngIpAddrComponent implements OnInit{
     selectedip: IpUsageMngModel = new IpUsageMngModel(); //被选中的ipusage
     changedip: IpUsageMngModel = new IpUsageMngModel(); //前台绑定的ipusage
     pn_id: string;
-    pg_name: string;
+    pn_name: string;
     ipusagequery: string = "all";
 
     private okCallback: Function = null;
@@ -89,6 +82,10 @@ export class PhyNetMngIpAddrComponent implements OnInit{
             if (params["pn_id"] != null) {
                 this.pn_id = params["pn_id"];
                 console.log(this.pn_id);
+            }
+            if (params["pn_name"] != null) {
+                this.pn_name = params["pn_name"];
+                console.log(this.pn_name);
             }
         });
 
@@ -118,7 +115,7 @@ export class PhyNetMngIpAddrComponent implements OnInit{
 
     getIpUsageMngList( pn_id: string ): void {
         if (this.validationService.isBlank(pn_id)){
-            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PG");
+            this.showAlert("PHY_NET_MNG.PLEASE_CHOOSE_IP");
             return;
         }
         this.layoutService.show();
@@ -161,7 +158,7 @@ export class PhyNetMngIpAddrComponent implements OnInit{
             }
             this.enableipbox.open();
         } else {
-            this.showMsg("PHY_NET_MNG.PLEASE_CHOOSE_NETWORK");
+            this.showMsg("PHY_NET_MNG.PLEASE_CHOOSE_IP");
             return; 
         }
     }
@@ -180,7 +177,7 @@ export class PhyNetMngIpAddrComponent implements OnInit{
             }
             this.disableipbox.open();
         } else {
-            this.showMsg("PHY_NET_MNG.PLEASE_CHOOSE_NETWORK");
+            this.showMsg("PHY_NET_MNG.PLEASE_CHOOSE_IP");
             return; 
         }
 
@@ -192,7 +189,7 @@ export class PhyNetMngIpAddrComponent implements OnInit{
         if (this.validationService.isBlank(this.changedip.description)) {
             this.layoutService.hide();
             this.enableipbox.close();
-            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_INPUT_DESCRIPTION");            
+            this.showMsg("PHY_NET_MNG.PLEASE_INPUT_DESCRIPTION");            
             this.okCallback = () => {
                 this.enableipbox.open(); 
             }
@@ -206,7 +203,7 @@ export class PhyNetMngIpAddrComponent implements OnInit{
                         console.log(res, "IP占用成功")
                     } else {
                         this.enableipbox.close();
-                        this.showMsg("NET_MNG_VM_IP_MNG.IP_OCCUPIED_FAILED");
+                        this.showMsg("PHY_NET_MNG.IP_OCCUPIED_FAILED");
                         return;
                     }
                 })
@@ -217,11 +214,10 @@ export class PhyNetMngIpAddrComponent implements OnInit{
                     this.enableipbox.close();
                 })
                 .catch(err => {
-                    console.log('clicked acceptEnableIPModify 6');
                     this.layoutService.hide();
                     console.log('IP占用异常', err);
                     this.enableipbox.close();
-                    this.showMsg("NET_MNG_VM_IP_MNG.IP_OCCUPIED_EXCEPTION");
+                    this.showMsg("PHY_NET_MNG.IP_OCCUPIED_EXCEPTION");
                     this.okCallback = () => { this.enableipbox.open(); };
                 })
         }
@@ -245,7 +241,7 @@ export class PhyNetMngIpAddrComponent implements OnInit{
                     console.log(res, "IP释放成功")
                 } else {
                     this.disableipbox.close();
-                    this.showMsg("NET_MNG_VM_IP_MNG.IP_RELEASED_FAILED");
+                    this.showMsg("PHY_NET_MNG.IP_RELEASED_FAILED");
                     return;
                 }
             })
@@ -256,11 +252,10 @@ export class PhyNetMngIpAddrComponent implements OnInit{
                 this.disableipbox.close();
             })
             .catch(err => {
-                console.log('clicked acceptDisableIPModify 6');
                 this.layoutService.hide();
                 console.log('IP释放异常', err);
                 this.disableipbox.close();
-                this.showMsg("NET_MNG_VM_IP_MNG.IP_RELEASED_EXCEPTION");
+                this.showMsg("PHY_NET_MNG.IP_RELEASED_EXCEPTION");
                 this.okCallback = () => { this.disableipbox.open(); };
             })
     }
@@ -274,18 +269,18 @@ export class PhyNetMngIpAddrComponent implements OnInit{
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
+        this.showAlert("COMMON.GETTING_DATA_FAILED");
     }
 
 	showAlert(msg: string): void {
         this.layoutService.hide();
-        this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";
+        this.noticeTitle = "COMMON.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
 
     showMsg(msg: string) {
-        this.notice.open("NET_MNG_VM_IP_MNG.SYSTEM_PROMPT", msg);
+        this.notice.open("COMMON.SYSTEM_PROMPT", msg);
     }
 
     //选择行
@@ -307,7 +302,7 @@ export class PhyNetMngIpAddrComponent implements OnInit{
             return item;
         }            
         else {
-            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            this.showMsg("COMMON.PLEASE_CHOOSE_ITEM");
             return null;
         }
     }
@@ -327,7 +322,7 @@ export class PhyNetMngIpAddrComponent implements OnInit{
     //根据value显示
     displayIt(value: string): String {
         if(this.validationService.isBlank(value)){
-            return "NET_MNG_VM_IP_MNG.UNSET";
+            return "COMMON.UNSET";
         } else {
             return value;
         }
