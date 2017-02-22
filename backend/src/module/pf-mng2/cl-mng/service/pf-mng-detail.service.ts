@@ -45,26 +45,18 @@ export class PlatformDetailService {
         return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
     }
     //////////////////////////////////////////////////////////////////////////////////////////////存储区
-    //获取平台存储区信息    
+    //获取新增平台存储区信息    
     getUpdateStorageList (id:string){
         let api = this.restApiCfg.getRestApi("pf-mng-storagelist.get");
         return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
     }
-    //平台存储区信息    
-    putUpdateStorageList (storgeList:any){
-        let api = this.restApiCfg.getRestApi("pf-mng-storagelist.post");
-        return this.restApi.request(api.method , api.url,[],undefined ,storgeList);
-    }     
-    //get存储区同步计算信息
+         
+    //get存储区同步存储空间信息
     getUpdateStorageCount (storageId:string){
         let api = this.restApiCfg.getRestApi("pf-mng-storageUpdate.get");
-        return this.restApi.request(api.method , api.url,[{key:'zoneId',value:storageId}],undefined );
+        return this.restApi.request(api.method , api.url,[{key:'id',value:storageId}],undefined );
     }    
-    //put存储区同步计算信息
-    putUpdateStorageCount (storageList:any){
-        let api = this.restApiCfg.getRestApi("pf-mng-storageUpdate.put");
-        return this.restApi.request(api.method , api.url,[],undefined,storageList );
-    }
+   
     //禁用平台存储区信息    
     suspendStorage (id:string){
         let api = this.restApiCfg.getRestApi("pf-mng-storage.suspend");
