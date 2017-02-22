@@ -19,7 +19,7 @@ export class  Time{
 export class  ConsumeSum{
     dbOrderPriceSum : number = 0;//数据库
     diskOrderPriceSum  : number = 0; //云硬盘
-    physicalMachineOrderPriceSum  : number = 0;//物理机
+    physicalMachineOrderPriceSum :number = 0;//物理机
     vmOrderPriceSum : number = 0; //云主机
 }
 
