@@ -1,6 +1,7 @@
 class SerivceConfigChangeResp {
 	platformId : string; //, optional),
-	productId : string; //, optional),
+	productId : string; //, optional),\
+	instanceId: string;
 	serivceConfigChangeDiskItem : SerivceConfigChangeDiskItem; //, optional),
 	serivceConfigChangeVMitem : SerivceConfigChangeVMitem; //, optional),
 	serviceId : string; //, optional),

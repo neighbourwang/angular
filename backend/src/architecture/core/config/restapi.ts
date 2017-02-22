@@ -1966,7 +1966,7 @@ export let RestApis: RestApiModel[] = [
     {
         "desc": "获取特定网络的IP列表-所有",
         "id": "phy-mng.phy-net-mng.network.ips.get",
-        "method": "POST",
+        "method": "GET",
         "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/ipmgmt"
     },
     {
