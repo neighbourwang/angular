@@ -22,18 +22,20 @@
               </tr>
             </thead> 
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td><input type="radio" class="fox-cloud-radio"/></td>
-                    <td>name1</td>
-                    <td>北京</td>
-                    <td>ABC</td>
-                    <td>OPENSTACK</td>
-                    <td>xxx</td>
-                    <td>启用</td>
+                <tr *ngFor="let pf of pfList let i=index">
+                    <td>{{(page-1)*size+i+1}}</td>
+                    <td><input type="radio" name="pf" class="fox-cloud-radio" [checked]="pf.selected" (change)="selectPlatform(pf)"/></td>
+                    <td>{{pf.name}}</td>
+                    <td>{{pf.regionName}}</td>
+                    <td>{{pf.dataCenter}}</td>
+                    <td>{{pf.platformType}}</td>
+                    <td>{{pf.uri}}</td>
+                    <td>{{pf.status}}</td>
                 </tr>
             </tbody>       
         </table>
     </div>
 
 </div>
+
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>

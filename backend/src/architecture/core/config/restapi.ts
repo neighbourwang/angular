@@ -185,37 +185,37 @@ export let RestApis: RestApiModel[] = [
         "desc": "get同步可添加存储区信息",
         "id": "pf-mng-storagelist.get",
         "method": "GET",
-        "url": "platformaccess/authsec/sync/platform/{id}/storages"
+        "url": "adminui/authsec/sync/platform/{id}/storages"
     },
     {
         "desc": "post同步可添加存储区信息",
         "id": "pf-mng-storagelist.post",
         "method": "POST",
-        "url": "platformaccess/authsec/sync/platform/storages"
+        "url": "adminui/authsec/sync/platform/storages"
     },
     {
-        "desc": "get存储区同步计算资源信息",
+        "desc": "get存储区同步存储空间信息",
         "id": "pf-mng-storageUpdate.get",
         "method": "GET",
-        "url": "platformaccess/authsec/sync/platform/storages/{storageId}/spec"
+        "url": "adminui/authsec/sync/platform/storages/{id}/spec"
     },
     {
-        "desc": "存储区同步计算资源信息",
+        "desc": "存储区同步存储空间信息",
         "id": "pf-mng-storageUpdate.put",
         "method": "PUT",
-        "url": "platformaccess/authsec/sync/platform/storages/spec"
+        "url": "adminui/authsec/sync/platform/storages/spec"
     },
     {
         "desc": "启用平台存储区",
         "id": "pf-mng-storage.enable",
-        "method": "GET",
-        "url": "platformaccess/authsec/platform/storage/{id}/enable"
+        "method": "PUT",
+        "url": "adminui/authsec/platform/storage/{id}/enable"
     },
     {
         "desc": "禁用平台存储区",
         "id": "pf-mng-storage.suspend",
-        "method": "GET",
-        "url": "platformaccess/authsec/platform/storage/{id}/suspend"
+        "method": "PUT",
+        "url": "adminui/authsec/platform/storage/{id}/suspend"
     },
     //update镜像同步
     {

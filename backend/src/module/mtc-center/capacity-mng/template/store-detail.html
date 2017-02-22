@@ -20,15 +20,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>cinder1</td>
-                    <td>高速I/O-1</td>
-                    <td>CEPH</td>
-                    <td>12800</td>
-                    <td>3</td>
-                    <td>85</td>
-                    <td>已启用</td>
+                <!--*ngFor="let storeInfo of storeInfoList"-->
+                <tr >
+                    <td>{{storeInfo.order}}</td>
+                    <td>{{storeInfo.storageName}}</td>
+                    <td>{{storeInfo.displayName}}</td>
+                    <td>{{storeInfo.storeType}}</td>
+                    <td>{{storeInfo.total}}</td>
+                    <td>{{storeInfo.copy}}</td>
+                    <td>{{storeInfo.peie}}</td>
+                    <td>{{storeInfo.status}}</td>
                 </tr>
             </tbody>
         </table>
@@ -36,11 +37,11 @@
     <div class="mgt20" style="font-size:18px;letter-spacing:2px;line-height:34px;">
         <div class="row row-line-height" style="margin:0;">
             <div class="col-md-3 form-control-title">云平台可分配容量：</div>
-            <div class="col-md-9"> 12800/3*0.85 GB</div>           
+            <div class="col-md-9">{{storeInfo.capacity}}</div>           
         </div>
         <div class="row row-line-height" style="margin:0;">
             <div class="col-md-3 form-control-title">云平台已分配：</div>
-            <div class="col-md-1"> XXX GB</div>  
+            <div class="col-md-1">{{storeInfo.allocation}}</div>  
             <div class="col-md-4 ">
                 <div class="table-progress">
                     <div class="progress">
@@ -48,13 +49,13 @@
                              style="width: 90%;">
                         </div>
                     </div>
-                    <span class="progress-value">90%</span>
+                    <span class="progress-value">{{storeInfo.allocationPercent}}</span>
                 </div>
             </div>                  
         </div>
         <div class="row row-line-height" style="margin:0;">
             <div class="col-md-3 form-control-title">存储实际利用率：</div>
-            <div class="col-md-1"> XXX GB</div>  
+            <div class="col-md-1">{{storeInfo.actual}}</div>  
             <div class="col-md-4 ">
                 <div class="table-progress">
                     <div class="progress">
@@ -62,7 +63,7 @@
                              style="width: 60%;">
                         </div>
                     </div>
-                    <span class="progress-value">60%</span>
+                    <span class="progress-value">{{storeInfo.actualPercent}}</span>
                 </div>
             </div>                 
         </div>
@@ -72,19 +73,19 @@
 
          <div class="row row-line-height" style="margin:0;">
              <div class="col-md-3 form-control-title">云主机启动盘：</div>
-            <div class="col-md-9">50 块</div>
+            <div class="col-md-9">{{storeInfo.startup}}块</div>
         </div>
          <div class="row row-line-height" style="margin:0;">
              <div class="col-md-3 form-control-title">云主机启动盘占用总容量 :</div>
-            <div class="col-md-9">180 GB</div>
+            <div class="col-md-9">{{storeInfo.startupCapacity}} GB</div>
         </div>
          <div class="row row-line-height" style="margin:0;">
              <div class="col-md-3 form-control-title">云硬盘：</div>
-            <div class="col-md-9">100 块</div>
+            <div class="col-md-9">{{storeInfo.disk}} 块</div>
         </div>
         <div class="row row-line-height" style="margin:0;">
              <div class="col-md-3 form-control-title">云硬盘占用总容量 :</div>
-            <div class="col-md-9">400 GB</div>
+            <div class="col-md-9">{{storeInfo.diskCapacity}} GB</div>
         </div>
     </div>
 </div>

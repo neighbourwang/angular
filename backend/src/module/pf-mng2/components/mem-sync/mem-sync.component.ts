@@ -13,7 +13,7 @@ import { ZoneListModel } from '../../cl-mng/model/cre-step3.model';
 })
 export class MemSyncComponent implements OnInit {
 
-	@Input()zone:ZoneListModel;
+	@Input()storage:ZoneListModel;
 
 	@Output() complete=new EventEmitter();
 
@@ -27,23 +27,23 @@ export class MemSyncComponent implements OnInit {
 
 	open() {
 		$('#memBox').modal('show');
-		console.log(this.zone);				
+		console.log(this.storage);				
 	}
 
 	update() {
-		console.log(this.zone);
+		console.log(this.storage);
 		let list=[];
-		list.push(this.zone);
-		this.layoutService.show()
-		this.service.putUpdateZone(list).then(
+		list.push(this.storage);
+		$('#memBox').modal('hide');
+		this.layoutService.show()		
+		this.service.putUpdateStorage(list).then(
             res => {
-                console.log('put同步计算资源', res);
-				$('#memBox').modal('hide');
-				this.complete.emit();
+                console.log('put同步存储区计算资源', res);
+                this.complete.emit();
 				this.layoutService.hide()
-            }			
+            }
         ).catch(err => {
-            console.error('put同步计算资源出错', err)
+            console.error('put同步存储区计算资源出错', err);
 			this.layoutService.hide()
         })
 		

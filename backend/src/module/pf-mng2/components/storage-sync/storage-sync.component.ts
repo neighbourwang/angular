@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { LayoutService, PopupComponent } from '../../../../architecture';
 import { StorageSyncService} from './storage-sync.service';
-import { ZoneListModel } from '../../cl-mng/model/cre-step3.model';
+import { StorageModel } from '../../cl-mng/model/cre-step4.model';
 
 @Component({
 	selector: 'storage-sync',
@@ -13,8 +13,8 @@ import { ZoneListModel } from '../../cl-mng/model/cre-step3.model';
 })
 export class StorageSyncComponent implements OnInit {
 
-	@Input()zone:ZoneListModel;
-
+	@Input()storageList:Array<StorageModel>;
+	@Input()type:string;
 	@Output() complete=new EventEmitter();
 
 	constructor(
@@ -27,26 +27,28 @@ export class StorageSyncComponent implements OnInit {
 
 	open() {
 		$('#storageBox').modal('show');
-		console.log(this.zone);				
+		console.log(this.storageList);	
+		console.log(this.type);			
 	}
 
 	update() {
-		console.log(this.zone);
-		let list=[];
-		list.push(this.zone);
+		console.log(this.storageList);
+		console.log(this.type);	
+		this.storageList.forEach(ele=>{
+			ele.quota=ele.quotaPercentDisplay/100;
+		})
+		$('#storageBox').modal('hide');				
 		this.layoutService.show()
-		this.service.putUpdateZone(list).then(
+		this.service.putUpdateStorageList(this.storageList).then(
             res => {
-                console.log('put同步计算资源', res);
-				$('#storageBox').modal('hide');
-				this.complete.emit();
-				this.layoutService.hide()
-            }			
+                console.log('同步', res);
+				this.layoutService.hide();
+				this.complete.emit();				
+            }
         ).catch(err => {
-            console.error('put同步计算资源出错', err)
-			this.layoutService.hide()
+            console.error('获取更新存储区列表出错', err);
+			this.layoutService.hide();
         })
-		
 	}
 
 

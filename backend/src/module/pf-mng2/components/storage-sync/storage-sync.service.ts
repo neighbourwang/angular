@@ -8,9 +8,9 @@ export class StorageSyncService {
                 private restApiCfg:RestApiCfg,
                 private restApi:RestApi) {
     }
-    //put同步宿主机信息
-    putUpdateZone (zoneList:any){
-        let api = this.restApiCfg.getRestApi("pf-mng-zoneUpdate.put");
-        return this.restApi.request(api.method , api.url,[],undefined,zoneList );
+    //平台新增存储区信息    
+    putUpdateStorageList (storgeList:any){
+        let api = this.restApiCfg.getRestApi("pf-mng-storagelist.post");
+        return this.restApi.request(api.method , api.url,[],undefined ,storgeList);
     }
 }

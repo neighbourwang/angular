@@ -39,8 +39,17 @@ export class ProdMngCreStep2Component implements OnInit {
     billingCycle:boolean=false;
     next() {
         if(!this.billingCycle){
-            this.notice.open('操作错误','请选择计价周期')
+            this.notice.open('操作错误','请选择计价周期');
+            return;
         }
+        this.service.product.basicCyclePrice=
+            this.service.product.basicCyclePrice?this.service.product.basicCyclePrice:0;
+        this.service.product.extendCyclePrice=
+            this.service.product.extendCyclePrice?this.service.product.extendCyclePrice:0;
+        this.service.product.oneTimePrice=
+            this.service.product.oneTimePrice?this.service.product.oneTimePrice:0;
+        this.service.product.unitPrice=
+            this.service.product.unitPrice?this.service.product.unitPrice:0;
         this.route.navigate(["prod-mng/prod-mng/prod-mng-cre-3"]);
     }
 

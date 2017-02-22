@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">同步可用区</h4>
+                <h4 class="modal-title" id="myModalLabel">同步存储空间</h4>
             </div>
             <div class="modal-body">
                 <div class="table-container">
@@ -11,26 +11,20 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>可用区名称</th>
-                                <th>显示名称</th>
-                                <th>当前宿主机</th>
-                                <th>物理CPU总核数</th>
-                                <th >总内存数(MB)</th>
+                                <th>名称</th>
+                                <th style="width:25%">显示名称</th>
+                                <th >总容量(GB)</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!--<tr>
+                            <tr>
                                 <td>1</td>
-                                <td>{{zone?.name||'NULL'}}</td>
+                                <td>{{storage?.name||'NULL'}}</td>
                                 <td>
-                                    {{zone?.displayName||'NULL'}}
+                                    {{storage?.displayName||'NULL'}}
                                 </td>
-                                <td>
-                                    <p *ngFor="let host of zone.hosts">{{host||0}}</p>
-                                </td>
-                                <td>{{zone?.vcpunum}}</td>
-                                <td>{{zone?.memSize}}</td>                                
-                            </tr>-->
+                                <td>{{storage?.maximum||0}}</td>                             
+                            </tr>
                         </tbody>
                     </table>
                 </div>
