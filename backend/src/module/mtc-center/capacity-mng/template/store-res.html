@@ -1,6 +1,6 @@
 ﻿<div class="page-content-header icon-content-header-operation-center">
     存储资源容量管理
-    <span style="font-size:16px;">云平台名称： ABCABC     平台类型：   XXXXXXX      访问地址： XXXXXXXXX</span>
+    <span style="font-size:16px;">云平台名称:{{selectedPf.name}}     平台类型：{{selectedPf.platformType}}      访问地址：{{selectedPf.uri}}</span>
     <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" (click)="BacktoCapacityMng()">
         返回云平台容量管理
     </button>
@@ -27,14 +27,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td><a (click)="gotoStoreDetail()">cinder1</a></td>
-                    <td>高速I/O-1</td>
-                    <td>CEPH</td>
-                    <td>12800</td>
-                    <td>3</td>
-                    <td>85</td>
+                <tr *ngFor="let storage of storageList">
+                    <td>{{storage.order}}</td>
+                    <td><a (click)="gotoStoreDetail(storage)">{{storage.storageName}}</a></td>
+                    <td>{{storage.displayName}}</td>
+                    <td>{{storage.storeType}}</td>
+                    <td>{{storage.capacity}}</td>
+                    <td>{{storage.copy}}</td>
+                    <td>{{storage.peie}}</td>
                     <td class="table-progress" > 
                         <div>                  
                         <div class="progress" >
@@ -42,7 +42,7 @@
                                  style="width: 90%;">
                             </div>
                         </div>
-                        <span class="progress-value">90%</span>
+                        <span class="progress-value">{{storage.qurta}}</span>
                         </div>                     
                     </td>
                     <td class="table-progress" >   
@@ -52,41 +52,12 @@
                                  style="width: 60%;">
                             </div>
                         </div>
-                        <span class="progress-value">60%</span>
+                        <span class="progress-value">{{storage.usage}}</span>
                         </div>                            
                      </td>
-                    <td class="font-green">已启用</td>
+                    <td class="font-green">{{storage.status}}</td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>cinder2</td>
-                    <td>高速I/O-1</td>
-                    <td>CEPH</td>
-                    <td>12800</td>
-                    <td>3</td>
-                    <td>85</td>
-                    <td class="table-progress">
-                        <div>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-info"
-                                     style="width: 20%;">
-                                </div>
-                            </div>
-                            <span class="progress-value">20%</span>
-                        </div>      
-                    </td>
-                    <td class="table-progress">
-                        <div>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-info"
-                                     style="width: 50%;">
-                                </div>
-                            </div>
-                            <span class="progress-value">50%</span>
-                        </div>   
-                    </td>
-                    <td class="font-orange">未启用</td>
-                </tr>
+                
             </tbody>
         </table>
     </div>
