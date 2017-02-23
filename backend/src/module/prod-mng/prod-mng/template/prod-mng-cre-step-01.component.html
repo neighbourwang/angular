@@ -26,7 +26,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品目录：</div><!--产品目录-->
 					<div class="col-sm-4">
-						<input type="text" class="form-control" [(ngModel)]="this.service.productDir.serviceName" placeholder="{{'PROD_MNG.PROD_NAME' | translate}}">
+						<input type="text" class="form-control" disabled [(ngModel)]="this.service.productDir.serviceName">
 					</div>
 				</div>
 			</div>
@@ -56,7 +56,6 @@
 						<div class="col-sm-4 form-control-title"></div>
 						<div class="col-sm-4 row-line-child font-gray">
 							<div class="font-gray">{{'PROD_MNG.ROOT_DISK_SIZE' | translate}}</div><!--启动盘大小-->
-
 							<div class="mid-line-child border-gray font-gray">{{this.service.productDir?.specification?.startupDisk||0}}</div>
 							<div class="last-line-child font-gray">GB</div>
 						</div>

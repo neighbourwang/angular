@@ -389,19 +389,15 @@
 							<tr>
 								<th>创建时间</th>
 								<!--产品名称-->
-
-								<th>{{'PROD_MNG.PRODUCT_CAT' | translate}}</th>
+								<!--<th>{{'PROD_MNG.PRODUCT_CAT' | translate}}</th>-->
 								<!--产品目录-->
-
-								<!--<th>{{'PROD_MNG.PRODUCT_TYPE' | translate}}</th>-->
-								<!--产品类别-->
-
-								<th>{{'PROD_MNG.PRODUCT_SPEC' | translate}}</th>
+								<th>{{'PROD_MNG.PRODUCT_TYPE' | translate}}</th>
+								<!--产品规格-->
+								<!--<th>{{'PROD_MNG.PRODUCT_SPEC' | translate}}</th>-->
 								<th>{{'COMMON.COUNT_CYCLE' | translate}}</th>
 								<!--计费周期-->
-
-								<th>{{'COMMON.CYCLE_COST' | translate}}</th>
-								<!--周期价格-->
+								<th>产品基础周期价格</th>
+								<th>产品增量周期价格</th>
 
 								<th>{{'PROD_MNG.ONE_TIME_PRICE' | translate}}</th>
 								<!--一次性价格-->
@@ -411,44 +407,17 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr *ngFor="let item of productList; let idx = index;">
-								<td><input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)"
-									/></td>
-								<td (click)="goDetail(item)" style="cursor: pointer">{{item.name}}</td>
-								<td>{{item.serviceName}}</td>
-								<td>
-									<!--{{item.serviceType}}-->
-									<span [ngSwitch]="item.serviceType"> 
-							<template ngSwitchCase="0">{{'COMMON.CLOUD_HOSTING' | translate}}</template>
-							<template ngSwitchCase="1">{{'COMMON.CLOUD_HARD_DISK' | translate}}</template><!--云硬盘-->
-
-							<template ngSwitchDefault>Unknown</template>							
-						</span>
-								</td>
-								<td>{{item.serviceSpecification}}</td>
-								<td>
-									<span [ngSwitch]="item.billingCycle"> 
-							<template [ngSwitchCase]="0">{{'COMMON.BY_HOUR' | translate}}</template>
-							<template [ngSwitchCase]="1">{{'COMMON.BY_DAY' | translate}}</template>
-							<template [ngSwitchCase]="2">{{'COMMON.BY_WEEK' | translate}}</template>
-							<template [ngSwitchCase]="3">{{'COMMON.BY_MONTH1' | translate}}</template>							
-							<template [ngSwitchCase]="5">{{'COMMON.BY_YEAR1' | translate}}</template>							
-							<template ngSwitchDefault>Unknown</template>							
-						</span>
-								</td>
-								<td>{{item.recurringPrice}}</td>
-								<td>{{item.onetimePrice}}</td>
-								<td>
-									<span [ngSwitch]="item.status">
-                            <template [ngSwitchCase]="1">{{'PROD_MNG.HAS_PUBLISHED' | translate}}</template><!--已发布-->
-
-                            <template [ngSwitchCase]="3">{{'PROD_MNG.NOT_PUBLISHED_YET' | translate}}</template><!--未发布-->
-
-                            <template ngSwitchDefault>Unknown</template>
-                    	</span>
-								</td>
-								<td>{{item.description}}</td>
-							</tr>
+							<tr *ngFor="let price of historyPriceList.productHistoryBillingProfileList; let idx = index;">
+								<td>{{price.createDate}}</td>
+								<td>{{historyPriceList.serviceName}}</td>
+								<!--<td>{{historyPriceList.productHistoryBillingProfileDiskItem}}</td>-->
+								<!--<td>{{historyPriceList.}}</td>-->
+								<td>{{price.billingCycle}}</td>
+								<td>{{price.basicCyclePrice}}</td>
+								<td>{{price.extendCyclePrice}}</td>
+								<td>{{price.oneTimePrice}}</td>
+								<td>{{price.unitPrice}}</td>
+							<tr>	
 						</tbody>
 					</table>
 				</div>

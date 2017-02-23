@@ -66,7 +66,6 @@
 					<div class="col-sm-4">
 						<div class="prodSpecific">
 							<span class="form-line-height font-gray" >{{'PROD_MNG.ROOT_DISK_SIZE' | translate}}</span><!--启动盘大小-->
-
 							<span >
 								<count-bar [default]=0 [step]=100 [max]=100000 [min]=0 [disabled]=true [value]="prodDir.specification.startupDisk" (output)="outputValue($event,'startupDisk')"></count-bar>
 							</span>
