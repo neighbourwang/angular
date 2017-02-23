@@ -19,13 +19,13 @@
 			            </tr>
 			        </thead>
 			        <tbody>
-			            <tr>
-			                <td>1</td>
-			                <td>上海慧于</td>
-			                <td>现金</td>
-			                <td>1个月</td>
-			                <td>2017-2-13</td>
-			                <td>2017-2-13</td>
+			            <tr *ngFor="let item of costItemLoader.Items;let i =index">
+			                <td>{{i}}</td>
+			                <td>{{item.name}}</td>
+			                <td>{{item.payway}}</td>
+			                <td>{{item.cicleTime}}</td>
+			                <td>{{item.endDate}}</td>
+			                <td>{{item.sentDate}}</td>
 			            </tr>               
 			        </tbody>
 			    </table>

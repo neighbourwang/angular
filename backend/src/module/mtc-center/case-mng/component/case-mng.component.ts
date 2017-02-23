@@ -30,7 +30,8 @@ export class CaseMngComponent implements OnInit {
 
     @ViewChild("notice")
     notice: NoticeComponent;
-
+    @ViewChild("confirm")
+    confirm: NoticeComponent;
     @ViewChild("page")
     page:PaginationComponent;
 
@@ -38,8 +39,8 @@ export class CaseMngComponent implements OnInit {
     noticeMsg = "";
 
     totalPage = 1;
-    pageIndex =0;
-    pageSize = 10;
+    pageIndex =1;
+    pageSize = 2;
     
     caseList:Array< CaseListModel>;
     enterpriseList:Array<Enterprise>;
@@ -106,7 +107,13 @@ export class CaseMngComponent implements OnInit {
             this.showAlert("请选择需要关闭的工单");
             return;
         }
-        this.route.navigate(['mtc-center/case-mng/case-closed',{id:selectCase.id}])
+        if(selectCase.statusName=="新建"||selectCase.statusName=="处理中"){
+            this.route.navigate(['mtc-center/case-mng/case-closed',{id:selectCase.id}])
+        }
+       else{
+            this.showAlert("工单状态只有为新建或处理中才能关闭，请选择需要关闭的工单！");
+            return;
+       }
        
     }
 
@@ -117,7 +124,14 @@ export class CaseMngComponent implements OnInit {
             this.showAlert("请选择需要处理的工单");
             return;
         }
-        this.route.navigate(['mtc-center/case-mng/case-operated',{id:selectCase.id}])
+        if(selectCase.statusName!=="已关闭"){
+            this.route.navigate(['mtc-center/case-mng/case-operated',{id:selectCase.id}])
+        }
+        else{
+             this.showAlert("工单状态只有为新建时才能处理，请选择需要处理的工单！");
+            return; 
+        }
+       
         
     }
 

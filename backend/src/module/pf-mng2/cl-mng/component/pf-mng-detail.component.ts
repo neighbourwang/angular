@@ -56,6 +56,8 @@ export class PfDetailComponent implements OnInit {
 
     @ViewChild('zoneSync') zoneSync;
     @ViewChild('hostSync') hostSync;
+    @ViewChild('storageSync') storageSync;
+    @ViewChild('memSync') memSync;
 
 
     // 确认Box/通知Box的标题
@@ -191,7 +193,6 @@ export class PfDetailComponent implements OnInit {
             console.error('获取可用区列表出错', err)
             this.layoutService.hide();
         })
-
     }   
     //启用可用区
     enableZone(id: string) {
@@ -284,8 +285,7 @@ export class PfDetailComponent implements OnInit {
         })
     }
     
-    //同步更新宿主机信息get
-    
+    //同步更新宿主机信息get    
     updateHostPop(zoneId) {
         console.log(zoneId);
         this.layoutService.show();              
@@ -443,62 +443,43 @@ export class PfDetailComponent implements OnInit {
             res => {
                 this.updateStorageList = res.resultContent;
                 if (this.updateStorageList.length == 0) {
-                    this.notice.open('oo', 'PF_MNG2.NO_SYNC_ZONES')  //暂时没有可同步可用区信息
+                    this.notice.open('提示', 'PF_MNG2.NO_SYNC_ZONES')  //暂时没有可同步可用区信息
                 } else {
                     this.updateStorageList.forEach(ele => {
-                        // if (ele.quotaPercentage) {
-                        //     ele.quotaPercentDisplay = ele.quotaPercentage * 100;
-                        // }
+                        ele.quota=
+                            ele.quota?ele.quota:0;
+                        ele.quotaPercentDisplay = ele.quota * 100;
                     })
                     console.log('同步', res);
+                    this.storageSync.open();
                 }
             }
         ).catch(err => {
             console.error('获取更新可用区列表出错', err)
         })
     }
-    //同步存储区
-    otUpdateStorageList() {
-        this.platformDetailService.putUpdateStorageList(this.updateStorageList).then(
-            res => {
-                console.log('同步', res);
-                this.getStorageList();
-            }
-        ).catch(err => {
-            console.error('获取更新存储区列表出错', err)
-        })
-    }
-    //同步存储后端get
-    countStorageResourceList: Array<StorageModel>;
+    //同步存储空间get
+    updateStorageMem: StorageModel;
     updateStorage(StorageId) {
         console.log(StorageId);
         this.platformDetailService.getUpdateStorageCount(StorageId).then(
             res => {
-                console.log('同步计算资源', res);
+                console.log('同步存储空间', res);
                 if (res.resultCode == 100) {
-                    if (res.resultContent && res.resultContent.length > 0) {
-                        this.countStorageResourceList = res.resultContent;
+                    if (res.resultContent) {
+                        this.updateStorageMem = res.resultContent;
+                        this.memSync.open();
                     } else {
-                        this.notice.open('oo', 'PF_MNG2.NO_SYNC_COMPUTING_SOURCE')
+                        this.notice.open('提示', 'PF_MNG2.NO_SYNC_COMPUTING_SOURCE')
                     }
 
                 }
             }
         ).catch(err => {
-            console.error('获取同步计算资源出错', err)
+            console.error('获取同步存储空间出错', err)
         })
     }
-    //同步存储后端put
-    otUpdateStorage() {
-        this.platformDetailService.putUpdateStorageCount(this.countStorageResourceList).then(
-            res => {
-                console.log('put同步存储区计算资源', res);
-                this.getStorageList();
-            }
-        ).catch(err => {
-            console.error('put同步存储区计算资源出错', err)
-        })
-    }
+   
     //返回
     back() {
         this.location.back();

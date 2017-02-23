@@ -42,7 +42,7 @@
             </button>-->
 			<select class="form-control" [(ngModel)]="queryProDirTypeId">
 					<option value="">--{{'PROD_MNG.ALL_PRODUCT_TYPE'|translate}}--</option>
-                 <option *ngFor="let item of prodDirTypeList;" [value]="item.id">{{item.name}}</option>
+                 <!--<option *ngFor="let item of prodDirTypeList;" [value]="item.id">{{item.name}}</option>-->
             </select>
 		</div>
 		<span class="pull-right" style="line-height: 34px">{{'PROD_MNG.PRODUCT_CAT_CLASS' | translate}}：</span><!--产品目录类别-->
@@ -104,7 +104,7 @@
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT_CLASS' | translate}}:</div>
 			<div class="col-sm-6">
-				<select class="form-control" [(ngModel)]="prodDirTypeId" (ngModelChange)="selectProDirType($event)">
+				<select class="form-control" [(ngModel)]="prodDirTypeId">
                     <option *ngFor="let item of prodDirTypeList;" [value]="item.id">{{item.name}}</option>
                 </select>
 			</div>
@@ -122,13 +122,13 @@
                     </div>
                 </div>
             </div>-->
-	<div *ngIf="showSpec">
+	<div *ngIf="prodDirTypeId=='33f23ade-a0f8-11e6-a18b-0050568a49fd'">
 		<div class="row row-line-height">
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>云主机规格选择:</div>
 			<div class="col-sm-6">
 				<select class="form-control" [(ngModel)]="prodDirSpecIdx" (ngModelChange)="selectProDirSpec(prodDirSpecIdx)">
-                    <option *ngFor="let item of vmProdDirSpecList; let idx=index" [value]="idx">{{'名称：'+item.cpu+' CPU,'+item.mem+' GB,'+item.bootStorageSize||0+' GB'}}</option>
+                    <option *ngFor="let item of vmProdDirSpecList; let idx=index" [value]="idx">{{'名称：'+item.cpu+' CPU,'+item.mem+' GB,'+item.bootStorageSize+' GB'}}</option>
                 </select>
 			</div>
 		</div>

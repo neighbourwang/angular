@@ -12,7 +12,6 @@ import { ClMngListService } from '../service/cl-mgn-list.service';
 import { ClMngCommonService } from '../service/cl-mng-common.service';
 
 //model
-import { Platform } from '../model/platform.model';
 
 @Component({
     templateUrl: '../template/pf-mng-cloudHostSpec.component.html',
@@ -32,18 +31,14 @@ export class CloudHostSpecComponent implements OnInit {
                 private service:ClMngListService,
                 private route:Router,
                 private router:ActivatedRoute,
-                private commonService : ClMngCommonService,
                 private location :Location
                 ) {
     }
 
 
 
-    @ViewChild('publishConfirm')
-    publishConfirm: ConfirmComponent;
-
-    @ViewChild('ccPublishConfirm')
-    ccPublishConfirm: ConfirmComponent;
+    @ViewChild('confirm')
+    confirm: ConfirmComponent;
 
     @ViewChild('deleteConfirm')
     deleteConfirm: ConfirmComponent;
@@ -51,15 +46,10 @@ export class CloudHostSpecComponent implements OnInit {
     @ViewChild('notice')
     notice: NoticeComponent;
 
-    // 确认Box/通知Box的标题
-    title:String = "";
-    // 确认Box/通知Box的内容
-    msg:String = "";
     // 云平台类型
-    platFormType : Array<any> = new Array<any>();
-    // 云平台状态
-    platFormStatus : Array<any> = new Array<any>();
-
+    platFormType : string;
+    // 云平台类型名
+    platformTypeName :string;
 
   
     platformName:string;
@@ -71,32 +61,34 @@ export class CloudHostSpecComponent implements OnInit {
         this.router.params.forEach((params: Params)=>{
              id=params['id'];
              this.platformName=params['name'];
-             this.platformType=params['type']
+             this.platformType=params['type'];
+             this.platformTypeName=
+                this.platFormType=='0'?'OpenStack':'Vmware';
              console.log(id,type,name)
-            //  (type=='0')&&(this.vmProdDir=true);
-            //  (type=='1')&&(this.vmProdDir=false);             
-        })
-        
+        })     
          
         
     }
-   getProddir() {
-        // let proddir : Proddir ;
-        // for(let i = 0 ; i < this.prodDirList.length ; i ++){
-        //     if(this.prodDirList[i].isSelected == true){
-        //         proddir = this.prodDirList[i];
-        //     }
-        // }
-        // return proddir;
+    //启用云主机规格
+    enableSpec(){}
+    //删除云主机规格
+    deleSpec(){
+
     }
+    //Opstack更新云主机规格
+    updateSpec(){
+
+    }
+    //VMware新建云主机规格
+    createSpec(){
+
+    }
+
     back(){
         this.location.back();
     }
     goList(){
         this.route.navigate(['pf-mng2/cl-mng/cl-mng'])
     }
-    save(){}
-    createBootDisk(){
-        this.route.navigate(['pf-mng2/pf-mng-bootDisk-creEdit'])
-    }
+    save(){}    
 }

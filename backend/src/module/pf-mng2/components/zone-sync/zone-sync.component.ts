@@ -38,11 +38,11 @@ export class ZoneSyncComponent implements OnInit {
             zone.quotaPercentage = zone.quotaPercentDisplay * 0.01
         }
 		console.log(this.zoneList);
+		$('#zoneBox').modal('hide');		
 		this.layoutService.show();
 		this.service.putUpdateZoneList(this.zoneList).then(res=>{
 			console.log(res);
 			this.complete.emit();
-			$('#zoneBox').modal('hide');
 			this.layoutService.hide();
 		}).catch(err=>{
 			console.error(err)

@@ -8,9 +8,9 @@ export class MemSyncService {
                 private restApiCfg:RestApiCfg,
                 private restApi:RestApi) {
     }
-    //put同步宿主机信息
-    putUpdateZone (zoneList:any){
-        let api = this.restApiCfg.getRestApi("pf-mng-zoneUpdate.put");
-        return this.restApi.request(api.method , api.url,[],undefined,zoneList );
+     //put存储区同步存储空间信息
+    putUpdateStorage (storageList:any){
+        let api = this.restApiCfg.getRestApi("pf-mng-storageUpdate.put");
+        return this.restApi.request(api.method , api.url,[],undefined,storageList );
     }
 }
