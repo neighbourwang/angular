@@ -74,7 +74,7 @@
                         <div class="ues-content">
                             <!--<canvas id="h_bar_chart" width="200" height="70"></canvas>-->
 							 <canvas baseChart
-                          width="200" height="70"
+                          width="200" *ngIf="ent_hbar" height="70"
                           [datasets]="ent_hbar"
                           [labels]="h_chart.labels"
                           [colors]="h_chart.colors"
@@ -86,7 +86,7 @@
                 <div class="col-sm-6">
                     <div class="console-box">
                         <div class="console-title">TOP5部门新增总额排名</div>
-						 <canvas baseChart
+						 <canvas *ngIf="ent_hbar2" baseChart
                           width="200" height="70"
                           [datasets]="ent_hbar2"
                           [labels]="h_chart2.labels"
