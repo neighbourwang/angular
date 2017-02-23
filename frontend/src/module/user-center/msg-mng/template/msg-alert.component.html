@@ -1,0 +1,17 @@
+<div class="alert-c" #container>
+    <div class="alert-icon" (click)="open();"></div>
+    <div *ngIf="msgAlert.edge!=0" class="alert-edge">{{msgAlert.edge}}</div>
+    <div class="alert-popup" *ngIf="expand"> 
+        <div class="alert-title">消息通知</div>
+        <ul class="alert-list">
+            <li>this is message one</li>
+            <li>this is message two</li>
+            <li>this is message three</li>
+            <li>this is message four</li>
+            <li>this is message five</li>
+        </ul>
+        <div class="alert-center">
+            更多消息
+        </div>
+    </div>
+</div>
