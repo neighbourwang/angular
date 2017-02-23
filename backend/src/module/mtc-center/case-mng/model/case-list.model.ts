@@ -12,20 +12,15 @@ export class CaseListModel{
     contactNo: string;//联系电话
     creatorName: string;  //提交者
     creatorTenant: string;// 所属企业
-    createDate: CaseDate;//创建时间
-    updateDate: CaseDate;//更新时间
+    createDate: string;//创建时间
+    updateDate: string;//更新时间
     isSelect=false;
 
 }
-export class CaseDate{
-    date:number;
-    day:number;
-    hours:number;
-    minutes:number;
-    month:number;
-    nanos:number;
-    seconds:number;
-    time:number;
-    timezoneOffset:number;
-    year:number;
+export class queryParm{
+    subject:string=" ";
+    tenantId:string=" ";
+    type:string=" ";
+    status:string=" ";
+    emergency:string=" ";
 }

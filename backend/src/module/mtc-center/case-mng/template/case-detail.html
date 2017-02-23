@@ -3,11 +3,11 @@
 </div>
 <div class="page-content">
    <div style="padding-left:20%">
-       <div   style="padding-left: 6%;position:relative;height: 34px;line-height: 34px;">
+        <div   style="padding-left: 6%;position:relative;height: 34px;line-height: 34px;margin-top:20px;">
             <span style="border:3px solid #00a982;border-radius:50px;"></span>
-              <div style="font-size:18px;font-weight:700;position:absolute;left:75px;top:0px">基本信息</div>
+            <div style="font-size:18px;font-weight:700;position:absolute;left:75px;top:0px">基本信息</div>
         </div>
-        <div class="  mgt20" style="padding-left:9%;font-size:18px"> 基本信息</div>
+       
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-2 form-control-title" >主题:</div>
@@ -46,13 +46,13 @@
             <div class="  col-md-4" >
                 <div class="form-group">
                     <div class="col-sm-6 form-control-title" >提交者:</div>
-                    <div class="col-md-4">  <span style="line-height:34px">{{caseInfo.creatorName}}</span> </div> 
+                    <div class="col-md-6">  <span style="line-height:34px">{{caseInfo.creatorName}}</span> </div> 
                 </div>
             </div>
         <div class="col-md-4"> 
                 <div class="form-group">
                     <div class="col-sm-5 form-control-title" >提交时间:</div>
-                    <div class="col-md-7">  <span style="line-height:34px">{{caseInfo.updateDate| formatDate}}</span> </div> 
+                    <div class="col-md-7">  <span style="line-height:34px">{{caseInfo.updateDate}}</span> </div> 
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
             <div class="col-md-4" > 
                 <div class="form-group">
                     <div class="col-sm-6 form-control-title" >所属部门:</div>
-                    <div class="col-md-4">  <span style="line-height:34px">{{caseInfo.creatorOrganization}}</span> </div> 
+                    <div class="col-md-6">  <span style="line-height:34px">{{caseInfo.creatorOrganization}}</span> </div> 
                 </div>
             </div>
             <div class="col-md-4">  
@@ -78,9 +78,13 @@
                 </div>
             </div>
         </div>
-
+        
        <div *ngIf="caseInfo.statusName=='处理中'||caseInfo.statusName=='已关闭'">
-            <div class="  mgt20" style="padding-left:9%;font-size:18px" > 处理信息</div> 
+           <div style="border-top:1px solid #00a982;width: 750px;margin-top: 20px;"></div>
+           <div   style="padding-left: 6%;position:relative;height: 34px;line-height: 34px;margin-top:30px;">
+                <span style="border:3px solid #00a982;border-radius:50px;"></span>
+                <div style="font-size:18px;font-weight:700;position:absolute;left:75px;top:0px">处理信息</div>
+            </div> 
             <div *ngFor="let handleInfo of handleInfoes" >      
                 <div class="row row-line-height">  
                     <div class="form-group">
@@ -92,13 +96,13 @@
                     <div class="col-md-4" > 
                         <div class="form-group">
                             <div class="col-sm-6 form-control-title" >处理人:</div>
-                            <div class="col-md-4">  <span style="line-height:34px">{{handleInfo.handlerName}}</span> </div> 
+                            <div class="col-md-6">  <span style="line-height:34px">{{handleInfo.handlerName}}</span> </div> 
                         </div>
                     </div>
                     <div class="col-md-4">  
                         <div class="form-group">
                             <div class="col-sm-5 form-control-title" >处理时间:</div>
-                            <div class="col-md-7">  <span style="line-height:34px">{{handleInfo.handleDate|formatDate}}</span> </div> 
+                            <div class="col-md-7">  <span style="line-height:34px">{{handleInfo.handleDate}}</span> </div> 
                         </div>
                     </div>
                 </div>                      
@@ -114,7 +118,11 @@
         </div>
         
         <div *ngIf="caseInfo.statusName=='已关闭'">
-            <div class="  mgt20" style="padding-left:9%;font-size:18px" > 关闭信息</div>   
+            <div style="border-top:1px solid #00a982;width: 750px;margin-top: 20px;"></div>
+            <div   style="padding-left: 6%;position:relative;height: 34px;line-height: 34px;margin-top:30px;">
+                <span style="border:3px solid #00a982;border-radius:50px;"></span>
+                <div style="font-size:18px;font-weight:700;position:absolute;left:75px;top:0px">关闭信息</div>
+            </div>   
             <div class="row row-line-height">  
                 <div class="form-group">
                     <div class="col-sm-2 form-control-title">关闭人:</div>
@@ -125,13 +133,13 @@
                 <div class="  col-md-4" >
                     <div class="form-group">
                         <div class="col-sm-6 form-control-title" >关闭类型:</div>
-                        <div class="col-md-4">  <span style="line-height:34px">{{closeInfo.closeType}}</span> </div> 
+                        <div class="col-md-6">  <span style="line-height:34px">{{closeInfo.closeType}}</span> </div> 
                     </div>
                 </div>
                 <div class="col-md-4"> 
                     <div class="form-group">
                         <div class="col-sm-5 form-control-title" >关闭时间:</div>
-                        <div class="col-md-7">  <span style="line-height:34px">{{closeInfo.closeDate|formatDate}}</span> </div> 
+                        <div class="col-md-7">  <span style="line-height:34px">{{closeInfo.closeDate}}</span> </div> 
                     </div>
                 </div>
             </div>
