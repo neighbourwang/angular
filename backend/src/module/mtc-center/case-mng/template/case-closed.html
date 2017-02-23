@@ -1,5 +1,5 @@
 <div class="page-content-header icon-content-header-operation-center">
-    关闭工单：9-不能访问公司OA系统主机  
+    关闭工单：{{caseInfo.id}}-{{caseInfo.subject}} 
 </div>
 <div class="page-content">
 
@@ -7,32 +7,32 @@
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title" >主题:</div>
-            <div class="col-md-4"> <span style="line-height:34px">不能访问公司OA系统主机</span> </div>
+            <div class="col-md-4"> <span style="line-height:34px">{{caseInfo.subject}}</span> </div>
         </div>
     </div>
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title" >类别:</div>
-            <div class="col-md-4"> <span style="line-height:34px"> 云主机 </span></div>
+            <div class="col-md-4"> <span style="line-height:34px"> {{caseInfo.typeName}}</span></div>
         </div>
     </div>
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title" > 联系人:</div>
-            <div class="col-md-4"> <span style="line-height:34px">管华</span> </div>
+            <div class="col-md-4"> <span style="line-height:34px">{{caseInfo.contact}}</span> </div>
         </div>
     </div>                   
     <div class="row row-line-height">  
         <div class="form-group">
             <div class="col-sm-4 form-control-title" >联系电话:</div>
-            <div class="col-md-4">  <span style="line-height:34px">02164223399</span> </div> 
+            <div class="col-md-4">  <span style="line-height:34px">{{caseInfo.contactNo}}</span> </div> 
         </div>
     </div>
     <div class="row row-line-height">  
         <div class="form-group">
             <div class="col-sm-4 form-control-title" >描述:</div>
             <div class="col-md-4">
-                <textarea class="form-control" rows="3" placeholder=""></textarea>
+                <textarea class="form-control" rows="3" placeholder="">{{caseInfo.details}}</textarea>
             </div>
         </div>
     </div>
@@ -43,8 +43,9 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>关闭类型:</div>
             <div class="col-md-4">
-                <select class="form-control">
-                    <option>完成</option>
+                <select class="form-control" [(ngModel)]="closeInfo.closeType">
+                    <option value=" ">所有</option>
+                    <option *ngFor="let v of service.dictClose | async" [value]="v.value">{{v.displayValue}}</option>
                 </select>
             </div>
         </div>
@@ -53,44 +54,48 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>描述:</div>
             <div class="col-md-4">
-                <textarea class="form-control" rows="3" placeholder=""></textarea>
+                <textarea class="form-control" rows="3" placeholder="" [(ngModel)]="closeInfo.closeInfo"></textarea>
             </div>
         </div>
     </div>
 
     <div class="  mgt20" style="padding-left:27%;font-size:18px"> 处理信息</div> 
-    <div class="row row-line-height">  
-        <div class="form-group">
-            <div class="col-sm-4 form-control-title" >紧急程度:</div>
-            <div class="col-md-4">  <span style="line-height:34px">紧急</span> </div> 
-        </div>
-    </div>
-    <div class="row row-line-height">  
-        <div class="form-group">
-            <div class="col-sm-4 form-control-title">处理人:</div>
-            <div class="col-md-4">  <span style="line-height:34px">戴侯华</span> </div> 
-        </div>
-    </div>
-    <div class="row row-line-height">  
-        <div class="form-group">
-            <div class="col-sm-4 form-control-title">处理时间:</div>
-            <div class="col-md-4">  <span style="line-height:34px">2016-12-13 16:00:00</span> </div> 
-        </div>
-    </div>
-    <div class="row row-line-height">  
-        <div class="form-group">
-            <div class="col-sm-4 form-control-title" style="padding:0">处理记录:</div>
+    <div *ngFor="let handleInfo of handleInfoes" style="padding-left:20.5%">      
+        <div class="row row-line-height">  
+            <div class="form-group">
+                <div class="col-sm-2 form-control-title" >紧急程度:</div>
+                <div class="col-md-4">  <span style="line-height:34px">{{handleInfo.emergency}}</span> </div> 
+            </div>
+        </div>  
+        <div class="row row-line-height"> 
+            <div class="col-md-4" > 
+                <div class="form-group">
+                    <div class="col-sm-6 form-control-title" >处理人:</div>
+                    <div class="col-md-4">  <span style="line-height:34px">{{handleInfo.handlerName}}</span> </div> 
+                </div>
+            </div>
             <div class="col-md-4">  
-                    <textarea class="form-control" rows="3" ></textarea>
-            </div> 
+                <div class="form-group">
+                    <div class="col-sm-5 form-control-title" >处理时间:</div>
+                    <div class="col-md-7">  <span style="line-height:34px">{{handleInfo.handleDate|formatDate}}</span> </div> 
+                </div>
+            </div>
+        </div>                      
+        <div class="row row-line-height">  
+            <div class="form-group">
+                <div class="col-sm-2 form-control-title">处理记录:</div>
+                <div class="col-md-4">  
+                    <textarea class="form-control" rows="3" placeholder="最多只能输入1000个文字">{{handleInfo.handleInfo}}</textarea>
+                </div> 
+            </div>
         </div>
     </div>
 </div>
 <div class="text-center mgt20">
-    <button class="fox-cloud-button-lg fox-cloud-button-white">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="backtoList();">
         <span class="icon-button-label">取消</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="closeCase();">
         <span class="icon-button-label">保存</span>
     </button>
 </div>

@@ -5,6 +5,7 @@ import { AccountMngModule } from './account-mng/account-mng.module';
 import { PersonAccMngModule } from './person-acc-mng/person-acc-mng.module';
 import { OrgMngModule } from './org-mng/org-mng.module';
 import { CaseMngModule } from './case-mng/case-mng.module';
+import { MsgMngModule } from './msg-mng/msg-mng.module';
 
 @NgModule({
     imports: [
@@ -12,14 +13,16 @@ import { CaseMngModule } from './case-mng/case-mng.module';
         PersonAccMngModule,
         OrgMngModule,
         CommonComponentModule,
-        CaseMngModule
+        CaseMngModule,
+        MsgMngModule
     ],
     declarations: [],
     exports: [
         AccountMngModule,
         PersonAccMngModule,
         OrgMngModule,
-        CaseMngModule
+        CaseMngModule,
+        MsgMngModule
     ],
     providers: []
 })

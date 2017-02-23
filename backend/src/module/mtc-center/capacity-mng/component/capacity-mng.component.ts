@@ -63,7 +63,20 @@ export class CapacityMngComponent implements OnInit {
     }
 
     gotoComputeRes() {
-        this.router.navigate([`mtc-center/capacity-mng/compute-res`]);
+        const selectedPf = this.pfList.find((pf) => { return pf.selected });
+        if (!selectedPf) {
+            this.showAlert("请选择云平台");
+            return;
+        }
+        this.router.navigate([
+            `mtc-center/capacity-mng/compute-res`,
+            {
+                "pfId":selectedPf.id,
+                "pfName": selectedPf.name,
+                "pfType": selectedPf.platformType,
+                "pfUri":selectedPf.uri
+            }
+        ]);
     }
 
     gotoStoreRes() {
@@ -75,9 +88,11 @@ export class CapacityMngComponent implements OnInit {
         this.router.navigate([
             `mtc-center/capacity-mng/store-res`,
             {
+                "pfId":selectedPf.id,
                 "pfName": selectedPf.name,
                 "pfType": selectedPf.platformType,
-                "pfUri":selectedPf.uri
+                "pfUri": selectedPf.uri
+                
             }
         ]);   
     }

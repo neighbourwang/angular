@@ -1987,31 +1987,31 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取机构管理员负责的机构下所有工单",
         "id": "case-mng.case.list.get",
         "method": "GET",
-        "url": "worklistmgmt/authsec/admworklist/{page}/{size}"
+        "url": "basis/authsec/adm/worklist/{page}/{size}"
     },
     {
         "desc": "机构管理员根据工单主题模糊查询工单",
         "id": "case-mng.case.subject.search",
         "method": "GET",
-        "url": "worklistmgmt/authsec/admworklist/bysubject/{page}/{size}"
+        "url": "basis/authsec/adm/worklist/bysubject/{page}/{size}"
     },
     {
         "desc": "查询：企业/类别/状态/紧急程度",
         "id": "case-mng.case.search",
         "method": "GET",
-        "url": "worklistmgmt/authsec/admworklist/search/{page}/{size}"
+        "url": "basis/authsec/adm/worklist/search/{page}/{size}"
     },
     {
         "desc": "关闭工单",
         "id": "case-mng.case.close",
         "method": "POST",
-        "url": "worklistmgmt/authsec/admworklist/close"
+        "url": "basis/authsec/adm/worklist/close"
     },
     {
         "desc": "处理工单",
         "id": "case-mng.case.handle",
         "method": "POST",
-        "url": "worklistmgmt/authsec/admworklist/handle"
+        "url": "basis/authsec/adm/worklist/handle"
     },
     {
         "desc": "获取所有企业基本信息，主要用于下拉框",
@@ -2023,19 +2023,19 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取某个工单基本信息",
         "id": "case-mng.case.info.get",
         "method": "GET",
-        "url": "worklistmgmt/authsec/worklist/{id}"
+        "url": "basis/authsec/mpp/worklist/{id}"
     },
     {
         "desc": "获取工单关闭信息",
         "id": "case-mng.case.closeinfo.get",
         "method": "GET",
-        "url": "worklistmgmt/authsec/worklist/{id}/closeinfo"
+        "url": "basis/authsec/mpp/worklist/{id}/closeinfo"
     },
     {
         "desc": "获取工单处理信息",
         "id": "case-mng.case.handleinfo.get",
         "method": "GET",
-        "url": "worklistmgmt/authsec/worklist/{id}/handle"
+        "url": "basis/authsec/mpp/worklist/{id}/handle"
     },
 ]
 
