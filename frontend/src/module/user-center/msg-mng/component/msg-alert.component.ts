@@ -11,10 +11,7 @@ import { MsgAlertService } from "../service/msg-alert.service";
     selector: "msgAlert",
     templateUrl: "../template/msg-alert.component.html",
     styleUrls: ["../style/msg-alert.less"],
-    providers: [],
-    host: {
-        '(document:click)': 'onClick($event)',
-    }
+    providers: []
 })
 export class MsgAlertComponent implements OnInit {
     constructor(
