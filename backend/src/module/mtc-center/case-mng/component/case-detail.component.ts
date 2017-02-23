@@ -8,7 +8,7 @@ import { CaseDetailService} from "../service/case-detail.service";
 import { CaseListModel } from "../model/case-list.model";
 import { CloseInfo,HandleInfo } from "../model/closeInfo.model";
 
-//import { IpmiInfo } from "../model/physical-ipmi.model";
+
 
 @Component({
     selector: "case-detail",
@@ -36,6 +36,7 @@ export class CaseDetailComponent implements OnInit {
     caseInfo:CaseListModel=new CaseListModel();
     closeInfo:CloseInfo=new CloseInfo;
     handleInfoes:Array<HandleInfo>;
+
   
     ngOnInit() {
         this.activeRoute.params.forEach((params: Params) => {          
