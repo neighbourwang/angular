@@ -252,6 +252,7 @@ export class OrderMngSearchComponent implements OnInit{
 	showDetail(item:SearchOrderItem)
 	{
 		this.layoutService.show();
+		
 		this._orderDetailLoader.Go(null, [{key:"orderNo", value:item.orderNo}])
 		.then(success=>{
 			this._orderDetailLoader.FirstItem.type = item.orderType;
