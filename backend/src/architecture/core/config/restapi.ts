@@ -1990,16 +1990,10 @@ export let RestApis: RestApiModel[] = [
         "url": "basis/authsec/adm/worklist/{page}/{size}"
     },
     {
-        "desc": "机构管理员根据工单主题模糊查询工单",
-        "id": "case-mng.case.subject.search",
-        "method": "GET",
-        "url": "basis/authsec/adm/worklist/bysubject/{page}/{size}"
-    },
-    {
-        "desc": "查询：企业/类别/状态/紧急程度",
+        "desc": "查询：主题/企业/类别/状态/紧急程度",
         "id": "case-mng.case.search",
         "method": "GET",
-        "url": "basis/authsec/adm/worklist/search/{page}/{size}"
+        "url": "basis/authsec/adm/worklist/search/{page}/{size}?subject={subject}&type={type}&status={status}&emergency={emergency}&tenantId={tenantId}"
     },
     {
         "desc": "关闭工单",
