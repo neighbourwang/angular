@@ -102,7 +102,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let host of hostList">
-                    <td><a (click)="gotoHostDtail()">{{host.hostName}}</a></td>
+                    <td><a (click)="gotoHostDtail(host.hostId)">{{host.hostName}}</a></td>
                     <td>{{host.cpu}}</td>
                     <td>{{host.memory}}</td>
                     <td class="table-progress">

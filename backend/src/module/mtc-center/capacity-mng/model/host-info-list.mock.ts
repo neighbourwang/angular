@@ -1,4 +1,4 @@
-﻿export const HostInfoList_mock = {
+﻿export const HostInfo_mock = {
     resultCode: "100",
     detailDescription: "宿主机详情",
     resultContent:

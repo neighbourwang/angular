@@ -131,8 +131,12 @@ export class ComputeResComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    gotoHostDtail() {
-         this.router.navigate([`mtc-center/capacity-mng/host-detail`]);
+    gotoHostDtail(hostId:string) {
+        this.router.navigate([`mtc-center/capacity-mng/host-detail`,
+            {
+                "host_Id":hostId
+            }
+        ]);
     }
 
     BacktoCapacityMng(){
