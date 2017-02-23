@@ -6,9 +6,10 @@ import { CommonComponentModule } from '../../../architecture';
 
 // component 
 import { MsgAlertComponent } from './component/msg-alert.component';
+import { MsgListComponent } from './component/msg-list.component';
 
 //service 
-import { MsgAlertService } from './service/msg-alert.service';
+import { MsgMngService } from './service/msg-mng.service';
 
 //routing
 import { MsgMngRouting } from './msg-mng.routing';
@@ -23,12 +24,14 @@ import { MsgMngRouting } from './msg-mng.routing';
     ],
     declarations: [
         MsgAlertComponent,
+        MsgListComponent
     ],
     exports: [
         MsgAlertComponent,
+        MsgListComponent
     ],
     providers: [
-        MsgAlertService
+        MsgMngService
     ]
 
 })
