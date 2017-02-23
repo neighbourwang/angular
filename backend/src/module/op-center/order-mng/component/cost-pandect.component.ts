@@ -1,7 +1,7 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import { Consume,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import { CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 
 import * as _ from 'underscore';
 
@@ -41,16 +41,18 @@ private _orderTypeDic:DicLoader = null;
 //订购人
 private _buyerLoader:ItemLoader<{id:string; name:string}> = null;
 
+private orderItemLoader:ItemLoader<CostPandectItem> = null;//表格
+
 private consumeLoader:ItemLoader<ConsumeSum> = null;//消费概览
 
-private totalConsumeLoader:ItemLoader<Consume> = null;//消费趋势-总消费
-private increseConsumeLoader:ItemLoader<Consume> = null;//消费趋势-新增消费
+private totalConsumeLoader:ItemLoader<CommonKeyValue> = null;//消费趋势-总消费
+private increseConsumeLoader:ItemLoader<CommonKeyValue> = null;//消费趋势-新增消费
 
-private topConsumeLoader:ItemLoader<Consume> = null;//TOP5消费总额-所有企业
-private topConsumeDepartmentLoader:ItemLoader<Consume> = null;//TOP5消费总额-某个企业
+private topConsumeLoader:ItemLoader<BillInfo> = null;//TOP5消费总额-所有企业
+private topConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消费总额-某个企业
 
-private topIncreseConsumeLoader:ItemLoader<Consume> = null;//TOP5消费增长总额
-private topIncreseConsumeDepartmentLoader:ItemLoader<Consume> = null;//TOP5消费增长总额-某个企业
+private topIncreseConsumeLoader:ItemLoader<BillInfo> = null;//TOP5消费增长总额
+private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消费增长总额-某个企业
 	
 	constructor(
 		private layoutService: LayoutService,
@@ -59,6 +61,15 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<Consume> = null;//TOP5消�
 		private restApi:RestApi){
         
         this.enterpriseLoader = new ItemLoader<{id:string;name:string}> (false,'企业列表加载错误','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
+        this.orderItemLoader = new ItemLoader<CostPandectItem> (false,'消费总览列表加载错误','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
+
+          this.orderItemLoader.MapFunc = (source:Array<any>, target:Array<CostPandectItem>)=>{
+			for(let item of source)
+			{
+				let obj=_.extend({}, item) ;
+				target.push(obj);
+			}
+		}
 
         //订购人加载
 		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, 'ORDER_MNG.BUYER_DATA_ERROR', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
@@ -96,7 +107,7 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<Consume> = null;//TOP5消�
             item.physicalMachineOrderPriceSum = 32;
             item.vmOrderPriceSum = 145;
         }
-        this.totalConsumeLoader = new ItemLoader<Consume>(false, '消费趋势-总消费加载失败', "op-center.order-mng.cost-pandect.total.post", this.restApiCfg, this.restApi);
+        this.totalConsumeLoader = new ItemLoader<CommonKeyValue>(false, '消费趋势-总消费加载失败', "op-center.order-mng.cost-pandect.total.post", this.restApiCfg, this.restApi);
 
         // this.totalConsumeLoader.MapFunc = (source:Array<any>, target:Array<Consume>)=>{
 		// 	for(let item of source)
@@ -105,11 +116,11 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<Consume> = null;//TOP5消�
 		// 		target.push(obj);
 		// 	}
 		// }
-        this.increseConsumeLoader = new ItemLoader<Consume>(false, '消费趋势-新增消费加载失败', "op-center.order-mng.cost-pandect.increase.post", this.restApiCfg, this.restApi);
-        this.topConsumeLoader = new ItemLoader<Consume>(false, 'TOP5消费排名加载失败', "op-center.order-mng.cost-pandect.enterprise-top.post", this.restApiCfg, this.restApi);
-        this.topConsumeDepartmentLoader = new ItemLoader<Consume>(false, 'TOP5消费排名加载失败', "op-center.order-mng.cost-pandect.department-top.post", this.restApiCfg, this.restApi);
-        this.topIncreseConsumeLoader = new ItemLoader<Consume>(false, 'TOP5新增消费排名加载失败', "op-center.order-mng.cost-pandect.increase-enterprise-top.post", this.restApiCfg, this.restApi);
-        this.topIncreseConsumeDepartmentLoader = new ItemLoader<Consume>(false, 'TOP5新增消费排名加载失败', "op-center.order-mng.cost-pandect.increase-department-top.post", this.restApiCfg, this.restApi);
+        this.increseConsumeLoader = new ItemLoader<CommonKeyValue>(false, '消费趋势-新增消费加载失败', "op-center.order-mng.cost-pandect.increase.post", this.restApiCfg, this.restApi);
+        this.topConsumeLoader = new ItemLoader<BillInfo>(false, 'TOP5消费排名加载失败', "op-center.order-mng.cost-pandect.enterprise-top.post", this.restApiCfg, this.restApi);
+        this.topConsumeDepartmentLoader = new ItemLoader<BillInfo>(false, 'TOP5消费排名加载失败', "op-center.order-mng.cost-pandect.department-top.post", this.restApiCfg, this.restApi);
+        this.topIncreseConsumeLoader = new ItemLoader<BillInfo>(false, 'TOP5新增消费排名加载失败', "op-center.order-mng.cost-pandect.increase-enterprise-top.post", this.restApiCfg, this.restApi);
+        this.topIncreseConsumeDepartmentLoader = new ItemLoader<BillInfo>(false, 'TOP5新增消费排名加载失败', "op-center.order-mng.cost-pandect.increase-department-top.post", this.restApiCfg, this.restApi);
 
 
 }
@@ -180,7 +191,6 @@ getLastDay(){
 	}
 
 loadChart(){
-    this.layoutService.show();
     let _endTime : string;
     this._param.month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
      let param ={
@@ -200,21 +210,9 @@ loadChart(){
         enterprises.push({key:this._param.enterpriseId});
     }
      param.ids = enterprises;
-
-     
-
-     this.layoutService.show();
-     this.consumeLoader.Go(null,null,param)
-     .then(success=>{
-         console.log(this.consumeLoader.FirstItem);
-        this.layoutService.hide();
-    })
-    .catch(err=>{
-        this.layoutService.hide();
-        this.showMsg(err);
-    })
-     this.totalconsumeLoad(param);
-     this.increseConsumeLoad(param);
+     //this.consumeLoad(param);
+     //this.totalconsumeLoad(param);
+     //this.increseConsumeLoad(param);
      this.topConsumeLoad(param);
      this.topIncreseConsumeLoad(param);
 }
@@ -259,7 +257,15 @@ topConsumeLoad(param:any){
     if(this._param.enterpriseId==null){
         this.topConsumeLoader.Go(null,null,param)
         .then(success=>{
-       this.layoutService.hide();
+            this.topToDatas(this.h_chart,this.topConsumeLoader.Items);
+             this.h_chart.datas = [13,15,24,50];
+            	this.ent_hbar=[{
+                        label:'消费总额',
+                        data: this.h_chart.datas
+                         
+                    }];
+           this.h_chart.labels = ["云主机", "云硬盘", "数据库", "物理机"];
+            this.layoutService.hide();
         })
         .catch(err=>{
             this.layoutService.hide();
@@ -268,7 +274,16 @@ topConsumeLoad(param:any){
     }else{
         this.topConsumeDepartmentLoader.Go(null,null,param)
         .then(success=>{
-       this.layoutService.hide();
+           this.topToDatas(this.h_chart,this.topConsumeDepartmentLoader.Items);
+             this.h_chart.datas = [13,15,24,50];
+            	this.ent_hbar=[{
+                        label:'消费总额',
+                        data: this.h_chart.datas
+                         
+                    }];
+            this.h_chart.labels = ["云主机", "云硬盘", "数据库", "物理机"];
+     
+            this.layoutService.hide();
         })
         .catch(err=>{
             this.layoutService.hide();
@@ -284,7 +299,15 @@ topIncreseConsumeLoad(param:any){
       if(this._param.enterpriseId==null){
         this.topIncreseConsumeLoader.Go(null,null,param)
         .then(success=>{
-       this.layoutService.hide();
+               this.topToDatas(this.h_chart2,this.topIncreseConsumeLoader.Items);
+               this.h_chart2.datas = [13,15,24,50];
+            	this.ent_hbar2=[{
+                        label:'消费总额',
+                        data: this.h_chart2.datas
+                         
+                    }];
+                    this.h_chart2.labels = ["云主机", "云硬盘", "数据库", "物理机"];
+             this.layoutService.hide();
         })
         .catch(err=>{
             this.layoutService.hide();
@@ -293,7 +316,15 @@ topIncreseConsumeLoad(param:any){
     }else{
         this.topIncreseConsumeDepartmentLoader.Go(null,null,param)
         .then(success=>{
-       this.layoutService.hide();
+                this.topToDatas(this.h_chart2,this.topIncreseConsumeDepartmentLoader.Items);
+                 this.h_chart2.datas = [13,15,24,50];
+            	this.ent_hbar2=[{
+                        label:'消费总额',
+                        data: this.h_chart2.datas
+                         
+                    }];
+                    this.h_chart2.labels = ["云主机", "云硬盘", "数据库", "物理机"];
+               this.layoutService.hide();
         })
         .catch(err=>{
             this.layoutService.hide();
@@ -304,129 +335,84 @@ topIncreseConsumeLoad(param:any){
 }
 
 
-toDatas(items:Array<any>){
+topToDatas(target:Chart,items:Array<any>){
     let datas:Array<number> = [];
+    let labels:Array<string>=[];
     // for(let i = 0;i<items.length;i++){
     //     datas[i] = items[i].amount;
     // }
     if(items.length>=0){
         for(let item of items){
-        datas.push(item);
+        datas.push(item.amount);
+        labels.push(item.name);
     }
     }    
- 
-    return datas;
+   target.datas = datas;
+   target.labels = labels;
 }
 
 
 search_chart(){
-    let _datas:Array<number> = null;
-    let _colors:Array<any> = null;
-    let _labels:Array<any> = null;
-    let _options:any = null;
-    this.loadChart();
-    
-    _datas = [this.consumeLoader.FirstItem.physicalMachineOrderPriceSum,this.consumeLoader.FirstItem.dbOrderPriceSum,this.consumeLoader.FirstItem.diskOrderPriceSum,this.consumeLoader.FirstItem.vmOrderPriceSum];
-    _colors = ["#08C895","#82B6B2","#6F7DC8","#2BD2C8"];
-    _labels = [
-                        '物理机：'+25,
-                        '数据库：'+ 57,
-                        '云硬盘：'+ 173,
-                        '云主机：'+ 200,
-                    ];
-    this.dht_chart(_datas,_colors,_labels);
-
-   _datas = this.toDatas(this.totalConsumeLoader.Items);
-   _colors = [
-                {
-                    backgroundColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ],
-                    borderColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ]
-                },{
-
-                    backgroundColor: "rgba(75,192,192,0.4)",
-                    borderColor: "rgba(75,192,192,1)",
-                    pointBorderColor: "rgba(75,192,192,1)",
-                    pointBackgroundColor: "#fff",
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                }
-            ];
-
-    _labels = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月"];
-    _options = {
-                scales: {
-                    xAxes: [{
-                        display: false
-                    }],
-                    yAxes: [{
-                        stacked: true
-
-                    }]
-                }
-            };
-    this.bar_chart(_datas,_colors,_labels,_options);
-
-
-if(this._param.enterpriseId == null){
-     _datas = this.toDatas(this.topConsumeLoader.Items);
-}
-else{
-    _datas = this.toDatas(this.topConsumeDepartmentLoader.Items);
-}
+    this.setCommonDatas();
    
-        _labels = ["云主机", "云硬盘", "数据库", "物理机"];
-    _colors = [
-        {
-            backgroundColor: [
-                '#2BD2C8',
-                '#2BD2C8',
-                '#2BD2C8',
-                '#2BD2C8'
-            ],
-            borderColor: [
-                '#2BD2C8',
-                '#2BD2C8',
-                '#2BD2C8',
-                '#2BD2C8'
-            ]
-        }
-    ];
-    _options={
-                    scales: {
-                        xAxes: [{
-                             stacked: true
-                        }],
-                        yAxes: [{
-                            stacked: true
-                        }]
-                    }
-                };
+    //this.loadChart();
+    
+//     _datas = [this.consumeLoader.FirstItem.physicalMachineOrderPriceSum,this.consumeLoader.FirstItem.dbOrderPriceSum,this.consumeLoader.FirstItem.diskOrderPriceSum,this.consumeLoader.FirstItem.vmOrderPriceSum];
+//     _colors = ["#08C895","#82B6B2","#6F7DC8","#2BD2C8"];
+//     _labels = [
+//                         '物理机：'+25,
+//                         '数据库：'+ 57,
+//                         '云硬盘：'+ 173,
+//                         '云主机：'+ 200,
+//                     ];
+//     this.dht_chart(_datas,_colors,_labels);
 
-this.h_chart3(_datas,_colors,_labels,_options);
+//    _datas = this.toDatas(this.totalConsumeLoader.Items);
+//    _colors = [
+//                 {
+//                     backgroundColor: [
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8'
+//                     ],
+//                     borderColor: [
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8'
+//                     ]
+//                 },{
 
-if(this._param.enterpriseId == null){
-     _datas = this.toDatas(this.topIncreseConsumeLoader.Items);
-}
-else{
-    _datas = this.toDatas(this.topIncreseConsumeDepartmentLoader.Items);
-}
-this.h_chart4(_datas,_colors,_labels,_options);
+//                     backgroundColor: "rgba(75,192,192,0.4)",
+//                     borderColor: "rgba(75,192,192,1)",
+//                     pointBorderColor: "rgba(75,192,192,1)",
+//                     pointBackgroundColor: "#fff",
+//                     pointHoverBackgroundColor: "rgba(75,192,192,1)",
+//                     pointHoverBorderColor: "rgba(220,220,220,1)",
+//                 }
+//             ];
+
+//     _labels = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月"];
+//     _options = {
+//                 scales: {
+//                     xAxes: [{
+//                         display: false
+//                     }],
+//                     yAxes: [{
+//                         stacked: true
+
+//                     }]
+//                 }
+//             };
+//     this.bar_chart(_datas,_colors,_labels,_options);
+
 }
 
 //部门消费概览
@@ -445,6 +431,75 @@ this.h_chart4(_datas,_colors,_labels,_options);
 
         this.d_chart.labels=lables;
     }
+setCommonDatas(){
+     this.h_chart.datas = [13,15,24,50];
+    this.ent_hbar=[{
+        label:'消费总额',
+        data: this.h_chart.datas
+                         
+     }];
+    this.h_chart.labels = ["云主机", "云硬盘", "数据库", "物理机"];
+   
+        this.h_chart.colors  = [
+                {
+                    backgroundColor: [
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8'
+                    ],
+                    borderColor: [
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8'
+                    ]
+                }
+            ];
+            this.h_chart.options={
+                            scales: {
+                                xAxes: [{
+                                    stacked: true
+                                }],
+                                yAxes: [{
+                                    stacked: true
+                                }]
+                            }
+            };
+         this.h_chart2.datas = [13,15,24,50];
+            this.ent_hbar2=[{
+            label:'消费总额',
+            data: this.h_chart2.datas
+                         
+     }];
+    this.h_chart2.labels = ["云主机", "云硬盘", "数据库", "物理机"];
+             this.h_chart2.colors  = [
+                {
+                    backgroundColor: [
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8'
+                    ],
+                    borderColor: [
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8'
+                    ]
+                }
+            ];
+            this.h_chart2.options={
+                            scales: {
+                                xAxes: [{
+                                    stacked: true
+                                }],
+                                yAxes: [{
+                                    stacked: true
+                                }]
+                            }
+            };
+}
 
 
 //部门消费趋势
@@ -477,35 +532,6 @@ bar_chart(datas:Array<number>,colors:Array<any>,lables:Array<any>,options?:any){
     this.b_chart.labels = lables;
     
     this.b_chart.options = options;
-}
-
-//TOP5
-h_chart3(datas:Array<number>,colors:Array<any>,lables:Array<any>,options?:any){
-	this.ent_hbar=[{
-                        label:'消费总额',
-                        data: datas
-                         
-                    }];
-  
-    this.h_chart.colors = colors; 
-
-    this.h_chart.labels = lables;
-
-    
-    this.h_chart.options = options;
- 
-}
-
-//TOP5
-h_chart4(datas:Array<number>,colors:Array<any>,lables:Array<any>,options?:any){
-    this.ent_hbar2=[{
-                        label:'消费总额',
-                        data: datas
-                         
-                    }];
-    this.h_chart2.colors = colors; 
-    this.h_chart2.labels =lables;
-    this.h_chart2.options = options;
 }
 
 

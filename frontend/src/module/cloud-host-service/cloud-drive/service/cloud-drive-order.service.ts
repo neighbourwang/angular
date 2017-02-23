@@ -39,11 +39,24 @@ export class cloudDriveServiceOrder {
 
     saveOrder(payload: PayLoad[]): Promise<any> {
         let api = this.restApiCfg.getRestApi('hosts.order.add');
-        return this.restApi.request(api.method, api.url, undefined, undefined, payload);
+        return this.restApi.request(api.method, api.url, undefined, undefined, payload)
+                    .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "订购失败";
+                                }
+                                return res.resultContent;
+                            });
+
     }
     addCart(payload: PayLoad[]): Promise<any> {
         let api = this.restApiCfg.getRestApi('shopping.cart.add');
-        return this.restApi.request(api.method, api.url, undefined, undefined, payload);
+        return this.restApi.request(api.method, api.url, undefined, undefined, payload)
+                    .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "加入购物车失败";
+                                }
+                                return res.resultContent;
+                            });
     }
 
     dictRelyType = this.dict.get({    //rely_type

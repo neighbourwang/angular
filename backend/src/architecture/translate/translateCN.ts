@@ -1475,5 +1475,8 @@
         "AD_MNG":"认证管理",
         "PERSONAL_MNG":"个人账户管理",
     }
-    
+    ,
+    "PHY_IMG_MNG":{
+        "TEST":"测试"
+    }
 }

@@ -13,3 +13,4 @@ export * from './search-order-item';//订单查询列表
 export * from './search-order-detail';//订单查询详情
 export * from './cost-pandect-param';
 export * from './cost-pandect-item';
+export * from './cost-manage-item';

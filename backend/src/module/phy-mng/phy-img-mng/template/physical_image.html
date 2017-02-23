@@ -4,42 +4,28 @@
 
 <div class="page-content">
     <div class="mgb20">
-        <button class="fox-cloud-button fox-cloud-button-green" (click)="createPhyNet();">
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="createPhyImgSource();">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">创建镜像源</span> <!--请添加创建的弹出框-->
         </button>
-        <button class="fox-cloud-button fox-cloud-button-green" (click)="editPhyNet();">       
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="allocatePool();">       
             <span class="icon-button-label icon-left-button-label">分配物理资源池</span>
         </button>
 
         <div class="dropdown pull-right" >
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/enable.html" (click)="enable();">
-            <span class="icon-button-label icon-left-button-label">编辑</span>
-        </button>
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/enable.html" (click)="enable();">
-            <span class="icon-button-label icon-left-button-label">启用</span>
-        </button>
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/disable.html" (click)="disable();">
-            <span class="icon-button-label icon-left-button-label">禁用</span>
-        </button>
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/remove.html" (click)="remove();">
-            <span class="icon-button-label icon-left-button-label">删除</span>
-        </button>
-        </div>
-
-        <!--
-        <div class="dropdown pull-right" >
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                选择操作
-                <span class="caret"></span>
+            <button class="fox-cloud-button fox-cloud-button-green"  (click)="editPhyImgSource();">
+                <span class="icon-button-label icon-left-button-label">编辑</span>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#">启用</a></li>
-                <li><a href="#">禁用</a></li>
-                <li><a href="#">删除</a></li>
-            </ul>
+            <button class="fox-cloud-button fox-cloud-button-green" key="boe/enable.html" (click)="enable();">
+                <span class="icon-button-label icon-left-button-label">启用</span>
+            </button>
+            <button class="fox-cloud-button fox-cloud-button-green" key="boe/disable.html" (click)="disable();">
+                <span class="icon-button-label icon-left-button-label">禁用</span>
+            </button>
+            <button class="fox-cloud-button fox-cloud-button-green" key="boe/remove.html" (click)="delete();">
+                <span class="icon-button-label icon-left-button-label">删除</span>
+            </button>
         </div>
-        -->
     </div>
 
     <div class="table-container">
@@ -55,6 +41,17 @@
                 </tr>
             </thead>
             <tbody>
+                <tr *ngFor = "let source of sourceList">
+                    <td><input type="radio" class="fox-could-radio" name="radio"[checked]="source.selected"(change)="selectSource(source)"/>
+                        </td>
+                    <td><a href="#">{{source.imageName}}</a></td>
+                    <td>{{source.imageURL}}</td>
+                    <td>{{source.pmPools}}</td>
+                    <td>{{source.description}}</td>
+                    <td>{{source.status}}</td>
+                </tr>
+
+
                 <tr>
                     <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
                     <td><a href="#"> ABC&nbsp; 点击进入镜像列表 </a></td>
@@ -63,150 +60,91 @@
                     <td> XXXX </td>
                     <td class="font-green"> 启用 </td>
                 </tr>
-                <tr>
-                    <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                    <td><a href="#"> ABC&nbsp; 点击进入镜像列表 </a></td>
-                    <td> http://10.1.1.2 </td>
-                    <td> 资源池1 资源池2 </td>
-                    <td> XXXX </td>
-                    <td class="font-green"> 禁用 </td>
-                </tr>
-                <tr>
-                    <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                    <td style="position:relative"> <a href="#"> ABC&nbsp; 点击进入镜像列表 </a>
-                    <!--
-                        <span class="pull-right icon-edit2"></span> 
-                         <div class="popover fade bottom in" role="tooltip" style="top:25px; left:10px; width:320px; max-width:1100px; display: block; z-index: 50;">
-                                <div class="arrow" style="left: 30%;"></div>
-                                <div class="popover-content">
-                                    <form class="form-horizontal" role="form">
-                                        <div class="form-group">
-                                            <label class="col-sm-4 control-label">网络名称:</label>
-                                            <div class="col-sm-8 float-left">
-                                            <input type="text" />
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <div class="pull-right" style="margin-bottom:10px;">
-                                        <button class=" fox-cloud-button fox-cloud-button-white">保存</button>
-                                        <button class="fox-cloud-button fox-cloud-button-white">取消</button>
-                                    </div>
-                                </div>
-                         </div>
-                    -->
-                    </td>
-                    <td> http://10.1.1.3 </td>
-                    <td> 资源池1 资源池2 </td>
-                    <td> XXXX </td>
-                    <td class="font-green"> 启用 </td>
-                </tr>                
+            
+                           
             </tbody>
         </table>
     </div>
 
 </div>
 
-<fc-popup #createphynet ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'NET_MNG_VM_IP_MNG.SET_NETWORK_TYPE' | translate}}" (of)="acceptPhyNetCreateModify()" (cf)="cancelPhyNetCreateModify()">
+<fc-popup #createPopup ot="{{'COMMON.CONFIRM' | translate}}" 
+                        ct="{{'COMMON.CANCEL' | translate}}" 
+                        (testf)="testPhyImgSource(tempCreate)" test= "{{'PHY_IMG_MNG.TEST' | translate}}"
+    title="创建物理机镜像源" (of)="commitCreate()"  (cf)="cancelCreate()">
     <div class="dialogContent">
-	<div class="row row-line-height">
-        <div class="form-group">
-            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>物理机资源池：</div>
-            <div class="col-sm-7">
-                <select class="form-control" [(ngModel)]="selectedDC4Popup" (change)="selectedCluster4Popup = defaultCluster;">
-                    <option [ngValue]="defaultDc">{{'NET_MNG_VM_IP_MNG.PLEASE_CHOOSE' | translate}}</option>
-                    <option *ngFor="let dc of dcList" [ngValue]="dc">{{dc.dcName}}</option>
-                </select>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>显示名称：</div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control"  [(ngModel)]="tempCreate.imageName"/>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row row-line-height">
-        <div class="form-group">
-            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>显示名称：</div>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="tempEditNet" />
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像源地址：</div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" [(ngModel)]="tempCreate.imageURL" />
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row row-line-height">
-        <div class="form-group">
-            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>子网信息：</div>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="tempEditNet" />
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title"><span class="asterisk"></span>描述:</div>
+                <div class="col-sm-4">
+                    <textarea class="form-control input-control"  rows="3" [(ngModel)]="tempCreate.description">
+                    </textarea>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row row-line-height">
-        <div class="form-group">
-            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>子网掩码：</div>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="tempEditNet" />
-            </div>
-        </div>
-    </div>
-    <div class="row row-line-height">
-        <div class="form-group">
-            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>网关地址：</div>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="tempEditNet" />
-            </div>
-        </div>
-    </div>
-    <div class="row row-line-height">
-        <div class="form-group">
-            <div class="col-sm-5 form-control-title">DNS 1：</div>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="tempEditNet" />
-            </div>
-        </div>
-    </div>
-    <div class="row row-line-height">
-        <div class="form-group">
-            <div class="col-sm-5 form-control-title">DNS 2：</div>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="tempEditNet" />
-            </div>
-        </div>
-    </div>
     </div>
 </fc-popup>
 
-<fc-popup #ipsbox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'NET_MNG_VM_IP_MNG.SET_IP_POOL' | translate}}" (of)="acceptIPsModify()" (cf)="cancelIPsModify()">
-	<div class="dialogContent">
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-4 form-control-title">{{'NET_MNG_VM_IP_MNG.SUBNET_INFORMATION' | translate}}：</div>
-					<div class="col-sm-8">
-						<span>{{subnetCIDR}}</span>
-					    <!-- <input type="string" class="form-control input-control" [(ngModel)]="ippool.subnetCIDR"></span> -->
-					</div>
-				</div>
-			</div>
-            <div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-4 form-control-title">{{'NET_MNG_VM_IP_MNG.SUBNET_MASK' | translate}}：</div>
-					<div class="col-sm-8">
-                        <span>{{subnetMask}}</span>
-					    <!-- <input type="string" class="form-control input-control" [(ngModel)]="ippool.subnetMask"> -->
-					</div>
-				</div>
-			</div>
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-4 form-control-title">{{'NET_MNG_VM_IP_MNG.GATEWAY' | translate}}：</div>
-					<div class="col-sm-8">
-						<span>{{gateway}}</span>
-					    <!-- <input type="string" class="form-control input-control" [(ngModel)]="ippool.gateway">  -->
-					</div>
-				</div>
-			</div>
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-4 form-control-title">{{'NET_MNG_VM_IP_MNG.IP_SCOPE' | translate}}：</div>
-					<div class="col-sm-8">
-					<!-- <input type="string" class="form-control input-control" [(ngModel)]="ippool.ips">  -->
-					<textarea class="form-control input-control" placeholder="" rows="4" [(ngModel)]="ipstr"></textarea>
-					</div>
-				</div>
-			</div>
-	</div>
+<fc-popup #alloPopup ot="{{'COMMON.CONFIRM' | translate}}"  ct="{{'COMMON.CANCEL' | translate}}"
+    title = "分配物理资源池" (of)="commitAllo()" (cf)="cancelAllo()">
+    
+        <fc-selectbox #selectbox [selectedList]="inUsedPools" [unSelectedList]="noUsedPools" 
+                    titleL="未选中资源池：" 
+                    titleR="已选中资源池：" 
+                    displayKey="pmPoolName"
+                    >
+        </fc-selectbox>
+
 </fc-popup>
+
+<fc-popup #editPopup ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" 
+            test= "{{'PHY_IMG_MNG.TEST' | translate}}"
+            (testf)="testPhyImgSource(tempEdit)"
+    title="编辑物理机镜像源" (of)="commitEdit()" (cf)="cancelEdit()">
+    <div class="dialogContent">
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>显示名称：</div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" [(ngModel)]="tempEdit.imageName" />
+                </div>
+            </div>
+        </div>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像源地址：</div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" [(ngModel)]="tempEdit.imageURL"/>
+                </div>
+            </div>
+        </div>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title"><span class="asterisk"></span>描述:</div>
+                <div class="col-sm-4">
+                    <textarea class="form-control input-control"  rows="3" [(ngModel)]="tempEdit.description">
+                    </textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</fc-popup>
+
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'HOST_OPENSTACK_MNG.CONFIRM' | translate}}"></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'HOST_OPENSTACK_MNG.CONFIRM' | translate}}" ct="{{'HOST_OPENSTACK_MNG.CANCEL' | translate}}"></fc-confirm>
