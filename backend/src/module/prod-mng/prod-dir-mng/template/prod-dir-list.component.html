@@ -128,7 +128,7 @@
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>云主机规格选择:</div>
 			<div class="col-sm-6">
 				<select class="form-control" [(ngModel)]="prodDirSpecIdx" (ngModelChange)="selectProDirSpec(prodDirSpecIdx)">
-                    <option *ngFor="let item of vmProdDirSpecList; let idx=index" [value]="idx">{{'名称：'+item.cpu+' CPU,'+item.mem+' GB,'+item.bootStorageSize||0+' GB'}}</option>
+                    <option *ngFor="let item of vmProdDirSpecList; let idx=index" [value]="idx">{{'名称：'+item.cpu+' CPU,'+item.mem+' GB,'+item.bootStorageSize+' GB'}}</option>
                 </select>
 			</div>
 		</div>
