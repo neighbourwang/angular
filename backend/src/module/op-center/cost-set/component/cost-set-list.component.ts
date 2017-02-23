@@ -44,14 +44,14 @@ private costItemLoader:ItemLoader<CostSetItem> = null;
 	ngOnInit(){
         this.layoutService.show();
         
-        // this._buyerLoader.Go(null, [{key:"departmentId", value:null}])
-        // .then(success=>{
-        //    this._orderTypeDic.Go();
-        // })
-        // .catch(err=>{
-		// 	this.layoutService.hide();
-		// 	this.showMsg(err);
-		// });
+        this.costItemLoader.Go(null, [{key:"departmentId", value:null}])
+        .then(success=>{
+          this.layoutService.hide();
+        })
+        .catch(err=>{
+			this.layoutService.hide();
+			this.showMsg(err);
+		});
 		this.layoutService.hide();
 	}
 
