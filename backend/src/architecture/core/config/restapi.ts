@@ -899,7 +899,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "根据平台获取企业列表",
         "id": "prod-mng.prod-enterprise.post",
         "method": "POST",
-        "url": "usermgmt/authsec/enterprises/items "
+        "url": "adminui/authsec/enterprises/items"
     },
 
     {
@@ -919,6 +919,12 @@ export let RestApis: RestApiModel[] = [
         "id": "prod-mng.prod-mng.detail",
         "method": "GET",
         "url": "adminui/authsec/enterprises/product/{id} "
+    },
+    {
+        "desc": "获取产品历史价格信息",
+        "id": "prod-mng.prod-mng.historyPrice",
+        "method": "GET",
+        "url": "adminui/authsec/product/{id}/historyBilling"
     },
 
     //用户中心

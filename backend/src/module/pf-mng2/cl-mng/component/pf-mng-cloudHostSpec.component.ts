@@ -6,10 +6,6 @@ import { Location } from '@angular/common';
 
 import { LayoutService, NoticeComponent , ConfirmComponent ,PopupComponent } from '../../../../architecture';
 
-import { ClMngListService } from '../service/cl-mgn-list.service';
-
-
-import { ClMngCommonService } from '../service/cl-mng-common.service';
 
 //model
 
@@ -28,15 +24,11 @@ export class CloudHostSpecComponent implements OnInit {
 
 
     constructor(private layoutService:LayoutService,
-                private service:ClMngListService,
                 private route:Router,
                 private router:ActivatedRoute,
                 private location :Location
                 ) {
     }
-
-
-
     @ViewChild('confirm')
     confirm: ConfirmComponent;
 
@@ -46,6 +38,8 @@ export class CloudHostSpecComponent implements OnInit {
     @ViewChild('notice')
     notice: NoticeComponent;
 
+    @ViewChild('createSepc')
+    createSepc:PopupComponent;
     // 云平台类型
     platFormType : string;
     // 云平台类型名
@@ -81,9 +75,13 @@ export class CloudHostSpecComponent implements OnInit {
     }
     //VMware新建云主机规格
     createSpec(){
+        this.createSepc.open();
+    }
+    //确认创建
+    otcreate(){
 
     }
-
+    ccf(){}
     back(){
         this.location.back();
     }

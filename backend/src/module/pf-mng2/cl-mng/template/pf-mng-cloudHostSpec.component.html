@@ -4,25 +4,25 @@
         <span class="icon-button-label" (click)='goList()'>返回云平台列表</span>
     </button>
 </div>
-<div >
+<div>
     <div class="page-content">
         <div style="padding-bottom: 10px;" *ngIf="platformType=='0'">
-             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
+            <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
                 <span class="icon-button-label" (click)='updateSpec()'>同步云主机规格</span>
              </button>
             <div style="clear:both"></div>
         </div>
         <div style="padding-bottom: 10px;" *ngIf="platformType=='2'">
-             <button class="fox-cloud-button-md fox-cloud-button-white" >
+            <button class="fox-cloud-button-md fox-cloud-button-white">
                 <span class="icon-button-label" (click)='createSpec()'>新建云主机规格</span>
              </button>
             <div style="clear:both"></div>
         </div>
-        <div class="table-container" >
+        <div class="table-container">
             <table class="table table-hover" *ngIf="platformType=='0'">
                 <thead>
                     <tr>
-                        <th>#</th>                        
+                        <th>#</th>
                         <th>名称</th>
                         <th>vCPU</th>
                         <th>内存(MB)</th>
@@ -45,14 +45,14 @@
                         <td>2016-11-30 15:00:00</td>
                         <td>
                             <button class="fox-cloud-button-md fox-cloud-button-white" (click)="enableSpec()">启用</button>
-                        </td>                                               
-                    </tr>                   
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <table class="table table-hover" *ngIf="platformType=='2'">
                 <thead>
                     <tr>
-                        <th>#</th>                        
+                        <th>#</th>
                         <th>名称</th>
                         <th>vCPU</th>
                         <th>内存(MB)</th>
@@ -75,13 +75,67 @@
                         <td>2016-11-30 15:00:00</td>
                         <td>
                             <button class="fox-cloud-button-md fox-cloud-button-white" (click)="enableSpec()">启用</button>
-                            <button class="fox-cloud-button-md fox-cloud-button-white" (click)="deleSpec()">删除</button> 
-                        </td>                                               
-                    </tr>                   
+                            <button class="fox-cloud-button-md fox-cloud-button-white" (click)="deleSpec()">删除</button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
-        </div>       
+        </div>
     </div>
-    <fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL"
-    (cf)="ccf()"></fc-confirm>
+    <fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+    <fc-popup #createSepc title="新建云主机规格" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()">
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        名称：
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="name"  placeholder="规格名称">
+                    </div>
+                </div>
+            </div> 
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        CPU：
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" [(ngModel)]="namee" >
+                    </div>
+                    <div class="col-sm-4" style="line-height:34px;">
+                        核(vCPU)
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        内存：
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" [(ngModel)]="nama">
+                    </div>
+                    <div class="col-sm-4" style="line-height:34px;">
+                        兆(MB)
+                    </div>
+                </div>
+            </div> 
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        启动盘大小：
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" [(ngModel)]="namc">
+                    </div>
+                     <div class="col-sm-4 " style="line-height:34px;">
+                        兆(GB)
+                    </div>
+                </div>
+            </div>  
+        </fc-popup>
 </div>
