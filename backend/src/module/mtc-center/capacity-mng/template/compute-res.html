@@ -1,6 +1,6 @@
 ﻿<div class="page-content-header icon-content-header-operation-center">
     计算资源容量管理： 
-    <span style="font-size:16px;">云平台名称： ABCABC     平台类型：   XXXXXXX      访问地址： XXXXXXXXX</span>
+    <span style="font-size:16px;">云平台名称：{{selectedPf.name}}     平台类型：{{selectedPf.platformType}}      访问地址：{{selectedPf.uri}}</span>
     <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" (click)="BacktoCapacityMng()">
         返回云平台容量管理
     </button>
@@ -10,22 +10,22 @@
     <div class="row row-line-height" >
         <div class="col-md-2 form-control-title">Region:</div>
         <div class="col-md-10">
-            <button class="fox-cloud-button fox-cloud-button-green">Region1</button>
+             <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default"  *ngFor="let region of regionList let i=index" [ngClass]="i==0? 'active':''" (click)="getZoneList(region.regionId)">
+                    <input type="radio" name="region" autocomplete="off"  >{{region.regionName}}
+                </label>
+                
+            </div>
         </div>
     </div>
     <div class="row row-line-height">
         <div class="col-md-2 form-control-title">可用区:</div>
         <div class="col-md-10">
             <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-default active">
-                    <input type="radio" name="area" autocomplete="off" checked>可用区1（启用）
+                <label class="btn btn-default" *ngFor="let zoneInfo of zones" (click)="getZoneId(zoneInfo.zoneId)">
+                    <input type="radio" name="zone" autocomplete="off" >{{zoneInfo.zoneName}}
                 </label>
-                <label class="btn btn-default">
-                    <input type="radio" name="area" autocomplete="off">可用区2 (禁用)
-                </label>
-                <label class="btn btn-default">
-                    <input type="radio" name="area" autocomplete="off">可用区3
-                </label>
+                
             </div>
         </div>
     </div>
@@ -33,20 +33,20 @@
         <div class="col-md-2 form-control-title">可用区信息:</div>
         <div class="col-md-8" style="letter-spacing:2px;font-size:16px;"> <!--style="letter-spacing:2px;font-size:16px;"-->
             <div class="row row-line-height" >
-                <div class="col-md-3 text-right">物理CPU总核数：</div>
-                <div class="col-md-2">1348 核</div>               
+                <div class="col-md-3 text-right" style="width:178px;">物理CPU总核数：</div>
+                <div class="col-md-2">{{zoneResInfo.cpus}} </div>               
                 <div class="col-md-2 text-right">CPU超分比：</div>
-                <div class="col-md-1">4 倍</div>
+                <div class="col-md-1">{{zoneResInfo.cpuOversubscription}} </div>
                  <div class="col-md-2 text-right">可分配CPU：</div>
-                <div class="col-md-2">4583 核</div>
+                <div class="col-md-2">{{zoneResInfo.cpuCapacity}} </div>
             </div>
             <div class="row row-line-height" >
-                 <div class="col-md-3 text-right">总内存：</div>
-                <div class="col-md-2">1024 GB</div>
+                 <div class="col-md-3 text-right" style="width:178px;">总内存：</div>
+                <div class="col-md-2">{{zoneResInfo.memory}}</div>
                 <div class="col-md-2 text-right">可用配额：</div>
-                <div class="col-md-1">85%</div>
+                <div class="col-md-1">{{zoneResInfo.cpuQurta}}</div>
                 <div class="col-md-2 text-right">可分配内存：</div>
-                <div class="col-md-2">870 GB</div>
+                <div class="col-md-2">{{zoneResInfo.memoryCapacity}} </div>
             </div>
         </div>
     </div>
@@ -101,10 +101,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><a (click)="gotoHostDtail()">cmp-host01</a></td>
-                    <td>337</td>
-                    <td>256</td>
+                <tr *ngFor="let host of hostList">
+                    <td><a (click)="gotoHostDtail()">{{host.hostName}}</a></td>
+                    <td>{{host.cpu}}</td>
+                    <td>{{host.memory}}</td>
                     <td class="table-progress">
                         <div>
                             <div class="progress">
@@ -112,7 +112,7 @@
                                      style="width: 89%;">
                                 </div>
                             </div>
-                            <span class="progress-value">89%</span>
+                            <span class="progress-value">{{host.cpuPercent}}</span>
                         </div>
                     </td>
                     <td class="table-progress">
@@ -122,11 +122,11 @@
                                      style="width: 47%;">
                                 </div>
                             </div>
-                            <span class="progress-value">47%</span>
+                            <span class="progress-value">{{host.memPercent}}</span>
                         </div>
                     </td>
-                    <td>up</td>
-                    <td>Activated</td>
+                    <td>{{host.running}}</td>
+                    <td>{{host.status}}</td>
                 </tr>
             </tbody>
         </table>
