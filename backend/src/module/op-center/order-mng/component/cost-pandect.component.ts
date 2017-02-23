@@ -435,7 +435,7 @@ setCommonDatas(){
      this.h_chart.datas = [13,15,24,50];
     this.ent_hbar=[{
         label:'消费总额',
-        data: this.h_chart2.datas
+        data: this.h_chart.datas
                          
      }];
     this.h_chart.labels = ["云主机", "云硬盘", "数据库", "物理机"];
