@@ -1,7 +1,7 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import {} from '../model'
+import {CostSetItem} from '../model'
 
 import * as _ from 'underscore';
 
@@ -15,31 +15,30 @@ export class CostSetListComponent implements OnInit{
 
 @ViewChild("notice")
   	private _notice: NoticeComponent;
-//订单类型
-private _orderTypeDic:DicLoader = null;
-//订购人
-private _buyerLoader:ItemLoader<{id:string; name:string}> = null;
 
+private costItemLoader:ItemLoader<CostSetItem> = null;
 	
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
-        //订购人加载
-		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
-
-        this._buyerLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
-			for(let item of source)
-			{
-				let obj=_.extend({}, item) ;
-				target.push(obj);
-				obj.id = item.key;
-				obj.name = item.value;
-			}
+       		this.costItemLoader = new ItemLoader<CostSetItem>(false, '费用管理列表加载失败', "", this.restApiCfg, this.restApi);
+		// this.costItemLoader.MapFunc=(source:Array<any>,target:Array<CostManageItem>)=>{
+		// 	for(let item of source){
+		// 		let obj=_.extend({},item);
+		// 		target.push(obj);
+		// 	}
+			
+		// }
+		this.costItemLoader.FakeDataFunc = (target:Array<CostSetItem>)=>{
+			let obj = new CostSetItem();
+			obj.name = '上海慧于';
+			obj.payway = '现金';
+			obj.cicleTime = '1个月';
+			obj.endDate = '2017-2-23';
+			obj.sentDate = '2017-2-22';
 		}
-
-        this._orderTypeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
 
 }
 	ngOnInit(){

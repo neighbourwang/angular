@@ -38,12 +38,11 @@
 
 		<!--  统计图行 -->
 	 	<div class="secondePanel">
-			<div class="row">
+			<!--<div class="row">
 				<div class="col-sm-6">
 					<div class="console-box">
 		                <div class="console-title">部门消费概览</div>
 		                <div class="ues-content">
-		                    <!--<canvas id="use-chart-1" width="200" height="70"></canvas>-->
 							 <canvas baseChart
                           width="200" height="70"
                           [datasets]="ent_dht"
@@ -57,7 +56,6 @@
                     <div class="console-box">
                         <div class="console-title">部门消费趋势</div>
                         <div class="ues-content">
-                            <!--<canvas id="bar_chart" width="200" height="70"></canvas>-->
 							 <canvas baseChart
                           width="200" height="70"
                           [datasets]="ent_bar"
@@ -68,7 +66,7 @@
                         </div>     
                     </div>
                 </div>
-			</div>
+			</div>-->
             <div class="row">
                 <div class="col-sm-6">
                     <div class="console-box">
@@ -140,15 +138,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-center">
-                            <td class="vertical-center">1</td>
-                            <td class="vertical-center">1111</td>
-                            <td class="vertical-center">云主机</td>
-                            <td class="vertical-center">后付费</td>
-                            <td class="vertical-center">IT</td>
-                            <td class="vertical-center">张三</td>
-                            <td class="vertical-center">￥100</td>
-                            <td class="vertical-center">未知</td>
+                        <tr class="text-center" *ngFor="let item of orderItemLoader.Items;let i = index;">
+                            <td class="vertical-center">{{i}}</td>
+                            <td class="vertical-center">{{item.orderNo}}</td>
+                            <td class="vertical-center">{{item.name}}</td>
+                            <td class="vertical-center">{{item.payWay}}</td>
+                            <td class="vertical-center">{{item.department}}</td>
+                            <td class="vertical-center">{{item.buyer}}</td>
+                            <td class="vertical-center">{{item.charge}}</td>
+                            <td class="vertical-center">{{item.status}}</td>
                         </tr>               
                     </tbody>
                 </table>
