@@ -1,9 +1,10 @@
-import { Component, ViewChild, OnInit } from "@angular/core";
+﻿import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
 
 import {HostInfo} from'../model/host-info.model';
+import {HostGraphModel, CPU, Memory} from '../model/host-graph.model';
 //service
 import { HostDetailService } from "../service/host-detail.service";
 
@@ -32,6 +33,7 @@ export class HostDetailComponent implements OnInit {
     HostId: string;
     Period="1";
     hostInfo: HostInfo = new HostInfo();
+    hostGraph: HostGraphModel = new HostGraphModel();
 
     ngOnInit() {
         this.activatedRouter.params.forEach((params: Params) => {
@@ -61,8 +63,26 @@ export class HostDetailComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
+    getHostGraph() {
+         this.layoutService.show();
+        this.service.getHostGraph(this.HostId,this.Period)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && "100" == response["resultCode"]) {
+                    this.hostGraph = response["resultContent"];
+                   
+                } else {
+                    alert("Res sync error");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
     refresh() {
         this.getHostDetail();
+        this.getHostGraph();
     }
 
     BacktoComputeRes(){
