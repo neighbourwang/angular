@@ -91,11 +91,11 @@ export class ProdMngCreStep4Component implements OnInit {
         this.PostProduct.postProduct(this.service.product).then(response => {
             console.log('产品', response);
             this.layoutService.hide();
-            if (response && 100 == response.resultCode) {
+            // if (response && 100 == response.resultCode) {
             this.route.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
-            } else {
+            // } else {
 
-            }
+            // }
         }).catch(err => {
             console.error(err);
             this.layoutService.hide();

@@ -37,10 +37,10 @@ export class ProdMngCreStep2Component implements OnInit {
     }
 
     next() {
-        // if(!this.service.product.billingCycleClick){
-        //     this.notice.open('操作错误','请选择计价周期');
-        //     return;
-        // }
+        if(!this.service.product.billingCycleClick){
+            this.notice.open('操作错误','请选择计价周期');
+            return;
+        }
         this.service.product.basicCyclePrice=
             this.service.product.basicCyclePrice?this.service.product.basicCyclePrice:0;
         this.service.product.extendCyclePrice=
