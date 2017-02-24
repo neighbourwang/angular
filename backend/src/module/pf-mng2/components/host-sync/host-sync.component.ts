@@ -13,7 +13,7 @@ import { ZoneListModel } from '../../cl-mng/model/cre-step3.model';
 })
 export class HostSyncComponent implements OnInit {
 
-	@Input('zoneList') zoneList:ZoneListModel;
+	@Input()zone:ZoneListModel;
 
 	@Output() complete=new EventEmitter();
 
@@ -23,18 +23,30 @@ export class HostSyncComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		console.log(this.zoneList);
 	}
 
-	open(zoneList:ZoneListModel) {
-		$('#zoneBox').modal('show');
-		console.log(this.zoneList);
-				
+	open() {
+		$('#hostBox').modal('show');
+		console.log(this.zone);				
 	}
 
-	setConfig() {
-		console.log(this.zoneList);
-		this.complete.emit();
+	update() {
+		console.log(this.zone);
+		let list=[];
+		list.push(this.zone);
+		$('#hostBox').modal('hide');		
+		this.layoutService.show();
+		this.service.putUpdateZone(list).then(
+            res => {
+                console.log('put同步计算资源', res);
+				this.layoutService.hide()
+				this.complete.emit();
+            }			
+        ).catch(err => {
+            console.error('put同步计算资源出错', err);
+			this.layoutService.hide();
+        })
+		
 	}
 
 

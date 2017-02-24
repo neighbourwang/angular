@@ -6,6 +6,7 @@ import * as _ from 'underscore';
 export class ItemLoader<T>{
 	private _errorMsg:string = "";//对象名称
 	PageSize:number = 10;//每一页的数量
+	code : number = 0;
 	private _items:Array<T> = [];
 	TotalPages: number = 1;
 	TotalRecords: number = 0;
@@ -115,6 +116,9 @@ export class ItemLoader<T>{
 					reject(this._errorMsg);
 				}
 				else{
+					if(ret.resultCode){
+						this.code = ret.resultCode
+					}
 					if(ret.resultContent)
 					{
 						this._items.splice(0, this._items.length);//清空数据

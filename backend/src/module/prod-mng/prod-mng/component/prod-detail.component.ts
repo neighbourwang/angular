@@ -6,9 +6,12 @@ import { LayoutService, NoticeComponent , ConfirmComponent ,PopupComponent,Count
 //service
 import { GetProduct } from '../service/getProduct.service';
 import { ProdDirDetailService } from '../../prod-dir-mng/service/prod-dir-detail.service';
+import { ProductEditService } from '../service/product.edit.service';
 //model
 import{ Product } from '../model/product.model';
 import { ProductDir } from '../model/prodDir.model';
+import { HistoryPriceList } from '../model/historyPrice.model';
+
 @Component({
     selector: 'prod-detail',
     templateUrl: '../template/prod-detail.component.html',
@@ -25,12 +28,14 @@ export class ProdDetailComponent implements OnInit{
         private router:ActivatedRoute,
         private getProduct:GetProduct,
         private ProdDirDetailService:ProdDirDetailService,
-        private location:Location
+        private location:Location,
+        private service:ProductEditService
     ){}
     product=new Product();
     prodDir=new ProductDir();
     vmProdDir:boolean;
-
+    productId:string;
+    historyPriceList:Array<HistoryPriceList>;
     Tabels = [
         { name: '基本信息', active: true },
         { name: '计价信息', active: false },
@@ -49,23 +54,23 @@ export class ProdDetailComponent implements OnInit{
 
     ngOnInit(){
         console.log(this.router.params);
-        let id:string;
         let type:string;
         this.router.params.forEach((params: Params)=>{
-             id=params['id'];
+             this.productId=params['id'];
              type=params['type'];
              (type=='0')&&(this.vmProdDir=true);
              (type=='1')&&(this.vmProdDir=false);             
         })
-        console.log(id); 
-        console.log(type); 
-        this.getProductDetail(id);        
+        this.getProductDetail(this.productId); 
+        this.getHistoryPrice(this.productId);            
+        
     }
     //请求产品详情
     getProductDetail(id){
         this.getProduct.getProduct(id).then((response)=>{
                 if (response && 100 == response.resultCode) {                    
                     this.product=response.resultContent;
+                    // this.product.id=this.productId;
                     this.tempProductName=this.product.name;
                     this.tempProductDesc=this.product.desc;
                     this.tempBasicCyclePrice=this.product.basicCyclePrice;
@@ -112,7 +117,15 @@ export class ProdDetailComponent implements OnInit{
             console.error(err)
         })
     }
-
+    //获取产品历史价格信息
+    getHistoryPrice(id){
+        this.service.getHistoryPrice(id).then(res=>{
+            console.log('历史价格',res);
+            this.historyPriceList=res.resultContent;
+        }).catch(err=>{
+            console.error(err);
+        })
+    }
     //编辑基本信息
     editBasicInfo:boolean=false;
     tempProductName:string;
@@ -144,6 +157,13 @@ export class ProdDetailComponent implements OnInit{
         this.product.unitPrice=this.tempUnitPrice;
         this.editPriceInfo=false;
         console.log(this.product);
+        this.service.changProdPrice(this.product).then(res=>{
+            console.log(res);
+            this.getProductDetail(this.productId); 
+            this.getHistoryPrice(this.productId);            
+        }).catch(err=>{
+
+        })
     }
     //编辑平台
 

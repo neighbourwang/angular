@@ -21,9 +21,11 @@ const releaseServer = (name, path, reg, ip) =>    //发布到服务器
 	});
 
 //后台发布到开发环境
-releaseServer("backendDev", "/root/nginx/foxcloud/adm", RegBackend, "15.114.100.36:8999");
+// releaseServer("backendDev", "/root/nginx/foxcloud/adm", RegBackend, "15.114.100.36:8999");
+releaseServer("backendDev", "/etc/nginx/foxcloud/adm", RegBackend, "16.187.145.52:8999");
 //前台发布到开发环境
-releaseServer("frontendDev", "/root/nginx/foxcloud/mpp", RegFrontend, "15.114.100.36:8999");
+// releaseServer("frontendDev", "/root/nginx/foxcloud/mpp", RegFrontend, "15.114.100.36:8999");
+releaseServer("frontendDev", "/etc/nginx/foxcloud/mpp", RegFrontend, "16.187.145.52:8999");
 //后台发布到测试环境
 releaseServer("backendTest", "/root/nginx/foxcloud/backend", RegBackend, "15.114.100.65:8999");
 //前台发布到测试环境

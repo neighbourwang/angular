@@ -23,8 +23,11 @@ class enterprise {
     "code" :string;
 }
 export class Product {
+    "id":string;
+    "billingId":string;
     "basicCyclePrice": number;
     "billingCycle": string;
+    "billingCycleClick":boolean;
     "billingType": string;
     "extendCyclePrice": number;
     "name": string;
@@ -38,5 +41,6 @@ export class Product {
     constructor() {
         this.productEnterpiseReqs = Array<enterprise>();
         this.productPlatformReqs=Array<plateform>();
+        this.billingCycleClick=false;
     }
 }

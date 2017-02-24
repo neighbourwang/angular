@@ -1,11 +1,15 @@
+class ClusterAndDc {
+    "dcName": string;
+    "zoneId": string;
+    "zoneName": string
+}
 export class StorageModel {
-
     // "description": "string",
     // "displayName": "string",
-    "id": "string";
+    "id": string;
     // "name": "string",
     // "quota": 0
-    clusterName:String; //可用区名称
+    clusterAndDc:Array<ClusterAndDc>
     name : String; //名称
     displayName : String; //显示名称
     quota : number; //配额

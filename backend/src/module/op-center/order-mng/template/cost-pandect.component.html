@@ -9,21 +9,21 @@
 					<option class="hands" *ngFor="let item of enterpriseLoader.Items" [value]="item.id">{{item.name}}</option>
 			</select>
 				
-			<button class="fox-cloud-button-green fox-cloud-button mgl20">确定</button>
+			<button class="fox-cloud-button-green fox-cloud-button mgl20" (click)="search_chart();">确定</button>
 		</div>
 	    <!--  下拉选项行 -->
 		<div class="firstPanel">
 		   <span class="float-left  mgr5 mgt10">日期：</span> 
 	       <div class="float-left mgr20"> <!--[(ngModel)]="_param.organization" (ngModelChange)="loadBuyer()"
 		    *ngFor="let item of _departmentLoader.Items" [value]="item.id"-->
-				<select class="form-control fix-width-120" [(ngModel)]="_param.year">
-					<option class="hands" [value]="null">2017年</option>
+				<select class="form-control fix-width-120" [(ngModel)]="_param.year" (ngModelChange)="getMonths()">
+					<option class="hands" [value]="null">所有年份</option>
 					<option class="hands" *ngFor="let item of _years" [value]="item.id">{{item.name}}年</option>
 				</select>
 			</div>
 			<div  class="float-left">
-				<select class="form-control fix-width-120" [(ngModel)]="_param.month">
-					<option class="hands" [value]="null" >6月</option>
+				<select class="form-control fix-width-120" [(ngModel)]="_param.month" (ngModelChange)="getLastDay()">
+					<option class="hands" [value]="null" >所有月份</option>
 					<option class="hands"  *ngFor="let item of _months" [value]="item.id">{{item.name}}月</option>
 				</select>
 			</div>
@@ -43,8 +43,7 @@
 					<div class="console-box">
 		                <div class="console-title">部门消费概览</div>
 		                <div class="ues-content">
-		                    <!--<canvas id="use-chart-1" width="200" height="70"></canvas>-->
-							 <canvas baseChart
+							 <canvas baseChart *ngIf="ent_dht" 
                           width="200" height="70"
                           [datasets]="ent_dht"
                           chartType="doughnut"
@@ -57,10 +56,9 @@
                     <div class="console-box">
                         <div class="console-title">部门消费趋势</div>
                         <div class="ues-content">
-                            <!--<canvas id="bar_chart" width="200" height="70"></canvas>-->
-							 <canvas baseChart
+							 <canvas baseChart *ngIf="ent_bar"
                           width="200" height="70"
-                          [datasets]="ent_bar"
+                          [datasets]="ent_bar" 
                           chartType="bar"
                           [colors]="b_chart.colors"
                           [labels]="b_chart.labels"
@@ -76,7 +74,7 @@
                         <div class="ues-content">
                             <!--<canvas id="h_bar_chart" width="200" height="70"></canvas>-->
 							 <canvas baseChart
-                          width="200" height="70"
+                          width="200" *ngIf="ent_hbar" height="70"
                           [datasets]="ent_hbar"
                           [labels]="h_chart.labels"
                           [colors]="h_chart.colors"
@@ -88,7 +86,7 @@
                 <div class="col-sm-6">
                     <div class="console-box">
                         <div class="console-title">TOP5部门新增总额排名</div>
-						 <canvas baseChart
+						 <canvas *ngIf="ent_hbar2" baseChart
                           width="200" height="70"
                           [datasets]="ent_hbar2"
                           [labels]="h_chart2.labels"
@@ -140,15 +138,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-center">
-                            <td class="vertical-center">1</td>
-                            <td class="vertical-center">1111</td>
-                            <td class="vertical-center">云主机</td>
-                            <td class="vertical-center">后付费</td>
-                            <td class="vertical-center">IT</td>
-                            <td class="vertical-center">张三</td>
-                            <td class="vertical-center">￥100</td>
-                            <td class="vertical-center">未知</td>
+                        <tr class="text-center" *ngFor="let item of orderItemLoader.Items;let i = index;">
+                            <td class="vertical-center">{{i}}</td>
+                            <td class="vertical-center">{{item.orderNo}}</td>
+                            <td class="vertical-center">{{item.name}}</td>
+                            <td class="vertical-center">{{item.payWay}}</td>
+                            <td class="vertical-center">{{item.department}}</td>
+                            <td class="vertical-center">{{item.buyer}}</td>
+                            <td class="vertical-center">{{item.charge}}</td>
+                            <td class="vertical-center">{{item.status}}</td>
                         </tr>               
                     </tbody>
                 </table>

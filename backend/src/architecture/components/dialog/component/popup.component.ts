@@ -6,7 +6,7 @@ import { DialogTranslate } from '../service/dialog-translate.service';
 @Component({
     selector: "fc-popup",
     templateUrl: "../template/popup.component.html",
-    inputs: ["title", "ot", "ct", "enableOKButton","cssClass"],
+    inputs: ["title", "ot","test", "ct", "enableOKButton","cssClass"],
     styleUrls: ["../style/StyleSheet.less"],
     providers: [DialogTranslate]
 })
@@ -15,6 +15,8 @@ export class PopupComponent implements OnInit {
     of = new EventEmitter<any>();
     @Output()
     cf = new EventEmitter<any>();
+    @Output()
+    testf = new EventEmitter<any>();
 
     param: any;
     title: String;
@@ -44,6 +46,9 @@ export class PopupComponent implements OnInit {
 
     ccf() {
         this.cf.emit();
+    }
+    ctest(){
+        this.testf.emit();
     }
 
     open(title?: String, msg?: String) {

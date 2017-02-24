@@ -12,24 +12,24 @@
 		        	<h4 class="title mgb20">云硬盘一旦扩容后，将不能缩减，请根据实际需求进行选购。</h4>
 		         	<table class="table table-all-boder mgb20">
 						<tr class="table-line-head">
-							<td class="text-center">云硬盘名称</td>
-							<td class="text-center">存储类型</td>
-							<td class="text-center">容量(GB)</td>
-							<td class="text-center">挂载位置（云主机名称）</td> 
-							<td class="text-center">状态</td>
+				            <th class="text-center">{{'CLOUD_DRIVE_LIST.CLOUD_HRAD_DISK_NAME' | translate}}</th>
+				            <th class="text-center">{{'COMMON.STORAGE_TYPE' | translate}}</th>
+				            <th class="text-center">{{'COMMON.CAPACITY_GB'| translate}}</th>
+				            <th class="text-center">{{'CLOUD_DRIVE_LIST.MOUNT_LOCATION_CLOUD_HOST_NAME' | translate}}</th>
+				            <th class="text-center">{{'COMMON.STATUS' | translate}}</th>
 							<td class="text-center">当前费用</td>
 							<td class="text-center">所在区域及可用区</td>
-							<td class="text-center">属性</td>
+							<td class="text-center">{{'COMMON.TYPE' | translate}}</td>
 					    </tr>
 						<tr>
-							<td class="text-center">云硬盘名称</td>
-							<td class="text-center">存储类型</td>
-							<td class="text-center">容量(GB)</td>
-							<td class="text-center">挂载位置（云主机名称）</td> 
-							<td class="text-center">状态</td>
-							<td class="text-center">当前费用</td>
-							<td class="text-center">所在区域及可用区</td>
-							<td class="text-center">属性</td>
+							<td class="text-center">{{disk.name}}</td>
+							<td class="text-center">{{disk.type}}</td>
+							<td class="text-center">{{disk.size}}</td>
+				            <td class="text-center">{{disk.relyName}}</td>
+				            <td class="text-center">{{disk.status | dict:service.computeStatus | async}}</td>
+							<td class="text-center"><font>¥{{disk.billingInfo?.unitPrice}}元/GB/{{disk.billingInfo?.billingMode | dict:service.weekly | async}}</font></td>
+							<td class="text-center">{{disk.platformName}} {{disk.zoneName}}</td>
+							<td class="text-center">{{disk.useType}}</td>
 						</tr>
 					</table>
 
@@ -38,7 +38,7 @@
 							<th class="col-md-1 col-xs-3 text-center">新规格</th>
 							<td>
 								<div class="col-md-8 no-padding ">
-									<div class="col-md-12 no-padding pdt15 mgt15">
+									<div class="col-md-12 no-padding pdt5 mgt15">
 										容量(GB)：
 										<count-bar
 								            [step]="step" 
@@ -54,11 +54,11 @@
 										<tr>
 											<td class="text-r" rowspan=2>(费用合计)</td>
 											<td class="text-r">一次性费用：</td>
-											<td><font>¥0元</font></td>
+											<td><font>¥{{disk.billingInfo?.basePrice}}元</font></td>
 										</tr>
 										<tr>
 											<td class="text-r vertical-t">费用：</td>
-											<td><font>¥{{disk.billingInfo?.unitPrice * currentStorage}}元/月</font></td>
+											<td><font>¥{{disk.billingInfo?.unitPrice * currentStorage}}元/{{disk.billingInfo?.billingMode | dict:service.weekly | async}}</font></td>
 										</tr>
 									</table>
 								</div>

@@ -157,16 +157,16 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/sync/platform/zones"
     },
     {
-        "desc": "get可用区同步计算资源信息",
+        "desc": "get可用区宿主机信息",
         "id": "pf-mng-zoneUpdate.get",
         "method": "GET",
-        "url": "platformaccess/authsec/sync/platform/zones/{zoneId}/spec"
+        "url": "adminui/authsec/sync/platform/zones/{zoneId}/spec"
     },
     {
-        "desc": "可用区同步计算资源信息",
+        "desc": "可用区宿主机信息",
         "id": "pf-mng-zoneUpdate.put",
         "method": "PUT",
-        "url": "platformaccess/authsec/sync/platform/zones/spec"
+        "url": "adminui/authsec/sync/platform/zones/spec"
     },
     {
         "desc": "启用平台可用区",
@@ -185,37 +185,37 @@ export let RestApis: RestApiModel[] = [
         "desc": "get同步可添加存储区信息",
         "id": "pf-mng-storagelist.get",
         "method": "GET",
-        "url": "platformaccess/authsec/sync/platform/{id}/storages"
+        "url": "adminui/authsec/sync/platform/{id}/storages"
     },
     {
         "desc": "post同步可添加存储区信息",
         "id": "pf-mng-storagelist.post",
         "method": "POST",
-        "url": "platformaccess/authsec/sync/platform/storages"
+        "url": "adminui/authsec/sync/platform/storages"
     },
     {
-        "desc": "get存储区同步计算资源信息",
+        "desc": "get存储区同步存储空间信息",
         "id": "pf-mng-storageUpdate.get",
         "method": "GET",
-        "url": "platformaccess/authsec/sync/platform/storages/{storageId}/spec"
+        "url": "adminui/authsec/sync/platform/storages/{id}/spec"
     },
     {
-        "desc": "存储区同步计算资源信息",
+        "desc": "存储区同步存储空间信息",
         "id": "pf-mng-storageUpdate.put",
         "method": "PUT",
-        "url": "platformaccess/authsec/sync/platform/storages/spec"
+        "url": "adminui/authsec/sync/platform/storages/spec"
     },
     {
         "desc": "启用平台存储区",
         "id": "pf-mng-storage.enable",
-        "method": "GET",
-        "url": "platformaccess/authsec/platform/storage/{id}/enable"
+        "method": "PUT",
+        "url": "adminui/authsec/platform/storage/{id}/enable"
     },
     {
         "desc": "禁用平台存储区",
         "id": "pf-mng-storage.suspend",
-        "method": "GET",
-        "url": "platformaccess/authsec/platform/storage/{id}/suspend"
+        "method": "PUT",
+        "url": "adminui/authsec/platform/storage/{id}/suspend"
     },
     //update镜像同步
     {
@@ -552,6 +552,12 @@ export let RestApis: RestApiModel[] = [
         "id": "ent-mng.ent-prod-cre.creation",
         "method": "POST",
         "url": "adminui/authsec/enterprise/{enterpriseId}/product "
+    },
+    {
+        "desc": "更改产品价格",
+        "id": "ent-mng.prod-mng/price-edit",
+        "method": "PUT",
+        "url": "adminui/authsec/product/billing "
     },
     // <-- 企业管理
     {
@@ -893,7 +899,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "根据平台获取企业列表",
         "id": "prod-mng.prod-enterprise.post",
         "method": "POST",
-        "url": "usermgmt/authsec/enterprises/items "
+        "url": "adminui/authsec/enterprises/items"
     },
 
     {
@@ -913,6 +919,12 @@ export let RestApis: RestApiModel[] = [
         "id": "prod-mng.prod-mng.detail",
         "method": "GET",
         "url": "adminui/authsec/enterprises/product/{id} "
+    },
+    {
+        "desc": "获取产品历史价格信息",
+        "id": "prod-mng.prod-mng.historyPrice",
+        "method": "GET",
+        "url": "adminui/authsec/product/{id}/historyBilling"
     },
 
     //用户中心
@@ -1970,5 +1982,55 @@ export let RestApis: RestApiModel[] = [
         "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/ipmgmt/changestatus/{status}"
     },    
 
+    //工单管理
+    {
+        "desc": "获取机构管理员负责的机构下所有工单",
+        "id": "case-mng.case.list.get",
+        "method": "GET",
+        "url": "basis/authsec/adm/worklist/{page}/{size}"
+    },
+    {
+        "desc": "查询：主题/企业/类别/状态/紧急程度",
+        "id": "case-mng.case.search",
+        "method": "POST",
+        "url": "basis/authsec/adm/worklist/search/{page}/{size}"
+       // "url": "basis/authsec/adm/worklist/search/{page}/{size}?subject={subject}&type={type}&status={status}&emergency={emergency}&tenantId={tenantId}"
+    },
+    {
+        "desc": "关闭工单",
+        "id": "case-mng.case.close",
+        "method": "POST",
+        "url": "basis/authsec/adm/worklist/close"
+    },
+    {
+        "desc": "处理工单",
+        "id": "case-mng.case.handle",
+        "method": "POST",
+        "url": "basis/authsec/adm/worklist/handle"
+    },
+    {
+        "desc": "获取所有企业基本信息，主要用于下拉框",
+        "id": "case-mng.case.enterprise.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/simple"
+    },
+    {
+        "desc": "获取某个工单基本信息",
+        "id": "case-mng.case.info.get",
+        "method": "GET",
+        "url": "basis/authsec/mpp/worklist/{id}"
+    },
+    {
+        "desc": "获取工单关闭信息",
+        "id": "case-mng.case.closeinfo.get",
+        "method": "GET",
+        "url": "basis/authsec/mpp/worklist/{id}/closeinfo"
+    },
+    {
+        "desc": "获取工单处理信息",
+        "id": "case-mng.case.handleinfo.get",
+        "method": "GET",
+        "url": "basis/authsec/mpp/worklist/{id}/handle"
+    },
 ]
 

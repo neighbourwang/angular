@@ -28,7 +28,7 @@
                                 </td>
                                 <td>{{zone.name||'NULL'}}</td>
                                 <td>
-                                    <input type="text" [(ngModel)]="zone.displayName" name="displayName">
+                                    <input class="form-control" type="text" [(ngModel)]="zone.displayName" name="displayName">
                                 </td>
                                 <td>
                                     <p *ngFor="let host of zone.hosts">{{host||0}}</p>
@@ -50,9 +50,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="fox-cloud-button-md fox-cloud-button-white" data-dismiss="modal">{{ct || 'COMMON.CANCEL' | translate }}</button>
+                <button class=" btn btn-default fox-cloud-button-lg" data-dismiss="modal">{{ct || 'COMMON.CANCEL' | translate }}</button>
                 <!-- 取消 -->
-                <button (click)="addZone()" class="fox-cloud-button-md fox-cloud-button-white">{{ot || '添加' }}</button>
+                <button (click)="addZone()" class=" btn fox-cloud-button-lg fox-cloud-button-white">{{ot || '添加' }}</button>
                 <!-- 确认 -->
             </div>
         </div>

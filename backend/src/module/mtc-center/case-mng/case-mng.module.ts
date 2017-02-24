@@ -18,8 +18,7 @@ import { CaseMngRouting } from "./case-mng.routing";
 //Service
 import { CaseMngService} from "./service/case-mng.service";
 import { CaseDetailService} from "./service/case-detail.service";
-import { CaseClosedService} from "./service/case-closed.service";
-import { CaseOperatedService} from "./service/case-operated.service";
+
 
 @NgModule({
     imports: [
@@ -42,8 +41,7 @@ import { CaseOperatedService} from "./service/case-operated.service";
     providers: [
         CaseMngService,  
         CaseDetailService, 
-        CaseClosedService,
-        CaseOperatedService  
+          
     ]
 
 })

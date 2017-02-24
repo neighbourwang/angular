@@ -23,7 +23,7 @@ export class ProdMngCreStep4Component implements OnInit {
     constructor(
         private route: Router,
         private router: ActivatedRoute,
-        private LayoutService: LayoutService,
+        private layoutService: LayoutService,
         private service:CreateProdStepService,
         private ProdDirListService:ProdDirListService,
         private PostProduct: PostProduct
@@ -37,21 +37,11 @@ export class ProdMngCreStep4Component implements OnInit {
     ngOnInit() {
        console.log(this.service.product);
        //获取企业列表        
-        // this.ProdDirListService.getEnterpriseList().then(response => {
-        //     console.log('企业', response);            
-        //     // if (response && 100 == response.resultCode) {
-        //     this.enterpriseList = response.resultContent;
-        //     // } else {
-
-        //     // }
-        // }).catch(err => {
-        //     console.error(err)
-        // })
-
         this.service.product.productPlatformReqs.forEach(ele=>{
             this.platformIdList.push(ele.platformId)
         });
         console.log('idddd',this.platformIdList);
+        this.layoutService.show();
         this.service.getEnterpriseList(this.platformIdList).then(response => {
             console.log('企业', response);            
             // if (response && 100 == response.resultCode) {
@@ -59,11 +49,13 @@ export class ProdMngCreStep4Component implements OnInit {
             // } else {
 
             // }
+            this.layoutService.hide();
             if(!this.enterpriseList||this.enterpriseList.length==0){
                 this.notice.open('企业列表为空','返回上一步重新选择平台')
             }
         }).catch(err => {
-            console.error(err)
+            console.error(err);
+            this.layoutService.hide();            
         })
     }
 
@@ -87,24 +79,28 @@ export class ProdMngCreStep4Component implements OnInit {
 
 
     next() {
+        if(this.service.product.productEnterpiseReqs.length==0){
+             this.notice.open('操作错误','企业列表为空'); 
+             return; 
+        }
         this.service.product.serviceId=this.service.productDir.serviceId;
         this.service.product.billingType=
             this.service.productDir.serviceType=='0'?'0':'1';
         console.log(this.service.product);
+        this.layoutService.show();
         this.PostProduct.postProduct(this.service.product).then(response => {
             console.log('产品', response);
-            this.LayoutService.hide();
+            this.layoutService.hide();
             // if (response && 100 == response.resultCode) {
-            // this.route.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
+            this.route.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
             // } else {
 
             // }
         }).catch(err => {
             console.error(err);
-            this.LayoutService.hide();
+            this.layoutService.hide();
         })
     }
-
     previous() {
         this.route.navigate(["prod-mng/prod-mng/prod-mng-cre-3"]);
     }

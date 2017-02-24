@@ -1,26 +1,30 @@
 <div class="page-content-header icon-content-header-operation-center">
-    工单详细：9-不能访问公司OA系统主机  
+    工单详细：{{caseInfo.id}}-{{caseInfo.subject}}  
 </div>
 <div class="page-content">
    <div style="padding-left:20%">
-        <div class="  mgt20" style="padding-left:9%;font-size:18px"> 基本信息</div>
+        <div   style="padding-left: 6%;position:relative;height: 34px;line-height: 34px;margin-top:20px;">
+            <span style="border:3px solid #00a982;border-radius:50px;"></span>
+            <div style="font-size:18px;font-weight:700;position:absolute;left:75px;top:0px">基本信息</div>
+        </div>
+       
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-2 form-control-title" >主题:</div>
-                <div class="col-md-4"> <span style="line-height:34px">不能访问公司OA系统主机</span> </div>
+                <div class="col-md-4"> <span style="line-height:34px">{{caseInfo.subject}}</span> </div>
             </div>
         </div>
         <div class="row row-line-height ">
             <div class="  col-md-4" >
                 <div class="form-group ">
                     <div class="col-md-6 form-control-title" >状态:</div>
-                    <div class="col-md-4"> <span style="line-height:34px">已关闭</span> </div>
+                    <div class="col-md-6"> <span style="line-height:34px">{{caseInfo.statusName}}</span> </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group ">
                     <div class="col-sm-5 form-control-title" >类别:</div>
-                    <div class="col-md-7"> <span style="line-height:34px"> 云主机 </span></div>
+                    <div class="col-md-7"> <span style="line-height:34px"> {{caseInfo.typeName}} </span></div>
                 </div>
             </div>
         </div>
@@ -28,13 +32,13 @@
             <div class="  col-md-4" >
                 <div class="form-group">
                     <div class="col-sm-6 form-control-title" > 联系人:</div>
-                    <div class="col-md-4"> <span style="line-height:34px">管华</span> </div>
+                    <div class="col-md-6"> <span style="line-height:34px">{{caseInfo.contact}}</span> </div>
                 </div>
             </div>                   
             <div class="col-md-4"> 
                 <div class="form-group">
                     <div class="col-sm-5 form-control-title" >联系电话:</div>
-                    <div class="col-md-7">  <span style="line-height:34px">02164223399</span> </div> 
+                    <div class="col-md-7">  <span style="line-height:34px">{{caseInfo.contactNo}}</span> </div> 
                 </div>
             </div>
         </div>
@@ -42,13 +46,13 @@
             <div class="  col-md-4" >
                 <div class="form-group">
                     <div class="col-sm-6 form-control-title" >提交者:</div>
-                    <div class="col-md-4">  <span style="line-height:34px">管华</span> </div> 
+                    <div class="col-md-6">  <span style="line-height:34px">{{caseInfo.creatorName}}</span> </div> 
                 </div>
             </div>
         <div class="col-md-4"> 
                 <div class="form-group">
                     <div class="col-sm-5 form-control-title" >提交时间:</div>
-                    <div class="col-md-7">  <span style="line-height:34px">2016-12-13 16:00:00</span> </div> 
+                    <div class="col-md-7">  <span style="line-height:34px">{{caseInfo.updateDate}}</span> </div> 
                 </div>
             </div>
         </div>
@@ -56,13 +60,13 @@
             <div class="col-md-4" > 
                 <div class="form-group">
                     <div class="col-sm-6 form-control-title" >所属部门:</div>
-                    <div class="col-md-4">  <span style="line-height:34px">销售部</span> </div> 
+                    <div class="col-md-6">  <span style="line-height:34px">{{caseInfo.creatorOrganization}}</span> </div> 
                 </div>
             </div>
             <div class="col-md-4">  
                 <div class="form-group">
                     <div class="col-sm-5 form-control-title" >所属企业:</div>
-                    <div class="col-md-7">  <span style="line-height:34px">上海惠普有限公司</span> </div> 
+                    <div class="col-md-7">  <span style="line-height:34px">{{caseInfo.creatorTenant}}</span> </div> 
                 </div>
             </div>
         </div>
@@ -70,77 +74,88 @@
             <div class="form-group">
                 <div class="col-sm-2 form-control-title">描述:</div>
                 <div class="col-md-4">
-                    <textarea class="form-control" rows="3" placeholder=""></textarea>
+                    <textarea class="form-control" rows="3" >{{caseInfo.details}}</textarea>
                 </div>
             </div>
         </div>
-
-
-        <div class="  mgt20" style="padding-left:9%;font-size:18px"> 处理信息</div>        
-        <div class="row row-line-height">  
-            <div class="form-group">
-                <div class="col-sm-2 form-control-title" >紧急程度:</div>
-                <div class="col-md-4">  <span style="line-height:34px">紧急</span> </div> 
+        
+       <div *ngIf="caseInfo.statusName=='处理中'||caseInfo.statusName=='已关闭'">
+           <div style="border-top:1px solid #00a982;width: 750px;margin-top: 20px;"></div>
+           <div   style="padding-left: 6%;position:relative;height: 34px;line-height: 34px;margin-top:30px;">
+                <span style="border:3px solid #00a982;border-radius:50px;"></span>
+                <div style="font-size:18px;font-weight:700;position:absolute;left:75px;top:0px">处理信息</div>
+            </div> 
+            <div *ngFor="let handleInfo of handleInfoes" >      
+                <div class="row row-line-height">  
+                    <div class="form-group">
+                        <div class="col-sm-2 form-control-title" >紧急程度:</div>
+                        <div class="col-md-4">  <span style="line-height:34px">{{handleInfo.emergency}}</span> </div> 
+                    </div>
+                </div>  
+                <div class="row row-line-height"> 
+                    <div class="col-md-4" > 
+                        <div class="form-group">
+                            <div class="col-sm-6 form-control-title" >处理人:</div>
+                            <div class="col-md-6">  <span style="line-height:34px">{{handleInfo.handlerName}}</span> </div> 
+                        </div>
+                    </div>
+                    <div class="col-md-4">  
+                        <div class="form-group">
+                            <div class="col-sm-5 form-control-title" >处理时间:</div>
+                            <div class="col-md-7">  <span style="line-height:34px">{{handleInfo.handleDate}}</span> </div> 
+                        </div>
+                    </div>
+                </div>                      
+                <div class="row row-line-height">  
+                    <div class="form-group">
+                        <div class="col-sm-2 form-control-title">处理记录:</div>
+                        <div class="col-md-4">  
+                            <textarea class="form-control" rows="3" placeholder="最多只能输入1000个文字">{{handleInfo.handleInfo}}</textarea>
+                        </div> 
+                    </div>
+                </div>
             </div>
-        </div>  
-        <div class="row row-line-height"> 
-            <div class="col-md-4" > 
+        </div>
+        
+        <div *ngIf="caseInfo.statusName=='已关闭'">
+            <div style="border-top:1px solid #00a982;width: 750px;margin-top: 20px;"></div>
+            <div   style="padding-left: 6%;position:relative;height: 34px;line-height: 34px;margin-top:30px;">
+                <span style="border:3px solid #00a982;border-radius:50px;"></span>
+                <div style="font-size:18px;font-weight:700;position:absolute;left:75px;top:0px">关闭信息</div>
+            </div>   
+            <div class="row row-line-height">  
                 <div class="form-group">
-                    <div class="col-sm-6 form-control-title" >处理人:</div>
-                    <div class="col-md-4">  <span style="line-height:34px">戴侯华</span> </div> 
+                    <div class="col-sm-2 form-control-title">关闭人:</div>
+                    <div class="col-md-4">  <span style="line-height:34px">{{closeInfo.closerName}}</span> </div> 
                 </div>
             </div>
-            <div class="col-md-4">  
+            <div class="row row-line-height">  
+                <div class="  col-md-4" >
+                    <div class="form-group">
+                        <div class="col-sm-6 form-control-title" >关闭类型:</div>
+                        <div class="col-md-6">  <span style="line-height:34px">{{closeInfo.closeType}}</span> </div> 
+                    </div>
+                </div>
+                <div class="col-md-4"> 
+                    <div class="form-group">
+                        <div class="col-sm-5 form-control-title" >关闭时间:</div>
+                        <div class="col-md-7">  <span style="line-height:34px">{{closeInfo.closeDate}}</span> </div> 
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">  
                 <div class="form-group">
-                    <div class="col-sm-5 form-control-title" >处理时间:</div>
-                    <div class="col-md-7">  <span style="line-height:34px">2016-12-13 16:00:00</span> </div> 
-                </div>
-            </div>
-        </div>                      
-        <div class="row row-line-height">  
-            <div class="form-group">
-                <div class="col-sm-2 form-control-title">处理记录:</div>
-                <div class="col-md-4">  
-                    <textarea class="form-control" rows="3" placeholder="最多只能输入1000个文字"></textarea>
-                </div> 
-            </div>
-        </div>
-
-        <div class="  mgt20" style="padding-left:9%;font-size:18px"> 关闭信息</div>                  
-        <div class="row row-line-height">  
-            <div class="form-group">
-                <div class="col-sm-2 form-control-title">关闭人:</div>
-                <div class="col-md-4">  <span style="line-height:34px">管华</span> </div> 
-            </div>
-        </div>
-
-        <div class="row row-line-height">  
-            <div class="  col-md-4" >
-                <div class="form-group">
-                    <div class="col-sm-6 form-control-title" >关闭类型:</div>
-                    <div class="col-md-4">  <span style="line-height:34px">完成</span> </div> 
-                </div>
-            </div>
-            <div class="col-md-4"> 
-                <div class="form-group">
-                    <div class="col-sm-5 form-control-title" >关闭时间:</div>
-                    <div class="col-md-7">  <span style="line-height:34px">2016-12-13 16:00:00</span> </div> 
+                    <div class="col-sm-2 form-control-title" >描述:</div>
+                    <div class="col-md-4">
+                        <textarea class="form-control" rows="3" placeholder="">{{closeInfo.closeInfo}}</textarea>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="row row-line-height">  
-            <div class="form-group">
-                <div class="col-sm-2 form-control-title" >描述:</div>
-                <div class="col-md-4">
-                    <textarea class="form-control" rows="3" placeholder=""></textarea>
-                </div>
-            </div>
-        </div>
-   </div>
+    </div>
 </div>
 <div class="text-center mgt20">
-    <button class="fox-cloud-button-lg fox-cloud-button-white">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="backtoList();">
         <span class="icon-button-label">返回</span>
     </button>
 </div>

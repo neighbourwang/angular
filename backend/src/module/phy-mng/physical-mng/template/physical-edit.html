@@ -9,7 +9,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>{{'PHYSICAL_MNG.PHYSICAL_NAME'|translate}}:</div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" [(ngModel)]="physical.pmName" [disabled]="eidtMode=='view'">
+                        <input type="text" class="form-control" [(ngModel)]="physical.pmName"  [disabled]="eidtMode=='view'">
                     </div>
                 </div>
             </div>

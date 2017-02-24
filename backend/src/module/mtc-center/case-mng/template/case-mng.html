@@ -7,35 +7,35 @@
     <div class="mgt15 ">      
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">所属企业：</span>
         <div class="float-left pdr20">
-            <select class="pdl10 form-control">
-                <option value="1">所有企业</option>
-                <option value="1">上海惠普有限公司</option>
+            <select class="pdl10 form-control" [(ngModel)]="tenantId" >
+                <option value="">所有企业</option>
+                <option *ngFor="let v of enterpriseList" [value]="v.id">{{v.name}}</option>
             </select>
         </div>          
         <span class="float-left mgl10" style="display:inline-block;font-size:16px;padding:6px 0">类别：</span>
         <div class="float-left">
-            <select class="pdl10 form-control">
-                <option value="1">所有类别</option>
-                <option value="1">云负载均衡</option>
+            <select class="pdl10 form-control" [(ngModel)]="type">
+                <option value="">所有类别</option>
+                <option *ngFor="let v of service.dictType | async" [value]="v.value">{{v.displayValue}}</option>
             </select>
         </div> 
         <span class="float-left mgl10" style="display:inline-block;font-size:16px;padding:6px 0">状态：</span>
         <div class="float-left">
-            <select class="pdl10 form-control">
-                <option value="1">所有状态</option>
-                <option value="1">已关闭</option>
+            <select class="pdl10 form-control" [(ngModel)]="status">
+                <option value="">所有状态</option>
+                <option *ngFor="let v of service.dictStatus | async" [value]="v.value">{{v.displayValue}}</option>
             </select>
         </div> 
         <span class="float-left mgl10" style="display:inline-block;font-size:16px;padding:6px 0">紧急程度：</span>
         <div class="float-left">
-            <select class="pdl10 form-control">
-                <option value="1">所有</option>
-                <option value="1">非常紧急</option>
+            <select class="pdl10 form-control" [(ngModel)]="emergency">
+                <option value="">所有</option>
+                <option *ngFor="let v of service.dictEmergency | async" [value]="v.value">{{v.displayValue}}</option>
             </select>
         </div> 
         <div class="input-group col-md-2 pull-right mgl10 float-left">
-            <input class="form-control " placeholder="输入云主机信息搜索" type="text">
-            <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+            <input class="form-control " placeholder="输入云主机信息搜索" type="text" [(ngModel)]="subject">
+            <div class="input-group-addon" (click)="search();"><span class="glyphicon glyphicon-search"></span></div>
         </div>                                                             
      
         <div class="dropdown pull-right" >
@@ -44,8 +44,8 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#" key="boe/case_operated.html">处理工单</a></li>
-                <li><a href="#" key="boe/case_closed.html">关闭工单</a></li>
+                <li><a href="javascript:void(0);" (click)="handleCase(case);">处理工单</a></li>
+                <li><a href="javascript:void(0);" (click)="closeCase(case);">关闭工单</a></li>
             </ul>
         </div>
     </div>
@@ -69,33 +69,27 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><input type="radio" class="fox-cloud-radio" name="case"> </td>
-                    <td>1</td>
-                    <td><a  href="#"  key="boe/case_detail.html">云硬盘订购成功，但不能使用</a> </td>
-                    <td>云主机</td>
-                    <td > 新建 </td>                  
-                    <td> 非常紧急 </td>
-                    <td > 顾晓燕</td>
-                    <td >02164223399 </td>  
-                    <td > 张三 </td>  
-                    <td > 上海惠普有限公司 </td>  
-                    <td >2016-10-1 15:35:50  </td>  
-                    <td>2016-10-1 15:35:50  </td>
+                <tr *ngFor="let case of caseList; let idex=index;">
+                    <td><input type="radio" class="fox-cloud-radio" name="case" (change)="getSelectCase(case);"[checked]="case.isSelect"> </td>
+                    <td>{{case.id}}</td>
+                    <td><a href="javascript:void(0);" (click)="gotoCaseView(case);">{{case.subject}}</a> </td>
+                    <td>{{case.typeName}}</td>
+                    <td > {{case.statusName}} </td>                  
+                    <td> {{case.emergencyName}} </td>
+                    <td > {{case.contact}}</td>
+                    <td >{{case.contactNo}} </td>  
+                    <td >{{case.creatorName}} </td>  
+                    <td > {{case.creatorTenant}} </td>  
+                    <td >{{case.createDate}}  </td>  
+                    <td>{{case.updateDate }}  </td>
                 </tr>
             </tbody>
         </table>    
     </div>
     <div style="height:50px"></div>
     <div class="fox-cloud-pagination-container">
-        <ul class="fox-cloud-pagination">
-            <span>&lt;&lt;</span>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <span class="pagination-disabled">&gt;&gt;</span>
-        </ul>
-    </div>
+             <fc-pagination #page tp={{totalPage}} (pf)="getCaseList($event)"></fc-pagination>  
+    </div>   
 </div>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}"></fc-notice> 
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}" ct="{{'PHYSICAL_MNG.CANCEL'|translate}}"  ></fc-confirm>               

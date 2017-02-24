@@ -61,6 +61,10 @@ export class ProdMngCreStep1Component implements OnInit {
     // platFormRegionList:;
 
     next() {
+        console.log(this.service.product.name);
+        if(!this.service.product.name){
+            this.notice.open('操作错误','产品名称不能为空')
+            return}
         this.route.navigate(["prod-mng/prod-mng/prod-mng-cre-2"]);
     }
     //取消

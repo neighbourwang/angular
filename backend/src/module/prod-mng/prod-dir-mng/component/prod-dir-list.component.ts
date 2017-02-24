@@ -71,7 +71,7 @@ export class ProdDirListComponent implements OnInit {
             // }
         }).catch(err => {
             console.error(err);
-            this.notice.open('COMMON.OPERATION_ERROR','.PROD_MNG.GET_PRODUCT_CAT_LIST_ERROR')
+            this.notice.open('COMMON.OPERATION_ERROR','获取平台列表错误')
         })
         //获取产品目录类别
         this.ProdSeriesService.getProdSeries().then(response => {
@@ -290,22 +290,16 @@ export class ProdDirListComponent implements OnInit {
 
     }
     //选择产品目录类型
-    showSpec: boolean = true;
-    // selectProDirType(e) {
-    //     console.log(e);
+    // selectProDirType(item,index) {
+    //     this.prodDirTypeList.forEach(ele=>{
+    //                 ele.isSelected=false;
+    //             })
+    //     item.isSelected=true;
+    //     this.prodDirTypeId=item.id;
+    //     console.log(item);
     //     this.showSpec =
-    //         e == '33f23ade-a0f8-11e6-a18b-0050568a49fd' ? true : false;
+    //         item.id == '33f23ade-a0f8-11e6-a18b-0050568a49fd' ? true : false;
     // }
-    selectProDirType(item,index) {
-        this.prodDirTypeList.forEach(ele=>{
-                    ele.isSelected=false;
-                })
-        item.isSelected=true;
-        this.prodDirTypeId=item.id;
-        console.log(item);
-        this.showSpec =
-            item.id == '33f23ade-a0f8-11e6-a18b-0050568a49fd' ? true : false;
-    }
     //选择云主机产品目录规格
     prodDirSpecIdx:number=0;
     selectProDirSpec(e){

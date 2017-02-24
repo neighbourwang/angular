@@ -21,6 +21,8 @@ import { ProductDir, vmPlateform, diskPlateform } from '../model/prodDir.model';
 
 export class ProdMngCreStep3Component implements OnInit {
 
+    @ViewChild('notice')
+    notice:NoticeComponent;
 
     constructor(
         private route: Router,
@@ -29,6 +31,7 @@ export class ProdMngCreStep3Component implements OnInit {
         private service: CreateProdStepService
     ) { }
 
+
     prodDirType: string;
     selectAllZone: boolean = true;
     selectAllStorage: boolean = true;
@@ -36,7 +39,7 @@ export class ProdMngCreStep3Component implements OnInit {
     tempDiskProdDirPlatformList: Array<diskPlateform>;
     ngOnInit() {
         //获取平台类型
-        console.log(this.service.productDir);
+        console.log(this.service.product);
         this.prodDirType = this.service.productDir.serviceType;
         if (this.prodDirType == '0') {
             this.tempVmProdDirPlatformList = this.service.productDir.platformInfo;
@@ -140,7 +143,11 @@ export class ProdMngCreStep3Component implements OnInit {
         console.log(this.service.product.productPlatformReqs);
     }
 
-    next() {        
+    next() { 
+        if(this.service.product.productPlatformReqs.length==0){
+             this.notice.open('操作错误','平台列表为空'); 
+             return; 
+        }       
         this.route.navigate(["prod-mng/prod-mng/prod-mng-cre-4"]);
     }
 

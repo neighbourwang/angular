@@ -710,5 +710,9 @@ export const TranslateCN = {
         MIRROR_QUANTITY: '镜像数量',
         DEPARTMENT_NAME: '部门名称',
         CONFIRM_NEW_PASSWORD: '确认新密码',
+
+        //msg-mng
+        DELETE_MSG_CONFIRM: '您选择删除{{value_1}}条消息，请确认',
+        DELETE_MSG: '删除消息',
     }
 }

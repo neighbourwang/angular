@@ -20,12 +20,13 @@ export class CreateProdDirService {
         return this.restApi.request(api.method, api.url, undefined, undefined, data);
     }
     //根据cpu和mmr获取平台列表；
-    postCpuMmr(vcpu: number, mmr: number) {
+    postCpuMmr(vcpu: number, mmr: number,bootSize:number) {
         let body = {
             "serviceTemplateCode": "",
             "vmServiceSpecQueryCondition": {
                 "cpuCore": vcpu,
-                "memSize": mmr
+                "memSize": mmr,
+                "bootSize":bootSize
             }
         }
         console.log(body);

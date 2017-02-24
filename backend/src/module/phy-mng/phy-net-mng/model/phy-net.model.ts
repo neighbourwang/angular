@@ -98,3 +98,48 @@ export class PhyNetDetailsModel {
     phynet_info: PhyNetEditModel = new PhyNetEditModel();
     phyres_pools: Array<PhyResPoolModel> = [];
 }
+
+
+export class PhySetResPmPoolModel {
+    pmPoolId: string = "";
+    pmPoolName: string = "";    
+}
+
+export class PhySetResPmModel {
+    pmPoolId: string = "";
+    pmPoolName: string = "";
+    pmId: string = "";
+    pmName: string = "";
+}
+
+export class IpScopeModel{
+    networkName = "";
+    subnetIP = "";
+    subnetMask = "";
+    subnetCIDR = "";
+    gateway = "";
+    dnsPre = "";
+    dnsAlt = "";
+    id = "";
+    ipRange = "";
+
+    toString(){
+        return JSON.stringify(this);
+    }
+}
+
+export class IpUsageMngModel {
+    id: string = ""; //IP地址ID
+    ipAddress: string = ""; //IP地址
+    hostName: string = ""; //占用IP的主机名
+    enterprise: string = "";  //企业名称
+    status: string; //状态, 来源于数据字典
+    description: string = ""; //说明 
+
+    checked: boolean = false;//ui operation
+
+    toString(){
+        return JSON.stringify(this);
+    }
+
+}

@@ -145,8 +145,9 @@ export class PhysicalEditComponent implements OnInit {
     createPhysical() {
 
         if (!this.physical.pmName) {
-            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_PHYSICAL_NAME");
-            return false;
+            this.physical.pmName=this.physical.model;
+            //this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_PHYSICAL_NAME");
+            //return false;
         }
 
         if (!this.physical.iloIPAddress) {
@@ -212,8 +213,10 @@ export class PhysicalEditComponent implements OnInit {
 
     //读取物理机信息
     readHardwareInfo() {
-        this.layoutService.show();
-        this.service.getPhysicalHardwareInfo(this.physical)
+        
+       if(this.physical.iloIPAddress && this.physical.iloPwd && this.physical.iloUserName){
+            this.layoutService.show();
+             this.service.getPhysicalHardwareInfo(this.physical)
             .then(
             response => {
                 this.layoutService.hide();
@@ -230,6 +233,11 @@ export class PhysicalEditComponent implements OnInit {
                 }
             }
             )
+       }
+       else{
+           this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_ILO_INFO");
+       }
+       
     }
 
     cancel() {

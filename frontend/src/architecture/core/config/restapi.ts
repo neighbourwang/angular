@@ -97,10 +97,16 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/subinstance/itemlist/vm/action"
     },
     {
+        "desc": "提交变更云主机配置",
+        "method": "POST",
+        "id": "submit.vm.disk.config",
+        "url": "marketplace/authsec/shopping/instance/vm/{instanceId}/update"
+    },
+    {
         "desc": "变更云主机和云硬盘的借口",
         "method": "GET",
         "id": "change.vm.disk.config",
-        "url": "/authsec/shopping/servicelist/{instanceId}/serviceType/{serviceType}"
+        "url": "marketplace/authsec/shopping/servicelist/{instanceId}/serviceType/{serviceType}"
     },
     {
         "desc": "更改云主机名称",
@@ -216,6 +222,14 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "id": "image.mng.area.list",
         "url": "marketplace/authsec/platforms/status/activation"
+    }
+    // 管理控制台
+    ,{
+        "desc": "获取管理控制台里的相关信息",
+        "method": "GET",
+        "id": "mng-console-info",
+        // "url": "/basis/authsec/mpp/organizations/page/0/size/10" 
+        "url": "basis/authsec/mpp/organization/{organizationId}/ext"        
     }
     //<--费用中心-已购服务管理
     ,{

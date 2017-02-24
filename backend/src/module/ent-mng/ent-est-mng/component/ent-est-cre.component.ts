@@ -84,10 +84,10 @@ export class EntEstCreComponent implements OnInit{
 			name:this.entEst.BasicInfo.name
 		}
 		this.nameCheckLoader.Go(null,null,param)
-		.then(ret=>{
-			if(ret.resultCode==100){
+		.then(succeuss=>{
+			if(this.nameCheckLoader.code==100){
 				this.isSameName = 2;
-				this.showMsg('该名称已存在！');
+				// this.showMsg('该名称已存在！');
 			}else{
 				this.isSameName = 1;
 			}
@@ -97,6 +97,7 @@ export class EntEstCreComponent implements OnInit{
 			this.showError(err);
 		})
 	}
+	
 
 	//数据验证
 	validate(){
@@ -209,8 +210,10 @@ export class EntEstCreComponent implements OnInit{
 	create(){
 		this.entEst.BasicInfo.platformIds
 			= this.resourceQuotas.items.filter(n=>n.checked).map(n=>n.platformId);
-		
-		if(this.validate())
+		if(this.isSameName!=1){
+			this.showMsg("名称不合法！");
+		}else{
+				if(this.validate())
 		{
 			this.layoutService.show();
 			this.service.createEnterpise(this.entEst).then(ret=>{
@@ -223,6 +226,8 @@ export class EntEstCreComponent implements OnInit{
 				this.notice.open("COMMON.PROMPT", "ENT_MNG.FAIL_TO_CREATE_ENTERPRISE");
 			})
 		}
+		}
+	
 	}
 
 	cancel(){

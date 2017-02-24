@@ -6,7 +6,7 @@ import { RestApi, RestApiCfg, LayoutService, PaginationComponent, PopupComponent
 import { TranslateService } from 'ng2-translate';
 
 //Model
-import { PhyNetListModel, PhyNetCreateModel, PhyNetEditModel, PhyResPoolModel, PhyNetDetailsModel } from '../model/phy-net.model';
+import { PhyNetListModel, PhyNetCreateModel, PhyNetEditModel, PhyResPoolModel, PhyNetDetailsModel, IpScopeModel } from '../model/phy-net.model';
 
 //Service
 import { PhyNetMngService } from '../service/phy-net-mng.service';
@@ -76,6 +76,8 @@ export class PhyNetMngComponent implements OnInit {
     phynet_changed: PhyNetEditModel = new PhyNetEditModel();　// 编辑物理机网络框
     phynet_edit: PhyNetEditModel = new PhyNetEditModel();
 
+    ipscope_changed: IpScopeModel = new IpScopeModel();
+
 
     statusDictArray: Array<SystemDictionary> = [];
 
@@ -140,7 +142,6 @@ export class PhyNetMngComponent implements OnInit {
 
     //Menu: 创建网络
     createPhyNet(): void {
-        this.layoutService.hide();
         this.createphynetbox.open();
     }
 
@@ -202,12 +203,11 @@ export class PhyNetMngComponent implements OnInit {
         if (notValid !== void 0) {
             console.log("validateSubnetModify Failed!!!");
             this.createphynetbox.close();
-            //this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));
             let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
             let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];
-            let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
-                      + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
-            this.showMsg(con);
+            this.translateService.get([name,msg], null).subscribe((res) => {
+                this.showMsg(res[name] + res[msg]);
+            });
             this.okCallback = () => {
                 this.createphynetbox.open();                
             };            
@@ -219,9 +219,9 @@ export class PhyNetMngComponent implements OnInit {
     }
 
     acceptPhyNetCreateModify(): void {
-        console.log('clicked acceptPhyNetCreateModify');
-        this.layoutService.show();
+        console.log('clicked acceptPhyNetCreateModify');        
         if (this.validatePhyNetCreateInfo()) {
+            this.layoutService.show();
             this.service.createPhyNet(this.phynet_create)
                 .then(res => {
                     this.layoutService.hide();
@@ -245,8 +245,6 @@ export class PhyNetMngComponent implements OnInit {
                     this.okCallback = () => { 
                         this.createphynetbox.open();  };
                 })
-        } else {
-            this.layoutService.hide();
         }
     }
 
@@ -335,12 +333,11 @@ export class PhyNetMngComponent implements OnInit {
         if (notValid !== void 0) {
             console.log("validateSubnetModify Failed!!!");
             this.editphynetbox.close();
-            //this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));
             let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
             let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];
-            let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
-                      + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
-            this.showMsg(con);
+            this.translateService.get([name,msg], null).subscribe((res) => {
+                this.showMsg(res[name] + res[msg]);
+            });
             this.okCallback = () => {
                 this.editphynetbox.open();                
             };            
@@ -352,9 +349,9 @@ export class PhyNetMngComponent implements OnInit {
     }
 
     acceptPhyNetEditModify(): void {
-        console.log('clicked acceptPhyNetCreateModify');
-        this.layoutService.show();
+        console.log('clicked acceptPhyNetCreateModify');        
         if (this.validatePhyNetEditInfo()) {
+            this.layoutService.show();
             this.service.editPhyNet(this.phynet_changed)
                 .then(res => {
                     this.layoutService.hide();
@@ -384,8 +381,6 @@ export class PhyNetMngComponent implements OnInit {
                         this.editphynetbox.open();
                     };
                 })
-        } else {
-            this.layoutService.hide();
         }
     }
 
@@ -400,127 +395,140 @@ export class PhyNetMngComponent implements OnInit {
 
     //Menu: 网络资源分配
     setupPhyNetResource(): void {
-        let pg = this.getSelected();
-        if(pg){
-            this.router.navigate([`phy-mng/phy-net/phy-net-setup-resource`]);
+        let pn = this.getSelected();
+        if(pn){
+            this.selectedphynet = pn;
+            this.router.navigate([`phy-mng/phy-net/phy-net-setup-resource`, {"pn_id": this.selectedphynet.id}]);
         }
-
     }
 
     //Menu: 设置子网IP地址范围
     setupPhyNetIPs(): void {
-        console.log('conponent: net-mng/vm-mng/ip-mng-list/ips');
-        //this.pg = this.getSelected();
-        //if (this.pg) {
-        if (true) {
-            /*
-            this.ippool.portGroup = this.pg.id;
-            console.log(this.ippool.portGroup, "========== setupIPs =============");
+        let phynet = this.getSelected();
+        if (phynet) {
+            this.selectedphynet = phynet;
+            this.ipscope_changed.dnsAlt = this.selectedphynet.dnsAlt;
+            this.ipscope_changed.dnsPre = this.selectedphynet.dnsPre;
+            this.ipscope_changed.gateway = this.selectedphynet.gateway;
+            this.ipscope_changed.networkName = this.selectedphynet.networkName;
+            this.ipscope_changed.subnetIP = this.selectedphynet.subnetIP;
+            this.ipscope_changed.subnetMask = this.selectedphynet.subnetMask;
+            this.ipscope_changed.subnetCIDR = this.selectedphynet.subnetCIDR;
+            this.ipscope_changed.id = this.selectedphynet.id;
             this.layoutService.show();
-            this.service.getSubnetInfoIps(this.ippool.portGroup)
+            this.service.getPhyNetIpRange(this.ipscope_changed.id)
             .then(
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) { 
-                    this.subnetInfo = response.resultContent;
-                    console.log(this.subnetInfo, "this.subnetInfo")
-                    this.ippool.subnetCIDR = this.subnetInfo.subnetCIDR;
-                    this.ippool.gateway = this.subnetInfo.gateway;
-                    this.ippool.subnetMask = this.subnetInfo.subnetMask;
-                    this.ippool.ips = this.subnetInfo.range;
-                    if(!this.ippool.ips){
-                        console.log("No ips from response!");
-                        this.ippool.ipstr = "";
-                    } else {
-                        console.log("Ips from response!");
-                        this.ippool.ipstr = this.ippool.ips.join('');
-                    }
-                    console.log(this.ippool.ips, this.ippool.ipstr, this.ippool, "ips, ipstr, and ippool object");
+                    this.ipscope_changed = response.resultContent;
+                    console.log(this.ipscope_changed, "this.ipscope_changed");
                 } else {
-                    console.log("========== setupIPs [if]else=============");
-                    this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
-                    //alert("Res sync error");
+                    this.showAlert("COMMON.GETTING_DATA_FAILED");
+                    return;
                 }
             })
             .catch((e) => this.onRejected(e));
-            */
-            this.layoutService.hide();
             this.ipsbox.open();
-
         } else {          
-            //this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_PG");
-            //return;
+            this.showAlert("PHY_NET_MNG.PLEASE_CHOOSE_NETWORK");
+            return;
         }
 
     }
 
+    validatePhyNetIPModify(): boolean {
+        let notValid = null;
+        notValid = [
+            {
+                "name": "PHY_NET_MNG.SUBNET_IP_INFORMATION"
+                , 'value': this.ipscope_changed.subnetCIDR
+                , "op": "cidr"
+            },
+            {
+                "name": "PHY_NET_MNG.IP_ADDRESS_SCOPE"
+                , 'value': this.ipscope_changed.ipRange
+                , "op": "*"
+            },
+            {
+                "name": "PHY_NET_MNG.IP_ADDRESS_SCOPE"
+                , 'value': [this.ipscope_changed.ipRange, this.ipscope_changed.subnetCIDR]
+                , "op": "ipscope"
+            },
+            ].find(n => this.ipService.validate(n.name, n.value, n.op) !== undefined);
+
+        if (notValid !== void 0) {
+            console.log("validateIPModify Failed!!!");
+            this.ipsbox.close();
+            let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
+            let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];
+            this.translateService.get([name,msg], null).subscribe((res) => {
+                this.showMsg(res[name] + res[msg]);
+            });
+            this.okCallback = () => {
+                this.ipsbox.open();
+            };            
+            return false;
+        } else {
+            console.log("validateIPModify OK!!!")
+            return true;
+        }
+    }
+
     acceptPhyNetIPsModify(): void {
-        /*
-        console.log('clicked acceptIPsModify');
-        this.layoutService.show();
-        if (this.validateIPModify()) {
-            //console.log('clicked acceptIPsModify 2');
-            this.service.updateSubnetIPs(this.ippool.portGroup, this.ippool)
+        //console.log('clicked acceptIPsModify');        
+        if (this.validatePhyNetIPModify()) {
+            this.layoutService.show();
+            this.service.updatePhyNetIpRange(this.ipscope_changed)
                 .then(res => {
-                    //console.log('clicked acceptIPsModify 3');
                     this.layoutService.hide();
                     if (res && res.resultCode == "100") {                        
                         console.log(res, "设置IP地址范围成功")
                     } else {
-                        console.log('clicked acceptIPsModify 4');
                         this.ipsbox.close();
-                        this.showMsg("NET_MNG_VM_IP_MNG.SET_IP_POOL_FAILED");
+                        this.showMsg("PHY_NET_MNG.SET_IP_SCOPE_FAILED");
                         return;
                     }
                 })
                 .then(()=>{
-                    console.log('clicked acceptIPsModify 5');
-                    this.getIpMngList(); // Need to get list since we need to get ipcount after setting up ipscope.
+                    this.getPhyNetList();
                     this.ipsbox.close();
                 })
                 .catch(err => {
-                    console.log('clicked acceptIPsModify 6');
                     console.log('设置IP地址范围异常', err);
                     this.layoutService.hide();
                     this.ipsbox.close();
-                    this.showMsg("NET_MNG_VM_IP_MNG.SET_IP_POOL_EXCEPTION");
+                    this.showMsg("PHY_NET_MNG.SET_IP_SCOPE_EXCEPTION");
                     this.okCallback = () => { 
                         this.ipsbox.open();  };
                 })
-        } else {
-            this.layoutService.hide();
         }
-        */
     }
 
     cancelPhyNetIPsModify(): void {
-        /*
-        console.log('clicked cancelIPsModify');
-        this.ippool.ips = [];
-        this.ippool.ipstr = "";
-        this.ippool.subnetCIDR = "";
-        this.ippool.subnetMask = "";
-        this.ippool.gateway = "";
-        */
+        //console.log('clicked cancelIPsModify');
+        this.ipscope_changed.ipRange = "";
+        this.ipscope_changed.dnsAlt = "";
+        this.ipscope_changed.dnsPre = "";
+        this.ipscope_changed.gateway = "";
+        this.ipscope_changed.networkName = "";
+        this.ipscope_changed.subnetIP = "";
+        this.ipscope_changed.subnetMask = "";
+        this.ipscope_changed.subnetCIDR = "";
+        this.ipscope_changed.id = "";
     }
 
     //Menu: 管理子网IP使用情况
     ipUsageMngPage() {
-        let pg = this.getSelected();
-        if(pg){
-            this.router.navigate([`phy-mng/phy-net/phy-net-mng-ip-addr`]);
-        }
-        /*
-        let pg = this.getSelected();
-        if(pg){
-            this.router.navigate([`phy-mng/phy-net/phy-net-ips-mng`,  
+        let pn = this.getSelected();
+        if(pn){
+            this.selectedphynet = pn;
+            this.router.navigate([`phy-mng/phy-net/phy-net-mng-ip-addr`, 
             {
-                //"pg_id": pg.id,
-                //"pg_name": pg.clusterName,
-                //"pid": this.platformId
+                "pn_id": this.selectedphynet.id,
+                "pn_name": this.selectedphynet.networkName
             }]);
         }
-        */
     }
 
     //Menu: 导出IP地址信息

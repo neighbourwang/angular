@@ -41,8 +41,8 @@
 				            <td class="text-center">{{vm.regionZone}}</td>
 				            <td class="text-center">{{vm.vmState | dict:service.computeStatus | async}}</td>
 				            <td class="text-center">
-			            		<p>一次性费用：{{vm.billingInfo?.basePrice}}元</p>
-			            		<p>周期费用：{{vm.billingInfo?.basicPrice}}元 / {{vm.billingInfo?.periodType}}</p>
+			            		<p>一次性费用：¥{{vm.billingInfo?.basePrice}}元</p>
+			            		<p>周期费用：¥{{vm.billingInfo?.basicPrice}}元 / {{vm.billingInfo?.billingMode | dict:service.weekly | async}}</p>
 				            </td>
 						</tr>
 					</table>
@@ -54,30 +54,27 @@
 								<div class="col-md-8 no-padding ">
 									<div class="col-md-12 pdt15 pdb15">
 										<div class="col-md-1 line34 no-padding">CPU：</div>
-										<div class="col-md-10 no-padding btn-group" data-toggle="buttons">
-											<button class="btn btn-default active">
-												 立即设置
-											</button>
-											<button class="btn btn-default">
-												模板自带密码
-											</button>
-											<button class="btn btn-default">
-												自带密码
+										<div class="col-md-10 no-padding btn-group" *ngIf="config" data-toggle="buttons">
+											<button 
+												(click)="selectedCpu=attr;change()"
+												*ngFor="let attr of config.CPU.mapValueList[config.PLATFORM.valueList[0].attrValueId];let i = index" 
+												[ngClass]="{'active': selectedCpu?.attrValueId === attr.attrValueId}"
+												class="btn btn-default">
+												 	<span (afterNgFor)="i===0 ? change(selectedCpu = attr) : '';">{{attr.attrDisplayValue}}</span>
 											</button>
 										</div>
 									</div>
 									<div class="col-md-12 pdb15">
 										<div class="col-md-1 line34 no-padding">内存：</div>
-										<div class="col-md-10 no-padding btn-group" data-toggle="buttons">
-											<button class="btn btn-default active">
-												 立即设置
+										<div class="col-md-10 no-padding btn-group" *ngIf="config" data-toggle="buttons">
+											<button 
+												(click)="selectedMem=attr;change()"
+												*ngFor="let attr of config.MEM.mapValueList[selectedCpu?.attrValueId];let i = index" 
+												[ngClass]="{'active': selectedMem?.attrValueId === attr.attrValueId}"
+												class="btn btn-default">
+													<span (afterNgFor)="i===0 ? change(selectedMem = attr) : '';">{{attr.attrDisplayValue}}</span>
 											</button>
-											<button class="btn btn-default">
-												模板自带密码
-											</button>
-											<button class="btn btn-default">
-												自带密码
-											</button>
+
 										</div>
 									</div>
 								</div>
@@ -86,11 +83,11 @@
 										<tr>
 											<td class="text-r" rowspan=2>(费用合计)</td>
 											<td class="text-r">一次性费用：</td>
-											<td><font>¥0元</font></td>
+											<td><font>¥{{billingInfo?.basePrice}}元</font></td>
 										</tr>
 										<tr>
-											<td class="text-r vertical-t">费用：</td>
-											<td><font>¥100元/月</font><br><font>¥0元</font></td>
+											<td class="text-r vertical-t">周期费用：</td>
+											<td ><font>{{billingInfo?.basicPrice}}元 / {{billingInfo?.billingMode | dict:service.weekly | async}}</font></td>
 										</tr>
 									</table>
 								</div>
@@ -100,7 +97,7 @@
 				</div>
 		      
 			  	<div class="modal-footer">
-			        <button (click)="setConfig()" class="btn button-confirm button-size-big">{{ot || 'DIALOG.CONFIRM' | translate }}</button> <!-- 确认 -->
+			        <button [disabled]="ot" (click)="setConfig()" class="btn button-confirm button-size-big">{{ot || 'DIALOG.CONFIRM' | translate }}</button> <!-- 确认 -->
 			        <button class="btn btn-default button-size-big" data-dismiss="modal">{{ct || 'DIALOG.CANCEL' | translate }}</button> <!-- 取消 -->
 			  	</div>
 	  	</div>
@@ -111,30 +108,7 @@
 				<h4 class="modal-title" id="myModalLabel">订单完成：配置变更</h4>
 		  	</div>
 		 	<div class="modal-body"> 
-	         	<table class="table table-all-boder mgb20">
-					<tr class="table-line-head">
-						<td class="text-center">产品信息</td>
-						<td class="text-center">产品类型</td>
-						<td class="text-center">计费模式</td>
-						<td class="text-center">购买周期</td> 
-						<td class="text-center">数量</td>
-						<td class="text-center">新费用</td>
-						<td class="text-center">状态</td>
-						<td class="text-center">新费用开始时间</td>
-						<td class="text-center">变更后到期时间</td> 
-				    </tr>
-					<tr>
-						<td class="text-center">产品信息</td>
-						<td class="text-center">产品类型</td>
-						<td class="text-center">计费模式</td>
-						<td class="text-center">购买周期</td> 
-						<td class="text-center">数量</td>
-						<td class="text-center">新费用</td>
-						<td class="text-center">状态</td>
-						<td class="text-center">新费用开始时间</td>
-						<td class="text-center">变更后到期时间</td> 
-					</tr>
-				</table>
+		 		<order-complete #order [orderId]="orderId"></order-complete>
 
 				<div class="done-bottom">
 					<div class="left-text float-left">

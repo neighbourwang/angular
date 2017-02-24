@@ -18,31 +18,6 @@
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10 table-container no-padding">
-            <!--<table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>编号</th>
-                        <th>名称</th>
-                        <th>显示名称</th>
-                        <th>配额(GB)</th>
-                        <th>最大空间(GB)</th>
-                        <th>说明</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of creStep4Model; let idx = index;">
-                        <td>{{idx + 1}}</td>
-                        <td>{{item.name}}</td>
-                        <td><input type="text" class="form-control" [(ngModel)]="item.displayName"></td>
-                        <td>-->
-                            <!--<input type="number" class="form-control" [(ngModel)]="item.quota" style="width: 100px; display: inline;">-->
-                            <!--<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>
-                        </td>
-                        <td>12800</td>
-                        <td><input type="text" class="form-control" [(ngModel)]="item.description"></td>
-                    </tr>
-                </tbody>
-            </table>-->
             <table class="table table-hover mgt20" *ngIf="platformType=='0'">
                 <thead>
                     <tr>
@@ -53,7 +28,7 @@
                         <th>总容量(GB)</th>
                         <th style="width:7%">副本数</th>
                         <th style="width:7%">配额%</th>
-                        <th style="width:30%">说明</th>
+                        <th style="width:25%">说明</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,7 +40,6 @@
                         <td>{{item.maximum||0}}</td>
                         <td>
                             <input type="number" class="form-control" required [(ngModel)]="item.replica" style="width: 100px; display: inline;" min="0">
-                            <!--<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
                         </td>
                         <td>
                             <input type="number" class="form-control"  required [(ngModel)]="item.quotaPercentDisplay" style=" display: inline;" min="0" max="100">
@@ -87,7 +61,7 @@
                         <th>总容量(GB)</th>
                         <th>副本数</th>
                         <th>配额%</th>
-                        <th style="width:30%">说明</th>
+                        <th style="width:25%">说明</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -102,7 +76,6 @@
                         <td>{{item.maximum||0}}</td>
                         <td>
                             <input type="number" class="form-control" required min="0"    [(ngModel)]="item.replica" style="width: 100px; display: inline;" (blur)="keepSame(item)">
-                            <!--<count-bar [default]=0 [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,idx)"></count-bar>-->
                         </td>
                         <td>
                             <input type="number" class="form-control" required min="0" max="100" [(ngModel)]="item.quotaPercentDisplay" [class.border-error]="!item.valid" (blur)="keepSame(item)" style=" display: inline;">

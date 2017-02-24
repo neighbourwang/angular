@@ -114,10 +114,13 @@ export class ItemLoader<T>{
 				{
 					reject(this._errormsg);
 				}
+				else if(ret.resultCode!=100){
+					reject(this._errormsg);
+				}
 				else{
+					this._items.splice(0, this._items.length);//清空数据
 					if(ret.resultContent)
 					{
-						this._items.splice(0, this._items.length);//清空数据
 						//设置数据
 						if(this.MapFunc)
 						{
