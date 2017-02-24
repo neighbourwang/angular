@@ -65,5 +65,6 @@ export class  Chart{
         this.datas2 = [];
         this.colors = [];
         this.labels = [];
+        this.options = null;
     }
 }

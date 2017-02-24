@@ -412,32 +412,41 @@ topToDatas(target:Chart,items:Array<any>){
 
 search_chart(){
     this.clear();
-
+//是canvas没有清除画布内容？？？？
+    //消费概览
     this.consumeLoad();
-    
+
+    //消费趋势
     this.totalconsumeLoad();
 
+    //两个TOP图
     this.loadTopChart();
+
+    console.log("概览"+this.d_chart.datas);
+    console.log("趋势"+this.b_chart.datas);
+    console.log("TOP1"+this.h_chart.datas);
+    console.log("TOP2"+this.h_chart2.datas);
 }
 clear(){
-    this.b_chart.clear();
     this.d_chart.clear();
+
+    this.b_chart.clear();
+  
     this.h_chart.clear();
     this.h_chart2.clear();
 }
 
 
 createSumBar(){
-    this.d_chart.colors = ["#08C895","#82B6B2","#6F7DC8","#2BD2C8"];
     this.ent_dht=[{
                         data: this.d_chart.datas,
                         borderWidth:[
                             0,0,0,0
                         ]
                     }];
-          this.d_chart.colors = [
+    this.d_chart.colors = [
             {
-                backgroundColor:this.d_chart.colors
+                backgroundColor:["#08C895","#82B6B2","#6F7DC8","#2BD2C8"]
             }
         ];
 }
