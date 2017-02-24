@@ -60,4 +60,10 @@ export class  Chart{
     //         this.options = options;
     //     }
     // }
+    clear(){
+        this.datas = [];
+        this.datas2 = [];
+        this.colors = [];
+        this.labels = [];
+    }
 }

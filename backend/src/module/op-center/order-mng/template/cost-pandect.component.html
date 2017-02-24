@@ -106,17 +106,11 @@
 		<div class="firstPanel mgt20">
 
             <div class="float-left mgr20">
-                <span>订单类型：</span>
+                <span>服务类型</span>
                 <select class="form-control fix-width-120" [(ngModel)]="_param.orderType">
-                    <option class="hands" [value]="null">所有订单</option>
+                    <option class="hands" [value]="null">所有服务</option>
+					<option class="hands" [value]="null">新增服务</option>
                     <!--<option class="hands" *ngFor="let item of _orderTypeLoader.Items" [value]="item.id">{{item.name}}</option>-->
-                </select>
-            </div>
-            <div class="float-left">
-                <span>购买人：</span>
-                <select class="form-control fix-width-120" [(ngModel)]="_param.buyer">
-                    <option class="hands" [value]="null">所有人</option>
-                    <!--<option class="hands" *ngFor="let item of _buyerLoader.Items" [value]="item.id" >{{item.name}}</option>-->
                 </select>
             </div>
 		</div><!--  下拉选项行 ending-->

@@ -190,69 +190,61 @@ getLastDay(){
 		});
 	}
 
-loadChart(){
-
-    let _endTime : string;
-
+loadTopChart(){
+    
+    let month:string;
     let enterprises : Array<{key:string;}>=[];
-
-    let historyIds:Array<string>=[];
-
-    let sumIds :Array<{key:String;value:string}> =[];
-
+    month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
+    let param ={
+            endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
+            startTime:this._param.year+'-'+month+'-01'+' 00:00:00',
+            ids:[]
+        };
     if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){    
             for(let item of this.enterpriseLoader.Items){
                 let ent = {key:item.id};
                 enterprises.push(ent);
-                sumIds.push({key:item.id,value:item.name});
-                historyIds.push(item.id);
             }       
     }
     else{
-        enterprises.push({key:this._param.enterpriseId});
-        let item = this.enterpriseLoader.Items.find(n=>n.id==this._param.enterpriseId);
-        sumIds.push({key:this._param.enterpriseId,value:AdminListItem.name});
+        enterprises.push({key:this._param.enterpriseId});     
     }
 
     
 
+     param.ids = enterprises;
+
+     this.topConsumeLoad(param);
+     this.topIncreseConsumeLoad(param);
+}
+//发送请求，处理参数，展示
+consumeLoad(){
+    this.layoutService.show();
+    let month:string;
+    let sumIds :Array<{key:String;value:string}> =[];
+     month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
     let param={
-        endTime: this._param.year+'-'+this._param.month+'-'+this.lastDay+' 23:59:59',
-        ids:[],
-        size:Number(this._param.month)
-    };
-
-    
-     param.ids = historyIds;
-
-
-     this._param.month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
-    
-     let topParam ={
-            endTime: this._param.year+'-'+this._param.month+'-'+this.lastDay+' 23:59:59',
-            startTime:this._param.year+'-'+this._param.month+'-01'+' 00:00:00',
+            endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
+            startTime:this._param.year+'-'+month+'-01'+' 00:00:00',
             ids:[]
         };
-    topParam.ids = sumIds;
-  
+     if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){    
+            for(let item of this.enterpriseLoader.Items){
+                sumIds.push({key:item.id,value:item.name});
+            }       
+    }
+    else{
+         let item = this.enterpriseLoader.Items.find(n=>n.id==this._param.enterpriseId);
+        sumIds.push({key:this._param.enterpriseId,value:item.name});
+    }
+   
+    param.ids = sumIds;
 
-     this.consumeLoad(topParam);
-     this.totalconsumeLoad(param);
-     this.increseConsumeLoad(param);
-
-
-     topParam.ids = enterprises;
-
-     this.topConsumeLoad(topParam);
-     this.topIncreseConsumeLoad(topParam);
-}
-
-consumeLoad(param:any){
-    this.layoutService.show();
     this.consumeLoader.Go(null,null,param)
      .then(success=>{
          this.toSumDatas(this.consumeLoader.FirstItem,this.d_chart);
-        this.layoutService.hide();
+         this.createSumBar();
+         this.layoutService.hide();
     })
     .catch(err=>{
         this.layoutService.hide();
@@ -260,11 +252,37 @@ consumeLoad(param:any){
     })
 }
 
-totalconsumeLoad(param:any){
+totalconsumeLoad(){
     this.layoutService.show();
+    let month:string;
+    let historyIds:Array<string>=[];
+     month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
+     let param={
+        endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
+        ids:[],
+        size:Number(this._param.month)
+    };
+
+    if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){    
+            for(let item of this.enterpriseLoader.Items){
+                historyIds.push(item.id);
+            }       
+    }
+    else{
+                historyIds.push(this._param.enterpriseId);
+    }
+
+
+     param.ids = historyIds;
+
     this.totalConsumeLoader.Go(null,null,param)
      .then(success=>{
+        this.increseConsumeLoader.Go(null,null,param)
+    })
+    .then(success=>{
         this.toHistoryData(this.totalConsumeLoader.Items,this.b_chart);
+        this.toIncreaseHistoryData(this.increseConsumeLoader.Items,this.b_chart);
+        this.createHstoryBar();
        this.layoutService.hide();
     })
     .catch(err=>{
@@ -272,29 +290,14 @@ totalconsumeLoad(param:any){
         this.showMsg(err);
     })
 }
-increseConsumeLoad(param:any){
-    this.layoutService.show();
-    this.increseConsumeLoader.Go(null,null,param)
-     .then(success=>{
-        this.toIncreaseHistoryData(this.increseConsumeLoader.Items,this.b_chart);
-        this.layoutService.hide();
-    })
-    .catch(err=>{
-        this.layoutService.hide();
-        this.showMsg(err);
-    })
-}
+
 topConsumeLoad(param:any){
     this.layoutService.show();
     if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){
         this.topConsumeLoader.Go(null,null,param)
         .then(success=>{
             this.topToDatas(this.h_chart,this.topConsumeLoader.Items);
-            this.ent_hbar=[{
-                        label:'消费总额',
-                        data: this.h_chart.datas
-                         
-                    }];
+            this.createTopBar();
             this.layoutService.hide();
         })
         .catch(err=>{
@@ -305,13 +308,7 @@ topConsumeLoad(param:any){
         this.topConsumeDepartmentLoader.Go(null,null,param)
         .then(success=>{
            this.topToDatas(this.h_chart,this.topConsumeDepartmentLoader.Items);
-
-            	this.ent_hbar=[{
-                        label:'消费总额',
-                        data: this.h_chart.datas
-                         
-                    }];
-     
+           this.createTopBar();
             this.layoutService.hide();
         })
         .catch(err=>{
@@ -329,11 +326,7 @@ topIncreseConsumeLoad(param:any){
         this.topIncreseConsumeLoader.Go(null,null,param)
         .then(success=>{
               this.topToDatas(this.h_chart2,this.topIncreseConsumeLoader.Items);
-            	this.ent_hbar2=[{
-                        label:'消费总额',
-                        data: this.h_chart2.datas
-                         
-                    }];
+              this.createTopBar2();
              this.layoutService.hide();
         })
         .catch(err=>{
@@ -344,11 +337,7 @@ topIncreseConsumeLoad(param:any){
         this.topIncreseConsumeDepartmentLoader.Go(null,null,param)
         .then(success=>{
                 this.topToDatas(this.h_chart2,this.topIncreseConsumeDepartmentLoader.Items);
-            	this.ent_hbar2=[{
-                        label:'消费总额',
-                        data: this.h_chart2.datas
-                         
-                    }];
+            	this.createTopBar2();
                this.layoutService.hide();
         })
         .catch(err=>{
@@ -399,7 +388,7 @@ toIncreaseHistoryData(source:Array<any>,target:Chart){
             datas.push(item.doubleValue);
         }
     }
-    target.datas2.splice(0,target.datas.length);
+    target.datas2.splice(0,target.datas2.length);
     target.datas2 = datas;
 }
 topToDatas(target:Chart,items:Array<any>){
@@ -413,30 +402,34 @@ topToDatas(target:Chart,items:Array<any>){
         datas.push(item.amount);
         labels.push(item.name);
     }
-    }    
+}    
+   target.datas.splice(0,target.datas.length);
+   target.labels.splice(0,target.labels.length);
    target.datas = datas;
    target.labels = labels;
 }
 
 
 search_chart(){
-    this.setCommonDatas();
-    this.loadChart();
+    this.clear();
+
+    this.consumeLoad();
+    
+    this.totalconsumeLoad();
+
+    this.loadTopChart();
+}
+clear(){
+    this.b_chart.clear();
+    this.d_chart.clear();
+    this.h_chart.clear();
+    this.h_chart2.clear();
 }
 
-setCommonDatas(){
-  //this.loadChart();  wei-qi.huang@hpe.com
-    this.d_chart.datas =[12,60,134,22];
-    //_datas = [this.consumeLoader.FirstItem.physicalMachineOrderPriceSum,this.consumeLoader.FirstItem.dbOrderPriceSum,this.consumeLoader.FirstItem.diskOrderPriceSum,this.consumeLoader.FirstItem.vmOrderPriceSum];
-    this.d_chart.colors = ["#08C895","#82B6B2","#6F7DC8","#2BD2C8"];
-    this.d_chart.labels = [
-                        '物理机：'+this.d_chart.datas[0],
-                        '数据库：'+ this.d_chart.datas[1],
-                        '云硬盘：'+ this.d_chart.datas[2],
-                        '云主机：'+ this.d_chart.datas[3],
-                    ];
 
-       this.ent_dht=[{
+createSumBar(){
+    this.d_chart.colors = ["#08C895","#82B6B2","#6F7DC8","#2BD2C8"];
+    this.ent_dht=[{
                         data: this.d_chart.datas,
                         borderWidth:[
                             0,0,0,0
@@ -447,11 +440,9 @@ setCommonDatas(){
                 backgroundColor:this.d_chart.colors
             }
         ];
-    //消费趋势
-    this.b_chart.datas = [22,55,42,71,159,99];
-    this.b_chart.datas2 = [232,155,142,271,159,69];
+}
 
-   
+createHstoryBar(){  
    this.b_chart.colors = [
                 {
                     backgroundColor: [
@@ -482,8 +473,6 @@ setCommonDatas(){
                     pointHoverBorderColor: "rgba(220,220,220,1)",
                 }
             ];
-
-    this.b_chart.labels = ["1月", "2月", "3月", "4月", "5月", "6月"];
     this.b_chart.options = {
                 scales: {
                     xAxes: [{
@@ -497,7 +486,7 @@ setCommonDatas(){
             };
 
 
-	this.ent_bar=[{
+this.ent_bar=[{
                         type: "bar",
                         label: "总消费",
                         data: this.b_chart.datas,
@@ -519,16 +508,15 @@ setCommonDatas(){
                             spanGaps: false,
                         }
                    ];
+}
 
 
-     this.h_chart.datas = [13,15,24,50];
-    this.ent_hbar=[{
+createTopBar(){
+     this.ent_hbar=[{
         label:'消费总额',
         data: this.h_chart.datas
                          
      }];
-    this.h_chart.labels = ["云主机", "云硬盘", "数据库", "物理机"];
-   
         this.h_chart.colors  = [
                 {
                     backgroundColor: [
@@ -555,13 +543,19 @@ setCommonDatas(){
                                 }]
                             }
             };
-         this.h_chart2.datas = [13,15,24,50];
+
+        
+}
+
+
+
+createTopBar2(){
             this.ent_hbar2=[{
             label:'消费总额',
             data: this.h_chart2.datas
                          
      }];
-    this.h_chart2.labels = ["云主机", "云硬盘", "数据库", "物理机"];
+
              this.h_chart2.colors  = [
                 {
                     backgroundColor: [
@@ -589,7 +583,6 @@ setCommonDatas(){
                             }
             };
 }
-
 
 
 
