@@ -43,10 +43,12 @@ doubleValue:number;//在消费中心中，作为每个月的金额 ,
 key:string;
 num:string;//在消费中心中，作为月份 ,
 value:String;
+
 }
 export class  Chart{
  
     datas:Array<number> = [];
+    datas2:Array<number> = [];//复合统计图的第二个数据，简单统计图不需要
     colors:Array<any> = [];
     labels:Array<any> = [];
     options:any;
