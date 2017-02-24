@@ -253,7 +253,6 @@
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.displayName||'NULL'}}</span>
                             <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.displayName">
-
                         </td>
                         <td>{{storage.typeDisplayName}}</td>
                         <td>{{storage.maximum||0}}</td>
@@ -277,7 +276,7 @@
                                 <button *ngIf="storage.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage.id)">启用</button>
                                 <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage.id)">禁用</button>
                                 <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)">编辑</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)">同步计算资源</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)">同步存储空间</button>
                             </div>
                             <div *ngIf="storage.isEdit">
                                 <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveStorage(storage,idx)">保存</button>
@@ -350,12 +349,14 @@
                 </tbody>
             </table>
         </div>
+        <storage-sync #storageSync [type]="platformType" [storageList]="updateStorageList" (complete)="getStorageList()"></storage-sync>
+        <mem-sync #memSync [storage]="updateStorageMem" (complete)="getStorageList()"></mem-sync>
     </div>
 </div>
 
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM"></fc-notice>
 
-<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL"
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL"
     (cf)="ccf()"></fc-confirm>
 
     

@@ -8,6 +8,7 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
                 <!--<li><a href="#">修改</a></li>-->
+                <li> <a (click)="goVmSpec()">管理云主机规格</a></li>
                 <li><a (click)="remove();"> {{ 'COMMON.DELETE' | translate}}</a></li>
                 <li><a (click)="enable();"> {{ 'COMMON.ENABLE' | translate}}</a></li>
                 <li><a (click)="disable();"> {{ 'COMMON.DISABLE' | translate}}</a></li>

@@ -149,7 +149,7 @@ export class PhyNetSetupResourceComponent implements OnInit {
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.showAlert("资源分配成功！");
+                    this.showAlert("PHY_NET_MNG.PHY_NET_RESOURCE_SETUP_SUCCESS");
                     return true;
                 } else {
                     this.showAlert("COMMON.GETTING_DATA_FAILED");

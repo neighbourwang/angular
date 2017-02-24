@@ -23,9 +23,9 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>cmp-host</td>
-                    <td>337</td>
-                    <td>256</td>
+                    <td>{{hostInfo.hostName}}</td>
+                    <td>{{hostInfo.cpu}}</td>
+                    <td>{{hostInfo.memory}}</td>
                     <td class="table-progress">
                         <div>
                             <div class="progress">
@@ -33,7 +33,7 @@
                                      style="width: 89%;">
                                 </div>
                             </div>
-                            <span class="progress-value">89%</span>
+                            <span class="progress-value">{{hostInfo.cpuPercent}}%</span>
                         </div>
                     </td>
                     <td class="table-progress">
@@ -43,12 +43,12 @@
                                      style="width: 47%;">
                                 </div>
                             </div>
-                            <span class="progress-value">47%</span>
+                            <span class="progress-value">{{hostInfo.memPercent}}%</span>
                         </div>
                     </td>
-                    <td>30</td>
-                    <td>up</td>
-                    <td>Activated</td>
+                    <td>{{hostInfo.instance}}</td>
+                    <td>{{hostInfo.running}}</td>
+                    <td>{{hostInfo.status}}</td>
                 </tr>
             </tbody>
         </table>
@@ -56,29 +56,29 @@
 
     <div class="row mgt10" >
         <div class="col-md-2">
-            <select class="form-control">
-                <option value="1">最近24小时</option>
-                <option value="1">最近7天</option>
-                <option value="1">最近30天</option>
-                <option value="1">最近90天</option>
-                <option value="1">最近180天</option>
-                <option value="1">最近360天</option>
+            <select class="form-control" [ngModel]="Period">
+                <option [ngValue]="1">最近24小时</option>
+                <option [ngValue]="7">最近7天</option>
+                <option [ngValue]="30">最近30天</option>
+                <option [ngValue]="90">最近90天</option>
+                <option [ngValue]="180">最近180天</option>
+                <option [ngValue]="360">最近360天</option>
             </select>
         </div>
         <div class="col-md-2">
-            <button class="fox-cloud-button fox-cloud-button-white">刷新</button>
+            <button class="fox-cloud-button fox-cloud-button-white" (click)="refresh()">刷新</button>
         </div>       
     </div>
     <div class="mgt15" style="font-size:18px;">
         <div class="row row-line-height" style="margin:0;">
-            <div class="col-md-3">CPU平均使用率：0.1%</div>
-            <div class="col-md-3">CPU峰值使用率：23%</div>
-            <div class="col-md-6">CPU峰值记录时间：2017年1月18日   18：00：53</div>
+            <div class="col-md-3">CPU平均使用率：{{hostInfo.cpuAverage}}%</div>
+            <div class="col-md-3">CPU峰值使用率：{{hostInfo.cpuPeak}}%</div>
+            <div class="col-md-6">CPU峰值记录时间：{{hostInfo.cpuPeakTime}}</div>
         </div>
         <div class="row row-line-height" style="margin:0;">
-            <div class="col-md-3">内存平均使用率：39.9%</div>
-            <div class="col-md-3">内存峰值使用率：67%</div>
-            <div class="col-md-6">内存峰值记录时间：2017年1月18日    18：00：53</div>
+            <div class="col-md-3">内存平均使用率：{{hostInfo.memoryAverage}}%</div>
+            <div class="col-md-3">内存峰值使用率：{{hostInfo.memoryPeak}}%</div>
+            <div class="col-md-6">内存峰值记录时间：{{hostInfo.memoryPeakTime}}</div>
         </div>
     </div>
     <div class="row mgt15">

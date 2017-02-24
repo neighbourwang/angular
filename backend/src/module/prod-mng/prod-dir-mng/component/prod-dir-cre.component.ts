@@ -50,7 +50,7 @@ export class ProdDirCreComponent implements OnInit {
                 }
             //获取可用平台
             this.LayoutService.show();
-            this.CreateProdDirService.postCpuMmr(this.prodDir.specification.vcpu, this.prodDir.specification.mem).then(response => {
+            this.CreateProdDirService.postCpuMmr(this.prodDir.specification.vcpu, this.prodDir.specification.mem,this.prodDir.specification.startupDisk).then(response => {
                 // console.log(response);
                 if (response && 100 == response.resultCode) {
                     let resultContent = response.resultContent;
@@ -106,13 +106,8 @@ export class ProdDirCreComponent implements OnInit {
     }
     //同步countBar数据
     outputValue(e, arg) {
-        console.log(arg);
         this.prodDir.specification[arg] = e;
-        // arg=e;
-        console.log(e);
         console.log(this.prodDir.specification.mem);
-        // console.log(this.prodDir.specification.vcpu);          
-
     }
     
     //选择全部可用区

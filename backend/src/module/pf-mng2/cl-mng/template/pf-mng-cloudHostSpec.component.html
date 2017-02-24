@@ -1,28 +1,34 @@
 <div class="page-content-header icon-content-header-platform-manage" style="padding-bottom:10px;height:45px;">
-    管理云主机规格: <span style="margin-right:20px;">{{platformName}}</span> 云主机类型: <span>{{platformType}}</span>
+    管理云主机规格: <span style="margin-right:20px;">{{platformName}}</span> 云主机类型: <span>{{platformTypeName}}</span>
     <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
         <span class="icon-button-label" (click)='goList()'>返回云平台列表</span>
     </button>
 </div>
-<div >
+<div>
     <div class="page-content">
-        <div style="padding-bottom: 10px;">
-             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
-                <span class="icon-button-label" (click)='goList()'>同步存储后端</span>
+        <div style="padding-bottom: 10px;" *ngIf="platformType=='0'">
+            <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
+                <span class="icon-button-label" (click)='updateSpec()'>同步云主机规格</span>
              </button>
             <div style="clear:both"></div>
         </div>
-        <div class="table-container" >
-            <table class="table table-hover">
+        <div style="padding-bottom: 10px;" *ngIf="platformType=='2'">
+            <button class="fox-cloud-button-md fox-cloud-button-white">
+                <span class="icon-button-label" (click)='createSpec()'>新建云主机规格</span>
+             </button>
+            <div style="clear:both"></div>
+        </div>
+        <div class="table-container">
+            <table class="table table-hover" *ngIf="platformType=='0'">
                 <thead>
                     <tr>
-                        <th>#</th>                        
+                        <th>#</th>
                         <th>名称</th>
                         <th>vCPU</th>
                         <th>内存(MB)</th>
                         <th>启动盘大小(GB)</th>
                         <th>状态</th>
-                        <th>同步结果</th>
+                        <!--<th>同步结果</th>-->
                         <th>更新时间</th>
                         <th>操作</th>
                     </tr>
@@ -35,43 +41,101 @@
                         <td>512</td>
                         <td>40</td>
                         <td>已启用</td>
-                        <td>使用中</td>
+                        <!--<td>使用中</td>-->
                         <td>2016-11-30 15:00:00</td>
                         <td>
-                            <button class="fox-cloud-button-md fox-cloud-button-white">启用</button>
-                            <button class="fox-cloud-button-md fox-cloud-button-white">禁用</button> 
-                        </td>                                               
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td style="cursor:pointer">m2.tiny</td>
-                        <td>1</td>
-                        <td>512</td>
-                        <td>40</td>
-                        <td>已启用</td>
-                        <td>使用中</td>
-                        <td>2016-11-30 15:00:00</td>
-                        <td>
-                            <button class="fox-cloud-button-md fox-cloud-button-white">启用</button>
-                            <button class="fox-cloud-button-md fox-cloud-button-white">禁用</button> 
-                        </td>                                               
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td style="cursor:pointer">m2.tiny</td>
-                        <td>1</td>
-                        <td>512</td>
-                        <td>40</td>
-                        <td>已启用</td>
-                        <td>使用中</td>
-                        <td>2016-11-30 15:00:00</td>
-                        <td>
-                            <button class="fox-cloud-button-md fox-cloud-button-white">启用</button>
-                            <button class="fox-cloud-button-md fox-cloud-button-white">禁用</button> 
-                        </td>                                               
+                            <button class="fox-cloud-button-md fox-cloud-button-white" (click)="enableSpec()">启用</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
-        </div>       
+            <table class="table table-hover" *ngIf="platformType=='2'">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>名称</th>
+                        <th>vCPU</th>
+                        <th>内存(MB)</th>
+                        <th>启动盘大小(GB)</th>
+                        <th>状态</th>
+                        <!--<th>同步结果</th>-->
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td style="cursor:pointer">m2.tiny</td>
+                        <td>1</td>
+                        <td>512</td>
+                        <td>40</td>
+                        <td>已启用</td>
+                        <!--<td>使用中</td>-->
+                        <td>2016-11-30 15:00:00</td>
+                        <td>
+                            <button class="fox-cloud-button-md fox-cloud-button-white" (click)="enableSpec()">启用</button>
+                            <button class="fox-cloud-button-md fox-cloud-button-white" (click)="deleSpec()">删除</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+    <fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+    <fc-popup #createSepc title="新建云主机规格" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()">
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        名称：
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="name"  placeholder="规格名称">
+                    </div>
+                </div>
+            </div> 
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        CPU：
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" [(ngModel)]="namee" >
+                    </div>
+                    <div class="col-sm-4" style="line-height:34px;">
+                        核(vCPU)
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        内存：
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" [(ngModel)]="nama">
+                    </div>
+                    <div class="col-sm-4" style="line-height:34px;">
+                        兆(MB)
+                    </div>
+                </div>
+            </div> 
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        <span class="asterisk">*</span>
+                        启动盘大小：
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" [(ngModel)]="namc">
+                    </div>
+                     <div class="col-sm-4 " style="line-height:34px;">
+                        兆(GB)
+                    </div>
+                </div>
+            </div>  
+        </fc-popup>
 </div>

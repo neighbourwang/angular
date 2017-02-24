@@ -13,18 +13,5 @@ export const PhyImgRouting= RouterModule.forChild([
         path: "phy-mng/phy-img/phy-img-mng",
         component: PhyImgMngComponent
     },
-    /*
-    {
-        path: "phy-mng/phy-net/phy-net-ips-mng",
-        component: PhyNetIpUsageMngListComponent
-    },
-    {
-        path: "phy-mng/phy-net/phy-net-setup-resource",
-        component: PhyNetResourceSetupComponent
-    },
-    {
-        path: "phy-mng/phy-net/phy-net-details",
-        component: PhyNetDetailsComponent
-    },
-    */
+    
 ]);

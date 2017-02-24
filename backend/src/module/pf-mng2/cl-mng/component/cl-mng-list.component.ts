@@ -346,9 +346,7 @@ export class ClMngListComponent implements OnInit {
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
-        } else if(platForm.platformType!="OpenStack"){
-            this.notice.open('COMMON.OPERATION_ERROR','PF_MNG2.ONLY_OPENSTACK_TYPE_AVAILABLE');//配置规格只适用openStack类型平台
-        }else {
+        } else {
             this.router.navigate(["pf-mng2/pf-mng-cloudHostSpec", {id:platForm.id,type:platForm.platformType,name:platForm.name}]);
         }
     }

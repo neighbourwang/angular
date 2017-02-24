@@ -30,7 +30,8 @@ export class CaseMngComponent implements OnInit {
 
     @ViewChild("notice")
     notice: NoticeComponent;
-
+    @ViewChild("confirm")
+    confirm: NoticeComponent;
     @ViewChild("page")
     page:PaginationComponent;
 
@@ -38,16 +39,20 @@ export class CaseMngComponent implements OnInit {
     noticeMsg = "";
 
     totalPage = 1;
-    pageIndex =0;
+    pageIndex =1;
     pageSize = 10;
     
     caseList:Array< CaseListModel>;
-    enterpriseList:Array<Enterprise>;
-
+    enterpriseList:Array<Enterprise>=new Array<Enterprise>();
+    subject:string="";
+    tenantId:string="";
+    type:string="";
+    status:string="";
+    emergency:string="";
    
   
     ngOnInit() {
-        this.getEnterprise;
+        this.getEnterprise();
          this.getCaseList();
     }
 
@@ -55,7 +60,7 @@ export class CaseMngComponent implements OnInit {
      getCaseList(index?: number) {
         this.pageIndex = index || this.pageIndex;       
         this.layoutService.show();       
-        this.service.getCases(this.pageIndex, this.pageSize)
+         this.service.getCases(this.pageIndex, this.pageSize,this.subject,this.tenantId,this.type,this.status,this.emergency)
             .then(
                 response => {
                     this.layoutService.hide();
@@ -79,7 +84,8 @@ export class CaseMngComponent implements OnInit {
             .then(
                 response => {
                     this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
+                   // let a=response && " ";
+                    if (response && null== response["resultCode"]) {
                         this.layoutService.hide();
                         this.enterpriseList = response["resultContent"];
                         console.log("企业列表",this.enterpriseList);
@@ -99,6 +105,13 @@ export class CaseMngComponent implements OnInit {
         selectedCase.isSelect= true;
     }
 
+    //搜索
+    search(){
+         this.pageIndex=1;   
+         this.page.render(1);
+        this.getCaseList();
+    }
+
     //跳转关闭工单
     closeCase(){     
         const selectCase = this.caseList.find((c) => { return c.isSelect });
@@ -106,7 +119,13 @@ export class CaseMngComponent implements OnInit {
             this.showAlert("请选择需要关闭的工单");
             return;
         }
-        this.route.navigate(['mtc-center/case-mng/case-closed',{id:selectCase.id}])
+        if(selectCase.statusName=="新建"||selectCase.statusName=="处理中"){
+            this.route.navigate(['mtc-center/case-mng/case-closed',{id:selectCase.id}])
+        }
+       else{
+            this.showAlert("工单状态只有为新建或处理中才能关闭，请选择需要关闭的工单！");
+            return;
+       }
        
     }
 
@@ -117,7 +136,14 @@ export class CaseMngComponent implements OnInit {
             this.showAlert("请选择需要处理的工单");
             return;
         }
-        this.route.navigate(['mtc-center/case-mng/case-operated',{id:selectCase.id}])
+        if(selectCase.statusName!=="已关闭"){
+            this.route.navigate(['mtc-center/case-mng/case-operated',{id:selectCase.id}])
+        }
+        else{
+             this.showAlert("工单状态只有为新建时才能处理，请选择需要处理的工单！");
+            return; 
+        }
+       
         
     }
 

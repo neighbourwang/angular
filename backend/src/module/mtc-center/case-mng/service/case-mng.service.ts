@@ -41,9 +41,44 @@ export class CaseMngService {
             }             
     );
 
-    
-    //获取所有工单
-     getCases(pageIndex: number, pageSize:number): Promise<any> {
+    //获取所有工单   
+    //  getCases(pageIndex: number, pageSize:number,subject:string,tenantId:string,type:string,status:string,emergency:string): Promise<any> {
+    //     const pathParams = [
+    //         {
+    //             key: "page",
+    //             value: pageIndex
+    //         },
+    //         {
+    //             key: "size",
+    //             value: pageSize
+    //         },  
+    //         {
+    //             key: "subject",
+    //             value: subject
+    //         },  
+    //         {
+    //             key: "tenantId",
+    //             value: tenantId
+    //         },  
+    //         {
+    //             key: "type",
+    //             value: type
+    //         },  
+    //         {
+    //             key: "status",
+    //             value: status
+    //         }, 
+    //         {
+    //             key: "emergency",
+    //             value: emergency
+    //         },          
+    //     ];
+    //     const api = this.restApiCfg.getRestApi("case-mng.case.search");
+    //     return this.restApi.request(api.method, api.url, pathParams, null, null);
+    //    // return new Promise(resovle => setTimeout(resovle, 200)).then(() => PhysicalList_mock);
+    // }
+
+    getCases(pageIndex: number, pageSize:number,subject:string,tenantId:string,type:string,status:string,emergency:string): Promise<any> {
         const pathParams = [
             {
                 key: "page",
@@ -53,10 +88,17 @@ export class CaseMngService {
                 key: "size",
                 value: pageSize
             },          
-        ];
-        const api = this.restApiCfg.getRestApi("case-mng.case.list.get");
-        return this.restApi.request(api.method, api.url, pathParams, null,null  );
-       // return new Promise(resovle => setTimeout(resovle, 200)).then(() => PhysicalList_mock);
+        ]
+        const api = this.restApiCfg.getRestApi("case-mng.case.search");
+        return this.restApi.request(api.method, api.url, pathParams, null, {
+            
+            "subject": subject,
+            "tenantId": tenantId,
+            "type": type,
+            "status": status,
+            "emergency": emergency
+
+        });
     }
 
     //获取企业下拉列表

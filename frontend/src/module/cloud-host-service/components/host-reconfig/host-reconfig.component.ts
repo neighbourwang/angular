@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit,ViewChild, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService, PopupComponent } from '../../../../architecture';
@@ -23,15 +23,20 @@ export class HostReconfigComponent implements OnInit {
 	config:any;
 	selectedCpu:ProductAttributeValueItem;
 	selectedMem:ProductAttributeValueItem;
-	platformId:string;
-	zoneId:string;
+	selectedZone:ProductAttributeValueItem;
+	selectedPlatform:ProductAttributeValueItem;
 	product:any;  //选中的产品
 	billingInfo: ProductBillingItem;  //选中产品的价格信息
+
+	ot:string = "";
+
+	orderId:string = "";
 
 
 	res:SerivceConfigChangeResp;
 
 	constructor(
+		private chRef: ChangeDetectorRef,
 		private layoutService: LayoutService,
 		private service : HostReconfigService
 	) { }
@@ -45,7 +50,7 @@ export class HostReconfigComponent implements OnInit {
 		if(!this.selectedCpu || !this.selectedMem) return;
 
 		let proMap = this.res.serivceConfigChangeVMitem.proMap,
-			value = [this.platformId, this.zoneId, this.selectedCpu.attrValueId, this.selectedMem.attrValueId]; //现有的四个属性的组合 和promap里面的key做对比
+			value = [this.selectedPlatform.attrValueId, this.selectedZone.attrValueId, this.selectedCpu.attrValueId, this.selectedMem.attrValueId]; //现有的四个属性的组合 和promap里面的key做对比
 
 		this.product = undefined;
 		this.billingInfo = undefined;
@@ -65,25 +70,14 @@ export class HostReconfigComponent implements OnInit {
 		}
 	}
 
-	submit(){
-		let attrList = [this.selectedCpu, this.selectedMem];
-		let postData = {
-			attrList : attrList,
-			productId : this.product.productId,
-			skuId : this.product.skuId
-		}
-		this.service.submitConfig(this.vm.subInstanceId, postData).then(res => {
-
-		})
-	}
-
 	open(vm:VmList) {
 		$('#hostBox').modal('show');
+
 		this.vm = vm;
 		this.state = "change";
 		this.config = undefined;
 
-		this.service.getConfig(vm.subInstanceId, "0").then(res => {
+		this.service.getConfig(vm.itemId, "0").then(res => {
 			this.config = {};
 			this.res = res;
 			res.serivceConfigChangeVMitem.attrList.forEach(attr => {
@@ -91,15 +85,45 @@ export class HostReconfigComponent implements OnInit {
 			})
 				console.log(res ,222)
 
-			this.platformId = this.res.platformId;
-			this.zoneId = this.res.zoneId;
+			this.selectedPlatform = this.config.PLATFORM.valueList[0];
+			this.selectedZone = this.config.ZONE.mapValueList[this.selectedPlatform.attrValueId][0];
 			console.log(this.config)
 		});
 	}
 
+	check(){
+		if(this.ot || !this.selectedMem || !this.selectedCpu) return false;
+
+		return true;
+	}
+
 	setConfig() {
-		this.complete.emit();
-		this.state = "done";
+		if(!this.check()) return;
+		const _getParentAttr = (name:string) => ({   //获取父层的一些属性
+			attrCode: this.config[name].attrCode,
+			attrDisplayName: this.config[name].attrDisplayName,
+			attrId: this.config[name].attrId
+		});
+		this.ot = "正在提交...";
+		let attrList = [
+			Object.assign(this.selectedCpu, _getParentAttr("CPU")), 
+			Object.assign(this.selectedMem, _getParentAttr("MEM")) 
+		];
+
+		let postData = {
+			attrList : attrList,
+			productId : this.product.productId,
+			skuId : this.product.skuId
+		}
+		this.service.submitConfig(this.vm.itemId, postData).then(res => {
+			// this.complete.emit();
+			this.ot = "";
+			this.orderId = "[\""+res+"\"]";
+			this.state = "done";
+		}).catch(error => {
+			this.ot = "";
+		})
+
 	}
 
 

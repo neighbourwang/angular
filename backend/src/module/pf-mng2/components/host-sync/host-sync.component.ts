@@ -34,17 +34,17 @@ export class HostSyncComponent implements OnInit {
 		console.log(this.zone);
 		let list=[];
 		list.push(this.zone);
-		this.layoutService.show()
+		$('#hostBox').modal('hide');		
+		this.layoutService.show();
 		this.service.putUpdateZone(list).then(
             res => {
                 console.log('put同步计算资源', res);
-				$('#hostBox').modal('hide');
-				this.complete.emit();
 				this.layoutService.hide()
+				this.complete.emit();
             }			
         ).catch(err => {
-            console.error('put同步计算资源出错', err)
-			this.layoutService.hide()
+            console.error('put同步计算资源出错', err);
+			this.layoutService.hide();
         })
 		
 	}

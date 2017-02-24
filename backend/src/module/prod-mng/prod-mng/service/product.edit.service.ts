@@ -12,14 +12,16 @@ export class ProductEditService {
         private http: Http,
         private restApiCfg: RestApiCfg,
         private restApi: RestApi
-    ) { }
-
-    
+    ) { }    
   
     //更新产品价格
     changProdPrice(data:any){
         let api = this.restApiCfg.getRestApi("ent-mng.prod-mng/price-edit");
-
         return this.restApi.request(api.method, api.url,[], undefined,data);
+    }
+    //获取产品历史价格
+    getHistoryPrice(id:string){
+         let api = this.restApiCfg.getRestApi("prod-mng.prod-mng.historyPrice");
+        return this.restApi.request(api.method, api.url,[{key:'id',value:id}], undefined);
     }
 }

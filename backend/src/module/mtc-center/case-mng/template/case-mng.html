@@ -7,35 +7,35 @@
     <div class="mgt15 ">      
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">所属企业：</span>
         <div class="float-left pdr20">
-            <select class="pdl10 form-control">
-                <option value="1">所有企业</option>
-                <option value="1">上海惠普有限公司</option>
+            <select class="pdl10 form-control" [(ngModel)]="tenantId" >
+                <option value="">所有企业</option>
+                <option *ngFor="let v of enterpriseList" [value]="v.id">{{v.name}}</option>
             </select>
         </div>          
         <span class="float-left mgl10" style="display:inline-block;font-size:16px;padding:6px 0">类别：</span>
         <div class="float-left">
-            <select class="pdl10 form-control">
-                <option value="1">所有类别</option>
-                <option value="1">云负载均衡</option>
+            <select class="pdl10 form-control" [(ngModel)]="type">
+                <option value="">所有类别</option>
+                <option *ngFor="let v of service.dictType | async" [value]="v.value">{{v.displayValue}}</option>
             </select>
         </div> 
         <span class="float-left mgl10" style="display:inline-block;font-size:16px;padding:6px 0">状态：</span>
         <div class="float-left">
-            <select class="pdl10 form-control">
-                <option value="1">所有状态</option>
-                <option value="1">已关闭</option>
+            <select class="pdl10 form-control" [(ngModel)]="status">
+                <option value="">所有状态</option>
+                <option *ngFor="let v of service.dictStatus | async" [value]="v.value">{{v.displayValue}}</option>
             </select>
         </div> 
         <span class="float-left mgl10" style="display:inline-block;font-size:16px;padding:6px 0">紧急程度：</span>
         <div class="float-left">
-            <select class="pdl10 form-control">
-                <option value="1">所有</option>
-                <option value="1">非常紧急</option>
+            <select class="pdl10 form-control" [(ngModel)]="emergency">
+                <option value="">所有</option>
+                <option *ngFor="let v of service.dictEmergency | async" [value]="v.value">{{v.displayValue}}</option>
             </select>
         </div> 
         <div class="input-group col-md-2 pull-right mgl10 float-left">
-            <input class="form-control " placeholder="输入云主机信息搜索" type="text">
-            <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+            <input class="form-control " placeholder="输入云主机信息搜索" type="text" [(ngModel)]="subject">
+            <div class="input-group-addon" (click)="search();"><span class="glyphicon glyphicon-search"></span></div>
         </div>                                                             
      
         <div class="dropdown pull-right" >
@@ -69,9 +69,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let case of caseList|orderBy:'case.updateDate'; let idex=index;">
+                <tr *ngFor="let case of caseList; let idex=index;">
                     <td><input type="radio" class="fox-cloud-radio" name="case" (change)="getSelectCase(case);"[checked]="case.isSelect"> </td>
-                    <td>{{(pageIndex-1)*pageSize+idex+1}}</td>
+                    <td>{{case.id}}</td>
                     <td><a href="javascript:void(0);" (click)="gotoCaseView(case);">{{case.subject}}</a> </td>
                     <td>{{case.typeName}}</td>
                     <td > {{case.statusName}} </td>                  
@@ -80,8 +80,8 @@
                     <td >{{case.contactNo}} </td>  
                     <td >{{case.creatorName}} </td>  
                     <td > {{case.creatorTenant}} </td>  
-                    <td >{{case.createDate | formatDate}}  </td>  
-                    <td>{{case.updateDate | formatDate}}  </td>
+                    <td >{{case.createDate}}  </td>  
+                    <td>{{case.updateDate }}  </td>
                 </tr>
             </tbody>
         </table>    
@@ -91,3 +91,5 @@
              <fc-pagination #page tp={{totalPage}} (pf)="getCaseList($event)"></fc-pagination>  
     </div>   
 </div>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}"></fc-notice> 
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}" ct="{{'PHYSICAL_MNG.CANCEL'|translate}}"  ></fc-confirm>               
