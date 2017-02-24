@@ -37,16 +37,16 @@ export class StoreResComponent implements OnInit {
     ngOnInit() {
         this.activatedRouter.params.forEach((params: Params) => {
             if (params["pfName"] != null) {
-                this.selectedPf.name = params["pfName"];                
-                
+                this.selectedPf.name = params["pfName"];                              
             }
             if (params["pfType"] != null) {
-                this.selectedPf.platformType = params["pfType"];
-               
+                this.selectedPf.platformType = params["pfType"];              
             }
             if (params["pfUri"] != null) {
-                this.selectedPf.uri = params["pfUri"];
-               
+                this.selectedPf.uri = params["pfUri"];               
+            }
+            if (params["pfId"] != null) {
+                this.PlatformId= params["pfId"];               
             }
         });
         this.getStorageList();

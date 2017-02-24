@@ -1232,6 +1232,7 @@
         "PLEASE_INPUT_ILO_PASSWORD":"请填写ILO密码！",
         "PLEASE_INPUT_LEGAL_ILO_IP":"IP不合要求,请重新填写ILO IP地址！",
         "SUCCEED_TEST_ILO_INFO":"ILO信息测试成功！",
+        "PLEASE_INPUT_ILO_INFO":"请先填写ILO信息!",
 
         "IPMI_IP_ADDRESS":"IPMI IP地址",
         "IPMI_USERNAME":"IPMI用户名",
@@ -1475,5 +1476,8 @@
         "AD_MNG":"认证管理",
         "PERSONAL_MNG":"个人账户管理",
     }
-    
+    ,
+    "PHY_IMG_MNG":{
+        "TEST":"测试"
+    }
 }

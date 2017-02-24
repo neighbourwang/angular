@@ -10,6 +10,8 @@ import { ProductEditService } from '../service/product.edit.service';
 //model
 import{ Product } from '../model/product.model';
 import { ProductDir } from '../model/prodDir.model';
+import { HistoryPriceList } from '../model/historyPrice.model';
+
 @Component({
     selector: 'prod-detail',
     templateUrl: '../template/prod-detail.component.html',
@@ -33,6 +35,7 @@ export class ProdDetailComponent implements OnInit{
     prodDir=new ProductDir();
     vmProdDir:boolean;
     productId:string;
+    historyPriceList:Array<HistoryPriceList>;
     Tabels = [
         { name: '基本信息', active: true },
         { name: '计价信息', active: false },
@@ -58,7 +61,9 @@ export class ProdDetailComponent implements OnInit{
              (type=='0')&&(this.vmProdDir=true);
              (type=='1')&&(this.vmProdDir=false);             
         })
-        this.getProductDetail(this.productId);        
+        this.getProductDetail(this.productId); 
+        this.getHistoryPrice(this.productId);            
+        
     }
     //请求产品详情
     getProductDetail(id){
@@ -112,7 +117,15 @@ export class ProdDetailComponent implements OnInit{
             console.error(err)
         })
     }
-
+    //获取产品历史价格信息
+    getHistoryPrice(id){
+        this.service.getHistoryPrice(id).then(res=>{
+            console.log('历史价格',res);
+            this.historyPriceList=res.resultContent;
+        }).catch(err=>{
+            console.error(err);
+        })
+    }
     //编辑基本信息
     editBasicInfo:boolean=false;
     tempProductName:string;
@@ -147,6 +160,7 @@ export class ProdDetailComponent implements OnInit{
         this.service.changProdPrice(this.product).then(res=>{
             console.log(res);
             this.getProductDetail(this.productId); 
+            this.getHistoryPrice(this.productId);            
         }).catch(err=>{
 
         })

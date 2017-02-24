@@ -42,6 +42,7 @@ export class StoreDetailComponent implements OnInit {
         this.getStoreInfoList();
     }
 
+    
     getStoreInfoList() {
         this.layoutService.show();
         this.service.getStoreInfoList(this.StorageId)
@@ -58,6 +59,8 @@ export class StoreDetailComponent implements OnInit {
             )
             .catch((e) => this.onRejected(e));
     }
+
+
 
     BacktoStoreRes(){
         this.router.navigate([`mtc-center/capacity-mng/store-res`]);

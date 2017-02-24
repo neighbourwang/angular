@@ -1,17 +1,22 @@
 <div class="alert-c" #container>
     <div class="alert-icon" (click)="open();"></div>
-    <div *ngIf="msgAlert.edge!=0" class="alert-edge">{{msgAlert.edge}}</div>
+    <div *ngIf="msgAlert.edge!=0" class="alert-edge" (click)="open();">{{msgAlert.edge}}</div>
     <div class="alert-popup" *ngIf="expand"> 
         <div class="alert-title">消息通知</div>
         <ul class="alert-list">
-            <li>this is message one</li>
+            <li *ngFor="let msg of msgAlert.list" (click)="openMsgListPage();">
+                <div><span>{{msg.title}}</span></div>
+                <div><span style="vertical-align: top">{{msg.createDate}}</span></div>
+            </li>
+            <!--
             <li>this is message two</li>
             <li>this is message three</li>
             <li>this is message four</li>
             <li>this is message five</li>
+            -->
         </ul>
-        <div class="alert-center">
-            更多消息
+        <div class="alert-center" (click)="openMsgListPage();">
+            <a href="javascript:void(0);" (click)="openMsgListPage();">更多消息</a>
         </div>
     </div>
 </div>
