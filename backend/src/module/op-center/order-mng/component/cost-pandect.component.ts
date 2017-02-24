@@ -100,13 +100,13 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 		// 		target.push(obj);
 		// 	}
 		// }
-        this.consumeLoader.FakeDataFunc=(target:Array<ConsumeSum>)=>{
-            let item = new ConsumeSum();
-            item.dbOrderPriceSum = 121;
-            item.diskOrderPriceSum = 98;
-            item.physicalMachineOrderPriceSum = 32;
-            item.vmOrderPriceSum = 145;
-        }
+        // this.consumeLoader.FakeDataFunc=(target:Array<ConsumeSum>)=>{
+        //     let item = new ConsumeSum();
+        //     item.dbOrderPriceSum = 121;
+        //     item.diskOrderPriceSum = 98;
+        //     item.physicalMachineOrderPriceSum = 32;
+        //     item.vmOrderPriceSum = 145;
+        // }
         this.totalConsumeLoader = new ItemLoader<CommonKeyValue>(false, '消费趋势-总消费加载失败', "op-center.order-mng.cost-pandect.total.post", this.restApiCfg, this.restApi);
 
         // this.totalConsumeLoader.MapFunc = (source:Array<any>, target:Array<Consume>)=>{
@@ -190,39 +190,61 @@ getLastDay(){
 		});
 	}
 
-loadChart(){
-    let _endTime : string;
-    this._param.month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
-     let param ={
-            endTime: this._param.year+'-'+this._param.month+'-'+this.lastDay+' 23:59:59',
-            startTime:this._param.year+'-'+this._param.month+'-01'+' 00:00:00',
-            ids:[]
-        }
+loadTopChart(){
+    
+    let month:string;
     let enterprises : Array<{key:string;}>=[];
-
-    if(this._param.enterpriseId==null){    
+    month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
+    let param ={
+            endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
+            startTime:this._param.year+'-'+month+'-01'+' 00:00:00',
+            ids:[]
+        };
+    if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){    
             for(let item of this.enterpriseLoader.Items){
                 let ent = {key:item.id};
                 enterprises.push(ent);
             }       
     }
     else{
-        enterprises.push({key:this._param.enterpriseId});
+        enterprises.push({key:this._param.enterpriseId});     
     }
+
+    
+
      param.ids = enterprises;
-     //this.consumeLoad(param);
-     //this.totalconsumeLoad(param);
-     //this.increseConsumeLoad(param);
+
      this.topConsumeLoad(param);
      this.topIncreseConsumeLoad(param);
 }
-
-consumeLoad(param:any){
+//发送请求，处理参数，展示
+consumeLoad(){
     this.layoutService.show();
+    let month:string;
+    let sumIds :Array<{key:String;value:string}> =[];
+     month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
+    let param={
+            endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
+            startTime:this._param.year+'-'+month+'-01'+' 00:00:00',
+            ids:[]
+        };
+     if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){    
+            for(let item of this.enterpriseLoader.Items){
+                sumIds.push({key:item.id,value:item.name});
+            }       
+    }
+    else{
+         let item = this.enterpriseLoader.Items.find(n=>n.id==this._param.enterpriseId);
+        sumIds.push({key:this._param.enterpriseId,value:item.name});
+    }
+   
+    param.ids = sumIds;
+
     this.consumeLoader.Go(null,null,param)
      .then(success=>{
-         console.log(this.consumeLoader.FirstItem);
-        this.layoutService.hide();
+         this.toSumDatas(this.consumeLoader.FirstItem,this.d_chart);
+         this.createSumBar();
+         this.layoutService.hide();
     })
     .catch(err=>{
         this.layoutService.hide();
@@ -230,10 +252,37 @@ consumeLoad(param:any){
     })
 }
 
-totalconsumeLoad(param:any){
+totalconsumeLoad(){
     this.layoutService.show();
+    let month:string;
+    let historyIds:Array<string>=[];
+     month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
+     let param={
+        endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
+        ids:[],
+        size:Number(this._param.month)
+    };
+
+    if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){    
+            for(let item of this.enterpriseLoader.Items){
+                historyIds.push(item.id);
+            }       
+    }
+    else{
+                historyIds.push(this._param.enterpriseId);
+    }
+
+
+     param.ids = historyIds;
+
     this.totalConsumeLoader.Go(null,null,param)
      .then(success=>{
+        this.increseConsumeLoader.Go(null,null,param)
+    })
+    .then(success=>{
+        this.toHistoryData(this.totalConsumeLoader.Items,this.b_chart);
+        this.toIncreaseHistoryData(this.increseConsumeLoader.Items,this.b_chart);
+        this.createHstoryBar();
        this.layoutService.hide();
     })
     .catch(err=>{
@@ -241,30 +290,14 @@ totalconsumeLoad(param:any){
         this.showMsg(err);
     })
 }
-increseConsumeLoad(param:any){
-    this.layoutService.show();
-    this.increseConsumeLoader.Go(null,null,param)
-     .then(success=>{
-        this.layoutService.hide();
-    })
-    .catch(err=>{
-        this.layoutService.hide();
-        this.showMsg(err);
-    })
-}
+
 topConsumeLoad(param:any){
     this.layoutService.show();
-    if(this._param.enterpriseId==null){
+    if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){
         this.topConsumeLoader.Go(null,null,param)
         .then(success=>{
             this.topToDatas(this.h_chart,this.topConsumeLoader.Items);
-             this.h_chart.datas = [13,15,24,50];
-            	this.ent_hbar=[{
-                        label:'消费总额',
-                        data: this.h_chart.datas
-                         
-                    }];
-           this.h_chart.labels = ["云主机", "云硬盘", "数据库", "物理机"];
+            this.createTopBar();
             this.layoutService.hide();
         })
         .catch(err=>{
@@ -275,14 +308,7 @@ topConsumeLoad(param:any){
         this.topConsumeDepartmentLoader.Go(null,null,param)
         .then(success=>{
            this.topToDatas(this.h_chart,this.topConsumeDepartmentLoader.Items);
-             this.h_chart.datas = [13,15,24,50];
-            	this.ent_hbar=[{
-                        label:'消费总额',
-                        data: this.h_chart.datas
-                         
-                    }];
-            this.h_chart.labels = ["云主机", "云硬盘", "数据库", "物理机"];
-     
+           this.createTopBar();
             this.layoutService.hide();
         })
         .catch(err=>{
@@ -296,17 +322,11 @@ topConsumeLoad(param:any){
 
 topIncreseConsumeLoad(param:any){
     this.layoutService.show();
-      if(this._param.enterpriseId==null){
+      if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){
         this.topIncreseConsumeLoader.Go(null,null,param)
         .then(success=>{
-               this.topToDatas(this.h_chart2,this.topIncreseConsumeLoader.Items);
-               this.h_chart2.datas = [13,15,24,50];
-            	this.ent_hbar2=[{
-                        label:'消费总额',
-                        data: this.h_chart2.datas
-                         
-                    }];
-                    this.h_chart2.labels = ["云主机", "云硬盘", "数据库", "物理机"];
+              this.topToDatas(this.h_chart2,this.topIncreseConsumeLoader.Items);
+              this.createTopBar2();
              this.layoutService.hide();
         })
         .catch(err=>{
@@ -317,13 +337,7 @@ topIncreseConsumeLoad(param:any){
         this.topIncreseConsumeDepartmentLoader.Go(null,null,param)
         .then(success=>{
                 this.topToDatas(this.h_chart2,this.topIncreseConsumeDepartmentLoader.Items);
-                 this.h_chart2.datas = [13,15,24,50];
-            	this.ent_hbar2=[{
-                        label:'消费总额',
-                        data: this.h_chart2.datas
-                         
-                    }];
-                    this.h_chart2.labels = ["云主机", "云硬盘", "数据库", "物理机"];
+            	this.createTopBar2();
                this.layoutService.hide();
         })
         .catch(err=>{
@@ -334,112 +348,184 @@ topIncreseConsumeLoad(param:any){
     
 }
 
+toSumDatas(source:any,target:Chart){
+    let datas:Array<number>=[];
+    let labels:Array<string>=[];
+    if(source){
+            datas.push(source.physicalMachineOrderPriceSum);
+            datas.push(source.dbOrderPriceSum);
+            datas.push(source.diskOrderPriceSum);
+            datas.push(source.vmOrderPriceSum);  
+            labels.push('物理机：'+source.physicalMachineOrderPriceSum);
+            labels.push('数据库：'+source.dbOrderPriceSum);
+            labels.push('云硬盘：'+source.diskOrderPriceSum);
+            labels.push('云主机：'+source.vmOrderPriceSum); 
+    }
+    target.datas.splice(0,target.datas.length);
+    target.labels.splice(0,target.labels.length);
+    target.datas = datas;
+    target.labels = labels;
+}
 
+toHistoryData(source:Array<any>,target:Chart){
+    let datas:Array<number>=[];
+    let labels :Array<string>=[];
+    if(source){
+        for(let item of source){
+            datas.push(item.doubleValue);
+            labels.push(item.num+'月');
+        }
+    }
+    target.datas.splice(0,target.datas.length);
+    target.labels.splice(0,target.labels.length);
+    target.datas = datas;
+    target.labels = labels;
+}
+toIncreaseHistoryData(source:Array<any>,target:Chart){
+    let datas:Array<number>=[];
+    if(source){
+        for(let item of source){
+            datas.push(item.doubleValue);
+        }
+    }
+    target.datas2.splice(0,target.datas2.length);
+    target.datas2 = datas;
+}
 topToDatas(target:Chart,items:Array<any>){
     let datas:Array<number> = [];
     let labels:Array<string>=[];
     // for(let i = 0;i<items.length;i++){
     //     datas[i] = items[i].amount;
     // }
-    if(items.length>=0){
+    if(items.length>0){
         for(let item of items){
         datas.push(item.amount);
         labels.push(item.name);
     }
-    }    
+}    
+   target.datas.splice(0,target.datas.length);
+   target.labels.splice(0,target.labels.length);
    target.datas = datas;
    target.labels = labels;
 }
 
 
 search_chart(){
-    this.setCommonDatas();
-   
-    //this.loadChart();
-    
-//     _datas = [this.consumeLoader.FirstItem.physicalMachineOrderPriceSum,this.consumeLoader.FirstItem.dbOrderPriceSum,this.consumeLoader.FirstItem.diskOrderPriceSum,this.consumeLoader.FirstItem.vmOrderPriceSum];
-//     _colors = ["#08C895","#82B6B2","#6F7DC8","#2BD2C8"];
-//     _labels = [
-//                         '物理机：'+25,
-//                         '数据库：'+ 57,
-//                         '云硬盘：'+ 173,
-//                         '云主机：'+ 200,
-//                     ];
-//     this.dht_chart(_datas,_colors,_labels);
+    this.clear();
+//是canvas没有清除画布内容？？？？
+    //消费概览
+    this.consumeLoad();
 
-//    _datas = this.toDatas(this.totalConsumeLoader.Items);
-//    _colors = [
-//                 {
-//                     backgroundColor: [
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8'
-//                     ],
-//                     borderColor: [
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8'
-//                     ]
-//                 },{
+    //消费趋势
+    this.totalconsumeLoad();
 
-//                     backgroundColor: "rgba(75,192,192,0.4)",
-//                     borderColor: "rgba(75,192,192,1)",
-//                     pointBorderColor: "rgba(75,192,192,1)",
-//                     pointBackgroundColor: "#fff",
-//                     pointHoverBackgroundColor: "rgba(75,192,192,1)",
-//                     pointHoverBorderColor: "rgba(220,220,220,1)",
-//                 }
-//             ];
+    //两个TOP图
+    this.loadTopChart();
 
-//     _labels = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月"];
-//     _options = {
-//                 scales: {
-//                     xAxes: [{
-//                         display: false
-//                     }],
-//                     yAxes: [{
-//                         stacked: true
+    console.log("概览"+this.d_chart.datas);
+    console.log("趋势"+this.b_chart.datas);
+    console.log("TOP1"+this.h_chart.datas);
+    console.log("TOP2"+this.h_chart2.datas);
+}
+clear(){
+    this.d_chart.clear();
 
-//                     }]
-//                 }
-//             };
-//     this.bar_chart(_datas,_colors,_labels,_options);
-
+    this.b_chart.clear();
+  
+    this.h_chart.clear();
+    this.h_chart2.clear();
 }
 
-//部门消费概览
- dht_chart(datas:Array<number>,colors:Array<any>,lables:Array<any>,options?:any){
-         this.ent_dht=[{
-                        data: datas,
+
+createSumBar(){
+    this.ent_dht=[{
+                        data: this.d_chart.datas,
                         borderWidth:[
                             0,0,0,0
                         ]
                     }];
-          this.d_chart.colors = [
+    this.d_chart.colors = [
             {
-                backgroundColor:colors
+                backgroundColor:["#08C895","#82B6B2","#6F7DC8","#2BD2C8"]
             }
         ];
+}
 
-        this.d_chart.labels=lables;
-    }
-setCommonDatas(){
-     this.h_chart.datas = [13,15,24,50];
-    this.ent_hbar=[{
+createHstoryBar(){  
+   this.b_chart.colors = [
+                {
+                    backgroundColor: [
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8'
+                    ],
+                    borderColor: [
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8'
+                    ]
+                },{
+
+                    backgroundColor: "rgba(75,192,192,0.4)",
+                    borderColor: "rgba(75,192,192,1)",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointBackgroundColor: "#fff",
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                }
+            ];
+    this.b_chart.options = {
+                scales: {
+                    xAxes: [{
+                        stacked: true
+                    }],
+                    yAxes: [{
+                        stacked: true
+
+                    }]
+                }
+            };
+
+
+this.ent_bar=[{
+                        type: "bar",
+                        label: "总消费",
+                        data: this.b_chart.datas,
+                         
+                    },{   type: 'line',
+                            label: "新增消费",
+                            fill: false,
+                            lineTension: 0.1,
+                            borderCapStyle: 'butt',
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            borderJoinStyle: 'miter',
+                            pointBorderWidth: 1,
+                            pointHoverRadius: 5,
+                            pointHoverBorderWidth: 2,
+                            pointRadius: 1,
+                            pointHitRadius: 10,
+                            data: this.b_chart.datas2,
+                            spanGaps: false,
+                        }
+                   ];
+}
+
+
+createTopBar(){
+     this.ent_hbar=[{
         label:'消费总额',
         data: this.h_chart.datas
                          
      }];
-    this.h_chart.labels = ["云主机", "云硬盘", "数据库", "物理机"];
-   
         this.h_chart.colors  = [
                 {
                     backgroundColor: [
@@ -466,13 +552,19 @@ setCommonDatas(){
                                 }]
                             }
             };
-         this.h_chart2.datas = [13,15,24,50];
+
+        
+}
+
+
+
+createTopBar2(){
             this.ent_hbar2=[{
             label:'消费总额',
             data: this.h_chart2.datas
                          
      }];
-    this.h_chart2.labels = ["云主机", "云硬盘", "数据库", "物理机"];
+
              this.h_chart2.colors  = [
                 {
                     backgroundColor: [
@@ -502,47 +594,6 @@ setCommonDatas(){
 }
 
 
-//部门消费趋势
-bar_chart(datas:Array<number>,colors:Array<any>,lables:Array<any>,options?:any){
-        //消费趋势
-	this.ent_bar=[{
-                        type: "bar",
-                        label: "总消费",
-                        data:datas,
-                         
-                    },{   type: 'line',
-                            label: "新增消费",
-                            fill: false,
-                            lineTension: 0.1,
-                            borderCapStyle: 'butt',
-                            borderDash: [],
-                            borderDashOffset: 0.0,
-                            borderJoinStyle: 'miter',
-                            pointBorderWidth: 1,
-                            pointHoverRadius: 5,
-                            pointHoverBorderWidth: 2,
-                            pointRadius: 1,
-                            pointHitRadius: 10,
-                            data:datas,
-                            spanGaps: false,
-                        }
-                   ];
-    this.b_chart.colors = colors; 
-
-    this.b_chart.labels = lables;
-    
-    this.b_chart.options = options;
-}
-
-
-//图表的事件
-public chartClicked(e:any):void {
-    console.log(e);
-}
-
-public chartHovered(e:any):void {
-    console.log(e);
-}
 
 
 //进入账单管理页面

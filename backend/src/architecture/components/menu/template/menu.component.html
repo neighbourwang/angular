@@ -1,7 +1,7 @@
 <ng-container *ngFor="let top1_menu of endMenu; let top1_idx = index">
 <div *ngIf="top1_menu.isShow" [ngClass]="{'top1-menu': true, 'top-menu-open': top1_menu.isOpen}">
-    <div class="top1-menu-trigger" *ngIf="top1_menu.isShow" (click)="top1MenuClick(top1_idx)">
-        <span class="{{top1_menu.icon}}">{{top1_menu.label | translate}}</span>
+    <div class="top1-menu-trigger {{top1_menu.icon}}" *ngIf="top1_menu.isShow" (click)="top1MenuClick(top1_idx)">
+        <span class="">{{top1_menu.label | translate}}</span>
         <span [ngClass]="{'glyphicon': true, 'glyphicon-chevron-right': !top1_menu.isOpen, 'glyphicon-chevron-down': top1_menu.isOpen}"></span>
     </div>
     <div *ngFor="let top2_menu of top1_menu.top2_menu; let top2_idx = index" [ngClass]="{'top2-menu': true, 'top-menu-open': top2_menu.isOpen, 'top-menu-active': top2_menu.isActive}">

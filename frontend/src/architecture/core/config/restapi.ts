@@ -223,6 +223,14 @@ export let RestApis: RestApiModel[] = [
         "id": "image.mng.area.list",
         "url": "marketplace/authsec/platforms/status/activation"
     }
+    // 管理控制台
+    ,{
+        "desc": "获取管理控制台里的相关信息",
+        "method": "GET",
+        "id": "mng-console-info",
+        // "url": "/basis/authsec/mpp/organizations/page/0/size/10" 
+        "url": "basis/authsec/mpp/organization/{organizationId}/ext"        
+    }
     //<--费用中心-已购服务管理
     ,{
         "desc": "部门列表获取",
@@ -538,6 +546,54 @@ export let RestApis: RestApiModel[] = [
         "id": "check-center.approve-info.get",
         "method": "GET",
         "url": "marketplace//authsec/order/approval/history/order/{orderId}"        
+    },
+    // 工单管理
+    {
+        "desc" : "工单列表",
+        "id" : "user-center.case-mng.list",
+        "method" : "POST",
+        "url" : "basis/authsec/mpp/worklist/{page}/{size}"
+    },
+    {
+        "desc" : "根据工单主题模糊查询工单",
+        "id" : "user-center.case-mng.search",
+        "method" : "GET",
+        "url" : "basis/authsec/mpp/worklist/bysubject/{page}/{size}?subject={subject}"
+    },
+    {
+        "desc" : "新建工单",
+        "id" : "user-center.case-mng.create",
+        "method" : "POST",
+        "url" : "basis/authsec/mpp/worklist"
+    },
+    {
+        "desc" : "编辑工单",
+        "id" : "user-center.case-mng.edit",
+        "method" : "POST",
+        "url" : "basis/authsec/mpp/worklist/{id}"
+    },
+    {
+        "desc" : "删除工单",
+        "id" : "user-center.case-mng.delete",
+        "method" : "DELETE",
+        "url" : "worklistmgmt/authsec/worklist/{id}"
+    },
+    {
+        "desc" : "获取工单基本信息",
+        "id" : "user-center.case-mng.basicInfo",
+        "method" : "GET",
+        "url" : "basis/authsec/mpp/worklist/{id}"
+    },
+    {
+        "desc" : "获取工单处理信息",
+        "id" : "user-center.case-mng.handleInfo",
+        "method" : "GET",
+        "url" : "basis/authsec/mpp/worklist/{id}/handle"
+    },
+    {
+        "desc" : "获取工单关闭信息",
+        "id" : "user-center.case-mng.closedInfo",
+        "method" : "GET",
+        "url" : "basis/authsec/mpp/worklist/{id}/closeinfo"
     }
-    // 审批中心
 ]

@@ -16,33 +16,36 @@
     }
     .top1-menu {
         background-position: 85%;
-        padding: 0px 0px 0px 0px;
         font-size: 16px;
         color: @whiteColor;
         border-bottom: 1px solid @menuBd;
         position: relative;
         span {
-            padding: 5px 0px 5px 46px;
+            padding: 0px;
             font-size: 16px;
             color: @whiteColor;
-            height: 46px;
-            line-height: 46px;
+            line-height: 18px;
         }
         span.glyphicon-chevron-down, span.glyphicon-chevron-right {
             position: absolute;
-            top: 0px;
-            right: 15px;
+            top: 15px;
+            right: 10px;
             font-size: 14px;
         }
         .top-menu-open .top3-menu {
             display: block;
         }
     }
+    .top1-menu-trigger{
+        padding: 12px 0px 12px 40px;
+        background-size: 20px auto;
+        background-position: 10px 13px;
+    }
     .top1-menu-trigger, .top1-menu-trigger span{
         cursor: pointer;
     }
     .top1-menu-trigger span {
-        background-size: 20px auto
+        
     }
     .top2-menu {
         position: relative;
@@ -56,12 +59,11 @@
         }
     }
     .top2-menu-trigger {
-        padding: 0px 0px 0px 15px;
+        padding: 10px 0px 10px 40px;
         font-size: 20px;
         color: @whiteColor;
         cursor: pointer;
-        height: 46px;
-        line-height: 46px;
+        line-height: 20px;
         cursor: pointer;
         span {
             cursor: pointer;

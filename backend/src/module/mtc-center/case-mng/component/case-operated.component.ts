@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
-import { LayoutService, ValidationService, NoticeComponent,dictPipe} from "../../../../architecture";
+import { LayoutService, ValidationService, NoticeComponent,dictPipe,ConfirmComponent} from "../../../../architecture";
 
 import { CaseDetailService} from "../service/case-detail.service";
 
@@ -31,6 +31,8 @@ export class CaseOperatedComponent implements OnInit {
 
     @ViewChild("notice")
     notice: NoticeComponent;
+      @ViewChild("confirm")
+    confirm: NoticeComponent;
 
     caseId:string;
     caseInfo:CaseListModel=new CaseListModel();
@@ -87,7 +89,15 @@ export class CaseOperatedComponent implements OnInit {
         }
     
     //处理工单
-    handleCase(){    
+    handleCase(){  
+         if(!this.handleInfo.emergency){  
+            this.showAlert("请选择紧急程度！");
+            return;
+        }
+        if(!this.handleInfo.handleInfo){
+             this.showAlert("请填写处理记录！");
+            return;
+        }  
         this.layoutService.hide();
         this.service.handleCase(this.handleInfo,this.caseId)
              .then(
