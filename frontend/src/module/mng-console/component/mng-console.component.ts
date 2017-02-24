@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../architecture';
 import { MngConsoleService } from '../service/mng-console.service';
+import { EnterpriseQuotaDetailResp, OrganizationExtItem } from '../model/enterpriseQuotaDetailResp';
 
 
 
@@ -31,7 +32,7 @@ export class MngConsoleComponent implements OnInit {
     epimage: any = [{ data: [0,10]}];
     epfloatIp: any = [{ data: [0,10]}];
 
-    vmTotal : number = 0;
+    ci : OrganizationExtItem;
     diskTotal : number = 0;
 
     quotalist : any = {};
@@ -48,8 +49,7 @@ export class MngConsoleComponent implements OnInit {
         this.userInfo = this.service.getUserInfo;
         this.setEntResoure();
         this.quotaEntResoure();
-        this.setHostLength();
-        this.setDiskLength();
+        this.setConsoleInfo();
     }
 
     public quotaOptions = {
@@ -84,15 +84,12 @@ export class MngConsoleComponent implements OnInit {
         });
     }
 
-    public setHostLength():void {
-        this.service.getHostList({}).then(res => {
-            this.vmTotal = res.length
+    public setConsoleInfo():void {
+        this.service.getConsoleInfo().then(res => {
+            console.log(res)
+            this.ci = res;
         })
     }
-    public setDiskLength():void {
-        this.service.getHostList({}).then(res => {
-            this.diskTotal = res.length
-        })
-    }
+   
 
 }
