@@ -1,14 +1,14 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Router ,ActivatedRoute, Params} from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 // import { Location }               from '@angular/common';
-import { LayoutService, NoticeComponent , ConfirmComponent ,PopupComponent,CountBarComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, CountBarComponent } from '../../../../architecture';
 //service
 import { GetProduct } from '../service/getProduct.service';
 import { ProdDirDetailService } from '../../prod-dir-mng/service/prod-dir-detail.service';
 import { ProductEditService } from '../service/product.edit.service';
 //model
-import{ Product } from '../model/product.model';
+import { Product } from '../model/product.model';
 import { ProductDir } from '../model/prodDir.model';
 import { HistoryPriceList } from '../model/historyPrice.model';
 
@@ -20,22 +20,23 @@ import { HistoryPriceList } from '../model/historyPrice.model';
     providers: []
 })
 // class basicCyclePriceBar extends Config{
-        
+
 //     };
-export class ProdDetailComponent implements OnInit{
+export class ProdDetailComponent implements OnInit {
     constructor(
-        private GetProduct:GetProduct,
-        private router:ActivatedRoute,
-        private getProduct:GetProduct,
-        private ProdDirDetailService:ProdDirDetailService,
-        private location:Location,
-        private service:ProductEditService
-    ){}
-    product=new Product();
-    prodDir=new ProductDir();
-    vmProdDir:boolean;
-    productId:string;
-    historyPriceList:Array<HistoryPriceList>;
+        private GetProduct: GetProduct,
+        private router: ActivatedRoute,
+        private getProduct: GetProduct,
+        private ProdDirDetailService: ProdDirDetailService,
+        private layoutService: LayoutService,
+        private location: Location,
+        private service: ProductEditService
+    ) { }
+    product = new Product();
+    prodDir = new ProductDir();
+    vmProdDir: boolean;
+    productId: string;
+    historyPriceList: Array<HistoryPriceList> = new Array<HistoryPriceList>();
     Tabels = [
         { name: '基本信息', active: true },
         { name: '计价信息', active: false },
@@ -52,46 +53,53 @@ export class ProdDetailComponent implements OnInit{
         item.active = true;
     }
 
-    ngOnInit(){
+    ngOnInit() {
         console.log(this.router.params);
-        let type:string;
-        this.router.params.forEach((params: Params)=>{
-             this.productId=params['id'];
-             type=params['type'];
-             (type=='0')&&(this.vmProdDir=true);
-             (type=='1')&&(this.vmProdDir=false);             
+        let type: string;
+        this.router.params.forEach((params: Params) => {
+            this.productId = params['id'];
+            type = params['type'];
+            console.log(type);
+            (type == '0') && (this.vmProdDir = true);
+            (type == '1') && (this.vmProdDir = false);
         })
-        this.getProductDetail(this.productId); 
-        this.getHistoryPrice(this.productId);            
-        
+        this.layoutService.show();
+        this.getProductDetail(this.productId)
+            .then(() => {
+                if (this.vmProdDir) {
+                    this.getVmProdDirDetail(this.product.serviceId);
+                } else {
+                    console.log('cc')
+                    this.getDiskProdDirDetail(this.product.serviceId);
+                }
+            })
+            .then(() => this.getHistoryPrice(this.productId))
+            .catch(err=>{
+                console.error.bind(err);
+            });
+
     }
     //请求产品详情
-    getProductDetail(id){
-        this.getProduct.getProduct(id).then((response)=>{
-                if (response && 100 == response.resultCode) {                    
-                    this.product=response.resultContent;
-                    // this.product.id=this.productId;
-                    this.tempProductName=this.product.name;
-                    this.tempProductDesc=this.product.desc;
-                    this.tempBasicCyclePrice=this.product.basicCyclePrice;
-                    this.tempExtendCyclePrice=this.product.extendCyclePrice;
-                    this.tempOneTimePrice=this.product.oneTimePrice;
-                    this.tempUnitPrice=this.product.unitPrice;
-                    console.log('产品',this.product);
-                    if(this.vmProdDir){
-                        this.getVmProdDirDetail(this.product.serviceId);
-                    }else{
-                        console.log('cc')
-                        this.getDiskProdDirDetail(this.product.serviceId);
-                    }   
-                }               
-            }).catch((err)=>{
-                console.error(err)
-            })
+    getProductDetail(id) {
+        return this.getProduct.getProduct(id).then((response) => {
+            if (response && 100 == response.resultCode) {
+                this.product = response.resultContent;
+                // this.product.id=this.productId;
+                this.tempProductName = this.product.name;
+                this.tempProductDesc = this.product.desc;
+                this.tempBasicCyclePrice = this.product.basicCyclePrice;
+                this.tempExtendCyclePrice = this.product.extendCyclePrice;
+                this.tempOneTimePrice = this.product.oneTimePrice;
+                this.tempUnitPrice = this.product.unitPrice;
+                console.log('产品', this.product);
+            }
+        }).catch((err) => {
+            console.error(err)
+        })
     }
-     //获取vm产品目录详情
+    //获取vm产品目录详情
     getVmProdDirDetail(id) {
-        this.ProdDirDetailService.getVmProdDirDetail(id).then(response => {
+        return this.ProdDirDetailService.getVmProdDirDetail(id).then(response => {
             console.log('产品目录详情', response);
             if (response && 100 == response.resultCode) {
                 this.prodDir = response.resultContent;
@@ -105,7 +113,7 @@ export class ProdDetailComponent implements OnInit{
     }
     //获取disk产品目录详情
     getDiskProdDirDetail(id) {
-        this.ProdDirDetailService.getDiskProdDirDetail(id).then(response => {
+        return this.ProdDirDetailService.getDiskProdDirDetail(id).then(response => {
             console.log('产品目录详情', response);
             if (response && 100 == response.resultCode) {
                 this.prodDir = response.resultContent;
@@ -118,60 +126,65 @@ export class ProdDetailComponent implements OnInit{
         })
     }
     //获取产品历史价格信息
-    getHistoryPrice(id){
-        this.service.getHistoryPrice(id).then(res=>{
-            console.log('历史价格',res);
-            this.historyPriceList=res.resultContent;
-        }).catch(err=>{
+    getHistoryPrice(id) {
+        this.layoutService.show();
+        this.service.getHistoryPrice(id).then(res => {
+            console.log('历史价格', res);
+            this.historyPriceList = res.resultContent;
+            this.layoutService.hide();
+        }).catch(err => {
+            this.layoutService.hide();            
             console.error(err);
         })
     }
     //编辑基本信息
-    editBasicInfo:boolean=false;
-    tempProductName:string;
-    tempProductDesc:string;
-    saveBasic(){
-        this.editBasicInfo=false;
-        this.product.name=this.tempProductName;
-        this.product.desc=this.tempProductDesc;
+    editBasicInfo: boolean = false;
+    tempProductName: string;
+    tempProductDesc: string;
+    saveBasic() {
+        this.editBasicInfo = false;
+        this.product.name = this.tempProductName;
+        this.product.desc = this.tempProductDesc;
         console.log(this.product);
     }
-
     //编辑价格
-    editPriceInfo:boolean=false;
-    tempBasicCyclePrice:number;
-    tempExtendCyclePrice:number;
-    tempOneTimePrice:number;
-    tempUnitPrice:number;
-    cancelPriceEdit(){
-        this.tempBasicCyclePrice=this.product.basicCyclePrice;
-        this.tempExtendCyclePrice=this.product.extendCyclePrice;
-        this.tempOneTimePrice=this.product.oneTimePrice;
-        this.tempUnitPrice=this.product.unitPrice;
-        this.editPriceInfo=false;
+    editPriceInfo: boolean = false;
+    tempBasicCyclePrice: number;
+    tempExtendCyclePrice: number;
+    tempOneTimePrice: number;
+    tempUnitPrice: number;
+    cancelPriceEdit() {
+        this.tempBasicCyclePrice = this.product.basicCyclePrice;
+        this.tempExtendCyclePrice = this.product.extendCyclePrice;
+        this.tempOneTimePrice = this.product.oneTimePrice;
+        this.tempUnitPrice = this.product.unitPrice;
+        this.editPriceInfo = false;
     }
-    savePrice(){
-        this.product.basicCyclePrice=this.tempBasicCyclePrice;
-        this.product.extendCyclePrice=this.tempExtendCyclePrice;
-        this.product.oneTimePrice=this.tempOneTimePrice;
-        this.product.unitPrice=this.tempUnitPrice;
-        this.editPriceInfo=false;
+    savePrice() {
+        this.product.basicCyclePrice = this.tempBasicCyclePrice;
+        this.product.extendCyclePrice = this.tempExtendCyclePrice;
+        this.product.oneTimePrice = this.tempOneTimePrice;
+        this.product.unitPrice = this.tempUnitPrice;
+        this.editPriceInfo = false;
         console.log(this.product);
-        this.service.changProdPrice(this.product).then(res=>{
+        this.layoutService.show();
+        this.service.changProdPrice(this.product).then(res => {
             console.log(res);
-            this.getProductDetail(this.productId); 
-            this.getHistoryPrice(this.productId);            
-        }).catch(err=>{
-
+            // this.getProductDetail(this.productId)
+             this.getHistoryPrice(this.productId) 
+             this.layoutService.hide();           
+        }).catch(err => {
+             console.log(err);  
+             this.layoutService.hide();                                  
         })
     }
     //编辑平台
 
     outputValue(e, num) {
-       this[num] = e;
+        this[num] = e;
     }
     //返回列表
-    cancel(){
+    cancel() {
         this.location.back();
     }
 

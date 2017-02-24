@@ -30,8 +30,6 @@ export class ProdMngCreStep3Component implements OnInit {
         private LayoutService: LayoutService,
         private service: CreateProdStepService
     ) { }
-
-
     prodDirType: string;
     selectAllZone: boolean = true;
     selectAllStorage: boolean = true;
@@ -99,14 +97,24 @@ export class ProdMngCreStep3Component implements OnInit {
                 }
             }
         })
-        this.selectAllZone=
-            this.service.product.productPlatformReqs.length == this.tempVmProdDirPlatformList.length? true:false;
+        //判断是for可用区全选
+        if(this.service.product.productPlatformReqs.length != this.tempVmProdDirPlatformList.length){
+            this.selectAllZone=false;
+            return;
+        }
+        this.selectAllZone=true;
+        for(let platform of this.tempVmProdDirPlatformList){
+            for(let zone of platform.zoneList){
+                if(zone.selected==false){
+                   return this.selectAllZone=false;                           
+                }
+            }                
+        }
         console.log(this.service.product.productPlatformReqs);
     }
     //云硬盘
     //云硬盘产品平台
-    //选择全部存储后端
-    
+    //选择全部存储后端    
     selectAllStorages() {
         this.service.product.productPlatformReqs=[];
         this.selectAllStorage = !this.selectAllStorage;
