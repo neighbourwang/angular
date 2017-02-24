@@ -223,6 +223,14 @@ export let RestApis: RestApiModel[] = [
         "id": "image.mng.area.list",
         "url": "marketplace/authsec/platforms/status/activation"
     }
+    // 管理控制台
+    ,{
+        "desc": "获取管理控制台里的相关信息",
+        "method": "GET",
+        "id": "mng-console-info",
+        // "url": "/basis/authsec/mpp/organizations/page/0/size/10" 
+        "url": "basis/authsec/mpp/organization/{organizationId}/ext"        
+    }
     //<--费用中心-已购服务管理
     ,{
         "desc": "部门列表获取",

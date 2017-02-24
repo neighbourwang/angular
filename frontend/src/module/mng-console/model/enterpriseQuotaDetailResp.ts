@@ -23,6 +23,28 @@ interface EnterpriseQuotaDetailResp {
 	vm:number;
 }
 
+interface OrganizationExtItem {
+	dbPaused : number;     //, optional),
+	dbRunning : number;     //, optional),
+	id : string;     //, optional),
+	orderForAudit : number;     //, optional),
+	pcPaused : number;     //, optional),
+	pcRunning : number;     //, optional),
+	serviceToExpired : number;     //, optional),
+	snapshotPaused : number;     //, optional),
+	snapshotRunning : number;     //, optional),
+	storagePaused : number;     //, optional),
+	storageRunning : number;     //, optional),
+	ticketDone : number;     //, optional),
+	ticketNew : number;     //, optional),
+	ticketProcessing : number;     //, optional),
+	userDisabled : number;     //, optional),
+	userEnabled : number;     //, optional),
+	vmPaused : number;     //, optional),
+	vmRunning : number;     //, optional)
+}
+
 export {
-	EnterpriseQuotaDetailResp
+	EnterpriseQuotaDetailResp,
+	OrganizationExtItem
 }
