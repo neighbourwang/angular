@@ -274,19 +274,19 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/platform/{pf-id}/flavors"
     },
 /////////////////////镜像guofeng接口
-    {
-        "desc": "取得镜像",
-        "id": "pf.cre.images.get",
-        "method": "GET",
-        "url": "adminui/authsec/platform/{pf-id}/images"
-        // /authsec/images/openstack/pub/{platformId}
-    },
-    {
-        "desc": "更新镜像",
-        "id": "pf.cre.images.put",
-        "method": "PUT",
-        "url": "adminui/authsec/platform/{pf-id}/images"
-    },
+    // {
+    //     "desc": "取得镜像",
+    //     "id": "pf.cre.images.get",
+    //     "method": "GET",
+    //     "url": "adminui/authsec/platform/{pf-id}/images"
+    //     // /authsec/images/openstack/pub/{platformId}
+    // },
+    // {
+    //     "desc": "更新镜像",
+    //     "id": "pf.cre.images.put",
+    //     "method": "PUT",
+    //     "url": "adminui/authsec/platform/{pf-id}/images"
+    // },
 //////镜像xiayang接口
     {
         "desc": "取得镜像",
@@ -300,7 +300,6 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "url": "adminboe/authsec/platform/images"
     },
-
     {
         "desc": "取得云主机类型",
         "id": "pf.cre.flavor.get",
@@ -313,7 +312,15 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "url": "adminui/authsec/platform/{pf-id}/flavor"
     },
+    //规格管理
+    {
+        "desc": "取得云平台规格列表",
+        "id": "platform-mng.flavorList.get",
+        "method": "GET",
+        "url": "adminui/authsec/sync/platform/{id}/flavor"        
+    },
     // 平台接入管理
+
     // 企业资源配额管理
     {
         "desc": "取得所有企业的资源配额信息",
