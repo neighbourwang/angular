@@ -45,7 +45,7 @@
 					<div class="col-sm-2 thirdChild">
 						<div class="row row-line-height inputLeft" *ngFor="let zone of plateform.zoneList; let idxx=index">
 							<div class="col-sm-12">
-								<input type="checkbox" class="fox-cloud-checkbox" selected="zone.selected" [(ngModel)]="zone.selected" name="zoneSelected"
+								<input type="checkbox" class="fox-cloud-checkbox"  [(ngModel)]="zone.selected" name="zoneSelected"
 									(click)="selectZone(idx,idxx)">
 							</div>
 						</div>
@@ -95,7 +95,7 @@
 					<div class="col-sm-2 thirdChild">
 						<div class="row row-line-height inputLeft" *ngFor="let storage of plateform.zoneList; let idxx=index">
 							<div class="col-sm-12">
-								<input type="checkbox" class="fox-cloud-checkbox" selected="storage.selected" [(ngModel)]="storage.selected" name="storageSelected"
+								<input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="storage.selected" name="storageSelected"
 									(click)="selectStorage(idx,idxx)">
 							</div>
 						</div>
