@@ -742,6 +742,12 @@ export const TranslateCN = {
         CLOSED_TYPE: '关闭类型',
         CLOSED_NAME: '关闭人',
         CLOSED_TIME: '关闭时间',
+        TYPE_ALL: '所有类别',
+        STATUS_ALL: '所有类别',
+        ALL: '所有',
+        SELECT: '请选择',
+        LIMIT_DESCRIPTION_ONE: '最多只能输入50个文字',
+        LIMIT_DESCRIPTION_TWO: '最多只能输入1000个文字'
 
     }
 }

@@ -56,6 +56,7 @@ export class PhyCreatComponent implements OnInit{
             this.title= "PHY_MNG_POOL.EDIT_POOL";
             this.save= "PHY_MNG_POOL.SAVE";
         }else{
+            this.data.regionId= "";
             this.title= "PHY_MNG_POOL.CREATE_POOL";
             this.save= "PHY_MNG_POOL.CREATE";
         }
@@ -70,7 +71,6 @@ export class PhyCreatComponent implements OnInit{
                     if (response && 100 == response["resultCode"]) {
                         this.data= response.resultContent;
                         console.log(response.resultContent, "data");
-                        console.log(this.regions, "regions");
                     } else {
                         alert("Res sync error");
                     }
@@ -94,6 +94,7 @@ export class PhyCreatComponent implements OnInit{
             return r.id== this.data.regionId;
         });
         this.data.region =selectedRegion &&selectedRegion.name || "";
+        console.log("this.data.region",this.data.region);
         if(!this.pmPoolId){
             this.layoutService.show();
             this.service.creat(this.data)
@@ -136,7 +137,6 @@ export class PhyCreatComponent implements OnInit{
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.regions = response["resultContent"];
-                        this.data.regionId= this.regions[0].id;
                     } else {
                         alert("Res sync error");
                     }
