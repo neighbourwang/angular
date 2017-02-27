@@ -1979,7 +1979,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "物理机网络IP状态修改:0:空闲 1:已占用 2:预占",
         "id": "phy-mng.phy-net-mng.network.ips.status.set",
         "method": "PUT",
-        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/ipmgmt/changestatus/{status}"
+        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/ipmgmt/changestatus/{pmNetworkIPId}/{status}"
     },    
 
     //工单管理

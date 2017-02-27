@@ -16,7 +16,7 @@ import { MsgModel_mock } from "../model/msg-alert.mock";
 @Component({
     selector: "msgList",
     templateUrl: "../template/msg-list.html",
-    styleUrls: [],
+    styleUrls: ["../style/msg-alert.less"],
     providers: []
 })
 export class MsgListComponent implements OnInit {
