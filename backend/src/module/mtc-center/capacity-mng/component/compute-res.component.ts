@@ -76,6 +76,7 @@ export class ComputeResComponent implements OnInit {
                     this.computeRes = response["resultContent"];
                     this.regionList = response["resultContent"].regions;
                     this.getZoneList(this.regionList[0].regionId);
+                    this.getZoneId(this.zones[0].zoneId);
                 } else {
                     alert("Res sync error");
                 }

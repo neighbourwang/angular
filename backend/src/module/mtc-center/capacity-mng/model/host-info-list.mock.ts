@@ -7,8 +7,8 @@
             "hostName": "宿主机名称",
             "cpu": 10,//宿主机CPU数量
             "memory": 512,//宿主机内存数量
-            "cpuPercent": 89,//虚拟CPU（实际已分配）
-            "memPercent": 47,//内存（实际已分配)
+            "cpuPercent": 83,//虚拟CPU（实际已分配）
+            "memPercent": 80,//内存（实际已分配)
             "running": "up|down",//数据字典
             "status": "active",//数据字典
             "instance": 30,//实例数量

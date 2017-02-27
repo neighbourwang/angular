@@ -39,20 +39,20 @@
                         <div>                  
                         <div class="progress" >
                             <div class="progress-bar progress-bar-info"
-                                 style="width: 90%;">
+                                 [style.width.%]="storage.qurta">
                             </div>
                         </div>
-                        <span class="progress-value">{{storage.qurta}}</span>
+                        <span class="progress-value">{{storage.qurta}}%</span>
                         </div>                     
                     </td>
                     <td class="table-progress" >   
                        <div>                  
                         <div class="progress" >
                             <div class="progress-bar progress-bar-info"
-                                 style="width: 60%;">
+                                 [style.width.%]="storage.usage">
                             </div>
                         </div>
-                        <span class="progress-value">{{storage.usage}}</span>
+                        <span class="progress-value">{{storage.usage}}%</span>
                         </div>                            
                      </td>
                     <td class="font-green">{{storage.status}}</td>
