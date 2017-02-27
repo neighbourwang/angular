@@ -165,12 +165,18 @@ export class ProdDirDiskCreComponent implements OnInit {
 
         })
         console.log(this.prodDir.platformList);
-        if (this.prodDir.platformList.length == 0) {
+        if (this.prodDir.platformList.length !=this._platformlist.length) {
             this.selectAllZone = false;
+            return;
         }
-        if (this.prodDir.platformList.length == this._platformlist.length) {
-            this.selectAllZone = true;
-        }
+        this.selectAllZone=true;
+        for(let platform of this._platformlist){
+            for(let zone of platform.platformInfo){
+                if(zone.selected==false){
+                   return this.selectAllZone=false;                           
+                }
+            }                
+        }        
     }
 
     cancel() {

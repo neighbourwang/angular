@@ -301,12 +301,14 @@ console.log(this.vmProduct)
 	rely(attrName: string): VlueList[] {
 		if (!this.configs[attrName].relyAttrId) return [];
 
+
 		//根据他的依赖的id获取它自身的list
 		const list = (this.configs[attrName].mapValueList && this.configs[attrName].mapValueList[this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId]) || [];
 
 		const attrid = this.sendModule[attrName].attrValueId;   //获取当前的sendmoudle的attrid
 		const isHas = (attrid && list && list.length && !!list.filter(l => l.attrValueId === attrid).length) || (!list.length && !attrid);   //列表里面是否有以选择的senModule
 		//设置sendmodule使它选择第一个
+			if(attrName === "bootsize") console.log(this.configs[attrName], this.getRelyName(this.configs[attrName].relyAttrId), this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId ,list, attrName)
 		if (!isHas) {
 			this.sendModule[attrName] = list.length ? list[0] : new VlueList;   //当没有选择sendmoudle的attrid时候，说明该模块还没有选择过，如果list里面没有这个attrid说明，他的父级已经有变动，需要重新选择
 			this.relyChanges(attrName);     //上面的一步说明页面上有变化的 进行一些改变
@@ -329,7 +331,7 @@ console.log(this.vmProduct)
 		this.vmSkuMap = this.getSkuMap("vm");     //确定sku
 
 		if (this.vmSkuMap.length) {
-			this.setBootsize();   // 设置启动盘大小
+			// this.setBootsize();   // 设置启动盘大小
 		}
 	}
 

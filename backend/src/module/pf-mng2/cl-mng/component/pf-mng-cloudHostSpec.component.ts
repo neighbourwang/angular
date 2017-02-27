@@ -6,18 +6,14 @@ import { Location } from '@angular/common';
 
 import { LayoutService, NoticeComponent , ConfirmComponent ,PopupComponent } from '../../../../architecture';
 
-
+//service
+import { FlavorService } from '../service/platform-mng-flavor.service';
 //model
+import { Flavor } from '../model/flavor.model'
 
 @Component({
     templateUrl: '../template/pf-mng-cloudHostSpec.component.html',
-    styles: [
-        // '../style/cl-mng.less'
-        `.btn-active{
-            background-color: #00a982;
-            color : #fff
-        }`
-    ],
+    styles: [],
     providers: []
 })
 export class CloudHostSpecComponent implements OnInit {
@@ -26,14 +22,13 @@ export class CloudHostSpecComponent implements OnInit {
     constructor(private layoutService:LayoutService,
                 private route:Router,
                 private router:ActivatedRoute,
-                private location :Location
+                private location :Location,
+                private service :FlavorService
                 ) {
     }
     @ViewChild('confirm')
     confirm: ConfirmComponent;
 
-    @ViewChild('deleteConfirm')
-    deleteConfirm: ConfirmComponent;
 
     @ViewChild('notice')
     notice: NoticeComponent;
@@ -41,27 +36,34 @@ export class CloudHostSpecComponent implements OnInit {
     @ViewChild('createSepc')
     createSepc:PopupComponent;
     // 云平台类型
-    platFormType : string;
+    platformType : string;
     // 云平台类型名
     platformTypeName :string;
-
-  
+    //云平台类型
     platformName:string;
-    platformType:string;
+    platformId:string;
+    //规格列表
+    flavorlist:Array<Flavor>;
     //初始化
     ngOnInit() {
-        let id:string;
-        let type:string;
         this.router.params.forEach((params: Params)=>{
-             id=params['id'];
+             this.platformId=params['id'];
              this.platformName=params['name'];
              this.platformType=params['type'];
              this.platformTypeName=
-                this.platFormType=='0'?'OpenStack':'Vmware';
-             console.log(id,type,name)
+             this.platformType=='0'?'OpenStack':'Vmware';
         })     
-         
+        this.getFlavorList(this.platformId);
         
+    }
+    //获取规格列表
+    getFlavorList(id:string){
+        this.service.getFlavorList(id).then(res=>{
+            this.flavorlist=res.resultContent;
+            console.log(res.resultContent);
+        }).catch(err=>{
+            console.log(err);
+        }) 
     }
     //启用云主机规格
     enableSpec(){}

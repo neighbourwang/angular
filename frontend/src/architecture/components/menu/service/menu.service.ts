@@ -196,7 +196,7 @@ export class MenuService {
 							"routing": "user-center/person-acc-mng/person-acc-mng"
 						},
                         {
-                            "label": "工单管理",
+                            "label": "MENU.CASE_MNY",
                             "isOpen": false,
                             "isShow": true,
                             "routing": "user-center/case-mng/case-mng-list"

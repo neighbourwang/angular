@@ -194,7 +194,7 @@ export class PhyNetMngIpAddrComponent implements OnInit{
                 this.enableipbox.open(); 
             }
         } else {
-            this.service.updateIpStatus(this.changedip)
+            this.service.updateIpStatus(this.pn_id, this.changedip)
                 .then(res => {
                     this.layoutService.hide();
                     if (res && res.resultCode == "100") {                        
@@ -232,7 +232,7 @@ export class PhyNetMngIpAddrComponent implements OnInit{
     acceptDisableIPModify(): void {
         console.log('clicked acceptDisableIPModify');
         this.layoutService.show();
-        this.service.updateIpStatus(this.changedip)
+        this.service.updateIpStatus(this.pn_id, this.changedip)
             .then(res => {
                 this.layoutService.hide();
                 if (res && res.resultCode == "100") {
