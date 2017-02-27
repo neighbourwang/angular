@@ -2032,5 +2032,13 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "basis/authsec/mpp/worklist/{id}/handle"
     },
+
+    //物理机镜像
+    {
+        "desc": "获取镜像源列表",
+        "id":"phy-mng.phy-img-mng.phyimgsource.getlist",
+        "method":"POST",
+        "url":"noauth/pmimage/pool/page/{page}/size/{size}"
+    }
 ]
 

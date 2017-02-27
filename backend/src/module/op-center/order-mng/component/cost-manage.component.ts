@@ -1,7 +1,7 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,PopupComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import {} from '../model'
+import {CostPandectParam,Time} from '../model'
 
 import * as _ from 'underscore';
 
@@ -19,6 +19,9 @@ export class CostManageComponent implements OnInit{
  @ViewChild("costUpdate")
   costUpdate: PopupComponent;
 
+_param:CostPandectParam = new CostPandectParam();//
+private _years:Array<Time>=[];
+currentYear :number;
 //企业下拉列表
 private _enterpriseLoader:ItemLoader<{id:string; name:string}> = null;
 
@@ -53,21 +56,36 @@ private _buyerLoader:ItemLoader<{id:string; name:string}> = null;
 
 }
 	ngOnInit(){
-        this.layoutService.show();
-
-		this._enterpriseLoader.Go(null, [{key:"userId", value:"37d3dfca-064c-4077-879c-75ecf9c6725c"}]) 
-		.then(success=>{
-           return this._buyerLoader.Go(null, [{key:"departmentId", value:null}])
-        })
-        .then(success=>{
-           return this._orderTypeDic.Go();
-        })
-        .catch(err=>{
-			this.layoutService.hide();
-			this.showMsg(err);
-		});
-		this.layoutService.hide();
+        // this.layoutService.show();
+		this.getCurrentTime();
+  		this.getTimeData();//时间下拉列表
+		// this._enterpriseLoader.Go(null, [{key:"userId", value:"37d3dfca-064c-4077-879c-75ecf9c6725c"}]) 
+		// .then(success=>{
+        //    return this._buyerLoader.Go(null, [{key:"departmentId", value:null}])
+        // })
+        // .then(success=>{
+        //    return this._orderTypeDic.Go();
+        // })
+        // .catch(err=>{
+		// 	this.layoutService.hide();
+		// 	this.showMsg(err);
+		// });
+		// this.layoutService.hide();
 	}
+getCurrentTime(){
+    let date = new Date();
+    this.currentYear = date.getFullYear();
+}
+
+getTimeData(){
+    
+    for(let i = 1999; i<=this.currentYear ; i++){
+        let _year = new Time(i.toString(),i.toString());
+        this._years.push(_year);  
+    }
+
+    
+}
 
 //显示金额管理
 updateCost(){

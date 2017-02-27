@@ -1,0 +1,13 @@
+import {Enterprise} from './enterprise.model';
+export class PhyImg{
+    id: string;
+    destImageName: string;
+    origImageName: string;
+    osTypeId: number;
+    osTypeName: string;
+    bitId: number;
+    bitName: string;
+    imageTypeId: number;
+    imageTypeName: string;
+    enterpriseSelectedList:Array<Enterprise>;
+}
