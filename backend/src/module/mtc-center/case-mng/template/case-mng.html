@@ -1,51 +1,51 @@
 <div class="page-content-header icon-content-header-operation-center">
-    工单管理	  
+    {{'CASE_MNG.CASE_MNG'|translate}}	  
 </div>
 
 
 <div class="page-content">
     <div class="mgt15 ">      
-        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">所属企业：</span>
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">{{'CASE_MNG.ENTERPRISE'|translate}}：</span>
         <div class="float-left pdr20">
             <select class="pdl10 form-control" [(ngModel)]="tenantId" >
-                <option value="">所有企业</option>
+                <option value="">{{'CASE_MNG.ALL_ENTERPRISE'|translate}}</option>
                 <option *ngFor="let v of enterpriseList" [value]="v.id">{{v.name}}</option>
             </select>
         </div>          
-        <span class="float-left mgl10" style="display:inline-block;font-size:16px;padding:6px 0">类别：</span>
+        <span class="float-left mgl10" style="display:inline-block;font-size:16px;padding:6px 0">{{'CASE_MNG.TYPE'|translate}}：</span>
         <div class="float-left">
             <select class="pdl10 form-control" [(ngModel)]="type">
-                <option value="">所有类别</option>
+                <option value="">{{'CASE_MNG.ALL_TYPE'|translate}}</option>
                 <option *ngFor="let v of service.dictType | async" [value]="v.value">{{v.displayValue}}</option>
             </select>
         </div> 
-        <span class="float-left mgl10" style="display:inline-block;font-size:16px;padding:6px 0">状态：</span>
+        <span class="float-left mgl10" style="display:inline-block;font-size:16px;padding:6px 0">{{'CASE_MNG.STATUS'|translate}}：</span>
         <div class="float-left">
             <select class="pdl10 form-control" [(ngModel)]="status">
-                <option value="">所有状态</option>
+                <option value="">{{'CASE_MNG.ALL_STATUS'|translate}}</option>
                 <option *ngFor="let v of service.dictStatus | async" [value]="v.value">{{v.displayValue}}</option>
             </select>
         </div> 
-        <span class="float-left mgl10" style="display:inline-block;font-size:16px;padding:6px 0">紧急程度：</span>
+        <span class="float-left mgl10" style="display:inline-block;font-size:16px;padding:6px 0">{{'CASE_MNG.EMERGENCY'|translate}}：</span>
         <div class="float-left">
             <select class="pdl10 form-control" [(ngModel)]="emergency">
-                <option value="">所有</option>
+                <option value="">{{'CASE_MNG.ALL_EMERGENCY'|translate}}</option>
                 <option *ngFor="let v of service.dictEmergency | async" [value]="v.value">{{v.displayValue}}</option>
             </select>
         </div> 
         <div class="input-group col-md-2 pull-right mgl10 float-left">
-            <input class="form-control " placeholder="输入云主机信息搜索" type="text" [(ngModel)]="subject">
+            <input class="form-control " placeholder=" " type="text" [(ngModel)]="subject">
             <div class="input-group-addon" (click)="search();"><span class="glyphicon glyphicon-search"></span></div>
         </div>                                                             
      
         <div class="dropdown pull-right" >
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                选择操作
+                {{'CASE_MNG.SELECT'|translate}}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="javascript:void(0);" (click)="handleCase(case);">处理工单</a></li>
-                <li><a href="javascript:void(0);" (click)="closeCase(case);">关闭工单</a></li>
+                <li><a href="javascript:void(0);" (click)="handleCase(case);">{{'CASE_MNG.HANDLE_CASE'|translate}}</a></li>
+                <li><a href="javascript:void(0);" (click)="closeCase(case);">{{'CASE_MNG.CLOSE_CASE'|translate}}</a></li>
             </ul>
         </div>
     </div>
@@ -54,18 +54,18 @@
         <table class="table table-hover" >
             <thead>
                 <tr>
-                    <th >选择 </th>
-                    <th >工单号</th>
-                    <th >主题</th>
-                    <th >类别</th>
-                    <th >状态</th>
-                    <th>紧急程度</th>
-                    <th >联系人</th>
-                    <th >联系电话</th>
-                    <th >提交者</th>
-                    <th >所属企业</th>
-                    <th >创建时间</th>
-                    <th >更新时间</th>
+                    <th >{{'CASE_MNG.SELECT_CASE'|translate}} </th>
+                    <th >{{'CASE_MNG.CASE_ID'|translate}}</th>
+                    <th >{{'CASE_MNG.SUBJECT'|translate}}</th>
+                    <th >{{'CASE_MNG.TYPE'|translate}}</th>
+                    <th >{{'CASE_MNG.STATUS'|translate}}</th>
+                    <th>{{'CASE_MNG.EMERGENCY'|translate}}</th>
+                    <th >{{'CASE_MNG.CONTACTOR'|translate}}</th>
+                    <th >{{'CASE_MNG.TEL'|translate}}</th>
+                    <th >{{'CASE_MNG.CREATOR'|translate}}</th>
+                    <th >{{'CASE_MNG.ENTERPRISE'|translate}}</th>
+                    <th >{{'CASE_MNG.CREATE_TIME'|translate}}</th>
+                    <th >{{'CASE_MNG.UPDATE_TIME'|translate}}</th>
                 </tr>
             </thead>
             <tbody>

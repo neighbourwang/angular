@@ -131,9 +131,9 @@
 							</div>
 							<div class="col-md-1 content-title2">{{'COMMON.CAPATITY'| translate}}</div>
 							<div class="col-md-2 no-padding">
-								<select [(ngModel)]="sendModule.bootsize" (ngModelChange)="bootSizeChange()" class="form-control">
+								<select [(ngModel)]="sendModule.bootsize" class="form-control">
 									<option
-									*ngFor="let value of bootsizeList;"
+									*ngFor="let value of rely('bootsize');"
 									[ngValue]="value" >{{ value.attrDisplayValue }}</option>
 								</select>
 							</div>

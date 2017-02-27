@@ -29,15 +29,19 @@ export class PhyNetMngIpAddrService {
         return this.restApi.request(api.method, api.url, pathParams, null, null);
     }
 
-    updateIpStatus(ipusage: IpUsageMngModel): Promise <any>  {
+    updateIpStatus(pn_id: string, ipusage: IpUsageMngModel): Promise <any>  {
         const pathParams = [
             {
                 key: "pmNetworkId",
-                value: ipusage.id
+                value: pn_id
             },
             {
                 key: "status",
                 value: ipusage.status
+            },
+            {
+                key: "pmNetworkIPId",
+                value: ipusage.id
             }
         ];
         const body = [ipusage.description];

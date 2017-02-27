@@ -139,6 +139,12 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/subinstance/itemlist/vm/{uuid}"
     },
     {
+        "desc": "获取云主机详细信息",
+        "method": "GET",
+        "id": "vm.instance.detail",
+        "url": "subinstancemgmt/authsec/subinstance/compute/{itemId}"
+    },
+    {
         "desc": "获取购物车列表",
         "method": "GET",
         "id" : "shopping.cart.items",
@@ -595,5 +601,25 @@ export let RestApis: RestApiModel[] = [
         "id" : "user-center.case-mng.closedInfo",
         "method" : "GET",
         "url" : "basis/authsec/mpp/worklist/{id}/closeinfo"
-    }
+    },
+    // 消息中心
+    {
+        "desc" : "获取消息列表、所有/未读/已读",
+        "id" : "user-center.msg-mng.message.get",
+        "method" : "GET",
+        "url" : "messagemgmt/authsec/message/getmessages/page/{page}/size/{size}/status/{status}"
+    },
+    {
+        "desc" : "设置消息已读",
+        "id" : "user-center.msg-mng.message.setread",
+        "method" : "POST",
+        "url" : "messagemgmt/authsec/message/setread"
+    },
+    {
+        "desc" : "删除消息",
+        "id" : "user-center.msg-mng.message.delete",
+        "method" : "DELETE",
+        "url" : "messagemgmt/authsec/message/delete"
+    },
+    
 ]

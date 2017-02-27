@@ -27,7 +27,7 @@ export const VmInstanceRouting: ModuleWithProviders = RouterModule.forChild([
         component: osVmOrderComponent
     },
     {
-        path: 'cloud-host-service/cloud-host-detail',
+        path: 'cloud-host-service/cloud-host-detail/:itemId',
         component: cloudHostDetailComponent
     }
 ]);
