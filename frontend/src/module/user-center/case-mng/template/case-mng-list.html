@@ -1,32 +1,32 @@
 <div class="page-content-header mgb20 ">
-    工单管理
+    {{ 'MENU.CASE_MNY' | translate}}
 </div>
 <div class="mgb20" style="height:30px;">
     <button class="btn button-confirm  pull-right" (click)="crePage();isEdit= false">
-        <span class="icon-create "></span>创建工单
+        <span class="icon-create "></span>{{ 'USER_CENTER.CREATE_CASE' | translate}}
     </button>
     <div class="input-group col-md-2 float-left">
-        <input [(ngModel)]="search" class="form-control" placeholder="输入工单信息快速搜索" type="text">
+        <input [(ngModel)]="search" class="form-control" placeholder="{{ 'USER_CENTER.QUICKSEARCH_BYCASE' | translate}}" type="text">
         <div (click)="getData()" class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
     </div>
     <div class="float-left mgl20">
-        <span>类别：</span>
+        <span>{{ 'USER_CENTER.TYPE' | translate}}：</span>
         <select [(ngModel)]="selectedType" (ngModelChange)="getData()" class="form-control fix-width-120">
-            <option [value]="defaultType">所有类别</option>
+            <option [value]="defaultType">{{ 'USER_CENTER.TYPE_ALL' | translate}}</option>
             <option [value]="v.value" *ngFor="let v of service.typeDic | async">{{v.displayValue}}</option>
-        </select> {{selectedType}}
+        </select>
     </div>
     <div class="float-left mgl20">
-        <span>状态：</span>
+        <span>{{ 'COMMON.STATUS' | translate }}：</span>
         <select [(ngModel)]="selectedStatus" (ngModelChange)="getData()" class="form-control fix-width-120">
-            <option [value]="defaultStatus">所有状态</option>
+            <option [value]="defaultStatus">{{ 'USER_CENTER.STATUS_ALL' | translate}}</option>
             <option [value]="v.value" *ngFor="let v of service.statusDic | async">{{v.displayValue}}</option>
         </select>{{selectedStatus}}
     </div>
     <div class="float-left mgl20">
-        <span>紧急程度：</span>
+        <span>{{ 'USER_CENTER.EMERGENCY' | translate}}：</span>
         <select [(ngModel)]="selectedEmergency" (ngModelChange)="getData()" class="form-control fix-width-120">
-            <option [value]="defaultEmergency">所有</option>
+            <option [value]="defaultEmergency">{{ 'USER_CENTER.ALL' | translate}}</option>
             <option [value]="v.value" *ngFor="let v of service.emergencyDic | async">{{v.displayValue}}</option>
         </select>
     </div>
@@ -34,16 +34,16 @@
 <table class="table table-hover" >
     <thead>
         <tr>
-            <th class="text-center">工单号</th>
-            <th class="text-center">主题 </th>
-            <th class="text-center">类别 </th>
-            <th class="text-center">状态 </th>
-            <th class="text-center">紧急程度 </th>
-            <th class="text-center">联系人 </th>
-            <th class="text-center">联系电话 </th>
-            <th class="text-center">提交时间 </th>
-            <th class="text-center">更新时间 </th>
-            <th class="text-center">操作 </th>
+            <th class="text-center">{{ 'USER_CENTER.CASE_ID' | translate}}</th>
+            <th class="text-center">{{ 'USER_CENTER.SUBJECT' | translate}} </th>
+            <th class="text-center">{{ 'USER_CENTER.TYPE' | translate}} </th>
+            <th class="text-center">{{ 'COMMON.STATUS' | translate }} </th>
+            <th class="text-center">{{ 'USER_CENTER.EMERGENCY' | translate}} </th>
+            <th class="text-center">{{ 'USER_CENTER.CONTACTOR' | translate}}</th>
+            <th class="text-center">{{ 'USER_CENTER.CONTACNO' | translate}} </th>
+            <th class="text-center">{{ 'USER_CENTER.SUBMIT_TIME' | translate}}</th>
+            <th class="text-center">{{ 'USER_CENTER.UPDATE_TIME' | translate}}</th>
+            <th class="text-center">{{ 'COMMON.OPERATION' | translate }} </th>
         </tr>
     </thead>
     <tbody>
@@ -65,109 +65,109 @@
     </tbody>
 </table>
 
-<fc-popup #creCase title="{{title}}" ot="{{isEdit== false?'创建':'保存'}}" ct="取消" (of)="creOredit()">
+<fc-popup #creCase title="{{title}}" ot="{{isEdit== false? 'COMMON.CREATE': 'DIALOG.SAVE' | translate }}" ct="{{ 'DIALOG.CANCEL' | translate }}" (of)="creOredit()">
     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
-        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>主题:</div>
+        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.SUBJECT' | translate}}:</div>
         <div class="col-md-8 no-padding">
             <textarea class="form-control" rows="2" [(ngModel)]="criteria.subject" ></textarea>
         </div>
     </div>
-    <div class="col-md-offset-3 col-md-8 text-tip">最多只能输入50个文字</div>
+    <div class="col-md-offset-3 col-md-8 text-tip">{{ 'USER_CENTER.LIMIT_DESCRIPTION_ONE' | translate}}</div>
     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
-        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>类别:</div>
+        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.TYPE' | translate}}:</div>
         <div class="col-md-8 float-left no-padding">
             <select [(ngModel)]="criteria.type" class="form-control">
-                <option value="">请选择</option>
+                <option value="">{{ 'USER_CENTER.SELECT' | translate}}</option>
                 <option [value]="v.value" *ngFor="let v of service.typeDic | async">{{v.displayValue}}</option>
             </select>
         </div>
     </div>
     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
-        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>紧急程度:</div>
+        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.EMERGENCY' | translate}}:</div>
         <div class="col-md-8 float-left no-padding">
             <select [(ngModel)]="criteria.emergency" class="form-control">
-                <option value="">请选择</option>
+                <option value="">{{ 'USER_CENTER.SELECT' | translate}}</option>
                 <option [value]="v.value" *ngFor="let v of service.emergencyDic | async">{{v.displayValue}}</option>
             </select>
         </div>
     </div>
     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
-        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>联系人:</div>
+        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.CONTACTOR' | translate}}:</div>
         <div class="col-md-8 no-padding form-group">
             <input #contactor type="text" class="form-control" [(ngModel)]="criteria.contact">
         </div>
     </div>
     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
-        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>联系电话:</div>
+        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.CONTACNO' | translate}}:</div>
         <div class="col-md-8 no-padding form-group">
             <input type="text" class="form-control" [(ngModel)]="criteria.contactNo">
         </div>
     </div>
-    <div class="col-md-offset-3 col-md-8 text-tip">"区号"+"电话号码"或"手机号"，例如：02160465223或13944238888</div>
+    <div class="col-md-offset-3 col-md-8 text-tip">{{ 'USER_CENTER.LIMIT_DESCRIPTION_THREE' | translate}}</div>
     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
-        <div class="col-md-3 content-title" style="text-align : right">描述:</div>
+        <div class="col-md-3 content-title" style="text-align : right">{{ 'USER_CENTER.DESCRIPTION' | translate}}:</div>
         <div class="col-md-8 no-padding">
             <textarea class="form-control" rows="5" [(ngModel)]="criteria.details"></textarea>
         </div>
     </div>
-    <div class="col-md-offset-3 col-md-8 text-tip">最多只能输入1000个文字</div>
+    <div class="col-md-offset-3 col-md-8 text-tip">{{ 'USER_CENTER.LIMIT_DESCRIPTION_TWO' | translate}}</div>
 </fc-popup>
 
 <fc-popup #caseDetail title="{{title}}" ot="" ct="">
-    <div class="mgb10">基本信息</div>
+    <div class="mgb10">{{ 'USER_CENTER.BASIC_INFO' | translate}}</div>
     <table class="cm-table-left table table-all-boder">
         <tbody>
         <tr>
-            <th class="col-md-2 text-center">主题</th>
+            <th class="col-md-2 text-center">{{ 'USER_CENTER.SUBJECT' | translate}}</th>
             <td colspan="3">{{basicInfo.subject}}</td>
         </tr>
         <tr>
-            <th class="col-md-2 text-center">状态</th>
+            <th class="col-md-2 text-center">{{ 'COMMON.STATUS' | translate }}</th>
             <td>{{basicInfo.statusName}}</td>
-            <th class="col-md-2 text-center">类别</th>
+            <th class="col-md-2 text-center">{{ 'USER_CENTER.TYPE' | translate}}</th>
             <td>{{basicInfo.typeName}}</td>
         </tr>
         <tr>
-            <th class="col-md-2 text-center">联系人</th>
+            <th class="col-md-2 text-center">{{ 'USER_CENTER.CONTACTOR' | translate}}</th>
             <td>{{basicInfo.contact}}</td>
-            <th class="col-md-2 text-center">联系电话</th>
+            <th class="col-md-2 text-center">{{ 'USER_CENTER.CONTACNO' | translate}}</th>
             <td>{{basicInfo.contactNo}}</td>
         </tr>
         <tr>
-            <th class="col-md-2 text-center">提交者</th>
+            <th class="col-md-2 text-center">{{ 'USER_CENTER.SUBMITOR' | translate}}</th>
             <td>{{basicInfo.creatorName}}</td>
-            <th class="col-md-2 text-center">提交时间</th>
+            <th class="col-md-2 text-center">{{ 'USER_CENTER.SUBMIT_TIME' | translate}}</th>
             <td>{{basicInfo.updateDate}}</td>
         </tr>
         <tr>
-            <th class="col-md-2 text-center">所属部门</th>
+            <th class="col-md-2 text-center">{{ 'USER_CENTER.DEPARTMENT_OWNED' | translate}}</th>
             <td>{{basicInfo.creatorOrganization}}</td>
-            <th class="col-md-2 text-center">所属企业</th>
+            <th class="col-md-2 text-center">{{ 'USER_CENTER.ENTERPRISE_OWNED' | translate}}</th>
             <td>{{basicInfo.creatorTenant}}</td>
         </tr>
         <tr>
-            <th class="col-md-2 text-center table-text-middle" height="80px">描述</th>
+            <th class="col-md-2 text-center table-text-middle" height="80px">{{ 'USER_CENTER.DESCRIPTION' | translate}}</th>
             <td colspan="3" height="80px">{{basicInfo.details}}</td>
         </tr>
         </tbody>
     </table>
 
 
-    <div *ngIf="handledInfo != ''" class="mgb10 mgt10">处理信息</div>
+    <div *ngIf="handledInfo != ''" class="mgb10 mgt10">{{ 'USER_CENTER.HANDLED_INFO' | translate}}</div>
     <table class="cm-table-left table table-all-boder">
         <tbody *ngFor="let v of handledInfo" style="border-top:0px;">
         <tr>
-            <th class="col-md-2 text-center">紧急程度</th>
+            <th class="col-md-2 text-center">{{ 'USER_CENTER.EMERGENCY' | translate}}</th>
             <td >{{v.emergency}}
                 <span class="font-orange" >({{v.emergencyChange}})</span>
             </td>
-            <th class="col-md-2 text-center">处理人</th>
+            <th class="col-md-2 text-center">{{ 'USER_CENTER.HANDLER_NAME' | translate}}</th>
             <td>{{v.handlerName}}</td>
-            <th class="col-md-2 text-center">处理时间</th>
+            <th class="col-md-2 text-center">{{ 'USER_CENTER.HANDLER_TIME' | translate}}</th>
             <td>{{v.handleDate}}</td>
         </tr>
         <tr>
-            <th class="col-md-2 text-center table-text-middle" height="80px">处理记录</th>
+            <th class="col-md-2 text-center table-text-middle" height="80px">{{ 'USER_CENTER.HANDLER_PROCESS' | translate}}</th>
             <td colspan="5" height="80px">{{v.handleInfo}}</td>
         </tr>
         </tbody>
@@ -175,20 +175,20 @@
 
 
 
-    <div *ngIf="basicInfo.statusName == '已关闭'">
-        <div class="mgb10 mgt10">关闭信息</div>
+    <div *ngIf="basicInfo.status == 2">
+        <div class="mgb10 mgt10">{{ 'USER_CENTER.CLOSED_INFO' | translate}}</div>
         <table class="cm-table-left table table-all-boder">
             <tbody>
             <tr>
-                <th class="col-md-2 text-center">关闭类型</th>
+                <th class="col-md-2 text-center">{{ 'USER_CENTER.CLOSED_TYPE' | translate}}</th>
                 <td>{{closedInfo.closeType}}</td>
-                <th class="col-md-2 text-center">关闭人</th>
+                <th class="col-md-2 text-center">{{ 'USER_CENTER.CLOSED_NAME' | translate}}</th>
                 <td>{{closedInfo.closerName}}</td>
-                <th class="col-md-2 text-center">关闭时间</th>
+                <th class="col-md-2 text-center">{{ 'USER_CENTER.CLOSED_TIME' | translate}}</th>
                 <td>{{closedInfo.closeDate}}</td>
             </tr>
             <tr>
-                <th class="col-md-2 text-center table-text-middle" height="80px">描述</th>
+                <th class="col-md-2 text-center table-text-middle" height="80px">{{ 'USER_CENTER.DESCRIPTION' | translate}}</th>
                 <td colspan="5" height="80px">{{closedInfo.closeInfo}}</td>
             </tr>
             </tbody>
@@ -197,8 +197,8 @@
 
 </fc-popup>
 
-<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" (cf)="confirmOk()"></fc-confirm>
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确定"></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}"></fc-confirm>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate}}"></fc-notice>
 
 
 

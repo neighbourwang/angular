@@ -112,9 +112,9 @@ export class CaseMngListComponent implements OnInit{
             this.criteria= editcase;
             this.id= item.id;
             console.log("id1",this.id);
-            this.creCase.open("编辑工单");
+            this.creCase.open("USER_CENTER.EDIT_CASE");
         }else{
-            this.showAlert("只有新建状态下，才能编辑工单");
+            this.showAlert("USER_CENTER.EDIT_CONTOR");
         }
 
     }
@@ -124,7 +124,7 @@ export class CaseMngListComponent implements OnInit{
         this.criteria= new CaseMngList();
         this.criteria.emergency= "";
         this.criteria.type= "";
-        this.creCase.open("创建工单");
+        this.creCase.open("USER_CENTER.CREATE_CASE");
     }
 
     creOredit(){
@@ -167,7 +167,7 @@ export class CaseMngListComponent implements OnInit{
     delete(item){
         if(item.status == 0){
             this.id= item.id;
-            this.confirm.open("删除工单","您选择删除"+item.id+"-"+item.subject+"工单，请确认。");
+            this.confirm.open('USER_CENTER.DELETE_CASE',`USER_CENTER.DELETE_CASE_WARNING^^^item.id`);
             this.confirm.ccf=()=>{
                 this.layoutService.show();
                 this.service.delete(this.id)
@@ -184,7 +184,7 @@ export class CaseMngListComponent implements OnInit{
                     .catch((e) => this.onRejected(e));
             }
         }else{
-            this.showAlert("只有新建状态下，才能删除工单");
+            this.showAlert("USER_CENTER.DELETE_CONTOR");
         }
     }
 
@@ -246,14 +246,14 @@ export class CaseMngListComponent implements OnInit{
         this.getBasicInfo(item);
         this.getClosedInfo(item);
         this.getHandelInfo(item);
-        this.caseDetail.open("工单详细："+item.id+"-"+item.subject);
+        this.caseDetail.open(`USER_CENTER.CASE_DETAIL^^^item.id` );
     }
 
 
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "提示";
+        this.noticeTitle = "COMMON.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
@@ -265,7 +265,7 @@ export class CaseMngListComponent implements OnInit{
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败");
+        this.showAlert("COMMON.FAILED_TO_GET_DATA");
     }
 
 }
