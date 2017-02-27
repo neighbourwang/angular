@@ -1,7 +1,7 @@
 
 export class ExtendDetailItem{
     orderForAudit : number = 0;//待审批订单
-    orderToExpired : number = 0;//即将过期订单
+    serviceToExpired : number = 0;//即将过期订单
 
     ticketNew : number = 0;//新创建工单数
     ticketProcessing : number = 0;//处理中工单数

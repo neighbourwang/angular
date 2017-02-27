@@ -17,7 +17,7 @@ export class EntEstManagePlatformComponent implements OnInit {
   @ViewChild("notice")
   notice: NoticeComponent;
 
-  entId : string = null;
+  entId : string='';
 
   private statusDic:DicLoader = null;//状态字典
   private typeDic:DicLoader = null;//平台类型字典
