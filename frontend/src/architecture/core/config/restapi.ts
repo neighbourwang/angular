@@ -228,55 +228,55 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取管理控制台里的相关信息",
         "method": "GET",
         "id": "mng-console-info",
-        // "url": "/basis/authsec/mpp/organizations/page/0/size/10" 
-        "url": "basis/authsec/mpp/organization/{organizationId}/ext"        
+        // "url": "/basis/authsec/mpp/organizations/page/0/size/10"
+        "url": "basis/authsec/mpp/organization/{organizationId}/ext"
     }
     //<--费用中心-已购服务管理
     ,{
         "desc": "部门列表获取",
         "method": "GET",
         "id": "op-center.order-mng.department-list.get",
-        // "url": "/basis/authsec/mpp/organizations/page/0/size/10" 
-        "url": "basis/authsec/adm/organization/enterprise/{enterpriseId}"        
+        // "url": "/basis/authsec/mpp/organizations/page/0/size/10"
+        "url": "basis/authsec/adm/organization/enterprise/{enterpriseId}"
     }
     ,{
         "desc": "区域获取",
         "method": "GET",
         "id": "op-center.order-mng.platform-list.get",
-        "url": "marketplace/authsec/platforms/status/activation"        
+        "url": "marketplace/authsec/platforms/status/activation"
     }
     ,{
         "desc": "可用区获取",
         "method": "GET",
         "id": "op-center.order-mng.region-list.get",
-        "url": "marketplace/authsec/platform/{_id}/zone"        
+        "url": "marketplace/authsec/platform/{_id}/zone"
     }
     ,{
         "desc": "订单列表查询",
         "method": "POST",
         "id": "op-center.order-mng.order-list.post",
-        "url": "marketplace/authsec/subinstance/subscription/orderlist"        
+        "url": "marketplace/authsec/subinstance/subscription/orderlist"
     }
     ,{
         "desc": "订单详情查询",
         "method": "POST",
         "id": "op-center.order-mng.order-detail.get",
-        "url": "marketplace/authsec/subinstance/{subinstanceCode}/orderDetail"        
+        "url": "marketplace/authsec/subinstance/{subinstanceCode}/orderDetail"
     },{
         "desc": "订单退订",
         "method": "GET",
         "id": "op-center.order-mng.order-cancel.get",
-        "url": "marketplace/authsec/subscription/instance/{_subId}/cascadeFlag/{_cascadeFlag}/cancel"        
+        "url": "marketplace/authsec/subscription/instance/{_subId}/cascadeFlag/{_cascadeFlag}/cancel"
     },{
         "desc": "订单续订",
         "method": "POST",
         "id": "op-center.order-mng.order-renew.get",
-        "url": "marketplace/authsec/subscription/instance/{_subId}/renew"        
+        "url": "marketplace/authsec/subscription/instance/{_subId}/renew"
     },{
         "desc": "获取续订费用",
         "method": "GET",
         "id": "op-center.order-mng.order-renew-price.get",
-        "url": "marketplace/authsec/subscription/instance/{_subId}/price"        
+        "url": "marketplace/authsec/subscription/instance/{_subId}/price"
     },
     //费用中心-已购服务管理-->
 
@@ -285,21 +285,21 @@ export let RestApis: RestApiModel[] = [
         "desc": "查询订单",
         "method": "POST",
         "id": "op-center.order-search.list.post",
-        // "url": "marketplace/authsec/subinstance/subscription/orderlist"        
+        // "url": "marketplace/authsec/subinstance/subscription/orderlist"
         "url":"marketplace/authsec/order/search/paging"
     },
     {
         "desc": "查询订单详情",
         "method": "GET",
         "id": "op-center.order-search.detail.get",
-        "url": "marketplace/authsec/subinstance/order/{orderNo}/detail"     
-        // "url": "adminui/authsec/backend/order/{orderNo}/detail"    
+        "url": "marketplace/authsec/subinstance/order/{orderNo}/detail"
+        // "url": "adminui/authsec/backend/order/{orderNo}/detail"
     },
     {
         "desc": "查询订单撤单",
         "method": "POST",
         "id": "op-center.order-search.cencel.post",
-        "url": "marketplace/authsec/order/withdraw/order/{orderId}/reason/{reason}"        
+        "url": "marketplace/authsec/order/withdraw/order/{orderId}/reason/{reason}"
     },
     //订单查询
 
@@ -376,7 +376,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建账户",
         "method": "POST",
         "id": "user-center.account-mng.create.post",
-        "url": "basis/authsec/mpp/user"        
+        "url": "basis/authsec/mpp/user"
     },
     {
         "desc" : "用户中心，帐号管理，帐号编辑，获取账号详情",
@@ -501,7 +501,7 @@ export let RestApis: RestApiModel[] = [
         // "url": "adminui/authsec/enterprise/{id}/resouces/quotas/page/{page}/size/{size}"
         "url": "adminui/authsec/enterprise/{id}/resource/quota/detail"
     },
-    
+
     // 审批中心
      {
         "desc": "订购人、提交者列表",
@@ -545,7 +545,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取审批意见",
         "id": "check-center.approve-info.get",
         "method": "GET",
-        "url": "marketplace//authsec/order/approval/history/order/{orderId}"        
+        "url": "marketplace//authsec/order/approval/history/order/{orderId}"
     },
     // 工单管理
     {
@@ -576,7 +576,7 @@ export let RestApis: RestApiModel[] = [
         "desc" : "删除工单",
         "id" : "user-center.case-mng.delete",
         "method" : "DELETE",
-        "url" : "worklistmgmt/authsec/worklist/{id}"
+        "url" : "basis/authsec/mpp/worklist/{id}"
     },
     {
         "desc" : "获取工单基本信息",
