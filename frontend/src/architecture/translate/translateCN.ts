@@ -244,11 +244,11 @@ export const TranslateCN = {
         SECURITY_INFORMATION: '安全信息',
         SECURITY_GROUP: '安全组',
         PAID_INFORMATION: '付费信息',
-        ORDER_NUMBER: '订单编号：',
-        PAYMENT_METHODS: '付费方式：',
-        CREATED_DATE: '创建时间：',
-        EXPIRE_DATE: '到期时间：',
-        RELEASE_DATE: '释放时间：',
+        ORDER_NUMBER: '订单编号',
+        PAYMENT_METHODS: '付费方式',
+        CREATED_DATE: '创建时间',
+        EXPIRE_DATE: '到期时间',
+        RELEASE_DATE: '释放时间',
         HOST_ONE_PRICE: '云主机单价',
 
         //cloud-host-list
@@ -763,6 +763,12 @@ export const TranslateCN = {
         CLOSED_TYPE: '关闭类型',
         CLOSED_NAME: '关闭人',
         CLOSED_TIME: '关闭时间',
+        TYPE_ALL: '所有类别',
+        STATUS_ALL: '所有类别',
+        ALL: '所有',
+        SELECT: '请选择',
+        LIMIT_DESCRIPTION_ONE: '最多只能输入50个文字',
+        LIMIT_DESCRIPTION_TWO: '最多只能输入1000个文字'
 
     }
 }

@@ -16,7 +16,7 @@
             "status":"已启用"
         },
         {
-            "order": 1,
+            "order": 2,
             "storageId": "222",
             "storageName": "cinder2",
             "displayName": "高速I/O-2",
