@@ -76,7 +76,7 @@ export const TranslateCN = {
         REMAIN: '剩下',
         LOCAL: '本地',
         PASSWORD: '密码',
-        
+
 
         //单位
         $: "￥",
@@ -714,5 +714,34 @@ export const TranslateCN = {
         //msg-mng
         DELETE_MSG_CONFIRM: '您选择删除{{value_1}}条消息，请确认',
         DELETE_MSG: '删除消息',
+
+
+        //case-mng
+        CASE_MNY: '工单管理',
+        QUICKSEARCH_BYCASE: '输入工单信息快速搜索',
+        TYPE: '类别',
+        STATUS: '状态',
+        EMERGENCY: '紧急程度',
+        CASE_ID: '工单号',
+        SUBJECT: '主题',
+        CONTACTOR: '联系人',
+        CONTACNO: '联系电话',
+        SUBMIT_TIME: '提交时间',
+        UPDATE_TIME: '更新时间',
+        OPERATION: '操作',
+        CREATE_CASE: '创建工单',
+        DEPARTMENT_OWNED: '所属部门',
+        ENTERPRISE_OWNED: '所属企业',
+        DESCRIPTION: '描述',
+        BASIC_INFO: '基本信息',
+        HANDLED_INFO: '处理信息',
+        CLOSED_INFO: '关闭信息',
+        HANDLER_NAME: '处理人',
+        HANDLER_TIME: '处理时间',
+        HANDLER_PROCESS: '处理记录',
+        CLOSED_TYPE: '关闭类型',
+        CLOSED_NAME: '关闭人',
+        CLOSED_TIME: '关闭时间',
+
     }
 }
