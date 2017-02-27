@@ -1,9 +1,10 @@
 ﻿import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
+
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
 
-import {HostInfo} from'../model/host-info.model';
+import {HostInfo,DataSet} from'../model/host-info.model';
 import {HostGraphModel, CPU, Memory} from '../model/host-graph.model';
 //service
 import { HostDetailService } from "../service/host-detail.service";
@@ -35,6 +36,10 @@ export class HostDetailComponent implements OnInit {
     hostInfo: HostInfo = new HostInfo();
     hostGraph: HostGraphModel = new HostGraphModel();
 
+    cpuData: Array<DataSet>;
+    cpuColor: Array<any>;
+    cpuLabels:Array<any>;
+
     ngOnInit() {
         this.activatedRouter.params.forEach((params: Params) => {
             if (params["host_Id"] != null) {
@@ -44,6 +49,7 @@ export class HostDetailComponent implements OnInit {
             
         });
         this.getHostDetail();
+        this.showGraph();
     }
 
     getHostDetail() {
@@ -63,6 +69,7 @@ export class HostDetailComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
+    //获取宿主机折线图数据
     getHostGraph() {
          this.layoutService.show();
         this.service.getHostGraph(this.HostId,this.Period)
@@ -80,9 +87,28 @@ export class HostDetailComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
+    //画折线图
+    showGraph() {
+        
+        this.cpuData = [{ data:[65, 59, 80, 81, 56, 55, 40], label: 'Series A' }];
+        this.cpuColor = [
+            { // grey
+                backgroundColor: 'rgba(148,159,177,0.2)',
+                borderColor: 'rgba(148,159,177,1)',
+                pointBackgroundColor: 'rgba(148,159,177,1)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+            }
+        ];
+
+        this.cpuLabels=['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    }
+
     refresh() {
         this.getHostDetail();
         this.getHostGraph();
+        
     }
 
     BacktoComputeRes(){
