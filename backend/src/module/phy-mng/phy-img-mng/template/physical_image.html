@@ -13,7 +13,18 @@
         </button>
 
         <div class="dropdown pull-right" >
-            <button class="fox-cloud-button fox-cloud-button-green"  (click)="editPhyImgSource();">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            选择操作
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <li (click)="editPhyImgSource()"><a>编辑</a></li>
+                <li (click)="enable()"><a>启用</a></li>
+                <li (click)="disable()"><a>禁用</a></li>
+                <li (click)="delete()"><a>删除</a></li>
+            </ul>
+
+            <!--<button class="fox-cloud-button fox-cloud-button-green"  (click)="editPhyImgSource();">
                 <span class="icon-button-label icon-left-button-label">编辑</span>
             </button>
             <button class="fox-cloud-button fox-cloud-button-green" key="boe/enable.html" (click)="enable();">
@@ -24,7 +35,7 @@
             </button>
             <button class="fox-cloud-button fox-cloud-button-green" key="boe/remove.html" (click)="delete();">
                 <span class="icon-button-label icon-left-button-label">删除</span>
-            </button>
+            </button>-->
         </div>
     </div>
 
@@ -44,7 +55,7 @@
                 <tr *ngFor = "let source of sourceList">
                     <td><input type="radio" class="fox-could-radio" name="radio"[checked]="source.selected"(change)="selectSource(source)"/>
                         </td>
-                    <td><a href="#">{{source.imageName}}</a></td>
+                    <td><a click="gotoPhyImageList(source)">{{source.imageName}}</a></td>
                     <td>{{source.imageURL}}</td>
                     <td>{{source.pmPools}}</td>
                     <td>{{source.description}}</td>
@@ -66,6 +77,9 @@
         </table>
     </div>
 
+</div>
+<div class="fox-cloud-pagination-container">
+        <fc-pagination #pager tp={{totalPage}} (pf)="getPhyImageSources($event)"></fc-pagination>
 </div>
 
 <fc-popup #createPopup ot="{{'COMMON.CONFIRM' | translate}}" 
