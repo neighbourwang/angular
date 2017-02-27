@@ -31,7 +31,6 @@ export class ProdDirCreComponent implements OnInit {
     @ViewChild('notice')
     notice: NoticeComponent;
 
-
     prodDir = new ProdDir();
     _platformlist: Array<platform> = new Array<platform>();
     pageTitle:string;

@@ -7,10 +7,8 @@
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}:</div><!--产品目录名称-->
-
 					<div class="col-sm-4">
-						<input type="text" class="form-control font-gray" [(ngModel)]="prodDir.serviceName" placeholder="{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}(必须)"><!--产品目录名称-->
-
+						<input type="text" class="form-control" [(ngModel)]="prodDir.serviceName" placeholder="{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}(必须)"><!--产品目录名称-->
 					</div>
 				</div>
 			</div>
@@ -88,7 +86,7 @@
 				<div class="form-group">
 					<div for="firstname" class="col-sm-4 form-control-title">{{'COMMON.DESCRIPTION' | translate}}：</div>
 					<div class="col-sm-4">
-						<textarea class="form-control font-gray" rows="4" [(ngModel)]="prodDir.description" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"></textarea>
+						<textarea class="form-control" rows="4" [(ngModel)]="prodDir.description" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"></textarea>
 					</div>
 				</div>
 			</div>

@@ -9,10 +9,14 @@ export class MsgAlertModel {
 }
 
 export class MsgModel {
-
-    title: string;
+    
+    id: string;
     content: string;
-    createDate:string;
+    createTime:string;
+    status: string;
+
+    checked: boolean = false;
+    
     constructor() {
 
     }

@@ -15,6 +15,7 @@
                     <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PHY_MNG_POOL.REGION_OWNER' | translate}}:</div>
                     <div class="col-sm-4">
                         <select class="form-control"  [(ngModel)]="data.regionId">
+                            <option value= "">请选择</option>
                             <option *ngFor="let item of regions" [value]="item.id">{{item.name}}</option>
                         </select>
                     </div>

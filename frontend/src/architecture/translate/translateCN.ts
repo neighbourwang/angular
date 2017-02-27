@@ -76,7 +76,7 @@ export const TranslateCN = {
         REMAIN: '剩下',
         LOCAL: '本地',
         PASSWORD: '密码',
-        
+
 
         //单位
         $: "￥",
@@ -244,11 +244,11 @@ export const TranslateCN = {
         SECURITY_INFORMATION: '安全信息',
         SECURITY_GROUP: '安全组',
         PAID_INFORMATION: '付费信息',
-        ORDER_NUMBER: '订单编号：',
-        PAYMENT_METHODS: '付费方式：',
-        CREATED_DATE: '创建时间：',
-        EXPIRE_DATE: '到期时间：',
-        RELEASE_DATE: '释放时间：',
+        ORDER_NUMBER: '订单编号',
+        PAYMENT_METHODS: '付费方式',
+        CREATED_DATE: '创建时间',
+        EXPIRE_DATE: '到期时间',
+        RELEASE_DATE: '释放时间',
         HOST_ONE_PRICE: '云主机单价',
 
         //cloud-host-list
@@ -712,7 +712,63 @@ export const TranslateCN = {
         CONFIRM_NEW_PASSWORD: '确认新密码',
 
         //msg-mng
+        MSG_NOTIFICATION: '消息通知',
+        MORE_MSG: '更多消息',
+
+        MSG_CENTER: '消息中心',
+        ALL_MSG: '所有消息',
+        UNREAD_MSG: '未读消息',
+        READ_MSG: '已读消息',
+        MARK_READ: '标示已读',
+        MSG_CONTENT: '消息内容',
+        CREATE_TIME: '创建时间',
+        ALL_SELECTED: '全选',
+
+        PLEASE_CHOOSE_MSG: '请选择消息',
+        PLEASE_CHOOSE_UNREAD_MSG: '请选择未读消息',
+
+        DELETE_MSG_FAILED: '删除消息失败',
+        DELETE_MSG_EXCEPTION: '删除消息异常',
+
+        MARK_MSG_READ_FAILED: '标示消息已读失败',
+        MARK_MSG_READ_EXCEPTION: '标示消息已读异常',
+
         DELETE_MSG_CONFIRM: '您选择删除{{value_1}}条消息，请确认',
         DELETE_MSG: '删除消息',
+
+
+        //case-mng
+        CASE_MNY: '工单管理',
+        QUICKSEARCH_BYCASE: '输入工单信息快速搜索',
+        TYPE: '类别',
+        STATUS: '状态',
+        EMERGENCY: '紧急程度',
+        CASE_ID: '工单号',
+        SUBJECT: '主题',
+        CONTACTOR: '联系人',
+        CONTACNO: '联系电话',
+        SUBMIT_TIME: '提交时间',
+        UPDATE_TIME: '更新时间',
+        OPERATION: '操作',
+        CREATE_CASE: '创建工单',
+        DEPARTMENT_OWNED: '所属部门',
+        ENTERPRISE_OWNED: '所属企业',
+        DESCRIPTION: '描述',
+        BASIC_INFO: '基本信息',
+        HANDLED_INFO: '处理信息',
+        CLOSED_INFO: '关闭信息',
+        HANDLER_NAME: '处理人',
+        HANDLER_TIME: '处理时间',
+        HANDLER_PROCESS: '处理记录',
+        CLOSED_TYPE: '关闭类型',
+        CLOSED_NAME: '关闭人',
+        CLOSED_TIME: '关闭时间',
+        TYPE_ALL: '所有类别',
+        STATUS_ALL: '所有类别',
+        ALL: '所有',
+        SELECT: '请选择',
+        LIMIT_DESCRIPTION_ONE: '最多只能输入50个文字',
+        LIMIT_DESCRIPTION_TWO: '最多只能输入1000个文字'
+
     }
 }
