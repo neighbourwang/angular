@@ -595,5 +595,25 @@ export let RestApis: RestApiModel[] = [
         "id" : "user-center.case-mng.closedInfo",
         "method" : "GET",
         "url" : "basis/authsec/mpp/worklist/{id}/closeinfo"
-    }
+    },
+    // 消息中心
+    {
+        "desc" : "获取消息列表、所有/未读/已读",
+        "id" : "user-center.msg-mng.message.get",
+        "method" : "GET",
+        "url" : "messagemgmt/authsec/message/getmessages/page/{page}/size/{size}/status/{status}"
+    },
+    {
+        "desc" : "设置消息已读",
+        "id" : "user-center.msg-mng.message.setread",
+        "method" : "POST",
+        "url" : "messagemgmt/authsec/message/setread"
+    },
+    {
+        "desc" : "删除消息",
+        "id" : "user-center.msg-mng.message.delete",
+        "method" : "DELETE",
+        "url" : "messagemgmt/authsec/message/delete"
+    },
+    
 ]

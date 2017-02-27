@@ -712,6 +712,27 @@ export const TranslateCN = {
         CONFIRM_NEW_PASSWORD: '确认新密码',
 
         //msg-mng
+        MSG_NOTIFICATION: '消息通知',
+        MORE_MSG: '更多消息',
+
+        MSG_CENTER: '消息中心',
+        ALL_MSG: '所有消息',
+        UNREAD_MSG: '未读消息',
+        READ_MSG: '已读消息',
+        MARK_READ: '标示已读',
+        MSG_CONTENT: '消息内容',
+        CREATE_TIME: '创建时间',
+        ALL_SELECTED: '全选',
+
+        PLEASE_CHOOSE_MSG: '请选择消息',
+        PLEASE_CHOOSE_UNREAD_MSG: '请选择未读消息',
+
+        DELETE_MSG_FAILED: '删除消息失败',
+        DELETE_MSG_EXCEPTION: '删除消息异常',
+
+        MARK_MSG_READ_FAILED: '标示消息已读失败',
+        MARK_MSG_READ_EXCEPTION: '标示消息已读异常',
+
         DELETE_MSG_CONFIRM: '您选择删除{{value_1}}条消息，请确认',
         DELETE_MSG: '删除消息',
     }
