@@ -29,13 +29,13 @@
 			            </tr>
 			        </thead>
 			        <tbody>
-			            <tr>
-			                <td>1</td>
-			                <td>上海慧于</td>
-			                <td>现金</td>
-			                <td>1个月</td>
-			                <td>2017-2-13</td>
-			                <td>2017-2-13</td>
+			            <tr *ngFor="let item of costItemLoader.Items;let i =index;">
+			                <td>{{i}}</td>
+			                <td>{{item.circleTime}}</td>
+			                <td>{{item.money}}</td>
+			                <td>{{item.endDate}}</td>
+			                <td>{{item.sentDate}}</td>
+			                <td>{{item.statusName}}</td>
 							<td>
 								<button class="fox-cloud-button-white" (click)="updateCost();">金额调整</button>
 								<!--<button class="fox-cloud-button-white">下载</button>-->
@@ -57,19 +57,19 @@
 			<div class="form-group">
 				<label class="col-sm-6">本期账单金额</label>
 				<div class="col-sm-6">
-				<label class="col-sm-6" style="text-align:left!important;">*******元</label>
+				<label class="col-sm-6" style="text-align:left!important;" >*******元</label>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-6">调整项目</label>
 				<div class="col-sm-6">
-					<input type="text" />
+					<input type="text" [(ngModel)]="_saveParam.name" />
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-6">调整金额</label>
 				<div class="col-sm-6">
-					<input type="text" />
+					<input type="text" [(ngModel)]="_saveParam.money_improve" />
 				</div>
 			</div>
 		</form>
