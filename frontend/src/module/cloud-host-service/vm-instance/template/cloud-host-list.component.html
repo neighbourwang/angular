@@ -131,7 +131,7 @@
             <!-- <td class="text-center active" style="position: relative;width: 220px;">
                 <table-edit-name [value]="vm.instanceName" (onChange)="changeName($event)"></table-edit-name>
             </td> -->
-            <td class="text-center active">{{vm.instanceName}}</td>
+            <td class="text-center active"><span (click)="router.navigate(['cloud-host-service/cloud-host-detail/', vm.itemId])">{{vm.instanceName}}</span></td>
             <td class="text-center">{{vm.specification}}</td>
             <td class="text-center">{{vm.osInfo}}</td>
             <td class="text-center">{{vm.privateIP}}</td> 

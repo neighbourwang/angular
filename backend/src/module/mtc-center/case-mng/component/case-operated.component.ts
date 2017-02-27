@@ -91,11 +91,11 @@ export class CaseOperatedComponent implements OnInit {
     //处理工单
     handleCase(){  
          if(!this.handleInfo.emergency){  
-            this.showAlert("请选择紧急程度！");
+            this.showAlert("CASE_MNG.PLEASE_SELECT_EMERGENCY");
             return;
         }
         if(!this.handleInfo.handleInfo){
-             this.showAlert("请填写处理记录！");
+             this.showAlert( "CASE_MNG.PLEASE_INPUT_HANDLE_RECORD");
             return;
         }  
         this.layoutService.hide();

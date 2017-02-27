@@ -1,5 +1,5 @@
 import { Component,ViewChild, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 import { cloudHostDetailService } from '../service/cloud-host-detail.service'
@@ -20,7 +20,7 @@ export class cloudHostDetailComponent implements OnInit {
     @ViewChild('notice')
     private noticeDialog: NoticeComponent;
 
-    @ViewChild('platformZone') platformZone;
+    vm:any;
 
     a_labels = ["7:00", "8:00", "9:00", "10:00", "11:00", "12:00"];
     a_datasets = [
@@ -243,12 +243,16 @@ export class cloudHostDetailComponent implements OnInit {
     constructor(
         private layoutService: LayoutService,
         private router: Router,
+        private route: ActivatedRoute,
         private service: cloudHostDetailService
     ) {
 
     }
     ngOnInit() {
-
-
+        this.route.params.subscribe(params => {
+            this.service.getHostInfo(params["itemId"]).then(res => {
+                this.vm = res;
+            })
+        })
     }
 }

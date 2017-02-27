@@ -40,7 +40,7 @@ export class HostDetailComponent implements OnInit {
     cpuColor: Array<any>;
     cpuLabels: Array<any>;
     cpuChartType: string;
-
+    
     ngOnInit() {
         this.activatedRouter.params.forEach((params: Params) => {
             if (params["host_Id"] != null) {
@@ -50,6 +50,7 @@ export class HostDetailComponent implements OnInit {
             
         });
         this.getHostDetail();
+    //    window.setTimeout(() => { this.showGraph();}, 100);
         this.showGraph();
     }
 
@@ -61,7 +62,7 @@ export class HostDetailComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && "100" == response["resultCode"]) {
                     this.hostInfo = response["resultContent"];
-                   
+                 
                 } else {
                     alert("Res sync error");
                 }
