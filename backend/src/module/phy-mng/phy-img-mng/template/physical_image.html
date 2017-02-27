@@ -52,8 +52,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor = "let source of sourceList">
-                    <td><input type="radio" class="fox-could-radio" name="radio"[checked]="source.selected"(change)="selectSource(source)"/>
+                <tr *ngFor = "let source of sourceList"(click)="selectSource(source)">
+                    <td><input type="radio" class="fox-cloud-radio" name="radio"[checked]="source.selected"(change)="source.selected = $event.target.checked"/>
                         </td>
                     <td><a click="gotoPhyImageList(source)">{{source.imageName}}</a></td>
                     <td>{{source.imageURL}}</td>
