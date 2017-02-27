@@ -34,19 +34,19 @@
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                   <div class="panel-body">
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.INSTANCE_NAME' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.INSTANCE_NAME' | translate}}:</font>    {{vm?.instanceName}}
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.AVAILABLE_AREA' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.AVAILABLE_AREA' | translate}}:</font>    {{vm?.regionZone}}
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.OPERATION_HOURS' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.OPERATION_HOURS' | translate}}:</font>   
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.STATUS' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.STATUS' | translate}}:</font>    {{vm?.vmState | dict:service.computeStatus | async}}
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.RESOURCE' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.RESOURCE' | translate}}:</font>  
                       </div>
                   </div>
                 </div>
@@ -62,19 +62,19 @@
                   <div class="panel-body">
                     
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.EXTRA_SERVICES' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.EXTRA_SERVICES' | translate}}:</font>    {{vm?.instanceName}}
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.TYPE' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.TYPE' | translate}}:</font>    {{vm?.instanceName}}
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.SERVICE_LEVEL' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.SERVICE_LEVEL' | translate}}:</font>    {{vm?.instanceName}}
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.LABEL' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.LABEL' | translate}}:</font>    {{vm?.instanceName}}
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.DESCRIPTION' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.DESCRIPTION' | translate}}:</font>    {{vm?.instanceName}}
                       </div>
                   </div>
                 </div>
@@ -90,19 +90,19 @@
                   <div class="panel-body">
                     
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.CPU' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.CPU' | translate}}:</font>    
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.RAM' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.RAM' | translate}}:</font>    
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.MIRROR' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.MIRROR' | translate}}:</font>    
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.INTERNAL_IP' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.INTERNAL_IP' | translate}}:</font>    {{vm?.privateIP}}
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.EXTERNA_IP' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.EXTERNA_IP' | translate}}:</font>    {{vm?.publicIP}}
                       </div>
                   </div>
                 </div>
@@ -119,13 +119,13 @@
                   <div class="panel-body">
                     
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.BOOT_DISK' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.BOOT_DISK' | translate}}:</font>    {{vm?.instanceName}}
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.DATA_DISK' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.DATA_DISK' | translate}}:</font>    {{vm?.instanceName}}
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.SNAPSHOT' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.SNAPSHOT' | translate}}:</font>    {{vm?.instanceName}}
                       </div>
                   </div>
                 </div>
@@ -142,7 +142,7 @@
                   <div class="panel-body">
                     
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.SECURITY_GROUP' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.SECURITY_GROUP' | translate}}:</font>    {{vm?.instanceName}}
                       </div>
                   </div>
                 </div>
@@ -159,19 +159,19 @@
                   <div class="panel-body">
                     
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.ORDER_NUMBER' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.ORDER_NUMBER' | translate}}:</font>    {{vm?.uuid}}
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.PAYMENT_METHODS' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.PAYMENT_METHODS' | translate}}:</font>    {{vm?.paymentType}}
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.CREATED_DATE' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.CREATED_DATE' | translate}}:</font> 
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.EXPIRE_DATE' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.EXPIRE_DATE' | translate}}:</font>    {{vm?.expiryDate}}
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.RELEASE_DATE' | translate}}:</font>    df
+                          <font>{{'VM_INSTANCE.RELEASE_DATE' | translate}}:</font> 
                       </div>
                   </div>
                 </div>

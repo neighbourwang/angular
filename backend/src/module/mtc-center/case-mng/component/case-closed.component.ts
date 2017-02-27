@@ -90,11 +90,11 @@ export class CaseClosedComponent implements OnInit {
     //关闭工单
     closeCase(){
         if(!this.closeInfo.closeType){  
-            this.showAlert("请选择关闭类型！");
+            this.showAlert("CASE_MNG.PLEASE_SELECT_CLOSE_TYPE");
             return;
         }
         if(!this.closeInfo.closeInfo){
-             this.showAlert("请填写关闭描述！");
+             this.showAlert("CASE_MNG.PLEASE_INPUT_CLOSE_DESCRIPTION");
             return;
         }
         this.layoutService.hide();

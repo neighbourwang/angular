@@ -245,11 +245,11 @@ export const TranslateCN = {
         SECURITY_INFORMATION: '安全信息',
         SECURITY_GROUP: '安全组',
         PAID_INFORMATION: '付费信息',
-        ORDER_NUMBER: '订单编号：',
-        PAYMENT_METHODS: '付费方式：',
-        CREATED_DATE: '创建时间：',
-        EXPIRE_DATE: '到期时间：',
-        RELEASE_DATE: '释放时间：',
+        ORDER_NUMBER: '订单编号',
+        PAYMENT_METHODS: '付费方式',
+        CREATED_DATE: '创建时间',
+        EXPIRE_DATE: '到期时间',
+        RELEASE_DATE: '释放时间',
         HOST_ONE_PRICE: '云主机单价',
 
         //cloud-host-list

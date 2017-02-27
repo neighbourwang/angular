@@ -39,7 +39,7 @@ export class MsgAlertComponent implements OnInit {
     ngOnInit(): void {
         window.setInterval(() => {
             this.getMsgAlert();
-        }, 30000);        
+        }, 5000);        
     }
 
     offClickHandler(event) {
@@ -56,6 +56,7 @@ export class MsgAlertComponent implements OnInit {
         this.service.getMsgListStatus(1,5,'0')
             .then(
             response => {
+                console.log(response, "response")
                 if (response && 100 == response["resultCode"]) {
                     this.msgAlert.edge = response.pageInfo.totalRecords;
                     this.msgAlert.list = response.resultContent;

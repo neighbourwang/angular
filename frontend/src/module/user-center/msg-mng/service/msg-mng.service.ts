@@ -30,8 +30,8 @@ export class MsgMngService {
             }
         ];
         const api = this.restApiCfg.getRestApi("user-center.msg-mng.message.get");
-        return this.restApi.request(api.method, api.url, pathParams, null, null);
-        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return MsgModel_mock });
+        //return this.restApi.request(api.method, api.url, pathParams, null, null);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return MsgModel_mock });
     }
 
     setMsgRead(ids: string):Promise<any> {
