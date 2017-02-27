@@ -1479,5 +1479,23 @@
     ,
     "PHY_IMG_MNG":{
         "TEST":"测试"
+    },
+    "CASE_MNG":{
+        "CASE_MNG":"工单管理",
+        "ENTERPRISE":"所属企业",
+        "ALL_ENTERPRISE":"所有企业",       
+        "ALL_TYPE":"所有类别",
+        "ALL_STATUS":"所有状态",
+        "ALL_EMERGENCY":"所有",     
+        "TYPE":"类别",
+        "STATUS":"状态",
+        "EMERGENCY":"紧急程度",
+        "SELECT":"选择操作",
+        "HANDLE_CASE":"处理工单",
+        "CLOSE_CASE":"关闭工单",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
     }
 }
