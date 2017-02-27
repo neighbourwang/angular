@@ -116,14 +116,14 @@ export class CaseMngComponent implements OnInit {
     closeCase(){     
         const selectCase = this.caseList.find((c) => { return c.isSelect });
         if(!selectCase){
-            this.showAlert("请选择需要关闭的工单");
+            this.showAlert("CASE_MNG.SELECT_CLOSE_CASE");
             return;
         }
         if(selectCase.statusName=="新建"||selectCase.statusName=="处理中"){
             this.route.navigate(['mtc-center/case-mng/case-closed',{id:selectCase.id}])
         }
        else{
-            this.showAlert("工单状态只有为新建或处理中才能关闭，请选择需要关闭的工单！");
+            this.showAlert("CASE_MNG.RESELECT_CLOSE_CASE");
             return;
        }
        
@@ -133,14 +133,14 @@ export class CaseMngComponent implements OnInit {
     handleCase(){
         const selectCase = this.caseList.find((c) => { return c.isSelect });
         if(!selectCase){
-            this.showAlert("请选择需要处理的工单");
+            this.showAlert("CASE_MNG.SELECT_HANDLE_CASE");
             return;
         }
         if(selectCase.statusName!=="已关闭"){
             this.route.navigate(['mtc-center/case-mng/case-operated',{id:selectCase.id}])
         }
         else{
-             this.showAlert("工单状态只有为新建时才能处理，请选择需要处理的工单！");
+             this.showAlert("CASE_MNG.RESELECT_HANDLE_CASE");
             return; 
         }
        
