@@ -70,7 +70,8 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="console-box">
-                        <div class="console-title">TOP5部门消费总额排名</div>
+                        <div class="console-title" *ngIf='!this.isNullEnterprise()'>TOP5部门消费总额排名</div>
+						<div class="console-title" *ngIf='this.isNullEnterprise()'>TOP5企业消费总额排名</div>
                         <div class="ues-content">
                             <!--<canvas id="h_bar_chart" width="200" height="70"></canvas>-->
 							 <canvas baseChart
@@ -85,7 +86,8 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="console-box">
-                        <div class="console-title">TOP5部门新增总额排名</div>
+                        <div class="console-title" *ngIf='!this.isNullEnterprise()'>TOP5部门新增总额排名</div>
+						<div class="console-title" *ngIf='this.isNullEnterprise()'>TOP5企业消费总额排名</div>
 						 <canvas *ngIf="ent_hbar2" baseChart
                           width="200" height="70"
                           [datasets]="ent_hbar2"
@@ -134,7 +136,7 @@
                     <tbody>
                         <tr class="text-center" *ngFor="let item of orderItemLoader.Items;let i = index;">
                             <td class="vertical-center">{{i}}</td>
-                            <td class="vertical-center">{{item.orderNo}}</td>
+                            <td class="vertical-center"><a (click)='showDetail(item.id)'>{{item.orderNo}}</a></td>
                             <td class="vertical-center">{{item.name}}</td>
                             <td class="vertical-center">{{item.payWay}}</td>
                             <td class="vertical-center">{{item.department}}</td>

@@ -303,6 +303,55 @@ export let RestApis: RestApiModel[] = [
     },
     //订单查询
 
+//消费总览
+{
+        "desc": "部门消费概览",
+        "id": "op-center.order-mng.cost-pandect.consume.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/consume/sum"
+    },
+    {
+        "desc": "部门消费趋势-总消费",
+        "id": "op-center.order-mng.cost-pandect.total.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/consume/history"
+    },
+    {
+        "desc": "部门消费趋势-新增消费",
+        "id": "op-center.order-mng.cost-pandect.increase.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/increase/consume/history"
+    },
+    {
+        "desc": "TOP5消费排名-所有企业",
+        "id": "op-center.order-mng.cost-pandect.enterprise-top.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/order/count/top"
+    },
+    {
+        "desc": "TOP5消费排名-某个企业",
+        "id": "op-center.order-mng.cost-pandect.department-top.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/department/order/count/top"
+    },
+    {
+        "desc": "TOP新增消费排名-所有企业",
+        "id": "op-center.order-mng.cost-pandect.increase-enterprise-top.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/order/increase/count/top"
+    },
+    {
+        "desc": "TOP新增消费排名-某个企业",
+        "id": "op-center.order-mng.cost-pandect.increase-department-top.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/department/order/increase/count/top"
+    },
+     {
+        "desc": "用户类型判断",
+        "id": "op-center.order-mng.ent-type.get",
+        "method": "GET",
+        "url": "adminui//authsec/user/currentuser"
+    },//消费总览
     //用户中心
     //个人账户管理
     {
