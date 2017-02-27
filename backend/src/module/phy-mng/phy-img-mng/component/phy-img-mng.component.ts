@@ -113,7 +113,7 @@ export class PhyImgMngComponent implements OnInit {
                 response=>{
                     this.layoutService.hide();
                     if(response && 100 == response["resultCode"]){
-
+                        this.getPhyImageSources();
                         this.showAlert("创建成功");
                     }else{
                     alert("Res.sync error");
@@ -165,6 +165,7 @@ export class PhyImgMngComponent implements OnInit {
                     if(response && 100== response["resultCode"]){
                         this.showAlert("分配成功");
                         this.alloPopup.close();
+                        this.getPhyImageSources();
                     }else{
                         alert("Res.sync error");
                     }
@@ -203,6 +204,7 @@ export class PhyImgMngComponent implements OnInit {
             response=>{
                 this.layoutService.hide();
                 if(response && 100 == response["resultCode"]){
+                    this.getPhyImageSources();
                      this.showAlert("启用成功");
                 }else{
                     alert("Res.sync error");
@@ -218,7 +220,8 @@ export class PhyImgMngComponent implements OnInit {
             response=>{
                 this.layoutService.hide();
                 if(response && 100 == response["resultCode"]){
-                     this.showAlert("禁用成功");
+                    this.getPhyImageSources();
+                    this.showAlert("禁用成功");
                 }else{
                     alert("Res.sync error");
                 }
@@ -233,7 +236,8 @@ export class PhyImgMngComponent implements OnInit {
             response=>{
                 this.layoutService.hide();
                 if(response && 100 == response["resultCode"]){
-                     this.showAlert("删除成功");
+                    this.getPhyImageSources();
+                    this.showAlert("删除成功");
                 }else{
                     alert("Res.sync error");
                 }
@@ -257,14 +261,9 @@ export class PhyImgMngComponent implements OnInit {
     }
     
 
-    gotoPhyImageList(){
-
+    gotoPhyImageList(source:PhyImgSource){
+        this.router.navigate(['phy-img-mng/imglist', {"pmImagePoolId": source.id,"sourceName": source.imageName}]);
     }
-
-
-
-
-
 
 
     onRejected(reason: any) {
