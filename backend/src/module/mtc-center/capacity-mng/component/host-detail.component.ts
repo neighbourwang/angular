@@ -36,9 +36,10 @@ export class HostDetailComponent implements OnInit {
     hostInfo: HostInfo = new HostInfo();
     hostGraph: HostGraphModel = new HostGraphModel();
 
-    cpuData: Array<DataSet>;
+    cpuData: any;
     cpuColor: Array<any>;
-    cpuLabels:Array<any>;
+    cpuLabels: Array<any>;
+    cpuChartType: string;
 
     ngOnInit() {
         this.activatedRouter.params.forEach((params: Params) => {
@@ -89,18 +90,38 @@ export class HostDetailComponent implements OnInit {
 
     //画折线图
     showGraph() {
+
+        this.cpuData = [{
+
+            data: [65, 59, 80, 81, 56, 55, 40],
+            label: 'Series A',
+            fill: true,
+           
+            lineTension: 0.1,
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBorderWidth: 2,
+            pointRadius: 3,
+            pointHitRadius: 10,
+            spanGaps: false,
+        }
+        ];
         
-        this.cpuData = [{ data:[65, 59, 80, 81, 56, 55, 40], label: 'Series A' }];
         this.cpuColor = [
             { // grey
-                backgroundColor: 'rgba(148,159,177,0.2)',
-                borderColor: 'rgba(148,159,177,1)',
-                pointBackgroundColor: 'rgba(148,159,177,1)',
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+                backgroundColor: '#f9f9fb',
+                borderColor: '#5b9b9b',
+                pointBackgroundColor: '#f1f3f2',
+                pointBorderColor: '#2cd2c8',
+                pointHoverBackgroundColor: '#e8f0f2',
+                pointHoverBorderColor: '#6fdcd6'
             }
         ];
+        this.cpuChartType = "line";
 
         this.cpuLabels=['January', 'February', 'March', 'April', 'May', 'June', 'July'];
     }
