@@ -22,7 +22,7 @@
         <div class="col-md-2 form-control-title">可用区:</div>
         <div class="col-md-10">
             <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-default" *ngFor="let zoneInfo of zones" (click)="getZoneId(zoneInfo.zoneId)">
+                <label class="btn btn-default" *ngFor="let zoneInfo of zones let k=index" [ngClass]="k==0? 'active':''" (click)="getZoneId(zoneInfo.zoneId)">
                     <input type="radio" name="zone" autocomplete="off" >{{zoneInfo.zoneName}}
                 </label>
                 
@@ -34,19 +34,19 @@
         <div class="col-md-8" style="letter-spacing:2px;font-size:16px;"> <!--style="letter-spacing:2px;font-size:16px;"-->
             <div class="row row-line-height" >
                 <div class="col-md-3 text-right" style="width:178px;">物理CPU总核数：</div>
-                <div class="col-md-2">{{zoneResInfo.cpus}} </div>               
+                <div class="col-md-2">{{zoneResInfo.cpus}}&nbsp;核</div>               
                 <div class="col-md-2 text-right">CPU超分比：</div>
-                <div class="col-md-1">{{zoneResInfo.cpuOversubscription}} </div>
+                <div class="col-md-1">{{zoneResInfo.cpuOversubscription}}&nbsp;倍</div>
                  <div class="col-md-2 text-right">可分配CPU：</div>
-                <div class="col-md-2">{{zoneResInfo.cpuCapacity}} </div>
+                <div class="col-md-2">{{zoneResInfo.cpuCapacity}}&nbsp;核</div>
             </div>
             <div class="row row-line-height" >
                  <div class="col-md-3 text-right" style="width:178px;">总内存：</div>
-                <div class="col-md-2">{{zoneResInfo.memory}}</div>
+                <div class="col-md-2">{{zoneResInfo.memory}}&nbsp;GB</div>
                 <div class="col-md-2 text-right">可用配额：</div>
-                <div class="col-md-1">{{zoneResInfo.cpuQurta}}</div>
+                <div class="col-md-1">{{zoneResInfo.cpuQurta}}%</div>
                 <div class="col-md-2 text-right">可分配内存：</div>
-                <div class="col-md-2">{{zoneResInfo.memoryCapacity}} </div>
+                <div class="col-md-2">{{zoneResInfo.memoryCapacity}}&nbsp;GB </div>
             </div>
         </div>
     </div>
@@ -109,20 +109,20 @@
                         <div>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-info"
-                                     style="width: 89%;">
+                                     [style.width.%]="host.cpuPercent">
                                 </div>
                             </div>
-                            <span class="progress-value">{{host.cpuPercent}}</span>
+                            <span class="progress-value">{{host.cpuPercent}}%</span>
                         </div>
                     </td>
                     <td class="table-progress">
                         <div>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-info"
-                                     style="width: 47%;">
+                                     [style.width.%]="host.memPercent">
                                 </div>
                             </div>
-                            <span class="progress-value">{{host.memPercent}}</span>
+                            <span class="progress-value">{{host.memPercent}}%</span>
                         </div>
                     </td>
                     <td>{{host.running}}</td>
