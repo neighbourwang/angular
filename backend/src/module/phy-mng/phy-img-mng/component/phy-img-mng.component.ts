@@ -113,7 +113,7 @@ export class PhyImgMngComponent implements OnInit {
                 response=>{
                     this.layoutService.hide();
                     if(response && 100 == response["resultCode"]){
-
+                        this.getPhyImageSources();
                         this.showAlert("创建成功");
                     }else{
                     alert("Res.sync error");
@@ -165,6 +165,7 @@ export class PhyImgMngComponent implements OnInit {
                     if(response && 100== response["resultCode"]){
                         this.showAlert("分配成功");
                         this.alloPopup.close();
+                        this.getPhyImageSources();
                     }else{
                         alert("Res.sync error");
                     }
@@ -197,48 +198,63 @@ export class PhyImgMngComponent implements OnInit {
 
     //启用
     enable(){
-        let id = this.selectedPhyImageSources.id;
-        this.layoutService.show();
-        this.service.changeStatus(id, 1).then(
-            response=>{
-                this.layoutService.hide();
-                if(response && 100 == response["resultCode"]){
-                     this.showAlert("启用成功");
-                }else{
-                    alert("Res.sync error");
+        if(this.selectedPhyImageSources){
+            let id = this.selectedPhyImageSources.id;
+            this.layoutService.show();
+            this.service.changeStatus(id, 1).then(
+                response=>{
+                    this.layoutService.hide();
+                    if(response && 100 == response["resultCode"]){
+                        this.getPhyImageSources();
+                        this.showAlert("启用成功");
+                    }else{
+                        alert("Res.sync error");
+                    }
                 }
-            }
-        ).catch((e)=> this.onRejected(e));
+            ).catch((e)=> this.onRejected(e));
+         }else{
+            this.showAlert("请选择一个镜像源");
+        }
     }
     //禁用
     disable(){
-        let id = this.selectedPhyImageSources.id;
-        this.layoutService.show();
-        this.service.changeStatus(id, 0).then(
-            response=>{
-                this.layoutService.hide();
-                if(response && 100 == response["resultCode"]){
-                     this.showAlert("禁用成功");
-                }else{
-                    alert("Res.sync error");
+        if(this.selectedPhyImageSources){
+            let id = this.selectedPhyImageSources.id;
+            this.layoutService.show();
+            this.service.changeStatus(id, 0).then(
+                response=>{
+                    this.layoutService.hide();
+                    if(response && 100 == response["resultCode"]){
+                        this.getPhyImageSources();
+                        this.showAlert("禁用成功");
+                    }else{
+                        alert("Res.sync error");
+                    }
                 }
-            }
-        ).catch((e)=> this.onRejected(e));
+            ).catch((e)=> this.onRejected(e));
+        }else{
+        this.showAlert("请选择一个镜像源");
+        }
     }
     //删除
     delete(){
-        let id = this.selectedPhyImageSources.id;
-        this.layoutService.show();
-        this.service.changeStatus(id, 2).then(
-            response=>{
-                this.layoutService.hide();
-                if(response && 100 == response["resultCode"]){
-                     this.showAlert("删除成功");
-                }else{
-                    alert("Res.sync error");
+        if(this.selectedPhyImageSources){
+            let id = this.selectedPhyImageSources.id;
+            this.layoutService.show();
+            this.service.changeStatus(id, 2).then(
+                response=>{
+                    this.layoutService.hide();
+                    if(response && 100 == response["resultCode"]){
+                        this.getPhyImageSources();
+                        this.showAlert("删除成功");
+                    }else{
+                        alert("Res.sync error");
+                    }
                 }
-            }
-        ).catch((e)=> this.onRejected(e));
+            ).catch((e)=> this.onRejected(e));
+        }else{
+            this.showAlert("请选择一个镜像源");
+        }
     }
     //测试创建
     testPhyImgSource(temp:PhyImgSource){
@@ -257,14 +273,9 @@ export class PhyImgMngComponent implements OnInit {
     }
     
 
-    gotoPhyImageList(){
-
+    gotoPhyImageList(source:PhyImgSource){
+        this.router.navigate(['phy-img-mng/imglist', {"pmImagePoolId": source.id,"sourceName": source.imageName}]);
     }
-
-
-
-
-
 
 
     onRejected(reason: any) {

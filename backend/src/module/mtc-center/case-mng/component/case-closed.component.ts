@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
-import { LayoutService, ValidationService, NoticeComponent,dictPipe} from "../../../../architecture";
+import { LayoutService, ValidationService, NoticeComponent,dictPipe,ConfirmComponent} from "../../../../architecture";
 
 import { CaseDetailService} from "../service/case-detail.service";
 
@@ -31,6 +31,8 @@ export class CaseClosedComponent implements OnInit {
 
     @ViewChild("notice")
     notice: NoticeComponent;
+    @ViewChild("confirm")
+    confirm: NoticeComponent;
 
     caseId:string;
     caseInfo:CaseListModel=new CaseListModel();
@@ -87,6 +89,14 @@ export class CaseClosedComponent implements OnInit {
 
     //关闭工单
     closeCase(){
+        if(!this.closeInfo.closeType){  
+            this.showAlert("请选择关闭类型！");
+            return;
+        }
+        if(!this.closeInfo.closeInfo){
+             this.showAlert("请填写关闭描述！");
+            return;
+        }
         this.layoutService.hide();
         this.service.closeCase(this.closeInfo,this.caseId)
              .then(

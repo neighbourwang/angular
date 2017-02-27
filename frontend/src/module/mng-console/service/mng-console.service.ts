@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../architecture';
 
-import { EnterpriseQuotaDetailResp } from '../model/enterpriseQuotaDetailResp';
+import { EnterpriseQuotaDetailResp, OrganizationExtItem } from '../model/enterpriseQuotaDetailResp';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -34,25 +34,23 @@ export class MngConsoleService {
 
 		return request;
 	};
+	getConsoleInfo() : Promise<OrganizationExtItem> {
+		let api = this.restApiCfg.getRestApi('mng-console-info');
 
-    getHostList(quiry) : Promise<any>{
-        const api = this.restApiCfg.getRestApi("vm.search.page");
-        return this.restApi.request(api.method, api.url, undefined, undefined, quiry)
-        			.then(res => {
+		let pathParams = [{
+			key: 'organizationId',
+            value: this.getUserInfo.organizationId
+		}];
+
+		const request = this.restApi.request(api.method, api.url, pathParams, undefined, undefined)
+							.then(res => {
 								if(res.resultCode !== "100"){
 									throw "";
 								}
 								return res.resultContent;
 							});
-    }
-    getDistList(quiry) : Promise<any>{
-        const api = this.restApiCfg.getRestApi("disk.search.page");
-        return this.restApi.request(api.method, api.url, undefined, undefined, quiry)
-        			.then(res => {
-								if(res.resultCode !== "100"){
-									throw "";
-								}
-								return res.resultContent;
-							});
-    }
+
+		return request;
+	};
+
 };

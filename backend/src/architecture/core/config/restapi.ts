@@ -1992,8 +1992,9 @@ export let RestApis: RestApiModel[] = [
     {
         "desc": "查询：主题/企业/类别/状态/紧急程度",
         "id": "case-mng.case.search",
-        "method": "GET",
-        "url": "basis/authsec/adm/worklist/search/{page}/{size}?subject={subject}&type={type}&status={status}&emergency={emergency}&tenantId={tenantId}"
+        "method": "POST",
+        "url": "basis/authsec/adm/worklist/search/{page}/{size}"
+       // "url": "basis/authsec/adm/worklist/search/{page}/{size}?subject={subject}&type={type}&status={status}&emergency={emergency}&tenantId={tenantId}"
     },
     {
         "desc": "关闭工单",
@@ -2032,6 +2033,12 @@ export let RestApis: RestApiModel[] = [
         "url": "basis/authsec/mpp/worklist/{id}/handle"
     },
 
-    
+    //物理机镜像
+    {
+        "desc": "获取镜像源列表",
+        "id":"phy-mng.phy-img-mng.phyimgsource.getlist",
+        "method":"POST",
+        "url":"noauth/pmimage/pool/page/{page}/size/{size}"
+    }
 ]
 

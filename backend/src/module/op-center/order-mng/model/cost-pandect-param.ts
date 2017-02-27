@@ -1,4 +1,4 @@
-//消费总览传递参数
+//消费总览/账单管理传递参数
 
 export class CostPandectParam{
     enterprise : string =null;//企业

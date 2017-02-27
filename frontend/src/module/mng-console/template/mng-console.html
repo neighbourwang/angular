@@ -14,28 +14,28 @@
                     </div>
                 </div>
                 <div class="work-box col-sm-3">
-                    <div class="console-title">{{ 'MNG_CONSOLE.PURCHASED_SERVICE' | translate }}</div>
+                    <div class="console-title">已购服务与审批统计</div>
                     <div class="work-data col-sm-6">
-                        <p class="number">{{vmTotal}}</p>
-                        <p class="description">{{ 'COMMON.CLOUD_HOSTING' | translate }}</p>
+                        <p class="number">{{ci?.orderForAudit || "0"}}</p>
+                        <p class="description">待审批</p>
                     </div>
                     <div class="work-data col-sm-6">
-                        <p class="number color-b">{{diskTotal}}</p>
-                        <p class="description">{{ 'COMMON.CLOUD_HARD_DISK' | translate }}</p>
+                        <p class="number color-b">{{ci?.serviceToExpired || "0"}}</p>
+                        <p class="description">即将过期的已购服务数<br>（1个月内）</p>
                     </div>
                 </div>
                 <div class="work-box col-sm-5">
-                    <div class="console-title">{{ 'MNG_CONSOLE.WORK_ORDER_STATISTICS' | translate }}</div>
+                    <div class="console-title">工单统计</div>
                     <div class="work-data col-sm-4">
-                        <p class="number">0</p>
+                        <p class="number">{{ci?.ticketNew || "0"}}</p>
                         <p class="description">{{ 'COMMON.NEWLY_CREATED' | translate }}</p>
                     </div>
                     <div class="work-data col-sm-4">
-                        <p class="number color-c">0</p>
+                        <p class="number color-c">{{ci?.ticketProcessing || "0"}}</p>
                         <p class="description">{{ 'COMMON.IN_PROCESS' | translate }}</p>
                     </div>
                     <div class="work-data col-sm-4">
-                        <p class="number color-a">0</p>
+                        <p class="number color-a">{{ci?.ticketDone || "0"}}</p>
                         <p class="description">{{ 'COMMON.COMPLETED' | translate }}</p>
                     </div>
                 </div>
@@ -107,88 +107,56 @@
                 </div>
 
                 <div class="console-title next-title">{{ 'MNG_CONSOLE.DEPARTMENT_RESOURCES' | translate }}</div>
+                
                 <div class="resource-box">
-                    <div class="resource-icon icon-resource-vcpu"></div>
-                    <p class="resource-name">vCPU</p>
+                    <div class="resource-icon icon-resource-vm"></div>
+                    <p class="resource-name">云主机</p>
                     <div class="resource-state">
-                        <span>{{ 'COMMON.ENABLED' | translate }}</span>
-                        <span class="color-a mgl5">{{quotalist.usedCpu}}</span>
+                        <span>运行状态</span>
+                        <span class="color-a mgl5">{{ci?.vmRunning || "0"}}</span>
                     </div>
                     <div class="resource-state">
-                        <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
-                        <span class="color-b mgl5">{{quotalist.vcpu - quotalist.usedCpu}}</span>
+                        <span>非运行状态</span>
+                        <span class="color-b mgl5">{{ci?.vmPaused || "0"}}</span>
                     </div>
                 </div>
+
                 <div class="resource-box">
-                    <div class="resource-icon icon-resource-memory"></div>
-                    <p class="resource-name">{{ 'COMMON.RAM' | translate }}</p>
+                    <div class="resource-icon icon-resource-disk"></div>
+                    <p class="resource-name">云硬盘</p>
                     <div class="resource-state">
-                        <span>{{ 'COMMON.ENABLED' | translate }}</span>
-                        <span class="color-a mgl5">{{quotalist.usedMem}}</span>
+                        <span>运行状态</span>
+                        <span class="color-a mgl5">{{ci?.storageRunning || "0"}}</span>
                     </div>
                     <div class="resource-state">
-                        <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
-                        <span class="color-b mgl5">{{quotalist.mem - quotalist.usedMem}}</span>
+                        <span>非运行状态</span>
+                        <span class="color-b mgl5">{{ci?.storagePaused || "0"}}</span>
                     </div>
                 </div>
-                <div class="resource-box">
-                    <div class="resource-icon icon-resource-storage"></div>
-                    <p class="resource-name">{{ 'COMMON.STORAGE' | translate }}</p>
-                    <div class="resource-state">
-                        <span>{{ 'COMMON.ENABLED' | translate }}</span>
-                        <span class="color-a mgl5">{{quotalist.usedStorage}}</span>
-                    </div>
-                    <div class="resource-state">
-                        <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
-                        <span class="color-b mgl5">{{quotalist.storage - quotalist.usedStorage}}</span>
-                    </div>
-                </div>
+
                 <div class="resource-box">
                     <div class="resource-icon icon-resource-machine"></div>
-                    <p class="resource-name">{{ 'COMMON.PHYSICAL_MACHINE' | translate }}</p>
+                    <p class="resource-name">物理机</p>
                     <div class="resource-state">
-                        <span>{{ 'COMMON.ENABLED' | translate }}</span>
-                        <span class="color-a mgl5">{{quotalist.usedPhysical}}</span>
+                        <span>运行状态</span>
+                        <span class="color-a mgl5">{{ci?.pcRunning || "0"}}</span>
                     </div>
                     <div class="resource-state">
-                        <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
-                        <span class="color-b mgl5">{{quotalist.physical - quotalist.usedPhysical}}</span>
-                    </div>
-                </div>
-                <div class="resource-box">
-                    <div class="resource-icon icon-resource-snapshot"></div>
-                    <p class="resource-name">{{ 'COMMON.SNAPSHOT' | translate }}</p>
-                    <div class="resource-state">
-                        <span>{{ 'COMMON.ENABLED' | translate }}</span>
-                        <span class="color-a mgl5">{{quotalist.usedSnapshot}}</span>
-                    </div>
-                    <div class="resource-state">
-                        <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
-                        <span class="color-b mgl5">{{quotalist.snapshot - quotalist.usedSnapshot}}</span>
+                        <span>非运行状态</span>
+                        <span class="color-b mgl5">{{ci?.pcPaused || "0"}}</span>
                     </div>
                 </div>
+
                 <div class="resource-box">
-                    <div class="resource-icon icon-resource-image"></div>
-                    <p class="resource-name">{{ 'COMMON.MIRROR' | translate }}</p>
+                    <div class="resource-icon icon-resource-snap"></div>
+                    <p class="resource-name">快照／镜像</p>
                     <div class="resource-state">
-                        <span>{{ 'COMMON.ENABLED' | translate }}</span>
-                        <span class="color-a mgl5">{{quotalist.usedImage}}</span>
+                        <span>运行状态</span>
+                        <span class="color-a mgl5">{{ci?.snapshotRunning || "0"}}</span>
                     </div>
                     <div class="resource-state">
-                        <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
-                        <span class="color-b mgl5">{{quotalist.image - quotalist.usedImage}}</span>
-                    </div>
-                </div>
-                <div class="resource-box">
-                    <div class="resource-icon icon-resource-ip"></div>
-                    <p class="resource-name">{{ 'COMMON.FLOAT' | translate }}IP{{ 'COMMON.PATH' | translate }}</p>
-                    <div class="resource-state">
-                        <span>{{ 'COMMON.ENABLED' | translate }}</span>
-                        <span class="color-a mgl5">{{quotalist.usedIpaddress}}</span>
-                    </div>
-                    <div class="resource-state">
-                        <span>{{ 'COMMON.NOT_ENABLED' | translate }}</span>
-                        <span class="color-b mgl5">{{quotalist.ipaddress - quotalist.usedIpaddress}}</span>
+                        <span>非运行状态</span>
+                        <span class="color-b mgl5">{{ci?.snapshotPaused || "0"}}</span>
                     </div>
                 </div>
 
