@@ -76,7 +76,7 @@ export class ComputeResComponent implements OnInit {
                     this.computeRes = response["resultContent"];
                     this.regionList = response["resultContent"].regions;
                     this.getZoneList(this.regionList[0].regionId);
-                    this.getZoneId(this.zones[0].zoneId);
+                    
                 } else {
                     alert("Res sync error");
                 }
@@ -89,6 +89,7 @@ export class ComputeResComponent implements OnInit {
     getZoneList(region_Id: string) {
         this.selectedRegion = this.regionList.find((p) => { return p.regionId == region_Id });
         this.zones = this.selectedRegion.zones;
+        this.getZoneId(this.zones[0].zoneId);
     }
 
     getZoneId(zone_Id: string) {

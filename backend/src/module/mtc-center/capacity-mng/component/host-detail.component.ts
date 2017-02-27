@@ -49,7 +49,7 @@ export class HostDetailComponent implements OnInit {
             
         });
         this.getHostDetail();
-        
+        this.showGraph();
     }
 
     getHostDetail() {
@@ -108,7 +108,7 @@ export class HostDetailComponent implements OnInit {
     refresh() {
         this.getHostDetail();
         this.getHostGraph();
-        this.showGraph();
+        
     }
 
     BacktoComputeRes(){

@@ -89,7 +89,7 @@
                 </div>
                 <div class="panel-body">
                     <canvas baseChart
-                          width="200" height="70"
+                          width="200" height="70" *ngIf="cpuData"
                           [datasets]="cpuData"
                           [chartType]="line"
                           [colors]="cpuColor"
