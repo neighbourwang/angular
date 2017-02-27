@@ -39,7 +39,7 @@ export class HostDetailComponent implements OnInit {
     cpuData: Array<DataSet>;
     cpuColor: Array<any>;
     cpuLabels:Array<any>;
-
+    lineChartType:string="line";
     ngOnInit() {
         this.activatedRouter.params.forEach((params: Params) => {
             if (params["host_Id"] != null) {
@@ -49,6 +49,7 @@ export class HostDetailComponent implements OnInit {
             
         });
         this.getHostDetail();
+    //    window.setTimeout(() => { this.showGraph();}, 100);
         this.showGraph();
     }
 
@@ -60,7 +61,7 @@ export class HostDetailComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && "100" == response["resultCode"]) {
                     this.hostInfo = response["resultContent"];
-                   
+                 
                 } else {
                     alert("Res sync error");
                 }
@@ -101,7 +102,6 @@ export class HostDetailComponent implements OnInit {
                 pointHoverBorderColor: 'rgba(148,159,177,0.8)'
             }
         ];
-
         this.cpuLabels=['January', 'February', 'March', 'April', 'May', 'June', 'July'];
     }
 
