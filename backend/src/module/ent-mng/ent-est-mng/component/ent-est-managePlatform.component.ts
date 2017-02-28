@@ -26,6 +26,8 @@ export class EntEstManagePlatformComponent implements OnInit {
   private selectedPlatformLoader : ItemLoader<Platform> = null; //已选择可用平台 
 
   private saveLoader : ItemLoader<Platform> = null; //保存
+
+  itemIsSelected: boolean[] = [];
   
   constructor(
     private layoutService: LayoutService,
@@ -149,11 +151,20 @@ export class EntEstManagePlatformComponent implements OnInit {
     })
  }
 
-  selectItem(index:number){
+  // selectItem(index:number){
+  //   let items = this.platformLoader.Items;
+  //   let items2 = this.selectedPlatformLoader.Items;
+  //   // this.platformLoader.Items.map(n=>{n.isSelected = 0;});
+  //   this.platformLoader.Items[index].isSelected = 1;
+  // }
+
+    selectItem(item:Platform){
     let items = this.platformLoader.Items;
     let items2 = this.selectedPlatformLoader.Items;
     // this.platformLoader.Items.map(n=>{n.isSelected = 0;});
+    this.itemIsSelected[index] = !this.itemIsSelected[index];
     this.platformLoader.Items[index].isSelected = 1;
+    console.log(this.itemIsSelected)
   }
 
 //返回/取消

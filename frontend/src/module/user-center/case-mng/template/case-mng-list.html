@@ -65,6 +65,11 @@
     </tbody>
 </table>
 
+<!--<div class="fox-cloud-pagination-container">
+    <fc-pagination #pager tp={{totalPage}} (pf)="getData($event)"></fc-pagination>
+</div>-->
+<fc-pagination #pager tp={{totalPage}} (pf)="getData($event)"></fc-pagination>
+
 <fc-popup #creCase title="{{title}}" ot="{{isEdit== false? 'COMMON.CREATE': 'DIALOG.SAVE' | translate }}" ct="{{ 'DIALOG.CANCEL' | translate }}" (of)="creOredit()">
     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
         <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.SUBJECT' | translate}}:</div>
