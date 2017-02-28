@@ -178,6 +178,13 @@ export class MenuService {
                             "isActive": false,
                             "isShow": !isRoot,
                             "routing": "phy-mng/phy-pool/phy-pool-mng"
+                        },
+						{
+                            "label": "PHY_NET_MNG.PHY_NET",
+                            "isOpen": false,
+                            "isActive": false,
+                            "isShow": !isRoot,
+                            "routing": "phy-mng/phy-net/phy-net-mng"
                         }
                     ]
                 },
