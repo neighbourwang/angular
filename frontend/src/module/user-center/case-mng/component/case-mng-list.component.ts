@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, SystemDictionary  } from '../../../../architecture';
+import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, SystemDictionary, PaginationComponent  } from '../../../../architecture';
 
 //model
 import { CaseMngList } from '../model/case-mng-list.model';
@@ -29,6 +29,8 @@ export class CaseMngListComponent implements OnInit{
 
     }
 
+    @ViewChild("pager")
+    pager: PaginationComponent;
     @ViewChild("notice")
     notice: NoticeComponent;
     @ViewChild("creCase")
@@ -42,7 +44,7 @@ export class CaseMngListComponent implements OnInit{
     noticeMsg = "";
 
     pageIndex= 1;
-    pageSize= 20;
+    pageSize= 8;
     totalPage= 1;
 
     statusDic: Array<SystemDictionary>;
@@ -128,6 +130,10 @@ export class CaseMngListComponent implements OnInit{
     }
 
     creOredit(){
+        this.selectedEmergency= "";
+        this.selectedStatus= "";
+        this.selectedType= "";
+        this.search= "";
         if(!this.isEdit){
             this.layoutService.show();
             this.service.creat(this.criteria)
