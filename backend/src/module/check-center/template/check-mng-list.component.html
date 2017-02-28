@@ -16,27 +16,27 @@
 				<tbody>
 					<tr>				
 						<td >
-						    <div class="float-left font-size-16 mgt8 mgr5">{{ 'CHECK_CENTER.ORDER_ATTRIBUTTION' | translate}}:<span class="font-size-16 mgt8 mgl10 mgr5">{{ 'COMMON.ENTERPRISE' | translate }}</span></div>
+						    <div class="float-left font-size-16 mgt8 mgr5">{{ 'CHECK_CENTER.ORDER_ATTRIBUTTION' | translate}}: <span class="font-size-16 mgt8 mgl10 mgr5">{{ 'COMMON.ENTERPRISE' | translate }}</span> </div>
 							<div class="float-left">
 								<select class="form-control select_" [(ngModel)]="_param.entIdStr" (ngModelChange)="entChanged()">
-									<option class="hands" [value]="null">{{ 'COMMON.ALL' | translate }}{{ 'COMMON.ENTERPRISE' | translate }}</option>
+									<option class="hands" [value]="null">{{ 'HOST_OPENSTACK_MNG.ALL_ENTERPRISE' | translate }}</option>
 									<option class="hands" *ngFor="let item of _entLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
-						<td><div class="float-left mgl22 mgr15 font-size-16 mgt8 ">{{ 'COMMON.DEPARTMENT' | translate }}</div>
+						<td><div class="float-left mgl22 mgr15 font-size-16 mgt8 ">{{ 'COMMON.DEPARTMENT' | translate }}: </div>
 
 							<div class="float-left">
 								<select class="form-control" [(ngModel)]="_param.departmentIdNum" (ngModelChange)="departmentChanged()">
-									<option class="hands" [value]="null">{{ 'COMMON.ALL' | translate }}{{ 'COMMON.DEPARTMENT' | translate }}</option>
+									<option class="hands" [value]="null">{{ 'ORDER_MNG.ALL_DEPARTMENT' | translate }}</option>
 									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
-						<td ><div class="float-left mgl20 font-size-16 mgt8">{{ 'COMMON.SUBMITTER' | translate }}&nbsp;</div>
+						<td ><div class="float-left mgl20 font-size-16 mgt8 mgr15">{{ 'COMMON.SUBMITTER' | translate }}: </div>
 							<div class="float-left">
 								<select class="form-control" [(ngModel)]="_param.submitUserId">
-									<option class="hands" [value]="null">{{ 'COMMON.ALL' | translate }}{{ 'COMMON.SUBMITTER' | translate }}</option>
+									<option class="hands" [value]="null">{{ 'CHECK_CENTER.ALL_SUBMITTER' | translate }}</option>
 									<option class="hands" *ngFor="let item of _userListLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
@@ -44,18 +44,18 @@
 						</td>
 					</tr>
 					<tr class=" bgWhite">
-						<td ><div class="float-left font-size-16 mgt8">{{ 'COMMON.ORDERS' | translate }}{{ 'COMMON.TYPE' | translate }}:</div>
+						<td ><div class="float-left font-size-16 mgt8 mgr15">{{ 'CHECK_CENTER.ORDERS_TYPE' | translate }}: </div>
 								<div class="dropdown float-left">
 								<select class="form-control " [(ngModel)]="_param.orderTypeNum">
-									<option class="hands" [value]="null">{{ 'COMMON.ALL' | translate }}{{ 'COMMON.TYPE' | translate }}</option>
+									<option class="hands" [value]="null">{{ 'CHECK_CENTER.ALL_TYPE' | translate }}</option>
 									<option class="hands" *ngFor="let item of _orderTypeDic.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
 						</td>
-						<td><div class="float-left font-size-16 mgt8">{{ 'COMMON.PRODUCT' | translate }}{{ 'COMMON.TYPE' | translate }}:</div>
+						<td><div class="float-left font-size-16 mgt8 mgr15">{{ 'PROD_MNG.PRODUCT_TYPE' | translate }}: </div>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.serviceTypeNum">
-									<option class="hands" [value]="null">{{ 'COMMON.ALL' | translate }}{{ 'COMMON.TYPE' | translate }}</option>
+									<option class="hands" [value]="null">{{ 'CHECK_CENTER.ALL_TYPE' | translate }}</option>
 									<option class="hands" *ngFor="let item of _serviceTypeDic.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
@@ -64,13 +64,13 @@
 						</td>
 					</tr>
 					<tr>
-						<td><div class="float-left pdt10 font-size-16 mgt8">{{ 'COMMON.START_TIME' | translate }}:</div>
+						<td><div class="float-left pdt10 font-size-16 mgt8 mgr15">{{ 'COMMON.START_TIME' | translate }}: </div>
 							<div class="dropdown float-left">			
 								<date-picker (dateChanged)="onStartDateChange($event)"></date-picker>
 							</div>
 
 						</td>
-						<td ><div class="float-left  pdt10 font-size-16 mgt8">{{ 'COMMON.END_TIME' | translate }}:</div>
+						<td ><div class="float-left  pdt10 font-size-16 mgt8 mgr15">{{ 'COMMON.END_TIME' | translate }}: </div>
 							<div class="dropdown float-left">			
 								<date-picker (dateChanged)="onEndDateChange($event)"></date-picker>
 							</div>
@@ -92,17 +92,17 @@
 					
 					<tr class="border-gray">
 						<th>{{ 'COMMON.NUMBER' | translate }}</th>
-						<th>{{ 'COMMON.ORDERS' | translate }}{{ 'COMMON.NUMBER' | translate }}</th>
-						<th>{{ 'COMMON.PRODUCT' | translate }}{{ 'COMMON.TYPE' | translate }}</th>
+							<th>{{ 'COMMON.ORDER_NUM' | translate }}</th>
+							<th>{{ 'PROD_MNG.PRODUCT_TYPE' | translate }}</th>
 						<th>{{ 'CHECK_CENTER.ZONE_AND_AVAILABLE_ZONE' | translate }}</th>
-						<th>{{ 'COMMON.ORDERS' | translate }}{{ 'COMMON.TYPE' | translate }}</th>
-						<th>{{ 'COMMON.ORDERS' | translate }}{{ 'COMMON.DESCRIPTION' | translate }}</th>
+							<th>{{ 'CHECK_CENTER.ORDERS_TYPE' | translate }}</th>
+							<th>{{ 'CHECK_CENTER.ORDERS_DESCRIPTION' | translate }}</th>
 						<th>{{ 'COMMON.SUBMITTER' | translate }}</th>
 						<th>{{ 'COMMON.DEPARTMENT' | translate }}</th>
 						<th>{{ 'COMMON.ENTERPRISE' | translate }}</th>
 						<th>{{ 'COMMON.COST' | translate }}</th>
 						<th>{{ 'COMMON.CREATION_TIME' | translate }}</th>
-						<th>{{ 'CHECK_CENTER.OPERATION' | translate }}</th>
+						<th>{{ 'COMMON.OPERATION' | translate }}</th>
 					</tr>			
 				</thead>
 				<tbody>
@@ -116,7 +116,7 @@
 								[animation]="true" 
 								[closeOnClickOutside]="true" >
 								<ul *ngIf="item.serviceTypeIdStr>1">
-									<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}:{{spec.attrDisplayValue}}</li>
+									<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}: {{spec.attrDisplayValue}}</li>
 								</ul>
 								<vm-view [values]="item.specList" *ngIf="item.serviceTypeIdStr==0"></vm-view><!-- 显示云主机 -->
 						 		<disk-view [values]="item.specList" *ngIf="item.serviceTypeIdStr==1"></disk-view><!-- 显示云硬盘 -->

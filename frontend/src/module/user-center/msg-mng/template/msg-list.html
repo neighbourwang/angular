@@ -44,7 +44,7 @@
                             <tr  style="border: none; padding: 0; margin: 0;">
                                 <td class="hide_details" style="border: none; padding: 0; margin: 0;">
                                     <i [ngClass]="msg.status==='0'?'glyphicon glyphicon-folder-close':'glyphicon glyphicon-folder-open'"></i>
-                                    <a href="javascript:void(0);" [ngStyle]="{'font-weight': msg.status==='0'?'bold':'none'}"> {{msg.content}} </a>
+                                    <a href="javascript:void(0);" [ngStyle]="{'font-weight': msg.status==='0'?'bold':'normal'}" (click)="showAndMark(i);"> {{msg.content}} </a>
                                 </td>
                             </tr>
                         </table>
