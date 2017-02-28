@@ -146,8 +146,22 @@ export class ProdMngCreStep3Component implements OnInit {
                 }
             }
         })
-        this.selectAllStorage = 
-            this.service.product.productPlatformReqs.length == this.tempDiskProdDirPlatformList.length?true:false;
+        // this.selectAllStorage = 
+        //     this.service.product.productPlatformReqs.length == this.tempDiskProdDirPlatformList.length?true:false;
+        // console.log(this.service.product.productPlatformReqs);
+        //判断是for存储区全选
+        if(this.service.product.productPlatformReqs.length != this.tempVmProdDirPlatformList.length){
+            this.selectAllStorage=false;
+            return;
+        }
+        this.selectAllStorage=true;
+        for(let platform of this.tempVmProdDirPlatformList){
+            for(let zone of platform.zoneList){
+                if(zone.selected==false){
+                   return this.selectAllStorage=false;                           
+                }
+            }                
+        }
         console.log(this.service.product.productPlatformReqs);
     }
 
@@ -165,6 +179,5 @@ export class ProdMngCreStep3Component implements OnInit {
     cancel() {
         this.route.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
     }
-
 
 }

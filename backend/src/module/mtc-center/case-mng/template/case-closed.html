@@ -1,39 +1,39 @@
 <div class="page-content-header icon-content-header-operation-center">
-    关闭工单：{{caseInfo.id}}-{{caseInfo.subject}} 
+    {{'CASE_MNG.CLOSE_CASE'|translate}}：{{caseInfo.id}}-{{caseInfo.subject}} 
 </div>
 <div class="page-content">
 
    <div   style="padding-left: 25%;position:relative;height: 34px;line-height: 34px;margin-top:20px;">
         <span style="border:3px solid #00a982;border-radius:50px;"></span>
-        <div style="font-size:18px;font-weight:700;position:absolute;left:330px;top:0px">基本信息</div>
+        <div style="font-size:18px;font-weight:700;position:absolute;left:330px;top:0px"> {{'CASE_MNG.CASE_INFO'|translate}}</div>
     </div>          
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title" >主题:</div>
+            <div class="col-sm-4 form-control-title" > {{'CASE_MNG.SUBJECT'|translate}}:</div>
             <div class="col-md-4"> <span style="line-height:34px">{{caseInfo.subject}}</span> </div>
         </div>
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title" >类别:</div>
+            <div class="col-sm-4 form-control-title" > {{'CASE_MNG.TYPE'|translate}}:</div>
             <div class="col-md-4"> <span style="line-height:34px"> {{caseInfo.typeName}}</span></div>
         </div>
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title" > 联系人:</div>
+            <div class="col-sm-4 form-control-title" >  {{'CASE_MNG.CONTACTOR'|translate}}:</div>
             <div class="col-md-4"> <span style="line-height:34px">{{caseInfo.contact}}</span> </div>
         </div>
     </div>                   
     <div class="row row-line-height">  
         <div class="form-group">
-            <div class="col-sm-4 form-control-title" >联系电话:</div>
+            <div class="col-sm-4 form-control-title" > {{'CASE_MNG.TEL'|translate}}:</div>
             <div class="col-md-4">  <span style="line-height:34px">{{caseInfo.contactNo}}</span> </div> 
         </div>
     </div>
     <div class="row row-line-height">  
         <div class="form-group">
-            <div class="col-sm-4 form-control-title" >描述:</div>
+            <div class="col-sm-4 form-control-title" > {{'CASE_MNG.DESCRIPTION'|translate}}:</div>
             <div class="col-md-4">
                 <textarea class="form-control" rows="3" placeholder="">{{caseInfo.details}}</textarea>
             </div>
@@ -44,14 +44,14 @@
     <div style="border-top:1px solid #00a982;width: 700px;margin-top: 20px;margin-left:22%"></div>
     <div   style="padding-left: 25%;position:relative;height: 34px;line-height: 34px;margin-top:30px;">
         <span style="border:3px solid #00a982;border-radius:50px;"></span>
-        <div style="font-size:18px;font-weight:700;position:absolute;left:330px;top:0px">关闭信息</div>
+        <div style="font-size:18px;font-weight:700;position:absolute;left:330px;top:0px"> {{'CASE_MNG.CLOSE_INFO'|translate}}</div>
     </div>
      <div class="row row-line-height">  
         <div class="form-group">
-            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>关闭类型:</div>
+            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'CASE_MNG.CLOSE_TYPE'|translate}}:</div>
             <div class="col-md-4">
                 <select class="form-control" [(ngModel)]="closeInfo.closeType">
-                    <option value="">所有</option>
+                    <option value="">{{'CASE_MNG.ALL_EMERGENCY'|translate}}</option>
                     <option *ngFor="let v of service.dictClose | async" [value]="v.value">{{v.displayValue}}</option>
                 </select>
             </div>
@@ -59,9 +59,9 @@
     </div>
     <div class="row row-line-height">  
         <div class="form-group">
-            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>描述:</div>
+            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'CASE_MNG.DESCRIPTION'|translate}}:</div>
             <div class="col-md-4">
-                <textarea class="form-control" rows="3" placeholder="" [(ngModel)]="closeInfo.closeInfo"></textarea>
+                <textarea class="form-control" rows="3" placeholder=" {{'CASE_MNG.LESS_THAN_1000_WORDS'|translate}}" [(ngModel)]="closeInfo.closeInfo"></textarea>
             </div>
         </div>
     </div>
@@ -69,34 +69,34 @@
     <div style="border-top:1px solid #00a982;width: 700px;margin-top: 20px;margin-left:22%"></div>
     <div   style="padding-left: 25%;position:relative;height: 34px;line-height: 34px;margin-top:30px;">
         <span style="border:3px solid #00a982;border-radius:50px;"></span>
-        <div style="font-size:18px;font-weight:700;position:absolute;left:330px;top:0px">处理信息</div>
+        <div style="font-size:18px;font-weight:700;position:absolute;left:330px;top:0px">{{'CASE_MNG.HANDLE_INFO'|translate}}</div>
     </div>
     <div *ngFor="let handleInfo of handleInfoes" style="padding-left:20.5%">           
         <div class="row row-line-height">  
             <div class="form-group">
-                <div class="col-sm-2 form-control-title" >紧急程度:</div>
+                <div class="col-sm-2 form-control-title" >{{'CASE_MNG.EMERGENCY'|translate}}:</div>
                 <div class="col-md-4">  <span style="line-height:34px">{{handleInfo.emergency}}</span> </div> 
             </div>
         </div>  
         <div class="row row-line-height"> 
             <div class="col-md-4" > 
                 <div class="form-group">
-                    <div class="col-sm-6 form-control-title" >处理人:</div>
+                    <div class="col-sm-6 form-control-title" >{{'CASE_MNG.HANDLER'|translate}}:</div>
                     <div class="col-md-4">  <span style="line-height:34px">{{handleInfo.handlerName}}</span> </div> 
                 </div>
             </div>
             <div class="col-md-4">  
                 <div class="form-group">
-                    <div class="col-sm-5 form-control-title" >处理时间:</div>
+                    <div class="col-sm-5 form-control-title" >{{'CASE_MNG.HANDLE_TIME'|translate}}:</div>
                     <div class="col-md-7">  <span style="line-height:34px">{{handleInfo.handleDate}}</span> </div> 
                 </div>
             </div>
         </div>                      
         <div class="row row-line-height">  
             <div class="form-group">
-                <div class="col-sm-2 form-control-title">处理记录:</div>
+                <div class="col-sm-2 form-control-title">{{'CASE_MNG.HANDLE_RECORD'|translate}}:</div>
                 <div class="col-md-4">  
-                    <textarea class="form-control" rows="3" placeholder="最多只能输入1000个文字">{{handleInfo.handleInfo}}</textarea>
+                    <textarea class="form-control" rows="3" placeholder="{{'CASE_MNG.LESS_THAN_1000_WORDS'|translate}}">{{handleInfo.handleInfo}}</textarea>
                 </div> 
             </div>
         </div>
@@ -104,10 +104,10 @@
 </div>
 <div class="text-center mgt20">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="backtoList();">
-        <span class="icon-button-label">取消</span>
+        <span class="icon-button-label">{{'CASE_MNG.CANCLE'|translate}}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="closeCase();">
-        <span class="icon-button-label">保存</span>
+        <span class="icon-button-label">{{'CASE_MNG.SAVE'|translate}}</span>
     </button>
 </div>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}"></fc-notice> 

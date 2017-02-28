@@ -129,6 +129,10 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         this.getCurrentTime();
         this.getTimeData();//时间下拉列表
         this.loadEnterprise();
+        this.createSumBar();
+        this.createHstoryBar();
+        this.createTopBar();
+        this.createTopBar2();
         // this.search_chart();
         // this._buyerLoader.Go(null, [{key:"departmentId", value:null}])
         // .then(success=>{
@@ -190,6 +194,10 @@ getLastDay(){
 		});
 	}
 
+showDetail(orderItemId:string){
+		this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderItemId}`);
+	}	
+
 loadTopChart(){
     
     let month:string;
@@ -243,7 +251,8 @@ consumeLoad(){
     this.consumeLoader.Go(null,null,param)
      .then(success=>{
          this.toSumDatas(this.consumeLoader.FirstItem,this.d_chart);
-         this.createSumBar();
+         this.ent_dht[0].data = this.d_chart.datas;
+         
          this.layoutService.hide();
     })
     .catch(err=>{
@@ -282,7 +291,8 @@ totalconsumeLoad(){
     .then(success=>{
         this.toHistoryData(this.totalConsumeLoader.Items,this.b_chart);
         this.toIncreaseHistoryData(this.increseConsumeLoader.Items,this.b_chart);
-        this.createHstoryBar();
+        this.ent_bar[0].data =  this.b_chart.datas;
+        this.ent_bar[1].data =  this.b_chart.datas2;
        this.layoutService.hide();
     })
     .catch(err=>{
@@ -293,11 +303,11 @@ totalconsumeLoad(){
 
 topConsumeLoad(param:any){
     this.layoutService.show();
-    if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){
+    if(this.isNullEnterprise()){
         this.topConsumeLoader.Go(null,null,param)
         .then(success=>{
             this.topToDatas(this.h_chart,this.topConsumeLoader.Items);
-            this.createTopBar();
+            this.ent_hbar[0].data =  this.h_chart.datas;
             this.layoutService.hide();
         })
         .catch(err=>{
@@ -308,7 +318,7 @@ topConsumeLoad(param:any){
         this.topConsumeDepartmentLoader.Go(null,null,param)
         .then(success=>{
            this.topToDatas(this.h_chart,this.topConsumeDepartmentLoader.Items);
-           this.createTopBar();
+           this.ent_hbar[0].data =  this.h_chart.datas;
             this.layoutService.hide();
         })
         .catch(err=>{
@@ -322,11 +332,11 @@ topConsumeLoad(param:any){
 
 topIncreseConsumeLoad(param:any){
     this.layoutService.show();
-      if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){
+      if(this.isNullEnterprise()){
         this.topIncreseConsumeLoader.Go(null,null,param)
         .then(success=>{
               this.topToDatas(this.h_chart2,this.topIncreseConsumeLoader.Items);
-              this.createTopBar2();
+              this.ent_hbar2[0].data =  this.h_chart2.datas;
              this.layoutService.hide();
         })
         .catch(err=>{
@@ -337,7 +347,7 @@ topIncreseConsumeLoad(param:any){
         this.topIncreseConsumeDepartmentLoader.Go(null,null,param)
         .then(success=>{
                 this.topToDatas(this.h_chart2,this.topIncreseConsumeDepartmentLoader.Items);
-            	this.createTopBar2();
+            	this.ent_hbar2[0].data =  this.h_chart2.datas;
                this.layoutService.hide();
         })
         .catch(err=>{
@@ -345,6 +355,14 @@ topIncreseConsumeLoad(param:any){
             this.showMsg(err);
         }) 
     }
+    
+}
+
+//选择所有企业
+isNullEnterprise(){
+    if(this._param.enterpriseId==null||this._param.enterpriseId=='null')
+        return true;
+    return false;
     
 }
 
@@ -411,7 +429,7 @@ topToDatas(target:Chart,items:Array<any>){
 
 
 search_chart(){
-    this.clear();
+    //this.clear();
 //是canvas没有清除画布内容？？？？
     //消费概览
     this.consumeLoad();
@@ -421,25 +439,12 @@ search_chart(){
 
     //两个TOP图
     this.loadTopChart();
-
-    console.log("概览"+this.d_chart.datas);
-    console.log("趋势"+this.b_chart.datas);
-    console.log("TOP1"+this.h_chart.datas);
-    console.log("TOP2"+this.h_chart2.datas);
-}
-clear(){
-    this.d_chart.clear();
-
-    this.b_chart.clear();
-  
-    this.h_chart.clear();
-    this.h_chart2.clear();
 }
 
 
 createSumBar(){
     this.ent_dht=[{
-                        data: this.d_chart.datas,
+                        data: [0,0,0,0],
                         borderWidth:[
                             0,0,0,0
                         ]
@@ -475,8 +480,8 @@ createHstoryBar(){
                 },{
 
                     backgroundColor: "rgba(75,192,192,0.4)",
-                    borderColor: "rgba(75,192,192,1)",
-                    pointBorderColor: "rgba(75,192,192,1)",
+                    borderColor: "rgba(255, 99, 132, 1)",
+                    pointBorderColor: "rgba(255, 99, 132, 1)",
                     pointBackgroundColor: "#fff",
                     pointHoverBackgroundColor: "rgba(75,192,192,1)",
                     pointHoverBorderColor: "rgba(220,220,220,1)",
@@ -498,7 +503,7 @@ createHstoryBar(){
 this.ent_bar=[{
                         type: "bar",
                         label: "总消费",
-                        data: this.b_chart.datas,
+                        data: [],
                          
                     },{   type: 'line',
                             label: "新增消费",
@@ -513,7 +518,7 @@ this.ent_bar=[{
                             pointHoverBorderWidth: 2,
                             pointRadius: 1,
                             pointHitRadius: 10,
-                            data: this.b_chart.datas2,
+                            data: [],
                             spanGaps: false,
                         }
                    ];
@@ -523,7 +528,7 @@ this.ent_bar=[{
 createTopBar(){
      this.ent_hbar=[{
         label:'消费总额',
-        data: this.h_chart.datas
+        data: [0,0]
                          
      }];
         this.h_chart.colors  = [
@@ -561,7 +566,7 @@ createTopBar(){
 createTopBar2(){
             this.ent_hbar2=[{
             label:'消费总额',
-            data: this.h_chart2.datas
+            data: [0,0]
                          
      }];
 

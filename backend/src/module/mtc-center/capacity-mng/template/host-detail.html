@@ -57,12 +57,12 @@
     <div class="row mgt10" >
         <div class="col-md-2">
             <select class="form-control" [ngModel]="Period">
-                <option [ngValue]="1">最近24小时</option>
-                <option [ngValue]="7">最近7天</option>
-                <option [ngValue]="30">最近30天</option>
-                <option [ngValue]="90">最近90天</option>
-                <option [ngValue]="180">最近180天</option>
-                <option [ngValue]="360">最近360天</option>
+                <option [value]="1">最近24小时</option>
+                <option [value]="7">最近7天</option>
+                <option [value]="30">最近30天</option>
+                <option [value]="90">最近90天</option>
+                <option [value]="180">最近180天</option>
+                <option [value]="360">最近360天</option>
             </select>
         </div>
         <div class="col-md-2">
@@ -88,7 +88,13 @@
                     <h3 class="panel-title">CPU使用率</h3>
                 </div>
                 <div class="panel-body">
-                    
+                    <canvas baseChart
+                          width="200" height="70" *ngIf="cpuData"
+                          [datasets]="cpuData"
+                          [chartType]="cpuChartType"
+                          [colors]="cpuColor"
+						  [labels]="cpuLabels">
+                    </canvas>
                 </div>
             </div>
         </div>

@@ -28,14 +28,19 @@ export class MsgAlertComponent implements OnInit {
     ) {
         document.addEventListener('click', this.offClickHandler.bind(this));
     }
+
+    pageIndex = 1;
+    pageSize = 5;
+    totalPage = 1;
+
     @ViewChild('container') container;
     msgAlert: MsgAlertModel = new MsgAlertModel();
     expand: boolean = false;
     ngOnInit(): void {
+        this.getMsgAlert();
         window.setInterval(() => {
             this.getMsgAlert();
-        }, 10000);
-        
+        }, 30000);        
     }
 
     offClickHandler(event) {
@@ -49,22 +54,26 @@ export class MsgAlertComponent implements OnInit {
     }
 
     getMsgAlert(): void {
-        this.service.getMsgAlert()
+        this.service.getMsgListStatus(1,5,'0')
             .then(
             response => {
+                console.log(response, "response")
                 if (response && 100 == response["resultCode"]) {
-                    this.msgAlert = response.resultContent;
+                    this.msgAlert.edge = response.pageInfo.totalRecords;
+                    this.msgAlert.list = response.resultContent;
+                    this.totalPage = response.pageInfo.totalPage;
                     console.log(this.msgAlert, "this.msgAlert");
                 } else {
                     //this.showMsg("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
                     this.msgAlert.edge = 0;
+                    console.log("getMsgAlert Failed!!!");
                     return;
                 }
-            }
-            )
+            })
             .catch((e) => {
                 //this.onRejected(e);
                 this.msgAlert.edge = 0;
+                console.log("getMsgAlert Exception!!!");
             });
     }
 

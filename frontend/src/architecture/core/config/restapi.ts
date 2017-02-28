@@ -139,6 +139,12 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/subinstance/itemlist/vm/{uuid}"
     },
     {
+        "desc": "获取云主机详细信息",
+        "method": "GET",
+        "id": "vm.instance.detail",
+        "url": "subinstancemgmt/authsec/subinstance/compute/{itemId}"
+    },
+    {
         "desc": "获取购物车列表",
         "method": "GET",
         "id" : "shopping.cart.items",
@@ -303,6 +309,55 @@ export let RestApis: RestApiModel[] = [
     },
     //订单查询
 
+//消费总览
+{
+        "desc": "部门消费概览",
+        "id": "op-center.order-mng.cost-pandect.consume.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/consume/sum"
+    },
+    {
+        "desc": "部门消费趋势-总消费",
+        "id": "op-center.order-mng.cost-pandect.total.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/consume/history"
+    },
+    {
+        "desc": "部门消费趋势-新增消费",
+        "id": "op-center.order-mng.cost-pandect.increase.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/increase/consume/history"
+    },
+    {
+        "desc": "TOP5消费排名-所有企业",
+        "id": "op-center.order-mng.cost-pandect.enterprise-top.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/order/count/top"
+    },
+    {
+        "desc": "TOP5消费排名-某个企业",
+        "id": "op-center.order-mng.cost-pandect.department-top.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/department/order/count/top"
+    },
+    {
+        "desc": "TOP新增消费排名-所有企业",
+        "id": "op-center.order-mng.cost-pandect.increase-enterprise-top.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/order/increase/count/top"
+    },
+    {
+        "desc": "TOP新增消费排名-某个企业",
+        "id": "op-center.order-mng.cost-pandect.increase-department-top.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/department/order/increase/count/top"
+    },
+     {
+        "desc": "用户类型判断",
+        "id": "op-center.order-mng.ent-type.get",
+        "method": "GET",
+        "url": "adminui//authsec/user/currentuser"
+    },//消费总览
     //用户中心
     //个人账户管理
     {
@@ -595,5 +650,25 @@ export let RestApis: RestApiModel[] = [
         "id" : "user-center.case-mng.closedInfo",
         "method" : "GET",
         "url" : "basis/authsec/mpp/worklist/{id}/closeinfo"
-    }
+    },
+    // 消息中心
+    {
+        "desc" : "获取消息列表、所有/未读/已读",
+        "id" : "user-center.msg-mng.message.get",
+        "method" : "GET",
+        "url" : "messagemgmt/authsec/message/getmessages/page/{page}/size/{size}/status/{status}"
+    },
+    {
+        "desc" : "设置消息已读",
+        "id" : "user-center.msg-mng.message.setread",
+        "method" : "POST",
+        "url" : "messagemgmt/authsec/message/setread"
+    },
+    {
+        "desc" : "删除消息",
+        "id" : "user-center.msg-mng.message.delete",
+        "method" : "DELETE",
+        "url" : "messagemgmt/authsec/message/delete"
+    },
+    
 ]

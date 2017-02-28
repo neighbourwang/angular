@@ -14,13 +14,7 @@ export class MsgMngService {
         private restApi: RestApi
     ) { }
 
-    getMsgAlert():Promise<any> {
-        //const api = this.restApiCfg.getRestApi("phy-mng.phy-net-mng.network.list");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return MsgModel_mock });
-    }
-
-    getMsgListAll(pageIndex: number, pageSize: number):Promise<any> {
+    getMsgListStatus(pageIndex: number, pageSize: number, status: string):Promise<any> {
         const pathParams = [
             {
                 key: "page",
@@ -29,44 +23,35 @@ export class MsgMngService {
             {
                 key: "size",
                 value: pageSize
-            }
-        ];
-        //const api = this.restApiCfg.getRestApi("phy-mng.phy-net-mng.network.list");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return MsgModel_mock });
-    }
-
-    getMsgListUnRead(pageIndex: number, pageSize: number):Promise<any> {
-        const pathParams = [
-            {
-                key: "page",
-                value: pageIndex
             },
             {
-                key: "size",
-                value: pageSize
+                key: "status",
+                value: status
             }
         ];
-        //const api = this.restApiCfg.getRestApi("phy-mng.phy-net-mng.network.list");
+        const api = this.restApiCfg.getRestApi("user-center.msg-mng.message.get");
         //return this.restApi.request(api.method, api.url, pathParams, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return MsgModel_mock });
     }
 
-    getMsgListRead(pageIndex: number, pageSize: number):Promise<any> {
-        const pathParams = [
-            {
-                key: "page",
-                value: pageIndex
-            },
-            {
-                key: "size",
-                value: pageSize
-            }
+    setMsgRead(ids: string):Promise<any> {
+        const body = [
+            ids
         ];
-        //const api = this.restApiCfg.getRestApi("phy-mng.phy-net-mng.network.list");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return MsgModel_mock });
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("user-center.msg-mng.message.setread");
+        return this.restApi.request(api.method, api.url, null, null, body);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return MsgModel_mock });
     }
 
-   
+    deleteMsgList(ids: string):Promise<any> {
+        const body = [
+            ids
+        ];
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("user-center.msg-mng.message.delete");
+        return this.restApi.request(api.method, api.url, null, null, body);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return MsgModel_mock });
+    }
+       
 }

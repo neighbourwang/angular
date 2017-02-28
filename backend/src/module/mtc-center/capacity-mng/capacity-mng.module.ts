@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { PipeModule } from '../../../architecture';
 import { CommonComponentModule } from '../../../architecture';
 
+
 //Components
 import { CapacityMngComponent} from './component/capacity-mng.component';
 import { ComputeResComponent} from './component/compute-res.component';
@@ -22,6 +23,7 @@ import { HostDetailService} from './service/host-detail.service';
 
 @NgModule({
     imports: [
+       
         CommonComponentModule,
         CapacityMngRouting,
         PipeModule
