@@ -196,21 +196,21 @@ export class CaseMngListComponent implements OnInit{
     }
 
     getBasicInfo(item){
-    this.id= item.id;
-    this.layoutService.show();
-    this.service.getBasicInfo(this.id)
-        .then(
-            response => {
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
-                    this.basicInfo= response["resultContent"];
-                    console.log("basicInfo",this.basicInfo);
-                } else {
-                    alert("Res sync error");
+        this.id= item.id;
+        this.layoutService.show();
+        this.service.getBasicInfo(this.id)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.basicInfo= response["resultContent"];
+                        console.log("basicInfo",this.basicInfo);
+                    } else {
+                        alert("Res sync error");
+                    }
                 }
-            }
-        )
-        .catch((e) => this.onRejected(e));
+            )
+            .catch((e) => this.onRejected(e));
 }
 
     getHandelInfo(item){
@@ -250,6 +250,8 @@ export class CaseMngListComponent implements OnInit{
     }
 
     getDetail(item){
+        this.basicInfo.status= "";
+        this.handledInfo= null;
         this.getBasicInfo(item);
         this.getClosedInfo(item);
         this.getHandelInfo(item);

@@ -741,6 +741,13 @@ export const TranslateEN = {
         LIMIT_DESCRIPTION_TWO: 'Input at most 1000 words',
         LIMIT_DESCRIPTION_THREE: '"area code"+"telephone number"or"phone number"，such as：02160465223or13944238888',
         CLOSED_ALEARDY: 'have closed',
+        EDIT_CASE: 'Edit workorder',
+        DELETE_CASE: 'Delete workorder',
+        EDIT_CONTOR: 'Only can be edited when it is new',
+        DELETE_CONTOR: 'Only can be deleted when it is new',
+        DELETE_CASE_WARNING: 'You have chosen to delete {{value_1}}-{{value_2}}, please confirm',
+        CASE_DETAIL: 'Workorder detail：{{value_1}}-{{value_2}}'
+
 
     }
 }
