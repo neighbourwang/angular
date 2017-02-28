@@ -5,8 +5,10 @@
         <div class="alert-title">{{'USER_CENTER.MSG_NOTIFICATION' | translate}}</div>
         <ul class="alert-list">
             <li *ngFor="let msg of msgAlert.list" (click)="openMsgListPage();">
-                <div><span>{{msg.content}}</span></div>
-                <div><span style="vertical-align: top">{{msg.createTime}}</span></div>
+                <div class="col-md-12 col-sm-12">
+                <div class="col-md-6 col-sm-6"><i class="glyphicon glyphicon-envelope" style="margin: 10px"></i><span>{{msg.content}}</span></div>
+                <div class="col-md-6 col-sm-6"><span style="vertical-align: top">{{msg.createTime}}</span></div>
+                </div>
             </li>
             <!--
             <li>this is message two</li>

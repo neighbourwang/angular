@@ -207,7 +207,8 @@ export const TranslateEN = {
         CLOUD_HOSTING: 'Cloud hosting',
         OVERVIEW: 'Summary',
         ORDER: 'Order',
-        INSTANCE_LIST: 'Instance list'
+        INSTANCE_LIST: 'Instance list',
+        CASE_MNY: 'Workorder management',
     },
     VM_INSTANCE: {
         CHOOSE_HOST_UN:"Please choose to unsubscribe from the host",
@@ -477,7 +478,7 @@ export const TranslateEN = {
         AVAILABLE_AREA: "Available area",
         UNSUBSCRIBE_DISK: 'Unsubscribe disk',
         UNSUBSCRIBE_PROCESS: 'Has launched the unsubscribe process(Processing system needs some time, do not repeat the unsubscribe)',
-        
+
         REGION: 'Region',
         ATTRIBUTE: 'Attribute',
         OPERATE: 'Operate',
@@ -625,7 +626,7 @@ export const TranslateEN = {
         PRICE_LIST: 'Price list',
         GET_NETWORK_FAILURE: 'Get network failure',
         GET_IMAGE_FAILURE: 'Get image failure',
-        
+
         INSTANCE_DETAILS: 'Instance details',
         PUBLIC_NETWORK: 'Public network',
         PRIVATE_NETWORK: 'Private network',
@@ -699,12 +700,47 @@ export const TranslateEN = {
         NEW_PASSWORD: 'New password',
         THE_NEW_PASSWORD_CANNOT_BE_THE_SAME_AS_THE_ORIGINAL_PASSWORD: 'The new password cannot be the same as the original password',
         PASSWORD_INPUT_IS_NOT_CONSISTENT: 'Password input is not consistent',
-        
+
         RAM_QUANTITY: 'RAM quantity',
         PHYSICAL_QUANTITY: 'Physical machine quantity',
         SNAPSHOT_QUANTITY: 'Snapshot quantity',
         MIRROR_QUANTITY: 'Image quantity',
         DEPARTMENT_NAME: 'Department name',
         CONFIRM_NEW_PASSWORD: 'Confirm new password',
+
+        //case-mng
+        QUICKSEARCH_BYCASE: 'Enter the workorder quick search information',
+        TYPE: 'Category',
+        EMERGENCY: 'Emergency Degree',
+        CASE_ID: 'Workorder No',
+        SUBJECT: 'Subject',
+        CONTACTOR: 'Contacts',
+        CONTACNO: 'Telephone',
+        SUBMITOR: 'Submitter',
+        SUBMIT_TIME: 'Submit Time',
+        UPDATE_TIME: 'Update Time',
+        OPERATION: 'Operation',
+        CREATE_CASE: 'Creat workorder',
+        DEPARTMENT_OWNED: 'Department',
+        ENTERPRISE_OWNED: 'Enterprise',
+        DESCRIPTION: 'Description',
+        BASIC_INFO: 'Basic Information',
+        HANDLED_INFO: 'Processing Information',
+        CLOSED_INFO: 'Closure Information',
+        HANDLER_NAME: 'Processor',
+        HANDLER_TIME: 'Processing Time',
+        HANDLER_PROCESS: 'Processing Records',
+        CLOSED_TYPE: 'Closed Type',
+        CLOSED_NAME: 'Closer',
+        CLOSED_TIME: 'Closed Time',
+        TYPE_ALL: 'All ',
+        STATUS_ALL: 'All Categories',
+        ALL: 'All',
+        SELECT: 'Please select',
+        LIMIT_DESCRIPTION_ONE: 'Input at most 50 words',
+        LIMIT_DESCRIPTION_TWO: 'Input at most 1000 words',
+        LIMIT_DESCRIPTION_THREE: '"area code"+"telephone number"or"phone number"，such as：02160465223or13944238888',
+        CLOSED_ALEARDY: 'have closed',
+
     }
 }

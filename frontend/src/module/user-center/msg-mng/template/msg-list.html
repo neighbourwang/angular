@@ -5,7 +5,7 @@
 <div class="page-content">
     <div class="mgb20">
         <button class="btn btn-default button-gray-gradient" [ngClass]="{'active': paginationFlag === '2'}" (click)="getMsgList('2');">
-            {{'USER_CENTER.ALL_MSG' | translate}}
+            {{'USER_CENTER.ALL_MSG' | translate}}({{unreadmsg}})
         </button>
         <button class="btn btn-default button-gray-gradient" [ngClass]="{'active': paginationFlag === '0'}" (click)="getMsgList('0');">       
             {{'USER_CENTER.UNREAD_MSG' | translate}}
@@ -16,9 +16,11 @@
        
         <div class="dropdown pull-right" >
             <button class="btn btn-default button-gray-gradient" (click)="deleteMsgs();">
+                <i class="glyphicon glyphicon-trash"></i>
                 {{'COMMON.DELETE' | translate}}
             </button>
             <button class="btn btn-default button-gray-gradient" (click)="markMsgs();">
+                <i class="glyphicon glyphicon-folder-open"></i>
                 {{'USER_CENTER.MARK_READ' | translate}}
             </button>
         </div>
@@ -26,22 +28,28 @@
     </div>
 
     <div class="table-container">
-        <table class="table table-hover">
+        <table class="table table-hover" >
             <thead>
                 <tr>
-                    <th><input type="checkbox" class="fox-cloud-checkbox" name="checkbox" [checked]="allSelected" (click)="selectOrUnSAllItems();" /> <span style="margin: 3px">{{'USER_CENTER.ALL_SELECTED' | translate}}</span></th>
-                    <th>{{'USER_CENTER.MSG_CONTENT' | translate}}</th>
-                    <th>{{'USER_CENTER.CREATE_TIME' | translate}}</th>
+                    <th style="width: 80px; text-align: center;"><input type="checkbox" class="fox-cloud-checkbox" name="checkbox" (click)="selectOrUnSAllItems();" /> <span style="margin: 3px">{{'USER_CENTER.ALL_SELECTED' | translate}}</span></th>
+                    <th style="text-align: center;">{{'USER_CENTER.MSG_CONTENT' | translate}}</th>
+                    <th style="width: 170px; text-align: center;">{{'USER_CENTER.CREATE_TIME' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let msg of msgAlert.list; let i = index;">   
-                    <td><input type="checkbox" class="fox-cloud-checkbox" name="checkbox" [checked]="msg.checked" (change)="selectItem(i);"></td>
-                    <td>
-                        <a href="javascript:void(0);" [ngStyle]="{'font-weight': msg.status==='0'?'bold':'none'}"> {{msg.content}} </a>                        
+                <tr *ngFor="let msg of msgAlert.list; let i = index;" >   
+                    <td style="text-align: center;"><input type="checkbox" class="fox-cloud-checkbox" name="checkbox" [checked]="msg.checked" (change)="selectItem(i);"></td>
+                    <td style="vertical-align: middle">
+                        <table style="width: 100%; table-layout: fixed; border: none; padding: 0; margin: 0;">
+                            <tr  style="border: none; padding: 0; margin: 0;">
+                                <td class="hide_details" style="border: none; padding: 0; margin: 0;">
+                                    <i [ngClass]="msg.status==='0'?'glyphicon glyphicon-folder-close':'glyphicon glyphicon-folder-open'"></i>
+                                    <a href="javascript:void(0);" [ngStyle]="{'font-weight': msg.status==='0'?'bold':'normal'}" (click)="showAndMark(i);"> {{msg.content}} </a>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                     <td> {{msg.createTime}} </td>
-                    <!-- <td [ngClass]="phynet.status==1?'font-green':'font-orange'"> {{(phynet.status | dict:this.dictService.statusDict | async) || "未设置"}} </td>-->
                 </tr>
             </tbody>
         </table>
@@ -61,6 +69,7 @@
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-12">
+                        <i class="glyphicon glyphicon-trash"></i>
                         {{'USER_CENTER.DELETE_MSG_CONFIRM' | translate:{value_1: ( selectedmsglist.length )} }}
 					</div>
 				</div>
