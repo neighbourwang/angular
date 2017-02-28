@@ -149,9 +149,11 @@ export class EntEstManagePlatformComponent implements OnInit {
     })
  }
 
-  selectItem(index:number,platform:Platform){
-    platform.isSelected = 1;
-    platform.index = index;
+  selectItem(index:number){
+    let items = this.platformLoader.Items;
+    let items2 = this.selectedPlatformLoader.Items;
+    // this.platformLoader.Items.map(n=>{n.isSelected = 0;});
+    this.platformLoader.Items[index].isSelected = 1;
   }
 
 //返回/取消
@@ -165,7 +167,8 @@ save(){
 
   for(let item of this.platformLoader.Items){
     if(item.isSelected == 1){
-      this.platformLoader.Items.splice(item.index,1);  
+      let index = this.platformLoader.Items.indexOf(item);
+      this.platformLoader.Items.splice(index,1);  
       this.selectedPlatformLoader.Items.push(item);
     }
   }

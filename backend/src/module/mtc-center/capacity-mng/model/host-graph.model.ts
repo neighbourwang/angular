@@ -1,12 +1,18 @@
 export class HostGraphModel {
-    cpu: Array<CPU>;
-    memory: Array<Memory>;
+    cpu: Array<GraphItem>;
+    memory: Array<GraphItem>;
 }
-export class CPU {
+export class GraphItem {
     time: string;
     value: number;
 }
-export class Memory {
-    time: string;
-    value: number;
+
+
+export class ChartModel {
+    SourceData: Array<GraphItem>;
+    DataSets: Array<any>;
+    _data: Array<number>;
+    ChartType: string;
+    Colors: Array<any>;
+    Labels: Array<any>;
 }

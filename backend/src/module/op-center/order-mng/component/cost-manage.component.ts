@@ -45,7 +45,7 @@ private _statusTypeDic:DicLoader = null;
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
 
-		this._enterpriseLoader = new ItemLoader<{id:string; name:string}>(false, '企业列表加载错误', "op-center.order-mng.ent-list.get", this.restApiCfg, this.restApi);
+		this._enterpriseLoader = new ItemLoader<{id:string; name:string}>(false, 'COMMON.ENTPRISE_OPTIONS_DATA_ERROR', "op-center.order-mng.ent-list.get", this.restApiCfg, this.restApi);
 
         this._statusTypeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
 

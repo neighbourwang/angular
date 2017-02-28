@@ -142,7 +142,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取云主机详细信息",
         "method": "GET",
         "id": "vm.instance.detail",
-        "url": "subinstancemgmt/authsec/subinstance/compute/{itemId}"
+        "url": "marketplace/authsec/serviceinstance/vm/{itemId}"
     },
     {
         "desc": "获取购物车列表",
@@ -356,7 +356,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "用户类型判断",
         "id": "op-center.order-mng.ent-type.get",
         "method": "GET",
-        "url": "adminui//authsec/user/currentuser"
+        "url": "adminui/authsec/user/currentuser"
     },//消费总览
     //用户中心
     //个人账户管理

@@ -43,9 +43,9 @@
 										<count-bar
 								            [step]="step" 
 								            [max]="maxStorage" 
-								            [min]="oldStorage + step" 
+								            [min]="minStorage" 
 								            [stepCheck]=true
-								            [value]="oldStorage + step" (output)="outputValue($event, i)"></count-bar>
+								            [value]="minStorage" (output)="outputValue($event, i)"></count-bar>
 								        <span class="pdl10">增量按照每{{step}}GB一档，最大可扩容到 {{maxStorage}}GB</span>
 									</div>
 								</div>
@@ -79,30 +79,7 @@
 				<h4 class="modal-title" id="myModalLabel">订单完成：云硬盘扩容</h4>
 		  	</div>
 		 	<div class="modal-body"> 
-	         	<table class="table table-all-boder mgb20">
-					<tr class="table-line-head">
-						<td class="text-center">产品信息</td>
-						<td class="text-center">产品类型</td>
-						<td class="text-center">计费模式</td>
-						<td class="text-center">购买周期</td> 
-						<td class="text-center">数量</td>
-						<td class="text-center">新费用</td>
-						<td class="text-center">状态</td>
-						<td class="text-center">新费用开始时间</td>
-						<td class="text-center">变更后到期时间</td> 
-				    </tr>
-					<tr>
-						<td class="text-center">产品信息</td>
-						<td class="text-center">产品类型</td>
-						<td class="text-center">计费模式</td>
-						<td class="text-center">购买周期</td> 
-						<td class="text-center">数量</td>
-						<td class="text-center">新费用</td>
-						<td class="text-center">状态</td>
-						<td class="text-center">新费用开始时间</td>
-						<td class="text-center">变更后到期时间</td> 
-					</tr>
-				</table>
+		 		<order-complete #order [orderId]="orderId"></order-complete>
 
 				<div class="done-bottom">
 					<div class="left-text float-left">

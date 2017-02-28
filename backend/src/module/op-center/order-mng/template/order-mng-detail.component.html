@@ -2,72 +2,72 @@
 
 <div class="OrderDetail"> 
 	<div class="page-content-header float-left" style="width:1300px;padding-left: 0;">  
-	<span>订单编号：{{_detailLoader.FirstItem.instanceCode}}</span>
-	<button class="fox-cloud-button fox-cloud-button-green pull-right" style="margin-top:-10px;" (click)="back()"><span>返回订购管理</span></button>
+	<span>{{ 'ORDER_MNG.ORDER_NUM' | translate}}: {{_detailLoader.FirstItem.instanceCode}}</span>
+	<button class="fox-cloud-button fox-cloud-button-green pull-right" style="margin-top:-10px;" (click)="back()"><span>{{ 'ORDER_MNG.RETURN_ORDER_MANAGEMENT' | translate}}</span></button>
 	</div>
 	<div class="page-content">
-		<div class="noborder form-control-title float-left mgb10">基本信息</div>
+		<div class="noborder form-control-title float-left mgb10">{{ 'COMMON.BASIC_INFO' | translate}}</div>
 		<div class="table-container mgb20 noBorder">
 			<table class="table table-bordered first-table mgb20 text-left ">
 				<tbody>
 					<tr>
-						<td>已购服务编号</td>	
+						<td>{{ 'ORDER_MNG.PURCHASED_SERVICE_NUMBER' | translate}}</td>	
 						<td>{{_detailLoader.FirstItem.instanceCode}}</td>
-						<td>状态</td>
+						<td>{{ 'COMMON.STATUS' | translate}}</td>
 						<td>{{_detailLoader.FirstItem.status | dict:_dictServ.getDic('SUBINSTANCE', 'STATUS') | async}}</td>
 					</tr>
 					<tr>
-						<td>产品类型</td>
+						<td>{{ 'PROD_MNG.PRODUCT_TYPE' | translate}}</td>
 						<td>{{_detailLoader.FirstItem.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>	
-						<td>区域/可用区</td>
+						<td>{{ 'CHECK_CENTER.ZONE_AND_AVAILABLE_ZONE' | translate}}</td>
 						<td>{{_detailLoader.FirstItem.zone}}</td>
 					</tr>
 					<tr>
-						<td>当前配置</td>
+						<td>{{ 'ORDER_MNG.CURRENT_CONFIGURATION' | translate}}</td>
 						<td>{{_detailLoader.FirstItem.specification}}</td>	
-						<td>创建时间</td>
+						<td>{{ 'COMMON.CREATION_TIME' | translate}}</td>
 						<td>{{_detailLoader.FirstItem.createDate}}</td>
 					</tr>
 					<tr>
-						<td>计费模式</td>
+						<td>{{ 'PROD_MNG.COUNT_MODE' | translate}}</td>
 						<td>{{_detailLoader.FirstItem.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') | async}}</td>	
-						<td>到期时间</td>
+						<td>{{ 'COMMON.DUE_TIME' | translate}}</td>
 						<td>{{_detailLoader.FirstItem.expireDate}}</td>
 					</tr>
 					<tr>
-						<td>一次性费用</td>
+						<td>{{ 'COMMON.ONE_TIME_COSTS' | translate}}</td>
 						<td>{{_detailLoader.FirstItem.oneTimePrice}}</td>	
-						<td>订购人</td>
+						<td>{{ 'COMMON.PURCHASER' | translate}}</td>
 						<td>{{_detailLoader.FirstItem.buyer}}</td>
 					</tr>
 					<tr>
-						<td>费用</td>	
+						<td>{{ 'COMMON.COST' | translate}}</td>	
 						<td>{{_detailLoader.FirstItem.price}}</td>
-						<td>部门</td>
+						<td>{{ 'COMMON.DEPARTMENT' | translate}}</td>
 						<td>{{_detailLoader.FirstItem.department}}</td>
 					</tr>
 					<tr>
-						<td>实例名称</td>	
+						<td>{{ 'CHECK_CENTER.INSTANCE_NAME' | translate}}</td>	
 						<td>{{_detailLoader.FirstItem.instanceName}}</td>
-						<td>企业</td>
+						<td>{{ 'COMMON.ENTERPRISE' | translate}}</td>
 						<td>{{_detailLoader.FirstItem.enterprise}}</td>
 					</tr>				
 				</tbody>
 			</table>
 		</div>
 		
-		<div class="noborder form-control-title float-left mgb10">关联的已订购服务列表</div>
+		<div class="noborder form-control-title float-left mgb10">{{ 'ORDER_MNG.ASSOCIATED_SUBSCRIPTION_SERVICE_LIST' | translate}}</div>
 		<div class="table-container mgb20 noBorder">
 			<table class="table table-bordered mgb20">
 				<thead>	
-					<th class="border-gray">已订购服务编号</th>
-					<th class="border-gray">实例名称</th>
-					<th class="border-gray">产品类型</th>
-					<th class="border-gray">配置</th>
-					<th class="border-gray">计费模式</th>
-					<th class="border-gray">状态</th>
-					<th class="border-gray">费用</th>
-					<th class="border-gray">到期时间</th>
+					<th class="border-gray">{{ 'ORDER_MNG.PURCHASED_SERVICE_NUMBER' | translate}}</th>
+					<th class="border-gray">{{ 'CHECK_CENTER.INSTANCE_NAME' | translate}}</th>
+					<th class="border-gray">{{ 'PROD_MNG.PRODUCT_TYPE' | translate}}</th>
+					<th class="border-gray">{{ 'COMMON.CONFIGURATION' | translate}}</th>
+					<th class="border-gray">{{ 'COMMON.COUNT_MODE' | translate}}</th>
+					<th class="border-gray">{{ 'COMMON.STATUS' | translate}}</th>
+					<th class="border-gray">{{ 'COMMON.COST' | translate}}</th>
+					<th class="border-gray">{{ 'COMMON.DUE_TIME' | translate}}</th>
 							
 				</thead>
 				<tbody>
@@ -80,8 +80,8 @@
 						<td class="font-green">{{relatedOrder.status}}</td>
 						<td>
 							<ul>
-								<li>一次性费用：￥{{relatedOrder.oneTimePrice}}</li>
-								<li>费用：￥{{relatedOrder.price}}/G/小时</li>
+								<li>{{ 'COMMON.ONE_TIME_COSTS' | translate}}: {{ 'COMMON.$' | translate}}{{relatedOrder.oneTimePrice}}</li>
+								<li>{{ 'COMMON.COST' | translate}}: {{ 'COMMON.$' | translate}}{{relatedOrder.price}}/G/{{ 'COMMON.BY_HOUR' | translate}}</li>
 							</ul>
 						</td>
 						<td>{{relatedOrder.expireDate}}</td>
@@ -91,18 +91,18 @@
 		</div>	
 
 
-		<div class="noborder form-control-title float-left mgb10">历史信息</div>
+		<div class="noborder form-control-title float-left mgb10">{{ 'ORDER_MNG.HISTORY_INFO' | translate}}</div>
 		<div class="table-container mgb20 noBorder">
 			<table class="table table-bordered mgb20">
 				<thead>	
-					<th>日期</th>
-						<th>实例名称</th>
-						<th>实例类型</th>
-						<th>配置</th>
-						<th>操作者</th>
-						<th>所属部门</th>
-						<th>到期时间</th>
-						<th>说明</th>
+					<th>{{ 'COMMON.DATE' | translate}}</th>
+						<th>{{ 'CHECK_CENTER.INSTANCE_NAME' | translate}}</th>
+						<th>{{ 'CHECK_CENTER.INSTANCE_TYPE' | translate}}</th>
+						<th>{{ 'COMMON.CONFIGURATION' | translate}}</th>
+						<th>{{ 'COMMON.OPERATOR' | translate}}</th>
+						<th>{{ 'COMMON.DEPARTMENT' | translate}}</th>
+						<th>{{ 'COMMON.DUE_TIME' | translate}}</th>
+						<th>{{ 'COMMON.COMMENT' | translate}}</th>
 							
 				</thead>
 				<tbody>

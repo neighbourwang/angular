@@ -73,7 +73,7 @@ export class EntEstCreService{
 			,comp
 			,api
 			,params
-			,"资源列表"
+			,"COMMON.RESOURCE_LIST"
 			, null
 			, (source, target:ResourceQuota[])=>{
 				for(let item of source)
@@ -497,7 +497,7 @@ export class EntEstCreService{
 			{
 				if(errorHandler)
 				{
-					errorHandler.call(caller, {"title":errorTitle, "desc":errorTitle + " getting data faied"});
+					errorHandler.call(caller, {"title":errorTitle, "desc":"COMMON.GET_DATA_FAILED"});
 				}
 			}
 			else{
@@ -542,7 +542,7 @@ export class EntEstCreService{
 			console.log(errorTitle + '加载错误', err);
 			if(errorHandler)
 			{
-				errorHandler.call(caller, {"title":errorTitle, "desc":"server " + errorTitle + " getting data faied"});
+				errorHandler.call(caller, {"title":errorTitle, "desc":"COMMON.GET_DATA_FAILED"});
 			}
 
 		});
