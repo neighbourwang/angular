@@ -267,7 +267,7 @@
         "ORDER_HISTORY":"Order history",
         "EXECUTOR":"Executor",
         "ENTER_ORDER_NUMBER_QUERY":"Enter the order number to query",
-        "CANCLE_ORDER":"撤销订单"
+        "CANCLE_ORDER":"Cancel order"
     },
     "ENT_MNG": {
         "ABNORMAL_RESPONSE": "Abnormal response",
