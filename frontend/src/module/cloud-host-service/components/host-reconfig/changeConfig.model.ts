@@ -10,6 +10,7 @@ class SerivceConfigChangeResp {
 	zoneId : string; //, optional)
 }
 class SerivceConfigChangeDiskItem {
+	attrList : ServiceRespAttributePair[]; //[ServiceRespAttributePair], optional): 产品的各个属性，及属性的关联关系 ,
 	billingInfo : ProductBillingItem; //, optional): 产品价格信息 ,
 	oldStorageCapacity : number; //, optional)
 }
