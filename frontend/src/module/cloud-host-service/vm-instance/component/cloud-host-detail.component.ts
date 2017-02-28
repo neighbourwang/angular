@@ -21,6 +21,8 @@ export class cloudHostDetailComponent implements OnInit {
     private noticeDialog: NoticeComponent;
 
     vm:any;
+    diff:number = 0;
+    postData: any = {};
 
     a_labels = ["7:00", "8:00", "9:00", "10:00", "11:00", "12:00"];
     a_datasets = [
@@ -248,10 +250,29 @@ export class cloudHostDetailComponent implements OnInit {
     ) {
 
     }
+
+    get convertTimeDiff() {
+        var msec = this.diff;
+        var dd = Math.floor(msec / 1000 / 60 / 60 / 24);
+        msec -= dd * 1000 * 60 * 60 * 24;
+        var hh = Math.floor(msec / 1000 / 60 / 60);
+        msec -= hh * 1000 * 60 * 60;
+        var mm = Math.floor(msec / 1000 / 60);
+        msec -= mm * 1000 * 60;
+        var ss = Math.floor(msec / 1000);
+        msec -= ss * 1000;
+
+        return `${dd}天${hh}小时${mm}分钟`
+    }
+
     ngOnInit() {
         this.route.params.subscribe(params => {
             this.service.getHostInfo(params["itemId"]).then(res => {
                 this.vm = res;
+                this.diff = res.runningMillionMeters;
+                this.postData = {
+                    useType : res.useType.toString()
+                }
             })
         })
     }
