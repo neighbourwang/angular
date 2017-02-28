@@ -2,7 +2,6 @@
 export class Platform{
     
     id : string = null;
-    index :number = 0;
 
     name : string = null;//平台名称
     type : string = null;//平台类型

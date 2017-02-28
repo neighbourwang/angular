@@ -720,7 +720,7 @@ export const TranslateEN = {
         SUBMIT_TIME: 'Submit Time',
         UPDATE_TIME: 'Update Time',
         OPERATION: 'Operation',
-        CREATE_CASE: 'Creat workorder',
+        CREATE_CASE: 'Create workorder',
         DEPARTMENT_OWNED: 'Department',
         ENTERPRISE_OWNED: 'Enterprise',
         DESCRIPTION: 'Description',

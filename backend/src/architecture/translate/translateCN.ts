@@ -1045,6 +1045,7 @@
         "CURRENT_CONFIGURATION":"当前配置",
         "ASSOCIATED_SUBSCRIPTION_SERVICE_LIST":"关联的已订购服务列表",
         "Current query to order number is 3":"当前查询到的订单数为",
+        "HISTORY_INFO":"历史信息",
         "ORDERS_NUM_IS":"当前查询到的订单数为",
         "ORDER_LIST_FOLLOWS":"订单列表如下",
 
