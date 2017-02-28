@@ -4,8 +4,8 @@ import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
 
-import {HostInfo,DataSet} from'../model/host-info.model';
-import {HostGraphModel, CPU, Memory} from '../model/host-graph.model';
+import {HostInfo} from'../model/host-info.model';
+import {HostGraphModel, GraphItem,ChartModel} from '../model/host-graph.model';
 //service
 import { HostDetailService } from "../service/host-detail.service";
 
@@ -36,10 +36,10 @@ export class HostDetailComponent implements OnInit {
     hostInfo: HostInfo = new HostInfo();
     hostGraph: HostGraphModel = new HostGraphModel();
 
-    cpuData: any;
-    cpuColor: Array<any>;
-    cpuLabels: Array<any>;
-    cpuChartType: string;
+    cpuList: Array<GraphItem>;
+    memList: Array<GraphItem>;
+    cpuChart = new ChartModel();
+    memChart = new ChartModel();
     
     ngOnInit() {
         this.activatedRouter.params.forEach((params: Params) => {
@@ -50,8 +50,8 @@ export class HostDetailComponent implements OnInit {
             
         });
         this.getHostDetail();
-    //    window.setTimeout(() => { this.showGraph();}, 100);
-        this.showGraph();
+    
+        this.getHostGraph();
     }
 
     getHostDetail() {
@@ -62,7 +62,7 @@ export class HostDetailComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && "100" == response["resultCode"]) {
                     this.hostInfo = response["resultContent"];
-                 
+                   
                 } else {
                     alert("Res sync error");
                 }
@@ -79,8 +79,13 @@ export class HostDetailComponent implements OnInit {
             response => {
                 this.layoutService.hide();
                 if (response && "100" == response["resultCode"]) {
-                    this.hostGraph = response["resultContent"];
-                   
+                    this.cpuList = response["resultContent"].cpu;
+                    this.memList = response["resultContent"].memory;
+                    this.cpuChart.SourceData = this.cpuList;
+                    this.memChart.SourceData = this.memList;
+                    this.getGraphData(this.cpuChart);
+                    this.getGraphData(this.memChart);
+                    this.showGraph();
                 } else {
                     alert("Res sync error");
                 }
@@ -89,13 +94,24 @@ export class HostDetailComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
+    //将源数据转化成折线图数据格式
+    getGraphData(chart: ChartModel) {
+        let temp_value = new Array<number>();
+        let temp_time = new Array<any>();
+        chart.SourceData.forEach((s)=>{
+            temp_value.push(s.value);
+            temp_time.push(s.time);
+        })
+        chart._data = temp_value;
+        chart.Labels = temp_time;
+    }
     //画折线图
     showGraph() {
+        //CPU使用率数据
+        this.cpuChart.DataSets = [{
 
-        this.cpuData = [{
-
-            data: [65, 59, 80, 81, 56, 55, 40],
-            label: 'Series A',
+            data: this.cpuChart._data,
+            label: 'CPU使用率',
             fill: true,
            
             lineTension: 0.1,
@@ -103,28 +119,66 @@ export class HostDetailComponent implements OnInit {
             borderDash: [],
             borderDashOffset: 0.0,
             borderJoinStyle: 'miter',
-            pointBorderWidth: 1,
+            pointBorderWidth: 2,
             pointHoverRadius: 5,
             pointHoverBorderWidth: 2,
-            pointRadius: 3,
+            pointRadius: 4,
             pointHitRadius: 10,
             spanGaps: false,
         }
         ];
+
+         this.cpuChart.ChartType= "line";
         
-        this.cpuColor = [
+        this.cpuChart.Colors = [
             { // grey
                 backgroundColor: '#f9f9fb',
-                borderColor: '#5b9b9b',
+                borderColor: '#2bd2c8',
                 pointBackgroundColor: '#f1f3f2',
                 pointBorderColor: '#2cd2c8',
                 pointHoverBackgroundColor: '#e8f0f2',
                 pointHoverBorderColor: '#6fdcd6'
             }
         ];
-        this.cpuChartType = "line";
+       
+        
 
-        this.cpuLabels=['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+        //内存使用率数据
+        this.memChart.DataSets = [{
+
+            data: this.memChart._data,
+            label: '内存使用率',
+            fill: true,
+           
+            lineTension: 0.1,
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderWidth: 2,
+            pointHoverRadius: 5,
+            pointHoverBorderWidth: 2,
+            pointRadius: 4,
+            pointHitRadius: 10,
+            spanGaps: false,
+        }
+        ];
+
+         this.memChart.ChartType= "line";
+        
+        this.memChart.Colors = [
+            { // grey
+                backgroundColor: '#f9f9fb',
+                borderColor: '#2bd2c8',
+                pointBackgroundColor: '#f1f3f2',
+                pointBorderColor: '#2cd2c8',
+                pointHoverBackgroundColor: '#e8f0f2',
+                pointHoverBorderColor: '#6fdcd6'
+            }
+        ];
+       
+        
+
     }
 
     refresh() {
