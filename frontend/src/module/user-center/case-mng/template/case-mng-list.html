@@ -21,7 +21,7 @@
         <select [(ngModel)]="selectedStatus" (ngModelChange)="getData()" class="form-control fix-width-120">
             <option [value]="defaultStatus">{{ 'USER_CENTER.STATUS_ALL' | translate}}</option>
             <option [value]="v.value" *ngFor="let v of service.statusDic | async">{{v.displayValue}}</option>
-        </select>{{selectedStatus}}
+        </select>
     </div>
     <div class="float-left mgl20">
         <span>{{ 'USER_CENTER.EMERGENCY' | translate}}：</span>
