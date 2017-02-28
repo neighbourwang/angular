@@ -118,6 +118,7 @@ export class PhyNetMngService {
             "subnetMask": ipscope.subnetMask,
             "ipRange": ipscope.ipRange
         };
+        console.log(body, "body");
         const api = this.restApiCfg.getRestApi("phy-mng.phy-net-mng.network.iprange.set");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => PhyNetListModel_mock);

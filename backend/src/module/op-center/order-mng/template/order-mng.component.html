@@ -12,7 +12,7 @@
 				</div>-->
 				<div class="">
 				<div class="input-group col-md-2 float-left mgr20">
-   					 <input class="form-control ht40" placeholder="{{ 'ORDER_MNG.KEY_WORD_SEARCH' | translate}}" [(ngModel)]="_param.queryParam">
+   					 <input class="form-control ht40 width-300" placeholder="{{ 'ORDER_MNG.KEY_WORD_SEARCH' | translate}}" [(ngModel)]="_param.queryParam">
     				 <div class="input-group-addon pointer"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
 				</div>
 						
@@ -117,7 +117,7 @@
 							<th>{{ 'COMMON.DUE_TIME' | translate}}</th>
 							<th>{{ 'COMMON.PURCHASER' | translate}}</th>
 							<th>{{ 'COMMON.DEPARTMENT' | translate}}</th>
-							<th>所属企业</th>
+							<th>{{ 'HOST_OPENSTACK_MNG.AFFILIATED_ENTERPRISE' | translate}}</th>
 						</tr>			
 					</thead>
 				</table>

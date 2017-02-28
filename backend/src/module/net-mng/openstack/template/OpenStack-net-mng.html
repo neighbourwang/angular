@@ -27,14 +27,14 @@
     </div>
     <div class="clear"></div>
     <div class="mgb20 mgt10">
-        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">{{'NET_MNG_OPENSTACK.AFFILIATED_ENTERPRISE' | translate}}: </span>
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 10px 6px 0">{{'NET_MNG_OPENSTACK.AFFILIATED_ENTERPRISE' | translate}}: </span>
         <!--<div class="pull-left mgr15 col-md-3 " style="position:relative;padding:0">
             <span class="glyphicon glyphicon-search form-control-feedback"></span>
             <input type="text" class="form-control " placeholder="输入企业/租户信息搜索" [(ngModel)]="queryOpt.tenantName"/>
         </div>
         <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" (click)="search2()"> 确定</button>-->
         <div class="input-group col-md-2 float-left">
-            <input  type="text" class="form-control" placeholder="{{'NET_MNG_OPENSTACK.INPUT_SEARCH' | translate}}" [(ngModel)]="queryOpt.tenantName">
+            <input  type="text" class="form-control width-300" placeholder="{{'NET_MNG_OPENSTACK.INPUT_SEARCH' | translate}}" [(ngModel)]="queryOpt.tenantName">
             <div class="input-group-addon"(click)="search2()"><span class="glyphicon glyphicon-search" ></span></div>
         </div>
 
@@ -120,13 +120,13 @@
     <div class="fox-cloud-pagination-container">
         <fc-pagination #pager tp={{totalPage}} (pf)="getNetworkList($event)"></fc-pagination>
     </div>
-    <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
-    <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
+    <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate }}"></fc-notice>
+    <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate }}" ct="{{ 'COMMON.CANCEL' | translate }}"></fc-confirm>
 
 </div>
 
 <!--同步弹出框内容-->
-<fc-popup #synEnts title="{{title}}" ot="提交" (of)="commitSynTe()" ct="取消" (cf)="cancelCommitSynTe()">
+<fc-popup #synEnts title="{{title}}" ot="{{ 'COMMON.SUBMIT' | translate }}" (of)="commitSynTe()" ct="{{ 'COMMON.CANCEL' | translate }}" (cf)="cancelCommitSynTe()">
     <div style="max-height: 400px; overflow: auto;">
        <div class="table-container">
             <table class="table table-hover">

@@ -14,3 +14,4 @@ export * from './search-order-item';
 export * from './sub-region';
 export * from './cost-pandect-param';
 export * from './cost-pandect-item';
+export * from './user-info';

@@ -64,7 +64,7 @@ export class PhyNetMngComponent implements OnInit {
     noticeMsg = "";
 
     pageIndex = 1;
-    pageSize = 3;
+    pageSize = 10;
     totalPage = 1;
 
     phynets: Array<PhyNetListModel> = [];  // 物理机网络首页list
@@ -268,6 +268,7 @@ export class PhyNetMngComponent implements OnInit {
             this.phynet_changed.networkName = this.selectedphynet.networkName;
             this.phynet_changed.subnetIP = this.selectedphynet.subnetIP;
             this.phynet_changed.subnetMask = this.selectedphynet.subnetMask;
+            this.phynet_changed.id = this.selectedphynet.id;
             this.editphynetbox.open();
         } else {
             this.showMsg("PHY_NET_MNG.PLEASE_CHOOSE_NETWORK");
@@ -364,12 +365,15 @@ export class PhyNetMngComponent implements OnInit {
                     }
                 })
                 .then(() => {
+                    /*
                     this.selectedphynet.dnsAlt = this.phynet_changed.dnsAlt;
                     this.selectedphynet.dnsPre = this.phynet_changed.dnsPre;
                     this.selectedphynet.gateway = this.phynet_changed.gateway;
                     this.selectedphynet.networkName = this.phynet_changed.networkName;
                     this.selectedphynet.subnetIP = this.phynet_changed.subnetIP;
                     this.selectedphynet.subnetMask = this.phynet_changed.subnetMask;
+                    */
+                    this.getPhyNetList();
                     this.editphynetbox.close();
                 })
                 .catch(err => {

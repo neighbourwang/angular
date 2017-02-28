@@ -54,7 +54,7 @@ import { ClMngCommonService } from './service/cl-mng-common.service';
 
 import { PlatformDetailService } from './service/pf-mng-detail.service';
 
-// import { ZoneSyncService } from '../components/zone-sync/zone-sync.service';
+import { FlavorService } from './service/platform-mng-flavor.service';
 
 
 @NgModule({
@@ -75,8 +75,7 @@ import { PlatformDetailService } from './service/pf-mng-detail.service';
         ClMngCreStep6Component,
         bootDiskMngComponent,
         bootDiskCreEditComponent,
-        CloudHostSpecComponent,
-        
+        CloudHostSpecComponent,        
     ],
     exports: [
     ],
@@ -91,6 +90,7 @@ import { PlatformDetailService } from './service/pf-mng-detail.service';
         ClMngCreStep6Service,
         ClMngCommonService,
         PlatformDetailService,
+        FlavorService
     ]
 
 })

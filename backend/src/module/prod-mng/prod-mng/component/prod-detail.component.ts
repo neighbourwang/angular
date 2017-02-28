@@ -63,7 +63,6 @@ export class ProdDetailComponent implements OnInit {
             (type == '0') && (this.vmProdDir = true);
             (type == '1') && (this.vmProdDir = false);
         })
-        this.layoutService.show();
         this.getProductDetail(this.productId)
             .then(() => {
                 if (this.vmProdDir) {
@@ -81,6 +80,7 @@ export class ProdDetailComponent implements OnInit {
     }
     //请求产品详情
     getProductDetail(id) {
+        this.layoutService.show();        
         return this.getProduct.getProduct(id).then((response) => {
             if (response && 100 == response.resultCode) {
                 this.product = response.resultContent;
@@ -92,8 +92,10 @@ export class ProdDetailComponent implements OnInit {
                 this.tempOneTimePrice = this.product.oneTimePrice;
                 this.tempUnitPrice = this.product.unitPrice;
                 console.log('产品', this.product);
+                this.layoutService.hide();
             }
         }).catch((err) => {
+            this.layoutService.hide();
             console.error(err)
         })
     }

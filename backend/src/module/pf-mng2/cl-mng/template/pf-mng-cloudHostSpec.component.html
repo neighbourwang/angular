@@ -34,15 +34,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td style="cursor:pointer">m2.tiny</td>
-                        <td>1</td>
-                        <td>512</td>
-                        <td>40</td>
-                        <td>已启用</td>
+                    <tr *ngFor="let flavor of flavorlist,let idx=index">
+                        <td>{{idx+1}}</td>
+                        <td style="cursor:pointer">{{flavor.name}}</td>
+                        <td>{{flavor.vcpu}}</td>
+                        <td>{{flavor.memSize}}</td>
+                        <td>{{flavor.diskSize}}</td>
+                        <td>{{flavor.status}}</td>
                         <!--<td>使用中</td>-->
-                        <td>2016-11-30 15:00:00</td>
+                        <td>{{flavor.updateDate}}</td>
                         <td>
                             <button class="fox-cloud-button-md fox-cloud-button-white" (click)="enableSpec()">启用</button>
                         </td>
@@ -64,15 +64,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td style="cursor:pointer">m2.tiny</td>
-                        <td>1</td>
-                        <td>512</td>
-                        <td>40</td>
-                        <td>已启用</td>
+                    <tr *ngFor="let flavor of flavorList,let idx=index">
+                        <td>{{idx+1}}</td>
+                        <td style="cursor:pointer">{{flavor.name}}</td>
+                        <td>{{flavor.vcpu}}</td>
+                        <td>{{flavor.memSize}}</td>
+                        <td>{{flavor.diskSize}}</td>
+                        <td>{{flavor.status}}</td>
                         <!--<td>使用中</td>-->
-                        <td>2016-11-30 15:00:00</td>
+                        <td>{{flavor.updateDate}}</td>
                         <td>
                             <button class="fox-cloud-button-md fox-cloud-button-white" (click)="enableSpec()">启用</button>
                             <button class="fox-cloud-button-md fox-cloud-button-white" (click)="deleSpec()">删除</button>

@@ -208,7 +208,8 @@ export const TranslateCN = {
         CLOUD_HOSTING: '云主机',
         OVERVIEW: '概览',
         ORDER: '订购',
-        INSTANCE_LIST: '实例列表'
+        INSTANCE_LIST: '实例列表',
+        CASE_MNY: '工单管理',
     },
     VM_INSTANCE: {
         CHOOSE_HOST_UN:"请选择要退订的主机",
@@ -729,9 +730,11 @@ export const TranslateCN = {
 
         DELETE_MSG_FAILED: '删除消息失败',
         DELETE_MSG_EXCEPTION: '删除消息异常',
+        DELETE_MSG_SUCCESS: '删除消息成功',
 
         MARK_MSG_READ_FAILED: '标示消息已读失败',
         MARK_MSG_READ_EXCEPTION: '标示消息已读异常',
+        MARK_MSG_READ_SUCCESS: '标示消息已读成功',
 
         DELETE_MSG_CONFIRM: '您选择删除{{value_1}}条消息，请确认',
         DELETE_MSG: '删除消息',
@@ -747,6 +750,7 @@ export const TranslateCN = {
         SUBJECT: '主题',
         CONTACTOR: '联系人',
         CONTACNO: '联系电话',
+        SUBMITOR: '提交者',
         SUBMIT_TIME: '提交时间',
         UPDATE_TIME: '更新时间',
         OPERATION: '操作',
@@ -768,7 +772,14 @@ export const TranslateCN = {
         ALL: '所有',
         SELECT: '请选择',
         LIMIT_DESCRIPTION_ONE: '最多只能输入50个文字',
-        LIMIT_DESCRIPTION_TWO: '最多只能输入1000个文字'
+        LIMIT_DESCRIPTION_TWO: '最多只能输入1000个文字',
+        CLOSED_ALEARDY: '已关闭',
+        EDIT_CASE: '编辑工单',
+        DELETE_CASE: '删除工单',
+        EDIT_CONTOR: '只有新建状态下，才能编辑工单',
+        DELETE_CONTOR: '只有新建状态下，才能删除工单',
+        DELETE_CASE_WARNING: '您选择删除{{value_1}}-{{value_2}}工单，请确认。',
+        CASE_DETAIL: '工单详细：{{value_1}}-{{value_2}}'
 
     }
 }

@@ -89,11 +89,11 @@
                 </div>
                 <div class="panel-body">
                     <canvas baseChart
-                          width="200" height="70" *ngIf="cpuData"
-                          [datasets]="cpuData"
-                          [chartType]="line"
-                          [colors]="cpuColor"
-						  [labels]="cpuLabels">
+                          *ngIf="cpuChart.DataSets"
+                          [datasets]="cpuChart.DataSets "
+                          [chartType]="cpuChart.ChartType"
+                          [colors]="cpuChart.Colors"
+						  [labels]="cpuChart.Labels">
                     </canvas>
                 </div>
             </div>
@@ -104,7 +104,13 @@
                     <h3 class="panel-title">内存使用率</h3>
                 </div>
                 <div class="panel-body">
-                    
+                    <canvas baseChart
+                          *ngIf="memChart.DataSets"
+                          [datasets]="memChart.DataSets "
+                          [chartType]="memChart.ChartType"
+                          [colors]="memChart.Colors"
+						  [labels]="memChart.Labels">
+                    </canvas>
                 </div>
         </div>
     </div>
