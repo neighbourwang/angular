@@ -121,6 +121,7 @@ export class ProdMngCreStep3Component implements OnInit {
     //云硬盘产品平台
     //选择全部存储后端    
     selectAllStorages() {
+        this.isPlatformChange=true;//点击即视为平台更改；
         this.service.product.productPlatformReqs=[];
         this.selectAllStorage = !this.selectAllStorage;
         for (let plate of this.tempDiskProdDirPlatformList) {
@@ -140,6 +141,7 @@ export class ProdMngCreStep3Component implements OnInit {
     }
     //选择存储后端
     selectStorage(idx, idxx) {
+        this.isPlatformChange=true;//点击即视为平台更改；
         this.service.product.productPlatformReqs=[];
         console.log(idx, idxx);
         this.tempDiskProdDirPlatformList[idx].zoneList[idxx].selected = !this.tempDiskProdDirPlatformList[idx].zoneList[idxx].selected;
@@ -151,16 +153,12 @@ export class ProdMngCreStep3Component implements OnInit {
                 }
             }
         })
-        // this.selectAllStorage = 
-        //     this.service.product.productPlatformReqs.length == this.tempDiskProdDirPlatformList.length?true:false;
-        // console.log(this.service.product.productPlatformReqs);
-        //判断是for存储区全选
-        if(this.service.product.productPlatformReqs.length != this.tempVmProdDirPlatformList.length){
+        if(this.service.product.productPlatformReqs.length != this.tempDiskProdDirPlatformList.length){
             this.selectAllStorage=false;
             return;
         }
         this.selectAllStorage=true;
-        for(let platform of this.tempVmProdDirPlatformList){
+        for(let platform of this.tempDiskProdDirPlatformList){
             for(let zone of platform.zoneList){
                 if(zone.selected==false){
                    return this.selectAllStorage=false;                           

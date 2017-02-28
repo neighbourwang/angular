@@ -68,10 +68,15 @@ export class ProdMngComponent implements OnInit {
     prodDirIdCre: string='';
     prodDirTypeCre: string='';
     //初始化
-    ngOnInit() {
-        console.log('init');
-        //获得激活云平台数据
-        this.PlatformsActiveService.getPlatformsActive().then(response => {
+    ngOnInit() {        
+        this.backend(1, this.pp, {})
+        this.getActivePlatform()
+        this.getEnterpriseList()
+        this.getServiceList()
+    }
+    //获得激活云平台数据
+    getActivePlatform(){
+        return this.PlatformsActiveService.getPlatformsActive().then(response => {
             console.log('激活云平台数据', response);
             // if (response && 100 == response.resultCode) {
                 this.platformsList = response.resultContent;
@@ -81,8 +86,10 @@ export class ProdMngComponent implements OnInit {
         }).catch(err => {
             console.error(err)
         })
-        //获取企业列表
-        this.ProdDirListService.getEnterpriseList().then(response => {
+    } 
+    //获取企业列表    
+    getEnterpriseList(){
+       return  this.ProdDirListService.getEnterpriseList().then(response => {
             console.log('企业', response);
             // if (response && 100 == response.resultCode) {
             this.enterpriseList = response.resultContent;
@@ -93,21 +100,28 @@ export class ProdMngComponent implements OnInit {
         }).catch(err => {
             console.error(err)
         })
-        this.ProdDirListService.getProdDirList().then(response => {
+    } 
+    //获取产品目录
+    getServiceList(){
+        return this.ProdDirListService.getProdDirList().then(response => {
             console.log('产品目录列表', response);
             // if (response && 100 == response.resultCode) {
             this.prodDirList = response.resultContent;
             this.prodDirIdCre=response.resultContent[0].id;
             this.prodDirTypeCre=response.resultContent[0].code;
+            for(let i=0;i<this.prodDirList.length;i++){
+                if(!this.ProdDirListService[i]){
+                    this.prodDirList.slice(i,1);
+                }
+            }
+            console.log('filterparodlist',this.prodDirList);
             // } else {
 
             // }
         }).catch(err => {
             console.error(err)
         })
-        this.backend(1, this.pp, {});
-    }
-
+    }      
     // 选择产品目录（多选）
     switchSelectIndividual(id: number) {
         this.productList[id].isSelected =
@@ -160,8 +174,6 @@ export class ProdMngComponent implements OnInit {
         console.log(this.prodList);
         if (this.prodList.length < 1) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.SELECT_PRODUCT_CAT'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.SELECT_PRODUCT_CAT=>请选择产品目录 
-
-
         } else {
             let message: string = '';
             for (let dir of this.prodList) {
@@ -255,7 +267,7 @@ export class ProdMngComponent implements OnInit {
         this.tp = 0;
         // console.log(page);
         // console.log(size);        
-        this.ProdListService.getProdList(page, size, data).then(
+        return this.ProdListService.getProdList(page, size, data).then(
             response => {
                 console.log(response);
                 if (response && 100 == response.resultCode) {
