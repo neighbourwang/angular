@@ -264,7 +264,7 @@ export class ProdDirListComponent implements OnInit {
     //编辑按钮
     edit() {
         console.log('edit');
-        this.router.navigateByUrl("prod-mng/prod-dir-mng/prod-dir-cre", { skipLocationChange: true });
+        // this.router.navigateByUrl("prod-mng/prod-dir-mng/prod-dir-cre", { skipLocationChange: true });
     }
     //创建按钮
     creation() {
@@ -324,12 +324,11 @@ export class ProdDirListComponent implements OnInit {
     //去编辑详情
     goDetail(item) {
         console.log(item);
-        if(item.serviceTemplateName=="云主机服务"){
-            this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre",{id:item.serviceId,type:'edit'}]);
-        }else{
-            this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre",{id:item.serviceId,type:'edit'}]);
-        }
-        
+        // if(item.serviceTemplateName=="云主机服务"){
+        //     this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre",{id:item.serviceId,type:'edit'}]);
+        // }else{
+        //     this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre",{id:item.serviceId,type:'edit'}]);
+        // }
     }
 
     //获取列表数据

@@ -24,39 +24,52 @@ export class ProdMngCreStep4Component implements OnInit {
         private route: Router,
         private router: ActivatedRoute,
         private layoutService: LayoutService,
-        private service:CreateProdStepService,
-        private ProdDirListService:ProdDirListService,
+        private service: CreateProdStepService,
+        private ProdDirListService: ProdDirListService,
         private PostProduct: PostProduct
     ) { }
 
     @ViewChild('notice')
-    notice:NoticeComponent;
+    notice: NoticeComponent;
 
-    platformIdList=new Array();
-    enterpriseList = new Array();
+    platformIdList = new Array();
+    isPlatformChange: boolean;
     ngOnInit() {
-       console.log(this.service.product);
-       //获取企业列表        
-        this.service.product.productPlatformReqs.forEach(ele=>{
+        //获取平台列表是否发生改变
+        this.router.params.forEach((params: Params) => {
+            this.isPlatformChange = 
+                params['isPlatformChange']=='false'?false:true;
+        })
+        console.log('isPlatformChange', this.isPlatformChange)
+        //获取企业列表        
+        this.service.product.productPlatformReqs.forEach(ele => {
             this.platformIdList.push(ele.platformId)
         });
-        console.log('idddd',this.platformIdList);
-        this.layoutService.show();
-        this.service.getEnterpriseList(this.platformIdList).then(response => {
-            console.log('企业', response);            
-            // if (response && 100 == response.resultCode) {
-            this.enterpriseList = response.resultContent;
-            // } else {
+        console.log('idddd', this.platformIdList);
+        console.log('enter',this.service.product.enterpriseListForSelect);
+        console.log('enter',this.service.product.productEnterpiseReqs);
+        console.log('bb',(this.isPlatformChange ||!this.service.product.enterpriseListForSelect&&!this.service.product.productEnterpiseReqs));
+        if (this.isPlatformChange || ((!this.service.product.enterpriseListForSelect)&&(!this.service.product.productEnterpiseReqs))) {
+            this.service.product.productEnterpiseReqs = [];
+            this.service.product.enterpriseListForSelect=[];
+            this.layoutService.show();
+            this.service.getEnterpriseList(this.platformIdList).then(response => {
+                console.log('企业', response);                
+                this.layoutService.hide();
+                if (!response.resultContent || response.resultContent.length == 0) {
+                    this.notice.open('企业列表为空', '返回上一步重新选择平台')
+                }else{
+                    // if (response && 100 == response.resultCode) {
+                this.service.product.enterpriseListForSelect = response.resultContent;
+                // } else {
 
-            // }
-            this.layoutService.hide();
-            if(!this.enterpriseList||this.enterpriseList.length==0){
-                this.notice.open('企业列表为空','返回上一步重新选择平台')
-            }
-        }).catch(err => {
-            console.error(err);
-            this.layoutService.hide();            
-        })
+                // }
+                }
+            }).catch(err => {
+                console.error(err);
+                this.layoutService.hide();
+            })
+        }
     }
 
     //选择企业
@@ -68,24 +81,24 @@ export class ProdMngCreStep4Component implements OnInit {
         //     }
         // });
         this.service.product.productEnterpiseReqs.push(ent);
-        this.enterpriseList.splice(index,1);
+        this.service.product.enterpriseListForSelect.splice(index, 1);
         console.log(this.service.product.productEnterpiseReqs)
     }
     //
-    unSelected(ent,index){
-        this.enterpriseList.push(ent);
-        this.service.product.productEnterpiseReqs.splice(index,1);
+    unSelected(ent, index) {
+        this.service.product.enterpriseListForSelect.push(ent);
+        this.service.product.productEnterpiseReqs.splice(index, 1);
     }
 
 
     next() {
-        if(this.service.product.productEnterpiseReqs.length==0){
-             this.notice.open('操作错误','企业列表为空'); 
-             return; 
+        if (this.service.product.productEnterpiseReqs.length == 0) {
+            this.notice.open('操作错误', '企业列表为空');
+            return;
         }
-        this.service.product.serviceId=this.service.productDir.serviceId;
-        this.service.product.billingType=
-            this.service.productDir.serviceType=='0'?'0':'1';
+        this.service.product.serviceId = this.service.productDir.serviceId;
+        this.service.product.billingType =
+            this.service.productDir.serviceType == '0' ? '0' : '1';
         console.log(this.service.product);
         this.layoutService.show();
         this.PostProduct.postProduct(this.service.product).then(response => {

@@ -85,7 +85,7 @@ export class CaseMngComponent implements OnInit {
                 response => {
                     this.layoutService.hide();
                    // let a=response && " ";
-                    if (response && null== response["resultCode"]) {
+                    if (response && 100== response["resultCode"]) {
                         this.layoutService.hide();
                         this.enterpriseList = response["resultContent"];
                         console.log("企业列表",this.enterpriseList);

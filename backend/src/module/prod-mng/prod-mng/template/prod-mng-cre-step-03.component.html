@@ -16,6 +16,13 @@
 </div>
 <div class="row" style="padding-top: 30px;">
 	<div class="col-md-12">
+		<div class="row row-line-height">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8" style="color:#fe8d6b;font-size: 16px;padding-left: 0">
+			请选择所需发布企业已覆盖的对应平台，将根据所选平台取交集过滤企业列表				
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
 		<div class="row row-line-height" *ngIf="this.service.productDir.serviceType=='0'">
 			<div class="col-sm-2"></div>
 			<div class="col-sm-8 border selectPlateForm">
@@ -46,7 +53,7 @@
 						<div class="row row-line-height inputLeft" *ngFor="let zone of plateform.zoneList; let idxx=index">
 							<div class="col-sm-12">
 								<input type="checkbox" class="fox-cloud-checkbox"  [(ngModel)]="zone.selected" name="zoneSelected"
-									(click)="selectZone(idx,idxx)">
+									(change)="selectZone(idx,idxx)">
 							</div>
 						</div>
 					</div>
@@ -60,8 +67,8 @@
 			<div class="col-sm-2"></div>
 		</div>
 		<div class="row row-line-height" *ngIf="this.service.productDir.serviceType == '1'">
-			<div class="col-sm-3"></div>
-			<div class="col-sm-6 border selectPlateForm">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8 border selectPlateForm">
 				<div class="row  tabHeader row-line-height">
 					<div class="col-sm-4">{{'PROD_MNG.PLATFORM_NAME' | translate}}</div>
 					<!--平台名称-->
@@ -102,7 +109,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-3"></div>
+			<div class="col-sm-2"></div>
 		</div>
 	</div>
 </div>
