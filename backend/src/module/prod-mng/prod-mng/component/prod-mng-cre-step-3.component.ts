@@ -35,7 +35,10 @@ export class ProdMngCreStep3Component implements OnInit {
     selectAllStorage: boolean = true;
     tempVmProdDirPlatformList: Array<vmPlateform>;
     tempDiskProdDirPlatformList: Array<diskPlateform>;
+    //判断平台是否发生改变，进而是否请求过滤企业；
+    isPlatformChange:boolean;
     ngOnInit() {
+        this.isPlatformChange=false;
         //获取平台类型
         console.log(this.service.product);
         this.prodDirType = this.service.productDir.serviceType;
@@ -67,6 +70,7 @@ export class ProdMngCreStep3Component implements OnInit {
     //云主机
     //可用区全选 
     selectAllZones() {
+        this.isPlatformChange=true;
         this.service.product.productPlatformReqs=[];
         this.selectAllZone = !this.selectAllZone;
         for (let plate of this.tempVmProdDirPlatformList) {
@@ -87,6 +91,7 @@ export class ProdMngCreStep3Component implements OnInit {
     }
     //选择平台可用区
     selectZone(idx, idxx) {
+        this.isPlatformChange=true;//点击即视为平台更改；        
         this.service.product.productPlatformReqs=[];
         console.log(idx, idxx);
         this.tempVmProdDirPlatformList[idx].zoneList[idxx].selected = !this.tempVmProdDirPlatformList[idx].zoneList[idxx].selected;
@@ -170,7 +175,7 @@ export class ProdMngCreStep3Component implements OnInit {
              this.notice.open('操作错误','平台列表为空'); 
              return; 
         }       
-        this.route.navigate(["prod-mng/prod-mng/prod-mng-cre-4"]);
+        this.route.navigate(["prod-mng/prod-mng/prod-mng-cre-4",{'isPlatformChange':this.isPlatformChange}]);
     }
 
     previous() {

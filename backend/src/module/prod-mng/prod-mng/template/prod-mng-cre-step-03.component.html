@@ -46,7 +46,7 @@
 						<div class="row row-line-height inputLeft" *ngFor="let zone of plateform.zoneList; let idxx=index">
 							<div class="col-sm-12">
 								<input type="checkbox" class="fox-cloud-checkbox"  [(ngModel)]="zone.selected" name="zoneSelected"
-									(click)="selectZone(idx,idxx)">
+									(change)="selectZone(idx,idxx)">
 							</div>
 						</div>
 					</div>
