@@ -922,6 +922,7 @@
         "SELECTED_PM_HOST": "已选中物理机",
         "UNSELECTED_PM_HOST": "未选中物理机",
 
+        "PHY_NET": "物理机网络",
 
         "PHY_NET_MNG": "物理机网络管理",
         "CREATE_PHY_NET": "创建网络",

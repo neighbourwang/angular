@@ -40,11 +40,17 @@
                         <td>{{flavor.vcpu}}</td>
                         <td>{{flavor.memSize}}</td>
                         <td>{{flavor.diskSize}}</td>
-                        <td>{{flavor.status}}</td>
+                        <td>
+                            <span [ngSwitch]="flavor.status"> 
+										<template [ngSwitchCase]="0">初始化</template>
+										<template [ngSwitchCase]="1">已启用</template>
+										<template ngSwitchDefault>Unknown</template>							
+							</span>
+                        </td>
                         <!--<td>使用中</td>-->
                         <td>{{flavor.updateDate}}</td>
                         <td>
-                            <button class="fox-cloud-button-md fox-cloud-button-white" (click)="enableSpec()">启用</button>
+                            <button  *ngIf="flavor.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableFlavor()">启用</button>
                         </td>
                     </tr>
                 </tbody>
@@ -64,18 +70,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let flavor of flavorList,let idx=index">
+                    <tr *ngFor="let flavor of flavorlist,let idx=index">
                         <td>{{idx+1}}</td>
                         <td style="cursor:pointer">{{flavor.name}}</td>
                         <td>{{flavor.vcpu}}</td>
                         <td>{{flavor.memSize}}</td>
                         <td>{{flavor.diskSize}}</td>
-                        <td>{{flavor.status}}</td>
+                        <td>
+                            <span [ngSwitch]="flavor.status"> 
+										<template [ngSwitchCase]="0">初始化</template>
+										<template [ngSwitchCase]="1">已启用</template>
+										<template ngSwitchDefault>Unknown</template>							
+							</span>
+                        </td>
                         <!--<td>使用中</td>-->
                         <td>{{flavor.updateDate}}</td>
                         <td>
-                            <button class="fox-cloud-button-md fox-cloud-button-white" (click)="enableSpec()">启用</button>
-                            <button class="fox-cloud-button-md fox-cloud-button-white" (click)="deleSpec()">删除</button>
+                            <button *ngIf="flavor.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableFlavor()">启用</button>
+                            <button *ngIf="flavor.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="deleFlavor()">删除</button>
                         </td>
                     </tr>
                 </tbody>
@@ -91,7 +103,7 @@
                         名称：
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="name"  placeholder="规格名称">
+                        <input type="text" class="form-control" [(ngModel)]="flavorObj.name"  placeholder="规格名称">
                     </div>
                 </div>
             </div> 
@@ -102,7 +114,7 @@
                         CPU：
                     </div>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" [(ngModel)]="namee" >
+                        <input type="text" class="form-control" [(ngModel)]="flavorObj.cpu" >
                     </div>
                     <div class="col-sm-4" style="line-height:34px;">
                         核(vCPU)
@@ -116,7 +128,7 @@
                         内存：
                     </div>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" [(ngModel)]="nama">
+                        <input type="text" class="form-control" [(ngModel)]="flavorObj.mem">
                     </div>
                     <div class="col-sm-4" style="line-height:34px;">
                         兆(MB)
@@ -130,7 +142,7 @@
                         启动盘大小：
                     </div>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" [(ngModel)]="namc">
+                        <input type="text" class="form-control" [(ngModel)]="flavorObj.disk">
                     </div>
                      <div class="col-sm-4 " style="line-height:34px;">
                         兆(GB)
