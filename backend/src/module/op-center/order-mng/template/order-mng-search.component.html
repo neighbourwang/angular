@@ -36,7 +36,7 @@
 							</div>
 						</td>
 						<td class="none-border">
-							<span class="float-left font-size-16 mgt5">{{ 'COMMON.PURCHASER' | translate}}: </span>
+							<span class="float-left font-size-16 mgt5">提交者: </span>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.buyerId">
 									<option class="hands" [value]="null">{{ 'CHECK_CENTER.ALL_USERS' | translate}}</option>
@@ -82,12 +82,12 @@
 				</tbody>
 			</table>	
 		</div>
-		<div class="mgb10 mgt20 ">{{ 'ORDER_MNG.ORDERS_NUM_IS' | translate}} <span class="font-green">{{_orderLoader.TotalRecords}}</span> ,{{ 'ORDER_MNG.ORDER_LIST_FOLLOWS' | translate}}: </div>
+		<div class="mgb10 mgt20 ">当查询到 <span class="font-green">{{_orderLoader.TotalRecords}}</span> 个订单，订单列表如下：</div>
 			<div class="table-container">
 			<table class="table table-all-boder">
 				<thead>	
 					<tr class="">
-						<th class="noBorder">{{ 'COMMON.NUMBER' | translate}}</th>
+						<!--<th class="noBorder">{{ 'COMMON.NUMBER' | translate}}</th>-->
 						<th class="noBorder">{{ 'COMMON.ORDER_NUM' | translate}}</th>
 						<th class="noBorder">{{ 'PROD_MNG.PRODUCT_TYPE' | translate}}</th>
 						<th class="noBorder">{{ 'CHECK_CENTER.ORDERS_TYPE' | translate}}</th>
@@ -103,7 +103,7 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let item of _orderLoader.Items;let i=index;">
-						<td>{{i}}</td>
+						<!--<td>{{i}}</td>-->
 						<td>{{item.orderNo}}</td>
 						<td>{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
 						<td>{{item.orderType | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
