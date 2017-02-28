@@ -37,9 +37,10 @@ export class MsgAlertComponent implements OnInit {
     msgAlert: MsgAlertModel = new MsgAlertModel();
     expand: boolean = false;
     ngOnInit(): void {
+        this.getMsgAlert();
         window.setInterval(() => {
             this.getMsgAlert();
-        }, 5000);        
+        }, 30000);        
     }
 
     offClickHandler(event) {

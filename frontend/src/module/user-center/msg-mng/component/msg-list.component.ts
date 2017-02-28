@@ -209,7 +209,35 @@ export class MsgListComponent implements OnInit {
             this.showMsg("USER_CENTER.PLEASE_CHOOSE_UNREAD_MSG");
             return;
         }
+    }
 
+    showAndMark(index: string) {
+        this.showMsgDetails("USER_CENTER.MSG_CONTENT",this.msgAlert.list[index].content);
+        if (this.msgAlert.list[index].status === '0') {
+            this.layoutService.hide();
+            this.service.setMsgRead(this.msgAlert.list[index].id)
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        console.log("Set ", this.msgAlert.list[index].id, " to READ!");
+                        this.msgAlert.list[index].status = '1';
+                    } else {
+                        this.showMsg("USER_CENTER.MARK_MSG_READ_FAILED");
+                        return;
+                    }
+                })
+                .catch((e) => {
+                    this.onRejected(e);
+                    this.showMsg("USER_CENTER.MARK_MSG_READ_EXCEPTION");
+                });
+        } else {
+            console.log("This message is already read!");
+        }
+    }
+
+    showMsgDetails(title: string, msg: string) {
+        this.notice.open(title, msg);
     }
 
     onRejected(reason: any) {
