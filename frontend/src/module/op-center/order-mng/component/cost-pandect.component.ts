@@ -1,7 +1,7 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import { CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import { UserInfo,CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 
 import * as _ from 'underscore';
 
@@ -27,19 +27,20 @@ export class CostPandectComponent implements OnInit{
 @ViewChild("notice")
   	private _notice: NoticeComponent;
 
+isRoot = false;
+
 currentYear :number;
 currentMonth : number;
 lastDay:number;
 _param:CostPandectParam = new CostPandectParam();
 private _years:Array<Time>=[];
 private _months:Array<Time>=[];
+
+private userTypeLoader:ItemLoader<UserInfo>= null;
+
 //企业下拉列表
 private enterpriseLoader : ItemLoader<{id:string;name:string}>= null;
 
-//订单类型
-private _orderTypeDic:DicLoader = null;
-//订购人
-private _buyerLoader:ItemLoader<{id:string; name:string}> = null;
 
 private orderItemLoader:ItemLoader<CostPandectItem> = null;//表格
 
@@ -61,6 +62,20 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 		private restApi:RestApi){
         
         this.enterpriseLoader = new ItemLoader<{id:string;name:string}> (false,'企业列表加载错误','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
+        this.userTypeLoader = new ItemLoader<UserInfo> (false,'用户类型加载出错','op-center.order-mng.ent-type.get',this.restApiCfg,this.restApi);
+       
+        this.userTypeLoader.MapFunc = (source:Array<any>, target:Array<UserInfo>)=>{
+                let obj = new UserInfo();
+                for(let item of source){
+                obj.enterpriseId = item.enterpriseId;
+				obj.enterpriseName = item.enterpriseName;
+                obj.roleName = item.roles[0].roleName;
+                }
+				
+                target.push(obj);
+			
+		}
+
         this.orderItemLoader = new ItemLoader<CostPandectItem> (false,'消费总览列表加载错误','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
 
           this.orderItemLoader.MapFunc = (source:Array<any>, target:Array<CostPandectItem>)=>{
@@ -70,21 +85,6 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 				target.push(obj);
 			}
 		}
-
-        //订购人加载
-		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, 'ORDER_MNG.BUYER_DATA_ERROR', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
-
-        this._buyerLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
-			for(let item of source)
-			{
-				let obj=_.extend({}, item) ;
-				target.push(obj);
-				obj.id = item.key;
-				obj.name = item.value;
-			}
-		}
-
-        this._orderTypeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
 
     
        	this.consumeLoader = new ItemLoader<ConsumeSum>(false, '消费概览加载失败', "op-center.order-mng.cost-pandect.consume.post", this.restApiCfg, this.restApi);
@@ -126,9 +126,14 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 }
 	ngOnInit(){
         this.layoutService.show();
+        this.loadUserType();
         this.getCurrentTime();
         this.getTimeData();//时间下拉列表
-        this.loadEnterprise();
+        // this.loadEnterprise();
+        this.createSumBar();
+        this.createHstoryBar();
+        this.createTopBar();
+        this.createTopBar2();
         // this.search_chart();
         // this._buyerLoader.Go(null, [{key:"departmentId", value:null}])
         // .then(success=>{
@@ -140,12 +145,19 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 		// });
 		this.layoutService.hide();
 	}
+
+
 getCurrentTime(){
     let date = new Date();
     this.currentYear = date.getFullYear();
     this.currentMonth = date.getMonth()+1;
 }
 
+isRootUser(){
+    let item = this.userTypeLoader.FirstItem;
+    if(item.roleName&&item.roleName=='ENTERPRISE_ADMIN')
+        this.isRoot = true;
+}
 getTimeData(){
     
     for(let i = 1999; i<=this.currentYear ; i++){
@@ -175,6 +187,7 @@ getMonths(){
 
 getLastDay(){
      this.lastDay = new Date(Number(this._param.year),Number(this._param.month),0).getDate();
+     this.search_chart();
     //  alert(this.lastDay);
 }
 
@@ -189,6 +202,25 @@ getLastDay(){
 			})
 		});
 	}
+//判断用户是普通用户还是管理员
+    loadUserType(){
+        this.layoutService.show();
+        this.userTypeLoader.Go()
+            .then(sucess=>{
+                let item = this.userTypeLoader.FirstItem;
+                this.isRootUser();
+                this.layoutService.hide();
+            })
+            .catch(err=>{
+                this.layoutService.hide();
+                this.showMsg(err);
+            })
+     
+        
+    }
+showDetail(orderItemId:string){
+		this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderItemId}`);
+	}	
 
 loadTopChart(){
     
@@ -200,15 +232,7 @@ loadTopChart(){
             startTime:this._param.year+'-'+month+'-01'+' 00:00:00',
             ids:[]
         };
-    if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){    
-            for(let item of this.enterpriseLoader.Items){
-                let ent = {key:item.id};
-                enterprises.push(ent);
-            }       
-    }
-    else{
-        enterprises.push({key:this._param.enterpriseId});     
-    }
+    enterprises.push({key:this.userTypeLoader.FirstItem.enterpriseId});     
 
     
 
@@ -217,6 +241,8 @@ loadTopChart(){
      this.topConsumeLoad(param);
      this.topIncreseConsumeLoad(param);
 }
+
+
 //发送请求，处理参数，展示
 consumeLoad(){
     this.layoutService.show();
@@ -228,22 +254,15 @@ consumeLoad(){
             startTime:this._param.year+'-'+month+'-01'+' 00:00:00',
             ids:[]
         };
-     if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){    
-            for(let item of this.enterpriseLoader.Items){
-                sumIds.push({key:item.id,value:item.name});
-            }       
-    }
-    else{
-         let item = this.enterpriseLoader.Items.find(n=>n.id==this._param.enterpriseId);
-        sumIds.push({key:this._param.enterpriseId,value:item.name});
-    }
    
+    sumIds = [{key:this.userTypeLoader.FirstItem.enterpriseId,value:this.userTypeLoader.FirstItem.enterpriseName}];
     param.ids = sumIds;
 
     this.consumeLoader.Go(null,null,param)
      .then(success=>{
          this.toSumDatas(this.consumeLoader.FirstItem,this.d_chart);
-         this.createSumBar();
+         this.ent_dht[0].data = this.d_chart.datas;
+         
          this.layoutService.hide();
     })
     .catch(err=>{
@@ -260,18 +279,11 @@ totalconsumeLoad(){
      let param={
         endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
         ids:[],
-        size:Number(this._param.month)
+        size:4// Number(this._param.month)
     };
 
-    if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){    
-            for(let item of this.enterpriseLoader.Items){
-                historyIds.push(item.id);
-            }       
-    }
-    else{
-                historyIds.push(this._param.enterpriseId);
-    }
-
+ 
+    historyIds = [this.userTypeLoader.FirstItem.enterpriseId];
 
      param.ids = historyIds;
 
@@ -282,7 +294,8 @@ totalconsumeLoad(){
     .then(success=>{
         this.toHistoryData(this.totalConsumeLoader.Items,this.b_chart);
         this.toIncreaseHistoryData(this.increseConsumeLoader.Items,this.b_chart);
-        this.createHstoryBar();
+        this.ent_bar[0].data =  this.b_chart.datas;
+        this.ent_bar[1].data =  this.b_chart.datas2;
        this.layoutService.hide();
     })
     .catch(err=>{
@@ -293,58 +306,58 @@ totalconsumeLoad(){
 
 topConsumeLoad(param:any){
     this.layoutService.show();
-    if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){
-        this.topConsumeLoader.Go(null,null,param)
-        .then(success=>{
-            this.topToDatas(this.h_chart,this.topConsumeLoader.Items);
-            this.createTopBar();
-            this.layoutService.hide();
-        })
-        .catch(err=>{
-            this.layoutService.hide();
-            this.showMsg(err);
-        })
-    }else{
+    // if(this.isNullEnterprise()){
+    //     this.topConsumeLoader.Go(null,null,param)
+    //     .then(success=>{
+    //         this.topToDatas(this.h_chart,this.topConsumeLoader.Items);
+    //         this.ent_hbar[0].data =  this.h_chart.datas;
+    //         this.layoutService.hide();
+    //     })
+    //     .catch(err=>{
+    //         this.layoutService.hide();
+    //         this.showMsg(err);
+    //     })
+    // }else{
         this.topConsumeDepartmentLoader.Go(null,null,param)
         .then(success=>{
            this.topToDatas(this.h_chart,this.topConsumeDepartmentLoader.Items);
-           this.createTopBar();
+           this.ent_hbar[0].data =  this.h_chart.datas;
+        
             this.layoutService.hide();
         })
         .catch(err=>{
             this.layoutService.hide();
             this.showMsg(err);
         }) 
-    }
     
      
 }
 
 topIncreseConsumeLoad(param:any){
     this.layoutService.show();
-      if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){
-        this.topIncreseConsumeLoader.Go(null,null,param)
-        .then(success=>{
-              this.topToDatas(this.h_chart2,this.topIncreseConsumeLoader.Items);
-              this.createTopBar2();
-             this.layoutService.hide();
-        })
-        .catch(err=>{
-            this.layoutService.hide();
-            this.showMsg(err);
-        })
-    }else{
+    //   if(this.isNullEnterprise()){
+    //     this.topIncreseConsumeLoader.Go(null,null,param)
+    //     .then(success=>{
+    //           this.topToDatas(this.h_chart2,this.topIncreseConsumeLoader.Items);
+    //           this.ent_hbar2[0].data =  this.h_chart2.datas;
+    //          this.layoutService.hide();
+    //     })
+    //     .catch(err=>{
+    //         this.layoutService.hide();
+    //         this.showMsg(err);
+    //     })
+    // }else{
         this.topIncreseConsumeDepartmentLoader.Go(null,null,param)
         .then(success=>{
                 this.topToDatas(this.h_chart2,this.topIncreseConsumeDepartmentLoader.Items);
-            	this.createTopBar2();
+            	this.ent_hbar2[0].data =  this.h_chart2.datas;
                this.layoutService.hide();
         })
         .catch(err=>{
             this.layoutService.hide();
             this.showMsg(err);
         }) 
-    }
+    
     
 }
 
@@ -411,7 +424,7 @@ topToDatas(target:Chart,items:Array<any>){
 
 
 search_chart(){
-    this.clear();
+    //this.clear();
 //是canvas没有清除画布内容？？？？
     //消费概览
     this.consumeLoad();
@@ -421,25 +434,12 @@ search_chart(){
 
     //两个TOP图
     this.loadTopChart();
-
-    console.log("概览"+this.d_chart.datas);
-    console.log("趋势"+this.b_chart.datas);
-    console.log("TOP1"+this.h_chart.datas);
-    console.log("TOP2"+this.h_chart2.datas);
-}
-clear(){
-    this.d_chart.clear();
-
-    this.b_chart.clear();
-  
-    this.h_chart.clear();
-    this.h_chart2.clear();
 }
 
 
 createSumBar(){
     this.ent_dht=[{
-                        data: this.d_chart.datas,
+                        data: [0,0,0,0],
                         borderWidth:[
                             0,0,0,0
                         ]
@@ -475,8 +475,8 @@ createHstoryBar(){
                 },{
 
                     backgroundColor: "rgba(75,192,192,0.4)",
-                    borderColor: "rgba(75,192,192,1)",
-                    pointBorderColor: "rgba(75,192,192,1)",
+                    borderColor: "rgba(255, 99, 132, 1)",
+                    pointBorderColor: "rgba(255, 99, 132, 1)",
                     pointBackgroundColor: "#fff",
                     pointHoverBackgroundColor: "rgba(75,192,192,1)",
                     pointHoverBorderColor: "rgba(220,220,220,1)",
@@ -498,7 +498,7 @@ createHstoryBar(){
 this.ent_bar=[{
                         type: "bar",
                         label: "总消费",
-                        data: this.b_chart.datas,
+                        data: [],
                          
                     },{   type: 'line',
                             label: "新增消费",
@@ -513,7 +513,7 @@ this.ent_bar=[{
                             pointHoverBorderWidth: 2,
                             pointRadius: 1,
                             pointHitRadius: 10,
-                            data: this.b_chart.datas2,
+                            data: [],
                             spanGaps: false,
                         }
                    ];
@@ -523,7 +523,7 @@ this.ent_bar=[{
 createTopBar(){
      this.ent_hbar=[{
         label:'消费总额',
-        data: this.h_chart.datas
+        data: [0,0]
                          
      }];
         this.h_chart.colors  = [
@@ -561,7 +561,7 @@ createTopBar(){
 createTopBar2(){
             this.ent_hbar2=[{
             label:'消费总额',
-            data: this.h_chart2.datas
+            data: [0,0]
                          
      }];
 
