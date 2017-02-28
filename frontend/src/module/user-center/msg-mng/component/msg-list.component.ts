@@ -16,7 +16,7 @@ import { MsgModel_mock } from "../model/msg-alert.mock";
 @Component({
     selector: "msgList",
     templateUrl: "../template/msg-list.html",
-    styleUrls: [],
+    styleUrls: ["../style/msg-alert.less"],
     providers: []
 })
 export class MsgListComponent implements OnInit {
@@ -44,98 +44,200 @@ export class MsgListComponent implements OnInit {
     noticeMsg = "";
 
     pageIndex = 1;
-    pageSize = 2;
+    pageSize = 6;
     totalPage = 1;
 
-    paginationFlag: number = 1;
+    paginationFlag: string = "2";
 
     msgAlert: MsgAlertModel = new MsgAlertModel();
 
+    selectedmsglist: Array<MsgModel> = [];
+    allSelected: boolean = false;
+
+    private okCallback: Function = null;
+    okClicked() {
+        console.log('okClicked');
+        if (this.okCallback) {
+            console.log('okCallback()');
+            this.okCallback();
+            this.okCallback = null;
+        }
+    }
+
+    private confirmedHandler: Function = null;
+    onConfirmed() {
+        if (this.confirmedHandler) {
+            this.confirmedHandler();
+            this.confirmedHandler = null;
+        }
+    }
+
     ngOnInit(): void {
-        this.getMsgListAll();
-
+        this.getMsgList(this.paginationFlag);
     }
 
-    getMsgListAll(pageIndex?): void {
-        this.paginationFlag = 1;
+    getMsgList(status:string, pageIndex?): void {
+        this.paginationFlag = status;
         this.pageIndex = pageIndex || this.pageIndex;
-        this.service.getMsgListAll(this.pageIndex, this.pageSize)
+        this.layoutService.show();
+        this.service.getMsgListStatus(this.pageIndex, this.pageSize, this.paginationFlag)
             .then(
             response => {
+                this.layoutService.hide();
+                console.log(response, "response!");
                 if (response && 100 == response["resultCode"]) {
-                    //this.msgAlert = response.resultContent;
-                    //console.log(this.msgAlert, "this.msgAlert");
+                    this.msgAlert.edge = response.pageInfo.totalRecords;
+                    this.msgAlert.list = response.resultContent;
                     this.totalPage = 4;//response.pageInfo.totalPage;
+                    this.pageSize = 6;
+                    console.log(this.msgAlert, "this.msgList!");
                 } else {
-                    this.showMsg("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
                     this.msgAlert.edge = 0;
                     return;
                 }
-            }
-            )
+            })
             .catch((e) => {
                 this.onRejected(e);
             });
     }
 
-    getMsgListUnRead(pageIndex?): void {
-        this.paginationFlag = 2;
-        this.pageIndex = pageIndex || this.pageIndex;
-        this.service.getMsgListAll(this.pageIndex, this.pageSize)
-            .then(
-            response => {
-                if (response && 100 == response["resultCode"]) {
-                    //this.msgAlert = response.resultContent;
-                    //console.log(this.msgAlert, "this.msgAlert");
-                    this.totalPage = 4;//response.pageInfo.totalPage;
-                } else {
-                    this.showMsg("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
-                    this.msgAlert.edge = 0;
-                    return;
-                }
-            }
-            )
-            .catch((e) => {
-                this.onRejected(e);
-            });
-    }
 
-    getMsgListRead(pageIndex?): void {
-        this.paginationFlag = 3;
+
+    getMsgNextPage(pageIndex?): void {
         this.pageIndex = pageIndex || this.pageIndex;
-        this.service.getMsgListAll(this.pageIndex, this.pageSize)
+        this.layoutService.show();
+        this.service.getMsgListStatus(this.pageIndex, this.pageSize, this.paginationFlag)
             .then(
             response => {
+                this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    //this.msgAlert = response.resultContent;
-                    //console.log(this.msgAlert, "this.msgAlert");
+                    this.msgAlert.edge = response.pageInfo.totalRecords;
+                    this.msgAlert.list = response.resultContent;
                     this.totalPage = 4;//response.pageInfo.totalPage;
+                    this.pageSize = 6;
+                    console.log(this.msgAlert, "this.msgAlert next");
                 } else {
-                    this.showMsg("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
                     this.msgAlert.edge = 0;
                     return;
                 }
-            }
-            )
+            })
             .catch((e) => {
                 this.onRejected(e);
             });
     }
 
     deleteMsgs() {
-        this.deletemsgbox.open();
+        let ml = this.getSelectedItems();
+        if (ml.length != 0) {
+            this.selectedmsglist = ml;
+            this.deletemsgbox.open();                   
+        } else {
+            this.showMsg("USER_CENTER.PLEASE_CHOOSE_MSG");
+            return;
+        }
+        
     }
 
     acceptDeleteMsgModify() {
+        let ml = this.getSelectedItems();
+        if (ml.length != 0) {
+            this.selectedmsglist = ml;
+            let msg_id_array = this.selectedmsglist.map((msg) => {
+                return <string>msg.id;
+            });
+            let ids = msg_id_array.join(",");
+            this.layoutService.show();
+            this.service.deleteMsgList(ids)
+                .then(
+                    response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        console.log("Delete msg: ", ids, " successfully!");
+                    } else {
+                        this.showMsg("USER_CENTER.DELETE_MSG_FAILED");
+                        return;
+                    }
+                })
+                .then(()=>{                    
+                    this.deletemsgbox.close();
+                    this.getMsgList(this.paginationFlag);
+                })
+                .catch(err => {
+                    console.log('USER_CENTER.DELETE_MSG_EXCEPTION', err);
+                    this.layoutService.hide();
+                    this.deletemsgbox.close();
+                    this.showMsg("USER_CENTER.DELETE_MSG_EXCEPTION");
+                    this.okCallback = () => { 
+                        this.deletemsgbox.open();  };
+                });
+
+        }
 
     }
 
     cancelDeleteMsgModify() {
-        
+        console.log("click cancelDeleteMsgModify!");        
     }
 
     markMsgs() {
+        let ml = this.getSelectedItems();
+        this.selectedmsglist = ml.filter(n=> { return (n.status == '0');});  //select all unread msg
+        if (this.selectedmsglist.length != 0) {            
+            let msg_id_array = this.selectedmsglist.map((msg) => {
+                return <string>msg.id;
+            });
+            let ids = msg_id_array.join(",");
+            this.layoutService.show();
+            this.service.setMsgRead(ids)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    console.log("Set ", ids, " to READ!");
+                } else {
+                    this.showMsg("USER_CENTER.MARK_MSG_READ_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+                this.showMsg("USER_CENTER.MARK_MSG_READ_EXCEPTION");
+            });
+        } else {
+            this.showMsg("USER_CENTER.PLEASE_CHOOSE_UNREAD_MSG");
+            return;
+        }
+    }
 
+    showAndMark(index: string) {
+        this.showMsgDetails("USER_CENTER.MSG_CONTENT",this.msgAlert.list[index].content);
+        if (this.msgAlert.list[index].status === '0') {
+            this.layoutService.hide();
+            this.service.setMsgRead(this.msgAlert.list[index].id)
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        console.log("Set ", this.msgAlert.list[index].id, " to READ!");
+                        this.msgAlert.list[index].status = '1';
+                    } else {
+                        this.showMsg("USER_CENTER.MARK_MSG_READ_FAILED");
+                        return;
+                    }
+                })
+                .catch((e) => {
+                    this.onRejected(e);
+                    this.showMsg("USER_CENTER.MARK_MSG_READ_EXCEPTION");
+                });
+        } else {
+            console.log("This message is already read!");
+        }
+    }
+
+    showMsgDetails(title: string, msg: string) {
+        this.notice.open(title, msg);
     }
 
     onRejected(reason: any) {
@@ -161,40 +263,45 @@ export class MsgListComponent implements OnInit {
     showError(msg: any) {
         this.notice.open(msg.title, msg.desc);
     }
-/*
-    //根据value显示
-    displayIt(value: any): any {
-        if(this.validationService.isBlank(value)){
-            //console.log(value, "In dispalyIt()1")
-            //return "未设置";
-            return "COMMON.UNSET";
-        } else {
-            //console.log(value, "In dispalyIt()2")
-            return value.toString();            
-        }
-    }
+
 
     //选择行
     selectItem(index:number): void {
-        this.phynets.map(n=> {n.checked = false;});
-        this.phynets[index].checked = true;
-        console.log(this.phynets, "=== Please see which one is selected ===");
+        //this.phynets.map(n=> {n.checked = false;});
+        this.msgAlert.list[index].checked = !this.msgAlert.list[index].checked;
+        console.log(this.msgAlert.list, "=== Please see which ones are selected ===");
+        let selectedml = this.msgAlert.list.filter(n=> { return (n.checked == true);});
+        if(selectedml.length == this.pageSize) {
+            console.log("The latest one was selected, so all selected!");
+            this.allSelected = true;
+        } else {
+            this.allSelected = false;
+        }
     }
 
-    UnselectItem(): void {
-        this.phynets.map(n=> {n.checked = false;});
+    selectOrUnSAllItems(): void {
+        if (this.allSelected) {
+            console.log("All checked before, so set them all unselected");
+            this.allSelected = false;
+            this.msgAlert.list.map(n=> { n.checked = false;});
+        } else {
+            console.log("All unchecked before, so set them all selected");
+            this.allSelected = true;
+            this.msgAlert.list.map(n=> { n.checked = true;});
+        }
     }
 
-    getSelected() {
-        let item = this.phynets.find((n) => n.checked) as PhyNetListModel;
-        if (item){
-            return item;
+    getSelectedItems() {
+        this.selectedmsglist = this.msgAlert.list.filter(n=> { return (n.checked == true);});
+        if (this.selectedmsglist.length != 0){
+            return this.selectedmsglist;
         }
         else {
-            this.showMsg("PHY_NET_MNG.PLEASE_CHOOSE_NETWORK");
-            return null;
+            //this.showMsg("COMMON.PLEASE_CHOOSE_IMAGE");
+            return [];
         }
     }
-    */
+
+
 
 }

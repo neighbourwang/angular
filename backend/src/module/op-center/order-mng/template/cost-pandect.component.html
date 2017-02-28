@@ -1,5 +1,5 @@
 <div class="CostPandect">	
-	<div class="page-content-header">消费总览</div>
+	<div class="page-content-header icon-operator-Blank">消费总览</div>
 	<div class="page-content">
 
 		<div class="firstPanel">
@@ -70,7 +70,8 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="console-box">
-                        <div class="console-title">TOP5部门消费总额排名</div>
+                        <div class="console-title" *ngIf='!this.isNullEnterprise()'>TOP5部门消费总额排名</div>
+						<div class="console-title" *ngIf='this.isNullEnterprise()'>TOP5企业消费总额排名</div>
                         <div class="ues-content">
                             <!--<canvas id="h_bar_chart" width="200" height="70"></canvas>-->
 							 <canvas baseChart
@@ -85,7 +86,8 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="console-box">
-                        <div class="console-title">TOP5部门新增总额排名</div>
+                        <div class="console-title" *ngIf='!this.isNullEnterprise()'>TOP5部门新增总额排名</div>
+						<div class="console-title" *ngIf='this.isNullEnterprise()'>TOP5企业消费总额排名</div>
 						 <canvas *ngIf="ent_hbar2" baseChart
                           width="200" height="70"
                           [datasets]="ent_hbar2"
@@ -106,17 +108,11 @@
 		<div class="firstPanel mgt20">
 
             <div class="float-left mgr20">
-                <span>订单类型：</span>
+                <span>服务类型</span>
                 <select class="form-control fix-width-120" [(ngModel)]="_param.orderType">
-                    <option class="hands" [value]="null">所有订单</option>
+                    <option class="hands" [value]="null">所有服务</option>
+					<option class="hands" [value]="null">新增服务</option>
                     <!--<option class="hands" *ngFor="let item of _orderTypeLoader.Items" [value]="item.id">{{item.name}}</option>-->
-                </select>
-            </div>
-            <div class="float-left">
-                <span>购买人：</span>
-                <select class="form-control fix-width-120" [(ngModel)]="_param.buyer">
-                    <option class="hands" [value]="null">所有人</option>
-                    <!--<option class="hands" *ngFor="let item of _buyerLoader.Items" [value]="item.id" >{{item.name}}</option>-->
                 </select>
             </div>
 		</div><!--  下拉选项行 ending-->
@@ -140,7 +136,7 @@
                     <tbody>
                         <tr class="text-center" *ngFor="let item of orderItemLoader.Items;let i = index;">
                             <td class="vertical-center">{{i}}</td>
-                            <td class="vertical-center">{{item.orderNo}}</td>
+                            <td class="vertical-center"><a (click)='showDetail(item.id)'>{{item.orderNo}}</a></td>
                             <td class="vertical-center">{{item.name}}</td>
                             <td class="vertical-center">{{item.payWay}}</td>
                             <td class="vertical-center">{{item.department}}</td>

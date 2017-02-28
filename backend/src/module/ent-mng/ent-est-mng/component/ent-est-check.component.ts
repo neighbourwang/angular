@@ -43,12 +43,33 @@ export class EntEstCheckComponent implements OnInit {
      this.extendDetailLoader = new ItemLoader<ExtendDetailItem>(false,'加载数据错误','ent-mng.ent-est-mng.enterprise.detail.ext',restApiCfg,restApi);
   
 
-    // this.extendDetailLoader.MapFunc = (source:Array<any>,target:Array<ExtendDetailItem>)=>{
-    //   let obj = new ExtendDetailItem();
-    //   for(let item of source){
-    //     target.push(obj);
-    //   }
-    // }
+    this.extendDetailLoader.MapFunc = (source:Array<any>,target:Array<ExtendDetailItem>)=>{
+      let obj = new ExtendDetailItem();
+      for(let item of source){
+        obj.orderForAudit = item.orderForAudit;
+        obj.serviceToExpired = item.serviceToExpired;
+
+        obj.ticketNew = item.ticketNew;
+        obj.ticketProcessing = item.ticketProcessing;
+        obj.ticketDone = item.ticketDone;
+
+        obj.userEnabled = item.userEnabled;
+        obj.userDisabled = item.userDisabled;
+
+        obj.vmRunning = item.vmRunning;
+        obj.vmPaused = item.vmPaused;
+
+        obj.storageRunning = item.storageRunning;
+        obj.storagePaused = item.storagePaused;
+
+        obj.dbRunning = item.dbRunning;
+       obj.dbPaused = item.dbPaused;
+
+        obj.snapshotRunning = item.snapshotRunning;
+
+        target.push(obj);
+      }
+    }
 
   // this.extendDetailLoader.FakeDataFunc = (target:Array<ExtendDetailItem>)=>{
   //     target.splice(0, target.length);

@@ -31,7 +31,6 @@ export class ProdDirCreComponent implements OnInit {
     @ViewChild('notice')
     notice: NoticeComponent;
 
-
     prodDir = new ProdDir();
     _platformlist: Array<platform> = new Array<platform>();
     pageTitle:string;
@@ -136,6 +135,7 @@ export class ProdDirCreComponent implements OnInit {
     }
     //选择平台可用区
     selectZone(idx, idxx) {
+        console.log('121212121',idx,idxx);
         this._platformlist[idx].zoneList[idxx].selected = !this._platformlist[idx].zoneList[idxx].selected;
         console.log(this._platformlist[idx]);
         this.prodDir.platformList = this._platformlist.filter(function (ele) {
@@ -145,8 +145,18 @@ export class ProdDirCreComponent implements OnInit {
                 }
             }
         })
-        if (this.prodDir.platformList.length == 0) { this.selectAllZone = false }
-        if (this.prodDir.platformList.length == this._platformlist.length) { this.selectAllZone = true }
+        if (this.prodDir.platformList.length !=this._platformlist.length) { 
+            this.selectAllZone = false;
+            return;
+        }
+        this.selectAllZone=true;
+        for(let platform of this._platformlist){
+            for(let zone of platform.zoneList){
+                if(zone.selected==false){
+                   return this.selectAllZone=false;                           
+                }
+            }                
+        }
     }
 
     cancel() {
@@ -157,8 +167,6 @@ export class ProdDirCreComponent implements OnInit {
         console.log(this.prodDir);
         if (!this.prodDir.serviceName) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.INPUT_PRODUCT_CAT'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.INPUT_PRODUCT_CAT=>请输入产品目录名称 
-
-
             return;
         }
         if (this.prodDir.specification.vcpu == 0 || this.prodDir.specification.mem == 0) {

@@ -15,3 +15,8 @@ export class HostInfo {
     memoryPeak: number;
     memoryPeakTime: string;
 }
+
+export class DataSet {
+    data: Array<number>;
+    label: string;
+}

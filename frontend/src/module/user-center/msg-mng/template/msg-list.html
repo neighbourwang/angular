@@ -1,113 +1,64 @@
 <div class="page-content-header icon-content-header-physical-mng">
-    消息中心
+    {{'USER_CENTER.MSG_CENTER' | translate}}
 </div>
 
 <div class="page-content">
     <div class="mgb20">
-        <button class="btn btn-default button-gray-gradient" (click)="getMsgListAll();">
-            <!-- <span class="icon-button-label icon-left-button-label">所有消息</span> -->
-            所有消息
+        <button class="btn btn-default button-gray-gradient" [ngClass]="{'active': paginationFlag === '2'}" (click)="getMsgList('2');">
+            {{'USER_CENTER.ALL_MSG' | translate}}
         </button>
-        <button class="btn btn-default button-gray-gradient" (click)="getMsgListUnRead();">       
-            未读消息
+        <button class="btn btn-default button-gray-gradient" [ngClass]="{'active': paginationFlag === '0'}" (click)="getMsgList('0');">       
+            {{'USER_CENTER.UNREAD_MSG' | translate}}
         </button>
-        <button class="btn btn-default button-gray-gradient" (click)="getMsgListRead();">       
-            已读消息
+        <button class="btn btn-default button-gray-gradient" [ngClass]="{'active': paginationFlag === '1'}" (click)="getMsgList('1');">       
+            {{'USER_CENTER.READ_MSG' | translate}}
         </button>
        
         <div class="dropdown pull-right" >
             <button class="btn btn-default button-gray-gradient" (click)="deleteMsgs();">
-                删除
+                <i class="glyphicon glyphicon-trash"></i>
+                {{'COMMON.DELETE' | translate}}
             </button>
             <button class="btn btn-default button-gray-gradient" (click)="markMsgs();">
-                标示已读
+                <i class="glyphicon glyphicon-folder-open"></i>
+                {{'USER_CENTER.MARK_READ' | translate}}
             </button>
-            <!--
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{'COMMON.SELECT_OPERATION' | translate}}
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="javascript:void(0);" (click)="enablePhyNet();">{{'COMMON.ENABLE' | translate}}</a></li>
-                <li><a href="javascript:void(0);" (click)="disablePhyNet();">{{'COMMON.DISABLE' | translate}}</a></li>
-                <li><a href="javascript:void(0);" (click)="deletePhyNet();">{{'COMMON.DELETE' | translate}}</a></li>
-            </ul>
-            -->
         </div>
 
     </div>
 
     <div class="table-container">
-        <table class="table table-hover">
+        <table class="table table-hover" >
             <thead>
                 <tr>
-                    <th><input type="checkbox" class="fox-cloud-checkbox" name="checkbox" [checked]="phynet" (click)="selectAllItems();" /> <span style="margin: 3px">全选</span></th>
-                    <th>消息内容</th>
-                    <th>创建时间</th>
+                    <th style="width: 80px; text-align: center;"><input type="checkbox" class="fox-cloud-checkbox" name="checkbox" [checked]="allSelected" (click)="selectOrUnSAllItems();" /> <span style="margin: 3px">{{'USER_CENTER.ALL_SELECTED' | translate}}</span></th>
+                    <th style="text-align: center;">{{'USER_CENTER.MSG_CONTENT' | translate}}</th>
+                    <th style="width: 170px; text-align: center;">{{'USER_CENTER.CREATE_TIME' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- <tr *ngFor="let msglist of msgs; let i = index;"> -->
-                <tr>   
-                    <td><input type="checkbox" class="fox-cloud-checkbox" name="checkbox" [checked]="phynet" (change)="selectItem(i);"></td>
-                    <td style="position:relative"><a href="javascript:void(0);" > 11111111111111111111 </a>                        
+                <tr *ngFor="let msg of msgAlert.list; let i = index;" >   
+                    <td style="text-align: center;"><input type="checkbox" class="fox-cloud-checkbox" name="checkbox" [checked]="msg.checked" (change)="selectItem(i);"></td>
+                    <td style="vertical-align: middle">
+                        <table style="width: 100%; table-layout: fixed; border: none; padding: 0; margin: 0;">
+                            <tr  style="border: none; padding: 0; margin: 0;">
+                                <td class="hide_details" style="border: none; padding: 0; margin: 0;">
+                                    <i [ngClass]="msg.status==='0'?'glyphicon glyphicon-folder-close':'glyphicon glyphicon-folder-open'"></i>
+                                    <a href="javascript:void(0);" [ngStyle]="{'font-weight': msg.status==='0'?'bold':'normal'}" (click)="showAndMark(i);"> {{msg.content}} </a>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
-                    <td> 2016-02-02 </td>
-                    <!--
-                    <td [ngClass]="phynet.status==1?'font-green':'font-orange'"> {{(phynet.status | dict:this.dictService.statusDict | async) || "未设置"}} 
-                        
-                         <span class="pull-right icon-edit2" (click)="onSelect(phynet);phynet.nameEditing=true;" style="display:inline-block"></span> 
-                         <div *ngIf="phynet.nameEditing" class="popover fade bottom in" role="tooltip" style="top:25px; left:10px; width:320px; max-width:1100px; display: block; z-index: 50;">
-                                <div class="arrow" style="left: 30%;"></div>
-                                <div class="popover-content">
-                                    <form class="form-horizontal" role="form">
-                                        <div class="form-group">
-                                            <label class="col-sm-4 control-label">网络名称:</label>
-                                            <div class="col-sm-8 float-left">
-                                            <input type="text" />
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <div class="pull-right" style="margin-bottom:10px;">
-                                        <button class=" fox-cloud-button fox-cloud-button-white">保存</button>
-                                        <button class="fox-cloud-button fox-cloud-button-white">取消</button>
-                                    </div>
-                                </div>
-                         </div>
-                         
-                    </td>-->
-                </tr>
-                <tr>
-                    <td><input type="checkbox" class="fox-cloud-checkbox" name="checkbox" [checked]="phynet" (change)="selectItem(i);"></td>
-                    <td style="position:relative"><a href="javascript:void(0);" > 2222222222222222222 </a>                        
-                    </td>
-                    <td> 2016-02-02 </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" class="fox-cloud-checkbox" name="checkbox" [checked]="phynet" (change)="selectItem(i);"></td>
-                    <td style="position:relative"><a href="javascript:void(0);" > 33333333333333333333 </a>                        
-                    </td>
-                    <td> 2016-02-02 </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" class="fox-cloud-checkbox" name="checkbox" [checked]="phynet" (change)="selectItem(i);"></td>
-                    <td style="position:relative"><a href="javascript:void(0);" > 44444444444444444444 </a>                        
-                    </td>
-                    <td> 2016-02-02 </td>
+                    <td> {{msg.createTime}} </td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <div class="fox-cloud-pagination-container" *ngIf="paginationFlag == 1">
-        <fc-pagination #pager tp={{totalPage}} (pf)="getMsgListAll($event)"></fc-pagination>
+    <div class="fox-cloud-pagination-container">
+        <fc-pagination #pager tp={{totalPage}} (pf)="getMsgNextPage($event)"></fc-pagination>
     </div>
-    <div class="fox-cloud-pagination-container" *ngIf="paginationFlag == 2">
-        <fc-pagination #pager tp={{totalPage}} (pf)="getMsgListUnRead($event)"></fc-pagination>
-    </div>
-    <div class="fox-cloud-pagination-container" *ngIf="paginationFlag == 3">
-        <fc-pagination #pager tp={{totalPage}} (pf)="getMsgListRead($event)"></fc-pagination>
-    </div>
+
     <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" (of)="okClicked()"></fc-notice>
     <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}"></fc-confirm>
 
@@ -118,130 +69,10 @@
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-12">
-                        {{'USER_CENTER.DELETE_MSG_CONFIRM' | translate:{value_1: ( "100" ||"phy_network")} }}
+                        <i class="glyphicon glyphicon-trash"></i>
+                        {{'USER_CENTER.DELETE_MSG_CONFIRM' | translate:{value_1: ( selectedmsglist.length )} }}
 					</div>
 				</div>
 			</div>
 	</div>
 </fc-popup>
-<!--
-<fc-popup #createphynetbox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'PHY_NET_MNG.CREATE_PM_NET' | translate}}" (of)="acceptPhyNetCreateModify()" (cf)="cancelPhyNetCreateModify()">
-    <div class="dialogContent">
-    <div class="row row-line-height">
-        <div class="form-group">
-            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PHY_NET_MNG.PHY_NET_NAME' | translate}}：</div>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="phynet_create.networkName" />
-            </div>
-        </div>
-    </div>
-    <div class="row row-line-height">
-        <div class="form-group">
-            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PHY_NET_MNG.SUBNET_IP_INFORMATION' | translate}}：</div>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="phynet_create.subnetIP" />
-            </div>
-        </div>
-    </div>
-    <div class="row row-line-height">
-        <div class="form-group">
-            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PHY_NET_MNG.SUBNET_MASK' | translate}}：</div>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="phynet_create.subnetMask" />
-            </div>
-        </div>
-    </div>
-    <div class="row row-line-height">
-        <div class="form-group">
-            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PHY_NET_MNG.GATEWAY_ADDRESS' | translate}}：</div>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="phynet_create.gateway" />
-            </div>
-        </div>
-    </div>
-    <div class="row row-line-height">
-        <div class="form-group">
-            <div class="col-sm-5 form-control-title">DNS 1：</div>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="phynet_create.dnsPre" />
-            </div>
-        </div>
-    </div>
-    <div class="row row-line-height">
-        <div class="form-group">
-            <div class="col-sm-5 form-control-title">DNS 2：</div>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="phynet_create.dnsAlt" />
-            </div>
-        </div>
-    </div>
-    </div>
-</fc-popup>
-
-<fc-popup #editphynetbox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'PHY_NET_MNG.EDIT_PM_NET' | translate}}" (of)="acceptPhyNetEditModify()" (cf)="cancelPhyNetEditModify()">
-    <div class="dialogContent">
-    <div class="row row-line-height">
-        <div class="form-group">
-            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PHY_NET_MNG.PHY_NET_NAME' | translate}}：</div>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="phynet_changed.networkName" />
-            </div>
-        </div>
-    </div>
-    <div class="row row-line-height">
-        <div class="form-group">
-            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PHY_NET_MNG.SUBNET_IP_INFORMATION' | translate}}：</div>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="phynet_changed.subnetIP" />
-            </div>
-        </div>
-    </div>
-    <div class="row row-line-height">
-        <div class="form-group">
-            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PHY_NET_MNG.SUBNET_MASK' | translate}}：</div>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="phynet_changed.subnetMask" />
-            </div>
-        </div>
-    </div>
-    <div class="row row-line-height">
-        <div class="form-group">
-            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PHY_NET_MNG.GATEWAY_ADDRESS' | translate}}：</div>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="phynet_changed.gateway" />
-            </div>
-        </div>
-    </div>
-    <div class="row row-line-height">
-        <div class="form-group">
-            <div class="col-sm-5 form-control-title">DNS 1：</div>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="phynet_changed.dnsPre" />
-            </div>
-        </div>
-    </div>
-    <div class="row row-line-height">
-        <div class="form-group">
-            <div class="col-sm-5 form-control-title">DNS 2：</div>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="phynet_changed.dnsAlt" />
-            </div>
-        </div>
-    </div>
-    </div>
-</fc-popup>
-
-
-<fc-popup #deletebox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'PHY_NET_MNG.DELETE_PM_NET' | translate}}" (of)="acceptPhyNetDeleteModify()" (cf)="cancelPhyNetDeleteModify()">
-	<div class="dialogContent">
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-12">
-                        {{'PHY_NET_MNG.DELETE_PHY_NET' | translate:{value_1: (selectedphynet.networkName || "phy_network")} }}
-                        您选择删除 ' {{selectedphynet.networkName || "phy_network"}} ' ， 请确认；如果确认，用户将不能在订购中选择此网络。
-					</div>
-				</div>
-			</div>
-	</div>
-</fc-popup>
--->

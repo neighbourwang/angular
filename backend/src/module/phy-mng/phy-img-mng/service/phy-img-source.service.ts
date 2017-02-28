@@ -35,10 +35,10 @@ export class PhyImgSourceService {
             }
         ];
 
-        // const api = this.restApiCfg.getRestApi("phy-mng.phy-img-mng.phyimgsource.getlist");
-        // return this.restApi.request(api.method, api.url, pathParams, null, null);
+        const api = this.restApiCfg.getRestApi("phy-mng.phy-img-mng.phyimgsource.getlist");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
         
-        return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return SourceListMock});
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return SourceListMock});
     }
     //PUT /noauth/pmimage/pool/{pmImagePoolId}/{status}
     changeStatus(id:string, status:number) : Promise<any>{
@@ -120,4 +120,6 @@ export class PhyImgSourceService {
         // });
         return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return ChangeStatusMock});
     }
+
+    
 }

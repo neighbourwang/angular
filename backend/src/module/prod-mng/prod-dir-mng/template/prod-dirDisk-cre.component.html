@@ -9,15 +9,13 @@
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}:</div><!--产品目录名称-->
 
 					<div class="col-sm-4">
-						<input type="text" class="form-control font-gray" [(ngModel)]="prodDir.serviceName" placeholder="{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}(必须)"><!--产品目录名称-->
-
+						<input type="text" class="form-control" [(ngModel)]="prodDir.serviceName" placeholder="{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}(必须)"><!--产品目录名称-->
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.INIT_SIZE' | translate}}:</div><!--初始大小-->
-
 					<div class="col-sm-5">
 						<div class="row">
 							<div class="col-sm-3">
@@ -64,7 +62,7 @@
 				<div class="form-group">
 					<div for="firstname" class="col-sm-4 form-control-title">{{'COMMON.DESCRIPTION' | translate}}：</div>
 					<div class="col-sm-4">
-						<textarea class="form-control font-gray" rows="4" [(ngModel)]="prodDir.description" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"></textarea>
+						<textarea class="form-control" rows="4" [(ngModel)]="prodDir.description" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"></textarea>
 					</div>
 				</div>
 			</div>
@@ -91,7 +89,6 @@
 						</div>
 						<div class="col-sm-4">
 							{{'PROD_MNG.SELECT_STORAGE_DEVICE' | translate}}<!--选择存储设备-->
-
 						</div>
 					</div>
 					<div class="row tabBody" *ngFor="let plateform of _platformlist; let idx=index">
@@ -105,7 +102,7 @@
 						</div>
 						<div class="col-sm-2 thirdChild"  >
 							<div class="row row-line-height inputLeft" *ngFor='let zone of plateform.platformInfo;  let idxx=index;'>
-								<div class="col-sm-12"><input type="checkbox" class="fox-cloud-checkbox" selected=zone.selected  [(ngModel)]="zone.selected" name="zoneSelected" (click)=selectZone(idx,idxx)></div>
+								<div class="col-sm-12"><input type="checkbox" class="fox-cloud-checkbox"  [(ngModel)]="zone.selected" name="zoneSelected" (click)=selectZone(idx,idxx)></div>
 							</div>
 						</div>
 						<div class="col-sm-4">
