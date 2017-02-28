@@ -159,7 +159,7 @@
         <tr>
             <th class="col-md-2 text-center">{{ 'USER_CENTER.EMERGENCY' | translate}}</th>
             <td >{{v.emergency}}
-                <span class="font-orange" >({{v.emergencyChange}})</span>
+                <span *ngIf=" v.emergencyChange != '不变'" class="font-orange" >({{v.emergencyChange}})</span>
             </td>
             <th class="col-md-2 text-center">{{ 'USER_CENTER.HANDLER_NAME' | translate}}</th>
             <td>{{v.handlerName}}</td>
