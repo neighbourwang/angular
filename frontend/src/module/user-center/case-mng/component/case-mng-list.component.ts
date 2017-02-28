@@ -167,7 +167,8 @@ export class CaseMngListComponent implements OnInit{
     delete(item){
         if(item.status == 0){
             this.id= item.id;
-            this.confirm.open('USER_CENTER.DELETE_CASE',`USER_CENTER.DELETE_CASE_WARNING^^^item.id`);
+            this.subject= item.subject;
+            this.confirm.open('USER_CENTER.DELETE_CASE',"USER_CENTER.DELETE_CASE_WARNING^^^"+this.id+"^^^"+this.subject );
             this.confirm.ccf=()=>{
                 this.layoutService.show();
                 this.service.delete(this.id)
@@ -246,7 +247,9 @@ export class CaseMngListComponent implements OnInit{
         this.getBasicInfo(item);
         this.getClosedInfo(item);
         this.getHandelInfo(item);
-        this.caseDetail.open(`USER_CENTER.CASE_DETAIL^^^item.id` );
+        this.id= item.id;
+        this.subject= item.subject;
+        this.caseDetail.open("USER_CENTER.CASE_DETAIL^^^"+this.id+"^^^"+this.subject );
     }
 
 
