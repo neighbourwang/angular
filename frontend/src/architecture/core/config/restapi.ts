@@ -356,7 +356,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "用户类型判断",
         "id": "op-center.order-mng.ent-type.get",
         "method": "GET",
-        "url": "adminui//authsec/user/currentuser"
+        "url": "adminui/authsec/user/currentuser"
     },//消费总览
     //用户中心
     //个人账户管理
