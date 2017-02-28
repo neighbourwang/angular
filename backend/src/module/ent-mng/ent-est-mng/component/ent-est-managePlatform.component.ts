@@ -149,10 +149,18 @@ export class EntEstManagePlatformComponent implements OnInit {
     })
  }
 
-  selectItem(index:number){
+  // selectItem(index:number){
+  //   let items = this.platformLoader.Items;
+  //   let items2 = this.selectedPlatformLoader.Items;
+  //   // this.platformLoader.Items.map(n=>{n.isSelected = 0;});
+  //   this.platformLoader.Items[index].isSelected = 1;
+  // }
+
+    selectItem(item:Platform){
     let items = this.platformLoader.Items;
     let items2 = this.selectedPlatformLoader.Items;
     // this.platformLoader.Items.map(n=>{n.isSelected = 0;});
+    let index = this.platformLoader.Items.indexOf(item);
     this.platformLoader.Items[index].isSelected = 1;
   }
 
