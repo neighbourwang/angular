@@ -34,6 +34,7 @@ export class Product {
     "oneTimePrice": number;
     "productEnterpiseReqs": Array<enterprise>;
     "productPlatformReqs": Array<plateform>;
+    "enterpriseListForSelect":Array<any>;
     "serviceId": string;
     "unitPrice": number;
     "isSelected": boolean;
