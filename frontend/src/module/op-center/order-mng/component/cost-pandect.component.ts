@@ -1,7 +1,7 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import { CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import { UserInfo,CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 
 import * as _ from 'underscore';
 
@@ -27,6 +27,8 @@ export class CostPandectComponent implements OnInit{
 @ViewChild("notice")
   	private _notice: NoticeComponent;
 
+isRoot = false;
+
 currentYear :number;
 currentMonth : number;
 lastDay:number;
@@ -34,15 +36,11 @@ _param:CostPandectParam = new CostPandectParam();
 private _years:Array<Time>=[];
 private _months:Array<Time>=[];
 
-private userTypeLoader:ItemLoader<{id:string;name:string;isRoot:boolean}>= null;
+private userTypeLoader:ItemLoader<UserInfo>= null;
 
 //企业下拉列表
 private enterpriseLoader : ItemLoader<{id:string;name:string}>= null;
 
-//订单类型
-private _orderTypeDic:DicLoader = null;
-//订购人
-private _buyerLoader:ItemLoader<{id:string; name:string}> = null;
 
 private orderItemLoader:ItemLoader<CostPandectItem> = null;//表格
 
@@ -64,17 +62,18 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 		private restApi:RestApi){
         
         this.enterpriseLoader = new ItemLoader<{id:string;name:string}> (false,'企业列表加载错误','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
-        this.userTypeLoader = new ItemLoader<{id:string;name:string;isRoot:boolean}> (false,'用户类型加载出错','op-center.order-mng.ent-type.get',this.restApiCfg,this.restApi);
+        this.userTypeLoader = new ItemLoader<UserInfo> (false,'用户类型加载出错','op-center.order-mng.ent-type.get',this.restApiCfg,this.restApi);
        
-        this.userTypeLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string;isRoot:boolean}>)=>{
-			for(let item of source)
-			{
-				let obj=_.extend({}, item) ;
-				target.push(obj);
-				obj.id = item.enterpriseId;
-				obj.name = item.enterpriseName;
-                obj.isRoot = item.isRoot;
-			}
+        this.userTypeLoader.MapFunc = (source:Array<any>, target:Array<UserInfo>)=>{
+                let obj = new UserInfo();
+                for(let item of source){
+                obj.enterpriseId = item.enterpriseId;
+				obj.enterpriseName = item.enterpriseName;
+                obj.roleName = item.roles[0].roleName;
+                }
+				
+                target.push(obj);
+			
 		}
 
         this.orderItemLoader = new ItemLoader<CostPandectItem> (false,'消费总览列表加载错误','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
@@ -86,21 +85,6 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 				target.push(obj);
 			}
 		}
-
-        //订购人加载
-		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, 'ORDER_MNG.BUYER_DATA_ERROR', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
-
-        this._buyerLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
-			for(let item of source)
-			{
-				let obj=_.extend({}, item) ;
-				target.push(obj);
-				obj.id = item.key;
-				obj.name = item.value;
-			}
-		}
-
-        this._orderTypeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
 
     
        	this.consumeLoader = new ItemLoader<ConsumeSum>(false, '消费概览加载失败', "op-center.order-mng.cost-pandect.consume.post", this.restApiCfg, this.restApi);
@@ -170,9 +154,9 @@ getCurrentTime(){
 }
 
 isRootUser(){
-    if(this.userTypeLoader.FirstItem.isRoot)
-        return true;
-    return false;
+    let item = this.userTypeLoader.FirstItem;
+    if(item.roleName&&item.roleName=='ENTERPRISE_ADMIN')
+        this.isRoot = true;
 }
 getTimeData(){
     
@@ -220,15 +204,18 @@ getLastDay(){
 	}
 //判断用户是普通用户还是管理员
     loadUserType(){
+        this.layoutService.show();
         this.userTypeLoader.Go()
-         .then(success=>{
-         
-         this.layoutService.hide();
-     })
-    .catch(err=>{
-        this.layoutService.hide();
-        this.showMsg(err);
-    })
+            .then(sucess=>{
+                let item = this.userTypeLoader.FirstItem;
+                this.isRootUser();
+                this.layoutService.hide();
+            })
+            .catch(err=>{
+                this.layoutService.hide();
+                this.showMsg(err);
+            })
+     
         
     }
 showDetail(orderItemId:string){
@@ -245,15 +232,7 @@ loadTopChart(){
             startTime:this._param.year+'-'+month+'-01'+' 00:00:00',
             ids:[]
         };
-    if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){    
-            for(let item of this.enterpriseLoader.Items){
-                let ent = {key:item.id};
-                enterprises.push(ent);
-            }       
-    }
-    else{
-        enterprises.push({key:this._param.enterpriseId});     
-    }
+    enterprises.push({key:this.userTypeLoader.FirstItem.enterpriseId});     
 
     
 
@@ -262,6 +241,8 @@ loadTopChart(){
      this.topConsumeLoad(param);
      this.topIncreseConsumeLoad(param);
 }
+
+
 //发送请求，处理参数，展示
 consumeLoad(){
     this.layoutService.show();
@@ -273,16 +254,8 @@ consumeLoad(){
             startTime:this._param.year+'-'+month+'-01'+' 00:00:00',
             ids:[]
         };
-     if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){    
-            for(let item of this.enterpriseLoader.Items){
-                sumIds.push({key:item.id,value:item.name});
-            }       
-    }
-    else{
-         let item = this.enterpriseLoader.Items.find(n=>n.id==this._param.enterpriseId);
-        sumIds.push({key:this._param.enterpriseId,value:item.name});
-    }
    
+    sumIds = [{key:this.userTypeLoader.FirstItem.enterpriseId,value:this.userTypeLoader.FirstItem.enterpriseName}];
     param.ids = sumIds;
 
     this.consumeLoader.Go(null,null,param)
@@ -306,18 +279,11 @@ totalconsumeLoad(){
      let param={
         endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
         ids:[],
-        size:Number(this._param.month)
+        size:4// Number(this._param.month)
     };
 
-    if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){    
-            for(let item of this.enterpriseLoader.Items){
-                historyIds.push(item.id);
-            }       
-    }
-    else{
-                historyIds.push(this._param.enterpriseId);
-    }
-
+ 
+    historyIds = [this.userTypeLoader.FirstItem.enterpriseId];
 
      param.ids = historyIds;
 
@@ -340,47 +306,47 @@ totalconsumeLoad(){
 
 topConsumeLoad(param:any){
     this.layoutService.show();
-    if(this.isNullEnterprise()){
-        this.topConsumeLoader.Go(null,null,param)
-        .then(success=>{
-            this.topToDatas(this.h_chart,this.topConsumeLoader.Items);
-            this.ent_hbar[0].data =  this.h_chart.datas;
-            this.layoutService.hide();
-        })
-        .catch(err=>{
-            this.layoutService.hide();
-            this.showMsg(err);
-        })
-    }else{
+    // if(this.isNullEnterprise()){
+    //     this.topConsumeLoader.Go(null,null,param)
+    //     .then(success=>{
+    //         this.topToDatas(this.h_chart,this.topConsumeLoader.Items);
+    //         this.ent_hbar[0].data =  this.h_chart.datas;
+    //         this.layoutService.hide();
+    //     })
+    //     .catch(err=>{
+    //         this.layoutService.hide();
+    //         this.showMsg(err);
+    //     })
+    // }else{
         this.topConsumeDepartmentLoader.Go(null,null,param)
         .then(success=>{
            this.topToDatas(this.h_chart,this.topConsumeDepartmentLoader.Items);
            this.ent_hbar[0].data =  this.h_chart.datas;
+        
             this.layoutService.hide();
         })
         .catch(err=>{
             this.layoutService.hide();
             this.showMsg(err);
         }) 
-    }
     
      
 }
 
 topIncreseConsumeLoad(param:any){
     this.layoutService.show();
-      if(this.isNullEnterprise()){
-        this.topIncreseConsumeLoader.Go(null,null,param)
-        .then(success=>{
-              this.topToDatas(this.h_chart2,this.topIncreseConsumeLoader.Items);
-              this.ent_hbar2[0].data =  this.h_chart2.datas;
-             this.layoutService.hide();
-        })
-        .catch(err=>{
-            this.layoutService.hide();
-            this.showMsg(err);
-        })
-    }else{
+    //   if(this.isNullEnterprise()){
+    //     this.topIncreseConsumeLoader.Go(null,null,param)
+    //     .then(success=>{
+    //           this.topToDatas(this.h_chart2,this.topIncreseConsumeLoader.Items);
+    //           this.ent_hbar2[0].data =  this.h_chart2.datas;
+    //          this.layoutService.hide();
+    //     })
+    //     .catch(err=>{
+    //         this.layoutService.hide();
+    //         this.showMsg(err);
+    //     })
+    // }else{
         this.topIncreseConsumeDepartmentLoader.Go(null,null,param)
         .then(success=>{
                 this.topToDatas(this.h_chart2,this.topIncreseConsumeDepartmentLoader.Items);
@@ -391,15 +357,7 @@ topIncreseConsumeLoad(param:any){
             this.layoutService.hide();
             this.showMsg(err);
         }) 
-    }
     
-}
-
-//选择所有企业
-isNullEnterprise(){
-    if(this._param.enterpriseId==null||this._param.enterpriseId=='null')
-        return true;
-    return false;
     
 }
 

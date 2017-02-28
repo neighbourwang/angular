@@ -10,7 +10,7 @@
 							<th>{{ 'CHECK_CENTER.ENTERPRISE_TENANT_NAME' | translate }}</th>
 							<th>{{ 'CHECK_CENTER.APPROVAL_IS_OPEN' | translate }}</th>
 							<th>{{ 'CHECK_CENTER.AUTO_APPROVAL_TIME_MIN' | translate }}</th>
-							<th>{{ 'CHECK_CENTER.OPERATION' | translate }}</th>
+							<th>{{ 'COMMON.OPERATION' | translate }}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -36,14 +36,14 @@
 					<div class="form-group">
 						<div class="col-sm-4"><span class="float-right">{{ 'COMMON.APPROVE' | translate }}: </span><span class="asterisk float-right">*</span></div>
 						<div class="col-sm-4">
-							<input type="radio" class="fox-cloud-radio" name="approve_set" [ngClass]="{'active':_selectedItem.backAuditEnable}" [value]="1" [(ngModel)]="_selectedItem.backAuditEnable"><span>{{ 'COMMON.TURN_ON' | translate }}</span>
+							<input type="radio" class="fox-cloud-radio" name="approve_set" [ngClass]="{'active':_selectedItem.backAuditEnable}" [value]="1" [(ngModel)]="_selectedItem.backAuditEnable"><span>{{ 'COMMON.TURN_ON' | translate }}</span><br>
 							<input type="radio" class="fox-cloud-radio" name="approve_set" [ngClass]="{'active':!_selectedItem.backAuditEnable}" [value]="0" [(ngModel)]="_selectedItem.backAuditEnable"><span>{{ 'COMMON.TURN_OFF' | translate }}</span>
 						</div>
 					</div>
 				</div>
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 "><span class="float-right">{{ 'CHECK_CENTER.AUTO_APPROVAL_TIME_SET' | translate }}:</span></div>
+						<div class="col-sm-4 "><span class="float-right">{{ 'CHECK_CENTER.AUTO_APPROVAL_TIME_SET' | translate }}: </span></div>
 						<div class="col-sm-4">
 							<input *ngIf="!_selectedItem.backAuditEnable" type="number" class="form-control number-input" disabled="disabled" [(ngModel)]="_selectedItem.backAutoApprovalTime">
 						    <input *ngIf="_selectedItem.backAuditEnable" type="number" class="form-control number-input" [(ngModel)]="_selectedItem.backAutoApprovalTime">

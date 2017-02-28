@@ -38,9 +38,11 @@ export class MsgAlertComponent implements OnInit {
     expand: boolean = false;
     ngOnInit(): void {
         this.getMsgAlert();
+        /*
         window.setInterval(() => {
             this.getMsgAlert();
-        }, 30000);        
+        }, 30000);
+        */        
     }
 
     offClickHandler(event) {
@@ -78,6 +80,9 @@ export class MsgAlertComponent implements OnInit {
     }
 
     openMsgListPage() {
-        this.router.navigate([`user-center/msg-mng/msg-list`,]);
+        this.router.navigate([`user-center/msg-mng/msg-list`, 
+        {
+            "unreadmsg": this.msgAlert.edge,
+        }]);
     }
 }

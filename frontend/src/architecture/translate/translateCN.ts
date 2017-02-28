@@ -730,9 +730,11 @@ export const TranslateCN = {
 
         DELETE_MSG_FAILED: '删除消息失败',
         DELETE_MSG_EXCEPTION: '删除消息异常',
+        DELETE_MSG_SUCCESS: '删除消息成功',
 
         MARK_MSG_READ_FAILED: '标示消息已读失败',
         MARK_MSG_READ_EXCEPTION: '标示消息已读异常',
+        MARK_MSG_READ_SUCCESS: '标示消息已读成功',
 
         DELETE_MSG_CONFIRM: '您选择删除{{value_1}}条消息，请确认',
         DELETE_MSG: '删除消息',
@@ -776,8 +778,8 @@ export const TranslateCN = {
         DELETE_CASE: '删除工单',
         EDIT_CONTOR: '只有新建状态下，才能编辑工单',
         DELETE_CONTOR: '只有新建状态下，才能删除工单',
-        DELETE_CASE_WARNING: '您选择删除{{value_1}}工单，请确认。',
-        CASE_DETAIL: '工单详细{{value_1}}',
+        DELETE_CASE_WARNING: '您选择删除{{value_1}}-{{value_2}}工单，请确认。',
+        CASE_DETAIL: '工单详细：{{value_1}}-{{value_2}}'
 
     }
 }

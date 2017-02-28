@@ -1,53 +1,53 @@
    <div class="SearchDetail">   
 						<div class="page-content">
-							<div class="noborder mgb10">订单信息</div>
+							<div class="noborder mgb10">{{ 'COMMON.ORDERS_INFO' | translate}}</div>
 							<div class="table-container mgb20">
 									<table class="table table-all-boder first-table mgb20">
 										<tbody>
 											<tr>
-												<td class="text-center">订单编号</td><td class="leftAlign">{{_detail.orderCode}}</td>
+												<td class="text-center">{{ 'ORDER_MNG.ORDER_NUM' | translate}}</td><td class="leftAlign">{{_detail.orderCode}}</td>
 
-												<td class="text-center">订单类型</td><td class="leftAlign">{{_detail.type | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
+												<td class="text-center">{{ 'CHECK_CENTER.ORDERS_TYPE' | translate}}</td><td class="leftAlign">{{_detail.type | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
 													
 											</tr>
 											<tr>
-												<td class="text-center">订单状态</td><td class="leftAlign">{{_detail.status | dict:_dictServ.getDic("ORDER", "STATUS") | async}}</td>
+												<td class="text-center">{{ 'COMMON.ORDER_STATUS' | translate}}</td><td class="leftAlign">{{_detail.status | dict:_dictServ.getDic("ORDER", "STATUS") | async}}</td>
 												
-												<td class="text-center">提交人</td><td class="leftAlign">{{_detail.billingPerson}}</td>	
+												<td class="text-center">{{ 'COMMON.SUBMITTER' | translate}}</td><td class="leftAlign">{{_detail.billingPerson}}</td>	
 											</tr>
 											<tr>
-											<td class="text-center">产品类型</td><td class="leftAlign">{{_detail.productType  | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
-											<td class="text-center">部门</td><td class="leftAlign">{{_detail.department}}</td>
+											<td class="text-center">{{ 'PROD_MNG.PRODUCT_TYPE' | translate}}</td><td class="leftAlign">{{_detail.productType  | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
+											<td class="text-center">{{ 'COMMON.DEPARTMENT' | translate}}</td><td class="leftAlign">{{_detail.department}}</td>
 											</tr>
 											
 											<tr>
-											   <td class="text-center">提交时间</td><td class="leftAlign">{{_detail.createDate}}</td>
-												<td class="text-center">企业</td><td class="leftAlign">{{_detail.enterpirse}}</td>
+											   <td class="text-center">{{ 'COMMON.COMMIT_TIME' | translate}}</td><td class="leftAlign">{{_detail.createDate}}</td>
+												<td class="text-center">{{ 'COMMON.ENTERPRISE' | translate}}</td><td class="leftAlign">{{_detail.enterpirse}}</td>
 													
 											</tr>
 											<tr>
-											   <td class="text-center">完成时间</td><td class="leftAlign">{{_detail.completeDate}}</td>
+											   <td class="text-center">{{ 'COMMON.COMPLETION_TIME' | translate}}</td><td class="leftAlign">{{_detail.completeDate}}</td>
 												<td class="text-center"></td><td class="leftAlign"></td>
 													
 											</tr>
 										</tbody>
 									</table>
 							</div>
-							<div class="noborder mgb10">已购服务编号：{{_detail.subinstanceNo}}</div>
+							<div class="noborder mgb10">{{ 'ORDER_MNG.PURCHASED_SERVICE_NUMBER' | translate}}: {{_detail.subinstanceNo}}</div>
 							<div class="table-container mgb20">
 									<table class=" table table-all-boder mgb10">
 										<thead>
 											<tr>
-												<th>名称</th>
-												<th>具体配置</th>
-												<th>数量</th>
-												<th>购买周期</th>
-												<th>费用</th>
+												<th>{{ 'COMMON.NAME' | translate}}</th>
+												<th>{{ 'COMMON.CONFIGURATION' | translate}}</th>
+												<th>{{ 'COMMON.AMOUNT' | translate}}</th>
+												<th>{{ 'ORDER_MNG.PURCHASED_CYCLE' | translate}}</th>
+												<th>{{ 'COMMON.COST' | translate}}</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr *ngFor="let prodItem of _detail.subInstanceList">
-												<td>{{prodItem.serviceType  | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}<br>实例名称：{{prodItem.instanceName}}</td>
+												<td>{{prodItem.serviceType  | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}<br>{{ 'CHECK_CENTER.INSTANCE_NAME' | translate}}: {{prodItem.instanceName}}</td>
 												<td style="text-align: float-left;padding-top: 30px;padding-left: 40px;padding-right: 20px; width: 450px;">
 													<ul *ngFor="let specItem of prodItem.specList">
 														<li>{{specItem.attrDisplayName}}：&nbsp;&nbsp;{{specItem.attrDisplayValue}}</li>
@@ -55,40 +55,40 @@
 												</td>
 												<td>{{prodItem.quantity}}</td>
 												<td>{{prodItem.period}}</td>
-												<td style="width: 200px;">一次性费用：￥{{prodItem.oneTimePrice}}<br>费用：￥{{prodItem.price}}<span *ngIf="prodItem.serviceType=='1'">/GB</span>/{{prodItem.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</td>
+												<td style="width: 200px;">{{ 'COMMON.ONE_TIME_COSTS' | translate}}: {{ 'COMMON.$' | translate}}{{prodItem.oneTimePrice}}<br>{{ 'COMMON.COST' | translate}}: {{ 'COMMON.$' | translate}}{{prodItem.price}}<span *ngIf="prodItem.serviceType=='1'">/GB</span>/{{prodItem.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</td>
 											</tr>
 										</tbody>
 									</table>
 							</div>
 
-							<div class="noborder mgb10">费用合计</div>
+							<div class="noborder mgb10">{{ 'COMMON.TOTAL_COSTTOTAL_COST' | translate}}</div>
 							<div class="table-container mgb20 " style="border:1px solid #ddd;">
 									<table class="table"  *ngFor="let item of _detail.subInstanceList">
 										<thead>
 											<tr>
-												<th>一次性费用</th>
-												<th>费用</th>
+												<th>{{ 'COMMON.ONE_TIME_COSTS' | translate}}</th>
+												<th>{{ 'COMMON.COST' | translate}}</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr >
-												<td class="font-red leftAlign noborder" >￥{{item.totalOncePrice}}</td>
-												<td class="font-red leftAlign noborder">￥{{item.totalPrice}}<span *ngIf="item.serviceType=='1'">/GB</span>/{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</td>
+												<td class="font-red leftAlign noborder" >{{ 'COMMON.$' | translate}}{{item.totalOncePrice}}</td>
+												<td class="font-red leftAlign noborder">{{ 'COMMON.$' | translate}}{{item.totalPrice}}<span *ngIf="item.serviceType=='1'">/GB</span>/{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</td>
 											</tr>
 										</tbody>
 									</table>
 							</div>
 
-							<div class="noborder mgb10">订单历史</div>
+							<div class="noborder mgb10">{{ 'COMMON.ORDER_HISTORY' | translate}}</div>
 							<div class="table-container mgb20">
 									<table class="table table-all-boder">
 										<thead>
 											<tr>
-												<th>执行者</th>
-												<th>所属部门</th>
-												<th>操作</th>
-												<th>订单状态</th>
-												<th>说明</th>
+												<th>{{ 'COMMON.EXECUTOR' | translate}}</th>
+												<th>{{ 'COMMON.DEPARTMENT' | translate}}</th>
+												<th>{{ 'COMMON.OPERATION' | translate}}</th>
+												<th>{{ 'COMMON.ORDER_STATUS' | translate}}</th>
+												<th>{{ 'COMMON.COMMENT' | translate}}</th>
 											</tr>
 											
 										</thead>
