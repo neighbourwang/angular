@@ -1209,6 +1209,7 @@
         "SELECT_AD_SOURCE_FOR_ENABLE_DISABLE": "Please select  AD source first to be enabled or disabled ",
         "SELECT_AD_SOURCE_NEED_TO_EDIT": "Please select the authentication source to be edited first",
         "SELECT_AD_SOURCE_TO_DELETE": "Select the authentication source to be deleted first",
+        "CANT_DELETE_AD_ATTEST": "Can't delete AD source,some user of this AD source have been。",
         "SELECT_AD_USER": "Please select AD user",
         "SELECT_AT_LEAST_ONE_ROLE": "Select at least one role",
         "SELECT_ORG": "Please select the organization ", 

@@ -1443,6 +1443,7 @@
         "SELECT_AD_SOURCE_FOR_ENABLE_DISABLE": "请先选择需要启用或者禁用的认证源",
         "SELECT_AD_SOURCE_NEED_TO_EDIT": "请先选择需要编辑的认证源",
         "SELECT_AD_SOURCE_TO_DELETE": "请先选择需要删除的认证源",
+        "CANT_DELETE_AD_ATTEST": "无法删除认证源，该认证源已有账户绑定到系统中。",
         "SELECT_AD_USER": "请选择ad用户",
         "SELECT_AT_LEAST_ONE_ROLE": "至少选择一个角色",
         "SELECT_ORG": "请选择组织机构",
