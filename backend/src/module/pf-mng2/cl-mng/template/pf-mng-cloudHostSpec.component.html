@@ -50,7 +50,7 @@
                         <!--<td>使用中</td>-->
                         <td>{{flavor.updateDate}}</td>
                         <td>
-                            <button  *ngIf="flavor.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableFlavor()">启用</button>
+                            <button  *ngIf="flavor.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableFlavor(flavor.id)">启用</button>
                         </td>
                     </tr>
                 </tbody>
@@ -86,8 +86,8 @@
                         <!--<td>使用中</td>-->
                         <td>{{flavor.updateDate}}</td>
                         <td>
-                            <button *ngIf="flavor.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableFlavor()">启用</button>
-                            <button *ngIf="flavor.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="deleFlavor()">删除</button>
+                            <button *ngIf="flavor.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableFlavor(flavor.id)">启用</button>
+                            <button *ngIf="flavor.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="deleFlavor(flavor.id)">删除</button>
                         </td>
                     </tr>
                 </tbody>

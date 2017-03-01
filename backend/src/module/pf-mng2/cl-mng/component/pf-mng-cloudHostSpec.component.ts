@@ -51,9 +51,9 @@ export class CloudHostSpecComponent implements OnInit {
              this.platformTypeName=
              this.platformType=='0'?'OpenStack':'Vmware';
         }) 
-        if(this.platformType=='0'){
+        // if(this.platformType=='0'){
             this.getFlavorList(this.platformId);            
-        }   
+        // }   
         
     }
     //获取规格列表
@@ -85,16 +85,29 @@ export class CloudHostSpecComponent implements OnInit {
         console.log(this.flavorObj);
         this.service.vmFlavorNew(this.flavorObj).then(res=>{
             console.log(res);
+            this.getFlavorList(this.platformId);                        
         }).catch(err=>{
             console.log(err);
         })
     }
     //启用云主机规格
     enableFlavor(id:string){
-        console.log(id)
+        console.log(id);
+        this.service.enableFlavor(id).then(res=>{
+            console.log(res);
+            this.getFlavorList(this.platformId);                        
+        }).catch(err=>{
+            console.log(err);
+        })
     }
     deleFlavor(id:string){
-        console.log(id)
+        console.log(id);
+        this.service.deleteFlavor(id).then(res=>{
+            console.log(res);
+            this.getFlavorList(this.platformId);                        
+        }).catch(err=>{
+            console.log(err);
+        })
     }
     //删除云主机规格
     ccf(){}
