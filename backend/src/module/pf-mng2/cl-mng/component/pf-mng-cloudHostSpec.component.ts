@@ -9,7 +9,7 @@ import { LayoutService, NoticeComponent , ConfirmComponent ,PopupComponent } fro
 //service
 import { FlavorService } from '../service/platform-mng-flavor.service';
 //model
-import { Flavor } from '../model/flavor.model'
+import { Flavor ,FlavorObj} from '../model/flavor.model'
 
 @Component({
     templateUrl: '../template/pf-mng-cloudHostSpec.component.html',
@@ -17,8 +17,6 @@ import { Flavor } from '../model/flavor.model'
     providers: []
 })
 export class CloudHostSpecComponent implements OnInit {
-
-
     constructor(private layoutService:LayoutService,
                 private route:Router,
                 private router:ActivatedRoute,
@@ -28,7 +26,6 @@ export class CloudHostSpecComponent implements OnInit {
     }
     @ViewChild('confirm')
     confirm: ConfirmComponent;
-
 
     @ViewChild('notice')
     notice: NoticeComponent;
@@ -44,6 +41,7 @@ export class CloudHostSpecComponent implements OnInit {
     platformId:string;
     //规格列表
     flavorlist:Array<Flavor>;
+    flavorObj:FlavorObj=new FlavorObj();
     //初始化
     ngOnInit() {
         this.router.params.forEach((params: Params)=>{
@@ -52,8 +50,10 @@ export class CloudHostSpecComponent implements OnInit {
              this.platformType=params['type'];
              this.platformTypeName=
              this.platformType=='0'?'OpenStack':'Vmware';
-        })     
-        this.getFlavorList(this.platformId);
+        }) 
+        if(this.platformType=='0'){
+            this.getFlavorList(this.platformId);            
+        }   
         
     }
     //获取规格列表
@@ -81,8 +81,22 @@ export class CloudHostSpecComponent implements OnInit {
     }
     //确认创建
     otcreate(){
-
+        this.flavorObj.platformId=this.platformId;
+        console.log(this.flavorObj);
+        this.service.vmFlavorNew(this.flavorObj).then(res=>{
+            console.log(res);
+        }).catch(err=>{
+            console.log(err);
+        })
     }
+    //启用云主机规格
+    enableFlavor(id:string){
+        console.log(id)
+    }
+    deleFlavor(id:string){
+        console.log(id)
+    }
+    //删除云主机规格
     ccf(){}
     back(){
         this.location.back();
@@ -90,5 +104,4 @@ export class CloudHostSpecComponent implements OnInit {
     goList(){
         this.route.navigate(['pf-mng2/cl-mng/cl-mng'])
     }
-    save(){}    
 }

@@ -99,8 +99,14 @@ export let RestApis: RestApiModel[] = [
     {
         "desc": "提交变更云主机配置",
         "method": "POST",
-        "id": "submit.vm.disk.config",
+        "id": "submit.vm.config",
         "url": "marketplace/authsec/shopping/instance/vm/{instanceId}/update"
+    },
+    {
+        "desc": "提交变更云硬盘配置",
+        "method": "POST",
+        "id": "submit.disk.config",
+        "url": "marketplace/authsec/shopping/instance/disk/{instanceId}/update"
     },
     {
         "desc": "变更云主机和云硬盘的借口",
@@ -142,7 +148,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取云主机详细信息",
         "method": "GET",
         "id": "vm.instance.detail",
-        "url": "subinstancemgmt/authsec/subinstance/compute/{itemId}"
+        "url": "marketplace/authsec/serviceinstance/vm/{itemId}"
     },
     {
         "desc": "获取购物车列表",
@@ -356,7 +362,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "用户类型判断",
         "id": "op-center.order-mng.ent-type.get",
         "method": "GET",
-        "url": "adminui//authsec/user/currentuser"
+        "url": "adminui/authsec/user/currentuser"
     },//消费总览
     //用户中心
     //个人账户管理

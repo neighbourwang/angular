@@ -8,21 +8,23 @@
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">{{'PHY_NET_MNG.CREATE_PHY_NET' | translate}}</span> <!--请添加创建的弹出框-->
         </button>
-        <button class="fox-cloud-button fox-cloud-button-green" (click)="editPhyNet();">       
+        <button class="fox-cloud-button fox-cloud-button-green" [disabled]="selectedphynet.status==='1'||selectedphynet.status==1" (click)="editPhyNet();">       
             <span class="icon-button-label icon-left-button-label">{{'PHY_NET_MNG.EDIT_PHY_NET' | translate}}</span>
         </button>
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/phy-net-allocate.html" (click)="setupPhyNetResource();">       
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="setupPhyNetResource();">       
             <span class="icon-button-label icon-left-button-label">{{'PHY_NET_MNG.PHY_NET_RESOURCE_SETUP' | translate}}</span>
         </button>
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/ip_pool_mng.html" (click)="setupPhyNetIPs();">
+        <button class="fox-cloud-button fox-cloud-button-green" [disabled]="selectedphynet.ipUsedCount!='0'" (click)="setupPhyNetIPs();">
             <span class="icon-button-label icon-left-button-label">{{'PHY_NET_MNG.SET_IP_SCOPE' | translate}}</span>
         </button>
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/ip_addr_mng.html" (click)="ipUsageMngPage();">
+        <button class="fox-cloud-button fox-cloud-button-green" [disabled]="selectedphynet.ipAllCount==='0'|| !selectedphynet.ipAllCount" (click)="ipUsageMngPage();">
             <span class="icon-button-label icon-left-button-label">{{'PHY_NET_MNG.MNG_IP_ADDR' | translate}}</span>
         </button>
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/ip_addr_export.html" (click)="exportPhyIps();">
+        <!--
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="exportPhyIps();">
             <span class="icon-button-label icon-left-button-label">{{'PHY_NET_MNG.EXPORT_IP_ADDR' | translate}}</span>
         </button>
+        -->
        
         <div class="dropdown pull-right" >
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -54,7 +56,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let phynet of phynets; let i = index;">
-                    <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="phynet.checked" (change)="selectItem(i);"></td>
+                    <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="phynet.checked" (change)="selectItem(i); selectedphynet = phynet;"></td>
                     <td style="position:relative"><a href="javascript:void(0);" (click)="selectItem(i); showDetails();"> {{phynet.networkName}} </a>
                         <!--
                          <span class="pull-right icon-edit2" (click)="onSelect(phynet);phynet.nameEditing=true;" style="display:inline-block"></span> 

@@ -15,27 +15,27 @@
 				<tbody>
 					<tr>				
 						<td >
-						    <div class="float-left font-size-16 mgt8 mgr5">{{ 'CHECK_CENTER.ORDER_ATTRIBUTTION' | translate}}:<span class="mgt8 mgl10 mgr5">{{ 'COMMON.ENTERPRISE' | translate }}</span></div>
+						    <div class="float-left font-size-16 mgt8 mgr5">{{ 'CHECK_CENTER.ORDER_ATTRIBUTTION' | translate}}: <span class="mgt8 mgl10 mgr5">{{ 'COMMON.ENTERPRISE' | translate }}</span></div>
 							<div class="float-left">
 								<select class="form-control  select_" [(ngModel)]="_param.entIdStr" (ngModelChange)="entChanged()">
-									<option class="hands" [value]="null">{{ 'COMMON.ALL' | translate }}{{ 'COMMON.ENTERPRISE' | translate }}</option>
+									<option class="hands" [value]="null">{{ 'HOST_OPENSTACK_MNG.ALL_ENTERPRISE' | translate }}</option>
 									<option class="hands" *ngFor="let item of _entLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
-						<td><div class="float-left font-size-16 mgl22 mgt8 mgr15">{{ 'COMMON.DEPARTMENT' | translate }}</div>
+						<td><div class="float-left font-size-16 mgl22 mgt8 mgr15">{{ 'COMMON.DEPARTMENT' | translate }}: </div>
 
 							<div class="float-left">
 								<select class="form-control" [(ngModel)]="_param.departmentIdNum" (ngModelChange)="departmentChanged()">
-									<option class="hands" [value]="null">{{ 'COMMON.ALL' | translate }}{{ 'COMMON.DEPARTMENT' | translate }}</option>
+									<option class="hands" [value]="null">{{ 'ORDER_MNG.ALL_DEPARTMENT' | translate }}</option>
 									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
-						<td ><div class="float-left font-size-16 mgt8 mgr15">{{ 'COMMON.SUBMITTER' | translate }}</div>
+						<td ><div class="float-left font-size-16 mgt8 mgr15">{{ 'COMMON.SUBMITTER' | translate }}: </div>
 							<div class="float-left">
 								<select class="form-control" [(ngModel)]="_param.submitUserId">
-									<option class="hands" [value]="null">{{ 'COMMON.ALL' | translate }}{{ 'COMMON.SUBMITTER' | translate }}</option>
+									<option class="hands" [value]="null">{{ 'CHECK_CENTER.ALL_SUBMITTER' | translate }}</option>
 									<option class="hands" *ngFor="let item of _userListLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
@@ -43,39 +43,39 @@
 						</td>
 					</tr>
 					<tr class="bgWhite">
-						<td ><div class="float-left font-size-16  mgt8">{{ 'COMMON.ORDERS' | translate }}{{ 'COMMON.TYPE' | translate }}:</div>
+						<td ><div class="float-left font-size-16  mgt8 mgr15">{{ 'CHECK_CENTER.ORDERS_TYPE' | translate }}: </div>
 								<div class="float-left">
 								<select class="form-control" [(ngModel)]="_param.orderTypeNum">
-									<option class="hands" [value]="null">{{ 'COMMON.ALL' | translate }}{{ 'COMMON.TYPE' | translate }}</option>
+									<option class="hands" [value]="null">{{ 'CHECK_CENTER.ALL_TYPE' | translate }}</option>
 									<option class="hands" *ngFor="let item of _orderTypeDic.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
 						</td>
-						<td><div class="float-left font-size-16 mgt8">{{ 'COMMON.PRODUCT' | translate }}{{ 'COMMON.TYPE' | translate }}:</div>
+						<td><div class="float-left font-size-16 mgt8 mgr15">{{ 'PROD_MNG.PRODUCT_TYPE' | translate }}: </div>
 							<div class="float-left">
 								<select class="form-control" [(ngModel)]="_param.serviceTypeNum">
-									<option class="hands" [value]="null">{{ 'COMMON.ALL' | translate }}{{ 'COMMON.TYPE' | translate }}</option>
+									<option class="hands" [value]="null">{{ 'CHECK_CENTER.ALL_TYPE' | translate }}</option>
 									<option class="hands" *ngFor="let item of _serviceTypeDic.Items" [value]="item.value">{{item.displayValue}}</option>
 								</select>
 							</div>
 						</td>
-						<td><div class="float-left font-size-16 mgt8">{{ 'CHECK_CENTER.APPROVER' | translate }}:</div>
+						<td><div class="float-left font-size-16 mgt8 mgr15">{{ 'CHECK_CENTER.APPROVER' | translate }}: </div>
 							<div class="dropdown float-left">
 								<select class="form-control" [(ngModel)]="_param.checkUserIdStr">
-									<option class="hands" [value]="null">{{ 'COMMON.ALL' | translate }}{{ 'COMMON.USER' | translate }}</option>
+									<option class="hands" [value]="null">{{ 'CHECK_CENTER.ALL_USERS' | translate }}</option>
 									<option class="hands" *ngFor="let item of _approverListLoader.Items" [value]="item.id">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
 					</tr>
 					<tr>
-						<td><div class="float-left font-size-16 pdt10  mgt8">{{ 'COMMON.START_TIME' | translate }}:</div>
+						<td><div class="float-left font-size-16 pdt10  mgt8 mgr15">{{ 'COMMON.START_TIME' | translate }}: </div>
 							<div class="float-left">			
 								<date-picker (dateChanged)="onStartDateChange($event)"></date-picker>
 							</div>
 
 						</td>
-						<td ><div class="float-left font-size-16  pdt10 mgt8">{{ 'COMMON.END_TIME' | translate }}:</div>
+						<td ><div class="float-left font-size-16  pdt10 mgt8 mgr15">{{ 'COMMON.END_TIME' | translate }}: </div>
 							<div class="float-left">			
 								<date-picker (dateChanged)="onEndDateChange($event)"></date-picker>
 							</div>
@@ -90,17 +90,17 @@
 				</tbody>
 			</table>	
 		</div>
-		<div class="mgb10 float-left">{{ 'CHECK_CENTER.NUMBER_OF_APPROVE' | translate }} {{_listLoader.TotalRecords}} ,{{ 'COMMON.RESULTS_FOLLOW' | translate }}:</div>
+		<div class="mgb10 float-left">{{ 'CHECK_CENTER.NUMBER_OF_APPROVE' | translate }} {{_listLoader.TotalRecords}} ,{{ 'COMMON.RESULTS_FOLLOW' | translate }}: </div>
 			<div class="table-container">
 				<table class="table table-hover border-gray">
 					<thead>	
 						<tr class="border-gray">
 							<th>{{ 'COMMON.NUMBER' | translate }}</th>
-							<th>{{ 'COMMON.ORDERS' | translate }}{{ 'COMMON.NUMBER' | translate }}</th>
-							<th>{{ 'COMMON.PRODUCT' | translate }}{{ 'COMMON.TYPE' | translate }}</th>
+							<th>{{ 'COMMON.ORDER_NUM' | translate }}</th>
+							<th>{{ 'PROD_MNG.PRODUCT_TYPE' | translate }}</th>
 							<th>{{ 'CHECK_CENTER.ZONE_AND_AVAILABLE_ZONE' | translate }}</th>
-							<th>{{ 'COMMON.ORDERS' | translate }}{{ 'COMMON.TYPE' | translate }}</th>
-							<th>{{ 'COMMON.ORDERS' | translate }}{{ 'COMMON.DESCRIPTION' | translate }}</th>
+							<th>{{ 'CHECK_CENTER.ORDERS_TYPE' | translate }}</th>
+							<th>{{ 'CHECK_CENTER.ORDERS_DESCRIPTION' | translate }}</th>
 							<th>{{ 'COMMON.SUBMITTER' | translate }}</th>
 							<th>{{ 'COMMON.DEPARTMENT' | translate }}</th>
 							<th>{{ 'COMMON.ENTERPRISE' | translate }}</th>
