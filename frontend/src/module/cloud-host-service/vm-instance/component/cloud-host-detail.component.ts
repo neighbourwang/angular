@@ -271,7 +271,7 @@ export class cloudHostDetailComponent implements OnInit {
 		this.fetchDetailAndFill();
 	}
 
-	fetchDetailAndFill() {
+	fetchDetailAndFill(callbackFn?) {
         this.layoutService.show();
 
 		this.route.params.subscribe(params => {
@@ -285,6 +285,8 @@ export class cloudHostDetailComponent implements OnInit {
                     instanceDisplayName : res.instanceName
 				};
                 this.layoutService.hide();
+                
+                callbackFn && callbackFn();
 			}).catch(error => {
                 this.layoutService.hide();
             })
@@ -297,40 +299,16 @@ export class cloudHostDetailComponent implements OnInit {
             console.log(res);
             this.layoutService.hide();
 
-            this.fetchDetailAndFill();
-            this.isEditState = false;
+            this.fetchDetailAndFill(() => {
+                this.isEditState = false;
+            });
+           
         }).catch(error => {
             this.layoutService.hide();
         })
     }
 
 
-    // openConsole(vm: VmList) {
-    //     let pathParams = [
-    //         {
-    //             key: 'platformid',
-    //             value: vm.platformId
-    //         },
-    //         {
-    //             key: 'enterpriseId',
-    //             value: this.service.userInfo.enterpriseId
-    //         },
-    //         {
-    //             key: 'uuid',
-    //             value: vm.uuid
-    //         }
-    //     ];
-    //     this.service.getConsoleUrl(pathParams).then(res => {  
-    //         if(vm.platformType === "0") {    //openstract直接打开
-    //             window.open(res)
-    //         }else if(vm.platformType === "2") {  //vmware 需要打开一个页面穿进去url
-    //             window.localStorage["vmwControlUrl"] = res;
-    //             window.open("/control.html");
-    //         }
-    //     });
-    // }
-
-    
     goToUrl(url : string) {
         this.router.navigateByUrl(url);
     }

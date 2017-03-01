@@ -37,7 +37,7 @@ export class CaseClosedComponent implements OnInit {
     caseId:string;
     caseInfo:CaseListModel=new CaseListModel();
     closeInfo:CloseInfo=new CloseInfo;
-    handleInfoes:Array<HandleInfo>;
+    handleInfoes:Array<HandleInfo>=new Array<HandleInfo>();
   
     ngOnInit() {
          this.activeRoute.params.forEach((params: Params) => {          

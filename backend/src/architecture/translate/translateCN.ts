@@ -1555,9 +1555,9 @@
         "CREATE_TIME":"创建时间",
         "UPDATE_TIME":"更新时间",
         "SELECT_CLOSE_CASE":"请选择需要关闭的工单！",
-        "RESELECT_CLOSE_CASE":"工单状态为新建或处理中才能关闭，请选择需要关闭的工单！",
+        "RESELECT_CLOSE_CASE":"工单状态为'新建'或'处理中'才能关闭，请选择需要关闭的工单！",
         "SELECT_HANDLE_CASE":"请选择需要处理的工单！",
-        "RESELECT_HANDLE_CASE":"工单状态只有为新建时才能处理，请选择需要处理的工单！",
+        "RESELECT_HANDLE_CASE":"工单状态只有为'新建'或'处理中'才能处理，请选择需要处理的工单！",
 
         "CASE_DETAIL":"工单详细",
         "CASE_INFO":"基本信息",

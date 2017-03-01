@@ -313,17 +313,23 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/platform/{pf-id}/flavor"
     },
     //规格管理
-    {
-        "desc": "取得云平台规格列表",
-        "id": "platform-mng.flavorList.get",
-        "method": "GET",
-        "url": "adminui/authsec/sync/platform/{id}/flavor"        
-    },
+    // {
+    //     "desc": "取得云平台规格列表",
+    //     "id": "platform-mng.flavorList.get",
+    //     "method": "GET",
+    //     "url": "adminui/authsec/sync/platform/{id}/flavor"        
+    // },
     {
         "desc": "新建Vmware主机规格",
         "id": "platform-mng.vmflavorList.post",
         "method": "POST",    
         "url": "adminui/authsec/sync/platform/flavor/add"        
+    },
+     {
+        "desc": "同步更新云主机规格",
+        "id": "platform-mng.flavorList.post",
+        "method": "POST",
+        "url": "adminui/authsec/sync/platform/{id}/flavor"        
     },
     {
         "desc": "启用主机规格",
