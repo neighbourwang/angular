@@ -37,4 +37,14 @@ export class cloudHostDetailService {
         owner : "COMPUTE",
         field : "STATUS"
     });
+
+    useType = this.dict.get({
+        owner: "GLOBAL",
+        field: "USE_TYPE",
+    });
+
+    serviceLevel = this.dict.get({
+        owner: "GLOBAL",
+        field: "SERVICE_LEVEL",
+    });
 }
