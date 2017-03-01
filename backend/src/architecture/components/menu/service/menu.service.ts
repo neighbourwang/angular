@@ -178,14 +178,21 @@ export class MenuService {
                             "isActive": false,
                             "isShow": !isRoot,
                             "routing": "phy-mng/phy-pool/phy-pool-mng"
-                        },
+						},
 						{
                             "label": "USER_CENTER.PHY_IMAGE_MNG",
                             "isOpen": false,
                             "isActive": false,
                             "isShow": !isRoot,
                             "routing": "phy-mng/phy-img/phy-img-mng"
-                        }
+                        },	
+						{
+                            "label": "PHY_NET_MNG.PHY_NET",
+                            "isOpen": false,
+                            "isActive": false,
+                            "isShow": !isRoot,
+                            "routing": "phy-mng/phy-net/phy-net-mng"
+                        }                        
                     ]
                 },
 				{

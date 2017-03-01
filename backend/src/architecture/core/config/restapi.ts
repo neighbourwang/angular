@@ -319,6 +319,25 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminui/authsec/sync/platform/{id}/flavor"        
     },
+    {
+        "desc": "新建Vmware主机规格",
+        "id": "platform-mng.vmflavorList.post",
+        "method": "POST",    
+        "url": "adminui/authsec/sync/platform/flavor/add"        
+    },
+    {
+        "desc": "启用主机规格",
+        "id": "platform-mng.flavor.enable",
+        "method": "PUT",    
+        "url": "adminui/authsec/platform/flavor/{id}/enable"        
+    },
+    {
+        "desc": "删除主机规格",
+        "id": "platform-mng.flavor.delete",
+        "method": "DELETE",    
+        "url": "adminui/authsec/platform/flavor/{id}"        
+    },
+    
     // 平台接入管理
 
     // 企业资源配额管理

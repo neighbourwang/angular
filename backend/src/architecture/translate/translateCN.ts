@@ -44,7 +44,16 @@
         "OPERATION":"操作",
         "SHOW_AD_SOURCE_STATUS": "该认证源已经是{{value_1}}状态！",
         "YOU_MUST_FILL_IN_THE_REASONS": "必须填写拒绝原因，且不能超出200字",
-        "ZONE_AND_AVAILABLE_ZONE": "所在区域及可用区"
+        "ZONE_AND_AVAILABLE_ZONE": "所在区域及可用区",
+
+        "CLOUD_HARD_DISK_INSTANCE_NAME":"云硬盘实例名称",
+        "INSTANCE_NAME":"实例名称",
+        "ALL_SUBMITTER":"所有提交者",
+        "ORDERS_TYPE":"订单类型",
+        "ALL_TYPE":"所有类型",
+        "ALL_USERS":"所有用户",
+        "ORDERS_DESCRIPTION":"订单描述",
+        "INSTANCE_TYPE":"实例类型",
     },
     "COMMON": {
         "$": "￥",
@@ -249,6 +258,19 @@
         "OCCUPY": "占用",
         "RELEASE": "释放",
         "SELECT": "选择",
+        "GET_DATA_FAILED": "加载数据失败",
+        "RESOURCE_LIST": "资源列表",
+        "DATE": "日期",
+        "OPERATOR": "操作者",
+        "RENEW_COST":"续订费用",
+        "ORDERS_INFO": "订单信息",
+        "ORDER_STATUS":"订单状态",
+        "COMMIT_TIME":"提交时间",
+        "COMPLETION_TIME":"完成时间",
+        "ORDER_HISTORY":"订单历史",
+        "EXECUTOR":"执行者",
+        "ENTER_ORDER_NUMBER_QUERY":"输入订单编号查询",
+        "CANCLE_ORDER":"撤销订单"
     },
     "ENT_MNG": {
         "ABNORMAL_RESPONSE": "异常响应",
@@ -900,6 +922,7 @@
         "SELECTED_PM_HOST": "已选中物理机",
         "UNSELECTED_PM_HOST": "未选中物理机",
 
+        "PHY_NET": "物理机网络",
 
         "PHY_NET_MNG": "物理机网络管理",
         "CREATE_PHY_NET": "创建网络",
@@ -1012,7 +1035,21 @@
         "SUBINSTANCE_LIST_DATA_ERROR": "已购服务列表加载错误",
         "UNSUBSCRIBE_ORDER": "订单退订",
         "UNSUBSCRIBE_ORDER_PROMPT": "你的订单一旦退订，所有相关的资源和数据都会被删除，无法恢复！请谨慎选择退订服务",
-        "UNSUBSCRIBE_ORDER_SUCCESS": "你的订单已申请退订，资源将会被立刻删除"
+        "UNSUBSCRIBE_ORDER_SUCCESS": "你的订单已申请退订，资源将会被立刻删除",
+        "ERROR_LOADING_CONSUMPTION_LIST":"消费总览列表加载错误",
+        "CONSUMER_OVERVIEW_FAILED":"消费概览加载失败",
+        "DATA_LOADING_FAILED":"数据加载失败",
+        "MOUNT_HOSTING_NAME": "挂载云主机",
+        "ORDER_NUM": "订单编号",
+        "RETURN_ORDER_MANAGEMENT":"返回订购管理",
+        "PURCHASED_SERVICE_NUMBER":"已购服务编号",
+        "CURRENT_CONFIGURATION":"当前配置",
+        "ASSOCIATED_SUBSCRIPTION_SERVICE_LIST":"关联的已订购服务列表",
+        "Current query to order number is 3":"当前查询到的订单数为",
+        "HISTORY_INFO":"历史信息",
+        "ORDERS_NUM_IS":"当前查询到的订单数为",
+        "ORDER_LIST_FOLLOWS":"订单列表如下",
+
     },
     "PF_MNG": {
         "ACCESS_PATH": "访问地址",
@@ -1337,7 +1374,21 @@
         "STANDARD_SMALL_CLOUD_HOST": "标准小型云主机",
         "STORAGE_BACKEND": "存储后端",
         "UNIT_PRICE": "单位价格",
-        "VIEW_PRODUCT": "查看产品"
+        "VIEW_PRODUCT": "查看产品",
+
+        "EDIT_PRODUCT_CATALOG":"编辑产品目录",
+        "ERROR_GETTING_PLATFORM_LIST":"获取平台列表错误",
+        "SELECT_CLOUD_HOST_SPECIFICATIONS":"云主机规格选择",
+        "CLOUD_HARD_DISK_SERVICES":"云硬盘服务",
+        "PRICING_INFORMATION":"计价信息",
+        "PLATFORM_INFORMATION":"平台信息",
+        "ENTERPRISE_INFORMATION":"企业信息",
+        "HISTORYCAL_PRICE":"历史价格",
+        "PLEASE_SELECT_VALUATION_CYCLE":"请选择计价周期",
+        "PLATFORM_LIST_IS_EMPTY":"平台列表为空",
+        "ENTERPRISE_LIST_IS_EMPTY":"企业列表为空",
+        "RETURN_TO_PREVIOUS_STEP":"返回上一步重新选择平台",
+        "RETURN_PRODUCT_LIST":"返回产品列表"
     },
     "USER_CENTER": {
         "ACCOUNT": "帐号",
@@ -1443,6 +1494,7 @@
         "SELECT_AD_SOURCE_FOR_ENABLE_DISABLE": "请先选择需要启用或者禁用的认证源",
         "SELECT_AD_SOURCE_NEED_TO_EDIT": "请先选择需要编辑的认证源",
         "SELECT_AD_SOURCE_TO_DELETE": "请先选择需要删除的认证源",
+        "CANT_DELETE_AD_ATTEST": "无法删除认证源，该认证源已有账户绑定到系统中。",
         "SELECT_AD_USER": "请选择ad用户",
         "SELECT_AT_LEAST_ONE_ROLE": "至少选择一个角色",
         "SELECT_ORG": "请选择组织机构",
