@@ -141,6 +141,7 @@ export class EntEstManagePlatformComponent implements OnInit {
     this.selectedPlatformLoader.Go(null,[{key:'_enterpriseId',value:this.entId}])
     .then(success=>{
       this.statusDic.UpdateWithDic(success);
+      this.typeDic.UpdateWithDic(success);
       this.layoutService.hide();
     })
     .catch(err=>{
@@ -199,7 +200,7 @@ save(){
     this.showMsg(err);
     this.layoutService.hide();
   })
-
+ this.layoutService.hide();
 }
 
   showMsg(msg: string)
