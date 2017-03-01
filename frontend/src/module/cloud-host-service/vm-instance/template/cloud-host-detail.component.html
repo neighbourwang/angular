@@ -66,12 +66,12 @@
                       </div>
                       <div class="line-box">
                           <font>{{'VM_INSTANCE.TYPE' | translate}}:</font>    
-               <!--            <select
+                          <select
                             [(ngModel)]="postData.useType" class="form-control">
                               <option
                               *ngFor="let value of service.useType | async"
                               [ngValue]="value.value" >{{ value.displayValue }}</option>
-                          </select> -->
+                          </select>
                           {{vm?.useType | dict:service.useType | async}}
                       </div>
                       <div class="line-box">

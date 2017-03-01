@@ -115,7 +115,7 @@ export class HostReconfigComponent implements OnInit {
 			productId : this.product.productId,
 			skuId : this.product.skuId
 		}
-		this.service.submitConfig(this.vm.itemId, postData).then(res => {
+		this.service.submitConfig("vm", this.vm.itemId, postData).then(res => {
 			// this.complete.emit();
 			this.ot = "";
 			this.orderId = "[\""+res+"\"]";
