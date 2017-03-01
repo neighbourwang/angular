@@ -114,11 +114,11 @@ export class ItemLoader<T>{
 				if(!ret)
 				{
 					reject(this._errorMsg);
+				}else if(ret.resultCode!=100){
+					this.code = ret.resultCode;
+					reject(this._errorMsg);
 				}
 				else{
-					if(ret.resultCode){
-						this.code = ret.resultCode
-					}
 					if(ret.resultContent)
 					{
 						this._items.splice(0, this._items.length);//清空数据
