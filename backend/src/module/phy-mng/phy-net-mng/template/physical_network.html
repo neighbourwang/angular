@@ -8,7 +8,7 @@
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">{{'PHY_NET_MNG.CREATE_PHY_NET' | translate}}</span> <!--请添加创建的弹出框-->
         </button>
-        <button class="fox-cloud-button fox-cloud-button-green" [disabled]="selectedphynet.status==='1'||selectedphynet.status==1" (click)="editPhyNet();">       
+        <button class="fox-cloud-button fox-cloud-button-green" [disabled]="selectedphynet.status==1" (click)="editPhyNet();">       
             <span class="icon-button-label icon-left-button-label">{{'PHY_NET_MNG.EDIT_PHY_NET' | translate}}</span>
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="setupPhyNetResource();">       
