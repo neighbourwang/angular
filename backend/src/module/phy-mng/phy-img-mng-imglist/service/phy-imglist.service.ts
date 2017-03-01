@@ -74,7 +74,7 @@ export class PhyImgListService {
     changeStatus(id:string, status:number) : Promise<any>{
         const pathParams = [
             {
-                key:"pmImagePoolId",
+                key:"pmImageId",
                 value:id
             },
             {
@@ -82,16 +82,17 @@ export class PhyImgListService {
                 value:status
             }
         ]
-        // const api = this.restApiCfg.getRestApi("phy-mng.phy-img-mng.phyimglist.changestatus");
-        // return this.restApi.request(api.method, api.url, pathParams, null, null);
+        const api = this.restApiCfg.getRestApi("phy-mng.phy-img-mng.phyimglist.changestatus");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
         
-        return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return ChangeStatusMock});
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return ChangeStatusMock});
         
     }
 
     private savedPhyImgList:Array<PhyImg>;
 
     refreshList(ImgList: Array<PhyImg>){
+        this.savedPhyImgList = null;
         this.savedPhyImgList = ImgList;
     }
     getOneFromList(id: string):PhyImg{

@@ -3,7 +3,7 @@ export class PhyImg{
     id: string;
     destImageName: string;
     origImageName: string;
-    osTypeId: number;
+    osTypeId: string;
     osTypeName: string;
     bitId: number;
     bitName: string;

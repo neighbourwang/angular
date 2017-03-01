@@ -32,7 +32,7 @@ export class PhyImgListComponent implements OnInit{
 
     sourceId: string;
     sourceName : string;
-    phyImgList : Array<PhyImg>
+    phyImgList : Array<PhyImg> = new Array<PhyImg>();
 
     pageIndex = 1;
     pageSize = 10;
@@ -201,7 +201,7 @@ export class PhyImgListComponent implements OnInit{
         this.router.navigate(['phy-img-mng/imglist/showimg', {"imageId": id,"pmImagePoolId":this.sourceId, "sourceName":this.sourceName}]);
     }
     backToSource(){
-        this.router.navigate(['phy-mng/phy-img/phy-img-mng']);
+        this.router.navigateByUrl('phy-mng/phy-img/phy-img-mng');
     }
     //同步镜像
     syncImg(){
@@ -212,23 +212,17 @@ export class PhyImgListComponent implements OnInit{
     //分配企业
     allocateEnt(){
         if(this.selectedPhyImage){
-            if(this.selectedPhyImage.imageTypeId == 121){//如果是私有镜像类型才能点分配企业按钮（注：121是公共镜像）
+            if(this.selectedPhyImage.imageTypeId != 0){//如果是私有镜像类型才能点分配企业按钮（注：0是公共镜像）
                 this.router.navigate(['phy-img-mng/imglist/setent', {"imgId":this.selectedPhyImage.id, "pmImagePoolId":this.sourceId, "sourceName":this.sourceName}]);
             }else{
-                this.showAlert("只有私有镜像类型才能分配企业");
+                this.showAlert("只有非公共镜像类型才能分配企业");
             }
         }else{
             this.showAlert("请选择镜像");
         }
     }
 
-    //编辑时 下拉框初始选项
-    setDefaultType(type:SystemDictionary, value:string){
-        if(value == type.value){
-            let classes =  {
-                selected:"selected"
-            };
-            return classes;
-        }
+    cancelEdit(){
+
     }
 }

@@ -205,29 +205,7 @@ export class OpenstackImageSyncEntComponent implements OnInit{
     back(){
         this.router2.navigate(['host-mng/img-mng/openstack-mng', {"platformId": this.platformId,"platformName":this.platformName}]);
     }
-    // //编辑时 默认系统位数选项
-    // setDefaultBits(type:SystemDictionary, value:string){
-    //     if(value == type.value){
-    //         let classes =  {
-    //             selected:"selected"
-    //         };
-    //         return classes;
-    //     }
-    // }
-    // //编辑时 默认操作系统选项
-    // setDefaultOs(type:SystemDictionary, value:string){
-    //     // if(value == type.value){
-    //     //     let classes =  {
-    //     //         selected:"selected"
-    //     //     };
-    //     //     return classes;
-    //     // }
-    //     let classes =  {
-    //             disabled:"disabled"
-    //         };
-    //     return classes;
-        
-    // }
+ 
       
 
    
