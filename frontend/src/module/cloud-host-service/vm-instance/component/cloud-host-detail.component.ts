@@ -304,6 +304,33 @@ export class cloudHostDetailComponent implements OnInit {
         })
     }
 
+
+    // openConsole(vm: VmList) {
+    //     let pathParams = [
+    //         {
+    //             key: 'platformid',
+    //             value: vm.platformId
+    //         },
+    //         {
+    //             key: 'enterpriseId',
+    //             value: this.service.userInfo.enterpriseId
+    //         },
+    //         {
+    //             key: 'uuid',
+    //             value: vm.uuid
+    //         }
+    //     ];
+    //     this.service.getConsoleUrl(pathParams).then(res => {  
+    //         if(vm.platformType === "0") {    //openstract直接打开
+    //             window.open(res)
+    //         }else if(vm.platformType === "2") {  //vmware 需要打开一个页面穿进去url
+    //             window.localStorage["vmwControlUrl"] = res;
+    //             window.open("/control.html");
+    //         }
+    //     });
+    // }
+
+    
     goToUrl(url : string) {
         this.router.navigateByUrl(url);
     }

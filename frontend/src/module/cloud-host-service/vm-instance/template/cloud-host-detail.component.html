@@ -11,10 +11,16 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <li><a (click)="isEditState = true" href="javascript:">{{'VM_INSTANCE.EDIT_THE_CLOUD_HOST' | translate}}</a></li>
-                <li><a href="javascript:">{{'VM_INSTANCE.DELETE_THE_CLOUD_HOST' | translate}}</a></li>
+
+                <li>
+                  <unsubscribe #unsubscribeVm [name]="vm?.instanceName" [id]="vm?.subInstanceId"></unsubscribe>
+                  <a (click)="unsubscribeVm.delectVm()" href="javascript:">{{'VM_INSTANCE.DELETE_THE_CLOUD_HOST' | translate}}</a>
+                </li>
             </ul>
         </div>
-        <button (click)="goToUrl('mng-console')" class="btn button-gray-gradient float-right mgr5">
+
+        <open-console #openConsole [platformid]="vm?.platformId" [uuid]="vm?.uuid" [platformtype]="vm?.platformType"></open-console>
+        <button (click)="openConsole.open()" class="btn button-gray-gradient float-right mgr5">
           <span class="icon-controller"></span>{{'VM_INSTANCE.CONSOLE' | translate}}
         </button>
     </div>
