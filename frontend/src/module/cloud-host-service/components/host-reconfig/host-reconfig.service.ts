@@ -18,8 +18,9 @@ export class HostReconfigService {
 		field: "STATUS"
 	});
 
-	submitConfig(instanceId: string, profile: ChangeOfferProfile): Promise<any> {
-		const api = this.restApiCfg.getRestApi("submit.vm.disk.config");
+	submitConfig(code:"vm"|"disk", instanceId: string, profile: ChangeOfferProfile): Promise<any> {
+		const apiCodeName = code === "vm" ? "vm" : "disk" ;
+		const api = this.restApiCfg.getRestApi("submit." + apiCodeName + ".config");
 
 		let pathParams = [
 			{

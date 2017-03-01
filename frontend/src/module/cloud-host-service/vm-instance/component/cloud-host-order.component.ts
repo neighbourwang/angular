@@ -123,7 +123,7 @@ export class cloudHostComponentOrder implements OnInit {
 
 	private getSkuMap(code: "vm" | "disk"): SkuMap[] {   //获取根据参数获取的sku数组 因为云主机的sku不止一个
 
-		let list = code === "vm" ? ["zone", "platform", "cpu", "mem"].map(v => this.sendModule[v].attrValueId)   //vm主机订单的sku匹配的选项 需要匹配可用区 平台 cpu 内存
+		let list = code === "vm" ? ["zone", "platform", "cpu", "mem", "bootsize"].map(v => this.sendModule[v].attrValueId)   //vm主机订单的sku匹配的选项 需要匹配可用区 平台 cpu 内存
 			: code === "disk" ? ["zone", "platform", "storage"].map(v => this.sendModule[v].attrValueId) : [];  //云硬盘订单的sku匹配的选项 需要匹配 平台 可用区 （还有一个硬盘类型 由下面添加）
 
 		const trim = val => val.replace("[", "").replace("]", "");
@@ -308,7 +308,6 @@ console.log(this.vmProduct)
 		const attrid = this.sendModule[attrName].attrValueId;   //获取当前的sendmoudle的attrid
 		const isHas = (attrid && list && list.length && !!list.filter(l => l.attrValueId === attrid).length) || (!list.length && !attrid);   //列表里面是否有以选择的senModule
 		//设置sendmodule使它选择第一个
-			if(attrName === "bootsize") console.log(this.configs[attrName], this.getRelyName(this.configs[attrName].relyAttrId), this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId ,list, attrName)
 		if (!isHas) {
 			this.sendModule[attrName] = list.length ? list[0] : new VlueList;   //当没有选择sendmoudle的attrid时候，说明该模块还没有选择过，如果list里面没有这个attrid说明，他的父级已经有变动，需要重新选择
 			this.relyChanges(attrName);     //上面的一步说明页面上有变化的 进行一些改变
@@ -318,7 +317,6 @@ console.log(this.vmProduct)
 	}
 
 	relyChanges(attrName) {   //当依赖的元素有改变的时候执行
-		console.log(attrName)
 		/******获取并设置网络******/
 		if (attrName === "zone") {   //这里捕捉不到平台，侧面的，当zone改变的时候说明 自己依赖的云平台已经改变
 			this.setNetwork(this.sendModule.platform.attrValue, this.sendModule.zone.attrValue);   //获取网络
@@ -331,7 +329,8 @@ console.log(this.vmProduct)
 		this.vmSkuMap = this.getSkuMap("vm");     //确定sku
 
 		if (this.vmSkuMap.length) {
-			// this.setBootsize();   // 设置启动盘大小
+			this.vmSku = this.vmSkuMap[0];   // 设置启动盘大小
+			this.setTimeUnit();
 		}
 	}
 
@@ -345,22 +344,22 @@ console.log(this.vmProduct)
 		}
 	}
 
-	private setBootsize() {
-		this.bootsizeList = this.vmSkuMap.map(vmsku => {
-			let bootsize = this.configs.bootsize.mapValueList[vmsku.skuId];
+	// private setBootsize() {
+	// 	this.bootsizeList = this.vmSkuMap.map(vmsku => {
+	// 		let bootsize = this.configs.bootsize.mapValueList[vmsku.skuId];
 			
-			if(!bootsize && !bootsize.length) return;
+	// 		if(!bootsize && !bootsize.length) return;
 
-			bootsize[0].sku = vmsku;
-			return bootsize[0];
-		});
-		this.sendModule.bootsize = this.bootsizeList[0];   //设置一下启动盘为第一位
-		this.bootSizeChange();
-	}
-	bootSizeChange() {   //监听启动盘大小列表的改变， 只有启动盘大小列表的改变才能确定vm的skuid
-		this.vmSku = this.sendModule.bootsize.sku;
-		this.setTimeUnit(); //确定了真正的skuid后 再去确定购买时长
-	}
+	// 		bootsize[0].sku = vmsku;
+	// 		return bootsize[0];
+	// 	});
+	// 	this.sendModule.bootsize = this.bootsizeList[0];   //设置一下启动盘为第一位
+	// 	this.bootSizeChange();
+	// }
+	// bootSizeChange() {   //监听启动盘大小列表的改变， 只有启动盘大小列表的改变才能确定vm的skuid
+	// 	this.vmSku = this.sendModule.bootsize.sku;
+	// 	this.setTimeUnit(); //确定了真正的skuid后 再去确定购买时长
+	// }
 
 	private setNetwork(platformId: string, zoneId: string) {  //设置可用网络
 		this.layoutService.show();

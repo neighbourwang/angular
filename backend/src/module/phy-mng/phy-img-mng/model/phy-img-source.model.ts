@@ -3,13 +3,22 @@ import {Pool} from "./pool.model";
 //       "id": "string",
 //       "imageName": "string",
 //       "imageURL": "string",
-//       "pmPools": "资源池1， 资源池2， 资源池3"
+//       "pmPoolList": [
+    //     {
+    //       "pmPoolId": "POOLID0000001",
+    //       "pmPoolName": "资源池1"
+    //     },
+    //     {
+    //       "pmPoolId": "POOLID0000002",
+    //       "pmPoolName": "资源池2"
+    //     }
+    //   ]
 //       "status": 0
 export class PhyImgSource {
     id:string;
     imageName:string;
     imageURL:string;
-    pmPools:string;
+    pmPoolList:Array<Pool>;
     description:string;
     status:string;
 

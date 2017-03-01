@@ -26,7 +26,7 @@ export class CostPandectComponent implements OnInit{
 
 @ViewChild("notice")
   	private _notice: NoticeComponent;
-
+size:number;
 currentYear :number;
 currentMonth : number;
 lastDay:number;
@@ -60,8 +60,8 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
         
-        this.enterpriseLoader = new ItemLoader<{id:string;name:string}> (false,'企业列表加载错误','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
-        this.orderItemLoader = new ItemLoader<CostPandectItem> (false,'消费总览列表加载错误','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
+        this.enterpriseLoader = new ItemLoader<{id:string;name:string}> (false,'COMMON.ENTPRISE_OPTIONS_DATA_ERROR','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
+        this.orderItemLoader = new ItemLoader<CostPandectItem> (false,'ORDER_MNG.ERROR_LOADING_CONSUMPTION_LIST','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
 
           this.orderItemLoader.MapFunc = (source:Array<any>, target:Array<CostPandectItem>)=>{
 			for(let item of source)
@@ -87,7 +87,7 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         this._orderTypeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
 
     
-       	this.consumeLoader = new ItemLoader<ConsumeSum>(false, '消费概览加载失败', "op-center.order-mng.cost-pandect.consume.post", this.restApiCfg, this.restApi);
+       	this.consumeLoader = new ItemLoader<ConsumeSum>(false, 'ORDER_MNG.CONSUMER_OVERVIEW_FAILED', "op-center.order-mng.cost-pandect.consume.post", this.restApiCfg, this.restApi);
 
         // this.consumeLoader.MapFunc = (source:Array<any>, target:Array<ConsumeSum>)=>{
 		// 	for(let item of source)
@@ -107,7 +107,7 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         //     item.physicalMachineOrderPriceSum = 32;
         //     item.vmOrderPriceSum = 145;
         // }
-        this.totalConsumeLoader = new ItemLoader<CommonKeyValue>(false, '消费趋势-总消费加载失败', "op-center.order-mng.cost-pandect.total.post", this.restApiCfg, this.restApi);
+        this.totalConsumeLoader = new ItemLoader<CommonKeyValue>(false, 'ORDER_MNG.DATA_LOADING_FAILED', "op-center.order-mng.cost-pandect.total.post", this.restApiCfg, this.restApi);
 
         // this.totalConsumeLoader.MapFunc = (source:Array<any>, target:Array<Consume>)=>{
 		// 	for(let item of source)
@@ -116,11 +116,11 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 		// 		target.push(obj);
 		// 	}
 		// }
-        this.increseConsumeLoader = new ItemLoader<CommonKeyValue>(false, '消费趋势-新增消费加载失败', "op-center.order-mng.cost-pandect.increase.post", this.restApiCfg, this.restApi);
-        this.topConsumeLoader = new ItemLoader<BillInfo>(false, 'TOP5消费排名加载失败', "op-center.order-mng.cost-pandect.enterprise-top.post", this.restApiCfg, this.restApi);
-        this.topConsumeDepartmentLoader = new ItemLoader<BillInfo>(false, 'TOP5消费排名加载失败', "op-center.order-mng.cost-pandect.department-top.post", this.restApiCfg, this.restApi);
-        this.topIncreseConsumeLoader = new ItemLoader<BillInfo>(false, 'TOP5新增消费排名加载失败', "op-center.order-mng.cost-pandect.increase-enterprise-top.post", this.restApiCfg, this.restApi);
-        this.topIncreseConsumeDepartmentLoader = new ItemLoader<BillInfo>(false, 'TOP5新增消费排名加载失败', "op-center.order-mng.cost-pandect.increase-department-top.post", this.restApiCfg, this.restApi);
+        this.increseConsumeLoader = new ItemLoader<CommonKeyValue>(false, 'ORDER_MNG.DATA_LOADING_FAILED', "op-center.order-mng.cost-pandect.increase.post", this.restApiCfg, this.restApi);
+        this.topConsumeLoader = new ItemLoader<BillInfo>(false, 'ORDER_MNG.DATA_LOADING_FAILED', "op-center.order-mng.cost-pandect.enterprise-top.post", this.restApiCfg, this.restApi);
+        this.topConsumeDepartmentLoader = new ItemLoader<BillInfo>(false, 'ORDER_MNG.DATA_LOADING_FAILED', "op-center.order-mng.cost-pandect.department-top.post", this.restApiCfg, this.restApi);
+        this.topIncreseConsumeLoader = new ItemLoader<BillInfo>(false, 'ORDER_MNG.DATA_LOADING_FAILED', "op-center.order-mng.cost-pandect.increase-enterprise-top.post", this.restApiCfg, this.restApi);
+        this.topIncreseConsumeDepartmentLoader = new ItemLoader<BillInfo>(false, 'ORDER_MNG.DATA_LOADING_FAILED', "op-center.order-mng.cost-pandect.increase-department-top.post", this.restApiCfg, this.restApi);
 
 
 }
@@ -165,7 +165,7 @@ getMonths(){
     let months :number; 
    
     if( this.currentYear== Number(this._param.year)){
-         months = this.currentMonth;
+         months = this.currentMonth-1;
     }
     else{
         months = 12;
@@ -269,7 +269,7 @@ totalconsumeLoad(){
      let param={
         endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
         ids:[],
-        size:Number(this._param.month)
+        size:this.size//Number(this._param.month)
     };
 
     if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){    

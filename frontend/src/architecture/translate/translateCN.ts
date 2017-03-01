@@ -730,19 +730,19 @@ export const TranslateCN = {
 
         DELETE_MSG_FAILED: '删除消息失败',
         DELETE_MSG_EXCEPTION: '删除消息异常',
+        DELETE_MSG_SUCCESS: '删除消息成功',
 
         MARK_MSG_READ_FAILED: '标示消息已读失败',
         MARK_MSG_READ_EXCEPTION: '标示消息已读异常',
+        MARK_MSG_READ_SUCCESS: '标示消息已读成功',
 
         DELETE_MSG_CONFIRM: '您选择删除{{value_1}}条消息，请确认',
         DELETE_MSG: '删除消息',
 
 
         //case-mng
-        CASE_MNY: '工单管理',
         QUICKSEARCH_BYCASE: '输入工单信息快速搜索',
         TYPE: '类别',
-        STATUS: '状态',
         EMERGENCY: '紧急程度',
         CASE_ID: '工单号',
         SUBJECT: '主题',
@@ -771,13 +771,14 @@ export const TranslateCN = {
         SELECT: '请选择',
         LIMIT_DESCRIPTION_ONE: '最多只能输入50个文字',
         LIMIT_DESCRIPTION_TWO: '最多只能输入1000个文字',
+        LIMIT_DESCRIPTION_THREE: '"区号"+"电话号码"或"手机号"，例如：02160465223或13944238888',
         CLOSED_ALEARDY: '已关闭',
         EDIT_CASE: '编辑工单',
         DELETE_CASE: '删除工单',
         EDIT_CONTOR: '只有新建状态下，才能编辑工单',
         DELETE_CONTOR: '只有新建状态下，才能删除工单',
-        DELETE_CASE_WARNING: '您选择删除{{value_1}}工单，请确认。',
-        CASE_DETAIL: '工单详细{{value_1}}',
+        DELETE_CASE_WARNING: '您选择删除{{value_1}}-{{value_2}}工单，请确认。',
+        CASE_DETAIL: '工单详细：{{value_1}}-{{value_2}}'
 
     }
 }

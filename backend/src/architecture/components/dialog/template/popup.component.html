@@ -7,7 +7,7 @@
         <button *ngIf="ct !=''" class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal" (click)="ccf()">
             <span class="icon-button-label">{{ct | translate}}</span><!-- 取消 -->
         </button>
-        <button *ngIf="test "class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal" (click)="ctest()" style="margin-left: 30px">
+        <button *ngIf="test "class="fox-cloud-button-lg fox-cloud-button-white" (click)="ctest()" style="margin-left: 30px">
             <span class="icon-button-label">{{test | translate}}</span><!-- 测试 -->
         </button>
         <button *ngIf="ot != ''" class="fox-cloud-button-lg fox-cloud-button-white" [disabled]="!enableOKButton" (click)="cof()" style="margin-left: 30px">

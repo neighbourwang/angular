@@ -26,6 +26,8 @@ export class EntEstManagePlatformComponent implements OnInit {
   private selectedPlatformLoader : ItemLoader<Platform> = null; //已选择可用平台 
 
   private saveLoader : ItemLoader<Platform> = null; //保存
+
+  itemIsSelected: boolean[] = [];//标记是否被选中
   
   constructor(
     private layoutService: LayoutService,
@@ -54,7 +56,6 @@ export class EntEstManagePlatformComponent implements OnInit {
         obj.name = item.name;
         obj.type = item.platformType;
         obj.status = item.status;
-        obj.isSelected = 0;
         target.push(obj);
       }
     }
@@ -94,7 +95,6 @@ export class EntEstManagePlatformComponent implements OnInit {
         obj.name = item.name;
         obj.type = item.platformType;
         obj.status = item.status;
-        obj.isSelected = 1;
         target.push(obj);
       }
     }
@@ -149,10 +149,21 @@ export class EntEstManagePlatformComponent implements OnInit {
     })
  }
 
-  selectItem(index:number,platform:Platform){
-    platform.isSelected = 1;
-    platform.index = index;
+  selectItem(index:number){
+    let items = this.platformLoader.Items;
+    let items2 = this.selectedPlatformLoader.Items;
+    // this.platformLoader.Items.map(n=>{n.isSelected = 0;});
+    // this.platformLoader.Items[index].isSelected = !this.platformLoader.Items[index].isSelected;
+    this.itemIsSelected[index] = !this.itemIsSelected[index];
+    console.log(this.itemIsSelected)
   }
+
+  //   selectItem(item:Platform){
+  //   let items = this.platformLoader.Items;
+  //   let items2 = this.selectedPlatformLoader.Items;
+  //   // this.platformLoader.Items.map(n=>{n.isSelected = 0;});
+   
+  // }
 
 //返回/取消
 cancel(){
@@ -163,16 +174,21 @@ cancel(){
 save(){
   let params:Array<string>= [];
 
-  for(let item of this.platformLoader.Items){
-    if(item.isSelected == 1){
-      this.platformLoader.Items.splice(item.index,1);  
-      this.selectedPlatformLoader.Items.push(item);
+  for(let item of this.itemIsSelected){
+    if(item){
+      let index = this.itemIsSelected.indexOf(item);
+      this.selectedPlatformLoader.Items.push(this.platformLoader.Items[index]);
+      this.platformLoader.Items.splice(index,1);     
     }
   }
-  for(let item of this.selectedPlatformLoader.Items){
-     let index = this.selectedPlatformLoader.Items.indexOf(item);
-     params[index] = item.id; 
+
+  for(let i=0;i<this.selectedPlatformLoader.Items.length;i++){
+    params[i] =this.selectedPlatformLoader.Items[i].id; 
   }
+  // for(let item of this.selectedPlatformLoader.Items){
+  //    let index = this.selectedPlatformLoader.Items.indexOf(item);
+  //    params[index] = item.id; 
+  // }
   this.layoutService.show();
   this.saveLoader.Go(null,[{key:'_enterpriseId',value:this.entId}],params)
   .then(success=>{

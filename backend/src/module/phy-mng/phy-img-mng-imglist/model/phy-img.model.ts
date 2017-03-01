@@ -10,4 +10,10 @@ export class PhyImg{
     imageTypeId: number;
     imageTypeName: string;
     enterpriseSelectedList:Array<Enterprise>;
+    status:number;
+
+    syncStatusId: number;
+    syncStatusName: string;
+    
+    selected:boolean;
 }

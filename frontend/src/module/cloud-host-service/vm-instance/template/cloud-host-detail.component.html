@@ -23,7 +23,7 @@
 
     <div class="row" style="margin-top:30px;">
 
-        <div class="col-md-5 info-menu"  id="accordion">
+        <div class="col-md-6 info-menu"  id="accordion-no">
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne"  data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                   <h4 class="panel-title">
@@ -40,13 +40,13 @@
                           <font>{{'VM_INSTANCE.AVAILABLE_AREA' | translate}}:</font>    {{vm?.regionZone}}
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.OPERATION_HOURS' | translate}}:</font>   
+                          <font>{{'VM_INSTANCE.OPERATION_HOURS' | translate}}:</font>   {{convertTimeDiff}}
                       </div>
                       <div class="line-box">
                           <font>{{'VM_INSTANCE.STATUS' | translate}}:</font>    {{vm?.vmState | dict:service.computeStatus | async}}
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.RESOURCE' | translate}}:</font>  
+                          <font>{{'VM_INSTANCE.RESOURCE' | translate}}:</font>  订购
                       </div>
                   </div>
                 </div>
@@ -58,23 +58,30 @@
                     <span class="glyphicon glyphicon-chevron-down"></span>
                   </h4>
                 </div>
-                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
                   <div class="panel-body">
                     
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.EXTRA_SERVICES' | translate}}:</font>    {{vm?.instanceName}}
+                          <font>{{'VM_INSTANCE.EXTRA_SERVICES' | translate}}:</font>   
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.TYPE' | translate}}:</font>    {{vm?.instanceName}}
+                          <font>{{'VM_INSTANCE.TYPE' | translate}}:</font>    
+                          <select
+                            [(ngModel)]="postData.useType" class="form-control">
+                              <option
+                              *ngFor="let value of service.useType | async"
+                              [ngValue]="value.value" >{{ value.displayValue }}</option>
+                          </select>
+                          {{vm?.useType | dict:service.useType | async}}
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.SERVICE_LEVEL' | translate}}:</font>    {{vm?.instanceName}}
+                          <font>{{'VM_INSTANCE.SERVICE_LEVEL' | translate}}:</font>    {{vm?.serviceLevel | dict:service.serviceLevel | async}}
                       </div>
+                      <!-- <div class="line-box"> -->
+         <!--                  <font>{{'VM_INSTANCE.LABEL' | translate}}:</font>    {{vm?.instanceName}}
+                      </div> -->
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.LABEL' | translate}}:</font>    {{vm?.instanceName}}
-                      </div>
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.DESCRIPTION' | translate}}:</font>    {{vm?.instanceName}}
+                          <font>{{'VM_INSTANCE.DESCRIPTION' | translate}}:</font>    {{vm?.description}}
                       </div>
                   </div>
                 </div>
@@ -86,17 +93,17 @@
                     <span class="glyphicon glyphicon-chevron-down" ></span>
                   </h4>
                 </div>
-                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
                   <div class="panel-body">
                     
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.CPU' | translate}}:</font>    
+                          <font>{{'VM_INSTANCE.CPU' | translate}}:</font>    {{vm?.vcpus}}核
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.RAM' | translate}}:</font>    
+                          <font>{{'VM_INSTANCE.RAM' | translate}}:</font>    {{vm?.memoryMb}}MB
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.MIRROR' | translate}}:</font>    
+                          <font>{{'VM_INSTANCE.MIRROR' | translate}}:</font>    {{vm?.osInfo}}
                       </div>
                       <div class="line-box">
                           <font>{{'VM_INSTANCE.INTERNAL_IP' | translate}}:</font>    {{vm?.privateIP}}
@@ -107,6 +114,8 @@
                   </div>
                 </div>
            </div>
+        </div>
+        <div class="col-md-6 info-menu">
            
               <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingFourth" data-toggle="collapse" data-parent="#accordion" href="#collapseFourth" aria-expanded="true" aria-controls="collapseFourth">
@@ -115,17 +124,17 @@
                     <span class="glyphicon glyphicon-chevron-down"></span>
                   </h4>
                 </div>
-                <div id="collapseFourth" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFourth">
+                <div id="collapseFourth" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFourth">
                   <div class="panel-body">
                     
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.BOOT_DISK' | translate}}:</font>    {{vm?.instanceName}}
+                          <font>{{'VM_INSTANCE.BOOT_DISK' | translate}}:</font>    {{vm?.rootGb}}GB
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.DATA_DISK' | translate}}:</font>    {{vm?.instanceName}}
+                          <font>{{'VM_INSTANCE.DATA_DISK' | translate}}:</font>    {{vm?.diskCount}}
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.SNAPSHOT' | translate}}:</font>    {{vm?.instanceName}}
+                          <font>{{'VM_INSTANCE.SNAPSHOT' | translate}}:</font>    0
                       </div>
                   </div>
                 </div>
@@ -138,11 +147,11 @@
                     <span class="glyphicon glyphicon-chevron-down"></span>
                   </h4>
                 </div>
-                <div id="collapseFifth" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFifth">
+                <div id="collapseFifth" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFifth">
                   <div class="panel-body">
                     
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.SECURITY_GROUP' | translate}}:</font>    {{vm?.instanceName}}
+                          <font>{{'VM_INSTANCE.SECURITY_GROUP' | translate}}:</font>    DEFAULT
                       </div>
                   </div>
                 </div>
@@ -155,11 +164,11 @@
                     <span class="glyphicon glyphicon-chevron-down"></span>
                   </h4>
                 </div>
-                <div id="collapseSixth" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSixth">
+                <div id="collapseSixth" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSixth">
                   <div class="panel-body">
                     
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.ORDER_NUMBER' | translate}}:</font>    {{vm?.uuid}}
+                          <font>{{'VM_INSTANCE.ORDER_NUMBER' | translate}}:</font>    {{vm?.itemId}}
                       </div>
                       <div class="line-box">
                           <font>{{'VM_INSTANCE.PAYMENT_METHODS' | translate}}:</font>    {{vm?.paymentType}}
@@ -171,14 +180,12 @@
                           <font>{{'VM_INSTANCE.EXPIRE_DATE' | translate}}:</font>    {{vm?.expiryDate}}
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.RELEASE_DATE' | translate}}:</font> 
+                          <font>{{'VM_INSTANCE.RELEASE_DATE' | translate}}:</font> {{vm?.releaseDate}}
                       </div>
                   </div>
                 </div>
            </div>
-        </div>
-        <div class="col-md-7">
-            <div class="host-detail-chart">
+            <!-- <div class="host-detail-chart">
                 <div class="main-head">
                     <span class="icon-chart icon float-left"></span>
                     <span class="title float-left">监控图表</span>
@@ -252,7 +259,7 @@
 
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
