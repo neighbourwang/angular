@@ -194,7 +194,7 @@ export class CaseMngListComponent implements OnInit{
         }
     }
 
-    getBasicInfo(item){
+/*    getBasicInfo(item){
         this.id= item.id;
         this.layoutService.show();
         this.service.getBasicInfo(this.id)
@@ -246,9 +246,9 @@ export class CaseMngListComponent implements OnInit{
                 }
             )
             .catch((e) => this.onRejected(e));
-    }
+    }*/
 
-    getDetail(item){
+/*    getDetail(item){
         this.basicInfo.subject= '';
         this.basicInfo.statusName= '';
         this.basicInfo.typeName= '';
@@ -266,6 +266,20 @@ export class CaseMngListComponent implements OnInit{
         this.id= item.id;
         this.subject= item.subject;
         this.caseDetail.open("USER_CENTER.CASE_DETAIL^^^"+this.id+"^^^"+this.subject );
+    }*/
+
+    getDetail(item){
+        this.id= item.id;
+        this.subject= item.subject;
+        this.layoutService.show();
+        Promise.all([this.service.getBasicInfo(this.id), this.service.getHandelInfo(this.id), this.service.getClosedInfo(this.id)])
+            .then((arr) =>{
+                this.layoutService.hide();
+                this.basicInfo= arr[0];
+                this.handledInfo= arr[1];
+                this.closedInfo= arr[2];
+                this.caseDetail.open("USER_CENTER.CASE_DETAIL^^^"+this.id+"^^^"+this.subject);
+            }).catch((e) => this.onRejected(e));
     }
 
     departCase(){

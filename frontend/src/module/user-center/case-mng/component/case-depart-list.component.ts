@@ -11,6 +11,7 @@ import { CaseHandle } from '../model/case-handle.model';
 import { User } from '../model/user.model';
 
 //service
+import { CaseMngService } from '../service/case-mng-list.service';
 import { CaseDepartService } from '../service/case-depart-list.service';
 
 @Component({
@@ -25,6 +26,7 @@ export class CaseDepartListComponent implements OnInit{
     constructor(
         private router : Router,
         private service : CaseDepartService,
+        private servicemng : CaseMngService,
         private layoutService : LayoutService
     ) {
 
@@ -71,9 +73,6 @@ export class CaseDepartListComponent implements OnInit{
     selectedStatus= this.defaultStatus;
     id: string;
     creatorId: string;
-    organizationId: string;
-
-    criteria: CaseMngList= new CaseMngList();
 
     ngOnInit (){
         console.log('init');
@@ -123,87 +122,22 @@ export class CaseDepartListComponent implements OnInit{
             .catch((e) => this.onRejected(e));
     }
 
+    getDetail(item){
+        this.id= item.id;
+        this.subject= item.subject;
+        this.layoutService.show();
+        Promise.all([this.servicemng.getBasicInfo(this.id), this.servicemng.getHandelInfo(this.id), this.servicemng.getClosedInfo(this.id)])
+            .then((arr) =>{
+                this.layoutService.hide();
+                this.basicInfo= arr[0];
+                this.handledInfo= arr[1];
+                this.closedInfo= arr[2];
+                this.caseDetail.open("USER_CENTER.CASE_DETAIL^^^"+this.id+"^^^"+this.subject);
+            }).catch((e) => this.onRejected(e));
+    }
 
     myCase(){
         this.router.navigate([`user-center/case-mng/case-mng-list`]);
-    }
-
-    getBasicInfo(item){
-        this.id= item.id;
-        this.layoutService.show();
-        this.service.getBasicInfo(this.id)
-            .then(
-                response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.basicInfo= response["resultContent"];
-                        console.log("basicInfo",this.basicInfo);
-                    } else {
-                        alert("Res sync error");
-                    }
-                }
-            )
-            .catch((e) => this.onRejected(e));
-}
-
-    getHandelInfo(item){
-        this.id= item.id;
-        this.layoutService.show();
-        this.service.getHandelInfo(this.id)
-            .then(
-                response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.handledInfo= response["resultContent"];
-                        console.log("handleInfo",response["resultContent"]);
-                    } else {
-                        alert("Res sync error");
-                    }
-                }
-            )
-            .catch((e) => this.onRejected(e));
-    }
-
-    getClosedInfo(item){
-        this.id= item.id;
-        this.layoutService.show();
-        this.service.getClosedInfo(this.id)
-            .then(
-                response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.closedInfo= response["resultContent"];
-                        console.log("closedInfo",this.closedInfo);
-                    } else {
-                        alert("Res sync error");
-                    }
-                }
-            )
-            .catch((e) => this.onRejected(e));
-    }
-
-    getDetail(item){
-        this.basicInfo.subject= '';
-        this.basicInfo.statusName= '';
-        this.basicInfo.typeName= '';
-        this.basicInfo.contact= '';
-        this.basicInfo.contactNo= '';
-        this.basicInfo.creatorName= '';
-        this.basicInfo.updateDate= '';
-        this.basicInfo.creatorOrganization= '';
-        this.basicInfo.creatorTenant= '';
-        this.basicInfo.details= '';
-        this.handledInfo= null;
-        this.getBasicInfo(item);
-        this.getClosedInfo(item);
-        this.getHandelInfo(item);
-        this.id= item.id;
-        this.subject= item.subject;
-        this.caseDetail.open("USER_CENTER.CASE_DETAIL^^^"+this.id+"^^^"+this.subject );
-    }
-
-    departCase(){
-        this.router.navigate([`user-center/case-mng/case-depart-list`]);
     }
 
     showAlert(msg: string): void {
