@@ -261,6 +261,52 @@ export class CaseMngListComponent implements OnInit{
     }
 
 
+/*
+    getDetail(item){
+        this.id= item.id;
+        this.subject= item.subject;
+        this.layoutService.show();
+        this.service.getBasicInfo(this.id)
+            .then(
+                response => {
+                    if (response && 100 == response["resultCode"]) {
+                        this.basicInfo= response["resultContent"];
+                        console.log("basicInfo",this.basicInfo);
+                        this.service.getHandelInfo(this.id)
+                            .then(
+                                response => {
+                                    if (response && 100 == response["resultCode"]) {
+                                        this.handledInfo= response["resultContent"];
+                                        console.log("handleInfo",response["resultContent"]);
+                                        this.service.getClosedInfo(this.id)
+                                            .then(
+                                                response => {
+                                                    this.layoutService.hide();
+                                                    if (response && 100 == response["resultCode"]) {
+                                                        this.closedInfo= response["resultContent"];
+                                                        console.log("closedInfo",this.closedInfo);
+                                                        this.caseDetail.open("USER_CENTER.CASE_DETAIL^^^"+this.id+"^^^"+this.subject );
+                                                    } else {
+                                                        alert("Res sync error");
+                                                    }
+                                                }
+                                            )
+                                            .catch((e) => this.onRejected(e));
+                                    } else {
+                                        alert("Res sync error");
+                                    }
+                                }
+                            )
+                            .catch((e) => this.onRejected(e));
+
+                    } else {
+                        alert("Res sync error");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+    }*/
+
     showAlert(msg: string): void {
         this.layoutService.hide();
 

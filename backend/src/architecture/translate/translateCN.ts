@@ -1374,7 +1374,21 @@
         "STANDARD_SMALL_CLOUD_HOST": "标准小型云主机",
         "STORAGE_BACKEND": "存储后端",
         "UNIT_PRICE": "单位价格",
-        "VIEW_PRODUCT": "查看产品"
+        "VIEW_PRODUCT": "查看产品",
+
+        "EDIT_PRODUCT_CATALOG":"编辑产品目录",
+        "ERROR_GETTING_PLATFORM_LIST":"获取平台列表错误",
+        "SELECT_CLOUD_HOST_SPECIFICATIONS":"云主机规格选择",
+        "CLOUD_HARD_DISK_SERVICES":"云硬盘服务",
+        "PRICING_INFORMATION":"计价信息",
+        "PLATFORM_INFORMATION":"平台信息",
+        "ENTERPRISE_INFORMATION":"企业信息",
+        "HISTORYCAL_PRICE":"历史价格",
+        "PLEASE_SELECT_VALUATION_CYCLE":"请选择计价周期",
+        "PLATFORM_LIST_IS_EMPTY":"平台列表为空",
+        "ENTERPRISE_LIST_IS_EMPTY":"企业列表为空",
+        "RETURN_TO_PREVIOUS_STEP":"返回上一步重新选择平台",
+        "RETURN_PRODUCT_LIST":"返回产品列表"
     },
     "USER_CENTER": {
         "ACCOUNT": "帐号",
@@ -1480,6 +1494,7 @@
         "SELECT_AD_SOURCE_FOR_ENABLE_DISABLE": "请先选择需要启用或者禁用的认证源",
         "SELECT_AD_SOURCE_NEED_TO_EDIT": "请先选择需要编辑的认证源",
         "SELECT_AD_SOURCE_TO_DELETE": "请先选择需要删除的认证源",
+        "CANT_DELETE_AD_ATTEST": "无法删除认证源，该认证源已有账户绑定到系统中。",
         "SELECT_AD_USER": "请选择ad用户",
         "SELECT_AT_LEAST_ONE_ROLE": "至少选择一个角色",
         "SELECT_ORG": "请选择组织机构",
