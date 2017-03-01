@@ -382,9 +382,13 @@ manageAviPlatform(){
         this.confirmedHandler = ()=>{
         this.service.updateEntStatus(this.getSelected().enterpriseId, Status.Deleted)
         .then(ret=>{
-          this.search(null);
+            if(ret.resultCode==10001003){
+              this.showMsg("该企业下存在用户，不能删除！");
+            }
+            this.search(null);
         })
         .catch(err=>{
+        
           console.log("企业删除失败", err);
           this.showMsg("ENT_MNG.FAIL_TO_DELETE_ENTERPRISE");
         })

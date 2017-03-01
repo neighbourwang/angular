@@ -49,9 +49,9 @@ export class EntEstManagePlatformComponent implements OnInit {
 
     this.saveLoader = new ItemLoader<Platform>(false,'保存数据错误','ent-mng.ent-est-mng.enterprise.platform.save',restApiCfg,restApi);
 
-    this.platformLoader.MapFunc = (source:Array<any>,target:Array<Platform>)=>{
-      let obj = new Platform();
+    this.platformLoader.MapFunc = (source:Array<any>,target:Array<Platform>)=>{  
       for(let item of source){
+        let obj = new Platform();
         obj.id = item.id;
         obj.name = item.name;
         obj.type = item.platformType;
@@ -88,9 +88,8 @@ export class EntEstManagePlatformComponent implements OnInit {
     // }
 
     this.selectedPlatformLoader.MapFunc = (source:Array<any>,target:Array<Platform>)=>{
-      let obj = new Platform();
-
       for(let item of source){
+         let obj = new Platform();
         obj.id = item.id;
         obj.name = item.name;
         obj.type = item.platformType;
@@ -142,6 +141,7 @@ export class EntEstManagePlatformComponent implements OnInit {
     this.selectedPlatformLoader.Go(null,[{key:'_enterpriseId',value:this.entId}])
     .then(success=>{
       this.statusDic.UpdateWithDic(success);
+      this.typeDic.UpdateWithDic(success);
       this.layoutService.hide();
     })
     .catch(err=>{
@@ -200,7 +200,7 @@ save(){
     this.showMsg(err);
     this.layoutService.hide();
   })
-
+ this.layoutService.hide();
 }
 
   showMsg(msg: string)

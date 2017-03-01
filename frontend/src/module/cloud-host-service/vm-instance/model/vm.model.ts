@@ -17,6 +17,16 @@ class Vm {
     }
 }
 
+class InstanceVMProfile {
+    description? : string;   //, optional): 主机描述 ,
+    instanceDisplayName? : string;   //, optional): 主机实例的名称 ,
+    instanceId? : string;   //, optional): 主机实例Id ,
+    labelIds? : string[];   //[string], optional): 主机实例的标签 ,
+    serviceLevel? : string;   //, optional): 主机实例的服务级别，参考数据字典:GLOBAL->SERVICE_LEVEL ,
+    useType? : string;   //, optional): 主机实例的类型，参考数据字典:GLOBAL->USE_TYPE
+}
+
 export {
-    Vm
+    Vm,
+    InstanceVMProfile
 }

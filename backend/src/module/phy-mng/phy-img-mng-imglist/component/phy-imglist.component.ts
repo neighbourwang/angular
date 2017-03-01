@@ -64,6 +64,7 @@ export class PhyImgListComponent implements OnInit{
                 if(response && 100 == response["resultCode"]){
                     this.phyImgList = response.resultContent;
                     this.totalPage = response.pageInfo.totalPage;
+                    console.log("totalPage=" + this.totalPage);
                     this.selectedPhyImage = null;
                     this.service.refreshList(this.phyImgList);
                 }else{
@@ -72,6 +73,12 @@ export class PhyImgListComponent implements OnInit{
             }
         )
         .catch((e)=>this.onRejected(e));
+    }
+    
+    selectImg(img:PhyImg){
+        this.phyImgList.forEach((e)=>{e.selected = false});
+        img.selected = true;
+        this.selectedPhyImage = img;
     }
 
     onRejected(reason: any) {
@@ -111,7 +118,20 @@ export class PhyImgListComponent implements OnInit{
     }
     //提交编辑
     commitEdit(){
-
+        this.layoutService.show();
+        this.service.commitEdit(this.tempEdit).then(
+            response=>{
+                if(response && 100==response["resultCode"]){
+                    this.layoutService.hide();
+                    this.showAlert("编辑成功");
+                    this.editPopup.close();
+                    this.getPhyImgList();
+                }else{
+                    alert("Res.sync error");
+                }
+            }
+        )
+        .catch((e)=>this.onRejected(e));
     }
 
     //启用
@@ -178,17 +198,37 @@ export class PhyImgListComponent implements OnInit{
 
     //查看镜像
     showImgDetail(id:string){
-        this.router.navigate(['phy-img-mng/imglist/showimg', {"imageId": id}]);
+        this.router.navigate(['phy-img-mng/imglist/showimg', {"imageId": id,"pmImagePoolId":this.sourceId, "sourceName":this.sourceName}]);
+    }
+    backToSource(){
+        this.router.navigate(['phy-mng/phy-img/phy-img-mng']);
     }
     //同步镜像
     syncImg(){
+        this.router.navigate(['phy-img-mng/imglist/sync', {"pmImagePoolId":this.sourceId, "sourceName":this.sourceName}]);
 
     }
 
     //分配企业
     allocateEnt(){
-
+        if(this.selectedPhyImage){
+            if(this.selectedPhyImage.imageTypeId == 121){//如果是私有镜像类型才能点分配企业按钮（注：121是公共镜像）
+                this.router.navigate(['phy-img-mng/imglist/setent', {"imgId":this.selectedPhyImage.id, "pmImagePoolId":this.sourceId, "sourceName":this.sourceName}]);
+            }else{
+                this.showAlert("只有私有镜像类型才能分配企业");
+            }
+        }else{
+            this.showAlert("请选择镜像");
+        }
     }
 
-    
+    //编辑时 下拉框初始选项
+    setDefaultType(type:SystemDictionary, value:string){
+        if(value == type.value){
+            let classes =  {
+                selected:"selected"
+            };
+            return classes;
+        }
+    }
 }
