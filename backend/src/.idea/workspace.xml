@@ -48,19 +48,19 @@
         <entry file="file://$PROJECT_DIR$/architecture/translate/translateCN.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="38637">
-              <caret line="1466" column="33" selection-start-line="1466" selection-start-column="33" selection-end-line="1466" selection-end-column="33" />
+              <caret line="1467" column="33" selection-start-line="1467" selection-start-column="33" selection-end-line="1467" selection-end-column="33" />
               <folding>
-                <marker date="1488270091563" expanded="true" signature="27:57016" placeholder="{&quot;LANG&quot;: &quot;中文&quot;...}" />
-                <marker date="1488270091563" expanded="true" signature="49:2246" placeholder="{&quot;ADVANCED_QUERY&quot;: &quot;高级查询&quot;...}" />
-                <marker date="1488270091563" expanded="true" signature="37841:37847" placeholder="{&quot;ALL_DEPARTMENT&quot;: &quot;所有部门&quot;...}" />
-                <marker date="1488270091563" expanded="true" signature="37863:40099" placeholder="{&quot;ACCESS_PATH&quot;: &quot;访问地址&quot;...}" />
-                <marker date="1488270091563" expanded="true" signature="40116:42541" placeholder="{&quot;ADDRESS_REQUIRED&quot;: &quot;请输入地址&quot;...}" />
-                <marker date="1488270091563" expanded="true" signature="42563:44191" placeholder="{&quot;ACTIVE&quot;: &quot;启用&quot;...}" />
-                <marker date="1488270091563" expanded="true" signature="44212:47343" placeholder="{&quot;CONFIRM&quot;: &quot;确认&quot;...}" />
-                <marker date="1488270091563" expanded="true" signature="47361:50187" placeholder="{&quot;ALL_ENTERPRISE&quot;: &quot;全部企业&quot;...}" />
-                <marker date="1488270091563" expanded="true" signature="50208:55438" placeholder="{&quot;ACCOUNT&quot;: &quot;帐号&quot;...}" />
-                <marker date="1488270091563" expanded="true" signature="55463:55490" placeholder="{&quot;TEST&quot;: &quot;测试&quot;...}" />
-                <marker date="1488270091563" expanded="true" signature="55507:57014" placeholder="{&quot;CASE_MNG&quot;: &quot;工单管理&quot;...}" />
+                <marker date="1488291473643" expanded="true" signature="27:57044" placeholder="{&quot;LANG&quot;: &quot;中文&quot;...}" />
+                <marker date="1488291473643" expanded="true" signature="49:2246" placeholder="{&quot;ADVANCED_QUERY&quot;: &quot;高级查询&quot;...}" />
+                <marker date="1488291473643" expanded="true" signature="37869:37875" placeholder="{&quot;ALL_DEPARTMENT&quot;: &quot;所有部门&quot;...}" />
+                <marker date="1488291473643" expanded="true" signature="37891:40127" placeholder="{&quot;ACCESS_PATH&quot;: &quot;访问地址&quot;...}" />
+                <marker date="1488291473643" expanded="true" signature="40144:42569" placeholder="{&quot;ADDRESS_REQUIRED&quot;: &quot;请输入地址&quot;...}" />
+                <marker date="1488291473643" expanded="true" signature="42591:44219" placeholder="{&quot;ACTIVE&quot;: &quot;启用&quot;...}" />
+                <marker date="1488291473643" expanded="true" signature="44240:47371" placeholder="{&quot;CONFIRM&quot;: &quot;确认&quot;...}" />
+                <marker date="1488291473643" expanded="true" signature="47389:50215" placeholder="{&quot;ALL_ENTERPRISE&quot;: &quot;全部企业&quot;...}" />
+                <marker date="1488291473643" expanded="true" signature="50236:55466" placeholder="{&quot;ACCOUNT&quot;: &quot;帐号&quot;...}" />
+                <marker date="1488291473643" expanded="true" signature="55491:55518" placeholder="{&quot;TEST&quot;: &quot;测试&quot;...}" />
+                <marker date="1488291473643" expanded="true" signature="55535:57042" placeholder="{&quot;CASE_MNG&quot;: &quot;工单管理&quot;...}" />
               </folding>
             </state>
           </provider>
@@ -1044,7 +1044,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1064" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.134375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1394,19 +1394,19 @@
     <entry file="file://$PROJECT_DIR$/architecture/translate/translateCN.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38637">
-          <caret line="1466" column="33" selection-start-line="1466" selection-start-column="33" selection-end-line="1466" selection-end-column="33" />
+          <caret line="1467" column="33" selection-start-line="1467" selection-start-column="33" selection-end-line="1467" selection-end-column="33" />
           <folding>
-            <marker date="1488270091563" expanded="true" signature="27:57016" placeholder="{&quot;LANG&quot;: &quot;中文&quot;...}" />
-            <marker date="1488270091563" expanded="true" signature="49:2246" placeholder="{&quot;ADVANCED_QUERY&quot;: &quot;高级查询&quot;...}" />
-            <marker date="1488270091563" expanded="true" signature="37841:37847" placeholder="{&quot;ALL_DEPARTMENT&quot;: &quot;所有部门&quot;...}" />
-            <marker date="1488270091563" expanded="true" signature="37863:40099" placeholder="{&quot;ACCESS_PATH&quot;: &quot;访问地址&quot;...}" />
-            <marker date="1488270091563" expanded="true" signature="40116:42541" placeholder="{&quot;ADDRESS_REQUIRED&quot;: &quot;请输入地址&quot;...}" />
-            <marker date="1488270091563" expanded="true" signature="42563:44191" placeholder="{&quot;ACTIVE&quot;: &quot;启用&quot;...}" />
-            <marker date="1488270091563" expanded="true" signature="44212:47343" placeholder="{&quot;CONFIRM&quot;: &quot;确认&quot;...}" />
-            <marker date="1488270091563" expanded="true" signature="47361:50187" placeholder="{&quot;ALL_ENTERPRISE&quot;: &quot;全部企业&quot;...}" />
-            <marker date="1488270091563" expanded="true" signature="50208:55438" placeholder="{&quot;ACCOUNT&quot;: &quot;帐号&quot;...}" />
-            <marker date="1488270091563" expanded="true" signature="55463:55490" placeholder="{&quot;TEST&quot;: &quot;测试&quot;...}" />
-            <marker date="1488270091563" expanded="true" signature="55507:57014" placeholder="{&quot;CASE_MNG&quot;: &quot;工单管理&quot;...}" />
+            <marker date="1488291473643" expanded="true" signature="27:57044" placeholder="{&quot;LANG&quot;: &quot;中文&quot;...}" />
+            <marker date="1488291473643" expanded="true" signature="49:2246" placeholder="{&quot;ADVANCED_QUERY&quot;: &quot;高级查询&quot;...}" />
+            <marker date="1488291473643" expanded="true" signature="37869:37875" placeholder="{&quot;ALL_DEPARTMENT&quot;: &quot;所有部门&quot;...}" />
+            <marker date="1488291473643" expanded="true" signature="37891:40127" placeholder="{&quot;ACCESS_PATH&quot;: &quot;访问地址&quot;...}" />
+            <marker date="1488291473643" expanded="true" signature="40144:42569" placeholder="{&quot;ADDRESS_REQUIRED&quot;: &quot;请输入地址&quot;...}" />
+            <marker date="1488291473643" expanded="true" signature="42591:44219" placeholder="{&quot;ACTIVE&quot;: &quot;启用&quot;...}" />
+            <marker date="1488291473643" expanded="true" signature="44240:47371" placeholder="{&quot;CONFIRM&quot;: &quot;确认&quot;...}" />
+            <marker date="1488291473643" expanded="true" signature="47389:50215" placeholder="{&quot;ALL_ENTERPRISE&quot;: &quot;全部企业&quot;...}" />
+            <marker date="1488291473643" expanded="true" signature="50236:55466" placeholder="{&quot;ACCOUNT&quot;: &quot;帐号&quot;...}" />
+            <marker date="1488291473643" expanded="true" signature="55491:55518" placeholder="{&quot;TEST&quot;: &quot;测试&quot;...}" />
+            <marker date="1488291473643" expanded="true" signature="55535:57042" placeholder="{&quot;CASE_MNG&quot;: &quot;工单管理&quot;...}" />
           </folding>
         </state>
       </provider>
