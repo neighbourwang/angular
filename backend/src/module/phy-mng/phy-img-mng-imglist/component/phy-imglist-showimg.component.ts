@@ -13,7 +13,7 @@ import { PhyImgListService } from '../service/phy-imglist.service';
     providers: []
 })
 
-export class PhyImgListShowImg  implements OnInit{
+export class PhyImgListShowImgComponent implements OnInit{
      constructor(
         private layoutService: LayoutService,
         private router2: ActivatedRoute,
@@ -24,12 +24,35 @@ export class PhyImgListShowImg  implements OnInit{
     }
     imgId:string;
     img:PhyImg;
+
+    sourceId: string;
+    sourceName : string;
     ngOnInit(){
         this.router2.params.forEach((params: Params) => {
 			this.imgId = params['imageId'];
             console.log("imageId:" + this.imgId);
+            
+            this.sourceId = params['pmImagePoolId'];
+            this.sourceName = params['sourceName'];
+			console.log("接收的sourceId:" + this.sourceId);
+            console.log("sourceName:" + this.sourceName);
 			
 		});
+        
         this.img = this.service.getOneFromList(this.imgId);
+    }
+    // getImgDetail(){
+    //     this.layoutService.show();
+    //     this.service.imgDetail(this.imgId).then(
+    //         response=>{
+    //             this.layoutService.hide();
+    //             if(response && 100 == response["resultCode"]){
+    //                 this.img = response.resultContent;
+    //             }
+    //         }
+    //     )
+    // }
+    backToList(){
+        this.router.navigate(['phy-img-mng/imglist', {"pmImagePoolId":this.sourceId, "sourceName":this.sourceName}])
     }
 }

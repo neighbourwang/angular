@@ -103,9 +103,9 @@ export class PhyImgMngComponent implements OnInit {
         this.createPopup.open();
     }
     commitCreate(){
-        if(this.tempCreate.imageName==null){
+        if(this.tempCreate.imageName==null || ""==this.tempCreate.imageName){
             this.showAlert("名称不能为空");
-        }else if(this.tempCreate.imageURL==null){
+        }else if(this.tempCreate.imageURL==null || ""==this.tempCreate.imageURL){
             this.showAlert("地址不能为空");
         }else if(this.tempCreate.imageName && this.tempCreate.imageURL){
             this.layoutService.show();
@@ -113,8 +113,9 @@ export class PhyImgMngComponent implements OnInit {
                 response=>{
                     this.layoutService.hide();
                     if(response && 100 == response["resultCode"]){
-                        this.getPhyImageSources();
+                        this.createPopup.close();
                         this.showAlert("创建成功");
+                        this.getPhyImageSources();
                     }else{
                     alert("Res.sync error");
                 }
@@ -124,7 +125,9 @@ export class PhyImgMngComponent implements OnInit {
             
         }
     }
+    cancelCreate(){
 
+    }
     //分配
     allocatePool(){
         if(!this.selectedPhyImageSources){
@@ -150,11 +153,11 @@ export class PhyImgMngComponent implements OnInit {
     }
 
     commitAllo(){
-        let idlist:string;
+        let idlist:string="";
         this.inUsedPools.forEach((e)=>{
             idlist = idlist + e.pmPoolId+","
         })
-        idlist.slice(0, idlist.length-1);
+        idlist = idlist.slice(0, idlist.length-1);
 
         console.log("idlist="+idlist);
         this.layoutService.show();
@@ -193,9 +196,32 @@ export class PhyImgMngComponent implements OnInit {
         
     }
     commitEdit(){
+        if(this.tempEdit.imageName==null || ""==this.tempEdit.imageName){
+            this.showAlert("名称不能为空");
+        }else if(this.tempEdit.imageURL==null || ""==this.tempEdit.imageURL){
+            this.showAlert("地址不能为空");
+        }else if(this.tempEdit.imageName && this.tempEdit.imageURL){
+            this.layoutService.show();
+            this.service.commitEdit(this.tempEdit).then(
+                response=>{
+                    this.layoutService.hide();
+                    if(response && 100 == response["resultCode"]){
+                        this.editPopup.close();
+                        this.showAlert("编辑成功");
+                        this.getPhyImageSources();
+                        
+                    }else{
+                    alert("Res.sync error");
+                }
+            }
+        )
+        .catch((e)=>this.onRejected(e));
+            
+        }
+    }
+    cancelEdit(){
 
     }
-
     //启用
     enable(){
         if(this.selectedPhyImageSources){
@@ -258,18 +284,26 @@ export class PhyImgMngComponent implements OnInit {
     }
     //测试创建
     testPhyImgSource(temp:PhyImgSource){
-        this.layoutService.show();
-        this.service.testPhyImgSource(temp)
-        .then(
-            response=>{
-                this.layoutService.hide();
-                if(response && 100==response["resultCode"]){
-                    this.showAlert("测试成功");
-                }else{
-                     alert("Res.sync error");
+        if(temp.imageName==null || ""==temp.imageName){
+            this.showAlert("名称不能为空");
+        }else if(temp.imageURL==null || ""==temp.imageURL){
+            this.showAlert("地址不能为空");
+        }else if(temp.imageName && temp.imageURL){
+            this.layoutService.show();
+            this.service.testPhyImgSource(temp)
+            .then(
+                response=>{
+                    this.layoutService.hide();
+                    this.createPopup.close();
+                    this.editPopup.close();
+                    if(response && 100==response["resultCode"]){
+                        this.showAlert("测试成功");
+                    }else{
+                        alert("Res.sync error");
+                    }
                 }
-            }
-        ).catch((e)=> this.onRejected(e));
+            ).catch((e)=> this.onRejected(e));
+        }
     }
     
 
