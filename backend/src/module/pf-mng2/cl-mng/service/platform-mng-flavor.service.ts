@@ -14,7 +14,13 @@ export class FlavorService{
     getFlavorList (id : String){
         let api = this.restApiCfg.getRestApi("pf.cre.flavors.get");
 
-        return this.restApi.request(api.method , api.url , [{key : 'pf-id' , value : id}],undefined);
+        return this.restApi.request(api.method , api.url , [{key :'pf-id' , value : id}],undefined);
+    }
+    //同步云主机规格列表
+    updateFlavorList(id:string){
+        let api = this.restApiCfg.getRestApi("platform-mng.flavorList.post");
+
+        return this.restApi.request(api.method , api.url , [{key :'id' , value : id}],undefined);
     }
     //新建vm云主机规格
     vmFlavorNew(flavor:FlavorObj){

@@ -8,13 +8,13 @@
     <div class="page-content">
         <div style="padding-bottom: 10px;" *ngIf="platformType=='0'">
             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
-                <span class="icon-button-label" (click)='updateSpec()'>同步云主机规格</span>
+                <span class="icon-button-label" (click)='updateFlavor()'>同步云主机规格</span>
              </button>
             <div style="clear:both"></div>
         </div>
         <div style="padding-bottom: 10px;" *ngIf="platformType=='2'">
             <button class="fox-cloud-button-md fox-cloud-button-white">
-                <span class="icon-button-label" (click)='createSpec()'>新建云主机规格</span>
+                <span class="icon-button-label" (click)='createFlavor()'>新建云主机规格</span>
              </button>
             <div style="clear:both"></div>
         </div>
@@ -102,8 +102,8 @@
                         <span class="asterisk">*</span>
                         名称：
                     </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="flavorObj.name"  placeholder="规格名称">
+                    <div class="col-sm-4" [ngClass]="{'has-error':!flavorObj.nameValid}">
+                        <input type="text" class="form-control" [(ngModel)]="flavorObj.name" (focus)="flavorObj.nameValid=true;" required placeholder="规格名称" (blur)="flavorObj.nameValid=flavorObj.name?true:false;">
                     </div>
                 </div>
             </div> 
@@ -113,8 +113,8 @@
                         <span class="asterisk">*</span>
                         CPU：
                     </div>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" [(ngModel)]="flavorObj.cpu" >
+                    <div class="col-sm-3" [ngClass]="{'has-error':!flavorObj.cpuValid}">
+                        <input type="number" class="form-control" [(ngModel)]="flavorObj.cpu"  required (focus)="flavorObj.cpuValid=true;" (blur)="flavorObj.cpuValid=flavorObj.cpu?true:false;">
                     </div>
                     <div class="col-sm-4" style="line-height:34px;">
                         核(vCPU)
@@ -127,11 +127,11 @@
                         <span class="asterisk">*</span>
                         内存：
                     </div>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" [(ngModel)]="flavorObj.mem">
+                    <div class="col-sm-3" [ngClass]="{'has-error':!flavorObj.memValid}">
+                        <input type="number" class="form-control" [(ngModel)]="flavorObj.mem" required (focus)="flavorObj.memValid=true;" (blur)="flavorObj.memValid=flavorObj.mem?true:false;">
                     </div>
                     <div class="col-sm-4" style="line-height:34px;">
-                        兆(MB)
+                        (MB)
                     </div>
                 </div>
             </div> 
@@ -141,11 +141,11 @@
                         <span class="asterisk">*</span>
                         启动盘大小：
                     </div>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" [(ngModel)]="flavorObj.disk">
+                    <div class="col-sm-3" [ngClass]="{'has-error':!flavorObj.diskValid}">
+                        <input type="number" class="form-control" [(ngModel)]="flavorObj.disk" required (focus)="flavorObj.memValid=true;" (blur)="flavorObj.diskValid=flavorObj.disk?true:false;">
                     </div>
                      <div class="col-sm-4 " style="line-height:34px;">
-                        兆(GB)
+                        (GB)
                     </div>
                 </div>
             </div>  
