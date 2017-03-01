@@ -38,7 +38,7 @@ export class ProdMngCreStep2Component implements OnInit {
 
     next() {
         if(!this.service.product.billingCycleClick){
-            this.notice.open('操作错误','请选择计价周期');
+            this.notice.open('COMMON.OPERATION_ERROR','PROD_MNG.PLEASE_SELECT_VALUATION_CYCLE');
             return;
         }
         this.service.product.basicCyclePrice=

@@ -71,7 +71,7 @@ export class ProdDirListComponent implements OnInit {
             // }
         }).catch(err => {
             console.error(err);
-            this.notice.open('COMMON.OPERATION_ERROR','获取平台列表错误')
+            this.notice.open('COMMON.OPERATION_ERROR','PROD_MNG.ERROR_GETTING_PLATFORM_LIST')
         })
         //获取产品目录类别
         this.ProdSeriesService.getProdSeries().then(response => {
