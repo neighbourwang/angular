@@ -26,7 +26,7 @@ export class CostPandectComponent implements OnInit{
 
 @ViewChild("notice")
   	private _notice: NoticeComponent;
-
+size:number;
 currentYear :number;
 currentMonth : number;
 lastDay:number;
@@ -165,7 +165,7 @@ getMonths(){
     let months :number; 
    
     if( this.currentYear== Number(this._param.year)){
-         months = this.currentMonth;
+         months = this.currentMonth-1;
     }
     else{
         months = 12;
@@ -269,7 +269,7 @@ totalconsumeLoad(){
      let param={
         endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
         ids:[],
-        size:Number(this._param.month)
+        size:this.size//Number(this._param.month)
     };
 
     if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){    

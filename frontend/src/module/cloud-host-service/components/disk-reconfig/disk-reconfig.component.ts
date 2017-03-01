@@ -96,7 +96,7 @@ export class DiskReconfigComponent implements OnInit {
 			productId : this.res.productId,
 			skuId : this.res.serviceSkuId
 		}
-		this.service.submitConfig(this.disk.id, postData).then(res => {
+		this.service.submitConfig("disk", this.disk.id, postData).then(res => {
 			// this.complete.emit();
 			this.ot = "";
 			this.orderId = "[\""+res+"\"]";

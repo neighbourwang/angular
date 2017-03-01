@@ -99,8 +99,14 @@ export let RestApis: RestApiModel[] = [
     {
         "desc": "提交变更云主机配置",
         "method": "POST",
-        "id": "submit.vm.disk.config",
+        "id": "submit.vm.config",
         "url": "marketplace/authsec/shopping/instance/vm/{instanceId}/update"
+    },
+    {
+        "desc": "提交变更云硬盘配置",
+        "method": "POST",
+        "id": "submit.disk.config",
+        "url": "marketplace/authsec/shopping/instance/disk/{instanceId}/update"
     },
     {
         "desc": "变更云主机和云硬盘的借口",

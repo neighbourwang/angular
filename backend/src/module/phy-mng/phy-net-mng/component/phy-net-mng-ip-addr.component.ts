@@ -185,6 +185,7 @@ export class PhyNetMngIpAddrComponent implements OnInit{
 
     acceptEnableIPModify(): void {
         console.log('clicked acceptEnableIPModify');
+        this.changedip.status = <string>this.ipstatusDictArray.find(n => n.code === "used").value;
         this.layoutService.show();
         if (this.validationService.isBlank(this.changedip.description)) {
             this.layoutService.hide();
@@ -231,6 +232,7 @@ export class PhyNetMngIpAddrComponent implements OnInit{
 
     acceptDisableIPModify(): void {
         console.log('clicked acceptDisableIPModify');
+        this.changedip.status = <string>this.ipstatusDictArray.find(n => n.code === "free").value;
         this.layoutService.show();
         this.service.updateIpStatus(this.pn_id, this.changedip)
             .then(res => {

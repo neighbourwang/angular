@@ -36,8 +36,8 @@
 			            </tr>
 			        </thead>
 			        <tbody>
-			            <tr *ngFor="let platformItem of platformLoader.Items;let i=index">
-							<td><input type="checkbox" class="fox-cloud-checkbox"  (change)="selectItem(i)" value="{{i}}" /></td>
+			            <tr *ngFor="let platformItem of platformLoader.Items;let i=index"> <!--value="{{platformItem.isSelected}}"-->
+							<td><input type="checkbox" class="fox-cloud-checkbox"  (change)="selectItem(i)" /></td>
 			                <td>{{platformItem.name}}</td>
 			                <td>{{platformItem.typeName}}</td>
 			                <td [ngClass]="{'validateInfo':platformItem.status==1,'warnInfo':platformItem.status!=1}">

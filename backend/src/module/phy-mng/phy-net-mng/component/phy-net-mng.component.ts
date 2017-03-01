@@ -483,6 +483,8 @@ export class PhyNetMngComponent implements OnInit {
         //console.log('clicked acceptIPsModify');        
         if (this.validatePhyNetIPModify()) {
             this.layoutService.show();
+            this.ipscope_changed.ipRange = this.ipscope_changed.ipRange.replace(/\s+/g, "").replace(/\n\r/g, "");
+            console.log(this.ipscope_changed.ipRange, "this.ipscope_changed.ipRange");
             this.service.updatePhyNetIpRange(this.ipscope_changed)
                 .then(res => {
                     this.layoutService.hide();
@@ -613,7 +615,7 @@ export class PhyNetMngComponent implements OnInit {
         let pn = this.getSelected();
         if (pn) {
             this.selectedphynet = pn;
-            if (this.selectedphynet.status == this.statusDictArray.find(n => n.code === "enable").value) {
+            if (this.selectedphynet.status == <string>this.statusDictArray.find(n => n.code === "enable").value) {
                 this.showMsg("PHY_NET_MNG.PHY_NET_ENABLED");
                 return;
             }
@@ -663,7 +665,7 @@ export class PhyNetMngComponent implements OnInit {
         let pn = this.getSelected();
         if (pn) {
             this.selectedphynet = pn;
-            if(this.selectedphynet.status == this.statusDictArray.find(n => n.code === "disable").value){
+            if(this.selectedphynet.status == <string>this.statusDictArray.find(n => n.code === "disable").value){
                 this.showMsg("PHY_NET_MNG.PHY_NET_DISABLED");
                 return; 
             }
