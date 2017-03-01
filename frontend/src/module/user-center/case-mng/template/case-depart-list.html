@@ -3,18 +3,16 @@
 </div>
 <div class="mgb20 row">
     <div class="col-md-3 btn-group" data-toggle="buttons">
-        <button class="btn btn-default active">
-            <input type="radio" checked> 我的工单
+        <button class="btn btn-default" (click)="myCase();">
+            <input type="radio"> 我的工单
         </button>
-        <button class="btn btn-default" (click)="departCase();">
-            <input type="radio" > 部门工单
+        <button class="btn btn-default active">
+            <input type="radio"> 部门工单
         </button>
     </div>
 </div>
+
 <div class="mgb20" style="height:30px;">
-    <button class="btn button-confirm  pull-right" (click)="crePage();isEdit= false">
-        <span class="icon-create "></span>{{ 'USER_CENTER.CREATE_CASE' | translate}}
-    </button>
     <div class="input-group col-md-2 float-left">
         <input [(ngModel)]="search" class="form-control" placeholder="{{ 'USER_CENTER.QUICKSEARCH_BYCASE' | translate}}" type="text">
         <div (click)="getData()" class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
@@ -40,6 +38,13 @@
             <option [value]="v.value" *ngFor="let v of service.emergencyDic | async">{{v.displayValue}}</option>
         </select>
     </div>
+    <div class="float-left mgl20">
+        <span>{{ 'USER_CENTER.EMERGENCY' | translate}}：</span>
+        <select [(ngModel)]="selectedEmergency" (ngModelChange)="getData()" class="form-control fix-width-120">
+            <option [value]="defaultEmergency">提交者</option>
+            <option [value]="v.value" *ngFor="let v of service.emergencyDic | async">{{v.displayValue}}</option>
+        </select>
+    </div>
 </div>
 <table class="table table-hover" >
     <thead>
@@ -53,7 +58,6 @@
             <th class="text-center">{{ 'USER_CENTER.CONTACNO' | translate}} </th>
             <th class="text-center">{{ 'USER_CENTER.SUBMIT_TIME' | translate}}</th>
             <th class="text-center">{{ 'USER_CENTER.UPDATE_TIME' | translate}}</th>
-            <th class="text-center">{{ 'COMMON.OPERATION' | translate }} </th>
         </tr>
     </thead>
     <tbody>
@@ -67,10 +71,6 @@
             <td class="text-center">{{item.contactNo}}</td>
             <td class="text-center">{{item.createDate}}</td>
             <td class="text-center">{{item.updateDate}}</td>
-            <td class="text-center">
-                <span class="glyphicon glyphicon-edit font-green " style="margin-right : 10px ;cursor:pointer" (click)="editPage(item);isEdit= true"></span>
-                <span class="glyphicon glyphicon-trash font-orange" style="cursor:pointer" (click)="delete(item)"></span>
-            </td>
         </tr>
     </tbody>
 </table>
