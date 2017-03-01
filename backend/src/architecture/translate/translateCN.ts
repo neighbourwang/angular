@@ -1507,6 +1507,7 @@
         "VIEW_ROLE": "查看角色",
         "PHY_MNG":"物理机管理",
         "PHY_INSTANCE":"物理机实例",
+        "PHY_IMAGE_MNG":"物理机镜像管理",
         "CLOUD_HOST_MNG":"云主机管理",
         "IMAGE_MNG":"镜像管理",
 

@@ -13,13 +13,13 @@ import { CaseHandle } from '../model/case-handle.model';
 import { CaseMngService } from '../service/case-mng-list.service';
 
 @Component({
-    selector: 'case-mng-list',
-    templateUrl: '../template/case-mng-list.html',
+    selector: 'case-depart-list',
+    templateUrl: '../template/case-depart-list.html',
     styleUrls: ['../style/case-mng-list.less'],
     providers: []
 })
 
-export class CaseMngListComponent implements OnInit{
+export class CaseDepartListComponent implements OnInit{
 
     constructor(
         private router : Router,
@@ -101,100 +101,11 @@ export class CaseMngListComponent implements OnInit{
             .catch((e) => this.onRejected(e));
 }
 
-    editPage(item){
-        if(item.status == 0){
-            this.isEdit= true;
-            let editcase= new CaseMngList();
-            editcase.subject= item.subject;
-            editcase.type= item.type;
-            editcase.emergency= item.emergency;
-            editcase.contact= item.contact;
-            editcase.contactNo=item.contactNo;
-            editcase.details= item.details;
-            this.criteria= editcase;
-            this.id= item.id;
-            console.log("id1",this.id);
-            this.creCase.open("USER_CENTER.EDIT_CASE");
-        }else{
-            this.showAlert("USER_CENTER.EDIT_CONTOR");
-        }
 
+    myCase(){
+        this.router.navigate([`user-center/case-mng/case-mng-list`]);
     }
-
-    crePage(){
-        this.isEdit= false;
-        this.criteria= new CaseMngList();
-        this.criteria.emergency= "";
-        this.criteria.type= "";
-        this.creCase.open("USER_CENTER.CREATE_CASE");
-    }
-
-    creOredit(){
-        this.selectedEmergency= "";
-        this.selectedStatus= "";
-        this.selectedType= "";
-        this.search= "";
-        if(!this.isEdit){
-            this.layoutService.show();
-            this.service.creat(this.criteria)
-                .then(
-                    response => {
-                        this.layoutService.hide();
-                        if (response && 100 == response["resultCode"]) {
-                            this.getData();
-                            this.creCase.close();
-                            console.log("创建",response["resultContent"]);
-                        } else {
-                            alert("Res sync error");
-                        }
-                    }
-                )
-                .catch((e) => this.onRejected(e));
-        }else{
-            this.layoutService.show();
-            this.service.edit(this.id,this.criteria)
-                .then(
-                    response => {
-                        this.layoutService.hide();
-                        if (response && 100 == response["resultCode"]) {
-                            this.getData();
-                            this.creCase.close();
-                            console.log("idEdit",this.id);
-                        } else {
-                            alert("Res sync error");
-                        }
-                    }
-                )
-                .catch((e) => this.onRejected(e));
-        }
-
-    }
-
-    delete(item){
-        if(item.status == 0){
-            this.id= item.id;
-            this.subject= item.subject;
-            this.confirm.open('USER_CENTER.DELETE_CASE',"USER_CENTER.DELETE_CASE_WARNING^^^"+this.id+"^^^"+this.subject );
-            this.confirm.ccf=()=>{
-                this.layoutService.show();
-                this.service.delete(this.id)
-                    .then(
-                        response => {
-                            this.layoutService.hide();
-                            if (response && 100 == response["resultCode"]) {
-                                this.getData();
-                            } else {
-                                alert("Res sync error");
-                            }
-                        }
-                    )
-                    .catch((e) => this.onRejected(e));
-            }
-        }else{
-            this.showAlert("USER_CENTER.DELETE_CONTOR");
-        }
-    }
-
+    
     getBasicInfo(item){
         this.id= item.id;
         this.layoutService.show();

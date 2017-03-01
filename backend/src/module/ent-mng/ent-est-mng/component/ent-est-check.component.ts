@@ -43,33 +43,33 @@ export class EntEstCheckComponent implements OnInit {
      this.extendDetailLoader = new ItemLoader<ExtendDetailItem>(false,'加载数据错误','ent-mng.ent-est-mng.enterprise.detail.ext',restApiCfg,restApi);
   
 
-    this.extendDetailLoader.MapFunc = (source:Array<any>,target:Array<ExtendDetailItem>)=>{
-      let obj = new ExtendDetailItem();
-      for(let item of source){
-        obj.orderForAudit = item.orderForAudit;
-        obj.serviceToExpired = item.serviceToExpired;
+    // this.extendDetailLoader.MapFunc = (source:Array<any>,target:Array<ExtendDetailItem>)=>{
+    //   let obj = new ExtendDetailItem();
+    //   for(let item of source){
+    //     obj.orderForAudit = item.orderForAudit;
+    //     obj.serviceToExpired = item.serviceToExpired;
 
-        obj.ticketNew = item.ticketNew;
-        obj.ticketProcessing = item.ticketProcessing;
-        obj.ticketDone = item.ticketDone;
+    //     obj.ticketNew = item.ticketNew;
+    //     obj.ticketProcessing = item.ticketProcessing;
+    //     obj.ticketDone = item.ticketDone;
 
-        obj.userEnabled = item.userEnabled;
-        obj.userDisabled = item.userDisabled;
+    //     obj.userEnabled = item.userEnabled;
+    //     obj.userDisabled = item.userDisabled;
 
-        obj.vmRunning = item.vmRunning;
-        obj.vmPaused = item.vmPaused;
+    //     obj.vmRunning = item.vmRunning;
+    //     obj.vmPaused = item.vmPaused;
 
-        obj.storageRunning = item.storageRunning;
-        obj.storagePaused = item.storagePaused;
+    //     obj.storageRunning = item.storageRunning;
+    //     obj.storagePaused = item.storagePaused;
 
-        obj.dbRunning = item.dbRunning;
-       obj.dbPaused = item.dbPaused;
+    //     obj.dbRunning = item.dbRunning;
+    //    obj.dbPaused = item.dbPaused;
 
-        obj.snapshotRunning = item.snapshotRunning;
+    //     obj.snapshotRunning = item.snapshotRunning;
 
-        target.push(obj);
-      }
-    }
+    //     target.push(obj);
+    //   }
+    // }
 
   // this.extendDetailLoader.FakeDataFunc = (target:Array<ExtendDetailItem>)=>{
   //     target.splice(0, target.length);
@@ -103,6 +103,7 @@ export class EntEstCheckComponent implements OnInit {
 
 
     //加载企业统计图
+    
     this.resourceQuotaSvg = new ItemLoader<EntEstCreResourceQuota>(true, "ENT_MNG.ENT_OVERVIEW_DATA_ERROR", "ent-mng.ent-est-mng.enterprise.quota.detail", restApiCfg, restApi);
     this.resourceQuotaSvg.MapFunc = (source:Array<any>, target:Array<EntEstCreResourceQuota>)=>{
       for(let item of source)

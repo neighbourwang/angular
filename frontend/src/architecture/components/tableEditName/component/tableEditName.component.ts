@@ -13,6 +13,7 @@ export class TableEditNameComponent implements OnInit{
     }
     @Input() value:string;
     @Output() onChange=new EventEmitter();
+    @Output() nameOnClick=new EventEmitter();
 
     show : boolean = false;
     inputValue : string = "";

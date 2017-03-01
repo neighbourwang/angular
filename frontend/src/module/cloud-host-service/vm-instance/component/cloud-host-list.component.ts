@@ -110,21 +110,6 @@ export class cloudHostListComponent implements OnInit {
 		this.setHostList();
 	}
 
-	delectVm() {  //退订云主机
-		if( !this.radioSelected.subInstanceId )  return this.showNotice("VM_INSTANCE.UNSUBSCRIBE_CLOUD_HOST", "VM_INSTANCE.CHOOSE_HOST_UN");
-		this.forceDelect = false;
-
-		this.popup.open("VM_INSTANCE.UNSUBSCRIBE_CLOUD_HOST");
-	}
-	popupCf(){}
-	popupOf(){
-		this.service.deleteVm(this.radioSelected.subInstanceId, this.forceDelect?1:0).then(res => {
-			this.showNotice("VM_INSTANCE.UNSUBSCRIBE_CLOUD_HOST", "VM_INSTANCE.ALREADY_STARTED_UN_PROCESS");
-		}).catch(e => {
-			this.showNotice("VM_INSTANCE.UNSUBSCRIBE_CLOUD_HOST", "COMMON.FAILED");
-		})
-		this.popup.close();
-	}
 
 	//云主机的操作相关
 	handleVm(key: string, vm: VmList ,msg) {
@@ -148,30 +133,6 @@ export class cloudHostListComponent implements OnInit {
 		})
 	}
 
-	openConsole(vm: VmList) {
-        let pathParams = [
-            {
-                key: 'platformid',
-                value: vm.platformId
-            },
-            {
-                key: 'enterpriseId',
-                value: this.service.userInfo.enterpriseId
-            },
-            {
-                key: 'uuid',
-                value: vm.uuid
-            }
-        ];
-		this.service.getConsoleUrl(pathParams).then(res => {  
-			if(vm.platformType === "0") {    //openstract直接打开
-				window.open(res)
-			}else if(vm.platformType === "2") {  //vmware 需要打开一个页面穿进去url
-				window.localStorage["vmwControlUrl"] = res;
-				window.open("/control.html");
-			}
-		});
-	}
 
 
 	goTo(url : string) {
@@ -198,8 +159,18 @@ export class cloudHostListComponent implements OnInit {
 	}
 	// 警告框相关结束
 
-	changeName(name) {
-		
+	changeName(name, vm:VmList) {
+		this.layoutService.show();
+		this.service.postVmInfo(vm.itemId, {instanceDisplayName : name}).then(res => {
+			this.layoutService.hide();
+			this.setHostList();
+		}).catch(error => {
+			this.layoutService.hide();
+			this.showNotice("提示", "修改名称失败")
+		})
+	}
+	nameClick(){
+		console.log("222")
 	}
 
 	//分页

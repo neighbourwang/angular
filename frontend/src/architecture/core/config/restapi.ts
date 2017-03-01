@@ -151,6 +151,12 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/serviceinstance/vm/{itemId}"
     },
     {
+        "desc": "更新云主机详细信息",
+        "method": "POST",
+        "id": "vm.instance.detail.updata",
+        "url": "marketplace/authsec/serviceinstance/vm/{instanceId}"
+    },
+    {
         "desc": "获取购物车列表",
         "method": "GET",
         "id" : "shopping.cart.items",
