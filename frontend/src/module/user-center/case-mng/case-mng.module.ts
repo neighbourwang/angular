@@ -12,7 +12,7 @@ import { CaseMngRouting } from './case-mng.routing';
 
 //service
 import { CaseMngService} from './service/case-mng-list.service'
-
+import { CaseDepartService} from './service/case-depart-list.service'
 
 @NgModule({
     imports: [
@@ -29,7 +29,8 @@ import { CaseMngService} from './service/case-mng-list.service'
         CaseDepartListComponent
     ],
     providers: [
-        CaseMngService
+        CaseMngService,
+        CaseDepartService
     ]
 
 })

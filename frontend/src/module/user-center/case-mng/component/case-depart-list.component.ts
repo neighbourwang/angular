@@ -8,9 +8,10 @@ import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, Syst
 import { CaseMngList } from '../model/case-mng-list.model';
 import { CaseClosed } from '../model/case-closed.model';
 import { CaseHandle } from '../model/case-handle.model';
+import { User } from '../model/user.model';
 
 //service
-import { CaseMngService } from '../service/case-mng-list.service';
+import { CaseDepartService } from '../service/case-depart-list.service';
 
 @Component({
     selector: 'case-depart-list',
@@ -23,7 +24,7 @@ export class CaseDepartListComponent implements OnInit{
 
     constructor(
         private router : Router,
-        private service : CaseMngService,
+        private service : CaseDepartService,
         private layoutService : LayoutService
     ) {
 
@@ -51,11 +52,11 @@ export class CaseDepartListComponent implements OnInit{
     typeDic: Array<SystemDictionary>;
     emergencyDic: Array<SystemDictionary>;
 
-    isEdit: boolean;
     data: Array<CaseMngList>;
     basicInfo: CaseMngList= new CaseMngList();
     handledInfo: Array<CaseHandle>;
     closedInfo: CaseClosed= new CaseClosed();
+    userList: Array<User>;
     search: "";
     subject: string;
     type: string;
@@ -64,10 +65,13 @@ export class CaseDepartListComponent implements OnInit{
     defaultType= "";
     defaultStatus= "";
     defaultEmergency= "";
+    defaultUser= "";
     selectedEmergency= this.defaultEmergency;
     selectedType= this.defaultType;
     selectedStatus= this.defaultStatus;
     id: string;
+    creatorId: string;
+    organizationId: string;
 
     criteria: CaseMngList= new CaseMngList();
 
@@ -75,7 +79,7 @@ export class CaseDepartListComponent implements OnInit{
         console.log('init');
         //this.layoutService.show();
         this.getData();
-        console.log("typeDic",this.service.typeDic);
+        this.getUserList();
     }
 
     getData(pageIndex?) {
@@ -83,9 +87,10 @@ export class CaseDepartListComponent implements OnInit{
         this.type= this.selectedType || "";
         this.status= this.selectedStatus|| "";
         this.emergency= this.selectedEmergency|| "";
+        this.creatorId= this.creatorId || "";
         this.pageIndex= pageIndex || this.pageIndex;
         this.layoutService.show();
-        this.service.getData(this.pageIndex, this.pageSize, this.subject, this.type, this.status, this.emergency)
+        this.service.getData(this.pageIndex, this.pageSize, this.creatorId, this.subject, this.type, this.status, this.emergency)
             .then(
                 response => {
                     this.layoutService.hide();
@@ -101,11 +106,28 @@ export class CaseDepartListComponent implements OnInit{
             .catch((e) => this.onRejected(e));
 }
 
+    getUserList(){
+        this.layoutService.show();
+        this.service.getUserList()
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.userList= response["resultContent"];
+                        console.log("userList",response["resultContent"]);
+                    } else {
+                        alert("Res sync error");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
 
     myCase(){
         this.router.navigate([`user-center/case-mng/case-mng-list`]);
     }
-    
+
     getBasicInfo(item){
         this.id= item.id;
         this.layoutService.show();

@@ -75,7 +75,6 @@ export class CaseMngListComponent implements OnInit{
         console.log('init');
         //this.layoutService.show();
         this.getData();
-        console.log("typeDic",this.service.typeDic);
     }
 
     getData(pageIndex?) {
