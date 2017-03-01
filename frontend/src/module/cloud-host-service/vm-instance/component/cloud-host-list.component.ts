@@ -159,8 +159,18 @@ export class cloudHostListComponent implements OnInit {
 	}
 	// 警告框相关结束
 
-	changeName(name) {
-		
+	changeName(name, vm:VmList) {
+		this.layoutService.show();
+		this.service.postVmInfo(vm.itemId, {instanceDisplayName : name}).then(res => {
+			this.layoutService.hide();
+			this.setHostList();
+		}).catch(error => {
+			this.layoutService.hide();
+			this.showNotice("提示", "修改名称失败")
+		})
+	}
+	nameClick(){
+		console.log("222")
 	}
 
 	//分页

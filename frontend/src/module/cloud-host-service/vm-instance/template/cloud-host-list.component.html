@@ -129,10 +129,13 @@
         </tr>
         <tr *ngFor="let vm of vmList;let i = index;" style="line-height: 65px;">
             <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;"  name="host-list"></td>
-            <!-- <td class="text-center active" style="position: relative;width: 220px;">
-                <table-edit-name [value]="vm.instanceName" (onChange)="changeName($event)"></table-edit-name>
-            </td> -->
-            <td class="text-center active"><span class="cursor-pointer " (click)="router.navigate(['cloud-host-service/cloud-host-detail/', vm.itemId])">{{vm.instanceName}}</span></td>
+            <td class="text-center active" style="position: relative;width: 220px;">
+                <table-edit-name 
+                    (nameOnClick)="router.navigate(['cloud-host-service/cloud-host-detail/', vm.itemId])" 
+                    [value]="vm.instanceName" 
+                    (onChange)="changeName($event, vm)"></table-edit-name>
+            </td>
+            <!-- <td class="text-center active"><span class="cursor-pointer " (click)="">{{vm.instanceName}}</span></td> -->
             <td class="text-center">{{vm.specification}}</td>
             <td class="text-center">{{vm.osInfo}}</td>
             <td class="text-center">{{vm.privateIP}}</td> 
