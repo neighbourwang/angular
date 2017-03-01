@@ -2,20 +2,26 @@
 <div class="page-content">
     <div>
         <h1 class="page-content-header float-left">{{'VM_INSTANCE.CLOUD_HOST_DETAILS' | translate}}</h1>
-        <div class="float-left mgt5 mgl10"><span class="icon-back"></span>{{'VM_INSTANCE.RETURNS_THE_CLOUD_HOST_LIST' | translate}}</div>
-        <div class="dropdown float-right">
+        <div class="float-left mgt5 mgl10 cursor-pointer" (click)="goToUrl('cloud-host-service/cloud-host-list')"><span class="icon-back"></span>{{'VM_INSTANCE.RETURNS_THE_CLOUD_HOST_LIST' | translate}}</div>
+        <button *ngIf="isEditState" (click)="saveEditToServer()" class="btn float-right btn-success"><i class="glyphicon glyphicon-plus"></i> 保存</button>
+        <div class="dropdown float-right mgr5">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{'VM_INSTANCE.MORE_ACTIONS' | translate}}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><a href="javascript:">{{'VM_INSTANCE.EDIT_THE_CLOUD_HOST' | translate}}</a></li>
-                <li><a href="javascript:">{{'VM_INSTANCE.DELETE_THE_CLOUD_HOST' | translate}}</a></li>
-                
+                <li><a (click)="isEditState = true" href="javascript:">{{'VM_INSTANCE.EDIT_THE_CLOUD_HOST' | translate}}</a></li>
+
+                <li>
+                  <unsubscribe #unsubscribeVm [name]="vm?.instanceName" [id]="vm?.subInstanceId"></unsubscribe>
+                  <a (click)="unsubscribeVm.delectVm()" href="javascript:">{{'VM_INSTANCE.DELETE_THE_CLOUD_HOST' | translate}}</a>
+                </li>
             </ul>
         </div>
-        <button class="btn button-gray-gradient float-right mgr5">
-        <span class="icon-controller"></span>{{'VM_INSTANCE.CONSOLE' | translate}}
+
+        <open-console #openConsole [platformid]="vm?.platformId" [uuid]="vm?.uuid" [platformtype]="vm?.platformType"></open-console>
+        <button (click)="openConsole.open()" class="btn button-gray-gradient float-right mgr5">
+          <span class="icon-controller"></span>{{'VM_INSTANCE.CONSOLE' | translate}}
         </button>
     </div>
     <div style="clear:both;"></div>
@@ -34,7 +40,9 @@
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                   <div class="panel-body">
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.INSTANCE_NAME' | translate}}:</font>    {{vm?.instanceName}}
+                          <font>{{'VM_INSTANCE.INSTANCE_NAME' | translate}}:</font>    
+                          <input *ngIf="isEditState" class="form-control detail-edit-select" [(ngModel)]="postData.instanceDisplayName" type="text">
+                          <span  *ngIf="!isEditState">{{vm?.instanceName}}</span>
                       </div>
                       <div class="line-box">
                           <font>{{'VM_INSTANCE.AVAILABLE_AREA' | translate}}:</font>    {{vm?.regionZone}}
@@ -67,21 +75,33 @@
                       <div class="line-box">
                           <font>{{'VM_INSTANCE.TYPE' | translate}}:</font>    
                           <select
-                            [(ngModel)]="postData.useType" class="form-control">
+                             *ngIf="isEditState"
+                            [(ngModel)]="postData.useType" class="form-control detail-edit-select">
                               <option
                               *ngFor="let value of service.useType | async"
                               [ngValue]="value.value" >{{ value.displayValue }}</option>
                           </select>
-                          {{vm?.useType | dict:service.useType | async}}
+                          <span *ngIf="!isEditState">{{vm?.useType | dict:service.useType | async}}</span>
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.SERVICE_LEVEL' | translate}}:</font>    {{vm?.serviceLevel | dict:service.serviceLevel | async}}
+                          <font>{{'VM_INSTANCE.SERVICE_LEVEL' | translate}}:</font>    
+
+                          <select
+                             *ngIf="isEditState"
+                            [(ngModel)]="postData.serviceLevel" class="form-control detail-edit-select">
+                              <option
+                              *ngFor="let value of service.serviceLevel | async"
+                              [ngValue]="value.value" >{{ value.displayValue }}</option>
+                          </select>
+                          <span *ngIf="!isEditState">{{vm?.serviceLevel | dict:service.serviceLevel | async}}</span>
                       </div>
                       <!-- <div class="line-box"> -->
          <!--                  <font>{{'VM_INSTANCE.LABEL' | translate}}:</font>    {{vm?.instanceName}}
                       </div> -->
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.DESCRIPTION' | translate}}:</font>    {{vm?.description}}
+                          <font>{{'VM_INSTANCE.DESCRIPTION' | translate}}:</font>    
+                          <input *ngIf="isEditState" class="form-control detail-edit-select" [(ngModel)]="postData.description" type="text">
+                          <span  *ngIf="!isEditState">{{vm?.description}}</span>
                       </div>
                   </div>
                 </div>
@@ -130,7 +150,7 @@
                       <div class="line-box">
                           <font>{{'VM_INSTANCE.BOOT_DISK' | translate}}:</font>    {{vm?.rootGb}}GB
                       </div>
-                      <div class="line-box">
+                      <div (click)="goToUrl('cloud-host-service/cloud-drive-list')" class="line-box cursor-pointer">
                           <font>{{'VM_INSTANCE.DATA_DISK' | translate}}:</font>    {{vm?.diskCount}}
                       </div>
                       <div class="line-box">
@@ -167,14 +187,14 @@
                 <div id="collapseSixth" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSixth">
                   <div class="panel-body">
                     
-                      <div class="line-box">
+                      <div (click)="goToUrl('op-center/order-mng/order-mng-search')" class="line-box cursor-pointer">
                           <font>{{'VM_INSTANCE.ORDER_NUMBER' | translate}}:</font>    {{vm?.itemId}}
                       </div>
                       <div class="line-box">
                           <font>{{'VM_INSTANCE.PAYMENT_METHODS' | translate}}:</font>    {{vm?.paymentType}}
                       </div>
                       <div class="line-box">
-                          <font>{{'VM_INSTANCE.CREATED_DATE' | translate}}:</font> 
+                          <font>{{'VM_INSTANCE.CREATED_DATE' | translate}}:</font> {{vm?.createDate}}
                       </div>
                       <div class="line-box">
                           <font>{{'VM_INSTANCE.EXPIRE_DATE' | translate}}:</font>    {{vm?.expiryDate}}

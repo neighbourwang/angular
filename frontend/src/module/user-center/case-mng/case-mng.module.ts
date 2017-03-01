@@ -5,6 +5,7 @@ import { CommonComponentModule, PipeModule} from '../../../architecture';
 
 //Components
 import { CaseMngListComponent } from './component/case-mng-list.component';
+import { CaseDepartListComponent } from './component/case-depart-list.component';
 
 // Routing
 import { CaseMngRouting } from './case-mng.routing';
@@ -20,10 +21,12 @@ import { CaseMngService} from './service/case-mng-list.service'
         PipeModule
     ],
     declarations: [
-        CaseMngListComponent
+        CaseMngListComponent,
+        CaseDepartListComponent
     ],
     exports: [
-        CaseMngListComponent
+        CaseMngListComponent,
+        CaseDepartListComponent
     ],
     providers: [
         CaseMngService

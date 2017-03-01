@@ -1,6 +1,6 @@
 import {Injectable } from '@angular/core';
 import {Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
+import { RestApiCfg, RestApi, RestApiModel, SystemDictionaryService } from '../../../../architecture';
 
 import'rxjs/add/operator/toPromise';
 
@@ -13,10 +13,16 @@ export class PhyImgSourceService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private dict:SystemDictionaryService
     ){   }
 
-
+    //物理机镜像池状态
+    poolStatusDic = this.dict.get({
+        owner: "PM_IMAGE_POOL",
+        field: "STATUS"
+    });
+    
     init(): void {
         this.restApiCfg.loadCfgData();
     }
@@ -38,11 +44,13 @@ export class PhyImgSourceService {
         const api = this.restApiCfg.getRestApi("phy-mng.phy-img-mng.phyimgsource.getlist");
         return this.restApi.request(api.method, api.url, pathParams, null, null);
         
-        //return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return SourceListMock});
+       //return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return SourceListMock});
     }
+    
+    //物理机镜像池状态修改:0:禁用 1:启用 2:删除
     //PUT /noauth/pmimage/pool/{pmImagePoolId}/{status}
     changeStatus(id:string, status:number) : Promise<any>{
-        const pathParms = [
+        const pathParams = [
             {
                 key:"pmImagePoolId",
                 value:id
@@ -52,10 +60,10 @@ export class PhyImgSourceService {
                 value:status
             }
         ]
-        // const api = this.restApiCfg.getRestApi("phy-mng.phy-img-mng.phyimgsource.changestatus");
-        // return this.restApi.request(api.method, api.url, pathParams, null, null);
+        const api = this.restApiCfg.getRestApi("phy-mng.phy-img-mng.phyimgsource.changestatus");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
         
-        return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return ChangeStatusMock});
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return ChangeStatusMock});
         
     }
 
@@ -82,43 +90,44 @@ export class PhyImgSourceService {
             "status": tempEdit.status
         });
     }
-    //获取分配列表GET /noauth/pmimage/pool/{pmImagePoolId}/pmpool/list
+    //获取分配列表 根据pmImagePoolId显示资源池的分配信息
+    //GET /noauth/pmimage/pool/{pmImagePoolId}/pmpool/list
     getAllo(id:string): Promise<any>{
-        const pathParms =[
+        const pathParams =[
             {
                 key:"pmImagePoolId",
                 value:id
             }
         ]
-        // const api = this.restApiCfg.getRestApi("phy-mng.phy-img-mng.phyimgsource.getallolist");
-        // return this.restApi.request(api.method, api.url, pathParams, null, null);
+        const api = this.restApiCfg.getRestApi("phy-mng.phy-img-mng.phyimgsource.getallolist");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
         
-        return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return AlloListMock});
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return AlloListMock});
         
     }
     //分配资源池提交 PUT /noauth/pmimage/pool/{pmImagePoolId}/pmpool/assign
     commitAllo(id:string, idlist:string): Promise<any>{
-        const pathParms =[
+        const pathParams =[
             {
                 key:"pmImagePoolId",
                 value:id
             }
         ]
-        // const api = this.restApiCfg.getRestApi("phy-mng.phy-img-mng.phyimgsource.commit.allo");
-        // return this.restApi.request(api.method, api.url, pathParams, null, idlist);
+        const api = this.restApiCfg.getRestApi("phy-mng.phy-img-mng.phyimgsource.commit.allocate");
+        return this.restApi.request(api.method, api.url, pathParams, null, idlist);
         
-        return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return ChangeStatusMock});
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return ChangeStatusMock});
     }
-    //测试 POST /noauth/pmimage/pool/test
+    //测试物理机镜像池 POST /noauth/pmimage/pool/test
     testPhyImgSource(temp:PhyImgSource): Promise<any>{
-        // const api = this.restApiCfg.getRestApi("phy-mng.phy-img-mng.phyimgsource.commit.test");
-        // return this.restApi.request(api.method, api.url, null, null,
-        // {
-        //     "description": temp.description,
-        //     "imageName": temp.imageName,
-        //     "imageURL": temp.imageURL
-        // });
-        return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return ChangeStatusMock});
+        const api = this.restApiCfg.getRestApi("phy-mng.phy-img-mng.phyimgsource.commit.test");
+        return this.restApi.request(api.method, api.url, null, null,
+        {
+            "description": temp.description,
+            "imageName": temp.imageName,
+            "imageURL": temp.imageURL
+        });
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return ChangeStatusMock});
     }
 
     

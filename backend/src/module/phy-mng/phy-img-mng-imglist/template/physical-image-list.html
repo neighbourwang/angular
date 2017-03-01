@@ -1,18 +1,23 @@
-<div class="page-content-header icon-content-header-physical-mng">管理镜像：  XXXXXXXXX       物理机镜像源名称： XXXXXXXX</div>
+<div class="page-content-header icon-content-header-physical-mng">管理镜像：  XXXXXXXXX       物理机镜像源名称： {{sourceName}}
+    <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" 
+        style="padding:2px 15px;font-size:14px" (click)="backToSource()">
+        返回镜像管理
+    </button>
+</div>
 <div class="page-content">
     <div class="mgb20 mgt20"> 
-        <button class="fox-cloud-button fox-cloud-button-green mgr10" key="boe/physical-image-syn.html" >同步镜像</button>
-        <button class="fox-cloud-button fox-cloud-button-green mgr10" key="boe/physical-image-set-ent.html">分配企业</button>    
+        <button class="fox-cloud-button fox-cloud-button-green mgr10" (click)="syncImg()">同步镜像</button>
+        <button class="fox-cloud-button fox-cloud-button-green mgr10" (click)="allocateEnt()">分配企业</button>    
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
              更多操作
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><a href="#" key="boe/physical-image-edit.html">编辑</a></li>
-                <li><a >启用</a></li>
-                <li><a >禁用</a></li>
-                <li><a >删除</a></li>
+                <li><a href="javascript:void(0);"(click)="editPhyImgSource()">编辑</a></li>
+                <li><a href="javascript:void(0);"(click)="enable()">启用</a></li>
+                <li><a href="javascript:void(0);"(click)="disable()">禁用</a></li>
+                <li><a href="javascript:void(0);"(click)="delete()">删除</a></li>
             </ul>
         </div>
     </div>
@@ -32,20 +37,26 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><input type="radio" class="fox-cloud-radio"></td>
-                    <td><a href="#" key="boe/physical-image-view.html">ABC点击进入镜像详细</a></td>
-                    <td>redhat6.5_64.iso</td>
-                    <td>Linux</td>
-                    <td>64</td>
-                    <td>公共镜像</td>
-                    <td>所有</td>
-                    <td class="font-green">启用</td>                    
+                    <tr *ngFor = "let img of phyImgList"(click)="selectImg(img)">
+                    <td><input type="radio" class="fox-cloud-radio" name="radio"[checked]="img.selected"(change)="img.selected = $event.target.checked"/>
+                        </td>
+                    <td><a href="javascript:void(0);"(click)="showImgDetail(img.id)">{{img.destImageName}}</a></td>
+                    <td>{{img.origImageName}}</td>
+                    <td>{{img.osTypeName}}</td>
+                    <td>{{img.bitName}}</td>
+                    <td>{{img.imageTypeName}}</td> 
+                    <td>
+                        <li *ngFor="let e of img.enterpriseSelectedList" style="display: inline-block; padding: 2px 5px;">
+                            {{e.com}}
+                        </li>
+                    </td>     
+                    <td>{{img.status | dict: this.service.imgStatusDic | async}}</td> 
                 </tr>
             </tbody>
         </table>
     </div>
     <div class="fox-cloud-pagination-container">
-        <fc-pagination #pager tp={{totalPage}} (pf)="getNetworkList($event)"></fc-pagination>
+        <fc-pagination #pager tp={{totalPage}} (pf)="getPhyImgList($event)"></fc-pagination>
     </div>
    
 </div>
@@ -54,12 +65,14 @@
 
 
 <!--编辑镜像弹出框-->
-<fc-popup #editPopup title="{{title}}" ot="保存" (of)="saveEdit();" ct="关闭" (cf)="cancelEdit();">
+<fc-popup #editPopup title="编辑镜像" ot="保存" (of)="commitEdit();" ct="关闭" (cf)="cancelEdit();">
 
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">镜像显示名称：</div>
-                <div class="col-sm-6"><span style="line-height:34px">{{tempEdit.name}}</span> </div>
+                <div class="col-sm-6">
+                    <input type="string" class="form-control input-control" [(ngModel)]="tempEdit.name">
+                </div>
             </div>
         </div>
         <div class="row row-line-height">
@@ -74,8 +87,10 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">操作系统:</div>
                 <div class="col-sm-6">
-                    <select class="form-control" [(ngModel)]="tempEditImage.os">
-                        <option *ngFor = "let os of service.osDic | async" [ngValue]="os.value" [ngClass]="setDefaultOs(os,tempEditImage.os)">{{os.displayValue}}</option>
+                    <select class="form-control" [(ngModel)]="tempEdit.osTypeId">
+                        <option *ngFor="let os of service.osDic | async " [ngValue]="os.value" [ngClass]="setDefaultOs(os,tempEditImage.osTypeId)">
+                            {{os.displayValue}}
+                        </option>
                     </select>
                 </div>
             </div>
@@ -84,8 +99,9 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">系统位数:</div>
                 <div class="col-sm-6">
-                    <select class="form-control" [(ngModel)]="tempEdit.bitsType">
-                        <option *ngFor = "let type of service.bits_typeDic | async" [ngValue]="type.value" [ngClass]="setDefaultBits(type,tempEditImage.bitsType)">{{type.displayValue}}</option>
+                    <select class="form-control" [(ngModel)]="tempEdit.bitId">
+                        <option *ngFor="let bit of service.bits_typeDic | async" [ngValue]="bit.value" [ngClass]="setDefaultOs(bit,tempEditImage.bitId)">
+                            {{bit.displayValue}}</option>
 
                     </select>
                 </div>
@@ -95,8 +111,12 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">镜像类型:</div>
                 <div class="col-sm-6">
-                    <span style="line-height:34px">{{tempEditImage.type | dict:this.service.typeDic | async }}</span>
-                    </div>
+                    <select class="form-control" [(ngModel)]="tempEdit.imageTypeId">
+                        <option *ngFor="let type of service.typeDic | async" [ngValue]="type.value" [ngClass]="setDefaultOs(type,tempEditImage.imageTypeId)">
+                            {{type.displayValue}}</option>
+
+                    </select>
+                </div>
             </div>
         </div>
     </fc-popup>
