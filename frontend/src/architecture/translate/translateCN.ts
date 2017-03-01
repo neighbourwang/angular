@@ -741,10 +741,8 @@ export const TranslateCN = {
 
 
         //case-mng
-        CASE_MNY: '工单管理',
         QUICKSEARCH_BYCASE: '输入工单信息快速搜索',
         TYPE: '类别',
-        STATUS: '状态',
         EMERGENCY: '紧急程度',
         CASE_ID: '工单号',
         SUBJECT: '主题',
@@ -773,6 +771,7 @@ export const TranslateCN = {
         SELECT: '请选择',
         LIMIT_DESCRIPTION_ONE: '最多只能输入50个文字',
         LIMIT_DESCRIPTION_TWO: '最多只能输入1000个文字',
+        LIMIT_DESCRIPTION_THREE: '"区号"+"电话号码"或"手机号"，例如：02160465223或13944238888',
         CLOSED_ALEARDY: '已关闭',
         EDIT_CASE: '编辑工单',
         DELETE_CASE: '删除工单',
