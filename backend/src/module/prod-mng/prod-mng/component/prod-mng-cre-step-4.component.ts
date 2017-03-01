@@ -51,7 +51,7 @@ export class ProdMngCreStep4Component implements OnInit {
             // }
             this.layoutService.hide();
             if(!this.enterpriseList||this.enterpriseList.length==0){
-                this.notice.open('企业列表为空','返回上一步重新选择平台')
+                this.notice.open('PROD_MNG.ENTERPRISE_LIST_IS_EMPTY','PROD_MNG.RETURN_TO_PREVIOUS_STEP')
             }
         }).catch(err => {
             console.error(err);
@@ -80,7 +80,7 @@ export class ProdMngCreStep4Component implements OnInit {
 
     next() {
         if(this.service.product.productEnterpiseReqs.length==0){
-             this.notice.open('操作错误','企业列表为空'); 
+             this.notice.open('COMMON.OPERATION_ERROR','PROD_MNG.ENTERPRISE_LIST_IS_EMPTY'); 
              return; 
         }
         this.service.product.serviceId=this.service.productDir.serviceId;

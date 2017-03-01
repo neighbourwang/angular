@@ -167,7 +167,7 @@ export class ProdMngCreStep3Component implements OnInit {
 
     next() { 
         if(this.service.product.productPlatformReqs.length==0){
-             this.notice.open('操作错误','平台列表为空'); 
+             this.notice.open('COMMON.OPERATION_ERROR','PROD_MNG.PLATFORM_LIST_IS_EMPTY'); 
              return; 
         }       
         this.route.navigate(["prod-mng/prod-mng/prod-mng-cre-4"]);

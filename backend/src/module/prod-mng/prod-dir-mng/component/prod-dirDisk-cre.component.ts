@@ -46,7 +46,7 @@ export class ProdDirDiskCreComponent implements OnInit {
             if (prodDirType == 'new') {
                 
             } else {
-                this.pageTitle='编辑产品目录'
+                this.pageTitle='PROD_MNG.EDIT_PRODUCT_CATALOG'
                 this.getProdDirDetail(prodDirId);
                 console.log(prodDirId);
                 console.log(prodDirType);
