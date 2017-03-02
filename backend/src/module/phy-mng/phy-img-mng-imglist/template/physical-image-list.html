@@ -1,4 +1,4 @@
-<div class="page-content-header icon-content-header-physical-mng">管理镜像：  XXXXXXXXX       物理机镜像源名称： {{sourceName}}
+<div class="page-content-header icon-content-header-physical-mng">管理镜像       物理机镜像源名称： {{sourceName}}
     <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" 
         style="padding:2px 15px;font-size:14px" (click)="backToSource()">
         返回镜像管理
@@ -36,21 +36,21 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <tr *ngFor = "let img of phyImgList"(click)="selectImg(img)">
+                <tr *ngFor = "let img of phyImgList"(click)="selectImg(img)">
                     <td><input type="radio" class="fox-cloud-radio" name="radio"[checked]="img.selected"(change)="img.selected = $event.target.checked"/>
                         </td>
                     <td><a href="javascript:void(0);"(click)="showImgDetail(img.id)">{{img.destImageName}}</a></td>
                     <td>{{img.origImageName}}</td>
-                    <td>{{img.osTypeName}}</td>
-                    <td>{{img.bitName}}</td>
-                    <td>{{img.imageTypeName}}</td> 
+                    <td>{{img.osTypeId | dict: this.service.osDic | async}}</td>
+                    <td>{{img.bitId | dict: this.service.bits_typeDic | async}}</td>
+                    <td>{{img.imageTypeId | dict: this.service.typeDic | async}}</td> 
                     <td>
                         <li *ngFor="let e of img.enterpriseSelectedList" style="display: inline-block; padding: 2px 5px;">
                             {{e.com}}
                         </li>
                     </td>     
-                    <td>{{img.status | dict: this.service.imgStatusDic | async}}</td> 
+                    <td [ngClass]="{'font-green':img.status==1,'font-orange':img.status==0}">
+                        {{img.status | dict: this.service.imgStatusDic | async}}</td> 
                 </tr>
             </tbody>
         </table>
@@ -71,7 +71,7 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">镜像显示名称：</div>
                 <div class="col-sm-6">
-                    <input type="string" class="form-control input-control" [(ngModel)]="tempEdit.name">
+                    <input type="string" class="form-control input-control" [(ngModel)]="tempEdit.destImageName">
                 </div>
             </div>
         </div>
@@ -79,7 +79,7 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">镜像文件名 :</div>
                 <div class="col-sm-6">
-                    {{tempEdit.destImageName}}
+                    {{tempEdit.origImageName}}
                     </div>
             </div>
         </div>
@@ -88,7 +88,7 @@
                 <div class="col-sm-4 form-control-title">操作系统:</div>
                 <div class="col-sm-6">
                     <select class="form-control" [(ngModel)]="tempEdit.osTypeId">
-                        <option *ngFor="let os of service.osDic | async " [ngValue]="os.value" [ngClass]="setDefaultOs(os,tempEditImage.osTypeId)">
+                        <option *ngFor="let os of service.osDic | async " [value]="os.value">
                             {{os.displayValue}}
                         </option>
                     </select>
@@ -100,7 +100,7 @@
                 <div class="col-sm-4 form-control-title">系统位数:</div>
                 <div class="col-sm-6">
                     <select class="form-control" [(ngModel)]="tempEdit.bitId">
-                        <option *ngFor="let bit of service.bits_typeDic | async" [ngValue]="bit.value" [ngClass]="setDefaultOs(bit,tempEditImage.bitId)">
+                        <option *ngFor="let bit of service.bits_typeDic | async" [value]="bit.value">
                             {{bit.displayValue}}</option>
 
                     </select>
@@ -112,7 +112,7 @@
                 <div class="col-sm-4 form-control-title">镜像类型:</div>
                 <div class="col-sm-6">
                     <select class="form-control" [(ngModel)]="tempEdit.imageTypeId">
-                        <option *ngFor="let type of service.typeDic | async" [ngValue]="type.value" [ngClass]="setDefaultOs(type,tempEditImage.imageTypeId)">
+                        <option *ngFor="let type of service.typeDic | async" [value]="type.value">
                             {{type.displayValue}}</option>
 
                     </select>

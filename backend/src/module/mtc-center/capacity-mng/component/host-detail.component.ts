@@ -5,7 +5,7 @@ import { Router, ActivatedRoute, Params } from "@angular/router";
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
 
 import {HostInfo} from'../model/host-info.model';
-import {HostGraphModel, GraphItem,ChartModel} from '../model/host-graph.model';
+import {HostGraphModel, GraphItem,LineChart} from '../model/host-graph.model';
 //service
 import { HostDetailService } from "../service/host-detail.service";
 
@@ -38,8 +38,8 @@ export class HostDetailComponent implements OnInit {
 
     cpuList: Array<GraphItem>;
     memList: Array<GraphItem>;
-    cpuChart = new ChartModel();
-    memChart = new ChartModel();
+    cpuChart = new LineChart();
+    memChart = new LineChart();
     
     ngOnInit() {
         this.activatedRouter.params.forEach((params: Params) => {
@@ -95,7 +95,7 @@ export class HostDetailComponent implements OnInit {
     }
 
     //将源数据转化成折线图数据格式
-    getGraphData(chart: ChartModel) {
+    getGraphData(chart: LineChart) {
         let temp_value = new Array<number>();
         let temp_time = new Array<any>();
         chart.SourceData.forEach((s)=>{

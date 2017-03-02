@@ -3,18 +3,16 @@
 </div>
 <div class="mgb20 row">
     <div class="col-md-3 btn-group" data-toggle="buttons">
-        <button class="btn btn-default active">
-            <input type="radio" checked> 我的工单
+        <button class="btn btn-default" (click)="myCase();">
+            <input type="radio"> 我的工单
         </button>
-        <button class="btn btn-default" (click)="departCase();">
-            <input type="radio" > 部门工单
+        <button class="btn btn-default active">
+            <input type="radio"> 部门工单
         </button>
     </div>
 </div>
+
 <div class="mgb20" style="height:30px;">
-    <button class="btn button-confirm  pull-right" (click)="crePage();isEdit= false">
-        <span class="icon-create "></span>{{ 'USER_CENTER.CREATE_CASE' | translate}}
-    </button>
     <div class="input-group col-md-2 float-left">
         <input [(ngModel)]="search" class="form-control" placeholder="{{ 'USER_CENTER.QUICKSEARCH_BYCASE' | translate}}" type="text">
         <div (click)="getData()" class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
@@ -40,8 +38,15 @@
             <option [value]="v.value" *ngFor="let v of service.emergencyDic | async">{{v.displayValue}}</option>
         </select>
     </div>
+    <div class="float-left mgl20">
+        <span>提交者：</span>
+        <select [(ngModel)]="creatorId" (ngModelChange)="getData()" class="form-control fix-width-120">
+            <option [value]="defaultUser">{{ 'USER_CENTER.ALL' | translate}}</option>
+            <option [value]="v.id" *ngFor="let v of userList">{{v.userName}}</option>
+        </select>
+    </div>
 </div>
-<table class="table table-hover" style="table-layout:fixed">
+<table class="table table-hover"  style="table-layout:fixed">
     <thead>
         <tr>
             <th class="text-center">{{ 'USER_CENTER.CASE_ID' | translate}}</th>
@@ -51,9 +56,9 @@
             <th class="text-center">{{ 'USER_CENTER.EMERGENCY' | translate}} </th>
             <th class="text-center">{{ 'USER_CENTER.CONTACTOR' | translate}}</th>
             <th class="text-center">{{ 'USER_CENTER.CONTACNO' | translate}} </th>
+            <th class="text-center">提交者</th>
             <th class="text-center">{{ 'USER_CENTER.SUBMIT_TIME' | translate}}</th>
             <th class="text-center">{{ 'USER_CENTER.UPDATE_TIME' | translate}}</th>
-            <th class="text-center">{{ 'COMMON.OPERATION' | translate }} </th>
         </tr>
     </thead>
     <tbody>
@@ -65,65 +70,14 @@
             <td class="text-center">{{item.emergencyName}}</td>
             <td class="text-center">{{item.contact}}</td>
             <td class="text-center">{{item.contactNo}}</td>
+            <td class="text-center">{{item.creatorName}}</td>
             <td class="text-center">{{item.createDate}}</td>
             <td class="text-center">{{item.updateDate}}</td>
-            <td class="text-center">
-                <span class="glyphicon glyphicon-edit font-green " style="margin-right : 10px ;cursor:pointer" (click)="editPage(item);isEdit= true"></span>
-                <span class="glyphicon glyphicon-trash font-orange" style="cursor:pointer" (click)="delete(item)"></span>
-            </td>
         </tr>
     </tbody>
 </table>
 
 <fc-pagination #pager tp={{totalPage}} (pf)="getData($event)"></fc-pagination>
-
-<fc-popup #creCase title="{{title}}" ot="{{isEdit== false? 'COMMON.CREATE': 'DIALOG.SAVE' | translate }}" ct="{{ 'DIALOG.CANCEL' | translate }}" (of)="creOredit()">
-    <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
-        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.SUBJECT' | translate}}:</div>
-        <div class="col-md-8 no-padding">
-            <textarea class="form-control" rows="2" [(ngModel)]="criteria.subject" ></textarea>
-        </div>
-    </div>
-    <div class="col-md-offset-3 col-md-8 text-tip">{{ 'USER_CENTER.LIMIT_DESCRIPTION_ONE' | translate}}</div>
-    <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
-        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.TYPE' | translate}}:</div>
-        <div class="col-md-8 float-left no-padding">
-            <select [(ngModel)]="criteria.type" class="form-control">
-                <option value="">{{ 'USER_CENTER.SELECT' | translate}}</option>
-                <option [value]="v.value" *ngFor="let v of service.typeDic | async">{{v.displayValue}}</option>
-            </select>
-        </div>
-    </div>
-    <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
-        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.EMERGENCY' | translate}}:</div>
-        <div class="col-md-8 float-left no-padding">
-            <select [(ngModel)]="criteria.emergency" class="form-control">
-                <option value="">{{ 'USER_CENTER.SELECT' | translate}}</option>
-                <option [value]="v.value" *ngFor="let v of service.emergencyDic | async">{{v.displayValue}}</option>
-            </select>
-        </div>
-    </div>
-    <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
-        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.CONTACTOR' | translate}}:</div>
-        <div class="col-md-8 no-padding form-group">
-            <input #contactor type="text" class="form-control" [(ngModel)]="criteria.contact">
-        </div>
-    </div>
-    <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
-        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.CONTACNO' | translate}}:</div>
-        <div class="col-md-8 no-padding form-group">
-            <input type="text" class="form-control" [(ngModel)]="criteria.contactNo">
-        </div>
-    </div>
-    <div class="col-md-offset-3 col-md-8 text-tip">{{ 'USER_CENTER.LIMIT_DESCRIPTION_THREE' | translate}}</div>
-    <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
-        <div class="col-md-3 content-title" style="text-align : right">{{ 'USER_CENTER.DESCRIPTION' | translate}}:</div>
-        <div class="col-md-8 no-padding">
-            <textarea class="form-control" rows="5" [(ngModel)]="criteria.details"></textarea>
-        </div>
-    </div>
-    <div class="col-md-offset-3 col-md-8 text-tip">{{ 'USER_CENTER.LIMIT_DESCRIPTION_TWO' | translate}}</div>
-</fc-popup>
 
 <fc-popup #caseDetail title="{{ title }}" ot="" ct="">
  <!--   <div *ngIf="basicInfo.status != ''">-->
@@ -131,7 +85,7 @@
         <table class="cm-table-left table table-all-boder">
             <tbody>
             <tr>
-                <th class="col-md-2 text-center">{{ 'USER_CENTER.SUBJECT' | translate}}</th>
+                <th class="col-md-2 text-center" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:150px;">{{ 'USER_CENTER.SUBJECT' | translate}}</th>
                 <td colspan="3">{{basicInfo.subject}}</td>
             </tr>
             <tr>

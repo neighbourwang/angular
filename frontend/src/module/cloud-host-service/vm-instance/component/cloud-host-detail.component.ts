@@ -271,7 +271,7 @@ export class cloudHostDetailComponent implements OnInit {
 		this.fetchDetailAndFill();
 	}
 
-	fetchDetailAndFill() {
+	fetchDetailAndFill(callbackFn?) {
         this.layoutService.show();
 
 		this.route.params.subscribe(params => {
@@ -285,6 +285,8 @@ export class cloudHostDetailComponent implements OnInit {
                     instanceDisplayName : res.instanceName
 				};
                 this.layoutService.hide();
+                
+                callbackFn && callbackFn();
 			}).catch(error => {
                 this.layoutService.hide();
             })
@@ -297,12 +299,15 @@ export class cloudHostDetailComponent implements OnInit {
             console.log(res);
             this.layoutService.hide();
 
-            this.fetchDetailAndFill();
-            this.isEditState = false;
+            this.fetchDetailAndFill(() => {
+                this.isEditState = false;
+            });
+           
         }).catch(error => {
             this.layoutService.hide();
         })
     }
+
 
     goToUrl(url : string) {
         this.router.navigateByUrl(url);

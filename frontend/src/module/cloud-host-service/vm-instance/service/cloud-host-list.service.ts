@@ -4,6 +4,7 @@ import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../archit
 
 import { VmList,HandleVm, QuiryVmList } from '../model/vm-list.model';
 import { VMInstanceLabelItem } from '../model/labe-iItem.model';
+import { InstanceVMProfile } from '../model/vm.model'
 
 import 'rxjs/add/operator/toPromise';
 
@@ -38,48 +39,31 @@ export class cloudHostServiceList {
         // })
     }
 
+    
+    postVmInfo(instanceId:string, postData:InstanceVMProfile) : Promise<any> {
+        const api = this.restApiCfg.getRestApi("vm.instance.detail.updata");
+
+        let pathParams = [
+            {
+                key: 'instanceId',
+                value: instanceId
+            }
+        ];
+
+        const request = this.restApi.request(api.method, api.url, pathParams, undefined, postData)
+                            .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "";
+                                }
+                                return res.resultContent;
+                            });
+        return request;
+    }
+
     handleVm(senData:HandleVm) : Promise<any> { 
         const api = this.restApiCfg.getRestApi("hosts.instance.action");
 
         const request = this.restApi.request(api.method, api.url, undefined, undefined, senData)
-                            .then(res => {
-                                if(res.resultCode !== "100"){
-                                    throw "";
-                                }
-                                return res.resultContent;
-                            });
-        return request;
-    }
-
-    getConsoleUrl(pathParams) : Promise<any> {
-        let api = this.restApiCfg.getRestApi('vm.console.url');
-
-        const request = this.restApi.request(api.method, api.url, pathParams, undefined, undefined)
-                            .then(res => {
-                                if(res.resultCode !== "100"){
-                                    throw "";
-                                }
-                                return res.resultContent;
-                            });
-
-        return request;
-    }
-
-
-    deleteVm(subId, cascadeFlag) : Promise<any>{  //退订
-        const api = this.restApiCfg.getRestApi("op-center.order-mng.order-cancel.get");
-
-        let pathParams = [
-            {
-                key: '_subId',
-                value: subId
-            },
-            {
-                key: '_cascadeFlag',
-                value: cascadeFlag
-            }
-        ];
-        const request = this.restApi.request(api.method, api.url, pathParams, undefined)
                             .then(res => {
                                 if(res.resultCode !== "100"){
                                     throw "";

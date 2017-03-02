@@ -93,7 +93,8 @@
     <div class="col-md-12 no-padding mgb20">
         <button class="btn float-left mgr5 btn-primary" (click)="goTo('cloud-host-service/cloud-host-order')"><i class="glyphicon glyphicon-plus"></i> {{'VM_INSTANCE.CREATE_CLOUD_HOST' | translate}}</button>
         <!-- <button class="btn float-left mgr5 btn-success"><i class="glyphicon glyphicon-edit"></i> 编辑云主机</button> -->
-        <button (click)="delectVm()" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'VM_INSTANCE.UNSUBSCRIBE_CLOUD_HOST' | translate}}</button>
+        <unsubscribe #unsubscribeVm [name]="radioSelected?.instanceName" [id]="radioSelected?.subInstanceId"></unsubscribe>
+        <button (click)="unsubscribeVm.delectVm()" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'VM_INSTANCE.UNSUBSCRIBE_CLOUD_HOST' | translate}}</button>
 
         <!--<div class="dropdown float-left  mgr5">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -128,10 +129,13 @@
         </tr>
         <tr *ngFor="let vm of vmList;let i = index;" style="line-height: 65px;">
             <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;"  name="host-list"></td>
-            <!-- <td class="text-center active" style="position: relative;width: 220px;">
-                <table-edit-name [value]="vm.instanceName" (onChange)="changeName($event)"></table-edit-name>
-            </td> -->
-            <td class="text-center cursor-pointer active"><span (click)="router.navigate(['cloud-host-service/cloud-host-detail/', vm.itemId])">{{vm.instanceName}}</span></td>
+            <td class="text-center active" style="position: relative;width: 220px;">
+                <table-edit-name 
+                    (nameOnClick)="router.navigate(['cloud-host-service/cloud-host-detail/', vm.itemId])" 
+                    [value]="vm.instanceName" 
+                    (onChange)="changeName($event, vm)"></table-edit-name>
+            </td>
+            <!-- <td class="text-center active"><span class="cursor-pointer " (click)="">{{vm.instanceName}}</span></td> -->
             <td class="text-center">{{vm.specification}}</td>
             <td class="text-center">{{vm.osInfo}}</td>
             <td class="text-center">{{vm.privateIP}}</td> 
@@ -162,10 +166,13 @@
                         <li><a *ngIf="['0'].indexOf(vm.vmState) > -1 && vm.publicIP && vm.platformType === '0'" (click)="handleVm('unbindFloatingIp', vm, '解绑浮动IP')" href="javascript:">{{'VM_INSTANCE.UNBIND_FLOATING_IP'| translate}}</a></li>
                         <!-- <li><a (click)="handleVm('suspend', vm)" href="javascript:">挂起</a></li> -->
                         <li><a *ngIf="['0','14','7'].indexOf(vm.vmState) > -1 && !vm.publicIP && vm.platformType === '0'" (click)="handleVm('bindFloatingIp', vm, '绑定浮动IP')" href="javascript:">{{'VM_INSTANCE.BIND_FLOATING_IP'| translate}}</a></li>
-                        <li><a *ngIf="['0','14','7'].indexOf(vm.vmState) > -1" (click)="openConsole(vm)" href="javascript:">{{'VM_INSTANCE.VIEW_CONSOLE'| translate}}</a></li>
+                        <li>
+                            <open-console #console [platformid]="vm.platformId" [uuid]="vm.uuid" [platformtype]="vm.platformType"></open-console>
+                            <a *ngIf="['0','14','7'].indexOf(vm.vmState) > -1" (click)="console.open()" href="javascript:">{{'VM_INSTANCE.VIEW_CONSOLE'| translate}}</a>
+                        </li>
                         <li role="separator" class="divider"></li>
                         <li><a (click)="hostReconfig.open(vm)" href="javascript:">配置变更</a></li>
-                        <li><a (click)="openConsole(vm)" href="javascript:">创建自定义镜像</a></li>
+                        <!-- <li><a (click)="openConsole(vm)" href="javascript:">创建自定义镜像</a></li> -->
                     </ul>
                 </div>
             </td> 
@@ -175,7 +182,5 @@
 </div>
 <fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
-<fc-popup #popup (cf)="popupCf()" (of)="popupOf()">
-    <div style="text-align: center;"><input [(ngModel)]="forceDelect" type="checkbox" name=""> {{'VM_INSTANCE.UNSUBSRIBE_ALL_DISK'| translate}} "{{radioSelected.instanceName}}"</div>
-</fc-popup>
+
 <host-reconfig #hostReconfig></host-reconfig>

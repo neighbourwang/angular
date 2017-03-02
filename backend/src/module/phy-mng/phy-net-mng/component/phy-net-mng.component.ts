@@ -141,6 +141,12 @@ export class PhyNetMngComponent implements OnInit {
 
     //Menu: 创建网络
     createPhyNet(): void {
+        this.phynet_create.dnsAlt = "";
+        this.phynet_create.dnsPre = "";
+        this.phynet_create.gateway = "";
+        this.phynet_create.networkName = "";
+        this.phynet_create.subnetIP = "";
+        this.phynet_create.subnetMask = "";
         this.createphynetbox.open();
     }
 

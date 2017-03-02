@@ -40,8 +40,7 @@ export class ProdDetailComponent implements OnInit {
     Tabels = [
         { name: 'CASE_MNG.CASE_INFO', active: true },
         { name: 'CASE_MNG.PRICING_INFORMATION', active: false },
-        { name: 'CASE_MNG.PLATFORM_INFORMATION', active: false },
-        { name: 'CASE_MNG.ENTERPRISE_INFORMATION', active: false },
+        { name: '平台企业信息', active: false },
         { name: 'CASE_MNG.HISTORYCAL_PRICE', active: false }
     ]
 

@@ -51,50 +51,100 @@ export class CloudHostSpecComponent implements OnInit {
              this.platformTypeName=
              this.platformType=='0'?'OpenStack':'Vmware';
         }) 
-        if(this.platformType=='0'){
+        // if(this.platformType=='0'){
             this.getFlavorList(this.platformId);            
-        }   
+        // }   
         
     }
     //获取规格列表
     getFlavorList(id:string){
+        this.layoutService.show();
         this.service.getFlavorList(id).then(res=>{
             this.flavorlist=res.resultContent;
             console.log(res.resultContent);
+            this.layoutService.hide();
         }).catch(err=>{
             console.log(err);
+            this.layoutService.hide();
         }) 
     }
-    //启用云主机规格
-    enableSpec(){}
-    //删除云主机规格
-    deleSpec(){
-
-    }
-    //Opstack更新云主机规格
-    updateSpec(){
-
+    
+    //Opstack同步云主机规格
+    updateFlavor(){       
+        this.layoutService.show();
+        this.service.updateFlavorList(this.platformId).then(res=>{
+            console.log('update',res);
+            if(res.resultContent.length==0){
+                this.notice.open('提示','暂时没有可同步的规格信息');
+            }else{
+                this.getFlavorList(this.platformId);                
+            }
+            this.layoutService.hide();                        
+        }).catch(err=>{
+            console.log(err);
+            this.layoutService.hide();
+        })
     }
     //VMware新建云主机规格
-    createSpec(){
+    createFlavor(){
         this.createSepc.open();
     }
     //确认创建
     otcreate(){
+        // this.layoutService.show();
         this.flavorObj.platformId=this.platformId;
         console.log(this.flavorObj);
+        if(!this.flavorObj.name){
+            this.flavorObj.nameValid=false;
+            return;
+        };
+        if(!this.flavorObj.cpu){
+            this.flavorObj.cpuValid=false;
+            return;
+        };
+        if(!this.flavorObj.mem){
+            this.flavorObj.memValid=false;
+            return;
+        };
+        if(!this.flavorObj.disk){
+            this.flavorObj.diskValid=false;
+            return;
+        };
         this.service.vmFlavorNew(this.flavorObj).then(res=>{
             console.log(res);
+            this.getFlavorList(this.platformId);
+            this.createSepc.close()
+            this.layoutService.hide();                        
         }).catch(err=>{
             console.log(err);
+            this.layoutService.hide();
         })
+         
     }
     //启用云主机规格
     enableFlavor(id:string){
-        console.log(id)
+        this.layoutService.show();
+        console.log(id);
+        this.service.enableFlavor(id).then(res=>{
+            console.log(res);
+            this.getFlavorList(this.platformId);
+            this.layoutService.hide();                        
+        }).catch(err=>{
+            console.log(err);
+            this.layoutService.hide();
+        })
     }
     deleFlavor(id:string){
-        console.log(id)
+        this.layoutService.show();
+        console.log(id);
+        this.service.deleteFlavor(id).then(res=>{
+            console.log(res);
+            this.getFlavorList(this.platformId);
+            this.layoutService.hide();                        
+        }).catch(err=>{
+            console.log(err);
+            this.layoutService.hide();
+        })
     }
     //删除云主机规格
     ccf(){}

@@ -245,7 +245,8 @@ export class VmwareMngIndexComponent implements OnInit {
                 .then(res => {
                     this.layoutService.hide();
                     if (res && res.resultCode == "100") {                        
-                        console.log(res, "设置NSX管理信息成功")
+                        console.log(res, "设置NSX管理信息成功");
+                        this.NsxInfo.nsxAddress = this.changedNsxMngInfo.nsxAddress;
                     } else {
                         this.setnsxmnginfo.close();
                         this.showMsg("NET_MNG_VM_IP_MNG.SET_NSX_MNG_INFO_FAILED");
@@ -255,7 +256,6 @@ export class VmwareMngIndexComponent implements OnInit {
                 .then(()=>{
                     //this.getNsxInfo(this.queryOpt.platformId);
                     //this.getIpMngList(); // Need to get list since we need to get ipcount after setting up ipscope.
-                    this.NsxInfo.nsxAddress = this.changedNsxMngInfo.nsxAddress;
                     this.setnsxmnginfo.close();
                 })
                 .catch(err => {

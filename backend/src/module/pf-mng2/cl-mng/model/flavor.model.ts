@@ -14,13 +14,17 @@ class Flavor{
 class FlavorObj{
       "code": string;
       "cpu": number;
+      cpuValid:boolean;
       "disableFlag": string;
       "disk": number;
+      diskValid:boolean;
       "displayName": string;
       "ephemeral": number;
       "id": string;
       "mem": number;
+      memValid:boolean;
       "name": string;
+      nameValid:boolean;
       "platformId": string;
       "publicFlag": string;
       "ram": number;
@@ -29,6 +33,12 @@ class FlavorObj{
       "rxtxQuota": number;
       "swap": number;
       "uuid": string;
+      constructor(){
+          this.nameValid=true;
+          this.cpuValid=true;
+          this.memValid=true;
+          this.diskValid=true;
+      }
   }
   export{
       Flavor,
