@@ -27,15 +27,20 @@
 						</tr>
 						<tr>
 							<td class="text-center">{{ 'ORDER_MNG.COMPLETION_TIME' | translate }}</td><td class="leftAlign">{{_detail.completeDate}}</td>
+							<td class="text-center">已购服务编号</td><td class="leftAlign">{{_detail.subinstanceNo}}</td>
+								
+						</tr>
+						<tr>
+							<td class="text-center">自动续订方式</td><td class="leftAlign">{{_detail.completeDate}}</td>
 							<td class="text-center"></td><td class="leftAlign"></td>
 								
 						</tr>
 					</tbody>
 				</table>
 		</div>
-		<div class="noborder  form-control-title float-left  mgb10">{{ 'ORDER_MNG.PURCHASED_SERVICES_NUMBER' | translate }}: {{_detail.subinstanceNo}}</div>
-		<div class="table-container mgb20">
-				<table class=" table table-all-boder mgb20">
+		<!--<div class="noborder  form-control-title float-left  mgb10">{{ 'ORDER_MNG.PURCHASED_SERVICES_NUMBER' | translate }}: {{_detail.subinstanceNo}}</div>-->
+		<div class="table-container">
+				<table class=" table table-all-boder">
 					<thead>
 						<tr>
 							<th class="text-center" >{{ 'SHOPPING_CART.PRODUCT_INFORMATION' | translate }}</th>
