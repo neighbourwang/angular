@@ -9,6 +9,7 @@ import {ZoneModel, Percent, DoughnutChart} from '../model/zone.model';
 import {HostModel} from'../model/host.model';
 //service
 import { ComputeResService } from "../service/compute-res.service";
+import { CapacityMngService } from "../service/capacity-mng.service";
 
 
 @Component({
@@ -20,6 +21,7 @@ import { ComputeResService } from "../service/compute-res.service";
 export class ComputeResComponent implements OnInit {
     constructor(
         private service: ComputeResService,
+        private serviceParam:CapacityMngService,
         private router: Router,
         private layoutService: LayoutService,
         private activatedRouter: ActivatedRoute,
@@ -57,23 +59,7 @@ export class ComputeResComponent implements OnInit {
  
 
     ngOnInit() {
-        this.activatedRouter.params.forEach((params: Params) => {
-            if (params["pfName"] != null) {
-                this.selectedPf.name = params["pfName"];                
-                
-            }
-            if (params["pfType"] != null) {
-                this.selectedPf.platformType = params["pfType"];
-               
-            }
-            if (params["pfUri"] != null) {
-                this.selectedPf.uri = params["pfUri"];
-               
-            }
-            if (params["pfId"] != null) {
-                this.PlatformId= params["pfId"];               
-            }
-        });
+        this.selectedPf = this.serviceParam.selectedPlatform;     
         this.getComputeRes();
         
     }
@@ -81,7 +67,7 @@ export class ComputeResComponent implements OnInit {
     //获取Region
     getComputeRes() {
         this.layoutService.show();
-        this.service.getComputeRes(this.PlatformId)
+        this.service.getComputeRes(this.selectedPf.id)
             .then(
             response => {
                 this.layoutService.hide();
@@ -124,14 +110,12 @@ export class ComputeResComponent implements OnInit {
                     this.resUsedInfo = response["resultContent"].resourceUsed;
                     
                     //数据处理
-                   
                     this.getGraphData(this.cpuAllocation, this.resAllocationInfo.cpu, this.resAllocationInfo.cpuTotal);
                     this.getGraphData(this.memAllocation, this.resAllocationInfo.memory, this.resAllocationInfo.memoryTotal);
                     this.getGraphData(this.cpuActual, this.resActualInfo.cpu, this.resActualInfo.cpuTotal);
                     this.getGraphData(this.memActual, this.resActualInfo.memory, this.resActualInfo.memoryTotal);
                     this.getGraphData(this.cpuUsed, this.resUsedInfo.cpu, this.resUsedInfo.cpuTotal);
                     this.getGraphData(this.memUsed, this.resUsedInfo.memory, this.resUsedInfo.memoryTotal);
-
                     
                 } else {
                     alert("Res sync error");
@@ -161,14 +145,13 @@ export class ComputeResComponent implements OnInit {
         chart.Colors = tempColor;
         chart.CircleNum = circleNum;
         chart.Options = {
-            cutoutPercentage: 100-chart.CircleNum*10,
-            rotation:-0.8 * Math.PI
+            cutoutPercentage: 100-chart.CircleNum*12,
+            rotation: -1.2* Math.PI,
         }
         chart.ChartType="doughnut";
 
     }
-    
-
+ 
     
     //获取宿主机列表
     getHostList() {
@@ -208,7 +191,6 @@ export class ComputeResComponent implements OnInit {
 
      showAlert(msg: string): void {
         this.layoutService.hide();
-
         this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
