@@ -1,6 +1,16 @@
 <div class="page-content-header mgb20 ">
     {{ 'MENU.CASE_MNY' | translate}}
 </div>
+<div class="mgb20 row">
+    <div class="col-md-3 btn-group" data-toggle="buttons">
+        <button class="btn btn-default active">
+            <input type="radio" checked> 我的工单
+        </button>
+        <button class="btn btn-default" (click)="departCase();">
+            <input type="radio" > 部门工单
+        </button>
+    </div>
+</div>
 <div class="mgb20" style="height:30px;">
     <button class="btn button-confirm  pull-right" (click)="crePage();isEdit= false">
         <span class="icon-create "></span>{{ 'USER_CENTER.CREATE_CASE' | translate}}
@@ -21,7 +31,7 @@
         <select [(ngModel)]="selectedStatus" (ngModelChange)="getData()" class="form-control fix-width-120">
             <option [value]="defaultStatus">{{ 'USER_CENTER.STATUS_ALL' | translate}}</option>
             <option [value]="v.value" *ngFor="let v of service.statusDic | async">{{v.displayValue}}</option>
-        </select>{{selectedStatus}}
+        </select>
     </div>
     <div class="float-left mgl20">
         <span>{{ 'USER_CENTER.EMERGENCY' | translate}}：</span>
@@ -64,6 +74,8 @@
         </tr>
     </tbody>
 </table>
+
+<fc-pagination #pager tp={{totalPage}} (pf)="getData($event)"></fc-pagination>
 
 <fc-popup #creCase title="{{title}}" ot="{{isEdit== false? 'COMMON.CREATE': 'DIALOG.SAVE' | translate }}" ct="{{ 'DIALOG.CANCEL' | translate }}" (of)="creOredit()">
     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
@@ -114,66 +126,67 @@
 </fc-popup>
 
 <fc-popup #caseDetail title="{{ title }}" ot="" ct="">
-    <div class="mgb10">{{ 'USER_CENTER.BASIC_INFO' | translate}}</div>
-    <table class="cm-table-left table table-all-boder">
-        <tbody>
-        <tr>
-            <th class="col-md-2 text-center">{{ 'USER_CENTER.SUBJECT' | translate}}</th>
-            <td colspan="3">{{basicInfo.subject}}</td>
-        </tr>
-        <tr>
-            <th class="col-md-2 text-center">{{ 'COMMON.STATUS' | translate }}</th>
-            <td>{{basicInfo.statusName}}</td>
-            <th class="col-md-2 text-center">{{ 'USER_CENTER.TYPE' | translate}}</th>
-            <td>{{basicInfo.typeName}}</td>
-        </tr>
-        <tr>
-            <th class="col-md-2 text-center">{{ 'USER_CENTER.CONTACTOR' | translate}}</th>
-            <td>{{basicInfo.contact}}</td>
-            <th class="col-md-2 text-center">{{ 'USER_CENTER.CONTACNO' | translate}}</th>
-            <td>{{basicInfo.contactNo}}</td>
-        </tr>
-        <tr>
-            <th class="col-md-2 text-center">{{ 'USER_CENTER.SUBMITOR' | translate}}</th>
-            <td>{{basicInfo.creatorName}}</td>
-            <th class="col-md-2 text-center">{{ 'USER_CENTER.SUBMIT_TIME' | translate}}</th>
-            <td>{{basicInfo.updateDate}}</td>
-        </tr>
-        <tr>
-            <th class="col-md-2 text-center">{{ 'USER_CENTER.DEPARTMENT_OWNED' | translate}}</th>
-            <td>{{basicInfo.creatorOrganization}}</td>
-            <th class="col-md-2 text-center">{{ 'USER_CENTER.ENTERPRISE_OWNED' | translate}}</th>
-            <td>{{basicInfo.creatorTenant}}</td>
-        </tr>
-        <tr>
-            <th class="col-md-2 text-center table-text-middle" height="80px">{{ 'USER_CENTER.DESCRIPTION' | translate}}</th>
-            <td colspan="3" height="80px">{{basicInfo.details}}</td>
-        </tr>
-        </tbody>
-    </table>
+ <!--   <div *ngIf="basicInfo.status != ''">-->
+        <div class="mgb10">{{ 'USER_CENTER.BASIC_INFO' | translate}}</div>
+        <table class="cm-table-left table table-all-boder">
+            <tbody>
+            <tr>
+                <th class="col-md-2 text-center">{{ 'USER_CENTER.SUBJECT' | translate}}</th>
+                <td colspan="3">{{basicInfo.subject}}</td>
+            </tr>
+            <tr>
+                <th class="col-md-2 text-center">{{ 'COMMON.STATUS' | translate }}</th>
+                <td>{{basicInfo.statusName}}</td>
+                <th class="col-md-2 text-center">{{ 'USER_CENTER.TYPE' | translate}}</th>
+                <td>{{basicInfo.typeName}}</td>
+            </tr>
+            <tr>
+                <th class="col-md-2 text-center">{{ 'USER_CENTER.CONTACTOR' | translate}}</th>
+                <td>{{basicInfo.contact}}</td>
+                <th class="col-md-2 text-center">{{ 'USER_CENTER.CONTACNO' | translate}}</th>
+                <td>{{basicInfo.contactNo}}</td>
+            </tr>
+            <tr>
+                <th class="col-md-2 text-center">{{ 'USER_CENTER.SUBMITOR' | translate}}</th>
+                <td>{{basicInfo.creatorName}}</td>
+                <th class="col-md-2 text-center">{{ 'USER_CENTER.SUBMIT_TIME' | translate}}</th>
+                <td>{{basicInfo.updateDate}}</td>
+            </tr>
+            <tr>
+                <th class="col-md-2 text-center">{{ 'USER_CENTER.DEPARTMENT_OWNED' | translate}}</th>
+                <td>{{basicInfo.creatorOrganization}}</td>
+                <th class="col-md-2 text-center">{{ 'USER_CENTER.ENTERPRISE_OWNED' | translate}}</th>
+                <td>{{basicInfo.creatorTenant}}</td>
+            </tr>
+            <tr>
+                <th class="col-md-2 text-center table-text-middle" height="80px">{{ 'USER_CENTER.DESCRIPTION' | translate}}</th>
+                <td colspan="3" height="80px">{{basicInfo.details}}</td>
+            </tr>
+            </tbody>
+        </table>
+   <!-- </div>-->
 
-
-    <div *ngIf="handledInfo != ''" class="mgb10 mgt10">{{ 'USER_CENTER.HANDLED_INFO' | translate}}</div>
-    <table class="cm-table-left table table-all-boder">
-        <tbody *ngFor="let v of handledInfo" style="border-top:0px;">
-        <tr>
-            <th class="col-md-2 text-center">{{ 'USER_CENTER.EMERGENCY' | translate}}</th>
-            <td >{{v.emergency}}
-                <span class="font-orange" >({{v.emergencyChange}})</span>
-            </td>
-            <th class="col-md-2 text-center">{{ 'USER_CENTER.HANDLER_NAME' | translate}}</th>
-            <td>{{v.handlerName}}</td>
-            <th class="col-md-2 text-center">{{ 'USER_CENTER.HANDLER_TIME' | translate}}</th>
-            <td>{{v.handleDate}}</td>
-        </tr>
-        <tr>
-            <th class="col-md-2 text-center table-text-middle" height="80px">{{ 'USER_CENTER.HANDLER_PROCESS' | translate}}</th>
-            <td colspan="5" height="80px">{{v.handleInfo}}</td>
-        </tr>
-        </tbody>
-    </table>
-
-
+    <div *ngIf="handledInfo != null">
+        <div *ngIf="handledInfo != ''" class="mgb10 mgt10">{{ 'USER_CENTER.HANDLED_INFO' | translate}}</div>
+        <table class="cm-table-left table table-all-boder">
+            <tbody *ngFor="let v of handledInfo" style="border-top:0px;">
+            <tr>
+                <th class="col-md-2 text-center">{{ 'USER_CENTER.EMERGENCY' | translate}}</th>
+                <td >{{v.emergency}}
+                    <span *ngIf=" v.emergencyChange != '不变'" class="font-orange" >({{v.emergencyChange}})</span>
+                </td>
+                <th class="col-md-2 text-center">{{ 'USER_CENTER.HANDLER_NAME' | translate}}</th>
+                <td>{{v.handlerName}}</td>
+                <th class="col-md-2 text-center">{{ 'USER_CENTER.HANDLER_TIME' | translate}}</th>
+                <td>{{v.handleDate}}</td>
+            </tr>
+            <tr>
+                <th class="col-md-2 text-center table-text-middle" height="80px">{{ 'USER_CENTER.HANDLER_PROCESS' | translate}}</th>
+                <td colspan="5" height="80px">{{v.handleInfo}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     <div *ngIf="basicInfo.status == 2">
         <div class="mgb10 mgt10">{{ 'USER_CENTER.CLOSED_INFO' | translate}}</div>

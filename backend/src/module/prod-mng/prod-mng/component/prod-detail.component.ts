@@ -38,11 +38,10 @@ export class ProdDetailComponent implements OnInit {
     productId: string;
     historyPriceList: Array<HistoryPriceList> = new Array<HistoryPriceList>();
     Tabels = [
-        { name: '基本信息', active: true },
-        { name: '计价信息', active: false },
-        { name: '平台信息', active: false },
-        { name: '企业信息', active: false },
-        { name: '历史价格', active: false }
+        { name: 'CASE_MNG.CASE_INFO', active: true },
+        { name: 'CASE_MNG.PRICING_INFORMATION', active: false },
+        { name: '平台企业信息', active: false },
+        { name: 'CASE_MNG.HISTORYCAL_PRICE', active: false }
     ]
 
     //切换TAB

@@ -17,25 +17,13 @@
             选择操作
                 <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li (click)="editPhyImgSource()"><a>编辑</a></li>
-                <li (click)="enable()"><a>启用</a></li>
-                <li (click)="disable()"><a>禁用</a></li>
-                <li (click)="delete()"><a>删除</a></li>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2"style="margin-left: 10px;">
+                <li><a href="javascript:void(0);"(click)="editPhyImgSource()">编辑</a></li>
+                <li><a href="javascript:void(0);"(click)="enable()">启用</a></li>
+                <li><a href="javascript:void(0);"(click)="disable()">禁用</a></li>
+                <li><a href="javascript:void(0);"(click)="delete()">删除</a></li>
             </ul>
 
-            <!--<button class="fox-cloud-button fox-cloud-button-green"  (click)="editPhyImgSource();">
-                <span class="icon-button-label icon-left-button-label">编辑</span>
-            </button>
-            <button class="fox-cloud-button fox-cloud-button-green" key="boe/enable.html" (click)="enable();">
-                <span class="icon-button-label icon-left-button-label">启用</span>
-            </button>
-            <button class="fox-cloud-button fox-cloud-button-green" key="boe/disable.html" (click)="disable();">
-                <span class="icon-button-label icon-left-button-label">禁用</span>
-            </button>
-            <button class="fox-cloud-button fox-cloud-button-green" key="boe/remove.html" (click)="delete();">
-                <span class="icon-button-label icon-left-button-label">删除</span>
-            </button>-->
         </div>
     </div>
 
@@ -55,23 +43,20 @@
                 <tr *ngFor = "let source of sourceList"(click)="selectSource(source)">
                     <td><input type="radio" class="fox-cloud-radio" name="radio"[checked]="source.selected"(change)="source.selected = $event.target.checked"/>
                         </td>
-                    <td><a click="gotoPhyImageList(source)">{{source.imageName}}</a></td>
+                    <td><a href="javascript:void(0);"(click)="gotoPhyImageList(source)">{{source.imageName}}</a></td>
                     <td>{{source.imageURL}}</td>
-                    <td>{{source.pmPools}}</td>
+                    <td>
+                    
+                        <li *ngFor="let p of source.pmPoolList" style="display: inline-block; padding: 2px 5px;">
+                            {{p.pmPoolName}}
+                        </li>
+                    
+                    </td>
                     <td>{{source.description}}</td>
-                    <td>{{source.status}}</td>
-                </tr>
-
-
-                <tr>
-                    <td><input type="radio" class="fox-cloud-radio" name="radio"></td>
-                    <td><a href="#"> ABC&nbsp; 点击进入镜像列表 </a></td>
-                    <td> http://10.1.1.1 </td>
-                    <td> 资源池1 资源池2 </td>
-                    <td> XXXX </td>
-                    <td class="font-green"> 启用 </td>
-                </tr>
-            
+                    
+                    <td [ngClass]="{'font-green':source.status==1,'font-orange':source.status==0}">
+                        {{source.status | dict:this.service.poolStatusDic | async }}</td>
+                </tr>          
                            
             </tbody>
         </table>

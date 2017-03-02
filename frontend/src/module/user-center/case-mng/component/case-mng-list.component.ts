@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, SystemDictionary  } from '../../../../architecture';
+import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, SystemDictionary, PaginationComponent  } from '../../../../architecture';
 
 //model
 import { CaseMngList } from '../model/case-mng-list.model';
@@ -29,6 +29,8 @@ export class CaseMngListComponent implements OnInit{
 
     }
 
+    @ViewChild("pager")
+    pager: PaginationComponent;
     @ViewChild("notice")
     notice: NoticeComponent;
     @ViewChild("creCase")
@@ -42,7 +44,7 @@ export class CaseMngListComponent implements OnInit{
     noticeMsg = "";
 
     pageIndex= 1;
-    pageSize= 20;
+    pageSize= 8;
     totalPage= 1;
 
     statusDic: Array<SystemDictionary>;
@@ -73,7 +75,6 @@ export class CaseMngListComponent implements OnInit{
         console.log('init');
         //this.layoutService.show();
         this.getData();
-        console.log("typeDic",this.service.typeDic);
     }
 
     getData(pageIndex?) {
@@ -128,6 +129,10 @@ export class CaseMngListComponent implements OnInit{
     }
 
     creOredit(){
+        this.selectedEmergency= "";
+        this.selectedStatus= "";
+        this.selectedType= "";
+        this.search= "";
         if(!this.isEdit){
             this.layoutService.show();
             this.service.creat(this.criteria)
@@ -189,22 +194,22 @@ export class CaseMngListComponent implements OnInit{
         }
     }
 
-    getBasicInfo(item){
-    this.id= item.id;
-    this.layoutService.show();
-    this.service.getBasicInfo(this.id)
-        .then(
-            response => {
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
-                    this.basicInfo= response["resultContent"];
-                    console.log("basicInfo",this.basicInfo);
-                } else {
-                    alert("Res sync error");
+/*    getBasicInfo(item){
+        this.id= item.id;
+        this.layoutService.show();
+        this.service.getBasicInfo(this.id)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.basicInfo= response["resultContent"];
+                        console.log("basicInfo",this.basicInfo);
+                    } else {
+                        alert("Res sync error");
+                    }
                 }
-            }
-        )
-        .catch((e) => this.onRejected(e));
+            )
+            .catch((e) => this.onRejected(e));
 }
 
     getHandelInfo(item){
@@ -241,17 +246,45 @@ export class CaseMngListComponent implements OnInit{
                 }
             )
             .catch((e) => this.onRejected(e));
-    }
+    }*/
 
-    getDetail(item){
+/*    getDetail(item){
+        this.basicInfo.subject= '';
+        this.basicInfo.statusName= '';
+        this.basicInfo.typeName= '';
+        this.basicInfo.contact= '';
+        this.basicInfo.contactNo= '';
+        this.basicInfo.creatorName= '';
+        this.basicInfo.updateDate= '';
+        this.basicInfo.creatorOrganization= '';
+        this.basicInfo.creatorTenant= '';
+        this.basicInfo.details= '';
+        this.handledInfo= null;
         this.getBasicInfo(item);
         this.getClosedInfo(item);
         this.getHandelInfo(item);
         this.id= item.id;
         this.subject= item.subject;
         this.caseDetail.open("USER_CENTER.CASE_DETAIL^^^"+this.id+"^^^"+this.subject );
+    }*/
+
+    getDetail(item){
+        this.id= item.id;
+        this.subject= item.subject;
+        this.layoutService.show();
+        Promise.all([this.service.getBasicInfo(this.id), this.service.getHandelInfo(this.id), this.service.getClosedInfo(this.id)])
+            .then((arr) =>{
+                this.layoutService.hide();
+                this.basicInfo= arr[0];
+                this.handledInfo= arr[1];
+                this.closedInfo= arr[2];
+                this.caseDetail.open("USER_CENTER.CASE_DETAIL^^^"+this.id+"^^^"+this.subject);
+            }).catch((e) => this.onRejected(e));
     }
 
+    departCase(){
+        this.router.navigate([`user-center/case-mng/case-depart-list`]);
+    }
 
     showAlert(msg: string): void {
         this.layoutService.hide();

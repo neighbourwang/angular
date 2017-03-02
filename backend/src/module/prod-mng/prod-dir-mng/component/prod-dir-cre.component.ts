@@ -42,7 +42,7 @@ export class ProdDirCreComponent implements OnInit {
             prodDirId = params['id'];
             prodDirType = params['type'];
             if (params['vcpu']) {
-                    this.pageTitle='创建产品目录'
+                    this.pageTitle='PROD_MNG.CREATE_PRODUCT_CAT'
                     this.prodDir.specification.vcpu = params['vcpu'];
                     this.prodDir.specification.mem = params['mem'];
                     this.prodDir.specification.startupDisk = params['startupDisk'];
@@ -67,7 +67,7 @@ export class ProdDirCreComponent implements OnInit {
                         }
                     }
                     if (prodDirType == 'edit') {
-                        this.pageTitle='编辑产品目录'
+                        this.pageTitle='PROD_MNG.EDIT_PRODUCT_CATALOG'
                         this.getProdDirDetail(prodDirId);
                     }
 

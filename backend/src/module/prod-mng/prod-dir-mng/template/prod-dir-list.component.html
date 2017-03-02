@@ -125,10 +125,10 @@
 	<div *ngIf="prodDirTypeId=='33f23ade-a0f8-11e6-a18b-0050568a49fd'">
 		<div class="row row-line-height">
 		<div class="form-group">
-			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>云主机规格选择:</div>
+			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.SELECT_CLOUD_HOST_SPECIFICATIONS' | translate}}: </div>
 			<div class="col-sm-6">
 				<select class="form-control" [(ngModel)]="prodDirSpecIdx" (ngModelChange)="selectProDirSpec(prodDirSpecIdx)">
-                    <option *ngFor="let item of vmProdDirSpecList; let idx=index" [value]="idx">{{'名称：'+item.cpu+' CPU,'+item.mem+' GB,'+item.bootStorageSize+' GB'}}</option>
+                    <option *ngFor="let item of vmProdDirSpecList; let idx=index" [value]="idx">{{'COMMON.NAME' | translate}}: {{item.cpu+' CPU,'+(item.mem/1024)+' GB,'+item.bootStorageSize+' GB'}}</option>
                 </select>
 			</div>
 		</div>

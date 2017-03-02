@@ -313,12 +313,37 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/platform/{pf-id}/flavor"
     },
     //规格管理
+    // {
+    //     "desc": "取得云平台规格列表",
+    //     "id": "platform-mng.flavorList.get",
+    //     "method": "GET",
+    //     "url": "adminui/authsec/sync/platform/{id}/flavor"        
+    // },
     {
-        "desc": "取得云平台规格列表",
-        "id": "platform-mng.flavorList.get",
-        "method": "GET",
+        "desc": "新建Vmware主机规格",
+        "id": "platform-mng.vmflavorList.post",
+        "method": "POST",    
+        "url": "adminui/authsec/sync/platform/flavor/add"        
+    },
+     {
+        "desc": "同步更新云主机规格",
+        "id": "platform-mng.flavorList.post",
+        "method": "POST",
         "url": "adminui/authsec/sync/platform/{id}/flavor"        
     },
+    {
+        "desc": "启用主机规格",
+        "id": "platform-mng.flavor.enable",
+        "method": "PUT",    
+        "url": "adminui/authsec/platform/flavor/{id}/enable"        
+    },
+    {
+        "desc": "删除主机规格",
+        "id": "platform-mng.flavor.delete",
+        "method": "DELETE",    
+        "url": "adminui/authsec/platform/flavor/{id}"        
+    },
+    
     // 平台接入管理
 
     // 企业资源配额管理
@@ -2041,11 +2066,97 @@ export let RestApis: RestApiModel[] = [
     },
 
     //物理机镜像
+    //镜像源
     {
         "desc": "获取镜像源列表",
         "id":"phy-mng.phy-img-mng.phyimgsource.getlist",
         "method":"POST",
-        "url":"noauth/pmimage/pool/page/{page}/size/{size}"
-    }
+        "url":"pmimagemgmt/noauth/pmimage/pool/page/{page}/size/{size}"
+    },
+    {
+        "desc": "物理机镜像池状态修改",
+        "id":"phy-mng.phy-img-mng.phyimgsource.changestatus",
+        "method":"PUT",
+        "url":"pmimagemgmt/noauth/pmimage/pool/{pmImagePoolId}/{status}"
+    },
+    {
+        "desc": "创建镜像源提交",
+        "id":"phy-mng.phy-img-mng.phyimgsource.commit.create",
+        "method":"POST",
+        "url":"pmimagemgmt/noauth/pmimage/pool"
+    },
+    {
+        "desc": "编辑镜像源提交",
+        "id":"phy-mng.phy-img-mng.phyimgsource.commit.edit",
+        "method":"PUT",
+        "url":"pmimagemgmt/noauth/pmimage/pool/edit"
+    },
+    {
+        "desc": "获取资源池分配列表",
+        "id":"phy-mng.phy-img-mng.phyimgsource.getallolist",
+        "method":"GET",
+        "url":"pmimagemgmt/noauth/pmimage/pool/{pmImagePoolId}/pmpool/list"
+    },
+    {
+        "desc": "分配资源池提交",
+        "id":"phy-mng.phy-img-mng.phyimgsource.commit.allocate",
+        "method":"PUT",
+        "url":"pmimagemgmt/noauth/pmimage/pool/{pmImagePoolId}/pmpool/assign"
+    },
+    {
+        "desc": "测试物理机镜像池",
+        "id":"phy-mng.phy-img-mng.phyimgsource.commit.test",
+        "method":"POST",
+        "url":"pmimagemgmt/noauth/pmimage/pool/test"
+    },
+    //物理机镜像列表
+    {
+        "desc": "分页获取物理机镜像列表",
+        "id":"phy-mng.phy-img-mng.phyimglist.getlist",
+        "method":"POST",
+        "url":"pmimagemgmt/noauth/pmimage/image/{pmImagePoolId}/page/{page}/size/{size}"
+    },
+    {
+        "desc": "物理机镜像状态修改",
+        "id":"phy-mng.phy-img-mng.phyimglist.changestatus",
+        "method":"PUT",
+        "url":"pmimagemgmt/noauth/pmimage/image/changestatus/{pmImageId}/{status}"
+    },
+    {
+        "desc": "提交编辑物理机镜像",
+        "id":"phy-mng.phy-img-mng.phyimglist.commit.edit",
+        "method":"PUT",
+        "url":"pmimagemgmt/noauth/pmimage/image/edit"
+    },
+    {
+        "desc": "根据pmImageId获取镜像信息",
+        "id":"phy-mng.phy-img-mng.phyimglist.imgdetail",
+        "method":"GET",
+        "url":"pmimagemgmt/noauth/pmimage/image/view/{pmImageId}"
+    },
+    {
+        "desc": "保存镜像的企业选择信息",
+        "id":"phy-mng.phy-img-mng.phyimglist.commit.allocate",
+        "method":"PUT",
+        "url":"pmimagemgmt/noauth/pmimage/image/{pmImageId}/enterprise"
+    },
+    {
+        "desc": "获取镜像的企业选择信息",
+        "id":"phy-mng.phy-img-mng.phyimglist.getallolist",
+        "method":"GET",
+        "url":"pmimagemgmt/noauth/pmimage/image/{pmImageId}/enterprise/show"
+    },
+    {
+        "desc": "获取镜像的同步信息列表",
+        "id":"phy-mng.phy-img-mng.phyimglist.sync.getinfo",
+        "method":"GET",
+        "url":"pmimagemgmt/noauth/pmimage/image/{pmImagePoolId}/list"
+    },
+    {
+        "desc": "保存镜像的同步信息列表",
+        "id":"phy-mng.phy-img-mng.phyimglist.sync.saveinfo",
+        "method":"POST",
+        "url":"pmimagemgmt/noauth/pmimage/image/{pmImagePoolId}/savesync"
+    },
 ]
 

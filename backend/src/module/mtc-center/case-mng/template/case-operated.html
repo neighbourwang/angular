@@ -2,10 +2,13 @@
    {{'CASE_MNG.HANDLE_CASE'|translate}}：{{caseInfo.id}}-{{caseInfo.subject}}   
 </div>
 <div class="page-content">
-    <div   style="padding-left: 25%;position:relative;height: 34px;line-height: 34px;margin-top:20px;">
-        <span style="border:3px solid #00a982;border-radius:50px;"></span>
-        <div style="font-size:18px;font-weight:700;position:absolute;left:330px;top:0px">{{'CASE_MNG.CASE_INFO'|translate}}</div>
-    </div>      
+    <div class="row mgt20" >
+         <div class="col-md-2"></div>
+        <div class="col-md-2" style="text-align:right">
+            <span style="border:3px solid #00a982;border-radius:50px;"></span>
+            <span style="font-size:18px;font-weight:700;padding-left:5px"> {{'CASE_MNG.CASE_INFO'|translate}}</span>
+        </div>
+    </div>
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title" >{{'CASE_MNG.SUBJECT'|translate}}:</div>
@@ -39,11 +42,14 @@
         </div>
     </div>
 
-   <div style="border-top:1px solid #00a982;width: 700px;margin-top: 20px;margin-left:22%"></div>
-    <div   style="padding-left: 25%;position:relative;height: 34px;line-height: 34px;margin-top:30px;">
-        <span style="border:3px solid #00a982;border-radius:50px;"></span>
-        <div style="font-size:18px;font-weight:700;position:absolute;left:330px;top:0px">{{'CASE_MNG.HANDLE_INFO'|translate}}</div>
-    </div> 
+    <div style="border-top:1px solid #00a982;width: 700px;margin-top: 20px;margin-left:265px"></div>
+    <div class="row mgt20" >
+        <div class="col-md-2"></div>
+        <div class="col-md-2" style="text-align:right">
+            <span style="border:3px solid #00a982;border-radius:50px;"></span>
+            <span style="font-size:18px;font-weight:700;padding-left:5px"> {{'CASE_MNG.HANDLE_INFO'|translate}}</span>
+        </div>
+    </div>
     <div class="row row-line-height">  
         <div class="form-group">
             <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'CASE_MNG.EMERGENCY'|translate}}:</div>
@@ -66,12 +72,15 @@
     <div  style="padding-left:34%;font-size:14px">{{'CASE_MNG.LESS_THAN_1000_WORDS'|translate}}</div>
 
     <div *ngIf="caseInfo.statusName=='处理中'">
-       <div style="border-top:1px solid #00a982;width: 700px;margin-top: 20px;margin-left:22%"></div>
-    <div   style="padding-left: 25%;position:relative;height: 34px;line-height: 34px;margin-top:30px;">
-        <span style="border:3px solid #00a982;border-radius:50px;"></span>
-        <div style="font-size:18px;font-weight:700;position:absolute;left:330px;top:0px">{{'CASE_MNG.HISTORY_INFO'|translate}}</div>
-    </div>          
-    <div *ngFor="let handleInfo of handleInfoes" style="padding-left:20.5%">      
+       <div style="border-top:1px solid #00a982;width: 700px;margin-top: 20px;margin-left:265px"></div>
+       <div class="row mgt20" >
+            <div class="col-md-2"></div>
+            <div class="col-md-2" style="text-align:right">
+                <span style="border:3px solid #00a982;border-radius:50px;"></span>
+                <span style="font-size:18px;font-weight:700;padding-left:5px"> {{'CASE_MNG.HISTORY_INFO'|translate}}</span>
+            </div>
+        </div>        
+    <div *ngFor="let handleInfo of handleInfoes" style="margin-left:265px">      
         <div class="row row-line-height">  
             <div class="form-group">
                 <div class="col-sm-2 form-control-title" >{{'CASE_MNG.EMERGENCY'|translate}}:</div>
@@ -82,7 +91,7 @@
             <div class="col-md-4" > 
                 <div class="form-group">
                     <div class="col-sm-6 form-control-title" >{{'CASE_MNG.HANDLER'|translate}}:</div>
-                    <div class="col-md-4">  <span style="line-height:34px">{{handleInfo.handlerName}}</span> </div> 
+                    <div class="col-md-6">  <span style="line-height:34px">{{handleInfo.handlerName}}</span> </div> 
                 </div>
             </div>
             <div class="col-md-4">  
@@ -95,7 +104,7 @@
         <div class="row row-line-height">  
             <div class="form-group">
                 <div class="col-sm-2 form-control-title">{{'CASE_MNG.HANDLE_RECORD'|translate}}:</div>
-                <div class="col-md-4">  
+                <div class="col-md-5">  
                     <textarea class="form-control" rows="3" placeholder="最多只能输入1000个文字">{{handleInfo.handleInfo}}</textarea>
                 </div> 
             </div>

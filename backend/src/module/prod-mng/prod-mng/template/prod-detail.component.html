@@ -3,7 +3,7 @@
 <div class="page-content-header icon-create-product" style="padding-bottom:10px;height:45px;">
 	{{'PROD_MNG.VIEW_PRODUCT' | translate}}
 	<button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
-        <span class="icon-button-label" (click)='cancel()'>返回产品列表</span>
+        <span class="icon-button-label" (click)='cancel()'>{{'PROD_MNG.RETURN_PRODUCT_LIST' | translate}}</span>
     </button>
 </div>
 <div class="mgt20" style="border-bottom:1px solid #ddd;padding-bottom:5px">
@@ -312,7 +312,7 @@
 						</div>
 						<div class="row row-line-height entdown" style="">
 							<div class="col-sm-5 entBody">
-								<div class="tabBody" *ngFor="let plateform of product.productPlatformReqs; let idx=index" style="text-align:center">
+								<div class="tabBody" *ngFor="let plateform of product.productPlatformReqs; let idx=index" style="text-align:center;">
 									<div class="col-sm-6 oneChild">
 										{{plateform.platformName}}
 									</div>
@@ -331,6 +331,7 @@
 								</div>
 							</div>
 						</div>-->
+						<div style="clear: both"></div>
 								</div>
 							</div>
 
@@ -355,77 +356,8 @@
 		</div>
 	</div>
 </div>
+
 <div *ngIf="Tabels[3].active">
-	<div class="page-content fix-page-content">
-		<div class="row" style="padding-top: 30px;">
-			<div class="col-md-12">
-				<div class="row row-line-height">
-					<div class="col-sm-3"></div>
-					<div class="col-sm-6 selectEnt">
-						<div class="row row-line-height entup">
-							<div class="col-sm-5 entHeader">
-								<div class="">
-									<div class="col-sm-6">{{'PROD_MNG.PLATFORM_NAME' | translate}}</div>
-									<!--平台名称-->
-
-									<div class="col-sm-6">{{'COMMON.AVAILABLE_ZONE' | translate}}</div>
-									<!--可用区-->
-
-								</div>
-							</div>
-							<div class="col-sm-2"></div>
-							<div class="col-sm-5 entHeader">
-								{{'NET_MNG_VM_NSX_DLR.ENTERPRISE_LIST' | translate}}
-								<!--企业列表-->
-
-							</div>
-						</div>
-						<div class="row row-line-height entdown" style="">
-							<div class="col-sm-5 entBody">
-								<div class="tabBody" *ngFor="let plateform of product.productPlatformReqs; let idx=index" style="text-align:center">
-									<div class="col-sm-6 oneChild">
-										{{plateform.platformName}}
-									</div>
-									<div class="col-sm-6 secondChild wyLine-height">
-										<div class="row" *ngFor="let zone of plateform.zoneList">
-											<div class="col-sm-12">
-												{{zone.zoneName}}
-											</div>
-										</div>
-									</div>
-									<!--<div class="col-sm-4 thirdChild">
-							<div class="row row-line-height inputLeft" *ngFor="let zone of plateform.zoneList; let idxx=index">
-								<div class="col-sm-12">
-									<input type="checkbox" class="fox-cloud-checkbox" selected="zone.selected" 
-									checked=true disabled (click)="selectZone(idx,idxx)">
-								</div>
-							</div>
-						</div>-->
-								</div>
-							</div>
-
-							<div class="col-sm-2"></div>
-							<div class="col-sm-5 entBody">
-								<div *ngFor="let ent of product.productEnterpiseReqs;let ii=index">
-									<span class="span2">{{ent.name}}</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-3"></div>
-				</div>
-				<div class="row row-line-height">
-					<div class="col-sm-3"></div>
-					<div class="col-sm-6">
-
-					</div>
-					<div class="col-sm-3"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div *ngIf="Tabels[4].active">
 	<div class="page-content fix-page-content">
 		<div class="row" style="padding-top: 30px;">
 			<div class="col-md-1"></div>

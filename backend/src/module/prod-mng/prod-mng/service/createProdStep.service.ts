@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
+import { LayoutService} from '../../../../architecture';
 
 
 import 'rxjs/add/operator/toPromise';
@@ -14,7 +15,8 @@ export class CreateProdStepService{
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private layoutService:LayoutService
     ) { }
 
 
@@ -23,6 +25,7 @@ export class CreateProdStepService{
 
     // 取得VM产品目录详情
     getVmProdDirDetail(id:string) {
+        this.layoutService.show();
         this.productDir=new ProductDir();
         let api = this.restApiCfg.getRestApi("prod-mng.prod-dir-vm.detail");
         this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined).then(response => {
@@ -41,12 +44,15 @@ export class CreateProdStepService{
             } else {
 
             }
+            this.layoutService.hide();
         }).catch(err => {
-            console.error(err)
+            console.error(err);
+            this.layoutService.hide();
         });
     }
     // 取得Disk产品目录详情
     getDiskProdDirDetail(id:string) {
+        this.layoutService.show();
         this.productDir=new ProductDir();
         let api = this.restApiCfg.getRestApi("prod-mng.prod-dir-disk.detail");
         this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined).then(response => {
@@ -64,7 +70,9 @@ export class CreateProdStepService{
             } else {
 
             }
+            this.layoutService.hide();
         }).catch(err => {
+            this.layoutService.hide();
             console.error(err)
         });
     }

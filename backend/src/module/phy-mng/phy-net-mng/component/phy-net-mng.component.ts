@@ -29,7 +29,6 @@ export class PhyNetMngComponent implements OnInit {
         private service: PhyNetMngService,
         private dictService: PhyNetDictService,
         private ipService: IPValidationService,
-        //private ipService: IPValidationService,
         private translateService: TranslateService
     ) {
     }
@@ -64,7 +63,7 @@ export class PhyNetMngComponent implements OnInit {
     noticeMsg = "";
 
     pageIndex = 1;
-    pageSize = 3;
+    pageSize = 10;
     totalPage = 1;
 
     phynets: Array<PhyNetListModel> = [];  // 物理机网络首页list
@@ -268,6 +267,7 @@ export class PhyNetMngComponent implements OnInit {
             this.phynet_changed.networkName = this.selectedphynet.networkName;
             this.phynet_changed.subnetIP = this.selectedphynet.subnetIP;
             this.phynet_changed.subnetMask = this.selectedphynet.subnetMask;
+            this.phynet_changed.id = this.selectedphynet.id;
             this.editphynetbox.open();
         } else {
             this.showMsg("PHY_NET_MNG.PLEASE_CHOOSE_NETWORK");
@@ -364,12 +364,15 @@ export class PhyNetMngComponent implements OnInit {
                     }
                 })
                 .then(() => {
+                    /*
                     this.selectedphynet.dnsAlt = this.phynet_changed.dnsAlt;
                     this.selectedphynet.dnsPre = this.phynet_changed.dnsPre;
                     this.selectedphynet.gateway = this.phynet_changed.gateway;
                     this.selectedphynet.networkName = this.phynet_changed.networkName;
                     this.selectedphynet.subnetIP = this.phynet_changed.subnetIP;
                     this.selectedphynet.subnetMask = this.phynet_changed.subnetMask;
+                    */
+                    this.getPhyNetList();
                     this.editphynetbox.close();
                 })
                 .catch(err => {
@@ -479,6 +482,8 @@ export class PhyNetMngComponent implements OnInit {
         //console.log('clicked acceptIPsModify');        
         if (this.validatePhyNetIPModify()) {
             this.layoutService.show();
+            this.ipscope_changed.ipRange = this.ipscope_changed.ipRange.replace(/\s+/g, "").replace(/\n\r/g, "");
+            console.log(this.ipscope_changed.ipRange, "this.ipscope_changed.ipRange");
             this.service.updatePhyNetIpRange(this.ipscope_changed)
                 .then(res => {
                     this.layoutService.hide();
@@ -609,7 +614,7 @@ export class PhyNetMngComponent implements OnInit {
         let pn = this.getSelected();
         if (pn) {
             this.selectedphynet = pn;
-            if (this.selectedphynet.status == this.statusDictArray.find(n => n.code === "enable").value) {
+            if (this.selectedphynet.status == Number(this.statusDictArray.find(n => n.code === "enable").value)) {
                 this.showMsg("PHY_NET_MNG.PHY_NET_ENABLED");
                 return;
             }
@@ -624,11 +629,11 @@ export class PhyNetMngComponent implements OnInit {
         console.log('clicked acceptPhyNetEnableModify');        
         if (this.selectedphynet) {
             this.layoutService.show();
-            this.service.updateStatusPhyNet(this.selectedphynet.id, this.statusDictArray.find(n => n.code === "enable").value)
+            this.service.updateStatusPhyNet(this.selectedphynet.id, Number(this.statusDictArray.find(n => n.code === "enable").value))
                 .then(res => {
                     this.layoutService.hide();
                     if (res && res.resultCode == "100") {                        
-                        this.selectedphynet.status = <string>this.statusDictArray.find(n => n.code === "enable").value;
+                        this.selectedphynet.status = Number(this.statusDictArray.find(n => n.code === "enable").value);
                         console.log(res, "PHY_NET_MNG.ENABLE_PHY_NET_SUCCESS")
                     } else {
                         this.enablebox.close();
@@ -659,7 +664,7 @@ export class PhyNetMngComponent implements OnInit {
         let pn = this.getSelected();
         if (pn) {
             this.selectedphynet = pn;
-            if(this.selectedphynet.status == this.statusDictArray.find(n => n.code === "disable").value){
+            if(this.selectedphynet.status == Number(this.statusDictArray.find(n => n.code === "disable").value)){
                 this.showMsg("PHY_NET_MNG.PHY_NET_DISABLED");
                 return; 
             }
@@ -675,11 +680,11 @@ export class PhyNetMngComponent implements OnInit {
         if (this.selectedphynet) {
             this.layoutService.show();
             console.log(this.selectedphynet.id);
-            this.service.updateStatusPhyNet(this.selectedphynet.id, this.statusDictArray.find(n => n.code === "disable").value)
+            this.service.updateStatusPhyNet(this.selectedphynet.id, Number(this.statusDictArray.find(n => n.code === "disable").value))
                 .then(res => {
                     this.layoutService.hide();
                     if (res && res.resultCode == "100") {                        
-                        this.selectedphynet.status = <string>this.statusDictArray.find(n => n.code === "disable").value;
+                        this.selectedphynet.status = Number(this.statusDictArray.find(n => n.code === "disable").value);
                         console.log(res, "PHY_NET_MNG.DISABLE_PHY_NET_SUCCESS")
                     } else {
                         this.disablebox.close();
@@ -710,11 +715,11 @@ export class PhyNetMngComponent implements OnInit {
         let pn = this.getSelected();
         if (pn) {
             this.selectedphynet = pn;
-            if(this.selectedphynet.status == this.statusDictArray.find(n => n.code === "delete").value){
+            if(this.selectedphynet.status == Number(this.statusDictArray.find(n => n.code === "delete").value)){
                 this.showMsg("PHY_NET_MNG.PHY_NET_DELETED");
                 return; 
             }
-            if(this.selectedphynet.status == this.statusDictArray.find(n => n.code === "enable").value){
+            if(this.selectedphynet.status == Number(this.statusDictArray.find(n => n.code === "enable").value)){
                 this.showMsg("PHY_NET_MNG.PHY_NET_NEED_TO_DISABLED_FIRSTLY");
                 return; 
             }
@@ -730,11 +735,11 @@ export class PhyNetMngComponent implements OnInit {
         if (this.selectedphynet) {
             this.layoutService.show();
             console.log(this.selectedphynet.id);
-            this.service.updateStatusPhyNet(this.selectedphynet.id, this.statusDictArray.find(n => n.code === "delete").value)
+            this.service.updateStatusPhyNet(this.selectedphynet.id, Number(this.statusDictArray.find(n => n.code === "delete").value))
                 .then(res => {
                     this.layoutService.hide();
                     if (res && res.resultCode == "100") {                        
-                        this.selectedphynet.status = <string>this.statusDictArray.find(n => n.code === "delete").value;
+                        this.selectedphynet.status = Number(this.statusDictArray.find(n => n.code === "delete").value);
                         console.log(res, "PHY_NET_MNG.DELETE_PHY_NET_SUCCESS")
                     } else {
                         this.deletebox.close();

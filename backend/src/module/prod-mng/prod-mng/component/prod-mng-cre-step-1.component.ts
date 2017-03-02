@@ -63,7 +63,7 @@ export class ProdMngCreStep1Component implements OnInit {
     next() {
         console.log(this.service.product.name);
         if(!this.service.product.name){
-            this.notice.open('操作错误','产品名称不能为空')
+            this.notice.open('COMMON.OPERATION_ERROR','NET_MNG_OPENSTACK.NAME_EMPTY')
             return}
         this.route.navigate(["prod-mng/prod-mng/prod-mng-cre-2"]);
     }

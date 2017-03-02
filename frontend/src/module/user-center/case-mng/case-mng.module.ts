@@ -5,13 +5,14 @@ import { CommonComponentModule, PipeModule} from '../../../architecture';
 
 //Components
 import { CaseMngListComponent } from './component/case-mng-list.component';
+import { CaseDepartListComponent } from './component/case-depart-list.component';
 
 // Routing
 import { CaseMngRouting } from './case-mng.routing';
 
 //service
 import { CaseMngService} from './service/case-mng-list.service'
-
+import { CaseDepartService} from './service/case-depart-list.service'
 
 @NgModule({
     imports: [
@@ -20,13 +21,16 @@ import { CaseMngService} from './service/case-mng-list.service'
         PipeModule
     ],
     declarations: [
-        CaseMngListComponent
+        CaseMngListComponent,
+        CaseDepartListComponent
     ],
     exports: [
-        CaseMngListComponent
+        CaseMngListComponent,
+        CaseDepartListComponent
     ],
     providers: [
-        CaseMngService
+        CaseMngService,
+        CaseDepartService
     ]
 
 })

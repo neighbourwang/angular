@@ -42,9 +42,9 @@
 						<div class="prodSpecific">
 							<span class="form-line-height font-gray" >{{'COMMON.RAM' | translate}}</span>
 							<span >
-								<count-bar [default]=0 [step]=100 [max]=100000 [min]=0 [disabled]=true [value]="prodDir.specification.mem" (output)="outputValue($event,'mem')"></count-bar>
+								<count-bar [default]=0 [step]=100 [max]=100000 [min]=0 [disabled]=true [value]="prodDir.specification.mem/1024" (output)="outputValue($event,'mem')"></count-bar>
 							</span>
-							<span class="form-line-height font-gray">{{'COMMON.MB' | translate}}(MB)</span>
+							<span class="form-line-height font-gray">GB</span>
 						</div>
 						<!--<div class="row">
 							<div class="col-sm-3 font-gray"><span class="form-line-height">{{'COMMON.RAM' | translate}}</span></div>
@@ -126,7 +126,7 @@
 						</div>
 						<div class="col-sm-2 thirdChild"  >
 							<div class="row row-line-height inputLeft" *ngFor='let zone of plateform.zoneList;  let idxx=index;'>
-								<div class="col-sm-12"><input type="checkbox" class="fox-cloud-checkbox"  [(ngModel)]="zone.selected" name="zoneSelected" (click)=selectZone(idx,idxx)></div>
+								<div class="col-sm-12"><input type="checkbox" class="fox-cloud-checkbox"  [(ngModel)]="zone.selected" name="zoneSelected" (change)=selectZone(idx,idxx)></div>
 							</div>
 						</div>
 						<div class="col-sm-4">

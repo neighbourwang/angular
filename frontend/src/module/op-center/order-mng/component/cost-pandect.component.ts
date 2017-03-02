@@ -26,7 +26,7 @@ export class CostPandectComponent implements OnInit{
 
 @ViewChild("notice")
   	private _notice: NoticeComponent;
-
+size:number=6; 
 isRoot = false;
 
 currentYear :number;
@@ -150,7 +150,7 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 getCurrentTime(){
     let date = new Date();
     this.currentYear = date.getFullYear();
-    this.currentMonth = date.getMonth()+1;
+    this.currentMonth = date.getMonth()+1;//月份从0-11
 }
 
 isRootUser(){
@@ -173,7 +173,7 @@ getMonths(){
     let months :number; 
    
     if( this.currentYear== Number(this._param.year)){
-         months = this.currentMonth;
+         months = this.currentMonth-1;//显示当前月的上一个月
     }
     else{
         months = 12;
@@ -279,7 +279,7 @@ totalconsumeLoad(){
      let param={
         endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
         ids:[],
-        size:4// Number(this._param.month)
+        size:this.size// Number(this._param.month)
     };
 
  
