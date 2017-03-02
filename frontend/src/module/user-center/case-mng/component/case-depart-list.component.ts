@@ -47,7 +47,7 @@ export class CaseDepartListComponent implements OnInit{
     noticeMsg = "";
 
     pageIndex= 1;
-    pageSize= 8;
+    pageSize= 10;
     totalPage= 1;
 
     statusDic: Array<SystemDictionary>;

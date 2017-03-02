@@ -38,7 +38,7 @@
             <option [value]="v.value" *ngFor="let v of service.emergencyDic | async">{{v.displayValue}}</option>
         </select>
     </div>
-    <div class="float-left mgl20">
+    <div class="float-left mgl20 col-md-3">
         <span>提交者：</span>
         <select [(ngModel)]="creatorId" (ngModelChange)="getData()" class="form-control fix-width-120">
             <option [value]="defaultUser">{{ 'USER_CENTER.ALL' | translate}}</option>
@@ -64,7 +64,7 @@
     <tbody>
         <tr *ngFor="let item of data">
             <td class="text-center">{{item.id}}</td>
-            <td class="text-center"><a href="javascript:void(0);" (click)="getDetail(item)">{{item.subject}}</a></td>
+            <td class="text-center" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"><a href="javascript:void(0);" (click)="getDetail(item)">{{item.subject}}</a></td>
             <td class="text-center">{{item.typeName}}</td>
             <td class="text-center">{{item.statusName}}</td>
             <td class="text-center">{{item.emergencyName}}</td>

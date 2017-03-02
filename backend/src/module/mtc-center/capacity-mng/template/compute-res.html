@@ -58,7 +58,34 @@
                     <h3 class="panel-title">可用区资源分配率 【云管平台产生资源】</h3>
                 </div>
                 <div class="panel-body">
-                    
+                    <div class="col-md-6">
+                        <div style="text-align:center;">CPU</div>
+                        <div style="position:relative;">
+                           <div style="position:absolute;top:47%;left:42%;">{{resAllocationInfo.cpuPercent}}%</div>
+                           <canvas baseChart
+                             *ngIf="cpuAllocation.DataSets"
+                             [datasets]="cpuAllocation.DataSets "
+                             [chartType]="cpuAllocation.ChartType"
+                             [options]="cpuAllocation.Options"
+                             [colors]="cpuAllocation.Colors">
+                            </canvas>
+                        </div>
+                        <div style="text-align:center;">{{resAllocationInfo.cpu}}/{{resAllocationInfo.cpuTotal}} 核</div>
+                    </div>
+                    <div class="col-md-6">
+                         <div style="text-align:center;">内存</div>
+                         <div style="position:relative;">
+                           <div style="position:absolute;top:47%;left:42%;">{{resAllocationInfo.memoryPercent}}%</div>
+                           <canvas baseChart
+                             *ngIf="memAllocation.DataSets"
+                             [datasets]="memAllocation.DataSets "
+                             [chartType]="memAllocation.ChartType"
+                             [options]="memAllocation.Options"
+                             [colors]="memAllocation.Colors">
+                           </canvas>
+                         </div>
+                        <div style="text-align:center;">{{resAllocationInfo.memory}}/{{resAllocationInfo.memoryTotal}} GB</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -68,7 +95,34 @@
                     <h3 class="panel-title">可用区资源分配率 【实际已分配资源】</h3>
                 </div>
                 <div class="panel-body">
-                    
+                    <div class="col-md-6">
+                        <div style="text-align:center;">CPU</div>
+                        <div style="position:relative;">
+                           <div style="position:absolute;top:47%;left:42%;">{{resActualInfo.cpuPercent}}%</div>
+                           <canvas baseChart
+                             *ngIf="cpuActual.DataSets"
+                             [datasets]="cpuActual.DataSets "
+                             [chartType]="cpuActual.ChartType"
+                             [options]="cpuActual.Options"
+                             [colors]="cpuActual.Colors">
+                            </canvas>
+                        </div>
+                        <div style="text-align:center;">{{resActualInfo.cpu}}/{{resActualInfo.cpuTotal}} 核</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div style="text-align:center;">内存</div>
+                        <div style="position:relative;">
+                           <div style="position:absolute;top:47%;left:42%;">{{resActualInfo.memoryPercent}}%</div>
+                           <canvas baseChart
+                             *ngIf="memActual.DataSets"
+                             [datasets]="memActual.DataSets "
+                             [chartType]="memActual.ChartType"
+                             [options]="memActual.Options"
+                             [colors]="memActual.Colors">
+                            </canvas>
+                        </div>
+                        <div style="text-align:center;">{{resActualInfo.memory}}/{{resActualInfo.memoryTotal}} GB</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -78,7 +132,34 @@
                     <h3 class="panel-title">可用区资源利用率 【物理资源平均利用率%】</h3>
                 </div>
                 <div class="panel-body">
-                    
+                    <div class="col-md-6">
+                        <div style="text-align:center;">CPU</div>
+                        <div style="position:relative;">
+                           <div style="position:absolute;top:47%;left:42%;">{{resUsedInfo.cpuPercent}}%</div>
+                           <canvas baseChart
+                             *ngIf="cpuUsed.DataSets"
+                             [datasets]="cpuUsed.DataSets "
+                             [chartType]="cpuUsed.ChartType"
+                             [options]="cpuUsed.Options"
+                             [colors]="cpuUsed.Colors">
+                            </canvas>
+                        </div>
+                        <div style="text-align:center;">{{resUsedInfo.cpu}}/{{resUsedInfo.cpuTotal}} 核</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div style="text-align:center;">内存</div>
+                        <div style="position:relative;">
+                           <div style="position:absolute;top:47%;left:42%;">{{resUsedInfo.memoryPercent}}%</div>
+                           <canvas baseChart
+                             *ngIf="memUsed.DataSets"
+                             [datasets]="memUsed.DataSets "
+                             [chartType]="memUsed.ChartType"
+                             [options]="memUsed.Options"
+                             [colors]="memUsed.Colors">
+                            </canvas>
+                        </div>
+                        <div style="text-align:center;">{{resUsedInfo.memory}}/{{resUsedInfo.memoryTotal}} GB</div>
+                    </div>
                 </div>
             </div>
         </div>
