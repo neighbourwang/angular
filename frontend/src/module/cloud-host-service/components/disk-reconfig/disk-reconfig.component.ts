@@ -54,6 +54,7 @@ export class DiskReconfigComponent implements OnInit {
 		this.reset();
 		this.disk = disk;
 
+		this.layoutService.show();
 		this.service.getConfig(disk.id, "1").then(res => {
 			this.config = {};
 			this.res = res;
@@ -64,7 +65,11 @@ export class DiskReconfigComponent implements OnInit {
 			this.step = +this.config.DISKSTEPSIZE.valueList[0].attrValue;
 			this.minStorage = this.disk.size + this.step;
 			this.currentStorage = this.minStorage;
-		});
+
+			this.layoutService.hide();
+		}).catch(error => {
+			this.layoutService.hide();
+		})
 
 	}
 

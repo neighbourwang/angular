@@ -1,21 +1,21 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import { CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
-
+import { Chart1,CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,TimeCaculater,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import { CreatChartService} from '../service';
 import * as _ from 'underscore';
 
 @Component({
 	selector: 'cost-pandect',
 	templateUrl: '../template/cost-pandect.component.html',
 	styleUrls: ['../style/cost-pandect.less'],
-	providers: []
+	providers: [CreatChartService]
 })
 export class CostPandectComponent implements OnInit{
 	//企业消费概览
-    d_chart = new Chart();
-    ent_dht:any;
-
+    // d_chart = new Chart();
+    // ent_dht:any;
+    sumChart :any;
     b_chart = new Chart();
     ent_bar:any;
 
@@ -27,19 +27,17 @@ export class CostPandectComponent implements OnInit{
 @ViewChild("notice")
   	private _notice: NoticeComponent;
 size:number;
-currentYear :number;
-currentMonth : number;
-lastDay:number;
+
 _param:CostPandectParam = new CostPandectParam();
-private _years:Array<Time>=[];
-private _months:Array<Time>=[];
+private timeCaculater :TimeCaculater = new TimeCaculater();
+private currentYear :number;
+private currentMonth : number;
+private lastDay:number;
+private _years=[];
+private _months=[];
 //企业下拉列表
 private enterpriseLoader : ItemLoader<{id:string;name:string}>= null;
 
-//订单类型
-private _orderTypeDic:DicLoader = null;
-//订购人
-private _buyerLoader:ItemLoader<{id:string; name:string}> = null;
 
 private orderItemLoader:ItemLoader<CostPandectItem> = null;//表格
 
@@ -56,10 +54,16 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 	
 	constructor(
 		private layoutService: LayoutService,
+        private chartService:CreatChartService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
         
+        this.currentYear = this.timeCaculater.getCurrentYear();
+        this.currentMonth = this.timeCaculater.getCurrentMonth();
+        
+        this.sumChart = this.chartService.creatSumChart();
+
         this.enterpriseLoader = new ItemLoader<{id:string;name:string}> (false,'COMMON.ENTPRISE_OPTIONS_DATA_ERROR','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
         this.orderItemLoader = new ItemLoader<CostPandectItem> (false,'ORDER_MNG.ERROR_LOADING_CONSUMPTION_LIST','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
 
@@ -70,21 +74,6 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 				target.push(obj);
 			}
 		}
-
-        //订购人加载
-		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, 'ORDER_MNG.BUYER_DATA_ERROR', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
-
-        this._buyerLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
-			for(let item of source)
-			{
-				let obj=_.extend({}, item) ;
-				target.push(obj);
-				obj.id = item.key;
-				obj.name = item.value;
-			}
-		}
-
-        this._orderTypeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
 
     
        	this.consumeLoader = new ItemLoader<ConsumeSum>(false, 'ORDER_MNG.CONSUMER_OVERVIEW_FAILED', "op-center.order-mng.cost-pandect.consume.post", this.restApiCfg, this.restApi);
@@ -126,62 +115,23 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 }
 	ngOnInit(){
         this.layoutService.show();
-        this.getCurrentTime();
-        this.getTimeData();//时间下拉列表
+        this.loadYears();
         this.loadEnterprise();
-        this.createSumBar();
+        
         this.createHstoryBar();
         this.createTopBar();
         this.createTopBar2();
-        // this.search_chart();
-        // this._buyerLoader.Go(null, [{key:"departmentId", value:null}])
-        // .then(success=>{
-        //    this._orderTypeDic.Go();
-        // })
-        // .catch(err=>{
-		// 	this.layoutService.hide();
-		// 	this.showMsg(err);
-		// });
 		this.layoutService.hide();
 	}
-getCurrentTime(){
-    let date = new Date();
-    this.currentYear = date.getFullYear();
-    this.currentMonth = date.getMonth()+1;
-}
-
-getTimeData(){
-    
-    for(let i = 1999; i<=this.currentYear ; i++){
-        let _year = new Time(i.toString(),i.toString());
-        this._years.push(_year);  
+    loadYears(){
+        this._years = this.timeCaculater.getYears();
     }
-
-    
-}
-getMonths(){
-    this._months.splice(0,this._months.length);
-    this._param.month = null;
-    let months :number; 
-   
-    if( this.currentYear== Number(this._param.year)){
-         months = this.currentMonth-1;
+    loadMonths(){
+        this._months = this.timeCaculater.getMonths(Number(this._param.year));
     }
-    else{
-        months = 12;
+    loadLastDay(){
+        this.lastDay = this.timeCaculater.getLastDay(Number(this._param.year),Number(this._param.month));
     }
-        for(let i = 1; i<=months ; i++){
-            let _month = new Time(i.toString(),i.toString());
-
-            this._months.push(_month);  
-   }
-}
-
-getLastDay(){
-     this.lastDay = new Date(Number(this._param.year),Number(this._param.month),0).getDate();
-    //  alert(this.lastDay);
-}
-
 
 	loadEnterprise():Promise<any>{
 		return new Promise((resolve, reject)=>{
@@ -194,9 +144,9 @@ getLastDay(){
 		});
 	}
 
-showDetail(orderItemId:string){
-		this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderItemId}`);
-	}	
+    showDetail(orderItemId:string){
+            this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderItemId}`);
+        }	
 
 loadTopChart(){
     
@@ -250,9 +200,7 @@ consumeLoad(){
 
     this.consumeLoader.Go(null,null,param)
      .then(success=>{
-         this.toSumDatas(this.consumeLoader.FirstItem,this.d_chart);
-         this.ent_dht[0].data = this.d_chart.datas;
-         
+         this.chartService.toSumDatas(this.consumeLoader.FirstItem,this.sumChart);    
          this.layoutService.hide();
     })
     .catch(err=>{
@@ -366,25 +314,6 @@ isNullEnterprise(){
     
 }
 
-toSumDatas(source:any,target:Chart){
-    let datas:Array<number>=[];
-    let labels:Array<string>=[];
-    if(source){
-            datas.push(source.physicalMachineOrderPriceSum);
-            datas.push(source.dbOrderPriceSum);
-            datas.push(source.diskOrderPriceSum);
-            datas.push(source.vmOrderPriceSum);  
-            labels.push('物理机：'+source.physicalMachineOrderPriceSum);
-            labels.push('数据库：'+source.dbOrderPriceSum);
-            labels.push('云硬盘：'+source.diskOrderPriceSum);
-            labels.push('云主机：'+source.vmOrderPriceSum); 
-    }
-    target.datas.splice(0,target.datas.length);
-    target.labels.splice(0,target.labels.length);
-    target.datas = datas;
-    target.labels = labels;
-}
-
 toHistoryData(source:Array<any>,target:Chart){
     let datas:Array<number>=[];
     let labels :Array<string>=[];
@@ -429,8 +358,7 @@ topToDatas(target:Chart,items:Array<any>){
 
 
 search_chart(){
-    //this.clear();
-//是canvas没有清除画布内容？？？？
+
     //消费概览
     this.consumeLoad();
 
@@ -442,19 +370,19 @@ search_chart(){
 }
 
 
-createSumBar(){
-    this.ent_dht=[{
-                        data: [0,0,0,0],
-                        borderWidth:[
-                            0,0,0,0
-                        ]
-                    }];
-    this.d_chart.colors = [
-            {
-                backgroundColor:["#08C895","#82B6B2","#6F7DC8","#2BD2C8"]
-            }
-        ];
-}
+// createSumBar(){
+//     this.ent_dht=[{
+//                         data: [0,0,0,0],
+//                         borderWidth:[
+//                             0,0,0,0
+//                         ]
+//                     }];
+//     this.d_chart.colors = [
+//             {
+//                 backgroundColor:["#08C895","#82B6B2","#6F7DC8","#2BD2C8"]
+//             }
+//         ];
+// }
 
 createHstoryBar(){  
    this.b_chart.colors = [
@@ -531,7 +459,7 @@ createTopBar(){
         data: [0,0]
                          
      }];
-        this.h_chart.colors  = [
+    this.h_chart.colors  = [
                 {
                     backgroundColor: [
                         '#2BD2C8',
@@ -547,7 +475,7 @@ createTopBar(){
                     ]
                 }
             ];
-            this.h_chart.options={
+    this.h_chart.options={
                             scales: {
                                 xAxes: [{
                                     stacked: true

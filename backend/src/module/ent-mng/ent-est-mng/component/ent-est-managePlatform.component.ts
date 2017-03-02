@@ -200,7 +200,7 @@ save(){
     this.showMsg(err);
     this.layoutService.hide();
   })
- this.layoutService.hide();
+//  this.layoutService.hide();
 }
 
   showMsg(msg: string)
