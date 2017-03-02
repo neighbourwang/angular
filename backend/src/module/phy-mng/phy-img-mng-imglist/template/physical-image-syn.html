@@ -27,29 +27,29 @@
                     </td>
                     <td>{{i+1}}</td>
                     <td>
-                        <input class="form-control" type="text" style="padding:0;text-align:left"  [(ngModel)]="img.destImageName" />
+                        <input class="form-control" type="text" style="padding:10px;text-align:left"  [(ngModel)]="img.destImageName" />
                     </td>
                     <td>{{img.origImageName}}</td>
                     <!--<td>{{img.osTypeName}}</td>
                     <td>{{img.bitName}}</td>
                     <td>{{img.imageTypeName}}</td> -->
                     <td>
-                        <select class="form-control" [(ngModel)]="tempEdit.osTypeId">
-                            <option *ngFor="let os of service.osDic | async " [ngValue]="os.value" [ngClass]="setDefaultOs(os,tempEditImage.osTypeId)">
+                        <select class="form-control" [(ngModel)]="img.osTypeId">
+                            <option *ngFor="let os of service.osDic | async " [value]="os.value" >
                                 {{os.displayValue}}
                             </option>
                         </select>
                     </td>
                     <td>
-                        <select class="form-control" [(ngModel)]="tempEdit.bitId">
-                            <option *ngFor="let bit of service.bits_typeDic | async" [ngValue]="bit.value" [ngClass]="setDefaultOs(bit,tempEditImage.bitId)">
+                        <select class="form-control" [(ngModel)]="img.bitId">
+                            <option *ngFor="let bit of service.bits_typeDic | async" [value]="bit.value">
                                 {{bit.displayValue}}
                             </option>
                         </select>
                     </td>
                     <td>
-                        <select class="form-control" [(ngModel)]="tempEdit.imageTypeId">
-                            <option *ngFor="let type of service.typeDic | async" [ngValue]="type.value" [ngClass]="setDefaultOs(type,tempEditImage.imageTypeId)">
+                        <select class="form-control" [(ngModel)]="img.imageTypeId">
+                            <option *ngFor="let type of service.typeDic | async" [value]="type.value" >
                                 {{type.displayValue}}
                             </option>
                         </select>
@@ -67,11 +67,11 @@
     </div>
 </div>
 <div class="text-center mgt20">
-    <button class="fox-cloud-button-lg fox-cloud-button-white">
-        <span class="icon-button-label"(click)="backToList()">取消</span>
+    <button class="fox-cloud-button-lg fox-cloud-button-white"(click)="backToList()">
+        <span class="icon-button-label">取消</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white">
-        <span class="icon-button-label"(click)="saveSyncInfo()">保存</span>
+    <button class="fox-cloud-button-lg fox-cloud-button-white"(click)="saveSyncInfo()">
+        <span class="icon-button-label">保存</span>
     </button>
 </div>
 

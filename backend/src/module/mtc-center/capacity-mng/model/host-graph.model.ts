@@ -8,7 +8,7 @@ export class GraphItem {
 }
 
 
-export class ChartModel {
+export class LineChart {
     SourceData: Array<GraphItem>;
     DataSets: Array<any>;
     _data: Array<number>;

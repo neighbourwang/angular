@@ -113,8 +113,11 @@ export class PhyImgSourceService {
                 value:id
             }
         ]
+        const body = {
+            "poolIds": idlist
+        };
         const api = this.restApiCfg.getRestApi("phy-mng.phy-img-mng.phyimgsource.commit.allocate");
-        return this.restApi.request(api.method, api.url, pathParams, null, idlist);
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
         
         //return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return ChangeStatusMock});
     }
