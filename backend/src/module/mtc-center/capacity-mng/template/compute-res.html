@@ -1,6 +1,6 @@
 ﻿<div class="page-content-header icon-content-header-operation-center">
     计算资源容量管理： 
-    <span style="font-size:16px;">云平台名称：{{selectedPf.name}}     平台类型：{{selectedPf.platformType}}      访问地址：{{selectedPf.uri}}</span>
+    <span style="font-size:16px;">云平台名称：{{selectedPf.name}} &nbsp; &nbsp;  平台类型：{{selectedPf.platformType}} &nbsp;&nbsp;   访问地址：{{selectedPf.uri}}</span>
     <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" (click)="BacktoCapacityMng()">
         返回云平台容量管理
     </button>
@@ -23,7 +23,7 @@
         <div class="col-md-10">
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-default" *ngFor="let zoneInfo of zones let k=index" [ngClass]="k==0? 'active':''" (click)="getZoneId(zoneInfo.zoneId)">
-                    <input type="radio" name="zone" autocomplete="off" >{{zoneInfo.zoneName}}
+                    <input type="radio" name="zone" autocomplete="off" >{{zoneInfo.zoneName}}({{zoneInfo.zoneStatus}})
                 </label>
                 
             </div>
@@ -61,13 +61,15 @@
                     <div class="col-md-6">
                         <div style="text-align:center;">CPU</div>
                         <div style="position:relative;">
-                           <div style="position:absolute;top:47%;left:42%;">{{resAllocationInfo.cpuPercent}}%</div>
+                            <div class="circle-mask"></div>
+                           <div class="circle-text">{{resAllocationInfo.cpuPercent}}%</div>
                            <canvas baseChart
                              *ngIf="cpuAllocation.DataSets"
                              [datasets]="cpuAllocation.DataSets "
                              [chartType]="cpuAllocation.ChartType"
                              [options]="cpuAllocation.Options"
-                             [colors]="cpuAllocation.Colors">
+                             [colors]="cpuAllocation.Colors"
+                             >
                             </canvas>
                         </div>
                         <div style="text-align:center;">{{resAllocationInfo.cpu}}/{{resAllocationInfo.cpuTotal}} 核</div>
@@ -75,7 +77,8 @@
                     <div class="col-md-6">
                          <div style="text-align:center;">内存</div>
                          <div style="position:relative;">
-                           <div style="position:absolute;top:47%;left:42%;">{{resAllocationInfo.memoryPercent}}%</div>
+                             <div class="circle-mask"></div>
+                           <div class="circle-text">{{resAllocationInfo.memoryPercent}}%</div>
                            <canvas baseChart
                              *ngIf="memAllocation.DataSets"
                              [datasets]="memAllocation.DataSets "
@@ -98,7 +101,8 @@
                     <div class="col-md-6">
                         <div style="text-align:center;">CPU</div>
                         <div style="position:relative;">
-                           <div style="position:absolute;top:47%;left:42%;">{{resActualInfo.cpuPercent}}%</div>
+                            <div class="circle-mask"></div>
+                           <div class="circle-text">{{resActualInfo.cpuPercent}}%</div>
                            <canvas baseChart
                              *ngIf="cpuActual.DataSets"
                              [datasets]="cpuActual.DataSets "
@@ -112,7 +116,8 @@
                     <div class="col-md-6">
                         <div style="text-align:center;">内存</div>
                         <div style="position:relative;">
-                           <div style="position:absolute;top:47%;left:42%;">{{resActualInfo.memoryPercent}}%</div>
+                            <div class="circle-mask"></div>
+                           <div class="circle-text">{{resActualInfo.memoryPercent}}%</div>
                            <canvas baseChart
                              *ngIf="memActual.DataSets"
                              [datasets]="memActual.DataSets "
@@ -135,7 +140,8 @@
                     <div class="col-md-6">
                         <div style="text-align:center;">CPU</div>
                         <div style="position:relative;">
-                           <div style="position:absolute;top:47%;left:42%;">{{resUsedInfo.cpuPercent}}%</div>
+                            <div class="circle-mask"></div>
+                           <div class="circle-text">{{resUsedInfo.cpuPercent}}%</div>
                            <canvas baseChart
                              *ngIf="cpuUsed.DataSets"
                              [datasets]="cpuUsed.DataSets "
@@ -149,7 +155,8 @@
                     <div class="col-md-6">
                         <div style="text-align:center;">内存</div>
                         <div style="position:relative;">
-                           <div style="position:absolute;top:47%;left:42%;">{{resUsedInfo.memoryPercent}}%</div>
+                            <div class="circle-mask"></div>
+                           <div class="circle-text">{{resUsedInfo.memoryPercent}}%</div>
                            <canvas baseChart
                              *ngIf="memUsed.DataSets"
                              [datasets]="memUsed.DataSets "

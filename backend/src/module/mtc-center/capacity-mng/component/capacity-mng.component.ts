@@ -34,6 +34,7 @@ export class CapacityMngComponent implements OnInit {
     size = 10;
     pfList: Array<PlatformModel>;
 
+
     ngOnInit() {
         this.getPlatformList();
     }
@@ -68,15 +69,8 @@ export class CapacityMngComponent implements OnInit {
             this.showAlert("请选择云平台");
             return;
         }
-        this.router.navigate([
-            `mtc-center/capacity-mng/compute-res`,
-            {
-                "pfId":selectedPf.id,
-                "pfName": selectedPf.name,
-                "pfType": selectedPf.platformType,
-                "pfUri":selectedPf.uri
-            }
-        ]);
+        this.service.selectedPlatform = selectedPf;
+        this.router.navigate([ `mtc-center/capacity-mng/compute-res`]);
     }
 
     gotoStoreRes() {
@@ -85,16 +79,8 @@ export class CapacityMngComponent implements OnInit {
             this.showAlert("请选择云平台");
             return;
         }
-        this.router.navigate([
-            `mtc-center/capacity-mng/store-res`,
-            {
-                "pfId":selectedPf.id,
-                "pfName": selectedPf.name,
-                "pfType": selectedPf.platformType,
-                "pfUri": selectedPf.uri
-                
-            }
-        ]);   
+        this.service.selectedPlatform = selectedPf;
+        this.router.navigate([`mtc-center/capacity-mng/store-res`]);   
     }
 
     onRejected(reason: any) {

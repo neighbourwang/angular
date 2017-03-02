@@ -19,9 +19,9 @@
             "memoryPercent": 90.3
         },
         "resourceActual": {
-            "cpu": 230,
+            "cpu": 486,
             "cpuTotal": 100,
-            "cpuPercent": 230,
+            "cpuPercent": 486,
             "memory": 160,
             "memoryTotal": 100,
             "memoryPercent": 160
