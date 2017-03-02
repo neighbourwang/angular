@@ -70,13 +70,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="case-depart-list.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="case-mng-list.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/module/user-center/case-mng/template/case-mng-list.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="354">
+              <caret line="61" column="117" selection-start-line="61" selection-start-column="117" selection-end-line="61" selection-end-column="117" />
+              <folding>
+                <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#tbody#0;n#table#0;n#div#1;n#fc-popup#1;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="case-depart-list.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/module/user-center/case-mng/template/case-depart-list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="81">
-              <caret line="48" column="34" selection-start-line="48" selection-start-column="34" selection-end-line="48" selection-end-column="34" />
+            <state relative-caret-position="486">
+              <caret line="60" column="83" selection-start-line="60" selection-start-column="83" selection-end-line="60" selection-end-column="83" />
               <folding>
+                <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#fc-popup#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -113,10 +130,10 @@
         <option value="$PROJECT_DIR$/module/user-center/case-mng/model/user.model.ts" />
         <option value="$PROJECT_DIR$/module/user-center/case-mng/service/case-mng-list.service.ts" />
         <option value="$PROJECT_DIR$/module/user-center/case-mng/service/case-depart-list.service.ts" />
-        <option value="$PROJECT_DIR$/module/user-center/case-mng/template/case-mng-list.html" />
         <option value="$PROJECT_DIR$/module/user-center/case-mng/component/case-depart-list.component.ts" />
         <option value="$PROJECT_DIR$/module/user-center/case-mng/component/case-mng-list.component.ts" />
         <option value="$PROJECT_DIR$/module/user-center/case-mng/template/case-depart-list.html" />
+        <option value="$PROJECT_DIR$/module/user-center/case-mng/template/case-mng-list.html" />
       </list>
     </option>
   </component>
@@ -726,12 +743,12 @@
       <workItem from="1488266924497" duration="22232000" />
       <workItem from="1488330701164" duration="3212000" />
       <workItem from="1488346611992" duration="24607000" />
-      <workItem from="1488420903817" duration="2553000" />
+      <workItem from="1488420903817" duration="4891000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="102945000" />
+    <option name="totallyTimeSpent" value="105283000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1064" extended-state="7" />
@@ -1061,17 +1078,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/user-center/case-mng/template/case-mng-list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="705">
-          <caret line="68" column="60" selection-start-line="68" selection-start-column="60" selection-end-line="68" selection-end-column="60" />
-          <folding>
-            <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#tbody#0;n#table#0;n#div#1;n#fc-popup#1;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/module/user-center/case-mng/model/user.model.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
@@ -1091,6 +1097,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/module/user-center/case-mng/component/case-mng-list.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1293">
+          <caret line="105" column="44" selection-start-line="105" selection-start-column="44" selection-end-line="105" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#61#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/module/user-center/case-mng/component/case-depart-list.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -1103,22 +1119,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/user-center/case-mng/component/case-mng-list.component.ts">
+    <entry file="file://$PROJECT_DIR$/module/user-center/case-mng/template/case-depart-list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1293">
-          <caret line="105" column="44" selection-start-line="105" selection-start-column="44" selection-end-line="105" selection-end-column="44" />
+        <state relative-caret-position="486">
+          <caret line="60" column="83" selection-start-line="60" selection-start-column="83" selection-end-line="60" selection-end-column="83" />
           <folding>
-            <element signature="e#0#61#0" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#fc-popup#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/user-center/case-mng/template/case-depart-list.html">
+    <entry file="file://$PROJECT_DIR$/module/user-center/case-mng/template/case-mng-list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="48" column="34" selection-start-line="48" selection-start-column="34" selection-end-line="48" selection-end-column="34" />
+        <state relative-caret-position="354">
+          <caret line="61" column="117" selection-start-line="61" selection-start-column="117" selection-end-line="61" selection-end-column="117" />
           <folding>
+            <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#tbody#0;n#table#0;n#div#1;n#fc-popup#1;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
