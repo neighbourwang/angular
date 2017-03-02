@@ -1,21 +1,21 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import { CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,TimeCaculater,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
-
+import { Chart1,CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,TimeCaculater,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import { CreatChartService} from '../service';
 import * as _ from 'underscore';
 
 @Component({
 	selector: 'cost-pandect',
 	templateUrl: '../template/cost-pandect.component.html',
 	styleUrls: ['../style/cost-pandect.less'],
-	providers: []
+	providers: [CreatChartService]
 })
 export class CostPandectComponent implements OnInit{
 	//企业消费概览
-    d_chart = new Chart();
-    ent_dht:any;
-
+    // d_chart = new Chart();
+    // ent_dht:any;
+    sumChart :any;
     b_chart = new Chart();
     ent_bar:any;
 
@@ -54,6 +54,7 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 	
 	constructor(
 		private layoutService: LayoutService,
+        private chartService:CreatChartService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
@@ -61,6 +62,7 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         this.currentYear = this.timeCaculater.getCurrentYear();
         this.currentMonth = this.timeCaculater.getCurrentMonth();
         
+        this.sumChart = this.chartService.creatSumChart();
 
         this.enterpriseLoader = new ItemLoader<{id:string;name:string}> (false,'COMMON.ENTPRISE_OPTIONS_DATA_ERROR','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
         this.orderItemLoader = new ItemLoader<CostPandectItem> (false,'ORDER_MNG.ERROR_LOADING_CONSUMPTION_LIST','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
@@ -115,7 +117,7 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         this.layoutService.show();
         this.loadYears();
         this.loadEnterprise();
-        this.createSumBar();
+        
         this.createHstoryBar();
         this.createTopBar();
         this.createTopBar2();
@@ -198,9 +200,7 @@ consumeLoad(){
 
     this.consumeLoader.Go(null,null,param)
      .then(success=>{
-         this.toSumDatas(this.consumeLoader.FirstItem,this.d_chart);
-         this.ent_dht[0].data = this.d_chart.datas;
-         
+         this.chartService.toSumDatas(this.consumeLoader.FirstItem,this.sumChart);    
          this.layoutService.hide();
     })
     .catch(err=>{
@@ -314,25 +314,6 @@ isNullEnterprise(){
     
 }
 
-toSumDatas(source:any,target:Chart){
-    let datas:Array<number>=[];
-    let labels:Array<string>=[];
-    if(source){
-            datas.push(source.physicalMachineOrderPriceSum);
-            datas.push(source.dbOrderPriceSum);
-            datas.push(source.diskOrderPriceSum);
-            datas.push(source.vmOrderPriceSum);  
-            labels.push('物理机：'+source.physicalMachineOrderPriceSum);
-            labels.push('数据库：'+source.dbOrderPriceSum);
-            labels.push('云硬盘：'+source.diskOrderPriceSum);
-            labels.push('云主机：'+source.vmOrderPriceSum); 
-    }
-    target.datas.splice(0,target.datas.length);
-    target.labels.splice(0,target.labels.length);
-    target.datas = datas;
-    target.labels = labels;
-}
-
 toHistoryData(source:Array<any>,target:Chart){
     let datas:Array<number>=[];
     let labels :Array<string>=[];
@@ -389,19 +370,19 @@ search_chart(){
 }
 
 
-createSumBar(){
-    this.ent_dht=[{
-                        data: [0,0,0,0],
-                        borderWidth:[
-                            0,0,0,0
-                        ]
-                    }];
-    this.d_chart.colors = [
-            {
-                backgroundColor:["#08C895","#82B6B2","#6F7DC8","#2BD2C8"]
-            }
-        ];
-}
+// createSumBar(){
+//     this.ent_dht=[{
+//                         data: [0,0,0,0],
+//                         borderWidth:[
+//                             0,0,0,0
+//                         ]
+//                     }];
+//     this.d_chart.colors = [
+//             {
+//                 backgroundColor:["#08C895","#82B6B2","#6F7DC8","#2BD2C8"]
+//             }
+//         ];
+// }
 
 createHstoryBar(){  
    this.b_chart.colors = [

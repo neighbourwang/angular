@@ -83,7 +83,7 @@ num:string;//在消费中心中，作为月份 ,
 value:String;
 
 }
-export class  Chart{
+export  class  Chart{
  
     datas:Array<number> = [];
     datas2:Array<number> = [];//复合统计图的第二个数据，简单统计图不需要
@@ -98,11 +98,32 @@ export class  Chart{
     //         this.options = options;
     //     }
     // }
-    clear(){
-        this.datas = [];
-        this.datas2 = [];
-        this.colors = [];
-        this.labels = [];
-        this.options = null;
-    }
+    
 }
+
+export class Chart1{
+     datasets:Array<any> = [];
+     labels:Array<any> = [];
+     colors:Array<any> = [];
+     chartType:string;
+     options:any;
+    creatChart(chartType,datasets?:Array<any>,labels?:Array<any>,colors?:Array<any>,options?:any){
+         this.chartType = chartType;
+         if(datasets){
+             this.datasets = datasets;
+         }
+         if(labels){
+             this.labels = labels;
+         }
+         if(colors){
+             this.colors = colors;
+         }
+         if(options){
+             this.options = options;
+         }
+        
+     };
+}
+
+
+

@@ -43,12 +43,12 @@
 					<div class="console-box">
 		                <div class="console-title">部门消费概览</div>
 		                <div class="ues-content">
-							 <canvas baseChart *ngIf="ent_dht" 
+							 <canvas baseChart *ngIf="sumChart" 
                           width="200" height="70"
-                          [datasets]="ent_dht"
+                          [datasets]="sumChart.datasets"
                           chartType="doughnut"
-                          [colors]="d_chart.colors"
-						  [labels]="d_chart.labels"></canvas>
+                          [colors]="sumChart.colors"
+						  [labels]="sumChart.labels"></canvas>
 		                </div>
 		            </div>
 				</div>
