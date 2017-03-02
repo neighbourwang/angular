@@ -44,7 +44,7 @@ export class CaseMngListComponent implements OnInit{
     noticeMsg = "";
 
     pageIndex= 1;
-    pageSize= 8;
+    pageSize= 10;
     totalPage= 1;
 
     statusDic: Array<SystemDictionary>;
@@ -193,80 +193,6 @@ export class CaseMngListComponent implements OnInit{
             this.showAlert("USER_CENTER.DELETE_CONTOR");
         }
     }
-
-/*    getBasicInfo(item){
-        this.id= item.id;
-        this.layoutService.show();
-        this.service.getBasicInfo(this.id)
-            .then(
-                response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.basicInfo= response["resultContent"];
-                        console.log("basicInfo",this.basicInfo);
-                    } else {
-                        alert("Res sync error");
-                    }
-                }
-            )
-            .catch((e) => this.onRejected(e));
-}
-
-    getHandelInfo(item){
-        this.id= item.id;
-        this.layoutService.show();
-        this.service.getHandelInfo(this.id)
-            .then(
-                response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.handledInfo= response["resultContent"];
-                        console.log("handleInfo",response["resultContent"]);
-                    } else {
-                        alert("Res sync error");
-                    }
-                }
-            )
-            .catch((e) => this.onRejected(e));
-    }
-
-    getClosedInfo(item){
-        this.id= item.id;
-        this.layoutService.show();
-        this.service.getClosedInfo(this.id)
-            .then(
-                response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.closedInfo= response["resultContent"];
-                        console.log("closedInfo",this.closedInfo);
-                    } else {
-                        alert("Res sync error");
-                    }
-                }
-            )
-            .catch((e) => this.onRejected(e));
-    }*/
-
-/*    getDetail(item){
-        this.basicInfo.subject= '';
-        this.basicInfo.statusName= '';
-        this.basicInfo.typeName= '';
-        this.basicInfo.contact= '';
-        this.basicInfo.contactNo= '';
-        this.basicInfo.creatorName= '';
-        this.basicInfo.updateDate= '';
-        this.basicInfo.creatorOrganization= '';
-        this.basicInfo.creatorTenant= '';
-        this.basicInfo.details= '';
-        this.handledInfo= null;
-        this.getBasicInfo(item);
-        this.getClosedInfo(item);
-        this.getHandelInfo(item);
-        this.id= item.id;
-        this.subject= item.subject;
-        this.caseDetail.open("USER_CENTER.CASE_DETAIL^^^"+this.id+"^^^"+this.subject );
-    }*/
 
     getDetail(item){
         this.id= item.id;
