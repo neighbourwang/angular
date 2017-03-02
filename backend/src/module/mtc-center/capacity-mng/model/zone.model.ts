@@ -5,12 +5,12 @@
     cpuQurta: number;
     cpuCapacity: number;
     memoryCapacity: number;
-    resourceAllocation: ResAllocation;
-    resourceActual: ResActual;
-    resourceUsed: ResUsed;
+    resourceAllocation: Percent;
+    resourceActual: Percent;
+    resourceUsed: Percent;
 }
 
-export class ResAllocation {
+export class Percent {
     cpu: number;
     cpuTotal: number;
     cpuPercent: number;
@@ -19,20 +19,14 @@ export class ResAllocation {
     memoryPercent: number;
 }
 
-export class ResActual {
-    cpu: number;
-    cpuTotal: number;
-    cpuPercent: number;
-    memory: number;
-    memoryTotal: number;
-    memoryPercent: number;
+
+
+export class DoughnutChart {
+    
+    DataSets:  Array<any>;
+    ChartType: string;
+    Colors: Array<any>;
+    Options: any;
+    CircleNum: number;
 }
 
-export class ResUsed {
-    cpu: number;
-    cpuTotal: number;
-    cpuPercent: number;
-    memory: number;
-    memoryTotal: number;
-    memoryPercent: number;
-}
