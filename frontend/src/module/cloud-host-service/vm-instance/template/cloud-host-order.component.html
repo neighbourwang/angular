@@ -104,12 +104,14 @@
 					</div>
 					<div class="col-md-2 content-title">{{'VM_INSTANCE.MIRROR_LIST'| translate}}</div>
 					<div class="col-md-10">
-						<select [(ngModel)]="sendModule.os"  class="form-control">
+						<select [(ngModel)]="sendModule.os" class="form-control">
 							<option
 							 *ngFor="let value of imageList"
 							 [ngValue]="value" >{{ value.attrDisplayValue }}</option>
 						</select>
 					</div>
+					<div class="col-md-2"></div>
+					<div class="col-md-10 text-tip" *ngIf="!isZoneSupportOs">本可用区不支持该镜像！</div>
 				</div>
 			</li>
 			<li>
@@ -133,7 +135,7 @@
 							<div class="col-md-2 no-padding">
 								<select [(ngModel)]="sendModule.bootsize" class="form-control">
 									<option
-									*ngFor="let value of rely('bootsize');"
+									*ngFor="let value of oSfilterBootsize(rely('bootsize'));"
 									[ngValue]="value" >{{ value.attrDisplayValue }}</option>
 								</select>
 							</div>

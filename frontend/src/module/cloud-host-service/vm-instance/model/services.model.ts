@@ -5,6 +5,7 @@ class VlueList {
     attrDisplayValue?: string = "";
     attrValue?: string = "";
     sku?:SkuMap;
+    capacity?: number;
 }
 
 class OrderService {
@@ -136,6 +137,7 @@ interface Image{
     imageName: string;
     imageType: string;
     osType: string;
+    capacity: number;
 }
 
 export {
