@@ -16,6 +16,26 @@ export class cloudHostServiceOrder {
     }
 
     userInfo = this.restApi.getLoginInfo().userInfo;
+    
+    getQuotaResoure() : Promise<any> {
+        let api = this.restApiCfg.getRestApi('user-center.org-mng.resource.get');
+
+        let pathParams = [{
+            key: 'id',
+            value: this.userInfo.organizationId
+        }];
+
+        const request = this.restApi.request(api.method, api.url, pathParams, undefined, undefined)
+                            .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "";
+                                }
+                                return res.resultContent;
+                            });
+
+        return request;
+    };
+
     getHostConfigList() : Promise<any>{
         const api = this.restApiCfg.getRestApi("hosts.services.get");
 
