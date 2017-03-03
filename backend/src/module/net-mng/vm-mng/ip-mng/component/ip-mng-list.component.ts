@@ -443,10 +443,7 @@ export class IpMngListComponent implements OnInit{
             console.log("validateIPModify Failed!!!");
             this.ipsbox.close();
             let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
-            let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];            
-            //let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
-            //          + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
-
+            let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];
             this.translateService.get([name,msg], null).subscribe((res) => {
                 this.showMsg(res[name] + res[msg]);
             });

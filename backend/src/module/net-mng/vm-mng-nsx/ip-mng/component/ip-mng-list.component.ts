@@ -359,10 +359,6 @@ export class IpMngListComponent implements OnInit{
             this.ipsbox.close();
             let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
             let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];
-            //console.log(name, msg, "name and msg");
-            //let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
-            //          + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
-            //this.showMsg(con);
             this.translateService.get([name,msg], null).subscribe((res) => {
                 this.showMsg(res[name] + res[msg]);
             });
