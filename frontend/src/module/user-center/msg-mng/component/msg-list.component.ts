@@ -9,6 +9,7 @@ import { MsgAlertModel, MsgModel } from "../model/msg-alert.model";
 
 //Service
 import { MsgMngService } from "../service/msg-mng.service";
+import { unreadnumber } from "../service/msg-number.service";
 
 //Mock
 import { MsgModel_mock } from "../model/msg-alert.mock";
@@ -56,6 +57,7 @@ export class MsgListComponent implements OnInit {
     allSelected: boolean = false;
 
     unreadmsg: number = 0;
+    unreadnumber = unreadnumber;
 
     private okCallback: Function = null;
     okClicked() {
@@ -96,7 +98,7 @@ export class MsgListComponent implements OnInit {
             .then(
             response => {
                 this.layoutService.hide();
-                console.log(response, "response!");
+                console.log(response, "msgList response!");
                 if (response && 100 == response["resultCode"]) {
                     this.msgAlert.edge = response.pageInfo.totalRecords;
                     this.msgAlert.list = response.resultContent;
