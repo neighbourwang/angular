@@ -136,7 +136,7 @@ export class OrgMngCrComponent implements OnInit {
       });
   }
   //保存 给父组件调用
-  save() {
+  save():Promise<boolean> {
     this.org.resource = this.resource;
     console.log(this.org);
     if (this.orgForm.valid || this.org.isDefault) {

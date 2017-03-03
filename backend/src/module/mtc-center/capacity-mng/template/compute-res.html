@@ -1,8 +1,11 @@
 ﻿<div class="page-content-header icon-content-header-operation-center">
-    计算资源容量管理： 
-    <span style="font-size:16px;">云平台名称：{{selectedPf.name}} &nbsp; &nbsp;  平台类型：{{selectedPf.platformType}} &nbsp;&nbsp;   访问地址：{{selectedPf.uri}}</span>
+   {{'CAPACITY_MNG.COMPUTE_RES_CAPACITY_MNG'|translate}} ： <!--计算资源容量管理-->
+    <span style="font-size:16px;">
+      {{'CAPACITY_MNG.CLOUD_PLATFORM_NAME'|translate}}:{{selectedPf.name}} &nbsp;&nbsp;
+      {{'CAPACITY_MNG.PLATFORM_TYPE'|translate}}：{{selectedPf.platformType}} &nbsp;&nbsp;
+      {{'CAPACITY_MNG.URL'|translate}}：{{selectedPf.uri}}</span>
     <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" (click)="BacktoCapacityMng()">
-        返回云平台容量管理
+       {{'CAPACITY_MNG.BACK_TO_CAPACITY_MNG'|translate}}<!--返回云平台容量管理-->
     </button>
 </div>
 <div class="page-content">
@@ -19,7 +22,7 @@
         </div>
     </div>
     <div class="row row-line-height">
-        <div class="col-md-2 form-control-title">可用区:</div>
+        <div class="col-md-2 form-control-title">{{'COMMON.AVAILABLE_ZONE'|translate}}:</div><!--可用区-->
         <div class="col-md-10">
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-default" *ngFor="let zoneInfo of zones let k=index" [ngClass]="k==0? 'active':''" (click)="getZoneId(zoneInfo.zoneId)">
@@ -30,15 +33,15 @@
         </div>
     </div>
     <div class="row row-line-height" >
-        <div class="col-md-2 form-control-title">可用区信息:</div>
+        <div class="col-md-2 form-control-title">{{'CAPACITY_MNG.AVAILABLE_ZONE_INFO'|translate}}:</div><!--可用区信息-->
         <div class="col-md-8" style="letter-spacing:2px;font-size:16px;"> <!--style="letter-spacing:2px;font-size:16px;"-->
             <div class="row row-line-height" >
-                <div class="col-md-3 text-right" style="width:178px;">物理CPU总核数：</div>
-                <div class="col-md-2">{{zoneResInfo.cpus}}&nbsp;核</div>               
+                <div class="col-md-3 text-right" style="width:178px;">{{'CAPACITY_MNG.PHYSICAL_CPU_CORE_NUMBER'|translate}}：</div><!--物理CPU总核数-->
+                <div class="col-md-2">{{zoneResInfo.cpus}}&nbsp;{{'CAPACITY_MNG.CORE'|translate}}</div>               
                 <div class="col-md-2 text-right">CPU超分比：</div>
                 <div class="col-md-1">{{zoneResInfo.cpuOversubscription}}&nbsp;倍</div>
                  <div class="col-md-2 text-right">可分配CPU：</div>
-                <div class="col-md-2">{{zoneResInfo.cpuCapacity}}&nbsp;核</div>
+                <div class="col-md-2">{{zoneResInfo.cpuCapacity}}&nbsp;{{'CAPACITY_MNG.CORE'|translate}}</div>
             </div>
             <div class="row row-line-height" >
                  <div class="col-md-3 text-right" style="width:178px;">总内存：</div>

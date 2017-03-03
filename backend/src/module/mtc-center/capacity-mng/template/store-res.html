@@ -1,29 +1,32 @@
 ﻿<div class="page-content-header icon-content-header-operation-center">
-    存储资源容量管理
-    <span style="font-size:16px;">云平台名称:{{selectedPf.name}} &nbsp;&nbsp;平台类型：{{selectedPf.platformType}} &nbsp;&nbsp;  访问地址：{{selectedPf.uri}}</span>
+    {{'CAPACITY_MNG.STORE_RES_CAPACITY_MNG'|translate}}<!--存储资源容量管理-->
+    <span style="font-size:16px;">
+    {{'CAPACITY_MNG.CLOUD_PLATFORM_NAME'|translate}}:{{selectedPf.name}} &nbsp;&nbsp;
+    {{'CAPACITY_MNG.PLATFORM_TYPE'|translate}}：{{selectedPf.platformType}} &nbsp;&nbsp;
+      {{'CAPACITY_MNG.URL'|translate}}：{{selectedPf.uri}}</span>
     <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" (click)="BacktoCapacityMng()">
-        返回云平台容量管理
+        {{'CAPACITY_MNG.BACK_TO_CAPACITY_MNG'|translate}}<!--返回云平台容量管理-->
     </button>
 </div>
 <div class="page-content">
     
     <div class="mgt10" style="font-size:18px;font-weight:bold;">
-        存储容量信息：
+        {{'CAPACITY_MNG.STORE_CAPACITY_INFO'|translate}}：<!--存储容量信息-->
     </div>
     <div class="table-container mgt10">
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>编号</th>
-                    <th>名称</th>
-                    <th>显示名称</th>
-                    <th>存储类型</th>
-                    <th>总容量（GB）</th>
-                    <th>副本数</th>
-                    <th>配额%</th>
-                    <th>分配率【云平台分配】</th>
-                    <th>实际利用率</th>
-                    <th>状态</th>                    
+                    <th>{{'CAPACITY_MNG.NUMBER'|translate}}</th><!--编号-->
+                    <th>{{'CAPACITY_MNG.NAME'|translate}}</th><!--名称-->
+                    <th>{{'CAPACITY_MNG.DISPLAY_NAME'|translate}}</th><!--显示名称-->
+                    <th>{{'CAPACITY_MNG.STORAGE_TYPE'|translate}}</th><!--存储类型-->
+                    <th>{{'CAPACITY_MNG.TOTAL_CAPACITY'|translate}}</th><!--总容量（GB）-->
+                    <th>{{'CAPACITY_MNG.COPIES'|translate}}</th><!--副本数-->
+                    <th>{{'CAPACITY_MNG.QUOTA'|translate}}</th><!--配额%-->
+                    <th>{{'CAPACITY_MNG.DISTRIBUTION_RATE'|translate}}</th><!--分配率【云平台分配】-->
+                    <th>{{'CAPACITY_MNG.ACTUAL_UTILIZATION'|translate}}</th><!--实际利用率-->
+                    <th>{{'COMMON.STATUS'|translate}}</th>  <!--状态-->                  
                 </tr>
             </thead>
             <tbody>
