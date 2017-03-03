@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService, 
-    PaginationComponent, ConfirmComponent, SystemDictionary, SelectboxComponent } from '../../../../architecture';
+import {
+    RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService,
+    PaginationComponent, ConfirmComponent, SystemDictionary, SelectboxComponent
+} from '../../../../architecture';
 
 //Model
 import { PhySetResPmPoolModel, PhySetResPmModel } from '../model/phy-net.model';
@@ -23,7 +25,7 @@ export class PhyNetSetupResourceComponent implements OnInit {
         private service: PhyNetSetupResourceService,
         private layoutService: LayoutService,
         private validationService: ValidationService,
-        private activatedRouter : ActivatedRoute
+        private activatedRouter: ActivatedRoute
     ) {
         /*
         if (activatedRouter.snapshot.params["platformId"]) {
@@ -41,15 +43,15 @@ export class PhyNetSetupResourceComponent implements OnInit {
 
     @ViewChild("confirm")
     confirm: ConfirmComponent;
-    
+
     @ViewChild("testbox")
     testbox: SelectboxComponent;
 
     noticeTitle = "";
     noticeMsg = "";
 
-    first_step:boolean = true;
-    second_step:boolean = false;
+    first_step: boolean = true;
+    second_step: boolean = false;
     showclosebtn: boolean = false;
 
     pn_id: string = "";
@@ -78,7 +80,7 @@ export class PhyNetSetupResourceComponent implements OnInit {
             this.confirmedHandler = null;
         }
     }
-    
+
     ngOnInit() {
         this.activatedRouter.params.forEach((params: Params) => {
             if (params["pn_id"] != null) {
@@ -99,7 +101,7 @@ export class PhyNetSetupResourceComponent implements OnInit {
             .then(
             response => {
                 this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {                    
+                if (response && 100 == response["resultCode"]) {
                     this.selectedPmpools = response.resultContent.inUsedPools;
                     this.unselectedPmpools = response.resultContent.noUsedPools;
                     console.log(this.selectedPmpools, "selectedPmpools!!!");
@@ -118,7 +120,7 @@ export class PhyNetSetupResourceComponent implements OnInit {
             .then(
             response => {
                 this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {                    
+                if (response && 100 == response["resultCode"]) {
                     this.selectedPms = response.resultContent.inUsedPMs;
                     this.unselectedPms = response.resultContent.noUsedPMs;
                     console.log(this.selectedPms, "selectedPms!!!");
@@ -155,13 +157,13 @@ export class PhyNetSetupResourceComponent implements OnInit {
                     flag = true;
                     this.showAlert("PHY_NET_MNG.PHY_NET_RESOURCE_SETUP_SUCCESS", () => {
                         this.router.navigate([`phy-mng/phy-net/phy-net-mng`]);
-                    });                    
+                    });
                 } else {
                     flag = false;
-                    this.showAlert("COMMON.GETTING_DATA_FAILED");                    
+                    this.showAlert("COMMON.GETTING_DATA_FAILED");
                 }
             })
-            .catch((e) => { this.onRejected(e);});
+            .catch((e) => { this.onRejected(e); });
     }
 
     close(): void {
@@ -205,13 +207,13 @@ export class PhyNetSetupResourceComponent implements OnInit {
         this.notice.open("COMMON.SYSTEM_PROMPT", msg);
     }
 
-	showAlert(msg: string, of?:any): void {
+    showAlert(msg: string, of?: any): void {
         console.log(msg, "showAlert");
         this.layoutService.hide();
         this.noticeTitle = "COMMON.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
-        this.notice.of = of;
+        this.notice.nof = of;
     }
 
     showError(msg: any) {
