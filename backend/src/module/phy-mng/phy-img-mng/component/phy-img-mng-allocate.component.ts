@@ -30,7 +30,8 @@ export class PhyImgMngAllocateComponent implements OnInit {
 
     @ViewChild("notice")
     notice: NoticeComponent;
-
+    @ViewChild("selectbox")
+    selectbox: SelectboxComponent;
     inUsedPools:Array<Pool>;
     noUsedPools:Array<Pool>;
 
@@ -54,8 +55,8 @@ export class PhyImgMngAllocateComponent implements OnInit {
                 response=>{
                     this.layoutService.hide();
                     if(response && 100== response["resultCode"]){
-                        this.inUsedPools = response["resultContent"].inUsedPools;
-                        this.noUsedPools = response["resultContent"].noUsedPools;
+                        this.inUsedPools = response.resultContent.inUsedPools;
+                        this.noUsedPools = response.resultContent.noUsedPools;
 
                     }else{
                         alert("Res.sync error");
