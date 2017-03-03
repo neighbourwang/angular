@@ -142,7 +142,7 @@
                                         <tr *ngFor="let disks of( physical.pmHardwareDiskList ||[]);let idex=index" style="">
                                             <td [attr.rowspan]="physical.pmHardwareDiskList.length" *ngIf="idex===0"  style="background-color:white;">{{'PHYSICAL_MNG.DISK'|translate}}</td>
                                             <td>{{disks.version}}</td>
-                                            <td><input type="number" class="form-control" [(ngModel)]="disks.value" style="display:inline;width:90px;" min="1"> G</td>
+                                            <td><input type="number" class="form-control" [(ngModel)]="disks.value" style="display:inline;width:90px;" min="1">{{disks.value}} G</td>
                                         </tr>
                                     </tbody>
                                 </table>

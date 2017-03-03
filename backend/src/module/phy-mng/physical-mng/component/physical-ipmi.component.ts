@@ -34,8 +34,8 @@ export class PhysicalIpmiComponent implements OnInit {
    pmId:string;
    poolId:string;
    physical:PhysicalModel=new PhysicalModel();
+   //testResult:boolean;
 
-   testIlo:boolean;
 
     ngOnInit() {
         // console.log(this.router.params);
@@ -67,10 +67,10 @@ export class PhysicalIpmiComponent implements OnInit {
    }
 
    //验证IP
-    isIP(val: any): boolean {
-        const reg = /^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$/;
-        return reg.test(val);
-    }
+    // isIP(val: any): boolean {
+    //     const reg = /^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$/;
+    //     return reg.test(val);
+    // }
 
    //保存IPMI信息
    saveIpmi(){
@@ -78,7 +78,7 @@ export class PhysicalIpmiComponent implements OnInit {
             this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_ILO_IP");
             return false;
         }
-        if(!this.isIP(this.physical.iloIPAddress)){
+        if(!this.physical.iloIPAddress){
             this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_LEGAL_ILO_IP");
             return false;
         }
@@ -110,7 +110,7 @@ export class PhysicalIpmiComponent implements OnInit {
             this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_ILO_IP");
             return false;
         }
-        if(!this.isIP(this.physical.iloIPAddress)){
+        if(!this.physical.iloIPAddress){
             this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_LEGAL_ILO_IP");
             return false;
         }
@@ -129,8 +129,16 @@ export class PhysicalIpmiComponent implements OnInit {
                 this.layoutService.hide();
                if(response && 100 == response["resultCode"]){
                     this.layoutService.hide();
-                    this.showAlert("PHYSICAL_MNG.SUCCEED_TEST_ILO_INFO");
-               }
+                    //this.testResult=response["resultContent"];
+                    console.log("testResult",response["resultContent"]);
+                   // console.log(response["resultCode"]);
+                    if(response["resultContent"]){
+                        this.showAlert("PHYSICAL_MNG.SUCCEED_TEST_ILO_INFO");
+                    }
+                    else{
+                        this.showAlert("ILO信息不正确，请重新填写ILO信息！");
+                    }                 
+               }                                        
             }
         )
    }
