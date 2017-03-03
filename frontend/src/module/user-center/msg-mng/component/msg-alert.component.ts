@@ -63,7 +63,7 @@ export class MsgAlertComponent implements OnInit {
         this.service.getMsgListStatus(1,5,'0')
             .then(
             response => {
-                console.log(response, "msgAlert response")
+                console.log(response, "msgAlert response");
                 if (response && 100 == response["resultCode"]) {
                     this.msgAlert.edge = response.pageInfo.totalRecords;
                     this.msgAlert.list = response.resultContent;
