@@ -418,7 +418,9 @@ console.log(this.vmProduct)
 			parseInt(bootSizeObj.attrValue)*1024*1024*1024 >= this.sendModule.os.capacity
 		);
 		
-		this.isZoneSupportOs = !!filteredList.length;
+		setTimeout(res => {
+			this.isZoneSupportOs = !!filteredList.length;
+		},0);
 		return filteredList;
 	}
 
