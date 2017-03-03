@@ -139,9 +139,21 @@ export class AccountMngCrLocalComponent implements OnInit, OnChanges {
         if (this.accountForm.invalid || !this.loginNameIsOnly || !this.isEmail || !this.isPhone) {
             return Promise.reject("error");
         } else if (this.isEdit) {
-            return this.service.editAccount(this.editId, this.account);
+            this.layoutService.show();
+            return this.service.editAccount(this.editId, this.account).then(res=>{
+                this.layoutService.hide();
+            }).catch(err=>{
+                console.log(err);
+                this.layoutService.hide();
+            });
         } else {
-            return this.service.createAccount(this.account);
+            this.layoutService.show();
+            return this.service.createAccount(this.account).then(res=>{
+                this.layoutService.hide();
+            }).catch(err=>{
+                console.log(err);
+                this.layoutService.hide();
+            });
         }
 
     }

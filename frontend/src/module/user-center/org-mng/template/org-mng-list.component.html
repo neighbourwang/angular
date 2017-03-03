@@ -9,14 +9,14 @@
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;">
             <div class="mgb20">
-                <div> 
+                <p style="display: inline-block"> 
                     {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.cpuQuota||0}}</span> {{ 'COMMON.CORE' | translate }}
-                </div>
-                <div>
+                </p>
+                <p style="display: inline-block">
                      {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.cpuQuota-service.entResourceObj.realUsedCpuQuota||0}}</span> {{ 'COMMON.CORE' | translate }}
-                </div>
-                <div style="clear : both">
-                </div>
+                </p>
+                <!--<div style="clear : both">
+                </div>-->
             </div>
 
             <div class="progress">
@@ -166,18 +166,18 @@
 <table class="table table-hover mgb20">
 	<tbody><tr>
         <th class="text-center" style="width : 10%">{{ 'COMMON.SELECT' | translate }}</th>
-		<th class="text-center" style="width : 15%">{{ 'USER_CENTER.DEPARTMENT_NAME' | translate }}</th>
+		<th class="text-center" style="width : 20%">{{ 'USER_CENTER.DEPARTMENT_NAME' | translate }}</th>
 		<th class="text-center" style="width : 15%">{{ 'USER_CENTER.NUMBER_OF_DEPARTMENT_PERSONNEL' | translate }}</th>
-		<th class="text-center" style="width : 15%">{{ 'USER_CENTER.DEPARTMENT_HEAD' | translate }}</th>
+		<!--<th class="text-center" style="width : 15%">{{ 'USER_CENTER.DEPARTMENT_HEAD' | translate }}</th>-->
 		<th class="text-center" style="width : 10%">{{ 'COMMON.STATUS' | translate }}</th> 
-		<th class="text-center" style="width : 20%">{{ 'COMMON.DESCRIPTION' | translate }}</th>
-		<th class="text-center" style="width : 15%">{{ 'COMMON.OPERATION' | translate }}</th>
+		<th class="text-center" style="width : 25%">{{ 'COMMON.DESCRIPTION' | translate }}</th>
+		<th class="text-center" style="width : 20%">{{ 'COMMON.OPERATION' | translate }}</th>
 	</tr>
 	<tr *ngFor='let organ of orgs;let idx=index'>
 		<td class="text-center"><input name="host-list" type="radio" class="fox-cloud-radio"></td>
 		<td class="text-center active">{{organ.name}}</td>
 		<td class="text-center">{{organ.headCount}}</td>
-		<td class="text-center">{{organ.leaderName}}</td>
+		<!--<td class="text-center">{{organ.leaderName}}</td>-->
 		<td class="text-center">
              <span [ngSwitch]="organ.status">
                             <template [ngSwitchCase]="1">{{ 'COMMON.ENABLE' | translate }}</template>

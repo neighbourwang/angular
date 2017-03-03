@@ -73,7 +73,7 @@ export const TranslateCN = {
         PHONE: '电话',
         ACCOUNT: '账号',
         TOTAL: '共',
-        REMAIN: '剩下',
+        REMAIN: '剩余',
         LOCAL: '本地',
         PASSWORD: '密码',
 

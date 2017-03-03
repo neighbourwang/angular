@@ -11,6 +11,8 @@ import { ClMngCreStep2Service } from '../service/cl-mng-cre-step-2.service';
 
 import { CreStep2Model } from '../model/cre-step2.model';
 
+import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
+
 @Component({
     selector: 'cl-mng-cre-step-2',
     templateUrl: '../template/cl-mng-cre-step-02.component.html',
@@ -25,7 +27,8 @@ export class ClMngCreStep2Component implements OnInit {
         private router: ActivatedRoute,
         private route: Router,
         private idService: ClMngIdService,
-        private service: ClMngCreStep2Service
+        private service: ClMngCreStep2Service,
+        private layoutService: LayoutService
     ) { }
 
     creStep2Model: CreStep2Model = new CreStep2Model('正在同步可用区', 0);
@@ -40,31 +43,31 @@ export class ClMngCreStep2Component implements OnInit {
             console.log(this.platformType);
         })
         //可用区同步
-    //       this.service.zones(platFormId,this.platformType).then(
-    //         res => {
-    //             console.log(res);
-    //             this.creStep2Model.zones = 'ok';
-    //             this.creStep2Model.zonesStatus = true;
-    //             this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_COMP_SYNC_STORAGE';
-    //             this.creStep2Model.percentage = 20;
-    //             this.storages();
-    //         }
-    //     ).catch(
-    //         error => {
-    //             this.creStep2Model.zones = 'fail';
-    //             this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_FAILED';
-    //         }
-    //         //     function(){
-    //         //     this.creStep2Model.synchronize = 'fail';
-    //         //     this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_FAILED';
-    //         // }
-    //         )
-    // }
-        
+        //       this.service.zones(platFormId,this.platformType).then(
+        //         res => {
+        //             console.log(res);
+        //             this.creStep2Model.zones = 'ok';
+        //             this.creStep2Model.zonesStatus = true;
+        //             this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_COMP_SYNC_STORAGE';
+        //             this.creStep2Model.percentage = 20;
+        //             this.storages();
+        //         }
+        //     ).catch(
+        //         error => {
+        //             this.creStep2Model.zones = 'fail';
+        //             this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_FAILED';
+        //         }
+        //         //     function(){
+        //         //     this.creStep2Model.synchronize = 'fail';
+        //         //     this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_FAILED';
+        //         // }
+        //         )
+        // }
+
 
         this.service.zones(platFormId).then(
             res => {
-                console.log('zone',res);
+                console.log('zone', res);
                 this.creStep2Model.zones = 'ok';
                 this.creStep2Model.zonesStatus = true;
                 this.creStep2Model.message = '同步可用区成功，正在同步存储区';
@@ -82,8 +85,8 @@ export class ClMngCreStep2Component implements OnInit {
             // }
             )
 
-    //控制下一步disabled
-    this.creStep2Model.isNext=false;
+        //控制下一步disabled
+        this.creStep2Model.isNext = false;
     }
 
 
@@ -91,12 +94,24 @@ export class ClMngCreStep2Component implements OnInit {
         let platFormId: String = this.idService.getPlatformId();
         this.service.storages(platFormId).then(
             res => {
-                console.log('storage',res);
+                console.log('storage', res);
                 this.creStep2Model.storages = 'ok';
                 this.creStep2Model.storagesStatus = true;
                 this.creStep2Model.message = '同步存储区成功，正在同步云主机规格';
                 this.creStep2Model.percentage = 40;
-                this.flavors();
+                if (this.platformType != '2') {
+                    this.flavors();
+                } else {
+                    window.setTimeout(() => {
+                        this.creStep2Model.flavors = 'ok';
+                        this.creStep2Model.flavorsStatus = true;
+                        this.creStep2Model.message = '同步云主机规格成功，正在同步镜像';
+                        this.creStep2Model.percentage = 60;
+                        this.images();
+
+                    }, 1000)
+
+                }
             }
         ).catch(
             error => {
@@ -111,7 +126,7 @@ export class ClMngCreStep2Component implements OnInit {
 
         this.service.flavors(platFormId).then(
             res => {
-                console.log('flavors',res);
+                console.log('flavors', res);
                 this.creStep2Model.flavors = 'ok';
                 this.creStep2Model.flavorsStatus = true;
                 this.creStep2Model.message = '同步云主机规格成功，正在同步镜像';

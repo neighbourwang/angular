@@ -144,10 +144,22 @@ export class OrgMngCrComponent implements OnInit {
       this.org.resource.usedMem =this.org.resource.transforUserdMem*1024;
       if (!this.isEdit) {
         console.log('new', this.org)
-        return this.service.createOrg(this.org)
+        this.layoutService.show();
+        return this.service.createOrg(this.org).then(res=>{
+          this.layoutService.hide()
+        }).catch(err=>{
+          console.log(err);
+          this.layoutService.hide();
+        })
       } else {
         console.log('edit', this.org)
-        return this.service.editOrg(this.editId, this.org);
+        this.layoutService.show();
+        return this.service.editOrg(this.editId, this.org).then(res=>{
+          this.layoutService.hide()
+        }).catch(err=>{
+          console.log(err);
+          this.layoutService.hide();
+        })
       }
     } else {
       return Promise.reject("error");
