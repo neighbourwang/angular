@@ -94,6 +94,7 @@
             </table>
         </div>
     </div>
+    <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="nof()"></fc-notice>
     <fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
     <fc-popup #createSepc title="新建云主机规格" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()">
             <div class="row row-line-height">

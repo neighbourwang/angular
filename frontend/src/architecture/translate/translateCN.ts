@@ -73,7 +73,7 @@ export const TranslateCN = {
         PHONE: '电话',
         ACCOUNT: '账号',
         TOTAL: '共',
-        REMAIN: '剩下',
+        REMAIN: '剩余',
         LOCAL: '本地',
         PASSWORD: '密码',
 
@@ -686,7 +686,7 @@ export const TranslateCN = {
         DELETE_DEPARTMENT:'删除部门',
         THE_STATE_OF_THE_ORGANIZATION_HAS_BEEN_DISABLED: '该组织状态已禁用',
         DISENABLE_DEPARTMENT: '禁用帐号',
-        CREATE_DEPARTMENT: '创建帐号',
+        CREATE_DEPARTMENT: '创建部门',
         YOU_SELECT_DISENABLE_PLEASE_CONFIRM: '您选择禁用{{value_1}}，请确认。如果确认，机构成员将无法操作相关资源',
         QUOTA_SETTING: '配额设置',
         DEPARTMENTAL_QUOTA: '部门配置',
