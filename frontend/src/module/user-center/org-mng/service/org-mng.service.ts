@@ -111,7 +111,7 @@ export class OrgMngService {
                 }
             ).catch(
                 err => {
-                    console.error('获取当前切ID失败');
+                    console.error('获取当前企业ID失败');
                 }
                 );
         } else {

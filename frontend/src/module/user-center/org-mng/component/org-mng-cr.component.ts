@@ -169,6 +169,7 @@ export class OrgMngCrComponent implements OnInit {
 
   //同步countBar数据
   outputValue(e, arg1, arg2) {
+    console.log(e,arg1,arg2);
     this.resource[arg1] = e;
     if (this.maxAvailable[arg1] - e >= 0) {
       this.countAvailable[arg2] = this.maxAvailable[arg1] - e;

@@ -9,14 +9,14 @@
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;">
             <div class="mgb20">
-                <p style="display: inline-block"> 
+                <div> 
                     {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.cpuQuota||0}}</span> {{ 'COMMON.CORE' | translate }}
-                </p>
-                <p style="display: inline-block">
+                </div>
+                <div>
                      {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.cpuQuota-service.entResourceObj.realUsedCpuQuota||0}}</span> {{ 'COMMON.CORE' | translate }}
-                </p>
-                <!--<div style="clear : both">
-                </div>-->
+                </div>
+                <div style="clear : both">
+                </div>
             </div>
 
             <div class="progress">
