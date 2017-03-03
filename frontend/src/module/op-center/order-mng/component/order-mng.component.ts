@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
+import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent, PopupComponent } from '../../../../architecture';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import {DictService} from '../../../../architecture/core/service/dict-service';
 import { ListItem
@@ -34,6 +34,9 @@ export class OrderMngComponent implements OnInit{
 
   	@ViewChild("testDialog")
   	private _testDialog:ModalComponent;
+
+	@ViewChild("AutoRenewDialog") 
+	AutoRenewDialog: PopupComponent;
 
   	//订单详情加载
   	private _orderDetailLoader:ItemLoader<OrderDetailItem> = null;
@@ -353,7 +356,7 @@ export class OrderMngComponent implements OnInit{
 
 	//自动续订
 	autoRenew(orderItem:SubInstanceResp){
-
+		this.AutoRenewDialog.open('已购服务自动续订：577321629990001');
 	}
 
 	//选择续订	

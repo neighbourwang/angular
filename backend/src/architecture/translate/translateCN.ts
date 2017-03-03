@@ -1387,7 +1387,7 @@
         "PLEASE_SELECT_VALUATION_CYCLE":"请选择计价周期",
         "PLATFORM_LIST_IS_EMPTY":"平台列表为空",
         "ENTERPRISE_LIST_IS_EMPTY":"企业列表为空",
-        "RETURN_TO_PREVIOUS_STEP":"返回上一步重新选择平台"
+        "RETURN_TO_PREVIOUS_STEP":"返回上一步重新选择平台",
         "RETURN_PRODUCT_LIST":"返回产品列表"
     },
     "USER_CENTER": {
