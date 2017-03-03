@@ -431,15 +431,11 @@ export class IpMngListComponent implements OnInit{
         if (notValid !== void 0) {
             console.log("validateIPModify Failed!!!");
             this.ipsbox.close();
-            //this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));
             let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
             let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];
-            //let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
-            //          + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
-            //this.showMsg(con);
             this.translateService.get([name,msg], null).subscribe((res) => {
                 this.showMsg(res[name] + res[msg]);
-            }); 
+            });
             this.okCallback = () => {
                 this.ipsbox.open();                
             };            
@@ -520,12 +516,8 @@ export class IpMngListComponent implements OnInit{
         if (notValid !== void 0) {
             console.log("validateSubnetModify Failed!!!");
             this.subnetbox.close();
-            //this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));
             let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
             let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];
-            //let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
-            //          + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
-            //this.showMsg(con);
             this.translateService.get([name,msg], null).subscribe((res) => {
                 this.showMsg(res[name] + res[msg]);
             });
