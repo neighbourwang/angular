@@ -10,6 +10,8 @@ import { RestApi
 	, SystemDictionary
 	, DicLoader
 	, ItemLoader } from '../../../architecture';
+	
+import { TranslateService } from 'ng2-translate';
 
 import { CheckCenterParam
 	, CheckListItem } from './../model';
@@ -35,6 +37,7 @@ export class CheckMngListComponent implements OnInit{
 	private _selectedItem:CheckListItem = null;//当前选择的数据
 	private refuseReason:string = null;//拒绝原因
 	private _billinModeDic:DicLoader = null; //计费模式
+	private reasonTransaltion: string = null; //拒绝原因的字符串翻译
 
 
 	@ViewChild("notice") private _notice:NoticeComponent;
@@ -45,7 +48,18 @@ export class CheckMngListComponent implements OnInit{
 	constructor(
 		private _restApiCfg:RestApiCfg
 		,private _restApi:RestApi
+		, private translate: TranslateService
 		,private _layoutService:LayoutService){
+
+		//多语言处理双向绑定的内容
+		translate.onLangChange.subscribe(() => {
+			translate.get('COMMON.AGREE').subscribe((res: string) => {
+				this.reasonTransaltion = res
+			});
+		});
+		translate.get('COMMON.AGREE').subscribe((res: string) => {
+			this.reasonTransaltion = res
+		});
 
 		//计费模式字典
 		this._billinModeDic = new DicLoader(_restApiCfg, _restApi, "BILLING_MODE", "TYPE");
@@ -293,8 +307,9 @@ export class CheckMngListComponent implements OnInit{
 
 	//清除提交数据
 	clearApproveData(){
-		this.refuseReason = null;
+		this.refuseReason = this.reasonTransaltion;
 		this._selectedItem = null;
+		
 	}
 
 	//同意
@@ -310,7 +325,7 @@ export class CheckMngListComponent implements OnInit{
 	}
 
 	confirmAccept(){
-		this.refuseReason='COMMON.AGREE';
+		this.refuseReason= this.reasonTransaltion;
 		this.approveOrder(1, this._selectedItem.orderId);
 	}
 

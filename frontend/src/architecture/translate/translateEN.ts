@@ -746,8 +746,8 @@ export const TranslateEN = {
         EDIT_CONTOR: 'Only can be edited when it is new',
         DELETE_CONTOR: 'Only can be deleted when it is new',
         DELETE_CASE_WARNING: 'You have chosen to delete {{value_1}}-{{value_2}}, please confirm',
-        CASE_DETAIL: 'Workorder detail：{{value_1}}-{{value_2}}'
-
-
+        CASE_DETAIL: 'Workorder detail：{{value_1}}-{{value_2}}',
+        MY_CASE: 'My workorder',
+        DEPART_CASE: 'Departmental workorder'
     }
 }

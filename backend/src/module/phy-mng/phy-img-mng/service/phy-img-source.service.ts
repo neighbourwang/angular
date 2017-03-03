@@ -114,7 +114,7 @@ export class PhyImgSourceService {
             }
         ]
         const body = {
-            "poolIds": idlist
+             "poolIds":idlist
         };
         const api = this.restApiCfg.getRestApi("phy-mng.phy-img-mng.phyimgsource.commit.allocate");
         return this.restApi.request(api.method, api.url, pathParams, null, body);

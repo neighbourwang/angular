@@ -1,0 +1,26 @@
+<div class="page-content-header icon-content-header-physical-mng">分配物理资源池
+    <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" 
+        style="padding:2px 15px;font-size:14px" (click)="backToSource()">
+        返回镜像管理
+    </button>
+</div>
+<div class="page-content">
+    
+    <fc-selectbox #selectbox [selectedList]="inUsedPools" [unSelectedList]="noUsedPools" 
+                titleL="未选中资源池：" 
+                titleR="已选中资源池：" 
+                displayKey="pmPoolName"
+                >
+    </fc-selectbox>
+
+</div>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'HOST_OPENSTACK_MNG.CONFIRM' | translate}}"></fc-notice>
+
+<div class="text-center mgt20">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancelAllo()">
+        <span class="icon-button-label">关闭</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="commitAllo()">
+        <span class="icon-button-label">保存</span>
+    </button>
+</div>

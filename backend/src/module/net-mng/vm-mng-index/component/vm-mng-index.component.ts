@@ -305,23 +305,23 @@ export class VmwareMngIndexComponent implements OnInit {
                 , 'value': this.changedNsxMngInfo.adminPassword
                 , "op": "*"
             },
+            /*
             {
                 "name": "NET_MNG_VM_IP_MNG.NSX_MNG_ADDRESS"
                 , 'value': this.changedNsxMngInfo.nsxAddress
                 , "op": "url"
             }
+            */
             ].find(n => this.ipService.validate(n.name, n.value, n.op) !== undefined)        
         //console.log(notValid, "notValid!!!")
         if (notValid !== void 0) {
             console.log("validateIPModify Failed!!!");
             this.setnsxmnginfo.close();
-            //this.showMsg(this.ipService.validate(notValid.name, notValid.value, notValid.op));  
             let name = this.ipService.validate(notValid.name, notValid.value, notValid.op)[0];
-            let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];            
-            let con = this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), name, null) 
-                      + this.translateService.getParsedResult(this.translateService.getBrowserCultureLang(), msg, null);
-            console.log(con, "con");
-            this.showMsg(con);
+            let msg = this.ipService.validate(notValid.name, notValid.value, notValid.op)[1];
+            this.translateService.get([name,msg], null).subscribe((res) => {
+                this.showMsg(res[name] + res[msg]);
+            });
             this.okCallback = () => {
                 this.setnsxmnginfo.open();                
             };            
