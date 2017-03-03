@@ -1146,7 +1146,21 @@
         "STANDARD_SMALL_CLOUD_HOST": "Standard small cloud server",
         "STORAGE_BACKEND": "Storage back-end",
         "UNIT_PRICE": "Unit price",
-        "VIEW_PRODUCT": "View product"
+        "VIEW_PRODUCT": "View product",
+
+        "EDIT_PRODUCT_CATALOG":"Edit product catalog",
+        "ERROR_GETTING_PLATFORM_LIST":"Error getting platform list",
+        "SELECT_CLOUD_HOST_SPECIFICATIONS":"Select cloud host specifications",
+        "CLOUD_HARD_DISK_SERVICES":"Cloud hard disk services",
+        "PRICING_INFORMATION":"Pricing information",
+        "PLATFORM_INFORMATION":"Platform information",
+        "ENTERPRISE_INFORMATION":"Enterprise information",
+        "HISTORYCAL_PRICE":"History price",
+        "PLEASE_SELECT_VALUATION_CYCLE":"Please select valuation cycle",
+        "PLATFORM_LIST_IS_EMPTY":"Platform list is empty",
+        "ENTERPRISE_LIST_IS_EMPTY":"Enterprise list is empty",
+        "RETURN_TO_PREVIOUS_STEP":"Go back to the previous step and reselect the platform",
+        "RETURN_PRODUCT_LIST":"Return product",
     },
     "USER_CENTER": {
         "ACCOUNT": "Account",

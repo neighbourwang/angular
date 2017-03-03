@@ -1,5 +1,44 @@
 ﻿<fc-notice #notice ot="{{ 'COMMON.CONFIRM' | translate }}"></fc-notice>
-<div class="OrderManage">	
+<fc-popup class="renew-dialog" #AutoRenewDialog ot="{{'DIALOG.COMMIT' | translate}}" ct="{{'DIALOG.CANCEL' | translate}}" title="{{'CHECK_CENTER.THE_ORDER_REQUEST_WAS_REJECTED' | translate}}" (of)="confirmRefuse()" (cf)="cancelRefuse();">	
+	<!--<table-list code="3" (onSelect)="vmListClick($event);" [platformId]="diskPlatformId"></table-list>-->
+	<table class="popup-table">
+		<thead>	
+			<tr>
+				<th class="order-title">产品信息</th>
+				<th  class="text-center">产品类型</th>
+				<th class="text-center">计费模式</th>
+				<th class="text-center">当前费用</th>
+				<th class="text-center">到期时间</th>
+			</tr>			
+		</thead>
+		<tbody>
+			<tr>
+				<td>January</td>
+				<td>$100</td>
+				<td>January</td>
+				<td>$100</td>
+				<td>January</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="auto-renew-info">
+		<div class="renew-type-title">自动续订方式 : </div>
+		<div class="renew-type-content">
+			<div class="select-renew-type">
+				<input id="renewTypeA" name="renewTypeRadio" type="radio"/><label for="renewTypeA">按月续订（周期费用：￥100/月，每6个月续订一次）</label>
+				<br>
+				<input id="renewTypeB" name="renewTypeRadio" type="radio"/><label for="renewTypeB">按月续订（周期费用：￥1000/年，每年续订一次）</label>
+			</div>
+			<div class="show-renew-type">
+			</div>
+		</div>
+	</div>
+</fc-popup>
+<div class="OrderManage">
+	
+	<!--<button class="button-gray-gradient" (click)="autoRenew(orderItem)">自动续订</button>
+	<button class="button-gray-gradient" (click)="autoRenew(orderItem)">取消自动续订</button>-->
+
 	<div class="page-content-header">{{ 'MENU.PURCHASED_SERVICE_MANAGEMENT' | translate }}</div>
 	<div class="page-content">
 		<!--<div class="mgb20">
