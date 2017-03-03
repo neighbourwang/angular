@@ -1,8 +1,8 @@
    <div class="SearchDetail">   
 						<div class="page-content">
 							<div class="noborder mgb10">{{ 'COMMON.ORDERS_INFO' | translate}}</div>
-							<div class="table-container mgb20">
-									<table class="table table-all-boder first-table mgb20">
+							<div class="table-container">
+									<table class="table table-all-boder first-table">
 										<tbody>
 											<tr>
 												<td class="text-center">{{ 'ORDER_MNG.ORDER_NUM' | translate}}</td><td class="leftAlign">{{_detail.orderCode}}</td>
@@ -27,7 +27,7 @@
 											</tr>
 											<tr>
 											   <td class="text-center">{{ 'COMMON.COMPLETION_TIME' | translate}}</td><td class="leftAlign">{{_detail.completeDate}}</td>
-												<td class="text-center"></td><td class="leftAlign"></td>
+												<td class="text-center">{{ 'ORDER_MNG.PURCHASED_SERVICE_NUMBER' | translate}}</td><td class="leftAlign"> {{_detail.subinstanceNo}}</td>
 													
 											</tr>
 											<tr>
@@ -38,8 +38,7 @@
 										</tbody>
 									</table>
 							</div>
-							<div class="noborder mgb10">{{ 'ORDER_MNG.PURCHASED_SERVICE_NUMBER' | translate}}: {{_detail.subinstanceNo}}</div>
-							<div class="table-container mgb20">
+							<div class="table-container">
 									<table class=" table table-all-boder mgb10">
 										<thead>
 											<tr>
@@ -50,8 +49,8 @@
 												<th>{{ 'COMMON.COST' | translate}}</th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr *ngFor="let prodItem of _detail.subInstanceList">
+										<tbody >
+											<tr  *ngFor="let prodItem of _detail.subInstanceList">
 												<td>{{prodItem.serviceType  | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}<br>{{ 'CHECK_CENTER.INSTANCE_NAME' | translate}}: {{prodItem.instanceName}}</td>
 												<td style="text-align: float-left;padding-top: 30px;padding-left: 40px;padding-right: 20px; width: 450px;">
 													<ul *ngFor="let specItem of prodItem.specList">
