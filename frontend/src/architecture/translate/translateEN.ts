@@ -748,6 +748,6 @@ export const TranslateEN = {
         DELETE_CASE_WARNING: 'You have chosen to delete {{value_1}}-{{value_2}}, please confirm',
         CASE_DETAIL: 'Workorder detail：{{value_1}}-{{value_2}}',
         MY_CASE: 'My workorder',
-        DEPART_CASE: 'Depart workorder'
+        DEPART_CASE: 'Departmental workorder'
     }
 }
