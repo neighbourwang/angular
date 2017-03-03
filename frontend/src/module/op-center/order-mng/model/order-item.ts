@@ -56,7 +56,6 @@ export class SubInstanceItemResp {
     if(this.billingInfo){
       if(this.billingMode == 0)//包年包月
       {
-      if(this.billingInfo){
         return this.billingInfo.basicPrice + this.billingInfo.cyclePrice;
       }
       else if(this.billingMode == 1)//按量计费
@@ -67,7 +66,6 @@ export class SubInstanceItemResp {
         return 0;
       }
     } 
-  }
 
   statusName: string = null;//用于界面显示
   serviceTypeName: string = null;//产品类型名称

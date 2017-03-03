@@ -9,6 +9,7 @@ import { MsgAlertModel, MsgModel } from "../model/msg-alert.model";
 
 //Service
 import { MsgMngService } from "../service/msg-mng.service";
+import { unreadnumber } from "../service/msg-number.service";
 
 //Mock
 import { MsgModel_mock } from "../model/msg-alert.mock";
@@ -55,7 +56,7 @@ export class MsgListComponent implements OnInit {
     selectedmsglist: Array<MsgModel> = [];
     allSelected: boolean = false;
 
-    unreadmsg: number = 0;
+    unreadnumber = unreadnumber;
 
     private okCallback: Function = null;
     okClicked() {
@@ -76,11 +77,12 @@ export class MsgListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        
+        /*        
         this.activatedRouter.params.forEach((params: Params) => {
             this.unreadmsg = params['unreadmsg'];
             console.log("unreadmsg:" + this.unreadmsg);
 		});
+        */
        
         this.getMsgList(this.paginationFlag);
 
@@ -96,13 +98,13 @@ export class MsgListComponent implements OnInit {
             .then(
             response => {
                 this.layoutService.hide();
-                console.log(response, "response!");
+                console.log(response, "msgList response!");
                 if (response && 100 == response["resultCode"]) {
                     this.msgAlert.edge = response.pageInfo.totalRecords;
                     this.msgAlert.list = response.resultContent;
                     this.totalPage = response.pageInfo.totalPage;
                     this.pager.render(1);
-                    console.log(this.msgAlert, "this.msgList!");
+                    //console.log(this.msgAlert, "this.msgList!");
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     this.msgAlert.edge = 0;
@@ -129,7 +131,7 @@ export class MsgListComponent implements OnInit {
                     this.msgAlert.edge = response.pageInfo.totalRecords;
                     this.msgAlert.list = response.resultContent;
                     this.totalPage = response.pageInfo.totalPage;
-                    console.log(this.msgAlert, "this.msgAlert next");
+                    //console.log(this.msgAlert, "this.msgAlert next");
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     this.msgAlert.edge = 0;
@@ -310,8 +312,7 @@ export class MsgListComponent implements OnInit {
         this.selectedmsglist = this.msgAlert.list.filter(n=> { return (n.checked == true);});
         if (this.selectedmsglist.length != 0){
             return this.selectedmsglist;
-        }
-        else {
+        } else {
             //this.showMsg("COMMON.PLEASE_CHOOSE_IMAGE");
             return [];
         }
