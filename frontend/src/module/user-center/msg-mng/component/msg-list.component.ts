@@ -162,15 +162,16 @@ export class MsgListComponent implements OnInit {
             let msg_id_array = this.selectedmsglist.map((msg) => {
                 return <string>msg.id;
             });
-            let ids = msg_id_array.join(",");
+            //let ids = msg_id_array.join(",");
             this.layoutService.show();
-            this.service.deleteMsgList(ids)
+            this.service.deleteMsgList(msg_id_array)
                 .then(
                     response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.showMsg("USER_CENTER.DELETE_MSG_SUCCESS");
-                        console.log("Delete msg: ", ids, " successfully!");
+                        //console.log("Delete msg: ", ids, " successfully!");
+                        console.log("Delete msg: ", msg_id_array, " successfully!");
                     } else {
                         this.showMsg("USER_CENTER.DELETE_MSG_FAILED");
                         return;
@@ -204,14 +205,15 @@ export class MsgListComponent implements OnInit {
             let msg_id_array = this.selectedmsglist.map((msg) => {
                 return <string>msg.id;
             });
-            let ids = msg_id_array.join(",");
+            //let ids = msg_id_array.join(",");
             this.layoutService.show();
-            this.service.setMsgRead(ids)
+            this.service.setMsgRead(msg_id_array)
             .then(
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    console.log("Set ", ids, " to READ!");
+                    //console.log("Set ", ids, " to READ!");
+                    console.log("Set ", msg_id_array, " to READ!");
                     this.showMsg("USER_CENTER.MARK_MSG_READ_SUCCESS");
                 } else {
                     this.showMsg("USER_CENTER.MARK_MSG_READ_FAILED");

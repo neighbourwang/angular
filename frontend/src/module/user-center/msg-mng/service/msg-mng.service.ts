@@ -35,20 +35,16 @@ export class MsgMngService {
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return MsgModel_mock });
     }
 
-    setMsgRead(ids: string):Promise<any> {
-        const body = [
-            ids
-        ];
+    setMsgRead(ids: Array<string>):Promise<any> {
+        const body = ids;
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("user-center.msg-mng.message.setread");
         return this.restApi.request(api.method, api.url, null, null, body);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return MsgModel_mock });
     }
 
-    deleteMsgList(ids: string):Promise<any> {
-        const body = [
-            ids
-        ];
+    deleteMsgList(ids: Array<string>):Promise<any> {
+        const body = ids;
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("user-center.msg-mng.message.delete");
         return this.restApi.request(api.method, api.url, null, null, body);
