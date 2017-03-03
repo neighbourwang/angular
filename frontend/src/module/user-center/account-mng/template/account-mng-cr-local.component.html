@@ -7,7 +7,7 @@
                     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
                         <div class="col-md-2 content-title" style="text-align : center"><span class="asterisk">*</span>{{ 'COMMON.NAME' | translate }}</div>
                         <div class="col-md-8 no-padding form-group" [ngClass]="{'has-error': name.errors && (name.dirty || name.touched)}">
-                            <input class="form-control width-400" placeholder="{{ 'USER_CENTER.PLEASE_ENTER_A_NAME' | translate }}" type="text" [(ngModel)]="account.userName" name="name" id="name" required
+                            <input class="form-control" placeholder="{{ 'USER_CENTER.PLEASE_ENTER_A_NAME' | translate }}" type="text" [(ngModel)]="account.userName" name="name" id="name" required
                                 #name='ngModel' />
                             <!--<span class="help-block" *ngIf="name.errors?.required">name不能为空</span>-->
                             <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
@@ -21,7 +21,7 @@
                     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
                         <div class="col-md-2 content-title" style="text-align : center"><span class="asterisk">*</span>{{ 'COMMON.ACCOUNT' | translate }}</div>
                         <div class="col-md-8 no-padding" [ngClass]="{'has-error': (email.errors && (email.dirty || email.touched))||!loginNameIsOnly||!isEmail}">
-                            <input class="form-control width-300" placeholder="{{ 'USER_CENTER.PLEASE_ENTER_A_ACCOUNT' | translate }}" type="email" [(ngModel)]="account.loginName" name="email" id="email" #email='ngModel' [disabled]="isEdit"
+                            <input class="form-control" placeholder="{{ 'USER_CENTER.PLEASE_ENTER_A_ACCOUNT' | translate }}" type="email" [(ngModel)]="account.loginName" name="email" id="email" #email='ngModel' [disabled]="isEdit"
                                 required (blur)="checkOnly(account.loginName)" (focus)="isEmail=true">
                             <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                 <div [hidden]="!email.errors.required">
