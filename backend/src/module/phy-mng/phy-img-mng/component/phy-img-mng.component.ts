@@ -133,52 +133,53 @@ export class PhyImgMngComponent implements OnInit {
         if(!this.selectedPhyImageSources){
             this.showAlert("请选择一个镜像源");
         }else{
-            this.layoutService.show();
-            this.service.getAllo(this.selectedPhyImageSources.id)
-                .then(
-                    response=>{
-                        this.layoutService.hide();
-                        if(response && 100== response["resultCode"]){
-                            this.inUsedPools = response["resultContent"].inUsedPools;
-                            this.noUsedPools = response["resultContent"].noUsedPools;
+            this.router.navigate(['phy-mng/phy-img/phy-img-mng-allocate', {"pmImagePoolId": this.selectedPhyImageSources.id}]);
+            // this.layoutService.show();
+            // this.service.getAllo(this.selectedPhyImageSources.id)
+            //     .then(
+            //         response=>{
+            //             this.layoutService.hide();
+            //             if(response && 100== response["resultCode"]){
+            //                 this.inUsedPools = response["resultContent"].inUsedPools;
+            //                 this.noUsedPools = response["resultContent"].noUsedPools;
 
-                            this.alloPopup.open();
-                        }else{
-                            alert("Res.sync error");
-                        }
-                })
-            .catch((e)=>this.onRejected(e));
+            //                 this.alloPopup.open();
+            //             }else{
+            //                 alert("Res.sync error");
+            //             }
+            //     })
+            // .catch((e)=>this.onRejected(e));
         }
 
     }
 
-    commitAllo(){
-        let idlist:string="";
-        this.inUsedPools.forEach((e)=>{
-            idlist = idlist + e.pmPoolId+","
-        })
-        idlist = idlist.slice(0, idlist.length-1);
+    // commitAllo(){
+    //     let idlist:string="";
+    //     this.inUsedPools.forEach((e)=>{
+    //         idlist = idlist + e.pmPoolId+","
+    //     })
+    //     idlist = idlist.slice(0, idlist.length-1);
 
-        console.log("idlist="+idlist);
-        this.layoutService.show();
-        this.service.commitAllo(this.selectedPhyImageSources.id, idlist)
-            .then(
-                response=>{
-                    this.layoutService.hide();
-                    if(response && 100== response["resultCode"]){
-                        this.showAlert("分配成功");
-                        this.alloPopup.close();
-                        this.getPhyImageSources();
-                    }else{
-                        alert("Res.sync error");
-                    }
-                })
-                .catch((e)=>this.onRejected(e));
+    //     console.log("idlist="+idlist);
+    //     this.layoutService.show();
+    //     this.service.commitAllo(this.selectedPhyImageSources.id, idlist)
+    //         .then(
+    //             response=>{
+    //                 this.layoutService.hide();
+    //                 if(response && 100== response["resultCode"]){
+    //                     this.showAlert("分配成功");
+    //                     this.alloPopup.close();
+    //                     this.getPhyImageSources();
+    //                 }else{
+    //                     alert("Res.sync error");
+    //                 }
+    //             })
+    //             .catch((e)=>this.onRejected(e));
         
-    }
-    cancelAllo(){
+    // }
+    // cancelAllo(){
         
-    }
+    // }
     //编辑
     editPhyImgSource(){
         if(this.selectedPhyImageSources){
