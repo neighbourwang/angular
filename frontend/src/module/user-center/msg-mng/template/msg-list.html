@@ -5,7 +5,7 @@
 <div class="page-content">
     <div class="mgb20">
         <button class="btn btn-default button-gray-gradient" [ngClass]="{'active': paginationFlag === '2'}" (click)="getMsgList('2');">
-            {{'USER_CENTER.ALL_MSG' | translate}}({{unreadmsg}})
+            {{'USER_CENTER.ALL_MSG' | translate}}({{unreadnumber.num}})
         </button>
         <button class="btn btn-default button-gray-gradient" [ngClass]="{'active': paginationFlag === '0'}" (click)="getMsgList('0');">       
             {{'USER_CENTER.UNREAD_MSG' | translate}}
@@ -31,7 +31,7 @@
         <table class="table table-hover" >
             <thead>
                 <tr>
-                    <th style="width: 80px; text-align: center;"><input type="checkbox" class="fox-cloud-checkbox" name="checkbox" (click)="selectOrUnSAllItems();" /> <span style="margin: 3px">{{'USER_CENTER.ALL_SELECTED' | translate}}</span></th>
+                    <th style="width: 80px; text-align: center;"><input type="checkbox" class="fox-cloud-checkbox" name="checkbox" [checked]="allSelected" (click)="selectOrUnSAllItems();" /> <span style="margin: 3px">{{'USER_CENTER.ALL_SELECTED' | translate}}</span></th>
                     <th style="text-align: center;">{{'USER_CENTER.MSG_CONTENT' | translate}}</th>
                     <th style="width: 170px; text-align: center;">{{'USER_CENTER.CREATE_TIME' | translate}}</th>
                 </tr>

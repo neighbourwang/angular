@@ -1,6 +1,6 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
-import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
+import { NoticeComponent,PopupComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
 import {CostSetItem} from '../model'
 
 import * as _ from 'underscore';
@@ -15,6 +15,13 @@ export class CostSetListComponent implements OnInit{
 
 @ViewChild("notice")
   	private _notice: NoticeComponent;
+
+ @ViewChild("defaultSetDailog")
+  defaultSetDailog: PopupComponent;
+
+ @ViewChild("entSetDailog")
+  entSetDailog: PopupComponent;
+  
 
 private costItemLoader:ItemLoader<CostSetItem> = null;
 	
@@ -57,12 +64,30 @@ private costItemLoader:ItemLoader<CostSetItem> = null;
 
 //企业默认设置按钮
 entSet(){
-	$('#costSetDefault').modal('show');
+	// $('#costSetDefault').modal('show');
+	this.entSetDailog.open();
 }
 
 //默认默认设置按钮
 defaultSet(){
-	$('#costSetEnt').modal('show');
+	// $('#costSetEnt').modal('show');
+	this.defaultSetDailog.open();
+}
+
+acceptDefaultSet(){
+
+}
+
+cancelDefaultSet(){
+
+}
+
+acceptEntSet(){
+
+}
+
+cancelEntSet(){
+
 }
 
 showMsg(msg: string)
