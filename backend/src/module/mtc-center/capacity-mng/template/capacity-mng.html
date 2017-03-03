@@ -1,24 +1,24 @@
 ﻿<div class="page-content-header icon-content-header-operation-center">
-    私有云平台容量管理
+    {{'CAPACITY_MNG.PRIVATE_CLOUD_PLATFORM_CAPACITY_MNG'|translate}}<!--私有云平台容量管理-->
 </div>
 <div class="page-content">
     <div>
-        <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoComputeRes()">计算资源</button>
-        <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoStoreRes()">存储资源</button>
-        <button class="fox-cloud-button fox-cloud-button-green">生成报告</button>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoComputeRes()">{{'CAPACITY_MNG.COMPUTE_RES'|translate}}</button><!--计算资源-->
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoStoreRes()">{{'CAPACITY_MNG.STORE_RES'|translate}}</button><!--存储资源-->
+        <button class="fox-cloud-button fox-cloud-button-green">{{'CAPACITY_MNG.GENERATE_REPORT'|translate }}</button><!--生成报告-->
     </div>
     <div class="table-container mgt20">
         <table class="table table-hover">
             <thead>
               <tr>
-                  <th>编号</th>
-                  <th>选择</th>
-                  <th>平台名称</th>
-                  <th>所属地域</th>
-                  <th>所属数据中心</th>
-                  <th>云平台类型</th>
-                  <th>访问地址</th>
-                  <th>状态</th>
+                  <th>{{'CAPACITY_MNG.NUMBER'|translate}}</th><!--编号-->
+                  <th>{{'COMMON.CHOOSE'|translate }}</th><!--选择-->
+                  <th>{{'CAPACITY_MNG.PLATFORM_NAME'|translate }}</th><!--平台名称-->
+                  <th>{{'CAPACITY_MNG.REGION_BELONG_TO'|translate }}</th><!--所属地域-->
+                  <th>{{'CAPACITY_MNG.DATA_CENTER_BELONG_TO'|translate }}</th><!--所属数据中心-->
+                  <th>{{'CAPACITY_MNG.CLOUD_PLATFORM_TYPE'|translate}}</th><!--云平台类型-->
+                  <th>{{'CAPACITY_MNG.URL'|translate}}</th><!--访问地址-->
+                  <th>{{'COMMON.STATUS'|translate}}</th><!--状态-->
               </tr>
             </thead> 
             <tbody>

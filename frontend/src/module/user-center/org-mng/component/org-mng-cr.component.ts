@@ -136,7 +136,7 @@ export class OrgMngCrComponent implements OnInit {
       });
   }
   //保存 给父组件调用
-  save() {
+  save():Promise<boolean> {
     this.org.resource = this.resource;
     console.log(this.org);
     if (this.orgForm.valid || this.org.isDefault) {
@@ -144,10 +144,22 @@ export class OrgMngCrComponent implements OnInit {
       this.org.resource.usedMem =this.org.resource.transforUserdMem*1024;
       if (!this.isEdit) {
         console.log('new', this.org)
-        return this.service.createOrg(this.org)
+        this.layoutService.show();
+        return this.service.createOrg(this.org).then(res=>{
+          this.layoutService.hide()
+        }).catch(err=>{
+          console.log(err);
+          this.layoutService.hide();
+        })
       } else {
         console.log('edit', this.org)
-        return this.service.editOrg(this.editId, this.org);
+        this.layoutService.show();
+        return this.service.editOrg(this.editId, this.org).then(res=>{
+          this.layoutService.hide()
+        }).catch(err=>{
+          console.log(err);
+          this.layoutService.hide();
+        })
       }
     } else {
       return Promise.reject("error");
@@ -157,6 +169,7 @@ export class OrgMngCrComponent implements OnInit {
 
   //同步countBar数据
   outputValue(e, arg1, arg2) {
+    console.log(e,arg1,arg2);
     this.resource[arg1] = e;
     if (this.maxAvailable[arg1] - e >= 0) {
       this.countAvailable[arg2] = this.maxAvailable[arg1] - e;
