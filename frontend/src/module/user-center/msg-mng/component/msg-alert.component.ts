@@ -40,10 +40,12 @@ export class MsgAlertComponent implements OnInit {
     ngOnInit(): void {
         this.getMsgAlert();
         unreadnumber.num = this.msgAlert.edge;
+        console.log(unreadnumber.num, "unreadnumber.num");
         
         window.setInterval(() => {
             this.getMsgAlert();
             unreadnumber.num = this.msgAlert.edge;
+            console.log(unreadnumber.num, "unreadnumber.num");
         }, 30000);
     }
 
@@ -66,7 +68,7 @@ export class MsgAlertComponent implements OnInit {
                     this.msgAlert.edge = response.pageInfo.totalRecords;
                     this.msgAlert.list = response.resultContent;
                     this.totalPage = response.pageInfo.totalPage;
-                    console.log(this.msgAlert, "this.msgAlert");
+                    //console.log(this.msgAlert, "this.msgAlert");
                 } else {
                     //this.showMsg("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
                     this.msgAlert.edge = 0;
@@ -82,9 +84,6 @@ export class MsgAlertComponent implements OnInit {
     }
 
     openMsgListPage() {
-        this.router.navigate([`user-center/msg-mng/msg-list`, 
-        {
-            "unreadmsg": this.msgAlert.edge,
-        }]);
+        this.router.navigate([`user-center/msg-mng/msg-list`]);
     }
 }
