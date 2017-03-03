@@ -9,6 +9,7 @@ import { MsgAlertModel, MsgModel } from "../model/msg-alert.model";
 
 //Service
 import { MsgMngService } from "../service/msg-mng.service";
+import { unreadnumber } from "../service/msg-number.service";
 
 //Mock
 import { MsgModel_mock } from "../model/msg-alert.mock";
@@ -38,11 +39,14 @@ export class MsgAlertComponent implements OnInit {
     expand: boolean = false;
     ngOnInit(): void {
         this.getMsgAlert();
-        /*
+        unreadnumber.num = this.msgAlert.edge;
+        console.log(unreadnumber.num, "unreadnumber.num");
+        
         window.setInterval(() => {
             this.getMsgAlert();
+            unreadnumber.num = this.msgAlert.edge;
+            console.log(unreadnumber.num, "unreadnumber.num");
         }, 30000);
-        */        
     }
 
     offClickHandler(event) {
@@ -59,12 +63,12 @@ export class MsgAlertComponent implements OnInit {
         this.service.getMsgListStatus(1,5,'0')
             .then(
             response => {
-                console.log(response, "response")
+                console.log(response, "msgAlert response");
                 if (response && 100 == response["resultCode"]) {
                     this.msgAlert.edge = response.pageInfo.totalRecords;
                     this.msgAlert.list = response.resultContent;
                     this.totalPage = response.pageInfo.totalPage;
-                    console.log(this.msgAlert, "this.msgAlert");
+                    //console.log(this.msgAlert, "this.msgAlert");
                 } else {
                     //this.showMsg("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
                     this.msgAlert.edge = 0;
@@ -80,9 +84,6 @@ export class MsgAlertComponent implements OnInit {
     }
 
     openMsgListPage() {
-        this.router.navigate([`user-center/msg-mng/msg-list`, 
-        {
-            "unreadmsg": this.msgAlert.edge,
-        }]);
+        this.router.navigate([`user-center/msg-mng/msg-list`]);
     }
 }

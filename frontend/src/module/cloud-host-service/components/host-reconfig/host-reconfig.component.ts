@@ -55,7 +55,7 @@ export class HostReconfigComponent implements OnInit {
 		this.product = undefined;
 		this.billingInfo = undefined;
 		for (let key in proMap){
-			let codeArr = key.match(/\[(.*)?\,\s(.*)?\,\s(.*)?\,\s(.*)?\]/);
+			let codeArr = key.match(/\[(.*)?\,\s(.*)?\,\s(.*)?\,\s(.*)?\,\s(.*)?\]/);
 			let count = 0;
 			for (let i = 1; i < codeArr.length; ++i) {
 				

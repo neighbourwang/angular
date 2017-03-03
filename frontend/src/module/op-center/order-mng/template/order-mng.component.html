@@ -1,6 +1,5 @@
 ﻿<fc-notice #notice ot="{{ 'COMMON.CONFIRM' | translate }}"></fc-notice>
-<fc-popup class="renew-dialog" #AutoRenewDialog ot="{{'DIALOG.COMMIT' | translate}}" ct="{{'DIALOG.CANCEL' | translate}}" title="{{'CHECK_CENTER.THE_ORDER_REQUEST_WAS_REJECTED' | translate}}" (of)="confirmRefuse()" (cf)="cancelRefuse();">	
-	<!--<table-list code="3" (onSelect)="vmListClick($event);" [platformId]="diskPlatformId"></table-list>-->
+<fc-popup class="renew-dialog" #AutoRenewDialog ot="{{'DIALOG.COMMIT' | translate}}" ct="{{'DIALOG.CANCEL' | translate}}">	
 	<table class="popup-table">
 		<thead>	
 			<tr>
@@ -13,7 +12,19 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td>January</td>
+				<td>
+					<!--{{ selectedOrderItem.itemList[0].serviceType }}
+					<ul *ngIf="selectedOrderItem.itemList[0].serviceType">
+						<li *ngFor="let detailItem of selectedOrderItem.itemList[0]">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
+					</ul>-->
+					<P>区域: </P>
+					<P>可用区</P>
+					<P>实例规格</P>
+					<P>IP地址</P>
+					<P>操作系统</P>
+					<P>密码</P>
+					<P>实例名称</P>
+				</td>
 				<td>$100</td>
 				<td>January</td>
 				<td>$100</td>
@@ -35,10 +46,6 @@
 	</div>
 </fc-popup>
 <div class="OrderManage">
-	
-	<!--<button class="button-gray-gradient" (click)="autoRenew(orderItem)">自动续订</button>
-	<button class="button-gray-gradient" (click)="autoRenew(orderItem)">取消自动续订</button>-->
-
 	<div class="page-content-header">{{ 'MENU.PURCHASED_SERVICE_MANAGEMENT' | translate }}</div>
 	<div class="page-content">
 		<!--<div class="mgb20">

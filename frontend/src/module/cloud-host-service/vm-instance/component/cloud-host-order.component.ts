@@ -110,6 +110,7 @@ export class cloudHostComponentOrder implements OnInit {
 				this.configs[config.attrCode.toLowerCase()] = config;
 				this.setSenModule(config);
 			});
+			this.configs["bootstorage"] = this.configs["storage"];  //临时添加
 			this.sendModule.username.attrValue = "root";
 			console.log(this.sendModule, this.configs)
 
@@ -488,13 +489,17 @@ console.log(this.vmProduct)
 	}
 
 	checkQuota():Promise<boolean> {  //计算配额
-		const compare = (big, small) =>  +big >= +small;
-		const argAllTrue = (...arg:boolean[]) => arg.filter(r => r).length === arg.length;
+		const compare = (big, small) =>  +big >= +small;  //比较大小
+		const argAllTrue = (...arg:boolean[]) => arg.filter(r => r).length === arg.length;    //传来的参数全为真
 
-		return this.service.getQuotaResoure().then(res => {
+		return Promise.all([this.service.getPlatformQuota(this.sendModule.platform.attrValue), this.service.getQuotaResoure()]).then(res => {
+			const [platformQuota, quotaResoure] = res;
+			
 			return argAllTrue(
-				compare(res.mem || 0 - res.usedMem || 0, this.sendModule.mem.attrValue),
-				compare(res.vcpu || 0 - res.usedCpu || 0, this.sendModule.cpu.attrValue)
+				compare(quotaResoure.mem || 0 - quotaResoure.usedMem || 0, this.sendModule.mem.attrValue),
+				compare(quotaResoure.vcpu || 0 - quotaResoure.usedCpu || 0, this.sendModule.cpu.attrValue),
+				compare(platformQuota.memory || 0, this.sendModule.mem.attrValue),
+				compare(platformQuota.cpu || 0, this.sendModule.cpu.attrValue),
 			)
 		})
 	}
