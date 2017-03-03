@@ -151,6 +151,12 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/serviceinstance/vm/{itemId}"
     },
     {
+        "desc": "更新云主机详细信息",
+        "method": "POST",
+        "id": "vm.instance.detail.updata",
+        "url": "marketplace/authsec/serviceinstance/vm/{instanceId}"
+    },
+    {
         "desc": "获取购物车列表",
         "method": "GET",
         "id" : "shopping.cart.items",
@@ -616,12 +622,6 @@ export let RestApis: RestApiModel[] = [
         "url" : "basis/authsec/mpp/worklist/{page}/{size}"
     },
     {
-        "desc" : "根据工单主题模糊查询工单",
-        "id" : "user-center.case-mng.search",
-        "method" : "GET",
-        "url" : "basis/authsec/mpp/worklist/bysubject/{page}/{size}?subject={subject}"
-    },
-    {
         "desc" : "新建工单",
         "id" : "user-center.case-mng.create",
         "method" : "POST",
@@ -657,6 +657,19 @@ export let RestApis: RestApiModel[] = [
         "method" : "GET",
         "url" : "basis/authsec/mpp/worklist/{id}/closeinfo"
     },
+    {
+        "desc" : "部门工单列表",
+        "id" : "user-center.case-depart.list",
+        "method" : "POST",
+        "url" : "basis/authsec/mpp/worklist/organization/{page}/{size}"
+    },
+    {
+        "desc" : "获取指定机构下所有用户",
+        "id" : "user-center.case-depart.user",
+        "method" : "GET",
+        "url" : "basis/authsec/mpp/users/organization/{organizationId}"
+    },
+
     // 消息中心
     {
         "desc" : "获取消息列表、所有/未读/已读",
@@ -676,5 +689,5 @@ export let RestApis: RestApiModel[] = [
         "method" : "DELETE",
         "url" : "messagemgmt/authsec/message/delete"
     },
-    
+
 ]

@@ -72,7 +72,7 @@ export class PhyNetMngService {
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => PhyNetListModel_mock);
     }
 
-    updateStatusPhyNet(pmNetworkId, status): Promise<any> {
+    updateStatusPhyNet(pmNetworkId:string, status:number): Promise<any> {
        const pathParams = [
             {
                 key: "pmNetworkId",

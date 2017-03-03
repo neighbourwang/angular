@@ -1,6 +1,16 @@
 <div class="page-content-header mgb20 ">
     {{ 'MENU.CASE_MNY' | translate}}
 </div>
+<div class="mgb20 row">
+    <div class="col-md-3 btn-group" data-toggle="buttons">
+        <button class="btn btn-default active">
+            <input type="radio" checked> 我的工单
+        </button>
+        <button class="btn btn-default" (click)="departCase();">
+            <input type="radio" > 部门工单
+        </button>
+    </div>
+</div>
 <div class="mgb20" style="height:30px;">
     <button class="btn button-confirm  pull-right" (click)="crePage();isEdit= false">
         <span class="icon-create "></span>{{ 'USER_CENTER.CREATE_CASE' | translate}}
@@ -31,7 +41,7 @@
         </select>
     </div>
 </div>
-<table class="table table-hover" >
+<table class="table table-hover" style="table-layout:fixed">
     <thead>
         <tr>
             <th class="text-center">{{ 'USER_CENTER.CASE_ID' | translate}}</th>
@@ -49,7 +59,7 @@
     <tbody>
         <tr *ngFor="let item of data">
             <td class="text-center">{{item.id}}</td>
-            <td class="text-center"><a href="javascript:void(0);" (click)="getDetail(item)">{{item.subject}}</a></td>
+            <td class="text-center" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:100px;"><a href="javascript:void(0);" (click)="getDetail(item)">{{item.subject}}</a></td>
             <td class="text-center">{{item.typeName}}</td>
             <td class="text-center">{{item.statusName}}</td>
             <td class="text-center">{{item.emergencyName}}</td>
@@ -116,7 +126,7 @@
 </fc-popup>
 
 <fc-popup #caseDetail title="{{ title }}" ot="" ct="">
-    <div *ngIf="basicInfo.status != ''">
+ <!--   <div *ngIf="basicInfo.status != ''">-->
         <div class="mgb10">{{ 'USER_CENTER.BASIC_INFO' | translate}}</div>
         <table class="cm-table-left table table-all-boder">
             <tbody>
@@ -154,7 +164,7 @@
             </tr>
             </tbody>
         </table>
-    </div>
+   <!-- </div>-->
 
     <div *ngIf="handledInfo != null">
         <div *ngIf="handledInfo != ''" class="mgb10 mgt10">{{ 'USER_CENTER.HANDLED_INFO' | translate}}</div>

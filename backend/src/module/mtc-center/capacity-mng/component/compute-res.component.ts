@@ -5,10 +5,11 @@ import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, Po
 
 import { PlatformModel} from '../model/platform.model';
 import {ComputeResModel, Region, ZoneInfo } from '../model/compute-res.model';
-import {ZoneModel, ResAllocation, ResActual, ResUsed} from '../model/zone.model';
+import {ZoneModel, Percent, DoughnutChart} from '../model/zone.model';
 import {HostModel} from'../model/host.model';
 //service
 import { ComputeResService } from "../service/compute-res.service";
+import { CapacityMngService } from "../service/capacity-mng.service";
 
 
 @Component({
@@ -20,6 +21,7 @@ import { ComputeResService } from "../service/compute-res.service";
 export class ComputeResComponent implements OnInit {
     constructor(
         private service: ComputeResService,
+        private serviceParam:CapacityMngService,
         private router: Router,
         private layoutService: LayoutService,
         private activatedRouter: ActivatedRoute,
@@ -34,6 +36,7 @@ export class ComputeResComponent implements OnInit {
     noticeMsg = "";
     PlatformId: string;
 
+   
     selectedPf: PlatformModel = new PlatformModel();
     computeRes: ComputeResModel = new ComputeResModel();
     hostList: Array<HostModel>;
@@ -43,24 +46,20 @@ export class ComputeResComponent implements OnInit {
     zoneResInfo: ZoneModel = new ZoneModel(); //可用区资源信息ZoneModel
     zoneId: string;//选中的可用区id
 
+    resAllocationInfo: Percent = new Percent();
+    resActualInfo: Percent = new Percent();
+    resUsedInfo: Percent = new Percent();
+
+    cpuAllocation: DoughnutChart = new DoughnutChart();
+    memAllocation: DoughnutChart = new DoughnutChart();
+    cpuActual: DoughnutChart = new DoughnutChart();
+    memActual: DoughnutChart = new DoughnutChart();
+    cpuUsed: DoughnutChart = new DoughnutChart();
+    memUsed: DoughnutChart = new DoughnutChart();
+ 
+
     ngOnInit() {
-        this.activatedRouter.params.forEach((params: Params) => {
-            if (params["pfName"] != null) {
-                this.selectedPf.name = params["pfName"];                
-                
-            }
-            if (params["pfType"] != null) {
-                this.selectedPf.platformType = params["pfType"];
-               
-            }
-            if (params["pfUri"] != null) {
-                this.selectedPf.uri = params["pfUri"];
-               
-            }
-            if (params["pfId"] != null) {
-                this.PlatformId= params["pfId"];               
-            }
-        });
+        this.selectedPf = this.serviceParam.selectedPlatform;     
         this.getComputeRes();
         
     }
@@ -68,7 +67,7 @@ export class ComputeResComponent implements OnInit {
     //获取Region
     getComputeRes() {
         this.layoutService.show();
-        this.service.getComputeRes(this.PlatformId)
+        this.service.getComputeRes(this.selectedPf.id)
             .then(
             response => {
                 this.layoutService.hide();
@@ -97,7 +96,7 @@ export class ComputeResComponent implements OnInit {
         this.getZoneResInfo();
         this.getHostList();
     }
-    //获取可用区资源信息
+    //获取可用区资源信息和图标数据
     getZoneResInfo() {
         this.layoutService.show();
         this.service.getZoneResInfo(this.zoneId)
@@ -106,6 +105,17 @@ export class ComputeResComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && "100" == response["resultCode"]) {
                     this.zoneResInfo = response["resultContent"];
+                    this.resAllocationInfo = response["resultContent"].resourceAllocation;
+                    this.resActualInfo = response["resultContent"].resourceActual;
+                    this.resUsedInfo = response["resultContent"].resourceUsed;
+                    
+                    //数据处理
+                    this.getGraphData(this.cpuAllocation, this.resAllocationInfo.cpu, this.resAllocationInfo.cpuTotal);
+                    this.getGraphData(this.memAllocation, this.resAllocationInfo.memory, this.resAllocationInfo.memoryTotal);
+                    this.getGraphData(this.cpuActual, this.resActualInfo.cpu, this.resActualInfo.cpuTotal);
+                    this.getGraphData(this.memActual, this.resActualInfo.memory, this.resActualInfo.memoryTotal);
+                    this.getGraphData(this.cpuUsed, this.resUsedInfo.cpu, this.resUsedInfo.cpuTotal);
+                    this.getGraphData(this.memUsed, this.resUsedInfo.memory, this.resUsedInfo.memoryTotal);
                     
                 } else {
                     alert("Res sync error");
@@ -115,6 +125,34 @@ export class ComputeResComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
+    getGraphData(chart: DoughnutChart, part: number, total: number) {
+        let circleNum = 0;
+        let tempData = new Array<any>();
+        let tempColor = new Array<any>();
+        while (part > total) {
+           
+            tempData.push({ data: [100] });
+            tempColor.push({backgroundColor: ["#2BD2C8"]});
+            part = part - total;
+            circleNum++;
+        }
+   
+        tempData.push({ data: [part, total - part] });
+        tempColor.push({ backgroundColor: ["#2BD2C8", "#e2e3e7"] });
+        circleNum++;
+
+        chart.DataSets = tempData;
+        chart.Colors = tempColor;
+        chart.CircleNum = circleNum;
+        chart.Options = {
+            cutoutPercentage: 100-chart.CircleNum*12,
+            rotation: -1.2* Math.PI,
+        }
+        chart.ChartType="doughnut";
+
+    }
+ 
+    
     //获取宿主机列表
     getHostList() {
         this.layoutService.show();
@@ -153,7 +191,6 @@ export class ComputeResComponent implements OnInit {
 
      showAlert(msg: string): void {
         this.layoutService.hide();
-
         this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();

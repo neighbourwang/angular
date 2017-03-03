@@ -69,6 +69,8 @@ export class cloudHostComponentOrder implements OnInit {
 	diskTotalPrice: number = 0; //云硬盘费用
 	diskUnitType: number = 0; //云硬盘类型
 
+	isZoneSupportOs: boolean = true; //可用区是否支持该镜像
+
 	check = {};
 
 
@@ -301,7 +303,6 @@ console.log(this.vmProduct)
 	rely(attrName: string): VlueList[] {
 		if (!this.configs[attrName].relyAttrId) return [];
 
-
 		//根据他的依赖的id获取它自身的list
 		const list = (this.configs[attrName].mapValueList && this.configs[attrName].mapValueList[this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId]) || [];
 
@@ -398,6 +399,7 @@ console.log(this.vmProduct)
 					attrValueCode: r.imageId,
 					attrDisplayValue: r.imageDisplayName,
 					attrValue: r.imageCode,
+					capacity: r.capacity
 				})
 			}
 
@@ -407,6 +409,19 @@ console.log(this.vmProduct)
 			this.imageList = [];
 			this.layoutService.hide()
 		})
+	}
+
+	oSfilterBootsize(bootSizeList:VlueList[]):VlueList[] {  //根据os的大小过滤bootsize的大小
+		if(!this.sendModule.os.attrValueCode) return bootSizeList;
+
+		const filteredList = bootSizeList.filter(bootSizeObj => 
+			parseInt(bootSizeObj.attrValue)*1024*1024*1024 >= this.sendModule.os.capacity
+		);
+		
+		setTimeout(res => {
+			this.isZoneSupportOs = !!filteredList.length;
+		},0);
+		return filteredList;
 	}
 
 	addCart() {   //加入购物车

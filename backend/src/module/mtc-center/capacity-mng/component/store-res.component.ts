@@ -7,6 +7,7 @@ import { PlatformModel} from '../model/platform.model';
 import { StorageModel} from '../model/storage.model';
 //service
 import { StoreResService } from "../service/store-res.service";
+import { CapacityMngService } from "../service/capacity-mng.service";
 
 
 @Component({
@@ -18,6 +19,7 @@ import { StoreResService } from "../service/store-res.service";
 export class StoreResComponent implements OnInit {
     constructor(
         private service: StoreResService,
+        private serviceParam:CapacityMngService,
         private router: Router,
         private layoutService: LayoutService,
         private activatedRouter: ActivatedRoute,
@@ -35,26 +37,13 @@ export class StoreResComponent implements OnInit {
     selectedPf: PlatformModel = new PlatformModel();
     storageList: Array<StorageModel>;
     ngOnInit() {
-        this.activatedRouter.params.forEach((params: Params) => {
-            if (params["pfName"] != null) {
-                this.selectedPf.name = params["pfName"];                              
-            }
-            if (params["pfType"] != null) {
-                this.selectedPf.platformType = params["pfType"];              
-            }
-            if (params["pfUri"] != null) {
-                this.selectedPf.uri = params["pfUri"];               
-            }
-            if (params["pfId"] != null) {
-                this.PlatformId= params["pfId"];               
-            }
-        });
+        this.selectedPf = this.serviceParam.selectedPlatform;   
         this.getStorageList();
     }
 
     getStorageList() {
         this.layoutService.show();
-        this.service.getStorageList(this.PlatformId)
+        this.service.getStorageList(this.selectedPf.id)
             .then(
             response => {
                 this.layoutService.hide();

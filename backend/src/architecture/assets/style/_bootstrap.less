@@ -1,6 +1,27 @@
 ﻿.btn,.panel,.form-control,.dropdown-menu,.input-group-addon,.modal-content,.nav-tabs>li>a {
     border-radius: 0!important;
 }
+
+/*圆环样式*/
+.circle-mask{
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+}
+
+.circle-text{
+    position:absolute;
+    margin-top:-7px;
+    top:50%;
+    right:0;
+    left:0;
+    text-align:center;
+    z-index:3;
+}
+
+/*表格进度条样式 begin*/
 .table-progress{
    width:220px;
 }
@@ -16,8 +37,10 @@
     background-color: #2bd2c8;
 }
 .table-progress .progress-value{
-   dispaly:inline-block;
+   display:inline-block;
 }
+/*表格进度条样式 end*/
+
 .btn-default.active {
     background: @mainColor!important;
     box-shadow: none!important;

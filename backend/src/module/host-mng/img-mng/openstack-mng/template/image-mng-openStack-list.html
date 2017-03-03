@@ -127,7 +127,7 @@
                 <div class="col-sm-4 form-control-title">{{'HOST_OPENSTACK_MNG.BIT' | translate}}:</div>
                 <div class="col-sm-6">
                     <select class="form-control" [(ngModel)]="tempEditImage.bitsType">
-                        <option *ngFor = "let type of service.bits_typeDic | async" [ngValue]="type.value" [ngClass]="setDefaultBits(type,tempEditImage.bitsType)">{{type.displayValue}}</option>
+                        <option *ngFor = "let type of service.bits_typeDic | async" [ngValue]="type.value">{{type.displayValue}}</option>
 
                     </select>
                 </div>
@@ -138,7 +138,7 @@
                 <div class="col-sm-4 form-control-title">{{'HOST_OPENSTACK_MNG.OS' | translate}}:</div>
                 <div class="col-sm-6">
                     <select class="form-control" [(ngModel)]="tempEditImage.os">
-                        <option *ngFor = "let os of service.osDic | async" [ngValue]="os.value" [ngClass]="setDefaultOs(os,tempEditImage.os)">{{os.displayValue}}</option>
+                        <option *ngFor = "let os of service.osDic | async" [ngValue]="os.value" >{{os.displayValue}}</option>
                     </select>
                 </div>
             </div>

@@ -3,6 +3,8 @@ import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
 
 import {PlatformList_mock} from "../model/platform-list.mock";
+import {PlatformModel} from "../model/platform.model";
+
 
 @Injectable()
 export class CapacityMngService {
@@ -12,6 +14,7 @@ export class CapacityMngService {
         private restApi: RestApi
     ) { }
 
+   selectedPlatform:PlatformModel;
     init(): void {
         this.restApiCfg.loadCfgData();
     }

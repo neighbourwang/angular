@@ -117,7 +117,7 @@ export class ItemLoader<T>{
 				}
 				else{
 					if(ret.resultCode){
-						this.code = ret.resultCode
+						this.code = ret.resultCode;
 					}
 					if(ret.resultContent)
 					{

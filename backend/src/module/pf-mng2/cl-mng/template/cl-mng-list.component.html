@@ -62,7 +62,13 @@
                     
                 </td>
                 <td [ngClass]="{'font-green':item.status == '1' ,'font-orange':item.status == '3'}">
-                    {{item.status| dict:this.commonService.globalStatus | async}}
+                    <!--{{item.status| dict:this.commonService.globalStatus | async}}-->
+                    <span [ngSwitch]="item.status"> 
+										<template [ngSwitchCase]="0">初始化</template>
+										<template [ngSwitchCase]="1">已启用</template>
+										<template [ngSwitchCase]="2">已禁用</template>
+										<template ngSwitchDefault>Unknown</template>							
+							</span>
                     </td>
                 <td>{{item.healthFlag}}</td>
             </tr>

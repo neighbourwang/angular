@@ -105,7 +105,15 @@ export class CaseMngService {
             }
         ];
         const api= this.restApiCfg.getRestApi("user-center.case-mng.basicInfo");
-        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        return this.restApi.request(api.method, api.url, pathParams, null, null).then(
+            res =>{
+                if (res && 100 == res["resultCode"]) {
+                    return res.resultContent;
+                } else {
+                    throw "error";
+                }
+            }
+        );
     }
 
     getHandelInfo(id: string): Promise<any>{
@@ -116,7 +124,15 @@ export class CaseMngService {
             }
         ];
         const api= this.restApiCfg.getRestApi("user-center.case-mng.handleInfo");
-        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        return this.restApi.request(api.method, api.url, pathParams, null, null).then(
+            res =>{
+                if (res && 100 == res["resultCode"]) {
+                    return res.resultContent;
+                } else {
+                    throw "error";
+                }
+            }
+        );
     }
 
     getClosedInfo(id: string): Promise<any>{
@@ -127,7 +143,15 @@ export class CaseMngService {
             }
         ];
         const api= this.restApiCfg.getRestApi("user-center.case-mng.closedInfo");
-        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        return this.restApi.request(api.method, api.url, pathParams, null, null).then(
+            res =>{
+                if (res && 100 == res["resultCode"]) {
+                    return res.resultContent;
+                } else {
+                    throw "error";
+                }
+            }
+        );
     }
 
 

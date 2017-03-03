@@ -11,15 +11,53 @@ export class CostPandectItem{
     status:string;//支付状态
  
 }
+export class  TimeCaculater{
+    private date : Date = new Date();
 
-export class  Time{
-    constructor(id:string,name:string) {
-        this.id = id;
-        this.name = name;
-    }
- 
-   id:string = null;
-   name:string = null;
+    private currentYear:number;
+	private currentMonth:number;
+
+	private years:Array<{id:number;name:number;}>=[];
+	private months:Array<{id:number;name:number;}>=[];
+
+   getCurrentYear(){
+		this.currentYear = this.date.getFullYear();
+		return this.currentYear;
+	}
+
+	getCurrentMonth(){
+		this.currentMonth = this.date.getMonth()+1;
+		return this.currentMonth;
+	} 
+
+//年份下拉列表
+	getYears(){
+		for(let i = 1999; i<=this.currentYear ; i++){
+			let year = {id:i,name:i};
+        	this.years.push(year);
+		}
+        return this.years;
+	}
+//月份下拉列表
+	getMonths(year:number){
+        let _months :number; 
+   
+        if( this.currentYear== year){
+            _months = this.currentMonth-1;
+        }
+        else{
+            _months = 12;
+        }
+        for(let i = 1; i<=_months ; i++){
+                let month = {id:i,name:i};
+                this.months.push(month);
+        }
+        return this.months;
+	}
+
+	getLastDay(year:number,month:number){
+		 return new Date(year,month,0).getDate();
+	}
 }
 
 //消费概览 云主机-物理机-数据库-云硬盘
@@ -45,7 +83,7 @@ num:string;//在消费中心中，作为月份 ,
 value:String;
 
 }
-export class  Chart{
+export  class  Chart{
  
     datas:Array<number> = [];
     datas2:Array<number> = [];//复合统计图的第二个数据，简单统计图不需要
@@ -60,11 +98,32 @@ export class  Chart{
     //         this.options = options;
     //     }
     // }
-    clear(){
-        this.datas = [];
-        this.datas2 = [];
-        this.colors = [];
-        this.labels = [];
-        this.options = null;
-    }
+    
 }
+
+export class Chart1{
+     datasets:Array<any> = [];
+     labels:Array<any> = [];
+     colors:Array<any> = [];
+     chartType:string;
+     options:any;
+    creatChart(chartType,datasets?:Array<any>,labels?:Array<any>,colors?:Array<any>,options?:any){
+         this.chartType = chartType;
+         if(datasets){
+             this.datasets = datasets;
+         }
+         if(labels){
+             this.labels = labels;
+         }
+         if(colors){
+             this.colors = colors;
+         }
+         if(options){
+             this.options = options;
+         }
+        
+     };
+}
+
+
+

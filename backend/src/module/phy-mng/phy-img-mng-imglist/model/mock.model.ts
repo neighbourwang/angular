@@ -28,7 +28,7 @@ export const PhyImgListMock={
   ],
   "pageInfo": {
     "currentPage": 1,
-    "totalPage": 2,
+    "totalPage": 1,
     "pageSize": 1,
     "totalRecords": 1
   }

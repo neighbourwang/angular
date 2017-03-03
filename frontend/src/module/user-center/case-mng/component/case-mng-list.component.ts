@@ -44,7 +44,7 @@ export class CaseMngListComponent implements OnInit{
     noticeMsg = "";
 
     pageIndex= 1;
-    pageSize= 8;
+    pageSize= 10;
     totalPage= 1;
 
     statusDic: Array<SystemDictionary>;
@@ -75,7 +75,6 @@ export class CaseMngListComponent implements OnInit{
         console.log('init');
         //this.layoutService.show();
         this.getData();
-        console.log("typeDic",this.service.typeDic);
     }
 
     getData(pageIndex?) {
@@ -195,71 +194,23 @@ export class CaseMngListComponent implements OnInit{
         }
     }
 
-    getBasicInfo(item){
-        this.id= item.id;
-        this.layoutService.show();
-        this.service.getBasicInfo(this.id)
-            .then(
-                response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.basicInfo= response["resultContent"];
-                        console.log("basicInfo",this.basicInfo);
-                    } else {
-                        alert("Res sync error");
-                    }
-                }
-            )
-            .catch((e) => this.onRejected(e));
-}
-
-    getHandelInfo(item){
-        this.id= item.id;
-        this.layoutService.show();
-        this.service.getHandelInfo(this.id)
-            .then(
-                response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.handledInfo= response["resultContent"];
-                        console.log("handleInfo",response["resultContent"]);
-                    } else {
-                        alert("Res sync error");
-                    }
-                }
-            )
-            .catch((e) => this.onRejected(e));
-    }
-
-    getClosedInfo(item){
-        this.id= item.id;
-        this.layoutService.show();
-        this.service.getClosedInfo(this.id)
-            .then(
-                response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.closedInfo= response["resultContent"];
-                        console.log("closedInfo",this.closedInfo);
-                    } else {
-                        alert("Res sync error");
-                    }
-                }
-            )
-            .catch((e) => this.onRejected(e));
-    }
-
     getDetail(item){
-        this.basicInfo.status= "";
-        this.handledInfo= null;
-        this.getBasicInfo(item);
-        this.getClosedInfo(item);
-        this.getHandelInfo(item);
         this.id= item.id;
         this.subject= item.subject;
-        this.caseDetail.open("USER_CENTER.CASE_DETAIL^^^"+this.id+"^^^"+this.subject );
+        this.layoutService.show();
+        Promise.all([this.service.getBasicInfo(this.id), this.service.getHandelInfo(this.id), this.service.getClosedInfo(this.id)])
+            .then((arr) =>{
+                this.layoutService.hide();
+                this.basicInfo= arr[0];
+                this.handledInfo= arr[1];
+                this.closedInfo= arr[2];
+                this.caseDetail.open("USER_CENTER.CASE_DETAIL^^^"+this.id+"^^^"+this.subject);
+            }).catch((e) => this.onRejected(e));
     }
 
+    departCase(){
+        this.router.navigate([`user-center/case-mng/case-depart-list`]);
+    }
 
     showAlert(msg: string): void {
         this.layoutService.hide();
