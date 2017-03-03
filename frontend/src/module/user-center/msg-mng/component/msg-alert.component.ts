@@ -9,6 +9,7 @@ import { MsgAlertModel, MsgModel } from "../model/msg-alert.model";
 
 //Service
 import { MsgMngService } from "../service/msg-mng.service";
+import { unreadnumber } from "../service/msg-number.service";
 
 //Mock
 import { MsgModel_mock } from "../model/msg-alert.mock";
@@ -38,11 +39,12 @@ export class MsgAlertComponent implements OnInit {
     expand: boolean = false;
     ngOnInit(): void {
         this.getMsgAlert();
-        /*
+        unreadnumber.num = this.msgAlert.edge;
+        
         window.setInterval(() => {
             this.getMsgAlert();
+            unreadnumber.num = this.msgAlert.edge;
         }, 30000);
-        */        
     }
 
     offClickHandler(event) {
@@ -59,7 +61,7 @@ export class MsgAlertComponent implements OnInit {
         this.service.getMsgListStatus(1,5,'0')
             .then(
             response => {
-                console.log(response, "response")
+                console.log(response, "msgAlert response")
                 if (response && 100 == response["resultCode"]) {
                     this.msgAlert.edge = response.pageInfo.totalRecords;
                     this.msgAlert.list = response.resultContent;
