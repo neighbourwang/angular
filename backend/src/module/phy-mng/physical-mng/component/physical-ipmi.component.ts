@@ -129,14 +129,11 @@ export class PhysicalIpmiComponent implements OnInit {
                 this.layoutService.hide();
                if(response && 100 == response["resultCode"]){
                     this.layoutService.hide();
-                    //this.testResult=response["resultContent"];
-                    console.log("testResult",response["resultContent"]);
-                   // console.log(response["resultCode"]);
                     if(response["resultContent"]){
                         this.showAlert("PHYSICAL_MNG.SUCCEED_TEST_ILO_INFO");
                     }
                     else{
-                        this.showAlert("ILO信息不正确，请重新填写ILO信息！");
+                        this.showAlert("PHYSICAL_MNG.PLEASE_REINPUT_ILO_INFO");
                     }                 
                }                                        
             }

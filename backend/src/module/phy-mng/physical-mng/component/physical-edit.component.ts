@@ -43,6 +43,7 @@ export class PhysicalEditComponent implements OnInit {
     defaultBrand = new Brand(); //空品牌
     selectedBrand: Brand = this.defaultBrand;
     poolId:string;
+    diskValue:boolean;
   
     ngOnInit() {
         this.activeRoute.params.forEach((params: Params) => {
@@ -140,6 +141,16 @@ export class PhysicalEditComponent implements OnInit {
     //      event.target.value= event.target.value.replace(/[^(\d|.)]/g,"");
 
     // }
+    //判断磁盘规格值是否为空
+    notNull(disk:Disk) {
+       if(!disk.value){
+           this.diskValue=false;
+           this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_DISK_VALUE");
+       }
+       else{
+           this.diskValue=true;
+       }
+    }
 
     //添加物理机
     createPhysical() {
@@ -171,6 +182,7 @@ export class PhysicalEditComponent implements OnInit {
             this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_SERVER_TYPE");
             return false;
         }
+       
               
         this.physical.brandId = this.selectedBrand.id;
         this.physical.pmPoolId=this.poolId;
@@ -182,6 +194,10 @@ export class PhysicalEditComponent implements OnInit {
             this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_SERVER_MODEL");
             return false;
         }
+       if(!this.diskValue){
+           this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_DISK_VALUE");
+           return false;
+       }
          
         this.dictPipe.transform(this.physical.sererTypeId,this.service.dictServerType)
             .then(
@@ -211,7 +227,7 @@ export class PhysicalEditComponent implements OnInit {
                         );        
     }
 
-    //读取物理机信息
+    //读取物理机硬件信息
     readHardwareInfo() {
         
        if(this.physical.iloIPAddress && this.physical.iloPwd && this.physical.iloUserName){
