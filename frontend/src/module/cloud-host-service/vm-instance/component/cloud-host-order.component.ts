@@ -110,6 +110,7 @@ export class cloudHostComponentOrder implements OnInit {
 				this.configs[config.attrCode.toLowerCase()] = config;
 				this.setSenModule(config);
 			});
+			this.configs["bootstorage"] = this.configs["storage"];  //临时添加
 			this.sendModule.username.attrValue = "root";
 			console.log(this.sendModule, this.configs)
 
@@ -424,22 +425,6 @@ console.log(this.vmProduct)
 		return filteredList;
 	}
 
-	addCart() {   //加入购物车
-		if (!this.checkInput()) return;
-		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
-		console.log(payLoadArr, JSON.stringify(payLoadArr))
-		// console.log(JSON.stringify(payLoad))
-		this.layoutService.show();
-		this.service.addCart(payLoadArr).then(res => {
-			this.layoutService.hide();
-			this.noticeDialog.open("","CLOUD_DRIVE_ORDER.SUCCESSFULLY_ADDED_TO_SHOPPING_CART");
-			this.cartButton.setCartList();
-			// this.router.navigateByUrl("cloud-host-service/cloud-host-list");
-		}).catch(res => {
-			this.layoutService.hide();
-		})
-	}
-
 
 	checkValue(value?: string) { //动态验证
 		const isinv = value => value === "";
@@ -503,21 +488,67 @@ console.log(this.vmProduct)
 		return true;
 	}
 
+	checkQuota():Promise<boolean> {  //计算配额
+		const compare = (big, small) =>  +big >= +small;  //比较大小
+		const argAllTrue = (...arg:boolean[]) => arg.filter(r => r).length === arg.length;    //传来的参数全为真
+
+		return Promise.all([this.service.getPlatformQuota(this.sendModule.platform.attrValue), this.service.getQuotaResoure()]).then(res => {
+			const [platformQuota, quotaResoure] = res;
+			
+			return argAllTrue(
+				compare(quotaResoure.mem || 0 - quotaResoure.usedMem || 0, this.sendModule.mem.attrValue),
+				compare(quotaResoure.vcpu || 0 - quotaResoure.usedCpu || 0, this.sendModule.cpu.attrValue),
+				compare(platformQuota.memory || 0, this.sendModule.mem.attrValue),
+				compare(platformQuota.cpu || 0, this.sendModule.cpu.attrValue),
+			)
+		})
+	}
+
 	goTo(url: string) {
 		this.router.navigateByUrl(url);
 	}
-	buyNow() {
-		if (!this.checkInput()) return;
+
+	submitCheck():Promise<PayLoad[]>{  //检测是否可以提交订单
 		this.layoutService.show();
-		let payLoadArr = this.payLoadFormat();   //获取最新的的payload的对象
-		console.log(payLoadArr, JSON.stringify(payLoadArr))
-		this.service.saveOrder(payLoadArr).then(res => {
+		return this.checkQuota().then(isEnoughQuota => {
 			this.layoutService.hide();
-			this.router.navigate(['cloud-host-service/cart-order/', JSON.stringify(res)]);
+			if(!isEnoughQuota) {
+				this.showNotice("提示","部门或平台配额不足, 无法完成购买！");
+				return;
+			}
+
+			if (!this.checkInput()) return;
+			return this.payLoadFormat();   //获取最新的的payload的对象
+			
 		}).catch(res => {
 			this.layoutService.hide();
 		})
 	}
+
+	addCart() {   //加入购物车
+		this.submitCheck().then(payLoadArr => {
+			this.layoutService.show();
+			return this.service.addCart(payLoadArr).then(res => {
+				this.layoutService.hide();
+				this.noticeDialog.open("","CLOUD_DRIVE_ORDER.SUCCESSFULLY_ADDED_TO_SHOPPING_CART");
+				this.cartButton.setCartList();
+				// this.router.navigateByUrl("cloud-host-service/cloud-host-list");
+			}).catch(res => {
+				this.layoutService.hide();
+			})
+		});
+	}
+	buyNow() {
+		this.submitCheck().then(payLoadArr => {
+			this.layoutService.show();
+			this.service.saveOrder(payLoadArr).then(res => {
+				this.layoutService.hide();
+				this.router.navigate(['cloud-host-service/cart-order/', JSON.stringify(res)]);
+			}).catch(error => {
+				this.layoutService.hide();
+			})
+		})
+	};
 
 
 	// 警告框相关

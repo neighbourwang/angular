@@ -2,12 +2,12 @@
     {{ 'MENU.CASE_MNY' | translate}}
 </div>
 <div class="mgb20 row">
-    <div class="col-md-3 btn-group" data-toggle="buttons">
+    <div class="col-md-4 btn-group" data-toggle="buttons">
         <button class="btn btn-default active">
-            <input type="radio" checked> 我的工单
+            <input type="radio" checked> {{ 'USER_CENTER.MY_CASE' | translate}}
         </button>
         <button class="btn btn-default" (click)="departCase();">
-            <input type="radio" > 部门工单
+            <input type="radio" > {{ 'USER_CENTER.DEPART_CASE' | translate}}
         </button>
     </div>
 </div>
@@ -51,8 +51,8 @@
             <th class="text-center">{{ 'USER_CENTER.EMERGENCY' | translate}} </th>
             <th class="text-center">{{ 'USER_CENTER.CONTACTOR' | translate}}</th>
             <th class="text-center">{{ 'USER_CENTER.CONTACNO' | translate}} </th>
-            <th class="text-center">{{ 'USER_CENTER.SUBMIT_TIME' | translate}}</th>
-            <th class="text-center">{{ 'USER_CENTER.UPDATE_TIME' | translate}}</th>
+            <th class="text-center" style="width:155px">{{ 'USER_CENTER.SUBMIT_TIME' | translate}}</th>
+            <th class="text-center" style="width:155px">{{ 'USER_CENTER.UPDATE_TIME' | translate}}</th>
             <th class="text-center">{{ 'COMMON.OPERATION' | translate }} </th>
         </tr>
     </thead>
@@ -126,45 +126,44 @@
 </fc-popup>
 
 <fc-popup #caseDetail title="{{ title }}" ot="" ct="">
- <!--   <div *ngIf="basicInfo.status != ''">-->
-        <div class="mgb10">{{ 'USER_CENTER.BASIC_INFO' | translate}}</div>
-        <table class="cm-table-left table table-all-boder">
-            <tbody>
-            <tr>
-                <th class="col-md-2 text-center">{{ 'USER_CENTER.SUBJECT' | translate}}</th>
-                <td colspan="3">{{basicInfo.subject}}</td>
-            </tr>
-            <tr>
-                <th class="col-md-2 text-center">{{ 'COMMON.STATUS' | translate }}</th>
-                <td>{{basicInfo.statusName}}</td>
-                <th class="col-md-2 text-center">{{ 'USER_CENTER.TYPE' | translate}}</th>
-                <td>{{basicInfo.typeName}}</td>
-            </tr>
-            <tr>
-                <th class="col-md-2 text-center">{{ 'USER_CENTER.CONTACTOR' | translate}}</th>
-                <td>{{basicInfo.contact}}</td>
-                <th class="col-md-2 text-center">{{ 'USER_CENTER.CONTACNO' | translate}}</th>
-                <td>{{basicInfo.contactNo}}</td>
-            </tr>
-            <tr>
-                <th class="col-md-2 text-center">{{ 'USER_CENTER.SUBMITOR' | translate}}</th>
-                <td>{{basicInfo.creatorName}}</td>
-                <th class="col-md-2 text-center">{{ 'USER_CENTER.SUBMIT_TIME' | translate}}</th>
-                <td>{{basicInfo.updateDate}}</td>
-            </tr>
-            <tr>
-                <th class="col-md-2 text-center">{{ 'USER_CENTER.DEPARTMENT_OWNED' | translate}}</th>
-                <td>{{basicInfo.creatorOrganization}}</td>
-                <th class="col-md-2 text-center">{{ 'USER_CENTER.ENTERPRISE_OWNED' | translate}}</th>
-                <td>{{basicInfo.creatorTenant}}</td>
-            </tr>
-            <tr>
-                <th class="col-md-2 text-center table-text-middle" height="80px">{{ 'USER_CENTER.DESCRIPTION' | translate}}</th>
-                <td colspan="3" height="80px">{{basicInfo.details}}</td>
-            </tr>
-            </tbody>
-        </table>
-   <!-- </div>-->
+    <div class="mgb10">{{ 'USER_CENTER.BASIC_INFO' | translate}}</div>
+    <table class="cm-table-left table table-all-boder">
+        <tbody>
+        <tr>
+            <th class="col-md-2 text-center">{{ 'USER_CENTER.SUBJECT' | translate}}</th>
+            <td colspan="3">{{basicInfo.subject}}</td>
+        </tr>
+        <tr>
+            <th class="col-md-2 text-center">{{ 'COMMON.STATUS' | translate }}</th>
+            <td>{{basicInfo.statusName}}</td>
+            <th class="col-md-2 text-center">{{ 'USER_CENTER.TYPE' | translate}}</th>
+            <td>{{basicInfo.typeName}}</td>
+        </tr>
+        <tr>
+            <th class="col-md-2 text-center">{{ 'USER_CENTER.CONTACTOR' | translate}}</th>
+            <td>{{basicInfo.contact}}</td>
+            <th class="col-md-2 text-center">{{ 'USER_CENTER.CONTACNO' | translate}}</th>
+            <td>{{basicInfo.contactNo}}</td>
+        </tr>
+        <tr>
+            <th class="col-md-2 text-center">{{ 'USER_CENTER.SUBMITOR' | translate}}</th>
+            <td>{{basicInfo.creatorName}}</td>
+            <th class="col-md-2 text-center">{{ 'USER_CENTER.SUBMIT_TIME' | translate}}</th>
+            <td>{{basicInfo.updateDate}}</td>
+        </tr>
+        <tr>
+            <th class="col-md-2 text-center">{{ 'USER_CENTER.DEPARTMENT_OWNED' | translate}}</th>
+            <td>{{basicInfo.creatorOrganization}}</td>
+            <th class="col-md-2 text-center">{{ 'USER_CENTER.ENTERPRISE_OWNED' | translate}}</th>
+            <td>{{basicInfo.creatorTenant}}</td>
+        </tr>
+        <tr>
+            <th class="col-md-2 text-center table-text-middle" height="80px">{{ 'USER_CENTER.DESCRIPTION' | translate}}</th>
+            <td colspan="3" height="80px">{{basicInfo.details}}</td>
+        </tr>
+        </tbody>
+    </table>
+
 
     <div *ngIf="handledInfo != null">
         <div *ngIf="handledInfo != ''" class="mgb10 mgt10">{{ 'USER_CENTER.HANDLED_INFO' | translate}}</div>

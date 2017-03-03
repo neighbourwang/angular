@@ -139,6 +139,12 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/platforms/{platformid}/enterprise/{enterpriseId}/subinstance/computes/{uuid}/vnc"
     },
     {
+        "desc": "获取平台的配额",
+        "method": "GET",
+        "id": "fetch.platforms.quotas",
+        "url": "marketplace/authsec/platforms/{platformId}/resouces/quotas"
+    },
+    {
         "desc": "获取云主机详细信息",
         "method": "GET",
         "id": "hosts.instance.detail",

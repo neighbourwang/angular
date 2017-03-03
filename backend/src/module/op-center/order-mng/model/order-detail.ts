@@ -16,7 +16,7 @@ export class OrderDetailItem {
   platform:string = null;//平台
   zone:string = null;//可用区
   specification:string = null;//配置
-  instanceName:string = null;//实例名称
+  instanceName:string = '';//实例名称
   description:string;//说明,接口里无字段，之前用已有字段代替的
   billingModeName:string = null;//计费模式
 

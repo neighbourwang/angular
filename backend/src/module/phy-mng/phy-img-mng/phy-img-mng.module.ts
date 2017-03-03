@@ -5,7 +5,7 @@ import { CommonComponentModule, PipeModule} from '../../../architecture';
 
 //Components
 import { PhyImgMngComponent } from './component/phy-img-mng.component';
-
+import { PhyImgMngAllocateComponent} from './component/phy-img-mng-allocate.component';
 // Routing
 import { PhyImgRouting } from './phy-img-mng.routing';
 
@@ -18,10 +18,11 @@ import { PhyImgSourceService} from './service/phy-img-source.service'
     ],
     declarations: [
         PhyImgMngComponent,
-
+        PhyImgMngAllocateComponent
     ],
     exports: [
-        PhyImgMngComponent
+        PhyImgMngComponent,
+        PhyImgMngAllocateComponent
     ],
     providers: [PhyImgSourceService]
 

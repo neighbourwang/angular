@@ -356,7 +356,8 @@ export class OrderMngComponent implements OnInit{
 
 	//自动续订
 	autoRenew(orderItem:SubInstanceResp){
-		this.AutoRenewDialog.open('已购服务自动续订：577321629990001');
+		this.selectedOrderItem = orderItem;
+		this.AutoRenewDialog.open('已购服务自动续订：' + this.selectedOrderItem.orderNo);
 	}
 
 	//选择续订	
