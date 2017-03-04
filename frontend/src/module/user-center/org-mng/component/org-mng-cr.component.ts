@@ -53,7 +53,7 @@ export class OrgMngCrComponent implements OnInit {
     this.countAvailable.floatIpQuota = this.curEntResource.floatIpQuota - this.curEntResource.usedFloatIpQuota;
     //计算MAX额度
     this.maxAvailable.vcpu = this.curEntResource.cpuQuota - this.curEntResource.usedCpuQuota + this.resource.vcpu;
-    this.maxAvailable.mem = this.curEntResource.memQuota - this.curEntResource.usedMemQuota + this.resource.transforMem;
+    this.maxAvailable.mem = this.curEntResource.memQuota - this.curEntResource.usedMemQuota + this.resource.mem;
     this.maxAvailable.physical = this.curEntResource.physicalMachineQuota - this.curEntResource.usedPhysicalMachineQuota + this.resource.physical;
     this.maxAvailable.storage = this.curEntResource.storageQuota - this.curEntResource.usedStorageQuota + this.resource.storage;
     this.maxAvailable.snapshot = this.curEntResource.snapshotQuota - this.curEntResource.usedSnapshotQuota + this.resource.snapshot;
@@ -74,14 +74,12 @@ export class OrgMngCrComponent implements OnInit {
           console.log("部门资源", res);       
           this.resource = res.resultContent;
           res.resultContent.mem=
-            res.resultContent.mem?res.resultContent.mem:0;
+            res.resultContent.mem?res.resultContent.mem/1024:0;
           res.resultContent.usedMem=
-            res.resultContent.usedMem?res.resultContent.usedMem:0;
-          this.resource.transforMem=res.resultContent.mem/1024;
-          this.resource.transforUserdMem=res.resultContent.usedMem/1024;
+            res.resultContent.usedMem?res.resultContent.usedMem/1024:0;
           //计算MAX额度
           this.maxAvailable.vcpu = this.curEntResource.cpuQuota - this.curEntResource.usedCpuQuota + this.resource.vcpu;
-          this.maxAvailable.mem = this.curEntResource.memQuota - this.curEntResource.usedMemQuota + this.resource.transforMem;
+          this.maxAvailable.mem = this.curEntResource.memQuota - this.curEntResource.usedMemQuota + this.resource.mem;
           this.maxAvailable.physical = this.curEntResource.physicalMachineQuota - this.curEntResource.usedPhysicalMachineQuota + this.resource.physical;
           this.maxAvailable.storage = this.curEntResource.storageQuota - this.curEntResource.usedStorageQuota + this.resource.storage;
           this.maxAvailable.snapshot = this.curEntResource.snapshotQuota - this.curEntResource.usedSnapshotQuota + this.resource.snapshot;
@@ -140,8 +138,8 @@ export class OrgMngCrComponent implements OnInit {
     this.org.resource = this.resource;
     console.log(this.org);
     if (this.orgForm.valid || this.org.isDefault) {
-      this.org.resource.mem =this.org.resource.transforMem*1024;
-      this.org.resource.usedMem =this.org.resource.transforUserdMem*1024;
+      this.org.resource.mem *=1024;
+      this.org.resource.usedMem *=1024;
       if (!this.isEdit) {
         console.log('new', this.org)
         this.layoutService.show();
@@ -169,11 +167,12 @@ export class OrgMngCrComponent implements OnInit {
 
   //同步countBar数据
   outputValue(e, arg1, arg2) {
-    console.log(e,arg1,arg2);
     this.resource[arg1] = e;
     if (this.maxAvailable[arg1] - e >= 0) {
       this.countAvailable[arg2] = this.maxAvailable[arg1] - e;
     }
+    console.log(this.resource[arg1]);
+    console.log(this.countAvailable[arg2]);
   }
 
 }
