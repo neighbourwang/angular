@@ -110,13 +110,13 @@ export class EntEstCheckComponent implements OnInit {
       {
         let obj = new EntEstCreResourceQuota();
         target.push(obj);
-        obj.usedCpuRate = item.usedCpuRate;//CPU配额使用率
-        obj.usedFloatIpRate= item.usedFloatIpRate;// 浮动IP配额配额
-        obj.usedImageRate = item.usedImageRate;//镜像配额使用率
-        obj.usedMemRate  = item.usedMemRate;//内存使用率
-        obj.usedPhysicalMachineRate = item.usedPhysicalMachineRate;//物理机配额使用率
-        obj.usedSnapshotRate = item.usedSnapshotRate; //快照配额使用率
-        obj.usedStorageRate = item.usedStorageRate;//储存使用率
+        obj.usedCpuRate = item.usedCpuRate/100;//CPU配额使用率
+        obj.usedFloatIpRate= item.usedFloatIpRate/100;// 浮动IP配额配额
+        obj.usedImageRate = item.usedImageRate/100;//镜像配额使用率
+        obj.usedMemRate  = item.usedMemRate/100;//内存使用率
+        obj.usedPhysicalMachineRate = item.usedPhysicalMachineRate/100;//物理机配额使用率
+        obj.usedSnapshotRate = item.usedSnapshotRate/100; //快照配额使用率
+        obj.usedStorageRate = item.usedStorageRate/100;//储存使用率
               
          
           obj.enterpriseId = item.enterpriseId;// : string = null;//": "string",

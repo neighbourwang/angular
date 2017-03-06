@@ -150,6 +150,7 @@ export class OrgMngListComponent implements OnInit {
         this.service.deleteOrg(this.confirmOrg.id).then(
           res => {
             console.log(res);
+            this.service.getCurEntResource(this.service.curEntId);            
             this.getOrgs(0, 10);
           }
         ).catch(

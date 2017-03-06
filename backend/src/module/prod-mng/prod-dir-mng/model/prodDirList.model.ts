@@ -2,6 +2,11 @@
       "cpu": string;
       "mem": string;
       "bootStorageSize": string;
+      constructor(){
+          this.cpu='';
+          this.mem='';
+          this.bootStorageSize='';
+      }
     }
  class Proddir {
     createrName: string;

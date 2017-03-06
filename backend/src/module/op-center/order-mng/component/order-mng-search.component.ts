@@ -110,7 +110,7 @@ export class OrderMngSearchComponent implements OnInit{
 
 
 		//配置订单状态
-		this._orderStatusDic = new DicLoader(this.restApiCfg, this.restApi, "SUBINSTANCE", "STATUS");
+		this._orderStatusDic = new DicLoader(this.restApiCfg, this.restApi, "ORDER", "STATUS");
 
 		//配置订单加载
 		this._orderLoader = new ItemLoader<SearchOrderItem>(true, "ORDER_MNG.ORDER_LIST_DATA_ERROR", "op-center.order-mng.search-list.post", restApiCfg, restApi);

@@ -55,8 +55,8 @@ class Resource {
   "image": number;
   "ipaddress": number;
   "mem": number;
-  "transforMem": number;
-  "transforUserdMem":number;
+  // "transforMem": number;
+  // "transforUsedMem":number;
   "physical": number;
   "snapshot": number;
   "storage": number;
@@ -80,8 +80,6 @@ class Resource {
   this.image=0;
   this.ipaddress=0;
   this.mem=0;
-  this.transforMem=0;
-  this.transforUserdMem=0;
   this.physical=0;
   this.snapshot=0;
   this.storage=0;
