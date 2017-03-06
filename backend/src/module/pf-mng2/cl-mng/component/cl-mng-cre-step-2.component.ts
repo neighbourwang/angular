@@ -36,6 +36,8 @@ export class ClMngCreStep2Component implements OnInit {
     platformType: string;
     ngOnInit() {
         let platFormId: String = this.idService.getPlatformId();
+        //控制下一步disabled
+        this.creStep2Model.isNext = false;
         console.log('init');
         //获取平台类型
         this.router.params.forEach((params: Params) => {
@@ -78,6 +80,7 @@ export class ClMngCreStep2Component implements OnInit {
             error => {
                 this.creStep2Model.zones = 'fail';
                 this.creStep2Model.message = '同步可用区失败';
+                this.creStep2Model.isNext = true;
             }
             //     function(){
             //     this.creStep2Model.synchronize = 'fail';
@@ -85,8 +88,7 @@ export class ClMngCreStep2Component implements OnInit {
             // }
             )
 
-        //控制下一步disabled
-        this.creStep2Model.isNext = false;
+        
     }
 
 
@@ -117,6 +119,7 @@ export class ClMngCreStep2Component implements OnInit {
             error => {
                 this.creStep2Model.storages = 'fail';
                 this.creStep2Model.message = '同步存储失败';
+                this.creStep2Model.isNext = true;
             }
             )
     }
@@ -137,6 +140,7 @@ export class ClMngCreStep2Component implements OnInit {
             error => {
                 this.creStep2Model.flavors = 'fail';
                 this.creStep2Model.message = '同步云主机规格失败';
+                this.creStep2Model.isNext = true;
             }
             )
     }
@@ -179,6 +183,7 @@ export class ClMngCreStep2Component implements OnInit {
                     error => {
                         this.creStep2Model.images = 'fail';
                         this.creStep2Model.message = '同步镜像失败';
+                        this.creStep2Model.isNext = true;
                     }
                     )
 
@@ -187,6 +192,7 @@ export class ClMngCreStep2Component implements OnInit {
             error => {
                 this.creStep2Model.images = 'fail';
                 this.creStep2Model.message = '获取镜像失败';
+                this.creStep2Model.isNext = true;
             }
             )
     }
@@ -208,6 +214,7 @@ export class ClMngCreStep2Component implements OnInit {
             error => {
                 this.creStep2Model.hosts = 'fail';
                 this.creStep2Model.message = '同步宿主机失败';
+                this.creStep2Model.isNext = true;
             }
             )
     }
