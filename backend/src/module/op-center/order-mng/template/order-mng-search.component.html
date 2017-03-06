@@ -107,7 +107,7 @@
 						<td>{{item.orderNo}}</td>
 						<td>{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
 						<td>{{item.orderType | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
-						<td>{{item.status| dict:_dictServ.getDic('SUBINSTANCE', 'STATUS') | async}}</td>
+						<td>{{item.status| dict:_dictServ.getDic('ORDER', 'STATUS') | async}}</td>
 						<td>{{ 'COMMON.ONE_TIME_COSTS' | translate}}: {{ 'COMMON.$' | translate}}{{item.oncePrice}}<br>{{ 'COMMON.COST' | translate}}: {{ 'COMMON.$' | translate}}{{item.price}}<span *ngIf="item.serviceType==1">/GB</span>/{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}
 						</td>
 						<td>{{item.submitTime}}</td>

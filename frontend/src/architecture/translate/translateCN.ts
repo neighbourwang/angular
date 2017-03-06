@@ -651,6 +651,7 @@ export const TranslateCN = {
         PLEASE_SELECT_A_ADMINISTRATOR_USER: '请选择AD用户',
         SELECT_AT_LEAST_ONE_ROLE: '至少选择一个角色',
         PLEASE_SELECT_THE_INSTITUTION: '请选择所属机构',
+        CREATE_ACCOUNT:'创建账号',
         CREATE_MANAGER_ACCOUNT: '创建AD账号',
         CREAT_A_LOCAL_ACCOUNT: '创建本地账号',
         EDIT_MANAGER_ACCOUNT: '编辑AD账号',

@@ -66,9 +66,9 @@
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">{{ 'USER_CENTER.RAM_QUANTITY' | translate }} (GB)</div>
                             <div class="col-md-3 content-title" style="text-align : center">
-                                <count-bar [default]=0 [step]=0.5 [max]="maxAvailable.mem" [min]="resource.transforUsedMem||0" [disabled]=false [value]="resource.transforMem||0" (output)="outputValue($event,'transforMem','memQuota')"></count-bar>
+                                <count-bar [default]=0 [step]=0.5 [max]="maxAvailable.mem" [min]="resource.usedMem||0" [disabled]=false [value]="resource.mem||0" (output)="outputValue($event,'mem','memQuota')"></count-bar>
                             </div>
-                            <div class="col-md-3 content-title" style="text-align : center">{{resource.transforUsedMem||0}}</div>
+                            <div class="col-md-3 content-title" style="text-align : center">{{resource.usedMem||0}}</div>
                             <div class="col-md-3 content-title" style="text-align : center">{{countAvailable.memQuota||0}}</div>
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">

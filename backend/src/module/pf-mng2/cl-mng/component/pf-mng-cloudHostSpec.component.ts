@@ -85,6 +85,7 @@ export class CloudHostSpecComponent implements OnInit {
             this.layoutService.hide();
         })
     }
+    nof(){}
     //VMware新建云主机规格
     createFlavor(){
         this.createSepc.open();

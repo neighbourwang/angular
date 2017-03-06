@@ -1,4 +1,51 @@
 ﻿export const TranslateCN = {
+    "CAPACITY_MNG": {
+        //capacity-mng.html
+        "PRIVATE_CLOUD_PLATFORM_CAPACITY_MNG": "私有云平台容量管理",
+        "COMPUTE_RES": "计算资源",
+        "STORE_RES": "存储资源",
+        "GENERATE_REPORT": "生成报告",
+        "NUMBER": "编号",
+        "PLATFORM_NAME": "平台名称",
+        "REGION_BELONG_TO": "所属地域",
+        "DATA_CENTER_BELONG_TO": "所属数据中心",
+        "CLOUD_PLATFORM_TYPE": "云平台类型",
+        "URL": "访问地址",
+
+        //store-res.html
+        "STORE_RES_CAPACITY_MNG": "存储资源容量管理",
+        "CLOUD_PLATFORM_NAME": "云平台名称",
+        "PLATFORM_TYPE": "平台类型",
+        "BACK_TO_CAPACITY_MNG": "返回云平台容量管理",
+        "STORE_CAPACITY_INFO": "存储容量信息",
+        "NAME": "名称",
+        "DISPLAY_NAME": "显示名称",
+        "STORAGE_TYPE": "存储类型",
+        "TOTAL_CAPACITY": "总容量（GB）",
+        "COPIES": "副本数",
+        "QUOTA": "配额%",
+        "DISTRIBUTION_RATE": "分配率【云平台分配】",
+        "ACTUAL_UTILIZATION": "实际利用率",
+
+        //store-detail.html
+        "STORE_BACKEND_DETAIL": "存储后端详情",
+        "BACK_TO_STORE_RES": "返回存储资源容量管理",
+        "CLOUD_PLATFORM_AVAILABLE_CAPACITY": "云平台可分配容量",
+        "CLOUD_PLATFORM_HAS_ALLOCATED": "云平台已分配",
+        "STORAGE_ACTUAL_UTILIZATION": "存储实际利用率",
+        "CONTAIN": "包含",
+        "CLOUD_HOST_STARTUP_DISK": "云主机启动盘",
+        "CLOUD_HOST_STARTUP_DISK_OCCUPIED_CAPACITY": "云主机启动盘占用总容量",
+        "CLOUD_DISK": "云硬盘",
+        "CLOUD_DISK_OCCUPIED_CAPACITY": "云硬盘占用总容量",
+
+        //compute-res.html
+        "COMPUTE_RES_CAPACITY_MNG": "计算资源容量管理",
+        "AVAILABLE_ZONE_INFO": "可用区信息",
+        "PHYSICAL_CPU_CORE_NUMBER": "物理CPU总核数",
+        "CORE":"核"
+
+    },
     "CHECK_CENTER": {
         "ADVANCED_QUERY": "高级查询",
         "APPROVAL": "审批同意",
@@ -1305,7 +1352,8 @@
         "PLEASE_INPUT_SERVER_TYPE":"请选择服务器类型！",
         "PLEASE_INPUT_SERVER_BRAND":"请选择服务器品牌！",
         "PLEASE_INPUT_SERVER_MODEL":"请选择服务器型号！",
-        "":"",
+        "PLEASE_REINPUT_ILO_INFO":"ILO信息不正确，请重新填写ILO信息！",
+        "PLEASE_INPUT_DISK_VALUE":"请填写磁盘规格值！"
 
 
     },

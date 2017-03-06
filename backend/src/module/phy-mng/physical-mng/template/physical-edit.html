@@ -113,7 +113,7 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>{{'PHYSICAL_MNG.APTITUDE_NAME'|translate}}</th>
+                                            <th style="width:90px">{{'PHYSICAL_MNG.APTITUDE_NAME'|translate}}</th>
                                             <th>{{'PHYSICAL_MNG.SPEC'|translate}}</th>
                                             <th>{{'PHYSICAL_MNG.SPEC_VALUE'|translate}}</th>
                                         </tr>
@@ -142,7 +142,10 @@
                                         <tr *ngFor="let disks of( physical.pmHardwareDiskList ||[]);let idex=index" style="">
                                             <td [attr.rowspan]="physical.pmHardwareDiskList.length" *ngIf="idex===0"  style="background-color:white;">{{'PHYSICAL_MNG.DISK'|translate}}</td>
                                             <td>{{disks.version}}</td>
-                                            <td><input type="number" class="form-control" [(ngModel)]="disks.value" style="display:inline;width:90px;" min="1"> G</td>
+                                            <td *ngIf="eidtMode!='view'">
+                                                <input type="number" class="form-control" [(ngModel)]="disks.value" (blur)="notNull(disks)"style="display:inline;width:90px;" min="1"> G
+                                            </td>
+                                            <td  *ngIf="eidtMode=='view'">{{disks.value}} G</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -151,7 +154,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="eidtMode =='view'||eidtMode =='edit'">
+            <div *ngIf="eidtMode =='view'||eidtMode =='edit'" style="display:none;">
                 <div class="row row-line-height">
                     <div class="form-group">
                         <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.ORDER_INFO'|translate}}:</div>
