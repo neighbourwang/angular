@@ -107,17 +107,16 @@ export class ProdMngComponent implements OnInit {
             console.log('产品目录列表', response);
             // if (response && 100 == response.resultCode) {
             this.prodDirList = response.resultContent;
-            this.prodDirIdCre=response.resultContent[0].id;
-            this.prodDirTypeCre=response.resultContent[0].code;
+            if(response.resultContent[0]){
+                this.prodDirIdCre=response.resultContent[0].id;
+                this.prodDirTypeCre=response.resultContent[0].code;
+            }            
             for(let i=0;i<this.prodDirList.length;i++){
                 if(!this.ProdDirListService[i]){
                     this.prodDirList.slice(i,1);
                 }
             }
             console.log('filterparodlist',this.prodDirList);
-            // } else {
-
-            // }
         }).catch(err => {
             console.error(err)
         })

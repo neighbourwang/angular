@@ -9,10 +9,10 @@
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;">
             <div class="mgb20">
-                <div> 
+                <div style="width:50%;float: left"> 
                     {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.cpuQuota||0}}</span> {{ 'COMMON.CORE' | translate }}
                 </div>
-                <div>
+                <div style="width:50%;float: left">
                      {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.cpuQuota-service.entResourceObj.realUsedCpuQuota||0}}</span> {{ 'COMMON.CORE' | translate }}
                 </div>
                 <div style="clear : both">
@@ -33,10 +33,10 @@
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
-                <div > 
+                <div style="width:50%;float: left"> 
                     {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.memQuota||0}}</span>GB
                 </div>
-                <div >
+                <div style="width:50%;float: left">
                     {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.memQuota-service.entResourceObj.realUsedMemQuota||0}}</span>GB
                 </div>
                 <div style="clear : both">
@@ -55,10 +55,10 @@
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
-                <div> 
+                <div style="width:50%;float: left"> 
                      {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.physicalMachineQuota||0}}</span>
                 </div>
-                <div>
+                <div style="width:50%;float: left">
                      {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.physicalMachineQuota-service.entResourceObj.realUsedPhysicalMachineQuota||0}}</span>
                 </div>
                 <div style="clear : both">
@@ -76,10 +76,10 @@
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
-                <div> 
+                <div style="width:50%;float: left"> 
                      {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.storageQuota||0}}</span>GB
                 </div>
-                <div>
+                <div style="width:50%;float: left">
                      {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.storageQuota-service.entResourceObj.realUsedStorageQuota||0}}</span>GB
                 </div>
                 <div style="clear : both">
@@ -97,10 +97,10 @@
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
-                <div> 
+                <div style="width:50%;float: left"> 
                      {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.snapshotQuota||0}}</span>
                 </div>
-                <div>
+                <div style="width:50%;float: left">
                     {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.snapshotQuota-service.entResourceObj.realUsedSnapshotQuota||0}}</span>
                 </div>
                 <div style="clear : both">
@@ -118,10 +118,10 @@
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
-                <div> 
+                <div style="width:50%;float: left"> 
                     {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.imageQuota||0}}</span>
                 </div>
-                <div>
+                <div style="width:50%;float: left">
                     {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.imageQuota-service.entResourceObj.realUsedImageQuota||0}}</span>
                 </div>
                 <div style="clear : both">
@@ -139,10 +139,10 @@
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
-                <div> 
+                <div style="width:50%;float: left"> 
                      {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.floatIpQuota||0}}</span>
                 </div>
-                <div>
+                <div style="width:50%;float: left">
                     {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.floatIpQuota-service.entResourceObj.realUsedFloatIpQuota||0}}</span>
                 </div>
                 <div style="clear : both">
