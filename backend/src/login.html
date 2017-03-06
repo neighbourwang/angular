@@ -3,8 +3,9 @@
 <head>
 	<title>本地开发模式登录</title>
 	<style type="text/css">
-		.box {width: 300px; margin: 200px auto 0; font-family: "微软雅黑"}
-		input,select {width: 300px}
+		.box {width: 700px; margin: 200px auto 0; font-family: "微软雅黑"}
+		input,select {width: 300px; margin:0 auto; display: block;}
+		#history tr:hover { background: #f5f5f5 }
 	</style>
 </head>
 <body>
@@ -13,10 +14,12 @@
 	<div class="login-box">
 		<div class="main-center l-box">
 			<div class="l-block float-right">
-				<p><input id="l-username" placeholder="用户名" value="gavin@hpe.com" class="l-input" type="text" name=""></p>
-				<p><input id="l-password" placeholder="密码" value="12345" class="l-input" type="password" name=""></p>
+				<p><input id="l-username" placeholder="用户名" value="" class="l-input" type="text" name=""></p>
+				<p><input id="l-password" placeholder="密码" value="" class="l-input" type="password" name=""></p>
 				<div id="account-box" style="margin-bottom: 20px"></div>
 				<input id="submit-button" class="l-submit" type="submit" value="登录" name="">
+				<h4 style="margin-top:40px">登录历史(点击可填充用户名)</h4>
+				<table style="width: 100%; cursor: pointer;" id="history"></table>
 			</div>
 		</div>
 	</div>
@@ -29,6 +32,37 @@ void 0!==c?null===c?void r.removeAttr(a,b):e&&"set"in e&&void 0!==(d=e.set(a,c,b
 </script>
 <script type="text/javascript">
 "use strict";
+
+$.ajax({
+        url: `http://15.114.100.36:8999/account`,
+        type: "GET",
+        crossDomain: true,
+        success: function (response) {
+			response = response.filter(res => res.type === "backend");
+			let html = "";
+			response.forEach(res => {
+				html += `
+				<tr>
+					<td>账号: ${res.account}</td>
+					<td>密码: ${res.password}</td>
+					<td>登录时间: ${new Date(+res.time).toString().match(/(201\d\s.*?)\s/)[1]}</td>
+				</tr>
+				`;
+			})
+			$("#history").html(html);
+			$("#history tr").each(function(i){
+				$(this).click(res => {
+					$("#l-username").val(response[i].account);
+					$("#l-password").val(response[i].password);
+				})
+			})
+        }
+});
+
+$("#l-username").val(localStorage["local-username"]);
+$("#l-password").val(localStorage["local-password"]);
+
+
 const C = {
 	publicPath : "/public",
 	imgPath : "/public/images",
@@ -96,6 +130,21 @@ $("#submit-button").click(function(){
         crossDomain: true,
         success: function (response) {
 			const token = "bearer " + response.access_token;
+
+			//设置用户名	
+			$.ajax({
+		        url: `http://15.114.100.36:8999/account`,
+		        type: "POST",
+		        crossDomain: true,
+		        data: {
+		        	type:"backend", 
+		        	time: new Date().getTime(),
+		        	password : password,
+		        	account: username
+		        }
+		    });
+		    localStorage["local-username"] = username;
+		    localStorage["local-password"] = password;
 
 			$.ajax({   //获取用户的登录信息
 	            url: `http://${C.baseIp}:${C.basePort}/basis/authsec/adm/user/current` ,
