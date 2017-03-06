@@ -1,9 +1,8 @@
 ﻿<div class="page-content-header icon-content-header-operation-center">
-    宿主机详情
-   
+    {{'CAPACITY_MNG.HOST_DETAIL'|translate}}<!--宿主机详情-->
    
    <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" (click)="BacktoComputeRes()">
-       返回计算资源容量管理
+       {{'CAPACITY_MNG.BACK_TO_COMPUTE_RES'|translate}}<!--返回计算资源容量管理-->
     </button>
 </div>
 <div class="page-content">
@@ -11,14 +10,14 @@
         <table class="table table-hover" >
             <thead>
                 <tr>
-                    <th>宿主机名称</th>
-                    <th>物理CPU核数</th>
-                    <th>内存(GB)</th>
-                    <th>虚拟CPU（实际已分配）</th>
-                    <th>内存（实际已分配)</th>
-                    <th>实例数量</th>
-                    <th>状态</th>
-                    <th>状况</th>
+                    <th>{{'CAPACITY_MNG.HOST_NAME'|translate}}</th><!--宿主机名称-->
+                    <th>{{'CAPACITY_MNG.PHYSICAL_CPU_CORES'|translate}}</th><!--物理CPU核数-->
+                    <th>{{'CAPACITY_MNG.MEMORY_GB'|translate}}</th><!--内存(GB)-->
+                    <th>{{'CAPACITY_MNG.VIRTUAL_CPU'|translate}}</th><!--虚拟CPU（实际已分配）-->
+                    <th>{{'CAPACITY_MNG.ACTUAL_ALLOCATED_MEMORY'|translate}}</th><!--内存（实际已分配)-->
+                    <th>{{'CAPACITY_MNG.INSTANCE_NUMBER'|translate}}</th><!--实例数量-->
+                    <th>{{'COMMON.STATUS'|translate}}</th><!--状态-->
+                    <th>{{'CAPACITY_MNG.SITUATION'|translate}}</th><!--状况-->
                 </tr>
             </thead>
             <tbody>
@@ -57,35 +56,35 @@
     <div class="row mgt10" >
         <div class="col-md-2">
             <select class="form-control" [ngModel]="Period">
-                <option [value]="1">最近24小时</option>
-                <option [value]="7">最近7天</option>
-                <option [value]="30">最近30天</option>
-                <option [value]="90">最近90天</option>
-                <option [value]="180">最近180天</option>
-                <option [value]="360">最近360天</option>
+                <option [value]="1">{{'CAPACITY_MNG.LAST_24_HOURS'|translate}}</option><!--最近24小时-->
+                <option [value]="7">{{'CAPACITY_MNG.LAST_7_DAYS'|translate}}</option><!--最近7天-->
+                <option [value]="30">{{'CAPACITY_MNG.LAST_30_DAYS'|translate}}</option><!--最近30天-->
+                <option [value]="90">{{'CAPACITY_MNG.LAST_90_DAYS'|translate}}</option><!--最近90天-->
+                <option [value]="180">{{'CAPACITY_MNG.LAST_180_DAYS'|translate}}</option><!--最近180天-->
+                <option [value]="360">{{'CAPACITY_MNG.LAST_360_DAYS'|translate}}</option><!--最近360天-->
             </select>
         </div>
         <div class="col-md-2">
-            <button class="fox-cloud-button fox-cloud-button-white" (click)="refresh()">刷新</button>
+            <button class="fox-cloud-button fox-cloud-button-white" (click)="refresh()">{{'CAPACITY_MNG.REFRESH'|translate}}</button><!--刷新-->
         </div>       
     </div>
     <div class="mgt15" style="font-size:18px;">
         <div class="row row-line-height" style="margin:0;">
-            <div class="col-md-3">CPU平均使用率：{{hostInfo.cpuAverage}}%</div>
-            <div class="col-md-3">CPU峰值使用率：{{hostInfo.cpuPeak}}%</div>
-            <div class="col-md-6">CPU峰值记录时间：{{hostInfo.cpuPeakTime}}</div>
+            <div class="col-md-3">{{'CAPACITY_MNG.CPU_AVERAGE_UTILIZATION'|translate}}：{{hostInfo.cpuAverage}}%</div><!--CPU平均使用率-->
+            <div class="col-md-3">{{'CAPACITY_MNG.CPU_PEAK_VALUE_UTILIZATION'|translate}}：{{hostInfo.cpuPeak}}%</div><!--CPU峰值使用率-->
+            <div class="col-md-6">{{'CAPACITY_MNG.CPU_PEAK_TIME'|translate}}：{{hostInfo.cpuPeakTime}}</div><!--CPU峰值记录时间-->
         </div>
         <div class="row row-line-height" style="margin:0;">
-            <div class="col-md-3">内存平均使用率：{{hostInfo.memoryAverage}}%</div>
-            <div class="col-md-3">内存峰值使用率：{{hostInfo.memoryPeak}}%</div>
-            <div class="col-md-6">内存峰值记录时间：{{hostInfo.memoryPeakTime}}</div>
+            <div class="col-md-3">{{'CAPACITY_MNG.MEMORY_AVERAGE_UTILIZATION'|translate}}：{{hostInfo.memoryAverage}}%</div><!--内存平均使用率-->
+            <div class="col-md-3">{{'CAPACITY_MNG.MEMORY_PECK_VALUE_UTILIZATION'|translate}}：{{hostInfo.memoryPeak}}%</div><!--内存峰值使用率-->
+            <div class="col-md-6">{{'CAPACITY_MNG.MEMORY_PEAK_TIME'|translate}}：{{hostInfo.memoryPeakTime}}</div><!--内存峰值记录时间-->
         </div>
     </div>
     <div class="row mgt20">
         <div class="col-md-6">
             <div class="panel panel-default" >
                 <div class="panel-heading">
-                    <h3 class="panel-title">CPU使用率</h3>
+                    <h3 class="panel-title">{{'CAPACITY_MNG.CPU_UTILIZATION'|translate}}</h3><!--CPU使用率-->
                 </div>
                 <div class="panel-body">
                     <canvas baseChart
@@ -101,7 +100,7 @@
         <div class="col-md-6">
             <div class="panel panel-default" >
                 <div class="panel-heading">
-                    <h3 class="panel-title">内存使用率</h3>
+                    <h3 class="panel-title">{{'CAPACITY_MNG.MEMORY_UTILIZATION'|translate}}</h3><!--内存使用率-->
                 </div>
                 <div class="panel-body">
                     <canvas baseChart
