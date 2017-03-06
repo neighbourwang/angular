@@ -1353,6 +1353,7 @@
         "PLEASE_INPUT_SERVER_BRAND":"请选择服务器品牌！",
         "PLEASE_INPUT_SERVER_MODEL":"请选择服务器型号！",
         "PLEASE_REINPUT_ILO_INFO":"ILO信息不正确，请重新填写ILO信息！",
+        "PLEASE_READ_ILO_INFO":"请读取物理机硬件信息！",
         "PLEASE_INPUT_DISK_VALUE":"请填写磁盘规格值！"
 
 
