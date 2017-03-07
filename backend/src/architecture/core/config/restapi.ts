@@ -823,6 +823,16 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.cost-pandect.increase-department-top.post",
         "method": "POST",
         "url": "adminui/authsec/enterprise/department/order/increase/count/top"
+    },{
+        "desc": "消费管理-所有服务",
+        "id": "op-center.order-mng.cost-pandect.all-service.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterrpise/subinstance/bill"
+    },{
+        "desc": "消费管理-新增服务",
+        "id": "op-center.order-mng.cost-pandect.increase-service.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterrpise/subinstance/increase/bill"
     },
 
     //<!--后台-运营中心-订单管理-->
