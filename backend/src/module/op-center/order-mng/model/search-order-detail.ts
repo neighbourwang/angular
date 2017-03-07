@@ -16,6 +16,7 @@ export class SearchOrderDetail{
 	statusName:string = null;
 	type:number = null;//订单类型??
 	typeName:string = null;//订单类型
+	extendType : string;//自动续订方式
 	orderInstanceItems:[{//订单历史表格
 		departmentName: string;//, optional): 所属部门 ,
 		desc: string;//, optional): 说明 ,
@@ -23,7 +24,6 @@ export class SearchOrderDetail{
 		operator: string;//, optional): 执行者 ,
 		status: string;//, optional): 订单状态
 		statusName:string;
-
 	}]; //(Array[OrderHistoryItem], optional):  ,
 	subInstanceList:Array<SubInstanceItemResp1>;//已购服务表格
 }
