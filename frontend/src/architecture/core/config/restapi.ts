@@ -375,7 +375,18 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.ent-type.get",
         "method": "GET",
         "url": "adminui/authsec/user/currentuser"
-    },//消费总览
+    },
+    {
+        "desc": "消费管理-所有服务",
+        "id": "op-center.order-mng.cost-pandect.all-service.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterrpise/subinstance/bill"
+    },{
+        "desc": "消费管理-新增服务",
+        "id": "op-center.order-mng.cost-pandect.increase-service.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterrpise/subinstance/increase/bill"
+    },,//消费总览
     //用户中心
     //个人账户管理
     {

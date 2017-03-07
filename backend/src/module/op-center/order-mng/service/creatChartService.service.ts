@@ -9,10 +9,10 @@ import * as _ from 'underscore';
 @Injectable()
 export class CreatChartService{
 
-    // private sumchart = new Chart1();
-    // private historychart = new Chart1();
-    // private topchart = new Chart1();
-    // private topIncreasechart = new Chart1();
+    private sumchart = new Chart1();
+    private historychart = new Chart1();
+    private topchart = new Chart1();
+    private topIncreasechart = new Chart1();
 	constructor(
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi,
@@ -42,7 +42,7 @@ export class CreatChartService{
     }
 
     createHstoryBar(){ 
-        let historychart = new Chart1();
+        // let historychart = new Chart1();
         let type ='bar'; 
         let colors = [
                         {
@@ -109,16 +109,17 @@ export class CreatChartService{
                                     spanGaps: false
                                 }
                         ];
-        historychart.creatChart(type,datasets,null,colors,options);
-        return historychart;
+        let labels =['1月','2月','3月','4月','5月'];
+        this.historychart.creatChart(type,datasets,labels,colors,options);
+        return this.historychart;
     }
 
     createTopBar(){
-        let topchart = new Chart1();
+        // let topchart = new Chart1();
         let type ='horizontalBar'; 
         let datasets=[{
             label:'消费总额',
-            data: [100,200,400,500,250]
+            data: [100,200,400,250]
                             
         }];
         let colors  = [
@@ -147,12 +148,13 @@ export class CreatChartService{
                                     }]
                                 }
                 };
-            topchart.creatChart(type,datasets,null,colors,options);
-            return topchart;
+            let labels =['1月','2月','3月','4月'];
+            this.topchart.creatChart(type,datasets,labels,colors,options);
+            return this.topchart;
             
 }
     createTopIncreaseBar(){
-        let topIncreasechart = new Chart1();
+        // let topIncreasechart = new Chart1();
         let type ='horizontalBar'; 
         let datasets=[{
             label:'消费总额',
@@ -185,8 +187,9 @@ export class CreatChartService{
                                     }]
                                 }
                 };
-            topIncreasechart.creatChart(type,datasets,null,colors,options);
-            return topIncreasechart;
+            let labels =['1月','2月','3月','4月','5月'];
+            this.topIncreasechart.creatChart(type,datasets,labels,colors,options);
+            return this.topIncreasechart;
             
 }
 

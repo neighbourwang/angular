@@ -85,6 +85,10 @@ export class PhyCreatComponent implements OnInit{
             this.showAlert("PHY_MNG_POOL.PLEASE_INPUT_POOLNAME");
             return;
         }
+        if(this.validationService.isBlank(this.data.regionId)){
+            this.showAlert("PHY_MNG_POOL.PLEASE_SELECT_REGION");
+            return;
+        }
         if(this.validationService.isBlank(this.data.dataCenter)){
             this.showAlert("PHY_MNG_POOL.PLEASE_INPUT_DIGIT_CENTER");
             return;

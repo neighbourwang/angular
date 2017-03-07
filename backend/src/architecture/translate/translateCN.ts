@@ -1049,7 +1049,7 @@
 
         "PLEASE_CHOOSE_NETWORK": "请选择网络",
         "PLEASE_CHOOSE_RES_POOL": "请选择资源池",
-        "PLEASE_CHOOSE_PM": "请选择物理机",        
+        "PLEASE_CHOOSE_PM": "请选择物理机",
 
         "CREATE_PHY_NET_FAILED": "创建物理机网络失败",
         "CREATE_PHY_NET_EXCEPTION": "创建物理机网络异常",
@@ -1089,7 +1089,7 @@
         "PLEASE_INPUT_DESCRIPTION": "请输入说明",
 
         "PHY_NET_NEED_TO_DISABLED_FIRSTLY": "物理机网络需先被禁用后才能被删除",
-        
+
         "ENABLE_PHY_NET": "您选择启用 {{value_1}}, 请确认; 如果确认，用户将能够在订购中选择此网络.",
         "DISABLE_PHY_NET": "您选择禁用 {{value_1}}, 请确认; 如果确认，用户将不能在订购中选择此网络.",
         "DELETE_PHY_NET": "您选择删除 {{value_1}}, 请确认; 如果确认，用户将不能在订购中选择此网络.",
@@ -1204,7 +1204,7 @@
         "CREATE_PLATFORM_ERROR": "创建云平台错误",
         "DATA_CENTER_REQUIRED": "请输入所属数据中心",
         "DELETE_PLATEFORM": "删除云平台",
-        
+
         "DIABLE_PLATFORM_EXCEPTION_TRY_AGAIN": "禁用云平台异常，请稍候再试",
         "DISABLE_PLATFORM": "禁用云平台",
         "DLETE_PLATFORM_EXCEPTION_TRY_AGAIN": "删除云平台异常，请稍后再试",
@@ -1253,7 +1253,7 @@
     "PHY_MNG_POOL": {
         "ACTIVE": "启用",
         "ADD_PHY": "添加物理机",
-        "AREA_OWNER": "所属区域",
+        "AREA_OWNER": "所属地域",
         "CANCEL": "取消",
         "CONFIRM": "确认",
         "CREATE": "创建",
@@ -1285,6 +1285,7 @@
         "PLEASE_CHOOSE_POOL": "请选择资源池",
         "PLEASE_INPUT_DIGIT_CENTER": "请输入数据中心",
         "PLEASE_INPUT_POOLNAME": "请输入资源池名称",
+        "PLEASE_SELECT_REGION": "请选择所属地域",
         "POOL_ALREADY_DISABLE": "该资源池已处于禁用状态",
         "POOL_ALREADY_ENABLE": "该资源池已处于启用状态",
         "POOL_NAME": "资源池名称",
@@ -1371,7 +1372,7 @@
         "SPEC":"规格",
         "SPEC_VALUE":"规格值",
         "PHYSICAL_MODEL":"物理机型号",
-        "SN":"序列号", 
+        "SN":"序列号",
         "DISK":"硬盘",
         "ORDER_INFO":"订购信息",
         "ENTERPRISE":"使用企业",
@@ -1625,10 +1626,10 @@
     "CASE_MNG":{
         "CASE_MNG":"工单管理",
         "ENTERPRISE":"所属企业",
-        "ALL_ENTERPRISE":"所有企业",       
+        "ALL_ENTERPRISE":"所有企业",
         "ALL_TYPE":"所有类别",
         "ALL_STATUS":"所有状态",
-        "ALL_EMERGENCY":"所有",     
+        "ALL_EMERGENCY":"所有",
         "TYPE":"类别",
         "STATUS":"状态",
         "EMERGENCY":"紧急程度",
