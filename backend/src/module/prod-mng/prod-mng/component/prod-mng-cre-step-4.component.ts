@@ -32,6 +32,9 @@ export class ProdMngCreStep4Component implements OnInit {
     @ViewChild('notice')
     notice: NoticeComponent;
 
+    @ViewChild('confirm')
+    confirm:ConfirmComponent;
+
     platformIdList = new Array();
     isPlatformChange: boolean;
     ngOnInit() {
@@ -45,10 +48,6 @@ export class ProdMngCreStep4Component implements OnInit {
         this.service.product.productPlatformReqs.forEach(ele => {
             this.platformIdList.push(ele.platformId)
         });
-        console.log('idddd', this.platformIdList);
-        console.log('enter',this.service.product.enterpriseListForSelect);
-        console.log('enter',this.service.product.productEnterpiseReqs);
-        console.log('bb',(this.isPlatformChange ||!this.service.product.enterpriseListForSelect&&!this.service.product.productEnterpiseReqs));
         if (this.isPlatformChange || ((!this.service.product.enterpriseListForSelect)&&(!this.service.product.productEnterpiseReqs))) {
             this.service.product.productEnterpiseReqs = [];
             this.service.product.enterpriseListForSelect=[];
@@ -57,7 +56,7 @@ export class ProdMngCreStep4Component implements OnInit {
                 console.log('企业', response);                
                 this.layoutService.hide();
                 if (!response.resultContent || response.resultContent.length == 0) {
-                    this.notice.open('企业列表为空', '返回上一步重新选择平台')
+                    this.confirm.open('提示', '根据所选平台列表暂时没有对应的可供发布企业');
                 }else{
                     // if (response && 100 == response.resultCode) {
                 this.service.product.enterpriseListForSelect = response.resultContent;
@@ -92,10 +91,10 @@ export class ProdMngCreStep4Component implements OnInit {
 
 
     next() {
-        if (this.service.product.productEnterpiseReqs.length == 0) {
-            this.notice.open('操作错误', '企业列表为空');
-            return;
-        }
+        // if (this.service.product.productEnterpiseReqs.length == 0) {
+        //     this.notice.open('操作错误', '企业列表为空');
+        //     return;
+        // }
         this.service.product.serviceId = this.service.productDir.serviceId;
         this.service.product.billingType =
             this.service.productDir.serviceType == '0' ? '0' : '1';

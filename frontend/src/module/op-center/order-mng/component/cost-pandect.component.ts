@@ -41,8 +41,9 @@ private userTypeLoader:ItemLoader<UserInfo>= null;
 //企业下拉列表
 private enterpriseLoader : ItemLoader<{id:string;name:string}>= null;
 
-
-private orderItemLoader:ItemLoader<CostPandectItem> = null;//表格
+private allServiceLoader:ItemLoader<CostPandectItem> = null;//表格-所有服务
+private increaseServiceLoader:ItemLoader<CostPandectItem> = null;//表格-新增服务
+private isAllService:string =null;//null是所有服务，2是新增服务
 
 private consumeLoader:ItemLoader<ConsumeSum> = null;//消费概览
 
@@ -76,13 +77,15 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 			
 		}
 
-        this.orderItemLoader = new ItemLoader<CostPandectItem> (false,'消费总览列表加载错误','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
+        this.allServiceLoader = new ItemLoader<CostPandectItem> (false,'消费总览所有服务列表加载错误','op-center.order-mng.cost-pandect.all-service.post',this.restApiCfg,this.restApi);
+        this.increaseServiceLoader = new ItemLoader<CostPandectItem> (false,'消费总览新增服务列表加载错误','op-center.order-mng.cost-pandect.increase-service.post',this.restApiCfg,this.restApi);
 
-          this.orderItemLoader.MapFunc = (source:Array<any>, target:Array<CostPandectItem>)=>{
+          this.allServiceLoader.MapFunc = (source:Array<any>, target:Array<CostPandectItem>)=>{
 			for(let item of source)
 			{
 				let obj=_.extend({}, item) ;
 				target.push(obj);
+
 			}
 		}
 
@@ -607,6 +610,61 @@ showMsg(msg: string)
 	{
 		this._notice.open("COMMON.SYSTEM_PROMPT", msg);
 	}
+  loadService(){
+    //     {
+    //   "endTime": "2017-03-07T03:36:22.668Z",
+    //   "idList": [
+    //     "string"
+    //   ],
+    //   "startTime": "2017-03-07T03:36:22.668Z"
+    // }
 
+    this.layoutService.show();
+    let ids:Array<string>=[];
+    let month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
+
+        if(this.isNullEnterprise()){    
+                for(let item of this.enterpriseLoader.Items){
+                    ids.push(item.id);
+                }       
+        }
+        else{
+                    ids.push(this._param.enterpriseId);
+        }
+
+        let param =     {
+        "endTime": this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
+        "idList": ids,
+        "startTime":this._param.year+'-'+month+'-01'+' 00:00:00'
+    };
+        if( this.isAllService == null||this.isAllService =='null'){//所有服务
+            this.allServiceLoader.Go(null,null,param)
+                .then(success=>{    
+                    this.layoutService.hide();
+                })
+                .catch(err=>{
+                    this.layoutService.hide();
+                    this.showMsg(err);
+                })
+        }else{//新增服务
+            this.increaseServiceLoader.Go(null,null,param)
+                .then(success=>{   
+                    this.layoutService.hide();
+                })
+                .catch(err=>{
+                    this.layoutService.hide();
+                    this.showMsg(err);
+                })
+        }
+    
+    }	
+
+        //选择所有企业
+    isNullEnterprise(){
+        if(this._param.enterpriseId==null||this._param.enterpriseId=='null')
+            return true;
+        return false;
+        
+    }
 	
 }
