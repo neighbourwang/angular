@@ -43,7 +43,47 @@
         "COMPUTE_RES_CAPACITY_MNG": "计算资源容量管理",
         "AVAILABLE_ZONE_INFO": "可用区信息",
         "PHYSICAL_CPU_CORE_NUMBER": "物理CPU总核数",
-        "CORE":"核"
+        "CORE": "核",
+        "CPU_EXCEEDING_RATIO": "CPU超分比",
+        "TIMES": "倍",
+        "ASSIGNABLE_CPU": "可分配CPU",
+        "TOTAL_MEMORY": "总内存",
+        "USABLE_QUOTA": "可用配额",
+        "ASSIGNABLE_MEMORY": "可分配内存",
+        "RES_GENERATED_BY_PLATFORM": "可用区资源分配率 【云管平台产生资源】",
+        "MEMORY": "内存",
+        "ACTUAL_ALLOCATED_RES": "可用区资源分配率 【实际已分配资源】",
+        "PHYSICAL_RES_AVERAGE_UTILIZATION": "可用区资源利用率 【物理资源平均利用率%】",
+        "HOST_CAPACITY": "宿主机容量情况",
+        "HOST_NAME": "宿主机名称",
+        "PHYSICAL_CPU_CORES": "物理CPU核数",
+        "MEMORY_GB": "内存(GB)",
+        "VIRTUAL_CPU": "虚拟CPU（实际已分配）",
+        "ACTUAL_ALLOCATED_MEMORY": "内存（实际已分配)",
+        "SITUATION": "状况",
+
+        //host-detail.html
+        "HOST_DETAIL": "宿主机详情",
+        "BACK_TO_COMPUTE_RES": "返回计算资源容量管理",
+        "INSTANCE_NUMBER": "实例数量",
+        "LAST_24_HOURS": "最近24小时",
+        "LAST_7_DAYS": "最近7天",
+        "LAST_30_DAYS": "最近30天",
+        "LAST_90_DAYS": "最近90天",
+        "LAST_180_DAYS": "最近180天",
+        "LAST_360_DAYS": "最近360天",
+        "REFRESH": "刷新",
+        "CPU_AVERAGE_UTILIZATION": "CPU平均使用率",
+        "CPU_PEAK_VALUE_UTILIZATION": "CPU峰值使用率",
+        "CPU_PEAK_TIME": "CPU峰值记录时间",
+        "MEMORY_AVERAGE_UTILIZATION": "内存平均使用率",
+        "MEMORY_PECK_VALUE_UTILIZATION": "内存峰值使用率",
+        "MEMORY_PEAK_TIME": "内存峰值记录时间",
+        "CPU_UTILIZATION": "CPU使用率",
+        "MEMORY_UTILIZATION": "内存使用率",
+
+        //
+        "PLEASE_CHOOSE_CLOUD_PLATFORM":"请选择云平台"
 
     },
     "CHECK_CENTER": {
@@ -1353,6 +1393,7 @@
         "PLEASE_INPUT_SERVER_BRAND":"请选择服务器品牌！",
         "PLEASE_INPUT_SERVER_MODEL":"请选择服务器型号！",
         "PLEASE_REINPUT_ILO_INFO":"ILO信息不正确，请重新填写ILO信息！",
+        "PLEASE_READ_ILO_INFO":"请读取物理机硬件信息！",
         "PLEASE_INPUT_DISK_VALUE":"请填写磁盘规格值！"
 
 

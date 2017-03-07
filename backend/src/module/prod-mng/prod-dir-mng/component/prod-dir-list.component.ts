@@ -270,7 +270,7 @@ export class ProdDirListComponent implements OnInit {
     creation() {
         //跳转
         console.log('create');
-        if(!this.prodDirSpec.cpu){
+        // if(!this.prodDirSpec.cpu){
             this.layoutService.show();
             this.service.getProdDirSpecList().then(res => {
             console.log(res);
@@ -282,9 +282,9 @@ export class ProdDirListComponent implements OnInit {
                 console.error(err);
                 this.layoutService.hide();
             })
-        }else{
-            this.createProdDir.open('PROD_MNG.CREATE_PRODUCT_CAT'); //PROD_MNG.CREATE_PRODUCT_CAT=>创建产品目录
-        }
+        // }else{
+        //     this.createProdDir.open('PROD_MNG.CREATE_PRODUCT_CAT'); //PROD_MNG.CREATE_PRODUCT_CAT=>创建产品目录
+        // }
         
          
 

@@ -13,16 +13,13 @@ import * as _ from 'underscore';
 })
 export class CostPandectComponent implements OnInit{
 	//企业消费概览
-    // d_chart = new Chart();
-    // ent_dht:any;
     sumChart :any;
-    b_chart = new Chart();
-    ent_bar:any;
 
-    h_chart = new Chart();
-    ent_hbar:any;
-    h_chart2 = new Chart();
-    ent_hbar2:any;
+    historyChart :any;
+
+    topChart :any;
+
+    topIncreaseChart :any;
 
 @ViewChild("notice")
   	private _notice: NoticeComponent;
@@ -63,6 +60,9 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         this.currentMonth = this.timeCaculater.getCurrentMonth();
         
         this.sumChart = this.chartService.creatSumChart();
+        this.historyChart = this.chartService.createHstoryBar();
+        this.topChart = this.chartService.createTopBar();
+        this.topIncreaseChart = this.chartService.createTopBar();
 
         this.enterpriseLoader = new ItemLoader<{id:string;name:string}> (false,'COMMON.ENTPRISE_OPTIONS_DATA_ERROR','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
         this.orderItemLoader = new ItemLoader<CostPandectItem> (false,'ORDER_MNG.ERROR_LOADING_CONSUMPTION_LIST','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
@@ -117,10 +117,6 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         this.layoutService.show();
         this.loadYears();
         this.loadEnterprise();
-        
-        this.createHstoryBar();
-        this.createTopBar();
-        this.createTopBar2();
 		this.layoutService.hide();
 	}
     loadYears(){
@@ -237,10 +233,9 @@ totalconsumeLoad(){
         this.increseConsumeLoader.Go(null,null,param)
     })
     .then(success=>{
-        this.toHistoryData(this.totalConsumeLoader.Items,this.b_chart);
-        this.toIncreaseHistoryData(this.increseConsumeLoader.Items,this.b_chart);
-        this.ent_bar[0].data =  this.b_chart.datas;
-        this.ent_bar[1].data =  this.b_chart.datas2;
+        this.chartService.toHistoryData(this.totalConsumeLoader.Items,this.increseConsumeLoader.Items,this.historyChart);
+         this.historyChart.datasets[0].data = [100,200,400,500,250];
+        this.historyChart.datasets[1].data = [100,200,400,500,250];
        this.layoutService.hide();
     })
     .catch(err=>{
@@ -254,8 +249,8 @@ topConsumeLoad(param:any){
     if(this.isNullEnterprise()){
         this.topConsumeLoader.Go(null,null,param)
         .then(success=>{
-            this.topToDatas(this.h_chart,this.topConsumeLoader.Items);
-            this.ent_hbar[0].data =  this.h_chart.datas;
+            this.chartService.topToDatas(this.topConsumeLoader.Items,this.topChart);
+            this.topChart.datasets[0].data = [100,200,400,500,250];
             this.layoutService.hide();
         })
         .catch(err=>{
@@ -265,8 +260,8 @@ topConsumeLoad(param:any){
     }else{
         this.topConsumeDepartmentLoader.Go(null,null,param)
         .then(success=>{
-           this.topToDatas(this.h_chart,this.topConsumeDepartmentLoader.Items);
-           this.ent_hbar[0].data =  this.h_chart.datas;
+            this.chartService.topToDatas(this.topConsumeLoader.Items,this.topChart);
+            this.topChart.datasets[0].data = [100,200,400,500,250];
             this.layoutService.hide();
         })
         .catch(err=>{
@@ -283,8 +278,8 @@ topIncreseConsumeLoad(param:any){
       if(this.isNullEnterprise()){
         this.topIncreseConsumeLoader.Go(null,null,param)
         .then(success=>{
-              this.topToDatas(this.h_chart2,this.topIncreseConsumeLoader.Items);
-              this.ent_hbar2[0].data =  this.h_chart2.datas;
+             this.chartService.topToDatas(this.topConsumeLoader.Items,this.topIncreaseChart);
+             this.topIncreaseChart.datasets[0].data = [100,200,400,500,250];
              this.layoutService.hide();
         })
         .catch(err=>{
@@ -294,8 +289,8 @@ topIncreseConsumeLoad(param:any){
     }else{
         this.topIncreseConsumeDepartmentLoader.Go(null,null,param)
         .then(success=>{
-                this.topToDatas(this.h_chart2,this.topIncreseConsumeDepartmentLoader.Items);
-            	this.ent_hbar2[0].data =  this.h_chart2.datas;
+               this.chartService.topToDatas(this.topConsumeLoader.Items,this.topIncreaseChart);
+               this.topIncreaseChart.datasets[0].data = [100,200,400,500,250];
                this.layoutService.hide();
         })
         .catch(err=>{
@@ -314,47 +309,47 @@ isNullEnterprise(){
     
 }
 
-toHistoryData(source:Array<any>,target:Chart){
-    let datas:Array<number>=[];
-    let labels :Array<string>=[];
-    if(source){
-        for(let item of source){
-            datas.push(item.doubleValue);
-            labels.push(item.num+'月');
-        }
-    }
-    target.datas.splice(0,target.datas.length);
-    target.labels.splice(0,target.labels.length);
-    target.datas = datas;
-    target.labels = labels;
-}
-toIncreaseHistoryData(source:Array<any>,target:Chart){
-    let datas:Array<number>=[];
-    if(source){
-        for(let item of source){
-            datas.push(item.doubleValue);
-        }
-    }
-    target.datas2.splice(0,target.datas2.length);
-    target.datas2 = datas;
-}
-topToDatas(target:Chart,items:Array<any>){
-    let datas:Array<number> = [];
-    let labels:Array<string>=[];
-    // for(let i = 0;i<items.length;i++){
-    //     datas[i] = items[i].amount;
-    // }
-    if(items.length>0){
-        for(let item of items){
-        datas.push(item.amount);
-        labels.push(item.name);
-    }
-}    
-   target.datas.splice(0,target.datas.length);
-   target.labels.splice(0,target.labels.length);
-   target.datas = datas;
-   target.labels = labels;
-}
+// toHistoryData(source:Array<any>,target:Chart){
+//     let datas:Array<number>=[];
+//     let labels :Array<string>=[];
+//     if(source){
+//         for(let item of source){
+//             datas.push(item.doubleValue);
+//             labels.push(item.num+'月');
+//         }
+//     }
+//     target.datas.splice(0,target.datas.length);
+//     target.labels.splice(0,target.labels.length);
+//     target.datas = datas;
+//     target.labels = labels;
+// }
+// toIncreaseHistoryData(source:Array<any>,target:Chart){
+//     let datas:Array<number>=[];
+//     if(source){
+//         for(let item of source){
+//             datas.push(item.doubleValue);
+//         }
+//     }
+//     target.datas2.splice(0,target.datas2.length);
+//     target.datas2 = datas;
+// }
+// topToDatas(target:Chart,items:Array<any>){
+//     let datas:Array<number> = [];
+//     let labels:Array<string>=[];
+//     // for(let i = 0;i<items.length;i++){
+//     //     datas[i] = items[i].amount;
+//     // }
+//     if(items.length>0){
+//         for(let item of items){
+//         datas.push(item.amount);
+//         labels.push(item.name);
+//     }
+// }    
+//    target.datas.splice(0,target.datas.length);
+//    target.labels.splice(0,target.labels.length);
+//    target.datas = datas;
+//    target.labels = labels;
+// }
 
 
 search_chart(){
@@ -384,147 +379,147 @@ search_chart(){
 //         ];
 // }
 
-createHstoryBar(){  
-   this.b_chart.colors = [
-                {
-                    backgroundColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ],
-                    borderColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ]
-                },{
+// createHstoryBar(){  
+//    this.b_chart.colors = [
+//                 {
+//                     backgroundColor: [
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8'
+//                     ],
+//                     borderColor: [
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8'
+//                     ]
+//                 },{
 
-                    backgroundColor: "rgba(75,192,192,0.4)",
-                    borderColor: "rgba(255, 99, 132, 1)",
-                    pointBorderColor: "rgba(255, 99, 132, 1)",
-                    pointBackgroundColor: "#fff",
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                }
-            ];
-    this.b_chart.options = {
-                scales: {
-                    xAxes: [{
-                        stacked: true
-                    }],
-                    yAxes: [{
-                        stacked: true
+//                     backgroundColor: "rgba(75,192,192,0.4)",
+//                     borderColor: "rgba(255, 99, 132, 1)",
+//                     pointBorderColor: "rgba(255, 99, 132, 1)",
+//                     pointBackgroundColor: "#fff",
+//                     pointHoverBackgroundColor: "rgba(75,192,192,1)",
+//                     pointHoverBorderColor: "rgba(220,220,220,1)",
+//                 }
+//             ];
+//     this.b_chart.options = {
+//                 scales: {
+//                     xAxes: [{
+//                         stacked: true
+//                     }],
+//                     yAxes: [{
+//                         stacked: true
 
-                    }]
-                }
-            };
+//                     }]
+//                 }
+//             };
 
 
-this.ent_bar=[{
-                        type: "bar",
-                        label: "总消费",
-                        data: [],
+// this.ent_bar=[{
+//                         type: "bar",
+//                         label: "总消费",
+//                         data: [],
                          
-                    },{   type: 'line',
-                            label: "新增消费",
-                            fill: false,
-                            lineTension: 0.1,
-                            borderCapStyle: 'butt',
-                            borderDash: [],
-                            borderDashOffset: 0.0,
-                            borderJoinStyle: 'miter',
-                            pointBorderWidth: 1,
-                            pointHoverRadius: 5,
-                            pointHoverBorderWidth: 2,
-                            pointRadius: 1,
-                            pointHitRadius: 10,
-                            data: [],
-                            spanGaps: false,
-                        }
-                   ];
-}
+//                     },{   type: 'line',
+//                             label: "新增消费",
+//                             fill: false,
+//                             lineTension: 0.1,
+//                             borderCapStyle: 'butt',
+//                             borderDash: [],
+//                             borderDashOffset: 0.0,
+//                             borderJoinStyle: 'miter',
+//                             pointBorderWidth: 1,
+//                             pointHoverRadius: 5,
+//                             pointHoverBorderWidth: 2,
+//                             pointRadius: 1,
+//                             pointHitRadius: 10,
+//                             data: [],
+//                             spanGaps: false,
+//                         }
+//                    ];
+// }
 
 
-createTopBar(){
-     this.ent_hbar=[{
-        label:'消费总额',
-        data: [0,0]
+// createTopBar(){
+//      this.ent_hbar=[{
+//         label:'消费总额',
+//         data: [0,0]
                          
-     }];
-    this.h_chart.colors  = [
-                {
-                    backgroundColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ],
-                    borderColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ]
-                }
-            ];
-    this.h_chart.options={
-                            scales: {
-                                xAxes: [{
-                                    stacked: true
-                                }],
-                                yAxes: [{
-                                    stacked: true
-                                }]
-                            }
-            };
+//      }];
+//     this.h_chart.colors  = [
+//                 {
+//                     backgroundColor: [
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8'
+//                     ],
+//                     borderColor: [
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8'
+//                     ]
+//                 }
+//             ];
+//     this.h_chart.options={
+//                             scales: {
+//                                 xAxes: [{
+//                                     stacked: true
+//                                 }],
+//                                 yAxes: [{
+//                                     stacked: true
+//                                 }]
+//                             }
+//             };
 
         
-}
+// }
 
 
 
-createTopBar2(){
-            this.ent_hbar2=[{
-            label:'消费总额',
-            data: [0,0]
+// createTopBar2(){
+//             this.ent_hbar2=[{
+//             label:'消费总额',
+//             data: [0,0]
                          
-     }];
+//      }];
 
-             this.h_chart2.colors  = [
-                {
-                    backgroundColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ],
-                    borderColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ]
-                }
-            ];
-            this.h_chart2.options={
-                            scales: {
-                                xAxes: [{
-                                    stacked: true
-                                }],
-                                yAxes: [{
-                                    stacked: true
-                                }]
-                            }
-            };
-}
+//              this.h_chart2.colors  = [
+//                 {
+//                     backgroundColor: [
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8'
+//                     ],
+//                     borderColor: [
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8',
+//                         '#2BD2C8'
+//                     ]
+//                 }
+//             ];
+//             this.h_chart2.options={
+//                             scales: {
+//                                 xAxes: [{
+//                                     stacked: true
+//                                 }],
+//                                 yAxes: [{
+//                                     stacked: true
+//                                 }]
+//                             }
+//             };
+// }
 
 
 

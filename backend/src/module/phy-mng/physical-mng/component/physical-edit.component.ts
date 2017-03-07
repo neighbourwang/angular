@@ -194,6 +194,10 @@ export class PhysicalEditComponent implements OnInit {
             this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_SERVER_MODEL");
             return false;
         }
+        if(!this.read){
+            this.showAlert("PHYSICAL_MNG.PLEASE_READ_ILO_INFO");
+           return false;
+        }
        if(!this.diskValue){
            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_DISK_VALUE");
            return false;

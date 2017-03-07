@@ -76,7 +76,7 @@ export class CapacityMngComponent implements OnInit {
     gotoStoreRes() {
         const selectedPf = this.pfList.find((pf) => { return pf.selected });
         if (!selectedPf) {
-            this.showAlert("请选择云平台");
+            this.showAlert("CAPACITY_MNG.PLEASE_CHOOSE_CLOUD_PLATFORM");
             return;
         }
         this.service.selectedPlatform = selectedPf;

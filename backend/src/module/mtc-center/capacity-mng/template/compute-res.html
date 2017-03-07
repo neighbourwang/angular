@@ -38,17 +38,17 @@
             <div class="row row-line-height" >
                 <div class="col-md-3 text-right" style="width:178px;">{{'CAPACITY_MNG.PHYSICAL_CPU_CORE_NUMBER'|translate}}：</div><!--物理CPU总核数-->
                 <div class="col-md-2">{{zoneResInfo.cpus}}&nbsp;{{'CAPACITY_MNG.CORE'|translate}}</div>               
-                <div class="col-md-2 text-right">CPU超分比：</div>
-                <div class="col-md-1">{{zoneResInfo.cpuOversubscription}}&nbsp;倍</div>
-                 <div class="col-md-2 text-right">可分配CPU：</div>
+                <div class="col-md-2 text-right">{{'CAPACITY_MNG.CPU_EXCEEDING_RATIO'|translate}}：</div><!--超分比-->
+                <div class="col-md-1">{{zoneResInfo.cpuOversubscription}}&nbsp;{{'CAPACITY_MNG.TIMES'|translate}}</div><!--倍-->
+                 <div class="col-md-2 text-right">{{'CAPACITY_MNG.ASSIGNABLE_CPU'|translate}}：</div><!--可分配CPU-->
                 <div class="col-md-2">{{zoneResInfo.cpuCapacity}}&nbsp;{{'CAPACITY_MNG.CORE'|translate}}</div>
             </div>
             <div class="row row-line-height" >
-                 <div class="col-md-3 text-right" style="width:178px;">总内存：</div>
+                 <div class="col-md-3 text-right" style="width:178px;">{{'CAPACITY_MNG.TOTAL_MEMORY'|translate}}：</div><!--总内存-->
                 <div class="col-md-2">{{zoneResInfo.memory}}&nbsp;GB</div>
-                <div class="col-md-2 text-right">可用配额：</div>
+                <div class="col-md-2 text-right">{{'CAPACITY_MNG.USABLE_QUOTA'|translate}}：</div><!--可用配额-->
                 <div class="col-md-1">{{zoneResInfo.cpuQurta}}%</div>
-                <div class="col-md-2 text-right">可分配内存：</div>
+                <div class="col-md-2 text-right">{{'CAPACITY_MNG.ASSIGNABLE_MEMORY'|translate}}：</div><!--可分配内存-->
                 <div class="col-md-2">{{zoneResInfo.memoryCapacity}}&nbsp;GB </div>
             </div>
         </div>
@@ -58,7 +58,7 @@
         <div class="col-md-4">
             <div class="panel panel-default" >
                 <div class="panel-heading">
-                    <h3 class="panel-title">可用区资源分配率 【云管平台产生资源】</h3>
+                    <h3 class="panel-title">{{'CAPACITY_MNG.RES_GENERATED_BY_PLATFORM'|translate}}</h3><!--可用区资源分配率 【云管平台产生资源】-->
                 </div>
                 <div class="panel-body">
                     <div class="col-md-6">
@@ -78,7 +78,7 @@
                         <div style="text-align:center;">{{resAllocationInfo.cpu}}/{{resAllocationInfo.cpuTotal}} 核</div>
                     </div>
                     <div class="col-md-6">
-                         <div style="text-align:center;">内存</div>
+                         <div style="text-align:center;">{{'CAPACITY_MNG.MEMORY'|translate}}</div><!--内存-->
                          <div style="position:relative;">
                              <div class="circle-mask"></div>
                            <div class="circle-text">{{resAllocationInfo.memoryPercent}}%</div>
@@ -98,7 +98,7 @@
         <div class="col-md-4">
             <div class="panel panel-default" >
                 <div class="panel-heading">
-                    <h3 class="panel-title">可用区资源分配率 【实际已分配资源】</h3>
+                    <h3 class="panel-title">{{'CAPACITY_MNG.ACTUAL_ALLOCATED_RES'|translate}}</h3><!--可用区资源分配率 【实际已分配资源】-->
                 </div>
                 <div class="panel-body">
                     <div class="col-md-6">
@@ -114,10 +114,10 @@
                              [colors]="cpuActual.Colors">
                             </canvas>
                         </div>
-                        <div style="text-align:center;">{{resActualInfo.cpu}}/{{resActualInfo.cpuTotal}} 核</div>
+                        <div style="text-align:center;">{{resActualInfo.cpu}}/{{resActualInfo.cpuTotal}} {{'CAPACITY_MNG.CORE'|translate}}</div>
                     </div>
                     <div class="col-md-6">
-                        <div style="text-align:center;">内存</div>
+                        <div style="text-align:center;">{{'CAPACITY_MNG.MEMORY'|translate}}</div><!--内存-->
                         <div style="position:relative;">
                             <div class="circle-mask"></div>
                            <div class="circle-text">{{resActualInfo.memoryPercent}}%</div>
@@ -137,7 +137,7 @@
         <div class="col-md-4">
             <div class="panel panel-default" >
                 <div class="panel-heading">
-                    <h3 class="panel-title">可用区资源利用率 【物理资源平均利用率%】</h3>
+                    <h3 class="panel-title">{{'CAPACITY_MNG.PHYSICAL_RES_AVERAGE_UTILIZATION'|translate}}</h3><!--可用区资源利用率 【物理资源平均利用率%】-->
                 </div>
                 <div class="panel-body">
                     <div class="col-md-6">
@@ -153,10 +153,10 @@
                              [colors]="cpuUsed.Colors">
                             </canvas>
                         </div>
-                        <div style="text-align:center;">{{resUsedInfo.cpu}}/{{resUsedInfo.cpuTotal}} 核</div>
+                        <div style="text-align:center;">{{resUsedInfo.cpu}}/{{resUsedInfo.cpuTotal}} {{'CAPACITY_MNG.CORE'|translate}}</div>
                     </div>
                     <div class="col-md-6">
-                        <div style="text-align:center;">内存</div>
+                        <div style="text-align:center;">{{'CAPACITY_MNG.MEMORY'|translate}}</div><!--内存-->
                         <div style="position:relative;">
                             <div class="circle-mask"></div>
                            <div class="circle-text">{{resUsedInfo.memoryPercent}}%</div>
@@ -176,19 +176,19 @@
     </div>
 
     <div class="mgt10" style="font-size:18px;font-weight:bold;">
-        宿主机容量情况：
+        {{'CAPACITY_MNG.HOST_CAPACITY'|translate}}：<!--宿主机容量情况-->
     </div>
     <div class="table-container mgt10">
         <table class="table table-hover" >
             <thead>
                 <tr>
-                    <th>宿主机名称</th>
-                    <th>物理CPU核数</th>
-                    <th>内存(GB)</th>
-                    <th>虚拟CPU（实际已分配）</th>
-                    <th>内存（实际已分配)</th>
-                    <th>状态</th>
-                    <th>状况</th>
+                    <th>{{'CAPACITY_MNG.HOST_NAME'|translate}}</th><!--宿主机名称-->
+                    <th>{{'CAPACITY_MNG.PHYSICAL_CPU_CORES'|translate}}</th><!--物理CPU核数-->
+                    <th>{{'CAPACITY_MNG.MEMORY_GB'|translate}}</th><!--内存(GB)-->
+                    <th>{{'CAPACITY_MNG.VIRTUAL_CPU'|translate}}</th><!--虚拟CPU（实际已分配）-->
+                    <th>{{'CAPACITY_MNG.ACTUAL_ALLOCATED_MEMORY'|translate}}</th><!--内存（实际已分配)-->
+                    <th>{{'COMMON.STATUS'|translate}}</th><!--状态-->
+                    <th>{{'CAPACITY_MNG.SITUATION'|translate}}</th><!--状况-->
                 </tr>
             </thead>
             <tbody>
