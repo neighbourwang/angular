@@ -45,7 +45,7 @@ $.ajax({
 				<tr>
 					<td>账号: ${res.account}</td>
 					<td>密码: ${res.password}</td>
-					<td>登录时间: ${new Date(+res.time).toString().match(/(201\d\s.*?)\s/)[1]}</td>
+					<td>登录时间: ${new Date(+res.time).toString().match(/^(\w*?\s(.*)?\sGMT)/)[2]}</td>
 				</tr>
 				`;
 			})
