@@ -13,6 +13,7 @@ import {OrderMngDetailComponent, OrderMngComponent,OrderMngRenewComponent,OrderM
         ,OrderMngSearchDetailComponent
         ,VmViewComponent
         ,DiskViewComponent
+        ,ProdViewComponent
         ,CostPandectComponent} from './component';
 
 @NgModule({
@@ -30,6 +31,7 @@ import {OrderMngDetailComponent, OrderMngComponent,OrderMngRenewComponent,OrderM
         OrderMngSearchDetailComponent
         ,VmViewComponent
         ,DiskViewComponent
+        ,ProdViewComponent
         ,CostPandectComponent
     ],
     exports: [],

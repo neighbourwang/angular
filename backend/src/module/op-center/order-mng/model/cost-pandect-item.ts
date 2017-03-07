@@ -2,14 +2,18 @@
 
 export class CostPandectItem{
     id:string;
-    orderNo : string;
-    name: string;//产品名称
-    payWay:string;//付款方式
-    department:string;//部门
-    buyer: string;//购买人
-    charge: string;//应付金额
-    status:string;//支付状态
+    orderNo : string;//已购服务编号
+    productName : string;//产品名称
+    num:string;//购买数量
+    priceDetails:Array<SubInstancePriceDetail>;//费用类型，可能存在多种费用类型
+    total_amount:string;//应付金额
  
+}
+
+export class SubInstancePriceDetail {
+amount :number;//金额 
+billName:string;/// 计费名称(一次性费用/周期费用等 ,
+payUnit:string;//计费单位（次/月/年/季度)
 }
 export class  TimeCaculater{
     private date : Date = new Date();

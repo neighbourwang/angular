@@ -13,13 +13,13 @@ import * as _ from 'underscore';
 })
 export class CostPandectComponent implements OnInit{
 	//企业消费概览
-    sumChart :any;
+    sumChart =new Chart1();
 
-    historyChart :any;
+    historyChart=new Chart1();
 
-    topChart :any;
+    topChart =new Chart1();
 
-    topIncreaseChart :any;
+    topIncreaseChart =new Chart1();
 
 @ViewChild("notice")
   	private _notice: NoticeComponent;
@@ -36,7 +36,9 @@ private _months=[];
 private enterpriseLoader : ItemLoader<{id:string;name:string}>= null;
 
 
-private orderItemLoader:ItemLoader<CostPandectItem> = null;//表格
+private allServiceLoader:ItemLoader<CostPandectItem> = null;//表格-所有服务
+private increaseServiceLoader:ItemLoader<CostPandectItem> = null;//表格-新增服务
+private isAllService:string =null;//null是所有服务，2是新增服务
 
 private consumeLoader:ItemLoader<ConsumeSum> = null;//消费概览
 
@@ -62,16 +64,18 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         this.sumChart = this.chartService.creatSumChart();
         this.historyChart = this.chartService.createHstoryBar();
         this.topChart = this.chartService.createTopBar();
-        this.topIncreaseChart = this.chartService.createTopBar();
+        this.topIncreaseChart = this.chartService.createTopIncreaseBar();
 
         this.enterpriseLoader = new ItemLoader<{id:string;name:string}> (false,'COMMON.ENTPRISE_OPTIONS_DATA_ERROR','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
-        this.orderItemLoader = new ItemLoader<CostPandectItem> (false,'ORDER_MNG.ERROR_LOADING_CONSUMPTION_LIST','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
+        this.allServiceLoader = new ItemLoader<CostPandectItem> (false,'ORDER_MNG.ERROR_LOADING_CONSUMPTION_LIST','op-center.order-mng.cost-pandect.all-service.post',this.restApiCfg,this.restApi);
+        this.increaseServiceLoader = new ItemLoader<CostPandectItem> (false,'ORDER_MNG.ERROR_LOADING_CONSUMPTION_LIST','op-center.order-mng.cost-pandect.increase-service.post',this.restApiCfg,this.restApi);
 
-          this.orderItemLoader.MapFunc = (source:Array<any>, target:Array<CostPandectItem>)=>{
+          this.allServiceLoader.MapFunc = (source:Array<any>, target:Array<CostPandectItem>)=>{
 			for(let item of source)
 			{
 				let obj=_.extend({}, item) ;
 				target.push(obj);
+
 			}
 		}
 
@@ -144,225 +148,228 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
             this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderItemId}`);
         }	
 
-loadTopChart(){
+    loadTopChart(){
+        
+        let month:string;
+        let enterprises : Array<{key:string;}>=[];
+        month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
+        let param ={
+                endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
+                startTime:this._param.year+'-'+month+'-01'+' 00:00:00',
+                ids:[]
+            };
+        if(this.isNullEnterprise()){    
+                for(let item of this.enterpriseLoader.Items){
+                    let ent = {key:item.id};
+                    enterprises.push(ent);
+                }       
+        }
+        else{
+            enterprises.push({key:this._param.enterpriseId});     
+        }
+
+        
+
+        param.ids = enterprises;
+
+        this.topConsumeLoad(param);
+        this.topIncreseConsumeLoad(param);
+    }
+    //发送请求，处理参数，展示
+    consumeLoad(){
+        this.layoutService.show();
+        let month:string;
+        let sumIds :Array<{key:String;value:string}> =[];
+        month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
+        let param={
+                endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
+                startTime:this._param.year+'-'+month+'-01'+' 00:00:00',
+                ids:[]
+            };
+        if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){    
+                for(let item of this.enterpriseLoader.Items){
+                    sumIds.push({key:item.id,value:item.name});
+                }       
+        }
+        else{
+            let item = this.enterpriseLoader.Items.find(n=>n.id==this._param.enterpriseId);
+            sumIds.push({key:this._param.enterpriseId,value:item.name});
+        }
     
-    let month:string;
-    let enterprises : Array<{key:string;}>=[];
-    month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
-    let param ={
+        param.ids = sumIds;
+
+        this.consumeLoader.Go(null,null,param)
+        .then(success=>{
+            this.chartService.toSumDatas(this.consumeLoader.FirstItem,this.sumChart);    
+            this.layoutService.hide();
+        })
+        .catch(err=>{
+            this.layoutService.hide();
+            this.showMsg(err);
+        })
+    }
+
+    totalconsumeLoad(){
+        this.layoutService.show();
+        let month:string;
+        let historyIds:Array<string>=[];
+        month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
+        let param={
             endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
-            startTime:this._param.year+'-'+month+'-01'+' 00:00:00',
-            ids:[]
+            ids:[],
+            size:this.size//Number(this._param.month)
         };
-    if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){    
-            for(let item of this.enterpriseLoader.Items){
-                let ent = {key:item.id};
-                enterprises.push(ent);
-            }       
-    }
-    else{
-        enterprises.push({key:this._param.enterpriseId});     
-    }
 
-    
+        if(this.isNullEnterprise()){    
+                for(let item of this.enterpriseLoader.Items){
+                    historyIds.push(item.id);
+                }       
+        }
+        else{
+                    historyIds.push(this._param.enterpriseId);
+        }
 
-     param.ids = enterprises;
 
-     this.topConsumeLoad(param);
-     this.topIncreseConsumeLoad(param);
-}
-//发送请求，处理参数，展示
-consumeLoad(){
-    this.layoutService.show();
-    let month:string;
-    let sumIds :Array<{key:String;value:string}> =[];
-     month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
-    let param={
-            endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
-            startTime:this._param.year+'-'+month+'-01'+' 00:00:00',
-            ids:[]
-        };
-     if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){    
-            for(let item of this.enterpriseLoader.Items){
-                sumIds.push({key:item.id,value:item.name});
-            }       
-    }
-    else{
-         let item = this.enterpriseLoader.Items.find(n=>n.id==this._param.enterpriseId);
-        sumIds.push({key:this._param.enterpriseId,value:item.name});
-    }
-   
-    param.ids = sumIds;
+        param.ids = historyIds;
 
-    this.consumeLoader.Go(null,null,param)
-     .then(success=>{
-         this.chartService.toSumDatas(this.consumeLoader.FirstItem,this.sumChart);    
-         this.layoutService.hide();
-    })
-    .catch(err=>{
+        this.totalConsumeLoader.Go(null,null,param)
+        .then(success=>{
+            this.increseConsumeLoader.Go(null,null,param)
+        })
+        .then(success=>{ 
+            // this.chartService.toHistoryData(this.totalConsumeLoader.Items,this.increseConsumeLoader.Items,this.historyChart);
+              this.historyChart.datasets[0].data = [100,200,400,500,250];
+              this.historyChart.datasets[1].data = [100,200,400,500,250];
         this.layoutService.hide();
-        this.showMsg(err);
-    })
-}
-
-totalconsumeLoad(){
-    this.layoutService.show();
-    let month:string;
-    let historyIds:Array<string>=[];
-     month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
-     let param={
-        endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
-        ids:[],
-        size:this.size//Number(this._param.month)
-    };
-
-    if(this._param.enterpriseId==null||this._param.enterpriseId=='null'){    
-            for(let item of this.enterpriseLoader.Items){
-                historyIds.push(item.id);
-            }       
-    }
-    else{
-                historyIds.push(this._param.enterpriseId);
-    }
-
-
-     param.ids = historyIds;
-
-    this.totalConsumeLoader.Go(null,null,param)
-     .then(success=>{
-        this.increseConsumeLoader.Go(null,null,param)
-    })
-    .then(success=>{
-        this.chartService.toHistoryData(this.totalConsumeLoader.Items,this.increseConsumeLoader.Items,this.historyChart);
-         this.historyChart.datasets[0].data = [100,200,400,500,250];
-        this.historyChart.datasets[1].data = [100,200,400,500,250];
-       this.layoutService.hide();
-    })
-    .catch(err=>{
-        this.layoutService.hide();
-        this.showMsg(err);
-    })
-}
-
-topConsumeLoad(param:any){
-    this.layoutService.show();
-    if(this.isNullEnterprise()){
-        this.topConsumeLoader.Go(null,null,param)
-        .then(success=>{
-            this.chartService.topToDatas(this.topConsumeLoader.Items,this.topChart);
-            this.topChart.datasets[0].data = [100,200,400,500,250];
-            this.layoutService.hide();
         })
         .catch(err=>{
             this.layoutService.hide();
             this.showMsg(err);
         })
-    }else{
-        this.topConsumeDepartmentLoader.Go(null,null,param)
-        .then(success=>{
-            this.chartService.topToDatas(this.topConsumeLoader.Items,this.topChart);
-            this.topChart.datasets[0].data = [100,200,400,500,250];
-            this.layoutService.hide();
-        })
-        .catch(err=>{
-            this.layoutService.hide();
-            this.showMsg(err);
-        }) 
     }
-    
-     
-}
 
-topIncreseConsumeLoad(param:any){
-    this.layoutService.show();
-      if(this.isNullEnterprise()){
-        this.topIncreseConsumeLoader.Go(null,null,param)
-        .then(success=>{
-             this.chartService.topToDatas(this.topConsumeLoader.Items,this.topIncreaseChart);
-             this.topIncreaseChart.datasets[0].data = [100,200,400,500,250];
-             this.layoutService.hide();
-        })
-        .catch(err=>{
-            this.layoutService.hide();
-            this.showMsg(err);
-        })
-    }else{
-        this.topIncreseConsumeDepartmentLoader.Go(null,null,param)
-        .then(success=>{
-               this.chartService.topToDatas(this.topConsumeLoader.Items,this.topIncreaseChart);
-               this.topIncreaseChart.datasets[0].data = [100,200,400,500,250];
-               this.layoutService.hide();
-        })
-        .catch(err=>{
-            this.layoutService.hide();
-            this.showMsg(err);
-        }) 
+    topConsumeLoad(param:any){
+        this.layoutService.show();
+        if(this.isNullEnterprise()){
+            this.topConsumeLoader.Go(null,null,param)
+            .then(success=>{
+            // this.chartService.topToDatas(this.topConsumeLoader.Items,this.topChart);
+                this.topChart.datasets[0].data = [100,300,600,200,50];
+                this.layoutService.hide();
+            })
+            .catch(err=>{
+                this.layoutService.hide();
+                this.showMsg(err);
+            })
+        }else{
+            this.topConsumeDepartmentLoader.Go(null,null,param)
+            .then(success=>{
+            // this.chartService.topToDatas(this.topConsumeLoader.Items,this.topChart);
+                this.topChart.datasets[0].data = [100,300,600,200,50];
+                this.layoutService.hide();
+            })
+            .catch(err=>{
+                this.layoutService.hide();
+                this.showMsg(err);
+            }) 
+        }
+        
+        
     }
-    
-}
 
-//选择所有企业
-isNullEnterprise(){
-    if(this._param.enterpriseId==null||this._param.enterpriseId=='null')
-        return true;
-    return false;
-    
-}
+    topIncreseConsumeLoad(param:any){
+        this.layoutService.show();
+        if(this.isNullEnterprise()){
+            this.topIncreseConsumeLoader.Go(null,null,param)
+            .then(success=>{
+                // this.chartService.topToDatas(this.topIncreseConsumeLoader.Items,this.topIncreaseChart);
+                 this.topIncreaseChart.datasets[0].data = [100,300,600,200,50];
+                this.layoutService.hide();
+            })
+            .catch(err=>{
+                this.layoutService.hide();
+                this.showMsg(err);
+            })
+        }else{
+            this.topIncreseConsumeDepartmentLoader.Go(null,null,param)
+            .then(success=>{
+                // this.chartService.topToDatas(this.topIncreseConsumeLoader.Items,this.topIncreaseChart);
+                   this.topIncreaseChart.datasets[0].data = [100,300,600,200,50];
+                this.layoutService.hide();
+            })
+            .catch(err=>{
+                this.layoutService.hide();
+                this.showMsg(err);
+            }) 
+        }
+        
+    }
 
-// toHistoryData(source:Array<any>,target:Chart){
-//     let datas:Array<number>=[];
-//     let labels :Array<string>=[];
-//     if(source){
-//         for(let item of source){
-//             datas.push(item.doubleValue);
-//             labels.push(item.num+'月');
-//         }
-//     }
-//     target.datas.splice(0,target.datas.length);
-//     target.labels.splice(0,target.labels.length);
-//     target.datas = datas;
-//     target.labels = labels;
-// }
-// toIncreaseHistoryData(source:Array<any>,target:Chart){
-//     let datas:Array<number>=[];
-//     if(source){
-//         for(let item of source){
-//             datas.push(item.doubleValue);
-//         }
-//     }
-//     target.datas2.splice(0,target.datas2.length);
-//     target.datas2 = datas;
-// }
-// topToDatas(target:Chart,items:Array<any>){
-//     let datas:Array<number> = [];
-//     let labels:Array<string>=[];
-//     // for(let i = 0;i<items.length;i++){
-//     //     datas[i] = items[i].amount;
-//     // }
-//     if(items.length>0){
-//         for(let item of items){
-//         datas.push(item.amount);
-//         labels.push(item.name);
-//     }
-// }    
-//    target.datas.splice(0,target.datas.length);
-//    target.labels.splice(0,target.labels.length);
-//    target.datas = datas;
-//    target.labels = labels;
-// }
+    //选择所有企业
+    isNullEnterprise(){
+        if(this._param.enterpriseId==null||this._param.enterpriseId=='null')
+            return true;
+        return false;
+        
+    }
+
+    // toHistoryData(source:Array<any>,target:Chart){
+    //     let datas:Array<number>=[];
+    //     let labels :Array<string>=[];
+    //     if(source){
+    //         for(let item of source){
+    //             datas.push(item.doubleValue);
+    //             labels.push(item.num+'月');
+    //         }
+    //     }
+    //     target.datas.splice(0,target.datas.length);
+    //     target.labels.splice(0,target.labels.length);
+    //     target.datas = datas;
+    //     target.labels = labels;
+    // }
+    // toIncreaseHistoryData(source:Array<any>,target:Chart){
+    //     let datas:Array<number>=[];
+    //     if(source){
+    //         for(let item of source){
+    //             datas.push(item.doubleValue);
+    //         }
+    //     }
+    //     target.datas2.splice(0,target.datas2.length);
+    //     target.datas2 = datas;
+    // }
+    // topToDatas(target:Chart,items:Array<any>){
+    //     let datas:Array<number> = [];
+    //     let labels:Array<string>=[];
+    //     // for(let i = 0;i<items.length;i++){
+    //     //     datas[i] = items[i].amount;
+    //     // }
+    //     if(items.length>0){
+    //         for(let item of items){
+    //         datas.push(item.amount);
+    //         labels.push(item.name);
+    //     }
+    // }    
+    //    target.datas.splice(0,target.datas.length);
+    //    target.labels.splice(0,target.labels.length);
+    //    target.datas = datas;
+    //    target.labels = labels;
+    // }
 
 
-search_chart(){
+    search_chart(){
 
-    //消费概览
-    this.consumeLoad();
+        //消费概览
+        this.consumeLoad();
 
-    //消费趋势
-    this.totalconsumeLoad();
+        //消费趋势
+        this.totalconsumeLoad();
 
-    //两个TOP图
-    this.loadTopChart();
-}
+        //两个TOP图
+        this.loadTopChart();
+
+        //加载表格
+        // this.loadService();
+    }
 
 
 // createSumBar(){
@@ -524,17 +531,64 @@ search_chart(){
 
 
 
-//进入账单管理页面
-costManage(){
-    this.router.navigateByUrl("op-center/order-mng/cost-manage");
-}
+    //进入账单管理页面
+    costManage(){
+        this.router.navigateByUrl("op-center/order-mng/cost-manage");
+    }
 
 
 
-showMsg(msg: string)
-	{
-		this._notice.open("COMMON.SYSTEM_PROMPT", msg);
-	}
+    showMsg(msg: string)
+        {
+            this._notice.open("COMMON.SYSTEM_PROMPT", msg);
+        }
 
-	
+    loadService(){
+    //     {
+    //   "endTime": "2017-03-07T03:36:22.668Z",
+    //   "idList": [
+    //     "string"
+    //   ],
+    //   "startTime": "2017-03-07T03:36:22.668Z"
+    // }
+
+    this.layoutService.show();
+    let ids:Array<string>=[];
+    let month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
+
+        if(this.isNullEnterprise()){    
+                for(let item of this.enterpriseLoader.Items){
+                    ids.push(item.id);
+                }       
+        }
+        else{
+                    ids.push(this._param.enterpriseId);
+        }
+
+        let param =     {
+        "endTime": this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
+        "idList": ids,
+        "startTime":this._param.year+'-'+month+'-01'+' 00:00:00'
+    };
+        if( this.isAllService == null||this.isAllService =='null'){//所有服务
+            this.allServiceLoader.Go(null,null,param)
+                .then(success=>{    
+                    this.layoutService.hide();
+                })
+                .catch(err=>{
+                    this.layoutService.hide();
+                    this.showMsg(err);
+                })
+        }else{//新增服务
+            this.increaseServiceLoader.Go(null,null,param)
+                .then(success=>{   
+                    this.layoutService.hide();
+                })
+                .catch(err=>{
+                    this.layoutService.hide();
+                    this.showMsg(err);
+                })
+        }
+    
+    }	
 }
