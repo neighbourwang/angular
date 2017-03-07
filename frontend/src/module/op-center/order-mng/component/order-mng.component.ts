@@ -356,12 +356,16 @@ export class OrderMngComponent implements OnInit{
 
 	//自动续订
 	autoRenew(orderItem:SubInstanceResp){
+		alert();
 		if(!_.isEmpty(orderItem.itemList)){
 			this.selectedOrderItem = orderItem;
 			console.log(this.selectedOrderItem.itemList[0]);
 		}
 		else{
 		}
+		this.AutoRenewDialog.open('已购服务自动续订：' + this.selectedOrderItem.orderNo);
+	}
+	autoRenewTest(){
 		this.AutoRenewDialog.open('已购服务自动续订：' + this.selectedOrderItem.orderNo);
 	}
 
