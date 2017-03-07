@@ -1,8 +1,9 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, SystemDictionary, PaginationComponent  } from '../../../../architecture';
+import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, SystemDictionary, PaginationComponent, ValidationService  } from '../../../../architecture';
 
 //model
 import { CaseMngList } from '../model/case-mng-list.model';
@@ -24,7 +25,8 @@ export class CaseMngListComponent implements OnInit{
     constructor(
         private router : Router,
         private service : CaseMngService,
-        private layoutService : LayoutService
+        private layoutService : LayoutService,
+        private validationService: ValidationService
     ) {
 
     }
@@ -39,6 +41,8 @@ export class CaseMngListComponent implements OnInit{
     caseDetail: PopupComponent;
     @ViewChild("confirm")
     confirm: ConfirmComponent;
+    @ViewChild("orgForm")
+    orgForm: NgForm;
 
     noticeTitle = "";
     noticeMsg = "";
@@ -121,6 +125,7 @@ export class CaseMngListComponent implements OnInit{
     }
 
     crePage(){
+        this.orgForm.reset();
         this.isEdit= false;
         this.criteria= new CaseMngList();
         this.criteria.emergency= "";
@@ -133,7 +138,11 @@ export class CaseMngListComponent implements OnInit{
         this.selectedStatus= "";
         this.selectedType= "";
         this.search= "";
-        if(!this.isEdit){
+        if(this.validationService.isBlank(this.criteria.subject) || this.validationService.isBlank(this.criteria.type)
+            ||this.validationService.isBlank(this.criteria.emergency) ||this.validationService.isBlank(this.criteria.contact)
+            ||this.validationService.isBlank(this.criteria.contactNo)){
+          
+        }else if(!this.isEdit){
             this.layoutService.show();
             this.service.creat(this.criteria)
                 .then(
@@ -167,6 +176,9 @@ export class CaseMngListComponent implements OnInit{
                 .catch((e) => this.onRejected(e));
         }
 
+    }
+    close(){
+        this.creCase.close();
     }
 
     delete(item){
