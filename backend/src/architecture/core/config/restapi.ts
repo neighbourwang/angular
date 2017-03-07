@@ -343,9 +343,43 @@ export let RestApis: RestApiModel[] = [
         "method": "DELETE",    
         "url": "adminui/authsec/platform/flavor/{id}"        
     },
-    
-    // 平台接入管理
-
+    //启动盘管理
+    {
+        "desc": "取得启动盘列表",
+        "id": "platform-mng.bootDiskList.get",
+        "method": "GET",
+        "url": "adminui/authsec/platforms/{id}/bootstorage"        
+    },
+    {
+        "desc": "启用启动盘",
+        "id": "platform-mng.bootDisk.enable",
+        "method": "PUT",    
+        "url": "adminui/authsec/platform/bootstorage/{id}/enable"        
+    },
+    {
+        "desc": "禁用启动盘",
+        "id": "platform-mng.bootDisk.suspend",
+        "method": "PUT",    
+        "url": "adminui/authsec/platform/bootstorage/{id}/suspend"        
+    },
+    {
+        "desc": "删除启动盘",
+        "id": "platform-mng.bootDisk.delete",
+        "method": "DELETE",    
+        "url": "adminui/authsec/platform/bootstorage/{id}"        
+    },
+    {
+        "desc": "新建启动盘",
+        "id": "platform-mng.bootDisk.post",
+        "method": "POST",    
+        "url": "adminui/authsec/sync/platform/bootstorage"        
+    },
+    {
+        "desc": "同步更新启动盘",
+        "id": "platform-mng.bootDisk.put",
+        "method": "PUT",    
+        "url": "adminui/authsec/sync/platform/bootstorage"        
+    },
     // 企业资源配额管理
     {
         "desc": "取得所有企业的资源配额信息",

@@ -163,12 +163,12 @@ export class MenuService {
 							"isOpen": false,
 							"isShow": true,
 							"routing": "op-center/order-mng/order-mng-search"
-						}, {
+						},/* {
 							"label": "消费总览",
 							"isOpen": false,
 							"isShow": true,
 							"routing": "op-center/order-mng/cost-pandect"
-						}
+						}*/
 					]
 				},
 				{

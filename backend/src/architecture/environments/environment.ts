@@ -3,44 +3,90 @@
 // `ng build --env=test` then `environment.test.ts` will be used instead.
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
- const promise = new Promise((resolve,reject) => {
+// // const userName = "michaelwang@hpe.com",
+// const userName = "otheradmin@hpe.com",
+
+//       password = "12345"
+const promise = new Promise((resolve,reject) => {
      const token =  window.sessionStorage["token"];
      token ?　resolve(token) : reject("获取token失败！");
- })
+ });
+
+const isTest = window.localStorage["environment"] === "test" ;
+const baseIp = isTest ? "15.114.102.32" : "15.114.100.31";
+const basePort = isTest ? "31072" : "30072";
  
 export const environment = {
     production: true ,
-    baseIp : '15.114.100.31',  
-    basePort : '30072',
+    baseIp : baseIp,  
+    basePort : basePort,
     jwt : promise
 };
 
 
-// // The file contents for the current environment will overwrite these during build.
-// // The build system defaults to the wdev environment which uses `environment.ts`, but if you do
-// // `ng build --env=prod` then `environment.prod.ts` will be used instead.
-// // The list of which env maps to which file can be found in `angular-cli.json`.
-
-// const userName = "gavin@hpe.com",
+// const userName = "michaelwang@hpe.com",
 //       password = "12345"
 
-// const promise = new Promise((resolve,reject) => {
-//  $.ajax({
-//     url: `http://15.114.100.52:30072/uaa/oauth/token?grant_type=password&username=${userName}&password=${password}&client_id=ui&client_secret=12345`,
-//     type: "POST",
-//     beforeSend: function (request)
-//     {
-//         request.setRequestHeader("Authorization", "Basic " + btoa("ui:secret"))
-//     },
-//     crossDomain: true,
-//     success: function (response) {
-//         resolve("bearer " + response.access_token)
-//     },
-//     error: function (xhr, status) {
-//        reject("获取token失败！")
-//     }
-// }); 
-// });
+// // $.ajax({
+// //         url: `http://15.114.100.52:32072/uaa/oauth/token?grant_type=password&username=gavin@hpe.com&password=12345&client_id=ui&client_secret=12345`,
+// //         type: "POST",
+// //         beforeSend: function (request)
+// //         {
+// //             request.setRequestHeader("Authorization", "Basic " + btoa("ui:secret"))
+// //         },
+// //         crossDomain: true,
+// //         success: function (response, status, xhr) {
+
+// //             var bb = xhr.getResponseHeader('Pragma'); console.log(bb,2222)
+// // console.log( xhr.getAllResponseHeaders())
+            
+// //         },
+// //         error: function (xhr, status) {
+           
+// //         },
+// //       xhrFields: {
+// //         withCredentials: true
+// //       }
+// // }); 
+
+// // $.ajax({
+// //     url: "http://15.114.100.52:32072/basis/authsec/menu/tree/roles",
+// //     type: "POST",
+// //     beforeSend: function (request)
+// //     {
+// //         request.setRequestHeader("Authorization", "bearer 4000a778-2a92-41a7-8ab3-c795e831d005")
+// //     },
+// //     crossDomain: true,
+// //     success: function (response) {
+// //         alert("成功",response);
+// //     },
+// //     error: function (xhr, status) {
+// //         alert("error");
+// //     },
+// //       xhrFields: {
+// //         withCredentials: true
+// //       }
+// // }); 
+
+//  const promise = new Promise((resolve,reject) => {
+//      $.ajax({
+//         url: `http://15.114.100.55:30072/uaa/oauth/token?grant_type=password&username=${userName}&password=${password}&client_id=ui&client_secret=12345`,
+//         type: "POST",
+//         beforeSend: function (request)
+//         {
+//             request.setRequestHeader("Authorization", "Basic " + btoa("ui:secret"))
+//         },
+//         crossDomain: true,
+//         success: function (response) {
+//             resolve("bearer " + response.access_token)
+//         },
+//         error: function (xhr, status) {
+//            reject("获取token失败！")
+//         }
+//     }); 
+//  });
+
+// //  const promise1 = new Promise(next => next("bearer 38487982-429e-417a-9ca3-39c49965e8bc"))
 
 //  function ajax(url, token, method?){
 //       return new Promise((resolve, reject) => {
@@ -64,13 +110,15 @@ export const environment = {
 
 
 // promise.then(token => Promise.all([
-//     ajax("basis/authsec/adm/user/current", token),    //获取当前登录用户信息
-//     // ajax("basis/authsec/adm/currentEnterpriseId", token)   // 获取用户企业id
+//     ajax("basis/authsec/mpp/user/current", token),    //获取当前登录用户信息
+//     // ajax("basis/authsec/mpp/currentEnterpriseId", token)   // 获取用户企业id
 // ]))
 // .then(arr => {
 //     sessionStorage["userInfo"] = JSON.stringify(arr[0]);
 //     // sessionStorage["userEnterpriseId"] = JSON.stringify(arr[1]);
-// })
+// });
+
+
 
 
 // export const environment = {
