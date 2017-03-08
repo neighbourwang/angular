@@ -105,9 +105,10 @@ export class VmwareImgListService{
                 "os" : image.os,
                 "bitsType" : image.bitsType,
                 "type" : image.type,
+                //"capacity" : image.capacity,
                 "description" : image.description
         };
-        console.log(image.id, obj, "(((((((((((((((((((((image.id and obj)))))))))))))))))))))");
+        console.log(image, obj, "(((((((((((((((((((((image and obj)))))))))))))))))))))");
         const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.image.edit");
         return this.restApi.request(api.method, api.url, pathParams, null, obj);
         //*/

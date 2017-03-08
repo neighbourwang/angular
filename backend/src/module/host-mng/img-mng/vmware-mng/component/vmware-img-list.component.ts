@@ -78,6 +78,8 @@ export class VmwareImgListComponent implements OnInit {
     changedimg: VmwareImgModel = new VmwareImgModel();
     vmwareents: Array<VmwareEntModel>;
 
+    capacity: string = '';
+
     private okCallback: Function = null;
     okClicked() {
         console.log('okClicked');
@@ -355,6 +357,7 @@ export class VmwareImgListComponent implements OnInit {
             this.changedimg.os = this.selectedimg.os;
             this.changedimg.bitsType = this.selectedimg.bitsType;
             this.changedimg.capacity = this.selectedimg.capacity;
+            this.capacity = (Number(this.selectedimg.capacity)/1024/1024/1024).toFixed(2).toString();
             this.changedimg.type = this.selectedimg.type;
             this.changedimg.description = this.selectedimg.description;
             this.editimagebox.open();
@@ -385,6 +388,7 @@ export class VmwareImgListComponent implements OnInit {
                         this.selectedimg.displayName = this.changedimg.displayName;
                         this.selectedimg.os = this.changedimg.os;
                         this.selectedimg.bitsType = this.changedimg.bitsType;
+                        this.changedimg.capacity = String(Number(this.capacity)*1024*1024*1024); 
                         this.selectedimg.capacity = this.changedimg.capacity;
                         this.selectedimg.type = this.changedimg.type;
                         this.selectedimg.description = this.changedimg.description;

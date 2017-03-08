@@ -9,7 +9,9 @@
             <div class="float-left pdr20">
                 <select class="pdl10 form-control" [(ngModel)]="queryOpt.type">
                     <option [value]="" value="">{{'HOST_VMWARE_MNG.SELECT_IMAGE' | translate}}</option>
-                    <option *ngFor="let td of typeDictArray" [value]="td.value">{{td.displayValue}}</option>
+                    <!-- <option *ngFor="let td of typeDictArray" [value]="td.value"><span  *ngIf="td.value!='1'">{{td.displayValue}}</span></option> -->
+                    <option [value]="'0'">{{'HOST_VMWARE_MNG.PUBLIC_IMAGE' | translate}}</option>
+                    <option [value]="'2'">{{'HOST_VMWARE_MNG.ENTERPRISE_IMAGE' | translate}}</option>
                 </select>
             </div>          
             <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >{{'HOST_VMWARE_MNG.AFFILIATED_ENTERPRISE' | translate}}：</span>
@@ -108,10 +110,7 @@
             </tbody>
             
         </table>
-        
-<!--
-    {{queryOpt.toString()}}
--->
+
     </div>
 
     <div class="fox-cloud-pagination-container">
@@ -170,7 +169,6 @@
 				<div class="form-group">
 					<div class="col-sm-5 form-control-title">{{'HOST_VMWARE_MNG.OS' | translate}}：</div>
 					<div class="col-sm-7">
-						<!--<input type="string" class="form-control input-control" [(ngModel)]="changedimg.os">  -->
                         <select [(ngModel)]="changedimg.os">
                             <option *ngFor="let os of this.osDictArray" [value]="os.value">{{os.displayValue}}</option>
                         </select>
@@ -191,8 +189,9 @@
 				<div class="form-group">
 					<div class="col-sm-5 form-control-title">{{'HOST_VMWARE_MNG.CAPACITY' | translate}}：</div>
 					<div class="col-sm-7">
-						<!-- <input type="string" class="form-control input-control" [(ngModel)]="selectedimg.dnsAlt"> -->
-                        <span>{{ changedimg.capacity | formatCapacity}}</span>
+                        <!-- <span>{{ changedimg.capacity | formatCapacity}}</span> -->
+                        <!-- <input type="string" class="form-control input-control" [ngModel]="capacity" (ngModelChange)="capacity=$event"> GB -->
+                        <input type="string" class="form-control input-control" [(ngModel)]="capacity"> GB
 					</div>
 				</div>
 			</div>
