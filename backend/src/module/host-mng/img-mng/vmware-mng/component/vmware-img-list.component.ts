@@ -422,7 +422,7 @@ export class VmwareImgListComponent implements OnInit {
                 "msg": "HOST_VMWARE_MNG.EMAIL_INVALID"  //邮箱地址无效
             },
             "number": {
-                "func": val => !this.validationService.isNumber(val),
+                "func": val => { return (Number(val)==0 || isNaN(Number(val)) || Number(val)<0) },
                 "msg": "HOST_VMWARE_MNG.NOT_NUMBER"  //邮箱地址无效
             }
         }
@@ -454,7 +454,12 @@ export class VmwareImgListComponent implements OnInit {
             },
             {
                 "name": "HOST_VMWARE_MNG.IMAGE_CAPACITY"  //镜像容量
-                , 'value': this.changedimg.capacity
+                , 'value': this.capacity
+                , "op": "*"
+            },
+            {
+                "name": "HOST_VMWARE_MNG.IMAGE_CAPACITY"  //镜像容量
+                , 'value': this.capacity
                 , "op": "number"
             }
             ].find(n => this.validate(n.name, n.value, n.op) !== undefined);
