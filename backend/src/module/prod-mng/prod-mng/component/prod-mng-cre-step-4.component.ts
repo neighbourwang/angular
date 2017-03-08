@@ -56,7 +56,7 @@ export class ProdMngCreStep4Component implements OnInit {
                 console.log('企业', response);                
                 this.layoutService.hide();
                 if (!response.resultContent || response.resultContent.length == 0) {
-                    this.confirm.open('提示', '根据所选平台列表暂时没有对应的可供发布企业');
+                    this.notice.open('提示', '根据所选平台列表暂时没有对应的可供发布企业');
                 }else{
                     // if (response && 100 == response.resultCode) {
                 this.service.product.enterpriseListForSelect = response.resultContent;

@@ -11,7 +11,7 @@ class zone{
   "selected": boolean;
   "displayName":string;
 }
-class plateform {
+class platform {
      "platformId": string;
       "platformName": string;
       "zoneList": Array<zone>
@@ -22,7 +22,7 @@ class enterprise {
     "selected" : boolean;
     "code" :string;
 }
-export class Product {
+class Product {
     "id":string;
     "billingId":string;
     "basicCyclePrice": number;
@@ -33,7 +33,7 @@ export class Product {
     "name": string;
     "oneTimePrice": number;
     "productEnterpiseReqs": Array<enterprise>;
-    "productPlatformReqs": Array<plateform>;
+    "productPlatformReqs": Array<platform>;
     "enterpriseListForSelect":Array<any>;
     "serviceId": string;
     "unitPrice": number;
@@ -41,7 +41,11 @@ export class Product {
     "desc":string;
     constructor() {
         this.productEnterpiseReqs = Array<enterprise>();
-        this.productPlatformReqs=Array<plateform>();
+        this.productPlatformReqs=Array<platform>();
         this.billingCycleClick=false;
     }
+}
+export {
+    Product,
+    platform
 }
