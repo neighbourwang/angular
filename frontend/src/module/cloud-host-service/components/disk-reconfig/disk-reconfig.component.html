@@ -27,7 +27,7 @@
 							<td class="text-center">{{disk.size}}</td>
 				            <td class="text-center">{{disk.relyName}}</td>
 				            <td class="text-center">{{disk.status | dict:service.computeStatus | async}}</td>
-							<td class="text-center"><font>¥{{disk.billingInfo?.unitPrice}}元/GB/{{disk.billingInfo?.billingMode | dict:service.weekly | async}}</font></td>
+							<td class="text-center"><font>¥{{disk.billingInfo?.unitPrice}}元/GB/{{disk.billingInfo?.periodType | dict:service.weekly | async}}</font></td>
 							<td class="text-center">{{disk.platformName}} {{disk.zoneName}}</td>
 							<td class="text-center">{{disk.useType}}</td>
 						</tr>
@@ -58,7 +58,7 @@
 										</tr>
 										<tr>
 											<td class="text-r vertical-t">费用：</td>
-											<td><font>¥{{disk.billingInfo?.unitPrice * currentStorage}}元/{{disk.billingInfo?.billingMode | dict:service.weekly | async}}</font></td>
+											<td><font>¥{{disk.billingInfo?.unitPrice * currentStorage}}元/{{disk.billingInfo?.periodType | dict:service.weekly | async}}</font></td>
 										</tr>
 									</table>
 								</div>
