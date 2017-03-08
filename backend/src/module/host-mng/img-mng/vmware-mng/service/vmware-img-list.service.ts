@@ -41,15 +41,15 @@ export class VmwareImgListService{
                 value: pageSize
             }
         ];
-        const obj = {
+        const body = {
                 "type": queryOpt.type,
                 "tenantId": queryOpt.tenantId
         };
-        console.log(platformId, obj, "(((((((((((((((((((platformId and obj)))))))))))))))))))");
+        console.log(platformId, body, "(((((((((((((((((((platformId and body)))))))))))))))))))");
         
         //*
         const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.image.list");
-        return this.restApi.request(api.method, api.url, pathParams, null, obj);
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
         //*/
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return VmwareImgModel_mock });
     }
@@ -100,17 +100,17 @@ export class VmwareImgListService{
                 value: image.id
             }
         ];
-        const obj = {
+        const body = {
                 "displayName" : image.displayName,
                 "os" : image.os,
                 "bitsType" : image.bitsType,
                 "type" : image.type,
-                //"capacity" : image.capacity,
+                "capacity" : image.capacity,
                 "description" : image.description
         };
-        console.log(image, obj, "(((((((((((((((((((((image and obj)))))))))))))))))))))");
+        console.log(image, body, "(((((((((((((((((((((image and body)))))))))))))))))))))");
         const api = this.restApiCfg.getRestApi("host-mng.vmware-mng.image.edit");
-        return this.restApi.request(api.method, api.url, pathParams, null, obj);
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
         //*/
 
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return success_resp_mock });

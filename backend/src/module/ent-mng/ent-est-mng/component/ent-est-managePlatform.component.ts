@@ -38,7 +38,7 @@ export class EntEstManagePlatformComponent implements OnInit {
     private _dictServ:DictService
   ) {
      //字典配置
-      this.statusDic = new DicLoader(restApiCfg, restApi, "SUBINSTANCE", "STATUS");
+      this.statusDic = new DicLoader(restApiCfg, restApi, "GLOBAL", "STATUS");
       this.statusDic.SourceName = "status";
       this.statusDic.TargetName = "statusName";
       this.typeDic = new DicLoader(restApiCfg, restApi, "PLATFORM", "TYPE");
