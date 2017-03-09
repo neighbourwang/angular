@@ -73,9 +73,9 @@
 					<td>{{item.imageQuota }}</td>
 					<td>{{item.productNumber }}</td>
 					<!--<td>{{item.orderNumber}}</td>-->
-					<td>{{item.usedVCpuRate }}</td>
-					<td>{{item.usedMemRate}}</td>
-					<td>{{item.usedStorageRate}}</td>
+					<td>{{item.usedVCpuRate }}%</td>
+					<td>{{item.usedMemRate}}%</td>
+					<td>{{item.usedStorageRate}}%</td>
 					<td [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.statusName}}</td>
 					<td>{{item.description}}</td>
 				</tr>

@@ -870,6 +870,39 @@ export let RestApis: RestApiModel[] = [
     },
 
     //<!--后台-运营中心-订单管理-->
+
+    //
+    //费用设置
+
+    {
+        "desc": "费用设置-获取列表",
+        "id": "op-center.order-set.cost-set-list.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/bill/setting/currentuser"
+    },{
+        "desc": "费用设置-获取企业费用设置",
+        "id": "op-center.order-set.ent-set-list.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/bill/setting"
+    },{
+        "desc": "费用设置-保存企业费用设置",
+        "id": "op-center.order-set.ent-set-save.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterpise/bill/setting/profile"
+    },{
+        "desc": "费用设置-获取默认费用设置",
+        "id": "op-center.order-set.default-set-list.post",
+        "method": "POST",
+        "url": "adminui/authsec/organization/bill/setting"
+    },{
+        "desc": "费用设置-保存默认费用设置",
+        "id": "op-center.order-set.default-set-save.post",
+        "method": "POST",
+        "url": "adminui/authsec/organization/bill/setting/profile"
+    },
+    
+
+    //费用设置-ending
     //
     //产品管理
     {

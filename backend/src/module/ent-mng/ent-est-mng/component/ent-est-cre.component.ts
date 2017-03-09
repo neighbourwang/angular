@@ -85,11 +85,10 @@ export class EntEstCreComponent implements OnInit{
 		}
 		this.nameCheckLoader.Go(null,null,param)
 		.then(succeuss=>{
-			if(this.nameCheckLoader.code==100){
-				this.isSameName = 2;
-				// this.showMsg('该名称已存在！');
+			if(this.nameCheckLoader.code==10001004){
+				this.isSameName = 1;//10001004值是代表重名检查通过，允许创建
 			}else{
-				this.isSameName = 1;
+				this.isSameName = 2;
 			}
 		})
 		.catch(err=>{

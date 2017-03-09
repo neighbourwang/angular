@@ -139,19 +139,25 @@ export class EntEstCheckComponent implements OnInit {
 
           
           obj.vcpuQuota = item.cpuQuota;// : number = null;//": 0, //vCPU数量
-         
+          obj.usedCpuQuota =item.usedCpuQuota; 
          
           obj.memroyQuota = item.memQuota; //内存
+          obj.usedMemQuota =item.usedMemQuota; 
 
            obj.storageQuota = item.storageQuota;//存储
+           obj.usedSnapshotQuota =item.usedSnapshotQuota; 
 
           obj.physicalQuota = item.physicalMachineQuota;// : number = null;//": 0,//可创建物理机数量
+          obj.usedPhysicalMachineQuota =item.usedPhysicalMachineQuota; 
 
           obj.snapShotQuota = item.snapshotQuota;// : number = null;//": 0,//可创建快照数量
+          obj.usedSnapshotQuota =item.usedSnapshotQuota; 
 
           obj.imageQuota = item.imageQuota;// : number = null;//": 0,//可创建镜像数量
+          obj.usedImageQuota =item.usedImageQuota; 
 
          obj.floatIpQuota = item.floatIpQuota;// : number = null;//": 0,//可创建浮动IP数量
+         obj.usedFloatIpQuota =item.usedFloatIpQuota; 
 
          obj.id = item.id;// : string = null;//": "string",
   
@@ -162,13 +168,13 @@ export class EntEstCheckComponent implements OnInit {
             const bgw = [  0,0  ];  
 
 
-            this.epcpu = [{ data: [ target[0].vcpuQuota], backgroundColor: bgc, borderWidth:bgw }];
-            this.epmem = [{ data: [ target[0].memroyQuota ], backgroundColor: bgc, borderWidth:bgw }];
-            this.epdisk = [{ data: [ target[0].storageQuota], backgroundColor: bgc, borderWidth:bgw }];
-            this.ephost = [{ data: [  target[0].physicalQuota], backgroundColor: bgc, borderWidth:bgw }];
-            this.epsnapshot = [{ data: [ target[0].snapShotQuota ], backgroundColor: bgc, borderWidth:bgw }];
-            this.epimage = [{ data: [ target[0].imageQuota ], backgroundColor: bgc, borderWidth:bgw }];
-            this.epfloatIp = [{ data: [target[0].floatIpQuota], backgroundColor: bgc, borderWidth:bgw }]; 
+            this.epcpu = [{ data: [ target[0].usedCpuQuota,target[0].vcpuQuota- target[0].usedCpuQuota], backgroundColor: bgc, borderWidth:bgw }];
+            this.epmem = [{ data: [target[0].usedMemQuota,target[0].memroyQuota-target[0].usedMemQuota ], backgroundColor: bgc, borderWidth:bgw }];
+            this.epdisk = [{ data: [target[0].usedStorageQuota, target[0].storageQuota-target[0].usedStorageQuota], backgroundColor: bgc, borderWidth:bgw }];
+            this.ephost = [{ data: [target[0].usedPhysicalMachineQuota,  target[0].physicalQuota-target[0].usedPhysicalMachineQuota], backgroundColor: bgc, borderWidth:bgw }];
+            this.epsnapshot = [{ data: [ target[0].usedSnapshotQuota,target[0].snapShotQuota-target[0].usedSnapshotQuota ], backgroundColor: bgc, borderWidth:bgw }];
+            this.epimage = [{ data: [target[0].usedImageQuota, target[0].imageQuota-target[0].usedImageQuota ], backgroundColor: bgc, borderWidth:bgw }];
+            this.epfloatIp = [{ data: [target[0].usedImageQuota,target[0].floatIpQuota-target[0].usedImageQuota], backgroundColor: bgc, borderWidth:bgw }]; 
      }
 
     // this.resourceQuotaSvg.FakeDataFunc = (target:Array<EntEstCreResourceQuota>)=>{
