@@ -192,8 +192,9 @@ save(){
   this.layoutService.show();
   this.saveLoader.Go(null,[{key:'_enterpriseId',value:this.entId}],params)
   .then(success=>{
-    this.searchPlatform(null);
-    this.searchSelectedPlatform(null);
+    // this.searchPlatform(null);
+    // this.searchSelectedPlatform(null);
+    this.return();
     this.layoutService.hide();
   })
   .catch(err=>{
@@ -216,5 +217,8 @@ save(){
 	// 	});
 
 	// }
-
+  return(){
+    this.router.navigateByUrl('ent-mng/ent-est-mng/ent-est-mng');
+  }
+  
 }
