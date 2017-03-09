@@ -1,67 +1,8 @@
 <div class="page-content-header icon-content-header-platform-manage" style="padding-bottom:10px;height:45px;">
-    管理云主机启动盘: <span style="margin-right:20px;">{{platformName}}</span> 云主机类型: <span>{{platformType}}</span>
+    管理云主机启动盘: <span style="margin-right:20px;">{{platformName}}</span> 云主机类型: <span>{{platformTypeName}}</span>
     <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
         <span class="icon-button-label" (click)='goList()'>返回云平台列表</span>
     </button>
-</div>
-<div *ngIf=false>
-    <div class="page-content">
-        <div style="padding-bottom: 10px;">
-            <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
-                <span class="icon-button-label" (click)='goList()'>同步云主机规格</span>
-             </button>
-            <div style="clear:both"></div>
-        </div>
-        <div class="table-container">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>编号</th>
-                        <th>名称</th>
-                        <th>vCPU</th>
-                        <th>内存(M)</th>
-                        <th>启动盘大小(GB)</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td style="cursor:pointer">m2.tiny</td>
-                        <td>1</td>
-                        <td>512</td>
-                        <td>40</td>
-                        <td>
-                            <button class="fox-cloud-button-md fox-cloud-button-white">启用</button>
-                            <button class="fox-cloud-button-md fox-cloud-button-white">禁用</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td style="cursor:pointer">m2.tiny</td>
-                        <td>1</td>
-                        <td>512</td>
-                        <td>40</td>
-                        <td>
-                            <button class="fox-cloud-button-md fox-cloud-button-white">启用</button>
-                            <button class="fox-cloud-button-md fox-cloud-button-white">禁用</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td style="cursor:pointer">m2.tiny</td>
-                        <td>1</td>
-                        <td>512</td>
-                        <td>40</td>
-                        <td>
-                            <button class="fox-cloud-button-md fox-cloud-button-white">启用</button>
-                            <button class="fox-cloud-button-md fox-cloud-button-white">禁用</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
 </div>
 <div class="page-content" style="min-height:300px;">
     <div style="padding-bottom: 10px;">
@@ -72,24 +13,20 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                <!--<li><a href="#">修改</a></li>-->
+                <li><a href="#">新建</a></li>
+                <li><a href="#">编辑</a></li>
                 <li><a (click)="remove();">删除</a></li>
                 <li><a (click)="enable();">启用</a></li>
                 <li><a (click)="disable();">禁用</a></li>
             </ul>
         </div>
-
-        <button class="fox-cloud-button fox-cloud-button-green" (click)="createBootDisk();">
-            <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">新增启动盘</span>
-        </button>
+        <div style="clear: both"></div>
     </div>
     <div class="table-container">
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th class="check-box-col">选择</th>
-                    <th>编号</th>
                     <th>可用区</th>
                     <th>启动盘名称</th>
                     <th>后端存储</th>
@@ -100,31 +37,12 @@
             <tbody>
                 <tr>
                     <td><input class="fox-cloud-radio" type="radio" name="isSelected" check="item.isSelected" /></td>
-                    <td>1</td>
                     <td (click)="godetail(item)" style="cursor:pointer">可用区1</td>
                     <td>高性能SSD</td>
                     <td>cinder-volume1</td>
                     <td>启用</td>
                     <td>desc</td>
-                </tr>
-                <tr>
-                    <td><input class="fox-cloud-radio" type="radio" name="isSelected" check="item.isSelected" /></td>
-                    <td>1</td>
-                    <td (click)="godetail(item)" style="cursor:pointer">可用区1</td>
-                    <td>高性能SSD</td>
-                    <td>cinder-volume1</td>
-                    <td>启用</td>
-                    <td>desc</td>
-                </tr>
-                <tr>
-                    <td><input class="fox-cloud-radio" type="radio" name="isSelected" check="item.isSelected" /></td>
-                    <td>1</td>
-                    <td (click)="godetail(item)" style="cursor:pointer">可用区1</td>
-                    <td>高性能SSD</td>
-                    <td>cinder-volume1</td>
-                    <td>启用</td>
-                    <td>desc</td>
-                </tr>
+                </tr>                
             </tbody>
         </table>
     </div>
