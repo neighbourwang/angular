@@ -211,7 +211,7 @@ export class EntEstCreComponent implements OnInit{
 		this.entEst.BasicInfo.platformIds
 			= this.resourceQuotas.items.filter(n=>n.checked).map(n=>n.platformId);
 		if(this.isSameName!=1){
-			this.showMsg("名称不合法！");
+			this.showMsg("该用户已存在！");
 		}else{
 				if(this.validate())
 		{
