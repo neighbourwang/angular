@@ -8,7 +8,7 @@ import * as _ from 'underscore';
 @Component({
 	selector:'ent-est-cre'
 	,templateUrl:'../template/ent-est-cre.component.html'
-	,styleUrls:['../style/ent-est-mng.component.css']
+	,styleUrls:['../style/ent-est-mng.component.less']
 	,providers:[
 		EntEstCreService
 		]
@@ -85,11 +85,10 @@ export class EntEstCreComponent implements OnInit{
 		}
 		this.nameCheckLoader.Go(null,null,param)
 		.then(succeuss=>{
-			if(this.nameCheckLoader.code==100){
-				this.isSameName = 2;
-				// this.showMsg('该名称已存在！');
+			if(this.nameCheckLoader.code==10001004){
+				this.isSameName = 1;//10001004值是代表重名检查通过，允许创建
 			}else{
-				this.isSameName = 1;
+				this.isSameName = 2;
 			}
 		})
 		.catch(err=>{
@@ -211,7 +210,7 @@ export class EntEstCreComponent implements OnInit{
 		this.entEst.BasicInfo.platformIds
 			= this.resourceQuotas.items.filter(n=>n.checked).map(n=>n.platformId);
 		if(this.isSameName!=1){
-			this.showMsg("名称不合法！");
+			this.showMsg("该用户已存在！");
 		}else{
 				if(this.validate())
 		{

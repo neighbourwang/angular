@@ -75,7 +75,7 @@ export class CloudHostSpecComponent implements OnInit {
         this.service.updateFlavorList(this.platformId).then(res=>{
             console.log('update',res);
             if(res.resultContent.length==0){
-                this.notice.open('提示','暂时没有可同步的规格信息');
+                this.notice.open('COMMON.PROMPT','PF_MNG2.NO_SYNC_SPEC_INFO');
             }else{
                 this.getFlavorList(this.platformId);                
             }

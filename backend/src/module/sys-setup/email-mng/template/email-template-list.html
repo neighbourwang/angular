@@ -1,0 +1,92 @@
+
+<div class="page-content-header icon-cloud-network-mngOn">
+    <div>
+    {{'SYS_SETUP.EMAIL_TEMPLATE_MNG' | translate}}
+    <button class=" fox-cloud-button fox-cloud-button-white " style="float: right; margin: -10px;">
+        <span class="icon-button-label" (click)="emailMngPage()">返回Email设置</span>
+    </button>
+    </div>
+</div>
+<div class="page-content">
+    <!--
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th style="text-align:left;">VMware{{'NET_MNG_VM_IP_MNG.NET_MNG' | translate}} -- {{'NET_MNG_VM_IP_MNG.MANAGE_STD_NET' | translate}} -- {{'NET_MNG_VM_IP_MNG.IP_ADDRESS_MNG' | translate}} -- {{'NET_MNG_VM_IP_MNG.MANAGE_IP_ADDRESS' | translate}}</th>
+                <th style="text-align:right;">
+                    <button class=" fox-cloud-button fox-cloud-button-white ">
+                        <span class="icon-button-label" key="boe/ip_addr_mng.html" (click)="ipMngPage()">{{'NET_MNG_VM_IP_MNG.RETURN' | translate}}</span>
+                    </button>
+                </th>
+            </tr>
+        </thead>
+    </table>
+
+
+    <div class="row mgb10" >
+        <span class="pull-left mgt5 pdl15" style="display:inline-block;font-size:16px;padding:6px 0">
+            {{'NET_MNG_VM_IP_MNG.PORTGROUP_DISPLAY_NAME' | translate}} :
+        </span>
+        <div class="col-md-2">
+            <span class="pull-left mgt5 pdl15" style="display:inline-block;font-size:16px;padding:6px 0">{{pg_name}}</span>
+        </div>
+    </div>
+    -->
+
+    <div class="mgb10">
+        <button class="fox-cloud-button fox-cloud-button-green">创建</button>
+        <button class="fox-cloud-button fox-cloud-button-green">编辑</button>
+        <button class="fox-cloud-button fox-cloud-button-green">删除</button>
+        <!--
+        <div class="dropdown pull-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                {{'NET_MNG_VM_IP_MNG.SELECT_OPERATION' | translate}}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a (click)="enable()">{{'NET_MNG_VM_IP_MNG.OCCUPY' | translate}}IP</a></li>
+                <li><a (click)="disable()">{{'NET_MNG_VM_IP_MNG.RELEASE' | translate}}IP</a></li>
+            </ul>
+        </div>
+        -->
+    </div>
+
+
+    <div class="table-container mgb10">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>{{'COMMON.NUMBER' | translate}}</th>
+                <th>{{'SYS_SETUP.TEMPLATE_NAME' | translate}}</th>
+                <th>{{'SYS_SETUP.NOTIFICATION_TYPE' | translate}}</th>
+                <th>{{'SYS_SETUP.TEMPLATE_TYPE' | translate}}</th>
+                <th>{{'SYS_SETUP.CREATE_TIME' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><!--<input type="radio" class="fox-cloud-radio" name="radio" [checked]="ipusagemng" value="{{i}}">-->
+                1
+                </td>
+                <td  style="position:relative"><a href="javascript:void(0);" (click)="selectItem(i); emailTemplateDetailsPage();">密码重置</a></td>
+                <td>创建帐户</td>
+                <td>系统</td>
+                <td>2017-01-12 00:00:02</td>
+                <!-- <td [ngClass]="{'font-green':ipusagemng.status=='2','font-orange':ipusagemng.status=='1'}">{{getDicText(ipusagemng.status,this.statusDic)}}</td> -->
+            </tr>
+            </tbody>
+        </table>        
+    </div>
+
+</div>
+
+<!--
+<div class="text-center">
+    <button class="fox-cloud-button-lg fox-cloud-button-white">
+        <span class="icon-button-label" (click)="emailMngPage();">{{'COMMON.CLOSE' | translate}}</span>
+    </button>
+</div>
+-->
+
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" (of)="okClicked()"></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" (of)="onConfirmed()"></fc-confirm>

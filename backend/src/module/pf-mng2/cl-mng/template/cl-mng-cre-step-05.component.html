@@ -3,10 +3,10 @@
     <div class="row navigator-progress">
         <div class="col-md-2 active"><span class="mark">1</span><span>{{"PF_MNG2.BASIC_INFO" | translate}}<!--基本信息--></span><span class="icon-tick"></span></div>
         <div class="col-md-2 active"><span class="mark">2</span><span>{{"PF_MNG2.RESOURCE_SYNC" | translate}}<!--资源同步--></span><span class="icon-tick"></span></div>
-        <div class="col-md-2 active"><span class="mark">3</span><span>可用区配置</span><span class="icon-tick"></span></div>
-        <div class="col-md-2 active"><span class="mark">4</span><span>存储区配置</span><span class="icon-tick"></span></div>
-        <div class="col-md-2 active"><span class="mark">5</span><span>云主机规格</span></div>
-        <div class="col-md-2"><span class="mark">6</span><span>镜像配置</span></div>
+        <div class="col-md-2 active"><span class="mark">3</span><span>{{"PF_MNG2.AVAILABLE_ZONE_CONFIGURATION" | translate}}</span><span class="icon-tick"></span></div>
+        <div class="col-md-2 active"><span class="mark">4</span><span>{{"PF_MNG2.STORAGE_CONFIGURATION" | translate}}</span><span class="icon-tick"></span></div>
+        <div class="col-md-2 active"><span class="mark">5</span><span>{{"PF_MNG2.CLOUD_HOST_SPECIFICATIONS" | translate}}</span></div>
+        <div class="col-md-2"><span class="mark">6</span><span>{{"PF_MNG2.IMAGE_CONFIGURATION" | translate}}</span></div>
     </div>
     <div class="step-progress">
         <div class="fox-cloud-progress-rectangle progress-striped">
@@ -20,12 +20,12 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>编号</th>
-                        <th>名称</th>
-                        <th>显示名称</th>
+                        <th>{{"COMMON.NUMBER" | translate}}</th>
+                        <th>{{"COMMON.NAME" | translate}}</th>
+                        <th>{{"CAPACITY_MNG.DISPLAY_NAME" | translate}}</th>
                         <th>vCPU</th>
-                        <th>内存(MB)</th>
-                        <th>磁盘大小(GB)</th>
+                        <th>{{"COMMON.RAM" | translate}}(MB)</th>
+                        <th>{{"PF_MNG2.DISK" | translate}}(GB)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,13 +45,13 @@
 </div>
 <div class="text-center">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
-        <span class="icon-button-label">取消</span>
+        <span class="icon-button-label">{{"COMMON.CANCEL" | translate}}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="previous();">
-        <span class="icon-button-label">上一步</span>
+        <span class="icon-button-label">{{"COMMON.PREVIOUS" | translate}}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();">
-        <span class="icon-button-label">下一步</span>
+        <span class="icon-button-label">{{"COMMON.NEXT" | translate}}</span>
     </button>
 </div>
 

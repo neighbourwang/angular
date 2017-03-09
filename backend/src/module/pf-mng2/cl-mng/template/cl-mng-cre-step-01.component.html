@@ -3,10 +3,10 @@
     <div class="row navigator-progress">
         <div class="col-md-2 active"><span class="mark">1</span><span>{{"PF_MNG2.BASIC_INFO" | translate}}<!--基本信息--></span></div>
         <div class="col-md-2"><span class="mark">2</span><span>{{"PF_MNG2.RESOURCE_SYNC" | translate}}<!--资源同步--></span></div>
-        <div class="col-md-2"><span class="mark">3</span><span>可用区配置</span></div>
-        <div class="col-md-2"><span class="mark">4</span><span>存储区配置</span></div>
-        <div class="col-md-2"><span class="mark">5</span><span>云主机规格</span></div>
-        <div class="col-md-2"><span class="mark">6</span><span>镜像配置</span></div>
+        <div class="col-md-2"><span class="mark">3</span><span>{{"PF_MNG2.AVAILABLE_ZONE_CONFIGURATION" | translate}}</span></div>
+        <div class="col-md-2"><span class="mark">4</span><span>{{"PF_MNG2.STORAGE_CONFIGURATION" | translate}}</span></div>
+        <div class="col-md-2"><span class="mark">5</span><span>{{"PF_MNG2.CLOUD_HOST_SPECIFICATIONS" | translate}}</span></div>
+        <div class="col-md-2"><span class="mark">6</span><span>{{"PF_MNG2.IMAGE_CONFIGURATION" | translate}}</span></div>
     </div>
     <div class="step-progress">
         <div class="fox-cloud-progress-rectangle progress-striped">
@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
                         <span class="asterisk">*</span>
-                        云平台名称：
+                        {{"USER_CENTER.PLATFORM_NAME" | translate}}: 
                     </div>
                     <div class="col-sm-4">
                         <input type="text" class="form-control" [(ngModel)]="creStep1Model.name"  placeholder="{{'PF_MNG2.PLATFORM_REQUIRED'|translate}}">
@@ -34,7 +34,7 @@
 
                     <div class="col-sm-4 form-control-title">
                         <span class="asterisk">*</span>
-                        所属地域：
+                        {{"USER_CENTER.REGION_WHICH_BELONG_TO" | translate}}:
                     </div>
                     <div class="col-sm-4">
                         <select class="form-control" [(ngModel)]="creStep1Model.regionId">
@@ -48,7 +48,7 @@
 
                     <div class="col-sm-4 form-control-title">
                         <span class="asterisk">*</span>
-                        所属数据中心：
+                        {{"USER_CENTER.DATA_CENTER_FOR" | translate}}:
                     </div>
                     <div class="col-sm-4">
                         <input type="text" class="form-control" [(ngModel)]="creStep1Model.dataCenter"  placeholder="{{'PF_MNG2.DATA_CENTER_REQUIRED' | translate}}">
@@ -60,7 +60,7 @@
 
                     <div class="col-sm-4 form-control-title">
                         <span class="asterisk">*</span>
-                        云平台类型：
+                        {{"USER_CENTER.PLATFORM_TYPE" | translate}}:
                     </div>
                     <div class="col-sm-4">
                         <div class="btn-group">
@@ -72,17 +72,17 @@
              <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
-                        <span class="asterisk">*</span> 是否支持云主机变更：
+                        <span class="asterisk">*</span> {{"PF_MNG2.SUPPORT_CLOUD_HOST_CHANGES" | translate}}:
                     </div>
                     <div class="col-sm-4">
-                        <input type="radio" class="fox-cloud-radio" [value]="true"   [(ngModel)]="creStep1Model.supportChange" name="supportChange"  style="margin-right:10px;">支持
-                        <input type="radio" class="fox-cloud-radio" [value]="false"   [(ngModel)]="creStep1Model.supportChange" name="supportChange"  style="margin:0 10px 0 20px;">不支持
+                        <input type="radio" class="fox-cloud-radio" [value]="true"   [(ngModel)]="creStep1Model.supportChange" name="supportChange"  style="margin-right:10px;">{{"PF_MNG2.SUPPORT" | translate}}
+                        <input type="radio" class="fox-cloud-radio" [value]="false"   [(ngModel)]="creStep1Model.supportChange" name="supportChange"  style="margin:0 10px 0 20px;">{{"PF_MNG2.NONSUPPORT" | translate}}
                     </div>
                 </div>
             </div>
 
             <div class="section-title h4" style="margin-left: 180px">
-                请输入云平台访问信息：
+                {{"PF_MNG2.ENTER_CLOUD_PLATFORM_ACCESS_INFO" | translate}}:
             </div>
 
             <div class="row row-line-height">
@@ -90,7 +90,7 @@
 
                     <div class="col-sm-4 form-control-title">
                         <span class="asterisk">*</span>
-                        地址：
+                        {{"PF_MNG2.ADDRESS" | translate}}:
                     </div>
                     <div class="col-sm-4">
                         <input type="text" class="form-control" [(ngModel)]="creStep1Model.uri"  placeholder="{{'PF_MNG2.ADDRESS_REQUIRED' | translate}}">
@@ -103,7 +103,7 @@
 
                     <div class="col-sm-4 form-control-title">
                         <span class="asterisk">*</span>
-                        版本：
+                        {{"PF_MNG2.VERSION" | translate}}:
                     </div>
                     <div class="col-sm-4">
                         <select class="form-control" [(ngModel)]="creStep1Model.version">
@@ -118,7 +118,7 @@
 
                     <div class="col-sm-4 form-control-title">
                         <span class="asterisk">*</span>
-                        用户名：
+                        {{"COMMON.USERNAME" | translate}}:
                     </div>
                     <div class="col-sm-4">
                         <input type="text" class="form-control" [(ngModel)]="creStep1Model.userName" placeholder="{{'PF_MNG2.USERNAME_REQUIRED' | translate}}">
@@ -130,7 +130,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
                         <span class="asterisk">*</span>
-                        密码：
+                        {{"COMMON.PASSWORD" | translate}}:
                     </div>
                     <div class="col-sm-4">
                         <input type="password" class="form-control" [(ngModel)]="creStep1Model.passwd" placeholder="{{'PF_MNG2.PASSWORD_REQUIRED' | translate}}">
@@ -143,10 +143,10 @@
 </div>
 <div class="text-center mgt20">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
-        <span class="icon-button-label">取消</span>
+        <span class="icon-button-label">{{"COMMON.CANCEL" | translate}}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();">
-        <span class="icon-button-label">下一步</span>
+        <span class="icon-button-label">{{"COMMON.NEXT" | translate}}</span>
     </button>
 </div>
 
@@ -157,7 +157,7 @@
 <fc-popup #regionSelect title="{{title}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()">
 	<div class="row row-line-height">
 		<div class="form-group">
-			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>Region名称：</div>
+			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>Region {{"COMMON.NAME" | translate}}:</div>
 			<div class="col-sm-6">
 				<select class="form-control" [(ngModel)]="creStep1Model.region">
 				<!--<select class="form-control">-->

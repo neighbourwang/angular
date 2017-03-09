@@ -25,12 +25,13 @@ export class CostSetListComponent implements OnInit{
 
 private costItemLoader:ItemLoader<CostSetItem> = null;
 	
+	
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
-       		this.costItemLoader = new ItemLoader<CostSetItem>(false, '费用管理列表加载失败', "", this.restApiCfg, this.restApi);
+       		this.costItemLoader = new ItemLoader<CostSetItem>(false, '费用设置列表加载失败', "op-center.order-set.cost-set-list.post", this.restApiCfg, this.restApi);
 		// this.costItemLoader.MapFunc=(source:Array<any>,target:Array<CostManageItem>)=>{
 		// 	for(let item of source){
 		// 		let obj=_.extend({},item);
@@ -51,15 +52,26 @@ private costItemLoader:ItemLoader<CostSetItem> = null;
 	ngOnInit(){
         this.layoutService.show();
         
-        this.costItemLoader.Go(null, [{key:"departmentId", value:null}])
-        .then(success=>{
-          this.layoutService.hide();
-        })
-        .catch(err=>{
-			this.layoutService.hide();
-			this.showMsg(err);
-		});
+        this.search(1);
 		this.layoutService.hide();
+	}
+
+	search(page:number){
+		const pageSize= 10;
+		let param = {
+			"currentPage": page,
+			"pageSize": pageSize,
+			"totalPage": 0,
+			"totalRecords": 0
+		}
+		this.layoutService.show();
+		this.costItemLoader.Go(null,null,param)
+		.then(succeuss=>{
+			this.layoutService.hide();
+		})
+		.catch(err=>{
+			this.layoutService.hide();
+		})
 	}
 
 //企业默认设置按钮

@@ -1,15 +1,36 @@
 export class EntEstCreResourceQuota{
 	enterpriseId : string = null;//": "string",
-	floatIpQuota : number = null;//": 0,//可创建浮动IP数量floatIpQuota 
+	
 	id : string = null;//": "string",
+  floatIpQuota : number = null;//": 0,//可创建浮动IP数量floatIpQuota 
+  usedFloatIpQuota: number = null;
+
 	imageQuota : number = null;//": 0,//可创建镜像数量imageQuota 
+  usedImageQuota: number = null;
+
+ 
 	memroyQuota : number = null;//": 0,//可用内存数量	memQuota: number = null;
+  usedMemQuota: number = null;
+
 	networkQuota : number = null;//": 0,
+  usedNetworkQuota: number = null;
+
 	physicalQuota : number = null;//": 0,//可创建物理机数量physicalMachineQuota 
+  usedPhysicalMachineQuota: number = null;
+
 	snapShotQuota : number = null;//": 0,//可创建快照数量snapshotQuota 
+  usedSnapshotQuota: number = null;
+
 	storageQuota : number = null;//": 0,//可使用存储额度storageQuota 
+  usedStorageQuota: number = null;
+
 	vcpuQuota : number = null;//": 0, //可使用vCPU数量vcpuQuota 
+  usedCpuQuota: number = null;
+  
 	vmQuota : number = null;//": 0
+  usedVmQuota: number = null;
+
+
 
   usedCpuRate :number = null;//CPU配额使用率
   usedFloatIpRate :number = null;// 浮动IP配额配额
