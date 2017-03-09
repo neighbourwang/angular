@@ -141,7 +141,7 @@ export class CaseMngListComponent implements OnInit{
         if(this.validationService.isBlank(this.criteria.subject) || this.validationService.isBlank(this.criteria.type)
             ||this.validationService.isBlank(this.criteria.emergency) ||this.validationService.isBlank(this.criteria.contact)
             ||this.validationService.isBlank(this.criteria.contactNo)){
-          
+
         }else if(!this.isEdit){
             this.layoutService.show();
             this.service.creat(this.criteria)
@@ -176,9 +176,6 @@ export class CaseMngListComponent implements OnInit{
                 .catch((e) => this.onRejected(e));
         }
 
-    }
-    close(){
-        this.creCase.close();
     }
 
     delete(item){

@@ -386,7 +386,7 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.cost-pandect.increase-service.post",
         "method": "POST",
         "url": "adminui/authsec/enterrpise/subinstance/increase/bill"
-    },,//消费总览
+    },//消费总览
     //用户中心
     //个人账户管理
     {
