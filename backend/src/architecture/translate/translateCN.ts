@@ -497,8 +497,8 @@
         "SET_PRODUCT": "设置产品",
         "MANAGE_AVILABLE_PLATFORM": "管理可用平台",
         "SNAPSHOT_NUM": "快照数量",
-        "STORAGE_QUOTA": "存储配额",
-        "STORAGE_QUOTA_PERCENT": "存储配额使用率",
+        "MEM_QUOTA_PERCENT": "内存配额使用率%",
+        "STORAGE_QUOTA_PERCENT": "存储配额使用率%",
         "THE_ADMIN_STATUS_IS": "该管理员已经是{{value_1}}状态！",
         "THE_AD_SOURCE_STATUS_IS": "该认证源已经是{{value_1}}状态！",
         "UPDATE_ADMINISTRATOR": "更新管理员",
@@ -506,7 +506,7 @@
         "VAILABLE_RAM_NUM": "可使用内存数量",
         "VAILABLE_STORAGE_QUOTA": "可使用存储额度",
         "VAILABLE_VCPU_NUM": "可创建vCPU数量",
-        "VCPU_QUOTA_PERCENT": "vCPU配额使用率",
+        "VCPU_QUOTA_PERCENT": "vCPU配额使用率%",
         "VIEW_ENTERPRISE": "查看企业"
     },
     "HOST_MNG": {

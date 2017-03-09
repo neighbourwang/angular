@@ -196,8 +196,7 @@
 				</div>	  	
 			</div>-->
 			
-		 <div class="console-box ">
-                <div class="console-title">{{ 'MNG_CONSOLE.TOTAL_QUOTA_USAGE' | translate }}</div>
+		 <div class="console-box " *ngIf="resourceQuotaSvg.FirstItem">
                 <div class="quota-box ">
                     <canvas baseChart
                           width="100" height="100"
@@ -205,6 +204,7 @@
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
                     <div class="percent-num">{{resourceQuotaSvg.FirstItem.usedCpuRate}}<sup>%</sup></div>
+					  <!--<div class="percent-num">20<sup>%</sup></div>-->
                     <div class="quota-name">vCPU</div>
                 </div>
                 <div class="quota-box ">
@@ -214,6 +214,7 @@
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
                     <div class="percent-num">{{resourceQuotaSvg.FirstItem.usedMemRate}}<sup>%</sup></div>
+					<!--<div class="percent-num">20<sup>%</sup></div>-->
                     <div class="quota-name">{{ 'COMMON.RAM' | translate }}</div>
                 </div>
                 <div class="quota-box ">
@@ -223,6 +224,7 @@
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
                     <div class="percent-num">{{resourceQuotaSvg.FirstItem.usedStorageRate}}<sup>%</sup></div>
+					<!--<div class="percent-num">20<sup>%</sup></div>-->
                     <div class="quota-name">{{ 'COMMON.STORAGE' | translate }}</div>
                 </div>
                 <div class="quota-box ">
@@ -232,6 +234,7 @@
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
                     <div class="percent-num">{{resourceQuotaSvg.FirstItem.usedPhysicalMachineRate}}<sup>%</sup></div>
+					<!--<div class="percent-num">20<sup>%</sup></div>-->
                     <div class="quota-name">{{ 'COMMON.PHYSICAL_MACHINE' | translate }}</div>
                 </div>
                 <div class="quota-box ">
@@ -241,6 +244,7 @@
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
                     <div class="percent-num">{{resourceQuotaSvg.FirstItem.usedSnapshotRate}}<sup>%</sup></div>
+					<!--<div class="percent-num">20<sup>%</sup></div>-->
                     <div class="quota-name">{{ 'COMMON.SNAPSHOT' | translate }}</div>
                 </div>
                 <div class="quota-box ">
@@ -250,6 +254,7 @@
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
                     <div class="percent-num">{{resourceQuotaSvg.FirstItem.usedImageRate}}<sup>%</sup></div>
+					<!--<div class="percent-num">20<sup>%</sup></div>-->
                     <div class="quota-name">{{ 'COMMON.MIRROR' | translate }}</div>
                 </div>
                 <div class="quota-box ">
@@ -259,7 +264,8 @@
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
                     <div class="percent-num">{{resourceQuotaSvg.FirstItem.usedFloatIpRate}}<sup>%</sup></div>
-                    <div class="quota-name">{{ 'COMMON.FLOAT' | translate }}IP</div>
+					<!--<div class="percent-num">20<sup>%</sup></div>-->
+                    <div class="quota-name">{{ 'COMMON.FLOAT' | translate }}IP地址</div>
                 </div>
 		   </div>
 		</div>

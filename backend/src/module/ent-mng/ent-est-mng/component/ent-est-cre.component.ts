@@ -8,7 +8,7 @@ import * as _ from 'underscore';
 @Component({
 	selector:'ent-est-cre'
 	,templateUrl:'../template/ent-est-cre.component.html'
-	,styleUrls:['../style/ent-est-mng.component.css']
+	,styleUrls:['../style/ent-est-mng.component.less']
 	,providers:[
 		EntEstCreService
 		]
