@@ -197,7 +197,7 @@ export class PfDetailComponent implements OnInit {
     //启用可用区
     enableZone(id: string) {
         if(this.platform.status!=1){
-            this.notice.open('操作错误','不支持对未启用状态平台下的可用区状态的更改');
+            this.notice.open('COMMON.OPERATION_ERROR','PF_MNG2.NONSUPPORT_CHANGES_STATE');
             return;
         }
         this.layoutService.show();
@@ -213,7 +213,7 @@ export class PfDetailComponent implements OnInit {
     //禁用可用区
     suspendZone(id: string) {
         if(this.platform.status!=1){
-            this.notice.open('操作错误','不支持对未启用状态平台下的可用区状态的更改');
+            this.notice.open('COMMON.OPERATION_ERROR','PF_MNG2.NONSUPPORT_CHANGES_STAT');
             return;
         }
         this.layoutService.show();
@@ -266,7 +266,7 @@ export class PfDetailComponent implements OnInit {
             res => {
                 this.updateZoneList = res.resultContent;
                 if (this.updateZoneList.length == 0) {
-                    this.notice.open('提示', 'PF_MNG2.NO_SYNC_ZONES')
+                    this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_ZONES')
                 } else {
                     this.updateZoneList.forEach(ele => {
                         ele.quotaPercentage =
@@ -297,7 +297,7 @@ export class PfDetailComponent implements OnInit {
                         this.hostList = res.resultContent;
                         this.hostSync.open(this.hostList);
                     } else {
-                        this.notice.open('提示', 'PF_MNG2.NO_SYNC_COMPUTING_SOURCE')
+                        this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_COMPUTING_SOURCE')
                     }
 
                 }
@@ -443,7 +443,7 @@ export class PfDetailComponent implements OnInit {
             res => {
                 this.updateStorageList = res.resultContent;
                 if (this.updateStorageList.length == 0) {
-                    this.notice.open('提示', 'PF_MNG2.NO_SYNC_ZONES')  //暂时没有可同步可用区信息
+                    this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_ZONES')  //暂时没有可同步可用区信息
                 } else {
                     this.updateStorageList.forEach(ele => {
                         ele.quota=
@@ -470,7 +470,7 @@ export class PfDetailComponent implements OnInit {
                         this.updateStorageMem = res.resultContent;
                         this.memSync.open();
                     } else {
-                        this.notice.open('提示', 'PF_MNG2.NO_SYNC_COMPUTING_SOURCE')
+                        this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_COMPUTING_SOURCE')
                     }
 
                 }

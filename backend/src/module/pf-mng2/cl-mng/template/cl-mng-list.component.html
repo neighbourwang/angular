@@ -64,9 +64,9 @@
                 <td [ngClass]="{'font-green':item.status == '1' ,'font-orange':item.status == '3'}">
                     <!--{{item.status| dict:this.commonService.globalStatus | async}}-->
                     <span [ngSwitch]="item.status"> 
-										<template [ngSwitchCase]="0">初始化</template>
-										<template [ngSwitchCase]="1">已启用</template>
-										<template [ngSwitchCase]="2">已禁用</template>
+										<template [ngSwitchCase]="0">{{ 'PF_MNG2.INIT' | translate}}</template>
+										<template [ngSwitchCase]="1">{{ 'COMMON.ENABLED' | translate}}</template>
+										<template [ngSwitchCase]="2">{{ 'PF_MNG2.DISABLED' | translate}}</template>
 										<template ngSwitchDefault>Unknown</template>							
 							</span>
                     </td>

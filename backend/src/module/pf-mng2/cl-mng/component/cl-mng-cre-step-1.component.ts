@@ -137,13 +137,13 @@ export class ClMngCreStep1Component implements OnInit {
                     this.platFormRegionList = res.resultContent;
                     this.creStep1Model.region = this.platFormRegionList[0].id;
                     this.layoutService.hide();
-                    this.regionSelect.open('创建云平台：选取Region')
+                    this.regionSelect.open('PF_MNG2.SELECT_REGION')
                 }
                 ).catch(
                 err => {
                     console.error('err');
                     this.layoutService.hide();
-                    this.notice.open('COMMON.ERROR', '获取Region信息错误');
+                    this.notice.open('COMMON.ERROR', 'PF_MNG2.ERROR_GETTING_REGION');
                 }
                 )
         } else {

@@ -3,10 +3,10 @@
     <div class="row navigator-progress">
         <div class="col-md-2 active"><span class="mark">1</span><span>{{"PF_MNG2.BASIC_INFO" | translate}}<!--基本信息--></span><span class="icon-tick"></span></div>
         <div class="col-md-2 active"><span class="mark">2</span><span>{{"PF_MNG2.RESOURCE_SYNC" | translate}}<!--资源同步--></span></div>
-        <div class="col-md-2"><span class="mark">3</span><span>可用区配置</span></div>
-        <div class="col-md-2"><span class="mark">4</span><span>存储区配置</span></div>
-        <div class="col-md-2"><span class="mark">5</span><span>云主机规格</span></div>
-        <div class="col-md-2"><span class="mark">6</span><span>镜像配置</span></div>
+        <div class="col-md-2"><span class="mark">3</span><span>{{"PF_MNG2.AVAILABLE_ZONE_CONFIGURATION" | translate}}</span></div>
+        <div class="col-md-2"><span class="mark">4</span><span>{{"PF_MNG2.STORAGE_CONFIGURATION" | translate}}</span></div>
+        <div class="col-md-2"><span class="mark">5</span><span>{{"PF_MNG2.CLOUD_HOST_SPECIFICATIONS" | translate}}</span></div>
+        <div class="col-md-2"><span class="mark">6</span><span>{{"PF_MNG2.IMAGE_CONFIGURATION" | translate}}</span></div>
     </div>
     <div class="step-progress">
         <div class="fox-cloud-progress-rectangle progress-striped">
@@ -18,40 +18,40 @@
         <div class="col-md-3"></div>
         <div class="col-md-6" style="float: none; margin: 0px auto;">
             <div class="section-title h4">
-                同步资源统计：
+                {{"PF_MNG.SYNC_RESOURCE_STATISTICS" | translate}}:
             </div>
             <div class="table-container">
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th>平台资源</th>
-                        <th>同步状态</th>
+                        <th>{{"PF_MNG2.PLATFORM_RESOURCES" | translate}}</th>
+                        <th>{{"PF_MNG2.SYNC_STATE" | translate}}</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>可用区</td>
+                        <td>{{"COMMON.AVAILABLE_ZONE" | translate}}</td>
                         <td>{{creStep2Model.zones}}</td>
                         <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.zonesStatus"></span></td>
                     </tr>
                     <tr>
-                        <td>存储</td>
+                        <td>{{"COMMON.STORAGE" | translate}}</td>
                         <td>{{creStep2Model.storages}}</td>
                         <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.storagesStatus"></span></td>
                     </tr>
                     <tr>
-                        <td>云主机规格</td>
+                        <td>{{"PF_MNG2.CLOUD_HOST_SPECIFICATIONS" | translate}}</td>
                         <td>{{creStep2Model.flavors}}</td>
                         <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.flavorsStatus"></span></td>
                     </tr>
                     <tr>
-                        <td>镜像</td>
+                        <td>{{"COMMON.IMAGE" | translate}}</td>
                         <td>{{creStep2Model.images}}</td>
                         <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.imagesStatus"></span></td>
                     </tr>
                     <tr>
-                        <td>宿主机</td>
+                        <td>{{"PF_MNG2.HOST" | translate}}</td>
                         <td>{{creStep2Model.hosts}}</td>
                         <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.hostsStatus"></span></td>
                     </tr>
@@ -59,7 +59,7 @@
                 </table>
             </div>
             <div class="progress-title">
-                {{creStep2Model.message}}
+                {{creStep2Model.message | translate}}
             </div>
             <div class="fox-cloud-progress-rounded-angle">
                 <div class="progress-bar fox-cloud-progress-bar-rounded-angle" role="progressbar"
@@ -74,13 +74,13 @@
 </div>
 <div class="text-center">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();" [disabled]="!creStep2Model.isNext">
-        <span class="icon-button-label">取消</span>
+        <span class="icon-button-label">{{"COMMON.CANCEL" | translate}}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="previous();" [disabled]="!creStep2Model.isNext">
-        <span class="icon-button-label">上一步</span>
+        <span class="icon-button-label">{{"COMMON.PREVIOUS" | translate}}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();" [disabled]="!creStep2Model.isNext">
-        <span class="icon-button-label">下一步</span>
+        <span class="icon-button-label">{{"COMMON.NEXT" | translate}}</span>
     </button>
 </div>
 

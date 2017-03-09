@@ -1,20 +1,20 @@
 <div class="page-content-header icon-content-header-platform-manage" style="padding-bottom:10px;height:45px;">
-    管理云主机规格: <span style="margin-right:20px;">{{platformName}}</span> 云主机类型: <span>{{platformTypeName}}</span>
+    {{'PF_MNG2.MANAGE_CLOUD_HOST_SPEC' | translate}}: <span style="margin-right:20px;">{{platformName}}</span> {{'PF_MNG.CLOUD_HOST_TYPE' | translate}}: <span>{{platformTypeName}}</span>
     <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
-        <span class="icon-button-label" (click)='goList()'>返回云平台列表</span>
+        <span class="icon-button-label" (click)='goList()'>{{'PF_MNG2.RETURN_CLOUD_LIST' | translate}}</span>
     </button>
 </div>
 <div>
     <div class="page-content">
         <div style="padding-bottom: 10px;" *ngIf="platformType=='0'">
             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
-                <span class="icon-button-label" (click)='updateFlavor()'>同步云主机规格</span>
+                <span class="icon-button-label" (click)='updateFlavor()'>{{'PF_MNG2.SYNC_CLOUD_SPEC' | translate}}</span>
              </button>
             <div style="clear:both"></div>
         </div>
         <div style="padding-bottom: 10px;" *ngIf="platformType=='2'">
             <button class="fox-cloud-button-md fox-cloud-button-white">
-                <span class="icon-button-label" (click)='createFlavor()'>新建云主机规格</span>
+                <span class="icon-button-label" (click)='createFlavor()'>{{'PF_MNG2.NEW_CLOUD_SPEC' | translate}}</span>
              </button>
             <div style="clear:both"></div>
         </div>
@@ -23,14 +23,14 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>名称</th>
+                        <th>{{'COMMON.NAME' | translate}}</th>
                         <th>vCPU</th>
-                        <th>内存(MB)</th>
-                        <th>启动盘大小(GB)</th>
-                        <th>状态</th>
+                        <th>{{'COMMON.RAM' | translate}}(MB)</th>
+                        <th>{{'PF_MNG.ROOT_DISK_SIZE' | translate}}(GB)</th>
+                        <th>{{'COMMON.STATUS' | translate}}</th>
                         <!--<th>同步结果</th>-->
-                        <th>更新时间</th>
-                        <th>操作</th>
+                        <th>{{'CASE_MNG.UPDATE_TIME' | translate}}</th>
+                        <th>{{'COMMON.OPERATION' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,15 +42,15 @@
                         <td>{{flavor.diskSize}}</td>
                         <td>
                             <span [ngSwitch]="flavor.status"> 
-										<template [ngSwitchCase]="0">初始化</template>
-										<template [ngSwitchCase]="1">已启用</template>
+										<template [ngSwitchCase]="0">{{'PF_MNG2.INIT' | translate}}</template>
+										<template [ngSwitchCase]="1">{{'COMMON.ENABLED' | translate}}</template>
 										<template ngSwitchDefault>Unknown</template>							
 							</span>
                         </td>
                         <!--<td>使用中</td>-->
                         <td>{{flavor.updateDate}}</td>
                         <td>
-                            <button  *ngIf="flavor.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableFlavor(flavor.id)">启用</button>
+                            <button  *ngIf="flavor.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableFlavor(flavor.id)">{{'COMMON.ENABLE' | translate}}</button>
                         </td>
                     </tr>
                 </tbody>
@@ -59,14 +59,14 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>名称</th>
+                        <th>{{'COMMON.NAME' | translate}}</th>
                         <th>vCPU</th>
-                        <th>内存(MB)</th>
-                        <th>启动盘大小(GB)</th>
-                        <th>状态</th>
+                        <th>{{'COMMON.RAM' | translate}}(MB)</th>
+                        <th>{{'PF_MNG.ROOT_DISK_SIZE' | translate}}(GB)</th>
+                        <th>{{'COMMON.STATUS' | translate}}</th>
                         <!--<th>同步结果</th>-->
-                        <th>创建时间</th>
-                        <th>操作</th>
+                        <th>{{'CASE_MNG.CREATE_TIME' | translate}}</th>
+                        <th>{{'COMMON.OPERATION' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -78,16 +78,16 @@
                         <td>{{flavor.diskSize}}</td>
                         <td>
                             <span [ngSwitch]="flavor.status"> 
-										<template [ngSwitchCase]="0">初始化</template>
-										<template [ngSwitchCase]="1">已启用</template>
+										<template [ngSwitchCase]="0">{{'PF_MNG2.INIT' | translate}}</template>
+										<template [ngSwitchCase]="1">{{'COMMON.ENABLED' | translate}}</template>
 										<template ngSwitchDefault>Unknown</template>							
 							</span>
                         </td>
                         <!--<td>使用中</td>-->
                         <td>{{flavor.updateDate}}</td>
                         <td>
-                            <button *ngIf="flavor.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableFlavor(flavor.id)">启用</button>
-                            <button *ngIf="flavor.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="deleFlavor(flavor.id)">删除</button>
+                            <button *ngIf="flavor.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableFlavor(flavor.id)">{{'COMMON.ENABLE' | translate}}</button>
+                            <button *ngIf="flavor.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="deleFlavor(flavor.id)">{{'COMMON.DELETE' | translate}}</button>
                         </td>
                     </tr>
                 </tbody>
@@ -96,15 +96,15 @@
     </div>
     <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="nof()"></fc-notice>
     <fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
-    <fc-popup #createSepc title="新建云主机规格" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()">
+    <fc-popup #createSepc title="{{'PF_MNG2.NEW_CLOUD_SPEC' | translate}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()">
             <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
                         <span class="asterisk">*</span>
-                        名称：
+                        {{'COMMON.NAME' | translate}}: 
                     </div>
                     <div class="col-sm-4" [ngClass]="{'has-error':!flavorObj.nameValid}">
-                        <input type="text" class="form-control" [(ngModel)]="flavorObj.name" (focus)="flavorObj.nameValid=true;" required placeholder="规格名称" (blur)="flavorObj.nameValid=flavorObj.name?true:false;">
+                        <input type="text" class="form-control" [(ngModel)]="flavorObj.name" (focus)="flavorObj.nameValid=true;" required placeholder="{{'PF_MNG2.Specification name' | translate}}" (blur)="flavorObj.nameValid=flavorObj.name?true:false;">
                     </div>
                 </div>
             </div> 
@@ -118,7 +118,7 @@
                         <input type="number" class="form-control" [(ngModel)]="flavorObj.cpu"  required (focus)="flavorObj.cpuValid=true;" (blur)="flavorObj.cpuValid=flavorObj.cpu?true:false;">
                     </div>
                     <div class="col-sm-4" style="line-height:34px;">
-                        核(vCPU)
+                        {{'COMMON.CORE' | translate}}(vCPU)
                     </div>
                 </div>
             </div>
@@ -126,7 +126,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
                         <span class="asterisk">*</span>
-                        内存：
+                        {{'COMMON.RAM' | translate}}: 
                     </div>
                     <div class="col-sm-3" [ngClass]="{'has-error':!flavorObj.memValid}">
                         <input type="number" class="form-control" [(ngModel)]="flavorObj.mem" required (focus)="flavorObj.memValid=true;" (blur)="flavorObj.memValid=flavorObj.mem?true:false;">
@@ -140,7 +140,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
                         <span class="asterisk">*</span>
-                        启动盘大小：
+                        {{'PF_MNG.ROOT_DISK_SIZE' | translate}}:
                     </div>
                     <div class="col-sm-3" [ngClass]="{'has-error':!flavorObj.diskValid}">
                         <input type="number" class="form-control" [(ngModel)]="flavorObj.disk" required (focus)="flavorObj.memValid=true;" (blur)="flavorObj.diskValid=flavorObj.disk?true:false;">

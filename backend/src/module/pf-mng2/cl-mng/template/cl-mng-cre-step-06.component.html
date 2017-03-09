@@ -20,11 +20,11 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>编号</th>
-                    <th>名称</th>
-                    <th>镜像名称</th>
-                    <th>镜像格式</th>
-                    <th>说明</th>
+                    <th>{{"COMMON.NUMBER" | translate}}</th>
+                    <th>{{"COMMON.NAME" | translate}}</th>
+                    <th>{{"HOST_VMWARE_MNG.IMAGE_NAME" | translate}}</th>
+                    <th>{{"HOST_VMWARE_MNG.FORMAT" | translate}}</th>
+                    <th style="width:25%">{{"COMMON.COMMENT" | translate}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -47,17 +47,18 @@
         </div>
         <div class="col-md-1"></div>
     </div>
-    <div class="text-center mgt20">
-        <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
-            <span class="icon-button-label">取消</span>
-        </button>
-        <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="previous();">
-            <span class="icon-button-label">上一步</span>
-        </button>
-        <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();">
-            <span class="icon-button-label">启用</span>
-        </button>
-    </div>
+    
+<div class="text-center mgt20">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+        <span class="icon-button-label">{{"COMMON.CANCEL" | translate}}</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="previous();">
+        <span class="icon-button-label">{{"COMMON.PREVIOUS" | translate}}</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();">
+        <span class="icon-button-label">{{"COMMON.NEXT" | translate}}</span>
+    </button>
+</div>
 </div>
 
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM"></fc-notice>
