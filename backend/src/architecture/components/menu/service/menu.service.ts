@@ -352,6 +352,21 @@ export class MenuService {
 							"routing": "user-center/person-acc-mng/person-acc-mng"
 						},
 					]
+				},
+				{
+					"label": "系统设置",
+					"isOpen": false,
+					"isShow": !isRoot,
+					"icon": "icon-content-header-purchasingWhite",
+					"top2_menu": [
+						{
+							"label": "Email通知设置",
+							"isOpen": false,
+							"isActive": false,
+							"isShow": !isRoot,
+							"routing": "sys-setup/email-mng/email-list"
+						}
+					]
 				}
 
 			])
