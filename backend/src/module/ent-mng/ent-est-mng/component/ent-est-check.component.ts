@@ -8,7 +8,7 @@ import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
   // moduleId: module.id,
   selector: 'ent-est-mng',
   templateUrl: '../template/ent-est-check.component.html',
-  styleUrls: ['../style/ent-est-mng.component.css'],
+  styleUrls: ['../style/ent-est-mng.component.less'],
   providers: [EntEstCreService]
 }) 
 export class EntEstCheckComponent implements OnInit {
@@ -23,6 +23,12 @@ export class EntEstCheckComponent implements OnInit {
     epsnapshot: any = [{ data: [0,10]}];
     epimage: any = [{ data: [0,10]}];
     epfloatIp: any = [{ data: [0,10]}];
+
+      public quotaOptions = {
+                legend: { display: false },
+                tooltips: {  enabled: false },
+                cutoutPercentage: 82
+            }
 
   private entEst: EntEst = new EntEst();
   private entProdItems: Paging<EntProdItem> = new Paging<EntProdItem>();
@@ -153,7 +159,9 @@ export class EntEstCheckComponent implements OnInit {
     };
      this.resourceQuotaSvg.Trait = (target:Array<EntEstCreResourceQuota>)=>{
             const bgc = [ "#E7E9ED", "#00CC99" ];
-            const bgw = [  0,0  ];    
+            const bgw = [  0,0  ];  
+
+
             this.epcpu = [{ data: [ target[0].vcpuQuota], backgroundColor: bgc, borderWidth:bgw }];
             this.epmem = [{ data: [ target[0].memroyQuota ], backgroundColor: bgc, borderWidth:bgw }];
             this.epdisk = [{ data: [ target[0].storageQuota], backgroundColor: bgc, borderWidth:bgw }];
@@ -218,8 +226,8 @@ export class EntEstCheckComponent implements OnInit {
     this.sysDicService.sysDicOF(this, this.sysDicCallback, "GLOBAL", "STATUS");
 
     this.resourceQuotaSvg.FirstItem = new EntEstCreResourceQuota();
-     this.loadResourceQuotaSvg();
-
+    this.loadResourceQuotaSvg();
+    this.createChart();
      this.layoutService.show();
      this.extendDetailLoader.Go(null,[{key:'_enterpriseId',value:this.entId}])
      .then(success=>{
@@ -304,34 +312,23 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
 
     }, err=>{
        this.msg.title='ENT_MNG.RESOURCE_STATISTICS_LOADING';
-        this.msg.desc='ENT_MNG.RESOURCE_STATISTICS_FAILED_TO_LOAD';
-        this.showError(this.msg);
+       this.msg.desc='ENT_MNG.RESOURCE_STATISTICS_FAILED_TO_LOAD';
+       this.showError(this.msg);
     })
  }
 
 
-  public quotaOptions = {
-                legend: { display: false },
-                tooltips: {  enabled: false },
-                cutoutPercentage: 82
-            }
-  //   public setEntResoure():void {   //设置资源的利用率
-  //       const bgc = [ "#E7E9ED", "#00CC99" ];
-  //       const bgw = [  0,0  ];
-  //       this.service.getQuotaResoure().then(res => {
-           
-  //           for(let l in res) res[l] = res[l] === null ? 0 : res[l];
-  //           this.eplist = res;
-  //           const list = this.eplist;
-  //            console.log(res,123123123)
+//不调用接口测试统计图
+createChart(){
+          const bgc = [ "#E7E9ED", "#00CC99" ];
+            const bgw = [  0,0  ];  
+             this.epcpu = [{ data: [ 15,85], backgroundColor: bgc, borderWidth:bgw }];
+            this.epmem = [{ data:[ 15,85], backgroundColor: bgc, borderWidth:bgw }];
+            this.epdisk = [{ data: [ 15,85], backgroundColor: bgc, borderWidth:bgw }];
+            this.ephost = [{ data: [ 15,85], backgroundColor: bgc, borderWidth:bgw }];
+            this.epsnapshot = [{ data:[ 15,85], backgroundColor: bgc, borderWidth:bgw }];
+            this.epimage = [{ data: [ 15,85], backgroundColor: bgc, borderWidth:bgw }];
+            this.epfloatIp = [{ data: [ 15,85], backgroundColor: bgc, borderWidth:bgw }];  
+}
 
-  //           this.epcpu = [{ data: [ list.usedCpu, list.vcpu - list.usedCpu ], backgroundColor: bgc, borderWidth:bgw }];
-  //           this.epmem = [{ data: [ list.usedMem, list.mem - list.usedMem ], backgroundColor: bgc, borderWidth:bgw }];
-  //           this.epdisk = [{ data: [ list.usedStorage, list.storage - list.usedStorage ], backgroundColor: bgc, borderWidth:bgw }];
-  //           this.ephost = [{ data: [ list.usedPhysical, list.physical - list.usedPhysical ], backgroundColor: bgc, borderWidth:bgw }];
-  //           this.epsnapshot = [{ data: [ list.usedSnapshot, list.snapshot - list.usedSnapshot ], backgroundColor: bgc, borderWidth:bgw }];
-  //           this.epimage = [{ data: [ list.usedImage, list.image - list.usedImage ], backgroundColor: bgc, borderWidth:bgw }];
-  //           this.epfloatIp = [{ data: [ list.usedIpaddress, list.ipaddress - list.usedIpaddress ], backgroundColor: bgc, borderWidth:bgw }];
-  //       })
-  //   }
 }

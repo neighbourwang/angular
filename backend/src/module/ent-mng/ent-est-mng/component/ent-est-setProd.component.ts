@@ -9,7 +9,7 @@ import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
   // moduleId: module.id,
   selector: 'ent-est-mng',
   templateUrl: '../template/ent-est-setProd.component.html',
-  styleUrls: ['../style/ent-est-mng.component.css'],
+  styleUrls: ['../style/ent-est-mng.component.less'],
   providers: [EntEstCreService]
 }) 
 export class EntEstSetProdComponent implements OnInit {
