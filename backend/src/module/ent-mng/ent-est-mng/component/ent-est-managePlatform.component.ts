@@ -38,7 +38,7 @@ export class EntEstManagePlatformComponent implements OnInit {
     private _dictServ:DictService
   ) {
      //字典配置
-      this.statusDic = new DicLoader(restApiCfg, restApi, "SUBINSTANCE", "STATUS");
+      this.statusDic = new DicLoader(restApiCfg, restApi, "GLOBAL", "STATUS");
       this.statusDic.SourceName = "status";
       this.statusDic.TargetName = "statusName";
       this.typeDic = new DicLoader(restApiCfg, restApi, "PLATFORM", "TYPE");
@@ -192,8 +192,9 @@ save(){
   this.layoutService.show();
   this.saveLoader.Go(null,[{key:'_enterpriseId',value:this.entId}],params)
   .then(success=>{
-    this.searchPlatform(null);
-    this.searchSelectedPlatform(null);
+    // this.searchPlatform(null);
+    // this.searchSelectedPlatform(null);
+    this.return();
     this.layoutService.hide();
   })
   .catch(err=>{
@@ -216,5 +217,8 @@ save(){
 	// 	});
 
 	// }
-
+  return(){
+    this.router.navigateByUrl('ent-mng/ent-est-mng/ent-est-mng');
+  }
+  
 }

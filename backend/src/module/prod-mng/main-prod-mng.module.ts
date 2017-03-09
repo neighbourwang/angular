@@ -5,15 +5,19 @@ import { NgModule } from '@angular/core';
 
 import { ProdDirMngModule } from './prod-dir-mng/prod-dir-mng.module';
 import { ProdMngModule } from './prod-mng/prod-mng.module';
-
+import { ProductMngComponents } from './components/product-mng.components.module'
 
 @NgModule({
     imports: [
-        ProdDirMngModule,ProdMngModule
+        ProdDirMngModule,
+        ProdMngModule,
+        ProductMngComponents
     ],
     declarations: [],
     exports: [
-        ProdDirMngModule,ProdMngModule
+        ProdDirMngModule,
+        ProdMngModule,
+        ProductMngComponents
     ],
     providers: []
 })

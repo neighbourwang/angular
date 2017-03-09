@@ -78,6 +78,8 @@ export class VmwareImgListComponent implements OnInit {
     changedimg: VmwareImgModel = new VmwareImgModel();
     vmwareents: Array<VmwareEntModel>;
 
+    capacity: string = '';
+
     private okCallback: Function = null;
     okClicked() {
         console.log('okClicked');
@@ -355,6 +357,8 @@ export class VmwareImgListComponent implements OnInit {
             this.changedimg.os = this.selectedimg.os;
             this.changedimg.bitsType = this.selectedimg.bitsType;
             this.changedimg.capacity = this.selectedimg.capacity;
+            this.capacity = (Number(this.selectedimg.capacity)/1024/1024/1024).toFixed(2).toString();
+            console.log(this.capacity, this.changedimg.capacity);
             this.changedimg.type = this.selectedimg.type;
             this.changedimg.description = this.selectedimg.description;
             this.editimagebox.open();
@@ -369,6 +373,8 @@ export class VmwareImgListComponent implements OnInit {
         if (this.selectedimg) {
             if (this.validateImgModify()) {
                 this.layoutService.show();
+                this.changedimg.capacity = (Number(this.capacity)!=0 && !isNaN(Number(this.capacity))) ? String(Number(this.capacity)*1024*1024*1024) : this.changedimg.capacity;
+                console.log(Number(this.capacity), this.changedimg.capacity);
                 this.service.updateImage(this.changedimg)
                     .then(res => {
                         this.layoutService.hide();
@@ -414,6 +420,10 @@ export class VmwareImgListComponent implements OnInit {
              "email": {
                 "func": val => !this.validationService.isEmail(val),
                 "msg": "HOST_VMWARE_MNG.EMAIL_INVALID"  //邮箱地址无效
+            },
+            "number": {
+                "func": val => { return (Number(val)==0 || isNaN(Number(val)) || Number(val)<0) },
+                "msg": "HOST_VMWARE_MNG.NOT_NUMBER"  //邮箱地址无效
             }
         }
 
@@ -441,6 +451,16 @@ export class VmwareImgListComponent implements OnInit {
                 "name": "HOST_VMWARE_MNG.IMAGE_TYPE"  //镜像类型
                 , 'value': this.changedimg.type
                 , "op": "*"
+            },
+            {
+                "name": "HOST_VMWARE_MNG.IMAGE_CAPACITY"  //镜像容量
+                , 'value': this.capacity
+                , "op": "*"
+            },
+            {
+                "name": "HOST_VMWARE_MNG.IMAGE_CAPACITY"  //镜像容量
+                , 'value': this.capacity
+                , "op": "number"
             }
             ].find(n => this.validate(n.name, n.value, n.op) !== undefined);
         

@@ -187,7 +187,7 @@
                             <input *ngIf="zone.isEdit" type="number" class="form-control" [(ngModel)]="zone.quotaPercentDisplay" style="width: 100px; display: inline;"
                                 name="quotaPercentDisplay">
                         </td>
-                        <td>
+                        <td [ngClass]="{'font-green':zone.status == '1' ,'font-orange':zone.status == '3'}">
                             <!--<span [ngSwitch]="zone.status">
                                 <template [ngSwitchCase]="0">未发布</template>
                                 <template [ngSwitchCase]="1">已启用</template>
@@ -264,7 +264,7 @@
                             <span *ngIf="!storage.isEdit">{{storage.quotaPercentDisplay||0}}</span>
                             <input *ngIf="storage.isEdit" type="number" class="form-control" [(ngModel)]="storage.quotaPercentDisplay" style=" display: inline;">
                         </td>
-                        <td>
+                        <td [ngClass]="{'font-green':zone.status == '1' ,'font-orange':zone.status == '3'}">
                             {{storage.status|dict:this.commonService.globalStatus|async}}
                         </td>
                         <td>
@@ -326,7 +326,7 @@
                             <input *ngIf="storage.isEdit" [class.border-error]="!storage.valid" type="number" class="form-control" [(ngModel)]="storage.quotaPercentDisplay"
                                 style=" display: inline;" (blur)="keepSame(storage)">
                         </td>
-                        <td>
+                        <td [ngClass]="{'font-green':storage.status == '1' ,'font-orange':storage.status == '3'}">
                             {{storage.status|dict:this.commonService.globalStatus|async}}
                         </td>
                         <td>

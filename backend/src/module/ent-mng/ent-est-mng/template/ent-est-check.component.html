@@ -60,9 +60,9 @@
 		</fieldset>
 	</div>
 
-	<div class="mgt20 left " style="margin-left:140px"> 
+	<!--<div class="mgt20 left " style="margin-left:140px"> 
    		<div class="imgPanel icon-enterpriser-checkbg"></div>
-	</div>
+	</div>-->
 </div>           
 <div class="info-title" [ngStyle]="{'margin-top': isAdCert()?'170px':'30px'}"> <span  class="form-control-title">{{ 'ENT_MNG.MNG_INFO' | translate }}:</span></div>
 <div class="baseContainer mgt20">
@@ -104,7 +104,7 @@
 		<span class="form-control-title float-left">{{ 'ENT_MNG.ENTERPRISE_RESOURCE_STATISTICS' | translate }}</span>
 		</div> 
 		<div class="contentPanel" style="padding-left: 8px;height: 200px;" >
-			<div class="float-left" width="150px">
+			<!--<div class="float-left" width="150px">
 				<div class="circle-graph mgr17 mgb10">
 					<svg class="chart-circle" viewBox="0 0 100 100">
 						<path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"/>
@@ -113,7 +113,7 @@
 					<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedCpuRate|percent}}</span>
 				</div>
 				<div width="150px" style="text-align: center;">
-					<!--<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.vcpuQuota}})</span>-->
+					<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.vcpuQuota}})</span>
 					<span >VCPU</span>
 				</div>	  	
 			</div>
@@ -126,7 +126,7 @@
 					<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedMemRate|percent}}</span>
 				</div>
 				<div width="150px" style="text-align: center;">
-					<!--<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.memroyQuota}})</span>-->
+					<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.memroyQuota}})</span>
 					<span >{{ 'COMMON.RAM' | translate }}</span>
 				</div>	  	
 			</div>
@@ -139,7 +139,7 @@
 					<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedStorageRate|percent}}</span>
 				</div>
 				<div width="150px" style="text-align: center;">
-					<!--<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.storageQuota}})</span>-->
+					<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.storageQuota}})</span>
 					<span >{{ 'COMMON.STORAGE' | translate }}</span>
 				</div>	  	
 			</div>
@@ -152,7 +152,7 @@
 					<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedPhysicalMachineRate|percent}}</span>
 				</div>
 				<div width="150px" style="text-align: center;">
-					<!--<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.physicalQuota}})</span>-->
+					<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.physicalQuota}})</span>
 					<span >{{ 'COMMON.PHYSICAL_MACHINE' | translate }}</span>
 				</div>	  	
 			</div>
@@ -165,7 +165,7 @@
 					<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedSnapshotRate|percent}}</span>
 				</div>
 				<div width="150px" style="text-align: center;">
-					<!--<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.snapShotQuota}})</span>-->
+					<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.snapShotQuota}})</span>
 					<span >{{ 'COMMON.SNAPSHOT' | translate }}</span>
 				</div>	  	
 			</div>
@@ -178,7 +178,7 @@
 					<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedImageRate|percent}}</span>
 				</div>
 				<div width="150px" style="text-align: center;">
-					<!--<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.imageQuota}})</span>-->
+					<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.imageQuota}})</span>
 					<span >{{ 'COMMON.IMAGE' | translate }}</span>
 				</div>	  	
 			</div>
@@ -191,11 +191,83 @@
 					<span class="circle-percentage">{{resourceQuotaSvg.FirstItem.usedFloatIpRate|percent}}</span>
 				</div>
 				<div width="150px" style="text-align: center;">
-					<!--<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.floatIpQuota}})</span>-->
+					<span class="mgb10" style="display: block;">({{resourceQuotaSvg.FirstItem.floatIpQuota}})</span>
 					<span >{{ 'COMMON.FLOAT_IP_PATH' | translate }}</span>
 				</div>	  	
-			</div>
+			</div>-->
 			
+		 <div class="console-box " *ngIf="resourceQuotaSvg.FirstItem">
+                <div class="quota-box ">
+                    <canvas baseChart
+                          width="100" height="100"
+                          [datasets]="epcpu"
+                          chartType="doughnut"
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{resourceQuotaSvg.FirstItem.usedCpuRate}}<sup>%</sup></div>
+					  <!--<div class="percent-num">20<sup>%</sup></div>-->
+                    <div class="quota-name">vCPU</div>
+                </div>
+                <div class="quota-box ">
+                    <canvas baseChart
+                          width="100" height="100"
+                          [datasets]="epmem"
+                          chartType="doughnut"
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{resourceQuotaSvg.FirstItem.usedMemRate}}<sup>%</sup></div>
+					<!--<div class="percent-num">20<sup>%</sup></div>-->
+                    <div class="quota-name">{{ 'COMMON.RAM' | translate }}</div>
+                </div>
+                <div class="quota-box ">
+                    <canvas baseChart
+                          width="100" height="100"
+                          [datasets]="epdisk"
+                          chartType="doughnut"
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{resourceQuotaSvg.FirstItem.usedStorageRate}}<sup>%</sup></div>
+					<!--<div class="percent-num">20<sup>%</sup></div>-->
+                    <div class="quota-name">{{ 'COMMON.STORAGE' | translate }}</div>
+                </div>
+                <div class="quota-box ">
+                    <canvas baseChart
+                          width="100" height="100"
+                          [datasets]="ephost"
+                          chartType="doughnut"
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{resourceQuotaSvg.FirstItem.usedPhysicalMachineRate}}<sup>%</sup></div>
+					<!--<div class="percent-num">20<sup>%</sup></div>-->
+                    <div class="quota-name">{{ 'COMMON.PHYSICAL_MACHINE' | translate }}</div>
+                </div>
+                <div class="quota-box ">
+                    <canvas baseChart
+                          width="100" height="100"
+                          [datasets]="epsnapshot"
+                          chartType="doughnut"
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{resourceQuotaSvg.FirstItem.usedSnapshotRate}}<sup>%</sup></div>
+					<!--<div class="percent-num">20<sup>%</sup></div>-->
+                    <div class="quota-name">{{ 'COMMON.SNAPSHOT' | translate }}</div>
+                </div>
+                <div class="quota-box ">
+                    <canvas baseChart
+                          width="100" height="100"
+                          [datasets]="epimage"
+                          chartType="doughnut"
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{resourceQuotaSvg.FirstItem.usedImageRate}}<sup>%</sup></div>
+					<!--<div class="percent-num">20<sup>%</sup></div>-->
+                    <div class="quota-name">{{ 'COMMON.MIRROR' | translate }}</div>
+                </div>
+                <div class="quota-box ">
+                    <canvas baseChart
+                          width="100" height="100"
+                          [datasets]="epfloatIp"
+                          chartType="doughnut"
+                          [options]="quotaOptions"></canvas>
+                    <div class="percent-num">{{resourceQuotaSvg.FirstItem.usedFloatIpRate}}<sup>%</sup></div>
+					<!--<div class="percent-num">20<sup>%</sup></div>-->
+                    <div class="quota-name">{{ 'COMMON.FLOAT' | translate }}IP地址</div>
+                </div>
+		   </div>
 		</div>
 		
 		<!--新增图标部分-->

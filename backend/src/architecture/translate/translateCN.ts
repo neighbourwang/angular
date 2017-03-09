@@ -497,8 +497,8 @@
         "SET_PRODUCT": "设置产品",
         "MANAGE_AVILABLE_PLATFORM": "管理可用平台",
         "SNAPSHOT_NUM": "快照数量",
-        "STORAGE_QUOTA": "存储配额",
-        "STORAGE_QUOTA_PERCENT": "存储配额使用率",
+        "MEM_QUOTA_PERCENT": "内存配额使用率%",
+        "STORAGE_QUOTA_PERCENT": "存储配额使用率%",
         "THE_ADMIN_STATUS_IS": "该管理员已经是{{value_1}}状态！",
         "THE_AD_SOURCE_STATUS_IS": "该认证源已经是{{value_1}}状态！",
         "UPDATE_ADMINISTRATOR": "更新管理员",
@@ -506,7 +506,7 @@
         "VAILABLE_RAM_NUM": "可使用内存数量",
         "VAILABLE_STORAGE_QUOTA": "可使用存储额度",
         "VAILABLE_VCPU_NUM": "可创建vCPU数量",
-        "VCPU_QUOTA_PERCENT": "vCPU配额使用率",
+        "VCPU_QUOTA_PERCENT": "vCPU配额使用率%",
         "VIEW_ENTERPRISE": "查看企业"
     },
     "HOST_MNG": {
@@ -596,6 +596,7 @@
         "EDIT": "编辑",
         "EDIT_IMAGE": "编辑镜像",
         "EMAIL_INVALID": "邮箱地址无效",
+        "NOT_NUMBER":"不是合规的数字",
         "ENABLE": "启用",
         "ENABLE_IMAGE": "启用镜像",
         "ENABLE_IMAGE_MSG": "您选择启用{{value_1}}, 请确认; 如果确认，用户将能够在订购中选择此镜像.",
@@ -619,6 +620,7 @@
         "IMAGE_NAME_ENFORCED": "镜像名称不能为空",
         "IMAGE_SYNC_SUCCESS": "镜像同步成功",
         "IMAGE_TYPE": "镜像类型",
+        "IMAGE_CAPACITY":"镜像容量",
         "IMAGE_UPDATE_EXCEPTION": "镜像更新异常",
         "IMAGE_UPDATE_FAILED": "镜像更新失败",
         "IMAGE_UPDATE_SUCCESS": "镜像更新成功",
@@ -780,7 +782,7 @@
         "DLR_SUBNET_DISPLAY_NAME": "DLR子网显示名称",
         "DLR_SUBNET_DIS_NAME_CANT_NULL": "DLR子网显示名称不能为空.",
         "EDIT_STD_NET": "编辑标准网络",
-        "EMAIL_INVALID": "邮箱地址无效",
+        "EMAIL_INVALID": "邮箱地址无效",        
         "ENABLE": "启用",
         "ENABLE_DBT_PORTGROUP_WARNING": "您选择启用{{value_1}}分布式端口组，其VLAN ID为{{value_2}} ，请确认；如果确认，用户将能够在订购中选择此网络。",
         "ENABLE_NET": "启用网络",
@@ -1049,7 +1051,7 @@
 
         "PLEASE_CHOOSE_NETWORK": "请选择网络",
         "PLEASE_CHOOSE_RES_POOL": "请选择资源池",
-        "PLEASE_CHOOSE_PM": "请选择物理机",        
+        "PLEASE_CHOOSE_PM": "请选择物理机",
 
         "CREATE_PHY_NET_FAILED": "创建物理机网络失败",
         "CREATE_PHY_NET_EXCEPTION": "创建物理机网络异常",
@@ -1089,7 +1091,7 @@
         "PLEASE_INPUT_DESCRIPTION": "请输入说明",
 
         "PHY_NET_NEED_TO_DISABLED_FIRSTLY": "物理机网络需先被禁用后才能被删除",
-        
+
         "ENABLE_PHY_NET": "您选择启用 {{value_1}}, 请确认; 如果确认，用户将能够在订购中选择此网络.",
         "DISABLE_PHY_NET": "您选择禁用 {{value_1}}, 请确认; 如果确认，用户将不能在订购中选择此网络.",
         "DELETE_PHY_NET": "您选择删除 {{value_1}}, 请确认; 如果确认，用户将不能在订购中选择此网络.",
@@ -1204,7 +1206,7 @@
         "CREATE_PLATFORM_ERROR": "创建云平台错误",
         "DATA_CENTER_REQUIRED": "请输入所属数据中心",
         "DELETE_PLATEFORM": "删除云平台",
-        
+
         "DIABLE_PLATFORM_EXCEPTION_TRY_AGAIN": "禁用云平台异常，请稍候再试",
         "DISABLE_PLATFORM": "禁用云平台",
         "DLETE_PLATFORM_EXCEPTION_TRY_AGAIN": "删除云平台异常，请稍后再试",
@@ -1289,7 +1291,7 @@
     "PHY_MNG_POOL": {
         "ACTIVE": "启用",
         "ADD_PHY": "添加物理机",
-        "AREA_OWNER": "所属区域",
+        "AREA_OWNER": "所属地域",
         "CANCEL": "取消",
         "CONFIRM": "确认",
         "CREATE": "创建",
@@ -1321,6 +1323,7 @@
         "PLEASE_CHOOSE_POOL": "请选择资源池",
         "PLEASE_INPUT_DIGIT_CENTER": "请输入数据中心",
         "PLEASE_INPUT_POOLNAME": "请输入资源池名称",
+        "PLEASE_SELECT_REGION": "请选择所属地域",
         "POOL_ALREADY_DISABLE": "该资源池已处于禁用状态",
         "POOL_ALREADY_ENABLE": "该资源池已处于启用状态",
         "POOL_NAME": "资源池名称",
@@ -1407,7 +1410,7 @@
         "SPEC":"规格",
         "SPEC_VALUE":"规格值",
         "PHYSICAL_MODEL":"物理机型号",
-        "SN":"序列号", 
+        "SN":"序列号",
         "DISK":"硬盘",
         "ORDER_INFO":"订购信息",
         "ENTERPRISE":"使用企业",
@@ -1661,10 +1664,10 @@
     "CASE_MNG":{
         "CASE_MNG":"工单管理",
         "ENTERPRISE":"所属企业",
-        "ALL_ENTERPRISE":"所有企业",       
+        "ALL_ENTERPRISE":"所有企业",
         "ALL_TYPE":"所有类别",
         "ALL_STATUS":"所有状态",
-        "ALL_EMERGENCY":"所有",     
+        "ALL_EMERGENCY":"所有",
         "TYPE":"类别",
         "STATUS":"状态",
         "EMERGENCY":"紧急程度",
@@ -1708,5 +1711,21 @@
         "PLEASE_INPUT_HANDLE_RECORD":"请填写处理记录！",
         "PLEASE_SELECT_CLOSE_TYPE":"请选择关闭类型！",
         "PLEASE_INPUT_CLOSE_DESCRIPTION":"请填写关闭描述！"
+    },
+    "SYS_SETUP":{
+        "EMAIL_SETUP_MNG": "Email设置管理",
+        "EMAIL_TEMPLATE_MNG": "Email模板管理",
+        "MNG_EMAIL_TEMPLATE": "管理Email模板",
+        "SHOW_EMAIL_TEMPLATE": "查看Email模板",
+        "EDIT_EMAIL_SETUP": "编辑Email设置",
+
+        "NOTIFICATION_TYPE": "通知类型",
+        "TEMPLATE_NAME": "模板名称",
+        "TEMPLATE_TYPE": "模板类型",
+        "SEND_ORNOT_EMAIL": "是否发送Email",
+        "RECEIVER": "发送对象",        
+        "DESCRIPTION": "说明",
+        "CREATE_TIME": "创建时间",
+
     }
 }

@@ -108,19 +108,19 @@ export class MenuService {
 					"isShow": !isRoot,
 					"icon": "icon-operation-center ",
 					"top2_menu": [
-						{
-							"label": "容量管理",
-							"isOpen": false,
-							"isActive": false,
-							"isShow": !isRoot,							
-							"routing": "mtc-center/capacity-mng/capacity-mng"
-						}, {
-							"label": "超分管理",
-							"isOpen": false,
-							"isActive": false,
-							"isShow": !isRoot,
-							"routing": "mtc-center/assign-mng/assign-mng"
-                        },
+						// {
+						// 	"label": "容量管理",
+						// 	"isOpen": false,
+						// 	"isActive": false,
+						// 	"isShow": !isRoot,							
+						// 	"routing": "mtc-center/capacity-mng/capacity-mng"
+						// }, {
+						// 	"label": "超分管理",
+						// 	"isOpen": false,
+						// 	"isActive": false,
+						// 	"isShow": !isRoot,
+						// 	"routing": "mtc-center/assign-mng/assign-mng"
+      //                   },
                         {
 							"label": "工单管理",
 							"isOpen": false,
@@ -266,13 +266,13 @@ export class MenuService {
 							"isShow": !isRoot,
 							"routing": "op-center/order-mng/order-mng-search"
 						},
-						{
-							"label": "费用管理",
-							"isOpen": false,
-							"isActive": false,
-							"isShow": !isRoot,
-							"routing": "op-center/order-mng/cost-pandect"
-						},
+						// {
+						// 	"label": "费用管理",
+						// 	"isOpen": false,
+						// 	"isActive": false,
+						// 	"isShow": !isRoot,
+						// 	"routing": "op-center/order-mng/cost-pandect"
+						// },
 						{
 							"label": "费用设置",
 							"isOpen": false,
@@ -351,6 +351,21 @@ export class MenuService {
 							"isShow": true,
 							"routing": "user-center/person-acc-mng/person-acc-mng"
 						},
+					]
+				},
+				{
+					"label": "系统设置",
+					"isOpen": false,
+					"isShow": !isRoot,
+					"icon": "icon-content-header-purchasingWhite",
+					"top2_menu": [
+						{
+							"label": "Email通知设置",
+							"isOpen": false,
+							"isActive": false,
+							"isShow": !isRoot,
+							"routing": "sys-setup/email-mng/email-list"
+						}
 					]
 				}
 

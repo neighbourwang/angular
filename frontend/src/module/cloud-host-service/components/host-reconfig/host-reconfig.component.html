@@ -42,7 +42,7 @@
 				            <td class="text-center">{{vm.vmState | dict:service.computeStatus | async}}</td>
 				            <td class="text-center">
 			            		<p>一次性费用：¥{{vm.billingInfo?.basePrice}}元</p>
-			            		<p>周期费用：¥{{vm.billingInfo?.basicPrice}}元 / {{vm.billingInfo?.billingMode | dict:service.weekly | async}}</p>
+			            		<p>周期费用：¥{{vm.billingInfo?.basicPrice}}元 / {{vm.billingInfo?.periodType | dict:service.weekly | async}}</p>
 				            </td>
 						</tr>
 					</table>
@@ -88,7 +88,7 @@
 										</tr>
 										<tr>
 											<td class="text-r vertical-t">周期费用：</td>
-											<td ><font>{{billingInfo?.basicPrice}}元 / {{billingInfo?.billingMode | dict:service.weekly | async}}</font></td>
+											<td ><font>{{billingInfo?.basicPrice}}元 / {{billingInfo?.periodType | dict:service.weekly | async}}</font></td>
 										</tr>
 									</table>
 								</div>

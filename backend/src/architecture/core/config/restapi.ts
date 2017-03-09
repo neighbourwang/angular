@@ -343,9 +343,43 @@ export let RestApis: RestApiModel[] = [
         "method": "DELETE",    
         "url": "adminui/authsec/platform/flavor/{id}"        
     },
-    
-    // 平台接入管理
-
+    //启动盘管理
+    {
+        "desc": "取得启动盘列表",
+        "id": "platform-mng.bootDiskList.get",
+        "method": "GET",
+        "url": "adminui/authsec/platforms/{id}/bootstorage"        
+    },
+    {
+        "desc": "启用启动盘",
+        "id": "platform-mng.bootDisk.enable",
+        "method": "PUT",    
+        "url": "adminui/authsec/platform/bootstorage/{id}/enable"        
+    },
+    {
+        "desc": "禁用启动盘",
+        "id": "platform-mng.bootDisk.suspend",
+        "method": "PUT",    
+        "url": "adminui/authsec/platform/bootstorage/{id}/suspend"        
+    },
+    {
+        "desc": "删除启动盘",
+        "id": "platform-mng.bootDisk.delete",
+        "method": "DELETE",    
+        "url": "adminui/authsec/platform/bootstorage/{id}"        
+    },
+    {
+        "desc": "新建启动盘",
+        "id": "platform-mng.bootDisk.post",
+        "method": "POST",    
+        "url": "adminui/authsec/sync/platform/bootstorage"        
+    },
+    {
+        "desc": "同步更新启动盘",
+        "id": "platform-mng.bootDisk.put",
+        "method": "PUT",    
+        "url": "adminui/authsec/sync/platform/bootstorage"        
+    },
     // 企业资源配额管理
     {
         "desc": "取得所有企业的资源配额信息",
@@ -823,9 +857,52 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.cost-pandect.increase-department-top.post",
         "method": "POST",
         "url": "adminui/authsec/enterprise/department/order/increase/count/top"
+    },{
+        "desc": "消费管理-所有服务",
+        "id": "op-center.order-mng.cost-pandect.all-service.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterrpise/subinstance/bill"
+    },{
+        "desc": "消费管理-新增服务",
+        "id": "op-center.order-mng.cost-pandect.increase-service.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterrpise/subinstance/increase/bill"
     },
 
     //<!--后台-运营中心-订单管理-->
+
+    //
+    //费用设置
+
+    {
+        "desc": "费用设置-获取列表",
+        "id": "op-center.order-set.cost-set-list.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/bill/setting/currentuser"
+    },{
+        "desc": "费用设置-获取企业费用设置",
+        "id": "op-center.order-set.ent-set-list.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/bill/setting"
+    },{
+        "desc": "费用设置-保存企业费用设置",
+        "id": "op-center.order-set.ent-set-save.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterpise/bill/setting/profile"
+    },{
+        "desc": "费用设置-获取默认费用设置",
+        "id": "op-center.order-set.default-set-list.post",
+        "method": "POST",
+        "url": "adminui/authsec/organization/bill/setting"
+    },{
+        "desc": "费用设置-保存默认费用设置",
+        "id": "op-center.order-set.default-set-save.post",
+        "method": "POST",
+        "url": "adminui/authsec/organization/bill/setting/profile"
+    },
+    
+
+    //费用设置-ending
     //
     //产品管理
     {

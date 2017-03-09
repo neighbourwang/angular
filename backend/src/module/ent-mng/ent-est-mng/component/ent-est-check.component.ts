@@ -8,12 +8,27 @@ import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
   // moduleId: module.id,
   selector: 'ent-est-mng',
   templateUrl: '../template/ent-est-check.component.html',
-  styleUrls: ['../style/ent-est-mng.component.css'],
+  styleUrls: ['../style/ent-est-mng.component.less'],
   providers: [EntEstCreService]
 }) 
 export class EntEstCheckComponent implements OnInit {
   @ViewChild("notice")
   notice: NoticeComponent;
+
+      eplist : any = {};
+    epcpu: any = [{ data: [0,10]}];
+    epmem: any = [{ data: [0,10]}];
+    epdisk: any = [{ data: [0,10]}];
+    ephost: any = [{ data: [0,10]}];
+    epsnapshot: any = [{ data: [0,10]}];
+    epimage: any = [{ data: [0,10]}];
+    epfloatIp: any = [{ data: [0,10]}];
+
+      public quotaOptions = {
+                legend: { display: false },
+                tooltips: {  enabled: false },
+                cutoutPercentage: 82
+            }
 
   private entEst: EntEst = new EntEst();
   private entProdItems: Paging<EntProdItem> = new Paging<EntProdItem>();
@@ -110,37 +125,57 @@ export class EntEstCheckComponent implements OnInit {
       {
         let obj = new EntEstCreResourceQuota();
         target.push(obj);
-        obj.usedCpuRate = item.usedCpuRate/100;//CPU配额使用率
-        obj.usedFloatIpRate= item.usedFloatIpRate/100;// 浮动IP配额配额
-        obj.usedImageRate = item.usedImageRate/100;//镜像配额使用率
-        obj.usedMemRate  = item.usedMemRate/100;//内存使用率
-        obj.usedPhysicalMachineRate = item.usedPhysicalMachineRate/100;//物理机配额使用率
-        obj.usedSnapshotRate = item.usedSnapshotRate/100; //快照配额使用率
-        obj.usedStorageRate = item.usedStorageRate/100;//储存使用率
-              
-         
+        obj.usedCpuRate = item.usedCpuRate;//CPU配额使用率
+        obj.usedFloatIpRate= item.usedFloatIpRate;// 浮动IP配额配额
+        obj.usedImageRate = item.usedImageRate;//镜像配额使用率
+        obj.usedMemRate  = item.usedMemRate;//内存使用率
+        obj.usedPhysicalMachineRate = item.usedPhysicalMachineRate;//物理机配额使用率
+        obj.usedSnapshotRate = item.usedSnapshotRate; //快照配额使用率
+        obj.usedStorageRate = item.usedStorageRate;//储存使用率
+
+    
+
           obj.enterpriseId = item.enterpriseId;// : string = null;//": "string",
 
           
           obj.vcpuQuota = item.cpuQuota;// : number = null;//": 0, //vCPU数量
-         
+          obj.usedCpuQuota =item.usedCpuQuota; 
          
           obj.memroyQuota = item.memQuota; //内存
+          obj.usedMemQuota =item.usedMemQuota; 
 
            obj.storageQuota = item.storageQuota;//存储
+           obj.usedSnapshotQuota =item.usedSnapshotQuota; 
 
           obj.physicalQuota = item.physicalMachineQuota;// : number = null;//": 0,//可创建物理机数量
+          obj.usedPhysicalMachineQuota =item.usedPhysicalMachineQuota; 
 
           obj.snapShotQuota = item.snapshotQuota;// : number = null;//": 0,//可创建快照数量
+          obj.usedSnapshotQuota =item.usedSnapshotQuota; 
 
           obj.imageQuota = item.imageQuota;// : number = null;//": 0,//可创建镜像数量
+          obj.usedImageQuota =item.usedImageQuota; 
 
          obj.floatIpQuota = item.floatIpQuota;// : number = null;//": 0,//可创建浮动IP数量
+         obj.usedFloatIpQuota =item.usedFloatIpQuota; 
 
          obj.id = item.id;// : string = null;//": "string",
   
       }
     };
+     this.resourceQuotaSvg.Trait = (target:Array<EntEstCreResourceQuota>)=>{
+            const bgc = [ "#E7E9ED", "#00CC99" ];
+            const bgw = [  0,0  ];  
+
+
+            this.epcpu = [{ data: [ target[0].usedCpuQuota,target[0].vcpuQuota- target[0].usedCpuQuota], backgroundColor: bgc, borderWidth:bgw }];
+            this.epmem = [{ data: [target[0].usedMemQuota,target[0].memroyQuota-target[0].usedMemQuota ], backgroundColor: bgc, borderWidth:bgw }];
+            this.epdisk = [{ data: [target[0].usedStorageQuota, target[0].storageQuota-target[0].usedStorageQuota], backgroundColor: bgc, borderWidth:bgw }];
+            this.ephost = [{ data: [target[0].usedPhysicalMachineQuota,  target[0].physicalQuota-target[0].usedPhysicalMachineQuota], backgroundColor: bgc, borderWidth:bgw }];
+            this.epsnapshot = [{ data: [ target[0].usedSnapshotQuota,target[0].snapShotQuota-target[0].usedSnapshotQuota ], backgroundColor: bgc, borderWidth:bgw }];
+            this.epimage = [{ data: [target[0].usedImageQuota, target[0].imageQuota-target[0].usedImageQuota ], backgroundColor: bgc, borderWidth:bgw }];
+            this.epfloatIp = [{ data: [target[0].usedImageQuota,target[0].floatIpQuota-target[0].usedImageQuota], backgroundColor: bgc, borderWidth:bgw }]; 
+     }
 
     // this.resourceQuotaSvg.FakeDataFunc = (target:Array<EntEstCreResourceQuota>)=>{
     //   target.splice(0, target.length);
@@ -197,8 +232,8 @@ export class EntEstCheckComponent implements OnInit {
     this.sysDicService.sysDicOF(this, this.sysDicCallback, "GLOBAL", "STATUS");
 
     this.resourceQuotaSvg.FirstItem = new EntEstCreResourceQuota();
-     this.loadResourceQuotaSvg();
-
+    this.loadResourceQuotaSvg();
+    this.createChart();
      this.layoutService.show();
      this.extendDetailLoader.Go(null,[{key:'_enterpriseId',value:this.entId}])
      .then(success=>{
@@ -280,10 +315,26 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
  loadResourceQuotaSvg(){
     this.resourceQuotaSvg.Go(1,[{key:"enterpriseId", value:this.entId}])
     .then(success=>{
+
     }, err=>{
        this.msg.title='ENT_MNG.RESOURCE_STATISTICS_LOADING';
-        this.msg.desc='ENT_MNG.RESOURCE_STATISTICS_FAILED_TO_LOAD';
-        this.showError(this.msg);
+       this.msg.desc='ENT_MNG.RESOURCE_STATISTICS_FAILED_TO_LOAD';
+       this.showError(this.msg);
     })
  }
+
+
+//不调用接口测试统计图
+createChart(){
+          const bgc = [ "#E7E9ED", "#00CC99" ];
+            const bgw = [  0,0  ];  
+             this.epcpu = [{ data: [ 15,85], backgroundColor: bgc, borderWidth:bgw }];
+            this.epmem = [{ data:[ 15,85], backgroundColor: bgc, borderWidth:bgw }];
+            this.epdisk = [{ data: [ 15,85], backgroundColor: bgc, borderWidth:bgw }];
+            this.ephost = [{ data: [ 15,85], backgroundColor: bgc, borderWidth:bgw }];
+            this.epsnapshot = [{ data:[ 15,85], backgroundColor: bgc, borderWidth:bgw }];
+            this.epimage = [{ data: [ 15,85], backgroundColor: bgc, borderWidth:bgw }];
+            this.epfloatIp = [{ data: [ 15,85], backgroundColor: bgc, borderWidth:bgw }];  
+}
+
 }

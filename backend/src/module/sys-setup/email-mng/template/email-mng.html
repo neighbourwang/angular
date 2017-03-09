@@ -1,0 +1,97 @@
+<div class="page-content-header icon-content-header-physical-mng">
+    {{'SYS_SETUP.EMAIL_SETUP_MNG' | translate}}
+</div>
+
+<div class="page-content">
+    <div class="mgb20">
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="editEmial();">
+            <span class="glyphicon glyphicon-edit"></span>
+            <span class="icon-button-label icon-left-button-label">{{'COMMON.EDIT' | translate}}</span>
+        </button>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="mngEmailTemplate();">       
+            <span class="icon-button-label icon-left-button-label">{{'SYS_SETUP.MNG_EMAIL_TEMPLATE' | translate}}</span>
+        </button>
+    </div>
+
+    <div class="table-container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>{{'COMMON.SELECT' | translate}}</th>
+                    <th>{{'SYS_SETUP.NOTIFICATION_TYPE' | translate}}</th>
+                    <th>{{'SYS_SETUP.TEMPLATE_NAME' | translate}}</th>
+                    <th>{{'SYS_SETUP.SEND_ORNOT_EMAIL' | translate}}</th>
+                    <th>{{'SYS_SETUP.RECEIVER' | translate}}</th>
+                    <th>{{'SYS_SETUP.DESCRIPTION' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="phynet" (change)="selectedphynet = phynet;"></td>
+                    <td> 创建帐户 </td>
+                    <td> 帐号发送邮件 </td>
+                    <td> 是 </td>
+                    <td> 申请人，企业管理员 </td> <!--{{phynet.ipAllCount || ('COMMON.UNSET' | translate)}}-->
+                    <td> 帐号创建成功后，发送帐户信息邮件 </td>
+                    <!--
+                    <td [ngClass]="phynet.status==1?'font-green':'font-orange'"> {{(phynet.status | dict:this.dictService.statusDict | async) || "未设置"}} </td>
+                    -->
+                </tr>                
+            </tbody>
+        </table>
+    </div>
+
+    <div class="fox-cloud-pagination-container">
+        <fc-pagination #pager tp={{totalPage}} (pf)="getPhyNetList($event)"></fc-pagination>
+    </div>
+    <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" (of)="okClicked()"></fc-notice>
+    <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}"></fc-confirm>
+
+</div>
+
+
+<fc-popup #editemailbox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'SYS_SETUP.EDIT_EMAIL_SETUP' | translate}}" (of)="acceptEditEmailModify()" (cf)="cancelEditEmailModify()">
+    <div class="dialogContent">
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'SYS_SETUP.NOTIFICATION_TYPE' | translate}}：</div>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" [(ngModel)]="phynet_create" />
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'SYS_SETUP.TEMPLATE_NAME' | translate}}：</div>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" [(ngModel)]="phynet_create" />
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'SYS_SETUP.SEND_ORNOT_EMAIL' | translate}}：</div>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" [(ngModel)]="phynet_create" />
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'SYS_SETUP.RECEIVER' | translate}}：</div>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" [(ngModel)]="phynet_create" />
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-5 form-control-title">{{'SYS_SETUP.DESCRIPTION' | translate}}：</div>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" [(ngModel)]="phynet_create" />
+            </div>
+        </div>
+    </div>
+    </div>
+</fc-popup>
+

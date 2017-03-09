@@ -439,8 +439,10 @@ export class PfDetailComponent implements OnInit {
     //更新存储区弹出框
     updateStorageList:Array<StorageModel>
     updateStorageListPop() {
+        this.layoutService.show();
         this.platformDetailService.getUpdateStorageList(this.platform.id).then(
             res => {
+                this.layoutService.hide();
                 this.updateStorageList = res.resultContent;
                 if (this.updateStorageList.length == 0) {
                     this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_ZONES')  //暂时没有可同步可用区信息
@@ -455,6 +457,7 @@ export class PfDetailComponent implements OnInit {
                 }
             }
         ).catch(err => {
+                this.layoutService.hide();            
             console.error('获取更新可用区列表出错', err)
         })
     }
@@ -462,8 +465,10 @@ export class PfDetailComponent implements OnInit {
     updateStorageMem: StorageModel;
     updateStorage(StorageId) {
         console.log(StorageId);
+        this.layoutService.show();
         this.platformDetailService.getUpdateStorageCount(StorageId).then(
             res => {
+                this.layoutService.hide();                
                 console.log('同步存储空间', res);
                 if (res.resultCode == 100) {
                     if (res.resultContent) {
@@ -476,6 +481,7 @@ export class PfDetailComponent implements OnInit {
                 }
             }
         ).catch(err => {
+                this.layoutService.hide();            
             console.error('获取同步存储空间出错', err)
         })
     }

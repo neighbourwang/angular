@@ -116,31 +116,51 @@
 		</div><!--  下拉选项行 ending-->
 
 		<!--  表格行 -->
-		<div class="thirdPanel">
+		<div class="thirdPanel" *ngIf="isAllService!=2">
             <div class="table-container">
                 <table class="table table-hover table-all-boder">
                     <thead>
                         <tr>
-                            <th class="text-center">编号</th>
-                            <th class="text-center">订单号</th>
+                            <th class="text-center">已购服务编号</th>
                             <th class="text-center">产品名称</th>
-                            <th class="text-center">付款方式</th>
-                            <th class="text-center">部门</th>
-                            <th class="text-center">购买人</th>
+							<th class="text-center">购买数量</th>
+							<th class="text-center">费用类型</th>
                             <th class="text-center">应付金额</th>
-                            <th class="text-center">支付状态</th>
+                          
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-center" *ngFor="let item of orderItemLoader.Items;let i = index;">
-                            <td class="vertical-center">{{i}}</td>
-                            <td class="vertical-center">{{item.orderNo}}</td>
-                            <td class="vertical-center">{{item.name}}</td>
-                            <td class="vertical-center">{{item.payWay}}</td>
-                            <td class="vertical-center">{{item.department}}</td>
-                            <td class="vertical-center">{{item.buyer}}</td>
-                            <td class="vertical-center">{{item.charge}}</td>
-                            <td class="vertical-center">{{item.status}}</td>
+                        <tr class="text-center" *ngFor="let item of allServiceLoader.Items;">
+                            <td class="vertical-center"><a (click)='showDetail(item.orderNo)'>{{item.orderNo}}</a></td>
+                            <td class="vertical-center">{{item.productName}}</td>
+                            <td class="vertical-center">{{item.num}}</td>
+                            <td class="vertical-center">{{item.priceDetails[0].billName}}</td>
+                            <td class="vertical-center">{{item.total_amount}}</td>
+                        </tr>               
+                    </tbody>
+                </table>
+            </div>
+		</div><!--  表格<div class="row row-line-height">-->
+		<div  class="thirdPanel" *ngIf="isAllService==2">
+            <div class="table-container">
+                <table class="table table-hover table-all-boder">
+                    <thead>
+                        <tr>
+                            <th class="text-center">已购服务编号</th>
+                            <th class="text-center">产品名称</th>
+							<th class="text-center">购买数量</th>
+							<th class="text-center">费用类型</th>
+                            <th class="text-center">应付金额</th>
+                          
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center" *ngFor="let item of increaseServiceLoader.Items;">
+                            <td class="vertical-center"><a (click)='showDetail(item.orderNo)'>{{item.orderNo}}</a></td>
+                            <td class="vertical-center">{{item.productName}}</td>
+                            <td class="vertical-center">{{item.num}}</td>
+                            <td class="vertical-center">{{item.priceDetails[0].billName}}</td>
+                            <td class="vertical-center">{{item.total_amount}}</td>
                         </tr>               
                     </tbody>
                 </table>

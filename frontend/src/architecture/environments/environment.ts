@@ -10,12 +10,16 @@
 const promise = new Promise((resolve,reject) => {
      const token =  window.sessionStorage["token"];
      token ?　resolve(token) : reject("获取token失败！");
- })
+ });
+
+const isTest = window.localStorage["environment"] === "test" ;
+const baseIp = isTest ? "15.114.102.32" : "15.114.100.31";
+const basePort = isTest ? "31072" : "30072";
  
 export const environment = {
     production: true ,
-    baseIp : '15.114.100.31',  
-    basePort : '30072',
+    baseIp : baseIp,  
+    basePort : basePort,
     jwt : promise
 };
 

@@ -1115,6 +1115,7 @@
         "PLEASE_CHOOSE_POOL": "Please select a resource pool",
         "PLEASE_INPUT_DIGIT_CENTER": "Please input data center",
         "PLEASE_INPUT_POOLNAME": "Please enter the resource pool name",
+        "PLEASE_SELECT_REGION": "Please enter the region",
         "POOL_ALREADY_DISABLE": "Resource pool in disabled state ",
         "POOL_ALREADY_ENABLE": "Resource pool in enabled state",
         "POOL_NAME": "Resource pool name",

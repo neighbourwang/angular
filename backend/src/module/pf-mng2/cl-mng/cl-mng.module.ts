@@ -56,6 +56,7 @@ import { PlatformDetailService } from './service/pf-mng-detail.service';
 
 import { FlavorService } from './service/platform-mng-flavor.service';
 
+import { BootDiskService } from './service/platform-mng-bootDisk.service';
 
 @NgModule({
     imports: [
@@ -90,7 +91,8 @@ import { FlavorService } from './service/platform-mng-flavor.service';
         ClMngCreStep6Service,
         ClMngCommonService,
         PlatformDetailService,
-        FlavorService
+        FlavorService,
+        BootDiskService
     ]
 
 })

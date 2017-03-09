@@ -40,7 +40,7 @@
                         <td>{{flavor.vcpu}}</td>
                         <td>{{flavor.memSize}}</td>
                         <td>{{flavor.diskSize}}</td>
-                        <td>
+                        <td [ngClass]="{'font-green':flavor.status == '1' ,'font-orange':flavor.status == '3'}">
                             <span [ngSwitch]="flavor.status"> 
 										<template [ngSwitchCase]="0">{{'PF_MNG2.INIT' | translate}}</template>
 										<template [ngSwitchCase]="1">{{'COMMON.ENABLED' | translate}}</template>
@@ -76,7 +76,7 @@
                         <td>{{flavor.vcpu}}</td>
                         <td>{{flavor.memSize}}</td>
                         <td>{{flavor.diskSize}}</td>
-                        <td>
+                        <td [ngClass]="{'font-green':flavor.status == '1' ,'font-orange':flavor.status == '3'}">
                             <span [ngSwitch]="flavor.status"> 
 										<template [ngSwitchCase]="0">{{'PF_MNG2.INIT' | translate}}</template>
 										<template [ngSwitchCase]="1">{{'COMMON.ENABLED' | translate}}</template>
