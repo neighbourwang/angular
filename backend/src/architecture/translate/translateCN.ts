@@ -1675,5 +1675,21 @@
         "PLEASE_INPUT_HANDLE_RECORD":"请填写处理记录！",
         "PLEASE_SELECT_CLOSE_TYPE":"请选择关闭类型！",
         "PLEASE_INPUT_CLOSE_DESCRIPTION":"请填写关闭描述！"
+    },
+    "SYS_SETUP":{
+        "EMAIL_SETUP_MNG": "Email设置管理",
+        "EMAIL_TEMPLATE_MNG": "Email模板管理",
+        "MNG_EMAIL_TEMPLATE": "管理Email模板",
+        "SHOW_EMAIL_TEMPLATE": "查看Email模板",
+        "EDIT_EMAIL_SETUP": "编辑Email设置",
+
+        "NOTIFICATION_TYPE": "通知类型",
+        "TEMPLATE_NAME": "模板名称",
+        "TEMPLATE_TYPE": "模板类型",
+        "SEND_ORNOT_EMAIL": "是否发送Email",
+        "RECEIVER": "发送对象",        
+        "DESCRIPTION": "说明",
+        "CREATE_TIME": "创建时间",
+
     }
 }
