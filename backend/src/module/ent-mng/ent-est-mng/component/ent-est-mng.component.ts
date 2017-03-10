@@ -11,7 +11,7 @@ import * as _ from 'underscore';
   // moduleId: module.id,
   selector: 'ent-est-mng',
   templateUrl: '../template/ent-est-mng.component.html',
-  styleUrls: ['../style/ent-est-mng.component.css'],
+  styleUrls: ['../style/ent-est-mng.component.less'],
   providers: [EntEstCreService, SystemDictionaryService]
 }) 
 export class EntEstMngComponent implements OnInit {

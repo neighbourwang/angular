@@ -1,0 +1,68 @@
+<div class="page-content-header icon-content-header-physical-mng">
+    {{'SYS_SETUP.SHOW_EMAIL_TEMPLATE' | translate}}
+</div>
+
+<div class="page-content">
+    <div class="row" style="margin-top:30px;">
+
+        <div class="col-md-12">
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">{{'PHY_NET_MNG.PHY_NET_NAME' | translate}}:</div>
+                    <div class="col-md-4">
+                        <span>{{phynetdetailsinfo || ('COMMON.UNSET' | translate)}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">{{'PHY_NET_MNG.SUBNET_IP_INFORMATION' | translate}}:</div>
+                    <div class="col-md-4">
+                        <span>{{phynetdetailsinfo || ('COMMON.UNSET' | translate)}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">{{'PHY_NET_MNG.SUBNET_MASK' | translate}}:</div>
+                    <div class="col-md-4">
+                        <!-- <span>{{(imageOs | dict:this.dictService.osDict | async) || ('HOST_VMWARE_MNG.UNSET' | translate)}}</span>-->
+                        <span>{{phynetdetailsinfo || ('COMMON.UNSET' | translate)}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">{{'PHY_NET_MNG.GATEWAY_ADDRESS' | translate}}:</div>
+                    <div class="col-md-4">
+                        <span>{{phynetdetailsinfo || ('COMMON.UNSET' | translate)}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">DNS 1:</div>
+                    <div class="col-md-4">
+                        <span>{{phynetdetailsinfo || ('COMMON.UNSET' | translate)}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">DNS 2:</div>
+                    <div class="col-md-4">
+                        <span>{{phynetdetailsinfo|| ('COMMON.UNSET' | translate)}}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- col-md-12 -->
+
+    </div>
+</div>
+
+<div class="text-center" style="margin-top:30px;">
+    <button class="fox-cloud-button-lg fox-cloud-button-white">
+        <span class="icon-button-label" (click)="emailTemplatePage()">{{'COMMON.CLOSE' | translate}}</span>
+    </button>
+</div>

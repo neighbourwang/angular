@@ -16,7 +16,7 @@ export class CaseMngList{
     createDate: string; //提交时间
     updateDate: string; //更新时间
     creatorId: string;
-} 
+}
 
 /*    "id": 5,
     "subject": "剩余不足",

@@ -870,6 +870,39 @@ export let RestApis: RestApiModel[] = [
     },
 
     //<!--后台-运营中心-订单管理-->
+
+    //
+    //费用设置
+
+    {
+        "desc": "费用设置-获取列表",
+        "id": "op-center.order-set.cost-set-list.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/bill/setting/currentuser"
+    },{
+        "desc": "费用设置-获取企业费用设置",
+        "id": "op-center.order-set.ent-set-list.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprise/bill/setting"
+    },{
+        "desc": "费用设置-保存企业费用设置",
+        "id": "op-center.order-set.ent-set-save.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterpise/bill/setting/profile"
+    },{
+        "desc": "费用设置-获取默认费用设置",
+        "id": "op-center.order-set.default-set-list.post",
+        "method": "POST",
+        "url": "adminui/authsec/organization/bill/setting"
+    },{
+        "desc": "费用设置-保存默认费用设置",
+        "id": "op-center.order-set.default-set-save.post",
+        "method": "POST",
+        "url": "adminui/authsec/organization/bill/setting/profile"
+    },
+    
+
+    //费用设置-ending
     //
     //产品管理
     {
@@ -2201,6 +2234,38 @@ export let RestApis: RestApiModel[] = [
         "id":"phy-mng.phy-img-mng.phyimglist.sync.saveinfo",
         "method":"POST",
         "url":"pmimagemgmt/noauth/pmimage/image/{pmImagePoolId}/savesync"
+    },
+
+    //Email设置
+    {
+        "desc": "获取所有通知类型的模板设置结果",
+        "id":"sys-mng.email-mng.email.setup.list",
+        "method":"GET",
+        "url":"mailmgmt/authsec/mailmgmt/setitem"
+    },
+    {
+        "desc": "设置某个类型的邮件配置",
+        "id":"sys-mng.email-mng.email.setup.edit",
+        "method":"POST",
+        "url":"mailmgmt/authsec/mailmgmt/settemplate"
+    },
+    {
+        "desc": "获取该机构某类型的已设置选项+该类型的所有模板",
+        "id":"sys-mng.email-mng.email.setup.template.list",
+        "method":"GET",
+        "url":"mailmgmt/authsec/mailmgmt/template/{type}"
+    },
+    {
+        "desc": "查看模板详情",
+        "id":"sys-mng.email-mng.emailtemplate.details",
+        "method":"GET",
+        "url":"mailmgmt/authsec/mailmgmt/templateinfo/{id}"
+    },
+    {
+        "desc": "获取本机构所有模板",
+        "id":"sys-mng.email-mng.emailtemplate.list",
+        "method":"GET",
+        "url":"mailmgmt/authsec/mailmgmt/templates"
     },
 ]
 

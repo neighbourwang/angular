@@ -711,7 +711,7 @@ export const TranslateEN = {
         //case-mng
         QUICKSEARCH_BYCASE: 'Enter the workorder quick search information',
         TYPE: 'Category',
-        EMERGENCY: 'Emergency Degree',
+        EMERGENCY: 'Emergency',
         CASE_ID: 'Workorder No',
         SUBJECT: 'Subject',
         CONTACTOR: 'Contacts',
@@ -748,6 +748,11 @@ export const TranslateEN = {
         DELETE_CASE_WARNING: 'You have chosen to delete {{value_1}}-{{value_2}}, please confirm',
         CASE_DETAIL: 'Workorder detail：{{value_1}}-{{value_2}}',
         MY_CASE: 'My workorder',
-        DEPART_CASE: 'Departmental workorder'
+        DEPART_CASE: 'Departmental workorder',
+        SUBJECT_CANNOT_EMPTY: 'Subject cannot be empty',
+        TYPE_CANNOT_EMPTY: 'Category cannot be empty',
+        EMERGENCY_CANNOT_EMPTY: 'Emergency cannot be empty',
+        CONTACTOR_CANNOT_EMPTY: 'Contacts cannot be empty',
+        CONTACNO_CANNOT_EMPTY: 'Telephone cannot be empty'
     }
 }

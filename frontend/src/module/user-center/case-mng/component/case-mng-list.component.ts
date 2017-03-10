@@ -72,6 +72,7 @@ export class CaseMngListComponent implements OnInit{
     selectedType= this.defaultType;
     selectedStatus= this.defaultStatus;
     id: string;
+    Default= null;
 
     criteria: CaseMngList= new CaseMngList();
 
@@ -126,10 +127,9 @@ export class CaseMngListComponent implements OnInit{
 
     crePage(){
         this.orgForm.reset();
+        this.criteria.emergency= null;
+        this.criteria.type= null;
         this.isEdit= false;
-        this.criteria= new CaseMngList();
-        this.criteria.emergency= "";
-        this.criteria.type= "";
         this.creCase.open("USER_CENTER.CREATE_CASE");
     }
 
