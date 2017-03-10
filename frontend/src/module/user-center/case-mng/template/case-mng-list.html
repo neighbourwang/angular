@@ -85,7 +85,7 @@
             <textarea #subject="ngModel" name="subject" id="subject" class="form-control" rows="2" [(ngModel)]="criteria.subject" required></textarea>
             <div *ngIf="subject.errors && (subject.dirty || subject.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                 <div [hidden]="!subject.errors.required">
-                    主题不能为空
+                    {{ 'USER_CENTER.SUBJECT_CANNOT_EMPTY' | translate}}
                 </div>
             </div>
         </div>
@@ -95,12 +95,12 @@
         <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.TYPE' | translate}}:</div>
         <div class="col-md-8 float-left no-padding">
             <select [(ngModel)]="criteria.type" class="form-control" #t="ngModel" name="t" id="t" required>
-                <option value="">{{ 'USER_CENTER.SELECT' | translate}}</option>
+                <option [value]="Default">{{ 'USER_CENTER.SELECT' | translate}}</option>
                 <option [value]="v.value" *ngFor="let v of service.typeDic | async">{{v.displayValue}}</option>
             </select>
             <div *ngIf="t.errors && (t.dirty || t.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                 <div [hidden]="!t.errors.required">
-                    类别不能为空
+                    {{ 'USER_CENTER.TYPE_CANNOT_EMPTY' | translate}}
                 </div>
             </div>
         </div>
@@ -109,12 +109,12 @@
         <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.EMERGENCY' | translate}}:</div>
         <div class="col-md-8 float-left no-padding" [ngClass]="{'has-error': emergency.errors && (emergency.dirty || emergency.touched)}">
             <select [(ngModel)]="criteria.emergency" class="form-control" #emergency="ngModel" name="emergency" id="emergency" required>
-                <option value="">{{ 'USER_CENTER.SELECT' | translate}}</option>
+                <option [value]="Default">{{ 'USER_CENTER.SELECT' | translate}}</option>
                 <option [value]="v.value" *ngFor="let v of service.emergencyDic | async">{{v.displayValue}}</option>
             </select>
             <div *ngIf="emergency.errors && (emergency.dirty || emergency.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                 <div [hidden]="!emergency.errors.required">
-                    紧急程度不能为空
+                    {{ 'USER_CENTER.EMERGENCY_CANNOT_EMPTY' | translate}}
                 </div>
             </div>
         </div>
@@ -125,7 +125,7 @@
             <input #contactor="ngModel" name="contactor" id="contactor" type="text" class="form-control" [(ngModel)]="criteria.contact" required>
             <div *ngIf="contactor.errors && (contactor.dirty || contactor.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                 <div [hidden]="!contactor.errors.required">
-                    联系人不能为空
+                    {{ 'USER_CENTER.CONTACTOR_CANNOT_EMPTY' | translate}}
                 </div>
             </div>
         </div>
@@ -133,10 +133,15 @@
     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
         <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.CONTACNO' | translate}}:</div>
         <div class="col-md-8 no-padding form-group"  [ngClass]="{'has-error': contacno.errors && (contacno.dirty || contacno.touched)}">
-            <input #contacno="ngModel" name="contacno" id="contacno" type="text" class="form-control" [(ngModel)]="criteria.contactNo" required>
+            <input #contacno="ngModel" name="contacno" id="contacno" type="text" class="form-control" [(ngModel)]="criteria.contactNo" required (blur)="phoneValid(criteria.contactNo)" (focus)='isPhone=true'>
             <div *ngIf="contacno.errors && (contacno.dirty || contacno.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                 <div [hidden]="!contacno.errors.required">
-                    联系电话不能为空
+                    {{ 'USER_CENTER.CONTACNO_CANNOT_EMPTY' | translate}}
+                </div>
+            </div>
+            <div *ngIf="!isPhone" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
+                <div >
+                    {{ 'USER_CENTER.PHONE_ERRO_ENTER_PHONE' | translate }}
                 </div>
             </div>
         </div>
