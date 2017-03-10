@@ -26,13 +26,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="phynet" (change)="selectedphynet = phynet;"></td>
-                    <td> 创建帐户 </td>
-                    <td> 帐号发送邮件 </td>
-                    <td> 是 </td>
-                    <td> 申请人，企业管理员 </td> <!--{{phynet.ipAllCount || ('COMMON.UNSET' | translate)}}-->
-                    <td> 帐号创建成功后，发送帐户信息邮件 </td>
+                <tr *ngFor="let emset of emailsetups">
+                    <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="emset.checked" (change)="selectedemail = emset;"></td>
+                    <td> {{emset.noticeType | dict:this.dictService.typeDict | async}} </td>
+                    <td> {{emset.name}} </td>
+                    <td> {{emset.send | dict:this.dictService.sendDict | async}} </td>
+                    <td> {{emset.receivers}} </td> <!--{{phynet.ipAllCount || ('COMMON.UNSET' | translate)}}-->
+                    <td> {{emset.description}} </td>
                     <!--
                     <td [ngClass]="phynet.status==1?'font-green':'font-orange'"> {{(phynet.status | dict:this.dictService.statusDict | async) || "未设置"}} </td>
                     -->
@@ -88,7 +88,8 @@
         <div class="form-group">
             <div class="col-sm-5 form-control-title">{{'SYS_SETUP.DESCRIPTION' | translate}}：</div>
             <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="phynet_create" />
+                <!--<input type="text" class="form-control" [(ngModel)]="phynet_create" />-->
+                <textarea class="form-control" rows="3" placeholder="">{{phynet_create}}</textarea>
             </div>
         </div>
     </div>

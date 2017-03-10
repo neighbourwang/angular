@@ -781,7 +781,11 @@ export const TranslateCN = {
         DELETE_CASE_WARNING: '您选择删除{{value_1}}-{{value_2}}工单，请确认。',
         CASE_DETAIL: '工单详细：{{value_1}}-{{value_2}}',
         MY_CASE: '我的工单',
-        DEPART_CASE: '部门工单'
-
+        DEPART_CASE: '部门工单',
+        SUBJECT_CANNOT_EMPTY: '主题不能为空',
+        TYPE_CANNOT_EMPTY: '类别不能为空',
+        EMERGENCY_CANNOT_EMPTY: '紧急程度不能为空',
+        CONTACTOR_CANNOT_EMPTY: '联系人不能为空',
+        CONTACNO_CANNOT_EMPTY: '联系电话不能为空'
     }
 }

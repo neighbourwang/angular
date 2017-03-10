@@ -2235,5 +2235,37 @@ export let RestApis: RestApiModel[] = [
         "method":"POST",
         "url":"pmimagemgmt/noauth/pmimage/image/{pmImagePoolId}/savesync"
     },
+
+    //Email设置
+    {
+        "desc": "获取所有通知类型的模板设置结果",
+        "id":"sys-mng.email-mng.email.setup.list",
+        "method":"GET",
+        "url":"mailmgmt/authsec/mailmgmt/setitem"
+    },
+    {
+        "desc": "设置某个类型的邮件配置",
+        "id":"sys-mng.email-mng.email.setup.edit",
+        "method":"POST",
+        "url":"mailmgmt/authsec/mailmgmt/settemplate"
+    },
+    {
+        "desc": "获取该机构某类型的已设置选项+该类型的所有模板",
+        "id":"sys-mng.email-mng.email.setup.template.list",
+        "method":"GET",
+        "url":"mailmgmt/authsec/mailmgmt/template/{type}"
+    },
+    {
+        "desc": "查看模板详情",
+        "id":"sys-mng.email-mng.emailtemplate.details",
+        "method":"GET",
+        "url":"mailmgmt/authsec/mailmgmt/templateinfo/{id}"
+    },
+    {
+        "desc": "获取本机构所有模板",
+        "id":"sys-mng.email-mng.emailtemplate.list",
+        "method":"GET",
+        "url":"mailmgmt/authsec/mailmgmt/templates"
+    },
 ]
 

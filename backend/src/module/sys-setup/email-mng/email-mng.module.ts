@@ -11,7 +11,9 @@ import { EmailTemplateListComponent } from './component/email-template-list.comp
 import { EmailTemplateDetailsComponent } from './component/email-template-details.component';
 
 //Service
-//import { AccountMngService } from './service/account-mng-list.service';
+import { EmailMngService } from "./service/email-mng.service";
+import { EmailMngDictService } from "./service/email-mng-dict.service";
+
 
 @NgModule({
     imports: [
@@ -27,7 +29,8 @@ import { EmailTemplateDetailsComponent } from './component/email-template-detail
     exports: [
     ],
     providers: [
-        //AccountMngService,
+        EmailMngService,
+        EmailMngDictService,
     ]
 
 })
