@@ -16,8 +16,8 @@ export class EntEstCheckComponent implements OnInit {
   notice: NoticeComponent;
 
       eplist : any = {};
-    epcpu: any = [{ data: [0,10]}];
-    epmem: any = [{ data: [0,10]}];
+    epcpu: any = [{ data: [0,10]}];//VCPU
+    epmem: any = [{ data: [0,10]}];//
     epdisk: any = [{ data: [0,10]}];
     ephost: any = [{ data: [0,10]}];
     epsnapshot: any = [{ data: [0,10]}];
@@ -125,19 +125,11 @@ export class EntEstCheckComponent implements OnInit {
       {
         let obj = new EntEstCreResourceQuota();
         target.push(obj);
-        obj.usedCpuRate = item.usedCpuRate;//CPU配额使用率
-        obj.usedFloatIpRate= item.usedFloatIpRate;// 浮动IP配额配额
-        obj.usedImageRate = item.usedImageRate;//镜像配额使用率
-        obj.usedMemRate  = item.usedMemRate;//内存使用率
-        obj.usedPhysicalMachineRate = item.usedPhysicalMachineRate;//物理机配额使用率
-        obj.usedSnapshotRate = item.usedSnapshotRate; //快照配额使用率
-        obj.usedStorageRate = item.usedStorageRate;//储存使用率
-
-    
+        
 
           obj.enterpriseId = item.enterpriseId;// : string = null;//": "string",
 
-          
+          obj.id = item.id;// : string = null;//": "string",
           obj.vcpuQuota = item.cpuQuota;// : number = null;//": 0, //vCPU数量
           obj.usedCpuQuota =item.usedCpuQuota; 
          
@@ -145,7 +137,7 @@ export class EntEstCheckComponent implements OnInit {
           obj.usedMemQuota =item.usedMemQuota; 
 
            obj.storageQuota = item.storageQuota;//存储
-           obj.usedSnapshotQuota =item.usedSnapshotQuota; 
+           obj.usedStorageQuota =item.usedStorageQuota; 
 
           obj.physicalQuota = item.physicalMachineQuota;// : number = null;//": 0,//可创建物理机数量
           obj.usedPhysicalMachineQuota =item.usedPhysicalMachineQuota; 
@@ -159,7 +151,29 @@ export class EntEstCheckComponent implements OnInit {
          obj.floatIpQuota = item.floatIpQuota;// : number = null;//": 0,//可创建浮动IP数量
          obj.usedFloatIpQuota =item.usedFloatIpQuota; 
 
-         obj.id = item.id;// : string = null;//": "string",
+        
+
+         // obj.usedCpuRate = item.usedCpuRate;//CPU配额使用率
+        obj.usedCpuRate =  (item.usedCpuQuota/item.cpuQuota)*100;
+
+        // obj.usedFloatIpRate= item.usedFloatIpRate;// 浮动IP配额配额
+        obj.usedFloatIpRate= (item.usedFloatIpQuota/item.floatIpQuota)*100;
+
+        // obj.usedImageRate = item.usedImageRate;//镜像配额使用率
+        obj.usedImageRate = (item.usedImageQuota/item.imageQuota)*100;
+
+        // obj.usedMemRate  = item.usedMemRate;//内存使用率
+        obj.usedMemRate = (item.usedMemQuota/item.memQuota)*100;
+
+        // obj.usedPhysicalMachineRate = item.usedPhysicalMachineRate;//物理机配额使用率
+        obj.usedPhysicalMachineRate = (item.usedPhysicalMachineQuota/item.physicalMachineQuota)*100;
+
+        // obj.usedSnapshotRate = item.usedSnapshotRate; //快照配额使用率
+        obj.usedSnapshotRate = (item.usedSnapshotQuota/item.snapshotQuota)*100; 
+
+        // obj.usedStorageRate = item.usedStorageRate;//储存使用率
+
+        obj.usedStorageRate = (item.usedStorageQuota/item.storageQuota)*100;
   
       }
     };
@@ -167,15 +181,23 @@ export class EntEstCheckComponent implements OnInit {
             const bgc = [ "#E7E9ED", "#00CC99" ];
             const bgw = [  0,0  ];  
 
-
             this.epcpu = [{ data: [ target[0].usedCpuQuota,target[0].vcpuQuota- target[0].usedCpuQuota], backgroundColor: bgc, borderWidth:bgw }];
             this.epmem = [{ data: [target[0].usedMemQuota,target[0].memroyQuota-target[0].usedMemQuota ], backgroundColor: bgc, borderWidth:bgw }];
             this.epdisk = [{ data: [target[0].usedStorageQuota, target[0].storageQuota-target[0].usedStorageQuota], backgroundColor: bgc, borderWidth:bgw }];
             this.ephost = [{ data: [target[0].usedPhysicalMachineQuota,  target[0].physicalQuota-target[0].usedPhysicalMachineQuota], backgroundColor: bgc, borderWidth:bgw }];
             this.epsnapshot = [{ data: [ target[0].usedSnapshotQuota,target[0].snapShotQuota-target[0].usedSnapshotQuota ], backgroundColor: bgc, borderWidth:bgw }];
             this.epimage = [{ data: [target[0].usedImageQuota, target[0].imageQuota-target[0].usedImageQuota ], backgroundColor: bgc, borderWidth:bgw }];
-            this.epfloatIp = [{ data: [target[0].usedImageQuota,target[0].floatIpQuota-target[0].usedImageQuota], backgroundColor: bgc, borderWidth:bgw }]; 
-     }
+            this.epfloatIp = [{ data: [target[0].usedFloatIpQuota,target[0].floatIpQuota-target[0].usedFloatIpQuota], backgroundColor: bgc, borderWidth:bgw }]; 
+     
+    
+            //   this.epcpu = [{ data: [ 15,85], backgroundColor: bgc, borderWidth:bgw }];
+            // this.epmem = [{ data:[ 15,85], backgroundColor: bgc, borderWidth:bgw }];
+            // this.epdisk = [{ data: [ 15,85], backgroundColor: bgc, borderWidth:bgw }];
+            // this.ephost = [{ data: [ 15,85], backgroundColor: bgc, borderWidth:bgw }];
+            // this.epsnapshot = [{ data:[ 15,85], backgroundColor: bgc, borderWidth:bgw }];
+            // this.epimage = [{ data: [ 15,85], backgroundColor: bgc, borderWidth:bgw }];
+            // this.epfloatIp = [{ data: [ 15,85], backgroundColor: bgc, borderWidth:bgw }];  
+}
 
     // this.resourceQuotaSvg.FakeDataFunc = (target:Array<EntEstCreResourceQuota>)=>{
     //   target.splice(0, target.length);
@@ -233,7 +255,7 @@ export class EntEstCheckComponent implements OnInit {
 
     this.resourceQuotaSvg.FirstItem = new EntEstCreResourceQuota();
     this.loadResourceQuotaSvg();
-    this.createChart();
+    // this.createChart();
      this.layoutService.show();
      this.extendDetailLoader.Go(null,[{key:'_enterpriseId',value:this.entId}])
      .then(success=>{
@@ -313,13 +335,16 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
 
 //加载统计图
  loadResourceQuotaSvg(){
+   this.layoutService.show();
     this.resourceQuotaSvg.Go(1,[{key:"enterpriseId", value:this.entId}])
     .then(success=>{
+     this.layoutService.hide();
 
     }, err=>{
        this.msg.title='ENT_MNG.RESOURCE_STATISTICS_LOADING';
        this.msg.desc='ENT_MNG.RESOURCE_STATISTICS_FAILED_TO_LOAD';
        this.showError(this.msg);
+       this.layoutService.hide();
     })
  }
 
