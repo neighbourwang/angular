@@ -1,27 +1,31 @@
 <div class="page-content-header icon-content-header-physical-mng"> <!--page-content-header icon-physical-mng">  icon-cloud-network-mngOn"> -->
-    物理机镜像管理	  
+    {{'PHY_IMG_MNG.PHY_IMG_MNG' | translate}}  
 </div>
 
 <div class="page-content">
     <div class="mgb20">
         <button class="fox-cloud-button fox-cloud-button-green" (click)="createPhyImgSource();">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建镜像源</span> <!--请添加创建的弹出框-->
+            <span class="icon-button-label icon-left-button-label">{{'PHY_IMG_MNG.CREATE_PHY_SOURCE' | translate}}</span> <!--请添加创建的弹出框-->
         </button>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="allocatePool();">       
-            <span class="icon-button-label icon-left-button-label">分配物理资源池</span>
+            <span class="icon-button-label icon-left-button-label">{{'PHY_IMG_MNG.ALLOCATE_POOL' | translate}}</span>
         </button>
 
         <div class="dropdown pull-right" >
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            选择操作
+            {{'PHY_IMG_MNG.SELECT_OPTION' | translate}}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2"style="margin-left: 10px;">
-                <li><a href="javascript:void(0);"(click)="editPhyImgSource()">编辑</a></li>
-                <li><a href="javascript:void(0);"(click)="enable()">启用</a></li>
-                <li><a href="javascript:void(0);"(click)="disable()">禁用</a></li>
-                <li><a href="javascript:void(0);"(click)="delete()">删除</a></li>
+                <li><a href="javascript:void(0);"(click)="editPhyImgSource()">
+                    {{'PHY_IMG_MNG.EDIT' | translate}}</a></li>
+                <li><a href="javascript:void(0);"(click)="enable()">
+                    {{'PHY_IMG_MNG.ENABLE' | translate}}</a></li>
+                <li><a href="javascript:void(0);"(click)="disable()">
+                    {{'PHY_IMG_MNG.DISABLE' | translate}}</a></li>
+                <li><a href="javascript:void(0);"(click)="delete()">
+                    {{'PHY_IMG_MNG.DELETE' | translate}}</a></li>
             </ul>
 
         </div>
@@ -31,12 +35,12 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>选择 </th>
-                    <th>镜像源名称</th>
-                    <th>镜像源地址</th>
-                    <th>资源池列表</th>
-                    <th>描述</th>
-                    <th>状态</th>
+                    <th>{{'PHY_IMG_MNG.SELECT' | translate}}</th>
+                    <th>{{'PHY_IMG_MNG.IMG_SOURCE_NAME' | translate}}</th>
+                    <th>{{'PHY_IMG_MNG.IMG_SOURCE_ADDRESS' | translate}}</th>
+                    <th>{{'PHY_IMG_MNG.IMG_SOURCE_POOL' | translate}}</th>
+                    <th>{{'PHY_IMG_MNG.DESCRIPTION' | translate}}</th>
+                    <th>{{'PHY_IMG_MNG.STATUS' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -70,11 +74,12 @@
 <fc-popup #createPopup ot="{{'COMMON.CONFIRM' | translate}}" 
                         ct="{{'COMMON.CANCEL' | translate}}" 
                         (testf)="testPhyImgSource(tempCreate)" test= "{{'PHY_IMG_MNG.TEST' | translate}}"
-    title="创建物理机镜像源" (of)="commitCreate()"  (cf)="cancelCreate()">
+    title="{{'PHY_IMG_MNG.CREATE_PHY_IMG_SOURCE' | translate}}" (of)="commitCreate()"  (cf)="cancelCreate()">
     <div class="dialogContent">
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>显示名称：</div>
+                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>
+                    {{'PHY_IMG_MNG.DISPLAY_NAME' | translate}}：</div>
                 <div class="col-sm-4">
                     <input type="text" class="form-control"  [(ngModel)]="tempCreate.imageName"/>
                 </div>
@@ -82,7 +87,8 @@
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像源地址：</div>
+                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>
+                    {{'PHY_IMG_MNG.IMG_SOURCE_ADDRESS' | translate}}：</div>
                 <div class="col-sm-4">
                     <input type="text" class="form-control" [(ngModel)]="tempCreate.imageURL" />
                 </div>
@@ -90,7 +96,8 @@
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title"><span class="asterisk"></span>描述:</div>
+                <div class="col-sm-4 form-control-title"><span class="asterisk"></span>
+                    {{'PHY_IMG_MNG.DESCRIPTION' | translate}}:</div>
                 <div class="col-sm-4">
                     <textarea class="form-control input-control"  rows="3" [(ngModel)]="tempCreate.description">
                     </textarea>
@@ -100,26 +107,16 @@
     </div>
 </fc-popup>
 
-<fc-popup #alloPopup ot="{{'COMMON.CONFIRM' | translate}}"  ct="{{'COMMON.CANCEL' | translate}}"
-    title = "分配物理资源池" (of)="commitAllo()" (cf)="cancelAllo()">
-    
-        <fc-selectbox #selectbox [selectedList]="inUsedPools" [unSelectedList]="noUsedPools" 
-                    titleL="未选中资源池：" 
-                    titleR="已选中资源池：" 
-                    displayKey="pmPoolName"
-                    >
-        </fc-selectbox>
-
-</fc-popup>
 
 <fc-popup #editPopup ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" 
             test= "{{'PHY_IMG_MNG.TEST' | translate}}"
             (testf)="testPhyImgSource(tempEdit)"
-    title="编辑物理机镜像源" (of)="commitEdit()" (cf)="cancelEdit()">
+    title="{{'PHY_IMG_MNG.EDIT_PHY_IMG_SOURCE' | translate}}" (of)="commitEdit()" (cf)="cancelEdit()">
     <div class="dialogContent">
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>显示名称：</div>
+                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>
+                    {{'PHY_IMG_MNG.DISPLAY_NAME' | translate}}：</div>
                 <div class="col-sm-4">
                     <input type="text" class="form-control" [(ngModel)]="tempEdit.imageName" />
                 </div>
@@ -127,7 +124,8 @@
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>镜像源地址：</div>
+                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>
+                    {{'PHY_IMG_MNG.IMG_SOURCE_ADDRESS' | translate}}：</div>
                 <div class="col-sm-4">
                     <input type="text" class="form-control" [(ngModel)]="tempEdit.imageURL"/>
                 </div>
@@ -135,7 +133,8 @@
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title"><span class="asterisk"></span>描述:</div>
+                <div class="col-sm-4 form-control-title"><span class="asterisk"></span>
+                    {{'PHY_IMG_MNG.DESCRIPTION' | translate}}:</div>
                 <div class="col-sm-4">
                     <textarea class="form-control input-control"  rows="3" [(ngModel)]="tempEdit.description">
                     </textarea>

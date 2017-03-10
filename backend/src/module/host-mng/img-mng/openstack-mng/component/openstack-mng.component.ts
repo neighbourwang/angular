@@ -73,6 +73,8 @@ export class OpenstackMngComponent implements OnInit{
     tempEditImage:Image = new Image();
     temp2:Image = new Image();
 
+    capacity_GB:number;
+
     ngOnInit(){
         this.router.params.forEach((params: Params) => {
 			this.platformId = params['platformId']? params['platformId']:"00721c45-17c9-4b68-b941-090ddd5db4b7";
@@ -281,6 +283,7 @@ export class OpenstackMngComponent implements OnInit{
         temp.tenants = image.tenants;
         temp.status = image.status;
         temp.description = image.description;
+        temp.capacity = image.capacity;
         temp.nameEditing = image.nameEditing;
         temp.selected = image.selected;
         this.temp2 = temp;
@@ -314,6 +317,7 @@ export class OpenstackMngComponent implements OnInit{
                     image.tenants = c.tenants;
                     image.status = c.status;
                     image.description = c.description;
+                    image.capacity = c.capacity;
                     image.selected = false;
 
                     image.nameEditing = false;
@@ -345,7 +349,9 @@ export class OpenstackMngComponent implements OnInit{
             temp.tenants = this.selectedImage.tenants;
             temp.status = this.selectedImage.status;
             temp.description = this.selectedImage.description;
-
+            temp.capacity = this.selectedImage.capacity;
+            this.capacity_GB = Number((this.selectedImage.capacity/1024/1024/1024).toFixed(2));
+            console.log("capacity:"+temp.capacity);
             temp.nameEditing = this.selectedImage.nameEditing;
             temp.selected = this.selectedImage.selected;
             this.tempEditImage= temp;
@@ -358,6 +364,7 @@ export class OpenstackMngComponent implements OnInit{
             return;
         }
         this.layoutService.show();
+        this.tempEditImage.capacity = this.capacity_GB!=null?this.capacity_GB*1024*1024*1024 : this.tempEditImage.capacity;
         this.service.saveEditImage(this.tempEditImage)
             .then(
             response => {
@@ -464,5 +471,9 @@ export class OpenstackMngComponent implements OnInit{
                 return (c/Kn).toFixed(2) + "K";
             }
         }
+    }
+
+    changeToGB(capacity:number):number{
+        return 
     }
 }

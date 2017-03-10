@@ -1,7 +1,7 @@
 <div class="page-content-header icon-content-header-physical-mng">
-    同步物理机镜像
+    {{'PHY_IMG_MNG.SYNC_PHY_IMAGE' | translate}}
     <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" (click)="backToList()">
-        返回镜像管理列表
+        {{'PHY_IMG_MNG.RETURN_IMAGE_MANAGEMENT' | translate}}
     </button>
 </div>
 <div class="page-content">
@@ -9,15 +9,15 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>选择</th>
-                    <th>编号</th>
-                    <th>镜像显示名称</th>
-                    <th>镜像文件名</th>
-                    <th>操作系统</th>
-                    <th>系统位数</th>
-                    <th>镜像类型</th>
-                    <th>所属企业</th>
-                    <th>同步结果</th>          
+                    <th>{{'PHY_IMG_MNG.SELECT' | translate}}</th>
+                    <th>{{'PHY_IMG_MNG.NUMBER' | translate}}</th>
+                    <th>{{'PHY_IMG_MNG.IMAGE_DISPLAY_NAME' | translate}}</th>
+                    <th>{{'PHY_IMG_MNG.IMAGE_FILE_NAME' | translate}}</th>
+                    <th>{{'PHY_IMG_MNG.OS' | translate}}</th>
+                    <th>{{'PHY_IMG_MNG.BIT' | translate}}</th>
+                    <th>{{'PHY_IMG_MNG.IMAGE_TYPE' | translate}}</th>
+                    <th>{{'PHY_IMG_MNG.AFFILIATED_ENTERPRISE' | translate}}</th>
+                    <th>{{'PHY_IMG_MNG.SYNC_RESULT' | translate}}</th>          
                 </tr>             
             </thead>
             <tbody>
@@ -68,10 +68,10 @@
 </div>
 <div class="text-center mgt20">
     <button class="fox-cloud-button-lg fox-cloud-button-white"(click)="backToList()">
-        <span class="icon-button-label">取消</span>
+        <span class="icon-button-label">{{'PHY_IMG_MNG.CANCEL' | translate}}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white"(click)="saveSyncInfo()">
-        <span class="icon-button-label">保存</span>
+        <span class="icon-button-label">{{'PHY_IMG_MNG.SAVE' | translate}}</span>
     </button>
 </div>
 

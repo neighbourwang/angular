@@ -80,7 +80,7 @@ export class PhyImgMngAllocateComponent implements OnInit {
                 response=>{
                     this.layoutService.hide();
                     if(response && 100== response["resultCode"]){
-                        this.showAlert("分配成功");
+                        this.showAlert("PHY_IMG_MNG.ALLOCATE_SUCCESS");
                     }else{
                         alert("Res.sync error");
                     }
@@ -98,7 +98,7 @@ export class PhyImgMngAllocateComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败");
+        this.showAlert("PHY_IMG_MNG.ERROR");
     }
     showAlert(msg: string): void {
         this.layoutService.hide();

@@ -1,13 +1,14 @@
-<div class="page-content-header icon-content-header-physical-mng">分配企业
+<div class="page-content-header icon-content-header-physical-mng">
+    {{'PHY_IMG_MNG.ALLOCATE_ENT' | translate}}
     <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" (click)="backToList()">
-        返回镜像管理列表
+         {{'PHY_IMG_MNG.RETURN_IMAGE_MANAGEMENT' | translate}}
     </button>
 </div>
 <div class="page-content">
 <div  style="margin-top:30px; padding-left:200px"> 
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">镜像显示名称:</div>
+                <div class="col-sm-4 form-control-title">{{'PHY_IMG_MNG.IMAGE_DISPLAY_NAME' | translate}}:</div>
                 <div class="col-md-4">
                     <span style="line-height:34px">{{img.destImageName}} </span>
                 </div>
@@ -15,7 +16,7 @@
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">镜像文件名:</div>
+                <div class="col-sm-4 form-control-title">{{'PHY_IMG_MNG.IMAGE_FILE_NAME' | translate}}:</div>
                 <div class="col-md-4">
                     <span style="line-height:34px">{{img.origImageName}} </span>
                 </div>
@@ -23,7 +24,7 @@
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">操作系统:</div>
+                <div class="col-sm-4 form-control-title">{{'PHY_IMG_MNG.OS' | translate}}:</div>
                 <div class="col-md-4">
                     <span style="line-height:34px">{{img.osTypeName}}</span>
                 </div>
@@ -31,7 +32,7 @@
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">系统位数:</div>
+                <div class="col-sm-4 form-control-title">{{'PHY_IMG_MNG.BIT' | translate}}:</div>
                 <div class="col-md-4">
                     <span style="line-height:34px">{{img.bitName}}</span>
                 </div>
@@ -39,7 +40,7 @@
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">镜像类型:</div>
+                <div class="col-sm-4 form-control-title">{{'PHY_IMG_MNG.IMAGE_TYPE' | translate}}:</div>
                 <div class="col-md-4">
                     <span style="line-height:34px">{{img.imageTypeName}}</span>
                 </div>
@@ -49,17 +50,17 @@
     
     
     <fc-selectbox #selectbox [selectedList]="selectedEnterprise" [unSelectedList]="unselectedEnterprise" 
-        titleL="{{'NET_MNG_VM_DBT_PORT.ENTERPRISE_FOR_SELECT' | translate}}" 
-        titleR="{{'NET_MNG_VM_DBT_PORT.SELECTED_ENTERPRISE' | translate}}" displayKey="com">
+        titleL="{{'PHY_IMG_MNG.UNSELECTED_ENTERPRISE' | translate}}" 
+        titleR="{{'PHY_IMG_MNG.SELECTED_ENTERPRISE' | translate}}" displayKey="com">
 
     </fc-selectbox>
 </div>
 <div class="text-center mgt20">
     <button class="fox-cloud-button-lg fox-cloud-button-white"(click)="backToList()">
-        <span class="icon-button-label">关闭</span>
+        <span class="icon-button-label">{{'PHY_IMG_MNG.CANCEL' | translate}}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white"(click)="saveEntList()">
-        <span class="icon-button-label">保存</span>
+        <span class="icon-button-label">{{'PHY_IMG_MNG.SAVE' | translate}}</span>
     </button>
 </div>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'HOST_OPENSTACK_MNG.CONFIRM' | translate}}"></fc-notice>

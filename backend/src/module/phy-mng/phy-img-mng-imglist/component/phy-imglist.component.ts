@@ -84,7 +84,7 @@ export class PhyImgListComponent implements OnInit{
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败");
+        this.showAlert("PHY_IMG_MNG.ERROR");
     }
     showAlert(msg: string): void {
         this.layoutService.hide();
@@ -112,7 +112,7 @@ export class PhyImgListComponent implements OnInit{
 
             this.editPopup.open();
         }else{
-            this.showAlert("请选择一个镜像");
+            this.showAlert("PHY_IMG_MNG.PLEASE_CHOOSE_ONE_SOURCE");
         }
         
     }
@@ -123,7 +123,7 @@ export class PhyImgListComponent implements OnInit{
             response=>{
                 if(response && 100==response["resultCode"]){
                     this.layoutService.hide();
-                    this.showAlert("编辑成功");
+                    this.showAlert("PHY_IMG_MNG.EDIT_SUCCESS");
                     this.editPopup.close();
                     this.getPhyImgList();
                 }else{
@@ -144,14 +144,14 @@ export class PhyImgListComponent implements OnInit{
                     this.layoutService.hide();
                     if(response && 100 == response["resultCode"]){
                         this.getPhyImgList();
-                        this.showAlert("启用成功");
+                        this.showAlert("PHY_IMG_MNG.ENABLE_SUCCESS");
                     }else{
                         alert("Res.sync error");
                     }
                 }
             ).catch((e)=> this.onRejected(e));
             }else{
-            this.showAlert("请选择一个镜像");
+            this.showAlert("PHY_IMG_MNG.PLEASE_CHOOSE_ONE_SOURCE");
         }
     }
     //禁用
@@ -164,14 +164,14 @@ export class PhyImgListComponent implements OnInit{
                     this.layoutService.hide();
                     if(response && 100 == response["resultCode"]){
                         this.getPhyImgList();
-                        this.showAlert("禁用成功");
+                        this.showAlert("PHY_IMG_MNG.DISABLE_SUCCESS");
                     }else{
                         alert("Res.sync error");
                     }
                 }
             ).catch((e)=> this.onRejected(e));
         }else{
-            this.showAlert("请选择一个镜像");
+            this.showAlert("PHY_IMG_MNG.PLEASE_CHOOSE_ONE_SOURCE");
         }
     }
     //删除
@@ -184,14 +184,14 @@ export class PhyImgListComponent implements OnInit{
                     this.layoutService.hide();
                     if(response && 100 == response["resultCode"]){
                         this.getPhyImgList();
-                        this.showAlert("删除成功");
+                        this.showAlert("PHY_IMG_MNG.DELETE_SUCCESS");
                     }else{
                         alert("Res.sync error");
                     }
                 }
             ).catch((e)=> this.onRejected(e));
         }else{
-            this.showAlert("请选择一个镜像");
+            this.showAlert("PHY_IMG_MNG.PLEASE_CHOOSE_ONE_SOURCE");
         }
     }
     
@@ -215,10 +215,10 @@ export class PhyImgListComponent implements OnInit{
             if(this.selectedPhyImage.imageTypeId != 0){//如果是私有镜像类型才能点分配企业按钮（注：0是公共镜像）
                 this.router.navigate(['phy-img-mng/imglist/setent', {"imgId":this.selectedPhyImage.id, "pmImagePoolId":this.sourceId, "sourceName":this.sourceName}]);
             }else{
-                this.showAlert("只有非公共镜像类型才能分配企业");
+                this.showAlert("PHY_IMG_MNG.JUST_NONE_PUBLIC");
             }
         }else{
-            this.showAlert("请选择镜像");
+            this.showAlert("PHY_IMG_MNG.PLEASE_CHOOSE_ONE_SOURCE");
         }
     }
 
