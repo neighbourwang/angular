@@ -376,6 +376,8 @@ manageAviPlatform(){
         this.showMsg("ENT_MNG.CANNOT_DELETE_DELETED_ENTERPRISE");
       }
       else if(this.getSelected().status=="1"){
+        this.showMsg("已禁用的企业无法删除！");
+      }else if(this.getSelected().status=="2"){
         this.showMsg("ENT_MNG.CANNOT_DELETE_ENABLE_ENTERPRISE");
       }
       else{
