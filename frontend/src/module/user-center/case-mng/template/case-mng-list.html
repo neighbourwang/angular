@@ -133,10 +133,15 @@
     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
         <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.CONTACNO' | translate}}:</div>
         <div class="col-md-8 no-padding form-group"  [ngClass]="{'has-error': contacno.errors && (contacno.dirty || contacno.touched)}">
-            <input #contacno="ngModel" name="contacno" id="contacno" type="text" class="form-control" [(ngModel)]="criteria.contactNo" required>
+            <input #contacno="ngModel" name="contacno" id="contacno" type="text" class="form-control" [(ngModel)]="criteria.contactNo" required (blur)="phoneValid(criteria.contactNo)" (focus)='isPhone=true'>
             <div *ngIf="contacno.errors && (contacno.dirty || contacno.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                 <div [hidden]="!contacno.errors.required">
                     {{ 'USER_CENTER.CONTACNO_CANNOT_EMPTY' | translate}}
+                </div>
+            </div>
+            <div *ngIf="!isPhone" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
+                <div >
+                    {{ 'USER_CENTER.PHONE_ERRO_ENTER_PHONE' | translate }}
                 </div>
             </div>
         </div>
