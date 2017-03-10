@@ -20,6 +20,7 @@ private _orderTypeDic:DicLoader = null;
 //订购人
 private _buyerLoader:ItemLoader<{id:string; name:string}> = null;
 
+
 	
 	constructor(
 		private layoutService: LayoutService,
