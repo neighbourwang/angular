@@ -1,7 +1,7 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,PopupComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import {CostSetItem} from '../model'
+import {CostSetItem,CostSetInfo} from '../model'
 
 import * as _ from 'underscore';
 
@@ -24,6 +24,7 @@ export class CostSetListComponent implements OnInit{
   
 
 private costItemLoader:ItemLoader<CostSetItem> = null;
+private param : CostSetInfo= new CostSetInfo();
 	
 	
 	constructor(

@@ -1,7 +1,7 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import {} from '../model'
+import {CostSetInfo} from '../model'
 
 import * as _ from 'underscore';
 
@@ -20,6 +20,7 @@ private _orderTypeDic:DicLoader = null;
 //订购人
 private _buyerLoader:ItemLoader<{id:string; name:string}> = null;
 
+private param : CostSetInfo= new CostSetInfo();
 
 	
 	constructor(
