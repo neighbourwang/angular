@@ -1,5 +1,6 @@
 export class CostSetItem{
-        id:string;
+    id:string;
+    enterpriseId:string;//企业ID
     name:string;//企业名称
     payway:string;//付费方式
     cicleTime:string;//出账周期
