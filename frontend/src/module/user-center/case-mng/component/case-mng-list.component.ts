@@ -73,6 +73,7 @@ export class CaseMngListComponent implements OnInit{
     selectedStatus= this.defaultStatus;
     id: string;
     Default= null;
+    isPhone: boolean=true;
 
     criteria: CaseMngList= new CaseMngList();
 
@@ -130,6 +131,7 @@ export class CaseMngListComponent implements OnInit{
         this.criteria.emergency= null;
         this.criteria.type= null;
         this.isEdit= false;
+        this.isPhone= true;
         this.creCase.open("USER_CENTER.CREATE_CASE");
     }
 
@@ -215,6 +217,15 @@ export class CaseMngListComponent implements OnInit{
                 this.closedInfo= arr[2];
                 this.caseDetail.open("USER_CENTER.CASE_DETAIL^^^"+this.id+"^^^"+this.subject);
             }).catch((e) => this.onRejected(e));
+    }
+
+    //验证手机号
+    phoneValid(val) {
+        if (val) {
+            this.isPhone =
+                this.validationService.isMoblie(val) ? true : false;
+        }
+        console.log('phone', this.isPhone);
     }
 
     departCase(){
