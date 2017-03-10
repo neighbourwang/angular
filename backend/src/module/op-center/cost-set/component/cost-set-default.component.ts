@@ -1,7 +1,7 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import {CostSetInfo} from '../model'
+import {CostSetItem,CostSetInfo} from '../model'
 
 import * as _ from 'underscore';
 
@@ -15,10 +15,12 @@ export class CostSetDefaultComponent implements OnInit{
 
 @ViewChild("notice")
   	private _notice: NoticeComponent;
-//订单类型
-private _orderTypeDic:DicLoader = null;
-//订购人
-private _buyerLoader:ItemLoader<{id:string; name:string}> = null;
+
+@Input()
+private costItem: CostSetInfo = new CostSetInfo();
+
+private entSaveLoader:ItemLoader<CostSetInfo> = null;
+private defaultSaveLoader:ItemLoader<CostSetInfo> = null;
 
 private param : CostSetInfo= new CostSetInfo();
 
@@ -28,20 +30,28 @@ private param : CostSetInfo= new CostSetInfo();
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
-        //订购人加载
-		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
+        //企业设置保存
+		this.entSaveLoader = new ItemLoader<CostSetInfo>(false, '企业费用设置保存失败', "op-center.order-set.ent-set-save.post", this.restApiCfg, this.restApi);
 
-        this._buyerLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
+        this.entSaveLoader.MapFunc = (source:Array<any>, target:Array<CostSetInfo>)=>{
 			for(let item of source)
 			{
 				let obj=_.extend({}, item) ;
 				target.push(obj);
-				obj.id = item.key;
-				obj.name = item.value;
+		
 			}
 		}
+		 //默认设置保存
+		this.defaultSaveLoader = new ItemLoader<CostSetInfo>(false, '默认费用设置保存失败', "op-center.order-set.default-set-save.post", this.restApiCfg, this.restApi);
 
-        this._orderTypeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
+        this.defaultSaveLoader.MapFunc = (source:Array<any>, target:Array<CostSetInfo>)=>{
+			for(let item of source)
+			{
+				let obj=_.extend({}, item) ;
+				target.push(obj);
+		
+			}
+		}
 
 }
 	ngOnInit(){
