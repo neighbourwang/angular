@@ -38,14 +38,11 @@
 
 <!--系统默认设置--> 
 
-<fc-popup #defaultSetDailog ot="{{ 'COMMON.CONFIRM' | translate }}" ct="{{ 'COMMON.CANCEL' | translate }}" title="系统默认费用设置" (of)="acceptDefaultSet()" (cf)="cancelDefaultSet()">
-  <div class="dialogContent">
-	<cost-set-default [costItem]="defaultItemLoader.FirstItem"></cost-set-default>
-  </div>
-</fc-popup>
+<cost-set-default #defaultSetDailog [costItem]="popupItem" (complete)="popupComplete($event)"></cost-set-default>
+<!-- <cost-set-default #entSetDailog [costItem]="entItemLoader.FirstItem"></cost-set-default> -->
 
-<fc-popup #entSetDailog ot="{{ 'COMMON.CONFIRM' | translate }}" ct="{{ 'COMMON.CANCEL' | translate }}" title="企业费用设置" (of)="acceptEntSet()" (cf)="cancelEntSet()">
+<!-- <fc-popup #entSetDailog ot="{{ 'COMMON.CONFIRM' | translate }}" ct="{{ 'COMMON.CANCEL' | translate }}" title="企业费用设置" (of)="acceptEntSet()" (cf)="cancelEntSet()">
   <div class="dialogContent">
-	<cost-set-default [costItem]="entItemLoader.FirstItem"></cost-set-default>
+	
   </div>
-</fc-popup>
+</fc-popup> -->

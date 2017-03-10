@@ -1,6 +1,6 @@
-import { Input, Component, OnInit, ViewChild, } from '@angular/core';
+import { Input, Component, OnInit, ViewChild,EventEmitter, Output} from '@angular/core';
 import { Router } from '@angular/router';
-import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
+import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent, PopupComponent } from '../../../../architecture';
 import {CostSetItem,CostSetInfo} from '../model'
 
 import * as _ from 'underscore';
@@ -15,6 +15,9 @@ export class CostSetDefaultComponent implements OnInit{
 
 @ViewChild("notice")
   	private _notice: NoticeComponent;
+ @ViewChild("popup") popup: PopupComponent;
+
+ @Output() complete=new EventEmitter();
 
 @Input()
 private costItem: CostSetInfo = new CostSetInfo();
@@ -68,6 +71,17 @@ private param : CostSetInfo= new CostSetInfo();
 		this.layoutService.hide();
 	}
 
+	open(titleName:string) {
+		this.popup.open(titleName);
+	} 
+
+	acceptDefaultSet(){
+		this.complete.emit({a:"测试数据"});
+	}
+
+	cancelDefaultSet(){
+
+	}
 
 
 showMsg(msg: string)

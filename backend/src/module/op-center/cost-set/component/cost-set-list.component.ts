@@ -16,11 +16,11 @@ export class CostSetListComponent implements OnInit{
 @ViewChild("notice")
   	private _notice: NoticeComponent;
 
- @ViewChild("defaultSetDailog")
-  defaultSetDailog: PopupComponent;
+ @ViewChild("defaultSetDailog") defaultSetDailog;
 
- @ViewChild("entSetDailog")
-  entSetDailog: PopupComponent;
+ // @ViewChild("entSetDailog") entSetDailog;
+
+ popupItem:any;
   
 //当前选择的行
 private selectedItem: CostSetItem = null;
@@ -86,20 +86,21 @@ private entItemLoader:ItemLoader<CostSetInfo> = null;
 //企业默认设置按钮
 entSet(){
 	// $('#costSetDefault').modal('show');
-	if(this.selectedItem==null){
+	if(this.selectedItem == null){
 		this.showMsg("请先选择企业！");
 	}else{
 		this.layoutService.show();
 		let param =[this.selectedItem.enterpriseId];
 		this.entItemLoader.Go(null,null,param)
 		.then(succeuss=>{
-			this.entSetDailog.open();
+			// this.popupItem = //  在这里改变值
+			this.defaultSetDailog.open();
 			this.layoutService.hide();
 		})
 		.catch(err=>{
 			this.layoutService.hide();
 		})
-		this.entSetDailog.open('企业费用设置');
+		this.defaultSetDailog.open('企业费用设置');
 	}
 	
 }
@@ -111,6 +112,7 @@ defaultSet(){
 	let param ={};
 	this.defaultItemLoader.Go(null,null,param)
 	.then(succeuss=>{
+		// this.popupItem = //  在这里改变值
 		this.defaultSetDailog.open();
 		this.layoutService.hide();
 	})
@@ -120,12 +122,8 @@ defaultSet(){
 	this.defaultSetDailog.open('默认费用设置');
 }
 
-acceptDefaultSet(){
-
-}
-
-cancelDefaultSet(){
-
+popupComplete(data) {
+	console.log("组件里发来的数据:",data)
 }
 
 acceptEntSet(){
