@@ -198,7 +198,7 @@ export class MenuService {
                         {
                             "label": "MENU.CASE_MNY",
                             "isOpen": false,
-                            "isShow": true,
+                            "isShow": isOrgin,
                             "routing": "user-center/case-mng/case-mng-list"
                         }
 

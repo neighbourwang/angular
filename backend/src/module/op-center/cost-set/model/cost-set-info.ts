@@ -1,9 +1,20 @@
 export class CostSetInfo{
-    // currency : //货币类型 
-    // payType (integer, optional): 付费方式 ,
-    // billPeriod (integer, optional): 出账周期 ,
-    // billCreateDate (integer, optional): 账单生成日期 ,
-    // billSendDate (integer, optional): 账单发送日期 ,
+    currency :string =''; //货币类型 
+
+    payType: number  =null;//付费方式 ,
+
+    billPeriod :number =null//出账周期 ,
+
+    billCreateDate:string =null; // 账单生成日期 ,
+
+    billSendDate:string =null; //账单发送日期 ,
+
+    refund:number =null;//计费规则 0退费，1不退费
+
+    specialBill:number=null //特殊计费
+    
+    newPriceEffect:number=null //生效方式
+
 
 }
 
