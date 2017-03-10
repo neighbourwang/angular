@@ -26,7 +26,7 @@
                         <th>{{'COMMON.NAME' | translate}}</th>
                         <th>vCPU</th>
                         <th>{{'COMMON.RAM' | translate}}(MB)</th>
-                        <th>{{'PF_MNG.ROOT_DISK_SIZE' | translate}}(GB)</th>
+                        <th>{{'PROD_MNG.ROOT_DISK_SIZE' | translate}}(GB)</th>
                         <th>{{'COMMON.STATUS' | translate}}</th>
                         <!--<th>同步结果</th>-->
                         <th>{{'CASE_MNG.UPDATE_TIME' | translate}}</th>
@@ -62,7 +62,7 @@
                         <th>{{'COMMON.NAME' | translate}}</th>
                         <th>vCPU</th>
                         <th>{{'COMMON.RAM' | translate}}(MB)</th>
-                        <th>{{'PF_MNG.ROOT_DISK_SIZE' | translate}}(GB)</th>
+                        <th>{{'PROD_MNG.ROOT_DISK_SIZE' | translate}}(GB)</th>
                         <th>{{'COMMON.STATUS' | translate}}</th>
                         <!--<th>同步结果</th>-->
                         <th>{{'CASE_MNG.CREATE_TIME' | translate}}</th>
@@ -104,7 +104,7 @@
                         {{'COMMON.NAME' | translate}}: 
                     </div>
                     <div class="col-sm-4" [ngClass]="{'has-error':!flavorObj.nameValid}">
-                        <input type="text" class="form-control" [(ngModel)]="flavorObj.name" (focus)="flavorObj.nameValid=true;" required placeholder="{{'PF_MNG2.Specification name' | translate}}" (blur)="flavorObj.nameValid=flavorObj.name?true:false;">
+                        <input type="text" class="form-control" [(ngModel)]="flavorObj.name" (focus)="flavorObj.nameValid=true;" required placeholder="{{'PF_MNG2.SPEC_NAME' | translate}}" (blur)="flavorObj.nameValid=flavorObj.name?true:false;">
                     </div>
                 </div>
             </div> 
@@ -140,7 +140,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">
                         <span class="asterisk">*</span>
-                        {{'PF_MNG.ROOT_DISK_SIZE' | translate}}:
+                        {{'PROD_MNG.ROOT_DISK_SIZE' | translate}}:
                     </div>
                     <div class="col-sm-3" [ngClass]="{'has-error':!flavorObj.diskValid}">
                         <input type="number" class="form-control" [(ngModel)]="flavorObj.disk" required (focus)="flavorObj.memValid=true;" (blur)="flavorObj.diskValid=flavorObj.disk?true:false;">

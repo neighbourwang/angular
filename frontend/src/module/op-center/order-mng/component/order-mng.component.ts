@@ -13,6 +13,7 @@ import { ListItem
 	, PurchaseUnit
 	, OrderDetailItem
 	, CancelParam
+	, AutoRenewItem
 } from '../model'
 import * as _ from 'underscore';
 
@@ -83,6 +84,9 @@ export class OrderMngComponent implements OnInit{
 	private _typeDic:DicLoader = null;
 
 	private showInstance:boolean = true;
+
+	//自动续订
+	private autoRenewItem: AutoRenewItem = new AutoRenewItem();
 
 	constructor(
 		private layoutService: LayoutService,
@@ -356,17 +360,25 @@ export class OrderMngComponent implements OnInit{
 
 	//自动续订
 	autoRenew(orderItem:SubInstanceResp){
-		alert();
+		let getProperty = _.property("attrDisplayValue");
 		if(!_.isEmpty(orderItem.itemList)){
-			this.selectedOrderItem = orderItem;
-			console.log(this.selectedOrderItem.itemList[0]);
+			let itemList = orderItem.itemList[0].specList;
+			this.autoRenewItem.platform = getProperty(itemList.find(n=>n.attrCode == "PLATFORM"));
+			this.autoRenewItem.zone = getProperty(itemList.find(n=>n.attrCode == "ZONE"));
+			this.autoRenewItem.instanceName = getProperty(itemList.find(n=>n.attrCode == "INSTANCENAME"));
+			this.autoRenewItem.billingMode = getProperty(itemList.find(n=>n.attrCode == "BILLINGMODE"));
+			this.autoRenewItem.password = getProperty(itemList.find(n=>n.attrCode == "PASSWORD"));
+			this.autoRenewItem.serviceType = orderItem.itemList[0].serviceType;
+			this.autoRenewItem.expireDate = orderItem.itemList[0].expireDate;
+			this.autoRenewItem.oneTimePrice = orderItem.itemList[0].oneTimePrice;
+			this.autoRenewItem.price = orderItem.itemList[0].price;
+			this.autoRenewItem.periodType = orderItem.itemList[0].periodType;
+			
+			console.log(orderItem);
+			this.AutoRenewDialog.open('已购服务自动续订：' + orderItem.orderNo);
 		}
 		else{
 		}
-		this.AutoRenewDialog.open('已购服务自动续订：' + this.selectedOrderItem.orderNo);
-	}
-	autoRenewTest(){
-		this.AutoRenewDialog.open('已购服务自动续订：' + this.selectedOrderItem.orderNo);
 	}
 
 	//选择续订	

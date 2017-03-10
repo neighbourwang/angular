@@ -120,7 +120,7 @@ export class EntAdminCreComponent implements OnInit {
                         this.showAlert("COMMON.CREATE_SUCCESS");
                         this.router.navigateByUrl("ent-mng/ent-admin-mng/ent-admin-mng/" + this.eid);
                     } else if (response && "10001001" == response["resultCode"]) {
-                        this.showAlert("ENT_MNG.ACCOUNT_ACCOUNT_HAS_BEEN_OCCUPIED");
+                        this.showAlert("ENT_MNG.ACCOUNT_HAS_BEEN_OCCUPIED");
                     }else {
                         this.showAlert("Res sync error");
                     }
