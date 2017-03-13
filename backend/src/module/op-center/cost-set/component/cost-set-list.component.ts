@@ -1,4 +1,4 @@
-import { Input, Component, OnInit, ViewChild, } from '@angular/core';
+import { Input, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,PopupComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
 import {CostSetItem,CostSetInfo} from '../model'
@@ -29,6 +29,8 @@ private costItemLoader:ItemLoader<CostSetItem> = null;
 private defaultItemLoader:ItemLoader<CostSetInfo> = null;
 private entItemLoader:ItemLoader<CostSetInfo> = null;
 
+private entSaveLoader:ItemLoader<CostSetInfo> = null;
+private defaultSaveLoader:ItemLoader<CostSetInfo> = null;
 	
 	
 	constructor(
@@ -63,7 +65,28 @@ private entItemLoader:ItemLoader<CostSetInfo> = null;
 			this.defaultItemLoader = new ItemLoader<CostSetInfo>(false, '默认费用设置信息加载失败', "op-center.order-set.default-set-list.post", this.restApiCfg, this.restApi);
 			this.entItemLoader = new ItemLoader<CostSetInfo>(false, '企业费用设置信息加载失败', "op-center.order-set.ent-set-list.post", this.restApiCfg, this.restApi);
 		
+ 		//企业设置保存
+		this.entSaveLoader = new ItemLoader<CostSetInfo>(false, '企业费用设置保存失败', "op-center.order-set.ent-set-save.post", this.restApiCfg, this.restApi);
 
+        // this.entSaveLoader.MapFunc = (source:Array<any>, target:Array<CostSetInfo>)=>{
+		// 	for(let item of source)
+		// 	{
+		// 		let obj=_.extend({}, item) ;
+		// 		target.push(obj);
+		
+		// 	}
+		// }
+		 //默认设置保存
+		this.defaultSaveLoader = new ItemLoader<CostSetInfo>(false, '默认费用设置保存失败', "op-center.order-set.default-set-save.post", this.restApiCfg, this.restApi);
+
+        this.defaultSaveLoader.MapFunc = (source:Array<any>, target:Array<CostSetInfo>)=>{
+			for(let item of source)
+			{
+				let obj=_.extend({}, item) ;
+				target.push(obj);
+		
+			}
+		}
 }
 	ngOnInit(){
         this.layoutService.show();
@@ -130,6 +153,14 @@ defaultSet(){
 }
 
 popupComplete(data) {
+	let param = data;
+	this.entSaveLoader.Go(null,null,param)
+	.then(succeuss=>{
+        this.defaultSetDailog.close();
+	})
+	.catch(err=>{
+		this.showMsg(err);
+	})
 	console.log("组件里发来的数据:",data)
 }
 

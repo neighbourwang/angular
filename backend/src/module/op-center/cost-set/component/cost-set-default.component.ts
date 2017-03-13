@@ -1,4 +1,4 @@
-import { Input, Component, OnInit, ViewChild,EventEmitter, Output} from '@angular/core';
+import { Input, Component, OnInit, ViewChild,EventEmitter, Output,OnChanges} from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent, PopupComponent } from '../../../../architecture';
 import {CostSetItem,CostSetInfo} from '../model'
@@ -11,7 +11,7 @@ import * as _ from 'underscore';
 	styleUrls: ['../style/cost-set-default.less'],
 	providers: []
 })
-export class CostSetDefaultComponent implements OnInit{
+export class CostSetDefaultComponent implements OnInit,OnChanges{
 
 @ViewChild("notice")
   	private _notice: NoticeComponent;
@@ -22,43 +22,17 @@ export class CostSetDefaultComponent implements OnInit{
 @Input()
 private costItem: CostSetInfo = new CostSetInfo();
 
-private entSaveLoader:ItemLoader<CostSetInfo> = null;
-private defaultSaveLoader:ItemLoader<CostSetInfo> = null;
-
-private param : CostSetInfo= new CostSetInfo();
-
-	
+private currencyList=[];	
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
-        //企业设置保存
-		this.entSaveLoader = new ItemLoader<CostSetInfo>(false, '企业费用设置保存失败', "op-center.order-set.ent-set-save.post", this.restApiCfg, this.restApi);
-
-        this.entSaveLoader.MapFunc = (source:Array<any>, target:Array<CostSetInfo>)=>{
-			for(let item of source)
-			{
-				let obj=_.extend({}, item) ;
-				target.push(obj);
-		
-			}
-		}
-		 //默认设置保存
-		this.defaultSaveLoader = new ItemLoader<CostSetInfo>(false, '默认费用设置保存失败', "op-center.order-set.default-set-save.post", this.restApiCfg, this.restApi);
-
-        this.defaultSaveLoader.MapFunc = (source:Array<any>, target:Array<CostSetInfo>)=>{
-			for(let item of source)
-			{
-				let obj=_.extend({}, item) ;
-				target.push(obj);
-		
-			}
-		}
-
 }
 	ngOnInit(){
         this.layoutService.show();
+		this.loadCurrency();
+		
         
         // this._buyerLoader.Go(null, [{key:"departmentId", value:null}])
         // .then(success=>{
@@ -71,12 +45,21 @@ private param : CostSetInfo= new CostSetInfo();
 		this.layoutService.hide();
 	}
 
+	ngOnChanges(changes) {
+		// if(this.costItem){
+		// 	if(this.costItem.currency=='RMB'){
+		// 		this.costItem.currency = '1';	
+		//  }else
+		// 		this.costItem.currency ='2';
+		// }
+	}
+
 	open(titleName:string) {
 		this.popup.open(titleName);
 	} 
 
 	acceptDefaultSet(){
-		this.complete.emit({a:"测试数据"});
+		this.complete.emit(this.costItem);
 	}
 
 	cancelDefaultSet(){
@@ -89,5 +72,9 @@ showMsg(msg: string)
 		this._notice.open("COMMON.SYSTEM_PROMPT", msg);
 	}
 
-	
+loadCurrency(){
+	this.currencyList.push({id:'RMB',name:'人民币'});
+	this.currencyList.push({id:'MY',name:'美元'});
+}	
+
 }
