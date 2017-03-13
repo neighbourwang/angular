@@ -26,12 +26,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let emset of emailsetups">
-                    <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="emset.checked" (change)="selectedemail = emset;"></td>
+                <tr *ngFor="let emset of emailsetups; let i = index; ">
+                    <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="emset.checked" (change)="selectedemail = emset; selectItem(i);"></td>
                     <td> {{emset.noticeType | dict:this.dictService.typeDict | async}} </td>
                     <td> {{emset.name}} </td>
                     <td> {{emset.send | dict:this.dictService.sendDict | async}} </td>
-                    <td> {{emset.receivers}} </td> <!--{{phynet.ipAllCount || ('COMMON.UNSET' | translate)}}-->
+                    <td> {{showReceivers(emset.receivers)}} </td>
                     <td> {{emset.description}} </td>
                     <!--
                     <td [ngClass]="phynet.status==1?'font-green':'font-orange'"> {{(phynet.status | dict:this.dictService.statusDict | async) || "未设置"}} </td>
@@ -40,10 +40,11 @@
             </tbody>
         </table>
     </div>
-
+<!--
     <div class="fox-cloud-pagination-container">
         <fc-pagination #pager tp={{totalPage}} (pf)="getPhyNetList($event)"></fc-pagination>
     </div>
+-->
     <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" (of)="okClicked()"></fc-notice>
     <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}"></fc-confirm>
 
@@ -56,7 +57,8 @@
         <div class="form-group">
             <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'SYS_SETUP.NOTIFICATION_TYPE' | translate}}：</div>
             <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="phynet_create" />
+                <!--<input type="text" class="form-control" [(ngModel)]="phynet_create" />-->
+                {{changedemail.noticeType | dict:this.dictService.typeDict | async}}
             </div>
         </div>
     </div>
@@ -64,7 +66,9 @@
         <div class="form-group">
             <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'SYS_SETUP.TEMPLATE_NAME' | translate}}：</div>
             <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="phynet_create" />
+                <select class="pdl20 pdr20 form-control" [(ngModel)]="changedemail.id">
+                    <option *ngFor="let temp of tempList" [ngValue]="temp.id">{{temp.name}}</option>
+                </select>
             </div>
         </div>
     </div>
@@ -72,7 +76,8 @@
         <div class="form-group">
             <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'SYS_SETUP.SEND_ORNOT_EMAIL' | translate}}：</div>
             <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="phynet_create" />
+                <input type="radio" name="radio1" [checked]="changedemail.send=='1'" (click)="changedemail.send='1';" />是
+                <input type="radio" name="radio1" [checked]="changedemail.send=='0'" (click)="changedemail.send='0';" />否
             </div>
         </div>
     </div>
@@ -80,7 +85,9 @@
         <div class="form-group">
             <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'SYS_SETUP.RECEIVER' | translate}}：</div>
             <div class="col-sm-7">
-                <input type="text" class="form-control" [(ngModel)]="phynet_create" />
+                <div *ngFor="let receiver of receiverDictArray" style="display: inline;">
+                    <input  type="checkbox" [value]="receiver.value" [checked]="changedemail.receivers.includes(receiver.value)" (click)="changeReceivers(receiver.value);"> {{receiver.displayValue}}
+                </div>         
             </div>
         </div>
     </div>
@@ -88,8 +95,7 @@
         <div class="form-group">
             <div class="col-sm-5 form-control-title">{{'SYS_SETUP.DESCRIPTION' | translate}}：</div>
             <div class="col-sm-7">
-                <!--<input type="text" class="form-control" [(ngModel)]="phynet_create" />-->
-                <textarea class="form-control" rows="3" placeholder="">{{phynet_create}}</textarea>
+                <textarea class="form-control" rows="3" placeholder="" [(ngModel)]="changedemail.description">{{changedemail.description}}</textarea>
             </div>
         </div>
     </div>
