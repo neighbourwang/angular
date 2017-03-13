@@ -31,8 +31,9 @@ private entItemLoader:ItemLoader<CostSetInfo> = null;
 
 private entSaveLoader:ItemLoader<CostSetInfo> = null;
 private defaultSaveLoader:ItemLoader<CostSetInfo> = null;
-	
-	
+
+private ids=[];	
+private flag :boolean = true;//true代表企业设置，false代表默认设置
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -53,14 +54,11 @@ private defaultSaveLoader:ItemLoader<CostSetInfo> = null;
 			
 		}
 		
-		// this.costItemLoader.FakeDataFunc = (target:Array<CostSetItem>)=>{
-		// 	let obj = new CostSetItem();
-		// 	obj.name = '上海慧于';
-		// 	obj.payway = '现金';
-		// 	obj.cicleTime = '1个月';
-		// 	obj.endDate = '2017-2-23';
-		// 	obj.sentDate = '2017-2-22';
-		// }
+		this.costItemLoader.Trait = (target:Array<CostSetItem>)=>{
+			for(let item of target){
+				this.ids.push(item.enterpriseId);
+			}
+		}
 
 			this.defaultItemLoader = new ItemLoader<CostSetInfo>(false, '默认费用设置信息加载失败', "op-center.order-set.default-set-list.post", this.restApiCfg, this.restApi);
 			this.entItemLoader = new ItemLoader<CostSetInfo>(false, '企业费用设置信息加载失败', "op-center.order-set.ent-set-list.post", this.restApiCfg, this.restApi);
@@ -120,6 +118,7 @@ entSet(){
 		this.showMsg("请先选择企业！");
 	}else{
 		this.layoutService.show();
+		this.flag = true;
 		let param =[this.selectedItem.enterpriseId];
 		this.entItemLoader.Go(null,null,param)
 		.then(succeuss=>{
@@ -139,7 +138,8 @@ entSet(){
 defaultSet(){
 	// $('#costSetEnt').modal('show');
 	this.layoutService.show();
-	let param ={};
+	this.flag = false;
+	let param = this.ids;
 	this.defaultItemLoader.Go(null,null,param)
 	.then(succeuss=>{
 		this.popupItem = this.defaultItemLoader.FirstItem;//  在这里改变值
@@ -153,14 +153,12 @@ defaultSet(){
 }
 
 popupComplete(data) {
-	let param = data;
-	this.entSaveLoader.Go(null,null,param)
-	.then(succeuss=>{
-        this.defaultSetDailog.close();
-	})
-	.catch(err=>{
-		this.showMsg(err);
-	})
+	if(this.flag){
+		this.entSave(data);
+	}else{
+		this.defalutSave(data);
+	}
+	
 	console.log("组件里发来的数据:",data)
 }
 
@@ -178,5 +176,25 @@ showMsg(msg: string)
 	}
 selectItem(selectedItem:CostSetItem){
 	this.selectedItem = selectedItem;
+}
+
+entSave(param:any){
+	this.entSaveLoader.Go(null,null,param)
+		.then(succeuss=>{
+			this.defaultSetDailog.close();
+		})
+		.catch(err=>{
+			this.showMsg(err);
+		})
+}
+
+defalutSave(param:any){
+	this.defaultSaveLoader.Go(null,null,param)
+		.then(succeuss=>{
+			this.defaultSetDailog.close();
+		})
+		.catch(err=>{
+			this.showMsg(err);
+		})
 }
 }

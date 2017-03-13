@@ -59,6 +59,7 @@ private currencyList=[];
 	} 
 
 	acceptDefaultSet(){
+	
 		this.complete.emit(this.costItem);
 	}
 
