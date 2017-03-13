@@ -327,7 +327,7 @@
                                 style=" display: inline;" (blur)="keepSame(storage)">
                         </td>
                         <td [ngClass]="{'font-green':storage.status == '1' ,'font-orange':storage.status == '3'}">
-                            {{storage.status|dict:this.commonService.globalStatus|async}}
+                            {{storage.status|dict:this.commonService.globalStatus | async}}
                         </td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.description||'NULL'}}</span>
