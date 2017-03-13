@@ -37,13 +37,20 @@ private entItemLoader:ItemLoader<CostSetInfo> = null;
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
        		this.costItemLoader = new ItemLoader<CostSetItem>(false, '费用设置列表加载失败', "op-center.order-set.cost-set-list.post", this.restApiCfg, this.restApi);
-		// this.costItemLoader.MapFunc=(source:Array<any>,target:Array<CostManageItem>)=>{
-		// 	for(let item of source){
-		// 		let obj=_.extend({},item);
-		// 		target.push(obj);
-		// 	}
+			this.costItemLoader.MapFunc=(source:Array<any>,target:Array<CostSetItem>)=>{
+			for(let item of source){
+				let obj=_.extend({},item);
+				target.push(obj);
+				obj.enterpriseId = item.id;
+				obj.name = item.name;
+				obj.payway = item.payType;
+				obj.cicleTime = item.billPeriod;
+				obj.endDate = item.billCreateDate;
+				obj.sentDate = item.billSendDate;
+			}
 			
-		// }
+		}
+		
 		// this.costItemLoader.FakeDataFunc = (target:Array<CostSetItem>)=>{
 		// 	let obj = new CostSetItem();
 		// 	obj.name = '上海慧于';
@@ -93,7 +100,7 @@ entSet(){
 		let param =[this.selectedItem.enterpriseId];
 		this.entItemLoader.Go(null,null,param)
 		.then(succeuss=>{
-			// this.popupItem = //  在这里改变值
+			 this.popupItem = this.entItemLoader.FirstItem;//  在这里改变值
 			this.defaultSetDailog.open();
 			this.layoutService.hide();
 		})
@@ -112,7 +119,7 @@ defaultSet(){
 	let param ={};
 	this.defaultItemLoader.Go(null,null,param)
 	.then(succeuss=>{
-		// this.popupItem = //  在这里改变值
+		this.popupItem = this.defaultItemLoader.FirstItem;//  在这里改变值
 		this.defaultSetDailog.open();
 		this.layoutService.hide();
 	})
