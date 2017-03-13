@@ -2253,7 +2253,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取该机构某类型的已设置选项+该类型的所有模板",
         "id":"sys-mng.email-mng.email.setup.template.list",
         "method":"GET",
-        "url":"mailmgmt/authsec/mailmgmt/template/{type}"
+        "url":"mailmgmt/authsec/mailmgmt/templates/{type}"
     },
     {
         "desc": "查看模板详情",

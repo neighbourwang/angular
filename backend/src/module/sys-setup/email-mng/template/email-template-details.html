@@ -8,54 +8,38 @@
         <div class="col-md-12">
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">{{'PHY_NET_MNG.PHY_NET_NAME' | translate}}:</div>
+                    <div class="col-sm-4 form-control-title">{{'SYS_SETUP.TEMPLATE_NAME' | translate}}:</div>
                     <div class="col-md-4">
-                        <span>{{phynetdetailsinfo || ('COMMON.UNSET' | translate)}}</span>
+                        <span>{{temp_details.name || ('COMMON.UNSET' | translate)}}</span>
                     </div>
                 </div>
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">{{'PHY_NET_MNG.SUBNET_IP_INFORMATION' | translate}}:</div>
+                    <div class="col-sm-4 form-control-title">{{'SYS_SETUP.EMAIL_THEME' | translate}}:</div>
                     <div class="col-md-4">
-                        <span>{{phynetdetailsinfo || ('COMMON.UNSET' | translate)}}</span>
+                        <span>{{temp_details.subject || ('COMMON.UNSET' | translate)}}</span>
                     </div>
                 </div>
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">{{'PHY_NET_MNG.SUBNET_MASK' | translate}}:</div>
+                    <div class="col-sm-4 form-control-title">{{'SYS_SETUP.NOTIFICATION_TYPE' | translate}}:</div>
                     <div class="col-md-4">
                         <!-- <span>{{(imageOs | dict:this.dictService.osDict | async) || ('HOST_VMWARE_MNG.UNSET' | translate)}}</span>-->
-                        <span>{{phynetdetailsinfo || ('COMMON.UNSET' | translate)}}</span>
+                        <span>{{(temp_details.noticeType | dict:this.dictService.typeDict | async) || ('COMMON.UNSET' | translate)}}</span>
                     </div>
                 </div>
             </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">{{'PHY_NET_MNG.GATEWAY_ADDRESS' | translate}}:</div>
+                    <div class="col-sm-4 form-control-title">{{'SYS_SETUP.Email_CONTENT' | translate}}:</div>
                     <div class="col-md-4">
-                        <span>{{phynetdetailsinfo || ('COMMON.UNSET' | translate)}}</span>
+                        <textarea>{{temp_details.content || ('COMMON.UNSET' | translate)}}</textarea>
                     </div>
                 </div>
             </div>
-            <div class="row row-line-height">
-                <div class="form-group">
-                    <div class="col-sm-4 form-control-title">DNS 1:</div>
-                    <div class="col-md-4">
-                        <span>{{phynetdetailsinfo || ('COMMON.UNSET' | translate)}}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row row-line-height">
-                <div class="form-group">
-                    <div class="col-sm-4 form-control-title">DNS 2:</div>
-                    <div class="col-md-4">
-                        <span>{{phynetdetailsinfo|| ('COMMON.UNSET' | translate)}}</span>
-                    </div>
-                </div>
-            </div>
-
+           
         </div> <!-- col-md-12 -->
 
     </div>
