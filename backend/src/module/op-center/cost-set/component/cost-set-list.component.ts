@@ -16,15 +16,19 @@ export class CostSetListComponent implements OnInit{
 @ViewChild("notice")
   	private _notice: NoticeComponent;
 
- @ViewChild("defaultSetDailog")
-  defaultSetDailog: PopupComponent;
+ @ViewChild("defaultSetDailog") defaultSetDailog;
 
- @ViewChild("entSetDailog")
-  entSetDailog: PopupComponent;
+ // @ViewChild("entSetDailog") entSetDailog;
+
+ popupItem:any;
   
+//当前选择的行
+private selectedItem: CostSetItem = null;
 
 private costItemLoader:ItemLoader<CostSetItem> = null;
-private param : CostSetInfo= new CostSetInfo();
+private defaultItemLoader:ItemLoader<CostSetInfo> = null;
+private entItemLoader:ItemLoader<CostSetInfo> = null;
+
 	
 	
 	constructor(
@@ -40,14 +44,18 @@ private param : CostSetInfo= new CostSetInfo();
 		// 	}
 			
 		// }
-		this.costItemLoader.FakeDataFunc = (target:Array<CostSetItem>)=>{
-			let obj = new CostSetItem();
-			obj.name = '上海慧于';
-			obj.payway = '现金';
-			obj.cicleTime = '1个月';
-			obj.endDate = '2017-2-23';
-			obj.sentDate = '2017-2-22';
-		}
+		// this.costItemLoader.FakeDataFunc = (target:Array<CostSetItem>)=>{
+		// 	let obj = new CostSetItem();
+		// 	obj.name = '上海慧于';
+		// 	obj.payway = '现金';
+		// 	obj.cicleTime = '1个月';
+		// 	obj.endDate = '2017-2-23';
+		// 	obj.sentDate = '2017-2-22';
+		// }
+
+			this.defaultItemLoader = new ItemLoader<CostSetInfo>(false, '默认费用设置信息加载失败', "op-center.order-set.default-set-list.post", this.restApiCfg, this.restApi);
+			this.entItemLoader = new ItemLoader<CostSetInfo>(false, '企业费用设置信息加载失败', "op-center.order-set.ent-set-list.post", this.restApiCfg, this.restApi);
+		
 
 }
 	ngOnInit(){
@@ -78,21 +86,44 @@ private param : CostSetInfo= new CostSetInfo();
 //企业默认设置按钮
 entSet(){
 	// $('#costSetDefault').modal('show');
-	this.entSetDailog.open();
+	if(this.selectedItem == null){
+		this.showMsg("请先选择企业！");
+	}else{
+		this.layoutService.show();
+		let param =[this.selectedItem.enterpriseId];
+		this.entItemLoader.Go(null,null,param)
+		.then(succeuss=>{
+			// this.popupItem = //  在这里改变值
+			this.defaultSetDailog.open();
+			this.layoutService.hide();
+		})
+		.catch(err=>{
+			this.layoutService.hide();
+		})
+		this.defaultSetDailog.open('企业费用设置');
+	}
+	
 }
 
 //默认默认设置按钮
 defaultSet(){
 	// $('#costSetEnt').modal('show');
-	this.defaultSetDailog.open();
+	this.layoutService.show();
+	let param ={};
+	this.defaultItemLoader.Go(null,null,param)
+	.then(succeuss=>{
+		// this.popupItem = //  在这里改变值
+		this.defaultSetDailog.open();
+		this.layoutService.hide();
+	})
+	.catch(err=>{
+		this.layoutService.hide();
+	})
+	this.defaultSetDailog.open('默认费用设置');
 }
 
-acceptDefaultSet(){
-
-}
-
-cancelDefaultSet(){
-
+popupComplete(data) {
+	console.log("组件里发来的数据:",data)
 }
 
 acceptEntSet(){
@@ -107,6 +138,7 @@ showMsg(msg: string)
 	{
 		this._notice.open("COMMON.SYSTEM_PROMPT", msg);
 	}
-
-	
+selectItem(selectedItem:CostSetItem){
+	this.selectedItem = selectedItem;
+}
 }

@@ -1,14 +1,15 @@
-<div class="page-content-header icon-content-header-physical-mng">分配物理资源池
+<div class="page-content-header icon-content-header-physical-mng">
+    {{'PHY_IMG_MNG.ALLOCATE_RES_POOL' | translate}}
     <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" 
         style="padding:2px 15px;font-size:14px" (click)="backToSource()">
-        返回镜像管理
+        {{'PHY_IMG_MNG.RETURN_PHY_IMG_MNG' | translate}}
     </button>
 </div>
 <div class="page-content">
     
     <fc-selectbox #selectbox [selectedList]="inUsedPools" [unSelectedList]="noUsedPools" 
-                titleL="未选中资源池：" 
-                titleR="已选中资源池：" 
+                titleL="{{'PHY_IMG_MNG.UNSELECTED_POOL' | translate}}：" 
+                titleR="{{'PHY_IMG_MNG.SELECTED_POOL' | translate}}：" 
                 displayKey="pmPoolName"
                 >
     </fc-selectbox>
@@ -18,9 +19,9 @@
 
 <div class="text-center mgt20">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancelAllo()">
-        <span class="icon-button-label">关闭</span>
+        <span class="icon-button-label">{{'PHY_IMG_MNG.CLOSE' | translate}}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="commitAllo()">
-        <span class="icon-button-label">保存</span>
+        <span class="icon-button-label">{{'PHY_IMG_MNG.SAVE' | translate}}</span>
     </button>
 </div>

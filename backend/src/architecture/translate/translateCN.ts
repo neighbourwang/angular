@@ -1659,7 +1659,82 @@
     }
     ,
     "PHY_IMG_MNG":{
-        "TEST":"测试"
+        "CONFIRM":"确认",
+        "CANCEL":"取消",
+        "NOTICE":"提示",
+        "SAVE":"保存",
+        "CLOSE":"关闭",
+        "ERROR":"获取数据失败!",
+        "RETURN":"返回资源池列表",
+        "ALLOCATE_SUCCESS":"分配成功",
+       
+        "SELECT_OPTION":"选择操作",
+        "EDIT":"编辑",
+        "EDIT_SUCCESS":"编辑成功",
+
+        "ENABLE":"启用",
+        "ENABLE_SUCCESS":"启用成功",
+
+        "DISABLE":"禁用",
+        "DISABLE_SUCCESS":"禁用成功",
+
+        "DELETE":"删除",
+        "DELETE_SUCCESS":"删除成功",
+        "PHYSICAL_STATUS":"该物理机已经是{{value_1}}状态，请选择需要{{value_1}}的物理机。",
+        
+        "PROMPT": "提示",
+    
+        
+        "STATUS": "状态",
+        //镜像源页面
+        "PHY_IMG_MNG":"物理机镜像管理",
+        "IMG_SOURCE_NAME":"镜像源名称",
+        "IMG_SOURCE_ADDRESS":"镜像源地址",
+        "IMG_SOURCE_POOL":"资源池列表",
+        "DESCRIPTION":"描述",
+        "ALLOCATE_POOL":"分配物理资源池",
+        "CREATE_PHY_SOURCE":"创建镜像源",
+
+        "NAME_NOT_NULL":"名称不能为空",
+        "ADDRESS_NOT_NULL":"地址不能为空",
+        "CREATE_SUCCESS":"创建成功",
+        "PLEASE_CHOOSE_ONE_SOURCE":"请选择一个镜像源",
+        //创建源弹出框
+        "CREATE_PHY_IMG_SOURCE":"创建物理机镜像源",
+        "DISPLAY_NAME":"显示名称",
+        "TEST":"测试",
+        "TEST_SUCCESS":"测试成功",
+        //编辑弹出框
+        "EDIT_PHY_IMG_SOURCE":"编辑物理机镜像源",
+        //分配资源池
+        "ALLOCATE_RES_POOL":"分配物理资源池",
+        "UNSELECTED_POOL":"未选中资源池",
+        "SELECTED_POOL":"已选中资源池",
+        //镜像列表页面
+        "SYNC_IMG":"同步镜像",
+        "ALLOCATE_ENT":"分配企业",
+        "RETURN_PHY_IMG_MNG":"返回物理机镜像管理",
+        "MNG_IMG_LIST":"管理镜像 -- 物理机镜像源名称",
+        "EDIT_IMAGE": "编辑镜像",
+        "JUST_NONE_PUBLIC":"只有非公共镜像类型才能分配企业",
+        //同步镜像页面
+        "SYNC_PHY_IMAGE":"同步物理机镜像",
+        "SELECT": "选择",
+        "NUMBER": "编号",
+        "IMAGE_DISPLAY_NAME": "镜像显示名称",
+        "IMAGE_FILE_NAME":"镜像文件名",
+        "OS": "操作系统",
+        "BIT": "系统位数",
+        "IMAGE_TYPE": "镜像类型",
+        "AFFILIATED_ENTERPRISE": "所属企业",
+        "SYNC_RESULT": "同步结果",
+        "PLEASE_CHOOSE_IMAGE": "请先选择一个镜像",
+        "RETURN_IMAGE_MANAGEMENT": "返回镜像管理列表",
+        "SAVE_SUCCESS": "保存成功！",
+        //
+        "SEE_IMAGE":"查看镜像",
+        "SELECTED_ENTERPRISE":"已选择企业",
+        "UNSELECTED_ENTERPRISE":"未选择企业"
     },
     "CASE_MNG":{
         "CASE_MNG":"工单管理",

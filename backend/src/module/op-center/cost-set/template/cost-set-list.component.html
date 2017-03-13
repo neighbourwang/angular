@@ -11,6 +11,7 @@
 			        <thead>
 			            <tr>
 			                <th>编号</th>
+							<th>选择</th>
 			                <th>企业名称</th>
 			                <th>付费方式</th>
 			                <th>出账周期<br>(个)</th>
@@ -20,7 +21,8 @@
 			        </thead>
 			        <tbody>
 			            <tr *ngFor="let item of costItemLoader.Items;let i =index">
-			                <td>{{i}}</td>
+			                <td>{{i+1}}</td>
+							<td><input name="choice" type="radio" class="fox-cloud-radio" (click)="selectItem(item)"></td>
 			                <td>{{item.name}}</td>
 			                <td>{{item.payway}}</td>
 			                <td>{{item.cicleTime}}</td>
@@ -36,14 +38,11 @@
 
 <!--系统默认设置--> 
 
-<fc-popup #defaultSetDailog ot="{{ 'COMMON.CONFIRM' | translate }}" ct="{{ 'COMMON.CANCEL' | translate }}" title="系统默认费用设置" (of)="acceptDefaultSet()" (cf)="cancelDefaultSet()">
-  <div class="dialogContent">
-	<cost-set-default></cost-set-default>
-  </div>
-</fc-popup>
+<cost-set-default #defaultSetDailog [costItem]="popupItem" (complete)="popupComplete($event)"></cost-set-default>
+<!-- <cost-set-default #entSetDailog [costItem]="entItemLoader.FirstItem"></cost-set-default> -->
 
-<fc-popup #entSetDailog ot="{{ 'COMMON.CONFIRM' | translate }}" ct="{{ 'COMMON.CANCEL' | translate }}" title="企业费用设置" (of)="acceptEntSet()" (cf)="cancelEntSet()">
+<!-- <fc-popup #entSetDailog ot="{{ 'COMMON.CONFIRM' | translate }}" ct="{{ 'COMMON.CANCEL' | translate }}" title="企业费用设置" (of)="acceptEntSet()" (cf)="cancelEntSet()">
   <div class="dialogContent">
-	<cost-set-default></cost-set-default>
+	
   </div>
-</fc-popup>
+</fc-popup> -->

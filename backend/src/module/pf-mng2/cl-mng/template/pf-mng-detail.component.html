@@ -264,7 +264,7 @@
                             <span *ngIf="!storage.isEdit">{{storage.quotaPercentDisplay||0}}</span>
                             <input *ngIf="storage.isEdit" type="number" class="form-control" [(ngModel)]="storage.quotaPercentDisplay" style=" display: inline;">
                         </td>
-                        <td [ngClass]="{'font-green':zone.status == '1' ,'font-orange':zone.status == '3'}">
+                        <td [ngClass]="{'font-green':zone?.status == '1' ,'font-orange':zone?.status == '3'}">
                             {{storage.status|dict:this.commonService.globalStatus|async}}
                         </td>
                         <td>

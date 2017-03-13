@@ -104,9 +104,9 @@ export class PhyImgMngComponent implements OnInit {
     }
     commitCreate(){
         if(this.tempCreate.imageName==null || ""==this.tempCreate.imageName){
-            this.showAlert("名称不能为空");
+            this.showAlert("PHY_IMG_MNG.NAME_NOT_NULL");
         }else if(this.tempCreate.imageURL==null || ""==this.tempCreate.imageURL){
-            this.showAlert("地址不能为空");
+            this.showAlert("PHY_IMG_MNG.ADDRESS_NOT_NULL");
         }else if(this.tempCreate.imageName && this.tempCreate.imageURL){
             this.layoutService.show();
             this.service.commitCreate(this.tempCreate).then(
@@ -114,7 +114,7 @@ export class PhyImgMngComponent implements OnInit {
                     this.layoutService.hide();
                     if(response && 100 == response["resultCode"]){
                         this.createPopup.close();
-                        this.showAlert("创建成功");
+                        this.showAlert("PHY_IMG_MNG.CREATE_SUCCESS");
                         this.getPhyImageSources();
                     }else{
                     alert("Res.sync error");
@@ -131,55 +131,14 @@ export class PhyImgMngComponent implements OnInit {
     //分配
     allocatePool(){
         if(!this.selectedPhyImageSources){
-            this.showAlert("请选择一个镜像源");
+            this.showAlert("PHY_IMG_MNG.PLEASE_CHOOSE_ONE_SOURCE");
         }else{
             this.router.navigate(['phy-mng/phy-img/phy-img-mng-allocate', {"pmImagePoolId": this.selectedPhyImageSources.id}]);
-            // this.layoutService.show();
-            // this.service.getAllo(this.selectedPhyImageSources.id)
-            //     .then(
-            //         response=>{
-            //             this.layoutService.hide();
-            //             if(response && 100== response["resultCode"]){
-            //                 this.inUsedPools = response["resultContent"].inUsedPools;
-            //                 this.noUsedPools = response["resultContent"].noUsedPools;
-
-            //                 this.alloPopup.open();
-            //             }else{
-            //                 alert("Res.sync error");
-            //             }
-            //     })
-            // .catch((e)=>this.onRejected(e));
+            
         }
 
     }
-
-    // commitAllo(){
-    //     let idlist:string="";
-    //     this.inUsedPools.forEach((e)=>{
-    //         idlist = idlist + e.pmPoolId+","
-    //     })
-    //     idlist = idlist.slice(0, idlist.length-1);
-
-    //     console.log("idlist="+idlist);
-    //     this.layoutService.show();
-    //     this.service.commitAllo(this.selectedPhyImageSources.id, idlist)
-    //         .then(
-    //             response=>{
-    //                 this.layoutService.hide();
-    //                 if(response && 100== response["resultCode"]){
-    //                     this.showAlert("分配成功");
-    //                     this.alloPopup.close();
-    //                     this.getPhyImageSources();
-    //                 }else{
-    //                     alert("Res.sync error");
-    //                 }
-    //             })
-    //             .catch((e)=>this.onRejected(e));
-        
-    // }
-    // cancelAllo(){
-        
-    // }
+    
     //编辑
     editPhyImgSource(){
         if(this.selectedPhyImageSources){
@@ -192,15 +151,15 @@ export class PhyImgMngComponent implements OnInit {
 
             this.editPopup.open();
         }else{
-            this.showAlert("请选择一个镜像源");
+            this.showAlert("PHY_IMG_MNG.PLEASE_CHOOSE_ONE_SOURCE");
         }
         
     }
     commitEdit(){
         if(this.tempEdit.imageName==null || ""==this.tempEdit.imageName){
-            this.showAlert("名称不能为空");
+            this.showAlert("PHY_IMG_MNG.NAME_NOT_NULL");
         }else if(this.tempEdit.imageURL==null || ""==this.tempEdit.imageURL){
-            this.showAlert("地址不能为空");
+            this.showAlert("PHY_IMG_MNG.ADDRESS_NOT_NULL");
         }else if(this.tempEdit.imageName && this.tempEdit.imageURL){
             this.layoutService.show();
             this.service.commitEdit(this.tempEdit).then(
@@ -208,7 +167,7 @@ export class PhyImgMngComponent implements OnInit {
                     this.layoutService.hide();
                     if(response && 100 == response["resultCode"]){
                         this.editPopup.close();
-                        this.showAlert("编辑成功");
+                        this.showAlert("PHY_IMG_MNG.EDIT_SUCCESS");
                         this.getPhyImageSources();
                         
                     }else{
@@ -233,14 +192,14 @@ export class PhyImgMngComponent implements OnInit {
                     this.layoutService.hide();
                     if(response && 100 == response["resultCode"]){
                         this.getPhyImageSources();
-                        this.showAlert("启用成功");
+                        this.showAlert("PHY_IMG_MNG.ENABLE_SUCCESS");
                     }else{
                         alert("Res.sync error");
                     }
                 }
             ).catch((e)=> this.onRejected(e));
          }else{
-            this.showAlert("请选择一个镜像源");
+            this.showAlert("PHY_IMG_MNG.PLEASE_CHOOSE_ONE_SOURCE");
         }
     }
     //禁用
@@ -253,14 +212,14 @@ export class PhyImgMngComponent implements OnInit {
                     this.layoutService.hide();
                     if(response && 100 == response["resultCode"]){
                         this.getPhyImageSources();
-                        this.showAlert("禁用成功");
+                        this.showAlert("PHY_IMG_MNG.DISABLE_SUCCESS");
                     }else{
                         alert("Res.sync error");
                     }
                 }
             ).catch((e)=> this.onRejected(e));
         }else{
-        this.showAlert("请选择一个镜像源");
+        this.showAlert("PHY_IMG_MNG.PLEASE_CHOOSE_ONE_SOURCE");
         }
     }
     //删除
@@ -273,22 +232,22 @@ export class PhyImgMngComponent implements OnInit {
                     this.layoutService.hide();
                     if(response && 100 == response["resultCode"]){
                         this.getPhyImageSources();
-                        this.showAlert("删除成功");
+                        this.showAlert("PHY_IMG_MNG.DELETE_SUCCESS");
                     }else{
                         alert("Res.sync error");
                     }
                 }
             ).catch((e)=> this.onRejected(e));
         }else{
-            this.showAlert("请选择一个镜像源");
+            this.showAlert("PHY_IMG_MNG.PLEASE_CHOOSE_ONE_SOURCE");
         }
     }
     //测试创建
     testPhyImgSource(temp:PhyImgSource){
         if(temp.imageName==null || ""==temp.imageName){
-            this.showAlert("名称不能为空");
+            this.showAlert("PHY_IMG_MNG.NAME_NOT_NULL");
         }else if(temp.imageURL==null || ""==temp.imageURL){
-            this.showAlert("地址不能为空");
+            this.showAlert("PHY_IMG_MNG.ADDRESS_NOT_NULL");
         }else if(temp.imageName && temp.imageURL){
             this.layoutService.show();
             this.service.testPhyImgSource(temp)
@@ -298,7 +257,7 @@ export class PhyImgMngComponent implements OnInit {
                     this.createPopup.close();
                     this.editPopup.close();
                     if(response && 100==response["resultCode"]){
-                        this.showAlert("测试成功");
+                        this.showAlert("PHY_IMG_MNG.TEST_SUCCESS");
                     }else{
                         alert("Res.sync error");
                     }
@@ -316,7 +275,7 @@ export class PhyImgMngComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败");
+        this.showAlert("PHY_IMG_MNG.ERROR");
     }
     showAlert(msg: string): void {
         this.layoutService.hide();
