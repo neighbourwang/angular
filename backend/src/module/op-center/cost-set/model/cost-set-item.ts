@@ -3,6 +3,7 @@ export class CostSetItem{
     enterpriseId:string;
     name:string;//企业名称
     payway:string;//付费方式
+    paywayName:string;//付费方式，用于显示
     cicleTime:string;//出账周期
     endDate:string;//账单生成日
     sentDate:string;//账单发送日

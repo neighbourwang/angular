@@ -33,6 +33,9 @@ private entSaveLoader:ItemLoader<CostSetInfo> = null;
 private defaultSaveLoader:ItemLoader<CostSetInfo> = null;
 private currentuserLoader:ItemLoader<UserInfo>=null;
 
+private payTypeDic:DicLoader = null;
+
+
 private ids=[];	
 private flag :boolean = true;//true代表企业设置，false代表默认设置
 	constructor(
@@ -90,13 +93,23 @@ private flag :boolean = true;//true代表企业设置，false代表默认设置
 				this.ids.push(item.organizationId);
 			}
 		}
+
+		this.payTypeDic = new DicLoader(restApiCfg, restApi, "BILLSETTING", "FEE_TYPE"); 
+		 this.payTypeDic.SourceName = "payway";
+      this.payTypeDic.TargetName = "paywayName";
 }
 	ngOnInit(){
         this.layoutService.show();
-		this.loadCurrentUser();
-        this.search(1);
-	
-		this.layoutService.hide();
+		this.payTypeDic.Go()
+		.then(success=>{
+			this.loadCurrentUser();
+       	 	this.search(1);
+			this.layoutService.hide();
+		})
+		.catch(err=>{
+			this.layoutService.hide();
+		})
+		
 	}
 
 	loadCurrentUser(){
@@ -120,7 +133,8 @@ private flag :boolean = true;//true代表企业设置，false代表默认设置
 		}
 		this.layoutService.show();
 		this.costItemLoader.Go(null,null,param)
-		.then(succeuss=>{
+		.then(success=>{
+			this.payTypeDic.UpdateWithDic(success);
 			this.layoutService.hide();
 		})
 		.catch(err=>{
