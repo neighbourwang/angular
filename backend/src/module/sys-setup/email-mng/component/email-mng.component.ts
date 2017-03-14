@@ -41,7 +41,6 @@ export class EmailMngComponent implements OnInit {
     receiverDictArray: Array<SystemDictionary> = [];
 
     emailsetups: Array<EmailSetupModel> = [];    //首页emailsetup列表
-    selectedemail: EmailSetupModel = new EmailSetupModel();
     changedemail: EmailSetupModel = new EmailSetupModel();   //用于编辑按钮的emailsetup
 
     tempList: Array<EmailTypeTemplateModel> = [];
@@ -135,26 +134,18 @@ export class EmailMngComponent implements OnInit {
             this.changedemail.receivers.splice(0,0,id);
             console.log(this.changedemail.receivers, '+');
         }
-        console.log(this.selectedemail, this.changedemail, "selected and changed!");
     }
 
     editEmial() {
         let emailitem = this.getSelected();
         if (emailitem) {
-            //this.selectedemail = emailitem;
-            this.selectedemail.noticeType = emailitem.noticeType;
-            this.selectedemail.id = emailitem.id;
-            this.selectedemail.name = emailitem.name;
-            this.selectedemail.send = emailitem.send;
-            this.selectedemail.receivers = emailitem.receivers;
-            this.selectedemail.description = emailitem.description;
+            this.changedemail.noticeType = emailitem.noticeType;
+            this.changedemail.id = emailitem.id;
+            this.changedemail.name = emailitem.name;
+            this.changedemail.send = emailitem.send;
+            this.changedemail.receivers = [].concat(emailitem.receivers);
+            this.changedemail.description = emailitem.description;
 
-            this.changedemail.noticeType = this.selectedemail.noticeType;
-            this.changedemail.id = this.selectedemail.id;
-            this.changedemail.name = this.selectedemail.name;
-            this.changedemail.send = this.selectedemail.send;
-            this.changedemail.receivers = this.selectedemail.receivers;
-            this.changedemail.description = this.selectedemail.description;
             this.layoutService.show();
             this.service.getEmailTemplates(this.changedemail.noticeType)
                 .then(res => {
