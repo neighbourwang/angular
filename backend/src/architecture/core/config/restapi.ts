@@ -899,6 +899,11 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-set.default-set-save.post",
         "method": "POST",
         "url": "adminui/authsec/organization/bill/setting/profile"
+    },{
+        "desc": "获取当前用户信息",
+        "id": "op-center.order-set.user-info.get",
+        "method": "GET",
+        "url": "adminui/authsec/user/currentuser"
     },
     
 

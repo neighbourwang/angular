@@ -67,7 +67,7 @@
 					<td>
 						<input type="radio" class="fox-cloud-radio"   name="entItems" (change)="selectItem(i)" value="{{i}}">
 					</td>
-					<td (click)="checkEnterpriseInfo(item.enterpriseId);" class="hands">{{item.enterpriseName}}</td>
+					<td><a  (click)="checkEnterpriseInfo(item.enterpriseId);" class="hands">{{item.enterpriseName}}</a></td>
 					<td>{{item.vcpuQuota }}</td>
 					<td>{{item.snapshotQuota }}</td>
 					<td>{{item.imageQuota }}</td>

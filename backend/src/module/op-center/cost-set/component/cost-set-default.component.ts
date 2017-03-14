@@ -77,5 +77,8 @@ loadCurrency(){
 	this.currencyList.push({id:'RMB',name:'人民币'});
 	this.currencyList.push({id:'MY',name:'美元'});
 }	
+close() {
+	this.popup.close();
+}
 
 }
