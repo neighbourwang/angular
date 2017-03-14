@@ -1,4 +1,4 @@
-<div class="page-content-header icon-content-header-physical-mng">
+<div class="page-content-header icon-system-setup">
     {{'SYS_SETUP.SHOW_EMAIL_TEMPLATE' | translate}}
 </div>
 
@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">{{'SYS_SETUP.Email_CONTENT' | translate}}:</div>
                     <div class="col-md-4">
-                        <textarea>{{temp_details.content || ('COMMON.UNSET' | translate)}}</textarea>
+                        <span [innerHTML]="temp_details.content || ('COMMON.UNSET' | translate)"></span>
                     </div>
                 </div>
             </div>

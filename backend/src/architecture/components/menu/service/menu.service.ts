@@ -357,7 +357,7 @@ export class MenuService {
 					"label": "系统设置",
 					"isOpen": false,
 					"isShow": !isRoot,
-					"icon": "icon-content-header-purchasingWhite",
+					"icon": "icon-system-setupWhite",
 					"top2_menu": [
 						{
 							"label": "Email通知设置",

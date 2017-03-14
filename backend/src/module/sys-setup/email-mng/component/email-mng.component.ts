@@ -41,7 +41,6 @@ export class EmailMngComponent implements OnInit {
     receiverDictArray: Array<SystemDictionary> = [];
 
     emailsetups: Array<EmailSetupModel> = [];    //首页emailsetup列表
-    selectedemail: EmailSetupModel = new EmailSetupModel();
     changedemail: EmailSetupModel = new EmailSetupModel();   //用于编辑按钮的emailsetup
 
     tempList: Array<EmailTypeTemplateModel> = [];
@@ -97,7 +96,7 @@ export class EmailMngComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {                    
                     this.emailsetups = response.resultContent;
-                    console.log(this.emailsetups, "emailsetups!!!");
+                    console.log(this.emailsetups, response.resultContent, "emailsetups!!!");
                 } else {
                     this.showAlert("COMMON.GETTING_DATA_FAILED");
                 }
@@ -109,19 +108,14 @@ export class EmailMngComponent implements OnInit {
     showReceivers(receivers:Array<string>):string {
         //console.log(receivers, "showReceiver: receivers");
         if(receivers.length != 0){
-            let recs: Array<String> = [];
-            
+            let recs: Array<String> = [];            
             for (let i = 0; i < receivers.length; i++) {
                 for (let j = 0; j < this.receiverDictArray.length; j++) {
                     //console.log(this.receiverDictArray[j].value, <String>receivers[i]);
                     if( this.receiverDictArray[j].value == <String>receivers[i] ) {
                         //console.log(this.receiverDictArray[j].value, <String>receivers[i], "==");
                         recs.splice(0, 0, this.receiverDictArray[j].displayValue);
-                }/* 
-                    else {
-                        console.log(this.receiverDictArray[j].value, <String>receivers[i], "!=");
                     }
-                    //*/
                 }
             }
             //console.log(recs, "recs");
@@ -142,17 +136,16 @@ export class EmailMngComponent implements OnInit {
         }
     }
 
-    editEmial()
-    {
+    editEmial() {
         let emailitem = this.getSelected();
         if (emailitem) {
-            this.selectedemail = emailitem;
-            this.changedemail.noticeType = this.selectedemail.noticeType;
-            this.changedemail.id = this.selectedemail.id;
-            this.changedemail.name = this.selectedemail.name;
-            this.changedemail.send = this.selectedemail.send;
-            this.changedemail.receivers = this.selectedemail.receivers;
-            this.changedemail.description = this.selectedemail.description;
+            this.changedemail.noticeType = emailitem.noticeType;
+            this.changedemail.id = emailitem.id;
+            this.changedemail.name = emailitem.name;
+            this.changedemail.send = emailitem.send;
+            this.changedemail.receivers = [].concat(emailitem.receivers);
+            this.changedemail.description = emailitem.description;
+
             this.layoutService.show();
             this.service.getEmailTemplates(this.changedemail.noticeType)
                 .then(res => {
@@ -181,10 +174,10 @@ export class EmailMngComponent implements OnInit {
                 .then(res => {
                     this.layoutService.hide();
                     if (res && res.resultCode == "100") {
-                        console.log(res, "PHY_NET_MNG.EDIT_PHY_NET_SUCCESS");
+                        console.log(res, "SYS_SETUP.EDIT_EMAIL_SETUP_SUCCESS");
                     } else {
                         this.editemailbox.close();
-                        this.showMsg("PHY_NET_MNG.EDIT_PHY_NET_FAILED");
+                        this.showMsg("SYS_SETUP.EDIT_EMAIL_SETUP_FAILED");
                         return;
                     }
                 })
@@ -193,10 +186,10 @@ export class EmailMngComponent implements OnInit {
                     this.editemailbox.close();
                 })
                 .catch(err => {
-                    console.log('PHY_NET_MNG.EDIT_PHY_NET_EXCEPTION', err);
+                    console.log('SYS_SETUP.EDIT_EMAIL_SETUP_EXCEPTION', err);
                     this.layoutService.hide();
                     this.editemailbox.close();
-                    this.showMsg("PHY_NET_MNG.EDIT_PHY_NET_EXCEPTION");
+                    this.showMsg("SYS_SETUP.EDIT_EMAIL_SETUP_EXCEPTION");
                     this.okCallback = () => {
                         this.editemailbox.open();
                     };

@@ -36,7 +36,7 @@ export class EmailTemplateListComponent implements OnInit {
     typeDictArray: Array<SystemDictionary> = [];
     temptypeDictArray: Array<SystemDictionary> = [];
 
-    emailtemps: Array<EmailTemplateModel> = [];    //首页emailsetup列表
+    emailtemps: Array<EmailTemplateModel> = [];
     selectedtemp: EmailTemplateModel = new EmailTemplateModel();
 
     
@@ -64,7 +64,7 @@ export class EmailTemplateListComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {                    
                     this.emailtemps = response.resultContent;                    
-                    console.log(this.emailtemps, "emailtemps!!!", this.emailtemps[0].name);
+                    console.log(this.emailtemps, "emailtemps!!!");
                 } else {
                     this.showAlert("COMMON.GETTING_DATA_FAILED");
                 }

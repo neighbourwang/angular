@@ -1809,6 +1809,11 @@
         "EMAIL_THEME": "Email主题",
         "Email_CONTENT": "Email内容",
 
+        "EDIT_EMAIL_SETUP_SUCCESS": "编辑Email设置成功",
+        "EDIT_EMAIL_SETUP_FAILED": "编辑Email设置失败",
+        "EDIT_EMAIL_SETUP_EXCEPTION": "编辑Email设置异常",
+        "RETURN_EMAIL_SETUP": "返回Email设置",
+
 
     }
 }
