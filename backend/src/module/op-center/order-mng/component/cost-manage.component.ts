@@ -54,10 +54,18 @@ private _statusTypeDic:DicLoader = null;
         this._statusTypeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
 
 
-		this.costItemLoader = new ItemLoader<CostManageItem>(false,'账单管理列表加载失败','',restApiCfg,restApi);
-		// this.costItemLoader.MapFunc =(source:Array<any>,target:Array<CostManageItem>)=>{
-
-		// }
+		this.costItemLoader = new ItemLoader<CostManageItem>(false,'账单管理列表加载失败','op-center.order-mng.cost-manage.post',restApiCfg,restApi);
+		this.costItemLoader.MapFunc =(source:Array<any>,target:Array<CostManageItem>)=>{
+			for(let item of source){
+				let obj = new CostManageItem();
+				target.push(obj);
+				obj.circleTime = item.startTime+'至'+item.endTime;
+				obj.money = item.amount;
+				obj.endDate = item.billDate;
+				obj.sentDate = item.sendDate;
+				obj.status = item.status;
+			}
+		}
 
 		
 
@@ -79,9 +87,18 @@ private _statusTypeDic:DicLoader = null;
 	loadYears(){
 			this._years = this.timeCaculater.getYears();
 		}
-	search(page:number){
+	search(){
 		let param;
-		param = _.extend({},this._param);
+		let endTime = this._param.year+'-12-31'+' 23:59:59';
+		let startTime = this._param.year+'-01-01'+' 00:00:00';
+		param={
+  			"billEndTime": endTime,
+  			"billStartTime": startTime,
+  			"idList": [this._param.enterpriseId],
+			"sendEndTime": null,
+  			"sendStartTime": null
+		}
+		// param = _.extend({},this._param);
 		this.layoutService.show();
 		this.costItemLoader.Go(null,null,param)
 		.then(success=>{
@@ -115,7 +132,7 @@ private _statusTypeDic:DicLoader = null;
 		this.layoutService.show();
 		this.saveLoader.Go(null,null,param)
 		.then(success=>{
-			this.search(null);
+			this.search();
 			this.layoutService.hide();
 		})
 		.catch(err=>{
