@@ -14,7 +14,7 @@
     </div>
 
     <div class="table-container">
-        <table class="table table-hover">
+        <table class="table table-hover" style="table-layout: fixed;">
             <thead>
                 <tr>
                     <th>{{'COMMON.SELECT' | translate}}</th>
@@ -22,17 +22,17 @@
                     <th>{{'SYS_SETUP.TEMPLATE_NAME' | translate}}</th>
                     <th>{{'SYS_SETUP.SEND_ORNOT_EMAIL' | translate}}</th>
                     <th>{{'SYS_SETUP.RECEIVER' | translate}}</th>
-                    <th>{{'SYS_SETUP.DESCRIPTION' | translate}}</th>
+                    <th style="width:40%">{{'SYS_SETUP.DESCRIPTION' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let emset of emailsetups; let i = index; ">
-                    <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="emset.checked" (change)="selectedemail = emset; selectItem(i);"></td>
+                    <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="emset.checked" (change)="selectItem(i);"></td>
                     <td> {{emset.noticeType | dict:this.dictService.typeDict | async}} </td>
                     <td> {{emset.name}} </td>
                     <td> {{emset.send | dict:this.dictService.sendDict | async}} </td>
                     <td> {{showReceivers(emset.receivers)}} </td>
-                    <td> {{emset.description}} </td>
+                    <td style="width:40%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{emset.description}}</td>
                     <!--
                     <td [ngClass]="phynet.status==1?'font-green':'font-orange'"> {{(phynet.status | dict:this.dictService.statusDict | async) || "未设置"}} </td>
                     -->
@@ -76,8 +76,8 @@
         <div class="form-group">
             <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'SYS_SETUP.SEND_ORNOT_EMAIL' | translate}}：</div>
             <div class="col-sm-7">
-                <input type="radio" name="radio1" [checked]="changedemail.send=='1'" (click)="changedemail.send='1';" />是
-                <input type="radio" name="radio1" [checked]="changedemail.send=='0'" (click)="changedemail.send='0';" />否
+                <input type="radio" name="radio1" [checked]="changedemail.send=='1'" (click)="changedemail.send='1';" />{{'COMMON.YES' | translate}}
+                <input type="radio" name="radio1" [checked]="changedemail.send=='0'" (click)="changedemail.send='0';" />{{'COMMON.NO' | translate}}
             </div>
         </div>
     </div>
@@ -86,7 +86,7 @@
             <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'SYS_SETUP.RECEIVER' | translate}}：</div>
             <div class="col-sm-7">
                 <div *ngFor="let receiver of receiverDictArray" style="display: inline;">
-                    <input  type="checkbox" [value]="receiver.value" [checked]="changedemail.receivers.includes(receiver.value)" (click)="changeReceivers(receiver.value);"> {{receiver.displayValue}}
+                    <input  type="checkbox" [checked]="changedemail.receivers.includes(receiver.value)" (click)="changeReceivers(receiver.value);"> {{receiver.displayValue}}
                 </div>         
             </div>
         </div>

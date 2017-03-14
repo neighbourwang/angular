@@ -97,7 +97,7 @@ export class EmailMngComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {                    
                     this.emailsetups = response.resultContent;
-                    console.log(this.emailsetups, "emailsetups!!!");
+                    console.log(this.emailsetups, response.resultContent, "emailsetups!!!");
                 } else {
                     this.showAlert("COMMON.GETTING_DATA_FAILED");
                 }
@@ -109,19 +109,14 @@ export class EmailMngComponent implements OnInit {
     showReceivers(receivers:Array<string>):string {
         //console.log(receivers, "showReceiver: receivers");
         if(receivers.length != 0){
-            let recs: Array<String> = [];
-            
+            let recs: Array<String> = [];            
             for (let i = 0; i < receivers.length; i++) {
                 for (let j = 0; j < this.receiverDictArray.length; j++) {
                     //console.log(this.receiverDictArray[j].value, <String>receivers[i]);
                     if( this.receiverDictArray[j].value == <String>receivers[i] ) {
                         //console.log(this.receiverDictArray[j].value, <String>receivers[i], "==");
                         recs.splice(0, 0, this.receiverDictArray[j].displayValue);
-                }/* 
-                    else {
-                        console.log(this.receiverDictArray[j].value, <String>receivers[i], "!=");
                     }
-                    //*/
                 }
             }
             //console.log(recs, "recs");
@@ -140,13 +135,20 @@ export class EmailMngComponent implements OnInit {
             this.changedemail.receivers.splice(0,0,id);
             console.log(this.changedemail.receivers, '+');
         }
+        console.log(this.selectedemail, this.changedemail, "selected and changed!");
     }
 
-    editEmial()
-    {
+    editEmial() {
         let emailitem = this.getSelected();
         if (emailitem) {
-            this.selectedemail = emailitem;
+            //this.selectedemail = emailitem;
+            this.selectedemail.noticeType = emailitem.noticeType;
+            this.selectedemail.id = emailitem.id;
+            this.selectedemail.name = emailitem.name;
+            this.selectedemail.send = emailitem.send;
+            this.selectedemail.receivers = emailitem.receivers;
+            this.selectedemail.description = emailitem.description;
+
             this.changedemail.noticeType = this.selectedemail.noticeType;
             this.changedemail.id = this.selectedemail.id;
             this.changedemail.name = this.selectedemail.name;
@@ -181,10 +183,10 @@ export class EmailMngComponent implements OnInit {
                 .then(res => {
                     this.layoutService.hide();
                     if (res && res.resultCode == "100") {
-                        console.log(res, "PHY_NET_MNG.EDIT_PHY_NET_SUCCESS");
+                        console.log(res, "SYS_SETUP.EDIT_EMAIL_SETUP_SUCCESS");
                     } else {
                         this.editemailbox.close();
-                        this.showMsg("PHY_NET_MNG.EDIT_PHY_NET_FAILED");
+                        this.showMsg("SYS_SETUP.EDIT_EMAIL_SETUP_FAILED");
                         return;
                     }
                 })
@@ -193,10 +195,10 @@ export class EmailMngComponent implements OnInit {
                     this.editemailbox.close();
                 })
                 .catch(err => {
-                    console.log('PHY_NET_MNG.EDIT_PHY_NET_EXCEPTION', err);
+                    console.log('SYS_SETUP.EDIT_EMAIL_SETUP_EXCEPTION', err);
                     this.layoutService.hide();
                     this.editemailbox.close();
-                    this.showMsg("PHY_NET_MNG.EDIT_PHY_NET_EXCEPTION");
+                    this.showMsg("SYS_SETUP.EDIT_EMAIL_SETUP_EXCEPTION");
                     this.okCallback = () => {
                         this.editemailbox.open();
                     };

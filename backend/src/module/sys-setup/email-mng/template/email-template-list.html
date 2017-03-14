@@ -3,28 +3,16 @@
     <div>
     {{'SYS_SETUP.EMAIL_TEMPLATE_MNG' | translate}}
     <button class=" fox-cloud-button fox-cloud-button-white " style="float: right; margin: -10px;">
-        <span class="icon-button-label" (click)="emailMngPage()">返回Email设置</span>
+        <span class="icon-button-label" (click)="emailMngPage()">{{'SYS_SETUP.RETURN_EMAIL_SETUP' | translate}}</span>
     </button>
     </div>
 </div>
 <div class="page-content">
 
     <div class="mgb10">
-        <button class="fox-cloud-button fox-cloud-button-green">创建</button>
-        <button class="fox-cloud-button fox-cloud-button-green">编辑</button>
-        <button class="fox-cloud-button fox-cloud-button-green">删除</button>
-        <!--
-        <div class="dropdown pull-right">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{'NET_MNG_VM_IP_MNG.SELECT_OPERATION' | translate}}
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a (click)="enable()">{{'NET_MNG_VM_IP_MNG.OCCUPY' | translate}}IP</a></li>
-                <li><a (click)="disable()">{{'NET_MNG_VM_IP_MNG.RELEASE' | translate}}IP</a></li>
-            </ul>
-        </div>
-        -->
+        <button class="fox-cloud-button fox-cloud-button-green">{{'COMMON.CREATE' | translate}}</button>
+        <button class="fox-cloud-button fox-cloud-button-green">{{'COMMON.EDIT' | translate}}</button>
+        <button class="fox-cloud-button fox-cloud-button-green">{{'COMMON.DELETE' | translate}}</button>
     </div>
 
 
@@ -40,9 +28,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr ngFor="let temp of emailtemps; let i = index;">
-                <td>{{i}}</td>
-                <td  style="position:relative"><a href="javascript:void(0);" (click)="selectItem(i); emailTemplateDetailsPage();">{{temp.name}}</a></td>
+            <tr *ngFor="let temp of emailtemps; let i = index;">
+                <td>{{(i+1)}}</td>
+                <td style="position:relative"><a href="javascript:void(0);" (click)="selectItem(i); emailTemplateDetailsPage();">{{temp.name}}</a></td>
                 <td>{{temp.noticeType | dict:this.dictService.typeDict | async}}</td>
                 <td>{{temp.templateType | dict:this.dictService.temptypeDict | async}}</td>
                 <td>{{temp.createDate}}</td>
@@ -52,6 +40,7 @@
     </div>
 
 </div>
+
 
 <!--
 <div class="text-center">

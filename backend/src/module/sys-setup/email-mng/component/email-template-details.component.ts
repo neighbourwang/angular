@@ -1,11 +1,12 @@
 import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent ,dictPipe} from "../../../../architecture";
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, dictPipe, SystemDictionary} from "../../../../architecture";
 
 import { EmailTemplateDetailsModel } from "../model/email-mng.model";
 
 import { EmailMngService } from "../service/email-mng.service";
+import { EmailMngDictService } from "../service/email-mng-dict.service";
 
 @Component({
     selector: "email-template-detals",
@@ -19,7 +20,8 @@ export class EmailTemplateDetailsComponent implements OnInit {
         private layoutService: LayoutService,
         private dictPipe: dictPipe,
         private activatedRouter : ActivatedRoute,
-        private service: EmailMngService
+        private service: EmailMngService,
+        private dictService: EmailMngDictService,
     ) {
     }
 
@@ -32,6 +34,8 @@ export class EmailTemplateDetailsComponent implements OnInit {
     noticeTitle: string = "";
     noticeMsg: string = "";
 
+    typeDictArray: Array<SystemDictionary> = [];
+
     temp_id: string = "";
 
     temp_details: EmailTemplateDetailsModel = new EmailTemplateDetailsModel();
@@ -42,6 +46,12 @@ export class EmailTemplateDetailsComponent implements OnInit {
                 this.temp_id = params["temp_id"];
                 console.log(this.temp_id);
             }
+        });
+
+        this.dictService.typeDict
+        .then((items) => {
+            this.typeDictArray = items;
+            console.log(this.typeDictArray, "this.typeDictArray");
         });
 
         this.getEmailTemplateDetails();
@@ -57,8 +67,11 @@ export class EmailTemplateDetailsComponent implements OnInit {
             .then(
             response => {
                 this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {                    
+                if (response && 100 == response["resultCode"]) {
                     this.temp_details = response.resultContent;
+                    let re = /\\n/gi;
+                    this.temp_details.content = this.temp_details.content.replace(re, "<br />");
+                    console.log(this.temp_details.content, "temp_details.content!!!");
                     console.log(this.temp_details, "temp_details!!!");
                 } else {
                     this.showAlert("COMMON.GETTING_DATA_FAILED");
