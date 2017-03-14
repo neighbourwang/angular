@@ -1,7 +1,7 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,PopupComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import {CostPandectParam,CostManageItem,CostManageImprove,TimeCaculater} from '../model'
+import {CostPandectParam,CostManageItem,TimeCaculater} from '../model'
 
 import * as _ from 'underscore';
 
@@ -21,7 +21,6 @@ export class CostManageComponent implements OnInit{
 
 //参数
 _param:CostPandectParam = new CostPandectParam();
-_saveParam : CostManageImprove = new CostManageImprove();
 
 //日期下拉列表
 private timeCaculater :TimeCaculater = new TimeCaculater();
@@ -35,13 +34,13 @@ private _enterpriseLoader:ItemLoader<{id:string; name:string}> = null;
 //列表
 private costItemLoader:ItemLoader<CostManageItem> = null;
 
-private showLoader:ItemLoader<CostManageImprove> = null;
-private saveLoader:ItemLoader<CostManageImprove> = null;
+private showLoader:ItemLoader<CostManageItem> = null;
+private saveLoader:ItemLoader<CostManageItem> = null;
 
 //状态
 private _statusTypeDic:DicLoader = null;
 
-	
+private selectedItem :CostManageItem = new CostManageItem();	
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -60,7 +59,8 @@ private _statusTypeDic:DicLoader = null;
 			for(let item of source){
 				let obj = new CostManageItem();
 				target.push(obj);
-				obj.circleTime = item.startTime+'至'+item.endTime;
+				obj.startTime = item.startTime;
+				obj.endTime = item.endTime;
 				obj.money = item.amount;
 				obj.endDate = item.billDate;
 				obj.sentDate = item.sendDate;
@@ -68,7 +68,7 @@ private _statusTypeDic:DicLoader = null;
 			}
 		}
 
-		
+		this.saveLoader = new ItemLoader<CostManageItem>(false,'金额调整失败','op-center.order-mng.cost-manage.cost-update.put',restApiCfg,restApi); 
 
 }
 	ngOnInit(){
@@ -113,7 +113,7 @@ private _statusTypeDic:DicLoader = null;
 }
 
 	//显示金额管理
-	updateCost(){
+	updateCost(selectedItem:CostManageItem){
 			// this.layoutService.show();
 			// $('#costUpdate').modal('show');
 		// 	this.showLoader.Go(null,[],null)
@@ -123,13 +123,26 @@ private _statusTypeDic:DicLoader = null;
 		// 	.catch(err=>{
 		// 		this.showMsg(err);
 		// })
+			this.selectedItem = selectedItem;
 			this.costUpdate.open();
 	}
 
 	acceptCostUpdate()
 	{
-		let param;
-		param = _.extend({},this._saveParam);
+		let param={
+			"adjustAmount":this.selectedItem.adjustAmount,
+			"adjustReason": this.selectedItem.adjustReason,
+			"amount": this.selectedItem.money,
+			"billDate":this.selectedItem.endDate,
+			"createTime": null,
+			"endTime": this.selectedItem.endTime,
+			"id": this._param.enterpriseId,
+			"sendDate": this.selectedItem.sentDate,
+			"startTime": this.selectedItem.startTime,
+			"status":this.selectedItem.status,
+			"tenantId": null,
+			"updateTime": null
+			};
 		this.layoutService.show();
 		this.saveLoader.Go(null,null,param)
 		.then(success=>{

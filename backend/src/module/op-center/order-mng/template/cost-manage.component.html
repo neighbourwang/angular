@@ -31,13 +31,13 @@
 			        <tbody>
 			            <tr *ngFor="let item of costItemLoader.Items;let i =index;">
 			                <td>{{i+1}}</td>
-			                <td>{{item.circleTime}}</td>
+			                <td>{{item.startTime}}至{{item.endTime}}</td>
 			                <td>{{item.money}}</td>
 			                <td>{{item.endDate}}</td>
 			                <td>{{item.sentDate}}</td>
 			                <td>{{item.statusName}}</td>
 							<td>
-								<button class="fox-cloud-button-white" (click)="updateCost();">金额调整</button>
+								<button class="fox-cloud-button-white" (click)="updateCost(item);">金额调整</button>
 								<!--<button class="fox-cloud-button-white">下载</button>-->
 							</td>
 			            </tr>               
@@ -55,23 +55,23 @@
 	<div class="row row-line-height">
 		<form class="form-horizontal" role="form">
 			<div class="form-group">
-				<label class="col-sm-6">本期账单金额</label>
-				<div class="col-sm-6">
-				<label class="col-sm-6" style="text-align:left!important;" >*******元</label>
+				<label class="col-sm-5">本期账单金额</label>
+				<div class="col-sm-4">
+				<label style="text-align:left!important;" >{{selectedItem.money}}元</label>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-6">调整项目</label>
-				<div class="col-sm-6">
+				<label class="col-sm-5">调整项目</label>
+				<div class="col-sm-4">
 					<!--[(ngModel)]="_saveParam.name"-->
-					<input type="text"  />
+					<input  class="form-control" type="text" name="reason" [(ngModel)]="selectedItem.adjustReason">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-6">调整金额</label>
-				<div class="col-sm-6">
+				<label class="col-sm-5">调整金额</label>
+				<div class="col-sm-4">
 					 <!--[(ngModel)]="_saveParam.money_improve"-->
-					<input type="text" />
+					<input  class="form-control" type="text" name="amount" [(ngModel)]="selectedItem.adjustAmount">
 				</div>
 			</div>
 		</form>

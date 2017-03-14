@@ -872,6 +872,11 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.cost-manage.post",
         "method": "POST",
         "url": "adminui/authsec/enterrpise/subinstance/bill/report/search"
+    },{
+        "desc": "消费管理-调整金额",
+        "id": "op-center.order-mng.cost-manage.cost-update.put",
+        "method": "PUT",
+        "url": "adminui/authsec/enterrpise/subinstance/bill/report"
     },
 
     //<!--后台-运营中心-订单管理-->
