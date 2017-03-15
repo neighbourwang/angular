@@ -25,11 +25,17 @@ html：
 <table>
   <tr *ngFor="let vm of vmList;">
   	<td>
+    	<static-tooltip [title]="vm.detail">{{vm.describe}}</static-tooltip>
+    </td>
+  </tr>
+</table>
+```
+
+
+详细设定：
+```html
     	<static-tooltip 
             className="tooltip"    //自定义的class名称
             placement="bottom"
             [title]="vm.detail">{{vm.describe}}</static-tooltip>
-    </td>
-  </tr>
-</table>
 ```
