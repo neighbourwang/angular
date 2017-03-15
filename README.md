@@ -36,6 +36,8 @@
 |  popover组件  |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/components/popover) |
 |    图表组件     |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/assets/README/chart.md) |
 | 点击元素以外触发事件  |  指令  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/assets/README/clickoutside.md) |
+| 鼠标滑过显示详细文字  |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/architecture/components/staticTooltip/README.mdown) |
+
 
 ### 
 
