@@ -43,7 +43,7 @@ private enterpriseLoader : ItemLoader<{id:string;name:string}>= null;
 
 private allServiceLoader:ItemLoader<CostPandectItem> = null;//表格-所有服务
 private increaseServiceLoader:ItemLoader<CostPandectItem> = null;//表格-新增服务
-private isAllService:string =null;//null是所有服务，2是新增服务
+private isAllService:string ='1';//1是所有服务，2是新增服务
 
 private consumeLoader:ItemLoader<ConsumeSum> = null;//消费概览
 
@@ -446,6 +446,8 @@ search_chart(){
 
     //两个TOP图
     this.loadTopChart();
+
+    this.loadService();
 }
 
 
@@ -646,7 +648,7 @@ showMsg(msg: string)
         "idList": ids,
         "startTime":this._param.year+'-'+month+'-01'+' 00:00:00'
     };
-        if( this.isAllService == null||this.isAllService =='null'){//所有服务
+        if( this.isAllService =='1'){//所有服务
             this.allServiceLoader.Go(null,null,param)
                 .then(success=>{    
                     this.layoutService.hide();

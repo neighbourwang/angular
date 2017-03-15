@@ -49,6 +49,8 @@ export class cloudHostListComponent implements OnInit {
 	handleData: HandleVm;   //发送操纵云主机的数据
 	labelItem:VMInstanceLabelItem[] = [];
 
+	testTitle = "发送操纵云主机的数据发送操纵云主机的数据发送操纵云主机的数据发送操纵云主机的数据发送操纵云主机的数据"
+
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -65,6 +67,11 @@ export class cloudHostListComponent implements OnInit {
 		this.setHostList();
 		this.getLabels();  //获取标签列表
 		this.initSelect();
+
+		setTimeout(() => {
+			console.log(213)
+			this.testTitle = "test Titletest Titletest Titletest Titletest Titletest Titletest Titletest Titletest Titletest Titletest Titletest Titletest Titletest Titletest Titletest Title"
+		}, 3000)
 	}
 
 	setHostList(): void {

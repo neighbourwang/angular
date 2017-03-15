@@ -23,7 +23,7 @@ export class CostPandectComponent implements OnInit{
 
 @ViewChild("notice")
   	private _notice: NoticeComponent;
-size:number;
+size:number = 12;
 
 _param:CostPandectParam = new CostPandectParam();
 private timeCaculater :TimeCaculater = new TimeCaculater();
@@ -57,10 +57,13 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5æ¶ˆè
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
+
         
         this.currentYear = this.timeCaculater.getCurrentYear();
         this.currentMonth = this.timeCaculater.getCurrentMonth();
-        
+        this._param.year = this.currentYear.toString(); 
+        this._param.month = (this.currentMonth-1).toString(); 
+
         this.sumChart = this.chartService.creatSumChart();
         this.historyChart = this.chartService.createHstoryBar();
         this.topChart = this.chartService.createTopBar();
@@ -120,6 +123,8 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5æ¶ˆè
 	ngOnInit(){
         this.layoutService.show();
         this.loadYears();
+        this.loadMonths();
+        this.loadLastDay();
         this.loadEnterprise();
 		this.layoutService.hide();
 	}

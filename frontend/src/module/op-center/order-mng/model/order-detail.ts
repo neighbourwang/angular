@@ -20,7 +20,7 @@ export class OrderDetailItem {
   instanceName:string = null;//实例名称
   description:string;//说明
   billingModeName:string = null;//计费模式
-
+  extendType:string;//自动续订方式
   get billingMode():number{
     if(this.productBillingItem)
     {
