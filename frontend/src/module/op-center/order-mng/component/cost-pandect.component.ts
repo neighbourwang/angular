@@ -80,14 +80,23 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         this.allServiceLoader = new ItemLoader<CostPandectItem> (false,'消费总览所有服务列表加载错误','op-center.order-mng.cost-pandect.all-service.post',this.restApiCfg,this.restApi);
         this.increaseServiceLoader = new ItemLoader<CostPandectItem> (false,'消费总览新增服务列表加载错误','op-center.order-mng.cost-pandect.increase-service.post',this.restApiCfg,this.restApi);
 
-        //   this.allServiceLoader.MapFunc = (source:Array<any>, target:Array<CostPandectItem>)=>{
-		// 	for(let item of source)
-		// 	{
-		// 		let obj=_.extend({}, item) ;
-		// 		target.push(obj);
+        this.allServiceLoader.MapFunc = (source:Array<any>, target:Array<CostPandectItem>)=>{
+			for(let item of source)
+			{
+				let obj=new CostPandectItem();
+				target.push(obj);
 
-		// 	}
-		// }
+                obj.subinstanceCode = item.subinstanceCode;
+                if(item.priceDetails){
+                    for(let priceItem of item.priceDetails){
+                        obj.priceDetails.push(item);
+                    } 
+                }
+
+			}
+		}
+
+
 
     
        	this.consumeLoader = new ItemLoader<ConsumeSum>(false, '消费概览加载失败', "op-center.order-mng.cost-pandect.consume.post", this.restApiCfg, this.restApi);

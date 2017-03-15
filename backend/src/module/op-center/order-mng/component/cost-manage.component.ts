@@ -130,19 +130,33 @@ private selectedItem :CostManageItem = new CostManageItem();
 	acceptCostUpdate()
 	{
 		let param={
-			"adjustAmount":this.selectedItem.adjustAmount,
+			"adjustAmount":Number(this.selectedItem.adjustAmount),
 			"adjustReason": this.selectedItem.adjustReason,
 			"amount": this.selectedItem.money,
-			"billDate":this.selectedItem.endDate,
+			"billDate":null,
 			"createTime": null,
-			"endTime": this.selectedItem.endTime,
-			"id": this._param.enterpriseId,
-			"sendDate": this.selectedItem.sentDate,
-			"startTime": this.selectedItem.startTime,
+			"endTime": null,
+			"id": this.selectedItem.id,
+			"sendDate": null,
+			"startTime": null,
 			"status":this.selectedItem.status,
-			"tenantId": null,
+			"tenantId": this._param.enterpriseId,
 			"updateTime": null
-			};
+		};
+// 		let param = {
+//   "adjustAmount": 500,
+//   "adjustReason": "调整原因",
+//   "amount": null,
+//   "billDate": null,
+//   "createTime": null,
+//   "endTime": null,
+//   "id": "2c196c12-bd00-48b0-aabe-ed07172117c6",
+//   "sendDate": null,
+//   "startTime": null,
+//   "status": 1,
+//   "tenantId": "5590336e-df0a-4dc3-82f3-4aed45e2b0a3",
+//   "updateTime": null
+// } 
 		this.layoutService.show();
 		this.saveLoader.Go(null,null,param)
 		.then(success=>{

@@ -133,10 +133,13 @@
                     </thead>
                     <tbody>
                         <tr class="text-center" *ngFor="let item of allServiceLoader.Items;">
-                            <td class="vertical-center"><a (click)='showDetail(item.orderNo)'>{{item.orderNo}}</a></td>
+                            <td class="vertical-center"><a (click)='showDetail(item.subinstanceCode)'>{{item.subinstanceCode}}</a></td>
                             <td class="vertical-center">{{item.productName}}</td>
                             <td class="vertical-center">{{item.num}}</td>
-                            <td class="vertical-center">{{item.priceDetails[0].billName}}</td>
+                            <td class="vertical-center" >
+								<ul *ngFor="let priceItem of item.priceDetails">
+									<li>{{priceItem.billName}}</li>
+								</ul></td>
                             <td class="vertical-center">{{item.total_amount}}</td>
                         </tr>               
                     </tbody>
@@ -158,10 +161,13 @@
                     </thead>
                     <tbody>
                         <tr class="text-center" *ngFor="let item of increaseServiceLoader.Items;">
-                            <td class="vertical-center"><a (click)='showDetail(item.orderNo)'>{{item.orderNo}}</a></td>
+                            <td class="vertical-center"><a (click)='showDetail(item.subinstanceCode)'>{{item.subinstanceCode}}</a></td>
                             <td class="vertical-center">{{item.productName}}</td>
                             <td class="vertical-center">{{item.num}}</td>
-                            <td class="vertical-center">{{item.priceDetails[0].billName}}</td>
+                            <td class="vertical-center" >
+								<ul *ngFor="let priceItem of item.priceDetails">
+									<li>{{priceItem.billName}}</li>
+								</ul></td>
                             <td class="vertical-center">{{item.total_amount}}</td>
                         </tr>               
                     </tbody>
