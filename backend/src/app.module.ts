@@ -10,9 +10,6 @@ import { SiteService } from './architecture/components/site/service/site.service
 import { MenuService } from './architecture/components/menu/service/menu.service';
 
 
-// pf-mng
-import {PfMngModule} from './module/pf-mng/pf-mng.module';
-
 // ent-mng
 import {EntMngModule} from './module/ent-mng/ent-mng.module';
 
@@ -57,7 +54,6 @@ import {routing} from './app.routing';
         BrowserModule,
         CoreModule,
         CommonComponentModule,
-        PfMngModule,
         EntMngModule,
         PfMngModule2,
         MainProdMngModule,

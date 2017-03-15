@@ -21,8 +21,8 @@ export class StaticTooltipComponent implements OnInit,OnChanges{
     ngOnChanges (values){
         $(this.el.nativeElement)
             .attr('title', this.title)
-            .data("html", true)
             .data("placement", this.placement)
+            .data("html", true)
             .tooltip('fixTitle')
             .tooltip();
     }
