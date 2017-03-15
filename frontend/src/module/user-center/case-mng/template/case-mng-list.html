@@ -78,7 +78,7 @@
 <fc-pagination #pager tp={{totalPage}} (pf)="getData($event)"></fc-pagination>
 
 <fc-popup #creCase title="{{title}}" ot="{{isEdit== false? 'COMMON.CREATE': 'DIALOG.SAVE' | translate }}" ct="{{ 'DIALOG.CANCEL' | translate }}" (of)="creOredit()">
-    <form #orgForm="ngForm"  (ngSubmit)="onSubmit()" >
+    <form #orgForm="ngForm"  (ngSubmit)="onSubmit()" autocomplete="off">
     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
         <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.SUBJECT' | translate}}:</div>
         <div class="col-md-8 no-padding">
