@@ -69,9 +69,10 @@ export class EmailTemplateDetailsComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.temp_details = response.resultContent;
-                    let re = /\\n/gi;
+                    //console.log(this.temp_details.content, "temp_details.content!!!");
+                    let re = /\r\n/gi;
                     this.temp_details.content = this.temp_details.content.replace(re, "<br />");
-                    console.log(this.temp_details.content, "temp_details.content!!!");
+                    //console.log(this.temp_details.content, "temp_details.content!!!");
                     console.log(this.temp_details, "temp_details!!!");
                 } else {
                     this.showAlert("COMMON.GETTING_DATA_FAILED");

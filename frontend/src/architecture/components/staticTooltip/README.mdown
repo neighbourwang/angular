@@ -1,0 +1,40 @@
+# 鼠标滑过显示详细文字
+
+![图片]()
+
+
+
+| 参数        | 类型                               | 描述         | 是否可选 | 默认值   |
+| :-------- | -------------------------------- | ---------- | ---- | ----- |
+| placement | "top"\|"left"\|"bottom"\|"right" | 显示的方向      | 可选   | "top" |
+| title     | string                           | 显示的文字      | 必选   | ""    |
+| className | string                           | 自定义class名称 | 可选   | ""    |
+
+
+
+### 例子
+
+例如在表格里：
+
+html：
+
+```html
+<table>
+  <tr *ngFor="let vm of vmList;">
+  	<td>
+    	<static-tooltip 
+            className="tooltip"    //自定义的class名称
+            placement="bottom"
+            [title]="testTitle">{{vm.privateIP}}</static-tooltip>
+    </td>
+  </tr>
+</table>
+```
+
+javascript：
+
+```javascript
+export class testComponent implements OnInit {
+	testTitle:string = "弹出框里的文字";
+}
+```
