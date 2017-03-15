@@ -867,6 +867,16 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.cost-pandect.increase-service.post",
         "method": "POST",
         "url": "adminui/authsec/enterrpise/subinstance/increase/bill"
+    },{
+        "desc": "消费管理-账单管理",
+        "id": "op-center.order-mng.cost-manage.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterrpise/subinstance/bill/report/search"
+    },{
+        "desc": "消费管理-调整金额",
+        "id": "op-center.order-mng.cost-manage.cost-update.put",
+        "method": "PUT",
+        "url": "adminui/authsec/enterrpise/subinstance/bill/report"
     },
 
     //<!--后台-运营中心-订单管理-->
@@ -899,6 +909,11 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-set.default-set-save.post",
         "method": "POST",
         "url": "adminui/authsec/organization/bill/setting/profile"
+    },{
+        "desc": "获取当前用户信息",
+        "id": "op-center.order-set.user-info.get",
+        "method": "GET",
+        "url": "adminui/authsec/user/currentuser"
     },
     
 
@@ -2253,7 +2268,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取该机构某类型的已设置选项+该类型的所有模板",
         "id":"sys-mng.email-mng.email.setup.template.list",
         "method":"GET",
-        "url":"mailmgmt/authsec/mailmgmt/template/{type}"
+        "url":"mailmgmt/authsec/mailmgmt/templates/{type}"
     },
     {
         "desc": "查看模板详情",

@@ -2,10 +2,10 @@
 
 export class CostPandectItem{
     id:string;
-    orderNo : string;//已购服务编号
+    subinstanceCode : string;//已购服务编号
     productName : string;//产品名称
     num:string;//购买数量
-    priceDetails:Array<SubInstancePriceDetail>;//费用类型，可能存在多种费用类型
+    priceDetails:Array<SubInstancePriceDetail>=[];//费用类型，可能存在多种费用类型
     total_amount:string;//应付金额
  
 }

@@ -1,7 +1,12 @@
 import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent ,dictPipe} from "../../../../architecture";
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, dictPipe, SystemDictionary } from "../../../../architecture";
+
+import { EmailTemplateModel } from "../model/email-mng.model";
+
+import { EmailMngService } from "../service/email-mng.service";
+import { EmailMngDictService } from "../service/email-mng-dict.service";
 
 @Component({
     selector: "email-template-list",
@@ -14,6 +19,8 @@ export class EmailTemplateListComponent implements OnInit {
         private router: Router,
         private layoutService: LayoutService,
         private dictPipe: dictPipe,
+        private dictService: EmailMngDictService,
+        private service: EmailMngService
     ) {
     }
 
@@ -23,20 +30,57 @@ export class EmailTemplateListComponent implements OnInit {
     @ViewChild("notice")
     notice: ConfirmComponent;
 
+    noticeTitle: string = "";
+    noticeMsg: string = "";
+
+    typeDictArray: Array<SystemDictionary> = [];
+    temptypeDictArray: Array<SystemDictionary> = [];
+
+    emailtemps: Array<EmailTemplateModel> = [];
+    selectedtemp: EmailTemplateModel = new EmailTemplateModel();
+
     
     ngOnInit() {
+        this.dictService.typeDict
+        .then((items) => {
+            this.typeDictArray = items;
+            console.log(this.typeDictArray, "this.typeDictArray");
+        });
+
+        this.dictService.temptypeDict
+        .then((items) => {
+            this.temptypeDictArray = items;
+            console.log(this.temptypeDictArray, "this.temptypeDictArray");
+        });
+
+        this.getEmailTemplateList();
+    }
+
+    getEmailTemplateList() {
+        this.layoutService.show();
+        this.service.getEmailTemplateList()
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {                    
+                    this.emailtemps = response.resultContent;                    
+                    console.log(this.emailtemps, "emailtemps!!!");
+                } else {
+                    this.showAlert("COMMON.GETTING_DATA_FAILED");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+
     }
 
     //Menu: 查看Email模板的详细信息
     emailTemplateDetailsPage() {
-        /*
-        let pn = this.getSelected();
-        if(pn){
-            this.selectedphynet = pn;
-            this.router.navigate([`phy-mng/phy-net/phy-net-details`, {"pn_id": this.selectedphynet.id}]);
+        let temp = this.getSelected();
+        if(temp){
+            this.selectedtemp = temp;
+            this.router.navigate([`sys-setup/email-mng/email-template-details`, {"temp_id": this.selectedtemp.id}]);
         }
-        */
-        this.router.navigate([`sys-setup/email-mng/email-template-details`]);
     }
 
     //Menu: 返回Email设置页面
@@ -46,26 +90,47 @@ export class EmailTemplateListComponent implements OnInit {
 
     //选择行
     selectItem(index:number): void {
-        //this.phynets.map(n=> {n.checked = false;});
-        //this.phynets[index].checked = true;
-        //console.log(this.phynets, "=== Please see which one is selected ===");
+        this.emailtemps.map(n=> {n.checked = false;});
+        this.emailtemps[index].checked = true;
+        console.log(this.emailtemps, "=== Please see which one is selected ===");
     }
 
     UnselectItem(): void {
-        //this.phynets.map(n=> {n.checked = false;});
+        this.emailtemps.map(n=> {n.checked = false;});
     }
 
     getSelected() {
-        /*
-        let item = this.phynets.find((n) => n.checked) as PhyNetListModel;
+        let item = this.emailtemps.find((n) => n.checked) as EmailTemplateModel;
         if (item){
             return item;
         }
         else {
-            this.showMsg("PHY_NET_MNG.PLEASE_CHOOSE_NETWORK");
+            this.showMsg("SYS_SETUP.PLEASE_CHOOSE_EMAIL_TEMPLATE");
             return null;
         }
-        */
+    }
+
+    onRejected(reason: any) {
+        this.layoutService.hide();
+        console.log(reason, "onRejected");
+        this.showAlert("COMMON.GETTING_DATA_FAILED");
+    }
+
+    showMsg(msg: string) {
+        console.log(msg, "showMsg");
+        this.notice.open("COMMON.SYSTEM_PROMPT", msg);
+    }
+
+	showAlert(msg: string): void {
+        console.log(msg, "showAlert");
+        this.layoutService.hide();
+        this.noticeTitle = "COMMON.PROMPT";
+        this.noticeMsg = msg;
+        this.notice.open();
+    }
+
+    showError(msg: any) {
+        this.notice.open(msg.title, msg.desc);
     }
 
 }

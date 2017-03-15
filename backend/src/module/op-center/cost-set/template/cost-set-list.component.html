@@ -24,7 +24,7 @@
 			                <td>{{i+1}}</td>
 							<td><input name="choice" type="radio" class="fox-cloud-radio" (click)="selectItem(item)"></td>
 			                <td>{{item.name}}</td>
-			                <td>{{item.payway}}</td>
+			                <td>{{item.paywayName}}</td>
 			                <td>{{item.cicleTime}}</td>
 			                <td>{{item.endDate}}</td>
 			                <td>{{item.sentDate}}</td>
@@ -39,7 +39,7 @@
 <!--系统默认设置--> 
 
 <cost-set-default #defaultSetDailog [costItem]="popupItem" (complete)="popupComplete($event)"></cost-set-default>
-<!-- <cost-set-default #entSetDailog [costItem]="entItemLoader.FirstItem"></cost-set-default> -->
+<!--<cost-set-default #entSetDailog [costItem]="popupItem" (complete)="popupComplete($event)"></cost-set-default> -->
 
 <!-- <fc-popup #entSetDailog ot="{{ 'COMMON.CONFIRM' | translate }}" ct="{{ 'COMMON.CANCEL' | translate }}" title="企业费用设置" (of)="acceptEntSet()" (cf)="cancelEntSet()">
   <div class="dialogContent">

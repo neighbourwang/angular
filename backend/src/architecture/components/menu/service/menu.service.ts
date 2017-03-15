@@ -266,20 +266,20 @@ export class MenuService {
 							"isShow": !isRoot,
 							"routing": "op-center/order-mng/order-mng-search"
 						},
-						// {
-						// 	"label": "费用管理",
-						// 	"isOpen": false,
-						// 	"isActive": false,
-						// 	"isShow": !isRoot,
-						// 	"routing": "op-center/order-mng/cost-pandect"
-						// },
-						// {
-						// 	"label": "费用设置",
-						// 	"isOpen": false,
-						// 	"isActive": false,
-						// 	"isShow": !isRoot,
-						// 	"routing": "op-center/cost-set/cost-set-list"
-						// }
+						{
+							"label": "费用管理",
+							"isOpen": false,
+							"isActive": false,
+							"isShow": !isRoot,
+							"routing": "op-center/order-mng/cost-pandect"
+						},
+						{
+							"label": "费用设置",
+							"isOpen": false,
+							"isActive": false,
+							"isShow": !isRoot,
+							"routing": "op-center/cost-set/cost-set-list"
+						}
 					]
 				},
 				{
@@ -357,7 +357,7 @@ export class MenuService {
 					"label": "系统设置",
 					"isOpen": false,
 					"isShow": !isRoot,
-					"icon": "icon-content-header-purchasingWhite",
+					"icon": "icon-system-setupWhite",
 					"top2_menu": [
 						{
 							"label": "Email通知设置",

@@ -42,10 +42,44 @@ export class EmailMngService {
     }
 
     editEmailSetup(emailsetup: EmailSetupModel): Promise<any> {
+        const body = {
+                "description": emailsetup.description,
+                "noticeType": emailsetup.noticeType,
+                "receivers": emailsetup.receivers,
+                "send": emailsetup.send,
+                "templateId": emailsetup.id
+        };
+        console.log(body, "body");
         const api = this.restApiCfg.getRestApi("sys-mng.email-mng.email.setup.edit");
+        return this.restApi.request(api.method, api.url, null, null, body);
+    }
+
+    getEmailTemplates(type: string): Promise<any> {  //获取某类通知类型下的对应的模板
+        const pathParams = [
+            {
+                key: "type",
+                value: type
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("sys-mng.email-mng.email.setup.template.list");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+    }
+
+    getEmailTemplateList(): Promise<any> {   //获取全部Email模板
+        const api = this.restApiCfg.getRestApi("sys-mng.email-mng.emailtemplate.list");
         return this.restApi.request(api.method, api.url, null, null, null);
     }
 
+    getEmailTemplateDetails(id: string): Promise<any> {    //获取具体Email的详情
+        const pathParams = [
+            {
+                key: "id",
+                value: id
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("sys-mng.email-mng.emailtemplate.details");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+    }
     
 
 }

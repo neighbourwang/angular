@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 
 import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, dictPipe, SystemDictionary} from "../../../../architecture";
 
-import { EmailSetupModel } from "../model/email-mng.model";
+import { EmailSetupModel, EmailTypeTemplateModel } from "../model/email-mng.model";
 
 import { EmailMngService } from "../service/email-mng.service";
 import { EmailMngDictService } from "../service/email-mng-dict.service";
@@ -40,9 +40,11 @@ export class EmailMngComponent implements OnInit {
     sendDictArray: Array<SystemDictionary> = [];
     receiverDictArray: Array<SystemDictionary> = [];
 
-    emailsetups: Array<EmailSetupModel> = [];
-    selectedemail: EmailSetupModel = new EmailSetupModel();
-    changedemail: EmailSetupModel = new EmailSetupModel();
+    emailsetups: Array<EmailSetupModel> = [];    //首页emailsetup列表
+    changedemail: EmailSetupModel = new EmailSetupModel();   //用于编辑按钮的emailsetup
+
+    tempList: Array<EmailTypeTemplateModel> = [];
+    selectedtemp: EmailTypeTemplateModel = new EmailTypeTemplateModel();
 
     private okCallback: Function = null;
     okClicked() {
@@ -63,8 +65,7 @@ export class EmailMngComponent implements OnInit {
     }
 
     
-    ngOnInit() {
-        this.getEmailSetup();
+    ngOnInit() {     
 
         this.dictService.typeDict
         .then((items) => {
@@ -82,7 +83,9 @@ export class EmailMngComponent implements OnInit {
         .then((items) => {
             this.receiverDictArray = items;
             console.log(this.receiverDictArray, "this.receiverDictArray");
-        });
+            
+            this.getEmailSetup();
+        });        
     }
 
     getEmailSetup() {
@@ -93,8 +96,7 @@ export class EmailMngComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {                    
                     this.emailsetups = response.resultContent;
-                    console.log(this.emailsetups, "emailsetups!!!");
-                    this.showReceivers(this.emailsetups[0].receivers);
+                    console.log(this.emailsetups, response.resultContent, "emailsetups!!!");
                 } else {
                     this.showAlert("COMMON.GETTING_DATA_FAILED");
                 }
@@ -104,31 +106,62 @@ export class EmailMngComponent implements OnInit {
     }
 
     showReceivers(receivers:Array<string>):string {
+        //console.log(receivers, "showReceiver: receivers");
         if(receivers.length != 0){
-            for(let i=0; i<receivers.length; i++) {
-                console.log(this.receiverDictArray.find((n) => n.value == receivers[i]).displayValue);
+            let recs: Array<String> = [];            
+            for (let i = 0; i < receivers.length; i++) {
+                for (let j = 0; j < this.receiverDictArray.length; j++) {
+                    //console.log(this.receiverDictArray[j].value, <String>receivers[i]);
+                    if( this.receiverDictArray[j].value == <String>receivers[i] ) {
+                        //console.log(this.receiverDictArray[j].value, <String>receivers[i], "==");
+                        recs.splice(0, 0, this.receiverDictArray[j].displayValue);
+                    }
+                }
             }
-            return receivers.join(",");
+            //console.log(recs, "recs");
+            return recs.join(", ");
         } else {
             return "";
-        }       
+        }
 
     }
 
-    editEmial()
-    {
+    changeReceivers(id:string): void {
+        if(this.changedemail.receivers.some(n => {return n === id;})) {
+            this.changedemail.receivers.splice(this.changedemail.receivers.indexOf(id),1);
+            console.log(this.changedemail.receivers, '-');
+        } else {
+            this.changedemail.receivers.splice(0,0,id);
+            console.log(this.changedemail.receivers, '+');
+        }
+    }
+
+    editEmial() {
         let emailitem = this.getSelected();
         if (emailitem) {
-            this.selectedemail = emailitem;
-            this.changedemail.noticeType = this.selectedemail.noticeType;
-            this.changedemail.id = this.selectedemail.id;
-            this.changedemail.name = this.selectedemail.name;
-            this.changedemail.send = this.selectedemail.send;
-            this.changedemail.receivers = this.selectedemail.receivers;
-            this.changedemail.description = this.selectedemail.description;
-            this.editemailbox.open();
+            this.changedemail.noticeType = emailitem.noticeType;
+            this.changedemail.id = emailitem.id;
+            this.changedemail.name = emailitem.name;
+            this.changedemail.send = emailitem.send;
+            this.changedemail.receivers = [].concat(emailitem.receivers);
+            this.changedemail.description = emailitem.description;
+
+            this.layoutService.show();
+            this.service.getEmailTemplates(this.changedemail.noticeType)
+                .then(res => {
+                    this.layoutService.hide();
+                    if (res && res.resultCode == "100") {
+                        this.tempList = res.resultContent;
+                        console.log(res, "SYS_SETUP.GET_EMAIL_TYPE_TEMPLATES_SUCCESS");
+                        this.editemailbox.open();
+                    } else {
+                        this.showAlert("COMMON.GETTING_DATA_FAILED");
+                        return;
+                    }
+                })
+                .catch((e) => this.onRejected(e));
         } else {
-            this.showMsg("PHY_NET_MNG.PLEASE_CHOOSE_NETWORK");
+            this.showMsg("SYS_SETUP.PLEASE_CHOOSE_EMAIL_SETUP");
             return;
         }
     }
@@ -141,10 +174,10 @@ export class EmailMngComponent implements OnInit {
                 .then(res => {
                     this.layoutService.hide();
                     if (res && res.resultCode == "100") {
-                        console.log(res, "PHY_NET_MNG.EDIT_PHY_NET_SUCCESS");
+                        console.log(res, "SYS_SETUP.EDIT_EMAIL_SETUP_SUCCESS");
                     } else {
                         this.editemailbox.close();
-                        this.showMsg("PHY_NET_MNG.EDIT_PHY_NET_FAILED");
+                        this.showMsg("SYS_SETUP.EDIT_EMAIL_SETUP_FAILED");
                         return;
                     }
                 })
@@ -153,10 +186,10 @@ export class EmailMngComponent implements OnInit {
                     this.editemailbox.close();
                 })
                 .catch(err => {
-                    console.log('PHY_NET_MNG.EDIT_PHY_NET_EXCEPTION', err);
+                    console.log('SYS_SETUP.EDIT_EMAIL_SETUP_EXCEPTION', err);
                     this.layoutService.hide();
                     this.editemailbox.close();
-                    this.showMsg("PHY_NET_MNG.EDIT_PHY_NET_EXCEPTION");
+                    this.showMsg("SYS_SETUP.EDIT_EMAIL_SETUP_EXCEPTION");
                     this.okCallback = () => {
                         this.editemailbox.open();
                     };
@@ -195,7 +228,7 @@ export class EmailMngComponent implements OnInit {
             return item;
         }
         else {
-            this.showMsg("PHY_NET_MNG.PLEASE_CHOOSE_NETWORK");
+            this.showMsg("SYS_SETUP.PLEASE_CHOOSE_EMAIL_SETUP");
             return null;
         }
     }
