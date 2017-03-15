@@ -107,16 +107,16 @@
 
             <div class="float-left mgr20">
                 <span>服务类型</span>
-                <select class="form-control fix-width-120" [(ngModel)]="_param.orderType">
-                    <option class="hands" [value]="null">所有服务</option>
-					<option class="hands" [value]="null">新增服务</option>
+                <select class="form-control fix-width-120" [(ngModel)]="isAllService" (ngModelChange)="loadService()">
+                    <option class="hands" [value]="1">所有服务</option>
+					<option class="hands" [value]="2">新增服务</option>
                     <!--<option class="hands" *ngFor="let item of _orderTypeLoader.Items" [value]="item.id">{{item.name}}</option>-->
                 </select>
             </div>
 		</div><!--  下拉选项行 ending-->
 
 		<!--  表格行 -->
-		<div class="thirdPanel" *ngIf="isAllService!=2">
+		<div class="thirdPanel" *ngIf="isAllService==1">
             <div class="table-container">
                 <table class="table table-hover table-all-boder">
                     <thead>
