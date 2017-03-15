@@ -59,6 +59,7 @@ private selectedItem :CostManageItem = new CostManageItem();
 			for(let item of source){
 				let obj = new CostManageItem();
 				target.push(obj);
+				obj.id=item.id;
 				obj.startTime = item.startTime;
 				obj.endTime = item.endTime;
 				obj.money = item.amount;
@@ -143,35 +144,20 @@ private selectedItem :CostManageItem = new CostManageItem();
 			"tenantId": this._param.enterpriseId,
 			"updateTime": null
 		};
-// 		let param = {
-//   "adjustAmount": 500,
-//   "adjustReason": "调整原因",
-//   "amount": null,
-//   "billDate": null,
-//   "createTime": null,
-//   "endTime": null,
-//   "id": "2c196c12-bd00-48b0-aabe-ed07172117c6",
-//   "sendDate": null,
-//   "startTime": null,
-//   "status": 1,
-//   "tenantId": "5590336e-df0a-4dc3-82f3-4aed45e2b0a3",
-//   "updateTime": null
-// } 
+
 		this.layoutService.show();
 		this.saveLoader.Go(null,null,param)
 		.then(success=>{
+			this.costUpdate.close();
 			this.search();
 			this.layoutService.hide();
 		})
 		.catch(err=>{
 			this.layoutService.hide();
+			this.costUpdate.close();
 			this.showMsg(err);
 		})
 	}
-	cancelCostUpdate(){
-		
-	}
-
 	showMsg(msg: string)
 		{
 			this._notice.open("COMMON.SYSTEM_PROMPT", msg);
