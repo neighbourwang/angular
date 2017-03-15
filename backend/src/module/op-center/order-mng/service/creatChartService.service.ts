@@ -154,11 +154,10 @@ export class CreatChartService{
             
 }
     createTopIncreaseBar(){
-        // let topIncreasechart = new Chart1();
-        let type ='horizontalBar'; 
+         let type ='horizontalBar'; 
         let datasets=[{
             label:'消费总额',
-            data: [100,200,400,500,250]
+            data: [100,200,400,250]
                             
         }];
         let colors  = [
@@ -187,7 +186,7 @@ export class CreatChartService{
                                     }]
                                 }
                 };
-            let labels =['1月','2月','3月','4月','5月'];
+            let labels =['1月','2月','3月','4月'];
             this.topIncreasechart.creatChart(type,datasets,labels,colors,options);
             return this.topIncreasechart;
             
@@ -211,7 +210,6 @@ export class CreatChartService{
         target.datasets[0].data.splice(0,target.datasets[0].data.length);
         target.labels.splice(0,target.labels.length);
         target.datasets[0].data = datas;
-        target.datasets[0].data = [10,22,34,99];
         target.labels = labels;
   }
 
@@ -253,7 +251,7 @@ export class CreatChartService{
     }    
     target.datasets[0].data.splice(0,target.datasets[0].data.length);
     target.labels.splice(0,target.labels.length);
-    //    target.datasets[0].data = datas;
+    target.datasets[0].data = datas;
     //    target.datasets[0].data = [100,400,700,400,200];
     target.labels = labels;
     }
