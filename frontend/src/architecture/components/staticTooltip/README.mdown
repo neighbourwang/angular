@@ -3,6 +3,9 @@
 ![图片](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/architecture/assets/README/images/Screen%20Shot%202017-03-15%20at%203.46.07%20PM.png?raw=true)
 
 
+  
+    
+
 
 | 参数        | 类型                               | 描述         | 是否可选 | 默认值   |
 | :-------- | -------------------------------- | ---------- | ---- | ----- |
