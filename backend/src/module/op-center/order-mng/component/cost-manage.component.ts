@@ -59,6 +59,7 @@ private selectedItem :CostManageItem = new CostManageItem();
 			for(let item of source){
 				let obj = new CostManageItem();
 				target.push(obj);
+				obj.id=item.id;
 				obj.startTime = item.startTime;
 				obj.endTime = item.endTime;
 				obj.money = item.amount;
@@ -130,34 +131,33 @@ private selectedItem :CostManageItem = new CostManageItem();
 	acceptCostUpdate()
 	{
 		let param={
-			"adjustAmount":this.selectedItem.adjustAmount,
+			"adjustAmount":Number(this.selectedItem.adjustAmount),
 			"adjustReason": this.selectedItem.adjustReason,
 			"amount": this.selectedItem.money,
-			"billDate":this.selectedItem.endDate,
+			"billDate":null,
 			"createTime": null,
-			"endTime": this.selectedItem.endTime,
-			"id": this._param.enterpriseId,
-			"sendDate": this.selectedItem.sentDate,
-			"startTime": this.selectedItem.startTime,
+			"endTime": null,
+			"id": this.selectedItem.id,
+			"sendDate": null,
+			"startTime": null,
 			"status":this.selectedItem.status,
-			"tenantId": null,
+			"tenantId": this._param.enterpriseId,
 			"updateTime": null
-			};
+		};
+
 		this.layoutService.show();
 		this.saveLoader.Go(null,null,param)
 		.then(success=>{
+			this.costUpdate.close();
 			this.search();
 			this.layoutService.hide();
 		})
 		.catch(err=>{
 			this.layoutService.hide();
+			this.costUpdate.close();
 			this.showMsg(err);
 		})
 	}
-	cancelCostUpdate(){
-		
-	}
-
 	showMsg(msg: string)
 		{
 			this._notice.open("COMMON.SYSTEM_PROMPT", msg);
