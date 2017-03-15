@@ -146,14 +146,14 @@
             </div>
         </div>
     </div>
-    </form>
     <div class="col-md-offset-3 col-md-8 text-tip">{{ 'USER_CENTER.LIMIT_DESCRIPTION_THREE' | translate}}</div>
     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
         <div class="col-md-3 content-title" style="text-align : right">{{ 'USER_CENTER.DESCRIPTION' | translate}}:</div>
         <div class="col-md-8 no-padding">
-            <textarea class="form-control" rows="5" [(ngModel)]="criteria.details"></textarea>
+            <textarea #details="ngModel" name="details" id="details" class="form-control" rows="5" [(ngModel)]="criteria.details"></textarea>
         </div>
     </div>
+    </form>
     <div class="col-md-offset-3 col-md-8 text-tip">{{ 'USER_CENTER.LIMIT_DESCRIPTION_TWO' | translate}}</div>
 </fc-popup>
 
