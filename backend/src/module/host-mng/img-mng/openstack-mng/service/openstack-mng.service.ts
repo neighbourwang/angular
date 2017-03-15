@@ -97,7 +97,8 @@ export class OpenstackMngService{
             "os": image.os,
             "bitsType": image.bitsType,
             "type": image.type,
-            "description": image.description});
+            "description": image.description,
+            "capacity":image.capacity});
         
         // return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return {
         //     resultCode: 100,

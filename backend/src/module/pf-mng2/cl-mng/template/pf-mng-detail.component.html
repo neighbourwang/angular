@@ -1,7 +1,7 @@
 <div class="page-content-header icon-content-header-platform-manage" style="padding-bottom:10px;height:45px;">
-    云平台详细 <span>{{platformName}}</span>
+    {{ 'PF_MNG2.CLOUD_PLATFORM_DETAIL' | translate}} <span>: {{platformName}}</span>
     <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
-        <span class="icon-button-label" (click)='goList()'>返回云平台概览</span>
+        <span class="icon-button-label" (click)='goList()'>{{'PF_MNG2.RETURN_CLOUD_PLAT_OVERVIEW' | translate}}</span>
     </button>
 </div>
 <div class="mgt20" style="border-bottom:1px solid #ddd;padding-bottom:5px">
@@ -15,7 +15,7 @@
                 <div class="row row-line-height">
                     <div class="form-group">
                         <div class="col-sm-4 form-control-title">
-                            <span class="asterisk">*</span> 云平台名称：
+                            <span class="asterisk">*</span>{{ 'USER_CENTER.PLATFORM_NAME' | translate }}: 
                         </div>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" [(ngModel)]="platform.name" placeholder="{{'PF_MNG2.PLATFORM_REQUIRED'|translate}}">
@@ -25,7 +25,7 @@
                 <div class="row row-line-height">
                     <div class="form-group">
                         <div class="col-sm-4 form-control-title">
-                            <span class="asterisk">*</span> 所属地域：
+                            <span class="asterisk">*</span> {{'USER_CENTER.REGION_WHICH_BELONG_TO' | translate}}:
                         </div>
                         <div class="col-sm-4">
                             <select class="form-control" [(ngModel)]="platform.regionId">
@@ -37,7 +37,7 @@
                 <div class="row row-line-height">
                     <div class="form-group">
                         <div class="col-sm-4 form-control-title">
-                            <span class="asterisk">*</span> 所属数据中心：
+                            <span class="asterisk">*</span> {{'CAPACITY_MNG.DATA_CENTER_BELONG_TO' | translate}}:
                         </div>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" [(ngModel)]="platform.dataCenter" placeholder="{{'PF_MNG2.DATA_CENTER_REQUIRED' | translate}}">
@@ -49,7 +49,7 @@
                     <div class="form-group">
 
                         <div class="col-sm-4 form-control-title">
-                            <span class="asterisk">*</span> 云平台类型：
+                            <span class="asterisk">*</span> {{'USER_CENTER.PLATFORM_TYPE' | translate}}:
                         </div>
                         <div class="col-sm-4">
                             <div class="btn-group">
@@ -63,7 +63,7 @@
                     <div class="form-group">
 
                         <div class="col-sm-4 form-control-title">
-                            <span class="asterisk">*</span> 地址：
+                            <span class="asterisk">*</span> {{'COMMON.PATH' | translate}}:
                         </div>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" disabled [(ngModel)]="platform.uri" placeholder="{{'PF_MNG2.ADDRESS_REQUIRED' | translate}}">
@@ -75,7 +75,7 @@
                     <div class="form-group">
 
                         <div class="col-sm-4 form-control-title">
-                            <span class="asterisk">*</span> 版本：
+                            <span class="asterisk">*</span> {{'PF_MNG2.VERSION' | translate}}:
                         </div>
                         <div class="col-sm-4">
                             <select class="form-control" [(ngModel)]="platform.version">
@@ -89,7 +89,7 @@
                     <div class="form-group">
 
                         <div class="col-sm-4 form-control-title">
-                            <span class="asterisk">*</span> 用户名：
+                            <span class="asterisk">*</span> {{'COMMON.USERNAME' | translate}}:
                         </div>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" disabled [(ngModel)]="platform.username" placeholder="{{'PF_MNG2.USERNAME_REQUIRED' | translate}}">
@@ -101,7 +101,7 @@
                     <div class="form-group">
 
                         <div class="col-sm-4 form-control-title">
-                            <span class="asterisk">*</span> 密码：
+                            <span class="asterisk">*</span> {{'COMMON.PASSWORD' | translate}}:
                         </div>
                         <div class="col-sm-4">
                             <input type="password" class="form-control" disabled [(ngModel)]="platform.password" placeholder="{{'PF_MNG2.PASSWORD_REQUIRED' | translate}}">
@@ -111,11 +111,11 @@
                 <div class="row row-line-height">
                     <div class="form-group">
                         <div class="col-sm-4 form-control-title">
-                            <span class="asterisk">*</span> 是否支持云主机变更：
+                            <span class="asterisk">*</span> {{'PF_MNG2.SUPPORT_CLOUD_HOST_CHANGES' | translate}}:
                         </div>
                         <div class="col-sm-4">
-                            <input type="radio" class="fox-cloud-radio" [value]="1" [(ngModel)]="platform.support" name="support" style="margin-right:10px;">支持
-                            <input type="radio" class="fox-cloud-radio" [value]="0" [(ngModel)]="platform.support" name="support" style="margin:0 10px 0 20px;">不支持
+                            <input type="radio" class="fox-cloud-radio" [value]="1" [(ngModel)]="platform.support" name="support" style="margin-right:10px;">{{'PF_MNG2.SUPPORT' | translate}}
+                            <input type="radio" class="fox-cloud-radio" [value]="0" [(ngModel)]="platform.support" name="support" style="margin:0 10px 0 20px;">{{'PF_MNG2.NONSUPPORT' | translate}}
                         </div>
                     </div>
                 </div>
@@ -124,10 +124,10 @@
     </div>
     <div class="text-center">
         <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="back();" style="margin-right:40px;">
-            <span class="icon-button-label">取消</span>
+            <span class="icon-button-label">{{'COMMON.CANCEL' | translate}}</span>
         </button>
         <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="save()">
-            <span class="icon-button-label">保存</span>
+            <span class="icon-button-label">{{'COMMON.SAVE' | translate}}</span>
          </button>
     </div>
 </div>
@@ -138,7 +138,7 @@
                 <span class="icon-button-label" (click)='updateResourcePop()'>同步计算资源</span>
              </button>-->
             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right;margin-right:20px">
-                <span class="icon-button-label" (click)='updateZone()'>同步可用区</span>
+                <span class="icon-button-label" (click)='updateZone()'>{{'PF_MNG2.SYNC_AVAILABLE_ZONE' | translate}}</span>
             </button>
             <div style="clear:both"></div>
         </div>
@@ -148,16 +148,16 @@
                     <tr>
                         <!--<th >#</th>-->
                         <th class="check-box-col" style="width:6%">DC/Region</th>
-                        <th style="width:6%">可用区名称</th>
-                        <th style="width:8%">显示名称</th>
-                        <th style="width:18%">宿主机</th>
-                        <th style="width:8%">物理CPU核数</th>
-                        <th style="width:10%">总内存数(MB)</th>
-                        <th style="width:6%">CPU超分比</th>
-                        <th style="width:4%">配额%</th>
-                        <th style="width:4%">状态</th>
-                        <th style="width:14%">说明</th>
-                        <th style="width:16%">操作</th>
+                        <th style="width:6%">{{'PF_MNG2.AVAILABLE_ZONE_NAME' | translate}}</th>
+                        <th style="width:8%">{{'CAPACITY_MNG.DISPLAY_NAME' | translate}}</th>
+                        <th style="width:18%">{{'PF_MNG2.HOST' | translate}}</th>
+                        <th style="width:8%">{{'CAPACITY_MNG.PHYSICAL_CPU_CORES' | translate}}</th>
+                        <th style="width:10%">{{'PF_MNG2.TOTAL_MEMORY' | translate}}(MB)</th>
+                        <th style="width:6%">{{'CAPACITY_MNG.CPU_EXCEEDING_RATIO' | translate}}</th>
+                        <th style="width:4%">{{'COMMON.QUOTA' | translate}}%</th>
+                        <th style="width:4%">{{'COMMON.STATUS' | translate}}</th>
+                        <th style="width:14%">{{'COMMON.COMMENT' | translate}}</th>
+                        <th style="width:16%">{{'COMMON.OPERATION' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -202,15 +202,15 @@
                         </td>
                         <td>
                             <div *ngIf="!zone.isEdit">
-                                <button *ngIf="zone.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableZone(zone.id)">启用</button>
-                                <button *ngIf="zone.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendZone(zone.id)">禁用</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editZone(zone,idx)">编辑</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateHostPop(zone.id)">同步宿主机</button>
+                                <button *ngIf="zone.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableZone(zone.id)">{{'COMMON.ENABLE' | translate}}</button>
+                                <button *ngIf="zone.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendZone(zone.id)">{{'COMMON.DISABLE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editZone(zone,idx)">{{'COMMON.EDIT' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateHostPop(zone.id)">{{'PF_MNG2.SYNC_HOST' | translate}}</button>
                             </div>
 
                             <div *ngIf="zone.isEdit">
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveZone(zone,idx)">保存</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEdit(zone,idx)">取消</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveZone(zone,idx)">{{'COMMON.SAVE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEdit(zone,idx)">{{'COMMON.CANCEL' | translate}</button>
                             </div>
 
                         </td>
@@ -226,7 +226,7 @@
     <div class="page-content">
         <div style="padding-bottom: 10px;">
             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
-                <span class="icon-button-label" (click)='updateStorageListPop()'>同步存储后端</span>
+                <span class="icon-button-label" (click)='updateStorageListPop()'>{{'PF_MNG2.SYNC_STORAGE_BACKEND' | translate}}</span>
              </button>
             <div style="clear:both"></div>
         </div>
@@ -235,15 +235,15 @@
                 <thead>
                     <tr>
                         <!--<th>#</th>                        -->
-                        <th>名称</th>
-                        <th>显示名称</th>
-                        <th>存储类型</th>
-                        <th>总容量(GB)</th>
-                        <th>副本数</th>
-                        <th style="width:6%">配额%</th>
-                        <th>状态</th>
-                        <th>说明</th>
-                        <th style="width:15%">操作</th>
+                        <th>{{'COMMON.NAME' | translate}}</th>
+                        <th>{{'CAPACITY_MNG.DISPLAY_NAME' | translate}}</th>
+                        <th>{{'CAPACITY_MNG.STORAGE_TYPE' | translate}}</th>
+                        <th>{{'CAPACITY_MNG.TOTAL_CAPACITY' | translate}}</th>
+                        <th>{{'CAPACITY_MNG.COPIES' | translate}}</th>
+                        <th style="width:6%">{{'COMMON.QUOTA' | translate}}%</th>
+                        <th>{{'COMMON.STATUS' | translate}}</th>
+                        <th>{{'COMMON.COMMENT' | translate}}</th>
+                        <th style="width:15%">{{'COMMON.OPERATION' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -264,7 +264,7 @@
                             <span *ngIf="!storage.isEdit">{{storage.quotaPercentDisplay||0}}</span>
                             <input *ngIf="storage.isEdit" type="number" class="form-control" [(ngModel)]="storage.quotaPercentDisplay" style=" display: inline;">
                         </td>
-                        <td [ngClass]="{'font-green':zone.status == '1' ,'font-orange':zone.status == '3'}">
+                        <td [ngClass]="{'font-green':zone?.status == '1' ,'font-orange':zone?.status == '3'}">
                             {{storage.status|dict:this.commonService.globalStatus|async}}
                         </td>
                         <td>
@@ -273,14 +273,14 @@
                         </td>
                         <td>
                             <div *ngIf="!storage.isEdit">
-                                <button *ngIf="storage.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage.id)">启用</button>
-                                <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage.id)">禁用</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)">编辑</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)">同步存储空间</button>
+                                <button *ngIf="storage.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage.id)">{{'COMMON.ENABLE' | translate}}</button>
+                                <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage.id)">{{'COMMON.DISABLE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)">{{'COMMON.EDIT' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)">{{'PF_MNG2.SYNC_STORAGE_SPACE' | translate}}</button>
                             </div>
                             <div *ngIf="storage.isEdit">
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveStorage(storage,idx)">保存</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditStorage(storage,idx)">取消</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveStorage(storage,idx)">{{'COMMON.SAVE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditStorage(storage,idx)">{{'COMMON.CANCEL' | translate}}</button>
                             </div>
                         </td>
                     </tr>
@@ -292,16 +292,16 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>可用区</th>
-                        <th>名称</th>
-                        <th>显示名称</th>
-                        <th>存储类型</th>
-                        <th>总容量(GB)</th>
-                        <th>副本数</th>
-                        <th style="width:6%">配额%</th>
-                        <th>状态</th>
-                        <th>说明</th>
-                        <th style="width:15%">操作</th>
+                        <th>{{'COMMON.AVAILABLE_ZONE' | translate}}</th>
+                        <th>{{'COMMON.NAME' | translate}}</th>
+                        <th>{{'CAPACITY_MNG.DISPLAY_NAME' | translate}}</th>
+                        <th>{{'CAPACITY_MNG.STORAGE_TYPE' | translate}}</th>
+                        <th>{{'CAPACITY_MNG.TOTAL_CAPACITY' | translate}}</th>
+                        <th>{{'CAPACITY_MNG.COPIES' | translate}}</th>
+                        <th style="width:6%">{{'COMMON.QUOTA' | translate}}%</th>
+                        <th>{{'COMMON.STATUS' | translate}}</th>
+                        <th>{{'COMMON.COMMENT' | translate}}</th>
+                        <th style="width:15%">{{'COMMON.OPERATION' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -335,14 +335,14 @@
                         </td>
                         <td>
                             <div *ngIf="!storage.isEdit">
-                                <button *ngIf="storage.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage.id)">启用</button>
-                                <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage.id)">禁用</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)">编辑</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)">同步存储空间</button>
+                                <button *ngIf="storage.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage.id)">{{'COMMON.ENABLE' | translate}}</button>
+                                <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage.id)">{{'COMMON.DISABLE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)">{{'COMMON.EDIT' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)">{{'PF_MNG2.SYNC_STORAGE_SPACE' | translate}}</button>
                             </div>
                             <div *ngIf="storage.isEdit">
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveStorage(storage,idx)">保存</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditStorage(storage,idx)">取消</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveStorage(storage,idx)">{{'COMMON.SAVE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditStorage(storage,idx)">{{'COMMON.CANCEL' | translate}}</button>
                             </div>
                         </td>
                     </tr>

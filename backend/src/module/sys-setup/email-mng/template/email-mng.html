@@ -1,0 +1,104 @@
+<div class="page-content-header icon-system-setup">
+    {{'SYS_SETUP.EMAIL_SETUP_MNG' | translate}}
+</div>
+
+<div class="page-content">
+    <div class="mgb20">
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="editEmial();">
+            <span class="glyphicon glyphicon-edit"></span>
+            <span class="icon-button-label icon-left-button-label">{{'COMMON.EDIT' | translate}}</span>
+        </button>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="mngEmailTemplate();">       
+            <span class="icon-button-label icon-left-button-label">{{'SYS_SETUP.MNG_EMAIL_TEMPLATE' | translate}}</span>
+        </button>
+    </div>
+
+    <div class="table-container">
+        <table class="table table-hover" style="table-layout: fixed;">
+            <thead>
+                <tr>
+                    <th>{{'COMMON.SELECT' | translate}}</th>
+                    <th>{{'SYS_SETUP.NOTIFICATION_TYPE' | translate}}</th>
+                    <th>{{'SYS_SETUP.TEMPLATE_NAME' | translate}}</th>
+                    <th>{{'SYS_SETUP.SEND_ORNOT_EMAIL' | translate}}</th>
+                    <th>{{'SYS_SETUP.RECEIVER' | translate}}</th>
+                    <th style="width:40%">{{'SYS_SETUP.DESCRIPTION' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let emset of emailsetups; let i = index; ">
+                    <td><input type="radio" class="fox-cloud-radio" name="radio" [checked]="emset.checked" (change)="selectItem(i);"></td>
+                    <td> {{emset.noticeType | dict:this.dictService.typeDict | async}} </td>
+                    <td> {{emset.name}} </td>
+                    <td> {{emset.send | dict:this.dictService.sendDict | async}} </td>
+                    <td> {{showReceivers(emset.receivers)}} </td>
+                    <td style="width:40%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{emset.description}}</td>
+                    <!--
+                    <td [ngClass]="phynet.status==1?'font-green':'font-orange'"> {{(phynet.status | dict:this.dictService.statusDict | async) || "未设置"}} </td>
+                    -->
+                </tr>                
+            </tbody>
+        </table>
+    </div>
+<!--
+    <div class="fox-cloud-pagination-container">
+        <fc-pagination #pager tp={{totalPage}} (pf)="getPhyNetList($event)"></fc-pagination>
+    </div>
+-->
+    <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" (of)="okClicked()"></fc-notice>
+    <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}"></fc-confirm>
+
+</div>
+
+
+<fc-popup #editemailbox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'SYS_SETUP.EDIT_EMAIL_SETUP' | translate}}" (of)="acceptEditEmailModify()" (cf)="cancelEditEmailModify()">
+    <div class="dialogContent">
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'SYS_SETUP.NOTIFICATION_TYPE' | translate}}：</div>
+            <div class="col-sm-7">
+                <!--<input type="text" class="form-control" [(ngModel)]="phynet_create" />-->
+                {{changedemail.noticeType | dict:this.dictService.typeDict | async}}
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'SYS_SETUP.TEMPLATE_NAME' | translate}}：</div>
+            <div class="col-sm-7">
+                <select class="pdl20 pdr20 form-control" [(ngModel)]="changedemail.id">
+                    <option *ngFor="let temp of tempList" [ngValue]="temp.id">{{temp.name}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'SYS_SETUP.SEND_ORNOT_EMAIL' | translate}}：</div>
+            <div class="col-sm-7">
+                <input type="radio" name="radio1" [checked]="changedemail.send=='1'" (click)="changedemail.send='1';" />{{'COMMON.YES' | translate}}
+                <input type="radio" name="radio1" [checked]="changedemail.send=='0'" (click)="changedemail.send='0';" />{{'COMMON.NO' | translate}}
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'SYS_SETUP.RECEIVER' | translate}}：</div>
+            <div class="col-sm-7">
+                <div *ngFor="let receiver of receiverDictArray" style="display: inline;">
+                    <input  type="checkbox" [checked]="changedemail.receivers.includes(receiver.value)" (click)="changeReceivers(receiver.value);"> {{receiver.displayValue}}
+                </div>         
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-5 form-control-title">{{'SYS_SETUP.DESCRIPTION' | translate}}：</div>
+            <div class="col-sm-7">
+                <textarea class="form-control" rows="3" placeholder="" [(ngModel)]="changedemail.description">{{changedemail.description}}</textarea>
+            </div>
+        </div>
+    </div>
+    </div>
+</fc-popup>
+

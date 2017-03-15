@@ -17,7 +17,7 @@ export class EntEstItem{
 
 	status: string = "";	// 状态
 
-	description: string = "";	// 描述// 描述
+	desc: string = "";	// 描述// 描述
 	checked: boolean = false;//ui operation
 	statusName: string = ""; //ui operation
 

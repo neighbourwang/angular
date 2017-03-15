@@ -1,0 +1,52 @@
+<div class="page-content-header icon-system-setup">
+    {{'SYS_SETUP.SHOW_EMAIL_TEMPLATE' | translate}}
+</div>
+
+<div class="page-content">
+    <div class="row" style="margin-top:30px;">
+
+        <div class="col-md-12">
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">{{'SYS_SETUP.TEMPLATE_NAME' | translate}}:</div>
+                    <div class="col-md-4">
+                        <span>{{temp_details.name || ('COMMON.UNSET' | translate)}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">{{'SYS_SETUP.EMAIL_THEME' | translate}}:</div>
+                    <div class="col-md-4">
+                        <span>{{temp_details.subject || ('COMMON.UNSET' | translate)}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">{{'SYS_SETUP.NOTIFICATION_TYPE' | translate}}:</div>
+                    <div class="col-md-4">
+                        <!-- <span>{{(imageOs | dict:this.dictService.osDict | async) || ('HOST_VMWARE_MNG.UNSET' | translate)}}</span>-->
+                        <span>{{(temp_details.noticeType | dict:this.dictService.typeDict | async) || ('COMMON.UNSET' | translate)}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">{{'SYS_SETUP.Email_CONTENT' | translate}}:</div>
+                    <div class="col-md-4">
+                        <span [innerHTML]="temp_details.content || ('COMMON.UNSET' | translate)"></span>
+                    </div>
+                </div>
+            </div>
+           
+        </div> <!-- col-md-12 -->
+
+    </div>
+</div>
+
+<div class="text-center" style="margin-top:30px;">
+    <button class="fox-cloud-button-lg fox-cloud-button-white">
+        <span class="icon-button-label" (click)="emailTemplatePage()">{{'COMMON.CLOSE' | translate}}</span>
+    </button>
+</div>

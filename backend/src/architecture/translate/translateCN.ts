@@ -497,8 +497,8 @@
         "SET_PRODUCT": "设置产品",
         "MANAGE_AVILABLE_PLATFORM": "管理可用平台",
         "SNAPSHOT_NUM": "快照数量",
-        "STORAGE_QUOTA": "存储配额",
-        "STORAGE_QUOTA_PERCENT": "存储配额使用率",
+        "MEM_QUOTA_PERCENT": "内存配额使用率%",
+        "STORAGE_QUOTA_PERCENT": "存储配额使用率%",
         "THE_ADMIN_STATUS_IS": "该管理员已经是{{value_1}}状态！",
         "THE_AD_SOURCE_STATUS_IS": "该认证源已经是{{value_1}}状态！",
         "UPDATE_ADMINISTRATOR": "更新管理员",
@@ -506,7 +506,7 @@
         "VAILABLE_RAM_NUM": "可使用内存数量",
         "VAILABLE_STORAGE_QUOTA": "可使用存储额度",
         "VAILABLE_VCPU_NUM": "可创建vCPU数量",
-        "VCPU_QUOTA_PERCENT": "vCPU配额使用率",
+        "VCPU_QUOTA_PERCENT": "vCPU配额使用率%",
         "VIEW_ENTERPRISE": "查看企业"
     },
     "HOST_MNG": {
@@ -1250,7 +1250,43 @@
         "PF_CLOUD_MNG":"云平台管理",
         "PF_MNG":"平台管理",
         "CREATE_CLOUD_PLATFORM": "创建云平台",
-        "HEALTH_EXAMINATION":"健康检查"
+        "HEALTH_EXAMINATION":"健康检查",
+
+        "AVAILABLE_ZONE_CONFIGURATION":"可用区配置",
+        "STORAGE_CONFIGURATION":"存储区配置",
+        "CLOUD_HOST_SPECIFICATIONS":"云主机规格",
+        "IMAGE_CONFIGURATION":"镜像配置",
+        "SUPPORT_CLOUD_HOST_CHANGES":"是否支持云主机变更?",
+        "ENTER_CLOUD_PLATFORM_ACCESS_INFO":"请输入云平台访问信息",
+        "SUPPORT":"支持",
+        "NONSUPPORT":"不支持",
+        "VERSION":"版本",
+        "ADDRESS":"地址",
+        "PLATFORM_RESOURCES":"平台资源",
+        "SYNC_STATE":"同步状态",
+        "HOST":"宿主机",
+        "ERROR_GETTING_REGION":"获取Region信息错误",
+        "SELECT_REGION":"选取Regionn",
+        "AVAILABLE_ZONE_NAME":"可用区名称",
+        "NUMBER_OF_HOSTS":"宿主机数量",
+        "TOTAL_MEMORY":"总内存数",
+        "DISK":"磁盘",
+        "INIT":"初始化",
+        "DISABLED":"已禁用",
+        "MANAGE_CLOUD_HOST_SPEC":"管理云主机规格",
+        "NO_SYNC_SPEC_INFO":"暂时没有可同步的规格信息",
+        "NONSUPPORT_CHANGES_STATE":"不支持对未启用状态平台下的可用区状态的更改",
+        "RETURN_CLOUD_LIST":"返回云平台列表",
+        "SYNC_CLOUD_SPEC":"同步云主机规格",
+        "NEW_CLOUD_SPEC":"新建云主机规格",
+        "SPEC_NAME":"规格名称",
+        "CLOUD_PLATFORM_DETAIL":"云平台详细",
+        "RETURN_CLOUD_PLAT_OVERVIEW":"返回云平台概览",
+        "SYNC_AVAILABLE_ZONE":"同步可用区",
+        "SYNC_HOST":"同步宿主机",
+        "SYNC_STORAGE_BACKEND":"同步存储后端",
+        "SYNC_STORAGE_SPACE":"同步存储空间",
+   
     },
     "PHY_MNG_POOL": {
         "ACTIVE": "启用",
@@ -1623,7 +1659,82 @@
     }
     ,
     "PHY_IMG_MNG":{
-        "TEST":"测试"
+        "CONFIRM":"确认",
+        "CANCEL":"取消",
+        "NOTICE":"提示",
+        "SAVE":"保存",
+        "CLOSE":"关闭",
+        "ERROR":"获取数据失败!",
+        "RETURN":"返回资源池列表",
+        "ALLOCATE_SUCCESS":"分配成功",
+       
+        "SELECT_OPTION":"选择操作",
+        "EDIT":"编辑",
+        "EDIT_SUCCESS":"编辑成功",
+
+        "ENABLE":"启用",
+        "ENABLE_SUCCESS":"启用成功",
+
+        "DISABLE":"禁用",
+        "DISABLE_SUCCESS":"禁用成功",
+
+        "DELETE":"删除",
+        "DELETE_SUCCESS":"删除成功",
+        "PHYSICAL_STATUS":"该物理机已经是{{value_1}}状态，请选择需要{{value_1}}的物理机。",
+        
+        "PROMPT": "提示",
+    
+        
+        "STATUS": "状态",
+        //镜像源页面
+        "PHY_IMG_MNG":"物理机镜像管理",
+        "IMG_SOURCE_NAME":"镜像源名称",
+        "IMG_SOURCE_ADDRESS":"镜像源地址",
+        "IMG_SOURCE_POOL":"资源池列表",
+        "DESCRIPTION":"描述",
+        "ALLOCATE_POOL":"分配物理资源池",
+        "CREATE_PHY_SOURCE":"创建镜像源",
+
+        "NAME_NOT_NULL":"名称不能为空",
+        "ADDRESS_NOT_NULL":"地址不能为空",
+        "CREATE_SUCCESS":"创建成功",
+        "PLEASE_CHOOSE_ONE_SOURCE":"请选择一个镜像源",
+        //创建源弹出框
+        "CREATE_PHY_IMG_SOURCE":"创建物理机镜像源",
+        "DISPLAY_NAME":"显示名称",
+        "TEST":"测试",
+        "TEST_SUCCESS":"测试成功",
+        //编辑弹出框
+        "EDIT_PHY_IMG_SOURCE":"编辑物理机镜像源",
+        //分配资源池
+        "ALLOCATE_RES_POOL":"分配物理资源池",
+        "UNSELECTED_POOL":"未选中资源池",
+        "SELECTED_POOL":"已选中资源池",
+        //镜像列表页面
+        "SYNC_IMG":"同步镜像",
+        "ALLOCATE_ENT":"分配企业",
+        "RETURN_PHY_IMG_MNG":"返回物理机镜像管理",
+        "MNG_IMG_LIST":"管理镜像 -- 物理机镜像源名称",
+        "EDIT_IMAGE": "编辑镜像",
+        "JUST_NONE_PUBLIC":"只有非公共镜像类型才能分配企业",
+        //同步镜像页面
+        "SYNC_PHY_IMAGE":"同步物理机镜像",
+        "SELECT": "选择",
+        "NUMBER": "编号",
+        "IMAGE_DISPLAY_NAME": "镜像显示名称",
+        "IMAGE_FILE_NAME":"镜像文件名",
+        "OS": "操作系统",
+        "BIT": "系统位数",
+        "IMAGE_TYPE": "镜像类型",
+        "AFFILIATED_ENTERPRISE": "所属企业",
+        "SYNC_RESULT": "同步结果",
+        "PLEASE_CHOOSE_IMAGE": "请先选择一个镜像",
+        "RETURN_IMAGE_MANAGEMENT": "返回镜像管理列表",
+        "SAVE_SUCCESS": "保存成功！",
+        //
+        "SEE_IMAGE":"查看镜像",
+        "SELECTED_ENTERPRISE":"已选择企业",
+        "UNSELECTED_ENTERPRISE":"未选择企业"
     },
     "CASE_MNG":{
         "CASE_MNG":"工单管理",
@@ -1675,5 +1786,34 @@
         "PLEASE_INPUT_HANDLE_RECORD":"请填写处理记录！",
         "PLEASE_SELECT_CLOSE_TYPE":"请选择关闭类型！",
         "PLEASE_INPUT_CLOSE_DESCRIPTION":"请填写关闭描述！"
+    },
+    "SYS_SETUP":{
+        "EMAIL_SETUP_MNG": "Email设置管理",
+        "EMAIL_TEMPLATE_MNG": "Email模板管理",
+        "MNG_EMAIL_TEMPLATE": "管理Email模板",
+        "SHOW_EMAIL_TEMPLATE": "查看Email模板",
+        "EDIT_EMAIL_SETUP": "编辑Email设置",
+
+        "NOTIFICATION_TYPE": "通知类型",
+        "TEMPLATE_NAME": "模板名称",
+        "TEMPLATE_TYPE": "模板类型",
+        "SEND_ORNOT_EMAIL": "是否发送Email",
+        "RECEIVER": "发送对象",        
+        "DESCRIPTION": "说明",
+        "CREATE_TIME": "创建时间",
+
+        "PLEASE_CHOOSE_EMAIL_SETUP": "请选择邮件设置",
+        "PLEASE_CHOOSE_EMAIL_TEMPLATE": "请选择邮件模板",
+        "GET_EMAIL_TYPE_TEMPLATES_SUCCESS": "获取某种类型的邮件模板成功",
+
+        "EMAIL_THEME": "Email主题",
+        "Email_CONTENT": "Email内容",
+
+        "EDIT_EMAIL_SETUP_SUCCESS": "编辑Email设置成功",
+        "EDIT_EMAIL_SETUP_FAILED": "编辑Email设置失败",
+        "EDIT_EMAIL_SETUP_EXCEPTION": "编辑Email设置异常",
+        "RETURN_EMAIL_SETUP": "返回Email设置",
+
+
     }
 }

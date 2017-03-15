@@ -1,0 +1,54 @@
+
+<div class="page-content-header icon-system-setup">
+    <div>
+    {{'SYS_SETUP.EMAIL_TEMPLATE_MNG' | translate}}
+    <button class=" fox-cloud-button fox-cloud-button-white " style="float: right; margin: -10px;">
+        <span class="icon-button-label" (click)="emailMngPage()">{{'SYS_SETUP.RETURN_EMAIL_SETUP' | translate}}</span>
+    </button>
+    </div>
+</div>
+<div class="page-content">
+
+    <div class="mgb10">
+        <button class="fox-cloud-button fox-cloud-button-green">{{'COMMON.CREATE' | translate}}</button>
+        <button class="fox-cloud-button fox-cloud-button-green">{{'COMMON.EDIT' | translate}}</button>
+        <button class="fox-cloud-button fox-cloud-button-green">{{'COMMON.DELETE' | translate}}</button>
+    </div>
+
+
+    <div class="table-container mgb10">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>{{'COMMON.NUMBER' | translate}}</th>
+                <th>{{'SYS_SETUP.TEMPLATE_NAME' | translate}}</th>
+                <th>{{'SYS_SETUP.NOTIFICATION_TYPE' | translate}}</th>
+                <th>{{'SYS_SETUP.TEMPLATE_TYPE' | translate}}</th>
+                <th>{{'SYS_SETUP.CREATE_TIME' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let temp of emailtemps; let i = index;">
+                <td>{{(i+1)}}</td>
+                <td style="position:relative"><a href="javascript:void(0);" (click)="selectItem(i); emailTemplateDetailsPage();">{{temp.name}}</a></td>
+                <td>{{temp.noticeType | dict:this.dictService.typeDict | async}}</td>
+                <td>{{temp.templateType | dict:this.dictService.temptypeDict | async}}</td>
+                <td>{{temp.createDate}}</td>
+            </tr>
+            </tbody>
+        </table>        
+    </div>
+
+</div>
+
+
+<!--
+<div class="text-center">
+    <button class="fox-cloud-button-lg fox-cloud-button-white">
+        <span class="icon-button-label" (click)="emailMngPage();">{{'COMMON.CLOSE' | translate}}</span>
+    </button>
+</div>
+-->
+
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" (of)="okClicked()"></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" (of)="onConfirmed()"></fc-confirm>

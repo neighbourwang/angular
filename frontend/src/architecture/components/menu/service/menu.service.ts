@@ -163,12 +163,12 @@ export class MenuService {
 							"isOpen": false,
 							"isShow": true,
 							"routing": "op-center/order-mng/order-mng-search"
-						},/* {
+						}, {
 							"label": "消费总览",
 							"isOpen": false,
 							"isShow": true,
 							"routing": "op-center/order-mng/cost-pandect"
-						}*/
+						}
 					]
 				},
 				{
@@ -198,7 +198,7 @@ export class MenuService {
                         {
                             "label": "MENU.CASE_MNY",
                             "isOpen": false,
-                            "isShow": true,
+                            "isShow": isOrgin,
                             "routing": "user-center/case-mng/case-mng-list"
                         }
 

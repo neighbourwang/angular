@@ -1,7 +1,7 @@
-import { Input, Component, OnInit, ViewChild, } from '@angular/core';
+import { Input, Component, OnInit, ViewChild,EventEmitter, Output,OnChanges} from '@angular/core';
 import { Router } from '@angular/router';
-import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import {} from '../model'
+import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent, PopupComponent } from '../../../../architecture';
+import {CostSetItem,CostSetInfo} from '../model'
 
 import * as _ from 'underscore';
 
@@ -11,39 +11,28 @@ import * as _ from 'underscore';
 	styleUrls: ['../style/cost-set-default.less'],
 	providers: []
 })
-export class CostSetDefaultComponent implements OnInit{
+export class CostSetDefaultComponent implements OnInit,OnChanges{
 
 @ViewChild("notice")
   	private _notice: NoticeComponent;
-//订单类型
-private _orderTypeDic:DicLoader = null;
-//订购人
-private _buyerLoader:ItemLoader<{id:string; name:string}> = null;
+ @ViewChild("popup") popup: PopupComponent;
 
-	
+ @Output() complete=new EventEmitter();
+
+@Input()
+private costItem: CostSetInfo = new CostSetInfo();
+
+private currencyList=[];	
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
-        //订购人加载
-		this._buyerLoader = new ItemLoader<{id:string; name:string}>(false, 'ORDER_MNG.SUBSCRIBER_LIST_DATA_FAILED', "check-center.submiter-list.get", this.restApiCfg, this.restApi);
-
-        this._buyerLoader.MapFunc = (source:Array<any>, target:Array<{id:string;name:string}>)=>{
-			for(let item of source)
-			{
-				let obj=_.extend({}, item) ;
-				target.push(obj);
-				obj.id = item.key;
-				obj.name = item.value;
-			}
-		}
-
-        this._orderTypeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
-
 }
 	ngOnInit(){
         this.layoutService.show();
+		this.loadCurrency();
+		
         
         // this._buyerLoader.Go(null, [{key:"departmentId", value:null}])
         // .then(success=>{
@@ -56,6 +45,27 @@ private _buyerLoader:ItemLoader<{id:string; name:string}> = null;
 		this.layoutService.hide();
 	}
 
+	ngOnChanges(changes) {
+		// if(this.costItem){
+		// 	if(this.costItem.currency=='RMB'){
+		// 		this.costItem.currency = '1';	
+		//  }else
+		// 		this.costItem.currency ='2';
+		// }
+	}
+
+	open(titleName:string) {
+		this.popup.open(titleName);
+	} 
+
+	acceptDefaultSet(){
+	
+		this.complete.emit(this.costItem);
+	}
+
+	cancelDefaultSet(){
+
+	}
 
 
 showMsg(msg: string)
@@ -63,5 +73,12 @@ showMsg(msg: string)
 		this._notice.open("COMMON.SYSTEM_PROMPT", msg);
 	}
 
-	
+loadCurrency(){
+	this.currencyList.push({id:'RMB',name:'人民币'});
+	this.currencyList.push({id:'MY',name:'美元'});
+}	
+close() {
+	this.popup.close();
+}
+
 }

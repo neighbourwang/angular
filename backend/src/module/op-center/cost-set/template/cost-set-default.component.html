@@ -1,81 +1,81 @@
-<div class="CostSet">	
-	<div class="page-content">
-		<form class="form-horizontal" role="form">
-		  <div class="form-group">
-		    <label for="firstname" class="col-sm-4 ">货币</label>
-		    <div class="col-sm-8">
-		      <select class="form-control fix-width-120">
-					<option class="hands" [value]="null">人民币</option>
-					<option class="hands">2016年</option>
-				</select>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label  class="col-sm-4">付费方式</label>
-		    <div class="col-sm-8">
-		      	<input type="radio" class="fox-cloud-radio mgr5" >后付费
-		    </div>
-		  </div>
-		  <div class="form-group">
-		  	<label  class="col-sm-4">出账周期</label>
-		    <div class="col-sm-8">
-			    <input type="radio" class="fox-cloud-radio mgr5" ><span class="mgr20">每月</span>
-			    <input type="radio" class="fox-cloud-radio mgr5" ><span class="
-			    mgr20">每季度</span>
-			    <input type="radio" class="fox-cloud-radio mgr5" ><span class="
-			    mgr20">每半年</span>
-			    <input type="radio" class="fox-cloud-radio mgr5" ><span class="
-			    mgr20">每年</span>
+<fc-popup #popup ot="{{ 'COMMON.CONFIRM' | translate }}" ct="{{ 'COMMON.CANCEL' | translate }}" (of)="acceptDefaultSet()" (cf)="cancelDefaultSet()">
+  <div class="dialogContent">
+		<div class="CostSetDailog">	
+			<div class="page-content" *ngIf="costItem">
+				<form class="form-horizontal" role="form">
+				  <div class="form-group"><!--[(ngModel)]="param.currency"-->
+				    <label for="firstname" class="col-sm-4 " >货币</label>
+				    <div class="col-sm-8">
+				      <select class="form-control fix-width-120"  name="currency" [(ngModel)]='costItem.currency'>
+								<!--<option class="hands" [value]="null">所有货币类型</option>-->
+								<option class="hands" *ngFor="let item of currencyList" [value]="item.id" >{{item.name}}</option>
+								<!--<option class="hands" [value]="1">人民币</option>
+								<option class="hands" [value]="2">美元</option>-->
+						</select>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label  class="col-sm-4">付费方式</label>
+				    <div class="col-sm-8">
+				      	<input type="radio" name="paytype" class="fox-cloud-radio mgr5" [value]="1" [(ngModel)]='costItem.payType'>后付费
+				    </div>
+				  </div>
+				  <div class="form-group">
+				  	<label  class="col-sm-4">出账周期</label>
+				    <div class="col-sm-8">
+					    <input name="period" type="radio" class="fox-cloud-radio mgr5" [value]="1" [(ngModel)]='costItem.billPeriod'><span class="mgr20">每月</span>
+					    <input name="period" type="radio" class="fox-cloud-radio mgr5" [value]="2" [(ngModel)]='costItem.billPeriod'><span class="
+					    mgr20">每季度</span>
+					    <input name="period" type="radio" class="fox-cloud-radio mgr5" [value]="3" [(ngModel)]='costItem.billPeriod'><span class="
+					    mgr20">每半年</span>
+					    <input name="period" type="radio" class="fox-cloud-radio mgr5" [value]="4" [(ngModel)]='costItem.billPeriod'><span class="
+					    mgr20">每年</span>
+					</div>
+				  </div>
+				  <div class="form-group">
+				  	<label  class="col-sm-4 ">账单生成日</label>
+				    <div class="col-sm-8">
+				      次月<input type="text" name="billCreateDate" [(ngModel)]='costItem.billCreateDate'>号
+				    </div>
+				  </div>
+				  <div class="form-group">
+				  	<label  class="col-sm-4 ">账单发送日</label>
+				    <div class="col-sm-8">
+				      账单生成日后<input type="text" name='billSendDate' [(ngModel)]='costItem.billSendDate'>天
+				    </div>
+				  </div>
+				   <div class="form-group">
+				  	<label  class="col-sm-4  label-title">提前退订</label>
+				  </div>
+				  <div class="form-group">
+				  	<label  class="col-sm-4 ">计费规则</label>
+				    <div class="col-sm-8">
+				      <input name="refund" type="radio" class="fox-cloud-radio mgr5" [value]="1" [(ngModel)]='costItem.refund'><span class="mgr20">费用不返还</span>
+				      <input name="refund" type="radio" class="fox-cloud-radio mgr5" [value]="2" [(ngModel)]='costItem.refund'><span class="mgr20">费用返还</span>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				  	<label  class="col-sm-4 ">特殊计费</label>
+				    <div class="col-sm-8">
+				      <input type="radio" name='specialBill' class="fox-cloud-radio mgr5" [value]="1"  [(ngModel)]='costItem.specialBill'>
+				      <span>方案1：按小时计费，不满1小时按小时计;<br>
+				      按天计费，不满1天按天计;<br>
+				      按月计费，不满月按天计;<br>
+				      按年计费，不满年按月计。不满月按月计。<br></span>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				  	<label  class="col-sm-4  label-title">产品新价格</label>
+				  </div>
+				   <div class="form-group">
+					  	<label  class="col-sm-4  ">生效方式</label>
+					    <div class="col-sm-8">
+					    	<input name="effect" type="radio" class="fox-cloud-radio mgr5" [value]="1"  [(ngModel)]='costItem.newPriceEffect'><span class="mgr20">立即</span>
+					    	<input name="effect" type="radio" class="fox-cloud-radio mgr5" [value]="2"  [(ngModel)]='costItem.newPriceEffect'><span class="mgr20">下一次订购</span>
+					    </div>
+				  </div>
+				</form>
 			</div>
-		  </div>
-		  <div class="form-group">
-		  	<label  class="col-sm-4 ">账单生成日</label>
-		    <div class="col-sm-8">
-		      次月<input type="text" />号
-		    </div>
-		  </div>
-		  <div class="form-group">
-		  	<label  class="col-sm-4 ">账单发送日</label>
-		    <div class="col-sm-8">
-		      账单生成日后<input type="text" />天
-		    </div>
-		  </div>
-		   <div class="form-group">
-		  	<label  class="col-sm-4  label-title">提前退订</label>
-		  </div>
-		  <div class="form-group">
-		  	<label  class="col-sm-4 ">计费规则</label>
-		    <div class="col-sm-8">
-		      <input type="radio" class="fox-cloud-radio mgr5" ><span class="mgr20">费用不返还</span>
-		      <input type="radio" class="fox-cloud-radio mgr5" ><span class="mgr20">费用返还</span>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		  	<label  class="col-sm-4 ">特殊计费</label>
-		    <div class="col-sm-8">
-		      <input type="radio" class="fox-cloud-radio mgr5" >
-		      <span>方案1：按小时计费，不满1小时按小时计;<br>
-		      按天计费，不满1天按天计;<br>
-		      按月计费，不满月按天计;<br>
-		      按年计费，不满年按月计。不满月按月计。<br></span>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		  	<label  class="col-sm-4 ">账单生成日</label>
-		    <div class="col-sm-8">
-		      次月<input type="text" />号
-		    </div>
-		  </div>
-		  <div class="form-group">
-		  	<label  class="col-sm-4  label-title">产品新价格</label>
-		  </div>
-		   <div class="form-group">
-			  	<label  class="col-sm-4  ">生效方式</label>
-			    <div class="col-sm-8">
-			    	<input type="radio" class="fox-cloud-radio mgr5" ><span class="mgr20">立即</span>
-			    	<input type="radio" class="fox-cloud-radio mgr5" ><span class="mgr20">下一次订购</span>
-			    </div>
-		  </div>
-		</form>
-	</div>
-</div>
+		</div>
+  </div>
+</fc-popup>

@@ -88,11 +88,11 @@
                     <div class="console-box">
                         <div class="console-title" *ngIf='!this.isNullEnterprise()'>TOP5部门新增总额排名</div>
 						<div class="console-title" *ngIf='this.isNullEnterprise()'>TOP5企业消费总额排名</div>
-						 <canvas *ngIf="topIncreasechart" baseChart
-                          width="200" height="70"
+						  <canvas baseChart
+                          width="200" *ngIf="topIncreaseChart" height="70"
                           [datasets]="topIncreaseChart.datasets"
                           [labels]="topIncreaseChart.labels"
-                          [colors]="topIncreaseChart.colors "
+                          [colors]="topIncreaseChart.colors"
                           chartType="horizontalBar"
                           [options]="topIncreaseChart.options"></canvas>
                         <div class="ues-content">

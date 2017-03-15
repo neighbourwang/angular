@@ -72,6 +72,8 @@ export class CaseMngListComponent implements OnInit{
     selectedType= this.defaultType;
     selectedStatus= this.defaultStatus;
     id: string;
+    Default= null;
+    isPhone: boolean=true;
 
     criteria: CaseMngList= new CaseMngList();
 
@@ -126,10 +128,10 @@ export class CaseMngListComponent implements OnInit{
 
     crePage(){
         this.orgForm.reset();
+        this.criteria.emergency= null;
+        this.criteria.type= null;
         this.isEdit= false;
-        this.criteria= new CaseMngList();
-        this.criteria.emergency= "";
-        this.criteria.type= "";
+        this.isPhone= true;
         this.creCase.open("USER_CENTER.CREATE_CASE");
     }
 
@@ -141,7 +143,7 @@ export class CaseMngListComponent implements OnInit{
         if(this.validationService.isBlank(this.criteria.subject) || this.validationService.isBlank(this.criteria.type)
             ||this.validationService.isBlank(this.criteria.emergency) ||this.validationService.isBlank(this.criteria.contact)
             ||this.validationService.isBlank(this.criteria.contactNo)){
-          
+
         }else if(!this.isEdit){
             this.layoutService.show();
             this.service.creat(this.criteria)
@@ -176,9 +178,6 @@ export class CaseMngListComponent implements OnInit{
                 .catch((e) => this.onRejected(e));
         }
 
-    }
-    close(){
-        this.creCase.close();
     }
 
     delete(item){
@@ -218,6 +217,15 @@ export class CaseMngListComponent implements OnInit{
                 this.closedInfo= arr[2];
                 this.caseDetail.open("USER_CENTER.CASE_DETAIL^^^"+this.id+"^^^"+this.subject);
             }).catch((e) => this.onRejected(e));
+    }
+
+    //验证手机号
+    phoneValid(val) {
+        if (val) {
+            this.isPhone =
+                this.validationService.isMoblie(val) ? true : false;
+        }
+        console.log('phone', this.isPhone);
     }
 
     departCase(){

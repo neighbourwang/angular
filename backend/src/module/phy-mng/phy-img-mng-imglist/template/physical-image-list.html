@@ -1,23 +1,30 @@
-<div class="page-content-header icon-content-header-physical-mng">管理镜像 -- 物理机镜像源名称： {{sourceName}}
+<div class="page-content-header icon-content-header-physical-mng">
+    {{'PHY_IMG_MNG.MNG_IMG_LIST' | translate}}： {{sourceName}}
     <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" 
         style="padding:2px 15px;font-size:14px" (click)="backToSource()">
-        返回镜像管理
+        {{'PHY_IMG_MNG.RETURN_PHY_IMG_MNG' | translate}}
     </button>
 </div>
 <div class="page-content">
     <div class="mgb20 mgt20"> 
-        <button class="fox-cloud-button fox-cloud-button-green mgr10" (click)="syncImg()">同步镜像</button>
-        <button class="fox-cloud-button fox-cloud-button-green mgr10" (click)="allocateEnt()">分配企业</button>    
+        <button class="fox-cloud-button fox-cloud-button-green mgr10" (click)="syncImg()">
+            {{'PHY_IMG_MNG.SYNC_IMG' | translate}}</button>
+        <button class="fox-cloud-button fox-cloud-button-green mgr10" (click)="allocateEnt()">
+            {{'PHY_IMG_MNG.ALLOCATE_ENT' | translate}}</button>    
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             更多操作
+             {{'PHY_IMG_MNG.SELECT_OPTION' | translate}}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><a href="javascript:void(0);"(click)="editPhyImgSource()">编辑</a></li>
-                <li><a href="javascript:void(0);"(click)="enable()">启用</a></li>
-                <li><a href="javascript:void(0);"(click)="disable()">禁用</a></li>
-                <li><a href="javascript:void(0);"(click)="delete()">删除</a></li>
+                <li><a href="javascript:void(0);"(click)="editPhyImgSource()">
+                    {{'PHY_IMG_MNG.EDIT' | translate}}</a></li>
+                <li><a href="javascript:void(0);"(click)="enable()">
+                    {{'PHY_IMG_MNG.ENABLE' | translate}}</a></li>
+                <li><a href="javascript:void(0);"(click)="disable()">
+                    {{'PHY_IMG_MNG.DISABLE' | translate}}</a></li>
+                <li><a href="javascript:void(0);"(click)="delete()">
+                    {{'PHY_IMG_MNG.DELETE' | translate}}</a></li>
             </ul>
         </div>
     </div>
@@ -25,14 +32,14 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>选择</th>
-                    <th>镜像显示名称</th>
-                    <th>镜像文件名</th>
-                    <th>操作系统</th>
-                    <th>位数</th>
-                    <th>镜像类型</th>
-                    <th>所属企业</th>
-                    <th>状态</th>
+                    <th>{{'PHY_IMG_MNG.SELECT' | translate}}</th>
+                    <th>{{'PHY_IMG_MNG.IMAGE_DISPLAY_NAME' | translate}}</th>
+                    <th>{{'PHY_IMG_MNG.IMAGE_FILE_NAME' | translate}}</th>
+                    <th>{{'PHY_IMG_MNG.OS' | translate}}</th>
+                    <th>{{'PHY_IMG_MNG.BIT' | translate}}</th>
+                    <th>{{'PHY_IMG_MNG.IMAGE_TYPE' | translate}}</th>
+                    <th>{{'PHY_IMG_MNG.AFFILIATED_ENTERPRISE' | translate}}</th>
+                    <th>{{'PHY_IMG_MNG.STATUS' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -60,16 +67,20 @@
     </div>
    
 </div>
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认"></fc-notice>
-<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="确认" ct="取消"></fc-confirm>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHY_IMG_MNG.CONFIRM' | translate}}"></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHY_IMG_MNG.CONFIRM' | translate}}" ct="{{'PHY_IMG_MNG.CANCEL' | translate}}"></fc-confirm>
 
 
 <!--编辑镜像弹出框-->
-<fc-popup #editPopup title="编辑镜像" ot="保存" (of)="commitEdit();" ct="关闭" (cf)="cancelEdit();">
+<fc-popup #editPopup title="{{'PHY_IMG_MNG.EDIT_IMAGE' | translate}}" 
+        ot="{{'PHY_IMG_MNG.SAVE' | translate}}" 
+        (of)="commitEdit();" 
+        ct="{{'PHY_IMG_MNG.CLOSE' | translate}}" 
+        (cf)="cancelEdit();">
 
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">镜像显示名称：</div>
+                <div class="col-sm-4 form-control-title">{{'PHY_IMG_MNG.IMAGE_DISPLAY_NAME' | translate}}：</div>
                 <div class="col-sm-6">
                     <input type="string" class="form-control input-control" [(ngModel)]="tempEdit.destImageName">
                 </div>
@@ -77,7 +88,7 @@
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">镜像文件名 :</div>
+                <div class="col-sm-4 form-control-title">{{'PHY_IMG_MNG.IMAGE_FILE_NAME' | translate}}:</div>
                 <div class="col-sm-6">
                     {{tempEdit.origImageName}}
                     </div>
@@ -85,7 +96,7 @@
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">操作系统:</div>
+                <div class="col-sm-4 form-control-title">{{'PHY_IMG_MNG.OS' | translate}}:</div>
                 <div class="col-sm-6">
                     <select class="form-control" [(ngModel)]="tempEdit.osTypeId">
                         <option *ngFor="let os of service.osDic | async " [value]="os.value">
@@ -97,7 +108,7 @@
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">系统位数:</div>
+                <div class="col-sm-4 form-control-title">{{'PHY_IMG_MNG.BIT' | translate}}:</div>
                 <div class="col-sm-6">
                     <select class="form-control" [(ngModel)]="tempEdit.bitId">
                         <option *ngFor="let bit of service.bits_typeDic | async" [value]="bit.value">
@@ -109,7 +120,7 @@
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">镜像类型:</div>
+                <div class="col-sm-4 form-control-title">{{'PHY_IMG_MNG.IMAGE_TYPE' | translate}}:</div>
                 <div class="col-sm-6">
                     <select class="form-control" [(ngModel)]="tempEdit.imageTypeId">
                         <option *ngFor="let type of service.typeDic | async" [value]="type.value">
