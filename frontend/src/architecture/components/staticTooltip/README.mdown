@@ -1,6 +1,6 @@
 # 鼠标滑过显示详细文字
 
-![图片]()
+![图片](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/architecture/assets/README/images/Screen%20Shot%202017-03-15%20at%203.46.07%20PM.png?raw=true)
 
 
 
@@ -25,16 +25,8 @@ html：
     	<static-tooltip 
             className="tooltip"    //自定义的class名称
             placement="bottom"
-            [title]="testTitle">{{vm.privateIP}}</static-tooltip>
+            [title]="vm.detail">{{vm.describe}}</static-tooltip>
     </td>
   </tr>
 </table>
-```
-
-javascript：
-
-```javascript
-export class testComponent implements OnInit {
-	testTitle:string = "弹出框里的文字";
-}
 ```
