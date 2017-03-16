@@ -54,9 +54,9 @@
 					</tr>
 					<tr>
 						<td>是否自动续订</td>	
-						<td>{{_detailLoader.FirstItem.instanceName}}</td>
+						<td>{{_detailLoader.FirstItem.isExtend}}</td>
 						<td>自动续订方式</td>
-						<td>{{_detailLoader.FirstItem.instanceName}}</td>
+						<td>{{_detailLoader.FirstItem.extendType| dict:_dictServ.getDic('SUBINSTANCE', 'EXTEND_TYPE') |async}}</td>
 					</tr>				
 				</tbody>
 			</table>
