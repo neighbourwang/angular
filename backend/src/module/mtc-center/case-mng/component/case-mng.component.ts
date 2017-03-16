@@ -2,6 +2,7 @@ import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { LayoutService, ValidationService, NoticeComponent,dictPipe,ConfirmComponent,PaginationComponent} from "../../../../architecture";
+import {StaticTooltipComponent} from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
 import { CaseMngService} from "../service/case-mng.service";
 
