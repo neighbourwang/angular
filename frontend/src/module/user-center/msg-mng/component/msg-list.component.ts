@@ -2,7 +2,10 @@ import { Component, OnInit, Input, ViewChild, OnChanges, SimpleChanges, } from "
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { NgForm } from "@angular/forms";
 
-import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent, PaginationComponent, PopupComponent } from "../../../../architecture";
+import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
+    PaginationComponent, PopupComponent } from "../../../../architecture";
+
+import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
 //Model
 import { MsgAlertModel, MsgModel } from "../model/msg-alert.model";
@@ -46,7 +49,7 @@ export class MsgListComponent implements OnInit {
     noticeMsg = "";
 
     pageIndex = 1;
-    pageSize = 3;
+    pageSize = 10;
     totalPage = 1;
 
     paginationFlag: string = "2";
@@ -77,13 +80,7 @@ export class MsgListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        /*        
-        this.activatedRouter.params.forEach((params: Params) => {
-            this.unreadmsg = params['unreadmsg'];
-            console.log("unreadmsg:" + this.unreadmsg);
-		});
-        */
-       
+
         this.getMsgList(this.paginationFlag);
 
     }
@@ -104,7 +101,9 @@ export class MsgListComponent implements OnInit {
                     this.msgAlert.list = response.resultContent;
                     this.totalPage = response.pageInfo.totalPage;
                     this.pager.render(1);
-                    //console.log(this.msgAlert, "this.msgList!");
+                    if(this.paginationFlag == "0") {
+                        this.unreadnumber.num = this.msgAlert.edge;
+                    }
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     this.msgAlert.edge = 0;
@@ -131,7 +130,6 @@ export class MsgListComponent implements OnInit {
                     this.msgAlert.edge = response.pageInfo.totalRecords;
                     this.msgAlert.list = response.resultContent;
                     this.totalPage = response.pageInfo.totalPage;
-                    //console.log(this.msgAlert, "this.msgAlert next");
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     this.msgAlert.edge = 0;
@@ -162,7 +160,6 @@ export class MsgListComponent implements OnInit {
             let msg_id_array = this.selectedmsglist.map((msg) => {
                 return <string>msg.id;
             });
-            //let ids = msg_id_array.join(",");
             this.layoutService.show();
             this.service.deleteMsgList(msg_id_array)
                 .then(
@@ -170,7 +167,6 @@ export class MsgListComponent implements OnInit {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.showMsg("USER_CENTER.DELETE_MSG_SUCCESS");
-                        //console.log("Delete msg: ", ids, " successfully!");
                         console.log("Delete msg: ", msg_id_array, " successfully!");
                     } else {
                         this.showMsg("USER_CENTER.DELETE_MSG_FAILED");
@@ -205,16 +201,15 @@ export class MsgListComponent implements OnInit {
             let msg_id_array = this.selectedmsglist.map((msg) => {
                 return <string>msg.id;
             });
-            //let ids = msg_id_array.join(",");
             this.layoutService.show();
             this.service.setMsgRead(msg_id_array)
             .then(
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    //console.log("Set ", ids, " to READ!");
                     console.log("Set ", msg_id_array, " to READ!");
                     this.showMsg("USER_CENTER.MARK_MSG_READ_SUCCESS");
+                    this.getMsgList(this.paginationFlag);
                 } else {
                     this.showMsg("USER_CENTER.MARK_MSG_READ_FAILED");
                     return;
@@ -231,15 +226,15 @@ export class MsgListComponent implements OnInit {
     }
 
     showAndMark(index: string) {
-        this.showMsgDetails("USER_CENTER.MSG_CONTENT",this.msgAlert.list[index].content);
         if (this.msgAlert.list[index].status === '0') {
             this.layoutService.hide();
-            this.service.setMsgRead(this.msgAlert.list[index].id)
+            this.service.setMsgRead([this.msgAlert.list[index].id])
                 .then(
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         console.log("Set ", this.msgAlert.list[index].id, " to READ!");
+                        this.showMsg("USER_CENTER.MARK_MSG_READ_SUCCESS");
                         this.msgAlert.list[index].status = '1';
                     } else {
                         this.showMsg("USER_CENTER.MARK_MSG_READ_FAILED");
@@ -286,7 +281,6 @@ export class MsgListComponent implements OnInit {
 
     //选择行
     selectItem(index:number): void {
-        //this.phynets.map(n=> {n.checked = false;});
         this.msgAlert.list[index].checked = !this.msgAlert.list[index].checked;
         console.log(this.msgAlert.list, "=== Please see which ones are selected ===");
         let selectedml = this.msgAlert.list.filter(n=> { return (n.checked == true);});
@@ -315,7 +309,6 @@ export class MsgListComponent implements OnInit {
         if (this.selectedmsglist.length != 0){
             return this.selectedmsglist;
         } else {
-            //this.showMsg("COMMON.PLEASE_CHOOSE_IMAGE");
             return [];
         }
     }

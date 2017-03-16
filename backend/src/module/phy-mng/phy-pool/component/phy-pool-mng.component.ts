@@ -77,7 +77,7 @@ export class PhyPoolMngComponent implements OnInit{
                         this.totalPage= response.pageInfo.totalPage;
                         console.log(this.pageIndex,"this.pageIndex");
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
@@ -127,7 +127,7 @@ export class PhyPoolMngComponent implements OnInit{
                             this.getData();
                             //this.showAlert("PHY_MNG_POOL.ENABLE_SUCCESS");
                         } else {
-                            alert("Res sync error");
+                            this.showAlert("COMMON.OPERATION_ERROR");
                         }
                     }
                 )
@@ -148,7 +148,7 @@ export class PhyPoolMngComponent implements OnInit{
                             this.getData();
                             //this.showAlert("PHY_MNG_POOL.DISABLE_SUCCESS");
                         } else {
-                            alert("Res sync error");
+                            this.showAlert("COMMON.OPERATION_ERROR");
                         }
                     }
                 )
@@ -169,7 +169,7 @@ export class PhyPoolMngComponent implements OnInit{
                             this.getData();
                             //this.showAlert("PHY_MNG_POOL.DELETE_SUCCESS");
                         } else {
-                            alert("Res sync error");
+                            this.showAlert("COMMON.OPERATION_ERROR");
                         }
                     }
                 )

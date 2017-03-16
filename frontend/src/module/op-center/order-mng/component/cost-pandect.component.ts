@@ -1,7 +1,7 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import { UserInfo,CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import { TimeCaculater,UserInfo,CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 
 import * as _ from 'underscore';
 
@@ -33,9 +33,9 @@ currentYear :number;
 currentMonth : number;
 lastDay:number;
 _param:CostPandectParam = new CostPandectParam();
-private _years:Array<Time>=[];
-private _months:Array<Time>=[];
-
+private timeCaculater :TimeCaculater = new TimeCaculater();
+private _years=[];
+private _months=[];
 private userTypeLoader:ItemLoader<UserInfo>= null;
 
 //企业下拉列表
@@ -61,6 +61,11 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
+
+        this.currentYear = this.timeCaculater.getCurrentYear();
+        this.currentMonth = this.timeCaculater.getCurrentMonth();
+        this._param.year = this.currentYear.toString(); 
+        this._param.month = (this.currentMonth-1).toString(); 
         
         this.enterpriseLoader = new ItemLoader<{id:string;name:string}> (false,'企业列表加载错误','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
         this.userTypeLoader = new ItemLoader<UserInfo> (false,'用户类型加载出错','op-center.order-mng.ent-type.get',this.restApiCfg,this.restApi);
@@ -139,8 +144,9 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 	ngOnInit(){
         this.layoutService.show();
         this.loadUserType();
-        this.getCurrentTime();
-        this.getTimeData();//时间下拉列表
+        this.loadYears();
+        this.loadMonths();
+        this.loadLastDay();
         // this.loadEnterprise();
         this.createSumBar();
         this.createHstoryBar();
@@ -158,51 +164,20 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 		this.layoutService.hide();
 	}
 
-
-getCurrentTime(){
-    let date = new Date();
-    this.currentYear = date.getFullYear();
-    this.currentMonth = date.getMonth()+1;//月份从0-11
-}
-
 isRootUser(){
     let item = this.userTypeLoader.FirstItem;
     if(item.roleName&&item.roleName=='ENTERPRISE_ADMIN')
         this.isRoot = true;
 }
-getTimeData(){
-    
-    for(let i = 1999; i<=this.currentYear ; i++){
-        let _year = new Time(i.toString(),i.toString());
-        this._years.push(_year);  
+ loadYears(){
+        this._years = this.timeCaculater.getYears();
     }
-
-    
-}
-getMonths(){
-    this._months.splice(0,this._months.length);
-    this._param.month = null;
-    let months :number; 
-   
-    if( this.currentYear== Number(this._param.year)){
-         months = this.currentMonth-1;//显示当前月的上一个月
+    loadMonths(){
+        this._months = this.timeCaculater.getMonths(Number(this._param.year));
     }
-    else{
-        months = 12;
+    loadLastDay(){
+        this.lastDay = this.timeCaculater.getLastDay(Number(this._param.year),Number(this._param.month));
     }
-        for(let i = 1; i<=months ; i++){
-            let _month = new Time(i.toString(),i.toString());
-
-            this._months.push(_month);  
-   }
-}
-
-getLastDay(){
-     this.lastDay = new Date(Number(this._param.year),Number(this._param.month),0).getDate();
-     this.search_chart();
-    //  alert(this.lastDay);
-}
-
 
 	loadEnterprise():Promise<any>{
 		return new Promise((resolve, reject)=>{

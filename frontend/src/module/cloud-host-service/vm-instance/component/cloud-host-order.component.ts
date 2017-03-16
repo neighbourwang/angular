@@ -17,7 +17,7 @@
 import { Component, ViewChild, Input, Output, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, ValidationRegs, Validation } from '../../../../architecture';
 import { cloudHostServiceOrder } from '../service/cloud-host-order.service';
 
 import { AttrList, PayLoad } from '../model/attr-list.model';
@@ -88,6 +88,7 @@ export class cloudHostComponentOrder implements OnInit {
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
+		private v: Validation,
 		private service: cloudHostServiceOrder
 	) {
 		this.configs = new OrderList();
@@ -425,57 +426,25 @@ console.log(this.vmProduct)
 		return filteredList;
 	}
 
-
-	checkValue(value?: string) { //动态验证
-		const isinv = value => value === "";
-
-		const regs = {
-			platform: () => !isinv(this.sendModule.platform.attrValue),
-			zone: () => !isinv(this.sendModule.zone.attrValue),
-			cpu: () => !isinv(this.sendModule.cpu.attrValue),
-			mem: () => !isinv(this.sendModule.mem.attrValue),
-			networktype: () => !isinv(this.sendModule.networktype.attrValue),
-			securitygroup: () => !isinv(this.sendModule.securitygroup.attrValue),
-			startupsource: () => !isinv(this.sendModule.startupsource.attrValue),
-			imagetype: () => !isinv(this.sendModule.imagetype.attrValue),
-			os: () => !isinv(this.sendModule.os.attrValueCode),
-			password: () => /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^\sA-Za-z0-9])\S{8,20}$/.test(this.sendModule.password.attrValue),
-			passwordShadow: () => this.passwordShadow === this.sendModule.password.attrValue,
-			instancename: () => !this.sendModule.instancename.attrValue || /^[a-zA-Z\u4e00-\u9fa5].{1,67}/.test(this.sendModule.instancename.attrValue),
-			timeline: () => this.sendModule.timeline.attrValue && /^\d*$/.test(this.sendModule.timeline.attrValue.trim()) && +this.sendModule.timeline.attrValue.trim() <= 999,
-			timelineunit: () => !isinv(this.sendModule.timelineunit.attrValue)
-		};
-
-		const alertValue = {
-			password: "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT", //
-			passwordShadow: "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT", //两次密码输入不一致
-			instancename: "VM_INSTANCE.HOST_NAME_FORMAT_IS_NOT_CORRECT", //主机名称格式不正确
-			timeline: "VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION", //VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION
-			platform: "VM_INSTANCE.PLEASE_SELECT_CLOUD_PALTFORM", //VM_INSTANCE.PLEASE_SELECT_CLOUD_PALTFORM
-			zone: "VM_INSTANCE.PLEASE_SELECT_AVAILABLE_ZONE", //VM_INSTANCE.PLEASE_SELECT_AVAILABLE_ZONE
-			cpu: "VM_INSTANCE.PLEASE_SELECT_CPU", //VM_INSTANCE.PLEASE_SELECT_CPU
-			mem: "VM_INSTANCE.PLEASE_SELECT_RAM",//VM_INSTANCE.PLEASE_SELECT_RAM
-			networktype: "VM_INSTANCE.PLEASE_SELECT_NET_TYPE",//VM_INSTANCE.PLEASE_SELECT_NET_TYPE
-			securitygroup: "VM_INSTANCE.PLEASE_SELECT_SECURITY_GROUP",//VM_INSTANCE.PLEASE_SELECT_SECURITY_GROUP
-			startupsource: "VM_INSTANCE.PLEASE_SELECT_STARTUP_SOURCE",//VM_INSTANCE.PLEASE_SELECT_STARTUP_SOURCE
-			imagetype: "VM_INSTANCE.PLEASE_SELECT_IMAGE_TYPE", //VM_INSTANCE.PLEASE_SELECT_IMAGE_TYPE
-			os: "VM_INSTANCE.PLEASE_SELECT_IMAGE_NAME",   //VM_INSTANCE.PLEASE_SELECT_IMAGE_NAME
-			timelineunit: "VM_INSTANCE.PLEASE_SELECT_TIMELINE_UNIT"//VM_INSTANCE.PLEASE_SELECT_NET_TYPE
+	checkValue(key?:string){
+		const regs:ValidationRegs = {
+			platform: [this.sendModule.platform.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_CLOUD_PALTFORM"],
+			zone: [this.sendModule.zone.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_AVAILABLE_ZONE"],
+			cpu: [this.sendModule.cpu.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_CPU"],
+			mem: [this.sendModule.mem.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_RAM"],
+			networktype: [this.sendModule.networktype.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_NET_TYPE"],
+			securitygroup: [this.sendModule.securitygroup.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_SECURITY_GROUP"],
+			startupsource: [this.sendModule.startupsource.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_STARTUP_SOURCE"],
+			imagetype: [this.sendModule.imagetype.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_IMAGE_TYPE"],
+			os: [this.sendModule.os.attrValueCode, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_IMAGE_NAME"],
+			password: [this.sendModule.password.attrValue, [this.v.isPassword, this.v.lengthRange(8,30)], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"],
+			passwordShadow: [this.passwordShadow, [this.v.equalTo(this.sendModule.password.attrValue)], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"],
+			instancename: [this.sendModule.instancename.attrValue, [this.v.isInstanceName, this.v.isBase], "VM_INSTANCE.HOST_NAME_FORMAT_IS_NOT_CORRECT"],
+			timeline: [this.sendModule.timeline.attrValue.trim(), [this.v.isNumber, this.v.max(999)], "VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION"],
+			timelineunit: [this.sendModule.timelineunit.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_TIMELINE_UNIT"],
 		}
 
-		const check = value => {
-			this.check[value] = regs[value]();
-			if (!this.check[value]) return alertValue[value];
-		}
-
-		if (!value) {
-			for (let reg in regs) {
-				let is = check(reg);
-				if (is) return is;
-			}
-		} else {
-			return check(value);
-		}
+		return this.v.check(key, regs);
 	}
 
 	checkInput(): boolean {
@@ -509,6 +478,8 @@ console.log(this.vmProduct)
 	}
 
 	submitCheck():Promise<PayLoad[]>{  //检测是否可以提交订单
+		if (!this.checkInput()) return Promise.reject("提示一下：表单验证不通过");
+
 		this.layoutService.show();
 		return this.checkQuota().then(isEnoughQuota => {
 			this.layoutService.hide();
@@ -517,7 +488,6 @@ console.log(this.vmProduct)
 				return;
 			}
 
-			if (!this.checkInput()) return;
 			return this.payLoadFormat();   //获取最新的的payload的对象
 			
 		}).catch(res => {

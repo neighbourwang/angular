@@ -164,10 +164,15 @@ export class MenuService {
 							"isShow": true,
 							"routing": "op-center/order-mng/order-mng-search"
 						}, {
-							"label": "消费总览",
+							"label": "企业消费总览",
 							"isOpen": false,
 							"isShow": true,
 							"routing": "op-center/order-mng/cost-pandect"
+						}, {
+							"label": "部门消费总览",
+							"isOpen": false,
+							"isShow": true,
+							"routing": "op-center/order-mng/cost-pandect-department"
 						}
 					]
 				},

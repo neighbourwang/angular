@@ -12,6 +12,7 @@ import { CaseHandle } from '../model/case-handle.model';
 
 //service
 import { CaseMngService } from '../service/case-mng-list.service';
+import { CaseDepartService } from '../service/case-depart-list.service';
 
 @Component({
     selector: 'case-mng-list',
@@ -25,6 +26,7 @@ export class CaseMngListComponent implements OnInit{
     constructor(
         private router : Router,
         private service : CaseMngService,
+        private servicedepart : CaseDepartService,
         private layoutService : LayoutService,
         private validationService: ValidationService
     ) {
@@ -99,7 +101,7 @@ export class CaseMngListComponent implements OnInit{
                         this.totalPage= response.pageInfo.totalPage;
                         console.log("data",response["resultContent"]);
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
@@ -132,6 +134,8 @@ export class CaseMngListComponent implements OnInit{
         this.criteria.type= null;
         this.isEdit= false;
         this.isPhone= true;
+        this.criteria.contact= this.servicedepart.userInfo.userName;
+        this.criteria.contactNo=this.servicedepart.userInfo.phone;
         this.creCase.open("USER_CENTER.CREATE_CASE");
     }
 
@@ -155,7 +159,7 @@ export class CaseMngListComponent implements OnInit{
                             this.creCase.close();
                             console.log("创建",response["resultContent"]);
                         } else {
-                            alert("Res sync error");
+                            this.showAlert("COMMON.OPERATION_ERROR");
                         }
                     }
                 )
@@ -171,7 +175,7 @@ export class CaseMngListComponent implements OnInit{
                             this.creCase.close();
                             console.log("idEdit",this.id);
                         } else {
-                            alert("Res sync error");
+                            this.showAlert("COMMON.OPERATION_ERROR");
                         }
                     }
                 )
@@ -194,7 +198,7 @@ export class CaseMngListComponent implements OnInit{
                             if (response && 100 == response["resultCode"]) {
                                 this.getData();
                             } else {
-                                alert("Res sync error");
+                                this.showAlert("COMMON.OPERATION_ERROR");
                             }
                         }
                     )

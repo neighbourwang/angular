@@ -84,7 +84,7 @@ export class VmDisIndexComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {
                     this.dcList = response["resultContent"];
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -101,7 +101,7 @@ export class VmDisIndexComponent implements OnInit {
                     this.allports = response["resultContent"];
                     this.filter();
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -153,7 +153,7 @@ export class VmDisIndexComponent implements OnInit {
                     
                     this.getData();
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -187,7 +187,7 @@ export class VmDisIndexComponent implements OnInit {
                         this.showAlert("NET_MNG_VM_IP_MNG.ENABLE_NET_SUCCESS");
                         this.getData();
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
                 )
@@ -228,7 +228,7 @@ export class VmDisIndexComponent implements OnInit {
                         this.showAlert("NET_MNG_VM_IP_MNG.CANT_DISABLE_AS_ENABLED_IP");
                     }
                     else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
                 )
@@ -297,7 +297,7 @@ export class VmDisIndexComponent implements OnInit {
                     this.infoListForSyn = response["resultContent"];
                     this.synDbt.open('NET_MNG_VM_IP_MNG.SYNC_DBT_NET');
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
         )
@@ -334,13 +334,13 @@ export class VmDisIndexComponent implements OnInit {
 
                         //             this.infoListForSyn = response["resultContent"];
                         //         } else {
-                        //             alert("Res sync error");
+                        //             this.showAlert("COMMON.OPERATION_ERROR");
                         //         }
                         //     }
                         //  ).catch((e) => this.onRejected(e));
 
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
