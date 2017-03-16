@@ -12,6 +12,7 @@ import { CaseHandle } from '../model/case-handle.model';
 
 //service
 import { CaseMngService } from '../service/case-mng-list.service';
+import { CaseDepartService } from '../service/case-depart-list.service';
 
 @Component({
     selector: 'case-mng-list',
@@ -25,6 +26,7 @@ export class CaseMngListComponent implements OnInit{
     constructor(
         private router : Router,
         private service : CaseMngService,
+        private servicedepart : CaseDepartService,
         private layoutService : LayoutService,
         private validationService: ValidationService
     ) {
@@ -132,6 +134,8 @@ export class CaseMngListComponent implements OnInit{
         this.criteria.type= null;
         this.isEdit= false;
         this.isPhone= true;
+        this.criteria.contact= this.servicedepart.userInfo.userName;
+        this.criteria.contactNo=this.servicedepart.userInfo.phone;
         this.creCase.open("USER_CENTER.CREATE_CASE");
     }
 
