@@ -132,10 +132,11 @@ export class CaseMngListComponent implements OnInit{
         this.orgForm.reset();
         this.criteria.emergency= null;
         this.criteria.type= null;
-        this.isEdit= false;
-        this.isPhone= true;
         this.criteria.contact= this.servicedepart.userInfo.userName;
         this.criteria.contactNo=this.servicedepart.userInfo.phone;
+        this.criteria.details= "";
+        this.isEdit= false;
+        this.isPhone= true;
         this.creCase.open("USER_CENTER.CREATE_CASE");
     }
 
