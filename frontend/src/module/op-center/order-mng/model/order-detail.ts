@@ -21,6 +21,12 @@ export class OrderDetailItem {
   description:string;//说明
   billingModeName:string = null;//计费模式
   extendType:string;//自动续订方式
+
+  get isExtend():string{
+    if(this.extendType=='0')
+      return '否';
+    return '是';
+  }
   get billingMode():number{
     if(this.productBillingItem)
     {

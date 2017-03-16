@@ -31,7 +31,7 @@
 													
 											</tr>
 											<tr>
-											<td class="text-center">自动续订方式</td><td class="leftAlign">{{_detail.extendType}}</td>
+											<td class="text-center">自动续订方式</td><td class="leftAlign">{{_detail.extendType| dict:_dictServ.getDic('SUBINSTANCE', 'EXTEND_TYPE') |async}}</td>
 											<td class="text-center"></td><td class="leftAlign"></td>
 											
 											</tr>
