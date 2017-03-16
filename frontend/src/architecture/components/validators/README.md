@@ -1,7 +1,34 @@
 # 表单验证类
 
-用法：
 
+
+## 验证方式：
+
+| 方法             | 参数                                     | 描述                        |
+| -------------- | -------------------------------------- | ------------------------- |
+| isBase         | 无                                      | 基本的验证 不含特殊字符 可为空          |
+| isUnBlank      | 无                                      | 非空验证                      |
+| isNumber       | 无                                      | 是否为数字                     |
+| isMoblie       | 无                                      | 是否为手机号                    |
+| isTel          | 无                                      | 是否是电话号码                   |
+| isUrl          | 无                                      | 是否是url                    |
+| isInstanceName | 无                                      | 2-68个字符，以大小写字母或中文开头       |
+| isPassword     | 无                                      | 同时包括三项（大写字母，小写字母，数字和特殊符号） |
+| isEmail        | 无                                      | 是否是email                  |
+| min            | (min:number)                           | 数字的最小值                    |
+| max            | (max:number)                           | 数字的最大值                    |
+| range          | (min:number, max:number)               | 数字的范围                     |
+| minLength      | (min:number)                           | 字符的长度最小值                  |
+| maxLength      | (max:number)                           | 字符串长度的最大值                 |
+| lengthRange    | (min:number, max:number)               | 字符串长度范围                   |
+| uuid           | (version:"3"\|"4"\|"5"\|"all" = "all") | uuid                      |
+| equalTo        | (target:any)                           | 等于某个值                     |
+
+
+
+
+
+##用法：
 
 
 typescript:
@@ -104,36 +131,9 @@ submitForm() {
 
 
 
-#### 验证方式：
-
-| 方法             | 参数                                     | 描述                        |
-| -------------- | -------------------------------------- | ------------------------- |
-| isBase         | 无                                      | 基本的验证 不含特殊字符 可为空          |
-| isUnBlank      | 无                                      | 非空验证                      |
-| isNumber       | 无                                      | 是否为数字                     |
-| isMoblie       | 无                                      | 是否为手机号                    |
-| isTel          | 无                                      | 是否是电话号码                   |
-| isUrl          | 无                                      | 是否是url                    |
-| isInstanceName | 无                                      | 2-68个字符，以大小写字母或中文开头       |
-| isPassword     | 无                                      | 同时包括三项（大写字母，小写字母，数字和特殊符号） |
-| isEmail        | 无                                      | 是否是email                  |
-| min            | (min:number)                           | 数字的最小值                    |
-| max            | (max:number)                           | 数字的最大值                    |
-| range          | (min:number, max:number)               | 数字的范围                     |
-| minLength      | (min:number)                           | 字符的长度最小值                  |
-| maxLength      | (max:number)                           | 字符串长度的最大值                 |
-| lengthRange    | (min:number, max:number)               | 字符串长度范围                   |
-| uuid           | (version:"3"\|"4"\|"5"\|"all" = "all") | uuid                      |
-| equalTo        | (target:any)                           | 等于某个值                     |
 
 
-
-
-
-
-
-
-### 完整的例子
+## 完整的例子
 
 html：
 
