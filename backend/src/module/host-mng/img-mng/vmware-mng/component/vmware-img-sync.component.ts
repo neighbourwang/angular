@@ -194,7 +194,7 @@ export class VmwareImgSyncComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {                    
                     console.log("镜像同步成功");
                 } else {
-                    this.showAlert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                     return;
                 }
             }

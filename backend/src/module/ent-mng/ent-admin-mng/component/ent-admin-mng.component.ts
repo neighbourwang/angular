@@ -125,7 +125,7 @@ export class EntAdminMngComponent implements OnInit {
 
                     this.enterprise = response["resultContent"];
                 } else {
-                    this.showAlert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )

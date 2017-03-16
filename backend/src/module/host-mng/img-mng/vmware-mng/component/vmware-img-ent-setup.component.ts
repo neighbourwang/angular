@@ -159,7 +159,7 @@ export class VmwareImgEntSetupComponent implements OnInit {
                     this.showAlert("HOST_VMWARE_MNG.SAVE_SUCCESS");
                     this.VmwareImgListPage();
                 } else {
-                    this.showAlert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
