@@ -24,6 +24,9 @@ import { HttpModule } from '@angular/http';
 import { TranslateModule } from 'ng2-translate';
 import { DialogTranslate } from './dialog/service/dialog-translate.service';
 
+import { Validation } from './validators';
+
+
 
 // import { DonutChart } from './donutChart/component/chart.component';
 // import { LineChart } from './lineChart/component/chart.component';
@@ -78,6 +81,7 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
     ],
     providers : [
         DialogTranslate,
+        Validation
     ]
 })
 export class CommonComponentModule { }

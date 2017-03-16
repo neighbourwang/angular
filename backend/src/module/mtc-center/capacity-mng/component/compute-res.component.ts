@@ -77,7 +77,7 @@ export class ComputeResComponent implements OnInit {
                     this.getZoneList(this.regionList[0].regionId);
                     
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -118,7 +118,7 @@ export class ComputeResComponent implements OnInit {
                     this.getGraphData(this.memUsed, this.resUsedInfo.memory, this.resUsedInfo.memoryTotal);
                     
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -164,7 +164,7 @@ export class ComputeResComponent implements OnInit {
                     this.hostList = response["resultContent"];
                     
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )

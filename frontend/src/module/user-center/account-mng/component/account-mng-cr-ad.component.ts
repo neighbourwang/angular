@@ -60,7 +60,7 @@ export class AccountMngCrAdComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {
                     this.adUsers = response["resultContent"];
                 } else {
-                    this.showAlert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             })
             .catch((e) => this.onRejected(e));

@@ -63,7 +63,7 @@ export class EntAdminEditADComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {
                     this.enterprise = response["resultContent"];
                 } else {
-                    this.showAlert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -79,7 +79,7 @@ export class EntAdminEditADComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {
                     this.admin = response["resultContent"];
                 } else {
-                    this.showAlert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -114,7 +114,7 @@ export class EntAdminEditADComponent implements OnInit {
                     this.showAlert("COMMON.CREATE_SUCCESS");
                     this.router.navigateByUrl(`ent-mng/ent-admin-mng/ent-admin-mng/${this.eid}`);
                 } else {
-                    this.showAlert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )

@@ -122,7 +122,7 @@ export class IpMngListComponent implements OnInit{
                         this.DLRList = response["resultContent"];
                         console.log(this.DLRList, "this.DLRList--------------------");
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
@@ -150,7 +150,7 @@ export class IpMngListComponent implements OnInit{
                     console.log(this.rawipmngs, "IPmngS --- getIpMngList");
                     this.filter();
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             })
             .catch((e) => this.onRejected(e));
@@ -204,7 +204,7 @@ export class IpMngListComponent implements OnInit{
                     console.log(this.ippool.ips, this.ippool.ipstr, this.ippool, "ips, ipstr, and ippool object");
                 } else {
                     console.log("========== setupIPs [if]else=============");
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             })
             .catch((e) => this.onRejected(e));

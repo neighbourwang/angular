@@ -72,7 +72,7 @@ export class PhyCreatComponent implements OnInit{
                         this.data= response.resultContent;
                         console.log(response.resultContent, "data");
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
@@ -109,7 +109,7 @@ export class PhyCreatComponent implements OnInit{
                              console.log(response.resultContent, "response");
                             this.gotoPoolMng();
                         } else {
-                            alert("Res sync error");
+                            this.showAlert("COMMON.OPERATION_ERROR");
                         }
                     }
                 )
@@ -124,7 +124,7 @@ export class PhyCreatComponent implements OnInit{
                             console.log(response.resultContent, "response");
                             this.gotoPoolMng();
                         } else {
-                            alert("Res sync error");
+                            this.showAlert("COMMON.OPERATION_ERROR");
                         }
                     }
                 )
@@ -142,7 +142,7 @@ export class PhyCreatComponent implements OnInit{
                     if (response && 100 == response["resultCode"]) {
                         this.regions = response["resultContent"];
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
