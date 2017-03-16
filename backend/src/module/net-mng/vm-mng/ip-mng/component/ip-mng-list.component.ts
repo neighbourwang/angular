@@ -131,7 +131,7 @@ export class IpMngListComponent implements OnInit{
                         this.dcList = response["resultContent"];
                         console.log(this.dcList, "DCList");
                     } else {
-                        //alert("Res sync error");
+                        //this.showAlert("COMMON.OPERATION_ERROR");
                         this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
                     }
                 }
@@ -163,7 +163,7 @@ export class IpMngListComponent implements OnInit{
                     this.filter();
                     //console.log(this.ipmngs, "IPmngS --- getIpMngList");
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             })
             .catch((e) => this.onRejected(e));
@@ -192,7 +192,7 @@ export class IpMngListComponent implements OnInit{
                     console.log(this.subn, "subn-------");
                 } else {
                     this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
-                    //alert("Res sync error");
+                    //this.showAlert("COMMON.OPERATION_ERROR");
                 }
             })
             .catch((e) => this.onRejected(e));
@@ -234,7 +234,7 @@ export class IpMngListComponent implements OnInit{
                 } else {
                     console.log("========== setupIPs [if]else=============");
                     this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
-                    //alert("Res sync error");
+                    //this.showAlert("COMMON.OPERATION_ERROR");
                 }
             })
             .catch((e) => this.onRejected(e));

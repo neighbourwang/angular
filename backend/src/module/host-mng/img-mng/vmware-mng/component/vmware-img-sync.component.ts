@@ -169,8 +169,7 @@ export class VmwareImgSyncComponent implements OnInit {
                     this.vmwaresyncimgs = response.resultContent;
                     console.log(this.vmwaresyncimgs, "vmwaresyncimgs!!!");
                 } else {
-                    alert("Res sync error");
-
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -194,7 +193,7 @@ export class VmwareImgSyncComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {                    
                     console.log("镜像同步成功");
                 } else {
-                    this.showAlert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                     return;
                 }
             }

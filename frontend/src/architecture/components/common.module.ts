@@ -10,6 +10,8 @@ import { ConfirmComponent } from './dialog/component/confirm.component';
 import { PopupComponent } from './dialog/component/popup.component';
 import { CountBarComponent } from './countBar/component/count-bar.component';
 import { TableEditNameComponent } from './tableEditName/component/tableEditName.component';
+import { StaticTooltipComponent } from './staticTooltip/staticTooltip.component';
+
 import { PopoverModule } from './popover/index';
 import { MyDatePickerModule } from './date-picker/my-date-picker.module';
 
@@ -21,6 +23,9 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { HttpModule } from '@angular/http';
 import { TranslateModule } from 'ng2-translate';
 import { DialogTranslate } from './dialog/service/dialog-translate.service';
+
+import { Validation } from './validators';
+
 
 
 // import { DonutChart } from './donutChart/component/chart.component';
@@ -46,7 +51,8 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
         ConfirmComponent,
         PopupComponent,
         CountBarComponent,
-        TableEditNameComponent
+        TableEditNameComponent,
+        StaticTooltipComponent
         // OrderByPipe
         // DonutChart,
         // LineChart
@@ -65,6 +71,7 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
         PopoverModule,
         ChartsModule,
         TableEditNameComponent,
+        StaticTooltipComponent,
         AfterNgForModule,
         HttpModule,
         TranslateModule
@@ -74,6 +81,7 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
     ],
     providers : [
         DialogTranslate,
+        Validation
     ]
 })
 export class CommonComponentModule { }

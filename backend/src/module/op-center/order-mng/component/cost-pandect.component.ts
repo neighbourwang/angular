@@ -23,7 +23,7 @@ export class CostPandectComponent implements OnInit{
 
 @ViewChild("notice")
   	private _notice: NoticeComponent;
-size:number;
+size:number = 12;
 
 _param:CostPandectParam = new CostPandectParam();
 private timeCaculater :TimeCaculater = new TimeCaculater();
@@ -38,7 +38,7 @@ private enterpriseLoader : ItemLoader<{id:string;name:string}>= null;
 
 private allServiceLoader:ItemLoader<CostPandectItem> = null;//表格-所有服务
 private increaseServiceLoader:ItemLoader<CostPandectItem> = null;//表格-新增服务
-private isAllService:string =null;//null是所有服务，2是新增服务
+private isAllService:string ='1';//1是所有服务，2是新增服务
 
 private consumeLoader:ItemLoader<ConsumeSum> = null;//消费概览
 
@@ -57,10 +57,13 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
+
         
         this.currentYear = this.timeCaculater.getCurrentYear();
         this.currentMonth = this.timeCaculater.getCurrentMonth();
-        
+        this._param.year = this.currentYear.toString(); 
+        this._param.month = (this.currentMonth-1).toString(); 
+
         this.sumChart = this.chartService.creatSumChart();
         this.historyChart = this.chartService.createHstoryBar();
         this.topChart = this.chartService.createTopBar();
@@ -70,14 +73,14 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         this.allServiceLoader = new ItemLoader<CostPandectItem> (false,'ORDER_MNG.ERROR_LOADING_CONSUMPTION_LIST','op-center.order-mng.cost-pandect.all-service.post',this.restApiCfg,this.restApi);
         this.increaseServiceLoader = new ItemLoader<CostPandectItem> (false,'ORDER_MNG.ERROR_LOADING_CONSUMPTION_LIST','op-center.order-mng.cost-pandect.increase-service.post',this.restApiCfg,this.restApi);
 
-          this.allServiceLoader.MapFunc = (source:Array<any>, target:Array<CostPandectItem>)=>{
-			for(let item of source)
-			{
-				let obj=_.extend({}, item) ;
-				target.push(obj);
+        //   this.allServiceLoader.MapFunc = (source:Array<any>, target:Array<CostPandectItem>)=>{
+		// 	for(let item of source)
+		// 	{
+		// 		let obj=_.extend({}, item) ;
+		// 		target.push(obj);
 
-			}
-		}
+		// 	}
+		// }
 
     
        	this.consumeLoader = new ItemLoader<ConsumeSum>(false, 'ORDER_MNG.CONSUMER_OVERVIEW_FAILED', "op-center.order-mng.cost-pandect.consume.post", this.restApiCfg, this.restApi);
@@ -120,6 +123,8 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 	ngOnInit(){
         this.layoutService.show();
         this.loadYears();
+        this.loadMonths();
+        this.loadLastDay();
         this.loadEnterprise();
 		this.layoutService.hide();
 	}
@@ -366,7 +371,7 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         "idList": ids,
         "startTime":this._param.year+'-'+month+'-01'+' 00:00:00'
     };
-        if( this.isAllService == null||this.isAllService =='null'){//所有服务
+        if( this.isAllService =='1'){//所有服务
             this.allServiceLoader.Go(null,null,param)
                 .then(success=>{    
                     this.layoutService.hide();

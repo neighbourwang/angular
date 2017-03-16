@@ -13,7 +13,7 @@ import {OrderMngDetailComponent, OrderMngComponent,OrderMngRenewComponent,OrderM
         ,OrderMngSearchDetailComponent
         ,VmViewComponent
         ,DiskViewComponent
-        ,CostPandectComponent} from './component';
+        ,CostPandectComponent,CostPandectDepartmentComponent} from './component';
 
 @NgModule({
     imports: [
@@ -31,6 +31,7 @@ import {OrderMngDetailComponent, OrderMngComponent,OrderMngRenewComponent,OrderM
         ,VmViewComponent
         ,DiskViewComponent
         ,CostPandectComponent
+        ,CostPandectDepartmentComponent
     ],
     exports: [],
     providers: []

@@ -2,7 +2,7 @@
 import { Component,ViewChild,Input , Output,  OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, Validation, ValidationRegs } from '../../../../architecture';
 import { cloudHostServiceList } from '../service/cloud-host-list.service'
 
 import { ListOptions } from '../model/options.model';
@@ -49,9 +49,18 @@ export class cloudHostListComponent implements OnInit {
 	handleData: HandleVm;   //发送操纵云主机的数据
 	labelItem:VMInstanceLabelItem[] = [];
 
+	email:string;
+	phone:string;
+	password:string;
+	passwordCheck:string;
+	username:string;
+	numberRange:string;
+	baseInput:string;
+
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
+		private v: Validation,
 		private service: cloudHostServiceList
 	) {
 		this.handleData = new HandleVm();
@@ -65,6 +74,27 @@ export class cloudHostListComponent implements OnInit {
 		this.setHostList();
 		this.getLabels();  //获取标签列表
 		this.initSelect();
+
+	}
+
+	checkForm(key?:string) {
+		let regs:ValidationRegs = {
+			email: [this.email, [this.v.isEmail], "Email输入不正确"],
+			baseInput: [this.baseInput, [this.v.isBase, this.v.isUnBlank], "不能包含特殊字符"],
+			phone: [this.phone, [this.v.isMoblie], "手机号码输入不正确"],
+			password: [this.password, [this.v.isPassword, this.v.lengthRange(8, 16)], "密码输入不正确"],
+			passwordCheck: [this.passwordCheck, [this.v.equalTo(this.password)], "两次密码输入不一致"],
+			username: [this.username, [this.v.isInstanceName, this.v.isBase], "用户名输入格式不正确"],
+			numberRange: [this.numberRange, [this.v.range(10, 80)], "数字范围不对"],
+		}
+
+		return this.v.check(key, regs);
+	}
+
+	submitForm() {
+		var errorMessage = this.checkForm();
+		if(errorMessage) return alert(errorMessage);
+		console.log("通过！");
 	}
 
 	setHostList(): void {

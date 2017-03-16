@@ -61,7 +61,7 @@ export class DlrMngComponent implements OnInit{
                     this.allPorts = response["resultContent"];
                     this.filter();
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -77,7 +77,7 @@ export class DlrMngComponent implements OnInit{
                     if (response && 100 == response["resultCode"]) {
                         this.dlrList = response["resultContent"];
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )

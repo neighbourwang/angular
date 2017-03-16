@@ -5,9 +5,57 @@ export class CostPandectItem{
     subinstanceCode : string;//已购服务编号
     productName : string;//产品名称
     num:string;//购买数量
-    priceDetails:Array<SubInstancePriceDetail>;//费用类型，可能存在多种费用类型
+    priceDetails:Array<SubInstancePriceDetail>=[];//费用类型，可能存在多种费用类型
     total_amount:string;//应付金额
  
+}
+export class  TimeCaculater{
+    private date : Date = new Date();
+
+    private currentYear:number;
+	private currentMonth:number;
+
+	private years:Array<{id:number;name:number;}>=[];
+	private months:Array<{id:number;name:number;}>=[];
+
+   getCurrentYear(){
+		this.currentYear = this.date.getFullYear();
+		return this.currentYear;
+	}
+
+	getCurrentMonth(){
+		this.currentMonth = this.date.getMonth()+1;
+		return this.currentMonth;
+	} 
+
+//年份下拉列表
+	getYears(){
+		for(let i = 1999; i<=this.currentYear ; i++){
+			let year = {id:i,name:i};
+        	this.years.push(year);
+		}
+        return this.years;
+	}
+//月份下拉列表
+	getMonths(year:number){
+        let _months :number; 
+   
+        if( this.currentYear== year){
+            _months = this.currentMonth-1;
+        }
+        else{
+            _months = 12;
+        }
+        for(let i = 1; i<=_months ; i++){
+                let month = {id:i,name:i};
+                this.months.push(month);
+        }
+        return this.months;
+	}
+
+	getLastDay(year:number,month:number){
+		 return new Date(year,month,0).getDate();
+	}
 }
 
 export class SubInstancePriceDetail {
@@ -70,4 +118,6 @@ export class  Chart{
         this.labels = [];
         this.options = null;
     }
+
+    
 }

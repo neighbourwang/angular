@@ -17,13 +17,13 @@
 	       <div class="float-left"> <!--[(ngModel)]="_param.organization" (ngModelChange)="loadBuyer()"
 		    *ngFor="let item of _departmentLoader.Items" [value]="item.id"-->
 				<select class="form-control fix-width-120" [(ngModel)]="_param.year" (ngModelChange)="getMonths()">
-					<option class="hands" [value]="null">所有年份</option>
+					<!--<option class="hands" [value]="null">所有年份</option>-->
 					<option class="hands" *ngFor="let item of _years" [value]="item.id">{{item.name}}年</option>
 				</select>
 			</div>
 			<div  class="float-left">
 				<select class="form-control fix-width-120" [(ngModel)]="_param.month" (ngModelChange)="getLastDay()">
-					<option class="hands" [value]="null" >所有月份</option>
+					<!--<option class="hands" [value]="null" >所有月份</option>-->
 					<option class="hands"  *ngFor="let item of _months" [value]="item.id">{{item.name}}月</option>
 				</select>
 			</div>
@@ -107,16 +107,16 @@
 
             <div class="float-left mgr20">
                 <span>服务类型</span>
-                <select class="form-control fix-width-120" [(ngModel)]="_param.orderType">
-                    <option class="hands" [value]="null">所有服务</option>
-					<option class="hands" [value]="null">新增服务</option>
+                <select class="form-control fix-width-120" [(ngModel)]="isAllService" (ngModelChange)="loadService()">
+                    <option class="hands" [value]="1">所有服务</option>
+					<option class="hands" [value]="2">新增服务</option>
                     <!--<option class="hands" *ngFor="let item of _orderTypeLoader.Items" [value]="item.id">{{item.name}}</option>-->
                 </select>
             </div>
 		</div><!--  下拉选项行 ending-->
 
 		<!--  表格行 -->
-		<div class="thirdPanel" *ngIf="isAllService!=2">
+		<div class="thirdPanel" *ngIf="isAllService==1">
             <div class="table-container">
                 <table class="table table-hover table-all-boder">
                     <thead>
@@ -131,10 +131,14 @@
                     </thead>
                     <tbody>
                         <tr class="text-center" *ngFor="let item of allServiceLoader.Items;">
-                            <td class="vertical-center"><a (click)='showDetail(item.orderNo)'>{{item.orderNo}}</a></td>
+                            <td class="vertical-center"><a (click)='showDetail(item.subinstanceCode)'>{{item.subinstanceCode}}</a></td>
                             <td class="vertical-center">{{item.productName}}</td>
                             <td class="vertical-center">{{item.num}}</td>
-                            <td class="vertical-center">{{item.priceDetails[0].billName}}</td>
+                            <td class="vertical-center">
+								<ul *ngFor="let priceItem of item.priceDetails">
+									<li>{{priceItem.billName}}</li>
+								</ul>
+							</td>
                             <td class="vertical-center">{{item.total_amount}}</td>
                         </tr>               
                     </tbody>
@@ -156,7 +160,7 @@
                     </thead>
                     <tbody>
                         <tr class="text-center" *ngFor="let item of increaseServiceLoader.Items;">
-                            <td class="vertical-center"><a (click)='showDetail(item.orderNo)'>{{item.subinstanceCode}}</a></td>
+                            <td class="vertical-center"><a (click)='showDetail(item.subinstanceCode)'>{{item.subinstanceCode}}</a></td>
                             <td class="vertical-center">{{item.productName}}</td>
                             <td class="vertical-center">{{item.num}}</td>
                             <td class="vertical-center">

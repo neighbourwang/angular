@@ -12,6 +12,7 @@ import { PopupComponent } from './dialog/component/popup.component';
 import { CountBarComponent} from './countBar/component/count-bar.component'
 import { PopoverModule } from './popover/index';
 import { SelectboxComponent } from './selectbox/component/selectbox.component';
+import { StaticTooltipComponent } from './staticTooltip/staticTooltip.component';
 
 import { MyDatePickerModule } from './date-picker/my-date-picker.module';
 import { BootstrapPopoverDirective } from './popover/bootstrap-popover.directive';
@@ -23,6 +24,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { HttpModule } from '@angular/http';
 import { TranslateModule } from 'ng2-translate';
 import { DialogTranslate } from './dialog/service/dialog-translate.service';
+
+import { Validation } from './validators';
 
 @NgModule({
     imports: [
@@ -40,7 +43,8 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
         PopupComponent,
         CountBarComponent,
         BootstrapPopoverDirective,
-        SelectboxComponent
+        SelectboxComponent,
+        StaticTooltipComponent
     ],
     exports: [
         CommonModule,
@@ -58,8 +62,12 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
         HttpModule,
         ChartsModule,
         TranslateModule,
-		SelectboxComponent
+		SelectboxComponent,
+        StaticTooltipComponent
     ],
-    providers : [DialogTranslate]
+    providers : [
+        DialogTranslate,
+        Validation
+    ]
 })
 export class CommonComponentModule { }
