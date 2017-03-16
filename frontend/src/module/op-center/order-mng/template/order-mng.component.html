@@ -19,7 +19,7 @@
 						<!--<li>实例规格: </li>
 						<li>IP地址: </li>
 						<li>操作系统: </li>-->
-						<li>密码: {{ autoRenewItem.password }}</li>
+						<li>密码: {{ autoRenewItem.settingType }}</li>
 						<li>实例名称: {{ autoRenewItem.instanceName }}</li>
 					</ul>
 				</td>
@@ -38,10 +38,21 @@
 	<div class="auto-renew-info">
 		<div class="renew-type-title">自动续订方式 : </div>
 		<div class="renew-type-content">
-			<div class="select-renew-type">
-				<input id="renewTypeA" name="renewTypeRadio" type="radio" /><label for="renewTypeA">按月续订（周期费用：￥100/月，每6个月续订一次）</label>
+			<div class="select-renew-type">{{selectedAutoRenewType}}
+				<input id="unselectedType" name="renewTypeRadio" type="radio" [(ngModel)]="selectedAutoRenewType" value="-1" autocomplete="off" [checked]="selectedAutoRenewType == -1"/>
+				<label for="unselectedType" >
+					不改变
+				</label>
 				<br>
-				<input id="renewTypeB" name="renewTypeRadio" type="radio" /><label for="renewTypeB">按月续订（周期费用：￥1000/年，每年续订一次）</label>
+				<span  *ngFor="let item of autoRenewItem.serivceRenewWayProductItems; let i=index">
+					<input id="selectedType" name="renewTypeRadio" type="radio" [(ngModel)]="selectedAutoRenewType" value="{{item.billingInfo.extendType}}" autocomplete="off"/>
+					<label for="selectedType" >
+						{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}续订(周期费用：￥{{item.billingInfo.cyclePrice}}/ {{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}} ，
+						<span *ngIf="item.billingInfo.periodType==3">每6个月续订一次</span>
+						<span *ngIf="item.billingInfo.periodType==5">每一年续订一次</span>)
+					</label>
+					<br>
+				</span>
 			</div>
 			<div class="show-renew-type">
 			</div>
@@ -175,8 +186,8 @@
 				<tr>
 					<td class=" font-green leftAlign pdl20" colspan="8" (click)="showDetail(orderItem)"><span>{{orderItem.purchaseDate}}</span> <span class="pointer mgl10 float-none">{{ 'ORDER_MNG.PURCHASED_SERVICES_NUMBER' | translate }}: {{orderItem.orderNo}}</span></td>
 					<td colspan="3">
-						<button class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)">自动续订</button>
-						<button class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)">取消自动续订</button>
+						<button *ngIf="orderItem.extendType == 0" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)">自动续订</button>
+						<button *ngIf="orderItem.extendType > 0" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)">取消自动续订</button>
 						<button *ngIf="orderItem.canRenew" class="pull-right button-gray-gradient" (click)="renewSelect(orderItem)">{{ 'COMMON.RENEW' | translate }}</button>
 						<button *ngIf="orderItem.itemList[0]?.status != 6" class="mgr2 pull-right button-gray-gradient" (click)="cancelSelect(orderItem)">{{ 'COMMON.UNSUBSCRIBE' | translate }}</button>
 						<button class="mgr2 pull-right button-gray-gradient" (click)="showDetail(orderItem)">{{ 'COMMON.DETAILS' | translate }}</button>

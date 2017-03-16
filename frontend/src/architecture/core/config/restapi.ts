@@ -302,12 +302,12 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.order-renew-price.get",
         "url": "marketplace/authsec/subscription/instance/{_subId}/price"
     },
-    // {
-    //     "desc": "自动续订配置变更",
-    //     "method": "GET",
-    //     "id": "op-center.order-mng.order-auto-renew-config.get",
-    //     "url": "marketplace/swagger-ui.html#!/service-resource-controller/getServiceProductInfoForAutoRenewWayUsingGET"
-    // },
+    {
+        "desc": "自动续订配置变更",
+        "method": "GET",
+        "id": "op-center.order-mng.order-auto-renew-config.get",
+        "url": "marketplace/authsec/shopping/renewWay/{_instanceId}/serviceType/{_serviceType} "
+    },
     //费用中心-已购服务管理-->
 
     //订单查询

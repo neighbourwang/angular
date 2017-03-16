@@ -9,6 +9,7 @@ export class SubInstanceResp {
   canRenew:boolean = true;
   showInstance : boolean = true;//是否展示实例名称
   relySubinstanceId : number = null; //是否挂载了主机的标识
+  extendType: number = null;//, optional): 订单的自动续订状态
 
   get isMachine():boolean{//云主机
     return this.itemList && this.itemList[0].serviceType == 0;
