@@ -95,11 +95,11 @@ export class ProductBillingItem {
 export class SubInstanceAttrPair {
   attrCode: string = null;//, optional): 服务属性Code ,
   attrDisplayName: string = null;//, optional): 服务属性页面显示的名称 ,
-  attrDisplayValue: string = null;//, optional): 服务属性值显示值 ,
-  attrOrderSeq: number = null;//, optional): 属性显示顺序, 如果为空，则忽略 ,
   attrValueCode: string = null;//, optional): 服务属性值Code ,
-  description: string = null;//, optional): 其他描述性内容，非不要 ,
+  attrDisplayValue: string = null;//, optional): 服务属性值显示值 ,
   valueUnit: string = null;//, optional): 服务属性值的单位
+  attrOrderSeq: number = null;//, optional): 属性显示顺序, 如果为空，则忽略 ,
+  description: string = null;//, optional): 其他描述性内容，非不要 ,
 }
 
 /*
