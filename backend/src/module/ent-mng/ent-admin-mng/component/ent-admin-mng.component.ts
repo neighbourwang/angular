@@ -167,7 +167,7 @@ export class EntAdminMngComponent implements OnInit {
                             //删除成功
                             this.getData();
                         } else {
-                            alert("Res sync error");
+                            this.showAlert("COMMON.OPERATION_ERROR");
                         }
                     }
                     )
@@ -180,7 +180,7 @@ export class EntAdminMngComponent implements OnInit {
                             //删除成功
                             this.getData();
                         } else {
-                            alert("Res sync error");
+                            this.showAlert("COMMON.OPERATION_ERROR");
                         }
                     }
                     )
@@ -218,7 +218,7 @@ export class EntAdminMngComponent implements OnInit {
                     if (response && 100 == response["resultCode"]) {
                         this.getData();
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
                 )
@@ -239,7 +239,7 @@ export class EntAdminMngComponent implements OnInit {
                     this.layoutService.hide();
                     this.setData(response);
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -303,7 +303,7 @@ export class EntAdminMngComponent implements OnInit {
                     this.layoutService.hide();
                     this.showAlert("COMMON.RESET_PASSWORD_SUCCESS");
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )

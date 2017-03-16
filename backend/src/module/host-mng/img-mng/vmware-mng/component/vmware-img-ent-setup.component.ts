@@ -136,7 +136,7 @@ export class VmwareImgEntSetupComponent implements OnInit {
                     console.log(this.selectedEnts, "selectedEnts!!!");
                     console.log(this.unselectedEnts, "unselectedEnts!!!");
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )

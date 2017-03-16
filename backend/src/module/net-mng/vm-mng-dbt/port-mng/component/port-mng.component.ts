@@ -73,7 +73,7 @@ export class PortMngComponent implements OnInit {
                     this.allPorts = response["resultContent"];
                     this.filter();
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -89,7 +89,7 @@ export class PortMngComponent implements OnInit {
                     if (response && 100 == response["resultCode"]) {
                         this.dcList = response["resultContent"];
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )

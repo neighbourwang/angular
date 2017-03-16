@@ -70,7 +70,7 @@ export class CaseMngComponent implements OnInit {
                         console.log("工单列表",this.caseList);
                         this.totalPage = response.pageInfo.totalPage;
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
@@ -90,7 +90,7 @@ export class CaseMngComponent implements OnInit {
                         this.enterpriseList = response["resultContent"];
                         console.log("企业列表",this.enterpriseList);
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )

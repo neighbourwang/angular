@@ -60,7 +60,7 @@ export class CaseDetailComponent implements OnInit {
                         this.caseInfo = response["resultContent"];
                         console.log("工单基本信息",this.caseInfo);
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
@@ -79,7 +79,7 @@ export class CaseDetailComponent implements OnInit {
                         this.closeInfo = response["resultContent"];
                         console.log("工单关闭信息",this.closeInfo);
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
@@ -98,7 +98,7 @@ export class CaseDetailComponent implements OnInit {
                         this.handleInfoes= response["resultContent"];
                         console.log("工单处理信息",this.handleInfoes);
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )

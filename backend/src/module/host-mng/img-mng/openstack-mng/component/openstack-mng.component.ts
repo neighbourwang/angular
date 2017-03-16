@@ -235,7 +235,7 @@ export class OpenstackMngComponent implements OnInit{
                             this.getImages();
                             this.showAlert("HOST_OPENSTACK_MNG.IMAGE_ENABLE_SUCCESS");
                         } else {
-                            alert("Res sync error");
+                            this.showAlert("COMMON.OPERATION_ERROR");
                         }
                     }
                 )
@@ -261,7 +261,7 @@ export class OpenstackMngComponent implements OnInit{
                             this.getImages();
                             this.showAlert("HOST_OPENSTACK_MNG.IMAGE_DISABLE_SUCCESS");
                         } else {
-                            alert("Res sync error");
+                            this.showAlert("COMMON.OPERATION_ERROR");
                         }
                     }
                 )
@@ -326,7 +326,7 @@ export class OpenstackMngComponent implements OnInit{
                     this.editImage.close();
                 } else {
                     this.selectedImage = null;
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -375,7 +375,7 @@ export class OpenstackMngComponent implements OnInit{
                     this.showAlert("HOST_OPENSTACK_MNG.SAVE_SUCCESS");
                 } else {
                     this.selectedImage = null;
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )

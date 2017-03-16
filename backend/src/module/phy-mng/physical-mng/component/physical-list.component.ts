@@ -99,7 +99,7 @@ export class PhysicalListComponent implements OnInit {
                         console.log("物理机查询参数",this.pmQuery,this.queryParam);
                         this.totalPage = response.pageInfo.totalPage;
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
@@ -121,7 +121,7 @@ export class PhysicalListComponent implements OnInit {
                         this.region=this.pool.region;
                         this.dataCenter=this.pool.dataCenter;
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
@@ -192,7 +192,7 @@ export class PhysicalListComponent implements OnInit {
                         if (response && 100 == response["resultCode"]) {
                             this.getPhysicalList();
                         } else {
-                            alert("Res sync error");
+                            this.showAlert("COMMON.OPERATION_ERROR");
                         }
                     }
                 )
