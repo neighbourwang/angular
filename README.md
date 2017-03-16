@@ -32,7 +32,7 @@
 |   上传文件组件    |  组件  | cao.zong-ying | 准备开发 |                    暂无                    |
 |  加减控制数字组件   |  组件  | wang.yao-yao  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/blob/master/backend/src/architecture/components/countBar/README.md) |
 |   日期选择组件    |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/architecture/components/date-picker/README.md) |
-|   表单验证组件    |  组件  |  zi.qing-ren  | 准备开发 |                    暂无                    |
+|   表单验证组件    |  组件  |  zi.qing-ren  | 完成 |                    [点击](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/architecture/components/validators/README.md)                    |
 |  popover组件  |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/components/popover) |
 |    图表组件     |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/assets/README/chart.md) |
 | 点击元素以外触发事件  |  指令  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/assets/README/clickoutside.md) |
