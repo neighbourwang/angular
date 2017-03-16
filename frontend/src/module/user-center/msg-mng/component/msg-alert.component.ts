@@ -31,7 +31,7 @@ export class MsgAlertComponent implements OnInit {
     }
 
     pageIndex = 1;
-    pageSize = 5;
+    pageSize = 4;
     totalPage = 1;
 
     @ViewChild('container') container;
@@ -60,7 +60,7 @@ export class MsgAlertComponent implements OnInit {
     }
 
     getMsgAlert(): void {
-        this.service.getMsgListStatus(1,5,'0')
+        this.service.getMsgListStatus(1,4,'0')
             .then(
             response => {
                 console.log(response, "msgAlert response");
@@ -70,14 +70,12 @@ export class MsgAlertComponent implements OnInit {
                     this.totalPage = response.pageInfo.totalPage;
                     //console.log(this.msgAlert, "this.msgAlert");
                 } else {
-                    //this.showMsg("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
                     this.msgAlert.edge = 0;
                     console.log("getMsgAlert Failed!!!");
                     return;
                 }
             })
             .catch((e) => {
-                //this.onRejected(e);
                 this.msgAlert.edge = 0;
                 console.log("getMsgAlert Exception!!!");
             });

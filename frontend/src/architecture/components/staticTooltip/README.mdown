@@ -1,13 +1,16 @@
 # 鼠标滑过显示详细文字
 
-![图片]()
+![图片](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/architecture/assets/README/images/Screen%20Shot%202017-03-15%20at%203.46.07%20PM.png?raw=true)
 
+
+  
+    
 
 
 | 参数        | 类型                               | 描述         | 是否可选 | 默认值   |
 | :-------- | -------------------------------- | ---------- | ---- | ----- |
 | placement | "top"\|"left"\|"bottom"\|"right" | 显示的方向      | 可选   | "top" |
-| title     | string                           | 显示的文字      | 必选   | ""    |
+| title     | string                           | 显示的文字(支持html)      | 必选   | ""    |
 | className | string                           | 自定义class名称 | 可选   | ""    |
 
 
@@ -22,19 +25,17 @@ html：
 <table>
   <tr *ngFor="let vm of vmList;">
   	<td>
-    	<static-tooltip 
-            className="tooltip"    //自定义的class名称
-            placement="bottom"
-            [title]="testTitle">{{vm.privateIP}}</static-tooltip>
+    	<static-tooltip [title]="vm.detail">{{vm.describe}}</static-tooltip>
     </td>
   </tr>
 </table>
 ```
 
-javascript：
 
-```javascript
-export class testComponent implements OnInit {
-	testTitle:string = "弹出框里的文字";
-}
+详细设定：
+```html
+    	<static-tooltip 
+            className="tooltip"    //自定义的class名称
+            placement="bottom"
+            [title]="vm.detail">{{vm.describe}}</static-tooltip>
 ```
