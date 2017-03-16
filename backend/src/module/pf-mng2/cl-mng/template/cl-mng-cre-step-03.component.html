@@ -49,7 +49,7 @@
                         <td>{{item.memSize||0}}</td>
                         <td>
                             <div [ngClass]="{'has-error':!item.exceedPercentageValid}">
-                                <input type="number" #exceedPercentage name="exceedPercentage" class="form-control" required min="0" [(ngModel)]="item.exceedPercentage" (blur)="exceedPercentageVa(item)" (focus)="item.exceedPercentageValid=true">
+                                <input type="number" #exceedPercentage name="exceedPercentage" class="form-control" required min="0" max="9" [(ngModel)]="item.exceedPercentage" (blur)="exceedPercentageVa(item)" (focus)="item.exceedPercentageValid=true">
                             </div>
                         </td>
                         <td>
