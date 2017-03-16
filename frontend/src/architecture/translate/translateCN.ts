@@ -69,6 +69,7 @@ export const TranslateCN = {
         SEARCH: '搜索',
         SELECT_ALL: '全选',
         SELECT: '选择',
+        SERIAL:'序号',
         SPECIFICATION: '规格',
         PHONE: '电话',
         ACCOUNT: '账号',

@@ -22,6 +22,17 @@ export class BootDiskService{
 
         return this.restApi.request(api.method , api.url , [{key :'id' , value : id}],undefined);
     }
+    //获取平台启用可用区for创建启动盘    
+    getEnableZoneList(id:string){
+        let api = this.restApiCfg.getRestApi("platform-mng.validZoneList.get");
+
+        return this.restApi.request(api.method , api.url , [{key :'id' , value : id}],undefined);
+    }
+    getEnableStorageList(id:string){
+        let api = this.restApiCfg.getRestApi("platform-mng.validStorageList.get");
+
+        return this.restApi.request(api.method , api.url , [{key :'id' , value : id}],undefined);
+    }
     //新建启动盘
     vmBootDiskNew(bootDisk:BootDiskModel){
         let list=[];
