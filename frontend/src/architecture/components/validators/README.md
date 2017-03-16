@@ -69,7 +69,7 @@ checkForm(key?:string) {
 		return this.v.check(key, regs);
 	}
 ```
-**注一：select或者rodio等之类的验证直接进行isUnBlank非空验证即可**
+**注一：select或者rodio等之类的验证直接进行isUnBlank非空验证即可**  
 **注二：regs为定义规则的对象需要和ValidationRegs保持对应，格式为**
 
 ```javascript
