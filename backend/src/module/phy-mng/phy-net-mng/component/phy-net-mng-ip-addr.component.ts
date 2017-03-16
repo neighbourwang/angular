@@ -138,7 +138,7 @@ export class PhyNetMngIpAddrComponent implements OnInit{
                     }
                     this.filter();                    
                 } else {
-                    alert("Res sync error");               
+                    this.showAlert("COMMON.OPERATION_ERROR");               
                 }
         }).catch((e) => this.onRejected(e));
 

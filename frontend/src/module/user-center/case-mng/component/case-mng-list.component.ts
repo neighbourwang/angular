@@ -99,7 +99,7 @@ export class CaseMngListComponent implements OnInit{
                         this.totalPage= response.pageInfo.totalPage;
                         console.log("data",response["resultContent"]);
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
@@ -155,7 +155,7 @@ export class CaseMngListComponent implements OnInit{
                             this.creCase.close();
                             console.log("创建",response["resultContent"]);
                         } else {
-                            alert("Res sync error");
+                            this.showAlert("COMMON.OPERATION_ERROR");
                         }
                     }
                 )
@@ -171,7 +171,7 @@ export class CaseMngListComponent implements OnInit{
                             this.creCase.close();
                             console.log("idEdit",this.id);
                         } else {
-                            alert("Res sync error");
+                            this.showAlert("COMMON.OPERATION_ERROR");
                         }
                     }
                 )
@@ -194,7 +194,7 @@ export class CaseMngListComponent implements OnInit{
                             if (response && 100 == response["resultCode"]) {
                                 this.getData();
                             } else {
-                                alert("Res sync error");
+                                this.showAlert("COMMON.OPERATION_ERROR");
                             }
                         }
                     )

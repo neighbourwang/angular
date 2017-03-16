@@ -75,7 +75,7 @@ export class AttestSourceCreComponent implements OnInit {
                     this.layoutService.hide();
                     this.attest = response["resultContent"];
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -98,7 +98,7 @@ export class AttestSourceCreComponent implements OnInit {
                     this.showAlert("COMMON.SAVE_SUCCESS");
                     this.gotoList();
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -134,7 +134,7 @@ export class AttestSourceCreComponent implements OnInit {
                     this.showAlert("COMMON.SAVE_SUCCESS");
                     this.gotoList();
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -181,7 +181,7 @@ export class AttestSourceCreComponent implements OnInit {
                     this.showAlert("COMMON.SUCCESS");
                     this.gotoList();
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )

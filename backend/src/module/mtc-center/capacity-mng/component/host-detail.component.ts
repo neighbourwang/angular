@@ -64,7 +64,7 @@ export class HostDetailComponent implements OnInit {
                     this.hostInfo = response["resultContent"];
                    
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -87,7 +87,7 @@ export class HostDetailComponent implements OnInit {
                     this.getGraphData(this.memChart);
                     this.showGraph();
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )

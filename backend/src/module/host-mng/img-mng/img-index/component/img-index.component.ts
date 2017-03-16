@@ -66,7 +66,7 @@ export class ImgIndexComponent implements OnInit {
                     this.platforms = response["resultContent"];
                     this.totalPage = response.pageInfo.totalPage;
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )

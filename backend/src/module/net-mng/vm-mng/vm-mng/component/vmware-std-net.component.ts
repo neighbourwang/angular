@@ -87,7 +87,7 @@ export class VmwareStdNetComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {
                     this.dcList = response["resultContent"];
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -104,7 +104,7 @@ export class VmwareStdNetComponent implements OnInit {
                     this.allnets = response["resultContent"].networks;
                     this.filter();
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -222,7 +222,7 @@ export class VmwareStdNetComponent implements OnInit {
                     this.editStdNet.close();
                     this.getData();
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -262,7 +262,7 @@ export class VmwareStdNetComponent implements OnInit {
                     
                     this.getData();
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -296,7 +296,7 @@ export class VmwareStdNetComponent implements OnInit {
                         this.showAlert("NET_MNG_VM_IP_MNG.ENABLE_NET_SUCCESS");
                         this.getData();
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
                 )
@@ -335,7 +335,7 @@ export class VmwareStdNetComponent implements OnInit {
                         this.showAlert("NET_MNG_VM_IP_MNG.CANT_DISABLE_AS_ENABLED_IP");
                     }
                     else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
                 )
@@ -376,7 +376,7 @@ export class VmwareStdNetComponent implements OnInit {
                         this.showAlert("NET_MNG_VM_IP_MNG.CANT_DELETE_AS_ENABLED_IP");
                     }
                     else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
                 )

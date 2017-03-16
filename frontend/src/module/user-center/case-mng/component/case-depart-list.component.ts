@@ -98,7 +98,7 @@ export class CaseDepartListComponent implements OnInit{
                         this.totalPage= response.pageInfo.totalPage;
                         console.log("data",response["resultContent"]);
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
@@ -115,7 +115,7 @@ export class CaseDepartListComponent implements OnInit{
                         this.userList= response["resultContent"];
                         console.log("userList",response["resultContent"]);
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
